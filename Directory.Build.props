@@ -45,6 +45,6 @@
   </PropertyGroup>
 
   <!-- Local overrides -->
-  <Import Project="$(MSBuildThisFileDirectory)Retinues.Local.props"
-          Condition="Exists('$(MSBuildThisFileDirectory)Retinues.Local.props')" />
+  <Import Project="$(MSBuildThisFileDirectory)Directory.Local.props"
+          Condition="Exists('$(MSBuildThisFileDirectory)Directory.Local.props')" />
 </Project>

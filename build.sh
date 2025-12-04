@@ -66,6 +66,32 @@ done
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
 MAIN_PROJ="$ROOT_DIR/src/${MODULE}/${MODULE}.csproj"
 STRINGS_PY="$ROOT_DIR/loc/strings.py"
+BUILD_PY="$ROOT_DIR/build.py"
+SUBMODULE_YAML="$ROOT_DIR/build.yaml"
+
+# Try to resolve BannerlordGameDir the same way as MSBuild:
+# 1. Environment variable BANNERLORD_GAME_DIR (if set)
+# 2. Retinues.Local.props <BannerlordGameDir> override (if present)
+# 3. Default from Directory.Build.props
+DEFAULT_BANNERLORD_GAME_DIR='C:\Program Files (x86)\Steam\steamapps\common\Mount & Blade II Bannerlord'
+LOCAL_PROPS="$ROOT_DIR/Retinues.Local.props"
+
+if [[ -n "${BANNERLORD_GAME_DIR:-}" ]]; then
+  GAME_DIR="$BANNERLORD_GAME_DIR"
+elif [[ -f "$LOCAL_PROPS" ]]; then
+  # Extract first BannerlordGameDir value from Local.props if any
+  GAME_DIR_LINE="$(grep -oP '<BannerlordGameDir>\K.*?(?=</BannerlordGameDir>)' "$LOCAL_PROPS" || true)"
+  if [[ -n "$GAME_DIR_LINE" ]]; then
+    GAME_DIR="$GAME_DIR_LINE"
+  else
+    GAME_DIR="$DEFAULT_BANNERLORD_GAME_DIR"
+  fi
+else
+  GAME_DIR="$DEFAULT_BANNERLORD_GAME_DIR"
+fi
+
+# Matches Directory.Build.targets: $(BannerlordGameDir)\Modules\$(MSBuildProjectName)\
+MODULE_DEPLOY_DIR="${GAME_DIR}\\Modules\\${MODULE}\\"
 
 # Compute msbuild -p: args
 MSBUILD_PROPS=()
@@ -86,33 +112,6 @@ else
   MSBUILD_CONFIG=(-c Debug)
 fi
 
-# If release, bump version in SubModule*.xml files (for the selected module)
-bump_submodule_version() {
-  local patch="$1"
-  local core_dir="$ROOT_DIR/src/${MODULE}"
-  local changed=0
-
-  local files=(
-    "$core_dir/SubModule.BL12.xml"
-    "$core_dir/SubModule.BL13.xml"
-    "$core_dir/SubModule.xml"
-  )
-
-  for f in "${files[@]}"; do
-    if [[ -f "$f" ]]; then
-      local tmp="${f}.tmp.$$"
-      sed -E 's/(<Version[[:space:]]+value="v[0-9]+\.[0-9]+\.[0-9]+\.)([0-9]+)"/\1'"$patch"'"/' "$f" > "$tmp"
-      mv "$tmp" "$f"
-      echo "  - Set version patch -> $patch in $(basename "$f")"
-      changed=1
-    fi
-  done
-
-  if [[ $changed -eq 0 ]]; then
-    echo "  (No SubModule*.xml found under ${core_dir}; skipped)"
-  fi
-}
-
 # Banner
 print_header "=   ${MODULE} Build   ="
 echo "  BL      : $BL"
@@ -125,16 +124,10 @@ if [[ -n "$RELEASE_PATCH" ]]; then
   echo "  Release : $RELEASE_PATCH"
 fi
 
-# If --release N is set, bump SubModule version before building
-if [[ -n "$RELEASE_PATCH" ]]; then
-  print_header "=   Updating SubModule version (${MODULE})   ="
-  bump_submodule_version "$RELEASE_PATCH"
-fi
-
 # 1) Prefabs
 if [[ "$RUN_PREFABS" == "true" ]]; then
   print_header "=   Rendering Prefabs   ="
-  python tpl/render_prefabs.py --version "$BL"
+  python tpl/prefabs.py --version "$BL"
 fi
 
 # 1.b) Deploy prefabs-only (if requested)
@@ -154,6 +147,31 @@ fi
 if [[ "$RUN_MAIN" == "true" && -f "$MAIN_PROJ" ]]; then
   print_header "=   Building ${MODULE}   ="
   dotnet build "$MAIN_PROJ" "${MSBUILD_CONFIG[@]}" "${MSBUILD_PROPS[@]}" -p:ModuleName="${MODULE}"
+fi
+
+# 4) Generate SubModule.xml directly into the deployed module folder
+#    (replaces the old SubModule.BL12/BL13.xml copy/rename workflow)
+if [[ "$RUN_MAIN" == "true" && "$DEPLOY" == "true" ]]; then
+  if [[ -f "$BUILD_PY" && -f "$SUBMODULE_YAML" ]]; then
+    print_header "=   Generating SubModule.xml   ="
+    if [[ -n "$RELEASE_PATCH" ]]; then
+      python "$BUILD_PY" \
+        --config "$SUBMODULE_YAML" \
+        --only "$BL" \
+        --out "$MODULE_DEPLOY_DIR" \
+        --release-patch "$RELEASE_PATCH"
+    else
+      python "$BUILD_PY" \
+        --config "$SUBMODULE_YAML" \
+        --only "$BL" \
+        --out "$MODULE_DEPLOY_DIR"
+    fi
+  else
+    echo "⚠️  Skipping SubModule.xml generation: build.py or build.yaml not found."
+    echo "    Expected:"
+    echo "      $BUILD_PY"
+    echo "      $SUBMODULE_YAML"
+  fi
 fi
 
 # Done

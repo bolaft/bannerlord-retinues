@@ -17,7 +17,7 @@
 2) **Create a local props override** (git‑ignored) to point at your Bannerlord install:
 
 ```xml
-<!-- Retinues.Local.props -->
+<!-- Directory.Local.props -->
 <Project>
   <PropertyGroup>
     <BannerlordGameDir>C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord</BannerlordGameDir>
@@ -44,7 +44,7 @@ The build picks the correct set based on `--version 12|13` (defaults to 13).
 build.sh                               # Build wrapper (Git Bash/WSL/macOS/Linux)
 Directory.Build.props                  # Centralized MSBuild configuration
 Directory.Build.targets                # Staging + deploy targets
-Retinues.Local.props                   # (optional) local overrides (git‑ignored)
+Directory.Local.props                  # (optional) local overrides (git‑ignored)
 
 xml/Retinues/**                        # -> Retinues/ModuleData/**
 loc/Retinues/Languages/**              # -> Retinues/ModuleData/Languages/**

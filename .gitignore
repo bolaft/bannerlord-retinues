@@ -72,8 +72,7 @@ GlobalSuppressions.cs
 ########################################
 # Local developer overrides
 ########################################
-Retinues.Local.props
-Retinues.Local.Props
+Directory.Local.props
 
 ########################################
 # Steam Workshop

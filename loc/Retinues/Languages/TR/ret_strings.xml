@@ -839,9 +839,6 @@
       id="ret_mcm_option_all_lords_recruit_custom_troops_hint"
       text="Her lord oyuncunun topraklarında özel asker alabilir." />
     <string
-      id="ret_mcm_option_all_lords_recruit_custom_troops_hint_improved_garrisons"
-      text="Her lord oyuncunun topraklarında özel asker alabilir (Geliştirilmiş Garnizonlar uyumluluğu için gereklidir)." />
-    <string
       id="ret_mcm_option_allow_formation_overrides"
       text="Formasyon Geçersiz Kılmalarına İzin Ver" />
     <string

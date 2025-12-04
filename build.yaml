@@ -1,0 +1,65 @@
+module:
+  name: Retinues
+  id: Retinues
+  defaultModule: false
+  singleplayer: true
+  multiplayer: false
+  official: false
+
+submodules:
+  - name: Retinues
+    dllName: Retinues.dll
+    classType: Retinues.SubModule
+    tags:
+      - Campaign
+      - CampaignSystem
+      - UI
+    assemblies:
+      - bin/Win64_Shipping_Client/Retinues.dll
+
+xmls:
+  - id: NPCCharacters
+    path: stubs
+    gameTypes:
+      - Campaign
+      - CampaignStoryMode
+      - CustomGame
+      - EditorGame
+      - ShokuhoCampaign
+
+versions:
+  "12":
+    version: v1.2.15.0
+    dependencies:
+      - id: Bannerlord.Harmony
+        version: v2.3.6
+      - id: Bannerlord.ButterLib
+        version: v2.10.2
+      - id: Bannerlord.UIExtenderEx
+        version: v2.13.1
+      - id: Bannerlord.MBOptionScreen
+        version: v5.11.3
+      - id: Native
+        version: v1.2.12
+      - id: SandBoxCore
+        version: v1.2.12
+      - id: Sandbox
+        version: v1.2.12
+
+  "13":
+    version: v1.3.14.0
+    dependencies:
+      - id: Bannerlord.Harmony
+        version: v2.4.2
+      - id: Bannerlord.ButterLib
+        version: v2.10.2
+      - id: Bannerlord.UIExtenderEx
+        version: v2.13.1
+      - id: Bannerlord.MBOptionScreen
+        version: v5.11.3
+      - id: Native
+        version: v1.3.9
+      - id: SandBoxCore
+        version: v1.3.9
+      - id: Sandbox
+        version: v1.3.9

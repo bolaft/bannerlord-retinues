@@ -839,9 +839,6 @@
       id="ret_mcm_option_all_lords_recruit_custom_troops_hint"
       text="어떤 영주라도 플레이어의 영지에서 맞춤 병력을 모집할 수 있습니다." />
     <string
-      id="ret_mcm_option_all_lords_recruit_custom_troops_hint_improved_garrisons"
-      text="어떤 영주라도 플레이어의 영지에서 맞춤 병력을 모집할 수 있습니다(Improved Garrisons 호환성에 필요)." />
-    <string
       id="ret_mcm_option_allow_formation_overrides"
       text="포메이션 재정의 허용" />
     <string
