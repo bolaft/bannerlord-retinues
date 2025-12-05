@@ -162,6 +162,8 @@ def generate_workshop_files(
 
     # Determine game dir from module_src_dir: <GameDir>\Modules\<ModuleName>
     game_dir = module_src_dir.parent.parent
+
+    # Where we keep release copies and the zip
     releases_root = resolve_releases_root(cfg, game_dir)
     version_root = releases_root / ver_key
 
@@ -177,7 +179,15 @@ def generate_workshop_files(
     shutil.copytree(module_src_dir, release_module_dir)
     print(f"[workshop] Copied module to {release_module_dir}")
 
-    # 3) WorkshopUpdate.xml
+    # 3) Resolve bin\Win64_Shipping_Client target for Workshop XMLs
+    bin_client_dir = game_dir / "bin" / "Win64_Shipping_Client"
+    bin_client_dir.mkdir(parents=True, exist_ok=True)
+
+    # Filenames suffixed with the BL version key, e.g. WorkshopUpdate12.xml
+    update_filename = f"WorkshopUpdate{ver_key}.xml"
+    create_filename = f"WorkshopCreate{ver_key}.xml"
+
+    # 4) WorkshopUpdate<ver>.xml
     update_version_tag = ver_cfg.get("updateVersionTag")
     tags_common = list(common_cfg.get("tags", []))
     tags_update = tags_common.copy()
@@ -197,11 +207,11 @@ def generate_workshop_files(
 
     indent(update_root)
     update_tree = ET.ElementTree(update_root)
-    update_path = version_root / "WorkshopUpdate.xml"
+    update_path = bin_client_dir / update_filename
     update_tree.write(update_path, encoding="utf-8", xml_declaration=False)
     print(f"[workshop] Wrote {update_path}")
 
-    # 4) WorkshopCreate.xml
+    # 5) WorkshopCreate<ver>.xml
     desc = common_cfg.get("description", "")
     image_file = common_cfg.get("imageFile", "")
     visibility = common_cfg.get("visibility", "Private")
@@ -233,11 +243,11 @@ def generate_workshop_files(
 
     indent(create_root)
     create_tree = ET.ElementTree(create_root)
-    create_path = version_root / "WorkshopCreate.xml"
+    create_path = bin_client_dir / create_filename
     create_tree.write(create_path, encoding="utf-8", xml_declaration=False)
     print(f"[workshop] Wrote {create_path}")
 
-    # 5) Retinues_v<fullVersion>.zip via 7zip
+    # 6) Retinues_v<fullVersion>.zip via 7zip (still in Releases/<BL>)
     ver = effective_version
     if ver.startswith("v"):
         zip_name = f"Retinues_{ver}.zip"
