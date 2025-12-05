@@ -20,7 +20,9 @@ namespace Retinues.Features.Swaps.Patches
             var party = new WParty(__result);
             if (party.PlayerFaction == null)
                 return; // no player faction
-            party.MemberRoster?.SwapTroops();
+
+            // Hero-safe swap: caravans always have a hero leader
+            party.MemberRoster?.SwapTroopsPreservingHeroes();
         }
     }
 
