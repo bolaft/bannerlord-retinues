@@ -35,7 +35,13 @@ dll/13/**   # BL 1.3 DLL set
 ```
 The build picks the correct set based on `--version 12|13` (defaults to 13).
 
-4) Download Harmony, UIExtenderEx and MCM and extract them in the game's Modules folder.
+4) Download Harmony, UIExtenderEx and MCM.
+
+5) Copy the following DLLs into both dll subdirectories:
+- Harmony: `0Harmony.dll`
+- UIExtenderEx: `Bannerord.UIExtenderEx.dll`
+- MCM: `MCMv5.dll`
+
 ---
 
 ## Project layout
