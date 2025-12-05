@@ -422,9 +422,30 @@ namespace Retinues.Troops
             bool isElite,
             WFaction faction,
             WCharacter parent,
-            bool copyWholeTree
+            bool copyWholeTree,
+            Dictionary<string, WCharacter> cache = null
         )
         {
+            // Shared per-tree cache of vanilla -> custom clone
+            cache ??= new Dictionary<string, WCharacter>(System.StringComparer.Ordinal);
+
+            // If we already cloned this vanilla node, just hook it up to the new parent
+            if (cache.TryGetValue(vanilla.StringId, out var existing) && existing != null)
+            {
+                if (parent != null)
+                {
+                    var list = parent.UpgradeTargets.ToList();
+                    if (!list.Any(t => t.StringId == existing.StringId))
+                    {
+                        list.Add(existing);
+                        parent.UpgradeTargets = [.. list];
+                    }
+                }
+
+                // Subtree already cloned on first visit; do not recurse again
+                yield break;
+            }
+
             var tpl = FindTemplate(vanilla);
 
             if (tpl == null)
@@ -457,6 +478,9 @@ namespace Retinues.Troops
             // Common operations
             Initialize(troop);
 
+            // Remember this clone for any future references to the same vanilla troop
+            cache[vanilla.StringId] = troop;
+
             yield return troop;
 
             if (tpl.UpgradeTargets != null && copyWholeTree)
@@ -468,7 +492,8 @@ namespace Retinues.Troops
                         isElite,
                         faction,
                         troop,
-                        copyWholeTree
+                        copyWholeTree,
+                        cache
                     )
                 )
                 {
