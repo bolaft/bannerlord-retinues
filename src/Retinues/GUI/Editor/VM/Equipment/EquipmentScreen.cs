@@ -126,7 +126,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
             OnPropertyChanged(nameof(PreviewModeHint));
 
             // Reset mode & selection for new troop
-            _editCivilianSets = false;
+            _editCivilianSets = State.Troop.IsCivilian;
             OnPropertyChanged(nameof(EditCivilianSets));
             EnsureValidSetForCurrentMode();
         }
