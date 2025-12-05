@@ -4,5 +4,41 @@
     <tag language="DE" />
   </tags>
   <strings>
+    <string
+      id="ret_dependencies_all_ok"
+      text="Alle Abhängigkeiten wurden korrekt initialisiert." />
+    <string
+      id="ret_dependencies_issues_detected"
+      text="Abhängigkeitsprobleme erkannt: {DETAILS}" />
+    <string
+      id="ret_dependencies_missing_label"
+      text="Fehlend" />
+    <string
+      id="ret_dependencies_not_initialized_label"
+      text="Nicht initialisiert" />
+    <string
+      id="ret_init_error_body_detailed"
+      text="Die Abhängigkeiten des Retinues-Mods konnten nicht ordnungsgemäß initialisiert werden:{newline}{newline}{DETAILS}{newline}{newline}Der Mod funktioniert möglicherweise nicht richtig, bis die Abhängigkeiten behoben sind." />
+    <string
+      id="ret_init_error_title"
+      text="Retinues-Abhängigkeitsfehler" />
+    <string
+      id="ret_retinues_update_title"
+      text="Retinues-Update" />
+    <string
+      id="ret_retinues_version_change_text"
+      text="Die Retinues-Mod-Version in dieser Speicherdatei ({SAVE_VERSION}) stimmt nicht mit der aktuellen Mod-Version ({CURRENT_VERSION}) überein.{newline}{newline}Als Sicherheitsvorkehrung sollten Sie überprüfen, ob alles in Ordnung ist, bevor Sie Ihren Speicher überschreiben.{newline}{newline}Wenn Sie Probleme feststellen und zur vorherigen Version zurückkehren möchten, speichern Sie nicht und laden Sie die {SAVE_VERSION}-Datei von Nexus Mods herunter." />
+    <string
+      id="ret_retinues_version_change_text_no_current"
+      text="Die Retinues-Mod-Version in dieser Speicherdatei stimmt nicht mit der aktuellen Mod-Version ({CURRENT_VERSION}) überein.{newline}{newline}Als Sicherheitsvorkehrung sollten Sie überprüfen, ob alles in Ordnung ist, bevor Sie Ihren Speicher überschreiben.{newline}{newline}Wenn Sie Probleme feststellen und zur vorherigen Version zurückkehren möchten, speichern Sie nicht und laden Sie die Version, die Sie zuvor verwendet haben, von Nexus Mods herunter." />
+    <string
+      id="ret_retinues_version_change_title"
+      text="Retinues-Versionsänderung" />
+    <string
+      id="ret_retinues_version_update_text"
+      text="Die Retinues-Mod-Version in dieser Speicherdatei wurde auf eine neuere Version ({CURRENT_VERSION}) aktualisiert. Ihre gespeicherten Daten wurden automatisch von {SAVE_VERSION} migriert.{newline}{newline}Als Sicherheitsvorkehrung sollten Sie überprüfen, ob alles in Ordnung ist, bevor Sie Ihren Speicher überschreiben.{newline}{newline}Wenn Sie aus irgendeinem Grund zur vorherigen Version zurückkehren möchten, können Sie die {SAVE_VERSION}-Datei von Nexus Mods herunterladen." />
+    <string
+      id="ret_retinues_version_update_text_no_current"
+      text="Die Retinues-Mod-Version in dieser Speicherdatei wurde auf eine neuere Version ({CURRENT_VERSION}) aktualisiert. Ihre gespeicherten Daten wurden automatisch migriert.{newline}{newline}Als Sicherheitsvorkehrung sollten Sie überprüfen, ob alles in Ordnung ist, bevor Sie Ihren Speicher überschreiben.{newline}{newline}Wenn Sie aus irgendeinem Grund zur vorherigen Version zurückkehren möchten, laden Sie die Version herunter, die Sie zuvor verwendet haben, von Nexus Mods." />
   </strings>
 </base>

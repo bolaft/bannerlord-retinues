@@ -4,5 +4,41 @@
     <tag language="RU" />
   </tags>
   <strings>
+    <string
+      id="ret_dependencies_all_ok"
+      text="Все зависимости инициализированы правильно." />
+    <string
+      id="ret_dependencies_issues_detected"
+      text="Обнаружены проблемы с зависимостями: {DETAILS}" />
+    <string
+      id="ret_dependencies_missing_label"
+      text="Отсутствует" />
+    <string
+      id="ret_dependencies_not_initialized_label"
+      text="Не инициализировано" />
+    <string
+      id="ret_init_error_body_detailed"
+      text="Не удалось правильно инициализировать зависимости мода Retinues:{newline}{newline}{DETAILS}{newline}{newline}Мод может работать некорректно, пока зависимости не будут исправлены." />
+    <string
+      id="ret_init_error_title"
+      text="Ошибка зависимости Retinues" />
+    <string
+      id="ret_retinues_update_title"
+      text="Обновление Retinues" />
+    <string
+      id="ret_retinues_version_change_text"
+      text="Версия мода Retinues в этом файле сохранения ({SAVE_VERSION}) не соответствует текущей версии мода ({CURRENT_VERSION}).{newline}{newline}В качестве меры предосторожности проверьте, что все в порядке, прежде чем перезаписывать сохранение.{newline}{newline}Если вы заметите какие-либо проблемы и захотите вернуться к предыдущей версии, не сохраняйте и скачайте файл {SAVE_VERSION} с Nexus Mods." />
+    <string
+      id="ret_retinues_version_change_text_no_current"
+      text="Версия мода Retinues в этом файле сохранения не соответствует текущей версии мода ({CURRENT_VERSION}).{newline}{newline}В качестве меры предосторожности проверьте, что все в порядке, прежде чем перезаписывать сохранение.{newline}{newline}Если вы заметите какие-либо проблемы и захотите вернуться к предыдущей версии, не сохраняйте и скачайте версию, которую вы использовали ранее, с Nexus Mods." />
+    <string
+      id="ret_retinues_version_change_title"
+      text="Изменение версии Retinues" />
+    <string
+      id="ret_retinues_version_update_text"
+      text="Версия мода Retinues в этом файле сохранения была обновлена до более новой версии ({CURRENT_VERSION}). Ваши данные сохранения были автоматически перенесены из {SAVE_VERSION}.{newline}{newline}В качестве меры предосторожности проверьте, что все в порядке, прежде чем перезаписывать сохранение.{newline}{newline}Если по какой-либо причине вы хотите вернуться к предыдущей версии, вы можете скачать файл {SAVE_VERSION} с Nexus Mods." />
+    <string
+      id="ret_retinues_version_update_text_no_current"
+      text="Версия мода Retinues в этом файле сохранения была обновлена до более новой версии ({CURRENT_VERSION}). Ваши данные сохранения были автоматически перенесены.{newline}{newline}В качестве меры предосторожности проверьте, что все в порядке, прежде чем перезаписывать сохранение.{newline}{newline}Если по какой-либо причине вы хотите вернуться к предыдущей версии, скачайте версию, которую вы использовали ранее, с Nexus Mods." />
   </strings>
 </base>

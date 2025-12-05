@@ -4,5 +4,41 @@
     <tag language="KO" />
   </tags>
   <strings>
+    <string
+      id="ret_dependencies_all_ok"
+      text="모든 종속 항목이 올바르게 초기화되었습니다." />
+    <string
+      id="ret_dependencies_issues_detected"
+      text="종속성 문제 감지: {DETAILS}" />
+    <string
+      id="ret_dependencies_missing_label"
+      text="누락됨" />
+    <string
+      id="ret_dependencies_not_initialized_label"
+      text="초기화되지 않음" />
+    <string
+      id="ret_init_error_body_detailed"
+      text="Retinues 모드 종속 항목을 제대로 초기화하지 못했습니다:{newline}{newline}{DETAILS}{newline}{newline}종속 항목이 수정될 때까지 모드가 제대로 작동하지 않을 수 있습니다." />
+    <string
+      id="ret_init_error_title"
+      text="Retinues 종속성 오류" />
+    <string
+      id="ret_retinues_update_title"
+      text="Retinues 업데이트" />
+    <string
+      id="ret_retinues_version_change_text"
+      text="이 저장 파일의 Retinues 모드 버전({SAVE_VERSION})이 현재 모드 버전({CURRENT_VERSION})과 일치하지 않습니다.{newline}{newline}안전 예방 조치로 저장을 덮어쓰기 전에 모든 것이 정상인지 확인하십시오.{newline}{newline}문제가 발생하고 이전 버전으로 돌아가려면 저장하지 말고 Nexus Mods에서 {SAVE_VERSION} 파일을 다운로드하십시오." />
+    <string
+      id="ret_retinues_version_change_text_no_current"
+      text="이 저장 파일의 Retinues 모드 버전이 현재 모드 버전({CURRENT_VERSION})과 일치하지 않습니다.{newline}{newline}안전 예방 조치로 저장을 덮어쓰기 전에 모든 것이 정상인지 확인하십시오.{newline}{newline}문제가 발생하고 이전 버전으로 돌아가려면 저장하지 말고 이전에 사용하던 버전을 Nexus Mods에서 다운로드하십시오." />
+    <string
+      id="ret_retinues_version_change_title"
+      text="Retinues 버전 변경" />
+    <string
+      id="ret_retinues_version_update_text"
+      text="이 저장 파일의 Retinues 모드 버전이 최신 버전({CURRENT_VERSION})으로 업데이트되었습니다. 저장 데이터는 {SAVE_VERSION}에서 자동으로 마이그레이션되었습니다.{newline}{newline}안전 예방 조치로 저장을 덮어쓰기 전에 모든 것이 정상인지 확인하십시오.{newline}{newline}어떤 이유로든 이전 버전으로 돌아가려면 Nexus Mods에서 {SAVE_VERSION} 파일을 다운로드할 수 있습니다." />
+    <string
+      id="ret_retinues_version_update_text_no_current"
+      text="이 저장 파일의 Retinues 모드 버전이 최신 버전({CURRENT_VERSION})으로 업데이트되었습니다. 저장 데이터는 자동으로 마이그레이션되었습니다.{newline}{newline}안전 예방 조치로 저장을 덮어쓰기 전에 모든 것이 정상인지 확인하십시오.{newline}{newline}어떤 이유로든 이전 버전으로 돌아가려면 이전에 사용하던 버전을 Nexus Mods에서 다운로드하십시오." />
   </strings>
 </base>

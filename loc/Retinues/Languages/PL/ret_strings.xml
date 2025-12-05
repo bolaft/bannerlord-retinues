@@ -4,5 +4,41 @@
     <tag language="PL" />
   </tags>
   <strings>
+    <string
+      id="ret_dependencies_all_ok"
+      text="Wszystkie zależności zostały poprawnie zainicjowane." />
+    <string
+      id="ret_dependencies_issues_detected"
+      text="Wykryto problemy z zależnościami: {DETAILS}" />
+    <string
+      id="ret_dependencies_missing_label"
+      text="Brakujące" />
+    <string
+      id="ret_dependencies_not_initialized_label"
+      text="Nie zainicjowane" />
+    <string
+      id="ret_init_error_body_detailed"
+      text="Nie udało się poprawnie zainicjować zależności moda Retinues:{newline}{newline}{DETAILS}{newline}{newline}Mod może nie działać poprawnie, dopóki zależności nie zostaną naprawione." />
+    <string
+      id="ret_init_error_title"
+      text="Błąd zależności Retinues" />
+    <string
+      id="ret_retinues_update_title"
+      text="Aktualizacja Retinues" />
+    <string
+      id="ret_retinues_version_change_text"
+      text="Wersja moda Retinues w tym pliku zapisu ({SAVE_VERSION}) nie odpowiada bieżącej wersji moda ({CURRENT_VERSION}).{newline}{newline}Jako środek ostrożności sprawdź, czy wszystko jest w porządku przed nadpisaniem zapisu.{newline}{newline}Jeśli zauważysz jakiekolwiek problemy i chcesz wrócić do poprzedniej wersji, nie zapisuj i pobierz plik {SAVE_VERSION} z Nexus Mods." />
+    <string
+      id="ret_retinues_version_change_text_no_current"
+      text="Wersja moda Retinues w tym pliku zapisu nie odpowiada bieżącej wersji moda ({CURRENT_VERSION}).{newline}{newline}Jako środek ostrożności sprawdź, czy wszystko jest w porządku przed nadpisaniem zapisu.{newline}{newline}Jeśli zauważysz jakiekolwiek problemy i chcesz wrócić do poprzedniej wersji, nie zapisuj i pobierz wersję, której wcześniej używałeś, z Nexus Mods." />
+    <string
+      id="ret_retinues_version_change_title"
+      text="Zmiana wersji Retinues" />
+    <string
+      id="ret_retinues_version_update_text"
+      text="Wersja moda Retinues w tym pliku zapisu została zaktualizowana do nowszej wersji ({CURRENT_VERSION}). Twoje dane zapisu zostały automatycznie przeniesione z {SAVE_VERSION}.{newline}{newline}Jako środek ostrożności sprawdź, czy wszystko jest w porządku przed nadpisaniem zapisu.{newline}{newline}Jeśli z jakiegoś powodu chcesz wrócić do poprzedniej wersji, możesz pobrać plik {SAVE_VERSION} z Nexus Mods." />
+    <string
+      id="ret_retinues_version_update_text_no_current"
+      text="Wersja moda Retinues w tym pliku zapisu została zaktualizowana do nowszej wersji ({CURRENT_VERSION}). Twoje dane zapisu zostały automatycznie przeniesione.{newline}{newline}Jako środek ostrożności sprawdź, czy wszystko jest w porządku przed nadpisaniem zapisu.{newline}{newline}Jeśli z jakiego powodu chcesz wrócić do poprzedniej wersji, pobierz wersję, której wcześniej używałeś, z Nexus Mods." />
   </strings>
 </base>

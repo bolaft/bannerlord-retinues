@@ -4,5 +4,41 @@
     <tag language="CNs" />
   </tags>
   <strings>
+    <string
+      id="ret_dependencies_all_ok"
+      text="所有依赖项均已正确初始化。" />
+    <string
+      id="ret_dependencies_issues_detected"
+      text="检测到依赖项问题：{DETAILS}" />
+    <string
+      id="ret_dependencies_missing_label"
+      text="缺失" />
+    <string
+      id="ret_dependencies_not_initialized_label"
+      text="未初始化" />
+    <string
+      id="ret_init_error_body_detailed"
+      text="Retinues 模组的依赖项未能正确初始化：{newline}{newline}{DETAILS}{newline}{newline}在修复依赖项之前，模组可能无法正常运行。" />
+    <string
+      id="ret_init_error_title"
+      text="Retinues 依赖项错误" />
+    <string
+      id="ret_retinues_update_title"
+      text="Retinues 更新" />
+    <string
+      id="ret_retinues_version_change_text"
+      text="此保存文件中的 Retinues 模组版本 ({SAVE_VERSION}) 与当前模组版本 ({CURRENT_VERSION}) 不匹配。{newline}{newline}作为安全预防措施，在覆盖保存之前，请检查一切是否正常。{newline}{newline}如果您发现任何问题并希望回到以前的版本，请不要保存并从 Nexus Mods 下载 {SAVE_VERSION} 文件。" />
+    <string
+      id="ret_retinues_version_change_text_no_current"
+      text="此保存文件中的 Retinues 模组版本与当前模组版本 ({CURRENT_VERSION}) 不匹配。{newline}{newline}作为安全预防措施，在覆盖保存之前，请检查一切是否正常。{newline}{newline}如果您发现任何问题并希望回到以前的版本，请不要保存并从 Nexus Mods 下载您之前使用的版本。" />
+    <string
+      id="ret_retinues_version_change_title"
+      text="Retinues 版本更改" />
+    <string
+      id="ret_retinues_version_update_text"
+      text="此保存文件中的 Retinues 模组版本已更新为较新版本 ({CURRENT_VERSION})。您的保存数据已从 {SAVE_VERSION} 自动迁移。{newline}{newline}作为安全预防措施，在覆盖保存之前，请检查一切是否正常。{newline}{newline}如果您出于任何原因希望回到以前的版本，您可以从 Nexus Mods 下载 {SAVE_VERSION} 文件。" />
+    <string
+      id="ret_retinues_version_update_text_no_current"
+      text="此保存文件中的 Retinues 模组版本已更新为较新版本 ({CURRENT_VERSION})。您的保存数据已自动迁移。{newline}{newline}作为安全预防措施，在覆盖保存之前，请检查一切是否正常。{newline}{newline}如果您出于任何原因希望回到以前的版本，请从 Nexus Mods 下载您之前使用的版本。" />
   </strings>
 </base>

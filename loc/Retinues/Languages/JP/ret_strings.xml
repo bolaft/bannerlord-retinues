@@ -4,5 +4,41 @@
     <tag language="JP" />
   </tags>
   <strings>
+    <string
+      id="ret_dependencies_all_ok"
+      text="すべての依存関係が正しく初期化されました。" />
+    <string
+      id="ret_dependencies_issues_detected"
+      text="依存関係の問題が検出されました: {DETAILS}" />
+    <string
+      id="ret_dependencies_missing_label"
+      text="見つかりません" />
+    <string
+      id="ret_dependencies_not_initialized_label"
+      text="初期化されていません" />
+    <string
+      id="ret_init_error_body_detailed"
+      text="Retinues モッドの依存関係が正しく初期化されませんでした:{newline}{newline}{DETAILS}{newline}{newline}依存関係が修正されるまで、モッドは正しく機能しない可能性があります。" />
+    <string
+      id="ret_init_error_title"
+      text="Retinues 依存関係エラー" />
+    <string
+      id="ret_retinues_update_title"
+      text="Retinues アップデート" />
+    <string
+      id="ret_retinues_version_change_text"
+      text="このセーブファイルの Retinues モッドバージョン ({SAVE_VERSION}) は、現在のモッドバージョン ({CURRENT_VERSION}) と一致しません。{newline}{newline}安全対策として、セーブを上書きする前にすべてが正常であることを確認してください。{newline}{newline}問題が発生し、以前のバージョンに戻りたい場合は、保存せずに Nexus Mods から {SAVE_VERSION} ファイルをダウンロードしてください。" />
+    <string
+      id="ret_retinues_version_change_text_no_current"
+      text="このセーブファイルの Retinues モッドバージョンは、現在のモッドバージョン ({CURRENT_VERSION}) と一致しません。{newline}{newline}安全対策として、セーブを上書きする前にすべてが正常であることを確認してください。{newline}{newline}問題が発生し、以前のバージョンに戻りたい場合は、保存せずに Nexus Mods から以前使用していたバージョンをダウンロードしてください。" />
+    <string
+      id="ret_retinues_version_change_title"
+      text="Retinues バージョン変更" />
+    <string
+      id="ret_retinues_version_update_text"
+      text="このセーブファイルの Retinues モッドバージョンは、より新しいバージョン ({CURRENT_VERSION}) に更新されました。セーブデータは {SAVE_VERSION} から自動的に移行されました。{newline}{newline}安全対策として、セーブを上書きする前にすべてが正常であることを確認してください。{newline}{newline}何らかの理由で以前のバージョンに戻りたい場合は、Nexus Mods から {SAVE_VERSION} ファイルをダウンロードできます。" />
+    <string
+      id="ret_retinues_version_update_text_no_current"
+      text="このセーブファイルの Retinues モッドバージョンは、より新しいバージョン ({CURRENT_VERSION}) に更新されました。セーブデータは自動的に移行されました。{newline}{newline}安全対策として、セーブを上書きする前にすべてが正常であることを確認してください。{newline}{newline}何らかの理由で以前のバージョンに戻りたい場合は、Nexus Mods から以前使用していたバージョンをダウンロードしてください。" />
   </strings>
 </base>

@@ -4,5 +4,41 @@
     <tag language="BR" />
   </tags>
   <strings>
+    <string
+      id="ret_dependencies_all_ok"
+      text="Todas as dependências foram inicializadas corretamente." />
+    <string
+      id="ret_dependencies_issues_detected"
+      text="Problemas de dependência detectados: {DETAILS}" />
+    <string
+      id="ret_dependencies_missing_label"
+      text="Ausente" />
+    <string
+      id="ret_dependencies_not_initialized_label"
+      text="Não inicializado" />
+    <string
+      id="ret_init_error_body_detailed"
+      text="As dependências do mod Retinues não foram inicializadas corretamente:{newline}{newline}{DETAILS}{newline}{newline}O mod pode não funcionar corretamente até que as dependências sejam corrigidas." />
+    <string
+      id="ret_init_error_title"
+      text="Erro de Dependência do Retinues" />
+    <string
+      id="ret_retinues_update_title"
+      text="Atualização do Retinues" />
+    <string
+      id="ret_retinues_version_change_text"
+      text="A versão do mod Retinues neste arquivo de salvamento ({SAVE_VERSION}) não corresponde à versão atual do mod ({CURRENT_VERSION}).{newline}{newline}Como precaução de segurança, verifique se tudo está como deveria antes de sobrescrever seu salvamento.{newline}{newline}Se você notar algum problema e desejar voltar para a versão anterior, não salve e baixe o arquivo {SAVE_VERSION} do Nexus Mods." />
+    <string
+      id="ret_retinues_version_change_text_no_current"
+      text="A versão do mod Retinues neste arquivo de salvamento não corresponde à versão atual do mod ({CURRENT_VERSION}).{newline}{newline}Como precaução de segurança, verifique se tudo está como deveria antes de sobrescrever seu salvamento.{newline}{newline}Se você notar algum problema e desejar voltar para a versão anterior, não salve e baixe a versão que você estava usando anteriormente do Nexus Mods." />
+    <string
+      id="ret_retinues_version_change_title"
+      text="Alteração de Versão do Retinues" />
+    <string
+      id="ret_retinues_version_update_text"
+      text="A versão do mod Retinues neste arquivo de salvamento foi atualizada para uma versão mais recente ({CURRENT_VERSION}). Seus dados de salvamento foram migrados automaticamente de {SAVE_VERSION}.{newline}{newline}Como precaução de segurança, verifique se tudo está como deveria antes de sobrescrever seu salvamento.{newline}{newline}Se por algum motivo você desejar voltar para a versão anterior, você pode baixar o arquivo {SAVE_VERSION} do Nexus Mods." />
+    <string
+      id="ret_retinues_version_update_text_no_current"
+      text="A versão do mod Retinues neste arquivo de salvamento foi atualizada para uma versão mais recente ({CURRENT_VERSION}). Seus dados de salvamento foram migrados automaticamente.{newline}{newline}Como precaução de segurança, verifique se tudo está como deveria antes de sobrescrever seu salvamento.{newline}{newline}Se por algum motivo você desejar voltar para a versão anterior, baixe a versão que você estava usando anteriormente do Nexus Mods." />
   </strings>
 </base>

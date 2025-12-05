@@ -4,5 +4,41 @@
     <tag language="English" />
   </tags>
   <strings>
+    <string
+      id="ret_dependencies_all_ok"
+      text="All dependencies initialized correctly." />
+    <string
+      id="ret_dependencies_issues_detected"
+      text="Dependency issues detected: {DETAILS}" />
+    <string
+      id="ret_dependencies_missing_label"
+      text="Missing" />
+    <string
+      id="ret_dependencies_not_initialized_label"
+      text="Not initialized" />
+    <string
+      id="ret_init_error_body_detailed"
+      text="Retinues mod dependencies failed to initialize properly:{newline}{newline}{DETAILS}{newline}{newline}The mod may not function correctly until the dependencies are fixed." />
+    <string
+      id="ret_init_error_title"
+      text="Retinues Dependency Error" />
+    <string
+      id="ret_retinues_update_title"
+      text="Retinues Update" />
+    <string
+      id="ret_retinues_version_change_text"
+      text="The Retinues mod version in this save file ({SAVE_VERSION}) does not match the current mod version ({CURRENT_VERSION}).{newline}{newline}As a safety precaution, check that everything is as it should before overwriting your save.{newline}{newline}If you notice any issues and wish to go back to the previous version, do not save and download the {SAVE_VERSION} file from Nexus Mods." />
+    <string
+      id="ret_retinues_version_change_text_no_current"
+      text="The Retinues mod version in this save file does not match the current mod version ({CURRENT_VERSION}).{newline}{newline}As a safety precaution, check that everything is as it should before overwriting your save.{newline}{newline}If you notice any issues and wish to go back to the previous version, do not save and download the version you were previously using from Nexus Mods." />
+    <string
+      id="ret_retinues_version_change_title"
+      text="Retinues Version Change" />
+    <string
+      id="ret_retinues_version_update_text"
+      text="The Retinues mod version in this save file has been updated to a newer version ({CURRENT_VERSION}). Your save data has been automatically migrated from {SAVE_VERSION}.{newline}{newline}As a safety precaution, check that everything is as it should before overwriting your save.{newline}{newline}If for any reason you wish to go back to the previous version, you can download the {SAVE_VERSION} file from Nexus Mods." />
+    <string
+      id="ret_retinues_version_update_text_no_current"
+      text="The Retinues mod version in this save file has been updated to a newer version ({CURRENT_VERSION}). Your save data has been automatically migrated.{newline}{newline}As a safety precaution, check that everything is as it should before overwriting your save.{newline}{newline}If for any reason you wish to go back to the previous version, download the version you were previously using from Nexus Mods." />
   </strings>
 </base>

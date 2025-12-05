@@ -4,5 +4,41 @@
     <tag language="CNt" />
   </tags>
   <strings>
+    <string
+      id="ret_dependencies_all_ok"
+      text="所有依賴項均已正確初始化。" />
+    <string
+      id="ret_dependencies_issues_detected"
+      text="檢測到依賴項問題：{DETAILS}" />
+    <string
+      id="ret_dependencies_missing_label"
+      text="缺失" />
+    <string
+      id="ret_dependencies_not_initialized_label"
+      text="未初始化" />
+    <string
+      id="ret_init_error_body_detailed"
+      text="Retinues 模組的依賴項未能正確初始化：{newline}{newline}{DETAILS}{newline}{newline}在修復依賴項之前，模組可能無法正常運行。" />
+    <string
+      id="ret_init_error_title"
+      text="Retinues 依賴項錯誤" />
+    <string
+      id="ret_retinues_update_title"
+      text="Retinues 更新" />
+    <string
+      id="ret_retinues_version_change_text"
+      text="此保存文件中的 Retinues 模組版本 ({SAVE_VERSION}) 與當前模組版本 ({CURRENT_VERSION}) 不匹配。{newline}{newline}作為安全預防措施，在覆蓋保存之前，請檢查一切是否正常。{newline}{newline}如果您發現任何問題並希望回到以前的版本，請不要保存並從 Nexus Mods 下載 {SAVE_VERSION} 文件。" />
+    <string
+      id="ret_retinues_version_change_text_no_current"
+      text="此保存文件中的 Retinues 模組版本與當前模組版本 ({CURRENT_VERSION}) 不匹配。{newline}{newline}作為安全預防措施，在覆蓋保存之前，請檢查一切是否正常。{newline}{newline}如果您發現任何問題並希望回到以前的版本，請不要保存並從 Nexus Mods 下載您之前使用的版本。" />
+    <string
+      id="ret_retinues_version_change_title"
+      text="Retinues 版本更改" />
+    <string
+      id="ret_retinues_version_update_text"
+      text="此保存文件中的 Retinues 模組版本已更新為較新版本 ({CURRENT_VERSION})。您的保存數據已從 {SAVE_VERSION} 自動遷移。{newline}{newline}作為安全預防措施，在覆蓋保存之前，請檢查一切是否正常。{newline}{newline}如果您出於任何原因希望回到以前的版本，您可以從 Nexus Mods 下載 {SAVE_VERSION} 文件。" />
+    <string
+      id="ret_retinues_version_update_text_no_current"
+      text="此保存文件中的 Retinues 模組版本已更新為較新版本 ({CURRENT_VERSION})。您的保存數據已自動遷移。{newline}{newline}作為安全預防措施，在覆蓋保存之前，請檢查一切是否正常。{newline}{newline}如果您出於任何原因希望回到以前的版本，請從 Nexus Mods 下載您之前使用的版本。" />
   </strings>
 </base>

@@ -4,5 +4,41 @@
     <tag language="FR" />
   </tags>
   <strings>
+    <string
+      id="ret_dependencies_all_ok"
+      text="Toutes les dépendances ont été initialisées correctement." />
+    <string
+      id="ret_dependencies_issues_detected"
+      text="Problèmes de dépendance détectés : {DETAILS}" />
+    <string
+      id="ret_dependencies_missing_label"
+      text="Manquant" />
+    <string
+      id="ret_dependencies_not_initialized_label"
+      text="Non initialisé" />
+    <string
+      id="ret_init_error_body_detailed"
+      text="Les dépendances du mod Retinues n&apos;ont pas pu être initialisées correctement :{newline}{newline}{DETAILS}{newline}{newline}Le mod peut ne pas fonctionner correctement tant que les dépendances ne sont pas corrigées." />
+    <string
+      id="ret_init_error_title"
+      text="Erreur de dépendance Retinues" />
+    <string
+      id="ret_retinues_update_title"
+      text="Mise à jour de Retinues" />
+    <string
+      id="ret_retinues_version_change_text"
+      text="La version du mod Retinues dans ce fichier de sauvegarde ({SAVE_VERSION}) ne correspond pas à la version actuelle du mod ({CURRENT_VERSION}).{newline}{newline}Par mesure de précaution, vérifiez que tout est en ordre avant d&apos;écraser votre sauvegarde.{newline}{newline}Si vous remarquez des problèmes et souhaitez revenir à la version précédente, ne sauvegardez pas et téléchargez le fichier {SAVE_VERSION} depuis Nexus Mods." />
+    <string
+      id="ret_retinues_version_change_text_no_current"
+      text="La version du mod Retinues dans ce fichier de sauvegarde ne correspond pas à la version actuelle du mod ({CURRENT_VERSION}).{newline}{newline}Par mesure de précaution, vérifiez que tout est en ordre avant d&apos;écraser votre sauvegarde.{newline}{newline}Si vous remarquez des problèmes et souhaitez revenir à la version précédente, ne sauvegardez pas et téléchargez la version que vous utilisiez auparavant depuis Nexus Mods." />
+    <string
+      id="ret_retinues_version_change_title"
+      text="Changement de version de Retinues" />
+    <string
+      id="ret_retinues_version_update_text"
+      text="La version du mod Retinues dans ce fichier de sauvegarde a été mise à jour vers une version plus récente ({CURRENT_VERSION}). Vos données de sauvegarde ont été automatiquement migrées depuis {SAVE_VERSION}.{newline}{newline}Par mesure de précaution, vérifiez que tout est en ordre avant d&apos;écraser votre sauvegarde.{newline}{newline}Si pour une raison quelconque vous souhaitez revenir à la version précédente, vous pouvez télécharger le fichier {SAVE_VERSION} depuis Nexus Mods." />
+    <string
+      id="ret_retinues_version_update_text_no_current"
+      text="La version du mod Retinues dans ce fichier de sauvegarde a été mise à jour vers une version plus récente ({CURRENT_VERSION}). Vos données de sauvegarde ont été automatiquement migrées.{newline}{newline}Par mesure de précaution, vérifiez que tout est en ordre avant d&apos;écraser votre sauvegarde.{newline}{newline}Si pour une raison quelconque vous souhaitez revenir à la version précédente, téléchargez la version que vous utilisiez auparavant depuis Nexus Mods." />
   </strings>
 </base>

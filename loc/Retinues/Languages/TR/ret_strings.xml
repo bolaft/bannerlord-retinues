@@ -4,5 +4,41 @@
     <tag language="TR" />
   </tags>
   <strings>
+    <string
+      id="ret_dependencies_all_ok"
+      text="Tüm bağımlılıklar doğru şekilde başlatıldı." />
+    <string
+      id="ret_dependencies_issues_detected"
+      text="Bağımlılık sorunları tespit edildi: {DETAILS}" />
+    <string
+      id="ret_dependencies_missing_label"
+      text="Eksik" />
+    <string
+      id="ret_dependencies_not_initialized_label"
+      text="Başlatılmadı" />
+    <string
+      id="ret_init_error_body_detailed"
+      text="Retinues mod bağımlılıkları düzgün şekilde başlatılamadı:{newline}{newline}{DETAILS}{newline}{newline}Bağımlılıklar düzeltilene kadar mod düzgün çalışmayabilir." />
+    <string
+      id="ret_init_error_title"
+      text="Retinues Bağımlılık Hatası" />
+    <string
+      id="ret_retinues_update_title"
+      text="Retinues Güncellemesi" />
+    <string
+      id="ret_retinues_version_change_text"
+      text="Bu kayıt dosyasındaki Retinues mod sürümü ({SAVE_VERSION}), mevcut mod sürümüyle ({CURRENT_VERSION}) eşleşmiyor.{newline}{newline}Bir güvenlik önlemi olarak, kaydınızı üzerine yazmadan önce her şeyin olması gerektiği gibi olduğundan emin olun.{newline}{newline}Herhangi bir sorun fark ederseniz ve önceki sürüme dönmek isterseniz, kaydetmeyin ve Nexus Mods&apos;tan {SAVE_VERSION} dosyasını indirin." />
+    <string
+      id="ret_retinues_version_change_text_no_current"
+      text="Bu kayıt dosyasındaki Retinues mod sürümü, mevcut mod sürümüyle ({CURRENT_VERSION}) eşleşmiyor.{newline}{newline}Bir güvenlik önlemi olarak, kaydınızı üzerine yazmadan önce her şeyin olması gerektiği gibi olduğundan emin olun.{newline}{newline}Herhangi bir sorun fark ederseniz ve önceki sürüme dönmek isterseniz, kaydetmeyin ve daha önce kullandığınız sürümü Nexus Mods&apos;tan indirin." />
+    <string
+      id="ret_retinues_version_change_title"
+      text="Retinues Sürüm Değişikliği" />
+    <string
+      id="ret_retinues_version_update_text"
+      text="Bu kayıt dosyasındaki Retinues mod sürümü, daha yeni bir sürüme ({CURRENT_VERSION}) güncellendi. Kayıt verileriniz {SAVE_VERSION} sürümünden otomatik olarak taşındı.{newline}{newline}Bir güvenlik önlemi olarak, kaydınızı üzerine yazmadan önce her şeyin olması gerektiği gibi olduğundan emin olun.{newline}{newline}Herhangi bir nedenle önceki sürüme dönmek isterseniz, Nexus Mods&apos;tan {SAVE_VERSION} dosyasını indirebilirsiniz." />
+    <string
+      id="ret_retinues_version_update_text_no_current"
+      text="Bu kayıt dosyasındaki Retinues mod sürümü, daha yeni bir sürüme ({CURRENT_VERSION}) güncellendi. Kayıt verileriniz otomatik olarak taşındı.{newline}{newline}Bir güvenlik önlemi olarak, kaydınızı üzerine yazmadan önce her şeyin olması gerektiği gibi olduğundan emin olun.{newline}{newline}Herhangi bir nedenle önceki sürüme dönmek isterseniz, daha önce kullandığınız sürümü Nexus Mods&apos;tan indirin." />
   </strings>
 </base>
