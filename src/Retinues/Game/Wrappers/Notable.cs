@@ -77,10 +77,6 @@ namespace Retinues.Game.Wrappers
                 )
                     continue;
 
-                // Global toggle: some vanilla volunteers are kept based on CustomVolunteersProportion.
-                if (rng.NextDouble() > Config.CustomVolunteersProportion)
-                    continue;
-
                 // Decide which faction to use for this slot.
                 WFaction targetFaction = primaryFaction;
                 if (hasSecondary && rng.NextDouble() < secondaryProportion)
@@ -111,7 +107,7 @@ namespace Retinues.Game.Wrappers
                         ? $" + mix {secondaryId} (p={secondaryProportion:0.##})"
                         : "";
                 Log.Debug(
-                    $"{Name} ({Settlement.Name}): swapped {replaced} volunteers to faction {primaryId}{mixInfo}."
+                    $"{Name} ({Settlement.Name}): swapped {replaced} volunteers to {primaryId}{mixInfo}."
                 );
             }
         }

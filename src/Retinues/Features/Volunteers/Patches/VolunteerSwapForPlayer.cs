@@ -4,6 +4,7 @@ using HarmonyLib;
 using Retinues.Configuration;
 using Retinues.Game;
 using Retinues.Game.Wrappers;
+using Retinues.Troops;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.CampaignBehaviors;
 using TaleWorlds.CampaignSystem.Party;
@@ -23,6 +24,7 @@ namespace Retinues.Features.Volunteers.Patches
 
         private static WSettlement _settlement;
         private static Dictionary<string, WCharacter[]> _snapshot;
+        private static readonly Random _rng = new();
 
         /// <summary>
         /// Re-wire events for the current campaign and clear any stale snapshot.
@@ -233,24 +235,117 @@ namespace Retinues.Features.Volunteers.Patches
 
             bool inPlayerOwnedFief = settlement.PlayerFaction != null;
 
-            // No player faction here and restriction enabled: abort.
-            // Player sees native volunteers in foreign fiefs if recruitment is restricted.
+            // If Recruit Anywhere is disabled, we do not touch foreign settlements.
             if (!inPlayerOwnedFief && Config.RestrictToOwnedSettlements)
                 return;
 
-            // Player-faction settlement
+            // ── Player-owned fief ─────────────────────────────────
             if (inPlayerOwnedFief)
             {
-                // Volunteers in player settlements are swapped on update; call again
-                // defensively in case UpdateVolunteers hasn't run yet.
+                // Ensure volunteers are fully swapped to the current player-sphere tree
+                // (this keeps newly unlocked troops in sync even before the next daily tick).
                 settlement.SwapVolunteers();
+
+                // Snapshot the canonical, fully-custom volunteers so that any temporary
+                // mix we apply for the player view can be reverted on exit.
+                SnapshotVolunteers(settlement);
+
+                // Apply player-only proportion (mix some vanilla back in visually).
+                ApplyPlayerVolunteerProportion(settlement);
                 return;
             }
 
-            // Foreign settlement + Recruit Anywhere
-            // Temporary swap only for the player, with snapshot + restore.
+            // ── Remote settlement (Recruit Anywhere) ──────────────
+            // For foreign fiefs we only want a temporary swap for the player:
+            // 1) Snapshot native volunteers.
+            // 2) Swap everything to Player.Clan / mix rules.
+            // 3) Apply the player-only custom/vanilla proportion.
+            var faction = Player.Clan;
+            if (faction == null)
+                return;
+
             SnapshotVolunteers(settlement);
-            settlement.SwapVolunteers(Player.Clan);
+            settlement.SwapVolunteers(faction);
+            ApplyPlayerVolunteerProportion(settlement);
+        }
+
+        /// <summary>
+        /// For the current settlement, adjust volunteers so that roughly
+        /// Config.CustomVolunteerProportion of them remain custom and the rest
+        /// are mapped back to native/culture equivalents. This only affects
+        /// what the player sees during the recruit screen; the canonical
+        /// volunteers are restored from the snapshot afterwards.
+        /// The selection is deterministic per settlement per campaign day.
+        /// </summary>
+        private static void ApplyPlayerVolunteerProportion(WSettlement settlement)
+        {
+            if (settlement == null)
+                return;
+
+            float customP = Config.CustomVolunteersProportion;
+            if (customP <= 0f)
+                customP = 0f;
+            else if (customP >= 1f)
+                return; // 100% custom, nothing to do
+
+            var culture = settlement.Culture;
+            if (culture == null)
+                return;
+
+            var nativeBasic = culture.RootBasic;
+            var nativeElite = culture.RootElite;
+
+            if (
+                (nativeBasic == null || !nativeBasic.IsValid)
+                && (nativeElite == null || !nativeElite.IsValid)
+            )
+                return;
+
+            // Deterministic RNG: same settlement + same day => same pattern.
+            var now = CampaignTime.Now;
+            int day = (int)now.ToDays;
+            int seed = unchecked(settlement.StringId.GetHashCode() * 397 ^ day);
+            var rng = new Random(seed);
+
+            foreach (var notable in settlement.Notables)
+            {
+                var volunteers = notable.Hero?.VolunteerTypes;
+                if (volunteers == null || volunteers.Length == 0)
+                    continue;
+
+                for (int i = 0; i < volunteers.Length; i++)
+                {
+                    var co = volunteers[i];
+                    if (co == null)
+                        continue;
+
+                    var troop = new WCharacter(co);
+                    if (!troop.IsValid)
+                    {
+                        volunteers[i] = null;
+                        continue;
+                    }
+
+                    // Only consider demoting custom troops; native ones (if any)
+                    // should stay as-is.
+                    if (!troop.IsCustom)
+                        continue;
+
+                    // Keep as custom according to the configured proportion.
+                    if (rng.NextDouble() <= customP)
+                        continue;
+
+                    var root = troop.IsElite ? nativeElite : nativeBasic;
+                    if (root == null || !root.IsValid)
+                        continue;
+
+                    var native = TroopMatcher.PickBestFromTree(root, troop, sameTierOnly: false);
+                    if (native == null || !native.IsValid)
+                        continue;
+
+                    volunteers[i] = native.Base;
+                }
+            }
         }
     }
 }
