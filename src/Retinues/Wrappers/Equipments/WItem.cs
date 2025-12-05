@@ -6,7 +6,7 @@ namespace Retinues.Wrappers.Equipments
     /// <summary>
     /// Wrapper for ItemObject, provides helpers and persistent state.
     /// </summary>
-    public class WItem : WrappedObject<WItem, ItemObject>
+    public class WItem : Wrapper<WItem, ItemObject>
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Main Properties                    //

@@ -10,7 +10,7 @@ using TaleWorlds.ObjectSystem;
 namespace Retinues.Wrappers
 {
     /// <summary>
-    /// Marks a property on a WrappedObject as persistent state.
+    /// Marks a property on a Wrapper as persistent state.
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
     public sealed class WrapDataAttribute(string key = null) : Attribute
@@ -22,15 +22,15 @@ namespace Retinues.Wrappers
     }
 
     /// <summary>
-    /// Global registry of all wrapped types that contain persistent data.
+    /// Global registry of all wrapper types that contain persistent data.
     /// </summary>
-    internal static class WrappedRegistry
+    internal static class WrapperRegistry
     {
-        private static readonly List<IWrappedSync> _entries = [];
+        private static readonly List<IWrapperSync> _entries = [];
 
-        internal static IReadOnlyList<IWrappedSync> Entries => _entries;
+        internal static IReadOnlyList<IWrapperSync> Entries => _entries;
 
-        internal static void Register(IWrappedSync entry)
+        internal static void Register(IWrapperSync entry)
         {
             if (entry == null)
                 return;
@@ -43,8 +43,8 @@ namespace Retinues.Wrappers
     /// Base wrapper for MBObjectBase derivatives with per-StringId persistent state
     /// defined via properties annotated with [WrapData].
     /// </summary>
-    public abstract class WrappedObject<TWrapper, TBase> : IEquatable<TWrapper>
-        where TWrapper : WrappedObject<TWrapper, TBase>
+    public abstract class Wrapper<TWrapper, TBase> : IEquatable<TWrapper>
+        where TWrapper : Wrapper<TWrapper, TBase>
         where TBase : MBObjectBase
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -58,7 +58,7 @@ namespace Retinues.Wrappers
             public IDictionary Map;
         }
 
-        private sealed class WrappedSyncRegistration : IWrappedSync
+        private sealed class WrapperSyncRegistration : IWrapperSync
         {
             public void Sync(IDataStore dataStore)
             {
@@ -70,15 +70,15 @@ namespace Retinues.Wrappers
         private static readonly Dictionary<string, PropertyEntry> _properties;
         private static readonly MethodInfo _syncDataMethod;
 
-        static WrappedObject()
+        static Wrapper()
         {
-            _properties = DiscoverWrappedProperties();
+            _properties = DiscoverWrapperProperties();
             _syncDataMethod = typeof(IDataStore).GetMethod("SyncData");
 
-            WrappedRegistry.Register(new WrappedSyncRegistration());
+            WrapperRegistry.Register(new WrapperSyncRegistration());
         }
 
-        private static Dictionary<string, PropertyEntry> DiscoverWrappedProperties()
+        private static Dictionary<string, PropertyEntry> DiscoverWrapperProperties()
         {
             var result = new Dictionary<string, PropertyEntry>();
 
@@ -184,7 +184,7 @@ namespace Retinues.Wrappers
         }
 
         /// <summary>
-        /// Returns all wrapped instances for this type, ensuring every TBase is wrapped.
+        /// Returns all wrapper instances for this type, ensuring every TBase is wrapped.
         /// </summary>
         public static IReadOnlyCollection<TWrapper> All
         {
@@ -204,7 +204,7 @@ namespace Retinues.Wrappers
         }
 
         /// <summary>
-        /// Returns all wrapped instances that satisfy the given predicate.
+        /// Returns all wrapper instances that satisfy the given predicate.
         /// </summary>
         public static List<TWrapper> Find(Func<TWrapper, bool> predicate)
         {
@@ -256,7 +256,7 @@ namespace Retinues.Wrappers
         /// <summary>
         /// Constructs an uninitialized wrapper. Use TWrapper.Get(...) to obtain initialized instances.
         /// </summary>
-        protected WrappedObject() { }
+        protected Wrapper() { }
 
         protected void InitializeFromBase(TBase baseObject)
         {
@@ -266,7 +266,7 @@ namespace Retinues.Wrappers
             if (_initialized)
             {
                 if (!ReferenceEquals(_base, baseObject))
-                    throw new InvalidOperationException("WrappedObject is already initialized.");
+                    throw new InvalidOperationException("Wrapper is already initialized.");
                 return;
             }
 
@@ -282,7 +282,7 @@ namespace Retinues.Wrappers
         {
             if (!_initialized)
                 throw new InvalidOperationException(
-                    "WrappedObject is not initialized. Use TWrapper.Get(...) instead of new."
+                    "Wrapper is not initialized. Use TWrapper.Get(...) instead of new."
                 );
         }
 
@@ -348,8 +348,8 @@ namespace Retinues.Wrappers
         }
 
         public static bool operator ==(
-            WrappedObject<TWrapper, TBase> left,
-            WrappedObject<TWrapper, TBase> right
+            Wrapper<TWrapper, TBase> left,
+            Wrapper<TWrapper, TBase> right
         )
         {
             if (ReferenceEquals(left, right))
@@ -362,8 +362,8 @@ namespace Retinues.Wrappers
         }
 
         public static bool operator !=(
-            WrappedObject<TWrapper, TBase> left,
-            WrappedObject<TWrapper, TBase> right
+            Wrapper<TWrapper, TBase> left,
+            Wrapper<TWrapper, TBase> right
         )
         {
             return !(left == right);
