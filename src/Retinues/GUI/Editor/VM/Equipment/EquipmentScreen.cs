@@ -375,7 +375,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
                 if (localIndex < 0)
                     return (eq.Index + 1).ToString(); // conservative fallback
 
-                return (localIndex + 1).ToString();
+                return $"{(localIndex + 1).ToString()}/{list.Count}";
             }
         }
 
