@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using TaleWorlds.CampaignSystem;
@@ -171,6 +172,8 @@ namespace Retinues.Wrappers
             if (_instances.TryGetValue(stringId, out var existing))
                 return existing;
 
+            _instances.Where(kv => kv.Key == stringId).ToList();
+
             var baseObj = MBObjectManager.Instance.GetObject<TBase>(stringId);
             if (baseObj == null)
                 return null;
@@ -178,6 +181,45 @@ namespace Retinues.Wrappers
             var wrapper = (TWrapper)Activator.CreateInstance(typeof(TWrapper));
             wrapper.InitializeFromBase(baseObj);
             return wrapper;
+        }
+
+        /// <summary>
+        /// Returns all wrapped instances for this type, ensuring every TBase is wrapped.
+        /// </summary>
+        public static IReadOnlyCollection<TWrapper> All
+        {
+            get
+            {
+                // Get all base objects of the appropriate type.
+                var objects = MBObjectManager.Instance.GetObjectTypeList<TBase>();
+                if (objects == null)
+                    return [];
+
+                // Ensure all base objects are wrapped before returning instances.
+                foreach (var baseObject in objects)
+                    Get(baseObject);
+
+                return _instances.Values;
+            }
+        }
+
+        /// <summary>
+        /// Returns all wrapped instances that satisfy the given predicate.
+        /// </summary>
+        public static List<TWrapper> Find(Func<TWrapper, bool> predicate)
+        {
+            if (predicate == null)
+                throw new ArgumentNullException(nameof(predicate));
+
+            var results = new List<TWrapper>();
+
+            foreach (var wrapper in All)
+            {
+                if (predicate(wrapper))
+                    results.Add(wrapper);
+            }
+
+            return results;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
