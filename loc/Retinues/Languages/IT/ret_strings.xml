@@ -17,6 +17,12 @@
       id="ret_dependencies_not_initialized_label"
       text="Non inizializzato" />
     <string
+      id="ret_editor_tab_label"
+      text="Truppe" />
+    <string
+      id="ret_escape_menu_editor_button"
+      text="Editor di truppe" />
+    <string
       id="ret_init_error_body_detailed"
       text="Le dipendenze del mod Retinues non sono state inizializzate correttamente:{newline}{newline}{DETAILS}{newline}{newline}Il mod potrebbe non funzionare correttamente fino a quando le dipendenze non saranno risolte." />
     <string

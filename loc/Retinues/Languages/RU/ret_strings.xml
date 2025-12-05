@@ -17,6 +17,12 @@
       id="ret_dependencies_not_initialized_label"
       text="Не инициализировано" />
     <string
+      id="ret_editor_tab_label"
+      text="Отряды" />
+    <string
+      id="ret_escape_menu_editor_button"
+      text="Редактор отрядов" />
+    <string
       id="ret_init_error_body_detailed"
       text="Не удалось правильно инициализировать зависимости мода Retinues:{newline}{newline}{DETAILS}{newline}{newline}Мод может работать некорректно, пока зависимости не будут исправлены." />
     <string

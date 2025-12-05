@@ -17,6 +17,12 @@
       id="ret_dependencies_not_initialized_label"
       text="Nicht initialisiert" />
     <string
+      id="ret_editor_tab_label"
+      text="Truppen" />
+    <string
+      id="ret_escape_menu_editor_button"
+      text="Truppen-Editor" />
+    <string
       id="ret_init_error_body_detailed"
       text="Die Abhängigkeiten des Retinues-Mods konnten nicht ordnungsgemäß initialisiert werden:{newline}{newline}{DETAILS}{newline}{newline}Der Mod funktioniert möglicherweise nicht richtig, bis die Abhängigkeiten behoben sind." />
     <string

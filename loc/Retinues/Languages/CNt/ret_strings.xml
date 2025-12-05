@@ -17,6 +17,12 @@
       id="ret_dependencies_not_initialized_label"
       text="未初始化" />
     <string
+      id="ret_editor_tab_label"
+      text="部隊" />
+    <string
+      id="ret_escape_menu_editor_button"
+      text="部隊編輯器" />
+    <string
       id="ret_init_error_body_detailed"
       text="Retinues 模組的依賴項未能正確初始化：{newline}{newline}{DETAILS}{newline}{newline}在修復依賴項之前，模組可能無法正常運行。" />
     <string

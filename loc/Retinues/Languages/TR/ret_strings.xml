@@ -17,6 +17,12 @@
       id="ret_dependencies_not_initialized_label"
       text="Başlatılmadı" />
     <string
+      id="ret_editor_tab_label"
+      text="Birlikler" />
+    <string
+      id="ret_escape_menu_editor_button"
+      text="Birlik Düzenleyici" />
+    <string
       id="ret_init_error_body_detailed"
       text="Retinues mod bağımlılıkları düzgün şekilde başlatılamadı:{newline}{newline}{DETAILS}{newline}{newline}Bağımlılıklar düzeltilene kadar mod düzgün çalışmayabilir." />
     <string

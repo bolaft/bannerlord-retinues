@@ -17,6 +17,12 @@
       id="ret_dependencies_not_initialized_label"
       text="Not initialized" />
     <string
+      id="ret_editor_tab_label"
+      text="Troops" />
+    <string
+      id="ret_escape_menu_editor_button"
+      text="Troop Editor" />
+    <string
       id="ret_init_error_body_detailed"
       text="Retinues mod dependencies failed to initialize properly:{newline}{newline}{DETAILS}{newline}{newline}The mod may not function correctly until the dependencies are fixed." />
     <string

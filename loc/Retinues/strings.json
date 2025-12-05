@@ -64,6 +64,38 @@
     "TR": "Başlatılmadı"
   },
   {
+    "id": "ret_editor_tab_label",
+    "EN": "Troops",
+    "BR": "Tropas",
+    "CNs": "部队",
+    "CNt": "部隊",
+    "DE": "Truppen",
+    "FR": "Troupes",
+    "IT": "Truppe",
+    "JP": "部隊",
+    "KO": "부대",
+    "PL": "Oddziały",
+    "RU": "Отряды",
+    "SP": "Tropas",
+    "TR": "Birlikler"
+  },
+  {
+    "id": "ret_escape_menu_editor_button",
+    "EN": "Troop Editor",
+    "BR": "Editor de Tropas",
+    "CNs": "部队编辑器",
+    "CNt": "部隊編輯器",
+    "DE": "Truppen-Editor",
+    "FR": "Éditeur de troupes",
+    "IT": "Editor di truppe",
+    "JP": "部隊エディター",
+    "KO": "부대 편집기",
+    "PL": "Edytor oddziałów",
+    "RU": "Редактор отрядов",
+    "SP": "Editor de tropas",
+    "TR": "Birlik Düzenleyici"
+  },
+  {
     "id": "ret_init_error_body_detailed",
     "EN": "Retinues mod dependencies failed to initialize properly:\\n\\n{DETAILS}\\n\\nThe mod may not function correctly until the dependencies are fixed.",
     "BR": "As dependências do mod Retinues não foram inicializadas corretamente:\\n\\n{DETAILS}\\n\\nO mod pode não funcionar corretamente até que as dependências sejam corrigidas.",

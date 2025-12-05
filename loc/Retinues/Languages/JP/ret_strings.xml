@@ -17,6 +17,12 @@
       id="ret_dependencies_not_initialized_label"
       text="初期化されていません" />
     <string
+      id="ret_editor_tab_label"
+      text="部隊" />
+    <string
+      id="ret_escape_menu_editor_button"
+      text="部隊エディター" />
+    <string
       id="ret_init_error_body_detailed"
       text="Retinues モッドの依存関係が正しく初期化されませんでした:{newline}{newline}{DETAILS}{newline}{newline}依存関係が修正されるまで、モッドは正しく機能しない可能性があります。" />
     <string

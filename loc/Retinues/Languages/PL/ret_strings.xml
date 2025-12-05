@@ -17,6 +17,12 @@
       id="ret_dependencies_not_initialized_label"
       text="Nie zainicjowane" />
     <string
+      id="ret_editor_tab_label"
+      text="Oddziały" />
+    <string
+      id="ret_escape_menu_editor_button"
+      text="Edytor oddziałów" />
+    <string
       id="ret_init_error_body_detailed"
       text="Nie udało się poprawnie zainicjować zależności moda Retinues:{newline}{newline}{DETAILS}{newline}{newline}Mod może nie działać poprawnie, dopóki zależności nie zostaną naprawione." />
     <string
