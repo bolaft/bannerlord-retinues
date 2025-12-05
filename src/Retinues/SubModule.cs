@@ -479,6 +479,9 @@ namespace Retinues
             // Clear edited vanilla roots
             WCharacter.EditedVanillaRootIds.Clear();
 
+            // Clear naval trait helper cache
+            WCharacter.NavalTraitHelper.Reset();
+
             // Clear faction troop map
             BaseFaction.TroopFactionMap.Clear();
 

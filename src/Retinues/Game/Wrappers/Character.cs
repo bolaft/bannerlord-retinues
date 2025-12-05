@@ -619,7 +619,7 @@ namespace Retinues.Game.Wrappers
 #else
             // NOTE: game-side property is misspelled "HiddenInEncylopedia"
             get => Reflector.GetPropertyValue<bool>(Base, "HiddenInEncylopedia");
-            set => Reflector.SetPropertyValue(Base, "HiddenInEncylopedia", value);
+            set => Reflector.SetPropertyValue(Base, "HiddenInEncyclopedia", value);
 #endif
         }
 
@@ -704,12 +704,7 @@ namespace Retinues.Game.Wrappers
                 {
                     var skill = MBObjectManager.Instance.GetObject<SkillObject>(skillId);
                     if (skill == null)
-                    {
-                        Log.Warn(
-                            $"Naval DLC skill id '{skillId}' not found despite DLC being active."
-                        );
                         continue;
-                    }
                     _navalDlcSkills.Add(skill);
                 }
 
@@ -1108,12 +1103,12 @@ namespace Retinues.Game.Wrappers
             }
         }
 
-        private static class NavalTraitHelper
+        public static class NavalTraitHelper
         {
             private static TraitObject _navalSoldierTrait;
             private static bool _navalTraitMissing;
-            private static FieldInfo _characterTraitsField;
-            private static MethodInfo _setPropertyValueMethod;
+
+            // ── Trait lookup ──────────────────────────────────────
 
             private static TraitObject TryGetNavalSoldierTrait()
             {
@@ -1125,7 +1120,6 @@ namespace Retinues.Game.Wrappers
 
                 try
                 {
-                    // Resolve DefaultTraits by string so we don't rely on compile-time members.
                     var defaultTraitsType = Type.GetType(
                         "TaleWorlds.CampaignSystem.CharacterDevelopment.DefaultTraits, TaleWorlds.CampaignSystem",
                         throwOnError: false
@@ -1133,11 +1127,11 @@ namespace Retinues.Game.Wrappers
 
                     if (defaultTraitsType == null)
                     {
+                        // If the type really doesn't exist (no Naval DLC), mark as missing.
                         _navalTraitMissing = true;
                         return null;
                     }
 
-                    // Look for the static property "NavalSoldier" if it exists.
                     var prop = defaultTraitsType.GetProperty(
                         "NavalSoldier",
                         BindingFlags.Public | BindingFlags.Static
@@ -1149,67 +1143,43 @@ namespace Retinues.Game.Wrappers
                         return null;
                     }
 
-                    var value = prop.GetValue(null) as TraitObject;
-                    if (value == null)
-                        return null; // probably Campaign not ready yet; try again later
+                    if (prop.GetValue(null) is not TraitObject value)
+                    {
+                        // Traits not registered yet; don't permanently mark as missing.
+                        return null;
+                    }
 
                     _navalSoldierTrait = value;
                     return _navalSoldierTrait;
                 }
                 catch
                 {
-                    // If something goes wrong (e.g. Campaign not initialized yet), don't mark missing;
-                    // we'll simply return null and try again on next call.
+                    _navalTraitMissing = true;
                     return null;
                 }
             }
 
-            private static void EnsureCharacterTraitsAccessors()
+            // Allows us to clear everything on a game reset/load.
+            public static void Reset()
             {
-                if (_characterTraitsField != null || _navalTraitMissing)
-                    return;
-
-                try
-                {
-                    var coType = typeof(CharacterObject);
-                    _characterTraitsField = coType.GetField(
-                        "_characterTraits",
-                        BindingFlags.Instance | BindingFlags.NonPublic
-                    );
-
-                    if (_characterTraitsField == null)
-                        return;
-
-                    var ownerType = _characterTraitsField.FieldType; // PropertyOwner<TraitObject>
-                    _setPropertyValueMethod = ownerType.GetMethod(
-                        "SetPropertyValue",
-                        BindingFlags.Instance | BindingFlags.Public,
-                        binder: null,
-                        types: [typeof(TraitObject), typeof(int)],
-                        modifiers: null
-                    );
-                }
-                catch
-                {
-                    // best effort; leave everything null if it fails
-                }
+                _navalSoldierTrait = null;
+                _navalTraitMissing = false;
             }
+
+            // ── Public API used by WCharacter ─────────────────────
 
             public static int GetMarinerLevel(CharacterObject co)
             {
-                if (co == null)
+                if (co == null || !ModCompatibility.HasNavalDLC)
                     return 0;
-
-                if (ModCompatibility.HasNavalDLC == false)
-                    return 0; // No naval DLC, no mariner level
 
                 var navalTrait = TryGetNavalSoldierTrait();
                 if (navalTrait == null)
                     return 0;
 
-                // CharacterObject.GetTraitLevel handles both hero & non-hero.
                 try
                 {
+                    // This is exactly what NavalDLC uses internally.
                     return co.GetTraitLevel(navalTrait);
                 }
                 catch
@@ -1220,48 +1190,57 @@ namespace Retinues.Game.Wrappers
 
             public static void SetMarinerLevel(CharacterObject co, int level)
             {
-                if (co == null)
+                if (co == null || !ModCompatibility.HasNavalDLC)
                     return;
-
-                if (ModCompatibility.HasNavalDLC == false)
-                    return; // No naval DLC, no mariner level
 
                 var navalTrait = TryGetNavalSoldierTrait();
                 if (navalTrait == null)
                     return;
 
-                level = Math.Max(0, level);
-
-                // Hero case: use Hero.SetTraitLevel if available.
-                if (co.IsHero && co.HeroObject != null)
-                {
-                    try
-                    {
-                        co.HeroObject.SetTraitLevel(navalTrait, level);
-                        return;
-                    }
-                    catch
-                    {
-                        // fall through to non-hero path if something weird happens
-                    }
-                }
-
-                // Non-hero template: poke CharacterObject._characterTraits via reflection.
-                EnsureCharacterTraitsAccessors();
-                if (_characterTraitsField == null || _setPropertyValueMethod == null)
-                    return;
+                level = level > 0 ? 1 : 0;
 
                 try
                 {
-                    var owner = _characterTraitsField.GetValue(co);
-                    if (owner == null)
+                    if (co.IsHero)
+                    {
+                        co.HeroObject?.SetTraitLevel(navalTrait, level);
+                        return;
+                    }
+
+                    // No static FieldInfo/MethodInfo; resolve fresh each time.
+                    var coType = typeof(CharacterObject);
+                    var traitsField = coType.GetField(
+                        "_characterTraits",
+                        BindingFlags.Instance | BindingFlags.NonPublic
+                    );
+
+                    if (traitsField == null)
                         return;
 
-                    _setPropertyValueMethod.Invoke(owner, [navalTrait, level]);
+                    var owner = traitsField.GetValue(co);
+                    if (owner == null)
+                    {
+                        // Ensure a PropertyOwner<TraitObject> exists.
+                        var ownerType = traitsField.FieldType;
+                        owner = Activator.CreateInstance(ownerType);
+                        traitsField.SetValue(co, owner);
+                    }
+
+                    var setMethod = owner
+                        .GetType()
+                        .GetMethod(
+                            "SetPropertyValue",
+                            BindingFlags.Instance | BindingFlags.Public,
+                            binder: null,
+                            types: [typeof(TraitObject), typeof(int)],
+                            modifiers: null
+                        );
+
+                    setMethod?.Invoke(owner, [navalTrait, level]);
                 }
                 catch
                 {
-                    // swallow; this is best-effort
+                    // best-effort; Naval DLC is optional
                 }
             }
         }
