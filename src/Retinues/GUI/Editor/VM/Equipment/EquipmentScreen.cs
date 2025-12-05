@@ -412,7 +412,7 @@ namespace Retinues.GUI.Editor.VM.Equipment
         }
 
         [DataSourceProperty]
-        public bool ShowSetControls => true; // used to hide controls with Shokuho
+        public bool ShowSetControls => ClanScreen.IsStudioMode == false;
 
         [DataSourceProperty]
         public bool CanCreateSet => !State.Troop.IsHero;
