@@ -31,10 +31,11 @@ namespace Retinues.Editor.VM
             get => _id;
             set
             {
-                if (value == _id)
-                    return;
-                _id = value;
-                OnPropertyChanged(nameof(Id));
+                if (value != _id)
+                {
+                    _id = value;
+                    OnPropertyChanged(nameof(Id));
+                }
             }
         }
 
@@ -44,10 +45,11 @@ namespace Retinues.Editor.VM
             get => _name;
             set
             {
-                if (value == _name)
-                    return;
-                _name = value;
-                OnPropertyChanged(nameof(Name));
+                if (value != _name)
+                {
+                    _name = value;
+                    OnPropertyChanged(nameof(Name));
+                }
             }
         }
 
@@ -57,12 +59,18 @@ namespace Retinues.Editor.VM
             get => _isExpanded;
             set
             {
-                if (value == _isExpanded)
-                    return;
-                _isExpanded = value;
-                OnPropertyChanged(nameof(IsExpanded));
+                if (value != _isExpanded)
+                {
+                    _isExpanded = value;
+                    OnPropertyChanged(nameof(IsExpanded));
+                    OnPropertyChanged(nameof(ArrowText));
+                    OnPropertyChanged(nameof(MarginBottom));
+                }
             }
         }
+
+        [DataSourceProperty]
+        public int MarginBottom => _isExpanded ? 0 : 3;
 
         [DataSourceProperty]
         public MBBindingList<ListElementVM> Elements
@@ -70,31 +78,31 @@ namespace Retinues.Editor.VM
             get => _elements;
             set
             {
-                if (value == _elements)
-                    return;
-                _elements = value;
-                OnPropertyChanged(nameof(Elements));
-                OnPropertyChanged(nameof(ElementCountText));
+                if (value != _elements)
+                {
+                    _elements = value;
+                    OnPropertyChanged(nameof(Elements));
+                    OnPropertyChanged(nameof(ElementCountText));
+                }
             }
         }
 
+        // ▼ when expanded, ▶ when collapsed
+        [DataSourceProperty]
+        public string ArrowText => _isExpanded ? "▼" : "▶";
+
         // "(N)" where N is number of elements
         [DataSourceProperty]
-        public string ElementCountText
-        {
-            get
-            {
-                var count = _elements?.Count ?? 0;
-                return $"({count})";
-            }
-        }
+        public string ElementCountText => $"({_elements?.Count ?? 0})";
 
         public ListElementVM AddElement(string id, string label)
         {
             var element = new ListElementVM(this, id, label);
             _elements.Add(element);
+
             OnPropertyChanged(nameof(Elements));
             OnPropertyChanged(nameof(ElementCountText));
+
             return element;
         }
 
@@ -103,7 +111,9 @@ namespace Retinues.Editor.VM
             foreach (var element in _elements)
             {
                 if (!ReferenceEquals(element, keep))
+                {
                     element.IsSelected = false;
+                }
             }
         }
 
@@ -118,19 +128,21 @@ namespace Retinues.Editor.VM
             base.RefreshValues();
 
             foreach (var element in _elements)
+            {
                 element.RefreshValues();
+            }
 
             OnPropertyChanged(nameof(ElementCountText));
         }
 
         public void SortElementsByLabel(bool ascending)
         {
-            if (_elements == null || _elements.Count <= 1)
+            if (_elements.Count <= 1)
                 return;
 
             var sorted = ascending
-                ? _elements.OrderBy(e => e.Label)
-                : _elements.OrderByDescending(e => e.Label);
+                ? new EnumerableQuery<ListElementVM>(_elements).OrderBy(e => e.Label)
+                : new EnumerableQuery<ListElementVM>(_elements).OrderByDescending(e => e.Label);
 
             _elements = [.. sorted];
             OnPropertyChanged(nameof(Elements));

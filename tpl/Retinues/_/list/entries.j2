@@ -67,23 +67,23 @@
     RenderLate="true"
     HorizontalAlignment="Left"
     VerticalAlignment="Top"
+    MarginBottom="@MarginBottom"
 
     Command.Click="ExecuteToggle"
     WidgetToClose="..\ElementsList"
-    CollapseIndicator="HeaderCollapser\HeaderCollapseIndicator"
-
-    MarginTop="0"
-    MarginBottom="-2">
+    CollapseIndicator="HeaderCollapser\HeaderCollapseIndicator">
   <Children>
 
     <ListPanel
         Id="HeaderCollapser"
         WidthSizePolicy="CoverChildren"
-        HeightSizePolicy="StretchToParent"
+        HeightSizePolicy="CoverChildren"
         HorizontalAlignment="Center"
+        VerticalAlignment="Center"
         StackLayout.LayoutMethod="HorizontalLeftToRight">
       <Children>
 
+        <!-- Arrow sprite – Fiefs-style offsets -->
         <BrushWidget
             Id="HeaderCollapseIndicator"
             WidthSizePolicy="Fixed"
@@ -91,9 +91,11 @@
             SuggestedWidth="!Party.Toggle.ExpandIndicator.Width"
             SuggestedHeight="!Party.Toggle.ExpandIndicator.Height"
             VerticalAlignment="Center"
-            MarginRight="6"
+            PositionYOffset="-2"
+            MarginRight="5"
             Brush="Party.Toggle.ExpandIndicator" />
 
+        <!-- Header label -->
         <TextWidget
             Id="HeaderName"
             WidthSizePolicy="CoverChildren"
@@ -102,6 +104,7 @@
             Brush="Clan.Management.Collapser.Text"
             Text="@Name" />
 
+        <!-- Count, same brush as name -->
         <TextWidget
             Id="HeaderCount"
             WidthSizePolicy="CoverChildren"
@@ -116,6 +119,7 @@
 
   </Children>
 </PartyHeaderToggleWidget>
+
 
 
 </Children>
