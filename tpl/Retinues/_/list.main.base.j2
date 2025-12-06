@@ -1,0 +1,66 @@
+<ListPanel 
+    WidthSizePolicy="CoverChildren"
+    HeightSizePolicy="StretchToParent">
+    <Children>
+        <ScrollablePanel 
+            Id="EditorScrollablePanel"
+            WidthSizePolicy="CoverChildren"
+            HeightSizePolicy="StretchToParent"
+            MinWidth="!Clan.Management.Collapser.Width"
+            AutoHideScrollBars="true"
+            ClipRect="EditorRect"
+            InnerPanel="EditorRect\EditorListPanel"
+            MouseScrollAxis="Vertical"
+            MarginLeft="3"
+            MarginBottom="3"
+            VerticalScrollbar="..\EditorScrollbar\Scrollbar">
+
+            <Children>
+
+                {# 1) Navigation / inner content first #}
+                <NavigationScopeTargeter 
+                    ScopeID="EditorScope"
+                    ScopeParent=".\EditorRect"
+                    ScopeMovements="Vertical"
+                    IsDefaultNavigationScope="true"
+                    DoNotAutoNavigateAfterSort="true"/>
+
+                <Widget 
+                    Id="EditorRect"
+                    WidthSizePolicy="CoverChildren"
+                    HeightSizePolicy="StretchToParent"
+                    ClipContents="true">
+                    <Children>
+
+                        <NavigatableListPanel 
+                            MarginTop="65"
+                            Id="EditorListPanel"
+                            DataSource="{Headers}"
+                            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" 
+                            StackLayout.LayoutMethod="VerticalTopToBottom"
+                            UseSelfIndexForMinimum="true">
+                            <ItemTemplate>
+                                {% include "_/list.entries.j2" %}
+                            </ItemTemplate>
+                        </NavigatableListPanel>
+
+                    </Children>
+                </Widget>
+
+                {# 2) Filters last #}
+                {% include "_/list.main.filter.j2" %}
+
+            </Children>
+        </ScrollablePanel>
+
+
+        <Standard.VerticalScrollbar 
+            Id="EditorScrollbar"
+            HeightSizePolicy="StretchToParent"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            MarginLeft="2"
+            MarginRight="2"
+            MarginBottom="3"/>
+    </Children>
+</ListPanel>

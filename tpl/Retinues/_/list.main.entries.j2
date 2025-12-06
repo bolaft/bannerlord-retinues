@@ -1,0 +1,42 @@
+<ListPanel
+    WidthSizePolicy="CoverChildren"
+    HeightSizePolicy="CoverChildren"
+    StackLayout.LayoutMethod="VerticalTopToBottom">
+    <Children>
+
+        {# Rows under this header #}
+        <ListPanel
+            Id="ElementsList"
+            DataSource="{Elements}"
+            WidthSizePolicy="CoverChildren"
+            HeightSizePolicy="CoverChildren"
+            IsVisible="@IsExpanded"
+            StackLayout.LayoutMethod="VerticalBottomToTop">
+
+            <ItemTemplate>
+                <ButtonWidget 
+                    IsSelected="@IsSelected"
+                    IsEnabled="@IsEnabled"
+                    DoNotPassEventsToChildren="true"
+                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" 
+                    SuggestedHeight="68"
+                    SuggestedWidth="!Clan.Management.Collapser.Width" 
+                    Brush="Clan.Item.Tuple" 
+                    Command.Click="ExecuteSelect" 
+                    UpdateChildrenStates="true">
+                    <Children>
+
+                        {# Per-type row contents #}
+                        {% include "_/list.main.entries.row.character.j2" %}
+
+                    </Children>
+                </ButtonWidget>
+            </ItemTemplate>
+
+        </ListPanel>
+
+        {# Header toggle #}
+        {% include "_/list.main.entries.toggle.j2" %}
+
+    </Children>
+</ListPanel>

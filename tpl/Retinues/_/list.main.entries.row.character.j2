@@ -1,0 +1,28 @@
+<Widget
+    WidthSizePolicy="StretchToParent"
+    HeightSizePolicy="StretchToParent"
+    MarginLeft="10"
+    DoNotAcceptEvents="true"
+    IsVisible="@IsCharacter">
+    <Children>
+
+        <ListPanel
+            WidthSizePolicy="CoverChildren"
+            HeightSizePolicy="StretchToParent"
+            HorizontalAlignment="Left"
+            DoNotAcceptEvents="true">
+            <Children>
+
+                {# Label #}
+                <TextWidget
+                    WidthSizePolicy="CoverChildren"
+                    HeightSizePolicy="StretchToParent"
+                    VerticalAlignment="Center"
+                    Brush="Clan.Tuple.Name.Text"
+                    Text="@Label" />
+
+            </Children>
+        </ListPanel>
+
+    </Children>
+</Widget>

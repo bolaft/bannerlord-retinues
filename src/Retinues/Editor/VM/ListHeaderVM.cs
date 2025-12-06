@@ -1,3 +1,4 @@
+using Retinues.Wrappers.Characters;
 using TaleWorlds.Library;
 
 namespace Retinues.Editor.VM
@@ -90,11 +91,11 @@ namespace Retinues.Editor.VM
         [DataSourceProperty]
         public string ElementCountText => $"({_elements?.Count ?? 0})";
 
-        public ListElementVM AddElement(string id, string label)
+        public CharacterListElementVM AddCharacter(WCharacter character)
         {
             var wasEmpty = _elements.Count == 0;
 
-            var element = new ListElementVM(this, id, label);
+            var element = new CharacterListElementVM(this, character);
             _elements.Add(element);
 
             if (wasEmpty)

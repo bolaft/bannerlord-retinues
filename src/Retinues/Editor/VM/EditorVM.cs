@@ -33,19 +33,19 @@ namespace Retinues.Editor.VM
                 var retinues = List.AddHeader("retinues", "Retinues");
                 if (faction.RootElite != null)
                     foreach (var troop in faction.RosterRetinues)
-                        retinues.AddElement(troop.StringId, troop.Name);
+                        retinues.AddCharacter(troop);
 
                 // Elite section: elite root
                 var elite = List.AddHeader("elite", "Elite");
                 if (faction.RootElite != null)
                     foreach (var troop in faction.RootElite.Tree)
-                        elite.AddElement(troop.StringId, troop.Name);
+                        elite.AddCharacter(troop);
 
                 // Regular section: basic root
                 var basic = List.AddHeader("regular", "Regular");
                 if (faction.RootBasic != null)
                     foreach (var troop in faction.RootBasic.Tree)
-                        basic.AddElement(troop.StringId, troop.Name);
+                        basic.AddCharacter(troop);
 
                 // Militia section
                 var militia = List.AddHeader("militia", "Militia");
@@ -57,7 +57,7 @@ namespace Retinues.Editor.VM
                         if (troop == null)
                             continue;
 
-                        militia.AddElement(troop.StringId, troop.Name);
+                        militia.AddCharacter(troop);
                     }
                 }
 
@@ -71,7 +71,7 @@ namespace Retinues.Editor.VM
                         if (troop == null)
                             continue;
 
-                        caravan.AddElement(troop.StringId, troop.Name);
+                        caravan.AddCharacter(troop);
                     }
                 }
 
@@ -85,7 +85,7 @@ namespace Retinues.Editor.VM
                         if (troop == null)
                             continue;
 
-                        caravan.AddElement(troop.StringId, troop.Name);
+                        caravan.AddCharacter(troop);
                     }
                 }
 
@@ -99,7 +99,7 @@ namespace Retinues.Editor.VM
                         if (troop == null)
                             continue;
 
-                        bandits.AddElement(troop.StringId, troop.Name);
+                        bandits.AddCharacter(troop);
                     }
                 }
 
@@ -114,7 +114,7 @@ namespace Retinues.Editor.VM
                         if (troop == null)
                             continue;
 
-                        civilians.AddElement(troop.StringId, troop.Name);
+                        civilians.AddCharacter(troop);
                     }
                 }
             }

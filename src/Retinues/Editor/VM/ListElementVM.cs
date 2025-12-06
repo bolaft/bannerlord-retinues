@@ -4,13 +4,20 @@ using TaleWorlds.Library;
 
 namespace Retinues.Editor.VM
 {
-    public class ListElementVM(ListHeaderVM header, string id, string label) : ViewModel
+    public abstract class ListElementVM : ViewModel
     {
-        private readonly ListHeaderVM _header = header;
+        private readonly ListHeaderVM _header;
 
-        private string _id = id;
-        private string _label = label;
+        private string _id;
+        private string _label;
         private bool _isSelected;
+
+        protected ListElementVM(ListHeaderVM header, string id, string label)
+        {
+            _header = header;
+            _id = id;
+            _label = label;
+        }
 
         internal ListHeaderVM Header => _header;
 
@@ -20,11 +27,10 @@ namespace Retinues.Editor.VM
             get => _id;
             set
             {
-                if (value != _id)
-                {
-                    _id = value;
-                    OnPropertyChanged(nameof(Id));
-                }
+                if (value == _id)
+                    return;
+                _id = value;
+                OnPropertyChanged(nameof(Id));
             }
         }
 
@@ -34,16 +40,15 @@ namespace Retinues.Editor.VM
             get => _label;
             set
             {
-                if (value != _label)
-                {
-                    _label = value;
-                    OnPropertyChanged(nameof(Label));
-                }
+                if (value == _label)
+                    return;
+                _label = value;
+                OnPropertyChanged(nameof(Label));
             }
         }
 
         [DataSourceProperty]
-        public bool IsEnabled => true;
+        public virtual bool IsEnabled => true;
 
         [DataSourceProperty]
         public bool IsSelected
@@ -51,20 +56,33 @@ namespace Retinues.Editor.VM
             get => _isSelected;
             set
             {
-                if (value != _isSelected)
-                {
-                    _isSelected = value;
-                    OnPropertyChanged(nameof(IsSelected));
-                }
+                if (value == _isSelected)
+                    return;
+                _isSelected = value;
+                OnPropertyChanged(nameof(IsSelected));
             }
         }
 
+        // -------- Type flags (default false) --------
+
+        [DataSourceProperty]
+        public virtual bool IsCharacter => false;
+
+        // --------------------------------------------
+
         [DataSourceMethod]
-        public void ExecuteSelect()
+        public virtual void ExecuteSelect()
         {
             Log.Info($"ListElementVM: Selecting element '{Id}'");
             IsSelected = true;
             _header.List.OnElementSelected(this);
+        }
+
+        // Optional hook for headers to call
+        public override void RefreshValues()
+        {
+            // Default: just push Label change; subclasses can override
+            OnPropertyChanged(nameof(Label));
         }
     }
 }
