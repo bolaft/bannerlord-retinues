@@ -1,7 +1,5 @@
 using System;
 using System.Linq;
-using Bannerlord.UIExtenderEx.Attributes;
-using Retinues.Utilities;
 using TaleWorlds.Library;
 
 namespace Retinues.Editor.VM
@@ -28,19 +26,12 @@ namespace Retinues.Editor.VM
         //        Pagination / Filter
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-        private int _currentPageIndex;
-        private int _totalPages = 1;
-        private int _pageSize = 100;
-
         private string _filterText;
 
         public ListVM()
         {
             _headers = [];
             _sortButtons = [];
-
-            _currentPageIndex = 0;
-            _totalPages = 1;
             _filterText = string.Empty;
         }
 
@@ -58,7 +49,6 @@ namespace Retinues.Editor.VM
                     return;
                 _headers = value;
                 OnPropertyChanged(nameof(Headers));
-                RecalculatePagination();
             }
         }
 
@@ -79,7 +69,6 @@ namespace Retinues.Editor.VM
         {
             var header = new ListHeaderVM(this, id, name);
             _headers.Add(header);
-            RecalculatePagination();
             return header;
         }
 
@@ -87,7 +76,6 @@ namespace Retinues.Editor.VM
         {
             _headers.Clear();
             SelectedElement = null;
-            RecalculatePagination();
         }
 
         internal void OnElementSelected(ListElementVM element)
@@ -106,8 +94,6 @@ namespace Retinues.Editor.VM
 
             foreach (var header in _headers)
                 header.Refresh();
-
-            RecalculatePagination();
         }
 
         public override void RefreshValues()
@@ -116,8 +102,6 @@ namespace Retinues.Editor.VM
 
             foreach (var header in _headers)
                 header.RefreshValues();
-
-            RecalculatePagination();
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -219,102 +203,6 @@ namespace Retinues.Editor.VM
             // Stub: actual sorting not implemented yet.
             // When you do implement sorting, this is the place to
             // reorder your headers/elements based on SortButtons state.
-        }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        //          Pagination
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-        [DataSourceProperty]
-        public string PageLabel => "Page:";
-
-        [DataSourceProperty]
-        public string PageText => $"{_currentPageIndex + 1}/{Math.Max(1, _totalPages)}";
-
-        [DataSourceProperty]
-        public bool HasPrevPage => _currentPageIndex > 0;
-
-        [DataSourceProperty]
-        public bool HasNextPage => _currentPageIndex + 1 < _totalPages;
-
-        /// <summary>
-        /// Page size used when computing total pages from current items.
-        /// This does not yet actually slice the headers/elements – it's pure state.
-        /// </summary>
-        public int PageSize
-        {
-            get => _pageSize;
-            set
-            {
-                if (value <= 0 || value == _pageSize)
-                    return;
-                _pageSize = value;
-                RecalculatePagination();
-            }
-        }
-
-        private void RecalculatePagination()
-        {
-            // For now we only compute "virtual" pagination from total row count (headers + elements).
-            var totalItems = 0;
-
-            if (_headers != null)
-            {
-                foreach (var header in _headers)
-                {
-                    if (header?.Elements != null)
-                        totalItems += header.Elements.Count;
-                }
-            }
-
-            if (totalItems <= 0)
-            {
-                _totalPages = 1;
-                _currentPageIndex = 0;
-            }
-            else
-            {
-                _totalPages = (totalItems + _pageSize - 1) / _pageSize;
-                if (_currentPageIndex < 0)
-                    _currentPageIndex = 0;
-                if (_currentPageIndex >= _totalPages)
-                    _currentPageIndex = _totalPages - 1;
-            }
-
-            OnPaginationChanged();
-        }
-
-        private void OnPaginationChanged()
-        {
-            OnPropertyChanged(nameof(PageText));
-            OnPropertyChanged(nameof(HasPrevPage));
-            OnPropertyChanged(nameof(HasNextPage));
-
-            // Later: slice visible elements based on _currentPageIndex / PageSize.
-        }
-
-        [DataSourceMethod]
-        public void ExecutePrevPage()
-        {
-            if (!HasPrevPage)
-                return;
-
-            _currentPageIndex--;
-            OnPaginationChanged();
-
-            // Stub: rows are not actually paged yet.
-        }
-
-        [DataSourceMethod]
-        public void ExecuteNextPage()
-        {
-            if (!HasNextPage)
-                return;
-
-            _currentPageIndex++;
-            OnPaginationChanged();
-
-            // Stub: rows are not actually paged yet.
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
