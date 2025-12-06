@@ -1,27 +1,15 @@
-using System.Linq;
 using TaleWorlds.Library;
 
 namespace Retinues.Editor.VM
 {
-    public class ListHeaderVM : ViewModel
+    public class ListHeaderVM(ListVM list, string id, string name) : ViewModel
     {
-        private readonly ListVM _list;
+        private readonly ListVM _list = list;
 
-        private string _id;
-        private string _name;
-        private bool _isExpanded;
-        private MBBindingList<ListElementVM> _elements;
-
-        public ListHeaderVM(ListVM list, string id, string name)
-        {
-            _list = list;
-
-            _id = id;
-            _name = name;
-            _isExpanded = true;
-
-            _elements = new MBBindingList<ListElementVM>();
-        }
+        private string _id = id;
+        private string _name = name;
+        private bool _isExpanded = true;
+        private MBBindingList<ListElementVM> _elements = [];
 
         internal ListVM List => _list;
 
@@ -63,7 +51,6 @@ namespace Retinues.Editor.VM
                 {
                     _isExpanded = value;
                     OnPropertyChanged(nameof(IsExpanded));
-                    OnPropertyChanged(nameof(ArrowText));
                     OnPropertyChanged(nameof(MarginBottom));
                 }
             }
@@ -87,11 +74,6 @@ namespace Retinues.Editor.VM
             }
         }
 
-        // ▼ when expanded, ▶ when collapsed
-        [DataSourceProperty]
-        public string ArrowText => _isExpanded ? "▼" : "▶";
-
-        // "(N)" where N is number of elements
         [DataSourceProperty]
         public string ElementCountText => $"({_elements?.Count ?? 0})";
 
@@ -132,20 +114,6 @@ namespace Retinues.Editor.VM
                 element.RefreshValues();
             }
 
-            OnPropertyChanged(nameof(ElementCountText));
-        }
-
-        public void SortElementsByLabel(bool ascending)
-        {
-            if (_elements.Count <= 1)
-                return;
-
-            var sorted = ascending
-                ? new EnumerableQuery<ListElementVM>(_elements).OrderBy(e => e.Label)
-                : new EnumerableQuery<ListElementVM>(_elements).OrderByDescending(e => e.Label);
-
-            _elements = [.. sorted];
-            OnPropertyChanged(nameof(Elements));
             OnPropertyChanged(nameof(ElementCountText));
         }
 

@@ -86,10 +86,5 @@ namespace Retinues.Editor.VM
             base.RefreshValues();
             List.RefreshValues();
         }
-
-        public void RefreshList()
-        {
-            List.Refresh();
-        }
     }
 }

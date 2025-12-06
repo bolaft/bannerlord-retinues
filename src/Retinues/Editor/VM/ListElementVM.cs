@@ -1,22 +1,15 @@
+using Bannerlord.UIExtenderEx.Attributes;
 using TaleWorlds.Library;
 
 namespace Retinues.Editor.VM
 {
-    public class ListElementVM : ViewModel
+    public class ListElementVM(ListHeaderVM header, string id, string label) : ViewModel
     {
-        private readonly ListHeaderVM _header;
+        private readonly ListHeaderVM _header = header;
 
-        private string _id;
-        private string _label;
+        private string _id = id;
+        private string _label = label;
         private bool _isSelected;
-
-        public ListElementVM(ListHeaderVM header, string id, string label)
-        {
-            _header = header;
-
-            _id = id;
-            _label = label;
-        }
 
         internal ListHeaderVM Header => _header;
 
@@ -62,7 +55,7 @@ namespace Retinues.Editor.VM
             }
         }
 
-        // Called by the row button
+        [DataSourceMethod]
         public void ExecuteSelect()
         {
             IsSelected = true;

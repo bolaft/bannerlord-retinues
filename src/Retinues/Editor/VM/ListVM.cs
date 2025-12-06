@@ -193,16 +193,12 @@ namespace Retinues.Editor.VM
                     button.ResetSortState();
             }
 
-            // Hook for future: actual sort behavior can be wired here.
-            // For now, we only update the visual state.
             OnSortChanged();
         }
 
         private void OnSortChanged()
         {
             // Stub: actual sorting not implemented yet.
-            // When you do implement sorting, this is the place to
-            // reorder your headers/elements based on SortButtons state.
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -233,7 +229,6 @@ namespace Retinues.Editor.VM
         private void ApplyFilter()
         {
             // Stub: no actual filtering yet.
-            // Later: apply FilterText to headers/elements and recalc pagination.
         }
     }
 }
