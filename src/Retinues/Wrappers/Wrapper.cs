@@ -22,6 +22,19 @@ namespace Retinues.Wrappers
     }
 
     /// <summary>
+    /// Marks a Wrapper property as a direct proxy to a member on TBase.
+    /// If MemberName is null, the wrapper property name is used.
+    /// If SetterName is provided, it will be used as the setter method on TBase.
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Property)]
+    public sealed class ReflectedAttribute(string memberName = null, string setterName = null)
+        : Attribute
+    {
+        public string MemberName { get; } = memberName;
+        public string SetterName { get; } = setterName;
+    }
+
+    /// <summary>
     /// Global registry of all wrapper types that contain persistent data.
     /// </summary>
     internal static class WrapperRegistry
@@ -51,11 +64,23 @@ namespace Retinues.Wrappers
         //                      Static state                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        private static readonly Dictionary<string, PropertyEntry> _properties;
+
         private sealed class PropertyEntry
         {
             public string Key;
             public Type ValueType;
             public IDictionary Map;
+        }
+
+        private static readonly Dictionary<string, ReflectedEntry> _reflected;
+
+        private sealed class ReflectedEntry
+        {
+            public string MemberName;
+            public MemberInfo Member;
+            public Func<TBase, object> Getter;
+            public Action<TBase, object> Setter;
         }
 
         private sealed class WrapperSyncRegistration : IWrapperSync
@@ -67,12 +92,13 @@ namespace Retinues.Wrappers
         }
 
         private static readonly Dictionary<string, TWrapper> _instances = [];
-        private static readonly Dictionary<string, PropertyEntry> _properties;
         private static readonly MethodInfo _syncDataMethod;
 
         static Wrapper()
         {
             _properties = DiscoverWrapperProperties();
+            _reflected = DiscoverReflectedProperties();
+
             _syncDataMethod = typeof(IDataStore).GetMethod("SyncData");
 
             WrapperRegistry.Register(new WrapperSyncRegistration());
@@ -104,6 +130,93 @@ namespace Retinues.Wrappers
                     Key = key,
                     ValueType = valueType,
                     Map = map,
+                };
+            }
+
+            return result;
+        }
+
+        private static Dictionary<string, ReflectedEntry> DiscoverReflectedProperties()
+        {
+            var result = new Dictionary<string, ReflectedEntry>();
+
+            var wrapperType = typeof(TWrapper);
+            var baseType = typeof(TBase);
+            var bindingFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
+
+            var props = wrapperType.GetProperties(bindingFlags);
+
+            foreach (var prop in props)
+            {
+                var attr = prop.GetCustomAttribute<ReflectedAttribute>(inherit: true);
+                if (attr == null)
+                    continue;
+
+                // Default to wrapper property name when member name is omitted.
+                var memberName = string.IsNullOrEmpty(attr.MemberName)
+                    ? prop.Name
+                    : attr.MemberName;
+
+                // Try property on TBase first, then field.
+                MemberInfo member =
+                    baseType.GetProperty(memberName, bindingFlags)
+                    ?? (MemberInfo)baseType.GetField(memberName, bindingFlags);
+
+                if (member == null)
+                {
+                    // No backing member; you might want to plug logging here.
+                    continue;
+                }
+
+                Func<TBase, object> getter = null;
+                Action<TBase, object> setter = null;
+
+                // Optional custom setter method.
+                MethodInfo customSetter = null;
+                if (!string.IsNullOrEmpty(attr.SetterName))
+                {
+                    // Expect a method on TBase: void SetterName(<wrapper property type>)
+                    customSetter = baseType.GetMethod(
+                        attr.SetterName,
+                        bindingFlags,
+                        binder: null,
+                        types: new[] { prop.PropertyType },
+                        modifiers: null
+                    );
+
+                    if (customSetter != null)
+                    {
+                        setter = (obj, value) => customSetter.Invoke(obj, new[] { value });
+                    }
+                }
+
+                if (member is PropertyInfo baseProp)
+                {
+                    if (baseProp.CanRead)
+                        getter = obj => baseProp.GetValue(obj);
+
+                    // Only use property setter if no custom setter was provided / found
+                    if (setter == null)
+                    {
+                        var setMethod = baseProp.GetSetMethod(true); // include non-public
+                        if (setMethod != null)
+                            setter = (obj, value) => baseProp.SetValue(obj, value);
+                    }
+                }
+                else if (member is FieldInfo baseField)
+                {
+                    getter = obj => baseField.GetValue(obj);
+
+                    if (setter == null)
+                        setter = (obj, value) => baseField.SetValue(obj, value);
+                }
+
+                result[prop.Name] = new ReflectedEntry
+                {
+                    MemberName = memberName,
+                    Member = member,
+                    Getter = getter,
+                    Setter = setter,
                 };
             }
 
@@ -314,6 +427,47 @@ namespace Retinues.Wrappers
                 return;
 
             entry.Map[StringId] = value;
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                  Reflected Base Access                 //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Reads a value from the underlying TBase member mapped with [Reflected].
+        /// </summary>
+        protected T GetRef<T>([CallerMemberName] string propertyName = null)
+        {
+            if (string.IsNullOrEmpty(propertyName))
+                throw new ArgumentNullException(nameof(propertyName));
+
+            EnsureInitialized();
+
+            if (!_reflected.TryGetValue(propertyName, out var entry) || entry.Getter == null)
+                return default;
+
+            var value = entry.Getter(Base);
+            if (value == null)
+                return default;
+
+            return (T)value;
+        }
+
+        /// <summary>
+        /// Writes a value to the underlying TBase member mapped with [Reflected].
+        /// Uses the custom setter method when provided.
+        /// </summary>
+        protected void SetRef<T>(T value, [CallerMemberName] string propertyName = null)
+        {
+            if (string.IsNullOrEmpty(propertyName))
+                throw new ArgumentNullException(nameof(propertyName));
+
+            EnsureInitialized();
+
+            if (!_reflected.TryGetValue(propertyName, out var entry) || entry.Setter == null)
+                return;
+
+            entry.Setter(Base, value);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

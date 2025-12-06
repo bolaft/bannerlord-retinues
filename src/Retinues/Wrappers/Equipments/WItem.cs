@@ -3,9 +3,6 @@ using TaleWorlds.Core;
 
 namespace Retinues.Wrappers.Equipments
 {
-    /// <summary>
-    /// Wrapper for ItemObject, provides helpers and persistent state.
-    /// </summary>
     public class WItem : Wrapper<WItem, ItemObject>
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

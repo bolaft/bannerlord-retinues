@@ -1,0 +1,174 @@
+using System.Collections.Generic;
+using Retinues.Wrappers.Characters;
+using TaleWorlds.ObjectSystem;
+
+namespace Retinues.Wrappers.Factions
+{
+    public abstract class Faction<TWrapper, TBase> : Wrapper<TWrapper, TBase>
+        where TWrapper : Faction<TWrapper, TBase>
+        where TBase : MBObjectBase
+    {
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Characters                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /* ━━━━━━━━ Troops ━━━━━━━━ */
+
+        public virtual WCharacter RootElite => null;
+        public virtual WCharacter RootBasic => null;
+
+        /* ━━━━━━━ Militias ━━━━━━━ */
+
+        public virtual WCharacter MeleeMilitiaTroop => null;
+        public virtual WCharacter MeleeEliteMilitiaTroop => null;
+        public virtual WCharacter RangedEliteMilitiaTroop => null;
+        public virtual WCharacter RangedMilitiaTroop => null;
+
+        public virtual WCharacter MilitiaArcher => null;
+        public virtual WCharacter MilitiaSpearman => null;
+        public virtual WCharacter MilitiaVeteranSpearman => null;
+        public virtual WCharacter MilitiaVeteranArcher => null;
+
+        /* ━━━━━━━ Caravans ━━━━━━━ */
+
+        public virtual WCharacter CaravanMaster => null;
+        public virtual WCharacter CaravanGuard => null;
+        public virtual WCharacter ArmedTrader => null;
+
+        /* ━━━━━━━ Civilians ━━━━━━ */
+
+        public virtual WCharacter TournamentMaster => null;
+        public virtual WCharacter Villager => null;
+
+        public virtual WCharacter PrisonGuard => null;
+        public virtual WCharacter Guard => null;
+
+        public virtual WCharacter Blacksmith => null;
+        public virtual WCharacter Weaponsmith => null;
+
+        public virtual WCharacter Townswoman => null;
+        public virtual WCharacter TownswomanInfant => null;
+        public virtual WCharacter TownswomanChild => null;
+        public virtual WCharacter TownswomanTeenager => null;
+
+        public virtual WCharacter VillageWoman => null;
+        public virtual WCharacter VillagerMaleChild => null;
+        public virtual WCharacter VillagerMaleTeenager => null;
+        public virtual WCharacter VillagerFemaleChild => null;
+        public virtual WCharacter VillagerFemaleTeenager => null;
+
+        public virtual WCharacter Townsman => null;
+        public virtual WCharacter TownsmanInfant => null;
+        public virtual WCharacter TownsmanChild => null;
+        public virtual WCharacter TownsmanTeenager => null;
+
+        public virtual WCharacter RansomBroker => null;
+        public virtual WCharacter GangleaderBodyguard => null;
+        public virtual WCharacter MerchantNotary => null;
+        public virtual WCharacter ArtisanNotary => null;
+        public virtual WCharacter PreacherNotary => null;
+        public virtual WCharacter RuralNotableNotary => null;
+        public virtual WCharacter ShopWorker => null;
+
+        public virtual WCharacter Tavernkeeper => null;
+        public virtual WCharacter TavernGamehost => null;
+        public virtual WCharacter Musician => null;
+        public virtual WCharacter TavernWench => null;
+
+        public virtual WCharacter Armorer => null;
+        public virtual WCharacter HorseMerchant => null;
+        public virtual WCharacter Barber => null;
+        public virtual WCharacter Merchant => null;
+        public virtual WCharacter Beggar => null;
+        public virtual WCharacter FemaleBeggar => null;
+        public virtual WCharacter FemaleDancer => null;
+
+        public virtual WCharacter Steward => null;
+        public virtual WCharacter Shipwright => null;
+
+        /* ━━━━━━━━ Bandits ━━━━━━━ */
+
+        public virtual WCharacter BanditChief => null;
+        public virtual WCharacter BanditRaider => null;
+        public virtual WCharacter BanditBandit => null;
+        public virtual WCharacter BanditBoss => null;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Rosters                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        protected static List<WCharacter> Collect(params WCharacter[] characters)
+        {
+            var list = new List<WCharacter>(characters.Length);
+            for (int i = 0; i < characters.Length; i++)
+            {
+                var c = characters[i];
+                if (c != null)
+                    list.Add(c);
+            }
+
+            return list;
+        }
+
+        public virtual List<WCharacter> RosterMilitia =>
+            Collect(
+                MeleeMilitiaTroop,
+                MeleeEliteMilitiaTroop,
+                RangedMilitiaTroop,
+                RangedEliteMilitiaTroop,
+                MilitiaArcher,
+                MilitiaSpearman,
+                MilitiaVeteranSpearman,
+                MilitiaVeteranArcher
+            );
+
+        public virtual List<WCharacter> RosterCaravan =>
+            Collect(CaravanMaster, CaravanGuard, ArmedTrader);
+
+        public virtual List<WCharacter> RosterCivilian =>
+            Collect(
+                TournamentMaster,
+                Villager,
+                PrisonGuard,
+                Guard,
+                Blacksmith,
+                Weaponsmith,
+                Townswoman,
+                TownswomanInfant,
+                TownswomanChild,
+                TownswomanTeenager,
+                VillageWoman,
+                VillagerMaleChild,
+                VillagerMaleTeenager,
+                VillagerFemaleChild,
+                VillagerFemaleTeenager,
+                Townsman,
+                TownsmanInfant,
+                TownsmanChild,
+                TownsmanTeenager,
+                RansomBroker,
+                GangleaderBodyguard,
+                MerchantNotary,
+                ArtisanNotary,
+                PreacherNotary,
+                RuralNotableNotary,
+                ShopWorker,
+                Tavernkeeper,
+                TavernGamehost,
+                Musician,
+                TavernWench,
+                Armorer,
+                HorseMerchant,
+                Barber,
+                Merchant,
+                Beggar,
+                FemaleBeggar,
+                FemaleDancer,
+                Steward,
+                Shipwright
+            );
+
+        public virtual List<WCharacter> RosterBandit =>
+            Collect(BanditChief, BanditRaider, BanditBandit, BanditBoss);
+    }
+}
