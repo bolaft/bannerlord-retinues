@@ -1,0 +1,72 @@
+{#────────────────────────────────────────────────────────────
+  Editor List – Scrollable Entries
+────────────────────────────────────────────────────────────#}
+
+<ListPanel 
+    WidthSizePolicy="CoverChildren"
+    HeightSizePolicy="StretchToParent">
+  <Children>
+
+    <ScrollablePanel 
+        Id="EditorScrollablePanel"
+        WidthSizePolicy="CoverChildren"
+        HeightSizePolicy="StretchToParent"
+        MinWidth="!Clan.Management.Collapser.Width"
+        AutoHideScrollBars="true"
+        ClipRect="EditorRect"
+        InnerPanel="EditorRect\EditorListPanel"
+        MouseScrollAxis="Vertical"
+        MarginLeft="3"
+        MarginBottom="3"
+        VerticalScrollbar="..\EditorScrollbar\Scrollbar">
+
+      <Children>
+
+        {# optional: pagination inside scroll; you already had this #}
+        {% include "_/list/pagination.j2" %}
+
+        <NavigationScopeTargeter 
+            ScopeID="EditorScope"
+            ScopeParent=".\EditorRect"
+            ScopeMovements="Vertical"
+            IsDefaultNavigationScope="true"
+            DoNotAutoNavigateAfterSort="true"/>
+
+        <Widget 
+            Id="EditorRect"
+            WidthSizePolicy="CoverChildren"
+            HeightSizePolicy="StretchToParent"
+            ClipContents="true">
+          <Children>
+
+            {# Single root list for headers #}
+<NavigatableListPanel 
+    MarginTop="56"
+    Id="EditorListPanel"
+    DataSource="{Headers}"
+    WidthSizePolicy="CoverChildren"
+    HeightSizePolicy="CoverChildren"
+    StackLayout.LayoutMethod="VerticalTopToBottom"
+    UseSelfIndexForMinimum="true">
+  <ItemTemplate>
+    {% include "_/list/entries.j2" %}
+  </ItemTemplate>
+</NavigatableListPanel>
+
+
+          </Children>
+        </Widget>
+
+      </Children>
+    </ScrollablePanel>
+
+    <Standard.VerticalScrollbar 
+        Id="EditorScrollbar"
+        HeightSizePolicy="StretchToParent"
+        HorizontalAlignment="Right"
+        VerticalAlignment="Bottom"
+        MarginLeft="2"
+        MarginRight="2"
+        MarginBottom="3"/>
+  </Children>
+</ListPanel>

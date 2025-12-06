@@ -1,0 +1,34 @@
+<!-- ━━━━━━━━━━━━━━━━━━━━━ -->
+<!--     Culture Block     -->
+<!-- ━━━━━━━━━━━━━━━━━━━━━ -->
+
+<!-- Captain Header -->
+{{ text.header("@CaptainHeaderText", is_visible="@IsCaptain") }}
+
+<!-- Captain Block -->
+<ListPanel
+    IsVisible="@IsCaptain"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    HorizontalAlignment="Center"
+    StackLayout.LayoutMethod="VerticalBottomToTop"
+    UpdateChildrenStates="true">
+    <Children>
+
+        <!-- Captain Text 1 -->
+        {{ text.base(
+            text="@CaptainText1",
+            brush="InventoryGoldFontBrush",
+            font_size="22",
+            font_color="#F4E1C4FF"
+        ) }}
+
+        <!-- Captain Text 2 -->
+        {{ text.base(
+            text="@CaptainText2",
+            brush="InventoryGoldFontBrush",
+            font_size="22",
+            font_color="#F4E1C4FF"
+        ) }}
+
+    </Children>
+</ListPanel>

@@ -1,0 +1,95 @@
+<!-- ━━━━━━━━━━━━━━━━━━━━━ -->
+<!--     Customization     -->
+<!-- ━━━━━━━━━━━━━━━━━━━━━ -->
+
+{# Control Row Macro #}
+{% macro control_row(sprite, hint, prev_command, next_command) -%}
+    <ListPanel
+        IsVisible="@ShowCustomization"
+        WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+        MarginTop="10"
+        StackLayout.LayoutMethod="HorizontalLeftToRight">
+        <Children>
+
+            {{ button.chevron_l(prev_command, size="20", hint=hint) }}
+
+            {# Background Sprite #}
+            <SpriteWidget
+                WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                SuggestedWidth="30" SuggestedHeight="30"
+                Sprite="Clan\clan_portrait_shadow"
+                MarginLeft="2" MarginRight="2"
+                HorizontalAlignment="Center" VerticalAlignment="Top" >
+                <Children>
+
+                    {# Inner Sprite #}
+                    <SpriteWidget
+                        WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                        SuggestedWidth="30" SuggestedHeight="30"
+                        Color="#c7c3c3ff"
+                        Sprite="{{ sprite }}"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Top">
+                        <Children>
+                            <HintWidget
+                                DataSource="{{ hint }}"
+                                Command.HoverBegin="ExecuteBeginHint"
+                                Command.HoverEnd="ExecuteEndHint"/>
+                        </Children>
+                    </SpriteWidget>
+
+                </Children>
+            </SpriteWidget>
+
+            {{ button.chevron_r(next_command, size="20", hint=hint) }}
+
+        </Children>
+    </ListPanel>
+{%- endmacro %}
+
+{# Control Container Macro #}
+{% macro control_container(contains_controls) -%}
+    <ListPanel
+        DataSource="{TroopScreen}"
+        {% if contains_controls %}
+            IsVisible="@CustomizationIsEnabled"
+        {% else %}
+            IsHidden="@CustomizationIsEnabled"
+        {% endif %}
+        WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+        MarginBottom="160" MarginRight="280"
+        StackLayout.LayoutMethod="VerticalBottomToTop"
+        HorizontalAlignment="Center" VerticalAlignment="Bottom">
+        <Children>
+
+            {{ button.sprite(
+                command="ExecuteChangeGender",
+                sprite="@GenderIcon",
+                hint="{GenderToggleHint}",
+                color="#c7ac85ff",
+                width="40", height="40"
+            ) }}
+
+            {% if contains_controls %}
+                {{ control_row("SPPerks\\TradeRapidDevelopment", "{AgeHint}", "ExecutePrevAgePreset", "ExecuteNextAgePreset") }}
+                {{ control_row("SPPerks\\AthleticsDurable", "{HeightHint}", "ExecutePrevHeightPreset", "ExecuteNextHeightPreset") }}
+                {{ control_row("SPPerks\\AthleticsFormFittingArmor", "{WeightHint}", "ExecutePrevWeightPreset", "ExecuteNextWeightPreset") }}
+                {{ control_row("SPPerks\\AthleticsStrongArms", "{BuildHint}", "ExecutePrevBuildPreset", "ExecuteNextBuildPreset") }}
+
+                {{ button.brush(
+                    command="ExecuteToggleCustomization",
+                    brush="SPClan.Members.RecallIcon",
+                    hint="{CustomizationHint}",
+                    width="60", height="60"
+                ) }}
+            {% endif %}
+
+        </Children>
+    </ListPanel>
+{%- endmacro %}
+
+<!-- Customization Panel -->
+{{ control_container(true) }}
+
+<!-- Customization Panel (Disabled) -->
+{{ control_container(false) }}

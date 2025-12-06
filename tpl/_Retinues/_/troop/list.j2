@@ -1,0 +1,103 @@
+<!-- ━━━━━━━━━━━━━━━━━━━━━ -->
+<!--       Troop List      -->
+<!-- ━━━━━━━━━━━━━━━━━━━━━ -->
+
+{% call list.container("{TroopScreen}") %}
+
+    <!-- Filter Row -->
+    {% call list.sort_header_buttons("{TroopList}") %}
+
+        <!-- Search Filter -->
+        {{ list.search_filter() }}
+
+        <!-- Cap Header Area -->
+        {{ list.sort_header_sprite() }}
+
+    {% endcall %}
+
+    <!-- List Panel -->
+    {% call list.panel("{TroopList}", "TroopList") %}
+    
+        <!-- Hero Header -->
+        {{ list.header_toggle("TroopList", "Hero", "@HeroToggleText", is_visible="@ShowHeroesList") }}
+
+        <!-- Hero List -->
+        {% call list.rows("{Heroes}", "Hero") %}
+            {% include "_/troop/row.j2" %}
+        {% endcall %}
+
+        <!-- Retinue Header -->
+        {{ list.header_toggle("TroopList", "Retinue", "@RetinueToggleText", is_visible="@ShowRetinueList") }}
+
+        <!-- Retinue List -->
+        {% call list.rows("{RetinueTroops}", "Retinue") %}
+            {% include "_/troop/row.j2" %}
+        {% endcall %}
+
+        <!-- Elite Header -->
+        {{ list.header_toggle("TroopList", "Elite", "@EliteToggleText", is_visible="@ShowEliteList") }}
+
+        <!-- Elite List -->
+        {% call list.rows("{EliteTroops}", "Elite") %}
+            {% include "_/troop/row.j2" %}
+        {% endcall %}
+
+        <!-- Regular Header -->
+        {{ list.header_toggle("TroopList", "Regular", "@RegularToggleText", is_visible="@ShowBasicList") }}
+
+        <!-- Regular List -->
+        {% call list.rows("{BasicTroops}", "Regular") %}
+            {% include "_/troop/row.j2" %}
+        {% endcall %}
+
+        <!-- Militia Header -->
+        {{ list.header_toggle("TroopList", "Militia", "@MilitiaToggleText", is_visible="@ShowMilitiaList") }}
+
+        <!-- Militia List -->
+        {% call list.rows("{MilitiaTroops}", "Militia") %}
+            {% include "_/troop/row.j2" %}
+        {% endcall %}
+
+        <!-- Caravan Header -->
+        {{ list.header_toggle("TroopList", "Caravan", "@CaravanToggleText", is_visible="@ShowCaravanList") }}
+
+        <!-- Caravan List -->
+        {% call list.rows("{CaravanTroops}", "Caravan") %}
+            {% include "_/troop/row.j2" %}
+        {% endcall %}
+
+        <!-- Villager Header -->
+        {{ list.header_toggle("TroopList", "Villager", "@VillagerToggleText", is_visible="@ShowVillagerList") }}
+
+        <!-- Villager List -->
+        {% call list.rows("{VillagerTroops}", "Villager") %}
+            {% include "_/troop/row.j2" %}
+        {% endcall %}
+
+        <!-- Mercenary Header -->
+        {{ list.header_toggle("TroopList", "Mercenary", "@MercenaryToggleText", is_visible="@ShowMercenaryList") }}
+
+        <!-- Mercenary List -->
+        {% call list.rows("{MercenaryTroops}", "Mercenary") %}
+            {% include "_/troop/row.j2" %}
+        {% endcall %}
+
+        <!-- Bandit Header -->
+        {{ list.header_toggle("TroopList", "Bandit", "@BanditToggleText", is_visible="@ShowBanditList") }}
+
+        <!-- Bandit List -->
+        {% call list.rows("{BanditTroops}", "Bandit") %}
+            {% include "_/troop/row.j2" %}
+        {% endcall %}
+
+        <!-- Civilian Header -->
+        {{ list.header_toggle("TroopList", "Civilian", "@CivilianToggleText", is_visible="@ShowCivilianList") }}
+
+        <!-- Civilian List -->
+        {% call list.rows("{CivilianTroops}", "Civilian") %}
+            {% include "_/troop/row.j2" %}
+        {% endcall %}
+
+    {% endcall %}
+
+{% endcall %}

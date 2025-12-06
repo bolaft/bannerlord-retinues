@@ -1,0 +1,24 @@
+{#────────────────────────────────────────────────────────────
+  Editor List – Main Frame
+  Root container for the editor's left list. It:
+  - Binds to {List} (ListVM),
+  - Shows sort buttons row,
+  - Shows pagination + filter row,
+  - Shows the scrollable headers/rows with a scrollbar.
+────────────────────────────────────────────────────────────#}
+
+<BrushListPanel
+    DataSource="{List}"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="StretchToParent"
+    VerticalAlignment="Bottom"
+    MarginTop="6" MarginBottom="9" MarginLeft="17"
+    Brush="Frame1Brush"
+    StackLayout.LayoutMethod="VerticalBottomToTop">
+
+  <Children>
+
+    {% include "_/list/sort.j2" %}
+    {% include "_/list/scrollable.j2" %}
+
+  </Children>
+</BrushListPanel>

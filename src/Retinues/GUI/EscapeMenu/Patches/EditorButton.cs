@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using HarmonyLib;
+using Retinues.GUI.ClanScreen;
 using Retinues.Utilities;
 using TaleWorlds.Localization;
 using TaleWorlds.MountAndBlade.ViewModelCollection.EscapeMenu;
@@ -44,8 +45,8 @@ namespace Retinues.GUI.EscapeMenu.Patches
                         // Trigger the exact same path vanilla uses to close the ESC menu
                         resume?.ExecuteAction();
 
-                        // Launch Studio right after resuming
-                        // ClanScreen.LaunchEditor();
+                        // Launch right after resuming
+                        ClanScreenMixin.Launch();
                     }
                     catch (Exception e)
                     {

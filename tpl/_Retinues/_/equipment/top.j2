@@ -1,0 +1,356 @@
+<!-- ━━━━━━━━━━━━━━━━━━━━━ -->
+<!--   Equipment Top Bar   -->
+<!-- ━━━━━━━━━━━━━━━━━━━━━ -->
+
+
+<!-- Show Civilian -->
+<ListPanel
+    DataSource="{EquipmentScreen}"
+    IsVisible="@IsVisible"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed"
+    SuggestedHeight="32"
+    MarginTop="0" MarginLeft="55"
+    HorizontalAlignment="Left">
+    <Children>
+
+        <!-- Civilian Icon -->
+        {{ image.sprite(
+            sprite="SPGeneral\MapOverlay\Settlement\icon_militia_big",
+            color="#f8eed1ff",
+            width="28", height="28"
+        ) }}
+
+        <!-- Show Civilian Checkbox -->
+        {{ button.checkbox(
+            is_selected="@EditCivilianSets",
+            size="24",
+            hint="{CivilianHint}"
+        )}}
+
+    </Children>
+</ListPanel>
+
+<!-- Show Crafted -->
+<ListPanel
+    DataSource="{EquipmentScreen}"
+    IsVisible="@IsVisible"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed"
+    SuggestedHeight="32"
+    MarginTop="35" MarginLeft="55"
+    HorizontalAlignment="Left">
+    <Children>
+
+        <!-- Crafted Icon -->
+        {{ image.sprite(
+            sprite="General\Mission\smithy",
+            color="#ecc57cff",
+            width="18", height="18",
+            margin_right="5", margin_left="5"
+        ) }}
+
+        <!-- Crafted Checkbox -->
+        {{ button.checkbox(
+            command="ExecuteToggleShowCrafted",
+            is_selected="@ShowCrafted",
+            size="24",
+            is_enabled="@CanShowCrafted",
+            hint="{ShowCraftedHint}"
+        )}}
+
+    </Children>
+</ListPanel>
+
+<!-- Gender Override -->
+<ListPanel
+    DataSource="{EquipmentScreen}"
+    IsVisible="@ShowEquipmentCheckboxes"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed"
+    SuggestedHeight="32"
+    MarginTop="70" MarginLeft="55"
+    HorizontalAlignment="Left">
+    <Children>
+
+        <!-- Gender Override Icon -->
+        {{ image.sprite(
+            sprite="@GenderOverrideIcon",
+            color="#f1d7a5ff",
+            width="18", height="18",
+            margin_right="5", margin_left="5"
+        ) }}
+
+        <!-- Gender Override Checkbox -->
+        {{ button.checkbox(
+            command="ExecuteToggleGenderOverride",
+            is_selected="@SetHasGenderOverride",
+            size="24",
+            hint="{GenderOverrideHint}"
+        )}}
+
+    </Children>
+</ListPanel>
+
+<!-- Preview Mode -->
+<ListPanel
+    DataSource="{EquipmentScreen}"
+    IsVisible="@ShowEquipmentCheckboxes"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed"
+    SuggestedHeight="32"
+    MarginTop="105" MarginLeft="55"
+    HorizontalAlignment="Left">
+    <Children>
+
+        <!-- Preview Mode Icon -->
+        {{ image.sprite(
+            sprite="@PreviewModeIcon",
+            color="#f1d7a5ff",
+            width="28", height="28",
+        ) }}
+
+        <!-- Preview Mode Checkbox -->
+        {{ button.checkbox(
+            command="ExecuteTogglePreviewMode",
+            is_selected="@InPreviewMode",
+            size="24",
+            hint="{PreviewModeHint}"
+        )}}
+
+    </Children>
+</ListPanel>
+
+<ListPanel
+    DataSource="{EquipmentScreen}"
+    IsVisible="@IsVisible"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    StackLayout.LayoutMethod="VerticalBottomToTop"
+    HorizontalAlignment="Center" VerticalAlignment="Top">
+    <Children>
+
+        <!-- Unequip All Button -->
+        {{ button.text(
+            text="@UnequipAllButtonText",
+            command="ExecuteUnequipAll",
+            is_hidden="@CanUnstage",
+            is_enabled="@CanUnequip",
+            brush="Popup.Delete.Button",
+        ) }}
+
+        <!-- Unstage All Button -->
+        {{ button.text(
+            text="@UnstageAllButtonText",
+            command="ExecuteUnstageAll",
+            is_visible="@CanUnstage",
+            brush="Popup.Delete.Button",
+        ) }}
+
+        <!-- Prev / Next Set -->
+        <ListPanel
+            WidthSizePolicy="CoverChildren"
+            HeightSizePolicy="CoverChildren"
+            StackLayout.LayoutMethod="HorizontalLeftToRight"
+            HorizontalAlignment="Center">
+            <Children>
+
+                <!-- Remove Set Button -->
+                {{ button.brush(
+                    command="ExecuteRemoveSet",
+                    brush="Inventory.Tuple.Extension.MinusButton",
+                    height="36", width="36",
+                    is_enabled="@CanRemoveSet",
+                    hint="{RemoveSetHint}"
+                ) }}
+
+                {{ button.chevron_l("ExecutePrevSet", size="24", is_enabled="@CanSelectPrevSet") }}
+
+                <!-- Copy Icon -->
+                {{ button.sprite(
+                    command="ExecuteCopyEquipment",
+                    command_hover_begin="ExecuteBeginHoverCopyIcon",
+                    command_hover_end="ExecuteEndHoverCopyIcon",
+                    sprite="General\Icons\copy_item_icon",
+                    color="@CopyEquipmentIconColor",
+                    width="20", height="20",
+                    margin_left="8",
+                    hint="{CopyEquipmentHint}"
+                ) }}
+
+                {{ text.base(text="@EquipmentName", margin_left="8", margin_right="8") }}
+
+                <!-- Paste Icon -->
+                {{ button.sprite(
+                    command="ExecutePasteEquipment",
+                    command_hover_begin="ExecuteBeginHoverPasteIcon",
+                    command_hover_end="ExecuteEndHoverPasteIcon",
+                    sprite="General\Icons\\add_icon",
+                    color="@PasteEquipmentIconColor",
+                    width="20", height="20",
+                    margin_right="8",
+                    hint="{PasteEquipmentHint}"
+                ) }}
+
+                {{ button.chevron_r("ExecuteNextSet", size="24", is_enabled="@CanSelectNextSet") }}
+
+                <!-- Create Set Button -->
+                {{ button.brush(
+                    command="ExecuteCreateSet",
+                    brush="Inventory.Tuple.Extension.PlusButton",
+                    height="36", width="36",
+                    is_enabled="@CanCreateSet",
+                    hint="{CreateSetHint}"
+                ) }}
+
+            </Children>
+        </ListPanel>
+
+        <!-- Set Toggles -->
+        <ListPanel
+            IsVisible="@ShowSetControls"
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            HorizontalAlignment="Center"
+            MarginTop="4"
+            StackLayout.LayoutMethod="HorizontalLeftToRight">
+            <Children>
+
+                <!-- Field Battle -->
+                <ListPanel
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed"
+                    SuggestedHeight="32"
+                    HorizontalAlignment="Center">
+                    <Children>
+
+                        <!-- Field Battle Icon -->
+                        {{ image.sprite(
+                            sprite="SPGeneral\MapOverlay\Settlement\icon_garrison_big",
+                            width="32", height="32"
+                        ) }}
+
+                        <!-- Field Battle Checkbox -->
+                        {{ button.checkbox(
+                            command="ExecuteToggleEnableSetForFieldBattle",
+                            is_selected="@SetIsEnabledForFieldBattle",
+                            is_enabled="@CanToggleEnableForFieldBattle",
+                            size="24",
+                            hint="{FieldBattleHint}"
+                        )}}
+
+                    </Children>
+                </ListPanel>
+
+                <!-- Naval Battle -->
+                <ListPanel
+                    IsVisible="@HasNavalDLC"
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed"
+                    SuggestedHeight="32"
+                    HorizontalAlignment="Center">
+                    <Children>
+
+                        <!-- Naval Battle Icon -->
+                        {{ image.sprite(
+                            sprite="SPGeneral\MapOverlay\Settlement\icon_prosperity_big",
+                            width="32", height="32"
+                        ) }}
+
+                        <!-- Naval Battle Checkbox -->
+                        {{ button.checkbox(
+                            command="ExecuteToggleEnableSetForNavalBattle",
+                            is_selected="@SetIsEnabledForNavalBattle",
+                            is_enabled="@CanToggleEnableForNavalBattle",
+                            size="24",
+                            hint="{NavalBattleHint}"
+                        )}}
+
+                    </Children>
+                </ListPanel>
+
+                <!-- Siege Defense -->
+                <ListPanel
+                    IsHidden="@HasNavalDLC"
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed"
+                    SuggestedHeight="32"
+                    HorizontalAlignment="Center">
+                    <Children>
+
+                        <!-- Siege Defense Icon -->
+                        {{ image.sprite(
+                            sprite="SPGeneral\MapOverlay\Settlement\icon_wall_big",
+                            color="#a5bcd6ff",
+                            width="32", height="32"
+                        ) }}
+
+                        <!-- Siege Defense Checkbox -->
+                        {{ button.checkbox(
+                            command="ExecuteToggleEnableSetForSiegeDefense",
+                            is_selected="@SetIsEnabledForSiegeDefense",
+                            is_enabled="@CanToggleEnableForSiegeDefense",
+                            size="24",
+                            hint="{SiegeDefenseHint}"
+                        )}}
+
+                    </Children>
+                </ListPanel>
+
+                <!-- Siege Assault -->
+                <ListPanel
+                    IsHidden="@HasNavalDLC"
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed"
+                    SuggestedHeight="32"
+                    HorizontalAlignment="Center">
+                    <Children>
+
+                        <!-- Siege Assault Icon -->
+                        {{ image.sprite(
+                            sprite="SPGeneral\MapOverlay\Settlement\icon_wall_big",
+                            color="#dbaeaeff",
+                            width="32", height="32"
+                        ) }}
+
+                        <!-- Siege Assault Checkbox -->
+                        {{ button.checkbox(
+                            command="ExecuteToggleEnableSetForSiegeAssault",
+                            is_selected="@SetIsEnabledForSiegeAssault",
+                            is_enabled="@CanToggleEnableForSiegeAssault",
+                            size="24",
+                            hint="{SiegeAssaultHint}"
+                        )}}
+
+                    </Children>
+                </ListPanel>
+
+                <!-- Siege -->
+                <ListPanel
+                    IsVisible="@HasNavalDLC"
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed"
+                    SuggestedHeight="32"
+                    HorizontalAlignment="Center">
+                    <Children>
+
+                        <!-- Siege Icon -->
+                        {{ image.sprite(
+                            sprite="SPGeneral\MapOverlay\Settlement\icon_wall_big",
+                            width="32", height="32"
+                        ) }}
+
+                        <!-- Siege Checkbox -->
+                        {{ button.checkbox(
+                            command="ExecuteToggleEnableSetForSiege",
+                            is_selected="@SetIsEnabledForSiegeDefense",
+                            is_enabled="@CanToggleEnableForSiegeDefense",
+                            size="24",
+                            hint="{SiegeHint}"
+                        )}}
+
+                    </Children>
+                </ListPanel>
+
+            </Children>
+        </ListPanel>
+
+        <!-- Preview Mode Indicator -->
+        {{ text.base(
+            text="@PreviewModeText",
+            is_visible="@InPreviewMode",
+            horizontal_alignment="Center",
+            font_size="20",
+            margin_top="6",
+        ) }}
+    </Children>
+</ListPanel>

@@ -1,0 +1,123 @@
+{#────────────────────────────────────────────────────────────
+  Editor List – Sort Buttons Row
+  - Navigation scope for horizontal sort button navigation.
+  - Sort buttons bound to {SortButtons} (SortButtonVM list).
+  - Right-side scroll header block.
+  - Last sort button uses Clan.Members.Sort.2 (rounded right edge),
+    others use Clan.Members.Sort.1 (regular).
+────────────────────────────────────────────────────────────#}
+
+{# Navigation scope for sort buttons (left/right) #}
+<NavigationScopeTargeter
+    ScopeID="SortButtonsScope"
+    ScopeParent="..\SortButtons"
+    ScopeMovements="Horizontal"/>
+
+{# Sort header row: sort buttons + scroll_header block #}
+<ListPanel
+    WidthSizePolicy="CoverChildren"
+    HeightSizePolicy="Fixed"
+    SuggestedHeight="57"
+    StackLayout.LayoutMethod="HorizontalLeftToRight">
+
+  <Children>
+
+    {# 1) Sort buttons panel (left) #}
+    <ListPanel
+        Id="SortButtons"
+        DataSource="{SortButtons}"
+        WidthSizePolicy="CoverChildren"
+        HeightSizePolicy="Fixed"
+        SuggestedHeight="57"
+        StackLayout.LayoutMethod="HorizontalLeftToRight"
+        RenderLate="true">
+      <ItemTemplate>
+
+        {# Wrapper so we can swap brushes based on IsLastColumn #}
+        <Widget
+            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+            SuggestedWidth="@Width"
+            SuggestedHeight="!Clan.Members.Sort.1.Height">
+          <Children>
+
+            {# Regular / middle columns: Clan.Members.Sort.1 #}
+            <SortButtonWidget
+                DoNotPassEventsToChildren="true"
+                WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+                Brush="Clan.Members.Sort.1"
+                Command.Click="ExecuteToggleSort"
+                IsSelected="@IsSelected"
+                SortState="@SortState"
+                SortVisualWidget="Text\NameSortArrow"
+                UpdateChildrenStates="true"
+                IsVisible="@IsRegularColumn">
+
+              <Children>
+                <TextWidget
+                    Id="Text"
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Brush="Clan.LeftPanel.Header.Text"
+                    Text="@Text">
+                  <Children>
+                    <BrushWidget
+                        Id="NameSortArrow"
+                        WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                        SuggestedWidth="20" SuggestedHeight="20"
+                        HorizontalAlignment="Right" VerticalAlignment="Center"
+                        PositionXOffset="20"
+                        Brush="ArmyManagement.Sort.ArrowBrush" />
+                  </Children>
+                </TextWidget>
+              </Children>
+            </SortButtonWidget>
+
+            {# Last column: Clan.Members.Sort.2 (rounded right edge) #}
+            <SortButtonWidget
+                DoNotPassEventsToChildren="true"
+                WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+                Brush="Clan.Members.Sort.2"
+                Command.Click="ExecuteToggleSort"
+                IsSelected="@IsSelected"
+                SortState="@SortState"
+                SortVisualWidget="Text\NameSortArrow"
+                UpdateChildrenStates="true"
+                IsVisible="@IsLastColumn">
+
+              <Children>
+                <TextWidget
+                    Id="Text"
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Brush="Clan.LeftPanel.Header.Text"
+                    Text="@Text">
+                  <Children>
+                    <BrushWidget
+                        Id="NameSortArrow"
+                        WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                        SuggestedWidth="20" SuggestedHeight="20"
+                        HorizontalAlignment="Right" VerticalAlignment="Center"
+                        PositionXOffset="20"
+                        Brush="ArmyManagement.Sort.ArrowBrush" />
+                  </Children>
+                </TextWidget>
+              </Children>
+            </SortButtonWidget>
+
+          </Children>
+        </Widget>
+
+      </ItemTemplate>
+    </ListPanel>
+
+    {# 2) Block sprite (right) #}
+    <Widget
+        WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+        SuggestedWidth="!Scroll.Header.Width" SuggestedHeight="!Scroll.Header.Height"
+        Sprite="StdAssets\scroll_header"
+        ExtendRight="3" ExtendTop="6" ExtendLeft="3" ExtendBottom="4"
+        MarginLeft="2"
+        HorizontalAlignment="Right"/>
+
+  </Children>
+</ListPanel>

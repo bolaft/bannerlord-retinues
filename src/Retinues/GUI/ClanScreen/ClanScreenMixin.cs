@@ -11,7 +11,7 @@ using TaleWorlds.Library;
 namespace Retinues.GUI.ClanScreen
 {
     [ViewModelMixin("RefreshValues", true)]
-    public sealed class ClanScreen : BaseViewModelMixin<ClanManagementVM>
+    public sealed class ClanScreenMixin : BaseViewModelMixin<ClanManagementVM>
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Constants                       //
@@ -67,9 +67,9 @@ namespace Retinues.GUI.ClanScreen
         //                       Constructor                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public static ClanScreen Instance { get; private set; }
+        public static ClanScreenMixin Instance { get; private set; }
 
-        public ClanScreen(ClanManagementVM vm)
+        public ClanScreenMixin(ClanManagementVM vm)
             : base(vm)
         {
             // Load sprites used by the editor
@@ -77,6 +77,9 @@ namespace Retinues.GUI.ClanScreen
 
             // Listen once for vanilla tab changes
             ViewModel.PropertyChangedWithBoolValue += OnTabChanged;
+
+            // Create editor VM
+            Editor = new EditorVM();
 
             // Singleton instance
             Instance = this;
@@ -89,6 +92,9 @@ namespace Retinues.GUI.ClanScreen
         public override void OnFinalize()
         {
             base.OnFinalize();
+
+            // Close the editor if open
+            CloseEditor();
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -97,8 +103,25 @@ namespace Retinues.GUI.ClanScreen
 
         /* ━━━━━━━━ Editor ━━━━━━━━ */
 
+        private EditorVM _editor;
+
         [DataSourceProperty]
-        public EditorVM Editor { get; set; }
+        public EditorVM Editor
+        {
+            get => _editor;
+            set
+            {
+                if (value != _editor)
+                {
+                    _editor = value;
+                    OnPropertyChanged(nameof(Editor));
+                    // Also refresh flags that depend on Editor
+                    OnPropertyChanged(nameof(ShowEditorPanel));
+                    OnPropertyChanged(nameof(ShowTopPanel));
+                    OnPropertyChanged(nameof(ShowFinancePanel));
+                }
+            }
+        }
 
         /* ━━━━━━━━ Strings ━━━━━━━ */
 
@@ -108,7 +131,7 @@ namespace Retinues.GUI.ClanScreen
         /* ━━━━━━━━━ Flags ━━━━━━━━ */
 
         [DataSourceProperty]
-        public bool ShowEditorPanel => Editor != null;
+        public bool ShowEditorPanel => Editor?.IsVisible == true;
 
         [DataSourceProperty]
         public bool ShowTopPanel => true;
@@ -138,8 +161,8 @@ namespace Retinues.GUI.ClanScreen
             // Unselect vanilla tabs
             UnselectVanillaTabs();
 
-            // Create editor VM if needed
-            Editor ??= new EditorVM();
+            // Show editor VM
+            Editor.IsVisible = true;
 
             // Toggle panel visibility
             UpdateVisibility();
@@ -147,8 +170,9 @@ namespace Retinues.GUI.ClanScreen
 
         private void CloseEditor()
         {
-            // Clear editor VM
-            Editor = null;
+            //  Hide editor VM
+            if (Editor?.IsVisible == true)
+                Editor.IsVisible = false;
 
             // Toggle panel visibility
             UpdateVisibility();

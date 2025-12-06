@@ -1,0 +1,122 @@
+{#────────────────────────────────────────────────────────────
+  Editor List – Header + Rows block
+  This macro is meant to be used inside an ItemTemplate whose
+  DataSource is {Headers} (EditorListHeaderVM).
+────────────────────────────────────────────────────────────#}
+
+<ListPanel
+    WidthSizePolicy="CoverChildren"
+    HeightSizePolicy="CoverChildren"
+    StackLayout.LayoutMethod="VerticalTopToBottom">
+<Children>
+
+    {# Rows under this header (placed FIRST so they sit at the bottom) #}
+    <ListPanel
+        Id="ElementsList"
+        DataSource="{Elements}"
+        WidthSizePolicy="CoverChildren"
+        HeightSizePolicy="CoverChildren"
+        IsVisible="@IsExpanded"
+        StackLayout.LayoutMethod="VerticalTopToBottom">
+
+    <ItemTemplate>
+        <ButtonWidget 
+            IsSelected="@IsSelected"
+            DoNotPassEventsToChildren="true"
+            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" 
+            SuggestedHeight="68"
+            SuggestedWidth="!Clan.Management.Collapser.Width" 
+            Brush="Clan.Management.LeftTuple" 
+            Command.Click="ExecuteSelect" 
+            UpdateChildrenStates="true">
+        <Children>
+
+            {# Inner horizontal row layout (like your old one) #}
+            <ListPanel 
+                WidthSizePolicy="StretchToParent"
+                HeightSizePolicy="StretchToParent" 
+                MarginLeft="24" MarginRight="24" 
+                StackLayout.LayoutMethod="HorizontalLeftToRight">
+            <Children>
+
+                {# For now just show the label; later you can
+                    swap this for row.j2 content. #}
+                <TextWidget
+                    WidthSizePolicy="CoverChildren"
+                    HeightSizePolicy="CoverChildren"
+                    VerticalAlignment="Center"
+                    Text="@Label" />
+
+            </Children>
+            </ListPanel>
+
+        </Children>
+        </ButtonWidget>
+    </ItemTemplate>
+
+    </ListPanel>
+<PartyHeaderToggleWidget
+    Id="HeaderToggle"
+    DoNotPassEventsToChildren="true"
+    WidthSizePolicy="Fixed"
+    HeightSizePolicy="Fixed"
+    SuggestedWidth="!Clan.Management.Collapser.Width"
+    SuggestedHeight="!Clan.Management.Collapser.Height"
+
+    Brush="Clan.Management.Collapser"
+    RenderLate="true"
+    HorizontalAlignment="Left"
+    VerticalAlignment="Top"
+
+    Command.Click="ExecuteToggle"
+    WidgetToClose="..\ElementsList"
+    CollapseIndicator="HeaderCollapser\HeaderCollapseIndicator"
+
+    MarginTop="0"
+    MarginBottom="-2">
+  <Children>
+
+    <ListPanel
+        Id="HeaderCollapser"
+        WidthSizePolicy="CoverChildren"
+        HeightSizePolicy="StretchToParent"
+        HorizontalAlignment="Center"
+        StackLayout.LayoutMethod="HorizontalLeftToRight">
+      <Children>
+
+        <BrushWidget
+            Id="HeaderCollapseIndicator"
+            WidthSizePolicy="Fixed"
+            HeightSizePolicy="Fixed"
+            SuggestedWidth="!Party.Toggle.ExpandIndicator.Width"
+            SuggestedHeight="!Party.Toggle.ExpandIndicator.Height"
+            VerticalAlignment="Center"
+            MarginRight="6"
+            Brush="Party.Toggle.ExpandIndicator" />
+
+        <TextWidget
+            Id="HeaderName"
+            WidthSizePolicy="CoverChildren"
+            HeightSizePolicy="CoverChildren"
+            VerticalAlignment="Center"
+            Brush="Clan.Management.Collapser.Text"
+            Text="@Name" />
+
+        <TextWidget
+            Id="HeaderCount"
+            WidthSizePolicy="CoverChildren"
+            HeightSizePolicy="CoverChildren"
+            VerticalAlignment="Center"
+            MarginLeft="4"
+            Brush="Clan.Management.Collapser.Text"
+            Text="@ElementCountText" />
+
+      </Children>
+    </ListPanel>
+
+  </Children>
+</PartyHeaderToggleWidget>
+
+
+</Children>
+</ListPanel>

@@ -3,16 +3,18 @@
 <!-- ━━━━━━━━━━━━━━━━━━━━━ -->
 
 <ButtonWidget
-    IsEnabled="true"
-    IsSelected="@ShowEditorPanel"
-    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-    SuggestedWidth="240" SuggestedHeight="!Header.Tab.Center.Height.Scaled"
     DoNotPassEventsToChildren="true"
-    UpdateChildrenStates="true"
-    Brush="Header.Tab.Center"
+    WidthSizePolicy="Fixed"
+    HeightSizePolicy="Fixed"
+    SuggestedWidth="240"
+    SuggestedHeight="!Header.Tab.Center.Height.Scaled"
     PositionYOffset="6"
     MarginRight="2"
-    Command.Click="ExecuteSelectEditorTab">
+    Brush="Header.Tab.Center"
+    UpdateChildrenStates="true"
+    IsEnabled="true"
+    IsSelected="@IsTroopsSelected"
+    Command.Click="ExecuteSelectTroops">
     <Children>
         <TextWidget
             WidthSizePolicy="StretchToParent"
@@ -21,6 +23,6 @@
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             Brush="Clan.TabControl.Text"
-            Text="@EditorTabLabel"/>
+            Text="@TroopsTabText"/>
     </Children>
 </ButtonWidget>

@@ -1,0 +1,33 @@
+<!-- ━━━━━━━━━━━━━━━━━━━━━ -->
+<!--    Doctrine Column    -->
+<!-- ━━━━━━━━━━━━━━━━━━━━━ -->
+
+<Widget
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="StretchToParent"
+    StackLayout.LayoutMethod="VerticalBottomToTop">
+    <Children>
+
+        <!-- Title -->
+        {{ text.base(
+            text="@Name",
+            brush="Kingdom.TitleMedium.Text",
+            vertical_alignment="Top"
+        ) }}
+
+        <!-- Doctrine List -->
+        <ListPanel
+            DataSource="{Doctrines}"
+            WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren"
+            SuggestedWidth="380"
+            MarginTop="35"
+            StackLayout.LayoutMethod="VerticalBottomToTop">
+            <ItemTemplate>
+
+                {# Doctrine Card #}
+                {% include "_/doctrines/doctrine.j2" %}
+
+            </ItemTemplate>
+        </ListPanel>
+
+    </Children>
+</Widget>
