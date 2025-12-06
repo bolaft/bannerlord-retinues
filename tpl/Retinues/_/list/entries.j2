@@ -11,11 +11,12 @@
             WidthSizePolicy="CoverChildren"
             HeightSizePolicy="CoverChildren"
             IsVisible="@IsExpanded"
-            StackLayout.LayoutMethod="VerticalTopToBottom">
+            StackLayout.LayoutMethod="VerticalBottomToTop">
 
             <ItemTemplate>
                 <ButtonWidget 
                     IsSelected="@IsSelected"
+                    IsEnabled="@IsEnabled"
                     DoNotPassEventsToChildren="true"
                     WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" 
                     SuggestedHeight="68"
@@ -63,6 +64,7 @@
         {# Header toggle #}
         <PartyHeaderToggleWidget
             Id="HeaderToggle"
+            IsEnabled="@IsEnabled"
             DoNotPassEventsToChildren="true"
             WidthSizePolicy="Fixed"
             HeightSizePolicy="Fixed"
@@ -89,9 +91,22 @@
                     StackLayout.LayoutMethod="HorizontalLeftToRight">
                     <Children>
 
-                        {# Arrow sprite #}
+                        {# Arrow sprite (Active) #}
                         <BrushWidget
+                            IsVisible="@IsEnabled"
                             Id="HeaderCollapseIndicator"
+                            WidthSizePolicy="Fixed"
+                            HeightSizePolicy="Fixed"
+                            SuggestedWidth="!Party.Toggle.ExpandIndicator.Width"
+                            SuggestedHeight="!Party.Toggle.ExpandIndicator.Height"
+                            VerticalAlignment="Center"
+                            PositionYOffset="-2"
+                            MarginRight="5"
+                            Brush="Party.Toggle.ExpandIndicator" />
+
+                        {# Arrow sprite (Inactive) #}
+                        <BrushWidget
+                            IsHidden="@IsEnabled"
                             WidthSizePolicy="Fixed"
                             HeightSizePolicy="Fixed"
                             SuggestedWidth="!Party.Toggle.ExpandIndicator.Width"

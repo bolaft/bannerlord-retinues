@@ -1,3 +1,6 @@
+using Retinues.Wrappers.Characters;
+using Retinues.Wrappers.Factions;
+using TaleWorlds.CampaignSystem;
 using TaleWorlds.Library;
 
 namespace Retinues.Editor.VM
@@ -6,6 +9,16 @@ namespace Retinues.Editor.VM
     {
         public EditorVM()
         {
+            // Wrap the main hero and get their culture as an IBaseFaction.
+            IBaseFaction faction = null;
+
+            var hero = Hero.MainHero;
+            if (hero != null && hero.CharacterObject != null)
+            {
+                var wHero = WCharacter.Get(hero.CharacterObject);
+                faction = wHero?.Culture;
+            }
+
             // Initialize list
             List = new ListVM();
 
@@ -14,39 +27,99 @@ namespace Retinues.Editor.VM
             List.AddSortButton("tier", "Tier", 1);
             List.AddSortButton("value", "Value", 1);
 
-            // Regular section
-            var regular = List.AddHeader("regular", "Regular");
-            regular.AddElement("troop_1", "Tier 1 Something");
-            regular.AddElement("troop_2", "Tier 2 Something");
+            if (faction != null)
+            {
+                // Retinues
+                var retinues = List.AddHeader("retinues", "Retinues");
+                if (faction.RootElite != null)
+                    foreach (var troop in faction.RosterRetinues)
+                        retinues.AddElement(troop.StringId, troop.Name);
 
-            // Elite section
-            var elite = List.AddHeader("elite", "Elite");
-            elite.AddElement("troop_elite_1", "Elite Guard");
+                // Elite section: elite root
+                var elite = List.AddHeader("elite", "Elite");
+                if (faction.RootElite != null)
+                    foreach (var troop in faction.RootElite.Tree)
+                        elite.AddElement(troop.StringId, troop.Name);
 
-            // Militia section
-            var militia = List.AddHeader("militia", "Militia");
-            militia.AddElement("troop_militia_1", "Town Militia");
-            militia.AddElement("troop_militia_2", "City Militia");
-            militia.AddElement("troop_militia_3", "Village Militia");
-            militia.AddElement("troop_militia_4", "Fort Militia");
+                // Regular section: basic root
+                var basic = List.AddHeader("regular", "Regular");
+                if (faction.RootBasic != null)
+                    foreach (var troop in faction.RootBasic.Tree)
+                        basic.AddElement(troop.StringId, troop.Name);
 
-            // Civilians section
-            var civilians = List.AddHeader("civilians", "Civilians");
-            civilians.AddElement("troop_civilian_1", "Farmer");
-            civilians.AddElement("troop_civilian_2", "Merchant");
-            civilians.AddElement("troop_civilian_3", "Blacksmith");
-            civilians.AddElement("troop_civilian_4", "Baker");
-            civilians.AddElement("troop_civilian_5", "Carpenter");
-            civilians.AddElement("troop_civilian_6", "Fisherman");
+                // Militia section
+                var militia = List.AddHeader("militia", "Militia");
+                var rosterMilitia = faction.RosterMilitia;
+                if (rosterMilitia?.Count > 0)
+                {
+                    foreach (var troop in rosterMilitia)
+                    {
+                        if (troop == null)
+                            continue;
 
-            // Bandits section
-            var bandits = List.AddHeader("bandits", "Bandits");
-            bandits.AddElement("troop_bandit_1", "Forest Bandit");
-            bandits.AddElement("troop_bandit_2", "Mountain Bandit");
-            bandits.AddElement("troop_bandit_3", "Desert Bandit");
-            bandits.AddElement("troop_bandit_4", "Sea Raider");
+                        militia.AddElement(troop.StringId, troop.Name);
+                    }
+                }
 
-            List.Refresh();
+                // Caravan section
+                var caravan = List.AddHeader("caravan", "Caravan");
+                var rosterCaravan = faction.RosterCaravan;
+                if (rosterCaravan?.Count > 0)
+                {
+                    foreach (var troop in rosterCaravan)
+                    {
+                        if (troop == null)
+                            continue;
+
+                        caravan.AddElement(troop.StringId, troop.Name);
+                    }
+                }
+
+                // Villager section
+                var villagers = List.AddHeader("villagers", "Villagers");
+                var rosterVillager = faction.RosterVillager;
+                if (rosterVillager?.Count > 0)
+                {
+                    foreach (var troop in rosterVillager)
+                    {
+                        if (troop == null)
+                            continue;
+
+                        caravan.AddElement(troop.StringId, troop.Name);
+                    }
+                }
+
+                // Bandits section
+                var bandits = List.AddHeader("bandits", "Bandits");
+                var rosterBandits = faction.RosterBandit;
+                if (rosterBandits?.Count > 0)
+                {
+                    foreach (var troop in rosterBandits)
+                    {
+                        if (troop == null)
+                            continue;
+
+                        bandits.AddElement(troop.StringId, troop.Name);
+                    }
+                }
+
+                // Civilians section
+                var civilians = List.AddHeader("civilians", "Civilians");
+
+                var rosterCivilians = faction.RosterCivilian;
+                if (rosterCivilians?.Count > 0)
+                {
+                    foreach (var troop in rosterCivilians)
+                    {
+                        if (troop == null)
+                            continue;
+
+                        civilians.AddElement(troop.StringId, troop.Name);
+                    }
+                }
+            }
+
+            List.RefreshValues();
         }
 
         private bool _isVisible = false;

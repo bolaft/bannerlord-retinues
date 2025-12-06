@@ -1,4 +1,5 @@
 using Bannerlord.UIExtenderEx.Attributes;
+using Retinues.Utilities;
 using TaleWorlds.Library;
 
 namespace Retinues.Editor.VM
@@ -42,6 +43,9 @@ namespace Retinues.Editor.VM
         }
 
         [DataSourceProperty]
+        public bool IsEnabled => true;
+
+        [DataSourceProperty]
         public bool IsSelected
         {
             get => _isSelected;
@@ -58,6 +62,7 @@ namespace Retinues.Editor.VM
         [DataSourceMethod]
         public void ExecuteSelect()
         {
+            Log.Info($"ListElementVM: Selecting element '{Id}'");
             IsSelected = true;
             _header.List.OnElementSelected(this);
         }

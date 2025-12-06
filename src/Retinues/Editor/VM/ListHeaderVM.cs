@@ -8,8 +8,21 @@ namespace Retinues.Editor.VM
 
         private string _id = id;
         private string _name = name;
-        private bool _isExpanded = true;
+        private bool _isExpanded = false;
         private MBBindingList<ListElementVM> _elements = [];
+
+        // New: enabled state derived from element count
+        [DataSourceProperty]
+        public bool IsEnabled => _elements != null && _elements.Count > 0;
+
+        // Notify IsEnabled and collapse the header if it is disabled
+        private void UpdateIsEnabledState()
+        {
+            OnPropertyChanged(nameof(IsEnabled));
+
+            if (!IsEnabled)
+                IsExpanded = false;
+        }
 
         internal ListVM List => _list;
 
@@ -47,12 +60,11 @@ namespace Retinues.Editor.VM
             get => _isExpanded;
             set
             {
-                if (value != _isExpanded)
-                {
-                    _isExpanded = value;
-                    OnPropertyChanged(nameof(IsExpanded));
-                    OnPropertyChanged(nameof(MarginBottom));
-                }
+                if (value == _isExpanded)
+                    return;
+                _isExpanded = value;
+                OnPropertyChanged(nameof(IsExpanded));
+                OnPropertyChanged(nameof(MarginBottom));
             }
         }
 
@@ -70,6 +82,7 @@ namespace Retinues.Editor.VM
                     _elements = value;
                     OnPropertyChanged(nameof(Elements));
                     OnPropertyChanged(nameof(ElementCountText));
+                    UpdateIsEnabledState();
                 }
             }
         }
@@ -79,11 +92,13 @@ namespace Retinues.Editor.VM
 
         public ListElementVM AddElement(string id, string label)
         {
+            var wasEmpty = _elements.Count == 0;
+
             var element = new ListElementVM(this, id, label);
             _elements.Add(element);
 
-            OnPropertyChanged(nameof(Elements));
-            OnPropertyChanged(nameof(ElementCountText));
+            if (wasEmpty)
+                IsExpanded = true;
 
             return element;
         }
@@ -103,6 +118,7 @@ namespace Retinues.Editor.VM
         {
             OnPropertyChanged(nameof(Elements));
             OnPropertyChanged(nameof(ElementCountText));
+            UpdateIsEnabledState();
         }
 
         public override void RefreshValues()
@@ -115,6 +131,7 @@ namespace Retinues.Editor.VM
             }
 
             OnPropertyChanged(nameof(ElementCountText));
+            UpdateIsEnabledState();
         }
 
         // Called by the toggle button

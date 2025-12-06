@@ -24,12 +24,7 @@ namespace Retinues.Wrappers.Characters
 
         public bool IsHero => Base.IsHero;
 
-        [Reflected]
-        public WCulture Culture
-        {
-            get => Base.Culture != null ? WCulture.Get(Base.Culture) : null;
-            set => SetRef(value?.Base);
-        }
+        public WCulture Culture => WCulture.Get(Base.Culture);
 
         [Reflected(setterName: "SetName")]
         public string Name
@@ -109,6 +104,9 @@ namespace Retinues.Wrappers.Characters
                 var result = new List<WCharacter>();
                 var visited = new HashSet<WCharacter>();
                 var stack = new Stack<WCharacter>();
+
+                // Start from this character
+                result.Add(this);
 
                 // Seed with direct children
                 foreach (var child in Children)

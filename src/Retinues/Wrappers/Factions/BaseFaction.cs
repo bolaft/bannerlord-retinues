@@ -4,15 +4,32 @@ using TaleWorlds.ObjectSystem;
 
 namespace Retinues.Wrappers.Factions
 {
-    public abstract class Faction<TWrapper, TBase> : Wrapper<TWrapper, TBase>
-        where TWrapper : Faction<TWrapper, TBase>
+    public interface IBaseFaction
+    {
+        /* ━━━━━━━━━ Roots ━━━━━━━━ */
+
+        WCharacter RootElite { get; }
+        WCharacter RootBasic { get; }
+
+        /* ━━━━━━━━━ Lists ━━━━━━━━ */
+
+        List<WCharacter> RosterRetinues { get; }
+        List<WCharacter> RosterMilitia { get; }
+        List<WCharacter> RosterCaravan { get; }
+        List<WCharacter> RosterVillager { get; }
+        List<WCharacter> RosterBandit { get; }
+        List<WCharacter> RosterCivilian { get; }
+    }
+
+    public abstract class BaseFaction<TWrapper, TBase> : Wrapper<TWrapper, TBase>, IBaseFaction
+        where TWrapper : BaseFaction<TWrapper, TBase>
         where TBase : MBObjectBase
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Characters                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        /* ━━━━━━━━ Troops ━━━━━━━━ */
+        /* ━━━━━━━━━ Roots ━━━━━━━━ */
 
         public virtual WCharacter RootElite => null;
         public virtual WCharacter RootBasic => null;
@@ -35,10 +52,20 @@ namespace Retinues.Wrappers.Factions
         public virtual WCharacter CaravanGuard => null;
         public virtual WCharacter ArmedTrader => null;
 
+        /* ━━━━━━━ Villagers ━━━━━━ */
+
+        public virtual WCharacter Villager => null;
+
+        /* ━━━━━━━━ Bandits ━━━━━━━ */
+
+        public virtual WCharacter BanditChief => null;
+        public virtual WCharacter BanditRaider => null;
+        public virtual WCharacter BanditBandit => null;
+        public virtual WCharacter BanditBoss => null;
+
         /* ━━━━━━━ Civilians ━━━━━━ */
 
         public virtual WCharacter TournamentMaster => null;
-        public virtual WCharacter Villager => null;
 
         public virtual WCharacter PrisonGuard => null;
         public virtual WCharacter Guard => null;
@@ -86,13 +113,6 @@ namespace Retinues.Wrappers.Factions
         public virtual WCharacter Steward => null;
         public virtual WCharacter Shipwright => null;
 
-        /* ━━━━━━━━ Bandits ━━━━━━━ */
-
-        public virtual WCharacter BanditChief => null;
-        public virtual WCharacter BanditRaider => null;
-        public virtual WCharacter BanditBandit => null;
-        public virtual WCharacter BanditBoss => null;
-
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Rosters                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -110,6 +130,8 @@ namespace Retinues.Wrappers.Factions
             return list;
         }
 
+        public virtual List<WCharacter> RosterRetinues => [];
+
         public virtual List<WCharacter> RosterMilitia =>
             Collect(
                 MeleeMilitiaTroop,
@@ -125,10 +147,11 @@ namespace Retinues.Wrappers.Factions
         public virtual List<WCharacter> RosterCaravan =>
             Collect(CaravanMaster, CaravanGuard, ArmedTrader);
 
+        public virtual List<WCharacter> RosterVillager => Collect(Villager);
+
         public virtual List<WCharacter> RosterCivilian =>
             Collect(
                 TournamentMaster,
-                Villager,
                 PrisonGuard,
                 Guard,
                 Blacksmith,

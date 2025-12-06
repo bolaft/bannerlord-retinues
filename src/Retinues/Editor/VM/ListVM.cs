@@ -68,7 +68,8 @@ namespace Retinues.Editor.VM
         public ListHeaderVM AddHeader(string id, string name)
         {
             var header = new ListHeaderVM(this, id, name);
-            _headers.Add(header);
+            // Insert at the top because the list is displayed in reverse
+            _headers.Insert(0, header);
             return header;
         }
 
@@ -84,16 +85,6 @@ namespace Retinues.Editor.VM
                 header.ClearSelectionExcept(element);
 
             SelectedElement = element;
-        }
-
-        public void Refresh()
-        {
-            OnPropertyChanged(nameof(Headers));
-            OnPropertyChanged(nameof(SortButtons));
-            OnPropertyChanged(nameof(SelectedElement));
-
-            foreach (var header in _headers)
-                header.Refresh();
         }
 
         public override void RefreshValues()

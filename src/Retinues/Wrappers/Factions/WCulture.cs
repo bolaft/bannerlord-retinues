@@ -10,7 +10,7 @@ using TaleWorlds.Core.ViewModelCollection;
 
 namespace Retinues.Wrappers.Factions
 {
-    public sealed class WCulture : Faction<WCulture, CultureObject>
+    public sealed class WCulture : BaseFaction<WCulture, CultureObject>
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Main Properties                    //
@@ -51,10 +51,10 @@ namespace Retinues.Wrappers.Factions
         //                       Characters                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        /* ━━━━━━━━ Troops ━━━━━━━━ */
+        /* ━━━━━━━━━ Roots ━━━━━━━━ */
 
-        public override WCharacter RootElite => WCharacter.Get(Base.BasicTroop);
-        public override WCharacter RootBasic => WCharacter.Get(Base.EliteBasicTroop);
+        public override WCharacter RootElite => WCharacter.Get(Base.EliteBasicTroop);
+        public override WCharacter RootBasic => WCharacter.Get(Base.BasicTroop);
 
         /* ━━━━━━━ Militias ━━━━━━━ */
 
@@ -78,7 +78,8 @@ namespace Retinues.Wrappers.Factions
 #endif
 
 #if BL12
-        public override WCharacter MilitiaVeteranSpearman => WCharacter.Get(Base.MilitiaVeteranSpearman);
+        public override WCharacter MilitiaVeteranSpearman =>
+            WCharacter.Get(Base.MilitiaVeteranSpearman);
 #else
         public override WCharacter MilitiaVeteranSpearman => null;
 #endif
@@ -95,6 +96,13 @@ namespace Retinues.Wrappers.Factions
 #else
         public override WCharacter ArmedTrader => null;
 #endif
+
+        /* ━━━━━━━━ Bandits ━━━━━━━ */
+
+        public override WCharacter BanditChief => WCharacter.Get(Base.BanditChief);
+        public override WCharacter BanditRaider => WCharacter.Get(Base.BanditRaider);
+        public override WCharacter BanditBandit => WCharacter.Get(Base.BanditBandit);
+        public override WCharacter BanditBoss => WCharacter.Get(Base.BanditBoss);
 
         /* ━━━━━━━ Civilians ━━━━━━ */
 
@@ -157,12 +165,5 @@ namespace Retinues.Wrappers.Factions
 #else
         public override WCharacter Steward => null;
 #endif
-
-        /* ━━━━━━━━ Bandits ━━━━━━━ */
-
-        public override WCharacter BanditChief => WCharacter.Get(Base.BanditChief);
-        public override WCharacter BanditRaider => WCharacter.Get(Base.BanditRaider);
-        public override WCharacter BanditBandit => WCharacter.Get(Base.BanditBandit);
-        public override WCharacter BanditBoss => WCharacter.Get(Base.BanditBoss);
     }
 }

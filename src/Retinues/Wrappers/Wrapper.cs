@@ -64,7 +64,10 @@ namespace Retinues.Wrappers
         //                      Static state                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private static readonly Dictionary<string, PropertyEntry> _properties;
+        private static bool _staticInitialized;
+        private static readonly object _staticInitLock = new();
+
+        private static Dictionary<string, PropertyEntry> _properties;
 
         private sealed class PropertyEntry
         {
@@ -73,7 +76,7 @@ namespace Retinues.Wrappers
             public IDictionary Map;
         }
 
-        private static readonly Dictionary<string, ReflectedEntry> _reflected;
+        private static Dictionary<string, ReflectedEntry> _reflected;
 
         private sealed class ReflectedEntry
         {
@@ -92,16 +95,28 @@ namespace Retinues.Wrappers
         }
 
         private static readonly Dictionary<string, TWrapper> _instances = [];
-        private static readonly MethodInfo _syncDataMethod;
+        private static MethodInfo _syncDataMethod;
 
-        static Wrapper()
+        private static void EnsureStaticInitialized()
         {
-            _properties = DiscoverWrapperProperties();
-            _reflected = DiscoverReflectedProperties();
+            if (_staticInitialized)
+                return;
 
-            _syncDataMethod = typeof(IDataStore).GetMethod("SyncData");
+            lock (_staticInitLock)
+            {
+                if (_staticInitialized)
+                    return;
 
-            WrapperRegistry.Register(new WrapperSyncRegistration());
+                // If something goes wrong here, we want it to throw _here_,
+                // not deep in a type initializer.
+                _properties = DiscoverWrapperProperties();
+                _reflected = DiscoverReflectedProperties();
+                _syncDataMethod = typeof(IDataStore).GetMethod("SyncData");
+
+                WrapperRegistry.Register(new WrapperSyncRegistration());
+
+                _staticInitialized = true;
+            }
         }
 
         private static Dictionary<string, PropertyEntry> DiscoverWrapperProperties()
@@ -229,6 +244,8 @@ namespace Retinues.Wrappers
         /// </summary>
         internal static void SyncAll(IDataStore dataStore)
         {
+            EnsureStaticInitialized();
+
             if (_syncDataMethod == null || _properties.Count == 0)
                 return;
 
@@ -265,6 +282,8 @@ namespace Retinues.Wrappers
             if (baseObject == null)
                 return null;
 
+            EnsureStaticInitialized();
+
             var id = baseObject.StringId;
             if (!string.IsNullOrEmpty(id) && _instances.TryGetValue(id, out var existing))
                 return existing;
@@ -281,6 +300,8 @@ namespace Retinues.Wrappers
         {
             if (string.IsNullOrEmpty(stringId))
                 return null;
+
+            EnsureStaticInitialized();
 
             if (_instances.TryGetValue(stringId, out var existing))
                 return existing;
