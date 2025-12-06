@@ -1,7 +1,3 @@
-{#────────────────────────────────────────────────────────────
-  Editor List – Scrollable Entries
-────────────────────────────────────────────────────────────#}
-
 <ListPanel 
     WidthSizePolicy="CoverChildren"
     HeightSizePolicy="StretchToParent">
@@ -21,7 +17,7 @@
 
   <Children>
 
-    <!-- 1) Navigation / inner content first -->
+    {# 1) Navigation / inner content first #}
     <NavigationScopeTargeter 
         ScopeID="EditorScope"
         ScopeParent=".\EditorRect"
@@ -51,8 +47,8 @@
       </Children>
     </Widget>
 
-    <!-- 2) Pagination LAST so it’s topmost for events -->
-    {% include "_/list/pagination.j2" %}
+    {# 2) Filters last #}
+    {% include "_/list/filters.j2" %}
 
   </Children>
 </ScrollablePanel>

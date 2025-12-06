@@ -1,0 +1,53 @@
+<Widget
+        WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+        SuggestedWidth="!Clan.Management.Collapser.Width"
+        SuggestedHeight="60">
+    <Children>
+
+        {# Disabled-looking collapser background #}
+        <ToggleButtonWidget
+                WidthSizePolicy="StretchToParent"
+                HeightSizePolicy="StretchToParent"
+                Brush="Clan.Management.Collapser"
+                IsEnabled="false"
+                DoNotAcceptEvents="true"
+                DoNotPassEventsToChildren="true"
+                UpdateChildrenStates="true"/>
+
+        {# Existing pagination content (unchanged) #}
+        <ListPanel
+                WidthSizePolicy="CoverChildren"
+                HeightSizePolicy="CoverChildren"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center">
+            <Children>
+
+                {# Filter label #}
+                <TextWidget
+                        WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                        HorizontalAlignment="Center" VerticalAlignment="Center"
+                        Brush="Clan.LeftPanel.Header.Text"
+                        MarginLeft="16" MarginRight="16"
+                        Text="@FilterLabel" />
+
+                {# Filter input area #}
+                <BrushWidget
+                        VerticalAlignment="Center" HorizontalAlignment="Right"
+                        DoNotAcceptEvents="false"
+                        WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                        SuggestedWidth="400" SuggestedHeight="40"
+                        Brush="SPOptions.Dropdown.Center">
+                    <Children>
+                        <EditableTextWidget
+                                Text="@FilterText"
+                                WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+                                HorizontalAlignment="Center" VerticalAlignment="Center"
+                                Brush="Crafting.NameInput.Text" />
+                    </Children>
+                </BrushWidget>
+
+            </Children>
+        </ListPanel>
+
+    </Children>
+</Widget>

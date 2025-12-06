@@ -1,16 +1,10 @@
-{#────────────────────────────────────────────────────────────
-  Editor List – Header + Rows block
-  This macro is meant to be used inside an ItemTemplate whose
-  DataSource is {Headers} (EditorListHeaderVM).
-────────────────────────────────────────────────────────────#}
-
 <ListPanel
     WidthSizePolicy="CoverChildren"
     HeightSizePolicy="CoverChildren"
     StackLayout.LayoutMethod="VerticalTopToBottom">
     <Children>
 
-        {# Rows under this header (placed FIRST so they sit at the bottom) #}
+        {# Rows under this header #}
         <ListPanel
             Id="ElementsList"
             DataSource="{Elements}"
@@ -31,7 +25,7 @@
                     UpdateChildrenStates="true">
                     <Children>
 
-                        <!-- Outer content container, like ClanSettlementTuple -->
+                        {# Outer content container #}
                         <Widget
                             WidthSizePolicy="StretchToParent"
                             HeightSizePolicy="StretchToParent"
@@ -46,8 +40,7 @@
                                     DoNotAcceptEvents="true">
                                     <Children>
 
-                                        {# For now just show the label; later you can
-                                            swap this for row.j2 content. #}
+                                        {# Label #}
                                         <TextWidget
                                             WidthSizePolicy="CoverChildren"
                                             HeightSizePolicy="StretchToParent"
@@ -67,6 +60,7 @@
 
         </ListPanel>
 
+        {# Header toggle #}
         <PartyHeaderToggleWidget
             Id="HeaderToggle"
             DoNotPassEventsToChildren="true"
@@ -95,7 +89,7 @@
                     StackLayout.LayoutMethod="HorizontalLeftToRight">
                     <Children>
 
-                        <!-- Arrow sprite – Fiefs-style offsets -->
+                        {# Arrow sprite #}
                         <BrushWidget
                             Id="HeaderCollapseIndicator"
                             WidthSizePolicy="Fixed"
@@ -107,7 +101,7 @@
                             MarginRight="5"
                             Brush="Party.Toggle.ExpandIndicator" />
 
-                        <!-- Header label -->
+                        {# Header label #}
                         <TextWidget
                             Id="HeaderName"
                             WidthSizePolicy="CoverChildren"
@@ -116,13 +110,13 @@
                             Brush="Clan.Management.Collapser.Text"
                             Text="@Name" />
 
-                        <!-- Count, same brush as name -->
+                        {# Count #}
                         <TextWidget
                             Id="HeaderCount"
                             WidthSizePolicy="CoverChildren"
                             HeightSizePolicy="CoverChildren"
                             VerticalAlignment="Center"
-                            MarginLeft="4"
+                            MarginLeft="8"
                             Brush="Clan.Management.Collapser.Text"
                             Text="@ElementCountText" />
 
