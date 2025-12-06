@@ -3,17 +3,14 @@ using Retinues.Utilities;
 using Retinues.Wrappers.Characters;
 using TaleWorlds.Library;
 
-namespace Retinues.Editor.VM
+namespace Retinues.Editor.VM.List.Rows
 {
-    public sealed class CharacterListElementVM(ListHeaderVM header, WCharacter character)
-        : ListElementVM(header, character.StringId, character.Name)
+    public sealed class CharacterRowVM(ListHeaderVM header, WCharacter character)
+        : ListRowVM(header, character.StringId, character.Name)
     {
         private readonly WCharacter _character = character;
 
         public WCharacter Character => _character;
-
-        [DataSourceProperty]
-        public string TierText => $"T{_character.Level}";
 
         [DataSourceProperty]
         public override bool IsCharacter => true;
@@ -22,7 +19,6 @@ namespace Retinues.Editor.VM
         {
             // Name may have changed, etc.
             OnPropertyChanged(nameof(Label));
-            OnPropertyChanged(nameof(TierText));
         }
 
         [DataSourceMethod]

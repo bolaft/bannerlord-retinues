@@ -2,9 +2,9 @@ using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Utilities;
 using TaleWorlds.Library;
 
-namespace Retinues.Editor.VM
+namespace Retinues.Editor.VM.List
 {
-    public abstract class ListElementVM : ViewModel
+    public abstract class ListRowVM : ViewModel
     {
         private readonly ListHeaderVM _header;
 
@@ -12,7 +12,7 @@ namespace Retinues.Editor.VM
         private string _label;
         private bool _isSelected;
 
-        protected ListElementVM(ListHeaderVM header, string id, string label)
+        protected ListRowVM(ListHeaderVM header, string id, string label)
         {
             _header = header;
             _id = id;

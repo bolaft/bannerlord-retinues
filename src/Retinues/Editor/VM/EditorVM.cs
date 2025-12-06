@@ -1,3 +1,4 @@
+using Retinues.Editor.VM.List;
 using Retinues.Wrappers.Characters;
 using Retinues.Wrappers.Factions;
 using TaleWorlds.CampaignSystem;
@@ -33,19 +34,19 @@ namespace Retinues.Editor.VM
                 var retinues = List.AddHeader("retinues", "Retinues");
                 if (faction.RootElite != null)
                     foreach (var troop in faction.RosterRetinues)
-                        retinues.AddCharacter(troop);
+                        retinues.AddCharacterRow(troop);
 
                 // Elite section: elite root
                 var elite = List.AddHeader("elite", "Elite");
                 if (faction.RootElite != null)
                     foreach (var troop in faction.RootElite.Tree)
-                        elite.AddCharacter(troop);
+                        elite.AddCharacterRow(troop);
 
                 // Regular section: basic root
                 var basic = List.AddHeader("regular", "Regular");
                 if (faction.RootBasic != null)
                     foreach (var troop in faction.RootBasic.Tree)
-                        basic.AddCharacter(troop);
+                        basic.AddCharacterRow(troop);
 
                 // Militia section
                 var militia = List.AddHeader("militia", "Militia");
@@ -57,7 +58,7 @@ namespace Retinues.Editor.VM
                         if (troop == null)
                             continue;
 
-                        militia.AddCharacter(troop);
+                        militia.AddCharacterRow(troop);
                     }
                 }
 
@@ -71,7 +72,7 @@ namespace Retinues.Editor.VM
                         if (troop == null)
                             continue;
 
-                        caravan.AddCharacter(troop);
+                        caravan.AddCharacterRow(troop);
                     }
                 }
 
@@ -85,7 +86,7 @@ namespace Retinues.Editor.VM
                         if (troop == null)
                             continue;
 
-                        caravan.AddCharacter(troop);
+                        caravan.AddCharacterRow(troop);
                     }
                 }
 
@@ -99,7 +100,7 @@ namespace Retinues.Editor.VM
                         if (troop == null)
                             continue;
 
-                        bandits.AddCharacter(troop);
+                        bandits.AddCharacterRow(troop);
                     }
                 }
 
@@ -114,7 +115,7 @@ namespace Retinues.Editor.VM
                         if (troop == null)
                             continue;
 
-                        civilians.AddCharacter(troop);
+                        civilians.AddCharacterRow(troop);
                     }
                 }
             }

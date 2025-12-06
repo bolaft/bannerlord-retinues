@@ -2,14 +2,14 @@ using Bannerlord.UIExtenderEx.Attributes;
 using TaleWorlds.CampaignSystem.ViewModelCollection;
 using TaleWorlds.Library;
 
-namespace Retinues.Editor.VM
+namespace Retinues.Editor.VM.List
 {
     /// <summary>
     /// Simple sort button viewmodel used by the editor list.
     /// Handles its own sort state (Default/Ascending/Descending)
     /// and notifies the owning ListVM when clicked.
     /// </summary>
-    public sealed class SortButtonVM : ViewModel
+    public sealed class ListSortButtonVM : ViewModel
     {
         private readonly ListVM _owner;
 
@@ -24,7 +24,7 @@ namespace Retinues.Editor.VM
         private bool _isLastColumn;
         private bool _isRegularColumn;
 
-        public SortButtonVM(ListVM owner, string id, string text, int requestedWidth)
+        public ListSortButtonVM(ListVM owner, string id, string text, int requestedWidth)
         {
             _owner = owner;
             _id = id;

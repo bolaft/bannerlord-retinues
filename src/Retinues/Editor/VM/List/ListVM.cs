@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using TaleWorlds.Library;
 
-namespace Retinues.Editor.VM
+namespace Retinues.Editor.VM.List
 {
     public class ListVM : ViewModel
     {
@@ -11,13 +11,13 @@ namespace Retinues.Editor.VM
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
         private MBBindingList<ListHeaderVM> _headers;
-        private ListElementVM _selectedElement;
+        private ListRowVM _selectedElement;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         //            Sorting
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-        private MBBindingList<SortButtonVM> _sortButtons;
+        private MBBindingList<ListSortButtonVM> _sortButtons;
 
         // Total normalized width used by sort buttons (matches template).
         private const int SortButtonsTotalWidth = 586;
@@ -53,7 +53,7 @@ namespace Retinues.Editor.VM
         }
 
         [DataSourceProperty]
-        public ListElementVM SelectedElement
+        public ListRowVM SelectedElement
         {
             get => _selectedElement;
             set
@@ -79,7 +79,7 @@ namespace Retinues.Editor.VM
             SelectedElement = null;
         }
 
-        internal void OnElementSelected(ListElementVM element)
+        internal void OnElementSelected(ListRowVM element)
         {
             foreach (var header in _headers)
                 header.ClearSelectionExcept(element);
@@ -100,7 +100,7 @@ namespace Retinues.Editor.VM
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
         [DataSourceProperty]
-        public MBBindingList<SortButtonVM> SortButtons
+        public MBBindingList<ListSortButtonVM> SortButtons
         {
             get => _sortButtons;
             set
@@ -116,9 +116,9 @@ namespace Retinues.Editor.VM
         /// <summary>
         /// Adds a sort button with a relative width that will later be normalized to 588.
         /// </summary>
-        public SortButtonVM AddSortButton(string id, string text, int relativeWidth)
+        public ListSortButtonVM AddSortButton(string id, string text, int relativeWidth)
         {
-            var vm = new SortButtonVM(this, id, text, relativeWidth);
+            var vm = new ListSortButtonVM(this, id, text, relativeWidth);
             _sortButtons.Add(vm);
             SetDynamicButtonProperties();
             return vm;
@@ -171,7 +171,7 @@ namespace Retinues.Editor.VM
         /// Entry point called by SortButtonVM when a button is clicked.
         /// For now this only updates visual state; it does not reorder any rows.
         /// </summary>
-        internal void OnSortButtonClicked(SortButtonVM clicked)
+        internal void OnSortButtonClicked(ListSortButtonVM clicked)
         {
             if (clicked == null)
                 return;

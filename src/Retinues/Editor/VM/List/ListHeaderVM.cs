@@ -1,7 +1,8 @@
+using Retinues.Editor.VM.List.Rows;
 using Retinues.Wrappers.Characters;
 using TaleWorlds.Library;
 
-namespace Retinues.Editor.VM
+namespace Retinues.Editor.VM.List
 {
     public class ListHeaderVM(ListVM list, string id, string name) : ViewModel
     {
@@ -10,7 +11,7 @@ namespace Retinues.Editor.VM
         private string _id = id;
         private string _name = name;
         private bool _isExpanded = false;
-        private MBBindingList<ListElementVM> _elements = [];
+        private MBBindingList<ListRowVM> _elements = [];
 
         // New: enabled state derived from element count
         [DataSourceProperty]
@@ -73,7 +74,7 @@ namespace Retinues.Editor.VM
         public int MarginBottom => _isExpanded ? 0 : 3;
 
         [DataSourceProperty]
-        public MBBindingList<ListElementVM> Elements
+        public MBBindingList<ListRowVM> Elements
         {
             get => _elements;
             set
@@ -91,11 +92,11 @@ namespace Retinues.Editor.VM
         [DataSourceProperty]
         public string ElementCountText => $"({_elements?.Count ?? 0})";
 
-        public CharacterListElementVM AddCharacter(WCharacter character)
+        public CharacterRowVM AddCharacterRow(WCharacter character)
         {
             var wasEmpty = _elements.Count == 0;
 
-            var element = new CharacterListElementVM(this, character);
+            var element = new CharacterRowVM(this, character);
             _elements.Add(element);
 
             if (wasEmpty)
@@ -104,7 +105,7 @@ namespace Retinues.Editor.VM
             return element;
         }
 
-        public void ClearSelectionExcept(ListElementVM keep)
+        public void ClearSelectionExcept(ListRowVM keep)
         {
             foreach (var element in _elements)
             {
