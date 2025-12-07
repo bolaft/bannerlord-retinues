@@ -28,8 +28,9 @@
       <skill id="Throwing" value="0" />
     </skills>
     <upgrade_targets></upgrade_targets>
-    <Equipments>
+		<Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -58,6 +59,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━ Clan Basic Troops ━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
@@ -87,6 +89,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -115,6 +118,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -143,6 +147,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -171,6 +176,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -199,6 +205,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -227,6 +234,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -255,6 +263,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -283,6 +292,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -311,6 +321,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -339,6 +350,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -367,6 +379,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -395,6 +408,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -423,6 +437,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -451,6 +466,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -479,6 +495,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -507,6 +524,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -535,6 +553,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -563,6 +582,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -591,6 +611,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -619,6 +640,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -647,6 +669,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -675,6 +698,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -703,6 +727,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -731,6 +756,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -759,6 +785,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -787,6 +814,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -815,6 +843,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -843,6 +872,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -871,6 +901,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -898,7 +929,8 @@
     </skills>
     <upgrade_targets />
     <Equipments>
-      <EquipmentRoster />
+      <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -926,7 +958,8 @@
     </skills>
     <upgrade_targets />
     <Equipments>
-      <EquipmentRoster />
+      <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -954,7 +987,8 @@
     </skills>
     <upgrade_targets />
     <Equipments>
-      <EquipmentRoster />
+      <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -982,7 +1016,8 @@
     </skills>
     <upgrade_targets />
     <Equipments>
-      <EquipmentRoster />
+      <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -1010,7 +1045,8 @@
     </skills>
     <upgrade_targets />
     <Equipments>
-      <EquipmentRoster />
+      <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -1038,7 +1074,8 @@
     </skills>
     <upgrade_targets />
     <Equipments>
-      <EquipmentRoster />
+      <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -1066,7 +1103,8 @@
     </skills>
     <upgrade_targets />
     <Equipments>
-      <EquipmentRoster />
+      <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -1094,7 +1132,8 @@
     </skills>
     <upgrade_targets />
     <Equipments>
-      <EquipmentRoster />
+      <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -1122,7 +1161,8 @@
     </skills>
     <upgrade_targets />
     <Equipments>
-      <EquipmentRoster />
+      <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -1150,7 +1190,8 @@
     </skills>
     <upgrade_targets />
     <Equipments>
-      <EquipmentRoster />
+      <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -1178,7 +1219,8 @@
     </skills>
     <upgrade_targets />
     <Equipments>
-      <EquipmentRoster />
+      <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -1206,7 +1248,8 @@
     </skills>
     <upgrade_targets />
     <Equipments>
-      <EquipmentRoster />
+      <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -1234,7 +1277,8 @@
     </skills>
     <upgrade_targets />
     <Equipments>
-      <EquipmentRoster />
+      <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -1262,7 +1306,8 @@
     </skills>
     <upgrade_targets />
     <Equipments>
-      <EquipmentRoster />
+      <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -1290,7 +1335,8 @@
     </skills>
     <upgrade_targets />
     <Equipments>
-      <EquipmentRoster />
+      <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -1318,7 +1364,8 @@
     </skills>
     <upgrade_targets />
     <Equipments>
-      <EquipmentRoster />
+      <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -1346,7 +1393,8 @@
     </skills>
     <upgrade_targets />
     <Equipments>
-      <EquipmentRoster />
+      <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -1374,7 +1422,8 @@
     </skills>
     <upgrade_targets />
     <Equipments>
-      <EquipmentRoster />
+      <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -1402,7 +1451,8 @@
     </skills>
     <upgrade_targets />
     <Equipments>
-      <EquipmentRoster />
+      <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -1430,7 +1480,8 @@
     </skills>
     <upgrade_targets />
     <Equipments>
-      <EquipmentRoster />
+      <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -1458,7 +1509,8 @@
     </skills>
     <upgrade_targets />
     <Equipments>
-      <EquipmentRoster />
+      <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -1486,7 +1538,8 @@
     </skills>
     <upgrade_targets />
     <Equipments>
-      <EquipmentRoster />
+      <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -1514,7 +1567,8 @@
     </skills>
     <upgrade_targets />
     <Equipments>
-      <EquipmentRoster />
+      <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -1542,7 +1596,8 @@
     </skills>
     <upgrade_targets />
     <Equipments>
-      <EquipmentRoster />
+      <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -1570,7 +1625,8 @@
     </skills>
     <upgrade_targets />
     <Equipments>
-      <EquipmentRoster />
+      <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -1598,7 +1654,8 @@
     </skills>
     <upgrade_targets />
     <Equipments>
-      <EquipmentRoster />
+      <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -1626,7 +1683,8 @@
     </skills>
     <upgrade_targets />
     <Equipments>
-      <EquipmentRoster />
+      <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -1654,7 +1712,8 @@
     </skills>
     <upgrade_targets />
     <Equipments>
-      <EquipmentRoster />
+      <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -1682,7 +1741,8 @@
     </skills>
     <upgrade_targets />
     <Equipments>
-      <EquipmentRoster />
+      <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -1710,7 +1770,8 @@
     </skills>
     <upgrade_targets />
     <Equipments>
-      <EquipmentRoster />
+      <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -1738,7 +1799,8 @@
     </skills>
     <upgrade_targets />
     <Equipments>
-      <EquipmentRoster />
+      <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -1766,7 +1828,8 @@
     </skills>
     <upgrade_targets />
     <Equipments>
-      <EquipmentRoster />
+      <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━ Clan Elite Troops ━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
@@ -1796,6 +1859,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -1824,6 +1888,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -1852,6 +1917,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -1880,6 +1946,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -1908,6 +1975,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -1936,6 +2004,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -1964,6 +2033,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -1992,6 +2062,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -2020,6 +2091,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -2048,6 +2120,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -2076,6 +2149,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -2104,6 +2178,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -2132,6 +2207,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -2160,6 +2236,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -2188,6 +2265,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -2216,6 +2294,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -2244,6 +2323,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -2272,6 +2352,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -2300,6 +2381,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -2328,6 +2410,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -2356,6 +2439,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -2384,6 +2468,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -2412,6 +2497,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -2440,6 +2526,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -2468,6 +2555,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -2496,6 +2584,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -2524,6 +2613,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -2552,6 +2642,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -2580,6 +2671,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -2608,6 +2700,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -2636,6 +2729,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -2664,6 +2758,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -2692,6 +2787,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Clan Militia ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
@@ -2721,6 +2817,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -2749,6 +2846,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -2777,6 +2875,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -2805,6 +2904,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
@@ -2837,6 +2937,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -2865,6 +2966,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <!-- ━━━━━━━━━━━━━━━━━━━━━━━━ Kingdom Basic Troops ━━━━━━━━━━━━━━━━━━━━━━━━━ -->
@@ -2894,6 +2996,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -2922,6 +3025,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -2950,6 +3054,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -2978,6 +3083,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -3006,6 +3112,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -3034,6 +3141,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -3062,6 +3170,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -3090,6 +3199,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -3118,6 +3228,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -3146,6 +3257,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -3174,6 +3286,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -3202,6 +3315,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -3230,6 +3344,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -3258,6 +3373,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -3286,6 +3402,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -3314,6 +3431,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -3342,6 +3460,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -3370,6 +3489,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -3398,6 +3518,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -3426,6 +3547,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -3454,6 +3576,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -3482,6 +3605,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -3510,6 +3634,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -3538,6 +3663,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -3566,6 +3692,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -3594,6 +3721,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -3622,6 +3750,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -3650,6 +3779,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -3678,6 +3808,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -3706,6 +3837,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -3734,6 +3866,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <!-- ━━━━━━━━━━━━━━━━━━━━━━━━ Kingdom Elite Troops ━━━━━━━━━━━━━━━━━━━━━━━━━ -->
@@ -3763,6 +3896,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -3791,6 +3925,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -3819,6 +3954,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -3847,6 +3983,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -3875,6 +4012,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -3903,6 +4041,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -3931,6 +4070,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -3959,6 +4099,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -3987,6 +4128,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -4015,6 +4157,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -4043,6 +4186,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -4071,6 +4215,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -4099,6 +4244,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -4127,6 +4273,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -4155,6 +4302,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -4183,6 +4331,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -4211,6 +4360,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -4239,6 +4389,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -4267,6 +4418,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -4295,6 +4447,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -4323,6 +4476,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -4351,6 +4505,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -4379,6 +4534,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -4407,6 +4563,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -4435,6 +4592,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -4463,6 +4621,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -4491,6 +4650,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -4519,6 +4679,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -4547,6 +4708,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -4575,6 +4737,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -4603,6 +4766,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -4630,7 +4794,8 @@
     </skills>
     <upgrade_targets />
     <Equipments>
-      <EquipmentRoster />
+      <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -4658,7 +4823,8 @@
     </skills>
     <upgrade_targets />
     <Equipments>
-      <EquipmentRoster />
+      <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -4686,7 +4852,8 @@
     </skills>
     <upgrade_targets />
     <Equipments>
-      <EquipmentRoster />
+      <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -4714,7 +4881,8 @@
     </skills>
     <upgrade_targets />
     <Equipments>
-      <EquipmentRoster />
+      <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -4742,7 +4910,8 @@
     </skills>
     <upgrade_targets />
     <Equipments>
-      <EquipmentRoster />
+      <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -4770,7 +4939,8 @@
     </skills>
     <upgrade_targets />
     <Equipments>
-      <EquipmentRoster />
+      <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -4798,7 +4968,8 @@
     </skills>
     <upgrade_targets />
     <Equipments>
-      <EquipmentRoster />
+      <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -4826,7 +4997,8 @@
     </skills>
     <upgrade_targets />
     <Equipments>
-      <EquipmentRoster />
+      <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <!-- ELITE 01000..01111 -->
@@ -4855,7 +5027,8 @@
     </skills>
     <upgrade_targets />
     <Equipments>
-      <EquipmentRoster />
+      <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -4883,7 +5056,8 @@
     </skills>
     <upgrade_targets />
     <Equipments>
-      <EquipmentRoster />
+      <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -4911,7 +5085,8 @@
     </skills>
     <upgrade_targets />
     <Equipments>
-      <EquipmentRoster />
+      <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -4939,7 +5114,8 @@
     </skills>
     <upgrade_targets />
     <Equipments>
-      <EquipmentRoster />
+      <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -4967,7 +5143,8 @@
     </skills>
     <upgrade_targets />
     <Equipments>
-      <EquipmentRoster />
+      <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -4995,7 +5172,8 @@
     </skills>
     <upgrade_targets />
     <Equipments>
-      <EquipmentRoster />
+      <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -5023,7 +5201,8 @@
     </skills>
     <upgrade_targets />
     <Equipments>
-      <EquipmentRoster />
+      <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -5051,7 +5230,8 @@
     </skills>
     <upgrade_targets />
     <Equipments>
-      <EquipmentRoster />
+      <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <!-- ELITE 10000..10111 -->
@@ -5080,7 +5260,8 @@
     </skills>
     <upgrade_targets />
     <Equipments>
-      <EquipmentRoster />
+      <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -5108,7 +5289,8 @@
     </skills>
     <upgrade_targets />
     <Equipments>
-      <EquipmentRoster />
+      <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -5136,7 +5318,8 @@
     </skills>
     <upgrade_targets />
     <Equipments>
-      <EquipmentRoster />
+      <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -5164,7 +5347,8 @@
     </skills>
     <upgrade_targets />
     <Equipments>
-      <EquipmentRoster />
+      <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -5192,7 +5376,8 @@
     </skills>
     <upgrade_targets />
     <Equipments>
-      <EquipmentRoster />
+      <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -5220,7 +5405,8 @@
     </skills>
     <upgrade_targets />
     <Equipments>
-      <EquipmentRoster />
+      <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -5248,7 +5434,8 @@
     </skills>
     <upgrade_targets />
     <Equipments>
-      <EquipmentRoster />
+      <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -5276,7 +5463,8 @@
     </skills>
     <upgrade_targets />
     <Equipments>
-      <EquipmentRoster />
+      <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <!-- ELITE 11000..11111 -->
@@ -5305,7 +5493,8 @@
     </skills>
     <upgrade_targets />
     <Equipments>
-      <EquipmentRoster />
+      <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -5333,7 +5522,8 @@
     </skills>
     <upgrade_targets />
     <Equipments>
-      <EquipmentRoster />
+      <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -5361,7 +5551,8 @@
     </skills>
     <upgrade_targets />
     <Equipments>
-      <EquipmentRoster />
+      <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -5389,7 +5580,8 @@
     </skills>
     <upgrade_targets />
     <Equipments>
-      <EquipmentRoster />
+      <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -5417,7 +5609,8 @@
     </skills>
     <upgrade_targets />
     <Equipments>
-      <EquipmentRoster />
+      <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -5445,7 +5638,8 @@
     </skills>
     <upgrade_targets />
     <Equipments>
-      <EquipmentRoster />
+      <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -5473,7 +5667,8 @@
     </skills>
     <upgrade_targets />
     <Equipments>
-      <EquipmentRoster />
+      <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -5501,7 +5696,8 @@
     </skills>
     <upgrade_targets />
     <Equipments>
-      <EquipmentRoster />
+      <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━ Kingdom Militia ━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
@@ -5531,6 +5727,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -5559,6 +5756,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -5587,6 +5785,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
   <NPCCharacter
@@ -5615,6 +5814,7 @@
     <upgrade_targets></upgrade_targets>
     <Equipments>
       <EquipmentRoster></EquipmentRoster>
+			<EquipmentRoster civilian="true"></EquipmentRoster>
     </Equipments>
   </NPCCharacter>
 </NPCCharacters>
