@@ -71,7 +71,7 @@ namespace Retinues.Editor.VM.List.Rows
         {
             get
             {
-                if (_character == null || _character.Parents.Count == 0)
+                if (_character == null || _character.IsRoot)
                 {
                     return string.Empty;
                 }
@@ -118,7 +118,6 @@ namespace Retinues.Editor.VM.List.Rows
         public override void ExecuteSelect()
         {
             base.ExecuteSelect();
-            Log.Info($"Selecting character '{Character?.StringId}'");
         }
     }
 }

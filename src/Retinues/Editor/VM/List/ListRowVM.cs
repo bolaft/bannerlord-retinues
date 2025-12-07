@@ -72,7 +72,6 @@ namespace Retinues.Editor.VM.List
         [DataSourceMethod]
         public virtual void ExecuteSelect()
         {
-            Log.Info($"ListElementVM: Selecting element '{Id}'");
             IsSelected = true;
             List?.OnElementSelected(this);
         }
