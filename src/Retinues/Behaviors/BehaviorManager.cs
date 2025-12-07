@@ -20,7 +20,7 @@ namespace Retinues.Behaviors
         /// <summary>
         /// Unique ID for this module's SaveableTypeDefiner.
         /// </summary>
-        private const int saveableTypeDefinerId = 090_787;
+        private const int saveableTypeDefinerId = 070_992;
 
         /// <summary>
         /// Construct the definer with the module's unique base ID.

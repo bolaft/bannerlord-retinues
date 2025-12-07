@@ -195,13 +195,13 @@ namespace Retinues.Wrappers
                         attr.SetterName,
                         bindingFlags,
                         binder: null,
-                        types: new[] { prop.PropertyType },
+                        types: [prop.PropertyType],
                         modifiers: null
                     );
 
                     if (customSetter != null)
                     {
-                        setter = (obj, value) => customSetter.Invoke(obj, new[] { value });
+                        setter = (obj, value) => customSetter.Invoke(obj, [value]);
                     }
                 }
 
@@ -220,10 +220,9 @@ namespace Retinues.Wrappers
                 }
                 else if (member is FieldInfo baseField)
                 {
-                    getter = obj => baseField.GetValue(obj);
+                    getter = baseField.GetValue;
 
-                    if (setter == null)
-                        setter = (obj, value) => baseField.SetValue(obj, value);
+                    setter ??= baseField.SetValue;
                 }
 
                 result[prop.Name] = new ReflectedEntry
