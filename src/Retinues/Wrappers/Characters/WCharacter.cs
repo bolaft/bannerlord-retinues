@@ -25,6 +25,7 @@ namespace Retinues.Wrappers.Characters
         }
 
         public bool IsHero => Base.IsHero;
+        public bool IsElite => Root == Culture.RootElite;
 
         public WCulture Culture => WCulture.Get(Base.Culture);
 
