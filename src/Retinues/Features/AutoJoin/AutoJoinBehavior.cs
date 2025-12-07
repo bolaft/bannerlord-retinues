@@ -89,19 +89,28 @@ namespace Retinues.Features.AutoJoin
             foreach (var r in retinues)
                 before[r.StringId] = wparty.MemberRoster.CountOf(r);
 
+            // Max attempt (safety in case something goes wrong)
+            var maxAttempts = 1000;
             // Attempt hires
-            int attempts = rng.Next(10); // 0..9 attempts
-            while (space > 0 && attempts-- > 0)
+            while (space > 0 && maxAttempts-- > 0)
             {
-                var retinue = retinues[rng.Next(retinues.Count)];
-                if (GetCountOf(retinue) >= GetJoinCap(retinue))
-                    continue;
+                var affordable = retinues
+                    .Where(r =>
+                    {
+                        if (GetCountOf(r) >= GetJoinCap(r))
+                            return false;
+                        var cost = RetinueManager.RenownRequiredPerUnit(r);
+                        return cost > 0 && cost <= _renownReserve;
+                    })
+                    .ToList();
 
-                var cost = RetinueManager.RenownRequiredPerUnit(retinue);
-                if (cost > _renownReserve)
-                    continue;
+                if (affordable.Count == 0)
+                    break;
 
-                _renownReserve -= cost;
+                var retinue = affordable[rng.Next(affordable.Count)];
+                var unitCost = RetinueManager.RenownRequiredPerUnit(retinue);
+
+                _renownReserve -= unitCost;
                 wparty.MemberRoster.AddTroop(retinue, 1);
                 space--;
             }
