@@ -18,6 +18,10 @@ namespace Retinues.Editor.VM
 
         public EditorVM()
         {
+            // Start each editor session from a clean shared state.
+            ResetState();
+
+            // Initialize the troop list VM.
             List = new ListVM();
 
             // Sort buttons: keep stable ordering and widths.

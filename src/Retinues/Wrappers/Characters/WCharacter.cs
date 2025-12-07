@@ -292,6 +292,12 @@ namespace Retinues.Wrappers.Characters
             set => Base.Race = value;
         }
 
+        public float Age
+        {
+            get => Base.Age;
+            set => Base.Age = value;
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Upgrades                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

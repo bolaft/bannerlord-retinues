@@ -117,13 +117,24 @@ namespace Retinues.Wrappers.Factions
         //                          Rosters                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        private static bool IsValid(WCharacter character)
+        {
+            if (character == null)
+                return false;
+
+            if (character.Age < 18)
+                return false;
+
+            return true;
+        }
+
         protected static List<WCharacter> Collect(params WCharacter[] characters)
         {
             var list = new List<WCharacter>(characters.Length);
             for (int i = 0; i < characters.Length; i++)
             {
                 var c = characters[i];
-                if (c != null)
+                if (IsValid(c))
                     list.Add(c);
             }
 

@@ -35,6 +35,13 @@ namespace Retinues.Editor.VM.List
             CharacterChanged += OnStateCharacterChanged;
         }
 
+        public override void OnFinalize()
+        {
+            FactionChanged -= OnStateFactionChanged;
+            CharacterChanged -= OnStateCharacterChanged;
+            base.OnFinalize();
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                   Headers / Selection                  //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
