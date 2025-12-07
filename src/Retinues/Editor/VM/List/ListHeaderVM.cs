@@ -92,11 +92,11 @@ namespace Retinues.Editor.VM.List
         [DataSourceProperty]
         public string ElementCountText => $"({_elements?.Count ?? 0})";
 
-        public CharacterRowVM AddCharacterRow(WCharacter character)
+        public CharacterRowVM AddCharacterRow(WCharacter character, bool civilian = false)
         {
             var wasEmpty = _elements.Count == 0;
 
-            var element = new CharacterRowVM(this, character);
+            var element = new CharacterRowVM(this, character, civilian);
             _elements.Add(element);
 
             if (wasEmpty)

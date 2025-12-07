@@ -10,10 +10,14 @@ using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
 
 namespace Retinues.Editor.VM.List.Rows
 {
-    public sealed class CharacterRowVM(ListHeaderVM header, WCharacter character)
-        : ListRowVM(header, character.StringId)
+    public sealed class CharacterRowVM(
+        ListHeaderVM header,
+        WCharacter character,
+        bool civilian = false
+    ) : ListRowVM(header, character.StringId)
     {
         private readonly WCharacter _character = character;
+        private readonly bool _civilian = civilian;
 
         public WCharacter Character => _character;
 
@@ -40,7 +44,7 @@ namespace Retinues.Editor.VM.List.Rows
         /* ━━━━━━━━━ Image ━━━━━━━━ */
 
         [DataSourceProperty]
-        public ImageIdentifierVM Image => _character.Image;
+        public ImageIdentifierVM Image => _character.GetImage(_civilian);
 
         // ━━━━━━━━━ Existing bits ━━━━━━━━━
 

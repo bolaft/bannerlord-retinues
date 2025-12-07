@@ -115,7 +115,7 @@ namespace Retinues.Editor.VM
                         if (troop == null)
                             continue;
 
-                        civilians.AddCharacterRow(troop);
+                        civilians.AddCharacterRow(troop, civilian: true);
                     }
                 }
             }

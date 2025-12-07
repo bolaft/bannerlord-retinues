@@ -198,15 +198,23 @@ namespace Retinues.Wrappers.Characters
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
 # if BL13
-        public CharacterImageIdentifierVM Image => new(CharacterCode);
+        public CharacterImageIdentifierVM GetImage(bool civilian = false) =>
+            new(GetCharacterCode(civilian));
 
-        public ImageIdentifier ImageIdentifier => new CharacterImageIdentifier(CharacterCode);
+        public ImageIdentifier GetImageIdentifier(bool civilian = false) =>
+            new CharacterImageIdentifier(GetCharacterCode(civilian));
 #else
-        public ImageIdentifierVM Image => new(CharacterCode);
+        public ImageIdentifierVM GetImage(bool civilian = false) => new(GetCharacterCode(civilian));
 
-        public ImageIdentifier ImageIdentifier => new(CharacterCode);
+        public ImageIdentifier GetImageIdentifier(bool civilian = false) =>
+            new(GetCharacterCode(civilian));
 # endif
-        public CharacterCode CharacterCode => CharacterCode.CreateFrom(Base);
+
+        public CharacterCode GetCharacterCode(bool civilian = false) =>
+            CharacterCode.CreateFrom(
+                Base,
+                civilian ? Base.FirstCivilianEquipment : Base.FirstBattleEquipment
+            );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Transfer Flags                     //
