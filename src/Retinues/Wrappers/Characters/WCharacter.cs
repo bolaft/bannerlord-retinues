@@ -12,6 +12,8 @@ namespace Retinues.Wrappers.Characters
 {
     public sealed class WCharacter : Wrapper<WCharacter, CharacterObject>
     {
+        public const string CustomTroopPrefix = "retinues_custom_";
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Main Properties                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -26,6 +28,8 @@ namespace Retinues.Wrappers.Characters
 
         public bool IsHero => Base.IsHero;
         public bool IsElite => Root == Culture.RootElite;
+        public bool IsCustom => StringId.StartsWith(CustomTroopPrefix);
+        public bool IsVanilla => !IsCustom;
 
         public WCulture Culture => WCulture.Get(Base.Culture);
 
