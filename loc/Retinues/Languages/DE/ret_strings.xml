@@ -23,11 +23,38 @@
       id="ret_escape_menu_editor_button"
       text="Truppen-Editor" />
     <string
+      id="ret_filter_label"
+      text="Filter:" />
+    <string
       id="ret_init_error_body_detailed"
       text="Die Abhängigkeiten des Retinues-Mods konnten nicht ordnungsgemäß initialisiert werden:{newline}{newline}{DETAILS}{newline}{newline}Der Mod funktioniert möglicherweise nicht richtig, bis die Abhängigkeiten behoben sind." />
     <string
       id="ret_init_error_title"
       text="Retinues-Abhängigkeitsfehler" />
+    <string
+      id="ret_list_header_bandits"
+      text="Banditen" />
+    <string
+      id="ret_list_header_caravan"
+      text="Karawane" />
+    <string
+      id="ret_list_header_civilians"
+      text="Zivilisten" />
+    <string
+      id="ret_list_header_elite"
+      text="Elite" />
+    <string
+      id="ret_list_header_militia"
+      text="Miliz" />
+    <string
+      id="ret_list_header_regular"
+      text="Regulär" />
+    <string
+      id="ret_list_header_retinues"
+      text="Retinues" />
+    <string
+      id="ret_list_header_villagers"
+      text="Dörfler" />
     <string
       id="ret_retinues_update_title"
       text="Retinues-Update" />
@@ -46,5 +73,11 @@
     <string
       id="ret_retinues_version_update_text_no_current"
       text="Die Retinues-Mod-Version in dieser Speicherdatei wurde auf eine neuere Version ({CURRENT_VERSION}) aktualisiert. Ihre gespeicherten Daten wurden automatisch migriert.{newline}{newline}Als Sicherheitsvorkehrung sollten Sie überprüfen, ob alles in Ordnung ist, bevor Sie Ihren Speicher überschreiben.{newline}{newline}Wenn Sie aus irgendeinem Grund zur vorherigen Version zurückkehren möchten, laden Sie die Version herunter, die Sie zuvor verwendet haben, von Nexus Mods." />
+    <string
+      id="ret_sort_by_name"
+      text="Name" />
+    <string
+      id="ret_sort_by_tier"
+      text="Stufe" />
   </strings>
 </base>

@@ -23,11 +23,38 @@
       id="ret_escape_menu_editor_button"
       text="部队编辑器" />
     <string
+      id="ret_filter_label"
+      text="过滤器：" />
+    <string
       id="ret_init_error_body_detailed"
       text="Retinues 模组的依赖项未能正确初始化：{newline}{newline}{DETAILS}{newline}{newline}在修复依赖项之前，模组可能无法正常运行。" />
     <string
       id="ret_init_error_title"
       text="Retinues 依赖项错误" />
+    <string
+      id="ret_list_header_bandits"
+      text="强盗" />
+    <string
+      id="ret_list_header_caravan"
+      text="商队" />
+    <string
+      id="ret_list_header_civilians"
+      text="平民" />
+    <string
+      id="ret_list_header_elite"
+      text="精英" />
+    <string
+      id="ret_list_header_militia"
+      text="民兵" />
+    <string
+      id="ret_list_header_regular"
+      text="正规" />
+    <string
+      id="ret_list_header_retinues"
+      text="随从" />
+    <string
+      id="ret_list_header_villagers"
+      text="村民" />
     <string
       id="ret_retinues_update_title"
       text="Retinues 更新" />
@@ -46,5 +73,11 @@
     <string
       id="ret_retinues_version_update_text_no_current"
       text="此保存文件中的 Retinues 模组版本已更新为较新版本 ({CURRENT_VERSION})。您的保存数据已自动迁移。{newline}{newline}作为安全预防措施，在覆盖保存之前，请检查一切是否正常。{newline}{newline}如果您出于任何原因希望回到以前的版本，请从 Nexus Mods 下载您之前使用的版本。" />
+    <string
+      id="ret_sort_by_name"
+      text="名称" />
+    <string
+      id="ret_sort_by_tier"
+      text="等级" />
   </strings>
 </base>

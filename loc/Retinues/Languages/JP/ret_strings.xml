@@ -23,11 +23,38 @@
       id="ret_escape_menu_editor_button"
       text="部隊エディター" />
     <string
+      id="ret_filter_label"
+      text="フィルター：" />
+    <string
       id="ret_init_error_body_detailed"
       text="Retinues モッドの依存関係が正しく初期化されませんでした:{newline}{newline}{DETAILS}{newline}{newline}依存関係が修正されるまで、モッドは正しく機能しない可能性があります。" />
     <string
       id="ret_init_error_title"
       text="Retinues 依存関係エラー" />
+    <string
+      id="ret_list_header_bandits"
+      text="山賊" />
+    <string
+      id="ret_list_header_caravan"
+      text="キャラバン" />
+    <string
+      id="ret_list_header_civilians"
+      text="民間人" />
+    <string
+      id="ret_list_header_elite"
+      text="エリート" />
+    <string
+      id="ret_list_header_militia"
+      text="民兵" />
+    <string
+      id="ret_list_header_regular"
+      text="レギュラー" />
+    <string
+      id="ret_list_header_retinues"
+      text="Retinues" />
+    <string
+      id="ret_list_header_villagers"
+      text="村人" />
     <string
       id="ret_retinues_update_title"
       text="Retinues アップデート" />
@@ -46,5 +73,11 @@
     <string
       id="ret_retinues_version_update_text_no_current"
       text="このセーブファイルの Retinues モッドバージョンは、より新しいバージョン ({CURRENT_VERSION}) に更新されました。セーブデータは自動的に移行されました。{newline}{newline}安全対策として、セーブを上書きする前にすべてが正常であることを確認してください。{newline}{newline}何らかの理由で以前のバージョンに戻りたい場合は、Nexus Mods から以前使用していたバージョンをダウンロードしてください。" />
+    <string
+      id="ret_sort_by_name"
+      text="名前" />
+    <string
+      id="ret_sort_by_tier"
+      text="階級" />
   </strings>
 </base>

@@ -1,11 +1,7 @@
 using System;
 using Bannerlord.UIExtenderEx.Attributes;
-using Retinues.Utilities;
 using Retinues.Wrappers.Characters;
 using TaleWorlds.Library;
-#if BL13
-using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
-#endif
 
 namespace Retinues.Editor.VM.List.Rows
 {
@@ -118,6 +114,25 @@ namespace Retinues.Editor.VM.List.Rows
         public override void ExecuteSelect()
         {
             base.ExecuteSelect();
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Sorting                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        internal override IComparable GetSortValue(ListSortKey sortKey)
+        {
+            switch (sortKey)
+            {
+                case ListSortKey.Name:
+                    return Name ?? string.Empty;
+
+                case ListSortKey.Tier:
+                    return _tier;
+
+                default:
+                    return Name ?? string.Empty;
+            }
         }
     }
 }

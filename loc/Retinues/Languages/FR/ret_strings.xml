@@ -23,11 +23,38 @@
       id="ret_escape_menu_editor_button"
       text="Éditeur de troupes" />
     <string
+      id="ret_filter_label"
+      text="Filtre :" />
+    <string
       id="ret_init_error_body_detailed"
       text="Les dépendances du mod Retinues n&apos;ont pas pu être initialisées correctement :{newline}{newline}{DETAILS}{newline}{newline}Le mod peut ne pas fonctionner correctement tant que les dépendances ne sont pas corrigées." />
     <string
       id="ret_init_error_title"
       text="Erreur de dépendance Retinues" />
+    <string
+      id="ret_list_header_bandits"
+      text="Bandits" />
+    <string
+      id="ret_list_header_caravan"
+      text="Caravane" />
+    <string
+      id="ret_list_header_civilians"
+      text="Civils" />
+    <string
+      id="ret_list_header_elite"
+      text="Élite" />
+    <string
+      id="ret_list_header_militia"
+      text="Milice" />
+    <string
+      id="ret_list_header_regular"
+      text="Régulier" />
+    <string
+      id="ret_list_header_retinues"
+      text="Rétinues" />
+    <string
+      id="ret_list_header_villagers"
+      text="Villageois" />
     <string
       id="ret_retinues_update_title"
       text="Mise à jour de Retinues" />
@@ -46,5 +73,11 @@
     <string
       id="ret_retinues_version_update_text_no_current"
       text="La version du mod Retinues dans ce fichier de sauvegarde a été mise à jour vers une version plus récente ({CURRENT_VERSION}). Vos données de sauvegarde ont été automatiquement migrées.{newline}{newline}Par mesure de précaution, vérifiez que tout est en ordre avant d&apos;écraser votre sauvegarde.{newline}{newline}Si pour une raison quelconque vous souhaitez revenir à la version précédente, téléchargez la version que vous utilisiez auparavant depuis Nexus Mods." />
+    <string
+      id="ret_sort_by_name"
+      text="Nom" />
+    <string
+      id="ret_sort_by_tier"
+      text="Niveau" />
   </strings>
 </base>

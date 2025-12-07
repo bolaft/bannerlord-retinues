@@ -3,14 +3,10 @@ using TaleWorlds.Library;
 
 namespace Retinues.Editor.VM.List
 {
-    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-    //                      Sort Button                      //
-    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
     /// <summary>
     /// Header sort button with three-state sort (none, asc, desc).
     /// </summary>
-    public class ListSortButtonVM(ListVM list, string id, string text, int requestedWidth)
+    public class ListSortButtonVM(ListVM list, ListSortKey sortKey, string text, int requestedWidth)
         : BaseStatefulVM
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -19,38 +15,22 @@ namespace Retinues.Editor.VM.List
 
         private readonly ListVM _list = list;
 
-        private string _id = id;
         private string _text = text;
         private int _requestedWidth = requestedWidth;
 
         private int _normalizedWidth;
         private int _width;
         private bool _isLastColumn;
-
-        // 0 = none, 1 = ascending, 2 = descending.
-        private int _sortStateIndex;
+        private bool _isSelected;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Accessors                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        internal ListVM List => _list;
+        internal readonly ListSortKey SortKey = sortKey;
 
         [DataSourceProperty]
-        public string Id
-        {
-            get => _id;
-            private set
-            {
-                if (value == _id)
-                {
-                    return;
-                }
-
-                _id = value;
-                OnPropertyChanged(nameof(Id));
-            }
-        }
+        public string Id => SortKey.ToString();
 
         [DataSourceProperty]
         public string Text
@@ -142,10 +122,46 @@ namespace Retinues.Editor.VM.List
         }
 
         [DataSourceProperty]
+        public bool IsSelected
+        {
+            get => _isSelected;
+            private set
+            {
+                if (value == _isSelected)
+                {
+                    return;
+                }
+
+                _isSelected = value;
+                OnPropertyChanged(nameof(IsSelected));
+            }
+        }
+
         public bool IsSortedAscending => _sortStateIndex == 1;
+        public bool IsSortedDescending => _sortStateIndex == 2;
+
+        // 0 = none, 1 = ascending, 2 = descending.
+        private int _sortStateIndex;
 
         [DataSourceProperty]
-        public bool IsSortedDescending => _sortStateIndex == 2;
+        public int SortState
+        {
+            get => _sortStateIndex;
+            private set
+            {
+                if (value == _sortStateIndex)
+                {
+                    return;
+                }
+
+                _sortStateIndex = value;
+
+                OnPropertyChanged(nameof(SortState));
+
+                // Selected only when there is an active sort.
+                IsSelected = _sortStateIndex != 0;
+            }
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Helpers                        //
@@ -169,10 +185,7 @@ namespace Retinues.Editor.VM.List
 
         internal void CycleSortState()
         {
-            _sortStateIndex = (_sortStateIndex + 1) % 3;
-
-            OnPropertyChanged(nameof(IsSortedAscending));
-            OnPropertyChanged(nameof(IsSortedDescending));
+            SortState = (_sortStateIndex + 1) % 3;
         }
 
         internal void ResetSortState()
@@ -182,10 +195,7 @@ namespace Retinues.Editor.VM.List
                 return;
             }
 
-            _sortStateIndex = 0;
-
-            OnPropertyChanged(nameof(IsSortedAscending));
-            OnPropertyChanged(nameof(IsSortedDescending));
+            SortState = 0;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -193,7 +203,7 @@ namespace Retinues.Editor.VM.List
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceMethod]
-        public void ExecuteClick()
+        public void ExecuteToggleSort()
         {
             _list?.OnSortButtonClicked(this);
         }

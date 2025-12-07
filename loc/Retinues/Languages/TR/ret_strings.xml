@@ -23,11 +23,38 @@
       id="ret_escape_menu_editor_button"
       text="Birlik Düzenleyici" />
     <string
+      id="ret_filter_label"
+      text="Filtre:" />
+    <string
       id="ret_init_error_body_detailed"
       text="Retinues mod bağımlılıkları düzgün şekilde başlatılamadı:{newline}{newline}{DETAILS}{newline}{newline}Bağımlılıklar düzeltilene kadar mod düzgün çalışmayabilir." />
     <string
       id="ret_init_error_title"
       text="Retinues Bağımlılık Hatası" />
+    <string
+      id="ret_list_header_bandits"
+      text="Haydutlar" />
+    <string
+      id="ret_list_header_caravan"
+      text="Kervan" />
+    <string
+      id="ret_list_header_civilians"
+      text="Sivilistler" />
+    <string
+      id="ret_list_header_elite"
+      text="Seçkin" />
+    <string
+      id="ret_list_header_militia"
+      text="Milis" />
+    <string
+      id="ret_list_header_regular"
+      text="Normal" />
+    <string
+      id="ret_list_header_retinues"
+      text="Retinues" />
+    <string
+      id="ret_list_header_villagers"
+      text="Köylüler" />
     <string
       id="ret_retinues_update_title"
       text="Retinues Güncellemesi" />
@@ -46,5 +73,11 @@
     <string
       id="ret_retinues_version_update_text_no_current"
       text="Bu kayıt dosyasındaki Retinues mod sürümü, daha yeni bir sürüme ({CURRENT_VERSION}) güncellendi. Kayıt verileriniz otomatik olarak taşındı.{newline}{newline}Bir güvenlik önlemi olarak, kaydınızı üzerine yazmadan önce her şeyin olması gerektiği gibi olduğundan emin olun.{newline}{newline}Herhangi bir nedenle önceki sürüme dönmek isterseniz, daha önce kullandığınız sürümü Nexus Mods&apos;tan indirin." />
+    <string
+      id="ret_sort_by_name"
+      text="İsim" />
+    <string
+      id="ret_sort_by_tier"
+      text="Seviye" />
   </strings>
 </base>

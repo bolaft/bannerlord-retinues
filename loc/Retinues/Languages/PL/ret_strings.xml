@@ -23,11 +23,38 @@
       id="ret_escape_menu_editor_button"
       text="Edytor oddziałów" />
     <string
+      id="ret_filter_label"
+      text="Filtr:" />
+    <string
       id="ret_init_error_body_detailed"
       text="Nie udało się poprawnie zainicjować zależności moda Retinues:{newline}{newline}{DETAILS}{newline}{newline}Mod może nie działać poprawnie, dopóki zależności nie zostaną naprawione." />
     <string
       id="ret_init_error_title"
       text="Błąd zależności Retinues" />
+    <string
+      id="ret_list_header_bandits"
+      text="Bandyci" />
+    <string
+      id="ret_list_header_caravan"
+      text="Karawana" />
+    <string
+      id="ret_list_header_civilians"
+      text="Cywile" />
+    <string
+      id="ret_list_header_elite"
+      text="Elita" />
+    <string
+      id="ret_list_header_militia"
+      text="Milicja" />
+    <string
+      id="ret_list_header_regular"
+      text="Regularny" />
+    <string
+      id="ret_list_header_retinues"
+      text="Retinues" />
+    <string
+      id="ret_list_header_villagers"
+      text="Mieszkańcy wsi" />
     <string
       id="ret_retinues_update_title"
       text="Aktualizacja Retinues" />
@@ -46,5 +73,11 @@
     <string
       id="ret_retinues_version_update_text_no_current"
       text="Wersja moda Retinues w tym pliku zapisu została zaktualizowana do nowszej wersji ({CURRENT_VERSION}). Twoje dane zapisu zostały automatycznie przeniesione.{newline}{newline}Jako środek ostrożności sprawdź, czy wszystko jest w porządku przed nadpisaniem zapisu.{newline}{newline}Jeśli z jakiego powodu chcesz wrócić do poprzedniej wersji, pobierz wersję, której wcześniej używałeś, z Nexus Mods." />
+    <string
+      id="ret_sort_by_name"
+      text="Nazwa" />
+    <string
+      id="ret_sort_by_tier"
+      text="Poziom" />
   </strings>
 </base>

@@ -1,5 +1,5 @@
+using System;
 using Bannerlord.UIExtenderEx.Attributes;
-using Retinues.Utilities;
 using TaleWorlds.Library;
 
 namespace Retinues.Editor.VM.List
@@ -74,6 +74,16 @@ namespace Retinues.Editor.VM.List
         {
             IsSelected = true;
             List?.OnElementSelected(this);
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Sorting                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        internal virtual IComparable GetSortValue(ListSortKey sortKey)
+        {
+            // Default: sort by ID (case-insensitive).
+            return Id ?? string.Empty;
         }
     }
 }

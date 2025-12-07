@@ -1,5 +1,4 @@
 using Retinues.Editor.VM.List;
-using Retinues.Utilities;
 using Retinues.Wrappers.Characters;
 using Retinues.Wrappers.Factions;
 using TaleWorlds.CampaignSystem;
@@ -7,11 +6,18 @@ using TaleWorlds.Library;
 
 namespace Retinues.Editor.VM
 {
+    public enum EditorMode
+    {
+        Character = 0,
+    }
+
     /// <summary>
     /// Root editor ViewModel; initializes shared state and child VMs.
     /// </summary>
     public class EditorVM : BaseStatefulVM
     {
+        public static EditorMode Mode = EditorMode.Character;
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Construction                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -24,11 +30,7 @@ namespace Retinues.Editor.VM
             // Initialize the troop list VM.
             List = new ListVM();
 
-            // Sort buttons: keep stable ordering and widths.
-            List.AddSortButton("name", L.S("sort_by_name", "Name"), 2);
-            List.AddSortButton("tier", L.S("sort_by_tier", "Tier"), 1);
-            List.AddSortButton("value", L.S("sort_by_value", "Value"), 1);
-
+            // Initialize default state (faction, character, etc.).
             InitializeStateDefaults();
         }
 

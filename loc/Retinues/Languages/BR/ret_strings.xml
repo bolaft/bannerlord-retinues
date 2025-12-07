@@ -23,11 +23,38 @@
       id="ret_escape_menu_editor_button"
       text="Editor de Tropas" />
     <string
+      id="ret_filter_label"
+      text="Filtro:" />
+    <string
       id="ret_init_error_body_detailed"
       text="As dependências do mod Retinues não foram inicializadas corretamente:{newline}{newline}{DETAILS}{newline}{newline}O mod pode não funcionar corretamente até que as dependências sejam corrigidas." />
     <string
       id="ret_init_error_title"
       text="Erro de Dependência do Retinues" />
+    <string
+      id="ret_list_header_bandits"
+      text="Bandidos" />
+    <string
+      id="ret_list_header_caravan"
+      text="Caravana" />
+    <string
+      id="ret_list_header_civilians"
+      text="Civis" />
+    <string
+      id="ret_list_header_elite"
+      text="Elite" />
+    <string
+      id="ret_list_header_militia"
+      text="Milícia" />
+    <string
+      id="ret_list_header_regular"
+      text="Regular" />
+    <string
+      id="ret_list_header_retinues"
+      text="Retinues" />
+    <string
+      id="ret_list_header_villagers"
+      text="Vilaões" />
     <string
       id="ret_retinues_update_title"
       text="Atualização do Retinues" />
@@ -46,5 +73,11 @@
     <string
       id="ret_retinues_version_update_text_no_current"
       text="A versão do mod Retinues neste arquivo de salvamento foi atualizada para uma versão mais recente ({CURRENT_VERSION}). Seus dados de salvamento foram migrados automaticamente.{newline}{newline}Como precaução de segurança, verifique se tudo está como deveria antes de sobrescrever seu salvamento.{newline}{newline}Se por algum motivo você desejar voltar para a versão anterior, baixe a versão que você estava usando anteriormente do Nexus Mods." />
+    <string
+      id="ret_sort_by_name"
+      text="Nome" />
+    <string
+      id="ret_sort_by_tier"
+      text="Nível" />
   </strings>
 </base>

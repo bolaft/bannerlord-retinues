@@ -23,11 +23,38 @@
       id="ret_escape_menu_editor_button"
       text="부대 편집기" />
     <string
+      id="ret_filter_label"
+      text="필터:" />
+    <string
       id="ret_init_error_body_detailed"
       text="Retinues 모드 종속 항목을 제대로 초기화하지 못했습니다:{newline}{newline}{DETAILS}{newline}{newline}종속 항목이 수정될 때까지 모드가 제대로 작동하지 않을 수 있습니다." />
     <string
       id="ret_init_error_title"
       text="Retinues 종속성 오류" />
+    <string
+      id="ret_list_header_bandits"
+      text="산적" />
+    <string
+      id="ret_list_header_caravan"
+      text="캐러밴" />
+    <string
+      id="ret_list_header_civilians"
+      text="민간인" />
+    <string
+      id="ret_list_header_elite"
+      text="엘리트" />
+    <string
+      id="ret_list_header_militia"
+      text="민병대" />
+    <string
+      id="ret_list_header_regular"
+      text="정규" />
+    <string
+      id="ret_list_header_retinues"
+      text="Retinues" />
+    <string
+      id="ret_list_header_villagers"
+      text="마을 사람들" />
     <string
       id="ret_retinues_update_title"
       text="Retinues 업데이트" />
@@ -46,5 +73,11 @@
     <string
       id="ret_retinues_version_update_text_no_current"
       text="이 저장 파일의 Retinues 모드 버전이 최신 버전({CURRENT_VERSION})으로 업데이트되었습니다. 저장 데이터는 자동으로 마이그레이션되었습니다.{newline}{newline}안전 예방 조치로 저장을 덮어쓰기 전에 모든 것이 정상인지 확인하십시오.{newline}{newline}어떤 이유로든 이전 버전으로 돌아가려면 이전에 사용하던 버전을 Nexus Mods에서 다운로드하십시오." />
+    <string
+      id="ret_sort_by_name"
+      text="이름" />
+    <string
+      id="ret_sort_by_tier"
+      text="계급" />
   </strings>
 </base>
