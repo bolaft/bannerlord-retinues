@@ -1,0 +1,68 @@
+<Widget
+    WidthSizePolicy="StretchToParent"
+    HeightSizePolicy="StretchToParent"
+    MarginLeft="8"
+    DoNotAcceptEvents="true"
+    IsVisible="@IsCharacter">
+    <Children>
+
+        <ListPanel
+            WidthSizePolicy="CoverChildren"
+            HeightSizePolicy="StretchToParent"
+            HorizontalAlignment="Left"
+            DoNotAcceptEvents="true">
+            <Children>
+
+                {# Troop image #}
+                <Widget
+                    DataSource="{Image}"
+                    WidthSizePolicy="Fixed"
+                    HeightSizePolicy="Fixed"
+                    SuggestedWidth="68"
+                    SuggestedHeight="48"
+                    VerticalAlignment="Center"
+                    MarginRight="24"
+                    PositionYOffset="-1"
+                    DoNotAcceptEvents="true">
+                    <Children>
+                        <BrushWidget
+                            WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+                            Brush="SPClan.RoleSelectionButton.GoldFrame"/>
+
+                        <ImageIdentifierWidget
+                            WidthSizePolicy="Fixed"
+                            HeightSizePolicy="Fixed"
+                            SuggestedWidth="63"
+                            SuggestedHeight="44"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            ImageId="@Id"
+                        {% if version == "13" %}
+                            TextureProviderName="@TextureProviderName"
+                        {% else %}
+                            ImageTypeCode="@ImageTypeCode"
+                        {% endif %}
+                            AdditionalArgs="@AdditionalArgs" />
+                    </Children>
+                </Widget>
+
+                {# Name / label #}
+                <TextWidget
+                    WidthSizePolicy="CoverChildren"
+                    HeightSizePolicy="StretchToParent"
+                    VerticalAlignment="Center"
+                    Brush="Clan.Tuple.Name.Text"
+                    Text="@Indentation" />
+
+                <TextWidget
+                    WidthSizePolicy="CoverChildren"
+                    HeightSizePolicy="StretchToParent"
+                    VerticalAlignment="Center"
+                    Brush="Clan.Tuple.Name.Text"
+                    Text="@Name" />
+
+            </Children>
+        </ListPanel>
+
+    </Children>
+</Widget>

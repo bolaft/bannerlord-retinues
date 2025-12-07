@@ -40,7 +40,7 @@
                             StackLayout.LayoutMethod="VerticalTopToBottom"
                             UseSelfIndexForMinimum="true">
                             <ItemTemplate>
-                                {% include "_/list.entries.j2" %}
+                                {% include "_/list/main.entries.base.j2" %}
                             </ItemTemplate>
                         </NavigatableListPanel>
 
@@ -48,7 +48,7 @@
                 </Widget>
 
                 {# 2) Filters last #}
-                {% include "_/list.main.filter.j2" %}
+                {% include "_/list/main.filter.j2" %}
 
             </Children>
         </ScrollablePanel>

@@ -86,7 +86,7 @@ namespace Retinues.Editor.VM
                         if (troop == null)
                             continue;
 
-                        caravan.AddCharacterRow(troop);
+                        villagers.AddCharacterRow(troop);
                     }
                 }
 

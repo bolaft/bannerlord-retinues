@@ -9,14 +9,12 @@ namespace Retinues.Editor.VM.List
         private readonly ListHeaderVM _header;
 
         private string _id;
-        private string _label;
         private bool _isSelected;
 
-        protected ListRowVM(ListHeaderVM header, string id, string label)
+        protected ListRowVM(ListHeaderVM header, string id)
         {
             _header = header;
             _id = id;
-            _label = label;
         }
 
         internal ListHeaderVM Header => _header;
@@ -31,19 +29,6 @@ namespace Retinues.Editor.VM.List
                     return;
                 _id = value;
                 OnPropertyChanged(nameof(Id));
-            }
-        }
-
-        [DataSourceProperty]
-        public string Label
-        {
-            get => _label;
-            set
-            {
-                if (value == _label)
-                    return;
-                _label = value;
-                OnPropertyChanged(nameof(Label));
             }
         }
 
@@ -76,13 +61,6 @@ namespace Retinues.Editor.VM.List
             Log.Info($"ListElementVM: Selecting element '{Id}'");
             IsSelected = true;
             _header.List.OnElementSelected(this);
-        }
-
-        // Optional hook for headers to call
-        public override void RefreshValues()
-        {
-            // Default: just push Label change; subclasses can override
-            OnPropertyChanged(nameof(Label));
         }
     }
 }

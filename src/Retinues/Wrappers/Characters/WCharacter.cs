@@ -16,6 +16,8 @@ namespace Retinues.Wrappers.Characters
         //                     Main Properties                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        public int Tier => Base.Tier;
+
         public int Level
         {
             get => Base.Level;
@@ -37,9 +39,67 @@ namespace Retinues.Wrappers.Characters
         //                        Hierarchy                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private readonly List<WCharacter> _parents = [];
+        private static readonly Dictionary<WCharacter, List<WCharacter>> _parentMap = [];
+        private static bool _parentMapBuilt;
 
-        public List<WCharacter> Parents => _parents;
+        private static void EnsureParentMap()
+        {
+            if (_parentMapBuilt)
+                return;
+
+            _parentMapBuilt = true;
+            _parentMap.Clear();
+
+            // Ensure all characters are wrapped once.
+            var allChars = All; // uses MBObjectManager under the hood
+
+            foreach (var parent in allChars)
+            {
+                var targets = parent.UpgradeTargets;
+                if (targets == null || targets.Length == 0)
+                    continue;
+
+                for (int i = 0; i < targets.Length; i++)
+                {
+                    var co = targets[i];
+                    if (co == null)
+                        continue;
+
+                    var child = Get(co);
+                    if (child == null)
+                        continue;
+
+                    if (!_parentMap.TryGetValue(child, out var list))
+                    {
+                        list = [];
+                        _parentMap[child] = list;
+                    }
+
+                    // Avoid duplicates if someone wires the same target twice.
+                    if (!list.Contains(parent))
+                        list.Add(parent);
+                }
+            }
+        }
+
+        public static void InvalidateHierarchy()
+        {
+            _parentMapBuilt = false;
+            _parentMap.Clear();
+        }
+
+        public List<WCharacter> Parents
+        {
+            get
+            {
+                EnsureParentMap();
+
+                if (_parentMap.TryGetValue(this, out var parents))
+                    return parents;
+
+                return [];
+            }
+        }
 
         public List<WCharacter> Children
         {
