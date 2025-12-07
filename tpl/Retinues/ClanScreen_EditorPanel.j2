@@ -3,6 +3,15 @@
     IsVisible="@IsVisible"
     WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent">
     <Children>
+
+        {# Character tableau, first so it is behind other elements #}
+        {% include "_/tableau/base.j2" %}
+
+        {# Main list panel #}
         {% include "_/list/base.j2" %}
+
+        {# Character panel #}
+        {% include "_/character/base.j2" %}
+
     </Children>
 </Widget>

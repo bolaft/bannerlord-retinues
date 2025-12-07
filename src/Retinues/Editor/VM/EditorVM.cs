@@ -1,7 +1,10 @@
+using System.ComponentModel;
 using Retinues.Editor.VM.List;
+using Retinues.Editor.VM.List.Rows;
 using Retinues.Wrappers.Characters;
 using Retinues.Wrappers.Factions;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Library;
 
 namespace Retinues.Editor.VM
@@ -29,6 +32,9 @@ namespace Retinues.Editor.VM
 
             // Initialize the troop list VM.
             List = new ListVM();
+
+            // Listen to selection changes to update the tableau model.
+            List.PropertyChanged += OnListPropertyChanged;
 
             // Initialize default state (faction, character, etc.).
             InitializeStateDefaults();
@@ -89,6 +95,24 @@ namespace Retinues.Editor.VM
             }
         }
 
+        private CharacterViewModel _model;
+
+        [DataSourceProperty]
+        public CharacterViewModel Model
+        {
+            get => _model;
+            private set
+            {
+                if (ReferenceEquals(value, _model))
+                {
+                    return;
+                }
+
+                _model = value;
+                OnPropertyChanged(nameof(Model));
+            }
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Lifecycle                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -97,6 +121,39 @@ namespace Retinues.Editor.VM
         {
             base.RefreshValues();
             List?.RefreshValues();
+        }
+
+        private void OnListPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(ListVM.SelectedElement))
+            {
+                UpdateModelFromSelection();
+            }
+        }
+
+        private void UpdateModelFromSelection()
+        {
+            var selectedRow = List?.SelectedElement as CharacterRowVM;
+            var character = selectedRow?.Character;
+
+            if (character == null)
+            {
+                Model = null;
+                return;
+            }
+
+            var co = character.Base;
+            if (co == null)
+            {
+                Model = null;
+                return;
+            }
+
+            // Simple, safe model setup: let the engine fill everything from the CharacterObject.
+            var vm = new CharacterViewModel(CharacterViewModel.StanceTypes.None);
+            vm.FillFrom(co, seed: -1);
+
+            Model = vm;
         }
     }
 }
