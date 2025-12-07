@@ -1,5 +1,4 @@
 using HarmonyLib;
-using Retinues.Utilities;
 using TaleWorlds.CampaignSystem.ViewModelCollection.ClanManagement;
 using TaleWorlds.GauntletUI.BaseTypes;
 using TaleWorlds.InputSystem;
