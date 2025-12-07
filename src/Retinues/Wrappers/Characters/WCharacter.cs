@@ -125,6 +125,35 @@ namespace Retinues.Wrappers.Characters
             }
         }
 
+        public int Depth
+        {
+            get
+            {
+                int depth = 0;
+                var visited = new HashSet<WCharacter>();
+                var queue = new Queue<(WCharacter character, int currentDepth)>();
+
+                visited.Add(this);
+                queue.Enqueue((this, 0));
+
+                while (queue.Count > 0)
+                {
+                    var (current, currentDepth) = queue.Dequeue();
+                    depth = System.Math.Max(depth, currentDepth);
+
+                    var parents = current.Parents;
+                    for (int i = 0; i < parents.Count; i++)
+                    {
+                        var p = parents[i];
+                        if (p != null && visited.Add(p))
+                            queue.Enqueue((p, currentDepth + 1));
+                    }
+                }
+
+                return depth;
+            }
+        }
+
         public WCharacter Root
         {
             get

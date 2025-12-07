@@ -1,53 +1,52 @@
 using Bannerlord.UIExtenderEx.Attributes;
-using TaleWorlds.CampaignSystem.ViewModelCollection;
 using TaleWorlds.Library;
 
 namespace Retinues.Editor.VM.List
 {
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+    //                      Sort Button                      //
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
     /// <summary>
-    /// Simple sort button viewmodel used by the editor list.
-    /// Handles its own sort state (Default/Ascending/Descending)
-    /// and notifies the owning ListVM when clicked.
+    /// Header sort button with three-state sort (none, asc, desc).
     /// </summary>
-    public sealed class ListSortButtonVM : ViewModel
+    public class ListSortButtonVM(ListVM list, string id, string text, int requestedWidth)
+        : BaseStatefulVM
     {
-        private readonly ListVM _owner;
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Fields                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private string _id;
-        private string _text;
-        private int _requestedWidth;
+        private readonly ListVM _list = list;
+
+        private string _id = id;
+        private string _text = text;
+        private int _requestedWidth = requestedWidth;
+
+        private int _normalizedWidth;
         private int _width;
-        private bool _isSelected;
-        private CampaignUIHelper.SortState _sortState;
-
-        // Shape flags: regular (middle) vs last column (rounded right edge).
         private bool _isLastColumn;
-        private bool _isRegularColumn;
 
-        public ListSortButtonVM(ListVM owner, string id, string text, int requestedWidth)
-        {
-            _owner = owner;
-            _id = id;
-            _text = text;
-            _requestedWidth = requestedWidth <= 0 ? 1 : requestedWidth;
-            _width = _requestedWidth;
-            _sortState = CampaignUIHelper.SortState.Default;
-            _isSelected = false;
+        // 0 = none, 1 = ascending, 2 = descending.
+        private int _sortStateIndex;
 
-            _isLastColumn = false;
-            _isRegularColumn = true;
-        }
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Accessors                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        internal int RequestedWidth => _requestedWidth;
+        internal ListVM List => _list;
 
         [DataSourceProperty]
         public string Id
         {
             get => _id;
-            set
+            private set
             {
                 if (value == _id)
+                {
                     return;
+                }
+
                 _id = value;
                 OnPropertyChanged(nameof(Id));
             }
@@ -57,17 +56,58 @@ namespace Retinues.Editor.VM.List
         public string Text
         {
             get => _text;
-            set
+            private set
             {
                 if (value == _text)
+                {
                     return;
+                }
+
                 _text = value;
                 OnPropertyChanged(nameof(Text));
             }
         }
 
         /// <summary>
-        /// Normalized width that the template binds as SuggestedWidth.
+        /// Relative width used for normalization.
+        /// </summary>
+        [DataSourceProperty]
+        public int RequestedWidth
+        {
+            get => _requestedWidth;
+            private set
+            {
+                if (value == _requestedWidth)
+                {
+                    return;
+                }
+
+                _requestedWidth = value;
+                OnPropertyChanged(nameof(RequestedWidth));
+            }
+        }
+
+        /// <summary>
+        /// Normalized width (kept for internal use and debugging).
+        /// </summary>
+        [DataSourceProperty]
+        public int NormalizedWidth
+        {
+            get => _normalizedWidth;
+            private set
+            {
+                if (value == _normalizedWidth)
+                {
+                    return;
+                }
+
+                _normalizedWidth = value;
+                OnPropertyChanged(nameof(NormalizedWidth));
+            }
+        }
+
+        /// <summary>
+        /// Bound by the template as SuggestedWidth.
         /// </summary>
         [DataSourceProperty]
         public int Width
@@ -76,41 +116,15 @@ namespace Retinues.Editor.VM.List
             private set
             {
                 if (value == _width)
+                {
                     return;
+                }
+
                 _width = value;
                 OnPropertyChanged(nameof(Width));
             }
         }
 
-        [DataSourceProperty]
-        public bool IsSelected
-        {
-            get => _isSelected;
-            private set
-            {
-                if (value == _isSelected)
-                    return;
-                _isSelected = value;
-                OnPropertyChanged(nameof(IsSelected));
-            }
-        }
-
-        [DataSourceProperty]
-        public CampaignUIHelper.SortState SortState
-        {
-            get => _sortState;
-            private set
-            {
-                if (value == _sortState)
-                    return;
-                _sortState = value;
-                OnPropertyChanged(nameof(SortState));
-            }
-        }
-
-        /// <summary>
-        /// True for the last sort column (rounded right corner brush).
-        /// </summary>
         [DataSourceProperty]
         public bool IsLastColumn
         {
@@ -118,78 +132,70 @@ namespace Retinues.Editor.VM.List
             private set
             {
                 if (value == _isLastColumn)
+                {
                     return;
+                }
+
                 _isLastColumn = value;
                 OnPropertyChanged(nameof(IsLastColumn));
             }
         }
 
-        /// <summary>
-        /// True for non-last (regular) columns.
-        /// </summary>
         [DataSourceProperty]
-        public bool IsRegularColumn
-        {
-            get => _isRegularColumn;
-            private set
-            {
-                if (value == _isRegularColumn)
-                    return;
-                _isRegularColumn = value;
-                OnPropertyChanged(nameof(IsRegularColumn));
-            }
-        }
+        public bool IsSortedAscending => _sortStateIndex == 1;
+
+        [DataSourceProperty]
+        public bool IsSortedDescending => _sortStateIndex == 2;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Helpers                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         internal void SetNormalizedWidth(int width)
         {
             if (width <= 0)
+            {
                 width = 1;
+            }
+
+            NormalizedWidth = width;
             Width = width;
         }
 
-        /// <summary>
-        /// Mark this button as being the last column (rounded brush) or not.
-        /// </summary>
         internal void SetIsLastColumn(bool isLast)
         {
             IsLastColumn = isLast;
-            IsRegularColumn = !isLast;
+        }
+
+        internal void CycleSortState()
+        {
+            _sortStateIndex = (_sortStateIndex + 1) % 3;
+
+            OnPropertyChanged(nameof(IsSortedAscending));
+            OnPropertyChanged(nameof(IsSortedDescending));
         }
 
         internal void ResetSortState()
         {
-            SortState = CampaignUIHelper.SortState.Default;
-            IsSelected = false;
-        }
-
-        /// <summary>
-        /// Cycle this button's sort state: Default → Asc → Desc → Default.
-        /// </summary>
-        internal void CycleSortState()
-        {
-            switch (SortState)
+            if (_sortStateIndex == 0)
             {
-                case CampaignUIHelper.SortState.Default:
-                    SortState = CampaignUIHelper.SortState.Ascending;
-                    IsSelected = true;
-                    break;
-
-                case CampaignUIHelper.SortState.Ascending:
-                    SortState = CampaignUIHelper.SortState.Descending;
-                    IsSelected = true;
-                    break;
-
-                default:
-                    SortState = CampaignUIHelper.SortState.Default;
-                    IsSelected = false;
-                    break;
+                return;
             }
+
+            _sortStateIndex = 0;
+
+            OnPropertyChanged(nameof(IsSortedAscending));
+            OnPropertyChanged(nameof(IsSortedDescending));
         }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Commands                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceMethod]
-        public void ExecuteToggleSort()
+        public void ExecuteClick()
         {
-            _owner?.OnSortButtonClicked(this);
+            _list?.OnSortButtonClicked(this);
         }
     }
 }

@@ -94,7 +94,7 @@ namespace Retinues.GUI.ClanScreen
             base.OnFinalize();
 
             // Close the editor if open
-            CloseEditor();
+            Editor = null;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

@@ -4,20 +4,27 @@ using TaleWorlds.Library;
 
 namespace Retinues.Editor.VM.List
 {
-    public abstract class ListRowVM : ViewModel
+    /// <summary>
+    /// Base row ViewModel used in list headers.
+    /// </summary>
+    public abstract class ListRowVM(ListHeaderVM header, string id) : BaseStatefulVM
     {
-        private readonly ListHeaderVM _header;
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Fields                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private string _id;
+        private readonly ListHeaderVM _header = header;
+
+        private string _id = id;
         private bool _isSelected;
 
-        protected ListRowVM(ListHeaderVM header, string id)
-        {
-            _header = header;
-            _id = id;
-        }
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Accessors                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         internal ListHeaderVM Header => _header;
+
+        internal ListVM List => _header?.List;
 
         [DataSourceProperty]
         public string Id
@@ -26,7 +33,10 @@ namespace Retinues.Editor.VM.List
             set
             {
                 if (value == _id)
+                {
                     return;
+                }
+
                 _id = value;
                 OnPropertyChanged(nameof(Id));
             }
@@ -35,6 +45,10 @@ namespace Retinues.Editor.VM.List
         [DataSourceProperty]
         public virtual bool IsEnabled => true;
 
+        // Type flags; templates use these to choose row layout.
+        [DataSourceProperty]
+        public virtual bool IsCharacter => false;
+
         [DataSourceProperty]
         public bool IsSelected
         {
@@ -42,25 +56,25 @@ namespace Retinues.Editor.VM.List
             set
             {
                 if (value == _isSelected)
+                {
                     return;
+                }
+
                 _isSelected = value;
                 OnPropertyChanged(nameof(IsSelected));
             }
         }
 
-        // -------- Type flags (default false) --------
-
-        [DataSourceProperty]
-        public virtual bool IsCharacter => false;
-
-        // --------------------------------------------
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Commands                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceMethod]
         public virtual void ExecuteSelect()
         {
             Log.Info($"ListElementVM: Selecting element '{Id}'");
             IsSelected = true;
-            _header.List.OnElementSelected(this);
+            List?.OnElementSelected(this);
         }
     }
 }

@@ -1,30 +1,30 @@
+using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Editor.VM.List.Rows;
 using Retinues.Wrappers.Characters;
 using TaleWorlds.Library;
 
 namespace Retinues.Editor.VM.List
 {
-    public class ListHeaderVM(ListVM list, string id, string name) : ViewModel
+    /// <summary>
+    /// Collapsible header that groups list rows.
+    /// </summary>
+    public class ListHeaderVM(ListVM list, string id, string name) : BaseStatefulVM
     {
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Fields                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
         private readonly ListVM _list = list;
 
         private string _id = id;
         private string _name = name;
         private bool _isExpanded = false;
+
         private MBBindingList<ListRowVM> _elements = [];
 
-        // New: enabled state derived from element count
-        [DataSourceProperty]
-        public bool IsEnabled => _elements != null && _elements.Count > 0;
-
-        // Notify IsEnabled and collapse the header if it is disabled
-        private void UpdateIsEnabledState()
-        {
-            OnPropertyChanged(nameof(IsEnabled));
-
-            if (!IsEnabled)
-                IsExpanded = false;
-        }
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Accessors                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         internal ListVM List => _list;
 
@@ -32,13 +32,15 @@ namespace Retinues.Editor.VM.List
         public string Id
         {
             get => _id;
-            set
+            private set
             {
-                if (value != _id)
+                if (value == _id)
                 {
-                    _id = value;
-                    OnPropertyChanged(nameof(Id));
+                    return;
                 }
+
+                _id = value;
+                OnPropertyChanged(nameof(Id));
             }
         }
 
@@ -46,13 +48,15 @@ namespace Retinues.Editor.VM.List
         public string Name
         {
             get => _name;
-            set
+            private set
             {
-                if (value != _name)
+                if (value == _name)
                 {
-                    _name = value;
-                    OnPropertyChanged(nameof(Name));
+                    return;
                 }
+
+                _name = value;
+                OnPropertyChanged(nameof(Name));
             }
         }
 
@@ -63,7 +67,10 @@ namespace Retinues.Editor.VM.List
             set
             {
                 if (value == _isExpanded)
+                {
                     return;
+                }
+
                 _isExpanded = value;
                 OnPropertyChanged(nameof(IsExpanded));
                 OnPropertyChanged(nameof(MarginBottom));
@@ -77,50 +84,58 @@ namespace Retinues.Editor.VM.List
         public MBBindingList<ListRowVM> Elements
         {
             get => _elements;
-            set
+            private set
             {
-                if (value != _elements)
+                if (ReferenceEquals(value, _elements))
                 {
-                    _elements = value;
-                    OnPropertyChanged(nameof(Elements));
-                    OnPropertyChanged(nameof(ElementCountText));
-                    UpdateIsEnabledState();
+                    return;
                 }
+
+                _elements = value;
+                OnPropertyChanged(nameof(Elements));
+                OnPropertyChanged(nameof(ElementCountText));
+                UpdateIsEnabledState();
             }
         }
 
         [DataSourceProperty]
         public string ElementCountText => $"({_elements?.Count ?? 0})";
 
+        /// <summary>
+        /// Bound by the header toggle to control enabled/disabled visuals.
+        /// </summary>
+        [DataSourceProperty]
+        public bool IsEnabled => _elements != null && _elements.Count > 0;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Rows                          //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
         public CharacterRowVM AddCharacterRow(WCharacter character, bool civilian = false)
         {
             var wasEmpty = _elements.Count == 0;
 
-            var element = new CharacterRowVM(this, character, civilian);
-            _elements.Add(element);
+            var row = new CharacterRowVM(this, character, civilian);
+            _elements.Add(row);
 
-            if (wasEmpty)
-                IsExpanded = true;
-
-            return element;
-        }
-
-        public void ClearSelectionExcept(ListRowVM keep)
-        {
-            foreach (var element in _elements)
-            {
-                if (!ReferenceEquals(element, keep))
-                {
-                    element.IsSelected = false;
-                }
-            }
-        }
-
-        public void Refresh()
-        {
             OnPropertyChanged(nameof(Elements));
             OnPropertyChanged(nameof(ElementCountText));
             UpdateIsEnabledState();
+
+            if (wasEmpty)
+            {
+                IsExpanded = true;
+            }
+
+            return row;
+        }
+
+        internal void ClearSelectionExcept(ListRowVM selected)
+        {
+            foreach (var element in _elements)
+            {
+                element.IsSelected = ReferenceEquals(element, selected);
+            }
         }
 
         public override void RefreshValues()
@@ -136,10 +151,28 @@ namespace Retinues.Editor.VM.List
             UpdateIsEnabledState();
         }
 
-        // Called by the toggle button
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Commands                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [DataSourceMethod]
         public void ExecuteToggle()
         {
             IsExpanded = !IsExpanded;
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Helpers                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private void UpdateIsEnabledState()
+        {
+            OnPropertyChanged(nameof(IsEnabled));
+
+            if (!IsEnabled)
+            {
+                IsExpanded = false;
+            }
         }
     }
 }
