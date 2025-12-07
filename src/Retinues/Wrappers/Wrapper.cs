@@ -35,6 +35,15 @@ namespace Retinues.Wrappers
     }
 
     /// <summary>
+    /// Marks a property on a Wrapper as cached and declares invalidators.
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Property)]
+    public sealed class CachedAttribute(params string[] invalidators) : Attribute
+    {
+        public string[] Invalidators { get; } = invalidators;
+    }
+
+    /// <summary>
     /// Global registry of all wrapper types that contain persistent data.
     /// </summary>
     internal static class WrapperRegistry
@@ -86,6 +95,16 @@ namespace Retinues.Wrappers
             public Action<TBase, object> Setter;
         }
 
+        private sealed class CacheStore
+        {
+            public string PropertyName;
+            public Type ValueType;
+            public IDictionary Map;
+        }
+
+        private static Dictionary<string, CacheStore> _cacheStores;
+        private static Dictionary<string, List<string>> _cacheInvalidationMap;
+
         private sealed class WrapperSyncRegistration : IWrapperSync
         {
             public void Sync(IDataStore dataStore)
@@ -112,6 +131,9 @@ namespace Retinues.Wrappers
                 _properties = DiscoverWrapperProperties();
                 _reflected = DiscoverReflectedProperties();
                 _syncDataMethod = typeof(IDataStore).GetMethod("SyncData");
+
+                // Cache-related setup
+                DiscoverCachedProperties(out _cacheStores, out _cacheInvalidationMap);
 
                 WrapperRegistry.Register(new WrapperSyncRegistration());
 
@@ -235,6 +257,91 @@ namespace Retinues.Wrappers
             }
 
             return result;
+        }
+
+        private static void DiscoverCachedProperties(
+            out Dictionary<string, CacheStore> stores,
+            out Dictionary<string, List<string>> invalidation
+        )
+        {
+            stores = new Dictionary<string, CacheStore>();
+            invalidation = new Dictionary<string, List<string>>();
+
+            var bindingFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
+            var props = typeof(TWrapper).GetProperties(bindingFlags);
+
+            foreach (var prop in props)
+            {
+                if (!prop.CanRead)
+                    continue;
+
+                var attr = prop.GetCustomAttribute<CachedAttribute>(inherit: true);
+                if (attr == null)
+                    continue;
+
+                var valueType = prop.PropertyType;
+                var mapType = typeof(Dictionary<,>).MakeGenericType(typeof(string), valueType);
+                var map = (IDictionary)Activator.CreateInstance(mapType);
+
+                stores[prop.Name] = new CacheStore
+                {
+                    PropertyName = prop.Name,
+                    ValueType = valueType,
+                    Map = map,
+                };
+
+                var invalidators = attr.Invalidators;
+                if (invalidators == null || invalidators.Length == 0)
+                    continue;
+
+                for (int i = 0; i < invalidators.Length; i++)
+                {
+                    var inv = invalidators[i];
+                    if (string.IsNullOrEmpty(inv))
+                        continue;
+
+                    if (!invalidation.TryGetValue(inv, out var list))
+                    {
+                        list = [];
+                        invalidation[inv] = list;
+                    }
+
+                    if (!list.Contains(prop.Name))
+                        list.Add(prop.Name);
+                }
+            }
+        }
+
+        private static void InvalidateCachesFor(string invalidatorPropertyName, string stringId)
+        {
+            if (string.IsNullOrEmpty(invalidatorPropertyName) || string.IsNullOrEmpty(stringId))
+                return;
+
+            EnsureStaticInitialized();
+
+            if (
+                _cacheInvalidationMap == null
+                || !_cacheInvalidationMap.TryGetValue(
+                    invalidatorPropertyName,
+                    out var affectedProps
+                )
+                || affectedProps.Count == 0
+            )
+                return;
+
+            for (int i = 0; i < affectedProps.Count; i++)
+            {
+                var cachedPropName = affectedProps[i];
+                if (string.IsNullOrEmpty(cachedPropName))
+                    continue;
+
+                if (_cacheStores != null && _cacheStores.TryGetValue(cachedPropName, out var store))
+                {
+                    var map = store.Map;
+                    if (map.Contains(stringId))
+                        map.Remove(stringId);
+                }
+            }
         }
 
         /// <summary>
@@ -447,6 +554,53 @@ namespace Retinues.Wrappers
                 return;
 
             entry.Map[StringId] = value;
+
+            InvalidateCachesFor(propertyName, StringId);
+        }
+
+        protected T GetCached<T>(
+            Func<T> valueFactory,
+            [CallerMemberName] string propertyName = null
+        )
+        {
+            if (valueFactory == null)
+                throw new ArgumentNullException(nameof(valueFactory));
+
+            EnsureInitialized();
+            EnsureStaticInitialized();
+
+            if (string.IsNullOrEmpty(propertyName))
+                throw new ArgumentNullException(nameof(propertyName));
+
+            if (_cacheStores == null || !_cacheStores.TryGetValue(propertyName, out var store))
+                return valueFactory();
+
+            var map = store.Map;
+            var key = StringId;
+            if (string.IsNullOrEmpty(key))
+                return valueFactory();
+
+            if (map.Contains(key))
+                return (T)map[key];
+
+            var value = valueFactory();
+            map[key] = value;
+            return value;
+        }
+
+        protected void InvalidateCache([CallerMemberName] string propertyName = null)
+        {
+            if (string.IsNullOrEmpty(propertyName) || string.IsNullOrEmpty(StringId))
+                return;
+
+            EnsureStaticInitialized();
+
+            if (_cacheStores != null && _cacheStores.TryGetValue(propertyName, out var store))
+            {
+                var map = store.Map;
+                if (map.Contains(StringId))
+                    map.Remove(StringId);
+            }
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -488,6 +642,8 @@ namespace Retinues.Wrappers
                 return;
 
             entry.Setter(Base, value);
+
+            InvalidateCachesFor(propertyName, StringId);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

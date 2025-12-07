@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Retinues.Utilities;
 using Retinues.Wrappers.Factions;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
@@ -101,9 +102,9 @@ namespace Retinues.Wrappers.Characters
             }
         }
 
-        public List<WCharacter> Children
-        {
-            get
+        [Cached(nameof(UpgradeTargets))]
+        public List<WCharacter> Children =>
+            GetCached(() =>
             {
                 var result = new List<WCharacter>();
                 var targets = UpgradeTargets;
@@ -122,12 +123,11 @@ namespace Retinues.Wrappers.Characters
                 }
 
                 return result;
-            }
-        }
+            });
 
-        public int Depth
-        {
-            get
+        [Cached]
+        public int Depth =>
+            GetCached(() =>
             {
                 int depth = 0;
                 var visited = new HashSet<WCharacter>();
@@ -150,13 +150,14 @@ namespace Retinues.Wrappers.Characters
                     }
                 }
 
-                return depth;
-            }
-        }
+                Log.Info($"Computed depth {depth} for character '{StringId}'");
 
-        public WCharacter Root
-        {
-            get
+                return depth;
+            });
+
+        [Cached]
+        public WCharacter Root =>
+            GetCached(() =>
             {
                 // BFS upwards to find any ancestor with no parents
                 var visited = new HashSet<WCharacter>();
@@ -183,12 +184,11 @@ namespace Retinues.Wrappers.Characters
 
                 // Fallback (should only happen on cycles where everyone has parents)
                 return this;
-            }
-        }
+            });
 
-        public List<WCharacter> Tree
-        {
-            get
+        [Cached(nameof(UpgradeTargets))]
+        public List<WCharacter> Tree =>
+            GetCached(() =>
             {
                 var result = new List<WCharacter>();
                 var visited = new HashSet<WCharacter>();
@@ -219,8 +219,7 @@ namespace Retinues.Wrappers.Characters
                 }
 
                 return result;
-            }
-        }
+            });
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Image                         //
