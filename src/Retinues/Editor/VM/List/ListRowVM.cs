@@ -17,6 +17,7 @@ namespace Retinues.Editor.VM.List
 
         private string _id = id;
         private bool _isSelected;
+        private bool _isVisible = true;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Accessors                       //
@@ -65,6 +66,24 @@ namespace Retinues.Editor.VM.List
             }
         }
 
+        [DataSourceProperty]
+        public bool IsVisible
+        {
+            get => _isVisible;
+            set
+            {
+                if (value == _isVisible)
+                {
+                    return;
+                }
+
+                _isVisible = value;
+                OnPropertyChanged(nameof(IsVisible));
+
+                Header?.OnRowVisibilityChanged();
+            }
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Commands                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -84,6 +103,26 @@ namespace Retinues.Editor.VM.List
         {
             // Default: sort by ID (case-insensitive).
             return Id ?? string.Empty;
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Filtering                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        internal virtual bool MatchesFilter(string filter)
+        {
+            if (string.IsNullOrWhiteSpace(filter))
+            {
+                return true;
+            }
+
+            var value = Id;
+            if (string.IsNullOrEmpty(value))
+            {
+                return false;
+            }
+
+            return value.IndexOf(filter, StringComparison.OrdinalIgnoreCase) >= 0;
         }
     }
 }

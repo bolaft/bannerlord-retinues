@@ -99,13 +99,13 @@ namespace Retinues.Editor.VM.List
         }
 
         [DataSourceProperty]
-        public string ElementCountText => $"({_elements?.Count ?? 0})";
+        public string ElementCountText => $"({GetVisibleElementCount()})";
 
         /// <summary>
         /// Bound by the header toggle to control enabled/disabled visuals.
         /// </summary>
         [DataSourceProperty]
-        public bool IsEnabled => _elements != null && _elements.Count > 0;
+        public bool IsEnabled => GetVisibleElementCount() > 0;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Rows                          //
@@ -151,6 +151,13 @@ namespace Retinues.Editor.VM.List
             UpdateIsEnabledState();
         }
 
+        // Called by rows when their visibility changes (filtering).
+        internal void OnRowVisibilityChanged()
+        {
+            OnPropertyChanged(nameof(ElementCountText));
+            UpdateIsEnabledState();
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Commands                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -173,6 +180,26 @@ namespace Retinues.Editor.VM.List
             {
                 IsExpanded = false;
             }
+        }
+
+        private int GetVisibleElementCount()
+        {
+            if (_elements == null || _elements.Count == 0)
+            {
+                return 0;
+            }
+
+            int count = 0;
+            for (int i = 0; i < _elements.Count; i++)
+            {
+                var row = _elements[i];
+                if (row != null && row.IsVisible)
+                {
+                    count++;
+                }
+            }
+
+            return count;
         }
     }
 }

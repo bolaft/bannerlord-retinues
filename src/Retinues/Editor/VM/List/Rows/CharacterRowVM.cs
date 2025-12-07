@@ -54,9 +54,6 @@ namespace Retinues.Editor.VM.List.Rows
         }
 
         [DataSourceProperty]
-        public string TierText => _tier > 0 ? $"T{_tier}" : string.Empty;
-
-        [DataSourceProperty]
         public bool IsCivilian => _isCivilian;
 
         /// <summary>
@@ -101,7 +98,6 @@ namespace Retinues.Editor.VM.List.Rows
             Name = _character?.Name ?? string.Empty;
             _tier = _character?.Tier ?? 0;
 
-            OnPropertyChanged(nameof(TierText));
             OnPropertyChanged(nameof(Indentation));
             OnPropertyChanged(nameof(Image));
         }
@@ -133,6 +129,39 @@ namespace Retinues.Editor.VM.List.Rows
                 default:
                     return Name ?? string.Empty;
             }
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Filtering                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        internal override bool MatchesFilter(string filter)
+        {
+            if (string.IsNullOrWhiteSpace(filter))
+            {
+                return true;
+            }
+
+            var comparison = StringComparison.OrdinalIgnoreCase;
+
+            if (!string.IsNullOrEmpty(Name) && Name.IndexOf(filter, comparison) >= 0)
+            {
+                return true;
+            }
+
+            var tierText = _character.Tier.ToString();
+            if (!string.IsNullOrEmpty(tierText) && tierText.IndexOf(filter, comparison) >= 0)
+            {
+                return true;
+            }
+
+            var cultureName = _character.Culture?.Name ?? string.Empty;
+            if (!string.IsNullOrEmpty(cultureName) && cultureName.IndexOf(filter, comparison) >= 0)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

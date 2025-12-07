@@ -660,9 +660,137 @@ namespace Retinues.Editor.VM.List
             }
         }
 
+        private static readonly string[] TreeAwareFilterHeaders = ["elite", "regular"];
+
         private void ApplyFilter()
         {
-            // Filtering is not implemented yet.
+            if (_headers.Count == 0)
+            {
+                return;
+            }
+
+            var filter = _filterText?.Trim() ?? string.Empty;
+
+            // Empty filter: show everything.
+            if (string.IsNullOrWhiteSpace(filter))
+            {
+                foreach (var header in _headers)
+                {
+                    foreach (var row in header.Elements)
+                    {
+                        row.IsVisible = true;
+                    }
+                }
+
+                return;
+            }
+
+            // First pass: each row decides on its own.
+            foreach (var header in _headers)
+            {
+                foreach (var row in header.Elements)
+                {
+                    row.IsVisible = row.MatchesFilter(filter);
+                }
+            }
+
+            // Second pass: for tree headers (elite/regular), ensure ancestors
+            // of matching nodes are visible as well, so you don't get orphan children.
+            foreach (var header in _headers)
+            {
+                if (
+                    !_headerIds.TryGetValue(header, out var headerId)
+                    || !TreeAwareFilterHeaders.Contains(headerId)
+                )
+                {
+                    continue;
+                }
+
+                var characterRows = header.Elements.OfType<CharacterRowVM>().ToList();
+
+                if (characterRows.Count == 0)
+                {
+                    continue;
+                }
+
+                var rowByCharacter = new Dictionary<WCharacter, CharacterRowVM>();
+                foreach (var row in characterRows)
+                {
+                    var character = row.Character;
+                    if (character == null)
+                    {
+                        continue;
+                    }
+
+                    rowByCharacter[character] = row;
+                }
+
+                if (rowByCharacter.Count == 0)
+                {
+                    continue;
+                }
+
+                var visited = new HashSet<WCharacter>();
+
+                foreach (var row in characterRows)
+                {
+                    if (!row.IsVisible)
+                    {
+                        continue;
+                    }
+
+                    var character = row.Character;
+                    if (character == null)
+                    {
+                        continue;
+                    }
+
+                    // Walk up all parents, making them visible too.
+                    var queue = new Queue<WCharacter>();
+                    var sources = character.UpgradeSources;
+
+                    if (sources != null)
+                    {
+                        for (int i = 0; i < sources.Count; i++)
+                        {
+                            var parent = sources[i];
+                            if (parent != null)
+                            {
+                                queue.Enqueue(parent);
+                            }
+                        }
+                    }
+
+                    while (queue.Count > 0)
+                    {
+                        var current = queue.Dequeue();
+                        if (current == null || !visited.Add(current))
+                        {
+                            continue;
+                        }
+
+                        if (rowByCharacter.TryGetValue(current, out var parentRow))
+                        {
+                            parentRow.IsVisible = true;
+                        }
+
+                        var parentSources = current.UpgradeSources;
+                        if (parentSources == null)
+                        {
+                            continue;
+                        }
+
+                        for (int i = 0; i < parentSources.Count; i++)
+                        {
+                            var grandParent = parentSources[i];
+                            if (grandParent != null)
+                            {
+                                queue.Enqueue(grandParent);
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
