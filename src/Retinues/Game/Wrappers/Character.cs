@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Retinues.Configuration;
+using Retinues.Doctrines;
+using Retinues.Doctrines.Catalog;
 using Retinues.Features.Statistics;
 using Retinues.Game.Helpers;
 using Retinues.Mods;
@@ -224,6 +226,21 @@ namespace Retinues.Game.Wrappers
 
         public WCharacter BaseTroop;
 
+        internal bool HasCaptainInstance =>
+            _captain != null
+            || (CaptainCache.TryGetValue(StringId, out var existing) && existing != null);
+
+        internal WCharacter GetExistingCaptain()
+        {
+            if (_captain != null)
+                return _captain;
+
+            if (CaptainCache.TryGetValue(StringId, out var existing) && existing != null)
+                return existing;
+
+            return null;
+        }
+
         private WCharacter _captain;
         public WCharacter Captain
         {
@@ -231,6 +248,10 @@ namespace Retinues.Game.Wrappers
             {
                 if (!CanHaveCaptain)
                     return null; // fallback for captains and non-custom troops
+
+                // Do not create or return captains if the doctrine is locked
+                if (!DoctrineAPI.IsDoctrineUnlocked<Captains>() && !Config.NoDoctrineRequirements)
+                    return null;
 
                 // Try global cache first (base troop stringId -> captain instance).
                 if (CaptainCache.TryGetValue(StringId, out var cached) && cached != null)
