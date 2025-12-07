@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Retinues.Utilities;
 using Retinues.Wrappers.Factions;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
@@ -40,92 +39,85 @@ namespace Retinues.Wrappers.Characters
         //                        Hierarchy                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private static readonly Dictionary<WCharacter, List<WCharacter>> _parentMap = [];
-        private static bool _parentMapBuilt;
+        // Logical invalidator name for all hierarchy-derived caches.
+        private const string HierarchyInvalidator = "Hierarchy";
 
-        private static void EnsureParentMap()
+        /// <summary>
+        /// Troops this one can upgrade into (children in the upgrade tree).
+        /// Backed by CharacterObject.UpgradeTargets via reflection.
+        /// </summary>
+        [Cached(HierarchyInvalidator)]
+        public IReadOnlyList<WCharacter> UpgradeTargets
         {
-            if (_parentMapBuilt)
-                return;
-
-            _parentMapBuilt = true;
-            _parentMap.Clear();
-
-            // Ensure all characters are wrapped once.
-            var allChars = All; // uses MBObjectManager under the hood
-
-            foreach (var parent in allChars)
-            {
-                var targets = parent.UpgradeTargets;
-                if (targets == null || targets.Length == 0)
-                    continue;
-
-                for (int i = 0; i < targets.Length; i++)
-                {
-                    var co = targets[i];
-                    if (co == null)
-                        continue;
-
-                    var child = Get(co);
-                    if (child == null)
-                        continue;
-
-                    if (!_parentMap.TryGetValue(child, out var list))
+            get =>
+                GetCached<IReadOnlyList<WCharacter>>(
+                    () =>
                     {
-                        list = [];
-                        _parentMap[child] = list;
+                        var raw = UpgradeTargetsRaw;
+                        if (raw == null || raw.Length == 0)
+                            return System.Array.Empty<WCharacter>();
+
+                        var list = new List<WCharacter>(raw.Length);
+                        for (int i = 0; i < raw.Length; i++)
+                        {
+                            var co = raw[i];
+                            if (co == null)
+                                continue;
+
+                            var child = Get(co);
+                            if (child != null)
+                                list.Add(child);
+                        }
+
+                        return list;
+                    },
+                    nameof(UpgradeTargets)
+                );
+            set
+            {
+                CharacterObject[] raw;
+
+                if (value == null)
+                {
+                    raw = [];
+                }
+                else if (value is IReadOnlyList<WCharacter> roList)
+                {
+                    raw = new CharacterObject[roList.Count];
+                    for (int i = 0; i < roList.Count; i++)
+                        raw[i] = roList[i]?.Base;
+                }
+                else
+                {
+                    var tmp = new List<CharacterObject>();
+                    foreach (var w in value)
+                    {
+                        if (w?.Base != null)
+                            tmp.Add(w.Base);
                     }
 
-                    // Avoid duplicates if someone wires the same target twice.
-                    if (!list.Contains(parent))
-                        list.Add(parent);
+                    raw = [.. tmp];
                 }
+
+                // Push back into CharacterObject via reflection.
+                UpgradeTargetsRaw = raw;
+
+                // Invalidate this line's cached hierarchy values.
+                InvalidateCachesFor(HierarchyInvalidator, StringId);
+
+                // Rebuild global upgrade sources map (currently global; can be
+                // optimized to per-line if needed).
+                WCharacterUpgradeCache.Recompute(this);
             }
         }
 
-        public static void InvalidateHierarchy()
-        {
-            _parentMapBuilt = false;
-            _parentMap.Clear();
-        }
+        /// <summary>
+        /// Troops that can upgrade into this one (parents / sources).
+        /// Backed by a global UpgradeMap, computed once.
+        /// </summary>
+        public IReadOnlyList<WCharacter> UpgradeSources => WCharacterUpgradeCache.GetSources(this);
 
-        public List<WCharacter> Parents
-        {
-            get
-            {
-                EnsureParentMap();
-
-                if (_parentMap.TryGetValue(this, out var parents))
-                    return parents;
-
-                return [];
-            }
-        }
-
-        [Cached(nameof(UpgradeTargets))]
-        public List<WCharacter> Children =>
-            GetCached(() =>
-            {
-                var result = new List<WCharacter>();
-                var targets = UpgradeTargets;
-                if (targets == null || targets.Length == 0)
-                    return result;
-
-                for (int i = 0; i < targets.Length; i++)
-                {
-                    var co = targets[i];
-                    if (co == null)
-                        continue;
-
-                    var child = Get(co);
-                    if (child != null)
-                        result.Add(child);
-                }
-
-                return result;
-            });
-
-        [Cached]
+        [Cached(HierarchyInvalidator)]
         public int Depth =>
             GetCached(() =>
             {
@@ -141,25 +133,31 @@ namespace Retinues.Wrappers.Characters
                     var (current, currentDepth) = queue.Dequeue();
                     depth = System.Math.Max(depth, currentDepth);
 
-                    var parents = current.Parents;
-                    for (int i = 0; i < parents.Count; i++)
+                    var sources = current.UpgradeSources;
+                    for (int i = 0; i < sources.Count; i++)
                     {
-                        var p = parents[i];
-                        if (p != null && visited.Add(p))
-                            queue.Enqueue((p, currentDepth + 1));
+                        var s = sources[i];
+                        if (s != null && visited.Add(s))
+                            queue.Enqueue((s, currentDepth + 1));
                     }
                 }
-
-                Log.Info($"Computed depth {depth} for character '{StringId}'");
 
                 return depth;
             });
 
-        [Cached]
+        [Cached(HierarchyInvalidator)]
+        public bool IsRoot =>
+            GetCached(() =>
+            {
+                var sources = UpgradeSources;
+                return sources == null || sources.Count == 0;
+            });
+
+        [Cached(HierarchyInvalidator)]
         public WCharacter Root =>
             GetCached(() =>
             {
-                // BFS upwards to find any ancestor with no parents
+                // BFS upwards using UpgradeSources to find any ancestor with no sources.
                 var visited = new HashSet<WCharacter>();
                 var queue = new Queue<WCharacter>();
 
@@ -169,24 +167,24 @@ namespace Retinues.Wrappers.Characters
                 while (queue.Count > 0)
                 {
                     var current = queue.Dequeue();
-                    var parents = current.Parents;
+                    var sources = current.UpgradeSources;
 
-                    if (parents == null || parents.Count == 0)
+                    if (sources == null || sources.Count == 0)
                         return current;
 
-                    for (int i = 0; i < parents.Count; i++)
+                    for (int i = 0; i < sources.Count; i++)
                     {
-                        var p = parents[i];
-                        if (p != null && visited.Add(p))
-                            queue.Enqueue(p);
+                        var s = sources[i];
+                        if (s != null && visited.Add(s))
+                            queue.Enqueue(s);
                     }
                 }
 
-                // Fallback (should only happen on cycles where everyone has parents)
+                // Fallback (should only happen on cycles where everyone has sources)
                 return this;
             });
 
-        [Cached(nameof(UpgradeTargets))]
+        [Cached(HierarchyInvalidator)]
         public List<WCharacter> Tree =>
             GetCached(() =>
             {
@@ -194,12 +192,14 @@ namespace Retinues.Wrappers.Characters
                 var visited = new HashSet<WCharacter>();
                 var stack = new Stack<WCharacter>();
 
-                // Start from this character
+                // Start from this character.
                 result.Add(this);
 
-                // Seed with direct children
-                foreach (var child in Children)
+                // Seed with direct children.
+                var directChildren = UpgradeTargets;
+                for (int i = 0; i < directChildren.Count; i++)
                 {
+                    var child = directChildren[i];
                     if (child != null && visited.Add(child))
                         stack.Push(child);
                 }
@@ -209,7 +209,7 @@ namespace Retinues.Wrappers.Characters
                     var node = stack.Pop();
                     result.Add(node);
 
-                    var children = node.Children;
+                    var children = node.UpgradeTargets;
                     for (int i = 0; i < children.Count; i++)
                     {
                         var c = children[i];
@@ -302,10 +302,10 @@ namespace Retinues.Wrappers.Characters
         //                         Upgrades                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        [Reflected]
-        public CharacterObject[] UpgradeTargets
+        [Reflected(memberName: nameof(CharacterObject.UpgradeTargets))]
+        private CharacterObject[] UpgradeTargetsRaw
         {
-            get => Base.UpgradeTargets;
+            get => GetRef<CharacterObject[]>() ?? [];
             set => SetRef(value ?? []);
         }
 

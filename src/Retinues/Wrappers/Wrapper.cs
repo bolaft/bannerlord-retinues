@@ -312,7 +312,7 @@ namespace Retinues.Wrappers
             }
         }
 
-        private static void InvalidateCachesFor(string invalidatorPropertyName, string stringId)
+        protected static void InvalidateCachesFor(string invalidatorPropertyName, string stringId)
         {
             if (string.IsNullOrEmpty(invalidatorPropertyName) || string.IsNullOrEmpty(stringId))
                 return;
