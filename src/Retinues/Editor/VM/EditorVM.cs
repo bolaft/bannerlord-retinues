@@ -1,7 +1,4 @@
 using Retinues.Editor.VM.List;
-using Retinues.Wrappers.Characters;
-using Retinues.Wrappers.Factions;
-using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Library;
 
@@ -30,25 +27,7 @@ namespace Retinues.Editor.VM
             List = new ListVM();
 
             // Start each editor session from a clean shared state.
-            ResetState();
-
-            // Initialize default state (faction, character, etc.).
-            InitializeStateDefaults();
-        }
-
-        private void InitializeStateDefaults()
-        {
-            // Default faction: use the main hero's culture if available.
-            IBaseFaction faction = null;
-
-            var hero = Hero.MainHero;
-            if (hero?.CharacterObject != null)
-            {
-                var wrappedHero = WCharacter.Get(hero.CharacterObject);
-                faction = wrappedHero?.Culture;
-            }
-
-            StateFaction = faction;
+            State.Reset();
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -140,7 +119,7 @@ namespace Retinues.Editor.VM
         [EventListener(UIEvent.Troop)]
         private void RebuildModel()
         {
-            var character = StateCharacter;
+            var character = State.Character;
             if (character?.Base == null)
             {
                 Model = null;

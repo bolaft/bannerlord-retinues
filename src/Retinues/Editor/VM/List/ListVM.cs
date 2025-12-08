@@ -152,7 +152,7 @@ namespace Retinues.Editor.VM.List
 
             if (row is CharacterListRowVM characterRow)
             {
-                StateCharacter = characterRow.Character;
+                State.Character = characterRow.Character;
             }
         }
 

@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using Retinues.Utilities;
-using Retinues.Wrappers.Characters;
-using Retinues.Wrappers.Factions;
 using TaleWorlds.Library;
 
 namespace Retinues.Editor.VM
@@ -18,64 +16,7 @@ namespace Retinues.Editor.VM
         //                      Global State                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private static IBaseFaction _faction;
-        private static WCharacter _character;
-
-        /// <summary>
-        /// Current editor faction. Setting this clears the character and
-        /// fires a global Faction event.
-        /// </summary>
-        public static IBaseFaction StateFaction
-        {
-            get => _faction;
-            set
-            {
-                if (ReferenceEquals(value, _faction))
-                {
-                    return;
-                }
-
-                _faction = value;
-                _character = null;
-
-                EventManager.Fire(UIEvent.Faction, EventScope.Global);
-            }
-        }
-
-        /// <summary>
-        /// Current editor character. Setting this fires a local Troop event
-        /// so only the selected row and dependent VMs update.
-        /// </summary>
-        public static WCharacter StateCharacter
-        {
-            get => _character;
-            set
-            {
-                if (ReferenceEquals(value, _character))
-                {
-                    return;
-                }
-
-                _character = value;
-
-                EventManager.Fire(UIEvent.Troop, EventScope.Local);
-            }
-        }
-
-        /// <summary>
-        /// Clears faction and character state and notifies listeners.
-        /// </summary>
-        protected static void ResetState()
-        {
-            _faction = null;
-            _character = null;
-
-            EventManager.FireBatch(() =>
-            {
-                EventManager.Fire(UIEvent.Faction, EventScope.Global);
-                EventManager.Fire(UIEvent.Troop, EventScope.Global);
-            });
-        }
+        internal static State State = new();
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                    Event registration                  //
@@ -100,13 +41,13 @@ namespace Retinues.Editor.VM
         private static readonly Dictionary<
             Type,
             Dictionary<UIEvent, string[]>
-        > _propertyEventMapCache = new();
+        > _propertyEventMapCache = [];
 
         // Type -> event -> method handlers
         private static readonly Dictionary<
             Type,
             Dictionary<UIEvent, Action<BaseStatefulVM>[]>
-        > _methodEventMapCache = new();
+        > _methodEventMapCache = [];
 
         internal void __NotifyPropertyChanged(string propertyName)
         {
@@ -212,7 +153,7 @@ namespace Retinues.Editor.VM
 
                         if (!temp.TryGetValue(e, out var list))
                         {
-                            list = new List<string>();
+                            list = [];
                             temp[e] = list;
                         }
 
@@ -279,7 +220,7 @@ namespace Retinues.Editor.VM
 
                         if (!temp.TryGetValue(e, out var list))
                         {
-                            list = new List<Action<BaseStatefulVM>>();
+                            list = [];
                             temp[e] = list;
                         }
 

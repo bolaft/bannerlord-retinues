@@ -39,14 +39,9 @@ namespace Retinues.Editor
         AllowMultiple = true,
         Inherited = true
     )]
-    public sealed class EventListenerAttribute : Attribute
+    public sealed class EventListenerAttribute(params UIEvent[] events) : Attribute
     {
-        public UIEvent[] Events { get; }
-
-        public EventListenerAttribute(params UIEvent[] events)
-        {
-            Events = events ?? Array.Empty<UIEvent>();
-        }
+        public UIEvent[] Events { get; } = events ?? [];
     }
 
     /// <summary>
@@ -55,14 +50,9 @@ namespace Retinues.Editor
     /// emission is done by calling EventManager.Fire(...).
     /// </summary>
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = true, Inherited = true)]
-    public sealed class EventEmitterAttribute : Attribute
+    public sealed class EventEmitterAttribute(params UIEvent[] events) : Attribute
     {
-        public UIEvent[] Events { get; }
-
-        public EventEmitterAttribute(params UIEvent[] events)
-        {
-            Events = events ?? Array.Empty<UIEvent>();
-        }
+        public UIEvent[] Events { get; } = events ?? [];
     }
 
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

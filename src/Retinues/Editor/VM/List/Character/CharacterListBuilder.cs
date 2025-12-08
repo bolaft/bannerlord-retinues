@@ -32,16 +32,13 @@ namespace Retinues.Editor.VM.List.Character
         {
             list.Clear();
 
-            var faction = BaseStatefulVM.StateFaction;
+            var faction = State.Instance.Faction;
 
             if (faction == null)
                 return;
 
-            WCharacter firstCharacter = null;
-
             static void AddSection(
                 ListVM list,
-                ref WCharacter first,
                 string headerId,
                 string headerLocKey,
                 string headerFallback,
@@ -64,14 +61,12 @@ namespace Retinues.Editor.VM.List.Character
                     }
 
                     header.AddCharacterRow(troop, civilian);
-                    first ??= troop;
                 }
             }
 
             // Retinues.
             AddSection(
                 list,
-                ref firstCharacter,
                 "retinues",
                 "list_header_retinues",
                 L.S("list_header_retinues", "Retinues"),
@@ -81,7 +76,6 @@ namespace Retinues.Editor.VM.List.Character
             // Elite tree.
             AddSection(
                 list,
-                ref firstCharacter,
                 "elite",
                 "list_header_elite",
                 L.S("list_header_elite", "Elite"),
@@ -91,7 +85,6 @@ namespace Retinues.Editor.VM.List.Character
             // Regular tree.
             AddSection(
                 list,
-                ref firstCharacter,
                 "regular",
                 "list_header_regular",
                 L.S("list_header_regular", "Regular"),
@@ -101,7 +94,6 @@ namespace Retinues.Editor.VM.List.Character
             // Militia.
             AddSection(
                 list,
-                ref firstCharacter,
                 "militia",
                 "list_header_militia",
                 L.S("list_header_militia", "Militia"),
@@ -111,7 +103,6 @@ namespace Retinues.Editor.VM.List.Character
             // Caravan.
             AddSection(
                 list,
-                ref firstCharacter,
                 "caravan",
                 "list_header_caravan",
                 L.S("list_header_caravan", "Caravan"),
@@ -121,7 +112,6 @@ namespace Retinues.Editor.VM.List.Character
             // Villagers.
             AddSection(
                 list,
-                ref firstCharacter,
                 "villagers",
                 "list_header_villagers",
                 L.S("list_header_villagers", "Villagers"),
@@ -131,7 +121,6 @@ namespace Retinues.Editor.VM.List.Character
             // Bandits.
             AddSection(
                 list,
-                ref firstCharacter,
                 "bandits",
                 "list_header_bandits",
                 L.S("list_header_bandits", "Bandits"),
@@ -141,16 +130,12 @@ namespace Retinues.Editor.VM.List.Character
             // Civilians.
             AddSection(
                 list,
-                ref firstCharacter,
                 "civilians",
                 "list_header_civilians",
                 L.S("list_header_civilians", "Civilians"),
                 faction.RosterCivilian,
                 civilian: true
             );
-
-            // Update state character to first in list.
-            BaseStatefulVM.StateCharacter = firstCharacter;
         }
     }
 }
