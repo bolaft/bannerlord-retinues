@@ -1,5 +1,5 @@
 using Retinues.Editor.VM.List;
-using TaleWorlds.Core.ViewModelCollection;
+using Retinues.Editor.VM.Tableau;
 using TaleWorlds.Library;
 
 namespace Retinues.Editor.VM
@@ -26,6 +26,9 @@ namespace Retinues.Editor.VM
             // Initialize the troop list VM.
             List = new ListVM();
 
+            // Initialize the tableau VM.
+            Tableau = new TableauVM();
+
             // Start each editor session from a clean shared state.
             State.Reset();
         }
@@ -49,6 +52,24 @@ namespace Retinues.Editor.VM
 
                 _list = value;
                 OnPropertyChanged(nameof(List));
+            }
+        }
+
+        private TableauVM _tableau;
+
+        [DataSourceProperty]
+        public TableauVM Tableau
+        {
+            get => _tableau;
+            private set
+            {
+                if (value == _tableau)
+                {
+                    return;
+                }
+
+                _tableau = value;
+                OnPropertyChanged(nameof(Tableau));
             }
         }
 
@@ -91,46 +112,6 @@ namespace Retinues.Editor.VM
                 _isVisible = value;
                 OnPropertyChanged(nameof(IsVisible));
             }
-        }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                          Model                         //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        private CharacterViewModel _model;
-
-        [DataSourceProperty]
-        public CharacterViewModel Model
-        {
-            get => _model;
-            private set
-            {
-                if (ReferenceEquals(value, _model))
-                {
-                    return;
-                }
-
-                _model = value;
-                OnPropertyChanged(nameof(Model));
-            }
-        }
-
-        // Rebuild the tableau model whenever the current troop changes.
-        [EventListener(UIEvent.Troop)]
-        private void RebuildModel()
-        {
-            var character = State.Character;
-            if (character?.Base == null)
-            {
-                Model = null;
-                return;
-            }
-
-            var co = character.Base;
-            var vm = new CharacterViewModel(CharacterViewModel.StanceTypes.None);
-            vm.FillFrom(co, seed: -1);
-
-            Model = vm;
         }
     }
 }
