@@ -2,19 +2,36 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Bannerlord.UIExtenderEx.Attributes;
-using Retinues.Editor.VM.List.Rows;
+using Retinues.Editor.VM.List.Character;
 using Retinues.Engine;
 using Retinues.Utilities;
 using Retinues.Wrappers.Characters;
-using Retinues.Wrappers.Factions;
 using TaleWorlds.Library;
 
 namespace Retinues.Editor.VM.List
 {
+    /// <summary>
+    /// Keys for sorting list rows.
+    /// </summary>
     public enum ListSortKey
     {
         Name,
         Tier,
+    }
+
+    /// <summary>
+    /// Base class for list builders.
+    /// </summary>
+    public abstract class BaseListBuilder
+    {
+        public void Build(ListVM list)
+        {
+            BuildSortButtons(list);
+            BuildSections(list);
+        }
+
+        protected abstract void BuildSortButtons(ListVM list);
+        protected abstract void BuildSections(ListVM list);
     }
 
     /// <summary>
@@ -23,41 +40,57 @@ namespace Retinues.Editor.VM.List
     public class ListVM : BaseStatefulVM
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Fields                         //
+        //                       Life Cycle                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private const int SortButtonsTotalWidth = 586;
+        /// <summary>
+        /// Gets the appropriate list builder for the current editor mode.
+        /// </summary>
+        private BaseListBuilder Builder
+        {
+            get
+            {
+                return EditorVM.Mode switch
+                {
+                    EditorMode.Character => new CharacterListBuilder(),
+                    _ => throw new NotSupportedException(
+                        $"No list builder for mode {EditorVM.Mode}."
+                    ),
+                };
+            }
+        }
+
+        /// <summary>
+        /// Clears all headers and their rows from the list.
+        /// </summary>
+        public void Clear()
+        {
+            foreach (var header in _headers)
+            {
+                header.Rows.Clear();
+            }
+
+            _headers.Clear();
+            _headerIds.Clear();
+            SelectedRow = null;
+        }
+
+        // Rebuild headers when mode or faction changes.
+        [EventListener(UIEvent.Mode, UIEvent.Faction)]
+        private void Rebuild()
+        {
+            if (EditorVM.Mode == EditorMode.Character)
+            {
+                Builder.Build(this);
+            }
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Headers                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private MBBindingList<ListHeaderVM> _headers = [];
-        private readonly Dictionary<ListHeaderVM, string> _headerIds = new();
-
-        private ListRowVM _selectedElement;
-
-        private MBBindingList<ListSortButtonVM> _sortButtons = [];
-        private string _filterText = string.Empty;
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                      Construction                      //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        public ListVM()
-        {
-            FactionChanged += OnStateFactionChanged;
-            CharacterChanged += OnStateCharacterChanged;
-
-            RebuildSortButtons();
-        }
-
-        public override void OnFinalize()
-        {
-            FactionChanged -= OnStateFactionChanged;
-            CharacterChanged -= OnStateCharacterChanged;
-            base.OnFinalize();
-        }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                   Headers / Selection                  //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        private readonly Dictionary<ListHeaderVM, string> _headerIds = [];
 
         [DataSourceProperty]
         public MBBindingList<ListHeaderVM> Headers
@@ -75,22 +108,6 @@ namespace Retinues.Editor.VM.List
             }
         }
 
-        [DataSourceProperty]
-        public ListRowVM SelectedElement
-        {
-            get => _selectedElement;
-            private set
-            {
-                if (ReferenceEquals(value, _selectedElement))
-                {
-                    return;
-                }
-
-                _selectedElement = value;
-                OnPropertyChanged(nameof(SelectedElement));
-            }
-        }
-
         public ListHeaderVM AddHeader(string id, string name)
         {
             var header = new ListHeaderVM(this, id, name);
@@ -102,256 +119,51 @@ namespace Retinues.Editor.VM.List
             return header;
         }
 
-        public void Clear()
-        {
-            foreach (var header in _headers)
-            {
-                header.Elements.Clear();
-            }
-
-            _headers.Clear();
-            _headerIds.Clear();
-            SelectedElement = null;
-        }
-
-        internal void OnElementSelected(ListRowVM element)
-        {
-            foreach (var header in _headers)
-            {
-                header.ClearSelectionExcept(element);
-            }
-
-            SelectedElement = element;
-
-            if (element is CharacterRowVM characterRow)
-            {
-                StateCharacter = characterRow.Character;
-            }
-        }
-
-        public override void RefreshValues()
-        {
-            base.RefreshValues();
-
-            foreach (var header in _headers)
-            {
-                header.RefreshValues();
-            }
-        }
-
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                     State / Rebuild                    //
+        //                        Selection                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private void RebuildSortButtons()
+        private ListRowVM _selectedRow;
+
+        [DataSourceProperty]
+        public ListRowVM SelectedRow
         {
-            _sortButtons.Clear();
-
-            switch (EditorVM.Mode)
+            get => _selectedRow;
+            private set
             {
-                case EditorMode.Character:
-                default:
-                    // Character mode: Name (weight 3), Tier (weight 1).
-                    AddSortButton(ListSortKey.Name, L.S("sort_by_name", "Name"), 3);
-                    AddSortButton(ListSortKey.Tier, L.S("sort_by_tier", "Tier"), 1);
-                    break;
-            }
-
-            SetDynamicButtonProperties();
-        }
-
-        private void OnStateFactionChanged(IBaseFaction faction)
-        {
-            if (EditorVM.Mode == EditorMode.Character)
-            {
-                RebuildFromFaction(faction);
-            }
-        }
-
-        private void RebuildFromFaction(IBaseFaction faction)
-        {
-            Clear();
-
-            if (faction == null)
-            {
-                return;
-            }
-
-            WCharacter firstCharacter = null;
-
-            static void AddSection(
-                ListVM list,
-                ref WCharacter first,
-                string headerId,
-                string headerLocKey,
-                string headerFallback,
-                System.Collections.Generic.IEnumerable<WCharacter> troops,
-                bool civilian = false
-            )
-            {
-                var header = list.AddHeader(headerId, L.S(headerLocKey, headerFallback));
-
-                if (troops == null)
+                if (ReferenceEquals(value, _selectedRow))
                 {
                     return;
                 }
 
-                foreach (var troop in troops)
-                {
-                    if (troop == null)
-                    {
-                        continue;
-                    }
-
-                    header.AddCharacterRow(troop, civilian);
-                    first ??= troop;
-                }
+                _selectedRow = value;
+                OnPropertyChanged(nameof(SelectedRow));
             }
-
-            // Retinues.
-            AddSection(
-                this,
-                ref firstCharacter,
-                "retinues",
-                "list_header_retinues",
-                L.S("list_header_retinues", "Retinues"),
-                faction.RosterRetinues
-            );
-
-            // Elite tree.
-            AddSection(
-                this,
-                ref firstCharacter,
-                "elite",
-                "list_header_elite",
-                L.S("list_header_elite", "Elite"),
-                faction.RootElite?.Tree
-            );
-
-            // Regular tree.
-            AddSection(
-                this,
-                ref firstCharacter,
-                "regular",
-                "list_header_regular",
-                L.S("list_header_regular", "Regular"),
-                faction.RootBasic?.Tree
-            );
-
-            // Militia.
-            AddSection(
-                this,
-                ref firstCharacter,
-                "militia",
-                "list_header_militia",
-                L.S("list_header_militia", "Militia"),
-                faction.RosterMilitia
-            );
-
-            // Caravan.
-            AddSection(
-                this,
-                ref firstCharacter,
-                "caravan",
-                "list_header_caravan",
-                L.S("list_header_caravan", "Caravan"),
-                faction.RosterCaravan
-            );
-
-            // Villagers.
-            AddSection(
-                this,
-                ref firstCharacter,
-                "villagers",
-                "list_header_villagers",
-                L.S("list_header_villagers", "Villagers"),
-                faction.RosterVillager
-            );
-
-            // Bandits.
-            AddSection(
-                this,
-                ref firstCharacter,
-                "bandits",
-                "list_header_bandits",
-                L.S("list_header_bandits", "Bandits"),
-                faction.RosterBandit
-            );
-
-            // Civilians.
-            AddSection(
-                this,
-                ref firstCharacter,
-                "civilians",
-                "list_header_civilians",
-                L.S("list_header_civilians", "Civilians"),
-                faction.RosterCivilian,
-                civilian: true
-            );
-
-            if (StateCharacter == null && firstCharacter != null)
-            {
-                StateCharacter = firstCharacter;
-            }
-            else if (StateCharacter != null)
-            {
-                UpdateSelectionFromCharacter(StateCharacter);
-            }
-
-            RefreshValues();
         }
 
-        private void OnStateCharacterChanged(WCharacter character)
+        internal void OnRowSelected(ListRowVM row)
         {
-            UpdateSelectionFromCharacter(character);
-        }
-
-        private void UpdateSelectionFromCharacter(WCharacter character)
-        {
-            if (_headers.Count == 0)
-            {
-                return;
-            }
-
-            if (character == null)
-            {
-                foreach (var header in _headers)
-                {
-                    header.ClearSelectionExcept(null);
-                }
-
-                SelectedElement = null;
-                return;
-            }
-
-            ListRowVM match = null;
-
             foreach (var header in _headers)
             {
-                foreach (var element in header.Elements)
-                {
-                    if (element is CharacterRowVM row && ReferenceEquals(row.Character, character))
-                    {
-                        match = element;
-                        break;
-                    }
-                }
-
-                if (match != null)
-                {
-                    break;
-                }
+                header.ClearSelectionExcept(row);
             }
 
-            if (match != null)
+            SelectedRow = row;
+
+            if (row is CharacterListRowVM characterRow)
             {
-                OnElementSelected(match);
+                StateCharacter = characterRow.Character;
             }
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Sorting                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private static readonly string[] TreeAwareSortHeaders = ["elite", "regular"];
+        private const int SortButtonsTotalWidth = 586;
+
+        private MBBindingList<ListSortButtonVM> _sortButtons = [];
 
         [DataSourceProperty]
         public MBBindingList<ListSortButtonVM> SortButtons
@@ -367,18 +179,8 @@ namespace Retinues.Editor.VM.List
                 _sortButtons = value;
                 OnPropertyChanged(nameof(SortButtons));
 
-                SetDynamicButtonProperties();
+                RecomputeSortButtonProperties();
             }
-        }
-
-        public ListSortButtonVM AddSortButton(ListSortKey sortKey, string text, int relativeWidth)
-        {
-            var button = new ListSortButtonVM(this, sortKey, text, relativeWidth);
-            _sortButtons.Add(button);
-
-            SetDynamicButtonProperties();
-
-            return button;
         }
 
         internal void OnSortButtonClicked(ListSortButtonVM clicked)
@@ -403,8 +205,6 @@ namespace Retinues.Editor.VM.List
             OnSortChanged();
         }
 
-        private static readonly string[] TreeAwareSortHeaders = ["elite", "regular"];
-
         private void OnSortChanged()
         {
             if (_headers.Count == 0)
@@ -420,11 +220,7 @@ namespace Retinues.Editor.VM.List
             if (active == null)
             {
                 // No active sort: revert to default ordering for the current mode.
-                if (EditorVM.Mode == EditorMode.Character)
-                {
-                    OnStateFactionChanged(StateFaction);
-                }
-
+                Rebuild();
                 return;
             }
 
@@ -433,7 +229,7 @@ namespace Retinues.Editor.VM.List
 
             foreach (var header in _headers)
             {
-                if (header.Elements.Count <= 1)
+                if (header.Rows.Count <= 1)
                 {
                     continue;
                 }
@@ -456,32 +252,32 @@ namespace Retinues.Editor.VM.List
 
         private void SortFlatHeader(ListHeaderVM header, ListSortKey sortKey, bool ascending)
         {
-            if (header.Elements.Count <= 1)
+            if (header.Rows.Count <= 1)
             {
                 return;
             }
 
             var sorted = ascending
-                ? header.Elements.OrderBy(row => row.GetSortValue(sortKey)).ToList()
-                : [.. header.Elements.OrderByDescending(row => row.GetSortValue(sortKey))];
+                ? header.Rows.OrderBy(row => row.GetSortValue(sortKey)).ToList()
+                : [.. header.Rows.OrderByDescending(row => row.GetSortValue(sortKey))];
 
-            header.Elements.Clear();
+            header.Rows.Clear();
             for (int i = 0; i < sorted.Count; i++)
             {
-                header.Elements.Add(sorted[i]);
+                header.Rows.Add(sorted[i]);
             }
         }
 
         private void SortTreeHeader(ListHeaderVM header, ListSortKey sortKey, bool ascending)
         {
-            if (header.Elements.Count <= 1)
+            if (header.Rows.Count <= 1)
             {
                 return;
             }
 
-            // We only support tree sorting when all elements are character rows.
-            var characterRows = header.Elements.OfType<CharacterRowVM>().ToList();
-            if (characterRows.Count != header.Elements.Count)
+            // We only support tree sorting when all rows are character rows.
+            var characterRows = header.Rows.OfType<CharacterListRowVM>().ToList();
+            if (characterRows.Count != header.Rows.Count)
             {
                 // Mixed content; fall back to flat sorting.
                 SortFlatHeader(header, sortKey, ascending);
@@ -489,7 +285,7 @@ namespace Retinues.Editor.VM.List
             }
 
             // Map characters to their row.
-            var rowByCharacter = new Dictionary<WCharacter, CharacterRowVM>();
+            var rowByCharacter = new Dictionary<WCharacter, CharacterListRowVM>();
             for (int i = 0; i < characterRows.Count; i++)
             {
                 var row = characterRows[i];
@@ -549,7 +345,7 @@ namespace Retinues.Editor.VM.List
                 : roots.OrderByDescending(c => rowByCharacter[c].GetSortValue(sortKey));
 
             var visited = new HashSet<WCharacter>();
-            var newOrder = new List<ListRowVM>(header.Elements.Count);
+            var newOrder = new List<ListRowVM>(header.Rows.Count);
 
             foreach (var root in orderedRoots)
             {
@@ -576,10 +372,10 @@ namespace Retinues.Editor.VM.List
                 }
             }
 
-            header.Elements.Clear();
+            header.Rows.Clear();
             for (int i = 0; i < newOrder.Count; i++)
             {
-                header.Elements.Add(newOrder[i]);
+                header.Rows.Add(newOrder[i]);
             }
         }
 
@@ -587,7 +383,7 @@ namespace Retinues.Editor.VM.List
             WCharacter character,
             ListSortKey sortKey,
             bool ascending,
-            Dictionary<WCharacter, CharacterRowVM> rowByCharacter,
+            Dictionary<WCharacter, CharacterListRowVM> rowByCharacter,
             HashSet<WCharacter> visited,
             List<ListRowVM> output
         )
@@ -643,6 +439,8 @@ namespace Retinues.Editor.VM.List
 
         [DataSourceProperty]
         public string FilterLabel => L.S("filter_label", "Filter:");
+
+        private string _filterText = string.Empty;
 
         [DataSourceProperty]
         public string FilterText
@@ -711,7 +509,7 @@ namespace Retinues.Editor.VM.List
             {
                 foreach (var header in _headers)
                 {
-                    foreach (var row in header.Elements)
+                    foreach (var row in header.Rows)
                     {
                         row.IsVisible = true;
                     }
@@ -723,7 +521,7 @@ namespace Retinues.Editor.VM.List
             // First pass: each row decides on its own.
             foreach (var header in _headers)
             {
-                foreach (var row in header.Elements)
+                foreach (var row in header.Rows)
                 {
                     row.IsVisible = row.MatchesFilter(filter);
                 }
@@ -741,14 +539,14 @@ namespace Retinues.Editor.VM.List
                     continue;
                 }
 
-                var characterRows = header.Elements.OfType<CharacterRowVM>().ToList();
+                var characterRows = header.Rows.OfType<CharacterListRowVM>().ToList();
 
                 if (characterRows.Count == 0)
                 {
                     continue;
                 }
 
-                var rowByCharacter = new Dictionary<WCharacter, CharacterRowVM>();
+                var rowByCharacter = new Dictionary<WCharacter, CharacterListRowVM>();
                 foreach (var row in characterRows)
                 {
                     var character = row.Character;
@@ -828,11 +626,7 @@ namespace Retinues.Editor.VM.List
             }
         }
 
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Helpers                        //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        private void SetDynamicButtonProperties()
+        public void RecomputeSortButtonProperties()
         {
             if (_sortButtons.Count == 0)
             {
@@ -869,7 +663,7 @@ namespace Retinues.Editor.VM.List
                     remaining -= width;
                 }
 
-                button.SetNormalizedWidth(width);
+                button.Width = width;
                 button.SetIsLastColumn(i == _sortButtons.Count - 1);
             }
         }

@@ -1,125 +1,88 @@
 using System;
-using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Engine;
 using Retinues.Wrappers.Characters;
 using TaleWorlds.CampaignSystem.ViewModelCollection;
 using TaleWorlds.Core.ViewModelCollection.Generic;
 using TaleWorlds.Library;
 
-namespace Retinues.Editor.VM.List.Rows
+namespace Retinues.Editor.VM.List.Character
 {
-    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-    //                     Character Row                     //
-    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
     /// <summary>
     /// Row representing a troop character in the list.
     /// </summary>
-    public sealed class CharacterRowVM(
+    public sealed class CharacterListRowVM(
         ListHeaderVM header,
         WCharacter character,
         bool civilian = false
     ) : ListRowVM(header, character?.StringId ?? string.Empty)
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Fields                         //
+        //                        Internals                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private readonly WCharacter _character = character;
-        public WCharacter Character => _character;
-        private readonly bool _isCivilian = civilian;
-
-        private string _name = character?.Name ?? string.Empty;
-        private int _tier = character?.Tier ?? 0;
+        internal readonly WCharacter Character = character;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Accessors                       //
+        //                       Type Flags                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        [DataSourceProperty]
-        public StringItemWithHintVM TierIconData =>
-            CampaignUIHelper.GetCharacterTierData(_character.Base, isBig: true);
-
-        [DataSourceProperty]
-        public string FormationClassIcon => Icons.GetFormationClassIcon(_character);
 
         [DataSourceProperty]
         public override bool IsCharacter => true;
 
-        [DataSourceProperty]
-        public string Name
-        {
-            get => _name;
-            private set
-            {
-                if (value == _name)
-                {
-                    return;
-                }
-
-                _name = value;
-                OnPropertyChanged(nameof(Name));
-            }
-        }
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                   Name & Indentation                   //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceProperty]
-        public bool IsCivilian => _isCivilian;
+        public string Name => Character?.Name ?? string.Empty;
 
-        /// <summary>
-        /// Simple indentation text used by the template (tree layout).
-        /// </summary>
         [DataSourceProperty]
         public string Indentation
         {
             get
             {
-                if (_character == null || _character.IsRoot)
+                if (Character == null || Character.IsRoot)
                 {
                     return string.Empty;
                 }
 
-                int n = Math.Max(0, _character.Depth);
+                int n = Math.Max(0, Character.Depth);
                 return new string(' ', n * 4);
             }
         }
 
-        /// <summary>
-        /// Image identifier used by the row template for the troop portrait.
-        /// </summary>
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Tier                          //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private readonly int _tier = character?.Tier ?? 0;
+
         [DataSourceProperty]
-        public object Image
-        {
-            get
-            {
-                // WCharacter.GetImage(...) returns the correct type (ImageIdentifierVM) for the current BL version.
-                return _character?.GetImage(_isCivilian);
-            }
-        }
+        public StringItemWithHintVM TierIconData =>
+            CampaignUIHelper.GetCharacterTierData(Character.Base, isBig: true);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Lifecycle                       //
+        //                     Formation Class                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public override void RefreshValues()
-        {
-            base.RefreshValues();
-
-            Name = _character?.Name ?? string.Empty;
-            _tier = _character?.Tier ?? 0;
-
-            OnPropertyChanged(nameof(Indentation));
-            OnPropertyChanged(nameof(Image));
-        }
+        [DataSourceProperty]
+        public string FormationClassIcon => Icons.GetFormationClassIcon(Character);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Commands                        //
+        //                        Civilian                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        [DataSourceMethod]
-        public override void ExecuteSelect()
-        {
-            base.ExecuteSelect();
-        }
+        private readonly bool _isCivilian = civilian;
+
+        [DataSourceProperty]
+        public bool IsCivilian => _isCivilian;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Image                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [DataSourceProperty]
+        public object Image => Character?.GetImage(_isCivilian);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Sorting                        //
@@ -127,17 +90,12 @@ namespace Retinues.Editor.VM.List.Rows
 
         internal override IComparable GetSortValue(ListSortKey sortKey)
         {
-            switch (sortKey)
+            return sortKey switch
             {
-                case ListSortKey.Name:
-                    return Name ?? string.Empty;
-
-                case ListSortKey.Tier:
-                    return _tier;
-
-                default:
-                    return Name ?? string.Empty;
-            }
+                ListSortKey.Name => Name,
+                ListSortKey.Tier => _tier,
+                _ => Name,
+            };
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -158,13 +116,13 @@ namespace Retinues.Editor.VM.List.Rows
                 return true;
             }
 
-            var tierText = _character.Tier.ToString();
+            var tierText = Character.Tier.ToString();
             if (!string.IsNullOrEmpty(tierText) && tierText.IndexOf(filter, comparison) >= 0)
             {
                 return true;
             }
 
-            var cultureName = _character.Culture?.Name ?? string.Empty;
+            var cultureName = Character.Culture?.Name;
             if (!string.IsNullOrEmpty(cultureName) && cultureName.IndexOf(filter, comparison) >= 0)
             {
                 return true;

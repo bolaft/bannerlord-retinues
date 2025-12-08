@@ -1,6 +1,4 @@
-using System.ComponentModel;
 using Retinues.Editor.VM.List;
-using Retinues.Editor.VM.List.Rows;
 using Retinues.Wrappers.Characters;
 using Retinues.Wrappers.Factions;
 using TaleWorlds.CampaignSystem;
@@ -9,6 +7,9 @@ using TaleWorlds.Library;
 
 namespace Retinues.Editor.VM
 {
+    /// <summary>
+    /// Editor modes available in the Retinues editor.
+    /// </summary>
     public enum EditorMode
     {
         Character = 0,
@@ -19,22 +20,17 @@ namespace Retinues.Editor.VM
     /// </summary>
     public class EditorVM : BaseStatefulVM
     {
-        public static EditorMode Mode = EditorMode.Character;
-
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Construction                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public EditorVM()
         {
-            // Start each editor session from a clean shared state.
-            ResetState();
-
             // Initialize the troop list VM.
             List = new ListVM();
 
-            // Listen to selection changes to update the tableau model.
-            List.PropertyChanged += OnListPropertyChanged;
+            // Start each editor session from a clean shared state.
+            ResetState();
 
             // Initialize default state (faction, character, etc.).
             InitializeStateDefaults();
@@ -56,7 +52,48 @@ namespace Retinues.Editor.VM
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                       Properties                       //
+        //                       Components                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private ListVM _list;
+
+        [DataSourceProperty]
+        public ListVM List
+        {
+            get => _list;
+            private set
+            {
+                if (value == _list)
+                {
+                    return;
+                }
+
+                _list = value;
+                OnPropertyChanged(nameof(List));
+            }
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Mode                          //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public static EditorMode Mode = EditorMode.Character;
+
+        public static void SetMode(EditorMode mode)
+        {
+            if (Mode == mode)
+            {
+                return;
+            }
+
+            Mode = mode;
+
+            // Notify any listeners that mode changed (columns, buttons, etc.).
+            EventManager.Fire(UIEvent.Mode, EventScope.Global);
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        IsVisible                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private bool _isVisible;
@@ -77,23 +114,9 @@ namespace Retinues.Editor.VM
             }
         }
 
-        private ListVM _list;
-
-        [DataSourceProperty]
-        public ListVM List
-        {
-            get => _list;
-            private set
-            {
-                if (value == _list)
-                {
-                    return;
-                }
-
-                _list = value;
-                OnPropertyChanged(nameof(List));
-            }
-        }
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Model                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private CharacterViewModel _model;
 
@@ -113,43 +136,18 @@ namespace Retinues.Editor.VM
             }
         }
 
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Lifecycle                       //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        public override void RefreshValues()
+        // Rebuild the tableau model whenever the current troop changes.
+        [EventListener(UIEvent.Troop)]
+        private void RebuildModel()
         {
-            base.RefreshValues();
-            List?.RefreshValues();
-        }
-
-        private void OnListPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == nameof(ListVM.SelectedElement))
-            {
-                UpdateModelFromSelection();
-            }
-        }
-
-        private void UpdateModelFromSelection()
-        {
-            var selectedRow = List?.SelectedElement as CharacterRowVM;
-            var character = selectedRow?.Character;
-
-            if (character == null)
+            var character = StateCharacter;
+            if (character?.Base == null)
             {
                 Model = null;
                 return;
             }
 
             var co = character.Base;
-            if (co == null)
-            {
-                Model = null;
-                return;
-            }
-
-            // Simple, safe model setup: let the engine fill everything from the CharacterObject.
             var vm = new CharacterViewModel(CharacterViewModel.StanceTypes.None);
             vm.FillFrom(co, seed: -1);
 

@@ -1,5 +1,5 @@
 using Bannerlord.UIExtenderEx.Attributes;
-using Retinues.Editor.VM.List.Rows;
+using Retinues.Editor.VM.List.Character;
 using Retinues.Wrappers.Characters;
 using TaleWorlds.Library;
 
@@ -11,38 +11,25 @@ namespace Retinues.Editor.VM.List
     public class ListHeaderVM(ListVM list, string id, string name) : BaseStatefulVM
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Fields                         //
+        //                        Internals                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private readonly ListVM _list = list;
-
-        private string _id = id;
-        private string _name = name;
-        private bool _isExpanded = false;
-
-        private MBBindingList<ListRowVM> _elements = [];
+        internal ListVM List = list;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Accessors                       //
+        //                       Identifier                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        internal ListVM List => _list;
+        private readonly string _id = id;
 
         [DataSourceProperty]
-        public string Id
-        {
-            get => _id;
-            private set
-            {
-                if (value == _id)
-                {
-                    return;
-                }
+        public string Id => _id;
 
-                _id = value;
-                OnPropertyChanged(nameof(Id));
-            }
-        }
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Name                          //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private string _name = name;
 
         [DataSourceProperty]
         public string Name
@@ -59,6 +46,44 @@ namespace Retinues.Editor.VM.List
                 OnPropertyChanged(nameof(Name));
             }
         }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Rows                          //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private readonly MBBindingList<ListRowVM> _rows = [];
+
+        [DataSourceProperty]
+        public MBBindingList<ListRowVM> Rows => _rows;
+
+        public CharacterListRowVM AddCharacterRow(WCharacter character, bool civilian = false)
+        {
+            if (character == null)
+            {
+                return null;
+            }
+
+            var wasEmpty = _rows.Count == 0;
+
+            var row = new CharacterListRowVM(this, character, civilian);
+            _rows.Add(row);
+
+            OnPropertyChanged(nameof(RowCountText));
+            UpdateIsEnabledState();
+
+            if (wasEmpty && IsEnabled)
+            {
+                IsExpanded = true;
+            }
+
+            return row;
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                   Enabled / Expanded                   //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private bool _isExpanded;
 
         [DataSourceProperty]
         public bool IsExpanded
@@ -78,89 +103,23 @@ namespace Retinues.Editor.VM.List
         }
 
         [DataSourceProperty]
-        public int MarginBottom => _isExpanded ? 0 : 3;
+        public bool IsEnabled => VisibleRowCount > 0;
 
-        [DataSourceProperty]
-        public MBBindingList<ListRowVM> Elements
+        private void UpdateIsEnabledState()
         {
-            get => _elements;
-            private set
-            {
-                if (ReferenceEquals(value, _elements))
-                {
-                    return;
-                }
+            OnPropertyChanged(nameof(IsEnabled));
 
-                _elements = value;
-                OnPropertyChanged(nameof(Elements));
-                OnPropertyChanged(nameof(ElementCountText));
-                UpdateIsEnabledState();
+            if (!IsEnabled && _isExpanded)
+            {
+                IsExpanded = false;
             }
         }
 
-        [DataSourceProperty]
-        public string ElementCountText => $"({GetVisibleElementCount()})";
-
-        /// <summary>
-        /// Bound by the header toggle to control enabled/disabled visuals.
-        /// </summary>
-        [DataSourceProperty]
-        public bool IsEnabled => GetVisibleElementCount() > 0;
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                          Rows                          //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        public CharacterRowVM AddCharacterRow(WCharacter character, bool civilian = false)
-        {
-            var wasEmpty = _elements.Count == 0;
-
-            var row = new CharacterRowVM(this, character, civilian);
-            _elements.Add(row);
-
-            OnPropertyChanged(nameof(Elements));
-            OnPropertyChanged(nameof(ElementCountText));
-            UpdateIsEnabledState();
-
-            if (wasEmpty)
-            {
-                IsExpanded = true;
-            }
-
-            return row;
-        }
-
-        internal void ClearSelectionExcept(ListRowVM selected)
-        {
-            foreach (var element in _elements)
-            {
-                element.IsSelected = ReferenceEquals(element, selected);
-            }
-        }
-
-        public override void RefreshValues()
-        {
-            base.RefreshValues();
-
-            foreach (var element in _elements)
-            {
-                element.RefreshValues();
-            }
-
-            OnPropertyChanged(nameof(ElementCountText));
-            UpdateIsEnabledState();
-        }
-
-        // Called by rows when their visibility changes (filtering).
         internal void OnRowVisibilityChanged()
         {
-            OnPropertyChanged(nameof(ElementCountText));
+            OnPropertyChanged(nameof(RowCountText));
             UpdateIsEnabledState();
         }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Commands                        //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceMethod]
         public void ExecuteToggle()
@@ -169,37 +128,59 @@ namespace Retinues.Editor.VM.List
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Helpers                        //
+        //                         Margins                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private void UpdateIsEnabledState()
-        {
-            OnPropertyChanged(nameof(IsEnabled));
+        [DataSourceProperty]
+        public int MarginBottom => _isExpanded ? 0 : 3;
 
-            if (!IsEnabled)
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Row Count                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [DataSourceProperty]
+        public string RowCountText => $"({VisibleRowCount})";
+
+        private int VisibleRowCount
+        {
+            get
             {
-                IsExpanded = false;
+                if (_rows.Count == 0)
+                {
+                    return 0;
+                }
+
+                var count = 0;
+
+                for (int i = 0; i < _rows.Count; i++)
+                {
+                    var row = _rows[i];
+                    if (row != null && row.IsVisible)
+                    {
+                        count++;
+                    }
+                }
+
+                return count;
             }
         }
 
-        private int GetVisibleElementCount()
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Selection                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        internal void ClearSelectionExcept(ListRowVM selected)
         {
-            if (_elements == null || _elements.Count == 0)
+            for (int i = 0; i < _rows.Count; i++)
             {
-                return 0;
-            }
-
-            int count = 0;
-            for (int i = 0; i < _elements.Count; i++)
-            {
-                var row = _elements[i];
-                if (row != null && row.IsVisible)
+                var row = _rows[i];
+                if (row == null)
                 {
-                    count++;
+                    continue;
                 }
-            }
 
-            return count;
+                row.IsSelected = ReferenceEquals(row, selected);
+            }
         }
     }
 }

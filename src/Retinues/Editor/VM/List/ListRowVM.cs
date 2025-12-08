@@ -10,22 +10,25 @@ namespace Retinues.Editor.VM.List
     public abstract class ListRowVM(ListHeaderVM header, string id) : BaseStatefulVM
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Fields                         //
+        //                        Internals                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private readonly ListHeaderVM _header = header;
+        internal ListHeaderVM Header => _header;
+        internal ListVM List => Header.List;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                     Category Flags                     //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [DataSourceProperty]
+        public virtual bool IsCharacter => false;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Identifier                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private string _id = id;
-        private bool _isSelected;
-        private bool _isVisible = true;
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Accessors                       //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        internal ListHeaderVM Header => _header;
-
-        internal ListVM List => _header?.List;
 
         [DataSourceProperty]
         public string Id
@@ -43,12 +46,11 @@ namespace Retinues.Editor.VM.List
             }
         }
 
-        [DataSourceProperty]
-        public virtual bool IsEnabled => true;
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       IsSelected                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        // Type flags; templates use these to choose row layout.
-        [DataSourceProperty]
-        public virtual bool IsCharacter => false;
+        private bool _isSelected;
 
         [DataSourceProperty]
         public bool IsSelected
@@ -66,6 +68,19 @@ namespace Retinues.Editor.VM.List
             }
         }
 
+        [DataSourceMethod]
+        public virtual void ExecuteSelect()
+        {
+            IsSelected = true;
+            List.OnRowSelected(this);
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        IsVisible                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private bool _isVisible = true;
+
         [DataSourceProperty]
         public bool IsVisible
         {
@@ -80,49 +95,43 @@ namespace Retinues.Editor.VM.List
                 _isVisible = value;
                 OnPropertyChanged(nameof(IsVisible));
 
-                Header?.OnRowVisibilityChanged();
+                _header?.OnRowVisibilityChanged();
             }
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Commands                       //
+        //                        IsEnabled                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        [DataSourceMethod]
-        public virtual void ExecuteSelect()
-        {
-            IsSelected = true;
-            List?.OnElementSelected(this);
-        }
+        [DataSourceProperty]
+        public virtual bool IsEnabled => true;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Sorting                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        internal virtual IComparable GetSortValue(ListSortKey sortKey)
-        {
-            // Default: sort by ID (case-insensitive).
-            return Id ?? string.Empty;
-        }
+        internal abstract IComparable GetSortValue(ListSortKey sortKey);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Filtering                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        internal virtual bool MatchesFilter(string filter)
+        internal abstract bool MatchesFilter(string filter);
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                    Event Management                    //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        internal override void __OnGlobalEvent(EventManager.Context context, UIEvent e)
         {
-            if (string.IsNullOrWhiteSpace(filter))
+            // For Troop events in Local scope, only the selected row
+            // should respond; others skip their listeners entirely.
+            if (e == UIEvent.Troop && EventManager.CurrentScope == EventScope.Local && !IsSelected)
             {
-                return true;
+                return;
             }
 
-            var value = Id;
-            if (string.IsNullOrEmpty(value))
-            {
-                return false;
-            }
-
-            return value.IndexOf(filter, StringComparison.OrdinalIgnoreCase) >= 0;
+            base.__OnGlobalEvent(context, e);
         }
     }
 }
