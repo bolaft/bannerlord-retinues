@@ -8,6 +8,9 @@
       id="ret_clear_filter_tooltip"
       text="Cancella il testo del filtro corrente." />
     <string
+      id="ret_culture_header_text"
+      text="Cultura" />
+    <string
       id="ret_dependencies_all_ok"
       text="Tutte le dipendenze sono state inizializzate correttamente." />
     <string
@@ -22,6 +25,9 @@
     <string
       id="ret_editor_tab_label"
       text="Truppe" />
+    <string
+      id="ret_enter_new_name"
+      text="Inserisci un nuovo nome:" />
     <string
       id="ret_escape_menu_editor_button"
       text="Editor di truppe" />
@@ -65,6 +71,12 @@
       id="ret_list_header_villagers"
       text="Contadini" />
     <string
+      id="ret_name_header_text"
+      text="Nome" />
+    <string
+      id="ret_rename_troop"
+      text="Rinomina truppa" />
+    <string
       id="ret_retinues_update_title"
       text="Aggiornamento di Retinues" />
     <string
@@ -88,5 +100,8 @@
     <string
       id="ret_sort_by_tier"
       text="Livello" />
+    <string
+      id="ret_unknown"
+      text="Sconosciuto" />
   </strings>
 </base>

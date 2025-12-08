@@ -17,6 +17,9 @@ namespace Retinues.Editor
         Mode,
         Faction,
         Troop,
+        Name,
+        Culture,
+        Appearance,
     }
 
     public enum EventScope
@@ -74,6 +77,53 @@ namespace Retinues.Editor
         internal static EventScope CurrentScope { get; private set; } = EventScope.Global;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Event Hierarchy                   //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Declarative parent → children relationships between events.
+        /// Firing a parent will also fire all of its descendants once
+        /// in the current burst.
+        /// </summary>
+        private static readonly Dictionary<UIEvent, UIEvent[]> _hierarchy = new()
+        {
+            // Culture change implies appearance (since culture drives look).
+            { UIEvent.Culture, new[] { UIEvent.Appearance } },
+        };
+
+        /// <summary>
+        /// Expands a root event into itself + all transitive children,
+        /// with cycle protection and per-event dedup.
+        /// </summary>
+        private static IEnumerable<UIEvent> Expand(UIEvent root)
+        {
+            var visited = new HashSet<UIEvent>();
+            var stack = new Stack<UIEvent>();
+
+            stack.Push(root);
+
+            while (stack.Count > 0)
+            {
+                var current = stack.Pop();
+                if (!visited.Add(current))
+                {
+                    continue;
+                }
+
+                yield return current;
+
+                if (_hierarchy.TryGetValue(current, out var children) && children != null)
+                {
+                    // Push in reverse so the array order is preserved on pop.
+                    for (int i = children.Length - 1; i >= 0; i--)
+                    {
+                        stack.Push(children[i]);
+                    }
+                }
+            }
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                   Burst Context Type                   //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
@@ -90,7 +140,7 @@ namespace Retinues.Editor
                     return;
                 }
 
-                EventManager.AddNotification(vm, propertyName);
+                AddNotification(vm, propertyName);
             }
         }
 
@@ -98,19 +148,18 @@ namespace Retinues.Editor
         //                         Fields                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private static readonly List<WeakReference<BaseStatefulVM>> _listeners =
-            new List<WeakReference<BaseStatefulVM>>();
-        private static readonly object _lock = new object();
+        private static readonly List<WeakReference<BaseStatefulVM>> _listeners = [];
+        private static readonly object _lock = new();
 
         // Burst depth: >0 means we are inside a "burst".
         private static int _burstDepth;
 
         // Pending (VM, propertyName) notifications for the current burst.
         private static readonly Dictionary<BaseStatefulVM, HashSet<string>> _pendingNotifications =
-            new Dictionary<BaseStatefulVM, HashSet<string>>();
+        [];
 
         // Shared context instance used for all notifications.
-        private static readonly Context _context = new Context();
+        private static readonly Context _context = new();
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                  Listener Registration                 //

@@ -9,15 +9,22 @@ using TaleWorlds.ObjectSystem;
 namespace Retinues.Model
 {
     /// <summary>
-    /// Marks a property on a Wrapper as persistent state.
+    /// Marks a property on a Wrapper as persistent state,
+    /// optionally overriding the stored value type and key.
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
-    public sealed class WrapDataAttribute(string key = null) : Attribute
+    public sealed class PersistentAttribute(Type valueType = null, string key = null) : Attribute
     {
         /// <summary>
         /// Optional explicit key used for persistence; defaults to property name.
         /// </summary>
         public string Key { get; } = key;
+
+        /// <summary>
+        /// Optional explicit value type for the backing map.
+        /// If null, the property type is used.
+        /// </summary>
+        public Type ValueType { get; } = valueType;
     }
 
     /// <summary>
@@ -62,7 +69,7 @@ namespace Retinues.Model
 
     /// <summary>
     /// Base wrapper for MBObjectBase derivatives with per-StringId persistent state
-    /// defined via properties annotated with [WrapData].
+    /// defined via properties annotated with [Persistent].
     /// Inherits Model for reflection and cached-property support.
     /// </summary>
     public abstract class Wrapper<TWrapper, TBase> : Model<TWrapper, TBase>
@@ -106,7 +113,7 @@ namespace Retinues.Model
                 if (_staticInitialized)
                     return;
 
-                // Persistence maps (WrapData).
+                // Persistence maps.
                 _properties = DiscoverWrapperProperties();
                 _syncDataMethod = typeof(IDataStore).GetMethod("SyncData");
 
@@ -129,7 +136,7 @@ namespace Retinues.Model
                 if (!prop.CanRead || !prop.CanWrite)
                     continue;
 
-                var attr = prop.GetCustomAttribute<WrapDataAttribute>(inherit: true);
+                var attr = prop.GetCustomAttribute<PersistentAttribute>(inherit: true);
                 if (attr == null)
                     continue;
 
@@ -298,7 +305,7 @@ namespace Retinues.Model
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
-        /// Gets a persistent value (annotated with [WrapData]) for this wrapper instance.
+        /// Gets a persistent value (annotated with [Persistent]) for this wrapper instance.
         /// </summary>
         protected T Get<T>([CallerMemberName] string propertyName = null)
         {
@@ -319,7 +326,7 @@ namespace Retinues.Model
         }
 
         /// <summary>
-        /// Sets a persistent value (annotated with [WrapData]) for this wrapper instance
+        /// Sets a persistent value (annotated with [Persistent]) for this wrapper instance
         /// and invalidates any cached properties that declare it as an invalidator.
         /// </summary>
         protected void Set<T>(T value, [CallerMemberName] string propertyName = null)
@@ -338,8 +345,36 @@ namespace Retinues.Model
 
             entry.Map[id] = value;
 
-            // Tie WrapData to cached properties via Model's cache invalidation map.
+            // Tie persistence to cached properties via Model's cache invalidation map.
             InvalidateCachesFor(propertyName, id);
+        }
+
+        /// <summary>
+        /// Sets a reflected member on TBase and, if this property is marked as
+        /// persistent, stores the value in the per-StringId map as well.
+        /// </summary>
+        protected new void SetRef<T>(T value, [CallerMemberName] string propertyName = null)
+        {
+            if (string.IsNullOrEmpty(propertyName))
+                throw new ArgumentNullException(nameof(propertyName));
+
+            // 1) Persist if this property has a persistence entry.
+            EnsureStaticInitialized();
+
+            if (_properties != null && _properties.TryGetValue(propertyName, out var entry))
+            {
+                var id = StringId;
+                if (!string.IsNullOrEmpty(id))
+                {
+                    entry.Map[id] = value;
+
+                    // Tie persistence to cached properties (same as Set<T>).
+                    InvalidateCachesFor(propertyName, id);
+                }
+            }
+
+            // 2) Push to underlying TBase via Model's reflection helper.
+            base.SetRef(value, propertyName);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

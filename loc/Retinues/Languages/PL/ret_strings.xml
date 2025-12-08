@@ -8,6 +8,9 @@
       id="ret_clear_filter_tooltip"
       text="Wyczyść bieżący tekst filtra." />
     <string
+      id="ret_culture_header_text"
+      text="Kultura" />
+    <string
       id="ret_dependencies_all_ok"
       text="Wszystkie zależności zostały poprawnie zainicjowane." />
     <string
@@ -22,6 +25,9 @@
     <string
       id="ret_editor_tab_label"
       text="Oddziały" />
+    <string
+      id="ret_enter_new_name"
+      text="Wprowadź nową nazwę:" />
     <string
       id="ret_escape_menu_editor_button"
       text="Edytor oddziałów" />
@@ -65,6 +71,12 @@
       id="ret_list_header_villagers"
       text="Mieszkańcy wsi" />
     <string
+      id="ret_name_header_text"
+      text="Nazwa" />
+    <string
+      id="ret_rename_troop"
+      text="Zmień nazwę oddziału" />
+    <string
       id="ret_retinues_update_title"
       text="Aktualizacja Retinues" />
     <string
@@ -88,5 +100,8 @@
     <string
       id="ret_sort_by_tier"
       text="Poziom" />
+    <string
+      id="ret_unknown"
+      text="Nieznany" />
   </strings>
 </base>

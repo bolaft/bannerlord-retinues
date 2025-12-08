@@ -8,6 +8,9 @@
       id="ret_clear_filter_tooltip"
       text="Clear the current filter text." />
     <string
+      id="ret_culture_header_text"
+      text="Culture" />
+    <string
       id="ret_dependencies_all_ok"
       text="All dependencies initialized correctly." />
     <string
@@ -22,6 +25,9 @@
     <string
       id="ret_editor_tab_label"
       text="Troops" />
+    <string
+      id="ret_enter_new_name"
+      text="Enter a new name:" />
     <string
       id="ret_escape_menu_editor_button"
       text="Troop Editor" />
@@ -65,6 +71,12 @@
       id="ret_list_header_villagers"
       text="Villagers" />
     <string
+      id="ret_name_header_text"
+      text="Name" />
+    <string
+      id="ret_rename_troop"
+      text="Rename Troop" />
+    <string
       id="ret_retinues_update_title"
       text="Retinues Update" />
     <string
@@ -88,5 +100,8 @@
     <string
       id="ret_sort_by_tier"
       text="Tier" />
+    <string
+      id="ret_unknown"
+      text="Unknown" />
   </strings>
 </base>

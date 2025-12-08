@@ -1,0 +1,38 @@
+<!-- Name Header -->
+<TextWidget
+    Text="@NameHeaderText"
+    Brush="Kingdom.TitleSmall.Text"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    HorizontalAlignment="Center" VerticalAlignment="Center"
+    MarginBottom="12" />
+
+<!-- Name Block -->
+<ListPanel
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    HorizontalAlignment="Center" VerticalAlignment="Center"
+    StackLayout.LayoutMethod="HorizontalLeftToRight"
+    MarginBottom="12">
+    <Children>
+        <!-- Troop Name -->
+        <TextWidget
+            Text="@Name"
+            Brush="Clan.RightPanel.Name.Text"
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+        <!-- Rename Button -->
+        <Widget
+            HorizontalAlignment="Center" VerticalAlignment="Center"
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            MarginLeft="4">
+            <Children>
+                <ButtonWidget
+                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    SuggestedWidth="32" SuggestedHeight="32"
+                    Brush="SPClan.NameChange.Icon"
+                    Command.Click="ExecuteRename" />
+            </Children>
+        </Widget>
+    </Children>
+</ListPanel>

@@ -8,6 +8,9 @@
       id="ret_clear_filter_tooltip"
       text="Очистить текущий текст фильтра." />
     <string
+      id="ret_culture_header_text"
+      text="Культура" />
+    <string
       id="ret_dependencies_all_ok"
       text="Все зависимости инициализированы правильно." />
     <string
@@ -22,6 +25,9 @@
     <string
       id="ret_editor_tab_label"
       text="Отряды" />
+    <string
+      id="ret_enter_new_name"
+      text="Введите новое имя:" />
     <string
       id="ret_escape_menu_editor_button"
       text="Редактор отрядов" />
@@ -65,6 +71,12 @@
       id="ret_list_header_villagers"
       text="Жители деревень" />
     <string
+      id="ret_name_header_text"
+      text="Имя" />
+    <string
+      id="ret_rename_troop"
+      text="Переименовать отряд" />
+    <string
       id="ret_retinues_update_title"
       text="Обновление Retinues" />
     <string
@@ -88,5 +100,8 @@
     <string
       id="ret_sort_by_tier"
       text="Уровень" />
+    <string
+      id="ret_unknown"
+      text="Неизвестно" />
   </strings>
 </base>

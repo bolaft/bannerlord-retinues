@@ -36,11 +36,20 @@ namespace Retinues.Model.Characters
 
         public WCulture Culture => WCulture.Get(Base.Culture);
 
+        [Persistent]
         [Reflected(setterName: "SetName")]
-        public string Name
+        public TextObject Name
         {
-            get => Base.Name.ToString() ?? string.Empty;
-            set => SetRef(new TextObject(value));
+            get
+            {
+                var stored = Get<TextObject>();
+                if (stored != null)
+                    return stored;
+
+                // Fallback: whatever the game currently has.
+                return Base.Name;
+            }
+            set { SetRef(value); }
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

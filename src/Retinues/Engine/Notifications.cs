@@ -260,5 +260,63 @@ namespace Retinues.Engine
                 Log.Exception(e, "Notifications.MultiSelectPopup failed.");
             }
         }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                    Text input popup                   //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Text input popup (single-line) with Confirm / Cancel and default input text.
+        /// Calls onConfirm with the entered string if the user confirms.
+        /// </summary>
+        public static void TextInputPopup(
+            TextObject title,
+            string defaultInput,
+            Action<string> onConfirm,
+            TextObject description = null,
+            TextObject confirmText = null,
+            TextObject cancelText = null,
+            bool pauseGame = true
+        )
+        {
+            try
+            {
+                confirmText ??= GameTexts.FindText("str_accept");
+                cancelText ??= GameTexts.FindText("str_cancel");
+
+                var inquiry = new TextInquiryData(
+                    title?.ToString() ?? string.Empty,
+                    description?.ToString() ?? string.Empty,
+                    isAffirmativeOptionShown: true,
+                    isNegativeOptionShown: true,
+                    affirmativeText: confirmText.ToString(),
+                    negativeText: cancelText.ToString(),
+                    affirmativeAction: input =>
+                    {
+                        try
+                        {
+                            if (string.IsNullOrWhiteSpace(input))
+                                return;
+                            onConfirm?.Invoke(input);
+                        }
+                        catch (Exception e)
+                        {
+                            Log.Exception(
+                                e,
+                                "Notifications.TextInputPopup confirm callback failed."
+                            );
+                        }
+                    },
+                    negativeAction: () => { },
+                    defaultInputText: defaultInput ?? string.Empty
+                );
+
+                InformationManager.ShowTextInquiry(inquiry, pauseGame);
+            }
+            catch (Exception e)
+            {
+                Log.Exception(e, "Notifications.TextInputPopup failed.");
+            }
+        }
     }
 }

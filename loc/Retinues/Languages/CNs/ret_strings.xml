@@ -8,6 +8,9 @@
       id="ret_clear_filter_tooltip"
       text="清除当前的过滤文本。" />
     <string
+      id="ret_culture_header_text"
+      text="文化" />
+    <string
       id="ret_dependencies_all_ok"
       text="所有依赖项均已正确初始化。" />
     <string
@@ -22,6 +25,9 @@
     <string
       id="ret_editor_tab_label"
       text="部队" />
+    <string
+      id="ret_enter_new_name"
+      text="输入新名称：" />
     <string
       id="ret_escape_menu_editor_button"
       text="部队编辑器" />
@@ -65,6 +71,12 @@
       id="ret_list_header_villagers"
       text="村民" />
     <string
+      id="ret_name_header_text"
+      text="名称" />
+    <string
+      id="ret_rename_troop"
+      text="重命名部队" />
+    <string
       id="ret_retinues_update_title"
       text="Retinues 更新" />
     <string
@@ -88,5 +100,8 @@
     <string
       id="ret_sort_by_tier"
       text="等级" />
+    <string
+      id="ret_unknown"
+      text="未知" />
   </strings>
 </base>

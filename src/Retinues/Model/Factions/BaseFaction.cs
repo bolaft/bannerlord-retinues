@@ -11,6 +11,9 @@ namespace Retinues.Model.Factions
         WCharacter RootElite { get; }
         WCharacter RootBasic { get; }
 
+        List<WCharacter> RosterElite { get; }
+        List<WCharacter> RosterBasic { get; }
+
         /* ━━━━━━━━━ Lists ━━━━━━━━ */
 
         List<WCharacter> RosterRetinues { get; }
@@ -33,6 +36,9 @@ namespace Retinues.Model.Factions
 
         public virtual WCharacter RootElite => null;
         public virtual WCharacter RootBasic => null;
+
+        public List<WCharacter> RosterElite => RootElite != null ? RootElite.Tree : [];
+        public List<WCharacter> RosterBasic => RootBasic != null ? RootBasic.Tree : [];
 
         /* ━━━━━━━ Militias ━━━━━━━ */
 

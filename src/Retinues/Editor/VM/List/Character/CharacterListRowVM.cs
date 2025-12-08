@@ -34,7 +34,8 @@ namespace Retinues.Editor.VM.List.Character
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceProperty]
-        public string Name => Character?.Name ?? string.Empty;
+        [EventListener(UIEvent.Name)]
+        public string Name => Character.Name.ToString();
 
         [DataSourceProperty]
         public string Indentation
@@ -82,6 +83,7 @@ namespace Retinues.Editor.VM.List.Character
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceProperty]
+        [EventListener(UIEvent.Appearance)]
         public object Image => Character?.GetImage(_isCivilian);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

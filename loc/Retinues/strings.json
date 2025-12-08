@@ -16,6 +16,22 @@
     "TR": "Mevcut filtre metnini temizle."
   },
   {
+    "id": "ret_culture_header_text",
+    "EN": "Culture",
+    "BR": "Cultura",
+    "CNs": "文化",
+    "CNt": "文化",
+    "DE": "Kultur",
+    "FR": "Culture",
+    "IT": "Cultura",
+    "JP": "文化",
+    "KO": "문화",
+    "PL": "Kultura",
+    "RU": "Культура",
+    "SP": "Cultura",
+    "TR": "Kültür"
+  },
+  {
     "id": "ret_dependencies_all_ok",
     "EN": "All dependencies initialized correctly.",
     "BR": "Todas as dependências foram inicializadas corretamente.",
@@ -94,6 +110,22 @@
     "RU": "Отряды",
     "SP": "Tropas",
     "TR": "Birlikler"
+  },
+  {
+    "id": "ret_enter_new_name",
+    "EN": "Enter a new name:",
+    "BR": "Digite um novo nome:",
+    "CNs": "输入新名称：",
+    "CNt": "輸入新名稱：",
+    "DE": "Geben Sie einen neuen Namen ein:",
+    "FR": "Entrez un nouveau nom :",
+    "IT": "Inserisci un nuovo nome:",
+    "JP": "新しい名前を入力してください：",
+    "KO": "새 이름을 입력하세요:",
+    "PL": "Wprowadź nową nazwę:",
+    "RU": "Введите новое имя:",
+    "SP": "Ingrese un nuevo nombre:",
+    "TR": "Yeni bir isim girin:"
   },
   {
     "id": "ret_escape_menu_editor_button",
@@ -320,6 +352,38 @@
     "TR": "Köylüler"
   },
   {
+    "id": "ret_name_header_text",
+    "EN": "Name",
+    "BR": "Nome",
+    "CNs": "名称",
+    "CNt": "名稱",
+    "DE": "Name",
+    "FR": "Nom",
+    "IT": "Nome",
+    "JP": "名前",
+    "KO": "이름",
+    "PL": "Nazwa",
+    "RU": "Имя",
+    "SP": "Nombre",
+    "TR": "İsim"
+  },
+  {
+    "id": "ret_rename_troop",
+    "EN": "Rename Troop",
+    "BR": "Renomear Tropas",
+    "CNs": "重命名部队",
+    "CNt": "重新命名部隊",
+    "DE": "Truppe umbenennen",
+    "FR": "Renommer la troupe",
+    "IT": "Rinomina truppa",
+    "JP": "部隊の名前を変更",
+    "KO": "부대 이름 바꾸기",
+    "PL": "Zmień nazwę oddziału",
+    "RU": "Переименовать отряд",
+    "SP": "Renombrar tropa",
+    "TR": "Birliği Yeniden Adlandır"
+  },
+  {
     "id": "ret_retinues_update_title",
     "EN": "Retinues Update",
     "BR": "Atualização do Retinues",
@@ -446,5 +510,21 @@
     "RU": "Уровень",
     "SP": "Nivel",
     "TR": "Seviye"
+  },
+  {
+    "id": "ret_unknown",
+    "EN": "Unknown",
+    "BR": "Desconhecido",
+    "CNs": "未知",
+    "CNt": "未知",
+    "DE": "Unbekannt",
+    "FR": "Inconnu",
+    "IT": "Sconosciuto",
+    "JP": "不明",
+    "KO": "알 수 없음",
+    "PL": "Nieznany",
+    "RU": "Неизвестно",
+    "SP": "Desconocido",
+    "TR": "Bilinmeyen"
   }
 ]

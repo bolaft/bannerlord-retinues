@@ -1,4 +1,5 @@
 using Retinues.Editor.VM.List;
+using Retinues.Editor.VM.Panel.Character;
 using Retinues.Editor.VM.Tableau;
 using TaleWorlds.Library;
 
@@ -28,6 +29,9 @@ namespace Retinues.Editor.VM
 
             // Initialize the tableau VM.
             Tableau = new TableauVM();
+
+            // Initialize the character panel VM.
+            CharacterPanel = new CharacterPanel();
 
             // Start each editor session from a clean shared state.
             State.Reset();
@@ -70,6 +74,24 @@ namespace Retinues.Editor.VM
 
                 _tableau = value;
                 OnPropertyChanged(nameof(Tableau));
+            }
+        }
+
+        private CharacterPanel _characterPanel;
+
+        [DataSourceProperty]
+        public CharacterPanel CharacterPanel
+        {
+            get => _characterPanel;
+            private set
+            {
+                if (value == _characterPanel)
+                {
+                    return;
+                }
+
+                _characterPanel = value;
+                OnPropertyChanged(nameof(CharacterPanel));
             }
         }
 

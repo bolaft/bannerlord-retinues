@@ -1,9 +1,23 @@
 <Widget
-    WidthSizePolicy="CoverChildren"
-    HeightSizePolicy="CoverChildren"
-    HorizontalAlignment="Center"
-    VerticalAlignment="Center">
+    DataSource="{CharacterPanel}"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    HorizontalAlignment="Center" VerticalAlignment="Top">
     <Children>
+        <ListPanel
+            WidthSizePolicy="CoverChildren"
+            HeightSizePolicy="CoverChildren"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            StackLayout.LayoutMethod="VerticalBottomToTop">
+
+            <Children>
+                {# Name Section #}
+                {% include "_/panel/character/name.j2" %}
+
+                {# Culture Section #}
+                {% include "_/panel/character/culture.j2" %}
+            </Children>
+        </ListPanel>
 
     </Children>
 </Widget>

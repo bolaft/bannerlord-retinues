@@ -8,6 +8,9 @@
       id="ret_clear_filter_tooltip"
       text="現在のフィルターテキストをクリアします。" />
     <string
+      id="ret_culture_header_text"
+      text="文化" />
+    <string
       id="ret_dependencies_all_ok"
       text="すべての依存関係が正しく初期化されました。" />
     <string
@@ -22,6 +25,9 @@
     <string
       id="ret_editor_tab_label"
       text="部隊" />
+    <string
+      id="ret_enter_new_name"
+      text="新しい名前を入力してください：" />
     <string
       id="ret_escape_menu_editor_button"
       text="部隊エディター" />
@@ -65,6 +71,12 @@
       id="ret_list_header_villagers"
       text="村人" />
     <string
+      id="ret_name_header_text"
+      text="名前" />
+    <string
+      id="ret_rename_troop"
+      text="部隊の名前を変更" />
+    <string
       id="ret_retinues_update_title"
       text="Retinues アップデート" />
     <string
@@ -88,5 +100,8 @@
     <string
       id="ret_sort_by_tier"
       text="階級" />
+    <string
+      id="ret_unknown"
+      text="不明" />
   </strings>
 </base>

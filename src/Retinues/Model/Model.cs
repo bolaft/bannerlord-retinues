@@ -89,16 +89,34 @@ namespace Retinues.Model
                 MethodInfo customSetter = null;
                 if (!string.IsNullOrEmpty(attr.SetterName))
                 {
-                    customSetter = baseType.GetMethod(
-                        attr.SetterName,
-                        bindingFlags,
-                        binder: null,
-                        types: new[] { prop.PropertyType },
-                        modifiers: null
-                    );
+                    var currentType = baseType;
+
+                    // Walk the inheritance chain to find a method with the given name
+                    // and exactly one parameter (any type).
+                    while (currentType != null && customSetter == null)
+                    {
+                        var methods = currentType.GetMethods(bindingFlags);
+                        for (int i = 0; i < methods.Length; i++)
+                        {
+                            var m = methods[i];
+                            if (!string.Equals(m.Name, attr.SetterName, StringComparison.Ordinal))
+                                continue;
+
+                            var parameters = m.GetParameters();
+                            if (parameters.Length != 1)
+                                continue;
+
+                            customSetter = m;
+                            break;
+                        }
+
+                        currentType = currentType.BaseType;
+                    }
 
                     if (customSetter != null)
-                        setter = (obj, value) => customSetter.Invoke(obj, new[] { value });
+                    {
+                        setter = (obj, value) => customSetter.Invoke(obj, [value]);
+                    }
                 }
 
                 if (member is PropertyInfo baseProp)

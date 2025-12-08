@@ -31,7 +31,7 @@ namespace Retinues.Editor.VM.Tableau
         }
 
         // Rebuild the tableau model whenever the current troop changes.
-        [EventListener(UIEvent.Troop)]
+        [EventListener(UIEvent.Troop, UIEvent.Appearance)]
         private void RebuildModel()
         {
             var character = State.Character;

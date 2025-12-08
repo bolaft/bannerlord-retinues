@@ -33,11 +33,10 @@ namespace Retinues.Editor.VM.List.Character
             list.Clear();
 
             var faction = State.Instance.Faction;
-
             if (faction == null)
                 return;
 
-            static void AddSection(
+            void AddSection(
                 ListVM list,
                 string headerId,
                 string headerLocKey,
@@ -49,18 +48,14 @@ namespace Retinues.Editor.VM.List.Character
                 var header = list.AddHeader(headerId, L.S(headerLocKey, headerFallback));
 
                 if (troops == null)
-                {
                     return;
-                }
 
                 foreach (var troop in troops)
                 {
                     if (troop == null)
-                    {
                         continue;
-                    }
 
-                    header.AddCharacterRow(troop, civilian);
+                    AddCharacterRow(header, troop, civilian);
                 }
             }
 
@@ -136,6 +131,30 @@ namespace Retinues.Editor.VM.List.Character
                 faction.RosterCivilian,
                 civilian: true
             );
+        }
+
+        private void AddCharacterRow(
+            ListHeaderVM header,
+            WCharacter character,
+            bool civilian = false
+        )
+        {
+            if (character == null)
+                return;
+
+            var wasEmpty = header.Rows.Count == 0;
+
+            var row = new CharacterListRowVM(header, character, civilian);
+            header.Rows.Add(row);
+
+            header.UpdateRowCount();
+            header.UpdateIsEnabledState();
+
+            if (wasEmpty && header.IsEnabled)
+                header.IsExpanded = true;
+
+            if (character == State.Instance.Character)
+                header.ClearSelectionExcept(row);
         }
     }
 }

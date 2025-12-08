@@ -122,6 +122,8 @@ namespace Retinues.Editor
             var rosters = new List<List<WCharacter>>
             {
                 faction.RosterRetinues,
+                faction.RosterElite,
+                faction.RosterBasic,
                 faction.RosterMilitia,
                 faction.RosterCaravan,
                 faction.RosterVillager,

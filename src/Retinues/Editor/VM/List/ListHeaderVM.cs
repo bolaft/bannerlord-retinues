@@ -56,29 +56,6 @@ namespace Retinues.Editor.VM.List
         [DataSourceProperty]
         public MBBindingList<ListRowVM> Rows => _rows;
 
-        public CharacterListRowVM AddCharacterRow(WCharacter character, bool civilian = false)
-        {
-            if (character == null)
-            {
-                return null;
-            }
-
-            var wasEmpty = _rows.Count == 0;
-
-            var row = new CharacterListRowVM(this, character, civilian);
-            _rows.Add(row);
-
-            OnPropertyChanged(nameof(RowCountText));
-            UpdateIsEnabledState();
-
-            if (wasEmpty && IsEnabled)
-            {
-                IsExpanded = true;
-            }
-
-            return row;
-        }
-
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                   Enabled / Expanded                   //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -105,7 +82,7 @@ namespace Retinues.Editor.VM.List
         [DataSourceProperty]
         public bool IsEnabled => VisibleRowCount > 0;
 
-        private void UpdateIsEnabledState()
+        public void UpdateIsEnabledState()
         {
             OnPropertyChanged(nameof(IsEnabled));
 
@@ -163,6 +140,11 @@ namespace Retinues.Editor.VM.List
 
                 return count;
             }
+        }
+
+        public void UpdateRowCount()
+        {
+            OnPropertyChanged(nameof(RowCountText));
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

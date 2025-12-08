@@ -21,14 +21,14 @@ namespace Retinues.Model.Equipments
         /// <summary>
         /// Current stock count for this item.
         /// </summary>
-        [WrapData]
+        [Persistent]
         public int Stock
         {
             get => Get<int>();
             set => Set(Math.Max(0, value));
         }
 
-        [WrapData]
+        [Persistent]
         public bool Unlocked
         {
             get => Get<bool>();
