@@ -1,11 +1,10 @@
 using System.Linq;
-using System.Reflection;
 using Retinues.Configuration;
 using Retinues.Doctrines.Model;
+using Retinues.Game;
 using Retinues.Game.Events;
 using Retinues.Game.Wrappers;
 using Retinues.Utils;
-using TaleWorlds.CampaignSystem;
 using TaleWorlds.Localization;
 
 namespace Retinues.Doctrines.Catalog
@@ -32,10 +31,25 @@ namespace Retinues.Doctrines.Catalog
 
             public override void OnDailyTick()
             {
-                // Count all active caravans belonging to the player clan.
-                var count = WParty.All.Count(p =>
-                    p.IsCaravan && p.Clan != null && p.Clan.IsPlayerClan
-                );
+                var heroIds = Player.Clan?.Base.Heroes?.Select(h => h.StringId);
+                if (heroIds?.Count() == 0)
+                    return;
+
+                int count = 0;
+
+                foreach (var party in WParty.All)
+                {
+                    if (!party.IsCaravan)
+                        continue;
+
+                    if (party.Leader == null)
+                        continue;
+
+                    if (!heroIds.Contains(party.Leader.StringId))
+                        continue;
+
+                    count++;
+                }
 
                 if (count > Progress)
                     SetProgress(count);
