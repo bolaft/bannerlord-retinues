@@ -7,7 +7,7 @@
     <Children>
 
         <ListPanel
-            WidthSizePolicy="CoverChildren"
+            WidthSizePolicy="StretchToParent"
             HeightSizePolicy="StretchToParent"
             HorizontalAlignment="Left"
             DoNotAcceptEvents="true">
@@ -21,7 +21,7 @@
                     SuggestedWidth="68"
                     SuggestedHeight="48"
                     VerticalAlignment="Center"
-                    MarginRight="24"
+                    MarginRight="16"
                     PositionYOffset="-1"
                     DoNotAcceptEvents="true">
                     <Children>
@@ -49,7 +49,16 @@
                     </Children>
                 </Widget>
 
-                {# Name / label #}
+                {# Formation Class #}
+                <SpriteWidget
+                    IsHidden="@IsCivilian"
+                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                    SuggestedWidth="24" SuggestedHeight="24"
+                    MarginRight="16"
+                    VerticalAlignment="Center"
+                    Sprite="@FormationClassIcon" />
+
+                {# Indentation #}
                 <TextWidget
                     WidthSizePolicy="CoverChildren"
                     HeightSizePolicy="StretchToParent"
@@ -57,13 +66,32 @@
                     Brush="Clan.Tuple.Name.Text"
                     Text="@Indentation" />
 
+                {# Name #}
                 <TextWidget
-                    WidthSizePolicy="CoverChildren"
+                    WidthSizePolicy="StretchToParent"
                     HeightSizePolicy="StretchToParent"
                     VerticalAlignment="Center"
                     Brush="Clan.Tuple.Name.Text"
                     Text="@Name" />
 
+                {# Tier Icon #}
+                <ListPanel
+                    WidthSizePolicy="CoverChildren"
+                    HeightSizePolicy="CoverChildren"
+                    MarginRight="16"
+                    IsHidden="@IsCivilian"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center">
+                    <Children>
+                <ImageWidget
+                    DataSource="{TierIconData}"
+                    WidthSizePolicy="Fixed"
+                    HeightSizePolicy="Fixed"
+                    SuggestedWidth="24"
+                    SuggestedHeight="24"
+                    Sprite="@Text"/>
+                    </Children>
+                </ListPanel>
             </Children>
         </ListPanel>
 

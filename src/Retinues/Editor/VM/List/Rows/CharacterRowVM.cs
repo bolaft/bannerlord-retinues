@@ -1,6 +1,9 @@
 using System;
 using Bannerlord.UIExtenderEx.Attributes;
+using Retinues.Engine;
 using Retinues.Wrappers.Characters;
+using TaleWorlds.CampaignSystem.ViewModelCollection;
+using TaleWorlds.Core.ViewModelCollection.Generic;
 using TaleWorlds.Library;
 
 namespace Retinues.Editor.VM.List.Rows
@@ -23,6 +26,7 @@ namespace Retinues.Editor.VM.List.Rows
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private readonly WCharacter _character = character;
+        public WCharacter Character => _character;
         private readonly bool _isCivilian = civilian;
 
         private string _name = character?.Name ?? string.Empty;
@@ -32,7 +36,12 @@ namespace Retinues.Editor.VM.List.Rows
         //                        Accessors                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public WCharacter Character => _character;
+        [DataSourceProperty]
+        public StringItemWithHintVM TierIconData =>
+            CampaignUIHelper.GetCharacterTierData(_character.Base, isBig: true);
+
+        [DataSourceProperty]
+        public string FormationClassIcon => Icons.GetFormationClassIcon(_character);
 
         [DataSourceProperty]
         public override bool IsCharacter => true;
