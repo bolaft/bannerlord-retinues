@@ -1,7 +1,7 @@
 using System;
 using TaleWorlds.Core;
 
-namespace Retinues.Wrappers.Equipments
+namespace Retinues.Model.Equipments
 {
     public class WItem : Wrapper<WItem, ItemObject>
     {

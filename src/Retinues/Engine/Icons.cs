@@ -1,4 +1,4 @@
-using Retinues.Wrappers.Characters;
+using Retinues.Model.Characters;
 using TaleWorlds.Core;
 
 namespace Retinues.Engine

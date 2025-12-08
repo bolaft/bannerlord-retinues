@@ -1,4 +1,4 @@
-using Retinues.Wrappers.Characters;
+using Retinues.Model.Characters;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 # if BL13
@@ -8,7 +8,7 @@ using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
 using TaleWorlds.Core.ViewModelCollection;
 # endif
 
-namespace Retinues.Wrappers.Factions
+namespace Retinues.Model.Factions
 {
     public sealed class WCulture : BaseFaction<WCulture, CultureObject>
     {

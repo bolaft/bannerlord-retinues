@@ -1,6 +1,6 @@
 using TaleWorlds.CampaignSystem;
 
-namespace Retinues.Wrappers
+namespace Retinues.Model
 {
     /// <summary>
     /// Internal entry used to sync all instances of a wrapper type.

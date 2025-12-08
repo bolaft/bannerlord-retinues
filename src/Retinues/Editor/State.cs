@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using Retinues.Wrappers.Characters;
-using Retinues.Wrappers.Factions;
+using Retinues.Model.Characters;
+using Retinues.Model.Factions;
 using TaleWorlds.CampaignSystem;
 
 namespace Retinues.Editor

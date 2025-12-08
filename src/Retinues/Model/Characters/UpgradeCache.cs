@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 
-namespace Retinues.Wrappers.Characters
+namespace Retinues.Model.Characters
 {
-    internal static class WCharacterUpgradeCache
+    internal static class UpgradeCache
     {
         private static readonly Dictionary<WCharacter, List<WCharacter>> _sources = [];
         private static bool _built;
 
-        private static readonly IReadOnlyList<WCharacter> _empty = System.Array.Empty<WCharacter>();
+        private static readonly IReadOnlyList<WCharacter> _empty = [];
 
         private static void EnsureBuilt()
         {

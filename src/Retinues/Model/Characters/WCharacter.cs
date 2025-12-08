@@ -1,5 +1,8 @@
+using System;
 using System.Collections.Generic;
-using Retinues.Wrappers.Factions;
+using System.Reflection;
+using Retinues.Model.Equipments;
+using Retinues.Model.Factions;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.Localization;
@@ -8,7 +11,7 @@ using TaleWorlds.Core.ImageIdentifiers;
 using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
 # endif
 
-namespace Retinues.Wrappers.Characters
+namespace Retinues.Model.Characters
 {
     public sealed class WCharacter : Wrapper<WCharacter, CharacterObject>
     {
@@ -66,7 +69,7 @@ namespace Retinues.Wrappers.Characters
                     {
                         var raw = UpgradeTargetsRaw;
                         if (raw == null || raw.Length == 0)
-                            return System.Array.Empty<WCharacter>();
+                            return [];
 
                         var list = new List<WCharacter>(raw.Length);
                         for (int i = 0; i < raw.Length; i++)
@@ -118,7 +121,7 @@ namespace Retinues.Wrappers.Characters
 
                 // Rebuild global upgrade sources map (currently global; can be
                 // optimized to per-line if needed).
-                WCharacterUpgradeCache.Recompute(this);
+                UpgradeCache.Recompute(this);
             }
         }
 
@@ -126,7 +129,7 @@ namespace Retinues.Wrappers.Characters
         /// Troops that can upgrade into this one (parents / sources).
         /// Backed by a global UpgradeMap, computed once.
         /// </summary>
-        public IReadOnlyList<WCharacter> UpgradeSources => WCharacterUpgradeCache.GetSources(this);
+        public IReadOnlyList<WCharacter> UpgradeSources => UpgradeCache.GetSources(this);
 
         [Cached(HierarchyInvalidator)]
         public int Depth =>
@@ -233,27 +236,127 @@ namespace Retinues.Wrappers.Characters
             });
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Equipments                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private static readonly FieldInfo EquipmentRosterField =
+            typeof(BasicCharacterObject).GetField(
+                "_equipmentRoster",
+                BindingFlags.Instance | BindingFlags.NonPublic
+            );
+
+        private static readonly FieldInfo EquipmentsField = typeof(MBEquipmentRoster).GetField(
+            "_equipments",
+            BindingFlags.Instance | BindingFlags.NonPublic
+        );
+
+        [Cached]
+        public IReadOnlyList<MEquipment> Equipments =>
+            GetCached(() =>
+            {
+                var roster = GetEquipmentRoster();
+                if (roster == null)
+                    return [];
+
+                var all = roster.AllEquipments;
+                if (all == null || all.Count == 0)
+                    return [];
+
+                var list = new List<MEquipment>(all.Count);
+
+                for (int i = 0; i < all.Count; i++)
+                {
+                    var equipment = all[i];
+                    if (equipment == null)
+                        continue;
+
+                    var wrapped = MEquipment.Wrap(equipment);
+                    if (wrapped != null)
+                        list.Add(wrapped);
+                }
+
+                return (IReadOnlyList<MEquipment>)list;
+            });
+
+        private MBEquipmentRoster GetEquipmentRoster()
+        {
+            if (EquipmentRosterField == null)
+                return null;
+
+            return EquipmentRosterField.GetValue(Base) as MBEquipmentRoster;
+        }
+
+        private List<Equipment> GetMutableEquipments()
+        {
+            var roster = GetEquipmentRoster();
+            if (roster == null || EquipmentsField == null)
+                return null;
+
+            return EquipmentsField.GetValue(roster) as List<Equipment>;
+        }
+
+        public int EquipmentCount => Equipments.Count;
+
+        public int AddEquipment(Equipment equipment, bool cloneBase = true)
+        {
+            if (equipment == null || Base.IsHero)
+                return -1;
+
+            var list = GetMutableEquipments();
+            if (list == null)
+                return -1;
+
+            var entry = cloneBase ? equipment.Clone() : equipment;
+            list.Add(entry);
+
+            InvalidateCache(nameof(Equipments));
+
+            return list.Count - 1;
+        }
+
+        public bool RemoveEquipmentAt(int index)
+        {
+            if (Base.IsHero)
+                return false;
+
+            var list = GetMutableEquipments();
+            if (list == null)
+                return false;
+
+            if ((uint)index >= (uint)list.Count)
+                return false;
+
+            list.RemoveAt(index);
+            InvalidateCache(nameof(Equipments));
+
+            return true;
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Image                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
 # if BL13
+        public CharacterCode GetCharacterCode(bool civilian = false) =>
+            CharacterCode.CreateFrom(
+                Base,
+                civilian ? Base.FirstCivilianEquipment : Base.FirstBattleEquipment
+            );
+
         public CharacterImageIdentifierVM GetImage(bool civilian = false) =>
             new(GetCharacterCode(civilian));
 
         public ImageIdentifier GetImageIdentifier(bool civilian = false) =>
             new CharacterImageIdentifier(GetCharacterCode(civilian));
 #else
+        public CharacterCode GetCharacterCode(bool civilian = false) =>
+            CharacterCode.CreateFrom(Base); // 1.2.x does not support setting civilian boolean.
+
         public ImageIdentifierVM GetImage(bool civilian = false) => new(GetCharacterCode(civilian));
 
         public ImageIdentifier GetImageIdentifier(bool civilian = false) =>
             new(GetCharacterCode(civilian));
 # endif
-
-        public CharacterCode GetCharacterCode(bool civilian = false) =>
-            CharacterCode.CreateFrom(
-                Base,
-                civilian ? Base.FirstCivilianEquipment : Base.FirstBattleEquipment
-            );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Transfer Flags                     //

@@ -1,6 +1,6 @@
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Editor.VM.List.Character;
-using Retinues.Wrappers.Characters;
+using Retinues.Model.Characters;
 using TaleWorlds.Library;
 
 namespace Retinues.Editor.VM.List

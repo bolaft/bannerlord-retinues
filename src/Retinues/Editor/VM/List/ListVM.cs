@@ -4,8 +4,8 @@ using System.Linq;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Editor.VM.List.Character;
 using Retinues.Engine;
+using Retinues.Model.Characters;
 using Retinues.Utilities;
-using Retinues.Wrappers.Characters;
 using TaleWorlds.Library;
 
 namespace Retinues.Editor.VM.List

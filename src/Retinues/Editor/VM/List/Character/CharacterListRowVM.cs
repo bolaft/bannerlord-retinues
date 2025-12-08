@@ -1,6 +1,6 @@
 using System;
 using Retinues.Engine;
-using Retinues.Wrappers.Characters;
+using Retinues.Model.Characters;
 using TaleWorlds.CampaignSystem.ViewModelCollection;
 using TaleWorlds.Core.ViewModelCollection.Generic;
 using TaleWorlds.Library;

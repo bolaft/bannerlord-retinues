@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using Retinues.Wrappers.Characters;
+using Retinues.Model.Characters;
 using TaleWorlds.ObjectSystem;
 
-namespace Retinues.Wrappers.Factions
+namespace Retinues.Model.Factions
 {
     public interface IBaseFaction
     {

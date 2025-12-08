@@ -1,6 +1,6 @@
 using System.Collections.Generic;
+using Retinues.Model.Characters;
 using Retinues.Utilities;
-using Retinues.Wrappers.Characters;
 
 namespace Retinues.Editor.VM.List.Character
 {
