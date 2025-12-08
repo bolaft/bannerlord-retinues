@@ -23,6 +23,7 @@ namespace Retinues.GUI.ClanScreen
             "ui_charactercreation",
             "ui_characterdeveloper",
             "ui_inventory",
+            "ui_encyclopedia",
         ];
 
         // Vanilla tab property names

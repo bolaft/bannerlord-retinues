@@ -42,9 +42,31 @@
                             WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
                             HorizontalAlignment="Center" VerticalAlignment="Center"
                             Brush="Crafting.NameInput.Text"
-                            UpdateChildrenStates="true" />
+                            UpdateChildrenStates="true">
+                            <Children>
+                                <HintWidget
+                                    DataSource="{FilterTooltip}"
+                                    Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
+                            </Children>
+                        </EditableTextWidget>
                     </Children>
                 </BrushWidget>
+
+                {# Clear filter button #}
+                <ButtonWidget
+                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                    SuggestedWidth="40" SuggestedHeight="40"
+                    MarginLeft="8"
+                    VerticalAlignment="Center"
+                    Brush="Popup.CloseButton"
+                    Command.Click="ExecuteClearFilter"
+                    DoNotPassEventsToChildren="true">
+                    <Children>
+                        <HintWidget
+                            DataSource="{ClearFilterTooltip}"
+                            Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
+                    </Children>
+                </ButtonWidget>
 
             </Children>
         </ListPanel>

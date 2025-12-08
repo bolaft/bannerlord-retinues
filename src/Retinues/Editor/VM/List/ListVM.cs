@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Editor.VM.List.Rows;
+using Retinues.Engine;
 using Retinues.Utilities;
 using Retinues.Wrappers.Characters;
 using Retinues.Wrappers.Factions;
@@ -658,6 +660,39 @@ namespace Retinues.Editor.VM.List
 
                 ApplyFilter();
             }
+        }
+
+        [DataSourceProperty]
+        public Tooltip FilterTooltip
+        {
+            get
+            {
+                if (EditorVM.Mode == EditorMode.Character)
+                {
+                    return new(
+                        L.S(
+                            "filter_tooltip_description_character",
+                            "Type to filter the list by name, culture or tier."
+                        )
+                    );
+                }
+                return new(L.S("filter_tooltip_description", "Type to filter the list."));
+            }
+        }
+
+        [DataSourceProperty]
+        public Tooltip ClearFilterTooltip =>
+            new(L.S("clear_filter_tooltip", "Clear the current filter text."));
+
+        [DataSourceMethod]
+        public void ExecuteClearFilter()
+        {
+            if (string.IsNullOrEmpty(_filterText))
+            {
+                return;
+            }
+
+            FilterText = string.Empty;
         }
 
         private static readonly string[] TreeAwareFilterHeaders = ["elite", "regular"];
