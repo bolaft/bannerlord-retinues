@@ -5,6 +5,9 @@
   </tags>
   <strings>
     <string
+      id="ret_clear_filter_tooltip"
+      text="Mevcut filtre metnini temizle." />
+    <string
       id="ret_dependencies_all_ok"
       text="Tüm bağımlılıklar doğru şekilde başlatıldı." />
     <string
@@ -25,6 +28,12 @@
     <string
       id="ret_filter_label"
       text="Filtre:" />
+    <string
+      id="ret_filter_tooltip_description"
+      text="Listeyi filtrelemek için yazın." />
+    <string
+      id="ret_filter_tooltip_description_character"
+      text="Listeyi ada, kültüre veya seviyeye göre filtrelemek için yazın." />
     <string
       id="ret_init_error_body_detailed"
       text="Retinues mod bağımlılıkları düzgün şekilde başlatılamadı:{newline}{newline}{DETAILS}{newline}{newline}Bağımlılıklar düzeltilene kadar mod düzgün çalışmayabilir." />

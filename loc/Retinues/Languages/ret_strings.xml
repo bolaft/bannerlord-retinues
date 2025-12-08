@@ -5,6 +5,9 @@
   </tags>
   <strings>
     <string
+      id="ret_clear_filter_tooltip"
+      text="Clear the current filter text." />
+    <string
       id="ret_dependencies_all_ok"
       text="All dependencies initialized correctly." />
     <string
@@ -25,6 +28,12 @@
     <string
       id="ret_filter_label"
       text="Filter:" />
+    <string
+      id="ret_filter_tooltip_description"
+      text="Type to filter the list." />
+    <string
+      id="ret_filter_tooltip_description_character"
+      text="Type to filter the list by name, culture or tier." />
     <string
       id="ret_init_error_body_detailed"
       text="Retinues mod dependencies failed to initialize properly:{newline}{newline}{DETAILS}{newline}{newline}The mod may not function correctly until the dependencies are fixed." />

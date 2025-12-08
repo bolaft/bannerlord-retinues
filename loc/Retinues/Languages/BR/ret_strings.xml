@@ -5,6 +5,9 @@
   </tags>
   <strings>
     <string
+      id="ret_clear_filter_tooltip"
+      text="Limpe o texto do filtro atual." />
+    <string
       id="ret_dependencies_all_ok"
       text="Todas as dependências foram inicializadas corretamente." />
     <string
@@ -25,6 +28,12 @@
     <string
       id="ret_filter_label"
       text="Filtro:" />
+    <string
+      id="ret_filter_tooltip_description"
+      text="Digite para filtrar a lista." />
+    <string
+      id="ret_filter_tooltip_description_character"
+      text="Digite para filtrar a lista por nome, cultura ou nível." />
     <string
       id="ret_init_error_body_detailed"
       text="As dependências do mod Retinues não foram inicializadas corretamente:{newline}{newline}{DETAILS}{newline}{newline}O mod pode não funcionar corretamente até que as dependências sejam corrigidas." />

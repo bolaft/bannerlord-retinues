@@ -1,5 +1,21 @@
 [
   {
+    "id": "ret_clear_filter_tooltip",
+    "EN": "Clear the current filter text.",
+    "BR": "Limpe o texto do filtro atual.",
+    "CNs": "清除当前的过滤文本。",
+    "CNt": "清除當前的過濾文本。",
+    "DE": "Den aktuellen Filtertext löschen.",
+    "FR": "Effacer le texte du filtre actuel.",
+    "IT": "Cancella il testo del filtro corrente.",
+    "JP": "現在のフィルターテキストをクリアします。",
+    "KO": "현재 필터 텍스트를 지웁니다.",
+    "PL": "Wyczyść bieżący tekst filtra.",
+    "RU": "Очистить текущий текст фильтра.",
+    "SP": "Borrar el texto del filtro actual.",
+    "TR": "Mevcut filtre metnini temizle."
+  },
+  {
     "id": "ret_dependencies_all_ok",
     "EN": "All dependencies initialized correctly.",
     "BR": "Todas as dependências foram inicializadas corretamente.",
@@ -110,6 +126,38 @@
     "RU": "Фильтр:",
     "SP": "Filtro:",
     "TR": "Filtre:"
+  },
+  {
+    "id": "ret_filter_tooltip_description",
+    "EN": "Type to filter the list.",
+    "BR": "Digite para filtrar a lista.",
+    "CNs": "输入以过滤列表。",
+    "CNt": "輸入以過濾列表。",
+    "DE": "Geben Sie ein, um die Liste zu filtern.",
+    "FR": "Entrez du texte pour filtrer la liste.",
+    "IT": "Digita per filtrare l'elenco.",
+    "JP": "リストをフィルタリングするには入力してください。",
+    "KO": "목록을 필터링하려면 입력하세요.",
+    "PL": "Wpisz, aby filtrować listę.",
+    "RU": "Введите текст для фильтрации списка.",
+    "SP": "Escribe para filtrar la lista.",
+    "TR": "Listeyi filtrelemek için yazın."
+  },
+  {
+    "id": "ret_filter_tooltip_description_character",
+    "EN": "Type to filter the list by name, culture or tier.",
+    "BR": "Digite para filtrar a lista por nome, cultura ou nível.",
+    "CNs": "输入以按名称、文化或等级过滤列表。",
+    "CNt": "輸入以按名稱、文化或等級過濾列表。",
+    "DE": "Geben Sie ein, um die Liste nach Name, Kultur oder Stufe zu filtern.",
+    "FR": "Entrez du texte pour filtrer la liste par nom, culture ou niveau.",
+    "IT": "Digita per filtrare l'elenco per nome, cultura o livello.",
+    "JP": "名前、文化、または階級でリストをフィルタリングするには入力してください。",
+    "KO": "이름, 문화 또는 등급별로 목록을 필터링하려면 입력하세요.",
+    "PL": "Wpisz, aby filtrować listę według nazwy, kultury lub poziomu.",
+    "RU": "Введите текст для фильтрации списка по имени, культуре или уровню.",
+    "SP": "Escribe para filtrar la lista por nombre, cultura o nivel.",
+    "TR": "Listeyi ada, kültüre veya seviyeye göre filtrelemek için yazın."
   },
   {
     "id": "ret_init_error_body_detailed",

@@ -5,6 +5,9 @@
   </tags>
   <strings>
     <string
+      id="ret_clear_filter_tooltip"
+      text="Очистить текущий текст фильтра." />
+    <string
       id="ret_dependencies_all_ok"
       text="Все зависимости инициализированы правильно." />
     <string
@@ -25,6 +28,12 @@
     <string
       id="ret_filter_label"
       text="Фильтр:" />
+    <string
+      id="ret_filter_tooltip_description"
+      text="Введите текст для фильтрации списка." />
+    <string
+      id="ret_filter_tooltip_description_character"
+      text="Введите текст для фильтрации списка по имени, культуре или уровню." />
     <string
       id="ret_init_error_body_detailed"
       text="Не удалось правильно инициализировать зависимости мода Retinues:{newline}{newline}{DETAILS}{newline}{newline}Мод может работать некорректно, пока зависимости не будут исправлены." />

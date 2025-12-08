@@ -5,6 +5,9 @@
   </tags>
   <strings>
     <string
+      id="ret_clear_filter_tooltip"
+      text="Wyczyść bieżący tekst filtra." />
+    <string
       id="ret_dependencies_all_ok"
       text="Wszystkie zależności zostały poprawnie zainicjowane." />
     <string
@@ -25,6 +28,12 @@
     <string
       id="ret_filter_label"
       text="Filtr:" />
+    <string
+      id="ret_filter_tooltip_description"
+      text="Wpisz, aby filtrować listę." />
+    <string
+      id="ret_filter_tooltip_description_character"
+      text="Wpisz, aby filtrować listę według nazwy, kultury lub poziomu." />
     <string
       id="ret_init_error_body_detailed"
       text="Nie udało się poprawnie zainicjować zależności moda Retinues:{newline}{newline}{DETAILS}{newline}{newline}Mod może nie działać poprawnie, dopóki zależności nie zostaną naprawione." />

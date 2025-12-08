@@ -5,6 +5,9 @@
   </tags>
   <strings>
     <string
+      id="ret_clear_filter_tooltip"
+      text="Effacer le texte du filtre actuel." />
+    <string
       id="ret_dependencies_all_ok"
       text="Toutes les dépendances ont été initialisées correctement." />
     <string
@@ -25,6 +28,12 @@
     <string
       id="ret_filter_label"
       text="Filtre :" />
+    <string
+      id="ret_filter_tooltip_description"
+      text="Entrez du texte pour filtrer la liste." />
+    <string
+      id="ret_filter_tooltip_description_character"
+      text="Entrez du texte pour filtrer la liste par nom, culture ou niveau." />
     <string
       id="ret_init_error_body_detailed"
       text="Les dépendances du mod Retinues n&apos;ont pas pu être initialisées correctement :{newline}{newline}{DETAILS}{newline}{newline}Le mod peut ne pas fonctionner correctement tant que les dépendances ne sont pas corrigées." />

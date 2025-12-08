@@ -5,6 +5,9 @@
   </tags>
   <strings>
     <string
+      id="ret_clear_filter_tooltip"
+      text="현재 필터 텍스트를 지웁니다." />
+    <string
       id="ret_dependencies_all_ok"
       text="모든 종속 항목이 올바르게 초기화되었습니다." />
     <string
@@ -25,6 +28,12 @@
     <string
       id="ret_filter_label"
       text="필터:" />
+    <string
+      id="ret_filter_tooltip_description"
+      text="목록을 필터링하려면 입력하세요." />
+    <string
+      id="ret_filter_tooltip_description_character"
+      text="이름, 문화 또는 등급별로 목록을 필터링하려면 입력하세요." />
     <string
       id="ret_init_error_body_detailed"
       text="Retinues 모드 종속 항목을 제대로 초기화하지 못했습니다:{newline}{newline}{DETAILS}{newline}{newline}종속 항목이 수정될 때까지 모드가 제대로 작동하지 않을 수 있습니다." />
