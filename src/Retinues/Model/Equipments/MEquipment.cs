@@ -3,45 +3,36 @@ using TaleWorlds.Core;
 
 namespace Retinues.Model.Equipments
 {
-    public sealed class MEquipment : Model<MEquipment, Equipment>
+    public sealed class MEquipment(Equipment @base) : MBase<Equipment>(@base)
     {
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                      Construction                      //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        public static MEquipment Wrap(Equipment equipment)
-        {
-            if (equipment == null)
-                return null;
-
-            var model = new MEquipment();
-            model.InitializeFromBase(equipment);
-            return model;
-        }
-
-        protected override string GetCacheKey()
-        {
-            // Equipment has no StringId; use reference identity.
-            return Base != null ? Base.GetHashCode().ToString() : base.GetCacheKey();
-        }
-
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Main Properties                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public string Code => Base.CalculateEquipmentCode();
 
-        [Reflected]
+        public Equipment.EquipmentType EquipmentType
+        {
+            get => Attribute<Equipment.EquipmentType>("_equipmentType").Get();
+            set => Attribute<Equipment.EquipmentType>("_equipmentType").Set(value);
+        }
+
         public bool IsCivilian
         {
-            get => GetRef<bool>();
-            set => SetRef(value);
+            get => EquipmentType == Equipment.EquipmentType.Civilian;
+            set =>
+                EquipmentType = value
+                    ? Equipment.EquipmentType.Civilian
+                    : Equipment.EquipmentType.Battle;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Items API                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Gets the item equipped in the given slot.
+        /// </summary>
         public WItem GetItem(EquipmentIndex index)
         {
             var element = Base[index];
@@ -49,6 +40,9 @@ namespace Retinues.Model.Equipments
             return item == null ? null : WItem.Get(item);
         }
 
+        /// <summary>
+        /// Sets the item equipped in the given slot.
+        /// </summary>
         public void SetItem(EquipmentIndex index, WItem item)
         {
             var element = item == null ? EquipmentElement.Invalid : new EquipmentElement(item.Base);
@@ -56,6 +50,9 @@ namespace Retinues.Model.Equipments
             Base[index] = element;
         }
 
+        /// <summary>
+        /// Enumerates all items in this equipment.
+        /// </summary>
         public IEnumerable<WItem> Items()
         {
             for (int i = 0; i < Equipment.EquipmentSlotLength; i++)

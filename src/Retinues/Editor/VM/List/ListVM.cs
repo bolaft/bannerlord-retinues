@@ -315,7 +315,7 @@ namespace Retinues.Editor.VM.List
 
                 if (sources != null)
                 {
-                    for (int i = 0; i < sources.Count; i++)
+                    for (int i = 0; i < sources.Count(); i++)
                     {
                         var parent = sources[i];
                         if (parent != null && rowByCharacter.ContainsKey(parent))
@@ -402,14 +402,14 @@ namespace Retinues.Editor.VM.List
             output.Add(rowByCharacter[character]);
 
             var childrenRaw = character.UpgradeTargets;
-            if (childrenRaw == null || childrenRaw.Count == 0)
+            if (childrenRaw == null || childrenRaw.Count() == 0)
             {
                 return;
             }
 
             // Filter children to those present in this header.
             var children = new List<WCharacter>();
-            for (int i = 0; i < childrenRaw.Count; i++)
+            for (int i = 0; i < childrenRaw.Count(); i++)
             {
                 var child = childrenRaw[i];
                 if (child != null && rowByCharacter.ContainsKey(child))
@@ -584,7 +584,7 @@ namespace Retinues.Editor.VM.List
 
                     if (sources != null)
                     {
-                        for (int i = 0; i < sources.Count; i++)
+                        for (int i = 0; i < sources.Count(); i++)
                         {
                             var parent = sources[i];
                             if (parent != null)
@@ -613,7 +613,7 @@ namespace Retinues.Editor.VM.List
                             continue;
                         }
 
-                        for (int i = 0; i < parentSources.Count; i++)
+                        for (int i = 0; i < parentSources.Count(); i++)
                         {
                             var grandParent = parentSources[i];
                             if (grandParent != null)

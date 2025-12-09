@@ -24,7 +24,9 @@ namespace Retinues.Model.Factions
         List<WCharacter> RosterCivilian { get; }
     }
 
-    public abstract class BaseFaction<TWrapper, TBase> : Wrapper<TWrapper, TBase>, IBaseFaction
+    public abstract class BaseFaction<TWrapper, TBase>(TBase @base)
+        : WBase<TWrapper, TBase>(@base),
+            IBaseFaction
         where TWrapper : BaseFaction<TWrapper, TBase>
         where TBase : MBObjectBase
     {
@@ -123,6 +125,9 @@ namespace Retinues.Model.Factions
         //                          Rosters                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Determines if the given character is valid for inclusion in a roster.
+        /// </summary>
         private static bool IsValid(WCharacter character)
         {
             if (character == null)
@@ -134,6 +139,9 @@ namespace Retinues.Model.Factions
             return true;
         }
 
+        /// <summary>
+        /// Collects the given characters into a list, filtering out invalid ones.
+        /// </summary>
         protected static List<WCharacter> Collect(params WCharacter[] characters)
         {
             var list = new List<WCharacter>(characters.Length);

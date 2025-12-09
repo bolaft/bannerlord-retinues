@@ -48,7 +48,7 @@ namespace Retinues.Editor.VM.Panel.Character
 
         [EventListener(UIEvent.Troop, UIEvent.Name)]
         [DataSourceProperty]
-        public string Name => State.Character.Name.ToString();
+        public string Name => State.Character.Name;
 
         /// <summary>
         /// Prompt to rename the selected character.
@@ -62,14 +62,14 @@ namespace Retinues.Editor.VM.Panel.Character
                 return;
             }
 
-            var oldName = character.Name.ToString();
+            var oldName = character.Name;
 
             Notifications.TextInputPopup(
                 title: L.T("rename_troop", "Rename Troop"),
                 defaultInput: oldName,
                 onConfirm: input =>
                 {
-                    character.Name = new TextObject(input.Trim());
+                    character.Name = input.Trim();
 
                     // Refresh this panel label immediately.
                     EventManager.Fire(UIEvent.Name, EventScope.Local);

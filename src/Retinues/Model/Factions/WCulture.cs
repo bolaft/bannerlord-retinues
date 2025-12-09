@@ -10,7 +10,7 @@ using TaleWorlds.Core.ViewModelCollection;
 
 namespace Retinues.Model.Factions
 {
-    public sealed class WCulture : BaseFaction<WCulture, CultureObject>
+    public sealed class WCulture(CultureObject @base) : BaseFaction<WCulture, CultureObject>(@base)
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Main Properties                    //

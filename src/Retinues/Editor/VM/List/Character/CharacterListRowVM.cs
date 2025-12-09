@@ -35,7 +35,7 @@ namespace Retinues.Editor.VM.List.Character
 
         [DataSourceProperty]
         [EventListener(UIEvent.Name)]
-        public string Name => Character.Name.ToString();
+        public string Name => Character.Name;
 
         [DataSourceProperty]
         public string Indentation
