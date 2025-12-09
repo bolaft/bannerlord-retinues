@@ -23,10 +23,18 @@ namespace Retinues.Behaviors
         private const int saveableTypeDefinerId = 070_992;
 
         /// <summary>
+        /// Singleton instance of the BehaviorManager.
+        /// </summary>
+        public static BehaviorManager Instance { get; private set; }
+
+        /// <summary>
         /// Construct the definer with the module's unique base ID.
         /// </summary>
         public BehaviorManager()
-            : base(saveableTypeDefinerId) { }
+            : base(saveableTypeDefinerId)
+        {
+            Instance = this;
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //            SaveableTypeDefiner entry points            //
@@ -187,7 +195,7 @@ namespace Retinues.Behaviors
         /// <summary>
         /// Lets behaviors contribute class definitions to this SaveableTypeDefiner.
         /// Each behavior can declare:
-        ///   public static void DefineClassTypes(SaveableTypeDefiner definer) { ... }
+        ///   public static void DefineClassTypes(SaveableTypeDefiner definer) { . }
         /// </summary>
         private static void RegisterBehaviorClassTypes(SaveableTypeDefiner definer)
         {
@@ -221,7 +229,7 @@ namespace Retinues.Behaviors
         /// <summary>
         /// Lets behaviors contribute container definitions to this SaveableTypeDefiner.
         /// Each behavior can declare:
-        ///   public static void DefineContainerDefinitions(SaveableTypeDefiner definer) { ... }
+        ///   public static void DefineContainerDefinitions(SaveableTypeDefiner definer) { . }
         /// </summary>
         private static void RegisterBehaviorContainerDefinitions(SaveableTypeDefiner definer)
         {
@@ -250,6 +258,38 @@ namespace Retinues.Behaviors
                     Log.Exception(e, $"Error in {t.FullName}.DefineContainerDefinitions.");
                 }
             }
+        }
+
+        /// <summary>
+        /// Registers a class definition with the BehaviorManager's SaveableTypeDefiner.
+        /// </summary>
+        public static void RegisterClassDefinition(Type type, int id)
+        {
+            if (Instance == null)
+            {
+                Log.Error(
+                    $"BehaviorManager.RegisterClassDefinition: Instance is null; called too early for type {type?.FullName}."
+                );
+                return;
+            }
+
+            Instance.AddClassDefinition(type, id);
+        }
+
+        /// <summary>
+        /// Registers a container definition with the BehaviorManager's SaveableTypeDefiner.
+        /// </summary>
+        public static void RegisterContainerDefinition(Type containerType)
+        {
+            if (Instance == null)
+            {
+                Log.Error(
+                    $"BehaviorManager.RegisterContainerDefinition: Instance is null; called too early for container {containerType?.FullName}."
+                );
+                return;
+            }
+
+            Instance.ConstructContainerDefinition(containerType);
         }
     }
 }

@@ -7,14 +7,8 @@ namespace Retinues.Model
     public abstract class MBase<TBase>(TBase baseInstance)
         where TBase : class
     {
-        /// <summary>
-        /// Attribute cache for this wrapper.
-        /// </summary>
         protected readonly Dictionary<string, object> _attributes = [];
 
-        /// <summary>
-        /// The underlying base instance.
-        /// </summary>
         public TBase Base { get; } =
             baseInstance ?? throw new ArgumentNullException(nameof(baseInstance));
 
@@ -22,11 +16,11 @@ namespace Retinues.Model
         /// Gets or creates an attribute that gets/sets the value of a field or property
         /// on the underlying base instance.
         /// </summary>
-        protected MAttribute<T> Attribute<T>(string name)
+        protected MAttribute<T> Attribute<T>(string name, bool persistent = true)
         {
             if (!_attributes.TryGetValue(name, out var obj))
             {
-                var attr = new MAttribute<T>(Base, name);
+                var attr = new MAttribute<T>(Base, name, persistent);
                 _attributes[name] = attr;
                 return attr;
             }
@@ -36,6 +30,9 @@ namespace Retinues.Model
                     $"Attribute '{name}' already exists with a different type ({obj.GetType()})."
                 );
 
+            // If it already exists as non-persistent and you now ask for persistence,
+            // you can change this to upgrade the attribute, but for now we assume
+            // callers are consistent.
             return typed;
         }
 
@@ -43,7 +40,10 @@ namespace Retinues.Model
         /// Gets or creates an attribute that gets/sets the value of a field or property
         /// on the underlying base instance, using the given expression to identify the member.
         /// </summary>
-        protected MAttribute<TProp> Attribute<TProp>(Expression<Func<TBase, TProp>> expr)
+        protected MAttribute<TProp> Attribute<TProp>(
+            Expression<Func<TBase, TProp>> expr,
+            bool persistent = false
+        )
         {
             if (expr.Body is not MemberExpression member)
                 throw new ArgumentException(
@@ -95,14 +95,11 @@ namespace Retinues.Model
                 setter = (obj, value) => typedSetter((TBase)obj, value);
             }
 
-            var attr = new MAttribute<TProp>(Base, getter, setter, name);
+            var attr = new MAttribute<TProp>(Base, getter, setter, name, persistent);
             _attributes[name] = attr;
             return attr;
         }
 
-        /// <summary>
-        /// Returns a string representation of this wrapper.
-        /// </summary>
         public override string ToString()
         {
             return $"{GetType().Name}({Base})";

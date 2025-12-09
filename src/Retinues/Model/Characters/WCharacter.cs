@@ -147,7 +147,7 @@ namespace Retinues.Model.Characters
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         MAttribute<CharacterObject[]> UpgradeTargetsAttribute =>
-            Attribute<CharacterObject[]>(nameof(CharacterObject.UpgradeTargets));
+            Attribute<CharacterObject[]>(nameof(CharacterObject.UpgradeTargets), persistent: false);
 
         public List<WCharacter> UpgradeTargets
         {
