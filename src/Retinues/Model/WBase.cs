@@ -57,25 +57,28 @@ namespace Retinues.Model
         /// <summary>
         /// Returns all objects of the underlying type from MBObjectManager, wrapped.
         /// </summary>
-        public static IEnumerable<TWrapper> All()
+        public static IEnumerable<TWrapper> All
         {
-            var manager = MBObjectManager.Instance;
-            if (manager == null)
-                yield break;
-
-            var list = manager.GetObjectTypeList<TBase>();
-            if (list == null)
-                yield break;
-
-            for (int i = 0; i < list.Count; i++)
+            get
             {
-                var obj = list[i];
-                if (obj == null)
-                    continue;
+                var manager = MBObjectManager.Instance;
+                if (manager == null)
+                    yield break;
 
-                var wrapper = Wrap(obj);
-                if (wrapper != null)
-                    yield return wrapper;
+                var list = manager.GetObjectTypeList<TBase>();
+                if (list == null)
+                    yield break;
+
+                for (int i = 0; i < list.Count; i++)
+                {
+                    var obj = list[i];
+                    if (obj == null)
+                        continue;
+
+                    var wrapper = Wrap(obj);
+                    if (wrapper != null)
+                        yield return wrapper;
+                }
             }
         }
 

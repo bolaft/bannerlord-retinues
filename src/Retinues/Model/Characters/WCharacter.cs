@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Retinues.Model.Factions;
-using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.Localization;
@@ -118,7 +117,8 @@ namespace Retinues.Model.Characters
         public CharacterCode GetCharacterCode(bool civilian = false) =>
             CharacterCode.CreateFrom(
 # if BL13
-                Base, civilian ? Base.FirstCivilianEquipment : Base.FirstBattleEquipment
+                Base,
+                civilian ? Base.FirstCivilianEquipment : Base.FirstBattleEquipment
 # else
                 Base // No equipment type parameter in BL12
 # endif
@@ -143,7 +143,7 @@ namespace Retinues.Model.Characters
 # endif
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Hierarchy                       //
+        //                     Character Tree                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         MAttribute<CharacterObject[]> UpgradeTargetsAttribute =>
@@ -152,14 +152,21 @@ namespace Retinues.Model.Characters
         public List<WCharacter> UpgradeTargets
         {
             get => [.. UpgradeTargetsAttribute.Get().Select(Get)];
-            set => UpgradeTargetsAttribute.Set(value?.Select(c => c.Base).ToArray() ?? []);
+            set
+            {
+                // Set upgrade targets
+                UpgradeTargetsAttribute.Set(value?.Select(c => c.Base).ToArray() ?? []);
+
+                // Recompute hierarchy cache
+                CharacterTreeCacheHelper.RecomputeForRoot(Root);
+            }
         }
 
-        public List<WCharacter> UpgradeSources => [];
+        /* ━━━ Cached Properties ━━ */
 
-        public int Depth => 0;
-
-        public WCharacter Root => this;
-        public List<WCharacter> Tree => [this];
+        public List<WCharacter> UpgradeSources => CharacterTreeCacheHelper.GetUpgradeSources(this);
+        public int Depth => CharacterTreeCacheHelper.GetDepth(this);
+        public WCharacter Root => CharacterTreeCacheHelper.GetRoot(this) ?? this;
+        public List<WCharacter> Tree => CharacterTreeCacheHelper.GetTree(this);
     }
 }
