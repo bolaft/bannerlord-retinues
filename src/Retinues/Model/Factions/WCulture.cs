@@ -1,50 +1,25 @@
 using Retinues.Model.Characters;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
-# if BL13
-using TaleWorlds.Core.ImageIdentifiers;
-using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
-# else
-using TaleWorlds.Core.ViewModelCollection;
-# endif
+using TaleWorlds.Localization;
 
 namespace Retinues.Model.Factions
 {
-    public sealed class WCulture(CultureObject @base) : BaseFaction<WCulture, CultureObject>(@base)
+    public class WCulture(CultureObject @base) : BaseFaction<WCulture, CultureObject>(@base)
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Main Properties                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public string Name => Base.Name?.ToString() ?? string.Empty;
+        public override string Name => Base.Name.ToString();
+        public override uint Color => Base.Color;
+        public override uint Color2 => Base.Color2;
 
-        public uint Color => Base.Color;
-
-        public uint Color2 => Base.Color2;
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                          Image                         //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-# if BL13
-        public BannerImageIdentifierVM Image => new(Banner);
-
-        public ImageIdentifier ImageIdentifier =>
-            Base.Banner != null ? new BannerImageIdentifier(Base.Banner) : null;
+#if BL13
+        public override Banner Banner => Base.Banner;
 #else
-        public ImageIdentifierVM Image => new(BannerCode.CreateFrom(Base.BannerKey));
-
-        public ImageIdentifier ImageIdentifier => new(BannerCode.CreateFrom(Base.BannerKey));
-#endif
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Banner                         //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-# if BL13
-        public Banner Banner => Base.Banner;
-#else
-        public Banner Banner => new(Base.BannerKey);
+        public override Banner Banner => new(Base.BannerKey);
+        public override BannerCode BannerCode => BannerCode.CreateFrom(Base.BannerKey);
 #endif
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

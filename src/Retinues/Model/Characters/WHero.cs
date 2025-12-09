@@ -1,13 +1,13 @@
-using TaleWorlds.Core;
+using TaleWorlds.CampaignSystem;
 
-namespace Retinues.Model.Equipments
+namespace Retinues.Model.Characters
 {
-    public class WItem(ItemObject @base) : WBase<WItem, ItemObject>(@base)
+    public class WHero(Hero @base) : WCharacter(@base.CharacterObject)
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Main Properties                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public string Name => Base.Name.ToString();
+        public Hero Hero => @base;
     }
 }

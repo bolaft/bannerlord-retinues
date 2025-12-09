@@ -11,8 +11,7 @@ using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
 
 namespace Retinues.Model.Characters
 {
-    public sealed class WCharacter(CharacterObject @base)
-        : WBase<WCharacter, CharacterObject>(@base)
+    public class WCharacter(CharacterObject @base) : WBase<WCharacter, CharacterObject>(@base)
     {
         public const string CustomTroopPrefix = "retinues_custom_";
 

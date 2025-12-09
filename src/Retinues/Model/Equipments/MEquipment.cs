@@ -3,7 +3,7 @@ using TaleWorlds.Core;
 
 namespace Retinues.Model.Equipments
 {
-    public sealed class MEquipment(Equipment @base) : MBase<Equipment>(@base)
+    public class MEquipment(Equipment @base) : MBase<Equipment>(@base)
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Main Properties                    //

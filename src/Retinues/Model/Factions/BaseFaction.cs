@@ -1,11 +1,23 @@
 using System.Collections.Generic;
 using Retinues.Model.Characters;
+using TaleWorlds.Core;
 using TaleWorlds.ObjectSystem;
+#if BL13
+using TaleWorlds.Core.ImageIdentifiers;
+using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
+# endif
 
 namespace Retinues.Model.Factions
 {
     public interface IBaseFaction
     {
+        /* ━━━━━━━━━ Main ━━━━━━━━━ */
+
+        string Name { get; }
+        uint Color { get; }
+        uint Color2 { get; }
+        Banner Banner { get; }
+
         /* ━━━━━━━━━ Roots ━━━━━━━━ */
 
         WCharacter RootElite { get; }
@@ -13,6 +25,10 @@ namespace Retinues.Model.Factions
 
         List<WCharacter> RosterElite { get; }
         List<WCharacter> RosterBasic { get; }
+
+        /* ━━━━━━━━ Heroes ━━━━━━━━ */
+
+        List<WHero> RosterHeroes { get; }
 
         /* ━━━━━━━━━ Lists ━━━━━━━━ */
 
@@ -31,6 +47,32 @@ namespace Retinues.Model.Factions
         where TBase : MBObjectBase
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                     Main Properties                    //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public abstract string Name { get; }
+        public abstract uint Color { get; }
+        public abstract uint Color2 { get; }
+        public abstract Banner Banner { get; }
+
+#if BL12
+        public abstract BannerCode BannerCode { get; }
+#endif
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Image                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+# if BL13
+        public BannerImageIdentifierVM Image => new(Banner);
+        public ImageIdentifier ImageIdentifier =>
+            Banner != null ? new BannerImageIdentifier(Banner) : null;
+#else
+        public ImageIdentifierVM Image => new(BannerCode);
+        public ImageIdentifier ImageIdentifier => new(BannerCode);
+#endif
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Characters                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
@@ -41,6 +83,10 @@ namespace Retinues.Model.Factions
 
         public List<WCharacter> RosterElite => RootElite != null ? RootElite.Tree : [];
         public List<WCharacter> RosterBasic => RootBasic != null ? RootBasic.Tree : [];
+
+        /* ━━━━━━━━ Heroes ━━━━━━━━ */
+
+        public virtual List<WHero> RosterHeroes => [];
 
         /* ━━━━━━━ Militias ━━━━━━━ */
 
