@@ -59,6 +59,15 @@ namespace Retinues.Editor.VM.List.Character
                 }
             }
 
+            // Heroes.
+            AddSection(
+                list,
+                "heroes",
+                "list_header_heroes",
+                L.S("list_header_heroes", "Heroes"),
+                faction.RosterHeroes
+            );
+
             // Retinues.
             AddSection(
                 list,
