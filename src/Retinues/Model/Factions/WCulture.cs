@@ -1,7 +1,6 @@
 using Retinues.Model.Characters;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
-using TaleWorlds.Localization;
 
 namespace Retinues.Model.Factions
 {

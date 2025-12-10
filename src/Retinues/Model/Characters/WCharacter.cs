@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Retinues.Model.Equipments;
 using Retinues.Model.Factions;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
@@ -106,6 +107,19 @@ namespace Retinues.Model.Characters
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public FormationClass FormationClass => Base.GetFormationClass();
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Equipment                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        MAttribute<MBEquipmentRoster> EquipmentRosterAttribute =>
+            Attribute<MBEquipmentRoster>("_equipmentRoster");
+
+        public WEquipmentRoster EquipmentRoster
+        {
+            get => WEquipmentRoster.Get(EquipmentRosterAttribute.Get());
+            set => EquipmentRosterAttribute.Set(value?.Base);
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Image                         //
