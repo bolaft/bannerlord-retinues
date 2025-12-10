@@ -134,7 +134,7 @@ namespace Retinues.Editor
         /// </summary>
         internal sealed class Context
         {
-            internal void RequestNotify(BaseStatefulVM vm, string propertyName)
+            internal void RequestNotify(BaseVM vm, string propertyName)
             {
                 if (vm == null || string.IsNullOrEmpty(propertyName))
                 {
@@ -149,15 +149,14 @@ namespace Retinues.Editor
         //                         Fields                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private static readonly List<WeakReference<BaseStatefulVM>> _listeners = [];
+        private static readonly List<WeakReference<BaseVM>> _listeners = [];
         private static readonly object _lock = new();
 
         // Burst depth: >0 means we are inside a "burst".
         private static int _burstDepth;
 
         // Pending (VM, propertyName) notifications for the current burst.
-        private static readonly Dictionary<BaseStatefulVM, HashSet<string>> _pendingNotifications =
-        [];
+        private static readonly Dictionary<BaseVM, HashSet<string>> _pendingNotifications = [];
 
         // Shared context instance used for all notifications.
         private static readonly Context _context = new();
@@ -166,7 +165,7 @@ namespace Retinues.Editor
         //                  Listener Registration                 //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        internal static void Register(BaseStatefulVM vm)
+        internal static void Register(BaseVM vm)
         {
             if (vm == null)
             {
@@ -175,11 +174,11 @@ namespace Retinues.Editor
 
             lock (_lock)
             {
-                _listeners.Add(new WeakReference<BaseStatefulVM>(vm));
+                _listeners.Add(new WeakReference<BaseVM>(vm));
             }
         }
 
-        internal static void Unregister(BaseStatefulVM vm)
+        internal static void Unregister(BaseVM vm)
         {
             if (vm == null)
             {
@@ -303,7 +302,7 @@ namespace Retinues.Editor
 
         private static void EndBurst()
         {
-            Dictionary<BaseStatefulVM, HashSet<string>> snapshot = null;
+            Dictionary<BaseVM, HashSet<string>> snapshot = null;
 
             lock (_lock)
             {
@@ -322,9 +321,7 @@ namespace Retinues.Editor
 
                 if (_pendingNotifications.Count > 0)
                 {
-                    snapshot = new Dictionary<BaseStatefulVM, HashSet<string>>(
-                        _pendingNotifications
-                    );
+                    snapshot = new Dictionary<BaseVM, HashSet<string>>(_pendingNotifications);
                     _pendingNotifications.Clear();
                 }
             }
@@ -363,7 +360,7 @@ namespace Retinues.Editor
         //                        Internals                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private static void AddNotification(BaseStatefulVM vm, string propertyName)
+        private static void AddNotification(BaseVM vm, string propertyName)
         {
             lock (_lock)
             {
@@ -377,11 +374,11 @@ namespace Retinues.Editor
             }
         }
 
-        private static List<BaseStatefulVM> TakeSnapshot()
+        private static List<BaseVM> TakeSnapshot()
         {
             lock (_lock)
             {
-                var snapshot = new List<BaseStatefulVM>(_listeners.Count);
+                var snapshot = new List<BaseVM>(_listeners.Count);
 
                 for (int i = _listeners.Count - 1; i >= 0; i--)
                 {

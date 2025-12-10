@@ -16,7 +16,7 @@ namespace Retinues.Editor.VM
     /// <summary>
     /// Root editor ViewModel; initializes shared state and child VMs.
     /// </summary>
-    public class EditorVM : BaseStatefulVM
+    public class EditorVM : BaseVM
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Construction                      //

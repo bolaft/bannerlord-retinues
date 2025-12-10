@@ -8,7 +8,7 @@ namespace Retinues.Editor.VM.List
     /// <summary>
     /// Collapsible header that groups list rows.
     /// </summary>
-    public class ListHeaderVM(ListVM list, string id, string name) : BaseStatefulVM
+    public class ListHeaderVM(ListVM list, string id, string name) : BaseVM
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Internals                       //

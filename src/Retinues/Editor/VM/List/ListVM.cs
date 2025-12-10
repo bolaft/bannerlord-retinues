@@ -37,7 +37,7 @@ namespace Retinues.Editor.VM.List
     /// <summary>
     /// Main list ViewModel; driven by shared faction and character state.
     /// </summary>
-    public class ListVM : BaseStatefulVM
+    public class ListVM : BaseVM
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Life Cycle                       //

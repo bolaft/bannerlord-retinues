@@ -64,7 +64,7 @@ namespace Retinues.Model.Factions
         public bool HasFiefs => Base.Fiefs != null && Base.Fiefs.Count > 0;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                           Parties                      //
+        //                         Parties                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public IReadOnlyList<WParty> Parties =>

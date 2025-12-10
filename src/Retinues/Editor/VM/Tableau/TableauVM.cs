@@ -6,7 +6,7 @@ namespace Retinues.Editor.VM.Tableau
     /// <summary>
     /// Root editor ViewModel; initializes shared state and child VMs.
     /// </summary>
-    public class TableauVM : BaseStatefulVM
+    public class TableauVM : BaseVM
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Model                         //

@@ -7,7 +7,7 @@ namespace Retinues.Editor.VM.List
     /// Header sort button with three-state sort (none, asc, desc).
     /// </summary>
     public class ListSortButtonVM(ListVM list, ListSortKey sortKey, string text, int requestedWidth)
-        : BaseStatefulVM
+        : BaseVM
     {
         private readonly ListVM _list = list;
 

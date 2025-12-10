@@ -1,4 +1,5 @@
 using Bannerlord.UIExtenderEx.Attributes;
+using Retinues.Editor.Controllers;
 using Retinues.Engine;
 using Retinues.Utilities;
 using TaleWorlds.Library;
@@ -9,7 +10,7 @@ namespace Retinues.Editor.VM.Panel.Character
     /// <summary>
     /// Character details panel.
     /// </summary>
-    public class CharacterPanel : BaseStatefulVM
+    public class CharacterPanel : BaseVM
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        IsVisible                       //
@@ -58,22 +59,12 @@ namespace Retinues.Editor.VM.Panel.Character
         {
             var character = State.Character;
             if (character == null)
-            {
                 return;
-            }
-
-            var oldName = character.Name;
 
             Notifications.TextInputPopup(
                 title: L.T("rename_troop", "Rename Troop"),
-                defaultInput: oldName,
-                onConfirm: input =>
-                {
-                    character.Name = input.Trim();
-
-                    // Refresh this panel label immediately.
-                    EventManager.Fire(UIEvent.Name, EventScope.Local);
-                },
+                defaultInput: character.Name,
+                onConfirm: input => CharacterController.ChangeName(input.Trim()),
                 description: L.T("enter_new_name", "Enter a new name:")
             );
         }

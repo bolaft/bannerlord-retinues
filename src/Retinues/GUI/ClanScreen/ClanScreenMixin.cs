@@ -1,6 +1,7 @@
 using System;
 using Bannerlord.UIExtenderEx.Attributes;
 using Bannerlord.UIExtenderEx.ViewModels;
+using Retinues.Editor;
 using Retinues.Editor.VM;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem.GameState;
@@ -95,6 +96,9 @@ namespace Retinues.GUI.ClanScreen
 
             // Close the editor if open
             Editor = null;
+
+            // Clear editor state
+            State.Clear();
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

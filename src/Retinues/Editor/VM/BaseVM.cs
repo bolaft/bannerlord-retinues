@@ -11,7 +11,7 @@ namespace Retinues.Editor.VM
     /// attribute-driven event wiring.
     /// </summary>
     [SafeClass(IncludeDerived = true)]
-    public abstract class BaseStatefulVM : ViewModel
+    public abstract class BaseVM : ViewModel
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Global State                      //
@@ -23,7 +23,7 @@ namespace Retinues.Editor.VM
         //                    Event registration                  //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        protected BaseStatefulVM()
+        protected BaseVM()
         {
             EventManager.Register(this);
         }
@@ -47,7 +47,7 @@ namespace Retinues.Editor.VM
         // Type -> event -> method handlers
         private static readonly Dictionary<
             Type,
-            Dictionary<UIEvent, Action<BaseStatefulVM>[]>
+            Dictionary<UIEvent, Action<BaseVM>[]>
         > _methodEventMapCache = [];
 
         internal void __NotifyPropertyChanged(string propertyName)
@@ -108,9 +108,7 @@ namespace Retinues.Editor.VM
             return map;
         }
 
-        private static Dictionary<UIEvent, Action<BaseStatefulVM>[]> GetOrBuildMethodEventMap(
-            Type type
-        )
+        private static Dictionary<UIEvent, Action<BaseVM>[]> GetOrBuildMethodEventMap(Type type)
         {
             if (_methodEventMapCache.TryGetValue(type, out var map))
             {
@@ -175,9 +173,9 @@ namespace Retinues.Editor.VM
             return result;
         }
 
-        private static Dictionary<UIEvent, Action<BaseStatefulVM>[]> BuildMethodEventMap(Type type)
+        private static Dictionary<UIEvent, Action<BaseVM>[]> BuildMethodEventMap(Type type)
         {
-            var temp = new Dictionary<UIEvent, List<Action<BaseStatefulVM>>>();
+            var temp = new Dictionary<UIEvent, List<Action<BaseVM>>>();
             var methods = type.GetMethods(
                 BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic
             );
@@ -225,7 +223,7 @@ namespace Retinues.Editor.VM
                             temp[e] = list;
                         }
 
-                        void Handler(BaseStatefulVM vm)
+                        void Handler(BaseVM vm)
                         {
                             method.Invoke(vm, null);
                         }
@@ -235,7 +233,7 @@ namespace Retinues.Editor.VM
                 }
             }
 
-            var result = new Dictionary<UIEvent, Action<BaseStatefulVM>[]>(temp.Count);
+            var result = new Dictionary<UIEvent, Action<BaseVM>[]>(temp.Count);
             foreach (var kvp in temp)
             {
                 result[kvp.Key] = [.. kvp.Value];

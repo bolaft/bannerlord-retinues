@@ -7,7 +7,7 @@ namespace Retinues.Editor.VM.List
     /// <summary>
     /// Base row ViewModel used in list headers.
     /// </summary>
-    public abstract class ListRowVM(ListHeaderVM header, string id) : BaseStatefulVM
+    public abstract class ListRowVM(ListHeaderVM header, string id) : BaseVM
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Internals                       //

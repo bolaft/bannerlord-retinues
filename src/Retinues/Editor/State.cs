@@ -13,11 +13,43 @@ namespace Retinues.Editor
         //                      Construction                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public static State Instance;
+        private static State _instance;
+        public static State Instance => _instance ??= new State();
 
         public State()
         {
-            Instance = this;
+            _faction = null;
+            _character = null;
+
+            // Default faction: use the main hero's culture if available.
+            IBaseFaction faction = null;
+
+            var hero = Hero.MainHero;
+            if (hero?.CharacterObject != null)
+            {
+                var wrappedHero = WCharacter.Get(hero.CharacterObject);
+                faction = wrappedHero?.Culture;
+            }
+
+            Faction = faction;
+
+            EventManager.FireBatch(() =>
+            {
+                EventManager.Fire(UIEvent.Faction, EventScope.Global);
+                EventManager.Fire(UIEvent.Troop, EventScope.Global);
+            });
+
+            _instance = this;
+        }
+
+        public static void Reset()
+        {
+            _instance = new State();
+        }
+
+        public static void Clear()
+        {
+            _instance = null;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -79,37 +111,6 @@ namespace Retinues.Editor
                 // Notify listeners.
                 EventManager.Fire(UIEvent.Troop, EventScope.Local);
             }
-        }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                          Reset                         //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        /// <summary>
-        /// Clears faction and character state and notifies listeners.
-        /// </summary>
-        public void Reset()
-        {
-            _faction = null;
-            _character = null;
-
-            // Default faction: use the main hero's culture if available.
-            IBaseFaction faction = null;
-
-            var hero = Hero.MainHero;
-            if (hero?.CharacterObject != null)
-            {
-                var wrappedHero = WCharacter.Get(hero.CharacterObject);
-                faction = wrappedHero?.Culture;
-            }
-
-            Faction = faction;
-
-            EventManager.FireBatch(() =>
-            {
-                EventManager.Fire(UIEvent.Faction, EventScope.Global);
-                EventManager.Fire(UIEvent.Troop, EventScope.Global);
-            });
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
