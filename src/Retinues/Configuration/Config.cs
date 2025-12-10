@@ -223,18 +223,6 @@ namespace Retinues.Configuration
             }
         );
 
-        public static readonly Option<bool> DisableClanTroops = CreateOption(
-            section: () => L.S("mcm_section_troop_unlocks", "Troop Unlocks"),
-            name: () => L.S("mcm_option_disable_clan_troops", "Disable Clan Troops"),
-            key: "DisableClanTroops",
-            hint: () =>
-                L.S(
-                    "mcm_option_disable_clan_troops_hint",
-                    "The custom clan troop tree will be disabled and kingdom troops, if any, will be used instead."
-                ),
-            @default: false
-        );
-
         public static readonly Option<bool> DisableKingdomTroops = CreateOption(
             section: () => L.S("mcm_section_troop_unlocks", "Troop Unlocks"),
             name: () => L.S("mcm_option_disable_kingdom_troops", "Disable Kingdom Troops"),
@@ -242,19 +230,7 @@ namespace Retinues.Configuration
             hint: () =>
                 L.S(
                     "mcm_option_disable_kingdom_troops_hint",
-                    "The custom kingdom troop tree will be disabled and clan troops, if any, will be used instead."
-                ),
-            @default: false
-        );
-
-        public static readonly Option<bool> DisableSpecialTroops = CreateOption(
-            section: () => L.S("mcm_section_troop_unlocks", "Troop Unlocks"),
-            name: () => L.S("mcm_option_disable_special_troops", "Disable Special Troops"),
-            key: "DisableSpecialTroops",
-            hint: () =>
-                L.S(
-                    "mcm_option_disable_special_troops_hint",
-                    "Special troops (militias, villagers, caravan guards) will not be unlocked (already existing unlocks will remain)."
+                    "The custom kingdom troop tree will be disabled and clan troops will be used instead."
                 ),
             @default: false
         );

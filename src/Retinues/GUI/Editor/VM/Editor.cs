@@ -315,7 +315,6 @@ namespace Retinues.GUI.Editor.VM
             Screen == Screen.Troop
             && Player.Kingdom != null
             && !Config.DisableKingdomTroops
-            && !Config.DisableClanTroops
             && !ClanScreen.IsStudioMode;
 
         [DataSourceProperty]

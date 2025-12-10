@@ -43,8 +43,7 @@ namespace Retinues.Doctrines.Catalog
                 if (!quest.IsSuccessful)
                     return;
                 if (quest.Giver?.Hero.MapFaction.StringId != Player.MapFaction.StringId)
-                    if (Player.Kingdom == null) // Allow kings to do quests for anybody, can't receive from vassals.
-                        return;
+                    return;
                 if (!quest.Giver?.IsPartyLeader ?? true)
                     return;
 

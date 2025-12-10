@@ -20,18 +20,12 @@ namespace Retinues.Game
         {
             get
             {
-                if (Config.DisableClanTroops && Config.DisableKingdomTroops)
-                    return null;
-
                 // Set directly from Player static to avoid new instance without troop attributes
                 var clan = Clan?.IsPlayerClan == true ? Player.Clan : null;
                 var kingdom = Kingdom?.IsPlayerKingdom == true ? Player.Kingdom : null;
 
                 if (Config.DisableKingdomTroops)
                     return clan;
-
-                if (Config.DisableClanTroops)
-                    return kingdom;
 
                 return clan ?? kingdom;
             }
