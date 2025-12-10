@@ -18,34 +18,25 @@ namespace Retinues.Editor
 
         public State()
         {
+            Log.Info("Initializing new editor state");
+
+            // Set the singleton instance.
+            _instance = this;
+
             _faction = null;
             _character = null;
 
             // Default faction: use the main hero's culture if available.
-            IBaseFaction faction = null;
-
-            var hero = Hero.MainHero;
-            if (hero?.CharacterObject != null)
-            {
-                var wrappedHero = WCharacter.Get(hero.CharacterObject);
-                faction = wrappedHero?.Culture;
-            }
-
-            Faction = faction;
+            Faction = WHero.Get(Hero.MainHero).Culture;
 
             EventManager.FireBatch(() =>
             {
                 EventManager.Fire(UIEvent.Faction, EventScope.Global);
                 EventManager.Fire(UIEvent.Troop, EventScope.Global);
             });
-
-            _instance = this;
         }
 
-        public static void Reset()
-        {
-           new State();
-        }
+        public static void Reset() => _instance = new State();
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          State                         //
@@ -69,6 +60,8 @@ namespace Retinues.Editor
 
                 if (value == null)
                     return;
+
+                Log.Info($"Setting state faction to: {(value != null ? value.Name : "null")}");
 
                 // Set the faction.
                 _faction = value;
@@ -99,6 +92,8 @@ namespace Retinues.Editor
 
                 if (value == null)
                     return;
+
+                Log.Info($"Setting state character to: {(value != null ? value.Name : "null")}");
 
                 // Set the character.
                 _character = value;

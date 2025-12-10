@@ -62,9 +62,7 @@ namespace Retinues.Model
             _persistent = persistent;
 
             if (_persistent)
-            {
                 MAttributePersistence.Register(this, _baseInstance, _targetName);
-            }
         }
 
         /// <summary>
@@ -85,26 +83,18 @@ namespace Retinues.Model
             _persistent = persistent;
 
             if (_persistent)
-            {
                 MAttributePersistence.Register(this, _baseInstance, _targetName);
-            }
         }
 
         /// <summary>
         /// Gets the value of the attribute.
         /// </summary>
-        public T Get()
-        {
-            return _getter(_baseInstance);
-        }
+        public T Get() => _getter(_baseInstance);
 
         /// <summary>
         /// Sets the value of the attribute.
         /// </summary>
-        public void Set(T value)
-        {
-            SetInternal(value, fromPersistence: false);
-        }
+        public void Set(T value) => SetInternal(value, fromPersistence: false);
 
         /// <summary>
         /// Sets the value of the attribute and marks it as dirty if not from persistence.
@@ -114,9 +104,7 @@ namespace Retinues.Model
             _setter(_baseInstance, value);
 
             if (_persistent && !fromPersistence)
-            {
                 _hasLocalChanges = true;
-            }
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -171,13 +159,9 @@ namespace Retinues.Model
             if (type == typeof(TextObject))
             {
                 if (value is TextObject to)
-                {
                     data.Strings[key] = to.Value ?? string.Empty;
-                }
                 else
-                {
                     data.Strings.Remove(key);
-                }
 
                 MarkDirty();
 
@@ -195,13 +179,9 @@ namespace Retinues.Model
             if (IsStringIntDictionaryType(type))
             {
                 if (value is not Dictionary<string, int> dict || dict.Count == 0)
-                {
                     data.DictStringInt.Remove(key);
-                }
                 else
-                {
                     data.DictStringInt[key] = new Dictionary<string, int>(dict);
-                }
 
                 MarkDirty();
 
@@ -250,13 +230,9 @@ namespace Retinues.Model
                     }
 
                     if (map.Count == 0)
-                    {
                         data.DictStringInt.Remove(key);
-                    }
                     else
-                    {
                         data.DictStringInt[key] = map;
-                    }
                 }
 
                 MarkDirty();
@@ -267,13 +243,9 @@ namespace Retinues.Model
             if (typeof(MBObjectBase).IsAssignableFrom(type))
             {
                 if (value is not MBObjectBase mb || string.IsNullOrEmpty(mb.StringId))
-                {
                     data.MbObjectIds.Remove(key);
-                }
                 else
-                {
                     data.MbObjectIds[key] = mb.StringId;
-                }
 
                 MarkDirty();
 

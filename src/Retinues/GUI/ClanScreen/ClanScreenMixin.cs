@@ -1,7 +1,6 @@
 using System;
 using Bannerlord.UIExtenderEx.Attributes;
 using Bannerlord.UIExtenderEx.ViewModels;
-using Retinues.Editor;
 using Retinues.Editor.VM;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem.GameState;

@@ -1,9 +1,11 @@
+using System.Collections.Generic;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Editor.Controllers;
 using Retinues.Engine;
+using Retinues.Model.Factions;
 using Retinues.Utilities;
+using TaleWorlds.Core;
 using TaleWorlds.Library;
-using TaleWorlds.Localization;
 
 namespace Retinues.Editor.VM.Panel.Character
 {
@@ -86,9 +88,7 @@ namespace Retinues.Editor.VM.Panel.Character
                 var name = culture?.Name;
 
                 if (!string.IsNullOrWhiteSpace(name))
-                {
                     return name;
-                }
 
                 return L.S("unknown", "Unknown");
             }
@@ -100,7 +100,39 @@ namespace Retinues.Editor.VM.Panel.Character
         [DataSourceMethod]
         public void ExecuteChangeCulture()
         {
-            // TODO: implement culture selection logic later.
+            var elements = new List<InquiryElement>();
+
+            foreach (var culture in WCulture.All)
+            {
+                var imageIdentifier = culture.ImageIdentifier;
+                var name = culture.Name;
+                if (imageIdentifier == null || name == null)
+                    continue; // Probably unusable modded culture, skip.
+
+                elements.Add(
+                    new InquiryElement(
+                        identifier: culture,
+                        title: name,
+                        imageIdentifier: imageIdentifier
+                    )
+                );
+            }
+
+            if (elements.Count == 0)
+            {
+                Notifications.Popup(
+                    L.T("no_cultures_title", "No Cultures Found"),
+                    L.T("no_cultures_text", "No cultures are loaded in the current game.")
+                );
+                return;
+            }
+
+            Notifications.SelectPopup(
+                title: L.T("change_culture_title", "Change Culture"),
+                elements: elements,
+                onSelect: element =>
+                    CharacterController.ChangeCulture(element?.Identifier as WCulture)
+            );
         }
     }
 }

@@ -65,10 +65,6 @@ namespace Retinues.Utilities
         /// Initializes the logging system.
         /// Ensures the log directory and file exist, then truncates it to the last N lines.
         /// </summary>
-        /// <param name="truncate">
-        /// Number of lines to keep from the end of the file. Defaults to 1000.
-        /// Use 0 to clear the file completely, or a negative value to skip truncation.
-        /// </param>
         public static void Initialize(int truncate = 1000)
         {
             try
@@ -97,6 +93,9 @@ namespace Retinues.Utilities
             {
                 // Never let logging initialization break the game.
             }
+
+            // New line
+            WriteToFile("");
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

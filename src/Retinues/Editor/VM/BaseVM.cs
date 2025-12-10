@@ -17,7 +17,7 @@ namespace Retinues.Editor.VM
         //                      Global State                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        internal static State State = new();
+        internal static State State => State.Instance;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                    Event registration                  //
