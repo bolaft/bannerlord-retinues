@@ -1,5 +1,7 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Localization;
@@ -126,6 +128,9 @@ namespace Retinues.Model
             if (!_persistent || data == null)
                 return;
 
+            // Ensure we have a dictionary even for old saves where Dirty wasn't present.
+            data.Dirty ??= [];
+
             // Only persist if we either changed this attribute in this session,
             // or if it was already persisted before.
             bool alreadyDirty = data.Dirty.ContainsKey(key);
@@ -203,6 +208,61 @@ namespace Retinues.Model
                 return;
             }
 
+            // Wrapper list type example: List<WCharacter>.
+            if (IsWrapperListType(type, out var wrapperElementType))
+            {
+                if (value is not IEnumerable enumerable)
+                {
+                    data.DictStringInt.Remove(key);
+                }
+                else
+                {
+                    var map = new Dictionary<string, int>();
+                    var index = 0;
+
+                    foreach (var item in enumerable)
+                    {
+                        if (item == null)
+                        {
+                            index++;
+                            continue;
+                        }
+
+                        // All wrappers inherit MBase<TBase> with a public Base property.
+                        var baseProp = item.GetType().GetProperty("Base");
+                        if (baseProp == null)
+                        {
+                            index++;
+                            continue;
+                        }
+
+                        if (
+                            baseProp.GetValue(item) is not MBObjectBase mb
+                            || string.IsNullOrEmpty(mb.StringId)
+                        )
+                        {
+                            index++;
+                            continue;
+                        }
+
+                        map[mb.StringId] = index;
+                        index++;
+                    }
+
+                    if (map.Count == 0)
+                    {
+                        data.DictStringInt.Remove(key);
+                    }
+                    else
+                    {
+                        data.DictStringInt[key] = map;
+                    }
+                }
+
+                MarkDirty();
+                return;
+            }
+
             // MBObjectBase types are persisted as StringId.
             if (typeof(MBObjectBase).IsAssignableFrom(type))
             {
@@ -275,6 +335,40 @@ namespace Retinues.Model
                 return;
             }
 
+            if (IsWrapperListType(type, out var wrapperElementType))
+            {
+                if (!data.DictStringInt.TryGetValue(key, out var src))
+                    return;
+
+                // We expect the wrapper type to expose a public static
+                // TWrapper Get(string stringId) (from WBase<,>).
+                var getMethod = wrapperElementType.GetMethod("Get", [typeof(string)]);
+
+                if (getMethod == null)
+                {
+                    Log.Error(
+                        $"MAttribute: Cannot apply list for '{_targetName}' because wrapper type '{wrapperElementType.FullName}' does not expose static Get(string)."
+                    );
+                    return;
+                }
+
+                var list = (IList)Activator.CreateInstance(type);
+
+                foreach (var kvp in src.OrderBy(kv => kv.Value))
+                {
+                    var stringId = kvp.Key;
+                    if (string.IsNullOrEmpty(stringId))
+                        continue;
+
+                    var wrapper = getMethod.Invoke(null, [stringId]);
+                    if (wrapper != null)
+                        list.Add(wrapper);
+                }
+
+                SetInternal((T)(object)list, fromPersistence: true);
+                return;
+            }
+
             if (IsStringIntDictionaryType(type))
             {
                 if (data.DictStringInt.TryGetValue(key, out var src))
@@ -333,6 +427,39 @@ namespace Retinues.Model
 
             var args = type.GetGenericArguments();
             return args[0] == typeof(string) && args[1] == typeof(int);
+        }
+
+        static bool IsWrapperListType(Type type, out Type elementType)
+        {
+            elementType = null;
+
+            if (!type.IsGenericType)
+                return false;
+
+            var def = type.GetGenericTypeDefinition();
+            if (def != typeof(List<>))
+                return false;
+
+            var arg = type.GetGenericArguments()[0];
+            if (!IsWrapperType(arg))
+                return false;
+
+            elementType = arg;
+            return true;
+        }
+
+        static bool IsWrapperType(Type type)
+        {
+            // Walk the inheritance chain looking for WBase<,>.
+            while (type != null && type != typeof(object))
+            {
+                if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(WBase<,>))
+                    return true;
+
+                type = type.BaseType;
+            }
+
+            return false;
         }
     }
 

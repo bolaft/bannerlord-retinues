@@ -282,20 +282,32 @@ namespace Retinues.Model.Characters
         //                     Character Tree                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        MAttribute<CharacterObject[]> UpgradeTargetsAttribute =>
-            Attribute<CharacterObject[]>(nameof(CharacterObject.UpgradeTargets), persistent: false);
+        /* ━━━━ Upgrade Targets ━━━ */
+
+        MAttribute<List<WCharacter>> _upgradeTargetsAttribute;
+        MAttribute<List<WCharacter>> UpgradeTargetsAttribute =>
+            _upgradeTargetsAttribute ??= new MAttribute<List<WCharacter>>(
+                baseInstance: Base,
+                getter: _ => [.. Base.UpgradeTargets.Select(Get)],
+                setter: (_, list) =>
+                {
+                    // Update the underlying CharacterObject's UpgradeTargets.
+                    Reflection.SetPropertyValue(
+                        Base,
+                        "UpgradeTargets",
+                        list.Select(w => w?.Base).ToList()
+                    );
+
+                    // Keep hierarchy cache in sync whenever targets change.
+                    CharacterTreeCacheHelper.RecomputeForRoot(Root);
+                },
+                targetName: "UpgradeTargets"
+            );
 
         public List<WCharacter> UpgradeTargets
         {
-            get => [.. UpgradeTargetsAttribute.Get().Select(Get)];
-            set
-            {
-                // Set upgrade targets
-                UpgradeTargetsAttribute.Set(value?.Select(c => c.Base).ToArray() ?? []);
-
-                // Recompute hierarchy cache
-                CharacterTreeCacheHelper.RecomputeForRoot(Root);
-            }
+            get => UpgradeTargetsAttribute.Get();
+            set => UpgradeTargetsAttribute.Set(value ?? []);
         }
 
         /* ━━━ Cached Properties ━━ */
