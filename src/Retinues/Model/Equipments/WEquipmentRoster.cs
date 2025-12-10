@@ -10,12 +10,12 @@ namespace Retinues.Model.Equipments
         : WBase<WEquipmentRoster, MBEquipmentRoster>(@base)
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                       Raw list access                  //
+        //                       Raw List Access                  //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         // Underlying MBEquipmentRoster field; not persisted directly.
         MAttribute<MBList<Equipment>> EquipmentsAttribute =>
-            Attribute<MBList<Equipment>>("_equipments");
+            Attribute<MBList<Equipment>>("_equipments", persistent: false);
 
         MBList<Equipment> RawEquipments
         {
@@ -24,7 +24,7 @@ namespace Retinues.Model.Equipments
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                      Public surface                    //
+        //                        Public API                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public int Count

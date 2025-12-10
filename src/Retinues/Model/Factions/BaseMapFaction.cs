@@ -1,17 +1,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using Retinues.Model.Characters;
+using Retinues.Model.Parties;
+using Retinues.Model.Settlements;
 using TaleWorlds.CampaignSystem;
-using TaleWorlds.CampaignSystem.Party.PartyComponents;
-using TaleWorlds.CampaignSystem.Settlements;
 using TaleWorlds.Core;
 using TaleWorlds.ObjectSystem;
 
 namespace Retinues.Model.Factions
 {
-    public abstract class BaseFactionWrapper<TWrapper, TFaction>(TFaction @base)
+    public abstract class BaseMapFaction<TWrapper, TFaction>(TFaction @base)
         : BaseFaction<TWrapper, TFaction>(@base)
-        where TWrapper : BaseFactionWrapper<TWrapper, TFaction>
+        where TWrapper : BaseMapFaction<TWrapper, TFaction>
         where TFaction : MBObjectBase, IFaction
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -34,6 +34,12 @@ namespace Retinues.Model.Factions
         public WCulture Culture => WCulture.Get(Base.Culture);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Faction                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public IFaction MapFaction => Base.MapFaction;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Heroes                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
@@ -45,28 +51,24 @@ namespace Retinues.Model.Factions
         //                       Characters                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        /* ━━━━━━━━━ Roots ━━━━━━━━ */
-
         public override WCharacter RootBasic => WCharacter.Get(Base.BasicTroop);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Territory                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public IReadOnlyList<Settlement> Settlements => Base.Settlements;
-        public IReadOnlyList<Town> Fiefs => Base.Fiefs;
+        public IReadOnlyList<WSettlement> Settlements =>
+            [.. Base.Settlements.Select(WSettlement.Get)];
+        public IReadOnlyList<MTown> Fiefs => [.. Base.Fiefs.Select(f => new MTown(f))];
 
-        /// <summary>
-        /// Convenience flag for "owns at least one fief".
-        /// </summary>
         public bool HasFiefs => Base.Fiefs != null && Base.Fiefs.Count > 0;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                       War Parties                      //
+        //                           Parties                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public IReadOnlyList<WarPartyComponent> WarPartyComponents =>
-            Base.WarPartyComponents;
+        public IReadOnlyList<WParty> Parties =>
+            [.. Base.WarPartyComponents.Select(c => WParty.Get(c.MobileParty))];
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Flags & Stats                     //
@@ -75,9 +77,6 @@ namespace Retinues.Model.Factions
         public bool IsBanditFaction => Base.IsBanditFaction;
         public bool IsMinorFaction => Base.IsMinorFaction;
         public bool IsKingdomFaction => Base.IsKingdomFaction;
-        public bool IsClan => Base.IsClan;
-        public bool IsOutlaw => Base.IsOutlaw;
-        public bool IsMapFaction => Base.IsMapFaction;
         public float TotalStrength =>
 #if BL13
             Base.CurrentTotalStrength;
@@ -85,6 +84,5 @@ namespace Retinues.Model.Factions
             Base.TotalStrength;
 #endif
         public bool IsEliminated => Base.IsEliminated;
-        public float Aggressiveness => Base.Aggressiveness;
     }
 }

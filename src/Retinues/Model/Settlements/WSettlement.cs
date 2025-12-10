@@ -21,13 +21,31 @@ namespace Retinues.Model.Settlements
         public WCulture Culture => WCulture.Get(Base.Culture);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Ownership                       //
+        //                          Owner                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public WClan OwnerClan => WClan.Get(Base.OwnerClan);
-        public WHero OwnerHero => WHero.Get(Base.Owner);
+        public WHero Owner => WHero.Get(Base.Owner);
 
-        public IFaction MapFaction => Base.MapFaction;
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Factions                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public WClan Clan => WClan.Get(Base.OwnerClan);
+        public WKingdom Kingdom => WKingdom.Get(Base.OwnerClan.Kingdom);
+
+        public IBaseFaction Faction
+        {
+            get
+            {
+                if (Base.MapFaction is Clan clan)
+                    return WClan.Get(clan);
+
+                if (Base.MapFaction is Kingdom kingdom)
+                    return WKingdom.Get(kingdom);
+
+                return null;
+            }
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Kind / Type                      //

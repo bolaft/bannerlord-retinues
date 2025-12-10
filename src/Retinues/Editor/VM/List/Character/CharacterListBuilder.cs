@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Retinues.Model.Characters;
 using Retinues.Utilities;
 
@@ -58,15 +59,6 @@ namespace Retinues.Editor.VM.List.Character
                     AddCharacterRow(header, troop, civilian);
                 }
             }
-
-            // Heroes.
-            AddSection(
-                list,
-                "heroes",
-                "list_header_heroes",
-                L.S("list_header_heroes", "Heroes"),
-                faction.RosterHeroes
-            );
 
             // Retinues.
             AddSection(
