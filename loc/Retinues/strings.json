@@ -288,6 +288,22 @@
     "TR": "Seçkin"
   },
   {
+    "id": "ret_list_header_heroes",
+    "EN": "Heroes",
+    "BR": "Heróis",
+    "CNs": "英雄",
+    "CNt": "英雄",
+    "DE": "Helden",
+    "FR": "Héros",
+    "IT": "Eroi",
+    "JP": "英雄",
+    "KO": "영웅",
+    "PL": "Bohaterowie",
+    "RU": "Герои",
+    "SP": "Héroes",
+    "TR": "Kahramanlar"
+  },
+  {
     "id": "ret_list_header_militia",
     "EN": "Militia",
     "BR": "Milícia",
