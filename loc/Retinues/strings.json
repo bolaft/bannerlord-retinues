@@ -1,5 +1,21 @@
 [
   {
+    "id": "ret_change_culture_title",
+    "EN": "Change Culture",
+    "BR": "Alterar Cultura",
+    "CNs": "更改文化",
+    "CNt": "更改文化",
+    "DE": "Kultur ändern",
+    "FR": "Changer de culture",
+    "IT": "Cambia cultura",
+    "JP": "文化を変更",
+    "KO": "문화 변경",
+    "PL": "Zmień kulturę",
+    "RU": "Изменить культуру",
+    "SP": "Cambiar cultura",
+    "TR": "Kültürü Değiştir"
+  },
+  {
     "id": "ret_clear_filter_tooltip",
     "EN": "Clear the current filter text.",
     "BR": "Limpe o texto do filtro atual.",
@@ -398,6 +414,38 @@
     "RU": "Имя",
     "SP": "Nombre",
     "TR": "İsim"
+  },
+  {
+    "id": "ret_no_cultures_text",
+    "EN": "No cultures are loaded in the current game.",
+    "BR": "Nenhuma cultura está carregada no jogo atual.",
+    "CNs": "当前游戏中没有加载任何文化。",
+    "CNt": "當前遊戲中沒有加載任何文化。",
+    "DE": "In dem aktuellen Spiel sind keine Kulturen geladen.",
+    "FR": "Aucune culture n'est chargée dans le jeu actuel.",
+    "IT": "Nessuna cultura è caricata nel gioco corrente.",
+    "JP": "現在のゲームには文化が読み込まれていません。",
+    "KO": "현재 게임에 로드된 문화가 없습니다.",
+    "PL": "W bieżącej grze nie załadowano żadnych kultur.",
+    "RU": "В текущей игре не загружены культуры.",
+    "SP": "No hay culturas cargadas en el juego actual.",
+    "TR": "Mevcut oyunda yüklenen kültür yok."
+  },
+  {
+    "id": "ret_no_cultures_title",
+    "EN": "No Cultures Found",
+    "BR": "Nenhuma Cultura Encontrada",
+    "CNs": "未找到文化",
+    "CNt": "未找到文化",
+    "DE": "Keine Kulturen gefunden",
+    "FR": "Aucune culture trouvée",
+    "IT": "Nessuna cultura trovata",
+    "JP": "文化が見つかりません",
+    "KO": "문화가 없습니다",
+    "PL": "Nie znaleziono kultur",
+    "RU": "Культуры не найдены",
+    "SP": "No se encontraron culturas",
+    "TR": "Kültür Bulunamadı"
   },
   {
     "id": "ret_rename_troop",

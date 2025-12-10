@@ -5,6 +5,9 @@
   </tags>
   <strings>
     <string
+      id="ret_change_culture_title"
+      text="更改文化" />
+    <string
       id="ret_clear_filter_tooltip"
       text="清除当前的过滤文本。" />
     <string
@@ -79,6 +82,12 @@
     <string
       id="ret_name_header_text"
       text="名称" />
+    <string
+      id="ret_no_cultures_text"
+      text="当前游戏中没有加载任何文化。" />
+    <string
+      id="ret_no_cultures_title"
+      text="未找到文化" />
     <string
       id="ret_rename_troop"
       text="重命名部队" />

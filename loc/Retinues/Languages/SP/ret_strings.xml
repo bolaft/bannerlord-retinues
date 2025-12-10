@@ -5,6 +5,9 @@
   </tags>
   <strings>
     <string
+      id="ret_change_culture_title"
+      text="Cambiar cultura" />
+    <string
       id="ret_clear_filter_tooltip"
       text="Borrar el texto del filtro actual." />
     <string
@@ -79,6 +82,12 @@
     <string
       id="ret_name_header_text"
       text="Nombre" />
+    <string
+      id="ret_no_cultures_text"
+      text="No hay culturas cargadas en el juego actual." />
+    <string
+      id="ret_no_cultures_title"
+      text="No se encontraron culturas" />
     <string
       id="ret_rename_troop"
       text="Renombrar tropa" />
