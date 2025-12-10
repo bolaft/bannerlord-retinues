@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using Retinues.Utilities;
 
 namespace Retinues.Model
 {
+    [SafeClass(IncludeDerived = true)]
     public abstract class MBase<TBase>(TBase baseInstance)
         where TBase : class
     {

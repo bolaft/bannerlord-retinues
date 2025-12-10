@@ -23,6 +23,7 @@ namespace Retinues.Module.Dependencies
     /// Base class for a single external dependency (Harmony, UIExtenderEx, MCM, ButterLib, etc.).
     /// Provides common state & helpers; derived classes implement Initialize/Shutdown.
     /// </summary>
+    [SafeClass(IncludeDerived = true)]
     public abstract class Dependency(string moduleId, string displayName, DependencyKind kind)
     {
         public string ModuleId { get; } = moduleId;

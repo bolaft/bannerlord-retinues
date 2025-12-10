@@ -10,6 +10,7 @@ namespace Retinues.Module.Compatibility
     /// Manages interoperations between Retinues and other modules (mods, DLC).
     /// Handles detection, compatibility flags, and hooks for patches/behaviors.
     /// </summary>
+    [SafeClass]
     public static class CompatibilityManager
     {
         private static readonly List<string> IncompatibleMods = [];

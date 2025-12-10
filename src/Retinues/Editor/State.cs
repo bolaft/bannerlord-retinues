@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 using Retinues.Model.Characters;
 using Retinues.Model.Factions;
+using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 
 namespace Retinues.Editor
 {
+    [SafeClass]
     public class State
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

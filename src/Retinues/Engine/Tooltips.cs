@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Retinues.Utilities;
 using TaleWorlds.Core.ViewModelCollection.Information;
 
 namespace Retinues.Engine
@@ -6,6 +7,7 @@ namespace Retinues.Engine
     /// <summary>
     /// Tooltip with an optional title and a single message line.
     /// </summary>
+    [SafeClass]
     public class Tooltip(string title, string message)
         : BasicTooltipViewModel(() => BuildProperties(title, message))
     {

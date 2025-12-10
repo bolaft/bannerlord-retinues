@@ -11,6 +11,7 @@ namespace Retinues.Module
     /// Utility for querying Bannerlord modules and their metadata.
     /// Provides access to active modules, their names, versions, and official status.
     /// </summary>
+    [SafeClass]
     public static class ModuleManager
     {
         public const string UnknownVersionString = "unknown";

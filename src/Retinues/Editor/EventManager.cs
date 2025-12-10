@@ -71,6 +71,7 @@ namespace Retinues.Editor
     /// - A "burst" ensures each (VM, property) pair is notified at most
     ///   once even if many events chain into each other.
     /// </summary>
+    [SafeClass]
     public static class EventManager
     {
         // current scope for the event being dispatched

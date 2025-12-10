@@ -8,6 +8,7 @@ namespace Retinues.Behaviors
     /// Base class for Retinues campaign behaviors.
     /// Provides logging, enabled flag, and simple CampaignEvents hook helpers.
     /// </summary>
+    [SafeClass(IncludeDerived = true)]
     public abstract class BaseCampaignBehavior : CampaignBehaviorBase
     {
         /// <summary>

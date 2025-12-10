@@ -15,6 +15,7 @@ namespace Retinues.Model
         void Apply(string key, MAttributePersistence.Data data);
     }
 
+    [SafeClass(IncludeDerived = true)]
     public class MAttribute<T> : IMAttributePersistent
     {
         readonly string _targetName;
@@ -299,6 +300,7 @@ namespace Retinues.Model
         }
     }
 
+    [SafeClass(IncludeDerived = true)]
     public static class MAttributePersistence
     {
         public sealed class Data

@@ -1,3 +1,4 @@
+using Retinues.Utilities;
 using TaleWorlds.MountAndBlade;
 
 namespace Retinues.Behaviors
@@ -6,6 +7,7 @@ namespace Retinues.Behaviors
     /// Base class for Retinues mission behaviors.
     /// Provides IsEnabled flag and logging helpers.
     /// </summary>
+    [SafeClass(IncludeDerived = true)]
     public abstract class BaseMissionBehavior : MissionBehavior
     {
         /// <summary>

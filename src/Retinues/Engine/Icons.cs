@@ -1,8 +1,10 @@
 using Retinues.Model.Characters;
+using Retinues.Utilities;
 using TaleWorlds.Core;
 
 namespace Retinues.Engine
 {
+    [SafeClass]
     public static class Icons
     {
         const string BaseIconPath = @"General\TroopTypeIcons\";

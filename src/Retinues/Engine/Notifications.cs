@@ -11,6 +11,7 @@ namespace Retinues.Engine
     /// Helpers for popups and selection inquiries.
     /// All player-facing texts are TextObjects.
     /// </summary>
+    [SafeClass]
     public static class Notifications
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

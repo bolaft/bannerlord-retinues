@@ -50,7 +50,7 @@ namespace Retinues.GUI.EscapeMenu.Patches
                     }
                     catch (Exception e)
                     {
-                        Log.Error($"Failed to open Troop Editor screen: {e}");
+                        Log.Exception(e, "Failed to open Troop Editor screen.");
                     }
                 }
 

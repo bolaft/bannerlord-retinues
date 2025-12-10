@@ -10,6 +10,7 @@ namespace Retinues.Editor.VM
     /// Base ViewModel with shared editor state (faction and character) and
     /// attribute-driven event wiring.
     /// </summary>
+    [SafeClass(IncludeDerived = true)]
     public abstract class BaseStatefulVM : ViewModel
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

@@ -8,6 +8,7 @@ namespace Retinues.Engine
     /// Centralised helpers for playing sound events.
     /// Usage: Sounds.QuestFinished.Play();
     /// </summary>
+    [SafeClass]
     public static class Sounds
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

@@ -4,6 +4,7 @@ using TaleWorlds.Engine.GauntletUI;
 
 namespace Retinues.GUI
 {
+    [SafeClass]
     public static class SpriteManager
     {
         /// <summary>
