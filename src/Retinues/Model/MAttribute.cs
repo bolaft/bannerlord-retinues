@@ -25,6 +25,7 @@ namespace Retinues.Model
         readonly Action<object, T> _setter;
 
         readonly bool _persistent;
+        bool _hasLocalChanges;
 
         public bool IsPersistent => _persistent;
 
@@ -100,7 +101,20 @@ namespace Retinues.Model
         /// </summary>
         public void Set(T value)
         {
+            SetInternal(value, fromPersistence: false);
+        }
+
+        /// <summary>
+        /// Sets the value of the attribute and marks it as dirty if not from persistence.
+        /// </summary>
+        void SetInternal(T value, bool fromPersistence)
+        {
             _setter(_baseInstance, value);
+
+            if (_persistent && !fromPersistence)
+            {
+                _hasLocalChanges = true;
+            }
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -112,25 +126,40 @@ namespace Retinues.Model
             if (!_persistent || data == null)
                 return;
 
+            // Only persist if we either changed this attribute in this session,
+            // or if it was already persisted before.
+            bool alreadyDirty = data.Dirty.ContainsKey(key);
+            if (!_hasLocalChanges && !alreadyDirty)
+                return;
+
             var value = Get();
             var type = typeof(T);
+
+            void MarkDirty()
+            {
+                data.Dirty[key] = true;
+                _hasLocalChanges = false;
+            }
 
             // Basic value types.
             if (type == typeof(int))
             {
                 data.Ints[key] = (int)(object)value;
+                MarkDirty();
                 return;
             }
 
             if (type == typeof(bool))
             {
                 data.Bools[key] = (bool)(object)value;
+                MarkDirty();
                 return;
             }
 
             if (type == typeof(float))
             {
                 data.Floats[key] = (float)(object)value;
+                MarkDirty();
                 return;
             }
 
@@ -145,12 +174,15 @@ namespace Retinues.Model
                     data.Strings.Remove(key);
                 }
 
+                MarkDirty();
+
                 return;
             }
 
             if (type == typeof(string))
             {
                 data.Strings[key] = (string)(object)value ?? string.Empty;
+                MarkDirty();
                 return;
             }
 
@@ -166,6 +198,8 @@ namespace Retinues.Model
                     data.DictStringInt[key] = new Dictionary<string, int>(dict);
                 }
 
+                MarkDirty();
+
                 return;
             }
 
@@ -180,6 +214,8 @@ namespace Retinues.Model
                 {
                     data.MbObjectIds[key] = mb.StringId;
                 }
+
+                MarkDirty();
 
                 return;
             }
@@ -203,21 +239,21 @@ namespace Retinues.Model
             if (type == typeof(int))
             {
                 if (data.Ints.TryGetValue(key, out var i))
-                    Set((T)(object)i);
+                    SetInternal((T)(object)i, fromPersistence: true);
                 return;
             }
 
             if (type == typeof(bool))
             {
                 if (data.Bools.TryGetValue(key, out var b))
-                    Set((T)(object)b);
+                    SetInternal((T)(object)b, fromPersistence: true);
                 return;
             }
 
             if (type == typeof(float))
             {
                 if (data.Floats.TryGetValue(key, out var f))
-                    Set((T)(object)f);
+                    SetInternal((T)(object)f, fromPersistence: true);
                 return;
             }
 
@@ -226,7 +262,7 @@ namespace Retinues.Model
                 if (data.Strings.TryGetValue(key, out var s))
                 {
                     var to = new TextObject(s ?? string.Empty);
-                    Set((T)(object)to);
+                    SetInternal((T)(object)to, fromPersistence: true);
                 }
 
                 return;
@@ -235,7 +271,7 @@ namespace Retinues.Model
             if (type == typeof(string))
             {
                 if (data.Strings.TryGetValue(key, out var s))
-                    Set((T)(object)s);
+                    SetInternal((T)(object)s, fromPersistence: true);
                 return;
             }
 
@@ -244,7 +280,7 @@ namespace Retinues.Model
                 if (data.DictStringInt.TryGetValue(key, out var src))
                 {
                     var copy = new Dictionary<string, int>(src);
-                    Set((T)(object)copy);
+                    SetInternal((T)(object)copy, fromPersistence: true);
                 }
 
                 return;
@@ -257,7 +293,7 @@ namespace Retinues.Model
 
                 if (string.IsNullOrEmpty(stringId))
                 {
-                    Set(default);
+                    SetInternal(default, fromPersistence: true);
                     return;
                 }
 
@@ -278,9 +314,9 @@ namespace Retinues.Model
                 // We already checked typeof(MBObjectBase).IsAssignableFrom(type),
                 // so this cast is safe at runtime.
                 if (objBase is T typed)
-                    Set(typed);
+                    SetInternal(typed, fromPersistence: true);
                 else
-                    Set((T)(object)objBase);
+                    SetInternal((T)(object)objBase, fromPersistence: true);
 
                 return;
             }
@@ -322,6 +358,9 @@ namespace Retinues.Model
 
             [SaveableField(6)]
             public Dictionary<string, Dictionary<string, int>> DictStringInt = [];
+
+            [SaveableField(7)]
+            public Dictionary<string, bool> Dirty = [];
         }
 
         static readonly Dictionary<string, IMAttributePersistent> _attributes = [];
