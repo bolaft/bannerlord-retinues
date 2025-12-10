@@ -47,6 +47,12 @@
       id="ret_init_error_title"
       text="Erro de Dependência do Retinues" />
     <string
+      id="ret_invalid_name_body"
+      text="O nome não pode estar vazio." />
+    <string
+      id="ret_invalid_name_title"
+      text="Nome Inválido" />
+    <string
       id="ret_list_header_bandits"
       text="Bandidos" />
     <string

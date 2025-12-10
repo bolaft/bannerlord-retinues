@@ -47,6 +47,12 @@
       id="ret_init_error_title"
       text="Retinues 依赖项错误" />
     <string
+      id="ret_invalid_name_body"
+      text="名称不能为空。" />
+    <string
+      id="ret_invalid_name_title"
+      text="无效名称" />
+    <string
       id="ret_list_header_bandits"
       text="强盗" />
     <string

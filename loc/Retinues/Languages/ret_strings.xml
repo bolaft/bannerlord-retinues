@@ -47,6 +47,12 @@
       id="ret_init_error_title"
       text="Retinues Dependency Error" />
     <string
+      id="ret_invalid_name_body"
+      text="The name cannot be empty." />
+    <string
+      id="ret_invalid_name_title"
+      text="Invalid Name" />
+    <string
       id="ret_list_header_bandits"
       text="Bandits" />
     <string

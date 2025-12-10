@@ -47,6 +47,12 @@
       id="ret_init_error_title"
       text="Retinues 종속성 오류" />
     <string
+      id="ret_invalid_name_body"
+      text="이름은 비워둘 수 없습니다." />
+    <string
+      id="ret_invalid_name_title"
+      text="잘못된 이름" />
+    <string
       id="ret_list_header_bandits"
       text="산적" />
     <string

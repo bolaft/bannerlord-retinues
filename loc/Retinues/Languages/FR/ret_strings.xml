@@ -47,6 +47,12 @@
       id="ret_init_error_title"
       text="Erreur de dépendance Retinues" />
     <string
+      id="ret_invalid_name_body"
+      text="Le nom ne peut pas être vide." />
+    <string
+      id="ret_invalid_name_title"
+      text="Nom invalide" />
+    <string
       id="ret_list_header_bandits"
       text="Bandits" />
     <string

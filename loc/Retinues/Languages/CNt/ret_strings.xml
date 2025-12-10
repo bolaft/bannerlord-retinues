@@ -47,6 +47,12 @@
       id="ret_init_error_title"
       text="Retinues 依賴項錯誤" />
     <string
+      id="ret_invalid_name_body"
+      text="名稱不能為空。" />
+    <string
+      id="ret_invalid_name_title"
+      text="無效名稱" />
+    <string
       id="ret_list_header_bandits"
       text="強盜" />
     <string

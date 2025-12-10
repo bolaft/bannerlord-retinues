@@ -47,6 +47,12 @@
       id="ret_init_error_title"
       text="Retinues Bağımlılık Hatası" />
     <string
+      id="ret_invalid_name_body"
+      text="İsim boş olamaz." />
+    <string
+      id="ret_invalid_name_title"
+      text="Geçersiz İsim" />
+    <string
       id="ret_list_header_bandits"
       text="Haydutlar" />
     <string

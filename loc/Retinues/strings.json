@@ -224,6 +224,38 @@
     "TR": "Retinues Bağımlılık Hatası"
   },
   {
+    "id": "ret_invalid_name_body",
+    "EN": "The name cannot be empty.",
+    "BR": "O nome não pode estar vazio.",
+    "CNs": "名称不能为空。",
+    "CNt": "名稱不能為空。",
+    "DE": "Der Name darf nicht leer sein.",
+    "FR": "Le nom ne peut pas être vide.",
+    "IT": "Il nome non può essere vuoto.",
+    "JP": "名前は空にできません。",
+    "KO": "이름은 비워둘 수 없습니다.",
+    "PL": "Nazwa nie może być pusta.",
+    "RU": "Имя не может быть пустым.",
+    "SP": "El nombre no puede estar vacío.",
+    "TR": "İsim boş olamaz."
+  },
+  {
+    "id": "ret_invalid_name_title",
+    "EN": "Invalid Name",
+    "BR": "Nome Inválido",
+    "CNs": "无效名称",
+    "CNt": "無效名稱",
+    "DE": "Ungültiger Name",
+    "FR": "Nom invalide",
+    "IT": "Nome non valido",
+    "JP": "無効な名前",
+    "KO": "잘못된 이름",
+    "PL": "Nieprawidłowa nazwa",
+    "RU": "Недопустимое имя",
+    "SP": "Nombre inválido",
+    "TR": "Geçersiz İsim"
+  },
+  {
     "id": "ret_list_header_bandits",
     "EN": "Bandits",
     "BR": "Bandidos",

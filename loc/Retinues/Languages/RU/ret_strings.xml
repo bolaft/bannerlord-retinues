@@ -47,6 +47,12 @@
       id="ret_init_error_title"
       text="Ошибка зависимости Retinues" />
     <string
+      id="ret_invalid_name_body"
+      text="Имя не может быть пустым." />
+    <string
+      id="ret_invalid_name_title"
+      text="Недопустимое имя" />
+    <string
       id="ret_list_header_bandits"
       text="Бандиты" />
     <string
