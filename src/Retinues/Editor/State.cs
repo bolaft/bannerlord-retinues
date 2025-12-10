@@ -44,12 +44,7 @@ namespace Retinues.Editor
 
         public static void Reset()
         {
-            _instance = new State();
-        }
-
-        public static void Clear()
-        {
-            _instance = null;
+           new State();
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

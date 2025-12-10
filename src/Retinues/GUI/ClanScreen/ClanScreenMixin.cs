@@ -96,9 +96,6 @@ namespace Retinues.GUI.ClanScreen
 
             // Close the editor if open
             Editor = null;
-
-            // Clear editor state
-            State.Clear();
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
