@@ -1580,9 +1580,6 @@
       id="ret_road_wardens"
       text="Yol Bekçileri" />
     <string
-      id="ret_road_wardens_caravan_escort_quests"
-      text="3 karavan eskort görevi tamamlayın." />
-    <string
       id="ret_road_wardens_clear_hideout"
       text="Bir haydut saklanma yerini temizleyin." />
     <string
@@ -1591,6 +1588,9 @@
     <string
       id="ret_road_wardens_disabled_message"
       text="Devre Dışı: yapılandırmadan özel birliklerin kilidi açıldı." />
+    <string
+      id="ret_road_wardens_merchant_town_quests"
+      text="Kasabanızdaki bir tüccar için 3 görev tamamlayın." />
     <string
       id="ret_road_wardens_three_caravans"
       text="Aynı anda üç karavana sahip ol." />

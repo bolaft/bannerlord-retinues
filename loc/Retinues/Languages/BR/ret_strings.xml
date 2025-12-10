@@ -1580,9 +1580,6 @@
       id="ret_road_wardens"
       text="Guardiões da Estrada" />
     <string
-      id="ret_road_wardens_caravan_escort_quests"
-      text="Complete 3 missões de escolta de caravanas." />
-    <string
       id="ret_road_wardens_clear_hideout"
       text="Limpe um esconderijo de bandidos." />
     <string
@@ -1591,6 +1588,9 @@
     <string
       id="ret_road_wardens_disabled_message"
       text="Desativado: tropas especiais desbloqueadas a partir da configuração." />
+    <string
+      id="ret_road_wardens_merchant_town_quests"
+      text="Complete 3 missões para um comerciante de uma de suas cidades." />
     <string
       id="ret_road_wardens_three_caravans"
       text="Possua três caravanas ao mesmo tempo." />

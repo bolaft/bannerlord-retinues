@@ -1580,9 +1580,6 @@
       id="ret_road_wardens"
       text="Strażnicy Dróg" />
     <string
-      id="ret_road_wardens_caravan_escort_quests"
-      text="Wykonaj 3 misje eskorty karawany." />
-    <string
       id="ret_road_wardens_clear_hideout"
       text="Wyczyść kryjówkę bandytów." />
     <string
@@ -1591,6 +1588,9 @@
     <string
       id="ret_road_wardens_disabled_message"
       text="Wyłączone: specjalne wojska odblokowane z konfiguracji." />
+    <string
+      id="ret_road_wardens_merchant_town_quests"
+      text="Wykonaj 3 zadania dla kupca z jednego z twoich miast." />
     <string
       id="ret_road_wardens_three_caravans"
       text="Posiadaj jednocześnie trzy karawany." />

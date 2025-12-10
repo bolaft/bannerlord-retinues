@@ -1580,9 +1580,6 @@
       id="ret_road_wardens"
       text="Дорожные Стражи" />
     <string
-      id="ret_road_wardens_caravan_escort_quests"
-      text="Выполните 3 задания по сопровождению каравана." />
-    <string
       id="ret_road_wardens_clear_hideout"
       text="Очистите логово бандитов." />
     <string
@@ -1591,6 +1588,9 @@
     <string
       id="ret_road_wardens_disabled_message"
       text="Отключено: специальные войска разблокированы из конфигурации." />
+    <string
+      id="ret_road_wardens_merchant_town_quests"
+      text="Выполните 3 задания для торговца из одного из ваших городов." />
     <string
       id="ret_road_wardens_three_caravans"
       text="Одновременно владейте тремя караванами." />

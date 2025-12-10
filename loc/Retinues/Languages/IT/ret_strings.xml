@@ -1580,9 +1580,6 @@
       id="ret_road_wardens"
       text="Guardiani della Strada" />
     <string
-      id="ret_road_wardens_caravan_escort_quests"
-      text="Completa 3 missioni di scorta di carovane." />
-    <string
       id="ret_road_wardens_clear_hideout"
       text="Pulisci un nascondiglio di banditi." />
     <string
@@ -1591,6 +1588,9 @@
     <string
       id="ret_road_wardens_disabled_message"
       text="Disabilitato: truppe speciali sbloccate dalla configurazione." />
+    <string
+      id="ret_road_wardens_merchant_town_quests"
+      text="Completa 3 missioni per un mercante di una delle tue città." />
     <string
       id="ret_road_wardens_three_caravans"
       text="Possiedi tre carovane contemporaneamente." />

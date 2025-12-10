@@ -1580,9 +1580,6 @@
       id="ret_road_wardens"
       text="Straßenwächter" />
     <string
-      id="ret_road_wardens_caravan_escort_quests"
-      text="Schließe 3 Karawanen-Eskort-Missionen ab." />
-    <string
       id="ret_road_wardens_clear_hideout"
       text="Räume ein Banditenversteck aus." />
     <string
@@ -1591,6 +1588,9 @@
     <string
       id="ret_road_wardens_disabled_message"
       text="Deaktiviert: Spezielle Truppen aus der Konfiguration freigeschaltet." />
+    <string
+      id="ret_road_wardens_merchant_town_quests"
+      text="Schließe 3 Quests für einen Händler aus einer deiner Städte ab." />
     <string
       id="ret_road_wardens_three_caravans"
       text="Besitze gleichzeitig drei Karawanen." />

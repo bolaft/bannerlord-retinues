@@ -1580,9 +1580,6 @@
       id="ret_road_wardens"
       text="로드 워든" />
     <string
-      id="ret_road_wardens_caravan_escort_quests"
-      text="3개의 캐러밴 호위 퀘스트를 완료하십시오." />
-    <string
       id="ret_road_wardens_clear_hideout"
       text="산적 은신처를 정리하십시오." />
     <string
@@ -1591,6 +1588,9 @@
     <string
       id="ret_road_wardens_disabled_message"
       text="비활성화: 구성에서 특수 부대가 잠금 해제되었습니다." />
+    <string
+      id="ret_road_wardens_merchant_town_quests"
+      text="당신의 도시 중 한 곳에서 상인을 위해 3개의 퀘스트를 완료하십시오." />
     <string
       id="ret_road_wardens_three_caravans"
       text="동시에 세 개의 캐러밴을 소유하십시오." />

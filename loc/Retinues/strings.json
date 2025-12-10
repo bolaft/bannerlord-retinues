@@ -8400,22 +8400,6 @@
     "TR": "Yol Bekçileri"
   },
   {
-    "id": "ret_road_wardens_caravan_escort_quests",
-    "EN": "Complete 3 caravan escort quests.",
-    "BR": "Complete 3 missões de escolta de caravanas.",
-    "CNs": "完成3个商队护送任务。",
-    "CNt": "完成3個商隊護送任務。",
-    "DE": "Schließe 3 Karawanen-Eskort-Missionen ab.",
-    "FR": "Termine 3 quêtes d'escorte de caravane.",
-    "IT": "Completa 3 missioni di scorta di carovane.",
-    "JP": "キャラバン護衛クエストを3つ完了する。",
-    "KO": "3개의 캐러밴 호위 퀘스트를 완료하십시오.",
-    "PL": "Wykonaj 3 misje eskorty karawany.",
-    "RU": "Выполните 3 задания по сопровождению каравана.",
-    "SP": "Completa 3 misiones de escolta de caravanas.",
-    "TR": "3 karavan eskort görevi tamamlayın."
-  },
-  {
     "id": "ret_road_wardens_clear_hideout",
     "EN": "Clear a bandit hideout.",
     "BR": "Limpe um esconderijo de bandidos.",
@@ -8462,6 +8446,22 @@
     "RU": "Отключено: специальные войска разблокированы из конфигурации.",
     "SP": "Desactivado: tropas especiales desbloqueadas desde la configuración.",
     "TR": "Devre Dışı: yapılandırmadan özel birliklerin kilidi açıldı."
+  },
+  {
+    "id": "ret_road_wardens_merchant_town_quests",
+    "EN": "Complete 3 quests for a merchant from one of your towns.",
+    "BR": "Complete 3 missões para um comerciante de uma de suas cidades.",
+    "CNs": "为你的一座城镇的商人完成3个任务。",
+    "CNt": "為你的一座城鎮的商人完成3個任務。",
+    "DE": "Schließe 3 Quests für einen Händler aus einer deiner Städte ab.",
+    "FR": "Accomplis 3 quêtes pour un marchand de l'une de tes villes.",
+    "IT": "Completa 3 missioni per un mercante di una delle tue città.",
+    "JP": "あなたの町の1つの商人のために3つのクエストを完了する。",
+    "KO": "당신의 도시 중 한 곳에서 상인을 위해 3개의 퀘스트를 완료하십시오.",
+    "PL": "Wykonaj 3 zadania dla kupca z jednego z twoich miast.",
+    "RU": "Выполните 3 задания для торговца из одного из ваших городов.",
+    "SP": "Completa 3 misiones para un comerciante de una de tus ciudades.",
+    "TR": "Kasabanızdaki bir tüccar için 3 görev tamamlayın."
   },
   {
     "id": "ret_road_wardens_three_caravans",

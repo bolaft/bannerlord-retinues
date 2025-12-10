@@ -1580,9 +1580,6 @@
       id="ret_road_wardens"
       text="ロードウォーデン" />
     <string
-      id="ret_road_wardens_caravan_escort_quests"
-      text="キャラバン護衛クエストを3つ完了する。" />
-    <string
       id="ret_road_wardens_clear_hideout"
       text="山賊の隠れ家を掃討する。" />
     <string
@@ -1591,6 +1588,9 @@
     <string
       id="ret_road_wardens_disabled_message"
       text="無効：設定から特殊部隊がアンロックされました。" />
+    <string
+      id="ret_road_wardens_merchant_town_quests"
+      text="あなたの町の1つの商人のために3つのクエストを完了する。" />
     <string
       id="ret_road_wardens_three_caravans"
       text="同時に3つのキャラバンを所有する。" />

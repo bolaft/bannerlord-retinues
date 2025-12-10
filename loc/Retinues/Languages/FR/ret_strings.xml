@@ -1580,9 +1580,6 @@
       id="ret_road_wardens"
       text="Gardiens de la Route" />
     <string
-      id="ret_road_wardens_caravan_escort_quests"
-      text="Termine 3 quêtes d&apos;escorte de caravane." />
-    <string
       id="ret_road_wardens_clear_hideout"
       text="Nettoie une cachette de bandits." />
     <string
@@ -1591,6 +1588,9 @@
     <string
       id="ret_road_wardens_disabled_message"
       text="Désactivé : troupes spéciales débloquées à partir de la configuration." />
+    <string
+      id="ret_road_wardens_merchant_town_quests"
+      text="Accomplis 3 quêtes pour un marchand de l&apos;une de tes villes." />
     <string
       id="ret_road_wardens_three_caravans"
       text="Possède trois caravanes en même temps." />
