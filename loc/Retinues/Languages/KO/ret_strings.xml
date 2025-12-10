@@ -851,6 +851,12 @@
       id="ret_mcm_option_allowed_tier_difference_hint"
       text="병력과 장비 사이의 허용 최대 등급 차이." />
     <string
+      id="ret_mcm_option_cannot_raise_skill_above_upgrade_level"
+      text="업그레이드 수준 이상으로 기술을 올릴 수 없음" />
+    <string
+      id="ret_mcm_option_cannot_raise_skill_above_upgrade_level_hint"
+      text="병력 기술은 업그레이드 대상의 기술 수준 이상으로 올릴 수 없습니다." />
+    <string
       id="ret_mcm_option_clan_volunteers_in_kingdom_fiefs_proportion"
       text="왕국 영지의 씨족 자원봉사자 비율" />
     <string

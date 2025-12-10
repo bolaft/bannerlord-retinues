@@ -851,6 +851,12 @@
       id="ret_mcm_option_allowed_tier_difference_hint"
       text="兵と装備間の許容ランク差の最大値。" />
     <string
+      id="ret_mcm_option_cannot_raise_skill_above_upgrade_level"
+      text="アップグレードのレベルを超えてスキルを上げることはできません" />
+    <string
+      id="ret_mcm_option_cannot_raise_skill_above_upgrade_level_hint"
+      text="部隊のスキルは、アップグレードターゲットのスキルレベルを超えて上げることはできません。" />
+    <string
       id="ret_mcm_option_clan_volunteers_in_kingdom_fiefs_proportion"
       text="王国の封地における氏族志願者の割合" />
     <string

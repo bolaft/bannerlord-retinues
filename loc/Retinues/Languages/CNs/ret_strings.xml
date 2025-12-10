@@ -851,6 +851,12 @@
       id="ret_mcm_option_allowed_tier_difference_hint"
       text="部队与装备之间允许的最大等级差。" />
     <string
+      id="ret_mcm_option_cannot_raise_skill_above_upgrade_level"
+      text="无法将技能提升到升级等级之上" />
+    <string
+      id="ret_mcm_option_cannot_raise_skill_above_upgrade_level_hint"
+      text="部队技能不能提升到升级目标的技能等级之上。" />
+    <string
       id="ret_mcm_option_clan_volunteers_in_kingdom_fiefs_proportion"
       text="王国封地中的氏族志愿者比例" />
     <string

@@ -851,6 +851,12 @@
       id="ret_mcm_option_allowed_tier_difference_hint"
       text="Maximum allowed difference between troop tier and item tier." />
     <string
+      id="ret_mcm_option_cannot_raise_skill_above_upgrade_level"
+      text="Cannot Raise Skill Above Upgrade&apos;s Level" />
+    <string
+      id="ret_mcm_option_cannot_raise_skill_above_upgrade_level_hint"
+      text="Troop skills cannot be raised above the skill level of an upgrade target." />
+    <string
       id="ret_mcm_option_clan_volunteers_in_kingdom_fiefs_proportion"
       text="Clan Volunteers In Kingdom Fiefs Proportion" />
     <string

@@ -851,6 +851,12 @@
       id="ret_mcm_option_allowed_tier_difference_hint"
       text="Differenza massima di livello consentita tra truppe ed equipaggiamento." />
     <string
+      id="ret_mcm_option_cannot_raise_skill_above_upgrade_level"
+      text="Impossibile aumentare l’abilità oltre il livello dell’aggiornamento" />
+    <string
+      id="ret_mcm_option_cannot_raise_skill_above_upgrade_level_hint"
+      text="Le abilità delle truppe non possono essere aumentate oltre il livello di abilità di un obiettivo di aggiornamento." />
+    <string
       id="ret_mcm_option_clan_volunteers_in_kingdom_fiefs_proportion"
       text="Proporzione di Volontari del Clan nei Feudi del Regno" />
     <string

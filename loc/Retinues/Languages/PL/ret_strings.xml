@@ -851,6 +851,12 @@
       id="ret_mcm_option_allowed_tier_difference_hint"
       text="Maksymalna dozwolona różnica poziomów między jednostkami a ekwipunkiem." />
     <string
+      id="ret_mcm_option_cannot_raise_skill_above_upgrade_level"
+      text="Nie można podnieść umiejętności powyżej poziomu ulepszenia" />
+    <string
+      id="ret_mcm_option_cannot_raise_skill_above_upgrade_level_hint"
+      text="Umiejętności jednostek nie mogą być podnoszone powyżej poziomu umiejętności celu ulepszenia." />
+    <string
       id="ret_mcm_option_clan_volunteers_in_kingdom_fiefs_proportion"
       text="Proporcja Ochotników z Klanu w Lennach Królestwa" />
     <string

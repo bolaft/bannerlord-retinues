@@ -851,6 +851,12 @@
       id="ret_mcm_option_allowed_tier_difference_hint"
       text="部隊與裝備之間允許的最大等級差。" />
     <string
+      id="ret_mcm_option_cannot_raise_skill_above_upgrade_level"
+      text="無法將技能提升到升級等級之上" />
+    <string
+      id="ret_mcm_option_cannot_raise_skill_above_upgrade_level_hint"
+      text="部隊技能不能提升到升級目標的技能等級之上。" />
+    <string
       id="ret_mcm_option_clan_volunteers_in_kingdom_fiefs_proportion"
       text="王國封地中的氏族志願者比例" />
     <string

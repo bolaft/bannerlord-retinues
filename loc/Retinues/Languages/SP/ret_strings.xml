@@ -851,6 +851,12 @@
       id="ret_mcm_option_allowed_tier_difference_hint"
       text="Diferencia máxima de nivel permitida entre tropas y equipo." />
     <string
+      id="ret_mcm_option_cannot_raise_skill_above_upgrade_level"
+      text="No se puede aumentar la habilidad por encima del nivel de mejora" />
+    <string
+      id="ret_mcm_option_cannot_raise_skill_above_upgrade_level_hint"
+      text="Las habilidades de las tropas no se pueden aumentar por encima del nivel de habilidad de un objetivo de mejora." />
+    <string
       id="ret_mcm_option_clan_volunteers_in_kingdom_fiefs_proportion"
       text="Proporción de Voluntarios del Clan en los Feudos del Reino" />
     <string

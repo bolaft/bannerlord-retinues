@@ -851,6 +851,12 @@
       id="ret_mcm_option_allowed_tier_difference_hint"
       text="Diferença máxima de nível permitida entre tropas e equipamentos." />
     <string
+      id="ret_mcm_option_cannot_raise_skill_above_upgrade_level"
+      text="Não é possível aumentar a habilidade acima do nível de aprimoramento" />
+    <string
+      id="ret_mcm_option_cannot_raise_skill_above_upgrade_level_hint"
+      text="As habilidades das tropas não podem ser aumentadas acima do nível de habilidade de um alvo de aprimoramento." />
+    <string
       id="ret_mcm_option_clan_volunteers_in_kingdom_fiefs_proportion"
       text="Proporção de Voluntários do Clã nos Feudos do Reino" />
     <string

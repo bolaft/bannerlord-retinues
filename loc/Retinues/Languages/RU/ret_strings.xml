@@ -851,6 +851,12 @@
       id="ret_mcm_option_allowed_tier_difference_hint"
       text="Максимальная допустимая разница рангов между войсками и снаряжением." />
     <string
+      id="ret_mcm_option_cannot_raise_skill_above_upgrade_level"
+      text="Нельзя повысить навык выше уровня улучшения" />
+    <string
+      id="ret_mcm_option_cannot_raise_skill_above_upgrade_level_hint"
+      text="Навыки войск не могут быть повышены выше уровня навыков цели улучшения." />
+    <string
       id="ret_mcm_option_clan_volunteers_in_kingdom_fiefs_proportion"
       text="Пропорция Добровольцев Клана в Поместьях Королевства" />
     <string

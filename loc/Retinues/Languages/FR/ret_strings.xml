@@ -851,6 +851,12 @@
       id="ret_mcm_option_allowed_tier_difference_hint"
       text="Différence maximale de rang autorisée entre troupes et équipement." />
     <string
+      id="ret_mcm_option_cannot_raise_skill_above_upgrade_level"
+      text="Impossible d’augmenter la compétence au-dessus du niveau de la mise à niveau" />
+    <string
+      id="ret_mcm_option_cannot_raise_skill_above_upgrade_level_hint"
+      text="Les compétences des troupes ne peuvent pas être augmentées au-dessus du niveau de compétence d’une cible de mise à niveau." />
+    <string
       id="ret_mcm_option_clan_volunteers_in_kingdom_fiefs_proportion"
       text="Proportion de Volontaires du Clan dans les Fiefs du Royaume" />
     <string

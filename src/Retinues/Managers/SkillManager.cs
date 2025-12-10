@@ -155,13 +155,16 @@ namespace Retinues.Managers
             if (!HasEnoughXpForNextPoint(troop, skill))
                 return L.T("not_enough_xp", "Not enough XP for next skill point.");
 
-            foreach (var child in troop.UpgradeTargets)
-                if (trueValue >= GetTrueSkillValue(child, skill))
-                    return L.T(
-                            "cannot_exceed_child_skill",
-                            "Cannot exceed skill level of upgrade {CHILD}."
-                        )
-                        .SetTextVariable("CHILD", child.Name);
+            if (Config.CannotRaiseSkillAboveUpgradeLevel)
+            {
+                foreach (var child in troop.UpgradeTargets)
+                    if (trueValue >= GetTrueSkillValue(child, skill))
+                        return L.T(
+                                "cannot_exceed_child_skill",
+                                "Cannot exceed skill level of upgrade {CHILD}."
+                            )
+                            .SetTextVariable("CHILD", child.Name);
+            }
 
             return null;
         }
@@ -189,9 +192,12 @@ namespace Retinues.Managers
             if (trueValue <= troop.Loadout.ComputeSkillRequirement(skill))
                 return L.T("equipment_requirement", "Skill is required for equipped items.");
 
-            if (troop.Parent != null && trueValue <= GetTrueSkillValue(troop.Parent, skill))
-                return L.T("parent_skill", "Cannot go below parent {PARENT}'s skill level.")
-                    .SetTextVariable("PARENT", troop.Parent.Name);
+            if (Config.CannotRaiseSkillAboveUpgradeLevel)
+            {
+                if (troop.Parent != null && trueValue <= GetTrueSkillValue(troop.Parent, skill))
+                    return L.T("parent_skill", "Cannot go below parent {PARENT}'s skill level.")
+                        .SetTextVariable("PARENT", troop.Parent.Name);
+            }
 
             return null;
         }

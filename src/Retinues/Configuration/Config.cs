@@ -892,6 +892,27 @@ namespace Retinues.Configuration
             @default: false
         );
 
+        public static readonly Option<bool> CannotRaiseSkillAboveUpgradeLevel = CreateOption(
+            section: () => L.S("mcm_section_skills", "Skills"),
+            name: () =>
+                L.S(
+                    "mcm_option_cannot_raise_skill_above_upgrade_level",
+                    "Cannot Raise Skill Above Upgrade's Level"
+                ),
+            key: "CannotRaiseSkillAboveUpgradeLevel",
+            hint: () =>
+                L.S(
+                    "mcm_option_cannot_raise_skill_above_upgrade_level_hint",
+                    "Troop skills cannot be raised above the skill level of an upgrade target."
+                ),
+            @default: true,
+            presets: new Dictionary<string, object>
+            {
+                [Presets.Freeform] = false,
+                [Presets.Realistic] = true,
+            }
+        );
+
         // ─────────────────────────────────────────────────────
         // Equipment Unlocks
         // ─────────────────────────────────────────────────────
