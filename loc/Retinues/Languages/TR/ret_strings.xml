@@ -59,9 +59,6 @@
       id="ret_list_header_elite"
       text="Seçkin" />
     <string
-      id="ret_list_header_heroes"
-      text="Kahramanlar" />
-    <string
       id="ret_list_header_militia"
       text="Milis" />
     <string

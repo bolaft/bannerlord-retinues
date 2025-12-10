@@ -59,9 +59,6 @@
       id="ret_list_header_elite"
       text="Élite" />
     <string
-      id="ret_list_header_heroes"
-      text="Héroes" />
-    <string
       id="ret_list_header_militia"
       text="Milicia" />
     <string

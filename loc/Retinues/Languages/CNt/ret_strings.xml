@@ -59,9 +59,6 @@
       id="ret_list_header_elite"
       text="精英" />
     <string
-      id="ret_list_header_heroes"
-      text="英雄" />
-    <string
       id="ret_list_header_militia"
       text="民兵" />
     <string
