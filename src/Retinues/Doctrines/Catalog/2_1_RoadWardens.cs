@@ -5,6 +5,7 @@ using Retinues.Game;
 using Retinues.Game.Events;
 using Retinues.Game.Wrappers;
 using Retinues.Utils;
+using TaleWorlds.CampaignSystem;
 using TaleWorlds.Localization;
 
 namespace Retinues.Doctrines.Catalog
@@ -58,10 +59,13 @@ namespace Retinues.Doctrines.Catalog
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public sealed class RW_CaravanEscortQuests : Feat
+        public sealed class RW_MerchantTownQuests : Feat
         {
             public override TextObject Description =>
-                L.T("road_wardens_caravan_escort_quests", "Complete 3 caravan escort quests.");
+                L.T(
+                    "road_wardens_merchant_town_quests",
+                    "Complete 3 quests for a merchant from one of your towns."
+                );
 
             public override int Target => 3;
 
@@ -70,8 +74,20 @@ namespace Retinues.Doctrines.Catalog
                 if (!quest.IsSuccessful)
                     return;
 
-                if (quest.StringId == "issue_107_quest")
-                    AdvanceProgress(1);
+                var giverWrapper = quest.Giver;
+                var hero = giverWrapper?.Hero;
+                if (hero == null)
+                    return;
+
+                var settlement = hero.CurrentSettlement ?? hero.HomeSettlement;
+                if (settlement == null || !settlement.IsTown)
+                    return;
+                if (settlement.OwnerClan != Clan.PlayerClan)
+                    return;
+                if (!hero.IsMerchant)
+                    return;
+
+                AdvanceProgress(1);
             }
         }
 
