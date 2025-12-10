@@ -44,7 +44,7 @@ namespace Retinues.Model
         /// </summary>
         protected MAttribute<TProp> Attribute<TProp>(
             Expression<Func<TBase, TProp>> expr,
-            bool persistent = false
+            bool persistent = true
         )
         {
             if (expr.Body is not MemberExpression member)
