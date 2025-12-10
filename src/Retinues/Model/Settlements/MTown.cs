@@ -1,3 +1,4 @@
+using Retinues.Model.Characters;
 using Retinues.Model.Parties;
 using TaleWorlds.CampaignSystem.Settlements;
 
@@ -12,8 +13,7 @@ namespace Retinues.Model.Settlements
         //                        Identity                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public string Name => Settlement.Name?.ToString() ?? Settlement.StringId;
-
+        public string Name => Settlement.Name?.ToString();
         public string StringId => Settlement.StringId;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -21,6 +21,12 @@ namespace Retinues.Model.Settlements
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public WSettlement Settlement => WSettlement.Get(Base.Settlement);
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Heroes                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public WHero Governor => WHero.Get(Base.Governor);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Kind / Type                      //

@@ -1,7 +1,8 @@
+using System.Collections.Generic;
+using System.Linq;
 using Retinues.Model.Characters;
 using Retinues.Model.Factions;
 using TaleWorlds.CampaignSystem;
-using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.CampaignSystem.Settlements;
 
 namespace Retinues.Model.Settlements
@@ -12,7 +13,7 @@ namespace Retinues.Model.Settlements
         //                        Identity                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public string Name => Base.Name?.ToString() ?? Base.StringId;
+        public string Name => Base.Name?.ToString();
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Culture                        //
@@ -21,10 +22,17 @@ namespace Retinues.Model.Settlements
         public WCulture Culture => WCulture.Get(Base.Culture);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                          Owner                         //
+        //                          Town                          //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public MTown Town => new(Base.Town);
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Heroes                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public WHero Owner => WHero.Get(Base.Owner);
+        public List<WHero> Notables => [.. Base.Notables.Select(WHero.Get)];
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Factions                        //
@@ -32,7 +40,6 @@ namespace Retinues.Model.Settlements
 
         public WClan Clan => WClan.Get(Base.OwnerClan);
         public WKingdom Kingdom => WKingdom.Get(Base.OwnerClan.Kingdom);
-
         public IBaseFaction Faction
         {
             get
@@ -61,16 +68,7 @@ namespace Retinues.Model.Settlements
         //                       Components                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public Town Town => Base.Town;
         public Village Village => Base.Village;
         public Hideout Hideout => Base.Hideout;
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Garrison                        //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        public MobileParty GarrisonParty => Base.Town?.GarrisonParty;
-
-        public bool HasGarrison => GarrisonParty != null;
     }
 }
