@@ -209,7 +209,7 @@ namespace Retinues.Game.Wrappers
             WFaction secondaryFaction = null;
             float secondaryProportion = 0f;
 
-            if (!Config.DisableKingdomTroops)
+            if (!Config.DisableKingdomTroops && !Config.DisableClanTroops)
             {
                 var clan = Clan;
                 var kingdom = Kingdom;

@@ -36,6 +36,9 @@ namespace Retinues.Troops
             if (faction.IsPlayerKingdom && Config.DisableKingdomTroops)
                 return;
 
+            if (faction.IsPlayerClan && Config.DisableClanTroops)
+                return;
+
             var createdNonRetinue = UpdateFactionTroops(faction);
 
             if (!createdNonRetinue)
@@ -218,6 +221,9 @@ namespace Retinues.Troops
         /// </summary>
         private static bool EnsureSpecialTroops(WFaction faction)
         {
+            if (Config.DisableSpecialTroops)
+                return false;
+
             var culture = faction.Culture;
             bool created = false;
 

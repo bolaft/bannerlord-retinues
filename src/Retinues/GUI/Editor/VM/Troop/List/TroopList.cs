@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
+using Retinues.Configuration;
 using Retinues.Game;
+using Retinues.Game.Wrappers;
 using Retinues.Utils;
 using TaleWorlds.Library;
 
@@ -48,7 +50,14 @@ namespace Retinues.GUI.Editor.VM.Troop.List
             foreach (var r in MercenaryTroops)
                 r.RowTroop.IsMercenary = true;
 
-            if (EliteTroops.Count == 0 && !ClanScreen.IsStudioMode)
+            bool regularDisabledInConfig =
+                State.Faction is WFaction faction
+                && (
+                    (faction.IsPlayerClan && Config.DisableClanTroops)
+                    || (faction.IsPlayerKingdom && Config.DisableKingdomTroops)
+                );
+
+            if (EliteTroops.Count == 0 && !ClanScreen.IsStudioMode && !regularDisabledInConfig)
                 EliteTroops.Add(
                     new TroopRowVM(
                         null,
@@ -59,7 +68,7 @@ namespace Retinues.GUI.Editor.VM.Troop.List
                     )
                 ); // placeholder
 
-            if (BasicTroops.Count == 0 && !ClanScreen.IsStudioMode)
+            if (BasicTroops.Count == 0 && !ClanScreen.IsStudioMode && !regularDisabledInConfig)
                 BasicTroops.Add(
                     new TroopRowVM(
                         null,
@@ -70,7 +79,11 @@ namespace Retinues.GUI.Editor.VM.Troop.List
                     )
                 ); // placeholder
 
-            if (MilitiaTroops.Count == 0 && !ClanScreen.IsStudioMode)
+            if (
+                MilitiaTroops.Count == 0
+                && !ClanScreen.IsStudioMode
+                && !Config.DisableSpecialTroops
+            )
                 MilitiaTroops.Add(
                     new TroopRowVM(
                         null,
@@ -81,7 +94,11 @@ namespace Retinues.GUI.Editor.VM.Troop.List
                     )
                 ); // placeholder
 
-            if (CaravanTroops.Count == 0 && !ClanScreen.IsStudioMode)
+            if (
+                CaravanTroops.Count == 0
+                && !ClanScreen.IsStudioMode
+                && !Config.DisableSpecialTroops
+            )
                 CaravanTroops.Add(
                     new TroopRowVM(
                         null,
@@ -92,7 +109,11 @@ namespace Retinues.GUI.Editor.VM.Troop.List
                     )
                 ); // placeholder
 
-            if (VillagerTroops.Count == 0 && !ClanScreen.IsStudioMode)
+            if (
+                VillagerTroops.Count == 0
+                && !ClanScreen.IsStudioMode
+                && !Config.DisableSpecialTroops
+            )
                 VillagerTroops.Add(
                     new TroopRowVM(
                         null,
