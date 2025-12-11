@@ -6,6 +6,7 @@ using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.Localization;
+using TaleWorlds.ObjectSystem;
 #if BL13
 using TaleWorlds.Core.ImageIdentifiers;
 using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
@@ -15,8 +16,6 @@ namespace Retinues.Model.Characters
 {
     public class WCharacter(CharacterObject @base) : WBase<WCharacter, CharacterObject>(@base)
     {
-        public const string CustomTroopPrefix = "retinues_custom_";
-
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Main Properties                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -43,6 +42,55 @@ namespace Retinues.Model.Characters
         {
             get => NameAttribute.Get().ToString();
             set => NameAttribute.Set(new TextObject(value));
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Stubs                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public const string CustomTroopPrefix = "retinues_custom_";
+
+        /// <summary>
+        /// Whether this WCharacter is currently allocated as an active stub for custom troop creation.
+        /// </summary>
+        public bool IsActiveStub
+        {
+            get => IsActiveStubAttribute.Get();
+            set => IsActiveStubAttribute.Set(value);
+        }
+
+        bool _isActiveStub = false; // Default to inactive.
+
+        MAttribute<bool> _isActiveStubAttribute;
+        MAttribute<bool> IsActiveStubAttribute =>
+            _isActiveStubAttribute ??= new MAttribute<bool>(
+                baseInstance: Base,
+                getter: _ => _isActiveStub,
+                setter: (_, value) => _isActiveStub = value,
+                targetName: "is_active_stub"
+            );
+
+        /// <summary>
+        /// Allocates a free stub WCharacter for new custom troop creation.
+        /// </summary>
+        public static WCharacter GetFreeStub()
+        {
+            foreach (var wc in All)
+            {
+                if (!wc.IsCustom)
+                    continue;
+
+                if (wc.IsActiveStub)
+                    continue;
+
+                // Mark as active.
+                wc.IsActiveStub = true;
+
+                // Found a free stub.
+                return wc;
+            }
+
+            return null; // No free stubs.
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

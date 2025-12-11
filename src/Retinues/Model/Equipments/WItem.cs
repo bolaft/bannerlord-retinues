@@ -44,7 +44,7 @@ namespace Retinues.Model.Equipments
                 setter: (_, value) => _stock = value,
                 targetName: "stock"
             );
-        
+
         /// <summary>
         /// Increases the stock by the given amount.
         /// </summary>
@@ -92,10 +92,7 @@ namespace Retinues.Model.Equipments
             if (IsUnlocked)
                 return true;
 
-            UnlockProgress = System.Math.Min(
-                UnlockProgress + amount,
-                UnlockThreshold
-            );
+            UnlockProgress = System.Math.Min(UnlockProgress + amount, UnlockThreshold);
 
             return IsUnlocked;
         }

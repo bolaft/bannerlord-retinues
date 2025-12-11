@@ -90,12 +90,12 @@ namespace Retinues.Model.Equipments
                     baseInstance: Base,
                     getter: _ => GetEquipmentCodes(),
                     setter: (_, value) => SetEquipmentCodes(value),
-                    targetName: "ret_equipment_codes",
+                    targetName: "equipment_codes",
                     persistent: true
                 );
 
                 // Keep it in the attribute map like the others.
-                _attributes["ret_equipment_codes"] = _equipmentCodesAttribute;
+                _attributes["equipment_codes"] = _equipmentCodesAttribute;
 
                 return _equipmentCodesAttribute;
             }
