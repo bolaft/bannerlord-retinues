@@ -9,6 +9,26 @@ namespace Retinues.Configuration
     public static class Settings
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                     User Interface                     //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public static readonly Section UserInterface = CreateSection(
+            name: L.F("mcm_section_user_interface", "User Interface")
+        );
+
+        /* ━━━━━━━━ Options ━━━━━━━ */
+
+        public static readonly Option<bool> EditorHotkey = CreateOption(
+            section: UserInterface,
+            name: L.F("mcm_option_editor_hotkey", "Editor Hotkey"),
+            hint: L.F(
+                "mcm_option_editor_hotkey_hint",
+                "Enables the Shift + R hotkey to open the editor."
+            ),
+            @default: true
+        );
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Debug                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 

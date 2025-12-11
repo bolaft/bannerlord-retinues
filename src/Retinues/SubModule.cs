@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Retinues.Behaviors;
 using Retinues.Configuration;
+using Retinues.Engine;
 using Retinues.Module;
 using Retinues.Module.Compatibility;
 using Retinues.Module.Dependencies;
@@ -115,6 +116,9 @@ namespace Retinues
         protected override void OnApplicationTick(float dt)
         {
             base.OnApplicationTick(dt);
+
+            // Check for hotkeys.
+            Hotkeys.Check();
         }
     }
 }
