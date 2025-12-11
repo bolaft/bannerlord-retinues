@@ -133,6 +133,7 @@ namespace Retinues.Model.Characters
         }
 
         int _skillPoints;
+
         MAttribute<int> _skillPointsAttribute;
         MAttribute<int> SkillPointsAttribute =>
             _skillPointsAttribute ??= new MAttribute<int>(

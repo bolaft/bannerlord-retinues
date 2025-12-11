@@ -35,36 +35,70 @@ namespace Retinues.Model.Equipments
         }
 
         int _stock;
+
         MAttribute<int> _stockAttribute;
         MAttribute<int> StockAttribute =>
             _stockAttribute ??= new MAttribute<int>(
-                baseInstance: Base, // per item StringId
-                getter: _ => _stock, // local wrapper field
-                setter: (_, value) => _stock = value, // local wrapper field
-                targetName: "stock", // stable key
-                persistent: true
+                baseInstance: Base,
+                getter: _ => _stock,
+                setter: (_, value) => _stock = value,
+                targetName: "stock"
             );
+        
+        /// <summary>
+        /// Increases the stock by the given amount.
+        /// </summary>
+        public void IncreaseStock(int amount = 1) => Stock += amount;
+
+        /// <summary>
+        /// Decreases the stock by the given amount.
+        /// </summary>
+        public void DecreaseStock(int amount = 1) => Stock = System.Math.Max(Stock - amount, 0);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Unlock                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public bool Unlocked
+        /// <summary>
+        /// The unlock progress required to unlock this item.
+        /// </summary>
+        const int UnlockThreshold = 100;
+
+        public bool IsUnlocked => UnlockProgress >= UnlockThreshold;
+
+        public int UnlockProgress
         {
-            get => UnlockedAttribute.Get();
-            set => UnlockedAttribute.Set(value);
+            get => UnlockProgressAttribute.Get();
+            set => UnlockProgressAttribute.Set(value);
         }
 
-        bool _unlocked;
-        MAttribute<bool> _unlockedAttribute;
-        MAttribute<bool> UnlockedAttribute =>
-            _unlockedAttribute ??= new MAttribute<bool>(
+        int _unlockProgress;
+
+        MAttribute<int> _unlockProgressAttribute;
+        MAttribute<int> UnlockProgressAttribute =>
+            _unlockProgressAttribute ??= new MAttribute<int>(
                 baseInstance: Base,
-                getter: _ => _unlocked,
-                setter: (_, value) => _unlocked = value,
-                targetName: "unlocked",
-                persistent: true
+                getter: _ => _unlockProgress,
+                setter: (_, value) => _unlockProgress = value,
+                targetName: "unlock_progress"
             );
+
+        /// <summary>
+        /// Increases the unlock progress by the given amount,
+        /// capping it at the unlock threshold.
+        /// </summary>
+        public bool IncreaseUnlockProgress(int amount)
+        {
+            if (IsUnlocked)
+                return true;
+
+            UnlockProgress = System.Math.Min(
+                UnlockProgress + amount,
+                UnlockThreshold
+            );
+
+            return IsUnlocked;
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Flags                         //
