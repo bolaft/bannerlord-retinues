@@ -80,6 +80,24 @@
       id="ret_list_header_villagers"
       text="村民" />
     <string
+      id="ret_mcm_option_debug_mode"
+      text="调试模式" />
+    <string
+      id="ret_mcm_option_debug_mode_hint"
+      text="启用调试日志记录和其他检查。" />
+    <string
+      id="ret_mcm_option_editor_hotkey"
+      text="编辑器热键" />
+    <string
+      id="ret_mcm_option_editor_hotkey_hint"
+      text="启用 Shift + R 热键以打开编辑器。" />
+    <string
+      id="ret_mcm_section_debug"
+      text="调试" />
+    <string
+      id="ret_mcm_section_user_interface"
+      text="用户界面" />
+    <string
       id="ret_name_header_text"
       text="名称" />
     <string

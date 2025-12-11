@@ -80,6 +80,24 @@
       id="ret_list_header_villagers"
       text="村人" />
     <string
+      id="ret_mcm_option_debug_mode"
+      text="デバッグモード" />
+    <string
+      id="ret_mcm_option_debug_mode_hint"
+      text="デバッグログと追加のチェックを有効にします。" />
+    <string
+      id="ret_mcm_option_editor_hotkey"
+      text="エディターホットキー" />
+    <string
+      id="ret_mcm_option_editor_hotkey_hint"
+      text="Shift + R ホットキーを有効にしてエディターを開きます。" />
+    <string
+      id="ret_mcm_section_debug"
+      text="デバッグ" />
+    <string
+      id="ret_mcm_section_user_interface"
+      text="ユーザーインターフェース" />
+    <string
       id="ret_name_header_text"
       text="名前" />
     <string

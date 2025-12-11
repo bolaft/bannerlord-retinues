@@ -86,10 +86,5 @@ namespace Retinues.Engine
                 Log.Exception(ex, $"SoundHandle.Play failed for event: {EventPath}");
             }
         }
-
-        public override string ToString()
-        {
-            return string.IsNullOrEmpty(EventPath) ? "<empty-sound>" : EventPath;
-        }
     }
 }

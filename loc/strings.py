@@ -30,19 +30,19 @@ LOCS_DIRNAME = "Languages"  # locales live under ./loc/Languages/<LOCALE>/
 
 # Double-quoted: L.S("key", "text")
 RE_DQ = re.compile(
-    r"""L\.(?:S|T)\(\s*"(?P<key>(?:\\.|[^"\\])*)"\s*,\s*"(?P<text>(?:\\.|[^"\\])*)"\s*\)""",
+    r"""L\.(?:S|T|F)\(\s*"(?P<key>(?:\\.|[^"\\])*)"\s*,\s*"(?P<text>(?:\\.|[^"\\])*)"\s*\)""",
     re.DOTALL,
 )
 
 # Single-quoted: L.S('key', 'text')
 RE_SQ = re.compile(
-    r"""L\.(?:S|T)\(\s*'(?P<key>(?:\\.|[^'\\])*)'\s*,\s*'(?P<text>(?:\\.|[^'\\])*)'\s*\)""",
+    r"""L\.(?:S|T|F)\(\s*'(?P<key>(?:\\.|[^'\\])*)'\s*,\s*'(?P<text>(?:\\.|[^'\\])*)'\s*\)""",
     re.DOTALL,
 )
 
 # Verbatim strings: L.S(@"key", @"text")
 RE_VB = re.compile(
-    r"""L\.(?:S|T)\(\s*@\"(?P<key>(?:\"\"|[^"])*)\"\s*,\s*@\"(?P<text>(?:\"\"|[^"])*)\"\s*\)""",
+    r"""L\.(?:S|T|F)\(\s*@\"(?P<key>(?:\"\"|[^"])*)\"\s*,\s*@\"(?P<text>(?:\"\"|[^"])*)\"\s*\)""",
     re.DOTALL,
 )
 
@@ -195,8 +195,37 @@ def ensure_json_contains_all_keys(
             if lc not in entry:
                 entry[lc] = None
 
-    # Return stable order by id
-    return [by_id[k] for k in sorted(by_id.keys(), key=str.lower)]
+    # Rebuild each dict so that the key order is stable and places "FR" right after "EN".
+    # We preserve the order of locale_codes for the remaining locale keys.
+    result = []
+    for k in sorted(by_id.keys(), key=str.lower):
+        entry = by_id[k]
+        ordered = {"id": entry.get("id"), "EN": entry.get("EN")}
+
+        # Insert FR immediately after EN (may be None)
+        if "FR" in entry:
+            ordered["FR"] = entry.get("FR")
+        else:
+            # Ensure FR exists even if not in locale_codes
+            ordered["FR"] = None
+
+        # Add the rest of locales in the provided locale_codes order, skipping EN and FR
+        for lc in locale_codes:
+            if lc == "EN" or lc == "FR":
+                continue
+            ordered[lc] = entry.get(lc)
+
+        # Append any other keys that may exist in the original entry but are not in locale_codes
+        for extra_key in entry.keys():
+            if extra_key in ("id", "EN", "FR"):
+                continue
+            if extra_key in locale_codes:
+                continue
+            ordered[extra_key] = entry.get(extra_key)
+
+        result.append(ordered)
+
+    return result
 
 
 def write_json(json_path: Path, json_list: list[dict]):
