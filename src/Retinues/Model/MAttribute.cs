@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.InputSystem;
 using TaleWorlds.Localization;
 using TaleWorlds.ObjectSystem;
 using TaleWorlds.SaveSystem;
@@ -498,8 +499,39 @@ namespace Retinues.Model
             // 1) Collect current values into _data.
             CollectAll();
 
+            void LogIfDirty(string key, object value)
+            {
+                if (dataStore.IsSaving)
+                    if (_data.Dirty == null || !_data.Dirty.ContainsKey(key))
+                        return;
+                Log.Debug($" - {key}: {value}");
+            }
+
             // 2) Let TW save/load _data.
             dataStore.SyncData("ret_model_attributes", ref _data);
+
+            if (dataStore.IsSaving)
+                Log.Debug("MAttributePersistence: Saving attributes:");
+            else
+                Log.Debug("MAttributePersistence: Loaded attributes:");
+
+            foreach (var attr in _data.Bools)
+                LogIfDirty(attr.Key, attr.Value);
+
+            foreach (var attr in _data.Ints)
+                LogIfDirty(attr.Key, attr.Value);
+
+            foreach (var attr in _data.Floats)
+                LogIfDirty(attr.Key, attr.Value);
+
+            foreach (var attr in _data.Strings)
+                LogIfDirty(attr.Key, attr.Value);
+
+            foreach (var attr in _data.MbObjectIds)
+                LogIfDirty(attr.Key, attr.Value);
+
+            foreach (var attr in _data.DictStringInt)
+                LogIfDirty(attr.Key, $"[...{attr.Value.Count} items...]");
 
             // 3) Push loaded values back into any registered attributes.
             ApplyAll();

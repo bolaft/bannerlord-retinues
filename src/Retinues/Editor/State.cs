@@ -61,8 +61,6 @@ namespace Retinues.Editor
                 if (value == null)
                     return;
 
-                Log.Info($"Setting state faction to: {(value != null ? value.Name : "null")}");
-
                 // Set the faction.
                 _faction = value;
 
@@ -92,8 +90,6 @@ namespace Retinues.Editor
 
                 if (value == null)
                     return;
-
-                Log.Info($"Setting state character to: {(value != null ? value.Name : "null")}");
 
                 // Set the character.
                 _character = value;

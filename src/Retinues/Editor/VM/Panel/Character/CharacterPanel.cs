@@ -51,7 +51,7 @@ namespace Retinues.Editor.VM.Panel.Character
 
         [EventListener(UIEvent.Troop, UIEvent.Name)]
         [DataSourceProperty]
-        public string Name => State.Character.Name;
+        public string NameText => State.Character.Name;
 
         /// <summary>
         /// Prompt to rename the selected character.
@@ -106,6 +106,7 @@ namespace Retinues.Editor.VM.Panel.Character
             {
                 var imageIdentifier = culture.ImageIdentifier;
                 var name = culture.Name;
+
                 if (imageIdentifier == null || name == null)
                     continue; // Probably unusable modded culture, skip.
 
