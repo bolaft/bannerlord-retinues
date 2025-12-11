@@ -118,7 +118,7 @@ namespace Retinues
             base.OnApplicationTick(dt);
 
             // Check for hotkeys.
-            Hotkeys.Check();
+            Inputs.HotkeyCheck();
         }
     }
 }

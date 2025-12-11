@@ -128,6 +128,15 @@
       id="ret_retinues_version_update_text_no_current"
       text="La versione del mod Retinues in questo file di salvataggio è stata aggiornata a una versione più recente ({CURRENT_VERSION}). I tuoi dati di salvataggio sono stati automaticamente migrati.{newline}{newline}Come precauzione di sicurezza, verifica che tutto sia a posto prima di sovrascrivere il tuo salvataggio.{newline}{newline}Se per qualche motivo desideri tornare alla versione precedente, scarica la versione che stavi usando in precedenza da Nexus Mods." />
     <string
+      id="ret_skill_decrease_mined_reason"
+      text="Impossibile diminuire l&apos;abilità al di sotto di 0." />
+    <string
+      id="ret_skill_increase_maxed_reason"
+      text="L&apos;abilità è già al livello massimo." />
+    <string
+      id="ret_skills_header_text"
+      text="Abilità" />
+    <string
       id="ret_sort_by_name"
       text="Nome" />
     <string

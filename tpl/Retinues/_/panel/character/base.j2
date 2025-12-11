@@ -1,7 +1,8 @@
 <Widget
     DataSource="{CharacterPanel}"
     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-    HorizontalAlignment="Center" VerticalAlignment="Top">
+    HorizontalAlignment="Center" VerticalAlignment="Top"
+    MarginRight="200">
     <Children>
         <ListPanel
             WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
@@ -14,6 +15,9 @@
 
                 {# Culture Section #}
                 {% include "_/panel/character/culture.j2" %}
+
+                {# Skills Section #}
+                {% include "_/panel/character/skills.j2" %}
             </Children>
         </ListPanel>
 

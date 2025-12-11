@@ -76,7 +76,7 @@ namespace Retinues.Editor.VM.List
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        IsVisible                       //
+        //                       Visibility                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private bool _isVisible = true;
@@ -126,7 +126,11 @@ namespace Retinues.Editor.VM.List
         {
             // For Troop events in Local scope, only the selected row
             // should respond; others skip their listeners entirely.
-            if (e == UIEvent.Troop && EventManager.CurrentScope == EventScope.Local && !IsSelected)
+            if (
+                e == UIEvent.Character
+                && EventManager.CurrentScope == EventScope.Local
+                && !IsSelected
+            )
             {
                 return;
             }

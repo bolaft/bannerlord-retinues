@@ -1,12 +1,115 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using Retinues.Module;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
+using TaleWorlds.ObjectSystem;
 
 namespace Retinues.Model.Characters
 {
     public partial class WCharacter : WBase<WCharacter, CharacterObject>
     {
+        /// <summary>
+        /// Skill IDs for combat skills.
+        /// </summary>
+        private static readonly HashSet<string> CombatSkillIds =
+        [
+            "OneHanded",
+            "TwoHanded",
+            "Polearm",
+            "Bow",
+            "Crossbow",
+            "Throwing",
+            "Riding",
+            "Athletics",
+        ];
+
+        /// <summary>
+        /// Skill IDs for non-combat "hero" skills.
+        /// </summary>
+        public static readonly HashSet<string> HeroSkillIds =
+        [
+            "Crafting",
+            "Tactics",
+            "Scouting",
+            "Roguery",
+            "Charm",
+            "Leadership",
+            "Trade",
+            "Steward",
+            "Medicine",
+            "Engineering",
+        ];
+
+        /// <summary>
+        /// Skill IDs added by the Naval DLC.
+        /// </summary>
+        public static readonly HashSet<string> NavalDLCSkillIds =
+        [
+            "Mariner",
+            "Boatswain",
+            "Shipmaster",
+        ];
+
+        /// <summary>
+        /// All known skill IDs, including combat, hero, and naval DLC skills.
+        /// </summary>
+        private static readonly HashSet<string> AllSkillIds =
+        [
+            .. CombatSkillIds,
+            .. HeroSkillIds,
+            .. NavalDLCSkillIds,
+        ];
+
+        /// <summary>
+        /// List of modded skills not part of the base game.
+        /// </summary>
+        private static List<SkillObject> _moddedSkills;
+        public static List<SkillObject> ModdedSkills =>
+            _moddedSkills ??= [
+                .. MBObjectManager
+                    .Instance.GetObjectTypeList<SkillObject>()
+                    .Where(s => !AllSkillIds.Contains(s.StringId)),
+            ];
+
+        /// <summary>
+        /// Gets the list of skills applicable to the given character.
+        /// </summary>
+        public static List<SkillObject> GetSkillList(
+            WCharacter character,
+            bool includeExtras = false
+        )
+        {
+            var skills = new List<SkillObject>();
+
+            // Always include combat skills.
+            skills.AddRange(CombatSkillIds.Select(IdToSkill).Where(s => s != null));
+
+            // Modded skills, if any, are extras.
+            if (includeExtras)
+                skills.AddRange(ModdedSkills.Where(s => s != null));
+
+            if (character.IsHero)
+            {
+                // Include hero skills.
+                skills.AddRange(HeroSkillIds.Select(IdToSkill).Where(s => s != null));
+
+                // Include naval DLC skills if the DLC is loaded, as extras.
+                if (includeExtras && Mods.NavalDLC.IsLoaded)
+                    skills.AddRange(NavalDLCSkillIds.Select(IdToSkill).Where(s => s != null));
+            }
+
+            return skills;
+        }
+
+        /// <summary>
+        /// Converts a skill ID to a SkillObject.
+        /// </summary>
+        private static SkillObject IdToSkill(string skillId) =>
+            MBObjectManager.Instance.GetObject<SkillObject>(skillId);
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Skill Points                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -39,7 +142,7 @@ namespace Retinues.Model.Characters
         {
             get
             {
-                _skills ??= new CharacterSkills(Base);
+                _skills ??= new CharacterSkills(this);
                 return _skills;
             }
         }
@@ -49,44 +152,15 @@ namespace Retinues.Model.Characters
         [SafeClass]
         public class CharacterSkills
         {
-            readonly CharacterObject _co;
-
-            /* ━━━━━━━━━ List ━━━━━━━━━ */
-
-            // Known skills in a fixed order (for UI etc.).
-            private static readonly SkillObject[] KnownSkills =
-            [
-                // Combat skills
-                DefaultSkills.Athletics,
-                DefaultSkills.Riding,
-                DefaultSkills.OneHanded,
-                DefaultSkills.TwoHanded,
-                DefaultSkills.Polearm,
-                DefaultSkills.Bow,
-                DefaultSkills.Crossbow,
-                DefaultSkills.Throwing,
-                // Hero skills
-                DefaultSkills.Crafting,
-                DefaultSkills.Scouting,
-                DefaultSkills.Tactics,
-                DefaultSkills.Roguery,
-                DefaultSkills.Charm,
-                DefaultSkills.Leadership,
-                DefaultSkills.Trade,
-                DefaultSkills.Steward,
-                DefaultSkills.Medicine,
-                DefaultSkills.Engineering,
-            ];
-
-            public IReadOnlyList<SkillObject> All => KnownSkills;
+            readonly WCharacter _wc;
 
             /* ━━━━━━ Constructor ━━━━━ */
 
-            public CharacterSkills(CharacterObject co)
+            public CharacterSkills(WCharacter wc)
             {
-                _co = co;
+                _wc = wc;
 
-                foreach (var skill in KnownSkills)
+                foreach (var skill in GetSkillList(_wc))
                 {
                     if (skill == null)
                         continue;
@@ -97,12 +171,13 @@ namespace Retinues.Model.Characters
 
             /* ━━━━━━ Attributes ━━━━━━ */
 
-            private readonly Dictionary<SkillObject, MAttribute<int>> _attributes = [];
+            private readonly Dictionary<SkillObject, MAttribute<int>> _attributes =
+                new Dictionary<SkillObject, MAttribute<int>>();
 
             private MAttribute<int> MakeSkillAttribute(SkillObject skill) =>
                 new(
-                    baseInstance: _co, // anchor persistence on the CharacterObject
-                    getter: _ => _co.GetSkillValue(skill),
+                    baseInstance: _wc.Base, // anchor persistence on the CharacterObject
+                    getter: _ => _wc.Base.GetSkillValue(skill),
                     setter: (_, value) => SetSkill(skill, value),
                     targetName: $"skill_{skill.StringId}", // stable per-skill key
                     persistent: true
@@ -111,7 +186,7 @@ namespace Retinues.Model.Characters
             private void SetSkill(SkillObject skill, int value)
             {
                 var skills = Reflection.GetFieldValue<MBCharacterSkills>(
-                    _co,
+                    _wc.Base,
                     "DefaultCharacterSkills"
                 );
                 ((PropertyOwner<SkillObject>)(object)skills.Skills).SetPropertyValue(skill, value);
@@ -128,7 +203,7 @@ namespace Retinues.Model.Characters
                     return attribute.Get();
 
                 // Fallback for unexpected/mod-added skills
-                return _co.GetSkillValue(skill);
+                return _wc.Base.GetSkillValue(skill);
             }
 
             public void Set(SkillObject skill, int value)
@@ -142,11 +217,20 @@ namespace Retinues.Model.Characters
                 }
                 else
                 {
-                    // Lazily support skills not in KnownSkills (e.g. modded ones)
+                    // Lazily support skills not in known lists (e.g. modded ones)
                     attribute = MakeSkillAttribute(skill);
                     _attributes[skill] = attribute;
                     attribute.Set(value);
                 }
+            }
+
+            public void Modify(SkillObject skill, int amount)
+            {
+                if (skill == null)
+                    return;
+
+                var current = Get(skill);
+                Set(skill, current + amount);
             }
         }
     }

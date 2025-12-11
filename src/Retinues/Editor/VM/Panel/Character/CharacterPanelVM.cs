@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using System.Linq;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Editor.Controllers;
 using Retinues.Engine;
+using Retinues.Model.Characters;
 using Retinues.Model.Factions;
 using Retinues.Utilities;
 using TaleWorlds.Core;
@@ -12,35 +14,42 @@ namespace Retinues.Editor.VM.Panel.Character
     /// <summary>
     /// Character details panel.
     /// </summary>
-    public class CharacterPanel : BaseVM
+    public partial class CharacterPanelVM : BaseVM
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        IsVisible                       //
+        //                       Constructor                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private bool _isVisible;
-
-        [DataSourceProperty]
-        public bool IsVisible
+        public CharacterPanelVM()
         {
-            get => _isVisible;
-            set
-            {
-                if (value == _isVisible)
-                {
-                    return;
-                }
+            SkillsRow1 = [];
+            SkillsRow2 = [];
 
-                _isVisible = value;
-                OnPropertyChanged(nameof(IsVisible));
+            var skills = WCharacter.GetSkillList(State.Character);
+
+            foreach (var skill in skills.Take(4))
+            {
+                var skillVM = new CharacterSkillVM(skill);
+                SkillsRow1.Add(skillVM);
             }
+
+            foreach (var skill in skills.Skip(4).Take(4))
+            {
+                var skillVM = new CharacterSkillVM(skill);
+                SkillsRow2.Add(skillVM);
+            }
+
+            OnPropertyChanged(nameof(SkillsRow1));
+            OnPropertyChanged(nameof(SkillsRow2));
         }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Visibility                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [EventListener(UIEvent.Mode)]
-        private void ToggleVisibility()
-        {
-            IsVisible = EditorVM.Mode == EditorMode.Character;
-        }
+        [DataSourceProperty]
+        public bool IsVisible => EditorVM.Mode == EditorMode.Character;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Name                           //
@@ -49,7 +58,7 @@ namespace Retinues.Editor.VM.Panel.Character
         [DataSourceProperty]
         public string NameHeaderText => L.S("name_header_text", "Name");
 
-        [EventListener(UIEvent.Troop, UIEvent.Name)]
+        [EventListener(UIEvent.Character, UIEvent.Name)]
         [DataSourceProperty]
         public string NameText => State.Character.Name;
 
@@ -78,7 +87,7 @@ namespace Retinues.Editor.VM.Panel.Character
         [DataSourceProperty]
         public string CultureHeaderText => L.S("culture_header_text", "Culture");
 
-        [EventListener(UIEvent.Troop, UIEvent.Culture)]
+        [EventListener(UIEvent.Character, UIEvent.Culture)]
         [DataSourceProperty]
         public string CultureText
         {
@@ -135,5 +144,18 @@ namespace Retinues.Editor.VM.Panel.Character
                     CharacterController.ChangeCulture(element?.Identifier as WCulture)
             );
         }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Skills                          //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [DataSourceProperty]
+        public string SkillsHeaderText => L.S("skills_header_text", "Skills");
+
+        [DataSourceProperty]
+        public MBBindingList<CharacterSkillVM> SkillsRow1 { get; set; }
+
+        [DataSourceProperty]
+        public MBBindingList<CharacterSkillVM> SkillsRow2 { get; set; }
     }
 }

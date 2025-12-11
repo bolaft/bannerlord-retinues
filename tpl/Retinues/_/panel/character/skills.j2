@@ -1,0 +1,155 @@
+{% macro chevron(command, brush, enabled, hint) %}
+
+<Widget
+    HorizontalAlignment="Center" VerticalAlignment="Center"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren">
+    <Children>
+
+        <HintWidget
+            DataSource="{{ hint }}"
+            Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
+
+        <ButtonWidget
+            IsVisible="{{ enabled }}"
+            IsEnabled="true"
+            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+            HorizontalAlignment="Center" VerticalAlignment="Center"
+            SuggestedWidth="20" SuggestedHeight="20"
+            Brush="Popup.Button.Text"
+            Command.Click="{{ command }}" UpdateChildrenStates="true" DoNotPassEventsToChildren="true">
+            <Children>
+                <BrushWidget WidthSizePolicy="Fixed"
+                    HeightSizePolicy="Fixed"
+                    SuggestedWidth="20" SuggestedHeight="20"
+                    Brush="{{ brush }}"/>
+            </Children>
+        </ButtonWidget>
+
+        <ButtonWidget
+            IsHidden="{{ enabled }}"
+            IsEnabled="false"
+            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+            HorizontalAlignment="Center" VerticalAlignment="Center"
+            SuggestedWidth="20" SuggestedHeight="20"
+            Brush="Popup.Button.Text"
+            Command.Click="{{ command }}"
+            UpdateChildrenStates="true" DoNotPassEventsToChildren="true">
+            <Children>
+                <BrushWidget
+                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                    SuggestedWidth="20" SuggestedHeight="20"
+                    Brush="{{ brush }}"/>
+            </Children>
+        </ButtonWidget>
+    </Children>
+</Widget>
+
+{%- endmacro %}
+
+{# Skill Macro #}
+{% macro skill() -%}
+
+<Widget
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    HorizontalAlignment="Center">
+    <Children>
+
+        <ListPanel
+            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+            SuggestedWidth="80" SuggestedHeight="110"
+            StackLayout.LayoutMethod="VerticalBottomToTop"
+            HorizontalAlignment="Center"
+            MarginRight="16" MarginLeft="16" MarginBottom="8" MarginTop="4">
+            <Children>
+
+                <!-- Visual Widget -->
+                <SkillIconVisualWidget
+                    SkillId="@Id"
+                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                    SuggestedWidth="80" SuggestedHeight="80"
+                    DoNotPassEventsToChildren="false"
+                    MarginBottom="8">
+                    <Children>
+                        <HintWidget
+                            DataSource="{Hint}"
+                            Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
+                    </Children>
+                </SkillIconVisualWidget>
+
+                <!-- Controls -->
+                <ListPanel
+                    WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren"
+                    StackLayout.LayoutMethod="HorizontalLeftToRight"
+                    HorizontalAlignment="Center"
+                    UpdateChildrenStates="true">
+                    <Children>
+
+                        <!-- Decrement Skill -->
+                        {{ chevron(
+                            command="ExecuteDecrease",
+                            brush="ButtonRightBigArrowBrush1",
+                            enabled="@CanDecrease",
+                            hint="{TooltipDecrease}"
+                        ) }}
+
+                        <!-- Skill Value -->
+                        <TextWidget
+                            IntText="@Value"
+                            Brush="Encyclopedia.Skill.Text"
+                            Brush.FontColor="@ValueColor"
+                            Brush.FontSize="24"
+                            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                            SuggestedWidth="40" SuggestedHeight="24"
+                            HorizontalAlignment="Center" VerticalAlignment="Center" />
+
+                        <!-- Increase Skill -->
+                        {{ chevron(
+                            command="ExecuteIncrease",
+                            brush="ButtonLeftBigArrowBrush1",
+                            enabled="@CanIncrease",
+                            hint="{TooltipIncrease}"
+                        ) }}
+
+                    </Children>
+                </ListPanel>
+            </Children>
+        </ListPanel>
+    </Children>
+</Widget>
+
+{%- endmacro %}
+
+{% from "_/panel/character/base.macros.j2" import field_header %}
+
+<!-- Skills Header -->
+{{ field_header("@SkillsHeaderText") }}
+
+<!-- Skills Grid -->
+<ListPanel
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    HorizontalAlignment="Center"
+    StackLayout.LayoutMethod="VerticalBottomToTop"
+    UpdateChildrenStates="true">
+    <Children>
+        <ListPanel
+            DataSource="{SkillsRow1}"
+            HorizontalAlignment="Center"
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            StackLayout.LayoutMethod="HorizontalLeftToRight"
+            UpdateChildrenStates="true">
+            <ItemTemplate>
+                {{ skill() }}
+            </ItemTemplate>
+        </ListPanel>
+        <ListPanel
+            DataSource="{SkillsRow2}"
+            HorizontalAlignment="Center"
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            StackLayout.LayoutMethod="HorizontalLeftToRight"
+            UpdateChildrenStates="true">
+            <ItemTemplate>
+                {{ skill() }}
+            </ItemTemplate>
+        </ListPanel>
+    </Children>
+</ListPanel>

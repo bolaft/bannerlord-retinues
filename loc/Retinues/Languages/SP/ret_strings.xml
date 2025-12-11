@@ -128,6 +128,15 @@
       id="ret_retinues_version_update_text_no_current"
       text="La versión del mod Retinues en este archivo de guardado se ha actualizado a una versión más reciente ({CURRENT_VERSION}). Tus datos de guardado se han migrado automáticamente.{newline}{newline}Como medida de precaución, verifica que todo esté en orden antes de sobrescribir tu guardado.{newline}{newline}Si por alguna razón deseas volver a la versión anterior, descarga la versión que estabas usando anteriormente desde Nexus Mods." />
     <string
+      id="ret_skill_decrease_mined_reason"
+      text="No se puede disminuir la habilidad por debajo de 0." />
+    <string
+      id="ret_skill_increase_maxed_reason"
+      text="La habilidad ya está en el nivel máximo." />
+    <string
+      id="ret_skills_header_text"
+      text="Habilidades" />
+    <string
       id="ret_sort_by_name"
       text="Nombre" />
     <string

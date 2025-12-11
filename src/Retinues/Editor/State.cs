@@ -32,7 +32,7 @@ namespace Retinues.Editor
             EventManager.FireBatch(() =>
             {
                 EventManager.Fire(UIEvent.Faction, EventScope.Global);
-                EventManager.Fire(UIEvent.Troop, EventScope.Global);
+                EventManager.Fire(UIEvent.Character, EventScope.Global);
             });
         }
 
@@ -102,7 +102,7 @@ namespace Retinues.Editor
                 _character = value;
 
                 // Notify listeners.
-                EventManager.Fire(UIEvent.Troop, EventScope.Local);
+                EventManager.Fire(UIEvent.Character, EventScope.Local);
             }
         }
     }

@@ -16,10 +16,11 @@ namespace Retinues.Editor
     {
         Mode,
         Faction,
-        Troop,
+        Character,
         Name,
         Culture,
         Appearance,
+        Skill,
     }
 
     public enum EventScope
@@ -88,7 +89,11 @@ namespace Retinues.Editor
         /// </summary>
         private static readonly Dictionary<UIEvent, UIEvent[]> _hierarchy = new()
         {
-            // Culture change implies appearance (since culture drives look).
+            { UIEvent.Faction, new[] { UIEvent.Character } },
+            {
+                UIEvent.Character,
+                new[] { UIEvent.Name, UIEvent.Culture, UIEvent.Appearance, UIEvent.Skill }
+            },
             { UIEvent.Culture, new[] { UIEvent.Appearance } },
         };
 

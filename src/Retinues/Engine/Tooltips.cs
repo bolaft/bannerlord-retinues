@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Retinues.Utilities;
 using TaleWorlds.Core.ViewModelCollection.Information;
+using TaleWorlds.Localization;
 
 namespace Retinues.Engine
 {
@@ -13,6 +14,12 @@ namespace Retinues.Engine
     {
         public Tooltip(string message)
             : this(null, message) { }
+
+        public Tooltip(TextObject message)
+            : this(message?.ToString()) { }
+
+        public Tooltip(TextObject title, TextObject message)
+            : this(title?.ToString(), message?.ToString()) { }
 
         private static List<TooltipProperty> BuildProperties(string title, string message)
         {

@@ -66,9 +66,7 @@ namespace Retinues.Editor.VM.List
         public void Clear()
         {
             foreach (var header in _headers)
-            {
                 header.Rows.Clear();
-            }
 
             _headers.Clear();
             _headerIds.Clear();
@@ -80,9 +78,7 @@ namespace Retinues.Editor.VM.List
         private void Rebuild()
         {
             if (EditorVM.Mode == EditorMode.Character)
-            {
                 Builder.Build(this);
-            }
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -99,9 +95,7 @@ namespace Retinues.Editor.VM.List
             private set
             {
                 if (ReferenceEquals(value, _headers))
-                {
                     return;
-                }
 
                 _headers = value;
                 OnPropertyChanged(nameof(Headers));
@@ -132,9 +126,7 @@ namespace Retinues.Editor.VM.List
             private set
             {
                 if (ReferenceEquals(value, _selectedRow))
-                {
                     return;
-                }
 
                 _selectedRow = value;
                 OnPropertyChanged(nameof(SelectedRow));
@@ -144,16 +136,12 @@ namespace Retinues.Editor.VM.List
         internal void OnRowSelected(ListRowVM row)
         {
             foreach (var header in _headers)
-            {
                 header.ClearSelectionExcept(row);
-            }
 
             SelectedRow = row;
 
             if (row is CharacterListRowVM characterRow)
-            {
                 State.Character = characterRow.Character;
-            }
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -172,9 +160,7 @@ namespace Retinues.Editor.VM.List
             private set
             {
                 if (ReferenceEquals(value, _sortButtons))
-                {
                     return;
-                }
 
                 _sortButtons = value;
                 OnPropertyChanged(nameof(SortButtons));
@@ -186,20 +172,14 @@ namespace Retinues.Editor.VM.List
         internal void OnSortButtonClicked(ListSortButtonVM clicked)
         {
             if (clicked == null)
-            {
                 return;
-            }
 
             foreach (var button in _sortButtons)
             {
                 if (ReferenceEquals(button, clicked))
-                {
                     button.CycleSortState();
-                }
                 else
-                {
                     button.ResetSortState();
-                }
             }
 
             OnSortChanged();
@@ -208,9 +188,7 @@ namespace Retinues.Editor.VM.List
         private void OnSortChanged()
         {
             if (_headers.Count == 0)
-            {
                 return;
-            }
 
             // Find the active sort button (if any).
             var active = _sortButtons.FirstOrDefault(b =>
@@ -230,9 +208,7 @@ namespace Retinues.Editor.VM.List
             foreach (var header in _headers)
             {
                 if (header.Rows.Count <= 1)
-                {
                     continue;
-                }
 
                 // Only Elite / Regular use tree-aware sorting; everything else stays flat.
                 var isTreeHeader =
@@ -240,22 +216,16 @@ namespace Retinues.Editor.VM.List
                     && TreeAwareSortHeaders.Contains(headerId);
 
                 if (isTreeHeader)
-                {
                     SortTreeHeader(header, sortKey, ascending);
-                }
                 else
-                {
                     SortFlatHeader(header, sortKey, ascending);
-                }
             }
         }
 
         private void SortFlatHeader(ListHeaderVM header, ListSortKey sortKey, bool ascending)
         {
             if (header.Rows.Count <= 1)
-            {
                 return;
-            }
 
             var sorted = ascending
                 ? header.Rows.OrderBy(row => row.GetSortValue(sortKey)).ToList()
@@ -263,17 +233,13 @@ namespace Retinues.Editor.VM.List
 
             header.Rows.Clear();
             for (int i = 0; i < sorted.Count; i++)
-            {
                 header.Rows.Add(sorted[i]);
-            }
         }
 
         private void SortTreeHeader(ListHeaderVM header, ListSortKey sortKey, bool ascending)
         {
             if (header.Rows.Count <= 1)
-            {
                 return;
-            }
 
             // We only support tree sorting when all rows are character rows.
             var characterRows = header.Rows.OfType<CharacterListRowVM>().ToList();
@@ -291,18 +257,14 @@ namespace Retinues.Editor.VM.List
                 var row = characterRows[i];
                 var character = row.Character;
                 if (character == null)
-                {
                     continue;
-                }
 
                 // Avoid exceptions on duplicate keys; last wins, order-independent for our use.
                 rowByCharacter[character] = row;
             }
 
             if (rowByCharacter.Count == 0)
-            {
                 return;
-            }
 
             // Roots for this header: characters whose parents (UpgradeSources)
             // are not present in this header.
@@ -327,9 +289,7 @@ namespace Retinues.Editor.VM.List
                 }
 
                 if (!hasParentInHeader)
-                {
                     roots.Add(character);
-                }
             }
 
             if (roots.Count == 0)
@@ -348,9 +308,7 @@ namespace Retinues.Editor.VM.List
             var newOrder = new List<ListRowVM>(header.Rows.Count);
 
             foreach (var root in orderedRoots)
-            {
                 VisitTreeNode(root, sortKey, ascending, rowByCharacter, visited, newOrder);
-            }
 
             // Safety: if something was not reachable from any root (cycles / stray nodes),
             // append it at the end, preserving tree semantics as much as possible.
@@ -374,9 +332,7 @@ namespace Retinues.Editor.VM.List
 
             header.Rows.Clear();
             for (int i = 0; i < newOrder.Count; i++)
-            {
                 header.Rows.Add(newOrder[i]);
-            }
         }
 
         private void VisitTreeNode(
@@ -389,23 +345,17 @@ namespace Retinues.Editor.VM.List
         )
         {
             if (character == null || !rowByCharacter.ContainsKey(character))
-            {
                 return;
-            }
 
             // Prevent infinite loops / duplicates on cycles.
             if (!visited.Add(character))
-            {
                 return;
-            }
 
             output.Add(rowByCharacter[character]);
 
             var childrenRaw = character.UpgradeTargets;
             if (childrenRaw == null || childrenRaw.Count() == 0)
-            {
                 return;
-            }
 
             // Filter children to those present in this header.
             var children = new List<WCharacter>();
@@ -413,24 +363,18 @@ namespace Retinues.Editor.VM.List
             {
                 var child = childrenRaw[i];
                 if (child != null && rowByCharacter.ContainsKey(child))
-                {
                     children.Add(child);
-                }
             }
 
             if (children.Count == 0)
-            {
                 return;
-            }
 
             var orderedChildren = ascending
                 ? children.OrderBy(c => rowByCharacter[c].GetSortValue(sortKey))
                 : children.OrderByDescending(c => rowByCharacter[c].GetSortValue(sortKey));
 
             foreach (var child in orderedChildren)
-            {
                 VisitTreeNode(child, sortKey, ascending, rowByCharacter, visited, output);
-            }
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -449,9 +393,7 @@ namespace Retinues.Editor.VM.List
             set
             {
                 if (string.Equals(value, _filterText, StringComparison.Ordinal))
-                {
                     return;
-                }
 
                 _filterText = value ?? string.Empty;
                 OnPropertyChanged(nameof(FilterText));
@@ -486,9 +428,7 @@ namespace Retinues.Editor.VM.List
         public void ExecuteClearFilter()
         {
             if (string.IsNullOrEmpty(_filterText))
-            {
                 return;
-            }
 
             FilterText = string.Empty;
         }
@@ -498,9 +438,7 @@ namespace Retinues.Editor.VM.List
         private void ApplyFilter()
         {
             if (_headers.Count == 0)
-            {
                 return;
-            }
 
             var filter = _filterText?.Trim() ?? string.Empty;
 
@@ -508,24 +446,16 @@ namespace Retinues.Editor.VM.List
             if (string.IsNullOrWhiteSpace(filter))
             {
                 foreach (var header in _headers)
-                {
-                    foreach (var row in header.Rows)
-                    {
-                        row.IsVisible = true;
-                    }
-                }
+                foreach (var row in header.Rows)
+                    row.IsVisible = true;
 
                 return;
             }
 
             // First pass: each row decides on its own.
             foreach (var header in _headers)
-            {
-                foreach (var row in header.Rows)
-                {
-                    row.IsVisible = row.MatchesFilter(filter);
-                }
-            }
+            foreach (var row in header.Rows)
+                row.IsVisible = row.MatchesFilter(filter);
 
             // Second pass: for tree headers (elite/regular), ensure ancestors
             // of matching nodes are visible as well, so you don't get orphan children.
@@ -535,48 +465,36 @@ namespace Retinues.Editor.VM.List
                     !_headerIds.TryGetValue(header, out var headerId)
                     || !TreeAwareFilterHeaders.Contains(headerId)
                 )
-                {
                     continue;
-                }
 
                 var characterRows = header.Rows.OfType<CharacterListRowVM>().ToList();
 
                 if (characterRows.Count == 0)
-                {
                     continue;
-                }
 
                 var rowByCharacter = new Dictionary<WCharacter, CharacterListRowVM>();
                 foreach (var row in characterRows)
                 {
                     var character = row.Character;
                     if (character == null)
-                    {
                         continue;
-                    }
 
                     rowByCharacter[character] = row;
                 }
 
                 if (rowByCharacter.Count == 0)
-                {
                     continue;
-                }
 
                 var visited = new HashSet<WCharacter>();
 
                 foreach (var row in characterRows)
                 {
                     if (!row.IsVisible)
-                    {
                         continue;
-                    }
 
                     var character = row.Character;
                     if (character == null)
-                    {
                         continue;
-                    }
 
                     // Walk up all parents, making them visible too.
                     var queue = new Queue<WCharacter>();
@@ -588,9 +506,7 @@ namespace Retinues.Editor.VM.List
                         {
                             var parent = sources[i];
                             if (parent != null)
-                            {
                                 queue.Enqueue(parent);
-                            }
                         }
                     }
 
@@ -598,28 +514,20 @@ namespace Retinues.Editor.VM.List
                     {
                         var current = queue.Dequeue();
                         if (current == null || !visited.Add(current))
-                        {
                             continue;
-                        }
 
                         if (rowByCharacter.TryGetValue(current, out var parentRow))
-                        {
                             parentRow.IsVisible = true;
-                        }
 
                         var parentSources = current.UpgradeSources;
                         if (parentSources == null)
-                        {
                             continue;
-                        }
 
                         for (int i = 0; i < parentSources.Count(); i++)
                         {
                             var grandParent = parentSources[i];
                             if (grandParent != null)
-                            {
                                 queue.Enqueue(grandParent);
-                            }
                         }
                     }
                 }

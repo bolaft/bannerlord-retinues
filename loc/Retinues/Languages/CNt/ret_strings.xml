@@ -128,6 +128,15 @@
       id="ret_retinues_version_update_text_no_current"
       text="此保存文件中的 Retinues 模組版本已更新為較新版本 ({CURRENT_VERSION})。您的保存數據已自動遷移。{newline}{newline}作為安全預防措施，在覆蓋保存之前，請檢查一切是否正常。{newline}{newline}如果您出於任何原因希望回到以前的版本，請從 Nexus Mods 下載您之前使用的版本。" />
     <string
+      id="ret_skill_decrease_mined_reason"
+      text="技能不能降低到0以下。" />
+    <string
+      id="ret_skill_increase_maxed_reason"
+      text="技能已達到最高水平。" />
+    <string
+      id="ret_skills_header_text"
+      text="技能" />
+    <string
       id="ret_sort_by_name"
       text="名稱" />
     <string

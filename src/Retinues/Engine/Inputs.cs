@@ -1,3 +1,4 @@
+using System;
 using Retinues.Configuration;
 using Retinues.GUI.ClanScreen;
 using Retinues.Utilities;
@@ -9,12 +10,12 @@ using TaleWorlds.InputSystem;
 namespace Retinues.Engine
 {
     [SafeClass]
-    public static class Hotkeys
+    public static class Inputs
     {
         /// <summary>
         /// Checks for hotkey presses and triggers associated actions.
         /// </summary>
-        public static void Check()
+        public static void HotkeyCheck()
         {
             EditorHotkeyCheck();
         }
@@ -44,6 +45,31 @@ namespace Retinues.Engine
                 Log.Info("Editor launched via hotkey.");
                 ClanScreenMixin.Launch();
             }
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Batch Input                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        const int DefaultBatchSize = 1;
+        const int ShiftBatchSize = 5;
+        const int ControlBatchSize = 1000;
+
+        /// <summary>
+        /// Determine batch input multiplier based on modifier keys.
+        /// </summary>
+        public static int BatchInput(int cap = int.MaxValue)
+        {
+            int batch;
+
+            if (Input.IsKeyDown(InputKey.LeftControl) || Input.IsKeyDown(InputKey.RightControl))
+                batch = ControlBatchSize;
+            else if (Input.IsKeyDown(InputKey.LeftShift) || Input.IsKeyDown(InputKey.RightShift))
+                batch = ShiftBatchSize;
+            else
+                batch = DefaultBatchSize;
+
+            return Math.Min(batch, cap);
         }
     }
 }

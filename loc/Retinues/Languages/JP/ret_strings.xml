@@ -128,6 +128,15 @@
       id="ret_retinues_version_update_text_no_current"
       text="このセーブファイルの Retinues モッドバージョンは、より新しいバージョン ({CURRENT_VERSION}) に更新されました。セーブデータは自動的に移行されました。{newline}{newline}安全対策として、セーブを上書きする前にすべてが正常であることを確認してください。{newline}{newline}何らかの理由で以前のバージョンに戻りたい場合は、Nexus Mods から以前使用していたバージョンをダウンロードしてください。" />
     <string
+      id="ret_skill_decrease_mined_reason"
+      text="スキルを0未満に下げることはできません。" />
+    <string
+      id="ret_skill_increase_maxed_reason"
+      text="スキルはすでに最大レベルです。" />
+    <string
+      id="ret_skills_header_text"
+      text="スキル" />
+    <string
       id="ret_sort_by_name"
       text="名前" />
     <string

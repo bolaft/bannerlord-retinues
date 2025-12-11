@@ -6,6 +6,9 @@ namespace Retinues.Editor.Controllers
 {
     public class CharacterController : BaseController
     {
+        /// <summary>
+        /// Change the name of the selected character.
+        /// </summary>
         public static void ChangeName(string newName)
         {
             if (string.IsNullOrWhiteSpace(newName))
@@ -29,6 +32,9 @@ namespace Retinues.Editor.Controllers
             EventManager.Fire(UIEvent.Name, EventScope.Local);
         }
 
+        /// <summary>
+        /// Change the culture of the selected character.
+        /// </summary>
         public static void ChangeCulture(WCulture newCulture)
         {
             var character = State.Character;

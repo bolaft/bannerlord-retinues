@@ -23,6 +23,7 @@ namespace Retinues.Module
         {
             public string Id { get; set; }
             public string Name { get; set; }
+            public bool IsLoaded => AppVersion != ApplicationVersion.Empty;
 
             /// <summary>
             /// Raw ApplicationVersion from TaleWorlds.ModuleManager.ModuleInfo.
@@ -137,14 +138,18 @@ namespace Retinues.Module
         /// </summary>
         public static ModuleInfo GetModule(string id)
         {
-            var modules = GetActiveModules();
-            foreach (var mod in modules)
-            {
+            foreach (var mod in GetActiveModules())
                 if (mod.Id.Equals(id, StringComparison.OrdinalIgnoreCase))
                     return mod;
-            }
 
-            return null;
+            return new ModuleInfo
+            {
+                Id = id,
+                Name = "<unknown>",
+                AppVersion = ApplicationVersion.Empty,
+                Path = "<unknown>",
+                IsOfficial = IsOfficialModuleId(id),
+            };
         }
 
         /// <summary>
@@ -152,7 +157,7 @@ namespace Retinues.Module
         /// </summary>
         public static bool IsLoaded(string id)
         {
-            return GetModule(id) != null;
+            return GetModule(id).IsLoaded;
         }
 
         /// <summary>
@@ -169,7 +174,7 @@ namespace Retinues.Module
                 if (string.IsNullOrWhiteSpace(id))
                     continue;
 
-                if (GetModule(id) != null)
+                if (GetModule(id).IsLoaded)
                     return true;
             }
 
@@ -223,17 +228,11 @@ namespace Retinues.Module
 
         private static bool IsOfficialModuleId(string id)
         {
-            switch (id)
+            return id switch
             {
-                case "Native":
-                case "SandboxCore":
-                case "Sandbox":
-                case "StoryMode":
-                case "CustomBattle":
-                    return true;
-                default:
-                    return false;
-            }
+                "Native" or "SandboxCore" or "Sandbox" or "StoryMode" or "CustomBattle" => true,
+                _ => false,
+            };
         }
     }
 }

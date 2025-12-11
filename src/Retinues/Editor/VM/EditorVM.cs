@@ -31,7 +31,7 @@ namespace Retinues.Editor.VM
             Tableau = new TableauVM();
 
             // Initialize the character panel VM.
-            CharacterPanel = new CharacterPanel();
+            CharacterPanel = new CharacterPanelVM();
 
             // Start each editor session from a clean shared state.
             State.Reset();
@@ -77,10 +77,10 @@ namespace Retinues.Editor.VM
             }
         }
 
-        private CharacterPanel _characterPanel;
+        private CharacterPanelVM _characterPanel;
 
         [DataSourceProperty]
-        public CharacterPanel CharacterPanel
+        public CharacterPanelVM CharacterPanel
         {
             get => _characterPanel;
             private set
@@ -115,7 +115,7 @@ namespace Retinues.Editor.VM
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        IsVisible                       //
+        //                       Visibility                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private bool _isVisible;

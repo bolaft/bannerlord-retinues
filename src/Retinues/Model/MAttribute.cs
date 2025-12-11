@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Retinues.Model.Characters;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Localization;
@@ -14,7 +13,6 @@ namespace Retinues.Model
     internal interface IMAttributePersistent
     {
         void Collect(string key, MAttributePersistence.Data data);
-
         void Apply(string key, MAttributePersistence.Data data);
     }
 
