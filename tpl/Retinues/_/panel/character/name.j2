@@ -1,10 +1,7 @@
+{% from "_/panel/character/base.macros.j2" import field_header, field_label, field_button %}
+
 <!-- Name Header -->
-<TextWidget
-    Text="@NameHeaderText"
-    Brush="Kingdom.TitleSmall.Text"
-    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-    HorizontalAlignment="Center" VerticalAlignment="Center"
-    MarginBottom="12" />
+{{ field_header("@NameHeaderText") }}
 
 <!-- Name Block -->
 <ListPanel
@@ -14,25 +11,9 @@
     MarginBottom="12">
     <Children>
         <!-- Troop Name -->
-        <TextWidget
-            Text="@Name"
-            Brush="Clan.RightPanel.Name.Text"
-            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-            HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        {{ field_label("@NameText") }}
 
         <!-- Rename Button -->
-        <Widget
-            HorizontalAlignment="Center" VerticalAlignment="Center"
-            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-            MarginLeft="4">
-            <Children>
-                <ButtonWidget
-                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                    HorizontalAlignment="Center" VerticalAlignment="Center"
-                    SuggestedWidth="32" SuggestedHeight="32"
-                    Brush="SPClan.NameChange.Icon"
-                    Command.Click="ExecuteRename" />
-            </Children>
-        </Widget>
+        {{ field_button("ExecuteRename", "SPClan.NameChange.Icon", "32") }}
     </Children>
 </ListPanel>

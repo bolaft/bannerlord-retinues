@@ -1,0 +1,35 @@
+{% macro field_header(text) -%}
+    <TextWidget
+        Text="{{ text }}"
+        Brush="Kingdom.TitleSmall.Text"
+        WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+        HorizontalAlignment="Center" VerticalAlignment="Center"
+        MarginBottom="12" />
+{%- endmacro %}
+
+{% macro field_label(text, is_visible = "true") -%}
+    <TextWidget
+        IsVisible="{{ is_visible }}"
+        Text="{{ text }}"
+        Brush="Clan.RightPanel.Name.Text"
+        WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+        MarginLeft="4" MarginRight="4"
+        HorizontalAlignment="Center" VerticalAlignment="Center" />
+{%- endmacro %}
+
+{% macro field_button(command, brush, size, is_visible = "true") -%}
+    <Widget
+        IsVisible="{{ is_visible }}"
+        HorizontalAlignment="Center" VerticalAlignment="Center"
+        WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+        MarginLeft="4" MarginRight="4">
+        <Children>
+            <ButtonWidget
+                WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                HorizontalAlignment="Center" VerticalAlignment="Center"
+                SuggestedWidth="{{ size }}" SuggestedHeight="{{ size }}"
+                Brush="{{ brush }}"
+                Command.Click="{{ command }}" />
+        </Children>
+    </Widget>
+{%- endmacro %}

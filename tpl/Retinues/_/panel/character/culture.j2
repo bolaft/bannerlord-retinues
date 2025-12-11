@@ -1,10 +1,7 @@
+{% from "_/panel/character/base.macros.j2" import field_header, field_label, field_button %}
+
 <!-- Culture Header -->
-<TextWidget
-    Text="@CultureHeaderText"
-    Brush="Kingdom.TitleSmall.Text"
-    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-    HorizontalAlignment="Center" VerticalAlignment="Center"
-    MarginBottom="12" />
+{{ field_header("@CultureHeaderText") }}
 
 <!-- Culture Block -->
 <ListPanel
@@ -15,24 +12,9 @@
     <Children>
 
         <!-- Culture Name -->
-        <TextWidget
-            Text="@CultureText"
-            Brush="Clan.RightPanel.Name.Text"
-            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-            HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        {{ field_label("@CultureText") }}
 
         <!-- Change Culture Button -->
-        <Widget
-            HorizontalAlignment="Center" VerticalAlignment="Center"
-            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren">
-            <Children>
-                <ButtonWidget
-                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                    HorizontalAlignment="Center" VerticalAlignment="Center"
-                    SuggestedWidth="40" SuggestedHeight="40"
-                    Brush="SPClan.Parties.ChangePartyLeaderIcon"
-                    Command.Click="ExecuteChangeCulture" />
-            </Children>
-        </Widget>
+        {{ field_button("ExecuteChangeCulture", "SPClan.Parties.ChangePartyLeaderIcon", "40") }}
     </Children>
 </ListPanel>

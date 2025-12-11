@@ -27,26 +27,6 @@ def pretty_xml(raw: str, indent: str = "  ") -> str:
         return raw
 
 
-def register_global_macros(env: Environment) -> None:
-    """
-    Load all .j2 files under tpl/_macros and register each as env.globals[name].
-    """
-    macros_dir = SCRIPT_DIR / "_macros"
-    if not macros_dir.exists():
-        return
-
-    for path in macros_dir.glob("*.j2"):
-        if path.name.startswith(("_", ".")):
-            continue
-
-        name = path.stem  # e.g. "button"
-        try:
-            module = env.get_template(path.name).module
-            env.globals[name] = module
-        except Exception as e:
-            print(f"[WARN] Failed to register macro '{name}': {e}", file=sys.stderr)
-
-
 def build_env(loader_path: Path, bl_version: str | None = None) -> Environment:
     """
     Create a Jinja2 Environment with access to both:
@@ -71,7 +51,6 @@ def build_env(loader_path: Path, bl_version: str | None = None) -> Environment:
 
     env.globals["version"] = str(bl_version)
 
-    register_global_macros(env)
     return env
 
 
