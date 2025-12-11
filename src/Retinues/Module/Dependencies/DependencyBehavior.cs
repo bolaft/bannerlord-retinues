@@ -152,7 +152,7 @@ namespace Retinues.Module.Dependencies
                     )
                     .SetTextVariable("DETAILS", summary);
 
-                Notifications.Popup(title, body);
+                Inquiries.Popup(title, body);
             }
             catch (Exception e)
             {

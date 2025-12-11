@@ -2,9 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Retinues.Model.Characters;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
-using TaleWorlds.InputSystem;
 using TaleWorlds.Localization;
 using TaleWorlds.ObjectSystem;
 using TaleWorlds.SaveSystem;
@@ -439,6 +439,9 @@ namespace Retinues.Model
     [SafeClass(IncludeDerived = true)]
     public static class MAttributePersistence
     {
+        static readonly Dictionary<Type, Type> _wrapperTypesByBaseType = new();
+        static bool _wrapperTypesScanned;
+
         public sealed class Data
         {
             [SaveableField(1)]
@@ -461,6 +464,110 @@ namespace Retinues.Model
 
             [SaveableField(7)]
             public Dictionary<string, bool> Dirty = [];
+        }
+
+        static void EagerInstantiateAllWrappers()
+        {
+            if (_data == null)
+                return;
+
+            Log.Debug(
+                "MAttributePersistence: Eagerly instantiating all wrappers for persistent attributes."
+            );
+
+            ScanWrapperTypes();
+
+            if (_wrapperTypesByBaseType.Count == 0)
+                return;
+
+            var manager = MBObjectManager.Instance;
+            if (manager == null)
+                return;
+
+            var getListMethod = typeof(MBObjectManager).GetMethod("GetObjectTypeList");
+            if (getListMethod == null)
+            {
+                Log.Warn("MAttributePersistence: MBObjectManager.GetObjectTypeList not found.");
+                return;
+            }
+
+            foreach (var pair in _wrapperTypesByBaseType)
+            {
+                var baseType = pair.Key;
+                var wrapperType = pair.Value;
+
+                try
+                {
+                    var genericGetList = getListMethod.MakeGenericMethod(baseType);
+                    if (genericGetList.Invoke(manager, null) is not IEnumerable listObj)
+                        continue;
+
+                    foreach (var mb in listObj)
+                    {
+                        if (mb == null)
+                            continue;
+
+                        try
+                        {
+                            // Calls WBase<,> primary constructor, e.g. new WCharacter(CharacterObject)
+                            var wrapper = Activator.CreateInstance(wrapperType, mb);
+                            if (wrapper is IMBaseInternal init)
+                            {
+                                init.InitializePersistentAttributes();
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Log.Exception(
+                                ex,
+                                $"MAttributePersistence: failed to construct wrapper '{wrapperType.Name}' for base '{baseType.Name}'."
+                            );
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Log.Exception(
+                        ex,
+                        $"MAttributePersistence: failed to instantiate wrappers for base '{baseType.Name}'."
+                    );
+                }
+            }
+
+            Log.Debug("MAttributePersistence: Finished eager wrapper instantiation.");
+        }
+
+        static void ScanWrapperTypes()
+        {
+            if (_wrapperTypesScanned)
+                return;
+
+            _wrapperTypesScanned = true;
+            _wrapperTypesByBaseType.Clear();
+
+            var asm = typeof(MAttributePersistence).Assembly; // Retinues.Model assembly
+            foreach (var type in asm.GetTypes())
+            {
+                if (type.IsAbstract || type.IsInterface)
+                    continue;
+
+                var t = type;
+                while (t != null && t != typeof(object))
+                {
+                    if (t.IsGenericType && t.GetGenericTypeDefinition() == typeof(WBase<,>))
+                    {
+                        var args = t.GetGenericArguments();
+                        var baseType = args[1]; // TBase from WBase<TWrapper,TBase>
+
+                        if (!_wrapperTypesByBaseType.ContainsKey(baseType))
+                            _wrapperTypesByBaseType.Add(baseType, type);
+
+                        break;
+                    }
+
+                    t = t.BaseType;
+                }
+            }
         }
 
         static readonly Dictionary<string, IMAttributePersistent> _attributes = [];
@@ -499,41 +606,18 @@ namespace Retinues.Model
             // 1) Collect current values into _data.
             CollectAll();
 
-            void LogIfDirty(string key, object value)
+            // 2) Let TW save/load _data.
+            dataStore.SyncData("Retinues_Model_Attributes", ref _data);
+
+            if (!dataStore.IsSaving)
             {
-                if (dataStore.IsSaving)
-                    if (_data.Dirty == null || !_data.Dirty.ContainsKey(key))
-                        return;
-                Log.Debug($" - {key}: {value}");
+                // 3a) NEW: eagerly construct wrappers for all MBObjects,
+                //      so their MAttributes register and Apply() immediately.
+                EagerInstantiateAllWrappers();
             }
 
-            // 2) Let TW save/load _data.
-            dataStore.SyncData("ret_model_attributes", ref _data);
-
-            if (dataStore.IsSaving)
-                Log.Debug("MAttributePersistence: Saving attributes:");
-            else
-                Log.Debug("MAttributePersistence: Loaded attributes:");
-
-            foreach (var attr in _data.Bools)
-                LogIfDirty(attr.Key, attr.Value);
-
-            foreach (var attr in _data.Ints)
-                LogIfDirty(attr.Key, attr.Value);
-
-            foreach (var attr in _data.Floats)
-                LogIfDirty(attr.Key, attr.Value);
-
-            foreach (var attr in _data.Strings)
-                LogIfDirty(attr.Key, attr.Value);
-
-            foreach (var attr in _data.MbObjectIds)
-                LogIfDirty(attr.Key, attr.Value);
-
-            foreach (var attr in _data.DictStringInt)
-                LogIfDirty(attr.Key, $"[...{attr.Value.Count} items...]");
-
-            // 3) Push loaded values back into any registered attributes.
+            // 3b) Push loaded values back into any attributes that were already registered
+            //     before this Sync (should be rare, but harmless).
             ApplyAll();
         }
 

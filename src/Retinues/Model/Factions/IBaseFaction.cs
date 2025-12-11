@@ -33,5 +33,9 @@ namespace Retinues.Model.Factions
         List<WCharacter> RosterVillager { get; }
         List<WCharacter> RosterBandit { get; }
         List<WCharacter> RosterCivilian { get; }
+
+        /* ━━━━━━ Convenience ━━━━━ */
+
+        IEnumerable<WCharacter> Troops { get; }
     }
 }

@@ -1,12 +1,18 @@
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Reflection;
 using Retinues.Utilities;
 
 namespace Retinues.Model
 {
+    internal interface IMBaseInternal
+    {
+        void InitializePersistentAttributes();
+    }
+
     [SafeClass(IncludeDerived = true)]
-    public abstract class MBase<TBase>(TBase baseInstance)
+    public abstract class MBase<TBase>(TBase baseInstance) : IMBaseInternal
         where TBase : class
     {
         protected readonly Dictionary<string, object> _attributes = [];
@@ -102,9 +108,36 @@ namespace Retinues.Model
             return attr;
         }
 
-        public override string ToString()
+        void IMBaseInternal.InitializePersistentAttributes()
         {
-            return $"{GetType().Name}({Base})";
+            var type = GetType();
+            var flags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
+
+            foreach (var prop in type.GetProperties(flags))
+            {
+                if (!prop.CanRead)
+                    continue;
+
+                var propType = prop.PropertyType;
+                if (!propType.IsGenericType)
+                    continue;
+
+                if (propType.GetGenericTypeDefinition() != typeof(MAttribute<>))
+                    continue;
+
+                try
+                {
+                    // Calling the getter forces the MAttribute to be created
+                    // (NameAttribute => Attribute<TextObject>("_basicName"), etc.).
+                    _ = prop.GetValue(this);
+                }
+                catch (Exception ex)
+                {
+                    Log.Debug(
+                        $"MBase.InitializePersistentAttributes: failed for {type.Name}.{prop.Name}: {ex.Message}"
+                    );
+                }
+            }
         }
     }
 }

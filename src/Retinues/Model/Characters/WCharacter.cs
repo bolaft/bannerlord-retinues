@@ -10,19 +10,9 @@ using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
 
 namespace Retinues.Model.Characters
 {
-    public partial class WCharacter : WBase<WCharacter, CharacterObject>
+    public partial class WCharacter(CharacterObject @base)
+        : WBase<WCharacter, CharacterObject>(@base)
     {
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                       Constructor                      //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        public WCharacter(CharacterObject @base)
-            : base(@base)
-        {
-            // Pre-initialize body attributes.
-            EnsureBodyInitialized();
-        }
-
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Main Properties                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

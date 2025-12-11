@@ -63,7 +63,7 @@ namespace Retinues.Editor.VM.Panel.Character
             if (character == null)
                 return;
 
-            Notifications.TextInputPopup(
+            Inquiries.TextInputPopup(
                 title: L.T("rename_troop", "Rename Troop"),
                 defaultInput: character.Name,
                 onConfirm: input => CharacterController.ChangeName(input.Trim()),
@@ -121,14 +121,14 @@ namespace Retinues.Editor.VM.Panel.Character
 
             if (elements.Count == 0)
             {
-                Notifications.Popup(
+                Inquiries.Popup(
                     L.T("no_cultures_title", "No Cultures Found"),
                     L.T("no_cultures_text", "No cultures are loaded in the current game.")
                 );
                 return;
             }
 
-            Notifications.SelectPopup(
+            Inquiries.SelectPopup(
                 title: L.T("change_culture_title", "Change Culture"),
                 elements: elements,
                 onSelect: element =>

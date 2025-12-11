@@ -189,6 +189,9 @@ namespace Retinues.Model.Factions
 
         public virtual List<WCharacter> RosterVillager => Collect(Villager);
 
+        public virtual List<WCharacter> RosterBandit =>
+            Collect(BanditChief, BanditRaider, BanditBandit, BanditBoss);
+
         public virtual List<WCharacter> RosterCivilian =>
             Collect(
                 TournamentMaster,
@@ -231,7 +234,37 @@ namespace Retinues.Model.Factions
                 Shipwright
             );
 
-        public virtual List<WCharacter> RosterBandit =>
-            Collect(BanditChief, BanditRaider, BanditBandit, BanditBoss);
+        /// <summary>
+        /// Enumerates all troops in all rosters.
+        /// </summary>
+        public IEnumerable<WCharacter> Troops
+        {
+            get
+            {
+                foreach (var troop in RosterRetinues)
+                    yield return troop;
+
+                foreach (var troop in RosterElite)
+                    yield return troop;
+
+                foreach (var troop in RosterBasic)
+                    yield return troop;
+
+                foreach (var troop in RosterMilitia)
+                    yield return troop;
+
+                foreach (var troop in RosterCaravan)
+                    yield return troop;
+
+                foreach (var troop in RosterVillager)
+                    yield return troop;
+
+                foreach (var troop in RosterBandit)
+                    yield return troop;
+
+                foreach (var troop in RosterCivilian)
+                    yield return troop;
+            }
+        }
     }
 }

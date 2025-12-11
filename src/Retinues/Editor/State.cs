@@ -65,7 +65,14 @@ namespace Retinues.Editor
                 _faction = value;
 
                 // Reset the character to the first available troop.
-                Character = GetFirstAvailableTroop(value);
+                foreach (var troop in _faction.Troops)
+                {
+                    if (troop != null)
+                    {
+                        Character = troop;
+                        break;
+                    }
+                }
 
                 // Notify listeners.
                 EventManager.Fire(UIEvent.Faction, EventScope.Global);
@@ -97,42 +104,6 @@ namespace Retinues.Editor
                 // Notify listeners.
                 EventManager.Fire(UIEvent.Troop, EventScope.Local);
             }
-        }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Helpers                        //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        /// <summary>
-        /// Gets the first available troop from the faction rosters.
-        /// </summary>
-        WCharacter GetFirstAvailableTroop(IBaseFaction faction)
-        {
-            var rosters = new List<List<WCharacter>>
-            {
-                faction.RosterRetinues,
-                faction.RosterElite,
-                faction.RosterBasic,
-                faction.RosterMilitia,
-                faction.RosterCaravan,
-                faction.RosterVillager,
-                faction.RosterBandit,
-                faction.RosterCivilian,
-            };
-
-            foreach (var roster in rosters)
-            {
-                if (roster == null)
-                    continue;
-
-                foreach (var troop in roster)
-                {
-                    if (troop != null)
-                        return troop;
-                }
-            }
-
-            return null;
         }
     }
 }

@@ -156,7 +156,7 @@ namespace Retinues.Module.Version
                     .SetTextVariable("CURRENT_VERSION", currentVersionString);
             }
 
-            Notifications.Popup(title, body);
+            Inquiries.Popup(title, body);
         }
 
         private static void ShowDiscrepancyPopup(
@@ -185,7 +185,7 @@ namespace Retinues.Module.Version
                     .SetTextVariable("CURRENT_VERSION", currentVersionString);
             }
 
-            Notifications.Popup(title, body);
+            Inquiries.Popup(title, body);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

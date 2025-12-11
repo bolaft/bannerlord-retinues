@@ -7,31 +7,6 @@ namespace Retinues.Model.Characters
 {
     public partial class WCharacter : WBase<WCharacter, CharacterObject>
     {
-        bool _bodyInitialized;
-
-        void EnsureBodyInitialized()
-        {
-            if (_bodyInitialized)
-                return;
-
-            _bodyInitialized = true;
-
-            // 1) Force-create Culture attribute FIRST, so Base.Culture is restored
-            // before any body setters run. We assume WCharacter has a Culture property.
-            object _ = Culture;
-
-            // 2) Force-create all body attributes, in a deterministic order.
-            _ = BodyAgeMinAttribute;
-            _ = BodyAgeMaxAttribute;
-            _ = BodyWeightMinAttribute;
-            _ = BodyWeightMaxAttribute;
-            _ = BodyBuildMinAttribute;
-            _ = BodyBuildMaxAttribute;
-            _ = HairTagsAttribute;
-            _ = BeardTagsAttribute;
-            _ = TattooTagsAttribute;
-        }
-
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Visuals                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -67,117 +42,184 @@ namespace Retinues.Model.Characters
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Culture                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public void ApplyCultureBodyProperties()
+        {
+            var template = Culture.RootBasic ?? Culture.RootElite;
+
+            if (template?.IsFemale != IsFemale)
+                template = IsFemale ? Culture.VillageWoman : Culture.Villager;
+
+            if (template == null)
+            {
+                foreach (var troop in Culture.Troops)
+                {
+                    template = troop;
+                    if (troop.IsFemale == IsFemale)
+                        break;
+                }
+            }
+
+            if (template == null)
+            {
+                Log.Warn($"No suitable template for culture '{Culture.StringId}', aborting.");
+                return;
+            }
+
+            // Mark body_envelope as dirty to ensure persistence.
+            BodySerializedAttribute.Set(BodySerializedAttribute.Get());
+
+            // Break shared reference
+            EnsureOwnBodyRange();
+
+            var range = Reflection.GetPropertyValue<object>(Base, "BodyPropertyRange");
+
+            // 1) Copy style tags & race.
+            Race = template.Race;
+
+            // 2) Copy min/max envelope from template.
+            var minTroop = template.Base.GetBodyPropertiesMin();
+            var maxTroop = template.Base.GetBodyPropertiesMax();
+            Reflection.InvokeMethod(
+                range,
+                "Init",
+                [typeof(BodyProperties), typeof(BodyProperties)],
+                minTroop,
+                maxTroop
+            );
+
+            // 4) Snap age to the template's mid-age
+            Age = (minTroop.Age + maxTroop.Age) * 0.5f;
+
+            // 5) Re-snap hair/scar/tattoo tags from culture template
+            ApplyTagsFromCulture(template);
+        }
+
+        public void ApplyTagsFromCulture(WCharacter template)
+        {
+#if BL13
+            var templateRange = template.Base.BodyPropertyRange;
+            var range = Base.BodyPropertyRange;
+
+            if (templateRange == null || range == null)
+            {
+                Log.Warn("Missing BodyPropertyRange on template or target, aborting.");
+                return;
+            }
+
+            // Use the template's tag pools as "valid" tags for this culture.
+            var hairTags = templateRange.HairTags ?? string.Empty;
+            var beardTags = templateRange.BeardTags ?? string.Empty;
+            var tattooTags = templateRange.TattooTags ?? string.Empty;
+
+            bool hasHair = !string.IsNullOrEmpty(hairTags);
+            bool hasBeard = !string.IsNullOrEmpty(beardTags);
+            bool hasTattoo = !string.IsNullOrEmpty(tattooTags);
+
+            // Nothing to apply, bail out.
+            if (!hasHair && !hasBeard && !hasTattoo)
+            {
+                Log.Info("Template has no tags, nothing to apply.");
+                return;
+            }
+
+            // Check if we actually need to change anything.
+            bool different =
+                (hasHair && !string.Equals(range.HairTags, hairTags, StringComparison.Ordinal))
+                || (
+                    hasBeard && !string.Equals(range.BeardTags, beardTags, StringComparison.Ordinal)
+                )
+                || (
+                    hasTattoo
+                    && !string.Equals(range.TattooTags, tattooTags, StringComparison.Ordinal)
+                );
+
+            if (!different)
+                return;
+
+            // Follow vanilla pattern and clone the MBBodyProperty.
+            var clonedRange = MBBodyProperty.CreateFrom(range);
+
+            if (hasHair)
+                clonedRange.HairTags = hairTags;
+
+            if (hasBeard)
+                clonedRange.BeardTags = beardTags;
+
+            if (hasTattoo)
+                clonedRange.TattooTags = tattooTags;
+
+            // Assign back via reflection because BodyPropertyRange setter is protected.
+            Reflection.SetPropertyValue(Base, "BodyPropertyRange", clonedRange);
+#endif
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Age Range                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        MAttribute<float> _bodyAgeMinAttribute;
-        MAttribute<float> BodyAgeMinAttribute =>
-            _bodyAgeMinAttribute ??= new MAttribute<float>(
-                baseInstance: Base,
-                getter: _ => Base.GetBodyPropertiesMin().Age,
-                setter: (_, value) =>
-                    SetBodyDynamicEnd(minEnd: true, age: value, weight: null, build: null),
-                targetName: "body_age_min",
-                persistent: true
-            );
+        public void SetAgeRange(float minAge, float maxAge)
+        {
+            AgeMin = minAge;
+            AgeMax = maxAge;
+        }
 
         public float AgeMin
         {
-            get => BodyAgeMinAttribute.Get();
-            set => BodyAgeMinAttribute.Set(value);
+            get => Base.GetBodyPropertiesMin().Age;
+            set => SetBodyDynamicEnd(minEnd: true, age: value, weight: null, build: null);
         }
-
-        MAttribute<float> _bodyAgeMaxAttribute;
-        MAttribute<float> BodyAgeMaxAttribute =>
-            _bodyAgeMaxAttribute ??= new MAttribute<float>(
-                baseInstance: Base,
-                getter: _ => Base.GetBodyPropertiesMax().Age,
-                setter: (_, value) =>
-                    SetBodyDynamicEnd(minEnd: false, age: value, weight: null, build: null),
-                targetName: "body_age_max",
-                persistent: true
-            );
 
         public float AgeMax
         {
-            get => BodyAgeMaxAttribute.Get();
-            set => BodyAgeMaxAttribute.Set(value);
+            get => Base.GetBodyPropertiesMax().Age;
+            set => SetBodyDynamicEnd(minEnd: false, age: value, weight: null, build: null);
         }
-
-        MAttribute<float> _bodyWeightMinAttribute;
-        MAttribute<float> BodyWeightMinAttribute =>
-            _bodyWeightMinAttribute ??= new MAttribute<float>(
-                baseInstance: Base,
-                getter: _ => Base.GetBodyPropertiesMin().Weight,
-                setter: (_, value) =>
-                    SetBodyDynamicEnd(minEnd: true, age: null, weight: value, build: null),
-                targetName: "body_weight_min",
-                persistent: true
-            );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Weight Range                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public float WeightMin
+        public void SetWeightRange(float minWeight, float maxWeight)
         {
-            get => BodyWeightMinAttribute.Get();
-            set => BodyWeightMinAttribute.Set(value);
+            WeightMin = minWeight;
+            WeightMax = maxWeight;
         }
 
-        MAttribute<float> _bodyWeightMaxAttribute;
-        MAttribute<float> BodyWeightMaxAttribute =>
-            _bodyWeightMaxAttribute ??= new MAttribute<float>(
-                baseInstance: Base,
-                getter: _ => Base.GetBodyPropertiesMax().Weight,
-                setter: (_, value) =>
-                    SetBodyDynamicEnd(minEnd: false, age: null, weight: value, build: null),
-                targetName: "body_weight_max",
-                persistent: true
-            );
+        public float WeightMin
+        {
+            get => Base.GetBodyPropertiesMin().Weight;
+            set => SetBodyDynamicEnd(minEnd: true, age: null, weight: value, build: null);
+        }
 
         public float WeightMax
         {
-            get => BodyWeightMaxAttribute.Get();
-            set => BodyWeightMaxAttribute.Set(value);
+            get => Base.GetBodyPropertiesMax().Weight;
+            set => SetBodyDynamicEnd(minEnd: false, age: null, weight: value, build: null);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Build Range                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        MAttribute<float> _bodyBuildMinAttribute;
-        MAttribute<float> BodyBuildMinAttribute =>
-            _bodyBuildMinAttribute ??= new MAttribute<float>(
-                baseInstance: Base,
-                getter: _ => Base.GetBodyPropertiesMin().Build,
-                setter: (_, value) =>
-                    SetBodyDynamicEnd(minEnd: true, age: null, weight: null, build: value),
-                targetName: "body_build_min",
-                persistent: true
-            );
+        public void SetBuildRange(float minBuild, float maxBuild)
+        {
+            BuildMin = minBuild;
+            BuildMax = maxBuild;
+        }
 
         public float BuildMin
         {
-            get => BodyBuildMinAttribute.Get();
-            set => BodyBuildMinAttribute.Set(value);
+            get => Base.GetBodyPropertiesMin().Build;
+            set => SetBodyDynamicEnd(minEnd: true, age: null, weight: null, build: value);
         }
-
-        MAttribute<float> _bodyBuildMaxAttribute;
-        MAttribute<float> BodyBuildMaxAttribute =>
-            _bodyBuildMaxAttribute ??= new MAttribute<float>(
-                baseInstance: Base,
-                getter: _ => Base.GetBodyPropertiesMax().Build,
-                setter: (_, value) =>
-                    SetBodyDynamicEnd(minEnd: false, age: null, weight: null, build: value),
-                targetName: "body_build_max",
-                persistent: true
-            );
 
         public float BuildMax
         {
-            get => BodyBuildMaxAttribute.Get();
-            set => BodyBuildMaxAttribute.Set(value);
+            get => Base.GetBodyPropertiesMax().Build;
+            set => SetBodyDynamicEnd(minEnd: false, age: null, weight: null, build: value);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -201,8 +243,7 @@ namespace Retinues.Model.Characters
                     if (range != null)
                         range.HairTags = value ?? string.Empty;
                 },
-                targetName: "body_hair_tags",
-                persistent: true
+                targetName: "body_hair_tags"
             );
 
         public string HairTags
@@ -228,8 +269,7 @@ namespace Retinues.Model.Characters
                     if (range != null)
                         range.BeardTags = value ?? string.Empty;
                 },
-                targetName: "body_beard_tags",
-                persistent: true
+                targetName: "body_beard_tags"
             );
 
         public string BeardTags
@@ -255,8 +295,7 @@ namespace Retinues.Model.Characters
                     if (range != null)
                         range.TattooTags = value ?? string.Empty;
                 },
-                targetName: "body_tattoo_tags",
-                persistent: true
+                targetName: "body_tattoo_tags"
             );
 
         public string TattooTags
@@ -269,12 +308,11 @@ namespace Retinues.Model.Characters
         //                         Helpers                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        MBBodyProperty GetBodyRangeOrNull() =>
+            Reflection.GetPropertyValue<MBBodyProperty>(Base, "BodyPropertyRange");
+
         void SetBodyDynamicEnd(bool minEnd, float? age, float? weight, float? build)
         {
-            // Skip heroes for now; we will handle them via Hero.BodyProperties later.
-            if (Base.IsHero)
-                return;
-
             var range = EnsureOwnBodyRange();
             if (range == null)
                 return;
@@ -285,7 +323,6 @@ namespace Retinues.Model.Characters
             var src = minEnd ? min : max;
             var oth = minEnd ? max : min;
 
-            // Current dynamic values for the end we are editing.
             var dyn = src.DynamicProperties;
 
             var newDyn = new DynamicBodyProperties(
@@ -294,108 +331,143 @@ namespace Retinues.Model.Characters
                 build ?? dyn.Build
             );
 
-            // ───── Choose static from current culture template if available ─────
+            var newSrc = new BodyProperties(newDyn, src.StaticProperties);
 
-            StaticBodyProperties srcStatic;
-            StaticBodyProperties othStatic;
-
-            var culture = Base.Culture;
-            CharacterObject template = culture?.BasicTroop ?? culture?.EliteBasicTroop;
-
-            if (template != null)
-            {
-                var tplMin = template.GetBodyPropertiesMin();
-                var tplMax = template.GetBodyPropertiesMax();
-
-                // Use template static for BOTH ends of the range so appearance matches culture.
-                var tplMinStatic = tplMin.StaticProperties;
-                var tplMaxStatic = tplMax.StaticProperties;
-
-                srcStatic = minEnd ? tplMinStatic : tplMaxStatic;
-                othStatic = minEnd ? tplMaxStatic : tplMinStatic;
-            }
-            else
-            {
-                // Fallback: keep existing static if culture has no template.
-                srcStatic = src.StaticProperties;
-                othStatic = oth.StaticProperties;
-            }
-
-            var newSrc = new BodyProperties(newDyn, srcStatic);
-            var newOth = new BodyProperties(oth.DynamicProperties, othStatic);
-
-            var newMin = minEnd ? newSrc : newOth;
-            var newMax = minEnd ? newOth : newSrc;
+            var newMin = minEnd ? newSrc : oth;
+            var newMax = minEnd ? oth : newSrc;
 
             range.Init(newMin, newMax);
-        }
 
-        MBBodyProperty GetBodyRangeOrNull() =>
-            Reflection.GetPropertyValue<MBBodyProperty>(Base, "BodyPropertyRange");
+            // Any change to dynamic values should cause the full envelope to be persisted.
+            // This marks body_envelope as dirty.
+            BodySerializedAttribute.Set(BodySerializedAttribute.Get());
+        }
 
         MBBodyProperty EnsureOwnBodyRange()
         {
-            if (Base.IsHero)
-                return null;
+            var current = GetBodyRangeOrNull();
+            if (current == null)
+            {
+                var min = Base.GetBodyPropertiesMin();
+                var max = Base.GetBodyPropertiesMax();
 
+                var mbBodyType = typeof(BodyProperties).Assembly.GetType(
+                    "TaleWorlds.Core.MBBodyProperty"
+                );
+
+                if (mbBodyType == null)
+                    return null;
+
+                var fresh = (MBBodyProperty)Activator.CreateInstance(mbBodyType);
+                fresh?.Init(min, max);
+
+                if (fresh != null)
+                    Reflection.SetPropertyValue(Base, "BodyPropertyRange", fresh);
+
+                return fresh;
+            }
+
+            // Try to use Clone to break sharing.
             try
             {
-                var current = GetBodyRangeOrNull();
-                if (current == null)
+                var clone =
+                    Reflection.InvokeMethod(current, "Clone", Type.EmptyTypes) as MBBodyProperty;
+                if (clone != null)
                 {
-                    var min = Base.GetBodyPropertiesMin();
-                    var max = Base.GetBodyPropertiesMax();
-
-                    var mbBodyType = typeof(BodyProperties).Assembly.GetType(
-                        "TaleWorlds.Core.MBBodyProperty"
-                    );
-
-                    if (mbBodyType == null)
-                        return null;
-
-                    var fresh = (MBBodyProperty)Activator.CreateInstance(mbBodyType);
-                    fresh?.Init(min, max);
-
-                    if (fresh != null)
-                        Reflection.SetPropertyValue(Base, "BodyPropertyRange", fresh);
-
-                    return fresh;
+                    Reflection.SetPropertyValue(Base, "BodyPropertyRange", clone);
+                    return clone;
                 }
-
-                // Try to use Clone to break sharing.
-                try
-                {
-                    var clone =
-                        Reflection.InvokeMethod(current, "Clone", Type.EmptyTypes)
-                        as MBBodyProperty;
-                    if (clone != null)
-                    {
-                        Reflection.SetPropertyValue(Base, "BodyPropertyRange", clone);
-                        return clone;
-                    }
-                }
-                catch
-                {
-                    // Ignore and fall through to manual clone.
-                }
-
-                var min1 = Base.GetBodyPropertiesMin();
-                var max1 = Base.GetBodyPropertiesMax();
-
-                var type = current.GetType();
-                var fresh2 = (MBBodyProperty)Activator.CreateInstance(type);
-                fresh2?.Init(min1, max1);
-
-                if (fresh2 != null)
-                    Reflection.SetPropertyValue(Base, "BodyPropertyRange", fresh2);
-
-                return fresh2;
             }
-            catch (Exception ex)
+            catch
             {
-                Log.Exception(ex);
-                return null;
+                // Ignore and fall through to manual clone.
             }
+
+            var min1 = Base.GetBodyPropertiesMin();
+            var max1 = Base.GetBodyPropertiesMax();
+
+            var type = current.GetType();
+            var fresh2 = (MBBodyProperty)Activator.CreateInstance(type);
+            fresh2?.Init(min1, max1);
+
+            if (fresh2 != null)
+                Reflection.SetPropertyValue(Base, "BodyPropertyRange", fresh2);
+
+            return fresh2;
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                Serialized body envelope                //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public const string BodySerializedSeparator = "\n---BODY_MAX---\n";
+
+        MAttribute<string> _bodySerializedAttribute;
+
+        /// <summary>
+        /// Full body envelope (BodyPropertyMin/Max) as a single serialized string.
+        /// Uses BodyProperties.ToString/FromString to capture both dynamic and static
+        /// face data. This is the only body attribute that needs persistence.
+        /// </summary>
+        public MAttribute<string> BodySerializedAttribute =>
+            _bodySerializedAttribute ??= new MAttribute<string>(
+                baseInstance: Base,
+                getter: _ => SerializeBodyEnvelope(),
+                setter: (_, value) => ApplySerializedBodyEnvelope(value),
+                targetName: "body_envelope"
+            );
+
+        /// <summary>
+        /// Serialize the current BodyPropertyMin/Max into a single string.
+        /// </summary>
+        string SerializeBodyEnvelope()
+        {
+            // Prefer the live MBBodyProperty if present; otherwise fall back to
+            // CharacterObject's min/max helpers.
+            var range = GetBodyRangeOrNull();
+
+            BodyProperties min;
+            BodyProperties max;
+
+            if (range != null)
+            {
+                min = range.BodyPropertyMin;
+                max = range.BodyPropertyMax;
+            }
+            else
+            {
+                min = Base.GetBodyPropertiesMin();
+                max = Base.GetBodyPropertiesMax();
+            }
+
+            return min.ToString() + BodySerializedSeparator + max.ToString();
+        }
+
+        /// <summary>
+        /// Apply a serialized envelope string back onto this character's
+        /// BodyPropertyRange.
+        /// </summary>
+        void ApplySerializedBodyEnvelope(string value)
+        {
+            if (string.IsNullOrEmpty(value))
+                return;
+
+            var parts = value.Split([BodySerializedSeparator], StringSplitOptions.None);
+
+            if (parts.Length != 2)
+            {
+                Log.Warn($"WCharacter: invalid body envelope for '{Base?.StringId}': '{value}'");
+                return;
+            }
+
+            if (!BodyProperties.FromString(parts[0], out var min))
+                return;
+
+            if (!BodyProperties.FromString(parts[1], out var max))
+                return;
+
+            var range = EnsureOwnBodyRange();
+            range?.Init(min, max);
         }
     }
 }
