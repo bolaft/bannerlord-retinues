@@ -396,21 +396,30 @@ namespace Retinues.Editor
             }
         }
 
-        private static void NotifyListeners(UIEvent e)
+        private static void NotifyListeners(UIEvent rootEvent)
         {
             var vms = TakeSnapshot();
 
-            for (int i = 0; i < vms.Count; i++)
+            // Expand root event into itself + all descendants.
+            foreach (var e in Expand(rootEvent))
             {
-                var vm = vms[i];
+                for (int i = 0; i < vms.Count; i++)
+                {
+                    var vm = vms[i];
+                    if (vm == null)
+                        continue;
 
-                try
-                {
-                    vm.__OnGlobalEvent(_context, e);
-                }
-                catch (Exception ex)
-                {
-                    Log.Error($"Error dispatching event '{e}' to '{vm.GetType().Name}': {ex}");
+                    try
+                    {
+                        vm.__OnGlobalEvent(_context, e);
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Exception(
+                            ex,
+                            $"Error dispatching event '{e}' to '{vm.GetType().Name}'."
+                        );
+                    }
                 }
             }
         }
