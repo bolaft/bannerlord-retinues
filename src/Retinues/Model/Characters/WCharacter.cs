@@ -123,6 +123,26 @@ namespace Retinues.Model.Characters
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Skill Points                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public int SkillPoints
+        {
+            get => SkillPointsAttribute.Get();
+            set => SkillPointsAttribute.Set(value);
+        }
+
+        int _skillPoints;
+        MAttribute<int> _skillPointsAttribute;
+        MAttribute<int> SkillPointsAttribute =>
+            _skillPointsAttribute ??= new MAttribute<int>(
+                baseInstance: Base,
+                getter: _ => _skillPoints,
+                setter: (_, value) => _skillPoints = value,
+                targetName: "skill_points"
+            );
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Skills                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 

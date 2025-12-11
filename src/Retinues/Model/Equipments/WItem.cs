@@ -25,6 +25,48 @@ namespace Retinues.Model.Equipments
         public WCulture Culture => WCulture.Get(Base.Culture.StringId);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Stock                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public int Stock
+        {
+            get => StockAttribute.Get();
+            set => StockAttribute.Set(value);
+        }
+
+        int _stock;
+        MAttribute<int> _stockAttribute;
+        MAttribute<int> StockAttribute =>
+            _stockAttribute ??= new MAttribute<int>(
+                baseInstance: Base, // per item StringId
+                getter: _ => _stock, // local wrapper field
+                setter: (_, value) => _stock = value, // local wrapper field
+                targetName: "stock", // stable key
+                persistent: true
+            );
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Unlock                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public bool Unlocked
+        {
+            get => UnlockedAttribute.Get();
+            set => UnlockedAttribute.Set(value);
+        }
+
+        bool _unlocked;
+        MAttribute<bool> _unlockedAttribute;
+        MAttribute<bool> UnlockedAttribute =>
+            _unlockedAttribute ??= new MAttribute<bool>(
+                baseInstance: Base,
+                getter: _ => _unlocked,
+                setter: (_, value) => _unlocked = value,
+                targetName: "unlocked",
+                persistent: true
+            );
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Flags                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 

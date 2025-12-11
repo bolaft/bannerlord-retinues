@@ -73,7 +73,7 @@ namespace Retinues.Model
             Func<object, T> getter,
             Action<object, T> setter,
             string targetName = null,
-            bool persistent = false
+            bool persistent = true
         )
         {
             _baseInstance = baseInstance ?? throw new ArgumentNullException(nameof(baseInstance));
