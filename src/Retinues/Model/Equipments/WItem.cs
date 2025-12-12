@@ -12,6 +12,54 @@ namespace Retinues.Model.Equipments
     public class WItem(ItemObject @base) : WBase<WItem, ItemObject>(@base)
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                   Cached Static Lists                  //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// All items that are considered valid equipment.
+        /// </summary>
+        private static List<WItem> _equipments;
+        public static List<WItem> Equipments => _equipments ??= [.. All.Where(i => i.IsEquipment)];
+
+        /// <summary>
+        /// Equipments indexed by their equippable slots.
+        /// </summary>
+        private static Dictionary<EquipmentIndex, List<WItem>> _equipmentsBySlot;
+        public static Dictionary<EquipmentIndex, List<WItem>> EquipmentsBySlot
+        {
+            get
+            {
+                if (_equipmentsBySlot == null)
+                {
+                    _equipmentsBySlot = [];
+                    foreach (var item in Equipments)
+                    {
+                        foreach (var slot in item.Slots)
+                        {
+                            if (!_equipmentsBySlot.ContainsKey(slot))
+                                _equipmentsBySlot[slot] = [];
+
+                            _equipmentsBySlot[slot].Add(item);
+                        }
+                    }
+                }
+
+                return _equipmentsBySlot;
+            }
+        }
+
+        /// <summary>
+        /// Gets all equipments that can be equipped in the given slot.
+        /// </summary>
+        public static List<WItem> GetEquipmentsForSlot(EquipmentIndex slot)
+        {
+            if (EquipmentsBySlot.TryGetValue(slot, out var items))
+                return items;
+
+            return [];
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Main Properties                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
@@ -22,7 +70,8 @@ namespace Retinues.Model.Equipments
         public ItemCategory Category => Base.ItemCategory;
         public ItemObject.ItemTypeEnum Type => Base.ItemType;
 
-        public WCulture Culture => WCulture.Get(Base.Culture.StringId);
+        public WCulture Culture =>
+            Base.Culture != null ? WCulture.Get(Base.Culture.StringId) : null;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Stock                         //
@@ -101,12 +150,37 @@ namespace Retinues.Model.Equipments
         //                          Flags                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Indicates whether this item is considered valid equipment.
+        /// </summary>
+        public bool IsEquipment
+        {
+            get
+            {
+                if (
+                    IsArmor
+                    || IsHorseHarness
+                    || IsMeleeWeapon
+                    || IsRangedWeapon
+                    || IsAmmo
+                    || IsShield
+                )
+                    return true;
+
+                if (IsHorse && !Base.HorseComponent.IsPackAnimal)
+                    return true;
+
+                return false;
+            }
+        }
+
         public bool IsCivilian => Base.IsCivilian;
         public bool IsMeleeWeapon => PrimaryWeapon?.IsMeleeWeapon ?? false;
         public bool IsRangedWeapon => PrimaryWeapon?.IsRangedWeapon ?? false;
         public bool IsArmor =>
             ArmorComponent != null && ItemObject.ItemTypeEnum.HorseHarness != Type;
         public bool IsHorse => HorseComponent != null;
+        public bool IsHorseHarness => Type == ItemObject.ItemTypeEnum.HorseHarness;
         public bool IsWeapon => WeaponComponent != null && PrimaryWeapon != null;
         public bool IsShield => PrimaryWeapon?.IsShield ?? false;
         public bool IsAmmo => PrimaryWeapon?.IsAmmo ?? false;
@@ -136,7 +210,7 @@ namespace Retinues.Model.Equipments
 
                 void AddWeaponSlots()
                 {
-                    slots.Add(EquipmentIndex.WeaponItemBeginSlot);
+                    slots.Add(EquipmentIndex.Weapon0);
                     slots.Add(EquipmentIndex.Weapon1);
                     slots.Add(EquipmentIndex.Weapon2);
                     slots.Add(EquipmentIndex.Weapon3);

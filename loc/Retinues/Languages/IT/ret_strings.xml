@@ -17,6 +17,9 @@
       id="ret_clear_filter_tooltip"
       text="Cancella il testo del filtro corrente." />
     <string
+      id="ret_close_equipment_button_text"
+      text="Indietro" />
+    <string
       id="ret_culture_header_text"
       text="Cultura" />
     <string
@@ -38,6 +41,42 @@
       id="ret_enter_new_name"
       text="Inserisci un nuovo nome:" />
     <string
+      id="ret_equipment_button_text"
+      text="Equipaggiamento" />
+    <string
+      id="ret_equipment_slot_body"
+      text="Corpo" />
+    <string
+      id="ret_equipment_slot_cape"
+      text="Mantello" />
+    <string
+      id="ret_equipment_slot_gloves"
+      text="Guanti" />
+    <string
+      id="ret_equipment_slot_head"
+      text="Testa" />
+    <string
+      id="ret_equipment_slot_horse"
+      text="Cavallo" />
+    <string
+      id="ret_equipment_slot_horse_harness"
+      text="Imbracatura" />
+    <string
+      id="ret_equipment_slot_leg"
+      text="Gambe" />
+    <string
+      id="ret_equipment_slot_weapon_0"
+      text="Arma 1" />
+    <string
+      id="ret_equipment_slot_weapon_1"
+      text="Arma 2" />
+    <string
+      id="ret_equipment_slot_weapon_2"
+      text="Arma 3" />
+    <string
+      id="ret_equipment_slot_weapon_3"
+      text="Arma 4" />
+    <string
       id="ret_escape_menu_editor_button"
       text="Editor di truppe" />
     <string
@@ -49,6 +88,9 @@
     <string
       id="ret_filter_tooltip_description_character"
       text="Digita per filtrare l&apos;elenco per nome, cultura o livello." />
+    <string
+      id="ret_filter_tooltip_description_equipment"
+      text="Digita per filtrare l&apos;elenco per nome, categoria, cultura o livello." />
     <string
       id="ret_gender_toggle_hint"
       text="Cambia genere" />
@@ -107,6 +149,9 @@
       id="ret_mcm_section_debug"
       text="Debug" />
     <string
+      id="ret_mcm_section_equipment"
+      text="Equipaggiamento" />
+    <string
       id="ret_mcm_section_user_interface"
       text="Interfaccia utente" />
     <string
@@ -149,11 +194,17 @@
       id="ret_skills_header_text"
       text="Abilità" />
     <string
+      id="ret_sort_by_category"
+      text="Categoria" />
+    <string
       id="ret_sort_by_name"
       text="Nome" />
     <string
       id="ret_sort_by_tier"
       text="Livello" />
+    <string
+      id="ret_sort_by_value"
+      text="Valore" />
     <string
       id="ret_unknown"
       text="Sconosciuto" />

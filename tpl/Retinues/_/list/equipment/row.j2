@@ -3,7 +3,7 @@
     HeightSizePolicy="StretchToParent"
     MarginLeft="8"
     DoNotAcceptEvents="true"
-    IsVisible="@IsCharacter">
+    IsVisible="@IsEquipment">
     <Children>
 
         <ListPanel
@@ -13,12 +13,48 @@
             DoNotAcceptEvents="true">
             <Children>
 
-                {# Troop image #}
+                {# Culture image #}
+                <Widget
+                    DataSource="{CultureImage}"
+                    WidthSizePolicy="Fixed"
+                    HeightSizePolicy="Fixed"
+                    SuggestedWidth="48"
+                    SuggestedHeight="48"
+                    VerticalAlignment="Center"
+                    MarginRight="10"
+                    PositionYOffset="-1"
+                    DoNotAcceptEvents="true">
+                    <Children>
+                        <BrushWidget
+                            WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+                            Brush="SPClan.RoleSelectionButton.GoldFrame"/>
+                        <BrushWidget
+                            WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+                            Brush="Frame1Canvas"/>
+
+                        <ImageIdentifierWidget
+                            WidthSizePolicy="Fixed"
+                            HeightSizePolicy="Fixed"
+                            SuggestedWidth="48"
+                            SuggestedHeight="48"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            ImageId="@Id"
+                        {% if version == "13" %}
+                            TextureProviderName="@TextureProviderName"
+                        {% else %}
+                            ImageTypeCode="@ImageTypeCode"
+                        {% endif %}
+                            AdditionalArgs="@AdditionalArgs" />
+                    </Children>
+                </Widget>
+
+                {# Item image #}
                 <Widget
                     DataSource="{Image}"
                     WidthSizePolicy="Fixed"
                     HeightSizePolicy="Fixed"
-                    SuggestedWidth="68"
+                    SuggestedWidth="96"
                     SuggestedHeight="48"
                     VerticalAlignment="Center"
                     MarginRight="16"
@@ -35,7 +71,7 @@
                         <ImageIdentifierWidget
                             WidthSizePolicy="Fixed"
                             HeightSizePolicy="Fixed"
-                            SuggestedWidth="66"
+                            SuggestedWidth="94"
                             SuggestedHeight="46"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
@@ -49,23 +85,6 @@
                     </Children>
                 </Widget>
 
-                {# Formation Class #}
-                <SpriteWidget
-                    IsHidden="@IsCivilian"
-                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                    SuggestedWidth="24" SuggestedHeight="24"
-                    MarginRight="16"
-                    VerticalAlignment="Center"
-                    Sprite="@FormationClassIcon" />
-
-                {# Indentation #}
-                <TextWidget
-                    WidthSizePolicy="CoverChildren"
-                    HeightSizePolicy="StretchToParent"
-                    VerticalAlignment="Center"
-                    Brush="Clan.Tuple.Name.Text"
-                    Text="@Indentation" />
-
                 {# Name #}
                 <TextWidget
                     WidthSizePolicy="StretchToParent"
@@ -73,25 +92,6 @@
                     VerticalAlignment="Center"
                     Brush="Clan.Tuple.Name.Text"
                     Text="@Name" />
-
-                {# Tier Icon #}
-                <ListPanel
-                    WidthSizePolicy="CoverChildren"
-                    HeightSizePolicy="CoverChildren"
-                    MarginRight="16"
-                    IsHidden="@IsCivilian"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center">
-                    <Children>
-                        <ImageWidget
-                            DataSource="{TierIconData}"
-                            WidthSizePolicy="Fixed"
-                            HeightSizePolicy="Fixed"
-                            SuggestedWidth="24"
-                            SuggestedHeight="24"
-                            Sprite="@Text"/>
-                    </Children>
-                </ListPanel>
             </Children>
         </ListPanel>
 

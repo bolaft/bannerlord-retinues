@@ -17,6 +17,9 @@
       id="ret_clear_filter_tooltip"
       text="清除當前的過濾文本。" />
     <string
+      id="ret_close_equipment_button_text"
+      text="返回" />
+    <string
       id="ret_culture_header_text"
       text="文化" />
     <string
@@ -38,6 +41,42 @@
       id="ret_enter_new_name"
       text="輸入新名稱：" />
     <string
+      id="ret_equipment_button_text"
+      text="裝備" />
+    <string
+      id="ret_equipment_slot_body"
+      text="身體" />
+    <string
+      id="ret_equipment_slot_cape"
+      text="披風" />
+    <string
+      id="ret_equipment_slot_gloves"
+      text="手套" />
+    <string
+      id="ret_equipment_slot_head"
+      text="頭部" />
+    <string
+      id="ret_equipment_slot_horse"
+      text="馬" />
+    <string
+      id="ret_equipment_slot_horse_harness"
+      text="馬具" />
+    <string
+      id="ret_equipment_slot_leg"
+      text="腿部" />
+    <string
+      id="ret_equipment_slot_weapon_0"
+      text="武器 1" />
+    <string
+      id="ret_equipment_slot_weapon_1"
+      text="武器 2" />
+    <string
+      id="ret_equipment_slot_weapon_2"
+      text="武器 3" />
+    <string
+      id="ret_equipment_slot_weapon_3"
+      text="武器 4" />
+    <string
       id="ret_escape_menu_editor_button"
       text="部隊編輯器" />
     <string
@@ -49,6 +88,9 @@
     <string
       id="ret_filter_tooltip_description_character"
       text="輸入以按名稱、文化或等級過濾列表。" />
+    <string
+      id="ret_filter_tooltip_description_equipment"
+      text="輸入以按名稱、類別、文化或等級過濾列表。" />
     <string
       id="ret_gender_toggle_hint"
       text="切換性別" />
@@ -107,6 +149,9 @@
       id="ret_mcm_section_debug"
       text="調試" />
     <string
+      id="ret_mcm_section_equipment"
+      text="裝備" />
+    <string
       id="ret_mcm_section_user_interface"
       text="用戶界面" />
     <string
@@ -149,11 +194,17 @@
       id="ret_skills_header_text"
       text="技能" />
     <string
+      id="ret_sort_by_category"
+      text="類別" />
+    <string
       id="ret_sort_by_name"
       text="名稱" />
     <string
       id="ret_sort_by_tier"
       text="等級" />
+    <string
+      id="ret_sort_by_value"
+      text="數值" />
     <string
       id="ret_unknown"
       text="未知" />

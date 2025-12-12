@@ -1,6 +1,7 @@
 using Retinues.Editor.VM.Column;
 using Retinues.Editor.VM.List;
 using Retinues.Editor.VM.Panel.Character;
+using Retinues.Editor.VM.Panel.Equipment;
 using TaleWorlds.Library;
 
 namespace Retinues.Editor.VM
@@ -11,6 +12,8 @@ namespace Retinues.Editor.VM
     public enum EditorMode
     {
         Character = 0,
+        Equipment = 1,
+        Doctrines = 2,
     }
 
     /// <summary>
@@ -28,10 +31,16 @@ namespace Retinues.Editor.VM
             List = new ListVM();
 
             // Initialize the tableau VM.
-            Tableau = new ColumnVM();
+            Column = new ColumnVM();
 
             // Initialize the character panel VM.
             CharacterPanel = new CharacterPanelVM();
+
+            // Initialize the equipment panel VM.
+            EquipmentPanel = new EquipmentPanelVM();
+
+            // Mode defaults to character editing.
+            SetMode(EditorMode.Character);
 
             // Start each editor session from a clean shared state.
             State.Reset();
@@ -59,21 +68,21 @@ namespace Retinues.Editor.VM
             }
         }
 
-        private ColumnVM _tableau;
+        private ColumnVM _column;
 
         [DataSourceProperty]
-        public ColumnVM Tableau
+        public ColumnVM Column
         {
-            get => _tableau;
+            get => _column;
             private set
             {
-                if (value == _tableau)
+                if (value == _column)
                 {
                     return;
                 }
 
-                _tableau = value;
-                OnPropertyChanged(nameof(Tableau));
+                _column = value;
+                OnPropertyChanged(nameof(Column));
             }
         }
 
@@ -95,6 +104,24 @@ namespace Retinues.Editor.VM
             }
         }
 
+        private EquipmentPanelVM _equipmentPanel;
+
+        [DataSourceProperty]
+        public EquipmentPanelVM EquipmentPanel
+        {
+            get => _equipmentPanel;
+            private set
+            {
+                if (value == _equipmentPanel)
+                {
+                    return;
+                }
+
+                _equipmentPanel = value;
+                OnPropertyChanged(nameof(CharacterPanel));
+            }
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Mode                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -104,9 +131,7 @@ namespace Retinues.Editor.VM
         public static void SetMode(EditorMode mode)
         {
             if (Mode == mode)
-            {
                 return;
-            }
 
             Mode = mode;
 

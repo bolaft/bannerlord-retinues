@@ -24,6 +24,9 @@ namespace Retinues.Editor.VM.List
         [DataSourceProperty]
         public virtual bool IsCharacter => false;
 
+        [DataSourceProperty]
+        public virtual bool IsEquipment => false;
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Identifier                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -47,33 +50,14 @@ namespace Retinues.Editor.VM.List
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                       IsSelected                       //
+        //                        Selection                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private bool _isSelected;
-
         [DataSourceProperty]
-        public bool IsSelected
-        {
-            get => _isSelected;
-            set
-            {
-                if (value == _isSelected)
-                {
-                    return;
-                }
-
-                _isSelected = value;
-                OnPropertyChanged(nameof(IsSelected));
-            }
-        }
+        public abstract bool IsSelected { get; }
 
         [DataSourceMethod]
-        public virtual void ExecuteSelect()
-        {
-            IsSelected = true;
-            List.OnRowSelected(this);
-        }
+        public abstract void ExecuteSelect();
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Visibility                       //
@@ -106,6 +90,18 @@ namespace Retinues.Editor.VM.List
         [DataSourceProperty]
         public virtual bool IsEnabled => true;
 
+        [DataSourceProperty]
+        public string Brush
+        {
+            get
+            {
+                if (!IsEnabled)
+                    return "Clan.Management.LeftTuple";
+
+                return "Clan.Item.Tuple";
+            }
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Sorting                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -116,7 +112,7 @@ namespace Retinues.Editor.VM.List
         //                        Filtering                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        internal abstract bool MatchesFilter(string filter);
+        internal virtual bool MatchesFilter(string filter) => true;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                    Event Management                    //

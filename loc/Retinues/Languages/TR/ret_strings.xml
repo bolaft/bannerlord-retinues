@@ -17,6 +17,9 @@
       id="ret_clear_filter_tooltip"
       text="Mevcut filtre metnini temizle." />
     <string
+      id="ret_close_equipment_button_text"
+      text="Geri" />
+    <string
       id="ret_culture_header_text"
       text="Kültür" />
     <string
@@ -38,6 +41,42 @@
       id="ret_enter_new_name"
       text="Yeni bir isim girin:" />
     <string
+      id="ret_equipment_button_text"
+      text="Ekipman" />
+    <string
+      id="ret_equipment_slot_body"
+      text="Gövde" />
+    <string
+      id="ret_equipment_slot_cape"
+      text="Pelerin" />
+    <string
+      id="ret_equipment_slot_gloves"
+      text="Eldiven" />
+    <string
+      id="ret_equipment_slot_head"
+      text="Kafa" />
+    <string
+      id="ret_equipment_slot_horse"
+      text="At" />
+    <string
+      id="ret_equipment_slot_horse_harness"
+      text="Koşum" />
+    <string
+      id="ret_equipment_slot_leg"
+      text="Bacaklar" />
+    <string
+      id="ret_equipment_slot_weapon_0"
+      text="Silah 1" />
+    <string
+      id="ret_equipment_slot_weapon_1"
+      text="Silah 2" />
+    <string
+      id="ret_equipment_slot_weapon_2"
+      text="Silah 3" />
+    <string
+      id="ret_equipment_slot_weapon_3"
+      text="Silah 4" />
+    <string
       id="ret_escape_menu_editor_button"
       text="Birlik Düzenleyici" />
     <string
@@ -49,6 +88,9 @@
     <string
       id="ret_filter_tooltip_description_character"
       text="Listeyi ada, kültüre veya seviyeye göre filtrelemek için yazın." />
+    <string
+      id="ret_filter_tooltip_description_equipment"
+      text="Listeyi ada, kategoriye, kültüre veya seviyeye göre filtrelemek için yazın." />
     <string
       id="ret_gender_toggle_hint"
       text="Cinsiyeti Değiştir" />
@@ -107,6 +149,9 @@
       id="ret_mcm_section_debug"
       text="Hata Ayıklama" />
     <string
+      id="ret_mcm_section_equipment"
+      text="Ekipman" />
+    <string
       id="ret_mcm_section_user_interface"
       text="Kullanıcı Arayüzü" />
     <string
@@ -149,11 +194,17 @@
       id="ret_skills_header_text"
       text="Yetenekler" />
     <string
+      id="ret_sort_by_category"
+      text="Kategori" />
+    <string
       id="ret_sort_by_name"
       text="İsim" />
     <string
       id="ret_sort_by_tier"
       text="Seviye" />
+    <string
+      id="ret_sort_by_value"
+      text="Değer" />
     <string
       id="ret_unknown"
       text="Bilinmeyen" />

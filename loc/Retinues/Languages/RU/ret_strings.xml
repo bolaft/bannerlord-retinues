@@ -17,6 +17,9 @@
       id="ret_clear_filter_tooltip"
       text="Очистить текущий текст фильтра." />
     <string
+      id="ret_close_equipment_button_text"
+      text="Назад" />
+    <string
       id="ret_culture_header_text"
       text="Культура" />
     <string
@@ -38,6 +41,42 @@
       id="ret_enter_new_name"
       text="Введите новое имя:" />
     <string
+      id="ret_equipment_button_text"
+      text="Снаряжение" />
+    <string
+      id="ret_equipment_slot_body"
+      text="Тело" />
+    <string
+      id="ret_equipment_slot_cape"
+      text="Плащ" />
+    <string
+      id="ret_equipment_slot_gloves"
+      text="Перчатки" />
+    <string
+      id="ret_equipment_slot_head"
+      text="Голова" />
+    <string
+      id="ret_equipment_slot_horse"
+      text="Лошадь" />
+    <string
+      id="ret_equipment_slot_horse_harness"
+      text="Уздечка" />
+    <string
+      id="ret_equipment_slot_leg"
+      text="Ноги" />
+    <string
+      id="ret_equipment_slot_weapon_0"
+      text="Оружие 1" />
+    <string
+      id="ret_equipment_slot_weapon_1"
+      text="Оружие 2" />
+    <string
+      id="ret_equipment_slot_weapon_2"
+      text="Оружие 3" />
+    <string
+      id="ret_equipment_slot_weapon_3"
+      text="Оружие 4" />
+    <string
       id="ret_escape_menu_editor_button"
       text="Редактор отрядов" />
     <string
@@ -49,6 +88,9 @@
     <string
       id="ret_filter_tooltip_description_character"
       text="Введите текст для фильтрации списка по имени, культуре или уровню." />
+    <string
+      id="ret_filter_tooltip_description_equipment"
+      text="Введите текст для фильтрации списка по имени, категории, культуре или уровню." />
     <string
       id="ret_gender_toggle_hint"
       text="Переключить пол" />
@@ -107,6 +149,9 @@
       id="ret_mcm_section_debug"
       text="Отладка" />
     <string
+      id="ret_mcm_section_equipment"
+      text="Снаряжение" />
+    <string
       id="ret_mcm_section_user_interface"
       text="Пользовательский интерфейс" />
     <string
@@ -149,11 +194,17 @@
       id="ret_skills_header_text"
       text="Навыки" />
     <string
+      id="ret_sort_by_category"
+      text="Категория" />
+    <string
       id="ret_sort_by_name"
       text="Имя" />
     <string
       id="ret_sort_by_tier"
       text="Уровень" />
+    <string
+      id="ret_sort_by_value"
+      text="Значение" />
     <string
       id="ret_unknown"
       text="Неизвестно" />

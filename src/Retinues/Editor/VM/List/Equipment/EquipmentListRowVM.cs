@@ -1,102 +1,110 @@
 using System;
 using Bannerlord.UIExtenderEx.Attributes;
-using Retinues.Engine;
-using Retinues.Model.Characters;
+using Retinues.Configuration;
+using Retinues.Model.Equipments;
+using Retinues.Utilities;
 using TaleWorlds.CampaignSystem.ViewModelCollection;
 using TaleWorlds.Core.ViewModelCollection.Generic;
 using TaleWorlds.Library;
 
-namespace Retinues.Editor.VM.List.Character
+namespace Retinues.Editor.VM.List.Equipment
 {
     /// <summary>
-    /// Row representing a troop character in the list.
+    /// Row representing an item in the list.
     /// </summary>
-    public sealed class CharacterListRowVM(
-        ListHeaderVM header,
-        WCharacter character,
-        bool civilian = false
-    ) : ListRowVM(header, character?.StringId ?? string.Empty)
+    public sealed class EquipmentListRowVM(ListHeaderVM header, WItem item)
+        : ListRowVM(header, item?.StringId ?? string.Empty)
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Internals                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        internal readonly WCharacter Character = character;
+        internal readonly WItem Item = item;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Type Flags                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceProperty]
-        public override bool IsCharacter => true;
+        public override bool IsEquipment => true;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Selection                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        [EventListener(UIEvent.Character)]
+        [EventListener(UIEvent.Item)]
         [DataSourceProperty]
-        public override bool IsSelected => State.Character == Character;
+        public override bool IsSelected => State.Equipment.GetItem(State.Slot) == Item;
 
         [DataSourceMethod]
-        public override void ExecuteSelect() => State.Character = Character;
+        public override void ExecuteSelect()
+        {
+            Log.Info($"Equipping item '{Item.Name}' to slot '{State.Slot}'");
+            State.Equipment.SetItem(State.Slot, Item);
+
+            EventManager.Fire(UIEvent.Item, EventScope.Global);
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                   Name & Indentation                   //
+        //                        IsEnabled                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceProperty]
-        [EventListener(UIEvent.Name)]
-        public string Name => Character.Name;
-
-        [DataSourceProperty]
-        public string Indentation
+        public override bool IsEnabled
         {
             get
             {
-                if (Character == null || Character.IsRoot)
-                {
-                    return string.Empty;
-                }
+                if (!Item.IsEquippableByCharacter(State.Character))
+                    return false;
 
-                int n = Math.Max(0, Character.Depth);
-                return new string(' ', n * 4);
+                if (!Item.IsUnlocked && !Settings.AllItemsAvailable)
+                    return false;
+
+                return true;
             }
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                          Tier                          //
+        //                          Main                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private readonly int _tier = character?.Tier ?? 0;
+        [DataSourceProperty]
+        public string Name => Item.Name;
+
+        [DataSourceProperty]
+        public int Value => Item.Value;
+
+        [DataSourceProperty]
+        public bool IsCivilian => Item.IsCivilian;
+
+        private readonly int _tier = item?.Tier ?? 0;
 
         [DataSourceProperty]
         public StringItemWithHintVM TierIconData =>
-            CampaignUIHelper.GetCharacterTierData(Character.Base, isBig: true);
+            CampaignUIHelper.GetCharacterTierData(State.Character.Base, isBig: true);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                     Formation Class                    //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        [DataSourceProperty]
-        public string FormationClassIcon => Icons.GetFormationClassIcon(Character);
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Civilian                        //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        private readonly bool _isCivilian = civilian;
-
-        [DataSourceProperty]
-        public bool IsCivilian => _isCivilian;
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                          Image                         //
+        //                          Data                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceProperty]
-        [EventListener(UIEvent.Appearance)]
-        public object Image => Character?.GetImage(_isCivilian);
+        public bool IsUnlocked => Item.IsUnlocked;
+
+        [DataSourceProperty]
+        public bool IsStocked => Stock > 0;
+
+        [DataSourceProperty]
+        public int Stock => Item.Stock;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Images                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [DataSourceProperty]
+        public object Image => Item.Image;
+
+        [DataSourceProperty]
+        public object CultureImage => Item.Culture?.Image;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Sorting                        //
@@ -108,6 +116,8 @@ namespace Retinues.Editor.VM.List.Character
             {
                 ListSortKey.Name => Name,
                 ListSortKey.Tier => _tier,
+                ListSortKey.Category => Item.Category.ToString(),
+                ListSortKey.Value => Item.Value,
                 _ => Name,
             };
         }
@@ -121,17 +131,26 @@ namespace Retinues.Editor.VM.List.Character
             if (string.IsNullOrWhiteSpace(filter))
                 return true;
 
+            var f = filter.Trim();
             var comparison = StringComparison.OrdinalIgnoreCase;
 
-            if (!string.IsNullOrEmpty(Name) && Name.IndexOf(filter, comparison) >= 0)
+            if (!string.IsNullOrEmpty(Name) && Name.IndexOf(f, comparison) >= 0)
                 return true;
 
-            var tierText = Character.Tier.ToString();
-            if (!string.IsNullOrEmpty(tierText) && tierText.IndexOf(filter, comparison) >= 0)
+            var cultureText = Item.Culture?.Name ?? string.Empty;
+            if (!string.IsNullOrEmpty(cultureText) && cultureText.IndexOf(f, comparison) >= 0)
                 return true;
 
-            var cultureName = Character.Culture?.Name;
-            if (!string.IsNullOrEmpty(cultureName) && cultureName.IndexOf(filter, comparison) >= 0)
+            var categoryText = Item.Category.ToString();
+            if (!string.IsNullOrEmpty(categoryText) && categoryText.IndexOf(f, comparison) >= 0)
+                return true;
+
+            var typeText = Item.Type.ToString();
+            if (!string.IsNullOrEmpty(typeText) && typeText.IndexOf(f, comparison) >= 0)
+                return true;
+
+            var tierText = _tier.ToString();
+            if (!string.IsNullOrEmpty(tierText) && tierText.IndexOf(f, comparison) >= 0)
                 return true;
 
             return false;

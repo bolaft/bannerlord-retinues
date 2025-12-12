@@ -69,9 +69,7 @@ namespace Retinues.Editor.VM.List
             set
             {
                 if (value == _isExpanded)
-                {
                     return;
-                }
 
                 _isExpanded = value;
                 OnPropertyChanged(nameof(IsExpanded));
@@ -80,22 +78,38 @@ namespace Retinues.Editor.VM.List
         }
 
         [DataSourceProperty]
-        public bool IsEnabled => VisibleRowCount > 0;
+        public virtual bool IsVisible => true;
 
-        public void UpdateIsEnabledState()
+        [DataSourceProperty]
+        public virtual bool IsEnabled => VisibleRowCount > 0;
+
+        internal bool HasVisibleRows => VisibleRowCount > 0;
+        protected virtual bool CollapseWhenNotVisible => true;
+        protected virtual bool ForceExpandedWhenNotVisible => false;
+
+        public void UpdateState()
         {
+            OnPropertyChanged(nameof(IsVisible));
             OnPropertyChanged(nameof(IsEnabled));
 
-            if (!IsEnabled && _isExpanded)
-            {
+            // Default behavior: collapse when disabled, and (optionally) when hidden.
+            if ((!IsEnabled || (CollapseWhenNotVisible && !IsVisible)) && _isExpanded)
                 IsExpanded = false;
-            }
+
+            // Equipment special-case: when toggle is hidden but rows exist, keep the section open.
+            if (ForceExpandedWhenNotVisible && HasVisibleRows && !IsVisible && !_isExpanded)
+                IsExpanded = true;
         }
 
         internal void OnRowVisibilityChanged()
         {
             OnPropertyChanged(nameof(RowCountText));
-            UpdateIsEnabledState();
+
+            // Row visibility changes affect "how many headers are full",
+            // so other headers must refresh their IsVisible too.
+            List?.OnHeaderRowVisibilityChanged();
+
+            UpdateState();
         }
 
         [DataSourceMethod]
@@ -118,7 +132,7 @@ namespace Retinues.Editor.VM.List
         [DataSourceProperty]
         public string RowCountText => $"({VisibleRowCount})";
 
-        private int VisibleRowCount
+        protected int VisibleRowCount
         {
             get
             {
@@ -145,24 +159,6 @@ namespace Retinues.Editor.VM.List
         public void UpdateRowCount()
         {
             OnPropertyChanged(nameof(RowCountText));
-        }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Selection                       //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        internal void ClearSelectionExcept(ListRowVM selected)
-        {
-            for (int i = 0; i < _rows.Count; i++)
-            {
-                var row = _rows[i];
-                if (row == null)
-                {
-                    continue;
-                }
-
-                row.IsSelected = ReferenceEquals(row, selected);
-            }
         }
     }
 }

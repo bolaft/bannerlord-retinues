@@ -1,3 +1,6 @@
+using System.Diagnostics.Tracing;
+using Bannerlord.UIExtenderEx.Attributes;
+using Retinues.Utilities;
 using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Library;
 
@@ -55,6 +58,31 @@ namespace Retinues.Editor.VM.Column
             vm.FillFrom(co, seed: -1);
 
             Model = vm;
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                    Equipment Button                    //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [EventListener(UIEvent.Mode)]
+        [DataSourceProperty]
+        public string EquipmentButtonText =>
+            EditorVM.Mode == EditorMode.Equipment
+                ? L.S("close_equipment_button_text", "Back")
+                : L.S("equipment_button_text", "Equipment");
+
+        [EventListener(UIEvent.Mode)]
+        [DataSourceProperty]
+        public string EquipmentButtonBrush =>
+            EditorVM.Mode == EditorMode.Equipment ? "ButtonBrush3" : "ButtonBrush1";
+
+        [DataSourceMethod]
+        public void ExecuteToggleEquipmentMode()
+        {
+            if (EditorVM.Mode == EditorMode.Equipment)
+                EditorVM.SetMode(EditorMode.Character);
+            else
+                EditorVM.SetMode(EditorMode.Equipment);
         }
     }
 }

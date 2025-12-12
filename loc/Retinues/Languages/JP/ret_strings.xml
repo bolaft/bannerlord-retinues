@@ -17,6 +17,9 @@
       id="ret_clear_filter_tooltip"
       text="現在のフィルターテキストをクリアします。" />
     <string
+      id="ret_close_equipment_button_text"
+      text="戻る" />
+    <string
       id="ret_culture_header_text"
       text="文化" />
     <string
@@ -38,6 +41,42 @@
       id="ret_enter_new_name"
       text="新しい名前を入力してください：" />
     <string
+      id="ret_equipment_button_text"
+      text="装備" />
+    <string
+      id="ret_equipment_slot_body"
+      text="体" />
+    <string
+      id="ret_equipment_slot_cape"
+      text="マント" />
+    <string
+      id="ret_equipment_slot_gloves"
+      text="手袋" />
+    <string
+      id="ret_equipment_slot_head"
+      text="頭部" />
+    <string
+      id="ret_equipment_slot_horse"
+      text="馬" />
+    <string
+      id="ret_equipment_slot_horse_harness"
+      text="馬具" />
+    <string
+      id="ret_equipment_slot_leg"
+      text="脚" />
+    <string
+      id="ret_equipment_slot_weapon_0"
+      text="武器 1" />
+    <string
+      id="ret_equipment_slot_weapon_1"
+      text="武器 2" />
+    <string
+      id="ret_equipment_slot_weapon_2"
+      text="武器 3" />
+    <string
+      id="ret_equipment_slot_weapon_3"
+      text="武器 4" />
+    <string
       id="ret_escape_menu_editor_button"
       text="部隊エディター" />
     <string
@@ -49,6 +88,9 @@
     <string
       id="ret_filter_tooltip_description_character"
       text="名前、文化、または階級でリストをフィルタリングするには入力してください。" />
+    <string
+      id="ret_filter_tooltip_description_equipment"
+      text="名前、カテゴリ、文化、または階級でリストをフィルタリングするには入力してください。" />
     <string
       id="ret_gender_toggle_hint"
       text="性別を切り替え" />
@@ -107,6 +149,9 @@
       id="ret_mcm_section_debug"
       text="デバッグ" />
     <string
+      id="ret_mcm_section_equipment"
+      text="装備" />
+    <string
       id="ret_mcm_section_user_interface"
       text="ユーザーインターフェース" />
     <string
@@ -149,11 +194,17 @@
       id="ret_skills_header_text"
       text="スキル" />
     <string
+      id="ret_sort_by_category"
+      text="カテゴリー" />
+    <string
       id="ret_sort_by_name"
       text="名前" />
     <string
       id="ret_sort_by_tier"
       text="階級" />
+    <string
+      id="ret_sort_by_value"
+      text="値" />
     <string
       id="ret_unknown"
       text="不明" />

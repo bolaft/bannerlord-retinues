@@ -17,6 +17,9 @@
       id="ret_clear_filter_tooltip"
       text="Clear the current filter text." />
     <string
+      id="ret_close_equipment_button_text"
+      text="Back" />
+    <string
       id="ret_culture_header_text"
       text="Culture" />
     <string
@@ -38,6 +41,42 @@
       id="ret_enter_new_name"
       text="Enter a new name:" />
     <string
+      id="ret_equipment_button_text"
+      text="Equipment" />
+    <string
+      id="ret_equipment_slot_body"
+      text="Body" />
+    <string
+      id="ret_equipment_slot_cape"
+      text="Cape" />
+    <string
+      id="ret_equipment_slot_gloves"
+      text="Gloves" />
+    <string
+      id="ret_equipment_slot_head"
+      text="Head" />
+    <string
+      id="ret_equipment_slot_horse"
+      text="Horse" />
+    <string
+      id="ret_equipment_slot_horse_harness"
+      text="Harness" />
+    <string
+      id="ret_equipment_slot_leg"
+      text="Legs" />
+    <string
+      id="ret_equipment_slot_weapon_0"
+      text="Weapon 1" />
+    <string
+      id="ret_equipment_slot_weapon_1"
+      text="Weapon 2" />
+    <string
+      id="ret_equipment_slot_weapon_2"
+      text="Weapon 3" />
+    <string
+      id="ret_equipment_slot_weapon_3"
+      text="Weapon 4" />
+    <string
       id="ret_escape_menu_editor_button"
       text="Troop Editor" />
     <string
@@ -49,6 +88,9 @@
     <string
       id="ret_filter_tooltip_description_character"
       text="Type to filter the list by name, culture or tier." />
+    <string
+      id="ret_filter_tooltip_description_equipment"
+      text="Type to filter the list by name, category, culture or tier." />
     <string
       id="ret_gender_toggle_hint"
       text="Toggle Gender" />
@@ -92,6 +134,12 @@
       id="ret_list_header_villagers"
       text="Villagers" />
     <string
+      id="ret_mcm_option_all_items_available"
+      text="All Items Available" />
+    <string
+      id="ret_mcm_option_all_items_available_hint"
+      text="Allows equipping any item regardless of unlock progress." />
+    <string
       id="ret_mcm_option_debug_mode"
       text="Debug Mode" />
     <string
@@ -106,6 +154,9 @@
     <string
       id="ret_mcm_section_debug"
       text="Debug" />
+    <string
+      id="ret_mcm_section_equipment"
+      text="Equipment" />
     <string
       id="ret_mcm_section_user_interface"
       text="User Interface" />
@@ -149,11 +200,17 @@
       id="ret_skills_header_text"
       text="Skills" />
     <string
+      id="ret_sort_by_category"
+      text="Category" />
+    <string
       id="ret_sort_by_name"
       text="Name" />
     <string
       id="ret_sort_by_tier"
       text="Tier" />
+    <string
+      id="ret_sort_by_value"
+      text="Value" />
     <string
       id="ret_unknown"
       text="Unknown" />

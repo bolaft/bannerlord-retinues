@@ -22,13 +22,16 @@
                     WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" 
                     SuggestedHeight="68"
                     SuggestedWidth="!Clan.Management.Collapser.Width" 
-                    Brush="Clan.Item.Tuple" 
+                    Brush="@Brush" 
                     Command.Click="ExecuteSelect" 
                     UpdateChildrenStates="true">
                     <Children>
 
-                        {# Per-type row contents #}
+                        {# Character row #}
                         {% include "_/list/character/row.j2" %}
+
+                        {# Equipment row #}
+                        {% include "_/list/equipment/row.j2" %}
 
                     </Children>
                 </ButtonWidget>

@@ -1,0 +1,139 @@
+<!-- ━━━━━━━━━━━━━━━━━━━━━ -->
+<!--    Equipment Panel    -->
+<!-- ━━━━━━━━━━━━━━━━━━━━━ -->
+
+{# Slot Macro #}
+{% macro slot(data_source) -%}
+
+<ListPanel 
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    DataSource="{{ data_source }}"
+    StackLayout.LayoutMethod="HorizontalLeftToRight"
+    MarginTop="16" MarginRight="160">
+    <Children>
+
+        <!-- Slot Select Button -->
+        <ButtonWidget
+            IsEnabled="@IsEnabled"
+            IsSelected="@IsSelected"
+            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+            HorizontalAlignment="Center" VerticalAlignment="Center"
+            SuggestedWidth="160" SuggestedHeight="48"
+            Brush="ButtonBrush2"
+            Command.Click="ExecuteSelect"
+            MarginRight="24"
+            UpdateChildrenStates="true"
+            DoNotPassEventsToChildren="true">
+            <Children>
+                <TextWidget
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                    Brush="Popup.Button.Text"
+                    VerticalAlignment="Center" HorizontalAlignment="Center"
+                    Text="@Label"/>
+            </Children>
+        </ButtonWidget>
+
+        <!-- Item Image -->
+        <Widget
+            DataSource="{ItemImage}"
+            WidthSizePolicy="Fixed"
+            HeightSizePolicy="Fixed"
+            SuggestedWidth="72"
+            SuggestedHeight="36"
+            VerticalAlignment="Center"
+            MarginRight="24"
+            PositionYOffset="-1"
+            DoNotAcceptEvents="true">
+            <Children>
+                <BrushWidget
+                    WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+                    Brush="Frame1Brush"/>
+
+                <ImageIdentifierWidget
+                    WidthSizePolicy="Fixed"
+                    HeightSizePolicy="Fixed"
+                    SuggestedWidth="72"
+                    SuggestedHeight="36"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    ImageId="@Id"
+                {% if version == "13" %}
+                    TextureProviderName="@TextureProviderName"
+                {% else %}
+                    ImageTypeCode="@ImageTypeCode"
+                {% endif %}
+                    AdditionalArgs="@AdditionalArgs" />
+            </Children>
+        </Widget>
+
+        <!-- Item Text -->
+        <TextWidget
+            Text="@ItemText"
+            Brush="Clan.RightPanel.Name.Text"
+            Brush.FontSize="24"
+            Brush.FontColor="@ItemTextColor"
+            WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren"
+            SuggestedWidth="600"
+            HorizontalAlignment="Left" VerticalAlignment="Center" />
+
+    </Children>
+</ListPanel>
+
+{%- endmacro %}
+
+
+{% macro divider() -%}
+
+    <Widget
+        WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+        SuggestedWidth="600" SuggestedHeight="4"
+        Sprite="Clan\divider_mid"
+        HorizontalAlignment="Left"
+        MarginTop="16"
+        MarginBottom="8"/>
+
+{%- endmacro %}
+
+
+<!-- Main slots list: renders rows for weapons, armor and mount slots -->
+<ListPanel
+    DataSource="{EquipmentPanel}"
+    IsVisible="@IsVisible"
+    WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+    StackLayout.LayoutMethod="VerticalBottomToTop">
+    <Children>
+        <ListPanel
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="StretchToParent"
+            HorizontalAlignment="Center"
+            StackLayout.LayoutMethod="VerticalBottomToTop"
+            UpdateChildrenStates="true"
+            MarginBottom="24" MarginLeft="160">
+            <Children>
+
+                <!-- Weapons -->
+                {{ slot("{Weapon0Slot}") }}
+                {{ slot("{Weapon1Slot}") }}
+                {{ slot("{Weapon2Slot}") }}
+                {{ slot("{Weapon3Slot}") }}
+
+                <!-- Divider -->
+                {{ divider() }}
+
+                <!-- Armor -->
+                {{ slot("{HeadSlot}") }}
+                {{ slot("{CapeSlot}") }}
+                {{ slot("{BodySlot}") }}
+                {{ slot("{GlovesSlot}") }}
+                {{ slot("{LegSlot}") }}
+
+                <!-- Divider -->
+                {{ divider() }}
+
+                <!-- Mount -->
+                {{ slot("{HorseSlot}") }}
+                {{ slot("{HorseHarnessSlot}") }}
+
+            </Children>
+        </ListPanel>
+    </Children>
+</ListPanel>

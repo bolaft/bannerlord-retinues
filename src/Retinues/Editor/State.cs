@@ -1,8 +1,9 @@
-using System.Collections.Generic;
 using Retinues.Model.Characters;
+using Retinues.Model.Equipments;
 using Retinues.Model.Factions;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.Core;
 
 namespace Retinues.Editor
 {
@@ -22,9 +23,6 @@ namespace Retinues.Editor
 
             // Set the singleton instance.
             _instance = this;
-
-            _faction = null;
-            _character = null;
 
             // Default faction: use the main hero's culture if available.
             Faction = WHero.Get(Hero.MainHero).Culture;
@@ -101,8 +99,54 @@ namespace Retinues.Editor
                 // Set the character.
                 _character = value;
 
+                // Pick the first equipment.
+                Equipment = _character.EquipmentRoster.Get(0);
+
                 // Notify listeners.
-                EventManager.Fire(UIEvent.Character, EventScope.Local);
+                EventManager.Fire(UIEvent.Character, EventScope.Global);
+            }
+        }
+
+        /* ━━━━━━━ Equipment ━━━━━━ */
+
+        private MEquipment _equipment;
+
+        public MEquipment Equipment
+        {
+            get => _equipment;
+            set
+            {
+                if (ReferenceEquals(value, _equipment))
+                    return;
+
+                if (value == null)
+                    return;
+
+                // Set the equipment.
+                _equipment = value;
+
+                // Notify listeners.
+                EventManager.Fire(UIEvent.Equipment, EventScope.Global);
+            }
+        }
+
+        /* ━━━━━━━━━ Slot ━━━━━━━━━ */
+
+        private EquipmentIndex _slot = EquipmentIndex.Weapon0;
+
+        public EquipmentIndex Slot
+        {
+            get => _slot;
+            set
+            {
+                if (value == _slot)
+                    return;
+
+                // Set the slot.
+                _slot = value;
+
+                // Notify listeners.
+                EventManager.Fire(UIEvent.Slot, EventScope.Global);
             }
         }
     }

@@ -22,6 +22,9 @@ namespace Retinues.Editor
         Appearance,
         Skill,
         Gender,
+        Equipment,
+        Slot,
+        Item,
     }
 
     public enum EventScope
@@ -100,10 +103,13 @@ namespace Retinues.Editor
                     UIEvent.Appearance,
                     UIEvent.Skill,
                     UIEvent.Gender,
+                    UIEvent.Equipment,
                 }
             },
+            { UIEvent.Equipment, new[] { UIEvent.Appearance, UIEvent.Item } },
             { UIEvent.Culture, new[] { UIEvent.Appearance } },
             { UIEvent.Gender, new[] { UIEvent.Appearance } },
+            { UIEvent.Item, new[] { UIEvent.Appearance } },
         };
 
         /// <summary>

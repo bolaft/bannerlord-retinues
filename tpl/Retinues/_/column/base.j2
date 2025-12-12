@@ -1,15 +1,32 @@
 <Widget
-    DataSource="{Tableau}"
+    DataSource="{Column}"
     WidthSizePolicy="Fixed"
     HeightSizePolicy="StretchToParent"
     SuggestedWidth="300"
     HorizontalAlignment="Left" VerticalAlignment="Center"
-    MarginLeft="650">
+    MarginLeft="670">
     <Children>
 
         {% include "_/column/tableau.j2" %}
 
         {% include "_/column/customization.j2" %}
+
+        <ButtonWidget
+            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+            HorizontalAlignment="Center" VerticalAlignment="Bottom"
+            PositionYOffset="10"
+            SuggestedWidth="!CancelButton.Width" SuggestedHeight="!CancelButton.Height"
+            Brush="@EquipmentButtonBrush"
+            Command.Click="ExecuteToggleEquipmentMode"
+            UpdateChildrenStates="true" DoNotPassEventsToChildren="true">
+            <Children>
+                <TextWidget
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                    Brush="Popup.Button.Text"
+                    VerticalAlignment="Center" HorizontalAlignment="Center"
+                    Text="@EquipmentButtonText"/>
+            </Children>
+        </ButtonWidget>
 
     </Children>
 </Widget>

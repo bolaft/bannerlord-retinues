@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Editor.VM.List.Character;
+using Retinues.Editor.VM.List.Equipment;
 using Retinues.Engine;
 using Retinues.Model.Characters;
 using Retinues.Utilities;
+using TaleWorlds.Core;
 using TaleWorlds.Library;
 
 namespace Retinues.Editor.VM.List
@@ -17,21 +19,8 @@ namespace Retinues.Editor.VM.List
     {
         Name,
         Tier,
-    }
-
-    /// <summary>
-    /// Base class for list builders.
-    /// </summary>
-    public abstract class BaseListBuilder
-    {
-        public void Build(ListVM list)
-        {
-            BuildSortButtons(list);
-            BuildSections(list);
-        }
-
-        protected abstract void BuildSortButtons(ListVM list);
-        protected abstract void BuildSections(ListVM list);
+        Value,
+        Category,
     }
 
     /// <summary>
@@ -52,7 +41,8 @@ namespace Retinues.Editor.VM.List
             {
                 return EditorVM.Mode switch
                 {
-                    EditorMode.Character => new CharacterListBuilder(),
+                    EditorMode.Character => BaseListBuilder.GetInstance<CharacterListBuilder>(),
+                    EditorMode.Equipment => BaseListBuilder.GetInstance<EquipmentListBuilder>(),
                     _ => throw new NotSupportedException(
                         $"No list builder for mode {EditorVM.Mode}."
                     ),
@@ -70,15 +60,54 @@ namespace Retinues.Editor.VM.List
 
             _headers.Clear();
             _headerIds.Clear();
-            SelectedRow = null;
         }
 
-        // Rebuild headers when mode or faction changes.
-        [EventListener(UIEvent.Mode, UIEvent.Faction)]
-        private void Rebuild()
+        /// <summary>
+        /// On mode change, rebuild the list using the current builder.
+        /// </summary>
+        [EventListener(UIEvent.Mode)]
+        private void OnModeChange()
+        {
+            Builder.Build(this);
+        }
+
+        /// <summary>
+        /// On faction change, rebuild the list if in character mode.
+        /// </summary>
+        [EventListener(UIEvent.Faction)]
+        private void OnFactionChange()
         {
             if (EditorVM.Mode == EditorMode.Character)
                 Builder.Build(this);
+        }
+
+        EquipmentIndex _previousSlot = State.Slot;
+
+        readonly EquipmentIndex[] WeaponSlots =
+        [
+            EquipmentIndex.Weapon0,
+            EquipmentIndex.Weapon1,
+            EquipmentIndex.Weapon2,
+            EquipmentIndex.Weapon3,
+        ];
+
+        /// <summary>
+        /// On slot change, rebuild the list if in equipment mode.
+        /// </summary>
+        [EventListener(UIEvent.Slot)]
+        private void OnSlotChange()
+        {
+            if (EditorVM.Mode == EditorMode.Equipment)
+            {
+                if (State.Slot == _previousSlot)
+                    return; // No change.
+
+                if (WeaponSlots.Contains(State.Slot) && WeaponSlots.Contains(_previousSlot))
+                    return; // Both old and new slots are weapon slots; no need to rebuild the entire list.
+
+                Builder.Build(this);
+                _previousSlot = State.Slot;
+            }
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -102,46 +131,39 @@ namespace Retinues.Editor.VM.List
             }
         }
 
-        public ListHeaderVM AddHeader(string id, string name)
+        public void AddHeader(ListHeaderVM header)
         {
-            var header = new ListHeaderVM(this, id, name);
-
             // Insert at index 0 because the list is displayed in reverse.
             _headers.Insert(0, header);
-            _headerIds[header] = id;
-
-            return header;
+            _headerIds[header] = header.Id;
         }
 
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Selection                       //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        private ListRowVM _selectedRow;
-
-        [DataSourceProperty]
-        public ListRowVM SelectedRow
+        internal int VisibleHeaderCount
         {
-            get => _selectedRow;
-            private set
+            get
             {
-                if (ReferenceEquals(value, _selectedRow))
-                    return;
+                var count = 0;
 
-                _selectedRow = value;
-                OnPropertyChanged(nameof(SelectedRow));
+                for (int i = 0; i < _headers.Count; i++)
+                {
+                    if (_headers[i].HasVisibleRows)
+                        count++;
+                }
+
+                return count;
             }
         }
 
-        internal void OnRowSelected(ListRowVM row)
+        internal void RecomputeHeaderStates()
         {
-            foreach (var header in _headers)
-                header.ClearSelectionExcept(row);
+            for (int i = 0; i < _headers.Count; i++)
+                _headers[i]?.UpdateState();
+        }
 
-            SelectedRow = row;
-
-            if (row is CharacterListRowVM characterRow)
-                State.Character = characterRow.Character;
+        internal void OnHeaderRowVisibilityChanged()
+        {
+            // Re-evaluate all headers because the "only one full header" rule depends on siblings.
+            RecomputeHeaderStates();
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -198,7 +220,7 @@ namespace Retinues.Editor.VM.List
             if (active == null)
             {
                 // No active sort: revert to default ordering for the current mode.
-                Rebuild();
+                Builder.Build(this);
                 return;
             }
 
@@ -402,6 +424,7 @@ namespace Retinues.Editor.VM.List
             }
         }
 
+        [EventListener(UIEvent.Mode)]
         [DataSourceProperty]
         public Tooltip FilterTooltip
         {
@@ -416,6 +439,15 @@ namespace Retinues.Editor.VM.List
                         )
                     );
                 }
+                if (EditorVM.Mode == EditorMode.Equipment)
+                {
+                    return new(
+                        L.S(
+                            "filter_tooltip_description_equipment",
+                            "Type to filter the list by name, category, culture or tier."
+                        )
+                    );
+                }
                 return new(L.S("filter_tooltip_description", "Type to filter the list."));
             }
         }
@@ -424,6 +456,7 @@ namespace Retinues.Editor.VM.List
         public Tooltip ClearFilterTooltip =>
             new(L.S("clear_filter_tooltip", "Clear the current filter text."));
 
+        [EventListener(UIEvent.Mode)]
         [DataSourceMethod]
         public void ExecuteClearFilter()
         {

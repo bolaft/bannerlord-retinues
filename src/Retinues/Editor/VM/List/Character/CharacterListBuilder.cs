@@ -16,6 +16,7 @@ namespace Retinues.Editor.VM.List.Character
         protected override void BuildSortButtons(ListVM list)
         {
             list.SortButtons.Clear();
+
             list.SortButtons.Add(
                 new ListSortButtonVM(list, ListSortKey.Name, L.S("sort_by_name", "Name"), 3)
             );
@@ -46,7 +47,12 @@ namespace Retinues.Editor.VM.List.Character
                 bool civilian = false
             )
             {
-                var header = list.AddHeader(headerId, L.S(headerLocKey, headerFallback));
+                var header = new CharacterListHeaderVM(
+                    list,
+                    headerId,
+                    L.S(headerLocKey, headerFallback)
+                );
+                list.AddHeader(header);
 
                 if (troops == null)
                     return;
@@ -149,13 +155,10 @@ namespace Retinues.Editor.VM.List.Character
             header.Rows.Add(row);
 
             header.UpdateRowCount();
-            header.UpdateIsEnabledState();
+            header.UpdateState();
 
             if (wasEmpty && header.IsEnabled)
                 header.IsExpanded = true;
-
-            if (character == State.Instance.Character)
-                header.ClearSelectionExcept(row);
         }
     }
 }
