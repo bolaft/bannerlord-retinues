@@ -91,7 +91,7 @@ namespace Retinues.Editor.VM.List
         public virtual bool IsEnabled => true;
 
         [DataSourceProperty]
-        public string Brush
+        public virtual string Brush
         {
             get
             {

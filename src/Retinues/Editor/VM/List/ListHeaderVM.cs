@@ -1,6 +1,6 @@
+using System.Collections.Generic;
 using Bannerlord.UIExtenderEx.Attributes;
-using Retinues.Editor.VM.List.Character;
-using Retinues.Model.Characters;
+using Retinues.Utilities;
 using TaleWorlds.Library;
 
 namespace Retinues.Editor.VM.List
@@ -51,16 +51,38 @@ namespace Retinues.Editor.VM.List
         //                          Rows                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private readonly MBBindingList<ListRowVM> _rows = [];
+        private readonly List<ListRowVM> _rows = [];
+
+        public List<ListRowVM> Rows => _rows;
 
         [DataSourceProperty]
-        public MBBindingList<ListRowVM> Rows => _rows;
+        public MBBindingList<ListRowVM> ExpandedRows { get; set; } = [];
+
+        public void AddRow(ListRowVM row) => _rows.Add(row);
+
+        /// <summary>
+        /// Returns true if any row in this header is selected.
+        /// </summary>
+        internal bool ContainsSelectedRow()
+        {
+            if (_rows.Count == 0)
+                return false;
+
+            for (int i = 0; i < _rows.Count; i++)
+            {
+                var row = _rows[i];
+                if (row != null && row.IsSelected)
+                    return true;
+            }
+
+            return false;
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                   Enabled / Expanded                   //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private bool _isExpanded;
+        private bool _isExpanded = false;
 
         [DataSourceProperty]
         public bool IsExpanded
@@ -72,10 +94,21 @@ namespace Retinues.Editor.VM.List
                     return;
 
                 _isExpanded = value;
+
+                if (_isExpanded)
+                    foreach (var row in _rows)
+                        ExpandedRows.Add(row);
+                else
+                    ExpandedRows.Clear();
+
                 OnPropertyChanged(nameof(IsExpanded));
+                OnPropertyChanged(nameof(CollapseIndicatorState));
                 OnPropertyChanged(nameof(MarginBottom));
             }
         }
+
+        [DataSourceProperty]
+        public string CollapseIndicatorState => _isExpanded ? "Expanded" : "Collapsed";
 
         [DataSourceProperty]
         public virtual bool IsVisible => true;

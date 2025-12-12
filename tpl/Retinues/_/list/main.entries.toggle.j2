@@ -14,9 +14,7 @@
     VerticalAlignment="Top"
     MarginBottom="@MarginBottom"
 
-    Command.Click="ExecuteToggle"
-    WidgetToClose="..\RowsList"
-    CollapseIndicator="HeaderCollapser\HeaderCollapseIndicator">
+    Command.Click="ExecuteToggle">
     <Children>
 
         <ListPanel
@@ -28,9 +26,8 @@
             StackLayout.LayoutMethod="HorizontalLeftToRight">
             <Children>
 
-                {# Arrow sprite (Active) #}
-                <BrushWidget
-                    IsVisible="@IsEnabled"
+                {# Arrow sprite #}
+                <SelectedStateBrushWidget
                     Id="HeaderCollapseIndicator"
                     WidthSizePolicy="Fixed"
                     HeightSizePolicy="Fixed"
@@ -39,19 +36,8 @@
                     VerticalAlignment="Center"
                     PositionYOffset="-2"
                     MarginRight="5"
-                    Brush="Party.Toggle.ExpandIndicator" />
-
-                {# Arrow sprite (Inactive) #}
-                <BrushWidget
-                    IsHidden="@IsEnabled"
-                    WidthSizePolicy="Fixed"
-                    HeightSizePolicy="Fixed"
-                    SuggestedWidth="!Party.Toggle.ExpandIndicator.Width"
-                    SuggestedHeight="!Party.Toggle.ExpandIndicator.Height"
-                    VerticalAlignment="Center"
-                    PositionYOffset="-2"
-                    MarginRight="5"
-                    Brush="Party.Toggle.ExpandIndicator" />
+                    Brush="Party.Toggle.ExpandIndicator"
+                    SelectedState="@CollapseIndicatorState" />
 
                 {# Header label #}
                 <TextWidget

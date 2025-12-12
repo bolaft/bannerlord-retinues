@@ -39,7 +39,6 @@ namespace Retinues.Editor.VM.List.Equipment
         [DataSourceMethod]
         public override void ExecuteSelect()
         {
-            Log.Info($"Equipping item '{Item.Name}' to slot '{State.Slot}'");
             State.Equipment.SetItem(State.Slot, Item);
 
             EventManager.Fire(UIEvent.Item, EventScope.Global);
@@ -78,10 +77,6 @@ namespace Retinues.Editor.VM.List.Equipment
         public bool IsCivilian => Item.IsCivilian;
 
         private readonly int _tier = item?.Tier ?? 0;
-
-        [DataSourceProperty]
-        public StringItemWithHintVM TierIconData =>
-            CampaignUIHelper.GetCharacterTierData(State.Character.Base, isBig: true);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Data                          //

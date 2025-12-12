@@ -55,10 +55,7 @@ namespace Retinues.Editor.VM.List
         /// </summary>
         public void Clear()
         {
-            foreach (var header in _headers)
-                header.Rows.Clear();
-
-            _headers.Clear();
+            Headers = [];
             _headerIds.Clear();
         }
 
@@ -138,6 +135,29 @@ namespace Retinues.Editor.VM.List
             _headerIds[header] = header.Id;
         }
 
+        public void SetHeaders(IEnumerable<ListHeaderVM> headers)
+        {
+            var newHeaders = new MBBindingList<ListHeaderVM>();
+            _headerIds.Clear();
+
+            if (headers != null)
+            {
+                // List is displayed in reverse, so add in reverse order once.
+                var tmp = headers as IList<ListHeaderVM> ?? [.. headers];
+                for (int i = tmp.Count - 1; i >= 0; i--)
+                {
+                    var h = tmp[i];
+                    if (h == null)
+                        continue;
+
+                    newHeaders.Add(h);
+                    _headerIds[h] = h.Id;
+                }
+            }
+
+            Headers = newHeaders;
+        }
+
         internal int VisibleHeaderCount
         {
             get
@@ -164,6 +184,48 @@ namespace Retinues.Editor.VM.List
         {
             // Re-evaluate all headers because the "only one full header" rule depends on siblings.
             RecomputeHeaderStates();
+        }
+
+        [EventListener(UIEvent.Slot)]
+        private void OnItemChange()
+        {
+            if (EditorVM.Mode != EditorMode.Equipment)
+                return;
+
+            UpdateEquipmentHeaderExpansion();
+        }
+
+        private void UpdateEquipmentHeaderExpansion()
+        {
+            if (_headers.Count == 0)
+                return;
+
+            ListHeaderVM selectedHeader = null;
+
+            for (int i = 0; i < _headers.Count; i++)
+            {
+                var h = _headers[i];
+                if (h != null && h.ContainsSelectedRow())
+                {
+                    selectedHeader = h;
+                    break;
+                }
+            }
+
+            for (int i = 0; i < _headers.Count; i++)
+            {
+                var h = _headers[i];
+                if (h == null)
+                    continue;
+
+                // Keep exactly one open (the selected one).
+                // (Optional) don’t force-collapse headers whose toggle is hidden,
+                // because the user can’t reopen them (your equipment header logic).
+                if (ReferenceEquals(h, selectedHeader))
+                    h.IsExpanded = true;
+                else if (h.IsVisible) // toggle visible => safe to collapse
+                    h.IsExpanded = false;
+            }
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

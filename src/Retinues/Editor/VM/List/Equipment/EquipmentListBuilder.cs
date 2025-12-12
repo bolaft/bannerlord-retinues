@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Retinues.Model.Equipments;
 using Retinues.Utilities;
@@ -41,18 +40,19 @@ namespace Retinues.Editor.VM.List.Equipment
 
         protected override void BuildSections(ListVM list)
         {
-            list.Clear();
+            // Build headers and rows off-screen first.
+            var headers = GetHeaders(list);
 
-            foreach (var header in GetHeaders(list))
-                list.AddHeader(header);
+            // Single binding update instead of N inserts.
+            list.SetHeaders(headers);
         }
 
         /// <summary>
         /// Builds the sections for the equipment list.
         /// </summary>
-        private List<EquipmentListHeaderVM> GetHeaders(ListVM list)
+        private List<ListHeaderVM> GetHeaders(ListVM list)
         {
-            var headers = new List<EquipmentListHeaderVM>();
+            var headers = new List<ListHeaderVM>();
 
             if (
                 State.Instance.Slot
@@ -146,40 +146,34 @@ namespace Retinues.Editor.VM.List.Equipment
         {
             var header = new EquipmentListHeaderVM(list, headerId, headerText);
 
-            if (items == null || items.Count == 0)
+            // Build rows into the *unbound* buffer (ListHeaderVM._rows).
+            var expand = false;
+
+            if (items != null && items.Count > 0)
             {
-                header.UpdateRowCount();
-                header.UpdateState();
-                return header;
+                for (int i = 0; i < items.Count; i++)
+                {
+                    var item = items[i];
+                    if (item == null)
+                        continue;
+
+                    var row = new EquipmentListRowVM(header, item);
+                    header.Rows.Add(row);
+
+                    // Only expand the header that contains the selected row.
+                    if (!expand && row.IsSelected)
+                        expand = true;
+                }
             }
-
-            for (int i = 0; i < items.Count; i++)
-            {
-                var item = items[i];
-                if (item == null)
-                    continue;
-
-                AddEquipmentRow(header, item);
-            }
-
-            return header;
-        }
-
-        private void AddEquipmentRow(ListHeaderVM header, WItem item)
-        {
-            if (header == null || item == null)
-                return;
-
-            var wasEmpty = header.Rows.Count == 0;
-
-            var row = new EquipmentListRowVM(header, item);
-            header.Rows.Add(row);
 
             header.UpdateRowCount();
-            header.UpdateState();
 
-            if (wasEmpty && header.IsEnabled)
+            // Default: collapsed (equipment headers closed by default).
+            // Exception: expand the header that contains the selected row.
+            if (expand)
                 header.IsExpanded = true;
+
+            return header;
         }
     }
 }
