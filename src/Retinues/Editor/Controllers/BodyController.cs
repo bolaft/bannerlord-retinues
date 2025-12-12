@@ -5,7 +5,7 @@ using Retinues.Utilities;
 
 namespace Retinues.Editor.Controllers
 {
-    public class AppearanceController : BaseController
+    public class BodyController : BaseController
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Presets                        //

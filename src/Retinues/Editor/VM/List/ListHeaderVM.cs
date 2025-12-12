@@ -58,7 +58,20 @@ namespace Retinues.Editor.VM.List
         [DataSourceProperty]
         public MBBindingList<ListRowVM> ExpandedRows { get; set; } = [];
 
-        public void AddRow(ListRowVM row) => _rows.Add(row);
+        /// <summary>
+        /// Adds a row to this header.
+        /// </summary>
+        public void AddRow(ListRowVM row)
+        {
+            if (row == null)
+                return;
+
+            _rows.Add(row);
+
+            // If already expanded, keep ExpandedRows in sync.
+            if (_isExpanded)
+                ExpandedRows.Add(row);
+        }
 
         /// <summary>
         /// Returns true if any row in this header is selected.
@@ -140,7 +153,7 @@ namespace Retinues.Editor.VM.List
 
             // Row visibility changes affect "how many headers are full",
             // so other headers must refresh their IsVisible too.
-            List?.OnHeaderRowVisibilityChanged();
+            List.RecomputeHeaderStates();
 
             UpdateState();
         }

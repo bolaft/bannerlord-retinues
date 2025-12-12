@@ -1,10 +1,9 @@
 using System;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Configuration;
+using Retinues.Editor.Controllers;
 using Retinues.Model.Equipments;
-using Retinues.Utilities;
-using TaleWorlds.CampaignSystem.ViewModelCollection;
-using TaleWorlds.Core.ViewModelCollection.Generic;
+using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Library;
 
 namespace Retinues.Editor.VM.List.Equipment
@@ -37,15 +36,10 @@ namespace Retinues.Editor.VM.List.Equipment
         public override bool IsSelected => State.Equipment.GetItem(State.Slot) == Item;
 
         [DataSourceMethod]
-        public override void ExecuteSelect()
-        {
-            State.Equipment.SetItem(State.Slot, Item);
-
-            EventManager.Fire(UIEvent.Item, EventScope.Global);
-        }
+        public override void ExecuteSelect() => EquipmentController.EquipItem(Item);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        IsEnabled                       //
+        //                         Enabled                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceProperty]
@@ -90,6 +84,16 @@ namespace Retinues.Editor.VM.List.Equipment
 
         [DataSourceProperty]
         public int Stock => Item.Stock;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Tooltip                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        CharacterEquipmentItemVM _tooltip = null;
+
+        [DataSourceProperty]
+        public CharacterEquipmentItemVM Tooltip =>
+            _tooltip ??= new CharacterEquipmentItemVM(Item.Base);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Images                         //

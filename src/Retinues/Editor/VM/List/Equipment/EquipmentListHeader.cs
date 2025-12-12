@@ -1,3 +1,4 @@
+using System.Linq;
 using TaleWorlds.Library;
 
 namespace Retinues.Editor.VM.List.Equipment
@@ -9,7 +10,8 @@ namespace Retinues.Editor.VM.List.Equipment
         // - this header has visible rows, AND
         // - there are at least 2 "full" equipment headers
         [DataSourceProperty]
-        public override bool IsVisible => HasVisibleRows && List.VisibleHeaderCount > 1;
+        public override bool IsVisible =>
+            HasVisibleRows && List.Headers.Count(h => h.HasVisibleRows) > 1;
 
         // Equipment headers should never be disabled.
         [DataSourceProperty]

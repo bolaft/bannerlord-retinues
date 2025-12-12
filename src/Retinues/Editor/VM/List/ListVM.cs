@@ -28,8 +28,24 @@ namespace Retinues.Editor.VM.List
     /// </summary>
     public class ListVM : BaseVM
     {
+        /// <summary>
+        /// Previous equipment slot, for detecting changes.
+        /// </summary>
+        EquipmentIndex _previousSlot = State.Slot;
+
+        /// <summary>
+        /// Weapon slots, for optimized change detection.
+        /// </summary>
+        readonly EquipmentIndex[] WeaponSlots =
+        [
+            EquipmentIndex.Weapon0,
+            EquipmentIndex.Weapon1,
+            EquipmentIndex.Weapon2,
+            EquipmentIndex.Weapon3,
+        ];
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                       Life Cycle                       //
+        //                        Lifecycle                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
@@ -41,8 +57,8 @@ namespace Retinues.Editor.VM.List
             {
                 return EditorVM.Mode switch
                 {
-                    EditorMode.Character => BaseListBuilder.GetInstance<CharacterListBuilder>(),
-                    EditorMode.Equipment => BaseListBuilder.GetInstance<EquipmentListBuilder>(),
+                    EditorMode.Character => new CharacterListBuilder(),
+                    EditorMode.Equipment => new EquipmentListBuilder(),
                     _ => throw new NotSupportedException(
                         $"No list builder for mode {EditorVM.Mode}."
                     ),
@@ -78,16 +94,6 @@ namespace Retinues.Editor.VM.List
                 Builder.Build(this);
         }
 
-        EquipmentIndex _previousSlot = State.Slot;
-
-        readonly EquipmentIndex[] WeaponSlots =
-        [
-            EquipmentIndex.Weapon0,
-            EquipmentIndex.Weapon1,
-            EquipmentIndex.Weapon2,
-            EquipmentIndex.Weapon3,
-        ];
-
         /// <summary>
         /// On slot change, rebuild the list if in equipment mode.
         /// </summary>
@@ -98,6 +104,10 @@ namespace Retinues.Editor.VM.List
             {
                 if (State.Slot == _previousSlot)
                     return; // No change.
+
+                // Update header expansion based on selected item.
+                // Do this even if both are weapon slots.
+                UpdateEquipmentHeaderExpansion();
 
                 if (WeaponSlots.Contains(State.Slot) && WeaponSlots.Contains(_previousSlot))
                     return; // Both old and new slots are weapon slots; no need to rebuild the entire list.
@@ -128,6 +138,9 @@ namespace Retinues.Editor.VM.List
             }
         }
 
+        /// <summary>
+        /// Adds a header to the list.
+        /// </summary>
         public void AddHeader(ListHeaderVM header)
         {
             // Insert at index 0 because the list is displayed in reverse.
@@ -135,6 +148,9 @@ namespace Retinues.Editor.VM.List
             _headerIds[header] = header.Id;
         }
 
+        /// <summary>
+        /// Sets the headers of the list, replacing any existing ones.
+        /// </summary>
         public void SetHeaders(IEnumerable<ListHeaderVM> headers)
         {
             var newHeaders = new MBBindingList<ListHeaderVM>();
@@ -158,43 +174,18 @@ namespace Retinues.Editor.VM.List
             Headers = newHeaders;
         }
 
-        internal int VisibleHeaderCount
-        {
-            get
-            {
-                var count = 0;
-
-                for (int i = 0; i < _headers.Count; i++)
-                {
-                    if (_headers[i].HasVisibleRows)
-                        count++;
-                }
-
-                return count;
-            }
-        }
-
+        /// <summary>
+        /// Recomputes the visibility and enabled states of all headers.
+        /// </summary>
         internal void RecomputeHeaderStates()
         {
             for (int i = 0; i < _headers.Count; i++)
                 _headers[i]?.UpdateState();
         }
 
-        internal void OnHeaderRowVisibilityChanged()
-        {
-            // Re-evaluate all headers because the "only one full header" rule depends on siblings.
-            RecomputeHeaderStates();
-        }
-
-        [EventListener(UIEvent.Slot)]
-        private void OnItemChange()
-        {
-            if (EditorVM.Mode != EditorMode.Equipment)
-                return;
-
-            UpdateEquipmentHeaderExpansion();
-        }
-
+        /// <summary>
+        /// Updates equipment header expansion based on selected row.
+        /// </summary>
         private void UpdateEquipmentHeaderExpansion()
         {
             if (_headers.Count == 0)
@@ -219,11 +210,9 @@ namespace Retinues.Editor.VM.List
                     continue;
 
                 // Keep exactly one open (the selected one).
-                // (Optional) don’t force-collapse headers whose toggle is hidden,
-                // because the user can’t reopen them (your equipment header logic).
                 if (ReferenceEquals(h, selectedHeader))
                     h.IsExpanded = true;
-                else if (h.IsVisible) // toggle visible => safe to collapse
+                else if (h.IsVisible)
                     h.IsExpanded = false;
             }
         }
@@ -253,6 +242,9 @@ namespace Retinues.Editor.VM.List
             }
         }
 
+        /// <summary>
+        /// Handles a sort button click.
+        /// </summary>
         internal void OnSortButtonClicked(ListSortButtonVM clicked)
         {
             if (clicked == null)
@@ -269,6 +261,9 @@ namespace Retinues.Editor.VM.List
             OnSortChanged();
         }
 
+        /// <summary>
+        /// Re-sorts all headers based on the active sort button (if any).
+        /// </summary>
         private void OnSortChanged()
         {
             if (_headers.Count == 0)
@@ -306,6 +301,9 @@ namespace Retinues.Editor.VM.List
             }
         }
 
+        /// <summary>
+        /// Sorts a header's rows in flat mode.
+        /// </summary>
         private void SortFlatHeader(ListHeaderVM header, ListSortKey sortKey, bool ascending)
         {
             if (header.Rows.Count <= 1)
@@ -320,6 +318,9 @@ namespace Retinues.Editor.VM.List
                 header.Rows.Add(sorted[i]);
         }
 
+        /// <summary>
+        /// Sorts a header's rows in tree mode.
+        /// </summary>
         private void SortTreeHeader(ListHeaderVM header, ListSortKey sortKey, bool ascending)
         {
             if (header.Rows.Count <= 1)
@@ -419,6 +420,9 @@ namespace Retinues.Editor.VM.List
                 header.Rows.Add(newOrder[i]);
         }
 
+        /// <summary>
+        /// Visits a tree node and its children in sort order, adding them to output.
+        /// </summary>
         private void VisitTreeNode(
             WCharacter character,
             ListSortKey sortKey,
@@ -464,6 +468,8 @@ namespace Retinues.Editor.VM.List
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Filter                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private static readonly string[] TreeAwareFilterHeaders = ["elite", "regular"];
 
         [DataSourceProperty]
         public string FilterLabel => L.S("filter_label", "Filter:");
@@ -528,8 +534,9 @@ namespace Retinues.Editor.VM.List
             FilterText = string.Empty;
         }
 
-        private static readonly string[] TreeAwareFilterHeaders = ["elite", "regular"];
-
+        /// <summary>
+        /// Applies the current filter text to all rows.
+        /// </summary>
         private void ApplyFilter()
         {
             if (_headers.Count == 0)
@@ -553,7 +560,7 @@ namespace Retinues.Editor.VM.List
                 row.IsVisible = row.MatchesFilter(filter);
 
             // Second pass: for tree headers (elite/regular), ensure ancestors
-            // of matching nodes are visible as well, so you don't get orphan children.
+            // of matching nodes are visible as well, to avoid orphan children.
             foreach (var header in _headers)
             {
                 if (
@@ -629,6 +636,9 @@ namespace Retinues.Editor.VM.List
             }
         }
 
+        /// <summary>
+        /// Recomputes the sort button widths and last-column states.
+        /// </summary>
         public void RecomputeSortButtonProperties()
         {
             if (_sortButtons.Count == 0)

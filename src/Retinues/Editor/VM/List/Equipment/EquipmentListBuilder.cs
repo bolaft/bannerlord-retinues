@@ -38,19 +38,10 @@ namespace Retinues.Editor.VM.List.Equipment
             list.RecomputeSortButtonProperties();
         }
 
-        protected override void BuildSections(ListVM list)
-        {
-            // Build headers and rows off-screen first.
-            var headers = GetHeaders(list);
-
-            // Single binding update instead of N inserts.
-            list.SetHeaders(headers);
-        }
-
         /// <summary>
         /// Builds the sections for the equipment list.
         /// </summary>
-        private List<ListHeaderVM> GetHeaders(ListVM list)
+        protected override void BuildSections(ListVM list)
         {
             var headers = new List<ListHeaderVM>();
 
@@ -133,10 +124,13 @@ namespace Retinues.Editor.VM.List.Equipment
             // Sort headers alphabetically.
             headers.Sort((a, b) => a.Name.CompareTo(b.Name));
 
-            // Return headers.
-            return headers;
+            // Single binding update instead of N inserts.
+            list.SetHeaders(headers);
         }
 
+        /// <summary>
+        /// Creates an equipment header with rows.
+        /// </summary>
         private EquipmentListHeaderVM CreateHeader(
             ListVM list,
             string headerId,
@@ -146,7 +140,7 @@ namespace Retinues.Editor.VM.List.Equipment
         {
             var header = new EquipmentListHeaderVM(list, headerId, headerText);
 
-            // Build rows into the *unbound* buffer (ListHeaderVM._rows).
+            // Build rows into the unbound buffer (ListHeaderVM._rows).
             var expand = false;
 
             if (items != null && items.Count > 0)

@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using Retinues.Model.Characters;
 using Retinues.Utilities;
 
@@ -32,18 +31,22 @@ namespace Retinues.Editor.VM.List.Character
         /// </summary>
         protected override void BuildSections(ListVM list)
         {
-            list.Clear();
+            // Single binding update instead of N inserts.
+            var headers = new List<ListHeaderVM>();
 
             var faction = State.Instance.Faction;
             if (faction == null)
+            {
+                list.SetHeaders(headers);
                 return;
+            }
 
             void AddSection(
-                ListVM list,
+                List<ListHeaderVM> headers,
                 string headerId,
                 string headerLocKey,
                 string headerFallback,
-                IEnumerable<WCharacter> troops,
+                IEnumerable<WCharacter> characters,
                 bool civilian = false
             )
             {
@@ -52,23 +55,29 @@ namespace Retinues.Editor.VM.List.Character
                     headerId,
                     L.S(headerLocKey, headerFallback)
                 );
-                list.AddHeader(header);
+                headers.Add(header);
 
-                if (troops == null)
-                    return;
-
-                foreach (var troop in troops)
+                if (characters != null)
                 {
-                    if (troop == null)
-                        continue;
+                    foreach (var character in characters)
+                    {
+                        if (character == null)
+                            continue;
 
-                    AddCharacterRow(header, troop, civilian);
+                        AddCharacterRow(header, character, civilian);
+                    }
                 }
+
+                header.UpdateRowCount();
+                header.UpdateState();
+
+                // Character headers should always start expanded
+                header.IsExpanded = true;
             }
 
             // Retinues.
             AddSection(
-                list,
+                headers,
                 "retinues",
                 "list_header_retinues",
                 L.S("list_header_retinues", "Retinues"),
@@ -77,7 +86,7 @@ namespace Retinues.Editor.VM.List.Character
 
             // Elite tree.
             AddSection(
-                list,
+                headers,
                 "elite",
                 "list_header_elite",
                 L.S("list_header_elite", "Elite"),
@@ -86,7 +95,7 @@ namespace Retinues.Editor.VM.List.Character
 
             // Regular tree.
             AddSection(
-                list,
+                headers,
                 "regular",
                 "list_header_regular",
                 L.S("list_header_regular", "Regular"),
@@ -95,7 +104,7 @@ namespace Retinues.Editor.VM.List.Character
 
             // Militia.
             AddSection(
-                list,
+                headers,
                 "militia",
                 "list_header_militia",
                 L.S("list_header_militia", "Militia"),
@@ -104,7 +113,7 @@ namespace Retinues.Editor.VM.List.Character
 
             // Caravan.
             AddSection(
-                list,
+                headers,
                 "caravan",
                 "list_header_caravan",
                 L.S("list_header_caravan", "Caravan"),
@@ -113,7 +122,7 @@ namespace Retinues.Editor.VM.List.Character
 
             // Villagers.
             AddSection(
-                list,
+                headers,
                 "villagers",
                 "list_header_villagers",
                 L.S("list_header_villagers", "Villagers"),
@@ -122,7 +131,7 @@ namespace Retinues.Editor.VM.List.Character
 
             // Bandits.
             AddSection(
-                list,
+                headers,
                 "bandits",
                 "list_header_bandits",
                 L.S("list_header_bandits", "Bandits"),
@@ -131,15 +140,21 @@ namespace Retinues.Editor.VM.List.Character
 
             // Civilians.
             AddSection(
-                list,
+                headers,
                 "civilians",
                 "list_header_civilians",
                 L.S("list_header_civilians", "Civilians"),
                 faction.RosterCivilian,
                 civilian: true
             );
+
+            // Apply headers in one operation.
+            list.SetHeaders(headers);
         }
 
+        /// <summary>
+        /// Adds a character row to the given header.
+        /// </summary>
         private void AddCharacterRow(
             ListHeaderVM header,
             WCharacter character,
@@ -149,16 +164,10 @@ namespace Retinues.Editor.VM.List.Character
             if (character == null)
                 return;
 
-            var wasEmpty = header.Rows.Count == 0;
-
             var row = new CharacterListRowVM(header, character, civilian);
+
+            // IMPORTANT: add to canonical rows only
             header.Rows.Add(row);
-
-            header.UpdateRowCount();
-            header.UpdateState();
-
-            if (wasEmpty && header.IsEnabled)
-                header.IsExpanded = true;
         }
     }
 }

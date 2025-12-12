@@ -3,6 +3,7 @@ using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Engine;
 using Retinues.Model.Characters;
 using TaleWorlds.CampaignSystem.ViewModelCollection;
+using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Core.ViewModelCollection.Generic;
 using TaleWorlds.Library;
 
@@ -102,6 +103,9 @@ namespace Retinues.Editor.VM.List.Character
         //                         Sorting                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Returns the sort value for the given sort key.
+        /// </summary>
         internal override IComparable GetSortValue(ListSortKey sortKey)
         {
             return sortKey switch
@@ -116,6 +120,9 @@ namespace Retinues.Editor.VM.List.Character
         //                        Filtering                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Returns true if this row matches the given filter.
+        /// </summary>
         internal override bool MatchesFilter(string filter)
         {
             if (string.IsNullOrWhiteSpace(filter))

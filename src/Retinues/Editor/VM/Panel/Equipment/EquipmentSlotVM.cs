@@ -2,6 +2,7 @@ using System.Diagnostics.Tracing;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Model.Equipments;
 using TaleWorlds.Core;
+using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Library;
 
 namespace Retinues.Editor.VM.Panel.Equipment
@@ -38,6 +39,31 @@ namespace Retinues.Editor.VM.Panel.Equipment
         [EventListener(UIEvent.Item)]
         [DataSourceProperty]
         public object ItemImage => Item?.Image;
+
+        [EventListener(UIEvent.Item)]
+        [DataSourceProperty]
+        public object ImageId => Item?.Image.Id;
+
+        [EventListener(UIEvent.Item)]
+        [DataSourceProperty]
+# if BL13
+        public object ImageTextureProviderName => Item?.Image.TextureProviderName;
+# else
+        public object ImageTypeCode => Item?.Image.TypeCode;
+# endif
+        [EventListener(UIEvent.Item)]
+        [DataSourceProperty]
+        public object ImageAdditionalArgs => Item?.Image.AdditionalArgs;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Tooltip                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        CharacterEquipmentItemVM _tooltip = null;
+
+        [DataSourceProperty]
+        public CharacterEquipmentItemVM Tooltip =>
+            Item == null ? null : _tooltip ??= new CharacterEquipmentItemVM(Item.Base);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Enabled                        //

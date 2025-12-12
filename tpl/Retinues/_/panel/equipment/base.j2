@@ -25,17 +25,18 @@
             UpdateChildrenStates="true"
             DoNotPassEventsToChildren="true">
             <Children>
+
                 <TextWidget
                     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                     Brush="Popup.Button.Text"
                     VerticalAlignment="Center" HorizontalAlignment="Center"
                     Text="@Label"/>
+
             </Children>
         </ButtonWidget>
 
         <!-- Item Image -->
         <Widget
-            DataSource="{ItemImage}"
             WidthSizePolicy="Fixed"
             HeightSizePolicy="Fixed"
             SuggestedWidth="72"
@@ -43,8 +44,10 @@
             VerticalAlignment="Center"
             MarginRight="24"
             PositionYOffset="-1"
-            DoNotAcceptEvents="true">
+            DoNotAcceptEvents="false"
+            UpdateChildrenStates="true">
             <Children>
+
                 <BrushWidget
                     WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
                     Brush="Frame1Brush"/>
@@ -56,13 +59,19 @@
                     SuggestedHeight="36"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    ImageId="@Id"
+                    ImageId="@ImageId"
                 {% if version == "13" %}
-                    TextureProviderName="@TextureProviderName"
+                    TextureProviderName="@ImageTextureProviderName"
                 {% else %}
                     ImageTypeCode="@ImageTypeCode"
                 {% endif %}
-                    AdditionalArgs="@AdditionalArgs" />
+                    AdditionalArgs="@ImageAdditionalArgs">
+                    <Children>
+                        <HintWidget
+                            DataSource="{Tooltip}"
+                            Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
+                    </Children>
+                </ImageIdentifierWidget>
             </Children>
         </Widget>
 

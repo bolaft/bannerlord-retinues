@@ -73,27 +73,27 @@ namespace Retinues.Editor.VM.Column
         /* ━━━━━━━ Controls ━━━━━━━ */
 
         [DataSourceMethod]
-        public void ExecutePrevAgePreset() => AppearanceController.PrevAgePreset();
+        public void ExecutePrevAgePreset() => BodyController.PrevAgePreset();
 
         [DataSourceMethod]
-        public void ExecuteNextAgePreset() => AppearanceController.NextAgePreset();
+        public void ExecuteNextAgePreset() => BodyController.NextAgePreset();
 
         [DataSourceMethod]
-        public void ExecutePrevHeightPreset() => AppearanceController.PrevHeightPreset();
+        public void ExecutePrevHeightPreset() => BodyController.PrevHeightPreset();
 
         [DataSourceMethod]
-        public void ExecuteNextHeightPreset() => AppearanceController.NextHeightPreset();
+        public void ExecuteNextHeightPreset() => BodyController.NextHeightPreset();
 
         [DataSourceMethod]
-        public void ExecutePrevWeightPreset() => AppearanceController.PrevWeightPreset();
+        public void ExecutePrevWeightPreset() => BodyController.PrevWeightPreset();
 
         [DataSourceMethod]
-        public void ExecuteNextWeightPreset() => AppearanceController.NextWeightPreset();
+        public void ExecuteNextWeightPreset() => BodyController.NextWeightPreset();
 
         [DataSourceMethod]
-        public void ExecutePrevBuildPreset() => AppearanceController.PrevBuildPreset();
+        public void ExecutePrevBuildPreset() => BodyController.PrevBuildPreset();
 
         [DataSourceMethod]
-        public void ExecuteNextBuildPreset() => AppearanceController.NextBuildPreset();
+        public void ExecuteNextBuildPreset() => BodyController.NextBuildPreset();
     }
 }

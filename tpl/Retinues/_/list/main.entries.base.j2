@@ -27,6 +27,13 @@
                     UpdateChildrenStates="true">
                     <Children>
 
+                        <!-- Row  Hint -->
+                        <HintWidget
+                            DataSource="{Tooltip}"
+                            WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+                            HorizontalAlignment="Center" VerticalAlignment="Center"
+                            Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
+
                         {# Character row #}
                         {% include "_/list/character/row.j2" %}
 
