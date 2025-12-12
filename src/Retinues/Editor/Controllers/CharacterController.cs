@@ -38,10 +38,7 @@ namespace Retinues.Editor.Controllers
         public static void ChangeCulture(WCulture newCulture)
         {
             var character = State.Character;
-            if (character == null)
-                return;
 
-            // No change requested.
             if (newCulture == character.Culture)
                 return;
 
@@ -53,6 +50,23 @@ namespace Retinues.Editor.Controllers
 
             // 3) Notify the UI.
             EventManager.Fire(UIEvent.Culture, EventScope.Local);
+        }
+
+        /// <summary>
+        /// Toggle the gender of the selected character.
+        /// </summary>
+        public static void ChangeGender()
+        {
+            var character = State.Character;
+
+            // 1) Toggle gender
+            character.IsFemale = !character.IsFemale;
+
+            // 2) Apply appearance from that culture.
+            character.ApplyCultureBodyProperties();
+
+            // 3) Notify the UI.
+            EventManager.Fire(UIEvent.Gender, EventScope.Local);
         }
     }
 }

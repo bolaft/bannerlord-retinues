@@ -5,6 +5,12 @@
   </tags>
   <strings>
     <string
+      id="ret_age_hint"
+      text="Wiek" />
+    <string
+      id="ret_build_hint"
+      text="Budowa" />
+    <string
       id="ret_change_culture_title"
       text="Zmień kulturę" />
     <string
@@ -43,6 +49,12 @@
     <string
       id="ret_filter_tooltip_description_character"
       text="Wpisz, aby filtrować listę według nazwy, kultury lub poziomu." />
+    <string
+      id="ret_gender_toggle_hint"
+      text="Przełącz płeć" />
+    <string
+      id="ret_height_hint"
+      text="Wzrost" />
     <string
       id="ret_init_error_body_detailed"
       text="Nie udało się poprawnie zainicjować zależności moda Retinues:{newline}{newline}{DETAILS}{newline}{newline}Mod może nie działać poprawnie, dopóki zależności nie zostaną naprawione." />
@@ -145,5 +157,8 @@
     <string
       id="ret_unknown"
       text="Nieznany" />
+    <string
+      id="ret_weight_hint"
+      text="Waga" />
   </strings>
 </base>

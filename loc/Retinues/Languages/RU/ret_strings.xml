@@ -5,6 +5,12 @@
   </tags>
   <strings>
     <string
+      id="ret_age_hint"
+      text="Возраст" />
+    <string
+      id="ret_build_hint"
+      text="Телосложение" />
+    <string
       id="ret_change_culture_title"
       text="Изменить культуру" />
     <string
@@ -43,6 +49,12 @@
     <string
       id="ret_filter_tooltip_description_character"
       text="Введите текст для фильтрации списка по имени, культуре или уровню." />
+    <string
+      id="ret_gender_toggle_hint"
+      text="Переключить пол" />
+    <string
+      id="ret_height_hint"
+      text="Рост" />
     <string
       id="ret_init_error_body_detailed"
       text="Не удалось правильно инициализировать зависимости мода Retinues:{newline}{newline}{DETAILS}{newline}{newline}Мод может работать некорректно, пока зависимости не будут исправлены." />
@@ -145,5 +157,8 @@
     <string
       id="ret_unknown"
       text="Неизвестно" />
+    <string
+      id="ret_weight_hint"
+      text="Вес" />
   </strings>
 </base>

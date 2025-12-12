@@ -31,6 +31,15 @@ namespace Retinues.Model
         public bool IsPersistent => _persistent;
 
         /// <summary>
+        /// Marks the attribute as changed, so it will be persisted on next save.
+        /// </summary>
+        public void Touch()
+        {
+            if (_persistent)
+                _hasLocalChanges = true;
+        }
+
+        /// <summary>
         /// Creates an attribute that uses reflection to get/set the value.
         /// </summary>
         public MAttribute(object baseInstance, string targetName, bool persistent = false)
@@ -601,38 +610,70 @@ namespace Retinues.Model
             if (dataStore == null)
                 return;
 
-            // 1) Collect current values into _data.
-            CollectAll();
+            _syncInProgress = true;
 
-            // 2) Let TW save/load _data.
-            dataStore.SyncData("Retinues_Model_Attributes", ref _data);
-
-            if (!dataStore.IsSaving)
+            try
             {
-                // 3a) NEW: eagerly construct wrappers for all MBObjects,
-                //      so their MAttributes register and Apply() immediately.
-                EagerInstantiateAllWrappers();
-            }
+                CollectAll();
+                dataStore.SyncData("Retinues_Model_Attributes", ref _data);
 
-            // 3b) Push loaded values back into any attributes that were already registered
-            //     before this Sync (should be rare, but harmless).
-            ApplyAll();
+                if (!dataStore.IsSaving)
+                    EagerInstantiateAllWrappers();
+
+                ApplyAll();
+            }
+            finally
+            {
+                _syncInProgress = false;
+                RunPostSync();
+            }
+        }
+
+        static bool _syncInProgress;
+        static readonly List<Action> _postSync = [];
+
+        internal static void PostSync(Action action)
+        {
+            if (action == null)
+                return;
+
+            if (_syncInProgress)
+                _postSync.Add(action);
+            else
+                action();
+        }
+
+        static void RunPostSync()
+        {
+            if (_postSync.Count == 0)
+                return;
+
+            var work = _postSync.ToArray();
+            _postSync.Clear();
+
+            foreach (var a in work)
+            {
+                try
+                {
+                    a();
+                }
+                catch (Exception ex)
+                {
+                    Log.Exception(ex);
+                }
+            }
         }
 
         static void CollectAll()
         {
-            foreach (var pair in _attributes)
-            {
+            foreach (var pair in _attributes.ToArray())
                 pair.Value.Collect(pair.Key, _data);
-            }
         }
 
         static void ApplyAll()
         {
-            foreach (var pair in _attributes)
-            {
+            foreach (var pair in _attributes.ToArray())
                 pair.Value.Apply(pair.Key, _data);
-            }
         }
 
         internal static string BuildKey(object baseInstance, string targetName)

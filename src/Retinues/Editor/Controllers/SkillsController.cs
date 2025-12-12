@@ -8,7 +8,7 @@ namespace Retinues.Editor.Controllers
 {
     public class SkillsController : BaseController
     {
-        const int MaxBatch = 10;
+        const int MaxBatch = int.MaxValue;
         const int MaxSkillLevel = 330;
         const int MinSkillLevel = 0;
 

@@ -1,5 +1,37 @@
 [
   {
+    "id": "ret_age_hint",
+    "EN": "Age",
+    "FR": "Âge",
+    "BR": "Idade",
+    "CNs": "年龄",
+    "CNt": "年齡",
+    "DE": "Alter",
+    "IT": "Età",
+    "JP": "年齢",
+    "KO": "나이",
+    "PL": "Wiek",
+    "RU": "Возраст",
+    "SP": "Edad",
+    "TR": "Yaş"
+  },
+  {
+    "id": "ret_build_hint",
+    "EN": "Build",
+    "FR": "Musculature",
+    "BR": "Constituição",
+    "CNs": "体型",
+    "CNt": "體型",
+    "DE": "Statur",
+    "IT": "Struttura",
+    "JP": "体格",
+    "KO": "체격",
+    "PL": "Budowa",
+    "RU": "Телосложение",
+    "SP": "Constitución",
+    "TR": "Yapı"
+  },
+  {
     "id": "ret_change_culture_title",
     "EN": "Change Culture",
     "FR": "Changer de culture",
@@ -206,6 +238,38 @@
     "RU": "Введите текст для фильтрации списка по имени, культуре или уровню.",
     "SP": "Escribe para filtrar la lista por nombre, cultura o nivel.",
     "TR": "Listeyi ada, kültüre veya seviyeye göre filtrelemek için yazın."
+  },
+  {
+    "id": "ret_gender_toggle_hint",
+    "EN": "Toggle Gender",
+    "FR": "Changer de genre",
+    "BR": "Alternar Gênero",
+    "CNs": "切换性别",
+    "CNt": "切換性別",
+    "DE": "Geschlecht umschalten",
+    "IT": "Cambia genere",
+    "JP": "性別を切り替え",
+    "KO": "성별 전환",
+    "PL": "Przełącz płeć",
+    "RU": "Переключить пол",
+    "SP": "Cambiar género",
+    "TR": "Cinsiyeti Değiştir"
+  },
+  {
+    "id": "ret_height_hint",
+    "EN": "Height",
+    "FR": "Taille",
+    "BR": "Altura",
+    "CNs": "身高",
+    "CNt": "身高",
+    "DE": "Größe",
+    "IT": "Altezza",
+    "JP": "身長",
+    "KO": "신장",
+    "PL": "Wzrost",
+    "RU": "Рост",
+    "SP": "Altura",
+    "TR": "Boy"
   },
   {
     "id": "ret_init_error_body_detailed",
@@ -750,5 +814,21 @@
     "RU": "Неизвестно",
     "SP": "Desconocido",
     "TR": "Bilinmeyen"
+  },
+  {
+    "id": "ret_weight_hint",
+    "EN": "Weight",
+    "FR": "Poids",
+    "BR": "Peso",
+    "CNs": "重量",
+    "CNt": "重量",
+    "DE": "Gewicht",
+    "IT": "Peso",
+    "JP": "重量",
+    "KO": "무게",
+    "PL": "Waga",
+    "RU": "Вес",
+    "SP": "Peso",
+    "TR": "Ağırlık"
   }
 ]

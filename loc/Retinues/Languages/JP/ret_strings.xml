@@ -5,6 +5,12 @@
   </tags>
   <strings>
     <string
+      id="ret_age_hint"
+      text="年齢" />
+    <string
+      id="ret_build_hint"
+      text="体格" />
+    <string
       id="ret_change_culture_title"
       text="文化を変更" />
     <string
@@ -43,6 +49,12 @@
     <string
       id="ret_filter_tooltip_description_character"
       text="名前、文化、または階級でリストをフィルタリングするには入力してください。" />
+    <string
+      id="ret_gender_toggle_hint"
+      text="性別を切り替え" />
+    <string
+      id="ret_height_hint"
+      text="身長" />
     <string
       id="ret_init_error_body_detailed"
       text="Retinues モッドの依存関係が正しく初期化されませんでした:{newline}{newline}{DETAILS}{newline}{newline}依存関係が修正されるまで、モッドは正しく機能しない可能性があります。" />
@@ -145,5 +157,8 @@
     <string
       id="ret_unknown"
       text="不明" />
+    <string
+      id="ret_weight_hint"
+      text="重量" />
   </strings>
 </base>

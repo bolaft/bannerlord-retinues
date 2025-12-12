@@ -5,6 +5,12 @@
   </tags>
   <strings>
     <string
+      id="ret_age_hint"
+      text="Età" />
+    <string
+      id="ret_build_hint"
+      text="Struttura" />
+    <string
       id="ret_change_culture_title"
       text="Cambia cultura" />
     <string
@@ -43,6 +49,12 @@
     <string
       id="ret_filter_tooltip_description_character"
       text="Digita per filtrare l&apos;elenco per nome, cultura o livello." />
+    <string
+      id="ret_gender_toggle_hint"
+      text="Cambia genere" />
+    <string
+      id="ret_height_hint"
+      text="Altezza" />
     <string
       id="ret_init_error_body_detailed"
       text="Le dipendenze del mod Retinues non sono state inizializzate correttamente:{newline}{newline}{DETAILS}{newline}{newline}Il mod potrebbe non funzionare correttamente fino a quando le dipendenze non saranno risolte." />
@@ -145,5 +157,8 @@
     <string
       id="ret_unknown"
       text="Sconosciuto" />
+    <string
+      id="ret_weight_hint"
+      text="Peso" />
   </strings>
 </base>

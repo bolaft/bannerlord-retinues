@@ -1,6 +1,6 @@
+using Retinues.Editor.VM.Column;
 using Retinues.Editor.VM.List;
 using Retinues.Editor.VM.Panel.Character;
-using Retinues.Editor.VM.Tableau;
 using TaleWorlds.Library;
 
 namespace Retinues.Editor.VM
@@ -28,7 +28,7 @@ namespace Retinues.Editor.VM
             List = new ListVM();
 
             // Initialize the tableau VM.
-            Tableau = new TableauVM();
+            Tableau = new ColumnVM();
 
             // Initialize the character panel VM.
             CharacterPanel = new CharacterPanelVM();
@@ -59,10 +59,10 @@ namespace Retinues.Editor.VM
             }
         }
 
-        private TableauVM _tableau;
+        private ColumnVM _tableau;
 
         [DataSourceProperty]
-        public TableauVM Tableau
+        public ColumnVM Tableau
         {
             get => _tableau;
             private set

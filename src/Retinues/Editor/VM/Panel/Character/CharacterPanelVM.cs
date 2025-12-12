@@ -68,13 +68,9 @@ namespace Retinues.Editor.VM.Panel.Character
         [DataSourceMethod]
         public void ExecuteRename()
         {
-            var character = State.Character;
-            if (character == null)
-                return;
-
             Inquiries.TextInputPopup(
                 title: L.T("rename_troop", "Rename Troop"),
-                defaultInput: character.Name,
+                defaultInput: State.Character.Name,
                 onConfirm: input => CharacterController.ChangeName(input.Trim()),
                 description: L.T("enter_new_name", "Enter a new name:")
             );

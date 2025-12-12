@@ -5,6 +5,12 @@
   </tags>
   <strings>
     <string
+      id="ret_age_hint"
+      text="年龄" />
+    <string
+      id="ret_build_hint"
+      text="体型" />
+    <string
       id="ret_change_culture_title"
       text="更改文化" />
     <string
@@ -43,6 +49,12 @@
     <string
       id="ret_filter_tooltip_description_character"
       text="输入以按名称、文化或等级过滤列表。" />
+    <string
+      id="ret_gender_toggle_hint"
+      text="切换性别" />
+    <string
+      id="ret_height_hint"
+      text="身高" />
     <string
       id="ret_init_error_body_detailed"
       text="Retinues 模组的依赖项未能正确初始化：{newline}{newline}{DETAILS}{newline}{newline}在修复依赖项之前，模组可能无法正常运行。" />
@@ -145,5 +157,8 @@
     <string
       id="ret_unknown"
       text="未知" />
+    <string
+      id="ret_weight_hint"
+      text="重量" />
   </strings>
 </base>

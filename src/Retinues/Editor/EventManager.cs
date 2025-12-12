@@ -21,6 +21,7 @@ namespace Retinues.Editor
         Culture,
         Appearance,
         Skill,
+        Gender,
     }
 
     public enum EventScope
@@ -92,9 +93,17 @@ namespace Retinues.Editor
             { UIEvent.Faction, new[] { UIEvent.Character } },
             {
                 UIEvent.Character,
-                new[] { UIEvent.Name, UIEvent.Culture, UIEvent.Appearance, UIEvent.Skill }
+                new[]
+                {
+                    UIEvent.Name,
+                    UIEvent.Culture,
+                    UIEvent.Appearance,
+                    UIEvent.Skill,
+                    UIEvent.Gender,
+                }
             },
             { UIEvent.Culture, new[] { UIEvent.Appearance } },
+            { UIEvent.Gender, new[] { UIEvent.Appearance } },
         };
 
         /// <summary>

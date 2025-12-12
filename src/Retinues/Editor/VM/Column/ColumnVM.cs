@@ -1,13 +1,22 @@
 using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Library;
 
-namespace Retinues.Editor.VM.Tableau
+namespace Retinues.Editor.VM.Column
 {
     /// <summary>
     /// Root editor ViewModel; initializes shared state and child VMs.
     /// </summary>
-    public class TableauVM : BaseVM
+    public class ColumnVM : BaseVM
     {
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Controls                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private readonly CustomizationControlsVM _customizationControls = new();
+
+        [DataSourceProperty]
+        public CustomizationControlsVM CustomizationControls => _customizationControls;
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Model                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

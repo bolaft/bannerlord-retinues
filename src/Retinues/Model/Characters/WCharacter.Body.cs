@@ -69,14 +69,14 @@ namespace Retinues.Model.Characters
             }
 
             // Mark body_envelope as dirty to ensure persistence.
-            BodySerializedAttribute.Set(BodySerializedAttribute.Get());
+            BodySerializedAttribute.Touch();
 
             // Break shared reference
             EnsureOwnBodyRange();
 
             var range = Reflection.GetPropertyValue<object>(Base, "BodyPropertyRange");
 
-            // 1) Copy style tags & race.
+            // 1) Copy race.
             Race = template.Race;
 
             // 2) Copy min/max envelope from template.
@@ -139,22 +139,217 @@ namespace Retinues.Model.Characters
             if (!different)
                 return;
 
-            // Follow vanilla pattern and clone the MBBodyProperty.
-            var clonedRange = MBBodyProperty.CreateFrom(range);
-
             if (hasHair)
-                clonedRange.HairTags = hairTags;
+                HairTags = hairTags;
 
             if (hasBeard)
-                clonedRange.BeardTags = beardTags;
+                BeardTags = beardTags;
 
             if (hasTattoo)
-                clonedRange.TattooTags = tattooTags;
-
-            // Assign back via reflection because BodyPropertyRange setter is protected.
-            Reflection.SetPropertyValue(Base, "BodyPropertyRange", clonedRange);
+                TattooTags = tattooTags;
 #endif
         }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Height Range                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        // Height is NOT a DynamicBodyProperties channel (unlike age/weight/build).
+        // It is encoded in StaticBodyProperties key parts (bitfield).
+
+        const int HEIGHT_PART = 8;
+        const int HEIGHT_START = 19;
+        const int HEIGHT_BITS = 6;
+
+        public void SetHeightRange(float minHeight, float maxHeight)
+        {
+            HeightMin = minHeight;
+            HeightMax = maxHeight;
+        }
+
+        public float HeightMin
+        {
+            get => ReadHeight(minEnd: true);
+            set => SetHeightEnd(minEnd: true, value01: value);
+        }
+
+        public float HeightMax
+        {
+            get => ReadHeight(minEnd: false);
+            set => SetHeightEnd(minEnd: false, value01: value);
+        }
+
+        float ReadHeight(bool minEnd)
+        {
+            var bp = minEnd ? Base.GetBodyPropertiesMin() : Base.GetBodyPropertiesMax();
+            var sp = bp.StaticProperties;
+
+            ulong part = GetKeyPart(sp, HEIGHT_PART);
+            int raw = GetBitsValueFromKey(part, HEIGHT_START, HEIGHT_BITS);
+
+            int max = (1 << HEIGHT_BITS) - 1;
+            return max > 0 ? raw / (float)max : 0f;
+        }
+
+        void SetHeightEnd(bool minEnd, float value01) =>
+            SetStaticChannelEnd(minEnd, HEIGHT_PART, HEIGHT_START, HEIGHT_BITS, value01);
+
+        void SetStaticChannelEnd(bool minEnd, int partIdx, int startBit, int numBits, float value01)
+        {
+            var range = EnsureOwnBodyRange();
+            if (range == null)
+                return;
+
+            float v = Clamp01(value01);
+            int raw = (int)Math.Round(v * ((1 << numBits) - 1));
+
+            var min = range.BodyPropertyMin;
+            var max = range.BodyPropertyMax;
+
+            var src = minEnd ? min : max;
+            var oth = minEnd ? max : min;
+
+            var sp = src.StaticProperties;
+            ulong part = GetKeyPart(sp, partIdx);
+
+            part = SetBits(part, startBit, numBits, raw);
+
+            var newSp = SetKeyPart(sp, partIdx, part);
+
+            var newSrc = new BodyProperties(src.DynamicProperties, newSp);
+
+            var newMin = minEnd ? newSrc : oth;
+            var newMax = minEnd ? oth : newSrc;
+
+            range.Init(newMin, newMax);
+
+            // This marks body_envelope as dirty.
+            BodySerializedAttribute.Touch();
+        }
+
+        static float Clamp01(float v)
+        {
+            if (v < 0f)
+                return 0f;
+            if (v > 1f)
+                return 1f;
+            return v;
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                   Static KeyPart helpers               //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        static int GetBitsValueFromKey(ulong part, int startBit, int numBits)
+        {
+            ulong shifted = part >> startBit;
+            ulong mask = (1UL << numBits) - 1UL;
+            return (int)(shifted & mask);
+        }
+
+        static ulong SetBits(ulong part, int startBit, int numBits, int newValue)
+        {
+            ulong mask = ((1UL << numBits) - 1UL) << startBit;
+            return (part & ~mask) | ((ulong)newValue << startBit);
+        }
+
+        static ulong GetKeyPart(in StaticBodyProperties sp, int idx) =>
+            idx switch
+            {
+                1 => sp.KeyPart1,
+                2 => sp.KeyPart2,
+                3 => sp.KeyPart3,
+                4 => sp.KeyPart4,
+                5 => sp.KeyPart5,
+                6 => sp.KeyPart6,
+                7 => sp.KeyPart7,
+                _ => sp.KeyPart8,
+            };
+
+        static StaticBodyProperties SetKeyPart(in StaticBodyProperties sp, int idx, ulong val) =>
+            idx switch
+            {
+                1 => new(
+                    val,
+                    sp.KeyPart2,
+                    sp.KeyPart3,
+                    sp.KeyPart4,
+                    sp.KeyPart5,
+                    sp.KeyPart6,
+                    sp.KeyPart7,
+                    sp.KeyPart8
+                ),
+                2 => new(
+                    sp.KeyPart1,
+                    val,
+                    sp.KeyPart3,
+                    sp.KeyPart4,
+                    sp.KeyPart5,
+                    sp.KeyPart6,
+                    sp.KeyPart7,
+                    sp.KeyPart8
+                ),
+                3 => new(
+                    sp.KeyPart1,
+                    sp.KeyPart2,
+                    val,
+                    sp.KeyPart4,
+                    sp.KeyPart5,
+                    sp.KeyPart6,
+                    sp.KeyPart7,
+                    sp.KeyPart8
+                ),
+                4 => new(
+                    sp.KeyPart1,
+                    sp.KeyPart2,
+                    sp.KeyPart3,
+                    val,
+                    sp.KeyPart5,
+                    sp.KeyPart6,
+                    sp.KeyPart7,
+                    sp.KeyPart8
+                ),
+                5 => new(
+                    sp.KeyPart1,
+                    sp.KeyPart2,
+                    sp.KeyPart3,
+                    sp.KeyPart4,
+                    val,
+                    sp.KeyPart6,
+                    sp.KeyPart7,
+                    sp.KeyPart8
+                ),
+                6 => new(
+                    sp.KeyPart1,
+                    sp.KeyPart2,
+                    sp.KeyPart3,
+                    sp.KeyPart4,
+                    sp.KeyPart5,
+                    val,
+                    sp.KeyPart7,
+                    sp.KeyPart8
+                ),
+                7 => new(
+                    sp.KeyPart1,
+                    sp.KeyPart2,
+                    sp.KeyPart3,
+                    sp.KeyPart4,
+                    sp.KeyPart5,
+                    sp.KeyPart6,
+                    val,
+                    sp.KeyPart8
+                ),
+                _ => new(
+                    sp.KeyPart1,
+                    sp.KeyPart2,
+                    sp.KeyPart3,
+                    sp.KeyPart4,
+                    sp.KeyPart5,
+                    sp.KeyPart6,
+                    sp.KeyPart7,
+                    val
+                ),
+            };
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Age Range                       //
@@ -232,16 +427,12 @@ namespace Retinues.Model.Characters
         MAttribute<string> HairTagsAttribute =>
             _hairTagsAttribute ??= new MAttribute<string>(
                 baseInstance: Base,
-                getter: _ =>
-                {
-                    var range = GetBodyRangeOrNull();
-                    return range?.HairTags ?? string.Empty;
-                },
+                getter: _ => Base.BodyPropertyRange.HairTags,
                 setter: (_, value) =>
                 {
-                    var range = EnsureOwnBodyRange();
-                    if (range != null)
-                        range.HairTags = value ?? string.Empty;
+                    var clonedRange = MBBodyProperty.CreateFrom(Base.BodyPropertyRange);
+                    clonedRange.HairTags = value ?? string.Empty;
+                    Reflection.SetPropertyValue(Base, "BodyPropertyRange", clonedRange);
                 },
                 targetName: "body_hair_tags"
             );
@@ -258,16 +449,12 @@ namespace Retinues.Model.Characters
         MAttribute<string> BeardTagsAttribute =>
             _beardTagsAttribute ??= new MAttribute<string>(
                 baseInstance: Base,
-                getter: _ =>
-                {
-                    var range = GetBodyRangeOrNull();
-                    return range?.BeardTags ?? string.Empty;
-                },
+                getter: (_) => Base.BodyPropertyRange.BeardTags,
                 setter: (_, value) =>
                 {
-                    var range = EnsureOwnBodyRange();
-                    if (range != null)
-                        range.BeardTags = value ?? string.Empty;
+                    var clonedRange = MBBodyProperty.CreateFrom(Base.BodyPropertyRange);
+                    clonedRange.BeardTags = value ?? string.Empty;
+                    Reflection.SetPropertyValue(Base, "BodyPropertyRange", clonedRange);
                 },
                 targetName: "body_beard_tags"
             );
@@ -284,16 +471,12 @@ namespace Retinues.Model.Characters
         MAttribute<string> TattooTagsAttribute =>
             _tattooTagsAttribute ??= new MAttribute<string>(
                 baseInstance: Base,
-                getter: _ =>
-                {
-                    var range = GetBodyRangeOrNull();
-                    return range?.TattooTags ?? string.Empty;
-                },
+                getter: _ => Base.BodyPropertyRange.TattooTags,
                 setter: (_, value) =>
                 {
-                    var range = EnsureOwnBodyRange();
-                    if (range != null)
-                        range.TattooTags = value ?? string.Empty;
+                    var clonedRange = MBBodyProperty.CreateFrom(Base.BodyPropertyRange);
+                    clonedRange.TattooTags = value ?? string.Empty;
+                    Reflection.SetPropertyValue(Base, "BodyPropertyRange", clonedRange);
                 },
                 targetName: "body_tattoo_tags"
             );
@@ -338,9 +521,8 @@ namespace Retinues.Model.Characters
 
             range.Init(newMin, newMax);
 
-            // Any change to dynamic values should cause the full envelope to be persisted.
             // This marks body_envelope as dirty.
-            BodySerializedAttribute.Set(BodySerializedAttribute.Get());
+            BodySerializedAttribute.Touch();
         }
 
         MBBodyProperty EnsureOwnBodyRange()
@@ -397,7 +579,7 @@ namespace Retinues.Model.Characters
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                Serialized body envelope                //
+        //                Serialized Body Envelope                //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public const string BodySerializedSeparator = "\n---BODY_MAX---\n";
@@ -453,7 +635,6 @@ namespace Retinues.Model.Characters
                 return;
 
             var parts = value.Split([BodySerializedSeparator], StringSplitOptions.None);
-
             if (parts.Length != 2)
             {
                 Log.Warn($"WCharacter: invalid body envelope for '{Base?.StringId}': '{value}'");
@@ -466,8 +647,26 @@ namespace Retinues.Model.Characters
             if (!BodyProperties.FromString(parts[1], out var max))
                 return;
 
+#if BL13
+            // Capture tag pools from the CURRENT range (whatever persistence already applied).
+            var current = GetBodyRangeOrNull();
+            string hair = current?.HairTags ?? string.Empty;
+            string beard = current?.BeardTags ?? string.Empty;
+            string tattoo = current?.TattooTags ?? string.Empty;
+#endif
+
             var range = EnsureOwnBodyRange();
             range?.Init(min, max);
+
+#if BL13
+            // Restore tag pools directly onto the range we just re-initialized.
+            if (range != null)
+            {
+                range.HairTags = hair;
+                range.BeardTags = beard;
+                range.TattooTags = tattoo;
+            }
+#endif
         }
     }
 }

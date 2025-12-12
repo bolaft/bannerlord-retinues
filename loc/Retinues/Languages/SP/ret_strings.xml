@@ -5,6 +5,12 @@
   </tags>
   <strings>
     <string
+      id="ret_age_hint"
+      text="Edad" />
+    <string
+      id="ret_build_hint"
+      text="Constitución" />
+    <string
       id="ret_change_culture_title"
       text="Cambiar cultura" />
     <string
@@ -43,6 +49,12 @@
     <string
       id="ret_filter_tooltip_description_character"
       text="Escribe para filtrar la lista por nombre, cultura o nivel." />
+    <string
+      id="ret_gender_toggle_hint"
+      text="Cambiar género" />
+    <string
+      id="ret_height_hint"
+      text="Altura" />
     <string
       id="ret_init_error_body_detailed"
       text="No se pudieron inicializar correctamente las dependencias del mod Retinues:{newline}{newline}{DETAILS}{newline}{newline}El mod puede no funcionar correctamente hasta que se solucionen las dependencias." />
@@ -145,5 +157,8 @@
     <string
       id="ret_unknown"
       text="Desconocido" />
+    <string
+      id="ret_weight_hint"
+      text="Peso" />
   </strings>
 </base>

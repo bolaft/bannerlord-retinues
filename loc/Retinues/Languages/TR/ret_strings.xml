@@ -5,6 +5,12 @@
   </tags>
   <strings>
     <string
+      id="ret_age_hint"
+      text="Yaş" />
+    <string
+      id="ret_build_hint"
+      text="Yapı" />
+    <string
       id="ret_change_culture_title"
       text="Kültürü Değiştir" />
     <string
@@ -43,6 +49,12 @@
     <string
       id="ret_filter_tooltip_description_character"
       text="Listeyi ada, kültüre veya seviyeye göre filtrelemek için yazın." />
+    <string
+      id="ret_gender_toggle_hint"
+      text="Cinsiyeti Değiştir" />
+    <string
+      id="ret_height_hint"
+      text="Boy" />
     <string
       id="ret_init_error_body_detailed"
       text="Retinues mod bağımlılıkları düzgün şekilde başlatılamadı:{newline}{newline}{DETAILS}{newline}{newline}Bağımlılıklar düzeltilene kadar mod düzgün çalışmayabilir." />
@@ -145,5 +157,8 @@
     <string
       id="ret_unknown"
       text="Bilinmeyen" />
+    <string
+      id="ret_weight_hint"
+      text="Ağırlık" />
   </strings>
 </base>

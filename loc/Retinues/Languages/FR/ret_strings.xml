@@ -5,6 +5,12 @@
   </tags>
   <strings>
     <string
+      id="ret_age_hint"
+      text="Âge" />
+    <string
+      id="ret_build_hint"
+      text="Musculature" />
+    <string
       id="ret_change_culture_title"
       text="Changer de culture" />
     <string
@@ -43,6 +49,12 @@
     <string
       id="ret_filter_tooltip_description_character"
       text="Entrez du texte pour filtrer la liste par nom, culture ou niveau." />
+    <string
+      id="ret_gender_toggle_hint"
+      text="Changer de genre" />
+    <string
+      id="ret_height_hint"
+      text="Taille" />
     <string
       id="ret_init_error_body_detailed"
       text="Les dépendances du mod Retinues n&apos;ont pas pu être initialisées correctement :{newline}{newline}{DETAILS}{newline}{newline}Le mod peut ne pas fonctionner correctement tant que les dépendances ne sont pas corrigées." />
@@ -145,5 +157,8 @@
     <string
       id="ret_unknown"
       text="Inconnu" />
+    <string
+      id="ret_weight_hint"
+      text="Poids" />
   </strings>
 </base>

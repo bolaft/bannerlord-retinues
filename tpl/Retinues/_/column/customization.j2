@@ -1,0 +1,116 @@
+{% macro control_row(sprite, hint, prev_command, next_command) -%}
+    <ListPanel
+        IsVisible="@ShowCustomization"
+        WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+        MarginTop="10"
+        StackLayout.LayoutMethod="HorizontalLeftToRight">
+        <Children>
+
+        <ButtonWidget
+            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+            HorizontalAlignment="Center" VerticalAlignment="Center"
+            SuggestedWidth="20" SuggestedHeight="20"
+            Brush="Popup.Button.Text"
+            Command.Click="{{ prev_command }}" UpdateChildrenStates="true" DoNotPassEventsToChildren="true">
+            <Children>
+                <BrushWidget WidthSizePolicy="Fixed"
+                    HeightSizePolicy="Fixed"
+                    SuggestedWidth="20" SuggestedHeight="20"
+                    Brush="ButtonRightBigArrowBrush1"/>
+            </Children>
+        </ButtonWidget>
+
+            {# Background Sprite #}
+            <SpriteWidget
+                WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                SuggestedWidth="30" SuggestedHeight="30"
+                Sprite="Clan\clan_portrait_shadow"
+                MarginLeft="2" MarginRight="2"
+                HorizontalAlignment="Center" VerticalAlignment="Top" >
+                <Children>
+
+                    {# Inner Sprite #}
+                    <SpriteWidget
+                        WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                        SuggestedWidth="30" SuggestedHeight="30"
+                        Color="#c7c3c3ff"
+                        Sprite="{{ sprite }}"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Top">
+                        <Children>
+                            <HintWidget
+                                DataSource="{{ hint }}"
+                                Command.HoverBegin="ExecuteBeginHint"
+                                Command.HoverEnd="ExecuteEndHint"/>
+                        </Children>
+                    </SpriteWidget>
+
+                </Children>
+            </SpriteWidget>
+
+        <ButtonWidget
+            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+            HorizontalAlignment="Center" VerticalAlignment="Center"
+            SuggestedWidth="20" SuggestedHeight="20"
+            Brush="Popup.Button.Text"
+            Command.Click="{{ next_command }}" UpdateChildrenStates="true" DoNotPassEventsToChildren="true">
+            <Children>
+                <BrushWidget WidthSizePolicy="Fixed"
+                    HeightSizePolicy="Fixed"
+                    SuggestedWidth="20" SuggestedHeight="20"
+                    Brush="ButtonLeftBigArrowBrush1"/>
+            </Children>
+        </ButtonWidget>
+
+        </Children>
+    </ListPanel>
+{%- endmacro %}
+
+<ListPanel
+    DataSource="{CustomizationControls}"
+    WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren"
+    SuggestedWidth="70"
+    StackLayout.LayoutMethod="VerticalBottomToTop"
+    HorizontalAlignment="Left" VerticalAlignment="Bottom">
+    <Children>
+
+        <ButtonWidget
+            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+            HorizontalAlignment="Center" VerticalAlignment="Center"
+            SuggestedWidth="40" SuggestedHeight="40"
+            Brush="Popup.Button.Text"
+            Command.Click="ExecuteToggleGender"
+            UpdateChildrenStates="true" DoNotPassEventsToChildren="true">
+            <Children>
+                <HintWidget
+                    DataSource="{GenderToggleHint}"
+                    Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
+                <SpriteWidget
+                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                    SuggestedWidth="40" SuggestedHeight="40"
+                    Color="#c7ac85ff"
+                    Sprite="@GenderIcon"/>
+            </Children>
+        </ButtonWidget>
+
+        {{ control_row("SPPerks\\TradeRapidDevelopment", "{AgeHint}", "ExecutePrevAgePreset", "ExecuteNextAgePreset") }}
+        {{ control_row("SPPerks\\AthleticsDurable", "{HeightHint}", "ExecutePrevHeightPreset", "ExecuteNextHeightPreset") }}
+        {{ control_row("SPPerks\\AthleticsFormFittingArmor", "{WeightHint}", "ExecutePrevWeightPreset", "ExecuteNextWeightPreset") }}
+        {{ control_row("SPPerks\\AthleticsStrongArms", "{BuildHint}", "ExecutePrevBuildPreset", "ExecuteNextBuildPreset") }}
+
+        <ButtonWidget
+            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+            HorizontalAlignment="Center" VerticalAlignment="Center"
+            SuggestedWidth="60" SuggestedHeight="60"
+            Brush="SPClan.Members.RecallIcon"
+            Command.Click="ExecuteToggleCustomization"
+            UpdateChildrenStates="true" DoNotPassEventsToChildren="true">
+            <Children>
+                <HintWidget
+                    DataSource="{CustomizationHint}"
+                    Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
+            </Children>
+        </ButtonWidget>
+
+    </Children>
+</ListPanel>

@@ -5,6 +5,12 @@
   </tags>
   <strings>
     <string
+      id="ret_age_hint"
+      text="Age" />
+    <string
+      id="ret_build_hint"
+      text="Build" />
+    <string
       id="ret_change_culture_title"
       text="Change Culture" />
     <string
@@ -43,6 +49,12 @@
     <string
       id="ret_filter_tooltip_description_character"
       text="Type to filter the list by name, culture or tier." />
+    <string
+      id="ret_gender_toggle_hint"
+      text="Toggle Gender" />
+    <string
+      id="ret_height_hint"
+      text="Height" />
     <string
       id="ret_init_error_body_detailed"
       text="Retinues mod dependencies failed to initialize properly:{newline}{newline}{DETAILS}{newline}{newline}The mod may not function correctly until the dependencies are fixed." />
@@ -145,5 +157,8 @@
     <string
       id="ret_unknown"
       text="Unknown" />
+    <string
+      id="ret_weight_hint"
+      text="Weight" />
   </strings>
 </base>
