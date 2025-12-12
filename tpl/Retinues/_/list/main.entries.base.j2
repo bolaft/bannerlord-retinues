@@ -14,7 +14,7 @@
             StackLayout.LayoutMethod="VerticalBottomToTop">
 
             <ItemTemplate>
-                <ButtonWidget 
+                <AutoScrollButtonWidget 
                     IsSelected="@IsSelected"
                     IsEnabled="@IsEnabled"
                     IsVisible="@IsVisible"
@@ -24,7 +24,10 @@
                     SuggestedWidth="!Clan.Management.Collapser.Width" 
                     Brush="@Brush" 
                     Command.Click="ExecuteSelect" 
-                    UpdateChildrenStates="true">
+                    UpdateChildrenStates="true"
+                    AutoScrollTopOffset="300"
+                    AutoScrollBottomOffset="300"
+                    AutoScrollInterpolationTime="0.08">
                     <Children>
 
                         <!-- Row  Hint -->
@@ -41,7 +44,7 @@
                         {% include "_/list/equipment/row.j2" %}
 
                     </Children>
-                </ButtonWidget>
+                </AutoScrollButtonWidget>
             </ItemTemplate>
 
         </ListPanel>
