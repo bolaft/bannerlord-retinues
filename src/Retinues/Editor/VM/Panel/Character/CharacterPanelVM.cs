@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Diagnostics.Tracing;
 using System.Linq;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Editor.Controllers;
@@ -14,7 +15,7 @@ namespace Retinues.Editor.VM.Panel.Character
     /// <summary>
     /// Character details panel.
     /// </summary>
-    public partial class CharacterPanelVM : BaseVM
+    public class CharacterPanelVM : BaseVM
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Constructor                      //
@@ -52,7 +53,7 @@ namespace Retinues.Editor.VM.Panel.Character
         public bool IsVisible => EditorVM.Mode == EditorMode.Character;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Name                           //
+        //                          Name                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceProperty]
@@ -77,7 +78,7 @@ namespace Retinues.Editor.VM.Panel.Character
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Culture                         //
+        //                         Culture                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceProperty]
@@ -142,7 +143,7 @@ namespace Retinues.Editor.VM.Panel.Character
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Skills                          //
+        //                         Skills                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceProperty]
@@ -153,5 +154,51 @@ namespace Retinues.Editor.VM.Panel.Character
 
         [DataSourceProperty]
         public MBBindingList<CharacterSkillVM> SkillsRow2 { get; set; }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Upgrades                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [EventListener(UIEvent.Character)]
+        [DataSourceProperty]
+        public bool HasUpgradeSources => State.Character.UpgradeSources.Any();
+
+        [DataSourceProperty]
+        public string UpgradeSourcesHeaderText => L.S("upgrade_sources_header_text", "Origin");
+
+        [EventListener(UIEvent.Character)]
+        [DataSourceProperty]
+        public MBBindingList<CharacterUpgradeVM> UpgradeTargets
+        {
+            get
+            {
+                var targets = new MBBindingList<CharacterUpgradeVM>();
+
+                foreach (var source in State.Character.UpgradeTargets)
+                    targets.Add(new CharacterUpgradeVM(source));
+                return targets;
+            }
+        }
+
+        [EventListener(UIEvent.Character)]
+        [DataSourceProperty]
+        public bool HasUpgradeTargets => State.Character.UpgradeTargets.Any();
+
+        [DataSourceProperty]
+        public string UpgradeTargetsHeaderText => L.S("upgrade_targets_header_text", "Upgrades");
+
+        [EventListener(UIEvent.Character)]
+        [DataSourceProperty]
+        public MBBindingList<CharacterUpgradeVM> UpgradeSources
+        {
+            get
+            {
+                var sources = new MBBindingList<CharacterUpgradeVM>();
+
+                foreach (var source in State.Character.UpgradeSources)
+                    sources.Add(new CharacterUpgradeVM(source));
+                return sources;
+            }
+        }
     }
 }

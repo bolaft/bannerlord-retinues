@@ -3,7 +3,7 @@
     IsVisible="@IsVisible"
     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
     HorizontalAlignment="Center" VerticalAlignment="Top"
-    MarginRight="200">
+    MarginRight="160">
     <Children>
         <ListPanel
             WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
@@ -19,6 +19,9 @@
 
                 {# Skills Section #}
                 {% include "_/panel/character/skills.j2" %}
+
+                {# Upgrades Section #}
+                {% include "_/panel/character/upgrades.j2" %}
             </Children>
         </ListPanel>
 

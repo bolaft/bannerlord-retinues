@@ -24,8 +24,10 @@ namespace Retinues.Editor
             // Set the singleton instance.
             _instance = this;
 
-            // Default faction: use the main hero's culture if available.
-            Faction = WHero.Get(Hero.MainHero).Culture;
+            // Defaults
+            Culture = WHero.Get(Hero.MainHero).Culture;
+            Clan = WHero.Get(Hero.MainHero).Clan;
+            Faction = Clan;
 
             EventManager.FireBatch(() =>
             {
@@ -40,13 +42,64 @@ namespace Retinues.Editor
         //                          State                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /* ━━━━━━━━ Culture ━━━━━━━ */
+
+        private WCulture _culture;
+
+        /// <summary>
+        /// Current editor culture.
+        /// </summary>
+        public WCulture Culture
+        {
+            get => _culture;
+            set
+            {
+                if (ReferenceEquals(value, _culture))
+                    return;
+
+                if (value == null)
+                    return;
+
+                // Set the culture.
+                _culture = value;
+
+                // Notify listeners.
+                EventManager.Fire(UIEvent.CultureFaction, EventScope.Global);
+            }
+        }
+
+        /* ━━━━━━━━━ Clan ━━━━━━━━━ */
+
+        private WClan _clan;
+
+        /// <summary>
+        /// Current editor culture.
+        /// </summary>
+        public WClan Clan
+        {
+            get => _clan;
+            set
+            {
+                if (ReferenceEquals(value, _clan))
+                    return;
+
+                if (value == null)
+                    return;
+
+                // Set the culture.
+                _clan = value;
+
+                // Notify listeners.
+                EventManager.Fire(UIEvent.ClanFaction, EventScope.Global);
+            }
+        }
+
         /* ━━━━━━━━ Faction ━━━━━━━ */
 
         private IBaseFaction _faction;
 
         /// <summary>
-        /// Current editor faction. Setting this clears the character and
-        /// fires a global Faction event.
+        /// Current editor faction.
         /// </summary>
         public IBaseFaction Faction
         {
@@ -82,8 +135,7 @@ namespace Retinues.Editor
         private WCharacter _character;
 
         /// <summary>
-        /// Current editor character. Setting this fires a local Troop event
-        /// so only the selected row and dependent VMs update.
+        /// Current editor character.
         /// </summary>
         public WCharacter Character
         {
@@ -111,6 +163,9 @@ namespace Retinues.Editor
 
         private MEquipment _equipment;
 
+        /// <summary>
+        /// Current editor equipment.
+        /// </summary>
         public MEquipment Equipment
         {
             get => _equipment;
@@ -134,6 +189,9 @@ namespace Retinues.Editor
 
         private EquipmentIndex _slot = EquipmentIndex.Weapon0;
 
+        /// <summary>
+        /// Current editor equipment slot.
+        /// </summary>
         public EquipmentIndex Slot
         {
             get => _slot;

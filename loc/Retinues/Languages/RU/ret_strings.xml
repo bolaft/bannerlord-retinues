@@ -35,8 +35,14 @@
       id="ret_dependencies_not_initialized_label"
       text="Не инициализировано" />
     <string
-      id="ret_editor_tab_label"
-      text="Отряды" />
+      id="ret_editor_clan_select"
+      text="Выберите клан" />
+    <string
+      id="ret_editor_culture_select"
+      text="Выберите культуру" />
+    <string
+      id="ret_editor_title"
+      text="Редактор отрядов" />
     <string
       id="ret_enter_new_name"
       text="Введите новое имя:" />
@@ -211,6 +217,12 @@
     <string
       id="ret_unknown"
       text="Неизвестно" />
+    <string
+      id="ret_upgrade_sources_header_text"
+      text="Происхождение" />
+    <string
+      id="ret_upgrade_targets_header_text"
+      text="Улучшения" />
     <string
       id="ret_weight_hint"
       text="Вес" />

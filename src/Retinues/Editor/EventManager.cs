@@ -15,6 +15,8 @@ namespace Retinues.Editor
     public enum UIEvent
     {
         Mode,
+        CultureFaction,
+        ClanFaction,
         Faction,
         Character,
         Name,

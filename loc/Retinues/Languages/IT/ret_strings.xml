@@ -35,8 +35,14 @@
       id="ret_dependencies_not_initialized_label"
       text="Non inizializzato" />
     <string
-      id="ret_editor_tab_label"
-      text="Truppe" />
+      id="ret_editor_clan_select"
+      text="Seleziona un clan" />
+    <string
+      id="ret_editor_culture_select"
+      text="Seleziona una cultura" />
+    <string
+      id="ret_editor_title"
+      text="Editor di truppe" />
     <string
       id="ret_enter_new_name"
       text="Inserisci un nuovo nome:" />
@@ -211,6 +217,12 @@
     <string
       id="ret_unknown"
       text="Sconosciuto" />
+    <string
+      id="ret_upgrade_sources_header_text"
+      text="Origine" />
+    <string
+      id="ret_upgrade_targets_header_text"
+      text="Miglioramenti" />
     <string
       id="ret_weight_hint"
       text="Peso" />

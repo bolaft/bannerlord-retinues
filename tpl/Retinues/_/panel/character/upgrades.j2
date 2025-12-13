@@ -1,0 +1,58 @@
+{% from "_/panel/character/base.macros.j2" import field_header %}
+
+{% macro upgrade_text(text) -%}
+    <ButtonWidget
+        DoNotPassEventsToChildren="true"
+        WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+        HorizontalAlignment="Center" VerticalAlignment="Center"
+        Command.Click="ExecuteSelect"
+        UpdateChildrenStates="true">
+        <Children>
+            <TextWidget
+                WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                HorizontalAlignment="Center" VerticalAlignment="Center"
+                Brush="Kingdom.NameTitle.Text"
+                Brush.FontSize="24"
+                Brush.FontColor="#ac8856ff"
+                Text="{{ text }}"
+                TextAlignment="Center" />
+        </Children>
+    </ButtonWidget>
+{%- endmacro %}
+
+<!-- Upgrade Sources Header -->
+{{ field_header("@UpgradeSourcesHeaderText", "@HasUpgradeSources") }}
+
+<ListPanel
+    DataSource="{UpgradeSources}"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    StackLayout.LayoutMethod="VerticalBottomToTop"
+    HorizontalAlignment="Center">
+    <ItemTemplate>
+        {{ upgrade_text(text="@Name") }}
+    </ItemTemplate>
+</ListPanel>
+
+<Widget IsVisible="@HasUpgradeSources" MarginBottom="12" />
+
+<!-- Upgrade Targets Header -->
+{{ field_header("@UpgradeTargetsHeaderText", "@HasUpgradeTargets") }}
+
+<ListPanel
+    DataSource="{UpgradeTargets}"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    StackLayout.LayoutMethod="VerticalBottomToTop"
+    MarginBottom="12"
+    HorizontalAlignment="Center">
+    <ItemTemplate>
+        <Widget
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            HorizontalAlignment="Center" VerticalAlignment="Center" >
+            <Children>
+                {{ upgrade_text(text="@Name") }}
+            </Children>
+        </Widget>
+    </ItemTemplate>
+</ListPanel>
+
+<Widget IsVisible="@HasUpgradeTargets" MarginBottom="12" />

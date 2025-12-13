@@ -35,8 +35,14 @@
       id="ret_dependencies_not_initialized_label"
       text="No inicializado" />
     <string
-      id="ret_editor_tab_label"
-      text="Tropas" />
+      id="ret_editor_clan_select"
+      text="Selecciona un clan" />
+    <string
+      id="ret_editor_culture_select"
+      text="Selecciona una cultura" />
+    <string
+      id="ret_editor_title"
+      text="Editor de tropas" />
     <string
       id="ret_enter_new_name"
       text="Ingrese un nuevo nombre:" />
@@ -211,6 +217,12 @@
     <string
       id="ret_unknown"
       text="Desconocido" />
+    <string
+      id="ret_upgrade_sources_header_text"
+      text="Origen" />
+    <string
+      id="ret_upgrade_targets_header_text"
+      text="Mejoras" />
     <string
       id="ret_weight_hint"
       text="Peso" />

@@ -2,6 +2,8 @@ using Retinues.Editor.VM.Column;
 using Retinues.Editor.VM.List;
 using Retinues.Editor.VM.Panel.Character;
 using Retinues.Editor.VM.Panel.Equipment;
+using Retinues.Engine;
+using Retinues.Utilities;
 using TaleWorlds.Library;
 
 namespace Retinues.Editor.VM
@@ -45,6 +47,31 @@ namespace Retinues.Editor.VM
             // Start each editor session from a clean shared state.
             State.Reset();
         }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Top Panel                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [DataSourceProperty]
+        public string EditorTitle => L.S("editor_title", "Troop Editor");
+
+        [DataSourceProperty]
+        public string CultureName => State.Culture.Name.ToString();
+
+        [DataSourceProperty]
+        public string ClanName => State.Clan.Name.ToString();
+
+        [DataSourceProperty]
+        public object CultureBanner => State.Culture.Image;
+
+        [DataSourceProperty]
+        public object ClanBanner => State.Clan.Image;
+
+        [DataSourceProperty]
+        public Tooltip CultureBannerHint => new(L.S("editor_culture_select", "Select a Culture"));
+
+        [DataSourceProperty]
+        public Tooltip ClanBannerHint => new(L.S("editor_clan_select", "Select a Clan"));
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Components                       //

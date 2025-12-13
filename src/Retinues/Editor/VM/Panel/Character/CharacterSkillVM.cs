@@ -9,7 +9,7 @@ namespace Retinues.Editor.VM.Panel.Character
     /// <summary>
     /// Character skill card.
     /// </summary>
-    public partial class CharacterSkillVM : BaseVM
+    public class CharacterSkillVM : BaseVM
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Constructor                      //

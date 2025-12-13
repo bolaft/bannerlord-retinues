@@ -1,6 +1,9 @@
 using System.Collections.Generic;
 using Retinues.Model.Characters;
 using TaleWorlds.Core;
+#if BL13
+using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
+# endif
 
 namespace Retinues.Model.Factions
 {
@@ -12,6 +15,14 @@ namespace Retinues.Model.Factions
         uint Color { get; }
         uint Color2 { get; }
         Banner Banner { get; }
+
+        /* ━━━━━━━━━ Image ━━━━━━━━ */
+
+# if BL13
+        public BannerImageIdentifierVM Image { get; }
+#else
+        public ImageIdentifierVM Image { get; }
+#endif
 
         /* ━━━━━━━━━ Roots ━━━━━━━━ */
 

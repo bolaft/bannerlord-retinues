@@ -35,8 +35,14 @@
       id="ret_dependencies_not_initialized_label"
       text="未初始化" />
     <string
-      id="ret_editor_tab_label"
-      text="部队" />
+      id="ret_editor_clan_select"
+      text="选择一个氏族" />
+    <string
+      id="ret_editor_culture_select"
+      text="选择一种文化" />
+    <string
+      id="ret_editor_title"
+      text="部队编辑器" />
     <string
       id="ret_enter_new_name"
       text="输入新名称：" />
@@ -211,6 +217,12 @@
     <string
       id="ret_unknown"
       text="未知" />
+    <string
+      id="ret_upgrade_sources_header_text"
+      text="来源" />
+    <string
+      id="ret_upgrade_targets_header_text"
+      text="升级" />
     <string
       id="ret_weight_hint"
       text="重量" />

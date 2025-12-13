@@ -29,19 +29,6 @@ namespace Retinues.Model.Factions
 #endif
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                          Image                         //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-# if BL13
-        public BannerImageIdentifierVM Image => new(Banner);
-        public ImageIdentifier ImageIdentifier =>
-            Banner != null ? new BannerImageIdentifier(Banner) : null;
-#else
-        public ImageIdentifierVM Image => new(BannerCode);
-        public ImageIdentifier ImageIdentifier => new(BannerCode);
-#endif
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Characters                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
@@ -265,6 +252,87 @@ namespace Retinues.Model.Factions
                 foreach (var troop in RosterCivilian)
                     yield return troop;
             }
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Image                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+# if BL13
+        public BannerImageIdentifierVM Image => GetBannerImage();
+        public ImageIdentifier ImageIdentifier => GetImageIdentifier();
+#else
+        public ImageIdentifierVM Image => GetBannerImage();
+        public ImageIdentifier ImageIdentifier => GetImageIdentifier();
+#endif
+
+        /// <summary>
+        /// Returns a banner suitable for display, with icons scaled by the given factor.
+        /// </summary>
+        public Banner GetScaledBanner(float scale = 1.0f)
+        {
+            if (scale == 1.0f)
+                return Banner;
+
+            return Banner != null ? ScaleBannerIcon(Banner, scale) : null;
+        }
+
+# if BL13
+        /// <summary>
+        /// Gets a banner image identifier VM for this faction's banner, scaled by the given factor.
+        /// </summary>
+        public BannerImageIdentifierVM GetBannerImage(float scale = 1.0f, bool nineGrid = true)
+        {
+            var banner = GetScaledBanner(scale);
+            return banner != null ? new BannerImageIdentifierVM(banner, nineGrid: nineGrid) : null;
+        }
+
+        public ImageIdentifier GetImageIdentifier(float scale = 1.0f, bool nineGrid = false)
+        {
+            var banner = GetScaledBanner(scale);
+            return banner != null ? new BannerImageIdentifier(banner, nineGrid: nineGrid) : null;
+        }
+#else
+        /// <summary>
+        /// Gets a banner image identifier VM for this faction's banner, scaled by the given factor.
+        /// </summary>
+        public ImageIdentifierVM GetBannerImage(float scale = 1.0f, bool nineGrid = true)
+        {
+            var banner = GetScaledBanner(scale);
+            return banner != null
+                ? new ImageIdentifierVM(BannerCode.CreateFrom(banner), nineGrid: nineGrid)
+                : null;
+        }
+
+        public ImageIdentifier GetImageIdentifier(float scale = 1.0f, bool nineGrid = false)
+        {
+            if (scale == 1.0f)
+                return new ImageIdentifier(BannerCode);
+
+            var banner = GetScaledBanner(scale);
+            return banner != null
+                ? new ImageIdentifier(BannerCode.CreateFrom(banner), nineGrid: nineGrid)
+                : null;
+        }
+#endif
+
+        /// <summary>
+        /// Scales the icons of the given banner by the specified factor.
+        /// </summary>
+        protected static Banner ScaleBannerIcon(Banner src, float scale)
+        {
+            if (src == null || scale == 1.0f)
+                return src;
+
+            // Safe copy (uses Banner(Banner) copy-ctor)
+            var b = new Banner(src);
+
+            // Index 0 is the background; scale the rest
+            var list = b.BannerDataList;
+            for (int i = 1; i < list.Count; i++)
+                list[i].Size *= scale;
+
+            return b;
         }
     }
 }

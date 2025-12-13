@@ -4,8 +4,9 @@
 <ListPanel 
     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
     DataSource="{{ data_source }}"
+    HorizontalAlignment="Left"
     StackLayout.LayoutMethod="HorizontalLeftToRight"
-    MarginTop="14" MarginRight="160">
+    MarginTop="14" MarginRight="54">
     <Children>
 
         <!-- Slot Select Button -->
@@ -32,74 +33,72 @@
         </ButtonWidget>
 
         <!-- Item Image -->
-        <!-- Item Image (expanded hit-test area) -->
-<Widget
-    WidthSizePolicy="Fixed"
-    HeightSizePolicy="Fixed"
-    SuggestedWidth="88"
-    SuggestedHeight="52"
-    VerticalAlignment="Center"
-    MarginRight="24"
-    DoNotAcceptEvents="true"
-    UpdateChildrenStates="true">
-  <Children>
-
-    <!-- Actual image box stays 72x36 in the top-left -->
-    <Widget
-        WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-        SuggestedWidth="72" SuggestedHeight="36"
-        HorizontalAlignment="Left" VerticalAlignment="Top"
-        DoNotAcceptEvents="false"
-        UpdateChildrenStates="true">
-      <Children>
-
-        <BrushWidget
-            WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
-            Brush="Frame1Brush"/>
-
-        <ImageIdentifierWidget
+        <Widget
             WidthSizePolicy="Fixed"
             HeightSizePolicy="Fixed"
-            SuggestedWidth="72"
-            SuggestedHeight="36"
-            HorizontalAlignment="Center"
+            SuggestedWidth="88"
+            SuggestedHeight="52"
             VerticalAlignment="Center"
-            ImageId="@ImageId"
-        {% if version == "13" %}
-            TextureProviderName="@ImageTextureProviderName"
-        {% else %}
-            ImageTypeCode="@ImageTypeCode"
-        {% endif %}
-            AdditionalArgs="@ImageAdditionalArgs">
-          <Children>
-            <HintWidget
-                DataSource="{Tooltip}"
-                Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
-          </Children>
-        </ImageIdentifierWidget>
+            MarginRight="24"
+            DoNotAcceptEvents="true"
+            UpdateChildrenStates="true">
+            <Children>
 
-      </Children>
-    </Widget>
+                <!-- Actual image box stays in the top left -->
+                <Widget
+                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                    SuggestedWidth="72" SuggestedHeight="36"
+                    HorizontalAlignment="Left" VerticalAlignment="Top"
+                    DoNotAcceptEvents="false"
+                    UpdateChildrenStates="true">
+                <Children>
 
-    <!-- Unequip button now sits "overlapping", but still inside the 88x52 parent -->
-    <ButtonWidget
-        IsVisible="@CanUnequip"
-        WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-        SuggestedWidth="30" SuggestedHeight="30"
-        VerticalAlignment="Bottom" HorizontalAlignment="Right"
-        Brush="Popup.CloseButton"
-        Command.Click="ExecuteUnequip"
-        DoNotPassEventsToChildren="true">
-      <Children>
-        <HintWidget
-            DataSource="{UnequipTooltip}"
-            Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
-      </Children>
-    </ButtonWidget>
+                    <BrushWidget
+                        WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+                        Brush="Frame1Brush"/>
 
-  </Children>
-</Widget>
+                    <ImageIdentifierWidget
+                        WidthSizePolicy="Fixed"
+                        HeightSizePolicy="Fixed"
+                        SuggestedWidth="72"
+                        SuggestedHeight="36"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        ImageId="@ImageId"
+                    {% if version == "13" %}
+                        TextureProviderName="@ImageTextureProviderName"
+                    {% else %}
+                        ImageTypeCode="@ImageTypeCode"
+                    {% endif %}
+                        AdditionalArgs="@ImageAdditionalArgs">
+                    <Children>
+                        <HintWidget
+                            DataSource="{Tooltip}"
+                            Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
+                    </Children>
+                    </ImageIdentifierWidget>
 
+                </Children>
+                </Widget>
+
+                <!-- Unequip button now sits "overlapping", but still inside parent -->
+                <ButtonWidget
+                    IsVisible="@CanUnequip"
+                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                    SuggestedWidth="30" SuggestedHeight="30"
+                    VerticalAlignment="Bottom" HorizontalAlignment="Right"
+                    Brush="Popup.CloseButton"
+                    Command.Click="ExecuteUnequip"
+                    DoNotPassEventsToChildren="true">
+                <Children>
+                    <HintWidget
+                        DataSource="{UnequipTooltip}"
+                        Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
+                </Children>
+                </ButtonWidget>
+
+            </Children>
+        </Widget>
 
         <!-- Item Text -->
         <TextWidget
@@ -115,7 +114,6 @@
 </ListPanel>
 
 {%- endmacro %}
-
 
 {% macro divider() -%}
 

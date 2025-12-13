@@ -35,8 +35,14 @@
       id="ret_dependencies_not_initialized_label"
       text="初期化されていません" />
     <string
-      id="ret_editor_tab_label"
-      text="部隊" />
+      id="ret_editor_clan_select"
+      text="クランを選択" />
+    <string
+      id="ret_editor_culture_select"
+      text="文化を選択" />
+    <string
+      id="ret_editor_title"
+      text="部隊エディター" />
     <string
       id="ret_enter_new_name"
       text="新しい名前を入力してください：" />
@@ -211,6 +217,12 @@
     <string
       id="ret_unknown"
       text="不明" />
+    <string
+      id="ret_upgrade_sources_header_text"
+      text="起源" />
+    <string
+      id="ret_upgrade_targets_header_text"
+      text="アップグレード" />
     <string
       id="ret_weight_hint"
       text="重量" />

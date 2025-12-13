@@ -35,8 +35,14 @@
       id="ret_dependencies_not_initialized_label"
       text="Başlatılmadı" />
     <string
-      id="ret_editor_tab_label"
-      text="Birlikler" />
+      id="ret_editor_clan_select"
+      text="Bir Klan Seçin" />
+    <string
+      id="ret_editor_culture_select"
+      text="Bir Kültür Seçin" />
+    <string
+      id="ret_editor_title"
+      text="Birlik Düzenleyici" />
     <string
       id="ret_enter_new_name"
       text="Yeni bir isim girin:" />
@@ -211,6 +217,12 @@
     <string
       id="ret_unknown"
       text="Bilinmeyen" />
+    <string
+      id="ret_upgrade_sources_header_text"
+      text="Kaynak" />
+    <string
+      id="ret_upgrade_targets_header_text"
+      text="Yükseltmeler" />
     <string
       id="ret_weight_hint"
       text="Ağırlık" />

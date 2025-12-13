@@ -3,7 +3,6 @@ using Bannerlord.UIExtenderEx.Attributes;
 using Bannerlord.UIExtenderEx.ViewModels;
 using Retinues.Editor.VM;
 using Retinues.Engine;
-using Retinues.Utilities;
 using TaleWorlds.CampaignSystem.GameState;
 using TaleWorlds.CampaignSystem.ViewModelCollection.ClanManagement;
 using TaleWorlds.Core;
@@ -116,29 +115,18 @@ namespace Retinues.GUI.Prefabs.ClanScreen
                 {
                     _editor = value;
                     OnPropertyChanged(nameof(Editor));
-                    // Also refresh flags that depend on Editor
-                    OnPropertyChanged(nameof(ShowEditorPanel));
-                    OnPropertyChanged(nameof(ShowTopPanel));
-                    OnPropertyChanged(nameof(ShowFinancePanel));
+                    UpdateVisibility();
                 }
             }
         }
 
-        /* ━━━━━━━━ Strings ━━━━━━━ */
-
-        [DataSourceProperty]
-        public string EditorTabLabel => L.S("editor_tab_label", "Troops");
-
         /* ━━━━━━━━━ Flags ━━━━━━━━ */
 
         [DataSourceProperty]
-        public bool ShowEditorPanel => Editor?.IsVisible == true;
+        public bool ShowTopPanel => Editor?.IsVisible != true;
 
         [DataSourceProperty]
-        public bool ShowTopPanel => true;
-
-        [DataSourceProperty]
-        public bool ShowFinancePanel => ShowEditorPanel == false;
+        public bool ShowFinancePanel => Editor?.IsVisible != true;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Action Bindings                    //
@@ -181,7 +169,6 @@ namespace Retinues.GUI.Prefabs.ClanScreen
 
         private void UpdateVisibility()
         {
-            OnPropertyChanged(nameof(ShowEditorPanel));
             OnPropertyChanged(nameof(ShowTopPanel));
             OnPropertyChanged(nameof(ShowFinancePanel));
         }

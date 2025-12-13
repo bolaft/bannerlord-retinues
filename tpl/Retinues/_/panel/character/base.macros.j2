@@ -1,5 +1,6 @@
-{% macro field_header(text) -%}
+{% macro field_header(text, is_visible = "true") -%}
     <TextWidget
+        IsVisible="{{ is_visible }}"
         Text="{{ text }}"
         Brush="Kingdom.TitleSmall.Text"
         WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
