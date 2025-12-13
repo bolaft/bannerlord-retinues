@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Bannerlord.UIExtenderEx.Attributes;
 using Bannerlord.UIExtenderEx.Prefabs2;
 
-namespace Retinues.GUI.ClanScreen.Patches
+namespace Retinues.GUI.Prefabs.ClanScreen.Patches
 {
     [PrefabExtension("ClanScreen", "descendant::Widget[@Id='FinancePanelWidget']")]
     internal class ClanScreen_FinancePanel_Visible : PrefabExtensionSetAttributePatch

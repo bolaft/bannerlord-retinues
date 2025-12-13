@@ -3,7 +3,7 @@ using TaleWorlds.CampaignSystem.ViewModelCollection.ClanManagement;
 using TaleWorlds.GauntletUI.BaseTypes;
 using TaleWorlds.InputSystem;
 
-namespace Retinues.GUI.ClanScreen.Patches
+namespace Retinues.GUI.Prefabs.ClanScreen.Patches
 {
     [HarmonyPatch(typeof(EditableTextWidget))]
     static class EditableTextWidget_HotkeyBlocker

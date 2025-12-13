@@ -2,13 +2,14 @@ using System;
 using Bannerlord.UIExtenderEx.Attributes;
 using Bannerlord.UIExtenderEx.ViewModels;
 using Retinues.Editor.VM;
+using Retinues.Engine;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem.GameState;
 using TaleWorlds.CampaignSystem.ViewModelCollection.ClanManagement;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 
-namespace Retinues.GUI.ClanScreen
+namespace Retinues.GUI.Prefabs.ClanScreen
 {
     [ViewModelMixin("RefreshValues", true)]
     public sealed class ClanScreenMixin : BaseViewModelMixin<ClanManagementVM>
@@ -73,7 +74,7 @@ namespace Retinues.GUI.ClanScreen
             : base(vm)
         {
             // Load sprites used by the editor
-            SpriteManager.Load(SpriteSheetsToLoad);
+            Sprites.Load(SpriteSheetsToLoad);
 
             // Listen once for vanilla tab changes
             ViewModel.PropertyChangedWithBoolValue += OnTabChanged;

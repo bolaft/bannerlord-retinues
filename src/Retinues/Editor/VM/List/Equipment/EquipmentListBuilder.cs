@@ -140,9 +140,6 @@ namespace Retinues.Editor.VM.List.Equipment
         {
             var header = new EquipmentListHeaderVM(list, headerId, headerText);
 
-            // Build rows into the unbound buffer (ListHeaderVM._rows).
-            var expand = false;
-
             if (items != null && items.Count > 0)
             {
                 for (int i = 0; i < items.Count; i++)
@@ -151,22 +148,11 @@ namespace Retinues.Editor.VM.List.Equipment
                     if (item == null)
                         continue;
 
-                    var row = new EquipmentListRowVM(header, item);
-                    header.Rows.Add(row);
-
-                    // Only expand the header that contains the selected row.
-                    if (!expand && row.IsSelected)
-                        expand = true;
+                    header.AddRow(new EquipmentListRowVM(header, item)); // use AddRow
                 }
             }
 
             header.UpdateRowCount();
-
-            // Default: collapsed (equipment headers closed by default).
-            // Exception: expand the header that contains the selected row.
-            if (expand)
-                header.IsExpanded = true;
-
             return header;
         }
     }

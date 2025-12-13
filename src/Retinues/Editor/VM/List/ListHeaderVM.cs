@@ -109,8 +109,11 @@ namespace Retinues.Editor.VM.List
                 _isExpanded = value;
 
                 if (_isExpanded)
+                {
+                    ExpandedRows.Clear();
                     foreach (var row in _rows)
                         ExpandedRows.Add(row);
+                }
                 else
                     ExpandedRows.Clear();
 

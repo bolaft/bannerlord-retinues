@@ -110,6 +110,7 @@ namespace Retinues.Editor
             { UIEvent.Culture, new[] { UIEvent.Appearance } },
             { UIEvent.Gender, new[] { UIEvent.Appearance } },
             { UIEvent.Item, new[] { UIEvent.Appearance } },
+            { UIEvent.Slot, new[] { UIEvent.Item } },
         };
 
         /// <summary>

@@ -2,10 +2,10 @@ using System.Linq;
 using Retinues.Utilities;
 using TaleWorlds.Engine.GauntletUI;
 
-namespace Retinues.GUI
+namespace Retinues.Engine
 {
     [SafeClass]
-    public static class SpriteManager
+    public static class Sprites
     {
         /// <summary>
         /// Loads the specified sprite categories into memory.

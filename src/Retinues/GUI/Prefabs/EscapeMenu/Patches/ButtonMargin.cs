@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Bannerlord.UIExtenderEx.Attributes;
 using Bannerlord.UIExtenderEx.Prefabs2;
 
-namespace Retinues.GUI.EscapeMenu.Patches
+namespace Retinues.GUI.Prefabs.EscapeMenu.Patches
 {
     [PrefabExtension(
         "EscapeMenu",

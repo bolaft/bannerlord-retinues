@@ -1,7 +1,7 @@
 using Bannerlord.UIExtenderEx.Attributes;
 using Bannerlord.UIExtenderEx.Prefabs2;
 
-namespace Retinues.GUI.ClanScreen.Patches
+namespace Retinues.GUI.Prefabs.ClanScreen.Patches
 {
     [PrefabExtension("ClanScreen", "descendant::Constants")]
     internal sealed class Constant_CollapserWidth : PrefabExtensionInsertPatch

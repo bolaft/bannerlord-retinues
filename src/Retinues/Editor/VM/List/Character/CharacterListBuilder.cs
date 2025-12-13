@@ -57,6 +57,9 @@ namespace Retinues.Editor.VM.List.Character
                 );
                 headers.Add(header);
 
+                // Character headers should always start expanded
+                header.IsExpanded = true;
+
                 if (characters != null)
                 {
                     foreach (var character in characters)
@@ -70,9 +73,6 @@ namespace Retinues.Editor.VM.List.Character
 
                 header.UpdateRowCount();
                 header.UpdateState();
-
-                // Character headers should always start expanded
-                header.IsExpanded = true;
             }
 
             // Retinues.
@@ -164,10 +164,7 @@ namespace Retinues.Editor.VM.List.Character
             if (character == null)
                 return;
 
-            var row = new CharacterListRowVM(header, character, civilian);
-
-            // IMPORTANT: add to canonical rows only
-            header.Rows.Add(row);
+            header.AddRow(new CharacterListRowVM(header, character, civilian));
         }
     }
 }

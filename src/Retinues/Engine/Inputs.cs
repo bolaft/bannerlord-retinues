@@ -1,6 +1,6 @@
 using System;
 using Retinues.Configuration;
-using Retinues.GUI.ClanScreen;
+using Retinues.GUI.Prefabs.ClanScreen;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.GameState;

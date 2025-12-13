@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Editor.VM.List.Character;
 using Retinues.Editor.VM.List.Equipment;
@@ -81,7 +82,13 @@ namespace Retinues.Editor.VM.List
         [EventListener(UIEvent.Mode)]
         private void OnModeChange()
         {
+            AutoScrollVersion++; // bump version to trigger auto-scroll on equipment mode switch
             Builder.Build(this);
+
+            if (EditorVM.Mode == EditorMode.Equipment)
+            {
+                UpdateEquipmentHeaderExpansion();
+            }
         }
 
         /// <summary>
@@ -100,21 +107,28 @@ namespace Retinues.Editor.VM.List
         [EventListener(UIEvent.Slot)]
         private void OnSlotChange()
         {
-            if (EditorVM.Mode == EditorMode.Equipment)
+            if (EditorVM.Mode != EditorMode.Equipment)
+                return;
+
+            var previousSlot = _previousSlot;
+            var currentSlot = State.Slot;
+
+            // When switching weapon slots, we do not rebuild, but we still want auto-scroll.
+            if (
+                (previousSlot == EquipmentIndex.Weapon0 && currentSlot == EquipmentIndex.Weapon1)
+                || (previousSlot == EquipmentIndex.Weapon1 && currentSlot == EquipmentIndex.Weapon0)
+            )
             {
-                if (State.Slot == _previousSlot)
-                    return; // No change.
-
-                // Update header expansion based on selected item.
-                // Do this even if both are weapon slots.
+                AutoScrollVersion++;
                 UpdateEquipmentHeaderExpansion();
-
-                if (WeaponSlots.Contains(State.Slot) && WeaponSlots.Contains(_previousSlot))
-                    return; // Both old and new slots are weapon slots; no need to rebuild the entire list.
-
-                Builder.Build(this);
-                _previousSlot = State.Slot;
+                _previousSlot = currentSlot;
+                return;
             }
+
+            AutoScrollVersion++;
+            Builder.Build(this);
+            UpdateEquipmentHeaderExpansion();
+            _previousSlot = currentSlot;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -181,6 +195,37 @@ namespace Retinues.Editor.VM.List
         {
             for (int i = 0; i < _headers.Count; i++)
                 _headers[i]?.UpdateState();
+        }
+
+        /// <summary>
+        /// Captures the current expansion state of all headers.
+        /// </summary>
+        private Dictionary<string, bool> CaptureExpansion()
+        {
+            var map = new Dictionary<string, bool>(StringComparer.Ordinal);
+            for (int i = 0; i < _headers.Count; i++)
+            {
+                var h = _headers[i];
+                if (h != null)
+                    map[h.Id] = h.IsExpanded;
+            }
+            return map;
+        }
+
+        /// <summary>
+        /// Restores header expansion states from a captured map.
+        /// </summary>
+        private void RestoreExpansion(Dictionary<string, bool> map)
+        {
+            if (map == null)
+                return;
+
+            for (int i = 0; i < _headers.Count; i++)
+            {
+                var h = _headers[i];
+                if (h != null && map.TryGetValue(h.Id, out var expanded))
+                    h.IsExpanded = expanded;
+            }
         }
 
         /// <summary>
@@ -276,8 +321,15 @@ namespace Retinues.Editor.VM.List
 
             if (active == null)
             {
-                // No active sort: revert to default ordering for the current mode.
+                var expansion = CaptureExpansion();
+
                 Builder.Build(this);
+
+                RestoreExpansion(expansion);
+
+                // Important: Build created new row VMs, so reapply current filter to them.
+                ApplyFilter();
+
                 return;
             }
 
@@ -316,6 +368,14 @@ namespace Retinues.Editor.VM.List
             header.Rows.Clear();
             for (int i = 0; i < sorted.Count; i++)
                 header.Rows.Add(sorted[i]);
+
+            if (header.IsExpanded)
+            {
+                // Update expanded rows as well.
+                header.ExpandedRows.Clear();
+                for (int i = 0; i < sorted.Count; i++)
+                    header.ExpandedRows.Add(sorted[i]);
+            }
         }
 
         /// <summary>
@@ -680,5 +740,32 @@ namespace Retinues.Editor.VM.List
                 button.SetIsLastColumn(i == _sortButtons.Count - 1);
             }
         }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Auto Scroll                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private int _autoScrollVersion = 0;
+        private static int _autoScrollScopeCounter;
+        private readonly int _autoScrollScopeId = Interlocked.Increment(
+            ref _autoScrollScopeCounter
+        );
+
+        [DataSourceProperty]
+        public int AutoScrollVersion
+        {
+            get => _autoScrollVersion;
+            private set
+            {
+                if (value == _autoScrollVersion)
+                    return;
+
+                _autoScrollVersion = value;
+                OnPropertyChanged(nameof(AutoScrollVersion));
+            }
+        }
+
+        [DataSourceProperty]
+        public string AutoScrollScope => $"EditorList_{_autoScrollScopeId}";
     }
 }
