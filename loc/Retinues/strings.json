@@ -1042,18 +1042,18 @@
   {
     "id": "ret_sort_by_culture",
     "EN": "Culture",
-    "FR": null,
-    "BR": null,
-    "CNs": null,
-    "CNt": null,
-    "DE": null,
-    "IT": null,
-    "JP": null,
-    "KO": null,
-    "PL": null,
-    "RU": null,
-    "SP": null,
-    "TR": null
+    "FR": "Culture",
+    "BR": "Cultura",
+    "CNs": "文化",
+    "CNt": "文化",
+    "DE": "Kultur",
+    "IT": "Cultura",
+    "JP": "文化",
+    "KO": "문화",
+    "PL": "Kultura",
+    "RU": "Культура",
+    "SP": "Cultura",
+    "TR": "Kültür"
   },
   {
     "id": "ret_sort_by_name",
@@ -1102,6 +1102,22 @@
     "RU": "Значение",
     "SP": "Valor",
     "TR": "Değer"
+  },
+  {
+    "id": "ret_unequip_item_tooltip",
+    "EN": "Unequip this item.",
+    "FR": "Enlever cet équipement.",
+    "BR": "Desequipar este item.",
+    "CNs": "卸下此物品。",
+    "CNt": "卸下此物品。",
+    "DE": "Dieses Element ablegen.",
+    "IT": "Desequipaggia questo oggetto.",
+    "JP": "このアイテムを装備解除します。",
+    "KO": "이 아이템을 장비 해제합니다.",
+    "PL": "Odłóż ten przedmiot.",
+    "RU": "Снять этот предмет.",
+    "SP": "Desequipar este objeto.",
+    "TR": "Bu öğeyi donanımdan çıkar."
   },
   {
     "id": "ret_unknown",

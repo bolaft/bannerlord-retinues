@@ -6,6 +6,10 @@ namespace Retinues.Editor.VM.List.Equipment
     public class EquipmentListHeaderVM(ListVM list, string id, string name)
         : ListHeaderVM(list, id, name)
     {
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Bindings                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
         // Show the header toggle only if:
         // - this header has visible rows, AND
         // - there are at least 2 "full" equipment headers
@@ -16,6 +20,10 @@ namespace Retinues.Editor.VM.List.Equipment
         // Equipment headers should never be disabled.
         [DataSourceProperty]
         public override bool IsEnabled => true;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Overrides                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         // Important: IsVisible now only hides the toggle, so do NOT auto-collapse.
         protected override bool CollapseWhenNotVisible => false;

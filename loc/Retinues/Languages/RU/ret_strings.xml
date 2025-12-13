@@ -194,6 +194,9 @@
       id="ret_skills_header_text"
       text="Навыки" />
     <string
+      id="ret_sort_by_culture"
+      text="Культура" />
+    <string
       id="ret_sort_by_name"
       text="Имя" />
     <string
@@ -202,6 +205,9 @@
     <string
       id="ret_sort_by_value"
       text="Значение" />
+    <string
+      id="ret_unequip_item_tooltip"
+      text="Снять этот предмет." />
     <string
       id="ret_unknown"
       text="Неизвестно" />

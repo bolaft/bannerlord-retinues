@@ -194,6 +194,9 @@
       id="ret_skills_header_text"
       text="Umiejętności" />
     <string
+      id="ret_sort_by_culture"
+      text="Kultura" />
+    <string
       id="ret_sort_by_name"
       text="Nazwa" />
     <string
@@ -202,6 +205,9 @@
     <string
       id="ret_sort_by_value"
       text="Wartość" />
+    <string
+      id="ret_unequip_item_tooltip"
+      text="Odłóż ten przedmiot." />
     <string
       id="ret_unknown"
       text="Nieznany" />

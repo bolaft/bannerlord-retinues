@@ -1,4 +1,5 @@
 using Retinues.Model.Equipments;
+using TaleWorlds.Core;
 
 namespace Retinues.Editor.Controllers
 {
@@ -6,11 +7,23 @@ namespace Retinues.Editor.Controllers
     {
         public static void EquipItem(WItem item)
         {
-            var equipped = State.Equipment.GetItem(State.Instance.Slot);
+            var slot = State.Instance.Slot;
+            var equipped = State.Equipment.GetItem(slot);
             if (equipped == item)
                 return; // Already equipped.
 
-            State.Equipment.SetItem(State.Instance.Slot, item);
+            State.Equipment.SetItem(slot, item);
+
+            EventManager.Fire(UIEvent.Item, EventScope.Global);
+        }
+
+        public static void UnequipItem(EquipmentIndex slot)
+        {
+            var equipped = State.Equipment.GetItem(slot);
+            if (equipped == null)
+                return; // Already empty.
+
+            State.Equipment.SetItem(slot, null);
 
             EventManager.Fire(UIEvent.Item, EventScope.Global);
         }

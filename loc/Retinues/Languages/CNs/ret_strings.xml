@@ -194,6 +194,9 @@
       id="ret_skills_header_text"
       text="技能" />
     <string
+      id="ret_sort_by_culture"
+      text="文化" />
+    <string
       id="ret_sort_by_name"
       text="名称" />
     <string
@@ -202,6 +205,9 @@
     <string
       id="ret_sort_by_value"
       text="数值" />
+    <string
+      id="ret_unequip_item_tooltip"
+      text="卸下此物品。" />
     <string
       id="ret_unknown"
       text="未知" />

@@ -212,6 +212,9 @@
       id="ret_sort_by_value"
       text="Value" />
     <string
+      id="ret_unequip_item_tooltip"
+      text="Unequip this item." />
+    <string
       id="ret_unknown"
       text="Unknown" />
     <string

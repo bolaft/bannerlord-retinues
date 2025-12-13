@@ -194,6 +194,9 @@
       id="ret_skills_header_text"
       text="Yetenekler" />
     <string
+      id="ret_sort_by_culture"
+      text="Kültür" />
+    <string
       id="ret_sort_by_name"
       text="İsim" />
     <string
@@ -202,6 +205,9 @@
     <string
       id="ret_sort_by_value"
       text="Değer" />
+    <string
+      id="ret_unequip_item_tooltip"
+      text="Bu öğeyi donanımdan çıkar." />
     <string
       id="ret_unknown"
       text="Bilinmeyen" />

@@ -1,6 +1,9 @@
 using System.Diagnostics.Tracing;
 using Bannerlord.UIExtenderEx.Attributes;
+using Retinues.Editor.Controllers;
+using Retinues.Engine;
 using Retinues.Model.Equipments;
+using Retinues.Utilities;
 using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Library;
@@ -51,6 +54,7 @@ namespace Retinues.Editor.VM.Panel.Equipment
 # else
         public object ImageTypeCode => Item?.Image.TypeCode;
 # endif
+
         [EventListener(UIEvent.Item)]
         [DataSourceProperty]
         public object ImageAdditionalArgs => Item?.Image.AdditionalArgs;
@@ -92,5 +96,19 @@ namespace Retinues.Editor.VM.Panel.Equipment
 
         [DataSourceMethod]
         public void ExecuteSelect() => State.Slot = _slot;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Unequip                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [EventListener(UIEvent.Item)]
+        [DataSourceProperty]
+        public bool CanUnequip => Item != null;
+
+        [DataSourceProperty]
+        public Tooltip UnequipTooltip => new(L.T("unequip_item_tooltip", "Unequip this item."));
+
+        [DataSourceMethod]
+        public void ExecuteUnequip() => EquipmentController.UnequipItem(_slot);
     }
 }

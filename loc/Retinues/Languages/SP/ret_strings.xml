@@ -194,6 +194,9 @@
       id="ret_skills_header_text"
       text="Habilidades" />
     <string
+      id="ret_sort_by_culture"
+      text="Cultura" />
+    <string
       id="ret_sort_by_name"
       text="Nombre" />
     <string
@@ -202,6 +205,9 @@
     <string
       id="ret_sort_by_value"
       text="Valor" />
+    <string
+      id="ret_unequip_item_tooltip"
+      text="Desequipar este objeto." />
     <string
       id="ret_unknown"
       text="Desconocido" />

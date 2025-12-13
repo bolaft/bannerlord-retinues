@@ -194,6 +194,9 @@
       id="ret_skills_header_text"
       text="スキル" />
     <string
+      id="ret_sort_by_culture"
+      text="文化" />
+    <string
       id="ret_sort_by_name"
       text="名前" />
     <string
@@ -202,6 +205,9 @@
     <string
       id="ret_sort_by_value"
       text="値" />
+    <string
+      id="ret_unequip_item_tooltip"
+      text="このアイテムを装備解除します。" />
     <string
       id="ret_unknown"
       text="不明" />

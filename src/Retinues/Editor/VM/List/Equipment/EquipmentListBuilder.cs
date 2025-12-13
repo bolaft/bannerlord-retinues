@@ -76,28 +76,9 @@ namespace Retinues.Editor.VM.List.Equipment
                     );
                 }
             }
-            else if (
-                State.Instance.Slot
-                is EquipmentIndex.Head
-                    or EquipmentIndex.Cape
-                    or EquipmentIndex.Body
-                    or EquipmentIndex.Gloves
-                    or EquipmentIndex.Leg
-            )
+            else if (State.Instance.Slot == EquipmentIndex.Horse)
             {
-                // Armor pieces are not grouped.
-                headers.Add(
-                    CreateHeader(
-                        list,
-                        State.Instance.Slot.ToString().ToLowerInvariant(),
-                        Format.CamelCaseToTitle(State.Instance.Slot.ToString()),
-                        WItem.GetEquipmentsForSlot(State.Instance.Slot)
-                    )
-                );
-            }
-            else
-            {
-                // Other equipment is grouped by category.
+                // Horses are grouped by category.
                 var categories = new Dictionary<ItemCategory, List<WItem>>();
 
                 foreach (var item in WItem.GetEquipmentsForSlot(State.Instance.Slot))
@@ -119,6 +100,18 @@ namespace Retinues.Editor.VM.List.Equipment
                         )
                     );
                 }
+            }
+            else
+            {
+                // Armor pieces are not grouped.
+                headers.Add(
+                    CreateHeader(
+                        list,
+                        State.Instance.Slot.ToString().ToLowerInvariant(),
+                        Format.CamelCaseToTitle(State.Instance.Slot.ToString()),
+                        WItem.GetEquipmentsForSlot(State.Instance.Slot)
+                    )
+                );
             }
 
             // Sort headers alphabetically.
