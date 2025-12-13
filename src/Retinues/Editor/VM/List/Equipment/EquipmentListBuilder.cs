@@ -23,8 +23,8 @@ namespace Retinues.Editor.VM.List.Equipment
             list.SortButtons.Add(
                 new ListSortButtonVM(
                     list,
-                    ListSortKey.Category,
-                    L.S("sort_by_category", "Category"),
+                    ListSortKey.Culture,
+                    L.S("sort_by_culture", "Culture"),
                     2
                 )
             );

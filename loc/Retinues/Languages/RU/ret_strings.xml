@@ -90,7 +90,7 @@
       text="Введите текст для фильтрации списка по имени, культуре или уровню." />
     <string
       id="ret_filter_tooltip_description_equipment"
-      text="Введите текст для фильтрации списка по имени, категории, культуре или уровню." />
+      text="Введите текст для фильтрации списка по имени, категории или уровню." />
     <string
       id="ret_gender_toggle_hint"
       text="Переключить пол" />
@@ -193,9 +193,6 @@
     <string
       id="ret_skills_header_text"
       text="Навыки" />
-    <string
-      id="ret_sort_by_category"
-      text="Категория" />
     <string
       id="ret_sort_by_name"
       text="Имя" />

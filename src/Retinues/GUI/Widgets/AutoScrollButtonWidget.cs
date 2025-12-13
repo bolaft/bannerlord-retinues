@@ -9,6 +9,12 @@ namespace Retinues.Editor.Widgets
     public class AutoScrollButtonWidget : ButtonWidget
     {
         [Editor(false)]
+        public bool AutoScrollEnabled { get; set; } = true;
+
+        [Editor(false)]
+        public bool AutoScrollAlways { get; set; } = false;
+
+        [Editor(false)]
         public float AutoScrollTopOffset { get; set; }
 
         [Editor(false)]
@@ -110,16 +116,23 @@ namespace Retinues.Editor.Widgets
 
         private void RequestScrollIfEligible()
         {
-            if (!IsSelected)
-                return;
+            if (!AutoScrollAlways)
+            {
+                if (!AutoScrollEnabled)
+                    return;
+
+                if (!IsSelected)
+                    return;
+            }
 
             if (_autoScrollVersion <= 0)
                 return;
 
             var scope = string.IsNullOrEmpty(_autoScrollScope) ? "EditorList" : _autoScrollScope;
+            var key = AutoScrollAlways ? $"{scope}:top" : $"{scope}:row";
 
             if (
-                LastScrolledVersionByScope.TryGetValue(scope, out var last)
+                LastScrolledVersionByScope.TryGetValue(key, out var last)
                 && last >= _autoScrollVersion
             )
                 return;
@@ -141,10 +154,6 @@ namespace Retinues.Editor.Widgets
             if (IsHidden || !IsVisible)
                 return;
 
-            Log.Info(
-                $"Auto-scrolling to button (scope={_autoScrollScope}, version={_autoScrollVersion})..."
-            );
-
             var p = new ScrollablePanel.AutoScrollParameters(
                 topOffset: AutoScrollTopOffset,
                 bottomOffset: AutoScrollBottomOffset,
@@ -159,7 +168,8 @@ namespace Retinues.Editor.Widgets
             _pendingScroll = false;
 
             var scope = string.IsNullOrEmpty(_autoScrollScope) ? "EditorList" : _autoScrollScope;
-            LastScrolledVersionByScope[scope] = _autoScrollVersion;
+            var key = AutoScrollAlways ? $"{scope}:top" : $"{scope}:row";
+            LastScrolledVersionByScope[key] = _autoScrollVersion;
         }
 
         private static ScrollablePanel FindParentScrollablePanel(Widget widget)

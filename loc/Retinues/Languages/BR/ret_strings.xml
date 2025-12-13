@@ -90,7 +90,7 @@
       text="Digite para filtrar a lista por nome, cultura ou nível." />
     <string
       id="ret_filter_tooltip_description_equipment"
-      text="Digite para filtrar a lista por nome, categoria, cultura ou nível." />
+      text="Digite para filtrar a lista por nome, categoria ou nível." />
     <string
       id="ret_gender_toggle_hint"
       text="Alternar Gênero" />
@@ -193,9 +193,6 @@
     <string
       id="ret_skills_header_text"
       text="Habilidades" />
-    <string
-      id="ret_sort_by_category"
-      text="Categoria" />
     <string
       id="ret_sort_by_name"
       text="Nome" />

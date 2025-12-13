@@ -90,7 +90,7 @@
       text="输入以按名称、文化或等级过滤列表。" />
     <string
       id="ret_filter_tooltip_description_equipment"
-      text="输入以按名称、类别、文化或等级过滤列表。" />
+      text="输入以按名称、类别或等级过滤列表。" />
     <string
       id="ret_gender_toggle_hint"
       text="切换性别" />
@@ -193,9 +193,6 @@
     <string
       id="ret_skills_header_text"
       text="技能" />
-    <string
-      id="ret_sort_by_category"
-      text="类别" />
     <string
       id="ret_sort_by_name"
       text="名称" />

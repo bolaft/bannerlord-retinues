@@ -90,7 +90,7 @@
       text="Geben Sie ein, um die Liste nach Name, Kultur oder Stufe zu filtern." />
     <string
       id="ret_filter_tooltip_description_equipment"
-      text="Geben Sie ein, um die Liste nach Name, Kategorie, Kultur oder Stufe zu filtern." />
+      text="Geben Sie ein, um die Liste nach Name, Kategorie oder Stufe zu filtern." />
     <string
       id="ret_gender_toggle_hint"
       text="Geschlecht umschalten" />
@@ -193,9 +193,6 @@
     <string
       id="ret_skills_header_text"
       text="Fähigkeiten" />
-    <string
-      id="ret_sort_by_category"
-      text="Kategorie" />
     <string
       id="ret_sort_by_name"
       text="Name" />

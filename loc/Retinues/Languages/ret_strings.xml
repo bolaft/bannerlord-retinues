@@ -90,7 +90,7 @@
       text="Type to filter the list by name, culture or tier." />
     <string
       id="ret_filter_tooltip_description_equipment"
-      text="Type to filter the list by name, category, culture or tier." />
+      text="Type to filter the list by name, category or tier." />
     <string
       id="ret_gender_toggle_hint"
       text="Toggle Gender" />
@@ -200,8 +200,8 @@
       id="ret_skills_header_text"
       text="Skills" />
     <string
-      id="ret_sort_by_category"
-      text="Category" />
+      id="ret_sort_by_culture"
+      text="Culture" />
     <string
       id="ret_sort_by_name"
       text="Name" />

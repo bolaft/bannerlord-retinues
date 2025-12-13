@@ -115,7 +115,7 @@ namespace Retinues.Editor.VM.List.Equipment
             {
                 ListSortKey.Name => Name,
                 ListSortKey.Tier => _tier,
-                ListSortKey.Category => Item.Category.ToString(),
+                ListSortKey.Culture => Item.Culture?.Name ?? string.Empty,
                 ListSortKey.Value => Item.Value,
                 _ => Name,
             };
@@ -134,10 +134,6 @@ namespace Retinues.Editor.VM.List.Equipment
             var comparison = StringComparison.OrdinalIgnoreCase;
 
             if (!string.IsNullOrEmpty(Name) && Name.IndexOf(f, comparison) >= 0)
-                return true;
-
-            var cultureText = Item.Culture?.Name ?? string.Empty;
-            if (!string.IsNullOrEmpty(cultureText) && cultureText.IndexOf(f, comparison) >= 0)
                 return true;
 
             var categoryText = Item.Category.ToString();

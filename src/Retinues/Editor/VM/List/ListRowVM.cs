@@ -112,6 +112,9 @@ namespace Retinues.Editor.VM.List
         [DataSourceProperty]
         public string AutoScrollScope => Header.List.AutoScrollScope;
 
+        [DataSourceProperty]
+        public bool AutoScrollEnabled => Header.List.AutoScrollRowsEnabled;
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Sorting                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

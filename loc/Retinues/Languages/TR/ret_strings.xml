@@ -90,7 +90,7 @@
       text="Listeyi ada, kültüre veya seviyeye göre filtrelemek için yazın." />
     <string
       id="ret_filter_tooltip_description_equipment"
-      text="Listeyi ada, kategoriye, kültüre veya seviyeye göre filtrelemek için yazın." />
+      text="Listeyi ada, kategoriye veya seviyeye göre filtrelemek için yazın." />
     <string
       id="ret_gender_toggle_hint"
       text="Cinsiyeti Değiştir" />
@@ -193,9 +193,6 @@
     <string
       id="ret_skills_header_text"
       text="Yetenekler" />
-    <string
-      id="ret_sort_by_category"
-      text="Kategori" />
     <string
       id="ret_sort_by_name"
       text="İsim" />

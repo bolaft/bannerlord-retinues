@@ -90,7 +90,7 @@
       text="名前、文化、または階級でリストをフィルタリングするには入力してください。" />
     <string
       id="ret_filter_tooltip_description_equipment"
-      text="名前、カテゴリ、文化、または階級でリストをフィルタリングするには入力してください。" />
+      text="名前、カテゴリ、または階級でリストをフィルタリングするには入力してください。" />
     <string
       id="ret_gender_toggle_hint"
       text="性別を切り替え" />
@@ -193,9 +193,6 @@
     <string
       id="ret_skills_header_text"
       text="スキル" />
-    <string
-      id="ret_sort_by_category"
-      text="カテゴリー" />
     <string
       id="ret_sort_by_name"
       text="名前" />

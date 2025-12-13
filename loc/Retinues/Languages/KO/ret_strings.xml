@@ -90,7 +90,7 @@
       text="이름, 문화 또는 등급별로 목록을 필터링하려면 입력하세요." />
     <string
       id="ret_filter_tooltip_description_equipment"
-      text="이름, 카테고리, 문화 또는 등급별로 목록을 필터링하려면 입력하세요." />
+      text="이름, 카테고리 또는 등급별로 목록을 필터링하려면 입력하세요." />
     <string
       id="ret_gender_toggle_hint"
       text="성별 전환" />
@@ -193,9 +193,6 @@
     <string
       id="ret_skills_header_text"
       text="기술" />
-    <string
-      id="ret_sort_by_category"
-      text="카테고리" />
     <string
       id="ret_sort_by_name"
       text="이름" />

@@ -21,7 +21,7 @@ namespace Retinues.Editor.VM.List
         Name,
         Tier,
         Value,
-        Category,
+        Culture,
     }
 
     /// <summary>
@@ -82,6 +82,7 @@ namespace Retinues.Editor.VM.List
         [EventListener(UIEvent.Mode)]
         private void OnModeChange()
         {
+            AutoScrollRowsEnabled = true;
             AutoScrollVersion++; // bump version to trigger auto-scroll on equipment mode switch
             Builder.Build(this);
 
@@ -113,19 +114,17 @@ namespace Retinues.Editor.VM.List
             var previousSlot = _previousSlot;
             var currentSlot = State.Slot;
 
+            AutoScrollRowsEnabled = true;
+            AutoScrollVersion++;
+
             // When switching weapon slots, we do not rebuild, but we still want auto-scroll.
-            if (
-                (previousSlot == EquipmentIndex.Weapon0 && currentSlot == EquipmentIndex.Weapon1)
-                || (previousSlot == EquipmentIndex.Weapon1 && currentSlot == EquipmentIndex.Weapon0)
-            )
+            if (WeaponSlots.Contains(previousSlot) && WeaponSlots.Contains(currentSlot))
             {
-                AutoScrollVersion++;
                 UpdateEquipmentHeaderExpansion();
                 _previousSlot = currentSlot;
                 return;
             }
 
-            AutoScrollVersion++;
             Builder.Build(this);
             UpdateEquipmentHeaderExpansion();
             _previousSlot = currentSlot;
@@ -314,7 +313,9 @@ namespace Retinues.Editor.VM.List
             if (_headers.Count == 0)
                 return;
 
-            // Find the active sort button (if any).
+            // Never auto-scroll to selected row because of sorting.
+            AutoScrollRowsEnabled = false;
+
             var active = _sortButtons.FirstOrDefault(b =>
                 b.IsSortedAscending || b.IsSortedDescending
             );
@@ -322,14 +323,9 @@ namespace Retinues.Editor.VM.List
             if (active == null)
             {
                 var expansion = CaptureExpansion();
-
                 Builder.Build(this);
-
                 RestoreExpansion(expansion);
-
-                // Important: Build created new row VMs, so reapply current filter to them.
                 ApplyFilter();
-
                 return;
             }
 
@@ -341,7 +337,6 @@ namespace Retinues.Editor.VM.List
                 if (header.Rows.Count <= 1)
                     continue;
 
-                // Only Elite / Regular use tree-aware sorting; everything else stays flat.
                 var isTreeHeader =
                     _headerIds.TryGetValue(header, out var headerId)
                     && TreeAwareSortHeaders.Contains(headerId);
@@ -572,7 +567,7 @@ namespace Retinues.Editor.VM.List
                     return new(
                         L.S(
                             "filter_tooltip_description_equipment",
-                            "Type to filter the list by name, category, culture or tier."
+                            "Type to filter the list by name, category or tier."
                         )
                     );
                 }
@@ -744,6 +739,22 @@ namespace Retinues.Editor.VM.List
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Auto Scroll                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private bool _autoScrollRowsEnabled = true;
+
+        [DataSourceProperty]
+        public bool AutoScrollRowsEnabled
+        {
+            get => _autoScrollRowsEnabled;
+            private set
+            {
+                if (value == _autoScrollRowsEnabled)
+                    return;
+
+                _autoScrollRowsEnabled = value;
+                OnPropertyChanged(nameof(AutoScrollRowsEnabled));
+            }
+        }
 
         private int _autoScrollVersion = 0;
         private static int _autoScrollScopeCounter;

@@ -90,7 +90,7 @@
       text="輸入以按名稱、文化或等級過濾列表。" />
     <string
       id="ret_filter_tooltip_description_equipment"
-      text="輸入以按名稱、類別、文化或等級過濾列表。" />
+      text="輸入以按名稱、類別或等級過濾列表。" />
     <string
       id="ret_gender_toggle_hint"
       text="切換性別" />
@@ -193,9 +193,6 @@
     <string
       id="ret_skills_header_text"
       text="技能" />
-    <string
-      id="ret_sort_by_category"
-      text="類別" />
     <string
       id="ret_sort_by_name"
       text="名稱" />
