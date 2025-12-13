@@ -150,5 +150,96 @@ namespace Retinues.Editor.VM.List.Equipment
 
             return false;
         }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                    Comparison Icons                    //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private int _positiveChevrons;
+        private int _negativeChevrons;
+        private string _chevronsKey = string.Empty;
+
+        private WItem CurrentItem => State.Equipment.GetItem(State.Slot);
+
+        private void EnsureComparisonChevrons()
+        {
+            string currentId = CurrentItem?.StringId ?? "__NULL__";
+            string enabled = IsEnabled ? "1" : "0";
+            string key = enabled + "|" + currentId;
+
+            if (string.Equals(key, _chevronsKey, StringComparison.Ordinal))
+                return;
+
+            _chevronsKey = key;
+            _positiveChevrons = 0;
+            _negativeChevrons = 0;
+
+            if (!IsEnabled)
+                return;
+
+            if (Item == null || CurrentItem == null)
+                return;
+
+            Item.GetComparisonChevrons(CurrentItem, out _positiveChevrons, out _negativeChevrons);
+
+            if (_positiveChevrons > 3)
+                _positiveChevrons = 3;
+
+            if (_negativeChevrons > 3)
+                _negativeChevrons = 3;
+        }
+
+        [EventListener(UIEvent.Item)]
+        [DataSourceProperty]
+        public bool ShowComparisonIcon
+        {
+            get
+            {
+                EnsureComparisonChevrons();
+                return _positiveChevrons > 0 || _negativeChevrons > 0;
+            }
+        }
+
+        [EventListener(UIEvent.Item)]
+        [DataSourceProperty]
+        public string PositiveComparisonSprite
+        {
+            get
+            {
+                EnsureComparisonChevrons();
+                if (_positiveChevrons <= 0)
+                    return string.Empty;
+
+                return $"General\\TroopTierIcons\\icon_tier_{_positiveChevrons}_big";
+            }
+        }
+
+        [EventListener(UIEvent.Item)]
+        [DataSourceProperty]
+        public string NegativeComparisonSprite
+        {
+            get
+            {
+                EnsureComparisonChevrons();
+                if (_negativeChevrons <= 0)
+                    return string.Empty;
+
+                return $"General\\TroopTierIcons\\icon_tier_{_negativeChevrons}_big";
+            }
+        }
+
+        [EventListener(UIEvent.Item)]
+        [DataSourceProperty]
+        public int NegativeComparisonSpriteOffset
+        {
+            get
+            {
+                EnsureComparisonChevrons();
+                if (_negativeChevrons > 0 && _positiveChevrons > 0)
+                    return 5;
+
+                return 0;
+            }
+        }
     }
 }

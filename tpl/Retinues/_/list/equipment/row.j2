@@ -57,7 +57,7 @@
                     SuggestedWidth="96"
                     SuggestedHeight="48"
                     VerticalAlignment="Center"
-                    MarginRight="16"
+                    MarginRight="12"
                     PositionYOffset="-1"
                     DoNotAcceptEvents="true">
                     <Children>
@@ -84,6 +84,26 @@
                             AdditionalArgs="@AdditionalArgs" />
                     </Children>
                 </Widget>
+
+                {# Comparison icon #}
+                <SpriteWidget
+                    IsVisible="@ShowComparisonIcon"
+                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                    SuggestedWidth="20" SuggestedHeight="20"
+                    Sprite="@PositiveComparisonSprite"
+                    Color="#a5d82fb4"
+                    MarginRight="10"
+                    HorizontalAlignment="Left" VerticalAlignment="Center" >
+                    <Children>
+                        <SpriteWidget
+                            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                            SuggestedWidth="20" SuggestedHeight="20"
+                            Sprite="@NegativeComparisonSprite"
+                            Color="#d82f2fb4"
+                            PositionYOffset="@NegativeComparisonSpriteOffset"
+                            VerticalFlip="true"/>
+                    </Children>
+                </SpriteWidget>
 
                 {# Name #}
                 <TextWidget
