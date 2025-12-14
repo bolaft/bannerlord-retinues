@@ -194,6 +194,12 @@
       id="ret_retinues_version_update_text_no_current"
       text="이 저장 파일의 Retinues 모드 버전이 최신 버전({CURRENT_VERSION})으로 업데이트되었습니다. 저장 데이터는 자동으로 마이그레이션되었습니다.{newline}{newline}안전 예방 조치로 저장을 덮어쓰기 전에 모든 것이 정상인지 확인하십시오.{newline}{newline}어떤 이유로든 이전 버전으로 돌아가려면 이전에 사용하던 버전을 Nexus Mods에서 다운로드하십시오." />
     <string
+      id="ret_scroll_to_bottom_tooltip"
+      text="목록의 맨 아래로 스크롤합니다." />
+    <string
+      id="ret_scroll_to_top_tooltip"
+      text="목록의 맨 위로 스크롤합니다." />
+    <string
       id="ret_skill_decrease_mined_reason"
       text="기술을 0 이하로 낮출 수 없습니다." />
     <string

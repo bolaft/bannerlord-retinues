@@ -26,8 +26,8 @@ namespace Retinues.Editor.Screen
         private readonly GameState _state = state;
         private GauntletMovieIdentifier _movie;
         private GauntletLayer _gauntletLayer;
-
         private EditorVM _dataSource;
+
         static readonly string[] SpriteSheetsToLoad =
         [
             "ui_charactercreation",
@@ -35,6 +35,15 @@ namespace Retinues.Editor.Screen
             "ui_clan",
             "ui_kingdom",
             "ui_inventory",
+            // "ui_armymanagement",
+            // "ui_town_management",
+            // "ui_partyscreen",
+            // "ui_mapbar",
+            // "ui_gameover",
+            // "ui_crafting",
+            // "ui_quest",
+            // "ui_saveload",
+            // "ui_boardgame",
         ];
 
         protected override void OnFrameTick(float dt)

@@ -194,6 +194,12 @@
       id="ret_retinues_version_update_text_no_current"
       text="Wersja moda Retinues w tym pliku zapisu została zaktualizowana do nowszej wersji ({CURRENT_VERSION}). Twoje dane zapisu zostały automatycznie przeniesione.{newline}{newline}Jako środek ostrożności sprawdź, czy wszystko jest w porządku przed nadpisaniem zapisu.{newline}{newline}Jeśli z jakiego powodu chcesz wrócić do poprzedniej wersji, pobierz wersję, której wcześniej używałeś, z Nexus Mods." />
     <string
+      id="ret_scroll_to_bottom_tooltip"
+      text="Przewiń na dół listy." />
+    <string
+      id="ret_scroll_to_top_tooltip"
+      text="Przewiń na górę listy." />
+    <string
       id="ret_skill_decrease_mined_reason"
       text="Nie można zmniejszyć umiejętności poniżej 0." />
     <string

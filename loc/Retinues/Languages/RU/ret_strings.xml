@@ -194,6 +194,12 @@
       id="ret_retinues_version_update_text_no_current"
       text="Версия мода Retinues в этом файле сохранения была обновлена до более новой версии ({CURRENT_VERSION}). Ваши данные сохранения были автоматически перенесены.{newline}{newline}В качестве меры предосторожности проверьте, что все в порядке, прежде чем перезаписывать сохранение.{newline}{newline}Если по какой-либо причине вы хотите вернуться к предыдущей версии, скачайте версию, которую вы использовали ранее, с Nexus Mods." />
     <string
+      id="ret_scroll_to_bottom_tooltip"
+      text="Прокрутить до конца списка." />
+    <string
+      id="ret_scroll_to_top_tooltip"
+      text="Прокрутить до начала списка." />
+    <string
       id="ret_skill_decrease_mined_reason"
       text="Невозможно уменьшить навык ниже 0." />
     <string

@@ -194,6 +194,12 @@
       id="ret_retinues_version_update_text_no_current"
       text="The Retinues mod version in this save file has been updated to a newer version ({CURRENT_VERSION}). Your save data has been automatically migrated.{newline}{newline}As a safety precaution, check that everything is as it should before overwriting your save.{newline}{newline}If for any reason you wish to go back to the previous version, download the version you were previously using from Nexus Mods." />
     <string
+      id="ret_scroll_to_bottom_tooltip"
+      text="Scroll to the bottom of the list." />
+    <string
+      id="ret_scroll_to_top_tooltip"
+      text="Scroll to the top of the list." />
+    <string
       id="ret_skill_decrease_mined_reason"
       text="Cannot decrease skill below 0." />
     <string

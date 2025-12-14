@@ -194,6 +194,12 @@
       id="ret_retinues_version_update_text_no_current"
       text="Die Retinues-Mod-Version in dieser Speicherdatei wurde auf eine neuere Version ({CURRENT_VERSION}) aktualisiert. Ihre gespeicherten Daten wurden automatisch migriert.{newline}{newline}Als Sicherheitsvorkehrung sollten Sie überprüfen, ob alles in Ordnung ist, bevor Sie Ihren Speicher überschreiben.{newline}{newline}Wenn Sie aus irgendeinem Grund zur vorherigen Version zurückkehren möchten, laden Sie die Version herunter, die Sie zuvor verwendet haben, von Nexus Mods." />
     <string
+      id="ret_scroll_to_bottom_tooltip"
+      text="Zum Ende der Liste scrollen." />
+    <string
+      id="ret_scroll_to_top_tooltip"
+      text="Zum Anfang der Liste scrollen." />
+    <string
       id="ret_skill_decrease_mined_reason"
       text="Fähigkeit kann nicht unter 0 verringert werden." />
     <string

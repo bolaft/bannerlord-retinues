@@ -194,6 +194,12 @@
       id="ret_retinues_version_update_text_no_current"
       text="A versão do mod Retinues neste arquivo de salvamento foi atualizada para uma versão mais recente ({CURRENT_VERSION}). Seus dados de salvamento foram migrados automaticamente.{newline}{newline}Como precaução de segurança, verifique se tudo está como deveria antes de sobrescrever seu salvamento.{newline}{newline}Se por algum motivo você desejar voltar para a versão anterior, baixe a versão que você estava usando anteriormente do Nexus Mods." />
     <string
+      id="ret_scroll_to_bottom_tooltip"
+      text="Role até o final da lista." />
+    <string
+      id="ret_scroll_to_top_tooltip"
+      text="Role até o topo da lista." />
+    <string
       id="ret_skill_decrease_mined_reason"
       text="Não é possível diminuir a habilidade abaixo de 0." />
     <string

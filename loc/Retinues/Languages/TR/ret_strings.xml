@@ -194,6 +194,12 @@
       id="ret_retinues_version_update_text_no_current"
       text="Bu kayıt dosyasındaki Retinues mod sürümü, daha yeni bir sürüme ({CURRENT_VERSION}) güncellendi. Kayıt verileriniz otomatik olarak taşındı.{newline}{newline}Bir güvenlik önlemi olarak, kaydınızı üzerine yazmadan önce her şeyin olması gerektiği gibi olduğundan emin olun.{newline}{newline}Herhangi bir nedenle önceki sürüme dönmek isterseniz, daha önce kullandığınız sürümü Nexus Mods&apos;tan indirin." />
     <string
+      id="ret_scroll_to_bottom_tooltip"
+      text="Listenin en altına kaydırın." />
+    <string
+      id="ret_scroll_to_top_tooltip"
+      text="Listenin en üstüne kaydırın." />
+    <string
       id="ret_skill_decrease_mined_reason"
       text="Yetenek 0&apos;ın altına düşürülemez." />
     <string

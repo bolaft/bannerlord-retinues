@@ -194,6 +194,12 @@
       id="ret_retinues_version_update_text_no_current"
       text="La version du mod Retinues dans ce fichier de sauvegarde a été mise à jour vers une version plus récente ({CURRENT_VERSION}). Vos données de sauvegarde ont été automatiquement migrées.{newline}{newline}Par mesure de précaution, vérifiez que tout est en ordre avant d&apos;écraser votre sauvegarde.{newline}{newline}Si pour une raison quelconque vous souhaitez revenir à la version précédente, téléchargez la version que vous utilisiez auparavant depuis Nexus Mods." />
     <string
+      id="ret_scroll_to_bottom_tooltip"
+      text="Défiler jusqu&apos;en bas de la liste." />
+    <string
+      id="ret_scroll_to_top_tooltip"
+      text="Défiler jusqu&apos;en haut de la liste." />
+    <string
       id="ret_skill_decrease_mined_reason"
       text="Impossible de diminuer une compétence en dessous de 0." />
     <string

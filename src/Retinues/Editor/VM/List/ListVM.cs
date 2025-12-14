@@ -751,6 +751,18 @@ namespace Retinues.Editor.VM.List
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                     Scroll Buttons                     //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [DataSourceProperty]
+        public Tooltip ScrollToTopTooltip =>
+            new(L.S("scroll_to_top_tooltip", "Scroll to the top of the list."));
+
+        [DataSourceProperty]
+        public Tooltip ScrollToBottomTooltip =>
+            new(L.S("scroll_to_bottom_tooltip", "Scroll to the bottom of the list."));
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Auto Scroll                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 

@@ -1008,6 +1008,38 @@
     "TR": "Bu kayıt dosyasındaki Retinues mod sürümü, daha yeni bir sürüme ({CURRENT_VERSION}) güncellendi. Kayıt verileriniz otomatik olarak taşındı.\\n\\nBir güvenlik önlemi olarak, kaydınızı üzerine yazmadan önce her şeyin olması gerektiği gibi olduğundan emin olun.\\n\\nHerhangi bir nedenle önceki sürüme dönmek isterseniz, daha önce kullandığınız sürümü Nexus Mods'tan indirin."
   },
   {
+    "id": "ret_scroll_to_bottom_tooltip",
+    "EN": "Scroll to the bottom of the list.",
+    "FR": "Défiler jusqu'en bas de la liste.",
+    "BR": "Role até o final da lista.",
+    "CNs": "滚动到列表底部。",
+    "CNt": "滾動到列表底部。",
+    "DE": "Zum Ende der Liste scrollen.",
+    "IT": "Scorri fino in fondo alla lista.",
+    "JP": "リストの一番下までスクロールします。",
+    "KO": "목록의 맨 아래로 스크롤합니다.",
+    "PL": "Przewiń na dół listy.",
+    "RU": "Прокрутить до конца списка.",
+    "SP": "Desplázate hasta el final de la lista.",
+    "TR": "Listenin en altına kaydırın."
+  },
+  {
+    "id": "ret_scroll_to_top_tooltip",
+    "EN": "Scroll to the top of the list.",
+    "FR": "Défiler jusqu'en haut de la liste.",
+    "BR": "Role até o topo da lista.",
+    "CNs": "滚动到列表顶部。",
+    "CNt": "滾動到列表頂部。",
+    "DE": "Zum Anfang der Liste scrollen.",
+    "IT": "Scorri fino in cima alla lista.",
+    "JP": "リストの一番上までスクロールします。",
+    "KO": "목록의 맨 위로 스크롤합니다.",
+    "PL": "Przewiń na górę listy.",
+    "RU": "Прокрутить до начала списка.",
+    "SP": "Desplázate hasta la parte superior de la lista.",
+    "TR": "Listenin en üstüne kaydırın."
+  },
+  {
     "id": "ret_skill_decrease_mined_reason",
     "EN": "Cannot decrease skill below 0.",
     "FR": "Impossible de diminuer une compétence en dessous de 0.",
