@@ -7,7 +7,7 @@ using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection.Generic;
 using TaleWorlds.Localization;
 
-namespace Retinues.GUI.Helpers
+namespace OldRetinues.GUI.Helpers
 {
     [SafeClass]
     public static class Icons

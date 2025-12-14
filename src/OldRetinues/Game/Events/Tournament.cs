@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Retinues.Game.Wrappers;
 using Retinues.Utils;
 
-namespace Retinues.Game.Events
+namespace OldRetinues.Game.Events
 {
     /// <summary>
     /// Tournament event wrapper, provides info about town, winner, and participants.

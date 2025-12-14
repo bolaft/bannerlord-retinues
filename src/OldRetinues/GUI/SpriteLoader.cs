@@ -2,7 +2,7 @@ using System.Linq;
 using Retinues.Utils;
 using TaleWorlds.Engine.GauntletUI;
 
-namespace Retinues.GUI
+namespace OldRetinues.GUI
 {
     public static class SpriteLoader
     {

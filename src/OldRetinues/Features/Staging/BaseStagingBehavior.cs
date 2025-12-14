@@ -12,7 +12,7 @@ using TaleWorlds.Core;
 using TaleWorlds.Core.ImageIdentifiers;
 # endif
 
-namespace Retinues.Features.Staging
+namespace OldRetinues.Features.Staging
 {
     public interface IPendingData
     {

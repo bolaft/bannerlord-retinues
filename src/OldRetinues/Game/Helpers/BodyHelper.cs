@@ -6,7 +6,7 @@ using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.ObjectSystem;
 
-namespace Retinues.Game.Helpers
+namespace OldRetinues.Game.Helpers
 {
     [SafeClass]
     public static class BodyHelper

@@ -3,7 +3,7 @@ using System.Text;
 using Retinues.Configuration;
 using TaleWorlds.Library;
 
-namespace Retinues.Utils
+namespace OldRetinues.Utils
 {
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
     //                    Bug Report (Email)                  //

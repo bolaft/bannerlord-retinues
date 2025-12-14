@@ -4,7 +4,7 @@ using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
 # endif
 
-namespace Retinues.Game
+namespace OldRetinues.Game
 {
     /// <summary>
     /// Abstract base for factions that have banners.

@@ -5,7 +5,7 @@ using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.Library;
 
-namespace Retinues.Safety.Fixes
+namespace OldRetinues.Safety.Fixes
 {
     /// <summary>
     /// Fixes party leaders for parties that have lost their leader hero.

@@ -8,7 +8,7 @@ using Retinues.Utils;
 using TaleWorlds.Localization;
 using TaleWorlds.MountAndBlade.ViewModelCollection.EscapeMenu;
 
-namespace Retinues.GUI.Menus
+namespace OldRetinues.GUI.Menus
 {
     [HarmonyPatch(typeof(EscapeMenuVM))]
     internal static class EscapeMenuPatch

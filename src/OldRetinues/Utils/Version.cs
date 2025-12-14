@@ -1,6 +1,6 @@
 using TaleWorlds.Library;
 
-namespace Retinues.Utils
+namespace OldRetinues.Utils
 {
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
     //                   Bannerlord Version                   //

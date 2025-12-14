@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Retinues.Utils;
 using TaleWorlds.Library;
 
-namespace Retinues.GUI.Editor.VM.Doctrines
+namespace OldRetinues.GUI.Editor.VM.Doctrines
 {
     [SafeClass]
     public sealed class DoctrineDescriptionLineVM(string text) : BaseVM

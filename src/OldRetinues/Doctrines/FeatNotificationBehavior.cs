@@ -7,7 +7,7 @@ using TaleWorlds.Core;
 using TaleWorlds.Library;
 using TaleWorlds.MountAndBlade;
 
-namespace Retinues.Doctrines
+namespace OldRetinues.Doctrines
 {
     /// <summary>
     /// Campaign behavior for showing popups when feats are completed.

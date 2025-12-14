@@ -9,7 +9,7 @@ using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 
-namespace Retinues.Game.Events
+namespace OldRetinues.Game.Events
 {
     /// <summary>
     /// Battle event wrapper, provides helpers for troop counts, sides, leaders, parties, prisoners, and battle reporting.

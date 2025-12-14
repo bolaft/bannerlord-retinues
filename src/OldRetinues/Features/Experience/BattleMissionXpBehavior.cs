@@ -1,7 +1,7 @@
 using Retinues.Game.Events;
 using Retinues.Utils;
 
-namespace Retinues.Features.Experience
+namespace OldRetinues.Features.Experience
 {
     /// <summary>
     /// Mission behavior for awarding XP to custom player-side troops for kills at mission end.

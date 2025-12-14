@@ -6,7 +6,7 @@ using Retinues.GUI.Helpers;
 using Retinues.Utils;
 using TaleWorlds.Localization;
 
-namespace Retinues.Managers
+namespace OldRetinues.Managers
 {
     /// <summary>
     /// Context constraints for editing troops (location, ownership, etc).

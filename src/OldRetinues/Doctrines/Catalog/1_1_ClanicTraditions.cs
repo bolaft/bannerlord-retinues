@@ -6,7 +6,7 @@ using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Localization;
 
-namespace Retinues.Doctrines.Catalog
+namespace OldRetinues.Doctrines.Catalog
 {
     // Note: "Clanic" is preserved in class name for backwards compatibility
     public sealed class ClanicTraditions : Doctrine

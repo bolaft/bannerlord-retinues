@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-namespace Retinues.Utils
+namespace OldRetinues.Utils
 {
     /// <summary>
     /// Utility for inspecting the call stack and extracting caller information.

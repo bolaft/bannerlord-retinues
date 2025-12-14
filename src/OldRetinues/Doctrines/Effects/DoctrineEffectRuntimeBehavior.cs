@@ -5,7 +5,7 @@ using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 
-namespace Retinues.Doctrines.Effects
+namespace OldRetinues.Doctrines.Effects
 {
     /// <summary>
     /// Campaign behavior for adding doctrine effect mission behaviors to battles and tournaments.

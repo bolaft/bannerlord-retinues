@@ -4,7 +4,7 @@ using Retinues.Game.Events;
 using Retinues.Utils;
 using TaleWorlds.Localization;
 
-namespace Retinues.Doctrines.Catalog
+namespace OldRetinues.Doctrines.Catalog
 {
     public sealed class Indomitable : Doctrine
     {

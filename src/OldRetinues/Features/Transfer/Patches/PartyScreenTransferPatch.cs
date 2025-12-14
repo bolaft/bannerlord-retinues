@@ -7,7 +7,7 @@ using TaleWorlds.CampaignSystem.Party;
 using Helpers;
 #endif
 
-namespace Retinues.Features.Transfer.Patches
+namespace OldRetinues.Features.Transfer.Patches
 {
     internal static class PartyScreenContext
     {

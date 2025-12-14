@@ -10,7 +10,7 @@ using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.CampaignSystem.Roster;
 using TaleWorlds.ObjectSystem;
 
-namespace Retinues.Safety.Sanitizer
+namespace OldRetinues.Safety.Sanitizer
 {
     /// <summary>
     /// Utility for sanitizing party and troop rosters.

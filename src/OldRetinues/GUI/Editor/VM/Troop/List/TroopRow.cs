@@ -8,7 +8,7 @@ using Retinues.Utils;
 using TaleWorlds.Core.ViewModelCollection.Generic;
 using TaleWorlds.Library;
 
-namespace Retinues.GUI.Editor.VM.Troop.List
+namespace OldRetinues.GUI.Editor.VM.Troop.List
 {
     /// <summary>
     /// ViewModel for a single troop row in troop lists.

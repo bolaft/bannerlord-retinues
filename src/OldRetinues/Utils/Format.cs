@@ -1,6 +1,6 @@
 using System.Globalization;
 
-namespace Retinues.Utils
+namespace OldRetinues.Utils
 {
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
     //                    String Formatting                   //

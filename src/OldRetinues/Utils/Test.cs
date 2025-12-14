@@ -8,7 +8,7 @@ using System.Text;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Library;
 
-namespace Retinues.Utils
+namespace OldRetinues.Utils
 {
     /// <summary>
     /// Marks a static method as an in-game test case that can be discovered and run by the Tests framework.

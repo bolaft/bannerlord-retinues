@@ -3,7 +3,7 @@ using Retinues.Safety.Sanitizer;
 using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.Library;
 
-namespace Retinues.Mods.BanditMilitias
+namespace OldRetinues.Mods.BanditMilitias
 {
     /// <summary>
     /// Console cheats related to Bandit Militias compatibility.

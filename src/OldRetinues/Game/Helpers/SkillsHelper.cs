@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Retinues.Utils;
 
-namespace Retinues.Game.Helpers
+namespace OldRetinues.Game.Helpers
 {
     [SafeClass]
     public static class SkillsHelper

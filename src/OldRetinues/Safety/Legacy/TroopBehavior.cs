@@ -3,7 +3,7 @@ using Retinues.Game;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 
-namespace Retinues.Safety.Legacy
+namespace OldRetinues.Safety.Legacy
 {
     /// <summary>
     /// Handles migration of legacy troop save data to the current format.

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Retinues.Utils;
 using TaleWorlds.Library;
 
-namespace Retinues.GUI.Editor
+namespace OldRetinues.GUI.Editor
 {
     /// <summary>
     /// ViewModel for filterable lists of rows.

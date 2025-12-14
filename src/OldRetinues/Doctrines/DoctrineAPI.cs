@@ -5,7 +5,7 @@ using Retinues.Doctrines.Model;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 
-namespace Retinues.Doctrines
+namespace OldRetinues.Doctrines
 {
     /// <summary>
     /// Static API for doctrine and feat management. Provides helpers for querying, unlocking, progressing, and listening to doctrine/feat events.

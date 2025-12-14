@@ -12,7 +12,7 @@ using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 
-namespace Retinues.GUI.Editor
+namespace OldRetinues.GUI.Editor
 {
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
     //                         Structs                        //

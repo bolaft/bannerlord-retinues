@@ -4,7 +4,7 @@ using Retinues.Game.Wrappers;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 
-namespace Retinues.Game
+namespace OldRetinues.Game
 {
     public enum RootCategory
     {

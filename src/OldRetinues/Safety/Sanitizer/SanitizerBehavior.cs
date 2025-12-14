@@ -6,7 +6,7 @@ using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.CampaignSystem.Roster;
 using TaleWorlds.ObjectSystem;
 
-namespace Retinues.Safety.Sanitizer
+namespace OldRetinues.Safety.Sanitizer
 {
     /// <summary>
     /// Campaign behavior for running safety checks and sanitizing rosters after game load.

@@ -6,7 +6,7 @@ using Retinues.Safety.Legacy;
 using Retinues.Troops.Save;
 using TaleWorlds.SaveSystem;
 
-namespace Retinues
+namespace OldRetinues
 {
     /// <summary>
     /// Defines saveable types and container definitions for the mod.

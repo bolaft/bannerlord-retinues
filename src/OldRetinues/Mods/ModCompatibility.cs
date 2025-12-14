@@ -4,7 +4,7 @@ using Retinues.Mods.Shokuho;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 
-namespace Retinues.Mods
+namespace OldRetinues.Mods
 {
     /// <summary>
     /// Handles compatibility checks and integration with other mods.

@@ -2,7 +2,7 @@ using Retinues.Game.Wrappers;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem.Actions;
 
-namespace Retinues.Game.Events
+namespace OldRetinues.Game.Events
 {
     /// <summary>
     /// Event wrapper for settlement owner changes, provides info and flags for capture, barter, or grant.

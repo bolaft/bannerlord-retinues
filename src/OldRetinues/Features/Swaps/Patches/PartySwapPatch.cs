@@ -3,7 +3,7 @@ using Retinues.Game.Wrappers;
 using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.CampaignSystem.Party.PartyComponents;
 
-namespace Retinues.Features.Swaps.Patches
+namespace OldRetinues.Features.Swaps.Patches
 {
     /// <summary>
     /// Harmony postfix patch for caravan party creation.

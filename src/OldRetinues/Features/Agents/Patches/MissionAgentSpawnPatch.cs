@@ -10,7 +10,7 @@ using Retinues.Utils;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 
-namespace Retinues.Features.Agents.Patches
+namespace OldRetinues.Features.Agents.Patches
 {
     [HarmonyPatch(typeof(Mission), "SpawnAgent")]
     internal static class Mission_SpawnAgent_Prefix

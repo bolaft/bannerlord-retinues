@@ -7,7 +7,7 @@ using TaleWorlds.CampaignSystem.CharacterDevelopment;
 using TaleWorlds.Core;
 using TaleWorlds.Localization;
 
-namespace Retinues.Game.Wrappers
+namespace OldRetinues.Game.Wrappers
 {
     /// <summary>
     /// Wrapper for Hero that reuses WCharacter but redirects hero-specific state

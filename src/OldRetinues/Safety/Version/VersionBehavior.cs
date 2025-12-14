@@ -3,7 +3,7 @@ using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Library;
 
-namespace Retinues.Safety.Version
+namespace OldRetinues.Safety.Version
 {
     /// <summary>
     /// Campaign behavior for tracking and displaying the Retinues mod version in save files.

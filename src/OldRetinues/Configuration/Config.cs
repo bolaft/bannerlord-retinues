@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Retinues.Mods;
 using Retinues.Utils;
 
-namespace Retinues.Configuration
+namespace OldRetinues.Configuration
 {
     /// <summary>
     /// High-level presets corresponding to the three built-in profiles.

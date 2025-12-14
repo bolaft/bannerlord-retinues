@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using TaleWorlds.Localization;
 
-namespace Retinues.Doctrines
+namespace OldRetinues.Doctrines
 {
     /// <summary>
     /// Status of a doctrine: locked, unlockable, in progress, or unlocked.

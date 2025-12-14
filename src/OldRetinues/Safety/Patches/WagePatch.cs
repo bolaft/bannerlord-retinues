@@ -4,7 +4,7 @@ using Retinues.Safety.Sanitizer;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem.Party;
 
-namespace Retinues.Safety.Patches
+namespace OldRetinues.Safety.Patches
 {
     /// <summary>
     /// Patch for MobileParty.TotalWage to sanitize party rosters on exception.

@@ -4,7 +4,7 @@ using Retinues.Utils;
 using TaleWorlds.Core;
 using TaleWorlds.ObjectSystem;
 
-namespace Retinues.Game.Wrappers
+namespace OldRetinues.Game.Wrappers
 {
     /// <summary>
     /// Wrapper for Equipment.

@@ -4,7 +4,7 @@ using Retinues.Utils;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 
-namespace Retinues.GUI.Editor.VM.Troop.Panel
+namespace OldRetinues.GUI.Editor.VM.Troop.Panel
 {
     /// <summary>
     /// ViewModel representing a single upgrade target for a troop.

@@ -17,7 +17,7 @@ using TaleWorlds.Library;
 using TaleWorlds.ModuleManager;
 using TaleWorlds.ObjectSystem;
 
-namespace Retinues.Troops
+namespace OldRetinues.Troops
 {
     /// <summary>
     /// Unified import/export (single root) + validated pickers + context-aware flows.

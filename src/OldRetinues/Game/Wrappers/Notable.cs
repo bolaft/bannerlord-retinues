@@ -4,7 +4,7 @@ using Retinues.Troops;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 
-namespace Retinues.Game.Wrappers
+namespace OldRetinues.Game.Wrappers
 {
     /// <summary>
     /// Wrapper for settlement notables, provides helpers for volunteer swapping and faction logic.

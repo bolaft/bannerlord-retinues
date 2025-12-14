@@ -3,7 +3,7 @@ using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Settlements;
 
-namespace Retinues.Features.Swaps
+namespace OldRetinues.Features.Swaps
 {
     [SafeClass]
     public class MilitiaSwapBehavior : CampaignBehaviorBase

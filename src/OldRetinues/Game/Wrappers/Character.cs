@@ -19,7 +19,7 @@ using TaleWorlds.Core.ImageIdentifiers;
 using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
 # endif
 
-namespace Retinues.Game.Wrappers
+namespace OldRetinues.Game.Wrappers
 {
     /// <summary>
     /// Wrapper for CharacterObject, exposing custom troop logic and properties.

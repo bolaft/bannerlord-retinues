@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Retinues.Utils;
 
-namespace Retinues.GUI.Editor
+namespace OldRetinues.GUI.Editor
 {
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
     //                       Events Enum                      //

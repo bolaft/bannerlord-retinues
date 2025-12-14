@@ -9,7 +9,7 @@ using TaleWorlds.CampaignSystem;
 using TaleWorlds.Localization;
 using TaleWorlds.SaveSystem;
 
-namespace Retinues.Features.Statistics
+namespace OldRetinues.Features.Statistics
 {
     [Serializable]
     public sealed class TroopCombatStats

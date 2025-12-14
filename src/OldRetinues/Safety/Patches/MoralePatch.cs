@@ -9,7 +9,7 @@ using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.Core;
 using TaleWorlds.Localization;
 
-namespace Retinues.Safety.Patches
+namespace OldRetinues.Safety.Patches
 {
     [HarmonyPatch]
     internal static class GetMoraleEffectsFromSkill_SafePatch

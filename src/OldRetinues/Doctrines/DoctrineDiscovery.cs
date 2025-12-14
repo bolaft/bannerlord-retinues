@@ -5,7 +5,7 @@ using System.Reflection;
 using Retinues.Doctrines.Model;
 using Retinues.Utils;
 
-namespace Retinues.Doctrines
+namespace OldRetinues.Doctrines
 {
     /// <summary>
     /// Static helper for discovering all Doctrine subclasses in the catalog namespace.

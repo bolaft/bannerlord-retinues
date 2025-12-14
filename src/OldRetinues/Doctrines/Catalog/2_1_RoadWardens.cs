@@ -8,7 +8,7 @@ using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Localization;
 
-namespace Retinues.Doctrines.Catalog
+namespace OldRetinues.Doctrines.Catalog
 {
     public sealed class RoadWardens : Doctrine
     {

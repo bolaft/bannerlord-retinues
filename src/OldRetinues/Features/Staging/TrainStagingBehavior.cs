@@ -15,7 +15,7 @@ using TaleWorlds.SaveSystem;
 using TaleWorlds.CampaignSystem.Overlay;
 # endif
 
-namespace Retinues.Features.Staging
+namespace OldRetinues.Features.Staging
 {
     [Serializable]
     public class PendingTrainData : IPendingData

@@ -7,7 +7,7 @@ using TaleWorlds.CampaignSystem.CharacterDevelopment;
 using TaleWorlds.Core.ViewModelCollection.Information;
 using TaleWorlds.Library;
 
-namespace Retinues.GUI.Editor.VM.Troop.Panel
+namespace OldRetinues.GUI.Editor.VM.Troop.Panel
 {
     /// <summary>
     /// Single hero trait row (name, value, +/-).

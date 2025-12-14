@@ -8,7 +8,7 @@ using TaleWorlds.CampaignSystem.GameState;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 
-namespace Retinues.Game.Helpers
+namespace OldRetinues.Game.Helpers
 {
     [HarmonyPatch(typeof(GauntletBarberScreen))]
     internal static class GauntletBarberScreenPatches

@@ -2,7 +2,7 @@ using Retinues.Game.Wrappers;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 
-namespace Retinues.Game.Events
+namespace OldRetinues.Game.Events
 {
     /// <summary>
     /// Quest event wrapper, provides helpers for quest status, giver, and payment logic.

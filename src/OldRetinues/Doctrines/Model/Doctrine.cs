@@ -4,7 +4,7 @@ using System.Reflection;
 using Retinues.Configuration;
 using TaleWorlds.Localization;
 
-namespace Retinues.Doctrines.Model
+namespace OldRetinues.Doctrines.Model
 {
     /// <summary>
     /// Base class for doctrines. Provides metadata, costs, and auto-discovery of nested feats.

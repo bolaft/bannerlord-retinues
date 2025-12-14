@@ -12,7 +12,7 @@ using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 
-namespace Retinues.GUI.Editor.VM.Doctrines
+namespace OldRetinues.GUI.Editor.VM.Doctrines
 {
     /// <summary>
     /// ViewModel for a doctrine. Handles display, unlock logic, popup, and UI refresh.

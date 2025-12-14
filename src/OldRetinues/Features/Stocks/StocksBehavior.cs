@@ -3,7 +3,7 @@ using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Library;
 
-namespace Retinues.Features.Stocks
+namespace OldRetinues.Features.Stocks
 {
     /// <summary>
     /// Campaign behavior for tracking item stocks. Provides static API for getting, setting, and adding stock counts.

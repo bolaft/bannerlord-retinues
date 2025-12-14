@@ -11,7 +11,7 @@ using TaleWorlds.CampaignSystem.ViewModelCollection;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 
-namespace Retinues.GUI.Editor.VM.Equipment.List
+namespace OldRetinues.GUI.Editor.VM.Equipment.List
 {
     /// <summary>
     /// ViewModel for the equipment item list for the selected slot and faction.

@@ -14,7 +14,7 @@ using Retinues.Troops;
 using Retinues.Utils;
 using TaleWorlds.Library;
 
-namespace Retinues.Configuration
+namespace OldRetinues.Configuration
 {
     public static partial class Config
     {

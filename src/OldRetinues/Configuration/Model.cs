@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using Retinues.Utils;
 
-namespace Retinues.Configuration
+namespace OldRetinues.Configuration
 {
     /// <summary>
     /// Represents metadata and runtime accessors for a configuration option.

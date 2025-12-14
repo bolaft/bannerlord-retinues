@@ -10,7 +10,7 @@ using Retinues.Utils;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
 
-namespace Retinues.Troops
+namespace OldRetinues.Troops
 {
     /// <summary>
     /// Static helpers for creating, cloning, and initializing custom troops for a faction.

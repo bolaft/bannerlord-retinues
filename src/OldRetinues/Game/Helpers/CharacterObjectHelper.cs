@@ -10,7 +10,7 @@ using System.Linq;
 using TaleWorlds.Library;
 #endif
 
-namespace Retinues.Game.Helpers
+namespace OldRetinues.Game.Helpers
 {
     public class CharacterObjectHelper
     {

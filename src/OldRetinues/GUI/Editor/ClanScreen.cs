@@ -8,7 +8,7 @@ using TaleWorlds.CampaignSystem.GameState;
 using TaleWorlds.CampaignSystem.ViewModelCollection.ClanManagement;
 using TaleWorlds.Library;
 
-namespace Retinues.GUI.Editor
+namespace OldRetinues.GUI.Editor
 {
     public enum EditorMode
     {

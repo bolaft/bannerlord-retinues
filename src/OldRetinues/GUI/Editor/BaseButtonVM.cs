@@ -1,6 +1,6 @@
 using TaleWorlds.Library;
 
-namespace Retinues.GUI.Editor
+namespace OldRetinues.GUI.Editor
 {
     /// <summary>
     /// Base view-model for clickable button-like elements.

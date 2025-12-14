@@ -1,4 +1,4 @@
-namespace Retinues.GUI.Editor
+namespace OldRetinues.GUI.Editor
 {
     /// <summary>
     /// ViewModel for a single filterable list element.

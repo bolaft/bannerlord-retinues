@@ -3,7 +3,7 @@ using HarmonyLib;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem.ViewModelCollection.GameMenu;
 
-namespace Retinues.Game.Menu.Patches
+namespace OldRetinues.Game.Menu.Patches
 {
     /// <summary>Show whole hours in wait menus (e.g., "3 hours" instead of "3.0 hours").</summary>
     [HarmonyPatch(typeof(GameMenuItemProgressVM), "Refresh")]

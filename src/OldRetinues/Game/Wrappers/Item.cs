@@ -12,7 +12,7 @@ using TaleWorlds.ObjectSystem;
 using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
 #endif
 
-namespace Retinues.Game.Wrappers
+namespace OldRetinues.Game.Wrappers
 {
     /// <summary>
     /// Wrapper for ItemObject, provides helpers for slot logic, computed stats, unlocks, and stocks.

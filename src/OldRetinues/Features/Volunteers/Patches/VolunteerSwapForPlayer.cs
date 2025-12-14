@@ -9,7 +9,7 @@ using TaleWorlds.CampaignSystem.CampaignBehaviors;
 using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.CampaignSystem.Settlements;
 
-namespace Retinues.Features.Volunteers.Patches
+namespace OldRetinues.Features.Volunteers.Patches
 {
     /// <summary>
     /// Swaps volunteers for the player and handles snapshots.

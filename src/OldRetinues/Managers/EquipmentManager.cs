@@ -13,7 +13,7 @@ using Retinues.Utils;
 using TaleWorlds.Core;
 using TaleWorlds.ObjectSystem;
 
-namespace Retinues.Managers
+namespace OldRetinues.Managers
 {
     /// <summary>
     /// Equipment rules and action flows: validation, affordability, multiplicity deltas,

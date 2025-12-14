@@ -3,7 +3,7 @@ using Retinues.Game.Wrappers;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem.Settlements;
 
-namespace Retinues.Features.Volunteers.Patches
+namespace OldRetinues.Features.Volunteers.Patches
 {
     /// <summary>
     /// Swaps volunteers in settlement notables to match player faction logic.

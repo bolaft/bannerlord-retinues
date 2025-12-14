@@ -1,7 +1,7 @@
 using System.Text;
 using TaleWorlds.SaveSystem;
 
-namespace Retinues.Utils
+namespace OldRetinues.Utils
 {
     public static class Seed
     {

@@ -8,7 +8,7 @@ using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Localization;
 
-namespace Retinues.Doctrines
+namespace OldRetinues.Doctrines
 {
     /// <summary>
     /// Campaign behavior for doctrine and feat management.

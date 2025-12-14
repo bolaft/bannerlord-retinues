@@ -16,7 +16,7 @@ using TaleWorlds.Library;
 using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
 # endif
 
-namespace Retinues.GUI.Editor.VM.Equipment.List
+namespace OldRetinues.GUI.Editor.VM.Equipment.List
 {
     /// <summary>
     /// ViewModel for a single equipment list row, handling selection and availability.

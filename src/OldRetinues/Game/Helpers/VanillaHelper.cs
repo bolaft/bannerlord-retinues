@@ -4,7 +4,7 @@ using Retinues.Game.Wrappers;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.ObjectSystem;
 
-namespace Retinues.Game.Helpers
+namespace OldRetinues.Game.Helpers
 {
     public class VanillaHelper
     {

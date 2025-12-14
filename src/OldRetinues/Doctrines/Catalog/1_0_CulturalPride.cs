@@ -11,7 +11,7 @@ using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.Localization;
 
-namespace Retinues.Doctrines.Catalog
+namespace OldRetinues.Doctrines.Catalog
 {
     public sealed class CulturalPride : Doctrine
     {

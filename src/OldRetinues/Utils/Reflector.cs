@@ -2,7 +2,7 @@ using System;
 using System.Globalization;
 using System.Reflection;
 
-namespace Retinues.Utils
+namespace OldRetinues.Utils
 {
     /// <summary>
     /// Reflection utility for accessing properties, fields, and methods on objects.

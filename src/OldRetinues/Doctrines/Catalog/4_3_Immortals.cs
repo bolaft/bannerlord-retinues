@@ -6,7 +6,7 @@ using Retinues.Utils;
 using TaleWorlds.Core;
 using TaleWorlds.Localization;
 
-namespace Retinues.Doctrines.Catalog
+namespace OldRetinues.Doctrines.Catalog
 {
     public sealed class Immortals : Doctrine
     {

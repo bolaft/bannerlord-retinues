@@ -9,7 +9,7 @@ using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 
-namespace Retinues.Game.Events
+namespace OldRetinues.Game.Events
 {
     /// <summary>
     /// Combat event wrapper, tracks kills and provides helpers for logging kill details and combat reports.

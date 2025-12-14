@@ -8,7 +8,7 @@ using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.GameComponents;
 using TaleWorlds.CampaignSystem.Party;
 
-namespace Retinues.Doctrines.Effects.Patches
+namespace OldRetinues.Doctrines.Effects.Patches
 {
     /// <summary>
     /// Harmony patch for DefaultPartyMoraleModel.GetEffectivePartyMorale.

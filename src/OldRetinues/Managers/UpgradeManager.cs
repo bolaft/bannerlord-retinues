@@ -7,7 +7,7 @@ using Retinues.Game.Wrappers;
 using Retinues.Utils;
 using TaleWorlds.Localization;
 
-namespace Retinues.Managers
+namespace OldRetinues.Managers
 {
     /// <summary>
     /// Upgrade target creation, rank up flow, and source suggestions.

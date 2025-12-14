@@ -5,7 +5,7 @@ using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Library;
 
-namespace Retinues.GUI.Editor.VM.Doctrines
+namespace OldRetinues.GUI.Editor.VM.Doctrines
 {
     /// <summary>
     /// ViewModel for a doctrine column. Handles grouping, display, and refreshing doctrine VMs.

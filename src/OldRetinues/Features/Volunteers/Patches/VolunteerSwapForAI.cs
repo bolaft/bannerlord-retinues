@@ -7,7 +7,7 @@ using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Settlements;
 
-namespace Retinues.Features.Volunteers.Patches
+namespace OldRetinues.Features.Volunteers.Patches
 {
     /// <summary>
     /// Harmony patch for OnTroopRecruited (AI only).

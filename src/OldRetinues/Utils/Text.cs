@@ -1,6 +1,6 @@
 using TaleWorlds.Localization;
 
-namespace Retinues.Utils
+namespace OldRetinues.Utils
 {
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
     //                  Localization Helpers                  //

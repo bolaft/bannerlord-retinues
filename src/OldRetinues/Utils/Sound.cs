@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TaleWorlds.Engine;
 using TaleWorlds.Library;
 
-namespace Retinues.Utils
+namespace OldRetinues.Utils
 {
     /// <summary>
     /// Centralised helpers for playing UI sound effects.

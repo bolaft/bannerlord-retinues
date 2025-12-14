@@ -15,7 +15,7 @@ using Retinues.Utils;
 using TaleWorlds.Core.ViewModelCollection.Information;
 using TaleWorlds.Library;
 
-namespace Retinues.GUI.Editor.VM.Troop
+namespace OldRetinues.GUI.Editor.VM.Troop
 {
     /// <summary>
     /// ViewModel for the troop editor screen, managing list and panel.

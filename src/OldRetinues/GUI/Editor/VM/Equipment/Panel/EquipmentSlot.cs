@@ -9,7 +9,7 @@ using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Core.ViewModelCollection.Information;
 using TaleWorlds.Library;
 
-namespace Retinues.GUI.Editor.VM.Equipment.Panel
+namespace OldRetinues.GUI.Editor.VM.Equipment.Panel
 {
     /// <summary>
     /// ViewModel for a single equipment slot, presenting item data and actions.

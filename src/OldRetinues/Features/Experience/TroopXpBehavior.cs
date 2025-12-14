@@ -12,7 +12,7 @@ using TaleWorlds.Core;
 using TaleWorlds.Library;
 using TaleWorlds.MountAndBlade;
 
-namespace Retinues.Features.Experience
+namespace OldRetinues.Features.Experience
 {
     /// <summary>
     /// Campaign behavior for tracking and managing XP pools for custom troops.

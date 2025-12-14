@@ -8,7 +8,7 @@ using Retinues.Managers;
 using Retinues.Utils;
 using TaleWorlds.Library;
 
-namespace Retinues.GUI.Editor.VM.Troop.Panel
+namespace OldRetinues.GUI.Editor.VM.Troop.Panel
 {
     /// <summary>
     /// ViewModel for a single conversion row managing recruitment/release between source and retinue.

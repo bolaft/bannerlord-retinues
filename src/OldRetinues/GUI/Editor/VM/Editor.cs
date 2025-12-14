@@ -23,7 +23,7 @@ using TaleWorlds.Library;
 using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
 # endif
 
-namespace Retinues.GUI.Editor.VM
+namespace OldRetinues.GUI.Editor.VM
 {
     /// <summary>
     /// Available editor screens.

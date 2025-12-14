@@ -17,7 +17,7 @@ using TaleWorlds.Core;
 using TaleWorlds.InputSystem;
 using TaleWorlds.MountAndBlade;
 
-namespace Retinues
+namespace OldRetinues
 {
     /// <summary>
     /// Module entry point used by Bannerlord.

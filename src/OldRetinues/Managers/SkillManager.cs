@@ -10,7 +10,7 @@ using Retinues.Utils;
 using TaleWorlds.Core;
 using TaleWorlds.Localization;
 
-namespace Retinues.Managers
+namespace OldRetinues.Managers
 {
     /// <summary>
     /// Skill caps, totals, costs, availability and staging of skill changes.

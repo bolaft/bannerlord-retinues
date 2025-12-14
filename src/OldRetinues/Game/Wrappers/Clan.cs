@@ -7,7 +7,7 @@ using TaleWorlds.Core;
 using TaleWorlds.Core.ImageIdentifiers;
 #endif
 
-namespace Retinues.Game.Wrappers
+namespace OldRetinues.Game.Wrappers
 {
     /// <summary>
     /// Wrapper for CultureObject, exposing troop roots and militia for custom logic.

@@ -9,7 +9,7 @@ using TaleWorlds.Core;
 using TaleWorlds.ObjectSystem;
 using TaleWorlds.SaveSystem;
 
-namespace Retinues.Safety.Legacy
+namespace OldRetinues.Safety.Legacy
 {
     public sealed class LegacyTroopSaveData
     {

@@ -11,7 +11,7 @@ using TaleWorlds.Core.ViewModelCollection.Information;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
 
-namespace Retinues.GUI.Editor.VM.Troop.Panel
+namespace OldRetinues.GUI.Editor.VM.Troop.Panel
 {
     /// <summary>
     /// ViewModel for a single troop skill, exposing value, staged state and controls.

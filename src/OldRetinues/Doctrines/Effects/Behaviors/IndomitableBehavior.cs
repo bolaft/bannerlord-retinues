@@ -5,7 +5,7 @@ using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.MountAndBlade;
 
-namespace Retinues.Doctrines.Effects.Behaviors
+namespace OldRetinues.Doctrines.Effects.Behaviors
 {
     /// <summary>
     /// Mission behavior for Indomitable doctrine. Adds health bonus to retinue agents on player's team if doctrine is unlocked.

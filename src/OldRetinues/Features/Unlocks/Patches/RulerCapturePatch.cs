@@ -11,7 +11,7 @@ using TaleWorlds.CampaignSystem.CampaignBehaviors;
 using TaleWorlds.CampaignSystem.Conversation;
 using TaleWorlds.CampaignSystem.Party;
 
-namespace Retinues.Features.Unlocks.Patches
+namespace OldRetinues.Features.Unlocks.Patches
 {
     /// <summary>
     /// Adds a special capture option for kingdom rulers:

@@ -5,7 +5,7 @@ using Retinues.Game.Wrappers;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 
-namespace Retinues.Features.Equipments
+namespace OldRetinues.Features.Equipments
 {
     /// <summary>
     /// Tracks per-item purchase counts to apply global cost rebates on future purchases of that item.

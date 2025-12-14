@@ -5,7 +5,7 @@ using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Settlements;
 
-namespace Retinues.Safety.Sanitizer
+namespace OldRetinues.Safety.Sanitizer
 {
     /// <summary>
     /// Utility for sanitizing settlement volunteers.

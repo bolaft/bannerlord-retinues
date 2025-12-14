@@ -7,7 +7,7 @@ using TaleWorlds.Core;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
 
-namespace Retinues.GUI.Helpers
+namespace OldRetinues.GUI.Helpers
 {
     /// <summary>
     /// Static helpers for showing popup inquiries.

@@ -7,7 +7,7 @@ using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 
-namespace Retinues.Mods.Shokuho
+namespace OldRetinues.Mods.Shokuho
 {
     internal static class ShokuhoEquipmentPatcher
     {

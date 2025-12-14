@@ -2,7 +2,7 @@ using System;
 using System.Diagnostics;
 using TaleWorlds.Library;
 
-namespace Retinues.Utils
+namespace OldRetinues.Utils
 {
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
     //                    URL Utilities                   //

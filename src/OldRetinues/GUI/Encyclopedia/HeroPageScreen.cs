@@ -10,7 +10,7 @@ using TaleWorlds.CampaignSystem.ViewModelCollection.Encyclopedia.Pages;
 using TaleWorlds.Core.ViewModelCollection.Information;
 using TaleWorlds.Library;
 
-namespace Retinues.GUI.Encyclopedia
+namespace OldRetinues.GUI.Encyclopedia
 {
     [ViewModelMixin]
     public sealed class HeroPageScreen : BaseViewModelMixin<EncyclopediaHeroPageVM>

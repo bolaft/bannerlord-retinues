@@ -5,7 +5,7 @@ using Retinues.Mods;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.SaveSystem;
 
-namespace Retinues.Features.Agents
+namespace OldRetinues.Features.Agents
 {
     public enum PolicyToggleType
     {

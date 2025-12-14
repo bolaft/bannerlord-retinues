@@ -8,7 +8,7 @@ using TaleWorlds.Core;
 using TaleWorlds.Core.ImageIdentifiers;
 #endif
 
-namespace Retinues.Game.Wrappers
+namespace OldRetinues.Game.Wrappers
 {
     /// <summary>
     /// Wrapper for IFaction (Clan or Kingdom).

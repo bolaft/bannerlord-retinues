@@ -7,7 +7,7 @@ using TaleWorlds.CampaignSystem.Roster;
 using TaleWorlds.CampaignSystem.Settlements;
 using TaleWorlds.Core;
 
-namespace Retinues.Safety.Patches
+namespace OldRetinues.Safety.Patches
 {
     /// <summary>
     /// Patch for TroopRoster.RemoveTroop to prevent errors when removing a troop not present in the roster.

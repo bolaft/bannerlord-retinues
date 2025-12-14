@@ -7,7 +7,7 @@ using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 
-namespace Retinues.Game.Helpers
+namespace OldRetinues.Game.Helpers
 {
     /// <summary>
     /// Common mission filters used by retinue combat features.

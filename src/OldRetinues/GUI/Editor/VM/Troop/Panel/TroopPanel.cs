@@ -18,7 +18,7 @@ using TaleWorlds.Core.ViewModelCollection.Information;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
 
-namespace Retinues.GUI.Editor.VM.Troop.Panel
+namespace OldRetinues.GUI.Editor.VM.Troop.Panel
 {
     /// <summary>
     /// ViewModel for the troop details panel, exposing skills, upgrades and conversions.

@@ -18,7 +18,7 @@ using TaleWorlds.Core.ViewModelCollection.Information;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
 
-namespace Retinues.GUI.Editor.VM.Equipment
+namespace OldRetinues.GUI.Editor.VM.Equipment
 {
     /// <summary>
     /// ViewModel for the equipment editor screen, containing slots and list.

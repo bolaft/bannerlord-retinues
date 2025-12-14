@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Retinues.Utils;
 using TaleWorlds.Core.ViewModelCollection.Information;
 
-namespace Retinues.GUI.Helpers
+namespace OldRetinues.GUI.Helpers
 {
     /// <summary>
     /// Static helpers for building tooltips for UI elements and items.

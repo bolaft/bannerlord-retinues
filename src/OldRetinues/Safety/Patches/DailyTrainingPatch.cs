@@ -6,7 +6,7 @@ using TaleWorlds.CampaignSystem.GameComponents;
 using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.CampaignSystem.Roster;
 
-namespace Retinues.Safety.Patches
+namespace OldRetinues.Safety.Patches
 {
     /// <summary>
     /// Patch for DefaultPartyTrainingModel.GetEffectiveDailyExperience to sanitize

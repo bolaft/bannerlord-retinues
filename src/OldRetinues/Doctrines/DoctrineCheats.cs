@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using TaleWorlds.Library;
 
-namespace Retinues.Doctrines
+namespace OldRetinues.Doctrines
 {
     /// <summary>
     /// Console cheats for doctrine feats. Allows listing, advancing, setting, and unlocking feats via command.

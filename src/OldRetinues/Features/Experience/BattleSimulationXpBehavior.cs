@@ -9,7 +9,7 @@ using TaleWorlds.CampaignSystem.MapEvents;
 using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.Core;
 
-namespace Retinues.Features.Experience
+namespace OldRetinues.Features.Experience
 {
     /// <summary>
     /// Awards XP to custom player-side troops after simulated (auto-resolve) battles.

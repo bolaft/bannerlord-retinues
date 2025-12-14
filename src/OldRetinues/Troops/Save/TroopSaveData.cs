@@ -13,7 +13,7 @@ using TaleWorlds.Core;
 using TaleWorlds.ObjectSystem;
 using TaleWorlds.SaveSystem;
 
-namespace Retinues.Troops.Save
+namespace OldRetinues.Troops.Save
 {
     /// <summary>
     /// Serializable save data for a troop, including identity, stats, skills, equipment, and upgrade targets.

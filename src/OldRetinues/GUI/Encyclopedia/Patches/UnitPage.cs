@@ -1,7 +1,7 @@
 using Bannerlord.UIExtenderEx.Attributes;
 using Bannerlord.UIExtenderEx.Prefabs2;
 
-namespace Retinues.GUI.Encyclopedia.Patches
+namespace OldRetinues.GUI.Encyclopedia.Patches
 {
     [PrefabExtension(
         "EncyclopediaUnitPage",

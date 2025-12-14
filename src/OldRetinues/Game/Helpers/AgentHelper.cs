@@ -2,7 +2,7 @@ using Retinues.Game.Wrappers;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.MountAndBlade;
 
-namespace Retinues.Game.Helpers
+namespace OldRetinues.Game.Helpers
 {
     public static class AgentHelper
     {

@@ -1,7 +1,7 @@
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem.Roster;
 
-namespace Retinues.Game.Wrappers
+namespace OldRetinues.Game.Wrappers
 {
     /// <summary>
     /// Wrapper for TroopRosterElement, provides access to troop, counts, wounded, xp, and index in the roster.

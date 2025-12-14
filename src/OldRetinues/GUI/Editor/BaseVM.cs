@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using TaleWorlds.InputSystem;
 using TaleWorlds.Library;
 
-namespace Retinues.GUI.Editor
+namespace OldRetinues.GUI.Editor
 {
     /// <summary>
     /// Base class for all VMs.

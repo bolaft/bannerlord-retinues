@@ -3,7 +3,7 @@ using Retinues.Game.Wrappers;
 using Retinues.Utils;
 using TaleWorlds.Core;
 
-namespace Retinues.GUI.Editor
+namespace OldRetinues.GUI.Editor
 {
     /// <summary>
     /// Keeps track of "appearance-only" preview items per troop / set / slot.

@@ -6,7 +6,7 @@ using System.Xml.Serialization;
 using Retinues.Troops;
 using Retinues.Utils;
 
-namespace Retinues.Safety.Legacy
+namespace OldRetinues.Safety.Legacy
 {
     /// <summary>
     /// Container for legacy troop save data in XML format.

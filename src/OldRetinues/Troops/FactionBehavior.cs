@@ -10,7 +10,7 @@ using TaleWorlds.CampaignSystem.Actions;
 using TaleWorlds.CampaignSystem.Settlements;
 using TaleWorlds.ObjectSystem;
 
-namespace Retinues.Troops
+namespace OldRetinues.Troops
 {
     /// <summary>
     /// Campaign behavior for saving and loading custom troop definitions.

@@ -8,7 +8,7 @@ using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.CampaignSystem.Settlements;
 
-namespace Retinues.Features.Swaps.Patches
+namespace OldRetinues.Features.Swaps.Patches
 {
     /// <summary>
     /// Harmony patch for Settlement.AddMilitiasToParty.

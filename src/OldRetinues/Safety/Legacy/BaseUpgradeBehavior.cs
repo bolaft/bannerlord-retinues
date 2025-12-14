@@ -6,7 +6,7 @@ using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core.ImageIdentifiers;
 # endif
 
-namespace Retinues.Safety.Legacy
+namespace OldRetinues.Safety.Legacy
 {
     /// <summary>
     /// Base class for legacy upgrade behaviors (equip/train) migration.

@@ -4,7 +4,7 @@ using Retinues.Game.Wrappers;
 using Retinues.Utils;
 using TaleWorlds.Localization;
 
-namespace Retinues.Doctrines.Model
+namespace OldRetinues.Doctrines.Model
 {
     /// <summary>
     /// Base class for doctrine feats. Provides metadata, progress tracking, registration, and event hooks.

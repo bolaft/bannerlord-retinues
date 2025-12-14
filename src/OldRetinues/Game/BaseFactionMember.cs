@@ -2,7 +2,7 @@ using Retinues.Configuration;
 using Retinues.Game.Wrappers;
 using Retinues.Utils;
 
-namespace Retinues.Game
+namespace OldRetinues.Game
 {
     /// <summary>
     /// Abstract base for faction-related wrappers, provides access to clan, kingdom, and player faction logic.

@@ -7,7 +7,7 @@ using Retinues.Game.Wrappers;
 using Retinues.Utils;
 using TaleWorlds.Core;
 
-namespace Retinues.Features.Unlocks
+namespace OldRetinues.Features.Unlocks
 {
     /// <summary>
     /// Mission behavior for unlocking items from kills at mission end.

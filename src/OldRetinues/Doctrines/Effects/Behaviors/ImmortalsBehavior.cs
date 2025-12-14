@@ -7,7 +7,7 @@ using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 
-namespace Retinues.Doctrines.Effects.Behaviors
+namespace OldRetinues.Doctrines.Effects.Behaviors
 {
     /// <summary>
     /// Mission behavior for Immortals doctrine. Tracks retinue deaths and restores a chance of them as wounded after battle.

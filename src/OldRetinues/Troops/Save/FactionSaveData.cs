@@ -5,7 +5,7 @@ using Retinues.Game.Wrappers;
 using Retinues.Utils;
 using TaleWorlds.SaveSystem;
 
-namespace Retinues.Troops.Save
+namespace OldRetinues.Troops.Save
 {
     /// <summary>
     /// Serializable save data for a faction's troops.

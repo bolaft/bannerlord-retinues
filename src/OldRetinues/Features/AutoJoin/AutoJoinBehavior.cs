@@ -9,7 +9,7 @@ using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Party;
 
-namespace Retinues.Features.AutoJoin
+namespace OldRetinues.Features.AutoJoin
 {
     /// <summary>
     /// Tracks per-retinue hire caps, accumulates renown toward the next hire,

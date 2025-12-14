@@ -8,7 +8,7 @@ using TaleWorlds.CampaignSystem.Settlements;
 using TaleWorlds.CampaignSystem.Overlay;
 # endif
 
-namespace Retinues.Game.Menu
+namespace OldRetinues.Game.Menu
 {
     /// <summary>
     /// Generic "wait N in-game hours" game-menu flow.

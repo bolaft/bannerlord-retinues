@@ -9,7 +9,7 @@ using Retinues.Game.Wrappers;
 using Retinues.Troops;
 using Retinues.Utils;
 
-namespace Retinues.Managers
+namespace OldRetinues.Managers
 {
     /// <summary>
     /// Retinue-related limits and costs.

@@ -5,7 +5,7 @@ using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Localization;
 
-namespace Retinues.GUI.Helpers
+namespace OldRetinues.GUI.Helpers
 {
     /// <summary>
     /// Shared guard around appearance-changing operations (culture/race/gender).

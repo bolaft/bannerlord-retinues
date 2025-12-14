@@ -9,7 +9,7 @@ using TaleWorlds.CampaignSystem.TroopSuppliers;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 
-namespace Retinues.Features.Agents.Patches
+namespace OldRetinues.Features.Agents.Patches
 {
     /// <summary>
     /// Whenever the mission asks PartyGroupTroopSupplier for a troop

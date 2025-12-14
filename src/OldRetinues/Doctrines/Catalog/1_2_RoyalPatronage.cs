@@ -7,7 +7,7 @@ using Retinues.Game.Wrappers;
 using Retinues.Utils;
 using TaleWorlds.Localization;
 
-namespace Retinues.Doctrines.Catalog
+namespace OldRetinues.Doctrines.Catalog
 {
     public sealed class RoyalPatronage : Doctrine
     {

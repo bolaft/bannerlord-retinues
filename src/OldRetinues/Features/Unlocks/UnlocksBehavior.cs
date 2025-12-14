@@ -16,7 +16,7 @@ using TaleWorlds.Localization;
 using TaleWorlds.MountAndBlade;
 using TaleWorlds.ObjectSystem;
 
-namespace Retinues.Features.Unlocks
+namespace OldRetinues.Features.Unlocks
 {
     /// <summary>
     /// Campaign behavior for tracking item unlocks and defeat progress.

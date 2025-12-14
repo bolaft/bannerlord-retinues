@@ -6,7 +6,7 @@ using Retinues.Utils;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 
-namespace Retinues.Features.Formations.Patches
+namespace OldRetinues.Features.Formations.Patches
 {
     /// <summary>
     /// Locks FormationQuerySystem.MainClass to a stable class for mostly-custom formations.

@@ -4,7 +4,7 @@ using Retinues.Game;
 using Retinues.Utils;
 using TaleWorlds.Library;
 
-namespace Retinues.GUI.Editor.VM.Troop.List
+namespace OldRetinues.GUI.Editor.VM.Troop.List
 {
     /// <summary>
     /// ViewModel for grouped troop lists (retinue, elite, basic, militia).
