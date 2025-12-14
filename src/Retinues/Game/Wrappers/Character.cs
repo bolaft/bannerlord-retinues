@@ -356,6 +356,10 @@ namespace Retinues.Game.Wrappers
             captain.IsCaptain = true;
             captain.BaseTroop = this;
 
+            // Rank up if possible
+            if (!IsMaxTier)
+                captain.Level += 5;
+
             // Rename
             captain.Name = L.T("captain_name", "{NAME} Captain")
                 .SetTextVariable("NAME", Name)
