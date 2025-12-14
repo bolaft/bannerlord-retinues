@@ -244,63 +244,69 @@ namespace Retinues.Game.Wrappers
             if (Base == null)
                 return;
 
+            faction ??= Party.PlayerFaction;
             if (faction == null)
-                faction = Party.PlayerFaction;
-
-            if (faction == null)
-                return; // no player faction
+                return;
 
             try
             {
                 bool swapped = false;
 
-                // Snapshot so index/xp/etc are stable while we mutate the roster
-                var elements = new List<WRosterElement>(Elements);
+                // Snapshot stable data BEFORE mutating the roster
+                var snap = new List<(WCharacter troop, int healthy, int wounded, int xp)>();
 
-                foreach (var e in elements)
+                int i = 0;
+                foreach (var _ in _roster.GetTroopRoster())
                 {
-                    if (e?.Troop?.Base == null)
+                    var character = _roster.GetCharacterAtIndex(i); // if you don't have this, use GetTroopRoster().ElementAt(i).Character
+                    var w = new WCharacter(character);
+
+                    snap.Add(
+                        (
+                            w,
+                            _roster.GetElementNumber(i),
+                            _roster.GetElementWoundedNumber(i),
+                            _roster.GetElementXp(i)
+                        )
+                    );
+
+                    i++;
+                }
+
+                foreach (var e in snap)
+                {
+                    if (e.troop?.Base == null)
                         continue;
 
-                    // Leave heroes completely untouched
-                    if (e.Troop.IsHero)
+                    if (e.troop.IsHero)
+                        continue; // leave heroes untouched
+
+                    var replacement = TroopMatcher.PickBestFromFaction(faction, e.troop) ?? e.troop;
+                    if (replacement == e.troop)
                         continue;
 
-                    var replacement = TroopMatcher.PickBestFromFaction(faction, e.Troop) ?? e.Troop;
+                    // Remove old stack (using snap counts, not live index-based access)
+                    _roster.AddToCounts(e.troop.Base, -e.healthy, woundedCount: -e.wounded);
 
-                    if (replacement == e.Troop)
-                        continue;
-
-                    int healthy = e.Number;
-                    int wounded = e.WoundedNumber;
-                    int xp = e.Xp;
-                    int index = e.Index;
-
-                    // Remove old stack
-                    _roster.AddToCounts(e.Troop.Base, -healthy, woundedCount: -wounded);
-
-                    // Add replacement at the same index, preserving counts/xp
+                    // Add replacement (don't force index; safer for hero parties)
                     _roster.AddToCounts(
                         replacement.Base,
-                        healthy,
+                        e.healthy,
                         insertAtFront: false,
-                        woundedCount: wounded,
-                        xpChange: xp,
-                        index: index
+                        woundedCount: e.wounded,
+                        xpChange: e.xp
                     );
 
-                    Log.Debug(
-                        $"{Party.Name}: swapped {healthy}x {e.Troop.Name} to {replacement.Name} (hero-safe)."
-                    );
                     swapped = true;
+                    Log.Debug(
+                        $"{Party.Name}: swapped {e.healthy}x {e.troop.Name} to {replacement.Name} (hero-safe)."
+                    );
                 }
 
                 if (swapped)
-                {
                     Log.Debug(
                         $"{Party.Name}: hero-safe swap complete for faction {faction?.Name ?? "null"}."
                     );
-                }
             }
             catch (Exception ex)
             {

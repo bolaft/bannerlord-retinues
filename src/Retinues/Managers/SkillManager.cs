@@ -49,7 +49,7 @@ namespace Retinues.Managers
                 cap += Config.RetinueSkillCapBonus;
             if (DoctrineAPI.IsDoctrineUnlocked<IronDiscipline>())
                 cap += 5;
-            
+
             if (troop.IsMaxTier && troop.IsCaptain)
                 cap += 25;
 

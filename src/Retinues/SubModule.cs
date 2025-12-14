@@ -342,7 +342,7 @@ namespace Retinues
             AddBehavior<Features.Equipments.EquipmentRebateBehavior>(cs);
 
             // Swap behaviors
-            AddBehavior<Features.Swaps.MilitiaSwapBehavior>(cs);
+            AddBehavior<Features.Swaps.PartySwapBehavior>(cs);
 
             // Retinue behaviors
             AddBehavior<Features.AutoJoin.AutoJoinBehavior>(cs);

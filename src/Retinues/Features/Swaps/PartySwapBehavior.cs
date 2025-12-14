@@ -1,12 +1,12 @@
 using Retinues.Game.Wrappers;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
-using TaleWorlds.CampaignSystem.Settlements;
+using TaleWorlds.CampaignSystem.Party;
 
 namespace Retinues.Features.Swaps
 {
     [SafeClass]
-    public class MilitiaSwapBehavior : CampaignBehaviorBase
+    public class PartySwapBehavior : CampaignBehaviorBase
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Sync Data                       //
@@ -20,33 +20,44 @@ namespace Retinues.Features.Swaps
 
         public override void RegisterEvents()
         {
-            CampaignEvents.DailyTickSettlementEvent.AddNonSerializedListener(
-                this,
-                OnDailyTickSettlement
-            );
+            CampaignEvents.DailyTickPartyEvent.AddNonSerializedListener(this, OnDailyTickParty);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Events                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private void OnDailyTickSettlement(Settlement settlement)
+        private void OnDailyTickParty(MobileParty party)
         {
-            if (settlement == null)
+            if (party == null)
                 return;
 
-            var s = new WSettlement(settlement);
-            var f = s.PlayerFaction;
+            var p = new WParty(party);
 
+            // Only enforce for the party kinds we own.
+            if (!p.IsMilitia && !p.IsVillager && !p.IsCaravan)
+                return;
+
+            var f = p.PlayerFaction;
             if (f == null)
-                return; // Not player faction
+                return; // Not player faction.
 
-            Log.Debug(
-                $"MilitiaSwap: Daily tick for {settlement?.Name} ({f?.Name ?? "not player faction"})."
-            );
+            try
+            {
+                // Caravans: must preserve heroes.
+                if (p.IsCaravan)
+                {
+                    p.MemberRoster?.SwapTroopsPreservingHeroes(f);
+                    return;
+                }
 
-            // Swap militias
-            s.MilitiaParty?.MemberRoster?.SwapTroops(f);
+                // Villagers & militia: no hero leader roster concerns; use the regular swap.
+                p.MemberRoster?.SwapTroops(f);
+            }
+            catch (System.Exception ex)
+            {
+                Log.Exception(ex, $"PartySwapBehavior failed for {p.Name}");
+            }
         }
     }
 }
