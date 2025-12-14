@@ -51,7 +51,7 @@ namespace Retinues.Managers
                 cap += 5;
             
             if (troop.IsMaxTier && troop.IsCaptain)
-                cap += 10;
+                cap += 25;
 
             return cap;
         }
@@ -82,7 +82,7 @@ namespace Retinues.Managers
                 total += 10;
 
             if (troop.IsMaxTier && troop.IsCaptain)
-                total += 25;
+                total += 50;
 
             return total;
         }
