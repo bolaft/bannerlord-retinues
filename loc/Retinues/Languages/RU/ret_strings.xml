@@ -47,6 +47,9 @@
       id="ret_editor_title"
       text="Редактор отрядов" />
     <string
+      id="ret_encyclopedia_editor_button_hint"
+      text="Открыть в редакторе." />
+    <string
       id="ret_enter_new_name"
       text="Введите новое имя:" />
     <string

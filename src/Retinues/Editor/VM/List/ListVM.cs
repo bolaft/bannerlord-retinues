@@ -5,7 +5,7 @@ using System.Threading;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Editor.VM.List.Character;
 using Retinues.Editor.VM.List.Equipment;
-using Retinues.Engine;
+using Retinues.Helpers;
 using Retinues.Model.Characters;
 using Retinues.Utilities;
 using TaleWorlds.Core;
@@ -83,12 +83,26 @@ namespace Retinues.Editor.VM.List
         private void OnModeChange()
         {
             AutoScrollRowsEnabled = true;
-            AutoScrollVersion++; // bump version to trigger auto-scroll on equipment mode switch
+            AutoScrollVersion++;
+
             Builder.Build(this);
 
             if (EditorVM.Mode == EditorMode.Equipment)
             {
                 UpdateEquipmentHeaderExpansion();
+            }
+        }
+
+        /// <summary>
+        /// On character change, auto-scroll to selected row if in character mode.
+        /// </summary>
+        [EventListener(UIEvent.Character)]
+        private void OnCharacterChange()
+        {
+            if (EditorVM.Mode == EditorMode.Character)
+            {
+                AutoScrollRowsEnabled = true;
+                AutoScrollVersion++;
             }
         }
 

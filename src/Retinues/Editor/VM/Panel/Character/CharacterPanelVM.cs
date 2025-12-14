@@ -3,7 +3,7 @@ using System.Diagnostics.Tracing;
 using System.Linq;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Editor.Controllers;
-using Retinues.Engine;
+using Retinues.Helpers;
 using Retinues.Model.Characters;
 using Retinues.Model.Factions;
 using Retinues.Utilities;

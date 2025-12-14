@@ -46,7 +46,7 @@ namespace Retinues.GUI.Prefabs.EscapeMenu.Patches
                         resume?.ExecuteAction();
 
                         // Launch right after resuming
-                        RetinuesEditorLauncher.Launch();
+                        EditorLauncher.Launch();
                     }
                     catch (Exception e)
                     {

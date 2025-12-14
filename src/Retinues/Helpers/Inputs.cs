@@ -7,7 +7,7 @@ using TaleWorlds.CampaignSystem.GameState;
 using TaleWorlds.Core;
 using TaleWorlds.InputSystem;
 
-namespace Retinues.Engine
+namespace Retinues.Helpers
 {
     [SafeClass]
     public static class Inputs
@@ -43,7 +43,7 @@ namespace Retinues.Engine
             if (Input.IsKeyDown(InputKey.LeftShift) && Input.IsKeyReleased(InputKey.R))
             {
                 Log.Info("Editor launched via hotkey.");
-                RetinuesEditorLauncher.Launch();
+                EditorLauncher.Launch();
             }
         }
 

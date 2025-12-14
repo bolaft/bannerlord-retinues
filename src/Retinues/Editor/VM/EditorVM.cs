@@ -4,10 +4,8 @@ using Retinues.Editor.VM.Column;
 using Retinues.Editor.VM.List;
 using Retinues.Editor.VM.Panel.Character;
 using Retinues.Editor.VM.Panel.Equipment;
-using Retinues.Engine;
+using Retinues.Helpers;
 using Retinues.Utilities;
-using TaleWorlds.CampaignSystem.ViewModelCollection.Input;
-using TaleWorlds.InputSystem;
 using TaleWorlds.Library;
 
 namespace Retinues.Editor.VM
@@ -33,7 +31,7 @@ namespace Retinues.Editor.VM
         //                      Construction                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public EditorVM(Action close)
+        public EditorVM(Action close, EditorLaunchArgs args = null)
         {
             _close = close;
 
@@ -53,7 +51,7 @@ namespace Retinues.Editor.VM
             SetMode(EditorMode.Character);
 
             // Start each editor session from a clean shared state.
-            State.Reset();
+            State.Reset(args);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -81,16 +79,18 @@ namespace Retinues.Editor.VM
         public string EditorTitle => L.S("editor_title", "Troop Editor");
 
         [DataSourceProperty]
-        public string CultureName => State.Culture.Name.ToString();
+        public string CultureName =>
+            State.Culture?.Name?.ToString() ?? L.S("editor_culture_select", "Select a Culture");
 
         [DataSourceProperty]
-        public string ClanName => State.Clan.Name.ToString();
+        public string ClanName =>
+            State.Clan?.Name?.ToString() ?? L.S("editor_clan_select", "Select a Clan");
 
         [DataSourceProperty]
-        public object CultureBanner => State.Culture.Image;
+        public object CultureBanner => State.Culture?.Image ?? Banners.EmptyImage;
 
         [DataSourceProperty]
-        public object ClanBanner => State.Clan.Image;
+        public object ClanBanner => State.Clan?.Image ?? Banners.EmptyImage;
 
         [DataSourceProperty]
         public Tooltip CultureBannerHint => new(L.S("editor_culture_select", "Select a Culture"));

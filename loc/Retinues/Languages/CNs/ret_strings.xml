@@ -47,6 +47,9 @@
       id="ret_editor_title"
       text="部队编辑器" />
     <string
+      id="ret_encyclopedia_editor_button_hint"
+      text="在编辑器中打开。" />
+    <string
       id="ret_enter_new_name"
       text="输入新名称：" />
     <string

@@ -1,5 +1,5 @@
 using Retinues.Editor.VM;
-using Retinues.Engine;
+using Retinues.Helpers;
 using TaleWorlds.Core;
 using TaleWorlds.Engine.GauntletUI;
 using TaleWorlds.InputSystem;
@@ -14,6 +14,7 @@ namespace Retinues.Editor.Screen
     public sealed class EditorState : GameState
     {
         public override bool IsMenuState => true;
+        public EditorLaunchArgs LaunchArgs { get; set; }
     }
 
     /// <summary>
@@ -27,7 +28,6 @@ namespace Retinues.Editor.Screen
         private GauntletLayer _gauntletLayer;
 
         private EditorVM _dataSource;
-
         static readonly string[] SpriteSheetsToLoad =
         [
             "ui_charactercreation",
@@ -73,8 +73,9 @@ namespace Retinues.Editor.Screen
 
             AddLayer(_gauntletLayer);
 
-            // Create EditorVM with a close callback
-            _dataSource = new EditorVM(Close) { IsVisible = true };
+            var args = (_state as EditorState)?.LaunchArgs;
+
+            _dataSource = new EditorVM(Close, args) { IsVisible = true };
 
             _movie = _gauntletLayer.LoadMovie("EditorScreen", _dataSource);
         }

@@ -47,6 +47,9 @@
       id="ret_editor_title"
       text="Edytor oddziałów" />
     <string
+      id="ret_encyclopedia_editor_button_hint"
+      text="Otwórz w edytorze." />
+    <string
       id="ret_enter_new_name"
       text="Wprowadź nową nazwę:" />
     <string

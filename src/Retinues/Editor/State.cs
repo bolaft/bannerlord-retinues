@@ -7,6 +7,25 @@ using TaleWorlds.Core;
 
 namespace Retinues.Editor
 {
+    /// <summary>
+    /// Optional launch parameters for the editor.
+    /// Only one of Character/Clan/Culture should be set.
+    /// </summary>
+    public sealed class EditorLaunchArgs
+    {
+        public WCharacter Character { get; }
+        public WClan Clan { get; }
+        public WCulture Culture { get; }
+
+        public EditorLaunchArgs(WCharacter character) => Character = character;
+
+        public EditorLaunchArgs(WClan clan) => Clan = clan;
+
+        public EditorLaunchArgs(WCulture culture) => Culture = culture;
+
+        public bool IsEmpty => Character == null && Clan == null && Culture == null;
+    }
+
     [SafeClass]
     public class State
     {
@@ -18,25 +37,127 @@ namespace Retinues.Editor
         public static State Instance => _instance ??= new State();
 
         public State()
+            : this(null) { }
+
+        public State(EditorLaunchArgs args)
         {
             Log.Info("Initializing new editor state");
 
             // Set the singleton instance.
             _instance = this;
 
-            // Defaults
-            Culture = WHero.Get(Hero.MainHero).Culture;
-            Clan = WHero.Get(Hero.MainHero).Clan;
-            Faction = Clan;
+            ApplyLaunchArgs(args);
 
+            // Notify listeners.
             EventManager.FireBatch(() =>
             {
+                EventManager.Fire(UIEvent.CultureFaction, EventScope.Global);
+                EventManager.Fire(UIEvent.ClanFaction, EventScope.Global);
                 EventManager.Fire(UIEvent.Faction, EventScope.Global);
                 EventManager.Fire(UIEvent.Character, EventScope.Global);
+                EventManager.Fire(UIEvent.Equipment, EventScope.Global);
+                EventManager.Fire(UIEvent.Slot, EventScope.Global);
             });
         }
 
-        public static void Reset() => _instance = new State();
+        public static void Reset(EditorLaunchArgs args = null) => _instance = new State(args);
+
+        private void ApplyLaunchArgs(EditorLaunchArgs args)
+        {
+            if (args == null || args.IsEmpty)
+            {
+                ApplyDefault();
+                return;
+            }
+
+            if (args.Character != null)
+            {
+                ApplyCharacter(args.Character);
+                return;
+            }
+
+            if (args.Clan != null)
+            {
+                ApplyClan(args.Clan);
+                return;
+            }
+
+            if (args.Culture != null)
+            {
+                ApplyCulture(args.Culture);
+                return;
+            }
+
+            ApplyDefault();
+        }
+
+        private void ApplyDefault()
+        {
+            var hero = WHero.Get(Hero.MainHero);
+
+            _culture = hero.Culture;
+            _clan = hero.Clan;
+            _faction = hero.Clan;
+
+            _character = PickFirstTroop(_faction);
+            _equipment = _character?.EquipmentRoster?.Get(0);
+
+            _slot = EquipmentIndex.Weapon0;
+        }
+
+        private void ApplyCharacter(WCharacter character)
+        {
+            _character = character;
+
+            _culture = character.Culture;
+            _clan = null;
+            _faction = _culture;
+
+            _equipment = _character?.EquipmentRoster?.Get(0);
+
+            _slot = EquipmentIndex.Weapon0;
+        }
+
+        private void ApplyClan(WClan clan)
+        {
+            _clan = clan;
+            _faction = clan;
+
+            // In Bannerlord, a clan is an IFaction, so it has a culture.
+            // Your wrapper should expose it; if not, adjust this line to your API.
+            _culture = clan.Culture;
+
+            _character = PickFirstTroop(_faction);
+            _equipment = _character?.EquipmentRoster?.Get(0);
+
+            _slot = EquipmentIndex.Weapon0;
+        }
+
+        private void ApplyCulture(WCulture culture)
+        {
+            _culture = culture;
+            _clan = null;
+            _faction = culture;
+
+            _character = PickFirstTroop(_faction);
+            _equipment = _character?.EquipmentRoster?.Get(0);
+
+            _slot = EquipmentIndex.Weapon0;
+        }
+
+        private static WCharacter PickFirstTroop(IBaseFaction faction)
+        {
+            if (faction?.Troops == null)
+                return null;
+
+            foreach (var troop in faction.Troops)
+            {
+                if (troop != null)
+                    return troop;
+            }
+
+            return null;
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          State                         //
@@ -46,9 +167,6 @@ namespace Retinues.Editor
 
         private WCulture _culture;
 
-        /// <summary>
-        /// Current editor culture.
-        /// </summary>
         public WCulture Culture
         {
             get => _culture;
@@ -60,10 +178,7 @@ namespace Retinues.Editor
                 if (value == null)
                     return;
 
-                // Set the culture.
                 _culture = value;
-
-                // Notify listeners.
                 EventManager.Fire(UIEvent.CultureFaction, EventScope.Global);
             }
         }
@@ -72,9 +187,6 @@ namespace Retinues.Editor
 
         private WClan _clan;
 
-        /// <summary>
-        /// Current editor culture.
-        /// </summary>
         public WClan Clan
         {
             get => _clan;
@@ -83,13 +195,8 @@ namespace Retinues.Editor
                 if (ReferenceEquals(value, _clan))
                     return;
 
-                if (value == null)
-                    return;
-
-                // Set the culture.
+                // Allow null (launch modes can intentionally clear clan).
                 _clan = value;
-
-                // Notify listeners.
                 EventManager.Fire(UIEvent.ClanFaction, EventScope.Global);
             }
         }
@@ -98,9 +205,6 @@ namespace Retinues.Editor
 
         private IBaseFaction _faction;
 
-        /// <summary>
-        /// Current editor faction.
-        /// </summary>
         public IBaseFaction Faction
         {
             get => _faction;
@@ -112,10 +216,8 @@ namespace Retinues.Editor
                 if (value == null)
                     return;
 
-                // Set the faction.
                 _faction = value;
 
-                // Reset the character to the first available troop.
                 foreach (var troop in _faction.Troops)
                 {
                     if (troop != null)
@@ -125,7 +227,6 @@ namespace Retinues.Editor
                     }
                 }
 
-                // Notify listeners.
                 EventManager.Fire(UIEvent.Faction, EventScope.Global);
             }
         }
@@ -134,9 +235,6 @@ namespace Retinues.Editor
 
         private WCharacter _character;
 
-        /// <summary>
-        /// Current editor character.
-        /// </summary>
         public WCharacter Character
         {
             get => _character;
@@ -148,13 +246,10 @@ namespace Retinues.Editor
                 if (value == null)
                     return;
 
-                // Set the character.
                 _character = value;
 
-                // Pick the first equipment.
                 Equipment = _character.EquipmentRoster.Get(0);
 
-                // Notify listeners.
                 EventManager.Fire(UIEvent.Character, EventScope.Global);
             }
         }
@@ -163,9 +258,6 @@ namespace Retinues.Editor
 
         private MEquipment _equipment;
 
-        /// <summary>
-        /// Current editor equipment.
-        /// </summary>
         public MEquipment Equipment
         {
             get => _equipment;
@@ -177,10 +269,7 @@ namespace Retinues.Editor
                 if (value == null)
                     return;
 
-                // Set the equipment.
                 _equipment = value;
-
-                // Notify listeners.
                 EventManager.Fire(UIEvent.Equipment, EventScope.Global);
             }
         }
@@ -189,9 +278,6 @@ namespace Retinues.Editor
 
         private EquipmentIndex _slot = EquipmentIndex.Weapon0;
 
-        /// <summary>
-        /// Current editor equipment slot.
-        /// </summary>
         public EquipmentIndex Slot
         {
             get => _slot;
@@ -200,10 +286,7 @@ namespace Retinues.Editor
                 if (value == _slot)
                     return;
 
-                // Set the slot.
                 _slot = value;
-
-                // Notify listeners.
                 EventManager.Fire(UIEvent.Slot, EventScope.Global);
             }
         }

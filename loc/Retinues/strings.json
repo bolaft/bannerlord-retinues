@@ -224,6 +224,22 @@
     "TR": "Birlik Düzenleyici"
   },
   {
+    "id": "ret_encyclopedia_editor_button_hint",
+    "EN": "Open in the editor.",
+    "FR": "Ouvrir dans l'éditeur.",
+    "BR": "Abrir no editor.",
+    "CNs": "在编辑器中打开。",
+    "CNt": "在編輯器中打開。",
+    "DE": "Im Editor öffnen.",
+    "IT": "Apri nell'editor.",
+    "JP": "エディターで開く。",
+    "KO": "편집기에서 열기.",
+    "PL": "Otwórz w edytorze.",
+    "RU": "Открыть в редакторе.",
+    "SP": "Abrir en el editor.",
+    "TR": "Düzenleyicide aç."
+  },
+  {
     "id": "ret_enter_new_name",
     "EN": "Enter a new name:",
     "FR": "Entrez un nouveau nom :",

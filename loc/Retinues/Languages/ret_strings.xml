@@ -47,6 +47,9 @@
       id="ret_editor_title"
       text="Troop Editor" />
     <string
+      id="ret_encyclopedia_editor_button_hint"
+      text="Open in the editor." />
+    <string
       id="ret_enter_new_name"
       text="Enter a new name:" />
     <string

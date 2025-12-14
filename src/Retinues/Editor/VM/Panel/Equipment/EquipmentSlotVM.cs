@@ -1,7 +1,7 @@
 using System.Diagnostics.Tracing;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Editor.Controllers;
-using Retinues.Engine;
+using Retinues.Helpers;
 using Retinues.Model.Equipments;
 using Retinues.Utilities;
 using TaleWorlds.Core;

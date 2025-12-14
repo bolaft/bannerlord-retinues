@@ -1,6 +1,6 @@
 using System;
 using Bannerlord.UIExtenderEx.Attributes;
-using Retinues.Engine;
+using Retinues.Helpers;
 using Retinues.Model.Characters;
 using TaleWorlds.CampaignSystem.ViewModelCollection;
 using TaleWorlds.Core.ViewModelCollection;

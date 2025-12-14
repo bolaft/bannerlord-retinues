@@ -47,6 +47,9 @@
       id="ret_editor_title"
       text="부대 편집기" />
     <string
+      id="ret_encyclopedia_editor_button_hint"
+      text="편집기에서 열기." />
+    <string
       id="ret_enter_new_name"
       text="새 이름을 입력하세요:" />
     <string

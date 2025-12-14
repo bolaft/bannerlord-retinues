@@ -2,7 +2,7 @@ using Retinues.Model.Characters;
 using Retinues.Utilities;
 using TaleWorlds.Core;
 
-namespace Retinues.Engine
+namespace Retinues.Helpers
 {
     [SafeClass]
     public static class Icons

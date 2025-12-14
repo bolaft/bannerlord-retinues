@@ -2,7 +2,7 @@ using System;
 using Retinues.Utilities;
 using TaleWorlds.Engine;
 
-namespace Retinues.Engine
+namespace Retinues.Helpers
 {
     /// <summary>
     /// Centralised helpers for playing sound events.

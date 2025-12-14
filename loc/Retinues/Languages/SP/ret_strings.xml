@@ -47,6 +47,9 @@
       id="ret_editor_title"
       text="Editor de tropas" />
     <string
+      id="ret_encyclopedia_editor_button_hint"
+      text="Abrir en el editor." />
+    <string
       id="ret_enter_new_name"
       text="Ingrese un nuevo nombre:" />
     <string

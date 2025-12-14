@@ -2,7 +2,7 @@ using System.Linq;
 using Retinues.Utilities;
 using TaleWorlds.Engine.GauntletUI;
 
-namespace Retinues.Engine
+namespace Retinues.Helpers
 {
     [SafeClass]
     public static class Sprites

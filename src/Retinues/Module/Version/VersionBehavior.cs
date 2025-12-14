@@ -1,6 +1,6 @@
 using System;
 using Retinues.Behaviors;
-using Retinues.Engine;
+using Retinues.Helpers;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Library;

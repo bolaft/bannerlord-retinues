@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Retinues.Behaviors;
 using Retinues.Configuration;
-using Retinues.Engine;
+using Retinues.Helpers;
 using Retinues.Module;
 using Retinues.Module.Compatibility;
 using Retinues.Module.Dependencies;

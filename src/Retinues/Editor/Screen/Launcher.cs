@@ -1,16 +1,41 @@
+using Retinues.Model.Characters;
+using Retinues.Model.Factions;
 using TaleWorlds.Core;
 
 namespace Retinues.Editor.Screen
 {
-    public static class RetinuesEditorLauncher
+    public static class EditorLauncher
     {
         public static void Launch()
+        {
+            LaunchInternal(null);
+        }
+
+        public static void Launch(WCharacter character)
+        {
+            LaunchInternal(new EditorLaunchArgs(character));
+        }
+
+        public static void Launch(WClan clan)
+        {
+            LaunchInternal(new EditorLaunchArgs(clan));
+        }
+
+        public static void Launch(WCulture culture)
+        {
+            LaunchInternal(new EditorLaunchArgs(culture));
+        }
+
+        private static void LaunchInternal(EditorLaunchArgs args)
         {
             var gsm = Game.Current?.GameStateManager;
             if (gsm == null)
                 return;
 
-            gsm.PushState(gsm.CreateState<EditorState>());
+            var state = gsm.CreateState<EditorState>();
+            state.LaunchArgs = args;
+
+            gsm.PushState(state);
         }
     }
 }

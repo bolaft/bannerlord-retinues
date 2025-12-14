@@ -47,6 +47,9 @@
       id="ret_editor_title"
       text="Editor di truppe" />
     <string
+      id="ret_encyclopedia_editor_button_hint"
+      text="Apri nell&apos;editor." />
+    <string
       id="ret_enter_new_name"
       text="Inserisci un nuovo nome:" />
     <string

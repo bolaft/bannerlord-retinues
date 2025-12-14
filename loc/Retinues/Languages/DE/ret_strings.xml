@@ -47,6 +47,9 @@
       id="ret_editor_title"
       text="Truppen-Editor" />
     <string
+      id="ret_encyclopedia_editor_button_hint"
+      text="Im Editor öffnen." />
+    <string
       id="ret_enter_new_name"
       text="Geben Sie einen neuen Namen ein:" />
     <string

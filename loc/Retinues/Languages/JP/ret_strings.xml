@@ -47,6 +47,9 @@
       id="ret_editor_title"
       text="部隊エディター" />
     <string
+      id="ret_encyclopedia_editor_button_hint"
+      text="エディターで開く。" />
+    <string
       id="ret_enter_new_name"
       text="新しい名前を入力してください：" />
     <string

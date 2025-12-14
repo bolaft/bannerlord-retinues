@@ -47,6 +47,9 @@
       id="ret_editor_title"
       text="部隊編輯器" />
     <string
+      id="ret_encyclopedia_editor_button_hint"
+      text="在編輯器中打開。" />
+    <string
       id="ret_enter_new_name"
       text="輸入新名稱：" />
     <string

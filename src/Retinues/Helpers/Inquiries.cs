@@ -5,7 +5,7 @@ using TaleWorlds.Core;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
 
-namespace Retinues.Engine
+namespace Retinues.Helpers
 {
     /// <summary>
     /// Helpers for popups and selection inquiries.

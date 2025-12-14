@@ -47,6 +47,9 @@
       id="ret_editor_title"
       text="Birlik Düzenleyici" />
     <string
+      id="ret_encyclopedia_editor_button_hint"
+      text="Düzenleyicide aç." />
+    <string
       id="ret_enter_new_name"
       text="Yeni bir isim girin:" />
     <string
