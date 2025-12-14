@@ -49,6 +49,10 @@ namespace Retinues.Managers
                 cap += Config.RetinueSkillCapBonus;
             if (DoctrineAPI.IsDoctrineUnlocked<IronDiscipline>())
                 cap += 5;
+            
+            if (troop.IsCaptain)
+                cap += 10;
+
             return cap;
         }
 
@@ -76,6 +80,10 @@ namespace Retinues.Managers
                 total += Config.RetinueSkillTotalBonus;
             if (DoctrineAPI.IsDoctrineUnlocked<SteadfastSoldiers>())
                 total += 10;
+            
+            if (troop.IsCaptain)
+                total += 25;
+
             return total;
         }
 
