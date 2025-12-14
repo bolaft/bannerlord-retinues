@@ -50,18 +50,18 @@ namespace Retinues.Editor.VM.List
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
-        /// Gets the appropriate list builder for the current editor mode.
+        /// Gets the appropriate list builder for the current editor page.
         /// </summary>
         private BaseListBuilder Builder
         {
             get
             {
-                return EditorVM.Mode switch
+                return EditorVM.Page switch
                 {
-                    EditorMode.Character => new CharacterListBuilder(),
-                    EditorMode.Equipment => new EquipmentListBuilder(),
+                    EditorPage.Character => new CharacterListBuilder(),
+                    EditorPage.Equipment => new EquipmentListBuilder(),
                     _ => throw new NotSupportedException(
-                        $"No list builder for mode {EditorVM.Mode}."
+                        $"No list builder for page {EditorVM.Page}."
                     ),
                 };
             }
@@ -77,29 +77,29 @@ namespace Retinues.Editor.VM.List
         }
 
         /// <summary>
-        /// On mode change, rebuild the list using the current builder.
+        /// On page change, rebuild the list using the current builder.
         /// </summary>
-        [EventListener(UIEvent.Mode)]
-        private void OnModeChange()
+        [EventListener(UIEvent.Page)]
+        private void OnPageChange()
         {
             AutoScrollRowsEnabled = true;
             AutoScrollVersion++;
 
             Builder.Build(this);
 
-            if (EditorVM.Mode == EditorMode.Equipment)
+            if (EditorVM.Page == EditorPage.Equipment)
             {
                 UpdateEquipmentHeaderExpansion();
             }
         }
 
         /// <summary>
-        /// On character change, auto-scroll to selected row if in character mode.
+        /// On character change, auto-scroll to selected row if in character page.
         /// </summary>
         [EventListener(UIEvent.Character)]
         private void OnCharacterChange()
         {
-            if (EditorVM.Mode == EditorMode.Character)
+            if (EditorVM.Page == EditorPage.Character)
             {
                 AutoScrollRowsEnabled = true;
                 AutoScrollVersion++;
@@ -107,22 +107,22 @@ namespace Retinues.Editor.VM.List
         }
 
         /// <summary>
-        /// On faction change, rebuild the list if in character mode.
+        /// On faction change, rebuild the list if in character page.
         /// </summary>
         [EventListener(UIEvent.Faction)]
         private void OnFactionChange()
         {
-            if (EditorVM.Mode == EditorMode.Character)
+            if (EditorVM.Page == EditorPage.Character)
                 Builder.Build(this);
         }
 
         /// <summary>
-        /// On slot change, rebuild the list if in equipment mode.
+        /// On slot change, rebuild the list if in equipment page.
         /// </summary>
         [EventListener(UIEvent.Slot)]
         private void OnSlotChange()
         {
-            if (EditorVM.Mode != EditorMode.Equipment)
+            if (EditorVM.Page != EditorPage.Equipment)
                 return;
 
             var previousSlot = _previousSlot;
@@ -561,13 +561,13 @@ namespace Retinues.Editor.VM.List
             }
         }
 
-        [EventListener(UIEvent.Mode)]
+        [EventListener(UIEvent.Page)]
         [DataSourceProperty]
         public Tooltip FilterTooltip
         {
             get
             {
-                if (EditorVM.Mode == EditorMode.Character)
+                if (EditorVM.Page == EditorPage.Character)
                 {
                     return new(
                         L.S(
@@ -576,7 +576,7 @@ namespace Retinues.Editor.VM.List
                         )
                     );
                 }
-                if (EditorVM.Mode == EditorMode.Equipment)
+                if (EditorVM.Page == EditorPage.Equipment)
                 {
                     return new(
                         L.S(
@@ -593,7 +593,7 @@ namespace Retinues.Editor.VM.List
         public Tooltip ClearFilterTooltip =>
             new(L.S("clear_filter_tooltip", "Clear the current filter text."));
 
-        [EventListener(UIEvent.Mode)]
+        [EventListener(UIEvent.Page)]
         [DataSourceMethod]
         public void ExecuteClearFilter()
         {

@@ -1,43 +1,32 @@
 using System;
 using Bannerlord.UIExtenderEx.Attributes;
-using Bannerlord.UIExtenderEx.ViewModels;
-using Retinues.Helpers;
+using Retinues.Editor.Screen;
+using Retinues.Model.Characters;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.ViewModelCollection.Encyclopedia.Pages;
-using TaleWorlds.Library;
 
 namespace Retinues.GUI.Prefabs.Encyclopedia
 {
     [ViewModelMixin]
-    public sealed class HeroPageScreen : BaseViewModelMixin<EncyclopediaHeroPageVM>
+    public sealed class HeroPageScreen(EncyclopediaHeroPageVM vm)
+        : BaseEncyclopediaPageScreen<EncyclopediaHeroPageVM>(vm)
     {
-        public HeroPageScreen(EncyclopediaHeroPageVM vm)
-            : base(vm)
-        {
-            try
-            {
-                Sprites.Load("ui_clan");
-            }
-            catch (Exception e)
-            {
-                Log.Exception(e);
-            }
-        }
-
-        [DataSourceProperty]
-        public Tooltip EditorHint =>
-            new(L.S("encyclopedia_editor_button_hint", "Open in the editor."));
-
         [DataSourceMethod]
-        public void ExecuteOpenEditor()
+        public override void ExecuteOpenEditor()
         {
             try
             {
                 if (ViewModel.Obj is not Hero hero)
-                    return; // Only hero objects are supported here
+                    return;
 
-                // No implementation yet
+                // Wrap the hero object.
+                var wh = WHero.Get(hero);
+                if (wh == null)
+                    return;
+
+                // Launch the editor with the hero.
+                EditorLauncher.Launch(wh);
             }
             catch (Exception e)
             {

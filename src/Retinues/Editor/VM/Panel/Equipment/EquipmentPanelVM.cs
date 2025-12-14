@@ -14,9 +14,9 @@ namespace Retinues.Editor.VM.Panel.Equipment
         //                       Visibility                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        [EventListener(UIEvent.Mode)]
+        [EventListener(UIEvent.Page)]
         [DataSourceProperty]
-        public bool IsVisible => EditorVM.Mode == EditorMode.Equipment;
+        public bool IsVisible => EditorVM.Page == EditorPage.Equipment;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Slots                         //

@@ -64,25 +64,25 @@ namespace Retinues.Editor.VM.Column
         //                    Equipment Button                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        [EventListener(UIEvent.Mode)]
+        [EventListener(UIEvent.Page)]
         [DataSourceProperty]
         public string EquipmentButtonText =>
-            EditorVM.Mode == EditorMode.Equipment
+            EditorVM.Page == EditorPage.Equipment
                 ? L.S("close_equipment_button_text", "Back")
                 : L.S("equipment_button_text", "Equipment");
 
-        [EventListener(UIEvent.Mode)]
+        [EventListener(UIEvent.Page)]
         [DataSourceProperty]
         public string EquipmentButtonBrush =>
-            EditorVM.Mode == EditorMode.Equipment ? "ButtonBrush3" : "ButtonBrush1";
+            EditorVM.Page == EditorPage.Equipment ? "ButtonBrush3" : "ButtonBrush1";
 
         [DataSourceMethod]
         public void ExecuteToggleEquipmentMode()
         {
-            if (EditorVM.Mode == EditorMode.Equipment)
-                EditorVM.SetMode(EditorMode.Character);
+            if (EditorVM.Page == EditorPage.Equipment)
+                EditorVM.SetPage(EditorPage.Character);
             else
-                EditorVM.SetMode(EditorMode.Equipment);
+                EditorVM.SetPage(EditorPage.Equipment);
         }
     }
 }

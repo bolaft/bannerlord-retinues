@@ -14,7 +14,7 @@ namespace Retinues.Editor
     /// </summary>
     public enum UIEvent
     {
-        Mode,
+        Page,
         CultureFaction,
         ClanFaction,
         Faction,

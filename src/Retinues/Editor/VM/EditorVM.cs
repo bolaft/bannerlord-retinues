@@ -11,9 +11,9 @@ using TaleWorlds.Library;
 namespace Retinues.Editor.VM
 {
     /// <summary>
-    /// Editor modes available in the Retinues editor.
+    /// Editor pages available in the editor.
     /// </summary>
-    public enum EditorMode
+    public enum EditorPage
     {
         Character = 0,
         Equipment = 1,
@@ -47,8 +47,8 @@ namespace Retinues.Editor.VM
             // Initialize the equipment panel VM.
             EquipmentPanel = new EquipmentPanelVM();
 
-            // Mode defaults to character editing.
-            SetMode(EditorMode.Character);
+            // Page defaults to character editing.
+            SetPage(EditorPage.Character);
 
             // Start each editor session from a clean shared state.
             State.Reset(args);
@@ -175,20 +175,20 @@ namespace Retinues.Editor.VM
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                          Mode                          //
+        //                          Page                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public static EditorMode Mode = EditorMode.Character;
+        public static EditorPage Page = EditorPage.Character;
 
-        public static void SetMode(EditorMode mode)
+        public static void SetPage(EditorPage page)
         {
-            if (Mode == mode)
+            if (Page == page)
                 return;
 
-            Mode = mode;
+            Page = page;
 
-            // Notify any listeners that mode changed (columns, buttons, etc.).
-            EventManager.Fire(UIEvent.Mode, EventScope.Global);
+            // Notify any listeners that page changed (columns, buttons, etc.).
+            EventManager.Fire(UIEvent.Page, EventScope.Global);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

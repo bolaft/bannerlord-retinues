@@ -48,9 +48,9 @@ namespace Retinues.Editor.VM.Panel.Character
         //                       Visibility                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        [EventListener(UIEvent.Mode)]
+        [EventListener(UIEvent.Page)]
         [DataSourceProperty]
-        public bool IsVisible => EditorVM.Mode == EditorMode.Character;
+        public bool IsVisible => EditorVM.Page == EditorPage.Character;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Name                          //

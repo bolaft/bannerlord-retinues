@@ -16,6 +16,11 @@ namespace Retinues.Editor.Screen
             LaunchInternal(new EditorLaunchArgs(character));
         }
 
+        public static void Launch(WHero hero)
+        {
+            LaunchInternal(new EditorLaunchArgs(hero));
+        }
+
         public static void Launch(WClan clan)
         {
             LaunchInternal(new EditorLaunchArgs(clan));

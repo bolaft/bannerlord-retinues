@@ -8,22 +8,35 @@ using TaleWorlds.Core;
 namespace Retinues.Editor
 {
     /// <summary>
+    /// Editor modes..
+    /// </summary>
+    public enum EditorMode
+    {
+        Universal = 0,
+        Custom = 1,
+    }
+
+    /// <summary>
     /// Optional launch parameters for the editor.
     /// Only one of Character/Clan/Culture should be set.
     /// </summary>
     public sealed class EditorLaunchArgs
     {
+        public EditorMode Mode { get; } = EditorMode.Universal;
         public WCharacter Character { get; }
+        public WHero Hero { get; }
         public WClan Clan { get; }
         public WCulture Culture { get; }
 
         public EditorLaunchArgs(WCharacter character) => Character = character;
 
+        public EditorLaunchArgs(WHero hero) => Hero = hero;
+
         public EditorLaunchArgs(WClan clan) => Clan = clan;
 
         public EditorLaunchArgs(WCulture culture) => Culture = culture;
 
-        public bool IsEmpty => Character == null && Clan == null && Culture == null;
+        public bool IsEmpty => Character == null && Hero == null && Clan == null && Culture == null;
     }
 
     [SafeClass]
@@ -35,6 +48,7 @@ namespace Retinues.Editor
 
         private static State _instance;
         public static State Instance => _instance ??= new State();
+        public EditorMode Mode { get; private set; } = EditorMode.Universal;
 
         public State()
             : this(null) { }
@@ -70,9 +84,18 @@ namespace Retinues.Editor
                 return;
             }
 
+            // Set mode first.
+            Mode = args.Mode;
+
             if (args.Character != null)
             {
                 ApplyCharacter(args.Character);
+                return;
+            }
+
+            if (args.Hero != null)
+            {
+                ApplyHero(args.Hero);
                 return;
             }
 
@@ -95,6 +118,18 @@ namespace Retinues.Editor
         {
             var hero = WHero.Get(Hero.MainHero);
 
+            _culture = hero.Culture;
+            _clan = hero.Clan;
+            _faction = hero.Clan;
+
+            _character = PickFirstTroop(_faction);
+            _equipment = _character?.EquipmentRoster?.Get(0);
+
+            _slot = EquipmentIndex.Weapon0;
+        }
+
+        private void ApplyHero(WHero hero)
+        {
             _culture = hero.Culture;
             _clan = hero.Clan;
             _faction = hero.Clan;
