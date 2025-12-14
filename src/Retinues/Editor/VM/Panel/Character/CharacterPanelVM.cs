@@ -26,7 +26,10 @@ namespace Retinues.Editor.VM.Panel.Character
             SkillsRow1 = [];
             SkillsRow2 = [];
 
-            var skills = WCharacter.GetSkillList(State.Character);
+            var skills = Skills.GetSkillListForCharacter(
+                State.Character.IsHero,
+                includeModded: true
+            );
 
             foreach (var skill in skills.Take(4))
             {
