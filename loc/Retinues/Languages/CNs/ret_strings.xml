@@ -41,6 +41,9 @@
       id="ret_editor_culture_select"
       text="选择一种文化" />
     <string
+      id="ret_editor_done_button"
+      text="完成" />
+    <string
       id="ret_editor_title"
       text="部队编辑器" />
     <string
@@ -154,9 +157,6 @@
     <string
       id="ret_mcm_section_debug"
       text="调试" />
-    <string
-      id="ret_mcm_section_equipment"
-      text="装备" />
     <string
       id="ret_mcm_section_user_interface"
       text="用户界面" />

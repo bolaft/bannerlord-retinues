@@ -41,6 +41,9 @@
       id="ret_editor_culture_select"
       text="Select a Culture" />
     <string
+      id="ret_editor_done_button"
+      text="Done" />
+    <string
       id="ret_editor_title"
       text="Troop Editor" />
     <string
@@ -140,12 +143,6 @@
       id="ret_list_header_villagers"
       text="Villagers" />
     <string
-      id="ret_mcm_option_all_items_available"
-      text="All Items Available" />
-    <string
-      id="ret_mcm_option_all_items_available_hint"
-      text="Allows equipping any item regardless of unlock progress." />
-    <string
       id="ret_mcm_option_debug_mode"
       text="Debug Mode" />
     <string
@@ -160,9 +157,6 @@
     <string
       id="ret_mcm_section_debug"
       text="Debug" />
-    <string
-      id="ret_mcm_section_equipment"
-      text="Equipment" />
     <string
       id="ret_mcm_section_user_interface"
       text="User Interface" />

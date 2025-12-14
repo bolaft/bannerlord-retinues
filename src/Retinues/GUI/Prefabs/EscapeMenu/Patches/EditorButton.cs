@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using HarmonyLib;
-using Retinues.GUI.Prefabs.ClanScreen;
+using Retinues.Editor.Screen;
 using Retinues.Utilities;
 using TaleWorlds.Localization;
 using TaleWorlds.MountAndBlade.ViewModelCollection.EscapeMenu;
@@ -46,7 +46,7 @@ namespace Retinues.GUI.Prefabs.EscapeMenu.Patches
                         resume?.ExecuteAction();
 
                         // Launch right after resuming
-                        ClanScreenMixin.Launch();
+                        RetinuesEditorLauncher.Launch();
                     }
                     catch (Exception e)
                     {

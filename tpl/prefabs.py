@@ -74,10 +74,10 @@ def render_template(module_dir: Path, template_rel_path: Path, context: dict | N
 def process_module(module_dir: Path, bl_version: str | None = None) -> None:
     """
     Find all .j2 files under module_dir, render them and write to gui output.
-    Output root: ../gui/{ModuleName}/PrefabExtensions/ClanScreen/<same relative path>.xml
+    Output root: ../gui/{ModuleName}/PrefabExtensions/<same relative path>.xml
     """
     module_name = module_dir.name
-    out_base = OUTPUT_BASE / module_name / "PrefabExtensions" / "ClanScreen"
+    out_base = OUTPUT_BASE / module_name
 
     for j2_file in module_dir.rglob("*.j2"):
         # skip caches or hidden

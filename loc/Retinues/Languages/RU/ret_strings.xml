@@ -41,6 +41,9 @@
       id="ret_editor_culture_select"
       text="Выберите культуру" />
     <string
+      id="ret_editor_done_button"
+      text="Готово" />
+    <string
       id="ret_editor_title"
       text="Редактор отрядов" />
     <string
@@ -154,9 +157,6 @@
     <string
       id="ret_mcm_section_debug"
       text="Отладка" />
-    <string
-      id="ret_mcm_section_equipment"
-      text="Снаряжение" />
     <string
       id="ret_mcm_section_user_interface"
       text="Пользовательский интерфейс" />

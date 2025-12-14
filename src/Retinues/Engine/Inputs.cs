@@ -1,6 +1,6 @@
 using System;
 using Retinues.Configuration;
-using Retinues.GUI.Prefabs.ClanScreen;
+using Retinues.Editor.Screen;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.GameState;
@@ -43,7 +43,7 @@ namespace Retinues.Engine
             if (Input.IsKeyDown(InputKey.LeftShift) && Input.IsKeyReleased(InputKey.R))
             {
                 Log.Info("Editor launched via hotkey.");
-                ClanScreenMixin.Launch();
+                RetinuesEditorLauncher.Launch();
             }
         }
 

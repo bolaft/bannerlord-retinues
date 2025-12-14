@@ -1,9 +1,13 @@
+using System;
+using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Editor.VM.Column;
 using Retinues.Editor.VM.List;
 using Retinues.Editor.VM.Panel.Character;
 using Retinues.Editor.VM.Panel.Equipment;
 using Retinues.Engine;
 using Retinues.Utilities;
+using TaleWorlds.CampaignSystem.ViewModelCollection.Input;
+using TaleWorlds.InputSystem;
 using TaleWorlds.Library;
 
 namespace Retinues.Editor.VM
@@ -23,12 +27,16 @@ namespace Retinues.Editor.VM
     /// </summary>
     public class EditorVM : BaseVM
     {
+        private readonly Action _close;
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Construction                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public EditorVM()
+        public EditorVM(Action close)
         {
+            _close = close;
+
             // Initialize the troop list VM.
             List = new ListVM();
 
@@ -47,6 +55,23 @@ namespace Retinues.Editor.VM
             // Start each editor session from a clean shared state.
             State.Reset();
         }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Rooting                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [DataSourceMethod]
+        public void ExecuteClose()
+        {
+            _close?.Invoke();
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Done Button                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [DataSourceProperty]
+        public string DoneButtonText => L.S("editor_done_button", "Done");
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Top Panel                       //
@@ -145,7 +170,7 @@ namespace Retinues.Editor.VM
                 }
 
                 _equipmentPanel = value;
-                OnPropertyChanged(nameof(CharacterPanel));
+                OnPropertyChanged(nameof(EquipmentPanel));
             }
         }
 

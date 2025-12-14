@@ -41,6 +41,9 @@
       id="ret_editor_culture_select"
       text="Selecione uma cultura" />
     <string
+      id="ret_editor_done_button"
+      text="Concluído" />
+    <string
       id="ret_editor_title"
       text="Editor de Tropas" />
     <string
@@ -154,9 +157,6 @@
     <string
       id="ret_mcm_section_debug"
       text="Depuração" />
-    <string
-      id="ret_mcm_section_equipment"
-      text="Equipamento" />
     <string
       id="ret_mcm_section_user_interface"
       text="Interface do Usuário" />

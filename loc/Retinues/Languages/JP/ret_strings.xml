@@ -41,6 +41,9 @@
       id="ret_editor_culture_select"
       text="文化を選択" />
     <string
+      id="ret_editor_done_button"
+      text="完了" />
+    <string
       id="ret_editor_title"
       text="部隊エディター" />
     <string
@@ -154,9 +157,6 @@
     <string
       id="ret_mcm_section_debug"
       text="デバッグ" />
-    <string
-      id="ret_mcm_section_equipment"
-      text="装備" />
     <string
       id="ret_mcm_section_user_interface"
       text="ユーザーインターフェース" />

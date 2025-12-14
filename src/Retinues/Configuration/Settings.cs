@@ -29,26 +29,6 @@ namespace Retinues.Configuration
         );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Equipment                       //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        public static readonly Section Equipment = CreateSection(
-            name: L.F("mcm_section_equipment", "Equipment")
-        );
-
-        /* ━━━━━━━━ Options ━━━━━━━ */
-
-        public static readonly Option<bool> AllItemsAvailable = CreateOption(
-            section: Equipment,
-            name: L.F("mcm_option_all_items_available", "All Items Available"),
-            hint: L.F(
-                "mcm_option_all_items_available_hint",
-                "Allows equipping any item regardless of unlock progress."
-            ),
-            @default: false
-        );
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Debug                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 

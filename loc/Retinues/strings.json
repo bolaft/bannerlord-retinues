@@ -192,6 +192,22 @@
     "TR": "Bir Kültür Seçin"
   },
   {
+    "id": "ret_editor_done_button",
+    "EN": "Done",
+    "FR": "Terminé",
+    "BR": "Concluído",
+    "CNs": "完成",
+    "CNt": "完成",
+    "DE": "Fertig",
+    "IT": "Fatto",
+    "JP": "完了",
+    "KO": "완료",
+    "PL": "Gotowe",
+    "RU": "Готово",
+    "SP": "Hecho",
+    "TR": "Tamamlandı"
+  },
+  {
     "id": "ret_editor_title",
     "EN": "Troop Editor",
     "FR": "Éditeur de troupes",
@@ -720,38 +736,6 @@
     "TR": "Köylüler"
   },
   {
-    "id": "ret_mcm_option_all_items_available",
-    "EN": "All Items Available",
-    "FR": null,
-    "BR": null,
-    "CNs": null,
-    "CNt": null,
-    "DE": null,
-    "IT": null,
-    "JP": null,
-    "KO": null,
-    "PL": null,
-    "RU": null,
-    "SP": null,
-    "TR": null
-  },
-  {
-    "id": "ret_mcm_option_all_items_available_hint",
-    "EN": "Allows equipping any item regardless of unlock progress.",
-    "FR": null,
-    "BR": null,
-    "CNs": null,
-    "CNt": null,
-    "DE": null,
-    "IT": null,
-    "JP": null,
-    "KO": null,
-    "PL": null,
-    "RU": null,
-    "SP": null,
-    "TR": null
-  },
-  {
     "id": "ret_mcm_option_debug_mode",
     "EN": "Debug Mode",
     "FR": "Mode Débogage",
@@ -830,22 +814,6 @@
     "RU": "Отладка",
     "SP": "Depuración",
     "TR": "Hata Ayıklama"
-  },
-  {
-    "id": "ret_mcm_section_equipment",
-    "EN": "Equipment",
-    "FR": "Équipement",
-    "BR": "Equipamento",
-    "CNs": "装备",
-    "CNt": "裝備",
-    "DE": "Ausrüstung",
-    "IT": "Equipaggiamento",
-    "JP": "装備",
-    "KO": "장비",
-    "PL": "Ekwipunek",
-    "RU": "Снаряжение",
-    "SP": "Equipo",
-    "TR": "Ekipman"
   },
   {
     "id": "ret_mcm_section_user_interface",

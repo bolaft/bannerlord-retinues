@@ -41,6 +41,9 @@
       id="ret_editor_culture_select"
       text="Bir Kültür Seçin" />
     <string
+      id="ret_editor_done_button"
+      text="Tamamlandı" />
+    <string
       id="ret_editor_title"
       text="Birlik Düzenleyici" />
     <string
@@ -154,9 +157,6 @@
     <string
       id="ret_mcm_section_debug"
       text="Hata Ayıklama" />
-    <string
-      id="ret_mcm_section_equipment"
-      text="Ekipman" />
     <string
       id="ret_mcm_section_user_interface"
       text="Kullanıcı Arayüzü" />

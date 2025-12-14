@@ -266,7 +266,7 @@ namespace Retinues.Editor.VM.List
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private static readonly string[] TreeAwareSortHeaders = ["elite", "regular"];
-        private const int SortButtonsTotalWidth = 586;
+        private const int SortButtonsTotalWidth = 588;
 
         private MBBindingList<ListSortButtonVM> _sortButtons = [];
 

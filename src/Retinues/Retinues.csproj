@@ -33,6 +33,10 @@
       <HintPath>$(ReferenceRoot)/TaleWorlds.GauntletUI.Data.dll</HintPath>
       <Private>false</Private>
     </Reference>
+    <Reference Include="TaleWorlds.MountAndBlade.View">
+      <HintPath>$(ReferenceRoot)/TaleWorlds.MountAndBlade.View.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
     <Reference Include="TaleWorlds.MountAndBlade.ViewModelCollection">
       <HintPath>$(ReferenceRoot)/TaleWorlds.MountAndBlade.ViewModelCollection.dll</HintPath>
       <Private>false</Private>

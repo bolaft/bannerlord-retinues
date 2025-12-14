@@ -50,9 +50,6 @@ namespace Retinues.Editor.VM.List.Equipment
                 if (!Item.IsEquippableByCharacter(State.Character))
                     return false;
 
-                if (!Item.IsUnlocked && !Settings.AllItemsAvailable)
-                    return false;
-
                 return true;
             }
         }

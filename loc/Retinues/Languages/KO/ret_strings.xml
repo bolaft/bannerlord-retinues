@@ -41,6 +41,9 @@
       id="ret_editor_culture_select"
       text="문화를 선택하세요" />
     <string
+      id="ret_editor_done_button"
+      text="완료" />
+    <string
       id="ret_editor_title"
       text="부대 편집기" />
     <string
@@ -154,9 +157,6 @@
     <string
       id="ret_mcm_section_debug"
       text="디버그" />
-    <string
-      id="ret_mcm_section_equipment"
-      text="장비" />
     <string
       id="ret_mcm_section_user_interface"
       text="사용자 인터페이스" />

@@ -41,6 +41,9 @@
       id="ret_editor_culture_select"
       text="Wählen Sie eine Kultur" />
     <string
+      id="ret_editor_done_button"
+      text="Fertig" />
+    <string
       id="ret_editor_title"
       text="Truppen-Editor" />
     <string
@@ -154,9 +157,6 @@
     <string
       id="ret_mcm_section_debug"
       text="Debug" />
-    <string
-      id="ret_mcm_section_equipment"
-      text="Ausrüstung" />
     <string
       id="ret_mcm_section_user_interface"
       text="Benutzeroberfläche" />

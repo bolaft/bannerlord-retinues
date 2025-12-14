@@ -1,0 +1,49 @@
+<Prefab>
+  <Constants>
+    <Constant Name="Clan.Management.Collapser.Height" BrushLayer="Default" BrushName="Clan.Management.Collapser" BrushValueType="Height" />
+    <Constant Name="Clan.Management.Collapser.Width" BrushLayer="Default" BrushName="Clan.Management.Collapser" BrushValueType="Width" />
+    <Constant Name="Party.Toggle.ExpandIndicator.Height" BrushLayer="Default" BrushName="Party.Toggle.ExpandIndicator" BrushValueType="Height" />
+    <Constant Name="Party.Toggle.ExpandIndicator.Width" BrushLayer="Default" BrushName="Party.Toggle.ExpandIndicator" BrushValueType="Width" />
+    <Constant Name="Scroll.Header.Height" BrushLayer="Default" BrushName="Scroll.Header" BrushValueType="Height" />
+    <Constant Name="Scroll.Header.Width" BrushLayer="Default" BrushName="Scroll.Header" BrushValueType="Width" />
+    <Constant Name="Clan.Members.Sort.1.Height" BrushLayer="Default" BrushName="Clan.Members.Sort.1" BrushValueType="Height" />
+    <Constant Name="Clan.Members.Sort.1.Width" BrushLayer="Default" BrushName="Clan.Members.Sort.1" BrushValueType="Width" />
+  </Constants>
+
+  <!-- ClanScreen boilerplate you were missing -->
+  <VisualDefinitions>
+    <VisualDefinition Name="BottomMenu" EaseType="EaseOut" EaseFunction="Quint" TransitionDuration="0.45">
+      <VisualState PositionYOffset="0" State="Default" />
+    </VisualDefinition>
+    <VisualDefinition Name="TopPanel" EaseType="EaseOut" EaseFunction="Quint" TransitionDuration="0.45">
+      <VisualState PositionYOffset="0" State="Default" />
+    </VisualDefinition>
+  </VisualDefinitions>
+
+  <Window>
+    <Widget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent">
+      <Children>
+
+        <Standard.Background />
+
+        <!-- Lower Half (ClanScreen-style margins) -->
+        <Widget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+                MarginTop="188" MarginBottom="75">
+          <Children>
+            {% include "_/main.j2" %}
+          </Children>
+        </Widget>
+
+        <!-- Top Panel -->
+        {% include "_/top.j2" %}
+
+        <!-- Bottom close buttons (same look as ClanScreen) -->
+        <Standard.DialogCloseButtons VisualDefinition="BottomMenu" PositionYOffset="100"
+          Parameter.DoneButtonAction="ExecuteClose"
+          Parameter.DoneButtonText="@DoneButtonText"
+          Parameter.ShowCancel="false"/>
+
+      </Children>
+    </Widget>
+  </Window>
+</Prefab>
