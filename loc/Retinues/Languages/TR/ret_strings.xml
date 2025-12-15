@@ -251,6 +251,9 @@
       id="ret_sort_by_value"
       text="Değer" />
     <string
+      id="ret_traits_header_text"
+      text="Özellikler" />
+    <string
       id="ret_unequip_item_tooltip"
       text="Bu öğeyi donanımdan çıkar." />
     <string

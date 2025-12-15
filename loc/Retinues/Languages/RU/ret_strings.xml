@@ -251,6 +251,9 @@
       id="ret_sort_by_value"
       text="Значение" />
     <string
+      id="ret_traits_header_text"
+      text="Черты" />
+    <string
       id="ret_unequip_item_tooltip"
       text="Снять этот предмет." />
     <string

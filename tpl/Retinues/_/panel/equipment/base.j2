@@ -9,7 +9,7 @@
     MarginTop="4" MarginRight="54">
     <Children>
 
-        <!-- Slot Select Button -->
+        {# Slot Select Button #}
         <ButtonWidget
             IsEnabled="@IsEnabled"
             IsSelected="@IsSelected"
@@ -32,7 +32,7 @@
             </Children>
         </ButtonWidget>
 
-        <!-- Item Image -->
+        {# Item Image #}
         <Widget
             WidthSizePolicy="Fixed"
             HeightSizePolicy="Fixed"
@@ -44,7 +44,7 @@
             UpdateChildrenStates="true">
             <Children>
 
-                <!-- Actual image box stays in the top left -->
+                {# Actual image box stays in the top left #}
                 <Widget
                     WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
                     SuggestedWidth="72" SuggestedHeight="36"
@@ -81,7 +81,7 @@
                     </Children>
                 </Widget>
 
-                <!-- Unequip button now sits "overlapping", but still inside parent -->
+                {# Unequip button now sits "overlapping", but still inside parent #}
                 <ButtonWidget
                     IsVisible="@CanUnequip"
                     WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
@@ -100,7 +100,7 @@
             </Children>
         </Widget>
 
-        <!-- Item Text -->
+        {# Item Text #}
         <TextWidget
             Text="@ItemText"
             Brush="Clan.RightPanel.Name.Text"
@@ -128,7 +128,7 @@
 {%- endmacro %}
 
 
-<!-- Main slots list: renders rows for weapons, armor and mount slots -->
+{# Main slots list: renders rows for weapons, armor and mount slots #}
 <ListPanel
     DataSource="{EquipmentPanel}"
     IsVisible="@IsVisible"
@@ -143,26 +143,26 @@
             MarginBottom="24" MarginLeft="160">
             <Children>
 
-                <!-- Weapons -->
+                {# Weapons #}
                 {{ slot("{Weapon0Slot}") }}
                 {{ slot("{Weapon1Slot}") }}
                 {{ slot("{Weapon2Slot}") }}
                 {{ slot("{Weapon3Slot}") }}
 
-                <!-- Divider -->
+                {# Divider #}
                 {{ divider() }}
 
-                <!-- Armor -->
+                {# Armor #}
                 {{ slot("{HeadSlot}") }}
                 {{ slot("{CapeSlot}") }}
                 {{ slot("{BodySlot}") }}
                 {{ slot("{GlovesSlot}") }}
                 {{ slot("{LegSlot}") }}
 
-                <!-- Divider -->
+                {# Divider #}
                 {{ divider() }}
 
-                <!-- Mount -->
+                {# Mount #}
                 {{ slot("{HorseSlot}") }}
                 {{ slot("{HorseHarnessSlot}") }}
 

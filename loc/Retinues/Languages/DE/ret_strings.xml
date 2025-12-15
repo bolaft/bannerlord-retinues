@@ -251,6 +251,9 @@
       id="ret_sort_by_value"
       text="Wert" />
     <string
+      id="ret_traits_header_text"
+      text="Eigenschaften" />
+    <string
       id="ret_unequip_item_tooltip"
       text="Dieses Element ablegen." />
     <string

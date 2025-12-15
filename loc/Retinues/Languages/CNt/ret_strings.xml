@@ -251,6 +251,9 @@
       id="ret_sort_by_value"
       text="數值" />
     <string
+      id="ret_traits_header_text"
+      text="特質" />
+    <string
       id="ret_unequip_item_tooltip"
       text="卸下此物品。" />
     <string

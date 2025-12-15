@@ -4,6 +4,7 @@ using System.Linq;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Editor.Controllers;
 using Retinues.Helpers;
+using Retinues.Model.Characters;
 using Retinues.Model.Factions;
 using Retinues.Utilities;
 using TaleWorlds.Core;
@@ -106,6 +107,35 @@ namespace Retinues.Editor.VM.Panel.Character
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Traits                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [DataSourceProperty]
+        public string TraitsHeaderText => L.S("traits_header_text", "Traits");
+
+        [EventListener(UIEvent.Character)]
+        [DataSourceProperty]
+        public bool ShowTraits => State.Character.IsHero;
+
+        private MBBindingList<CharacterTraitVM> _traits;
+
+        [DataSourceProperty]
+        public MBBindingList<CharacterTraitVM> Traits
+        {
+            get
+            {
+                if (_traits == null)
+                {
+                    _traits = [];
+
+                    foreach (var trait in WHero.PersonalityTraits)
+                        _traits.Add(new CharacterTraitVM(trait));
+                }
+                return _traits;
+            }
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Skills                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
@@ -113,22 +143,22 @@ namespace Retinues.Editor.VM.Panel.Character
         public string SkillsHeaderText => L.S("skills_header_text", "Skills");
 
         [DataSourceProperty]
-        public MBBindingList<CharacterSkillVM> SkillsRow1 { get; } = new();
+        public MBBindingList<CharacterSkillVM> SkillsRow1 { get; } = [];
 
         [DataSourceProperty]
-        public MBBindingList<CharacterSkillVM> SkillsRow2 { get; } = new();
+        public MBBindingList<CharacterSkillVM> SkillsRow2 { get; } = [];
 
         [DataSourceProperty]
-        public MBBindingList<CharacterSkillVM> SkillsRow3 { get; } = new();
+        public MBBindingList<CharacterSkillVM> SkillsRow3 { get; } = [];
 
         [DataSourceProperty]
-        public MBBindingList<CharacterSkillVM> SkillsRow4 { get; } = new();
+        public MBBindingList<CharacterSkillVM> SkillsRow4 { get; } = [];
 
         [DataSourceProperty]
-        public MBBindingList<CharacterSkillVM> SkillsRow5 { get; } = new(); // optional safety
+        public MBBindingList<CharacterSkillVM> SkillsRow5 { get; } = []; // optional safety
 
         [DataSourceProperty]
-        public MBBindingList<CharacterSkillVM> SkillsRow6 { get; } = new(); // optional safety
+        public MBBindingList<CharacterSkillVM> SkillsRow6 { get; } = []; // optional safety
 
         [DataSourceProperty]
         public int SkillsCount { get; private set; }

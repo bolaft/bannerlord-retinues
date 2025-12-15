@@ -27,6 +27,7 @@ namespace Retinues.Editor
         Equipment,
         Slot,
         Item,
+        Trait,
     }
 
     public enum EventScope
@@ -106,6 +107,7 @@ namespace Retinues.Editor
                     UIEvent.Skill,
                     UIEvent.Gender,
                     UIEvent.Equipment,
+                    UIEvent.Trait,
                 }
             },
             { UIEvent.Equipment, new[] { UIEvent.Appearance, UIEvent.Item } },

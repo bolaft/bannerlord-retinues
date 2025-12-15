@@ -1,9 +1,9 @@
 {% from "_/panel/character/base.macros.j2" import field_header, field_label, field_button %}
 
-<!-- Culture Header -->
+{# Culture Header #}
 {{ field_header("@CultureHeaderText") }}
 
-<!-- Culture Block -->
+{# Culture Block #}
 <ListPanel
     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
     HorizontalAlignment="Center" VerticalAlignment="Center"
@@ -11,10 +11,10 @@
     MarginBottom="12">
     <Children>
 
-        <!-- Culture Name -->
+        {# Culture Name #}
         {{ field_label("@CultureText") }}
 
-        <!-- Change Culture Button -->
+        {# Change Culture Button #}
         {{ field_button("ExecuteChangeCulture", "SPClan.Parties.ChangePartyLeaderIcon", "40") }}
     </Children>
 </ListPanel>

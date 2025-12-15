@@ -251,6 +251,9 @@
       id="ret_sort_by_value"
       text="Valor" />
     <string
+      id="ret_traits_header_text"
+      text="Rasgos" />
+    <string
       id="ret_unequip_item_tooltip"
       text="Desequipar este objeto." />
     <string

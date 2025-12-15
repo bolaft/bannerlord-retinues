@@ -251,6 +251,9 @@
       id="ret_sort_by_value"
       text="Wartość" />
     <string
+      id="ret_traits_header_text"
+      text="Cechy" />
+    <string
       id="ret_unequip_item_tooltip"
       text="Odłóż ten przedmiot." />
     <string

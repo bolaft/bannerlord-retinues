@@ -1,19 +1,19 @@
 {% from "_/panel/character/base.macros.j2" import field_header, field_label, field_button %}
 
-<!-- Name Header -->
+{# Name Header #}
 {{ field_header("@NameHeaderText") }}
 
-<!-- Name Block -->
+{# Name Block #}
 <ListPanel
     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
     HorizontalAlignment="Center" VerticalAlignment="Center"
     StackLayout.LayoutMethod="HorizontalLeftToRight"
     MarginBottom="12">
     <Children>
-        <!-- Troop Name -->
+        {# Troop Name #}
         {{ field_label("@NameText") }}
 
-        <!-- Rename Button -->
+        {# Rename Button #}
         {{ field_button("ExecuteRename", "SPClan.NameChange.Icon", "32") }}
     </Children>
 </ListPanel>

@@ -10,7 +10,7 @@
     <Constant Name="Clan.Members.Sort.1.Width" BrushLayer="Default" BrushName="Clan.Members.Sort.1" BrushValueType="Width" />
   </Constants>
 
-  <!-- ClanScreen boilerplate you were missing -->
+  {# ClanScreen boilerplate you were missing #}
   <VisualDefinitions>
     <VisualDefinition Name="BottomMenu" EaseType="EaseOut" EaseFunction="Quint" TransitionDuration="0.45">
       <VisualState PositionYOffset="0" State="Default" />
@@ -26,7 +26,7 @@
 
         <Standard.Background />
 
-        <!-- Lower Half (ClanScreen-style margins) -->
+        {# Lower Half (ClanScreen-style margins) #}
         <Widget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
                 MarginTop="188" MarginBottom="75">
           <Children>
@@ -34,10 +34,10 @@
           </Children>
         </Widget>
 
-        <!-- Top Panel -->
+        {# Top Panel #}
         {% include "_/top.j2" %}
 
-        <!-- Bottom close buttons (same look as ClanScreen) -->
+        {# Bottom close buttons (same look as ClanScreen) #}
         <Standard.DialogCloseButtons VisualDefinition="BottomMenu" PositionYOffset="100"
           Parameter.DoneButtonAction="ExecuteClose"
           Parameter.DoneButtonText="@DoneButtonText"

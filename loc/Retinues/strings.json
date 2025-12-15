@@ -1312,6 +1312,22 @@
     "TR": "Değer"
   },
   {
+    "id": "ret_traits_header_text",
+    "EN": "Traits",
+    "FR": "Traits",
+    "BR": "Traços",
+    "CNs": "特质",
+    "CNt": "特質",
+    "DE": "Eigenschaften",
+    "IT": "Tratti",
+    "JP": "特性",
+    "KO": "특성",
+    "PL": "Cechy",
+    "RU": "Черты",
+    "SP": "Rasgos",
+    "TR": "Özellikler"
+  },
+  {
     "id": "ret_unequip_item_tooltip",
     "EN": "Unequip this item.",
     "FR": "Enlever cet équipement.",

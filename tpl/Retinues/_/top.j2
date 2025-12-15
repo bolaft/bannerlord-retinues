@@ -45,20 +45,20 @@
                     </ButtonWidget>
                 {%- endmacro %}
 
-                <!--Culture Banner-->
+                {#Culture Banner#}
                 {{ banner("ExecuteSelectCulture", "{CultureBanner}", "{CultureBannerHint}", "@CultureName", "20", "120", "Left") }}
 
-                <!--Clan Banner-->
+                {#Clan Banner#}
                 {{ banner("ExecuteSelectClan", "{ClanBanner}", "{ClanBannerHint}", "@ClanName", "-20", "-120", "Right") }}
 
-                <!--Clan Name Top Panel-->
+                {#Clan Name Top Panel#}
                 <Widget
                     WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
                     SuggestedWidth="887" SuggestedHeight="150"
                     HorizontalAlignment="Center" VerticalAlignment="Top"
                     Sprite="StdAssets\tabbar_long">
                     <Children>
-                        <!--Clan Name Container-->
+                        {#Clan Name Container#}
                         <Widget
                             WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                             HorizontalAlignment="Center" VerticalAlignment="Top"
@@ -72,7 +72,7 @@
                                     UpdateChildrenStates="true"
                                     GamepadNavigationIndex="2">
                                     <Children>
-                                        <!--Clan Name-->
+                                        {#Clan Name#}
                                         <ListPanel
                                             WidthSizePolicy="CoverChildren" HeightSizePolicy="StretchToParent"
                                             StackLayout.LayoutMethod="HorizontalLeftToRight"

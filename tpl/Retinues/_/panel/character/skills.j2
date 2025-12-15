@@ -59,10 +59,10 @@
             SuggestedWidth="@IconSize" SuggestedHeight="@Height"
             StackLayout.LayoutMethod="VerticalBottomToTop"
             HorizontalAlignment="Center"
-            MarginRight="@BigMargin" MarginLeft="@BigMargin" MarginBottom="@Margin" MarginTop="@SmallMargin">
+            MarginRight="@BigMargin" MarginLeft="@BigMargin" MarginBottom="@SmallMargin">
             <Children>
 
-                <!-- Visual Widget -->
+                {# Visual Widget #}
                 <SkillIconVisualWidget
                     SkillId="@Id"
                     WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
@@ -76,7 +76,7 @@
                     </Children>
                 </SkillIconVisualWidget>
 
-                <!-- Controls -->
+                {# Controls #}
                 <ListPanel
                     WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren"
                     StackLayout.LayoutMethod="HorizontalLeftToRight"
@@ -84,7 +84,7 @@
                     UpdateChildrenStates="true">
                     <Children>
 
-                        <!-- Decrement Skill -->
+                        {# Decrement Skill #}
                         {{ chevron(
                             command="ExecuteDecrease",
                             brush="ButtonRightBigArrowBrush1",
@@ -92,7 +92,7 @@
                             hint="{TooltipDecrease}"
                         ) }}
 
-                        <!-- Skill Value -->
+                        {# Skill Value #}
                         <TextWidget
                             IntText="@Value"
                             Brush="Encyclopedia.Skill.Text"
@@ -102,7 +102,7 @@
                             SuggestedWidth="@TextWidth" SuggestedHeight="24"
                             HorizontalAlignment="Center" VerticalAlignment="Center" />
 
-                        <!-- Increase Skill -->
+                        {# Increase Skill #}
                         {{ chevron(
                             command="ExecuteIncrease",
                             brush="ButtonLeftBigArrowBrush1",
@@ -123,7 +123,7 @@
 
 {{ field_header("@SkillsHeaderText") }}
 
-<!-- Skills Grid -->
+{# Skills Grid #}
 <ListPanel
     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
     HorizontalAlignment="Center"
@@ -163,7 +163,7 @@
             <ItemTemplate>{{ skill() }}</ItemTemplate>
         </ListPanel>
 
-        <!-- Optional extra safety for >24 skills -->
+        {# Optional extra safety for >24 skills #}
         <ListPanel DataSource="{SkillsRow5}" HorizontalAlignment="Center"
             WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
             StackLayout.LayoutMethod="HorizontalLeftToRight"

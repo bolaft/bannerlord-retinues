@@ -251,6 +251,9 @@
       id="ret_sort_by_value"
       text="값" />
     <string
+      id="ret_traits_header_text"
+      text="특성" />
+    <string
       id="ret_unequip_item_tooltip"
       text="이 아이템을 장비 해제합니다." />
     <string
