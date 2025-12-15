@@ -318,34 +318,14 @@ namespace Retinues.Editor.VM.Panel.Character
         //                        Upgrades                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        [EventListener(UIEvent.Character)]
+        [EventListener(UIEvent.Character, UIEvent.Tree)]
         [DataSourceProperty]
         public bool HasUpgradeSources => State.Character.UpgradeSources.Any();
 
         [DataSourceProperty]
         public string UpgradeSourcesHeaderText => L.S("upgrade_sources_header_text", "Origin");
 
-        [EventListener(UIEvent.Character)]
-        [DataSourceProperty]
-        public MBBindingList<CharacterUpgradeVM> UpgradeTargets
-        {
-            get
-            {
-                var targets = new MBBindingList<CharacterUpgradeVM>();
-                foreach (var source in State.Character.UpgradeTargets)
-                    targets.Add(new CharacterUpgradeVM(source));
-                return targets;
-            }
-        }
-
-        [EventListener(UIEvent.Character)]
-        [DataSourceProperty]
-        public bool HasUpgradeTargets => State.Character.UpgradeTargets.Any();
-
-        [DataSourceProperty]
-        public string UpgradeTargetsHeaderText => L.S("upgrade_targets_header_text", "Upgrades");
-
-        [EventListener(UIEvent.Character)]
+        [EventListener(UIEvent.Character, UIEvent.Tree)]
         [DataSourceProperty]
         public MBBindingList<CharacterUpgradeVM> UpgradeSources
         {
@@ -355,6 +335,26 @@ namespace Retinues.Editor.VM.Panel.Character
                 foreach (var source in State.Character.UpgradeSources)
                     sources.Add(new CharacterUpgradeVM(source));
                 return sources;
+            }
+        }
+
+        [EventListener(UIEvent.Character, UIEvent.Tree)]
+        [DataSourceProperty]
+        public bool HasUpgradeTargets => State.Character.UpgradeTargets.Any();
+
+        [DataSourceProperty]
+        public string UpgradeTargetsHeaderText => L.S("upgrade_targets_header_text", "Upgrades");
+
+        [EventListener(UIEvent.Character, UIEvent.Tree)]
+        [DataSourceProperty]
+        public MBBindingList<CharacterUpgradeVM> UpgradeTargets
+        {
+            get
+            {
+                var targets = new MBBindingList<CharacterUpgradeVM>();
+                foreach (var source in State.Character.UpgradeTargets)
+                    targets.Add(new CharacterUpgradeVM(source));
+                return targets;
             }
         }
     }

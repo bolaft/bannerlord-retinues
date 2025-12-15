@@ -37,6 +37,54 @@ namespace Retinues.Model.Characters
             set => UpgradeTargetsAttribute.Set(value ?? []);
         }
 
+        public bool AddUpgradeTarget(WCharacter target)
+        {
+            if (target == null)
+                return false;
+
+            // Avoid self-loops.
+            if (target == this)
+                return false;
+
+            var list = UpgradeTargets;
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (list[i] == target)
+                    return false;
+            }
+
+            list.Add(target);
+            UpgradeTargets = list;
+            return true;
+        }
+
+        public bool RemoveUpgradeTarget(WCharacter target)
+        {
+            if (target == null)
+                return false;
+
+            var list = UpgradeTargets;
+            if (list.Count == 0)
+                return false;
+
+            var removed = false;
+
+            // Backwards in case of duplicates (should not happen, but safe).
+            for (int i = list.Count - 1; i >= 0; i--)
+            {
+                if (list[i] == target)
+                {
+                    list.RemoveAt(i);
+                    removed = true;
+                }
+            }
+
+            if (removed)
+                UpgradeTargets = list;
+
+            return removed;
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Character Tree                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

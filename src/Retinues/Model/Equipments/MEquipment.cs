@@ -63,7 +63,7 @@ namespace Retinues.Model.Equipments
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                       Items API                        //
+        //                        Items API                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public WItem GetItem(EquipmentIndex index)
@@ -81,7 +81,7 @@ namespace Retinues.Model.Equipments
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //              Serialization (single equipment)           //
+        //                      Serialization                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         const string KeyVersion = "v";
@@ -110,7 +110,7 @@ namespace Retinues.Model.Equipments
                 return null;
 
             if (value.IndexOf('=') < 0)
-                return null; // No legacy support by design.
+                return null;
 
             var map = DeserializeKv(value);
 
@@ -132,7 +132,7 @@ namespace Retinues.Model.Equipments
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                 Serialization (list container)          //
+        //                  Serialization (List)                  //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         const string KeyKind = "kind";
@@ -190,7 +190,7 @@ namespace Retinues.Model.Equipments
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                       KV helpers                       //
+        //                       KV Helpers                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         static string SerializeKv(Dictionary<string, string> map)

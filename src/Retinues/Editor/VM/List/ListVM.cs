@@ -107,10 +107,10 @@ namespace Retinues.Editor.VM.List
         }
 
         /// <summary>
-        /// On faction change, rebuild the list if in character page.
+        /// On tree change, rebuild the list if in character page.
         /// </summary>
-        [EventListener(UIEvent.Faction)]
-        private void OnFactionChange()
+        [EventListener(UIEvent.Tree)]
+        private void OnTreeChange()
         {
             if (EditorVM.Page == EditorPage.Character)
                 Builder.Build(this);

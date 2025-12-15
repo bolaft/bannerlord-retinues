@@ -28,6 +28,7 @@ namespace Retinues.Editor
         Slot,
         Item,
         Trait,
+        Tree,
     }
 
     public enum EventScope
@@ -96,7 +97,7 @@ namespace Retinues.Editor
         /// </summary>
         private static readonly Dictionary<UIEvent, UIEvent[]> _hierarchy = new()
         {
-            { UIEvent.Faction, new[] { UIEvent.Character } },
+            { UIEvent.Faction, new[] { UIEvent.Character, UIEvent.Tree } },
             {
                 UIEvent.Character,
                 new[]
