@@ -67,6 +67,14 @@ namespace Retinues.Editor.Screen
         {
             base.OnActivate();
 
+            // If we are coming back from the barber, keep the existing movie/layer.
+            if (_gauntletLayer != null)
+            {
+                _gauntletLayer.IsFocusLayer = true;
+                ScreenManager.TrySetFocus(_gauntletLayer);
+                return;
+            }
+
             Sprites.Load(SpriteSheetsToLoad);
 
             _gauntletLayer = new GauntletLayer("GauntletLayer", 1, shouldClear: true);
@@ -85,7 +93,6 @@ namespace Retinues.Editor.Screen
             var args = (_state as EditorState)?.LaunchArgs;
 
             _dataSource = new EditorVM(Close, args) { IsVisible = true };
-
             _movie = _gauntletLayer.LoadMovie("EditorScreen", _dataSource);
         }
 
@@ -93,13 +100,19 @@ namespace Retinues.Editor.Screen
         {
             _dataSource?.OnFinalize();
             _dataSource = null;
-            _movie = null;
-            _gauntletLayer = null;
-        }
 
-        private void Close()
-        {
-            Game.Current?.GameStateManager?.PopState();
+            // Ensure we clean up even if we skipped teardown during barber.
+            if (_gauntletLayer != null && _movie != null)
+            {
+                _gauntletLayer.ReleaseMovie(_movie);
+                _movie = null;
+            }
+
+            if (_gauntletLayer != null)
+            {
+                RemoveLayer(_gauntletLayer);
+                _gauntletLayer = null;
+            }
         }
 
         void IGameStateListener.OnDeactivate()
@@ -108,6 +121,14 @@ namespace Retinues.Editor.Screen
 
             if (_gauntletLayer == null)
                 return;
+
+            // If the barber is open, do NOT destroy our UI.
+            if (Retinues.Editor.Barber.HasActiveSession)
+            {
+                _gauntletLayer.IsFocusLayer = false;
+                ScreenManager.TryLoseFocus(_gauntletLayer);
+                return;
+            }
 
             if (_movie != null)
             {
@@ -125,6 +146,11 @@ namespace Retinues.Editor.Screen
         void IGameStateListener.OnInitialize()
         {
             OnInitialize();
+        }
+
+        private void Close()
+        {
+            Game.Current?.GameStateManager?.PopState();
         }
     }
 }

@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using Retinues.Model.Characters;
+using Retinues.Model.Factions;
 using Retinues.Utilities;
 
 namespace Retinues.Editor.VM.List.Character
@@ -47,9 +49,13 @@ namespace Retinues.Editor.VM.List.Character
                 string headerLocKey,
                 string headerFallback,
                 IEnumerable<WCharacter> characters,
+                Func<bool> condition = null,
                 bool civilian = false
             )
             {
+                if (condition != null && !condition())
+                    return;
+
                 var header = new CharacterListHeaderVM(
                     list,
                     headerId,
@@ -81,7 +87,8 @@ namespace Retinues.Editor.VM.List.Character
                 "heroes",
                 "list_header_heroes",
                 L.S("list_header_heroes", "Heroes"),
-                faction.RosterHeroes
+                faction.RosterHeroes,
+                condition: () => faction is WClan
             );
 
             // Retinues.
@@ -90,7 +97,8 @@ namespace Retinues.Editor.VM.List.Character
                 "retinues",
                 "list_header_retinues",
                 L.S("list_header_retinues", "Retinues"),
-                faction.RosterRetinues
+                faction.RosterRetinues,
+                condition: () => faction is WClan
             );
 
             // Elite tree.
@@ -117,7 +125,8 @@ namespace Retinues.Editor.VM.List.Character
                 "militia",
                 "list_header_militia",
                 L.S("list_header_militia", "Militia"),
-                faction.RosterMilitia
+                faction.RosterMilitia,
+                condition: () => faction is WCulture
             );
 
             // Caravan.
@@ -126,7 +135,8 @@ namespace Retinues.Editor.VM.List.Character
                 "caravan",
                 "list_header_caravan",
                 L.S("list_header_caravan", "Caravan"),
-                faction.RosterCaravan
+                faction.RosterCaravan,
+                condition: () => faction is WCulture
             );
 
             // Villagers.
@@ -135,7 +145,8 @@ namespace Retinues.Editor.VM.List.Character
                 "villagers",
                 "list_header_villagers",
                 L.S("list_header_villagers", "Villagers"),
-                faction.RosterVillager
+                faction.RosterVillager,
+                condition: () => faction is WCulture
             );
 
             // Bandits.
@@ -144,7 +155,8 @@ namespace Retinues.Editor.VM.List.Character
                 "bandits",
                 "list_header_bandits",
                 L.S("list_header_bandits", "Bandits"),
-                faction.RosterBandit
+                faction.RosterBandit,
+                condition: () => faction is WCulture
             );
 
             // Civilians.
@@ -154,7 +166,8 @@ namespace Retinues.Editor.VM.List.Character
                 "list_header_civilians",
                 L.S("list_header_civilians", "Civilians"),
                 faction.RosterCivilian,
-                civilian: true
+                civilian: true,
+                condition: () => faction is WCulture
             );
 
             // Apply headers in one operation.

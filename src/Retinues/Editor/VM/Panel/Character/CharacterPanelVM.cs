@@ -4,7 +4,6 @@ using System.Linq;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Editor.Controllers;
 using Retinues.Helpers;
-using Retinues.Model.Characters;
 using Retinues.Model.Factions;
 using Retinues.Utilities;
 using TaleWorlds.Core;

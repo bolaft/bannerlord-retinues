@@ -52,7 +52,21 @@ namespace Retinues.Model.Factions
         //                       Characters                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public override WCharacter RootBasic => WCharacter.Get(Base.BasicTroop);
+        public override WCharacter RootBasic
+        {
+            get
+            {
+                var root = WCharacter.Get(Base.BasicTroop);
+                if (root == null)
+                    return null;
+
+                // A root shared with a culture is not a custom root.
+                if (root == Culture.RootBasic)
+                    return null;
+
+                return root;
+            }
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Territory                       //

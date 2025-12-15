@@ -33,7 +33,13 @@ namespace Retinues.Editor.VM.Column
             // Hero path: open character editor.
             if (State.Character.Hero is WHero wh)
             {
-                Barber.OpenForHero(wh.Base);
+                Barber.OpenForHero(
+                    wh.Base,
+                    () =>
+                    {
+                        EventManager.Fire(UIEvent.Appearance, EventScope.Global);
+                    }
+                );
             }
             // Regular path: show controls.
             else
