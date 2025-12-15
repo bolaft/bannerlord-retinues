@@ -57,6 +57,44 @@
                     VerticalAlignment="Center"
                     Sprite="@FormationClassIcon" />
 
+                {# Main Hero Icon #}
+                <SpriteWidget
+                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                    HorizontalAlignment="Left" VerticalAlignment="Center"
+                    IsVisible="@ShowMainHeroIcon"
+                    Sprite="SPGeneral\GeneralFlagIcons\unique"
+                    Color="#c0aa6dff"
+                    SuggestedWidth="32" SuggestedHeight="32"
+                    MarginRight="12" />
+
+                {# Clan Leader Icon #}
+                <SpriteWidget
+                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                    HorizontalAlignment="Left" VerticalAlignment="Center"
+                    IsVisible="@ShowClanLeaderIcon"
+                    Sprite="SPGeneral\MapOverlay\Settlement\icon_security"
+                    Color="#c0aa6dff"
+                    SuggestedWidth="36" SuggestedHeight="36"
+                    MarginRight="12" />
+
+                {# Faction Leader Icon #}
+                <SpriteWidget
+                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                    HorizontalAlignment="Left" VerticalAlignment="Center"
+                    IsVisible="@ShowFactionLeaderIcon"
+                    Sprite="SPGeneral\SPScoreboard\leader_crown_icon"
+                    SuggestedWidth="24" SuggestedHeight="24"
+                    MarginRight="12" />
+
+                {# Companion Icon #}
+                <SpriteWidget
+                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                    HorizontalAlignment="Left" VerticalAlignment="Center"
+                    IsVisible="@ShowCompanionIcon"
+                    Sprite="SPGeneral\MapOverlay\Settlement\notable_toggle"
+                    SuggestedWidth="32" SuggestedHeight="32"
+                    MarginRight="12" />
+
                 {# Name #}
                 <TextWidget
                     WidthSizePolicy="StretchToParent"

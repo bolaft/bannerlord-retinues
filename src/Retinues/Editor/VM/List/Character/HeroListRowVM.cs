@@ -46,6 +46,22 @@ namespace Retinues.Editor.VM.List.Character
         public string Name => Hero.Name;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Hero Icons                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [DataSourceProperty]
+        public bool ShowMainHeroIcon => Hero.IsMainHero;
+
+        [DataSourceProperty]
+        public bool ShowClanLeaderIcon => Hero.IsClanLeader && !ShowMainHeroIcon;
+
+        [DataSourceProperty]
+        public bool ShowFactionLeaderIcon => Hero.IsFactionLeader && !ShowMainHeroIcon;
+
+        [DataSourceProperty]
+        public bool ShowCompanionIcon => Hero.IsCompanion;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Formation Class                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 

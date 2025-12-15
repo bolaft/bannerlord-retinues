@@ -86,6 +86,7 @@ namespace Retinues.Model.Characters
         public bool IsLord => Base.IsLord;
         public bool IsCompanion => Base.IsPlayerCompanion;
         public bool IsMainHero => Base.StringId == Hero.MainHero.StringId;
+        public bool IsClanLeader => Base.IsClanLeader;
         public bool IsFactionLeader => Base.IsFactionLeader;
         public bool IsNotable => Base.IsNotable;
         public bool IsPartyLeader => Base.IsPartyLeader;

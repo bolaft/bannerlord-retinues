@@ -1,6 +1,7 @@
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Editor.Controllers;
 using Retinues.Helpers;
+using Retinues.Model.Characters;
 using Retinues.Utilities;
 using TaleWorlds.Library;
 
@@ -11,10 +12,6 @@ namespace Retinues.Editor.VM.Column
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Show / Hide                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        [EventListener(UIEvent.Character)]
-        [DataSourceProperty]
-        public bool IsVisible => State.Character.IsHero == false;
 
         [DataSourceProperty]
         public bool ShowCustomization { get; set; } = false;
@@ -33,10 +30,19 @@ namespace Retinues.Editor.VM.Column
         [DataSourceMethod]
         public void ExecuteToggleCustomization()
         {
-            ShowCustomization = !ShowCustomization;
+            // Hero path: open character editor.
+            if (State.Character.Hero is WHero wh)
+            {
+                Barber.OpenForHero(wh.Base);
+            }
+            // Regular path: show controls.
+            else
+            {
+                ShowCustomization = !ShowCustomization;
 
-            OnPropertyChanged(nameof(ShowCustomization));
-            OnPropertyChanged(nameof(CustomizationHint));
+                OnPropertyChanged(nameof(ShowCustomization));
+                OnPropertyChanged(nameof(CustomizationHint));
+            }
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
