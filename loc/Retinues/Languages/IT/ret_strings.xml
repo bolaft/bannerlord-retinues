@@ -170,6 +170,12 @@
       id="ret_name_header_text"
       text="Nome" />
     <string
+      id="ret_no_clans_text"
+      text="Nessun clan è caricato nel gioco corrente." />
+    <string
+      id="ret_no_clans_title"
+      text="Nessun clan trovato" />
+    <string
       id="ret_no_cultures_text"
       text="Nessuna cultura è caricata nel gioco corrente." />
     <string
@@ -202,6 +208,12 @@
     <string
       id="ret_scroll_to_top_tooltip"
       text="Scorri fino in cima alla lista." />
+    <string
+      id="ret_select_clan_title"
+      text="Seleziona clan" />
+    <string
+      id="ret_select_culture_title"
+      text="Seleziona cultura" />
     <string
       id="ret_skill_decrease_mined_reason"
       text="Impossibile diminuire l&apos;abilità al di sotto di 0." />
