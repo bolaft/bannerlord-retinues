@@ -137,6 +137,9 @@
       id="ret_list_header_heroes"
       text="Bohaterowie" />
     <string
+      id="ret_list_header_mercenaries"
+      text="Najemnicy" />
+    <string
       id="ret_list_header_militia"
       text="Milicja" />
     <string
@@ -182,6 +185,12 @@
       id="ret_no_cultures_title"
       text="Nie znaleziono kultur" />
     <string
+      id="ret_only_battle_tooltip"
+      text="Dostępne są tylko wyposażenia bojowe." />
+    <string
+      id="ret_only_civilian_tooltip"
+      text="Dostępne są tylko wyposażenia cywilne." />
+    <string
       id="ret_rename_troop"
       text="Zmień nazwę oddziału" />
     <string
@@ -214,6 +223,12 @@
     <string
       id="ret_select_culture_title"
       text="Wybierz kulturę" />
+    <string
+      id="ret_show_battle_tooltip"
+      text="Pokaż wyposażenie bojowe." />
+    <string
+      id="ret_show_civilian_tooltip"
+      text="Pokaż wyposażenie cywilne." />
     <string
       id="ret_skill_decrease_mined_reason"
       text="Nie można zmniejszyć umiejętności poniżej 0." />

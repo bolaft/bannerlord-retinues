@@ -137,6 +137,9 @@
       id="ret_list_header_heroes"
       text="Heróis" />
     <string
+      id="ret_list_header_mercenaries"
+      text="Mercenários" />
+    <string
       id="ret_list_header_militia"
       text="Milícia" />
     <string
@@ -182,6 +185,12 @@
       id="ret_no_cultures_title"
       text="Nenhuma Cultura Encontrada" />
     <string
+      id="ret_only_battle_tooltip"
+      text="Apenas equipamentos de batalha estão disponíveis." />
+    <string
+      id="ret_only_civilian_tooltip"
+      text="Apenas equipamentos civis estão disponíveis." />
+    <string
       id="ret_rename_troop"
       text="Renomear Tropas" />
     <string
@@ -214,6 +223,12 @@
     <string
       id="ret_select_culture_title"
       text="Selecionar Cultura" />
+    <string
+      id="ret_show_battle_tooltip"
+      text="Mostrar equipamentos de batalha." />
+    <string
+      id="ret_show_civilian_tooltip"
+      text="Mostrar equipamentos civis." />
     <string
       id="ret_skill_decrease_mined_reason"
       text="Não é possível diminuir a habilidade abaixo de 0." />

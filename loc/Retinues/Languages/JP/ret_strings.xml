@@ -137,6 +137,9 @@
       id="ret_list_header_heroes"
       text="英雄" />
     <string
+      id="ret_list_header_mercenaries"
+      text="傭兵" />
+    <string
       id="ret_list_header_militia"
       text="民兵" />
     <string
@@ -182,6 +185,12 @@
       id="ret_no_cultures_title"
       text="文化が見つかりません" />
     <string
+      id="ret_only_battle_tooltip"
+      text="戦闘用の装備のみが利用可能です。" />
+    <string
+      id="ret_only_civilian_tooltip"
+      text="民間用の装備のみが利用可能です。" />
+    <string
       id="ret_rename_troop"
       text="部隊の名前を変更" />
     <string
@@ -214,6 +223,12 @@
     <string
       id="ret_select_culture_title"
       text="文化を選択" />
+    <string
+      id="ret_show_battle_tooltip"
+      text="戦闘装備を表示します。" />
+    <string
+      id="ret_show_civilian_tooltip"
+      text="民間用装備を表示します。" />
     <string
       id="ret_skill_decrease_mined_reason"
       text="スキルを0未満に下げることはできません。" />

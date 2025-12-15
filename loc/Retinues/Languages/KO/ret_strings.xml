@@ -137,6 +137,9 @@
       id="ret_list_header_heroes"
       text="영웅" />
     <string
+      id="ret_list_header_mercenaries"
+      text="용병" />
+    <string
       id="ret_list_header_militia"
       text="민병대" />
     <string
@@ -182,6 +185,12 @@
       id="ret_no_cultures_title"
       text="문화가 없습니다" />
     <string
+      id="ret_only_battle_tooltip"
+      text="전투 장비만 사용할 수 있습니다." />
+    <string
+      id="ret_only_civilian_tooltip"
+      text="민간 장비만 사용할 수 있습니다." />
+    <string
       id="ret_rename_troop"
       text="부대 이름 바꾸기" />
     <string
@@ -214,6 +223,12 @@
     <string
       id="ret_select_culture_title"
       text="문화 선택" />
+    <string
+      id="ret_show_battle_tooltip"
+      text="전투 장비를 표시합니다." />
+    <string
+      id="ret_show_civilian_tooltip"
+      text="민간 장비를 표시합니다." />
     <string
       id="ret_skill_decrease_mined_reason"
       text="기술을 0 이하로 낮출 수 없습니다." />

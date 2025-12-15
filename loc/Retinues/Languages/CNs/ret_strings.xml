@@ -137,6 +137,9 @@
       id="ret_list_header_heroes"
       text="英雄" />
     <string
+      id="ret_list_header_mercenaries"
+      text="雇佣兵" />
+    <string
       id="ret_list_header_militia"
       text="民兵" />
     <string
@@ -182,6 +185,12 @@
       id="ret_no_cultures_title"
       text="未找到文化" />
     <string
+      id="ret_only_battle_tooltip"
+      text="仅战斗装备可用。" />
+    <string
+      id="ret_only_civilian_tooltip"
+      text="仅平民装备可用。" />
+    <string
       id="ret_rename_troop"
       text="重命名部队" />
     <string
@@ -214,6 +223,12 @@
     <string
       id="ret_select_culture_title"
       text="选择文化" />
+    <string
+      id="ret_show_battle_tooltip"
+      text="显示战斗装备。" />
+    <string
+      id="ret_show_civilian_tooltip"
+      text="显示民用装备。" />
     <string
       id="ret_skill_decrease_mined_reason"
       text="技能不能降低到0以下。" />

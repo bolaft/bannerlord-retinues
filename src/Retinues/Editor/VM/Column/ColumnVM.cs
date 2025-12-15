@@ -1,14 +1,12 @@
 using System.Diagnostics.Tracing;
 using Bannerlord.UIExtenderEx.Attributes;
+using Retinues.Editor.VM.Column.Equipment;
 using Retinues.Utilities;
 using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Library;
 
 namespace Retinues.Editor.VM.Column
 {
-    /// <summary>
-    /// Root editor ViewModel; initializes shared state and child VMs.
-    /// </summary>
     public class ColumnVM : BaseVM
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -19,6 +17,11 @@ namespace Retinues.Editor.VM.Column
 
         [DataSourceProperty]
         public CustomizationControlsVM CustomizationControls => _customizationControls;
+
+        private readonly EquipmentControlsVM _equipmentControls = new();
+
+        [DataSourceProperty]
+        public EquipmentControlsVM EquipmentControls => _equipmentControls;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Model                         //
@@ -33,16 +36,14 @@ namespace Retinues.Editor.VM.Column
             private set
             {
                 if (ReferenceEquals(value, _model))
-                {
                     return;
-                }
 
                 _model = value;
                 OnPropertyChanged(nameof(Model));
             }
         }
 
-        // Rebuild the tableau model whenever the current troop changes.
+        // Build the tableau model whenever the current troop / appearance changes.
         [EventListener(UIEvent.Character, UIEvent.Appearance)]
         private void RebuildModel()
         {
@@ -54,10 +55,36 @@ namespace Retinues.Editor.VM.Column
             }
 
             var co = character.Base;
+
             var vm = new CharacterViewModel(CharacterViewModel.StanceTypes.None);
             vm.FillFrom(co, seed: -1);
 
+            // Important: apply selected equipment after FillFrom.
+            ApplyEquipmentTo(vm);
+
             Model = vm;
+        }
+
+        // Apply the selected equipment without rebuilding the whole VM.
+        [EventListener(UIEvent.Equipment)]
+        private void RefreshModelEquipment()
+        {
+            if (Model == null)
+            {
+                RebuildModel();
+                return;
+            }
+
+            ApplyEquipmentTo(Model);
+        }
+
+        private static void ApplyEquipmentTo(CharacterViewModel vm)
+        {
+            var equipment = State.Equipment?.Base;
+            if (equipment == null)
+                return;
+
+            vm.SetEquipment(equipment);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

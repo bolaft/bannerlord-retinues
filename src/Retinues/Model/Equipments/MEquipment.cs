@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Retinues.Model.Characters;
 using TaleWorlds.Core;
 
@@ -73,79 +74,13 @@ namespace Retinues.Model.Equipments
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                    Convenience Slots                   //
+        //                        Equality                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public WItem Weapon0
-        {
-            get => GetItem(EquipmentIndex.Weapon0);
-            set => SetItem(EquipmentIndex.Weapon0, value);
-        }
+        public bool Equals(MEquipment other) => other != null && ReferenceEquals(Base, other.Base);
 
-        public WItem Weapon1
-        {
-            get => GetItem(EquipmentIndex.Weapon1);
-            set => SetItem(EquipmentIndex.Weapon1, value);
-        }
+        public override bool Equals(object obj) => obj is MEquipment other && Equals(other);
 
-        public WItem Weapon2
-        {
-            get => GetItem(EquipmentIndex.Weapon2);
-            set => SetItem(EquipmentIndex.Weapon2, value);
-        }
-
-        public WItem Weapon3
-        {
-            get => GetItem(EquipmentIndex.Weapon3);
-            set => SetItem(EquipmentIndex.Weapon3, value);
-        }
-
-        public WItem ExtraWeapon
-        {
-            get => GetItem(EquipmentIndex.ExtraWeaponSlot);
-            set => SetItem(EquipmentIndex.ExtraWeaponSlot, value);
-        }
-
-        public WItem Head
-        {
-            get => GetItem(EquipmentIndex.Head);
-            set => SetItem(EquipmentIndex.Head, value);
-        }
-
-        public WItem Body
-        {
-            get => GetItem(EquipmentIndex.Body);
-            set => SetItem(EquipmentIndex.Body, value);
-        }
-
-        public WItem Leg
-        {
-            get => GetItem(EquipmentIndex.Leg);
-            set => SetItem(EquipmentIndex.Leg, value);
-        }
-
-        public WItem Gloves
-        {
-            get => GetItem(EquipmentIndex.Gloves);
-            set => SetItem(EquipmentIndex.Gloves, value);
-        }
-
-        public WItem Cape
-        {
-            get => GetItem(EquipmentIndex.Cape);
-            set => SetItem(EquipmentIndex.Cape, value);
-        }
-
-        public WItem Horse
-        {
-            get => GetItem(EquipmentIndex.Horse);
-            set => SetItem(EquipmentIndex.Horse, value);
-        }
-
-        public WItem HorseHarness
-        {
-            get => GetItem(EquipmentIndex.HorseHarness);
-            set => SetItem(EquipmentIndex.HorseHarness, value);
-        }
+        public override int GetHashCode() => Base == null ? 0 : RuntimeHelpers.GetHashCode(Base);
     }
 }

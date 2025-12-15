@@ -137,6 +137,9 @@
       id="ret_list_header_heroes"
       text="Heroes" />
     <string
+      id="ret_list_header_mercenaries"
+      text="Mercenaries" />
+    <string
       id="ret_list_header_militia"
       text="Militia" />
     <string
@@ -182,6 +185,12 @@
       id="ret_no_cultures_title"
       text="No Cultures Found" />
     <string
+      id="ret_only_battle_tooltip"
+      text="Only battle equipments are available." />
+    <string
+      id="ret_only_civilian_tooltip"
+      text="Only civilian equipments are available." />
+    <string
       id="ret_rename_troop"
       text="Rename Troop" />
     <string
@@ -214,6 +223,12 @@
     <string
       id="ret_select_culture_title"
       text="Select Culture" />
+    <string
+      id="ret_show_battle_tooltip"
+      text="Show battle equipments." />
+    <string
+      id="ret_show_civilian_tooltip"
+      text="Show civilian equipments." />
     <string
       id="ret_skill_decrease_mined_reason"
       text="Cannot decrease skill below 0." />
