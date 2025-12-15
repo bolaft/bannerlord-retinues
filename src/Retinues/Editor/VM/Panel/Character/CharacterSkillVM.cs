@@ -11,21 +11,45 @@ namespace Retinues.Editor.VM.Panel.Character
     /// </summary>
     public class CharacterSkillVM : BaseVM
     {
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                       Constructor                      //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
         private readonly SkillObject _skill;
         private readonly Tooltip _hint;
 
-        public CharacterSkillVM(SkillObject skill)
+        private readonly CharacterPanelVM.SkillsGridLayout _layout;
+
+        public CharacterSkillVM(SkillObject skill, CharacterPanelVM.SkillsGridLayout layout)
         {
             _skill = skill;
+            _layout = layout;
             _hint = new Tooltip(_skill.Name.ToString());
 
             RefreshSkillIncrease();
             RefreshSkillDecrease();
         }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Layout                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [DataSourceProperty]
+        public int IconSize => _layout.IconSize; // 80
+
+        [DataSourceProperty]
+        public int ChevronSize => _layout.ChevronSize; // 20
+
+        [DataSourceProperty]
+        public int TextWidth => IconSize - (ChevronSize * 2);
+
+        [DataSourceProperty]
+        public int SmallMargin => _layout.SmallMargin; // 4
+
+        [DataSourceProperty]
+        public int Margin => SmallMargin * 2; // 8
+
+        [DataSourceProperty]
+        public int BigMargin => SmallMargin * 4; // 16
+
+        [DataSourceProperty]
+        public int Height => IconSize + 30;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Main                          //

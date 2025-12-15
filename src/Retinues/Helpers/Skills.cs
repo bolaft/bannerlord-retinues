@@ -24,7 +24,7 @@ namespace Retinues.Helpers
             public readonly bool IncludeModded = includeModded;
 
             public static SkillListOptions ForCharacter(bool isHeroLike) =>
-                new(includeHeroOnly: isHeroLike, includeDlc: true, includeModded: true);
+                new(includeHeroOnly: isHeroLike, includeDlc: isHeroLike, includeModded: true);
 
             public static SkillListOptions ForHero() =>
                 new(includeHeroOnly: true, includeDlc: true, includeModded: true);
@@ -113,7 +113,6 @@ namespace Retinues.Helpers
 
         public static List<SkillObject> GetSkillList(SkillListOptions options)
         {
-            // Cache "all skills" once MBObjectManager is available.
             _allSkillsCached ??= GetAllSkillsFromObjectManager();
 
             var all = _allSkillsCached;
@@ -122,9 +121,6 @@ namespace Retinues.Helpers
 
             bool navalLoaded = Mods.NavalDLC.IsLoaded;
 
-            // Split into:
-            // - "known/default" (present in DefaultSkills)
-            // - "modded" (not in DefaultSkills)
             var known = all.Where(s =>
                 !string.IsNullOrEmpty(s.StringId) && DefaultSkillIds.Contains(s.StringId)
             );
@@ -133,29 +129,36 @@ namespace Retinues.Helpers
             );
 
             IEnumerable<SkillObject> filteredKnown = known;
+            IEnumerable<SkillObject> filteredModded = modded;
 
-            // Hero-only gating
+            // Hero-only gating (apply to both buckets)
             if (!options.IncludeHeroOnly)
+            {
                 filteredKnown = filteredKnown.Where(s => !IsHeroOnlyId(s.StringId));
+                filteredModded = filteredModded.Where(s => !IsHeroOnlyId(s.StringId));
+            }
 
-            // DLC gating (applies only to known IDs we recognize as DLC)
+            // DLC gating (apply to both buckets)
             if (!options.IncludeDlc || !navalLoaded)
+            {
                 filteredKnown = filteredKnown.Where(s => !IsDlcId(s.StringId));
+                filteredModded = filteredModded.Where(s => !IsDlcId(s.StringId));
+            }
 
             var list = new List<SkillObject>();
             list.AddRange(filteredKnown);
 
             if (options.IncludeModded)
-                list.AddRange(modded);
+                list.AddRange(filteredModded);
 
-            // Stable ordering: keep "known/default" order by StringId, then modded by StringId.
-            // (You can swap this to UI order later.)
-            return list.Where(s => s != null && !string.IsNullOrEmpty(s.StringId))
-                .GroupBy(s => s.StringId)
-                .Select(g => g.First())
-                .OrderBy(s => DefaultSkillIds.Contains(s.StringId) ? 0 : 1)
-                .ThenBy(s => s.StringId)
-                .ToList();
+            return
+            [
+                .. list.Where(s => s != null && !string.IsNullOrEmpty(s.StringId))
+                    .GroupBy(s => s.StringId)
+                    .Select(g => g.First())
+                    .OrderBy(s => DefaultSkillIds.Contains(s.StringId) ? 0 : 1)
+                    .ThenBy(s => s.StringId),
+            ];
         }
 
         public static List<SkillObject> GetSkillListForCharacter(
@@ -165,7 +168,7 @@ namespace Retinues.Helpers
             GetSkillList(
                 new SkillListOptions(
                     includeHeroOnly: isHeroLike,
-                    includeDlc: true,
+                    includeDlc: isHeroLike,
                     includeModded: includeModded
                 )
             );
