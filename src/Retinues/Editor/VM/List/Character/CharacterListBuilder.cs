@@ -149,6 +149,16 @@ namespace Retinues.Editor.VM.List.Character
                 condition: () => faction is WCulture
             );
 
+            // Mercenaries.
+            AddSection(
+                headers,
+                "mercenaries",
+                "list_header_mercenaries",
+                L.S("list_header_mercenaries", "Mercenaries"),
+                faction.RosterMercenary,
+                condition: () => faction is WCulture
+            );
+
             // Bandits.
             AddSection(
                 headers,

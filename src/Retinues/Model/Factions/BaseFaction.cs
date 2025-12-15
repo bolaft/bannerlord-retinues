@@ -57,6 +57,10 @@ namespace Retinues.Model.Factions
         public List<WCharacter> RosterElite => RootElite != null ? RootElite.Tree : [];
         public List<WCharacter> RosterBasic => RootBasic != null ? RootBasic.Tree : [];
 
+        /* ━━━━━━ Mercenaries ━━━━━ */
+
+        public virtual List<WCharacter> MercenaryRoots => [];
+
         /* ━━━━━━━ Militias ━━━━━━━ */
 
         public virtual WCharacter MeleeMilitiaTroop => null;
@@ -140,36 +144,6 @@ namespace Retinues.Model.Factions
         //                          Rosters                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        /// <summary>
-        /// Determines if the given character is valid for inclusion in a roster.
-        /// </summary>
-        private static bool IsValid(WCharacter character)
-        {
-            if (character == null)
-                return false;
-
-            if (character.Age < 18)
-                return false;
-
-            return true;
-        }
-
-        /// <summary>
-        /// Collects the given characters into a list, filtering out invalid ones.
-        /// </summary>
-        protected static List<WCharacter> Collect(params WCharacter[] characters)
-        {
-            var list = new List<WCharacter>(characters.Length);
-            for (int i = 0; i < characters.Length; i++)
-            {
-                var c = characters[i];
-                if (IsValid(c))
-                    list.Add(c);
-            }
-
-            return list;
-        }
-
         public virtual List<WCharacter> RosterRetinues => [];
 
         public virtual List<WCharacter> RosterMilitia =>
@@ -183,6 +157,8 @@ namespace Retinues.Model.Factions
                 MilitiaVeteranSpearman,
                 MilitiaVeteranArcher
             );
+
+        public virtual List<WCharacter> RosterMercenary => CollectTrees(MercenaryRoots);
 
         public virtual List<WCharacter> RosterCaravan =>
             Collect(CaravanMaster, CaravanGuard, ArmedTrader);
@@ -268,6 +244,75 @@ namespace Retinues.Model.Factions
                 foreach (var troop in RosterCivilian)
                     yield return troop;
             }
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Helpers                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Determines if the given character is valid for inclusion in a roster.
+        /// </summary>
+        private static bool IsValid(WCharacter character)
+        {
+            if (character == null)
+                return false;
+
+            if (character.Age < 18)
+                return false;
+
+            return true;
+        }
+
+        /// <summary>
+        /// Collects the given characters into a list, filtering out invalid ones.
+        /// </summary>
+        protected static List<WCharacter> Collect(params WCharacter[] characters)
+        {
+            var list = new List<WCharacter>(characters.Length);
+            for (int i = 0; i < characters.Length; i++)
+            {
+                var c = characters[i];
+                if (IsValid(c))
+                    list.Add(c);
+            }
+
+            return list;
+        }
+
+        /// <summary>
+        /// Flattens multiple upgrade trees into a single unique roster.
+        /// </summary>
+        protected static List<WCharacter> CollectTrees(IEnumerable<WCharacter> roots)
+        {
+            if (roots == null)
+                return [];
+
+            var list = new List<WCharacter>();
+            var seen = new HashSet<string>();
+
+            foreach (var root in roots)
+            {
+                if (!IsValid(root))
+                    continue;
+
+                var tree = root.Tree;
+                for (int i = 0; i < tree.Count; i++)
+                {
+                    var c = tree[i];
+                    if (!IsValid(c))
+                        continue;
+
+                    var id = c.StringId;
+                    if (string.IsNullOrEmpty(id))
+                        continue;
+
+                    if (seen.Add(id))
+                        list.Add(c);
+                }
+            }
+
+            return list;
         }
     }
 }

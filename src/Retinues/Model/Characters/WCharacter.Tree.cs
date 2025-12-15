@@ -44,7 +44,8 @@ namespace Retinues.Model.Characters
         public List<WCharacter> UpgradeSources => CharacterTreeCacheHelper.GetUpgradeSources(this);
         public int Depth => CharacterTreeCacheHelper.GetDepth(this);
         public WCharacter Root => CharacterTreeCacheHelper.GetRoot(this) ?? this;
-        public List<WCharacter> Tree => CharacterTreeCacheHelper.GetTree(this);
+        public List<WCharacter> Tree => CharacterTreeCacheHelper.GetSubtree(this);
+        public List<WCharacter> RootTree => CharacterTreeCacheHelper.GetTree(this);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Cache Helper                      //
@@ -293,6 +294,47 @@ namespace Retinues.Model.Characters
                     return [troop];
 
                 return tree;
+            }
+
+            /// <summary>
+            /// Gets the upgrade subtree for the given troop (self + descendants only).
+            /// </summary>
+            public static List<WCharacter> GetSubtree(WCharacter troop)
+            {
+                if (troop == null)
+                    return [];
+
+                InitializeIfNeeded();
+
+                var visited = new HashSet<WCharacter>();
+                var result = new List<WCharacter>();
+
+                void Dfs(WCharacter current)
+                {
+                    if (current == null)
+                        return;
+
+                    if (!visited.Add(current))
+                        return;
+
+                    result.Add(current);
+
+                    var targets = current.UpgradeTargets;
+                    if (targets == null || targets.Count == 0)
+                        return;
+
+                    for (int i = 0; i < targets.Count; i++)
+                    {
+                        var child = targets[i];
+                        if (child == null)
+                            continue;
+
+                        Dfs(child);
+                    }
+                }
+
+                Dfs(troop);
+                return result;
             }
 
             // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

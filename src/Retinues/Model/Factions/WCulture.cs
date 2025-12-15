@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Retinues.Model.Characters;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
@@ -29,6 +30,32 @@ namespace Retinues.Model.Factions
 
         public override WCharacter RootElite => WCharacter.Get(Base.EliteBasicTroop);
         public override WCharacter RootBasic => WCharacter.Get(Base.BasicTroop);
+
+        /* ━━━━━━ Mercenaries ━━━━━ */
+
+        public override List<WCharacter> MercenaryRoots
+        {
+            get
+            {
+                var raw = Base.BasicMercenaryTroops;
+                if (raw == null || raw.Count == 0)
+                    return [];
+
+                var list = new List<WCharacter>(raw.Count);
+                for (int i = 0; i < raw.Count; i++)
+                {
+                    var co = raw[i];
+                    if (co == null)
+                        continue;
+
+                    var w = WCharacter.Get(co);
+                    if (w != null)
+                        list.Add(w);
+                }
+
+                return list;
+            }
+        }
 
         /* ━━━━━━━ Militias ━━━━━━━ */
 

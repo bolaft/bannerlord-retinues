@@ -39,6 +39,7 @@ namespace Retinues.Model.Factions
         /* ━━━━━━━━━ Lists ━━━━━━━━ */
 
         List<WCharacter> RosterRetinues { get; }
+        List<WCharacter> RosterMercenary { get; }
         List<WCharacter> RosterMilitia { get; }
         List<WCharacter> RosterCaravan { get; }
         List<WCharacter> RosterVillager { get; }
