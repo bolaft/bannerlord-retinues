@@ -134,6 +134,9 @@
       id="ret_list_header_elite"
       text="精英" />
     <string
+      id="ret_list_header_heroes"
+      text="英雄" />
+    <string
       id="ret_list_header_militia"
       text="民兵" />
     <string
@@ -223,9 +226,6 @@
     <string
       id="ret_unequip_item_tooltip"
       text="卸下此物品。" />
-    <string
-      id="ret_unknown"
-      text="未知" />
     <string
       id="ret_upgrade_sources_header_text"
       text="来源" />

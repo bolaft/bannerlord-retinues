@@ -134,6 +134,9 @@
       id="ret_list_header_elite"
       text="Элита" />
     <string
+      id="ret_list_header_heroes"
+      text="Герои" />
+    <string
       id="ret_list_header_militia"
       text="Ополчение" />
     <string
@@ -223,9 +226,6 @@
     <string
       id="ret_unequip_item_tooltip"
       text="Снять этот предмет." />
-    <string
-      id="ret_unknown"
-      text="Неизвестно" />
     <string
       id="ret_upgrade_sources_header_text"
       text="Происхождение" />

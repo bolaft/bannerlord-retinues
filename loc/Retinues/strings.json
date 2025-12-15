@@ -688,6 +688,22 @@
     "TR": "Seçkin"
   },
   {
+    "id": "ret_list_header_heroes",
+    "EN": "Heroes",
+    "FR": "Héros",
+    "BR": "Heróis",
+    "CNs": "英雄",
+    "CNt": "英雄",
+    "DE": "Helden",
+    "IT": "Eroi",
+    "JP": "英雄",
+    "KO": "영웅",
+    "PL": "Bohaterowie",
+    "RU": "Герои",
+    "SP": "Héroes",
+    "TR": "Kahramanlar"
+  },
+  {
     "id": "ret_list_header_militia",
     "EN": "Militia",
     "FR": "Milice",
@@ -1166,22 +1182,6 @@
     "RU": "Снять этот предмет.",
     "SP": "Desequipar este objeto.",
     "TR": "Bu öğeyi donanımdan çıkar."
-  },
-  {
-    "id": "ret_unknown",
-    "EN": "Unknown",
-    "FR": "Inconnu",
-    "BR": "Desconhecido",
-    "CNs": "未知",
-    "CNt": "未知",
-    "DE": "Unbekannt",
-    "IT": "Sconosciuto",
-    "JP": "不明",
-    "KO": "알 수 없음",
-    "PL": "Nieznany",
-    "RU": "Неизвестно",
-    "SP": "Desconocido",
-    "TR": "Bilinmeyen"
   },
   {
     "id": "ret_upgrade_sources_header_text",

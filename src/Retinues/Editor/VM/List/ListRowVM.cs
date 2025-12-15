@@ -25,6 +25,9 @@ namespace Retinues.Editor.VM.List
         public virtual bool IsCharacter => false;
 
         [DataSourceProperty]
+        public virtual bool IsHero => false;
+
+        [DataSourceProperty]
         public virtual bool IsEquipment => false;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

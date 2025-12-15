@@ -134,6 +134,9 @@
       id="ret_list_header_elite"
       text="Elite" />
     <string
+      id="ret_list_header_heroes"
+      text="Helden" />
+    <string
       id="ret_list_header_militia"
       text="Miliz" />
     <string
@@ -223,9 +226,6 @@
     <string
       id="ret_unequip_item_tooltip"
       text="Dieses Element ablegen." />
-    <string
-      id="ret_unknown"
-      text="Unbekannt" />
     <string
       id="ret_upgrade_sources_header_text"
       text="Herkunft" />

@@ -1,10 +1,17 @@
 using System.Collections.Generic;
+using Retinues.Model.Characters;
 using TaleWorlds.Core;
 
 namespace Retinues.Model.Equipments
 {
     public class MEquipment(Equipment @base) : MBase<Equipment>(@base)
     {
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Owner                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public WCharacter Owner { get; set; }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Main Properties                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -48,6 +55,9 @@ namespace Retinues.Model.Equipments
             var element = item == null ? EquipmentElement.Invalid : new EquipmentElement(item.Base);
 
             Base[index] = element;
+
+            // Notify owner to persist changes.
+            Owner?.EquipmentCodesAttribute.Touch();
         }
 
         /// <summary>

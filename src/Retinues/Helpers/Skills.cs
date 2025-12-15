@@ -170,7 +170,7 @@ namespace Retinues.Helpers
                 )
             );
 
-        public static List<SkillObject> GetSkillListForHero(bool includeModded = true) =>
+        public static List<SkillObject> GetSkillListForHero() =>
             GetSkillList(SkillListOptions.ForHero());
 
         public static SkillObject IdToSkill(string id) =>

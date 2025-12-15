@@ -134,6 +134,9 @@
       id="ret_list_header_elite"
       text="Elite" />
     <string
+      id="ret_list_header_heroes"
+      text="Heroes" />
+    <string
       id="ret_list_header_militia"
       text="Militia" />
     <string
@@ -223,9 +226,6 @@
     <string
       id="ret_unequip_item_tooltip"
       text="Unequip this item." />
-    <string
-      id="ret_unknown"
-      text="Unknown" />
     <string
       id="ret_upgrade_sources_header_text"
       text="Origin" />

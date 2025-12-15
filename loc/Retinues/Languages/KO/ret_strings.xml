@@ -134,6 +134,9 @@
       id="ret_list_header_elite"
       text="엘리트" />
     <string
+      id="ret_list_header_heroes"
+      text="영웅" />
+    <string
       id="ret_list_header_militia"
       text="민병대" />
     <string
@@ -223,9 +226,6 @@
     <string
       id="ret_unequip_item_tooltip"
       text="이 아이템을 장비 해제합니다." />
-    <string
-      id="ret_unknown"
-      text="알 수 없음" />
     <string
       id="ret_upgrade_sources_header_text"
       text="출처" />

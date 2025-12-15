@@ -9,77 +9,47 @@
             WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
             MarginBottom="35">
             <Children>
+                {% macro banner(command, banner, hint, text, offset, text_offset, alignment) -%}
+                    <ButtonWidget
+                        DoNotPassEventsToChildren="true"
+                        WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed"
+                        SuggestedHeight="180"
+                        HorizontalAlignment="{{ alignment }}" VerticalAlignment="Top"
+                        PositionXOffset="{{ offset }}" PositionYOffset="-8"
+                        Command.Click="{{ command }}"
+                        UpdateChildrenStates="true"
+                        GamepadNavigationIndex="0">
+                        <Children>
+                            <MaskedTextureWidget
+                                DataSource="{{ banner }}"
+                                WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                                SuggestedWidth="105" SuggestedHeight="126"
+                                HorizontalAlignment="{{ alignment }}" VerticalAlignment="Center"
+                                Brush="Clan.TornBanner"
+                            {% if version == "13" %}
+                                AdditionalArgs="@AdditionalArgs" ImageId="@Id" TextureProviderName="@TextureProviderName"/>
+                            {% else %}
+                                AdditionalArgs="@AdditionalArgs" ImageId="@Id" ImageTypeCode="@ImageTypeCode"/>
+                            {% endif %}
+                            <HintWidget
+                                DataSource="{{ hint }}"
+                                Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
+                            <TextWidget
+                                WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                                HorizontalAlignment="{{ alignment }}" VerticalAlignment="Center"
+                                PositionXOffset="{{ text_offset }}"
+                                Brush="Kingdom.NameTitle.Text"
+                                Text="{{ text }}"
+                                TextAlignment="{{ alignment }}" />
+                        </Children>
+                    </ButtonWidget>
+                {%- endmacro %}
 
                 <!--Culture Banner-->
-                <ButtonWidget
-                    DoNotPassEventsToChildren="true"
-                    WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed"
-                    SuggestedHeight="180"
-                    HorizontalAlignment="Left" VerticalAlignment="Top"
-                    PositionXOffset="20" PositionYOffset="-8"
-                    Command.Click="ExecuteSelectCulture"
-                    UpdateChildrenStates="true"
-                    GamepadNavigationIndex="0">
-                    <Children>
-                        <MaskedTextureWidget
-                            DataSource="{CultureBanner}"
-                            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                            SuggestedWidth="105" SuggestedHeight="126"
-                            HorizontalAlignment="Left" VerticalAlignment="Center"
-                            Brush="Clan.TornBanner"
-                        {% if version == "13" %}
-                            AdditionalArgs="@AdditionalArgs" ImageId="@Id" TextureProviderName="@TextureProviderName"/>
-                        {% else %}
-                            AdditionalArgs="@AdditionalArgs" ImageId="@Id" ImageTypeCode="@ImageTypeCode"/>
-                        {% endif %}
-                        <HintWidget
-                            DataSource="{CultureBannerHint}"
-                            Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
-                        <TextWidget
-                            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-                            HorizontalAlignment="Left" VerticalAlignment="Center"
-                            PositionXOffset="120"
-                            Brush="Kingdom.NameTitle.Text"
-                            Text="@CultureName"
-                            TextAlignment="Left" />
-                    </Children>
-                </ButtonWidget>
+                {{ banner("ExecuteSelectCulture", "{CultureBanner}", "{CultureBannerHint}", "@CultureName", "20", "120", "Left") }}
 
                 <!--Clan Banner-->
-                <ButtonWidget
-                    DoNotPassEventsToChildren="true"
-                    WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed"
-                    SuggestedHeight="180"
-                    HorizontalAlignment="Right" VerticalAlignment="Top"
-                    PositionXOffset="-20" PositionYOffset="-8"
-                    Command.Click="ExecuteSelectClan"
-                    UpdateChildrenStates="true"
-                    GamepadNavigationIndex="0">
-                    <Children>
-                        <MaskedTextureWidget
-                            DataSource="{ClanBanner}"
-                            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                            SuggestedWidth="105" SuggestedHeight="126"
-                            HorizontalAlignment="Right" VerticalAlignment="Center"
-                            Brush="Clan.TornBanner"
-                        {% if version == "13" %}
-                            AdditionalArgs="@AdditionalArgs" ImageId="@Id" TextureProviderName="@TextureProviderName"/>
-                        {% else %}
-                            AdditionalArgs="@AdditionalArgs" ImageId="@Id" ImageTypeCode="@ImageTypeCode"/>
-                        {% endif %}
-                        <HintWidget
-                            DataSource="{ClanBannerHint}"
-                            Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"
-                            IsDisabled="true" />
-                        <TextWidget
-                            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-                            HorizontalAlignment="Right" VerticalAlignment="Center"
-                            PositionXOffset="-120"
-                            Brush="Kingdom.NameTitle.Text"
-                            Text="@ClanName"
-                            TextAlignment="Right" />
-                    </Children>
-                </ButtonWidget>
+                {{ banner("ExecuteSelectClan", "{ClanBanner}", "{ClanBannerHint}", "@ClanName", "-20", "-120", "Right") }}
 
                 <!--Clan Name Top Panel-->
                 <Widget

@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Retinues.Model.Equipments;
 using Retinues.Model.Factions;
 using TaleWorlds.CampaignSystem;
@@ -11,7 +14,8 @@ using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
 namespace Retinues.Model.Characters
 {
     public partial class WCharacter(CharacterObject @base)
-        : WBase<WCharacter, CharacterObject>(@base)
+        : WBase<WCharacter, CharacterObject>(@base),
+            IEditableUnit
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Main Properties                    //
@@ -40,6 +44,14 @@ namespace Retinues.Model.Characters
             get => NameAttribute.Get().ToString();
             set => NameAttribute.Set(new TextObject(value));
         }
+
+        /* ━━━━━━━━━ Hero ━━━━━━━━━ */
+
+        public WHero Hero => WHero.Get(Base.HeroObject);
+
+        /* ━━━━━━━━━ Unit ━━━━━━━━━ */
+
+        public IEditableUnit Editable => IsHero ? Hero : this;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Stubs                         //
@@ -131,6 +143,82 @@ namespace Retinues.Model.Characters
         {
             get => WEquipmentRoster.Get(EquipmentRosterAttribute.Get());
             set => EquipmentRosterAttribute.Set(value?.Base);
+        }
+
+        public List<MEquipment> Equipments
+        {
+            get
+            {
+                var list = EquipmentRoster?.Equipments.ToList();
+
+                // Set owner references for persistence.
+                foreach (var equipment in list)
+                    equipment.Owner = this;
+
+                return list;
+            }
+        }
+
+        MAttribute<string> _equipmentCodesAttribute;
+
+        public MAttribute<string> EquipmentCodesAttribute =>
+            _equipmentCodesAttribute ??= new MAttribute<string>(
+                baseInstance: Base, // CharacterObject => MBObjectBase => stable key
+                getter: _ => EquipmentRoster?.GetEquipmentCodes() ?? string.Empty,
+                setter: (_, value) => EquipmentRoster?.SetEquipmentCodes(value),
+                targetName: "equipment_codes",
+                persistent: true
+            );
+
+        public string EquipmentCodes
+        {
+            get => EquipmentCodesAttribute.Get();
+            set => EquipmentCodesAttribute.Set(value);
+        }
+
+        /// <summary>
+        /// Inserts the given set (by code) at the given index (0 by default).
+        /// Mutates via the persistent EquipmentCodes attribute.
+        /// </summary>
+        public void AddEquipment(MEquipment equipment, int index = 0)
+        {
+            if (equipment == null)
+                return;
+
+            var codesString = EquipmentCodesAttribute.Get();
+            var codes = string.IsNullOrEmpty(codesString)
+                ? []
+                : codesString.Split([';'], StringSplitOptions.None).ToList();
+
+            var code = equipment.Code;
+            if (string.IsNullOrEmpty(code))
+                return;
+
+            if (index < 0 || index > codes.Count)
+                index = codes.Count;
+
+            codes.Insert(index, code);
+
+            EquipmentCodesAttribute.Set(string.Join(";", codes));
+        }
+
+        /// <summary>
+        /// Removes the set at the given index (if valid), via the codes string.
+        /// </summary>
+        public void RemoveEquipment(int index)
+        {
+            var codesString = EquipmentCodesAttribute.Get();
+            if (string.IsNullOrEmpty(codesString))
+                return;
+
+            var codes = codesString.Split([';'], StringSplitOptions.None).ToList();
+            if (index < 0 || index >= codes.Count)
+                return;
+
+            codes.RemoveAt(index);
+
+            var newString = codes.Count == 0 ? string.Empty : string.Join(";", codes);
+            EquipmentCodesAttribute.Set(newString);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

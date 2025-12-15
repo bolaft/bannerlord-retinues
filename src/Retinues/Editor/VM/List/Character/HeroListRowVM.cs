@@ -1,89 +1,104 @@
-using System.Collections.Generic;
-using System.Linq;
+using System;
+using Bannerlord.UIExtenderEx.Attributes;
+using Retinues.Helpers;
 using Retinues.Model.Characters;
-using Retinues.Model.Parties;
-using Retinues.Model.Settlements;
-using TaleWorlds.CampaignSystem;
-using TaleWorlds.Core;
-using TaleWorlds.ObjectSystem;
+using TaleWorlds.Library;
 
-namespace Retinues.Model.Factions
+namespace Retinues.Editor.VM.List.Character
 {
-    public abstract class BaseMapFaction<TWrapper, TFaction>(TFaction @base)
-        : BaseFaction<TWrapper, TFaction>(@base)
-        where TWrapper : BaseMapFaction<TWrapper, TFaction>
-        where TFaction : MBObjectBase, IFaction
+    /// <summary>
+    /// Row representing a troop character in the list.
+    /// </summary>
+    public sealed class HeroListRowVM(ListHeaderVM header, WCharacter character)
+        : ListRowVM(header, character?.StringId ?? string.Empty)
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                     Main Properties                    //
+        //                        Internals                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public override string Name => Base.Name?.ToString();
-        public override uint Color => Base.Color;
-        public override uint Color2 => Base.Color2;
-        public override Banner Banner => Base.Banner;
-
-#if BL12
-        public override BannerCode BannerCode => BannerCode.CreateFrom(Banner);
-#endif
+        internal readonly WCharacter Character = character;
+        internal readonly WHero Hero = character.Hero;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Culture                        //
+        //                       Type Flags                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public WCulture Culture => WCulture.Get(Base.Culture);
+        [DataSourceProperty]
+        public override bool IsHero => true;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Faction                        //
+        //                        Selection                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public IFaction MapFaction => Base.MapFaction;
+        [EventListener(UIEvent.Character)]
+        [DataSourceProperty]
+        public override bool IsSelected => State.Character == Character;
+
+        [DataSourceMethod]
+        public override void ExecuteSelect() => State.Character = Character;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Heroes                         //
+        //                          Name                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public WHero Leader => WHero.Get(Base.Leader);
-
-        public override List<WCharacter> RosterHeroes =>
-            [.. Base.Heroes.Select(h => WHero.Get(h).Character)];
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                       Characters                       //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        public override WCharacter RootBasic => WCharacter.Get(Base.BasicTroop);
+        [DataSourceProperty]
+        [EventListener(UIEvent.Name)]
+        public string Name => Hero.Name;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Territory                       //
+        //                     Formation Class                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public IReadOnlyList<WSettlement> Settlements =>
-            [.. Base.Settlements.Select(WSettlement.Get)];
-        public IReadOnlyList<MTown> Fiefs => [.. Base.Fiefs.Select(f => new MTown(f))];
-
-        public bool HasFiefs => Base.Fiefs != null && Base.Fiefs.Count > 0;
+        [DataSourceProperty]
+        public string FormationClassIcon => Icons.GetFormationClassIcon(Character);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Parties                        //
+        //                          Image                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public IReadOnlyList<WParty> Parties =>
-            [.. Base.WarPartyComponents.Select(c => WParty.Get(c.MobileParty))];
+        [DataSourceProperty]
+        [EventListener(UIEvent.Appearance)]
+        public object Image => Character?.GetImage(false);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                      Flags & Stats                     //
+        //                         Sorting                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public bool IsBanditFaction => Base.IsBanditFaction;
-        public bool IsMinorFaction => Base.IsMinorFaction;
-        public bool IsKingdomFaction => Base.IsKingdomFaction;
-        public float TotalStrength =>
-#if BL13
-            Base.CurrentTotalStrength;
-#else
-            Base.TotalStrength;
-#endif
-        public bool IsEliminated => Base.IsEliminated;
+        /// <summary>
+        /// Returns the sort value for the given sort key.
+        /// </summary>
+        internal override IComparable GetSortValue(ListSortKey sortKey)
+        {
+            return sortKey switch
+            {
+                ListSortKey.Name => Name,
+                ListSortKey.Tier => int.MaxValue,
+                _ => Name,
+            };
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Filtering                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Returns true if this row matches the given filter.
+        /// </summary>
+        internal override bool MatchesFilter(string filter)
+        {
+            if (string.IsNullOrWhiteSpace(filter))
+                return true;
+
+            var comparison = StringComparison.OrdinalIgnoreCase;
+
+            if (!string.IsNullOrEmpty(Name) && Name.IndexOf(filter, comparison) >= 0)
+                return true;
+
+            var cultureName = Character.Culture?.Name;
+            if (!string.IsNullOrEmpty(cultureName) && cultureName.IndexOf(filter, comparison) >= 0)
+                return true;
+
+            return false;
+        }
     }
 }

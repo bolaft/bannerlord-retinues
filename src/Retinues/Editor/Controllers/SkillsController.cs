@@ -28,7 +28,7 @@ namespace Retinues.Editor.Controllers
         private static void ChangeSkill(SkillObject skill, int delta)
         {
             int amount = Inputs.BatchInput(MaxBatch);
-            var skills = State.Character.Skills;
+            var skills = State.Character.Editable.Skills;
 
             Func<SkillObject, bool> check =
                 delta > 0
@@ -51,7 +51,7 @@ namespace Retinues.Editor.Controllers
             Check(
                 [
                     (
-                        () => State.Character.Skills.Get(skill) < MaxSkillLevel,
+                        () => State.Character.Editable.Skills.Get(skill) < MaxSkillLevel,
                         L.T("skill_increase_maxed_reason", "Skill is already at maximum level.")
                     ),
                 ],
@@ -65,7 +65,7 @@ namespace Retinues.Editor.Controllers
             Check(
                 [
                     (
-                        () => State.Character.Skills.Get(skill) > MinSkillLevel,
+                        () => State.Character.Editable.Skills.Get(skill) > MinSkillLevel,
                         L.T("skill_decrease_mined_reason", "Cannot decrease skill below 0.")
                     ),
                 ],

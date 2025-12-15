@@ -32,6 +32,10 @@ namespace Retinues.Model.Characters
         //                         Skills                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /* ━━━━━━ Interfacing ━━━━━ */
+
+        IEditableSkills IEditableUnit.Skills => Skills;
+
         /* ━━━ Skills Container ━━━ */
 
         private CharacterSkills _skills;
@@ -47,7 +51,7 @@ namespace Retinues.Model.Characters
         /* ━━━ Attribute Helper ━━━ */
 
         [SafeClass]
-        public class CharacterSkills
+        public class CharacterSkills : IEditableSkills
         {
             readonly WCharacter _wc;
 

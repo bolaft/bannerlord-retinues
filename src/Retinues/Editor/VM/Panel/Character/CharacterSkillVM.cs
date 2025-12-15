@@ -39,7 +39,7 @@ namespace Retinues.Editor.VM.Panel.Character
 
         [EventListener(UIEvent.Skill)]
         [DataSourceProperty]
-        public int Value => State.Character.Skills.Get(_skill);
+        public int Value => State.Character.Editable.Skills.Get(_skill);
 
         [DataSourceProperty]
         public string ValueColor => "#F4E1C4FF";

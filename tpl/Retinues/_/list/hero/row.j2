@@ -3,7 +3,7 @@
     HeightSizePolicy="StretchToParent"
     MarginLeft="8"
     DoNotAcceptEvents="true"
-    IsVisible="@IsCharacter">
+    IsVisible="@IsHero">
     <Children>
 
         <ListPanel
@@ -51,20 +51,11 @@
 
                 {# Formation Class #}
                 <SpriteWidget
-                    IsHidden="@IsCivilian"
                     WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
                     SuggestedWidth="24" SuggestedHeight="24"
                     MarginRight="16"
                     VerticalAlignment="Center"
                     Sprite="@FormationClassIcon" />
-
-                {# Indentation #}
-                <TextWidget
-                    WidthSizePolicy="CoverChildren"
-                    HeightSizePolicy="StretchToParent"
-                    VerticalAlignment="Center"
-                    Brush="Clan.Tuple.Name.Text"
-                    Text="@Indentation" />
 
                 {# Name #}
                 <TextWidget
@@ -73,25 +64,6 @@
                     VerticalAlignment="Center"
                     Brush="Clan.Tuple.Name.Text"
                     Text="@Name" />
-
-                {# Tier Icon #}
-                <ListPanel
-                    WidthSizePolicy="CoverChildren"
-                    HeightSizePolicy="CoverChildren"
-                    MarginRight="16"
-                    IsHidden="@IsCivilian"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center">
-                    <Children>
-                        <ImageWidget
-                            DataSource="{TierIconData}"
-                            WidthSizePolicy="Fixed"
-                            HeightSizePolicy="Fixed"
-                            SuggestedWidth="24"
-                            SuggestedHeight="24"
-                            Sprite="@Text"/>
-                    </Children>
-                </ListPanel>
             </Children>
         </ListPanel>
 

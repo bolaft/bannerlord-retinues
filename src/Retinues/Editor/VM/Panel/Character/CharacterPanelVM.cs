@@ -64,7 +64,7 @@ namespace Retinues.Editor.VM.Panel.Character
 
         [EventListener(UIEvent.Character, UIEvent.Name)]
         [DataSourceProperty]
-        public string NameText => State.Character.Name;
+        public string NameText => State.Character.Editable.Name;
 
         /// <summary>
         /// Prompt to rename the selected character.
@@ -74,7 +74,7 @@ namespace Retinues.Editor.VM.Panel.Character
         {
             Inquiries.TextInputPopup(
                 title: L.T("rename_troop", "Rename Troop"),
-                defaultInput: State.Character.Name,
+                defaultInput: State.Character.Editable.Name,
                 onConfirm: input => CharacterController.ChangeName(input.Trim()),
                 description: L.T("enter_new_name", "Enter a new name:")
             );
@@ -89,19 +89,7 @@ namespace Retinues.Editor.VM.Panel.Character
 
         [EventListener(UIEvent.Character, UIEvent.Culture)]
         [DataSourceProperty]
-        public string CultureText
-        {
-            get
-            {
-                var culture = State.Character?.Culture;
-                var name = culture?.Name;
-
-                if (!string.IsNullOrWhiteSpace(name))
-                    return name;
-
-                return L.S("unknown", "Unknown");
-            }
-        }
+        public string CultureText => State.Character.Editable.Culture?.Name;
 
         /// <summary>
         /// Change the selected character's culture.
@@ -157,6 +145,9 @@ namespace Retinues.Editor.VM.Panel.Character
 
         [DataSourceProperty]
         public MBBindingList<CharacterSkillVM> SkillsRow2 { get; set; }
+
+        [DataSourceProperty]
+        public MBBindingList<CharacterSkillVM> SkillsRow3 { get; set; }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Upgrades                        //

@@ -1,4 +1,5 @@
 using Retinues.Helpers;
+using Retinues.Model.Characters;
 using Retinues.Model.Factions;
 using Retinues.Utilities;
 
@@ -20,10 +21,7 @@ namespace Retinues.Editor.Controllers
                 return;
             }
 
-            var character = State.Character;
-
-            if (State.Character == null)
-                return;
+            var character = State.Character.Editable;
 
             if (newName == character.Name)
                 return; // No change.
@@ -37,7 +35,7 @@ namespace Retinues.Editor.Controllers
         /// </summary>
         public static void ChangeCulture(WCulture newCulture)
         {
-            var character = State.Character;
+            var character = State.Character.Editable;
 
             if (newCulture == character.Culture)
                 return;
@@ -46,7 +44,8 @@ namespace Retinues.Editor.Controllers
             character.Culture = newCulture;
 
             // 2) Apply appearance from that culture.
-            character.ApplyCultureBodyProperties();
+            if (character is WCharacter wc)
+                wc.ApplyCultureBodyProperties();
 
             // 3) Notify the UI.
             EventManager.Fire(UIEvent.Culture, EventScope.Local);
@@ -57,13 +56,14 @@ namespace Retinues.Editor.Controllers
         /// </summary>
         public static void ChangeGender()
         {
-            var character = State.Character;
+            var character = State.Character.Editable;
 
             // 1) Toggle gender
             character.IsFemale = !character.IsFemale;
 
             // 2) Apply appearance from that culture.
-            character.ApplyCultureBodyProperties();
+            if (character is WCharacter wc)
+                wc.ApplyCultureBodyProperties();
 
             // 3) Notify the UI.
             EventManager.Fire(UIEvent.Gender, EventScope.Local);

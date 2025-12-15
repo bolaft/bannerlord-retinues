@@ -12,6 +12,10 @@ namespace Retinues.Editor.VM.Column
         //                       Show / Hide                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        [EventListener(UIEvent.Character)]
+        [DataSourceProperty]
+        public bool IsVisible => State.Character.IsHero == false;
+
         [DataSourceProperty]
         public bool ShowCustomization { get; set; } = false;
 

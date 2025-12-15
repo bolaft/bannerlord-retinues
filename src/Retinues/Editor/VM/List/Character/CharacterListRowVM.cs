@@ -12,7 +12,7 @@ namespace Retinues.Editor.VM.List.Character
     /// <summary>
     /// Row representing a troop character in the list.
     /// </summary>
-    public sealed class CharacterListRowVM(
+    public class CharacterListRowVM(
         ListHeaderVM header,
         WCharacter character,
         bool civilian = false
@@ -48,10 +48,10 @@ namespace Retinues.Editor.VM.List.Character
 
         [DataSourceProperty]
         [EventListener(UIEvent.Name)]
-        public string Name => Character.Name;
+        public virtual string Name => Character.Name;
 
         [DataSourceProperty]
-        public string Indentation
+        public virtual string Indentation
         {
             get
             {

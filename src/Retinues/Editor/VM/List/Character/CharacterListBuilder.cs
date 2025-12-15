@@ -75,6 +75,15 @@ namespace Retinues.Editor.VM.List.Character
                 header.UpdateState();
             }
 
+            // Heroes.
+            AddSection(
+                headers,
+                "heroes",
+                "list_header_heroes",
+                L.S("list_header_heroes", "Heroes"),
+                faction.RosterHeroes
+            );
+
             // Retinues.
             AddSection(
                 headers,
@@ -164,7 +173,10 @@ namespace Retinues.Editor.VM.List.Character
             if (character == null)
                 return;
 
-            header.AddRow(new CharacterListRowVM(header, character, civilian));
+            if (character.IsHero)
+                header.AddRow(new HeroListRowVM(header, character));
+            else
+                header.AddRow(new CharacterListRowVM(header, character, civilian));
         }
     }
 }

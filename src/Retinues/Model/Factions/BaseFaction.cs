@@ -45,6 +45,10 @@ namespace Retinues.Model.Factions
         //                       Characters                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /* ━━━━━━━━ Heroes ━━━━━━━━ */
+
+        public virtual List<WCharacter> RosterHeroes => [];
+
         /* ━━━━━━━━━ Roots ━━━━━━━━ */
 
         public virtual WCharacter RootElite => null;
@@ -52,10 +56,6 @@ namespace Retinues.Model.Factions
 
         public List<WCharacter> RosterElite => RootElite != null ? RootElite.Tree : [];
         public List<WCharacter> RosterBasic => RootBasic != null ? RootBasic.Tree : [];
-
-        /* ━━━━━━━━ Heroes ━━━━━━━━ */
-
-        public virtual List<WHero> RosterHeroes => [];
 
         /* ━━━━━━━ Militias ━━━━━━━ */
 
@@ -241,6 +241,9 @@ namespace Retinues.Model.Factions
         {
             get
             {
+                foreach (var troop in RosterHeroes)
+                    yield return troop;
+
                 foreach (var troop in RosterRetinues)
                     yield return troop;
 

@@ -123,7 +123,7 @@ namespace Retinues.Editor
             _faction = hero.Clan;
 
             _character = PickFirstTroop(_faction);
-            _equipment = _character?.EquipmentRoster?.Get(0);
+            _equipment = PickFirstEquipment(_character);
 
             _slot = EquipmentIndex.Weapon0;
         }
@@ -135,35 +135,31 @@ namespace Retinues.Editor
             _faction = hero.Clan;
 
             _character = PickFirstTroop(_faction);
-            _equipment = _character?.EquipmentRoster?.Get(0);
+            _equipment = PickFirstEquipment(_character);
 
             _slot = EquipmentIndex.Weapon0;
         }
 
         private void ApplyCharacter(WCharacter character)
         {
-            _character = character;
-
             _culture = character.Culture;
             _clan = null;
             _faction = _culture;
 
-            _equipment = _character?.EquipmentRoster?.Get(0);
+            _character = character;
+            _equipment = PickFirstEquipment(_character);
 
             _slot = EquipmentIndex.Weapon0;
         }
 
         private void ApplyClan(WClan clan)
         {
+            _culture = clan.Culture;
             _clan = clan;
             _faction = clan;
 
-            // In Bannerlord, a clan is an IFaction, so it has a culture.
-            // Your wrapper should expose it; if not, adjust this line to your API.
-            _culture = clan.Culture;
-
             _character = PickFirstTroop(_faction);
-            _equipment = _character?.EquipmentRoster?.Get(0);
+            _equipment = PickFirstEquipment(_character);
 
             _slot = EquipmentIndex.Weapon0;
         }
@@ -175,7 +171,7 @@ namespace Retinues.Editor
             _faction = culture;
 
             _character = PickFirstTroop(_faction);
-            _equipment = _character?.EquipmentRoster?.Get(0);
+            _equipment = PickFirstEquipment(_character);
 
             _slot = EquipmentIndex.Weapon0;
         }
@@ -189,6 +185,22 @@ namespace Retinues.Editor
             {
                 if (troop != null)
                     return troop;
+            }
+
+            return null;
+        }
+
+        private static MEquipment PickFirstEquipment(WCharacter character, bool civilian = false)
+        {
+            var equipments = character?.Editable?.Equipments;
+
+            if (equipments == null || equipments.Count == 0)
+                return null;
+
+            foreach (var equipment in equipments)
+            {
+                if (equipment != null && equipment.IsCivilian == civilian)
+                    return equipment;
             }
 
             return null;
@@ -283,7 +295,7 @@ namespace Retinues.Editor
 
                 _character = value;
 
-                Equipment = _character.EquipmentRoster.Get(0);
+                Equipment = PickFirstEquipment(_character);
 
                 EventManager.Fire(UIEvent.Character, EventScope.Global);
             }

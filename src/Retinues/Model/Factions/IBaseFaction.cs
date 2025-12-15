@@ -34,7 +34,7 @@ namespace Retinues.Model.Factions
 
         /* ━━━━━━━━ Heroes ━━━━━━━━ */
 
-        List<WHero> RosterHeroes { get; }
+        List<WCharacter> RosterHeroes { get; }
 
         /* ━━━━━━━━━ Lists ━━━━━━━━ */
 
