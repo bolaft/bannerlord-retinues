@@ -12,16 +12,9 @@ namespace Retinues.Editor.VM.Panel.Character
     /// Single hero trait row (name, value, +/-).
     /// </summary>
     [SafeClass]
-    public sealed class CharacterTraitVM : BaseVM
+    public sealed class CharacterTraitVM(TraitObject trait) : BaseVM()
     {
-        public CharacterTraitVM(TraitObject trait)
-            : base()
-        {
-            _trait = trait;
-            Log.Info($"Created CharacterTraitVM for trait '{trait.Name}'");
-        }
-
-        private readonly TraitObject _trait;
+        private readonly TraitObject _trait = trait;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Convenience                      //

@@ -7,10 +7,13 @@ namespace Retinues.Editor.Controllers
     {
         public static void EquipItem(WItem item)
         {
+            if (State.Equipment == null)
+                return;
+
             var slot = State.Instance.Slot;
             var equipped = State.Equipment.GetItem(slot);
             if (equipped == item)
-                return; // Already equipped.
+                return;
 
             State.Equipment.SetItem(slot, item);
 
@@ -19,17 +22,20 @@ namespace Retinues.Editor.Controllers
 
         public static void UnequipItem(EquipmentIndex slot, bool fireEvent = true)
         {
+            if (State.Equipment == null)
+                return;
+
             var equipped = State.Equipment.GetItem(slot);
             if (equipped == null)
-                return; // Already empty.
+                return;
 
             State.Equipment.SetItem(slot, null);
 
-            // If we unequip the horse, also unequip the harness.
             if (slot == EquipmentIndex.Horse)
                 UnequipItem(EquipmentIndex.HorseHarness, fireEvent: false);
 
-            EventManager.Fire(UIEvent.Item, EventScope.Global);
+            if (fireEvent)
+                EventManager.Fire(UIEvent.Item, EventScope.Global);
         }
     }
 }

@@ -11,6 +11,12 @@
       id="ret_build_hint"
       text="Statur" />
     <string
+      id="ret_button_show_battle"
+      text="Kampf" />
+    <string
+      id="ret_button_show_civilian"
+      text="Zivil" />
+    <string
       id="ret_change_culture_title"
       text="Kultur ändern" />
     <string
@@ -43,9 +49,6 @@
     <string
       id="ret_editor_done_button"
       text="Fertig" />
-    <string
-      id="ret_editor_title"
-      text="Truppen-Editor" />
     <string
       id="ret_encyclopedia_editor_button_hint"
       text="Im Editor öffnen." />
@@ -116,6 +119,21 @@
       id="ret_init_error_title"
       text="Retinues-Abhängigkeitsfehler" />
     <string
+      id="ret_inquiry_no_battle_sets"
+      text="Keine Kampfausrüstung" />
+    <string
+      id="ret_inquiry_no_civilian_sets"
+      text="Keine zivile Ausrüstung" />
+    <string
+      id="ret_inquiry_no_equipment_sets_battle"
+      text="Kampfausrüstungen" />
+    <string
+      id="ret_inquiry_no_equipment_sets_civilian"
+      text="zivile Ausrüstungen" />
+    <string
+      id="ret_inquiry_no_equipment_sets_text"
+      text="Der aktuelle Charakter hat keine {EQUIPMENT_TYPE}.{newline}{newline}Einen leeren erstellen?" />
+    <string
       id="ret_invalid_name_body"
       text="Der Name darf nicht leer sein." />
     <string
@@ -185,12 +203,6 @@
       id="ret_no_cultures_title"
       text="Keine Kulturen gefunden" />
     <string
-      id="ret_only_battle_tooltip"
-      text="Es sind nur Kampfausrüstungen verfügbar." />
-    <string
-      id="ret_only_civilian_tooltip"
-      text="Es sind nur zivile Ausrüstungen verfügbar." />
-    <string
       id="ret_rename_troop"
       text="Truppe umbenennen" />
     <string
@@ -223,12 +235,6 @@
     <string
       id="ret_select_culture_title"
       text="Kultur auswählen" />
-    <string
-      id="ret_show_battle_tooltip"
-      text="Kampfausrüstung anzeigen." />
-    <string
-      id="ret_show_civilian_tooltip"
-      text="Zivile Ausrüstung anzeigen." />
     <string
       id="ret_skill_decrease_mined_reason"
       text="Fähigkeit kann nicht unter 0 verringert werden." />

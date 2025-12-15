@@ -11,6 +11,12 @@
       id="ret_build_hint"
       text="체격" />
     <string
+      id="ret_button_show_battle"
+      text="전투" />
+    <string
+      id="ret_button_show_civilian"
+      text="민간인" />
+    <string
       id="ret_change_culture_title"
       text="문화 변경" />
     <string
@@ -43,9 +49,6 @@
     <string
       id="ret_editor_done_button"
       text="완료" />
-    <string
-      id="ret_editor_title"
-      text="부대 편집기" />
     <string
       id="ret_encyclopedia_editor_button_hint"
       text="편집기에서 열기." />
@@ -116,6 +119,21 @@
       id="ret_init_error_title"
       text="Retinues 종속성 오류" />
     <string
+      id="ret_inquiry_no_battle_sets"
+      text="전투 장비 없음" />
+    <string
+      id="ret_inquiry_no_civilian_sets"
+      text="민간 장비 없음" />
+    <string
+      id="ret_inquiry_no_equipment_sets_battle"
+      text="전투 장비" />
+    <string
+      id="ret_inquiry_no_equipment_sets_civilian"
+      text="민간 장비" />
+    <string
+      id="ret_inquiry_no_equipment_sets_text"
+      text="현재 캐릭터에는 {EQUIPMENT_TYPE}이(가) 없습니다.{newline}{newline}빈 항목을 생성하시겠습니까?" />
+    <string
       id="ret_invalid_name_body"
       text="이름은 비워둘 수 없습니다." />
     <string
@@ -185,12 +203,6 @@
       id="ret_no_cultures_title"
       text="문화가 없습니다" />
     <string
-      id="ret_only_battle_tooltip"
-      text="전투 장비만 사용할 수 있습니다." />
-    <string
-      id="ret_only_civilian_tooltip"
-      text="민간 장비만 사용할 수 있습니다." />
-    <string
       id="ret_rename_troop"
       text="부대 이름 바꾸기" />
     <string
@@ -223,12 +235,6 @@
     <string
       id="ret_select_culture_title"
       text="문화 선택" />
-    <string
-      id="ret_show_battle_tooltip"
-      text="전투 장비를 표시합니다." />
-    <string
-      id="ret_show_civilian_tooltip"
-      text="민간 장비를 표시합니다." />
     <string
       id="ret_skill_decrease_mined_reason"
       text="기술을 0 이하로 낮출 수 없습니다." />

@@ -11,6 +11,12 @@
       id="ret_build_hint"
       text="Struttura" />
     <string
+      id="ret_button_show_battle"
+      text="Battaglia" />
+    <string
+      id="ret_button_show_civilian"
+      text="Civile" />
+    <string
       id="ret_change_culture_title"
       text="Cambia cultura" />
     <string
@@ -43,9 +49,6 @@
     <string
       id="ret_editor_done_button"
       text="Fatto" />
-    <string
-      id="ret_editor_title"
-      text="Editor di truppe" />
     <string
       id="ret_encyclopedia_editor_button_hint"
       text="Apri nell&apos;editor." />
@@ -116,6 +119,21 @@
       id="ret_init_error_title"
       text="Errore di dipendenza di Retinues" />
     <string
+      id="ret_inquiry_no_battle_sets"
+      text="Nessun equipaggiamento da battaglia" />
+    <string
+      id="ret_inquiry_no_civilian_sets"
+      text="Nessun equipaggiamento civile" />
+    <string
+      id="ret_inquiry_no_equipment_sets_battle"
+      text="equipaggiamenti da battaglia" />
+    <string
+      id="ret_inquiry_no_equipment_sets_civilian"
+      text="equipaggiamenti civili" />
+    <string
+      id="ret_inquiry_no_equipment_sets_text"
+      text="Il personaggio attuale non ha {EQUIPMENT_TYPE}.{newline}{newline}Crearne uno vuoto?" />
+    <string
       id="ret_invalid_name_body"
       text="Il nome non può essere vuoto." />
     <string
@@ -185,12 +203,6 @@
       id="ret_no_cultures_title"
       text="Nessuna cultura trovata" />
     <string
-      id="ret_only_battle_tooltip"
-      text="Sono disponibili solo equipaggiamenti da battaglia." />
-    <string
-      id="ret_only_civilian_tooltip"
-      text="Sono disponibili solo equipaggiamenti civili." />
-    <string
       id="ret_rename_troop"
       text="Rinomina truppa" />
     <string
@@ -223,12 +235,6 @@
     <string
       id="ret_select_culture_title"
       text="Seleziona cultura" />
-    <string
-      id="ret_show_battle_tooltip"
-      text="Mostra equipaggiamenti da battaglia." />
-    <string
-      id="ret_show_civilian_tooltip"
-      text="Mostra equipaggiamenti civili." />
     <string
       id="ret_skill_decrease_mined_reason"
       text="Impossibile diminuire l&apos;abilità al di sotto di 0." />

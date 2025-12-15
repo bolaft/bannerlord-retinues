@@ -11,6 +11,12 @@
       id="ret_build_hint"
       text="體型" />
     <string
+      id="ret_button_show_battle"
+      text="戰鬥" />
+    <string
+      id="ret_button_show_civilian"
+      text="平民" />
+    <string
       id="ret_change_culture_title"
       text="更改文化" />
     <string
@@ -43,9 +49,6 @@
     <string
       id="ret_editor_done_button"
       text="完成" />
-    <string
-      id="ret_editor_title"
-      text="部隊編輯器" />
     <string
       id="ret_encyclopedia_editor_button_hint"
       text="在編輯器中打開。" />
@@ -116,6 +119,21 @@
       id="ret_init_error_title"
       text="Retinues 依賴項錯誤" />
     <string
+      id="ret_inquiry_no_battle_sets"
+      text="無戰鬥裝備" />
+    <string
+      id="ret_inquiry_no_civilian_sets"
+      text="無平民裝備" />
+    <string
+      id="ret_inquiry_no_equipment_sets_battle"
+      text="戰鬥裝備" />
+    <string
+      id="ret_inquiry_no_equipment_sets_civilian"
+      text="平民裝備" />
+    <string
+      id="ret_inquiry_no_equipment_sets_text"
+      text="當前角色沒有 {EQUIPMENT_TYPE}。{newline}{newline}創建一個空的？" />
+    <string
       id="ret_invalid_name_body"
       text="名稱不能為空。" />
     <string
@@ -185,12 +203,6 @@
       id="ret_no_cultures_title"
       text="未找到文化" />
     <string
-      id="ret_only_battle_tooltip"
-      text="僅戰鬥裝備可用。" />
-    <string
-      id="ret_only_civilian_tooltip"
-      text="僅平民裝備可用。" />
-    <string
       id="ret_rename_troop"
       text="重新命名部隊" />
     <string
@@ -223,12 +235,6 @@
     <string
       id="ret_select_culture_title"
       text="選擇文化" />
-    <string
-      id="ret_show_battle_tooltip"
-      text="顯示戰鬥裝備。" />
-    <string
-      id="ret_show_civilian_tooltip"
-      text="顯示民用裝備。" />
     <string
       id="ret_skill_decrease_mined_reason"
       text="技能不能降低到0以下。" />

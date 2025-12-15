@@ -11,6 +11,12 @@
       id="ret_build_hint"
       text="体格" />
     <string
+      id="ret_button_show_battle"
+      text="戦闘" />
+    <string
+      id="ret_button_show_civilian"
+      text="民間人" />
+    <string
       id="ret_change_culture_title"
       text="文化を変更" />
     <string
@@ -43,9 +49,6 @@
     <string
       id="ret_editor_done_button"
       text="完了" />
-    <string
-      id="ret_editor_title"
-      text="部隊エディター" />
     <string
       id="ret_encyclopedia_editor_button_hint"
       text="エディターで開く。" />
@@ -116,6 +119,21 @@
       id="ret_init_error_title"
       text="Retinues 依存関係エラー" />
     <string
+      id="ret_inquiry_no_battle_sets"
+      text="戦闘装備なし" />
+    <string
+      id="ret_inquiry_no_civilian_sets"
+      text="民間装備なし" />
+    <string
+      id="ret_inquiry_no_equipment_sets_battle"
+      text="戦闘装備" />
+    <string
+      id="ret_inquiry_no_equipment_sets_civilian"
+      text="民間装備" />
+    <string
+      id="ret_inquiry_no_equipment_sets_text"
+      text="現在のキャラクターには {EQUIPMENT_TYPE} がありません。{newline}{newline}空のものを作成しますか？" />
+    <string
       id="ret_invalid_name_body"
       text="名前は空にできません。" />
     <string
@@ -185,12 +203,6 @@
       id="ret_no_cultures_title"
       text="文化が見つかりません" />
     <string
-      id="ret_only_battle_tooltip"
-      text="戦闘用の装備のみが利用可能です。" />
-    <string
-      id="ret_only_civilian_tooltip"
-      text="民間用の装備のみが利用可能です。" />
-    <string
       id="ret_rename_troop"
       text="部隊の名前を変更" />
     <string
@@ -223,12 +235,6 @@
     <string
       id="ret_select_culture_title"
       text="文化を選択" />
-    <string
-      id="ret_show_battle_tooltip"
-      text="戦闘装備を表示します。" />
-    <string
-      id="ret_show_civilian_tooltip"
-      text="民間用装備を表示します。" />
     <string
       id="ret_skill_decrease_mined_reason"
       text="スキルを0未満に下げることはできません。" />

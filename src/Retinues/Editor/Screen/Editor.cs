@@ -35,15 +35,16 @@ namespace Retinues.Editor.Screen
             "ui_clan",
             "ui_kingdom",
             "ui_inventory",
-            // "ui_armymanagement",
-            // "ui_town_management",
-            // "ui_partyscreen",
-            // "ui_mapbar",
-            // "ui_gameover",
-            // "ui_crafting",
-            // "ui_quest",
-            // "ui_saveload",
-            // "ui_boardgame",
+            // May not be needed, but load just in case.
+            "ui_armymanagement",
+            "ui_town_management",
+            "ui_partyscreen",
+            "ui_mapbar",
+            "ui_gameover",
+            "ui_crafting",
+            "ui_quest",
+            "ui_saveload",
+            "ui_boardgame",
         ];
 
         protected override void OnFrameTick(float dt)

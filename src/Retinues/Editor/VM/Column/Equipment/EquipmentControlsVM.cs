@@ -6,6 +6,7 @@ using Retinues.Helpers;
 using Retinues.Model.Equipments;
 using Retinues.Utilities;
 using TaleWorlds.Library;
+using TaleWorlds.MountAndBlade.View.SceneNotification;
 
 namespace Retinues.Editor.VM.Column.Equipment
 {
@@ -30,10 +31,18 @@ namespace Retinues.Editor.VM.Column.Equipment
         [EventListener(UIEvent.Character)]
         private void ResetShowCivilian()
         {
-            _showCivilian = State.Equipment.IsCivilian;
+            _showCivilian = State.Equipment != null && State.Equipment.IsCivilian;
             OnPropertyChanged(nameof(ShowCivilian));
         }
 
+        [EventListener(UIEvent.Equipment)]
+        [DataSourceProperty]
+        public string ToggleShowCivilianButtonText =>
+            _showCivilian
+                ? L.S("button_show_civilian", "Civilian")
+                : L.S("button_show_battle", "Battle");
+
+        [EventListener(UIEvent.Equipment)]
         [DataSourceProperty]
         public bool ShowCivilian
         {
@@ -43,33 +52,67 @@ namespace Retinues.Editor.VM.Column.Equipment
                 if (value == _showCivilian)
                     return;
 
-                _showCivilian = value;
+                // Use the TARGET mode, not the old field.
+                List<MEquipment> targetList = value ? CivilianEquipments : BattleEquipments;
 
-                State.Equipment = Equipments.FirstOrDefault();
+                void Apply(MEquipment e)
+                {
+                    EventManager.FireBatch(() =>
+                    {
+                        _showCivilian = value;
 
-                OnPropertyChanged(nameof(ShowCivilian));
+                        // If we end up keeping the same equipment instance, we still want the UI to refresh.
+                        if (!ReferenceEquals(State.Equipment, e))
+                            State.Equipment = e; // fires UIEvent.Equipment
+                        else
+                            EventManager.Fire(UIEvent.Equipment);
+                    });
+                }
+
+                var equipment = targetList.FirstOrDefault();
+
+                if (equipment == null)
+                {
+                    Inquiries.Popup(
+                        title: value
+                            ? L.T("inquiry_no_civilian_sets", "No Civilian Equipments")
+                            : L.T("inquiry_no_battle_sets", "No Battle Equipments"),
+                        description: L.T(
+                                "inquiry_no_equipment_sets_text",
+                                "The current character has no {EQUIPMENT_TYPE}.\n\nCreate an empty one?"
+                            )
+                            .SetTextVariable(
+                                "EQUIPMENT_TYPE",
+                                value
+                                    ? L.T(
+                                        "inquiry_no_equipment_sets_civilian",
+                                        "civilian equipments"
+                                    )
+                                    : L.T("inquiry_no_equipment_sets_battle", "battle equipments")
+                            ),
+                        onConfirm: () =>
+                        {
+                            var created = MEquipment.Create(civilian: value);
+
+                            // Insert at 0 so it becomes the first of its category (matches your existing UX).
+                            State.Character.AddEquipment(created, index: 0);
+
+                            // After mutation, re-read lists and select the new first entry of that category.
+                            var added = (
+                                value ? CivilianEquipments : BattleEquipments
+                            ).FirstOrDefault();
+                            Apply(added ?? created);
+                        }
+                    );
+                    return;
+                }
+
+                Apply(equipment);
             }
         }
 
-        [EventListener(UIEvent.Equipment)]
-        [DataSourceProperty]
-        public bool CanToggleShowCivilian =>
-            BattleEquipments.Count > 0 && CivilianEquipments.Count > 0;
-
-        [EventListener(UIEvent.Equipment)]
-        [DataSourceProperty]
-        public Tooltip CivilianTooltip =>
-            ShowCivilian
-                ? CanToggleShowCivilian
-                    ? new Tooltip(L.S("show_battle_tooltip", "Show battle equipments."))
-                    : new Tooltip(
-                        L.S("only_civilian_tooltip", "Only civilian equipments are available.")
-                    )
-                : CanToggleShowCivilian
-                    ? new Tooltip(L.S("show_civilian_tooltip", "Show civilian equipments."))
-                    : new Tooltip(
-                        L.S("only_battle_tooltip", "Only battle equipments are available.")
-                    );
+        [DataSourceMethod]
+        public void ExecuteToggleShowCivilian() => ShowCivilian = !_showCivilian;
 
         /* ━━━━━━ Equipments ━━━━━━ */
 
@@ -89,18 +132,36 @@ namespace Retinues.Editor.VM.Column.Equipment
         {
             get
             {
-                int i = Equipments.IndexOf(State.Equipment);
-                return $"{i + 1} / {Equipments.Count}";
+                var list = Equipments;
+                var i = list.IndexOf(State.Equipment);
+                if (i < 0)
+                    return $"0 / {list.Count}";
+                return $"{i + 1} / {list.Count}";
             }
         }
 
         [EventListener(UIEvent.Equipment)]
         [DataSourceProperty]
-        public bool CanSelectPrevSet => Equipments.IndexOf(State.Equipment) > 0;
+        public bool CanSelectPrevSet
+        {
+            get
+            {
+                var i = Equipments.IndexOf(State.Equipment);
+                return i > 0;
+            }
+        }
 
         [EventListener(UIEvent.Equipment)]
         [DataSourceProperty]
-        public bool CanSelectNextSet => Equipments.IndexOf(State.Equipment) < Equipments.Count - 1;
+        public bool CanSelectNextSet
+        {
+            get
+            {
+                var list = Equipments;
+                var i = list.IndexOf(State.Equipment);
+                return i >= 0 && i < list.Count - 1;
+            }
+        }
 
         [DataSourceMethod]
         public void ExecutePrevSet()

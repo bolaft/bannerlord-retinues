@@ -101,7 +101,7 @@
             <Children>
 
                 {# Civilian Icon #}
-                <SpriteWidget
+                {# <SpriteWidget
                     WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
                     SuggestedWidth="30" SuggestedHeight="30"
                     Color="f8eed1ff"
@@ -111,15 +111,15 @@
                             DataSource="{CivilianTooltip}"
                             Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
                     </Children>
-                </SpriteWidget>
+                </SpriteWidget> #}
 
                 {# Show Civilian Checkbox #}
-                {{ checkbox(
+                {# {{ checkbox(
                     binding="@ShowCivilian",
                     size="30",
                     tooltip="{CivilianTooltip}",
                     enabled="@CanToggleShowCivilian"
-                )}}
+                )}} #}
 
             </Children>
         </ListPanel>
@@ -135,7 +135,24 @@
     HorizontalAlignment="Center" VerticalAlignment="Top">
     <Children>
 
+        <ButtonWidget
+            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+            HorizontalAlignment="Center" VerticalAlignment="Bottom"
+            SuggestedWidth="200" SuggestedHeight="60"
+            Brush="ButtonBrush3"
+            Command.Click="ExecuteToggleShowCivilian"
+            UpdateChildrenStates="true" DoNotPassEventsToChildren="true">
+            <Children>
+                <TextWidget
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                    Brush="Popup.Button.Text"
+                    VerticalAlignment="Center" HorizontalAlignment="Center"
+                    Text="@ToggleShowCivilianButtonText"/>
+            </Children>
+        </ButtonWidget>
+
         <ListPanel
+            MarginTop="4"
             WidthSizePolicy="CoverChildren"
             HeightSizePolicy="CoverChildren"
             StackLayout.LayoutMethod="HorizontalLeftToRight"

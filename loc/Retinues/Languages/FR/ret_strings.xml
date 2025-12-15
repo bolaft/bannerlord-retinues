@@ -11,6 +11,12 @@
       id="ret_build_hint"
       text="Musculature" />
     <string
+      id="ret_button_show_battle"
+      text="Combat" />
+    <string
+      id="ret_button_show_civilian"
+      text="Civil" />
+    <string
       id="ret_change_culture_title"
       text="Changer de culture" />
     <string
@@ -43,9 +49,6 @@
     <string
       id="ret_editor_done_button"
       text="Terminé" />
-    <string
-      id="ret_editor_title"
-      text="Éditeur de troupes" />
     <string
       id="ret_encyclopedia_editor_button_hint"
       text="Ouvrir dans l&apos;éditeur." />
@@ -116,6 +119,21 @@
       id="ret_init_error_title"
       text="Erreur de dépendance Retinues" />
     <string
+      id="ret_inquiry_no_battle_sets"
+      text="Aucun équipement de combat" />
+    <string
+      id="ret_inquiry_no_civilian_sets"
+      text="Aucun équipement civil" />
+    <string
+      id="ret_inquiry_no_equipment_sets_battle"
+      text="équipements de combat" />
+    <string
+      id="ret_inquiry_no_equipment_sets_civilian"
+      text="équipements civils" />
+    <string
+      id="ret_inquiry_no_equipment_sets_text"
+      text="Le personnage actuel n&apos;a pas d&apos;{EQUIPMENT_TYPE}.{newline}{newline}En créer un vide ?" />
+    <string
       id="ret_invalid_name_body"
       text="Le nom ne peut pas être vide." />
     <string
@@ -185,12 +203,6 @@
       id="ret_no_cultures_title"
       text="Aucune culture trouvée" />
     <string
-      id="ret_only_battle_tooltip"
-      text="Seuls les équipements de bataille sont disponibles." />
-    <string
-      id="ret_only_civilian_tooltip"
-      text="Seuls les équipements civils sont disponibles." />
-    <string
       id="ret_rename_troop"
       text="Renommer la troupe" />
     <string
@@ -223,12 +235,6 @@
     <string
       id="ret_select_culture_title"
       text="Sélectionner une culture" />
-    <string
-      id="ret_show_battle_tooltip"
-      text="Afficher les équipements de bataille." />
-    <string
-      id="ret_show_civilian_tooltip"
-      text="Afficher les équipements civils." />
     <string
       id="ret_skill_decrease_mined_reason"
       text="Impossible de diminuer une compétence en dessous de 0." />

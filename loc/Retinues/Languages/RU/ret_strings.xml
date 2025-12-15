@@ -11,6 +11,12 @@
       id="ret_build_hint"
       text="Телосложение" />
     <string
+      id="ret_button_show_battle"
+      text="Боевой" />
+    <string
+      id="ret_button_show_civilian"
+      text="Гражданский" />
+    <string
       id="ret_change_culture_title"
       text="Изменить культуру" />
     <string
@@ -43,9 +49,6 @@
     <string
       id="ret_editor_done_button"
       text="Готово" />
-    <string
-      id="ret_editor_title"
-      text="Редактор отрядов" />
     <string
       id="ret_encyclopedia_editor_button_hint"
       text="Открыть в редакторе." />
@@ -116,6 +119,21 @@
       id="ret_init_error_title"
       text="Ошибка зависимости Retinues" />
     <string
+      id="ret_inquiry_no_battle_sets"
+      text="Нет боевого снаряжения" />
+    <string
+      id="ret_inquiry_no_civilian_sets"
+      text="Нет гражданского снаряжения" />
+    <string
+      id="ret_inquiry_no_equipment_sets_battle"
+      text="боевое снаряжение" />
+    <string
+      id="ret_inquiry_no_equipment_sets_civilian"
+      text="гражданское снаряжение" />
+    <string
+      id="ret_inquiry_no_equipment_sets_text"
+      text="У текущего персонажа нет {EQUIPMENT_TYPE}.{newline}{newline}Создать пустой?" />
+    <string
       id="ret_invalid_name_body"
       text="Имя не может быть пустым." />
     <string
@@ -185,12 +203,6 @@
       id="ret_no_cultures_title"
       text="Культуры не найдены" />
     <string
-      id="ret_only_battle_tooltip"
-      text="Доступно только боевое снаряжение." />
-    <string
-      id="ret_only_civilian_tooltip"
-      text="Доступно только гражданское снаряжение." />
-    <string
       id="ret_rename_troop"
       text="Переименовать отряд" />
     <string
@@ -223,12 +235,6 @@
     <string
       id="ret_select_culture_title"
       text="Выбрать культуру" />
-    <string
-      id="ret_show_battle_tooltip"
-      text="Показать боевое снаряжение." />
-    <string
-      id="ret_show_civilian_tooltip"
-      text="Показать гражданское снаряжение." />
     <string
       id="ret_skill_decrease_mined_reason"
       text="Невозможно уменьшить навык ниже 0." />

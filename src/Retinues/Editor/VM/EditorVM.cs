@@ -79,8 +79,9 @@ namespace Retinues.Editor.VM
         //                        Top Panel                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        [EventListener(UIEvent.Faction)]
         [DataSourceProperty]
-        public string EditorTitle => L.S("editor_title", "Troop Editor");
+        public string EditorTitle => State.Faction.Name;
 
         /* ━━━━━━━━ Culture ━━━━━━━ */
 
