@@ -17,6 +17,12 @@
       id="ret_button_show_civilian"
       text="Гражданский" />
     <string
+      id="ret_cant_equip_reason_civilian"
+      text="Не гражданский" />
+    <string
+      id="ret_cant_equip_reason_skill"
+      text="{VALUE} {SKILL}" />
+    <string
       id="ret_change_culture_title"
       text="Изменить культуру" />
     <string

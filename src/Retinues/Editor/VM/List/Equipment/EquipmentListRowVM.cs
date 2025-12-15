@@ -1,24 +1,30 @@
 using System;
 using Bannerlord.UIExtenderEx.Attributes;
-using Retinues.Configuration;
 using Retinues.Editor.Controllers;
 using Retinues.Model.Equipments;
 using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Library;
+using TaleWorlds.Localization;
 
 namespace Retinues.Editor.VM.List.Equipment
 {
     /// <summary>
     /// Row representing an item in the list.
     /// </summary>
-    public sealed class EquipmentListRowVM(ListHeaderVM header, WItem item)
-        : ListRowVM(header, item?.StringId ?? string.Empty)
+    public sealed class EquipmentListRowVM : ListRowVM
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Internals                       //
+        //                       Constructor                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        internal readonly WItem Item = item;
+        private readonly WItem _item;
+
+        public EquipmentListRowVM(ListHeaderVM header, WItem item)
+            : base(header, item?.StringId ?? string.Empty)
+        {
+            _item = item;
+            UpdateDisabledReason();
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Type Flags                       //
@@ -33,54 +39,57 @@ namespace Retinues.Editor.VM.List.Equipment
 
         [EventListener(UIEvent.Item)]
         [DataSourceProperty]
-        public override bool IsSelected => State.Equipment.GetItem(State.Slot) == Item;
+        public override bool IsSelected => State.Equipment.GetItem(State.Slot) == _item;
 
         [DataSourceMethod]
-        public override void ExecuteSelect() => EquipmentController.EquipItem(Item);
+        public override void ExecuteSelect() => EquipmentController.EquipItem(_item);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Enabled                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        [DataSourceProperty]
-        public override bool IsEnabled
-        {
-            get
-            {
-                if (!Item.IsEquippableByCharacter(State.Character))
-                    return false;
+        private TextObject _disabledReason;
 
-                return true;
-            }
+        [EventListener(UIEvent.Equipment)]
+        private void UpdateDisabledReason()
+        {
+            EquipmentController.CanEquipItem(_item, out _disabledReason);
+            OnPropertyChanged(nameof(DisabledReason));
+            OnPropertyChanged(nameof(IsEnabled));
+            OnPropertyChanged(nameof(Brush));
         }
+
+        [DataSourceProperty]
+        public string DisabledReason => _disabledReason?.ToString() ?? string.Empty;
+
+        [DataSourceProperty]
+        public override bool IsEnabled => _disabledReason == null;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Main                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceProperty]
-        public string Name => Item.Name;
+        public string Name => _item.Name;
 
         [DataSourceProperty]
-        public int Value => Item.Value;
+        public int Value => _item.Value;
 
         [DataSourceProperty]
-        public bool IsCivilian => Item.IsCivilian;
-
-        private readonly int _tier = item?.Tier ?? 0;
+        public bool IsCivilian => _item.IsCivilian;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Data                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceProperty]
-        public bool IsUnlocked => Item.IsUnlocked;
+        public bool IsUnlocked => _item.IsUnlocked;
 
         [DataSourceProperty]
         public bool IsStocked => Stock > 0;
 
         [DataSourceProperty]
-        public int Stock => Item.Stock;
+        public int Stock => _item.Stock;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Tooltip                        //
@@ -90,17 +99,17 @@ namespace Retinues.Editor.VM.List.Equipment
 
         [DataSourceProperty]
         public CharacterEquipmentItemVM Tooltip =>
-            _tooltip ??= new CharacterEquipmentItemVM(Item.Base);
+            _tooltip ??= new CharacterEquipmentItemVM(_item.Base);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Images                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceProperty]
-        public object Image => Item.Image;
+        public object Image => _item.Image;
 
         [DataSourceProperty]
-        public object CultureImage => Item.Culture?.Image;
+        public object CultureImage => _item.Culture?.Image;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Sorting                        //
@@ -111,9 +120,9 @@ namespace Retinues.Editor.VM.List.Equipment
             return sortKey switch
             {
                 ListSortKey.Name => Name,
-                ListSortKey.Tier => _tier,
-                ListSortKey.Culture => Item.Culture?.Name ?? string.Empty,
-                ListSortKey.Value => Item.Value,
+                ListSortKey.Tier => _item.Tier,
+                ListSortKey.Culture => _item.Culture?.Name ?? string.Empty,
+                ListSortKey.Value => _item.Value,
                 _ => Name,
             };
         }
@@ -133,15 +142,15 @@ namespace Retinues.Editor.VM.List.Equipment
             if (!string.IsNullOrEmpty(Name) && Name.IndexOf(f, comparison) >= 0)
                 return true;
 
-            var categoryText = Item.Category.ToString();
+            var categoryText = _item.Category.ToString();
             if (!string.IsNullOrEmpty(categoryText) && categoryText.IndexOf(f, comparison) >= 0)
                 return true;
 
-            var typeText = Item.Type.ToString();
+            var typeText = _item.Type.ToString();
             if (!string.IsNullOrEmpty(typeText) && typeText.IndexOf(f, comparison) >= 0)
                 return true;
 
-            var tierText = _tier.ToString();
+            var tierText = _item.Tier.ToString();
             if (!string.IsNullOrEmpty(tierText) && tierText.IndexOf(f, comparison) >= 0)
                 return true;
 
@@ -174,10 +183,10 @@ namespace Retinues.Editor.VM.List.Equipment
             if (!IsEnabled)
                 return;
 
-            if (Item == null || CurrentItem == null)
+            if (_item == null || CurrentItem == null)
                 return;
 
-            Item.GetComparisonChevrons(CurrentItem, out _positiveChevrons, out _negativeChevrons);
+            _item.GetComparisonChevrons(CurrentItem, out _positiveChevrons, out _negativeChevrons);
 
             if (_positiveChevrons > 3)
                 _positiveChevrons = 3;

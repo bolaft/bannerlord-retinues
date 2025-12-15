@@ -17,6 +17,12 @@
       id="ret_button_show_civilian"
       text="民間人" />
     <string
+      id="ret_cant_equip_reason_civilian"
+      text="民間人ではない" />
+    <string
+      id="ret_cant_equip_reason_skill"
+      text="{VALUE} {SKILL}" />
+    <string
       id="ret_change_culture_title"
       text="文化を変更" />
     <string

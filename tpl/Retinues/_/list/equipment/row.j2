@@ -107,11 +107,21 @@
 
                 {# Name #}
                 <TextWidget
-                    WidthSizePolicy="StretchToParent"
-                    HeightSizePolicy="StretchToParent"
+                    WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
                     VerticalAlignment="Center"
                     Brush="Clan.Tuple.Name.Text"
                     Text="@Name" />
+
+                {# Disabled Reason #}
+                <TextWidget
+                    IsHidden="@IsEnabled"
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                    HorizontalAlignment="Right" VerticalAlignment="Center"
+                    Brush="Clan.RightPanel.Name.Text"
+                    Brush.FontSize="24"
+                    MarginRight="8"
+                    Text="@DisabledReason" />
+
             </Children>
         </ListPanel>
 

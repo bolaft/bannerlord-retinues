@@ -64,6 +64,38 @@
     "TR": "Sivil"
   },
   {
+    "id": "ret_cant_equip_reason_civilian",
+    "EN": "Not civilian",
+    "FR": "Non civil",
+    "BR": "Não civil",
+    "CNs": "非平民",
+    "CNt": "非平民",
+    "DE": "Nicht zivil",
+    "IT": "Non civile",
+    "JP": "民間人ではない",
+    "KO": "민간인이 아님",
+    "PL": "Nie cywilny",
+    "RU": "Не гражданский",
+    "SP": "No civil",
+    "TR": "Sivil Değil"
+  },
+  {
+    "id": "ret_cant_equip_reason_skill",
+    "EN": "{VALUE} {SKILL}",
+    "FR": "{VALUE} {SKILL}",
+    "BR": "{VALUE} {SKILL}",
+    "CNs": "{VALUE} {SKILL}",
+    "CNt": "{VALUE} {SKILL}",
+    "DE": "{VALUE} {SKILL}",
+    "IT": "{VALUE} {SKILL}",
+    "JP": "{VALUE} {SKILL}",
+    "KO": "{VALUE} {SKILL}",
+    "PL": "{VALUE} {SKILL}",
+    "RU": "{VALUE} {SKILL}",
+    "SP": "{VALUE} {SKILL}",
+    "TR": "{VALUE} {SKILL}"
+  },
+  {
     "id": "ret_change_culture_title",
     "EN": "Change Culture",
     "FR": "Changer de culture",

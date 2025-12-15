@@ -1,10 +1,34 @@
 using Retinues.Model.Equipments;
+using Retinues.Utilities;
 using TaleWorlds.Core;
+using TaleWorlds.Localization;
 
 namespace Retinues.Editor.Controllers
 {
     public class EquipmentController : BaseController
     {
+        /// <summary>
+        /// Check if the item can be equipped.
+        /// </summary>
+        public static bool CanEquipItem(WItem item, out TextObject reason) =>
+            Check(
+                [
+                    (
+                        () => item.IsEquippableByCharacter(State.Character),
+                        L.T("cant_equip_reason_skill", "{VALUE} {SKILL}")
+                            .SetTextVariable("VALUE", item.Difficulty)
+                            .SetTextVariable("SKILL", item.RelevantSkill?.Name)
+                    ),
+                    (
+                        () => !State.Equipment.IsCivilian || item.IsCivilian,
+                        L.T("cant_equip_reason_civilian", "Not civilian")
+                            .SetTextVariable("VALUE", item.Difficulty)
+                            .SetTextVariable("SKILL", item.RelevantSkill?.Name)
+                    ),
+                ],
+                out reason
+            );
+
         public static void EquipItem(WItem item)
         {
             if (State.Equipment == null)
