@@ -82,17 +82,17 @@
                 MarginRight="16">
             <Children>
 
-                {% macro scroll_button(brush) -%}
+                {% macro scroll_button(down, brush, tooltip) -%}
                     <ScrollToEdgeButtonWidget
                         WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                         VerticalAlignment="Center" HorizontalAlignment="Right"
                         UpdateChildrenStates="true"
                         DoNotPassEventsToChildren="true"
-                        ScrollToBottom="false"
+                        ScrollToBottom="{{ down }}"
                         InterpolationTime="0.2">
                         <Children>
                             <HintWidget
-                                DataSource="{ScrollToTopTooltip}"
+                                DataSource="{{ tooltip }}"
                                 Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
                             <BrushWidget
                                 DoNotAcceptEvents="true"
@@ -105,10 +105,10 @@
                 {%- endmacro %}
 
                 <!-- Scroll to top -->
-                {{ scroll_button("Editor.Arrow.Up") }}
+                {{ scroll_button("false", "Editor.Arrow.Up", "{ScrollToTopTooltip}") }}
                 
                 <!-- Scroll to bottom -->
-                {{ scroll_button("Editor.Arrow.Down") }}
+                {{ scroll_button("true", "Editor.Arrow.Down", "{ScrollToBottomTooltip}") }}
 
             </Children>
         </ListPanel>
