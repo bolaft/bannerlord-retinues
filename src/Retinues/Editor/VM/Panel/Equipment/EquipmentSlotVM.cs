@@ -65,6 +65,7 @@ namespace Retinues.Editor.VM.Panel.Equipment
 
         CharacterEquipmentItemVM _tooltip = null;
 
+        [EventListener(UIEvent.Item)]
         [DataSourceProperty]
         public CharacterEquipmentItemVM Tooltip =>
             Item == null ? null : _tooltip ??= new CharacterEquipmentItemVM(Item.Base);
