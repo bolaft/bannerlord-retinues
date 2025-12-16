@@ -240,6 +240,22 @@
     "TR": "Ekipman seti oluştur"
   },
   {
+    "id": "ret_create_unit",
+    "EN": "New Unit",
+    "FR": "Nouvelle unité",
+    "BR": "Nova Unidade",
+    "CNs": "新单位",
+    "CNt": "新單位",
+    "DE": "Neue Einheit",
+    "IT": "Nuova unità",
+    "JP": "新しいユニット",
+    "KO": "새 유닛",
+    "PL": "Nowa jednostka",
+    "RU": "Новая единица",
+    "SP": "Nueva unidad",
+    "TR": "Yeni Birim"
+  },
+  {
     "id": "ret_culture_header_text",
     "EN": "Culture",
     "FR": "Culture",
@@ -398,6 +414,22 @@
     "RU": "Открыть в редакторе.",
     "SP": "Abrir en el editor.",
     "TR": "Düzenleyicide aç."
+  },
+  {
+    "id": "ret_enter_name",
+    "EN": "Enter a name:",
+    "FR": "Entrez un nom :",
+    "BR": "Digite um nome:",
+    "CNs": "输入名称：",
+    "CNt": "輸入名稱：",
+    "DE": "Geben Sie einen Namen ein:",
+    "IT": "Inserisci un nome:",
+    "JP": "名前を入力してください：",
+    "KO": "이름을 입력하세요:",
+    "PL": "Wprowadź nazwę:",
+    "RU": "Введите имя:",
+    "SP": "Ingrese un nombre:",
+    "TR": "Bir isim girin:"
   },
   {
     "id": "ret_enter_new_name",

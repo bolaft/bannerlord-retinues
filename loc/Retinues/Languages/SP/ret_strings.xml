@@ -50,6 +50,9 @@
       id="ret_create_set_tooltip"
       text="Crear conjunto de equipo" />
     <string
+      id="ret_create_unit"
+      text="Nueva unidad" />
+    <string
       id="ret_culture_header_text"
       text="Cultura" />
     <string
@@ -79,6 +82,9 @@
     <string
       id="ret_encyclopedia_editor_button_hint"
       text="Abrir en el editor." />
+    <string
+      id="ret_enter_name"
+      text="Ingrese un nombre:" />
     <string
       id="ret_enter_new_name"
       text="Ingrese un nuevo nombre:" />

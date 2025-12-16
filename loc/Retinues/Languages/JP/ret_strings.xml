@@ -50,6 +50,9 @@
       id="ret_create_set_tooltip"
       text="装備セットを作成" />
     <string
+      id="ret_create_unit"
+      text="新しいユニット" />
+    <string
       id="ret_culture_header_text"
       text="文化" />
     <string
@@ -79,6 +82,9 @@
     <string
       id="ret_encyclopedia_editor_button_hint"
       text="エディターで開く。" />
+    <string
+      id="ret_enter_name"
+      text="名前を入力してください：" />
     <string
       id="ret_enter_new_name"
       text="新しい名前を入力してください：" />

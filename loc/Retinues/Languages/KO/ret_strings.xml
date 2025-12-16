@@ -50,6 +50,9 @@
       id="ret_create_set_tooltip"
       text="장비 세트 만들기" />
     <string
+      id="ret_create_unit"
+      text="새 유닛" />
+    <string
       id="ret_culture_header_text"
       text="문화" />
     <string
@@ -79,6 +82,9 @@
     <string
       id="ret_encyclopedia_editor_button_hint"
       text="편집기에서 열기." />
+    <string
+      id="ret_enter_name"
+      text="이름을 입력하세요:" />
     <string
       id="ret_enter_new_name"
       text="새 이름을 입력하세요:" />

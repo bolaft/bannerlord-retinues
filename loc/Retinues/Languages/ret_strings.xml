@@ -50,6 +50,9 @@
       id="ret_create_set_tooltip"
       text="Create equipment set" />
     <string
+      id="ret_create_unit"
+      text="New Unit" />
+    <string
       id="ret_culture_header_text"
       text="Culture" />
     <string
@@ -79,6 +82,9 @@
     <string
       id="ret_encyclopedia_editor_button_hint"
       text="Open in the editor." />
+    <string
+      id="ret_enter_name"
+      text="Enter a name:" />
     <string
       id="ret_enter_new_name"
       text="Enter a new name:" />

@@ -50,6 +50,9 @@
       id="ret_create_set_tooltip"
       text="创建装备套装" />
     <string
+      id="ret_create_unit"
+      text="新单位" />
+    <string
       id="ret_culture_header_text"
       text="文化" />
     <string
@@ -79,6 +82,9 @@
     <string
       id="ret_encyclopedia_editor_button_hint"
       text="在编辑器中打开。" />
+    <string
+      id="ret_enter_name"
+      text="输入名称：" />
     <string
       id="ret_enter_new_name"
       text="输入新名称：" />
