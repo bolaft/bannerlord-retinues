@@ -107,6 +107,68 @@ namespace Retinues.Helpers
             }
         }
 
+        /// <summary>
+        /// Confirmation popup with two choices.
+        /// Example:
+        ///   Notifications.Popup(
+        ///       L.T("choose_option", "Choose an option:"),
+        ///       onChoice1: DoThing1,
+        ///       onChoice2: DoThing2,
+        ///       choice1Text: L.T("option_1", "Option 1"),
+        ///       choice2Text: L.T("option_2", "Option 2")
+        ///   );
+        /// </summary>
+        public static void Popup(
+            TextObject title,
+            Action onChoice1,
+            Action onChoice2,
+            TextObject choice1Text,
+            TextObject choice2Text,
+            TextObject description = null,
+            bool pauseGame = true
+        )
+        {
+            try
+            {
+                var inquiry = new InquiryData(
+                    title?.ToString() ?? string.Empty,
+                    description?.ToString() ?? string.Empty,
+                    isAffirmativeOptionShown: true,
+                    isNegativeOptionShown: true,
+                    affirmativeText: choice1Text.ToString(),
+                    negativeText: choice2Text.ToString(),
+                    affirmativeAction: () =>
+                    {
+                        try
+                        {
+                            onChoice1?.Invoke();
+                        }
+                        catch (Exception e)
+                        {
+                            Log.Exception(e, "Notifications.Popup choice1 callback failed.");
+                        }
+                    },
+                    negativeAction: () =>
+                    {
+                        try
+                        {
+                            onChoice2?.Invoke();
+                        }
+                        catch (Exception e)
+                        {
+                            Log.Exception(e, "Notifications.Popup choice2 callback failed.");
+                        }
+                    }
+                );
+
+                InformationManager.ShowInquiry(inquiry, pauseGame);
+            }
+            catch (Exception e)
+            {
+                Log.Exception(e, "Notifications.Popup (choice) failed.");
+            }
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                   Single-Select Popup                  //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

@@ -49,7 +49,7 @@ namespace Retinues.Editor.VM.Panel.Character
         public void ExecuteRename()
         {
             Inquiries.TextInputPopup(
-                title: L.T("rename_troop", "Rename Troop"),
+                title: L.T("rename_unit", "New Name"),
                 defaultInput: State.Character.Editable.Name,
                 onConfirm: input => CharacterController.ChangeName(input.Trim()),
                 description: L.T("enter_new_name", "Enter a new name:")

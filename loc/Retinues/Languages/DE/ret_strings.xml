@@ -11,20 +11,35 @@
       id="ret_build_hint"
       text="Statur" />
     <string
+      id="ret_button_remove_character"
+      text="Löschen" />
+    <string
       id="ret_button_show_battle"
       text="Kampf" />
     <string
       id="ret_button_show_civilian"
       text="Zivil" />
     <string
+      id="ret_cannot_remove_character_title"
+      text="Einheit kann nicht entfernt werden" />
+    <string
       id="ret_cant_equip_reason_civilian"
       text="Nicht zivil" />
     <string
       id="ret_cant_equip_reason_skill"
-      text="{VALUE} {SKILL}" />
+      text="{SKILL} {VALUE}" />
     <string
       id="ret_change_culture_title"
       text="Kultur ändern" />
+    <string
+      id="ret_character_cannot_remove_hero"
+      text="Helden können nicht entfernt werden." />
+    <string
+      id="ret_character_cannot_remove_root"
+      text="Stammeinheiten können nicht entfernt werden." />
+    <string
+      id="ret_character_cannot_remove_with_upgrades"
+      text="Eine Einheit, die noch Upgrades hat, kann nicht entfernt werden." />
     <string
       id="ret_clear_filter_tooltip"
       text="Den aktuellen Filtertext löschen." />
@@ -32,8 +47,14 @@
       id="ret_close_equipment_button_text"
       text="Zurück" />
     <string
+      id="ret_create_set_tooltip"
+      text="Ausrüstungsset erstellen" />
+    <string
       id="ret_culture_header_text"
       text="Kultur" />
+    <string
+      id="ret_delete_set_tooltip"
+      text="Ausrüstungsset löschen" />
     <string
       id="ret_dependencies_all_ok"
       text="Alle Abhängigkeiten wurden korrekt initialisiert." />
@@ -64,6 +85,9 @@
     <string
       id="ret_equipment_button_text"
       text="Ausrüstung" />
+    <string
+      id="ret_equipment_cannot_delete_last_set"
+      text="Es muss mindestens ein Ausrüstungsset verbleiben." />
     <string
       id="ret_equipment_slot_body"
       text="Körper" />
@@ -99,7 +123,7 @@
       text="Waffe 4" />
     <string
       id="ret_escape_menu_editor_button"
-      text="Truppen-Editor" />
+      text="Universeller Editor" />
     <string
       id="ret_filter_label"
       text="Filter:" />
@@ -125,6 +149,30 @@
       id="ret_init_error_title"
       text="Retinues-Abhängigkeitsfehler" />
     <string
+      id="ret_inquiry_confirm_create_equipment_set_text"
+      text="Möchten Sie ein neues Ausrüstungsset erstellen, indem Sie das aktuelle Set kopieren, oder ein leeres erstellen?" />
+    <string
+      id="ret_inquiry_confirm_create_equipment_set_title"
+      text="Ausrüstung erstellen" />
+    <string
+      id="ret_inquiry_confirm_delete_equipment_set_text"
+      text="Möchten Sie das aktuelle Ausrüstungsset wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden." />
+    <string
+      id="ret_inquiry_confirm_delete_equipment_set_title"
+      text="Ausrüstung löschen" />
+    <string
+      id="ret_inquiry_confirm_remove_character_text"
+      text="Möchten Sie {UNIT_NAME} wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden." />
+    <string
+      id="ret_inquiry_confirm_remove_character_title"
+      text="Einheit löschen" />
+    <string
+      id="ret_inquiry_create_equipment_set_choice_copy"
+      text="Kopieren" />
+    <string
+      id="ret_inquiry_create_equipment_set_choice_empty"
+      text="Leer" />
+    <string
       id="ret_inquiry_no_battle_sets"
       text="Keine Kampfausrüstung" />
     <string
@@ -138,7 +186,7 @@
       text="zivile Ausrüstungen" />
     <string
       id="ret_inquiry_no_equipment_sets_text"
-      text="Der aktuelle Charakter hat keine {EQUIPMENT_TYPE}.{newline}{newline}Einen leeren erstellen?" />
+      text="{UNIT_NAME} hat keine {EQUIPMENT_TYPE}.{newline}{newline}Ein leeres erstellen?" />
     <string
       id="ret_invalid_name_body"
       text="Der Name darf nicht leer sein." />
@@ -209,8 +257,8 @@
       id="ret_no_cultures_title"
       text="Keine Kulturen gefunden" />
     <string
-      id="ret_rename_troop"
-      text="Truppe umbenennen" />
+      id="ret_rename_unit"
+      text="Neuer Name" />
     <string
       id="ret_retinues_update_title"
       text="Retinues-Update" />

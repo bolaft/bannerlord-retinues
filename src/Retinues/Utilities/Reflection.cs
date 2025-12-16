@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection;
 
@@ -290,6 +291,23 @@ namespace Retinues.Utilities
                         CultureInfo.InvariantCulture
                     )
                 );
+            }
+
+            if (value != null && targetType.IsArray)
+            {
+                var elemType = targetType.GetElementType();
+                if (elemType != null && value is System.Collections.IEnumerable enumerable)
+                {
+                    var tmp = new List<object>();
+                    foreach (var it in enumerable)
+                        tmp.Add(ConvertIfNeeded(it, elemType)); // recurse if you want element conversion
+
+                    var arr = Array.CreateInstance(elemType, tmp.Count);
+                    for (int i = 0; i < tmp.Count; i++)
+                        arr.SetValue(tmp[i], i);
+
+                    return arr;
+                }
             }
 
             return Convert.ChangeType(value, targetType, CultureInfo.InvariantCulture);

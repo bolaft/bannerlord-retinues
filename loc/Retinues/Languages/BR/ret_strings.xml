@@ -11,20 +11,35 @@
       id="ret_build_hint"
       text="Constituição" />
     <string
+      id="ret_button_remove_character"
+      text="Excluir" />
+    <string
       id="ret_button_show_battle"
       text="Combate" />
     <string
       id="ret_button_show_civilian"
       text="Civil" />
     <string
+      id="ret_cannot_remove_character_title"
+      text="Não é possível remover a unidade" />
+    <string
       id="ret_cant_equip_reason_civilian"
       text="Não civil" />
     <string
       id="ret_cant_equip_reason_skill"
-      text="{VALUE} {SKILL}" />
+      text="{SKILL} {VALUE}" />
     <string
       id="ret_change_culture_title"
       text="Alterar Cultura" />
+    <string
+      id="ret_character_cannot_remove_hero"
+      text="Heróis não podem ser removidos." />
+    <string
+      id="ret_character_cannot_remove_root"
+      text="Unidades raiz não podem ser removidas." />
+    <string
+      id="ret_character_cannot_remove_with_upgrades"
+      text="Não é possível remover uma unidade que ainda possui melhorias." />
     <string
       id="ret_clear_filter_tooltip"
       text="Limpe o texto do filtro atual." />
@@ -32,8 +47,14 @@
       id="ret_close_equipment_button_text"
       text="Voltar" />
     <string
+      id="ret_create_set_tooltip"
+      text="Criar conjunto de equipamentos" />
+    <string
       id="ret_culture_header_text"
       text="Cultura" />
+    <string
+      id="ret_delete_set_tooltip"
+      text="Excluir conjunto de equipamentos" />
     <string
       id="ret_dependencies_all_ok"
       text="Todas as dependências foram inicializadas corretamente." />
@@ -64,6 +85,9 @@
     <string
       id="ret_equipment_button_text"
       text="Equipamento" />
+    <string
+      id="ret_equipment_cannot_delete_last_set"
+      text="Pelo menos um conjunto de equipamentos deve permanecer." />
     <string
       id="ret_equipment_slot_body"
       text="Corpo" />
@@ -99,7 +123,7 @@
       text="Arma 4" />
     <string
       id="ret_escape_menu_editor_button"
-      text="Editor de Tropas" />
+      text="Editor Universal" />
     <string
       id="ret_filter_label"
       text="Filtro:" />
@@ -125,6 +149,30 @@
       id="ret_init_error_title"
       text="Erro de Dependência do Retinues" />
     <string
+      id="ret_inquiry_confirm_create_equipment_set_text"
+      text="Você quer criar um novo conjunto de equipamentos copiando o conjunto atual ou criar um vazio?" />
+    <string
+      id="ret_inquiry_confirm_create_equipment_set_title"
+      text="Criar Equipamento" />
+    <string
+      id="ret_inquiry_confirm_delete_equipment_set_text"
+      text="Tem certeza de que deseja excluir o conjunto de equipamentos atual? Esta ação não pode ser desfeita." />
+    <string
+      id="ret_inquiry_confirm_delete_equipment_set_title"
+      text="Excluir Equipamento" />
+    <string
+      id="ret_inquiry_confirm_remove_character_text"
+      text="Tem certeza de que deseja excluir {UNIT_NAME}? Esta ação não pode ser desfeita." />
+    <string
+      id="ret_inquiry_confirm_remove_character_title"
+      text="Excluir Unidade" />
+    <string
+      id="ret_inquiry_create_equipment_set_choice_copy"
+      text="Copiar" />
+    <string
+      id="ret_inquiry_create_equipment_set_choice_empty"
+      text="Vazio" />
+    <string
       id="ret_inquiry_no_battle_sets"
       text="Nenhum Equipamento de Batalha" />
     <string
@@ -138,7 +186,7 @@
       text="equipamentos civis" />
     <string
       id="ret_inquiry_no_equipment_sets_text"
-      text="O personagem atual não tem {EQUIPMENT_TYPE}.{newline}{newline}Criar um vazio?" />
+      text="{UNIT_NAME} não tem {EQUIPMENT_TYPE}.{newline}{newline}Criar um vazio?" />
     <string
       id="ret_invalid_name_body"
       text="O nome não pode estar vazio." />
@@ -209,8 +257,8 @@
       id="ret_no_cultures_title"
       text="Nenhuma Cultura Encontrada" />
     <string
-      id="ret_rename_troop"
-      text="Renomear Tropas" />
+      id="ret_rename_unit"
+      text="Novo Nome" />
     <string
       id="ret_retinues_update_title"
       text="Atualização do Retinues" />

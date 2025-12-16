@@ -109,6 +109,6 @@ namespace Retinues.Editor.VM.Panel.Equipment
         public Tooltip UnequipTooltip => new(L.T("unequip_item_tooltip", "Unequip this item."));
 
         [DataSourceMethod]
-        public void ExecuteUnequip() => EquipmentController.UnequipItem(_slot);
+        public void ExecuteUnequip() => ItemController.UnequipItem(_slot);
     }
 }

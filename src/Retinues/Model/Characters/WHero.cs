@@ -161,8 +161,8 @@ namespace Retinues.Model.Characters
 
         public List<MEquipment> Equipments => [BattleEquipment, CivilianEquipment];
 
-        public MEquipment BattleEquipment => new(Base.BattleEquipment);
-        public MEquipment CivilianEquipment => new(Base.CivilianEquipment);
+        public MEquipment BattleEquipment => new(Base.BattleEquipment, Character);
+        public MEquipment CivilianEquipment => new(Base.CivilianEquipment, Character);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Skills                        //

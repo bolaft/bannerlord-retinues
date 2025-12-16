@@ -1,0 +1,37 @@
+
+<ListPanel
+    DataSource="{CharacterControls}"
+    IsVisible="@IsVisible"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    StackLayout.LayoutMethod="VerticalBottomToTop"
+    HorizontalAlignment="Center" VerticalAlignment="Top">
+    <Children>
+
+        <Widget
+            IsVisible="@ShowRemoveCharacterButton"
+            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+            HorizontalAlignment="Center" VerticalAlignment="Center"
+            SuggestedWidth="200" SuggestedHeight="60">
+            <Children>
+                <HintWidget
+                    DataSource="{CanRemoveCharacterTooltip}"
+                    Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
+                <ButtonWidget
+                    IsEnabled="@CanRemoveCharacter"
+                    Brush="Popup.Delete.Button"
+                    WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+                    Command.Click="ExecuteRemoveCharacter"
+                    UpdateChildrenStates="true" DoNotPassEventsToChildren="true">
+                    <Children>
+                        <TextWidget
+                            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                            Brush="Popup.Button.Text"
+                            VerticalAlignment="Center" HorizontalAlignment="Center"
+                            Text="@RemoveCharacterButtonText"/>
+                    </Children>
+                </ButtonWidget>
+            </Children>
+        </Widget>
+
+    </Children>
+</ListPanel>

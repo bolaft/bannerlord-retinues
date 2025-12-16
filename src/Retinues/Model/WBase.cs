@@ -26,10 +26,14 @@ namespace Retinues.Model
         //                     Static Helpers                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        public static TWrapper Get(string stringId) => Wrap(GetBase(stringId));
+
+        public static TWrapper Get(TBase mbObject) => Wrap(mbObject);
+
         /// <summary>
-        /// Returns the wrapped object with the given StringId, or null if not found.
+        /// Returns the underlying MBObjectBase from MBObjectManager by StringId.
         /// </summary>
-        public static TWrapper Get(string stringId)
+        private static TBase GetBase(string stringId)
         {
             if (stringId == null)
                 throw new ArgumentNullException(nameof(stringId));
@@ -38,20 +42,7 @@ namespace Retinues.Model
             if (manager == null)
                 return null;
 
-            var obj = manager.GetObject<TBase>(stringId);
-            return Wrap(obj);
-        }
-
-        /// <summary>
-        /// Returns the wrapped object for the given MBObjectBase, or null if the type is
-        /// not compatible.
-        /// </summary>
-        public static TWrapper Get(TBase mbObject)
-        {
-            if (mbObject == null)
-                return null;
-
-            return Wrap(mbObject);
+            return manager.GetObject<TBase>(stringId);
         }
 
         /// <summary>
@@ -92,7 +83,7 @@ namespace Retinues.Model
                 return null;
 
             // Expect concrete wrappers to expose a constructor (TBase baseInstance).
-            return (TWrapper)Activator.CreateInstance(typeof(TWrapper), baseInstance);
+            return (TWrapper)Activator.CreateInstance(typeof(TWrapper), [baseInstance]);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

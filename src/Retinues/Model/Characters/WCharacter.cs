@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Retinues.Model.Equipments;
 using Retinues.Model.Factions;
+using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.Localization;
@@ -54,6 +55,135 @@ namespace Retinues.Model.Characters
         public IEditableUnit Editable => IsHero ? Hero : this;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Removal                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Removes this character.
+        /// </summary>
+        public void Remove()
+        {
+            // Never "remove" heroes here.
+            if (IsHero)
+                return;
+
+            // Snapshot upgrade sources to avoid modification during iteration.
+            var sources = UpgradeSources.ToList();
+
+            // Detach from sources so nobody upgrades into this anymore.
+            foreach (var source in sources)
+                source.RemoveUpgradeTarget(this);
+
+            // Custom troop: "remove" means return to unassigned stub pool.
+            if (IsCustom)
+            {
+                if (IsRoot)
+                    return;
+
+                IsActiveStub = false; // also clamps encyclopedia visibility via stub rule
+                return;
+            }
+
+            // Vanilla troop: "remove" means hide (persisted).
+            HiddenInEncyclopedia = true;
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                Encyclopedia Visibility                 //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public bool HiddenInEncyclopedia
+        {
+            get => HiddenInEncyclopediaAttribute.Get();
+            set => HiddenInEncyclopediaAttribute.Set(value);
+        }
+
+        bool _hiddenInEncyclopedia;
+
+        MAttribute<bool> _hiddenInEncyclopediaAttribute;
+        MAttribute<bool> HiddenInEncyclopediaAttribute
+        {
+            get
+            {
+                if (_hiddenInEncyclopediaAttribute != null)
+                    return _hiddenInEncyclopediaAttribute;
+
+                _hiddenInEncyclopedia = ReadHiddenInEncyclopediaFromBase();
+
+                _hiddenInEncyclopediaAttribute = new MAttribute<bool>(
+                    baseInstance: Base,
+                    getter: _ => _hiddenInEncyclopedia,
+                    setter: (_, value) =>
+                    {
+                        _hiddenInEncyclopedia = value;
+                        ApplyHiddenInEncyclopediaToBase(value);
+
+                        // Clamp for custom stubs (inactive must be hidden, active must be visible).
+                        EnforceStubEncyclopediaRule();
+                    },
+                    targetName: "hidden_in_encyclopedia"
+                );
+
+                // Clamp on first init too (covers "unassigned stub should always be hidden").
+                EnforceStubEncyclopediaRule();
+
+                return _hiddenInEncyclopediaAttribute;
+            }
+        }
+
+        bool ReadHiddenInEncyclopediaFromBase()
+        {
+            try
+            {
+#if BL13
+                return Reflection.GetPropertyValue<bool>(Base, "HiddenInEncyclopedia");
+#else
+                return Reflection.GetPropertyValue<bool>(Base, "HiddenInEncylopedia");
+#endif
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        void ApplyHiddenInEncyclopediaToBase(bool hidden)
+        {
+            try
+            {
+#if BL13
+                Reflection.SetPropertyValue(Base, "HiddenInEncyclopedia", hidden);
+#else
+                Reflection.SetPropertyValue(Base, "HiddenInEncylopedia", hidden);
+#endif
+            }
+            catch { }
+        }
+
+        /// <summary>
+        /// Invariant for custom troop stubs:
+        /// - Unassigned stub (inactive) => always hidden in encyclopedia
+        /// - Assigned stub (active) => always visible in encyclopedia
+        /// This does not affect vanilla troops.
+        /// </summary>
+        void EnforceStubEncyclopediaRule()
+        {
+            if (!IsCustom)
+                return;
+
+            if (IsHero)
+                return;
+
+            var forcedHidden = !IsActiveStub;
+
+            if (_hiddenInEncyclopedia == forcedHidden)
+                return;
+
+            _hiddenInEncyclopedia = forcedHidden;
+            ApplyHiddenInEncyclopediaToBase(forcedHidden);
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Stubs                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
@@ -75,7 +205,13 @@ namespace Retinues.Model.Characters
             _isActiveStubAttribute ??= new MAttribute<bool>(
                 baseInstance: Base,
                 getter: _ => _isActiveStub,
-                setter: (_, value) => _isActiveStub = value,
+                setter: (_, value) =>
+                {
+                    _isActiveStub = value;
+
+                    // Keep custom stubs consistent with encyclopedia visibility.
+                    EnforceStubEncyclopediaRule();
+                },
                 targetName: "is_active_stub"
             );
 
@@ -92,7 +228,7 @@ namespace Retinues.Model.Characters
                 if (wc.IsActiveStub)
                     continue;
 
-                // Mark as active.
+                // Mark as active (also forces encyclopedia visibility via setter).
                 wc.IsActiveStub = true;
 
                 // Found a free stub.

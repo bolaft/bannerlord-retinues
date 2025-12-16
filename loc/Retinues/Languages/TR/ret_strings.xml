@@ -11,20 +11,35 @@
       id="ret_build_hint"
       text="Yapı" />
     <string
+      id="ret_button_remove_character"
+      text="Sil" />
+    <string
       id="ret_button_show_battle"
       text="Savaş" />
     <string
       id="ret_button_show_civilian"
       text="Sivil" />
     <string
+      id="ret_cannot_remove_character_title"
+      text="Birlik Kaldırılamaz" />
+    <string
       id="ret_cant_equip_reason_civilian"
       text="Sivil Değil" />
     <string
       id="ret_cant_equip_reason_skill"
-      text="{VALUE} {SKILL}" />
+      text="{SKILL} {VALUE}" />
     <string
       id="ret_change_culture_title"
       text="Kültürü Değiştir" />
+    <string
+      id="ret_character_cannot_remove_hero"
+      text="Kahramanlar kaldırılamaz." />
+    <string
+      id="ret_character_cannot_remove_root"
+      text="Kök birimler kaldırılamaz." />
+    <string
+      id="ret_character_cannot_remove_with_upgrades"
+      text="Hala yükseltmeleri olan birim kaldırılamaz." />
     <string
       id="ret_clear_filter_tooltip"
       text="Mevcut filtre metnini temizle." />
@@ -32,8 +47,14 @@
       id="ret_close_equipment_button_text"
       text="Geri" />
     <string
+      id="ret_create_set_tooltip"
+      text="Ekipman seti oluştur" />
+    <string
       id="ret_culture_header_text"
       text="Kültür" />
+    <string
+      id="ret_delete_set_tooltip"
+      text="Ekipman setini sil" />
     <string
       id="ret_dependencies_all_ok"
       text="Tüm bağımlılıklar doğru şekilde başlatıldı." />
@@ -64,6 +85,9 @@
     <string
       id="ret_equipment_button_text"
       text="Ekipman" />
+    <string
+      id="ret_equipment_cannot_delete_last_set"
+      text="En az bir ekipman seti kalmalıdır." />
     <string
       id="ret_equipment_slot_body"
       text="Gövde" />
@@ -99,7 +123,7 @@
       text="Silah 4" />
     <string
       id="ret_escape_menu_editor_button"
-      text="Birlik Düzenleyici" />
+      text="Evrensel Düzenleyici" />
     <string
       id="ret_filter_label"
       text="Filtre:" />
@@ -125,6 +149,30 @@
       id="ret_init_error_title"
       text="Retinues Bağımlılık Hatası" />
     <string
+      id="ret_inquiry_confirm_create_equipment_set_text"
+      text="Mevcut seti kopyalayarak yeni bir ekipman seti mi oluşturmak yoksa boş bir set mi oluşturmak istiyorsunuz?" />
+    <string
+      id="ret_inquiry_confirm_create_equipment_set_title"
+      text="Ekipman Oluştur" />
+    <string
+      id="ret_inquiry_confirm_delete_equipment_set_text"
+      text="Mevcut ekipman setini silmek istediğinizden emin misiniz? Bu işlem geri alınamaz." />
+    <string
+      id="ret_inquiry_confirm_delete_equipment_set_title"
+      text="Ekipmanı Sil" />
+    <string
+      id="ret_inquiry_confirm_remove_character_text"
+      text="{UNIT_NAME} öğesini silmek istediğinizden emin misiniz? Bu işlem geri alınamaz." />
+    <string
+      id="ret_inquiry_confirm_remove_character_title"
+      text="Birimi Sil" />
+    <string
+      id="ret_inquiry_create_equipment_set_choice_copy"
+      text="Kopyala" />
+    <string
+      id="ret_inquiry_create_equipment_set_choice_empty"
+      text="Boş" />
+    <string
       id="ret_inquiry_no_battle_sets"
       text="Savaş Ekipmanı Yok" />
     <string
@@ -138,7 +186,7 @@
       text="sivil ekipmanlar" />
     <string
       id="ret_inquiry_no_equipment_sets_text"
-      text="Mevcut karakterin {EQUIPMENT_TYPE} yok.{newline}{newline}Boş bir tane oluşturulsun mu?" />
+      text="{UNIT_NAME} {EQUIPMENT_TYPE} yok.{newline}{newline}Boş bir tane oluşturulsun mu?" />
     <string
       id="ret_invalid_name_body"
       text="İsim boş olamaz." />
@@ -209,8 +257,8 @@
       id="ret_no_cultures_title"
       text="Kültür Bulunamadı" />
     <string
-      id="ret_rename_troop"
-      text="Birliği Yeniden Adlandır" />
+      id="ret_rename_unit"
+      text="Yeni İsim" />
     <string
       id="ret_retinues_update_title"
       text="Retinues Güncellemesi" />

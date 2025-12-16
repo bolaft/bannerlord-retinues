@@ -1,12 +1,11 @@
 using System.Collections.Generic;
-using System.Diagnostics.Tracing;
-using System.Linq;
 using Bannerlord.UIExtenderEx.Attributes;
+using Retinues.Editor.Controllers;
 using Retinues.Helpers;
 using Retinues.Model.Equipments;
 using Retinues.Utilities;
 using TaleWorlds.Library;
-using TaleWorlds.MountAndBlade.View.SceneNotification;
+using TaleWorlds.Localization;
 
 namespace Retinues.Editor.VM.Column.Equipment
 {
@@ -26,19 +25,19 @@ namespace Retinues.Editor.VM.Column.Equipment
 
         /* ━━━━━ Show Civilian ━━━━ */
 
-        private bool _showCivilian = false;
+        private bool _civilian = false;
 
         [EventListener(UIEvent.Character)]
         private void ResetShowCivilian()
         {
-            _showCivilian = State.Equipment != null && State.Equipment.IsCivilian;
+            _civilian = State.Equipment != null && State.Equipment.IsCivilian;
             OnPropertyChanged(nameof(ShowCivilian));
         }
 
         [EventListener(UIEvent.Equipment)]
         [DataSourceProperty]
         public string ToggleShowCivilianButtonText =>
-            _showCivilian
+            _civilian
                 ? L.S("button_show_civilian", "Civilian")
                 : L.S("button_show_battle", "Battle");
 
@@ -46,20 +45,16 @@ namespace Retinues.Editor.VM.Column.Equipment
         [DataSourceProperty]
         public bool ShowCivilian
         {
-            get => _showCivilian;
+            get => _civilian;
             set
             {
-                if (value == _showCivilian)
+                if (value == _civilian)
                     return;
-
-                // Use the TARGET mode, not the old field.
-                List<MEquipment> targetList = value ? CivilianEquipments : BattleEquipments;
-
                 void Apply(MEquipment e)
                 {
                     EventManager.FireBatch(() =>
                     {
-                        _showCivilian = value;
+                        _civilian = value;
 
                         // If we end up keeping the same equipment instance, we still want the UI to refresh.
                         if (!ReferenceEquals(State.Equipment, e))
@@ -69,55 +64,20 @@ namespace Retinues.Editor.VM.Column.Equipment
                     });
                 }
 
-                var equipment = targetList.FirstOrDefault();
-
-                if (equipment == null)
-                {
-                    Inquiries.Popup(
-                        title: value
-                            ? L.T("inquiry_no_civilian_sets", "No Civilian Equipments")
-                            : L.T("inquiry_no_battle_sets", "No Battle Equipments"),
-                        description: L.T(
-                                "inquiry_no_equipment_sets_text",
-                                "The current character has no {EQUIPMENT_TYPE}.\n\nCreate an empty one?"
-                            )
-                            .SetTextVariable(
-                                "EQUIPMENT_TYPE",
-                                value
-                                    ? L.T(
-                                        "inquiry_no_equipment_sets_civilian",
-                                        "civilian equipments"
-                                    )
-                                    : L.T("inquiry_no_equipment_sets_battle", "battle equipments")
-                            ),
-                        onConfirm: () =>
-                        {
-                            var created = MEquipment.Create(civilian: value);
-
-                            // Insert at 0 so it becomes the first of its category (matches your existing UX).
-                            State.Character.AddEquipment(created, index: 0);
-
-                            // After mutation, re-read lists and select the new first entry of that category.
-                            var added = (
-                                value ? CivilianEquipments : BattleEquipments
-                            ).FirstOrDefault();
-                            Apply(added ?? created);
-                        }
-                    );
-                    return;
-                }
-
-                Apply(equipment);
+                EquipmentController.SelectFirstOrPromptCreate(
+                    civilian: value,
+                    applySelection: Apply,
+                    allowCreate: true
+                );
             }
         }
 
         [DataSourceMethod]
-        public void ExecuteToggleShowCivilian() => ShowCivilian = !_showCivilian;
+        public void ExecuteToggleShowCivilian() => ShowCivilian = !_civilian;
 
         /* ━━━━━━ Equipments ━━━━━━ */
 
-        private List<MEquipment> Equipments =>
-            _showCivilian ? CivilianEquipments : BattleEquipments;
+        private List<MEquipment> Equipments => _civilian ? CivilianEquipments : BattleEquipments;
         private List<MEquipment> AllEquipments => State.Character.Editable.Equipments;
         private List<MEquipment> BattleEquipments => AllEquipments.FindAll(e => !e.IsCivilian);
         private List<MEquipment> CivilianEquipments => AllEquipments.FindAll(e => e.IsCivilian);
@@ -126,6 +86,46 @@ namespace Retinues.Editor.VM.Column.Equipment
         //                      Set Controls                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        int IndexOfByBase(List<MEquipment> list, MEquipment equipment) =>
+            EquipmentController.IndexOfByBase(list, equipment);
+
+        [EventListener(UIEvent.Character)]
+        [DataSourceProperty]
+        public bool ShowSetActionButtons => State.Character != null && !State.Character.IsHero;
+
+        [DataSourceProperty]
+        public bool CanCreateSet => ShowSetActionButtons && _cantCreateSetReason == null;
+
+        [DataSourceProperty]
+        public bool CanDeleteSet => ShowSetActionButtons && _cantDeleteSetReason == null;
+
+        [DataSourceProperty]
+        public Tooltip CanCreateSetTooltip =>
+            _cantCreateSetReason == null
+                ? new Tooltip(L.T("create_set_tooltip", "Create equipment set"))
+                : new Tooltip(_cantCreateSetReason);
+
+        [DataSourceProperty]
+        public Tooltip CanDeleteSetTooltip =>
+            _cantDeleteSetReason == null
+                ? new Tooltip(L.T("delete_set_tooltip", "Delete equipment set"))
+                : new Tooltip(_cantDeleteSetReason);
+
+        private TextObject _cantCreateSetReason = null;
+        private TextObject _cantDeleteSetReason = null;
+
+        [EventListener(UIEvent.Equipment)]
+        private void UpdateSetButtonStates()
+        {
+            EquipmentController.CanCreateSet(_civilian, out _cantCreateSetReason);
+            EquipmentController.CanDeleteSet(_civilian, out _cantDeleteSetReason);
+
+            OnPropertyChanged(nameof(CanCreateSet));
+            OnPropertyChanged(nameof(CanDeleteSet));
+            OnPropertyChanged(nameof(CanCreateSetTooltip));
+            OnPropertyChanged(nameof(CanDeleteSetTooltip));
+        }
+
         [EventListener(UIEvent.Equipment)]
         [DataSourceProperty]
         public string EquipmentLabel
@@ -133,7 +133,7 @@ namespace Retinues.Editor.VM.Column.Equipment
             get
             {
                 var list = Equipments;
-                var i = list.IndexOf(State.Equipment);
+                var i = IndexOfByBase(list, State.Equipment);
                 if (i < 0)
                     return $"0 / {list.Count}";
                 return $"{i + 1} / {list.Count}";
@@ -146,7 +146,7 @@ namespace Retinues.Editor.VM.Column.Equipment
         {
             get
             {
-                var i = Equipments.IndexOf(State.Equipment);
+                var i = IndexOfByBase(Equipments, State.Equipment);
                 return i > 0;
             }
         }
@@ -158,7 +158,7 @@ namespace Retinues.Editor.VM.Column.Equipment
             get
             {
                 var list = Equipments;
-                var i = list.IndexOf(State.Equipment);
+                var i = IndexOfByBase(list, State.Equipment);
                 return i >= 0 && i < list.Count - 1;
             }
         }
@@ -166,7 +166,7 @@ namespace Retinues.Editor.VM.Column.Equipment
         [DataSourceMethod]
         public void ExecutePrevSet()
         {
-            int index = Equipments.IndexOf(State.Equipment);
+            int index = IndexOfByBase(Equipments, State.Equipment);
             if (index <= 0)
                 return;
 
@@ -176,11 +176,29 @@ namespace Retinues.Editor.VM.Column.Equipment
         [DataSourceMethod]
         public void ExecuteNextSet()
         {
-            int index = Equipments.IndexOf(State.Equipment);
+            int index = IndexOfByBase(Equipments, State.Equipment);
             if (index >= Equipments.Count - 1)
                 return;
 
             State.Equipment = Equipments[index + 1];
+        }
+
+        [DataSourceMethod]
+        public void ExecuteCreateSet()
+        {
+            if (!CanCreateSet)
+                return;
+
+            EquipmentController.CreateSet(_civilian);
+        }
+
+        [DataSourceMethod]
+        public void ExecuteDeleteSet()
+        {
+            if (!CanDeleteSet)
+                return;
+
+            EquipmentController.DeleteSet(_civilian);
         }
     }
 }

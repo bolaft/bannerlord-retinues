@@ -11,20 +11,35 @@
       id="ret_build_hint"
       text="Musculature" />
     <string
+      id="ret_button_remove_character"
+      text="Supprimer" />
+    <string
       id="ret_button_show_battle"
       text="Combat" />
     <string
       id="ret_button_show_civilian"
       text="Civil" />
     <string
+      id="ret_cannot_remove_character_title"
+      text="Impossible de supprimer l&apos;unité" />
+    <string
       id="ret_cant_equip_reason_civilian"
       text="Non civil" />
     <string
       id="ret_cant_equip_reason_skill"
-      text="{VALUE} {SKILL}" />
+      text="{SKILL} {VALUE}" />
     <string
       id="ret_change_culture_title"
       text="Changer de culture" />
+    <string
+      id="ret_character_cannot_remove_hero"
+      text="Les héros ne peuvent pas être supprimés." />
+    <string
+      id="ret_character_cannot_remove_root"
+      text="Les unités racines ne peuvent pas être supprimées." />
+    <string
+      id="ret_character_cannot_remove_with_upgrades"
+      text="Impossible de supprimer une unité qui a encore des améliorations." />
     <string
       id="ret_clear_filter_tooltip"
       text="Effacer le texte du filtre actuel." />
@@ -32,8 +47,14 @@
       id="ret_close_equipment_button_text"
       text="Retour" />
     <string
+      id="ret_create_set_tooltip"
+      text="Créer un nouvel équipement" />
+    <string
       id="ret_culture_header_text"
       text="Culture" />
+    <string
+      id="ret_delete_set_tooltip"
+      text="Supprimer l&apos;équipement" />
     <string
       id="ret_dependencies_all_ok"
       text="Toutes les dépendances ont été initialisées correctement." />
@@ -64,6 +85,9 @@
     <string
       id="ret_equipment_button_text"
       text="Équipement" />
+    <string
+      id="ret_equipment_cannot_delete_last_set"
+      text="Il doit rester au moins un équipement." />
     <string
       id="ret_equipment_slot_body"
       text="Corps" />
@@ -99,7 +123,7 @@
       text="Arme 4" />
     <string
       id="ret_escape_menu_editor_button"
-      text="Éditeur de troupes" />
+      text="Éditeur universel" />
     <string
       id="ret_filter_label"
       text="Filtre :" />
@@ -125,6 +149,30 @@
       id="ret_init_error_title"
       text="Erreur de dépendance Retinues" />
     <string
+      id="ret_inquiry_confirm_create_equipment_set_text"
+      text="Copier l&apos;équipement actuel ou en créer un vide ?" />
+    <string
+      id="ret_inquiry_confirm_create_equipment_set_title"
+      text="Créer un équipement" />
+    <string
+      id="ret_inquiry_confirm_delete_equipment_set_text"
+      text="Êtes-vous sûr de vouloir supprimer l&apos;équipement actuel ? Cette action est irréversible." />
+    <string
+      id="ret_inquiry_confirm_delete_equipment_set_title"
+      text="Supprimer l&apos;équipement" />
+    <string
+      id="ret_inquiry_confirm_remove_character_text"
+      text="Êtes-vous sûr de vouloir supprimer {UNIT_NAME} ? Cette action est irréversible." />
+    <string
+      id="ret_inquiry_confirm_remove_character_title"
+      text="Supprimer l&apos;unité" />
+    <string
+      id="ret_inquiry_create_equipment_set_choice_copy"
+      text="Copier" />
+    <string
+      id="ret_inquiry_create_equipment_set_choice_empty"
+      text="Vide" />
+    <string
       id="ret_inquiry_no_battle_sets"
       text="Aucun équipement de combat" />
     <string
@@ -138,7 +186,7 @@
       text="équipements civils" />
     <string
       id="ret_inquiry_no_equipment_sets_text"
-      text="Le personnage actuel n&apos;a pas d&apos;{EQUIPMENT_TYPE}.{newline}{newline}En créer un vide ?" />
+      text="{UNIT_NAME} n&apos;a pas de {EQUIPMENT_TYPE}.{newline}{newline}En créer un vide ?" />
     <string
       id="ret_invalid_name_body"
       text="Le nom ne peut pas être vide." />
@@ -209,8 +257,8 @@
       id="ret_no_cultures_title"
       text="Aucune culture trouvée" />
     <string
-      id="ret_rename_troop"
-      text="Renommer la troupe" />
+      id="ret_rename_unit"
+      text="Nouveau nom" />
     <string
       id="ret_retinues_update_title"
       text="Mise à jour de Retinues" />

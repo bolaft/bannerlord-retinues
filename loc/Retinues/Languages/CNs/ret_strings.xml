@@ -11,20 +11,35 @@
       id="ret_build_hint"
       text="体型" />
     <string
+      id="ret_button_remove_character"
+      text="删除" />
+    <string
       id="ret_button_show_battle"
       text="战斗" />
     <string
       id="ret_button_show_civilian"
       text="平民" />
     <string
+      id="ret_cannot_remove_character_title"
+      text="无法移除单位" />
+    <string
       id="ret_cant_equip_reason_civilian"
       text="非平民" />
     <string
       id="ret_cant_equip_reason_skill"
-      text="{VALUE} {SKILL}" />
+      text="{SKILL} {VALUE}" />
     <string
       id="ret_change_culture_title"
       text="更改文化" />
+    <string
+      id="ret_character_cannot_remove_hero"
+      text="英雄无法被移除。" />
+    <string
+      id="ret_character_cannot_remove_root"
+      text="根单位无法被移除。" />
+    <string
+      id="ret_character_cannot_remove_with_upgrades"
+      text="无法移除仍有升级的单位。" />
     <string
       id="ret_clear_filter_tooltip"
       text="清除当前的过滤文本。" />
@@ -32,8 +47,14 @@
       id="ret_close_equipment_button_text"
       text="返回" />
     <string
+      id="ret_create_set_tooltip"
+      text="创建装备套装" />
+    <string
       id="ret_culture_header_text"
       text="文化" />
+    <string
+      id="ret_delete_set_tooltip"
+      text="删除装备套装" />
     <string
       id="ret_dependencies_all_ok"
       text="所有依赖项均已正确初始化。" />
@@ -64,6 +85,9 @@
     <string
       id="ret_equipment_button_text"
       text="装备" />
+    <string
+      id="ret_equipment_cannot_delete_last_set"
+      text="至少必须保留一个装备套装。" />
     <string
       id="ret_equipment_slot_body"
       text="身体" />
@@ -99,7 +123,7 @@
       text="武器 4" />
     <string
       id="ret_escape_menu_editor_button"
-      text="部队编辑器" />
+      text="通用编辑器" />
     <string
       id="ret_filter_label"
       text="过滤器：" />
@@ -125,6 +149,30 @@
       id="ret_init_error_title"
       text="Retinues 依赖项错误" />
     <string
+      id="ret_inquiry_confirm_create_equipment_set_text"
+      text="您想通过复制当前套装来创建一个新的装备套装，还是创建一个空的？" />
+    <string
+      id="ret_inquiry_confirm_create_equipment_set_title"
+      text="创建装备" />
+    <string
+      id="ret_inquiry_confirm_delete_equipment_set_text"
+      text="您确定要删除当前的装备套装吗？此操作无法撤销。" />
+    <string
+      id="ret_inquiry_confirm_delete_equipment_set_title"
+      text="删除装备" />
+    <string
+      id="ret_inquiry_confirm_remove_character_text"
+      text="您确定要删除 {UNIT_NAME} 吗？此操作无法撤销。" />
+    <string
+      id="ret_inquiry_confirm_remove_character_title"
+      text="删除单位" />
+    <string
+      id="ret_inquiry_create_equipment_set_choice_copy"
+      text="复制" />
+    <string
+      id="ret_inquiry_create_equipment_set_choice_empty"
+      text="空的" />
+    <string
       id="ret_inquiry_no_battle_sets"
       text="无战斗装备" />
     <string
@@ -138,7 +186,7 @@
       text="平民装备" />
     <string
       id="ret_inquiry_no_equipment_sets_text"
-      text="当前角色没有 {EQUIPMENT_TYPE}。{newline}{newline}创建一个空的？" />
+      text="{UNIT_NAME} 没有 {EQUIPMENT_TYPE}。{newline}{newline}创建一个空的？" />
     <string
       id="ret_invalid_name_body"
       text="名称不能为空。" />
@@ -209,8 +257,8 @@
       id="ret_no_cultures_title"
       text="未找到文化" />
     <string
-      id="ret_rename_troop"
-      text="重命名部队" />
+      id="ret_rename_unit"
+      text="新名称" />
     <string
       id="ret_retinues_update_title"
       text="Retinues 更新" />

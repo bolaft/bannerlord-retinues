@@ -1,5 +1,6 @@
 using System.Diagnostics.Tracing;
 using Bannerlord.UIExtenderEx.Attributes;
+using Retinues.Editor.VM.Column.Character;
 using Retinues.Editor.VM.Column.Equipment;
 using Retinues.Utilities;
 using TaleWorlds.Core.ViewModelCollection;
@@ -22,6 +23,11 @@ namespace Retinues.Editor.VM.Column
 
         [DataSourceProperty]
         public EquipmentControlsVM EquipmentControls => _equipmentControls;
+
+        private readonly CharacterControlsVM _characterControls = new();
+
+        [DataSourceProperty]
+        public CharacterControlsVM CharacterControls => _characterControls;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Model                         //

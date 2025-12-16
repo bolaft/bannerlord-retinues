@@ -82,10 +82,10 @@ namespace Retinues.Model.Characters
             }
 
             // Equipment: either deep copy all sets, or create 2 empty sets (battle+civilian)
-            var equipmentsData = equipments
-                ? BuildClonedEquipmentsData(this)
-                : BuildEmptyEquipmentsData();
-            stub.EquipmentsData = equipmentsData;
+            if (equipments)
+                stub.EquipmentRoster.Copy(EquipmentRoster);
+            else
+                stub.EquipmentRoster.Reset();
 
             Log.Info($"Cloned '{Name}' -> '{stub.StringId}'");
             return stub;
@@ -183,63 +183,6 @@ namespace Retinues.Model.Characters
 
             // Ensure skills wrapper rebuilds its attribute map if it already existed
             wc._skills = null;
-        }
-
-        private static string BuildEmptyEquipmentsData()
-        {
-            var battle = new Equipment(Equipment.EquipmentType.Battle);
-            var civilian = new Equipment(Equipment.EquipmentType.Civilian);
-
-            var list = new List<MEquipment>(2) { new(battle), new(civilian) };
-
-            return MEquipment.SerializeMany(list);
-        }
-
-        private static string BuildClonedEquipmentsData(WCharacter src)
-        {
-            if (src == null)
-                return string.Empty;
-
-            var srcList = src.Equipments;
-            if (srcList == null || srcList.Count == 0)
-                return BuildEmptyEquipmentsData();
-
-            var cloned = new List<MEquipment>(srcList.Count);
-
-            for (int i = 0; i < srcList.Count; i++)
-            {
-                var me = srcList[i];
-                var eq = me?.Base;
-                if (eq == null)
-                    continue;
-
-                Equipment ne = null;
-
-                try
-                {
-                    var code = eq.CalculateEquipmentCode();
-                    ne = Equipment.CreateFromEquipmentCode(code);
-                }
-                catch { }
-
-                if (ne == null)
-                    continue;
-
-                // Preserve equipment type (battle/civilian) like old code
-                try
-                {
-                    var t = Reflection.GetFieldValue<Equipment.EquipmentType>(eq, "_equipmentType");
-                    Reflection.SetFieldValue(ne, "_equipmentType", t);
-                }
-                catch { }
-
-                cloned.Add(new MEquipment(ne));
-            }
-
-            if (cloned.Count == 0)
-                return BuildEmptyEquipmentsData();
-
-            return MEquipment.SerializeMany(cloned);
         }
     }
 }

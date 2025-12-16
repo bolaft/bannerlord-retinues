@@ -1,10 +1,8 @@
-using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using Retinues.Model.Characters;
 using Retinues.Model.Factions;
-using Retinues.Utilities;
 using TaleWorlds.Core;
 #if BL13
 using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;

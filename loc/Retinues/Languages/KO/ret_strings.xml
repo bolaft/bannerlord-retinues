@@ -11,20 +11,35 @@
       id="ret_build_hint"
       text="체격" />
     <string
+      id="ret_button_remove_character"
+      text="삭제" />
+    <string
       id="ret_button_show_battle"
       text="전투" />
     <string
       id="ret_button_show_civilian"
       text="민간인" />
     <string
+      id="ret_cannot_remove_character_title"
+      text="유닛을 제거할 수 없습니다" />
+    <string
       id="ret_cant_equip_reason_civilian"
       text="민간인이 아님" />
     <string
       id="ret_cant_equip_reason_skill"
-      text="{VALUE} {SKILL}" />
+      text="{SKILL} {VALUE}" />
     <string
       id="ret_change_culture_title"
       text="문화 변경" />
+    <string
+      id="ret_character_cannot_remove_hero"
+      text="영웅은 제거할 수 없습니다." />
+    <string
+      id="ret_character_cannot_remove_root"
+      text="루트 유닛은 제거할 수 없습니다." />
+    <string
+      id="ret_character_cannot_remove_with_upgrades"
+      text="업그레이드가 아직 있는 유닛은 제거할 수 없습니다." />
     <string
       id="ret_clear_filter_tooltip"
       text="현재 필터 텍스트를 지웁니다." />
@@ -32,8 +47,14 @@
       id="ret_close_equipment_button_text"
       text="뒤로" />
     <string
+      id="ret_create_set_tooltip"
+      text="장비 세트 만들기" />
+    <string
       id="ret_culture_header_text"
       text="문화" />
+    <string
+      id="ret_delete_set_tooltip"
+      text="장비 세트 삭제" />
     <string
       id="ret_dependencies_all_ok"
       text="모든 종속 항목이 올바르게 초기화되었습니다." />
@@ -64,6 +85,9 @@
     <string
       id="ret_equipment_button_text"
       text="장비" />
+    <string
+      id="ret_equipment_cannot_delete_last_set"
+      text="적어도 하나의 장비 세트가 남아 있어야 합니다." />
     <string
       id="ret_equipment_slot_body"
       text="몸" />
@@ -99,7 +123,7 @@
       text="무기 4" />
     <string
       id="ret_escape_menu_editor_button"
-      text="부대 편집기" />
+      text="유니버설 에디터" />
     <string
       id="ret_filter_label"
       text="필터:" />
@@ -125,6 +149,30 @@
       id="ret_init_error_title"
       text="Retinues 종속성 오류" />
     <string
+      id="ret_inquiry_confirm_create_equipment_set_text"
+      text="현재 세트를 복사하여 새 장비 세트를 만들거나 빈 세트를 만들겠습니까?" />
+    <string
+      id="ret_inquiry_confirm_create_equipment_set_title"
+      text="장비 만들기" />
+    <string
+      id="ret_inquiry_confirm_delete_equipment_set_text"
+      text="현재 장비 세트를 삭제하시겠습니까? 이 작업은 취소할 수 없습니다." />
+    <string
+      id="ret_inquiry_confirm_delete_equipment_set_title"
+      text="장비 삭제" />
+    <string
+      id="ret_inquiry_confirm_remove_character_text"
+      text="{UNIT_NAME}을(를) 삭제하시겠습니까? 이 작업은 취소할 수 없습니다." />
+    <string
+      id="ret_inquiry_confirm_remove_character_title"
+      text="유닛 삭제" />
+    <string
+      id="ret_inquiry_create_equipment_set_choice_copy"
+      text="복사" />
+    <string
+      id="ret_inquiry_create_equipment_set_choice_empty"
+      text="비어 있음" />
+    <string
       id="ret_inquiry_no_battle_sets"
       text="전투 장비 없음" />
     <string
@@ -138,7 +186,7 @@
       text="민간 장비" />
     <string
       id="ret_inquiry_no_equipment_sets_text"
-      text="현재 캐릭터에는 {EQUIPMENT_TYPE}이(가) 없습니다.{newline}{newline}빈 항목을 생성하시겠습니까?" />
+      text="{UNIT_NAME}에는 {EQUIPMENT_TYPE}이(가) 없습니다.{newline}{newline}빈 항목을 만들겠습니까?" />
     <string
       id="ret_invalid_name_body"
       text="이름은 비워둘 수 없습니다." />
@@ -209,8 +257,8 @@
       id="ret_no_cultures_title"
       text="문화가 없습니다" />
     <string
-      id="ret_rename_troop"
-      text="부대 이름 바꾸기" />
+      id="ret_rename_unit"
+      text="새 이름" />
     <string
       id="ret_retinues_update_title"
       text="Retinues 업데이트" />

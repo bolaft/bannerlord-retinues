@@ -35,7 +35,7 @@ namespace Retinues.Model
         /// </summary>
         public void Touch()
         {
-            if (_persistent)
+            if (_persistent && !MAttributePersistence.IsSyncInProgress)
                 _hasLocalChanges = true;
         }
 
@@ -448,6 +448,7 @@ namespace Retinues.Model
     {
         static readonly Dictionary<Type, Type> _wrapperTypesByBaseType = new();
         static bool _wrapperTypesScanned;
+        public static bool IsSyncInProgress => _syncInProgress;
 
         public sealed class Data
         {
@@ -599,7 +600,7 @@ namespace Retinues.Model
             _attributes[key] = attribute;
 
             // If we already have loaded data for this key, apply it immediately.
-            if (_data != null)
+            if (_data != null && !_syncInProgress)
             {
                 ((IMAttributePersistent)attribute).Apply(key, _data);
             }
@@ -618,9 +619,10 @@ namespace Retinues.Model
                 dataStore.SyncData("Retinues_Model_Attributes", ref _data);
 
                 if (!dataStore.IsSaving)
+                {
                     EagerInstantiateAllWrappers();
-
-                ApplyAll();
+                    ApplyAll();
+                }
             }
             finally
             {

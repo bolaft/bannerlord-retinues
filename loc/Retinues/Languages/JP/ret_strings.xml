@@ -11,20 +11,35 @@
       id="ret_build_hint"
       text="体格" />
     <string
+      id="ret_button_remove_character"
+      text="削除" />
+    <string
       id="ret_button_show_battle"
       text="戦闘" />
     <string
       id="ret_button_show_civilian"
       text="民間人" />
     <string
+      id="ret_cannot_remove_character_title"
+      text="ユニットを削除できません" />
+    <string
       id="ret_cant_equip_reason_civilian"
       text="民間人ではない" />
     <string
       id="ret_cant_equip_reason_skill"
-      text="{VALUE} {SKILL}" />
+      text="{SKILL} {VALUE}" />
     <string
       id="ret_change_culture_title"
       text="文化を変更" />
+    <string
+      id="ret_character_cannot_remove_hero"
+      text="英雄は削除できません。" />
+    <string
+      id="ret_character_cannot_remove_root"
+      text="ルートユニットは削除できません。" />
+    <string
+      id="ret_character_cannot_remove_with_upgrades"
+      text="アップグレードがまだあるユニットは削除できません。" />
     <string
       id="ret_clear_filter_tooltip"
       text="現在のフィルターテキストをクリアします。" />
@@ -32,8 +47,14 @@
       id="ret_close_equipment_button_text"
       text="戻る" />
     <string
+      id="ret_create_set_tooltip"
+      text="装備セットを作成" />
+    <string
       id="ret_culture_header_text"
       text="文化" />
+    <string
+      id="ret_delete_set_tooltip"
+      text="装備セットを削除" />
     <string
       id="ret_dependencies_all_ok"
       text="すべての依存関係が正しく初期化されました。" />
@@ -64,6 +85,9 @@
     <string
       id="ret_equipment_button_text"
       text="装備" />
+    <string
+      id="ret_equipment_cannot_delete_last_set"
+      text="少なくとも1つの装備セットを残す必要があります。" />
     <string
       id="ret_equipment_slot_body"
       text="体" />
@@ -99,7 +123,7 @@
       text="武器 4" />
     <string
       id="ret_escape_menu_editor_button"
-      text="部隊エディター" />
+      text="ユニバーサルエディター" />
     <string
       id="ret_filter_label"
       text="フィルター：" />
@@ -125,6 +149,30 @@
       id="ret_init_error_title"
       text="Retinues 依存関係エラー" />
     <string
+      id="ret_inquiry_confirm_create_equipment_set_text"
+      text="現在のセットをコピーして新しい装備セットを作成しますか、それとも空のセットを作成しますか？" />
+    <string
+      id="ret_inquiry_confirm_create_equipment_set_title"
+      text="装備を作成" />
+    <string
+      id="ret_inquiry_confirm_delete_equipment_set_text"
+      text="現在の装備セットを削除してもよろしいですか？この操作は元に戻せません。" />
+    <string
+      id="ret_inquiry_confirm_delete_equipment_set_title"
+      text="装備を削除" />
+    <string
+      id="ret_inquiry_confirm_remove_character_text"
+      text="{UNIT_NAME} を削除してもよろしいですか？この操作は元に戻せません。" />
+    <string
+      id="ret_inquiry_confirm_remove_character_title"
+      text="ユニットを削除" />
+    <string
+      id="ret_inquiry_create_equipment_set_choice_copy"
+      text="コピー" />
+    <string
+      id="ret_inquiry_create_equipment_set_choice_empty"
+      text="空" />
+    <string
       id="ret_inquiry_no_battle_sets"
       text="戦闘装備なし" />
     <string
@@ -138,7 +186,7 @@
       text="民間装備" />
     <string
       id="ret_inquiry_no_equipment_sets_text"
-      text="現在のキャラクターには {EQUIPMENT_TYPE} がありません。{newline}{newline}空のものを作成しますか？" />
+      text="{UNIT_NAME} には {EQUIPMENT_TYPE} がありません。{newline}{newline}空のものを作成しますか？" />
     <string
       id="ret_invalid_name_body"
       text="名前は空にできません。" />
@@ -209,8 +257,8 @@
       id="ret_no_cultures_title"
       text="文化が見つかりません" />
     <string
-      id="ret_rename_troop"
-      text="部隊の名前を変更" />
+      id="ret_rename_unit"
+      text="新しい名前" />
     <string
       id="ret_retinues_update_title"
       text="Retinues アップデート" />

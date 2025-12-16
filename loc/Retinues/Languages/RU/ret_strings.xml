@@ -11,20 +11,35 @@
       id="ret_build_hint"
       text="Телосложение" />
     <string
+      id="ret_button_remove_character"
+      text="Удалить" />
+    <string
       id="ret_button_show_battle"
       text="Боевой" />
     <string
       id="ret_button_show_civilian"
       text="Гражданский" />
     <string
+      id="ret_cannot_remove_character_title"
+      text="Невозможно удалить юнит" />
+    <string
       id="ret_cant_equip_reason_civilian"
       text="Не гражданский" />
     <string
       id="ret_cant_equip_reason_skill"
-      text="{VALUE} {SKILL}" />
+      text="{SKILL} {VALUE}" />
     <string
       id="ret_change_culture_title"
       text="Изменить культуру" />
+    <string
+      id="ret_character_cannot_remove_hero"
+      text="Героев нельзя удалять." />
+    <string
+      id="ret_character_cannot_remove_root"
+      text="Корневые юниты нельзя удалять." />
+    <string
+      id="ret_character_cannot_remove_with_upgrades"
+      text="Невозможно удалить юнит, у которого еще есть улучшения." />
     <string
       id="ret_clear_filter_tooltip"
       text="Очистить текущий текст фильтра." />
@@ -32,8 +47,14 @@
       id="ret_close_equipment_button_text"
       text="Назад" />
     <string
+      id="ret_create_set_tooltip"
+      text="Создать набор снаряжения" />
+    <string
       id="ret_culture_header_text"
       text="Культура" />
+    <string
+      id="ret_delete_set_tooltip"
+      text="Удалить набор снаряжения" />
     <string
       id="ret_dependencies_all_ok"
       text="Все зависимости инициализированы правильно." />
@@ -64,6 +85,9 @@
     <string
       id="ret_equipment_button_text"
       text="Снаряжение" />
+    <string
+      id="ret_equipment_cannot_delete_last_set"
+      text="Должен остаться как минимум один набор снаряжения." />
     <string
       id="ret_equipment_slot_body"
       text="Тело" />
@@ -99,7 +123,7 @@
       text="Оружие 4" />
     <string
       id="ret_escape_menu_editor_button"
-      text="Редактор отрядов" />
+      text="Универсальный редактор" />
     <string
       id="ret_filter_label"
       text="Фильтр:" />
@@ -125,6 +149,30 @@
       id="ret_init_error_title"
       text="Ошибка зависимости Retinues" />
     <string
+      id="ret_inquiry_confirm_create_equipment_set_text"
+      text="Вы хотите создать новый набор снаряжения, скопировав текущий набор, или создать пустой?" />
+    <string
+      id="ret_inquiry_confirm_create_equipment_set_title"
+      text="Создать снаряжение" />
+    <string
+      id="ret_inquiry_confirm_delete_equipment_set_text"
+      text="Вы уверены, что хотите удалить текущий набор снаряжения? Это действие нельзя отменить." />
+    <string
+      id="ret_inquiry_confirm_delete_equipment_set_title"
+      text="Удалить снаряжение" />
+    <string
+      id="ret_inquiry_confirm_remove_character_text"
+      text="Вы уверены, что хотите удалить {UNIT_NAME}? Это действие нельзя отменить." />
+    <string
+      id="ret_inquiry_confirm_remove_character_title"
+      text="Удалить юнит" />
+    <string
+      id="ret_inquiry_create_equipment_set_choice_copy"
+      text="Копировать" />
+    <string
+      id="ret_inquiry_create_equipment_set_choice_empty"
+      text="Пустой" />
+    <string
       id="ret_inquiry_no_battle_sets"
       text="Нет боевого снаряжения" />
     <string
@@ -138,7 +186,7 @@
       text="гражданское снаряжение" />
     <string
       id="ret_inquiry_no_equipment_sets_text"
-      text="У текущего персонажа нет {EQUIPMENT_TYPE}.{newline}{newline}Создать пустой?" />
+      text="У {UNIT_NAME} нет {EQUIPMENT_TYPE}.{newline}{newline}Создать пустой?" />
     <string
       id="ret_invalid_name_body"
       text="Имя не может быть пустым." />
@@ -209,8 +257,8 @@
       id="ret_no_cultures_title"
       text="Культуры не найдены" />
     <string
-      id="ret_rename_troop"
-      text="Переименовать отряд" />
+      id="ret_rename_unit"
+      text="Новое имя" />
     <string
       id="ret_retinues_update_title"
       text="Обновление Retinues" />

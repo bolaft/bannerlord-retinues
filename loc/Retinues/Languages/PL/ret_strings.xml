@@ -11,20 +11,35 @@
       id="ret_build_hint"
       text="Budowa" />
     <string
+      id="ret_button_remove_character"
+      text="Usuń" />
+    <string
       id="ret_button_show_battle"
       text="Bojowy" />
     <string
       id="ret_button_show_civilian"
       text="Cywilny" />
     <string
+      id="ret_cannot_remove_character_title"
+      text="Nie można usunąć jednostki" />
+    <string
       id="ret_cant_equip_reason_civilian"
       text="Nie cywilny" />
     <string
       id="ret_cant_equip_reason_skill"
-      text="{VALUE} {SKILL}" />
+      text="{SKILL} {VALUE}" />
     <string
       id="ret_change_culture_title"
       text="Zmień kulturę" />
+    <string
+      id="ret_character_cannot_remove_hero"
+      text="Bohaterowie nie mogą zostać usunięci." />
+    <string
+      id="ret_character_cannot_remove_root"
+      text="Jednostki główne nie mogą zostać usunięte." />
+    <string
+      id="ret_character_cannot_remove_with_upgrades"
+      text="Nie można usunąć jednostki, która nadal ma ulepszenia." />
     <string
       id="ret_clear_filter_tooltip"
       text="Wyczyść bieżący tekst filtra." />
@@ -32,8 +47,14 @@
       id="ret_close_equipment_button_text"
       text="Wstecz" />
     <string
+      id="ret_create_set_tooltip"
+      text="Utwórz zestaw ekwipunku" />
+    <string
       id="ret_culture_header_text"
       text="Kultura" />
+    <string
+      id="ret_delete_set_tooltip"
+      text="Usuń zestaw ekwipunku" />
     <string
       id="ret_dependencies_all_ok"
       text="Wszystkie zależności zostały poprawnie zainicjowane." />
@@ -64,6 +85,9 @@
     <string
       id="ret_equipment_button_text"
       text="Ekwipunek" />
+    <string
+      id="ret_equipment_cannot_delete_last_set"
+      text="Co najmniej jeden zestaw ekwipunku musi pozostać." />
     <string
       id="ret_equipment_slot_body"
       text="Ciało" />
@@ -99,7 +123,7 @@
       text="Broń 4" />
     <string
       id="ret_escape_menu_editor_button"
-      text="Edytor oddziałów" />
+      text="Uniwersalny edytor" />
     <string
       id="ret_filter_label"
       text="Filtr:" />
@@ -125,6 +149,30 @@
       id="ret_init_error_title"
       text="Błąd zależności Retinues" />
     <string
+      id="ret_inquiry_confirm_create_equipment_set_text"
+      text="Czy chcesz utworzyć nowy zestaw ekwipunku, kopiując bieżący zestaw, czy utworzyć pusty?" />
+    <string
+      id="ret_inquiry_confirm_create_equipment_set_title"
+      text="Utwórz wyposażenie" />
+    <string
+      id="ret_inquiry_confirm_delete_equipment_set_text"
+      text="Czy na pewno chcesz usunąć bieżący zestaw ekwipunku? Tej akcji nie można cofnąć." />
+    <string
+      id="ret_inquiry_confirm_delete_equipment_set_title"
+      text="Usuń wyposażenie" />
+    <string
+      id="ret_inquiry_confirm_remove_character_text"
+      text="Czy na pewno chcesz usunąć {UNIT_NAME}? Tej akcji nie można cofnąć." />
+    <string
+      id="ret_inquiry_confirm_remove_character_title"
+      text="Usuń jednostkę" />
+    <string
+      id="ret_inquiry_create_equipment_set_choice_copy"
+      text="Kopiuj" />
+    <string
+      id="ret_inquiry_create_equipment_set_choice_empty"
+      text="Pusty" />
+    <string
       id="ret_inquiry_no_battle_sets"
       text="Brak wyposażenia bojowego" />
     <string
@@ -138,7 +186,7 @@
       text="wyposażenie cywilne" />
     <string
       id="ret_inquiry_no_equipment_sets_text"
-      text="Aktualna postać nie ma {EQUIPMENT_TYPE}.{newline}{newline}Utworzyć pusty?" />
+      text="{UNIT_NAME} nie ma {EQUIPMENT_TYPE}.{newline}{newline}Utworzyć pusty?" />
     <string
       id="ret_invalid_name_body"
       text="Nazwa nie może być pusta." />
@@ -209,8 +257,8 @@
       id="ret_no_cultures_title"
       text="Nie znaleziono kultur" />
     <string
-      id="ret_rename_troop"
-      text="Zmień nazwę oddziału" />
+      id="ret_rename_unit"
+      text="Nowa nazwa" />
     <string
       id="ret_retinues_update_title"
       text="Aktualizacja Retinues" />

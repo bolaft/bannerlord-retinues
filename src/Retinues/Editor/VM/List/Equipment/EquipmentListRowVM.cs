@@ -42,7 +42,7 @@ namespace Retinues.Editor.VM.List.Equipment
         public override bool IsSelected => State.Equipment.GetItem(State.Slot) == _item;
 
         [DataSourceMethod]
-        public override void ExecuteSelect() => EquipmentController.EquipItem(_item);
+        public override void ExecuteSelect() => ItemController.EquipItem(_item);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Enabled                        //
@@ -53,7 +53,7 @@ namespace Retinues.Editor.VM.List.Equipment
         [EventListener(UIEvent.Equipment)]
         private void UpdateDisabledReason()
         {
-            EquipmentController.CanEquipItem(_item, out _disabledReason);
+            ItemController.CanEquipItem(_item, out _disabledReason);
             OnPropertyChanged(nameof(DisabledReason));
             OnPropertyChanged(nameof(IsEnabled));
             OnPropertyChanged(nameof(Brush));

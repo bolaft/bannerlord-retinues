@@ -131,10 +131,11 @@ namespace Retinues.Model
                     // (NameAttribute => Attribute<TextObject>("_basicName"), etc.).
                     _ = prop.GetValue(this);
                 }
-                catch (Exception ex)
+                catch (Exception e)
                 {
-                    Log.Debug(
-                        $"MBase.InitializePersistentAttributes: failed for {type.Name}.{prop.Name}: {ex.Message}"
+                    Log.Exception(
+                        e,
+                        $"MBase.InitializePersistentAttributes: failed for {type.Name}.{prop.Name}."
                     );
                 }
             }

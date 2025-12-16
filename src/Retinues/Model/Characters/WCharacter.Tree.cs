@@ -18,12 +18,10 @@ namespace Retinues.Model.Characters
                 getter: _ => [.. Base.UpgradeTargets.Select(Get)],
                 setter: (_, list) =>
                 {
-                    // Update the underlying CharacterObject's UpgradeTargets.
-                    Reflection.SetPropertyValue(
-                        Base,
-                        "UpgradeTargets",
-                        list.Select(w => w?.Base).ToList()
-                    );
+                    // Convert to array.
+                    var array = (list ?? []).Select(w => w?.Base).ToArray();
+
+                    Reflection.SetPropertyValue(Base, "UpgradeTargets", array);
 
                     // Keep hierarchy cache in sync whenever targets change.
                     CharacterTreeCacheHelper.RecomputeForRoot(Root);

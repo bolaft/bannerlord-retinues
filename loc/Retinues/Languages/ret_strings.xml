@@ -11,20 +11,35 @@
       id="ret_build_hint"
       text="Build" />
     <string
+      id="ret_button_remove_character"
+      text="Delete" />
+    <string
       id="ret_button_show_battle"
       text="Battle" />
     <string
       id="ret_button_show_civilian"
       text="Civilian" />
     <string
+      id="ret_cannot_remove_character_title"
+      text="Cannot Remove Unit" />
+    <string
       id="ret_cant_equip_reason_civilian"
       text="Not civilian" />
     <string
       id="ret_cant_equip_reason_skill"
-      text="{VALUE} {SKILL}" />
+      text="{SKILL} {VALUE}" />
     <string
       id="ret_change_culture_title"
       text="Change Culture" />
+    <string
+      id="ret_character_cannot_remove_hero"
+      text="Heroes cannot be removed." />
+    <string
+      id="ret_character_cannot_remove_root"
+      text="Root units cannot be removed." />
+    <string
+      id="ret_character_cannot_remove_with_upgrades"
+      text="Can&apos;t remove a unit that still has upgrades." />
     <string
       id="ret_clear_filter_tooltip"
       text="Clear the current filter text." />
@@ -32,8 +47,14 @@
       id="ret_close_equipment_button_text"
       text="Back" />
     <string
+      id="ret_create_set_tooltip"
+      text="Create equipment set" />
+    <string
       id="ret_culture_header_text"
       text="Culture" />
+    <string
+      id="ret_delete_set_tooltip"
+      text="Delete equipment set" />
     <string
       id="ret_dependencies_all_ok"
       text="All dependencies initialized correctly." />
@@ -64,6 +85,9 @@
     <string
       id="ret_equipment_button_text"
       text="Equipment" />
+    <string
+      id="ret_equipment_cannot_delete_last_set"
+      text="At least one equipment set must remain." />
     <string
       id="ret_equipment_slot_body"
       text="Body" />
@@ -99,7 +123,7 @@
       text="Weapon 4" />
     <string
       id="ret_escape_menu_editor_button"
-      text="Troop Editor" />
+      text="Universal Editor" />
     <string
       id="ret_filter_label"
       text="Filter:" />
@@ -125,6 +149,30 @@
       id="ret_init_error_title"
       text="Retinues Dependency Error" />
     <string
+      id="ret_inquiry_confirm_create_equipment_set_text"
+      text="Do you want to create a new equipment set by copying the current set or create an empty one?" />
+    <string
+      id="ret_inquiry_confirm_create_equipment_set_title"
+      text="Create Equipment" />
+    <string
+      id="ret_inquiry_confirm_delete_equipment_set_text"
+      text="Are you sure you want to delete the current equipment set? This action cannot be undone." />
+    <string
+      id="ret_inquiry_confirm_delete_equipment_set_title"
+      text="Delete Equipment" />
+    <string
+      id="ret_inquiry_confirm_remove_character_text"
+      text="Are you sure you want to delete {UNIT_NAME}? This action cannot be undone." />
+    <string
+      id="ret_inquiry_confirm_remove_character_title"
+      text="Delete Unit" />
+    <string
+      id="ret_inquiry_create_equipment_set_choice_copy"
+      text="Copy" />
+    <string
+      id="ret_inquiry_create_equipment_set_choice_empty"
+      text="Empty" />
+    <string
       id="ret_inquiry_no_battle_sets"
       text="No Battle Equipments" />
     <string
@@ -138,7 +186,7 @@
       text="civilian equipments" />
     <string
       id="ret_inquiry_no_equipment_sets_text"
-      text="The current character has no {EQUIPMENT_TYPE}.{newline}{newline}Create an empty one?" />
+      text="{UNIT_NAME} has no {EQUIPMENT_TYPE}.{newline}{newline}Create an empty one?" />
     <string
       id="ret_invalid_name_body"
       text="The name cannot be empty." />
@@ -209,8 +257,8 @@
       id="ret_no_cultures_title"
       text="No Cultures Found" />
     <string
-      id="ret_rename_troop"
-      text="Rename Troop" />
+      id="ret_rename_unit"
+      text="New Name" />
     <string
       id="ret_retinues_update_title"
       text="Retinues Update" />

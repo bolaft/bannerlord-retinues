@@ -46,13 +46,41 @@ namespace Retinues.Editor
         //                      Construction                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// The singleton instance of the editor state.
+        /// </summary>
         private static State _instance;
         public static State Instance => _instance ??= new State();
+
+        /// <summary>
+        /// The current editor mode.
+        /// </summary>
         public EditorMode Mode { get; private set; } = EditorMode.Universal;
 
+        /// <summary>
+        /// Whether the state is currently initializing.
+        /// </summary>
+        private bool _isInitializing;
+
+        /// <summary>
+        /// Fires a UI event if not initializing.
+        /// </summary>
+        private void Fire(UIEvent e)
+        {
+            if (_isInitializing)
+                return;
+            EventManager.Fire(e, EventScope.Global);
+        }
+
+        /// <summary>
+        /// Constructs a new editor state without launch arguments.
+        /// </summary>
         public State()
             : this(null) { }
 
+        /// <summary>
+        /// Constructs a new editor state with the given launch arguments.
+        /// </summary>
         public State(EditorLaunchArgs args)
         {
             Log.Info("Initializing new editor state");
@@ -60,7 +88,9 @@ namespace Retinues.Editor
             // Set the singleton instance.
             _instance = this;
 
+            _isInitializing = true;
             ApplyLaunchArgs(args);
+            _isInitializing = false;
 
             // Notify listeners.
             EventManager.FireBatch(() =>
@@ -74,8 +104,14 @@ namespace Retinues.Editor
             });
         }
 
+        /// <summary>
+        /// Resets the singleton instance with optional launch arguments.
+        /// </summary>
         public static void Reset(EditorLaunchArgs args = null) => _instance = new State(args);
 
+        /// <summary>
+        /// Applies the given launch arguments to the state.
+        /// </summary>
         private void ApplyLaunchArgs(EditorLaunchArgs args)
         {
             if (args == null || args.IsEmpty)
@@ -118,62 +154,62 @@ namespace Retinues.Editor
         {
             var hero = WHero.Get(Hero.MainHero);
 
-            _culture = hero.Culture;
-            _clan = hero.Clan;
-            _faction = hero.Clan;
+            Culture = hero.Culture;
+            Clan = hero.Clan;
+            Faction = hero.Clan;
 
-            _character = PickFirstTroop(_faction);
-            _equipment = PickFirstEquipment(_character);
+            Character = PickFirstTroop(Faction);
+            Equipment = PickFirstEquipment(Character);
 
-            _slot = EquipmentIndex.Weapon0;
+            Slot = EquipmentIndex.Weapon0;
         }
 
         private void ApplyHero(WHero hero)
         {
-            _culture = hero.Culture;
-            _clan = hero.Clan;
-            _faction = hero.Clan;
+            Culture = hero.Culture;
+            Clan = hero.Clan;
+            Faction = hero.Clan;
 
-            _character = PickFirstTroop(_faction);
-            _equipment = PickFirstEquipment(_character);
+            Character = PickFirstTroop(Faction);
+            Equipment = PickFirstEquipment(Character);
 
-            _slot = EquipmentIndex.Weapon0;
+            Slot = EquipmentIndex.Weapon0;
         }
 
         private void ApplyCharacter(WCharacter character)
         {
-            _culture = character.Culture;
-            _clan = null;
-            _faction = _culture;
+            Culture = character.Culture;
+            Clan = null;
+            Faction = Culture;
 
-            _character = character;
-            _equipment = PickFirstEquipment(_character);
+            Character = character;
+            Equipment = PickFirstEquipment(Character);
 
-            _slot = EquipmentIndex.Weapon0;
+            Slot = EquipmentIndex.Weapon0;
         }
 
         private void ApplyClan(WClan clan)
         {
-            _culture = clan.Culture;
-            _clan = clan;
-            _faction = clan;
+            Culture = clan.Culture;
+            Clan = clan;
+            Faction = clan;
 
-            _character = PickFirstTroop(_faction);
-            _equipment = PickFirstEquipment(_character);
+            Character = PickFirstTroop(Faction);
+            Equipment = PickFirstEquipment(Character);
 
-            _slot = EquipmentIndex.Weapon0;
+            Slot = EquipmentIndex.Weapon0;
         }
 
         private void ApplyCulture(WCulture culture)
         {
-            _culture = culture;
-            _clan = null;
-            _faction = culture;
+            Culture = culture;
+            Clan = null;
+            Faction = culture;
 
-            _character = PickFirstTroop(_faction);
-            _equipment = PickFirstEquipment(_character);
+            Character = PickFirstTroop(Faction);
+            Equipment = PickFirstEquipment(Character);
 
-            _slot = EquipmentIndex.Weapon0;
+            Slot = EquipmentIndex.Weapon0;
         }
 
         private static WCharacter PickFirstTroop(IBaseFaction faction)
@@ -226,7 +262,7 @@ namespace Retinues.Editor
                     return;
 
                 _culture = value;
-                EventManager.Fire(UIEvent.CultureFaction, EventScope.Global);
+                Fire(UIEvent.CultureFaction);
             }
         }
 
@@ -244,7 +280,7 @@ namespace Retinues.Editor
 
                 // Allow null (launch modes can intentionally clear clan).
                 _clan = value;
-                EventManager.Fire(UIEvent.ClanFaction, EventScope.Global);
+                Fire(UIEvent.ClanFaction);
             }
         }
 
@@ -274,7 +310,7 @@ namespace Retinues.Editor
                     }
                 }
 
-                EventManager.Fire(UIEvent.Faction, EventScope.Global);
+                Fire(UIEvent.Faction);
             }
         }
 
@@ -284,7 +320,7 @@ namespace Retinues.Editor
 
         public WCharacter Character
         {
-            get => _character;
+            get => _character ??= PickFirstTroop(_faction);
             set
             {
                 if (ReferenceEquals(value, _character))
@@ -297,7 +333,7 @@ namespace Retinues.Editor
 
                 Equipment = PickFirstEquipment(_character);
 
-                EventManager.Fire(UIEvent.Character, EventScope.Global);
+                Fire(UIEvent.Character);
             }
         }
 
@@ -317,7 +353,7 @@ namespace Retinues.Editor
                     return;
 
                 _equipment = value;
-                EventManager.Fire(UIEvent.Equipment, EventScope.Global);
+                Fire(UIEvent.Equipment);
             }
         }
 
@@ -334,7 +370,7 @@ namespace Retinues.Editor
                     return;
 
                 _slot = value;
-                EventManager.Fire(UIEvent.Slot, EventScope.Global);
+                Fire(UIEvent.Slot);
             }
         }
     }

@@ -1,7 +1,9 @@
+using System.Linq;
 using Retinues.Helpers;
 using Retinues.Model.Characters;
 using Retinues.Model.Factions;
 using Retinues.Utilities;
+using TaleWorlds.Localization;
 
 namespace Retinues.Editor.Controllers
 {
@@ -67,6 +69,62 @@ namespace Retinues.Editor.Controllers
 
             // 3) Notify the UI.
             EventManager.Fire(UIEvent.Gender, EventScope.Local);
+        }
+
+        /// <summary>
+        /// Determines whether the current character can be removed.
+        /// </summary>
+        public static bool CanRemoveCharacter(out TextObject reason) =>
+            Check(
+                [
+                    (
+                        () => State.Character.IsHero == false,
+                        L.T("character_cannot_remove_hero", "Heroes cannot be removed.")
+                    ),
+                    (
+                        () => State.Character.UpgradeTargets.Count == 0,
+                        L.T(
+                            "character_cannot_remove_with_upgrades",
+                            "Can't remove a unit that still has upgrades."
+                        )
+                    ),
+                    (
+                        () => !State.Character.IsRoot,
+                        L.T("character_cannot_remove_root", "Root units cannot be removed.")
+                    ),
+                ],
+                out reason
+            );
+
+        public static void RemoveCharacter()
+        {
+            if (!CanRemoveCharacter(out var reason))
+            {
+                Inquiries.Popup(L.T("cannot_remove_character_title", "Cannot Remove Unit"), reason);
+                return;
+            }
+
+            Inquiries.Popup(
+                title: L.T("inquiry_confirm_remove_character_title", "Delete Unit"),
+                description: L.T(
+                        "inquiry_confirm_remove_character_text",
+                        "Are you sure you want to delete {UNIT_NAME}? This action cannot be undone."
+                    )
+                    .SetTextVariable("UNIT_NAME", State.Character.Name.ToString()),
+                onConfirm: () =>
+                {
+                    var character = State.Character;
+
+                    // 1) Select another character first.
+                    State.Character = State.Faction.Troops.FirstOrDefault(c => c != character);
+
+                    // 2) Remove from faction.
+                    character.Remove();
+
+                    // 3) Notify the UI.
+                    EventManager.Fire(UIEvent.Tree, EventScope.Global);
+                }
+            );
         }
     }
 }

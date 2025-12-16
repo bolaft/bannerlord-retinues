@@ -21,7 +21,7 @@ namespace Retinues.GUI.Prefabs.EscapeMenu.Patches
         {
             try
             {
-                var title = L.T("escape_menu_editor_button", "Troop Editor");
+                var title = L.T("escape_menu_editor_button", "Universal Editor");
                 static Tuple<bool, TextObject> notDisabled() =>
                     new(false, new TextObject(string.Empty));
 
