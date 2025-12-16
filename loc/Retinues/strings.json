@@ -1,5 +1,21 @@
 [
   {
+    "id": "ret_add_upgrade_target_text",
+    "EN": "Add Upgrade",
+    "FR": "Ajouter une promotion",
+    "BR": "Adicionar melhoria",
+    "CNs": "添加升级",
+    "CNt": "添加升級",
+    "DE": "Upgrade hinzufügen",
+    "IT": "Aggiungi upgrade",
+    "JP": "アップグレードを追加",
+    "KO": "업그레이드 추가",
+    "PL": "Dodaj ulepszenie",
+    "RU": "Добавить улучшение",
+    "SP": "Agregar mejora",
+    "TR": "Yükseltme Ekle"
+  },
+  {
     "id": "ret_age_hint",
     "EN": "Age",
     "FR": "Âge",

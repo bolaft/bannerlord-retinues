@@ -354,6 +354,9 @@ namespace Retinues.Editor.VM.Panel.Character
         [DataSourceProperty]
         public bool CanAddUpgradeTarget => UpgradeController.CanAddUpgradeTarget();
 
+        [DataSourceProperty]
+        public string AddUpgradeTargetText => L.S("add_upgrade_target_text", "Add Upgrade");
+
         [DataSourceMethod]
         public void ExecuteAddUpgradeTarget() => UpgradeController.AddUpgradeTarget();
     }

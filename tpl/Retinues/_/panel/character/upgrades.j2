@@ -42,7 +42,7 @@
     DataSource="{UpgradeTargets}"
     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
     StackLayout.LayoutMethod="VerticalBottomToTop"
-    MarginBottom="12"
+    MarginBottom="6"
     HorizontalAlignment="Center">
     <ItemTemplate>
         <Widget
@@ -53,6 +53,29 @@
             </Children>
         </Widget>
     </ItemTemplate>
+</ListPanel>
+
+<ListPanel
+    IsVisible="@CanAddUpgradeTarget"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    StackLayout.LayoutMethod="HorizontalLeftToRight"
+    HorizontalAlignment="Center">
+    <Children>
+        <TextWidget
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            HorizontalAlignment="Center" VerticalAlignment="Center"
+            Brush="Clan.Name.Tuple"
+            Brush.FontSize="20"
+            Text="@AddUpgradeTargetText"
+            TextAlignment="Center" />
+        <ButtonWidget
+            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+            HorizontalAlignment="Center" VerticalAlignment="Center"
+            SuggestedWidth="36" SuggestedHeight="36"
+            MarginLeft="4"
+            Brush="Inventory.Tuple.Extension.PlusButton"
+            Command.Click="ExecuteAddUpgradeTarget" UpdateChildrenStates="true" DoNotPassEventsToChildren="true"/>
+    </Children>
 </ListPanel>
 
 <Widget IsVisible="@HasUpgradeTargets" MarginBottom="12" />

@@ -5,6 +5,9 @@
   </tags>
   <strings>
     <string
+      id="ret_add_upgrade_target_text"
+      text="Dodaj ulepszenie" />
+    <string
       id="ret_age_hint"
       text="Wiek" />
     <string
