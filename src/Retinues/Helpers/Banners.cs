@@ -1,3 +1,4 @@
+using Retinues.Model.Characters;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 #if BL13
@@ -58,6 +59,179 @@ namespace Retinues.Helpers
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                     Fallback Banners                   //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Returns banner if valid, otherwise returns a culture-based fallback banner.
+        /// Colors are inverted (swapped) from the given troop culture.
+        /// </summary>
+        public static Banner GetOrFallbackBanner(
+            Banner banner,
+            WCharacter firstTroop,
+            BasicCultureObject fallbackCulture = null
+        )
+        {
+            if (!IsEmptyBanner(banner))
+                return banner;
+
+            BasicCultureObject firstTroopCulture = null;
+
+            foreach (var troop in firstTroop.Tree)
+            {
+                if (!IsEmptyBanner(troop.Culture.Base.Banner))
+                {
+                    firstTroopCulture = troop.Culture?.Base;
+                    break;
+                }
+            }
+
+            var culture = firstTroopCulture ?? fallbackCulture;
+            return CreateFallbackBannerFromCulture(culture);
+        }
+
+        /// <summary>
+        /// Creates a non-empty banner based on the culture banner (if available),
+        /// recolored using inverted culture colors: (Color2, Color).
+        /// </summary>
+        public static Banner CreateFallbackBannerFromCulture(BasicCultureObject culture)
+        {
+            EnsureBannerManager();
+
+            // Guaranteed non-empty seed.
+            Banner banner = Banner.CreateRandomClanBanner();
+
+            try
+            {
+                // Try to use the culture's own banner design as template.
+                var template = TryGetCultureTemplateBanner(culture);
+                if (!IsEmptyBanner(template))
+                    banner = new Banner(template);
+
+                if (!IsEmptyBanner(banner))
+                {
+                    // Copy design again via serialize to avoid any accidental shared refs.
+                    try
+                    {
+                        var code = banner.Serialize();
+                        banner = new Banner(code);
+                    }
+                    catch
+                    {
+                        // ignore
+                    }
+
+                    // Invert colors (swap) using troop culture.
+                    var (primary, secondary) = GetSafeInvertedCultureColors(culture, banner);
+
+                    // Only apply if BannerManager recognizes them.
+                    if (
+                        BannerManager.GetColorId(primary) >= 0
+                        && BannerManager.GetColorId(secondary) >= 0
+                    )
+                    {
+                        try
+                        {
+                            // Background uses (primary, secondary), icons use secondary.
+                            banner.ChangeBackgroundColor(primary, secondary);
+                            banner.ChangeIconColors(secondary);
+                        }
+                        catch
+                        {
+                            // ignore recolor errors
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                // ignore, keep the random banner
+            }
+
+            return banner;
+        }
+
+        private static Banner TryGetCultureTemplateBanner(BasicCultureObject culture)
+        {
+            if (culture == null)
+                return null;
+
+#if BL13
+            try
+            {
+                return culture.Banner;
+            }
+            catch
+            {
+                return null;
+            }
+#else
+            try
+            {
+                var key = culture.BannerKey;
+                return !string.IsNullOrEmpty(key) ? new Banner(key) : null;
+            }
+            catch
+            {
+                return null;
+            }
+#endif
+        }
+
+        private static bool IsEmptyBanner(Banner banner)
+        {
+            if (banner == null)
+                return true;
+
+            try
+            {
+                var list = banner.BannerDataList;
+                if (list == null || list.Count == 0)
+                    return true;
+
+                // Banner uses uint.MaxValue as "invalid" in several cases.
+                if (banner.GetPrimaryColor() == uint.MaxValue)
+                    return true;
+            }
+            catch
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Returns (Color2, Color), falling back to banner colors if needed.
+        /// </summary>
+        private static (uint primary, uint secondary) GetSafeInvertedCultureColors(
+            BasicCultureObject culture,
+            Banner fallbackBanner
+        )
+        {
+            // Inversion here means swap (same as old BaseBannerFaction).
+            uint primary = culture != null ? culture.Color2 : uint.MaxValue;
+            uint secondary = culture != null ? culture.Color : uint.MaxValue;
+
+            if (primary == uint.MaxValue || BannerManager.GetColorId(primary) < 0)
+                primary =
+                    fallbackBanner?.GetFirstIconColor()
+                    ?? fallbackBanner?.GetPrimaryColor()
+                    ?? uint.MaxValue;
+
+            if (secondary == uint.MaxValue || BannerManager.GetColorId(secondary) < 0)
+                secondary = fallbackBanner?.GetPrimaryColor() ?? primary;
+
+            if (primary == uint.MaxValue || BannerManager.GetColorId(primary) < 0)
+                primary = fallbackBanner?.GetPrimaryColor() ?? 0;
+
+            if (secondary == uint.MaxValue || BannerManager.GetColorId(secondary) < 0)
+                secondary = fallbackBanner?.GetFirstIconColor() ?? primary;
+
+            return (primary, secondary);
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Scaling                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
@@ -74,10 +248,8 @@ namespace Retinues.Helpers
             if (src == null || scale == 1.0f)
                 return src;
 
-            // Safe copy (uses Banner(Banner) copy-ctor)
             var b = new Banner(src);
 
-            // Index 0 is the background; scale the rest
             var list = b.BannerDataList;
             for (int i = 1; i < list.Count; i++)
                 list[i].Size *= scale;

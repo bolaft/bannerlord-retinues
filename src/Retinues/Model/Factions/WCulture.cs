@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Linq;
+using Retinues.Helpers;
 using Retinues.Model.Characters;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
@@ -16,7 +18,8 @@ namespace Retinues.Model.Factions
         public override uint Color2 => Base.Color2;
 
 #if BL13
-        public override Banner Banner => Base.Banner;
+        public override Banner Banner =>
+            Banners.GetOrFallbackBanner(Base.Banner, Troops.FirstOrDefault());
 #else
         public override Banner Banner => new(Base.BannerKey);
         public override BannerCode BannerCode => BannerCode.CreateFrom(Base.BannerKey);
