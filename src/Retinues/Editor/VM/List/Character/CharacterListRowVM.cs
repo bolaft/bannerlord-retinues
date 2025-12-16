@@ -3,7 +3,6 @@ using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Helpers;
 using Retinues.Model.Characters;
 using TaleWorlds.CampaignSystem.ViewModelCollection;
-using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Core.ViewModelCollection.Generic;
 using TaleWorlds.Library;
 
@@ -12,17 +11,20 @@ namespace Retinues.Editor.VM.List.Character
     /// <summary>
     /// Row representing a troop character in the list.
     /// </summary>
-    public class CharacterListRowVM(
-        ListHeaderVM header,
-        WCharacter character,
-        bool civilian = false
-    ) : ListRowVM(header, character?.StringId ?? string.Empty)
+    public class CharacterListRowVM : ListRowVM
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Internals                       //
+        //                       Constructor                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        internal readonly WCharacter Character = character;
+        internal readonly WCharacter Character;
+
+        public CharacterListRowVM(ListHeaderVM header, WCharacter character, bool civilian = false)
+            : base(header, character?.StringId ?? string.Empty)
+        {
+            Character = character;
+            Character.IsCivilian = civilian;
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Type Flags                       //
@@ -40,7 +42,11 @@ namespace Retinues.Editor.VM.List.Character
         public override bool IsSelected => State.Character == Character;
 
         [DataSourceMethod]
-        public override void ExecuteSelect() => State.Character = Character;
+        public override void ExecuteSelect()
+        {
+            // Select this character.
+            State.Character = Character;
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                   Name & Indentation                   //
@@ -69,8 +75,6 @@ namespace Retinues.Editor.VM.List.Character
         //                          Tier                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private readonly int _tier = character?.Tier ?? 0;
-
         [DataSourceProperty]
         public StringItemWithHintVM TierIconData =>
             CampaignUIHelper.GetCharacterTierData(Character.Base, isBig: true);
@@ -83,21 +87,12 @@ namespace Retinues.Editor.VM.List.Character
         public string FormationClassIcon => Icons.GetFormationClassIcon(Character);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Civilian                        //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        private readonly bool _isCivilian = civilian;
-
-        [DataSourceProperty]
-        public bool IsCivilian => _isCivilian;
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Image                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceProperty]
         [EventListener(UIEvent.Appearance)]
-        public object Image => Character?.GetImage(_isCivilian);
+        public object Image => Character?.GetImage(Character.IsCivilian);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Sorting                        //
@@ -111,7 +106,7 @@ namespace Retinues.Editor.VM.List.Character
             return sortKey switch
             {
                 ListSortKey.Name => Name,
-                ListSortKey.Tier => _tier,
+                ListSortKey.Tier => Character.Tier,
                 _ => Name,
             };
         }

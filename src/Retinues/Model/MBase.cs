@@ -45,42 +45,6 @@ namespace Retinues.Model
         }
 
         /// <summary>
-        /// Gets or creates an attribute using the caller member name as the key.
-        /// If Base has a field/property with that name, binds to it.
-        /// Otherwise creates a stored attribute that lives inside the wrapper.
-        /// </summary>
-        protected MAttribute<T> Attribute<T>(
-            T initialValue = default,
-            bool storedIfMissing = true,
-            [CallerMemberName] string name = null
-        )
-        {
-            name ??= "<unknown>";
-
-            if (_attributes.TryGetValue(name, out var obj))
-            {
-                if (obj is not MAttribute<T> typed)
-                    throw new InvalidOperationException(
-                        $"Attribute '{name}' already exists with a different type ({obj.GetType()})."
-                    );
-
-                return typed;
-            }
-
-            bool hasMember = Reflection.HasField(Base, name) || Reflection.HasProperty(Base, name);
-
-            MAttribute<T> attr =
-                hasMember ? new MAttribute<T>(Base, name)
-                : storedIfMissing ? new MAttribute<T>(Base, name, initialValue)
-                : throw new InvalidOperationException(
-                    $"No field or property '{name}' exists on type '{Base.GetType().Name}'."
-                );
-
-            _attributes[name] = attr;
-            return attr;
-        }
-
-        /// <summary>
         /// Gets or creates an attribute that gets/sets the value of a field or property
         /// on the underlying base instance, using the given expression to identify the member.
         /// </summary>

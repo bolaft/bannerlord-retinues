@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using Retinues.Utilities;
 using TaleWorlds.ObjectSystem;
 
 namespace Retinues.Model
@@ -27,6 +29,58 @@ namespace Retinues.Model
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public override string PersistenceKey => $"{typeof(TWrapper).FullName}:{StringId}";
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Attributes                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Gets or creates an attribute using the caller member name as the key.
+        /// If Base has a field/property with that name, binds to it.
+        /// Otherwise creates a stored attribute that lives inside the wrapper.
+        /// </summary>
+        protected MAttribute<T> Attribute<T>(
+            T initialValue = default,
+            bool storedIfMissing = true,
+            [CallerMemberName] string name = null
+        )
+        {
+            name ??= "<unknown>";
+
+            if (_attributes.TryGetValue(name, out var obj))
+            {
+                if (obj is not MAttribute<T> typed)
+                    throw new InvalidOperationException(
+                        $"Attribute '{name}' already exists with a different type ({obj.GetType()})."
+                    );
+
+                return typed;
+            }
+
+            bool hasMember = Reflection.HasField(Base, name) || Reflection.HasProperty(Base, name);
+
+            MAttribute<T> attr =
+                hasMember ? new MAttribute<T>(Base, name)
+                : storedIfMissing
+                    ? new MAttribute<T>(
+                        baseInstance: Base,
+                        getter: _ => MStore.GetOrInit(BuildStoredKey<T>(name), initialValue),
+                        setter: (_, value) => MStore.Set(BuildStoredKey<T>(name), value),
+                        targetName: name
+                    )
+                : throw new InvalidOperationException(
+                    $"No field or property '{name}' exists on type '{Base.GetType().Name}'."
+                );
+
+            _attributes[name] = attr;
+            return attr;
+        }
+
+        private string BuildStoredKey<T>(string name)
+        {
+            // Include T to prevent collisions if you reuse the same name with different types.
+            return $"{PersistenceKey}:{name}:{typeof(T).FullName}";
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Static Helpers                     //

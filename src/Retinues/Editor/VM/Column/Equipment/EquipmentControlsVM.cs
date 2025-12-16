@@ -57,7 +57,7 @@ namespace Retinues.Editor.VM.Column.Equipment
                         _civilian = value;
 
                         // If we end up keeping the same equipment instance, we still want the UI to refresh.
-                        if (!ReferenceEquals(State.Equipment, e))
+                        if (State.Equipment != e)
                             State.Equipment = e; // fires UIEvent.Equipment
                         else
                             EventManager.Fire(UIEvent.Equipment);

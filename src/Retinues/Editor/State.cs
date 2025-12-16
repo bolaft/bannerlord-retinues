@@ -88,6 +88,7 @@ namespace Retinues.Editor
             // Set the singleton instance.
             _instance = this;
 
+            // Apply launch arguments.
             _isInitializing = true;
             ApplyLaunchArgs(args);
             _isInitializing = false;
@@ -226,7 +227,7 @@ namespace Retinues.Editor
             return null;
         }
 
-        private static MEquipment PickFirstEquipment(WCharacter character, bool civilian = false)
+        private static MEquipment PickFirstEquipment(WCharacter character)
         {
             var equipments = character?.Editable?.Equipments;
 
@@ -235,7 +236,7 @@ namespace Retinues.Editor
 
             foreach (var equipment in equipments)
             {
-                if (equipment != null && equipment.IsCivilian == civilian)
+                if (equipment != null && equipment.IsCivilian == character.IsCivilian)
                     return equipment;
             }
 
@@ -255,7 +256,7 @@ namespace Retinues.Editor
             get => _culture;
             set
             {
-                if (ReferenceEquals(value, _culture))
+                if (value == _culture)
                     return;
 
                 if (value == null)
@@ -275,7 +276,7 @@ namespace Retinues.Editor
             get => _clan;
             set
             {
-                if (ReferenceEquals(value, _clan))
+                if (value == _clan)
                     return;
 
                 // Allow null (launch modes can intentionally clear clan).
@@ -293,7 +294,7 @@ namespace Retinues.Editor
             get => _faction;
             set
             {
-                if (ReferenceEquals(value, _faction))
+                if (value == _faction)
                     return;
 
                 if (value == null)
@@ -323,7 +324,7 @@ namespace Retinues.Editor
             get => _character ??= PickFirstTroop(_faction);
             set
             {
-                if (ReferenceEquals(value, _character))
+                if (value == _character)
                     return;
 
                 if (value == null)
@@ -346,7 +347,7 @@ namespace Retinues.Editor
             get => _equipment;
             set
             {
-                if (ReferenceEquals(value, _equipment))
+                if (value == _equipment)
                     return;
 
                 if (value == null)

@@ -486,7 +486,7 @@ namespace Retinues.Model.Characters
                             var already = false;
                             for (int j = 0; j < list.Count; j++)
                             {
-                                if (ReferenceEquals(list[j], candidate))
+                                if (list[j] == candidate)
                                 {
                                     already = true;
                                     break;

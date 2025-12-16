@@ -51,6 +51,12 @@ namespace Retinues.Model.Characters
         public IEditableUnit Editable => IsHero ? Hero : this;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                   Mutable Properties                   //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public bool IsCivilian { get; set; } = false;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Removal                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
@@ -130,7 +136,7 @@ namespace Retinues.Model.Characters
                 if (wc.IsActiveStub)
                     continue;
 
-                // Mark as active (also forces encyclopedia visibility via setter).
+                // Mark as active.
                 wc.IsActiveStub = true;
 
                 // Found a free stub.
