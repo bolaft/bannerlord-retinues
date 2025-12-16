@@ -1,171 +1,239 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Globalization;
+using System.IO;
+using System.Runtime.Serialization;
 using System.Text;
+using System.Xml;
+using System.Xml.Linq;
 
 namespace Retinues.Utilities
 {
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-    //                  String KeyValue Serializer            //
+    //                 Generic XML Serializer                 //
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
     /// <summary>
-    /// Versioned, forward-compatible serializer for string dictionaries.
+    /// Generic XML serializer for common CLR types (dicts, lists, primitives, and POCOs).
     /// </summary>
     [SafeClass]
     public static class Serialization
     {
-        private const string HeaderV1 = "retinues:kv1";
-        private const char PairSep = '=';
-        private const string NullToken = "~";
+        /* ━━━━━━━ Public API ━━━━━━ */
 
         /// <summary>
-        /// Serialize a dictionary into a compact, line-based, versioned string.
+        /// Serializes a value into an XML blob. XmlBlob.ToString() returns a pretty form.
+        /// XmlBlob.Compact returns a compact form (recommended for persistence).
+        /// </summary>
+        public static XmlBlob Serialize<T>(T value)
+        {
+            try
+            {
+                var xml = SerializeToString(value, typeof(T));
+                return new XmlBlob(xml);
+            }
+            catch
+            {
+                return new XmlBlob("");
+            }
+        }
+
+        /// <summary>
+        /// Deserializes an XML string into a value.
+        /// Returns default(T) on failure or empty input.
+        /// </summary>
+        public static T Deserialize<T>(string xml)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(xml))
+                    return default;
+
+                return (T)DeserializeFromString(xml, typeof(T));
+            }
+            catch
+            {
+                return default;
+            }
+        }
+
+        /// <summary>
+        /// Alias for Deserialize.
+        /// </summary>
+        public static T Unserialize<T>(string xml)
+        {
+            return Deserialize<T>(xml);
+        }
+
+        /* ━━━━━━━ Compatibility Shims ━━━━━━ */
+
+        /// <summary>
+        /// Legacy helper: serialize a string dictionary to an XML string.
         /// </summary>
         public static string SerializeDictionary(Dictionary<string, string> data)
         {
-            try
-            {
-                if (data == null || data.Count == 0)
-                    return HeaderV1;
-
-                var sb = new StringBuilder();
-                sb.Append(HeaderV1);
-
-                foreach (var kv in data.OrderBy(x => x.Key, StringComparer.Ordinal))
-                {
-                    if (kv.Key == null)
-                        throw new ArgumentException("Dictionary contains a null key.");
-
-                    var k = EncodeBase64Url(kv.Key);
-                    var v = kv.Value == null ? NullToken : EncodeBase64Url(kv.Value);
-
-                    sb.Append('\n');
-                    sb.Append(k);
-                    sb.Append(PairSep);
-                    sb.Append(v);
-                }
-
-                return sb.ToString();
-            }
-            catch
-            {
-                return HeaderV1;
-            }
+            // Keep it compact for storage.
+            return Serialize(data).Compact;
         }
 
         /// <summary>
-        /// Serialize a list into a compact, line-based, versioned string.
+        /// Legacy helper: serialize a list of strings to an XML string.
         /// </summary>
         public static string SerializeList(List<string> data)
         {
-            var dict = new Dictionary<string, string>(StringComparer.Ordinal);
-            for (int i = 0; i < data.Count; i++)
-            {
-                dict[$"item_{i}"] = data[i];
-            }
-            return SerializeDictionary(dict);
+            return Serialize(data).Compact;
         }
 
         /// <summary>
-        /// Deserialize a string produced by Serialize back into a dictionary.
+        /// Legacy helper: deserialize an XML string back into a string dictionary.
+        /// Returns an empty dictionary on failure.
         /// </summary>
         public static Dictionary<string, string> DeserializeDictionary(string data)
         {
-            try
+            var result = Deserialize<Dictionary<string, string>>(data);
+            return result ?? new Dictionary<string, string>(StringComparer.Ordinal);
+        }
+
+        /// <summary>
+        /// Legacy helper: deserialize an XML string back into a list of strings.
+        /// Returns an empty list on failure.
+        /// </summary>
+        public static List<string> DeserializeList(string data)
+        {
+            var result = Deserialize<List<string>>(data);
+            return result ?? new List<string>();
+        }
+
+        /* ━━━━━━━ Internals ━━━━━━ */
+
+        private static string SerializeToString(object value, Type declaredType)
+        {
+            // Note: OmitXmlDeclaration avoids "utf-16" declarations from StringWriter.
+            // For persistence, Compact is usually best, but we keep output readable by default.
+            var serializer = CreateSerializer(declaredType);
+
+            var sb = new StringBuilder();
+            var settings = new XmlWriterSettings
             {
-                if (string.IsNullOrEmpty(data))
-                    return [];
+                Indent = true,
+                OmitXmlDeclaration = true,
+                NewLineHandling = NewLineHandling.None,
+            };
 
-                var dict = new Dictionary<string, string>(StringComparer.Ordinal);
-
-                // Accept either Windows or Unix line breaks, keep deterministic behavior.
-                var lines = data.Split(new[] { "\r\n", "\n" }, StringSplitOptions.None)
-                    .Where(x => !string.IsNullOrWhiteSpace(x))
-                    .ToArray();
-
-                if (lines.Length == 0)
-                    return dict;
-
-                var start = 0;
-                if (string.Equals(lines[0].Trim(), HeaderV1, StringComparison.Ordinal))
-                    start = 1;
-
-                for (var i = start; i < lines.Length; i++)
-                {
-                    var line = lines[i].Trim();
-                    var sep = line.IndexOf(PairSep);
-                    if (sep < 0)
-                        continue;
-
-                    var kEnc = line.Substring(0, sep);
-                    var vEnc = line.Substring(sep + 1);
-
-                    var key = DecodeBase64Url(kEnc);
-                    var value = vEnc == NullToken ? null : DecodeBase64Url(vEnc);
-
-                    // Last write wins if duplicates exist.
-                    dict[key] = value;
-                }
-
-                return dict;
+            using (var sw = new StringWriter(sb, CultureInfo.InvariantCulture))
+            using (var xw = XmlWriter.Create(sw, settings))
+            {
+                serializer.WriteObject(xw, value);
             }
-            catch
+
+            return sb.ToString();
+        }
+
+        private static object DeserializeFromString(string xml, Type declaredType)
+        {
+            var serializer = CreateSerializer(declaredType);
+
+            var settings = new XmlReaderSettings
             {
-                return [];
+                IgnoreComments = true,
+                IgnoreProcessingInstructions = true,
+                IgnoreWhitespace = true,
+            };
+
+            using (var sr = new StringReader(xml))
+            using (var xr = XmlReader.Create(sr, settings))
+            {
+                return serializer.ReadObject(xr);
+            }
+        }
+
+        private static DataContractSerializer CreateSerializer(Type type)
+        {
+            // MaxItemsInObjectGraph: avoid unexpected truncation on larger graphs.
+            var settings = new DataContractSerializerSettings
+            {
+                MaxItemsInObjectGraph = int.MaxValue,
+            };
+
+            return new DataContractSerializer(type, settings);
+        }
+    }
+
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+    //                        XML Blob                        //
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+    /// <summary>
+    /// Holds serialized XML and provides pretty/compact formatting via ToString.
+    /// </summary>
+    public sealed class XmlBlob(string xml)
+    {
+        private readonly string _xml = xml ?? "";
+        private XDocument _doc;
+
+        /// <summary>
+        /// The raw XML string as produced by the serializer (usually indented).
+        /// </summary>
+        public string Xml => _xml;
+
+        /// <summary>
+        /// Compact XML for persistence (no whitespace formatting).
+        /// </summary>
+        public string Compact
+        {
+            get
+            {
+                try
+                {
+                    var doc = Document;
+                    return doc == null ? "" : doc.ToString(SaveOptions.DisableFormatting);
+                }
+                catch
+                {
+                    return "";
+                }
             }
         }
 
         /// <summary>
-        /// Deserialize a string produced by Serialize back into a list.
+        /// Parsed XDocument (lazy). Useful if you want to inspect or edit the XML.
         /// </summary>
-        public static List<string> DeserializeList(string data)
+        public XDocument Document
         {
-            var dict = DeserializeDictionary(data);
-            var list = new List<string>();
-
-            int index = 0;
-            while (true)
+            get
             {
-                var key = $"item_{index}";
-                if (!dict.TryGetValue(key, out string value))
-                    break;
+                try
+                {
+                    if (_doc != null)
+                        return _doc;
 
-                list.Add(value);
-                index++;
+                    if (string.IsNullOrWhiteSpace(_xml))
+                        return null;
+
+                    _doc = XDocument.Parse(_xml, LoadOptions.None);
+                    return _doc;
+                }
+                catch
+                {
+                    return null;
+                }
             }
-
-            return list;
         }
 
-        /* ━━━━━━━ Encoding ━━━━━━ */
-
-        private static string EncodeBase64Url(string text)
+        /// <summary>
+        /// Pretty printed XML string.
+        /// </summary>
+        public override string ToString()
         {
-            if (string.IsNullOrEmpty(text))
+            try
+            {
+                var doc = Document;
+                return doc == null ? "" : doc.ToString();
+            }
+            catch
+            {
                 return "";
-
-            var bytes = Encoding.UTF8.GetBytes(text);
-            var b64 = Convert.ToBase64String(bytes);
-
-            // Base64Url: no padding, URL-safe alphabet.
-            return b64.TrimEnd('=').Replace('+', '-').Replace('/', '_');
-        }
-
-        private static string DecodeBase64Url(string text)
-        {
-            if (string.IsNullOrEmpty(text))
-                return "";
-
-            var b64 = text.Replace('-', '+').Replace('_', '/');
-
-            // Restore padding.
-            var mod = b64.Length % 4;
-            if (mod != 0)
-                b64 = b64 + new string('=', 4 - mod);
-
-            var bytes = Convert.FromBase64String(b64);
-            return Encoding.UTF8.GetString(bytes);
+            }
         }
     }
 }
