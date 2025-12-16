@@ -156,8 +156,8 @@ namespace Retinues.Editor
             var hero = WHero.Get(Hero.MainHero);
 
             Culture = hero.Culture;
-            Clan = hero.Clan;
-            Faction = hero.Clan;
+            Clan = null;
+            Faction = hero.Culture;
 
             Character = PickFirstTroop(Faction);
             Equipment = PickFirstEquipment(Character);
@@ -171,11 +171,6 @@ namespace Retinues.Editor
             Clan = hero.Clan;
             Faction = hero.Clan;
 
-            Log.Info($"Applying hero: {hero.Name}");
-            Log.Info($"Hero culture: {hero.Culture?.Name}");
-            Log.Info($"Hero clan: {hero.Clan?.Name}");
-            Log.Info($"Faction: {Faction?.Name}");
-
             Character = PickFirstTroop(Faction);
             Equipment = PickFirstEquipment(Character);
 
@@ -187,10 +182,6 @@ namespace Retinues.Editor
             Culture = character.Culture;
             Clan = null;
             Faction = Culture;
-
-            Log.Info($"Applying char: {character.Name}");
-            Log.Info($"char culture: {character.Culture?.Name}");
-            Log.Info($"Faction: {Faction?.Name}");
 
             Character = character;
             Equipment = PickFirstEquipment(Character);
@@ -316,14 +307,7 @@ namespace Retinues.Editor
 
                 _faction = value;
 
-                foreach (var troop in _faction.Troops)
-                {
-                    if (troop != null)
-                    {
-                        Character = troop;
-                        break;
-                    }
-                }
+                Character = PickFirstTroop(_faction);
 
                 Fire(UIEvent.Faction);
             }

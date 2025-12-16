@@ -52,6 +52,12 @@ namespace Retinues.Model.Factions
         //                       Characters                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        // Cache culture roots for performance.
+        static List<WCharacter> cultureRoots;
+
+        /// <summary>
+        /// Gets the custom root basic troop for this faction, if any.
+        /// </summary>
         public override WCharacter RootBasic
         {
             get
@@ -60,8 +66,11 @@ namespace Retinues.Model.Factions
                 if (root == null)
                     return null;
 
+                // Cache culture roots.
+                cultureRoots ??= [.. WCulture.All.Select(c => c.RootBasic).Where(r => r != null)];
+
                 // A root shared with a culture is not a custom root.
-                if (root == Culture.RootBasic)
+                if (cultureRoots.Contains(root))
                     return null;
 
                 return root;
