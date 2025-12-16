@@ -12,9 +12,24 @@ namespace Retinues.Editor.Controllers
         /// <summary>
         /// Check if another upgrade target can be added.
         /// </summary>
-        public static bool CanAddUpgradeTarget() =>
-            State.Character.IsHero == false
-            && State.Character.UpgradeTargets.Count < MaxUpgradeTargets;
+        public static bool CanAddUpgradeTarget()
+        {
+            var character = State.Character;
+
+            if (character.IsHero)
+                return false; // Heroes cannot have upgrade targets.
+
+            if (character.UpgradeTargets.Count >= MaxUpgradeTargets)
+                return false; // Reached max upgrade targets.
+
+            if (
+                State.Faction.RootBasic != character.Root
+                && State.Faction.RootElite != character.Root
+            )
+                return false; // Not a regular troop.
+
+            return true;
+        }
 
         /// <summary>
         /// Add a new upgrade target to the character.
