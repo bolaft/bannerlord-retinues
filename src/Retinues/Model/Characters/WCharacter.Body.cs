@@ -68,9 +68,6 @@ namespace Retinues.Model.Characters
                 return;
             }
 
-            // Mark body_envelope as dirty to ensure persistence.
-            BodySerializedAttribute.Touch();
-
             // Break shared reference
             EnsureOwnBodyRange();
 
@@ -222,9 +219,6 @@ namespace Retinues.Model.Characters
             var newMax = minEnd ? oth : newSrc;
 
             range.Init(newMin, newMax);
-
-            // This marks body_envelope as dirty.
-            BodySerializedAttribute.Touch();
         }
 
         static float Clamp01(float v)
@@ -423,18 +417,15 @@ namespace Retinues.Model.Characters
 
         /* ━━━━━━━ Hair Tags ━━━━━━ */
 
-        MAttribute<string> _hairTagsAttribute;
         MAttribute<string> HairTagsAttribute =>
-            _hairTagsAttribute ??= new MAttribute<string>(
-                baseInstance: Base,
+            Attribute(
                 getter: _ => Base.BodyPropertyRange.HairTags,
                 setter: (_, value) =>
                 {
                     var clonedRange = MBBodyProperty.CreateFrom(Base.BodyPropertyRange);
                     clonedRange.HairTags = value ?? string.Empty;
                     Reflection.SetPropertyValue(Base, "BodyPropertyRange", clonedRange);
-                },
-                targetName: "body_hair_tags"
+                }
             );
 
         public string HairTags
@@ -445,18 +436,15 @@ namespace Retinues.Model.Characters
 
         /* ━━━━━━ Beard Tags ━━━━━━ */
 
-        MAttribute<string> _beardTagsAttribute;
         MAttribute<string> BeardTagsAttribute =>
-            _beardTagsAttribute ??= new MAttribute<string>(
-                baseInstance: Base,
+            Attribute(
                 getter: (_) => Base.BodyPropertyRange.BeardTags,
                 setter: (_, value) =>
                 {
                     var clonedRange = MBBodyProperty.CreateFrom(Base.BodyPropertyRange);
                     clonedRange.BeardTags = value ?? string.Empty;
                     Reflection.SetPropertyValue(Base, "BodyPropertyRange", clonedRange);
-                },
-                targetName: "body_beard_tags"
+                }
             );
 
         public string BeardTags
@@ -467,18 +455,15 @@ namespace Retinues.Model.Characters
 
         /* ━━━━━━ Tattoo Tags ━━━━━ */
 
-        MAttribute<string> _tattooTagsAttribute;
         MAttribute<string> TattooTagsAttribute =>
-            _tattooTagsAttribute ??= new MAttribute<string>(
-                baseInstance: Base,
+            Attribute(
                 getter: _ => Base.BodyPropertyRange.TattooTags,
                 setter: (_, value) =>
                 {
                     var clonedRange = MBBodyProperty.CreateFrom(Base.BodyPropertyRange);
                     clonedRange.TattooTags = value ?? string.Empty;
                     Reflection.SetPropertyValue(Base, "BodyPropertyRange", clonedRange);
-                },
-                targetName: "body_tattoo_tags"
+                }
             );
 
         public string TattooTags
@@ -520,9 +505,6 @@ namespace Retinues.Model.Characters
             var newMax = minEnd ? oth : newSrc;
 
             range.Init(newMin, newMax);
-
-            // This marks body_envelope as dirty.
-            BodySerializedAttribute.Touch();
         }
 
         MBBodyProperty EnsureOwnBodyRange()
@@ -552,9 +534,10 @@ namespace Retinues.Model.Characters
             // Try to use Clone to break sharing.
             try
             {
-                var clone =
-                    Reflection.InvokeMethod(current, "Clone", Type.EmptyTypes) as MBBodyProperty;
-                if (clone != null)
+                if (
+                    Reflection.InvokeMethod(current, "Clone", Type.EmptyTypes)
+                    is MBBodyProperty clone
+                )
                 {
                     Reflection.SetPropertyValue(Base, "BodyPropertyRange", clone);
                     return clone;
@@ -584,19 +567,15 @@ namespace Retinues.Model.Characters
 
         public const string BodySerializedSeparator = "\n---BODY_MAX---\n";
 
-        MAttribute<string> _bodySerializedAttribute;
-
         /// <summary>
         /// Full body envelope (BodyPropertyMin/Max) as a single serialized string.
         /// Uses BodyProperties.ToString/FromString to capture both dynamic and static
         /// face data. This is the only body attribute that needs persistence.
         /// </summary>
-        public MAttribute<string> BodySerializedAttribute =>
-            _bodySerializedAttribute ??= new MAttribute<string>(
-                baseInstance: Base,
+        MAttribute<string> BodySerializedAttribute =>
+            Attribute(
                 getter: _ => SerializeBodyEnvelope(),
-                setter: (_, value) => ApplySerializedBodyEnvelope(value),
-                targetName: "body_envelope"
+                setter: (_, value) => ApplySerializedBodyEnvelope(value)
             );
 
         /// <summary>

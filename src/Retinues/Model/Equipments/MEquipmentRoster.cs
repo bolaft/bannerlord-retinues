@@ -1,39 +1,36 @@
 using System.Collections.Generic;
 using System.Linq;
 using Retinues.Model.Characters;
-using Retinues.Utilities;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 
 namespace Retinues.Model.Equipments
 {
     public class MEquipmentRoster(MBEquipmentRoster @base, WCharacter owner)
-        : MBase<MBEquipmentRoster>(@base)
+        : MPersistent<MBEquipmentRoster>(@base)
     {
-        private readonly WCharacter _owner = owner;
+        /// <summary>
+        /// The owner character of this roster (for persistence key purposes).
+        /// </summary>
+        readonly WCharacter _owner = owner;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Persistence                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public override string PersistenceKey => $"{_owner?.PersistenceKey}:EquipmentRoster";
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Equipments                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        MAttribute<MBList<Equipment>> EquipmentsAttribute =>
+            Attribute<MBList<Equipment>>("_equipments");
 
         public List<MEquipment> Equipments
         {
-            get
-            {
-                var list = Reflection.GetFieldValue<MBList<Equipment>>(Base, "_equipments") ?? [];
-                return [.. list.Select(e => new MEquipment(e, _owner))];
-            }
-            set
-            {
-                // Ensure non-null list
-                value ??= [];
-
-                // Touch the serialized attribute to ensure persistence.
-                _owner.MarkEquipmentsDirty();
-
-                var mbList = new MBList<Equipment>();
-
-                foreach (var me in value)
-                    mbList.Add(me.Base);
-
-                Reflection.SetFieldValue(Base, "_equipments", mbList);
-            }
+            get => [.. EquipmentsAttribute.Get().Select(e => new MEquipment(e, _owner))];
+            set => EquipmentsAttribute.Set([.. value.Select(e => e.Base).ToList()]);
         }
 
         public void Add(MEquipment equipment)

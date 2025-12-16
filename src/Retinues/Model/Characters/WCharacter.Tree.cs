@@ -11,22 +11,20 @@ namespace Retinues.Model.Characters
         //                     Upgrade Targets                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        MAttribute<List<WCharacter>> _upgradeTargetsAttribute;
         MAttribute<List<WCharacter>> UpgradeTargetsAttribute =>
-            _upgradeTargetsAttribute ??= new MAttribute<List<WCharacter>>(
-                baseInstance: Base,
+            Attribute<List<WCharacter>>(
                 getter: _ => [.. Base.UpgradeTargets.Select(Get)],
                 setter: (_, list) =>
                 {
                     // Convert to array.
                     var array = (list ?? []).Select(w => w?.Base).ToArray();
 
+                    // Apply to base.
                     Reflection.SetPropertyValue(Base, "UpgradeTargets", array);
 
                     // Keep hierarchy cache in sync whenever targets change.
                     CharacterTreeCacheHelper.RecomputeForRoot(Root);
-                },
-                targetName: "UpgradeTargets"
+                }
             );
 
         public List<WCharacter> UpgradeTargets

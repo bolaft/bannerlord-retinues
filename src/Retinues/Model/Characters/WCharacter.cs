@@ -1,9 +1,5 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using Retinues.Model.Equipments;
 using Retinues.Model.Factions;
-using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.Localization;
@@ -67,6 +63,10 @@ namespace Retinues.Model.Characters
             if (IsHero)
                 return;
 
+            // Never "remove" root troops.
+            if (IsRoot)
+                return;
+
             // Snapshot upgrade sources to avoid modification during iteration.
             var sources = UpgradeSources.ToList();
 
@@ -76,15 +76,9 @@ namespace Retinues.Model.Characters
 
             // Custom troop: "remove" means return to unassigned stub pool.
             if (IsCustom)
-            {
-                if (IsRoot)
-                    return;
+                IsActiveStub = false;
 
-                IsActiveStub = false; // also clamps encyclopedia visibility via stub rule
-                return;
-            }
-
-            // Vanilla troop: "remove" means hide (persisted).
+            // Hide from encyclopedia.
             HiddenInEncyclopedia = true;
         }
 
@@ -92,95 +86,18 @@ namespace Retinues.Model.Characters
         //                Encyclopedia Visibility                 //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+#if BL13
+        MAttribute<bool> HiddenInEncyclopediaAttribute =>
+            Attribute<bool>(nameof(CharacterObject.HiddenInEncyclopedia));
+#else
+        MAttribute<bool> HiddenInEncyclopediaAttribute =>
+            Attribute<bool>(nameof(CharacterObject.HiddenInEncylopedia));
+#endif
+
         public bool HiddenInEncyclopedia
         {
             get => HiddenInEncyclopediaAttribute.Get();
             set => HiddenInEncyclopediaAttribute.Set(value);
-        }
-
-        bool _hiddenInEncyclopedia;
-
-        MAttribute<bool> _hiddenInEncyclopediaAttribute;
-        MAttribute<bool> HiddenInEncyclopediaAttribute
-        {
-            get
-            {
-                if (_hiddenInEncyclopediaAttribute != null)
-                    return _hiddenInEncyclopediaAttribute;
-
-                _hiddenInEncyclopedia = ReadHiddenInEncyclopediaFromBase();
-
-                _hiddenInEncyclopediaAttribute = new MAttribute<bool>(
-                    baseInstance: Base,
-                    getter: _ => _hiddenInEncyclopedia,
-                    setter: (_, value) =>
-                    {
-                        _hiddenInEncyclopedia = value;
-                        ApplyHiddenInEncyclopediaToBase(value);
-
-                        // Clamp for custom stubs (inactive must be hidden, active must be visible).
-                        EnforceStubEncyclopediaRule();
-                    },
-                    targetName: "hidden_in_encyclopedia"
-                );
-
-                // Clamp on first init too (covers "unassigned stub should always be hidden").
-                EnforceStubEncyclopediaRule();
-
-                return _hiddenInEncyclopediaAttribute;
-            }
-        }
-
-        bool ReadHiddenInEncyclopediaFromBase()
-        {
-            try
-            {
-#if BL13
-                return Reflection.GetPropertyValue<bool>(Base, "HiddenInEncyclopedia");
-#else
-                return Reflection.GetPropertyValue<bool>(Base, "HiddenInEncylopedia");
-#endif
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        void ApplyHiddenInEncyclopediaToBase(bool hidden)
-        {
-            try
-            {
-#if BL13
-                Reflection.SetPropertyValue(Base, "HiddenInEncyclopedia", hidden);
-#else
-                Reflection.SetPropertyValue(Base, "HiddenInEncylopedia", hidden);
-#endif
-            }
-            catch { }
-        }
-
-        /// <summary>
-        /// Invariant for custom troop stubs:
-        /// - Unassigned stub (inactive) => always hidden in encyclopedia
-        /// - Assigned stub (active) => always visible in encyclopedia
-        /// This does not affect vanilla troops.
-        /// </summary>
-        void EnforceStubEncyclopediaRule()
-        {
-            if (!IsCustom)
-                return;
-
-            if (IsHero)
-                return;
-
-            var forcedHidden = !IsActiveStub;
-
-            if (_hiddenInEncyclopedia == forcedHidden)
-                return;
-
-            _hiddenInEncyclopedia = forcedHidden;
-            ApplyHiddenInEncyclopediaToBase(forcedHidden);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -188,6 +105,8 @@ namespace Retinues.Model.Characters
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public const string CustomTroopPrefix = "retinues_custom_";
+
+        MAttribute<bool> IsActiveStubAttribute => Attribute(false);
 
         /// <summary>
         /// Whether this WCharacter is currently allocated as an active stub for custom troop creation.
@@ -197,23 +116,6 @@ namespace Retinues.Model.Characters
             get => IsActiveStubAttribute.Get();
             set => IsActiveStubAttribute.Set(value);
         }
-
-        bool _isActiveStub = false; // Default to inactive.
-
-        MAttribute<bool> _isActiveStubAttribute;
-        MAttribute<bool> IsActiveStubAttribute =>
-            _isActiveStubAttribute ??= new MAttribute<bool>(
-                baseInstance: Base,
-                getter: _ => _isActiveStub,
-                setter: (_, value) =>
-                {
-                    _isActiveStub = value;
-
-                    // Keep custom stubs consistent with encyclopedia visibility.
-                    EnforceStubEncyclopediaRule();
-                },
-                targetName: "is_active_stub"
-            );
 
         /// <summary>
         /// Allocates a free stub WCharacter for new custom troop creation.
@@ -263,10 +165,42 @@ namespace Retinues.Model.Characters
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                     Formation Class                    //
+        //                        Formation                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public FormationClass FormationClass => Base.GetFormationClass();
+        MAttribute<FormationClass> FormationClassAttribute =>
+            Attribute<FormationClass>(nameof(CharacterObject.DefaultFormationClass));
+
+        public FormationClass FormationClass
+        {
+            get => FormationClassAttribute.Get();
+            set => FormationClassAttribute.Set(value);
+        }
+
+        MAttribute<int> FormationGroupAttribute =>
+            Attribute<int>(nameof(CharacterObject.DefaultFormationGroup));
+
+        public int FormationGroup
+        {
+            get => FormationGroupAttribute.Get();
+            set => FormationGroupAttribute.Set(value);
+        }
+
+        MAttribute<bool> IsRangedAttribute => Attribute<bool>(nameof(CharacterObject.IsRanged));
+
+        public bool IsRanged
+        {
+            get => IsRangedAttribute.Get();
+            set => IsRangedAttribute.Set(value);
+        }
+
+        MAttribute<bool> IsMountedAttribute => Attribute<bool>(nameof(CharacterObject.IsMounted));
+
+        public bool IsMounted
+        {
+            get => IsMountedAttribute.Get();
+            set => IsMountedAttribute.Set(value);
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Image                         //

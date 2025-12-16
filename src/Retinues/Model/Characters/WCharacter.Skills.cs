@@ -11,22 +11,13 @@ namespace Retinues.Model.Characters
         //                      Skill Points                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        MAttribute<int> SkillPointsAttribute => Attribute(initialValue: 0);
+
         public int SkillPoints
         {
             get => SkillPointsAttribute.Get();
             set => SkillPointsAttribute.Set(value);
         }
-
-        int _skillPoints;
-
-        MAttribute<int> _skillPointsAttribute;
-        MAttribute<int> SkillPointsAttribute =>
-            _skillPointsAttribute ??= new MAttribute<int>(
-                baseInstance: Base,
-                getter: _ => _skillPoints,
-                setter: (_, value) => _skillPoints = value,
-                targetName: "skill_points"
-            );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Skills                         //
@@ -77,16 +68,15 @@ namespace Retinues.Model.Characters
 
             /* ━━━━━━ Attributes ━━━━━━ */
 
-            private readonly Dictionary<SkillObject, MAttribute<int>> _attributes =
-                new Dictionary<SkillObject, MAttribute<int>>();
+            private readonly Dictionary<SkillObject, MAttribute<int>> _attributes = [];
 
             private MAttribute<int> MakeSkillAttribute(SkillObject skill) =>
-                new(
-                    baseInstance: _wc.Base, // anchor persistence on the CharacterObject
+                // Use the wrapper's Attribute helper to create a per‑skill attribute. The
+                // target name is stable across saves to persist each skill independently.
+                _wc.Attribute(
                     getter: _ => _wc.Base.GetSkillValue(skill),
                     setter: (_, value) => SetSkill(skill, value),
-                    targetName: $"skill_{skill.StringId}", // stable per-skill key
-                    persistent: true
+                    name: $"Skill_{skill.StringId}"
                 );
 
             private void SetSkill(SkillObject skill, int value)

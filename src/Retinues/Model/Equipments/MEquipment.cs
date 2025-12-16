@@ -1,18 +1,39 @@
+using System;
 using System.Collections.Generic;
 using Retinues.Model.Characters;
-using Retinues.Utilities;
 using TaleWorlds.Core;
 
 namespace Retinues.Model.Equipments
 {
-    public class MEquipment(Equipment @base, WCharacter owner) : MBase<Equipment>(@base)
+    public class MEquipment(Equipment @base, WCharacter owner)
+        : MPersistent<Equipment>(@base),
+            IEquatable<MEquipment>
     {
-        private readonly WCharacter _owner = owner;
+        /// <summary>
+        /// The owner character of this equipment (for persistence key purposes).
+        /// </summary>
+        readonly WCharacter _owner = owner;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Persistence                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public override string PersistenceKey
+        {
+            get
+            {
+                int index = _owner?.Equipments.IndexOf(this) ?? -1;
+                return $"{_owner?.PersistenceKey}:Equipment[{index}]";
+            }
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Creation                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Creates a new equipment for the given owner, optionally copying from a source equipment.
+        /// </summary>
         public static MEquipment Create(
             WCharacter owner,
             bool civilian = false,
@@ -25,7 +46,7 @@ namespace Retinues.Model.Equipments
             if (equipment == null)
                 equipment = new Equipment();
 
-            var me = new MEquipment(equipment, owner)
+            var me = new MEquipment(equipment, owner: owner)
             {
                 EquipmentType = civilian
                     ? Equipment.EquipmentType.Civilian
@@ -35,21 +56,22 @@ namespace Retinues.Model.Equipments
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                     Main Properties                    //
+        //                          Code                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public string Code => Base.CalculateEquipmentCode() ?? string.Empty;
+        public string Code => Base.CalculateEquipmentCode();
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Type                          //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        MAttribute<Equipment.EquipmentType> EquipmentTypeAttribute =>
+            Attribute<Equipment.EquipmentType>("_equipmentType");
 
         public Equipment.EquipmentType EquipmentType
         {
-            get => Reflection.GetFieldValue<Equipment.EquipmentType>(Base, "_equipmentType");
-            set
-            {
-                // Touch the serialized attribute to ensure persistence.
-                _owner.MarkEquipmentsDirty();
-
-                Reflection.SetFieldValue(Base, "_equipmentType", value);
-            }
+            get => EquipmentTypeAttribute.Get();
+            set => EquipmentTypeAttribute.Set(value);
         }
 
         public bool IsCivilian
@@ -62,58 +84,48 @@ namespace Retinues.Model.Equipments
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Items API                       //
+        //                          Items                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public WItem GetItem(EquipmentIndex index)
+        public WItem Get(EquipmentIndex index)
         {
             var element = Base[index];
             var item = element.Item;
             return item == null ? null : WItem.Get(item);
         }
 
-        public void SetItem(EquipmentIndex index, WItem item)
+        public void Set(EquipmentIndex index, WItem item)
         {
-            // Touch the serialized attribute to ensure persistence.
-            _owner.MarkEquipmentsDirty();
-
             var element = item == null ? EquipmentElement.Invalid : new EquipmentElement(item.Base);
             Base[index] = element;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                      Serialization                     //
+        //                        Equality                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public string Serialize()
-        {
-            var data = new Dictionary<string, string>
-            {
-                { "Code", Code },
-                {
-                    "IsCivilian",
-                    EquipmentType == Equipment.EquipmentType.Civilian ? "true" : "false"
-                },
-            };
+        public override bool Equals(object obj) => Equals(obj as MEquipment);
 
-            return Serialization.SerializeDictionary(data);
+        public bool Equals(MEquipment other)
+        {
+            if (ReferenceEquals(this, other))
+                return true;
+            if (other is null)
+                return false;
+            return EqualityComparer<Equipment>.Default.Equals(this.Base, other.Base);
         }
 
-        public static MEquipment Deserialize(string str, WCharacter owner)
+        public override int GetHashCode() => Base != null ? Base.GetHashCode() : 0;
+
+        public static bool operator ==(MEquipment left, MEquipment right)
         {
-            var data = Serialization.DeserializeDictionary(str);
-
-            data.TryGetValue("Code", out string code);
-            data.TryGetValue("IsCivilian", out string isCivilian);
-
-            var type =
-                isCivilian != null && isCivilian == "true"
-                    ? Equipment.EquipmentType.Civilian
-                    : Equipment.EquipmentType.Battle;
-
-            var e = Equipment.CreateFromEquipmentCode(code) ?? new Equipment();
-
-            return new MEquipment(e, owner) { EquipmentType = type };
+            if (ReferenceEquals(left, right))
+                return true;
+            if (left is null || right is null)
+                return false;
+            return EqualityComparer<Equipment>.Default.Equals(left.Base, right.Base);
         }
+
+        public static bool operator !=(MEquipment left, MEquipment right) => !(left == right);
     }
 }

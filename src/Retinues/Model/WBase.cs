@@ -8,7 +8,7 @@ namespace Retinues.Model
     /// Base wrapper for MBObjectBase types with MBObjectManager helpers and identity equality.
     /// </summary>
     public abstract class WBase<TWrapper, TBase>(TBase baseInstance)
-        : MBase<TBase>(baseInstance),
+        : MPersistent<TBase>(baseInstance),
             IEquatable<WBase<TWrapper, TBase>>
         where TWrapper : WBase<TWrapper, TBase>
         where TBase : MBObjectBase
@@ -21,6 +21,12 @@ namespace Retinues.Model
         /// StringId forwarded from the underlying MBObjectBase.
         /// </summary>
         public string StringId => Base.StringId;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Persistence                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public override string PersistenceKey => $"{typeof(TWrapper).FullName}:{StringId}";
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Static Helpers                     //

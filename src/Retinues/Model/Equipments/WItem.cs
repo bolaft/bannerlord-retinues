@@ -87,9 +87,8 @@ namespace Retinues.Model.Equipments
 
         int _stock;
 
-        MAttribute<int> _stockAttribute;
         MAttribute<int> StockAttribute =>
-            _stockAttribute ??= new MAttribute<int>(
+            new(
                 baseInstance: Base,
                 getter: _ => _stock,
                 setter: (_, value) => _stock = value,

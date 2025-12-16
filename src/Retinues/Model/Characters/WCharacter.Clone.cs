@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using Retinues.Model.Equipments;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
@@ -33,13 +31,6 @@ namespace Retinues.Model.Characters
             {
                 Log.Error($"Clone core copy failed: {ex}");
             }
-
-            // Force persistent attributes to exist for this wrapper instance
-            try
-            {
-                ((IMBaseInternal)stub).InitializePersistentAttributes();
-            }
-            catch { }
 
             // Copy main persisted scalars through attributes so they survive reload
             stub.Name = Name;
@@ -163,7 +154,7 @@ namespace Retinues.Model.Characters
 
             try
             {
-                Reflection.InvokeMethod(tgt, "FillFrom", new[] { typeof(CharacterObject) }, src);
+                Reflection.InvokeMethod(tgt, "FillFrom", [typeof(CharacterObject)], src);
             }
             catch { }
         }

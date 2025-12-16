@@ -1,34 +1,37 @@
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using System.Reflection;
+using System.Runtime.CompilerServices;
 using Retinues.Utilities;
 
 namespace Retinues.Model
 {
-    internal interface IMBaseInternal
+    public abstract partial class MPersistent<TBase>(TBase baseInstance)
+        : MBase<TBase>(baseInstance)
+        where TBase : class
     {
-        void InitializePersistentAttributes();
+        public abstract string PersistenceKey { get; }
     }
 
     [SafeClass(IncludeDerived = true)]
-    public abstract class MBase<TBase>(TBase baseInstance) : IMBaseInternal
+    public abstract class MBase<TBase>(TBase baseInstance)
         where TBase : class
     {
-        protected readonly Dictionary<string, object> _attributes = [];
+        protected readonly Dictionary<string, object> _attributes = new Dictionary<string, object>(
+            StringComparer.Ordinal
+        );
 
         public TBase Base { get; } =
             baseInstance ?? throw new ArgumentNullException(nameof(baseInstance));
 
         /// <summary>
-        /// Gets or creates an attribute that gets/sets the value of a field or property
-        /// on the underlying base instance.
+        /// Gets or creates an attribute that targets a field/property on the underlying base instance.
         /// </summary>
-        protected MAttribute<T> Attribute<T>(string name, bool persistent = true)
+        protected MAttribute<T> Attribute<T>(string name)
         {
             if (!_attributes.TryGetValue(name, out var obj))
             {
-                var attr = new MAttribute<T>(Base, name, persistent);
+                var attr = new MAttribute<T>(Base, name);
                 _attributes[name] = attr;
                 return attr;
             }
@@ -38,20 +41,50 @@ namespace Retinues.Model
                     $"Attribute '{name}' already exists with a different type ({obj.GetType()})."
                 );
 
-            // If it already exists as non-persistent and you now ask for persistence,
-            // you can change this to upgrade the attribute, but for now we assume
-            // callers are consistent.
             return typed;
+        }
+
+        /// <summary>
+        /// Gets or creates an attribute using the caller member name as the key.
+        /// If Base has a field/property with that name, binds to it.
+        /// Otherwise creates a stored attribute that lives inside the wrapper.
+        /// </summary>
+        protected MAttribute<T> Attribute<T>(
+            T initialValue = default,
+            bool storedIfMissing = true,
+            [CallerMemberName] string name = null
+        )
+        {
+            name ??= "<unknown>";
+
+            if (_attributes.TryGetValue(name, out var obj))
+            {
+                if (obj is not MAttribute<T> typed)
+                    throw new InvalidOperationException(
+                        $"Attribute '{name}' already exists with a different type ({obj.GetType()})."
+                    );
+
+                return typed;
+            }
+
+            bool hasMember = Reflection.HasField(Base, name) || Reflection.HasProperty(Base, name);
+
+            MAttribute<T> attr =
+                hasMember ? new MAttribute<T>(Base, name)
+                : storedIfMissing ? new MAttribute<T>(Base, name, initialValue)
+                : throw new InvalidOperationException(
+                    $"No field or property '{name}' exists on type '{Base.GetType().Name}'."
+                );
+
+            _attributes[name] = attr;
+            return attr;
         }
 
         /// <summary>
         /// Gets or creates an attribute that gets/sets the value of a field or property
         /// on the underlying base instance, using the given expression to identify the member.
         /// </summary>
-        protected MAttribute<TProp> Attribute<TProp>(
-            Expression<Func<TBase, TProp>> expr,
-            bool persistent = true
-        )
+        protected MAttribute<TProp> Attribute<TProp>(Expression<Func<TBase, TProp>> expr)
         {
             if (expr.Body is not MemberExpression member)
                 throw new ArgumentException(
@@ -64,11 +97,9 @@ namespace Retinues.Model
             if (_attributes.TryGetValue(name, out var existing))
                 return (MAttribute<TProp>)existing;
 
-            // compile getter
             var typedGetter = expr.Compile();
-            Func<object, TProp> getter = obj => typedGetter((TBase)obj);
+            TProp getter(object obj) => typedGetter((TBase)obj);
 
-            // compile setter if possible
             Action<object, TProp> setter = (_, _) =>
             {
                 throw new InvalidOperationException($"Member '{name}' is read-only.");
@@ -103,42 +134,42 @@ namespace Retinues.Model
                 setter = (obj, value) => typedSetter((TBase)obj, value);
             }
 
-            var attr = new MAttribute<TProp>(Base, getter, setter, name, persistent);
+            var attr = new MAttribute<TProp>(Base, getter, setter, name);
             _attributes[name] = attr;
             return attr;
         }
 
-        void IMBaseInternal.InitializePersistentAttributes()
+        /// <summary>
+        /// Gets or creates an attribute that gets/sets the value of a field or property
+        /// on the underlying base instance, using the given delegates.
+        /// </summary>
+        protected MAttribute<T> Attribute<T>(
+            Func<object, T> getter,
+            Action<object, T> setter,
+            [CallerMemberName] string name = null
+        )
         {
-            var type = GetType();
-            var flags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
+            name ??= "<unknown>";
 
-            foreach (var prop in type.GetProperties(flags))
+            if (_attributes.TryGetValue(name, out var obj))
             {
-                if (!prop.CanRead)
-                    continue;
-
-                var propType = prop.PropertyType;
-                if (!propType.IsGenericType)
-                    continue;
-
-                if (propType.GetGenericTypeDefinition() != typeof(MAttribute<>))
-                    continue;
-
-                try
-                {
-                    // Calling the getter forces the MAttribute to be created
-                    // (NameAttribute => Attribute<TextObject>("_basicName"), etc.).
-                    _ = prop.GetValue(this);
-                }
-                catch (Exception e)
-                {
-                    Log.Exception(
-                        e,
-                        $"MBase.InitializePersistentAttributes: failed for {type.Name}.{prop.Name}."
+                if (obj is not MAttribute<T> typed)
+                    throw new InvalidOperationException(
+                        $"Attribute '{name}' already exists with a different type ({obj.GetType()})."
                     );
-                }
+
+                return typed;
             }
+
+            var attr = new MAttribute<T>(
+                baseInstance: Base,
+                getter: getter,
+                setter: setter,
+                targetName: name
+            );
+
+            _attributes[name] = attr;
+            return attr;
         }
     }
 }

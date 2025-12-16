@@ -90,6 +90,7 @@ namespace Retinues.Model.Characters
         public bool IsFactionLeader => Base.IsFactionLeader;
         public bool IsNotable => Base.IsNotable;
         public bool IsPartyLeader => Base.IsPartyLeader;
+        public bool IsDead => Base.IsDead;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Factions                        //
@@ -169,14 +170,7 @@ namespace Retinues.Model.Characters
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private HeroSkills _skills;
-        public HeroSkills Skills
-        {
-            get
-            {
-                _skills ??= new HeroSkills(this);
-                return _skills;
-            }
-        }
+        public HeroSkills Skills => _skills ??= new HeroSkills(this);
 
         IEditableSkills IEditableUnit.Skills => Skills;
 
