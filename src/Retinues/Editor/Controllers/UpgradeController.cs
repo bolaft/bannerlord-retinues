@@ -1,4 +1,7 @@
+using Retinues.Helpers;
 using Retinues.Model.Characters;
+using Retinues.Utilities;
+using TaleWorlds.CampaignSystem;
 
 namespace Retinues.Editor.Controllers
 {
@@ -10,7 +13,8 @@ namespace Retinues.Editor.Controllers
         /// Check if another upgrade target can be added.
         /// </summary>
         public static bool CanAddUpgradeTarget() =>
-            State.Character.UpgradeTargets.Count < MaxUpgradeTargets;
+            State.Character.IsHero == false
+            && State.Character.UpgradeTargets.Count < MaxUpgradeTargets;
 
         /// <summary>
         /// Add a new upgrade target to the character.
@@ -22,8 +26,31 @@ namespace Retinues.Editor.Controllers
 
             var character = State.Character;
 
-            character.AddUpgradeTarget(character.Clone(skills: true, equipments: true));
-            EventManager.Fire(UIEvent.Tree, EventScope.Global);
+            void Apply(string name)
+            {
+                if (string.IsNullOrWhiteSpace(name))
+                {
+                    Inquiries.Popup(
+                        L.T("invalid_name_title", "Invalid Name"),
+                        L.T("invalid_name_body", "The name cannot be empty.")
+                    );
+                    return;
+                }
+
+                var clone = character.Clone(skills: true, equipments: true);
+                clone.Name = name;
+                clone.Level = character.Level + 5;
+                clone.HiddenInEncyclopedia = false;
+                character.AddUpgradeTarget(clone);
+                EventManager.Fire(UIEvent.Tree, EventScope.Global);
+            }
+
+            Inquiries.TextInputPopup(
+                title: L.T("create_unit", "New Unit"),
+                defaultInput: character.Name,
+                onConfirm: input => Apply(input.Trim()),
+                description: L.T("enter_name", "Enter a name:")
+            );
         }
 
         /// <summary>

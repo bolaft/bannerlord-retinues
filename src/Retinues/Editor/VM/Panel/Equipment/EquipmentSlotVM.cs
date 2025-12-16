@@ -29,7 +29,7 @@ namespace Retinues.Editor.VM.Panel.Equipment
         //                          Item                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private WItem Item => State.Equipment.GetItem(_slot);
+        private WItem Item => State.Equipment.Get(_slot);
 
         [EventListener(UIEvent.Item)]
         [DataSourceProperty]
@@ -80,7 +80,7 @@ namespace Retinues.Editor.VM.Panel.Equipment
             get
             {
                 if (_slot == EquipmentIndex.HorseHarness)
-                    if (State.Equipment.GetItem(EquipmentIndex.Horse) == null)
+                    if (State.Equipment.Get(EquipmentIndex.Horse) == null)
                         return false; // Horse harness requires a horse.
                 return true;
             }

@@ -35,11 +35,11 @@ namespace Retinues.Editor.Controllers
                 return;
 
             var slot = State.Instance.Slot;
-            var equipped = State.Equipment.GetItem(slot);
+            var equipped = State.Equipment.Get(slot);
             if (equipped == item)
                 return;
 
-            State.Equipment.SetItem(slot, item);
+            State.Equipment.Set(slot, item);
 
             EventManager.Fire(UIEvent.Item, EventScope.Global);
         }
@@ -49,11 +49,11 @@ namespace Retinues.Editor.Controllers
             if (State.Equipment == null)
                 return;
 
-            var equipped = State.Equipment.GetItem(slot);
+            var equipped = State.Equipment.Get(slot);
             if (equipped == null)
                 return;
 
-            State.Equipment.SetItem(slot, null);
+            State.Equipment.Set(slot, null);
 
             if (slot == EquipmentIndex.Horse)
                 UnequipItem(EquipmentIndex.HorseHarness, fireEvent: false);

@@ -12,24 +12,34 @@ namespace Retinues.Editor.Controllers
         /// <summary>
         /// Change the name of the selected character.
         /// </summary>
-        public static void ChangeName(string newName)
+        public static void ChangeName()
         {
-            if (string.IsNullOrWhiteSpace(newName))
+            static void Apply(string newName)
             {
-                Inquiries.Popup(
-                    L.T("invalid_name_title", "Invalid Name"),
-                    L.T("invalid_name_body", "The name cannot be empty.")
-                );
-                return;
+                if (string.IsNullOrWhiteSpace(newName))
+                {
+                    Inquiries.Popup(
+                        L.T("invalid_name_title", "Invalid Name"),
+                        L.T("invalid_name_body", "The name cannot be empty.")
+                    );
+                    return;
+                }
+
+                var character = State.Character.Editable;
+
+                if (newName == character.Name)
+                    return; // No change.
+
+                character.Name = newName;
+                EventManager.Fire(UIEvent.Name, EventScope.Local);
             }
 
-            var character = State.Character.Editable;
-
-            if (newName == character.Name)
-                return; // No change.
-
-            character.Name = newName;
-            EventManager.Fire(UIEvent.Name, EventScope.Local);
+            Inquiries.TextInputPopup(
+                title: L.T("rename_unit", "New Name"),
+                defaultInput: State.Character.Editable.Name,
+                onConfirm: input => Apply(input.Trim()),
+                description: L.T("enter_new_name", "Enter a new name:")
+            );
         }
 
         /// <summary>

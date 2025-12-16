@@ -135,7 +135,7 @@ namespace Retinues.Editor.Controllers
                 {
                     var character = State.Character;
                     var created = MEquipment.Create(character, civilian: civilian);
-                    character.AddEquipment(created);
+                    character.EquipmentRoster.Add(created);
                     var refreshed = GetEquipments(civilian).FirstOrDefault();
                     applySelection(refreshed ?? created);
                 }
@@ -151,7 +151,7 @@ namespace Retinues.Editor.Controllers
             {
                 var character = State.Character;
                 var created = MEquipment.Create(character, civilian: civilian, source: source);
-                character.AddEquipment(created);
+                character.EquipmentRoster.Add(created);
                 State.Equipment = created;
             }
 
@@ -181,7 +181,7 @@ namespace Retinues.Editor.Controllers
                 ),
                 onConfirm: () =>
                 {
-                    State.Character.RemoveEquipment(State.Equipment);
+                    State.Character.EquipmentRoster.Remove(State.Equipment);
                     State.Equipment = GetEquipments(civilian).FirstOrDefault();
                 }
             );

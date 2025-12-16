@@ -46,15 +46,7 @@ namespace Retinues.Editor.VM.Panel.Character
         public string NameText => State.Character.Editable.Name;
 
         [DataSourceMethod]
-        public void ExecuteRename()
-        {
-            Inquiries.TextInputPopup(
-                title: L.T("rename_unit", "New Name"),
-                defaultInput: State.Character.Editable.Name,
-                onConfirm: input => CharacterController.ChangeName(input.Trim()),
-                description: L.T("enter_new_name", "Enter a new name:")
-            );
-        }
+        public void ExecuteRename() => CharacterController.ChangeName();
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Culture                        //
@@ -357,5 +349,12 @@ namespace Retinues.Editor.VM.Panel.Character
                 return targets;
             }
         }
+
+        [EventListener(UIEvent.Character, UIEvent.Tree)]
+        [DataSourceProperty]
+        public bool CanAddUpgradeTarget => UpgradeController.CanAddUpgradeTarget();
+
+        [DataSourceMethod]
+        public void ExecuteAddUpgradeTarget() => UpgradeController.AddUpgradeTarget();
     }
 }

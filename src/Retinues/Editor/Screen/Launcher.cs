@@ -1,3 +1,4 @@
+using System.Linq;
 using Retinues.Model.Characters;
 using Retinues.Model.Factions;
 using TaleWorlds.Core;
@@ -37,10 +38,26 @@ namespace Retinues.Editor.Screen
             if (gsm == null)
                 return;
 
+            ClosePreviousEditorInstances(gsm);
+
             var state = gsm.CreateState<EditorState>();
             state.LaunchArgs = args;
 
             gsm.PushState(state);
+        }
+
+        private static void ClosePreviousEditorInstances(GameStateManager gsm)
+        {
+            // Pop from the top until no EditorState remains.
+            // This prevents stacking editor-on-editor (and also cleans up cases like editor + barber etc).
+            while (gsm.GameStates.Any(s => s is EditorState))
+            {
+                var active = gsm.ActiveState;
+                if (active == null)
+                    break;
+
+                gsm.PopState(active.Level);
+            }
         }
     }
 }
