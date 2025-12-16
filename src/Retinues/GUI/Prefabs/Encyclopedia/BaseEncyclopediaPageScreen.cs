@@ -25,6 +25,9 @@ namespace Retinues.GUI.Prefabs.Encyclopedia
         }
 
         [DataSourceProperty]
+        public virtual bool IsEnabled => true;
+
+        [DataSourceProperty]
         public virtual int MarginTop => 10;
 
         [DataSourceProperty]

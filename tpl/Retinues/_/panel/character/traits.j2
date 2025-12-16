@@ -24,11 +24,9 @@
 {% macro trait() -%}
 
 <ListPanel
-    WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren"
-    SuggestedWidth="96"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
     StackLayout.LayoutMethod="VerticalBottomToTop"
-    HorizontalAlignment="Center"
-    MarginRight="4" MarginLeft="4">
+    HorizontalAlignment="Center">
     <Children>
         <TextWidget
             Text="@Name"
@@ -36,17 +34,13 @@
             Brush.FontSize="16"
             WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
             HorizontalAlignment="Center" VerticalAlignment="Center" />
-
         {# Controls #}
         <ListPanel
-            WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren"
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
             StackLayout.LayoutMethod="HorizontalLeftToRight"
             HorizontalAlignment="Center"
             UpdateChildrenStates="true">
             <Children>
-
-                {# Decrement Trait #}
-                {{ chevron(command="ExecuteDecrement", brush="ButtonRightBigArrowBrush1", enabled="@CanDecrement") }}
 
                 <SpriteWidget
                     WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
@@ -61,8 +55,36 @@
                     </Children>
                 </SpriteWidget>
 
-                {# Increment Trait #}
-                {{ chevron(command="ExecuteIncrement", brush="ButtonLeftBigArrowBrush1", enabled="@CanIncrement") }}
+                <ListPanel
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                    HorizontalAlignment="Right" VerticalAlignment="Center"
+                    StackLayout.LayoutMethod="VerticalBottomToTop">
+                    <Children>
+
+                        {% macro arrow_button(command, brush, enabled) -%}
+                            <ButtonWidget
+                                IsEnabled="{{ enabled }}"
+                                WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                                VerticalAlignment="Center" HorizontalAlignment="Right"
+                                UpdateChildrenStates="true"
+                                DoNotPassEventsToChildren="true"
+                                Command.Click="{{ command }}">
+                                <Children>
+                                    <BrushWidget
+                                        DoNotAcceptEvents="true"
+                                        WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                                        SuggestedWidth="20" SuggestedHeight="20"
+                                        HorizontalAlignment="Center" VerticalAlignment="Center"
+                                        Brush="{{ brush }}" />
+                                </Children>
+                            </ButtonWidget>
+                        {%- endmacro %}
+
+                        {{ arrow_button("ExecuteIncrement", "Editor.Arrow.Up", "@CanIncrement") }}
+                        {{ arrow_button("ExecuteDecrement", "Editor.Arrow.Down", "@CanDecrement") }}
+
+                    </Children>
+                </ListPanel>
 
             </Children>
         </ListPanel>

@@ -157,9 +157,6 @@ namespace Retinues.Editor.VM
 
             foreach (var clan in WClan.All)
             {
-                Log.Info($"Found clan: {clan.Name}");
-                Log.Info($"Clan culture: {clan.Culture?.Name}");
-                Log.Info($"Selected culture: {State.Culture?.Name}");
                 if (State.Culture != null && clan.Culture != State.Culture)
                     continue;
 

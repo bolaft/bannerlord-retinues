@@ -349,8 +349,6 @@ namespace Retinues.Helpers
                     {
                         try
                         {
-                            if (string.IsNullOrWhiteSpace(input))
-                                return;
                             onConfirm?.Invoke(input);
                         }
                         catch (Exception e)

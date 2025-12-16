@@ -46,11 +46,7 @@ namespace Retinues.Model.Factions
         public WHero Leader => WHero.Get(Base.Leader);
 
         public override List<WCharacter> RosterHeroes =>
-            [
-                .. Base
-                    .Heroes.Select(h => WHero.Get(h).Character)
-                    .Where(c => c.Age >= 18 && !c.Hero.IsDead),
-            ];
+            [.. Base.Heroes.Select(h => WHero.Get(h).Character).Where(c => c.Age >= 18)];
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Characters                       //

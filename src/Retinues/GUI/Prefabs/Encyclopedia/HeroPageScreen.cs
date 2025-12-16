@@ -5,6 +5,7 @@ using Retinues.Model.Characters;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.ViewModelCollection.Encyclopedia.Pages;
+using TaleWorlds.Library;
 
 namespace Retinues.GUI.Prefabs.Encyclopedia
 {
@@ -12,6 +13,24 @@ namespace Retinues.GUI.Prefabs.Encyclopedia
     public sealed class HeroPageScreen(EncyclopediaHeroPageVM vm)
         : BaseEncyclopediaPageScreen<EncyclopediaHeroPageVM>(vm)
     {
+        [DataSourceProperty]
+        public override bool IsEnabled
+        {
+            get
+            {
+                if (ViewModel.Obj is not Hero hero)
+                    return false; // Not a hero, cannot edit.
+
+                if (hero.IsDead)
+                    return false; // Dead heroes are not editable.
+
+                if (hero.Clan == null)
+                    return false; // No clan means no faction.
+
+                return true;
+            }
+        }
+
         [DataSourceMethod]
         public override void ExecuteOpenEditor()
         {

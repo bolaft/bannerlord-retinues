@@ -171,6 +171,11 @@ namespace Retinues.Editor
             Clan = hero.Clan;
             Faction = hero.Clan;
 
+            Log.Info($"Applying hero: {hero.Name}");
+            Log.Info($"Hero culture: {hero.Culture?.Name}");
+            Log.Info($"Hero clan: {hero.Clan?.Name}");
+            Log.Info($"Faction: {Faction?.Name}");
+
             Character = PickFirstTroop(Faction);
             Equipment = PickFirstEquipment(Character);
 
@@ -182,6 +187,10 @@ namespace Retinues.Editor
             Culture = character.Culture;
             Clan = null;
             Faction = Culture;
+
+            Log.Info($"Applying char: {character.Name}");
+            Log.Info($"char culture: {character.Culture?.Name}");
+            Log.Info($"Faction: {Faction?.Name}");
 
             Character = character;
             Equipment = PickFirstEquipment(Character);
@@ -221,7 +230,12 @@ namespace Retinues.Editor
             foreach (var troop in faction.Troops)
             {
                 if (troop != null)
+                {
+                    if (troop.IsHero && troop.Hero.IsDead)
+                        continue; // Skip dead heroes.
+
                     return troop;
+                }
             }
 
             return null;

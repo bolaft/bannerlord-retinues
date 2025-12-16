@@ -27,6 +27,13 @@ namespace Retinues.Editor.VM.List.Character
         public override bool IsHero => true;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Enabled                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [DataSourceProperty]
+        public override bool IsEnabled => Character.Hero.IsDead == false;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Selection                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
@@ -60,6 +67,9 @@ namespace Retinues.Editor.VM.List.Character
 
         [DataSourceProperty]
         public bool ShowCompanionIcon => Hero.IsCompanion;
+
+        [DataSourceProperty]
+        public bool ShowDeadIcon => Hero.IsDead;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Formation Class                    //
