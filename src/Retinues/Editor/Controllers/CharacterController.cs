@@ -6,6 +6,7 @@ using Retinues.Model.Characters;
 using Retinues.Model.Factions;
 using Retinues.Utilities;
 using TaleWorlds.Core;
+using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Localization;
 
 namespace Retinues.Editor.Controllers
@@ -92,6 +93,46 @@ namespace Retinues.Editor.Controllers
                 return;
 
             EventManager.Fire(UIEvent.Gender, EventScope.Local);
+        }
+
+        public static bool CanChangeGender(out TextObject reason)
+        {
+            if (!HasAlternateSpecies())
+            {
+                reason = null;
+                return true;
+            }
+
+            if (State.Character?.Editable is not WCharacter wc)
+            {
+                reason = null;
+                return true;
+            }
+
+            var targetFemale = !wc.IsFemale;
+            var race = wc.Race;
+            var culture = wc.Culture;
+
+            return Check(
+                [
+                    (() => culture != null, L.T("gender_no_culture", "No culture is selected.")),
+                    (
+                        () => FindTemplate(culture, targetFemale, race) != null,
+                        L.T(
+                            "gender_no_template",
+                            "This culture has no valid body template for that gender/species."
+                        )
+                    ),
+                    (
+                        () => IsRenderable(culture, targetFemale, race),
+                        L.T(
+                            "gender_not_renderable",
+                            "That gender/species combination cannot be rendered (FaceGen crash)."
+                        )
+                    ),
+                ],
+                out reason
+            );
         }
 
         /// <summary>
@@ -238,23 +279,107 @@ namespace Retinues.Editor.Controllers
             if (!CanChangeRace)
                 return;
 
-            var races = GetValidRacesForCurrentSelection();
-            if (races.Count == 0)
+            if (State.Character?.Editable is not WCharacter wc)
+                return;
+
+            int raceCount;
+            try
+            {
+                raceCount = FaceGen.GetRaceCount();
+            }
+            catch
+            {
+                return;
+            }
+
+            if (raceCount <= 0)
                 return;
 
             var names = GetRaceNames();
 
-            var elements = new List<InquiryElement>(races.Count);
-            foreach (var race in races)
+            // Races that are "compatible" with the current selection.
+            // If empty, we treat it as "no restriction".
+            var valid = new HashSet<int>(GetValidRacesForCurrentSelection());
+
+            bool HasTemplateForRace(int race) =>
+                wc.Culture != null
+                && wc.Culture.Troops.Any(t =>
+                    t != null && t.IsFemale == wc.IsFemale && t.Race == race
+                );
+
+            bool IsRaceModelValid(int race)
+            {
+                try
+                {
+                    return FaceGen.GetBaseMonsterFromRace(race) != null;
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+
+            bool IsRaceCompatible(int race)
+            {
+                // If we can't infer compatibility from rosters, don't block selection.
+                return valid.Count == 0 || valid.Contains(race);
+            }
+
+            string GetRaceTitle(int race)
             {
                 string title = null;
 
                 if (names != null && race >= 0 && race < names.Length)
                     title = FormatRaceName(names[race]);
 
-                title ??= $"Race {race}";
+                return title ?? $"Race {race}";
+            }
 
-                elements.Add(new InquiryElement(race, title, null));
+            var elements = new List<InquiryElement>(raceCount);
+
+            for (int race = 0; race < raceCount; race++)
+            {
+                // Use the same pattern as CanRemoveCharacter: first failing reason wins.
+                var enabled = Check(
+                    [
+                        (
+                            () => IsRaceModelValid(race),
+                            L.T("race_invalid_model", "No valid model exists for this species.")
+                        ),
+                        (
+                            () => IsRaceCompatible(race),
+                            L.T(
+                                "race_incompatible_culture_gender",
+                                "This species is not compatible with the current culture/gender."
+                            )
+                        ),
+                        (
+                            () => HasTemplateForRace(race),
+                            L.T(
+                                "race_incompatible_culture_gender",
+                                "This species is not compatible with the current culture/gender."
+                            )
+                        ),
+                        (
+                            () => IsRenderable(wc.Culture, wc.IsFemale, race),
+                            L.T(
+                                "race_incompatible_culture_gender",
+                                "This species is not compatible with the current culture/gender."
+                            )
+                        ),
+                    ],
+                    out TextObject reason
+                );
+
+                elements.Add(
+                    new InquiryElement(
+                        identifier: race,
+                        title: GetRaceTitle(race),
+                        imageIdentifier: null,
+                        isEnabled: enabled,
+                        hint: enabled ? null : reason?.ToString()
+                    )
+                );
             }
 
             Inquiries.SelectPopup(
@@ -262,7 +387,13 @@ namespace Retinues.Editor.Controllers
                 elements: elements,
                 onSelect: element =>
                 {
-                    if (element?.Identifier is int race)
+                    if (element is not InquiryElement ie)
+                        return;
+
+                    if (!ie.IsEnabled)
+                        return;
+
+                    if (ie.Identifier is int race)
                         ChangeRace(race);
                 }
             );
@@ -282,13 +413,77 @@ namespace Retinues.Editor.Controllers
             if (
                 !TryApplyAppearanceChange(() =>
                 {
-                    wc.Race = newRace;
-                    return true;
+                    // Must update envelope/tags too, otherwise FaceGen can crash.
+                    return wc.ApplyCultureBodyPropertiesForRace(newRace);
                 })
             )
                 return;
 
             EventManager.Fire(UIEvent.Culture, EventScope.Local);
+        }
+
+        static readonly Dictionary<string, bool> _renderableCache = new();
+
+        static string RenderKey(WCulture culture, bool isFemale, int race)
+        {
+            var c = culture?.StringId ?? "null";
+            return $"{c}|{(isFemale ? "F" : "M")}|{race}";
+        }
+
+        static WCharacter FindTemplate(WCulture culture, bool isFemale, int race)
+        {
+            if (culture == null)
+                return null;
+
+            var root = culture.RootBasic ?? culture.RootElite;
+            if (root != null && root.IsFemale == isFemale && root.Race == race)
+                return root;
+
+            var villager = isFemale ? culture.VillageWoman : culture.Villager;
+            if (villager != null && villager.IsFemale == isFemale && villager.Race == race)
+                return villager;
+
+            foreach (var troop in culture.Troops)
+            {
+                if (troop == null)
+                    continue;
+
+                if (troop.IsFemale == isFemale && troop.Race == race)
+                    return troop;
+            }
+
+            return null;
+        }
+
+        static bool IsRenderable(WCulture culture, bool isFemale, int race)
+        {
+            var key = RenderKey(culture, isFemale, race);
+            if (_renderableCache.TryGetValue(key, out var cached))
+                return cached;
+
+            var template = FindTemplate(culture, isFemale, race);
+            if (template?.Base == null)
+            {
+                _renderableCache[key] = false;
+                return false;
+            }
+
+            try
+            {
+                // This matches the code path that crashes in ColumnVM.RebuildModel()
+                // (CharacterViewModel.FillFrom -> CharacterObject.GetBodyProperties -> FaceGen...)
+                var vm = new CharacterViewModel(CharacterViewModel.StanceTypes.None);
+                vm.FillFrom(template.Base, seed: 0);
+
+                _renderableCache[key] = true;
+                return true;
+            }
+            catch (Exception e)
+            {
+                Log.Exception(e);
+                _renderableCache[key] = false;
+                return false;
+            }
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -387,6 +582,21 @@ namespace Retinues.Editor.Controllers
 
             if (!changed)
                 return false;
+
+            if (!IsRenderable(wc.Culture, wc.IsFemale, wc.Race))
+            {
+                snap.Restore(wc);
+
+                Inquiries.Popup(
+                    L.T("no_valid_model_title_species", "No Valid Model"),
+                    L.T(
+                        "no_valid_model_body_species",
+                        "This combination of gender, culture and species cannot be rendered.\n\nThe previous appearance has been restored."
+                    )
+                );
+
+                return false;
+            }
 
             if (IsValidSpeciesCombo(wc))
                 return true;

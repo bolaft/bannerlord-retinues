@@ -4,6 +4,7 @@ using Retinues.Helpers;
 using Retinues.Model.Characters;
 using Retinues.Utilities;
 using TaleWorlds.Library;
+using TaleWorlds.Localization;
 
 namespace Retinues.Editor.VM.Column
 {
@@ -63,7 +64,27 @@ namespace Retinues.Editor.VM.Column
                 : "SPGeneral\\GeneralFlagIcons\\male_only";
 
         [DataSourceProperty]
-        public Tooltip GenderToggleHint => new(L.T("gender_toggle_hint", "Toggle Gender"));
+        public Tooltip GenderToggleHint =>
+            CantChangeGenderReason == null
+                ? new(L.T("gender_toggle_hint", "Toggle Gender"))
+                : new(CantChangeGenderReason);
+
+        [DataSourceProperty]
+        public string GenderIconColor => CanToggleGender ? "#c7ac85ff" : "#808080ff";
+
+        [DataSourceProperty]
+        public bool CanToggleGender => CantChangeGenderReason == null;
+
+        private TextObject CantChangeGenderReason;
+
+        [EventListener(UIEvent.Culture)]
+        private void UpdateGenderToggleState()
+        {
+            CharacterController.CanChangeGender(reason: out CantChangeGenderReason);
+            OnPropertyChanged(nameof(CanToggleGender));
+            OnPropertyChanged(nameof(GenderToggleHint));
+            OnPropertyChanged(nameof(GenderIconColor));
+        }
 
         [DataSourceMethod]
         public void ExecuteToggleGender() => CharacterController.ChangeGender();

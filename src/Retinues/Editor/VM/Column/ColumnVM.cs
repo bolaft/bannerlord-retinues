@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics.Tracing;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Editor.VM.Column.Character;
@@ -63,7 +64,17 @@ namespace Retinues.Editor.VM.Column
             var co = character.Base;
 
             var vm = new CharacterViewModel(CharacterViewModel.StanceTypes.None);
-            vm.FillFrom(co, seed: -1);
+
+            try
+            {
+                vm.FillFrom(co, seed: -1);
+            }
+            catch (Exception e)
+            {
+                Log.Exception(e);
+                Model = null;
+                return;
+            }
 
             // Important: apply selected equipment after FillFrom.
             ApplyEquipmentTo(vm);

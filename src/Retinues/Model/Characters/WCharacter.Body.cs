@@ -45,6 +45,82 @@ namespace Retinues.Model.Characters
         //                         Culture                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        public bool ApplyCultureBodyPropertiesForRace(int race)
+        {
+            var template = FindTemplateForRace(race);
+
+            if (template == null)
+            {
+                Log.Warn(
+                    $"No suitable template for culture '{Culture?.StringId}', gender={IsFemale}, race={race}, aborting."
+                );
+                return false;
+            }
+
+            // Break shared reference
+            EnsureOwnBodyRange();
+
+            var range = Reflection.GetPropertyValue<object>(Base, "BodyPropertyRange");
+            if (range == null)
+            {
+                Log.Warn("Missing BodyPropertyRange on target, aborting.");
+                return false;
+            }
+
+            // 1) Apply chosen race (do NOT let template override it)
+            Race = race;
+
+            // 2) Copy min/max envelope from template
+            var minTroop = template.Base.GetBodyPropertiesMin();
+            var maxTroop = template.Base.GetBodyPropertiesMax();
+
+            Reflection.InvokeMethod(
+                range,
+                "Init",
+                [typeof(BodyProperties), typeof(BodyProperties)],
+                minTroop,
+                maxTroop
+            );
+
+            // 3) Snap age to the template's mid-age
+            Age = (minTroop.Age + maxTroop.Age) * 0.5f;
+
+            // 4) Snap hair/scar/tattoo tags from that template
+            ApplyTagsFromCulture(template);
+
+            return true;
+        }
+
+        WCharacter FindTemplateForRace(int race)
+        {
+            // Prefer the same sources as ApplyCultureBodyProperties, but filtered by race.
+            var culture = Culture;
+            if (culture == null)
+                return null;
+
+            // 1) Roots
+            var root = culture.RootBasic ?? culture.RootElite;
+            if (root != null && root.IsFemale == IsFemale && root.Race == race)
+                return root;
+
+            // 2) Villagers
+            var villager = IsFemale ? culture.VillageWoman : culture.Villager;
+            if (villager != null && villager.IsFemale == IsFemale && villager.Race == race)
+                return villager;
+
+            // 3) Any troop in roster matching gender+race
+            foreach (var troop in culture.Troops)
+            {
+                if (troop == null)
+                    continue;
+
+                if (troop.IsFemale == IsFemale && troop.Race == race)
+                    return troop;
+            }
+
+            return null;
+        }
+
         public void ApplyCultureBodyProperties()
         {
             var template = Culture.RootBasic ?? Culture.RootElite;

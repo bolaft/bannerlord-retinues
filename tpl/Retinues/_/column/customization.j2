@@ -76,24 +76,34 @@
     HorizontalAlignment="Left" VerticalAlignment="Bottom">
     <Children>
 
-        <ButtonWidget
-            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-            HorizontalAlignment="Center" VerticalAlignment="Center"
-            SuggestedWidth="40" SuggestedHeight="40"
-            Brush="Popup.Button.Text"
-            Command.Click="ExecuteToggleGender"
-            UpdateChildrenStates="true" DoNotPassEventsToChildren="true">
+        <Widget
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            HorizontalAlignment="Center" VerticalAlignment="Center">
             <Children>
                 <HintWidget
                     DataSource="{GenderToggleHint}"
                     Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
-                <SpriteWidget
+                <ButtonWidget
+                    IsEnabled="@CanToggleGender"
                     WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
                     SuggestedWidth="40" SuggestedHeight="40"
-                    Color="#c7ac85ff"
-                    Sprite="@GenderIcon"/>
+                    Brush="Popup.Button.Text"
+                    Command.Click="ExecuteToggleGender"
+                    UpdateChildrenStates="true" DoNotPassEventsToChildren="true">
+                    <Children>
+                        <HintWidget
+                            DataSource="{GenderToggleHint}"
+                            Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
+                        <SpriteWidget
+                            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                            SuggestedWidth="40" SuggestedHeight="40"
+                            Color="@GenderIconColor"
+                            Sprite="@GenderIcon"/>
+                    </Children>
+                </ButtonWidget>
             </Children>
-        </ButtonWidget>
+        </Widget>
 
         {{ control_row("SPPerks\\TradeRapidDevelopment", "{AgeHint}", "ExecutePrevAgePreset", "ExecuteNextAgePreset") }}
         {{ control_row("SPPerks\\AthleticsDurable", "{HeightHint}", "ExecutePrevHeightPreset", "ExecuteNextHeightPreset") }}
