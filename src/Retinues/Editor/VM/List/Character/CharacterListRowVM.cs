@@ -11,20 +11,14 @@ namespace Retinues.Editor.VM.List.Character
     /// <summary>
     /// Row representing a troop character in the list.
     /// </summary>
-    public class CharacterListRowVM : ListRowVM
+    public class CharacterListRowVM(ListHeaderVM header, WCharacter character)
+        : ListRowVM(header, character?.StringId ?? string.Empty)
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Constructor                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        internal readonly WCharacter Character;
-
-        public CharacterListRowVM(ListHeaderVM header, WCharacter character, bool civilian = false)
-            : base(header, character?.StringId ?? string.Empty)
-        {
-            Character = character;
-            Character.IsCivilian = civilian;
-        }
+        internal readonly WCharacter Character = character;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Type Flags                       //

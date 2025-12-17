@@ -1,5 +1,6 @@
 using System.Linq;
 using Retinues.Model.Factions;
+using Retinues.Module;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.Localization;
@@ -21,6 +22,21 @@ namespace Retinues.Model.Characters
         /* ━━━━━━━━━ Tier ━━━━━━━━━ */
 
         public int Tier => Base.Tier;
+
+        public int MaxTier
+        {
+            get
+            {
+                int maxTier = IsElite ? 6 : 5;
+
+                if (Mods.T7TroopUnlocker.IsLoaded)
+                    maxTier += 1;
+
+                return maxTier;
+            }
+        }
+
+        public bool IsMaxTier => Tier >= MaxTier;
 
         /* ━━━━━━━━━ Level ━━━━━━━━ */
 
@@ -49,12 +65,6 @@ namespace Retinues.Model.Characters
         /* ━━━━━━━━━ Unit ━━━━━━━━━ */
 
         public IEditableUnit Editable => IsHero ? Hero : this;
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                   Mutable Properties                   //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        public bool IsCivilian { get; set; } = false;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Removal                        //
@@ -154,9 +164,9 @@ namespace Retinues.Model.Characters
         public bool IsPlayer => Base.IsPlayerCharacter;
         public bool IsCustom => StringId.StartsWith(CustomTroopPrefix);
         public bool IsVanilla => !IsCustom;
+        public bool InTree => IsBasic || IsElite || IsMercenary || IsBandit;
         public bool IsRoot => Root == this;
         public bool IsLeaf => UpgradeTargets.Count == 0;
-        public bool IsElite => Root == Culture.RootElite;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Culture                        //

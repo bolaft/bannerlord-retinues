@@ -22,11 +22,11 @@ namespace Retinues.Editor.Controllers
             if (character.UpgradeTargets.Count >= MaxUpgradeTargets)
                 return false; // Reached max upgrade targets.
 
-            if (
-                State.Faction.RootBasic != character.Root
-                && State.Faction.RootElite != character.Root
-            )
-                return false; // Not a regular troop.
+            if (!character.InTree)
+                return false; // Not in a tree.
+
+            if (character.IsMaxTier)
+                return false; // Already at max tier.
 
             return true;
         }

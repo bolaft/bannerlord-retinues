@@ -49,8 +49,7 @@ namespace Retinues.Editor.VM.List.Character
                 string headerLocKey,
                 string headerFallback,
                 IEnumerable<WCharacter> characters,
-                Func<bool> condition = null,
-                bool civilian = false
+                Func<bool> condition = null
             )
             {
                 if (condition != null && !condition())
@@ -73,7 +72,7 @@ namespace Retinues.Editor.VM.List.Character
                         if (character == null)
                             continue;
 
-                        AddCharacterRow(header, character, civilian);
+                        AddCharacterRow(header, character);
                     }
                 }
 
@@ -176,7 +175,6 @@ namespace Retinues.Editor.VM.List.Character
                 "list_header_civilians",
                 L.S("list_header_civilians", "Civilians"),
                 faction.RosterCivilian,
-                civilian: true,
                 condition: () => faction is WCulture
             );
 
@@ -187,11 +185,7 @@ namespace Retinues.Editor.VM.List.Character
         /// <summary>
         /// Adds a character row to the given header.
         /// </summary>
-        private void AddCharacterRow(
-            ListHeaderVM header,
-            WCharacter character,
-            bool civilian = false
-        )
+        private void AddCharacterRow(ListHeaderVM header, WCharacter character)
         {
             if (character == null)
                 return;
@@ -199,7 +193,7 @@ namespace Retinues.Editor.VM.List.Character
             if (character.IsHero)
                 header.AddRow(new HeroListRowVM(header, character));
             else
-                header.AddRow(new CharacterListRowVM(header, character, civilian));
+                header.AddRow(new CharacterListRowVM(header, character));
         }
     }
 }
