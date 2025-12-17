@@ -80,6 +80,9 @@
       id="ret_dependencies_not_initialized_label"
       text="초기화되지 않음" />
     <string
+      id="ret_dependencies_version_mismatch_label"
+      text="잘못된 버전" />
+    <string
       id="ret_editor_clan_select"
       text="클랜 선택" />
     <string
@@ -358,6 +361,9 @@
     <string
       id="ret_upgrade_targets_header_text"
       text="업그레이드" />
+    <string
+      id="ret_version_expected"
+      text="{CURRENT} (예상 &gt;= {EXPECTED})" />
     <string
       id="ret_weight_hint"
       text="무게" />

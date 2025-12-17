@@ -400,6 +400,22 @@
     "TR": "Başlatılmadı"
   },
   {
+    "id": "ret_dependencies_version_mismatch_label",
+    "EN": "Wrong version",
+    "FR": "Mauvaise version",
+    "BR": "Versão errada",
+    "CNs": "错误的版本",
+    "CNt": "錯誤的版本",
+    "DE": "Falsche Version",
+    "IT": "Versione errata",
+    "JP": "間違ったバージョン",
+    "KO": "잘못된 버전",
+    "PL": "Zła wersja",
+    "RU": "Неправильная версия",
+    "SP": "Versión incorrecta",
+    "TR": "Yanlış sürüm"
+  },
+  {
     "id": "ret_editor_clan_select",
     "EN": "Select a Clan",
     "FR": "Sélectionner un clan",
@@ -1886,6 +1902,22 @@
     "RU": "Улучшения",
     "SP": "Mejoras",
     "TR": "Yükseltmeler"
+  },
+  {
+    "id": "ret_version_expected",
+    "EN": "{CURRENT} (expected >= {EXPECTED})",
+    "FR": "{CURRENT} (attendu >= {EXPECTED})",
+    "BR": "{CURRENT} (esperado >= {EXPECTED})",
+    "CNs": "{CURRENT}（预期 >= {EXPECTED}）",
+    "CNt": "{CURRENT}（預期 >= {EXPECTED}）",
+    "DE": "{CURRENT} (erwartet >= {EXPECTED})",
+    "IT": "{CURRENT} (previsto >= {EXPECTED})",
+    "JP": "{CURRENT}（期待値 >= {EXPECTED}）",
+    "KO": "{CURRENT} (예상 >= {EXPECTED})",
+    "PL": "{CURRENT} (oczekiwano >= {EXPECTED})",
+    "RU": "{CURRENT} (ожидается >= {EXPECTED})",
+    "SP": "{CURRENT} (se espera >= {EXPECTED})",
+    "TR": "{CURRENT} (beklenen >= {EXPECTED})"
   },
   {
     "id": "ret_weight_hint",

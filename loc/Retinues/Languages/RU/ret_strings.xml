@@ -80,6 +80,9 @@
       id="ret_dependencies_not_initialized_label"
       text="Не инициализировано" />
     <string
+      id="ret_dependencies_version_mismatch_label"
+      text="Неправильная версия" />
+    <string
       id="ret_editor_clan_select"
       text="Выберите клан" />
     <string
@@ -358,6 +361,9 @@
     <string
       id="ret_upgrade_targets_header_text"
       text="Улучшения" />
+    <string
+      id="ret_version_expected"
+      text="{CURRENT} (ожидается &gt;= {EXPECTED})" />
     <string
       id="ret_weight_hint"
       text="Вес" />

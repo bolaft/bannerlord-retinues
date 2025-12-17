@@ -80,6 +80,9 @@
       id="ret_dependencies_not_initialized_label"
       text="Non initialisé" />
     <string
+      id="ret_dependencies_version_mismatch_label"
+      text="Mauvaise version" />
+    <string
       id="ret_editor_clan_select"
       text="Sélectionner un clan" />
     <string
@@ -358,6 +361,9 @@
     <string
       id="ret_upgrade_targets_header_text"
       text="Promotions" />
+    <string
+      id="ret_version_expected"
+      text="{CURRENT} (attendu &gt;= {EXPECTED})" />
     <string
       id="ret_weight_hint"
       text="Poids" />

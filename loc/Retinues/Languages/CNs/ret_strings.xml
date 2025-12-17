@@ -80,6 +80,9 @@
       id="ret_dependencies_not_initialized_label"
       text="未初始化" />
     <string
+      id="ret_dependencies_version_mismatch_label"
+      text="错误的版本" />
+    <string
       id="ret_editor_clan_select"
       text="选择一个氏族" />
     <string
@@ -358,6 +361,9 @@
     <string
       id="ret_upgrade_targets_header_text"
       text="升级" />
+    <string
+      id="ret_version_expected"
+      text="{CURRENT}（预期 &gt;= {EXPECTED}）" />
     <string
       id="ret_weight_hint"
       text="重量" />

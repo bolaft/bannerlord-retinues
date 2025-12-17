@@ -80,6 +80,9 @@
       id="ret_dependencies_not_initialized_label"
       text="Başlatılmadı" />
     <string
+      id="ret_dependencies_version_mismatch_label"
+      text="Yanlış sürüm" />
+    <string
       id="ret_editor_clan_select"
       text="Bir Klan Seçin" />
     <string
@@ -358,6 +361,9 @@
     <string
       id="ret_upgrade_targets_header_text"
       text="Yükseltmeler" />
+    <string
+      id="ret_version_expected"
+      text="{CURRENT} (beklenen &gt;= {EXPECTED})" />
     <string
       id="ret_weight_hint"
       text="Ağırlık" />

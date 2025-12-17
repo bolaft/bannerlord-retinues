@@ -1,6 +1,7 @@
 using System;
 using Bannerlord.UIExtenderEx;
 using HarmonyLib;
+using Retinues.Module;
 using Retinues.Utilities;
 
 namespace Retinues.Module.Dependencies
@@ -15,6 +16,7 @@ namespace Retinues.Module.Dependencies
     public enum DependencyState
     {
         MissingModule,
+        VersionMismatch,
         PresentButNotInitialized,
         Initialized,
     }
@@ -39,12 +41,47 @@ namespace Retinues.Module.Dependencies
 
         public bool IsInitialized { get; protected set; }
 
+        /// <summary>
+        /// Expected version read from this mod's SubModule.xml (DependedModules/DependedModule).
+        /// Treated as a minimum required version when comparing.
+        /// </summary>
+        public string ExpectedVersion => ModuleManager.GetExpectedDependencyVersion(ModuleId);
+
+        /// <summary>
+        /// Actual loaded module version as reported by TaleWorlds.ModuleManager (via ModuleHelper).
+        /// </summary>
+        public string ActualVersion => ModuleManager.GetModule(ModuleId).Version;
+
+        public bool HasExpectedVersion =>
+            !string.IsNullOrWhiteSpace(ExpectedVersion)
+            && !ExpectedVersion.Equals(
+                ModuleManager.UnknownVersionString,
+                StringComparison.OrdinalIgnoreCase
+            );
+
+        public bool IsVersionSatisfied
+        {
+            get
+            {
+                if (!IsModuleLoaded)
+                    return false;
+
+                if (!HasExpectedVersion)
+                    return true;
+
+                return ModuleManager.IsVersionAtLeast(ActualVersion, ExpectedVersion);
+            }
+        }
+
         public DependencyState State
         {
             get
             {
                 if (!IsModuleLoaded)
                     return DependencyState.MissingModule;
+
+                if (HasExpectedVersion && !IsVersionSatisfied)
+                    return DependencyState.VersionMismatch;
 
                 if (!IsInitialized)
                     return DependencyState.PresentButNotInitialized;
@@ -83,15 +120,27 @@ namespace Retinues.Module.Dependencies
         /// </summary>
         public abstract void Shutdown();
 
+        public string GetVersionDiagnostic()
+        {
+            if (!HasExpectedVersion)
+                return ActualVersion;
+
+            return L.T("version_expected", "{CURRENT} (expected >= {EXPECTED})")
+                .SetTextVariable("CURRENT", ActualVersion)
+                .SetTextVariable("EXPECTED", ExpectedVersion)
+                .ToString();
+        }
+
         public override string ToString()
         {
             return string.Format(
-                "{0} ({1}) - {2}, loaded={3}, initialized={4}",
+                "{0} ({1}) - {2}, loaded={3}, initialized={4}, version={5}",
                 DisplayName,
                 ModuleId,
                 Kind,
                 IsModuleLoaded,
-                IsInitialized
+                IsInitialized,
+                GetVersionDiagnostic()
             );
         }
     }
@@ -137,7 +186,7 @@ namespace Retinues.Module.Dependencies
                 _harmony.PatchAll(asm);
 
                 MarkInitialized();
-                Log.Debug("[Harmony] Harmony patches applied.");
+                Log.Info("[Harmony] Harmony patches applied.");
             }
             catch (Exception e)
             {
@@ -154,7 +203,7 @@ namespace Retinues.Module.Dependencies
             try
             {
                 _harmony.UnpatchAll(HarmonyInstanceId);
-                Log.Debug("[Harmony] Harmony patches removed.");
+                Log.Info("[Harmony] Harmony patches removed.");
             }
             catch (Exception e)
             {
@@ -208,7 +257,7 @@ namespace Retinues.Module.Dependencies
                 _extender.Enable();
 
                 MarkInitialized();
-                Log.Debug("[UIExtenderEx] UIExtenderEx enabled & Retinues assembly registered.");
+                Log.Info("[UIExtenderEx] UIExtenderEx enabled & Retinues assembly registered.");
             }
             catch (Exception e)
             {
@@ -225,7 +274,7 @@ namespace Retinues.Module.Dependencies
             try
             {
                 _extender.Disable();
-                Log.Debug("[UIExtenderEx] UIExtenderEx disabled.");
+                Log.Info("[UIExtenderEx] UIExtenderEx disabled.");
             }
             catch (Exception e)
             {
@@ -262,11 +311,6 @@ namespace Retinues.Module.Dependencies
                 kind: DependencyKind.Recommended
             ) { }
 
-        /// <summary>
-        /// Called from SubModule.OnSubModuleLoad.
-        /// We only verify presence here and defer actual registration
-        /// to the initial-screen / tick callbacks.
-        /// </summary>
         public override void Initialize()
         {
             if (!IsModuleLoaded)
@@ -279,7 +323,6 @@ namespace Retinues.Module.Dependencies
             Log.Info(
                 "[MCM] MCM module detected; waiting for UI to become ready before registering."
             );
-            // Real work happens in OnBeforeInitialModuleScreenSetAsRoot / OnApplicationTick.
         }
 
         public override void Shutdown()
@@ -305,7 +348,6 @@ namespace Retinues.Module.Dependencies
             bool ok = Configuration.MCM.Register();
             if (!ok)
             {
-                // Do not spam; only log when first starting to retry.
                 if (_retryCount == 1)
                     Log.Info("[MCM] Registration not yet accepted; will retry for a few seconds.");
                 return;
@@ -342,14 +384,12 @@ namespace Retinues.Module.Dependencies
                 return;
             }
 
-            // Nothing special to wire; just mark as initialized.
             MarkInitialized();
-            Log.Debug("[ButterLib] ButterLib present.");
+            Log.Info("[ButterLib] ButterLib present.");
         }
 
         public override void Shutdown()
         {
-            // No special teardown required at the moment.
             IsInitialized = false;
         }
     }

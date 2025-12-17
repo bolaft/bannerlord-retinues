@@ -80,6 +80,9 @@
       id="ret_dependencies_not_initialized_label"
       text="初期化されていません" />
     <string
+      id="ret_dependencies_version_mismatch_label"
+      text="間違ったバージョン" />
+    <string
       id="ret_editor_clan_select"
       text="クランを選択" />
     <string
@@ -358,6 +361,9 @@
     <string
       id="ret_upgrade_targets_header_text"
       text="アップグレード" />
+    <string
+      id="ret_version_expected"
+      text="{CURRENT}（期待値 &gt;= {EXPECTED}）" />
     <string
       id="ret_weight_hint"
       text="重量" />

@@ -15,48 +15,60 @@ namespace Retinues.Module.Dependencies
     /// </summary>
     public class DependencyBehavior : BaseCampaignBehavior
     {
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                          Hooks                         //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        /// <summary>
-        /// Register events:
-        /// - SessionLaunched: log dependency status as soon as a campaign session is ready.
-        /// - GameLoadFinished: log again and show a popup if there are issues.
-        /// </summary>
         public override void RegisterEvents()
         {
+            Log.Info("[Deps] RegisterEvents()");
             Hook(BehaviorEvent.GameLoadFinished, OnGameLoadFinished);
         }
 
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Events                         //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
         private void OnGameLoadFinished()
         {
+            Log.Info("[Deps] OnGameLoadFinished() -> CheckDependencies(showPopup=true)");
             CheckDependencies(showPopup: true);
         }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                    Core check logic                    //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
         /// Checks all dependencies, logs issues, and optionally shows a popup.
         /// </summary>
         public static void CheckDependencies(bool showPopup)
         {
+            Log.Info("[Deps] CheckDependencies(showPopup=" + showPopup + ")");
             var missing = new List<Dependency>();
+            var versionMismatch = new List<Dependency>();
             var notInitialized = new List<Dependency>();
 
             foreach (var dep in SubModule.Dependencies)
             {
+                Log.Info(
+                    "[Deps] "
+                        + dep.DisplayName
+                        + " id="
+                        + dep.ModuleId
+                        + " kind="
+                        + dep.Kind
+                        + " loaded="
+                        + dep.IsModuleLoaded
+                        + " expected="
+                        + dep.ExpectedVersion
+                        + " actual="
+                        + dep.ActualVersion
+                        + " satisfied="
+                        + dep.IsVersionSatisfied
+                        + " initialized="
+                        + dep.IsInitialized
+                        + " state="
+                        + dep.State
+                );
                 switch (dep.State)
                 {
                     case DependencyState.MissingModule:
                         if (dep.Kind != DependencyKind.Optional)
                             missing.Add(dep);
+                        break;
+
+                    case DependencyState.VersionMismatch:
+                        if (dep.Kind != DependencyKind.Optional)
+                            versionMismatch.Add(dep);
                         break;
 
                     case DependencyState.PresentButNotInitialized:
@@ -69,11 +81,11 @@ namespace Retinues.Module.Dependencies
                 }
             }
 
-            var summary = BuildStatusSummary(missing, notInitialized);
+            var summary = BuildStatusSummary(missing, versionMismatch, notInitialized);
 
-            if (missing.Count == 0 && notInitialized.Count == 0)
+            if (missing.Count == 0 && versionMismatch.Count == 0 && notInitialized.Count == 0)
             {
-                Log.Debug("[DependencyBehavior] " + summary.ToString());
+                Log.Info(summary.ToString());
                 return;
             }
 
@@ -83,7 +95,7 @@ namespace Retinues.Module.Dependencies
                 )
                 .SetTextVariable("DETAILS", summary);
 
-            Log.Error("[DependencyBehavior] " + errorText.ToString());
+            Log.Error(errorText.ToString());
 
             if (!showPopup)
                 return;
@@ -91,16 +103,15 @@ namespace Retinues.Module.Dependencies
             ShowWarningPopup(summary);
         }
 
-        /// <summary>
-        /// Builds a summary TextObject describing the current dependency issues.
-        /// </summary>
         private static TextObject BuildStatusSummary(
             List<Dependency> missing,
+            List<Dependency> versionMismatch,
             List<Dependency> notInitialized
         )
         {
             if (
                 (missing == null || missing.Count == 0)
+                && (versionMismatch == null || versionMismatch.Count == 0)
                 && (notInitialized == null || notInitialized.Count == 0)
             )
             {
@@ -111,21 +122,26 @@ namespace Retinues.Module.Dependencies
 
             if (missing != null && missing.Count > 0)
             {
-                var missingLabel = L.S("dependencies_missing_label", "Missing");
+                var label = L.S("dependencies_missing_label", "Missing");
+                parts.Add(label + ": " + string.Join(", ", missing.Select(d => d.DisplayName)));
+            }
 
-                parts.Add(
-                    missingLabel + ": " + string.Join(", ", missing.Select(d => d.DisplayName))
-                );
+            if (versionMismatch != null && versionMismatch.Count > 0)
+            {
+                var label = L.S("dependencies_version_mismatch_label", "Wrong version");
+
+                var items = versionMismatch
+                    .Select(d => string.Format("{0} {1}", d.DisplayName, d.GetVersionDiagnostic()))
+                    .ToList();
+
+                parts.Add(label + ": " + string.Join(", ", items));
             }
 
             if (notInitialized != null && notInitialized.Count > 0)
             {
-                var notInitLabel = L.S("dependencies_not_initialized_label", "Not initialized");
-
+                var label = L.S("dependencies_not_initialized_label", "Not initialized");
                 parts.Add(
-                    notInitLabel
-                        + ": "
-                        + string.Join(", ", notInitialized.Select(d => d.DisplayName))
+                    label + ": " + string.Join(", ", notInitialized.Select(d => d.DisplayName))
                 );
             }
 
@@ -133,13 +149,9 @@ namespace Retinues.Module.Dependencies
             if (summary.Length > 0 && !summary.EndsWith("."))
                 summary += ".";
 
-            // Dynamic sentence composed from localized labels + module display names.
             return new TextObject(summary);
         }
 
-        /// <summary>
-        /// Shows a warning popup with the given summary of issues.
-        /// </summary>
         private static void ShowWarningPopup(TextObject summary)
         {
             try
