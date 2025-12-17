@@ -1,0 +1,65 @@
+{% macro checkbox(binding, size, tooltip, enabled = "true") %}
+
+<Widget
+    HorizontalAlignment="Center" VerticalAlignment="Center"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren">
+    <Children>
+        <HintWidget
+            DataSource="{{ tooltip }}"
+            Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
+
+        <ButtonWidget
+            IsVisible="{{ enabled }}"
+            IsSelected="{{ binding }}"
+            IsEnabled="true"
+            DoNotPassEventsToChildren="true"
+            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+            SuggestedWidth="{{ size }}" SuggestedHeight="{{ size }}"
+            HorizontalAlignment="Center" VerticalAlignment="Center"
+            Brush="SPOptions.Checkbox.Empty.Button"
+            ButtonType="Toggle"
+            ToggleIndicator="ToggleIndicator"
+            UpdateChildrenStates="true">
+            <Children>
+                <ImageWidget
+                    Id="ToggleIndicator"
+                    WidthSizePolicy="StretchToParent"
+                    HeightSizePolicy="StretchToParent"
+                    Brush="SPOptions.Checkbox.Full.Button"
+                />
+                <HintWidget
+                    DataSource="{{ tooltip }}"
+                    Command.HoverBegin="ExecuteBeginHint"
+                    Command.HoverEnd="ExecuteEndHint"/>
+            </Children>
+        </ButtonWidget>
+
+        <ButtonWidget
+            IsHidden="{{ enabled }}"
+            IsSelected="{{ binding }}"
+            IsEnabled="false"
+            DoNotPassEventsToChildren="true"
+            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+            SuggestedWidth="{{ size }}" SuggestedHeight="{{ size }}"
+            HorizontalAlignment="Center" VerticalAlignment="Center"
+            Brush="SPOptions.Checkbox.Empty.Button"
+            ButtonType="Toggle"
+            ToggleIndicator="ToggleIndicator"
+            UpdateChildrenStates="true">
+            <Children>
+                <ImageWidget
+                    Id="ToggleIndicator"
+                    WidthSizePolicy="StretchToParent"
+                    HeightSizePolicy="StretchToParent"
+                    Brush="SPOptions.Checkbox.Full.Button"
+                />
+                <HintWidget
+                    DataSource="{{ tooltip }}"
+                    Command.HoverBegin="ExecuteBeginHint"
+                    Command.HoverEnd="ExecuteEndHint"/>
+            </Children>
+        </ButtonWidget>
+    </Children>
+</Widget>
+
+{%- endmacro %}

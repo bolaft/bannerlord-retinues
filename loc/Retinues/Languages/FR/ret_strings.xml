@@ -251,6 +251,12 @@
       id="ret_list_header_villagers"
       text="Villageois" />
     <string
+      id="ret_mariner_toggle_tooltip"
+      text="Les marins sont mieux adaptées au combat naval, mais gagnent des points de compétence à un rythme légèrement réduit." />
+    <string
+      id="ret_mariner_toggle_tooltip_universal"
+      text="Les marins sont mieux adaptées au combat naval." />
+    <string
       id="ret_mcm_option_debug_mode"
       text="Mode Débogage" />
     <string

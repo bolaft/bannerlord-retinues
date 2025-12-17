@@ -251,6 +251,12 @@
       id="ret_list_header_villagers"
       text="村民" />
     <string
+      id="ret_mariner_toggle_tooltip"
+      text="水手更适合海战，但技能点的获取速度略有降低。" />
+    <string
+      id="ret_mariner_toggle_tooltip_universal"
+      text="水手更适合海战。" />
+    <string
       id="ret_mcm_option_debug_mode"
       text="调试模式" />
     <string

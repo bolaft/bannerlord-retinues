@@ -251,6 +251,12 @@
       id="ret_list_header_villagers"
       text="Villagers" />
     <string
+      id="ret_mariner_toggle_tooltip"
+      text="Mariners are better suited for naval combat, but earn skill points at a slightly reduced rate." />
+    <string
+      id="ret_mariner_toggle_tooltip_universal"
+      text="Mariners are better suited for naval combat." />
+    <string
       id="ret_mcm_option_debug_mode"
       text="Debug Mode" />
     <string

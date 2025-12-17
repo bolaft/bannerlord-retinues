@@ -251,6 +251,12 @@
       id="ret_list_header_villagers"
       text="Mieszkańcy wsi" />
     <string
+      id="ret_mariner_toggle_tooltip"
+      text="Marynarze są lepiej przystosowani do walki morskiej, ale zdobywają punkty umiejętności w nieco zmniejszonym tempie." />
+    <string
+      id="ret_mariner_toggle_tooltip_universal"
+      text="Marynarze są lepiej przystosowani do walki morskiej." />
+    <string
       id="ret_mcm_option_debug_mode"
       text="Tryb debugowania" />
     <string

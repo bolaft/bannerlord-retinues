@@ -251,6 +251,12 @@
       id="ret_list_header_villagers"
       text="村人" />
     <string
+      id="ret_mariner_toggle_tooltip"
+      text="水兵は海戦に適していますが、スキルポイントの獲得率がわずかに低下します。" />
+    <string
+      id="ret_mariner_toggle_tooltip_universal"
+      text="水兵は海戦に適しています。" />
+    <string
       id="ret_mcm_option_debug_mode"
       text="デバッグモード" />
     <string

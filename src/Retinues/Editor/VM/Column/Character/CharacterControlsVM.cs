@@ -2,6 +2,7 @@ using System.Diagnostics.Tracing;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Editor.Controllers;
 using Retinues.Helpers;
+using Retinues.Module;
 using Retinues.Utilities;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
@@ -17,6 +18,37 @@ namespace Retinues.Editor.VM.Column.Character
         [EventListener(UIEvent.Page)]
         [DataSourceProperty]
         public bool IsVisible => EditorVM.Page == EditorPage.Character;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Mariner                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [DataSourceProperty]
+        public bool ShowMarinerToggle => Mods.NavalDLC.IsLoaded && !State.Character.IsHero;
+
+        [EventListener(UIEvent.Character, UIEvent.Formation)]
+        [DataSourceProperty]
+        public bool IsMariner
+        {
+            get => State.Character.IsMariner;
+            set => CharacterController.ChangeMariner(value);
+        }
+
+        [DataSourceProperty]
+        public Tooltip MarinerTooltip =>
+            State.Mode == EditorMode.Universal
+                ? new Tooltip(
+                    L.S(
+                        "mariner_toggle_tooltip_universal",
+                        "Mariners are better suited for naval combat."
+                    )
+                )
+                : new Tooltip(
+                    L.S(
+                        "mariner_toggle_tooltip",
+                        "Mariners are better suited for naval combat, but earn skill points at a slightly reduced rate."
+                    )
+                );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Remove Button                     //

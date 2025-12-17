@@ -1312,6 +1312,38 @@
     "TR": "Köylüler"
   },
   {
+    "id": "ret_mariner_toggle_tooltip",
+    "EN": "Mariners are better suited for naval combat, but earn skill points at a slightly reduced rate.",
+    "FR": "Les marins sont mieux adaptées au combat naval, mais gagnent des points de compétence à un rythme légèrement réduit.",
+    "BR": "Os marinheiros são mais adequados para o combate naval, mas ganham pontos de habilidade em uma taxa ligeiramente reduzida.",
+    "CNs": "水手更适合海战，但技能点的获取速度略有降低。",
+    "CNt": "水手更適合海戰，但技能點的獲取速度略有降低。",
+    "DE": "Matrosen sind besser für den Seekampf geeignet, verdienen aber Fertigkeitspunkte mit etwas reduzierter Rate.",
+    "IT": "I marinai sono più adatti al combattimento navale, ma guadagnano punti abilità a un ritmo leggermente ridotto.",
+    "JP": "水兵は海戦に適していますが、スキルポイントの獲得率がわずかに低下します。",
+    "KO": "선원은 해상 전투에 더 적합하지만 기술 포인트를 약간 감소된 속도로 획득합니다.",
+    "PL": "Marynarze są lepiej przystosowani do walki morskiej, ale zdobywają punkty umiejętności w nieco zmniejszonym tempie.",
+    "RU": "Моряки лучше подходят для морского боя, но зарабатывают очки навыков с немного сниженной скоростью.",
+    "SP": "Los marineros están mejor preparados para el combate naval, pero ganan puntos de habilidad a un ritmo ligeramente reducido.",
+    "TR": "Denizciler deniz savaşları için daha uygundur, ancak yetenek puanlarını biraz daha düşük bir hızda kazanırlar."
+  },
+  {
+    "id": "ret_mariner_toggle_tooltip_universal",
+    "EN": "Mariners are better suited for naval combat.",
+    "FR": "Les marins sont mieux adaptées au combat naval.",
+    "BR": "Os marinheiros são mais adequados para o combate naval.",
+    "CNs": "水手更适合海战。",
+    "CNt": "水手更適合海戰。",
+    "DE": "Matrosen sind besser für den Seekampf geeignet.",
+    "IT": "I marinai sono più adatti al combattimento navale.",
+    "JP": "水兵は海戦に適しています。",
+    "KO": "선원은 해상 전투에 더 적합합니다.",
+    "PL": "Marynarze są lepiej przystosowani do walki morskiej.",
+    "RU": "Моряки лучше подходят для морского боя.",
+    "SP": "Los marineros están mejor preparados para el combate naval.",
+    "TR": "Denizciler deniz savaşları için daha uygundur."
+  },
+  {
     "id": "ret_mcm_option_debug_mode",
     "EN": "Debug Mode",
     "FR": "Mode Débogage",

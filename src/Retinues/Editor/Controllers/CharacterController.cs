@@ -4,6 +4,7 @@ using System.Linq;
 using Retinues.Helpers;
 using Retinues.Model.Characters;
 using Retinues.Model.Factions;
+using Retinues.Module;
 using Retinues.Utilities;
 using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection;
@@ -612,6 +613,25 @@ namespace Retinues.Editor.Controllers
             );
 
             return false;
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Mariner                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public static void ChangeMariner(bool isMariner)
+        {
+            if (!Mods.NavalDLC.IsLoaded)
+                return; // Naval DLC not installed
+
+            if (State.Character.IsHero)
+                return; // Heroes cannot be mariners
+
+            // Toggle
+            State.Character.IsMariner = isMariner;
+
+            // Notify others
+            EventManager.Fire(UIEvent.Formation, EventScope.Local);
         }
     }
 }

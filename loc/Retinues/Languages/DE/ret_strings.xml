@@ -251,6 +251,12 @@
       id="ret_list_header_villagers"
       text="Dörfler" />
     <string
+      id="ret_mariner_toggle_tooltip"
+      text="Matrosen sind besser für den Seekampf geeignet, verdienen aber Fertigkeitspunkte mit etwas reduzierter Rate." />
+    <string
+      id="ret_mariner_toggle_tooltip_universal"
+      text="Matrosen sind besser für den Seekampf geeignet." />
+    <string
       id="ret_mcm_option_debug_mode"
       text="Debug-Modus" />
     <string

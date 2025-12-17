@@ -251,6 +251,12 @@
       id="ret_list_header_villagers"
       text="마을 사람들" />
     <string
+      id="ret_mariner_toggle_tooltip"
+      text="선원은 해상 전투에 더 적합하지만 기술 포인트를 약간 감소된 속도로 획득합니다." />
+    <string
+      id="ret_mariner_toggle_tooltip_universal"
+      text="선원은 해상 전투에 더 적합합니다." />
+    <string
       id="ret_mcm_option_debug_mode"
       text="디버그 모드" />
     <string

@@ -1,4 +1,5 @@
 using Retinues.Model.Characters;
+using Retinues.Module;
 using Retinues.Utilities;
 using TaleWorlds.Core;
 
@@ -14,7 +15,7 @@ namespace Retinues.Helpers
         const string IconCavalry = "icon_troop_type_cavalry";
         const string IconHorseArcher = "icon_troop_type_horse_archer";
 
-        public static string GetFormationClassIcon(WCharacter troop, bool mariner = false)
+        public static string GetFormationClassIcon(WCharacter troop)
         {
             string icon = (troop?.FormationClass) switch
             {
@@ -31,7 +32,7 @@ namespace Retinues.Helpers
                 _ => BaseIconPath + IconInfantry,
             };
 
-            if (mariner)
+            if (Mods.NavalDLC.IsLoaded && troop.IsMariner)
             {
                 // Apply mariner variant for any icon that is the infantry or ranged base icon.
                 if (icon == BaseIconPath + IconInfantry || icon == BaseIconPath + IconRanged)

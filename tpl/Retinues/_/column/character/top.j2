@@ -1,3 +1,46 @@
+{% from "_/column/base.macros.j2" import checkbox %}
+
+<ListPanel
+    DataSource="{CharacterControls}"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    StackLayout.LayoutMethod="VerticalBottomToTop"
+    HorizontalAlignment="Left" VerticalAlignment="Top">
+    <Children>
+
+        {# Mariner Toggle #}
+        <ListPanel
+            IsVisible="@ShowMarinerToggle"
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            VerticalAlignment="Top" HorizontalAlignment="Left">
+            <Children>
+
+                {# Civilian Icon #}
+                <SpriteWidget
+                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                    VerticalAlignment="Center" HorizontalAlignment="Center"
+                    SuggestedWidth="32" SuggestedHeight="32"
+                    MarginRight="4"
+                    Color="f8eed1ff"
+                    Sprite="SPGeneral\Skills\gui_skills_icon_mariner_tiny">
+                    <Children>
+                        <HintWidget
+                            DataSource="{MarinerTooltip}"
+                            Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
+                    </Children>
+                </SpriteWidget>
+
+                {# Show Civilian Checkbox #}
+                {{ checkbox(
+                    binding="@IsMariner",
+                    size="32",
+                    tooltip="{MarinerTooltip}"
+                )}}
+
+            </Children>
+        </ListPanel>
+
+    </Children>
+</ListPanel>
 
 <ListPanel
     DataSource="{CharacterControls}"

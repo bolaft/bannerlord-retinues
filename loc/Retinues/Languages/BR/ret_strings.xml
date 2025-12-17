@@ -251,6 +251,12 @@
       id="ret_list_header_villagers"
       text="Vilaões" />
     <string
+      id="ret_mariner_toggle_tooltip"
+      text="Os marinheiros são mais adequados para o combate naval, mas ganham pontos de habilidade em uma taxa ligeiramente reduzida." />
+    <string
+      id="ret_mariner_toggle_tooltip_universal"
+      text="Os marinheiros são mais adequados para o combate naval." />
+    <string
       id="ret_mcm_option_debug_mode"
       text="Modo de Depuração" />
     <string

@@ -29,6 +29,7 @@ namespace Retinues.Editor
         Item,
         Trait,
         Tree,
+        Formation,
     }
 
     public enum EventScope

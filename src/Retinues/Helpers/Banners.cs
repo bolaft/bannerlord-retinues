@@ -84,11 +84,11 @@ namespace Retinues.Helpers
                         if (cultureBase == null)
                             continue;
 
-        #if BL13
+#if BL13
                         var raw = cultureBase.Banner;
-        #else
+#else
                         Banner raw = null;
-        #endif
+#endif
 
                         if (!IsEmptyBanner(raw))
                         {

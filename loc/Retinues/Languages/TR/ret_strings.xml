@@ -251,6 +251,12 @@
       id="ret_list_header_villagers"
       text="Köylüler" />
     <string
+      id="ret_mariner_toggle_tooltip"
+      text="Denizciler deniz savaşları için daha uygundur, ancak yetenek puanlarını biraz daha düşük bir hızda kazanırlar." />
+    <string
+      id="ret_mariner_toggle_tooltip_universal"
+      text="Denizciler deniz savaşları için daha uygundur." />
+    <string
       id="ret_mcm_option_debug_mode"
       text="Hata Ayıklama Modu" />
     <string

@@ -77,6 +77,7 @@ namespace Retinues.Editor.VM.List.Character
         //                     Formation Class                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        [EventListener(UIEvent.Formation)]
         [DataSourceProperty]
         public string FormationClassIcon => Icons.GetFormationClassIcon(Character);
 

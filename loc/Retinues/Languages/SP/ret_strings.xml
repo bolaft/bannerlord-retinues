@@ -251,6 +251,12 @@
       id="ret_list_header_villagers"
       text="Aldeanos" />
     <string
+      id="ret_mariner_toggle_tooltip"
+      text="Los marineros están mejor preparados para el combate naval, pero ganan puntos de habilidad a un ritmo ligeramente reducido." />
+    <string
+      id="ret_mariner_toggle_tooltip_universal"
+      text="Los marineros están mejor preparados para el combate naval." />
+    <string
       id="ret_mcm_option_debug_mode"
       text="Modo de depuración" />
     <string

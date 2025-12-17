@@ -251,6 +251,12 @@
       id="ret_list_header_villagers"
       text="Жители деревень" />
     <string
+      id="ret_mariner_toggle_tooltip"
+      text="Моряки лучше подходят для морского боя, но зарабатывают очки навыков с немного сниженной скоростью." />
+    <string
+      id="ret_mariner_toggle_tooltip_universal"
+      text="Моряки лучше подходят для морского боя." />
+    <string
       id="ret_mcm_option_debug_mode"
       text="Режим отладки" />
     <string

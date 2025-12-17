@@ -251,6 +251,12 @@
       id="ret_list_header_villagers"
       text="Contadini" />
     <string
+      id="ret_mariner_toggle_tooltip"
+      text="I marinai sono più adatti al combattimento navale, ma guadagnano punti abilità a un ritmo leggermente ridotto." />
+    <string
+      id="ret_mariner_toggle_tooltip_universal"
+      text="I marinai sono più adatti al combattimento navale." />
+    <string
       id="ret_mcm_option_debug_mode"
       text="Modalità di debug" />
     <string
