@@ -74,12 +74,32 @@ namespace Retinues.Helpers
 
             BasicCultureObject firstTroopCulture = null;
 
-            foreach (var troop in firstTroop.Tree)
+            if (firstTroop != null)
             {
-                if (!IsEmptyBanner(troop.Culture.Banner))
+                try
                 {
-                    firstTroopCulture = troop.Culture?.Base;
-                    break;
+                    foreach (var troop in firstTroop.Tree)
+                    {
+                        var cultureBase = troop?.Culture?.Base;
+                        if (cultureBase == null)
+                            continue;
+
+        #if BL13
+                        var raw = cultureBase.Banner;
+        #else
+                        Banner raw = null;
+        #endif
+
+                        if (!IsEmptyBanner(raw))
+                        {
+                            firstTroopCulture = cultureBase;
+                            break;
+                        }
+                    }
+                }
+                catch
+                {
+                    // ignore and fallback
                 }
             }
 
