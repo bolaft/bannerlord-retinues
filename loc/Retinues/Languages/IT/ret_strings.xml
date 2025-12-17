@@ -35,6 +35,9 @@
       id="ret_change_culture_title"
       text="Cambia cultura" />
     <string
+      id="ret_change_species_title"
+      text="Cambia specie" />
+    <string
       id="ret_character_cannot_remove_hero"
       text="Gli eroi non possono essere rimossi." />
     <string
@@ -58,6 +61,9 @@
     <string
       id="ret_culture_header_text"
       text="Cultura" />
+    <string
+      id="ret_culture_header_text_with_race"
+      text="Cultura e Specie" />
     <string
       id="ret_delete_set_tooltip"
       text="Elimina set di equipaggiamento" />
@@ -145,6 +151,15 @@
     <string
       id="ret_filter_tooltip_description_equipment"
       text="Digita per filtrare l&apos;elenco per nome, categoria o livello." />
+    <string
+      id="ret_gender_no_culture"
+      text="Nessuna cultura selezionata." />
+    <string
+      id="ret_gender_no_template"
+      text="Questa cultura non ha un modello di corpo valido per quel genere/specie." />
+    <string
+      id="ret_gender_not_renderable"
+      text="Quella combinazione di genere/specie non può essere resa." />
     <string
       id="ret_gender_toggle_hint"
       text="Cambia genere" />
@@ -265,6 +280,18 @@
     <string
       id="ret_no_cultures_title"
       text="Nessuna cultura trovata" />
+    <string
+      id="ret_no_valid_model_body_species"
+      text="Questa combinazione di genere, cultura e specie non può essere resa.{newline}{newline}L&apos;aspetto precedente è stato ripristinato." />
+    <string
+      id="ret_no_valid_model_title_species"
+      text="Nessun modello valido" />
+    <string
+      id="ret_race_incompatible_culture_gender"
+      text="Questa specie non è compatibile con la cultura/genere attuale." />
+    <string
+      id="ret_race_invalid_model"
+      text="Non esiste un modello valido per questa specie." />
     <string
       id="ret_rename_unit"
       text="Nuovo nome" />

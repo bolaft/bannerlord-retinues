@@ -58,7 +58,7 @@ namespace Retinues.Editor.VM.Panel.Character
         [DataSourceProperty]
         public string CultureHeaderText =>
             CanChangeRace
-                ? L.S("culture_header_text_with_race", "Culture & Race")
+                ? L.S("culture_header_text_with_race", "Culture & Species")
                 : L.S("culture_header_text", "Culture");
 
         [EventListener(UIEvent.Culture)]

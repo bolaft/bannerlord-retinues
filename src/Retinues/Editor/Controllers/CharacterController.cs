@@ -127,7 +127,7 @@ namespace Retinues.Editor.Controllers
                         () => IsRenderable(culture, targetFemale, race),
                         L.T(
                             "gender_not_renderable",
-                            "That gender/species combination cannot be rendered (FaceGen crash)."
+                            "That gender/species combination cannot be rendered."
                         )
                     ),
                 ],
@@ -607,7 +607,7 @@ namespace Retinues.Editor.Controllers
                 L.T("no_valid_model_title_species", "No Valid Model"),
                 L.T(
                     "no_valid_model_body_species",
-                    "This combination of gender, culture and species does not have a valid model.\n\nThe previous appearance has been restored."
+                    "This combination of gender, culture and species cannot be rendered.\n\nThe previous appearance has been restored."
                 )
             );
 

@@ -35,6 +35,9 @@
       id="ret_change_culture_title"
       text="文化を変更" />
     <string
+      id="ret_change_species_title"
+      text="種族を変更" />
+    <string
       id="ret_character_cannot_remove_hero"
       text="英雄は削除できません。" />
     <string
@@ -58,6 +61,9 @@
     <string
       id="ret_culture_header_text"
       text="文化" />
+    <string
+      id="ret_culture_header_text_with_race"
+      text="文化と種族" />
     <string
       id="ret_delete_set_tooltip"
       text="装備セットを削除" />
@@ -145,6 +151,15 @@
     <string
       id="ret_filter_tooltip_description_equipment"
       text="名前、カテゴリ、または階級でリストをフィルタリングするには入力してください。" />
+    <string
+      id="ret_gender_no_culture"
+      text="文化が選択されていません。" />
+    <string
+      id="ret_gender_no_template"
+      text="この文化には、その性別/種に適した有効な体テンプレートがありません。" />
+    <string
+      id="ret_gender_not_renderable"
+      text="その性別/種の組み合わせはレンダリングできません。" />
     <string
       id="ret_gender_toggle_hint"
       text="性別を切り替え" />
@@ -265,6 +280,18 @@
     <string
       id="ret_no_cultures_title"
       text="文化が見つかりません" />
+    <string
+      id="ret_no_valid_model_body_species"
+      text="この性別、文化、種の組み合わせはレンダリングできません。{newline}{newline}以前の外観が復元されました。" />
+    <string
+      id="ret_no_valid_model_title_species"
+      text="有効なモデルがありません" />
+    <string
+      id="ret_race_incompatible_culture_gender"
+      text="この種は現在の文化/性別と互換性がありません。" />
+    <string
+      id="ret_race_invalid_model"
+      text="この種には有効なモデルが存在しません。" />
     <string
       id="ret_rename_unit"
       text="新しい名前" />

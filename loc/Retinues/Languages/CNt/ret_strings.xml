@@ -35,6 +35,9 @@
       id="ret_change_culture_title"
       text="更改文化" />
     <string
+      id="ret_change_species_title"
+      text="更改物種" />
+    <string
       id="ret_character_cannot_remove_hero"
       text="英雄無法被移除。" />
     <string
@@ -58,6 +61,9 @@
     <string
       id="ret_culture_header_text"
       text="文化" />
+    <string
+      id="ret_culture_header_text_with_race"
+      text="文化與物種" />
     <string
       id="ret_delete_set_tooltip"
       text="刪除裝備套裝" />
@@ -145,6 +151,15 @@
     <string
       id="ret_filter_tooltip_description_equipment"
       text="輸入以按名稱、類別或等級過濾列表。" />
+    <string
+      id="ret_gender_no_culture"
+      text="未選擇任何文化。" />
+    <string
+      id="ret_gender_no_template"
+      text="該文化沒有適用於該性別/物種的有效身體模板。" />
+    <string
+      id="ret_gender_not_renderable"
+      text="該性別/物種組合無法呈現。" />
     <string
       id="ret_gender_toggle_hint"
       text="切換性別" />
@@ -265,6 +280,18 @@
     <string
       id="ret_no_cultures_title"
       text="未找到文化" />
+    <string
+      id="ret_no_valid_model_body_species"
+      text="無法呈現這種性別、文化和物種的組合。{newline}{newline}已恢復先前的外觀。" />
+    <string
+      id="ret_no_valid_model_title_species"
+      text="無有效模型" />
+    <string
+      id="ret_race_incompatible_culture_gender"
+      text="此物種與當前的文化/性別不兼容。" />
+    <string
+      id="ret_race_invalid_model"
+      text="此物種不存在有效模型。" />
     <string
       id="ret_rename_unit"
       text="新名稱" />

@@ -35,6 +35,9 @@
       id="ret_change_culture_title"
       text="Change Culture" />
     <string
+      id="ret_change_species_title"
+      text="Change Species" />
+    <string
       id="ret_character_cannot_remove_hero"
       text="Heroes cannot be removed." />
     <string
@@ -58,6 +61,9 @@
     <string
       id="ret_culture_header_text"
       text="Culture" />
+    <string
+      id="ret_culture_header_text_with_race"
+      text="Culture &amp; Species" />
     <string
       id="ret_delete_set_tooltip"
       text="Delete equipment set" />
@@ -145,6 +151,15 @@
     <string
       id="ret_filter_tooltip_description_equipment"
       text="Type to filter the list by name, category or tier." />
+    <string
+      id="ret_gender_no_culture"
+      text="No culture is selected." />
+    <string
+      id="ret_gender_no_template"
+      text="This culture has no valid body template for that gender/species." />
+    <string
+      id="ret_gender_not_renderable"
+      text="That gender/species combination cannot be rendered." />
     <string
       id="ret_gender_toggle_hint"
       text="Toggle Gender" />
@@ -265,6 +280,18 @@
     <string
       id="ret_no_cultures_title"
       text="No Cultures Found" />
+    <string
+      id="ret_no_valid_model_body_species"
+      text="This combination of gender, culture and species cannot be rendered.{newline}{newline}The previous appearance has been restored." />
+    <string
+      id="ret_no_valid_model_title_species"
+      text="No Valid Model" />
+    <string
+      id="ret_race_incompatible_culture_gender"
+      text="This species is not compatible with the current culture/gender." />
+    <string
+      id="ret_race_invalid_model"
+      text="No valid model exists for this species." />
     <string
       id="ret_rename_unit"
       text="New Name" />

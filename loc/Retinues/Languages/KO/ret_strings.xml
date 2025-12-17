@@ -35,6 +35,9 @@
       id="ret_change_culture_title"
       text="문화 변경" />
     <string
+      id="ret_change_species_title"
+      text="종 변경" />
+    <string
       id="ret_character_cannot_remove_hero"
       text="영웅은 제거할 수 없습니다." />
     <string
@@ -58,6 +61,9 @@
     <string
       id="ret_culture_header_text"
       text="문화" />
+    <string
+      id="ret_culture_header_text_with_race"
+      text="문화 및 종" />
     <string
       id="ret_delete_set_tooltip"
       text="장비 세트 삭제" />
@@ -145,6 +151,15 @@
     <string
       id="ret_filter_tooltip_description_equipment"
       text="이름, 카테고리 또는 등급별로 목록을 필터링하려면 입력하세요." />
+    <string
+      id="ret_gender_no_culture"
+      text="선택된 문화가 없습니다." />
+    <string
+      id="ret_gender_no_template"
+      text="이 문화에는 해당 성별/종에 대한 유효한 신체 템플릿이 없습니다." />
+    <string
+      id="ret_gender_not_renderable"
+      text="해당 성별/종 조합은 렌더링할 수 없습니다." />
     <string
       id="ret_gender_toggle_hint"
       text="성별 전환" />
@@ -265,6 +280,18 @@
     <string
       id="ret_no_cultures_title"
       text="문화가 없습니다" />
+    <string
+      id="ret_no_valid_model_body_species"
+      text="이 성별, 문화 및 종 조합은 렌더링할 수 없습니다.{newline}{newline}이전 모양이 복원되었습니다." />
+    <string
+      id="ret_no_valid_model_title_species"
+      text="유효한 모델 없음" />
+    <string
+      id="ret_race_incompatible_culture_gender"
+      text="이 종은 현재 문화/성별과 호환되지 않습니다." />
+    <string
+      id="ret_race_invalid_model"
+      text="이 종에는 유효한 모델이 없습니다." />
     <string
       id="ret_rename_unit"
       text="새 이름" />
