@@ -24,6 +24,10 @@ namespace Retinues.Model.Characters
 
                     // Keep hierarchy cache in sync whenever targets change.
                     CharacterTreeCacheHelper.RecomputeForRoot(Root);
+
+                    // Invalidate related caches.
+                    InvalidateTroopSourceFlagsCache();
+                    InvalidateTroopFactionsCache();
                 }
             );
 

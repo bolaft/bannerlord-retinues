@@ -177,7 +177,13 @@ namespace Retinues.Model.Characters
         public WCulture Culture
         {
             get => WCulture.Get(CultureAttribute.Get());
-            set => CultureAttribute.Set(value?.Base);
+            set
+            {
+                CultureAttribute.Set(value?.Base);
+
+                // Invalidate related caches.
+                InvalidateTroopFactionsCache();
+            }
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

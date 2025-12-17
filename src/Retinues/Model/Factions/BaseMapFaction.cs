@@ -75,6 +75,12 @@ namespace Retinues.Model.Factions
 
                 return root;
             }
+            // set
+            // {
+            //     // No set yet but remininder to invalidate caches if implemented.
+            //     InvalidateTroopSourceFlagsCache();
+            //     InvalidateTroopFactionsCache();
+            // }
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
