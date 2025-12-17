@@ -10,7 +10,7 @@
     <Constant Name="Clan.Members.Sort.1.Width" BrushLayer="Default" BrushName="Clan.Members.Sort.1" BrushValueType="Width" />
   </Constants>
 
-  {# ClanScreen boilerplate you were missing #}
+  {# Visual Definitions #}
   <VisualDefinitions>
     <VisualDefinition Name="BottomMenu" EaseType="EaseOut" EaseFunction="Quint" TransitionDuration="0.45">
       <VisualState PositionYOffset="0" State="Default" />
@@ -18,6 +18,9 @@
     <VisualDefinition Name="TopPanel" EaseType="EaseOut" EaseFunction="Quint" TransitionDuration="0.45">
       <VisualState PositionYOffset="0" State="Default" />
     </VisualDefinition>
+		<VisualDefinition Name="RightPanel" EaseIn="true" TransitionDuration="0.45">
+			<VisualState PositionXOffset="0" State="Default" />
+		</VisualDefinition>
   </VisualDefinitions>
 
   <Window>

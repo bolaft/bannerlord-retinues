@@ -3,7 +3,7 @@
 {# Culture Header #}
 {{ field_header("@CultureHeaderText") }}
 
-{# Culture Block #}
+{# Culture + Species line #}
 <ListPanel
     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
     HorizontalAlignment="Center" VerticalAlignment="Center"
@@ -16,5 +16,26 @@
 
         {# Change Culture Button #}
         {{ field_button("ExecuteChangeCulture", "SPClan.Parties.ChangePartyLeaderIcon", "40") }}
+
+        {# Spacer #}
+        <Widget
+            IsVisible="@CanChangeRace"
+            WidthSizePolicy="Fixed" SuggestedWidth="18"
+            HeightSizePolicy="Fixed" SuggestedHeight="1" />
+
+        {# Species Name #}
+        <Widget IsVisible="@CanChangeRace" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren">
+            <Children>
+                {{ field_label("@RaceText") }}
+            </Children>
+        </Widget>
+
+        {# Change Species Button #}
+        <Widget IsVisible="@CanChangeRace" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren">
+            <Children>
+                {{ field_button("ExecuteChangeRace", "SPClan.Parties.ChangePartyLeaderIcon", "40") }}
+            </Children>
+        </Widget>
+
     </Children>
 </ListPanel>

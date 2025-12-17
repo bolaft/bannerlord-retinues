@@ -5,6 +5,9 @@ using TaleWorlds.Engine.GauntletUI;
 using TaleWorlds.InputSystem;
 using TaleWorlds.MountAndBlade.View.Screens;
 using TaleWorlds.ScreenSystem;
+# if BL12
+using TaleWorlds.GauntletUI.Data;
+# endif
 
 namespace Retinues.Editor.Screen
 {

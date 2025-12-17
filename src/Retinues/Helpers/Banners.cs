@@ -76,7 +76,7 @@ namespace Retinues.Helpers
 
             foreach (var troop in firstTroop.Tree)
             {
-                if (!IsEmptyBanner(troop.Culture.Base.Banner))
+                if (!IsEmptyBanner(troop.Culture.Banner))
                 {
                     firstTroopCulture = troop.Culture?.Base;
                     break;

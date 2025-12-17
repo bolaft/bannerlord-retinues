@@ -55,8 +55,13 @@ namespace Retinues.Model.Equipments
         public void Reset()
         {
             Equipments = [];
+#if BL13
             Add(new MEquipment(new Equipment(Equipment.EquipmentType.Battle), _owner));
             Add(new MEquipment(new Equipment(Equipment.EquipmentType.Civilian), _owner));
+#else
+            Add(new MEquipment(new Equipment(false), _owner));
+            Add(new MEquipment(new Equipment(true), _owner));
+#endif
         }
     }
 }

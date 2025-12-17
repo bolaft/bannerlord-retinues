@@ -154,6 +154,7 @@ namespace Retinues.Editor.Widgets
             if (IsHidden || !IsVisible)
                 return;
 
+#if BL13
             var p = new ScrollablePanel.AutoScrollParameters(
                 topOffset: AutoScrollTopOffset,
                 bottomOffset: AutoScrollBottomOffset,
@@ -165,6 +166,22 @@ namespace Retinues.Editor.Widgets
             );
 
             _parentPanel.ScrollToChild(this, p);
+#else
+            // BL12 only supports one offset per axis (applies to both sides)
+            int hOff = (int)Math.Round(Math.Max(AutoScrollLeftOffset, AutoScrollRightOffset));
+            int vOff = (int)Math.Round(Math.Max(AutoScrollTopOffset, AutoScrollBottomOffset));
+
+            _parentPanel.ScrollToChild(
+                this,
+                horizontalTargetValue: AutoScrollHorizontalTarget,
+                verticalTargetValue: AutoScrollVerticalTarget,
+                horizontalOffsetInPixels: hOff,
+                verticalOffsetInPixels: vOff,
+                verticalInterpolationTime: AutoScrollInterpolationTime,
+                horizontalInterpolationTime: AutoScrollInterpolationTime
+            );
+#endif
+
             _pendingScroll = false;
 
             var scope = string.IsNullOrEmpty(_autoScrollScope) ? "EditorList" : _autoScrollScope;

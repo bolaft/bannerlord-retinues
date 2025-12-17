@@ -52,7 +52,7 @@ namespace Retinues.Editor.VM.Panel.Equipment
 # if BL13
         public object ImageTextureProviderName => Item?.Image.TextureProviderName;
 # else
-        public object ImageTypeCode => Item?.Image.TypeCode;
+        public object ImageTypeCode => Item?.Image.ImageTypeCode;
 # endif
 
         [EventListener(UIEvent.Item)]

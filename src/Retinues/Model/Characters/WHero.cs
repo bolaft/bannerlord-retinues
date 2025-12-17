@@ -6,6 +6,9 @@ using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.CharacterDevelopment;
 using TaleWorlds.Core;
 using TaleWorlds.Localization;
+#if BL12
+using Retinues.Utilities;
+#endif
 
 namespace Retinues.Model.Characters
 {

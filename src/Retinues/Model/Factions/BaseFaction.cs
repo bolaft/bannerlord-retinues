@@ -38,7 +38,7 @@ namespace Retinues.Model.Factions
         public ImageIdentifier ImageIdentifier => Banners.GetImageIdentifier(Banner);
 #else
         public ImageIdentifierVM Image => Banners.GetBannerImage(Banner);
-        public ImageIdentifier ImageIdentifier => Banners.GetImageIdentifier(Banner);
+        public ImageIdentifier ImageIdentifier => Banners.GetImageIdentifier(BannerCode);
 #endif
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

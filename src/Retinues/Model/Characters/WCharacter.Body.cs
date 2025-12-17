@@ -414,7 +414,7 @@ namespace Retinues.Model.Characters
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Tags                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
+#if BL13
         /* ━━━━━━━ Hair Tags ━━━━━━ */
 
         MAttribute<string> HairTagsAttribute =>
@@ -471,6 +471,24 @@ namespace Retinues.Model.Characters
             get => TattooTagsAttribute.Get();
             set => TattooTagsAttribute.Set(value);
         }
+#else
+        // BL12: no tag pools on MBBodyProperty (keep API surface but no-op)
+        public string HairTags
+        {
+            get => string.Empty;
+            set { }
+        }
+        public string BeardTags
+        {
+            get => string.Empty;
+            set { }
+        }
+        public string TattooTags
+        {
+            get => string.Empty;
+            set { }
+        }
+#endif
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Helpers                        //
@@ -581,7 +599,7 @@ namespace Retinues.Model.Characters
         /// <summary>
         /// Serialize the current BodyPropertyMin/Max into a single string.
         /// </summary>
-        string SerializeBodyEnvelope()
+        public string SerializeBodyEnvelope()
         {
             // Prefer the live MBBodyProperty if present; otherwise fall back to
             // CharacterObject's min/max helpers.
@@ -608,7 +626,7 @@ namespace Retinues.Model.Characters
         /// Apply a serialized envelope string back onto this character's
         /// BodyPropertyRange.
         /// </summary>
-        void ApplySerializedBodyEnvelope(string value)
+        public void ApplySerializedBodyEnvelope(string value)
         {
             if (string.IsNullOrEmpty(value))
                 return;

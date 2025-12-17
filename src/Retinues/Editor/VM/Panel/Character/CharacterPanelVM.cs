@@ -49,13 +49,23 @@ namespace Retinues.Editor.VM.Panel.Character
         public void ExecuteRename() => CharacterController.ChangeName();
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Culture                        //
+        //                     Culture & Race                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceProperty]
-        public string CultureHeaderText => L.S("culture_header_text", "Culture");
+        public bool CanChangeRace => CharacterController.CanChangeRace;
 
-        [EventListener(UIEvent.Character, UIEvent.Culture)]
+        [DataSourceProperty]
+        public string CultureHeaderText =>
+            CanChangeRace
+                ? L.S("culture_header_text_with_race", "Culture & Race")
+                : L.S("culture_header_text", "Culture");
+
+        [EventListener(UIEvent.Culture)]
+        [DataSourceProperty]
+        public string RaceText => CharacterController.GetRaceText();
+
+        [EventListener(UIEvent.Culture)]
         [DataSourceProperty]
         public string CultureText => State.Character.Editable.Culture?.Name;
 
@@ -97,6 +107,9 @@ namespace Retinues.Editor.VM.Panel.Character
                     CharacterController.ChangeCulture(element?.Identifier as WCulture)
             );
         }
+
+        [DataSourceMethod]
+        public void ExecuteChangeRace() => CharacterController.OpenRaceSelector();
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Traits                         //
@@ -161,6 +174,21 @@ namespace Retinues.Editor.VM.Panel.Character
         [DataSourceProperty]
         public int SkillsGridColumns { get; private set; }
 
+        [DataSourceProperty]
+        public bool SkillsLayout_2x4 { get; private set; }
+
+        [DataSourceProperty]
+        public bool SkillsLayout_3x4 { get; private set; }
+
+        [DataSourceProperty]
+        public bool SkillsLayout_3x6 { get; private set; }
+
+        [DataSourceProperty]
+        public bool SkillsLayout_4x6 { get; private set; }
+
+        [DataSourceProperty]
+        public bool SkillsLayout_Small { get; private set; }
+
         [EventListener(UIEvent.Character)]
         public void RefreshSkillsGrid()
         {
@@ -186,7 +214,7 @@ namespace Retinues.Editor.VM.Panel.Character
             for (int i = 0; i < list.Count; i++)
             {
                 var r = i / layout.Columns;
-                var vm = new CharacterSkillVM(list[i], layout);
+                var vm = new CharacterSkillVM(list[i]);
 
                 switch (r)
                 {
@@ -213,7 +241,7 @@ namespace Retinues.Editor.VM.Panel.Character
                 }
             }
 
-            // Notify (not strictly required if list events propagate, but cheap + safe)
+            // Notify
             OnPropertyChanged(nameof(SkillsCount));
             OnPropertyChanged(nameof(SkillsGridRows));
             OnPropertyChanged(nameof(SkillsGridColumns));
@@ -223,6 +251,20 @@ namespace Retinues.Editor.VM.Panel.Character
             OnPropertyChanged(nameof(SkillsRow4));
             OnPropertyChanged(nameof(SkillsRow5));
             OnPropertyChanged(nameof(SkillsRow6));
+
+            // Layout flags
+            SkillsLayout_2x4 = SkillsCount <= 8;
+            SkillsLayout_3x4 = SkillsCount > 8 && SkillsCount <= 12;
+            SkillsLayout_3x6 = SkillsCount > 12 && SkillsCount <= 18;
+            SkillsLayout_4x6 = SkillsCount > 18 && SkillsCount <= 24;
+            SkillsLayout_Small = SkillsCount > 24;
+
+            // Notify layout flags
+            OnPropertyChanged(nameof(SkillsLayout_2x4));
+            OnPropertyChanged(nameof(SkillsLayout_3x4));
+            OnPropertyChanged(nameof(SkillsLayout_3x6));
+            OnPropertyChanged(nameof(SkillsLayout_4x6));
+            OnPropertyChanged(nameof(SkillsLayout_Small));
         }
 
         public readonly struct SkillsGridLayout(

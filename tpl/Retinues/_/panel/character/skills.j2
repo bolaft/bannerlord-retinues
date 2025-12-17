@@ -1,4 +1,4 @@
-{% macro chevron(command, brush, enabled, hint) %}
+{% macro chevron(command, brush, enabled, hint, size) %}
 
 <Widget
     HorizontalAlignment="Center" VerticalAlignment="Center"
@@ -14,13 +14,14 @@
             IsEnabled="true"
             WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
             HorizontalAlignment="Center" VerticalAlignment="Center"
-            SuggestedWidth="@ChevronSize" SuggestedHeight="@ChevronSize"
+            SuggestedWidth="{{ size }}" SuggestedHeight="{{ size }}"
             Brush="Popup.Button.Text"
-            Command.Click="{{ command }}" UpdateChildrenStates="true" DoNotPassEventsToChildren="true">
+            Command.Click="{{ command }}"
+            UpdateChildrenStates="true" DoNotPassEventsToChildren="true">
             <Children>
-                <BrushWidget WidthSizePolicy="Fixed"
-                    HeightSizePolicy="Fixed"
-                    SuggestedWidth="@ChevronSize" SuggestedHeight="@ChevronSize"
+                <BrushWidget
+                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                    SuggestedWidth="{{ size }}" SuggestedHeight="{{ size }}"
                     Brush="{{ brush }}"/>
             </Children>
         </ButtonWidget>
@@ -30,90 +31,77 @@
             IsEnabled="false"
             WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
             HorizontalAlignment="Center" VerticalAlignment="Center"
-            SuggestedWidth="@ChevronSize" SuggestedHeight="@ChevronSize"
+            SuggestedWidth="{{ size }}" SuggestedHeight="{{ size }}"
             Brush="Popup.Button.Text"
             Command.Click="{{ command }}"
             UpdateChildrenStates="true" DoNotPassEventsToChildren="true">
             <Children>
                 <BrushWidget
                     WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                    SuggestedWidth="20" SuggestedHeight="20"
+                    SuggestedWidth="{{ size }}" SuggestedHeight="{{ size }}"
                     Brush="{{ brush }}"/>
             </Children>
         </ButtonWidget>
+
     </Children>
 </Widget>
 
 {%- endmacro %}
 
-{% macro skill() -%}
 
-<Widget
-    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-    MarginBottom="@Margin"
-    HorizontalAlignment="Center">
+{% macro skill(icon, chev, small) -%}
+{% set margin = small * 2 %}
+{% set big = small * 4 %}
+{% set textw = icon - (chev * 2) %}
+{% set height = icon + 30 %}
+
+<Widget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    MarginBottom="{{ margin }}" HorizontalAlignment="Center">
     <Children>
 
-        <ListPanel
-            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-            SuggestedWidth="@IconSize" SuggestedHeight="@Height"
+        <ListPanel WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+            SuggestedWidth="{{ icon }}" SuggestedHeight="{{ height }}"
             StackLayout.LayoutMethod="VerticalBottomToTop"
             HorizontalAlignment="Center"
-            MarginRight="@BigMargin" MarginLeft="@BigMargin" MarginBottom="@SmallMargin">
+            MarginRight="{{ big }}" MarginLeft="{{ big }}" MarginBottom="{{ small }}">
             <Children>
 
-                {# Visual Widget #}
                 <SkillIconVisualWidget
                     SkillId="@Id"
                     WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                    SuggestedWidth="@IconSize" SuggestedHeight="@IconSize"
+                    SuggestedWidth="{{ icon }}" SuggestedHeight="{{ icon }}"
                     DoNotPassEventsToChildren="false"
-                    MarginBottom="@Margin">
+                    MarginBottom="{{ margin }}">
                     <Children>
-                        <HintWidget
-                            DataSource="{Hint}"
+                        <HintWidget DataSource="{Hint}"
                             Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
                     </Children>
                 </SkillIconVisualWidget>
 
-                {# Controls #}
-                <ListPanel
-                    WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren"
+                <ListPanel WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren"
                     StackLayout.LayoutMethod="HorizontalLeftToRight"
                     HorizontalAlignment="Center"
                     UpdateChildrenStates="true">
                     <Children>
 
-                        {# Decrement Skill #}
-                        {{ chevron(
-                            command="ExecuteDecrease",
-                            brush="ButtonRightBigArrowBrush1",
-                            enabled="@CanDecrease",
-                            hint="{TooltipDecrease}"
-                        ) }}
+                        {{ chevron("ExecuteDecrease", "ButtonRightBigArrowBrush1", "@CanDecrease", "{TooltipDecrease}", chev) }}
 
-                        {# Skill Value #}
-                        <TextWidget
-                            IntText="@Value"
+                        <TextWidget IntText="@Value"
                             Brush="Encyclopedia.Skill.Text"
                             Brush.FontColor="@ValueColor"
                             Brush.FontSize="24"
                             WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                            SuggestedWidth="@TextWidth" SuggestedHeight="24"
+                            SuggestedWidth="{{ textw }}" SuggestedHeight="24"
                             HorizontalAlignment="Center" VerticalAlignment="Center" />
 
-                        {# Increase Skill #}
-                        {{ chevron(
-                            command="ExecuteIncrease",
-                            brush="ButtonLeftBigArrowBrush1",
-                            enabled="@CanIncrease",
-                            hint="{TooltipIncrease}"
-                        ) }}
+                        {{ chevron("ExecuteIncrease", "ButtonLeftBigArrowBrush1", "@CanIncrease", "{TooltipIncrease}", chev) }}
 
                     </Children>
                 </ListPanel>
+
             </Children>
         </ListPanel>
+
     </Children>
 </Widget>
 
@@ -124,59 +112,162 @@
 {{ field_header("@SkillsHeaderText") }}
 
 {# Skills Grid #}
-<ListPanel
-    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-    HorizontalAlignment="Center"
-    StackLayout.LayoutMethod="VerticalBottomToTop"
-    UpdateChildrenStates="true">
-    <Children>
 
+<!-- 2x4 -->
+<ListPanel IsVisible="@SkillsLayout_2x4"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    StackLayout.LayoutMethod="VerticalTopToBottom"
+    HorizontalAlignment="Center">
+    <Children>
         <ListPanel DataSource="{SkillsRow1}"
-            HorizontalAlignment="Center"
             WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
             StackLayout.LayoutMethod="HorizontalLeftToRight"
-            UpdateChildrenStates="true">
-            <ItemTemplate>{{ skill() }}</ItemTemplate>
+            HorizontalAlignment="Center">
+            <ItemTemplate>
+                {{ skill(80,20,4) }}
+            </ItemTemplate>
         </ListPanel>
 
         <ListPanel DataSource="{SkillsRow2}"
-            HorizontalAlignment="Center"
             WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
             StackLayout.LayoutMethod="HorizontalLeftToRight"
-            UpdateChildrenStates="true">
-            <ItemTemplate>{{ skill() }}</ItemTemplate>
+            HorizontalAlignment="Center">
+            <ItemTemplate>
+                {{ skill(80,20,4) }}
+            </ItemTemplate>
         </ListPanel>
+    </Children>
+</ListPanel>
 
+
+<!-- 3x4 -->
+<ListPanel IsVisible="@SkillsLayout_3x4"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    StackLayout.LayoutMethod="VerticalTopToBottom"
+    HorizontalAlignment="Center">
+    <Children>
+        <ListPanel DataSource="{SkillsRow1}"
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            StackLayout.LayoutMethod="HorizontalLeftToRight"
+            HorizontalAlignment="Center">
+            <ItemTemplate>{{ skill(72,18,3) }}</ItemTemplate>
+        </ListPanel>
+        <ListPanel DataSource="{SkillsRow2}"
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            StackLayout.LayoutMethod="HorizontalLeftToRight"
+            HorizontalAlignment="Center">
+            <ItemTemplate>{{ skill(72,18,3) }}</ItemTemplate>
+        </ListPanel>
         <ListPanel DataSource="{SkillsRow3}"
-            HorizontalAlignment="Center"
             WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
             StackLayout.LayoutMethod="HorizontalLeftToRight"
-            UpdateChildrenStates="true">
-            <ItemTemplate>{{ skill() }}</ItemTemplate>
+            HorizontalAlignment="Center">
+            <ItemTemplate>{{ skill(72,18,3) }}</ItemTemplate>
         </ListPanel>
+    </Children>
+</ListPanel>
 
+<!-- 3x6 -->
+<ListPanel IsVisible="@SkillsLayout_3x6"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    StackLayout.LayoutMethod="VerticalTopToBottom"
+    HorizontalAlignment="Center">
+    <Children>
+        <ListPanel DataSource="{SkillsRow1}"
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            StackLayout.LayoutMethod="HorizontalLeftToRight"
+            HorizontalAlignment="Center">
+            <ItemTemplate>{{ skill(64,16,2) }}</ItemTemplate>
+        </ListPanel>
+        <ListPanel DataSource="{SkillsRow2}"
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            StackLayout.LayoutMethod="HorizontalLeftToRight"
+            HorizontalAlignment="Center">
+            <ItemTemplate>{{ skill(64,16,2) }}</ItemTemplate>
+        </ListPanel>
+        <ListPanel DataSource="{SkillsRow3}"
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            StackLayout.LayoutMethod="HorizontalLeftToRight"
+            HorizontalAlignment="Center">
+            <ItemTemplate>{{ skill(64,16,2) }}</ItemTemplate>
+        </ListPanel>
+    </Children>
+</ListPanel>
+
+<!-- 4x6 -->
+<ListPanel IsVisible="@SkillsLayout_4x6"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    StackLayout.LayoutMethod="VerticalTopToBottom"
+    HorizontalAlignment="Center">
+    <Children>
+        <ListPanel DataSource="{SkillsRow1}"
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            StackLayout.LayoutMethod="HorizontalLeftToRight"
+            HorizontalAlignment="Center">
+            <ItemTemplate>{{ skill(64,16,2) }}</ItemTemplate>
+        </ListPanel>
+        <ListPanel DataSource="{SkillsRow2}"
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            StackLayout.LayoutMethod="HorizontalLeftToRight"
+            HorizontalAlignment="Center">
+            <ItemTemplate>{{ skill(64,16,2) }}</ItemTemplate>
+        </ListPanel>
+        <ListPanel DataSource="{SkillsRow3}"
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            StackLayout.LayoutMethod="HorizontalLeftToRight"
+            HorizontalAlignment="Center">
+            <ItemTemplate>{{ skill(64,16,2) }}</ItemTemplate>
+        </ListPanel>
         <ListPanel DataSource="{SkillsRow4}"
-            HorizontalAlignment="Center"
             WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
             StackLayout.LayoutMethod="HorizontalLeftToRight"
-            UpdateChildrenStates="true">
-            <ItemTemplate>{{ skill() }}</ItemTemplate>
+            HorizontalAlignment="Center">
+            <ItemTemplate>{{ skill(64,16,2) }}</ItemTemplate>
         </ListPanel>
+    </Children>
+</ListPanel>
 
-        {# Optional extra safety for >24 skills #}
-        <ListPanel DataSource="{SkillsRow5}" HorizontalAlignment="Center"
+<!-- >24 fallback -->
+<ListPanel IsVisible="@SkillsLayout_Small"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    StackLayout.LayoutMethod="VerticalTopToBottom"
+    HorizontalAlignment="Center">
+    <Children>
+        <ListPanel DataSource="{SkillsRow1}"
             WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
             StackLayout.LayoutMethod="HorizontalLeftToRight"
-            UpdateChildrenStates="true">
-            <ItemTemplate>{{ skill() }}</ItemTemplate>
+            HorizontalAlignment="Center">
+            <ItemTemplate>{{ skill(54,14,2) }}</ItemTemplate>
         </ListPanel>
-
-        <ListPanel DataSource="{SkillsRow6}" HorizontalAlignment="Center"
+        <ListPanel DataSource="{SkillsRow2}"
             WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
             StackLayout.LayoutMethod="HorizontalLeftToRight"
-            UpdateChildrenStates="true">
-            <ItemTemplate>{{ skill() }}</ItemTemplate>
+            HorizontalAlignment="Center">
+            <ItemTemplate>{{ skill(54,14,2) }}</ItemTemplate>
         </ListPanel>
-
+        <ListPanel DataSource="{SkillsRow3}"
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            StackLayout.LayoutMethod="HorizontalLeftToRight"
+            HorizontalAlignment="Center">
+            <ItemTemplate>{{ skill(54,14,2) }}</ItemTemplate>
+        </ListPanel>
+        <ListPanel DataSource="{SkillsRow4}"
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            StackLayout.LayoutMethod="HorizontalLeftToRight"
+            HorizontalAlignment="Center">
+            <ItemTemplate>{{ skill(54,14,2) }}</ItemTemplate>
+        </ListPanel>
+        <ListPanel DataSource="{SkillsRow5}"
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            StackLayout.LayoutMethod="HorizontalLeftToRight"
+            HorizontalAlignment="Center">
+            <ItemTemplate>{{ skill(54,14,2) }}</ItemTemplate>
+        </ListPanel>
+        <ListPanel DataSource="{SkillsRow6}"
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            StackLayout.LayoutMethod="HorizontalLeftToRight"
+            HorizontalAlignment="Center">
+            <ItemTemplate>{{ skill(54,14,2) }}</ItemTemplate>
+        </ListPanel>
     </Children>
 </ListPanel>

@@ -237,7 +237,7 @@ namespace Retinues.Editor
 #if BL13
                 hero.StaticBodyProperties = stat;
 #else
-                Reflector.SetPropertyValue(hero, "StaticBodyProperties", stat);
+                Reflection.SetPropertyValue(hero, "StaticBodyProperties", stat);
 #endif
                 hero.SetBirthDay(CampaignTime.YearsFromNow(-dyn.Age));
                 hero.Weight = dyn.Weight;
@@ -260,7 +260,7 @@ namespace Retinues.Editor
             hero.IsFemale = value;
 #else
             // BL12: IsFemale has private setter; use reflection.
-            Reflector.SetPropertyValue(hero, "IsFemale", value);
+            Reflection.SetPropertyValue(hero, "IsFemale", value);
 #endif
         }
     }
