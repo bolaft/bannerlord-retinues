@@ -23,8 +23,14 @@ namespace Retinues.Editor.Screen
     [GameStateScreen(typeof(EditorState))]
     public sealed class GauntletEditorScreen(GameState state) : ScreenBase, IGameStateListener
     {
-        private readonly GameState _state = state;
+#if BL13
         private GauntletMovieIdentifier _movie;
+#else
+        private IGauntletMovie _movie;
+#endif
+
+        private readonly GameState _state = state;
+
         private GauntletLayer _gauntletLayer;
         private EditorVM _dataSource;
 
@@ -78,7 +84,12 @@ namespace Retinues.Editor.Screen
 
             Sprites.Load(SpriteSheetsToLoad);
 
+#if BL13
             _gauntletLayer = new GauntletLayer("GauntletLayer", 1, shouldClear: true);
+#else
+            _gauntletLayer = new GauntletLayer(1, "GauntletLayer", shouldClear: true);
+#endif
+
             _gauntletLayer.InputRestrictions.SetInputRestrictions();
             _gauntletLayer.Input.RegisterHotKeyCategory(
                 HotKeyManager.GetCategory("GenericPanelGameKeyCategory")

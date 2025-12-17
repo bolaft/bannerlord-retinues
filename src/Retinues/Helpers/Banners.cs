@@ -4,9 +4,6 @@ using TaleWorlds.Library;
 #if BL13
 using TaleWorlds.Core.ImageIdentifiers;
 using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
-#else
-using TaleWorlds.Core.ImageIdentifiers;
-using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
 #endif
 
 namespace Retinues.Helpers
@@ -308,7 +305,9 @@ namespace Retinues.Helpers
         )
         {
             if (scale == 1.0f)
-                return bannerCode != null ? new ImageIdentifier(bannerCode) : null;
+                return bannerCode != null
+                    ? new ImageIdentifier(bannerCode, nineGrid: nineGrid)
+                    : null;
 
             var scaled = GetScaledBanner(banner, scale);
             return scaled != null
