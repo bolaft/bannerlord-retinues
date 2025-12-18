@@ -27,7 +27,7 @@ namespace Retinues.Model
         {
             try
             {
-                MPersistence.AttachStore(_store, applyToRegistered: false);
+                MPersistence.AttachStore(_store);
 
                 // Ensure the in-memory store contains the latest dirty values before saving.
                 MPersistence.FlushDirty();
@@ -38,7 +38,7 @@ namespace Retinues.Model
                     Log.Debug($"Persisted Attribute: {kvp.Key} = {kvp.Value}");
 
                 // If this was a load, _store is now populated. Attach and apply.
-                MPersistence.AttachStore(_store, applyToRegistered: true);
+                MPersistence.AttachStore(_store);
             }
             catch (Exception e)
             {

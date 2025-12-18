@@ -32,23 +32,28 @@ namespace Retinues.Model
         /// Gets or creates an attribute that targets a field/property on the underlying base instance.
         /// </summary>
         protected MAttribute<T> Attribute<T>(
-            string name,
+            string targetName,
             bool persistent = false,
             MPersistencePriority priority = MPersistencePriority.Normal,
-            MSerializer<T> serializer = null
+            MSerializer<T> serializer = null,
+            [CallerMemberName] string name = null
         )
         {
+            name ??= "<unknown>";
+
             if (!_attributes.TryGetValue(name, out var obj))
             {
                 var ownerKey = (this as IPersistent)?.PersistenceKey;
                 var attr = new MAttribute<T>(
-                    Base,
-                    name,
+                    baseInstance: Base,
+                    persistenceName: name,
+                    targetName: targetName,
                     ownerKey: ownerKey,
                     persistent: persistent,
                     priority: priority,
                     serializer: serializer
                 );
+
                 _attributes[name] = attr;
                 return attr;
             }
@@ -62,33 +67,43 @@ namespace Retinues.Model
         }
 
         /// <summary>
-        /// Gets or creates an attribute that gets/sets the value of a field or property
-        /// on the underlying base instance, using the given expression to identify the member.
+        /// Gets or creates an attribute that binds to a field/property on the underlying base instance,
+        /// using the given expression to identify the target member. Persistence uses the wrapper property name.
         /// </summary>
         protected MAttribute<TProp> Attribute<TProp>(
             Expression<Func<TBase, TProp>> expr,
             bool persistent = false,
             MPersistencePriority priority = MPersistencePriority.Normal,
-            MSerializer<TProp> serializer = null
+            MSerializer<TProp> serializer = null,
+            [CallerMemberName] string name = null
         )
         {
+            name ??= "<unknown>";
+
             if (expr.Body is not MemberExpression member)
                 throw new ArgumentException(
                     "Expression must be a simple member access.",
                     nameof(expr)
                 );
 
-            var name = member.Member.Name;
+            var targetName = member.Member.Name;
 
             if (_attributes.TryGetValue(name, out var existing))
-                return (MAttribute<TProp>)existing;
+            {
+                if (existing is not MAttribute<TProp> typed)
+                    throw new InvalidOperationException(
+                        $"Attribute '{name}' already exists with a different type ({existing.GetType()})."
+                    );
+
+                return typed;
+            }
 
             var typedGetter = expr.Compile();
             TProp getter(object obj) => typedGetter((TBase)obj);
 
             Action<object, TProp> setter = (_, _) =>
             {
-                throw new InvalidOperationException($"Member '{name}' is read-only.");
+                throw new InvalidOperationException($"Member '{targetName}' is read-only.");
             };
 
             if (member.Member is System.Reflection.PropertyInfo prop && prop.CanWrite)
@@ -121,23 +136,26 @@ namespace Retinues.Model
             }
 
             var ownerKey = (this as IPersistent)?.PersistenceKey;
+
             var attr = new MAttribute<TProp>(
-                Base,
-                getter,
-                setter,
-                name,
+                baseInstance: Base,
+                getter: getter,
+                setter: setter,
+                persistenceName: name,
+                targetName: targetName,
                 ownerKey: ownerKey,
                 persistent: persistent,
                 priority: priority,
                 serializer: serializer
             );
+
             _attributes[name] = attr;
             return attr;
         }
 
         /// <summary>
-        /// Gets or creates an attribute that gets/sets the value of a field or property
-        /// on the underlying base instance, using the given delegates.
+        /// Gets or creates an attribute that gets/sets via delegates.
+        /// Persistence uses the wrapper property name.
         /// </summary>
         protected MAttribute<T> Attribute<T>(
             Func<object, T> getter,
@@ -145,10 +163,12 @@ namespace Retinues.Model
             bool persistent = false,
             MPersistencePriority priority = MPersistencePriority.Normal,
             MSerializer<T> serializer = null,
+            string targetName = null,
             [CallerMemberName] string name = null
         )
         {
             name ??= "<unknown>";
+            targetName ??= name;
 
             if (_attributes.TryGetValue(name, out var obj))
             {
@@ -166,7 +186,8 @@ namespace Retinues.Model
                 baseInstance: Base,
                 getter: getter,
                 setter: setter,
-                targetName: name,
+                persistenceName: name,
+                targetName: targetName,
                 ownerKey: ownerKey,
                 persistent: persistent,
                 priority: priority,

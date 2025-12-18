@@ -528,7 +528,8 @@ namespace Retinues.Model.Characters
                     var clonedRange = MBBodyProperty.CreateFrom(Base.BodyPropertyRange);
                     clonedRange.HairTags = value ?? string.Empty;
                     Reflection.SetPropertyValue(Base, "BodyPropertyRange", clonedRange);
-                }
+                },
+                persistent: true
             );
 
         public string HairTags
@@ -547,7 +548,8 @@ namespace Retinues.Model.Characters
                     var clonedRange = MBBodyProperty.CreateFrom(Base.BodyPropertyRange);
                     clonedRange.BeardTags = value ?? string.Empty;
                     Reflection.SetPropertyValue(Base, "BodyPropertyRange", clonedRange);
-                }
+                },
+                persistent: true
             );
 
         public string BeardTags
@@ -566,7 +568,8 @@ namespace Retinues.Model.Characters
                     var clonedRange = MBBodyProperty.CreateFrom(Base.BodyPropertyRange);
                     clonedRange.TattooTags = value ?? string.Empty;
                     Reflection.SetPropertyValue(Base, "BodyPropertyRange", clonedRange);
-                }
+                },
+                persistent: true
             );
 
         public string TattooTags
@@ -726,7 +729,9 @@ namespace Retinues.Model.Characters
                 max = Base.GetBodyPropertiesMax();
             }
 
-            return min.ToString() + BodySerializedSeparator + max.ToString();
+            var envelope = min.ToString() + BodySerializedSeparator + max.ToString();
+            Log.Info($"WCharacter: serialized body envelope for '{Base?.StringId}': '{envelope}'");
+            return envelope;
         }
 
         /// <summary>
@@ -735,6 +740,9 @@ namespace Retinues.Model.Characters
         /// </summary>
         public void ApplySerializedBodyEnvelope(string value)
         {
+            Log.Info(
+                $"WCharacter: applying serialized body envelope for '{Base?.StringId}': '{value}'"
+            );
             if (string.IsNullOrEmpty(value))
                 return;
 

@@ -3,42 +3,57 @@ using Retinues.Utilities;
 
 namespace Retinues.Model
 {
+    internal interface IPersistentAttribute
+    {
+        string OwnerKey { get; }
+        string AttributeKey { get; }
+        bool IsDirty { get; }
+
+        string PersistenceName { get; }
+        string TargetName { get; }
+        string ValueTypeName { get; }
+
+        MPersistencePriority Priority { get; }
+        string SerializerTypeName { get; }
+
+        string Serialize();
+        void ApplySerialized(string serialized);
+        void ClearDirty();
+    }
+
     [SafeClass(IncludeDerived = true)]
     public class MAttribute<T> : IPersistentAttribute
     {
-        readonly string _targetName;
-        readonly object _baseInstance;
+        private readonly object _baseInstance;
 
-        readonly Func<object, T> _getter;
-        readonly Action<object, T> _setter;
+        private readonly Func<object, T> _getter;
+        private readonly Action<object, T> _setter;
+
+        private readonly MSerializer<T> _serializer;
+
+        private T _storedValue;
+
+        public string PersistenceName { get; }
+        public string TargetName { get; }
+        public string ValueTypeName => typeof(T).FullName;
 
         public MPersistencePriority Priority { get; }
-        readonly MSerializer<T> _serializer;
-
-        T _storedValue;
-
-        public string Name => _targetName;
-        public bool IsStored { get; private set; }
-
-        public bool IsPersistent { get; }
-        public bool IsDirty { get; private set; }
-
-        public void Touch() => IsDirty = true;
+        public string SerializerTypeName => _serializer?.GetType().FullName;
 
         public string OwnerKey { get; }
         public string AttributeKey { get; }
 
+        public bool IsPersistent { get; }
+        public bool IsDirty { get; private set; }
+
+        public bool IsStored { get; private set; }
+
         bool IPersistentAttribute.IsDirty => IsDirty;
 
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                     Constructors                        //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        /// <summary>
-        /// Creates an attribute that uses reflection to get/set the value.
-        /// </summary>
+        // Base-member attribute (reflects against targetName on baseInstance)
         public MAttribute(
             object baseInstance,
+            string persistenceName,
             string targetName,
             string ownerKey = null,
             bool persistent = false,
@@ -47,46 +62,47 @@ namespace Retinues.Model
         )
         {
             _baseInstance = baseInstance ?? throw new ArgumentNullException(nameof(baseInstance));
-            _targetName = targetName ?? throw new ArgumentNullException(nameof(targetName));
+            PersistenceName =
+                persistenceName ?? throw new ArgumentNullException(nameof(persistenceName));
+            TargetName = targetName ?? throw new ArgumentNullException(nameof(targetName));
             _serializer = serializer;
 
             Priority = priority;
 
             OwnerKey = ownerKey;
             IsPersistent = persistent && !string.IsNullOrEmpty(ownerKey);
-            AttributeKey = BuildAttributeKey(ownerKey, _targetName, typeof(T));
+            AttributeKey = BuildAttributeKey(ownerKey, PersistenceName);
 
             IsStored = false;
 
-            bool isProperty = Reflection.HasProperty(_baseInstance, _targetName);
-            bool isField = Reflection.HasField(_baseInstance, _targetName);
+            bool isField = Reflection.HasField(_baseInstance, TargetName);
+            bool isProperty = Reflection.HasProperty(_baseInstance, TargetName);
 
             if (isField)
             {
-                _getter = obj => Reflection.GetFieldValue<T>(obj, _targetName);
-                _setter = (obj, value) => Reflection.SetFieldValue(obj, _targetName, value);
+                _getter = obj => Reflection.GetFieldValue<T>(obj, TargetName);
+                _setter = (obj, value) => Reflection.SetFieldValue(obj, TargetName, value);
             }
             else if (isProperty)
             {
-                _getter = obj => Reflection.GetPropertyValue<T>(obj, _targetName);
-                _setter = (obj, value) => Reflection.SetPropertyValue(obj, _targetName, value);
+                _getter = obj => Reflection.GetPropertyValue<T>(obj, TargetName);
+                _setter = (obj, value) => Reflection.SetPropertyValue(obj, TargetName, value);
             }
             else
             {
                 throw new InvalidOperationException(
-                    $"Target '{_targetName}' is neither a field nor a property on type '{_baseInstance.GetType().Name}'."
+                    $"Target '{TargetName}' is neither a field nor a property on '{_baseInstance.GetType().FullName}'."
                 );
             }
 
             if (IsPersistent)
-                MPersistence.Register(this, priority, _serializer?.GetType().FullName);
+                MPersistence.Register(this);
         }
 
-        /// <summary>
-        /// Creates an attribute that stores its value inside itself.
-        /// </summary>
+        // Stored attribute (internal value only)
         public MAttribute(
             object baseInstance,
+            string persistenceName,
             string targetName,
             T initialValue,
             string ownerKey = null,
@@ -96,14 +112,16 @@ namespace Retinues.Model
         )
         {
             _baseInstance = baseInstance ?? throw new ArgumentNullException(nameof(baseInstance));
-            _targetName = targetName ?? throw new ArgumentNullException(nameof(targetName));
+            PersistenceName =
+                persistenceName ?? throw new ArgumentNullException(nameof(persistenceName));
+            TargetName = targetName ?? throw new ArgumentNullException(nameof(targetName));
             _serializer = serializer;
 
             Priority = priority;
 
             OwnerKey = ownerKey;
             IsPersistent = persistent && !string.IsNullOrEmpty(ownerKey);
-            AttributeKey = BuildAttributeKey(ownerKey, _targetName, typeof(T));
+            AttributeKey = BuildAttributeKey(ownerKey, PersistenceName);
 
             _storedValue = initialValue;
             IsStored = true;
@@ -112,16 +130,15 @@ namespace Retinues.Model
             _setter = (_, value) => _storedValue = value;
 
             if (IsPersistent)
-                MPersistence.Register(this, priority, _serializer?.GetType().FullName);
+                MPersistence.Register(this);
         }
 
-        /// <summary>
-        /// Creates an attribute that gets/sets the value using the given delegates.
-        /// </summary>
+        // Delegate attribute (getter/setter provided by wrapper)
         public MAttribute(
             object baseInstance,
             Func<object, T> getter,
             Action<object, T> setter,
+            string persistenceName,
             string targetName = null,
             string ownerKey = null,
             bool persistent = false,
@@ -132,30 +149,48 @@ namespace Retinues.Model
             _baseInstance = baseInstance ?? throw new ArgumentNullException(nameof(baseInstance));
             _getter = getter ?? throw new ArgumentNullException(nameof(getter));
             _setter = setter ?? throw new ArgumentNullException(nameof(setter));
-            _targetName = targetName ?? "<delegate>";
+
+            PersistenceName =
+                persistenceName ?? throw new ArgumentNullException(nameof(persistenceName));
+            TargetName = targetName ?? "<delegate>";
             _serializer = serializer;
 
             Priority = priority;
 
             OwnerKey = ownerKey;
             IsPersistent = persistent && !string.IsNullOrEmpty(ownerKey);
-            AttributeKey = BuildAttributeKey(ownerKey, _targetName, typeof(T));
+            AttributeKey = BuildAttributeKey(ownerKey, PersistenceName);
 
             IsStored = false;
 
             if (IsPersistent)
-                MPersistence.Register(this, priority, _serializer?.GetType().FullName);
+                MPersistence.Register(this);
         }
 
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         API                            //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        public T Get()
+        {
+            return _getter(_baseInstance);
+        }
 
-        public T Get() => _getter(_baseInstance);
+        public void Set(T value)
+        {
+            SetInternal(value, markDirty: true);
+        }
 
-        public void Set(T value) => SetInternal(value, markDirty: true);
+        internal void SetFromPersistence(T value)
+        {
+            SetInternal(value, markDirty: false);
+        }
 
-        internal void SetFromPersistence(T value) => SetInternal(value, markDirty: false);
+        public void Touch()
+        {
+            IsDirty = true;
+
+            if (IsPersistent)
+                MPersistence.MarkDirty(this);
+
+            Log.Info($"Attribute '{AttributeKey}' touched; marking dirty.");
+        }
 
         private void SetInternal(T value, bool markDirty)
         {
@@ -167,10 +202,6 @@ namespace Retinues.Model
             IsDirty = true;
             MPersistence.MarkDirty(this);
         }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                  Persistence plumbing                   //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         string IPersistentAttribute.Serialize()
         {
@@ -185,8 +216,8 @@ namespace Retinues.Model
         {
             if (_serializer != null)
             {
-                var value = _serializer.Deserialize(serialized);
-                SetFromPersistence(value);
+                var v = _serializer.Deserialize(serialized);
+                SetFromPersistence(v);
                 return;
             }
 
@@ -199,12 +230,12 @@ namespace Retinues.Model
             IsDirty = false;
         }
 
-        private static string BuildAttributeKey(string ownerKey, string name, Type type)
+        private static string BuildAttributeKey(string ownerKey, string persistenceName)
         {
             if (string.IsNullOrEmpty(ownerKey))
                 return null;
 
-            return $"{ownerKey}:{name}:{type.FullName}";
+            return $"{ownerKey}:{persistenceName}";
         }
     }
 }

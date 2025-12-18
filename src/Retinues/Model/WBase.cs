@@ -45,30 +45,35 @@ namespace Retinues.Model
             bool persistent = false,
             MPersistencePriority priority = MPersistencePriority.Normal,
             MSerializer<T> serializer = null,
+            string targetName = null,
             [CallerMemberName] string name = null
         )
         {
             name ??= "<unknown>";
+            targetName ??= name;
 
             if (_attributes.TryGetValue(name, out var obj))
             {
-                if (obj is not MAttribute<T> typed)
-                    throw new InvalidOperationException(
-                        $"Attribute '{name}' already exists with a different type ({obj.GetType()})."
-                    );
+                if (obj is MAttribute<T> typed)
+                    return typed;
 
-                return typed;
+                throw new InvalidOperationException(
+                    $"Attribute '{name}' already exists with a different type ({obj.GetType()})."
+                );
             }
 
-            bool hasMember = Reflection.HasField(Base, name) || Reflection.HasProperty(Base, name);
+            bool hasMember =
+                Reflection.HasField(Base, targetName) || Reflection.HasProperty(Base, targetName);
 
             MAttribute<T> attr =
                 hasMember
                     ? new MAttribute<T>(
-                        Base,
-                        name,
+                        baseInstance: Base,
+                        persistenceName: name,
+                        targetName: targetName,
                         ownerKey: PersistenceKey,
                         persistent: persistent,
+                        priority: priority,
                         serializer: serializer
                     )
                 : storedIfMissing
@@ -76,14 +81,15 @@ namespace Retinues.Model
                         baseInstance: Base,
                         getter: _ => MStore.GetOrInit(BuildStoredKey<T>(name), initialValue),
                         setter: (_, value) => MStore.Set(BuildStoredKey<T>(name), value),
-                        targetName: name,
+                        persistenceName: name,
+                        targetName: targetName,
                         ownerKey: PersistenceKey,
                         persistent: persistent,
                         priority: priority,
                         serializer: serializer
                     )
                 : throw new InvalidOperationException(
-                    $"No field or property '{name}' exists on type '{Base.GetType().Name}'."
+                    $"No field or property '{targetName}' exists on type '{Base.GetType().Name}'."
                 );
 
             _attributes[name] = attr;
@@ -157,7 +163,8 @@ namespace Retinues.Model
                 return null;
 
             // Expect concrete wrappers to expose a constructor (TBase baseInstance).
-            return (TWrapper)Activator.CreateInstance(typeof(TWrapper), [baseInstance]);
+            return (TWrapper)
+                Activator.CreateInstance(typeof(TWrapper), new object[] { baseInstance });
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
