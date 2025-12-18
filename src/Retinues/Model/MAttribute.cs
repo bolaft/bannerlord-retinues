@@ -7,6 +7,10 @@ namespace Retinues.Model
     {
         string OwnerKey { get; }
         string AttributeKey { get; }
+
+        bool IsPersistent { get; }
+        bool IsSerializable { get; }
+
         bool IsDirty { get; }
 
         string PersistenceName { get; }
@@ -44,8 +48,9 @@ namespace Retinues.Model
         public string AttributeKey { get; }
 
         public bool IsPersistent { get; }
-        public bool IsDirty { get; private set; }
+        public bool IsSerializable { get; }
 
+        public bool IsDirty { get; private set; }
         public bool IsStored { get; private set; }
 
         bool IPersistentAttribute.IsDirty => IsDirty;
@@ -57,6 +62,7 @@ namespace Retinues.Model
             string targetName,
             string ownerKey = null,
             bool persistent = false,
+            bool serializable = false,
             MPersistencePriority priority = MPersistencePriority.Normal,
             MSerializer<T> serializer = null
         )
@@ -70,8 +76,10 @@ namespace Retinues.Model
             Priority = priority;
 
             OwnerKey = ownerKey;
-            IsPersistent = persistent && !string.IsNullOrEmpty(ownerKey);
             AttributeKey = BuildAttributeKey(ownerKey, PersistenceName);
+
+            IsPersistent = persistent && !string.IsNullOrEmpty(ownerKey);
+            IsSerializable = serializable || IsPersistent;
 
             IsStored = false;
 
@@ -107,6 +115,7 @@ namespace Retinues.Model
             T initialValue,
             string ownerKey = null,
             bool persistent = false,
+            bool serializable = false,
             MPersistencePriority priority = MPersistencePriority.Normal,
             MSerializer<T> serializer = null
         )
@@ -120,8 +129,10 @@ namespace Retinues.Model
             Priority = priority;
 
             OwnerKey = ownerKey;
-            IsPersistent = persistent && !string.IsNullOrEmpty(ownerKey);
             AttributeKey = BuildAttributeKey(ownerKey, PersistenceName);
+
+            IsPersistent = persistent && !string.IsNullOrEmpty(ownerKey);
+            IsSerializable = serializable || IsPersistent;
 
             _storedValue = initialValue;
             IsStored = true;
@@ -142,6 +153,7 @@ namespace Retinues.Model
             string targetName = null,
             string ownerKey = null,
             bool persistent = false,
+            bool serializable = false,
             MPersistencePriority priority = MPersistencePriority.Normal,
             MSerializer<T> serializer = null
         )
@@ -158,8 +170,10 @@ namespace Retinues.Model
             Priority = priority;
 
             OwnerKey = ownerKey;
-            IsPersistent = persistent && !string.IsNullOrEmpty(ownerKey);
             AttributeKey = BuildAttributeKey(ownerKey, PersistenceName);
+
+            IsPersistent = persistent && !string.IsNullOrEmpty(ownerKey);
+            IsSerializable = serializable || IsPersistent;
 
             IsStored = false;
 
@@ -189,7 +203,8 @@ namespace Retinues.Model
             if (IsPersistent)
                 MPersistence.MarkDirty(this);
 
-            Log.Info($"Attribute '{AttributeKey}' touched; marking dirty.");
+            var key = AttributeKey ?? $"{PersistenceName}";
+            Log.Info($"Attribute '{key}' touched; marking dirty.");
         }
 
         private void SetInternal(T value, bool markDirty)

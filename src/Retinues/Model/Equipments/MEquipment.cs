@@ -5,26 +5,23 @@ using TaleWorlds.Core;
 
 namespace Retinues.Model.Equipments
 {
-    public class MEquipment(Equipment @base, WCharacter owner)
-        : MPersistent<Equipment>(@base),
-            IEquatable<MEquipment>
+    public class MEquipment : MBase<Equipment>, IEquatable<MEquipment>
     {
-        /// <summary>
-        /// The owner character of this equipment (for persistence key purposes).
-        /// </summary>
-        readonly WCharacter _owner = owner;
+        readonly WCharacter _owner;
 
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                       Persistence                      //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        public override string PersistenceKey
+        public MEquipment(Equipment @base, WCharacter owner)
+            : base(@base)
         {
-            get
-            {
-                int index = _owner?.Equipments.IndexOf(this) ?? -1;
-                return $"{_owner?.PersistenceKey}:Equipment[{index}]";
-            }
+            _owner = owner;
+
+            // Make sure serializable attributes exist even if nobody accessed the properties yet.
+            EnsureSerializableAttributes();
+        }
+
+        public void EnsureSerializableAttributes()
+        {
+            _ = EquipmentTypeAttribute;
+            _ = CodeAttribute;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -59,19 +56,51 @@ namespace Retinues.Model.Equipments
         //                          Code                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public string Code => Base.CalculateEquipmentCode();
+        public string Code => CodeAttribute.Get();
+
+        MAttribute<string> CodeAttribute =>
+            Attribute(
+                getter: _ => Base.CalculateEquipmentCode(),
+                setter: (_, code) =>
+                {
+                    if (string.IsNullOrEmpty(code))
+                        return;
+
+                    var src = Equipment.CreateFromEquipmentCode(code);
+                    if (src == null)
+                        return;
+
+                    // Copy all slots defensively (Bannerlord versions differ a bit).
+                    foreach (EquipmentIndex idx in Enum.GetValues(typeof(EquipmentIndex)))
+                    {
+                        try
+                        {
+                            var element = src[idx];
+                            Base[idx] = element;
+                        }
+                        catch { }
+                    }
+                    _owner?.TouchEquipments();
+                },
+                serializable: true,
+                targetName: "Code"
+            );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Type                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         MAttribute<Equipment.EquipmentType> EquipmentTypeAttribute =>
-            Attribute<Equipment.EquipmentType>("_equipmentType");
+            Attribute<Equipment.EquipmentType>("_equipmentType", serializable: true);
 
         public Equipment.EquipmentType EquipmentType
         {
             get => EquipmentTypeAttribute.Get();
-            set => EquipmentTypeAttribute.Set(value);
+            set
+            {
+                EquipmentTypeAttribute.Set(value);
+                _owner?.TouchEquipments();
+            }
         }
 
         public bool IsCivilian
@@ -98,6 +127,8 @@ namespace Retinues.Model.Equipments
         {
             var element = item == null ? EquipmentElement.Invalid : new EquipmentElement(item.Base);
             Base[index] = element;
+
+            _owner?.TouchEquipments();
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

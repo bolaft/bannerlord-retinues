@@ -168,6 +168,7 @@ namespace Retinues.Model.Characters
                     Nodes.Clear();
                     Trees.Clear();
                     _initialized = false;
+                    _building = false;
                 }
             }
 

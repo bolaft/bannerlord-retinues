@@ -30,10 +30,12 @@ namespace Retinues.Model
 
         /// <summary>
         /// Gets or creates an attribute that targets a field/property on the underlying base instance.
+        /// Persistence uses the wrapper property name.
         /// </summary>
         protected MAttribute<T> Attribute<T>(
             string targetName,
             bool persistent = false,
+            bool serializable = false,
             MPersistencePriority priority = MPersistencePriority.Normal,
             MSerializer<T> serializer = null,
             [CallerMemberName] string name = null
@@ -44,12 +46,14 @@ namespace Retinues.Model
             if (!_attributes.TryGetValue(name, out var obj))
             {
                 var ownerKey = (this as IPersistent)?.PersistenceKey;
+
                 var attr = new MAttribute<T>(
                     baseInstance: Base,
                     persistenceName: name,
                     targetName: targetName,
                     ownerKey: ownerKey,
                     persistent: persistent,
+                    serializable: serializable,
                     priority: priority,
                     serializer: serializer
                 );
@@ -73,6 +77,7 @@ namespace Retinues.Model
         protected MAttribute<TProp> Attribute<TProp>(
             Expression<Func<TBase, TProp>> expr,
             bool persistent = false,
+            bool serializable = false,
             MPersistencePriority priority = MPersistencePriority.Normal,
             MSerializer<TProp> serializer = null,
             [CallerMemberName] string name = null
@@ -145,6 +150,7 @@ namespace Retinues.Model
                 targetName: targetName,
                 ownerKey: ownerKey,
                 persistent: persistent,
+                serializable: serializable,
                 priority: priority,
                 serializer: serializer
             );
@@ -161,6 +167,7 @@ namespace Retinues.Model
             Func<object, T> getter,
             Action<object, T> setter,
             bool persistent = false,
+            bool serializable = false,
             MPersistencePriority priority = MPersistencePriority.Normal,
             MSerializer<T> serializer = null,
             string targetName = null,
@@ -190,12 +197,76 @@ namespace Retinues.Model
                 targetName: targetName,
                 ownerKey: ownerKey,
                 persistent: persistent,
+                serializable: serializable,
                 priority: priority,
                 serializer: serializer
             );
 
             _attributes[name] = attr;
             return attr;
+        }
+
+        /// <summary>
+        /// Serializes this instance into an XML dictionary (name -> payload).
+        /// Only includes attributes with IsSerializable=true unless includeNonSerializable=true.
+        /// </summary>
+        public string Serialize(bool includeNonSerializable = false)
+        {
+            var data = new Dictionary<string, string>(StringComparer.Ordinal);
+
+            foreach (var kvp in _attributes)
+            {
+                var name = kvp.Key;
+                var obj = kvp.Value;
+
+                if (obj is not IPersistentAttribute attr)
+                    continue;
+
+                if (!includeNonSerializable && !attr.IsSerializable)
+                    continue;
+
+                // Payload only (no pv envelope).
+                data[name] = attr.Serialize();
+            }
+
+            return Serialization.SerializeDictionary(data);
+        }
+
+        /// <summary>
+        /// Deserializes an XML dictionary produced by Serialize().
+        /// Only applies attributes with IsSerializable=true.
+        /// </summary>
+        public void Deserialize(string xml, bool clearDirty = true)
+        {
+            if (string.IsNullOrWhiteSpace(xml))
+                return;
+
+            var data = Serialization.DeserializeDictionary(xml);
+            if (data == null || data.Count == 0)
+                return;
+
+            using (MPersistence.BeginApplying())
+            {
+                foreach (var kvp in data)
+                {
+                    var name = kvp.Key;
+                    var payload = kvp.Value;
+
+                    if (!_attributes.TryGetValue(name, out var obj))
+                        continue;
+
+                    if (obj is not IPersistentAttribute attr)
+                        continue;
+
+                    if (!attr.IsSerializable)
+                        continue;
+
+                    attr.ApplySerialized(payload);
+
+                    if (clearDirty)
+                        attr.ClearDirty();
+                }
+            }
         }
     }
 }

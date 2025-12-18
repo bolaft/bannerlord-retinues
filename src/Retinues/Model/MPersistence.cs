@@ -21,9 +21,6 @@ namespace Retinues.Model
     internal static class MPersistence
     {
         private static readonly object Sync = new();
-        private static bool _eagerApplied;
-        private static readonly HashSet<string> _appliedKeys = new();
-        public static bool IsApplying { get; private set; }
 
         private static Dictionary<string, string> _store = new(StringComparer.Ordinal);
 
@@ -33,6 +30,12 @@ namespace Retinues.Model
 
         private static readonly HashSet<string> _dirtyAttributeKeys = new(StringComparer.Ordinal);
         private static readonly HashSet<string> _dirtyOwnerKeys = new(StringComparer.Ordinal);
+
+        private static bool _eagerApplied;
+        private static readonly HashSet<string> _appliedKeys = new(StringComparer.Ordinal);
+
+        private static int _applyDepth;
+        public static bool IsApplying { get; private set; }
 
         // pv2|prioInt|serializerType|valueType|payload
         private const string EnvelopePrefix = "pv2|";
@@ -50,7 +53,12 @@ namespace Retinues.Model
                 _registered.Clear();
                 _dirtyAttributeKeys.Clear();
                 _dirtyOwnerKeys.Clear();
+
+                _appliedKeys.Clear();
                 _eagerApplied = false;
+
+                _applyDepth = 0;
+                IsApplying = false;
             }
         }
 
@@ -67,6 +75,32 @@ namespace Retinues.Model
         {
             lock (Sync)
                 return _store;
+        }
+
+        public static IDisposable BeginApplying()
+        {
+            lock (Sync)
+            {
+                _applyDepth++;
+                IsApplying = true;
+            }
+
+            return new ApplyScope();
+        }
+
+        private sealed class ApplyScope : IDisposable
+        {
+            public void Dispose()
+            {
+                lock (Sync)
+                {
+                    if (_applyDepth > 0)
+                        _applyDepth--;
+
+                    if (_applyDepth == 0)
+                        IsApplying = false;
+                }
+            }
         }
 
         public static void Register(IPersistentAttribute attr)
@@ -144,6 +178,11 @@ namespace Retinues.Model
             if (attr == null || string.IsNullOrEmpty(attr.AttributeKey))
                 return;
 
+            // Important: avoid cascading dirties while we are applying persisted values.
+            // (Some setters touch other attributes as part of internal consistency).
+            if (IsApplying)
+                return;
+
             lock (Sync)
             {
                 _dirtyAttributeKeys.Add(attr.AttributeKey);
@@ -219,8 +258,7 @@ namespace Retinues.Model
         /// </summary>
         public static void ApplyLoadedEager()
         {
-            IsApplying = true;
-            try
+            using (BeginApplying())
             {
                 List<PersistedEntry> entries;
                 lock (Sync)
@@ -294,11 +332,9 @@ namespace Retinues.Model
                         Log.Exception(ex, $"Persist.ApplyEager failed: {e.Key}");
                     }
                 }
-            }
-            finally
-            {
-                IsApplying = false;
-                _eagerApplied = true;
+
+                lock (Sync)
+                    _eagerApplied = true;
             }
         }
 
@@ -320,38 +356,41 @@ namespace Retinues.Model
                 }
             }
 
-            foreach (var (attr, raw) in pairs)
+            using (BeginApplying())
             {
-                if (
-                    !TryUnpack(
-                        raw,
-                        out var prio,
-                        out var serializerType,
-                        out var valueType,
-                        out var payload
+                foreach (var (attr, raw) in pairs)
+                {
+                    if (
+                        !TryUnpack(
+                            raw,
+                            out var prio,
+                            out var serializerType,
+                            out var valueType,
+                            out var payload
+                        )
                     )
-                )
-                {
-                    Log.Warn(
-                        $"Persist.Apply(Lazy): invalid envelope for '{attr.AttributeKey}', skipping."
-                    );
-                    continue;
-                }
+                    {
+                        Log.Warn(
+                            $"Persist.Apply(Lazy): invalid envelope for '{attr.AttributeKey}', skipping."
+                        );
+                        continue;
+                    }
 
-                if (!CanApplyType(attr, valueType))
-                {
-                    Log.Warn(
-                        $"Persist.Apply(Lazy): type mismatch for {attr.AttributeKey}. store={valueType ?? "-"}, attr={attr.ValueTypeName ?? "-"}; skipping."
-                    );
-                    continue;
-                }
+                    if (!CanApplyType(attr, valueType))
+                    {
+                        Log.Warn(
+                            $"Persist.Apply(Lazy): type mismatch for {attr.AttributeKey}. store={valueType ?? "-"}, attr={attr.ValueTypeName ?? "-"}; skipping."
+                        );
+                        continue;
+                    }
 
-                TryApply_NoThrow(
-                    attr,
-                    payload,
-                    $"Lazy(prio={prio}, ser={serializerType ?? "-"}, type={valueType ?? "-"})"
-                );
-                attr.ClearDirty();
+                    TryApply_NoThrow(
+                        attr,
+                        payload,
+                        $"Lazy(prio={prio}, ser={serializerType ?? "-"}, type={valueType ?? "-"})"
+                    );
+                    attr.ClearDirty();
+                }
             }
         }
 
@@ -415,8 +454,11 @@ namespace Retinues.Model
                 return;
             }
 
-            if (_appliedKeys.Contains(e.Key))
-                return;
+            lock (Sync)
+            {
+                if (_appliedKeys.Contains(e.Key))
+                    return;
+            }
 
             if (
                 !TryApply_NoThrow(
@@ -427,7 +469,9 @@ namespace Retinues.Model
             )
                 return;
 
-            _appliedKeys.Add(e.Key);
+            lock (Sync)
+                _appliedKeys.Add(e.Key);
+
             attr.ClearDirty();
         }
 
@@ -439,7 +483,11 @@ namespace Retinues.Model
         {
             try
             {
-                attr.ApplySerialized(payload);
+                using (BeginApplying())
+                {
+                    attr.ApplySerialized(payload);
+                }
+
                 Log.Info($"Persist.Apply: {attr.AttributeKey} [{context}] = {payload}");
                 return true;
             }
@@ -464,7 +512,7 @@ namespace Retinues.Model
             if (string.IsNullOrEmpty(key))
                 return false;
 
-            // New format: <WrapperTypeFullName>:<StringId>:<AttributePropertyName>
+            // <WrapperTypeFullName>:<StringId>:<AttributePropertyName>
             var parts = key.Split(new[] { ':' }, 3);
             if (parts.Length != 3)
                 return false;

@@ -34,5 +34,18 @@ namespace Retinues.Model.Characters
         }
 
         public List<MEquipment> Equipments => EquipmentRoster.Equipments;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Persistence                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        MAttribute<string> EquipmentRosterSerializedAttribute =>
+            Attribute(
+                getter: _ => EquipmentRoster.Serialize(),
+                setter: (_, s) => EquipmentRoster.Deserialize(s),
+                persistent: true
+            );
+
+        internal void TouchEquipments() => EquipmentRosterSerializedAttribute.Touch();
     }
 }
