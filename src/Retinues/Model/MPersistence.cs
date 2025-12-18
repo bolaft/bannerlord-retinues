@@ -22,6 +22,8 @@ namespace Retinues.Model
     {
         private static readonly object Sync = new();
         private static bool _eagerApplied;
+        private static readonly HashSet<string> _appliedKeys = new();
+        public static bool IsApplying { get; private set; }
 
         private static Dictionary<string, string> _store = new(StringComparer.Ordinal);
 
@@ -76,8 +78,12 @@ namespace Retinues.Model
             {
                 _registered[attr.AttributeKey] = attr;
 
-                // After eager pass, allow late-registration catch-up.
+                // Do NOT apply here before eager pass (priority ordering).
                 if (!_eagerApplied)
+                    return;
+
+                // Late-registration catch-up should NOT re-apply keys already applied by eager pass.
+                if (_appliedKeys.Contains(attr.AttributeKey))
                     return;
 
                 if (!_store.TryGetValue(attr.AttributeKey, out var raw))
@@ -107,11 +113,16 @@ namespace Retinues.Model
                     return;
                 }
 
-                TryApply_NoThrow(
-                    attr,
-                    payload,
-                    $"LateRegister(prio={prio}, ser={serializerType ?? "-"}, type={valueType ?? "-"})"
-                );
+                if (
+                    !TryApply_NoThrow(
+                        attr,
+                        payload,
+                        $"LateRegister(prio={prio}, ser={serializerType ?? "-"}, type={valueType ?? "-"})"
+                    )
+                )
+                    return;
+
+                _appliedKeys.Add(attr.AttributeKey);
                 attr.ClearDirty();
             }
         }
@@ -208,78 +219,87 @@ namespace Retinues.Model
         /// </summary>
         public static void ApplyLoadedEager()
         {
-            List<PersistedEntry> entries;
-            lock (Sync)
+            IsApplying = true;
+            try
             {
-                entries = new List<PersistedEntry>(_store.Count);
-
-                foreach (var kv in _store)
+                List<PersistedEntry> entries;
+                lock (Sync)
                 {
-                    if (
-                        !TryParseKey(
-                            kv.Key,
-                            out var wrapperTypeName,
-                            out var stringId,
-                            out var attrName
-                        )
-                    )
-                        continue;
+                    entries = new List<PersistedEntry>(_store.Count);
 
-                    if (
-                        !TryUnpack(
-                            kv.Value,
-                            out var prio,
-                            out var serializerType,
-                            out var valueType,
-                            out var payload
-                        )
-                    )
+                    foreach (var kv in _store)
                     {
-                        Log.Warn($"Persist.ApplyEager: invalid envelope for '{kv.Key}', skipping.");
-                        continue;
-                    }
+                        if (
+                            !TryParseKey(
+                                kv.Key,
+                                out var wrapperTypeName,
+                                out var stringId,
+                                out var attrName
+                            )
+                        )
+                            continue;
 
-                    entries.Add(
-                        new PersistedEntry
+                        if (
+                            !TryUnpack(
+                                kv.Value,
+                                out var prio,
+                                out var serializerType,
+                                out var valueType,
+                                out var payload
+                            )
+                        )
                         {
-                            Key = kv.Key,
-                            WrapperTypeName = wrapperTypeName,
-                            StringId = stringId,
-                            AttributeName = attrName,
-                            Priority = prio,
-                            SerializerTypeName = serializerType,
-                            ValueTypeName = valueType,
-                            Payload = payload,
+                            Log.Warn(
+                                $"Persist.ApplyEager: invalid envelope for '{kv.Key}', skipping."
+                            );
+                            continue;
                         }
-                    );
+
+                        entries.Add(
+                            new PersistedEntry
+                            {
+                                Key = kv.Key,
+                                WrapperTypeName = wrapperTypeName,
+                                StringId = stringId,
+                                AttributeName = attrName,
+                                Priority = prio,
+                                SerializerTypeName = serializerType,
+                                ValueTypeName = valueType,
+                                Payload = payload,
+                            }
+                        );
+                    }
+                }
+
+                entries.Sort(
+                    (a, b) =>
+                    {
+                        var c = a.Priority.CompareTo(b.Priority);
+                        if (c != 0)
+                            return c;
+                        return string.CompareOrdinal(a.Key, b.Key);
+                    }
+                );
+
+                Log.Info($"Persist.ApplyEager: applying {entries.Count} entries...");
+
+                foreach (var e in entries)
+                {
+                    try
+                    {
+                        ApplyEntryEager(e);
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Exception(ex, $"Persist.ApplyEager failed: {e.Key}");
+                    }
                 }
             }
-
-            entries.Sort(
-                (a, b) =>
-                {
-                    var c = a.Priority.CompareTo(b.Priority);
-                    if (c != 0)
-                        return c;
-                    return string.CompareOrdinal(a.Key, b.Key);
-                }
-            );
-
-            Log.Info($"Persist.ApplyEager: applying {entries.Count} entries...");
-
-            foreach (var e in entries)
+            finally
             {
-                try
-                {
-                    ApplyEntryEager(e);
-                }
-                catch (Exception ex)
-                {
-                    Log.Exception(ex, $"Persist.ApplyEager failed: {e.Key}");
-                }
+                IsApplying = false;
+                _eagerApplied = true;
             }
-
-            _eagerApplied = true;
         }
 
         /// <summary>
@@ -395,15 +415,23 @@ namespace Retinues.Model
                 return;
             }
 
-            TryApply_NoThrow(
-                attr,
-                e.Payload,
-                $"Eager(prio={e.Priority}, ser={e.SerializerTypeName ?? "-"}, type={e.ValueTypeName ?? "-"})"
-            );
+            if (_appliedKeys.Contains(e.Key))
+                return;
+
+            if (
+                !TryApply_NoThrow(
+                    attr,
+                    e.Payload,
+                    $"Eager(prio={e.Priority}, ser={e.SerializerTypeName ?? "-"}, type={e.ValueTypeName ?? "-"})"
+                )
+            )
+                return;
+
+            _appliedKeys.Add(e.Key);
             attr.ClearDirty();
         }
 
-        private static void TryApply_NoThrow(
+        private static bool TryApply_NoThrow(
             IPersistentAttribute attr,
             string payload,
             string context
@@ -413,10 +441,12 @@ namespace Retinues.Model
             {
                 attr.ApplySerialized(payload);
                 Log.Info($"Persist.Apply: {attr.AttributeKey} [{context}] = {payload}");
+                return true;
             }
             catch (Exception e)
             {
                 Log.Exception(e, $"Persist.Apply failed: {attr.AttributeKey} [{context}]");
+                return false;
             }
         }
 

@@ -76,6 +76,7 @@ namespace Retinues.Model.Characters
                 _wc.Attribute(
                     getter: _ => _wc.Base.GetSkillValue(skill),
                     setter: (_, value) => SetSkill(skill, value),
+                    persistent: true,
                     name: $"Skill_{skill.StringId}"
                 );
 

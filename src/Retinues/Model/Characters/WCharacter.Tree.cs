@@ -17,18 +17,30 @@ namespace Retinues.Model.Characters
                 setter: (_, list) =>
                 {
                     // Convert to array.
-                    var array = (list ?? []).Select(w => w?.Base).ToArray();
+                    var array = (list ?? []).Select(w => w?.Base).Where(b => b != null).ToArray();
 
                     // Apply to base.
                     Reflection.SetPropertyValue(Base, "UpgradeTargets", array);
 
-                    // Keep hierarchy cache in sync whenever targets change.
-                    CharacterTreeCacheHelper.RecomputeForRoot(Root);
-
                     // Invalidate related caches.
                     InvalidateTroopSourceFlagsCache();
                     InvalidateTroopFactionsCache();
-                }
+
+                    // IMPORTANT:
+                    // Do NOT rebuild the hierarchy cache while persistence is applying or while the cache
+                    // helper is building; that can recurse (cache build calls UpgradeTargets, which triggers
+                    // persistence late-apply, which calls this setter again).
+                    if (MPersistence.IsApplying || CharacterTreeCacheHelper.IsBuilding)
+                    {
+                        CharacterTreeCacheHelper.MarkDirty();
+                        return;
+                    }
+
+                    // Outside persistence/apply, it's safe to refresh.
+                    // Simplest robust choice: rebuild everything (you can optimize later).
+                    CharacterTreeCacheHelper.RebuildAll();
+                },
+                persistent: true
             );
 
         public List<WCharacter> UpgradeTargets
@@ -109,11 +121,22 @@ namespace Retinues.Model.Characters
             }
 
             private static readonly Dictionary<WCharacter, Node> Nodes = [];
-
             private static readonly Dictionary<WCharacter, List<WCharacter>> Trees = [];
 
             private static readonly object Sync = new();
             private static bool _initialized;
+            private static bool _building;
+            public static bool IsBuilding => _building;
+
+            public static void MarkDirty()
+            {
+                lock (Sync)
+                {
+                    _initialized = false;
+                    Nodes.Clear();
+                    Trees.Clear();
+                }
+            }
 
             // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
             //                     Initialization                     //
@@ -166,60 +189,68 @@ namespace Retinues.Model.Characters
             /// </summary>
             private static void RebuildAllInternal()
             {
-                Nodes.Clear();
-                Trees.Clear();
-
-                // Materialize once so we do not enumerate WCharacter.All multiple times.
-                var all = new List<WCharacter>();
-                foreach (var troop in WCharacter.All)
+                _building = true;
+                try
                 {
-                    if (troop == null)
-                        continue;
+                    Nodes.Clear();
+                    Trees.Clear();
 
-                    all.Add(troop);
-                    GetOrCreateNode(troop);
-                }
-
-                // Build reverse edges (UpgradeSources).
-                for (int i = 0; i < all.Count; i++)
-                {
-                    var troop = all[i];
-                    var targets = troop.UpgradeTargets;
-                    if (targets == null || targets.Count == 0)
-                        continue;
-
-                    for (int j = 0; j < targets.Count; j++)
+                    // Materialize once so we do not enumerate WCharacter.All multiple times.
+                    var all = new List<WCharacter>();
+                    foreach (var troop in All)
                     {
-                        var target = targets[j];
-                        if (target == null)
+                        if (troop == null)
                             continue;
 
-                        var targetNode = GetOrCreateNode(target);
-                        targetNode.Sources.Add(troop);
+                        all.Add(troop);
+                        GetOrCreateNode(troop);
+                    }
+
+                    // Build reverse edges (UpgradeSources).
+                    for (int i = 0; i < all.Count; i++)
+                    {
+                        var troop = all[i];
+                        var targets = troop.UpgradeTargets;
+                        if (targets == null || targets.Count == 0)
+                            continue;
+
+                        for (int j = 0; j < targets.Count; j++)
+                        {
+                            var target = targets[j];
+                            if (target == null)
+                                continue;
+
+                            var targetNode = GetOrCreateNode(target);
+                            targetNode.Sources.Add(troop);
+                        }
+                    }
+
+                    // Assign roots and depths via DFS starting from nodes with no sources.
+                    var visited = new HashSet<WCharacter>();
+                    foreach (var pair in Nodes)
+                    {
+                        var troop = pair.Key;
+                        var node = pair.Value;
+
+                        if (node.Sources.Count == 0)
+                        {
+                            AssignTree(troop, troop, 0, visited);
+                        }
+                    }
+
+                    // Fallback for nodes in cycles or components without a clear source free root.
+                    foreach (var pair in Nodes)
+                    {
+                        var troop = pair.Key;
+                        if (!visited.Contains(troop))
+                        {
+                            AssignTree(troop, troop, 0, visited);
+                        }
                     }
                 }
-
-                // Assign roots and depths via DFS starting from nodes with no sources.
-                var visited = new HashSet<WCharacter>();
-                foreach (var pair in Nodes)
+                finally
                 {
-                    var troop = pair.Key;
-                    var node = pair.Value;
-
-                    if (node.Sources.Count == 0)
-                    {
-                        AssignTree(troop, troop, 0, visited);
-                    }
-                }
-
-                // Fallback for nodes in cycles or components without a clear source free root.
-                foreach (var pair in Nodes)
-                {
-                    var troop = pair.Key;
-                    if (!visited.Contains(troop))
-                    {
-                        AssignTree(troop, troop, 0, visited);
-                    }
+                    _building = false;
                 }
             }
 
@@ -411,165 +442,176 @@ namespace Retinues.Model.Characters
                 // Make sure we have an initial global map.
                 InitializeIfNeeded();
 
-                lock (Sync)
+                _building = true;
+                try
                 {
-                    // 1) Snapshot the old tree for this root
-
-                    List<WCharacter> oldTree = [];
-                    if (Trees.TryGetValue(root, out var existingTree) && existingTree != null)
+                    lock (Sync)
                     {
-                        oldTree = [.. existingTree];
-                    }
+                        // 1) Snapshot the old tree for this root
 
-                    var oldTreeSet = new HashSet<WCharacter>(oldTree);
-
-                    // 2) Discover the new tree from this root (current data)
-
-                    var visited = new HashSet<WCharacter>();
-                    var newTreeList = new List<WCharacter>();
-                    var newTreeSet = new HashSet<WCharacter>();
-                    var depthMap = new Dictionary<WCharacter, int>();
-                    var newSourcesMap = new Dictionary<WCharacter, List<WCharacter>>();
-
-                    void EnsureSourceList(WCharacter troop)
-                    {
-                        if (!newSourcesMap.TryGetValue(troop, out var list))
+                        List<WCharacter> oldTree = [];
+                        if (Trees.TryGetValue(root, out var existingTree) && existingTree != null)
                         {
-                            list = new List<WCharacter>();
-                            newSourcesMap.Add(troop, list);
+                            oldTree = [.. existingTree];
                         }
-                    }
 
-                    void Dfs(WCharacter current, int depth)
-                    {
-                        if (current == null)
-                            return;
+                        var oldTreeSet = new HashSet<WCharacter>(oldTree);
 
-                        if (!visited.Add(current))
-                            return;
+                        // 2) Discover the new tree from this root (current data)
 
-                        depthMap[current] = depth;
-                        newTreeList.Add(current);
-                        newTreeSet.Add(current);
+                        var visited = new HashSet<WCharacter>();
+                        var newTreeList = new List<WCharacter>();
+                        var newTreeSet = new HashSet<WCharacter>();
+                        var depthMap = new Dictionary<WCharacter, int>();
+                        var newSourcesMap = new Dictionary<WCharacter, List<WCharacter>>();
 
-                        EnsureSourceList(current);
-
-                        var targets = current.UpgradeTargets;
-                        if (targets == null || targets.Count == 0)
-                            return;
-
-                        for (int i = 0; i < targets.Count; i++)
+                        void EnsureSourceList(WCharacter troop)
                         {
-                            var target = targets[i];
-                            if (target == null)
-                                continue;
-
-                            EnsureSourceList(target);
-                            newSourcesMap[target].Add(current);
-
-                            Dfs(target, depth + 1);
-                        }
-                    }
-
-                    Dfs(root, 0);
-
-                    // 3) Add sources from outside this tree
-                    // (so UpgradeSources sees cross-tree parents too)
-
-                    foreach (var candidate in WCharacter.All)
-                    {
-                        if (candidate == null)
-                            continue;
-
-                        var targets = candidate.UpgradeTargets;
-                        if (targets == null || targets.Count == 0)
-                            continue;
-
-                        for (int i = 0; i < targets.Count; i++)
-                        {
-                            var target = targets[i];
-                            if (target == null)
-                                continue;
-
-                            if (!newTreeSet.Contains(target))
-                                continue;
-
-                            EnsureSourceList(target);
-
-                            var list = newSourcesMap[target];
-                            // Avoid duplicates if candidate is also inside the DFS tree.
-                            var already = false;
-                            for (int j = 0; j < list.Count; j++)
+                            if (!newSourcesMap.TryGetValue(troop, out var list))
                             {
-                                if (list[j] == candidate)
+                                list = new List<WCharacter>();
+                                newSourcesMap.Add(troop, list);
+                            }
+                        }
+
+                        void Dfs(WCharacter current, int depth)
+                        {
+                            if (current == null)
+                                return;
+
+                            if (!visited.Add(current))
+                                return;
+
+                            depthMap[current] = depth;
+                            newTreeList.Add(current);
+                            newTreeSet.Add(current);
+
+                            EnsureSourceList(current);
+
+                            var targets = current.UpgradeTargets;
+                            if (targets == null || targets.Count == 0)
+                                return;
+
+                            for (int i = 0; i < targets.Count; i++)
+                            {
+                                var target = targets[i];
+                                if (target == null)
+                                    continue;
+
+                                EnsureSourceList(target);
+                                newSourcesMap[target].Add(current);
+
+                                Dfs(target, depth + 1);
+                            }
+                        }
+
+                        Dfs(root, 0);
+
+                        // 3) Add sources from outside this tree
+                        // (so UpgradeSources sees cross-tree parents too)
+
+                        foreach (var candidate in All)
+                        {
+                            if (candidate == null)
+                                continue;
+
+                            var targets = candidate.UpgradeTargets;
+                            if (targets == null || targets.Count == 0)
+                                continue;
+
+                            for (int i = 0; i < targets.Count; i++)
+                            {
+                                var target = targets[i];
+                                if (target == null)
+                                    continue;
+
+                                if (!newTreeSet.Contains(target))
+                                    continue;
+
+                                EnsureSourceList(target);
+
+                                var list = newSourcesMap[target];
+                                // Avoid duplicates if candidate is also inside the DFS tree.
+                                var already = false;
+                                for (int j = 0; j < list.Count; j++)
                                 {
-                                    already = true;
-                                    break;
+                                    if (list[j] == candidate)
+                                    {
+                                        already = true;
+                                        break;
+                                    }
+                                }
+
+                                if (!already)
+                                    list.Add(candidate);
+                            }
+                        }
+
+                        // 4) Clear nodes that used to be in this root's tree
+                        // but are no longer reachable from it
+
+                        foreach (var troop in oldTreeSet)
+                        {
+                            if (troop == null || newTreeSet.Contains(troop))
+                                continue;
+
+                            if (!Nodes.TryGetValue(troop, out var node))
+                                continue;
+
+                            if (node.Root == root)
+                            {
+                                node.Root = null;
+                                node.Depth = 0;
+                                node.Sources.Clear();
+                            }
+                        }
+
+                        // 5) Update nodes for all troops in the new tree
+
+                        foreach (var troop in newTreeList)
+                        {
+                            var node = GetOrCreateNode(troop);
+
+                            // If this troop used to belong to another root's tree,
+                            // remove it from that tree list.
+                            var previousRoot = node.Root;
+                            if (previousRoot != null && previousRoot != root)
+                            {
+                                if (
+                                    Trees.TryGetValue(previousRoot, out var prevTree)
+                                    && prevTree != null
+                                )
+                                {
+                                    prevTree.Remove(troop);
                                 }
                             }
 
-                            if (!already)
-                                list.Add(candidate);
-                        }
-                    }
+                            node.Root = root;
+                            node.Depth = depthMap.TryGetValue(troop, out var d) ? d : 0;
 
-                    // 4) Clear nodes that used to be in this root's tree
-                    // but are no longer reachable from it
-
-                    foreach (var troop in oldTreeSet)
-                    {
-                        if (troop == null || newTreeSet.Contains(troop))
-                            continue;
-
-                        if (!Nodes.TryGetValue(troop, out var node))
-                            continue;
-
-                        if (node.Root == root)
-                        {
-                            node.Root = null;
-                            node.Depth = 0;
                             node.Sources.Clear();
-                        }
-                    }
-
-                    // 5) Update nodes for all troops in the new tree
-
-                    foreach (var troop in newTreeList)
-                    {
-                        var node = GetOrCreateNode(troop);
-
-                        // If this troop used to belong to another root's tree,
-                        // remove it from that tree list.
-                        var previousRoot = node.Root;
-                        if (previousRoot != null && previousRoot != root)
-                        {
                             if (
-                                Trees.TryGetValue(previousRoot, out var prevTree)
-                                && prevTree != null
+                                newSourcesMap.TryGetValue(troop, out var sources)
+                                && sources != null
                             )
                             {
-                                prevTree.Remove(troop);
+                                for (int i = 0; i < sources.Count; i++)
+                                {
+                                    var src = sources[i];
+                                    if (src != null)
+                                        node.Sources.Add(src);
+                                }
                             }
                         }
 
-                        node.Root = root;
-                        node.Depth = depthMap.TryGetValue(troop, out var d) ? d : 0;
+                        // 6) Replace the tree list for this root
 
-                        node.Sources.Clear();
-                        if (newSourcesMap.TryGetValue(troop, out var sources) && sources != null)
-                        {
-                            for (int i = 0; i < sources.Count; i++)
-                            {
-                                var src = sources[i];
-                                if (src != null)
-                                    node.Sources.Add(src);
-                            }
-                        }
+                        Trees[root] = newTreeList;
                     }
-
-                    // 6) Replace the tree list for this root
-
-                    Trees[root] = newTreeList;
+                }
+                finally
+                {
+                    _building = false;
                 }
             }
         }
