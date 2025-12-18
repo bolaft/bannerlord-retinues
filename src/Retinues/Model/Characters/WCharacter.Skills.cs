@@ -11,7 +11,7 @@ namespace Retinues.Model.Characters
         //                      Skill Points                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        MAttribute<int> SkillPointsAttribute => Attribute(initialValue: 0);
+        MAttribute<int> SkillPointsAttribute => Attribute(initialValue: 0, persistent: true);
 
         public int SkillPoints
         {

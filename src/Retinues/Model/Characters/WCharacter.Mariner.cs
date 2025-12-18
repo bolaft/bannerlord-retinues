@@ -15,7 +15,8 @@ namespace Retinues.Model.Characters
         MAttribute<bool> IsMarinerAttribute =>
             Attribute(
                 getter: _ => NavalTraitHelper.GetMarinerLevel(Base) > 0,
-                setter: (_, value) => NavalTraitHelper.SetMarinerLevel(Base, value ? 1 : 0)
+                setter: (_, value) => NavalTraitHelper.SetMarinerLevel(Base, value ? 1 : 0),
+                persistent: true
             );
 
         public bool IsMariner

@@ -13,32 +13,47 @@ namespace Retinues.Model.Characters
 
         /* ━━━━━━━━ Gender ━━━━━━━━ */
 
-        MAttribute<bool> IsFemaleAttribute => Attribute<bool>(nameof(CharacterObject.IsFemale));
+        MAttribute<bool> IsFemaleAttribute =>
+            Attribute<bool>(nameof(CharacterObject.IsFemale), persistent: true);
 
         public bool IsFemale
         {
             get => IsFemaleAttribute.Get();
-            set => IsFemaleAttribute.Set(value);
+            set
+            {
+                IsFemaleAttribute.Set(value);
+                BodySerializedAttribute.Touch();
+            }
         }
 
         /* ━━━━━━━━━ Race ━━━━━━━━━ */
 
-        MAttribute<int> RaceAttribute => Attribute<int>(nameof(CharacterObject.Race));
+        MAttribute<int> RaceAttribute =>
+            Attribute<int>(nameof(CharacterObject.Race), persistent: true);
 
         public int Race
         {
             get => RaceAttribute.Get();
-            set => RaceAttribute.Set(value);
+            set
+            {
+                RaceAttribute.Set(value);
+                BodySerializedAttribute.Touch();
+            }
         }
 
         /* ━━━━━━━━━━ Age ━━━━━━━━━ */
 
-        MAttribute<float> AgeAttribute => Attribute<float>(nameof(CharacterObject.Age));
+        MAttribute<float> AgeAttribute =>
+            Attribute<float>(nameof(CharacterObject.Age), persistent: true);
 
         public float Age
         {
             get => AgeAttribute.Get();
-            set => AgeAttribute.Set(value);
+            set
+            {
+                AgeAttribute.Set(value);
+                BodySerializedAttribute.Touch();
+            }
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -47,6 +62,8 @@ namespace Retinues.Model.Characters
 
         public bool ApplyCultureBodyPropertiesForRace(int race)
         {
+            BodySerializedAttribute.Touch();
+
             var template = FindTemplateForRace(race);
 
             if (template == null)
@@ -123,6 +140,8 @@ namespace Retinues.Model.Characters
 
         public void ApplyCultureBodyProperties()
         {
+            BodySerializedAttribute.Touch();
+
             var template = Culture.RootBasic ?? Culture.RootElite;
 
             if (template?.IsFemale != IsFemale)
@@ -243,13 +262,21 @@ namespace Retinues.Model.Characters
         public float HeightMin
         {
             get => ReadHeight(minEnd: true);
-            set => SetHeightEnd(minEnd: true, value01: value);
+            set
+            {
+                SetHeightEnd(minEnd: true, value01: value);
+                BodySerializedAttribute.Touch();
+            }
         }
 
         public float HeightMax
         {
             get => ReadHeight(minEnd: false);
-            set => SetHeightEnd(minEnd: false, value01: value);
+            set
+            {
+                SetHeightEnd(minEnd: false, value01: value);
+                BodySerializedAttribute.Touch();
+            }
         }
 
         float ReadHeight(bool minEnd)
@@ -575,6 +602,8 @@ namespace Retinues.Model.Characters
 
         void SetBodyDynamicEnd(bool minEnd, float? age, float? weight, float? build)
         {
+            BodySerializedAttribute.Touch();
+
             var range = EnsureOwnBodyRange();
             if (range == null)
                 return;
@@ -669,7 +698,9 @@ namespace Retinues.Model.Characters
         MAttribute<string> BodySerializedAttribute =>
             Attribute(
                 getter: _ => SerializeBodyEnvelope(),
-                setter: (_, value) => ApplySerializedBodyEnvelope(value)
+                setter: (_, value) => ApplySerializedBodyEnvelope(value),
+                persistent: true,
+                priority: MPersistencePriority.Low
             );
 
         /// <summary>

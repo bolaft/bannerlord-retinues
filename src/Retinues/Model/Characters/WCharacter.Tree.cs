@@ -137,6 +137,17 @@ namespace Retinues.Model.Characters
                 }
             }
 
+            [StaticClearAction]
+            public static void ClearAll()
+            {
+                lock (Sync)
+                {
+                    Nodes.Clear();
+                    Trees.Clear();
+                    _initialized = false;
+                }
+            }
+
             /// <summary>
             /// Rebuilds the entire hierarchy cache.
             /// </summary>

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Retinues.Model.Factions;
+using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 
 namespace Retinues.Model.Characters
@@ -38,6 +39,7 @@ namespace Retinues.Model.Characters
         public bool IsVillager => (SourceFlags & TroopSourceFlags.Villager) != 0;
         public bool IsCivilian => (SourceFlags & TroopSourceFlags.Civilian) != 0;
 
+        [StaticClearAction]
         public static void InvalidateTroopSourceFlagsCache() => TroopSourceFlagCache.Invalidate();
 
         private static class TroopSourceFlagCache
@@ -147,6 +149,7 @@ namespace Retinues.Model.Characters
             return false;
         }
 
+        [StaticClearAction]
         public static void InvalidateTroopFactionsCache() => TroopFactionCache.Invalidate();
 
         private static class TroopFactionCache

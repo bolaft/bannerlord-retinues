@@ -42,6 +42,9 @@ namespace Retinues.Model
         protected MAttribute<T> Attribute<T>(
             T initialValue = default,
             bool storedIfMissing = true,
+            bool persistent = false,
+            MPersistencePriority priority = MPersistencePriority.Normal,
+            MSerializer<T> serializer = null,
             [CallerMemberName] string name = null
         )
         {
@@ -60,13 +63,24 @@ namespace Retinues.Model
             bool hasMember = Reflection.HasField(Base, name) || Reflection.HasProperty(Base, name);
 
             MAttribute<T> attr =
-                hasMember ? new MAttribute<T>(Base, name)
+                hasMember
+                    ? new MAttribute<T>(
+                        Base,
+                        name,
+                        ownerKey: PersistenceKey,
+                        persistent: persistent,
+                        serializer: serializer
+                    )
                 : storedIfMissing
                     ? new MAttribute<T>(
                         baseInstance: Base,
                         getter: _ => MStore.GetOrInit(BuildStoredKey<T>(name), initialValue),
                         setter: (_, value) => MStore.Set(BuildStoredKey<T>(name), value),
-                        targetName: name
+                        targetName: name,
+                        ownerKey: PersistenceKey,
+                        persistent: persistent,
+                        priority: priority,
+                        serializer: serializer
                     )
                 : throw new InvalidOperationException(
                     $"No field or property '{name}' exists on type '{Base.GetType().Name}'."

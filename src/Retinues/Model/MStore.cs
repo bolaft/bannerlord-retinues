@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Retinues.Utilities;
 
 namespace Retinues.Model
 {
@@ -35,6 +36,7 @@ namespace Retinues.Model
             }
         }
 
+        [StaticClearAction]
         public static void ClearAll()
         {
             lock (Sync)

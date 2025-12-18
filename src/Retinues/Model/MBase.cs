@@ -6,8 +6,14 @@ using Retinues.Utilities;
 
 namespace Retinues.Model
 {
+    public interface IPersistent
+    {
+        string PersistenceKey { get; }
+    }
+
     public abstract partial class MPersistent<TBase>(TBase baseInstance)
-        : MBase<TBase>(baseInstance)
+        : MBase<TBase>(baseInstance),
+            IPersistent
         where TBase : class
     {
         public abstract string PersistenceKey { get; }
@@ -17,9 +23,7 @@ namespace Retinues.Model
     public abstract class MBase<TBase>(TBase baseInstance)
         where TBase : class
     {
-        protected readonly Dictionary<string, object> _attributes = new Dictionary<string, object>(
-            StringComparer.Ordinal
-        );
+        protected readonly Dictionary<string, object> _attributes = new(StringComparer.Ordinal);
 
         public TBase Base { get; } =
             baseInstance ?? throw new ArgumentNullException(nameof(baseInstance));
@@ -27,11 +31,24 @@ namespace Retinues.Model
         /// <summary>
         /// Gets or creates an attribute that targets a field/property on the underlying base instance.
         /// </summary>
-        protected MAttribute<T> Attribute<T>(string name)
+        protected MAttribute<T> Attribute<T>(
+            string name,
+            bool persistent = false,
+            MPersistencePriority priority = MPersistencePriority.Normal,
+            MSerializer<T> serializer = null
+        )
         {
             if (!_attributes.TryGetValue(name, out var obj))
             {
-                var attr = new MAttribute<T>(Base, name);
+                var ownerKey = (this as IPersistent)?.PersistenceKey;
+                var attr = new MAttribute<T>(
+                    Base,
+                    name,
+                    ownerKey: ownerKey,
+                    persistent: persistent,
+                    priority: priority,
+                    serializer: serializer
+                );
                 _attributes[name] = attr;
                 return attr;
             }
@@ -48,7 +65,12 @@ namespace Retinues.Model
         /// Gets or creates an attribute that gets/sets the value of a field or property
         /// on the underlying base instance, using the given expression to identify the member.
         /// </summary>
-        protected MAttribute<TProp> Attribute<TProp>(Expression<Func<TBase, TProp>> expr)
+        protected MAttribute<TProp> Attribute<TProp>(
+            Expression<Func<TBase, TProp>> expr,
+            bool persistent = false,
+            MPersistencePriority priority = MPersistencePriority.Normal,
+            MSerializer<TProp> serializer = null
+        )
         {
             if (expr.Body is not MemberExpression member)
                 throw new ArgumentException(
@@ -98,7 +120,17 @@ namespace Retinues.Model
                 setter = (obj, value) => typedSetter((TBase)obj, value);
             }
 
-            var attr = new MAttribute<TProp>(Base, getter, setter, name);
+            var ownerKey = (this as IPersistent)?.PersistenceKey;
+            var attr = new MAttribute<TProp>(
+                Base,
+                getter,
+                setter,
+                name,
+                ownerKey: ownerKey,
+                persistent: persistent,
+                priority: priority,
+                serializer: serializer
+            );
             _attributes[name] = attr;
             return attr;
         }
@@ -110,6 +142,9 @@ namespace Retinues.Model
         protected MAttribute<T> Attribute<T>(
             Func<object, T> getter,
             Action<object, T> setter,
+            bool persistent = false,
+            MPersistencePriority priority = MPersistencePriority.Normal,
+            MSerializer<T> serializer = null,
             [CallerMemberName] string name = null
         )
         {
@@ -125,11 +160,17 @@ namespace Retinues.Model
                 return typed;
             }
 
+            var ownerKey = (this as IPersistent)?.PersistenceKey;
+
             var attr = new MAttribute<T>(
                 baseInstance: Base,
                 getter: getter,
                 setter: setter,
-                targetName: name
+                targetName: name,
+                ownerKey: ownerKey,
+                persistent: persistent,
+                priority: priority,
+                serializer: serializer
             );
 
             _attributes[name] = attr;

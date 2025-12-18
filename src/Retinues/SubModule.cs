@@ -73,6 +73,10 @@ namespace Retinues
         {
             base.OnGameStart(game, gameStarter);
 
+            // Clear any static state from previous games.
+            foreach (var clear in Statics.ClearActions)
+                clear();
+
             if (gameStarter is CampaignGameStarter cs)
             {
                 // Core Retinues behaviors (auto-discovered).
