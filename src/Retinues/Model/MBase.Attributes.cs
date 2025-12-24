@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using TaleWorlds.ObjectSystem;
 
@@ -98,6 +99,17 @@ namespace Retinues.Model
                     try
                     {
                         targetAttr.AddDependent(dependent);
+                    }
+                    catch { }
+
+                    // If the dependency is already dirty, the dependent must be dirty too.
+                    try
+                    {
+                        var dirtyProp = obj.GetType()
+                            .GetProperty("IsDirty", BindingFlags.Instance | BindingFlags.Public);
+
+                        if (dirtyProp?.GetValue(obj) is bool b && b)
+                            dependent.MarkDirty();
                     }
                     catch { }
                 }

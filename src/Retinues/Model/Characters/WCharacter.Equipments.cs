@@ -43,7 +43,7 @@ namespace Retinues.Model.Characters
         // Stores a list of serialized MEquipment blobs. Each MEquipment uses its own
         // MBase.Serialize / Deserialize, so adding new attributes to MEquipment
         // automatically gets persisted with no changes here.
-        MAttribute<string> EquipmentsSerializedAttribute =>
+        MAttribute<List<string>> EquipmentsSerializedAttribute =>
             Attribute(
                 getter: _ => SerializeEquipments(),
                 setter: (_, data) => ApplySerializedEquipments(data),
@@ -52,13 +52,13 @@ namespace Retinues.Model.Characters
 
         public void TouchEquipments() => EquipmentsSerializedAttribute.Touch();
 
-        private string SerializeEquipments()
+        private List<string> SerializeEquipments()
         {
             var roster = EquipmentRoster;
             var equipments = roster.Equipments;
 
             if (equipments == null || equipments.Count == 0)
-                return string.Empty;
+                return null;
 
             var blobs = new List<string>(equipments.Count);
             foreach (var me in equipments)
@@ -68,38 +68,35 @@ namespace Retinues.Model.Characters
                     blobs.Add(string.Empty);
                     continue;
                 }
+
+                // Ensure the equipment snapshot is complete (even if nothing else on the troop was touched).
                 me.MarkAllAttributesDirty();
 
                 var blob = me.Serialize();
                 blobs.Add(blob ?? string.Empty);
             }
 
-            var result = Serialization.Serialize(blobs).Compact;
             Log.Info(
                 $"WCharacter.SerializeEquipments: serialized {equipments.Count} equipments for '{StringId}'."
             );
-            return result;
+
+            return blobs;
         }
 
-        private void ApplySerializedEquipments(string data)
+        private void ApplySerializedEquipments(List<string> blobs)
         {
-            Log.Info(
-                $"WCharacter.ApplySerializedEquipments: deserializing equipments for '{StringId}': {data}"
-            );
-
-            if (string.IsNullOrEmpty(data))
-                return;
-
-            var blobs = Serialization.Deserialize<List<string>>(data);
             if (blobs == null || blobs.Count == 0)
+            {
+                // No saved data: keep vanilla roster (or whatever is already on Base).
                 return;
+            }
 
             var roster = EquipmentRoster;
-            var list = new List<MEquipment>();
+            var list = new List<MEquipment>(blobs.Count);
 
             foreach (var blob in blobs)
             {
-                if (string.IsNullOrEmpty(blob))
+                if (string.IsNullOrWhiteSpace(blob))
                     continue;
 
                 var me = MEquipment.Create(this);

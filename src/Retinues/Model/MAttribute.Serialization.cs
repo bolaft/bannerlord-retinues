@@ -515,6 +515,28 @@ namespace Retinues.Model
                         continue;
                     }
 
+                    if (item is string str)
+                    {
+                        var ts = str.TrimStart();
+
+                        // If a list item is itself XML (like MEquipment.Serialize()), embed it as XML, not text.
+                        if (ts.StartsWith("<"))
+                        {
+                            try
+                            {
+                                el.Add(XElement.Parse(str));
+                                continue;
+                            }
+                            catch
+                            {
+                                // If parsing fails, fall back to text.
+                            }
+                        }
+
+                        el.Add(new XElement("Item", str));
+                        continue;
+                    }
+
                     // Fallback
                     el.Add(new XElement("Item", Convert.ToString(item, Inv) ?? string.Empty));
                 }
@@ -562,9 +584,22 @@ namespace Retinues.Model
                     var listType = typeof(List<>).MakeGenericType(elemType);
                     var list = (IList)Activator.CreateInstance(listType);
 
-                    foreach (var itemEl in el.Elements("Item"))
+                    var items = el.Elements("Item").ToList();
+                    if (items.Count == 0)
+                        items = [.. el.Elements()]; // allow embedded XML nodes directly
+
+                    foreach (var itemEl in items)
                     {
-                        var itemText = itemEl.Value ?? string.Empty;
+                        string itemText;
+
+                        // If this is a direct embedded XML node (ex: <MEquipment ...>),
+                        // store it as its own xml string for List<string>.
+                        if (itemEl.Name.LocalName != "Item" && itemEl.HasElements)
+                            itemText = itemEl.ToString(SaveOptions.DisableFormatting);
+                        else if (itemEl.Name.LocalName != "Item" && itemEl.Name.LocalName != "Item")
+                            itemText = itemEl.ToString(SaveOptions.DisableFormatting);
+                        else
+                            itemText = itemEl.Value ?? string.Empty;
 
                         if (typeof(MBObjectBase).IsAssignableFrom(elemType))
                         {

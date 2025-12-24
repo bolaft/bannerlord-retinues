@@ -195,7 +195,8 @@ namespace Retinues.Model
 
         void IMAttribute.MarkDirty()
         {
-            _dirty = true;
+            if (_persistent)
+                _dirty = true;
         }
     }
 }

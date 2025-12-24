@@ -10,12 +10,14 @@ namespace Retinues.Model
     public abstract partial class MBase<TBase>
         where TBase : class
     {
-        const string ModelXmlVersion = "2";
+        const string ModelXmlVersion = "1.0";
 
         public string Serialize()
         {
             try
             {
+                EnsureAttributesCreated();
+
                 var root = new XElement(GetType().Name);
                 root.SetAttributeValue("v", ModelXmlVersion);
                 root.SetAttributeValue("type", GetType().FullName);
@@ -85,8 +87,6 @@ namespace Retinues.Model
                     }
                 }
 
-                // Backward compatibility: old Dictionary<string,string> format
-                ApplyLegacyDictionary(data);
                 return data;
             }
             catch (Exception e)
@@ -138,56 +138,6 @@ namespace Retinues.Model
                 try
                 {
                     entry.Mi.Invoke(entry.AttrObj, new object[] { entry.El });
-                }
-                catch (Exception e)
-                {
-                    Log.Exception(e, $"Failed to deserialize MAttribute '{entry.Name}'.");
-                }
-            }
-        }
-
-        void ApplyLegacyDictionary(string data)
-        {
-            // This is basically your old Deserialize body, extracted.
-            var map = Serialization.Deserialize<Dictionary<string, string>>(data);
-            if (map == null)
-                return;
-
-            var entries = new List<(string Name, object AttrObj, int Priority, MethodInfo Mi)>();
-            foreach (var kv in map)
-            {
-                if (!_attributes.TryGetValue(kv.Key, out var attrObj) || attrObj == null)
-                    continue;
-
-                var mi = attrObj
-                    .GetType()
-                    .GetMethod("Deserialize", BindingFlags.Public | BindingFlags.Instance);
-                if (mi == null)
-                    continue;
-
-                var prProp = attrObj
-                    .GetType()
-                    .GetProperty("Priority", BindingFlags.Public | BindingFlags.Instance);
-                var pr = 0;
-                if (prProp != null)
-                {
-                    var val = prProp.GetValue(attrObj);
-                    if (val is int vi)
-                        pr = vi;
-                    else if (val is Enum)
-                        pr = Convert.ToInt32(val);
-                }
-
-                entries.Add((kv.Key, attrObj, pr, mi));
-            }
-
-            entries.Sort((a, b) => b.Priority.CompareTo(a.Priority));
-
-            foreach (var entry in entries)
-            {
-                try
-                {
-                    entry.Mi.Invoke(entry.AttrObj, new object[] { map[entry.Name] });
                 }
                 catch (Exception e)
                 {

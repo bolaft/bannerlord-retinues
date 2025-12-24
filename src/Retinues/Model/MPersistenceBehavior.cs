@@ -12,23 +12,12 @@ namespace Retinues.Model
 {
     /// <summary>
     /// Handles saving and loading of persistent wrapper data into the game save.
-    ///
-    /// v2 format (preferred):
-    /// <RetinuesPersistence v="2">
-    ///   <WCharacter uid="TaleWorlds.CampaignSystem.CharacterObject:aserai_youth" ...>...</WCharacter>
-    ///   <WItem uid="TaleWorlds.Core.ItemObject:some_item" ...>...</WItem>
-    ///   ...
-    /// </RetinuesPersistence>
-    ///
-    /// Backward compatibility:
-    /// - Still supports legacy Dictionary<string,string> persisted via DataContractSerializer
-    ///   (the ugly ArrayOfKeyValueOfstringstring format).
     /// </summary>
     public sealed class MPersistenceBehavior : BaseCampaignBehavior
     {
         const string SaveKey = "Retinues_ModelPersistence";
 
-        const string RootName = "RetinuesPersistence";
+        const string RootName = "Retinues";
         const string RootVersion = "2";
 
         public MPersistenceBehavior() { }
@@ -197,7 +186,7 @@ namespace Retinues.Model
                 if (string.IsNullOrEmpty(blob))
                     return;
 
-                // APPLY (v2 XML first, fallback to legacy dictionary)
+                // APPLY
                 if (TryParseXmlRoot(blob, out var xmlRoot))
                 {
                     if (xmlRoot.Name.LocalName == RootName)
@@ -209,20 +198,6 @@ namespace Retinues.Model
                             return;
                         }
                     }
-                }
-
-                // Legacy fallback: Dictionary<string,string> serialized via DataContractSerializer.
-                try
-                {
-                    var loaded = Serialization.Deserialize<Dictionary<string, string>>(blob);
-                    ApplyLoadedLegacy(loaded);
-                }
-                catch (Exception e)
-                {
-                    Log.Exception(
-                        e,
-                        "MPersistenceBehavior.SyncData: failed to load legacy persistence blob"
-                    );
                 }
             }
             catch (Exception e)
@@ -314,15 +289,6 @@ namespace Retinues.Model
 
                 ApplySingle(uid, payload);
             }
-        }
-
-        static void ApplyLoadedLegacy(Dictionary<string, string> loaded)
-        {
-            if (loaded == null || loaded.Count == 0)
-                return;
-
-            foreach (var kv in loaded)
-                ApplySingle(kv.Key, kv.Value);
         }
 
         static void ApplySingle(string uid, string data)
