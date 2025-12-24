@@ -11,7 +11,7 @@ namespace Retinues.Model.Characters
         //                      Skill Points                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        MAttribute<int> SkillPointsAttribute => Attribute(initialValue: 0, persistent: true);
+        MAttribute<int> SkillPointsAttribute => Attribute(initialValue: 0);
 
         public int SkillPoints
         {
@@ -76,7 +76,6 @@ namespace Retinues.Model.Characters
                 _wc.Attribute(
                     getter: _ => _wc.Base.GetSkillValue(skill),
                     setter: (_, value) => SetSkill(skill, value),
-                    persistent: true,
                     name: $"Skill_{skill.StringId}"
                 );
 
@@ -128,6 +127,29 @@ namespace Retinues.Model.Characters
 
                 var current = Get(skill);
                 Set(skill, current + amount);
+            }
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                   Skills Persistence                   //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        MAttribute<int> SkillsBootstrapAttribute
+        {
+            get
+            {
+                // Force creation of per-skill attributes (Skill_*)
+                _ = Skills;
+
+                // Dummy attribute so MBase.EnsureAttributesCreated sees an IMAttribute property.
+                // Non-persistent so it never matters for saving.
+                return Attribute(
+                    getter: _ => 0,
+                    setter: (_, __) => { },
+                    persistent: false,
+                    priority: AttributePriority.Low,
+                    name: "__SkillsBootstrap"
+                );
             }
         }
     }

@@ -1,29 +1,11 @@
 using System;
-using System.Collections.Generic;
 using Retinues.Model.Characters;
 using TaleWorlds.Core;
 
 namespace Retinues.Model.Equipments
 {
-    public class MEquipment : MBase<Equipment>, IEquatable<MEquipment>
+    public class MEquipment(Equipment @base, WCharacter owner) : MBase<Equipment>(@base)
     {
-        readonly WCharacter _owner;
-
-        public MEquipment(Equipment @base, WCharacter owner)
-            : base(@base)
-        {
-            _owner = owner;
-
-            // Make sure serializable attributes exist even if nobody accessed the properties yet.
-            EnsureSerializableAttributes();
-        }
-
-        public void EnsureSerializableAttributes()
-        {
-            _ = EquipmentTypeAttribute;
-            _ = CodeAttribute;
-        }
-
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Creation                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -37,13 +19,15 @@ namespace Retinues.Model.Equipments
             MEquipment source = null
         )
         {
+            owner.TouchEquipments();
+
             var equipment =
                 source == null ? new Equipment() : Equipment.CreateFromEquipmentCode(source.Code);
 
             if (equipment == null)
                 equipment = new Equipment();
 
-            var me = new MEquipment(equipment, owner: owner)
+            var me = new MEquipment(equipment, owner)
             {
                 EquipmentType = civilian
                     ? Equipment.EquipmentType.Civilian
@@ -80,10 +64,7 @@ namespace Retinues.Model.Equipments
                         }
                         catch { }
                     }
-                    _owner?.TouchEquipments();
-                },
-                serializable: true,
-                targetName: "Code"
+                }
             );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -91,25 +72,31 @@ namespace Retinues.Model.Equipments
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         MAttribute<Equipment.EquipmentType> EquipmentTypeAttribute =>
-            Attribute<Equipment.EquipmentType>("_equipmentType", serializable: true);
+            Attribute<Equipment.EquipmentType>("_equipmentType", persistent: false);
 
         public Equipment.EquipmentType EquipmentType
         {
             get => EquipmentTypeAttribute.Get();
             set
             {
+                owner.TouchEquipments();
                 EquipmentTypeAttribute.Set(value);
-                _owner?.TouchEquipments();
             }
         }
 
+        MAttribute<bool> IsCivilianAttribute =>
+            Attribute(
+                getter: _ => EquipmentType == Equipment.EquipmentType.Civilian,
+                setter: (_, isCivilian) =>
+                    EquipmentType = isCivilian
+                        ? Equipment.EquipmentType.Civilian
+                        : Equipment.EquipmentType.Battle
+            );
+
         public bool IsCivilian
         {
-            get => EquipmentType == Equipment.EquipmentType.Civilian;
-            set =>
-                EquipmentType = value
-                    ? Equipment.EquipmentType.Civilian
-                    : Equipment.EquipmentType.Battle;
+            get => IsCivilianAttribute.Get();
+            set => IsCivilianAttribute.Set(value);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -125,38 +112,26 @@ namespace Retinues.Model.Equipments
 
         public void Set(EquipmentIndex index, WItem item)
         {
+            owner.TouchEquipments();
             var element = item == null ? EquipmentElement.Invalid : new EquipmentElement(item.Base);
             Base[index] = element;
-
-            _owner?.TouchEquipments();
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Equality                        //
+        //                          Items                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public override bool Equals(object obj) => Equals(obj as MEquipment);
-
-        public bool Equals(MEquipment other)
+        public void MarkAllAttributesDirty()
         {
-            if (ReferenceEquals(this, other))
-                return true;
-            if (other is null)
-                return false;
-            return EqualityComparer<Equipment>.Default.Equals(this.Base, other.Base);
+            // Ensure all IMAttribute properties (CodeAttribute, IsCivilianAttribute, and any
+            // future ones) are instantiated before we try to mark them dirty.
+            EnsureAttributesCreated();
+
+            foreach (var obj in _attributes.Values)
+            {
+                if (obj is IMAttribute attr)
+                    attr.MarkDirty();
+            }
         }
-
-        public override int GetHashCode() => Base != null ? Base.GetHashCode() : 0;
-
-        public static bool operator ==(MEquipment left, MEquipment right)
-        {
-            if (ReferenceEquals(left, right))
-                return true;
-            if (left is null || right is null)
-                return false;
-            return EqualityComparer<Equipment>.Default.Equals(left.Base, right.Base);
-        }
-
-        public static bool operator !=(MEquipment left, MEquipment right) => !(left == right);
     }
 }

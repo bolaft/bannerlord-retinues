@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
-using Retinues.Utilities;
 
 namespace Retinues.Model
 {
-    internal static class MStore
+    internal static class MAttributeStore
     {
         private static readonly object Sync = new();
         private static readonly Dictionary<string, object> Values = new(StringComparer.Ordinal);
@@ -36,7 +35,6 @@ namespace Retinues.Model
             }
         }
 
-        [StaticClearAction]
         public static void ClearAll()
         {
             lock (Sync)

@@ -36,16 +36,84 @@ namespace Retinues.Model.Characters
         public List<MEquipment> Equipments => EquipmentRoster.Equipments;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                       Persistence                      //
+        //                     Serialization                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        MAttribute<string> EquipmentRosterSerializedAttribute =>
+        // Snapshot of the entire equipment roster.
+        // Stores a list of serialized MEquipment blobs. Each MEquipment uses its own
+        // MBase.Serialize / Deserialize, so adding new attributes to MEquipment
+        // automatically gets persisted with no changes here.
+        MAttribute<string> EquipmentsSerializedAttribute =>
             Attribute(
-                getter: _ => EquipmentRoster.Serialize(),
-                setter: (_, s) => EquipmentRoster.Deserialize(s),
-                persistent: true
+                getter: _ => SerializeEquipments(),
+                setter: (_, data) => ApplySerializedEquipments(data),
+                priority: AttributePriority.Low
             );
 
-        internal void TouchEquipments() => EquipmentRosterSerializedAttribute.Touch();
+        public void TouchEquipments() => EquipmentsSerializedAttribute.Touch();
+
+        private string SerializeEquipments()
+        {
+            var roster = EquipmentRoster;
+            var equipments = roster.Equipments;
+
+            if (equipments == null || equipments.Count == 0)
+                return string.Empty;
+
+            var blobs = new List<string>(equipments.Count);
+            foreach (var me in equipments)
+            {
+                if (me == null)
+                {
+                    blobs.Add(string.Empty);
+                    continue;
+                }
+                me.MarkAllAttributesDirty();
+
+                var blob = me.Serialize();
+                blobs.Add(blob ?? string.Empty);
+            }
+
+            var result = Serialization.Serialize(blobs).Compact;
+            Log.Info(
+                $"WCharacter.SerializeEquipments: serialized {equipments.Count} equipments for '{StringId}'."
+            );
+            return result;
+        }
+
+        private void ApplySerializedEquipments(string data)
+        {
+            Log.Info(
+                $"WCharacter.ApplySerializedEquipments: deserializing equipments for '{StringId}': {data}"
+            );
+
+            if (string.IsNullOrEmpty(data))
+                return;
+
+            var blobs = Serialization.Deserialize<List<string>>(data);
+            if (blobs == null || blobs.Count == 0)
+                return;
+
+            var roster = EquipmentRoster;
+            var list = new List<MEquipment>();
+
+            foreach (var blob in blobs)
+            {
+                if (string.IsNullOrEmpty(blob))
+                    continue;
+
+                var me = MEquipment.Create(this);
+                me.Deserialize(blob);
+                list.Add(me);
+            }
+
+            if (list.Count == 0)
+            {
+                roster.Reset();
+                return;
+            }
+
+            roster.Equipments = list;
+        }
     }
 }

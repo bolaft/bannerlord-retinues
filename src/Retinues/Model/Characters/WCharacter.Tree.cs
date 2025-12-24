@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.ObjectSystem;
 
 namespace Retinues.Model.Characters
 {
@@ -11,42 +12,123 @@ namespace Retinues.Model.Characters
         //                     Upgrade Targets                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        MAttribute<List<WCharacter>> UpgradeTargetsAttribute =>
-            Attribute<List<WCharacter>>(
-                getter: _ => [.. Base.UpgradeTargets.Select(Get)],
-                setter: (_, list) =>
-                {
-                    // Convert to array.
-                    var array = (list ?? []).Select(w => w?.Base).Where(b => b != null).ToArray();
+        // We keep the saved ids even if the base objects cannot be resolved yet.
+        // This prevents "wiping" CharacterObject.UpgradeTargets during load.
+        private List<string> _upgradeTargetIdsPersisted = [];
 
-                    // Apply to base.
-                    Reflection.SetPropertyValue(Base, "UpgradeTargets", array);
+        MAttribute<List<string>> UpgradeTargetsAttribute =>
+            Attribute<List<string>>(
+                getter: _ =>
+                {
+                    // Prefer persisted ids if we have them (e.g. after load).
+                    if (_upgradeTargetIdsPersisted != null && _upgradeTargetIdsPersisted.Count > 0)
+                        return [.. _upgradeTargetIdsPersisted];
+
+                    // Otherwise reflect current base state.
+                    var arr = Base.UpgradeTargets;
+                    if (arr == null || arr.Length == 0)
+                        return [];
+
+                    return
+                    [
+                        .. arr.Select(t => t?.StringId).Where(id => !string.IsNullOrWhiteSpace(id)),
+                    ];
+                },
+                setter: (_, ids) =>
+                {
+                    _upgradeTargetIdsPersisted =
+                        ids == null
+                            ? []
+                            : ids.Select(s => s?.Trim())
+                                .Where(s => !string.IsNullOrWhiteSpace(s))
+                                .Distinct()
+                                .ToList();
+
+                    // Try to apply to the underlying CharacterObject now if possible.
+                    TryApplyUpgradeTargetIds();
 
                     // Invalidate related caches.
                     InvalidateTroopSourceFlagsCache();
                     InvalidateTroopFactionsCache();
 
-                    // IMPORTANT:
-                    // Do NOT rebuild the hierarchy cache while persistence is applying or while the cache
-                    // helper is building; that can recurse (cache build calls UpgradeTargets, which triggers
-                    // persistence late-apply, which calls this setter again).
-                    if (MPersistence.IsApplying || CharacterTreeCacheHelper.IsBuilding)
-                    {
-                        CharacterTreeCacheHelper.MarkDirty();
-                        return;
-                    }
-
-                    // Outside persistence/apply, it's safe to refresh.
-                    // Simplest robust choice: rebuild everything (you can optimize later).
-                    CharacterTreeCacheHelper.RebuildAll();
-                },
-                persistent: true
+                    // Rebuild tree caches (safe even if application is deferred).
+                    CharacterTreeCacheHelper.MarkDirty();
+                }
             );
 
+        private void TryApplyUpgradeTargetIds()
+        {
+            // If MBObjectManager is not ready yet, keep ids and apply later.
+            var mgr = MBObjectManager.Instance;
+            if (mgr == null)
+                return;
+
+            if (_upgradeTargetIdsPersisted == null || _upgradeTargetIdsPersisted.Count == 0)
+            {
+                Reflection.SetPropertyValue(Base, "UpgradeTargets", new CharacterObject[0]);
+                return;
+            }
+
+            var resolved = new List<CharacterObject>();
+
+            for (int i = 0; i < _upgradeTargetIdsPersisted.Count; i++)
+            {
+                var id = _upgradeTargetIdsPersisted[i];
+                if (string.IsNullOrWhiteSpace(id))
+                    continue;
+
+                var target = mgr.GetObject<CharacterObject>(id);
+                if (target != null)
+                    resolved.Add(target);
+                else
+                    Log.Info($"Could not resolve upgrade target '{id}' for '{StringId}' yet.");
+            }
+
+            Reflection.SetPropertyValue(Base, "UpgradeTargets", resolved.ToArray());
+        }
+
+        // Public API stays as List<WCharacter>
         public List<WCharacter> UpgradeTargets
         {
-            get => UpgradeTargetsAttribute.Get();
-            set => UpgradeTargetsAttribute.Set(value ?? []);
+            get
+            {
+                // If we have persisted ids and the base array is empty (typical after a bad early load),
+                // try to apply again when the editor queries this.
+                if (
+                    (_upgradeTargetIdsPersisted?.Count ?? 0) > 0
+                    && (Base.UpgradeTargets == null || Base.UpgradeTargets.Length == 0)
+                )
+                {
+                    TryApplyUpgradeTargetIds();
+                }
+
+                var ids = UpgradeTargetsAttribute.Get();
+                if (ids == null || ids.Count == 0)
+                    return [];
+
+                var list = new List<WCharacter>(ids.Count);
+                for (int i = 0; i < ids.Count; i++)
+                {
+                    var w = Get(ids[i]);
+                    if (w != null)
+                        list.Add(w);
+                }
+
+                return list;
+            }
+            set
+            {
+                var ids =
+                    value == null
+                        ? []
+                        : value
+                            .Select(w => w?.StringId)
+                            .Where(id => !string.IsNullOrWhiteSpace(id))
+                            .Select(id => id.Trim())
+                            .ToList();
+
+                UpgradeTargetsAttribute.Set(ids);
+            }
         }
 
         public bool AddUpgradeTarget(WCharacter target)
@@ -54,19 +136,15 @@ namespace Retinues.Model.Characters
             if (target == null)
                 return false;
 
-            // Avoid self-loops.
             if (target == this)
                 return false;
 
-            var list = UpgradeTargets;
-            for (int i = 0; i < list.Count; i++)
-            {
-                if (list[i] == target)
-                    return false;
-            }
+            var ids = UpgradeTargetsAttribute.Get() ?? [];
+            if (ids.Contains(target.StringId))
+                return false;
 
-            list.Add(target);
-            UpgradeTargets = list;
+            ids.Add(target.StringId);
+            UpgradeTargetsAttribute.Set(ids);
             return true;
         }
 
@@ -75,24 +153,22 @@ namespace Retinues.Model.Characters
             if (target == null)
                 return false;
 
-            var list = UpgradeTargets;
-            if (list.Count == 0)
+            var ids = UpgradeTargetsAttribute.Get() ?? [];
+            if (ids.Count == 0)
                 return false;
 
             var removed = false;
-
-            // Backwards in case of duplicates (should not happen, but safe).
-            for (int i = list.Count - 1; i >= 0; i--)
+            for (int i = ids.Count - 1; i >= 0; i--)
             {
-                if (list[i] == target)
+                if (ids[i] == target.StringId)
                 {
-                    list.RemoveAt(i);
+                    ids.RemoveAt(i);
                     removed = true;
                 }
             }
 
             if (removed)
-                UpgradeTargets = list;
+                UpgradeTargetsAttribute.Set(ids);
 
             return removed;
         }

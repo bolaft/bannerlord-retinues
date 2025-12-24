@@ -79,7 +79,7 @@ namespace Retinues.Model.Equipments
         //                          Stock                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        MAttribute<int> StockAttribute => Attribute(initialValue: 0, persistent: true);
+        MAttribute<int> StockAttribute => Attribute(initialValue: 0);
 
         public int Stock
         {
@@ -114,7 +114,7 @@ namespace Retinues.Model.Equipments
             set => UnlockProgressAttribute.Set(value);
         }
 
-        MAttribute<int> UnlockProgressAttribute => Attribute(initialValue: 0, persistent: true);
+        MAttribute<int> UnlockProgressAttribute => Attribute(initialValue: 0);
 
         /// <summary>
         /// Increases the unlock progress by the given amount,

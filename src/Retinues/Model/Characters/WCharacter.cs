@@ -40,8 +40,7 @@ namespace Retinues.Model.Characters
 
         /* ━━━━━━━━━ Level ━━━━━━━━ */
 
-        MAttribute<int> LevelAttribute =>
-            Attribute<int>(nameof(CharacterObject.Level), persistent: true);
+        MAttribute<int> LevelAttribute => Attribute<int>(nameof(CharacterObject.Level));
 
         public int Level
         {
@@ -51,8 +50,7 @@ namespace Retinues.Model.Characters
 
         /* ━━━━━━━━━ Name ━━━━━━━━━ */
 
-        MAttribute<TextObject> NameAttribute =>
-            Attribute<TextObject>("_basicName", persistent: true);
+        MAttribute<TextObject> NameAttribute => Attribute<TextObject>("_basicName");
 
         public string Name
         {
@@ -106,10 +104,10 @@ namespace Retinues.Model.Characters
 
 #if BL13
         MAttribute<bool> HiddenInEncyclopediaAttribute =>
-            Attribute<bool>(nameof(CharacterObject.HiddenInEncyclopedia), persistent: true);
+            Attribute<bool>(nameof(CharacterObject.HiddenInEncyclopedia));
 #else
         MAttribute<bool> HiddenInEncyclopediaAttribute =>
-            Attribute<bool>(nameof(CharacterObject.HiddenInEncylopedia), persistent: true); // Typo in BL12
+            Attribute<bool>(nameof(CharacterObject.HiddenInEncylopedia)); // Typo in BL12
 #endif
 
         public bool HiddenInEncyclopedia
@@ -124,7 +122,7 @@ namespace Retinues.Model.Characters
 
         public const string CustomTroopPrefix = "retinues_custom_";
 
-        MAttribute<bool> IsActiveStubAttribute => Attribute(false, persistent: true);
+        MAttribute<bool> IsActiveStubAttribute => Attribute(false);
 
         /// <summary>
         /// Whether this WCharacter is currently allocated as an active stub for custom troop creation.
@@ -174,7 +172,8 @@ namespace Retinues.Model.Characters
         //                         Culture                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        MAttribute<CultureObject> CultureAttribute => Attribute(c => c.Culture, persistent: true);
+        MAttribute<CultureObject> CultureAttribute =>
+            Attribute(c => c.Culture, priority: AttributePriority.High);
 
         public WCulture Culture
         {
@@ -193,10 +192,7 @@ namespace Retinues.Model.Characters
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         MAttribute<FormationClass> FormationClassAttribute =>
-            Attribute<FormationClass>(
-                nameof(CharacterObject.DefaultFormationClass),
-                persistent: true
-            );
+            Attribute<FormationClass>(nameof(CharacterObject.DefaultFormationClass));
 
         public FormationClass FormationClass
         {
@@ -205,7 +201,7 @@ namespace Retinues.Model.Characters
         }
 
         MAttribute<int> FormationGroupAttribute =>
-            Attribute<int>(nameof(CharacterObject.DefaultFormationGroup), persistent: true);
+            Attribute<int>(nameof(CharacterObject.DefaultFormationGroup));
 
         public int FormationGroup
         {
@@ -213,8 +209,7 @@ namespace Retinues.Model.Characters
             set => FormationGroupAttribute.Set(value);
         }
 
-        MAttribute<bool> IsRangedAttribute =>
-            Attribute<bool>(nameof(CharacterObject.IsRanged), persistent: true);
+        MAttribute<bool> IsRangedAttribute => Attribute<bool>(nameof(CharacterObject.IsRanged));
 
         public bool IsRanged
         {
@@ -222,8 +217,7 @@ namespace Retinues.Model.Characters
             set => IsRangedAttribute.Set(value);
         }
 
-        MAttribute<bool> IsMountedAttribute =>
-            Attribute<bool>(nameof(CharacterObject.IsMounted), persistent: true);
+        MAttribute<bool> IsMountedAttribute => Attribute<bool>(nameof(CharacterObject.IsMounted));
 
         public bool IsMounted
         {

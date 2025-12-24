@@ -13,47 +13,32 @@ namespace Retinues.Model.Characters
 
         /* ━━━━━━━━ Gender ━━━━━━━━ */
 
-        MAttribute<bool> IsFemaleAttribute =>
-            Attribute<bool>(nameof(CharacterObject.IsFemale), persistent: true);
+        MAttribute<bool> IsFemaleAttribute => Attribute<bool>(nameof(CharacterObject.IsFemale));
 
         public bool IsFemale
         {
             get => IsFemaleAttribute.Get();
-            set
-            {
-                IsFemaleAttribute.Set(value);
-                BodySerializedAttribute.Touch();
-            }
+            set => IsFemaleAttribute.Set(value);
         }
 
         /* ━━━━━━━━━ Race ━━━━━━━━━ */
 
-        MAttribute<int> RaceAttribute =>
-            Attribute<int>(nameof(CharacterObject.Race), persistent: true);
+        MAttribute<int> RaceAttribute => Attribute<int>(nameof(CharacterObject.Race));
 
         public int Race
         {
             get => RaceAttribute.Get();
-            set
-            {
-                RaceAttribute.Set(value);
-                BodySerializedAttribute.Touch();
-            }
+            set => RaceAttribute.Set(value);
         }
 
         /* ━━━━━━━━━━ Age ━━━━━━━━━ */
 
-        MAttribute<float> AgeAttribute =>
-            Attribute<float>(nameof(CharacterObject.Age), persistent: true);
+        MAttribute<float> AgeAttribute => Attribute<float>(nameof(CharacterObject.Age));
 
         public float Age
         {
             get => AgeAttribute.Get();
-            set
-            {
-                AgeAttribute.Set(value);
-                BodySerializedAttribute.Touch();
-            }
+            set => AgeAttribute.Set(value);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -62,8 +47,6 @@ namespace Retinues.Model.Characters
 
         public bool ApplyCultureBodyPropertiesForRace(int race)
         {
-            BodySerializedAttribute.Touch();
-
             var template = FindTemplateForRace(race);
 
             if (template == null)
@@ -140,8 +123,6 @@ namespace Retinues.Model.Characters
 
         public void ApplyCultureBodyProperties()
         {
-            BodySerializedAttribute.Touch();
-
             var template = Culture.RootBasic ?? Culture.RootElite;
 
             if (template?.IsFemale != IsFemale)
@@ -262,21 +243,13 @@ namespace Retinues.Model.Characters
         public float HeightMin
         {
             get => ReadHeight(minEnd: true);
-            set
-            {
-                SetHeightEnd(minEnd: true, value01: value);
-                BodySerializedAttribute.Touch();
-            }
+            set => SetHeightEnd(minEnd: true, value01: value);
         }
 
         public float HeightMax
         {
             get => ReadHeight(minEnd: false);
-            set
-            {
-                SetHeightEnd(minEnd: false, value01: value);
-                BodySerializedAttribute.Touch();
-            }
+            set => SetHeightEnd(minEnd: false, value01: value);
         }
 
         float ReadHeight(bool minEnd)
@@ -296,6 +269,8 @@ namespace Retinues.Model.Characters
 
         void SetStaticChannelEnd(bool minEnd, int partIdx, int startBit, int numBits, float value01)
         {
+            BodySerializedAttribute.Touch(); // mark dirty
+
             var range = EnsureOwnBodyRange();
             if (range == null)
                 return;
@@ -528,8 +503,7 @@ namespace Retinues.Model.Characters
                     var clonedRange = MBBodyProperty.CreateFrom(Base.BodyPropertyRange);
                     clonedRange.HairTags = value ?? string.Empty;
                     Reflection.SetPropertyValue(Base, "BodyPropertyRange", clonedRange);
-                },
-                persistent: true
+                }
             );
 
         public string HairTags
@@ -548,8 +522,7 @@ namespace Retinues.Model.Characters
                     var clonedRange = MBBodyProperty.CreateFrom(Base.BodyPropertyRange);
                     clonedRange.BeardTags = value ?? string.Empty;
                     Reflection.SetPropertyValue(Base, "BodyPropertyRange", clonedRange);
-                },
-                persistent: true
+                }
             );
 
         public string BeardTags
@@ -568,8 +541,7 @@ namespace Retinues.Model.Characters
                     var clonedRange = MBBodyProperty.CreateFrom(Base.BodyPropertyRange);
                     clonedRange.TattooTags = value ?? string.Empty;
                     Reflection.SetPropertyValue(Base, "BodyPropertyRange", clonedRange);
-                },
-                persistent: true
+                }
             );
 
         public string TattooTags
@@ -605,7 +577,7 @@ namespace Retinues.Model.Characters
 
         void SetBodyDynamicEnd(bool minEnd, float? age, float? weight, float? build)
         {
-            BodySerializedAttribute.Touch();
+            BodySerializedAttribute.Touch(); // mark dirty
 
             var range = EnsureOwnBodyRange();
             if (range == null)
@@ -691,7 +663,7 @@ namespace Retinues.Model.Characters
         //                Serialized Body Envelope                //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public const string BodySerializedSeparator = "\n---BODY_MAX---\n";
+        public const string BodySerializedSeparator = "|<MIN-MAX>|";
 
         /// <summary>
         /// Full body envelope (BodyPropertyMin/Max) as a single serialized string.
@@ -702,8 +674,14 @@ namespace Retinues.Model.Characters
             Attribute(
                 getter: _ => SerializeBodyEnvelope(),
                 setter: (_, value) => ApplySerializedBodyEnvelope(value),
-                persistent: true,
-                priority: MPersistencePriority.Low
+                priority: AttributePriority.Low,
+                dependsOn:
+                [
+                    nameof(CultureAttribute),
+                    nameof(IsFemaleAttribute),
+                    nameof(RaceAttribute),
+                    nameof(AgeAttribute),
+                ]
             );
 
         /// <summary>

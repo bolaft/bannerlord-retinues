@@ -32,6 +32,9 @@ namespace Retinues.Model.Characters
                 Log.Error($"Clone core copy failed: {ex}");
             }
 
+            // Break the shared roster created by FillFrom
+            DetachEquipmentRoster(stub);
+
             // Copy main persisted scalars through attributes so they survive reload
             stub.Name = Name;
             stub.Level = Level;
@@ -174,6 +177,23 @@ namespace Retinues.Model.Characters
 
             // Ensure skills wrapper rebuilds its attribute map if it already existed
             wc._skills = null;
+        }
+
+        private static void DetachEquipmentRoster(WCharacter wc)
+        {
+            if (wc == null)
+                return;
+
+            try
+            {
+                // FillFrom assigns _equipmentRoster by reference, so we must break it.
+                var fresh = new MBEquipmentRoster();
+                Reflection.SetFieldValue(wc.Base, "_equipmentRoster", fresh);
+            }
+            catch (Exception ex)
+            {
+                Log.Warn($"Detach equipment roster failed: {ex}");
+            }
         }
     }
 }
