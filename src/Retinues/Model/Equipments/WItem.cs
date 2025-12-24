@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Retinues.Model.Characters;
 using Retinues.Model.Factions;
+using Retinues.Utilities;
 using TaleWorlds.Core;
 #if BL13
 using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
@@ -59,6 +60,15 @@ namespace Retinues.Model.Equipments
                 return items;
 
             return [];
+        }
+
+        [StaticClearAction]
+        public static void ClearStaticCaches()
+        {
+            _equipments = null;
+            _equipmentsBySlot = null;
+            _vassalRewards = null;
+            _chevronCache.Clear();
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

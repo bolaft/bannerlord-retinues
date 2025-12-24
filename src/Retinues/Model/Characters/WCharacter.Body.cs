@@ -707,7 +707,8 @@ namespace Retinues.Model.Characters
                 max = Base.GetBodyPropertiesMax();
             }
 
-            return min.ToString() + BodySerializedSeparator + max.ToString();;
+            return min.ToString() + BodySerializedSeparator + max.ToString();
+            ;
         }
 
         /// <summary>

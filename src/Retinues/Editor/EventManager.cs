@@ -384,6 +384,21 @@ namespace Retinues.Editor
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Static Clears                     //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [StaticClearAction]
+        public static void ClearAll()
+        {
+            lock (_lock)
+            {
+                _listeners.Clear();
+                _pendingNotifications.Clear();
+                _burstDepth = 0;
+            }
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Internals                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 

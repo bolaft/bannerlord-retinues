@@ -52,6 +52,9 @@ namespace Retinues.Editor
         private static State _instance;
         public static State Instance => _instance ??= new State();
 
+        [StaticClearAction]
+        public static void ClearInstance() => _instance = null;
+
         /// <summary>
         /// The current editor mode.
         /// </summary>
@@ -60,7 +63,7 @@ namespace Retinues.Editor
         /// <summary>
         /// Whether the state is currently initializing.
         /// </summary>
-        private bool _isInitializing;
+        private readonly bool _isInitializing;
 
         /// <summary>
         /// Fires a UI event if not initializing.

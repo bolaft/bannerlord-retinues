@@ -24,10 +24,19 @@ namespace Retinues.Model.Characters
             set => IsMarinerAttribute.Set(value);
         }
 
+        [StaticClearAction]
+        public static void ClearNavalTraitCache() => NavalTraitHelper.ClearCache();
+
         private static class NavalTraitHelper
         {
             private static TraitObject _navalSoldierTrait;
             private static bool _navalTraitMissing;
+
+            public static void ClearCache()
+            {
+                _navalSoldierTrait = null;
+                _navalTraitMissing = false;
+            }
 
             private static TraitObject TryGetNavalSoldierTrait()
             {

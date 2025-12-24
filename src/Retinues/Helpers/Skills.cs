@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Retinues.Module;
+using Retinues.Utilities;
 using TaleWorlds.Core;
 using TaleWorlds.ObjectSystem;
 
@@ -101,6 +102,7 @@ namespace Retinues.Helpers
             return [.. mgr.GetObjectTypeList<SkillObject>().Where(s => s != null)];
         }
 
+        [StaticClearAction]
         public static void ClearCache()
         {
             _defaultSkillIds = null;
