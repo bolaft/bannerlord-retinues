@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Bannerlord.UIExtenderEx.Attributes;
-using Retinues.Editor.Controllers;
+using Retinues.Editor.Controllers.Faction;
 using Retinues.Editor.VM.Column;
 using Retinues.Editor.VM.List;
 using Retinues.Editor.VM.Panel.Character;

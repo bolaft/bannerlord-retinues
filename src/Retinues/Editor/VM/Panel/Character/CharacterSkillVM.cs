@@ -1,16 +1,17 @@
 using Bannerlord.UIExtenderEx.Attributes;
-using Retinues.Editor.Controllers;
+using Retinues.Editor.Controllers.Character;
 using Retinues.Helpers;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 
 namespace Retinues.Editor.VM.Panel.Character
 {
-    /// <summary>
-    /// Character skill card.
-    /// </summary>
     public class CharacterSkillVM : BaseVM
     {
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Fields                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
         private readonly SkillObject _skill;
         private readonly Tooltip _hint;
 
@@ -18,9 +19,6 @@ namespace Retinues.Editor.VM.Panel.Character
         {
             _skill = skill;
             _hint = new Tooltip(_skill.Name.ToString());
-
-            RefreshSkillIncrease();
-            RefreshSkillDecrease();
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -44,44 +42,30 @@ namespace Retinues.Editor.VM.Panel.Character
         //                        Increase                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        [EventListener(UIEvent.Skill)]
         [DataSourceProperty]
-        public bool CanIncrease { get; set; }
-
-        [DataSourceProperty]
-        public Tooltip TooltipIncrease { get; set; }
+        public bool CanIncrease => SkillsController.SkillIncrease.Allow(_skill);
 
         [EventListener(UIEvent.Skill)]
-        public void RefreshSkillIncrease()
-        {
-            CanIncrease = SkillsController.CanIncreaseSkill(_skill, out var reason);
-            TooltipIncrease = reason != null ? new Tooltip(reason) : null;
-            OnPropertyChanged(nameof(CanIncrease));
-            OnPropertyChanged(nameof(TooltipIncrease));
-        }
+        [DataSourceProperty]
+        public Tooltip TooltipIncrease => SkillsController.SkillIncrease.Tooltip(_skill);
 
         [DataSourceMethod]
-        public void ExecuteIncrease() => SkillsController.IncreaseSkill(_skill);
+        public void ExecuteIncrease() => SkillsController.SkillIncrease.Execute(_skill);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Decrease                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        [EventListener(UIEvent.Skill)]
         [DataSourceProperty]
-        public bool CanDecrease { get; set; }
-
-        [DataSourceProperty]
-        public Tooltip TooltipDecrease { get; set; }
+        public bool CanDecrease => SkillsController.SkillDecrease.Allow(_skill);
 
         [EventListener(UIEvent.Skill)]
-        private void RefreshSkillDecrease()
-        {
-            CanDecrease = SkillsController.CanDecreaseSkill(_skill, out var reason);
-            TooltipDecrease = reason != null ? new Tooltip(reason) : null;
-            OnPropertyChanged(nameof(CanDecrease));
-            OnPropertyChanged(nameof(TooltipDecrease));
-        }
+        [DataSourceProperty]
+        public Tooltip TooltipDecrease => SkillsController.SkillDecrease.Tooltip(_skill);
 
         [DataSourceMethod]
-        public void ExecuteDecrease() => SkillsController.DecreaseSkill(_skill);
+        public void ExecuteDecrease() => SkillsController.SkillDecrease.Execute(_skill);
     }
 }

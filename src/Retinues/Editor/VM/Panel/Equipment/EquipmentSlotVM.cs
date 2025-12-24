@@ -1,6 +1,5 @@
-using System.Diagnostics.Tracing;
 using Bannerlord.UIExtenderEx.Attributes;
-using Retinues.Editor.Controllers;
+using Retinues.Editor.Controllers.Equipment;
 using Retinues.Helpers;
 using Retinues.Model.Equipments;
 using Retinues.Utilities;
@@ -104,12 +103,12 @@ namespace Retinues.Editor.VM.Panel.Equipment
 
         [EventListener(UIEvent.Item)]
         [DataSourceProperty]
-        public bool CanUnequip => Item != null;
+        public bool CanUnequip => ItemController.Unequip.Allow(_slot);
 
         [DataSourceProperty]
         public Tooltip UnequipTooltip => new(L.T("unequip_item_tooltip", "Unequip this item."));
 
         [DataSourceMethod]
-        public void ExecuteUnequip() => ItemController.UnequipItem(_slot);
+        public void ExecuteUnequip() => ItemController.Unequip.Execute(_slot);
     }
 }

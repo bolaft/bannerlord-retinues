@@ -10,13 +10,14 @@ using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Localization;
 
-namespace Retinues.Editor.Controllers
+namespace Retinues.Editor.Controllers.Character
 {
-    public class CharacterController : BaseController
+    public class CharacterController : EditorController
     {
-        /// <summary>
-        /// Change the name of the selected character.
-        /// </summary>
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Name                          //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
         public static void ChangeName()
         {
             static void Apply(string newName)
@@ -47,9 +48,10 @@ namespace Retinues.Editor.Controllers
             );
         }
 
-        /// <summary>
-        /// Change the culture of the selected character.
-        /// </summary>
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Culture                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
         public static void ChangeCulture(WCulture newCulture)
         {
             var character = State.Character.Editable;
@@ -73,9 +75,51 @@ namespace Retinues.Editor.Controllers
             EventManager.Fire(UIEvent.Culture, EventScope.Local);
         }
 
-        /// <summary>
-        /// Toggle the gender of the selected character.
-        /// </summary>
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Gender                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public static EditorAction<WCharacter> ToggleGender { get; } =
+            Action<WCharacter>("ToggleGender")
+                .AddCondition(
+                    applies: _ => HasAlternateSpecies() && State.Character?.Editable is WCharacter,
+                    test: _ => State.Character?.Editable?.Culture != null,
+                    reason: L.T("gender_no_culture", "No culture is selected.")
+                )
+                .AddCondition(
+                    applies: _ => HasAlternateSpecies() && State.Character?.Editable is WCharacter,
+                    test: _ =>
+                    {
+                        var wc = State.Character.Editable as WCharacter;
+                        if (wc == null)
+                            return true;
+
+                        var targetFemale = !wc.IsFemale;
+                        return FindTemplate(wc.Culture, targetFemale, wc.Race) != null;
+                    },
+                    reason: L.T(
+                        "gender_no_template",
+                        "This culture has no valid body template for that gender/species."
+                    )
+                )
+                .AddCondition(
+                    applies: _ => HasAlternateSpecies() && State.Character?.Editable is WCharacter,
+                    test: _ =>
+                    {
+                        var wc = State.Character.Editable as WCharacter;
+                        if (wc == null)
+                            return true;
+
+                        var targetFemale = !wc.IsFemale;
+                        return IsRenderable(wc.Culture, targetFemale, wc.Race);
+                    },
+                    reason: L.T(
+                        "gender_not_renderable",
+                        "That gender/species combination cannot be rendered."
+                    )
+                )
+                .ExecuteWith(_ => ChangeGender());
+
         public static void ChangeGender()
         {
             var character = State.Character.Editable;
@@ -94,102 +138,6 @@ namespace Retinues.Editor.Controllers
                 return;
 
             EventManager.Fire(UIEvent.Gender, EventScope.Local);
-        }
-
-        public static bool CanChangeGender(out TextObject reason)
-        {
-            if (!HasAlternateSpecies())
-            {
-                reason = null;
-                return true;
-            }
-
-            if (State.Character?.Editable is not WCharacter wc)
-            {
-                reason = null;
-                return true;
-            }
-
-            var targetFemale = !wc.IsFemale;
-            var race = wc.Race;
-            var culture = wc.Culture;
-
-            return Check(
-                [
-                    (() => culture != null, L.T("gender_no_culture", "No culture is selected.")),
-                    (
-                        () => FindTemplate(culture, targetFemale, race) != null,
-                        L.T(
-                            "gender_no_template",
-                            "This culture has no valid body template for that gender/species."
-                        )
-                    ),
-                    (
-                        () => IsRenderable(culture, targetFemale, race),
-                        L.T(
-                            "gender_not_renderable",
-                            "That gender/species combination cannot be rendered."
-                        )
-                    ),
-                ],
-                out reason
-            );
-        }
-
-        /// <summary>
-        /// Determines whether the current character can be removed.
-        /// </summary>
-        public static bool CanRemoveCharacter(out TextObject reason) =>
-            Check(
-                [
-                    (
-                        () => State.Character.IsHero == false,
-                        L.T("character_cannot_remove_hero", "Heroes cannot be removed.")
-                    ),
-                    (
-                        () => State.Character.UpgradeTargets.Count == 0,
-                        L.T(
-                            "character_cannot_remove_with_upgrades",
-                            "Can't remove a unit that still has upgrades."
-                        )
-                    ),
-                    (
-                        () => !State.Character.IsRoot,
-                        L.T("character_cannot_remove_root", "Root units cannot be removed.")
-                    ),
-                ],
-                out reason
-            );
-
-        public static void RemoveCharacter()
-        {
-            if (!CanRemoveCharacter(out var reason))
-            {
-                Inquiries.Popup(L.T("cannot_remove_character_title", "Cannot Remove Unit"), reason);
-                return;
-            }
-
-            Inquiries.Popup(
-                title: L.T("inquiry_confirm_remove_character_title", "Delete Unit"),
-                description: L.T(
-                        "inquiry_confirm_remove_character_text",
-                        "Are you sure you want to delete {UNIT_NAME}? This action cannot be undone."
-                    )
-                    .SetTextVariable("UNIT_NAME", State.Character.Name.ToString()),
-                onConfirm: () =>
-                {
-                    var character = State.Character;
-
-                    // 1) Select another character first.
-                    State.Character = State.Faction.Troops.FirstOrDefault(c => c != character);
-
-                    // 2) Remove from faction.
-                    character.Remove();
-
-                    // 3) Notify the UI.
-                    EventManager.Fire(UIEvent.Tree, EventScope.Global);
-                }
-            );
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -340,7 +288,6 @@ namespace Retinues.Editor.Controllers
 
             for (int race = 0; race < raceCount; race++)
             {
-                // Use the same pattern as CanRemoveCharacter: first failing reason wins.
                 var enabled = Check(
                     [
                         (
@@ -471,8 +418,6 @@ namespace Retinues.Editor.Controllers
 
             try
             {
-                // This matches the code path that crashes in ColumnVM.RebuildModel()
-                // (CharacterViewModel.FillFrom -> CharacterObject.GetBodyProperties -> FaceGen...)
                 var vm = new CharacterViewModel(CharacterViewModel.StanceTypes.None);
                 vm.FillFrom(template.Base, seed: 0);
 
@@ -537,7 +482,6 @@ namespace Retinues.Editor.Controllers
             if (!HasAlternateSpecies())
                 return true;
 
-            // 1) Must be a valid race id (FaceGen knows it).
             try
             {
                 if (FaceGen.GetBaseMonsterFromRace(wc.Race) == null)
@@ -548,7 +492,6 @@ namespace Retinues.Editor.Controllers
                 return false;
             }
 
-            // 2) Culture must actually have a roster that exposes this race (for current gender).
             var valid = GetValidRacesFor(wc.Culture, wc.IsFemale);
             if (valid.Count == 0)
                 return true;
@@ -627,10 +570,7 @@ namespace Retinues.Editor.Controllers
             if (State.Character.IsHero)
                 return; // Heroes cannot be mariners
 
-            // Toggle
             State.Character.IsMariner = isMariner;
-
-            // Notify others
             EventManager.Fire(UIEvent.Formation, EventScope.Local);
         }
     }

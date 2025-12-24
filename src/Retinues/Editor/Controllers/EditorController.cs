@@ -6,13 +6,10 @@ using TaleWorlds.Localization;
 namespace Retinues.Editor.Controllers
 {
     [SafeClass(IncludeDerived = true)]
-    public abstract class BaseController
+    public abstract class EditorController
     {
         internal static State State => State.Instance;
 
-        /// <summary>
-        /// Run a series of checks, returning the first failure reason.
-        /// </summary>
         public static bool Check(
             IEnumerable<(Func<bool> Test, TextObject Reason)> conditions,
             out TextObject reason
@@ -30,5 +27,7 @@ namespace Retinues.Editor.Controllers
             reason = null;
             return true;
         }
+
+        protected static EditorAction<TArg> Action<TArg>(string name) => new(name);
     }
 }

@@ -4,15 +4,86 @@ using System.Linq;
 using Retinues.Helpers;
 using Retinues.Model.Equipments;
 using Retinues.Utilities;
-using TaleWorlds.Localization;
 
-namespace Retinues.Editor.Controllers
+namespace Retinues.Editor.Controllers.Equipment
 {
     /// <summary>
     /// Non-view logic for equipment set navigation and mutation.
     /// </summary>
-    public class EquipmentController : BaseController
+    public class EquipmentController : EditorController
     {
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Actions                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Selects the previous equipment set of the given type.
+        /// </summary>
+        public static EditorAction<bool> SelectPrevSet { get; } =
+            Action<bool>("SelectPrevSet")
+                .AddCondition(
+                    civilian =>
+                    {
+                        var list = GetEquipments(civilian);
+                        int i = IndexOfByBase(list, State.Equipment);
+                        return i > 0;
+                    },
+                    L.T("equipment_no_more_sets", "No more equipment sets.")
+                )
+                .ExecuteWith(civilian =>
+                {
+                    var list = GetEquipments(civilian);
+                    int i = IndexOfByBase(list, State.Equipment);
+                    if (i <= 0)
+                        return;
+
+                    State.Equipment = list[i - 1];
+                });
+
+        /// <summary>
+        /// Selects the next equipment set of the given type.
+        /// </summary>
+        public static EditorAction<bool> SelectNextSet { get; } =
+            Action<bool>("SelectNextSet")
+                .AddCondition(
+                    civilian =>
+                    {
+                        var list = GetEquipments(civilian);
+                        int i = IndexOfByBase(list, State.Equipment);
+                        return i >= 0 && i < list.Count - 1;
+                    },
+                    L.T("equipment_no_more_sets", "No more equipment sets.")
+                )
+                .ExecuteWith(civilian =>
+                {
+                    var list = GetEquipments(civilian);
+                    int i = IndexOfByBase(list, State.Equipment);
+                    if (i < 0 || i >= list.Count - 1)
+                        return;
+
+                    State.Equipment = list[i + 1];
+                });
+
+        /// <summary>
+        /// Creates a new equipment set (copy or empty) and selects it.
+        /// </summary>
+        public static EditorAction<bool> CreateSet { get; } =
+            Action<bool>("CreateSet").ExecuteWith(CreateSetImpl);
+
+        /// <summary>
+        /// Deletes the currently selected equipment set of the given type.
+        /// </summary>
+        public static EditorAction<bool> DeleteSet { get; } =
+            Action<bool>("DeleteSet")
+                .AddCondition(
+                    civilian => GetEquipments(civilian).Count > 1,
+                    L.T(
+                        "equipment_cannot_delete_last_set",
+                        "At least one equipment set must remain."
+                    )
+                )
+                .ExecuteWith(DeleteSetImpl);
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Queries                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -32,7 +103,7 @@ namespace Retinues.Editor.Controllers
         }
 
         /// <summary>
-        /// Finds the index of the given equipment in the provided list,
+        /// Finds the index of the given equipment in the provided list.
         /// </summary>
         public static int IndexOfByBase(List<MEquipment> list, MEquipment equipment)
         {
@@ -52,36 +123,6 @@ namespace Retinues.Editor.Controllers
 
             return -1;
         }
-
-        /// <summary>
-        /// Determines whether the current character can delete an equipment set
-        /// of the given type.
-        /// </summary>
-        public static bool CanDeleteSet(bool civilian, out TextObject reason) =>
-            Check(
-                [
-                    (
-                        () => GetEquipments(civilian).Count > 1,
-                        L.T(
-                            "equipment_cannot_delete_last_set",
-                            "At least one equipment set must remain."
-                        )
-                    ),
-                ],
-                out reason
-            );
-
-        /// <summary>
-        /// Determines whether the current character can create an equipment set
-        /// of the given type.
-        /// </summary>
-        public static bool CanCreateSet(bool civilian, out TextObject reason) =>
-            Check(
-                [
-                    // No limit on creation
-                ],
-                out reason
-            );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Mutations                       //
@@ -142,10 +183,7 @@ namespace Retinues.Editor.Controllers
             );
         }
 
-        /// <summary>
-        /// Creates a new empty equipment set and adds it to the current character.
-        /// </summary>
-        public static void CreateSet(bool civilian)
+        private static void CreateSetImpl(bool civilian)
         {
             void Apply(MEquipment source = null)
             {
@@ -168,10 +206,7 @@ namespace Retinues.Editor.Controllers
             );
         }
 
-        /// <summary>
-        /// Deletes the currently selected equipment set.
-        /// </summary>
-        public static void DeleteSet(bool civilian)
+        private static void DeleteSetImpl(bool civilian)
         {
             Inquiries.Popup(
                 title: L.T("inquiry_confirm_delete_equipment_set_title", "Delete Equipment"),

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Bannerlord.UIExtenderEx.Attributes;
-using Retinues.Editor.Controllers;
+using Retinues.Editor.Controllers.Character;
 using Retinues.Helpers;
 using Retinues.Model.Characters;
 using Retinues.Model.Factions;
@@ -394,12 +394,14 @@ namespace Retinues.Editor.VM.Panel.Character
 
         [EventListener(UIEvent.Character, UIEvent.Tree)]
         [DataSourceProperty]
-        public bool CanAddUpgradeTarget => UpgradeController.CanAddUpgradeTarget();
+        public bool CanAddUpgradeTarget =>
+            CharacterTreeController.AddUpgradeTarget.Allow(State.Character);
 
         [DataSourceProperty]
         public string AddUpgradeTargetText => L.S("add_upgrade_target_text", "Add Upgrade");
 
         [DataSourceMethod]
-        public void ExecuteAddUpgradeTarget() => UpgradeController.AddUpgradeTarget();
+        public void ExecuteAddUpgradeTarget() =>
+            CharacterTreeController.AddUpgradeTarget.Execute(State.Character);
     }
 }

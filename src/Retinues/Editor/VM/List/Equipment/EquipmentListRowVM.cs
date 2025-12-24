@@ -1,6 +1,6 @@
 using System;
 using Bannerlord.UIExtenderEx.Attributes;
-using Retinues.Editor.Controllers;
+using Retinues.Editor.Controllers.Equipment;
 using Retinues.Model.Equipments;
 using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Library;
@@ -42,7 +42,7 @@ namespace Retinues.Editor.VM.List.Equipment
         public override bool IsSelected => State.Equipment.Get(State.Slot) == _item;
 
         [DataSourceMethod]
-        public override void ExecuteSelect() => ItemController.EquipItem(_item);
+        public override void ExecuteSelect() => ItemController.Equip.Execute(_item);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Enabled                        //
@@ -53,7 +53,7 @@ namespace Retinues.Editor.VM.List.Equipment
         [EventListener(UIEvent.Equipment)]
         private void UpdateDisabledReason()
         {
-            ItemController.CanEquipItem(_item, out _disabledReason);
+            _disabledReason = ItemController.Equip.Reason(_item);
             OnPropertyChanged(nameof(DisabledReason));
             OnPropertyChanged(nameof(IsEnabled));
             OnPropertyChanged(nameof(Brush));

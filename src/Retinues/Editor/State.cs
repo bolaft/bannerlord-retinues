@@ -13,7 +13,7 @@ namespace Retinues.Editor
     public enum EditorMode
     {
         Universal = 0,
-        Custom = 1,
+        Player = 1,
     }
 
     /// <summary>

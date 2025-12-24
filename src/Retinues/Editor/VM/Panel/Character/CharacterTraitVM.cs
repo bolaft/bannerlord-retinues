@@ -1,5 +1,5 @@
 using Bannerlord.UIExtenderEx.Attributes;
-using Retinues.Editor.Controllers;
+using Retinues.Editor.Controllers.Character;
 using Retinues.Helpers;
 using Retinues.Model.Characters;
 using Retinues.Utilities;
@@ -12,16 +12,24 @@ namespace Retinues.Editor.VM.Panel.Character
     /// Single hero trait row (name, value, +/-).
     /// </summary>
     [SafeClass]
-    public sealed class CharacterTraitVM(TraitObject trait) : BaseVM()
+    public sealed class CharacterTraitVM : BaseVM
     {
-        private readonly TraitObject _trait = trait;
+        private readonly TraitObject _trait;
+
+        public CharacterTraitVM(TraitObject trait)
+        {
+            _trait = trait;
+
+            RefreshTraitIncrease();
+            RefreshTraitDecrease();
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Convenience                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private WHero Hero => State.Character.Hero;
-        public int Value => Hero?.GetTrait(_trait) ?? 0;
+        private int Value => Hero?.GetTrait(_trait) ?? 0;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Data Bindings                     //
@@ -38,7 +46,7 @@ namespace Retinues.Editor.VM.Panel.Character
             {
                 int v = Value;
                 int spriteValue = v == 0 ? 1 : v; // 0 uses 1
-                string id = _trait.StringId; // e.g. "calculating"
+                string id = _trait.StringId;
                 return $"SPGeneral\\SPTraits\\{id.ToLower()}_{spriteValue}";
             }
         }
@@ -63,22 +71,50 @@ namespace Retinues.Editor.VM.Panel.Character
         [DataSourceProperty]
         public Tooltip Tooltip => new(_trait.Description?.ToString() ?? string.Empty);
 
-        [EventListener(UIEvent.Trait)]
-        [DataSourceProperty]
-        public bool CanIncrement => TraitController.CanIncrement(_trait, Value);
-
-        [EventListener(UIEvent.Trait)]
-        [DataSourceProperty]
-        public bool CanDecrement => TraitController.CanDecrement(_trait, Value);
-
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                     Action Bindings                    //
+        //                        Increase                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        [DataSourceMethod]
-        public void ExecuteIncrement() => TraitController.Change(_trait, Value, +1);
+        [DataSourceProperty]
+        public bool CanIncrement { get; set; }
+
+        [DataSourceProperty]
+        public Tooltip TooltipIncrement { get; set; }
+
+        [EventListener(UIEvent.Trait)]
+        private void RefreshTraitIncrease()
+        {
+            CanIncrement = TraitController.TraitIncrease.Allow(_trait);
+            TooltipIncrement = TraitController.TraitIncrease.Tooltip(_trait);
+
+            OnPropertyChanged(nameof(CanIncrement));
+            OnPropertyChanged(nameof(TooltipIncrement));
+        }
 
         [DataSourceMethod]
-        public void ExecuteDecrement() => TraitController.Change(_trait, Value, -1);
+        public void ExecuteIncrement() => TraitController.TraitIncrease.Execute(_trait);
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Decrease                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [DataSourceProperty]
+        public bool CanDecrement { get; set; }
+
+        [DataSourceProperty]
+        public Tooltip TooltipDecrement { get; set; }
+
+        [EventListener(UIEvent.Trait)]
+        private void RefreshTraitDecrease()
+        {
+            CanDecrement = TraitController.TraitDecrease.Allow(_trait);
+            TooltipDecrement = TraitController.TraitDecrease.Tooltip(_trait);
+
+            OnPropertyChanged(nameof(CanDecrement));
+            OnPropertyChanged(nameof(TooltipDecrement));
+        }
+
+        [DataSourceMethod]
+        public void ExecuteDecrement() => TraitController.TraitDecrease.Execute(_trait);
     }
 }

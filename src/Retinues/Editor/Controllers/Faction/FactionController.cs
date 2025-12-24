@@ -1,8 +1,8 @@
 using Retinues.Model.Factions;
 
-namespace Retinues.Editor.Controllers
+namespace Retinues.Editor.Controllers.Faction
 {
-    public class FactionController : BaseController
+    public class FactionController : EditorController
     {
         /// <summary>
         /// Updates the selected culture.

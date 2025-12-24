@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using Retinues.Model.Characters;
 using Retinues.Utilities;
 
-namespace Retinues.Editor.Controllers
+namespace Retinues.Editor.Controllers.Character
 {
-    public class BodyController : BaseController
+    public class BodyController : EditorController
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Presets                        //

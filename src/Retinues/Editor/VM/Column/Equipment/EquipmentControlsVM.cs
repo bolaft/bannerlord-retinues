@@ -1,11 +1,10 @@
 using System.Collections.Generic;
 using Bannerlord.UIExtenderEx.Attributes;
-using Retinues.Editor.Controllers;
+using Retinues.Editor.Controllers.Equipment;
 using Retinues.Helpers;
 using Retinues.Model.Equipments;
 using Retinues.Utilities;
 using TaleWorlds.Library;
-using TaleWorlds.Localization;
 
 namespace Retinues.Editor.VM.Column.Equipment
 {
@@ -50,6 +49,7 @@ namespace Retinues.Editor.VM.Column.Equipment
             {
                 if (value == _civilian)
                     return;
+
                 void Apply(MEquipment e)
                 {
                     EventManager.FireBatch(() =>
@@ -77,53 +77,53 @@ namespace Retinues.Editor.VM.Column.Equipment
 
         /* ━━━━━━ Equipments ━━━━━━ */
 
-        private List<MEquipment> Equipments => _civilian ? CivilianEquipments : BattleEquipments;
-        private List<MEquipment> AllEquipments => State.Character.Editable.Equipments;
-        private List<MEquipment> BattleEquipments => AllEquipments.FindAll(e => !e.IsCivilian);
-        private List<MEquipment> CivilianEquipments => AllEquipments.FindAll(e => e.IsCivilian);
+        private static int IndexOfByBase(List<MEquipment> list, MEquipment equipment) =>
+            EquipmentController.IndexOfByBase(list, equipment);
+
+        private List<MEquipment> Equipments => EquipmentController.GetEquipments(_civilian);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Set Controls                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        int IndexOfByBase(List<MEquipment> list, MEquipment equipment) =>
-            EquipmentController.IndexOfByBase(list, equipment);
-
         [EventListener(UIEvent.Character)]
         [DataSourceProperty]
         public bool ShowSetActionButtons => State.Character != null && !State.Character.IsHero;
 
+        [EventListener(UIEvent.Equipment)]
         [DataSourceProperty]
-        public bool CanCreateSet => ShowSetActionButtons && _cantCreateSetReason == null;
-
-        [DataSourceProperty]
-        public bool CanDeleteSet => ShowSetActionButtons && _cantDeleteSetReason == null;
-
-        [DataSourceProperty]
-        public Tooltip CanCreateSetTooltip =>
-            _cantCreateSetReason == null
-                ? new Tooltip(L.T("create_set_tooltip", "Create equipment set"))
-                : new Tooltip(_cantCreateSetReason);
-
-        [DataSourceProperty]
-        public Tooltip CanDeleteSetTooltip =>
-            _cantDeleteSetReason == null
-                ? new Tooltip(L.T("delete_set_tooltip", "Delete equipment set"))
-                : new Tooltip(_cantDeleteSetReason);
-
-        private TextObject _cantCreateSetReason = null;
-        private TextObject _cantDeleteSetReason = null;
+        public bool CanCreateSet =>
+            ShowSetActionButtons && EquipmentController.CreateSet.Allow(_civilian);
 
         [EventListener(UIEvent.Equipment)]
-        private void UpdateSetButtonStates()
-        {
-            EquipmentController.CanCreateSet(_civilian, out _cantCreateSetReason);
-            EquipmentController.CanDeleteSet(_civilian, out _cantDeleteSetReason);
+        [DataSourceProperty]
+        public bool CanDeleteSet =>
+            ShowSetActionButtons && EquipmentController.DeleteSet.Allow(_civilian);
 
-            OnPropertyChanged(nameof(CanCreateSet));
-            OnPropertyChanged(nameof(CanDeleteSet));
-            OnPropertyChanged(nameof(CanCreateSetTooltip));
-            OnPropertyChanged(nameof(CanDeleteSetTooltip));
+        [EventListener(UIEvent.Equipment)]
+        [DataSourceProperty]
+        public Tooltip CanCreateSetTooltip
+        {
+            get
+            {
+                var reason = EquipmentController.CreateSet.Reason(_civilian);
+                return reason == null
+                    ? new Tooltip(L.T("create_set_tooltip", "Create equipment set"))
+                    : new Tooltip(reason);
+            }
+        }
+
+        [EventListener(UIEvent.Equipment)]
+        [DataSourceProperty]
+        public Tooltip CanDeleteSetTooltip
+        {
+            get
+            {
+                var reason = EquipmentController.DeleteSet.Reason(_civilian);
+                return reason == null
+                    ? new Tooltip(L.T("delete_set_tooltip", "Delete equipment set"))
+                    : new Tooltip(reason);
+            }
         }
 
         [EventListener(UIEvent.Equipment)]
@@ -142,46 +142,17 @@ namespace Retinues.Editor.VM.Column.Equipment
 
         [EventListener(UIEvent.Equipment)]
         [DataSourceProperty]
-        public bool CanSelectPrevSet
-        {
-            get
-            {
-                var i = IndexOfByBase(Equipments, State.Equipment);
-                return i > 0;
-            }
-        }
+        public bool CanSelectPrevSet => EquipmentController.SelectPrevSet.Allow(_civilian);
 
         [EventListener(UIEvent.Equipment)]
         [DataSourceProperty]
-        public bool CanSelectNextSet
-        {
-            get
-            {
-                var list = Equipments;
-                var i = IndexOfByBase(list, State.Equipment);
-                return i >= 0 && i < list.Count - 1;
-            }
-        }
+        public bool CanSelectNextSet => EquipmentController.SelectNextSet.Allow(_civilian);
 
         [DataSourceMethod]
-        public void ExecutePrevSet()
-        {
-            int index = IndexOfByBase(Equipments, State.Equipment);
-            if (index <= 0)
-                return;
-
-            State.Equipment = Equipments[index - 1];
-        }
+        public void ExecutePrevSet() => EquipmentController.SelectPrevSet.Execute(_civilian);
 
         [DataSourceMethod]
-        public void ExecuteNextSet()
-        {
-            int index = IndexOfByBase(Equipments, State.Equipment);
-            if (index >= Equipments.Count - 1)
-                return;
-
-            State.Equipment = Equipments[index + 1];
-        }
+        public void ExecuteNextSet() => EquipmentController.SelectNextSet.Execute(_civilian);
 
         [DataSourceMethod]
         public void ExecuteCreateSet()
@@ -189,7 +160,7 @@ namespace Retinues.Editor.VM.Column.Equipment
             if (!CanCreateSet)
                 return;
 
-            EquipmentController.CreateSet(_civilian);
+            EquipmentController.CreateSet.Execute(_civilian);
         }
 
         [DataSourceMethod]
@@ -198,7 +169,7 @@ namespace Retinues.Editor.VM.Column.Equipment
             if (!CanDeleteSet)
                 return;
 
-            EquipmentController.DeleteSet(_civilian);
+            EquipmentController.DeleteSet.Execute(_civilian);
         }
     }
 }

@@ -1,5 +1,5 @@
 using Bannerlord.UIExtenderEx.Attributes;
-using Retinues.Editor.Controllers;
+using Retinues.Editor.Controllers.Character;
 using Retinues.Helpers;
 using Retinues.Model.Characters;
 using Retinues.Utilities;
@@ -31,7 +31,6 @@ namespace Retinues.Editor.VM.Column
         [DataSourceMethod]
         public void ExecuteToggleCustomization()
         {
-            // Hero path: open character editor.
             if (State.Character.Hero is WHero wh)
             {
                 Barber.OpenForHero(
@@ -42,7 +41,6 @@ namespace Retinues.Editor.VM.Column
                     }
                 );
             }
-            // Regular path: show controls.
             else
             {
                 ShowCustomization = !ShowCustomization;
@@ -63,6 +61,8 @@ namespace Retinues.Editor.VM.Column
                 ? "SPGeneral\\GeneralFlagIcons\\female_only"
                 : "SPGeneral\\GeneralFlagIcons\\male_only";
 
+        private TextObject CantChangeGenderReason;
+
         [DataSourceProperty]
         public Tooltip GenderToggleHint =>
             CantChangeGenderReason == null
@@ -75,25 +75,26 @@ namespace Retinues.Editor.VM.Column
         [DataSourceProperty]
         public bool CanToggleGender => CantChangeGenderReason == null;
 
-        private TextObject CantChangeGenderReason;
-
         [EventListener(UIEvent.Culture)]
         private void UpdateGenderToggleState()
         {
-            CharacterController.CanChangeGender(reason: out CantChangeGenderReason);
+            // Pass current editable if available; action also reads State for actual logic.
+            CantChangeGenderReason = CharacterController.ToggleGender.Reason(
+                State.Character.Editable as WCharacter
+            );
+
             OnPropertyChanged(nameof(CanToggleGender));
             OnPropertyChanged(nameof(GenderToggleHint));
             OnPropertyChanged(nameof(GenderIconColor));
         }
 
         [DataSourceMethod]
-        public void ExecuteToggleGender() => CharacterController.ChangeGender();
+        public void ExecuteToggleGender() =>
+            CharacterController.ToggleGender.Execute(State.Character.Editable as WCharacter);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Presets                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        /* ━━━━━━━━━ Hints ━━━━━━━━ */
 
         [DataSourceProperty]
         public Tooltip AgeHint => new(L.T("age_hint", "Age"));
@@ -106,8 +107,6 @@ namespace Retinues.Editor.VM.Column
 
         [DataSourceProperty]
         public Tooltip BuildHint => new(L.T("build_hint", "Build"));
-
-        /* ━━━━━━━ Controls ━━━━━━━ */
 
         [DataSourceMethod]
         public void ExecutePrevAgePreset() => BodyController.PrevAgePreset();

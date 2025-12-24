@@ -1,6 +1,5 @@
-using System.Diagnostics.Tracing;
 using Bannerlord.UIExtenderEx.Attributes;
-using Retinues.Editor.Controllers;
+using Retinues.Editor.Controllers.Character;
 using Retinues.Helpers;
 using Retinues.Module;
 using Retinues.Utilities;
@@ -73,13 +72,16 @@ namespace Retinues.Editor.VM.Column.Character
         [EventListener(UIEvent.Tree, UIEvent.Character)]
         private void UpdateRemoveButtonState()
         {
-            CharacterController.CanRemoveCharacter(out _cantRemoveCharacterReason);
+            _cantRemoveCharacterReason = CharacterTreeController.RemoveCharacter.Reason(
+                State.Character
+            );
 
             OnPropertyChanged(nameof(CanRemoveCharacter));
             OnPropertyChanged(nameof(CanRemoveCharacterTooltip));
         }
 
         [DataSourceMethod]
-        public void ExecuteRemoveCharacter() => CharacterController.RemoveCharacter();
+        public void ExecuteRemoveCharacter() =>
+            CharacterTreeController.RemoveCharacter.Execute(State.Character);
     }
 }
