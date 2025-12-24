@@ -13,7 +13,100 @@ namespace Retinues.Model
 {
     public partial class MAttribute<T>
     {
-        private static MBObjectBase ResolveMbObject(Type objectType, string id)
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                     Reflection cache                   //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        static readonly CultureInfo Inv = CultureInfo.InvariantCulture;
+
+        static readonly object CacheLock = new();
+
+        static MethodInfo _mbGetObjectGeneric;
+
+        static readonly Dictionary<Type, bool> IsWrapperCache = new();
+        static readonly Dictionary<Type, MethodInfo> WrapperGetCache = new();
+
+        static MethodInfo GetMbGetObjectGeneric()
+        {
+            if (_mbGetObjectGeneric != null)
+                return _mbGetObjectGeneric;
+
+            lock (CacheLock)
+            {
+                if (_mbGetObjectGeneric != null)
+                    return _mbGetObjectGeneric;
+
+                _mbGetObjectGeneric = typeof(MBObjectManager)
+                    .GetMethods(BindingFlags.Public | BindingFlags.Instance)
+                    .FirstOrDefault(m =>
+                        m.Name == "GetObject"
+                        && m.IsGenericMethodDefinition
+                        && m.GetGenericArguments().Length == 1
+                        && m.GetParameters().Length == 1
+                        && m.GetParameters()[0].ParameterType == typeof(string)
+                    );
+
+                return _mbGetObjectGeneric;
+            }
+        }
+
+        static bool IsWBaseType(Type type)
+        {
+            if (type == null)
+                return false;
+
+            lock (CacheLock)
+            {
+                if (IsWrapperCache.TryGetValue(type, out var cached))
+                    return cached;
+            }
+
+            var t = type;
+            while (t != null && t != typeof(object))
+            {
+                if (t.IsGenericType && t.GetGenericTypeDefinition() == typeof(WBase<,>))
+                {
+                    lock (CacheLock)
+                        IsWrapperCache[type] = true;
+
+                    return true;
+                }
+
+                t = t.BaseType;
+            }
+
+            lock (CacheLock)
+                IsWrapperCache[type] = false;
+
+            return false;
+        }
+
+        static MethodInfo GetWrapperGetMethod(Type wrapperType)
+        {
+            if (wrapperType == null)
+                return null;
+
+            lock (CacheLock)
+            {
+                if (WrapperGetCache.TryGetValue(wrapperType, out var mi))
+                    return mi;
+            }
+
+            var found = wrapperType.GetMethod(
+                "Get",
+                BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy,
+                binder: null,
+                types: [typeof(string)],
+                modifiers: null
+            );
+
+            lock (CacheLock)
+                WrapperGetCache[wrapperType] = found;
+
+            return found;
+        }
+
+        static MBObjectBase ResolveMbObject(Type objectType, string id)
         {
             if (string.IsNullOrWhiteSpace(id) || id == "null")
                 return null;
@@ -22,69 +115,48 @@ namespace Retinues.Model
             if (mgr == null)
                 return null;
 
-            var getObjectGeneric = typeof(MBObjectManager)
-                .GetMethods(BindingFlags.Public | BindingFlags.Instance)
-                .FirstOrDefault(m =>
-                    m.Name == "GetObject"
-                    && m.IsGenericMethodDefinition
-                    && m.GetGenericArguments().Length == 1
-                    && m.GetParameters().Length == 1
-                    && m.GetParameters()[0].ParameterType == typeof(string)
-                );
-
+            var getObjectGeneric = GetMbGetObjectGeneric();
             if (getObjectGeneric == null)
                 return null;
 
-            return getObjectGeneric.MakeGenericMethod(objectType).Invoke(mgr, [id]) as MBObjectBase;
-        }
-
-        static bool IsWBaseType(Type type)
-        {
-            // Returns true if the type inherits from WBase<,>
-            while (type != null && type != typeof(object))
+            try
             {
-                if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(WBase<,>))
-                    return true;
-
-                type = type.BaseType;
+                return getObjectGeneric.MakeGenericMethod(objectType).Invoke(mgr, [id])
+                    as MBObjectBase;
             }
-
-            return false;
+            catch
+            {
+                return null;
+            }
         }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                 String serialization (compact)          //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public string Serialize()
         {
             try
             {
                 var value = Get();
-                string result;
 
                 if (value == null)
-                {
-                    result = null;
-                }
-                // Single MBObjectBase: store StringId
-                else if (value is MBObjectBase mbo)
-                {
-                    result = mbo.StringId ?? string.Empty;
-                }
-                // Single IModel (MBase / WBase / MEquipment / MEquipmentRoster / etc.)
-                else if (value is IModel model)
-                {
-                    result = SerializeModel(model);
-                }
-                // Collections (List<>, etc; but not string)
-                else if (value is IEnumerable enumerable && value is not string)
-                {
-                    result = SerializeEnumerable(enumerable);
-                }
-                else
-                {
-                    // Plain CLR type
-                    result = Serialization.Serialize(value).Compact;
-                }
+                    return null;
 
-                return result;
+                // Single MBObjectBase: store StringId
+                if (value is MBObjectBase mbo)
+                    return mbo.StringId ?? string.Empty;
+
+                // Single IModel (MBase / WBase / etc.)
+                if (value is IModel model)
+                    return SerializeModel(model);
+
+                // Collections (List<>, etc; but not string)
+                if (value is IEnumerable enumerable && value is not string)
+                    return SerializeEnumerable(enumerable);
+
+                // Plain CLR type
+                return Serialization.Serialize(value).Compact;
             }
             catch (Exception e)
             {
@@ -93,7 +165,7 @@ namespace Retinues.Model
             }
         }
 
-        private static string SerializeModel(object model)
+        static string SerializeModel(object model)
         {
             if (model == null)
                 return null;
@@ -117,7 +189,7 @@ namespace Retinues.Model
                 return null;
             }
 
-            // Non-WBase IModel (e.g. MEquipment, MEquipmentRoster) → prefer a custom Serialize()
+            // Non-WBase IModel -> prefer a custom Serialize()
             var serializeMi = type.GetMethod(
                 "Serialize",
                 BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic,
@@ -136,9 +208,9 @@ namespace Retinues.Model
             return Serialization.Serialize(model).Compact;
         }
 
-        private static string SerializeEnumerable(IEnumerable enumerable)
+        static string SerializeEnumerable(IEnumerable enumerable)
         {
-            // We serialize collections as List<string> and then XML-encode that list.
+            // Serialize collections as List<string> then XML-encode that list.
             var items = new List<string>();
 
             foreach (var item in enumerable)
@@ -149,7 +221,7 @@ namespace Retinues.Model
                     continue;
                 }
 
-                // MBObjectBase in a list → StringId
+                // MBObjectBase in a list -> StringId
                 if (item is MBObjectBase itemMbo)
                 {
                     items.Add(itemMbo.StringId ?? string.Empty);
@@ -158,7 +230,7 @@ namespace Retinues.Model
 
                 var itemType = item.GetType();
 
-                // WBase<,> wrapper in a list → underlying Base.StringId
+                // WBase<,> wrapper in a list -> Base.StringId
                 if (item is IModel && IsWBaseType(itemType))
                 {
                     var baseProp = itemType.GetProperty(
@@ -173,7 +245,7 @@ namespace Retinues.Model
                     }
                 }
 
-                // Other IModel instances → let the model handle itself if it has Serialize()
+                // Other IModel instances -> let it serialize itself if it has Serialize()
                 if (item is IModel)
                 {
                     var mi = itemType.GetMethod(
@@ -216,7 +288,6 @@ namespace Retinues.Model
                 {
                     var obj = ResolveMbObject(t, data);
                     SetValue(obj == null ? default : (T)(object)obj, markDirty: true);
-
                     return data;
                 }
 
@@ -245,7 +316,7 @@ namespace Retinues.Model
                     }
                 }
 
-                // Wrapper single: call Deserialize on existing instance if present (non-WBase IModel)
+                // Non-WBase IModel: call Deserialize on the existing instance if present
                 if (typeof(IModel).IsAssignableFrom(t) && !IsWBaseType(t))
                 {
                     var current = Get();
@@ -254,9 +325,10 @@ namespace Retinues.Model
                         var mi = current
                             .GetType()
                             .GetMethod("Deserialize", BindingFlags.Public | BindingFlags.Instance);
+
                         if (mi != null)
                         {
-                            mi.Invoke(current, new object[] { data });
+                            mi.Invoke(current, [data]);
                             return data;
                         }
                     }
@@ -274,7 +346,7 @@ namespace Retinues.Model
             }
         }
 
-        private void DeserializeSingleWrapper(Type wrapperType, string data)
+        void DeserializeSingleWrapper(Type wrapperType, string data)
         {
             try
             {
@@ -285,17 +357,11 @@ namespace Retinues.Model
                     return;
                 }
 
-                var get = wrapperType.GetMethod(
-                    "Get",
-                    BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy,
-                    binder: null,
-                    types: new[] { typeof(string) },
-                    modifiers: null
-                );
+                var get = GetWrapperGetMethod(wrapperType);
 
                 object wrapper = null;
                 if (get != null)
-                    wrapper = get.Invoke(null, new object[] { id });
+                    wrapper = get.Invoke(null, [id]);
 
                 if (wrapper is T typed)
                     SetValue(typed, true);
@@ -312,7 +378,7 @@ namespace Retinues.Model
             }
         }
 
-        private void DeserializeMbObjectList(Type elemType, string data)
+        void DeserializeMbObjectList(Type elemType, string data)
         {
             var ids = Serialization.Deserialize<List<string>>(data) ?? new List<string>();
             var listType = typeof(List<>).MakeGenericType(elemType);
@@ -327,7 +393,7 @@ namespace Retinues.Model
             SetValue((T)list, markDirty: true);
         }
 
-        private void DeserializeWrapperList(Type elemType, string data)
+        void DeserializeWrapperList(Type elemType, string data)
         {
             try
             {
@@ -336,13 +402,7 @@ namespace Retinues.Model
                 var listType = typeof(List<>).MakeGenericType(elemType);
                 var resultList = (IList)Activator.CreateInstance(listType);
 
-                var get = elemType.GetMethod(
-                    "Get",
-                    BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy,
-                    binder: null,
-                    types: new[] { typeof(string) },
-                    modifiers: null
-                );
+                var get = GetWrapperGetMethod(elemType);
 
                 if (get != null)
                 {
@@ -352,7 +412,7 @@ namespace Retinues.Model
                         if (string.IsNullOrWhiteSpace(rawId))
                             continue;
 
-                        var wrapper = get.Invoke(null, new object[] { rawId.Trim() });
+                        var wrapper = get.Invoke(null, [rawId.Trim()]);
                         if (wrapper != null)
                             resultList.Add(wrapper);
                     }
@@ -370,11 +430,12 @@ namespace Retinues.Model
             }
         }
 
-        static readonly CultureInfo Inv = CultureInfo.InvariantCulture;
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                XML element serialization (MBase)        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public XElement SerializeXml()
         {
-            // Use the attribute's user-facing Name, not the backing property key.
             var elementName = Name;
 
             var value = Get();
@@ -383,8 +444,6 @@ namespace Retinues.Model
 
             var el = new XElement(elementName);
 
-            // Keep type info minimal but useful for debugging and safety.
-            // DeserializeXml primarily uses typeof(T), but 't' helps if you ever inspect blobs.
             if (value is string s)
             {
                 el.SetAttributeValue("t", "string");
@@ -394,8 +453,6 @@ namespace Retinues.Model
 
             if (value is TextObject to)
             {
-                // Important: do NOT serialize TextObject via DataContractSerializer.
-                // It contains huge caches and internal fields.
                 el.SetAttributeValue("t", "text");
                 el.Value = to?.Value ?? string.Empty;
                 return el;
@@ -437,13 +494,11 @@ namespace Retinues.Model
                 return el;
             }
 
-            // Wrapper or other IModel:
-            // - WBase wrappers should already serialize to StringId via your existing logic
-            // - Non-WBase models may implement Serialize() and return their own compact string
-            // Here we embed the model's own XML if it looks like XML, otherwise store as text.
+            // Wrapper or other IModel
             if (value is IModel model)
             {
                 el.SetAttributeValue("t", "model");
+
                 var inner = SerializeModel(model);
                 if (!string.IsNullOrWhiteSpace(inner) && inner.TrimStart().StartsWith("<"))
                     el.Add(XElement.Parse(inner));
@@ -466,18 +521,16 @@ namespace Retinues.Model
                         continue;
                     }
 
-                    // MBObjectBase -> StringId
                     if (item is MBObjectBase itemMbo)
                     {
                         el.Add(new XElement("Item", itemMbo.StringId ?? string.Empty));
                         continue;
                     }
 
-                    // WBase<,> wrapper in a list -> underlying Base.StringId (or StringId property)
                     var itemType = item.GetType();
+
                     if (item is IModel && IsWBaseType(itemType))
                     {
-                        // Prefer Base -> MBObjectBase
                         var baseProp = itemType.GetProperty(
                             "Base",
                             BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic
@@ -489,7 +542,6 @@ namespace Retinues.Model
                             continue;
                         }
 
-                        // Fallback: StringId property if present
                         var idProp = itemType.GetProperty(
                             "StringId",
                             BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic
@@ -500,14 +552,12 @@ namespace Retinues.Model
                         continue;
                     }
 
-                    // TextObject -> Value only
                     if (item is TextObject itemTo)
                     {
                         el.Add(new XElement("Item", itemTo?.Value ?? string.Empty));
                         continue;
                     }
 
-                    // Other IModel in a list -> let it serialize itself
                     if (item is IModel itemModel)
                     {
                         var inner = SerializeModel(itemModel);
@@ -519,7 +569,6 @@ namespace Retinues.Model
                     {
                         var ts = str.TrimStart();
 
-                        // If a list item is itself XML (like MEquipment.Serialize()), embed it as XML, not text.
                         if (ts.StartsWith("<"))
                         {
                             try
@@ -527,24 +576,19 @@ namespace Retinues.Model
                                 el.Add(XElement.Parse(str));
                                 continue;
                             }
-                            catch
-                            {
-                                // If parsing fails, fall back to text.
-                            }
+                            catch { }
                         }
 
                         el.Add(new XElement("Item", str));
                         continue;
                     }
 
-                    // Fallback
                     el.Add(new XElement("Item", Convert.ToString(item, Inv) ?? string.Empty));
                 }
 
                 return el;
             }
 
-            // Fallback: simple invariant string
             el.SetAttributeValue("t", "string");
             el.Value = Convert.ToString(value, Inv) ?? string.Empty;
             return el;
@@ -586,17 +630,13 @@ namespace Retinues.Model
 
                     var items = el.Elements("Item").ToList();
                     if (items.Count == 0)
-                        items = [.. el.Elements()]; // allow embedded XML nodes directly
+                        items = [.. el.Elements()];
 
                     foreach (var itemEl in items)
                     {
                         string itemText;
 
-                        // If this is a direct embedded XML node (ex: <MEquipment ...>),
-                        // store it as its own xml string for List<string>.
                         if (itemEl.Name.LocalName != "Item" && itemEl.HasElements)
-                            itemText = itemEl.ToString(SaveOptions.DisableFormatting);
-                        else if (itemEl.Name.LocalName != "Item" && itemEl.Name.LocalName != "Item")
                             itemText = itemEl.ToString(SaveOptions.DisableFormatting);
                         else
                             itemText = itemEl.Value ?? string.Empty;
@@ -609,12 +649,8 @@ namespace Retinues.Model
 
                         if (IsWBaseType(elemType))
                         {
-                            var get = elemType.GetMethod(
-                                "Get",
-                                System.Reflection.BindingFlags.Public
-                                    | System.Reflection.BindingFlags.Static
-                            );
-                            var w = get?.Invoke(null, new object[] { itemText });
+                            var get = GetWrapperGetMethod(elemType);
+                            var w = get?.Invoke(null, [itemText]);
                             if (w != null)
                                 list.Add(w);
                             continue;
@@ -698,7 +734,7 @@ namespace Retinues.Model
                     return;
                 }
 
-                // If a non-WBase model exists, let it handle itself if we embedded XML
+                // Non-WBase model: if we embedded XML, let the existing instance handle it
                 if (typeof(IModel).IsAssignableFrom(t) && !IsWBaseType(t))
                 {
                     var current = Get();
@@ -711,16 +747,14 @@ namespace Retinues.Model
                                 .GetType()
                                 .GetMethod(
                                     "Deserialize",
-                                    System.Reflection.BindingFlags.Public
-                                        | System.Reflection.BindingFlags.Instance
+                                    BindingFlags.Public | BindingFlags.Instance
                                 );
+
                             mi?.Invoke(
                                 current,
-                                new object[]
-                                {
-                                    innerModelEl.ToString(SaveOptions.DisableFormatting),
-                                }
+                                [innerModelEl.ToString(SaveOptions.DisableFormatting)]
                             );
+
                             return;
                         }
                     }

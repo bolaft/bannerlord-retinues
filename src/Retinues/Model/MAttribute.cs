@@ -30,26 +30,9 @@ namespace Retinues.Model
         readonly Func<T> _getter;
         readonly Action<T> _setter;
         readonly IModel _model;
-        bool _dirty;
         readonly bool _persistent;
 
-        public void Touch()
-        {
-            if (_persistent)
-            {
-                _dirty = true;
-
-                // Propagate dirtiness to dependents
-                foreach (var dep in _dependents)
-                {
-                    try
-                    {
-                        dep.MarkDirty();
-                    }
-                    catch { }
-                }
-            }
-        }
+        bool _dirty;
 
         public string Name { get; internal set; }
 
@@ -65,32 +48,42 @@ namespace Retinues.Model
         /// <summary>
         /// Sets the value of the attribute.
         /// </summary>
+        public void Set(T value) => SetValue(value, markDirty: true);
+
         void SetValue(T value, bool markDirty)
         {
-            if (markDirty && _persistent)
-            {
-                _dirty = true;
-
-                // Propagate dirtiness to dependents
-                foreach (var dep in _dependents)
-                {
-                    try
-                    {
-                        dep.MarkDirty();
-                    }
-                    catch { }
-                }
-            }
+            if (markDirty)
+                MarkDirtyCore();
 
             _setter(value);
         }
-
-        public void Set(T value) => SetValue(value, true);
 
         /// <summary>
         /// True if the attribute's setter has been called since creation/loading.
         /// </summary>
         public bool IsDirty => _dirty;
+
+        public void Touch()
+        {
+            MarkDirtyCore();
+        }
+
+        void MarkDirtyCore()
+        {
+            if (!_persistent)
+                return;
+
+            _dirty = true;
+
+            foreach (var dep in _dependents)
+            {
+                try
+                {
+                    dep.MarkDirty();
+                }
+                catch { }
+            }
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Constructors                      //
@@ -190,6 +183,7 @@ namespace Retinues.Model
         {
             if (dependent == null || ReferenceEquals(dependent, this))
                 return;
+
             _dependents.Add(dependent);
         }
 

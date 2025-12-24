@@ -12,6 +12,9 @@ namespace Retinues.Model
     {
         const string ModelXmlVersion = "1.0";
 
+        static readonly object CacheLock = new();
+        static readonly Dictionary<Type, PropertyInfo[]> AttributePropertyCache = new();
+
         public string Serialize()
         {
             try
@@ -31,25 +34,10 @@ namespace Retinues.Model
                     if (attrObj == null)
                         continue;
 
-                    // Skip non-dirty attributes (same behavior as today)
-                    var dirtyProp = attrObj
-                        .GetType()
-                        .GetProperty("IsDirty", BindingFlags.Public | BindingFlags.Instance);
-                    if (dirtyProp != null)
-                    {
-                        var dirtyObj = dirtyProp.GetValue(attrObj);
-                        var isDirty = dirtyObj is bool b && b;
-                        if (!isDirty)
-                            continue;
-                    }
-
-                    var mi = attrObj
-                        .GetType()
-                        .GetMethod("SerializeXml", BindingFlags.Public | BindingFlags.Instance);
-                    if (mi == null)
+                    if (!IsAttributeDirty(attrObj))
                         continue;
 
-                    var el = mi.Invoke(attrObj, null) as XElement;
+                    var el = InvokeSerializeXml(attrObj);
                     if (el != null)
                         root.Add(el);
                 }
@@ -75,7 +63,6 @@ namespace Retinues.Model
                 if (string.IsNullOrWhiteSpace(data))
                     return data;
 
-                // New format
                 if (data.TrimStart().StartsWith("<"))
                 {
                     var doc = XDocument.Parse(data, LoadOptions.None);
@@ -96,9 +83,47 @@ namespace Retinues.Model
             }
         }
 
+        static bool IsAttributeDirty(object attrObj)
+        {
+            var dirtyProp = attrObj
+                .GetType()
+                .GetProperty("IsDirty", BindingFlags.Public | BindingFlags.Instance);
+
+            if (dirtyProp == null)
+                return true;
+
+            try
+            {
+                var dirtyObj = dirtyProp.GetValue(attrObj);
+                return dirtyObj is bool b && b;
+            }
+            catch
+            {
+                return true;
+            }
+        }
+
+        static XElement InvokeSerializeXml(object attrObj)
+        {
+            var mi = attrObj
+                .GetType()
+                .GetMethod("SerializeXml", BindingFlags.Public | BindingFlags.Instance);
+
+            if (mi == null)
+                return null;
+
+            try
+            {
+                return mi.Invoke(attrObj, null) as XElement;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
         void ApplyXml(XElement root)
         {
-            // Same priority ordering as your current code
             var entries =
                 new List<(string Name, object AttrObj, int Priority, MethodInfo Mi, XElement El)>();
 
@@ -112,21 +137,11 @@ namespace Retinues.Model
                 var mi = attrObj
                     .GetType()
                     .GetMethod("DeserializeXml", BindingFlags.Public | BindingFlags.Instance);
+
                 if (mi == null)
                     continue;
 
-                var prProp = attrObj
-                    .GetType()
-                    .GetProperty("Priority", BindingFlags.Public | BindingFlags.Instance);
-                var pr = 0;
-                if (prProp != null)
-                {
-                    var val = prProp.GetValue(attrObj);
-                    if (val is int vi)
-                        pr = vi;
-                    else if (val is Enum)
-                        pr = Convert.ToInt32(val);
-                }
+                var pr = GetPriority(attrObj);
 
                 entries.Add((name, attrObj, pr, mi, el));
             }
@@ -146,14 +161,54 @@ namespace Retinues.Model
             }
         }
 
+        static int GetPriority(object attrObj)
+        {
+            var prProp = attrObj
+                .GetType()
+                .GetProperty("Priority", BindingFlags.Public | BindingFlags.Instance);
+
+            if (prProp == null)
+                return 0;
+
+            try
+            {
+                var val = prProp.GetValue(attrObj);
+
+                if (val is int vi)
+                    return vi;
+
+                if (val is Enum)
+                    return Convert.ToInt32(val);
+
+                return 0;
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+
         protected void EnsureAttributesCreated()
         {
-            var props = GetType()
-                .GetProperties(
-                    BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic
-                );
-            foreach (var p in props)
+            var t = GetType();
+
+            PropertyInfo[] props;
+
+            lock (CacheLock)
             {
+                if (!AttributePropertyCache.TryGetValue(t, out props))
+                {
+                    props = t.GetProperties(
+                        BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic
+                    );
+                    AttributePropertyCache[t] = props;
+                }
+            }
+
+            for (int i = 0; i < props.Length; i++)
+            {
+                var p = props[i];
+
                 if (p.GetIndexParameters().Length != 0)
                     continue;
 

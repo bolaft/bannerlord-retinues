@@ -707,9 +707,7 @@ namespace Retinues.Model.Characters
                 max = Base.GetBodyPropertiesMax();
             }
 
-            var envelope = min.ToString() + BodySerializedSeparator + max.ToString();
-            Log.Info($"WCharacter: serialized body envelope for '{Base?.StringId}': '{envelope}'");
-            return envelope;
+            return min.ToString() + BodySerializedSeparator + max.ToString();;
         }
 
         /// <summary>
@@ -718,9 +716,6 @@ namespace Retinues.Model.Characters
         /// </summary>
         public void ApplySerializedBodyEnvelope(string value)
         {
-            Log.Info(
-                $"WCharacter: applying serialized body envelope for '{Base?.StringId}': '{value}'"
-            );
             if (string.IsNullOrEmpty(value))
                 return;
 

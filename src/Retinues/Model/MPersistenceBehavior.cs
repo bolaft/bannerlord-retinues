@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -16,13 +17,8 @@ namespace Retinues.Model
     public sealed class MPersistenceBehavior : BaseCampaignBehavior
     {
         const string SaveKey = "Retinues_ModelPersistence";
-
         const string RootName = "Retinues";
         const string RootVersion = "2";
-
-        public MPersistenceBehavior() { }
-
-        public override void RegisterEvents() { }
 
         public override void SyncData(IDataStore dataStore)
         {
@@ -33,146 +29,9 @@ namespace Retinues.Model
             {
                 string blob = string.Empty;
 
-                // Saving: build the blob first.
                 if (dataStore.IsSaving)
-                {
-                    var root = new XElement(RootName);
-                    root.SetAttributeValue("v", RootVersion);
+                    blob = BuildSaveBlob();
 
-                    var seen = new HashSet<string>(StringComparer.Ordinal);
-
-                    var asm = typeof(MPersistenceBehavior).Assembly;
-                    foreach (var t in asm.GetTypes())
-                    {
-                        if (t.IsAbstract || !t.IsClass)
-                            continue;
-
-                        var wb = GetWBaseGeneric(t);
-                        if (wb == null)
-                            continue;
-
-                        // 'All' is defined on WBase<,> (single authoritative definition)
-                        var allProp = wb.GetProperty(
-                            "All",
-                            BindingFlags.Public | BindingFlags.Static
-                        );
-
-                        if (allProp == null)
-                            continue;
-
-                        var allObj = allProp.GetValue(null);
-                        if (allObj is not System.Collections.IEnumerable enumerable)
-                            continue;
-
-                        foreach (var inst in enumerable)
-                        {
-                            if (inst == null)
-                                continue;
-
-                            var uidProp = inst.GetType()
-                                .GetProperty(
-                                    "UniqueId",
-                                    BindingFlags.Public
-                                        | BindingFlags.Instance
-                                        | BindingFlags.FlattenHierarchy
-                                );
-
-                            var serializeMi = inst.GetType()
-                                .GetMethod(
-                                    "Serialize",
-                                    BindingFlags.Public
-                                        | BindingFlags.Instance
-                                        | BindingFlags.FlattenHierarchy
-                                );
-
-                            if (uidProp == null || serializeMi == null)
-                                continue;
-
-                            var uid = uidProp.GetValue(inst, null) as string;
-                            if (string.IsNullOrEmpty(uid))
-                                continue;
-
-                            // Avoid duplicates
-                            if (seen.Contains(uid))
-                                continue;
-
-                            var serialized = serializeMi.Invoke(inst, null) as string;
-                            if (string.IsNullOrEmpty(serialized))
-                                continue;
-
-                            seen.Add(uid);
-
-                            // If wrapper serialization is XML (new MBase v2), embed as XML (pretty).
-                            // Otherwise store as CDATA under <Entry>.
-                            var trimmed = serialized.TrimStart();
-                            if (trimmed.StartsWith("<"))
-                            {
-                                try
-                                {
-                                    var el = XElement.Parse(serialized, LoadOptions.None);
-
-                                    // Attach uid at persistence layer.
-                                    el.SetAttributeValue("uid", uid);
-
-                                    root.Add(el);
-                                }
-                                catch
-                                {
-                                    root.Add(
-                                        new XElement(
-                                            "Entry",
-                                            new XAttribute("uid", uid),
-                                            new XAttribute("format", "text"),
-                                            new XCData(serialized)
-                                        )
-                                    );
-                                }
-                            }
-                            else
-                            {
-                                root.Add(
-                                    new XElement(
-                                        "Entry",
-                                        new XAttribute("uid", uid),
-                                        new XAttribute("format", "text"),
-                                        new XCData(serialized)
-                                    )
-                                );
-                            }
-                        }
-                    }
-
-                    // Compact in save.
-                    blob = root.ToString(SaveOptions.DisableFormatting);
-
-                    // Optional debug write next to the game executable.
-                    try
-                    {
-                        if (!string.IsNullOrWhiteSpace(blob))
-                        {
-                            var baseDir =
-                                AppDomain.CurrentDomain.BaseDirectory
-                                ?? Environment.CurrentDirectory;
-                            var filePath = Path.Combine(baseDir, "Retinues_ModelPersistence.xml");
-
-                            // Pretty file for humans.
-                            var fileContent = root.ToString(SaveOptions.None);
-
-                            File.WriteAllText(filePath, fileContent, Encoding.UTF8);
-                            Log.Info(
-                                $"MPersistenceBehavior.SyncData: wrote persistence XML to '{filePath}' (length={fileContent.Length})."
-                            );
-                        }
-                    }
-                    catch (Exception e)
-                    {
-                        Log.Warn(
-                            $"MPersistenceBehavior.SyncData: failed to write persistence XML: {e}"
-                        );
-                    }
-                }
-
-                // Single SyncData call per key (critical: no duplicate-key exceptions).
                 dataStore.SyncData(SaveKey, ref blob);
 
                 if (!string.IsNullOrEmpty(blob))
@@ -186,7 +45,6 @@ namespace Retinues.Model
                 if (string.IsNullOrEmpty(blob))
                     return;
 
-                // APPLY
                 if (TryParseXmlRoot(blob, out var xmlRoot))
                 {
                     if (xmlRoot.Name.LocalName == RootName)
@@ -203,6 +61,102 @@ namespace Retinues.Model
             catch (Exception e)
             {
                 Log.Exception(e, "MPersistenceBehavior.SyncData failed");
+            }
+        }
+
+        static string BuildSaveBlob()
+        {
+            var root = new XElement(RootName);
+            root.SetAttributeValue("v", RootVersion);
+
+            var seen = new HashSet<string>(StringComparer.Ordinal);
+
+            var asm = typeof(MPersistenceBehavior).Assembly;
+            foreach (var t in asm.GetTypes())
+            {
+                if (!WrapperReflection.IsConcreteWrapperType(t))
+                    continue;
+
+                var all = WrapperReflection.TryGetAllEnumerable(t);
+                if (all == null)
+                    continue;
+
+                foreach (var inst in all)
+                {
+                    if (inst == null)
+                        continue;
+
+                    var uid = WrapperReflection.TryGetUniqueId(inst);
+                    if (string.IsNullOrEmpty(uid))
+                        continue;
+
+                    if (seen.Contains(uid))
+                        continue;
+
+                    var serialized = WrapperReflection.TrySerialize(inst);
+                    if (string.IsNullOrEmpty(serialized))
+                        continue;
+
+                    seen.Add(uid);
+
+                    AddEntry(root, uid, serialized);
+                }
+            }
+
+            var blob = root.ToString(SaveOptions.DisableFormatting);
+
+            TryWriteDebugFile(root);
+
+            return blob;
+        }
+
+        static void AddEntry(XElement root, string uid, string serialized)
+        {
+            var trimmed = serialized.TrimStart();
+
+            if (trimmed.StartsWith("<"))
+            {
+                try
+                {
+                    var el = XElement.Parse(serialized, LoadOptions.None);
+                    el.SetAttributeValue("uid", uid);
+                    root.Add(el);
+                    return;
+                }
+                catch { }
+            }
+
+            root.Add(
+                new XElement(
+                    "Entry",
+                    new XAttribute("uid", uid),
+                    new XAttribute("format", "text"),
+                    new XCData(serialized)
+                )
+            );
+        }
+
+        static void TryWriteDebugFile(XElement root)
+        {
+            try
+            {
+                var blob = root.ToString(SaveOptions.DisableFormatting);
+                if (string.IsNullOrWhiteSpace(blob))
+                    return;
+
+                var baseDir = Runtime.ModuleRoot;
+                var filePath = Path.Combine(baseDir, "save.xml");
+
+                var fileContent = root.ToString(SaveOptions.None);
+
+                File.WriteAllText(filePath, fileContent, Encoding.UTF8);
+                Log.Info(
+                    $"MPersistenceBehavior.SyncData: wrote persistence XML to '{filePath}' (length={fileContent.Length})."
+                );
+            }
+            catch (Exception e)
+            {
+                Log.Warn($"MPersistenceBehavior.SyncData: failed to write persistence XML: {e}");
             }
         }
 
@@ -238,21 +192,14 @@ namespace Retinues.Model
 
             foreach (var t in asm.GetTypes())
             {
-                if (!t.IsClass || t.IsAbstract)
+                if (!WrapperReflection.IsConcreteWrapperType(t))
                     continue;
 
-                // Walk base types to find WBase<,>
-                var bt = t.BaseType;
-                while (
-                    bt != null
-                    && (!bt.IsGenericType || bt.GetGenericTypeDefinition() != typeof(WBase<,>))
-                )
-                    bt = bt.BaseType;
-
-                if (bt == null)
+                var wb = WrapperReflection.GetWBaseGeneric(t);
+                if (wb == null)
                     continue;
 
-                var baseArg = bt.GetGenericArguments()[1]; // TBase
+                var baseArg = wb.GetGenericArguments()[1];
                 if (baseArg != null && baseArg.FullName != null)
                     map[baseArg.FullName] = t;
             }
@@ -264,9 +211,6 @@ namespace Retinues.Model
         {
             foreach (var el in root.Elements())
             {
-                // Two supported shapes:
-                // 1) <SomeWrapper uid="BaseFullName:StringId" ...>...</SomeWrapper>
-                // 2) <Entry uid="BaseFullName:StringId" format="text"><![CDATA[...]]></Entry>
                 var uid = (string)el.Attribute("uid");
                 if (string.IsNullOrEmpty(uid))
                     continue;
@@ -275,13 +219,10 @@ namespace Retinues.Model
 
                 if (el.Name.LocalName == "Entry")
                 {
-                    // Text payload in CDATA (or Value).
                     payload = el.Value ?? string.Empty;
                 }
                 else
                 {
-                    // Wrapper element payload is itself XML.
-                    // Remove the persistence-layer uid attribute to avoid strict deserializers choking on unknown attrs.
                     var copy = new XElement(el);
                     copy.SetAttributeValue("uid", null);
                     payload = copy.ToString(SaveOptions.DisableFormatting);
@@ -306,48 +247,231 @@ namespace Retinues.Model
             if (!WrapperByBaseFullName.TryGetValue(baseTypeFullName, out var wrapperType))
                 return;
 
-            var get = wrapperType.GetMethod(
-                "Get",
-                BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy,
-                null,
-                new[] { typeof(string) },
-                null
-            );
-
-            if (get == null)
-                return;
-
-            var wrapper = get.Invoke(null, new object[] { stringId });
+            var wrapper = WrapperReflection.TryGetWrapperInstance(wrapperType, stringId);
             if (wrapper == null)
                 return;
 
-            var deserialize = wrapperType.GetMethod(
-                "Deserialize",
-                BindingFlags.Public | BindingFlags.Instance | BindingFlags.FlattenHierarchy,
-                null,
-                new[] { typeof(string) },
-                null
-            );
-
-            if (deserialize == null)
-                return;
-
-            deserialize.Invoke(wrapper, new object[] { data });
+            WrapperReflection.TryDeserialize(wrapperType, wrapper, data);
         }
 
-        static Type GetWBaseGeneric(Type t)
+        static class WrapperReflection
         {
-            // Walk base types until we find WBase<,>
-            var bt = t;
-            while (bt != null)
-            {
-                if (bt.IsGenericType && bt.GetGenericTypeDefinition() == typeof(WBase<,>))
-                    return bt;
+            static readonly object CacheLock = new();
 
-                bt = bt.BaseType;
+            static readonly Dictionary<Type, Type> WBaseGenericCache = [];
+            static readonly Dictionary<Type, PropertyInfo> AllPropertyCache = [];
+            static readonly Dictionary<Type, PropertyInfo> UniqueIdPropertyCache = [];
+            static readonly Dictionary<Type, MethodInfo> SerializeMethodCache = [];
+            static readonly Dictionary<Type, MethodInfo> DeserializeMethodCache = [];
+            static readonly Dictionary<Type, MethodInfo> GetMethodCache = [];
+
+            public static bool IsConcreteWrapperType(Type t)
+            {
+                if (t == null)
+                    return false;
+
+                if (t.IsAbstract || !t.IsClass)
+                    return false;
+
+                return GetWBaseGeneric(t) != null;
             }
 
-            return null;
+            public static Type GetWBaseGeneric(Type t)
+            {
+                if (t == null)
+                    return null;
+
+                lock (CacheLock)
+                {
+                    if (WBaseGenericCache.TryGetValue(t, out var cached))
+                        return cached;
+                }
+
+                var bt = t;
+                while (bt != null)
+                {
+                    if (bt.IsGenericType && bt.GetGenericTypeDefinition() == typeof(WBase<,>))
+                    {
+                        lock (CacheLock)
+                            WBaseGenericCache[t] = bt;
+
+                        return bt;
+                    }
+
+                    bt = bt.BaseType;
+                }
+
+                lock (CacheLock)
+                    WBaseGenericCache[t] = null;
+
+                return null;
+            }
+
+            public static IEnumerable TryGetAllEnumerable(Type wrapperType)
+            {
+                var wb = GetWBaseGeneric(wrapperType);
+                if (wb == null)
+                    return null;
+
+                var allProp = GetAllProperty(wb);
+                if (allProp == null)
+                    return null;
+
+                var allObj = allProp.GetValue(null);
+                return allObj as IEnumerable;
+            }
+
+            static PropertyInfo GetAllProperty(Type wbaseGeneric)
+            {
+                lock (CacheLock)
+                {
+                    if (AllPropertyCache.TryGetValue(wbaseGeneric, out var p))
+                        return p;
+                }
+
+                var prop = wbaseGeneric.GetProperty(
+                    "All",
+                    BindingFlags.Public | BindingFlags.Static
+                );
+
+                lock (CacheLock)
+                    AllPropertyCache[wbaseGeneric] = prop;
+
+                return prop;
+            }
+
+            public static string TryGetUniqueId(object wrapperInstance)
+            {
+                if (wrapperInstance == null)
+                    return null;
+
+                var t = wrapperInstance.GetType();
+
+                var p = GetUniqueIdProperty(t);
+                if (p == null)
+                    return null;
+
+                return p.GetValue(wrapperInstance, null) as string;
+            }
+
+            static PropertyInfo GetUniqueIdProperty(Type t)
+            {
+                lock (CacheLock)
+                {
+                    if (UniqueIdPropertyCache.TryGetValue(t, out var p))
+                        return p;
+                }
+
+                var prop = t.GetProperty(
+                    "UniqueId",
+                    BindingFlags.Public | BindingFlags.Instance | BindingFlags.FlattenHierarchy
+                );
+
+                lock (CacheLock)
+                    UniqueIdPropertyCache[t] = prop;
+
+                return prop;
+            }
+
+            public static string TrySerialize(object wrapperInstance)
+            {
+                if (wrapperInstance == null)
+                    return null;
+
+                var t = wrapperInstance.GetType();
+                var mi = GetSerializeMethod(t);
+                if (mi == null)
+                    return null;
+
+                return mi.Invoke(wrapperInstance, null) as string;
+            }
+
+            static MethodInfo GetSerializeMethod(Type t)
+            {
+                lock (CacheLock)
+                {
+                    if (SerializeMethodCache.TryGetValue(t, out var mi))
+                        return mi;
+                }
+
+                var found = t.GetMethod(
+                    "Serialize",
+                    BindingFlags.Public | BindingFlags.Instance | BindingFlags.FlattenHierarchy,
+                    binder: null,
+                    types: Type.EmptyTypes,
+                    modifiers: null
+                );
+
+                lock (CacheLock)
+                    SerializeMethodCache[t] = found;
+
+                return found;
+            }
+
+            public static object TryGetWrapperInstance(Type wrapperType, string stringId)
+            {
+                var get = GetGetMethod(wrapperType);
+                if (get == null)
+                    return null;
+
+                return get.Invoke(null, new object[] { stringId });
+            }
+
+            static MethodInfo GetGetMethod(Type wrapperType)
+            {
+                lock (CacheLock)
+                {
+                    if (GetMethodCache.TryGetValue(wrapperType, out var mi))
+                        return mi;
+                }
+
+                var found = wrapperType.GetMethod(
+                    "Get",
+                    BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy,
+                    null,
+                    new[] { typeof(string) },
+                    null
+                );
+
+                lock (CacheLock)
+                    GetMethodCache[wrapperType] = found;
+
+                return found;
+            }
+
+            public static void TryDeserialize(Type wrapperType, object wrapperInstance, string data)
+            {
+                if (wrapperType == null || wrapperInstance == null)
+                    return;
+
+                var mi = GetDeserializeMethod(wrapperType);
+                if (mi == null)
+                    return;
+
+                mi.Invoke(wrapperInstance, new object[] { data });
+            }
+
+            static MethodInfo GetDeserializeMethod(Type wrapperType)
+            {
+                lock (CacheLock)
+                {
+                    if (DeserializeMethodCache.TryGetValue(wrapperType, out var mi))
+                        return mi;
+                }
+
+                var found = wrapperType.GetMethod(
+                    "Deserialize",
+                    BindingFlags.Public | BindingFlags.Instance | BindingFlags.FlattenHierarchy,
+                    null,
+                    new[] { typeof(string) },
+                    null
+                );
+
+                lock (CacheLock)
+                    DeserializeMethodCache[wrapperType] = found;
+
+                return found;
+            }
         }
     }
 }

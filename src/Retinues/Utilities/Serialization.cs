@@ -72,7 +72,6 @@ namespace Retinues.Utilities
         /// </summary>
         public static string SerializeDictionary(Dictionary<string, string> data)
         {
-            // Keep it compact for storage.
             return Serialize(data).Compact;
         }
 
@@ -106,22 +105,27 @@ namespace Retinues.Utilities
 
         /* ━━━━━━━ Internals ━━━━━━ */
 
-        private static string SerializeToString(object value, Type declaredType)
+        static readonly XmlWriterSettings WriterSettings = new()
         {
-            // Note: OmitXmlDeclaration avoids "utf-16" declarations from StringWriter.
-            // For persistence, Compact is usually best, but we keep output readable by default.
+            Indent = true,
+            OmitXmlDeclaration = true,
+            NewLineHandling = NewLineHandling.None,
+        };
+
+        static readonly XmlReaderSettings ReaderSettings = new()
+        {
+            IgnoreComments = true,
+            IgnoreProcessingInstructions = true,
+            IgnoreWhitespace = true,
+        };
+
+        static string SerializeToString(object value, Type declaredType)
+        {
             var serializer = CreateSerializer(declaredType);
 
             var sb = new StringBuilder();
-            var settings = new XmlWriterSettings
-            {
-                Indent = true,
-                OmitXmlDeclaration = true,
-                NewLineHandling = NewLineHandling.None,
-            };
-
             using (var sw = new StringWriter(sb, CultureInfo.InvariantCulture))
-            using (var xw = XmlWriter.Create(sw, settings))
+            using (var xw = XmlWriter.Create(sw, WriterSettings))
             {
                 serializer.WriteObject(xw, value);
             }
@@ -129,27 +133,19 @@ namespace Retinues.Utilities
             return sb.ToString();
         }
 
-        private static object DeserializeFromString(string xml, Type declaredType)
+        static object DeserializeFromString(string xml, Type declaredType)
         {
             var serializer = CreateSerializer(declaredType);
 
-            var settings = new XmlReaderSettings
-            {
-                IgnoreComments = true,
-                IgnoreProcessingInstructions = true,
-                IgnoreWhitespace = true,
-            };
-
             using (var sr = new StringReader(xml))
-            using (var xr = XmlReader.Create(sr, settings))
+            using (var xr = XmlReader.Create(sr, ReaderSettings))
             {
                 return serializer.ReadObject(xr);
             }
         }
 
-        private static DataContractSerializer CreateSerializer(Type type)
+        static DataContractSerializer CreateSerializer(Type type)
         {
-            // MaxItemsInObjectGraph: avoid unexpected truncation on larger graphs.
             var settings = new DataContractSerializerSettings
             {
                 MaxItemsInObjectGraph = int.MaxValue,
@@ -168,32 +164,13 @@ namespace Retinues.Utilities
     /// </summary>
     public sealed class XmlBlob(string xml)
     {
-        private readonly string _xml = xml ?? "";
-        private XDocument _doc;
+        readonly string _xml = xml ?? "";
+        XDocument _doc;
 
         /// <summary>
         /// The raw XML string as produced by the serializer (usually indented).
         /// </summary>
         public string Xml => _xml;
-
-        /// <summary>
-        /// Compact XML for persistence (no whitespace formatting).
-        /// </summary>
-        public string Compact
-        {
-            get
-            {
-                try
-                {
-                    var doc = Document;
-                    return doc == null ? "" : doc.ToString(SaveOptions.DisableFormatting);
-                }
-                catch
-                {
-                    return "";
-                }
-            }
-        }
 
         /// <summary>
         /// Parsed XDocument (lazy). Useful if you want to inspect or edit the XML.
@@ -216,6 +193,25 @@ namespace Retinues.Utilities
                 catch
                 {
                     return null;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Compact XML for persistence (no whitespace formatting).
+        /// </summary>
+        public string Compact
+        {
+            get
+            {
+                try
+                {
+                    var doc = Document;
+                    return doc == null ? "" : doc.ToString(SaveOptions.DisableFormatting);
+                }
+                catch
+                {
+                    return "";
                 }
             }
         }

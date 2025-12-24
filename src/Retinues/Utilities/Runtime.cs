@@ -13,13 +13,11 @@ namespace Retinues.Utilities
         //                          Paths                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private static readonly Lazy<string> _assemblyDirectory = new Lazy<string>(
-            ResolveAssemblyDirectory
-        );
+        private static readonly Lazy<string> _assemblyDirectory = new(ResolveAssemblyDirectory);
 
-        private static readonly Lazy<string> _moduleRoot = new Lazy<string>(ResolveModuleRoot);
+        private static readonly Lazy<string> _moduleRoot = new(ResolveModuleRoot);
 
-        private static readonly Lazy<string> _moduleName = new Lazy<string>(ResolveModuleName);
+        private static readonly Lazy<string> _moduleName = new(ResolveModuleName);
 
         /// <summary>
         /// Directory containing the compiled Retinues DLL.
@@ -83,7 +81,7 @@ namespace Retinues.Utilities
             return AppDomain.CurrentDomain.BaseDirectory;
         }
 
-        private static string ResolveModuleRoot()
+        public static string ResolveModuleRoot()
         {
             try
             {

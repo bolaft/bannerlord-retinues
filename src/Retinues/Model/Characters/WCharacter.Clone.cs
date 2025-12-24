@@ -42,6 +42,7 @@ namespace Retinues.Model.Characters
             stub.IsFemale = IsFemale;
             stub.Race = Race;
             stub.Age = Age;
+            stub.IsMariner = IsMariner;
             stub.SkillPoints = SkillPoints;
 
             // Always ignore upgrades
