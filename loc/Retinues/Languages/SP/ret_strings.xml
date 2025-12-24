@@ -23,14 +23,14 @@
       id="ret_button_show_civilian"
       text="Civil" />
     <string
-      id="ret_cannot_remove_character_title"
-      text="No se puede eliminar la unidad" />
-    <string
       id="ret_cant_equip_reason_civilian"
       text="No civil" />
     <string
       id="ret_cant_equip_reason_skill"
       text="{SKILL} {VALUE}" />
+    <string
+      id="ret_cant_unequip_reason_empty"
+      text="Nada que desequipar." />
     <string
       id="ret_change_culture_title"
       text="Cambiar cultura" />
@@ -106,6 +106,9 @@
     <string
       id="ret_equipment_cannot_delete_last_set"
       text="Debe quedar al menos un conjunto de equipo." />
+    <string
+      id="ret_equipment_no_more_sets"
+      text="No hay más conjuntos de equipo." />
     <string
       id="ret_equipment_slot_body"
       text="Cuerpo" />
@@ -341,6 +344,9 @@
       id="ret_skill_increase_maxed_reason"
       text="La habilidad ya está en el nivel máximo." />
     <string
+      id="ret_skill_increase_no_points_reason"
+      text="No hay suficientes puntos de habilidad." />
+    <string
       id="ret_skills_header_text"
       text="Habilidades" />
     <string
@@ -356,11 +362,29 @@
       id="ret_sort_by_value"
       text="Valor" />
     <string
+      id="ret_trait_decrease_mined_reason"
+      text="El rasgo ya está en el valor mínimo." />
+    <string
+      id="ret_trait_increase_maxed_reason"
+      text="El rasgo ya está en el valor máximo." />
+    <string
       id="ret_traits_header_text"
       text="Rasgos" />
     <string
       id="ret_unequip_item_tooltip"
       text="Desequipar este objeto." />
+    <string
+      id="ret_upgrade_cannot_add_hero"
+      text="Los héroes no pueden tener objetivos de mejora." />
+    <string
+      id="ret_upgrade_cannot_add_max_targets"
+      text="Se ha alcanzado el número máximo de objetivos de mejora." />
+    <string
+      id="ret_upgrade_cannot_add_max_tier"
+      text="Esta unidad ya está en el nivel máximo." />
+    <string
+      id="ret_upgrade_cannot_add_not_in_tree"
+      text="Esta unidad no está en un árbol de tropas." />
     <string
       id="ret_upgrade_sources_header_text"
       text="Origen" />

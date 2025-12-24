@@ -23,14 +23,14 @@
       id="ret_button_show_civilian"
       text="Civile" />
     <string
-      id="ret_cannot_remove_character_title"
-      text="Impossibile rimuovere l&apos;unità" />
-    <string
       id="ret_cant_equip_reason_civilian"
       text="Non civile" />
     <string
       id="ret_cant_equip_reason_skill"
       text="{SKILL} {VALUE}" />
+    <string
+      id="ret_cant_unequip_reason_empty"
+      text="Niente da disequipaggiare." />
     <string
       id="ret_change_culture_title"
       text="Cambia cultura" />
@@ -106,6 +106,9 @@
     <string
       id="ret_equipment_cannot_delete_last_set"
       text="Deve rimanere almeno un set di equipaggiamento." />
+    <string
+      id="ret_equipment_no_more_sets"
+      text="Non ci sono più set di equipaggiamento." />
     <string
       id="ret_equipment_slot_body"
       text="Corpo" />
@@ -341,6 +344,9 @@
       id="ret_skill_increase_maxed_reason"
       text="L&apos;abilità è già al livello massimo." />
     <string
+      id="ret_skill_increase_no_points_reason"
+      text="Non ci sono abbastanza punti abilità." />
+    <string
       id="ret_skills_header_text"
       text="Abilità" />
     <string
@@ -356,11 +362,29 @@
       id="ret_sort_by_value"
       text="Valore" />
     <string
+      id="ret_trait_decrease_mined_reason"
+      text="Il tratto è già al valore minimo." />
+    <string
+      id="ret_trait_increase_maxed_reason"
+      text="Il tratto è già al valore massimo." />
+    <string
       id="ret_traits_header_text"
       text="Tratti" />
     <string
       id="ret_unequip_item_tooltip"
       text="Desequipaggia questo oggetto." />
+    <string
+      id="ret_upgrade_cannot_add_hero"
+      text="Gli eroi non possono avere obiettivi di miglioramento." />
+    <string
+      id="ret_upgrade_cannot_add_max_targets"
+      text="Raggiunto il numero massimo di obiettivi di miglioramento." />
+    <string
+      id="ret_upgrade_cannot_add_max_tier"
+      text="Questa unità è già al livello massimo." />
+    <string
+      id="ret_upgrade_cannot_add_not_in_tree"
+      text="Questa unità non è in un albero delle truppe." />
     <string
       id="ret_upgrade_sources_header_text"
       text="Origine" />

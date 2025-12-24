@@ -23,14 +23,14 @@
       id="ret_button_show_civilian"
       text="平民" />
     <string
-      id="ret_cannot_remove_character_title"
-      text="無法移除單位" />
-    <string
       id="ret_cant_equip_reason_civilian"
       text="非平民" />
     <string
       id="ret_cant_equip_reason_skill"
       text="{SKILL} {VALUE}" />
+    <string
+      id="ret_cant_unequip_reason_empty"
+      text="沒有可卸下的物品。" />
     <string
       id="ret_change_culture_title"
       text="更改文化" />
@@ -106,6 +106,9 @@
     <string
       id="ret_equipment_cannot_delete_last_set"
       text="至少必須保留一個裝備套裝。" />
+    <string
+      id="ret_equipment_no_more_sets"
+      text="沒有更多的裝備套裝。" />
     <string
       id="ret_equipment_slot_body"
       text="身體" />
@@ -341,6 +344,9 @@
       id="ret_skill_increase_maxed_reason"
       text="技能已達到最高水平。" />
     <string
+      id="ret_skill_increase_no_points_reason"
+      text="技能點不足。" />
+    <string
       id="ret_skills_header_text"
       text="技能" />
     <string
@@ -356,11 +362,29 @@
       id="ret_sort_by_value"
       text="數值" />
     <string
+      id="ret_trait_decrease_mined_reason"
+      text="特質已達到最低值。" />
+    <string
+      id="ret_trait_increase_maxed_reason"
+      text="特質已達到最高值。" />
+    <string
       id="ret_traits_header_text"
       text="特質" />
     <string
       id="ret_unequip_item_tooltip"
       text="卸下此物品。" />
+    <string
+      id="ret_upgrade_cannot_add_hero"
+      text="英雄不能有升級目標。" />
+    <string
+      id="ret_upgrade_cannot_add_max_targets"
+      text="已達到最大升級目標數量。" />
+    <string
+      id="ret_upgrade_cannot_add_max_tier"
+      text="該單位已達到最高等級。" />
+    <string
+      id="ret_upgrade_cannot_add_not_in_tree"
+      text="該單位不在部隊樹中。" />
     <string
       id="ret_upgrade_sources_header_text"
       text="來源" />

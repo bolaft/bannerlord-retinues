@@ -23,14 +23,14 @@
       id="ret_button_show_civilian"
       text="민간인" />
     <string
-      id="ret_cannot_remove_character_title"
-      text="유닛을 제거할 수 없습니다" />
-    <string
       id="ret_cant_equip_reason_civilian"
       text="민간인이 아님" />
     <string
       id="ret_cant_equip_reason_skill"
       text="{SKILL} {VALUE}" />
+    <string
+      id="ret_cant_unequip_reason_empty"
+      text="해제할 항목이 없습니다." />
     <string
       id="ret_change_culture_title"
       text="문화 변경" />
@@ -106,6 +106,9 @@
     <string
       id="ret_equipment_cannot_delete_last_set"
       text="적어도 하나의 장비 세트가 남아 있어야 합니다." />
+    <string
+      id="ret_equipment_no_more_sets"
+      text="더 이상 장비 세트가 없습니다." />
     <string
       id="ret_equipment_slot_body"
       text="몸" />
@@ -341,6 +344,9 @@
       id="ret_skill_increase_maxed_reason"
       text="기술이 이미 최대 수준에 도달했습니다." />
     <string
+      id="ret_skill_increase_no_points_reason"
+      text="기술 포인트가 부족합니다." />
+    <string
       id="ret_skills_header_text"
       text="기술" />
     <string
@@ -356,11 +362,29 @@
       id="ret_sort_by_value"
       text="값" />
     <string
+      id="ret_trait_decrease_mined_reason"
+      text="특성이 이미 최소 값에 도달했습니다." />
+    <string
+      id="ret_trait_increase_maxed_reason"
+      text="특성이 이미 최대 값에 도달했습니다." />
+    <string
       id="ret_traits_header_text"
       text="특성" />
     <string
       id="ret_unequip_item_tooltip"
       text="이 아이템을 장비 해제합니다." />
+    <string
+      id="ret_upgrade_cannot_add_hero"
+      text="영웅은 업그레이드 대상을 가질 수 없습니다." />
+    <string
+      id="ret_upgrade_cannot_add_max_targets"
+      text="최대 업그레이드 대상 수에 도달했습니다." />
+    <string
+      id="ret_upgrade_cannot_add_max_tier"
+      text="이 유닛은 이미 최대 계급에 도달했습니다." />
+    <string
+      id="ret_upgrade_cannot_add_not_in_tree"
+      text="이 유닛은 부대 트리에 없습니다." />
     <string
       id="ret_upgrade_sources_header_text"
       text="출처" />

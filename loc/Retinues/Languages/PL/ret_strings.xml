@@ -23,14 +23,14 @@
       id="ret_button_show_civilian"
       text="Cywilny" />
     <string
-      id="ret_cannot_remove_character_title"
-      text="Nie można usunąć jednostki" />
-    <string
       id="ret_cant_equip_reason_civilian"
       text="Nie cywilny" />
     <string
       id="ret_cant_equip_reason_skill"
       text="{SKILL} {VALUE}" />
+    <string
+      id="ret_cant_unequip_reason_empty"
+      text="Brak rzeczy do zdjęcia." />
     <string
       id="ret_change_culture_title"
       text="Zmień kulturę" />
@@ -106,6 +106,9 @@
     <string
       id="ret_equipment_cannot_delete_last_set"
       text="Co najmniej jeden zestaw ekwipunku musi pozostać." />
+    <string
+      id="ret_equipment_no_more_sets"
+      text="Brak kolejnych zestawów ekwipunku." />
     <string
       id="ret_equipment_slot_body"
       text="Ciało" />
@@ -341,6 +344,9 @@
       id="ret_skill_increase_maxed_reason"
       text="Umiejętność jest już na maksymalnym poziomie." />
     <string
+      id="ret_skill_increase_no_points_reason"
+      text="Brak wystarczającej liczby punktów umiejętności." />
+    <string
       id="ret_skills_header_text"
       text="Umiejętności" />
     <string
@@ -356,11 +362,29 @@
       id="ret_sort_by_value"
       text="Wartość" />
     <string
+      id="ret_trait_decrease_mined_reason"
+      text="Cechy są już na minimalnej wartości." />
+    <string
+      id="ret_trait_increase_maxed_reason"
+      text="Cechy są już na maksymalnej wartości." />
+    <string
       id="ret_traits_header_text"
       text="Cechy" />
     <string
       id="ret_unequip_item_tooltip"
       text="Odłóż ten przedmiot." />
+    <string
+      id="ret_upgrade_cannot_add_hero"
+      text="Bohaterowie nie mogą mieć celów ulepszeń." />
+    <string
+      id="ret_upgrade_cannot_add_max_targets"
+      text="Osiągnięto maksymalną liczbę celów ulepszeń." />
+    <string
+      id="ret_upgrade_cannot_add_max_tier"
+      text="Jednostka jest już na maksymalnym poziomie." />
+    <string
+      id="ret_upgrade_cannot_add_not_in_tree"
+      text="Jednostka nie znajduje się w drzewku oddziałów." />
     <string
       id="ret_upgrade_sources_header_text"
       text="Pochodzenie" />

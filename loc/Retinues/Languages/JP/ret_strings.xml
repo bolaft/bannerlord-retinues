@@ -23,14 +23,14 @@
       id="ret_button_show_civilian"
       text="民間人" />
     <string
-      id="ret_cannot_remove_character_title"
-      text="ユニットを削除できません" />
-    <string
       id="ret_cant_equip_reason_civilian"
       text="民間人ではない" />
     <string
       id="ret_cant_equip_reason_skill"
       text="{SKILL} {VALUE}" />
+    <string
+      id="ret_cant_unequip_reason_empty"
+      text="解除するものがありません。" />
     <string
       id="ret_change_culture_title"
       text="文化を変更" />
@@ -106,6 +106,9 @@
     <string
       id="ret_equipment_cannot_delete_last_set"
       text="少なくとも1つの装備セットを残す必要があります。" />
+    <string
+      id="ret_equipment_no_more_sets"
+      text="これ以上の装備セットはありません。" />
     <string
       id="ret_equipment_slot_body"
       text="体" />
@@ -341,6 +344,9 @@
       id="ret_skill_increase_maxed_reason"
       text="スキルはすでに最大レベルです。" />
     <string
+      id="ret_skill_increase_no_points_reason"
+      text="スキルポイントが不足しています。" />
+    <string
       id="ret_skills_header_text"
       text="スキル" />
     <string
@@ -356,11 +362,29 @@
       id="ret_sort_by_value"
       text="値" />
     <string
+      id="ret_trait_decrease_mined_reason"
+      text="特性はすでに最小値です。" />
+    <string
+      id="ret_trait_increase_maxed_reason"
+      text="特性はすでに最大値です。" />
+    <string
       id="ret_traits_header_text"
       text="特性" />
     <string
       id="ret_unequip_item_tooltip"
       text="このアイテムを装備解除します。" />
+    <string
+      id="ret_upgrade_cannot_add_hero"
+      text="英雄にはアップグレードターゲットを設定できません。" />
+    <string
+      id="ret_upgrade_cannot_add_max_targets"
+      text="最大アップグレードターゲット数に達しました。" />
+    <string
+      id="ret_upgrade_cannot_add_max_tier"
+      text="このユニットはすでに最大階級です。" />
+    <string
+      id="ret_upgrade_cannot_add_not_in_tree"
+      text="このユニットは部隊ツリーにありません。" />
     <string
       id="ret_upgrade_sources_header_text"
       text="起源" />

@@ -23,14 +23,14 @@
       id="ret_button_show_civilian"
       text="Civilian" />
     <string
-      id="ret_cannot_remove_character_title"
-      text="Cannot Remove Unit" />
-    <string
       id="ret_cant_equip_reason_civilian"
       text="Not civilian" />
     <string
       id="ret_cant_equip_reason_skill"
       text="{SKILL} {VALUE}" />
+    <string
+      id="ret_cant_unequip_reason_empty"
+      text="Nothing to unequip." />
     <string
       id="ret_change_culture_title"
       text="Change Culture" />
@@ -106,6 +106,9 @@
     <string
       id="ret_equipment_cannot_delete_last_set"
       text="At least one equipment set must remain." />
+    <string
+      id="ret_equipment_no_more_sets"
+      text="No more equipment sets." />
     <string
       id="ret_equipment_slot_body"
       text="Body" />
@@ -341,6 +344,9 @@
       id="ret_skill_increase_maxed_reason"
       text="Skill is already at maximum level." />
     <string
+      id="ret_skill_increase_no_points_reason"
+      text="Not enough skill points." />
+    <string
       id="ret_skills_header_text"
       text="Skills" />
     <string
@@ -356,11 +362,29 @@
       id="ret_sort_by_value"
       text="Value" />
     <string
+      id="ret_trait_decrease_mined_reason"
+      text="Trait is already at minimum value." />
+    <string
+      id="ret_trait_increase_maxed_reason"
+      text="Trait is already at maximum value." />
+    <string
       id="ret_traits_header_text"
       text="Traits" />
     <string
       id="ret_unequip_item_tooltip"
       text="Unequip this item." />
+    <string
+      id="ret_upgrade_cannot_add_hero"
+      text="Heroes cannot have upgrade targets." />
+    <string
+      id="ret_upgrade_cannot_add_max_targets"
+      text="Maximum number of upgrade targets reached." />
+    <string
+      id="ret_upgrade_cannot_add_max_tier"
+      text="This unit is already at maximum tier." />
+    <string
+      id="ret_upgrade_cannot_add_not_in_tree"
+      text="This unit is not in a troop tree." />
     <string
       id="ret_upgrade_sources_header_text"
       text="Origin" />

@@ -23,14 +23,14 @@
       id="ret_button_show_civilian"
       text="Sivil" />
     <string
-      id="ret_cannot_remove_character_title"
-      text="Birlik Kaldırılamaz" />
-    <string
       id="ret_cant_equip_reason_civilian"
       text="Sivil Değil" />
     <string
       id="ret_cant_equip_reason_skill"
       text="{SKILL} {VALUE}" />
+    <string
+      id="ret_cant_unequip_reason_empty"
+      text="Kaldırılacak bir şey yok." />
     <string
       id="ret_change_culture_title"
       text="Kültürü Değiştir" />
@@ -106,6 +106,9 @@
     <string
       id="ret_equipment_cannot_delete_last_set"
       text="En az bir ekipman seti kalmalıdır." />
+    <string
+      id="ret_equipment_no_more_sets"
+      text="Daha fazla ekipman seti yok." />
     <string
       id="ret_equipment_slot_body"
       text="Gövde" />
@@ -341,6 +344,9 @@
       id="ret_skill_increase_maxed_reason"
       text="Yetenek zaten maksimum seviyede." />
     <string
+      id="ret_skill_increase_no_points_reason"
+      text="Yeterli yetenek puanı yok." />
+    <string
       id="ret_skills_header_text"
       text="Yetenekler" />
     <string
@@ -356,11 +362,29 @@
       id="ret_sort_by_value"
       text="Değer" />
     <string
+      id="ret_trait_decrease_mined_reason"
+      text="Özellik zaten minimum değerde." />
+    <string
+      id="ret_trait_increase_maxed_reason"
+      text="Özellik zaten maksimum değerde." />
+    <string
       id="ret_traits_header_text"
       text="Özellikler" />
     <string
       id="ret_unequip_item_tooltip"
       text="Bu öğeyi donanımdan çıkar." />
+    <string
+      id="ret_upgrade_cannot_add_hero"
+      text="Kahramanların yükseltme hedefleri olamaz." />
+    <string
+      id="ret_upgrade_cannot_add_max_targets"
+      text="Maksimum yükseltme hedefi sayısına ulaşıldı." />
+    <string
+      id="ret_upgrade_cannot_add_max_tier"
+      text="Bu birim zaten maksimum seviyede." />
+    <string
+      id="ret_upgrade_cannot_add_not_in_tree"
+      text="Bu birim bir birlik ağacında değil." />
     <string
       id="ret_upgrade_sources_header_text"
       text="Kaynak" />
