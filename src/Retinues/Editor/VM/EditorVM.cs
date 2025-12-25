@@ -24,7 +24,6 @@ namespace Retinues.Editor.VM
         Equipment = 1,
         Doctrines = 2,
         Exports = 3,
-        Settings = 4,
     }
 
     /// <summary>
@@ -119,10 +118,6 @@ namespace Retinues.Editor.VM
         [DataSourceProperty]
         public bool IsExportsTabSelected => Page == EditorPage.Exports;
 
-        [EventListener(UIEvent.Page)]
-        [DataSourceProperty]
-        public bool IsSettingsTabSelected => Page == EditorPage.Settings;
-
         [DataSourceProperty]
         public bool IsDoctrinesTabVisible => IsPlayerMode;
 
@@ -148,8 +143,6 @@ namespace Retinues.Editor.VM
         public void ExecuteSelectSettingsTab()
         {
             Log.Info("Settings tab clicked. Opening MCM settings: Retinues.Settings");
-
-            ExecuteClose();
 
             if (!MCMLauncher.TryOpenSettings("Retinues.Settings"))
                 Log.Warn("Failed to open MCM settings screen.");
