@@ -1,0 +1,74 @@
+<Widget
+    WidthSizePolicy="StretchToParent"
+    HeightSizePolicy="StretchToParent"
+    MarginLeft="8"
+    DoNotAcceptEvents="true"
+    IsVisible="@IsLibraryFaction">
+    <Children>
+
+        <ListPanel
+            WidthSizePolicy="StretchToParent"
+            HeightSizePolicy="StretchToParent"
+            HorizontalAlignment="Left"
+            DoNotAcceptEvents="true">
+            <Children>
+
+                {# Banner Image #}
+                <Widget
+                    DataSource="{Image}"
+                    WidthSizePolicy="Fixed"
+                    HeightSizePolicy="Fixed"
+                    SuggestedWidth="68"
+                    SuggestedHeight="48"
+                    VerticalAlignment="Center"
+                    MarginRight="16"
+                    PositionYOffset="-1"
+                    DoNotAcceptEvents="true">
+                    <Children>
+                        <BrushWidget
+                            WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+                            Brush="SPClan.RoleSelectionButton.GoldFrame"/>
+                        <BrushWidget
+                            WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+                            Brush="Frame1Canvas"/>
+
+                        <ImageIdentifierWidget
+                            WidthSizePolicy="Fixed"
+                            HeightSizePolicy="Fixed"
+                            SuggestedWidth="66"
+                            SuggestedHeight="46"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            ImageId="@Id"
+                        {% if version == "13" %}
+                            TextureProviderName="@TextureProviderName"
+                        {% else %}
+                            ImageTypeCode="@ImageTypeCode"
+                        {% endif %}
+                            AdditionalArgs="@AdditionalArgs" />
+                    </Children>
+                </Widget>
+
+                {# Name (filename without .xml) #}
+                <TextWidget
+                    WidthSizePolicy="StretchToParent"
+                    HeightSizePolicy="StretchToParent"
+                    VerticalAlignment="Center"
+                    Brush="Clan.Tuple.Name.Text"
+                    Text="@Name" />
+
+                {# Timestamp #}
+                <TextWidget
+                    WidthSizePolicy="Fixed"
+                    HeightSizePolicy="StretchToParent"
+                    SuggestedWidth="180"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Right"
+                    Brush="Clan.Tuple.Name.Text"
+                    Text="@Timestamp" />
+
+            </Children>
+        </ListPanel>
+
+    </Children>
+</Widget>

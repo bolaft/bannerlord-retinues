@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -12,12 +11,13 @@ using Retinues.Utilities;
 
 namespace Retinues.Model
 {
-    public static class MImportExport
+    [SafeClass(IncludeDerived = true)]
+    public static partial class MImportExport
     {
         const string ExportFolderName = "Exports";
 
         const string RootName = "Retinues";
-        const string RootVersion = "2";
+        const string RootVersion = "1";
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Export                         //
@@ -135,13 +135,13 @@ namespace Retinues.Model
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(filepath) || !File.Exists(filepath))
+                if (string.IsNullOrWhiteSpace(filepath) || !System.IO.File.Exists(filepath))
                 {
                     Notifications.Message("Import failed: file not found.");
                     return;
                 }
 
-                var xml = File.ReadAllText(filepath, Encoding.UTF8);
+                var xml = System.IO.File.ReadAllText(filepath, Encoding.UTF8);
                 if (!TryParseXmlRoot(xml, out var root))
                 {
                     Notifications.Message("Import failed: invalid XML file.");
@@ -187,7 +187,7 @@ namespace Retinues.Model
                 // Legacy export format (RetinuesExport + payload CDATA)
                 if (root.Name.LocalName == "RetinuesExport")
                 {
-                    var export = MExportFile.FromXmlString(xml);
+                    var export = File.FromXmlString(xml);
                     if (export.Kind != "character")
                     {
                         Notifications.Message("Import failed: file is not a character export.");
@@ -230,13 +230,13 @@ namespace Retinues.Model
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(filepath) || !File.Exists(filepath))
+                if (string.IsNullOrWhiteSpace(filepath) || !System.IO.File.Exists(filepath))
                 {
                     Notifications.Message("Import failed: file not found.");
                     return;
                 }
 
-                var xml = File.ReadAllText(filepath, Encoding.UTF8);
+                var xml = System.IO.File.ReadAllText(filepath, Encoding.UTF8);
                 if (!TryParseXmlRoot(xml, out var root))
                 {
                     Notifications.Message("Import failed: invalid XML file.");
@@ -310,7 +310,7 @@ namespace Retinues.Model
                 // Legacy export format (RetinuesExport + payload CDATA)
                 if (root.Name.LocalName == "RetinuesExport")
                 {
-                    var export = MExportFile.FromXmlString(xml);
+                    var export = File.FromXmlString(xml);
                     if (export.Kind != "faction")
                     {
                         Notifications.Message("Import failed: file is not a faction export.");
@@ -491,7 +491,7 @@ namespace Retinues.Model
 
             // Pretty printed, no XML declaration, UTF-8.
             var content = root.ToString(SaveOptions.None);
-            File.WriteAllText(path, content, new UTF8Encoding(false));
+            System.IO.File.WriteAllText(path, content, new UTF8Encoding(false));
         }
 
         static void PromptFileName(string kind, object source, Action<string> onChosen)

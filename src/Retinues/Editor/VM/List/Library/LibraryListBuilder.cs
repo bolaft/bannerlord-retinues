@@ -38,7 +38,12 @@ namespace Retinues.Editor.VM.List.Library
                 return;
             }
 
-            void AddSection(string id, string name, IEnumerable<MLibraryItem> items, bool isFaction)
+            void AddSection(
+                string id,
+                string name,
+                IEnumerable<MLibrary.Item> items,
+                bool isFaction
+            )
             {
                 var sectionItems = items?.ToList();
                 if (sectionItems == null || sectionItems.Count == 0)

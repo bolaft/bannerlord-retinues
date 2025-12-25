@@ -258,8 +258,8 @@ namespace Retinues.Model
                     new MAttribute<T>(
                         this,
                         name,
-                        () => MAttributeStore.GetOrInit(storeKey, initialValue),
-                        value => MAttributeStore.Set(storeKey, value),
+                        () => MAttribute<T>.Store.GetOrInit(storeKey, initialValue),
+                        value => MAttribute<T>.Store.Set(storeKey, value),
                         persistent,
                         priority
                     )

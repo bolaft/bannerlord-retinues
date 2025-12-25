@@ -11,16 +11,16 @@ namespace Retinues.Model
     /// <summary>
     /// Discovers export files on disk for the Library page.
     /// </summary>
-    public static class MLibrary
+    public static partial class MLibrary
     {
         private const string ExportFolderName = "Exports";
 
         public static string ExportDirectory =>
             FileSystem.GetPathInRetinuesDocuments(ExportFolderName);
 
-        public static List<MLibraryItem> GetAll()
+        public static List<Item> GetAll()
         {
-            var items = new List<MLibraryItem>();
+            var items = new List<Item>();
 
             try
             {
@@ -49,7 +49,7 @@ namespace Retinues.Model
                 .ToList();
         }
 
-        private static bool TryRead(string path, out MLibraryItem item)
+        private static bool TryRead(string path, out Item item)
         {
             item = null;
 
@@ -108,7 +108,7 @@ namespace Retinues.Model
                                 : Path.GetFileNameWithoutExtension(fileName) ?? fileName
                         );
 
-                    item = new MLibraryItem(
+                    item = new Item(
                         filePath: path,
                         fileName: fileName,
                         kind: kind,

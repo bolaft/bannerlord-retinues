@@ -379,9 +379,9 @@ namespace Retinues.Editor
 
         /* ━━━━━━━ Library ━━━━━━━ */
 
-        private MLibraryItem _libraryItem;
+        private MLibrary.Item _libraryItem;
 
-        public MLibraryItem LibraryItem
+        public MLibrary.Item LibraryItem
         {
             get => _libraryItem;
             set

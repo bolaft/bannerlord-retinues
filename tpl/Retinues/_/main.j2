@@ -5,7 +5,6 @@
 
         {# Editor (existing content) #}
         <Widget
-            IsVisible="@IsEditorTabSelected"
             WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent">
             <Children>
 
@@ -18,45 +17,6 @@
                 {# Main panel #}
                 {% include "_/panel/base.j2" %}
 
-            </Children>
-        </Widget>
-
-        {# Doctrines #}
-        <Widget
-            IsVisible="@IsDoctrinesTabSelected"
-            WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent">
-            <Children>
-                <TextWidget
-                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-                    HorizontalAlignment="Center" VerticalAlignment="Center"
-                    Brush="Clan.Name.Text"
-                    Text="@DoctrinesTabText" />
-            </Children>
-        </Widget>
-
-        {# Exports #}
-        <Widget
-            IsVisible="@IsExportsTabSelected"
-            WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent">
-            <Children>
-                <TextWidget
-                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-                    HorizontalAlignment="Center" VerticalAlignment="Center"
-                    Brush="Clan.Name.Text"
-                    Text="@ExportsTabText" />
-            </Children>
-        </Widget>
-
-        {# Settings #}
-        <Widget
-            IsVisible="@IsSettingsTabSelected"
-            WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent">
-            <Children>
-                <TextWidget
-                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-                    HorizontalAlignment="Center" VerticalAlignment="Center"
-                    Brush="Clan.Name.Text"
-                    Text="@SettingsTabText" />
             </Children>
         </Widget>
 

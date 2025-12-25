@@ -11,10 +11,10 @@ namespace Retinues.Editor.VM.List.Library
     /// <summary>
     /// Row representing an importable export file.
     /// </summary>
-    public abstract class LibraryExportRowVM(ListHeaderVM header, MLibraryItem item)
+    public abstract class LibraryExportRowVM(ListHeaderVM header, MLibrary.Item item)
         : ListRowVM(header, item?.FileName ?? string.Empty)
     {
-        protected readonly MLibraryItem Item = item;
+        protected readonly MLibrary.Item Item = item;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Type Flags                       //
@@ -136,7 +136,7 @@ namespace Retinues.Editor.VM.List.Library
         }
     }
 
-    public sealed class LibraryFactionExportRowVM(ListHeaderVM header, MLibraryItem item)
+    public sealed class LibraryFactionExportRowVM(ListHeaderVM header, MLibrary.Item item)
         : LibraryExportRowVM(header, item)
     {
         [DataSourceProperty]
@@ -150,7 +150,7 @@ namespace Retinues.Editor.VM.List.Library
         }
     }
 
-    public sealed class LibraryCharacterExportRowVM(ListHeaderVM header, MLibraryItem item)
+    public sealed class LibraryCharacterExportRowVM(ListHeaderVM header, MLibrary.Item item)
         : LibraryExportRowVM(header, item)
     {
         [DataSourceProperty]
