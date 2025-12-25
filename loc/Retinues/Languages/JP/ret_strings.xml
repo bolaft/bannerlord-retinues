@@ -92,6 +92,18 @@
       id="ret_editor_done_button"
       text="完了" />
     <string
+      id="ret_editor_tab_doctrines"
+      text="教義" />
+    <string
+      id="ret_editor_tab_editor"
+      text="エディター" />
+    <string
+      id="ret_editor_tab_exports"
+      text="エクスポート" />
+    <string
+      id="ret_editor_tab_settings"
+      text="設定" />
+    <string
       id="ret_encyclopedia_editor_button_hint"
       text="エディターで開く。" />
     <string

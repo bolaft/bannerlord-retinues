@@ -92,6 +92,18 @@
       id="ret_editor_done_button"
       text="Tamamlandı" />
     <string
+      id="ret_editor_tab_doctrines"
+      text="Doktrinler" />
+    <string
+      id="ret_editor_tab_editor"
+      text="Düzenleyici" />
+    <string
+      id="ret_editor_tab_exports"
+      text="Dışa Aktarımlar" />
+    <string
+      id="ret_editor_tab_settings"
+      text="Ayarlar" />
+    <string
       id="ret_encyclopedia_editor_button_hint"
       text="Düzenleyicide aç." />
     <string

@@ -60,10 +60,21 @@ namespace Retinues.Editor.VM.List
                 {
                     EditorPage.Character => new CharacterListBuilder(),
                     EditorPage.Equipment => new EquipmentListBuilder(),
-                    _ => throw new NotSupportedException(
-                        $"No list builder for page {EditorVM.Page}."
-                    ),
+                    _ => new EmptyListBuilder(),
                 };
+            }
+        }
+
+        private sealed class EmptyListBuilder : BaseListBuilder
+        {
+            protected override void BuildSortButtons(ListVM list)
+            {
+                list.SortButtons = [];
+            }
+
+            protected override void BuildSections(ListVM list)
+            {
+                list.Clear();
             }
         }
 

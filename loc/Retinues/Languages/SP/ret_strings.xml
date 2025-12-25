@@ -92,6 +92,18 @@
       id="ret_editor_done_button"
       text="Hecho" />
     <string
+      id="ret_editor_tab_doctrines"
+      text="Doctrinas" />
+    <string
+      id="ret_editor_tab_editor"
+      text="Editor" />
+    <string
+      id="ret_editor_tab_exports"
+      text="Exportaciones" />
+    <string
+      id="ret_editor_tab_settings"
+      text="Configuraciones" />
+    <string
       id="ret_encyclopedia_editor_button_hint"
       text="Abrir en el editor." />
     <string

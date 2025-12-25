@@ -92,6 +92,18 @@
       id="ret_editor_done_button"
       text="Gotowe" />
     <string
+      id="ret_editor_tab_doctrines"
+      text="Doktryny" />
+    <string
+      id="ret_editor_tab_editor"
+      text="Edytor" />
+    <string
+      id="ret_editor_tab_exports"
+      text="Eksporty" />
+    <string
+      id="ret_editor_tab_settings"
+      text="Ustawienia" />
+    <string
       id="ret_encyclopedia_editor_button_hint"
       text="Otwórz w edytorze." />
     <string

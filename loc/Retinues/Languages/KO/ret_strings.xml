@@ -92,6 +92,18 @@
       id="ret_editor_done_button"
       text="완료" />
     <string
+      id="ret_editor_tab_doctrines"
+      text="교리" />
+    <string
+      id="ret_editor_tab_editor"
+      text="편집기" />
+    <string
+      id="ret_editor_tab_exports"
+      text="내보내기" />
+    <string
+      id="ret_editor_tab_settings"
+      text="설정" />
+    <string
       id="ret_encyclopedia_editor_button_hint"
       text="편집기에서 열기." />
     <string

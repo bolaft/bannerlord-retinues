@@ -92,6 +92,18 @@
       id="ret_editor_done_button"
       text="完成" />
     <string
+      id="ret_editor_tab_doctrines"
+      text="學說" />
+    <string
+      id="ret_editor_tab_editor"
+      text="編輯器" />
+    <string
+      id="ret_editor_tab_exports"
+      text="導出" />
+    <string
+      id="ret_editor_tab_settings"
+      text="設置" />
+    <string
       id="ret_encyclopedia_editor_button_hint"
       text="在編輯器中打開。" />
     <string

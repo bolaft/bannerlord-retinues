@@ -22,6 +22,8 @@ namespace Retinues.Editor.VM
         Character = 0,
         Equipment = 1,
         Doctrines = 2,
+        Exports = 3,
+        Settings = 4,
     }
 
     /// <summary>
@@ -82,6 +84,70 @@ namespace Retinues.Editor.VM
         [EventListener(UIEvent.Faction)]
         [DataSourceProperty]
         public string EditorTitle => State.Faction.Name;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Tabs                          //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [DataSourceProperty]
+        public string EditorTabText => L.S("editor_tab_editor", "Editor");
+
+        [DataSourceProperty]
+        public string DoctrinesTabText => L.S("editor_tab_doctrines", "Doctrines");
+
+        [DataSourceProperty]
+        public string ExportsTabText => L.S("editor_tab_exports", "Exports");
+
+        [DataSourceProperty]
+        public string SettingsTabText => L.S("editor_tab_settings", "Settings");
+
+        [DataSourceProperty]
+        public bool IsPlayerMode => State.Instance?.Mode == EditorMode.Player;
+
+        // Selected state for the *top* tabs
+        [EventListener(UIEvent.Page)]
+        [DataSourceProperty]
+        public bool IsEditorTabSelected =>
+            Page == EditorPage.Character || Page == EditorPage.Equipment;
+
+        [EventListener(UIEvent.Page)]
+        [DataSourceProperty]
+        public bool IsDoctrinesTabSelected => Page == EditorPage.Doctrines;
+
+        [EventListener(UIEvent.Page)]
+        [DataSourceProperty]
+        public bool IsExportsTabSelected => Page == EditorPage.Exports;
+
+        [EventListener(UIEvent.Page)]
+        [DataSourceProperty]
+        public bool IsSettingsTabSelected => Page == EditorPage.Settings;
+
+        [DataSourceProperty]
+        public bool IsDoctrinesTabVisible => IsPlayerMode;
+
+        [DataSourceMethod]
+        public void ExecuteSelectEditorTab()
+        {
+            SetPage(_lastEditorSubPage);
+        }
+
+        [DataSourceMethod]
+        public void ExecuteSelectDoctrinesTab()
+        {
+            SetPage(EditorPage.Doctrines);
+        }
+
+        [DataSourceMethod]
+        public void ExecuteSelectExportsTab()
+        {
+            SetPage(EditorPage.Exports);
+        }
+
+        [DataSourceMethod]
+        public void ExecuteSelectSettingsTab()
+        {
+            SetPage(EditorPage.Settings);
+        }
 
         /* ━━━━━━━━ Culture ━━━━━━━ */
 
@@ -207,9 +273,7 @@ namespace Retinues.Editor.VM
             private set
             {
                 if (value == _list)
-                {
                     return;
-                }
 
                 _list = value;
                 OnPropertyChanged(nameof(List));
@@ -225,9 +289,7 @@ namespace Retinues.Editor.VM
             private set
             {
                 if (value == _column)
-                {
                     return;
-                }
 
                 _column = value;
                 OnPropertyChanged(nameof(Column));
@@ -243,9 +305,7 @@ namespace Retinues.Editor.VM
             private set
             {
                 if (value == _characterPanel)
-                {
                     return;
-                }
 
                 _characterPanel = value;
                 OnPropertyChanged(nameof(CharacterPanel));
@@ -261,9 +321,7 @@ namespace Retinues.Editor.VM
             private set
             {
                 if (value == _equipmentPanel)
-                {
                     return;
-                }
 
                 _equipmentPanel = value;
                 OnPropertyChanged(nameof(EquipmentPanel));
@@ -276,12 +334,18 @@ namespace Retinues.Editor.VM
 
         public static EditorPage Page = EditorPage.Character;
 
+        private static EditorPage _lastEditorSubPage = EditorPage.Character;
+
         public static void SetPage(EditorPage page)
         {
             if (Page == page)
                 return;
 
             Page = page;
+
+            // Keep "Editor" tab sticky to the last real editor sub-page.
+            if (page == EditorPage.Character || page == EditorPage.Equipment)
+                _lastEditorSubPage = page;
 
             // Notify any listeners that page changed (columns, buttons, etc.).
             EventManager.Fire(UIEvent.Page, EventScope.Global);
@@ -300,9 +364,7 @@ namespace Retinues.Editor.VM
             set
             {
                 if (value == _isVisible)
-                {
                     return;
-                }
 
                 _isVisible = value;
                 OnPropertyChanged(nameof(IsVisible));

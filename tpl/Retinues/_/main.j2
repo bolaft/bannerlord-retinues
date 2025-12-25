@@ -3,14 +3,62 @@
     WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent">
     <Children>
 
-        {# Tableau #}
-        {% include "_/column/base.j2" %}
+        {# Editor (existing content) #}
+        <Widget
+            IsVisible="@IsEditorTabSelected"
+            WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent">
+            <Children>
 
-        {# List panel #}
-        {% include "_/list/base.j2" %}
+                {# Tableau #}
+                {% include "_/column/base.j2" %}
 
-        {# Main panel #}
-        {% include "_/panel/base.j2" %}
+                {# List panel #}
+                {% include "_/list/base.j2" %}
+
+                {# Main panel #}
+                {% include "_/panel/base.j2" %}
+
+            </Children>
+        </Widget>
+
+        {# Doctrines #}
+        <Widget
+            IsVisible="@IsDoctrinesTabSelected"
+            WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent">
+            <Children>
+                <TextWidget
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Brush="Clan.Name.Text"
+                    Text="@DoctrinesTabText" />
+            </Children>
+        </Widget>
+
+        {# Exports #}
+        <Widget
+            IsVisible="@IsExportsTabSelected"
+            WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent">
+            <Children>
+                <TextWidget
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Brush="Clan.Name.Text"
+                    Text="@ExportsTabText" />
+            </Children>
+        </Widget>
+
+        {# Settings #}
+        <Widget
+            IsVisible="@IsSettingsTabSelected"
+            WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent">
+            <Children>
+                <TextWidget
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Brush="Clan.Name.Text"
+                    Text="@SettingsTabText" />
+            </Children>
+        </Widget>
 
     </Children>
 </Widget>
