@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Bannerlord.UIExtenderEx.Attributes;
+using Retinues.Configuration;
 using Retinues.Editor.Controllers.Faction;
 using Retinues.Editor.VM.Column;
 using Retinues.Editor.VM.List;
@@ -146,7 +147,12 @@ namespace Retinues.Editor.VM
         [DataSourceMethod]
         public void ExecuteSelectSettingsTab()
         {
-            SetPage(EditorPage.Settings);
+            Log.Info("Settings tab clicked. Opening MCM settings: Retinues.Settings");
+
+            ExecuteClose();
+
+            if (!MCMLauncher.TryOpenSettings("Retinues.Settings"))
+                Log.Warn("Failed to open MCM settings screen.");
         }
 
         /* ━━━━━━━━ Culture ━━━━━━━ */
