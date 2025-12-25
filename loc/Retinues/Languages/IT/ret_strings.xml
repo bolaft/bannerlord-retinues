@@ -266,6 +266,12 @@
       id="ret_list_header_elite"
       text="Elite" />
     <string
+      id="ret_list_header_exports_characters"
+      text="Truppe" />
+    <string
+      id="ret_list_header_exports_factions"
+      text="Fazioni" />
+    <string
       id="ret_list_header_heroes"
       text="Eroi" />
     <string
@@ -382,6 +388,9 @@
     <string
       id="ret_sort_by_culture"
       text="Cultura" />
+    <string
+      id="ret_sort_by_date"
+      text="Data" />
     <string
       id="ret_sort_by_name"
       text="Nome" />

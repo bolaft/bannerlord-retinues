@@ -266,6 +266,12 @@
       id="ret_list_header_elite"
       text="엘리트" />
     <string
+      id="ret_list_header_exports_characters"
+      text="군대" />
+    <string
+      id="ret_list_header_exports_factions"
+      text="진영" />
+    <string
       id="ret_list_header_heroes"
       text="영웅" />
     <string
@@ -382,6 +388,9 @@
     <string
       id="ret_sort_by_culture"
       text="문화" />
+    <string
+      id="ret_sort_by_date"
+      text="날짜" />
     <string
       id="ret_sort_by_name"
       text="이름" />

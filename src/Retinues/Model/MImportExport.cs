@@ -51,7 +51,7 @@ namespace Retinues.Model
 
                         var root = BuildRoot(kind: "character", sourceId: c.StringId);
 
-                        AddSerialized(root, c.UniqueId, c.Serialize());
+                        AddSerialized(root, c.UniqueId, c.SerializeAll());
 
                         WriteXml(path, root);
 
@@ -95,7 +95,7 @@ namespace Retinues.Model
 
                         var root = BuildRoot(kind: "faction", sourceId: f.StringId);
 
-                        AddSerialized(root, null, f.Serialize());
+                        AddSerialized(root, null, f.SerializeAll());
 
                         var troops = f
                             .Troops.Where(t => t != null && !string.IsNullOrWhiteSpace(t.StringId))
@@ -106,7 +106,7 @@ namespace Retinues.Model
                         for (int i = 0; i < troops.Count; i++)
                         {
                             var t = troops[i];
-                            AddSerialized(root, t.UniqueId, t.Serialize());
+                            AddSerialized(root, t.UniqueId, t.SerializeAll());
                         }
 
                         WriteXml(path, root);
@@ -148,7 +148,7 @@ namespace Retinues.Model
                     return;
                 }
 
-                // New pretty export format: <Retinues v="2" ...> <WCharacter .../> </Retinues>
+                // Export format: <Retinues v="2" ...> <WCharacter .../> </Retinues>
                 if (root.Name.LocalName == RootName && (string)root.Attribute("v") == RootVersion)
                 {
                     var el = root.Elements().FirstOrDefault();
@@ -184,39 +184,6 @@ namespace Retinues.Model
                     return;
                 }
 
-                // Legacy export format (RetinuesExport + payload CDATA)
-                if (root.Name.LocalName == "RetinuesExport")
-                {
-                    var export = File.FromXmlString(xml);
-                    if (export.Kind != "character")
-                    {
-                        Notifications.Message("Import failed: file is not a character export.");
-                        return;
-                    }
-
-                    var entry = export.Entries.FirstOrDefault();
-                    if (entry == null || string.IsNullOrWhiteSpace(entry.StringId))
-                    {
-                        Notifications.Message("Import failed: missing character entry.");
-                        return;
-                    }
-
-                    var c = WCharacter.Get(entry.StringId);
-                    if (c == null)
-                    {
-                        Notifications.Message(
-                            $"Import failed: character not found: '{entry.StringId}'."
-                        );
-                        return;
-                    }
-
-                    c.Deserialize(entry.PayloadXml);
-
-                    Notifications.Message($"Imported '{entry.StringId}'.");
-                    Log.Info($"Imported character '{entry.StringId}' from '{filepath}'.");
-                    return;
-                }
-
                 Notifications.Message("Import failed: unknown export format.");
             }
             catch (Exception ex)
@@ -243,7 +210,7 @@ namespace Retinues.Model
                     return;
                 }
 
-                // New pretty export format: <Retinues v="2" ...> <WFaction .../> <WCharacter .../> ... </Retinues>
+                // Export format: <Retinues v="2" ...> <WFaction .../> <WCharacter .../> ... </Retinues>
                 if (root.Name.LocalName == RootName && (string)root.Attribute("v") == RootVersion)
                 {
                     var elements = root.Elements().ToList();
@@ -303,69 +270,6 @@ namespace Retinues.Model
                     );
                     Log.Info(
                         $"Imported faction '{factionId}' from '{filepath}'. Troops imported={imported}, skipped={skipped}."
-                    );
-                    return;
-                }
-
-                // Legacy export format (RetinuesExport + payload CDATA)
-                if (root.Name.LocalName == "RetinuesExport")
-                {
-                    var export = File.FromXmlString(xml);
-                    if (export.Kind != "faction")
-                    {
-                        Notifications.Message("Import failed: file is not a faction export.");
-                        return;
-                    }
-
-                    if (export.Entries == null || export.Entries.Count == 0)
-                    {
-                        Notifications.Message("Import failed: file has no entries.");
-                        return;
-                    }
-
-                    var factionEntry = export.Entries[0];
-                    if (factionEntry == null || string.IsNullOrWhiteSpace(factionEntry.StringId))
-                    {
-                        Notifications.Message("Import failed: invalid faction entry.");
-                        return;
-                    }
-
-                    var f = ResolveFaction(factionEntry.StringId);
-                    if (f == null)
-                    {
-                        Notifications.Message(
-                            $"Import failed: faction not found: '{factionEntry.StringId}'."
-                        );
-                        return;
-                    }
-
-                    f.Deserialize(factionEntry.PayloadXml);
-
-                    int imported = 0;
-                    int skipped = 0;
-
-                    for (int i = 1; i < export.Entries.Count; i++)
-                    {
-                        var e = export.Entries[i];
-                        if (e == null || string.IsNullOrWhiteSpace(e.StringId))
-                            continue;
-
-                        var c = WCharacter.Get(e.StringId);
-                        if (c == null)
-                        {
-                            skipped++;
-                            continue;
-                        }
-
-                        c.Deserialize(e.PayloadXml);
-                        imported++;
-                    }
-
-                    Notifications.Message(
-                        $"Imported '{factionEntry.StringId}' (troops applied: {imported}, skipped: {skipped})."
-                    );
-                    Log.Info(
-                        $"Imported faction '{factionEntry.StringId}' from '{filepath}'. Troops imported={imported}, skipped={skipped}."
                     );
                     return;
                 }

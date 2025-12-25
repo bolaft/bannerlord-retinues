@@ -2,7 +2,6 @@ using System;
 using System.IO;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Model;
-using Retinues.Model.Characters;
 using Retinues.Model.Factions;
 using TaleWorlds.Library;
 
@@ -15,6 +14,9 @@ namespace Retinues.Editor.VM.List.Library
         : ListRowVM(header, item?.FileName ?? string.Empty)
     {
         protected readonly MLibrary.Item Item = item;
+
+        object _xmlTroopImage;
+        bool _xmlTroopImageLoaded;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Type Flags                       //
@@ -66,10 +68,26 @@ namespace Retinues.Editor.VM.List.Library
 
         /// <summary>
         /// Image data source for ImageIdentifierWidget.
-        /// Character: troop portrait. Faction: banner image.
         /// </summary>
         [DataSourceProperty]
         public abstract object Image { get; }
+
+        protected object GetXmlTroopImage()
+        {
+            if (_xmlTroopImageLoaded)
+                return _xmlTroopImage;
+
+            _xmlTroopImageLoaded = true;
+
+            using var lease = Item?.LeaseModelCharacter();
+            var c = lease?.Character;
+            if (c == null)
+                return null;
+
+            // Troop image from the XML-applied stub.
+            _xmlTroopImage = c.GetImage(civilian: false);
+            return _xmlTroopImage;
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Sorting                        //
@@ -144,6 +162,12 @@ namespace Retinues.Editor.VM.List.Library
         {
             get
             {
+                // Prefer the first troop portrait from the file contents.
+                var troop = GetXmlTroopImage();
+                if (troop != null)
+                    return troop;
+
+                // Fallback: faction banner (if resolved).
                 var f = ResolveFaction(Item?.SourceId);
                 return f?.Image;
             }
@@ -154,17 +178,6 @@ namespace Retinues.Editor.VM.List.Library
         : LibraryExportRowVM(header, item)
     {
         [DataSourceProperty]
-        public override object Image
-        {
-            get
-            {
-                var c = WCharacter.Get(Item?.SourceId);
-                if (c == null)
-                    return null;
-
-                // Troop image (same as the character list row uses).
-                return c.GetImage(civilian: false);
-            }
-        }
+        public override object Image => GetXmlTroopImage();
     }
 }

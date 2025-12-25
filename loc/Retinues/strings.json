@@ -50,7 +50,7 @@
   {
     "id": "ret_button_export_character_tooltip",
     "EN": "Save this character and add it to the library.",
-    "FR": "Sauvegarder ce personnage et l'ajouter à la bibliothèque.",
+    "FR": "Sauvegarder cette unité et l'ajouter à la bibliothèque.",
     "BR": "Salve este personagem e adicione-o à biblioteca.",
     "CNs": "保存此角色并将其添加到库中。",
     "CNt": "保存此角色並將其添加到庫中。",
@@ -1392,6 +1392,38 @@
     "TR": "Seçkin"
   },
   {
+    "id": "ret_list_header_exports_characters",
+    "EN": "Troops",
+    "FR": "Troupes",
+    "BR": "Tropas",
+    "CNs": "部队",
+    "CNt": "部隊",
+    "DE": "Truppen",
+    "IT": "Truppe",
+    "JP": "部隊",
+    "KO": "군대",
+    "PL": "Oddziały",
+    "RU": "Войска",
+    "SP": "Tropas",
+    "TR": "Askerler"
+  },
+  {
+    "id": "ret_list_header_exports_factions",
+    "EN": "Factions",
+    "FR": "Factions",
+    "BR": "Facções",
+    "CNs": "派系",
+    "CNt": "派系",
+    "DE": "Fraktionen",
+    "IT": "Fazioni",
+    "JP": "派閥",
+    "KO": "진영",
+    "PL": "Frakcje",
+    "RU": "Фракции",
+    "SP": "Facciones",
+    "TR": "Fraksiyonlar"
+  },
+  {
     "id": "ret_list_header_heroes",
     "EN": "Heroes",
     "FR": "Héros",
@@ -2014,6 +2046,22 @@
     "RU": "Культура",
     "SP": "Cultura",
     "TR": "Kültür"
+  },
+  {
+    "id": "ret_sort_by_date",
+    "EN": "Date",
+    "FR": "Date",
+    "BR": "Data",
+    "CNs": "日期",
+    "CNt": "日期",
+    "DE": "Datum",
+    "IT": "Data",
+    "JP": "日付",
+    "KO": "날짜",
+    "PL": "Data",
+    "RU": "Дата",
+    "SP": "Fecha",
+    "TR": "Tarih"
   },
   {
     "id": "ret_sort_by_name",

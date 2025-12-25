@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
@@ -42,11 +41,13 @@ namespace Retinues.Model
             }
 
             // Factions first, then characters; newest first within each.
-            return items
-                .OrderByDescending(i => i.Kind == MLibraryKind.Faction)
-                .ThenByDescending(i => i.CreatedUtc)
-                .ThenBy(i => i.DisplayName)
-                .ToList();
+            return
+            [
+                .. items
+                    .OrderByDescending(i => i.Kind == MLibraryKind.Faction)
+                    .ThenByDescending(i => i.CreatedUtc)
+                    .ThenBy(i => i.DisplayName),
+            ];
         }
 
         private static bool TryRead(string path, out Item item)

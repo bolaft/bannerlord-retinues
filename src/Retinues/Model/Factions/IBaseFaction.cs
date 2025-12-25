@@ -16,6 +16,7 @@ namespace Retinues.Model.Factions
         // ━━━━━━━━━ XML ━━━━━━━━━━━━ //
 
         string Serialize();
+        string SerializeAll();
         string Deserialize(string xml);
 
         /* ━━━━━━━━━ Main ━━━━━━━━━ */

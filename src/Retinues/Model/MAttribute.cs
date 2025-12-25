@@ -68,6 +68,15 @@ namespace Retinues.Model
             MarkDirtyCore();
         }
 
+        /// <summary>
+        /// Marks this attribute as not dirty.
+        /// Does not change the underlying value.
+        /// </summary>
+        public void MarkClean()
+        {
+            _dirty = false;
+        }
+
         void MarkDirtyCore()
         {
             if (!_persistent)

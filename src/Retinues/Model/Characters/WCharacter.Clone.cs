@@ -12,11 +12,16 @@ namespace Retinues.Model.Characters
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
-        /// Clone this character into a free custom stub.
+        /// Clone this character into a free custom stub (default),
+        /// or into the provided stub if one is specified.
         /// </summary>
-        public WCharacter Clone(bool skills = true, bool equipments = true)
+        public WCharacter Clone(
+            bool skills = true,
+            bool equipments = true,
+            WCharacter intoStub = null
+        )
         {
-            var stub = GetFreeStub();
+            var stub = intoStub ?? GetFreeStub();
             if (stub == null)
             {
                 Log.Warn("No free stub available");

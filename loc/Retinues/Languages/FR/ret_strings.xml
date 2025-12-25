@@ -15,7 +15,7 @@
       text="Musculature" />
     <string
       id="ret_button_export_character_tooltip"
-      text="Sauvegarder ce personnage et l&apos;ajouter à la bibliothèque." />
+      text="Sauvegarder cette unité et l&apos;ajouter à la bibliothèque." />
     <string
       id="ret_button_export_faction_tooltip"
       text="Sauvegarder la faction sélectionnée et l&apos;ajouter à la bibliothèque." />
@@ -266,6 +266,12 @@
       id="ret_list_header_elite"
       text="Élite" />
     <string
+      id="ret_list_header_exports_characters"
+      text="Troupes" />
+    <string
+      id="ret_list_header_exports_factions"
+      text="Factions" />
+    <string
       id="ret_list_header_heroes"
       text="Héros" />
     <string
@@ -382,6 +388,9 @@
     <string
       id="ret_sort_by_culture"
       text="Culture" />
+    <string
+      id="ret_sort_by_date"
+      text="Date" />
     <string
       id="ret_sort_by_name"
       text="Nom" />

@@ -15,7 +15,19 @@ namespace Retinues.Model
         static readonly object CacheLock = new();
         static readonly Dictionary<Type, PropertyInfo[]> AttributePropertyCache = new();
 
-        public string Serialize()
+        /// <summary>
+        /// Diff serialization. Only dirty attributes are written.
+        /// Used by save/load and persistence.
+        /// </summary>
+        public string Serialize() => SerializeCore(includeClean: false, persistentOnly: true);
+
+        /// <summary>
+        /// Full serialization. Writes all attributes (even not dirty).
+        /// Used by manual export so XML is self-contained.
+        /// </summary>
+        public string SerializeAll() => SerializeCore(includeClean: true, persistentOnly: true);
+
+        string SerializeCore(bool includeClean, bool persistentOnly)
         {
             try
             {
@@ -34,7 +46,10 @@ namespace Retinues.Model
                     if (attrObj == null)
                         continue;
 
-                    if (!IsAttributeDirty(attrObj))
+                    if (persistentOnly && !IsAttributePersistent(attrObj))
+                        continue;
+
+                    if (!includeClean && !IsAttributeDirty(attrObj))
                         continue;
 
                     var el = InvokeSerializeXml(attrObj);
@@ -101,6 +116,44 @@ namespace Retinues.Model
             {
                 return true;
             }
+        }
+
+        static bool IsAttributePersistent(object attrObj)
+        {
+            // Prefer a public IsPersistent if it exists (future-proof).
+            var p = attrObj
+                .GetType()
+                .GetProperty("IsPersistent", BindingFlags.Public | BindingFlags.Instance);
+
+            if (p != null)
+            {
+                try
+                {
+                    var v = p.GetValue(attrObj);
+                    if (v is bool pb)
+                        return pb;
+                }
+                catch { }
+            }
+
+            // Current implementation stores it in private field "_persistent". :contentReference[oaicite:2]{index=2}
+            var f = attrObj
+                .GetType()
+                .GetField("_persistent", BindingFlags.NonPublic | BindingFlags.Instance);
+
+            if (f != null)
+            {
+                try
+                {
+                    var v = f.GetValue(attrObj);
+                    if (v is bool fb)
+                        return fb;
+                }
+                catch { }
+            }
+
+            // If unknown, treat as persistent to avoid dropping data silently.
+            return true;
         }
 
         static XElement InvokeSerializeXml(object attrObj)
@@ -216,6 +269,46 @@ namespace Retinues.Model
                     continue;
 
                 _ = p.GetValue(this);
+            }
+        }
+
+        /// <summary>
+        /// Marks all attributes on this model as not dirty.
+        /// Useful for stubs and temporary model instances.
+        /// </summary>
+        public void MarkAllAttributesClean()
+        {
+            EnsureAttributesCreated();
+
+            foreach (var kv in _attributes)
+            {
+                var attrObj = kv.Value;
+                if (attrObj == null)
+                    continue;
+
+                // Preferred path: MAttribute<T>.MarkClean()
+                try
+                {
+                    var mi = attrObj
+                        .GetType()
+                        .GetMethod("MarkClean", BindingFlags.Public | BindingFlags.Instance);
+
+                    if (mi != null)
+                    {
+                        mi.Invoke(attrObj, null);
+                        continue;
+                    }
+                }
+                catch { }
+
+                // Fallback: directly clear the backing _dirty field if present
+                // (MAttribute<T> uses a private bool _dirty) :contentReference[oaicite:5]{index=5}
+                try
+                {
+                    if (Reflection.HasField(attrObj, "_dirty"))
+                        Reflection.SetFieldValue(attrObj, "_dirty", false);
+                }
+                catch { }
             }
         }
     }

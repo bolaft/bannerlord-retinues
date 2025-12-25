@@ -96,6 +96,10 @@ namespace Retinues.Model.Characters
 
             // Hide from encyclopedia.
             HiddenInEncyclopedia = true;
+
+            // If custom, clear dirty flags so the stub properties stop persisting.
+            if (IsCustom)
+                MarkAllAttributesClean();
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

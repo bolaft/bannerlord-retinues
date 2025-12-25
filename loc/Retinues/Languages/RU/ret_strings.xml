@@ -266,6 +266,12 @@
       id="ret_list_header_elite"
       text="Элита" />
     <string
+      id="ret_list_header_exports_characters"
+      text="Войска" />
+    <string
+      id="ret_list_header_exports_factions"
+      text="Фракции" />
+    <string
       id="ret_list_header_heroes"
       text="Герои" />
     <string
@@ -382,6 +388,9 @@
     <string
       id="ret_sort_by_culture"
       text="Культура" />
+    <string
+      id="ret_sort_by_date"
+      text="Дата" />
     <string
       id="ret_sort_by_name"
       text="Имя" />

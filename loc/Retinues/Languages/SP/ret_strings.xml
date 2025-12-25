@@ -266,6 +266,12 @@
       id="ret_list_header_elite"
       text="Élite" />
     <string
+      id="ret_list_header_exports_characters"
+      text="Tropas" />
+    <string
+      id="ret_list_header_exports_factions"
+      text="Facciones" />
+    <string
       id="ret_list_header_heroes"
       text="Héroes" />
     <string
@@ -382,6 +388,9 @@
     <string
       id="ret_sort_by_culture"
       text="Cultura" />
+    <string
+      id="ret_sort_by_date"
+      text="Fecha" />
     <string
       id="ret_sort_by_name"
       text="Nombre" />

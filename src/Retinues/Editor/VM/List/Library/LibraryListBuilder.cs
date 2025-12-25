@@ -79,7 +79,7 @@ namespace Retinues.Editor.VM.List.Library
 
             AddSection(
                 id: "exports_characters",
-                name: L.S("list_header_exports_characters", "Characters"),
+                name: L.S("list_header_exports_characters", "Troops"),
                 items: all.Where(x => x.Kind == MLibraryKind.Character),
                 isFaction: false
             );

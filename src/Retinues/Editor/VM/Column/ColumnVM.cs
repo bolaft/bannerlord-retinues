@@ -1,8 +1,9 @@
 using System;
-using System.Diagnostics.Tracing;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Editor.VM.Column.Character;
 using Retinues.Editor.VM.Column.Equipment;
+using Retinues.Model;
+using Retinues.Model.Characters;
 using Retinues.Utilities;
 using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Library;
@@ -50,42 +51,73 @@ namespace Retinues.Editor.VM.Column
             }
         }
 
-        // Build the tableau model whenever the current troop / appearance changes.
-        [EventListener(UIEvent.Character, UIEvent.Appearance)]
+        [EventListener(UIEvent.Character, UIEvent.Appearance, UIEvent.Page, UIEvent.Library)]
         private void RebuildModel()
         {
-            var character = State.Character;
-            if (character?.Base == null)
-            {
-                Model = null;
-                return;
-            }
-
-            var co = character.Base;
-
-            var vm = new CharacterViewModel(CharacterViewModel.StanceTypes.None);
+            MLibrary.Item.ModelLease lease = null;
 
             try
             {
-                vm.FillFrom(co, seed: -1);
+                WCharacter character;
+
+                if (EditorVM.Page == EditorPage.Library)
+                {
+                    lease = State.Instance.LibraryItem?.LeaseModelCharacter();
+                    character = lease?.Character;
+
+                    if (character?.Base == null)
+                    {
+                        Model = null;
+                        return;
+                    }
+                }
+                else
+                {
+                    character = State.Character;
+
+                    if (character?.Base == null)
+                    {
+                        Model = null;
+                        return;
+                    }
+                }
+
+                var co = character.Base;
+
+                var vm = new CharacterViewModel(CharacterViewModel.StanceTypes.None);
+
+                try
+                {
+                    vm.FillFrom(co, seed: -1);
+                }
+                catch (Exception e)
+                {
+                    Log.Exception(e);
+                    Model = null;
+                    return;
+                }
+
+                // Important: apply selected equipment after FillFrom.
+                // In Library mode, we want the equipment from the XML-applied character,
+                // not the editor-selected equipment.
+                if (EditorVM.Page != EditorPage.Library)
+                    ApplyEquipmentTo(vm);
+
+                Model = vm;
             }
-            catch (Exception e)
+            finally
             {
-                Log.Exception(e);
-                Model = null;
-                return;
+                lease?.Dispose();
             }
-
-            // Important: apply selected equipment after FillFrom.
-            ApplyEquipmentTo(vm);
-
-            Model = vm;
         }
 
         // Apply the selected equipment without rebuilding the whole VM.
         [EventListener(UIEvent.Equipment)]
         private void RefreshModelEquipment()
         {
+            if (EditorVM.Page == EditorPage.Library)
+                return;
+
             if (Model == null)
             {
                 RebuildModel();

@@ -266,6 +266,12 @@
       id="ret_list_header_elite"
       text="Elita" />
     <string
+      id="ret_list_header_exports_characters"
+      text="Oddziały" />
+    <string
+      id="ret_list_header_exports_factions"
+      text="Frakcje" />
+    <string
       id="ret_list_header_heroes"
       text="Bohaterowie" />
     <string
@@ -382,6 +388,9 @@
     <string
       id="ret_sort_by_culture"
       text="Kultura" />
+    <string
+      id="ret_sort_by_date"
+      text="Data" />
     <string
       id="ret_sort_by_name"
       text="Nazwa" />

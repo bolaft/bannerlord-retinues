@@ -14,7 +14,7 @@ namespace Retinues.Model
         /// <summary>
         /// Metadata for a single export file in the Library.
         /// </summary>
-        public sealed class Item(
+        public sealed partial class Item(
             string filePath,
             string fileName,
             MLibraryKind kind,

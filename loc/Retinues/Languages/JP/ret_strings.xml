@@ -266,6 +266,12 @@
       id="ret_list_header_elite"
       text="エリート" />
     <string
+      id="ret_list_header_exports_characters"
+      text="部隊" />
+    <string
+      id="ret_list_header_exports_factions"
+      text="派閥" />
+    <string
       id="ret_list_header_heroes"
       text="英雄" />
     <string
@@ -382,6 +388,9 @@
     <string
       id="ret_sort_by_culture"
       text="文化" />
+    <string
+      id="ret_sort_by_date"
+      text="日付" />
     <string
       id="ret_sort_by_name"
       text="名前" />

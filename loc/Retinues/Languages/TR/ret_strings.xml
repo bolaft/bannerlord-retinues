@@ -266,6 +266,12 @@
       id="ret_list_header_elite"
       text="Seçkin" />
     <string
+      id="ret_list_header_exports_characters"
+      text="Askerler" />
+    <string
+      id="ret_list_header_exports_factions"
+      text="Fraksiyonlar" />
+    <string
       id="ret_list_header_heroes"
       text="Kahramanlar" />
     <string
@@ -382,6 +388,9 @@
     <string
       id="ret_sort_by_culture"
       text="Kültür" />
+    <string
+      id="ret_sort_by_date"
+      text="Tarih" />
     <string
       id="ret_sort_by_name"
       text="İsim" />
