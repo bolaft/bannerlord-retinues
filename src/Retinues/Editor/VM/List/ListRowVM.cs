@@ -30,6 +30,15 @@ namespace Retinues.Editor.VM.List
         [DataSourceProperty]
         public virtual bool IsEquipment => false;
 
+        [DataSourceProperty]
+        public virtual bool IsLibraryItem => false;
+
+        [DataSourceProperty]
+        public virtual bool IsLibraryFaction => false;
+
+        [DataSourceProperty]
+        public virtual bool IsLibraryCharacter => false;
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Identifier                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

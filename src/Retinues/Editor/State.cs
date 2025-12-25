@@ -1,3 +1,4 @@
+using Retinues.Model;
 using Retinues.Model.Characters;
 using Retinues.Model.Equipments;
 using Retinues.Model.Factions;
@@ -373,6 +374,23 @@ namespace Retinues.Editor
 
                 _slot = value;
                 Fire(UIEvent.Slot);
+            }
+        }
+
+        /* ━━━━━━━ Library ━━━━━━━ */
+
+        private MLibraryItem _libraryItem;
+
+        public MLibraryItem LibraryItem
+        {
+            get => _libraryItem;
+            set
+            {
+                if (ReferenceEquals(value, _libraryItem))
+                    return;
+
+                _libraryItem = value;
+                Fire(UIEvent.Library);
             }
         }
     }

@@ -5,6 +5,7 @@ using System.Threading;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Editor.VM.List.Character;
 using Retinues.Editor.VM.List.Equipment;
+using Retinues.Editor.VM.List.Library;
 using Retinues.Helpers;
 using Retinues.Model.Characters;
 using Retinues.Utilities;
@@ -60,6 +61,7 @@ namespace Retinues.Editor.VM.List
                 {
                     EditorPage.Character => new CharacterListBuilder(),
                     EditorPage.Equipment => new EquipmentListBuilder(),
+                    EditorPage.Library => new LibraryListBuilder(),
                     _ => new EmptyListBuilder(),
                 };
             }
@@ -102,6 +104,16 @@ namespace Retinues.Editor.VM.List
             {
                 UpdateEquipmentHeaderExpansion();
             }
+        }
+
+        /// <summary>
+        /// On library index change, rebuild the list if in library page.
+        /// </summary>
+        [EventListener(UIEvent.LibraryIndex)]
+        private void OnLibraryIndexChanged()
+        {
+            if (EditorVM.Page == EditorPage.Library)
+                Builder.Build(this);
         }
 
         /// <summary>

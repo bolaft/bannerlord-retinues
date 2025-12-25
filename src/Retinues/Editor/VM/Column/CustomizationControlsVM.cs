@@ -11,6 +11,15 @@ namespace Retinues.Editor.VM.Column
     public class CustomizationControlsVM : BaseVM
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Visibility                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [EventListener(UIEvent.Page)]
+        [DataSourceProperty]
+        public bool IsVisible =>
+            EditorVM.Page == EditorPage.Character || EditorVM.Page == EditorPage.Equipment;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Show / Hide                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 

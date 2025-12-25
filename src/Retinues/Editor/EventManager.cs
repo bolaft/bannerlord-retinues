@@ -30,6 +30,8 @@ namespace Retinues.Editor
         Trait,
         Tree,
         Formation,
+        Library,
+        LibraryIndex,
     }
 
     public enum EventScope
