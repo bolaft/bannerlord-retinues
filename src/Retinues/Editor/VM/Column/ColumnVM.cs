@@ -110,6 +110,11 @@ namespace Retinues.Editor.VM.Column
 
         [EventListener(UIEvent.Page)]
         [DataSourceProperty]
+        public bool ShowEquipmentButton =>
+            EditorVM.Page == EditorPage.Character || EditorVM.Page == EditorPage.Equipment;
+
+        [EventListener(UIEvent.Page)]
+        [DataSourceProperty]
         public string EquipmentButtonText =>
             EditorVM.Page == EditorPage.Equipment
                 ? L.S("close_equipment_button_text", "Back")
