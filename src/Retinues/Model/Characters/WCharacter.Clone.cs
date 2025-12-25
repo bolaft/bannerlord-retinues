@@ -87,7 +87,6 @@ namespace Retinues.Model.Characters
             else
                 stub.EquipmentRoster.Reset();
 
-            Log.Info($"Cloned '{Name}' -> '{stub.StringId}'");
             return stub;
         }
 

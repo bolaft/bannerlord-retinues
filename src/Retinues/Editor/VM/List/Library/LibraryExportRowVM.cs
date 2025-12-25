@@ -162,12 +162,7 @@ namespace Retinues.Editor.VM.List.Library
         {
             get
             {
-                // Prefer the first troop portrait from the file contents.
-                var troop = GetXmlTroopImage();
-                if (troop != null)
-                    return troop;
-
-                // Fallback: faction banner (if resolved).
+                // Faction export rows show the faction/banner image.
                 var f = ResolveFaction(Item?.SourceId);
                 return f?.Image;
             }
