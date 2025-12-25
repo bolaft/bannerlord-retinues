@@ -143,6 +143,12 @@
       id="ret_equipment_slot_weapon_3"
       text="武器 4" />
     <string
+      id="ret_equipments_create_set"
+      text="新しい装備セットを作成します。" />
+    <string
+      id="ret_equipments_delete_set"
+      text="選択した装備セットを削除します。" />
+    <string
       id="ret_escape_menu_editor_button"
       text="ユニバーサルエディター" />
     <string

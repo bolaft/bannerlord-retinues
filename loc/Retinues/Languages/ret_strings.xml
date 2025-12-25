@@ -143,6 +143,12 @@
       id="ret_equipment_slot_weapon_3"
       text="Weapon 4" />
     <string
+      id="ret_equipments_create_set"
+      text="Create a new equipment set." />
+    <string
+      id="ret_equipments_delete_set"
+      text="Delete the selected equipment set." />
+    <string
       id="ret_escape_menu_editor_button"
       text="Universal Editor" />
     <string

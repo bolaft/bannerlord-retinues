@@ -143,6 +143,12 @@
       id="ret_equipment_slot_weapon_3"
       text="무기 4" />
     <string
+      id="ret_equipments_create_set"
+      text="새 장비 세트를 만드십시오." />
+    <string
+      id="ret_equipments_delete_set"
+      text="선택한 장비 세트를 삭제하십시오." />
+    <string
       id="ret_escape_menu_editor_button"
       text="유니버설 에디터" />
     <string

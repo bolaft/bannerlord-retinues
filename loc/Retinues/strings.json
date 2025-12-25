@@ -736,6 +736,38 @@
     "TR": "Silah 4"
   },
   {
+    "id": "ret_equipments_create_set",
+    "EN": "Create a new equipment set.",
+    "FR": "Créer un nouvel équipement.",
+    "BR": "Criar um novo conjunto de equipamentos.",
+    "CNs": "创建一个新的装备套装。",
+    "CNt": "創建一個新的裝備套裝。",
+    "DE": "Erstellen Sie ein neues Ausrüstungsset.",
+    "IT": "Crea un nuovo set di equipaggiamento.",
+    "JP": "新しい装備セットを作成します。",
+    "KO": "새 장비 세트를 만드십시오.",
+    "PL": "Utwórz nowy zestaw ekwipunku.",
+    "RU": "Создать новый набор снаряжения.",
+    "SP": "Crear un nuevo conjunto de equipo.",
+    "TR": "Yeni bir ekipman seti oluşturun."
+  },
+  {
+    "id": "ret_equipments_delete_set",
+    "EN": "Delete the selected equipment set.",
+    "FR": "Supprimer l'équipement sélectionné.",
+    "BR": "Excluir o conjunto de equipamentos selecionado.",
+    "CNs": "删除所选的装备套装。",
+    "CNt": "刪除所選的裝備套裝。",
+    "DE": "Löschen Sie das ausgewählte Ausrüstungsset.",
+    "IT": "Elimina il set di equipaggiamento selezionato.",
+    "JP": "選択した装備セットを削除します。",
+    "KO": "선택한 장비 세트를 삭제하십시오.",
+    "PL": "Usuń wybrany zestaw ekwipunku.",
+    "RU": "Удалить выбранный набор снаряжения.",
+    "SP": "Eliminar el conjunto de equipo seleccionado.",
+    "TR": "Seçilen ekipman setini silin."
+  },
+  {
     "id": "ret_escape_menu_editor_button",
     "EN": "Universal Editor",
     "FR": "Éditeur universel",

@@ -143,6 +143,12 @@
       id="ret_equipment_slot_weapon_3"
       text="武器 4" />
     <string
+      id="ret_equipments_create_set"
+      text="創建一個新的裝備套裝。" />
+    <string
+      id="ret_equipments_delete_set"
+      text="刪除所選的裝備套裝。" />
+    <string
       id="ret_escape_menu_editor_button"
       text="通用編輯器" />
     <string

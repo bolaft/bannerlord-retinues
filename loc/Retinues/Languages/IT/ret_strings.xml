@@ -143,6 +143,12 @@
       id="ret_equipment_slot_weapon_3"
       text="Arma 4" />
     <string
+      id="ret_equipments_create_set"
+      text="Crea un nuovo set di equipaggiamento." />
+    <string
+      id="ret_equipments_delete_set"
+      text="Elimina il set di equipaggiamento selezionato." />
+    <string
       id="ret_escape_menu_editor_button"
       text="Editor Universale" />
     <string
