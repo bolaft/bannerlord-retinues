@@ -80,15 +80,19 @@ namespace Retinues.Editor.VM.List.Character
                 header.UpdateState();
             }
 
-            // Heroes.
-            AddSection(
-                headers,
-                "heroes",
-                "list_header_heroes",
-                L.S("list_header_heroes", "Heroes"),
-                faction.RosterHeroes,
-                condition: () => faction is WClan
-            );
+            // Heroes are only shown in universal mode.
+            if (State.Instance.Mode == EditorMode.Universal)
+            {
+                // Heroes.
+                AddSection(
+                    headers,
+                    "heroes",
+                    "list_header_heroes",
+                    L.S("list_header_heroes", "Heroes"),
+                    faction.RosterHeroes,
+                    condition: () => faction is WClan
+                );
+            }
 
             // Retinues.
             AddSection(

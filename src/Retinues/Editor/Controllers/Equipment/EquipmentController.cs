@@ -68,13 +68,16 @@ namespace Retinues.Editor.Controllers.Equipment
         /// Creates a new equipment set (copy or empty) and selects it.
         /// </summary>
         public static EditorAction<bool> CreateSet { get; } =
-            Action<bool>("CreateSet").ExecuteWith(CreateSetImpl);
+            Action<bool>("CreateSet")
+                .DefaultTooltip(L.T("equipments_create_set", "Create a new equipment set."))
+                .ExecuteWith(CreateSetImpl);
 
         /// <summary>
         /// Deletes the currently selected equipment set of the given type.
         /// </summary>
         public static EditorAction<bool> DeleteSet { get; } =
             Action<bool>("DeleteSet")
+                .DefaultTooltip(L.T("equipments_delete_set", "Delete the selected equipment set."))
                 .AddCondition(
                     civilian => GetEquipments(civilian).Count > 1,
                     L.T(

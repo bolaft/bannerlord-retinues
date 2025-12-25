@@ -24,6 +24,9 @@ namespace Retinues.Editor.Controllers
         private Action<TArg> _pre;
         private Action<TArg> _post;
 
+        private TextObject _defaultTooltip;
+        private Func<TArg, TextObject> _defaultTooltipFactory;
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Setup                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -69,6 +72,28 @@ namespace Retinues.Editor.Controllers
             return this;
         }
 
+        /// <summary>
+        /// Default tooltip shown when the action is enabled.
+        /// If the action is disabled, the blocking reason tooltip is shown instead.
+        /// </summary>
+        public EditorAction<TArg> DefaultTooltip(TextObject tooltip)
+        {
+            _defaultTooltip = tooltip;
+            _defaultTooltipFactory = null;
+            return this;
+        }
+
+        /// <summary>
+        /// Default tooltip shown when the action is enabled, computed from the argument.
+        /// If the action is disabled, the blocking reason tooltip is shown instead.
+        /// </summary>
+        public EditorAction<TArg> DefaultTooltip(Func<TArg, TextObject> tooltipFactory)
+        {
+            _defaultTooltip = null;
+            _defaultTooltipFactory = tooltipFactory;
+            return this;
+        }
+
         public EditorAction<TArg> PreExecute(Action<TArg> pre)
         {
             _pre += pre;
@@ -88,7 +113,7 @@ namespace Retinues.Editor.Controllers
             return this;
         }
 
-        public EditorAction<TArg> WhenMode(EditorMode mode, Action<UIActionModeSpec<TArg>> spec)
+        public EditorAction<TArg> WhenMode(EditorMode mode, Action<ActionModeSpec> spec)
         {
             if (!_modeOverrides.TryGetValue(mode, out var ov))
             {
@@ -96,7 +121,7 @@ namespace Retinues.Editor.Controllers
                 _modeOverrides[mode] = ov;
             }
 
-            spec?.Invoke(new UIActionModeSpec<TArg>(ov));
+            spec?.Invoke(new ActionModeSpec(ov));
             return this;
         }
 
@@ -124,10 +149,33 @@ namespace Retinues.Editor.Controllers
             return null;
         }
 
+        /// <summary>
+        /// Tooltip for the action.
+        /// - If disabled, returns the blocking reason.
+        /// - If enabled, returns the optional default tooltip (if configured).
+        /// - Otherwise returns null.
+        /// </summary>
         public Tooltip Tooltip(TArg arg)
         {
             var reason = Reason(arg);
-            return reason != null ? new Tooltip(reason) : null;
+            if (reason != null)
+                return new Tooltip(reason);
+
+            var mode = EditorController.State.Mode;
+
+            if (_modeOverrides.TryGetValue(mode, out var ov))
+            {
+                var t =
+                    ov.DefaultTooltipFactory != null
+                        ? ov.DefaultTooltipFactory(arg)
+                        : ov.DefaultTooltip;
+                if (t != null)
+                    return new Tooltip(t);
+            }
+
+            var baseTip =
+                _defaultTooltipFactory != null ? _defaultTooltipFactory(arg) : _defaultTooltip;
+            return baseTip != null ? new Tooltip(baseTip) : null;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -144,7 +192,7 @@ namespace Retinues.Editor.Controllers
 
             if (_execute == null)
             {
-                Log.Warn($"UIAction '{_name}' has no execute delegate.");
+                Log.Warn($"EditorAction '{_name}' has no execute delegate.");
                 return false;
             }
 
@@ -234,44 +282,62 @@ namespace Retinues.Editor.Controllers
             public Action<TArg> Pre;
             public Action<TArg> Post;
             public Action<TArg> Executed;
+
+            public TextObject DefaultTooltip;
+            public Func<TArg, TextObject> DefaultTooltipFactory;
         }
 
-        public sealed class UIActionModeSpec<T>(ModeOverrides ov)
+        /// <summary>
+        /// Mode-specific action customization.
+        /// </summary>
+        public sealed class ActionModeSpec(EditorAction<TArg>.ModeOverrides ov)
         {
             private readonly ModeOverrides _ov = ov;
 
-            public UIActionModeSpec<T> AddCondition(Func<T, bool> test, TextObject reason)
+            public ActionModeSpec AddCondition(Func<TArg, bool> test, TextObject reason)
             {
-                _ov.Conditions.Add(new Condition(null, a => test((T)(object)a), reason));
+                _ov.Conditions.Add(new Condition(null, test, reason));
                 return this;
             }
 
-            public UIActionModeSpec<T> AddCondition(
-                Func<T, bool> test,
-                Func<T, TextObject> reasonFactory
+            public ActionModeSpec AddCondition(
+                Func<TArg, bool> test,
+                Func<TArg, TextObject> reasonFactory
             )
             {
-                _ov.Conditions.Add(
-                    new Condition(null, a => test((T)(object)a), a => reasonFactory((T)(object)a))
-                );
+                _ov.Conditions.Add(new Condition(null, test, reasonFactory));
                 return this;
             }
 
-            public UIActionModeSpec<T> PreExecute(Action<T> pre)
+            public ActionModeSpec DefaultTooltip(TextObject tooltip)
             {
-                _ov.Pre += a => pre((T)(object)a);
+                _ov.DefaultTooltip = tooltip;
+                _ov.DefaultTooltipFactory = null;
                 return this;
             }
 
-            public UIActionModeSpec<T> PostExecute(Action<T> post)
+            public ActionModeSpec DefaultTooltip(Func<TArg, TextObject> tooltipFactory)
             {
-                _ov.Post += a => post((T)(object)a);
+                _ov.DefaultTooltip = null;
+                _ov.DefaultTooltipFactory = tooltipFactory;
                 return this;
             }
 
-            public UIActionModeSpec<T> OnExecuted(Action<T> executed)
+            public ActionModeSpec PreExecute(Action<TArg> pre)
             {
-                _ov.Executed += a => executed((T)(object)a);
+                _ov.Pre += pre;
+                return this;
+            }
+
+            public ActionModeSpec PostExecute(Action<TArg> post)
+            {
+                _ov.Post += post;
+                return this;
+            }
+
+            public ActionModeSpec OnExecuted(Action<TArg> executed)
+            {
+                _ov.Executed += executed;
                 return this;
             }
         }
