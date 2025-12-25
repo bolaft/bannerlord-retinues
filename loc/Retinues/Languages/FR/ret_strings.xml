@@ -14,6 +14,12 @@
       id="ret_build_hint"
       text="Musculature" />
     <string
+      id="ret_button_export_character_tooltip"
+      text="Sauvegarder ce personnage et l&apos;ajouter à la bibliothèque." />
+    <string
+      id="ret_button_export_faction_tooltip"
+      text="Sauvegarder la faction sélectionnée et l&apos;ajouter à la bibliothèque." />
+    <string
       id="ret_button_remove_character"
       text="Supprimer" />
     <string
@@ -98,8 +104,8 @@
       id="ret_editor_tab_editor"
       text="Éditeur" />
     <string
-      id="ret_editor_tab_exports"
-      text="Exports" />
+      id="ret_editor_tab_library"
+      text="Bibliothèque" />
     <string
       id="ret_editor_tab_settings"
       text="Paramètres" />
@@ -163,6 +169,12 @@
     <string
       id="ret_escape_menu_editor_button"
       text="Éditeur universel" />
+    <string
+      id="ret_export_desc"
+      text="Choisissez un nom de sauvegarde :" />
+    <string
+      id="ret_export_title"
+      text="Sauvegarder" />
     <string
       id="ret_filter_label"
       text="Filtre :" />
@@ -273,10 +285,10 @@
       text="Villageois" />
     <string
       id="ret_mariner_toggle_tooltip"
-      text="Les marins sont mieux adaptées au combat naval, mais gagnent des points de compétence à un rythme légèrement réduit." />
+      text="Définis la capacité de marin de cette unité.{newline}Les marins sont mieux adaptés au combat naval, mais gagnent des points de compétence à un rythme légèrement réduit." />
     <string
       id="ret_mariner_toggle_tooltip_universal"
-      text="Les marins sont mieux adaptées au combat naval." />
+      text="Définis la capacité de marin de cette unité.{newline}Les marins sont mieux adaptés au combat naval." />
     <string
       id="ret_mcm_option_debug_mode"
       text="Mode Débogage" />

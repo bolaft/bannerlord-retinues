@@ -53,7 +53,7 @@ namespace Retinues.Utilities
         {
             try
             {
-                LogFile = Runtime.GetPathInModule(LogFileName);
+                LogFile = FileSystem.GetPathInRetinuesDocuments("Logs", LogFileName);
             }
             catch
             {

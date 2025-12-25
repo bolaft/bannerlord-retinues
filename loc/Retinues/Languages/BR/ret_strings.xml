@@ -14,6 +14,12 @@
       id="ret_build_hint"
       text="Constituição" />
     <string
+      id="ret_button_export_character_tooltip"
+      text="Salve este personagem e adicione-o à biblioteca." />
+    <string
+      id="ret_button_export_faction_tooltip"
+      text="Salve a facção selecionada e adicione-a à biblioteca." />
+    <string
       id="ret_button_remove_character"
       text="Excluir" />
     <string
@@ -98,8 +104,8 @@
       id="ret_editor_tab_editor"
       text="Editor" />
     <string
-      id="ret_editor_tab_exports"
-      text="Exportações" />
+      id="ret_editor_tab_library"
+      text="Biblioteca" />
     <string
       id="ret_editor_tab_settings"
       text="Configurações" />
@@ -163,6 +169,12 @@
     <string
       id="ret_escape_menu_editor_button"
       text="Editor Universal" />
+    <string
+      id="ret_export_desc"
+      text="Escolha um nome para salvar:" />
+    <string
+      id="ret_export_title"
+      text="Salvar" />
     <string
       id="ret_filter_label"
       text="Filtro:" />
@@ -273,10 +285,10 @@
       text="Vilaões" />
     <string
       id="ret_mariner_toggle_tooltip"
-      text="Os marinheiros são mais adequados para o combate naval, mas ganham pontos de habilidade em uma taxa ligeiramente reduzida." />
+      text="Defina a habilidade de marinheiro desta unidade.{newline}Os marinheiros são mais adequados para o combate naval, mas ganham pontos de habilidade em uma taxa ligeiramente reduzida." />
     <string
       id="ret_mariner_toggle_tooltip_universal"
-      text="Os marinheiros são mais adequados para o combate naval." />
+      text="Defina a habilidade de marinheiro desta unidade.{newline}Os marinheiros são mais adequados para o combate naval." />
     <string
       id="ret_mcm_option_debug_mode"
       text="Modo de Depuração" />

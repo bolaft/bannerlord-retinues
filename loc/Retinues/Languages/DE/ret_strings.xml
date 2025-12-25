@@ -14,6 +14,12 @@
       id="ret_build_hint"
       text="Statur" />
     <string
+      id="ret_button_export_character_tooltip"
+      text="Diesen Charakter speichern und zur Bibliothek hinzufügen." />
+    <string
+      id="ret_button_export_faction_tooltip"
+      text="Die ausgewählte Fraktion speichern und zur Bibliothek hinzufügen." />
+    <string
       id="ret_button_remove_character"
       text="Löschen" />
     <string
@@ -98,8 +104,8 @@
       id="ret_editor_tab_editor"
       text="Editor" />
     <string
-      id="ret_editor_tab_exports"
-      text="Exporte" />
+      id="ret_editor_tab_library"
+      text="Bibliothek" />
     <string
       id="ret_editor_tab_settings"
       text="Einstellungen" />
@@ -163,6 +169,12 @@
     <string
       id="ret_escape_menu_editor_button"
       text="Universeller Editor" />
+    <string
+      id="ret_export_desc"
+      text="Wählen Sie einen Speichername:" />
+    <string
+      id="ret_export_title"
+      text="Speichern" />
     <string
       id="ret_filter_label"
       text="Filter:" />
@@ -273,10 +285,10 @@
       text="Dörfler" />
     <string
       id="ret_mariner_toggle_tooltip"
-      text="Matrosen sind besser für den Seekampf geeignet, verdienen aber Fertigkeitspunkte mit etwas reduzierter Rate." />
+      text="Setze die Seefahrer-Fähigkeit dieser Einheit.{newline}Seefahrer sind besser für den Seekampf geeignet, verdienen jedoch Fertigkeitspunkte mit einer leicht reduzierten Rate." />
     <string
       id="ret_mariner_toggle_tooltip_universal"
-      text="Matrosen sind besser für den Seekampf geeignet." />
+      text="Setze die Seefahrer-Fähigkeit dieser Einheit.{newline}Seefahrer sind besser für den Seekampf geeignet." />
     <string
       id="ret_mcm_option_debug_mode"
       text="Debug-Modus" />

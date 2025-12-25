@@ -9,6 +9,15 @@ namespace Retinues.Model.Factions
 {
     public interface IBaseFaction
     {
+        /* ━━━━━━━━━ Identity ━━━━━━━━ */
+
+        string StringId { get; }
+
+        // ━━━━━━━━━ XML ━━━━━━━━━━━━ //
+
+        string Serialize();
+        string Deserialize(string xml);
+
         /* ━━━━━━━━━ Main ━━━━━━━━━ */
 
         string Name { get; }

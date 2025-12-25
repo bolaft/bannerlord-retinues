@@ -14,6 +14,12 @@
       id="ret_build_hint"
       text="체격" />
     <string
+      id="ret_button_export_character_tooltip"
+      text="이 캐릭터를 저장하고 라이브러리에 추가합니다." />
+    <string
+      id="ret_button_export_faction_tooltip"
+      text="선택한 진영을 저장하고 라이브러리에 추가합니다." />
+    <string
       id="ret_button_remove_character"
       text="삭제" />
     <string
@@ -98,8 +104,8 @@
       id="ret_editor_tab_editor"
       text="편집기" />
     <string
-      id="ret_editor_tab_exports"
-      text="내보내기" />
+      id="ret_editor_tab_library"
+      text="라이브러리" />
     <string
       id="ret_editor_tab_settings"
       text="설정" />
@@ -163,6 +169,12 @@
     <string
       id="ret_escape_menu_editor_button"
       text="유니버설 에디터" />
+    <string
+      id="ret_export_desc"
+      text="저장 이름을 선택하세요:" />
+    <string
+      id="ret_export_title"
+      text="저장" />
     <string
       id="ret_filter_label"
       text="필터:" />
@@ -273,10 +285,10 @@
       text="마을 사람들" />
     <string
       id="ret_mariner_toggle_tooltip"
-      text="선원은 해상 전투에 더 적합하지만 기술 포인트를 약간 감소된 속도로 획득합니다." />
+      text="이 유닛의 선원 능력을 설정합니다.{newline}선원은 해상 전투에 더 적합하지만 약간 감소된 비율로 기술 포인트를 얻습니다." />
     <string
       id="ret_mariner_toggle_tooltip_universal"
-      text="선원은 해상 전투에 더 적합합니다." />
+      text="이 유닛의 선원 능력을 설정합니다.{newline}선원은 해상 전투에 더 적합합니다." />
     <string
       id="ret_mcm_option_debug_mode"
       text="디버그 모드" />

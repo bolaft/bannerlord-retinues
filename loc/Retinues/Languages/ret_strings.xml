@@ -14,6 +14,12 @@
       id="ret_build_hint"
       text="Build" />
     <string
+      id="ret_button_export_character_tooltip"
+      text="Save this character and add it to the library." />
+    <string
+      id="ret_button_export_faction_tooltip"
+      text="Save the selected faction and add it to the library." />
+    <string
       id="ret_button_remove_character"
       text="Delete" />
     <string
@@ -98,8 +104,8 @@
       id="ret_editor_tab_editor"
       text="Editor" />
     <string
-      id="ret_editor_tab_exports"
-      text="Exports" />
+      id="ret_editor_tab_library"
+      text="Library" />
     <string
       id="ret_editor_tab_settings"
       text="Settings" />
@@ -163,6 +169,12 @@
     <string
       id="ret_escape_menu_editor_button"
       text="Universal Editor" />
+    <string
+      id="ret_export_desc"
+      text="Choose a save name:" />
+    <string
+      id="ret_export_title"
+      text="Save" />
     <string
       id="ret_filter_label"
       text="Filter:" />
@@ -273,10 +285,10 @@
       text="Villagers" />
     <string
       id="ret_mariner_toggle_tooltip"
-      text="Mariners are better suited for naval combat, but earn skill points at a slightly reduced rate." />
+      text="Set this unit&apos;s mariner ability.{newline}Mariners are better suited for naval combat, but earn skill points at a slightly reduced rate." />
     <string
       id="ret_mariner_toggle_tooltip_universal"
-      text="Mariners are better suited for naval combat." />
+      text="Set this unit&apos;s mariner ability.{newline}Mariners are better suited for naval combat." />
     <string
       id="ret_mcm_option_debug_mode"
       text="Debug Mode" />

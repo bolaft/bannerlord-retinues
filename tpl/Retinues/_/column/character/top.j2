@@ -7,8 +7,42 @@
     HorizontalAlignment="Left" VerticalAlignment="Top">
     <Children>
 
+        {# Export Button #}
+        <ListPanel
+            MarginBottom="8"
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            VerticalAlignment="Top" HorizontalAlignment="Left">
+            <Children>
+
+                {# Export Icon #}
+                <SpriteWidget
+                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                    VerticalAlignment="Center" HorizontalAlignment="Center"
+                    SuggestedWidth="32" SuggestedHeight="32"
+                    MarginRight="4"
+                    Color="f8eed1ff"
+                    Sprite="SPGeneral\Skills\gui_skills_icon_steward_tiny"/>
+
+                {# Button #}
+                <ButtonWidget
+                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                    SuggestedWidth="32" SuggestedHeight="32"
+                    Brush="TownManagement.Reserve.ConfirmButton"
+                    Command.Click="ExecuteExport"
+                    VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Children>
+                        <HintWidget
+                            DataSource="{ExportTooltip}"
+                            Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
+                    </Children>
+                </ButtonWidget>
+
+            </Children>
+        </ListPanel>
+
         {# Mariner Toggle #}
         <ListPanel
+            MarginBottom="8"
             IsVisible="@ShowMarinerToggle"
             WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
             VerticalAlignment="Top" HorizontalAlignment="Left">
@@ -21,13 +55,7 @@
                     SuggestedWidth="32" SuggestedHeight="32"
                     MarginRight="4"
                     Color="f8eed1ff"
-                    Sprite="SPGeneral\Skills\gui_skills_icon_mariner_tiny">
-                    <Children>
-                        <HintWidget
-                            DataSource="{MarinerTooltip}"
-                            Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
-                    </Children>
-                </SpriteWidget>
+                    Sprite="SPGeneral\Skills\gui_skills_icon_mariner_tiny"/>
 
                 {# Show Civilian Checkbox #}
                 {{ checkbox(

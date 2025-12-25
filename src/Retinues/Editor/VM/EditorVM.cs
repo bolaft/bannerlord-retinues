@@ -7,6 +7,7 @@ using Retinues.Editor.VM.Column;
 using Retinues.Editor.VM.List;
 using Retinues.Editor.VM.Panel.Character;
 using Retinues.Editor.VM.Panel.Equipment;
+using Retinues.Editor.VM.Panel.Library;
 using Retinues.Helpers;
 using Retinues.Model.Factions;
 using Retinues.Utilities;
@@ -23,7 +24,7 @@ namespace Retinues.Editor.VM
         Character = 0,
         Equipment = 1,
         Doctrines = 2,
-        Exports = 3,
+        Library = 3,
     }
 
     /// <summary>
@@ -52,6 +53,9 @@ namespace Retinues.Editor.VM
 
             // Initialize the equipment panel VM.
             EquipmentPanel = new EquipmentPanelVM();
+
+            // Initialize the library panel VM.
+            LibraryPanel = new LibraryPanelVM();
 
             // Page defaults to character editing.
             SetPage(EditorPage.Character);
@@ -96,7 +100,7 @@ namespace Retinues.Editor.VM
         public string DoctrinesTabText => L.S("editor_tab_doctrines", "Doctrines");
 
         [DataSourceProperty]
-        public string ExportsTabText => L.S("editor_tab_exports", "Exports");
+        public string LibraryTabText => L.S("editor_tab_library", "Library");
 
         [DataSourceProperty]
         public string SettingsTabText => L.S("editor_tab_settings", "Settings");
@@ -116,7 +120,7 @@ namespace Retinues.Editor.VM
 
         [EventListener(UIEvent.Page)]
         [DataSourceProperty]
-        public bool IsExportsTabSelected => Page == EditorPage.Exports;
+        public bool IsLibraryTabSelected => Page == EditorPage.Library;
 
         [DataSourceProperty]
         public bool IsDoctrinesTabVisible => IsPlayerMode;
@@ -134,9 +138,9 @@ namespace Retinues.Editor.VM
         }
 
         [DataSourceMethod]
-        public void ExecuteSelectExportsTab()
+        public void ExecuteSelectLibraryTab()
         {
-            SetPage(EditorPage.Exports);
+            SetPage(EditorPage.Library);
         }
 
         [DataSourceMethod]
@@ -327,6 +331,22 @@ namespace Retinues.Editor.VM
             }
         }
 
+        private LibraryPanelVM _libraryPanel;
+
+        [DataSourceProperty]
+        public LibraryPanelVM LibraryPanel
+        {
+            get => _libraryPanel;
+            private set
+            {
+                if (value == _libraryPanel)
+                    return;
+
+                _libraryPanel = value;
+                OnPropertyChanged(nameof(LibraryPanel));
+            }
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Page                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -349,6 +369,22 @@ namespace Retinues.Editor.VM
             // Notify any listeners that page changed (columns, buttons, etc.).
             EventManager.Fire(UIEvent.Page, EventScope.Global);
         }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                     Faction Export                     //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [DataSourceProperty]
+        public Tooltip ExportTooltip =>
+            new(
+                L.S(
+                    "button_export_faction_tooltip",
+                    "Save the selected faction and add it to the library."
+                )
+            );
+
+        [DataSourceMethod]
+        public void ExecuteExport() => FactionController.ExportFaction();
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Visibility                       //

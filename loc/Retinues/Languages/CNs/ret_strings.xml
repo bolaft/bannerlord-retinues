@@ -14,6 +14,12 @@
       id="ret_build_hint"
       text="体型" />
     <string
+      id="ret_button_export_character_tooltip"
+      text="保存此角色并将其添加到库中。" />
+    <string
+      id="ret_button_export_faction_tooltip"
+      text="保存所选派系并将其添加到库中。" />
+    <string
       id="ret_button_remove_character"
       text="删除" />
     <string
@@ -98,8 +104,8 @@
       id="ret_editor_tab_editor"
       text="编辑器" />
     <string
-      id="ret_editor_tab_exports"
-      text="导出" />
+      id="ret_editor_tab_library"
+      text="库" />
     <string
       id="ret_editor_tab_settings"
       text="设置" />
@@ -163,6 +169,12 @@
     <string
       id="ret_escape_menu_editor_button"
       text="通用编辑器" />
+    <string
+      id="ret_export_desc"
+      text="选择一个保存名称：" />
+    <string
+      id="ret_export_title"
+      text="保存" />
     <string
       id="ret_filter_label"
       text="过滤器：" />
@@ -273,10 +285,10 @@
       text="村民" />
     <string
       id="ret_mariner_toggle_tooltip"
-      text="水手更适合海战，但技能点的获取速度略有降低。" />
+      text="设置此单位的水手能力。{newline}水手更适合海战，但技能点的获得速度略有降低。" />
     <string
       id="ret_mariner_toggle_tooltip_universal"
-      text="水手更适合海战。" />
+      text="设置此单位的水手能力。{newline}水手更适合海战。" />
     <string
       id="ret_mcm_option_debug_mode"
       text="调试模式" />

@@ -39,13 +39,13 @@ namespace Retinues.Editor.VM.Column.Character
                 ? new Tooltip(
                     L.S(
                         "mariner_toggle_tooltip_universal",
-                        "Mariners are better suited for naval combat."
+                        "Set this unit's mariner ability.\nMariners are better suited for naval combat."
                     )
                 )
                 : new Tooltip(
                     L.S(
                         "mariner_toggle_tooltip",
-                        "Mariners are better suited for naval combat, but earn skill points at a slightly reduced rate."
+                        "Set this unit's mariner ability.\nMariners are better suited for naval combat, but earn skill points at a slightly reduced rate."
                     )
                 );
 
@@ -83,5 +83,21 @@ namespace Retinues.Editor.VM.Column.Character
         [DataSourceMethod]
         public void ExecuteRemoveCharacter() =>
             CharacterTreeController.RemoveCharacter.Execute(State.Character);
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Export Button                     //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [DataSourceProperty]
+        public Tooltip ExportTooltip =>
+            new(
+                L.S(
+                    "button_export_character_tooltip",
+                    "Save this character and add it to the library."
+                )
+            );
+
+        [DataSourceMethod]
+        public void ExecuteExport() => CharacterController.ExportSelectedCharacter();
     }
 }

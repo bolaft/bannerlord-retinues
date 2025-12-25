@@ -14,6 +14,12 @@
       id="ret_build_hint"
       text="Телосложение" />
     <string
+      id="ret_button_export_character_tooltip"
+      text="Сохранить этого персонажа и добавить его в библиотеку." />
+    <string
+      id="ret_button_export_faction_tooltip"
+      text="Сохранить выбранную фракцию и добавить ее в библиотеку." />
+    <string
       id="ret_button_remove_character"
       text="Удалить" />
     <string
@@ -98,8 +104,8 @@
       id="ret_editor_tab_editor"
       text="Редактор" />
     <string
-      id="ret_editor_tab_exports"
-      text="Экспорт" />
+      id="ret_editor_tab_library"
+      text="Библиотека" />
     <string
       id="ret_editor_tab_settings"
       text="Настройки" />
@@ -163,6 +169,12 @@
     <string
       id="ret_escape_menu_editor_button"
       text="Универсальный редактор" />
+    <string
+      id="ret_export_desc"
+      text="Выберите имя для сохранения:" />
+    <string
+      id="ret_export_title"
+      text="Сохранить" />
     <string
       id="ret_filter_label"
       text="Фильтр:" />
@@ -273,10 +285,10 @@
       text="Жители деревень" />
     <string
       id="ret_mariner_toggle_tooltip"
-      text="Моряки лучше подходят для морского боя, но зарабатывают очки навыков с немного сниженной скоростью." />
+      text="Установите способность мореплавателя для этого юнита.{newline}Мореплаватели лучше подходят для морского боя, но зарабатывают очки навыков с немного сниженной скоростью." />
     <string
       id="ret_mariner_toggle_tooltip_universal"
-      text="Моряки лучше подходят для морского боя." />
+      text="Установите способность мореплавателя для этого юнита.{newline}Мореплаватели лучше подходят для морского боя." />
     <string
       id="ret_mcm_option_debug_mode"
       text="Режим отладки" />

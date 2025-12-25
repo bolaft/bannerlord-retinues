@@ -85,10 +85,10 @@
                         <Widget
                             WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                             HorizontalAlignment="Center" VerticalAlignment="Top"
-                            MarginTop="6">
+                            MarginTop="12">
                             <Children>
                                 <Widget
-                                    DoNotPassEventsToChildren="true"
+                                    DoNotPassEventsToChildren="false"
                                     WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
                                     SuggestedWidth="440" SuggestedHeight="47"
                                     Brush="Kingdom.Name.Edit.Button"
@@ -105,6 +105,20 @@
                                                     Brush.FontColor="#cfc1a1ff"
                                                     WidthSizePolicy="CoverChildren" HeightSizePolicy="StretchToParent"
                                                     Brush.FontSize="60" Text="@EditorTitle"/>
+
+                                                {# Button #}
+                                                <ButtonWidget
+                                                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                                                    SuggestedWidth="60" SuggestedHeight="60"
+                                                    Brush="TownManagement.Reserve.ConfirmButton"
+                                                    Command.Click="ExecuteExport"
+                                                    VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                    <Children>
+                                                        <HintWidget
+                                                            DataSource="{ExportTooltip}"
+                                                            Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
+                                                    </Children>
+                                                </ButtonWidget>
                                             </Children>
                                         </ListPanel>
                                     </Children>
@@ -160,7 +174,7 @@
                             </Children>
                         </ButtonWidget>
 
-                        {# Exports Tab #}
+                        {# Library Tab #}
                         <ButtonWidget
                             DoNotPassEventsToChildren="true"
                             WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
@@ -168,14 +182,14 @@
                             SuggestedHeight="!Header.Tab.Center.Height.Scaled"
                             PositionYOffset="6"
                             Brush="Header.Tab.Center"
-                            Command.Click="ExecuteSelectExportsTab"
-                            IsSelected="@IsExportsTabSelected"
+                            Command.Click="ExecuteSelectLibraryTab"
+                            IsSelected="@IsLibraryTabSelected"
                             UpdateChildrenStates="true">
                             <Children>
                                 <TextWidget
                                     WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
                                     Brush="Clan.TabControl.Text"
-                                    Text="@ExportsTabText" />
+                                    Text="@LibraryTabText" />
                             </Children>
                         </ButtonWidget>
 

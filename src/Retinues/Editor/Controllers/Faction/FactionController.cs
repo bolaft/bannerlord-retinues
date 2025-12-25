@@ -1,4 +1,7 @@
+using Retinues.Helpers;
+using Retinues.Model;
 using Retinues.Model.Factions;
+using Retinues.Utilities;
 
 namespace Retinues.Editor.Controllers.Faction
 {
@@ -39,6 +42,24 @@ namespace Retinues.Editor.Controllers.Faction
 
             State.Clan = clan;
             State.Faction = clan;
+        }
+
+        public static void ExportFaction()
+        {
+            var f = State.Faction;
+            if (f == null)
+            {
+                Notifications.Message("No faction selected.");
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(f.StringId))
+            {
+                Notifications.Message("Selected faction has no StringId.");
+                return;
+            }
+
+            MImportExport.ExportFaction(f.StringId);
         }
     }
 }

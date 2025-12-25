@@ -14,6 +14,12 @@
       id="ret_build_hint"
       text="Constitución" />
     <string
+      id="ret_button_export_character_tooltip"
+      text="Guarda este personaje y agrégalo a la biblioteca." />
+    <string
+      id="ret_button_export_faction_tooltip"
+      text="Guarda la facción seleccionada y agrégala a la biblioteca." />
+    <string
       id="ret_button_remove_character"
       text="Eliminar" />
     <string
@@ -98,8 +104,8 @@
       id="ret_editor_tab_editor"
       text="Editor" />
     <string
-      id="ret_editor_tab_exports"
-      text="Exportaciones" />
+      id="ret_editor_tab_library"
+      text="Biblioteca" />
     <string
       id="ret_editor_tab_settings"
       text="Configuraciones" />
@@ -163,6 +169,12 @@
     <string
       id="ret_escape_menu_editor_button"
       text="Editor Universal" />
+    <string
+      id="ret_export_desc"
+      text="Elige un nombre para guardar:" />
+    <string
+      id="ret_export_title"
+      text="Guardar" />
     <string
       id="ret_filter_label"
       text="Filtro:" />
@@ -273,10 +285,10 @@
       text="Aldeanos" />
     <string
       id="ret_mariner_toggle_tooltip"
-      text="Los marineros están mejor preparados para el combate naval, pero ganan puntos de habilidad a un ritmo ligeramente reducido." />
+      text="Establece la habilidad de marinero de esta unidad.{newline}Los marineros están mejor preparados para el combate naval, pero ganan puntos de habilidad a un ritmo ligeramente reducido." />
     <string
       id="ret_mariner_toggle_tooltip_universal"
-      text="Los marineros están mejor preparados para el combate naval." />
+      text="Establece la habilidad de marinero de esta unidad.{newline}Los marineros están mejor preparados para el combate naval." />
     <string
       id="ret_mcm_option_debug_mode"
       text="Modo de depuración" />

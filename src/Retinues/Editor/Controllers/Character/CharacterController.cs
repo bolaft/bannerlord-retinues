@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Retinues.Helpers;
+using Retinues.Model;
 using Retinues.Model.Characters;
 using Retinues.Model.Factions;
 using Retinues.Module;
@@ -14,6 +15,22 @@ namespace Retinues.Editor.Controllers.Character
 {
     public class CharacterController : EditorController
     {
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Export                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public static void ExportSelectedCharacter()
+        {
+            var c = State.Character;
+            if (c == null)
+            {
+                Notifications.Message("No character selected.");
+                return;
+            }
+
+            MImportExport.ExportCharacter(c.StringId);
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Name                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

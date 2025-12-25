@@ -105,7 +105,7 @@ namespace Retinues.Model
 
             var blob = root.ToString(SaveOptions.DisableFormatting);
 
-            TryWriteDebugFile(root);
+            TryWriteBackupFile(root);
 
             return blob;
         }
@@ -136,7 +136,7 @@ namespace Retinues.Model
             );
         }
 
-        static void TryWriteDebugFile(XElement root)
+        static void TryWriteBackupFile(XElement root)
         {
             try
             {
@@ -144,9 +144,7 @@ namespace Retinues.Model
                 if (string.IsNullOrWhiteSpace(blob))
                     return;
 
-                var baseDir = Runtime.ModuleRoot;
-                var filePath = Path.Combine(baseDir, "save.xml");
-
+                var filePath = FileSystem.GetPathInRetinuesDocuments("Backups", "BackupExport.xml");
                 var fileContent = root.ToString(SaveOptions.None);
 
                 File.WriteAllText(filePath, fileContent, Encoding.UTF8);
