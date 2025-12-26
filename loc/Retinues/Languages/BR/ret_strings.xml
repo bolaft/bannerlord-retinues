@@ -255,7 +255,7 @@
       text="Excluir" />
     <string
       id="ret_library_delete_confirm_desc"
-      text="Esta ação é irreversível." />
+      text="Tem certeza de que deseja excluir esta exportação? Esta ação é irreversível." />
     <string
       id="ret_library_delete_confirm_title"
       text="Excluir Exportação" />
@@ -269,8 +269,26 @@
       id="ret_library_delete_failed_title"
       text="Falha na Exclusão" />
     <string
+      id="ret_library_edit_button"
+      text="Editar" />
+    <string
+      id="ret_library_edit_confirm_desc"
+      text="Isso abrirá o arquivo de exportação no seu editor padrão.{newline}{newline}{PATH}" />
+    <string
+      id="ret_library_edit_confirm_title"
+      text="Abrir Arquivo de Exportação" />
+    <string
+      id="ret_library_edit_failed_exception"
+      text="O arquivo não pôde ser aberto." />
+    <string
+      id="ret_library_edit_failed_missing"
+      text="Arquivo de exportação não encontrado." />
+    <string
+      id="ret_library_edit_failed_title"
+      text="Falha ao Abrir" />
+    <string
       id="ret_library_export_file_header"
-      text="Arquivo de Exportação" />
+      text="Arquivo" />
     <string
       id="ret_library_exports_empty_text"
       text="Nenhuma exportação salva encontrada." />

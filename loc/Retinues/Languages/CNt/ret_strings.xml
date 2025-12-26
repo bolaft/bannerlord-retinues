@@ -255,7 +255,7 @@
       text="刪除" />
     <string
       id="ret_library_delete_confirm_desc"
-      text="此操作無法撤銷。" />
+      text="您確定要刪除此導出嗎？此操作不可撤銷。" />
     <string
       id="ret_library_delete_confirm_title"
       text="刪除導出" />
@@ -269,8 +269,26 @@
       id="ret_library_delete_failed_title"
       text="刪除失敗" />
     <string
+      id="ret_library_edit_button"
+      text="編輯" />
+    <string
+      id="ret_library_edit_confirm_desc"
+      text="這將在您的默認編輯器中打開導出文件。{newline}{newline}{PATH}" />
+    <string
+      id="ret_library_edit_confirm_title"
+      text="打開導出文件" />
+    <string
+      id="ret_library_edit_failed_exception"
+      text="無法打開文件。" />
+    <string
+      id="ret_library_edit_failed_missing"
+      text="未找到導出文件。" />
+    <string
+      id="ret_library_edit_failed_title"
+      text="打開失敗" />
+    <string
       id="ret_library_export_file_header"
-      text="導出文件" />
+      text="文件" />
     <string
       id="ret_library_exports_empty_text"
       text="未找到已保存的導出。" />

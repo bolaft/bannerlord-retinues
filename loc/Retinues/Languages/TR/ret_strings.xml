@@ -255,7 +255,7 @@
       text="Sil" />
     <string
       id="ret_library_delete_confirm_desc"
-      text="Bu işlem geri alınamaz." />
+      text="Bu ihracatı silmek istediğinizden emin misiniz? Bu işlem geri alınamaz." />
     <string
       id="ret_library_delete_confirm_title"
       text="İhracatı Sil" />
@@ -269,8 +269,26 @@
       id="ret_library_delete_failed_title"
       text="Silme Başarısız" />
     <string
+      id="ret_library_edit_button"
+      text="Düzenle" />
+    <string
+      id="ret_library_edit_confirm_desc"
+      text="Bu, ihracat dosyasını varsayılan düzenleyicinizde açacaktır.{newline}{newline}{PATH}" />
+    <string
+      id="ret_library_edit_confirm_title"
+      text="İhracat Dosyasını Aç" />
+    <string
+      id="ret_library_edit_failed_exception"
+      text="Dosya açılamadı." />
+    <string
+      id="ret_library_edit_failed_missing"
+      text="İhracat dosyası bulunamadı." />
+    <string
+      id="ret_library_edit_failed_title"
+      text="Açma Başarısız" />
+    <string
       id="ret_library_export_file_header"
-      text="İhracat Dosyası" />
+      text="Dosya" />
     <string
       id="ret_library_exports_empty_text"
       text="Kaydedilmiş ihracat bulunamadı." />

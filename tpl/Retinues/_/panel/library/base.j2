@@ -65,7 +65,7 @@
                     </Children>
                 </ListPanel>
 
-                {# Faction (single) #}
+                {# Troop (single) #}
                 {{ field_header("@TargetHeader", "@IsTroop") }}
 
                 <ListPanel
@@ -78,6 +78,19 @@
                         {{ field_label("@TargetName") }}
                     </Children>
                 </ListPanel>
+
+                {# File #}
+                {{ field_header("@ExportFileHeader") }}
+
+                <TextWidget
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Brush="Kingdom.DecisionParagraph.Text"
+                    Brush.FontSize="18"
+                    MaxWidth="720"
+                    Text="@ExportPath"
+                    TextAlignment="Center"
+                    MarginBottom="12" />
 
                 {# Contents (faction) #}
                 {{ field_header("@ContentsHeader", "@IsFaction") }}
@@ -101,24 +114,31 @@
                     </ItemTemplate>
                 </ListPanel>
 
-                {# Import File #}
-                {{ field_header("@ExportFileHeader") }}
+            </Children>
+        </ListPanel>
+    </Children>
+</Widget>
 
-                <TextWidget
-                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-                    HorizontalAlignment="Center" VerticalAlignment="Center"
-                    Brush="Kingdom.DecisionParagraph.Text"
-                    Brush.FontSize="18"
-                    MaxWidth="720"
-                    Text="@ExportPath"
-                    TextAlignment="Center"
-                    MarginBottom="12" />
+
+<Widget
+    DataSource="{LibraryPanel}"
+    IsVisible="@IsVisible"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    HorizontalAlignment="Center" VerticalAlignment="Bottom"
+    MarginRight="160">
+    <Children>
+    
+        <ListPanel
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            HorizontalAlignment="Center" VerticalAlignment="Center"
+            IsVisible="@HasSelection"
+            StackLayout.LayoutMethod="VerticalBottomToTop">
+            <Children>
 
                 {# Import Button #}
-
                 <Widget
                     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-                    HorizontalAlignment="Center" VerticalAlignment="Center">
+                    HorizontalAlignment="Center" VerticalAlignment="Bottom">
                     <Children>
                         <HintWidget
                             DataSource="{ImportTooltip}"
@@ -144,13 +164,31 @@
                     </Children>
                 </Widget>
 
-                {# Delete Button #}
-
+                {# Edit Button #}
                 <ButtonWidget
                     DoNotPassEventsToChildren="true"
                     WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
                     SuggestedWidth="240" SuggestedHeight="60"
-                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    HorizontalAlignment="Center" VerticalAlignment="Bottom"
+                    Brush="Popup.Cancel.Button"
+                    Command.Click="ExecuteEdit">
+                    <Children>
+                        <TextWidget
+                            WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+                            HorizontalAlignment="Center" VerticalAlignment="Center"
+                            Brush="Clan.Name.Tuple"
+                            Brush.FontSize="24"
+                            Text="@EditButtonText"
+                            TextAlignment="Center" />
+                    </Children>
+                </ButtonWidget>
+
+                {# Delete Button #}
+                <ButtonWidget
+                    DoNotPassEventsToChildren="true"
+                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                    SuggestedWidth="240" SuggestedHeight="60"
+                    HorizontalAlignment="Center" VerticalAlignment="Bottom"
                     Brush="Popup.Delete.Button"
                     Command.Click="ExecuteDelete">
                     <Children>

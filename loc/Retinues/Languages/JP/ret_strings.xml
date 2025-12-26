@@ -255,7 +255,7 @@
       text="削除" />
     <string
       id="ret_library_delete_confirm_desc"
-      text="この操作は元に戻せません。" />
+      text="このエクスポートを削除してもよろしいですか？この操作は元に戻せません。" />
     <string
       id="ret_library_delete_confirm_title"
       text="エクスポートを削除" />
@@ -269,8 +269,26 @@
       id="ret_library_delete_failed_title"
       text="削除に失敗しました" />
     <string
+      id="ret_library_edit_button"
+      text="編集" />
+    <string
+      id="ret_library_edit_confirm_desc"
+      text="エクスポートファイルがデフォルトのエディタで開きます。{newline}{newline}{PATH}" />
+    <string
+      id="ret_library_edit_confirm_title"
+      text="エクスポートファイルを開く" />
+    <string
+      id="ret_library_edit_failed_exception"
+      text="ファイルを開くことができませんでした。" />
+    <string
+      id="ret_library_edit_failed_missing"
+      text="エクスポートファイルが見つかりませんでした。" />
+    <string
+      id="ret_library_edit_failed_title"
+      text="開くに失敗しました" />
+    <string
       id="ret_library_export_file_header"
-      text="エクスポートファイル" />
+      text="ファイル" />
     <string
       id="ret_library_exports_empty_text"
       text="保存されたエクスポートが見つかりませんでした。" />

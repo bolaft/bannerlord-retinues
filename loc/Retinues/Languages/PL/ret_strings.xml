@@ -255,7 +255,7 @@
       text="Usuń" />
     <string
       id="ret_library_delete_confirm_desc"
-      text="Tej akcji nie można cofnąć." />
+      text="Czy na pewno chcesz usunąć ten eksport? Tej akcji nie można cofnąć." />
     <string
       id="ret_library_delete_confirm_title"
       text="Usuń eksport" />
@@ -269,8 +269,26 @@
       id="ret_library_delete_failed_title"
       text="Usuwanie nie powiodło się" />
     <string
+      id="ret_library_edit_button"
+      text="Edytuj" />
+    <string
+      id="ret_library_edit_confirm_desc"
+      text="Plik eksportu zostanie otwarty w domyślnym edytorze.{newline}{newline}{PATH}" />
+    <string
+      id="ret_library_edit_confirm_title"
+      text="Otwórz plik eksportu" />
+    <string
+      id="ret_library_edit_failed_exception"
+      text="Nie można otworzyć pliku." />
+    <string
+      id="ret_library_edit_failed_missing"
+      text="Plik eksportu nie został znaleziony." />
+    <string
+      id="ret_library_edit_failed_title"
+      text="Niepowodzenie otwarcia" />
+    <string
       id="ret_library_export_file_header"
-      text="Plik eksportu" />
+      text="Plik" />
     <string
       id="ret_library_exports_empty_text"
       text="Nie znaleziono zapisanych eksportów." />

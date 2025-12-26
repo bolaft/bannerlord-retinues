@@ -255,7 +255,7 @@
       text="Delete" />
     <string
       id="ret_library_delete_confirm_desc"
-      text="This action is irreversible." />
+      text="Are you sure you want to delete this export? This action is irreversible." />
     <string
       id="ret_library_delete_confirm_title"
       text="Delete Export" />
@@ -269,8 +269,26 @@
       id="ret_library_delete_failed_title"
       text="Delete Failed" />
     <string
+      id="ret_library_edit_button"
+      text="Edit" />
+    <string
+      id="ret_library_edit_confirm_desc"
+      text="This will open the export file in your default editor.{newline}{newline}{PATH}" />
+    <string
+      id="ret_library_edit_confirm_title"
+      text="Open Export File" />
+    <string
+      id="ret_library_edit_failed_exception"
+      text="The file could not be opened." />
+    <string
+      id="ret_library_edit_failed_missing"
+      text="Export file was not found." />
+    <string
+      id="ret_library_edit_failed_title"
+      text="Open Failed" />
+    <string
       id="ret_library_export_file_header"
-      text="Export File" />
+      text="File" />
     <string
       id="ret_library_exports_empty_text"
       text="No saved exports found." />

@@ -255,7 +255,7 @@
       text="삭제" />
     <string
       id="ret_library_delete_confirm_desc"
-      text="이 작업은 취소할 수 없습니다." />
+      text="이 내보내기를 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다." />
     <string
       id="ret_library_delete_confirm_title"
       text="내보내기 삭제" />
@@ -269,8 +269,26 @@
       id="ret_library_delete_failed_title"
       text="삭제 실패" />
     <string
+      id="ret_library_edit_button"
+      text="편집" />
+    <string
+      id="ret_library_edit_confirm_desc"
+      text="기본 편집기에서 내보내기 파일이 열립니다.{newline}{newline}{PATH}" />
+    <string
+      id="ret_library_edit_confirm_title"
+      text="내보내기 파일 열기" />
+    <string
+      id="ret_library_edit_failed_exception"
+      text="파일을 열 수 없습니다." />
+    <string
+      id="ret_library_edit_failed_missing"
+      text="내보내기 파일을 찾을 수 없습니다." />
+    <string
+      id="ret_library_edit_failed_title"
+      text="열기 실패" />
+    <string
       id="ret_library_export_file_header"
-      text="내보내기 파일" />
+      text="파일" />
     <string
       id="ret_library_exports_empty_text"
       text="저장된 내보내기를 찾을 수 없습니다." />

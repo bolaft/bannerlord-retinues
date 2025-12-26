@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Xml.Linq;
 using Retinues.Helpers;
 using Retinues.Model;
@@ -219,7 +221,10 @@ namespace Retinues.Editor.Controllers.Library
             Inquiries.Popup(
                 title: L.T("library_delete_confirm_title", "Delete Export"),
                 onConfirm: () => ApplyDelete(item),
-                description: L.T("library_delete_confirm_desc", "This action is irreversible.")
+                description: L.T(
+                    "library_delete_confirm_desc",
+                    "Are you sure you want to delete this export? This action is irreversible."
+                )
             );
         }
 
@@ -434,6 +439,105 @@ namespace Retinues.Editor.Controllers.Library
             // Fallback to attribute.
             var attr = (string)el.Attribute("name") ?? string.Empty;
             return ResolveTextObjectString(attr);
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Edit                          //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public static void EditLibraryItem(MLibrary.Item item)
+        {
+            if (item == null)
+                return;
+
+            var path = item.FilePath ?? string.Empty;
+
+            if (string.IsNullOrWhiteSpace(path) || !File.Exists(path))
+            {
+                Inquiries.Popup(
+                    title: L.T("library_edit_failed_title", "Open Failed"),
+                    description: L.T("library_edit_failed_missing", "Export file was not found.")
+                );
+                return;
+            }
+
+            Inquiries.Popup(
+                title: L.T("library_edit_confirm_title", "Open Export File"),
+                onConfirm: () => ApplyOpenInDefaultEditor(path),
+                description: L.T(
+                        "library_edit_confirm_desc",
+                        "This will open the export file in your default editor.\n\n{PATH}"
+                    )
+                    .SetTextVariable("PATH", path)
+            );
+        }
+
+        private static void ApplyOpenInDefaultEditor(string path)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(path) || !File.Exists(path))
+                    return;
+
+                // 1) Try the Windows "Edit" verb first (often opens in an editor instead of browser).
+                if (TryShellVerb(path, "edit"))
+                {
+                    Log.Info($"Opened export file (verb=edit): {path}");
+                    return;
+                }
+
+                // 2) If that fails, force Notepad (simple, always present on Windows).
+                Process.Start(
+                    new ProcessStartInfo
+                    {
+                        FileName = "rundll32.exe",
+                        Arguments = $"shell32.dll,OpenAs_RunDLL {Quote(path)}",
+                        UseShellExecute = false,
+                    }
+                );
+
+                Log.Info($"Opened export file: {path}");
+            }
+            catch (Exception ex)
+            {
+                Log.Exception(ex, "LibraryController.ApplyOpenInDefaultEditor failed.");
+                Inquiries.Popup(
+                    title: L.T("library_edit_failed_title", "Open Failed"),
+                    description: L.T(
+                        "library_edit_failed_exception",
+                        "The file could not be opened."
+                    )
+                );
+            }
+        }
+
+        private static bool TryShellVerb(string path, string verb)
+        {
+            try
+            {
+                var psi = new ProcessStartInfo
+                {
+                    FileName = path,
+                    Verb = verb,
+                    UseShellExecute = true,
+                };
+
+                Process.Start(psi);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        private static string Quote(string s)
+        {
+            if (string.IsNullOrEmpty(s))
+                return "\"\"";
+            if (s.StartsWith("\"") && s.EndsWith("\""))
+                return s;
+            return "\"" + s.Replace("\"", "\\\"") + "\"";
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

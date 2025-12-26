@@ -255,7 +255,7 @@
       text="Supprimer" />
     <string
       id="ret_library_delete_confirm_desc"
-      text="Cette action est irréversible." />
+      text="Êtes-vous sûr de vouloir supprimer ce fichier ? Cette action est irréversible." />
     <string
       id="ret_library_delete_confirm_title"
       text="Supprimer le fichier" />
@@ -269,8 +269,26 @@
       id="ret_library_delete_failed_title"
       text="Échec de la suppression" />
     <string
+      id="ret_library_edit_button"
+      text="Modifier" />
+    <string
+      id="ret_library_edit_confirm_desc"
+      text="Le fichier sera ouvert dans votre éditeur par défaut.{newline}{newline}{PATH}" />
+    <string
+      id="ret_library_edit_confirm_title"
+      text="Modifier le fichier" />
+    <string
+      id="ret_library_edit_failed_exception"
+      text="Le fichier n&apos;a pas pu être ouvert." />
+    <string
+      id="ret_library_edit_failed_missing"
+      text="Fichier introuvable." />
+    <string
+      id="ret_library_edit_failed_title"
+      text="Échec de l&apos;ouverture" />
+    <string
       id="ret_library_export_file_header"
-      text="Fichier d&apos;exportation" />
+      text="Fichier" />
     <string
       id="ret_library_exports_empty_text"
       text="Aucun fichier n&apos;a été exporté." />

@@ -255,7 +255,7 @@
       text="Eliminar" />
     <string
       id="ret_library_delete_confirm_desc"
-      text="Esta acción no se puede deshacer." />
+      text="¿Está seguro de que desea eliminar esta exportación? Esta acción es irreversible." />
     <string
       id="ret_library_delete_confirm_title"
       text="Eliminar exportación" />
@@ -269,8 +269,26 @@
       id="ret_library_delete_failed_title"
       text="Error al eliminar" />
     <string
+      id="ret_library_edit_button"
+      text="Editar" />
+    <string
+      id="ret_library_edit_confirm_desc"
+      text="Esto abrirá el archivo de exportación en su editor predeterminado.{newline}{newline}{PATH}" />
+    <string
+      id="ret_library_edit_confirm_title"
+      text="Abrir archivo de exportación" />
+    <string
+      id="ret_library_edit_failed_exception"
+      text="No se pudo abrir el archivo." />
+    <string
+      id="ret_library_edit_failed_missing"
+      text="No se encontró el archivo de exportación." />
+    <string
+      id="ret_library_edit_failed_title"
+      text="Error al abrir" />
+    <string
       id="ret_library_export_file_header"
-      text="Archivo de exportación" />
+      text="Archivo" />
     <string
       id="ret_library_exports_empty_text"
       text="No se encontraron exportaciones guardadas." />

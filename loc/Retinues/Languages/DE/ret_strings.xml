@@ -255,7 +255,7 @@
       text="Löschen" />
     <string
       id="ret_library_delete_confirm_desc"
-      text="Diese Aktion kann nicht rückgängig gemacht werden." />
+      text="Möchten Sie diesen Export wirklich löschen? Diese Aktion ist irreversibel." />
     <string
       id="ret_library_delete_confirm_title"
       text="Export löschen" />
@@ -269,8 +269,26 @@
       id="ret_library_delete_failed_title"
       text="Löschen fehlgeschlagen" />
     <string
+      id="ret_library_edit_button"
+      text="Bearbeiten" />
+    <string
+      id="ret_library_edit_confirm_desc"
+      text="Die Exportdatei wird in Ihrem Standardeditor geöffnet.{newline}{newline}{PATH}" />
+    <string
+      id="ret_library_edit_confirm_title"
+      text="Exportdatei öffnen" />
+    <string
+      id="ret_library_edit_failed_exception"
+      text="Die Datei konnte nicht geöffnet werden." />
+    <string
+      id="ret_library_edit_failed_missing"
+      text="Exportdatei wurde nicht gefunden." />
+    <string
+      id="ret_library_edit_failed_title"
+      text="Öffnen fehlgeschlagen" />
+    <string
       id="ret_library_export_file_header"
-      text="Exportdatei" />
+      text="Datei" />
     <string
       id="ret_library_exports_empty_text"
       text="Keine gespeicherten Exporte gefunden." />

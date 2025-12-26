@@ -75,7 +75,7 @@ namespace Retinues.Editor.VM.Panel.Library
         public string ContentsHeader => L.S("library_contents_header", "Contents");
 
         [DataSourceProperty]
-        public string ExportFileHeader => L.S("library_export_file_header", "Export File");
+        public string ExportFileHeader => L.S("library_export_file_header", "File");
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Main fields                      //
@@ -132,7 +132,7 @@ namespace Retinues.Editor.VM.Panel.Library
                 var all =
                     LibraryController.GetFactionTroopNamesFromFile(State.LibraryItem)?.ToList()
                     ?? [];
-                const int limit = 5;
+                const int limit = 10;
                 int total = all.Count;
 
                 foreach (var name in all.Take(limit))
@@ -178,5 +178,15 @@ namespace Retinues.Editor.VM.Panel.Library
 
         [DataSourceMethod]
         public void ExecuteDelete() => LibraryController.DeleteLibraryItem(State.LibraryItem);
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Edit                          //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [DataSourceProperty]
+        public string EditButtonText => L.S("library_edit_button", "Edit");
+
+        [DataSourceMethod]
+        public void ExecuteEdit() => LibraryController.EditLibraryItem(State.LibraryItem);
     }
 }

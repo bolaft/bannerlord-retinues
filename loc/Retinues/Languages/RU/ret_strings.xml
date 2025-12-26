@@ -255,7 +255,7 @@
       text="Удалить" />
     <string
       id="ret_library_delete_confirm_desc"
-      text="Это действие нельзя отменить." />
+      text="Вы уверены, что хотите удалить этот экспорт? Это действие необратимо." />
     <string
       id="ret_library_delete_confirm_title"
       text="Удалить экспорт" />
@@ -269,8 +269,26 @@
       id="ret_library_delete_failed_title"
       text="Ошибка удаления" />
     <string
+      id="ret_library_edit_button"
+      text="Редактировать" />
+    <string
+      id="ret_library_edit_confirm_desc"
+      text="Этот файл экспорта откроется в вашем редакторе по умолчанию.{newline}{newline}{PATH}" />
+    <string
+      id="ret_library_edit_confirm_title"
+      text="Открыть файл экспорта" />
+    <string
+      id="ret_library_edit_failed_exception"
+      text="Не удалось открыть файл." />
+    <string
+      id="ret_library_edit_failed_missing"
+      text="Файл экспорта не найден." />
+    <string
+      id="ret_library_edit_failed_title"
+      text="Ошибка открытия" />
+    <string
       id="ret_library_export_file_header"
-      text="Файл экспорта" />
+      text="Файл" />
     <string
       id="ret_library_exports_empty_text"
       text="Сохраненные экспорты не найдены." />
