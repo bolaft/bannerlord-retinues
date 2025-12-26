@@ -116,6 +116,9 @@ namespace Retinues.Game.Wrappers
             // Register as active stub
             ActiveStubIds.Add(StringId);
 
+            // Invalidate faction cache
+            faction?.InvalidateCategoryCache();
+
             // Assign to faction
             Faction = faction;
 
@@ -260,7 +263,7 @@ namespace Retinues.Game.Wrappers
             if (string.IsNullOrEmpty(id))
                 return false;
 
-            return id.StartsWith(CustomIdPrefix);
+            return id.StartsWith(CustomIdPrefix) || id.StartsWith(LegacyCustomIdPrefix);
         }
 
         internal static bool TryGetBaseIdFromCaptainId(string id, out string baseId) =>
@@ -957,6 +960,7 @@ namespace Retinues.Game.Wrappers
             Parent = null;
 
             // Detach from faction
+            var oldFaction = Faction;
             Faction = null;
 
             // Unregister from the game systems
@@ -966,6 +970,9 @@ namespace Retinues.Game.Wrappers
 
             if (IsActive)
                 ActiveStubIds.Remove(StringId);
+
+            // Invalidate faction cache
+            oldFaction?.InvalidateCategoryCache();
 
             // Remove all children
             foreach (var target in UpgradeTargets)

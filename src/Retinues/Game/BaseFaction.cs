@@ -27,7 +27,7 @@ namespace Retinues.Game
         // Character -> Faction map for quick lookup
         public static Dictionary<string, BaseFaction> TroopFactionMap = [];
 
-        public static int TroopFactionMapVersion { get; set; }
+        public static int TroopFactionMapVersion { get; private set; }
 
         internal static void TouchTroopFactionMap()
         {
@@ -269,7 +269,9 @@ namespace Retinues.Game
                 _regularIds.Add(t.StringId);
 
             // Militias
-            var militiaList = GetActiveList([MilitiaRanged, MilitiaRangedElite]);
+            var militiaList = GetActiveList(
+                [MilitiaMelee, MilitiaMeleeElite, MilitiaRanged, MilitiaRangedElite]
+            );
             foreach (var t in militiaList)
             {
                 if (t == MilitiaMeleeElite || t == MilitiaRangedElite)
