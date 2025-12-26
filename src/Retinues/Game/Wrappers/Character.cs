@@ -260,7 +260,7 @@ namespace Retinues.Game.Wrappers
             if (string.IsNullOrEmpty(id))
                 return false;
 
-            return id.StartsWith(CustomIdPrefix) || id.StartsWith(LegacyCustomIdPrefix);
+            return id.StartsWith(CustomIdPrefix);
         }
 
         internal static bool TryGetBaseIdFromCaptainId(string id, out string baseId) =>
