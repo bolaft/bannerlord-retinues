@@ -1,3 +1,4 @@
+using System;
 using Retinues.Model;
 using Retinues.Model.Characters;
 using Retinues.Model.Equipments;
@@ -391,6 +392,43 @@ namespace Retinues.Editor
 
                 _libraryItem = value;
                 Fire(UIEvent.Library);
+            }
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Refresh                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public void ForceRefreshSelection()
+        {
+            try
+            {
+                if (_character == null)
+                    return;
+
+                var c = _character;
+                var slot = _slot;
+
+                // Break reference equality so setters run again.
+                _character = null;
+                _equipment = null;
+
+                // Re-apply the same selection via setters (will repick equipment too).
+                Character = c;
+
+                // Restore slot and force Item refresh chain.
+                Slot = slot;
+
+                EventManager.FireBatch(() =>
+                {
+                    EventManager.Fire(UIEvent.Character, EventScope.Global);
+                    EventManager.Fire(UIEvent.Equipment, EventScope.Global);
+                    EventManager.Fire(UIEvent.Slot, EventScope.Global);
+                });
+            }
+            catch (Exception ex)
+            {
+                Log.Exception(ex, "State.ForceRefreshSelection failed.");
             }
         }
     }

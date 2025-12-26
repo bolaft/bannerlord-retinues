@@ -42,8 +42,7 @@ namespace Retinues.Editor.Controllers.Library
                         "The troop corresponding to this export was deleted."
                     )
                 )
-                .ExecuteWith(ExecuteImportWithConfirm)
-                .Fire(UIEvent.Faction);
+                .ExecuteWith(ExecuteImportWithConfirm);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Public                         //
@@ -174,10 +173,19 @@ namespace Retinues.Editor.Controllers.Library
                 {
                     Inquiries.Popup(
                         title: L.T("library_import_failed_title", "Import Failed"),
-                        description: L.T("library_import_failed_reason", "The file could not be imported.")
+                        description: L.T(
+                            "library_import_failed_reason",
+                            "The file could not be imported."
+                        )
                     );
                     return;
                 }
+
+                // Refresh state selections.
+                State.Instance.ForceRefreshSelection();
+
+                // Refresh any faction-related data.
+                EventManager.Fire(UIEvent.Faction, EventScope.Global);
 
                 Inquiries.Popup(
                     title: L.T("library_import_done_title", "Import Complete"),
@@ -189,7 +197,10 @@ namespace Retinues.Editor.Controllers.Library
                 Log.Exception(ex, "LibraryController.ApplyImport failed.");
                 Inquiries.Popup(
                     title: L.T("library_import_failed_title", "Import Failed"),
-                    description: L.T("library_import_failed_exception", "The file could not be imported.")
+                    description: L.T(
+                        "library_import_failed_exception",
+                        "The file could not be imported."
+                    )
                 );
             }
         }
@@ -248,7 +259,10 @@ namespace Retinues.Editor.Controllers.Library
                 Log.Exception(ex, "LibraryController.ApplyDelete failed.");
                 Inquiries.Popup(
                     title: L.T("library_delete_failed_title", "Delete Failed"),
-                    description: L.T("library_delete_failed_exception", "The export could not be deleted.")
+                    description: L.T(
+                        "library_delete_failed_exception",
+                        "The export could not be deleted."
+                    )
                 );
             }
         }
@@ -288,7 +302,6 @@ namespace Retinues.Editor.Controllers.Library
 
         private static bool CanResolveTarget(MLibrary.Item item)
         {
-            Log.Info("LibraryController.CanResolveTarget called.");
             if (item == null)
                 return false;
 
