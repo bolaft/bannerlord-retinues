@@ -1,3 +1,5 @@
+{% from "_/panel/character/base.macros.j2" import field_header, field_label %}
+
 <Widget
     DataSource="{LibraryPanel}"
     IsVisible="@IsVisible"
@@ -8,12 +10,123 @@
         <ListPanel
             WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
             HorizontalAlignment="Center" VerticalAlignment="Center"
+            IsVisible="@HasSelection"
             StackLayout.LayoutMethod="VerticalBottomToTop">
-
             <Children>
-            
+
+                {# Faction (single) #}
+                {{ field_header("@NameHeader") }}
+
+                <ListPanel
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    StackLayout.LayoutMethod="HorizontalLeftToRight"
+                    MarginBottom="12">
+                    <Children>
+                        {{ field_label("@Name") }}
+                    </Children>
+                </ListPanel>
+
+                {# Faction (single) #}
+                {{ field_header("@TargetHeader", "@IsTroop") }}
+
+                <ListPanel
+                    IsVisible="@IsTroop"
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    StackLayout.LayoutMethod="HorizontalLeftToRight"
+                    MarginBottom="12">
+                    <Children>
+                        {{ field_label("@TargetName") }}
+                    </Children>
+                </ListPanel>
+
+                {# Contents (faction) #}
+                {{ field_header("@ContentsHeader", "@IsFaction") }}
+
+                <ListPanel
+                    IsVisible="@IsFaction"
+                    DataSource="{TroopNames}"
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                    StackLayout.LayoutMethod="VerticalBottomToTop"
+                    HorizontalAlignment="Center"
+                    MarginBottom="12">
+                    <ItemTemplate>
+                        <TextWidget
+                            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                            HorizontalAlignment="Center" VerticalAlignment="Center"
+                            Brush="Clan.Name.Tuple"
+                            Brush.FontSize="20"
+                            Text="@Name"
+                            TextAlignment="Center"
+                            MarginBottom="4" />
+                    </ItemTemplate>
+                </ListPanel>
+
+                {# Import File #}
+                {{ field_header("@ExportFileHeader") }}
+
+                <TextWidget
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Brush="Kingdom.DecisionParagraph.Text"
+                    Brush.FontSize="18"
+                    MaxWidth="720"
+                    Text="@ExportPath"
+                    TextAlignment="Center"
+                    MarginBottom="12" />
+
+                {# Import Button #}
+
+                <Widget
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                    HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Children>
+                        <HintWidget
+                            DataSource="{ImportTooltip}"
+                            Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
+                        <ButtonWidget
+                            DoNotPassEventsToChildren="true"
+                            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                            SuggestedWidth="240" SuggestedHeight="60"
+                            HorizontalAlignment="Center" VerticalAlignment="Center"
+                            Brush="Popup.Done.Button"
+                            IsEnabled="@CanImport"
+                            Command.Click="ExecuteImport">
+                            <Children>
+                                <TextWidget
+                                    WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+                                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                                    Brush="Clan.Name.Tuple"
+                                    Brush.FontSize="24"
+                                    Text="@ImportButtonText"
+                                    TextAlignment="Center" />
+                            </Children>
+                        </ButtonWidget>
+                    </Children>
+                </Widget>
+
+                {# Delete Button #}
+
+                <ButtonWidget
+                    DoNotPassEventsToChildren="true"
+                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                    SuggestedWidth="240" SuggestedHeight="60"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Brush="Popup.Delete.Button"
+                    Command.Click="ExecuteDelete">
+                    <Children>
+                        <TextWidget
+                            WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+                            HorizontalAlignment="Center" VerticalAlignment="Center"
+                            Brush="Clan.Name.Tuple"
+                            Brush.FontSize="24"
+                            Text="@DeleteButtonText"
+                            TextAlignment="Center" />
+                    </Children>
+                </ButtonWidget>
+
             </Children>
         </ListPanel>
-
     </Children>
 </Widget>

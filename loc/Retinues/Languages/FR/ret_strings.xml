@@ -254,6 +254,111 @@
       id="ret_invalid_name_title"
       text="Nom invalide" />
     <string
+      id="ret_library_contents_header"
+      text="Contenu" />
+    <string
+      id="ret_library_delete_button"
+      text="Supprimer" />
+    <string
+      id="ret_library_delete_confirm_desc"
+      text="Cette action est irréversible." />
+    <string
+      id="ret_library_delete_confirm_title"
+      text="Supprimer le fichier" />
+    <string
+      id="ret_library_delete_done_desc"
+      text="Le fichier a été supprimé." />
+    <string
+      id="ret_library_delete_done_title"
+      text="Fichier supprimé" />
+    <string
+      id="ret_library_delete_failed_exception"
+      text="Le fichier n&apos;a pas pu être supprimé." />
+    <string
+      id="ret_library_delete_failed_missing"
+      text="Fichier introuvable." />
+    <string
+      id="ret_library_delete_failed_title"
+      text="Échec de la suppression" />
+    <string
+      id="ret_library_export_file_header"
+      text="Fichier d&apos;exportation" />
+    <string
+      id="ret_library_import_button"
+      text="Importer" />
+    <string
+      id="ret_library_import_confirm_desc_char"
+      text="Cela écrasera l&apos;unité correspondante dans la campagne actuelle." />
+    <string
+      id="ret_library_import_confirm_desc_faction"
+      text="Cela écrasera la faction correspondante dans la campagne actuelle." />
+    <string
+      id="ret_library_import_confirm_desc_unknown"
+      text="Cela importera les données dans la campagne actuelle." />
+    <string
+      id="ret_library_import_confirm_title"
+      text="Importer" />
+    <string
+      id="ret_library_import_deleted_custom_troop"
+      text="L&apos;unité correspondant à ce fichier a été supprimée." />
+    <string
+      id="ret_library_import_done_desc"
+      text="Importation réussie." />
+    <string
+      id="ret_library_import_done_title"
+      text="Importation terminée" />
+    <string
+      id="ret_library_import_failed_exception"
+      text="Le fichier n&apos;a pas pu être importé." />
+    <string
+      id="ret_library_import_failed_missing"
+      text="Fichier introuvable." />
+    <string
+      id="ret_library_import_failed_reason"
+      text="Le fichier n&apos;a pas pu être importé." />
+    <string
+      id="ret_library_import_failed_title"
+      text="Échec de l&apos;importation" />
+    <string
+      id="ret_library_import_failed_unknown_kind"
+      text="Type d&apos;exportation non reconnu." />
+    <string
+      id="ret_library_import_missing_file"
+      text="Fichier introuvable." />
+    <string
+      id="ret_library_import_no_selection"
+      text="Aucune exportation sélectionnée." />
+    <string
+      id="ret_library_import_target_missing_faction"
+      text="La faction cible n&apos;existe pas dans la campagne actuelle." />
+    <string
+      id="ret_library_import_target_missing_troop"
+      text="L&apos;unité cible n&apos;existe pas dans la campagne actuelle." />
+    <string
+      id="ret_library_import_target_missing_unknown"
+      text="La cible de ce fichier n&apos;existe pas dans la campagne actuelle." />
+    <string
+      id="ret_library_import_tooltip"
+      text="Importer dans la campagne actuelle." />
+    <string
+      id="ret_library_kind_faction"
+      text="Faction" />
+    <string
+      id="ret_library_kind_troop"
+      text="Unité" />
+    <string
+      id="ret_library_kind_unknown"
+      text="Inconnu" />
+    <string
+      id="ret_library_name_character_header"
+      text="Unité" />
+    <string
+      id="ret_library_name_faction_header"
+      text="Faction" />
+    <string
+      id="ret_library_target_header"
+      text="Remplace" />
+    <string
       id="ret_list_header_bandits"
       text="Bandits" />
     <string
@@ -409,6 +514,9 @@
     <string
       id="ret_traits_header_text"
       text="Traits" />
+    <string
+      id="ret_troop_count_more"
+      text="et {NUMBER} troupes de plus." />
     <string
       id="ret_unequip_item_tooltip"
       text="Enlever cet équipement." />

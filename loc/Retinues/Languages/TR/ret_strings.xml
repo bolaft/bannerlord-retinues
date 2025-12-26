@@ -254,6 +254,111 @@
       id="ret_invalid_name_title"
       text="Geçersiz İsim" />
     <string
+      id="ret_library_contents_header"
+      text="İçerik" />
+    <string
+      id="ret_library_delete_button"
+      text="Sil" />
+    <string
+      id="ret_library_delete_confirm_desc"
+      text="Bu işlem geri alınamaz." />
+    <string
+      id="ret_library_delete_confirm_title"
+      text="İhracatı Sil" />
+    <string
+      id="ret_library_delete_done_desc"
+      text="İhracat dosyası silindi." />
+    <string
+      id="ret_library_delete_done_title"
+      text="İhracat Silindi" />
+    <string
+      id="ret_library_delete_failed_exception"
+      text="İhracat silinemedi." />
+    <string
+      id="ret_library_delete_failed_missing"
+      text="İhracat dosyası bulunamadı." />
+    <string
+      id="ret_library_delete_failed_title"
+      text="Silme Başarısız" />
+    <string
+      id="ret_library_export_file_header"
+      text="İhracat Dosyası" />
+    <string
+      id="ret_library_import_button"
+      text="İçe Aktar" />
+    <string
+      id="ret_library_import_confirm_desc_char"
+      text="Bu, mevcut oyundaki eşleşen birliği geçersiz kılacaktır." />
+    <string
+      id="ret_library_import_confirm_desc_faction"
+      text="Bu, mevcut oyundaki eşleşen fraksiyonu geçersiz kılacaktır." />
+    <string
+      id="ret_library_import_confirm_desc_unknown"
+      text="Bu, verileri mevcut oyuna aktaracaktır." />
+    <string
+      id="ret_library_import_confirm_title"
+      text="İçe Aktar" />
+    <string
+      id="ret_library_import_deleted_custom_troop"
+      text="Bu ihracata karşılık gelen birlik silindi." />
+    <string
+      id="ret_library_import_done_desc"
+      text="İçe aktarma başarılı." />
+    <string
+      id="ret_library_import_done_title"
+      text="İçe Aktarma Tamamlandı" />
+    <string
+      id="ret_library_import_failed_exception"
+      text="Dosya içe aktarılamadı." />
+    <string
+      id="ret_library_import_failed_missing"
+      text="İhracat dosyası bulunamadı." />
+    <string
+      id="ret_library_import_failed_reason"
+      text="Dosya içe aktarılamadı." />
+    <string
+      id="ret_library_import_failed_title"
+      text="İçe Aktarma Başarısız" />
+    <string
+      id="ret_library_import_failed_unknown_kind"
+      text="Tanımlanamayan ihracat türü." />
+    <string
+      id="ret_library_import_missing_file"
+      text="İhracat dosyası bulunamadı." />
+    <string
+      id="ret_library_import_no_selection"
+      text="Hiçbir ihracat seçilmedi." />
+    <string
+      id="ret_library_import_target_missing_faction"
+      text="Hedef fraksiyon mevcut oyunda yok." />
+    <string
+      id="ret_library_import_target_missing_troop"
+      text="Hedef birlik mevcut oyunda yok." />
+    <string
+      id="ret_library_import_target_missing_unknown"
+      text="Bu ihracatın hedefi mevcut oyunda yok." />
+    <string
+      id="ret_library_import_tooltip"
+      text="Mevcut oyuna aktar." />
+    <string
+      id="ret_library_kind_faction"
+      text="Fraksiyon" />
+    <string
+      id="ret_library_kind_troop"
+      text="Birlik" />
+    <string
+      id="ret_library_kind_unknown"
+      text="Bilinmeyen" />
+    <string
+      id="ret_library_name_character_header"
+      text="Birim" />
+    <string
+      id="ret_library_name_faction_header"
+      text="Fraksiyon" />
+    <string
+      id="ret_library_target_header"
+      text="Değiştirir" />
+    <string
       id="ret_list_header_bandits"
       text="Haydutlar" />
     <string
@@ -409,6 +514,9 @@
     <string
       id="ret_traits_header_text"
       text="Özellikler" />
+    <string
+      id="ret_troop_count_more"
+      text="ve {NUMBER} daha fazla birlik." />
     <string
       id="ret_unequip_item_tooltip"
       text="Bu öğeyi donanımdan çıkar." />

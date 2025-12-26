@@ -254,6 +254,111 @@
       id="ret_invalid_name_title"
       text="Invalid Name" />
     <string
+      id="ret_library_contents_header"
+      text="Contents" />
+    <string
+      id="ret_library_delete_button"
+      text="Delete" />
+    <string
+      id="ret_library_delete_confirm_desc"
+      text="This action is irreversible." />
+    <string
+      id="ret_library_delete_confirm_title"
+      text="Delete Export" />
+    <string
+      id="ret_library_delete_done_desc"
+      text="The export file was deleted." />
+    <string
+      id="ret_library_delete_done_title"
+      text="Export Deleted" />
+    <string
+      id="ret_library_delete_failed_exception"
+      text="The export could not be deleted." />
+    <string
+      id="ret_library_delete_failed_missing"
+      text="Export file was not found." />
+    <string
+      id="ret_library_delete_failed_title"
+      text="Delete Failed" />
+    <string
+      id="ret_library_export_file_header"
+      text="Export File" />
+    <string
+      id="ret_library_import_button"
+      text="Import" />
+    <string
+      id="ret_library_import_confirm_desc_char"
+      text="This will overwrite the matching troop in the current game." />
+    <string
+      id="ret_library_import_confirm_desc_faction"
+      text="This will overwrite the matching faction in the current game." />
+    <string
+      id="ret_library_import_confirm_desc_unknown"
+      text="This will import the data into the current game." />
+    <string
+      id="ret_library_import_confirm_title"
+      text="Import" />
+    <string
+      id="ret_library_import_deleted_custom_troop"
+      text="The troop corresponding to this export was deleted." />
+    <string
+      id="ret_library_import_done_desc"
+      text="Import successful." />
+    <string
+      id="ret_library_import_done_title"
+      text="Import Complete" />
+    <string
+      id="ret_library_import_failed_exception"
+      text="The file could not be imported." />
+    <string
+      id="ret_library_import_failed_missing"
+      text="Export file was not found." />
+    <string
+      id="ret_library_import_failed_reason"
+      text="The file could not be imported." />
+    <string
+      id="ret_library_import_failed_title"
+      text="Import Failed" />
+    <string
+      id="ret_library_import_failed_unknown_kind"
+      text="Unrecognized export type." />
+    <string
+      id="ret_library_import_missing_file"
+      text="Export file was not found." />
+    <string
+      id="ret_library_import_no_selection"
+      text="No export selected." />
+    <string
+      id="ret_library_import_target_missing_faction"
+      text="The target faction does not exist in the current game." />
+    <string
+      id="ret_library_import_target_missing_troop"
+      text="The target troop does not exist in the current game." />
+    <string
+      id="ret_library_import_target_missing_unknown"
+      text="The target of this export does not exist in the current game." />
+    <string
+      id="ret_library_import_tooltip"
+      text="Import into the current game." />
+    <string
+      id="ret_library_kind_faction"
+      text="Faction" />
+    <string
+      id="ret_library_kind_troop"
+      text="Troop" />
+    <string
+      id="ret_library_kind_unknown"
+      text="Unknown" />
+    <string
+      id="ret_library_name_character_header"
+      text="Unit" />
+    <string
+      id="ret_library_name_faction_header"
+      text="Faction" />
+    <string
+      id="ret_library_target_header"
+      text="Replaces" />
+    <string
       id="ret_list_header_bandits"
       text="Bandits" />
     <string
@@ -409,6 +514,9 @@
     <string
       id="ret_traits_header_text"
       text="Traits" />
+    <string
+      id="ret_troop_count_more"
+      text="and {NUMBER} more troops." />
     <string
       id="ret_unequip_item_tooltip"
       text="Unequip this item." />

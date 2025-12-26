@@ -254,6 +254,111 @@
       id="ret_invalid_name_title"
       text="Ungültiger Name" />
     <string
+      id="ret_library_contents_header"
+      text="Inhalt" />
+    <string
+      id="ret_library_delete_button"
+      text="Löschen" />
+    <string
+      id="ret_library_delete_confirm_desc"
+      text="Diese Aktion kann nicht rückgängig gemacht werden." />
+    <string
+      id="ret_library_delete_confirm_title"
+      text="Export löschen" />
+    <string
+      id="ret_library_delete_done_desc"
+      text="Die Exportdatei wurde gelöscht." />
+    <string
+      id="ret_library_delete_done_title"
+      text="Export gelöscht" />
+    <string
+      id="ret_library_delete_failed_exception"
+      text="Der Export konnte nicht gelöscht werden." />
+    <string
+      id="ret_library_delete_failed_missing"
+      text="Exportdatei wurde nicht gefunden." />
+    <string
+      id="ret_library_delete_failed_title"
+      text="Löschen fehlgeschlagen" />
+    <string
+      id="ret_library_export_file_header"
+      text="Exportdatei" />
+    <string
+      id="ret_library_import_button"
+      text="Importieren" />
+    <string
+      id="ret_library_import_confirm_desc_char"
+      text="Dies überschreibt die entsprechende Truppe im aktuellen Spiel." />
+    <string
+      id="ret_library_import_confirm_desc_faction"
+      text="Dies überschreibt die entsprechende Fraktion im aktuellen Spiel." />
+    <string
+      id="ret_library_import_confirm_desc_unknown"
+      text="Dies importiert die Daten in das aktuelle Spiel." />
+    <string
+      id="ret_library_import_confirm_title"
+      text="Importieren" />
+    <string
+      id="ret_library_import_deleted_custom_troop"
+      text="Die Truppe, die diesem Export entspricht, wurde gelöscht." />
+    <string
+      id="ret_library_import_done_desc"
+      text="Import erfolgreich." />
+    <string
+      id="ret_library_import_done_title"
+      text="Import abgeschlossen" />
+    <string
+      id="ret_library_import_failed_exception"
+      text="Die Datei konnte nicht importiert werden." />
+    <string
+      id="ret_library_import_failed_missing"
+      text="Exportdatei wurde nicht gefunden." />
+    <string
+      id="ret_library_import_failed_reason"
+      text="Die Datei konnte nicht importiert werden." />
+    <string
+      id="ret_library_import_failed_title"
+      text="Import fehlgeschlagen" />
+    <string
+      id="ret_library_import_failed_unknown_kind"
+      text="Nicht erkannter Exporttyp." />
+    <string
+      id="ret_library_import_missing_file"
+      text="Exportdatei wurde nicht gefunden." />
+    <string
+      id="ret_library_import_no_selection"
+      text="Kein Export ausgewählt." />
+    <string
+      id="ret_library_import_target_missing_faction"
+      text="Die Zielfraktion existiert im aktuellen Spiel nicht." />
+    <string
+      id="ret_library_import_target_missing_troop"
+      text="Die Zieltruppe existiert im aktuellen Spiel nicht." />
+    <string
+      id="ret_library_import_target_missing_unknown"
+      text="Das Ziel dieses Exports existiert im aktuellen Spiel nicht." />
+    <string
+      id="ret_library_import_tooltip"
+      text="In das aktuelle Spiel importieren." />
+    <string
+      id="ret_library_kind_faction"
+      text="Fraktion" />
+    <string
+      id="ret_library_kind_troop"
+      text="Truppe" />
+    <string
+      id="ret_library_kind_unknown"
+      text="Unbekannt" />
+    <string
+      id="ret_library_name_character_header"
+      text="Einheit" />
+    <string
+      id="ret_library_name_faction_header"
+      text="Fraktion" />
+    <string
+      id="ret_library_target_header"
+      text="Ersetzt" />
+    <string
       id="ret_list_header_bandits"
       text="Banditen" />
     <string
@@ -409,6 +514,9 @@
     <string
       id="ret_traits_header_text"
       text="Eigenschaften" />
+    <string
+      id="ret_troop_count_more"
+      text="und {NUMBER} weitere Truppen." />
     <string
       id="ret_unequip_item_tooltip"
       text="Dieses Element ablegen." />

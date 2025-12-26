@@ -254,6 +254,111 @@
       id="ret_invalid_name_title"
       text="無効な名前" />
     <string
+      id="ret_library_contents_header"
+      text="内容" />
+    <string
+      id="ret_library_delete_button"
+      text="削除" />
+    <string
+      id="ret_library_delete_confirm_desc"
+      text="この操作は元に戻せません。" />
+    <string
+      id="ret_library_delete_confirm_title"
+      text="エクスポートを削除" />
+    <string
+      id="ret_library_delete_done_desc"
+      text="エクスポートファイルが削除されました。" />
+    <string
+      id="ret_library_delete_done_title"
+      text="エクスポートが削除されました" />
+    <string
+      id="ret_library_delete_failed_exception"
+      text="エクスポートを削除できませんでした。" />
+    <string
+      id="ret_library_delete_failed_missing"
+      text="エクスポートファイルが見つかりませんでした。" />
+    <string
+      id="ret_library_delete_failed_title"
+      text="削除に失敗しました" />
+    <string
+      id="ret_library_export_file_header"
+      text="エクスポートファイル" />
+    <string
+      id="ret_library_import_button"
+      text="インポート" />
+    <string
+      id="ret_library_import_confirm_desc_char"
+      text="これにより、現在のゲームで一致する部隊が上書きされます。" />
+    <string
+      id="ret_library_import_confirm_desc_faction"
+      text="これにより、現在のゲームで一致する派閥が上書きされます。" />
+    <string
+      id="ret_library_import_confirm_desc_unknown"
+      text="これにより、データが現在のゲームにインポートされます。" />
+    <string
+      id="ret_library_import_confirm_title"
+      text="インポート" />
+    <string
+      id="ret_library_import_deleted_custom_troop"
+      text="このエクスポートに対応する部隊が削除されました。" />
+    <string
+      id="ret_library_import_done_desc"
+      text="インポートに成功しました。" />
+    <string
+      id="ret_library_import_done_title"
+      text="インポート完了" />
+    <string
+      id="ret_library_import_failed_exception"
+      text="ファイルをインポートできませんでした。" />
+    <string
+      id="ret_library_import_failed_missing"
+      text="エクスポートファイルが見つかりませんでした。" />
+    <string
+      id="ret_library_import_failed_reason"
+      text="ファイルをインポートできませんでした。" />
+    <string
+      id="ret_library_import_failed_title"
+      text="インポートに失敗しました" />
+    <string
+      id="ret_library_import_failed_unknown_kind"
+      text="認識されないエクスポートタイプです。" />
+    <string
+      id="ret_library_import_missing_file"
+      text="エクスポートファイルが見つかりませんでした。" />
+    <string
+      id="ret_library_import_no_selection"
+      text="エクスポートが選択されていません。" />
+    <string
+      id="ret_library_import_target_missing_faction"
+      text="ターゲットの派閥は現在のゲームに存在しません。" />
+    <string
+      id="ret_library_import_target_missing_troop"
+      text="ターゲットの部隊は現在のゲームに存在しません。" />
+    <string
+      id="ret_library_import_target_missing_unknown"
+      text="このエクスポートのターゲットは現在のゲームに存在しません。" />
+    <string
+      id="ret_library_import_tooltip"
+      text="現在のゲームにインポートします。" />
+    <string
+      id="ret_library_kind_faction"
+      text="派閥" />
+    <string
+      id="ret_library_kind_troop"
+      text="部隊" />
+    <string
+      id="ret_library_kind_unknown"
+      text="不明" />
+    <string
+      id="ret_library_name_character_header"
+      text="ユニット" />
+    <string
+      id="ret_library_name_faction_header"
+      text="派閥" />
+    <string
+      id="ret_library_target_header"
+      text="置き換え先" />
+    <string
       id="ret_list_header_bandits"
       text="山賊" />
     <string
@@ -409,6 +514,9 @@
     <string
       id="ret_traits_header_text"
       text="特性" />
+    <string
+      id="ret_troop_count_more"
+      text="およびさらに {NUMBER} 部隊。" />
     <string
       id="ret_unequip_item_tooltip"
       text="このアイテムを装備解除します。" />

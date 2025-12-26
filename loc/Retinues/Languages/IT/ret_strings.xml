@@ -254,6 +254,111 @@
       id="ret_invalid_name_title"
       text="Nome non valido" />
     <string
+      id="ret_library_contents_header"
+      text="Contenuti" />
+    <string
+      id="ret_library_delete_button"
+      text="Elimina" />
+    <string
+      id="ret_library_delete_confirm_desc"
+      text="Questa azione non può essere annullata." />
+    <string
+      id="ret_library_delete_confirm_title"
+      text="Elimina esportazione" />
+    <string
+      id="ret_library_delete_done_desc"
+      text="Il file di esportazione è stato eliminato." />
+    <string
+      id="ret_library_delete_done_title"
+      text="Esportazione eliminata" />
+    <string
+      id="ret_library_delete_failed_exception"
+      text="L&apos;esportazione non può essere eliminata." />
+    <string
+      id="ret_library_delete_failed_missing"
+      text="File di esportazione non trovato." />
+    <string
+      id="ret_library_delete_failed_title"
+      text="Eliminazione non riuscita" />
+    <string
+      id="ret_library_export_file_header"
+      text="File di esportazione" />
+    <string
+      id="ret_library_import_button"
+      text="Importa" />
+    <string
+      id="ret_library_import_confirm_desc_char"
+      text="Questo sovrascriverà la truppa corrispondente nel gioco attuale." />
+    <string
+      id="ret_library_import_confirm_desc_faction"
+      text="Questo sovrascriverà la fazione corrispondente nel gioco attuale." />
+    <string
+      id="ret_library_import_confirm_desc_unknown"
+      text="Questo importerà i dati nel gioco attuale." />
+    <string
+      id="ret_library_import_confirm_title"
+      text="Importa" />
+    <string
+      id="ret_library_import_deleted_custom_troop"
+      text="La truppa corrispondente a questa esportazione è stata eliminata." />
+    <string
+      id="ret_library_import_done_desc"
+      text="Importazione riuscita." />
+    <string
+      id="ret_library_import_done_title"
+      text="Importazione completata" />
+    <string
+      id="ret_library_import_failed_exception"
+      text="Il file non può essere importato." />
+    <string
+      id="ret_library_import_failed_missing"
+      text="File di esportazione non trovato." />
+    <string
+      id="ret_library_import_failed_reason"
+      text="Il file non può essere importato." />
+    <string
+      id="ret_library_import_failed_title"
+      text="Importazione non riuscita" />
+    <string
+      id="ret_library_import_failed_unknown_kind"
+      text="Tipo di esportazione non riconosciuto." />
+    <string
+      id="ret_library_import_missing_file"
+      text="File di esportazione non trovato." />
+    <string
+      id="ret_library_import_no_selection"
+      text="Nessuna esportazione selezionata." />
+    <string
+      id="ret_library_import_target_missing_faction"
+      text="La fazione di destinazione non esiste nel gioco attuale." />
+    <string
+      id="ret_library_import_target_missing_troop"
+      text="La truppa di destinazione non esiste nel gioco attuale." />
+    <string
+      id="ret_library_import_target_missing_unknown"
+      text="L&apos;obiettivo di questa esportazione non esiste nel gioco attuale." />
+    <string
+      id="ret_library_import_tooltip"
+      text="Importa nel gioco attuale." />
+    <string
+      id="ret_library_kind_faction"
+      text="Fazione" />
+    <string
+      id="ret_library_kind_troop"
+      text="Truppa" />
+    <string
+      id="ret_library_kind_unknown"
+      text="Sconosciuto" />
+    <string
+      id="ret_library_name_character_header"
+      text="Unità" />
+    <string
+      id="ret_library_name_faction_header"
+      text="Fazione" />
+    <string
+      id="ret_library_target_header"
+      text="Sostituisce" />
+    <string
       id="ret_list_header_bandits"
       text="Banditi" />
     <string
@@ -409,6 +514,9 @@
     <string
       id="ret_traits_header_text"
       text="Tratti" />
+    <string
+      id="ret_troop_count_more"
+      text="e altre {NUMBER} truppe." />
     <string
       id="ret_unequip_item_tooltip"
       text="Desequipaggia questo oggetto." />

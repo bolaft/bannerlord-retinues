@@ -254,6 +254,111 @@
       id="ret_invalid_name_title"
       text="Недопустимое имя" />
     <string
+      id="ret_library_contents_header"
+      text="Содержимое" />
+    <string
+      id="ret_library_delete_button"
+      text="Удалить" />
+    <string
+      id="ret_library_delete_confirm_desc"
+      text="Это действие нельзя отменить." />
+    <string
+      id="ret_library_delete_confirm_title"
+      text="Удалить экспорт" />
+    <string
+      id="ret_library_delete_done_desc"
+      text="Файл экспорта был удален." />
+    <string
+      id="ret_library_delete_done_title"
+      text="Экспорт удален" />
+    <string
+      id="ret_library_delete_failed_exception"
+      text="Экспорт не может быть удален." />
+    <string
+      id="ret_library_delete_failed_missing"
+      text="Файл экспорта не найден." />
+    <string
+      id="ret_library_delete_failed_title"
+      text="Ошибка удаления" />
+    <string
+      id="ret_library_export_file_header"
+      text="Файл экспорта" />
+    <string
+      id="ret_library_import_button"
+      text="Импорт" />
+    <string
+      id="ret_library_import_confirm_desc_char"
+      text="Это перезапишет соответствующий отряд в текущей игре." />
+    <string
+      id="ret_library_import_confirm_desc_faction"
+      text="Это перезапишет соответствующую фракцию в текущей игре." />
+    <string
+      id="ret_library_import_confirm_desc_unknown"
+      text="Это импортирует данные в текущую игру." />
+    <string
+      id="ret_library_import_confirm_title"
+      text="Импорт" />
+    <string
+      id="ret_library_import_deleted_custom_troop"
+      text="Отряд, соответствующий этому экспорту, был удален." />
+    <string
+      id="ret_library_import_done_desc"
+      text="Импорт выполнен успешно." />
+    <string
+      id="ret_library_import_done_title"
+      text="Импорт завершен" />
+    <string
+      id="ret_library_import_failed_exception"
+      text="Не удалось импортировать файл." />
+    <string
+      id="ret_library_import_failed_missing"
+      text="Файл экспорта не найден." />
+    <string
+      id="ret_library_import_failed_reason"
+      text="Не удалось импортировать файл." />
+    <string
+      id="ret_library_import_failed_title"
+      text="Ошибка импорта" />
+    <string
+      id="ret_library_import_failed_unknown_kind"
+      text="Неизвестный тип экспорта." />
+    <string
+      id="ret_library_import_missing_file"
+      text="Файл экспорта не найден." />
+    <string
+      id="ret_library_import_no_selection"
+      text="Экспорт не выбран." />
+    <string
+      id="ret_library_import_target_missing_faction"
+      text="Целевая фракция не существует в текущей игре." />
+    <string
+      id="ret_library_import_target_missing_troop"
+      text="Целевая единица не существует в текущей игре." />
+    <string
+      id="ret_library_import_target_missing_unknown"
+      text="Цель этого экспорта не существует в текущей игре." />
+    <string
+      id="ret_library_import_tooltip"
+      text="Импорт в текущую игру." />
+    <string
+      id="ret_library_kind_faction"
+      text="Фракция" />
+    <string
+      id="ret_library_kind_troop"
+      text="Войска" />
+    <string
+      id="ret_library_kind_unknown"
+      text="Неизвестно" />
+    <string
+      id="ret_library_name_character_header"
+      text="Юнит" />
+    <string
+      id="ret_library_name_faction_header"
+      text="Фракция" />
+    <string
+      id="ret_library_target_header"
+      text="Заменяет" />
+    <string
       id="ret_list_header_bandits"
       text="Бандиты" />
     <string
@@ -409,6 +514,9 @@
     <string
       id="ret_traits_header_text"
       text="Черты" />
+    <string
+      id="ret_troop_count_more"
+      text="и еще {NUMBER} войск." />
     <string
       id="ret_unequip_item_tooltip"
       text="Снять этот предмет." />

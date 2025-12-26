@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
+using Retinues.Model.Characters;
+using Retinues.Model.Factions;
 using Retinues.Utilities;
+using TaleWorlds.Localization;
 
 namespace Retinues.Model
 {
@@ -40,7 +43,6 @@ namespace Retinues.Model
                 Log.Exception(ex, "MLibrary.GetAll failed.");
             }
 
-            // Factions first, then characters; newest first within each.
             return
             [
                 .. items
@@ -60,8 +62,6 @@ namespace Retinues.Model
                     return false;
 
                 var fileName = Path.GetFileName(path) ?? string.Empty;
-
-                // Use file time as a fallback if the format doesnt store createdUtc.
                 var fileTimeUtc = File.GetLastWriteTimeUtc(path);
 
                 var doc = XDocument.Load(path, LoadOptions.None);
@@ -69,67 +69,213 @@ namespace Retinues.Model
                 if (root == null)
                     return false;
 
-                var rootName = root.Name.LocalName;
+                if (root.Name.LocalName != "Retinues")
+                    return false;
 
-                // Pretty format: <Retinues v="2"> <WCharacter ...> ... </WCharacter> </Retinues>
-                if (rootName == "Retinues")
+                var kind = ParseKind((string)root.Attribute("kind"));
+                var sourceId = (string)root.Attribute("source") ?? string.Empty;
+
+                var elements = root.Elements().ToList();
+                if (elements.Count == 0)
+                    return false;
+
+                // Fallback for older/invalid exports.
+                if (kind == MLibraryKind.Unknown)
+                    kind = elements.Any(e => !IsCharacterElement(e))
+                        ? MLibraryKind.Faction
+                        : MLibraryKind.Character;
+
+                if (string.IsNullOrWhiteSpace(sourceId))
                 {
-                    var kind = ParseKind((string)root.Attribute("kind"));
-                    var source = (string)root.Attribute("source") ?? string.Empty;
-
-                    var first = root.Elements().FirstOrDefault();
-                    if (first == null)
-                        return false;
-
-                    var type = (string)first.Attribute("type") ?? string.Empty;
-                    var firstId =
+                    var first = elements[0];
+                    sourceId =
                         (string)first.Attribute("stringId")
                         ?? (string)first.Attribute("id")
                         ?? string.Empty;
-
-                    if (kind == MLibraryKind.Unknown)
-                        kind = GuessKind(first.Name.LocalName, type);
-
-                    var entryCount = root.Elements().Count();
-
-                    var isChar = new Func<XElement, bool>(e =>
-                        GuessKind(e.Name.LocalName, (string)e.Attribute("type"))
-                        == MLibraryKind.Character
-                    );
-
-                    var troopCount = 0;
-                    if (kind == MLibraryKind.Faction)
-                        troopCount = root.Elements().Count(isChar);
-
-                    var displayName = !string.IsNullOrWhiteSpace(source)
-                        ? source
-                        : (
-                            !string.IsNullOrWhiteSpace(firstId)
-                                ? firstId
-                                : Path.GetFileNameWithoutExtension(fileName) ?? fileName
-                        );
-
-                    item = new Item(
-                        filePath: path,
-                        fileName: fileName,
-                        kind: kind,
-                        sourceId: !string.IsNullOrWhiteSpace(source) ? source : firstId,
-                        createdUtc: fileTimeUtc,
-                        entryCount: entryCount,
-                        troopCount: troopCount,
-                        displayName: displayName
-                    );
-
-                    return true;
                 }
 
-                return false;
+                var entryCount = elements.Count;
+
+                var troopCount = 0;
+                if (kind == MLibraryKind.Faction)
+                    troopCount = elements.Count(IsCharacterElement);
+
+                // Wrapper element (critical for faction exports: must be NON-character).
+                var wrapperEl = GetWrapperElement(elements, kind);
+
+                // Read exported XML name from the wrapper element (may be null).
+                var exportedNameRaw = TryReadExportedDisplayName(wrapperEl);
+                var exportedName = ResolveTextObjectString(exportedNameRaw);
+
+                // Resolve current in-game name from sourceId (may be null).
+                var currentName = ResolveNameFromGame(kind, sourceId);
+
+                string displayName;
+
+                if (kind == MLibraryKind.Character)
+                {
+                    // NEW behavior applies ONLY to character exports:
+                    // Prefer the exported XML NameAttribute; fallback to current in-game name.
+                    displayName = !string.IsNullOrWhiteSpace(exportedName)
+                        ? exportedName
+                        : (
+                            !string.IsNullOrWhiteSpace(currentName)
+                                ? currentName
+                                : (
+                                    !string.IsNullOrWhiteSpace(sourceId)
+                                        ? sourceId
+                                        : (Path.GetFileNameWithoutExtension(fileName) ?? fileName)
+                                )
+                        );
+                }
+                else
+                {
+                    // Faction exports: NEVER pick a troop name.
+                    // Prefer current in-game faction name (sourceId), then fallback to XML wrapper name.
+                    displayName = !string.IsNullOrWhiteSpace(currentName)
+                        ? currentName
+                        : (
+                            !string.IsNullOrWhiteSpace(exportedName)
+                                ? exportedName
+                                : (
+                                    !string.IsNullOrWhiteSpace(sourceId)
+                                        ? sourceId
+                                        : (Path.GetFileNameWithoutExtension(fileName) ?? fileName)
+                                )
+                        );
+                }
+
+                item = new Item(
+                    filePath: path,
+                    fileName: fileName,
+                    kind: kind,
+                    sourceId: sourceId,
+                    createdUtc: fileTimeUtc,
+                    entryCount: entryCount,
+                    troopCount: troopCount,
+                    displayName: displayName
+                );
+
+                return true;
             }
             catch (Exception ex)
             {
                 Log.Exception(ex, "MLibrary.TryRead failed.");
                 return false;
             }
+        }
+
+        private static string ResolveNameFromGame(MLibraryKind kind, string sourceId)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(sourceId))
+                    return string.Empty;
+
+                if (kind == MLibraryKind.Character)
+                {
+                    var c = WCharacter.Get(sourceId);
+                    return ResolveTextObjectString(c?.Name?.ToString());
+                }
+
+                if (kind == MLibraryKind.Faction)
+                {
+                    var f = ResolveFaction(sourceId);
+                    return ResolveTextObjectString(f?.Name?.ToString());
+                }
+
+                return string.Empty;
+            }
+            catch
+            {
+                return string.Empty;
+            }
+        }
+
+        private static IBaseFaction ResolveFaction(string factionStringId)
+        {
+            if (string.IsNullOrWhiteSpace(factionStringId))
+                return null;
+
+            return WClan.Get(factionStringId) as IBaseFaction
+                ?? WKingdom.Get(factionStringId) as IBaseFaction
+                ?? WCulture.Get(factionStringId);
+        }
+
+        private static XElement GetWrapperElement(List<XElement> elements, MLibraryKind kind)
+        {
+            if (elements == null || elements.Count == 0)
+                return null;
+
+            if (kind == MLibraryKind.Faction)
+            {
+                // MUST be the faction wrapper: first NON-character element.
+                var f = elements.FirstOrDefault(e => !IsCharacterElement(e));
+                return f ?? elements[0];
+            }
+
+            if (kind == MLibraryKind.Character)
+            {
+                // For character exports, the wrapper is the character element.
+                var c = elements.FirstOrDefault(IsCharacterElement);
+                return c ?? elements[0];
+            }
+
+            return elements[0];
+        }
+
+        private static bool IsCharacterElement(XElement el)
+        {
+            if (el == null)
+                return false;
+
+            var type = (string)el.Attribute("type");
+            if (!string.IsNullOrWhiteSpace(type) && type.Contains(".Characters.WCharacter"))
+                return true;
+
+            return el.Name.LocalName.Contains("WCharacter");
+        }
+
+        private static string TryReadExportedDisplayName(XElement wrapperEl)
+        {
+            try
+            {
+                if (wrapperEl == null)
+                    return null;
+
+                var nameEl =
+                    wrapperEl.Element("NameAttribute")
+                    ?? wrapperEl.Descendants("NameAttribute").FirstOrDefault();
+
+                var raw = nameEl?.Value?.Trim();
+                return string.IsNullOrWhiteSpace(raw) ? null : raw;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        private static string ResolveTextObjectString(string raw)
+        {
+            if (string.IsNullOrWhiteSpace(raw))
+                return string.Empty;
+
+            raw = raw.Trim();
+
+            if (raw.Length >= 4 && raw[0] == '{' && raw[1] == '=')
+            {
+                try
+                {
+                    return new TextObject(raw).ToString();
+                }
+                catch
+                {
+                    return raw;
+                }
+            }
+
+            return raw;
         }
 
         private static MLibraryKind ParseKind(string kindRaw)
@@ -145,25 +291,6 @@ namespace Retinues.Model
                 "faction" => MLibraryKind.Faction,
                 _ => MLibraryKind.Unknown,
             };
-        }
-
-        private static MLibraryKind GuessKind(string elementName, string typeAttr)
-        {
-            // Prefer type attr if present.
-            if (!string.IsNullOrWhiteSpace(typeAttr))
-            {
-                if (typeAttr.Contains(".Characters.WCharacter"))
-                    return MLibraryKind.Character;
-
-                if (typeAttr.Contains(".Factions.") || typeAttr.Contains(".Factions.W"))
-                    return MLibraryKind.Faction;
-            }
-
-            // Fallback on element name.
-            if (!string.IsNullOrWhiteSpace(elementName) && elementName.Contains("WCharacter"))
-                return MLibraryKind.Character;
-
-            return MLibraryKind.Faction;
         }
     }
 }

@@ -254,6 +254,111 @@
       id="ret_invalid_name_title"
       text="Nome Inválido" />
     <string
+      id="ret_library_contents_header"
+      text="Conteúdo" />
+    <string
+      id="ret_library_delete_button"
+      text="Excluir" />
+    <string
+      id="ret_library_delete_confirm_desc"
+      text="Esta ação é irreversível." />
+    <string
+      id="ret_library_delete_confirm_title"
+      text="Excluir Exportação" />
+    <string
+      id="ret_library_delete_done_desc"
+      text="O arquivo de exportação foi excluído." />
+    <string
+      id="ret_library_delete_done_title"
+      text="Exportação Excluída" />
+    <string
+      id="ret_library_delete_failed_exception"
+      text="A exportação não pôde ser excluída." />
+    <string
+      id="ret_library_delete_failed_missing"
+      text="Arquivo de exportação não encontrado." />
+    <string
+      id="ret_library_delete_failed_title"
+      text="Falha na Exclusão" />
+    <string
+      id="ret_library_export_file_header"
+      text="Arquivo de Exportação" />
+    <string
+      id="ret_library_import_button"
+      text="Importar" />
+    <string
+      id="ret_library_import_confirm_desc_char"
+      text="Isso substituirá a tropa correspondente no jogo atual." />
+    <string
+      id="ret_library_import_confirm_desc_faction"
+      text="Isso substituirá a facção correspondente no jogo atual." />
+    <string
+      id="ret_library_import_confirm_desc_unknown"
+      text="Isso importará os dados para o jogo atual." />
+    <string
+      id="ret_library_import_confirm_title"
+      text="Importar" />
+    <string
+      id="ret_library_import_deleted_custom_troop"
+      text="A tropa correspondente a esta exportação foi excluída." />
+    <string
+      id="ret_library_import_done_desc"
+      text="Importação bem-sucedida." />
+    <string
+      id="ret_library_import_done_title"
+      text="Importação Concluída" />
+    <string
+      id="ret_library_import_failed_exception"
+      text="O arquivo não pôde ser importado." />
+    <string
+      id="ret_library_import_failed_missing"
+      text="Arquivo de exportação não encontrado." />
+    <string
+      id="ret_library_import_failed_reason"
+      text="O arquivo não pôde ser importado." />
+    <string
+      id="ret_library_import_failed_title"
+      text="Falha na Importação" />
+    <string
+      id="ret_library_import_failed_unknown_kind"
+      text="Tipo de exportação não reconhecido." />
+    <string
+      id="ret_library_import_missing_file"
+      text="Arquivo de exportação não encontrado." />
+    <string
+      id="ret_library_import_no_selection"
+      text="Nenhuma exportação selecionada." />
+    <string
+      id="ret_library_import_target_missing_faction"
+      text="A facção alvo não existe no jogo atual." />
+    <string
+      id="ret_library_import_target_missing_troop"
+      text="A tropa alvo não existe no jogo atual." />
+    <string
+      id="ret_library_import_target_missing_unknown"
+      text="O alvo desta exportação não existe no jogo atual." />
+    <string
+      id="ret_library_import_tooltip"
+      text="Importar para o jogo atual." />
+    <string
+      id="ret_library_kind_faction"
+      text="Facção" />
+    <string
+      id="ret_library_kind_troop"
+      text="Tropa" />
+    <string
+      id="ret_library_kind_unknown"
+      text="Desconhecido" />
+    <string
+      id="ret_library_name_character_header"
+      text="Unidade" />
+    <string
+      id="ret_library_name_faction_header"
+      text="Facção" />
+    <string
+      id="ret_library_target_header"
+      text="Substitui" />
+    <string
       id="ret_list_header_bandits"
       text="Bandidos" />
     <string
@@ -409,6 +514,9 @@
     <string
       id="ret_traits_header_text"
       text="Traços" />
+    <string
+      id="ret_troop_count_more"
+      text="e mais {NUMBER} tropas." />
     <string
       id="ret_unequip_item_tooltip"
       text="Desequipar este item." />

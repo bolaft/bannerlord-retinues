@@ -254,6 +254,111 @@
       id="ret_invalid_name_title"
       text="無效名稱" />
     <string
+      id="ret_library_contents_header"
+      text="內容" />
+    <string
+      id="ret_library_delete_button"
+      text="刪除" />
+    <string
+      id="ret_library_delete_confirm_desc"
+      text="此操作無法撤銷。" />
+    <string
+      id="ret_library_delete_confirm_title"
+      text="刪除導出" />
+    <string
+      id="ret_library_delete_done_desc"
+      text="導出文件已被刪除。" />
+    <string
+      id="ret_library_delete_done_title"
+      text="導出已刪除" />
+    <string
+      id="ret_library_delete_failed_exception"
+      text="無法刪除導出。" />
+    <string
+      id="ret_library_delete_failed_missing"
+      text="未找到導出文件。" />
+    <string
+      id="ret_library_delete_failed_title"
+      text="刪除失敗" />
+    <string
+      id="ret_library_export_file_header"
+      text="導出文件" />
+    <string
+      id="ret_library_import_button"
+      text="導入" />
+    <string
+      id="ret_library_import_confirm_desc_char"
+      text="這將覆蓋當前遊戲中匹配的部隊。" />
+    <string
+      id="ret_library_import_confirm_desc_faction"
+      text="這將覆蓋當前遊戲中匹配的派系。" />
+    <string
+      id="ret_library_import_confirm_desc_unknown"
+      text="這將把數據導入到當前遊戲中。" />
+    <string
+      id="ret_library_import_confirm_title"
+      text="導入" />
+    <string
+      id="ret_library_import_deleted_custom_troop"
+      text="與此導出對應的部隊已被刪除。" />
+    <string
+      id="ret_library_import_done_desc"
+      text="導入成功。" />
+    <string
+      id="ret_library_import_done_title"
+      text="導入完成" />
+    <string
+      id="ret_library_import_failed_exception"
+      text="無法導入文件。" />
+    <string
+      id="ret_library_import_failed_missing"
+      text="未找到導出文件。" />
+    <string
+      id="ret_library_import_failed_reason"
+      text="無法導入文件。" />
+    <string
+      id="ret_library_import_failed_title"
+      text="導入失敗" />
+    <string
+      id="ret_library_import_failed_unknown_kind"
+      text="無法識別的導出類型。" />
+    <string
+      id="ret_library_import_missing_file"
+      text="未找到導出文件。" />
+    <string
+      id="ret_library_import_no_selection"
+      text="未選擇導出。" />
+    <string
+      id="ret_library_import_target_missing_faction"
+      text="目標派系在當前遊戲中不存在。" />
+    <string
+      id="ret_library_import_target_missing_troop"
+      text="目標部隊在當前遊戲中不存在。" />
+    <string
+      id="ret_library_import_target_missing_unknown"
+      text="此導出的目標在當前遊戲中不存在。" />
+    <string
+      id="ret_library_import_tooltip"
+      text="導入到當前遊戲中。" />
+    <string
+      id="ret_library_kind_faction"
+      text="派系" />
+    <string
+      id="ret_library_kind_troop"
+      text="部隊" />
+    <string
+      id="ret_library_kind_unknown"
+      text="未知" />
+    <string
+      id="ret_library_name_character_header"
+      text="單位" />
+    <string
+      id="ret_library_name_faction_header"
+      text="派系" />
+    <string
+      id="ret_library_target_header"
+      text="替換" />
+    <string
       id="ret_list_header_bandits"
       text="強盜" />
     <string
@@ -409,6 +514,9 @@
     <string
       id="ret_traits_header_text"
       text="特質" />
+    <string
+      id="ret_troop_count_more"
+      text="以及另外 {NUMBER} 部隊。" />
     <string
       id="ret_unequip_item_tooltip"
       text="卸下此物品。" />

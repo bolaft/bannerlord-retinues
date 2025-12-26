@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -133,153 +134,184 @@ namespace Retinues.Model
 
         public static void ImportCharacter(string filepath)
         {
-            try
-            {
-                if (string.IsNullOrWhiteSpace(filepath) || !System.IO.File.Exists(filepath))
-                {
-                    Notifications.Message("Import failed: file not found.");
-                    return;
-                }
-
-                var xml = System.IO.File.ReadAllText(filepath, Encoding.UTF8);
-                if (!TryParseXmlRoot(xml, out var root))
-                {
-                    Notifications.Message("Import failed: invalid XML file.");
-                    return;
-                }
-
-                // Export format: <Retinues v="2" ...> <WCharacter .../> </Retinues>
-                if (root.Name.LocalName == RootName && (string)root.Attribute("v") == RootVersion)
-                {
-                    var el = root.Elements().FirstOrDefault();
-                    if (el == null)
-                    {
-                        Notifications.Message("Import failed: missing character element.");
-                        return;
-                    }
-
-                    var stringId =
-                        (string)el.Attribute("stringId")
-                        ?? TryGetStringIdFromUid((string)el.Attribute("uid"));
-                    if (string.IsNullOrWhiteSpace(stringId))
-                    {
-                        Notifications.Message(
-                            "Import failed: could not resolve character StringId."
-                        );
-                        return;
-                    }
-
-                    var c = WCharacter.Get(stringId);
-                    if (c == null)
-                    {
-                        Notifications.Message($"Import failed: character not found: '{stringId}'.");
-                        return;
-                    }
-
-                    var payload = ExtractPayload(el);
-                    c.Deserialize(payload);
-
-                    Notifications.Message($"Imported '{stringId}'.");
-                    Log.Info($"Imported character '{stringId}' from '{filepath}'.");
-                    return;
-                }
-
-                Notifications.Message("Import failed: unknown export format.");
-            }
-            catch (Exception ex)
-            {
-                Log.Exception(ex, "ImportCharacter failed.");
-                Notifications.Message($"Import failed: {ex.Message}");
-            }
+            if (!TryImportCharacter(filepath, out var err))
+                Notifications.Message($"Import failed: {err}");
         }
 
         public static void ImportFaction(string filepath)
         {
+            if (!TryImportFaction(filepath, out var err))
+                Notifications.Message($"Import failed: {err}");
+        }
+
+        public static bool TryImportCharacter(string filepath, out string error)
+        {
+            error = null;
+
             try
             {
                 if (string.IsNullOrWhiteSpace(filepath) || !System.IO.File.Exists(filepath))
                 {
-                    Notifications.Message("Import failed: file not found.");
-                    return;
+                    error = "file not found.";
+                    return false;
                 }
 
                 var xml = System.IO.File.ReadAllText(filepath, Encoding.UTF8);
                 if (!TryParseXmlRoot(xml, out var root))
                 {
-                    Notifications.Message("Import failed: invalid XML file.");
-                    return;
+                    error = "invalid XML file.";
+                    return false;
                 }
 
-                // Export format: <Retinues v="2" ...> <WFaction .../> <WCharacter .../> ... </Retinues>
-                if (root.Name.LocalName == RootName && (string)root.Attribute("v") == RootVersion)
+                if (root.Name.LocalName != RootName || (string)root.Attribute("v") != RootVersion)
                 {
-                    var elements = root.Elements().ToList();
-                    if (elements.Count == 0)
-                    {
-                        Notifications.Message("Import failed: file has no elements.");
-                        return;
-                    }
-
-                    // First element = faction wrapper
-                    var fEl = elements[0];
-                    var factionId =
-                        (string)fEl.Attribute("stringId")
-                        ?? TryGetStringIdFromUid((string)fEl.Attribute("uid"));
-
-                    if (string.IsNullOrWhiteSpace(factionId))
-                    {
-                        Notifications.Message("Import failed: could not resolve faction StringId.");
-                        return;
-                    }
-
-                    var f = ResolveFaction(factionId);
-                    if (f == null)
-                    {
-                        Notifications.Message($"Import failed: faction not found: '{factionId}'.");
-                        return;
-                    }
-
-                    f.Deserialize(ExtractPayload(fEl));
-
-                    int imported = 0;
-                    int skipped = 0;
-
-                    for (int i = 1; i < elements.Count; i++)
-                    {
-                        var el = elements[i];
-
-                        var id =
-                            (string)el.Attribute("stringId")
-                            ?? TryGetStringIdFromUid((string)el.Attribute("uid"));
-                        if (string.IsNullOrWhiteSpace(id))
-                            continue;
-
-                        var c = WCharacter.Get(id);
-                        if (c == null)
-                        {
-                            skipped++;
-                            continue;
-                        }
-
-                        c.Deserialize(ExtractPayload(el));
-                        imported++;
-                    }
-
-                    Notifications.Message(
-                        $"Imported '{factionId}' (troops applied: {imported}, skipped: {skipped})."
-                    );
-                    Log.Info(
-                        $"Imported faction '{factionId}' from '{filepath}'. Troops imported={imported}, skipped={skipped}."
-                    );
-                    return;
+                    error = "unknown export format.";
+                    return false;
                 }
 
-                Notifications.Message("Import failed: unknown export format.");
+                var el =
+                    root.Elements().FirstOrDefault(IsCharacterElement) ?? root.Elements()
+                        .FirstOrDefault();
+                if (el == null)
+                {
+                    error = "missing character element.";
+                    return false;
+                }
+
+                // Prefer element id, but fallback to root source.
+                var stringId =
+                    (string)el.Attribute("stringId")
+                    ?? TryGetStringIdFromUid((string)el.Attribute("uid"))
+                    ?? (string)root.Attribute("source");
+
+                if (string.IsNullOrWhiteSpace(stringId))
+                {
+                    error = "could not resolve character StringId.";
+                    return false;
+                }
+
+                var c = WCharacter.Get(stringId);
+                if (c == null)
+                {
+                    error = $"character not found: '{stringId}'.";
+                    return false;
+                }
+
+                c.Deserialize(ExtractPayload(el));
+
+                Log.Info($"Imported character '{stringId}' from '{filepath}'.");
+                return true;
             }
             catch (Exception ex)
             {
-                Log.Exception(ex, "ImportFaction failed.");
-                Notifications.Message($"Import failed: {ex.Message}");
+                Log.Exception(ex, "TryImportCharacter failed.");
+                error = ex.Message ?? "unknown error.";
+                return false;
+            }
+        }
+
+        public static bool TryImportFaction(string filepath, out string error)
+        {
+            error = null;
+
+            try
+            {
+                if (string.IsNullOrWhiteSpace(filepath) || !System.IO.File.Exists(filepath))
+                {
+                    error = "file not found.";
+                    return false;
+                }
+
+                var xml = System.IO.File.ReadAllText(filepath, Encoding.UTF8);
+                if (!TryParseXmlRoot(xml, out var root))
+                {
+                    error = "invalid XML file.";
+                    return false;
+                }
+
+                if (root.Name.LocalName != RootName || (string)root.Attribute("v") != RootVersion)
+                {
+                    error = "unknown export format.";
+                    return false;
+                }
+
+                var elements = root.Elements().ToList();
+                if (elements.Count == 0)
+                {
+                    error = "file has no elements.";
+                    return false;
+                }
+
+                // Prefer root source, then the wrapper element's stringId.
+                var sourceId = (string)root.Attribute("source");
+
+                // Find the faction wrapper element rather than assuming elements[0].
+                var fEl = elements.FirstOrDefault(IsFactionElement);
+
+                var factionId =
+                    sourceId
+                    ?? (string)fEl?.Attribute("stringId")
+                    ?? TryGetStringIdFromUid((string)fEl?.Attribute("uid"));
+
+                if (string.IsNullOrWhiteSpace(factionId))
+                {
+                    error = "could not resolve faction StringId.";
+                    return false;
+                }
+
+                var f = ResolveFaction(factionId);
+                if (f == null)
+                {
+                    error = $"faction not found: '{factionId}'.";
+                    return false;
+                }
+
+                // Apply faction payload if present.
+                if (fEl != null)
+                    f.Deserialize(ExtractPayload(fEl));
+
+                int imported = 0;
+                int skipped = 0;
+
+                for (int i = 0; i < elements.Count; i++)
+                {
+                    var el = elements[i];
+
+                    // Skip faction wrapper and any non-character elements.
+                    if (!IsCharacterElement(el))
+                        continue;
+
+                    var id =
+                        (string)el.Attribute("stringId")
+                        ?? TryGetStringIdFromUid((string)el.Attribute("uid"));
+
+                    if (string.IsNullOrWhiteSpace(id))
+                        continue;
+
+                    var c = WCharacter.Get(id);
+                    if (c == null)
+                    {
+                        skipped++;
+                        continue;
+                    }
+
+                    c.Deserialize(ExtractPayload(el));
+                    imported++;
+                }
+
+                Log.Info(
+                    $"Imported faction '{factionId}' from '{filepath}'. Troops imported={imported}, skipped={skipped}."
+                );
+
+                // Treat "faction resolved + applied (or not) + troops loop executed" as success.
+                // If you want "must import at least 1 troop" semantics, say so and I will tighten it.
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Log.Exception(ex, "TryImportFaction failed.");
+                error = ex.Message ?? "unknown error.";
+                return false;
             }
         }
 
@@ -384,6 +416,35 @@ namespace Retinues.Model
             return uid.Substring(sep + 1);
         }
 
+        static bool IsCharacterElement(XElement el)
+        {
+            if (el == null)
+                return false;
+
+            var type = (string)el.Attribute("type");
+            if (!string.IsNullOrWhiteSpace(type) && type.Contains(".Characters.WCharacter"))
+                return true;
+
+            return el.Name.LocalName.Contains("WCharacter");
+        }
+
+        static bool IsFactionElement(XElement el)
+        {
+            if (el == null)
+                return false;
+
+            var type = (string)el.Attribute("type");
+            if (!string.IsNullOrWhiteSpace(type) && type.Contains(".Factions."))
+                return true;
+
+            var n = el.Name.LocalName ?? string.Empty;
+
+            return n.Contains("WFaction")
+                || n.Contains("WClan")
+                || n.Contains("WKingdom")
+                || n.Contains("WCulture");
+        }
+
         static void WriteXml(string path, XElement root)
         {
             if (string.IsNullOrWhiteSpace(path) || root == null)
@@ -393,7 +454,6 @@ namespace Retinues.Model
             if (!string.IsNullOrWhiteSpace(dir))
                 Directory.CreateDirectory(dir);
 
-            // Pretty printed, no XML declaration, UTF-8.
             var content = root.ToString(SaveOptions.None);
             System.IO.File.WriteAllText(path, content, new UTF8Encoding(false));
         }
@@ -420,14 +480,12 @@ namespace Retinues.Model
             if (source == null)
                 return kind ?? "export";
 
-            // Prefer Name property from known types
             if (source is WCharacter wc && !string.IsNullOrWhiteSpace(wc.Name))
                 return wc.Name.Trim();
 
             if (source is IBaseFaction bf && !string.IsNullOrWhiteSpace(bf.Name))
                 return bf.Name.Trim();
 
-            // If a raw string was passed, use it
             if (source is string s && !string.IsNullOrWhiteSpace(s))
                 return s.Trim();
 
@@ -441,14 +499,7 @@ namespace Retinues.Model
             if (!safe.EndsWith(".xml", StringComparison.OrdinalIgnoreCase))
                 safe += ".xml";
 
-            // {Documents}/Retinues/Exports/<file>.xml
             return FileSystem.GetPathInRetinuesDocuments(ExportFolderName, safe);
-        }
-
-        static string DefaultFileName(string kind, string stringId)
-        {
-            var stamp = DateTime.Now.ToString("yyyyMMdd_HHmm");
-            return $"{kind}_{stringId}_{stamp}.xml";
         }
 
         static string SanitizeFileName(string fileName)
