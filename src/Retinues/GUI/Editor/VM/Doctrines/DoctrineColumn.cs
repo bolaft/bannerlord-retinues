@@ -41,7 +41,6 @@ namespace Retinues.GUI.Editor.VM.Doctrines
         /// <summary>
         /// Creates all doctrine columns from the service, grouping by column and ordering by row.
         /// </summary>
-        [SafeMethod]
         public static MBBindingList<DoctrineColumnVM> CreateColumns()
         {
             var svc = Campaign.Current?.GetCampaignBehavior<DoctrineServiceBehavior>();
