@@ -59,9 +59,6 @@
       id="ret_close_equipment_button_text"
       text="Indietro" />
     <string
-      id="ret_create_set_tooltip"
-      text="Crea set di equipaggiamento" />
-    <string
       id="ret_create_unit"
       text="Nuova unità" />
     <string
@@ -70,9 +67,6 @@
     <string
       id="ret_culture_header_text_with_race"
       text="Cultura e Specie" />
-    <string
-      id="ret_delete_set_tooltip"
-      text="Elimina set di equipaggiamento" />
     <string
       id="ret_dependencies_all_ok"
       text="Tutte le dipendenze sono state inizializzate correttamente." />
@@ -266,12 +260,6 @@
       id="ret_library_delete_confirm_title"
       text="Elimina esportazione" />
     <string
-      id="ret_library_delete_done_desc"
-      text="Il file di esportazione è stato eliminato." />
-    <string
-      id="ret_library_delete_done_title"
-      text="Esportazione eliminata" />
-    <string
       id="ret_library_delete_failed_exception"
       text="L&apos;esportazione non può essere eliminata." />
     <string
@@ -283,6 +271,12 @@
     <string
       id="ret_library_export_file_header"
       text="File di esportazione" />
+    <string
+      id="ret_library_exports_empty_text"
+      text="Nessuna esportazione salvata trovata." />
+    <string
+      id="ret_library_exports_hint_text"
+      text="Le truppe e le fazioni possono essere esportate dalla scheda dell&apos;editor." />
     <string
       id="ret_library_import_button"
       text="Importa" />

@@ -39,6 +39,25 @@ namespace Retinues.Editor.VM.Panel.Library
         public bool IsFaction => State.LibraryItem?.Kind == MLibraryKind.Faction;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Empty Page                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [EventListener(UIEvent.Library, UIEvent.Page)]
+        [DataSourceProperty]
+        public bool ShowEmptyText => IsVisible && !HasSelection;
+
+        [DataSourceProperty]
+        public string ExportsEmptyText =>
+            L.S("library_exports_empty_text", "No saved exports found.");
+
+        [DataSourceProperty]
+        public string ExportsHintText =>
+            L.S(
+                "library_exports_hint_text",
+                "Troops and factions can be exported from the editor tab."
+            );
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Headers                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 

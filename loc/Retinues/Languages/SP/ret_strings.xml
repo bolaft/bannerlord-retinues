@@ -59,9 +59,6 @@
       id="ret_close_equipment_button_text"
       text="Atrás" />
     <string
-      id="ret_create_set_tooltip"
-      text="Crear conjunto de equipo" />
-    <string
       id="ret_create_unit"
       text="Nueva unidad" />
     <string
@@ -70,9 +67,6 @@
     <string
       id="ret_culture_header_text_with_race"
       text="Cultura y Especie" />
-    <string
-      id="ret_delete_set_tooltip"
-      text="Eliminar conjunto de equipo" />
     <string
       id="ret_dependencies_all_ok"
       text="Todas las dependencias se han inicializado correctamente." />
@@ -266,12 +260,6 @@
       id="ret_library_delete_confirm_title"
       text="Eliminar exportación" />
     <string
-      id="ret_library_delete_done_desc"
-      text="El archivo de exportación ha sido eliminado." />
-    <string
-      id="ret_library_delete_done_title"
-      text="Exportación eliminada" />
-    <string
       id="ret_library_delete_failed_exception"
       text="No se pudo eliminar la exportación." />
     <string
@@ -283,6 +271,12 @@
     <string
       id="ret_library_export_file_header"
       text="Archivo de exportación" />
+    <string
+      id="ret_library_exports_empty_text"
+      text="No se encontraron exportaciones guardadas." />
+    <string
+      id="ret_library_exports_hint_text"
+      text="Las tropas y facciones se pueden exportar desde la pestaña del editor." />
     <string
       id="ret_library_import_button"
       text="Importar" />

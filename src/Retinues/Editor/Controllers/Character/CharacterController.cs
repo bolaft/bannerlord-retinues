@@ -29,6 +29,8 @@ namespace Retinues.Editor.Controllers.Character
             }
 
             MImportExport.ExportCharacter(c.StringId);
+
+            EventManager.Fire(UIEvent.Library);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

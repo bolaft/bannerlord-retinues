@@ -59,9 +59,6 @@
       id="ret_close_equipment_button_text"
       text="Retour" />
     <string
-      id="ret_create_set_tooltip"
-      text="Créer un nouvel équipement" />
-    <string
       id="ret_create_unit"
       text="Nouvelle unité" />
     <string
@@ -70,9 +67,6 @@
     <string
       id="ret_culture_header_text_with_race"
       text="Culture &amp; Espèce" />
-    <string
-      id="ret_delete_set_tooltip"
-      text="Supprimer l&apos;équipement" />
     <string
       id="ret_dependencies_all_ok"
       text="Toutes les dépendances ont été initialisées correctement." />
@@ -266,12 +260,6 @@
       id="ret_library_delete_confirm_title"
       text="Supprimer le fichier" />
     <string
-      id="ret_library_delete_done_desc"
-      text="Le fichier a été supprimé." />
-    <string
-      id="ret_library_delete_done_title"
-      text="Fichier supprimé" />
-    <string
       id="ret_library_delete_failed_exception"
       text="Le fichier n&apos;a pas pu être supprimé." />
     <string
@@ -283,6 +271,12 @@
     <string
       id="ret_library_export_file_header"
       text="Fichier d&apos;exportation" />
+    <string
+      id="ret_library_exports_empty_text"
+      text="Aucun fichier n&apos;a été exporté." />
+    <string
+      id="ret_library_exports_hint_text"
+      text="Les unités et les factions peuvent être exportées depuis l&apos;onglet éditeur." />
     <string
       id="ret_library_import_button"
       text="Importer" />

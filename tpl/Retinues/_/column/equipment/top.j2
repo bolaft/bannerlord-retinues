@@ -34,7 +34,13 @@
             HorizontalAlignment="Center" VerticalAlignment="Center"
             SuggestedWidth="36" SuggestedHeight="36"
             Brush="{{ brush }}"
-            Command.Click="{{ command }}" UpdateChildrenStates="true" DoNotPassEventsToChildren="true"/>
+            Command.Click="{{ command }}" UpdateChildrenStates="true" DoNotPassEventsToChildren="true">
+            <Children>
+                <HintWidget
+                    DataSource="{{ tooltip }}"
+                    Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
+            </Children>
+        </ButtonWidget>
     </Children>
 </Widget>
 
@@ -73,7 +79,7 @@
             HorizontalAlignment="Center">
             <Children>
 
-                {{ icon_button("ExecuteDeleteSet", "Inventory.Tuple.Extension.MinusButton", "@CanDeleteSet", "{CanDeleteSetTooltip}") }}
+                {{ icon_button("ExecuteDeleteSet", "Inventory.Tuple.Extension.MinusButton", "@CanDeleteSet", "{DeleteSetTooltip}") }}
 
                 {{ chevron("ExecutePrevSet", "ButtonRightBigArrowBrush1", "@CanSelectPrevSet") }}
 
@@ -86,7 +92,7 @@
 
                 {{ chevron("ExecuteNextSet", "ButtonLeftBigArrowBrush1", "@CanSelectNextSet") }}
 
-                {{ icon_button("ExecuteCreateSet", "Inventory.Tuple.Extension.PlusButton", "@CanCreateSet", "{CanCreateSetTooltip}") }}
+                {{ icon_button("ExecuteCreateSet", "Inventory.Tuple.Extension.PlusButton", "@CanCreateSet", "{CreateSetTooltip}") }}
 
             </Children>
         </ListPanel>

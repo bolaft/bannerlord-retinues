@@ -59,9 +59,6 @@
       id="ret_close_equipment_button_text"
       text="返回" />
     <string
-      id="ret_create_set_tooltip"
-      text="创建装备套装" />
-    <string
       id="ret_create_unit"
       text="新单位" />
     <string
@@ -70,9 +67,6 @@
     <string
       id="ret_culture_header_text_with_race"
       text="文化与物种" />
-    <string
-      id="ret_delete_set_tooltip"
-      text="删除装备套装" />
     <string
       id="ret_dependencies_all_ok"
       text="所有依赖项均已正确初始化。" />
@@ -266,12 +260,6 @@
       id="ret_library_delete_confirm_title"
       text="删除导出" />
     <string
-      id="ret_library_delete_done_desc"
-      text="导出文件已被删除。" />
-    <string
-      id="ret_library_delete_done_title"
-      text="导出已删除" />
-    <string
       id="ret_library_delete_failed_exception"
       text="无法删除导出。" />
     <string
@@ -283,6 +271,12 @@
     <string
       id="ret_library_export_file_header"
       text="导出文件" />
+    <string
+      id="ret_library_exports_empty_text"
+      text="未找到已保存的导出。" />
+    <string
+      id="ret_library_exports_hint_text"
+      text="部队和派系可以从编辑器选项卡中导出。" />
     <string
       id="ret_library_import_button"
       text="导入" />

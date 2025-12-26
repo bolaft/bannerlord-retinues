@@ -247,11 +247,6 @@ namespace Retinues.Editor.Controllers.Library
 
                 File.Delete(path);
 
-                Inquiries.Popup(
-                    title: L.T("library_delete_done_title", "Export Deleted"),
-                    description: L.T("library_delete_done_desc", "The export file was deleted.")
-                );
-
                 RefreshLibraryAfterChange(item);
             }
             catch (Exception ex)

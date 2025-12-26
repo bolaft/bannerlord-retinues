@@ -102,29 +102,11 @@ namespace Retinues.Editor.VM.Column.Equipment
 
         [EventListener(UIEvent.Equipment)]
         [DataSourceProperty]
-        public Tooltip CanCreateSetTooltip
-        {
-            get
-            {
-                var reason = EquipmentController.CreateSet.Reason(_civilian);
-                return reason == null
-                    ? new Tooltip(L.T("create_set_tooltip", "Create equipment set"))
-                    : new Tooltip(reason);
-            }
-        }
+        public Tooltip CreateSetTooltip => EquipmentController.CreateSet.Tooltip(_civilian);
 
         [EventListener(UIEvent.Equipment)]
         [DataSourceProperty]
-        public Tooltip CanDeleteSetTooltip
-        {
-            get
-            {
-                var reason = EquipmentController.DeleteSet.Reason(_civilian);
-                return reason == null
-                    ? new Tooltip(L.T("delete_set_tooltip", "Delete equipment set"))
-                    : new Tooltip(reason);
-            }
-        }
+        public Tooltip DeleteSetTooltip => EquipmentController.DeleteSet.Tooltip(_civilian);
 
         [EventListener(UIEvent.Equipment)]
         [DataSourceProperty]

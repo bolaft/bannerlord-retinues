@@ -1,5 +1,42 @@
 {% from "_/panel/character/base.macros.j2" import field_header, field_label %}
 
+    
+<ListPanel
+    DataSource="{LibraryPanel}"
+    IsVisible="@ShowEmptyText"
+    MarginRight="160"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    HorizontalAlignment="Center" VerticalAlignment="Center"
+    StackLayout.LayoutMethod="VerticalBottomToTop">
+    <Children>
+        <ListPanel
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            HorizontalAlignment="Center" VerticalAlignment="Center"
+            StackLayout.LayoutMethod="VerticalBottomToTop">
+            <Children>
+                <TextWidget
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Brush="Kingdom.DecisionParagraph.Text"
+                    Brush.FontSize="20"
+                    MaxWidth="720"
+                    Text="@ExportsEmptyText"
+                    TextAlignment="Center"
+                    MarginBottom="12" />
+                <TextWidget
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Brush="Kingdom.DecisionParagraph.Text"
+                    Brush.FontSize="20"
+                    MaxWidth="720"
+                    Text="@ExportsHintText"
+                    TextAlignment="Center"
+                    MarginBottom="12" />
+            </Children>
+        </ListPanel>
+    </Children>
+</ListPanel>
+
 <Widget
     DataSource="{LibraryPanel}"
     IsVisible="@IsVisible"
@@ -7,6 +44,7 @@
     HorizontalAlignment="Center" VerticalAlignment="Top"
     MarginRight="160">
     <Children>
+    
         <ListPanel
             WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
             HorizontalAlignment="Center" VerticalAlignment="Center"

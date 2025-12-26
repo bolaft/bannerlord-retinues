@@ -59,9 +59,6 @@
       id="ret_close_equipment_button_text"
       text="Back" />
     <string
-      id="ret_create_set_tooltip"
-      text="Create equipment set" />
-    <string
       id="ret_create_unit"
       text="New Unit" />
     <string
@@ -70,9 +67,6 @@
     <string
       id="ret_culture_header_text_with_race"
       text="Culture &amp; Species" />
-    <string
-      id="ret_delete_set_tooltip"
-      text="Delete equipment set" />
     <string
       id="ret_dependencies_all_ok"
       text="All dependencies initialized correctly." />
@@ -266,12 +260,6 @@
       id="ret_library_delete_confirm_title"
       text="Delete Export" />
     <string
-      id="ret_library_delete_done_desc"
-      text="The export file was deleted." />
-    <string
-      id="ret_library_delete_done_title"
-      text="Export Deleted" />
-    <string
       id="ret_library_delete_failed_exception"
       text="The export could not be deleted." />
     <string
@@ -283,6 +271,12 @@
     <string
       id="ret_library_export_file_header"
       text="Export File" />
+    <string
+      id="ret_library_exports_empty_text"
+      text="No saved exports found." />
+    <string
+      id="ret_library_exports_hint_text"
+      text="Troops and factions can be exported from the editor tab." />
     <string
       id="ret_library_import_button"
       text="Import" />

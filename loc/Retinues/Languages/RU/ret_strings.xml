@@ -59,9 +59,6 @@
       id="ret_close_equipment_button_text"
       text="Назад" />
     <string
-      id="ret_create_set_tooltip"
-      text="Создать набор снаряжения" />
-    <string
       id="ret_create_unit"
       text="Новая единица" />
     <string
@@ -70,9 +67,6 @@
     <string
       id="ret_culture_header_text_with_race"
       text="Культура и вид" />
-    <string
-      id="ret_delete_set_tooltip"
-      text="Удалить набор снаряжения" />
     <string
       id="ret_dependencies_all_ok"
       text="Все зависимости инициализированы правильно." />
@@ -266,12 +260,6 @@
       id="ret_library_delete_confirm_title"
       text="Удалить экспорт" />
     <string
-      id="ret_library_delete_done_desc"
-      text="Файл экспорта был удален." />
-    <string
-      id="ret_library_delete_done_title"
-      text="Экспорт удален" />
-    <string
       id="ret_library_delete_failed_exception"
       text="Экспорт не может быть удален." />
     <string
@@ -283,6 +271,12 @@
     <string
       id="ret_library_export_file_header"
       text="Файл экспорта" />
+    <string
+      id="ret_library_exports_empty_text"
+      text="Сохраненные экспорты не найдены." />
+    <string
+      id="ret_library_exports_hint_text"
+      text="Отряды и фракции можно экспортировать из вкладки редактора." />
     <string
       id="ret_library_import_button"
       text="Импорт" />

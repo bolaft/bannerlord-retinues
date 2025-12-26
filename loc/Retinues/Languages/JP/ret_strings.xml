@@ -59,9 +59,6 @@
       id="ret_close_equipment_button_text"
       text="戻る" />
     <string
-      id="ret_create_set_tooltip"
-      text="装備セットを作成" />
-    <string
       id="ret_create_unit"
       text="新しいユニット" />
     <string
@@ -70,9 +67,6 @@
     <string
       id="ret_culture_header_text_with_race"
       text="文化と種族" />
-    <string
-      id="ret_delete_set_tooltip"
-      text="装備セットを削除" />
     <string
       id="ret_dependencies_all_ok"
       text="すべての依存関係が正しく初期化されました。" />
@@ -266,12 +260,6 @@
       id="ret_library_delete_confirm_title"
       text="エクスポートを削除" />
     <string
-      id="ret_library_delete_done_desc"
-      text="エクスポートファイルが削除されました。" />
-    <string
-      id="ret_library_delete_done_title"
-      text="エクスポートが削除されました" />
-    <string
       id="ret_library_delete_failed_exception"
       text="エクスポートを削除できませんでした。" />
     <string
@@ -283,6 +271,12 @@
     <string
       id="ret_library_export_file_header"
       text="エクスポートファイル" />
+    <string
+      id="ret_library_exports_empty_text"
+      text="保存されたエクスポートが見つかりませんでした。" />
+    <string
+      id="ret_library_exports_hint_text"
+      text="部隊と派閥は、エディタタブからエクスポートできます。" />
     <string
       id="ret_library_import_button"
       text="インポート" />

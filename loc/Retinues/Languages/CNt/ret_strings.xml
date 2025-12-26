@@ -59,9 +59,6 @@
       id="ret_close_equipment_button_text"
       text="返回" />
     <string
-      id="ret_create_set_tooltip"
-      text="創建裝備套裝" />
-    <string
       id="ret_create_unit"
       text="新單位" />
     <string
@@ -70,9 +67,6 @@
     <string
       id="ret_culture_header_text_with_race"
       text="文化與物種" />
-    <string
-      id="ret_delete_set_tooltip"
-      text="刪除裝備套裝" />
     <string
       id="ret_dependencies_all_ok"
       text="所有依賴項均已正確初始化。" />
@@ -266,12 +260,6 @@
       id="ret_library_delete_confirm_title"
       text="刪除導出" />
     <string
-      id="ret_library_delete_done_desc"
-      text="導出文件已被刪除。" />
-    <string
-      id="ret_library_delete_done_title"
-      text="導出已刪除" />
-    <string
       id="ret_library_delete_failed_exception"
       text="無法刪除導出。" />
     <string
@@ -283,6 +271,12 @@
     <string
       id="ret_library_export_file_header"
       text="導出文件" />
+    <string
+      id="ret_library_exports_empty_text"
+      text="未找到已保存的導出。" />
+    <string
+      id="ret_library_exports_hint_text"
+      text="部隊和派系可以從編輯器選項卡中導出。" />
     <string
       id="ret_library_import_button"
       text="導入" />

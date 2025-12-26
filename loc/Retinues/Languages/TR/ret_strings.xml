@@ -59,9 +59,6 @@
       id="ret_close_equipment_button_text"
       text="Geri" />
     <string
-      id="ret_create_set_tooltip"
-      text="Ekipman seti oluştur" />
-    <string
       id="ret_create_unit"
       text="Yeni Birim" />
     <string
@@ -70,9 +67,6 @@
     <string
       id="ret_culture_header_text_with_race"
       text="Kültür ve Tür" />
-    <string
-      id="ret_delete_set_tooltip"
-      text="Ekipman setini sil" />
     <string
       id="ret_dependencies_all_ok"
       text="Tüm bağımlılıklar doğru şekilde başlatıldı." />
@@ -266,12 +260,6 @@
       id="ret_library_delete_confirm_title"
       text="İhracatı Sil" />
     <string
-      id="ret_library_delete_done_desc"
-      text="İhracat dosyası silindi." />
-    <string
-      id="ret_library_delete_done_title"
-      text="İhracat Silindi" />
-    <string
       id="ret_library_delete_failed_exception"
       text="İhracat silinemedi." />
     <string
@@ -283,6 +271,12 @@
     <string
       id="ret_library_export_file_header"
       text="İhracat Dosyası" />
+    <string
+      id="ret_library_exports_empty_text"
+      text="Kaydedilmiş ihracat bulunamadı." />
+    <string
+      id="ret_library_exports_hint_text"
+      text="Birlikler ve fraksiyonlar düzenleyici sekmesinden dışa aktarılabilir." />
     <string
       id="ret_library_import_button"
       text="İçe Aktar" />

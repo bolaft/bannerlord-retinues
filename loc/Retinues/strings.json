@@ -288,22 +288,6 @@
     "TR": "Geri"
   },
   {
-    "id": "ret_create_set_tooltip",
-    "EN": "Create equipment set",
-    "FR": "Créer un nouvel équipement",
-    "BR": "Criar conjunto de equipamentos",
-    "CNs": "创建装备套装",
-    "CNt": "創建裝備套裝",
-    "DE": "Ausrüstungsset erstellen",
-    "IT": "Crea set di equipaggiamento",
-    "JP": "装備セットを作成",
-    "KO": "장비 세트 만들기",
-    "PL": "Utwórz zestaw ekwipunku",
-    "RU": "Создать набор снаряжения",
-    "SP": "Crear conjunto de equipo",
-    "TR": "Ekipman seti oluştur"
-  },
-  {
     "id": "ret_create_unit",
     "EN": "New Unit",
     "FR": "Nouvelle unité",
@@ -350,22 +334,6 @@
     "RU": "Культура и вид",
     "SP": "Cultura y Especie",
     "TR": "Kültür ve Tür"
-  },
-  {
-    "id": "ret_delete_set_tooltip",
-    "EN": "Delete equipment set",
-    "FR": "Supprimer l'équipement",
-    "BR": "Excluir conjunto de equipamentos",
-    "CNs": "删除装备套装",
-    "CNt": "刪除裝備套裝",
-    "DE": "Ausrüstungsset löschen",
-    "IT": "Elimina set di equipaggiamento",
-    "JP": "装備セットを削除",
-    "KO": "장비 세트 삭제",
-    "PL": "Usuń zestaw ekwipunku",
-    "RU": "Удалить набор снаряжения",
-    "SP": "Eliminar conjunto de equipo",
-    "TR": "Ekipman setini sil"
   },
   {
     "id": "ret_dependencies_all_ok",
@@ -1392,38 +1360,6 @@
     "TR": "İhracatı Sil"
   },
   {
-    "id": "ret_library_delete_done_desc",
-    "EN": "The export file was deleted.",
-    "FR": "Le fichier a été supprimé.",
-    "BR": "O arquivo de exportação foi excluído.",
-    "CNs": "导出文件已被删除。",
-    "CNt": "導出文件已被刪除。",
-    "DE": "Die Exportdatei wurde gelöscht.",
-    "IT": "Il file di esportazione è stato eliminato.",
-    "JP": "エクスポートファイルが削除されました。",
-    "KO": "내보내기 파일이 삭제되었습니다.",
-    "PL": "Plik eksportu został usunięty.",
-    "RU": "Файл экспорта был удален.",
-    "SP": "El archivo de exportación ha sido eliminado.",
-    "TR": "İhracat dosyası silindi."
-  },
-  {
-    "id": "ret_library_delete_done_title",
-    "EN": "Export Deleted",
-    "FR": "Fichier supprimé",
-    "BR": "Exportação Excluída",
-    "CNs": "导出已删除",
-    "CNt": "導出已刪除",
-    "DE": "Export gelöscht",
-    "IT": "Esportazione eliminata",
-    "JP": "エクスポートが削除されました",
-    "KO": "내보내기 삭제됨",
-    "PL": "Eksport usunięty",
-    "RU": "Экспорт удален",
-    "SP": "Exportación eliminada",
-    "TR": "İhracat Silindi"
-  },
-  {
     "id": "ret_library_delete_failed_exception",
     "EN": "The export could not be deleted.",
     "FR": "Le fichier n'a pas pu être supprimé.",
@@ -1486,6 +1422,38 @@
     "RU": "Файл экспорта",
     "SP": "Archivo de exportación",
     "TR": "İhracat Dosyası"
+  },
+  {
+    "id": "ret_library_exports_empty_text",
+    "EN": "No saved exports found.",
+    "FR": "Aucun fichier n'a été exporté.",
+    "BR": "Nenhuma exportação salva encontrada.",
+    "CNs": "未找到已保存的导出。",
+    "CNt": "未找到已保存的導出。",
+    "DE": "Keine gespeicherten Exporte gefunden.",
+    "IT": "Nessuna esportazione salvata trovata.",
+    "JP": "保存されたエクスポートが見つかりませんでした。",
+    "KO": "저장된 내보내기를 찾을 수 없습니다.",
+    "PL": "Nie znaleziono zapisanych eksportów.",
+    "RU": "Сохраненные экспорты не найдены.",
+    "SP": "No se encontraron exportaciones guardadas.",
+    "TR": "Kaydedilmiş ihracat bulunamadı."
+  },
+  {
+    "id": "ret_library_exports_hint_text",
+    "EN": "Troops and factions can be exported from the editor tab.",
+    "FR": "Les unités et les factions peuvent être exportées depuis l'onglet éditeur.",
+    "BR": "Tropas e facções podem ser exportadas na aba do editor.",
+    "CNs": "部队和派系可以从编辑器选项卡中导出。",
+    "CNt": "部隊和派系可以從編輯器選項卡中導出。",
+    "DE": "Truppen und Fraktionen können aus dem Editor-Tab exportiert werden.",
+    "IT": "Le truppe e le fazioni possono essere esportate dalla scheda dell'editor.",
+    "JP": "部隊と派閥は、エディタタブからエクスポートできます。",
+    "KO": "부대와 진영은 편집기 탭에서 내보낼 수 있습니다.",
+    "PL": "Oddziały i frakcje można eksportować z zakładki edytora.",
+    "RU": "Отряды и фракции можно экспортировать из вкладки редактора.",
+    "SP": "Las tropas y facciones se pueden exportar desde la pestaña del editor.",
+    "TR": "Birlikler ve fraksiyonlar düzenleyici sekmesinden dışa aktarılabilir."
   },
   {
     "id": "ret_library_import_button",
