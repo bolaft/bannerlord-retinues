@@ -131,13 +131,13 @@ namespace Retinues.Features.Experience
         /// <summary>
         /// Add delta to the XP pool for a troop.
         /// </summary>
-        public static void Add(WCharacter troop, int delta)
+        public static void Add(WCharacter troop, int delta, bool isRefund = false)
         {
             if (troop == null || Instance == null || delta == 0)
                 return;
 
             // Apply mariner penalty
-            if (troop.IsMariner && delta > 0)
+            if (troop.IsMariner && delta > 0 && !isRefund)
                 delta = (int)(delta * MarinerPenaltyMultiplier);
 
             var cur = Instance.GetPool(PoolKey(troop));
@@ -188,7 +188,7 @@ namespace Retinues.Features.Experience
                 if (!force) // If force is true, skip this check
                     return;
 
-            Add(troop, amount);
+            Add(troop, amount, isRefund: true);
         }
 
         /// <summary>
