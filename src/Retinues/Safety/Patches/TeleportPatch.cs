@@ -16,7 +16,6 @@ namespace Retinues.Safety.Patches
     [HarmonyPatch(typeof(TroopRoster), nameof(TroopRoster.RemoveTroop))]
     static class SafeRemoveTroopPatch
     {
-        [SafeMethod]
         static bool Prefix(
             TroopRoster __instance,
             CharacterObject troop,
@@ -25,13 +24,21 @@ namespace Retinues.Safety.Patches
             int xp
         )
         {
-            int idx = __instance.FindIndexOfTroop(troop);
-            if (idx < 0)
+            try
             {
-                Log.Error($"Tried to remove {troop?.StringId ?? "NULL"} not in roster. ");
+                int idx = __instance.FindIndexOfTroop(troop);
+                if (idx < 0)
+                {
+                    Log.Error($"Tried to remove {troop?.StringId ?? "NULL"} not in roster. ");
+                    return false;
+                }
+                return true; // proceed normally
+            }
+            catch (System.Exception ex)
+            {
+                Log.Exception(ex, "Prefix failed");
                 return false;
             }
-            return true; // proceed normally
         }
     }
 

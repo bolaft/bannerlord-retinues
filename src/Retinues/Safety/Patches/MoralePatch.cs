@@ -25,7 +25,6 @@ namespace Retinues.Safety.Patches
         }
 
         [HarmonyPrefix]
-        [SafeMethod]
         private static bool Prefix(MobileParty party, ref ExplainedNumber bonus)
         {
             try
