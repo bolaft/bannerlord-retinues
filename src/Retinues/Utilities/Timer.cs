@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using TaleWorlds.Library;
 
 namespace Retinues.Utilities
 {
@@ -14,6 +15,9 @@ namespace Retinues.Utilities
             public string Label;
             public Stopwatch Stopwatch = new();
             public TimeSpan Elapsed => Stopwatch.Elapsed;
+
+            // Re-entrancy guard (Begin/End can nest across Harmony patches).
+            public int Depth;
         }
 
         private static readonly Stopwatch Total = new();
@@ -22,6 +26,11 @@ namespace Retinues.Utilities
         );
 
         private static bool _running;
+
+        /// <summary>
+        /// True if a timing session is active.
+        /// </summary>
+        public static bool IsRunning => _running;
 
         /// <summary>
         /// Starts a new timing session, resetting any previous measurements.
@@ -34,6 +43,53 @@ namespace Retinues.Utilities
             _running = true;
 
             Log.Debug("Timer.Start");
+        }
+
+        /// <summary>
+        /// Begins or resumes measuring a labeled segment.
+        /// </summary>
+        public static void Begin(string label)
+        {
+            if (string.IsNullOrEmpty(label))
+                return;
+
+            if (!_running)
+                return;
+
+            if (!Segments.TryGetValue(label, out var segment))
+            {
+                segment = new Segment { Label = label };
+                Segments[label] = segment;
+            }
+
+            segment.Depth++;
+            if (segment.Depth == 1 && !segment.Stopwatch.IsRunning)
+                segment.Stopwatch.Start();
+        }
+
+        /// <summary>
+        /// Pauses measurement for the given labeled segment.
+        /// </summary>
+        public static void End(string label)
+        {
+            if (string.IsNullOrEmpty(label))
+                return;
+
+            if (!_running)
+                return;
+
+            if (!Segments.TryGetValue(label, out var segment))
+                return;
+
+            if (segment.Depth > 0)
+                segment.Depth--;
+
+            if (segment.Depth <= 0)
+            {
+                segment.Depth = 0;
+                if (segment.Stopwatch.IsRunning)
+                    segment.Stopwatch.Stop();
+            }
         }
 
         /// <summary>
@@ -52,6 +108,8 @@ namespace Retinues.Utilities
             {
                 if (segment.Stopwatch.IsRunning)
                     segment.Stopwatch.Stop();
+
+                segment.Depth = 0;
             }
 
             var totalSeconds = Total.Elapsed.TotalSeconds;
@@ -80,43 +138,30 @@ namespace Retinues.Utilities
             }
         }
 
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Cheats                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+#if DEBUG
         /// <summary>
-        /// Begins or resumes measuring a labeled segment.
+        /// Starts a new timing session (clears previous segments).
         /// </summary>
-        public static void Begin(string label)
+        [CommandLineFunctionality.CommandLineArgumentFunction("timer_start", "retinues")]
+        public static string TimerStart(List<string> args)
         {
-            if (string.IsNullOrEmpty(label))
-                return;
-
-            if (!_running)
-                return;
-
-            if (!Segments.TryGetValue(label, out var segment))
-            {
-                segment = new Segment { Label = label };
-                Segments[label] = segment;
-            }
-
-            if (!segment.Stopwatch.IsRunning)
-                segment.Stopwatch.Start();
+            Start();
+            return "Timer started. Run retinues.timer_stop to log results.";
         }
 
         /// <summary>
-        /// Pauses measurement for the given labeled segment.
+        /// Stops the session and logs the breakdown (total + per-segment percentages).
         /// </summary>
-        public static void End(string label)
+        [CommandLineFunctionality.CommandLineArgumentFunction("timer_stop", "retinues")]
+        public static string TimerStop(List<string> args)
         {
-            if (string.IsNullOrEmpty(label))
-                return;
-
-            if (!_running)
-                return;
-
-            if (!Segments.TryGetValue(label, out var segment))
-                return;
-
-            if (segment.Stopwatch.IsRunning)
-                segment.Stopwatch.Stop();
+            Stop();
+            return "Timer stopped. Check the log for segment timings.";
         }
+#endif
     }
 }
