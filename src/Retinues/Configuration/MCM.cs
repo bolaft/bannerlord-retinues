@@ -509,7 +509,12 @@ namespace Retinues.Configuration
 
                         var debugSectionName = L.S("mcm_section_debug", "Debug");
 
-                        if (groupBySection.Key.Equals(debugSectionName, StringComparison.OrdinalIgnoreCase))
+                        if (
+                            groupBySection.Key.Equals(
+                                debugSectionName,
+                                StringComparison.OrdinalIgnoreCase
+                            )
+                        )
                         {
                             // Push to the very end of the group
                             var tailOrder = order + 999;
