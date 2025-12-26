@@ -26,7 +26,7 @@ namespace Retinues.Utils
             // Insert spaces before capital letters
             text = System.Text.RegularExpressions.Regex.Replace(text, "([a-z])([A-Z])", "$1 $2");
             // Convert to title case
-            text = System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(text);
+            text = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(text);
 
             return text;
         }
