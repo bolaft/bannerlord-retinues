@@ -5,7 +5,6 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using HarmonyLib;
-using Retinues.Configuration;
 
 namespace Retinues.Utils
 {
@@ -94,8 +93,10 @@ namespace Retinues.Utils
         // Cache per accessor/method: (fallback object, fallback type, swallow, class config)
         private static readonly ConcurrentDictionary<MethodBase, Behavior> _behaviorCache = new();
 
+#if DEBUG
         // Cache for timer labels to avoid repeated allocations
         private static readonly ConcurrentDictionary<MethodBase, string> _timerLabelCache = new();
+#endif
 
         private struct Behavior
         {
@@ -372,19 +373,24 @@ namespace Retinues.Utils
                         )
                     );
 
-            // Optional timing wrappers (guarded by Config.DebugMode at runtime).
-            var prefix = new HarmonyMethod(
+            HarmonyMethod prefix = null;
+            HarmonyMethod postfix = null;
+
+#if DEBUG
+            // Timing wrappers only exist in Debug builds (zero overhead in Release).
+            prefix = new HarmonyMethod(
                 typeof(SafeMethodPatcher).GetMethod(
                     nameof(PrefixTimer),
                     BindingFlags.Static | BindingFlags.NonPublic
                 )
             );
-            var postfix = new HarmonyMethod(
+            postfix = new HarmonyMethod(
                 typeof(SafeMethodPatcher).GetMethod(
                     nameof(PostfixTimer),
                     BindingFlags.Static | BindingFlags.NonPublic
                 )
             );
+#endif
 
             try
             {
@@ -402,7 +408,9 @@ namespace Retinues.Utils
             if (__exception == null)
                 return null;
 
+#if DEBUG
             EndTimer(__originalMethod);
+#endif
 
             var beh = GetBehavior(__originalMethod);
             Log.Exception(__exception, __originalMethod.ToString());
@@ -418,7 +426,9 @@ namespace Retinues.Utils
             if (__exception == null)
                 return null;
 
+#if DEBUG
             EndTimer(__originalMethod);
+#endif
 
             var beh = GetBehavior(__originalMethod);
             Log.Exception(__exception, __originalMethod.ToString());
@@ -631,14 +641,13 @@ namespace Retinues.Utils
             return false;
         }
 
+#if DEBUG
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Timer                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private static void PrefixTimer(MethodBase __originalMethod)
         {
-            if (!Config.DebugMode)
-                return;
             if (!Timer.IsRunning)
                 return;
 
@@ -656,8 +665,6 @@ namespace Retinues.Utils
 
         private static void EndTimer(MethodBase method)
         {
-            if (!Config.DebugMode)
-                return;
             if (!Timer.IsRunning)
                 return;
 
@@ -702,6 +709,7 @@ namespace Retinues.Utils
                 return method.Name ?? "<unknown>";
             }
         }
+#endif
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Utils                         //

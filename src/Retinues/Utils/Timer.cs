@@ -142,6 +142,7 @@ namespace Retinues.Utils
         //                         Cheats                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+#if DEBUG
         /// <summary>
         /// Starts a new timing session (clears previous segments).
         /// </summary>
@@ -161,5 +162,6 @@ namespace Retinues.Utils
             Stop();
             return "Timer stopped. Check the log for segment timings.";
         }
+#endif
     }
 }
