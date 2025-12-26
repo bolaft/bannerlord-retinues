@@ -27,6 +27,13 @@ namespace OldRetinues.Game
         // Character -> Faction map for quick lookup
         public static Dictionary<string, BaseFaction> TroopFactionMap = [];
 
+        public static int TroopFactionMapVersion { get; set; }
+
+        internal static void TouchTroopFactionMap()
+        {
+            TroopFactionMapVersion++;
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Properties                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -274,6 +281,31 @@ namespace OldRetinues.Game
                 _eliteIds.Add(CaravanMaster.StringId);
         }
 
+        public bool IsRetinueId(string troopId)
+        {
+            if (string.IsNullOrWhiteSpace(troopId))
+                return false;
+
+            // Fast path for WFaction: use cached sets
+            if (this is WFaction)
+            {
+                EnsureCategoryCache();
+                return _retinueIds.Contains(troopId);
+            }
+
+            // Fallback for non-WFaction
+            return (
+                    RetinueElite != null
+                    && RetinueElite.IsActive
+                    && RetinueElite.StringId == troopId
+                )
+                || (
+                    RetinueBasic != null
+                    && RetinueBasic.IsActive
+                    && RetinueBasic.StringId == troopId
+                );
+        }
+
         // Fast lookups used by WCharacter
         public bool IsRetinue(WCharacter troop)
         {
@@ -283,7 +315,7 @@ namespace OldRetinues.Game
             if (troop.IsVanilla)
                 return false;
 
-            return RetinueTroops.Contains(troop);
+            return IsRetinueId(troop.StringId);
         }
 
         public bool IsRegular(WCharacter troop)

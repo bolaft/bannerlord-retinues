@@ -58,6 +58,10 @@ namespace OldRetinues.GUI.Editor
     [SafeClass]
     public static class State
     {
+        // Items that are "available from another set" for the current troop + set.
+        // Keyed by ItemObject.StringId. Rebuilt whenever equip data changes.
+        public static HashSet<string> AvailableFromAnotherSetCache { get; private set; }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Launch Options                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -224,6 +228,8 @@ namespace OldRetinues.GUI.Editor
             EquipChangeDelta? delta = singleUpdate ? CaptureEquipChange(equipData, Slot) : null;
 
             EquipData = equipData;
+
+            RebuildAvailableFromAnotherSetCache();
 
             if (singleUpdate)
             {
@@ -447,6 +453,131 @@ namespace OldRetinues.GUI.Editor
             EnsureOne(PolicyToggleType.SiegeAssault);
             if (ModCompatibility.HasNavalDLC)
                 EnsureOne(PolicyToggleType.NavalBattle);
+        }
+
+        private static void RebuildAvailableFromAnotherSetCache()
+        {
+            Utils.Timer.Begin("BuildAvailableFromAnotherSetCache");
+
+            var result = new HashSet<string>(StringComparer.Ordinal);
+
+            try
+            {
+                var troop = Troop;
+                var equipment = Equipment;
+
+                if (troop == null || equipment == null)
+                {
+                    AvailableFromAnotherSetCache = result;
+                    return;
+                }
+
+                var loadout = troop.Loadout;
+                var eqs = loadout.Equipments;
+                int setIndex = equipment.Index;
+
+                if (setIndex < 0 || setIndex >= eqs.Count)
+                {
+                    AvailableFromAnotherSetCache = result;
+                    return;
+                }
+
+                // ─────────────────────────────────────────────────────────
+                // 1) Per-set item sets for the current troop (by StringId)
+                // ─────────────────────────────────────────────────────────
+                var perSetItems = new List<HashSet<string>>(eqs.Count);
+                for (int i = 0; i < eqs.Count; i++)
+                {
+                    var setItems = new HashSet<string>(StringComparer.Ordinal);
+                    var eqBase = eqs[i].Base;
+
+                    foreach (var slot in WEquipment.Slots)
+                    {
+                        var item = eqBase[slot].Item;
+                        if (item != null)
+                            setItems.Add(item.StringId);
+                    }
+
+                    perSetItems.Add(setItems);
+                }
+
+                var currentItems = perSetItems[setIndex];
+
+                // ─────────────────────────────────────────────────────────
+                // 2) Counterpart (captain/base) union, if any
+                // ─────────────────────────────────────────────────────────
+                HashSet<string> counterpartItems = null;
+                WCharacter counterpart = null;
+
+                if (troop.IsCaptain && troop.BaseTroop != null)
+                    counterpart = troop.BaseTroop;
+                else if (!troop.IsCaptain && troop.Captain != null)
+                    counterpart = troop.Captain;
+
+                if (counterpart?.IsValid == true)
+                {
+                    counterpartItems = new HashSet<string>(StringComparer.Ordinal);
+                    foreach (var eqWrap in counterpart.Loadout.Equipments)
+                    {
+                        var eqBase = eqWrap.Base;
+                        foreach (var slot in WEquipment.Slots)
+                        {
+                            var item = eqBase[slot].Item;
+                            if (item != null)
+                                counterpartItems.Add(item.StringId);
+                        }
+                    }
+                }
+
+                // ─────────────────────────────────────────────────────────
+                // 3) Global union of all items from troop + counterpart
+                // ─────────────────────────────────────────────────────────
+                var union = new HashSet<string>(StringComparer.Ordinal);
+                foreach (var set in perSetItems)
+                    union.UnionWith(set);
+
+                if (counterpartItems != null)
+                    union.UnionWith(counterpartItems);
+
+                // ─────────────────────────────────────────────────────────
+                // 4) Decide which items are "available from another set"
+                // ─────────────────────────────────────────────────────────
+                foreach (var id in union)
+                {
+                    // if this set already has the item, it's not "from another set"
+                    if (currentItems.Contains(id))
+                        continue;
+
+                    bool inOthers = false;
+                    for (int i = 0; i < perSetItems.Count; i++)
+                    {
+                        if (i == setIndex)
+                            continue;
+
+                        if (perSetItems[i].Contains(id))
+                        {
+                            inOthers = true;
+                            break;
+                        }
+                    }
+
+                    bool inCounterpart = counterpartItems != null && counterpartItems.Contains(id);
+
+                    if (inOthers || inCounterpart)
+                        result.Add(id);
+                }
+
+                AvailableFromAnotherSetCache = result;
+            }
+            catch (Exception ex)
+            {
+                Log.Exception(ex);
+                AvailableFromAnotherSetCache = result;
+            }
+            finally
+            {
+                Utils.Timer.End("BuildAvailableFromAnotherSetCache");
+            }
         }
     }
 }

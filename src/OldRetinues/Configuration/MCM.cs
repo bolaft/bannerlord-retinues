@@ -507,8 +507,14 @@ namespace OldRetinues.Configuration
                             }
                         }
 
-                        // Append a Danger Zone action at the very end of the Debug section
-                        if (groupBySection.Key.Equals("Debug", StringComparison.OrdinalIgnoreCase))
+                        var debugSectionName = L.S("mcm_section_debug", "Debug");
+
+                        if (
+                            groupBySection.Key.Equals(
+                                debugSectionName,
+                                StringComparison.OrdinalIgnoreCase
+                            )
+                        )
                         {
                             // Push to the very end of the group
                             var tailOrder = order + 999;

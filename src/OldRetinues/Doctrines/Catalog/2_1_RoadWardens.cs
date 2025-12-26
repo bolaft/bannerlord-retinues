@@ -1,7 +1,7 @@
 using System.Linq;
-using System.Reflection;
 using Retinues.Configuration;
 using Retinues.Doctrines.Model;
+using Retinues.Game;
 using Retinues.Game.Events;
 using Retinues.Game.Wrappers;
 using Retinues.Utils;
@@ -32,10 +32,25 @@ namespace OldRetinues.Doctrines.Catalog
 
             public override void OnDailyTick()
             {
-                // Count all active caravans belonging to the player clan.
-                var count = WParty.All.Count(p =>
-                    p.IsCaravan && p.Clan != null && p.Clan.IsPlayerClan
-                );
+                var heroIds = Player.Clan?.Base.Heroes?.Select(h => h.StringId);
+                if (heroIds?.Count() == 0)
+                    return;
+
+                int count = 0;
+
+                foreach (var party in WParty.All)
+                {
+                    if (!party.IsCaravan)
+                        continue;
+
+                    if (party.Leader == null)
+                        continue;
+
+                    if (!heroIds.Contains(party.Leader.StringId))
+                        continue;
+
+                    count++;
+                }
 
                 if (count > Progress)
                     SetProgress(count);
@@ -44,10 +59,13 @@ namespace OldRetinues.Doctrines.Catalog
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public sealed class RW_CaravanEscortQuests : Feat
+        public sealed class RW_MerchantTownQuests : Feat
         {
             public override TextObject Description =>
-                L.T("road_wardens_caravan_escort_quests", "Complete 3 caravan escort quests.");
+                L.T(
+                    "road_wardens_merchant_town_quests",
+                    "Complete 3 quests for a merchant from one of your towns."
+                );
 
             public override int Target => 3;
 
@@ -56,8 +74,20 @@ namespace OldRetinues.Doctrines.Catalog
                 if (!quest.IsSuccessful)
                     return;
 
-                if (quest.StringId == "issue_107_quest")
-                    AdvanceProgress(1);
+                var giverWrapper = quest.Giver;
+                var hero = giverWrapper?.Hero;
+                if (hero == null)
+                    return;
+
+                var settlement = hero.CurrentSettlement ?? hero.HomeSettlement;
+                if (settlement == null || !settlement.IsTown)
+                    return;
+                if (settlement.OwnerClan != Clan.PlayerClan)
+                    return;
+                if (!hero.IsMerchant)
+                    return;
+
+                AdvanceProgress(1);
             }
         }
 

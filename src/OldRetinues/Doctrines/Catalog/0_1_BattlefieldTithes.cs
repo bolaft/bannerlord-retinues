@@ -42,10 +42,14 @@ namespace OldRetinues.Doctrines.Catalog
             {
                 if (!quest.IsSuccessful)
                     return;
-                if (quest.Giver?.Hero.MapFaction.StringId != Player.MapFaction.StringId)
-                    return;
-                if (!quest.Giver?.IsPartyLeader ?? true)
-                    return;
+
+                if (Player.Kingdom == null) // Only required if not kingdom, otherwise can't get quests from allied lords
+                {
+                    if (quest.Giver?.Hero.MapFaction.StringId != Player.MapFaction.StringId)
+                        return;
+                    if (!quest.Giver?.IsPartyLeader ?? true)
+                        return;
+                }
 
                 AdvanceProgress(1);
             }

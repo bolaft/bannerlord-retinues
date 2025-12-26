@@ -20,7 +20,9 @@ namespace OldRetinues.Features.Swaps.Patches
             var party = new WParty(__result);
             if (party.PlayerFaction == null)
                 return; // no player faction
-            party.MemberRoster?.SwapTroops();
+
+            // Hero-safe swap: caravans always have a hero leader
+            party.MemberRoster?.SwapTroopsPreservingHeroes();
         }
     }
 
@@ -44,13 +46,13 @@ namespace OldRetinues.Features.Swaps.Patches
     }
 
     /// <summary>
-    /// Harmony postfix patch for garrison party creation.
-    /// Swaps troops to match player faction logic after garrison is created.
+    /// Harmony postfix patch for villager party creation.
+    /// Swaps troops to match player faction logic after a villager party is created.
     /// </summary>
-    [HarmonyPatch(typeof(GarrisonPartyComponent), "CreateGarrisonParty")]
-    static class GarrisonSwap_Initialize_Postfix
+    [HarmonyPatch(typeof(VillagerPartyComponent), "CreateVillagerParty")]
+    static class VillagerSwap_Initialize_Postfix
     {
-        static void Postfix(GarrisonPartyComponent __instance, MobileParty __result)
+        static void Postfix(VillagerPartyComponent __instance, MobileParty __result)
         {
             if (__result == null)
                 return; // should not happen

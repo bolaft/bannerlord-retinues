@@ -235,6 +235,85 @@ namespace OldRetinues.Game.Wrappers
             }
         }
 
+        /// <summary>
+        /// Swap all non-hero troops in a roster to the best match from the given faction,
+        /// preserving hero entries exactly as-is.
+        /// </summary>
+        public void SwapTroopsPreservingHeroes(WFaction faction = null)
+        {
+            if (Base == null)
+                return;
+
+            faction ??= Party.PlayerFaction;
+            if (faction == null)
+                return;
+
+            try
+            {
+                bool swapped = false;
+
+                // Snapshot stable data BEFORE mutating the roster
+                var snap = new List<(WCharacter troop, int healthy, int wounded, int xp)>();
+
+                int i = 0;
+                foreach (var _ in _roster.GetTroopRoster())
+                {
+                    var character = _roster.GetCharacterAtIndex(i); // if you don't have this, use GetTroopRoster().ElementAt(i).Character
+                    var w = new WCharacter(character);
+
+                    snap.Add(
+                        (
+                            w,
+                            _roster.GetElementNumber(i),
+                            _roster.GetElementWoundedNumber(i),
+                            _roster.GetElementXp(i)
+                        )
+                    );
+
+                    i++;
+                }
+
+                foreach (var e in snap)
+                {
+                    if (e.troop?.Base == null)
+                        continue;
+
+                    if (e.troop.IsHero)
+                        continue; // leave heroes untouched
+
+                    var replacement = TroopMatcher.PickBestFromFaction(faction, e.troop) ?? e.troop;
+                    if (replacement == e.troop)
+                        continue;
+
+                    // Remove old stack (using snap counts, not live index-based access)
+                    _roster.AddToCounts(e.troop.Base, -e.healthy, woundedCount: -e.wounded);
+
+                    // Add replacement (don't force index; safer for hero parties)
+                    _roster.AddToCounts(
+                        replacement.Base,
+                        e.healthy,
+                        insertAtFront: false,
+                        woundedCount: e.wounded,
+                        xpChange: e.xp
+                    );
+
+                    swapped = true;
+                    Log.Debug(
+                        $"{Party.Name}: swapped {e.healthy}x {e.troop.Name} to {replacement.Name} (hero-safe)."
+                    );
+                }
+
+                if (swapped)
+                    Log.Debug(
+                        $"{Party.Name}: hero-safe swap complete for faction {faction?.Name ?? "null"}."
+                    );
+            }
+            catch (Exception ex)
+            {
+                Log.Exception(ex, $"SwapTroopsPreservingHeroes failed for {Party.Name}");
+            }
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Public API                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

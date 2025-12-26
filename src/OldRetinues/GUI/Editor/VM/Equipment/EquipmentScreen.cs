@@ -126,7 +126,7 @@ namespace OldRetinues.GUI.Editor.VM.Equipment
             OnPropertyChanged(nameof(PreviewModeHint));
 
             // Reset mode & selection for new troop
-            _editCivilianSets = false;
+            _editCivilianSets = State.Troop.IsCivilian;
             OnPropertyChanged(nameof(EditCivilianSets));
             EnsureValidSetForCurrentMode();
         }
@@ -375,7 +375,7 @@ namespace OldRetinues.GUI.Editor.VM.Equipment
                 if (localIndex < 0)
                     return (eq.Index + 1).ToString(); // conservative fallback
 
-                return (localIndex + 1).ToString();
+                return $"{(localIndex + 1).ToString()}/{list.Count}";
             }
         }
 
@@ -412,7 +412,7 @@ namespace OldRetinues.GUI.Editor.VM.Equipment
         }
 
         [DataSourceProperty]
-        public bool ShowSetControls => true; // used to hide controls with Shokuho
+        public bool ShowSetControls => ClanScreen.IsStudioMode == false;
 
         [DataSourceProperty]
         public bool CanCreateSet => !State.Troop.IsHero;

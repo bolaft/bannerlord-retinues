@@ -51,6 +51,9 @@ namespace OldRetinues.Mods
 
             if (HasBanditMilitias)
                 BanditMilitiasTroopsPatcher.TryPatch(harmony);
+
+            if (HasNavalDLC)
+                NavalDLC.NavalDlcShipTradePatcher.TryPatch(harmony);
         }
 
         /// <summary>

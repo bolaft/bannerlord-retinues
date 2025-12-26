@@ -342,7 +342,7 @@ namespace OldRetinues
             AddBehavior<Features.Equipments.EquipmentRebateBehavior>(cs);
 
             // Swap behaviors
-            AddBehavior<Features.Swaps.MilitiaSwapBehavior>(cs);
+            AddBehavior<Features.Swaps.PartySwapBehavior>(cs);
 
             // Retinue behaviors
             AddBehavior<Features.AutoJoin.AutoJoinBehavior>(cs);
@@ -479,8 +479,12 @@ namespace OldRetinues
             // Clear edited vanilla roots
             WCharacter.EditedVanillaRootIds.Clear();
 
+            // Clear naval trait helper cache
+            WCharacter.NavalTraitHelper.Reset();
+
             // Clear faction troop map
             BaseFaction.TroopFactionMap.Clear();
+            BaseFaction.TroopFactionMapVersion = 0;
 
             Log.Debug("All static properties cleared.");
         }

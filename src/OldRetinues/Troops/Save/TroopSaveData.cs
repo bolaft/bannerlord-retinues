@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Retinues.Configuration;
+using Retinues.Doctrines;
+using Retinues.Doctrines.Catalog;
 using Retinues.Features.Experience;
 using Retinues.Features.Staging;
 using Retinues.Game;
@@ -95,8 +97,13 @@ namespace OldRetinues.Troops.Save
             IsMariner = troop.IsMariner;
 
             // For captains, Captain will stay null to avoid recursion.
-            if (!troop.IsCaptain && troop.Captain != null)
-                Captain = new TroopSaveData(troop.Captain);
+            // We only serialize a captain if an instance already exists.
+            if (!troop.IsCaptain && troop.HasCaptainInstance)
+            {
+                var captain = troop.GetExistingCaptain();
+                if (captain != null)
+                    Captain = new TroopSaveData(captain);
+            }
         }
 
         /// <summary>
@@ -260,10 +267,14 @@ namespace OldRetinues.Troops.Save
             // Captain spawn toggle (default false)
             troop.CaptainEnabled = CaptainEnabled;
 
-            // Rebuild captain if present in save data (and this troop is not itself a captain)
+            // Rebuild captain if present in save data (and this troop is not itself a captain).
             try
             {
-                if (!IsCaptain && Captain != null)
+                if (
+                    !IsCaptain
+                    && Captain != null
+                    && (DoctrineAPI.IsDoctrineUnlocked<Captains>() || Config.NoDoctrineRequirements)
+                )
                 {
                     // Deserialize captain as a standalone custom troop
                     var captain = Captain.Deserialize();

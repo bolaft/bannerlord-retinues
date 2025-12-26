@@ -164,7 +164,11 @@ namespace OldRetinues.GUI.Editor.VM.Equipment.Panel
             get
             {
                 // Disable mounts for tier 1 troops if disallowed in config
-                if (Config.DisallowMountsForT1Troops && State.Troop.Tier <= 1)
+                if (
+                    Config.DisallowMountsForT1Troops
+                    && State.Troop.Tier <= 1
+                    && !State.Troop.IsHero
+                )
                     if (Index == EquipmentIndex.Horse || Index == EquipmentIndex.HorseHarness)
                         return false;
 

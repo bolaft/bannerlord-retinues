@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Retinues.Configuration;
+using Retinues.Doctrines;
+using Retinues.Doctrines.Catalog;
 using Retinues.Features.Statistics;
 using Retinues.Game.Helpers;
 using Retinues.Mods;
@@ -176,9 +178,10 @@ namespace OldRetinues.Game.Wrappers
         private readonly CharacterObject _co =
             characterObject ?? throw new ArgumentNullException(nameof(characterObject));
 
-        public CharacterObject Base => _co;
+        private readonly string _stringId = characterObject.StringId;
 
-        public override string StringId => Base.StringId;
+        public CharacterObject Base => _co;
+        public override string StringId => _stringId;
 
         /* ━━━━━━━ Template ━━━━━━━ */
 
@@ -189,11 +192,17 @@ namespace OldRetinues.Game.Wrappers
 
         /* ━━━━━━━━━ Type ━━━━━━━━━ */
 
-        public bool IsCustom =>
-            StringId.StartsWith(CustomIdPrefix) == true
-            || StringId.StartsWith(LegacyCustomIdPrefix) == true;
-        public bool IsLegacyCustom => StringId.StartsWith(LegacyCustomIdPrefix) == true;
-        public bool IsVanilla => !IsCustom;
+        private readonly bool _isLegacyCustom = characterObject.StringId.StartsWith(
+            LegacyCustomIdPrefix
+        );
+
+        private readonly bool _isCustom =
+            characterObject.StringId.StartsWith(CustomIdPrefix)
+            || characterObject.StringId.StartsWith(LegacyCustomIdPrefix);
+
+        public bool IsCustom => _isCustom;
+        public bool IsLegacyCustom => _isLegacyCustom;
+        public bool IsVanilla => !_isCustom;
 
         /* ━━━━━━━ Category ━━━━━━━ */
 
@@ -206,6 +215,13 @@ namespace OldRetinues.Game.Wrappers
         //                        Captains                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        private static readonly Dictionary<string, CharacterObject> CaptainObjectByBaseId = new(
+            StringComparer.Ordinal
+        );
+        private static readonly Dictionary<string, string> BaseIdByCaptainId = new(
+            StringComparer.Ordinal
+        );
+
         private static readonly Dictionary<string, WCharacter> CaptainCache = new(
             StringComparer.Ordinal
         );
@@ -214,15 +230,86 @@ namespace OldRetinues.Game.Wrappers
             StringComparer.Ordinal
         );
 
-        public bool CanHaveCaptain => IsCustom && !IsRetinue && !IsCaptain;
+        public bool CanHaveCaptain
+        {
+            get
+            {
+                if (!_isCustom)
+                    return false;
+
+                // If this id is known to be a captain, do not treat it as a base troop.
+                if (IsCaptain || IsCaptainId(_stringId))
+                    return false;
+
+                if (Base.IsHero)
+                    return false;
+
+                // Cheap retinue check without calling WCharacter.Faction / WCharacter.IsRetinue
+                if (BaseFaction.TroopFactionMap.TryGetValue(_stringId, out var f) && f != null)
+                {
+                    if (f.IsRetinueId(_stringId))
+                        return false;
+                }
+
+                return true;
+            }
+        }
+
+        internal static bool IsCustomId(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+                return false;
+
+            return id.StartsWith(CustomIdPrefix);
+        }
+
+        internal static bool TryGetBaseIdFromCaptainId(string id, out string baseId) =>
+            BaseIdByCaptainId.TryGetValue(id, out baseId);
+
+        internal static bool IsCaptainId(string id) =>
+            !string.IsNullOrEmpty(id) && BaseIdByCaptainId.ContainsKey(id);
+
+        internal static bool IsCaptainEnabledId(string baseId) =>
+            !string.IsNullOrEmpty(baseId)
+            && CaptainEnabledCache.TryGetValue(baseId, out var enabled)
+            && enabled;
+
+        internal static bool TryGetCaptainObject(string baseId, out CharacterObject captain) =>
+            CaptainObjectByBaseId.TryGetValue(baseId, out captain) && captain != null;
+
+        private static void RegisterCaptainPair(string baseId, WCharacter captain)
+        {
+            if (string.IsNullOrEmpty(baseId) || captain?.Base == null)
+                return;
+
+            CaptainObjectByBaseId[baseId] = captain.Base;
+            BaseIdByCaptainId[captain.StringId] = baseId;
+        }
 
         public static void ClearCaptainCaches()
         {
             CaptainCache.Clear();
             CaptainEnabledCache.Clear();
+            CaptainObjectByBaseId.Clear();
+            BaseIdByCaptainId.Clear();
         }
 
         public WCharacter BaseTroop;
+
+        internal bool HasCaptainInstance =>
+            _captain != null
+            || (CaptainCache.TryGetValue(StringId, out var existing) && existing != null);
+
+        internal WCharacter GetExistingCaptain()
+        {
+            if (_captain != null)
+                return _captain;
+
+            if (CaptainCache.TryGetValue(StringId, out var existing) && existing != null)
+                return existing;
+
+            return null;
+        }
 
         private WCharacter _captain;
         public WCharacter Captain
@@ -231,6 +318,10 @@ namespace OldRetinues.Game.Wrappers
             {
                 if (!CanHaveCaptain)
                     return null; // fallback for captains and non-custom troops
+
+                // Do not create or return captains if the doctrine is locked
+                if (!DoctrineAPI.IsDoctrineUnlocked<Captains>() && !Config.NoDoctrineRequirements)
+                    return null;
 
                 // Try global cache first (base troop stringId -> captain instance).
                 if (CaptainCache.TryGetValue(StringId, out var cached) && cached != null)
@@ -299,6 +390,7 @@ namespace OldRetinues.Game.Wrappers
             captain.BaseTroop = this;
 
             CaptainCache[StringId] = captain;
+            RegisterCaptainPair(StringId, captain);
 
             // Ensure faction / flags match the base troop
             if (Faction != null)
@@ -334,6 +426,8 @@ namespace OldRetinues.Game.Wrappers
             captain.FillFrom(this, keepUpgrades: false, keepEquipment: true, keepSkills: true);
             captain.IsCaptain = true;
             captain.BaseTroop = this;
+
+            RegisterCaptainPair(StringId, captain);
 
             // Rank up if possible
             if (!IsMaxTier)
@@ -432,18 +526,39 @@ namespace OldRetinues.Game.Wrappers
             }
         }
 
+        private BaseFaction _factionCached;
+        private int _factionCachedVersion = -1;
+
+        private WCulture _cultureCached;
+
         public BaseFaction Faction
         {
-            get =>
-                IsVanilla ? Culture
-                : BaseFaction.TroopFactionMap.TryGetValue(StringId, out var faction) ? faction
-                : null;
+            get
+            {
+                if (IsVanilla)
+                    return _cultureCached ??= new(Base.Culture);
+
+                var v = BaseFaction.TroopFactionMapVersion;
+                if (_factionCachedVersion == v)
+                    return _factionCached;
+
+                _factionCached = BaseFaction.TroopFactionMap.TryGetValue(StringId, out var f)
+                    ? f
+                    : null;
+                _factionCachedVersion = v;
+                return _factionCached;
+            }
             set
             {
                 if (value == null)
                     BaseFaction.TroopFactionMap.Remove(StringId);
                 else
                     BaseFaction.TroopFactionMap[StringId] = value;
+
+                BaseFaction.TouchTroopFactionMap();
+
+                _factionCached = value;
+                _factionCachedVersion = BaseFaction.TroopFactionMapVersion;
             }
         }
 
@@ -619,7 +734,7 @@ namespace OldRetinues.Game.Wrappers
 #else
             // NOTE: game-side property is misspelled "HiddenInEncylopedia"
             get => Reflector.GetPropertyValue<bool>(Base, "HiddenInEncylopedia");
-            set => Reflector.SetPropertyValue(Base, "HiddenInEncylopedia", value);
+            set => Reflector.SetPropertyValue(Base, "HiddenInEncyclopedia", value);
 #endif
         }
 
@@ -704,12 +819,7 @@ namespace OldRetinues.Game.Wrappers
                 {
                     var skill = MBObjectManager.Instance.GetObject<SkillObject>(skillId);
                     if (skill == null)
-                    {
-                        Log.Warn(
-                            $"Naval DLC skill id '{skillId}' not found despite DLC being active."
-                        );
                         continue;
-                    }
                     _navalDlcSkills.Add(skill);
                 }
 
@@ -1108,12 +1218,12 @@ namespace OldRetinues.Game.Wrappers
             }
         }
 
-        private static class NavalTraitHelper
+        public static class NavalTraitHelper
         {
             private static TraitObject _navalSoldierTrait;
             private static bool _navalTraitMissing;
-            private static FieldInfo _characterTraitsField;
-            private static MethodInfo _setPropertyValueMethod;
+
+            // ── Trait lookup ──────────────────────────────────────
 
             private static TraitObject TryGetNavalSoldierTrait()
             {
@@ -1125,7 +1235,6 @@ namespace OldRetinues.Game.Wrappers
 
                 try
                 {
-                    // Resolve DefaultTraits by string so we don't rely on compile-time members.
                     var defaultTraitsType = Type.GetType(
                         "TaleWorlds.CampaignSystem.CharacterDevelopment.DefaultTraits, TaleWorlds.CampaignSystem",
                         throwOnError: false
@@ -1133,11 +1242,11 @@ namespace OldRetinues.Game.Wrappers
 
                     if (defaultTraitsType == null)
                     {
+                        // If the type really doesn't exist (no Naval DLC), mark as missing.
                         _navalTraitMissing = true;
                         return null;
                     }
 
-                    // Look for the static property "NavalSoldier" if it exists.
                     var prop = defaultTraitsType.GetProperty(
                         "NavalSoldier",
                         BindingFlags.Public | BindingFlags.Static
@@ -1149,67 +1258,43 @@ namespace OldRetinues.Game.Wrappers
                         return null;
                     }
 
-                    var value = prop.GetValue(null) as TraitObject;
-                    if (value == null)
-                        return null; // probably Campaign not ready yet; try again later
+                    if (prop.GetValue(null) is not TraitObject value)
+                    {
+                        // Traits not registered yet; don't permanently mark as missing.
+                        return null;
+                    }
 
                     _navalSoldierTrait = value;
                     return _navalSoldierTrait;
                 }
                 catch
                 {
-                    // If something goes wrong (e.g. Campaign not initialized yet), don't mark missing;
-                    // we'll simply return null and try again on next call.
+                    _navalTraitMissing = true;
                     return null;
                 }
             }
 
-            private static void EnsureCharacterTraitsAccessors()
+            // Allows us to clear everything on a game reset/load.
+            public static void Reset()
             {
-                if (_characterTraitsField != null || _navalTraitMissing)
-                    return;
-
-                try
-                {
-                    var coType = typeof(CharacterObject);
-                    _characterTraitsField = coType.GetField(
-                        "_characterTraits",
-                        BindingFlags.Instance | BindingFlags.NonPublic
-                    );
-
-                    if (_characterTraitsField == null)
-                        return;
-
-                    var ownerType = _characterTraitsField.FieldType; // PropertyOwner<TraitObject>
-                    _setPropertyValueMethod = ownerType.GetMethod(
-                        "SetPropertyValue",
-                        BindingFlags.Instance | BindingFlags.Public,
-                        binder: null,
-                        types: [typeof(TraitObject), typeof(int)],
-                        modifiers: null
-                    );
-                }
-                catch
-                {
-                    // best effort; leave everything null if it fails
-                }
+                _navalSoldierTrait = null;
+                _navalTraitMissing = false;
             }
+
+            // ── Public API used by WCharacter ─────────────────────
 
             public static int GetMarinerLevel(CharacterObject co)
             {
-                if (co == null)
+                if (co == null || !ModCompatibility.HasNavalDLC)
                     return 0;
-
-                if (ModCompatibility.HasNavalDLC == false)
-                    return 0; // No naval DLC, no mariner level
 
                 var navalTrait = TryGetNavalSoldierTrait();
                 if (navalTrait == null)
                     return 0;
 
-                // CharacterObject.GetTraitLevel handles both hero & non-hero.
                 try
                 {
+                    // This is exactly what NavalDLC uses internally.
                     return co.GetTraitLevel(navalTrait);
                 }
                 catch
@@ -1220,48 +1305,57 @@ namespace OldRetinues.Game.Wrappers
 
             public static void SetMarinerLevel(CharacterObject co, int level)
             {
-                if (co == null)
+                if (co == null || !ModCompatibility.HasNavalDLC)
                     return;
-
-                if (ModCompatibility.HasNavalDLC == false)
-                    return; // No naval DLC, no mariner level
 
                 var navalTrait = TryGetNavalSoldierTrait();
                 if (navalTrait == null)
                     return;
 
-                level = Math.Max(0, level);
-
-                // Hero case: use Hero.SetTraitLevel if available.
-                if (co.IsHero && co.HeroObject != null)
-                {
-                    try
-                    {
-                        co.HeroObject.SetTraitLevel(navalTrait, level);
-                        return;
-                    }
-                    catch
-                    {
-                        // fall through to non-hero path if something weird happens
-                    }
-                }
-
-                // Non-hero template: poke CharacterObject._characterTraits via reflection.
-                EnsureCharacterTraitsAccessors();
-                if (_characterTraitsField == null || _setPropertyValueMethod == null)
-                    return;
+                level = level > 0 ? 1 : 0;
 
                 try
                 {
-                    var owner = _characterTraitsField.GetValue(co);
-                    if (owner == null)
+                    if (co.IsHero)
+                    {
+                        co.HeroObject?.SetTraitLevel(navalTrait, level);
+                        return;
+                    }
+
+                    // No static FieldInfo/MethodInfo; resolve fresh each time.
+                    var coType = typeof(CharacterObject);
+                    var traitsField = coType.GetField(
+                        "_characterTraits",
+                        BindingFlags.Instance | BindingFlags.NonPublic
+                    );
+
+                    if (traitsField == null)
                         return;
 
-                    _setPropertyValueMethod.Invoke(owner, [navalTrait, level]);
+                    var owner = traitsField.GetValue(co);
+                    if (owner == null)
+                    {
+                        // Ensure a PropertyOwner<TraitObject> exists.
+                        var ownerType = traitsField.FieldType;
+                        owner = Activator.CreateInstance(ownerType);
+                        traitsField.SetValue(co, owner);
+                    }
+
+                    var setMethod = owner
+                        .GetType()
+                        .GetMethod(
+                            "SetPropertyValue",
+                            BindingFlags.Instance | BindingFlags.Public,
+                            binder: null,
+                            types: [typeof(TraitObject), typeof(int)],
+                            modifiers: null
+                        );
+
+                    setMethod?.Invoke(owner, [navalTrait, level]);
                 }
                 catch
                 {
-                    // swallow; this is best-effort
+                    // best-effort; Naval DLC is optional
                 }
             }
         }
