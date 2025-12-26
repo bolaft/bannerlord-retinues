@@ -27,7 +27,7 @@ namespace Retinues.Game
         // Character -> Faction map for quick lookup
         public static Dictionary<string, BaseFaction> TroopFactionMap = [];
 
-        public static int TroopFactionMapVersion { get; private set; }
+        public static int TroopFactionMapVersion { get; set; }
 
         internal static void TouchTroopFactionMap()
         {

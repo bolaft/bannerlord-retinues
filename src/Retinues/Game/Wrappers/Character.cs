@@ -737,7 +737,7 @@ namespace Retinues.Game.Wrappers
 #else
             // NOTE: game-side property is misspelled "HiddenInEncylopedia"
             get => Reflector.GetPropertyValue<bool>(Base, "HiddenInEncylopedia");
-            set => Reflector.SetPropertyValue(Base, "HiddenInEncyclopedia", value);
+            set => Reflector.SetPropertyValue(Base, "HiddenInEncylopedia", value);
 #endif
         }
 
