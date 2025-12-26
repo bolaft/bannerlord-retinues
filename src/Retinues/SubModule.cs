@@ -484,6 +484,7 @@ namespace Retinues
 
             // Clear faction troop map
             BaseFaction.TroopFactionMap.Clear();
+            BaseFaction.TroopFactionMapVersion = 0;
 
             Log.Debug("All static properties cleared.");
         }

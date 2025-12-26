@@ -178,9 +178,10 @@ namespace Retinues.Game.Wrappers
         private readonly CharacterObject _co =
             characterObject ?? throw new ArgumentNullException(nameof(characterObject));
 
-        public CharacterObject Base => _co;
+        private readonly string _stringId = characterObject.StringId;
 
-        public override string StringId => Base.StringId;
+        public CharacterObject Base => _co;
+        public override string StringId => _stringId;
 
         /* ━━━━━━━ Template ━━━━━━━ */
 
@@ -191,11 +192,17 @@ namespace Retinues.Game.Wrappers
 
         /* ━━━━━━━━━ Type ━━━━━━━━━ */
 
-        public bool IsCustom =>
-            StringId.StartsWith(CustomIdPrefix) == true
-            || StringId.StartsWith(LegacyCustomIdPrefix) == true;
-        public bool IsLegacyCustom => StringId.StartsWith(LegacyCustomIdPrefix) == true;
-        public bool IsVanilla => !IsCustom;
+        private readonly bool _isLegacyCustom = characterObject.StringId.StartsWith(
+            LegacyCustomIdPrefix
+        );
+
+        private readonly bool _isCustom =
+            characterObject.StringId.StartsWith(CustomIdPrefix)
+            || characterObject.StringId.StartsWith(LegacyCustomIdPrefix);
+
+        public bool IsCustom => _isCustom;
+        public bool IsLegacyCustom => _isLegacyCustom;
+        public bool IsVanilla => !_isCustom;
 
         /* ━━━━━━━ Category ━━━━━━━ */
 
@@ -208,6 +215,13 @@ namespace Retinues.Game.Wrappers
         //                        Captains                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        private static readonly Dictionary<string, CharacterObject> CaptainObjectByBaseId = new(
+            StringComparer.Ordinal
+        );
+        private static readonly Dictionary<string, string> BaseIdByCaptainId = new(
+            StringComparer.Ordinal
+        );
+
         private static readonly Dictionary<string, WCharacter> CaptainCache = new(
             StringComparer.Ordinal
         );
@@ -216,12 +230,68 @@ namespace Retinues.Game.Wrappers
             StringComparer.Ordinal
         );
 
-        public bool CanHaveCaptain => IsCustom && !IsRetinue && !IsCaptain;
+        public bool CanHaveCaptain
+        {
+            get
+            {
+                if (!_isCustom)
+                    return false;
+
+                // If this id is known to be a captain, do not treat it as a base troop.
+                if (IsCaptain || IsCaptainId(_stringId))
+                    return false;
+
+                if (Base.IsHero)
+                    return false;
+
+                // Cheap retinue check without calling WCharacter.Faction / WCharacter.IsRetinue
+                if (BaseFaction.TroopFactionMap.TryGetValue(_stringId, out var f) && f != null)
+                {
+                    if (f.IsRetinueId(_stringId))
+                        return false;
+                }
+
+                return true;
+            }
+        }
+
+        internal static bool IsCustomId(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+                return false;
+
+            return id.StartsWith(CustomIdPrefix) || id.StartsWith(LegacyCustomIdPrefix);
+        }
+
+        internal static bool TryGetBaseIdFromCaptainId(string id, out string baseId) =>
+            BaseIdByCaptainId.TryGetValue(id, out baseId);
+
+        internal static bool IsCaptainId(string id) =>
+            !string.IsNullOrEmpty(id) && BaseIdByCaptainId.ContainsKey(id);
+
+        internal static bool IsCaptainEnabledId(string baseId) =>
+            !string.IsNullOrEmpty(baseId)
+            && CaptainEnabledCache.TryGetValue(baseId, out var enabled)
+            && enabled;
+
+        internal static bool TryGetCaptainObject(string baseId, out CharacterObject captain) =>
+            CaptainObjectByBaseId.TryGetValue(baseId, out captain) && captain != null;
+
+        private static void RegisterCaptainPair(string baseId, WCharacter captain)
+        {
+            if (string.IsNullOrEmpty(baseId) || captain?.Base == null)
+                return;
+
+            CaptainObjectByBaseId[baseId] = captain.Base;
+            BaseIdByCaptainId[captain.StringId] = baseId;
+        }
 
         public static void ClearCaptainCaches()
         {
             CaptainCache.Clear();
             CaptainEnabledCache.Clear();
+            CaptainObjectByBaseId.Clear();
+            BaseIdByCaptainId.Clear();
         }
 
         public WCharacter BaseTroop;
@@ -320,6 +390,7 @@ namespace Retinues.Game.Wrappers
             captain.BaseTroop = this;
 
             CaptainCache[StringId] = captain;
+            RegisterCaptainPair(StringId, captain);
 
             // Ensure faction / flags match the base troop
             if (Faction != null)
@@ -355,6 +426,8 @@ namespace Retinues.Game.Wrappers
             captain.FillFrom(this, keepUpgrades: false, keepEquipment: true, keepSkills: true);
             captain.IsCaptain = true;
             captain.BaseTroop = this;
+
+            RegisterCaptainPair(StringId, captain);
 
             // Rank up if possible
             if (!IsMaxTier)
@@ -453,18 +526,39 @@ namespace Retinues.Game.Wrappers
             }
         }
 
+        private BaseFaction _factionCached;
+        private int _factionCachedVersion = -1;
+
+        private WCulture _cultureCached;
+
         public BaseFaction Faction
         {
-            get =>
-                IsVanilla ? Culture
-                : BaseFaction.TroopFactionMap.TryGetValue(StringId, out var faction) ? faction
-                : null;
+            get
+            {
+                if (IsVanilla)
+                    return _cultureCached ??= new(Base.Culture);
+
+                var v = BaseFaction.TroopFactionMapVersion;
+                if (_factionCachedVersion == v)
+                    return _factionCached;
+
+                _factionCached = BaseFaction.TroopFactionMap.TryGetValue(StringId, out var f)
+                    ? f
+                    : null;
+                _factionCachedVersion = v;
+                return _factionCached;
+            }
             set
             {
                 if (value == null)
                     BaseFaction.TroopFactionMap.Remove(StringId);
                 else
                     BaseFaction.TroopFactionMap[StringId] = value;
+
+                BaseFaction.TouchTroopFactionMap();
+
+                _factionCached = value;
+                _factionCachedVersion = BaseFaction.TroopFactionMapVersion;
             }
         }
 

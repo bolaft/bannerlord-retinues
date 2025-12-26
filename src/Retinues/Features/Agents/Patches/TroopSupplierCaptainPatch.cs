@@ -8,6 +8,7 @@ using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.TroopSuppliers;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
+using TaleWorlds.ObjectSystem;
 
 namespace Retinues.Features.Agents.Patches
 {
@@ -29,31 +30,26 @@ namespace Retinues.Features.Agents.Patches
         {
             try
             {
-                // No mission => probably auto-resolve / simulation / non-mission use, skip.
                 var mission = Mission.Current;
 
                 if (!MissionHelper.IsCombatMission(mission))
-                    return; // Combat only
+                    return;
 
-                // If the supplier didn't find anything, nothing to do
                 if (__result == null)
                     return;
 
-                var troop = new WCharacter(__result);
+                var id = __result.StringId;
 
-                // Captains are only for custom non-heroes
-                if (!troop.CanHaveCaptain)
+                // Fast reject: only custom troops or known captain troops matter.
+                if (!WCharacter.IsCustomId(id) && !WCharacter.IsCaptainId(id))
                     return;
 
-                // Always key off the base troop
-                var baseTroop =
-                    troop.IsCaptain && troop.BaseTroop != null ? troop.BaseTroop : troop;
+                // If we got a captain id, normalize to base id for counting/enabled flag.
+                if (WCharacter.TryGetBaseIdFromCaptainId(id, out var baseId))
+                    id = baseId;
 
-                if (!baseTroop.CaptainEnabled)
-                    return;
-
-                var captain = baseTroop.Captain;
-                if (captain == null)
+                // If this base troop doesn't have captains enabled, bail without wrapper allocation.
+                if (!WCharacter.IsCaptainEnabledId(id))
                     return;
 
                 // Reset per mission
@@ -63,15 +59,35 @@ namespace Retinues.Features.Agents.Patches
                     _spawnCounts.Clear();
                 }
 
-                var key = baseTroop.StringId;
-                _spawnCounts.TryGetValue(key, out var count);
+                _spawnCounts.TryGetValue(id, out var count);
                 count++;
-                _spawnCounts[key] = count;
+                _spawnCounts[id] = count;
 
                 if (CaptainFrequency <= 0 || count % CaptainFrequency != 0)
                     return;
 
-                __result = captain.Base; // CharacterObject
+                // Prefer cached captain CharacterObject
+                if (WCharacter.TryGetCaptainObject(id, out var captainCo))
+                {
+                    __result = captainCo;
+                    return;
+                }
+
+                // Captain not created yet: create lazily (rare path)
+                var baseCo = MBObjectManager.Instance.GetObject<CharacterObject>(id);
+                if (baseCo == null)
+                    return;
+
+                var baseTroop = new WCharacter(baseCo);
+
+                if (!baseTroop.CanHaveCaptain)
+                    return;
+
+                var captain = baseTroop.Captain;
+                if (captain?.Base == null)
+                    return;
+
+                __result = captain.Base;
             }
             catch (Exception e)
             {

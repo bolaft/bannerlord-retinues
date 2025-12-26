@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using HarmonyLib;
+using Retinues.Configuration;
 
 namespace Retinues.Utils
 {
@@ -92,6 +93,9 @@ namespace Retinues.Utils
 
         // Cache per accessor/method: (fallback object, fallback type, swallow, class config)
         private static readonly ConcurrentDictionary<MethodBase, Behavior> _behaviorCache = new();
+
+        // Cache for timer labels to avoid repeated allocations
+        private static readonly ConcurrentDictionary<MethodBase, string> _timerLabelCache = new();
 
         private struct Behavior
         {
@@ -337,9 +341,16 @@ namespace Retinues.Utils
 
         private static void PatchOne(Harmony harmony, MethodBase method, Behavior behavior)
         {
-            // already-patched guard (unchanged)
+            // already-patched guard
             var info = Harmony.GetPatchInfo(method);
-            if (info?.Finalizers?.Any(p => p.owner == harmony.Id) == true)
+            if (
+                info != null
+                && (
+                    info.Finalizers?.Any(p => p.owner == harmony.Id) == true
+                    || info.Prefixes?.Any(p => p.owner == harmony.Id) == true
+                    || info.Postfixes?.Any(p => p.owner == harmony.Id) == true
+                )
+            )
                 return;
 
             _behaviorCache[method] = behavior;
@@ -361,9 +372,23 @@ namespace Retinues.Utils
                         )
                     );
 
+            // Optional timing wrappers (guarded by Config.DebugMode at runtime).
+            var prefix = new HarmonyMethod(
+                typeof(SafeMethodPatcher).GetMethod(
+                    nameof(PrefixTimer),
+                    BindingFlags.Static | BindingFlags.NonPublic
+                )
+            );
+            var postfix = new HarmonyMethod(
+                typeof(SafeMethodPatcher).GetMethod(
+                    nameof(PostfixTimer),
+                    BindingFlags.Static | BindingFlags.NonPublic
+                )
+            );
+
             try
             {
-                harmony.Patch(method, finalizer: finalizer);
+                harmony.Patch(method, prefix: prefix, postfix: postfix, finalizer: finalizer);
             }
             catch (Exception) { }
         }
@@ -376,8 +401,11 @@ namespace Retinues.Utils
         {
             if (__exception == null)
                 return null;
+
+            EndTimer(__originalMethod);
+
             var beh = GetBehavior(__originalMethod);
-            LogException(__originalMethod, __exception);
+            Log.Exception(__exception, __originalMethod.ToString());
             return beh.Swallow ? null : __exception;
         }
 
@@ -390,8 +418,10 @@ namespace Retinues.Utils
             if (__exception == null)
                 return null;
 
+            EndTimer(__originalMethod);
+
             var beh = GetBehavior(__originalMethod);
-            LogException(__originalMethod, __exception);
+            Log.Exception(__exception, __originalMethod.ToString());
 
             if (beh.Swallow)
             {
@@ -599,6 +629,78 @@ namespace Retinues.Utils
                 return true;
             }
             return false;
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Timer                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private static void PrefixTimer(MethodBase __originalMethod)
+        {
+            if (!Config.DebugMode)
+                return;
+            if (!Timer.IsRunning)
+                return;
+
+            var label = GetTimerLabel(__originalMethod);
+            if (label == null)
+                return;
+
+            Timer.Begin(label);
+        }
+
+        private static void PostfixTimer(MethodBase __originalMethod)
+        {
+            EndTimer(__originalMethod);
+        }
+
+        private static void EndTimer(MethodBase method)
+        {
+            if (!Config.DebugMode)
+                return;
+            if (!Timer.IsRunning)
+                return;
+
+            var label = GetTimerLabel(method);
+            if (label == null)
+                return;
+
+            Timer.End(label);
+        }
+
+        private static string GetTimerLabel(MethodBase method)
+        {
+            if (method == null)
+                return null;
+
+            return _timerLabelCache.GetOrAdd(method, BuildTimerLabel);
+        }
+
+        private static string BuildTimerLabel(MethodBase method)
+        {
+            if (method == null)
+                return "<null>";
+
+            try
+            {
+                var owner = method.DeclaringType?.FullName ?? "<unknown>";
+                var ps = method.GetParameters();
+
+                if (ps == null || ps.Length == 0)
+                    return $"{owner}.{method.Name}";
+
+                // Include parameter types to avoid collisions across overloads.
+                var parts = new string[ps.Length];
+                for (int i = 0; i < ps.Length; i++)
+                    parts[i] = ps[i].ParameterType?.Name ?? "?";
+
+                return $"{owner}.{method.Name}({string.Join(",", parts)})";
+            }
+            catch
+            {
+                // last resort
+                return method.Name ?? "<unknown>";
+            }
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

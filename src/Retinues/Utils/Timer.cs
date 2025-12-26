@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using TaleWorlds.Library;
 
 namespace Retinues.Utils
 {
@@ -14,6 +15,9 @@ namespace Retinues.Utils
             public string Label;
             public Stopwatch Stopwatch = new();
             public TimeSpan Elapsed => Stopwatch.Elapsed;
+
+            // Re-entrancy guard (Begin/End can nest across Harmony patches).
+            public int Depth;
         }
 
         private static readonly Stopwatch Total = new();
@@ -22,6 +26,11 @@ namespace Retinues.Utils
         );
 
         private static bool _running;
+
+        /// <summary>
+        /// True if a timing session is active.
+        /// </summary>
+        public static bool IsRunning => _running;
 
         /// <summary>
         /// Starts a new timing session, resetting any previous measurements.
@@ -53,7 +62,8 @@ namespace Retinues.Utils
                 Segments[label] = segment;
             }
 
-            if (!segment.Stopwatch.IsRunning)
+            segment.Depth++;
+            if (segment.Depth == 1 && !segment.Stopwatch.IsRunning)
                 segment.Stopwatch.Start();
         }
 
@@ -71,8 +81,15 @@ namespace Retinues.Utils
             if (!Segments.TryGetValue(label, out var segment))
                 return;
 
-            if (segment.Stopwatch.IsRunning)
-                segment.Stopwatch.Stop();
+            if (segment.Depth > 0)
+                segment.Depth--;
+
+            if (segment.Depth <= 0)
+            {
+                segment.Depth = 0;
+                if (segment.Stopwatch.IsRunning)
+                    segment.Stopwatch.Stop();
+            }
         }
 
         /// <summary>
@@ -91,6 +108,8 @@ namespace Retinues.Utils
             {
                 if (segment.Stopwatch.IsRunning)
                     segment.Stopwatch.Stop();
+
+                segment.Depth = 0;
             }
 
             var totalSeconds = Total.Elapsed.TotalSeconds;
@@ -117,6 +136,30 @@ namespace Retinues.Utils
 
                 Log.Debug($"{segment.Label}: {seconds:0.00000}s ({percent:0.0}%)");
             }
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Cheats                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Starts a new timing session (clears previous segments).
+        /// </summary>
+        [CommandLineFunctionality.CommandLineArgumentFunction("timer_start", "retinues")]
+        public static string TimerStart(List<string> args)
+        {
+            Start();
+            return "Timer started. Run retinues.timer_stop to log results.";
+        }
+
+        /// <summary>
+        /// Stops the session and logs the breakdown (total + per-segment percentages).
+        /// </summary>
+        [CommandLineFunctionality.CommandLineArgumentFunction("timer_stop", "retinues")]
+        public static string TimerStop(List<string> args)
+        {
+            Stop();
+            return "Timer stopped. Check the log for segment timings.";
         }
     }
 }
