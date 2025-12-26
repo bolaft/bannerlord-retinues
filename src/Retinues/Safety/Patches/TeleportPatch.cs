@@ -49,7 +49,6 @@ namespace Retinues.Safety.Patches
     [HarmonyPatch(typeof(TeleportHeroAction), "ApplyInternal")]
     static class TeleportHero_PreparePatch
     {
-        [SafeMethod]
         static void Prefix(Hero hero, Settlement targetSettlement, MobileParty targetParty)
         {
             try

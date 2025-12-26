@@ -145,16 +145,19 @@ namespace Retinues.Safety.Patches
 
         // Absolute safety net: suppress any exception thrown by vanilla or other patches.
         [HarmonyPriority(Priority.Last)]
-        [SafeMethod]
         static Exception Finalizer(Exception __exception, Settlement settlement)
         {
             if (__exception == null)
                 return null;
 
-            Log.Exception(
-                __exception,
-                $"VolunteerUpdateSafety: suppressed exception in UpdateVolunteersOfNotablesInSettlement for settlement '{settlement?.StringId ?? "null"}'."
-            );
+            try
+            {
+                Log.Exception(
+                    __exception,
+                    $"VolunteerUpdateSafety: suppressed exception in UpdateVolunteersOfNotablesInSettlement for settlement '{settlement?.StringId ?? "null"}'."
+                );
+            }
+            catch { }
 
             return null; // suppress
         }
