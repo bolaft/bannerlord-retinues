@@ -159,6 +159,8 @@ namespace Retinues.Module.Dependencies
 
         private Harmony _harmony;
 
+        public Harmony Harmony => _harmony;
+
         public HarmonyDependency()
             : base(
                 moduleId: "Bannerlord.Harmony", // adjust if needed

@@ -57,6 +57,9 @@ namespace Retinues
             foreach (var dependency in Dependencies)
                 dependency.Initialize();
 
+            // Apply safety patches.
+            SafeMethodPatcher.ApplyAll(_harmony.Harmony);
+
             // Check for incompatible or legacy mods.
             CompatibilityManager.CheckIncompatibilities();
 
