@@ -1,7 +1,8 @@
 using System;
 using Bannerlord.UIExtenderEx.Attributes;
+using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Editor.Controllers.Equipment;
-using Retinues.Model.Equipments;
+using Retinues.Editor.Events;
 using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Library;
 
@@ -10,7 +11,7 @@ namespace Retinues.Editor.VM.List.Equipment
     /// <summary>
     /// Row representing an item in the list.
     /// </summary>
-    public sealed class EquipmentListRowVM : ListRowVM
+    public sealed class EquipmentListRowVM : BaseListRowVM
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Constructor                      //

@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
-using Retinues.Helpers;
+using Retinues.Editor.Events;
+using Retinues.Framework.Runtime;
+using Retinues.UI.VM;
 using Retinues.Utilities;
 using TaleWorlds.Localization;
 
@@ -47,12 +49,12 @@ namespace Retinues.Editor.Controllers
 
         private void EnsureBurstCache()
         {
-            if (!Editor.EventManager.IsInBurst)
+            if (!EventManager.IsInBurst)
             {
                 return;
             }
 
-            var burstId = Editor.EventManager.CurrentBurstId;
+            var burstId = EventManager.CurrentBurstId;
             if (burstId == _cacheBurstId)
             {
                 return;
@@ -68,7 +70,7 @@ namespace Retinues.Editor.Controllers
         private CacheEntry GetOrCompute(TArg arg)
         {
             // Only cache during bursts.
-            if (!Editor.EventManager.IsInBurst)
+            if (!EventManager.IsInBurst)
             {
                 return ComputeNoCache(arg);
             }
@@ -142,7 +144,7 @@ namespace Retinues.Editor.Controllers
         }
 
         public EditorAction<TArg> AddCondition(
-            Func<State, bool> applies,
+            Func<EditorState, bool> applies,
             Func<TArg, bool> test,
             TextObject reason
         )
@@ -152,7 +154,7 @@ namespace Retinues.Editor.Controllers
         }
 
         public EditorAction<TArg> AddCondition(
-            Func<State, bool> applies,
+            Func<EditorState, bool> applies,
             Func<TArg, bool> test,
             Func<TArg, TextObject> reasonFactory
         )
@@ -220,7 +222,7 @@ namespace Retinues.Editor.Controllers
         public bool Allow(TArg arg)
         {
             // Cached during burst
-            if (Editor.EventManager.IsInBurst)
+            if (EventManager.IsInBurst)
             {
                 return GetOrCompute(arg).Reason == null;
             }
@@ -231,7 +233,7 @@ namespace Retinues.Editor.Controllers
 
         public TextObject Reason(TArg arg)
         {
-            if (Editor.EventManager.IsInBurst)
+            if (EventManager.IsInBurst)
             {
                 return GetOrCompute(arg).Reason;
             }
@@ -247,7 +249,7 @@ namespace Retinues.Editor.Controllers
         /// </summary>
         public Tooltip Tooltip(TArg arg)
         {
-            if (Editor.EventManager.IsInBurst)
+            if (EventManager.IsInBurst)
             {
                 return GetOrCompute(arg).Tooltip;
             }
@@ -264,7 +266,7 @@ namespace Retinues.Editor.Controllers
                 return reason;
 
             // 2) Mode-specific conditions
-            if (_modeOverrides.TryGetValue(EditorController.State.Mode, out var ov))
+            if (_modeOverrides.TryGetValue(BaseController.State.Mode, out var ov))
             {
                 reason = Evaluate(ov.Conditions, arg);
                 if (reason != null)
@@ -281,7 +283,7 @@ namespace Retinues.Editor.Controllers
                 return new Tooltip(reason);
             }
 
-            var mode = EditorController.State.Mode;
+            var mode = BaseController.State.Mode;
 
             if (_modeOverrides.TryGetValue(mode, out var ov))
             {
@@ -316,7 +318,7 @@ namespace Retinues.Editor.Controllers
                 return false;
             }
 
-            var mode = EditorController.State.Mode;
+            var mode = BaseController.State.Mode;
 
             _pre?.Invoke(arg);
             if (_modeOverrides.TryGetValue(mode, out var ov))
@@ -334,7 +336,7 @@ namespace Retinues.Editor.Controllers
 
             if (_fireEvent != null)
             {
-                Editor.EventManager.Fire(_fireEvent.Value);
+                EventManager.Fire(_fireEvent.Value);
             }
 
             ov?.Executed?.Invoke(arg);
@@ -355,7 +357,7 @@ namespace Retinues.Editor.Controllers
             {
                 var c = conditions[i];
 
-                if (c.Applies != null && !c.Applies(EditorController.State))
+                if (c.Applies != null && !c.Applies(BaseController.State))
                     continue;
 
                 if (!c.Test(arg))
@@ -367,12 +369,16 @@ namespace Retinues.Editor.Controllers
 
         public readonly struct Condition
         {
-            public readonly Func<State, bool> Applies;
+            public readonly Func<EditorState, bool> Applies;
             public readonly Func<TArg, bool> Test;
             public readonly TextObject Reason;
             public readonly Func<TArg, TextObject> ReasonFactory;
 
-            public Condition(Func<State, bool> applies, Func<TArg, bool> test, TextObject reason)
+            public Condition(
+                Func<EditorState, bool> applies,
+                Func<TArg, bool> test,
+                TextObject reason
+            )
             {
                 Applies = applies;
                 Test = test;
@@ -381,7 +387,7 @@ namespace Retinues.Editor.Controllers
             }
 
             public Condition(
-                Func<State, bool> applies,
+                Func<EditorState, bool> applies,
                 Func<TArg, bool> test,
                 Func<TArg, TextObject> reasonFactory
             )

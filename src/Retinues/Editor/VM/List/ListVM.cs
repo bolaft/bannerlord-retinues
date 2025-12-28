@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using Bannerlord.UIExtenderEx.Attributes;
+using Retinues.Domain.Characters.Wrappers;
+using Retinues.Editor.Events;
 using Retinues.Editor.VM.List.Character;
 using Retinues.Editor.VM.List.Equipment;
 using Retinues.Editor.VM.List.Library;
-using Retinues.Helpers;
-using Retinues.Model.Characters;
-using Retinues.Utilities;
+using Retinues.UI.Services;
+using Retinues.UI.VM;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 
@@ -28,7 +29,7 @@ namespace Retinues.Editor.VM.List
     /// <summary>
     /// Main list ViewModel; driven by shared faction and character state.
     /// </summary>
-    public class ListVM : BaseVM
+    public class ListVM : EventListenerVM
     {
         /// <summary>
         /// Previous equipment slot, for detecting changes.
@@ -478,7 +479,7 @@ namespace Retinues.Editor.VM.List
                 : roots.OrderByDescending(c => rowByCharacter[c].GetSortValue(sortKey));
 
             var visited = new HashSet<WCharacter>();
-            var newOrder = new List<ListRowVM>(header.Rows.Count);
+            var newOrder = new List<BaseListRowVM>(header.Rows.Count);
 
             foreach (var root in orderedRoots)
                 VisitTreeNode(root, sortKey, ascending, rowByCharacter, visited, newOrder);
@@ -517,7 +518,7 @@ namespace Retinues.Editor.VM.List
             bool ascending,
             Dictionary<WCharacter, CharacterListRowVM> rowByCharacter,
             HashSet<WCharacter> visited,
-            List<ListRowVM> output
+            List<BaseListRowVM> output
         )
         {
             if (character == null || !rowByCharacter.ContainsKey(character))

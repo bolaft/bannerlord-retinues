@@ -1,6 +1,6 @@
 using Bannerlord.UIExtenderEx.Attributes;
-using Retinues.Editor.Screen;
-using Retinues.Model.Characters;
+using Retinues.Domain.Characters.Wrappers;
+using Retinues.Editor.Events;
 using TaleWorlds.Library;
 
 namespace Retinues.Editor.VM.Panel.Character
@@ -8,7 +8,7 @@ namespace Retinues.Editor.VM.Panel.Character
     /// <summary>
     /// Character upgrade card.
     /// </summary>
-    public class CharacterUpgradeVM(WCharacter character) : BaseVM
+    public class CharacterUpgradeVM(WCharacter character) : EventListenerVM
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Constructor                      //

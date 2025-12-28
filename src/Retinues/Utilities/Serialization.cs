@@ -16,7 +16,6 @@ namespace Retinues.Utilities
     /// <summary>
     /// Generic XML serializer for common CLR types (dicts, lists, primitives, and POCOs).
     /// </summary>
-    [SafeClass]
     public static class Serialization
     {
         /* ━━━━━━━ Public API ━━━━━━ */

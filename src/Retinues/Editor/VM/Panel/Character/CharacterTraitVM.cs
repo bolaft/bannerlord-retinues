@@ -1,8 +1,8 @@
 using Bannerlord.UIExtenderEx.Attributes;
+using Retinues.Domain.Characters.Wrappers;
 using Retinues.Editor.Controllers.Character;
-using Retinues.Helpers;
-using Retinues.Model.Characters;
-using Retinues.Utilities;
+using Retinues.Editor.Events;
+using Retinues.UI.VM;
 using TaleWorlds.CampaignSystem.CharacterDevelopment;
 using TaleWorlds.Library;
 
@@ -11,8 +11,7 @@ namespace Retinues.Editor.VM.Panel.Character
     /// <summary>
     /// Single hero trait row (name, value, +/-).
     /// </summary>
-    [SafeClass]
-    public sealed class CharacterTraitVM : BaseVM
+    public sealed class CharacterTraitVM : EventListenerVM
     {
         private readonly TraitObject _trait;
 

@@ -9,7 +9,6 @@ namespace Retinues.Utilities
     /// <summary>
     /// Utility for formatting strings for display, e.g. converting code-style names to readable titles.
     /// </summary>
-    [SafeClass]
     public static class Format
     {
         /// <summary>

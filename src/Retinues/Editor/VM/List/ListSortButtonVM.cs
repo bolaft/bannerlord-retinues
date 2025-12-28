@@ -1,4 +1,5 @@
 using Bannerlord.UIExtenderEx.Attributes;
+using Retinues.Editor.Events;
 using TaleWorlds.Library;
 
 namespace Retinues.Editor.VM.List
@@ -7,7 +8,7 @@ namespace Retinues.Editor.VM.List
     /// Header sort button with three-state sort (none, asc, desc).
     /// </summary>
     public class ListSortButtonVM(ListVM list, ListSortKey sortKey, string text, int requestedWidth)
-        : BaseVM
+        : EventListenerVM
     {
         private readonly ListVM _list = list;
 

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Bannerlord.UIExtenderEx.Attributes;
-using Retinues.Utilities;
+using Retinues.Editor.Events;
 using TaleWorlds.Library;
 
 namespace Retinues.Editor.VM.List
@@ -8,7 +8,7 @@ namespace Retinues.Editor.VM.List
     /// <summary>
     /// Collapsible header that groups list rows.
     /// </summary>
-    public class ListHeaderVM(ListVM list, string id, string name) : BaseVM
+    public class ListHeaderVM(ListVM list, string id, string name) : EventListenerVM
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Internals                       //
@@ -51,17 +51,17 @@ namespace Retinues.Editor.VM.List
         //                          Rows                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private readonly List<ListRowVM> _rows = [];
+        private readonly List<BaseListRowVM> _rows = [];
 
-        public List<ListRowVM> Rows => _rows;
+        public List<BaseListRowVM> Rows => _rows;
 
         [DataSourceProperty]
-        public MBBindingList<ListRowVM> ExpandedRows { get; set; } = [];
+        public MBBindingList<BaseListRowVM> ExpandedRows { get; set; } = [];
 
         /// <summary>
         /// Adds a row to this header.
         /// </summary>
-        public void AddRow(ListRowVM row)
+        public void AddRow(BaseListRowVM row)
         {
             if (row == null)
                 return;

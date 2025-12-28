@@ -4,12 +4,11 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Xml;
 using System.Xml.Linq;
-using Retinues.Helpers;
-using Retinues.Model;
-using Retinues.Model.Characters;
-using Retinues.Model.Factions;
+using Retinues.Domain.Characters.Wrappers;
+using Retinues.Editor.Events;
+using Retinues.Framework.Model.Exports;
+using Retinues.UI.Services;
 using Retinues.Utilities;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
@@ -19,7 +18,7 @@ namespace Retinues.Editor.Controllers.Library
     /// <summary>
     /// Non-view logic for library import/export.
     /// </summary>
-    public class LibraryController : EditorController
+    public class LibraryController : BaseController
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Actions                        //
@@ -184,7 +183,7 @@ namespace Retinues.Editor.Controllers.Library
                 }
 
                 // Refresh state selections.
-                State.Instance.ForceRefreshSelection();
+                EditorState.Instance.ForceRefreshSelection();
 
                 // Refresh any faction-related data.
                 EventManager.Fire(UIEvent.Faction);
@@ -272,7 +271,7 @@ namespace Retinues.Editor.Controllers.Library
             try
             {
                 // Clear selection if we deleted the selected entry.
-                var selected = State.Instance.LibraryItem;
+                var selected = EditorState.Instance.LibraryItem;
                 if (
                     selected != null
                     && item != null
@@ -283,7 +282,7 @@ namespace Retinues.Editor.Controllers.Library
                     )
                 )
                 {
-                    State.Instance.LibraryItem = null;
+                    EditorState.Instance.LibraryItem = null;
                 }
 
                 // Ask any list VMs to rebuild from disk.

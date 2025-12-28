@@ -1,11 +1,11 @@
 using System.Linq;
-using Retinues.Helpers;
-using Retinues.Model.Characters;
-using Retinues.Utilities;
+using Retinues.Domain.Characters.Wrappers;
+using Retinues.Editor.Events;
+using Retinues.UI.Services;
 
 namespace Retinues.Editor.Controllers.Character
 {
-    public class CharacterTreeController : EditorController
+    public class CharacterTreeController : BaseController
     {
         const int MaxUpgradeTargets = 4;
 

@@ -10,7 +10,6 @@ namespace Retinues.Utilities
     /// Small XML helpers to avoid repeating parsing and writer boilerplate.
     /// Intentionally minimal: no behavior changes, only centralization.
     /// </summary>
-    [SafeClass]
     public static class XML
     {
         static readonly UTF8Encoding Utf8NoBom = new(false);

@@ -1,11 +1,11 @@
 using System;
-using Retinues.Helpers;
-using Retinues.Utilities;
+using Retinues.Editor.Events;
+using Retinues.UI.Services;
 using TaleWorlds.Core;
 
 namespace Retinues.Editor.Controllers.Character
 {
-    public class SkillsController : EditorController
+    public class SkillsController : BaseController
     {
         const int MaxBatch = int.MaxValue;
         const int MaxSkillLevel = 330;

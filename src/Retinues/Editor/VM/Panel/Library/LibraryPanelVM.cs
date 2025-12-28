@@ -1,9 +1,10 @@
 using System.Linq;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Editor.Controllers.Library;
-using Retinues.Helpers;
-using Retinues.Model;
-using Retinues.Utilities;
+using Retinues.Editor.Events;
+using Retinues.Framework.Model.Exports;
+using Retinues.UI.Services;
+using Retinues.UI.VM;
 using TaleWorlds.Library;
 
 namespace Retinues.Editor.VM.Panel.Library
@@ -11,7 +12,7 @@ namespace Retinues.Editor.VM.Panel.Library
     /// <summary>
     /// Library panel.
     /// </summary>
-    public class LibraryPanelVM : BaseVM
+    public class LibraryPanelVM : EventListenerVM
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Visibility                       //
@@ -107,7 +108,7 @@ namespace Retinues.Editor.VM.Panel.Library
         /// <summary>
         /// For Faction exports: troop name entry in the troop list.
         /// </summary>
-        public class FactionTroopNameVM(string name) : BaseVM
+        public class FactionTroopNameVM(string name) : EventListenerVM
         {
             readonly string _name = name ?? string.Empty;
 

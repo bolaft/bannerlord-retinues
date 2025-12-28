@@ -1,4 +1,4 @@
-using Retinues.Utilities;
+using Retinues.UI.Services;
 using static Retinues.Configuration.SettingsManager;
 
 namespace Retinues.Configuration

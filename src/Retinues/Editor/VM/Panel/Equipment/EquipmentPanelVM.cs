@@ -1,5 +1,5 @@
-using System.Collections.Generic;
-using Retinues.Utilities;
+using Retinues.Editor.Events;
+using Retinues.UI.Services;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 
@@ -8,7 +8,7 @@ namespace Retinues.Editor.VM.Panel.Equipment
     /// <summary>
     /// Character details panel.
     /// </summary>
-    public partial class EquipmentPanelVM : BaseVM
+    public partial class EquipmentPanelVM : EventListenerVM
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Visibility                       //

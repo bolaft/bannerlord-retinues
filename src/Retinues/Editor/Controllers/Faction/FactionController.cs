@@ -1,11 +1,10 @@
-using Retinues.Helpers;
-using Retinues.Model;
-using Retinues.Model.Factions;
-using Retinues.Utilities;
+using Retinues.Domain.Factions.Wrappers;
+using Retinues.Framework.Model.Exports;
+using Retinues.UI.Services;
 
 namespace Retinues.Editor.Controllers.Faction
 {
-    public class FactionController : EditorController
+    public class FactionController : BaseController
     {
         /// <summary>
         /// Updates the selected culture.

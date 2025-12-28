@@ -1,12 +1,13 @@
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Editor.Controllers.Character;
-using Retinues.Helpers;
+using Retinues.Editor.Events;
+using Retinues.UI.VM;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 
 namespace Retinues.Editor.VM.Panel.Character
 {
-    public class CharacterSkillVM : BaseVM
+    public class CharacterSkillVM : EventListenerVM
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Fields                         //

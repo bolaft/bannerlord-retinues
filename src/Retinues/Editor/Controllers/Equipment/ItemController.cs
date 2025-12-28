@@ -1,10 +1,11 @@
-using Retinues.Model.Equipments;
-using Retinues.Utilities;
+using Retinues.Domain.Equipments.Wrappers;
+using Retinues.Editor.Events;
+using Retinues.UI.Services;
 using TaleWorlds.Core;
 
 namespace Retinues.Editor.Controllers.Equipment
 {
-    public class ItemController : EditorController
+    public class ItemController : BaseController
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Equip                         //
@@ -37,7 +38,7 @@ namespace Retinues.Editor.Controllers.Equipment
             if (State.Equipment == null)
                 return;
 
-            var slot = State.Instance.Slot;
+            var slot = EditorState.Instance.Slot;
             var equipped = State.Equipment.Get(slot);
 
             if (equipped == item)

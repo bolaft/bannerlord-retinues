@@ -2,14 +2,17 @@ using System;
 using System.Collections.Generic;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Configuration;
+using Retinues.Domain.Factions.Helpers;
+using Retinues.Domain.Factions.Wrappers;
 using Retinues.Editor.Controllers.Faction;
+using Retinues.Editor.Events;
 using Retinues.Editor.VM.Column;
 using Retinues.Editor.VM.List;
 using Retinues.Editor.VM.Panel.Character;
 using Retinues.Editor.VM.Panel.Equipment;
 using Retinues.Editor.VM.Panel.Library;
-using Retinues.Helpers;
-using Retinues.Model.Factions;
+using Retinues.UI.Services;
+using Retinues.UI.VM;
 using Retinues.Utilities;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
@@ -30,7 +33,7 @@ namespace Retinues.Editor.VM
     /// <summary>
     /// Root editor ViewModel; initializes shared state and child VMs.
     /// </summary>
-    public class EditorVM : BaseVM
+    public class EditorVM : EventListenerVM
     {
         private readonly Action _close;
 
@@ -61,7 +64,7 @@ namespace Retinues.Editor.VM
             SetPage(EditorPage.Character);
 
             // Start each editor session from a clean shared state.
-            State.Reset(args);
+            EditorState.Reset(args);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -106,7 +109,7 @@ namespace Retinues.Editor.VM
         public string SettingsTabText => L.S("editor_tab_settings", "Settings");
 
         [DataSourceProperty]
-        public bool IsPlayerMode => State.Instance?.Mode == EditorMode.Player;
+        public bool IsPlayerMode => EditorState.Instance?.Mode == EditorMode.Player;
 
         // Selected state for the *top* tabs
         [EventListener(UIEvent.Page)]
@@ -161,7 +164,7 @@ namespace Retinues.Editor.VM
 
         [EventListener(UIEvent.CultureFaction)]
         [DataSourceProperty]
-        public object CultureBanner => State.Culture?.Image ?? Banners.EmptyImage;
+        public object CultureBanner => State.Culture?.Image ?? BannerHelper.EmptyImage;
 
         [DataSourceProperty]
         public Tooltip CultureBannerHint => new(L.S("editor_culture_select", "Select a Culture"));
@@ -214,7 +217,7 @@ namespace Retinues.Editor.VM
 
         [EventListener(UIEvent.ClanFaction)]
         [DataSourceProperty]
-        public object ClanBanner => State.Clan?.Image ?? Banners.EmptyImage;
+        public object ClanBanner => State.Clan?.Image ?? BannerHelper.EmptyImage;
 
         [DataSourceProperty]
         public Tooltip ClanBannerHint => new(L.S("editor_clan_select", "Select a Clan"));

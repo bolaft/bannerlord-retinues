@@ -1,10 +1,11 @@
 using System.Collections.Generic;
-using Retinues.Behaviors;
 using Retinues.Configuration;
-using Retinues.Helpers;
-using Retinues.Module;
-using Retinues.Module.Compatibility;
-using Retinues.Module.Dependencies;
+using Retinues.Editor;
+using Retinues.Framework.Behaviors;
+using Retinues.Framework.Runtime;
+using Retinues.Modules;
+using Retinues.Modules.Compatibility;
+using Retinues.Modules.Dependencies;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
@@ -125,7 +126,7 @@ namespace Retinues
             base.OnApplicationTick(dt);
 
             // Check for hotkeys.
-            Inputs.HotkeyCheck();
+            EditorLauncher.EditorHotkeyCheck();
         }
     }
 }

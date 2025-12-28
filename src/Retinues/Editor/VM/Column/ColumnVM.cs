@@ -1,16 +1,18 @@
 using System;
 using Bannerlord.UIExtenderEx.Attributes;
+using Retinues.Domain.Characters.Wrappers;
+using Retinues.Editor.Events;
 using Retinues.Editor.VM.Column.Character;
 using Retinues.Editor.VM.Column.Equipment;
-using Retinues.Model;
-using Retinues.Model.Characters;
+using Retinues.Framework.Model.Exports;
+using Retinues.UI.Services;
 using Retinues.Utilities;
 using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Library;
 
 namespace Retinues.Editor.VM.Column
 {
-    public class ColumnVM : BaseVM
+    public class ColumnVM : EventListenerVM
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Controls                        //
@@ -62,7 +64,7 @@ namespace Retinues.Editor.VM.Column
 
                 if (EditorVM.Page == EditorPage.Library)
                 {
-                    lease = State.Instance.LibraryItem?.LeaseModelCharacter();
+                    lease = EditorState.Instance.LibraryItem?.LeaseModelCharacter();
                     character = lease?.Character;
 
                     if (character?.Base == null)

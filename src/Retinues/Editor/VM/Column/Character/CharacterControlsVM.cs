@@ -1,13 +1,14 @@
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Editor.Controllers.Character;
-using Retinues.Helpers;
-using Retinues.Module;
-using Retinues.Utilities;
+using Retinues.Editor.Events;
+using Retinues.Modules;
+using Retinues.UI.Services;
+using Retinues.UI.VM;
 using TaleWorlds.Library;
 
 namespace Retinues.Editor.VM.Column.Character
 {
-    public class CharacterControlsVM : BaseVM
+    public class CharacterControlsVM : EventListenerVM
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Visibility                       //

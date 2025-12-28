@@ -1,8 +1,9 @@
 using Bannerlord.UIExtenderEx.Attributes;
+using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Editor.Controllers.Equipment;
-using Retinues.Helpers;
-using Retinues.Model.Equipments;
-using Retinues.Utilities;
+using Retinues.Editor.Events;
+using Retinues.UI.Services;
+using Retinues.UI.VM;
 using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Library;
@@ -12,7 +13,7 @@ namespace Retinues.Editor.VM.Panel.Equipment
     /// <summary>
     /// Equipment slot.
     /// </summary>
-    public partial class EquipmentSlotVM(EquipmentIndex slot, string label) : BaseVM
+    public partial class EquipmentSlotVM(EquipmentIndex slot, string label) : EventListenerVM
     {
         private readonly EquipmentIndex _slot = slot;
         private readonly string _label = label;

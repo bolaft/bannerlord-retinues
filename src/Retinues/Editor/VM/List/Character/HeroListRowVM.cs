@@ -1,7 +1,8 @@
 using System;
 using Bannerlord.UIExtenderEx.Attributes;
-using Retinues.Helpers;
-using Retinues.Model.Characters;
+using Retinues.Domain.Characters.Wrappers;
+using Retinues.Editor.Events;
+using Retinues.UI.Services;
 using TaleWorlds.Library;
 
 namespace Retinues.Editor.VM.List.Character
@@ -10,7 +11,7 @@ namespace Retinues.Editor.VM.List.Character
     /// Row representing a troop character in the list.
     /// </summary>
     public sealed class HeroListRowVM(ListHeaderVM header, WCharacter character)
-        : ListRowVM(header, character?.StringId ?? string.Empty)
+        : BaseListRowVM(header, character?.StringId ?? string.Empty)
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Internals                       //

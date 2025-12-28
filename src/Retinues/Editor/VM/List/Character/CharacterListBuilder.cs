@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using Retinues.Model.Characters;
-using Retinues.Model.Factions;
-using Retinues.Utilities;
+using Retinues.Domain.Characters.Wrappers;
+using Retinues.Domain.Factions.Wrappers;
+using Retinues.UI.Services;
 
 namespace Retinues.Editor.VM.List.Character
 {
@@ -36,7 +36,7 @@ namespace Retinues.Editor.VM.List.Character
             // Single binding update instead of N inserts.
             var headers = new List<ListHeaderVM>();
 
-            var faction = State.Instance.Faction;
+            var faction = EditorState.Instance.Faction;
             if (faction == null)
             {
                 list.SetHeaders(headers);
@@ -81,7 +81,7 @@ namespace Retinues.Editor.VM.List.Character
             }
 
             // Heroes are only shown in universal mode.
-            if (State.Instance.Mode == EditorMode.Universal)
+            if (EditorState.Instance.Mode == EditorMode.Universal)
             {
                 // Heroes.
                 AddSection(

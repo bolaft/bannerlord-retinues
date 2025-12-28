@@ -2,11 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Bannerlord.UIExtenderEx.Attributes;
+using Retinues.Domain.Characters.Helpers;
+using Retinues.Domain.Characters.Wrappers;
+using Retinues.Domain.Factions.Wrappers;
 using Retinues.Editor.Controllers.Character;
-using Retinues.Helpers;
-using Retinues.Model.Characters;
-using Retinues.Model.Factions;
-using Retinues.Utilities;
+using Retinues.Editor.Events;
+using Retinues.UI.Services;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 
@@ -15,7 +16,7 @@ namespace Retinues.Editor.VM.Panel.Character
     /// <summary>
     /// Character details panel.
     /// </summary>
-    public class CharacterPanelVM : BaseVM
+    public class CharacterPanelVM : EventListenerVM
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Constructor                      //
@@ -196,7 +197,8 @@ namespace Retinues.Editor.VM.Panel.Character
         public void RefreshSkillsGrid()
         {
             var skills =
-                Skills.GetSkillListForCharacter(State.Character.IsHero, includeModded: true) ?? [];
+                SkillsHelper.GetSkillListForCharacter(State.Character.IsHero, includeModded: true)
+                ?? [];
             var list = skills.Where(s => s != null).Distinct().ToList();
 
             SkillsCount = list.Count;

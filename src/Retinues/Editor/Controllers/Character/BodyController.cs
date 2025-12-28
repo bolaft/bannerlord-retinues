@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
-using Retinues.Model.Characters;
+using Retinues.Domain.Characters.Wrappers;
+using Retinues.Editor.Events;
 using Retinues.Utilities;
 
 namespace Retinues.Editor.Controllers.Character
 {
-    public class BodyController : EditorController
+    public class BodyController : BaseController
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Presets                        //

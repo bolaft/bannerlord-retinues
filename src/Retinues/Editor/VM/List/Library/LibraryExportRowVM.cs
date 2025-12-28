@@ -1,8 +1,10 @@
 using System;
 using System.IO;
 using Bannerlord.UIExtenderEx.Attributes;
-using Retinues.Model;
-using Retinues.Model.Factions;
+using Retinues.Domain.Factions;
+using Retinues.Domain.Factions.Wrappers;
+using Retinues.Editor.Events;
+using Retinues.Framework.Model.Exports;
 using TaleWorlds.Library;
 
 namespace Retinues.Editor.VM.List.Library
@@ -11,7 +13,7 @@ namespace Retinues.Editor.VM.List.Library
     /// Row representing an importable export file.
     /// </summary>
     public abstract class LibraryExportRowVM(ListHeaderVM header, MLibrary.Item item)
-        : ListRowVM(header, item?.FileName ?? string.Empty)
+        : BaseListRowVM(header, item?.FileName ?? string.Empty)
     {
         protected readonly MLibrary.Item Item = item;
 
@@ -38,10 +40,10 @@ namespace Retinues.Editor.VM.List.Library
         [EventListener(UIEvent.Library, Global = true)]
         [DataSourceProperty]
         public override bool IsSelected =>
-            State.Instance.LibraryItem != null
+            EditorState.Instance.LibraryItem != null
             && Item != null
             && string.Equals(
-                State.Instance.LibraryItem.FilePath,
+                EditorState.Instance.LibraryItem.FilePath,
                 Item.FilePath,
                 StringComparison.OrdinalIgnoreCase
             );
@@ -49,7 +51,7 @@ namespace Retinues.Editor.VM.List.Library
         [DataSourceMethod]
         public override void ExecuteSelect()
         {
-            State.Instance.LibraryItem = Item;
+            EditorState.Instance.LibraryItem = Item;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

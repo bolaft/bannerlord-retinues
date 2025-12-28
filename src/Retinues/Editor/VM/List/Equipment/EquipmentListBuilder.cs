@@ -1,5 +1,6 @@
 using System.Collections.Generic;
-using Retinues.Model.Equipments;
+using Retinues.Domain.Equipments.Wrappers;
+using Retinues.UI.Services;
 using Retinues.Utilities;
 using TaleWorlds.Core;
 
@@ -46,7 +47,7 @@ namespace Retinues.Editor.VM.List.Equipment
             var headers = new List<ListHeaderVM>();
 
             if (
-                State.Instance.Slot
+                EditorState.Instance.Slot
                 is EquipmentIndex.Weapon0
                     or EquipmentIndex.Weapon1
                     or EquipmentIndex.Weapon2
@@ -56,7 +57,7 @@ namespace Retinues.Editor.VM.List.Equipment
                 // Weapons are grouped by type.
                 var types = new Dictionary<ItemObject.ItemTypeEnum, List<WItem>>();
 
-                foreach (var item in WItem.GetEquipmentsForSlot(State.Instance.Slot))
+                foreach (var item in WItem.GetEquipmentsForSlot(EditorState.Instance.Slot))
                 {
                     var type = item.Type;
                     if (!types.ContainsKey(type))
@@ -76,12 +77,12 @@ namespace Retinues.Editor.VM.List.Equipment
                     );
                 }
             }
-            else if (State.Instance.Slot == EquipmentIndex.Horse)
+            else if (EditorState.Instance.Slot == EquipmentIndex.Horse)
             {
                 // Horses are grouped by category.
                 var categories = new Dictionary<ItemCategory, List<WItem>>();
 
-                foreach (var item in WItem.GetEquipmentsForSlot(State.Instance.Slot))
+                foreach (var item in WItem.GetEquipmentsForSlot(EditorState.Instance.Slot))
                 {
                     var category = item.Category;
                     if (!categories.ContainsKey(category))
@@ -107,9 +108,9 @@ namespace Retinues.Editor.VM.List.Equipment
                 headers.Add(
                     CreateHeader(
                         list,
-                        State.Instance.Slot.ToString().ToLowerInvariant(),
-                        Format.CamelCaseToTitle(State.Instance.Slot.ToString()),
-                        WItem.GetEquipmentsForSlot(State.Instance.Slot)
+                        EditorState.Instance.Slot.ToString().ToLowerInvariant(),
+                        Format.CamelCaseToTitle(EditorState.Instance.Slot.ToString()),
+                        WItem.GetEquipmentsForSlot(EditorState.Instance.Slot)
                     )
                 );
             }

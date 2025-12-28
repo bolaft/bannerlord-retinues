@@ -1,16 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Retinues.Helpers;
-using Retinues.Model.Equipments;
-using Retinues.Utilities;
+using Retinues.Domain.Equipments.Models;
+using Retinues.UI.Services;
 
 namespace Retinues.Editor.Controllers.Equipment
 {
     /// <summary>
     /// Non-view logic for equipment set navigation and mutation.
     /// </summary>
-    public class EquipmentController : EditorController
+    public class EquipmentController : BaseController
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Actions                        //

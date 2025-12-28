@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Retinues.Model;
+using Retinues.Framework.Model.Exports;
+using Retinues.UI.Services;
 using Retinues.Utilities;
 
 namespace Retinues.Editor.VM.List.Library
@@ -19,7 +20,6 @@ namespace Retinues.Editor.VM.List.Library
                 new ListSortButtonVM(list, ListSortKey.Name, L.S("sort_by_name", "Name"), 3)
             );
 
-            // Date sort: reuse Value (your LibraryExportRowVM already maps Value -> CreatedUtc).
             list.SortButtons.Add(
                 new ListSortButtonVM(list, ListSortKey.Value, L.S("sort_by_date", "Date"), 2)
             );
@@ -89,7 +89,7 @@ namespace Retinues.Editor.VM.List.Library
             // Default selection: keep current if still present, otherwise select first.
             try
             {
-                var currentPath = State.Instance.LibraryItem?.FilePath;
+                var currentPath = EditorState.Instance.LibraryItem?.FilePath;
 
                 var selected = !string.IsNullOrWhiteSpace(currentPath)
                     ? all.FirstOrDefault(x =>
@@ -104,25 +104,25 @@ namespace Retinues.Editor.VM.List.Library
 
                 selected ??= all.FirstOrDefault(x => x != null);
 
-                if (selected != null && State.Instance.LibraryItem == null)
-                    State.Instance.LibraryItem = selected;
+                if (selected != null && EditorState.Instance.LibraryItem == null)
+                    EditorState.Instance.LibraryItem = selected;
                 else if (
                     selected != null
-                    && State.Instance.LibraryItem != null
+                    && EditorState.Instance.LibraryItem != null
                     && !string.Equals(
-                        State.Instance.LibraryItem.FilePath,
+                        EditorState.Instance.LibraryItem.FilePath,
                         selected.FilePath,
                         StringComparison.OrdinalIgnoreCase
                     )
                     && all.All(x =>
                         !string.Equals(
                             x.FilePath,
-                            State.Instance.LibraryItem.FilePath,
+                            EditorState.Instance.LibraryItem.FilePath,
                             StringComparison.OrdinalIgnoreCase
                         )
                     )
                 )
-                    State.Instance.LibraryItem = selected;
+                    EditorState.Instance.LibraryItem = selected;
             }
             catch (Exception ex)
             {

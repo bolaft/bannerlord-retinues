@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Retinues.Helpers;
-using Retinues.Model;
-using Retinues.Model.Characters;
-using Retinues.Model.Factions;
-using Retinues.Module;
+using Retinues.Domain.Characters.Wrappers;
+using Retinues.Domain.Factions.Wrappers;
+using Retinues.Editor.Events;
+using Retinues.Framework.Model.Exports;
+using Retinues.Modules;
+using Retinues.UI.Services;
 using Retinues.Utilities;
 using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection;
@@ -13,7 +14,7 @@ using TaleWorlds.Localization;
 
 namespace Retinues.Editor.Controllers.Character
 {
-    public class CharacterController : EditorController
+    public class CharacterController : BaseController
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Export                         //

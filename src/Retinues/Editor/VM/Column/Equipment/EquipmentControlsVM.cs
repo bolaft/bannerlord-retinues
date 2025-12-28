@@ -1,14 +1,15 @@
 using System.Collections.Generic;
 using Bannerlord.UIExtenderEx.Attributes;
+using Retinues.Domain.Equipments.Models;
 using Retinues.Editor.Controllers.Equipment;
-using Retinues.Helpers;
-using Retinues.Model.Equipments;
-using Retinues.Utilities;
+using Retinues.Editor.Events;
+using Retinues.UI.Services;
+using Retinues.UI.VM;
 using TaleWorlds.Library;
 
 namespace Retinues.Editor.VM.Column.Equipment
 {
-    public class EquipmentControlsVM : BaseVM
+    public class EquipmentControlsVM : EventListenerVM
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Visibility                       //
