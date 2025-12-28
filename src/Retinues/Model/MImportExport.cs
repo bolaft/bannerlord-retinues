@@ -469,6 +469,26 @@ namespace Retinues.Model
                 {
                     var baseName = string.IsNullOrWhiteSpace(input) ? placeholder : input;
                     var name = SanitizeFileName(baseName);
+
+                    // Use the same final path as the export code.
+                    var path = BuildExportPath(name);
+
+                    if (System.IO.File.Exists(path))
+                    {
+                        Inquiries.Popup(
+                            title: L.T("export_overwrite_title", "Overwrite file?"),
+                            onConfirm: () => onChosen?.Invoke(name),
+                            description: L.T(
+                                    "export_overwrite_desc",
+                                    "A file named '{FILE}' already exists and will be overwritten.\n\n{PATH}"
+                                )
+                                .SetTextVariable("FILE", Path.GetFileName(path))
+                                .SetTextVariable("PATH", path)
+                        );
+
+                        return;
+                    }
+
                     onChosen?.Invoke(name);
                 },
                 description: L.T("export_desc", "Choose a save name:")

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
+using System.Xml;
 using System.Xml.Linq;
 using Retinues.Helpers;
 using Retinues.Model;
@@ -536,6 +536,267 @@ namespace Retinues.Editor.Controllers.Library
             if (s.StartsWith("\"") && s.EndsWith("\""))
                 return s;
             return "\"" + s.Replace("\"", "\\\"") + "\"";
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                    Standalone Export                   //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public static EditorAction<MLibrary.Item> ExportNpcCharacters { get; } =
+            Action<MLibrary.Item>("ExportNpcCharacters")
+                .DefaultTooltip(
+                    L.T("library_export_npc_tooltip", "Convert this export into a standalone mod.")
+                )
+                .AddCondition(
+                    item => item != null,
+                    L.T("library_export_npc_no_selection", "No export selected.")
+                )
+                .AddCondition(
+                    item => !string.IsNullOrWhiteSpace(item.FilePath) && File.Exists(item.FilePath),
+                    item => L.T("library_export_npc_missing_file", "Export file was not found.")
+                )
+                .AddCondition(CanResolveTarget, BuildCantResolveTargetReason)
+                .ExecuteWith(ExecuteExportNpcCharactersWithConfirm);
+
+        private static void ExecuteExportNpcCharactersWithConfirm(MLibrary.Item item)
+        {
+            if (item == null)
+                return;
+
+            Inquiries.Popup(
+                title: L.T("library_export_npc_confirm_title", "Export NPCCharacters"),
+                onConfirm: () => ApplyExportNpcCharacters(item),
+                description: L.T(
+                        "library_export_npc_confirm_desc",
+                        "This will export native NPCCharacters XML based on the current game data.\n\n{PATH}"
+                    )
+                    .SetTextVariable("PATH", item.FilePath ?? string.Empty)
+            );
+        }
+
+        private static void ApplyExportNpcCharacters(MLibrary.Item item)
+        {
+            try
+            {
+                if (item == null)
+                    return;
+
+                var troopIds = GetTroopIdsForNpcExport(item);
+                if (troopIds.Count == 0)
+                {
+                    Inquiries.Popup(
+                        title: L.T("library_export_npc_failed_title", "Export Failed"),
+                        description: L.T(
+                            "library_export_npc_failed_no_troops",
+                            "No troops found in this export."
+                        )
+                    );
+                    return;
+                }
+
+                var missing = new List<string>();
+                var npcStrings = new List<string>();
+
+                foreach (var id in troopIds)
+                {
+                    if (string.IsNullOrWhiteSpace(id))
+                        continue;
+
+                    var wc = WCharacter.Get(id);
+                    if (wc == null)
+                    {
+                        missing.Add(id);
+                        continue;
+                    }
+
+                    npcStrings.Add(wc.ExportAsNPC());
+                }
+
+                if (missing.Count > 0)
+                {
+                    Inquiries.Popup(
+                        title: L.T("library_export_npc_failed_title", "Export Failed"),
+                        description: L.T(
+                                "library_export_npc_failed_missing_targets",
+                                "Some troops could not be resolved in the current game:\n{LIST}"
+                            )
+                            .SetTextVariable("LIST", string.Join("\n", missing))
+                    );
+                    return;
+                }
+
+                var outPath = BuildNpcExportPath(item);
+                WriteNpcCharactersFile(outPath, npcStrings);
+
+                Inquiries.Popup(
+                    title: L.T("library_export_npc_done_title", "Export Complete"),
+                    description: L.T(
+                            "library_export_npc_done_desc",
+                            "NPCCharacters XML written:\n{PATH}"
+                        )
+                        .SetTextVariable("PATH", outPath)
+                );
+            }
+            catch (Exception ex)
+            {
+                Log.Exception(ex, "LibraryController.ApplyExportNpcCharacters failed.");
+                Inquiries.Popup(
+                    title: L.T("library_export_npc_failed_title", "Export Failed"),
+                    description: L.T(
+                        "library_export_npc_failed_exception",
+                        "The file could not be exported."
+                    )
+                );
+            }
+        }
+
+        private static List<string> GetTroopIdsForNpcExport(MLibrary.Item item)
+        {
+            var ids = new List<string>();
+
+            if (item == null)
+                return ids;
+
+            if (item.Kind == MLibraryKind.Character)
+            {
+                if (!string.IsNullOrWhiteSpace(item.SourceId))
+                    ids.Add(item.SourceId);
+
+                return ids;
+            }
+
+            if (item.Kind == MLibraryKind.Faction)
+            {
+                // Faction exports contain multiple WCharacter elements in the file.
+                TryReadTroopIds(item, out ids);
+                return ids;
+            }
+
+            return ids;
+        }
+
+        private static bool TryReadTroopIds(MLibrary.Item item, out List<string> troopIds)
+        {
+            troopIds = [];
+
+            try
+            {
+                if (item == null)
+                    return false;
+
+                if (string.IsNullOrWhiteSpace(item.FilePath) || !File.Exists(item.FilePath))
+                    return false;
+
+                var doc = XDocument.Load(item.FilePath, LoadOptions.None);
+                var root = doc.Root;
+                if (root == null)
+                    return false;
+
+                if (root.Name.LocalName != "Retinues")
+                    return false;
+
+                foreach (var el in root.Elements())
+                {
+                    if (!IsCharacterElement(el))
+                        continue;
+
+                    var id = ReadCharacterId(el);
+                    if (!string.IsNullOrWhiteSpace(id))
+                        troopIds.Add(id);
+                }
+
+                // de-dupe, keep stable order
+                troopIds = troopIds.Distinct().ToList();
+                return troopIds.Count > 0;
+            }
+            catch (Exception ex)
+            {
+                Log.Exception(ex, "LibraryController.TryReadTroopIds failed.");
+                return false;
+            }
+        }
+
+        private static string ReadCharacterId(XElement el)
+        {
+            if (el == null)
+                return string.Empty;
+
+            // Prefer the same concept as your Retinues root tag: "source" is the canonical stringId.
+            var src = (string)el.Attribute("source");
+            if (!string.IsNullOrWhiteSpace(src))
+                return src;
+
+            // Common fallbacks in serialized models.
+            var id = (string)el.Attribute("id");
+            if (!string.IsNullOrWhiteSpace(id))
+                return id;
+
+            var sid = (string)el.Attribute("stringId");
+            if (!string.IsNullOrWhiteSpace(sid))
+                return sid;
+
+            // Last resort: look for inner attribute element patterns if present.
+            var stringIdEl = el.Elements()
+                .FirstOrDefault(e =>
+                    e.Name.LocalName.IndexOf("StringId", StringComparison.OrdinalIgnoreCase) >= 0
+                );
+            if (stringIdEl != null && !string.IsNullOrWhiteSpace(stringIdEl.Value))
+                return stringIdEl.Value.Trim();
+
+            return string.Empty;
+        }
+
+        private static string BuildNpcExportPath(MLibrary.Item item)
+        {
+            // Keep it simple and deterministic: write next to the original export file.
+            // Characters: <troopId>.npccharacters.xml
+            // Factions: <factionId>.npccharacters.xml
+            var dir = Path.GetDirectoryName(item.FilePath) ?? ".";
+            Directory.CreateDirectory(dir);
+
+            var stem =
+                item.Kind == MLibraryKind.Character
+                    ? (item.SourceId ?? "character")
+                    : (item.SourceId ?? "faction");
+
+            return Path.Combine(dir, $"{stem}.npccharacters.xml");
+        }
+
+        private static void WriteNpcCharactersFile(string filePath, List<string> npcElements)
+        {
+            if (string.IsNullOrWhiteSpace(filePath))
+                return;
+
+            var root = new XElement("NPCCharacters");
+
+            foreach (var s in npcElements)
+            {
+                if (string.IsNullOrWhiteSpace(s))
+                    continue;
+
+                root.Add(XElement.Parse(s));
+            }
+
+            var doc = new XDocument(new XDeclaration("1.0", "utf-8", null), root);
+
+            Directory.CreateDirectory(Path.GetDirectoryName(filePath) ?? ".");
+
+            // Use an XmlWriter so the file matches your target formatting + utf-8.
+            using (var fs = File.Create(filePath))
+            using (
+                var xw = XmlWriter.Create(
+                    fs,
+                    new XmlWriterSettings
+                    {
+                        Indent = true,
+                        OmitXmlDeclaration = false,
+                        Encoding = new System.Text.UTF8Encoding(false),
+                    }
+                )
+            )
+            {
+                doc.Save(xw);
+            }
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

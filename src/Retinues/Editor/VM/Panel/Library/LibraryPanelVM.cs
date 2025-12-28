@@ -183,6 +183,15 @@ namespace Retinues.Editor.VM.Panel.Library
         [DataSourceProperty]
         public string DeleteButtonText => L.S("library_delete_button", "Delete");
 
+        [DataSourceProperty]
+        public Tooltip DeleteTooltip =>
+            new(
+                L.S(
+                    "library_delete_tooltip",
+                    "Permanently deletes this library item and associated XML file."
+                )
+            );
+
         [DataSourceMethod]
         public void ExecuteDelete() => LibraryController.DeleteLibraryItem(State.LibraryItem);
 
@@ -193,7 +202,32 @@ namespace Retinues.Editor.VM.Panel.Library
         [DataSourceProperty]
         public string EditButtonText => L.S("library_edit_button", "Edit");
 
+        [DataSourceProperty]
+        public Tooltip EditTooltip =>
+            new(L.S("library_edit_tooltip", "Directly edit this export's XML file contents."));
+
         [DataSourceMethod]
         public void ExecuteEdit() => LibraryController.EditLibraryItem(State.LibraryItem);
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Export                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [EventListener(UIEvent.Library)]
+        [DataSourceProperty]
+        public bool CanExportNpcCharacters =>
+            LibraryController.ExportNpcCharacters.Allow(State.LibraryItem);
+
+        [EventListener(UIEvent.Library)]
+        [DataSourceProperty]
+        public Tooltip ExportNpcCharactersTooltip =>
+            LibraryController.ExportNpcCharacters.Tooltip(State.LibraryItem);
+
+        [DataSourceProperty]
+        public string ExportNpcCharactersButtonText => L.S("library_export_npc_button", "Convert");
+
+        [DataSourceMethod]
+        public void ExecuteExportNpcCharacters() =>
+            LibraryController.ExportNpcCharacters.Execute(State.LibraryItem);
     }
 }

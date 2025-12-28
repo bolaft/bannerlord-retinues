@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Xml.Linq;
 using Retinues.Utilities;
+using TaleWorlds.Library;
 using TaleWorlds.Localization;
 using TaleWorlds.ObjectSystem;
 
@@ -458,6 +459,13 @@ namespace Retinues.Model
                 return el;
             }
 
+            if (value is Enum)
+            {
+                el.SetAttributeValue("t", "enum");
+                el.SetValue(value.ToString()); // "Infantry", "Cavalry", ...
+                return el;
+            }
+
             if (value is bool b)
             {
                 el.SetAttributeValue("t", "bool");
@@ -596,176 +604,375 @@ namespace Retinues.Model
 
         public void DeserializeXml(XElement el)
         {
-            try
+            if (el == null)
+                return;
+
+            // Type tag used by your exports: list/bool/int/float/string/text/mb
+            var tag = ((string)el.Attribute("t") ?? string.Empty).Trim();
+
+            // Some of your serializers might store scalar value in an attribute; prefer it if present.
+            var raw = (string)el.Attribute("v") ?? el.Value;
+            raw = (raw ?? string.Empty).Trim();
+
+            // Local helpers to keep this method self-contained.
+
+            void MarkCleanIfPossible()
             {
-                if (el == null)
+                try
                 {
-                    SetValue(default, markDirty: true);
-                    return;
-                }
+                    // Try common dirty flags/properties. No-op if they don't exist.
+                    if (Reflection.HasField(this, "_isDirty"))
+                        Reflection.SetFieldValue(this, "_isDirty", false);
+                    if (Reflection.HasField(this, "_dirty"))
+                        Reflection.SetFieldValue(this, "_dirty", false);
 
-                var t = typeof(T);
-                var text = el.Value ?? string.Empty;
+                    if (Reflection.HasProperty(this, "IsDirty"))
+                        Reflection.SetPropertyValue(this, "IsDirty", false);
 
-                // MBObjectBase stored as StringId
-                if (typeof(MBObjectBase).IsAssignableFrom(t))
-                {
-                    Deserialize(text);
-                    return;
-                }
-
-                // WBase wrapper stored as StringId
-                if (IsWBaseType(t))
-                {
-                    DeserializeSingleWrapper(t, text);
-                    return;
-                }
-
-                // List<T>
-                if (t.IsGenericType && t.GetGenericTypeDefinition() == typeof(List<>))
-                {
-                    var elemType = t.GetGenericArguments()[0];
-                    var listType = typeof(List<>).MakeGenericType(elemType);
-                    var list = (IList)Activator.CreateInstance(listType);
-
-                    var items = el.Elements("Item").ToList();
-                    if (items.Count == 0)
-                        items = [.. el.Elements()];
-
-                    foreach (var itemEl in items)
+                    // Some builds might have MarkClean/MarkDirty APIs.
+                    try
                     {
-                        string itemText;
+                        Reflection.InvokeMethod(this, "MarkClean", null);
+                    }
+                    catch { }
+                }
+                catch
+                {
+                    // best effort; never throw during deserialization
+                }
+            }
 
-                        if (itemEl.Name.LocalName != "Item" && itemEl.HasElements)
-                            itemText = itemEl.ToString(SaveOptions.DisableFormatting);
-                        else
-                            itemText = itemEl.Value ?? string.Empty;
-
-                        if (typeof(MBObjectBase).IsAssignableFrom(elemType))
-                        {
-                            list.Add(ResolveMbObject(elemType, itemText));
-                            continue;
-                        }
-
-                        if (IsWBaseType(elemType))
-                        {
-                            var get = GetWrapperGetMethod(elemType);
-                            var w = get?.Invoke(null, [itemText]);
-                            if (w != null)
-                                list.Add(w);
-                            continue;
-                        }
-
-                        if (elemType == typeof(string))
-                        {
-                            list.Add(itemText);
-                            continue;
-                        }
-
-                        if (
-                            elemType == typeof(int)
-                            && int.TryParse(itemText, NumberStyles.Integer, Inv, out var li)
-                        )
-                        {
-                            list.Add(li);
-                            continue;
-                        }
-
-                        if (elemType == typeof(bool) && bool.TryParse(itemText, out var lb))
-                        {
-                            list.Add(lb);
-                            continue;
-                        }
-
-                        if (
-                            elemType == typeof(float)
-                            && float.TryParse(itemText, NumberStyles.Float, Inv, out var lf)
-                        )
-                        {
-                            list.Add(lf);
-                            continue;
-                        }
-
-                        list.Add(itemText);
+            bool TryAssignQuiet(object valueObj)
+            {
+                try
+                {
+                    // Prefer writing backing field/property directly to avoid triggering "Set" side effects.
+                    if (Reflection.HasField(this, "_value"))
+                    {
+                        Reflection.SetFieldValue(this, "_value", valueObj);
+                        MarkCleanIfPossible();
+                        return true;
                     }
 
-                    SetValue((T)list, markDirty: true);
-                    return;
+                    if (Reflection.HasProperty(this, "Value"))
+                    {
+                        Reflection.SetPropertyValue(this, "Value", valueObj);
+                        MarkCleanIfPossible();
+                        return true;
+                    }
                 }
-
-                // TextObject (store only Value)
-                if (t == typeof(TextObject))
+                catch
                 {
-                    SetValue((T)(object)new TextObject(text), markDirty: true);
-                    return;
+                    // ignore and fallback to Set(...)
                 }
 
-                // Primitives / strings
-                if (t == typeof(string))
+                return false;
+            }
+
+            void Assign(T value)
+            {
+                if (!TryAssignQuiet(value))
                 {
-                    SetValue((T)(object)text, markDirty: true);
-                    return;
+                    // Fallback: use normal Set and then attempt to mark clean.
+                    Set(value);
+                    MarkCleanIfPossible();
                 }
+            }
 
-                if (t == typeof(int) && int.TryParse(text, NumberStyles.Integer, Inv, out var i))
+            object ResolveMbObject(Type mbType, string id)
+            {
+                if (string.IsNullOrWhiteSpace(id) || mbType == null)
+                    return null;
+
+                try
                 {
-                    SetValue((T)(object)i, markDirty: true);
-                    return;
-                }
+                    // MBObjectManager.Instance.GetObject<T>(string)
+                    var mgr = MBObjectManager.Instance;
+                    var mi = typeof(MBObjectManager)
+                        .GetMethods()
+                        .FirstOrDefault(m =>
+                            m.Name == "GetObject"
+                            && m.IsGenericMethodDefinition
+                            && m.GetParameters().Length == 1
+                            && m.GetParameters()[0].ParameterType == typeof(string)
+                        );
 
-                if (t == typeof(bool) && bool.TryParse(text, out var b))
+                    if (mi == null)
+                        return null;
+
+                    var g = mi.MakeGenericMethod(mbType);
+                    return g.Invoke(mgr, new object[] { id });
+                }
+                catch
                 {
-                    SetValue((T)(object)b, markDirty: true);
-                    return;
+                    return null;
                 }
+            }
 
-                if (t == typeof(float) && float.TryParse(text, NumberStyles.Float, Inv, out var f))
+            object ParseScalar(string s, Type targetType)
+            {
+                s = (s ?? string.Empty).Trim();
+
+                if (targetType == typeof(string))
+                    return s;
+
+                if (targetType == typeof(TextObject))
+                    return new TextObject(s);
+
+                if (targetType == typeof(bool))
+                    return bool.Parse(s);
+
+                if (targetType == typeof(int))
+                    return int.Parse(s, CultureInfo.InvariantCulture);
+
+                if (targetType == typeof(float))
+                    return float.Parse(s, CultureInfo.InvariantCulture);
+
+                if (targetType.IsEnum)
+                    return Enum.Parse(targetType, s, ignoreCase: true);
+
+                // MBObjectBase-derived (CultureObject, ItemCategory, etc.)
+                if (typeof(MBObjectBase).IsAssignableFrom(targetType))
+                    return ResolveMbObject(targetType, s);
+
+                // Last resort: try Convert
+                try
                 {
-                    SetValue((T)(object)f, markDirty: true);
-                    return;
+                    return Convert.ChangeType(s, targetType, CultureInfo.InvariantCulture);
+                }
+                catch
+                {
+                    return null;
+                }
+            }
+
+            object ParseListFromChildren(XElement listEl, Type listType)
+            {
+                // listType: List<TItem>, MBBindingList<TItem>, TItem[], etc.
+                if (listType == null)
+                    return null;
+
+                var isArray = listType.IsArray;
+                var isGeneric = listType.IsGenericType;
+                var itemType =
+                    (
+                        isArray ? listType.GetElementType()
+                        : isGeneric ? listType.GetGenericArguments().FirstOrDefault()
+                        : typeof(string)
+                    ) ?? typeof(string);
+
+                // We'll parse into a temporary List<TItem> first.
+                var tmpListType = typeof(List<>).MakeGenericType(itemType);
+                var tmp = (IList)Activator.CreateInstance(tmpListType);
+
+                foreach (var child in listEl.Elements())
+                {
+                    // <Item>primitive</Item> or <MEquipment ...>...</MEquipment>
+                    object itemObj = null;
+
+                    if (!child.HasElements && child.Name.LocalName == "Item")
+                    {
+                        itemObj = ParseScalar(child.Value, itemType);
+                    }
+                    else if (
+                        !child.HasElements
+                        && child.Attributes().Count() == 0
+                        && itemType == typeof(string)
+                    )
+                    {
+                        itemObj = (child.Value ?? string.Empty).Trim();
+                    }
+                    else
+                    {
+                        // Complex model: create instance and ApplyXml(child)
+                        try
+                        {
+                            var inst = Activator.CreateInstance(itemType);
+                            if (inst != null)
+                            {
+                                // IMPORTANT: your Reflection.InvokeMethod signature needs genericTypes as arg #3:
+                                // InvokeMethod(object target, string name, Type[] genericTypes, params object[] args)
+                                Reflection.InvokeMethod(inst, "ApplyXml", null, child);
+                                itemObj = inst;
+                            }
+                        }
+                        catch
+                        {
+                            itemObj = null;
+                        }
+                    }
+
+                    if (itemObj != null)
+                        tmp.Add(itemObj);
                 }
 
+                // Convert tmp list into the declared listType.
+                if (isArray)
+                {
+                    var arr = Array.CreateInstance(itemType, tmp.Count);
+                    tmp.CopyTo(arr, 0);
+                    return arr;
+                }
+
+                // Handle MBBindingList<T>
                 if (
-                    t == typeof(double)
-                    && double.TryParse(text, NumberStyles.Float, Inv, out var d)
+                    isGeneric
+                    && listType.GetGenericTypeDefinition().FullName
+                        == "TaleWorlds.Library.MBBindingList`1"
                 )
                 {
-                    SetValue((T)(object)d, markDirty: true);
-                    return;
-                }
-
-                // Non-WBase model: if we embedded XML, let the existing instance handle it
-                if (typeof(IModel).IsAssignableFrom(t) && !IsWBaseType(t))
-                {
-                    var current = Get();
-                    if (current != null)
+                    var bb = Activator.CreateInstance(listType);
+                    var add = listType.GetMethod("Add");
+                    if (bb != null && add != null)
                     {
-                        var innerModelEl = el.Elements().FirstOrDefault();
-                        if (innerModelEl != null)
-                        {
-                            var mi = current
-                                .GetType()
-                                .GetMethod(
-                                    "Deserialize",
-                                    BindingFlags.Public | BindingFlags.Instance
-                                );
-
-                            mi?.Invoke(
-                                current,
-                                [innerModelEl.ToString(SaveOptions.DisableFormatting)]
-                            );
-
-                            return;
-                        }
+                        for (int i = 0; i < tmp.Count; i++)
+                            add.Invoke(bb, new[] { tmp[i] });
+                        return bb;
                     }
                 }
 
-                // Final fallback: try existing Deserialize(string) path
-                Deserialize(text);
+                // If declared type is List<T> (or any assignable from List<T>), return tmp.
+                if (listType.IsAssignableFrom(tmpListType))
+                    return tmp;
+
+                // Try to construct the declared list type and add items.
+                try
+                {
+                    if (typeof(IList).IsAssignableFrom(listType))
+                    {
+                        var list = (IList)Activator.CreateInstance(listType);
+                        if (list != null)
+                        {
+                            for (int i = 0; i < tmp.Count; i++)
+                                list.Add(tmp[i]);
+                            return list;
+                        }
+                    }
+                }
+                catch
+                {
+                    // ignore
+                }
+
+                return tmp;
             }
-            catch
+
+            try
             {
-                SetValue(default, markDirty: true);
+                // 1) Lists with nested children: never DataContract-deserialize.
+                if (tag == "list" && el.HasElements)
+                {
+                    var obj = ParseListFromChildren(el, typeof(T));
+                    if (obj is T typed)
+                    {
+                        Assign(typed);
+                        return;
+                    }
+
+                    // If we couldn't strongly-type it, try best-effort assign via backing field/property.
+                    if (TryAssignQuiet(obj))
+                        return;
+
+                    // Last resort: ignore.
+                    return;
+                }
+
+                // 2) Scalar types: parse directly (avoids DCS on non-XML strings).
+                if (tag == "bool")
+                {
+                    Assign((T)(object)bool.Parse(raw));
+                    return;
+                }
+
+                if (tag == "int")
+                {
+                    Assign((T)(object)int.Parse(raw, CultureInfo.InvariantCulture));
+                    return;
+                }
+
+                if (tag == "float")
+                {
+                    Assign((T)(object)float.Parse(raw, CultureInfo.InvariantCulture));
+                    return;
+                }
+
+                if (tag == "string")
+                {
+                    Assign((T)(object)raw);
+                    return;
+                }
+
+                if (tag == "text")
+                {
+                    Assign((T)(object)new TextObject(raw));
+                    return;
+                }
+
+                if (tag == "mb")
+                {
+                    // Most of your "mb" values are StringId references, e.g. "nord".
+                    var mb = ResolveMbObject(typeof(T), raw);
+                    if (mb is T typedMb)
+                    {
+                        Assign(typedMb);
+                        return;
+                    }
+
+                    // Some mb-like attrs might actually be stored as string IDs in a string attribute type.
+                    if (typeof(T) == typeof(string))
+                    {
+                        Assign((T)(object)raw);
+                        return;
+                    }
+
+                    // If resolution failed, keep it clean but default.
+                    MarkCleanIfPossible();
+                    return;
+                }
+
+                if (tag == "enum")
+                {
+                    // accept both "Cavalry" and "2"
+                    if (
+                        int.TryParse(
+                            raw,
+                            NumberStyles.Integer,
+                            CultureInfo.InvariantCulture,
+                            out var i
+                        )
+                    )
+                    {
+                        Assign((T)Enum.ToObject(typeof(T), i));
+                        return;
+                    }
+
+                    Assign((T)Enum.Parse(typeof(T), raw, ignoreCase: true));
+                    return;
+                }
+
+                // 3) Fallback: if the old format stored values as inner text with unknown tag,
+                // try best-effort scalar conversion based on T.
+                var fallbackObj = ParseScalar(raw, typeof(T));
+                if (fallbackObj is T fallbackTyped)
+                {
+                    Assign(fallbackTyped);
+                    return;
+                }
+
+                // If nothing worked, keep it clean and do nothing.
+                MarkCleanIfPossible();
+            }
+            catch (Exception ex)
+            {
+                // Never throw from deserialization.
+                try
+                {
+                    Log.Warn($"MAttribute.DeserializeXml failed for '{el.Name}': {ex.Message}");
+                }
+                catch
+                {
+                    // ignore logging failures
+                }
             }
         }
     }

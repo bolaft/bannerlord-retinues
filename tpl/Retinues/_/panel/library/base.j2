@@ -159,10 +159,36 @@
                                     Brush.FontSize="24"
                                     Text="@ImportButtonText"
                                     TextAlignment="Center" />
+                                <HintWidget
+                                    DataSource="{ImportTooltip}"
+                                    Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
                             </Children>
                         </ButtonWidget>
                     </Children>
                 </Widget>
+
+                {# Export NPCCharacters #}
+                <ButtonWidget
+                    DoNotPassEventsToChildren="true"
+                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                    SuggestedWidth="240" SuggestedHeight="60"
+                    HorizontalAlignment="Center" VerticalAlignment="Bottom"
+                    Brush="Popup.Done.Button"
+                    IsEnabled="@CanExportNpcCharacters"
+                    Command.Click="ExecuteExportNpcCharacters">
+                    <Children>
+                        <TextWidget
+                            WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+                            HorizontalAlignment="Center" VerticalAlignment="Center"
+                            Brush="Clan.Name.Tuple"
+                            Brush.FontSize="24"
+                            Text="@ExportNpcCharactersButtonText"
+                            TextAlignment="Center" />
+                        <HintWidget
+                            DataSource="{ExportNpcCharactersTooltip}"
+                            Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
+                    </Children>
+                </ButtonWidget>
 
                 {# Edit Button #}
                 <ButtonWidget
@@ -180,6 +206,9 @@
                             Brush.FontSize="24"
                             Text="@EditButtonText"
                             TextAlignment="Center" />
+                        <HintWidget
+                            DataSource="{EditTooltip}"
+                            Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
                     </Children>
                 </ButtonWidget>
 
@@ -199,6 +228,9 @@
                             Brush.FontSize="24"
                             Text="@DeleteButtonText"
                             TextAlignment="Center" />
+                        <HintWidget
+                            DataSource="{DeleteTooltip}"
+                            Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
                     </Children>
                 </ButtonWidget>
 
