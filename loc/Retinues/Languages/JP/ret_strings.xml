@@ -167,6 +167,12 @@
       id="ret_export_desc"
       text="保存名を選択してください：" />
     <string
+      id="ret_export_overwrite_desc"
+      text="&apos;{FILE}&apos;という名前のファイルは既に存在しており、上書きされます。{newline}{newline}{PATH}" />
+    <string
+      id="ret_export_overwrite_title"
+      text="ファイルを上書きしますか？" />
+    <string
       id="ret_export_title"
       text="保存" />
     <string
@@ -269,6 +275,9 @@
       id="ret_library_delete_failed_title"
       text="削除に失敗しました" />
     <string
+      id="ret_library_delete_tooltip"
+      text="このライブラリ項目と関連する XML ファイルを永久に削除します。" />
+    <string
       id="ret_library_edit_button"
       text="編集" />
     <string
@@ -287,8 +296,56 @@
       id="ret_library_edit_failed_title"
       text="開くに失敗しました" />
     <string
+      id="ret_library_edit_tooltip"
+      text="このエクスポートの XML ファイルの内容を直接編集します。" />
+    <string
       id="ret_library_export_file_header"
       text="ファイル" />
+    <string
+      id="ret_library_export_npc_button"
+      text="変換" />
+    <string
+      id="ret_library_export_npc_confirm_desc"
+      text="これにより、このライブラリ要素がスタンドアロンのモッドにエクスポートされます：{newline}{newline}{PATH}" />
+    <string
+      id="ret_library_export_npc_confirm_desc_overwrite"
+      text="これにより、このライブラリ要素がスタンドアロンのモッドにエクスポートされ、既存のファイルが上書きされます：{newline}{newline}{PATH}" />
+    <string
+      id="ret_library_export_npc_confirm_title"
+      text="モッドとしてエクスポート" />
+    <string
+      id="ret_library_export_npc_done_desc_fallback"
+      text="ゲームのインストールフォルダは保護されているため、代わりにここにモジュールが書き込まれました：{newline}{PATH}{newline}{newline}このフォルダを Bannerlord のモジュールディレクトリにコピーして、ゲームを再起動してください。" />
+    <string
+      id="ret_library_export_npc_done_desc_mod"
+      text="スタンドアロンモジュールが書き込まれました：{newline}{PATH}{newline}{newline}ゲームを再起動してロードします。" />
+    <string
+      id="ret_library_export_npc_done_title"
+      text="エクスポート完了" />
+    <string
+      id="ret_library_export_npc_failed_exception"
+      text="ファイルをエクスポートできませんでした。" />
+    <string
+      id="ret_library_export_npc_failed_no_modules_dir"
+      text="ゲームのモジュールフォルダを見つけることができませんでした。" />
+    <string
+      id="ret_library_export_npc_failed_no_output"
+      text="このエクスポートからキャラクターを生成できませんでした。" />
+    <string
+      id="ret_library_export_npc_failed_no_payloads"
+      text="このエクスポートにはキャラクターのペイロードが見つかりませんでした。" />
+    <string
+      id="ret_library_export_npc_failed_title"
+      text="エクスポートに失敗しました" />
+    <string
+      id="ret_library_export_npc_missing_file"
+      text="エクスポートファイルが見つかりませんでした。" />
+    <string
+      id="ret_library_export_npc_no_selection"
+      text="エクスポートが選択されていません。" />
+    <string
+      id="ret_library_export_npc_tooltip"
+      text="このエクスポートをスタンドアロンのモッドに変換します。" />
     <string
       id="ret_library_exports_empty_text"
       text="保存されたエクスポートが見つかりませんでした。" />

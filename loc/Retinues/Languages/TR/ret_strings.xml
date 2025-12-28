@@ -167,6 +167,12 @@
       id="ret_export_desc"
       text="Kaydetme adı seçin:" />
     <string
+      id="ret_export_overwrite_desc"
+      text="&apos;{FILE}&apos; adlı bir dosya zaten var ve üzerine yazılacak.{newline}{newline}{PATH}" />
+    <string
+      id="ret_export_overwrite_title"
+      text="Dosya üzerine yazılsın mı?" />
+    <string
       id="ret_export_title"
       text="Kaydet" />
     <string
@@ -269,6 +275,9 @@
       id="ret_library_delete_failed_title"
       text="Silme Başarısız" />
     <string
+      id="ret_library_delete_tooltip"
+      text="Bu kütüphane öğesini ve ilişkili XML dosyasını kalıcı olarak siler." />
+    <string
       id="ret_library_edit_button"
       text="Düzenle" />
     <string
@@ -287,8 +296,56 @@
       id="ret_library_edit_failed_title"
       text="Açma Başarısız" />
     <string
+      id="ret_library_edit_tooltip"
+      text="Bu ihracatın XML dosyası içeriğini doğrudan düzenleyin." />
+    <string
       id="ret_library_export_file_header"
       text="Dosya" />
+    <string
+      id="ret_library_export_npc_button"
+      text="Dönüştür" />
+    <string
+      id="ret_library_export_npc_confirm_desc"
+      text="Bu, bu kütüphane öğesini bağımsız bir modül olarak dışa aktaracaktır:{newline}{newline}{PATH}" />
+    <string
+      id="ret_library_export_npc_confirm_desc_overwrite"
+      text="Bu, bu kütüphane öğesini bağımsız bir modül olarak dışa aktaracak ve mevcut dosyaların üzerine yazacaktır:{newline}{newline}{PATH}" />
+    <string
+      id="ret_library_export_npc_confirm_title"
+      text="Mod Olarak Dışa Aktar" />
+    <string
+      id="ret_library_export_npc_done_desc_fallback"
+      text="Oyun kurulum klasörü korumalıdır, bu nedenle modül bunun yerine buraya yazıldı:{newline}{PATH}{newline}{newline}Bu klasörü Bannerlord Modüller dizininize kopyalayın ve ardından oyunu yeniden başlatın." />
+    <string
+      id="ret_library_export_npc_done_desc_mod"
+      text="Bağımsız modül yazıldı:{newline}{PATH}{newline}{newline}Yüklemek için oyunu yeniden başlatın." />
+    <string
+      id="ret_library_export_npc_done_title"
+      text="Dışa Aktarma Tamamlandı" />
+    <string
+      id="ret_library_export_npc_failed_exception"
+      text="Dosya dışa aktarılamadı." />
+    <string
+      id="ret_library_export_npc_failed_no_modules_dir"
+      text="Oyunun Modüller klasörü bulunamadı." />
+    <string
+      id="ret_library_export_npc_failed_no_output"
+      text="Bu ihracattan karakter oluşturulamadı." />
+    <string
+      id="ret_library_export_npc_failed_no_payloads"
+      text="Bu ihracatta karakter yükleri bulunamadı." />
+    <string
+      id="ret_library_export_npc_failed_title"
+      text="Dışa Aktarma Başarısız" />
+    <string
+      id="ret_library_export_npc_missing_file"
+      text="İhracat dosyası bulunamadı." />
+    <string
+      id="ret_library_export_npc_no_selection"
+      text="Hiçbir ihracat seçilmedi." />
+    <string
+      id="ret_library_export_npc_tooltip"
+      text="Bu ihracatı bağımsız bir modül olarak dönüştürün." />
     <string
       id="ret_library_exports_empty_text"
       text="Kaydedilmiş ihracat bulunamadı." />

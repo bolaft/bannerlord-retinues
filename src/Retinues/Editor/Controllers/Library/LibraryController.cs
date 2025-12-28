@@ -10,6 +10,7 @@ using Retinues.Model;
 using Retinues.Model.Characters;
 using Retinues.Model.Factions;
 using Retinues.Utilities;
+using TaleWorlds.Library;
 using TaleWorlds.Localization;
 
 namespace Retinues.Editor.Controllers.Library
@@ -542,6 +543,8 @@ namespace Retinues.Editor.Controllers.Library
         //                    Standalone Export                   //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        private const string NpcExportModulePrefix = "Retinues.Export.";
+
         public static EditorAction<MLibrary.Item> ExportNpcCharacters { get; } =
             Action<MLibrary.Item>("ExportNpcCharacters")
                 .DefaultTooltip(
@@ -555,7 +558,6 @@ namespace Retinues.Editor.Controllers.Library
                     item => !string.IsNullOrWhiteSpace(item.FilePath) && File.Exists(item.FilePath),
                     item => L.T("library_export_npc_missing_file", "Export file was not found.")
                 )
-                .AddCondition(CanResolveTarget, BuildCantResolveTargetReason)
                 .ExecuteWith(ExecuteExportNpcCharactersWithConfirm);
 
         private static void ExecuteExportNpcCharactersWithConfirm(MLibrary.Item item)
@@ -563,14 +565,43 @@ namespace Retinues.Editor.Controllers.Library
             if (item == null)
                 return;
 
-            Inquiries.Popup(
-                title: L.T("library_export_npc_confirm_title", "Export NPCCharacters"),
-                onConfirm: () => ApplyExportNpcCharacters(item),
-                description: L.T(
-                        "library_export_npc_confirm_desc",
-                        "This will export native NPCCharacters XML based on the current game data.\n\n{PATH}"
+            if (
+                !TryResolveGameModulesDirectory(out var modulesDir)
+                || string.IsNullOrWhiteSpace(modulesDir)
+            )
+            {
+                Inquiries.Popup(
+                    title: L.T("library_export_npc_failed_title", "Export Failed"),
+                    description: L.T(
+                        "library_export_npc_failed_no_modules_dir",
+                        "Could not locate the game's Modules folder."
                     )
-                    .SetTextVariable("PATH", item.FilePath ?? string.Empty)
+                );
+                return;
+            }
+
+            var moduleId = BuildNpcModuleId(item);
+            var modRoot = Path.Combine(modulesDir, moduleId);
+
+            var willOverwrite = Directory.Exists(modRoot);
+
+            var title = L.T("library_export_npc_confirm_title", "Export as Mod");
+            var desc = willOverwrite
+                ? L.T(
+                        "library_export_npc_confirm_desc_overwrite",
+                        "This will export this library element into a standalone mod, and overwrite existing files:\n\n{PATH}"
+                    )
+                    .SetTextVariable("PATH", modRoot)
+                : L.T(
+                        "library_export_npc_confirm_desc",
+                        "This will export this library element into a standalone mod:\n\n{PATH}"
+                    )
+                    .SetTextVariable("PATH", modRoot);
+
+            Inquiries.Popup(
+                title: title,
+                onConfirm: () => ApplyExportNpcCharacters(item),
+                description: desc
             );
         }
 
@@ -581,61 +612,135 @@ namespace Retinues.Editor.Controllers.Library
                 if (item == null)
                     return;
 
-                var troopIds = GetTroopIdsForNpcExport(item);
-                if (troopIds.Count == 0)
+                if (
+                    !TryResolveGameModulesDirectory(out var modulesDir)
+                    || string.IsNullOrWhiteSpace(modulesDir)
+                )
                 {
                     Inquiries.Popup(
                         title: L.T("library_export_npc_failed_title", "Export Failed"),
                         description: L.T(
-                            "library_export_npc_failed_no_troops",
-                            "No troops found in this export."
+                            "library_export_npc_failed_no_modules_dir",
+                            "Could not locate the game's Modules folder."
                         )
                     );
                     return;
                 }
 
-                var missing = new List<string>();
+                if (
+                    !TryExtractModelCharacterPayloads(item, out var payloads)
+                    || payloads.Count == 0
+                )
+                {
+                    Inquiries.Popup(
+                        title: L.T("library_export_npc_failed_title", "Export Failed"),
+                        description: L.T(
+                            "library_export_npc_failed_no_payloads",
+                            "No character payloads were found in this export."
+                        )
+                    );
+                    return;
+                }
+
                 var npcStrings = new List<string>();
+                var missingVanillaBases = new List<string>();
 
-                foreach (var id in troopIds)
+                foreach (var p in payloads)
                 {
-                    if (string.IsNullOrWhiteSpace(id))
+                    using var lease = LeaseStubFromPayload(
+                        p.Payload,
+                        p.ModelStringId,
+                        out var missingVanillaBaseId
+                    );
+                    if (lease == null || lease.Character == null)
                         continue;
 
-                    var wc = WCharacter.Get(id);
-                    if (wc == null)
-                    {
-                        missing.Add(id);
-                        continue;
-                    }
+                    if (!string.IsNullOrWhiteSpace(missingVanillaBaseId))
+                        missingVanillaBases.Add(missingVanillaBaseId);
 
-                    npcStrings.Add(wc.ExportAsNPC());
+                    npcStrings.Add(lease.Character.ExportAsNPC());
                 }
 
-                if (missing.Count > 0)
+                if (npcStrings.Count == 0)
                 {
                     Inquiries.Popup(
                         title: L.T("library_export_npc_failed_title", "Export Failed"),
                         description: L.T(
-                                "library_export_npc_failed_missing_targets",
-                                "Some troops could not be resolved in the current game:\n{LIST}"
-                            )
-                            .SetTextVariable("LIST", string.Join("\n", missing))
+                            "library_export_npc_failed_no_output",
+                            "No characters could be generated from this export."
+                        )
                     );
                     return;
                 }
 
-                var outPath = BuildNpcExportPath(item);
-                WriteNpcCharactersFile(outPath, npcStrings);
+                var moduleId = BuildNpcModuleId(item);
+                var paths = BuildNpcModExportPaths(modulesDir, moduleId);
 
-                Inquiries.Popup(
-                    title: L.T("library_export_npc_done_title", "Export Complete"),
-                    description: L.T(
-                            "library_export_npc_done_desc",
-                            "NPCCharacters XML written:\n{PATH}"
+                try
+                {
+                    WriteNpcCharactersMod(paths, npcStrings);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    // Program Files (x86) is commonly protected.
+                    var fallback = FileSystem.GetPathInRetinuesDocuments("GeneratedMods", moduleId);
+                    var fallbackPaths = BuildNpcModExportPaths(
+                        fallback,
+                        moduleId,
+                        rootIsAlreadyModuleDir: true
+                    );
+
+                    WriteNpcCharactersMod(fallbackPaths, npcStrings);
+
+                    var warn =
+                        missingVanillaBases.Count > 0
+                            ? "\n\nWarnings:\nSome vanilla baselines could not be resolved (delta exports may be incomplete):\n"
+                                + string.Join("\n", missingVanillaBases.Distinct())
+                            : string.Empty;
+
+                    var baseDesc = L.T(
+                            "library_export_npc_done_desc_fallback",
+                            "The game install folder is protected, so the module was written here instead:\n{PATH}\n\nCopy this folder into your Bannerlord Modules directory, then restart the game."
                         )
-                        .SetTextVariable("PATH", outPath)
-                );
+                        .SetTextVariable(
+                            "PATH",
+                            Path.GetDirectoryName(fallbackPaths.SubModuleXmlPath) ?? fallback
+                        )
+                        .ToString();
+
+                    var finalDesc = string.IsNullOrWhiteSpace(warn) ? baseDesc : (baseDesc + warn);
+
+                    Inquiries.Popup(
+                        title: L.T("library_export_npc_done_title", "Export Complete"),
+                        description: new TextObject(finalDesc)
+                    );
+                    return;
+                }
+
+                {
+                    var warn =
+                        missingVanillaBases.Count > 0
+                            ? "\n\nWarnings:\nSome vanilla baselines could not be resolved (delta exports may be incomplete):\n"
+                                + string.Join("\n", missingVanillaBases.Distinct())
+                            : string.Empty;
+
+                    var baseDesc = L.T(
+                            "library_export_npc_done_desc_mod",
+                            "Standalone module written:\n{PATH}\n\nRestart the game to load it."
+                        )
+                        .SetTextVariable(
+                            "PATH",
+                            Path.GetDirectoryName(paths.SubModuleXmlPath) ?? paths.ModuleRoot
+                        )
+                        .ToString();
+
+                    var finalDesc = string.IsNullOrWhiteSpace(warn) ? baseDesc : (baseDesc + warn);
+
+                    Inquiries.Popup(
+                        title: L.T("library_export_npc_done_title", "Export Complete"),
+                        description: new TextObject(finalDesc)
+                    );
+                }
             }
             catch (Exception ex)
             {
@@ -650,34 +755,18 @@ namespace Retinues.Editor.Controllers.Library
             }
         }
 
-        private static List<string> GetTroopIdsForNpcExport(MLibrary.Item item)
+        private readonly struct ModelPayload(string payload, string modelStringId)
         {
-            var ids = new List<string>();
-
-            if (item == null)
-                return ids;
-
-            if (item.Kind == MLibraryKind.Character)
-            {
-                if (!string.IsNullOrWhiteSpace(item.SourceId))
-                    ids.Add(item.SourceId);
-
-                return ids;
-            }
-
-            if (item.Kind == MLibraryKind.Faction)
-            {
-                // Faction exports contain multiple WCharacter elements in the file.
-                TryReadTroopIds(item, out ids);
-                return ids;
-            }
-
-            return ids;
+            public string Payload => payload;
+            public string ModelStringId => modelStringId;
         }
 
-        private static bool TryReadTroopIds(MLibrary.Item item, out List<string> troopIds)
+        private static bool TryExtractModelCharacterPayloads(
+            MLibrary.Item item,
+            out List<ModelPayload> payloads
+        )
         {
-            troopIds = [];
+            payloads = new List<ModelPayload>();
 
             try
             {
@@ -689,10 +778,7 @@ namespace Retinues.Editor.Controllers.Library
 
                 var doc = XDocument.Load(item.FilePath, LoadOptions.None);
                 var root = doc.Root;
-                if (root == null)
-                    return false;
-
-                if (root.Name.LocalName != "Retinues")
+                if (root == null || root.Name.LocalName != "Retinues")
                     return false;
 
                 foreach (var el in root.Elements())
@@ -700,66 +786,265 @@ namespace Retinues.Editor.Controllers.Library
                     if (!IsCharacterElement(el))
                         continue;
 
-                    var id = ReadCharacterId(el);
-                    if (!string.IsNullOrWhiteSpace(id))
-                        troopIds.Add(id);
+                    var payload = ExtractPayload(el);
+                    if (string.IsNullOrWhiteSpace(payload))
+                        continue;
+
+                    var modelStringId = TryGetModelStringId(el);
+
+                    payloads.Add(new ModelPayload(payload, modelStringId));
+
+                    // For pure character exports, only one payload is expected.
+                    if (item.Kind == MLibraryKind.Character)
+                        break;
                 }
 
-                // de-dupe, keep stable order
-                troopIds = troopIds.Distinct().ToList();
-                return troopIds.Count > 0;
+                return payloads.Count > 0;
             }
             catch (Exception ex)
             {
-                Log.Exception(ex, "LibraryController.TryReadTroopIds failed.");
+                Log.Exception(ex, "LibraryController.TryExtractModelCharacterPayloads failed.");
                 return false;
             }
         }
 
-        private static string ReadCharacterId(XElement el)
+        private static string ExtractPayload(XElement el)
         {
             if (el == null)
                 return string.Empty;
 
-            // Prefer the same concept as your Retinues root tag: "source" is the canonical stringId.
-            var src = (string)el.Attribute("source");
-            if (!string.IsNullOrWhiteSpace(src))
-                return src;
+            // Same idea as the library model lease: keep the element, drop uid.
+            var copy = new XElement(el);
+            copy.SetAttributeValue("uid", null);
+            return copy.ToString(SaveOptions.DisableFormatting);
+        }
 
-            // Common fallbacks in serialized models.
-            var id = (string)el.Attribute("id");
+        private static string TryGetModelStringId(XElement el)
+        {
+            if (el == null)
+                return null;
+
+            var id = (string)el.Attribute("stringId") ?? (string)el.Attribute("id");
             if (!string.IsNullOrWhiteSpace(id))
                 return id;
 
-            var sid = (string)el.Attribute("stringId");
-            if (!string.IsNullOrWhiteSpace(sid))
-                return sid;
-
-            // Last resort: look for inner attribute element patterns if present.
-            var stringIdEl = el.Elements()
-                .FirstOrDefault(e =>
-                    e.Name.LocalName.IndexOf("StringId", StringComparison.OrdinalIgnoreCase) >= 0
-                );
-            if (stringIdEl != null && !string.IsNullOrWhiteSpace(stringIdEl.Value))
-                return stringIdEl.Value.Trim();
-
-            return string.Empty;
+            var uid = (string)el.Attribute("uid");
+            return TryGetStringIdFromUid(uid);
         }
 
-        private static string BuildNpcExportPath(MLibrary.Item item)
+        private static string TryGetStringIdFromUid(string uid)
         {
-            // Keep it simple and deterministic: write next to the original export file.
-            // Characters: <troopId>.npccharacters.xml
-            // Factions: <factionId>.npccharacters.xml
-            var dir = Path.GetDirectoryName(item.FilePath) ?? ".";
-            Directory.CreateDirectory(dir);
+            if (string.IsNullOrWhiteSpace(uid))
+                return null;
 
-            var stem =
-                item.Kind == MLibraryKind.Character
-                    ? (item.SourceId ?? "character")
-                    : (item.SourceId ?? "faction");
+            var sep = uid.IndexOf(':');
+            if (sep <= 0 || sep >= uid.Length - 1)
+                return null;
 
-            return Path.Combine(dir, $"{stem}.npccharacters.xml");
+            return uid.Substring(sep + 1);
+        }
+
+        private readonly struct NpcModPaths(
+            string moduleRoot,
+            string subModuleXmlPath,
+            string charactersXmlPath
+        )
+        {
+            public string ModuleRoot => moduleRoot;
+            public string SubModuleXmlPath => subModuleXmlPath;
+            public string CharactersXmlPath => charactersXmlPath;
+        }
+
+        private static bool TryResolveGameModulesDirectory(out string modulesDir)
+        {
+            modulesDir = string.Empty;
+
+            try
+            {
+                // Best option in-game: resolves actual install base (Steam, GOG, custom library, etc.)
+                var basePath = BasePath.Name;
+                if (!string.IsNullOrWhiteSpace(basePath))
+                {
+                    var candidate = Path.GetFullPath(Path.Combine(basePath, "Modules"));
+                    if (Directory.Exists(candidate))
+                    {
+                        modulesDir = candidate;
+                        return true;
+                    }
+                }
+            }
+            catch
+            {
+                // fall through
+            }
+
+            try
+            {
+                // Fallback: walk up from bin folder until we find "Modules"
+                var dir = AppDomain.CurrentDomain.BaseDirectory;
+                for (int i = 0; i < 8 && !string.IsNullOrWhiteSpace(dir); i++)
+                {
+                    var candidate = Path.Combine(dir, "Modules");
+                    if (Directory.Exists(candidate))
+                    {
+                        modulesDir = Path.GetFullPath(candidate);
+                        return true;
+                    }
+
+                    dir = Directory.GetParent(dir)?.FullName;
+                }
+            }
+            catch
+            {
+                // fall through
+            }
+
+            return false;
+        }
+
+        private static string BuildNpcModuleId(MLibrary.Item item)
+        {
+            // Prefer display name, fallback to source id.
+            var raw = item?.DisplayName;
+            if (string.IsNullOrWhiteSpace(raw))
+                raw = item?.SourceId;
+
+            if (string.IsNullOrWhiteSpace(raw))
+                raw = "Export";
+
+            // We want: "Retinues.Export.Nord_Scion"
+            // Preserve dots in the prefix, but sanitize the suffix.
+            var suffix = SanitizeModuleId(raw); // turns spaces -> '_' and strips invalid chars
+            return NpcExportModulePrefix + suffix;
+        }
+
+        private static string SanitizeModuleId(string raw)
+        {
+            raw ??= string.Empty;
+
+            var s = raw.Trim();
+
+            // Convert whitespace to underscores to keep module ids launcher-friendly.
+            s = string.Join(
+                "_",
+                s.Split(new[] { ' ', '\t', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries)
+            );
+
+            // Remove invalid filename chars.
+            foreach (var c in Path.GetInvalidFileNameChars())
+                s = s.Replace(c.ToString(), string.Empty);
+
+            // Keep it conservative: letters, digits, '_' and '-'.
+            var chars = s.ToCharArray();
+            for (int i = 0; i < chars.Length; i++)
+            {
+                var ch = chars[i];
+                var ok =
+                    (ch >= 'a' && ch <= 'z')
+                    || (ch >= 'A' && ch <= 'Z')
+                    || (ch >= '0' && ch <= '9')
+                    || ch == '_'
+                    || ch == '-';
+
+                if (!ok)
+                    chars[i] = '_';
+            }
+
+            s = new string(chars);
+
+            // Trim underscores that can accumulate.
+            s = s.Trim('_');
+
+            if (string.IsNullOrWhiteSpace(s))
+                s = "RetinuesExport";
+
+            return s;
+        }
+
+        private static NpcModPaths BuildNpcModExportPaths(
+            string modulesDir,
+            string moduleId,
+            bool rootIsAlreadyModuleDir = false
+        )
+        {
+            // If rootIsAlreadyModuleDir=true, modulesDir is actually the module root container already.
+            // Example: fallback folder points to .../GeneratedMods/<moduleId>
+            var moduleRoot = rootIsAlreadyModuleDir
+                ? modulesDir
+                : Path.Combine(modulesDir, moduleId);
+
+            var subModuleXmlPath = Path.Combine(moduleRoot, "SubModule.xml");
+            var charactersXmlPath = Path.Combine(moduleRoot, "ModuleData", "characters.xml");
+
+            return new NpcModPaths(moduleRoot, subModuleXmlPath, charactersXmlPath);
+        }
+
+        private static void WriteNpcCharactersMod(NpcModPaths paths, List<string> npcElements)
+        {
+            if (string.IsNullOrWhiteSpace(paths.ModuleRoot))
+                return;
+
+            Directory.CreateDirectory(paths.ModuleRoot);
+            Directory.CreateDirectory(
+                Path.GetDirectoryName(paths.CharactersXmlPath) ?? paths.ModuleRoot
+            );
+
+            WriteSubModuleXml(paths.SubModuleXmlPath, Path.GetFileName(paths.ModuleRoot));
+            WriteNpcCharactersFile(paths.CharactersXmlPath, npcElements);
+        }
+
+        private static void WriteSubModuleXml(string filePath, string moduleId)
+        {
+            if (string.IsNullOrWhiteSpace(filePath))
+                return;
+
+            var doc = new XDocument(
+                new XDeclaration("1.0", "utf-8", null),
+                new XElement(
+                    "Module",
+                    new XElement("Name", new XAttribute("value", moduleId)),
+                    new XElement("Id", new XAttribute("value", moduleId)),
+                    new XElement("Version", new XAttribute("value", "v1.0.0")),
+                    new XElement("DefaultModule", new XAttribute("value", "false")),
+                    new XElement("SingleplayerModule", new XAttribute("value", "true")),
+                    new XElement("MultiplayerModule", new XAttribute("value", "false")),
+                    new XElement("Official", new XAttribute("value", "false")),
+                    new XElement(
+                        "Xmls",
+                        new XElement(
+                            "XmlNode",
+                            new XElement(
+                                "XmlName",
+                                new XAttribute("id", "NPCCharacters"),
+                                new XAttribute("path", "characters")
+                            ),
+                            new XElement(
+                                "IncludedGameTypes",
+                                new XElement("GameType", new XAttribute("value", "Campaign")),
+                                new XElement(
+                                    "GameType",
+                                    new XAttribute("value", "CampaignStoryMode")
+                                ),
+                                new XElement("GameType", new XAttribute("value", "CustomGame"))
+                            )
+                        )
+                    )
+                )
+            );
+
+            Directory.CreateDirectory(Path.GetDirectoryName(filePath) ?? ".");
+
+            using var fs = File.Create(filePath);
+            using var xw = XmlWriter.Create(
+                fs,
+                new XmlWriterSettings
+                {
+                    Indent = true,
+                    OmitXmlDeclaration = false,
+                    Encoding = new System.Text.UTF8Encoding(false),
+                }
+            );
+            doc.Save(xw);
         }
 
         private static void WriteNpcCharactersFile(string filePath, List<string> npcElements)
@@ -782,20 +1067,101 @@ namespace Retinues.Editor.Controllers.Library
             Directory.CreateDirectory(Path.GetDirectoryName(filePath) ?? ".");
 
             // Use an XmlWriter so the file matches your target formatting + utf-8.
-            using (var fs = File.Create(filePath))
-            using (
-                var xw = XmlWriter.Create(
-                    fs,
-                    new XmlWriterSettings
-                    {
-                        Indent = true,
-                        OmitXmlDeclaration = false,
-                        Encoding = new System.Text.UTF8Encoding(false),
-                    }
-                )
-            )
+            using var fs = File.Create(filePath);
+            using var xw = XmlWriter.Create(
+                fs,
+                new XmlWriterSettings
+                {
+                    Indent = true,
+                    OmitXmlDeclaration = false,
+                    Encoding = new System.Text.UTF8Encoding(false),
+                }
+            );
+            doc.Save(xw);
+        }
+
+        private sealed class StubLease : IDisposable
+        {
+            private readonly string _snapshot;
+
+            public WCharacter Character { get; }
+
+            public StubLease(WCharacter character, string snapshot)
             {
-                doc.Save(xw);
+                Character = character;
+                _snapshot = snapshot;
+            }
+
+            public void Dispose()
+            {
+                try
+                {
+                    if (Character == null)
+                        return;
+
+                    if (!string.IsNullOrWhiteSpace(_snapshot))
+                        Character.Deserialize(_snapshot);
+
+                    Character.IsActiveStub = false;
+                    Character.MarkAllAttributesClean();
+                }
+                catch (Exception ex)
+                {
+                    Log.Exception(ex, "LibraryController.StubLease.Dispose failed.");
+                }
+            }
+        }
+
+        private static StubLease LeaseStubFromPayload(
+            string payload,
+            string modelStringId,
+            out string missingVanillaBaseId
+        )
+        {
+            missingVanillaBaseId = null;
+
+            if (string.IsNullOrWhiteSpace(payload))
+                return null;
+
+            var stub = WCharacter.GetFreeStub();
+            if (stub == null)
+                return null;
+
+            var snapshot = stub.Serialize();
+
+            try
+            {
+                // If the export was delta-only for a vanilla troop, we need to clone vanilla baseline first.
+                if (!string.IsNullOrWhiteSpace(modelStringId))
+                {
+                    var src = WCharacter.Get(modelStringId);
+
+                    if (src != null && src.IsVanilla)
+                        src.Clone(skills: true, equipments: true, intoStub: stub);
+                    else
+                        missingVanillaBaseId = modelStringId; // export may be incomplete without baseline
+                }
+
+                stub.Deserialize(payload);
+                stub.HiddenInEncyclopedia = true;
+
+                return new StubLease(stub, snapshot);
+            }
+            catch
+            {
+                // If anything goes wrong, restore immediately and release stub.
+                try
+                {
+                    stub.Deserialize(snapshot);
+                    stub.IsActiveStub = false;
+                    stub.MarkAllAttributesClean();
+                }
+                catch
+                {
+                    // ignore
+                }
+
+                throw;
             }
         }
 

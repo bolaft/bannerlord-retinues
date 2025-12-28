@@ -167,6 +167,12 @@
       id="ret_export_desc"
       text="저장 이름을 선택하세요:" />
     <string
+      id="ret_export_overwrite_desc"
+      text="&apos;{FILE}&apos;라는 이름의 파일이 이미 존재하며 덮어쓰기가 됩니다.{newline}{newline}{PATH}" />
+    <string
+      id="ret_export_overwrite_title"
+      text="파일을 덮어쓰시겠습니까?" />
+    <string
       id="ret_export_title"
       text="저장" />
     <string
@@ -269,6 +275,9 @@
       id="ret_library_delete_failed_title"
       text="삭제 실패" />
     <string
+      id="ret_library_delete_tooltip"
+      text="이 라이브러리 항목과 관련된 XML 파일을 영구적으로 삭제합니다." />
+    <string
       id="ret_library_edit_button"
       text="편집" />
     <string
@@ -287,8 +296,56 @@
       id="ret_library_edit_failed_title"
       text="열기 실패" />
     <string
+      id="ret_library_edit_tooltip"
+      text="이 내보내기의 XML 파일 내용을 직접 편집합니다." />
+    <string
       id="ret_library_export_file_header"
       text="파일" />
+    <string
+      id="ret_library_export_npc_button"
+      text="변환" />
+    <string
+      id="ret_library_export_npc_confirm_desc"
+      text="이 라이브러리 항목을 독립 실행형 모드로 내보냅니다:{newline}{newline}{PATH}" />
+    <string
+      id="ret_library_export_npc_confirm_desc_overwrite"
+      text="이 라이브러리 항목을 독립 실행형 모드로 내보내고 기존 파일을 덮어씁니다:{newline}{newline}{PATH}" />
+    <string
+      id="ret_library_export_npc_confirm_title"
+      text="모드로 내보내기" />
+    <string
+      id="ret_library_export_npc_done_desc_fallback"
+      text="게임 설치 폴더가 보호되어 있으므로 대신 여기에 모듈이 작성되었습니다:{newline}{PATH}{newline}{newline}이 폴더를 Bannerlord 모듈 디렉터리에 복사한 다음 게임을 재시작하십시오." />
+    <string
+      id="ret_library_export_npc_done_desc_mod"
+      text="독립 실행형 모듈이 작성되었습니다:{newline}{PATH}{newline}{newline}로드하려면 게임을 재시작하십시오." />
+    <string
+      id="ret_library_export_npc_done_title"
+      text="내보내기 완료" />
+    <string
+      id="ret_library_export_npc_failed_exception"
+      text="파일을 내보낼 수 없습니다." />
+    <string
+      id="ret_library_export_npc_failed_no_modules_dir"
+      text="게임의 모듈 폴더를 찾을 수 없습니다." />
+    <string
+      id="ret_library_export_npc_failed_no_output"
+      text="이 내보내기에서 캐릭터를 생성할 수 없습니다." />
+    <string
+      id="ret_library_export_npc_failed_no_payloads"
+      text="이 내보내기에서 캐릭터 페이로드를 찾을 수 없습니다." />
+    <string
+      id="ret_library_export_npc_failed_title"
+      text="내보내기 실패" />
+    <string
+      id="ret_library_export_npc_missing_file"
+      text="내보내기 파일을 찾을 수 없습니다." />
+    <string
+      id="ret_library_export_npc_no_selection"
+      text="선택된 내보내기가 없습니다." />
+    <string
+      id="ret_library_export_npc_tooltip"
+      text="이 내보내기를 독립 실행형 모드로 변환합니다." />
     <string
       id="ret_library_exports_empty_text"
       text="저장된 내보내기를 찾을 수 없습니다." />

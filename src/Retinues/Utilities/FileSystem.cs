@@ -59,8 +59,38 @@ namespace Retinues.Utilities
             return path;
         }
 
+        public static bool TryGetBannerlordModulesDirectory(out string modulesDir)
+        {
+            modulesDir = null;
+
+            try
+            {
+                var d = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
+
+                // Walk upward and look for ".../Modules" or a parent that contains "Modules".
+                for (int i = 0; i < 12 && d != null; i++, d = d.Parent)
+                {
+                    if (string.Equals(d.Name, "Modules", StringComparison.OrdinalIgnoreCase))
+                    {
+                        modulesDir = d.FullName;
+                        return Directory.Exists(modulesDir);
+                    }
+
+                    var candidate = Path.Combine(d.FullName, "Modules");
+                    if (Directory.Exists(candidate))
+                    {
+                        modulesDir = candidate;
+                        return true;
+                    }
+                }
+            }
+            catch { }
+
+            return false;
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Resolvers                        //
+        //                        Resolvers                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private static string ResolveDocumentsDirectory()

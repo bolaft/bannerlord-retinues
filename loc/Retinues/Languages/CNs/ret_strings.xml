@@ -167,6 +167,12 @@
       id="ret_export_desc"
       text="选择一个保存名称：" />
     <string
+      id="ret_export_overwrite_desc"
+      text="名为&apos;{FILE}&apos;的文件已存在，将被覆盖。{newline}{newline}{PATH}" />
+    <string
+      id="ret_export_overwrite_title"
+      text="覆盖文件？" />
+    <string
       id="ret_export_title"
       text="保存" />
     <string
@@ -269,6 +275,9 @@
       id="ret_library_delete_failed_title"
       text="删除失败" />
     <string
+      id="ret_library_delete_tooltip"
+      text="永久删除此库项及相关的 XML 文件。" />
+    <string
       id="ret_library_edit_button"
       text="编辑" />
     <string
@@ -287,8 +296,56 @@
       id="ret_library_edit_failed_title"
       text="打开失败" />
     <string
+      id="ret_library_edit_tooltip"
+      text="直接编辑此导出 XML 文件的内容。" />
+    <string
       id="ret_library_export_file_header"
       text="文件" />
+    <string
+      id="ret_library_export_npc_button"
+      text="转换" />
+    <string
+      id="ret_library_export_npc_confirm_desc"
+      text="这将把此库元素导出到一个独立的模组中：{newline}{newline}{PATH}" />
+    <string
+      id="ret_library_export_npc_confirm_desc_overwrite"
+      text="这将把此库元素导出到一个独立的模组中，并覆盖现有文件：{newline}{newline}{PATH}" />
+    <string
+      id="ret_library_export_npc_confirm_title"
+      text="导出为模组" />
+    <string
+      id="ret_library_export_npc_done_desc_fallback"
+      text="游戏安装文件夹受保护，因此模块改为写在这里：{newline}{PATH}{newline}{newline}将此文件夹复制到您的 Bannerlord 模组目录中，然后重新启动游戏。" />
+    <string
+      id="ret_library_export_npc_done_desc_mod"
+      text="独立模块已写入：{newline}{PATH}{newline}{newline}重新启动游戏以加载它。" />
+    <string
+      id="ret_library_export_npc_done_title"
+      text="导出完成" />
+    <string
+      id="ret_library_export_npc_failed_exception"
+      text="无法导出文件。" />
+    <string
+      id="ret_library_export_npc_failed_no_modules_dir"
+      text="无法找到游戏的模块文件夹。" />
+    <string
+      id="ret_library_export_npc_failed_no_output"
+      text="无法从此导出生成任何角色。" />
+    <string
+      id="ret_library_export_npc_failed_no_payloads"
+      text="在此导出中未找到角色有效负载。" />
+    <string
+      id="ret_library_export_npc_failed_title"
+      text="导出失败" />
+    <string
+      id="ret_library_export_npc_missing_file"
+      text="未找到导出文件。" />
+    <string
+      id="ret_library_export_npc_no_selection"
+      text="未选择导出。" />
+    <string
+      id="ret_library_export_npc_tooltip"
+      text="将此导出转换为独立模组。" />
     <string
       id="ret_library_exports_empty_text"
       text="未找到已保存的导出。" />

@@ -167,6 +167,12 @@
       id="ret_export_desc"
       text="Wybierz nazwę zapisu:" />
     <string
+      id="ret_export_overwrite_desc"
+      text="Plik o nazwie &apos;{FILE}&apos; już istnieje i zostanie nadpisany.{newline}{newline}{PATH}" />
+    <string
+      id="ret_export_overwrite_title"
+      text="Nadpisać plik?" />
+    <string
       id="ret_export_title"
       text="Zapisz" />
     <string
@@ -269,6 +275,9 @@
       id="ret_library_delete_failed_title"
       text="Usuwanie nie powiodło się" />
     <string
+      id="ret_library_delete_tooltip"
+      text="Trwale usuwa ten element biblioteki i powiązany plik XML." />
+    <string
       id="ret_library_edit_button"
       text="Edytuj" />
     <string
@@ -287,8 +296,56 @@
       id="ret_library_edit_failed_title"
       text="Niepowodzenie otwarcia" />
     <string
+      id="ret_library_edit_tooltip"
+      text="Bezpośrednio edytuj zawartość pliku XML tego eksportu." />
+    <string
       id="ret_library_export_file_header"
       text="Plik" />
+    <string
+      id="ret_library_export_npc_button"
+      text="Konwertuj" />
+    <string
+      id="ret_library_export_npc_confirm_desc"
+      text="To wyeksportuje ten element biblioteki do samodzielnego modułu:{newline}{newline}{PATH}" />
+    <string
+      id="ret_library_export_npc_confirm_desc_overwrite"
+      text="To wyeksportuje ten element biblioteki do samodzielnego modułu i nadpisze istniejące pliki:{newline}{newline}{PATH}" />
+    <string
+      id="ret_library_export_npc_confirm_title"
+      text="Eksportuj jako mod" />
+    <string
+      id="ret_library_export_npc_done_desc_fallback"
+      text="Folder instalacyjny gry jest chroniony, więc moduł został zapisany tutaj:{newline}{PATH}{newline}{newline}Skopiuj ten folder do katalogu Moduły Bannerlord, a następnie uruchom ponownie grę." />
+    <string
+      id="ret_library_export_npc_done_desc_mod"
+      text="Napisano samodzielny moduł:{newline}{PATH}{newline}{newline}Uruchom ponownie grę, aby go załadować." />
+    <string
+      id="ret_library_export_npc_done_title"
+      text="Eksport zakończony" />
+    <string
+      id="ret_library_export_npc_failed_exception"
+      text="Nie można wyeksportować pliku." />
+    <string
+      id="ret_library_export_npc_failed_no_modules_dir"
+      text="Nie można zlokalizować folderu Moduły gry." />
+    <string
+      id="ret_library_export_npc_failed_no_output"
+      text="Z tego eksportu nie można wygenerować żadnych postaci." />
+    <string
+      id="ret_library_export_npc_failed_no_payloads"
+      text="W tym eksporcie nie znaleziono żadnych ładunków postaci." />
+    <string
+      id="ret_library_export_npc_failed_title"
+      text="Eksport nie powiódł się" />
+    <string
+      id="ret_library_export_npc_missing_file"
+      text="Plik eksportu nie został znaleziony." />
+    <string
+      id="ret_library_export_npc_no_selection"
+      text="Nie wybrano eksportu." />
+    <string
+      id="ret_library_export_npc_tooltip"
+      text="Konwertuj ten eksport na samodzielny mod." />
     <string
       id="ret_library_exports_empty_text"
       text="Nie znaleziono zapisanych eksportów." />

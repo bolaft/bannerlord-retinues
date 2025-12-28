@@ -1,8 +1,11 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Linq;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
+using TaleWorlds.ObjectSystem;
 
 namespace Retinues.Model.Characters
 {
@@ -133,44 +136,109 @@ namespace Retinues.Model.Characters
         {
             var eqs = new XElement("Equipments");
 
-            foreach (var roster in EnumerateEquipmentRosters(c))
-                eqs.Add(roster);
+            var battle = new List<Equipment>();
+            var sawCivilian = false;
+
+            ItemObject horse = null;
+            ItemObject harness = null;
+
+            foreach (var e in EnumerateEquipmentSets(c))
+            {
+                if (e == null || IsEquipmentEmpty(e))
+                    continue;
+
+                var isCiv = Reflection.GetPropertyValue<bool>(e, "IsCivilian");
+                if (isCiv)
+                {
+                    sawCivilian = true;
+                    continue; // do not export civilian rosters as battle rosters
+                }
+
+                // Capture mount once (vanilla NPCCharacter XML typically places these outside rosters)
+                if (horse == null)
+                    horse = e[EquipmentIndex.Horse].Item;
+                if (harness == null)
+                    harness = e[EquipmentIndex.HorseHarness].Item;
+
+                battle.Add(e);
+            }
+
+            for (int i = 0; i < battle.Count; i++)
+                eqs.Add(BuildBattleEquipmentRosterElement(battle[i]));
+
+            if (sawCivilian)
+            {
+                var cultureId = Culture?.Base?.StringId ?? string.Empty;
+                var tier = Reflection.GetPropertyValue<int>(c, "Tier");
+                if (tier <= 0)
+                    tier = 1;
+
+                // Example: aserai_troop_civilian_template_t2
+                var templateId = $"{cultureId}_troop_civilian_template_t{tier}";
+
+                if (HasEquipmentRoster(templateId))
+                {
+                    eqs.Add(
+                        new XElement(
+                            "EquipmentSet",
+                            new XAttribute("id", templateId),
+                            new XAttribute("civilian", "true")
+                        )
+                    );
+                }
+                else
+                {
+                    Log.Warn(
+                        $"NPC export: civilian template '{templateId}' not found; omitting civilian equipment for '{StringId}'."
+                    );
+                }
+            }
+
+            // Add horse/harness outside rosters (if any)
+            if (horse != null)
+            {
+                eqs.Add(
+                    new XElement(
+                        "equipment",
+                        new XAttribute("slot", "Horse"),
+                        new XAttribute("id", "Item." + horse.StringId)
+                    )
+                );
+            }
+
+            if (harness != null)
+            {
+                eqs.Add(
+                    new XElement(
+                        "equipment",
+                        new XAttribute("slot", "HorseHarness"),
+                        new XAttribute("id", "Item." + harness.StringId)
+                    )
+                );
+            }
 
             return eqs;
         }
 
-        private IEnumerable<XElement> EnumerateEquipmentRosters(CharacterObject c)
+        private IEnumerable<Equipment> EnumerateEquipmentSets(CharacterObject c)
         {
-            // Prefer AllEquipments when available.
             var all = Reflection.GetPropertyValue<object>(c, "AllEquipments");
 
-            // AllEquipments is usually IEnumerable<Equipment>.
             if (all is IEnumerable<Equipment> list)
             {
                 foreach (var e in list)
-                {
-                    if (e == null || IsEquipmentEmpty(e))
-                        continue;
-
-                    yield return BuildEquipmentRosterElement(e);
-                }
+                    yield return e;
 
                 yield break;
             }
 
-            // Fallback: try BattleEquipments + CivilianEquipments if present (older patterns).
             var battle =
                 Reflection.GetPropertyValue<object>(c, "BattleEquipments")
                 as IEnumerable<Equipment>;
             if (battle != null)
             {
                 foreach (var e in battle)
-                {
-                    if (e == null || IsEquipmentEmpty(e))
-                        continue;
-
-                    yield return BuildEquipmentRosterElement(e);
-                }
+                    yield return e;
             }
 
             var civ =
@@ -179,23 +247,13 @@ namespace Retinues.Model.Characters
             if (civ != null)
             {
                 foreach (var e in civ)
-                {
-                    if (e == null || IsEquipmentEmpty(e))
-                        continue;
-
-                    yield return BuildEquipmentRosterElement(e);
-                }
+                    yield return e;
             }
         }
 
-        private XElement BuildEquipmentRosterElement(Equipment e)
+        private XElement BuildBattleEquipmentRosterElement(Equipment e)
         {
             var roster = new XElement("EquipmentRoster");
-
-            // Some versions expose Equipment.IsCivilian.
-            var isCiv = Reflection.GetPropertyValue<bool>(e, "IsCivilian");
-            if (isCiv)
-                roster.SetAttributeValue("civilian", "true");
 
             AddEquipment(roster, e, EquipmentIndex.Weapon0, "Item0");
             AddEquipment(roster, e, EquipmentIndex.Weapon1, "Item1");
@@ -209,10 +267,47 @@ namespace Retinues.Model.Characters
             AddEquipment(roster, e, EquipmentIndex.Gloves, "Gloves");
             AddEquipment(roster, e, EquipmentIndex.Cape, "Cape");
 
-            AddEquipment(roster, e, EquipmentIndex.Horse, "Horse");
-            AddEquipment(roster, e, EquipmentIndex.HorseHarness, "HorseHarness");
-
+            // Do NOT add Horse/Harness here; they are emitted at top-level in <Equipments>.
             return roster;
+        }
+
+        private static bool HasEquipmentRoster(string rosterId)
+        {
+            if (string.IsNullOrWhiteSpace(rosterId))
+                return false;
+
+            try
+            {
+                // In Bannerlord, equipment set templates are MBObjects.
+                // The concrete type name varies across versions/modded trees, so we resolve it safely.
+                var t =
+                    Type.GetType("TaleWorlds.Core.MBEquipmentRoster, TaleWorlds.Core")
+                    ?? Type.GetType("TaleWorlds.Core.EquipmentRoster, TaleWorlds.Core");
+
+                if (t == null)
+                    return false;
+
+                var mi = typeof(MBObjectManager)
+                    .GetMethods()
+                    .FirstOrDefault(m =>
+                        m.Name == "GetObject"
+                        && m.IsGenericMethodDefinition
+                        && m.GetParameters().Length == 1
+                        && m.GetParameters()[0].ParameterType == typeof(string)
+                    );
+
+                if (mi == null)
+                    return false;
+
+                var g = mi.MakeGenericMethod(t);
+                var obj = g.Invoke(MBObjectManager.Instance, new object[] { rosterId });
+
+                return obj != null;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         private void AddEquipment(XElement roster, Equipment e, EquipmentIndex idx, string slotName)

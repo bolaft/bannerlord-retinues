@@ -167,6 +167,12 @@
       id="ret_export_desc"
       text="Wählen Sie einen Speichername:" />
     <string
+      id="ret_export_overwrite_desc"
+      text="Eine Datei mit dem Namen &apos;{FILE}&apos; existiert bereits und wird überschrieben.{newline}{newline}{PATH}" />
+    <string
+      id="ret_export_overwrite_title"
+      text="Datei überschreiben?" />
+    <string
       id="ret_export_title"
       text="Speichern" />
     <string
@@ -269,6 +275,9 @@
       id="ret_library_delete_failed_title"
       text="Löschen fehlgeschlagen" />
     <string
+      id="ret_library_delete_tooltip"
+      text="Löscht dieses Bibliothekselement und die zugehörige XML-Datei dauerhaft." />
+    <string
       id="ret_library_edit_button"
       text="Bearbeiten" />
     <string
@@ -287,8 +296,56 @@
       id="ret_library_edit_failed_title"
       text="Öffnen fehlgeschlagen" />
     <string
+      id="ret_library_edit_tooltip"
+      text="Bearbeiten Sie direkt den Inhalt der XML-Datei dieses Exports." />
+    <string
       id="ret_library_export_file_header"
       text="Datei" />
+    <string
+      id="ret_library_export_npc_button"
+      text="Konvertieren" />
+    <string
+      id="ret_library_export_npc_confirm_desc"
+      text="Dies exportiert dieses Bibliothekselement in ein eigenständiges Modul:{newline}{newline}{PATH}" />
+    <string
+      id="ret_library_export_npc_confirm_desc_overwrite"
+      text="Dies exportiert dieses Bibliothekselement in ein eigenständiges Modul und überschreibt vorhandene Dateien:{newline}{newline}{PATH}" />
+    <string
+      id="ret_library_export_npc_confirm_title"
+      text="Als Mod exportieren" />
+    <string
+      id="ret_library_export_npc_done_desc_fallback"
+      text="Der Spielinstallationsordner ist geschützt, daher wurde das Modul stattdessen hier geschrieben:{newline}{PATH}{newline}{newline}Kopieren Sie diesen Ordner in Ihr Bannerlord-Module-Verzeichnis und starten Sie das Spiel neu." />
+    <string
+      id="ret_library_export_npc_done_desc_mod"
+      text="Eigenständiges Modul geschrieben:{newline}{PATH}{newline}{newline}Starten Sie das Spiel neu, um es zu laden." />
+    <string
+      id="ret_library_export_npc_done_title"
+      text="Export abgeschlossen" />
+    <string
+      id="ret_library_export_npc_failed_exception"
+      text="Die Datei konnte nicht exportiert werden." />
+    <string
+      id="ret_library_export_npc_failed_no_modules_dir"
+      text="Der Module-Ordner des Spiels konnte nicht gefunden werden." />
+    <string
+      id="ret_library_export_npc_failed_no_output"
+      text="Aus diesem Export konnten keine Charaktere generiert werden." />
+    <string
+      id="ret_library_export_npc_failed_no_payloads"
+      text="In diesem Export wurden keine Charakter-Payloads gefunden." />
+    <string
+      id="ret_library_export_npc_failed_title"
+      text="Export fehlgeschlagen" />
+    <string
+      id="ret_library_export_npc_missing_file"
+      text="Exportdatei wurde nicht gefunden." />
+    <string
+      id="ret_library_export_npc_no_selection"
+      text="Kein Export ausgewählt." />
+    <string
+      id="ret_library_export_npc_tooltip"
+      text="Konvertieren Sie diesen Export in ein eigenständiges Modul." />
     <string
       id="ret_library_exports_empty_text"
       text="Keine gespeicherten Exporte gefunden." />

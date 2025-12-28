@@ -167,6 +167,12 @@
       id="ret_export_desc"
       text="Выберите имя для сохранения:" />
     <string
+      id="ret_export_overwrite_desc"
+      text="Файл с именем &apos;{FILE}&apos; уже существует и будет перезаписан.{newline}{newline}{PATH}" />
+    <string
+      id="ret_export_overwrite_title"
+      text="Перезаписать файл?" />
+    <string
       id="ret_export_title"
       text="Сохранить" />
     <string
@@ -269,6 +275,9 @@
       id="ret_library_delete_failed_title"
       text="Ошибка удаления" />
     <string
+      id="ret_library_delete_tooltip"
+      text="Навсегда удаляет этот элемент библиотеки и связанный с ним XML-файл." />
+    <string
       id="ret_library_edit_button"
       text="Редактировать" />
     <string
@@ -287,8 +296,56 @@
       id="ret_library_edit_failed_title"
       text="Ошибка открытия" />
     <string
+      id="ret_library_edit_tooltip"
+      text="Напрямую редактируйте содержимое XML-файла этого экспорта." />
+    <string
       id="ret_library_export_file_header"
       text="Файл" />
+    <string
+      id="ret_library_export_npc_button"
+      text="Преобразовать" />
+    <string
+      id="ret_library_export_npc_confirm_desc"
+      text="Этот элемент библиотеки будет экспортирован в автономный мод:{newline}{newline}{PATH}" />
+    <string
+      id="ret_library_export_npc_confirm_desc_overwrite"
+      text="Этот элемент библиотеки будет экспортирован в автономный мод и перезапишет существующие файлы:{newline}{newline}{PATH}" />
+    <string
+      id="ret_library_export_npc_confirm_title"
+      text="Экспортировать как мод" />
+    <string
+      id="ret_library_export_npc_done_desc_fallback"
+      text="Папка установки игры защищена, поэтому модуль был записан здесь:{newline}{PATH}{newline}{newline}Скопируйте эту папку в каталог модулей Bannerlord, затем перезапустите игру." />
+    <string
+      id="ret_library_export_npc_done_desc_mod"
+      text="Записан автономный модуль:{newline}{PATH}{newline}{newline}Перезапустите игру, чтобы загрузить его." />
+    <string
+      id="ret_library_export_npc_done_title"
+      text="Экспорт завершен" />
+    <string
+      id="ret_library_export_npc_failed_exception"
+      text="Не удалось экспортировать файл." />
+    <string
+      id="ret_library_export_npc_failed_no_modules_dir"
+      text="Не удалось найти папку модулей игры." />
+    <string
+      id="ret_library_export_npc_failed_no_output"
+      text="Из этого экспорта не удалось создать персонажей." />
+    <string
+      id="ret_library_export_npc_failed_no_payloads"
+      text="В этом экспорте не найдено полезных нагрузок персонажей." />
+    <string
+      id="ret_library_export_npc_failed_title"
+      text="Ошибка экспорта" />
+    <string
+      id="ret_library_export_npc_missing_file"
+      text="Файл экспорта не найден." />
+    <string
+      id="ret_library_export_npc_no_selection"
+      text="Экспорт не выбран." />
+    <string
+      id="ret_library_export_npc_tooltip"
+      text="Преобразовать этот экспорт в автономный мод." />
     <string
       id="ret_library_exports_empty_text"
       text="Сохраненные экспорты не найдены." />
