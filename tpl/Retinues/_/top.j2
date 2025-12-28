@@ -47,12 +47,14 @@
                     </ButtonWidget>
                 {%- endmacro %}
 
-                {% macro tab_button(brush, cmd, selected, text, visible="true") -%}
+                {% macro tab_button(brush, cmd, selected, text, visible="true", sug_w="!Header.Tab.Center.Width.Scaled", sug_h="!Header.Tab.Center.Height.Scaled", pos_xoff="", pos_yoff="", text_xoff="", text_mt="") -%}
                     <ButtonWidget
                         DoNotPassEventsToChildren="true"
                         WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                        SuggestedWidth="!Header.Tab.Center.Width.Scaled"
-                        SuggestedHeight="!Header.Tab.Center.Height.Scaled"
+                        SuggestedWidth="{{ sug_w }}"
+                        SuggestedHeight="{{ sug_h }}"
+                        {% if pos_xoff %} PositionXOffset="{{ pos_xoff }}"{% endif %}
+                        {% if pos_yoff %} PositionYOffset="{{ pos_yoff }}"{% endif %}
                         Brush="{{ brush }}"
                         Command.Click="{{ cmd }}"
                         IsSelected="{{ selected }}"
@@ -62,6 +64,8 @@
                             <TextWidget
                                 WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
                                 Brush="Clan.TabControl.Text"
+                                {% if text_xoff %} PositionXOffset="{{ text_xoff }}"{% endif %}
+                                {% if text_mt %} MarginTop="{{ text_mt }}"{% endif %}
                                 Text="{{ text }}"/>
                         </Children>
                     </ButtonWidget>
@@ -136,80 +140,16 @@
                     <Children>
 
                         {# Editor Tab (selected for Character + Equipment pages) #}
-                        <ButtonWidget
-                            DoNotPassEventsToChildren="true"
-                            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                            SuggestedWidth="!Header.Tab.Left.Width.Scaled"
-                            SuggestedHeight="!Header.Tab.Left.Height.Scaled"
-                            Brush="Header.Tab.Left"
-                            Command.Click="ExecuteSelectEditorTab"
-                            IsSelected="@IsEditorTabSelected"
-                            UpdateChildrenStates="true">
-                            <Children>
-                                <TextWidget
-                                    WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
-                                    PositionXOffset="10" MarginTop="3"
-                                    Brush="Clan.TabControl.Text"
-                                    Text="@EditorTabText" />
-                            </Children>
-                        </ButtonWidget>
+                        {{ tab_button("Header.Tab.Left", "ExecuteSelectEditorTab", "@IsEditorTabSelected", "@EditorTabText", sug_w="!Header.Tab.Left.Width.Scaled", sug_h="!Header.Tab.Left.Height.Scaled", text_xoff="10", text_mt="3") }}
 
                         {# Doctrines Tab (player mode only) #}
-                        <ButtonWidget
-                            DoNotPassEventsToChildren="true"
-                            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                            SuggestedWidth="!Header.Tab.Center.Width.Scaled"
-                            SuggestedHeight="!Header.Tab.Center.Height.Scaled"
-                            PositionYOffset="6"
-                            Brush="Header.Tab.Center"
-                            Command.Click="ExecuteSelectDoctrinesTab"
-                            IsSelected="@IsDoctrinesTabSelected"
-                            IsVisible="@IsDoctrinesTabVisible"
-                            UpdateChildrenStates="true">
-                            <Children>
-                                <TextWidget
-                                    WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
-                                    Brush="Clan.TabControl.Text"
-                                    Text="@DoctrinesTabText" />
-                            </Children>
-                        </ButtonWidget>
+                        {{ tab_button("Header.Tab.Center", "ExecuteSelectDoctrinesTab", "@IsDoctrinesTabSelected", "@DoctrinesTabText", visible="@IsDoctrinesTabVisible", pos_yoff="6") }}
 
                         {# Library Tab #}
-                        <ButtonWidget
-                            DoNotPassEventsToChildren="true"
-                            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                            SuggestedWidth="!Header.Tab.Center.Width.Scaled"
-                            SuggestedHeight="!Header.Tab.Center.Height.Scaled"
-                            PositionYOffset="6"
-                            Brush="Header.Tab.Center"
-                            Command.Click="ExecuteSelectLibraryTab"
-                            IsSelected="@IsLibraryTabSelected"
-                            UpdateChildrenStates="true">
-                            <Children>
-                                <TextWidget
-                                    WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
-                                    Brush="Clan.TabControl.Text"
-                                    Text="@LibraryTabText" />
-                            </Children>
-                        </ButtonWidget>
+                        {{ tab_button("Header.Tab.Center", "ExecuteSelectLibraryTab", "@IsLibraryTabSelected", "@LibraryTabText", pos_yoff="6") }}
 
                         {# Settings Tab #}
-                        <ButtonWidget
-                            DoNotPassEventsToChildren="true"
-                            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                            SuggestedWidth="!Header.Tab.Right.Width.Scaled"
-                            SuggestedHeight="!Header.Tab.Right.Height.Scaled"
-                            Brush="Header.Tab.Right"
-                            Command.Click="ExecuteSelectSettingsTab"
-                            UpdateChildrenStates="true">
-                            <Children>
-                                <TextWidget
-                                    WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
-                                    PositionXOffset="-10" MarginTop="3"
-                                    Brush="Clan.TabControl.Text"
-                                    Text="@SettingsTabText" />
-                            </Children>
-                        </ButtonWidget>
+                        {{ tab_button("Header.Tab.Right", "ExecuteSelectSettingsTab", "", "@SettingsTabText", sug_w="!Header.Tab.Right.Width.Scaled", sug_h="!Header.Tab.Right.Height.Scaled", text_xoff="-10", text_mt="3") }}
 
                     </Children>
                 </ListPanel>

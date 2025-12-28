@@ -1,6 +1,51 @@
-{% from "_/panel/character/base.macros.j2" import field_header, field_label %}
+{% from "_/panel/base.macros.j2" import field_header, field_label %}
 
-    
+{% macro side_panel(is_visible = "@IsVisible", margin_right = "160", vertical_alignment = "Top") -%}
+    <Widget
+        DataSource="{LibraryPanel}"
+        IsVisible="{{ is_visible }}"
+        WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+        HorizontalAlignment="Center" VerticalAlignment="{{ vertical_alignment }}"
+        MarginRight="{{ margin_right }}">
+        <Children>
+            {{ caller() }}
+        </Children>
+    </Widget>
+{%- endmacro %}
+
+{% macro action_button(text, command, tooltip, brush = "Popup.Done.Button", width = "240", height = "60", is_enabled = "@IsEnabled") -%}
+    <Widget
+        WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+        HorizontalAlignment="Center" VerticalAlignment="Bottom">
+        <Children>
+            <HintWidget
+                DataSource="{{ tooltip }}"
+                Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
+            <ButtonWidget
+                DoNotPassEventsToChildren="true"
+                WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                SuggestedWidth="{{ width }}" SuggestedHeight="{{ height }}"
+                HorizontalAlignment="Center" VerticalAlignment="Center"
+                Brush="{{ brush }}"
+                IsEnabled="{{ is_enabled }}"
+                Command.Click="{{ command }}">
+                <Children>
+                    <TextWidget
+                        WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+                        HorizontalAlignment="Center" VerticalAlignment="Center"
+                        Brush="Clan.Name.Tuple"
+                        Brush.FontSize="24"
+                        Text="{{ text }}"
+                        TextAlignment="Center" />
+                    <HintWidget
+                        DataSource="{{ tooltip }}"
+                        Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
+                </Children>
+            </ButtonWidget>
+        </Children>
+    </Widget>
+{%- endmacro %}
+
 <ListPanel
     DataSource="{LibraryPanel}"
     IsVisible="@ShowEmptyText"
@@ -37,14 +82,8 @@
     </Children>
 </ListPanel>
 
-<Widget
-    DataSource="{LibraryPanel}"
-    IsVisible="@IsVisible"
-    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-    HorizontalAlignment="Center" VerticalAlignment="Top"
-    MarginRight="160">
-    <Children>
-    
+{% call side_panel("@IsVisible", "160", "Top") %}
+
         <ListPanel
             WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
             HorizontalAlignment="Center" VerticalAlignment="Center"
@@ -116,18 +155,12 @@
 
             </Children>
         </ListPanel>
-    </Children>
-</Widget>
+
+{% endcall %}
 
 
-<Widget
-    DataSource="{LibraryPanel}"
-    IsVisible="@IsVisible"
-    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-    HorizontalAlignment="Center" VerticalAlignment="Bottom"
-    MarginRight="160">
-    <Children>
-    
+{% call side_panel("@IsVisible", "160", "Bottom") %}
+
         <ListPanel
             WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
             HorizontalAlignment="Center" VerticalAlignment="Center"
@@ -136,105 +169,18 @@
             <Children>
 
                 {# Import Button #}
-                <Widget
-                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-                    HorizontalAlignment="Center" VerticalAlignment="Bottom">
-                    <Children>
-                        <HintWidget
-                            DataSource="{ImportTooltip}"
-                            Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
-                        <ButtonWidget
-                            DoNotPassEventsToChildren="true"
-                            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                            SuggestedWidth="240" SuggestedHeight="60"
-                            HorizontalAlignment="Center" VerticalAlignment="Center"
-                            Brush="Popup.Done.Button"
-                            IsEnabled="@CanImport"
-                            Command.Click="ExecuteImport">
-                            <Children>
-                                <TextWidget
-                                    WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
-                                    HorizontalAlignment="Center" VerticalAlignment="Center"
-                                    Brush="Clan.Name.Tuple"
-                                    Brush.FontSize="24"
-                                    Text="@ImportButtonText"
-                                    TextAlignment="Center" />
-                                <HintWidget
-                                    DataSource="{ImportTooltip}"
-                                    Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
-                            </Children>
-                        </ButtonWidget>
-                    </Children>
-                </Widget>
+                {{ action_button("@ImportButtonText", "ExecuteImport", "{ImportTooltip}", "Popup.Done.Button", "240", "60", "@CanImport") }}
 
                 {# Export NPCCharacters #}
-                <ButtonWidget
-                    DoNotPassEventsToChildren="true"
-                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                    SuggestedWidth="240" SuggestedHeight="60"
-                    HorizontalAlignment="Center" VerticalAlignment="Bottom"
-                    Brush="Popup.Done.Button"
-                    IsEnabled="@CanExportNpcCharacters"
-                    Command.Click="ExecuteExportNpcCharacters">
-                    <Children>
-                        <TextWidget
-                            WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
-                            HorizontalAlignment="Center" VerticalAlignment="Center"
-                            Brush="Clan.Name.Tuple"
-                            Brush.FontSize="24"
-                            Text="@ExportNpcCharactersButtonText"
-                            TextAlignment="Center" />
-                        <HintWidget
-                            DataSource="{ExportNpcCharactersTooltip}"
-                            Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
-                    </Children>
-                </ButtonWidget>
+                {{ action_button("@ExportNpcCharactersButtonText", "ExecuteExportNpcCharacters", "{ExportNpcCharactersTooltip}", "Popup.Done.Button", "240", "60", "@CanExportNpcCharacters") }}
 
                 {# Edit Button #}
-                <ButtonWidget
-                    DoNotPassEventsToChildren="true"
-                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                    SuggestedWidth="240" SuggestedHeight="60"
-                    HorizontalAlignment="Center" VerticalAlignment="Bottom"
-                    Brush="Popup.Cancel.Button"
-                    Command.Click="ExecuteEdit">
-                    <Children>
-                        <TextWidget
-                            WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
-                            HorizontalAlignment="Center" VerticalAlignment="Center"
-                            Brush="Clan.Name.Tuple"
-                            Brush.FontSize="24"
-                            Text="@EditButtonText"
-                            TextAlignment="Center" />
-                        <HintWidget
-                            DataSource="{EditTooltip}"
-                            Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
-                    </Children>
-                </ButtonWidget>
+                {{ action_button("@EditButtonText", "ExecuteEdit", "{EditTooltip}", "Popup.Cancel.Button", "240", "60") }}
 
                 {# Delete Button #}
-                <ButtonWidget
-                    DoNotPassEventsToChildren="true"
-                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                    SuggestedWidth="240" SuggestedHeight="60"
-                    HorizontalAlignment="Center" VerticalAlignment="Bottom"
-                    Brush="Popup.Delete.Button"
-                    Command.Click="ExecuteDelete">
-                    <Children>
-                        <TextWidget
-                            WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
-                            HorizontalAlignment="Center" VerticalAlignment="Center"
-                            Brush="Clan.Name.Tuple"
-                            Brush.FontSize="24"
-                            Text="@DeleteButtonText"
-                            TextAlignment="Center" />
-                        <HintWidget
-                            DataSource="{DeleteTooltip}"
-                            Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
-                    </Children>
-                </ButtonWidget>
+                {{ action_button("@DeleteButtonText", "ExecuteDelete", "{DeleteTooltip}", "Popup.Delete.Button", "240", "60") }}
 
             </Children>
         </ListPanel>
-    </Children>
-</Widget>
+
+{% endcall %}

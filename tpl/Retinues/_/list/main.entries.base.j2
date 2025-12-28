@@ -41,19 +41,16 @@
                             HorizontalAlignment="Center" VerticalAlignment="Center"
                             Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
 
-                        {# Character row #}
-                        {% include "_/list/character/row.j2" %}
-
-                        {# Hero row #}
-                        {% include "_/list/hero/row.j2" %}
+                        {# Character rows #}
+                        {% include "_/list/row/character.character.j2" %}
+                        {% include "_/list/row/character.hero.j2" %}
 
                         {# Equipment row #}
-                        {% include "_/list/equipment/row.j2" %}
+                        {% include "_/list/row/equipment.item.j2" %}
 
                         {# Library rows #}
-                        {% include "_/list/library/character.row.j2" %}
-                        {% include "_/list/library/faction.row.j2" %}
-
+                        {% include "_/list/row/library.character.j2" %}
+                        {% include "_/list/row/library.faction.j2" %}
                     </Children>
                 </AutoScrollButtonWidget>
             </ItemTemplate>
