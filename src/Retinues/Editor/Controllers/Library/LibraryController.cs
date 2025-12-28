@@ -658,7 +658,10 @@ namespace Retinues.Editor.Controllers.Library
                     if (!string.IsNullOrWhiteSpace(missingVanillaBaseId))
                         missingVanillaBases.Add(missingVanillaBaseId);
 
-                    npcStrings.Add(lease.Character.ExportAsNPC());
+                    var npcId = !string.IsNullOrWhiteSpace(p.ModelStringId)
+                        ? p.ModelStringId
+                        : item?.SourceId;
+                    npcStrings.Add(lease.Character.ExportAsNPC(npcId));
                 }
 
                 if (npcStrings.Count == 0)

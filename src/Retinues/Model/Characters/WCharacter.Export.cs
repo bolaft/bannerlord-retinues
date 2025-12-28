@@ -14,19 +14,23 @@ namespace Retinues.Model.Characters
         /// <summary>
         /// Exports this character as a single NPCCharacter XML element.
         /// </summary>
-        public string ExportAsNPC()
+        public string ExportAsNPC(string overrideStringId = null)
         {
-            var el = BuildNpcCharacterElement();
+            var el = BuildNpcCharacterElement(overrideStringId);
             return el.ToString(SaveOptions.DisableFormatting);
         }
 
-        private XElement BuildNpcCharacterElement()
+        private XElement BuildNpcCharacterElement(string overrideStringId)
         {
             var c = Base;
 
             var npc = new XElement("NPCCharacter");
 
-            npc.SetAttributeValue("id", StringId);
+            // Use override id when provided (so NPC export doesn't inherit stub ids).
+            var finalId = !string.IsNullOrWhiteSpace(overrideStringId)
+                ? overrideStringId
+                : StringId;
+            npc.SetAttributeValue("id", finalId);
 
             // Default group: Infantry/Ranged/Cavalry/HorseArcher (FormationClass.ToString()).
             npc.SetAttributeValue("default_group", FormationClass.ToString());
@@ -34,14 +38,20 @@ namespace Retinues.Model.Characters
             npc.SetAttributeValue("level", Level);
 
             // Name: export as plain string.
-            npc.SetAttributeValue("name", Name ?? StringId);
+            npc.SetAttributeValue("name", Name ?? finalId);
 
             // Occupation is read-only on CharacterObject; reflection keeps this version-safe.
             var occ = Reflection.GetPropertyValue<object>(c, "Occupation");
             if (occ != null)
                 npc.SetAttributeValue("occupation", occ.ToString());
 
-            npc.SetAttributeValue("is_basic_troop", IsBasic ? "true" : "false");
+            // IsBasicTroop is not the same as IsBasic.
+            var isBasicTroop = Reflection.GetPropertyValue<bool>(c, "IsBasicTroop");
+            npc.SetAttributeValue("is_basic_troop", isBasicTroop ? "true" : "false");
+
+            // Always export IsFemale.
+            var isFemale = Reflection.GetPropertyValue<bool>(c, "IsFemale");
+            npc.SetAttributeValue("is_female", isFemale ? "true" : "false");
 
             if (Culture?.Base != null)
                 npc.SetAttributeValue("culture", "Culture." + Culture.Base.StringId);
@@ -51,7 +61,7 @@ namespace Retinues.Model.Characters
             if (!string.IsNullOrWhiteSpace(reqId))
                 npc.SetAttributeValue("upgrade_requires", "ItemCategory." + reqId);
 
-            var face = BuildFaceElement(c);
+            var face = BuildFaceElement(c, finalId);
             if (face != null)
                 npc.Add(face);
 
@@ -62,21 +72,101 @@ namespace Retinues.Model.Characters
             return npc;
         }
 
-        private XElement BuildFaceElement(CharacterObject c)
+        private XElement BuildFaceElement(CharacterObject c, string finalId)
         {
-            // Prefer BodyPropertyRange.StringId when available.
-            var range = Reflection.GetPropertyValue<object>(c, "BodyPropertyRange");
-            var rangeId = GetStringId(range);
+            try
+            {
+                // If we're overriding an existing NPCCharacter id, BodyPropertyRange is already set
+                // from vanilla, and <BodyProperties/> won't be applied. Use face_key_template instead.
+                if (!string.IsNullOrWhiteSpace(finalId))
+                {
+                    var existing = MBObjectManager.Instance.GetObject<CharacterObject>(finalId);
+                    if (existing != null)
+                        return BuildFaceTemplateElement();
+                }
+
+                // New troop id: export an exact face (min=max) sampled deterministically.
+                return BuildExactFaceElement(c);
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        private XElement BuildFaceTemplateElement()
+        {
+            // Pick a sensible culture+gender template, then export its BodyPropertyRange id.
+            var culture = Culture;
+            if (culture == null)
+                return null;
+
+            WCharacter template = culture.RootBasic ?? culture.RootElite;
+
+            if (template == null || template.IsFemale != IsFemale)
+                template = IsFemale ? culture.VillageWoman : culture.Villager;
+
+            if (template == null)
+            {
+                foreach (var t in culture.Troops)
+                {
+                    if (t == null)
+                        continue;
+
+                    template = t;
+                    if (t.IsFemale == IsFemale)
+                        break;
+                }
+            }
+
+            if (template?.Base == null)
+                return null;
+
+            var rangeObj = Reflection.GetPropertyValue<object>(template.Base, "BodyPropertyRange");
+            var rangeId = GetStringId(rangeObj);
             if (string.IsNullOrWhiteSpace(rangeId))
                 return null;
 
-            return new XElement(
-                "face",
+            var face = new XElement("face");
+            face.Add(
                 new XElement(
                     "face_key_template",
                     new XAttribute("value", "BodyProperty." + rangeId)
                 )
             );
+
+            return face;
+        }
+
+        private XElement BuildExactFaceElement(CharacterObject c)
+        {
+            // Deterministic sample: this matches the engine’s usual “seeded face per troop id” approach.
+            // Use rank 0 seed.
+            var seed = c.GetDefaultFaceSeed(0);
+
+            // Use first battle equipment if available (hair cover affects the sampled face).
+            Equipment eq;
+            try
+            {
+                eq = Reflection.GetPropertyValue<Equipment>(c, "FirstBattleEquipment");
+            }
+            catch
+            {
+                eq = default;
+            }
+
+            var props = c.GetBodyProperties(eq, seed);
+
+            var face = new XElement("face");
+
+            var minEl = XElement.Parse(props.ToString()); // <BodyProperties ... />
+            var maxEl = XElement.Parse(props.ToString());
+            maxEl.Name = "BodyPropertiesMax";
+
+            face.Add(minEl);
+            face.Add(maxEl);
+
+            return face;
         }
 
         private XElement BuildSkillsElement()
