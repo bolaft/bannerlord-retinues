@@ -35,7 +35,11 @@ namespace Retinues.Model.Characters
             // Default group: Infantry/Ranged/Cavalry/HorseArcher (FormationClass.ToString()).
             npc.SetAttributeValue("default_group", FormationClass.ToString());
 
+            // Level: always export.
             npc.SetAttributeValue("level", Level);
+
+            // Always export is_hidden_encyclopedia to false.
+            npc.SetAttributeValue("is_hidden_encyclopedia", "false");
 
             // Name: export as plain string.
             npc.SetAttributeValue("name", Name ?? finalId);

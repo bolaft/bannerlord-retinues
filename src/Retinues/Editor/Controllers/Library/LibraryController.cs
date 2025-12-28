@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Xml;
 using System.Xml.Linq;
 using Retinues.Helpers;
@@ -638,6 +639,7 @@ namespace Retinues.Editor.Controllers.Library
                 }
 
                 var npcStrings = new List<string>();
+                var npcIds = new List<string>();
                 var missingVanillaBases = new List<string>();
 
                 foreach (var p in payloads)
@@ -656,6 +658,11 @@ namespace Retinues.Editor.Controllers.Library
                     var npcId = !string.IsNullOrWhiteSpace(p.ModelStringId)
                         ? p.ModelStringId
                         : item?.SourceId;
+
+                    if (string.IsNullOrWhiteSpace(npcId))
+                        continue;
+
+                    npcIds.Add(npcId);
                     npcStrings.Add(lease.Character.ExportAsNPC(npcId));
                 }
 
@@ -676,7 +683,7 @@ namespace Retinues.Editor.Controllers.Library
 
                 try
                 {
-                    WriteNpcCharactersMod(paths, npcStrings);
+                    WriteNpcCharactersMod(paths, npcStrings, npcIds);
                 }
                 catch (UnauthorizedAccessException)
                 {
@@ -688,7 +695,7 @@ namespace Retinues.Editor.Controllers.Library
                         rootIsAlreadyModuleDir: true
                     );
 
-                    WriteNpcCharactersMod(fallbackPaths, npcStrings);
+                    WriteNpcCharactersMod(fallbackPaths, npcStrings, npcIds);
 
                     var warn =
                         missingVanillaBases.Count > 0
@@ -822,12 +829,14 @@ namespace Retinues.Editor.Controllers.Library
         private readonly struct NpcModPaths(
             string moduleRoot,
             string subModuleXmlPath,
-            string charactersXmlPath
+            string spNpcCharactersXmlPath,
+            string spNpcCharactersXsltPath
         )
         {
             public string ModuleRoot => moduleRoot;
             public string SubModuleXmlPath => subModuleXmlPath;
-            public string CharactersXmlPath => charactersXmlPath;
+            public string SpNpcCharactersXmlPath => spNpcCharactersXmlPath;
+            public string SpNpcCharactersXsltPath => spNpcCharactersXsltPath;
         }
 
         private static bool TryResolveGameModulesDirectory(out string modulesDir)
@@ -942,30 +951,101 @@ namespace Retinues.Editor.Controllers.Library
             bool rootIsAlreadyModuleDir = false
         )
         {
-            // If rootIsAlreadyModuleDir=true, modulesDir is actually the module root container already.
-            // Example: fallback folder points to .../GeneratedMods/<moduleId>
             var moduleRoot = rootIsAlreadyModuleDir
                 ? modulesDir
                 : Path.Combine(modulesDir, moduleId);
 
             var subModuleXmlPath = Path.Combine(moduleRoot, "SubModule.xml");
-            var charactersXmlPath = Path.Combine(moduleRoot, "ModuleData", "characters.xml");
 
-            return new NpcModPaths(moduleRoot, subModuleXmlPath, charactersXmlPath);
+            // Bannerlord convention for campaign troops:
+            // - ModuleData/spnpccharacters.xml
+            // - ModuleData/spnpccharacters.xslt
+            var spNpcCharactersXmlPath = Path.Combine(
+                moduleRoot,
+                "ModuleData",
+                "spnpccharacters.xml"
+            );
+            var spNpcCharactersXsltPath = Path.Combine(
+                moduleRoot,
+                "ModuleData",
+                "spnpccharacters.xslt"
+            );
+
+            return new NpcModPaths(
+                moduleRoot,
+                subModuleXmlPath,
+                spNpcCharactersXmlPath,
+                spNpcCharactersXsltPath
+            );
         }
 
-        private static void WriteNpcCharactersMod(NpcModPaths paths, List<string> npcElements)
+        private static void WriteNpcCharactersMod(
+            NpcModPaths paths,
+            List<string> npcElements,
+            List<string> npcIds
+        )
         {
             if (string.IsNullOrWhiteSpace(paths.ModuleRoot))
                 return;
 
             Directory.CreateDirectory(paths.ModuleRoot);
             Directory.CreateDirectory(
-                Path.GetDirectoryName(paths.CharactersXmlPath) ?? paths.ModuleRoot
+                Path.GetDirectoryName(paths.SpNpcCharactersXmlPath) ?? paths.ModuleRoot
             );
 
             WriteSubModuleXml(paths.SubModuleXmlPath, Path.GetFileName(paths.ModuleRoot));
-            WriteNpcCharactersFile(paths.CharactersXmlPath, npcElements);
+
+            // 1) Write the new NPCCharacter definitions (only your edited troops).
+            WriteNpcCharactersFile(paths.SpNpcCharactersXmlPath, npcElements);
+
+            // 2) Write an XSLT that deletes those ids from earlier modules,
+            // so our XML becomes a true replacement instead of merging.
+            WriteSpNpcCharactersXslt(paths.SpNpcCharactersXsltPath, npcIds);
+        }
+
+        private static void WriteSpNpcCharactersXslt(string filePath, List<string> npcIds)
+        {
+            if (string.IsNullOrWhiteSpace(filePath))
+                return;
+
+            npcIds ??= new List<string>();
+
+            // De-dup + stable ordering for deterministic output.
+            var ids = npcIds
+                .Where(s => !string.IsNullOrWhiteSpace(s))
+                .Distinct(StringComparer.Ordinal)
+                .OrderBy(s => s, StringComparer.Ordinal)
+                .ToList();
+
+            // If there are no ids, still write a valid identity transform (harmless).
+            // Bannerlord applies XSLT only if XML of the same name exists too (we always write spnpccharacters.xml).
+            var sb = new StringBuilder();
+            sb.AppendLine("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
+            sb.AppendLine(
+                "<xsl:stylesheet version=\"1.0\" xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\">"
+            );
+            sb.AppendLine("  <xsl:output omit-xml-declaration=\"yes\"/>");
+            sb.AppendLine();
+            sb.AppendLine("  <!-- Identity transform -->");
+            sb.AppendLine("  <xsl:template match=\"@*|node()\">");
+            sb.AppendLine("    <xsl:copy>");
+            sb.AppendLine("      <xsl:apply-templates select=\"@*|node()\"/>");
+            sb.AppendLine("    </xsl:copy>");
+            sb.AppendLine("  </xsl:template>");
+            sb.AppendLine();
+
+            // Delete earlier definitions for the ids we replace.
+            // This prevents Bannerlord's merge behavior from appending Equipments/upgrade_targets.
+            foreach (var id in ids)
+            {
+                // ids are Bannerlord string ids; still keep it conservative.
+                var safeId = id.Replace("\"", "");
+                sb.AppendLine($"  <xsl:template match='NPCCharacter[@id=\"{safeId}\"]'/>");
+            }
+
+            sb.AppendLine("</xsl:stylesheet>");
+
+            XML.WriteAllTextUtf8NoBom(filePath, sb.ToString());
         }
 
         private static void WriteSubModuleXml(string filePath, string moduleId)
@@ -983,7 +1063,6 @@ namespace Retinues.Editor.Controllers.Library
                     new XElement("DefaultModule", new XAttribute("value", "false")),
                     new XElement("SingleplayerModule", new XAttribute("value", "true")),
                     new XElement("MultiplayerModule", new XAttribute("value", "false")),
-                    new XElement("Official", new XAttribute("value", "false")),
                     new XElement(
                         "Xmls",
                         new XElement(
@@ -991,7 +1070,7 @@ namespace Retinues.Editor.Controllers.Library
                             new XElement(
                                 "XmlName",
                                 new XAttribute("id", "NPCCharacters"),
-                                new XAttribute("path", "characters")
+                                new XAttribute("path", "spnpccharacters")
                             ),
                             new XElement(
                                 "IncludedGameTypes",
@@ -1008,7 +1087,6 @@ namespace Retinues.Editor.Controllers.Library
             );
 
             Directory.CreateDirectory(Path.GetDirectoryName(filePath) ?? ".");
-
             XML.SaveDocumentUtf8NoBom(filePath, doc, indent: true, omitXmlDeclaration: false);
         }
 
