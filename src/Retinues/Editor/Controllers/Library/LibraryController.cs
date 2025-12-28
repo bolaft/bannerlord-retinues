@@ -551,6 +551,15 @@ namespace Retinues.Editor.Controllers.Library
                     L.T("library_export_npc_tooltip", "Convert this export into a standalone mod.")
                 )
                 .AddCondition(
+                    item =>
+                        item?.SourceId != null
+                        && !item.SourceId.StartsWith(WCharacter.CustomTroopPrefix),
+                    L.T(
+                        "library_export_not_vanilla",
+                        "Only modified vanilla troops can be exported as standalone mods."
+                    )
+                )
+                .AddCondition(
                     item => item != null,
                     L.T("library_export_npc_no_selection", "No export selected.")
                 )

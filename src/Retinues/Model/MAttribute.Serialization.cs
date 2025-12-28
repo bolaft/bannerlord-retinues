@@ -952,8 +952,8 @@ namespace Retinues.Model
                     return;
                 }
 
-                // 1) LIST
-                if (tag == "list" && el.HasElements)
+                // 1) LIST (empty list must clear)
+                if (tag == "list")
                 {
                     var obj = ParseListFromChildren(el, typeof(T));
                     if (obj is T typed)
