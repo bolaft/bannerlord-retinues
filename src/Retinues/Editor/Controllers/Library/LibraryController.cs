@@ -312,7 +312,7 @@ namespace Retinues.Editor.Controllers.Library
                 return WCharacter.Get(id) != null;
 
             if (item.Kind == MLibraryKind.Faction)
-                return ResolveFaction(id) != null;
+                return MImportExport.ResolveFaction(id) != null;
 
             return false;
         }
@@ -392,7 +392,7 @@ namespace Retinues.Editor.Controllers.Library
                 {
                     foreach (var el in root.Elements())
                     {
-                        if (!IsCharacterElement(el))
+                        if (!MImportExport.IsCharacterElement(el, loose: true))
                             continue;
 
                         var n = ReadCharacterName(el);
@@ -409,20 +409,6 @@ namespace Retinues.Editor.Controllers.Library
             }
 
             return false;
-        }
-
-        private static bool IsCharacterElement(XElement el)
-        {
-            if (el == null)
-                return false;
-
-            var name = el.Name.LocalName ?? string.Empty;
-
-            if (string.Equals(name, "WCharacter", StringComparison.OrdinalIgnoreCase))
-                return true;
-
-            var type = (string)el.Attribute("type") ?? string.Empty;
-            return type.IndexOf("WCharacter", StringComparison.OrdinalIgnoreCase) >= 0;
         }
 
         private static string ReadCharacterName(XElement el)
@@ -795,10 +781,10 @@ namespace Retinues.Editor.Controllers.Library
 
                 foreach (var el in root.Elements())
                 {
-                    if (!IsCharacterElement(el))
+                    if (!MImportExport.IsCharacterElement(el, loose: true))
                         continue;
 
-                    var payload = ExtractPayload(el);
+                    var payload = MImportExport.ExtractPayload(el);
                     if (string.IsNullOrWhiteSpace(payload))
                         continue;
 
@@ -820,17 +806,6 @@ namespace Retinues.Editor.Controllers.Library
             }
         }
 
-        private static string ExtractPayload(XElement el)
-        {
-            if (el == null)
-                return string.Empty;
-
-            // Same idea as the library model lease: keep the element, drop uid.
-            var copy = new XElement(el);
-            copy.SetAttributeValue("uid", null);
-            return copy.ToString(SaveOptions.DisableFormatting);
-        }
-
         private static string TryGetModelStringId(XElement el)
         {
             if (el == null)
@@ -841,19 +816,7 @@ namespace Retinues.Editor.Controllers.Library
                 return id;
 
             var uid = (string)el.Attribute("uid");
-            return TryGetStringIdFromUid(uid);
-        }
-
-        private static string TryGetStringIdFromUid(string uid)
-        {
-            if (string.IsNullOrWhiteSpace(uid))
-                return null;
-
-            var sep = uid.IndexOf(':');
-            if (sep <= 0 || sep >= uid.Length - 1)
-                return null;
-
-            return uid.Substring(sep + 1);
+            return MImportExport.TryGetStringIdFromUid(uid);
         }
 
         private readonly struct NpcModPaths(
@@ -1046,17 +1009,7 @@ namespace Retinues.Editor.Controllers.Library
 
             Directory.CreateDirectory(Path.GetDirectoryName(filePath) ?? ".");
 
-            using var fs = File.Create(filePath);
-            using var xw = XmlWriter.Create(
-                fs,
-                new XmlWriterSettings
-                {
-                    Indent = true,
-                    OmitXmlDeclaration = false,
-                    Encoding = new System.Text.UTF8Encoding(false),
-                }
-            );
-            doc.Save(xw);
+            XML.SaveDocumentUtf8NoBom(filePath, doc, indent: true, omitXmlDeclaration: false);
         }
 
         private static void WriteNpcCharactersFile(string filePath, List<string> npcElements)
@@ -1078,18 +1031,7 @@ namespace Retinues.Editor.Controllers.Library
 
             Directory.CreateDirectory(Path.GetDirectoryName(filePath) ?? ".");
 
-            // Use an XmlWriter so the file matches your target formatting + utf-8.
-            using var fs = File.Create(filePath);
-            using var xw = XmlWriter.Create(
-                fs,
-                new XmlWriterSettings
-                {
-                    Indent = true,
-                    OmitXmlDeclaration = false,
-                    Encoding = new System.Text.UTF8Encoding(false),
-                }
-            );
-            doc.Save(xw);
+            XML.SaveDocumentUtf8NoBom(filePath, doc, indent: true, omitXmlDeclaration: false);
         }
 
         private sealed class StubLease : IDisposable
@@ -1180,26 +1122,6 @@ namespace Retinues.Editor.Controllers.Library
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Shared Helpers                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        private static IBaseFaction ResolveFaction(string stringId)
-        {
-            if (string.IsNullOrWhiteSpace(stringId))
-                return null;
-
-            var clan = WClan.Get(stringId);
-            if (clan != null)
-                return clan;
-
-            var kingdom = WKingdom.Get(stringId);
-            if (kingdom != null)
-                return kingdom;
-
-            var culture = WCulture.Get(stringId);
-            if (culture != null)
-                return culture;
-
-            return null;
-        }
 
         private static string ResolveTextObjectString(string raw)
         {

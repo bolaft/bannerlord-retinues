@@ -157,7 +157,7 @@ namespace Retinues.Model
                 }
 
                 var xml = System.IO.File.ReadAllText(filepath, Encoding.UTF8);
-                if (!TryParseXmlRoot(xml, out var root))
+                if (!XML.TryParseRoot(xml, out var root))
                 {
                     error = "invalid XML file.";
                     return false;
@@ -170,8 +170,8 @@ namespace Retinues.Model
                 }
 
                 var el =
-                    root.Elements().FirstOrDefault(IsCharacterElement) ?? root.Elements()
-                        .FirstOrDefault();
+                    root.Elements().FirstOrDefault(x => IsCharacterElement(x, loose: true))
+                    ?? root.Elements().FirstOrDefault();
                 if (el == null)
                 {
                     error = "missing character element.";
@@ -223,7 +223,7 @@ namespace Retinues.Model
                 }
 
                 var xml = System.IO.File.ReadAllText(filepath, Encoding.UTF8);
-                if (!TryParseXmlRoot(xml, out var root))
+                if (!XML.TryParseRoot(xml, out var root))
                 {
                     error = "invalid XML file.";
                     return false;
@@ -367,7 +367,7 @@ namespace Retinues.Model
             );
         }
 
-        static string ExtractPayload(XElement el)
+        internal static string ExtractPayload(XElement el)
         {
             if (el == null)
                 return string.Empty;
@@ -381,30 +381,7 @@ namespace Retinues.Model
             return copy.ToString(SaveOptions.DisableFormatting);
         }
 
-        static bool TryParseXmlRoot(string xml, out XElement root)
-        {
-            root = null;
-
-            if (string.IsNullOrWhiteSpace(xml))
-                return false;
-
-            var trimmed = xml.TrimStart();
-            if (!trimmed.StartsWith("<"))
-                return false;
-
-            try
-            {
-                var doc = XDocument.Parse(xml, LoadOptions.None);
-                root = doc.Root;
-                return root != null;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        static string TryGetStringIdFromUid(string uid)
+        internal static string TryGetStringIdFromUid(string uid)
         {
             if (string.IsNullOrWhiteSpace(uid))
                 return null;
@@ -416,16 +393,27 @@ namespace Retinues.Model
             return uid.Substring(sep + 1);
         }
 
-        static bool IsCharacterElement(XElement el)
+        internal static bool IsCharacterElement(XElement el, bool loose = false)
         {
             if (el == null)
                 return false;
 
-            var type = (string)el.Attribute("type");
-            if (!string.IsNullOrWhiteSpace(type) && type.Contains(".Characters.WCharacter"))
+            if (!loose)
+            {
+                var type = (string)el.Attribute("type");
+                if (!string.IsNullOrWhiteSpace(type) && type.Contains(".Characters.WCharacter"))
+                    return true;
+
+                return el.Name.LocalName.Contains("WCharacter");
+            }
+
+            // Library scans: be more permissive (this matches what LibraryController was doing).
+            var name = el.Name.LocalName ?? string.Empty;
+            if (string.Equals(name, "WCharacter", StringComparison.OrdinalIgnoreCase))
                 return true;
 
-            return el.Name.LocalName.Contains("WCharacter");
+            var t = (string)el.Attribute("type") ?? string.Empty;
+            return t.IndexOf("WCharacter", StringComparison.OrdinalIgnoreCase) >= 0;
         }
 
         static bool IsFactionElement(XElement el)
@@ -455,7 +443,7 @@ namespace Retinues.Model
                 Directory.CreateDirectory(dir);
 
             var content = root.ToString(SaveOptions.None);
-            System.IO.File.WriteAllText(path, content, new UTF8Encoding(false));
+            XML.WriteAllTextUtf8NoBom(path, content);
         }
 
         static void PromptFileName(string kind, object source, Action<string> onChosen)
@@ -537,7 +525,7 @@ namespace Retinues.Model
             return fileName;
         }
 
-        static IBaseFaction ResolveFaction(string stringId)
+        internal static IBaseFaction ResolveFaction(string stringId)
         {
             var clan = WClan.Get(stringId);
             if (clan != null)

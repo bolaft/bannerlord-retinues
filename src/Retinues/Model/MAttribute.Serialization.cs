@@ -678,35 +678,6 @@ namespace Retinues.Model
                 }
             }
 
-            object ResolveMbObject(Type mbType, string id)
-            {
-                if (string.IsNullOrWhiteSpace(id) || mbType == null)
-                    return null;
-
-                try
-                {
-                    var mgr = MBObjectManager.Instance;
-                    var mi = typeof(MBObjectManager)
-                        .GetMethods()
-                        .FirstOrDefault(m =>
-                            m.Name == "GetObject"
-                            && m.IsGenericMethodDefinition
-                            && m.GetParameters().Length == 1
-                            && m.GetParameters()[0].ParameterType == typeof(string)
-                        );
-
-                    if (mi == null)
-                        return null;
-
-                    var g = mi.MakeGenericMethod(mbType);
-                    return g.Invoke(mgr, new object[] { id });
-                }
-                catch
-                {
-                    return null;
-                }
-            }
-
             object ParseScalar(string s, Type targetType)
             {
                 s = (s ?? string.Empty).Trim();
