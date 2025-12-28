@@ -41,10 +41,9 @@ namespace Retinues.Domain.Characters.Wrappers
                     _upgradeTargetIdsPersisted =
                         ids == null
                             ? []
-                            : ids.Select(s => s?.Trim())
+                            : [.. ids.Select(s => s?.Trim())
                                 .Where(s => !string.IsNullOrWhiteSpace(s))
-                                .Distinct()
-                                .ToList();
+                                .Distinct()];
 
                     // Try to apply to the underlying CharacterObject now if possible.
                     TryApplyUpgradeTargetIds();

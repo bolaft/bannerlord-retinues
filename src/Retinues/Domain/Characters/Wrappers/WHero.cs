@@ -17,7 +17,7 @@ namespace Retinues.Domain.Characters.Wrappers
     /// <summary>
     /// Wrapper for Hero.
     /// </summary>
-    public class WHero(Hero @base) : WBase<WHero, Hero>(@base), IEditableUnit
+    public class WHero(Hero @base) : WBase<WHero, Hero>(@base), ICharacter
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Name                          //
@@ -177,9 +177,9 @@ namespace Retinues.Domain.Characters.Wrappers
         private HeroSkills _skills;
         public HeroSkills Skills => _skills ??= new HeroSkills(this);
 
-        IEditableSkills IEditableUnit.Skills => Skills;
+        ICharacterSkills ICharacter.Skills => Skills;
 
-        public class HeroSkills(WHero wh) : IEditableSkills
+        public class HeroSkills(WHero wh) : ICharacterSkills
         {
             public int Get(SkillObject skill)
             {

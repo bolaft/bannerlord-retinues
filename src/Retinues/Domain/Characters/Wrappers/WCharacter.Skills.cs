@@ -26,7 +26,7 @@ namespace Retinues.Domain.Characters.Wrappers
 
         /* ━━━━━━ Interfacing ━━━━━ */
 
-        IEditableSkills IEditableUnit.Skills => Skills;
+        ICharacterSkills ICharacter.Skills => Skills;
 
         /* ━━━ Skills Container ━━━ */
 
@@ -43,7 +43,7 @@ namespace Retinues.Domain.Characters.Wrappers
         /* ━━━ Attribute Helper ━━━ */
 
         [SafeClass]
-        public class CharacterSkills : IEditableSkills
+        public class CharacterSkills : ICharacterSkills
         {
             readonly WCharacter _wc;
 

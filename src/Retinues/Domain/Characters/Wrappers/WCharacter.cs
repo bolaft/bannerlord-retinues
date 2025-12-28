@@ -15,7 +15,7 @@ namespace Retinues.Domain.Characters.Wrappers
 {
     public partial class WCharacter(CharacterObject @base)
         : WBase<WCharacter, CharacterObject>(@base),
-            IEditableUnit
+            ICharacter
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Main Properties                    //
@@ -66,7 +66,7 @@ namespace Retinues.Domain.Characters.Wrappers
 
         /* ━━━━━━━━━ Unit ━━━━━━━━━ */
 
-        public IEditableUnit Editable => IsHero ? Hero : this;
+        public ICharacter Editable => IsHero ? Hero : this;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Removal                        //

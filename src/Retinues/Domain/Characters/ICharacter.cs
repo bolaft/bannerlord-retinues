@@ -5,17 +5,17 @@ using TaleWorlds.Core;
 
 namespace Retinues.Domain.Characters
 {
-    public interface IEditableUnit
+    public interface ICharacter
     {
         string Name { get; set; }
         int Level { get; set; }
         bool IsFemale { get; set; }
         WCulture Culture { get; set; }
-        IEditableSkills Skills { get; }
+        ICharacterSkills Skills { get; }
         List<MEquipment> Equipments { get; }
     }
 
-    public interface IEditableSkills
+    public interface ICharacterSkills
     {
         int Get(SkillObject skill);
         void Set(SkillObject skill, int value);
