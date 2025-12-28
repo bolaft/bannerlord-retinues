@@ -207,10 +207,17 @@ namespace Retinues.Module.Dependencies
                 _harmony.UnpatchAll(HarmonyInstanceId);
                 Log.Info("[Harmony] Harmony patches removed.");
             }
+#if DEBUG
+            catch
+            {
+                // Ignore exceptions which may occur due to timer patches on safe classes
+            }
+#else
             catch (Exception e)
             {
                 Log.Exception(e, "[Harmony] Error while removing Harmony patches.");
             }
+#endif
             finally
             {
                 _harmony = null;

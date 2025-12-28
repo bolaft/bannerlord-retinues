@@ -18,6 +18,9 @@ namespace Retinues.Utilities
 
             // Re-entrancy guard (Begin/End can nest across Harmony patches).
             public int Depth;
+
+            // Number of times this segment was entered (outermost Begin calls).
+            public int EnterCount;
         }
 
         private static readonly Stopwatch Total = new();
@@ -63,8 +66,12 @@ namespace Retinues.Utilities
             }
 
             segment.Depth++;
-            if (segment.Depth == 1 && !segment.Stopwatch.IsRunning)
-                segment.Stopwatch.Start();
+            if (segment.Depth == 1)
+            {
+                segment.EnterCount++;
+                if (!segment.Stopwatch.IsRunning)
+                    segment.Stopwatch.Start();
+            }
         }
 
         /// <summary>
@@ -134,7 +141,9 @@ namespace Retinues.Utilities
                 var seconds = segment.Elapsed.TotalSeconds;
                 var percent = totalSeconds > 0.0 ? (seconds / totalSeconds) * 100.0 : 0.0;
 
-                Log.Debug($"{segment.Label}: {seconds:0.00000}s ({percent:0.0}%)");
+                Log.Debug(
+                    $"{segment.Label}: {seconds:0.00000}s ({percent:0.0}%) x{segment.EnterCount}"
+                );
             }
         }
 
