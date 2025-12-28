@@ -37,7 +37,7 @@ namespace Retinues.Editor.VM.List.Character
         //                        Selection                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        [EventListener(UIEvent.Character)]
+        [EventListener(UIEvent.Character, Global = true)]
         [DataSourceProperty]
         public override bool IsSelected => State.Character == Character;
 
@@ -75,6 +75,7 @@ namespace Retinues.Editor.VM.List.Character
         //                     Formation Class                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        [EventListener(UIEvent.Formation)]
         [DataSourceProperty]
         public string FormationClassIcon => Icons.GetFormationClassIcon(Character);
 

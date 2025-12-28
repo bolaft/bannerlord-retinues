@@ -31,13 +31,6 @@ namespace Retinues.Editor
         Tree,
         Formation,
         Library,
-        LibraryIndex,
-    }
-
-    public enum EventScope
-    {
-        Global,
-        Local,
     }
 
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -45,9 +38,13 @@ namespace Retinues.Editor
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
     /// <summary>
-    /// Marks a property as listening to one or more UI events.
-    /// When any of these events fire, the property will be
-    /// scheduled for OnPropertyChanged in the current burst.
+    /// Marks a property or method as listening to one or more UI events.
+    /// When any of these events fire, the property will be scheduled
+    /// for OnPropertyChanged in the current burst, and methods are
+    /// invoked immediately.
+    ///
+    /// If Global=true, ListRowVMs will refresh this property even when
+    /// the row is not selected.
     /// </summary>
     [AttributeUsage(
         AttributeTargets.Property | AttributeTargets.Method,
@@ -57,6 +54,10 @@ namespace Retinues.Editor
     public sealed class EventListenerAttribute(params UIEvent[] events) : Attribute
     {
         public UIEvent[] Events { get; } = events ?? [];
+
+        // Named attribute argument, default false:
+        // [EventListener(UIEvent.Character, Global = true)]
+        public bool Global { get; set; } = false;
     }
 
     /// <summary>
@@ -79,22 +80,54 @@ namespace Retinues.Editor
     ///
     /// - VMs register/unregister themselves.
     /// - Fire/FireBatch/FireSequence dispatch UIEvent values.
-    /// - Each VM receives events through BaseStatefulVM.__OnGlobalEvent.
+    /// - Each VM receives events through BaseVM.__OnGlobalEvent.
     /// - A "burst" ensures each (VM, property) pair is notified at most
     ///   once even if many events chain into each other.
     /// </summary>
     [SafeClass]
     public static class EventManager
     {
-        // current scope for the event being dispatched
-        internal static EventScope CurrentScope { get; private set; } = EventScope.Global;
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Burst Public API                  //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// True while inside FireBatch / nested Fire calls.
+        /// Used by EditorAction to enable per-burst caching.
+        /// </summary>
+        internal static bool IsInBurst
+        {
+            get
+            {
+                lock (_lock)
+                {
+                    return _burstDepth > 0;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Monotonically increasing burst identifier.
+        /// Changes only when entering the outermost burst.
+        /// Used by EditorAction to scope caches.
+        /// </summary>
+        internal static int CurrentBurstId
+        {
+            get
+            {
+                lock (_lock)
+                {
+                    return _burstId;
+                }
+            }
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Event Hierarchy                   //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
-        /// Declarative parent → children relationships between events.
+        /// Declarative parent -> children relationships between events.
         /// Firing a parent will also fire all of its descendants once
         /// in the current burst.
         /// </summary>
@@ -112,6 +145,7 @@ namespace Retinues.Editor
                     UIEvent.Gender,
                     UIEvent.Equipment,
                     UIEvent.Trait,
+                    UIEvent.Formation,
                 }
             },
             { UIEvent.Equipment, new[] { UIEvent.Appearance, UIEvent.Item } },
@@ -161,8 +195,19 @@ namespace Retinues.Editor
         /// Shared context passed to VMs so they can queue property
         /// notifications without immediately calling OnPropertyChanged.
         /// </summary>
-        internal sealed class Context
+        public sealed class Context
         {
+            internal UIEvent RootEvent { get; private set; }
+            internal UIEvent ParentEvent { get; private set; }
+            internal UIEvent CurrentEvent { get; private set; }
+
+            internal void SetDispatch(UIEvent root, UIEvent parent, UIEvent current)
+            {
+                RootEvent = root;
+                ParentEvent = parent;
+                CurrentEvent = current;
+            }
+
             internal void RequestNotify(BaseVM vm, string propertyName)
             {
                 if (vm == null || string.IsNullOrEmpty(propertyName))
@@ -183,6 +228,9 @@ namespace Retinues.Editor
 
         // Burst depth: >0 means we are inside a "burst".
         private static int _burstDepth;
+
+        // Changes each time we enter the outermost burst.
+        private static int _burstId;
 
         // Pending (VM, propertyName) notifications for the current burst.
         private static readonly Dictionary<BaseVM, HashSet<string>> _pendingNotifications = [];
@@ -241,33 +289,23 @@ namespace Retinues.Editor
         /// Fire a single UI event. Outside a batch, this still behaves
         /// as a mini-burst so listeners are only notified once.
         /// </summary>
-        public static void Fire(UIEvent e, EventScope scope = EventScope.Global)
+        public static void Fire(UIEvent e)
         {
-            var previousScope = CurrentScope;
-            CurrentScope = scope;
-
-            try
+            if (_burstDepth == 0)
             {
-                if (_burstDepth == 0)
-                {
-                    BeginBurst();
-                    try
-                    {
-                        NotifyListeners(e);
-                    }
-                    finally
-                    {
-                        EndBurst();
-                    }
-                }
-                else
+                BeginBurst();
+                try
                 {
                     NotifyListeners(e);
                 }
+                finally
+                {
+                    EndBurst();
+                }
             }
-            finally
+            else
             {
-                CurrentScope = previousScope;
+                NotifyListeners(e);
             }
         }
 
@@ -324,6 +362,7 @@ namespace Retinues.Editor
 
                 if (_burstDepth == 1)
                 {
+                    _burstId++; // advance burst id
                     _pendingNotifications.Clear();
                 }
             }
@@ -397,6 +436,7 @@ namespace Retinues.Editor
                 _listeners.Clear();
                 _pendingNotifications.Clear();
                 _burstDepth = 0;
+                _burstId = 0;
             }
         }
 
@@ -440,30 +480,53 @@ namespace Retinues.Editor
             }
         }
 
+        private readonly struct Expanded(UIEvent current, UIEvent parent)
+        {
+            public readonly UIEvent Current = current;
+            public readonly UIEvent Parent = parent;
+        }
+
+        private static IEnumerable<Expanded> ExpandWithParent(UIEvent root)
+        {
+            var visited = new HashSet<UIEvent>();
+            var stack = new Stack<Expanded>();
+
+            // Root has itself as parent.
+            stack.Push(new Expanded(root, root));
+
+            while (stack.Count > 0)
+            {
+                var exp = stack.Pop();
+                var current = exp.Current;
+
+                if (!visited.Add(current))
+                    continue;
+
+                yield return exp;
+
+                if (_hierarchy.TryGetValue(current, out var children) && children != null)
+                {
+                    for (int i = children.Length - 1; i >= 0; i--)
+                        stack.Push(new Expanded(children[i], current));
+                }
+            }
+        }
+
         private static void NotifyListeners(UIEvent rootEvent)
         {
             var vms = TakeSnapshot();
 
-            // Expand root event into itself + all descendants.
-            foreach (var e in Expand(rootEvent))
+            foreach (var exp in ExpandWithParent(rootEvent))
             {
+                _context.SetDispatch(rootEvent, exp.Parent, exp.Current);
+
                 for (int i = 0; i < vms.Count; i++)
                 {
                     var vm = vms[i];
                     if (vm == null)
                         continue;
 
-                    try
-                    {
-                        vm.__OnGlobalEvent(_context, e);
-                    }
-                    catch (Exception ex)
-                    {
-                        Log.Exception(
-                            ex,
-                            $"Error dispatching event '{e}' to '{vm.GetType().Name}'."
-                        );
-                    }
+                    vm.__OnGlobalEvent(_context, exp.Current);
                 }
             }
         }

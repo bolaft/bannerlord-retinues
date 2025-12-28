@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Linq;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Editor.Controllers.Library;
@@ -119,36 +118,44 @@ namespace Retinues.Editor.VM.Panel.Library
         /// <summary>
         /// For Faction exports: included troop names from the export file.
         /// </summary>
-        [EventListener(UIEvent.Library)]
+        private readonly MBBindingList<FactionTroopNameVM> _troopNames = [];
+
         [DataSourceProperty]
-        public MBBindingList<FactionTroopNameVM> TroopNames
+        public MBBindingList<FactionTroopNameVM> TroopNames => _troopNames;
+
+        [EventListener(UIEvent.Library)]
+        private void RefreshTroopNames()
         {
-            get
+            // Always keep the list instance stable.
+            _troopNames.Clear();
+
+            if (!IsFaction)
             {
-                var list = new MBBindingList<FactionTroopNameVM>();
-                if (!IsFaction)
-                    return list;
-
-                var all =
-                    LibraryController.GetFactionTroopNamesFromFile(State.LibraryItem)?.ToList()
-                    ?? [];
-                const int limit = 10;
-                int total = all.Count;
-
-                foreach (var name in all.Take(limit))
-                    list.Add(new FactionTroopNameVM(name));
-
-                if (total > limit)
-                    list.Add(
-                        new FactionTroopNameVM(
-                            L.T("troop_count_more", "and {NUMBER} more troops.")
-                                .SetTextVariable("NUMBER", (total - limit))
-                                .ToString()
-                        )
-                    );
-
-                return list;
+                OnPropertyChanged(nameof(TroopNames));
+                return;
             }
+
+            var all =
+                LibraryController.GetFactionTroopNamesFromFile(State.LibraryItem)?.ToList() ?? [];
+
+            const int limit = 10;
+            int total = all.Count;
+
+            foreach (var name in all.Take(limit))
+                _troopNames.Add(new FactionTroopNameVM(name));
+
+            if (total > limit)
+                _troopNames.Add(
+                    new FactionTroopNameVM(
+                        L.T("troop_count_more", "and {NUMBER} more troops.")
+                            .SetTextVariable("NUMBER", (total - limit))
+                            .ToString()
+                    )
+                );
+
+            // Not strictly necessary since the list instance didn't change,
+            // but safe if any binding expects the property to notify.
+            OnPropertyChanged(nameof(TroopNames));
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

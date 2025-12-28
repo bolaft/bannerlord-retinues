@@ -31,7 +31,7 @@ namespace Retinues.Editor.VM.List.Character
         //                        Selection                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        [EventListener(UIEvent.Character)]
+        [EventListener(UIEvent.Character, Global = true)]
         [DataSourceProperty]
         public override bool IsSelected => State.Character == Character;
 

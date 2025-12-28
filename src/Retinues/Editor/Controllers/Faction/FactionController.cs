@@ -60,8 +60,6 @@ namespace Retinues.Editor.Controllers.Faction
             }
 
             MImportExport.ExportFaction(f.StringId);
-
-            EventManager.Fire(UIEvent.Library);
         }
     }
 }

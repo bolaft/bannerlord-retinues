@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.Remoting.Contexts;
 using Bannerlord.UIExtenderEx.Attributes;
 using TaleWorlds.Library;
 
@@ -96,7 +97,7 @@ namespace Retinues.Editor.VM.List
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        IsEnabled                       //
+        //                         Enabled                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceProperty]
@@ -143,20 +144,21 @@ namespace Retinues.Editor.VM.List
         //                    Event Management                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        internal override void __OnGlobalEvent(EventManager.Context context, UIEvent e)
+        protected override bool __ShouldNotifyProperty(
+            EventManager.Context context,
+            UIEvent e,
+            string propertyName,
+            bool globalListener
+        )
         {
-            // For Troop events in Local scope, only the selected row
-            // should respond; others skip their listeners entirely.
-            if (
-                e == UIEvent.Character
-                && EventManager.CurrentScope == EventScope.Local
-                && !IsSelected
-            )
+            // For list rows, only the selected row refreshes by default.
+            // If the listener is marked Global=true, refresh even when not selected.
+            if (IsSelected)
             {
-                return;
+                return true;
             }
 
-            base.__OnGlobalEvent(context, e);
+            return globalListener;
         }
     }
 }

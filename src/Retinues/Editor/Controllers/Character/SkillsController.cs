@@ -34,7 +34,7 @@ namespace Retinues.Editor.Controllers.Character
                                 State.Character.SkillPoints -= 1;
                             })
                 )
-                .Fire(UIEvent.Skill, EventScope.Local);
+                .Fire(UIEvent.Skill);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Decrease                        //
@@ -55,7 +55,7 @@ namespace Retinues.Editor.Controllers.Character
                         })
                 )
                 .ExecuteWith(s => ChangeSkill(s, -1))
-                .Fire(UIEvent.Skill, EventScope.Local);
+                .Fire(UIEvent.Skill);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Helpers                        //

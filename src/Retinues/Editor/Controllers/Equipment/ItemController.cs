@@ -23,14 +23,14 @@ namespace Retinues.Editor.Controllers.Equipment
                             .SetTextVariable("SKILL", item.RelevantSkill?.Name)
                 )
                 .AddCondition(
-                    item => !State.Equipment.IsCivilian || item.IsCivilian,
+                    item => State.Equipment?.IsCivilian == false || item.IsCivilian,
                     item =>
                         L.T("cant_equip_reason_civilian", "Not civilian")
                             .SetTextVariable("VALUE", item.Difficulty)
                             .SetTextVariable("SKILL", item.RelevantSkill?.Name)
                 )
                 .ExecuteWith(EquipItem)
-                .Fire(UIEvent.Item, EventScope.Global);
+                .Fire(UIEvent.Item);
 
         private static void EquipItem(WItem item)
         {
@@ -60,7 +60,7 @@ namespace Retinues.Editor.Controllers.Equipment
                     L.T("cant_unequip_reason_empty", "Nothing to unequip.")
                 )
                 .ExecuteWith(UnequipItem)
-                .Fire(UIEvent.Item, EventScope.Global);
+                .Fire(UIEvent.Item);
 
         private static void UnequipItem(EquipmentIndex slot)
         {

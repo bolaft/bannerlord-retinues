@@ -90,7 +90,9 @@ namespace Retinues.Editor.VM.Panel.Equipment
         //                        Selection                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        [EventListener(UIEvent.Slot)]
+        // IMPORTANT: selection state must update for all slots when Slot changes,
+        // otherwise only the selected slot would refresh and old selections would stick.
+        [EventListener(UIEvent.Slot, Global = true)]
         [DataSourceProperty]
         public bool IsSelected => State.Slot == _slot;
 

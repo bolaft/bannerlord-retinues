@@ -74,7 +74,7 @@ namespace Retinues.Editor
         {
             if (_isInitializing)
                 return;
-            EventManager.Fire(e, EventScope.Global);
+            EventManager.Fire(e);
         }
 
         /// <summary>
@@ -101,12 +101,12 @@ namespace Retinues.Editor
             // Notify listeners.
             EventManager.FireBatch(() =>
             {
-                EventManager.Fire(UIEvent.CultureFaction, EventScope.Global);
-                EventManager.Fire(UIEvent.ClanFaction, EventScope.Global);
-                EventManager.Fire(UIEvent.Faction, EventScope.Global);
-                EventManager.Fire(UIEvent.Character, EventScope.Global);
-                EventManager.Fire(UIEvent.Equipment, EventScope.Global);
-                EventManager.Fire(UIEvent.Slot, EventScope.Global);
+                EventManager.Fire(UIEvent.CultureFaction);
+                EventManager.Fire(UIEvent.ClanFaction);
+                EventManager.Fire(UIEvent.Faction);
+                EventManager.Fire(UIEvent.Character);
+                EventManager.Fire(UIEvent.Equipment);
+                EventManager.Fire(UIEvent.Slot);
             });
         }
 
@@ -421,9 +421,9 @@ namespace Retinues.Editor
 
                 EventManager.FireBatch(() =>
                 {
-                    EventManager.Fire(UIEvent.Character, EventScope.Global);
-                    EventManager.Fire(UIEvent.Equipment, EventScope.Global);
-                    EventManager.Fire(UIEvent.Slot, EventScope.Global);
+                    EventManager.Fire(UIEvent.Character);
+                    EventManager.Fire(UIEvent.Equipment);
+                    EventManager.Fire(UIEvent.Slot);
                 });
             }
             catch (Exception ex)

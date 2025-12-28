@@ -367,7 +367,7 @@ namespace Retinues.Editor.VM
                 _lastEditorSubPage = page;
 
             // Notify any listeners that page changed (columns, buttons, etc.).
-            EventManager.Fire(UIEvent.Page, EventScope.Global);
+            EventManager.Fire(UIEvent.Page);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

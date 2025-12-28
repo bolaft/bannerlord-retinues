@@ -24,7 +24,7 @@ namespace Retinues.Editor.Controllers.Character
                     L.T("trait_increase_maxed_reason", "Trait is already at maximum value.")
                 )
                 .ExecuteWith(trait => ChangeTrait(trait, +1))
-                .Fire(UIEvent.Trait, EventScope.Global);
+                .Fire(UIEvent.Trait);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Decrease                        //
@@ -44,7 +44,7 @@ namespace Retinues.Editor.Controllers.Character
                     L.T("trait_decrease_mined_reason", "Trait is already at minimum value.")
                 )
                 .ExecuteWith(trait => ChangeTrait(trait, -1))
-                .Fire(UIEvent.Trait, EventScope.Global);
+                .Fire(UIEvent.Trait);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Helpers                        //

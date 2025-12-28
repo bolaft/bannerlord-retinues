@@ -29,8 +29,6 @@ namespace Retinues.Editor.Controllers.Character
             }
 
             MImportExport.ExportCharacter(c.StringId);
-
-            EventManager.Fire(UIEvent.Library);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -56,7 +54,7 @@ namespace Retinues.Editor.Controllers.Character
                     return; // No change.
 
                 character.Name = newName;
-                EventManager.Fire(UIEvent.Name, EventScope.Local);
+                EventManager.Fire(UIEvent.Name);
             }
 
             Inquiries.TextInputPopup(
@@ -91,7 +89,7 @@ namespace Retinues.Editor.Controllers.Character
             )
                 return;
 
-            EventManager.Fire(UIEvent.Culture, EventScope.Local);
+            EventManager.Fire(UIEvent.Culture);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -102,19 +100,18 @@ namespace Retinues.Editor.Controllers.Character
             Action<WCharacter>("ToggleGender")
                 .AddCondition(
                     applies: _ => HasAlternateSpecies() && State.Character?.Editable is WCharacter,
-                    test: _ => State.Character?.Editable?.Culture != null,
+                    test: c => c?.Culture != null,
                     reason: L.T("gender_no_culture", "No culture is selected.")
                 )
                 .AddCondition(
                     applies: _ => HasAlternateSpecies() && State.Character?.Editable is WCharacter,
-                    test: _ =>
+                    test: c =>
                     {
-                        var wc = State.Character.Editable as WCharacter;
-                        if (wc == null)
+                        if (c == null)
                             return true;
 
-                        var targetFemale = !wc.IsFemale;
-                        return FindTemplate(wc.Culture, targetFemale, wc.Race) != null;
+                        var targetFemale = !c.IsFemale;
+                        return FindTemplate(c.Culture, targetFemale, c.Race) != null;
                     },
                     reason: L.T(
                         "gender_no_template",
@@ -123,20 +120,20 @@ namespace Retinues.Editor.Controllers.Character
                 )
                 .AddCondition(
                     applies: _ => HasAlternateSpecies() && State.Character?.Editable is WCharacter,
-                    test: _ =>
+                    test: c =>
                     {
-                        var wc = State.Character.Editable as WCharacter;
-                        if (wc == null)
+                        if (c == null)
                             return true;
 
-                        var targetFemale = !wc.IsFemale;
-                        return IsRenderable(wc.Culture, targetFemale, wc.Race);
+                        var targetFemale = !c.IsFemale;
+                        return IsRenderable(c.Culture, targetFemale, c.Race);
                     },
                     reason: L.T(
                         "gender_not_renderable",
                         "That gender/species combination cannot be rendered."
                     )
                 )
+                .DefaultTooltip(L.T("gender_toggle_hint", "Toggle Gender"))
                 .ExecuteWith(_ => ChangeGender());
 
         public static void ChangeGender()
@@ -156,7 +153,7 @@ namespace Retinues.Editor.Controllers.Character
             )
                 return;
 
-            EventManager.Fire(UIEvent.Gender, EventScope.Local);
+            EventManager.Fire(UIEvent.Gender);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -386,7 +383,7 @@ namespace Retinues.Editor.Controllers.Character
             )
                 return;
 
-            EventManager.Fire(UIEvent.Culture, EventScope.Local);
+            EventManager.Fire(UIEvent.Culture);
         }
 
         static readonly Dictionary<string, bool> _renderableCache = new();
@@ -590,7 +587,7 @@ namespace Retinues.Editor.Controllers.Character
                 return; // Heroes cannot be mariners
 
             State.Character.IsMariner = isMariner;
-            EventManager.Fire(UIEvent.Formation, EventScope.Local);
+            EventManager.Fire(UIEvent.Formation);
         }
     }
 }

@@ -51,7 +51,7 @@ namespace Retinues.Editor.VM.Column
             }
         }
 
-        [EventListener(UIEvent.Character, UIEvent.Appearance, UIEvent.Page, UIEvent.Library)]
+        [EventListener(UIEvent.Appearance, UIEvent.Page, UIEvent.Library)]
         private void RebuildModel()
         {
             MLibrary.Item.ModelLease lease = null;
@@ -101,7 +101,13 @@ namespace Retinues.Editor.VM.Column
                 // In Library mode, we want the equipment from the XML-applied character,
                 // not the editor-selected equipment.
                 if (EditorVM.Page != EditorPage.Library)
-                    ApplyEquipmentTo(vm);
+                {
+                    var equipment = State.Equipment?.Base;
+                    if (equipment == null)
+                        return;
+
+                    vm.SetEquipment(equipment);
+                }
 
                 Model = vm;
             }
@@ -109,31 +115,6 @@ namespace Retinues.Editor.VM.Column
             {
                 lease?.Dispose();
             }
-        }
-
-        // Apply the selected equipment without rebuilding the whole VM.
-        [EventListener(UIEvent.Equipment)]
-        private void RefreshModelEquipment()
-        {
-            if (EditorVM.Page == EditorPage.Library)
-                return;
-
-            if (Model == null)
-            {
-                RebuildModel();
-                return;
-            }
-
-            ApplyEquipmentTo(Model);
-        }
-
-        private static void ApplyEquipmentTo(CharacterViewModel vm)
-        {
-            var equipment = State.Equipment?.Base;
-            if (equipment == null)
-                return;
-
-            vm.SetEquipment(equipment);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

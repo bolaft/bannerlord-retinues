@@ -19,45 +19,6 @@ namespace Retinues.Editor.VM.Panel.Equipment
         public bool IsVisible => EditorVM.Page == EditorPage.Equipment;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                          Slots                         //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        public IEnumerable<EquipmentSlotVM> Slots =>
-            [
-                HeadSlot,
-                CapeSlot,
-                BodySlot,
-                GlovesSlot,
-                LegSlot,
-                Weapon0Slot,
-                Weapon1Slot,
-                Weapon2Slot,
-                Weapon3Slot,
-                HorseSlot,
-                HorseHarnessSlot,
-            ];
-
-        /// <summary>
-        /// Get the equipment slot VM for the given index.
-        /// </summary>
-        public EquipmentSlotVM GetSlot(EquipmentIndex index) =>
-            index switch
-            {
-                EquipmentIndex.Weapon0 => Weapon0Slot,
-                EquipmentIndex.Weapon1 => Weapon1Slot,
-                EquipmentIndex.Weapon2 => Weapon2Slot,
-                EquipmentIndex.Weapon3 => Weapon3Slot,
-                EquipmentIndex.Head => HeadSlot,
-                EquipmentIndex.Cape => CapeSlot,
-                EquipmentIndex.Body => BodySlot,
-                EquipmentIndex.Gloves => GlovesSlot,
-                EquipmentIndex.Leg => LegSlot,
-                EquipmentIndex.Horse => HorseSlot,
-                EquipmentIndex.HorseHarness => HorseHarnessSlot,
-                _ => null,
-            };
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Weapons                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 

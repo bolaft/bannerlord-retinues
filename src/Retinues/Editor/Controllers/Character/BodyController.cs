@@ -173,7 +173,7 @@ namespace Retinues.Editor.Controllers.Character
 
                 // Notify UI/tableau.
                 // If your event name differs, change this single line.
-                EventManager.Fire(UIEvent.Appearance, EventScope.Local);
+                EventManager.Fire(UIEvent.Appearance);
             }
             catch (Exception ex)
             {

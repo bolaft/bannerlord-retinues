@@ -173,8 +173,8 @@ namespace Retinues.Editor.Controllers.Equipment
                         civilian
                             ? L.T("inquiry_no_equipment_sets_civilian", "civilian equipments")
                             : L.T("inquiry_no_equipment_sets_battle", "battle equipments")
-                                .SetTextVariable("UNIT_NAME", character.Name.ToString())
-                    ),
+                    )
+                    .SetTextVariable("UNIT_NAME", character.Name.ToString()),
                 onConfirm: () =>
                 {
                     var character = State.Character;

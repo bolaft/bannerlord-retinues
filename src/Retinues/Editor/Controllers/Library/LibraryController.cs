@@ -32,9 +32,7 @@ namespace Retinues.Editor.Controllers.Library
                 )
                 .AddCondition(
                     item => !string.IsNullOrWhiteSpace(item.FilePath) && File.Exists(item.FilePath),
-                    item =>
-                        L.T("library_import_missing_file", "Export file was not found.")
-                            .SetTextVariable("PATH", item?.FilePath ?? "")
+                    item => L.T("library_import_missing_file", "Export file was not found.")
                 )
                 .AddCondition(CanResolveTarget, BuildCantResolveTargetReason)
                 .AddCondition(
@@ -187,7 +185,7 @@ namespace Retinues.Editor.Controllers.Library
                 State.Instance.ForceRefreshSelection();
 
                 // Refresh any faction-related data.
-                EventManager.Fire(UIEvent.Faction, EventScope.Global);
+                EventManager.Fire(UIEvent.Faction);
 
                 Inquiries.Popup(
                     title: L.T("library_import_done_title", "Import Complete"),
@@ -287,8 +285,8 @@ namespace Retinues.Editor.Controllers.Library
                 }
 
                 // Ask any list VMs to rebuild from disk.
-                EventManager.Fire(UIEvent.Library, EventScope.Global);
-                EventManager.Fire(UIEvent.Page, EventScope.Global);
+                EventManager.Fire(UIEvent.Library);
+                EventManager.Fire(UIEvent.Page);
             }
             catch (Exception ex)
             {
@@ -486,7 +484,7 @@ namespace Retinues.Editor.Controllers.Library
                     return;
                 }
 
-                // 2) If that fails, force Notepad (simple, always present on Windows).
+                // 2) Fallback.
                 Process.Start(
                     new ProcessStartInfo
                     {

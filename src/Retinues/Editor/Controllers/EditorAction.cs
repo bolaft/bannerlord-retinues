@@ -9,6 +9,10 @@ namespace Retinues.Editor.Controllers
     /// <summary>
     /// Reusable UI action: conditions, tooltip, execution, and post-success signaling.
     /// Supports mode-specific rules via State.Mode.
+    ///
+    /// Performance: while EventManager is inside a burst, Allow/Reason/Tooltip
+    /// are cached so the same action+arg is only evaluated once per burst.
+    /// Outside bursts, no caching is performed.
     /// </summary>
     [SafeClass]
     public sealed class EditorAction<TArg>(string name)
@@ -19,13 +23,98 @@ namespace Retinues.Editor.Controllers
 
         private Action<TArg> _execute;
         private UIEvent? _fireEvent;
-        private EventScope _fireScope = EventScope.Local;
 
         private Action<TArg> _pre;
         private Action<TArg> _post;
 
         private TextObject _defaultTooltip;
         private Func<TArg, TextObject> _defaultTooltipFactory;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Cache                          //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private sealed class CacheEntry
+        {
+            public TextObject Reason;
+            public Tooltip Tooltip;
+            public bool Computed;
+        }
+
+        private int _cacheBurstId = int.MinValue;
+        private readonly Dictionary<TArg, CacheEntry> _burstCache = new();
+        private readonly CacheEntry _nullBurstCache = new(); // for arg == null
+
+        private void EnsureBurstCache()
+        {
+            if (!Editor.EventManager.IsInBurst)
+            {
+                return;
+            }
+
+            var burstId = Editor.EventManager.CurrentBurstId;
+            if (burstId == _cacheBurstId)
+            {
+                return;
+            }
+
+            _cacheBurstId = burstId;
+            _burstCache.Clear();
+            _nullBurstCache.Computed = false;
+            _nullBurstCache.Reason = null;
+            _nullBurstCache.Tooltip = null;
+        }
+
+        private CacheEntry GetOrCompute(TArg arg)
+        {
+            // Only cache during bursts.
+            if (!Editor.EventManager.IsInBurst)
+            {
+                return ComputeNoCache(arg);
+            }
+
+            EnsureBurstCache();
+
+            CacheEntry entry;
+            if (arg is null)
+            {
+                entry = _nullBurstCache;
+            }
+            else
+            {
+                if (!_burstCache.TryGetValue(arg, out entry))
+                {
+                    entry = new CacheEntry();
+                    _burstCache[arg] = entry;
+                }
+            }
+
+            if (entry.Computed)
+            {
+                return entry;
+            }
+
+            // Compute once for this (burst, arg)
+            var reason = ComputeReason(arg);
+            var tooltip = ComputeTooltipFromReason(arg, reason);
+
+            entry.Reason = reason;
+            entry.Tooltip = tooltip;
+            entry.Computed = true;
+
+            return entry;
+        }
+
+        private static CacheEntry ComputeNoCache(TArg arg)
+        {
+            // no caching outside a burst; compute new entry each call
+            return new CacheEntry
+            {
+                Computed = false,
+                Reason = null,
+                Tooltip = null,
+            };
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Setup                          //
@@ -106,10 +195,9 @@ namespace Retinues.Editor.Controllers
             return this;
         }
 
-        public EditorAction<TArg> Fire(UIEvent e, EventScope scope = EventScope.Local)
+        public EditorAction<TArg> Fire(UIEvent e)
         {
             _fireEvent = e;
-            _fireScope = scope;
             return this;
         }
 
@@ -129,9 +217,46 @@ namespace Retinues.Editor.Controllers
         //                         Query                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public bool Allow(TArg arg) => Reason(arg) == null;
+        public bool Allow(TArg arg)
+        {
+            // Cached during burst
+            if (Editor.EventManager.IsInBurst)
+            {
+                return GetOrCompute(arg).Reason == null;
+            }
+
+            // No cache
+            return ComputeReason(arg) == null;
+        }
 
         public TextObject Reason(TArg arg)
+        {
+            if (Editor.EventManager.IsInBurst)
+            {
+                return GetOrCompute(arg).Reason;
+            }
+
+            return ComputeReason(arg);
+        }
+
+        /// <summary>
+        /// Tooltip for the action.
+        /// - If disabled, returns the blocking reason.
+        /// - If enabled, returns the optional default tooltip (if configured).
+        /// - Otherwise returns null.
+        /// </summary>
+        public Tooltip Tooltip(TArg arg)
+        {
+            if (Editor.EventManager.IsInBurst)
+            {
+                return GetOrCompute(arg).Tooltip;
+            }
+
+            var reason = ComputeReason(arg);
+            return ComputeTooltipFromReason(arg, reason);
+        }
+
+        private TextObject ComputeReason(TArg arg)
         {
             // 1) Baseline conditions
             var reason = Evaluate(_baseConditions, arg);
@@ -149,17 +274,12 @@ namespace Retinues.Editor.Controllers
             return null;
         }
 
-        /// <summary>
-        /// Tooltip for the action.
-        /// - If disabled, returns the blocking reason.
-        /// - If enabled, returns the optional default tooltip (if configured).
-        /// - Otherwise returns null.
-        /// </summary>
-        public Tooltip Tooltip(TArg arg)
+        private Tooltip ComputeTooltipFromReason(TArg arg, TextObject reason)
         {
-            var reason = Reason(arg);
             if (reason != null)
+            {
                 return new Tooltip(reason);
+            }
 
             var mode = EditorController.State.Mode;
 
@@ -214,7 +334,7 @@ namespace Retinues.Editor.Controllers
 
             if (_fireEvent != null)
             {
-                EventManager.Fire(_fireEvent.Value, _fireScope);
+                Editor.EventManager.Fire(_fireEvent.Value);
             }
 
             ov?.Executed?.Invoke(arg);
@@ -290,7 +410,7 @@ namespace Retinues.Editor.Controllers
         /// <summary>
         /// Mode-specific action customization.
         /// </summary>
-        public sealed class ActionModeSpec(EditorAction<TArg>.ModeOverrides ov)
+        public sealed class ActionModeSpec(ModeOverrides ov)
         {
             private readonly ModeOverrides _ov = ov;
 

@@ -58,7 +58,7 @@ namespace Retinues.Editor.Controllers.Character
                 clone.HiddenInEncyclopedia = false;
 
                 character.AddUpgradeTarget(clone);
-                EventManager.Fire(UIEvent.Tree, EventScope.Global);
+                EventManager.Fire(UIEvent.Tree);
             }
 
             Inquiries.TextInputPopup(
@@ -76,16 +76,14 @@ namespace Retinues.Editor.Controllers.Character
         public static EditorAction<WCharacter> RemoveUpgradeTarget { get; } =
             Action<WCharacter>("RemoveUpgradeTarget")
                 .ExecuteWith(RemoveUpgradeTargetImpl)
-                .Fire(UIEvent.Tree, EventScope.Global);
+                .Fire(UIEvent.Tree);
 
         private static void RemoveUpgradeTargetImpl(WCharacter target)
         {
             if (target == null)
                 return;
 
-            // Keep behavior: only fires if something changed.
-            if (State.Character.RemoveUpgradeTarget(target))
-                EventManager.Fire(UIEvent.Tree, EventScope.Global);
+            State.Character.RemoveUpgradeTarget(target);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -132,7 +130,7 @@ namespace Retinues.Editor.Controllers.Character
                     character.Remove();
 
                     // 3) Notify the UI.
-                    EventManager.Fire(UIEvent.Tree, EventScope.Global);
+                    EventManager.Fire(UIEvent.Tree);
                 }
             );
         }

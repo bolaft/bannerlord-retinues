@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using Retinues.Editor;
 using Retinues.Utilities;
 using TaleWorlds.Library;
 
@@ -38,10 +39,16 @@ namespace Retinues.Editor.VM
         //                      Event handling                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        // Type -> event -> property names
+        internal readonly struct PropertyListener(string name, bool global)
+        {
+            internal string Name { get; } = name;
+            internal bool Global { get; } = global;
+        }
+
+        // Type -> event -> property listeners
         private static readonly Dictionary<
             Type,
-            Dictionary<UIEvent, string[]>
+            Dictionary<UIEvent, PropertyListener[]>
         > _propertyEventMapCache = [];
 
         // Type -> event -> method handlers
@@ -70,11 +77,18 @@ namespace Retinues.Editor.VM
 
             // 1) Properties -> OnPropertyChanged at end of burst.
             var propertyMap = GetOrBuildPropertyEventMap(type);
-            if (propertyMap.TryGetValue(e, out var properties) && properties != null)
+            if (propertyMap.TryGetValue(e, out var listeners) && listeners != null)
             {
-                for (int i = 0; i < properties.Length; i++)
+                for (int i = 0; i < listeners.Length; i++)
                 {
-                    context.RequestNotify(this, properties[i]);
+                    var l = listeners[i];
+
+                    if (!__ShouldNotifyProperty(context, e, l.Name, l.Global))
+                    {
+                        continue;
+                    }
+
+                    context.RequestNotify(this, l.Name);
                 }
             }
 
@@ -96,7 +110,22 @@ namespace Retinues.Editor.VM
             }
         }
 
-        private static Dictionary<UIEvent, string[]> GetOrBuildPropertyEventMap(Type type)
+        /// <summary>
+        /// Allows derived VMs to filter property refreshes per-event.
+        /// ListRowVM uses this to refresh only selected rows unless
+        /// the listener is marked Global=true.
+        /// </summary>
+        protected virtual bool __ShouldNotifyProperty(
+            EventManager.Context context,
+            UIEvent e,
+            string propertyName,
+            bool globalListener
+        )
+        {
+            return true;
+        }
+
+        private static Dictionary<UIEvent, PropertyListener[]> GetOrBuildPropertyEventMap(Type type)
         {
             if (_propertyEventMapCache.TryGetValue(type, out var map))
             {
@@ -120,9 +149,11 @@ namespace Retinues.Editor.VM
             return map;
         }
 
-        private static Dictionary<UIEvent, string[]> BuildPropertyEventMap(Type type)
+        private static Dictionary<UIEvent, PropertyListener[]> BuildPropertyEventMap(Type type)
         {
-            var temp = new Dictionary<UIEvent, List<string>>();
+            // event -> (property -> isGlobal)
+            var temp = new Dictionary<UIEvent, Dictionary<string, bool>>();
+
             var properties = type.GetProperties(
                 BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic
             );
@@ -146,28 +177,45 @@ namespace Retinues.Editor.VM
                         continue;
                     }
 
+                    var isGlobal = listener.Global;
+
                     for (int k = 0; k < listener.Events.Length; k++)
                     {
                         var e = listener.Events[k];
 
-                        if (!temp.TryGetValue(e, out var list))
+                        if (!temp.TryGetValue(e, out var map))
                         {
-                            list = [];
-                            temp[e] = list;
+                            map = new Dictionary<string, bool>(StringComparer.Ordinal);
+                            temp[e] = map;
                         }
 
-                        if (!list.Contains(name))
+                        // Dedup by property name; prefer Global=true if any listener requires it.
+                        if (map.TryGetValue(name, out var existing))
                         {
-                            list.Add(name);
+                            if (!existing && isGlobal)
+                            {
+                                map[name] = true;
+                            }
+                        }
+                        else
+                        {
+                            map[name] = isGlobal;
                         }
                     }
                 }
             }
 
-            var result = new Dictionary<UIEvent, string[]>(temp.Count);
+            var result = new Dictionary<UIEvent, PropertyListener[]>(temp.Count);
             foreach (var kvp in temp)
             {
-                result[kvp.Key] = [.. kvp.Value];
+                var list = new List<PropertyListener>(kvp.Value.Count);
+
+                foreach (var p in kvp.Value)
+                {
+                    list.Add(new PropertyListener(p.Key, p.Value));
+                }
+
+                result[kvp.Key] = [.. list];
             }
 
             return result;

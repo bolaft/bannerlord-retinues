@@ -41,7 +41,7 @@ namespace Retinues.Editor.VM.Panel.Character
         [DataSourceProperty]
         public string NameHeaderText => L.S("name_header_text", "Name");
 
-        [EventListener(UIEvent.Character, UIEvent.Name)]
+        [EventListener(UIEvent.Name)]
         [DataSourceProperty]
         public string NameText => State.Character.Editable.Name;
 
@@ -129,6 +129,9 @@ namespace Retinues.Editor.VM.Panel.Character
         {
             get
             {
+                if (State.Character.IsHero == false)
+                    return [];
+
                 if (_traits == null)
                 {
                     _traits = [];
@@ -352,44 +355,64 @@ namespace Retinues.Editor.VM.Panel.Character
         //                        Upgrades                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        [EventListener(UIEvent.Character, UIEvent.Tree)]
-        [DataSourceProperty]
-        public bool HasUpgradeSources => State.Character.UpgradeSources.Any();
+        private readonly MBBindingList<CharacterUpgradeVM> _upgradeSources = [];
+        private readonly MBBindingList<CharacterUpgradeVM> _upgradeTargets = [];
+        private bool _hasUpgradeSources;
+        private bool _hasUpgradeTargets;
 
         [DataSourceProperty]
         public string UpgradeSourcesHeaderText => L.S("upgrade_sources_header_text", "Origin");
 
-        [EventListener(UIEvent.Character, UIEvent.Tree)]
-        [DataSourceProperty]
-        public MBBindingList<CharacterUpgradeVM> UpgradeSources
-        {
-            get
-            {
-                var sources = new MBBindingList<CharacterUpgradeVM>();
-                foreach (var source in State.Character.UpgradeSources)
-                    sources.Add(new CharacterUpgradeVM(source));
-                return sources;
-            }
-        }
-
-        [EventListener(UIEvent.Character, UIEvent.Tree)]
-        [DataSourceProperty]
-        public bool HasUpgradeTargets => State.Character.UpgradeTargets.Any();
-
         [DataSourceProperty]
         public string UpgradeTargetsHeaderText => L.S("upgrade_targets_header_text", "Upgrades");
 
-        [EventListener(UIEvent.Character, UIEvent.Tree)]
         [DataSourceProperty]
-        public MBBindingList<CharacterUpgradeVM> UpgradeTargets
+        public MBBindingList<CharacterUpgradeVM> UpgradeSources => _upgradeSources;
+
+        [DataSourceProperty]
+        public MBBindingList<CharacterUpgradeVM> UpgradeTargets => _upgradeTargets;
+
+        [DataSourceProperty]
+        public bool HasUpgradeSources => _hasUpgradeSources;
+
+        [DataSourceProperty]
+        public bool HasUpgradeTargets => _hasUpgradeTargets;
+
+        [EventListener(UIEvent.Character, UIEvent.Tree)]
+        private void RefreshUpgrades()
         {
-            get
+            _upgradeSources.Clear();
+            _upgradeTargets.Clear();
+
+            var c = State.Character;
+            if (c != null)
             {
-                var targets = new MBBindingList<CharacterUpgradeVM>();
-                foreach (var source in State.Character.UpgradeTargets)
-                    targets.Add(new CharacterUpgradeVM(source));
-                return targets;
+                foreach (var source in c.UpgradeSources)
+                    _upgradeSources.Add(new CharacterUpgradeVM(source));
+
+                foreach (var target in c.UpgradeTargets)
+                    _upgradeTargets.Add(new CharacterUpgradeVM(target));
             }
+
+            var hasSources = _upgradeSources.Count > 0;
+            var hasTargets = _upgradeTargets.Count > 0;
+
+            if (hasSources != _hasUpgradeSources)
+            {
+                _hasUpgradeSources = hasSources;
+                OnPropertyChanged(nameof(HasUpgradeSources));
+            }
+
+            if (hasTargets != _hasUpgradeTargets)
+            {
+                _hasUpgradeTargets = hasTargets;
+                OnPropertyChanged(nameof(HasUpgradeTargets));
+            }
+
+            // The list instances stay stable, but their contents changed.
+            // We still notify in case bindings rely on the property itself.
+            OnPropertyChanged(nameof(UpgradeSources));
+            OnPropertyChanged(nameof(UpgradeTargets));
         }
 
         [EventListener(UIEvent.Character, UIEvent.Tree)]

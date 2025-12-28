@@ -42,13 +42,7 @@ namespace Retinues.Editor.VM.Column
         {
             if (State.Character.Hero is WHero wh)
             {
-                Barber.OpenForHero(
-                    wh.Base,
-                    () =>
-                    {
-                        EventManager.Fire(UIEvent.Appearance, EventScope.Global);
-                    }
-                );
+                Barber.OpenForHero(wh.Base, () => EventManager.Fire(UIEvent.Appearance));
             }
             else
             {
@@ -70,32 +64,19 @@ namespace Retinues.Editor.VM.Column
                 ? "SPGeneral\\GeneralFlagIcons\\female_only"
                 : "SPGeneral\\GeneralFlagIcons\\male_only";
 
-        private TextObject CantChangeGenderReason;
-
+        [EventListener(UIEvent.Culture)]
         [DataSourceProperty]
         public Tooltip GenderToggleHint =>
-            CantChangeGenderReason == null
-                ? new(L.T("gender_toggle_hint", "Toggle Gender"))
-                : new(CantChangeGenderReason);
+            CharacterController.ToggleGender.Tooltip(State.Character.Editable as WCharacter);
 
+        [EventListener(UIEvent.Culture)]
         [DataSourceProperty]
         public string GenderIconColor => CanToggleGender ? "#c7ac85ff" : "#808080ff";
 
-        [DataSourceProperty]
-        public bool CanToggleGender => CantChangeGenderReason == null;
-
         [EventListener(UIEvent.Culture)]
-        private void UpdateGenderToggleState()
-        {
-            // Pass current editable if available; action also reads State for actual logic.
-            CantChangeGenderReason = CharacterController.ToggleGender.Reason(
-                State.Character.Editable as WCharacter
-            );
-
-            OnPropertyChanged(nameof(CanToggleGender));
-            OnPropertyChanged(nameof(GenderToggleHint));
-            OnPropertyChanged(nameof(GenderIconColor));
-        }
+        [DataSourceProperty]
+        public bool CanToggleGender =>
+            CharacterController.ToggleGender.Allow(State.Character.Editable as WCharacter);
 
         [DataSourceMethod]
         public void ExecuteToggleGender() =>

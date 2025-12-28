@@ -4,7 +4,6 @@ using Retinues.Helpers;
 using Retinues.Module;
 using Retinues.Utilities;
 using TaleWorlds.Library;
-using TaleWorlds.Localization;
 
 namespace Retinues.Editor.VM.Column.Character
 {
@@ -22,10 +21,11 @@ namespace Retinues.Editor.VM.Column.Character
         //                         Mariner                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        [EventListener(UIEvent.Character)]
         [DataSourceProperty]
         public bool ShowMarinerToggle => Mods.NavalDLC.IsLoaded && !State.Character.IsHero;
 
-        [EventListener(UIEvent.Character, UIEvent.Formation)]
+        [EventListener(UIEvent.Formation)]
         [DataSourceProperty]
         public bool IsMariner
         {
@@ -60,25 +60,15 @@ namespace Retinues.Editor.VM.Column.Character
         [DataSourceProperty]
         public bool ShowRemoveCharacterButton => State.Character.IsHero == false;
 
+        [EventListener(UIEvent.Tree, UIEvent.Character)]
         [DataSourceProperty]
-        public bool CanRemoveCharacter => _cantRemoveCharacterReason == null;
-
-        [DataSourceProperty]
-        public Tooltip CanRemoveCharacterTooltip =>
-            _cantRemoveCharacterReason == null ? null : new Tooltip(_cantRemoveCharacterReason);
-
-        private TextObject _cantRemoveCharacterReason = null;
+        public bool CanRemoveCharacter =>
+            CharacterTreeController.RemoveCharacter.Allow(State.Character);
 
         [EventListener(UIEvent.Tree, UIEvent.Character)]
-        private void UpdateRemoveButtonState()
-        {
-            _cantRemoveCharacterReason = CharacterTreeController.RemoveCharacter.Reason(
-                State.Character
-            );
-
-            OnPropertyChanged(nameof(CanRemoveCharacter));
-            OnPropertyChanged(nameof(CanRemoveCharacterTooltip));
-        }
+        [DataSourceProperty]
+        public Tooltip CanRemoveCharacterTooltip =>
+            CharacterTreeController.RemoveCharacter.Tooltip(State.Character);
 
         [DataSourceMethod]
         public void ExecuteRemoveCharacter() =>

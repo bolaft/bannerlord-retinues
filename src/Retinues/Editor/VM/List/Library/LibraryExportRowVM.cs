@@ -35,7 +35,7 @@ namespace Retinues.Editor.VM.List.Library
         //                        Selection                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        [EventListener(UIEvent.Library)]
+        [EventListener(UIEvent.Library, Global = true)]
         [DataSourceProperty]
         public override bool IsSelected =>
             State.Instance.LibraryItem != null
@@ -66,9 +66,6 @@ namespace Retinues.Editor.VM.List.Library
         public string Timestamp =>
             Item == null ? string.Empty : Item.CreatedUtc.ToLocalTime().ToString("g");
 
-        /// <summary>
-        /// Image data source for ImageIdentifierWidget.
-        /// </summary>
         [DataSourceProperty]
         public abstract object Image { get; }
 
@@ -158,15 +155,7 @@ namespace Retinues.Editor.VM.List.Library
         : LibraryExportRowVM(header, item)
     {
         [DataSourceProperty]
-        public override object Image
-        {
-            get
-            {
-                // Faction export rows show the faction/banner image.
-                var f = ResolveFaction(Item?.SourceId);
-                return f?.Image;
-            }
-        }
+        public override object Image => ResolveFaction(Item?.SourceId)?.Image;
     }
 
     public sealed class LibraryCharacterExportRowVM(ListHeaderVM header, MLibrary.Item item)

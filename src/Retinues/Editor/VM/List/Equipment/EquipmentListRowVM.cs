@@ -4,7 +4,6 @@ using Retinues.Editor.Controllers.Equipment;
 using Retinues.Model.Equipments;
 using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Library;
-using TaleWorlds.Localization;
 
 namespace Retinues.Editor.VM.List.Equipment
 {
@@ -23,7 +22,7 @@ namespace Retinues.Editor.VM.List.Equipment
             : base(header, item?.StringId ?? string.Empty)
         {
             _item = item;
-            UpdateDisabledReason();
+            UpdateBrush();
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -37,7 +36,7 @@ namespace Retinues.Editor.VM.List.Equipment
         //                        Selection                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        [EventListener(UIEvent.Item)]
+        [EventListener(UIEvent.Item, Global = true)]
         [DataSourceProperty]
         public override bool IsSelected => State.Equipment.Get(State.Slot) == _item;
 
@@ -48,22 +47,17 @@ namespace Retinues.Editor.VM.List.Equipment
         //                         Enabled                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private TextObject _disabledReason;
+        [EventListener(UIEvent.Equipment)]
+        private void UpdateBrush() => OnPropertyChanged(nameof(Brush));
 
         [EventListener(UIEvent.Equipment)]
-        private void UpdateDisabledReason()
-        {
-            _disabledReason = ItemController.Equip.Reason(_item);
-            OnPropertyChanged(nameof(DisabledReason));
-            OnPropertyChanged(nameof(IsEnabled));
-            OnPropertyChanged(nameof(Brush));
-        }
-
         [DataSourceProperty]
-        public string DisabledReason => _disabledReason?.ToString() ?? string.Empty;
+        public override bool IsEnabled => ItemController.Equip.Allow(_item);
 
+        [EventListener(UIEvent.Equipment)]
         [DataSourceProperty]
-        public override bool IsEnabled => _disabledReason == null;
+        public string DisabledReason =>
+            ItemController.Equip.Reason(_item)?.ToString() ?? string.Empty;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Main                          //
@@ -95,11 +89,8 @@ namespace Retinues.Editor.VM.List.Equipment
         //                         Tooltip                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        CharacterEquipmentItemVM _tooltip = null;
-
         [DataSourceProperty]
-        public CharacterEquipmentItemVM Tooltip =>
-            _tooltip ??= new CharacterEquipmentItemVM(_item.Base);
+        public CharacterEquipmentItemVM Tooltip => new(_item.Base);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Images                         //
@@ -195,7 +186,7 @@ namespace Retinues.Editor.VM.List.Equipment
                 _negativeChevrons = 3;
         }
 
-        [EventListener(UIEvent.Item)]
+        [EventListener(UIEvent.Item, Global = true)]
         [DataSourceProperty]
         public bool ShowComparisonIcon
         {
@@ -206,7 +197,7 @@ namespace Retinues.Editor.VM.List.Equipment
             }
         }
 
-        [EventListener(UIEvent.Item)]
+        [EventListener(UIEvent.Item, Global = true)]
         [DataSourceProperty]
         public string PositiveComparisonSprite
         {
@@ -220,7 +211,7 @@ namespace Retinues.Editor.VM.List.Equipment
             }
         }
 
-        [EventListener(UIEvent.Item)]
+        [EventListener(UIEvent.Item, Global = true)]
         [DataSourceProperty]
         public string NegativeComparisonSprite
         {
@@ -234,7 +225,7 @@ namespace Retinues.Editor.VM.List.Equipment
             }
         }
 
-        [EventListener(UIEvent.Item)]
+        [EventListener(UIEvent.Item, Global = true)]
         [DataSourceProperty]
         public int NegativeComparisonSpriteOffset
         {

@@ -107,16 +107,6 @@ namespace Retinues.Editor.VM.List
         }
 
         /// <summary>
-        /// On library index change, rebuild the list if in library page.
-        /// </summary>
-        [EventListener(UIEvent.LibraryIndex)]
-        private void OnLibraryIndexChanged()
-        {
-            if (EditorVM.Page == EditorPage.Library)
-                Builder.Build(this);
-        }
-
-        /// <summary>
         /// On character change, auto-scroll to selected row if in character page.
         /// </summary>
         [EventListener(UIEvent.Character)]
