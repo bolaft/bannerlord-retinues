@@ -302,6 +302,9 @@
       id="ret_library_export_file_header"
       text="File" />
     <string
+      id="ret_library_export_not_vanilla"
+      text="Only modified vanilla troops can be exported as standalone mods." />
+    <string
       id="ret_library_export_npc_button"
       text="Convert" />
     <string

@@ -1584,6 +1584,22 @@
     "TR": "Dosya"
   },
   {
+    "id": "ret_library_export_not_vanilla",
+    "EN": "Only modified vanilla troops can be exported as standalone mods.",
+    "FR": "Seuls les troupes originelles peuvent être exportées en tant que mods autonomes.",
+    "BR": "Apenas tropas vanilla modificadas podem ser exportadas como mods independentes.",
+    "CNs": "只有修改过的原版部队才能导出为独立模组。",
+    "CNt": "只有修改過的原版部隊才能導出為獨立模組。",
+    "DE": "Nur modifizierte Standardtruppen können als eigenständige Mods exportiert werden.",
+    "IT": "Solo le truppe vanilla modificate possono essere esportate come mod autonome.",
+    "JP": "変更されたバニラ部隊のみがスタンドアロンのモッドとしてエクスポートできます。",
+    "KO": "수정된 기본 부대만 독립 실행형 모드로 내보낼 수 있습니다.",
+    "PL": "Tylko zmodyfikowane oddziały vanilla mogą być eksportowane jako samodzielne mody.",
+    "RU": "В автономные моды можно экспортировать только измененные ванильные войска.",
+    "SP": "Solo las tropas vanilla modificadas pueden exportarse como mods independientes.",
+    "TR": "Yalnızca değiştirilmiş vanilla birlikler bağımsız modüller olarak dışa aktarılabilir."
+  },
+  {
     "id": "ret_library_export_npc_button",
     "EN": "Convert",
     "FR": "Convertir",

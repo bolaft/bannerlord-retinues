@@ -302,6 +302,9 @@
       id="ret_library_export_file_header"
       text="Файл" />
     <string
+      id="ret_library_export_not_vanilla"
+      text="В автономные моды можно экспортировать только измененные ванильные войска." />
+    <string
       id="ret_library_export_npc_button"
       text="Преобразовать" />
     <string

@@ -302,6 +302,9 @@
       id="ret_library_export_file_header"
       text="ファイル" />
     <string
+      id="ret_library_export_not_vanilla"
+      text="変更されたバニラ部隊のみがスタンドアロンのモッドとしてエクスポートできます。" />
+    <string
       id="ret_library_export_npc_button"
       text="変換" />
     <string

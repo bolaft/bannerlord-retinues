@@ -302,6 +302,9 @@
       id="ret_library_export_file_header"
       text="File" />
     <string
+      id="ret_library_export_not_vanilla"
+      text="Solo le truppe vanilla modificate possono essere esportate come mod autonome." />
+    <string
       id="ret_library_export_npc_button"
       text="Converti" />
     <string

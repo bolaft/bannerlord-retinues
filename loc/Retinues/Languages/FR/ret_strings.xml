@@ -302,6 +302,9 @@
       id="ret_library_export_file_header"
       text="Fichier" />
     <string
+      id="ret_library_export_not_vanilla"
+      text="Seuls les troupes originelles peuvent être exportées en tant que mods autonomes." />
+    <string
       id="ret_library_export_npc_button"
       text="Convertir" />
     <string

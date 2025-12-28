@@ -302,6 +302,9 @@
       id="ret_library_export_file_header"
       text="Plik" />
     <string
+      id="ret_library_export_not_vanilla"
+      text="Tylko zmodyfikowane oddziały vanilla mogą być eksportowane jako samodzielne mody." />
+    <string
       id="ret_library_export_npc_button"
       text="Konwertuj" />
     <string

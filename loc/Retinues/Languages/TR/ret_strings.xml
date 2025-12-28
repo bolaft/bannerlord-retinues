@@ -302,6 +302,9 @@
       id="ret_library_export_file_header"
       text="Dosya" />
     <string
+      id="ret_library_export_not_vanilla"
+      text="Yalnızca değiştirilmiş vanilla birlikler bağımsız modüller olarak dışa aktarılabilir." />
+    <string
       id="ret_library_export_npc_button"
       text="Dönüştür" />
     <string

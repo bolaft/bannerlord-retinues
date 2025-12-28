@@ -302,6 +302,9 @@
       id="ret_library_export_file_header"
       text="文件" />
     <string
+      id="ret_library_export_not_vanilla"
+      text="只有修改过的原版部队才能导出为独立模组。" />
+    <string
       id="ret_library_export_npc_button"
       text="转换" />
     <string
