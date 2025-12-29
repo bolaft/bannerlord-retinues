@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using Retinues.Framework.Runtime;
 using Retinues.UI.Services;
 using static Retinues.Configuration.SettingsManager;
 
@@ -7,6 +7,7 @@ namespace Retinues.Configuration
     /// <summary>
     /// Definitions for all configuration options (no boilerplate here).
     /// </summary>
+    [SafeClass]
     public static class Settings
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -50,7 +51,7 @@ namespace Retinues.Configuration
         // {
         //     Low,
         //     Medium,
-        //     High
+        //     High,
         // }
 
         // public static readonly MultiChoiceOption<Level> DebugLevel = CreateMultiChoiceOption(
@@ -58,12 +59,8 @@ namespace Retinues.Configuration
         //     name: L.F("mcm_option_debug_level", "Debug Level"),
         //     hint: L.F("mcm_option_debug_level_hint", "Sets the level of debug information logged."),
         //     @default: Level.Medium,
-        //     choices:
-        //     [
-        //         Level.Low,
-        //         Level.Medium,
-        //         Level.High
-        //     ]
+        //     choices: [Level.Low, Level.Medium, Level.High],
+        //     dependsOn: DebugMode
         // );
     }
 }

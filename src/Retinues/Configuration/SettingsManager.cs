@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
+using Retinues.Framework.Runtime;
 using Retinues.Utilities;
 
 namespace Retinues.Configuration
@@ -63,6 +64,7 @@ namespace Retinues.Configuration
         IReadOnlyDictionary<string, object> PresetOverrides { get; }
         bool IsDisabled { get; }
         object DisabledOverrideBoxed { get; }
+        IOption DependsOn { get; }
 
         /// <summary>
         /// Get the current option value as an object.
@@ -115,7 +117,8 @@ namespace Retinues.Configuration
             bool requiresRestart,
             IReadOnlyDictionary<string, object> presetOverrides,
             bool disabled,
-            T disabledOverride
+            T disabledOverride,
+            IOption dependsOn = null
         )
         {
             _section = section ?? (() => "General");
@@ -130,6 +133,7 @@ namespace Retinues.Configuration
             PresetOverrides = presetOverrides ?? new Dictionary<string, object>();
             IsDisabled = disabled;
             DisabledOverride = disabledOverride;
+            DependsOn = dependsOn;
 
             // Fallbacks; real delegates are wired by SettingsManager.DiscoverOptions.
             Getter = () => DefaultTyped;
@@ -160,6 +164,7 @@ namespace Retinues.Configuration
         public IReadOnlyDictionary<string, object> PresetOverrides { get; set; }
         public bool IsDisabled { get; set; }
         public T DisabledOverride { get; set; }
+        public IOption DependsOn { get; set; }
 
         /// <summary>
         /// The current typed option value (uses the runtime-backed getter/setter).
@@ -244,6 +249,7 @@ namespace Retinues.Configuration
             IReadOnlyDictionary<string, object> presetOverrides,
             bool disabled,
             T disabledOverride,
+            IOption dependsOn,
             Func<T, string> choiceFormatter
         )
             : base(
@@ -256,7 +262,8 @@ namespace Retinues.Configuration
                 requiresRestart,
                 presetOverrides,
                 disabled,
-                disabledOverride
+                disabledOverride,
+                dependsOn
             )
         {
             if (choices != null)
@@ -327,6 +334,7 @@ namespace Retinues.Configuration
     /// <summary>
     /// Central manager for Retinues settings: option registry, values, presets, and logging.
     /// </summary>
+    [SafeClass]
     public static class SettingsManager
     {
         private static readonly List<IOption> _all = [];
@@ -406,7 +414,8 @@ namespace Retinues.Configuration
             bool requiresRestart = false,
             IReadOnlyDictionary<string, object> presets = null,
             bool disabled = false,
-            T disabledOverride = default
+            T disabledOverride = default,
+            IOption dependsOn = null
         )
         {
             Func<string> sectionFunc = null;
@@ -423,7 +432,8 @@ namespace Retinues.Configuration
                 requiresRestart,
                 presets,
                 disabled,
-                disabledOverride
+                disabledOverride,
+                dependsOn
             );
         }
 
@@ -442,7 +452,8 @@ namespace Retinues.Configuration
             IReadOnlyDictionary<string, object> presets = null,
             bool disabled = false,
             T disabledOverride = default,
-            Func<T, string> choiceFormatter = null
+            Func<T, string> choiceFormatter = null,
+            IOption dependsOn = null
         )
         {
             return new MultiChoiceOption<T>(
@@ -457,6 +468,7 @@ namespace Retinues.Configuration
                 presets,
                 disabled,
                 disabledOverride,
+                dependsOn,
                 choiceFormatter
             );
         }
@@ -684,7 +696,7 @@ namespace Retinues.Configuration
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Get / Set                      //
+        //                        Get / Set                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         // Used via reflection, do not remove.
@@ -723,6 +735,59 @@ namespace Retinues.Configuration
                     Log.Exception(e, "OptionChanged handler failed.");
                 }
             };
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Visibility                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        internal static bool IsVisibleInMCM(string key)
+        {
+            DiscoverOptions();
+
+            if (!_byKey.TryGetValue(key, out var opt) || opt == null)
+                return true;
+
+            return IsVisibleInMCM(opt, stack: null);
+        }
+
+        private static bool IsVisibleInMCM(IOption opt, HashSet<string> stack)
+        {
+            if (opt == null)
+                return true;
+
+            var dep = opt.DependsOn;
+            if (dep == null)
+                return true;
+
+            stack ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+            // Break cycles gracefully
+            var k = opt.Key ?? string.Empty;
+            if (!string.IsNullOrWhiteSpace(k) && !stack.Add(k))
+                return true;
+
+            // If the dependency itself is not visible, this option is not visible
+            if (!IsVisibleInMCM(dep, stack))
+                return false;
+
+            // Dependency gate: only hide when dependency value is not true
+            if (dep.Type != typeof(bool))
+                return true;
+
+            try
+            {
+                return Convert.ToBoolean(dep.GetObject(), CultureInfo.InvariantCulture);
+            }
+            catch
+            {
+                return true;
+            }
+            finally
+            {
+                if (!string.IsNullOrWhiteSpace(k))
+                    stack.Remove(k);
+            }
         }
     }
 }

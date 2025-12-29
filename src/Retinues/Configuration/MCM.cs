@@ -57,6 +57,7 @@ namespace Retinues.Configuration
 
                 _isRegistered = true;
                 Log.Info("Retinues options registered with MCM.");
+
                 return true;
             }
             catch (Exception e)
