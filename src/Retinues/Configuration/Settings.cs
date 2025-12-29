@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Retinues.UI.Services;
 using static Retinues.Configuration.SettingsManager;
 
@@ -44,5 +45,25 @@ namespace Retinues.Configuration
             hint: L.F("mcm_option_debug_mode_hint", "Enables debug logging and additional checks."),
             @default: false
         );
+
+        // public enum Level
+        // {
+        //     Low,
+        //     Medium,
+        //     High
+        // }
+
+        // public static readonly MultiChoiceOption<Level> DebugLevel = CreateMultiChoiceOption(
+        //     section: () => Debug.Name,
+        //     name: L.F("mcm_option_debug_level", "Debug Level"),
+        //     hint: L.F("mcm_option_debug_level_hint", "Sets the level of debug information logged."),
+        //     @default: Level.Medium,
+        //     choices:
+        //     [
+        //         Level.Low,
+        //         Level.Medium,
+        //         Level.High
+        //     ]
+        // );
     }
 }

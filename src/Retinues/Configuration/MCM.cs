@@ -155,11 +155,21 @@ namespace Retinues.Configuration
                             }
 
                             // Multi-choice options: not yet wired as dropdowns in MCM
-                            if (opt is IMultiChoiceOption)
+                            if (opt is IMultiChoiceOption mc)
                             {
-                                Log.Info(
-                                    $"Option '{opt.Key}' is multi-choice; not exposed to MCM UI."
+                                var dd = GetOrCreateDropdown(opt.Key, mc);
+
+                                group.AddDropdown(
+                                    id,
+                                    name,
+                                    selectedIndex: dd.SelectedIndex,
+                                    @ref: new ProxyRef<Dropdown<string>>(() => dd, null),
+                                    builder: d =>
+                                        d.SetOrder(oIndex++)
+                                            .SetHintText(opt.Hint)
+                                            .SetRequireRestart(opt.RequiresRestart)
                                 );
+
                                 continue;
                             }
 
@@ -294,6 +304,63 @@ namespace Retinues.Configuration
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Dropdown                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private static readonly Dictionary<string, Dropdown<string>> _dropdownsByKey = new(
+            StringComparer.OrdinalIgnoreCase
+        );
+
+        private static Dropdown<string> GetOrCreateDropdown(string key, IMultiChoiceOption opt)
+        {
+            // Build labels
+            var labels = opt.Choices.Select(opt.ChoiceFormatter).ToList();
+            if (labels.Count == 0)
+                labels.Add(string.Empty);
+
+            var selected = opt.SelectedIndex;
+            if (selected < 0)
+                selected = 0;
+            if (selected >= labels.Count)
+                selected = labels.Count - 1;
+
+            if (!_dropdownsByKey.TryGetValue(key, out var dd))
+            {
+                dd = new Dropdown<string>(labels, selected);
+                _dropdownsByKey[key] = dd;
+
+                // When MCM UI changes SelectedIndex, update your option
+                dd.PropertyChanged += (_, e) =>
+                {
+                    if (e.PropertyName != nameof(Dropdown<string>.SelectedIndex))
+                        return;
+
+                    if (_isSyncingWithMCM)
+                        return;
+
+                    try
+                    {
+                        _isSyncingWithMCM = true;
+                        opt.SelectedIndex = dd.SelectedIndex;
+                    }
+                    finally
+                    {
+                        _isSyncingWithMCM = false;
+                    }
+                };
+            }
+            else
+            {
+                // Keep existing instance (important), but refresh labels/selection
+                dd.Clear();
+                dd.AddRange(labels);
+                dd.SelectedIndex = selected;
+            }
+
+            return dd;
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Helpers                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
@@ -312,6 +379,28 @@ namespace Retinues.Configuration
 
         private static void SyncOptionToMCM(string key, object value)
         {
+            if (
+                SettingsManager.TryGetOption(key, out var opt)
+                && opt is IMultiChoiceOption mc
+                && _dropdownsByKey.TryGetValue(key, out var dd)
+            )
+            {
+                if (_isSyncingWithMCM)
+                    return;
+
+                try
+                {
+                    _isSyncingWithMCM = true;
+                    dd.SelectedIndex = mc.SelectedIndex;
+                }
+                finally
+                {
+                    _isSyncingWithMCM = false;
+                }
+
+                return;
+            }
+
             var settings = _MCMSettingsInstance;
             var type = _MCMSettingsType;
             if (settings == null || type == null)

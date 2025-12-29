@@ -436,13 +436,13 @@ namespace Retinues.Configuration
             Func<string> hint,
             T @default,
             IList<T> choices,
-            int minValue,
-            int maxValue,
-            bool requiresRestart,
-            IReadOnlyDictionary<string, object> presets,
-            bool disabled,
-            T disabledOverride,
-            Func<T, string> choiceFormatter
+            int minValue = 0,
+            int maxValue = 1000,
+            bool requiresRestart = false,
+            IReadOnlyDictionary<string, object> presets = null,
+            bool disabled = false,
+            T disabledOverride = default,
+            Func<T, string> choiceFormatter = null
         )
         {
             return new MultiChoiceOption<T>(
