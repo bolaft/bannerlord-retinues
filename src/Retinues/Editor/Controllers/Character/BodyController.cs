@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Editor.Events;
+using Retinues.UI.Services;
 using Retinues.Utilities;
 
 namespace Retinues.Editor.Controllers.Character
@@ -51,94 +52,223 @@ namespace Retinues.Editor.Controllers.Character
         ];
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Public API                      //
+        //                       Decrease Age                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public static void PrevAgePreset() =>
-            ApplyPresetStep(
+        public static EditorAction<WCharacter> DecreaseAge { get; } =
+            Action<WCharacter>("DecreaseAge")
+                .AddCondition(
+                    c => c != null,
+                    L.T("body_no_character_reason", "No character is selected.")
+                )
+                .AddCondition(
+                    c => CanStepPreset(AgePresets, c.AgeMin, c.AgeMax, -1),
+                    L.T("body_age_min_reason", "Age is already at minimum.")
+                )
+                .DefaultTooltip(L.T("body_age_decrease_tip", "Decrease age"))
+                .ExecuteWith(c => StepAgePreset(c, -1))
+                .Fire(UIEvent.Appearance);
+
+        private static void StepAgePreset(WCharacter c, int step)
+        {
+            StepPreset(
+                c,
                 AgePresets,
-                -1,
-                () => State.Character.AgeMin,
-                v => State.Character.AgeMin = v,
-                () => State.Character.AgeMax,
-                v => State.Character.AgeMax = v
+                step,
+                () => c.AgeMin,
+                v => c.AgeMin = v,
+                () => c.AgeMax,
+                v => c.AgeMax = v
             );
-
-        public static void NextAgePreset() =>
-            ApplyPresetStep(
-                AgePresets,
-                +1,
-                () => State.Character.AgeMin,
-                v => State.Character.AgeMin = v,
-                () => State.Character.AgeMax,
-                v => State.Character.AgeMax = v
-            );
-
-        public static void PrevWeightPreset() =>
-            ApplyPresetStep(
-                WeightPresets,
-                -1,
-                () => State.Character.WeightMin,
-                v => State.Character.WeightMin = v,
-                () => State.Character.WeightMax,
-                v => State.Character.WeightMax = v
-            );
-
-        public static void NextWeightPreset() =>
-            ApplyPresetStep(
-                WeightPresets,
-                +1,
-                () => State.Character.WeightMin,
-                v => State.Character.WeightMin = v,
-                () => State.Character.WeightMax,
-                v => State.Character.WeightMax = v
-            );
-
-        public static void PrevBuildPreset() =>
-            ApplyPresetStep(
-                BuildPresets,
-                -1,
-                () => State.Character.BuildMin,
-                v => State.Character.BuildMin = v,
-                () => State.Character.BuildMax,
-                v => State.Character.BuildMax = v
-            );
-
-        public static void NextBuildPreset() =>
-            ApplyPresetStep(
-                BuildPresets,
-                +1,
-                () => State.Character.BuildMin,
-                v => State.Character.BuildMin = v,
-                () => State.Character.BuildMax,
-                v => State.Character.BuildMax = v
-            );
-
-        public static void PrevHeightPreset() =>
-            ApplyPresetStep(
-                HeightPresets,
-                -1,
-                () => State.Character.HeightMin,
-                v => State.Character.HeightMin = v,
-                () => State.Character.HeightMax,
-                v => State.Character.HeightMax = v
-            );
-
-        public static void NextHeightPreset() =>
-            ApplyPresetStep(
-                HeightPresets,
-                +1,
-                () => State.Character.HeightMin,
-                v => State.Character.HeightMin = v,
-                () => State.Character.HeightMax,
-                v => State.Character.HeightMax = v
-            );
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Helpers                        //
+        //                       Increase Age                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        static void ApplyPresetStep(
+        public static EditorAction<WCharacter> IncreaseAge { get; } =
+            Action<WCharacter>("IncreaseAge")
+                .AddCondition(
+                    c => c != null,
+                    L.T("body_no_character_reason", "No character is selected.")
+                )
+                .AddCondition(
+                    c => CanStepPreset(AgePresets, c.AgeMin, c.AgeMax, +1),
+                    L.T("body_age_max_reason", "Age is already at maximum.")
+                )
+                .DefaultTooltip(L.T("body_age_increase_tip", "Increase age"))
+                .ExecuteWith(c => StepAgePreset(c, +1))
+                .Fire(UIEvent.Appearance);
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                    Decrease Height                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public static EditorAction<WCharacter> DecreaseHeight { get; } =
+            Action<WCharacter>("DecreaseHeight")
+                .AddCondition(
+                    c => c != null,
+                    L.T("body_no_character_reason", "No character is selected.")
+                )
+                .AddCondition(
+                    c => CanStepPreset(HeightPresets, c.HeightMin, c.HeightMax, -1),
+                    L.T("body_height_min_reason", "Height is already at minimum.")
+                )
+                .DefaultTooltip(L.T("body_height_decrease_tip", "Decrease height"))
+                .ExecuteWith(c => StepHeightPreset(c, -1))
+                .Fire(UIEvent.Appearance);
+
+        private static void StepHeightPreset(WCharacter c, int step)
+        {
+            StepPreset(
+                c,
+                HeightPresets,
+                step,
+                () => c.HeightMin,
+                v => c.HeightMin = v,
+                () => c.HeightMax,
+                v => c.HeightMax = v
+            );
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                    Increase Height                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public static EditorAction<WCharacter> IncreaseHeight { get; } =
+            Action<WCharacter>("IncreaseHeight")
+                .AddCondition(
+                    c => c != null,
+                    L.T("body_no_character_reason", "No character is selected.")
+                )
+                .AddCondition(
+                    c => CanStepPreset(HeightPresets, c.HeightMin, c.HeightMax, +1),
+                    L.T("body_height_max_reason", "Height is already at maximum.")
+                )
+                .DefaultTooltip(L.T("body_height_increase_tip", "Increase height"))
+                .ExecuteWith(c => StepHeightPreset(c, +1))
+                .Fire(UIEvent.Appearance);
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                     Decrease Weight                     //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public static EditorAction<WCharacter> DecreaseWeight { get; } =
+            Action<WCharacter>("DecreaseWeight")
+                .AddCondition(
+                    c => c != null,
+                    L.T("body_no_character_reason", "No character is selected.")
+                )
+                .AddCondition(
+                    c => CanStepPreset(WeightPresets, c.WeightMin, c.WeightMax, -1),
+                    L.T("body_weight_min_reason", "Weight is already at minimum.")
+                )
+                .DefaultTooltip(L.T("body_weight_decrease_tip", "Decrease weight"))
+                .ExecuteWith(c => StepWeightPreset(c, -1))
+                .Fire(UIEvent.Appearance);
+
+        private static void StepWeightPreset(WCharacter c, int step)
+        {
+            StepPreset(
+                c,
+                WeightPresets,
+                step,
+                () => c.WeightMin,
+                v => c.WeightMin = v,
+                () => c.WeightMax,
+                v => c.WeightMax = v
+            );
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                     Increase Weight                     //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public static EditorAction<WCharacter> IncreaseWeight { get; } =
+            Action<WCharacter>("IncreaseWeight")
+                .AddCondition(
+                    c => c != null,
+                    L.T("body_no_character_reason", "No character is selected.")
+                )
+                .AddCondition(
+                    c => CanStepPreset(WeightPresets, c.WeightMin, c.WeightMax, +1),
+                    L.T("body_weight_max_reason", "Weight is already at maximum.")
+                )
+                .DefaultTooltip(L.T("body_weight_increase_tip", "Increase weight"))
+                .ExecuteWith(c => StepWeightPreset(c, +1))
+                .Fire(UIEvent.Appearance);
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                     Decrease Build                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public static EditorAction<WCharacter> DecreaseBuild { get; } =
+            Action<WCharacter>("DecreaseBuild")
+                .AddCondition(
+                    c => c != null,
+                    L.T("body_no_character_reason", "No character is selected.")
+                )
+                .AddCondition(
+                    c => CanStepPreset(BuildPresets, c.BuildMin, c.BuildMax, -1),
+                    L.T("body_build_min_reason", "Build is already at minimum.")
+                )
+                .DefaultTooltip(L.T("body_build_decrease_tip", "Decrease build"))
+                .ExecuteWith(c => StepBuildPreset(c, -1))
+                .Fire(UIEvent.Appearance);
+
+        private static void StepBuildPreset(WCharacter c, int step)
+        {
+            StepPreset(
+                c,
+                BuildPresets,
+                step,
+                () => c.BuildMin,
+                v => c.BuildMin = v,
+                () => c.BuildMax,
+                v => c.BuildMax = v
+            );
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                     Increase Build                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public static EditorAction<WCharacter> IncreaseBuild { get; } =
+            Action<WCharacter>("IncreaseBuild")
+                .AddCondition(
+                    c => c != null,
+                    L.T("body_no_character_reason", "No character is selected.")
+                )
+                .AddCondition(
+                    c => CanStepPreset(BuildPresets, c.BuildMin, c.BuildMax, +1),
+                    L.T("body_build_max_reason", "Build is already at maximum.")
+                )
+                .DefaultTooltip(L.T("body_build_increase_tip", "Increase build"))
+                .ExecuteWith(c => StepBuildPreset(c, +1))
+                .Fire(UIEvent.Appearance);
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Shared Helpers                     //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private static bool CanStepPreset(
+            List<(float min, float max)> presets,
+            float curMin,
+            float curMax,
+            int step
+        )
+        {
+            if (presets == null || presets.Count == 0)
+                return false;
+
+            int idx = NearestPresetIndex(presets, curMin, curMax);
+            int next = idx + step;
+
+            return next >= 0 && next < presets.Count;
+        }
+
+        private static void StepPreset(
+            WCharacter c,
             List<(float min, float max)> presets,
             int step,
             Func<float> getMin,
@@ -147,7 +277,6 @@ namespace Retinues.Editor.Controllers.Character
             Action<float> setMax
         )
         {
-            var c = State.Character;
             if (c == null || presets == null || presets.Count == 0)
                 return;
 
@@ -157,9 +286,12 @@ namespace Retinues.Editor.Controllers.Character
                 float curMax = getMax();
 
                 int idx = NearestPresetIndex(presets, curMin, curMax);
-                int next = (idx + step) % presets.Count;
-                if (next < 0)
-                    next += presets.Count;
+                int next = idx + step;
+
+                // Should not happen because EditorAction conditions gate it,
+                // but keep it safe.
+                if (next < 0 || next >= presets.Count)
+                    return;
 
                 var (min, max) = presets[next];
 
@@ -171,10 +303,6 @@ namespace Retinues.Editor.Controllers.Character
                 var template = PickCultureTemplate(c);
                 if (template != null)
                     c.ApplyTagsFromCulture(template);
-
-                // Notify UI/tableau.
-                // If your event name differs, change this single line.
-                EventManager.Fire(UIEvent.Appearance);
             }
             catch (Exception ex)
             {
@@ -182,7 +310,7 @@ namespace Retinues.Editor.Controllers.Character
             }
         }
 
-        static int NearestPresetIndex(
+        private static int NearestPresetIndex(
             List<(float min, float max)> presets,
             float curMin,
             float curMax
@@ -205,7 +333,7 @@ namespace Retinues.Editor.Controllers.Character
             return best;
         }
 
-        static WCharacter PickCultureTemplate(WCharacter c)
+        private static WCharacter PickCultureTemplate(WCharacter c)
         {
             if (c?.Culture == null)
                 return null;

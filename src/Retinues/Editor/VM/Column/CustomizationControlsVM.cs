@@ -58,30 +58,21 @@ namespace Retinues.Editor.VM.Column
         //                         Gender                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        [EventListener(UIEvent.Gender)]
         [DataSourceProperty]
-        public string GenderIcon =>
-            State.Character.IsFemale == true
-                ? "SPGeneral\\GeneralFlagIcons\\female_only"
-                : "SPGeneral\\GeneralFlagIcons\\male_only";
-
-        [EventListener(UIEvent.Culture)]
-        [DataSourceProperty]
-        public Tooltip GenderToggleHint =>
-            CharacterController.ToggleGender.Tooltip(State.Character.Editable as WCharacter);
-
-        [EventListener(UIEvent.Culture)]
-        [DataSourceProperty]
-        public string GenderIconColor => CanToggleGender ? "#c7ac85ff" : "#808080ff";
-
-        [EventListener(UIEvent.Culture)]
-        [DataSourceProperty]
-        public bool CanToggleGender =>
-            CharacterController.ToggleGender.Allow(State.Character.Editable as WCharacter);
-
-        [DataSourceMethod]
-        public void ExecuteToggleGender() =>
-            CharacterController.ToggleGender.Execute(State.Character.Editable as WCharacter);
+        public Button<WCharacter> GenderToggleButton { get; } =
+            new(
+                action: CharacterController.ToggleGender,
+                arg: () => State.Character,
+                refresh: [UIEvent.Gender, UIEvent.Culture],
+                spriteFactory: () =>
+                    State.Character.IsFemale == true
+                        ? "SPGeneral\\GeneralFlagIcons\\female_only"
+                        : "SPGeneral\\GeneralFlagIcons\\male_only",
+                colorFactory: () =>
+                    CharacterController.ToggleGender.Allow(State.Character)
+                        ? "#c7ac85ff"
+                        : "#808080ff"
+            );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Presets                        //
@@ -99,28 +90,68 @@ namespace Retinues.Editor.VM.Column
         [DataSourceProperty]
         public Tooltip BuildHint => new(L.T("build_hint", "Build"));
 
-        [DataSourceMethod]
-        public void ExecutePrevAgePreset() => BodyController.PrevAgePreset();
+        [DataSourceProperty]
+        public Button<WCharacter> AgePrevButton { get; } =
+            new(
+                action: BodyController.DecreaseAge,
+                arg: () => State.Character,
+                refresh: [UIEvent.Character, UIEvent.Appearance]
+            );
 
-        [DataSourceMethod]
-        public void ExecuteNextAgePreset() => BodyController.NextAgePreset();
+        [DataSourceProperty]
+        public Button<WCharacter> AgeNextButton { get; } =
+            new(
+                action: BodyController.IncreaseAge,
+                arg: () => State.Character,
+                refresh: [UIEvent.Character, UIEvent.Appearance]
+            );
 
-        [DataSourceMethod]
-        public void ExecutePrevHeightPreset() => BodyController.PrevHeightPreset();
+        [DataSourceProperty]
+        public Button<WCharacter> HeightPrevButton { get; } =
+            new(
+                action: BodyController.DecreaseHeight,
+                arg: () => State.Character,
+                refresh: [UIEvent.Character, UIEvent.Appearance]
+            );
 
-        [DataSourceMethod]
-        public void ExecuteNextHeightPreset() => BodyController.NextHeightPreset();
+        [DataSourceProperty]
+        public Button<WCharacter> HeightNextButton { get; } =
+            new(
+                action: BodyController.IncreaseHeight,
+                arg: () => State.Character,
+                refresh: [UIEvent.Character, UIEvent.Appearance]
+            );
 
-        [DataSourceMethod]
-        public void ExecutePrevWeightPreset() => BodyController.PrevWeightPreset();
+        [DataSourceProperty]
+        public Button<WCharacter> WeightPrevButton { get; } =
+            new(
+                action: BodyController.DecreaseWeight,
+                arg: () => State.Character,
+                refresh: [UIEvent.Character, UIEvent.Appearance]
+            );
 
-        [DataSourceMethod]
-        public void ExecuteNextWeightPreset() => BodyController.NextWeightPreset();
+        [DataSourceProperty]
+        public Button<WCharacter> WeightNextButton { get; } =
+            new(
+                action: BodyController.IncreaseWeight,
+                arg: () => State.Character,
+                refresh: [UIEvent.Character, UIEvent.Appearance]
+            );
 
-        [DataSourceMethod]
-        public void ExecutePrevBuildPreset() => BodyController.PrevBuildPreset();
+        [DataSourceProperty]
+        public Button<WCharacter> BuildPrevButton { get; } =
+            new(
+                action: BodyController.DecreaseBuild,
+                arg: () => State.Character,
+                refresh: [UIEvent.Character, UIEvent.Appearance]
+            );
 
-        [DataSourceMethod]
-        public void ExecuteNextBuildPreset() => BodyController.NextBuildPreset();
+        [DataSourceProperty]
+        public Button<WCharacter> BuildNextButton { get; } =
+            new(
+                action: BodyController.IncreaseBuild,
+                arg: () => State.Character,
+                refresh: [UIEvent.Character, UIEvent.Appearance]
+            );
     }
 }

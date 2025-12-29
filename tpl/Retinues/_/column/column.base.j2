@@ -1,0 +1,60 @@
+{# ---------------------------------------------- #}
+{# Left column                                    #}
+{# ---------------------------------------------- #}
+
+<Widget
+    DataSource="{Column}"
+    WidthSizePolicy="Fixed"
+    HeightSizePolicy="StretchToParent"
+    SuggestedWidth="400"
+    HorizontalAlignment="Left" VerticalAlignment="Center"
+    MarginLeft="670">
+    <Children>
+
+        {# ------------------------------------------ #}
+        {# Tableau                                    #}
+        {# ------------------------------------------ #}
+        {% include "_/column/column.tableau.j2" %}
+
+        {# ------------------------------------------ #}
+        {# Customization controls                     #}
+        {# ------------------------------------------ #}
+        {% include "_/column/column.customization.j2" %}
+
+        {# ------------------------------------------ #}
+        {# Equipment header                           #}
+        {# ------------------------------------------ #}
+        {% include "_/column/top/equipment.j2" %}
+    
+        {# ------------------------------------------ #}
+        {# Character header                           #}
+        {# ------------------------------------------ #}
+        {% include "_/column/top/character.j2" %}
+
+        {# ------------------------------------------ #}
+        {# Equipment mode toggle                      #}
+        {# ------------------------------------------ #}
+
+        <ButtonWidget
+            IsVisible="@ShowEquipmentButton"
+            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+            SuggestedWidth="240" SuggestedHeight="80"
+            HorizontalAlignment="Center" VerticalAlignment="Bottom"
+            PositionYOffset="10"
+            Brush="@EquipmentButtonBrush"
+            Command.Click="ExecuteToggleEquipmentMode"
+            UpdateChildrenStates="true"
+            DoNotPassEventsToChildren="true">
+            <Children>
+
+                <TextWidget
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Brush="Popup.Button.Text"
+                    Text="@EquipmentButtonText" />
+
+            </Children>
+        </ButtonWidget>
+
+    </Children>
+</Widget>

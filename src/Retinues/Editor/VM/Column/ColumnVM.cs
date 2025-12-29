@@ -2,9 +2,9 @@ using System;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Editor.Events;
+using Retinues.Editor.Services.Library.NPCCharacters;
 using Retinues.Editor.VM.Column.Character;
 using Retinues.Editor.VM.Column.Equipment;
-using Retinues.Framework.Model.Exports;
 using Retinues.UI.Services;
 using Retinues.Utilities;
 using TaleWorlds.Core.ViewModelCollection;
@@ -56,7 +56,7 @@ namespace Retinues.Editor.VM.Column
         [EventListener(UIEvent.Appearance, UIEvent.Page, UIEvent.Library)]
         private void RebuildModel()
         {
-            MLibrary.Item.ModelLease lease = null;
+            CharacterStubLeaser.Lease lease = null;
 
             try
             {
@@ -64,7 +64,31 @@ namespace Retinues.Editor.VM.Column
 
                 if (EditorVM.Page == EditorPage.Library)
                 {
-                    lease = EditorState.Instance.LibraryItem?.LeaseModelCharacter();
+                    var item = EditorState.Instance.LibraryItem;
+
+                    if (item == null)
+                    {
+                        Model = null;
+                        return;
+                    }
+
+                    // Extract the first character payload from the export file.
+                    // (For faction exports this means "preview first troop" which matches old behavior.)
+                    if (
+                        !LibraryExportPayloadReader.TryExtractModelCharacterPayloads(
+                            item,
+                            out var payloads
+                        )
+                        || payloads.Count == 0
+                    )
+                    {
+                        Model = null;
+                        return;
+                    }
+
+                    var p = payloads[0];
+
+                    lease = CharacterStubLeaser.LeaseFromPayload(p.Payload, p.ModelStringId, out _);
                     character = lease?.Character;
 
                     if (character?.Base == null)

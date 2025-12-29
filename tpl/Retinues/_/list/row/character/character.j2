@@ -1,0 +1,41 @@
+{% from "_/macros.rows.j2" import row_wrapper, image_cell, icon_sprite %}
+
+{% call row_wrapper("@IsCharacter") %}
+
+    {{ image_cell("{Image}", margin_right=16) }}
+
+    {{ icon_sprite("@FormationClassIcon", sug_w=24, sug_h=24, margin_right=16, is_visible='!@IsCivilian') }}
+
+    <TextWidget
+        WidthSizePolicy="CoverChildren"
+        HeightSizePolicy="StretchToParent"
+        VerticalAlignment="Center"
+        Brush="Clan.Tuple.Name.Text"
+        Text="@Indentation" />
+
+    <TextWidget
+        WidthSizePolicy="StretchToParent"
+        HeightSizePolicy="StretchToParent"
+        VerticalAlignment="Center"
+        Brush="Clan.Tuple.Name.Text"
+        Text="@Name" />
+
+    <ListPanel
+        WidthSizePolicy="CoverChildren"
+        HeightSizePolicy="CoverChildren"
+        MarginRight="16"
+        IsHidden="@IsCivilian"
+        HorizontalAlignment="Right"
+        VerticalAlignment="Center">
+        <Children>
+            <ImageWidget
+                DataSource="{TierIconData}"
+                WidthSizePolicy="Fixed"
+                HeightSizePolicy="Fixed"
+                SuggestedWidth="24"
+                SuggestedHeight="24"
+                Sprite="@Text"/>
+        </Children>
+    </ListPanel>
+
+{% endcall %}

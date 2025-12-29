@@ -1,0 +1,76 @@
+{# ---------------------------------------------- #}
+{# Checkbox macros                                #}
+{# ---------------------------------------------- #}
+
+{% macro checkbox(binding, size, tooltip, enabled="true") %}
+    <Widget
+        HorizontalAlignment="Center" VerticalAlignment="Center"
+        WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren">
+        <Children>
+
+            {# Root hint (kept from original) #}
+            <HintWidget
+                DataSource="{{ tooltip }}"
+                Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
+
+            {# Enabled (interactive) checkbox #}
+            <ButtonWidget
+                IsVisible="{{ enabled }}"
+                IsSelected="{{ binding }}"
+                IsEnabled="true"
+                DoNotPassEventsToChildren="true"
+                WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                SuggestedWidth="{{ size }}" SuggestedHeight="{{ size }}"
+                HorizontalAlignment="Center" VerticalAlignment="Center"
+                Brush="SPOptions.Checkbox.Empty.Button"
+                ButtonType="Toggle"
+                ToggleIndicator="ToggleIndicator"
+                UpdateChildrenStates="true">
+                <Children>
+
+                    <ImageWidget
+                        Id="ToggleIndicator"
+                        WidthSizePolicy="StretchToParent"
+                        HeightSizePolicy="StretchToParent"
+                        Brush="SPOptions.Checkbox.Full.Button" />
+
+                    <HintWidget
+                        DataSource="{{ tooltip }}"
+                        Command.HoverBegin="ExecuteBeginHint"
+                        Command.HoverEnd="ExecuteEndHint"/>
+
+                </Children>
+            </ButtonWidget>
+
+            {# Disabled (visual only) checkbox #}
+            <ButtonWidget
+                IsHidden="{{ enabled }}"
+                IsSelected="{{ binding }}"
+                IsEnabled="false"
+                DoNotPassEventsToChildren="true"
+                WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                SuggestedWidth="{{ size }}" SuggestedHeight="{{ size }}"
+                HorizontalAlignment="Center" VerticalAlignment="Center"
+                Brush="SPOptions.Checkbox.Empty.Button"
+                ButtonType="Toggle"
+                ToggleIndicator="ToggleIndicator"
+                UpdateChildrenStates="true">
+                <Children>
+
+                    <ImageWidget
+                        Id="ToggleIndicator"
+                        WidthSizePolicy="StretchToParent"
+                        HeightSizePolicy="StretchToParent"
+                        Brush="SPOptions.Checkbox.Full.Button" />
+
+                    <HintWidget
+                        DataSource="{{ tooltip }}"
+                        Command.HoverBegin="ExecuteBeginHint"
+                        Command.HoverEnd="ExecuteEndHint"/>
+
+                </Children>
+            </ButtonWidget>
+
+        </Children>
+    </Widget>
+{% endmacro %}

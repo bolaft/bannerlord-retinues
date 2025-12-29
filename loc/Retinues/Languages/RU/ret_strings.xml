@@ -11,6 +11,57 @@
       id="ret_age_hint"
       text="Возраст" />
     <string
+      id="ret_body_age_decrease_tip"
+      text="Уменьшить возраст" />
+    <string
+      id="ret_body_age_increase_tip"
+      text="Увеличить возраст" />
+    <string
+      id="ret_body_age_max_reason"
+      text="Возраст уже на максимуме." />
+    <string
+      id="ret_body_age_min_reason"
+      text="Возраст уже на минимуме." />
+    <string
+      id="ret_body_build_decrease_tip"
+      text="Уменьшить телосложение" />
+    <string
+      id="ret_body_build_increase_tip"
+      text="Увеличить телосложение" />
+    <string
+      id="ret_body_build_max_reason"
+      text="Телосложение уже на максимуме." />
+    <string
+      id="ret_body_build_min_reason"
+      text="Телосложение уже на минимуме." />
+    <string
+      id="ret_body_height_decrease_tip"
+      text="Уменьшить рост" />
+    <string
+      id="ret_body_height_increase_tip"
+      text="Увеличить рост" />
+    <string
+      id="ret_body_height_max_reason"
+      text="Рост уже на максимуме." />
+    <string
+      id="ret_body_height_min_reason"
+      text="Рост уже на минимуме." />
+    <string
+      id="ret_body_no_character_reason"
+      text="Персонаж не выбран." />
+    <string
+      id="ret_body_weight_decrease_tip"
+      text="Уменьшить вес" />
+    <string
+      id="ret_body_weight_increase_tip"
+      text="Увеличить вес" />
+    <string
+      id="ret_body_weight_max_reason"
+      text="Вес уже на максимуме." />
+    <string
+      id="ret_body_weight_min_reason"
+      text="Вес уже на минимуме." />
+    <string
       id="ret_build_hint"
       text="Телосложение" />
     <string
@@ -31,6 +82,9 @@
     <string
       id="ret_cant_equip_reason_civilian"
       text="Не гражданский" />
+    <string
+      id="ret_cant_equip_reason_no_equipment"
+      text="Не выбран набор снаряжения." />
     <string
       id="ret_cant_equip_reason_skill"
       text="{SKILL} {VALUE}" />
@@ -67,6 +121,9 @@
     <string
       id="ret_culture_header_text_with_race"
       text="Культура и вид" />
+    <string
+      id="ret_culture_no_selection"
+      text="Персонаж не выбран." />
     <string
       id="ret_dependencies_all_ok"
       text="Все зависимости инициализированы правильно." />
@@ -119,8 +176,17 @@
       id="ret_equipment_cannot_delete_last_set"
       text="Должен остаться как минимум один набор снаряжения." />
     <string
+      id="ret_equipment_hero_sets_reason"
+      text="У героев не может быть несколько наборов снаряжения." />
+    <string
+      id="ret_equipment_no_character_reason"
+      text="Персонаж не выбран." />
+    <string
       id="ret_equipment_no_more_sets"
       text="Больше нет наборов снаряжения." />
+    <string
+      id="ret_equipment_no_set_selected_reason"
+      text="Не выбран набор снаряжения." />
     <string
       id="ret_equipment_slot_body"
       text="Тело" />
@@ -164,8 +230,20 @@
       id="ret_escape_menu_editor_button"
       text="Универсальный редактор" />
     <string
+      id="ret_export_character_no_heroes"
+      text="Данные героя привязаны к состоянию сохранения." />
+    <string
+      id="ret_export_character_no_selection"
+      text="Персонаж не выбран." />
+    <string
       id="ret_export_desc"
       text="Выберите имя для сохранения:" />
+    <string
+      id="ret_export_faction_no_id"
+      text="Выбранная фракция недействительна." />
+    <string
+      id="ret_export_faction_none"
+      text="Фракция не выбрана." />
     <string
       id="ret_export_overwrite_desc"
       text="Файл с именем &apos;{FILE}&apos; уже существует и будет перезаписан.{newline}{newline}{PATH}" />
@@ -191,6 +269,9 @@
       id="ret_gender_no_culture"
       text="Культура не выбрана." />
     <string
+      id="ret_gender_no_selection"
+      text="Персонаж не выбран." />
+    <string
       id="ret_gender_no_template"
       text="У этой культуры нет действительного шаблона тела для этого пола/вида." />
     <string
@@ -198,7 +279,7 @@
       text="Эта комбинация пола/вида не может быть отрисована." />
     <string
       id="ret_gender_toggle_hint"
-      text="Переключить пол" />
+      text="Изменить пол" />
     <string
       id="ret_height_hint"
       text="Рост" />
@@ -261,19 +342,22 @@
       text="Удалить" />
     <string
       id="ret_library_delete_confirm_desc"
-      text="Вы уверены, что хотите удалить этот экспорт? Это действие необратимо." />
+      text="Это навсегда удалит файл экспорта.{newline}{newline}Продолжить?" />
     <string
       id="ret_library_delete_confirm_title"
       text="Удалить экспорт" />
     <string
       id="ret_library_delete_failed_exception"
-      text="Экспорт не может быть удален." />
+      text="Не удалось удалить файл." />
     <string
-      id="ret_library_delete_failed_missing"
+      id="ret_library_delete_failed_missing_file"
       text="Файл экспорта не найден." />
     <string
       id="ret_library_delete_failed_title"
       text="Ошибка удаления" />
+    <string
+      id="ret_library_delete_no_selection"
+      text="Экспорт не выбран." />
     <string
       id="ret_library_delete_tooltip"
       text="Навсегда удаляет этот элемент библиотеки и связанный с ним XML-файл." />
@@ -282,19 +366,22 @@
       text="Редактировать" />
     <string
       id="ret_library_edit_confirm_desc"
-      text="Этот файл экспорта откроется в вашем редакторе по умолчанию.{newline}{newline}{PATH}" />
+      text="Это откроет экспорт XML в вашем редакторе по умолчанию.{newline}{newline}Продолжить?" />
     <string
       id="ret_library_edit_confirm_title"
-      text="Открыть файл экспорта" />
+      text="Редактировать экспорт" />
     <string
       id="ret_library_edit_failed_exception"
       text="Не удалось открыть файл." />
     <string
-      id="ret_library_edit_failed_missing"
+      id="ret_library_edit_failed_missing_file"
       text="Файл экспорта не найден." />
     <string
       id="ret_library_edit_failed_title"
-      text="Ошибка открытия" />
+      text="Ошибка редактирования" />
+    <string
+      id="ret_library_edit_no_selection"
+      text="Экспорт не выбран." />
     <string
       id="ret_library_edit_tooltip"
       text="Напрямую редактируйте содержимое XML-файла этого экспорта." />
@@ -302,20 +389,11 @@
       id="ret_library_export_file_header"
       text="Файл" />
     <string
-      id="ret_library_export_not_vanilla"
-      text="В автономные моды можно экспортировать только измененные ванильные войска." />
-    <string
       id="ret_library_export_npc_button"
       text="Преобразовать" />
     <string
-      id="ret_library_export_npc_confirm_desc"
-      text="Этот элемент библиотеки будет экспортирован в автономный мод:{newline}{newline}{PATH}" />
-    <string
-      id="ret_library_export_npc_confirm_desc_overwrite"
-      text="Этот элемент библиотеки будет экспортирован в автономный мод и перезапишет существующие файлы:{newline}{newline}{PATH}" />
-    <string
-      id="ret_library_export_npc_confirm_title"
-      text="Экспортировать как мод" />
+      id="ret_library_export_npc_custom_troop_unsupported"
+      text="Только изменения стандартных отрядов могут быть преобразованы в автономные моды." />
     <string
       id="ret_library_export_npc_done_desc_fallback"
       text="Папка установки игры защищена, поэтому модуль был записан здесь:{newline}{PATH}{newline}{newline}Скопируйте эту папку в каталог модулей Bannerlord, затем перезапустите игру." />
@@ -335,11 +413,14 @@
       id="ret_library_export_npc_failed_no_output"
       text="Из этого экспорта не удалось создать персонажей." />
     <string
-      id="ret_library_export_npc_failed_no_payloads"
-      text="В этом экспорте не найдено полезных нагрузок персонажей." />
+      id="ret_library_export_npc_failed_no_payload"
+      text="Из этого файла ничего не удалось экспортировать." />
     <string
       id="ret_library_export_npc_failed_title"
       text="Ошибка экспорта" />
+    <string
+      id="ret_library_export_npc_kind_unsupported"
+      text="Этот тип экспорта не может быть преобразован." />
     <string
       id="ret_library_export_npc_missing_file"
       text="Файл экспорта не найден." />
@@ -347,8 +428,14 @@
       id="ret_library_export_npc_no_selection"
       text="Экспорт не выбран." />
     <string
+      id="ret_library_export_npc_overwrite_desc"
+      text="Модуль с таким именем уже существует:{newline}{PATH}{newline}{newline}Перезаписать его?" />
+    <string
+      id="ret_library_export_npc_overwrite_title"
+      text="Перезаписать модуль" />
+    <string
       id="ret_library_export_npc_tooltip"
-      text="Преобразовать этот экспорт в автономный мод." />
+      text="Преобразуйте этот экспорт в автономный мод." />
     <string
       id="ret_library_exports_empty_text"
       text="Сохраненные экспорты не найдены." />
@@ -360,13 +447,13 @@
       text="Импорт" />
     <string
       id="ret_library_import_confirm_desc_char"
-      text="Это перезапишет соответствующий отряд в текущей игре." />
+      text="Это импортирует экспортированный отряд в текущую игру.{newline}{newline}Продолжить?" />
     <string
       id="ret_library_import_confirm_desc_faction"
-      text="Это перезапишет соответствующую фракцию в текущей игре." />
+      text="Это импортирует экспортированную фракцию в текущую игру.{newline}{newline}Продолжить?" />
     <string
       id="ret_library_import_confirm_desc_unknown"
-      text="Это импортирует данные в текущую игру." />
+      text="Это импортирует экспортированные данные в текущую игру.{newline}{newline}Продолжить?" />
     <string
       id="ret_library_import_confirm_title"
       text="Импорт" />
@@ -374,26 +461,17 @@
       id="ret_library_import_deleted_custom_troop"
       text="Отряд, соответствующий этому экспорту, был удален." />
     <string
-      id="ret_library_import_done_desc"
-      text="Импорт выполнен успешно." />
-    <string
-      id="ret_library_import_done_title"
-      text="Импорт завершен" />
-    <string
       id="ret_library_import_failed_exception"
       text="Не удалось импортировать файл." />
     <string
-      id="ret_library_import_failed_missing"
-      text="Файл экспорта не найден." />
+      id="ret_library_import_failed_invalid"
+      text="Не удалось импортировать экспорт." />
     <string
-      id="ret_library_import_failed_reason"
-      text="Не удалось импортировать файл." />
+      id="ret_library_import_failed_missing_file"
+      text="Файл экспорта не найден." />
     <string
       id="ret_library_import_failed_title"
       text="Ошибка импорта" />
-    <string
-      id="ret_library_import_failed_unknown_kind"
-      text="Неизвестный тип экспорта." />
     <string
       id="ret_library_import_missing_file"
       text="Файл экспорта не найден." />
@@ -467,6 +545,12 @@
       id="ret_list_header_villagers"
       text="Жители деревень" />
     <string
+      id="ret_mariner_hero_reason"
+      text="Герои не могут быть мореплавателями." />
+    <string
+      id="ret_mariner_no_selection"
+      text="Персонаж не выбран." />
+    <string
       id="ret_mariner_toggle_tooltip"
       text="Установите способность мореплавателя для этого юнита.{newline}Мореплаватели лучше подходят для морского боя, но зарабатывают очки навыков с немного сниженной скоростью." />
     <string
@@ -494,6 +578,9 @@
       id="ret_name_header_text"
       text="Имя" />
     <string
+      id="ret_naval_dlc_not_loaded"
+      text="War Sails не установлен." />
+    <string
       id="ret_no_clans_text"
       text="В текущей игре не загружены кланы." />
     <string
@@ -512,11 +599,20 @@
       id="ret_no_valid_model_title_species"
       text="Нет действительной модели" />
     <string
+      id="ret_race_cannot_change"
+      text="Вид для этого юнита изменить нельзя." />
+    <string
       id="ret_race_incompatible_culture_gender"
       text="Этот вид несовместим с текущей культурой/полом." />
     <string
       id="ret_race_invalid_model"
       text="Для этого вида не существует действительной модели." />
+    <string
+      id="ret_rename_no_selection"
+      text="Персонаж не выбран." />
+    <string
+      id="ret_rename_tooltip"
+      text="Переименовать" />
     <string
       id="ret_rename_unit"
       text="Новое имя" />
@@ -583,6 +679,9 @@
     <string
       id="ret_trait_increase_maxed_reason"
       text="Черта уже на максимальном значении." />
+    <string
+      id="ret_trait_only_heroes_reason"
+      text="Черты есть только у героев." />
     <string
       id="ret_traits_header_text"
       text="Черты" />

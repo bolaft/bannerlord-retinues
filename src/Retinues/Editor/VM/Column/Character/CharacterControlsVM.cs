@@ -1,4 +1,4 @@
-using Bannerlord.UIExtenderEx.Attributes;
+using Retinues.Domain.Characters.Wrappers;
 using Retinues.Editor.Controllers.Character;
 using Retinues.Editor.Events;
 using Retinues.Modules;
@@ -19,6 +19,20 @@ namespace Retinues.Editor.VM.Column.Character
         public bool IsVisible => EditorVM.Page == EditorPage.Character;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Export                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [DataSourceProperty]
+        public Button<WCharacter> ExportButton { get; } =
+            new(
+                action: CharacterController.ExportCharacter,
+                arg: () => State.Character,
+                refresh: [UIEvent.Character],
+                sprite: "SPGeneral\\Skills\\gui_skills_icon_steward_tiny",
+                color: "f8eed1ff"
+            );
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Mariner                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
@@ -31,7 +45,7 @@ namespace Retinues.Editor.VM.Column.Character
         public bool IsMariner
         {
             get => State.Character.IsMariner;
-            set => CharacterController.ChangeMariner(value);
+            set => CharacterController.SetMariner.Execute(value);
         }
 
         [DataSourceProperty]
@@ -51,44 +65,17 @@ namespace Retinues.Editor.VM.Column.Character
                 );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                      Remove Button                     //
+        //                        Remove                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceProperty]
-        public string RemoveCharacterButtonText => L.S("button_remove_character", "Delete");
-
-        [EventListener(UIEvent.Character)]
-        [DataSourceProperty]
-        public bool ShowRemoveCharacterButton => State.Character.IsHero == false;
-
-        [EventListener(UIEvent.Tree, UIEvent.Character)]
-        [DataSourceProperty]
-        public bool CanRemoveCharacter =>
-            CharacterTreeController.RemoveCharacter.Allow(State.Character);
-
-        [EventListener(UIEvent.Tree, UIEvent.Character)]
-        [DataSourceProperty]
-        public Tooltip CanRemoveCharacterTooltip =>
-            CharacterTreeController.RemoveCharacter.Tooltip(State.Character);
-
-        [DataSourceMethod]
-        public void ExecuteRemoveCharacter() =>
-            CharacterTreeController.RemoveCharacter.Execute(State.Character);
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                      Export Button                     //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        [DataSourceProperty]
-        public Tooltip ExportTooltip =>
+        public Button<WCharacter> RemoveCharacterButton { get; } =
             new(
-                L.S(
-                    "button_export_character_tooltip",
-                    "Save this character and add it to the library."
-                )
+                action: CharacterTreeController.RemoveCharacter,
+                arg: () => State.Character,
+                refresh: [UIEvent.Character, UIEvent.Tree],
+                label: L.S("button_remove_character", "Delete"),
+                visibilityGate: () => State.Character.IsHero == false
             );
-
-        [DataSourceMethod]
-        public void ExecuteExport() => CharacterController.ExportSelectedCharacter();
     }
 }

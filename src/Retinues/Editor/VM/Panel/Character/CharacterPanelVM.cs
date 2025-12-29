@@ -1,14 +1,12 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Domain.Characters.Helpers;
 using Retinues.Domain.Characters.Wrappers;
-using Retinues.Domain.Factions.Wrappers;
 using Retinues.Editor.Controllers.Character;
 using Retinues.Editor.Events;
 using Retinues.UI.Services;
-using TaleWorlds.Core;
+using Retinues.UI.VM;
 using TaleWorlds.Library;
 
 namespace Retinues.Editor.VM.Panel.Character
@@ -46,8 +44,15 @@ namespace Retinues.Editor.VM.Panel.Character
         [DataSourceProperty]
         public string NameText => State.Character.Editable.Name;
 
-        [DataSourceMethod]
-        public void ExecuteRename() => CharacterController.ChangeName();
+        [DataSourceProperty]
+        public Button<WCharacter> RenameButton { get; } =
+            new(
+                action: CharacterController.Rename,
+                arg: () => State.Character,
+                refresh: [UIEvent.Character, UIEvent.Name],
+                sprite: "SPClan.NameChange.Icon",
+                color: "f8eed1ff"
+            );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Culture & Race                     //
@@ -70,47 +75,26 @@ namespace Retinues.Editor.VM.Panel.Character
         [DataSourceProperty]
         public string CultureText => State.Character.Editable.Culture?.Name;
 
-        [DataSourceMethod]
-        public void ExecuteChangeCulture()
-        {
-            var elements = new List<InquiryElement>();
-
-            foreach (var culture in WCulture.All)
-            {
-                var imageIdentifier = culture.ImageIdentifier;
-                var name = culture.Name;
-
-                if (imageIdentifier == null || name == null)
-                    continue;
-
-                elements.Add(
-                    new InquiryElement(
-                        identifier: culture,
-                        title: name,
-                        imageIdentifier: imageIdentifier
-                    )
-                );
-            }
-
-            if (elements.Count == 0)
-            {
-                Inquiries.Popup(
-                    L.T("no_cultures_title", "No Cultures Found"),
-                    L.T("no_cultures_text", "No cultures are loaded in the current game.")
-                );
-                return;
-            }
-
-            Inquiries.SelectPopup(
-                title: L.T("change_culture_title", "Change Culture"),
-                elements: elements,
-                onSelect: element =>
-                    CharacterController.ChangeCulture(element?.Identifier as WCulture)
+        [DataSourceProperty]
+        public Button<WCharacter> ChangeCultureButton { get; } =
+            new(
+                action: CharacterController.SelectCulture,
+                arg: () => State.Character,
+                refresh: [UIEvent.Character, UIEvent.Culture],
+                sprite: "SPClan.Parties.ChangePartyLeaderIcon",
+                color: "f8eed1ff"
             );
-        }
 
-        [DataSourceMethod]
-        public void ExecuteChangeRace() => CharacterController.OpenRaceSelector();
+        [DataSourceProperty]
+        public Button<WCharacter> ChangeRaceButton { get; } =
+            new(
+                action: CharacterController.SelectRace,
+                arg: () => State.Character.Editable as WCharacter,
+                refresh: [UIEvent.Character, UIEvent.Culture],
+                sprite: "SPClan.Parties.ChangePartyLeaderIcon",
+                color: "f8eed1ff",
+                visibilityGate: () => CharacterController.CanChangeRace
+            );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Traits                         //
@@ -130,9 +114,6 @@ namespace Retinues.Editor.VM.Panel.Character
         {
             get
             {
-                if (State.Character.IsHero == false)
-                    return [];
-
                 if (_traits == null)
                 {
                     _traits = [];
@@ -357,6 +338,17 @@ namespace Retinues.Editor.VM.Panel.Character
         //                        Upgrades                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        [DataSourceProperty]
+        public Button<WCharacter> AddUpgradeTargetButton { get; } =
+            new(
+                action: CharacterTreeController.AddUpgradeTarget,
+                arg: () => State.Character,
+                refresh: [UIEvent.Character, UIEvent.Tree],
+                label: L.S("add_upgrade_target_text", "Add Upgrade"),
+                visibilityGate: () =>
+                    CharacterTreeController.AddUpgradeTarget.Allow(State.Character)
+            );
+
         private readonly MBBindingList<CharacterUpgradeVM> _upgradeSources = [];
         private readonly MBBindingList<CharacterUpgradeVM> _upgradeTargets = [];
         private bool _hasUpgradeSources;
@@ -416,17 +408,5 @@ namespace Retinues.Editor.VM.Panel.Character
             OnPropertyChanged(nameof(UpgradeSources));
             OnPropertyChanged(nameof(UpgradeTargets));
         }
-
-        [EventListener(UIEvent.Character, UIEvent.Tree)]
-        [DataSourceProperty]
-        public bool CanAddUpgradeTarget =>
-            CharacterTreeController.AddUpgradeTarget.Allow(State.Character);
-
-        [DataSourceProperty]
-        public string AddUpgradeTargetText => L.S("add_upgrade_target_text", "Add Upgrade");
-
-        [DataSourceMethod]
-        public void ExecuteAddUpgradeTarget() =>
-            CharacterTreeController.AddUpgradeTarget.Execute(State.Character);
     }
 }

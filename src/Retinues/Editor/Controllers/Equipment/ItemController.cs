@@ -11,11 +11,12 @@ namespace Retinues.Editor.Controllers.Equipment
         //                          Equip                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        /// <summary>
-        /// Equip an item into the currently selected slot.
-        /// </summary>
         public static EditorAction<WItem> Equip { get; } =
             Action<WItem>("EquipItem")
+                .AddCondition(
+                    _ => State.Equipment != null,
+                    L.T("cant_equip_reason_no_equipment", "No equipment set selected.")
+                )
                 .AddCondition(
                     item => item.IsEquippableByCharacter(State.Character),
                     item =>
@@ -25,10 +26,7 @@ namespace Retinues.Editor.Controllers.Equipment
                 )
                 .AddCondition(
                     item => State.Equipment?.IsCivilian == false || item.IsCivilian,
-                    item =>
-                        L.T("cant_equip_reason_civilian", "Not civilian")
-                            .SetTextVariable("VALUE", item.Difficulty)
-                            .SetTextVariable("SKILL", item.RelevantSkill?.Name)
+                    _ => L.T("cant_equip_reason_civilian", "Not civilian") // No '.' because displayed in row.
                 )
                 .ExecuteWith(EquipItem)
                 .Fire(UIEvent.Item);
@@ -51,15 +49,13 @@ namespace Retinues.Editor.Controllers.Equipment
         //                         Unequip                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        /// <summary>
-        /// Unequip an item from a specific slot.
-        /// </summary>
         public static EditorAction<EquipmentIndex> Unequip { get; } =
             Action<EquipmentIndex>("UnequipItem")
                 .AddCondition(
                     slot => State.Equipment != null && State.Equipment.Get(slot) != null,
                     L.T("cant_unequip_reason_empty", "Nothing to unequip.")
                 )
+                .DefaultTooltip(L.T("unequip_item_tooltip", "Unequip this item."))
                 .ExecuteWith(UnequipItem)
                 .Fire(UIEvent.Item);
 

@@ -1,0 +1,29 @@
+{# ---------------------------------------------- #}
+{# Right panel                                    #}
+{# ---------------------------------------------- #}
+
+<Widget
+    VisualDefinition="RightPanel"
+    WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent"
+    SuggestedWidth="820"
+    MarginRight="16" MarginTop="16"
+    HorizontalAlignment="Right">
+    <Children>
+
+        {# ------------------------------------------ #}
+        {# Character panel                            #}
+        {# ------------------------------------------ #}
+        {% include "_/panel/character/character.base.j2" %}
+
+        {# ------------------------------------------ #}
+        {# Equipment panel                            #}
+        {# ------------------------------------------ #}
+        {% include "_/panel/equipment/equipment.base.j2" %}
+
+        {# ------------------------------------------ #}
+        {# Library panel                              #}
+        {# ------------------------------------------ #}
+        {% include "_/panel/library/library.base.j2" %}
+
+    </Children>
+</Widget>

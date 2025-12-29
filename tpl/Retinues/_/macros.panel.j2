@@ -1,0 +1,23 @@
+{# ---------------------------------------------- #}
+{# Panel text macros                              #}
+{# ---------------------------------------------- #}
+
+{% macro panel_header(text, is_visible="true") %}
+    <TextWidget
+        IsVisible="{{ is_visible }}"
+        Text="{{ text }}"
+        Brush="Kingdom.TitleSmall.Text"
+        WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+        HorizontalAlignment="Center" VerticalAlignment="Center"
+        MarginBottom="12" />
+{% endmacro %}
+
+{% macro panel_label(text, is_visible="true") %}
+    <TextWidget
+        IsVisible="{{ is_visible }}"
+        Text="{{ text }}"
+        Brush="Clan.RightPanel.Name.Text"
+        WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+        MarginLeft="4" MarginRight="4"
+        HorizontalAlignment="Center" VerticalAlignment="Center" />
+{% endmacro %}

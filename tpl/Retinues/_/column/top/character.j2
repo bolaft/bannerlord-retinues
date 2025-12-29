@@ -1,0 +1,77 @@
+{% from "_/macros.checkbox.j2" import checkbox %}
+{% from "_/macros.buttons.j2" import button_brush, button_text %}
+
+{# ---------------------------------------------- #}
+{# Character controls                             #}
+{# ---------------------------------------------- #}
+
+<ListPanel
+    DataSource="{CharacterControls}"
+    IsVisible="@IsVisible"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    StackLayout.LayoutMethod="VerticalBottomToTop"
+    HorizontalAlignment="Left" VerticalAlignment="Top">
+    <Children>
+
+        {# ------------------------------------------ #}
+        {# Export                                     #}
+        {# ------------------------------------------ #}
+
+        <ListPanel
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            HorizontalAlignment="Left" VerticalAlignment="Top"
+            MarginBottom="8">
+            <Children>
+
+                <SpriteWidget
+                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                    SuggestedWidth="32" SuggestedHeight="32"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    MarginRight="4"
+                    Color="#f8eed1ff"
+                    Sprite="SPGeneral\Skills\gui_skills_icon_steward_tiny" />
+
+                {{ button_brush("{ExportButton}", "TownManagement.Reserve.ConfirmButton", "32", "32") }}
+
+            </Children>
+        </ListPanel>
+
+        {# ------------------------------------------ #}
+        {# Mariner toggle                             #}
+        {# ------------------------------------------ #}
+
+        <ListPanel
+            IsVisible="@ShowMarinerToggle"
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            HorizontalAlignment="Left" VerticalAlignment="Top"
+            MarginBottom="8">
+            <Children>
+
+                <SpriteWidget
+                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                    SuggestedWidth="32" SuggestedHeight="32"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    MarginRight="4"
+                    Color="#f8eed1ff"
+                    Sprite="SPGeneral\Skills\gui_skills_icon_mariner_tiny" />
+
+                {{ checkbox(binding="@IsMariner", size="32", tooltip="{MarinerTooltip}") }}
+
+            </Children>
+        </ListPanel>
+
+    </Children>
+</ListPanel>
+
+<ListPanel
+    DataSource="{CharacterControls}"
+    IsVisible="@IsVisible"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    StackLayout.LayoutMethod="VerticalBottomToTop"
+    HorizontalAlignment="Center" VerticalAlignment="Top">
+    <Children>
+
+        {{ button_text("{RemoveCharacterButton}", "Popup.Delete.Button", "200", "60") }}
+
+    </Children>
+</ListPanel>

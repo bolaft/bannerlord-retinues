@@ -1,5 +1,4 @@
 using System.Linq;
-using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Editor.Controllers.Library;
 using Retinues.Editor.Events;
 using Retinues.Framework.Model.Exports;
@@ -105,9 +104,6 @@ namespace Retinues.Editor.VM.Panel.Library
         public string TargetName =>
             IsTroop ? LibraryController.GetTargetName(State.LibraryItem) : string.Empty;
 
-        /// <summary>
-        /// For Faction exports: troop name entry in the troop list.
-        /// </summary>
         public class FactionTroopNameVM(string name) : EventListenerVM
         {
             readonly string _name = name ?? string.Empty;
@@ -116,9 +112,6 @@ namespace Retinues.Editor.VM.Panel.Library
             public string Name => _name;
         }
 
-        /// <summary>
-        /// For Faction exports: included troop names from the export file.
-        /// </summary>
         private readonly MBBindingList<FactionTroopNameVM> _troopNames = [];
 
         [DataSourceProperty]
@@ -127,7 +120,6 @@ namespace Retinues.Editor.VM.Panel.Library
         [EventListener(UIEvent.Library)]
         private void RefreshTroopNames()
         {
-            // Always keep the list instance stable.
             _troopNames.Clear();
 
             if (!IsFaction)
@@ -154,81 +146,47 @@ namespace Retinues.Editor.VM.Panel.Library
                     )
                 );
 
-            // Not strictly necessary since the list instance didn't change,
-            // but safe if any binding expects the property to notify.
             OnPropertyChanged(nameof(TroopNames));
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Import                         //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        [EventListener(UIEvent.Library)]
-        [DataSourceProperty]
-        public bool CanImport => LibraryController.Import.Allow(State.LibraryItem);
-
-        [EventListener(UIEvent.Library)]
-        [DataSourceProperty]
-        public Tooltip ImportTooltip => LibraryController.Import.Tooltip(State.LibraryItem);
-
-        [DataSourceProperty]
-        public string ImportButtonText => L.S("library_import_button", "Import");
-
-        [DataSourceMethod]
-        public void ExecuteImport() => LibraryController.Import.Execute(State.LibraryItem);
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Delete                         //
+        //                         Buttons                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceProperty]
-        public string DeleteButtonText => L.S("library_delete_button", "Delete");
-
-        [DataSourceProperty]
-        public Tooltip DeleteTooltip =>
+        public Button<MLibrary.Item> ImportButton { get; } =
             new(
-                L.S(
-                    "library_delete_tooltip",
-                    "Permanently deletes this library item and associated XML file."
-                )
+                action: LibraryController.Import,
+                arg: () => State.LibraryItem,
+                refresh: [UIEvent.Library],
+                label: L.S("library_import_button", "Import")
             );
 
-        [DataSourceMethod]
-        public void ExecuteDelete() => LibraryController.DeleteLibraryItem(State.LibraryItem);
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                          Edit                          //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        [DataSourceProperty]
+        public Button<MLibrary.Item> ConvertButton { get; } =
+            new(
+                action: LibraryController.ExportNpcCharacters,
+                arg: () => State.LibraryItem,
+                refresh: [UIEvent.Library],
+                label: L.S("library_export_npc_button", "Convert")
+            );
 
         [DataSourceProperty]
-        public string EditButtonText => L.S("library_edit_button", "Edit");
+        public Button<MLibrary.Item> EditButton { get; } =
+            new(
+                action: LibraryController.Edit,
+                arg: () => State.LibraryItem,
+                refresh: [UIEvent.Library],
+                label: L.S("library_edit_button", "Edit")
+            );
 
         [DataSourceProperty]
-        public Tooltip EditTooltip =>
-            new(L.S("library_edit_tooltip", "Directly edit this export's XML file contents."));
-
-        [DataSourceMethod]
-        public void ExecuteEdit() => LibraryController.EditLibraryItem(State.LibraryItem);
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Export                         //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        [EventListener(UIEvent.Library)]
-        [DataSourceProperty]
-        public bool CanExportNpcCharacters =>
-            LibraryController.ExportNpcCharacters.Allow(State.LibraryItem);
-
-        [EventListener(UIEvent.Library)]
-        [DataSourceProperty]
-        public Tooltip ExportNpcCharactersTooltip =>
-            LibraryController.ExportNpcCharacters.Tooltip(State.LibraryItem);
-
-        [DataSourceProperty]
-        public string ExportNpcCharactersButtonText => L.S("library_export_npc_button", "Convert");
-
-        [DataSourceMethod]
-        public void ExecuteExportNpcCharacters() =>
-            LibraryController.ExportNpcCharacters.Execute(State.LibraryItem);
+        public Button<MLibrary.Item> DeleteButton { get; } =
+            new(
+                action: LibraryController.Delete,
+                arg: () => State.LibraryItem,
+                refresh: [UIEvent.Library],
+                label: L.S("library_delete_button", "Delete")
+            );
     }
 }

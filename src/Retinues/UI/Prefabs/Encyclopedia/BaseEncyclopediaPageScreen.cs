@@ -2,9 +2,9 @@ using System;
 using Bannerlord.UIExtenderEx.Attributes;
 using Bannerlord.UIExtenderEx.ViewModels;
 using Retinues.UI.Services;
+using Retinues.UI.VM;
 using Retinues.Utilities;
 using TaleWorlds.Library;
-using Retinues.UI.VM;
 
 namespace Retinues.UI.Prefabs.Encyclopedia
 {

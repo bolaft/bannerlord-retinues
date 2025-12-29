@@ -1,0 +1,48 @@
+{# ---------------------------------------------- #}
+{# Character panel                                #}
+{# ---------------------------------------------- #}
+
+<Widget
+    DataSource="{CharacterPanel}"
+    IsVisible="@IsVisible"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    HorizontalAlignment="Center" VerticalAlignment="Top"
+    MarginRight="160">
+    <Children>
+
+        <ListPanel
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            HorizontalAlignment="Center" VerticalAlignment="Center"
+            StackLayout.LayoutMethod="VerticalBottomToTop">
+            <Children>
+
+                {# -------------------------------------- #}
+                {# Name                                   #}
+                {# -------------------------------------- #}
+                {% include "_/panel/character/character.name.j2" %}
+
+                {# -------------------------------------- #}
+                {# Culture                                #}
+                {# -------------------------------------- #}
+                {% include "_/panel/character/character.culture.j2" %}
+
+                {# -------------------------------------- #}
+                {# Traits                                 #}
+                {# -------------------------------------- #}
+                {% include "_/panel/character/character.traits.j2" %}
+
+                {# -------------------------------------- #}
+                {# Skills                                 #}
+                {# -------------------------------------- #}
+                {% include "_/panel/character/character.skills.j2" %}
+
+                {# -------------------------------------- #}
+                {# Upgrades                               #}
+                {# -------------------------------------- #}
+                {% include "_/panel/character/character.upgrades.j2" %}
+
+            </Children>
+        </ListPanel>
+
+    </Children>
+</Widget>

@@ -23,9 +23,7 @@ namespace Retinues.Editor.VM.Column.Equipment
         //                       Equipments                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        /* ━━━━━ Show Civilian ━━━━ */
-
-        private bool _civilian = false;
+        private static bool _civilian = false;
 
         [EventListener(UIEvent.Character)]
         private void ResetShowCivilian()
@@ -57,7 +55,6 @@ namespace Retinues.Editor.VM.Column.Equipment
                     {
                         _civilian = value;
 
-                        // If we end up keeping the same equipment instance, we still want the UI to refresh.
                         if (State.Equipment != e)
                             State.Equipment = e; // fires UIEvent.Equipment
                         else
@@ -76,8 +73,6 @@ namespace Retinues.Editor.VM.Column.Equipment
         [DataSourceMethod]
         public void ExecuteToggleShowCivilian() => ShowCivilian = !_civilian;
 
-        /* ━━━━━━ Equipments ━━━━━━ */
-
         private static int IndexOfByBase(List<MEquipment> list, MEquipment equipment) =>
             EquipmentController.IndexOfByBase(list, equipment);
 
@@ -93,24 +88,6 @@ namespace Retinues.Editor.VM.Column.Equipment
 
         [EventListener(UIEvent.Equipment)]
         [DataSourceProperty]
-        public bool CanCreateSet =>
-            ShowSetActionButtons && EquipmentController.CreateSet.Allow(_civilian);
-
-        [EventListener(UIEvent.Equipment)]
-        [DataSourceProperty]
-        public bool CanDeleteSet =>
-            ShowSetActionButtons && EquipmentController.DeleteSet.Allow(_civilian);
-
-        [EventListener(UIEvent.Equipment)]
-        [DataSourceProperty]
-        public Tooltip CreateSetTooltip => EquipmentController.CreateSet.Tooltip(_civilian);
-
-        [EventListener(UIEvent.Equipment)]
-        [DataSourceProperty]
-        public Tooltip DeleteSetTooltip => EquipmentController.DeleteSet.Tooltip(_civilian);
-
-        [EventListener(UIEvent.Equipment)]
-        [DataSourceProperty]
         public string EquipmentLabel
         {
             get
@@ -123,36 +100,38 @@ namespace Retinues.Editor.VM.Column.Equipment
             }
         }
 
-        [EventListener(UIEvent.Equipment)]
+        // Buttons
+
         [DataSourceProperty]
-        public bool CanSelectPrevSet => EquipmentController.SelectPrevSet.Allow(_civilian);
+        public Button<bool> PrevSetButton { get; } =
+            new(
+                action: EquipmentController.SelectPrevSet,
+                arg: () => _civilian,
+                refresh: [UIEvent.Character, UIEvent.Equipment]
+            );
 
-        [EventListener(UIEvent.Equipment)]
         [DataSourceProperty]
-        public bool CanSelectNextSet => EquipmentController.SelectNextSet.Allow(_civilian);
+        public Button<bool> NextSetButton { get; } =
+            new(
+                action: EquipmentController.SelectNextSet,
+                arg: () => _civilian,
+                refresh: [UIEvent.Character, UIEvent.Equipment]
+            );
 
-        [DataSourceMethod]
-        public void ExecutePrevSet() => EquipmentController.SelectPrevSet.Execute(_civilian);
+        [DataSourceProperty]
+        public Button<bool> CreateSetButton { get; } =
+            new(
+                action: EquipmentController.CreateSet,
+                arg: () => _civilian,
+                refresh: [UIEvent.Character, UIEvent.Equipment]
+            );
 
-        [DataSourceMethod]
-        public void ExecuteNextSet() => EquipmentController.SelectNextSet.Execute(_civilian);
-
-        [DataSourceMethod]
-        public void ExecuteCreateSet()
-        {
-            if (!CanCreateSet)
-                return;
-
-            EquipmentController.CreateSet.Execute(_civilian);
-        }
-
-        [DataSourceMethod]
-        public void ExecuteDeleteSet()
-        {
-            if (!CanDeleteSet)
-                return;
-
-            EquipmentController.DeleteSet.Execute(_civilian);
-        }
+        [DataSourceProperty]
+        public Button<bool> DeleteSetButton { get; } =
+            new(
+                action: EquipmentController.DeleteSet,
+                arg: () => _civilian,
+                refresh: [UIEvent.Character, UIEvent.Equipment]
+            );
     }
 }

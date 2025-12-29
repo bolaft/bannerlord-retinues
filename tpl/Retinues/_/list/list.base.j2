@@ -1,0 +1,25 @@
+{# ---------------------------------------------- #}
+{# List panel                                     #}
+{# ---------------------------------------------- #}
+
+<BrushListPanel
+    DataSource="{List}"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="StretchToParent"
+    VerticalAlignment="Bottom"
+    MarginLeft="16"
+    Brush="Frame1Brush"
+    StackLayout.LayoutMethod="VerticalBottomToTop">
+    <Children>
+
+        {# ------------------------------------------ #}
+        {# Header                                     #}
+        {# ------------------------------------------ #}
+        {% include "_/list/list.header.j2" %}
+
+        {# ------------------------------------------ #}
+        {# Main list                                  #}
+        {# ------------------------------------------ #}
+        {% include "_/list/list.main.base.j2" %}
+
+    </Children>
+</BrushListPanel>

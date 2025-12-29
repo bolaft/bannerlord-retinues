@@ -1,0 +1,35 @@
+{% from "_/macros.panel.j2" import panel_header, panel_label %}
+{% from "_/macros.buttons.j2" import button_sprite %}
+
+{{ panel_header("@CultureHeaderText") }}
+
+<ListPanel
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    HorizontalAlignment="Center" VerticalAlignment="Center"
+    StackLayout.LayoutMethod="HorizontalLeftToRight"
+    MarginBottom="12">
+    <Children>
+
+        {{ panel_label("@CultureText") }}
+
+        {{ button_sprite("{ChangeCultureButton}", "40", "40", button_brush="SPClan.Parties.ChangePartyLeaderIcon") }}
+
+        <Widget
+            IsVisible="@CanChangeRace"
+            WidthSizePolicy="Fixed" SuggestedWidth="18"
+            HeightSizePolicy="Fixed" SuggestedHeight="1" />
+
+        <Widget IsVisible="@CanChangeRace" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren">
+            <Children>
+                {{ panel_label("@RaceText") }}
+            </Children>
+        </Widget>
+
+        <Widget IsVisible="@CanChangeRace" WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren">
+            <Children>
+                {{ button_sprite("{ChangeRaceButton}", "40", "40", button_brush="SPClan.Parties.ChangePartyLeaderIcon") }}
+            </Children>
+        </Widget>
+
+    </Children>
+</ListPanel>

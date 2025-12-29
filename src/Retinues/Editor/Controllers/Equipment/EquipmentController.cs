@@ -12,14 +12,24 @@ namespace Retinues.Editor.Controllers.Equipment
     public class EquipmentController : BaseController
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Actions                        //
+        //                      Select Prev Set                   //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        /// <summary>
-        /// Selects the previous equipment set of the given type.
-        /// </summary>
         public static EditorAction<bool> SelectPrevSet { get; } =
             Action<bool>("SelectPrevSet")
+                .AddCondition(
+                    _ => State.Character != null,
+                    L.T("equipment_no_character_reason", "No character selected.")
+                )
+                .AddCondition(
+                    civilian =>
+                    {
+                        var list = GetEquipments(civilian);
+                        int i = IndexOfByBase(list, State.Equipment);
+                        return i >= 0;
+                    },
+                    L.T("equipment_no_set_selected_reason", "No equipment set selected.")
+                )
                 .AddCondition(
                     civilian =>
                     {
@@ -39,11 +49,25 @@ namespace Retinues.Editor.Controllers.Equipment
                     State.Equipment = list[i - 1];
                 });
 
-        /// <summary>
-        /// Selects the next equipment set of the given type.
-        /// </summary>
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Select Next Set                   //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
         public static EditorAction<bool> SelectNextSet { get; } =
             Action<bool>("SelectNextSet")
+                .AddCondition(
+                    _ => State.Character != null,
+                    L.T("equipment_no_character_reason", "No character selected.")
+                )
+                .AddCondition(
+                    civilian =>
+                    {
+                        var list = GetEquipments(civilian);
+                        int i = IndexOfByBase(list, State.Equipment);
+                        return i >= 0;
+                    },
+                    L.T("equipment_no_set_selected_reason", "No equipment set selected.")
+                )
                 .AddCondition(
                     civilian =>
                     {
@@ -63,20 +87,37 @@ namespace Retinues.Editor.Controllers.Equipment
                     State.Equipment = list[i + 1];
                 });
 
-        /// <summary>
-        /// Creates a new equipment set (copy or empty) and selects it.
-        /// </summary>
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Create Set                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
         public static EditorAction<bool> CreateSet { get; } =
             Action<bool>("CreateSet")
+                .AddCondition(
+                    _ => State.Character != null,
+                    L.T("equipment_no_character_reason", "No character selected.")
+                )
+                .AddCondition(
+                    _ => State.Character.IsHero == false,
+                    L.T("equipment_hero_sets_reason", "Heroes cannot have multiple equipment sets.")
+                )
                 .DefaultTooltip(L.T("equipments_create_set", "Create a new equipment set."))
                 .ExecuteWith(CreateSetImpl);
 
-        /// <summary>
-        /// Deletes the currently selected equipment set of the given type.
-        /// </summary>
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Delete Set                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
         public static EditorAction<bool> DeleteSet { get; } =
             Action<bool>("DeleteSet")
-                .DefaultTooltip(L.T("equipments_delete_set", "Delete the selected equipment set."))
+                .AddCondition(
+                    _ => State.Character != null,
+                    L.T("equipment_no_character_reason", "No character selected.")
+                )
+                .AddCondition(
+                    _ => State.Character.IsHero == false,
+                    L.T("equipment_hero_sets_reason", "Heroes cannot have multiple equipment sets.")
+                )
                 .AddCondition(
                     civilian => GetEquipments(civilian).Count > 1,
                     L.T(
@@ -84,19 +125,17 @@ namespace Retinues.Editor.Controllers.Equipment
                         "At least one equipment set must remain."
                     )
                 )
+                .DefaultTooltip(L.T("equipments_delete_set", "Delete the selected equipment set."))
                 .ExecuteWith(DeleteSetImpl);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Queries                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        /// <summary>
-        /// Gets all equipment sets of the given type for the current character.
-        /// </summary>
         public static List<MEquipment> GetEquipments(bool civilian)
         {
-            var all = State.Character.Editable.Equipments;
-            if (all.Count == 0)
+            var all = State.Character?.Editable?.Equipments;
+            if (all == null || all.Count == 0)
                 return [];
 
             return civilian
@@ -104,9 +143,6 @@ namespace Retinues.Editor.Controllers.Equipment
                 : all.FindAll(e => e != null && !e.IsCivilian);
         }
 
-        /// <summary>
-        /// Finds the index of the given equipment in the provided list.
-        /// </summary>
         public static int IndexOfByBase(List<MEquipment> list, MEquipment equipment)
         {
             if (list == null || list.Count == 0)
@@ -127,13 +163,9 @@ namespace Retinues.Editor.Controllers.Equipment
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Mutations                       //
+        //                       Mutations                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        /// <summary>
-        /// Selects the first equipment set of the given type for the current character.
-        /// If none exists, prompts to create a new one if allowed.
-        /// </summary>
         public static void SelectFirstOrPromptCreate(
             bool civilian,
             Action<MEquipment> applySelection,

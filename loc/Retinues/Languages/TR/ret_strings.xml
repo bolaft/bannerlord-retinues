@@ -11,6 +11,57 @@
       id="ret_age_hint"
       text="Yaş" />
     <string
+      id="ret_body_age_decrease_tip"
+      text="Yaşı Azalt" />
+    <string
+      id="ret_body_age_increase_tip"
+      text="Yaşı Artır" />
+    <string
+      id="ret_body_age_max_reason"
+      text="Yaş zaten maksimumda." />
+    <string
+      id="ret_body_age_min_reason"
+      text="Yaş zaten minimumda." />
+    <string
+      id="ret_body_build_decrease_tip"
+      text="Yapıyı Azalt" />
+    <string
+      id="ret_body_build_increase_tip"
+      text="Yapıyı Artır" />
+    <string
+      id="ret_body_build_max_reason"
+      text="Yapı zaten maksimumda." />
+    <string
+      id="ret_body_build_min_reason"
+      text="Yapı zaten minimumda." />
+    <string
+      id="ret_body_height_decrease_tip"
+      text="Boyu Azalt" />
+    <string
+      id="ret_body_height_increase_tip"
+      text="Boyu Artır" />
+    <string
+      id="ret_body_height_max_reason"
+      text="Boy zaten maksimumda." />
+    <string
+      id="ret_body_height_min_reason"
+      text="Boy zaten minimumda." />
+    <string
+      id="ret_body_no_character_reason"
+      text="Hiçbir karakter seçilmedi." />
+    <string
+      id="ret_body_weight_decrease_tip"
+      text="Ağırlığı Azalt" />
+    <string
+      id="ret_body_weight_increase_tip"
+      text="Ağırlığı Artır" />
+    <string
+      id="ret_body_weight_max_reason"
+      text="Ağırlık zaten maksimumda." />
+    <string
+      id="ret_body_weight_min_reason"
+      text="Ağırlık zaten minimumda." />
+    <string
       id="ret_build_hint"
       text="Yapı" />
     <string
@@ -31,6 +82,9 @@
     <string
       id="ret_cant_equip_reason_civilian"
       text="Sivil Değil" />
+    <string
+      id="ret_cant_equip_reason_no_equipment"
+      text="Seçilen ekipman seti yok." />
     <string
       id="ret_cant_equip_reason_skill"
       text="{SKILL} {VALUE}" />
@@ -67,6 +121,9 @@
     <string
       id="ret_culture_header_text_with_race"
       text="Kültür ve Tür" />
+    <string
+      id="ret_culture_no_selection"
+      text="Hiçbir karakter seçilmedi." />
     <string
       id="ret_dependencies_all_ok"
       text="Tüm bağımlılıklar doğru şekilde başlatıldı." />
@@ -119,8 +176,17 @@
       id="ret_equipment_cannot_delete_last_set"
       text="En az bir ekipman seti kalmalıdır." />
     <string
+      id="ret_equipment_hero_sets_reason"
+      text="Kahramanların birden fazla ekipman seti olamaz." />
+    <string
+      id="ret_equipment_no_character_reason"
+      text="Hiçbir karakter seçilmedi." />
+    <string
       id="ret_equipment_no_more_sets"
       text="Daha fazla ekipman seti yok." />
+    <string
+      id="ret_equipment_no_set_selected_reason"
+      text="Seçilen ekipman seti yok." />
     <string
       id="ret_equipment_slot_body"
       text="Gövde" />
@@ -164,8 +230,20 @@
       id="ret_escape_menu_editor_button"
       text="Evrensel Düzenleyici" />
     <string
+      id="ret_export_character_no_heroes"
+      text="Kahraman verileri kaydetme durumuna bağlıdır." />
+    <string
+      id="ret_export_character_no_selection"
+      text="Hiçbir karakter seçilmedi." />
+    <string
       id="ret_export_desc"
       text="Kaydetme adı seçin:" />
+    <string
+      id="ret_export_faction_no_id"
+      text="Seçilen fraksiyon geçersiz." />
+    <string
+      id="ret_export_faction_none"
+      text="Hiçbir fraksiyon seçilmedi." />
     <string
       id="ret_export_overwrite_desc"
       text="&apos;{FILE}&apos; adlı bir dosya zaten var ve üzerine yazılacak.{newline}{newline}{PATH}" />
@@ -190,6 +268,9 @@
     <string
       id="ret_gender_no_culture"
       text="Hiçbir kültür seçilmedi." />
+    <string
+      id="ret_gender_no_selection"
+      text="Hiçbir karakter seçilmedi." />
     <string
       id="ret_gender_no_template"
       text="Bu kültürün o cinsiyet/tür için geçerli bir vücut şablonu yok." />
@@ -261,19 +342,22 @@
       text="Sil" />
     <string
       id="ret_library_delete_confirm_desc"
-      text="Bu ihracatı silmek istediğinizden emin misiniz? Bu işlem geri alınamaz." />
+      text="Bu, ihracat dosyasını kalıcı olarak silecektir.{newline}{newline}Devam edilsin mi?" />
     <string
       id="ret_library_delete_confirm_title"
       text="İhracatı Sil" />
     <string
       id="ret_library_delete_failed_exception"
-      text="İhracat silinemedi." />
+      text="Dosya silinemedi." />
     <string
-      id="ret_library_delete_failed_missing"
+      id="ret_library_delete_failed_missing_file"
       text="İhracat dosyası bulunamadı." />
     <string
       id="ret_library_delete_failed_title"
       text="Silme Başarısız" />
+    <string
+      id="ret_library_delete_no_selection"
+      text="Hiçbir ihracat seçilmedi." />
     <string
       id="ret_library_delete_tooltip"
       text="Bu kütüphane öğesini ve ilişkili XML dosyasını kalıcı olarak siler." />
@@ -282,19 +366,22 @@
       text="Düzenle" />
     <string
       id="ret_library_edit_confirm_desc"
-      text="Bu, ihracat dosyasını varsayılan düzenleyicinizde açacaktır.{newline}{newline}{PATH}" />
+      text="Bu, ihracat XML&apos;sini varsayılan düzenleyicinizde açacaktır.{newline}{newline}Devam edilsin mi?" />
     <string
       id="ret_library_edit_confirm_title"
-      text="İhracat Dosyasını Aç" />
+      text="İhracatı Düzenle" />
     <string
       id="ret_library_edit_failed_exception"
       text="Dosya açılamadı." />
     <string
-      id="ret_library_edit_failed_missing"
+      id="ret_library_edit_failed_missing_file"
       text="İhracat dosyası bulunamadı." />
     <string
       id="ret_library_edit_failed_title"
-      text="Açma Başarısız" />
+      text="Düzenleme Başarısız" />
+    <string
+      id="ret_library_edit_no_selection"
+      text="Hiçbir ihracat seçilmedi." />
     <string
       id="ret_library_edit_tooltip"
       text="Bu ihracatın XML dosyası içeriğini doğrudan düzenleyin." />
@@ -302,20 +389,11 @@
       id="ret_library_export_file_header"
       text="Dosya" />
     <string
-      id="ret_library_export_not_vanilla"
-      text="Yalnızca değiştirilmiş vanilla birlikler bağımsız modüller olarak dışa aktarılabilir." />
-    <string
       id="ret_library_export_npc_button"
       text="Dönüştür" />
     <string
-      id="ret_library_export_npc_confirm_desc"
-      text="Bu, bu kütüphane öğesini bağımsız bir modül olarak dışa aktaracaktır:{newline}{newline}{PATH}" />
-    <string
-      id="ret_library_export_npc_confirm_desc_overwrite"
-      text="Bu, bu kütüphane öğesini bağımsız bir modül olarak dışa aktaracak ve mevcut dosyaların üzerine yazacaktır:{newline}{newline}{PATH}" />
-    <string
-      id="ret_library_export_npc_confirm_title"
-      text="Mod Olarak Dışa Aktar" />
+      id="ret_library_export_npc_custom_troop_unsupported"
+      text="Yalnızca vanilya birlik düzenlemeleri bağımsız modlara dönüştürülebilir." />
     <string
       id="ret_library_export_npc_done_desc_fallback"
       text="Oyun kurulum klasörü korumalıdır, bu nedenle modül bunun yerine buraya yazıldı:{newline}{PATH}{newline}{newline}Bu klasörü Bannerlord Modüller dizininize kopyalayın ve ardından oyunu yeniden başlatın." />
@@ -335,11 +413,14 @@
       id="ret_library_export_npc_failed_no_output"
       text="Bu ihracattan karakter oluşturulamadı." />
     <string
-      id="ret_library_export_npc_failed_no_payloads"
-      text="Bu ihracatta karakter yükleri bulunamadı." />
+      id="ret_library_export_npc_failed_no_payload"
+      text="Bu dosyadan hiçbir şey dışa aktarılamadı." />
     <string
       id="ret_library_export_npc_failed_title"
       text="Dışa Aktarma Başarısız" />
+    <string
+      id="ret_library_export_npc_kind_unsupported"
+      text="Bu ihracat türü dönüştürülemez." />
     <string
       id="ret_library_export_npc_missing_file"
       text="İhracat dosyası bulunamadı." />
@@ -347,8 +428,14 @@
       id="ret_library_export_npc_no_selection"
       text="Hiçbir ihracat seçilmedi." />
     <string
+      id="ret_library_export_npc_overwrite_desc"
+      text="Bu isimde bir modül zaten var:{newline}{PATH}{newline}{newline}Üzerine yazılsın mı?" />
+    <string
+      id="ret_library_export_npc_overwrite_title"
+      text="Modülü Üzerine Yaz" />
+    <string
       id="ret_library_export_npc_tooltip"
-      text="Bu ihracatı bağımsız bir modül olarak dönüştürün." />
+      text="Bu ihracatı bağımsız bir modül haline dönüştür." />
     <string
       id="ret_library_exports_empty_text"
       text="Kaydedilmiş ihracat bulunamadı." />
@@ -360,13 +447,13 @@
       text="İçe Aktar" />
     <string
       id="ret_library_import_confirm_desc_char"
-      text="Bu, mevcut oyundaki eşleşen birliği geçersiz kılacaktır." />
+      text="Bu, ihraç edilen birliği mevcut oyuna aktaracaktır.{newline}{newline}Devam edilsin mi?" />
     <string
       id="ret_library_import_confirm_desc_faction"
-      text="Bu, mevcut oyundaki eşleşen fraksiyonu geçersiz kılacaktır." />
+      text="Bu, ihraç edilen fraksiyonu mevcut oyuna aktaracaktır.{newline}{newline}Devam edilsin mi?" />
     <string
       id="ret_library_import_confirm_desc_unknown"
-      text="Bu, verileri mevcut oyuna aktaracaktır." />
+      text="Bu, ihraç edilen verileri mevcut oyuna aktaracaktır.{newline}{newline}Devam edilsin mi?" />
     <string
       id="ret_library_import_confirm_title"
       text="İçe Aktar" />
@@ -374,26 +461,17 @@
       id="ret_library_import_deleted_custom_troop"
       text="Bu ihracata karşılık gelen birlik silindi." />
     <string
-      id="ret_library_import_done_desc"
-      text="İçe aktarma başarılı." />
-    <string
-      id="ret_library_import_done_title"
-      text="İçe Aktarma Tamamlandı" />
-    <string
       id="ret_library_import_failed_exception"
       text="Dosya içe aktarılamadı." />
     <string
-      id="ret_library_import_failed_missing"
-      text="İhracat dosyası bulunamadı." />
+      id="ret_library_import_failed_invalid"
+      text="İhracat içe aktarılamadı." />
     <string
-      id="ret_library_import_failed_reason"
-      text="Dosya içe aktarılamadı." />
+      id="ret_library_import_failed_missing_file"
+      text="İhracat dosyası bulunamadı." />
     <string
       id="ret_library_import_failed_title"
       text="İçe Aktarma Başarısız" />
-    <string
-      id="ret_library_import_failed_unknown_kind"
-      text="Tanımlanamayan ihracat türü." />
     <string
       id="ret_library_import_missing_file"
       text="İhracat dosyası bulunamadı." />
@@ -467,6 +545,12 @@
       id="ret_list_header_villagers"
       text="Köylüler" />
     <string
+      id="ret_mariner_hero_reason"
+      text="Kahramanlar denizci olamaz." />
+    <string
+      id="ret_mariner_no_selection"
+      text="Hiçbir karakter seçilmedi." />
+    <string
       id="ret_mariner_toggle_tooltip"
       text="Bu birimin denizci yeteneğini ayarlayın.{newline}Denizciler deniz savaşları için daha uygundur, ancak yetenek puanlarını biraz daha düşük bir hızda kazanırlar." />
     <string
@@ -494,6 +578,9 @@
       id="ret_name_header_text"
       text="İsim" />
     <string
+      id="ret_naval_dlc_not_loaded"
+      text="War Sails yüklü değil." />
+    <string
       id="ret_no_clans_text"
       text="Mevcut oyunda yüklenen klan yok." />
     <string
@@ -512,11 +599,20 @@
       id="ret_no_valid_model_title_species"
       text="Geçerli Model Yok" />
     <string
+      id="ret_race_cannot_change"
+      text="Bu birim için tür değiştirilemez." />
+    <string
       id="ret_race_incompatible_culture_gender"
       text="Bu tür, mevcut kültür/cinsiyet ile uyumlu değil." />
     <string
       id="ret_race_invalid_model"
       text="Bu tür için geçerli bir model yok." />
+    <string
+      id="ret_rename_no_selection"
+      text="Hiçbir karakter seçilmedi." />
+    <string
+      id="ret_rename_tooltip"
+      text="Yeniden Adlandır" />
     <string
       id="ret_rename_unit"
       text="Yeni İsim" />
@@ -583,6 +679,9 @@
     <string
       id="ret_trait_increase_maxed_reason"
       text="Özellik zaten maksimum değerde." />
+    <string
+      id="ret_trait_only_heroes_reason"
+      text="Sadece kahramanların özellikleri vardır." />
     <string
       id="ret_traits_header_text"
       text="Özellikler" />

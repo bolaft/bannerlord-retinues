@@ -15,21 +15,18 @@ namespace Retinues.Editor.VM.Panel.Equipment
     /// </summary>
     public partial class EquipmentSlotVM(EquipmentIndex slot, string label) : EventListenerVM
     {
-        private readonly EquipmentIndex _slot = slot;
-        private readonly string _label = label;
-
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Slot                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceProperty]
-        public string Label => _label;
+        public string Label => label;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Item                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private WItem Item => State.Equipment.Get(_slot);
+        private WItem Item => State.Equipment.Get(slot);
 
         [EventListener(UIEvent.Item)]
         [DataSourceProperty]
@@ -80,7 +77,7 @@ namespace Retinues.Editor.VM.Panel.Equipment
         {
             get
             {
-                if (_slot == EquipmentIndex.HorseHarness)
+                if (slot == EquipmentIndex.HorseHarness)
                     if (State.Equipment.Get(EquipmentIndex.Horse) == null)
                         return false; // Horse harness requires a horse.
                 return true;
@@ -95,23 +92,22 @@ namespace Retinues.Editor.VM.Panel.Equipment
         // otherwise only the selected slot would refresh and old selections would stick.
         [EventListener(UIEvent.Slot, Global = true)]
         [DataSourceProperty]
-        public bool IsSelected => State.Slot == _slot;
+        public bool IsSelected => State.Slot == slot;
 
         [DataSourceMethod]
-        public void ExecuteSelect() => State.Slot = _slot;
+        public void ExecuteSelect() => State.Slot = slot;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Unequip                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        [EventListener(UIEvent.Item)]
         [DataSourceProperty]
-        public bool CanUnequip => ItemController.Unequip.Allow(_slot);
-
-        [DataSourceProperty]
-        public Tooltip UnequipTooltip => new(L.T("unequip_item_tooltip", "Unequip this item."));
-
-        [DataSourceMethod]
-        public void ExecuteUnequip() => ItemController.Unequip.Execute(_slot);
+        public Button<EquipmentIndex> UnequipButton { get; } =
+            new(
+                action: ItemController.Unequip,
+                arg: () => slot,
+                refresh: [UIEvent.Item, UIEvent.Slot],
+                visibilityGate: () => ItemController.Unequip.Allow(slot)
+            );
     }
 }

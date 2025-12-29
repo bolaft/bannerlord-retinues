@@ -53,7 +53,7 @@ namespace Retinues.Editor.Controllers.Character
                 }
 
                 var clone = character.Clone(skills: true, equipments: true);
-                clone.Name = name;
+                clone.Name = name.Trim();
                 clone.Level = character.Level + 5;
                 clone.HiddenInEncyclopedia = false;
 
@@ -64,26 +64,9 @@ namespace Retinues.Editor.Controllers.Character
             Inquiries.TextInputPopup(
                 title: L.T("create_unit", "New Unit"),
                 defaultInput: character.Name,
-                onConfirm: input => Apply(input.Trim()),
+                onConfirm: Apply,
                 description: L.T("enter_name", "Enter a name:")
             );
-        }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                      Remove Upgrade                    //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        public static EditorAction<WCharacter> RemoveUpgradeTarget { get; } =
-            Action<WCharacter>("RemoveUpgradeTarget")
-                .ExecuteWith(RemoveUpgradeTargetImpl)
-                .Fire(UIEvent.Tree);
-
-        private static void RemoveUpgradeTargetImpl(WCharacter target)
-        {
-            if (target == null)
-                return;
-
-            State.Character.RemoveUpgradeTarget(target);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -123,13 +106,8 @@ namespace Retinues.Editor.Controllers.Character
                     .SetTextVariable("UNIT_NAME", character.Name.ToString()),
                 onConfirm: () =>
                 {
-                    // 1) Select another character first.
                     State.Character = State.Faction.Troops.FirstOrDefault(c => c != character);
-
-                    // 2) Remove from faction.
                     character.Remove();
-
-                    // 3) Notify the UI.
                     EventManager.Fire(UIEvent.Tree);
                 }
             );

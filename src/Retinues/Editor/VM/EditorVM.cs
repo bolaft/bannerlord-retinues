@@ -1,9 +1,7 @@
 using System;
-using System.Collections.Generic;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Configuration;
 using Retinues.Domain.Factions.Helpers;
-using Retinues.Domain.Factions.Wrappers;
 using Retinues.Editor.Controllers.Faction;
 using Retinues.Editor.Events;
 using Retinues.Editor.VM.Column;
@@ -14,7 +12,6 @@ using Retinues.Editor.VM.Panel.Library;
 using Retinues.UI.Services;
 using Retinues.UI.VM;
 using Retinues.Utilities;
-using TaleWorlds.Core;
 using TaleWorlds.Library;
 
 namespace Retinues.Editor.VM
@@ -166,47 +163,16 @@ namespace Retinues.Editor.VM
         [DataSourceProperty]
         public object CultureBanner => State.Culture?.Image ?? BannerHelper.EmptyImage;
 
+        [EventListener(UIEvent.CultureFaction, UIEvent.Faction)]
         [DataSourceProperty]
-        public Tooltip CultureBannerHint => new(L.S("editor_culture_select", "Select a Culture"));
+        public bool CanSelectCulture => FactionController.SelectCulturePopup.Allow(true);
+
+        [EventListener(UIEvent.CultureFaction, UIEvent.Faction)]
+        [DataSourceProperty]
+        public Tooltip CultureBannerHint => FactionController.SelectCulturePopup.Tooltip(true);
 
         [DataSourceMethod]
-        public void ExecuteSelectCulture()
-        {
-            var elements = new List<InquiryElement>();
-
-            foreach (var culture in WCulture.All)
-            {
-                var imageIdentifier = culture.ImageIdentifier;
-                var name = culture.Name;
-
-                if (imageIdentifier == null || name == null)
-                    continue;
-
-                elements.Add(
-                    new InquiryElement(
-                        identifier: culture,
-                        title: name,
-                        imageIdentifier: imageIdentifier
-                    )
-                );
-            }
-
-            if (elements.Count == 0)
-            {
-                Inquiries.Popup(
-                    L.T("no_cultures_title", "No Cultures Found"),
-                    L.T("no_cultures_text", "No cultures are loaded in the current game.")
-                );
-                return;
-            }
-
-            Inquiries.SelectPopup(
-                title: L.T("select_culture_title", "Select Culture"),
-                elements: elements,
-                onSelect: element =>
-                    FactionController.SelectCulture(element?.Identifier as WCulture)
-            );
-        }
+        public void ExecuteSelectCulture() => FactionController.SelectCulturePopup.Execute(true);
 
         /* ━━━━━━━━━ Clan ━━━━━━━━━ */
 
@@ -219,52 +185,16 @@ namespace Retinues.Editor.VM
         [DataSourceProperty]
         public object ClanBanner => State.Clan?.Image ?? BannerHelper.EmptyImage;
 
+        [EventListener(UIEvent.ClanFaction, UIEvent.CultureFaction, UIEvent.Faction)]
         [DataSourceProperty]
-        public Tooltip ClanBannerHint => new(L.S("editor_clan_select", "Select a Clan"));
+        public bool CanSelectClan => FactionController.SelectClanPopup.Allow(true);
+
+        [EventListener(UIEvent.ClanFaction, UIEvent.CultureFaction, UIEvent.Faction)]
+        [DataSourceProperty]
+        public Tooltip ClanBannerHint => FactionController.SelectClanPopup.Tooltip(true);
 
         [DataSourceMethod]
-        public void ExecuteSelectClan()
-        {
-            var elements = new List<InquiryElement>();
-
-            foreach (var clan in WClan.All)
-            {
-                if (State.Culture != null && clan.Culture != State.Culture)
-                    continue;
-
-                var imageIdentifier = clan.ImageIdentifier;
-                var name = clan.Name;
-
-                if (imageIdentifier == null || name == null)
-                {
-                    Log.Info($"Skipping clan {clan.Name} due to missing image or name.");
-                    continue;
-                }
-
-                elements.Add(
-                    new InquiryElement(
-                        identifier: clan,
-                        title: name,
-                        imageIdentifier: imageIdentifier
-                    )
-                );
-            }
-
-            if (elements.Count == 0)
-            {
-                Inquiries.Popup(
-                    L.T("no_clans_title", "No Clans Found"),
-                    L.T("no_clans_text", "No clans are loaded in the current game.")
-                );
-                return;
-            }
-
-            Inquiries.SelectPopup(
-                title: L.T("select_clan_title", "Select Clan"),
-                elements: elements,
-                onSelect: element => FactionController.SelectClan(element?.Identifier as WClan)
-            );
-        }
+        public void ExecuteSelectClan() => FactionController.SelectClanPopup.Execute(true);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Components                       //
@@ -378,16 +308,14 @@ namespace Retinues.Editor.VM
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceProperty]
-        public Tooltip ExportTooltip =>
+        public Button<bool> ExportFactionButton { get; } =
             new(
-                L.S(
-                    "button_export_faction_tooltip",
-                    "Save the selected faction and add it to the library."
-                )
+                action: FactionController.ExportFaction,
+                arg: () => true,
+                refresh: [UIEvent.Faction],
+                sprite: "SPGeneral\\Skills\\gui_skills_icon_steward_tiny",
+                color: "#f8eed1ff"
             );
-
-        [DataSourceMethod]
-        public void ExecuteExport() => FactionController.ExportFaction();
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Visibility                       //

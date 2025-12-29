@@ -1,0 +1,96 @@
+{# ---------------------------------------------- #}
+{# Row macros                                     #}
+{# ---------------------------------------------- #}
+
+{% macro row_wrapper(is_visible, margin_left="8") %}
+    <Widget
+        WidthSizePolicy="StretchToParent"
+        HeightSizePolicy="StretchToParent"
+        MarginLeft="{{ margin_left }}"
+        DoNotAcceptEvents="true"
+        IsVisible="{{ is_visible }}">
+        <Children>
+
+            <ListPanel
+                WidthSizePolicy="StretchToParent"
+                HeightSizePolicy="StretchToParent"
+                HorizontalAlignment="Left"
+                DoNotAcceptEvents="true">
+                <Children>
+
+                    {{ caller() }}
+
+                </Children>
+            </ListPanel>
+
+        </Children>
+    </Widget>
+{% endmacro %}
+
+{% macro image_cell(data_source, sug_w=68, sug_h=48, margin_right=12, pos_yoff="-1", extra_args_var="@AdditionalArgs", id_expr="@Id", texture_provider="@TextureProviderName", image_type="@ImageTypeCode") %}
+    <Widget
+        DataSource="{{ data_source }}"
+        WidthSizePolicy="Fixed"
+        HeightSizePolicy="Fixed"
+        SuggestedWidth="{{ sug_w }}"
+        SuggestedHeight="{{ sug_h }}"
+        VerticalAlignment="Center"
+        MarginRight="{{ margin_right }}"
+        PositionYOffset="{{ pos_yoff }}"
+        DoNotAcceptEvents="true">
+        <Children>
+
+            <BrushWidget
+                WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+                Brush="SPClan.RoleSelectionButton.GoldFrame" />
+
+            <BrushWidget
+                WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+                Brush="Frame1Canvas" />
+
+            <ImageIdentifierWidget
+                WidthSizePolicy="Fixed"
+                HeightSizePolicy="Fixed"
+                SuggestedWidth="{{ sug_w - 2 }}"
+                SuggestedHeight="{{ sug_h - 2 }}"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                ImageId="{{ id_expr }}"
+{% if version == "13" %}
+                TextureProviderName="{{ texture_provider }}"
+{% else %}
+                ImageTypeCode="{{ image_type }}"
+{% endif %}
+                AdditionalArgs="{{ extra_args_var }}" />
+
+        </Children>
+    </Widget>
+{% endmacro %}
+
+{% macro name_timestamp(name_var="@Name", time_var="@Timestamp", time_width=180) %}
+    <TextWidget
+        WidthSizePolicy="StretchToParent"
+        HeightSizePolicy="StretchToParent"
+        VerticalAlignment="Center"
+        Brush="Clan.Tuple.Name.Text"
+        Text="{{ name_var }}" />
+
+    <TextWidget
+        WidthSizePolicy="Fixed"
+        HeightSizePolicy="StretchToParent"
+        SuggestedWidth="{{ time_width }}"
+        VerticalAlignment="Center"
+        HorizontalAlignment="Right"
+        Brush="Clan.Tuple.Name.Text"
+        Text="{{ time_var }}" />
+{% endmacro %}
+
+{% macro icon_sprite(sprite_expr, sug_w=24, sug_h=24, margin_right=12, is_visible="true") %}
+    <SpriteWidget
+        WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+        SuggestedWidth="{{ sug_w }}" SuggestedHeight="{{ sug_h }}"
+        MarginRight="{{ margin_right }}"
+        VerticalAlignment="Center"
+        Sprite="{{ sprite_expr }}"
+        IsVisible="{{ is_visible }}" />
+{% endmacro %}

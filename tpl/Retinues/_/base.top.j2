@@ -1,0 +1,191 @@
+{% from "_/macros.buttons.j2" import button_brush %}
+
+{# ---------------------------------------------- #}
+{# Top panel                                      #}
+{# ---------------------------------------------- #}
+
+<Widget
+    Id="TopPanel"
+    VisualDefinition="TopPanel"
+    WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed"
+    SuggestedHeight="196"
+    PositionYOffset="-196"
+    Sprite="StdAssets\top_header"
+    IsVisible="true"
+    ZOrder="9999">
+    <Children>
+
+        <Widget
+            WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+            MarginBottom="35">
+            <Children>
+
+                {# ------------------------------------------ #}
+                {# Macros                                     #}
+                {# ------------------------------------------ #}
+
+                {# Banner button (culture / clan) #}
+                {% macro banner(command, banner, hint, text, offset, text_offset, alignment, is_enabled="true") %}
+                    <ButtonWidget
+                        DoNotPassEventsToChildren="true"
+                        WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed"
+                        SuggestedHeight="180"
+                        HorizontalAlignment="{{ alignment }}" VerticalAlignment="Top"
+                        PositionXOffset="{{ offset }}" PositionYOffset="-8"
+                        Command.Click="{{ command }}"
+                        IsEnabled="{{ is_enabled }}"
+                        UpdateChildrenStates="true"
+                        GamepadNavigationIndex="0">
+                        <Children>
+
+                            <MaskedTextureWidget
+                                DataSource="{{ banner }}"
+                                WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                                SuggestedWidth="105" SuggestedHeight="126"
+                                HorizontalAlignment="{{ alignment }}" VerticalAlignment="Center"
+                                Brush="Clan.TornBanner"
+                                {% if version == "13" -%}
+                                    AdditionalArgs="@AdditionalArgs" ImageId="@Id" TextureProviderName="@TextureProviderName"
+                                {%- else -%}
+                                    AdditionalArgs="@AdditionalArgs" ImageId="@Id" ImageTypeCode="@ImageTypeCode"
+                                {%- endif -%}
+                            />
+
+                            <HintWidget
+                                DataSource="{{ hint }}"
+                                Command.HoverBegin="ExecuteBeginHint"
+                                Command.HoverEnd="ExecuteEndHint" />
+
+                            <TextWidget
+                                WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                                HorizontalAlignment="{{ alignment }}" VerticalAlignment="Center"
+                                PositionXOffset="{{ text_offset }}"
+                                Brush="Kingdom.NameTitle.Text"
+                                Text="{{ text }}"
+                                TextAlignment="{{ alignment }}" />
+
+                        </Children>
+                    </ButtonWidget>
+                {% endmacro %}
+
+                {# Tab control button (ClanScreen style) #}
+                {% macro tab_button(brush, cmd, selected, text, visible="true", sug_w="!Header.Tab.Center.Width.Scaled", sug_h="!Header.Tab.Center.Height.Scaled", pos_xoff="0", pos_yoff="0", text_xoff="0", text_mt="0") %}
+                    <ButtonWidget
+                        DoNotPassEventsToChildren="true"
+                        WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                        SuggestedWidth="{{ sug_w }}"
+                        SuggestedHeight="{{ sug_h }}"
+                        PositionXOffset="{{ pos_xoff }}"
+                        PositionYOffset="{{ pos_yoff }}"
+                        Brush="{{ brush }}"
+                        Command.Click="{{ cmd }}"
+                        IsSelected="{{ selected }}"
+                        IsVisible="{{ visible }}"
+                        UpdateChildrenStates="true">
+                        <Children>
+
+                            <TextWidget
+                                WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+                                Brush="Clan.TabControl.Text"
+                                PositionXOffset="{{ text_xoff }}"
+                                MarginTop="{{ text_mt }}"
+                                Text="{{ text }}" />
+
+                        </Children>
+                    </ButtonWidget>
+                {% endmacro %}
+
+                {# ------------------------------------------ #}
+                {# Banners                                    #}
+                {# ------------------------------------------ #}
+
+                {# Culture banner #}
+                {{ banner("ExecuteSelectCulture", "{CultureBanner}", "{CultureBannerHint}", "@CultureName", "20", "120", "Left") }}
+
+                {# Clan banner #}
+                {{ banner("ExecuteSelectClan", "{ClanBanner}", "{ClanBannerHint}", "@ClanName", "-20", "-120", "Right") }}
+
+                {# ------------------------------------------ #}
+                {# Name panel                                 #}
+                {# ------------------------------------------ #}
+
+                <Widget
+                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                    SuggestedWidth="887" SuggestedHeight="180"
+                    HorizontalAlignment="Center" VerticalAlignment="Top"
+                    Sprite="StdAssets\tabbar_long">
+                    <Children>
+
+                        <Widget
+                            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                            HorizontalAlignment="Center" VerticalAlignment="Top"
+                            MarginTop="12">
+                            <Children>
+
+                                <Widget
+                                    DoNotPassEventsToChildren="false"
+                                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                                    SuggestedWidth="440" SuggestedHeight="47"
+                                    Brush="Kingdom.Name.Edit.Button"
+                                    UpdateChildrenStates="true"
+                                    GamepadNavigationIndex="2">
+                                    <Children>
+
+                                        <ListPanel
+                                            WidthSizePolicy="CoverChildren" HeightSizePolicy="StretchToParent"
+                                            StackLayout.LayoutMethod="HorizontalLeftToRight"
+                                            HorizontalAlignment="Center"
+                                            UpdateChildrenStates="true">
+                                            <Children>
+
+                                                <TextWidget
+                                                    Brush.FontColor="#cfc1a1ff"
+                                                    WidthSizePolicy="CoverChildren" HeightSizePolicy="StretchToParent"
+                                                    Brush.FontSize="60"
+                                                    Text="@EditorTitle" />
+
+                                                {# Export button #}
+                                                {{ button_brush("{ExportFactionButton}", "TownManagement.Reserve.ConfirmButton", "60", "60") }}
+
+                                            </Children>
+                                        </ListPanel>
+
+                                    </Children>
+                                </Widget>
+
+                            </Children>
+                        </Widget>
+
+                    </Children>
+                </Widget>
+
+                {# ------------------------------------------ #}
+                {# Tab control (ClanScreen style)             #}
+                {# ------------------------------------------ #}
+
+                <ListPanel
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                    HorizontalAlignment="Center" VerticalAlignment="Bottom"
+                    MarginBottom="3">
+                    <Children>
+
+                        {# Editor tab #}
+                        {{ tab_button("Header.Tab.Left", "ExecuteSelectEditorTab", "@IsEditorTabSelected", "@EditorTabText", sug_w="!Header.Tab.Left.Width.Scaled", sug_h="!Header.Tab.Left.Height.Scaled", text_xoff="10", text_mt="3") }}
+
+                        {# Doctrines tab #}
+                        {{ tab_button("Header.Tab.Center", "ExecuteSelectDoctrinesTab", "@IsDoctrinesTabSelected", "@DoctrinesTabText", visible="@IsDoctrinesTabVisible", pos_yoff="6") }}
+
+                        {# Library tab #}
+                        {{ tab_button("Header.Tab.Center", "ExecuteSelectLibraryTab", "@IsLibraryTabSelected", "@LibraryTabText", pos_yoff="6") }}
+
+                        {# Settings tab #}
+                        {{ tab_button("Header.Tab.Right", "ExecuteSelectSettingsTab", "", "@SettingsTabText", sug_w="!Header.Tab.Right.Width.Scaled", sug_h="!Header.Tab.Right.Height.Scaled", text_xoff="-10", text_mt="3") }}
+
+                    </Children>
+                </ListPanel>
+
+            </Children>
+        </Widget>
+
+    </Children>
+</Widget>

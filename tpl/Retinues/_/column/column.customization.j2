@@ -1,0 +1,92 @@
+{% from "_/macros.buttons.j2" import button_chevron_left, button_chevron_right, button_sprite %}
+
+{# ---------------------------------------------- #}
+{# Customization controls                         #}
+{# ---------------------------------------------- #}
+
+{% macro control_row(sprite, hint, prev_ds, next_ds) %}
+    <ListPanel
+        IsVisible="@ShowCustomization"
+        WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+        MarginTop="10"
+        StackLayout.LayoutMethod="HorizontalLeftToRight">
+        <Children>
+
+            {{ button_chevron_left(prev_ds, 20, 20) }}
+
+            {# -------------------------------------- #}
+            {# Icon frame                             #}
+            {# -------------------------------------- #}
+
+            <SpriteWidget
+                WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                SuggestedWidth="30" SuggestedHeight="30"
+                Sprite="Clan\clan_portrait_shadow"
+                MarginLeft="2" MarginRight="2"
+                HorizontalAlignment="Center" VerticalAlignment="Top">
+                <Children>
+
+                    <SpriteWidget
+                        WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                        SuggestedWidth="30" SuggestedHeight="30"
+                        Color="#c7c3c3ff"
+                        Sprite="{{ sprite }}"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Top">
+                        <Children>
+
+                            <HintWidget
+                                DataSource="{{ hint }}"
+                                Command.HoverBegin="ExecuteBeginHint"
+                                Command.HoverEnd="ExecuteEndHint" />
+
+                        </Children>
+                    </SpriteWidget>
+
+                </Children>
+            </SpriteWidget>
+
+            {{ button_chevron_right(next_ds, 20, 20) }}
+
+        </Children>
+    </ListPanel>
+{% endmacro %}
+
+<ListPanel
+    DataSource="{CustomizationControls}"
+    IsVisible="@IsVisible"
+    WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren"
+    SuggestedWidth="70"
+    MarginBottom="70"
+    PositionXOffset="-10"
+    StackLayout.LayoutMethod="VerticalBottomToTop"
+    HorizontalAlignment="Left" VerticalAlignment="Bottom">
+    <Children>
+
+        {{ button_sprite("{GenderToggleButton}", "40", "40") }}
+
+        {{ control_row("SPPerks\\TradeRapidDevelopment", "{AgeHint}", "{AgePrevButton}", "{AgeNextButton}") }}
+        {{ control_row("SPPerks\\AthleticsDurable", "{HeightHint}", "{HeightPrevButton}", "{HeightNextButton}") }}
+        {{ control_row("SPPerks\\AthleticsFormFittingArmor", "{WeightHint}", "{WeightPrevButton}", "{WeightNextButton}") }}
+        {{ control_row("SPPerks\\AthleticsStrongArms", "{BuildHint}", "{BuildPrevButton}", "{BuildNextButton}") }}
+
+        <ButtonWidget
+            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+            SuggestedWidth="60" SuggestedHeight="60"
+            HorizontalAlignment="Center" VerticalAlignment="Center"
+            Brush="SPClan.Members.RecallIcon"
+            Command.Click="ExecuteToggleCustomization"
+            UpdateChildrenStates="true"
+            DoNotPassEventsToChildren="true">
+            <Children>
+
+                <HintWidget
+                    DataSource="{CustomizationHint}"
+                    Command.HoverBegin="ExecuteBeginHint"
+                    Command.HoverEnd="ExecuteEndHint" />
+
+            </Children>
+        </ButtonWidget>
+
+    </Children>
+</ListPanel>

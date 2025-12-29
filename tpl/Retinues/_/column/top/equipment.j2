@@ -1,0 +1,69 @@
+{% from "_/macros.buttons.j2" import button_chevron_left, button_chevron_right, button_brush %}
+
+{# ---------------------------------------------- #}
+{# Equipment controls                             #}
+{# ---------------------------------------------- #}
+
+<ListPanel
+    DataSource="{EquipmentControls}"
+    IsVisible="@IsVisible"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    StackLayout.LayoutMethod="VerticalBottomToTop"
+    HorizontalAlignment="Center" VerticalAlignment="Top">
+    <Children>
+
+        {# ------------------------------------------ #}
+        {# Civilian toggle                            #}
+        {# ------------------------------------------ #}
+
+        <ButtonWidget
+            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+            SuggestedWidth="200" SuggestedHeight="60"
+            HorizontalAlignment="Center" VerticalAlignment="Center"
+            Brush="ButtonBrush3"
+            Command.Click="ExecuteToggleShowCivilian"
+            UpdateChildrenStates="true"
+            DoNotPassEventsToChildren="true">
+            <Children>
+
+                <TextWidget
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Brush="Popup.Button.Text"
+                    Text="@ToggleShowCivilianButtonText" />
+
+            </Children>
+        </ButtonWidget>
+
+        {# ------------------------------------------ #}
+        {# Equipment set actions                      #}
+        {# ------------------------------------------ #}
+
+        <ListPanel
+            IsVisible="@ShowSetActionButtons"
+            MarginTop="4"
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            StackLayout.LayoutMethod="HorizontalLeftToRight"
+            HorizontalAlignment="Center">
+            <Children>
+
+                {{ button_brush("{DeleteSetButton}", "Inventory.Tuple.Extension.MinusButton", "36", "36") }}
+
+                {{ button_chevron_left("{PrevSetButton}", "24", "24") }}
+
+                <TextWidget
+                    Text="@EquipmentLabel"
+                    Brush="Clan.Tuple.Name.Text"
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                    MarginLeft="8" MarginRight="8"
+                    HorizontalAlignment="Center" VerticalAlignment="Center" />
+
+                {{ button_chevron_right("{NextSetButton}", "24", "24") }}
+
+                {{ button_brush("{CreateSetButton}", "Inventory.Tuple.Extension.PlusButton", "36", "36") }}
+
+            </Children>
+        </ListPanel>
+
+    </Children>
+</ListPanel>

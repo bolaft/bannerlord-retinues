@@ -135,7 +135,7 @@ namespace Retinues.Framework.Model
                 catch { }
             }
 
-            // Current implementation stores it in private field "_persistent". :contentReference[oaicite:2]{index=2}
+            // Current implementation stores it in private field "_persistent".
             var f = attrObj
                 .GetType()
                 .GetField("_persistent", BindingFlags.NonPublic | BindingFlags.Instance);
@@ -301,7 +301,7 @@ namespace Retinues.Framework.Model
                 catch { }
 
                 // Fallback: directly clear the backing _dirty field if present
-                // (MAttribute<T> uses a private bool _dirty) :contentReference[oaicite:5]{index=5}
+                // (MAttribute<T> uses a private bool _dirty)
                 try
                 {
                     if (Reflection.HasField(attrObj, "_dirty"))

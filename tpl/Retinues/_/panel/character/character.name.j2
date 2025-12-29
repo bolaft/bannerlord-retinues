@@ -1,0 +1,18 @@
+{% from "_/macros.panel.j2" import panel_header, panel_label %}
+{% from "_/macros.buttons.j2" import button_sprite %}
+
+{{ panel_header("@NameHeaderText") }}
+
+<ListPanel
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    HorizontalAlignment="Center" VerticalAlignment="Center"
+    StackLayout.LayoutMethod="HorizontalLeftToRight"
+    MarginBottom="12">
+    <Children>
+
+        {{ panel_label("@NameText") }}
+
+        {{ button_sprite("{RenameButton}", "32", "32", button_brush="SPClan.NameChange.Icon", margin_left="4") }}
+
+    </Children>
+</ListPanel>

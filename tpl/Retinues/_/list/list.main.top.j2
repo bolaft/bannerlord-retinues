@@ -1,0 +1,142 @@
+{# ---------------------------------------------- #}
+{# List filters + scroll controls                 #}
+{# ---------------------------------------------- #}
+
+<Widget
+    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+    SuggestedWidth="!Clan.Management.Collapser.Width"
+    SuggestedHeight="60">
+    <Children>
+
+        {# ------------------------------------------ #}
+        {# Disabled-looking collapser background      #}
+        {# ------------------------------------------ #}
+
+        <ToggleButtonWidget
+            WidthSizePolicy="StretchToParent"
+            HeightSizePolicy="StretchToParent"
+            Brush="Clan.Management.Collapser"
+            IsEnabled="false"
+            DoNotAcceptEvents="true"
+            DoNotPassEventsToChildren="true"
+            UpdateChildrenStates="true" />
+
+        {# ------------------------------------------ #}
+        {# Filter label + input                       #}
+        {# ------------------------------------------ #}
+
+        <ListPanel
+            WidthSizePolicy="CoverChildren"
+            HeightSizePolicy="CoverChildren"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            MarginLeft="16">
+            <Children>
+
+                <TextWidget
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Brush="Clan.LeftPanel.Header.Text"
+                    MarginRight="16"
+                    Text="@FilterLabel" />
+
+                <BrushWidget
+                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                    SuggestedWidth="400" SuggestedHeight="40"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    DoNotAcceptEvents="false"
+                    Brush="SPOptions.Dropdown.Center">
+                    <Children>
+
+                        <EditableTextWidget
+                            Text="@FilterText"
+                            WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+                            HorizontalAlignment="Center" VerticalAlignment="Center"
+                            Brush="Crafting.NameInput.Text"
+                            UpdateChildrenStates="true">
+                            <Children>
+
+                                <HintWidget
+                                    DataSource="{FilterTooltip}"
+                                    Command.HoverBegin="ExecuteBeginHint"
+                                    Command.HoverEnd="ExecuteEndHint" />
+
+                            </Children>
+                        </EditableTextWidget>
+
+                    </Children>
+                </BrushWidget>
+
+                <ButtonWidget
+                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                    SuggestedWidth="40" SuggestedHeight="40"
+                    MarginLeft="8"
+                    VerticalAlignment="Center"
+                    Brush="Popup.CloseButton"
+                    Command.Click="ExecuteClearFilter"
+                    DoNotPassEventsToChildren="true">
+                    <Children>
+
+                        <HintWidget
+                            DataSource="{ClearFilterTooltip}"
+                            Command.HoverBegin="ExecuteBeginHint"
+                            Command.HoverEnd="ExecuteEndHint" />
+
+                    </Children>
+                </ButtonWidget>
+
+            </Children>
+        </ListPanel>
+
+        {# ------------------------------------------ #}
+        {# Scroll buttons (top/bottom)                #}
+        {# ------------------------------------------ #}
+
+        <ListPanel
+            WidthSizePolicy="CoverChildren"
+            HeightSizePolicy="CoverChildren"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            StackLayout.LayoutMethod="VerticalBottomToTop"
+            MarginRight="16">
+            <Children>
+
+                {# Scroll-to-edge button macro #}
+                {% macro scroll_button(down, brush, tooltip) %}
+                    <ScrollToEdgeButtonWidget
+                        WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                        HorizontalAlignment="Right" VerticalAlignment="Center"
+                        UpdateChildrenStates="true"
+                        DoNotPassEventsToChildren="true"
+                        ScrollToBottom="{{ down }}"
+                        InterpolationTime="0.2">
+                        <Children>
+
+                            <HintWidget
+                                DataSource="{{ tooltip }}"
+                                Command.HoverBegin="ExecuteBeginHint"
+                                Command.HoverEnd="ExecuteEndHint" />
+
+                            <BrushWidget
+                                DoNotAcceptEvents="true"
+                                WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                                SuggestedWidth="30" SuggestedHeight="30"
+                                HorizontalAlignment="Center" VerticalAlignment="Center"
+                                Brush="{{ brush }}" />
+
+                        </Children>
+                    </ScrollToEdgeButtonWidget>
+                {% endmacro %}
+
+                {# Scroll to top #}
+                {{ scroll_button("false", "Editor.Arrow.Up", "{ScrollToTopTooltip}") }}
+
+                {# Scroll to bottom #}
+                {{ scroll_button("true", "Editor.Arrow.Down", "{ScrollToBottomTooltip}") }}
+
+            </Children>
+        </ListPanel>
+
+    </Children>
+</Widget>

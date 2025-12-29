@@ -11,6 +11,57 @@
       id="ret_age_hint"
       text="年齢" />
     <string
+      id="ret_body_age_decrease_tip"
+      text="年齢を減らす" />
+    <string
+      id="ret_body_age_increase_tip"
+      text="年齢を増やす" />
+    <string
+      id="ret_body_age_max_reason"
+      text="年齢はすでに最大です。" />
+    <string
+      id="ret_body_age_min_reason"
+      text="年齢はすでに最小です。" />
+    <string
+      id="ret_body_build_decrease_tip"
+      text="体格を減らす" />
+    <string
+      id="ret_body_build_increase_tip"
+      text="体格を増やす" />
+    <string
+      id="ret_body_build_max_reason"
+      text="体格はすでに最大です。" />
+    <string
+      id="ret_body_build_min_reason"
+      text="体格はすでに最小です。" />
+    <string
+      id="ret_body_height_decrease_tip"
+      text="身長を減らす" />
+    <string
+      id="ret_body_height_increase_tip"
+      text="身長を増やす" />
+    <string
+      id="ret_body_height_max_reason"
+      text="身長はすでに最大です。" />
+    <string
+      id="ret_body_height_min_reason"
+      text="身長はすでに最小です。" />
+    <string
+      id="ret_body_no_character_reason"
+      text="キャラクターが選択されていません。" />
+    <string
+      id="ret_body_weight_decrease_tip"
+      text="体重を減らす" />
+    <string
+      id="ret_body_weight_increase_tip"
+      text="体重を増やす" />
+    <string
+      id="ret_body_weight_max_reason"
+      text="体重はすでに最大です。" />
+    <string
+      id="ret_body_weight_min_reason"
+      text="体重はすでに最小です。" />
+    <string
       id="ret_build_hint"
       text="体格" />
     <string
@@ -31,6 +82,9 @@
     <string
       id="ret_cant_equip_reason_civilian"
       text="民間人ではない" />
+    <string
+      id="ret_cant_equip_reason_no_equipment"
+      text="装備セットが選択されていません。" />
     <string
       id="ret_cant_equip_reason_skill"
       text="{SKILL} {VALUE}" />
@@ -67,6 +121,9 @@
     <string
       id="ret_culture_header_text_with_race"
       text="文化と種族" />
+    <string
+      id="ret_culture_no_selection"
+      text="キャラクターが選択されていません。" />
     <string
       id="ret_dependencies_all_ok"
       text="すべての依存関係が正しく初期化されました。" />
@@ -119,8 +176,17 @@
       id="ret_equipment_cannot_delete_last_set"
       text="少なくとも1つの装備セットを残す必要があります。" />
     <string
+      id="ret_equipment_hero_sets_reason"
+      text="英雄は複数の装備セットを持つことはできません。" />
+    <string
+      id="ret_equipment_no_character_reason"
+      text="キャラクターが選択されていません。" />
+    <string
       id="ret_equipment_no_more_sets"
       text="これ以上の装備セットはありません。" />
+    <string
+      id="ret_equipment_no_set_selected_reason"
+      text="装備セットが選択されていません。" />
     <string
       id="ret_equipment_slot_body"
       text="体" />
@@ -164,8 +230,20 @@
       id="ret_escape_menu_editor_button"
       text="ユニバーサルエディター" />
     <string
+      id="ret_export_character_no_heroes"
+      text="ヒーローデータは保存状態に結び付けられています。" />
+    <string
+      id="ret_export_character_no_selection"
+      text="キャラクターが選択されていません。" />
+    <string
       id="ret_export_desc"
       text="保存名を選択してください：" />
+    <string
+      id="ret_export_faction_no_id"
+      text="選択した派閥は無効です。" />
+    <string
+      id="ret_export_faction_none"
+      text="派閥が選択されていません。" />
     <string
       id="ret_export_overwrite_desc"
       text="&apos;{FILE}&apos;という名前のファイルは既に存在しており、上書きされます。{newline}{newline}{PATH}" />
@@ -191,6 +269,9 @@
       id="ret_gender_no_culture"
       text="文化が選択されていません。" />
     <string
+      id="ret_gender_no_selection"
+      text="キャラクターが選択されていません。" />
+    <string
       id="ret_gender_no_template"
       text="この文化には、その性別/種に適した有効な体テンプレートがありません。" />
     <string
@@ -198,7 +279,7 @@
       text="その性別/種の組み合わせはレンダリングできません。" />
     <string
       id="ret_gender_toggle_hint"
-      text="性別を切り替え" />
+      text="性別を変更" />
     <string
       id="ret_height_hint"
       text="身長" />
@@ -261,19 +342,22 @@
       text="削除" />
     <string
       id="ret_library_delete_confirm_desc"
-      text="このエクスポートを削除してもよろしいですか？この操作は元に戻せません。" />
+      text="これにより、エクスポートファイルが永久に削除されます。{newline}{newline}続行しますか？" />
     <string
       id="ret_library_delete_confirm_title"
       text="エクスポートを削除" />
     <string
       id="ret_library_delete_failed_exception"
-      text="エクスポートを削除できませんでした。" />
+      text="ファイルを削除できませんでした。" />
     <string
-      id="ret_library_delete_failed_missing"
+      id="ret_library_delete_failed_missing_file"
       text="エクスポートファイルが見つかりませんでした。" />
     <string
       id="ret_library_delete_failed_title"
       text="削除に失敗しました" />
+    <string
+      id="ret_library_delete_no_selection"
+      text="エクスポートが選択されていません。" />
     <string
       id="ret_library_delete_tooltip"
       text="このライブラリ項目と関連する XML ファイルを永久に削除します。" />
@@ -282,19 +366,22 @@
       text="編集" />
     <string
       id="ret_library_edit_confirm_desc"
-      text="エクスポートファイルがデフォルトのエディタで開きます。{newline}{newline}{PATH}" />
+      text="これにより、エクスポート XML がデフォルトのエディターで開きます。{newline}{newline}続行しますか？" />
     <string
       id="ret_library_edit_confirm_title"
-      text="エクスポートファイルを開く" />
+      text="エクスポートを編集" />
     <string
       id="ret_library_edit_failed_exception"
       text="ファイルを開くことができませんでした。" />
     <string
-      id="ret_library_edit_failed_missing"
+      id="ret_library_edit_failed_missing_file"
       text="エクスポートファイルが見つかりませんでした。" />
     <string
       id="ret_library_edit_failed_title"
-      text="開くに失敗しました" />
+      text="編集に失敗しました" />
+    <string
+      id="ret_library_edit_no_selection"
+      text="エクスポートが選択されていません。" />
     <string
       id="ret_library_edit_tooltip"
       text="このエクスポートの XML ファイルの内容を直接編集します。" />
@@ -302,20 +389,11 @@
       id="ret_library_export_file_header"
       text="ファイル" />
     <string
-      id="ret_library_export_not_vanilla"
-      text="変更されたバニラ部隊のみがスタンドアロンのモッドとしてエクスポートできます。" />
-    <string
       id="ret_library_export_npc_button"
       text="変換" />
     <string
-      id="ret_library_export_npc_confirm_desc"
-      text="これにより、このライブラリ要素がスタンドアロンのモッドにエクスポートされます：{newline}{newline}{PATH}" />
-    <string
-      id="ret_library_export_npc_confirm_desc_overwrite"
-      text="これにより、このライブラリ要素がスタンドアロンのモッドにエクスポートされ、既存のファイルが上書きされます：{newline}{newline}{PATH}" />
-    <string
-      id="ret_library_export_npc_confirm_title"
-      text="モッドとしてエクスポート" />
+      id="ret_library_export_npc_custom_troop_unsupported"
+      text="バニラ部隊の編集のみがスタンドアロンのモッドに変換できます。" />
     <string
       id="ret_library_export_npc_done_desc_fallback"
       text="ゲームのインストールフォルダは保護されているため、代わりにここにモジュールが書き込まれました：{newline}{PATH}{newline}{newline}このフォルダを Bannerlord のモジュールディレクトリにコピーして、ゲームを再起動してください。" />
@@ -335,17 +413,26 @@
       id="ret_library_export_npc_failed_no_output"
       text="このエクスポートからキャラクターを生成できませんでした。" />
     <string
-      id="ret_library_export_npc_failed_no_payloads"
-      text="このエクスポートにはキャラクターのペイロードが見つかりませんでした。" />
+      id="ret_library_export_npc_failed_no_payload"
+      text="このファイルから何もエクスポートできませんでした。" />
     <string
       id="ret_library_export_npc_failed_title"
       text="エクスポートに失敗しました" />
+    <string
+      id="ret_library_export_npc_kind_unsupported"
+      text="このエクスポートタイプは変換できません。" />
     <string
       id="ret_library_export_npc_missing_file"
       text="エクスポートファイルが見つかりませんでした。" />
     <string
       id="ret_library_export_npc_no_selection"
       text="エクスポートが選択されていません。" />
+    <string
+      id="ret_library_export_npc_overwrite_desc"
+      text="この名前のモジュールはすでに存在します：{newline}{PATH}{newline}{newline}上書きしますか？" />
+    <string
+      id="ret_library_export_npc_overwrite_title"
+      text="モジュールを上書き" />
     <string
       id="ret_library_export_npc_tooltip"
       text="このエクスポートをスタンドアロンのモッドに変換します。" />
@@ -360,13 +447,13 @@
       text="インポート" />
     <string
       id="ret_library_import_confirm_desc_char"
-      text="これにより、現在のゲームで一致する部隊が上書きされます。" />
+      text="これにより、エクスポートされた部隊が現在のゲームにインポートされます。{newline}{newline}続行しますか？" />
     <string
       id="ret_library_import_confirm_desc_faction"
-      text="これにより、現在のゲームで一致する派閥が上書きされます。" />
+      text="これにより、エクスポートされた派閥が現在のゲームにインポートされます。{newline}{newline}続行しますか？" />
     <string
       id="ret_library_import_confirm_desc_unknown"
-      text="これにより、データが現在のゲームにインポートされます。" />
+      text="これにより、エクスポートされたデータが現在のゲームにインポートされます。{newline}{newline}続行しますか？" />
     <string
       id="ret_library_import_confirm_title"
       text="インポート" />
@@ -374,26 +461,17 @@
       id="ret_library_import_deleted_custom_troop"
       text="このエクスポートに対応する部隊が削除されました。" />
     <string
-      id="ret_library_import_done_desc"
-      text="インポートに成功しました。" />
-    <string
-      id="ret_library_import_done_title"
-      text="インポート完了" />
-    <string
       id="ret_library_import_failed_exception"
       text="ファイルをインポートできませんでした。" />
     <string
-      id="ret_library_import_failed_missing"
-      text="エクスポートファイルが見つかりませんでした。" />
+      id="ret_library_import_failed_invalid"
+      text="エクスポートをインポートできませんでした。" />
     <string
-      id="ret_library_import_failed_reason"
-      text="ファイルをインポートできませんでした。" />
+      id="ret_library_import_failed_missing_file"
+      text="エクスポートファイルが見つかりませんでした。" />
     <string
       id="ret_library_import_failed_title"
       text="インポートに失敗しました" />
-    <string
-      id="ret_library_import_failed_unknown_kind"
-      text="認識されないエクスポートタイプです。" />
     <string
       id="ret_library_import_missing_file"
       text="エクスポートファイルが見つかりませんでした。" />
@@ -467,6 +545,12 @@
       id="ret_list_header_villagers"
       text="村人" />
     <string
+      id="ret_mariner_hero_reason"
+      text="英雄は水兵になることはできません。" />
+    <string
+      id="ret_mariner_no_selection"
+      text="キャラクターが選択されていません。" />
+    <string
       id="ret_mariner_toggle_tooltip"
       text="このユニットの水兵能力を設定します。{newline}水兵は海戦に適していますが、スキルポイントの獲得率がわずかに低くなります。" />
     <string
@@ -494,6 +578,9 @@
       id="ret_name_header_text"
       text="名前" />
     <string
+      id="ret_naval_dlc_not_loaded"
+      text="War Sailsがインストールされていません。" />
+    <string
       id="ret_no_clans_text"
       text="現在のゲームには氏族が読み込まれていません。" />
     <string
@@ -512,11 +599,20 @@
       id="ret_no_valid_model_title_species"
       text="有効なモデルがありません" />
     <string
+      id="ret_race_cannot_change"
+      text="このユニットの種を変更することはできません。" />
+    <string
       id="ret_race_incompatible_culture_gender"
       text="この種は現在の文化/性別と互換性がありません。" />
     <string
       id="ret_race_invalid_model"
       text="この種には有効なモデルが存在しません。" />
+    <string
+      id="ret_rename_no_selection"
+      text="キャラクターが選択されていません。" />
+    <string
+      id="ret_rename_tooltip"
+      text="名前を変更" />
     <string
       id="ret_rename_unit"
       text="新しい名前" />
@@ -583,6 +679,9 @@
     <string
       id="ret_trait_increase_maxed_reason"
       text="特性はすでに最大値です。" />
+    <string
+      id="ret_trait_only_heroes_reason"
+      text="特性を持つのは英雄のみです。" />
     <string
       id="ret_traits_header_text"
       text="特性" />

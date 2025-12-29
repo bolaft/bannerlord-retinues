@@ -1,0 +1,104 @@
+{# ---------------------------------------------- #}
+{# Button macros                                  #}
+{# ---------------------------------------------- #}
+
+{# Hint macro: used inside buttons and base #}
+{% macro _button_hint() %}
+    <HintWidget
+        DataSource="{Tooltip}"
+        Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
+{% endmacro %}
+
+{# Base macro: caller() injects the inner visual (brush/text/sprite/etc) #}
+{% macro button_base(datasource, width, height, button_brush=null, horizontal_alignment="Center", vertical_alignment="Center", margin_left="0", margin_right="0", margin_top="0", margin_bottom="0") %}
+    <Widget
+        DataSource="{{ datasource }}"
+        IsVisible="@IsVisible"
+        WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+        HorizontalAlignment="{{ horizontal_alignment }}" VerticalAlignment="{{ vertical_alignment }}">
+        <Children>
+
+            {{ _button_hint() }}
+
+            <ButtonWidget
+                IsEnabled="@IsEnabled"
+                DoNotPassEventsToChildren="true"
+                UpdateChildrenStates="true"
+                MarginLeft="{{ margin_left }}" MarginRight="{{ margin_right }}"
+                MarginTop="{{ margin_top }}" MarginBottom="{{ margin_bottom }}"
+                WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                SuggestedWidth="{{ width }}" SuggestedHeight="{{ height }}"
+                HorizontalAlignment="Center" VerticalAlignment="Center"
+                {% if button_brush %}Brush="{{ button_brush }}"{% endif %}
+                Command.Click="Execute">
+                <Children>
+
+                    {{ _button_hint() }}
+
+                    {{ caller() }}
+
+                </Children>
+            </ButtonWidget>
+
+        </Children>
+    </Widget>
+{% endmacro %}
+
+{# ---------------------------------------------- #}
+{# Public buttons                                 #}
+{# ---------------------------------------------- #}
+
+{# Brush content button (brush inside the button) #}
+{% macro button_brush(datasource, brush, width, height, margin_left="0", margin_right="0", margin_top="0", margin_bottom="0") %}
+    {% call button_base(datasource, width, height, button_brush=brush, margin_left=margin_left, margin_right=margin_right, margin_top=margin_top, margin_bottom=margin_bottom) %}
+        <BrushWidget
+            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+            SuggestedWidth="{{ width }}" SuggestedHeight="{{ height }}"
+            Brush="{{ brush }}"/>
+    {% endcall %}
+{% endmacro %}
+
+{# Text content button (text inside the button) #}
+{% macro button_text(datasource, brush, width, height, font_size=24, margin_left="0", margin_right="0", margin_top="0", margin_bottom="0") %}
+    {% call button_base(datasource, width, height, button_brush=brush, margin_left=margin_left, margin_right=margin_right, margin_top=margin_top, margin_bottom=margin_bottom) %}
+        <TextWidget
+            WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+            HorizontalAlignment="Center" VerticalAlignment="Center"
+            Brush="Clan.Name.Tuple"
+            Brush.FontSize="{{ font_size }}"
+            Text="@Label"
+            TextAlignment="Center" />
+    {% endcall %}
+{% endmacro %}
+
+{# Sprite content button (icon inside the button) #}
+{% macro button_sprite(datasource, width, height, sprite="@Sprite", color="@Color", button_brush=null, margin_left="0", margin_right="0", margin_top="0", margin_bottom="0") %}
+    {% call button_base(datasource, width, height, button_brush=button_brush, margin_left=margin_left, margin_right=margin_right, margin_top=margin_top, margin_bottom=margin_bottom) %}
+        <SpriteWidget
+            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+            SuggestedWidth="{{ width }}" SuggestedHeight="{{ height }}"
+            HorizontalAlignment="Center" VerticalAlignment="Center"
+            Color="{{ color }}"
+            Sprite="{{ sprite }}"/>
+    {% endcall %}
+{% endmacro %}
+
+{# ---------------------------------------------- #}
+{# Brush helpers                                  #}
+{# ---------------------------------------------- #}
+
+{% macro button_arrow_up(datasource, width, height) %}
+    {{ button_brush(datasource, "Editor.Arrow.Up", width, height) }}
+{% endmacro %}
+
+{% macro button_arrow_down(datasource, width, height) %}
+    {{ button_brush(datasource, "Editor.Arrow.Down", width, height) }}
+{% endmacro %}
+
+{% macro button_chevron_right(datasource, width, height) %}
+    {{ button_brush(datasource, "ButtonLeftBigArrowBrush1", width, height) }}
+{% endmacro %}
+
+{% macro button_chevron_left(datasource, width, height) %}
+    {{ button_brush(datasource, "ButtonRightBigArrowBrush1", width, height) }}
+{% endmacro %}

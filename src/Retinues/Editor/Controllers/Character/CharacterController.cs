@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Retinues.Domain.Characters;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Factions.Wrappers;
 using Retinues.Editor.Events;
@@ -17,28 +18,51 @@ namespace Retinues.Editor.Controllers.Character
     public class CharacterController : BaseController
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Export                         //
+        //                          Export                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public static void ExportSelectedCharacter()
+        public static EditorAction<WCharacter> ExportCharacter { get; } =
+            Action<WCharacter>("ExportCharacter")
+                .AddCondition(
+                    c => c != null,
+                    L.T("export_character_no_selection", "No character selected.")
+                )
+                .AddCondition(
+                    c => !c.IsHero,
+                    L.T("export_character_no_heroes", "Hero data is tied to the save state.")
+                )
+                .DefaultTooltip(
+                    L.T(
+                        "button_export_character_tooltip",
+                        "Save this character and add it to the library."
+                    )
+                )
+                .ExecuteWith(ExportCharacterImpl);
+
+        private static void ExportCharacterImpl(WCharacter c)
         {
-            var c = State.Character;
             if (c == null)
-            {
-                Notifications.Message("No character selected.");
                 return;
-            }
 
             MImportExport.ExportCharacter(c.StringId);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                          Name                          //
+        //                           Name                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public static void ChangeName()
+        public static EditorAction<WCharacter> Rename { get; } =
+            Action<WCharacter>("Rename")
+                .AddCondition(c => c != null, L.T("rename_no_selection", "No character selected."))
+                .DefaultTooltip(L.T("rename_tooltip", "Rename"))
+                .ExecuteWith(RenameImpl);
+
+        private static void RenameImpl(WCharacter c)
         {
-            static void Apply(string newName)
+            if (c == null)
+                return;
+
+            static void Apply(ICharacter target, string newName)
             {
                 if (string.IsNullOrWhiteSpace(newName))
                 {
@@ -49,19 +73,19 @@ namespace Retinues.Editor.Controllers.Character
                     return;
                 }
 
-                var character = State.Character.Editable;
+                newName = newName.Trim();
+                if (newName == target.Name)
+                    return;
 
-                if (newName == character.Name)
-                    return; // No change.
+                target.Name = newName;
 
-                character.Name = newName;
                 EventManager.Fire(UIEvent.Name);
             }
 
             Inquiries.TextInputPopup(
                 title: L.T("rename_unit", "New Name"),
-                defaultInput: State.Character.Editable.Name,
-                onConfirm: input => Apply(input.Trim()),
+                defaultInput: c.Editable.Name,
+                onConfirm: input => Apply(c.Editable, input),
                 description: L.T("enter_new_name", "Enter a new name:")
             );
         }
@@ -70,12 +94,70 @@ namespace Retinues.Editor.Controllers.Character
         //                         Culture                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public static void ChangeCulture(WCulture newCulture)
+        public static EditorAction<WCharacter> SelectCulture { get; } =
+            Action<WCharacter>("SelectCulture")
+                .AddCondition(c => c != null, L.T("culture_no_selection", "No character selected."))
+                .AddCondition(
+                    _ => WCulture.All != null && WCulture.All.Any(),
+                    L.T("no_cultures_text", "No cultures are loaded in the current game.")
+                )
+                .DefaultTooltip(L.T("change_culture_title", "Change Culture"))
+                .ExecuteWith(SelectCultureImpl);
+
+        private static void SelectCultureImpl(WCharacter c)
         {
-            var character = State.Character.Editable;
+            if (c == null)
+                return;
+
+            var elements = new List<InquiryElement>();
+
+            foreach (var culture in WCulture.All)
+            {
+                var imageIdentifier = culture?.ImageIdentifier;
+                var name = culture?.Name;
+
+                if (imageIdentifier == null || name == null)
+                    continue;
+
+                elements.Add(
+                    new InquiryElement(
+                        identifier: culture,
+                        title: name,
+                        imageIdentifier: imageIdentifier
+                    )
+                );
+            }
+
+            if (elements.Count == 0)
+            {
+                Inquiries.Popup(
+                    L.T("no_cultures_title", "No Cultures Found"),
+                    L.T("no_cultures_text", "No cultures are loaded in the current game.")
+                );
+                return;
+            }
+
+            Inquiries.SelectPopup(
+                title: L.T("change_culture_title", "Change Culture"),
+                elements: elements,
+                onSelect: element =>
+                {
+                    if (element?.Identifier is not WCulture newCulture)
+                        return;
+
+                    if (ApplyCulture(c.Editable, newCulture))
+                        EventManager.Fire(UIEvent.Culture);
+                }
+            );
+        }
+
+        private static bool ApplyCulture(ICharacter character, WCulture newCulture)
+        {
+            if (character == null)
+                return false;
 
             if (newCulture == character.Culture)
-                return;
+                return false;
 
             if (
                 !TryApplyAppearanceChange(() =>
@@ -88,9 +170,9 @@ namespace Retinues.Editor.Controllers.Character
                     return true;
                 })
             )
-                return;
+                return false;
 
-            EventManager.Fire(UIEvent.Culture);
+            return true;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -99,6 +181,10 @@ namespace Retinues.Editor.Controllers.Character
 
         public static EditorAction<WCharacter> ToggleGender { get; } =
             Action<WCharacter>("ToggleGender")
+                .AddCondition(
+                    c => (c ?? State.Character) != null,
+                    L.T("gender_no_selection", "No character selected.")
+                )
                 .AddCondition(
                     applies: _ => HasAlternateSpecies() && State.Character?.Editable is WCharacter,
                     test: c => c?.Culture != null,
@@ -134,12 +220,14 @@ namespace Retinues.Editor.Controllers.Character
                         "That gender/species combination cannot be rendered."
                     )
                 )
-                .DefaultTooltip(L.T("gender_toggle_hint", "Toggle Gender"))
-                .ExecuteWith(_ => ChangeGender());
+                .DefaultTooltip(L.T("gender_toggle_hint", "Change Gender"))
+                .ExecuteWith(c => ToggleGenderImpl((c ?? State.Character)?.Editable))
+                .Fire(UIEvent.Gender);
 
-        public static void ChangeGender()
+        private static void ToggleGenderImpl(ICharacter character)
         {
-            var character = State.Character.Editable;
+            if (character == null)
+                return;
 
             if (
                 !TryApplyAppearanceChange(() =>
@@ -153,8 +241,6 @@ namespace Retinues.Editor.Controllers.Character
                 })
             )
                 return;
-
-            EventManager.Fire(UIEvent.Gender);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -197,55 +283,21 @@ namespace Retinues.Editor.Controllers.Character
             return $"Race {r}";
         }
 
-        public static List<int> GetValidRacesForCurrentSelection()
-        {
-            if (State.Character?.Editable is not WCharacter wc)
-                return [];
+        public static EditorAction<WCharacter> SelectRace { get; } =
+            Action<WCharacter>("SelectRace")
+                .AddCondition(
+                    _ => CanChangeRace,
+                    L.T("race_cannot_change", "Species cannot be changed for this unit.")
+                )
+                .DefaultTooltip(L.T("change_species_title", "Change Species"))
+                .ExecuteWith(SelectRaceImpl);
 
-            return GetValidRacesFor(wc.Culture, wc.IsFemale);
-        }
-
-        static List<int> GetValidRacesFor(WCulture culture, bool isFemale)
-        {
-            if (culture == null)
-                return [];
-
-            var set = new HashSet<int>();
-
-            foreach (var troop in culture.Troops)
-            {
-                if (troop == null)
-                    continue;
-
-                if (troop.IsFemale != isFemale)
-                    continue;
-
-                set.Add(troop.Race);
-            }
-
-            // Fallback if this culture has no troops for that gender.
-            if (set.Count == 0)
-            {
-                foreach (var troop in culture.Troops)
-                {
-                    if (troop == null)
-                        continue;
-
-                    set.Add(troop.Race);
-                }
-            }
-
-            var list = new List<int>(set);
-            list.Sort();
-            return list;
-        }
-
-        public static void OpenRaceSelector()
+        private static void SelectRaceImpl(WCharacter wc)
         {
             if (!CanChangeRace)
                 return;
 
-            if (State.Character?.Editable is not WCharacter wc)
+            if (wc == null)
                 return;
 
             int raceCount;
@@ -263,9 +315,7 @@ namespace Retinues.Editor.Controllers.Character
 
             var names = GetRaceNames();
 
-            // Races that are "compatible" with the current selection.
-            // If empty, we treat it as "no restriction".
-            var valid = new HashSet<int>(GetValidRacesForCurrentSelection());
+            var valid = new HashSet<int>(GetValidRacesFor(wc.Culture, wc.IsFemale));
 
             bool HasTemplateForRace(int race) =>
                 wc.Culture != null
@@ -285,11 +335,7 @@ namespace Retinues.Editor.Controllers.Character
                 }
             }
 
-            bool IsRaceCompatible(int race)
-            {
-                // If we can't infer compatibility from rosters, don't block selection.
-                return valid.Count == 0 || valid.Contains(race);
-            }
+            bool IsRaceCompatible(int race) => valid.Count == 0 || valid.Contains(race);
 
             string GetRaceTitle(int race)
             {
@@ -359,32 +405,63 @@ namespace Retinues.Editor.Controllers.Character
                         return;
 
                     if (ie.Identifier is int race)
-                        ChangeRace(race);
+                    {
+                        if (ApplyRace(wc, race))
+                            EventManager.Fire(UIEvent.Culture);
+                    }
                 }
             );
         }
 
-        public static void ChangeRace(int newRace)
+        private static bool ApplyRace(WCharacter wc, int newRace)
         {
             if (!CanChangeRace)
-                return;
+                return false;
 
-            if (State.Character?.Editable is not WCharacter wc)
-                return;
+            if (wc == null)
+                return false;
 
             if (newRace == wc.Race)
-                return;
+                return false;
 
-            if (
-                !TryApplyAppearanceChange(() =>
+            if (!TryApplyAppearanceChange(() => wc.ApplyCultureBodyPropertiesForRace(newRace)))
+                return false;
+
+            return true;
+        }
+
+        static List<int> GetValidRacesFor(WCulture culture, bool isFemale)
+        {
+            if (culture == null)
+                return [];
+
+            var set = new HashSet<int>();
+
+            foreach (var troop in culture.Troops)
+            {
+                if (troop == null)
+                    continue;
+
+                if (troop.IsFemale != isFemale)
+                    continue;
+
+                set.Add(troop.Race);
+            }
+
+            if (set.Count == 0)
+            {
+                foreach (var troop in culture.Troops)
                 {
-                    // Must update envelope/tags too, otherwise FaceGen can crash.
-                    return wc.ApplyCultureBodyPropertiesForRace(newRace);
-                })
-            )
-                return;
+                    if (troop == null)
+                        continue;
 
-            EventManager.Fire(UIEvent.Culture);
+                    set.Add(troop.Race);
+                }
+            }
+
+            var list = new List<int>(set);
+            list.Sort();
+            return list;
         }
 
         static readonly Dictionary<string, bool> _renderableCache = new();
@@ -453,20 +530,12 @@ namespace Retinues.Editor.Controllers.Character
         //                     Appearance Guard                   //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        readonly struct AppearanceSnapshot
+        readonly struct AppearanceSnapshot(WCharacter wc)
         {
-            public readonly WCulture Culture;
-            public readonly bool IsFemale;
-            public readonly int Race;
-            public readonly string BodyEnvelope;
-
-            public AppearanceSnapshot(WCharacter wc)
-            {
-                Culture = wc?.Culture;
-                IsFemale = wc?.IsFemale ?? false;
-                Race = wc?.Race ?? 0;
-                BodyEnvelope = wc?.SerializeBodyEnvelope();
-            }
+            public readonly WCulture Culture = wc?.Culture;
+            public readonly bool IsFemale = wc?.IsFemale ?? false;
+            public readonly int Race = wc?.Race ?? 0;
+            public readonly string BodyEnvelope = wc?.SerializeBodyEnvelope();
 
             public void Restore(WCharacter wc)
             {
@@ -579,16 +648,35 @@ namespace Retinues.Editor.Controllers.Character
         //                         Mariner                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public static void ChangeMariner(bool isMariner)
+        public static EditorAction<bool> SetMariner { get; } =
+            Action<bool>("SetMariner")
+                .AddCondition(
+                    _ => Mods.NavalDLC.IsLoaded,
+                    L.T("naval_dlc_not_loaded", "War Sails is not installed.")
+                )
+                .AddCondition(
+                    _ => State.Character != null,
+                    L.T("mariner_no_selection", "No character selected.")
+                )
+                .AddCondition(
+                    _ => State.Character.IsHero == false,
+                    L.T("mariner_hero_reason", "Heroes cannot be mariners.")
+                )
+                .ExecuteWith(SetMarinerImpl)
+                .Fire(UIEvent.Formation);
+
+        private static void SetMarinerImpl(bool isMariner)
         {
             if (!Mods.NavalDLC.IsLoaded)
-                return; // Naval DLC not installed
+                return;
+
+            if (State.Character == null)
+                return;
 
             if (State.Character.IsHero)
-                return; // Heroes cannot be mariners
+                return;
 
             State.Character.IsMariner = isMariner;
-            EventManager.Fire(UIEvent.Formation);
         }
     }
 }

@@ -4,6 +4,7 @@ using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Domain.Factions;
 using Retinues.Domain.Factions.Wrappers;
 using Retinues.Editor.Events;
+using Retinues.Editor.Services.Library.NPCCharacters;
 using Retinues.Framework.Model.Exports;
 using TaleWorlds.Library;
 
@@ -78,7 +79,23 @@ namespace Retinues.Editor.VM.List.Library
 
             _xmlTroopImageLoaded = true;
 
-            using var lease = Item?.LeaseModelCharacter();
+            var item = Item;
+            if (item == null)
+                return null;
+
+            if (
+                !LibraryExportPayloadReader.TryExtractModelCharacterPayloads(item, out var payloads)
+                || payloads.Count == 0
+            )
+                return null;
+
+            var p = payloads[0];
+
+            using var lease = CharacterStubLeaser.LeaseFromPayload(
+                p.Payload,
+                p.ModelStringId,
+                out _
+            );
             var c = lease?.Character;
             if (c == null)
                 return null;

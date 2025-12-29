@@ -1,0 +1,78 @@
+{% from "_/macros.buttons.j2" import button_brush %}
+{% from "_/macros.panel.j2" import panel_header %}
+
+{% macro upgrade_text(text) -%}
+    <ButtonWidget
+        DoNotPassEventsToChildren="true"
+        WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+        HorizontalAlignment="Center" VerticalAlignment="Center"
+        Command.Click="ExecuteSelect"
+        UpdateChildrenStates="true">
+        <Children>
+            <TextWidget
+                WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                HorizontalAlignment="Center" VerticalAlignment="Center"
+                Brush="Kingdom.NameTitle.Text"
+                Brush.FontSize="24"
+                Brush.FontColor="#ac8856ff"
+                Text="{{ text }}"
+                TextAlignment="Center" />
+        </Children>
+    </ButtonWidget>
+{%- endmacro %}
+
+{# Upgrade Sources Header #}
+{{ panel_header("@UpgradeSourcesHeaderText", "@HasUpgradeSources") }}
+
+<ListPanel
+    DataSource="{UpgradeSources}"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    StackLayout.LayoutMethod="VerticalBottomToTop"
+    HorizontalAlignment="Center">
+    <ItemTemplate>
+        {{ upgrade_text(text="@Name") }}
+    </ItemTemplate>
+</ListPanel>
+
+<Widget IsVisible="@HasUpgradeSources" MarginBottom="12" />
+
+{# Upgrade Targets Header #}
+{{ panel_header("@UpgradeTargetsHeaderText", "@HasUpgradeTargets") }}
+
+<ListPanel
+    DataSource="{UpgradeTargets}"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    StackLayout.LayoutMethod="VerticalBottomToTop"
+    MarginBottom="6"
+    HorizontalAlignment="Center">
+    <ItemTemplate>
+        <Widget
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            HorizontalAlignment="Center" VerticalAlignment="Center" >
+            <Children>
+                {{ upgrade_text(text="@Name") }}
+            </Children>
+        </Widget>
+    </ItemTemplate>
+</ListPanel>
+
+<ListPanel
+    DataSource="{AddUpgradeTargetButton}"
+    IsVisible="@IsVisible"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    StackLayout.LayoutMethod="HorizontalLeftToRight"
+    HorizontalAlignment="Center">
+    <Children>
+        <TextWidget
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            HorizontalAlignment="Center" VerticalAlignment="Center"
+            Brush="Clan.Name.Tuple"
+            Brush.FontSize="20"
+            Text="@Label"
+            TextAlignment="Center" />
+
+        {{ button_brush(".", "Inventory.Tuple.Extension.PlusButton", "36", "36", margin_left="4") }}
+    </Children>
+</ListPanel>
+
+<Widget IsVisible="@HasUpgradeTargets" MarginBottom="12" />

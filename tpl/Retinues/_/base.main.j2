@@ -1,0 +1,37 @@
+{# ---------------------------------------------- #}
+{# Main editor screen                             #}
+{# ---------------------------------------------- #}
+
+<Widget
+    IsVisible="@IsVisible"
+    WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent">
+    <Children>
+
+        {# ------------------------------------------ #}
+        {# Editor body                                #}
+        {# ------------------------------------------ #}
+
+        <Widget
+            WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent">
+            <Children>
+
+                {# ---------------------------------- #}
+                {# Tableau                            #}
+                {# ---------------------------------- #}
+                {% include "_/column/column.base.j2" %}
+
+                {# ---------------------------------- #}
+                {# List panel                         #}
+                {# ---------------------------------- #}
+                {% include "_/list/list.base.j2" %}
+
+                {# ---------------------------------- #}
+                {# Main panel                         #}
+                {# ---------------------------------- #}
+                {% include "_/panel/panel.base.j2" %}
+
+            </Children>
+        </Widget>
+
+    </Children>
+</Widget>

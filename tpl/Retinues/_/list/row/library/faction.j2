@@ -1,0 +1,6 @@
+{% from "_/macros.rows.j2" import row_wrapper, image_cell, name_timestamp %}
+
+{% call row_wrapper("@IsLibraryFaction") %}
+    {{ image_cell("{Image}") }}
+    {{ name_timestamp("@Name", "@Timestamp") }}
+{% endcall %}

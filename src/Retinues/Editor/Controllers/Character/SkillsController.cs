@@ -21,7 +21,6 @@ namespace Retinues.Editor.Controllers.Character
                     s => State.Character.Editable.Skills.Get(s) < MaxSkillLevel,
                     L.T("skill_increase_maxed_reason", "Skill is already at maximum level.")
                 )
-                .ExecuteWith(s => ChangeSkill(s, +1))
                 .WhenMode(
                     EditorMode.Player,
                     m =>
@@ -29,11 +28,12 @@ namespace Retinues.Editor.Controllers.Character
                                 s => State.Character.SkillPoints > 0,
                                 L.T("skill_increase_no_points_reason", "Not enough skill points.")
                             )
-                            .PostExecute(s =>
+                            .PostExecute(_ =>
                             {
                                 State.Character.SkillPoints -= 1;
                             })
                 )
+                .ExecuteWith(s => ChangeSkill(s, +1))
                 .Fire(UIEvent.Skill);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -49,7 +49,7 @@ namespace Retinues.Editor.Controllers.Character
                 .WhenMode(
                     EditorMode.Player,
                     m =>
-                        m.PostExecute(s =>
+                        m.PostExecute(_ =>
                         {
                             State.Character.SkillPoints += 1;
                         })

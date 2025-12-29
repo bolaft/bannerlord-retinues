@@ -11,6 +11,57 @@
       id="ret_age_hint"
       text="年齡" />
     <string
+      id="ret_body_age_decrease_tip"
+      text="減少年齡" />
+    <string
+      id="ret_body_age_increase_tip"
+      text="增加年齡" />
+    <string
+      id="ret_body_age_max_reason"
+      text="年齡已達到最大值。" />
+    <string
+      id="ret_body_age_min_reason"
+      text="年齡已達到最小值。" />
+    <string
+      id="ret_body_build_decrease_tip"
+      text="減少體型" />
+    <string
+      id="ret_body_build_increase_tip"
+      text="增加體型" />
+    <string
+      id="ret_body_build_max_reason"
+      text="體型已達到最大值。" />
+    <string
+      id="ret_body_build_min_reason"
+      text="體型已達到最小值。" />
+    <string
+      id="ret_body_height_decrease_tip"
+      text="減少身高" />
+    <string
+      id="ret_body_height_increase_tip"
+      text="增加身高" />
+    <string
+      id="ret_body_height_max_reason"
+      text="身高已達到最大值。" />
+    <string
+      id="ret_body_height_min_reason"
+      text="身高已達到最小值。" />
+    <string
+      id="ret_body_no_character_reason"
+      text="未選擇角色。" />
+    <string
+      id="ret_body_weight_decrease_tip"
+      text="減少體重" />
+    <string
+      id="ret_body_weight_increase_tip"
+      text="增加體重" />
+    <string
+      id="ret_body_weight_max_reason"
+      text="體重已達到最大值。" />
+    <string
+      id="ret_body_weight_min_reason"
+      text="體重已達到最小值。" />
+    <string
       id="ret_build_hint"
       text="體型" />
     <string
@@ -31,6 +82,9 @@
     <string
       id="ret_cant_equip_reason_civilian"
       text="非平民" />
+    <string
+      id="ret_cant_equip_reason_no_equipment"
+      text="未選擇裝備套裝。" />
     <string
       id="ret_cant_equip_reason_skill"
       text="{SKILL} {VALUE}" />
@@ -67,6 +121,9 @@
     <string
       id="ret_culture_header_text_with_race"
       text="文化與物種" />
+    <string
+      id="ret_culture_no_selection"
+      text="未選擇角色。" />
     <string
       id="ret_dependencies_all_ok"
       text="所有依賴項均已正確初始化。" />
@@ -119,8 +176,17 @@
       id="ret_equipment_cannot_delete_last_set"
       text="至少必須保留一個裝備套裝。" />
     <string
+      id="ret_equipment_hero_sets_reason"
+      text="英雄不能擁有多個裝備套裝。" />
+    <string
+      id="ret_equipment_no_character_reason"
+      text="未選擇角色。" />
+    <string
       id="ret_equipment_no_more_sets"
       text="沒有更多的裝備套裝。" />
+    <string
+      id="ret_equipment_no_set_selected_reason"
+      text="未選擇裝備套裝。" />
     <string
       id="ret_equipment_slot_body"
       text="身體" />
@@ -164,8 +230,20 @@
       id="ret_escape_menu_editor_button"
       text="通用編輯器" />
     <string
+      id="ret_export_character_no_heroes"
+      text="英雄數據與保存狀態相關聯。" />
+    <string
+      id="ret_export_character_no_selection"
+      text="未選擇角色。" />
+    <string
       id="ret_export_desc"
       text="選擇一個保存名稱：" />
+    <string
+      id="ret_export_faction_no_id"
+      text="所選陣營無效。" />
+    <string
+      id="ret_export_faction_none"
+      text="未選擇陣營。" />
     <string
       id="ret_export_overwrite_desc"
       text="名為&apos;{FILE}&apos;的文件已存在，將被覆蓋。{newline}{newline}{PATH}" />
@@ -191,6 +269,9 @@
       id="ret_gender_no_culture"
       text="未選擇任何文化。" />
     <string
+      id="ret_gender_no_selection"
+      text="未選擇角色。" />
+    <string
       id="ret_gender_no_template"
       text="該文化沒有適用於該性別/物種的有效身體模板。" />
     <string
@@ -198,7 +279,7 @@
       text="該性別/物種組合無法呈現。" />
     <string
       id="ret_gender_toggle_hint"
-      text="切換性別" />
+      text="更改性別" />
     <string
       id="ret_height_hint"
       text="身高" />
@@ -261,19 +342,22 @@
       text="刪除" />
     <string
       id="ret_library_delete_confirm_desc"
-      text="您確定要刪除此導出嗎？此操作不可撤銷。" />
+      text="這將永久刪除導出文件。{newline}{newline}繼續？" />
     <string
       id="ret_library_delete_confirm_title"
       text="刪除導出" />
     <string
       id="ret_library_delete_failed_exception"
-      text="無法刪除導出。" />
+      text="無法刪除文件。" />
     <string
-      id="ret_library_delete_failed_missing"
+      id="ret_library_delete_failed_missing_file"
       text="未找到導出文件。" />
     <string
       id="ret_library_delete_failed_title"
       text="刪除失敗" />
+    <string
+      id="ret_library_delete_no_selection"
+      text="未選擇導出。" />
     <string
       id="ret_library_delete_tooltip"
       text="永久刪除此庫項及相關的 XML 文件。" />
@@ -282,19 +366,22 @@
       text="編輯" />
     <string
       id="ret_library_edit_confirm_desc"
-      text="這將在您的默認編輯器中打開導出文件。{newline}{newline}{PATH}" />
+      text="這將在您的默認編輯器中打開導出 XML。{newline}{newline}繼續？" />
     <string
       id="ret_library_edit_confirm_title"
-      text="打開導出文件" />
+      text="編輯導出" />
     <string
       id="ret_library_edit_failed_exception"
       text="無法打開文件。" />
     <string
-      id="ret_library_edit_failed_missing"
+      id="ret_library_edit_failed_missing_file"
       text="未找到導出文件。" />
     <string
       id="ret_library_edit_failed_title"
-      text="打開失敗" />
+      text="編輯失敗" />
+    <string
+      id="ret_library_edit_no_selection"
+      text="未選擇導出。" />
     <string
       id="ret_library_edit_tooltip"
       text="直接編輯此導出 XML 文件的內容。" />
@@ -302,20 +389,11 @@
       id="ret_library_export_file_header"
       text="文件" />
     <string
-      id="ret_library_export_not_vanilla"
-      text="只有修改過的原版部隊才能導出為獨立模組。" />
-    <string
       id="ret_library_export_npc_button"
       text="轉換" />
     <string
-      id="ret_library_export_npc_confirm_desc"
-      text="這將把此庫元素導出到一個獨立的模組中：{newline}{newline}{PATH}" />
-    <string
-      id="ret_library_export_npc_confirm_desc_overwrite"
-      text="這將把此庫元素導出到一個獨立的模組中，並覆蓋現有文件：{newline}{newline}{PATH}" />
-    <string
-      id="ret_library_export_npc_confirm_title"
-      text="導出為模組" />
+      id="ret_library_export_npc_custom_troop_unsupported"
+      text="只有原版部隊編輯才能轉換為獨立模組。" />
     <string
       id="ret_library_export_npc_done_desc_fallback"
       text="遊戲安裝文件夾受保護，因此模組改為寫在這裡：{newline}{PATH}{newline}{newline}將此文件夾複製到您的 Bannerlord 模組目錄中，然後重新啟動遊戲。" />
@@ -335,17 +413,26 @@
       id="ret_library_export_npc_failed_no_output"
       text="無法從此導出生成任何角色。" />
     <string
-      id="ret_library_export_npc_failed_no_payloads"
-      text="在此導出中未找到角色有效負載。" />
+      id="ret_library_export_npc_failed_no_payload"
+      text="無法從此文件導出任何內容。" />
     <string
       id="ret_library_export_npc_failed_title"
       text="導出失敗" />
+    <string
+      id="ret_library_export_npc_kind_unsupported"
+      text="此導出類型無法轉換。" />
     <string
       id="ret_library_export_npc_missing_file"
       text="未找到導出文件。" />
     <string
       id="ret_library_export_npc_no_selection"
       text="未選擇導出。" />
+    <string
+      id="ret_library_export_npc_overwrite_desc"
+      text="具有此名稱的模組已存在：{newline}{PATH}{newline}{newline}要覆蓋它嗎？" />
+    <string
+      id="ret_library_export_npc_overwrite_title"
+      text="覆蓋模組" />
     <string
       id="ret_library_export_npc_tooltip"
       text="將此導出轉換為獨立模組。" />
@@ -360,13 +447,13 @@
       text="導入" />
     <string
       id="ret_library_import_confirm_desc_char"
-      text="這將覆蓋當前遊戲中匹配的部隊。" />
+      text="這將把導出的部隊導入當前遊戲。{newline}{newline}繼續？" />
     <string
       id="ret_library_import_confirm_desc_faction"
-      text="這將覆蓋當前遊戲中匹配的派系。" />
+      text="這將把導出的派系導入當前遊戲。{newline}{newline}繼續？" />
     <string
       id="ret_library_import_confirm_desc_unknown"
-      text="這將把數據導入到當前遊戲中。" />
+      text="這將把導出的數據導入當前遊戲。{newline}{newline}繼續？" />
     <string
       id="ret_library_import_confirm_title"
       text="導入" />
@@ -374,26 +461,17 @@
       id="ret_library_import_deleted_custom_troop"
       text="與此導出對應的部隊已被刪除。" />
     <string
-      id="ret_library_import_done_desc"
-      text="導入成功。" />
-    <string
-      id="ret_library_import_done_title"
-      text="導入完成" />
-    <string
       id="ret_library_import_failed_exception"
       text="無法導入文件。" />
     <string
-      id="ret_library_import_failed_missing"
-      text="未找到導出文件。" />
+      id="ret_library_import_failed_invalid"
+      text="無法導入導出。" />
     <string
-      id="ret_library_import_failed_reason"
-      text="無法導入文件。" />
+      id="ret_library_import_failed_missing_file"
+      text="未找到導出文件。" />
     <string
       id="ret_library_import_failed_title"
       text="導入失敗" />
-    <string
-      id="ret_library_import_failed_unknown_kind"
-      text="無法識別的導出類型。" />
     <string
       id="ret_library_import_missing_file"
       text="未找到導出文件。" />
@@ -467,6 +545,12 @@
       id="ret_list_header_villagers"
       text="村民" />
     <string
+      id="ret_mariner_hero_reason"
+      text="英雄不能成為水手。" />
+    <string
+      id="ret_mariner_no_selection"
+      text="未選擇角色。" />
+    <string
       id="ret_mariner_toggle_tooltip"
       text="設置此單位的水手能力。{newline}水手更適合海戰，但技能點的獲得速度略有降低。" />
     <string
@@ -494,6 +578,9 @@
       id="ret_name_header_text"
       text="名稱" />
     <string
+      id="ret_naval_dlc_not_loaded"
+      text="未安裝《戰爭之帆》。" />
+    <string
       id="ret_no_clans_text"
       text="當前遊戲中沒有加載任何氏族。" />
     <string
@@ -512,11 +599,20 @@
       id="ret_no_valid_model_title_species"
       text="無有效模型" />
     <string
+      id="ret_race_cannot_change"
+      text="無法更改此單位的物種。" />
+    <string
       id="ret_race_incompatible_culture_gender"
       text="此物種與當前的文化/性別不兼容。" />
     <string
       id="ret_race_invalid_model"
       text="此物種不存在有效模型。" />
+    <string
+      id="ret_rename_no_selection"
+      text="未選擇角色。" />
+    <string
+      id="ret_rename_tooltip"
+      text="重新命名" />
     <string
       id="ret_rename_unit"
       text="新名稱" />
@@ -583,6 +679,9 @@
     <string
       id="ret_trait_increase_maxed_reason"
       text="特質已達到最高值。" />
+    <string
+      id="ret_trait_only_heroes_reason"
+      text="只有英雄才有特質。" />
     <string
       id="ret_traits_header_text"
       text="特質" />

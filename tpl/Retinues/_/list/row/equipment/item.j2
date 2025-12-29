@@ -1,0 +1,43 @@
+{% from "_/macros.rows.j2" import row_wrapper, image_cell %}
+
+{% call row_wrapper("@IsEquipment") %}
+
+    {{ image_cell("{CultureImage}", sug_w=48, sug_h=48, margin_right=10) }}
+
+    {{ image_cell("{Image}", sug_w=96, sug_h=48, margin_right=12) }}
+
+    <SpriteWidget
+        IsVisible="@ShowComparisonIcon"
+        WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+        SuggestedWidth="20" SuggestedHeight="20"
+        Sprite="@PositiveComparisonSprite"
+        Color="#a5d82fb4"
+        MarginRight="10"
+        HorizontalAlignment="Left" VerticalAlignment="Center" >
+        <Children>
+            <SpriteWidget
+                WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                SuggestedWidth="20" SuggestedHeight="20"
+                Sprite="@NegativeComparisonSprite"
+                Color="#d82f2fb4"
+                PositionYOffset="@NegativeComparisonSpriteOffset"
+                VerticalFlip="true"/>
+        </Children>
+    </SpriteWidget>
+
+    <TextWidget
+        WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+        VerticalAlignment="Center"
+        Brush="Clan.Tuple.Name.Text"
+        Text="@Name" />
+
+    <TextWidget
+        IsHidden="@IsEnabled"
+        WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+        HorizontalAlignment="Right" VerticalAlignment="Center"
+        Brush="Clan.RightPanel.Name.Text"
+        Brush.FontSize="24"
+        MarginRight="8"
+        Text="@DisabledReason" />
+
+{% endcall %}

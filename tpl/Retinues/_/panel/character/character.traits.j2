@@ -1,0 +1,80 @@
+{% from "_/macros.buttons.j2" import button_arrow_up, button_arrow_down %}
+
+{% macro trait() -%}
+
+<ListPanel
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    StackLayout.LayoutMethod="VerticalBottomToTop"
+    HorizontalAlignment="Center">
+    <Children>
+        <TextWidget
+            Text="@Name"
+            Brush="Encyclopedia.Skill.Text"
+            Brush.FontSize="16"
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            HorizontalAlignment="Center" VerticalAlignment="Center" />
+        {# Controls #}
+        <ListPanel
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            StackLayout.LayoutMethod="HorizontalLeftToRight"
+            HorizontalAlignment="Center"
+            UpdateChildrenStates="true">
+            <Children>
+
+                <SpriteWidget
+                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                    SuggestedWidth="60" SuggestedHeight="60"
+                    Color="@SpriteColor"
+                    Sprite="@Sprite"
+                    HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Children>
+                        <HintWidget
+                            DataSource="{Tooltip}"
+                            Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
+                    </Children>
+                </SpriteWidget>
+
+                <ListPanel
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                    HorizontalAlignment="Right" VerticalAlignment="Center"
+                    StackLayout.LayoutMethod="VerticalBottomToTop">
+                    <Children>
+
+                        {{ button_arrow_up("{IncrementButton}", 20, 20) }}
+                        {{ button_arrow_down("{DecrementButton}", 20, 20) }}
+
+                    </Children>
+                </ListPanel>
+
+            </Children>
+        </ListPanel>
+    </Children>
+</ListPanel>
+
+{%- endmacro %}
+
+{% from "_/macros.panel.j2" import panel_header %}
+
+{# Traits Header #}
+{{ panel_header("@TraitsHeaderText", "@ShowTraits") }}
+
+{# Traits Grid #}
+<ListPanel
+    IsVisible="@ShowTraits"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    HorizontalAlignment="Center"
+    StackLayout.LayoutMethod="VerticalBottomToTop"
+    UpdateChildrenStates="true">
+    <Children>
+        <ListPanel
+            DataSource="{Traits}"
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            HorizontalAlignment="Center"
+            StackLayout.LayoutMethod="HorizontalLeftToRight"
+            UpdateChildrenStates="true">
+            <ItemTemplate>
+                {{ trait() }}
+            </ItemTemplate>
+        </ListPanel>
+    </Children>
+</ListPanel>

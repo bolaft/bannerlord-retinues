@@ -11,6 +11,57 @@
       id="ret_age_hint"
       text="Âge" />
     <string
+      id="ret_body_age_decrease_tip"
+      text="Diminuer l&apos;âge" />
+    <string
+      id="ret_body_age_increase_tip"
+      text="Augmenter l&apos;âge" />
+    <string
+      id="ret_body_age_max_reason"
+      text="L&apos;âge est déjà au maximum." />
+    <string
+      id="ret_body_age_min_reason"
+      text="L&apos;âge est déjà au minimum." />
+    <string
+      id="ret_body_build_decrease_tip"
+      text="Diminuer la musculature" />
+    <string
+      id="ret_body_build_increase_tip"
+      text="Augmenter la musculature" />
+    <string
+      id="ret_body_build_max_reason"
+      text="La musculature est déjà au maximum." />
+    <string
+      id="ret_body_build_min_reason"
+      text="La musculature est déjà au minimum." />
+    <string
+      id="ret_body_height_decrease_tip"
+      text="Diminuer la taille" />
+    <string
+      id="ret_body_height_increase_tip"
+      text="Augmenter la taille" />
+    <string
+      id="ret_body_height_max_reason"
+      text="La taille est déjà au maximum." />
+    <string
+      id="ret_body_height_min_reason"
+      text="La taille est déjà au minimum." />
+    <string
+      id="ret_body_no_character_reason"
+      text="Aucune unité n&apos;est sélectionnée." />
+    <string
+      id="ret_body_weight_decrease_tip"
+      text="Diminuer le poids" />
+    <string
+      id="ret_body_weight_increase_tip"
+      text="Augmenter le poids" />
+    <string
+      id="ret_body_weight_max_reason"
+      text="Le poids est déjà au maximum." />
+    <string
+      id="ret_body_weight_min_reason"
+      text="Le poids est déjà au minimum." />
+    <string
       id="ret_build_hint"
       text="Musculature" />
     <string
@@ -31,6 +82,9 @@
     <string
       id="ret_cant_equip_reason_civilian"
       text="Non civil" />
+    <string
+      id="ret_cant_equip_reason_no_equipment"
+      text="Aucun équipment n&apos;est sélectionné." />
     <string
       id="ret_cant_equip_reason_skill"
       text="{SKILL} {VALUE}" />
@@ -67,6 +121,9 @@
     <string
       id="ret_culture_header_text_with_race"
       text="Culture &amp; Espèce" />
+    <string
+      id="ret_culture_no_selection"
+      text="Aucun personnage sélectionné." />
     <string
       id="ret_dependencies_all_ok"
       text="Toutes les dépendances ont été initialisées correctement." />
@@ -119,8 +176,17 @@
       id="ret_equipment_cannot_delete_last_set"
       text="Il doit rester au moins un équipement." />
     <string
+      id="ret_equipment_hero_sets_reason"
+      text="Les héros ne peuvent pas avoir plusieurs ensembles d&apos;équipement." />
+    <string
+      id="ret_equipment_no_character_reason"
+      text="Aucune unité n&apos;est sélectionnée." />
+    <string
       id="ret_equipment_no_more_sets"
       text="Plus d&apos;équipements disponibles." />
+    <string
+      id="ret_equipment_no_set_selected_reason"
+      text="Aucun ensemble d&apos;équipement sélectionné." />
     <string
       id="ret_equipment_slot_body"
       text="Corps" />
@@ -164,8 +230,20 @@
       id="ret_escape_menu_editor_button"
       text="Éditeur universel" />
     <string
+      id="ret_export_character_no_heroes"
+      text="Les héros sont liés à la sauvegarde." />
+    <string
+      id="ret_export_character_no_selection"
+      text="Aucune unité n&apos;est sélectionnée." />
+    <string
       id="ret_export_desc"
       text="Choisissez un nom de sauvegarde :" />
+    <string
+      id="ret_export_faction_no_id"
+      text="La faction sélectionnée est invalide." />
+    <string
+      id="ret_export_faction_none"
+      text="Aucune faction sélectionnée." />
     <string
       id="ret_export_overwrite_desc"
       text="Un fichier nommé &apos;{FILE}&apos; existe déjà et sera écrasé.{newline}{newline}{PATH}" />
@@ -190,6 +268,9 @@
     <string
       id="ret_gender_no_culture"
       text="Aucune culture n&apos;est sélectionnée." />
+    <string
+      id="ret_gender_no_selection"
+      text="Aucune unité n&apos;est sélectionnée." />
     <string
       id="ret_gender_no_template"
       text="Cette culture n&apos;a pas de modèle de corps valide pour ce genre/espèce." />
@@ -261,7 +342,7 @@
       text="Supprimer" />
     <string
       id="ret_library_delete_confirm_desc"
-      text="Êtes-vous sûr de vouloir supprimer ce fichier ? Cette action est irréversible." />
+      text="Cela supprimera définitivement le fichier d&apos;exportation.{newline}{newline}Continuer ?" />
     <string
       id="ret_library_delete_confirm_title"
       text="Supprimer le fichier" />
@@ -269,11 +350,14 @@
       id="ret_library_delete_failed_exception"
       text="Le fichier n&apos;a pas pu être supprimé." />
     <string
-      id="ret_library_delete_failed_missing"
-      text="Fichier introuvable." />
+      id="ret_library_delete_failed_missing_file"
+      text="Le fichier d&apos;export est introuvable." />
     <string
       id="ret_library_delete_failed_title"
       text="Échec de la suppression" />
+    <string
+      id="ret_library_delete_no_selection"
+      text="Aucun export sélectionné." />
     <string
       id="ret_library_delete_tooltip"
       text="Supprime définitivement cet élément de la bibliothèque et le fichier XML associé." />
@@ -282,19 +366,22 @@
       text="Modifier" />
     <string
       id="ret_library_edit_confirm_desc"
-      text="Le fichier sera ouvert dans votre éditeur par défaut.{newline}{newline}{PATH}" />
+      text="Cela ouvrira le fichier XML dans votre éditeur par défaut.{newline}{newline}Continuer ?" />
     <string
       id="ret_library_edit_confirm_title"
-      text="Modifier le fichier" />
+      text="Modifier l&apos;export" />
     <string
       id="ret_library_edit_failed_exception"
       text="Le fichier n&apos;a pas pu être ouvert." />
     <string
-      id="ret_library_edit_failed_missing"
-      text="Fichier introuvable." />
+      id="ret_library_edit_failed_missing_file"
+      text="Le fichier d&apos;export est introuvable." />
     <string
       id="ret_library_edit_failed_title"
-      text="Échec de l&apos;ouverture" />
+      text="Échec de la modification" />
+    <string
+      id="ret_library_edit_no_selection"
+      text="Aucun export sélectionné." />
     <string
       id="ret_library_edit_tooltip"
       text="Modifier directement le contenu du fichier XML." />
@@ -302,20 +389,11 @@
       id="ret_library_export_file_header"
       text="Fichier" />
     <string
-      id="ret_library_export_not_vanilla"
-      text="Seuls les troupes originelles peuvent être exportées en tant que mods autonomes." />
-    <string
       id="ret_library_export_npc_button"
       text="Convertir" />
     <string
-      id="ret_library_export_npc_confirm_desc"
-      text="Cela exportera cet élément de la bibliothèque dans un mod autonome :{newline}{newline}{PATH}" />
-    <string
-      id="ret_library_export_npc_confirm_desc_overwrite"
-      text="Cela exportera cet élément de la bibliothèque dans un mod autonome et écrasera les fichiers existants :{newline}{newline}{PATH}" />
-    <string
-      id="ret_library_export_npc_confirm_title"
-      text="Exporter en tant que mod" />
+      id="ret_library_export_npc_custom_troop_unsupported"
+      text="Seules les modifications des troupes natives peuvent être converties en mods autonomes." />
     <string
       id="ret_library_export_npc_done_desc_fallback"
       text="Le dossier d&apos;installation du jeu est protégé, le module a donc été écrit ici à la place :{newline}{PATH}{newline}{newline}Copiez ce dossier dans votre répertoire Modules de Bannerlord, puis redémarrez le jeu." />
@@ -333,19 +411,28 @@
       text="Impossible de localiser le dossier Modules du jeu." />
     <string
       id="ret_library_export_npc_failed_no_output"
-      text="Aucun personnage n&apos;a pu être généré à partir de cet export." />
+      text="Aucune unité n&apos;a pu être générée à partir de cet export." />
     <string
-      id="ret_library_export_npc_failed_no_payloads"
-      text="Aucun export de personnage n&apos;a été trouvé dans ce fichier." />
+      id="ret_library_export_npc_failed_no_payload"
+      text="Rien n&apos;a pu être exporté à partir de ce fichier." />
     <string
       id="ret_library_export_npc_failed_title"
       text="Échec de l&apos;export" />
+    <string
+      id="ret_library_export_npc_kind_unsupported"
+      text="Ce type d&apos;export ne peut pas être converti." />
     <string
       id="ret_library_export_npc_missing_file"
       text="Fichier d&apos;export introuvable." />
     <string
       id="ret_library_export_npc_no_selection"
       text="Aucun fichier d&apos;export sélectionné." />
+    <string
+      id="ret_library_export_npc_overwrite_desc"
+      text="Un module avec ce nom existe déjà :{newline}{PATH}{newline}{newline}Le remplacer ?" />
+    <string
+      id="ret_library_export_npc_overwrite_title"
+      text="Remplacer le module" />
     <string
       id="ret_library_export_npc_tooltip"
       text="Convertir cet export en un mod autonome." />
@@ -360,13 +447,13 @@
       text="Importer" />
     <string
       id="ret_library_import_confirm_desc_char"
-      text="Cela écrasera l&apos;unité correspondante dans la campagne actuelle." />
+      text="Cela importera l&apos;unité exportée dans le jeu en cours.{newline}{newline}Continuer ?" />
     <string
       id="ret_library_import_confirm_desc_faction"
-      text="Cela écrasera la faction correspondante dans la campagne actuelle." />
+      text="Cela importera la faction exportée dans le jeu en cours.{newline}{newline}Continuer ?" />
     <string
       id="ret_library_import_confirm_desc_unknown"
-      text="Cela importera les données dans la campagne actuelle." />
+      text="Cela importera les données exportées dans le jeu en cours.{newline}{newline}Continuer ?" />
     <string
       id="ret_library_import_confirm_title"
       text="Importer" />
@@ -374,26 +461,17 @@
       id="ret_library_import_deleted_custom_troop"
       text="L&apos;unité correspondant à ce fichier a été supprimée." />
     <string
-      id="ret_library_import_done_desc"
-      text="Importation réussie." />
-    <string
-      id="ret_library_import_done_title"
-      text="Importation terminée" />
-    <string
       id="ret_library_import_failed_exception"
       text="Le fichier n&apos;a pas pu être importé." />
     <string
-      id="ret_library_import_failed_missing"
-      text="Fichier introuvable." />
+      id="ret_library_import_failed_invalid"
+      text="L&apos;export n&apos;a pas pu être importé." />
     <string
-      id="ret_library_import_failed_reason"
-      text="Le fichier n&apos;a pas pu être importé." />
+      id="ret_library_import_failed_missing_file"
+      text="Fichier d&apos;export introuvable." />
     <string
       id="ret_library_import_failed_title"
       text="Échec de l&apos;importation" />
-    <string
-      id="ret_library_import_failed_unknown_kind"
-      text="Type d&apos;export non reconnu." />
     <string
       id="ret_library_import_missing_file"
       text="Fichier introuvable." />
@@ -467,6 +545,12 @@
       id="ret_list_header_villagers"
       text="Villageois" />
     <string
+      id="ret_mariner_hero_reason"
+      text="Les héros ne peuvent pas être des marins." />
+    <string
+      id="ret_mariner_no_selection"
+      text="Aucune unité sélectionnée." />
+    <string
       id="ret_mariner_toggle_tooltip"
       text="Définis la capacité de marin de cette unité.{newline}Les marins sont mieux adaptés au combat naval, mais gagnent des points de compétence à un rythme légèrement réduit." />
     <string
@@ -494,6 +578,9 @@
       id="ret_name_header_text"
       text="Nom" />
     <string
+      id="ret_naval_dlc_not_loaded"
+      text="War Sails n&apos;est pas installé." />
+    <string
       id="ret_no_clans_text"
       text="Aucun clan n&apos;est chargé dans le jeu actuel." />
     <string
@@ -512,11 +599,20 @@
       id="ret_no_valid_model_title_species"
       text="Aucun modèle valide" />
     <string
+      id="ret_race_cannot_change"
+      text="L&apos;espèce ne peut pas être changée pour cette unité." />
+    <string
       id="ret_race_incompatible_culture_gender"
       text="Cette espèce n&apos;est pas compatible avec la culture/le genre actuel." />
     <string
       id="ret_race_invalid_model"
       text="Aucun modèle valide n&apos;existe pour cette espèce." />
+    <string
+      id="ret_rename_no_selection"
+      text="Aucune unité sélectionnée." />
+    <string
+      id="ret_rename_tooltip"
+      text="Renommer" />
     <string
       id="ret_rename_unit"
       text="Nouveau nom" />
@@ -583,6 +679,9 @@
     <string
       id="ret_trait_increase_maxed_reason"
       text="Le trait est déjà au maximum." />
+    <string
+      id="ret_trait_only_heroes_reason"
+      text="Seuls les héros ont des traits." />
     <string
       id="ret_traits_header_text"
       text="Traits" />

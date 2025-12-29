@@ -1,16 +1,24 @@
-<ButtonWidget Id="EditorButton"
-              IsEnabled="@IsEnabled"
-              WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-              SuggestedWidth="40" SuggestedHeight="40"
-              HorizontalAlignment="Right" VerticalAlignment="Top"
-              MarginRight="@MarginRight" MarginTop="@MarginTop"
-              Brush="SPClan.NameChange.Icon"
-              Command.Click="ExecuteOpenEditor"
-              GamepadNavigationIndex="0">
-  <Children>
-    <HintWidget DataSource="{EditorHint}"
-                WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                Command.HoverBegin="ExecuteBeginHint"
-                Command.HoverEnd="ExecuteEndHint"/>
-  </Children>
+{# ---------------------------------------------- #}
+{# Editor link button                             #}
+{# ---------------------------------------------- #}
+
+<ButtonWidget
+    Id="EditorButton"
+    IsEnabled="@IsEnabled"
+    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+    SuggestedWidth="40" SuggestedHeight="40"
+    HorizontalAlignment="Right" VerticalAlignment="Top"
+    MarginRight="@MarginRight" MarginTop="@MarginTop"
+    Brush="SPClan.NameChange.Icon"
+    Command.Click="ExecuteOpenEditor"
+    GamepadNavigationIndex="0">
+    <Children>
+
+        <HintWidget
+            DataSource="{EditorHint}"
+            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+            Command.HoverBegin="ExecuteBeginHint"
+            Command.HoverEnd="ExecuteEndHint" />
+
+    </Children>
 </ButtonWidget>
