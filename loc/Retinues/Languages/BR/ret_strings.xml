@@ -567,7 +567,7 @@
       text="Atalho do Editor" />
     <string
       id="ret_mcm_option_editor_hotkey_hint"
-      text="Ativa o atalho Shift + R para abrir o editor." />
+      text="Ativa a tecla de atalho [R] para abrir o editor." />
     <string
       id="ret_mcm_section_debug"
       text="Depuração" />
@@ -688,6 +688,15 @@
     <string
       id="ret_troop_count_more"
       text="e mais {NUMBER} tropas." />
+    <string
+      id="ret_troops_editor_locked"
+      text="O editor de tropas não está disponível." />
+    <string
+      id="ret_troops_navigation_tooltip"
+      text="Tropas" />
+    <string
+      id="ret_troops_navigation_tooltip_hotkey"
+      text="Tropas [R]" />
     <string
       id="ret_unequip_item_tooltip"
       text="Desequipar este item." />

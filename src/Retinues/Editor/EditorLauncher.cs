@@ -12,9 +12,9 @@ namespace Retinues.Editor
 {
     public static class EditorLauncher
     {
-        public static void Launch()
+        public static void Launch(EditorMode mode = EditorMode.Universal)
         {
-            LaunchInternal(null);
+            LaunchInternal(new EditorLaunchArgs(mode));
         }
 
         public static void Launch(WCharacter character)
@@ -85,10 +85,10 @@ namespace Retinues.Editor
                 return;
 
             // Shift + R to open the editor
-            if (Input.IsKeyDown(InputKey.LeftShift) && Input.IsKeyReleased(InputKey.R))
+            if (Input.IsKeyReleased(InputKey.R))
             {
                 Log.Info("Editor launched via hotkey.");
-                EditorLauncher.Launch();
+                Launch(EditorMode.Player);
             }
         }
     }

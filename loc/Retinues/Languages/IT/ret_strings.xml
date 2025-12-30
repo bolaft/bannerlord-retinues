@@ -567,7 +567,7 @@
       text="Tasto di scelta rapida dell&apos;editor" />
     <string
       id="ret_mcm_option_editor_hotkey_hint"
-      text="Abilita il tasto di scelta rapida Shift + R per aprire l&apos;editor." />
+      text="Abilita il tasto di scelta rapida [R] per aprire l&apos;editor." />
     <string
       id="ret_mcm_section_debug"
       text="Debug" />
@@ -688,6 +688,15 @@
     <string
       id="ret_troop_count_more"
       text="e altre {NUMBER} truppe." />
+    <string
+      id="ret_troops_editor_locked"
+      text="L&apos;editor delle truppe non è disponibile." />
+    <string
+      id="ret_troops_navigation_tooltip"
+      text="Truppe" />
+    <string
+      id="ret_troops_navigation_tooltip_hotkey"
+      text="Truppe [R]" />
     <string
       id="ret_unequip_item_tooltip"
       text="Desequipaggia questo oggetto." />

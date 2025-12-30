@@ -28,18 +28,40 @@ namespace Retinues.Editor
     public sealed class EditorLaunchArgs
     {
         public EditorMode Mode { get; } = EditorMode.Universal;
+
         public WCharacter Character { get; }
         public WHero Hero { get; }
         public WClan Clan { get; }
         public WCulture Culture { get; }
 
-        public EditorLaunchArgs(WCharacter character) => Character = character;
+        public EditorLaunchArgs(EditorMode mode = EditorMode.Universal)
+        {
+            Mode = mode;
+        }
 
-        public EditorLaunchArgs(WHero hero) => Hero = hero;
+        public EditorLaunchArgs(WCharacter character, EditorMode mode = EditorMode.Universal)
+        {
+            Character = character;
+            Mode = mode;
+        }
 
-        public EditorLaunchArgs(WClan clan) => Clan = clan;
+        public EditorLaunchArgs(WHero hero, EditorMode mode = EditorMode.Universal)
+        {
+            Hero = hero;
+            Mode = mode;
+        }
 
-        public EditorLaunchArgs(WCulture culture) => Culture = culture;
+        public EditorLaunchArgs(WClan clan, EditorMode mode = EditorMode.Universal)
+        {
+            Clan = clan;
+            Mode = mode;
+        }
+
+        public EditorLaunchArgs(WCulture culture, EditorMode mode = EditorMode.Universal)
+        {
+            Culture = culture;
+            Mode = mode;
+        }
 
         public bool IsEmpty => Character == null && Hero == null && Clan == null && Culture == null;
     }
@@ -123,14 +145,16 @@ namespace Retinues.Editor
         /// </summary>
         private void ApplyLaunchArgs(EditorLaunchArgs args)
         {
+            // Set mode first.
+            Mode = args?.Mode ?? EditorMode.Universal;
+
+            Log.Info($"Launch Mode: {Mode}.");
+
             if (args == null || args.IsEmpty)
             {
                 ApplyDefault();
                 return;
             }
-
-            // Set mode first.
-            Mode = args.Mode;
 
             if (args.Character != null)
             {
@@ -164,8 +188,19 @@ namespace Retinues.Editor
             var hero = WHero.Get(Hero.MainHero);
 
             Culture = hero.Culture;
-            Clan = null;
-            Faction = hero.Culture;
+
+            if (Mode == EditorMode.Player)
+            {
+                // Player mode: default to player's clan.
+                Clan = hero.Clan;
+                Faction = hero.Clan;
+            }
+            else
+            {
+                // Universal mode: default to hero's cultur.
+                Clan = null;
+                Faction = hero.Culture;
+            }
 
             Character = PickFirstTroop(Faction);
             Equipment = PickFirstEquipment(Character);

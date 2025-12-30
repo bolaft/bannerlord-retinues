@@ -25,7 +25,7 @@ namespace Retinues.Configuration
             name: L.F("mcm_option_editor_hotkey", "Editor Hotkey"),
             hint: L.F(
                 "mcm_option_editor_hotkey_hint",
-                "Enables the Shift + R hotkey to open the editor."
+                "Enables the [R] hotkey to open the editor."
             ),
             @default: true
         );

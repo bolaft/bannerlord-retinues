@@ -567,7 +567,7 @@
       text="Düzenleyici Kısayolu" />
     <string
       id="ret_mcm_option_editor_hotkey_hint"
-      text="Düzenleyiciyi açmak için Shift + R kısayolunu etkinleştirir." />
+      text="Düzenleyiciyi açmak için [R] kısayolunu etkinleştirir." />
     <string
       id="ret_mcm_section_debug"
       text="Hata Ayıklama" />
@@ -688,6 +688,15 @@
     <string
       id="ret_troop_count_more"
       text="ve {NUMBER} daha fazla birlik." />
+    <string
+      id="ret_troops_editor_locked"
+      text="Birlik düzenleyicisi kullanılamıyor." />
+    <string
+      id="ret_troops_navigation_tooltip"
+      text="Birlikler" />
+    <string
+      id="ret_troops_navigation_tooltip_hotkey"
+      text="Birlikler [R]" />
     <string
       id="ret_unequip_item_tooltip"
       text="Bu öğeyi donanımdan çıkar." />

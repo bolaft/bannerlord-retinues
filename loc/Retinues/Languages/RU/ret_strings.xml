@@ -567,7 +567,7 @@
       text="Горячая клавиша редактора" />
     <string
       id="ret_mcm_option_editor_hotkey_hint"
-      text="Включает горячую клавишу Shift + R для открытия редактора." />
+      text="Включает горячую клавишу [R] для открытия редактора." />
     <string
       id="ret_mcm_section_debug"
       text="Отладка" />
@@ -688,6 +688,15 @@
     <string
       id="ret_troop_count_more"
       text="и еще {NUMBER} войск." />
+    <string
+      id="ret_troops_editor_locked"
+      text="Редактор войск недоступен." />
+    <string
+      id="ret_troops_navigation_tooltip"
+      text="Войска" />
+    <string
+      id="ret_troops_navigation_tooltip_hotkey"
+      text="Войска [R]" />
     <string
       id="ret_unequip_item_tooltip"
       text="Снять этот предмет." />

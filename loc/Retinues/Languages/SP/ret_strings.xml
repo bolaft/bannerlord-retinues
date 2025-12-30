@@ -567,7 +567,7 @@
       text="Tecla de acceso rápido del editor" />
     <string
       id="ret_mcm_option_editor_hotkey_hint"
-      text="Activa la tecla de acceso rápido Shift + R para abrir el editor." />
+      text="Activa la tecla de acceso rápido [R] para abrir el editor." />
     <string
       id="ret_mcm_section_debug"
       text="Depuración" />
@@ -688,6 +688,15 @@
     <string
       id="ret_troop_count_more"
       text="y {NUMBER} tropas más." />
+    <string
+      id="ret_troops_editor_locked"
+      text="El editor de tropas no está disponible." />
+    <string
+      id="ret_troops_navigation_tooltip"
+      text="Tropas" />
+    <string
+      id="ret_troops_navigation_tooltip_hotkey"
+      text="Tropas [R]" />
     <string
       id="ret_unequip_item_tooltip"
       text="Desequipar este objeto." />

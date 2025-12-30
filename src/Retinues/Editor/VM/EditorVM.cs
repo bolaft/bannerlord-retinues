@@ -159,6 +159,38 @@ namespace Retinues.Editor.VM
                 Log.Warn("Failed to open MCM settings screen.");
         }
 
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Faction                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [EventListener(UIEvent.Faction)]
+        [DataSourceProperty]
+        public string FactionColor =>
+            State.Mode == EditorMode.Player || State.Culture == null
+                ? "#ffffffff"
+                : UintColorToHex(State.Culture.Color, 0.4f);
+
+        private static string UintColorToHex(uint color, float towardWhite = 0.0f)
+        {
+            // 0xAARRGGBB
+            byte a = (byte)((color >> 24) & 0xFF);
+            byte r = (byte)((color >> 16) & 0xFF);
+            byte g = (byte)((color >> 8) & 0xFF);
+            byte b = (byte)(color & 0xFF);
+
+            // clamp 0..1
+            if (towardWhite < 0f)
+                towardWhite = 0f;
+            if (towardWhite > 1f)
+                towardWhite = 1f;
+
+            r = (byte)(r + (255 - r) * towardWhite);
+            g = (byte)(g + (255 - g) * towardWhite);
+            b = (byte)(b + (255 - b) * towardWhite);
+
+            return $"#{r:X2}{g:X2}{b:X2}{a:X2}";
+        }
+
         /* ━━━━━━━━ Culture ━━━━━━━ */
 
         [EventListener(UIEvent.CultureFaction)]

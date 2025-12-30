@@ -567,7 +567,7 @@
       text="Editor Hotkey" />
     <string
       id="ret_mcm_option_editor_hotkey_hint"
-      text="Enables the Shift + R hotkey to open the editor." />
+      text="Enables the [R] hotkey to open the editor." />
     <string
       id="ret_mcm_section_debug"
       text="Debug" />
@@ -688,6 +688,15 @@
     <string
       id="ret_troop_count_more"
       text="and {NUMBER} more troops." />
+    <string
+      id="ret_troops_editor_locked"
+      text="The troop editor is not available." />
+    <string
+      id="ret_troops_navigation_tooltip"
+      text="Troops" />
+    <string
+      id="ret_troops_navigation_tooltip_hotkey"
+      text="Troops [R]" />
     <string
       id="ret_unequip_item_tooltip"
       text="Unequip this item." />

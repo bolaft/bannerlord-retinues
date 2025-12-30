@@ -567,7 +567,7 @@
       text="편집기 단축키" />
     <string
       id="ret_mcm_option_editor_hotkey_hint"
-      text="Shift + R 단축키를 활성화하여 편집기를 엽니다." />
+      text="편집기를 열기 위해 [R] 단축키를 활성화합니다." />
     <string
       id="ret_mcm_section_debug"
       text="디버그" />
@@ -688,6 +688,15 @@
     <string
       id="ret_troop_count_more"
       text="및 {NUMBER} 개의 추가 부대." />
+    <string
+      id="ret_troops_editor_locked"
+      text="부대 편집기는 사용할 수 없습니다." />
+    <string
+      id="ret_troops_navigation_tooltip"
+      text="부대" />
+    <string
+      id="ret_troops_navigation_tooltip_hotkey"
+      text="부대 [R]" />
     <string
       id="ret_unequip_item_tooltip"
       text="이 아이템을 장비 해제합니다." />

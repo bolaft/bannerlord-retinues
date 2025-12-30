@@ -567,7 +567,7 @@
       text="エディターホットキー" />
     <string
       id="ret_mcm_option_editor_hotkey_hint"
-      text="Shift + R ホットキーを有効にしてエディターを開きます。" />
+      text="[R]ホットキーを有効にしてエディターを開きます。" />
     <string
       id="ret_mcm_section_debug"
       text="デバッグ" />
@@ -688,6 +688,15 @@
     <string
       id="ret_troop_count_more"
       text="およびさらに {NUMBER} 部隊。" />
+    <string
+      id="ret_troops_editor_locked"
+      text="部隊エディターは利用できません。" />
+    <string
+      id="ret_troops_navigation_tooltip"
+      text="部隊" />
+    <string
+      id="ret_troops_navigation_tooltip_hotkey"
+      text="部隊 [R]" />
     <string
       id="ret_unequip_item_tooltip"
       text="このアイテムを装備解除します。" />
