@@ -117,16 +117,5 @@ namespace Retinues
 
             Log.Info("SubModule unloaded.");
         }
-
-        /// <summary>
-        /// Called once per application tick.
-        /// </summary>
-        protected override void OnApplicationTick(float dt)
-        {
-            base.OnApplicationTick(dt);
-
-            // Check for hotkeys.
-            EditorLauncher.EditorHotkeyCheck();
-        }
     }
 }

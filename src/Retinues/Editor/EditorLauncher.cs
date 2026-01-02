@@ -1,12 +1,7 @@
 using System.Linq;
-using Retinues.Configuration;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Factions.Wrappers;
-using Retinues.Utilities;
-using TaleWorlds.CampaignSystem;
-using TaleWorlds.CampaignSystem.GameState;
 using TaleWorlds.Core;
-using TaleWorlds.InputSystem;
 
 namespace Retinues.Editor
 {
@@ -62,33 +57,6 @@ namespace Retinues.Editor
                     break;
 
                 gsm.PopState(active.Level);
-            }
-        }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                      Editor Hotkey                     //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        private static bool EnableEditorHotkey => Settings.EditorHotkey;
-
-        public static void EditorHotkeyCheck()
-        {
-            if (!EnableEditorHotkey)
-                return;
-
-            // Only on campaign map
-            if (Game.Current?.GameStateManager.ActiveState is not MapState)
-                return;
-
-            // Must be in a campaign
-            if (Campaign.Current == null)
-                return;
-
-            // Shift + R to open the editor
-            if (Input.IsKeyReleased(InputKey.R))
-            {
-                Log.Info("Editor launched via hotkey.");
-                Launch(EditorMode.Player);
             }
         }
     }

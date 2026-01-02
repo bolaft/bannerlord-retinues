@@ -1,3 +1,4 @@
+#if BL13
 using Retinues.Configuration;
 using Retinues.Editor;
 using Retinues.UI.Services;
@@ -55,3 +56,4 @@ public sealed class TroopsNavigationElement(MapNavigationHandler handler)
 
     public override void GoToLink() { }
 }
+#endif

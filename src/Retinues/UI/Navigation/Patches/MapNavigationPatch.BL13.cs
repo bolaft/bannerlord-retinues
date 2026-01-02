@@ -1,3 +1,4 @@
+#if BL13
 using System.Linq;
 using HarmonyLib;
 using Retinues.Utilities;
@@ -36,3 +37,4 @@ internal static class MapNavigationHandlerCtorPatch
         Reflection.SetFieldValue(handler, "_elements", elements.ToArray());
     }
 }
+#endif
