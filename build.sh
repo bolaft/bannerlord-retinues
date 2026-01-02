@@ -172,6 +172,20 @@ if [[ "$RUN_MAIN" == "true" && "$DEPLOY" == "true" ]]; then
   fi
 fi
 
+# 4.b) Deploy local 'tgt' folder contents (if present) into the deployed module dir
+if [[ "$RUN_MAIN" == "true" && "$DEPLOY" == "true" ]]; then
+  TGT_DIR="$ROOT_DIR/tgt"
+  if [[ -d "$TGT_DIR" ]]; then
+    print_header "=   Deploying local tgt contents   ="
+    echo "Copying $TGT_DIR -> $MODULE_DEPLOY_DIR"
+    mkdir -p "$MODULE_DEPLOY_DIR"
+    # copy all files/dirs from tgt into the module folder; fail on error
+    cp -a "$TGT_DIR/." "$MODULE_DEPLOY_DIR" || { echo "ERROR: Failed to copy tgt contents"; exit 1; }
+  else
+    echo "No local tgt folder found at $TGT_DIR; skipping."
+  fi
+fi
+
 # 5) If this is a release build, also prepare the Steam Workshop / zip package
 if [[ "$RUN_MAIN" == "true" && "$DEPLOY" == "true" && -n "$RELEASE_PATCH" ]]; then
   if [[ -f "$BUILD_PY" && -f "$SUBMODULE_YAML" ]]; then
