@@ -1,10 +1,13 @@
 #if BL13
+using SandBox.View;
 using Retinues.Configuration;
 using Retinues.Editor;
 using Retinues.UI.Services;
 using SandBox.View.Map.Navigation;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.Library;
 using TaleWorlds.Localization;
+using TaleWorlds.ScreenSystem;
 
 namespace Retinues.UI.Navigation;
 
@@ -13,13 +16,14 @@ public sealed class TroopsNavigationElement(MapNavigationHandler handler)
 {
     public const string TroopsId = "troops";
     public override string StringId => TroopsId;
-    public override bool IsActive => false; // set true when your screen/state is active
+
+    public override bool IsActive =>
+        _game.GameStateManager.ActiveState is EditorGameState egs && egs.IsMapBarIntegrated;
     public override bool IsLockingNavigation => false;
     public override bool HasAlert => false;
 
     protected override NavigationPermissionItem GetPermission()
     {
-        // Keep custom reason when the handler hard-locks navigation.
         if (_handler.IsNavigationLocked)
             return new NavigationPermissionItem(
                 isAuthorized: false,
@@ -49,7 +53,25 @@ public sealed class TroopsNavigationElement(MapNavigationHandler handler)
         if (!Permission.IsAuthorized)
             return;
 
-        EditorLauncher.Launch(EditorMode.Player);
+        void OpenEditor() => EditorLauncher.Launch(EditorMode.Player);
+
+        // Match vanilla: warn about unsaved changes on the currently open panel.
+        if (
+            ScreenManager.TopScreen is IChangeableScreen changeable
+            && changeable.AnyUnsavedChanges()
+        )
+        {
+            InformationManager.ShowInquiry(
+                changeable.CanChangesBeApplied()
+                    ? MapNavigationHelper.GetUnsavedChangedInquiry(OpenEditor)
+                    : MapNavigationHelper.GetUnapplicableChangedInquiry()
+            );
+        }
+        else
+        {
+            // Match vanilla: close current panel first (Clan/Party/etc), then open editor.
+            MapNavigationHelper.SwitchToANewScreen(OpenEditor);
+        }
     }
 
     public override void OpenView(params object[] parameters) => OpenView();

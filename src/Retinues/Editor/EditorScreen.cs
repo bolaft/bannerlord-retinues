@@ -19,6 +19,10 @@ namespace Retinues.Editor
     {
         public override bool IsMenuState => true;
         public EditorLaunchArgs LaunchArgs { get; set; }
+
+        // Convenience helpers for navigation / UI layers.
+        public EditorMode Mode => LaunchArgs?.Mode ?? EditorMode.Universal;
+        public bool IsMapBarIntegrated => Mode == EditorMode.Player;
     }
 
     /// <summary>
