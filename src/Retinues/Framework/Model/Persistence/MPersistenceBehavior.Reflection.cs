@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Xml.Linq;
+using Retinues.Utilities;
 
 namespace Retinues.Framework.Model.Persistence
 {
@@ -61,6 +63,9 @@ namespace Retinues.Framework.Model.Persistence
         {
             if (string.IsNullOrEmpty(uid))
                 return;
+
+            Log.Info($"MPersistence: Applying data for {uid}");
+            Log.Info($"Data: {data}");
 
             var sep = uid.IndexOf(':');
             if (sep <= 0 || sep >= uid.Length - 1)
@@ -132,37 +137,129 @@ namespace Retinues.Framework.Model.Persistence
                 return null;
             }
 
+            static readonly Dictionary<Type, PropertyInfo> WrapperAllPropertyCache = [];
+
             public static IEnumerable TryGetAllEnumerable(Type wrapperType)
             {
-                var wb = GetWBaseGeneric(wrapperType);
-                if (wb == null)
-                    return null;
-
-                var allProp = GetAllProperty(wb);
+                var allProp = GetAllPropertyForWrapper(wrapperType);
                 if (allProp == null)
                     return null;
 
-                var allObj = allProp.GetValue(null);
-                return allObj as IEnumerable;
+                try
+                {
+                    return allProp.GetValue(null) as IEnumerable;
+                }
+                catch (Exception ex)
+                {
+                    Retinues.Utilities.Log.Warn(
+                        $"MPersistence: failed to evaluate {wrapperType?.FullName}.All: {ex}"
+                    );
+                    return null;
+                }
             }
 
-            static PropertyInfo GetAllProperty(Type wbaseGeneric)
+            static PropertyInfo GetAllPropertyForWrapper(Type wrapperType)
             {
+                if (wrapperType == null)
+                    return null;
+
                 lock (CacheLock)
                 {
-                    if (AllPropertyCache.TryGetValue(wbaseGeneric, out var p))
-                        return p;
+                    if (WrapperAllPropertyCache.TryGetValue(wrapperType, out var cached))
+                        return cached;
                 }
 
-                var prop = wbaseGeneric.GetProperty(
-                    "All",
-                    BindingFlags.Public | BindingFlags.Static
-                );
+                // Find all visible public static "All" properties (FlattenHierarchy can surface multiple).
+                PropertyInfo best = null;
+                try
+                {
+                    var props = wrapperType.GetProperties(
+                        BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy
+                    );
+
+                    var candidates = new List<PropertyInfo>();
+
+                    for (int i = 0; i < props.Length; i++)
+                    {
+                        var p = props[i];
+                        if (p == null)
+                            continue;
+                        if (!string.Equals(p.Name, "All", StringComparison.Ordinal))
+                            continue;
+                        if (!typeof(IEnumerable).IsAssignableFrom(p.PropertyType))
+                            continue;
+
+                        // Exclude indexers.
+                        ParameterInfo[] idx;
+                        try
+                        {
+                            idx = p.GetIndexParameters();
+                        }
+                        catch
+                        {
+                            continue;
+                        }
+
+                        if (idx != null && idx.Length != 0)
+                            continue;
+
+                        candidates.Add(p);
+                    }
+
+                    if (candidates.Count > 0)
+                    {
+                        // Prefer the property declared on the wrapper type itself (WClan/WKingdom "new All").
+                        best = candidates.FirstOrDefault(p => p.DeclaringType == wrapperType);
+
+                        // Else pick the closest declaring type in the inheritance chain (most-derived).
+                        best ??= candidates
+                            .OrderBy(p => GetInheritanceDistance(wrapperType, p.DeclaringType))
+                            .FirstOrDefault();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Retinues.Utilities.Log.Warn(
+                        $"MPersistence: failed to resolve {wrapperType.FullName}.All: {ex}"
+                    );
+                }
+
+                if (best != null)
+                {
+                    lock (CacheLock)
+                        WrapperAllPropertyCache[wrapperType] = best;
+
+                    return best;
+                }
+
+                // Fallback to WBase<,>.All (MBObjectManager-based)
+                var wb = GetWBaseGeneric(wrapperType);
+                var fallback = wb?.GetProperty("All", BindingFlags.Public | BindingFlags.Static);
 
                 lock (CacheLock)
-                    AllPropertyCache[wbaseGeneric] = prop;
+                    WrapperAllPropertyCache[wrapperType] = fallback;
 
-                return prop;
+                return fallback;
+            }
+
+            static int GetInheritanceDistance(Type from, Type declaring)
+            {
+                if (from == null || declaring == null)
+                    return int.MaxValue;
+                if (from == declaring)
+                    return 0;
+
+                var d = 0;
+                var t = from;
+                while (t != null)
+                {
+                    if (t == declaring)
+                        return d;
+                    d++;
+                    t = t.BaseType;
+                }
+
+                return int.MaxValue;
             }
 
             public static string TryGetUniqueId(object wrapperInstance)
@@ -273,7 +370,16 @@ namespace Retinues.Framework.Model.Persistence
                 if (mi == null)
                     return;
 
-                mi.Invoke(wrapperInstance, [data]);
+                // 🔒 This is a persistence restore, not a generic import
+                MBase<IModel>.IsRestoringFromPersistence = true;
+                try
+                {
+                    mi.Invoke(wrapperInstance, [data]);
+                }
+                finally
+                {
+                    MBase<IModel>.IsRestoringFromPersistence = false;
+                }
             }
 
             static MethodInfo GetDeserializeMethod(Type wrapperType)

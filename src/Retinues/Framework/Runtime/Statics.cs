@@ -91,6 +91,15 @@ namespace Retinues.Framework.Runtime
             {
                 foreach (var t in SafeGetTypes(asm))
                 {
+                    if (t == null)
+                        continue;
+
+                    // Critical: do not scan open generic type definitions (e.g. WBase`2, BaseFaction`2).
+                    // Closed concrete types (WCharacter, WClan, etc.) will still surface inherited static
+                    // methods via FlattenHierarchy, so skipping these avoids bogus "invalid" warnings.
+                    if (t.ContainsGenericParameters)
+                        continue;
+
                     MethodInfo[] methods;
                     try
                     {
@@ -118,10 +127,10 @@ namespace Retinues.Framework.Runtime
                         if (attr == null)
                             continue;
 
-                        if (!IsValidClearMethod(mi))
+                        if (!TryValidateClearMethod(mi, out var reason))
                         {
                             Log.Warn(
-                                $"Statics: ignoring [StaticClearAction] {t.FullName}.{mi.Name} (must be static void with no params)."
+                                $"Statics: ignoring invalid [StaticClearAction] {t.FullName}.{mi.Name} ({reason})."
                             );
                             continue;
                         }
@@ -158,28 +167,53 @@ namespace Retinues.Framework.Runtime
             ];
         }
 
-        private static bool IsValidClearMethod(MethodInfo mi)
+        private static bool TryValidateClearMethod(MethodInfo mi, out string reason)
         {
-            if (mi == null)
-                return false;
-            if (!mi.IsStatic)
-                return false;
-            if (mi.ContainsGenericParameters)
-                return false;
-            if (mi.ReturnType != typeof(void))
-                return false;
+            reason = null;
 
-            ParameterInfo[] ps;
+            if (mi == null)
+            {
+                reason = "method info is null";
+                return false;
+            }
+
+            var problems = new List<string>();
+
+            if (!mi.IsStatic)
+                problems.Add("not static");
+
+            if (mi.ReturnType != typeof(void))
+                problems.Add(
+                    $"return type is '{mi.ReturnType?.Name ?? "<null>"}' (expected 'Void')"
+                );
+
+            // This becomes true when the declaring type is an open generic type definition.
+            if (mi.ContainsGenericParameters)
+            {
+                var dt = mi.DeclaringType;
+                if (dt != null && dt.ContainsGenericParameters)
+                    problems.Add($"declared on open generic type '{dt.FullName}'");
+                else
+                    problems.Add("contains generic parameters");
+            }
+
             try
             {
-                ps = mi.GetParameters();
+                var ps = mi.GetParameters();
+                if (ps.Length != 0)
+                    problems.Add($"has {ps.Length} parameter(s) (expected 0)");
             }
             catch
             {
-                return false;
+                problems.Add("unable to read parameters");
             }
 
-            return ps.Length == 0;
+            if (problems.Count == 0)
+                return true;
+
+            reason =
+                $"{string.Join("; ", problems)}; expected: static void MethodName() declared on a non-generic type with no params";
+            return false;
         }
 
         private static IEnumerable<Type> SafeGetTypes(Assembly asm)

@@ -1,14 +1,70 @@
 using System;
 using System.Collections.Generic;
 using Retinues.Framework.Runtime;
+using Retinues.Utilities;
 
 namespace Retinues.Framework.Model.Attributes
 {
+    /// <summary>
+    /// Non-generic registry for clearing all MAttribute<T>.Store dictionaries.
+    /// This must be non-generic so Statics can discover and invoke it.
+    /// </summary>
+    internal static class MAttributeStoreClearActions
+    {
+        private static readonly object Sync = new();
+
+        // One clearer per closed T.
+        private static readonly Dictionary<Type, Action> Clearers = new();
+
+        public static void Register(Type t, Action clear)
+        {
+            if (t == null || clear == null)
+                return;
+
+            lock (Sync)
+            {
+                Clearers[t] = clear;
+            }
+        }
+
+        [StaticClearAction]
+        public static void ClearAll()
+        {
+            Action[] actions;
+
+            lock (Sync)
+            {
+                actions = new Action[Clearers.Count];
+                int i = 0;
+                foreach (var a in Clearers.Values)
+                    actions[i++] = a;
+            }
+
+            for (int i = 0; i < actions.Length; i++)
+            {
+                try
+                {
+                    actions[i]();
+                }
+                catch (Exception e)
+                {
+                    Log.Error($"MAttributeStoreClearActions.ClearAll: clear action failed | {e}");
+                }
+            }
+        }
+    }
+
     public partial class MAttribute<T>
     {
         internal static class Store
         {
             private static readonly object Sync = new();
+
+            // Register this closed store exactly once.
+            static Store()
+            {
+                MAttributeStoreClearActions.Register(typeof(T), ClearAllInternal);
+            }
 
             // We must keep type information even when the value is null, otherwise future GetOrInit()
             // calls cannot safely validate type and will throw.
@@ -100,8 +156,14 @@ namespace Retinues.Framework.Model.Attributes
                 }
             }
 
-            [StaticClearAction]
+            // Keep this method for any internal call sites, but it is not a StaticClearAction anymore
+            // (it lives on an open generic type when reflected as MAttribute`1+Store).
             public static void ClearAll()
+            {
+                ClearAllInternal();
+            }
+
+            private static void ClearAllInternal()
             {
                 lock (Sync)
                 {

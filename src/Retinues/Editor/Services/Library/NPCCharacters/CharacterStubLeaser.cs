@@ -72,7 +72,7 @@ namespace Retinues.Editor.Services.Library.NPCCharacters
                     var src = WCharacter.Get(modelStringId);
 
                     if (src != null && src.IsVanilla)
-                        src.Clone(skills: true, equipments: true, intoStub: stub);
+                        src.Clone(intoStub: stub);
                     else
                         missingVanillaBaseId = modelStringId;
                 }

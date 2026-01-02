@@ -16,7 +16,7 @@ namespace Retinues.Framework.Model.Persistence
     {
         const string SaveKey = "Retinues_ModelPersistence";
         const string RootName = "Retinues";
-        const string RootVersion = "2";
+        const string RootVersion = "1";
 
         public override void SyncData(IDataStore dataStore)
         {

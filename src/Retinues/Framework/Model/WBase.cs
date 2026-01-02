@@ -37,6 +37,14 @@ namespace Retinues.Framework.Model
         //                     Static Helpers                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        static readonly Dictionary<Type, Func<string, MBObjectBase>> Resolvers = [];
+
+        public static void RegisterResolver<T>(Func<string, T> resolver)
+            where T : MBObjectBase
+        {
+            Resolvers[typeof(T)] = id => resolver(id);
+        }
+
         public static TWrapper Get(string stringId) => Wrap(GetBase(stringId));
 
         public static TWrapper Get(TBase mbObject) => Wrap(mbObject);
@@ -48,6 +56,9 @@ namespace Retinues.Framework.Model
         {
             if (stringId == null)
                 throw new ArgumentNullException(nameof(stringId));
+
+            if (Resolvers.TryGetValue(typeof(TBase), out var r))
+                return r(stringId) as TBase;
 
             var manager = MBObjectManager.Instance;
             if (manager == null)

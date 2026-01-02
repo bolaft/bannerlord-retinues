@@ -79,7 +79,10 @@ namespace Retinues.UI.Screens
             if (Game.Current == null || Game.Current.GameStateManager == null)
                 return;
 
-            if (Campaign.Current == null || !Campaign.Current.IsFaceGenEnabled)
+            if (
+                TaleWorlds.CampaignSystem.Campaign.Current == null
+                || !TaleWorlds.CampaignSystem.Campaign.Current.IsFaceGenEnabled
+            )
                 return;
 
             // Only one redirected session at a time.

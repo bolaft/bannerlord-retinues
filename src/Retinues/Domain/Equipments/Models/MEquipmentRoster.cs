@@ -9,6 +9,13 @@ using TaleWorlds.Library;
 
 namespace Retinues.Domain.Equipments.Models
 {
+    public enum EquipmentCopyMode
+    {
+        All,
+        FirstOfEach,
+        Reset,
+    }
+
     public class MEquipmentRoster(MBEquipmentRoster @base, WCharacter owner)
         : MBase<MBEquipmentRoster>(@base)
     {
@@ -57,30 +64,74 @@ namespace Retinues.Domain.Equipments.Models
             Equipments = list;
         }
 
-        public void Copy(MEquipmentRoster source)
+        public void Copy(MEquipmentRoster source, EquipmentCopyMode mode = EquipmentCopyMode.All)
         {
+            if (mode == EquipmentCopyMode.Reset)
+            {
+                Reset();
+                return;
+            }
+
             if (source == null)
                 throw new ArgumentNullException(nameof(source));
 
-            var newList = new List<MEquipment>();
-
             var sourceEquipments = source.Equipments ?? [];
 
+            if (mode == EquipmentCopyMode.FirstOfEach)
+            {
+                MEquipment firstBattle = null;
+                MEquipment firstCivil = null;
+
+                for (int i = 0; i < sourceEquipments.Count; i++)
+                {
+                    var src = sourceEquipments[i];
+                    if (src == null)
+                        continue;
+
+                    if (src.IsCivilian)
+                    {
+                        if (firstCivil == null)
+                            firstCivil = src;
+                    }
+                    else
+                    {
+                        if (firstBattle == null)
+                            firstBattle = src;
+                    }
+
+                    if (firstBattle != null && firstCivil != null)
+                        break;
+                }
+
+                var newList = new List<MEquipment>(2)
+                {
+                    firstBattle != null
+                        ? MEquipment.Create(owner, civilian: false, source: firstBattle)
+                        : MEquipment.Create(owner, civilian: false, source: null),
+                    firstCivil != null
+                        ? MEquipment.Create(owner, civilian: true, source: firstCivil)
+                        : MEquipment.Create(owner, civilian: true, source: null),
+                };
+
+                Equipments = newList;
+                return;
+            }
+
+            // Default: deep copy all sets
+            var all = new List<MEquipment>();
             for (int i = 0; i < sourceEquipments.Count; i++)
             {
                 var src = sourceEquipments[i];
 
-                // Keep slot structure identical: if source has an "empty" slot,
-                // we create a matching empty equipment; otherwise clone from it.
                 var clone =
                     src == null
                         ? MEquipment.Create(owner, civilian: false, source: null)
                         : MEquipment.Create(owner, src.IsCivilian, src);
 
-                newList.Add(clone);
+                all.Add(clone);
             }
 
-            Equipments = newList;
+            Equipments = all;
         }
 
         public void Reset()

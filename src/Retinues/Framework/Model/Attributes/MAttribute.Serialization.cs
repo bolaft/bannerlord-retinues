@@ -786,21 +786,20 @@ namespace Retinues.Framework.Model.Attributes
 
             var tag = ((string)el.Attribute("t") ?? string.Empty).Trim();
 
-            // Prefer v= if present, otherwise inner text.
             var raw = (string)el.Attribute("v") ?? el.Value;
             raw = (raw ?? string.Empty).Trim();
 
-            void MarkCleanIfPossible()
+            bool restoring = MBase<IModel>.IsRestoringFromPersistence;
+
+            void MarkCleanIfAllowed()
             {
+                if (restoring)
+                    return;
+
                 try
                 {
-                    if (Reflection.HasField(this, "_isDirty"))
-                        Reflection.SetFieldValue(this, "_isDirty", false);
                     if (Reflection.HasField(this, "_dirty"))
                         Reflection.SetFieldValue(this, "_dirty", false);
-
-                    if (Reflection.HasProperty(this, "IsDirty"))
-                        Reflection.SetPropertyValue(this, "IsDirty", false);
 
                     try
                     {
@@ -808,50 +807,28 @@ namespace Retinues.Framework.Model.Attributes
                     }
                     catch { }
                 }
-                catch
-                {
-                    // best effort
-                }
+                catch { }
             }
 
-            bool TryAssignQuiet(object valueObj)
-            {
-                try
-                {
-                    if (Reflection.HasField(this, "_value"))
-                    {
-                        Reflection.SetFieldValue(this, "_value", valueObj);
-                        MarkCleanIfPossible();
-                        return true;
-                    }
-
-                    if (Reflection.HasProperty(this, "Value"))
-                    {
-                        Reflection.SetPropertyValue(this, "Value", valueObj);
-                        MarkCleanIfPossible();
-                        return true;
-                    }
-                }
-                catch
-                {
-                    // ignore
-                }
-
-                return false;
-            }
-
-            // IMPORTANT: prefer Set(.) so side-effects apply to Base objects.
-            // Quiet assign is only fallback if Set throws.
             void Assign(T value)
             {
                 try
                 {
                     Set(value);
-                    MarkCleanIfPossible();
+                    MarkCleanIfAllowed();
+                    Log.Info($"[LOAD] {Name} = '{Get()}' dirty={IsDirty} restoring={restoring}");
                 }
                 catch
                 {
-                    _ = TryAssignQuiet(value);
+                    try
+                    {
+                        if (Reflection.HasField(this, "_value"))
+                        {
+                            Reflection.SetFieldValue(this, "_value", value);
+                            MarkCleanIfAllowed();
+                        }
+                    }
+                    catch { }
                 }
             }
 
@@ -1081,10 +1058,9 @@ namespace Retinues.Framework.Model.Attributes
 
             try
             {
-                // 0) MODEL (this was missing and is why Equipments etc never applied)
+                // MODEL
                 if (tag == "model")
                 {
-                    // If it has nested element(s), serialize the first child back to XML.
                     var data = raw;
 
                     if (el.HasElements)
@@ -1094,13 +1070,12 @@ namespace Retinues.Framework.Model.Attributes
                             data = first.ToString(SaveOptions.DisableFormatting);
                     }
 
-                    // Reuse the already-correct string deserializer (handles wrappers + models).
                     Deserialize(data);
-                    MarkCleanIfPossible();
+                    MarkCleanIfAllowed();
                     return;
                 }
 
-                // 1) LIST (empty list must clear)
+                // LIST
                 if (tag == "list")
                 {
                     var obj = ParseListFromChildren(el, typeof(T));
@@ -1110,13 +1085,22 @@ namespace Retinues.Framework.Model.Attributes
                         return;
                     }
 
-                    if (TryAssignQuiet(obj))
-                        return;
-
                     return;
                 }
 
-                // 2) Scalar types
+                // SCALARS
+                if (tag == "string")
+                {
+                    Assign((T)(object)raw);
+                    return;
+                }
+
+                if (tag == "text")
+                {
+                    Assign((T)(object)new TextObject(raw));
+                    return;
+                }
+
                 if (tag == "bool")
                 {
                     Assign((T)(object)bool.Parse(raw));
@@ -1141,73 +1125,28 @@ namespace Retinues.Framework.Model.Attributes
                     return;
                 }
 
-                if (tag == "string")
+                if (tag == "enum")
                 {
-                    Assign((T)(object)raw);
-                    return;
-                }
-
-                if (tag == "text")
-                {
-                    Assign((T)(object)new TextObject(raw));
+                    Assign((T)Enum.Parse(typeof(T), raw, true));
                     return;
                 }
 
                 if (tag == "mb")
                 {
                     var mb = ResolveMbObject(typeof(T), raw);
-                    if (mb is T typedMb)
-                    {
-                        Assign(typedMb);
-                        return;
-                    }
-
-                    if (typeof(T) == typeof(string))
-                    {
-                        Assign((T)(object)raw);
-                        return;
-                    }
-
-                    MarkCleanIfPossible();
+                    if (mb is T typed)
+                        Assign(typed);
                     return;
                 }
 
-                if (tag == "enum")
-                {
-                    if (
-                        int.TryParse(
-                            raw,
-                            NumberStyles.Integer,
-                            CultureInfo.InvariantCulture,
-                            out var i
-                        )
-                    )
-                    {
-                        Assign((T)Enum.ToObject(typeof(T), i));
-                        return;
-                    }
-
-                    Assign((T)Enum.Parse(typeof(T), raw, ignoreCase: true));
-                    return;
-                }
-
-                // 3) Fallback
-                var fallbackObj = ParseScalar(raw, typeof(T));
-                if (fallbackObj is T fallbackTyped)
-                {
-                    Assign(fallbackTyped);
-                    return;
-                }
-
-                MarkCleanIfPossible();
+                // FALLBACK
+                var fallback = ParseScalar(raw, typeof(T));
+                if (fallback is T f)
+                    Assign(f);
             }
             catch (Exception ex)
             {
-                try
-                {
-                    Log.Warn($"MAttribute.DeserializeXml failed for '{el.Name}': {ex.Message}");
-                }
-                catch { }
+                Log.Warn($"MAttribute.DeserializeXml failed for '{Name}': {ex.Message}");
             }
         }
     }

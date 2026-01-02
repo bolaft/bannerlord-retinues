@@ -52,7 +52,7 @@ namespace Retinues.Editor.Controllers.Character
                     return;
                 }
 
-                var clone = character.Clone(skills: true, equipments: true);
+                var clone = character.Clone();
                 clone.Name = name.Trim();
                 clone.Level = character.Level + 5;
                 clone.HiddenInEncyclopedia = false;

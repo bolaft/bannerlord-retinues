@@ -1,4 +1,5 @@
 using System;
+using Retinues.Domain.Equipments.Models;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
@@ -17,7 +18,7 @@ namespace Retinues.Domain.Characters.Wrappers
         /// </summary>
         public WCharacter Clone(
             bool skills = true,
-            bool equipments = true,
+            EquipmentCopyMode equipments = EquipmentCopyMode.All,
             WCharacter intoStub = null
         )
         {
@@ -81,11 +82,8 @@ namespace Retinues.Domain.Characters.Wrappers
                 stub.Skills.Set(skill, value);
             }
 
-            // Equipment: either deep copy all sets, or create 2 empty sets (battle+civilian)
-            if (equipments)
-                stub.EquipmentRoster.Copy(EquipmentRoster);
-            else
-                stub.EquipmentRoster.Reset();
+            // Equipment: copy mode controlled by param
+            stub.EquipmentRoster.Copy(EquipmentRoster, equipments);
 
             return stub;
         }

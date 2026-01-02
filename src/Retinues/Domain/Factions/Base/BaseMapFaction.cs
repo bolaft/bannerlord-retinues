@@ -6,6 +6,7 @@ using Retinues.Domain.Parties.Wrappers;
 using Retinues.Domain.Settlements.Models;
 using Retinues.Domain.Settlements.Wrappers;
 using Retinues.Framework.Model.Attributes;
+using Retinues.Framework.Runtime;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.ObjectSystem;
@@ -58,6 +59,13 @@ namespace Retinues.Domain.Factions.Base
         static List<WCharacter> _cultureRootBasics;
         static List<WCharacter> _cultureRootElites;
 
+        [StaticClearAction]
+        public static void ClearRootsCache()
+        {
+            _cultureRootBasics = null;
+            _cultureRootElites = null;
+        }
+
         void EnsureCultureRoots()
         {
             if (_cultureRootBasics != null && _cultureRootElites != null)
@@ -69,11 +77,12 @@ namespace Retinues.Domain.Factions.Base
 
         /* ━━━━━━━━━ Stored Attributes ━━━━━━━━━ */
 
-        MAttribute<WCharacter> CustomRootBasicAttribute =>
+        protected MAttribute<WCharacter> CustomRootBasicAttribute =>
             Attribute<WCharacter>(initialValue: null);
-        MAttribute<WCharacter> CustomRootEliteAttribute =>
+        protected MAttribute<WCharacter> CustomRootEliteAttribute =>
             Attribute<WCharacter>(initialValue: null);
-        MAttribute<List<WCharacter>> RetinueTroopsAttribute => Attribute<List<WCharacter>>([]);
+        protected MAttribute<List<WCharacter>> RetinueTroopsAttribute =>
+            Attribute<List<WCharacter>>([]);
 
         /* ━━━━━━━━━ Roots ━━━━━━━━━ */
 

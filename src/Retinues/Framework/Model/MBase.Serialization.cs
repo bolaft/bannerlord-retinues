@@ -68,6 +68,8 @@ namespace Retinues.Framework.Model
             }
         }
 
+        public static bool IsRestoringFromPersistence;
+
         public string Deserialize(string data)
         {
             try
@@ -77,15 +79,23 @@ namespace Retinues.Framework.Model
                 if (string.IsNullOrWhiteSpace(data))
                     return data;
 
-                if (data.TrimStart().StartsWith("<"))
+                if (!data.TrimStart().StartsWith("<"))
+                    return data;
+
+                var doc = XDocument.Parse(data, LoadOptions.None);
+                var root = doc.Root;
+
+                if (root == null || (string)root.Attribute("v") != ModelXmlVersion)
+                    return data;
+
+                IsRestoringFromPersistence = true;
+                try
                 {
-                    var doc = XDocument.Parse(data, LoadOptions.None);
-                    var root = doc.Root;
-                    if (root != null && (string)root.Attribute("v") == ModelXmlVersion)
-                    {
-                        ApplyXml(root);
-                        return data;
-                    }
+                    ApplyXml(root);
+                }
+                finally
+                {
+                    IsRestoringFromPersistence = false;
                 }
 
                 return data;
@@ -93,6 +103,7 @@ namespace Retinues.Framework.Model
             catch (Exception e)
             {
                 Log.Exception(e, "Failed to deserialize MBase.");
+                IsRestoringFromPersistence = false;
                 return data;
             }
         }
