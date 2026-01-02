@@ -254,7 +254,7 @@ namespace Retinues.Domain.Factions.Base
         /// <summary>
         /// Determines if the given character is valid for inclusion in a roster.
         /// </summary>
-        private static bool IsValid(WCharacter character)
+        protected static bool IsValid(WCharacter character)
         {
             if (character == null)
                 return false;

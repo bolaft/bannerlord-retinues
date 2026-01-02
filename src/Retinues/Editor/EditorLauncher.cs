@@ -1,6 +1,7 @@
 using System.Linq;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Factions.Wrappers;
+using Retinues.Utilities;
 using TaleWorlds.Core;
 
 namespace Retinues.Editor
@@ -37,6 +38,15 @@ namespace Retinues.Editor
             var gsm = Game.Current?.GameStateManager;
             if (gsm == null)
                 return;
+
+            if ((args?.Mode ?? EditorMode.Universal) == EditorMode.Player)
+            {
+                if (!EditorAvailability.HasPlayerClanCustomTreeTroops())
+                {
+                    Log.Info("Troops editor blocked: player clan has no custom troops.");
+                    return;
+                }
+            }
 
             ClosePreviousEditorInstances(gsm);
 

@@ -202,7 +202,7 @@ namespace Retinues.Editor
                 Faction = hero.Culture;
             }
 
-            Character = PickFirstTroop(Faction);
+            Character = PickFirstTroop(Faction, Mode);
             Equipment = PickFirstEquipment(Character);
 
             Slot = EquipmentIndex.Weapon0;
@@ -214,7 +214,7 @@ namespace Retinues.Editor
             Clan = hero.Clan;
             Faction = hero.Clan;
 
-            Character = PickFirstTroop(Faction);
+            Character = PickFirstTroop(Faction, Mode);
             Equipment = PickFirstEquipment(Character);
 
             Slot = EquipmentIndex.Weapon0;
@@ -238,7 +238,7 @@ namespace Retinues.Editor
             Clan = clan;
             Faction = clan;
 
-            Character = PickFirstTroop(Faction);
+            Character = PickFirstTroop(Faction, Mode);
             Equipment = PickFirstEquipment(Character);
 
             Slot = EquipmentIndex.Weapon0;
@@ -250,26 +250,41 @@ namespace Retinues.Editor
             Clan = null;
             Faction = culture;
 
-            Character = PickFirstTroop(Faction);
+            Character = PickFirstTroop(Faction, Mode);
             Equipment = PickFirstEquipment(Character);
 
             Slot = EquipmentIndex.Weapon0;
         }
 
-        private static WCharacter PickFirstTroop(IBaseFaction faction)
+        private static WCharacter PickFirstTroop(IBaseFaction faction, EditorMode mode)
         {
             if (faction?.Troops == null)
                 return null;
 
             foreach (var troop in faction.Troops)
             {
-                if (troop != null)
-                {
-                    if (troop.IsHero && troop.Hero.IsDead)
-                        continue; // Skip dead heroes.
+                if (troop == null)
+                    continue;
 
-                    return troop;
+                if (troop.IsHero && troop.Hero.IsDead)
+                    continue; // Skip dead heroes.
+
+                if (mode == EditorMode.Player)
+                {
+                    if (troop.IsHero)
+                        continue;
+
+                    if (!troop.InCustomTree)
+                        continue;
                 }
+                else
+                {
+                    // Universal: no custom.
+                    if (troop.InCustomTree)
+                        continue;
+                }
+
+                return troop;
             }
 
             return null;
@@ -350,7 +365,7 @@ namespace Retinues.Editor
 
                 _faction = value;
 
-                Character = PickFirstTroop(_faction);
+                Character = PickFirstTroop(_faction, Mode);
 
                 Fire(UIEvent.Faction);
             }
@@ -362,7 +377,7 @@ namespace Retinues.Editor
 
         public WCharacter Character
         {
-            get => _character ??= PickFirstTroop(_faction);
+            get => _character ??= PickFirstTroop(_faction, Mode);
             set
             {
                 if (value == _character)

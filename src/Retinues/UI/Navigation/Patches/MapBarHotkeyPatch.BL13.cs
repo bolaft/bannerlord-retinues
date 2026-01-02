@@ -4,6 +4,7 @@ using SandBox.View.Map.Navigation;
 using HarmonyLib;
 using Retinues.Configuration;
 using Retinues.Utilities;
+using Retinues.Editor;
 using TaleWorlds.InputSystem;
 
 namespace Retinues.UI.Navigation.Patches
@@ -33,11 +34,19 @@ namespace Retinues.UI.Navigation.Patches
                 __instance,
                 "_mapNavigationHandler"
             );
-            var el = handler?.GetElement(TroopsNavigationElement.TroopsId);
-            el?.OpenView();
+            var el =
+                handler?.GetElement(TroopsNavigationElement.TroopsId) as MapNavigationElementBase;
+            if (el == null)
+                return;
 
-            if (el != null)
-                __result = true;
+            if (!EditorAvailability.HasPlayerClanCustomTreeTroops())
+                return;
+
+            if (!el.Permission.IsAuthorized || el.IsActive)
+                return;
+
+            el.OpenView();
+            __result = true;
         }
     }
 }

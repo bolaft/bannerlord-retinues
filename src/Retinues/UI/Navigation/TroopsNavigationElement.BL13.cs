@@ -34,6 +34,13 @@ public sealed class TroopsNavigationElement(MapNavigationHandler handler)
         if (!MapNavigationHelper.IsNavigationBarEnabled(_handler))
             return new NavigationPermissionItem(isAuthorized: false, reasonString: null);
 
+        // Player mode requires at least one custom-tree troop to exist.
+        if (!EditorAvailability.HasPlayerClanCustomTreeTroops())
+            return new NavigationPermissionItem(
+                isAuthorized: false,
+                L.T("troops_editor_no_custom", "No troops are available.")
+            );
+
         // Vanilla behavior: don’t re-open if already active.
         if (IsActive)
             return new NavigationPermissionItem(isAuthorized: false, reasonString: null);

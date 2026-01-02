@@ -249,5 +249,133 @@ namespace Retinues.Domain.Characters.Wrappers
                 list.Add(faction);
             }
         }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                    Custom Tree Flag                    //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// True if this troop belongs to a custom map-faction tree (retinues or custom clan/kingdom roots).
+        /// This is independent from IsCustom.
+        /// </summary>
+        public bool InCustomTree => CustomTreeFlagCache.Get(this);
+
+        [StaticClearAction]
+        public static void InvalidateCustomTreeCache() => CustomTreeFlagCache.Invalidate();
+
+        private static class CustomTreeFlagCache
+        {
+            private static readonly object Sync = new();
+
+            private static bool _built;
+            private static readonly HashSet<string> ById = [];
+
+            public static void Invalidate()
+            {
+                lock (Sync)
+                {
+                    ById.Clear();
+                    _built = false;
+                }
+            }
+
+            public static bool Get(WCharacter wc)
+            {
+                if (wc == null)
+                    return false;
+
+                EnsureBuilt();
+
+                var id = wc.StringId;
+                if (string.IsNullOrEmpty(id))
+                    return false;
+
+                lock (Sync)
+                {
+                    return ById.Contains(id);
+                }
+            }
+
+            private static void EnsureBuilt()
+            {
+                if (_built)
+                    return;
+
+                lock (Sync)
+                {
+                    if (_built)
+                        return;
+
+                    BuildLocked();
+                    _built = true;
+                }
+            }
+
+            private static void BuildLocked()
+            {
+                ById.Clear();
+
+                IndexMapFactionMany(WClan.All);
+                IndexMapFactionMany(WKingdom.All);
+            }
+
+            private static void IndexMapFactionMany<TFaction>(IEnumerable<TFaction> factions)
+                where TFaction : IBaseFaction
+            {
+                if (factions == null)
+                    return;
+
+                foreach (var faction in factions)
+                {
+                    if (faction == null)
+                        continue;
+
+                    // Custom roots: mark entire trees.
+                    MarkTree(faction.RootBasic);
+                    MarkTree(faction.RootElite);
+
+                    // Retinues: treat them as custom sources, mark their trees too.
+                    MarkManyTrees(faction.RosterRetinues);
+                }
+            }
+
+            private static void MarkManyTrees(IEnumerable<WCharacter> troops)
+            {
+                if (troops == null)
+                    return;
+
+                foreach (var wc in troops)
+                    MarkTree(wc);
+            }
+
+            private static void MarkTree(WCharacter root)
+            {
+                if (root == null)
+                    return;
+
+                // Tree is assumed to be a flattened list (includes root).
+                var tree = root.Tree;
+                if (tree == null)
+                {
+                    Mark(root);
+                    return;
+                }
+
+                for (int i = 0; i < tree.Count; i++)
+                    Mark(tree[i]);
+            }
+
+            private static void Mark(WCharacter wc)
+            {
+                if (wc == null)
+                    return;
+
+                var id = wc.StringId;
+                if (string.IsNullOrEmpty(id))
+                    return;
+
+                ById.Add(id);
+            }
+        }
     }
 }

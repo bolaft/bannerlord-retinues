@@ -43,6 +43,23 @@ namespace Retinues.Editor.VM.List.Character
                 return;
             }
 
+            bool ShouldInclude(WCharacter c)
+            {
+                if (c == null)
+                    return false;
+
+                if (EditorState.Instance.Mode == EditorMode.Player)
+                {
+                    if (c.IsHero)
+                        return false;
+
+                    return c.InCustomTree;
+                }
+
+                // Universal: no custom.
+                return !c.InCustomTree;
+            }
+
             void AddSection(
                 List<ListHeaderVM> headers,
                 string headerId,
@@ -55,26 +72,34 @@ namespace Retinues.Editor.VM.List.Character
                 if (condition != null && !condition())
                     return;
 
+                if (characters == null)
+                    return;
+
                 var header = new CharacterListHeaderVM(
                     list,
                     headerId,
                     L.S(headerLocKey, headerFallback)
-                );
-                headers.Add(header);
-
-                // Character headers should always start expanded
-                header.IsExpanded = true;
-
-                if (characters != null)
+                )
                 {
-                    foreach (var character in characters)
-                    {
-                        if (character == null)
-                            continue;
+                    // Character headers should always start expanded
+                    IsExpanded = true,
+                };
 
-                        AddCharacterRow(header, character);
-                    }
+                var any = false;
+
+                foreach (var character in characters)
+                {
+                    if (!ShouldInclude(character))
+                        continue;
+
+                    any = true;
+                    AddCharacterRow(header, character);
                 }
+
+                if (!any)
+                    return;
+
+                headers.Add(header);
 
                 header.UpdateRowCount();
                 header.UpdateState();
@@ -83,7 +108,6 @@ namespace Retinues.Editor.VM.List.Character
             // Heroes are only shown in universal mode.
             if (EditorState.Instance.Mode == EditorMode.Universal)
             {
-                // Heroes.
                 AddSection(
                     headers,
                     "heroes",
@@ -94,14 +118,14 @@ namespace Retinues.Editor.VM.List.Character
                 );
             }
 
-            // Retinues.
+            // Retinues: only meaningful in player mode (custom only).
             AddSection(
                 headers,
                 "retinues",
                 "list_header_retinues",
                 L.S("list_header_retinues", "Retinues"),
                 faction.RosterRetinues,
-                condition: () => faction is WClan
+                condition: () => EditorState.Instance.Mode == EditorMode.Player && faction is WClan
             );
 
             // Elite tree.

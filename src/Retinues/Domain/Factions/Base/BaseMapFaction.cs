@@ -5,6 +5,7 @@ using Retinues.Domain.Factions.Wrappers;
 using Retinues.Domain.Parties.Wrappers;
 using Retinues.Domain.Settlements.Models;
 using Retinues.Domain.Settlements.Wrappers;
+using Retinues.Framework.Model.Attributes;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.ObjectSystem;
@@ -51,38 +52,143 @@ namespace Retinues.Domain.Factions.Base
             [.. Base.Heroes.Select(h => WHero.Get(h).Character).Where(c => c.Age >= 18)];
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                       Characters                       //
+        //                     Custom Roots/Rosters               //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        // Cache culture roots for performance.
-        static List<WCharacter> cultureRoots;
+        static List<WCharacter> _cultureRootBasics;
+        static List<WCharacter> _cultureRootElites;
+
+        void EnsureCultureRoots()
+        {
+            if (_cultureRootBasics != null && _cultureRootElites != null)
+                return;
+
+            _cultureRootBasics = [.. WCulture.All.Select(c => c.RootBasic).Where(r => r != null)];
+            _cultureRootElites = [.. WCulture.All.Select(c => c.RootElite).Where(r => r != null)];
+        }
+
+        /* ━━━━━━━━━ Stored Attributes ━━━━━━━━━ */
+
+        MAttribute<WCharacter> CustomRootBasicAttribute =>
+            Attribute<WCharacter>(initialValue: null);
+        MAttribute<WCharacter> CustomRootEliteAttribute =>
+            Attribute<WCharacter>(initialValue: null);
+        MAttribute<List<WCharacter>> RetinueTroopsAttribute => Attribute<List<WCharacter>>([]);
+
+        /* ━━━━━━━━━ Roots ━━━━━━━━━ */
 
         /// <summary>
-        /// Gets the custom root basic troop for this faction, if any.
+        /// Gets the custom root basic troop for this map faction, if any.
+        /// Uses the stored custom root first, then falls back to the vanilla BasicTroop when available.
+        /// Returns null if the resolved root is a culture root (not custom).
         /// </summary>
         public override WCharacter RootBasic
         {
             get
             {
-                var root = WCharacter.Get(Base.BasicTroop);
+                var root = CustomRootBasicAttribute.Get();
+
+                // Fallback to vanilla BasicTroop (Clan has a settable BasicTroop; Kingdom is culture-based).
+                root ??= WCharacter.Get(Base.BasicTroop);
+
                 if (root == null)
                     return null;
 
-                // Cache culture roots.
-                cultureRoots ??= [.. WCulture.All.Select(c => c.RootBasic).Where(r => r != null)];
+                EnsureCultureRoots();
 
-                // A root shared with a culture is not a custom root.
-                if (cultureRoots.Contains(root))
+                if (_cultureRootBasics.Contains(root))
                     return null;
 
                 return root;
             }
-            // set
-            // {
-            //     // No set yet but remininder to invalidate caches if implemented.
-            //     InvalidateTroopSourceFlagsCache();
-            //     InvalidateTroopFactionsCache();
-            // }
+        }
+
+        /// <summary>
+        /// Gets the custom root elite troop for this map faction, if any.
+        /// Returns null if the stored root is a culture root (not custom).
+        /// </summary>
+        public override WCharacter RootElite
+        {
+            get
+            {
+                var root = CustomRootEliteAttribute.Get();
+                if (root == null)
+                    return null;
+
+                EnsureCultureRoots();
+
+                if (_cultureRootElites.Contains(root))
+                    return null;
+
+                return root;
+            }
+        }
+
+        /* ━━━━━━━━━ Retinues ━━━━━━━━━ */
+
+        /// <summary>
+        /// Retinue troops owned by this map faction.
+        /// Stored as a List<WCharacter> (serialized as StringIds).
+        /// </summary>
+        public override List<WCharacter> RosterRetinues
+        {
+            get
+            {
+                var src = RetinueTroopsAttribute.Get();
+                if (src == null || src.Count == 0)
+                    return [];
+
+                var list = new List<WCharacter>(src.Count);
+                var seen = new HashSet<string>();
+
+                for (int i = 0; i < src.Count; i++)
+                {
+                    var c = src[i];
+                    if (!IsValid(c))
+                        continue;
+
+                    var id = c.StringId;
+                    if (string.IsNullOrEmpty(id))
+                        continue;
+
+                    if (seen.Add(id))
+                        list.Add(c);
+                }
+
+                return list;
+            }
+        }
+
+        /* ━━━━━━━━━ Mutators ━━━━━━━━━ */
+
+        /// <summary>
+        /// Sets the custom basic root for this map faction.
+        /// </summary>
+        public void SetRootBasic(WCharacter root)
+        {
+            CustomRootBasicAttribute.Set(root);
+            WCharacter.InvalidateTroopFactionsCache();
+            WCharacter.InvalidateCustomTreeCache();
+        }
+
+        /// <summary>
+        /// Sets the custom elite root for this map faction.
+        /// </summary>
+        public void SetRootElite(WCharacter root)
+        {
+            CustomRootEliteAttribute.Set(root);
+            WCharacter.InvalidateTroopFactionsCache();
+            WCharacter.InvalidateCustomTreeCache();
+        }
+
+        /// <summary>
+        /// Sets the retinue roster for this map faction.
+        /// </summary>
+        public void SetRetinues(List<WCharacter> troops)
+        {
+            RetinueTroopsAttribute.Set(troops ?? []);
+            WCharacter.InvalidateTroopFactionsCache();
+            WCharacter.InvalidateCustomTreeCache();
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
