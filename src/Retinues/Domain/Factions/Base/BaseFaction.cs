@@ -38,8 +38,8 @@ namespace Retinues.Domain.Factions.Base
         public BannerImageIdentifierVM Image => BannerHelper.GetBannerImage(Banner);
         public ImageIdentifier ImageIdentifier => BannerHelper.GetImageIdentifier(Banner);
 #else
-        public ImageIdentifierVM Image => Banners.GetBannerImage(Banner);
-        public ImageIdentifier ImageIdentifier => Banners.GetImageIdentifier(BannerCode);
+        public ImageIdentifierVM Image => BannerHelper.GetBannerImage(Banner);
+        public ImageIdentifier ImageIdentifier => BannerHelper.GetImageIdentifier(BannerCode);
 #endif
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

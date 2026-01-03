@@ -2,6 +2,7 @@ using System;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Configuration;
 using Retinues.Domain.Characters.Wrappers;
+using Retinues.Domain.Factions;
 using Retinues.Domain.Factions.Helpers;
 using Retinues.Domain.Factions.Wrappers;
 using Retinues.Editor.Controllers.Faction;
@@ -166,6 +167,16 @@ namespace Retinues.Editor.VM
         //                         Faction                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Get the banner image for a faction, or an empty image if none.
+        /// </summary>
+        private object GetFactionBanner(IBaseFaction faction)
+        {
+            if (faction?.Banner == null)
+                return BannerHelper.EmptyImage;
+            return BannerHelper.GetBannerImage(faction.Banner, nineGrid: true);
+        }
+
         [EventListener(UIEvent.Faction)]
         [DataSourceProperty]
         public string FactionColor =>
@@ -207,7 +218,7 @@ namespace Retinues.Editor.VM
 
         [EventListener(UIEvent.CultureFaction)]
         [DataSourceProperty]
-        public object LeftBanner => State.LeftBannerFaction?.Image ?? BannerHelper.EmptyImage;
+        public object LeftBanner => GetFactionBanner(State.LeftBannerFaction);
 
         [EventListener(UIEvent.CultureFaction, UIEvent.ClanFaction, UIEvent.Faction)]
         [DataSourceProperty]
@@ -237,7 +248,7 @@ namespace Retinues.Editor.VM
 
         [EventListener(UIEvent.ClanFaction)]
         [DataSourceProperty]
-        public object RightBanner => State.RightBannerFaction?.Image ?? BannerHelper.EmptyImage;
+        public object RightBanner => GetFactionBanner(State.RightBannerFaction);
 
         [EventListener(UIEvent.ClanFaction, UIEvent.CultureFaction, UIEvent.Faction)]
         [DataSourceProperty]

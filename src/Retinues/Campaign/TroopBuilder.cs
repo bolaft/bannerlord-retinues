@@ -1,9 +1,12 @@
+using System;
 using System.Collections.Generic;
 using Retinues.Configuration;
 using Retinues.Domain.Characters.Wrappers;
+using Retinues.Domain.Equipments.Helpers;
 using Retinues.Domain.Equipments.Models;
 using Retinues.Framework.Runtime;
 using Retinues.Utilities;
+using TaleWorlds.Core;
 
 namespace Retinues.Campaign
 {
@@ -169,9 +172,53 @@ namespace Retinues.Campaign
                     break;
 
                 case Settings.EquipmentMode.RandomSet:
-                    // Not implemented yet; behave like EmptySet for now.
-                    clone.EquipmentRoster.Copy(template.EquipmentRoster, EquipmentCopyMode.Reset);
+                {
+                    var culture = template.Culture;
+                    int maxTier = template.Tier;
+                    int minTier = Math.Max(1, maxTier - 1);
+
+                    var acceptableCultures = culture == null ? null : new[] { culture };
+
+                    // Default is 0% for everything (by omission).
+                    var noItemBattle = new Dictionary<EquipmentIndex, float>
+                    {
+                        [EquipmentIndex.Head] = 25f,
+                        [EquipmentIndex.Gloves] = 25f,
+                        [EquipmentIndex.Horse] = 50f,
+                        // Note: no HorseHarness entry on purpose.
+                        // RandomHelper enforces:
+                        // - if horse present => harness attempted 100%
+                        // - if no horse => harness never present
+                    };
+
+                    // Civilian: keep defaults (0% empty everywhere) unless you later want civilian-specific rules.
+                    Dictionary<EquipmentIndex, float> noItemCivil = null;
+
+                    var battle = RandomHelper.CreateRandomEquipment(
+                        owner: clone,
+                        civilian: false,
+                        minTier: minTier,
+                        maxTier: maxTier,
+                        acceptableCultures: acceptableCultures,
+                        acceptNeutralCulture: true,
+                        noItemChanceBySlotPercent: noItemBattle,
+                        requireSkillForItem: true
+                    );
+
+                    var civil = RandomHelper.CreateRandomEquipment(
+                        owner: clone,
+                        civilian: true,
+                        minTier: minTier,
+                        maxTier: maxTier,
+                        acceptableCultures: acceptableCultures,
+                        acceptNeutralCulture: true,
+                        noItemChanceBySlotPercent: noItemCivil,
+                        requireSkillForItem: true
+                    );
+
+                    clone.EquipmentRoster.Equipments = new List<MEquipment> { battle, civil };
                     break;
+                }
 
                 case Settings.EquipmentMode.EmptySet:
                 default:

@@ -282,7 +282,7 @@ namespace Retinues.Domain.Factions.Helpers
         public static BannerImageIdentifierVM GetBannerImage(
             Banner banner,
             float scale = 1.0f,
-            bool nineGrid = true
+            bool nineGrid = false
         )
         {
             var scaled = GetScaledBanner(banner, scale);
@@ -302,7 +302,7 @@ namespace Retinues.Domain.Factions.Helpers
         public static ImageIdentifierVM GetBannerImage(
             Banner banner,
             float scale = 1.0f,
-            bool nineGrid = true
+            bool nineGrid = false
         )
         {
             if (banner == null)

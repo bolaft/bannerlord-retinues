@@ -60,12 +60,9 @@ namespace Retinues.Editor.VM.Panel.Equipment
         //                         Tooltip                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        CharacterEquipmentItemVM _tooltip = null;
-
         [EventListener(UIEvent.Item)]
         [DataSourceProperty]
-        public CharacterEquipmentItemVM Tooltip =>
-            Item == null ? null : _tooltip ??= new CharacterEquipmentItemVM(Item.Base);
+        public CharacterEquipmentItemVM Tooltip => Item?.Base != null ? new(Item.Base) : null;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Enabled                        //

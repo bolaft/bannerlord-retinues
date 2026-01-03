@@ -15,7 +15,7 @@ namespace Retinues.Editor.Controllers.Equipment
             Action<WItem>("EquipItem")
                 .AddCondition(
                     _ => State.Equipment != null,
-                    L.T("cant_equip_reason_no_equipment", "No equipment set selected.")
+                    L.T("cant_equip_reason_no_equipment", "No equipment set")
                 )
                 .AddCondition(
                     item => item.IsEquippableByCharacter(State.Character),
@@ -26,10 +26,35 @@ namespace Retinues.Editor.Controllers.Equipment
                 )
                 .AddCondition(
                     item => State.Equipment?.IsCivilian == false || item.IsCivilian,
-                    _ => L.T("cant_equip_reason_civilian", "Not civilian") // No '.' because displayed in row.
+                    _ => L.T("cant_equip_reason_civilian", "Not civilian")
+                )
+                .AddCondition(
+                    item => IsCompatibleWithCurrentEquipment(item),
+                    _ => L.T("cant_equip_reason_mount_compat", "Incompatible")
                 )
                 .ExecuteWith(EquipItem)
                 .Fire(UIEvent.Item);
+
+        private static bool IsCompatibleWithCurrentEquipment(WItem item)
+        {
+            if (State.Equipment == null)
+                return true;
+
+            var slot = EditorState.Instance.Slot;
+
+            // Only enforce when equipping a harness onto an already-equipped horse.
+            // (Equipping a horse will auto-clear an incompatible harness instead.)
+            if (slot == EquipmentIndex.HorseHarness)
+            {
+                var horse = State.Equipment.Get(EquipmentIndex.Horse);
+                if (horse == null)
+                    return true;
+
+                return horse.IsCompatibleWith(item);
+            }
+
+            return true;
+        }
 
         private static void EquipItem(WItem item)
         {
@@ -42,7 +67,25 @@ namespace Retinues.Editor.Controllers.Equipment
             if (equipped == item)
                 return;
 
+            // Safety: if something bypasses conditions, still prevent incompatible harness equip.
+            if (slot == EquipmentIndex.HorseHarness)
+            {
+                var horse = State.Equipment.Get(EquipmentIndex.Horse);
+                if (horse != null && !horse.IsCompatibleWith(item))
+                    return;
+            }
+
             State.Equipment.Set(slot, item);
+
+            // If a new horse makes the currently equipped harness incompatible, clear the harness.
+            if (slot == EquipmentIndex.Horse)
+            {
+                var harness = State.Equipment.Get(EquipmentIndex.HorseHarness);
+                if (harness != null && !item.IsCompatibleWith(harness))
+                {
+                    State.Equipment.Set(EquipmentIndex.HorseHarness, null);
+                }
+            }
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

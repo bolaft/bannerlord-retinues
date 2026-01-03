@@ -84,8 +84,11 @@ namespace Retinues.Domain.Equipments.Wrappers
         public ItemCategory Category => Base.ItemCategory;
         public ItemObject.ItemTypeEnum Type => Base.ItemType;
 
+        // Neutral culture items ("calradian") return null for Culture.
         public WCulture Culture =>
-            Base.Culture != null ? WCulture.Get(Base.Culture.StringId) : null;
+            Base.Culture != null && Base.Culture.StringId != "neutral_culture"
+                ? WCulture.Get(Base.Culture.StringId)
+                : null;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Stock                         //
@@ -408,6 +411,42 @@ namespace Retinues.Domain.Equipments.Wrappers
             }
 
             return craftedItems;
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Compatibility                     //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Indicates whether this item is compatible with another item.
+        /// For now always returns true, except for horse vs harness where it
+        /// validates the mount family type to prevent visual bugs (camel harness on horse etc).
+        /// </summary>
+        public bool IsCompatibleWith(WItem other)
+        {
+            if (other == null)
+                return true;
+
+            // Only enforce rules for horse <-> harness pairings.
+            if (IsHorse && other.IsHorseHarness)
+                return IsHorseHarnessCompatibleWithHorse(harness: other, horse: this);
+
+            if (IsHorseHarness && other.IsHorse)
+                return IsHorseHarnessCompatibleWithHorse(harness: this, horse: other);
+
+            return true;
+        }
+
+        private static bool IsHorseHarnessCompatibleWithHorse(WItem harness, WItem horse)
+        {
+            var monster = horse?.HorseComponent?.Monster;
+            var armor = harness?.ArmorComponent;
+
+            // If we cannot read either side, do not block (your current desired behavior).
+            if (monster == null || armor == null)
+                return true;
+
+            return monster.FamilyType == armor.FamilyType;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
