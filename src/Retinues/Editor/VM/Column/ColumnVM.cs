@@ -135,6 +135,18 @@ namespace Retinues.Editor.VM.Column
                     vm.SetEquipment(equipment);
                 }
 
+                // Apply faction visuals (colors, heraldry).
+                var faction = State.Faction;
+                if (faction != null)
+                {
+                    // Armor colors
+                    vm.ArmorColor1 = faction.Color;
+                    vm.ArmorColor2 = faction.Color2;
+
+                    // Heraldic items
+                    vm.BannerCodeText = faction.Banner.Serialize();
+                }
+
                 Model = vm;
             }
             finally
