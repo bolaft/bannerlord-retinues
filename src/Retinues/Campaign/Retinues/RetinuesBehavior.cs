@@ -1,57 +1,56 @@
 using System.Collections.Generic;
+using Retinues.Campaign;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Factions.Wrappers;
 using Retinues.Framework.Behaviors;
-using Retinues.UI.Services;
-using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 
 namespace Retinues.Campaign.Retinues
 {
+    /// <summary>
+    /// Retinue management behavior.
+    /// Keeps the retinue creation entrypoint but does not auto-run on campaign start.
+    /// </summary>
     public class RetinuesBehavior : BaseCampaignBehavior<RetinuesBehavior>
     {
-        public override void RegisterEvents()
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                    Retinue Creation                    //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public WCharacter EnsureDefaultRetinue(WClan clan, string name)
         {
-            // New game: after character creation, first time you hit the campaign map.
-            Hook(BehaviorEvent.CharacterCreationIsOver, EnsureDefaultRetinue);
+            if (clan?.Base == null)
+                return null;
 
-            // Loaded save: when the campaign has finished loading.
-            Hook(BehaviorEvent.GameLoadFinished, EnsureDefaultRetinue);
-        }
+            if (!clan.RosterRetinues.IsEmpty())
+                return null;
 
-        private void EnsureDefaultRetinue()
-        {
-            var hero = WHero.Get(Hero.MainHero);
-            var clan = hero.Clan;
+            var retinue = CreateRetinue(clan.Culture, name);
+            if (retinue?.Base == null)
+                return null;
 
-            if (clan.RosterRetinues.IsEmpty())
-            {
-                Log.Info("No retinues found for player clan; initializing default retinue.");
-                clan.AddRetinue(
-                    CreateRetinue(
-                        clan.Culture,
-                        L.T("retinue_default_name", "{CLAN} House Guard")
-                            .SetTextVariable("CLAN", clan.Name)
-                            .ToString()
-                    )
-                );
-            }
-        }
-
-        private WCharacter CreateRetinue(WCulture culture, string name)
-        {
-            // Use the culture's root elite or basic troop as a template.
-            var troop = culture.RootElite ?? culture.RootBasic;
-
-            // Create the retinue clone.
-            var retinue = TroopBuilder.CloneVanilla(troop, skills: true, equipments: true);
-
-            // Rename
-            retinue.Name = name;
-
+            clan.AddRetinue(retinue);
             return retinue;
+        }
+
+        public WCharacter CreateRetinue(WCulture culture, string name)
+        {
+            var template = culture?.RootElite ?? culture?.RootBasic;
+            if (template?.Base == null)
+                return null;
+
+            return TroopBuilder.BuildFromTemplate(
+                template,
+                new TroopBuilder.TroopBuildRequest
+                {
+                    Name = name,
+                    CultureContext = culture,
+                    CopySkills = true,
+                    CreateCivilianSet = true,
+                }
+            );
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -59,11 +58,8 @@ namespace Retinues.Campaign.Retinues
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
 #if DEBUG
-        /// <summary>
-        /// Create a new retinue for the player clan based on the specific culture StringId.
-        /// </summary>
         [CommandLineFunctionality.CommandLineArgumentFunction("create_retinue", "retinues")]
-        public static string CreateRetinue(List<string> args)
+        public static string CreateRetinueCommand(List<string> args)
         {
             if (args.Count < 2)
                 return "Usage: create_retinue <culture_stringid> <retinue_name>";
@@ -75,10 +71,14 @@ namespace Retinues.Campaign.Retinues
             if (culture == null)
                 return $"Error: Culture with stringid '{cultureId}' not found.";
 
-            var clan = WHero.Get(Hero.MainHero).Clan;
-            var newRetinue = Instance.CreateRetinue(culture, retinueName);
+            if (!TryGetInstance(out var behavior))
+                return "Error: RetinuesBehavior is not registered in the current campaign.";
 
-            clan.AddRetinue(newRetinue);
+            // Create + equip (settings-driven by TroopBuilder).
+            var created = behavior.CreateRetinue(culture, retinueName);
+
+            var clan = WHero.Get(Hero.MainHero).Clan;
+            clan.AddRetinue(created);
 
             return $"Created new retinue '{retinueName}' for player clan based on culture '{culture.Name}'.";
         }

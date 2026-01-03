@@ -6,6 +6,7 @@ using Retinues.Domain.Factions.Wrappers;
 using Retinues.Framework.Model;
 using Retinues.Framework.Model.Attributes;
 using Retinues.Framework.Runtime;
+using Retinues.Utilities;
 using TaleWorlds.Core;
 #if BL13
 using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
@@ -143,6 +144,27 @@ namespace Retinues.Domain.Equipments.Wrappers
             UnlockProgress = System.Math.Min(UnlockProgress + amount, UnlockThreshold);
 
             return IsUnlocked;
+        }
+
+        /// <summary>
+        /// Immediately unlocks this item.
+        /// </summary>
+        public void Unlock()
+        {
+            Log.Info($"Unlocking item '{Name}'");
+            UnlockProgress = UnlockThreshold;
+        }
+
+        /// <summary>
+        /// Gets all unlocked items that can be equipped in the given slot.
+        /// </summary>
+        public static IEnumerable<WItem> GetUnlockedItems(EquipmentIndex slot)
+        {
+            foreach (var item in GetEquipmentsForSlot(slot))
+            {
+                if (item.IsUnlocked)
+                    yield return item;
+            }
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

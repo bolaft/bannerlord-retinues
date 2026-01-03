@@ -4,15 +4,18 @@ using Retinues.Configuration;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Equipments.Helpers;
 using Retinues.Domain.Equipments.Models;
+using Retinues.Domain.Equipments.Wrappers;
+using Retinues.Domain.Factions.Wrappers;
 using Retinues.Framework.Runtime;
 using Retinues.Utilities;
 using TaleWorlds.Core;
+using TaleWorlds.Library;
 
 namespace Retinues.Campaign
 {
     /// <summary>
     /// Centralized troop creation and cloning helpers.
-    /// Applies starter equipment policy from configuration.
+    /// Starter equipment is always applied from Settings.StarterEquipment.
     /// </summary>
     [SafeClass]
     public static class TroopBuilder
@@ -23,13 +26,14 @@ namespace Retinues.Campaign
 
         /// <summary>
         /// Clones a vanilla troop into a custom stub.
-        /// Equipment initialization is driven by Settings.StarterEquipmentOption.
+        /// Equipment initialization is driven by Settings.StarterEquipment.
         /// </summary>
         public static WCharacter CloneVanilla(
             WCharacter template,
             bool skills = true,
             bool equipments = true,
-            WCharacter intoStub = null
+            WCharacter intoStub = null,
+            bool unlockItems = true
         )
         {
             if (template == null)
@@ -38,7 +42,7 @@ namespace Retinues.Campaign
             if (!template.IsVanilla)
                 Log.Info($"CloneVanilla called with non-vanilla troop '{template.StringId}'.");
 
-            // Clone with equipment copy disabled here; we apply the configured strategy below.
+            // Clone with equipment copy disabled here; we apply configured strategy below.
             var clone = template.Clone(skills: skills, equipments: false, intoStub: intoStub);
             if (clone == null)
                 return null;
@@ -52,7 +56,22 @@ namespace Retinues.Campaign
                 return clone;
             }
 
-            ApplyStarterEquipments(template, clone);
+            // Apply configured starter equipment strategy (Settings-driven).
+            // Equipment creation strategies never depend on unlock status.
+            ApplyStarterEquipments(
+                template: template,
+                clone: clone,
+                cultureContext: template.Culture,
+                createCivilianSet: true
+            );
+
+            // Unlock all items if requested.
+            if (unlockItems)
+            {
+                foreach (WItem item in clone.EquipmentRoster.Items)
+                    item.Unlock();
+            }
+
             return clone;
         }
 
@@ -73,9 +92,7 @@ namespace Retinues.Campaign
             var root = rootTemplate.Root ?? rootTemplate;
 
             if (!root.IsVanilla)
-            {
                 Log.Warn($"CloneTreeFromRoot expects vanilla root; got '{root.StringId}'.");
-            }
 
             var templates = root.RootTree;
             if (templates == null || templates.Count == 0)
@@ -93,9 +110,9 @@ namespace Retinues.Campaign
                     if (t?.Base == null)
                         continue;
 
-                    var c = CloneVanilla(t, skills: skills, equipments: equipments);
-                    if (c == null)
-                        throw new System.InvalidOperationException(
+                    var c =
+                        CloneVanilla(t, skills: skills, equipments: equipments)
+                        ?? throw new InvalidOperationException(
                             "No free stub available for tree clone."
                         );
 
@@ -136,10 +153,9 @@ namespace Retinues.Campaign
                 }
 
                 map.TryGetValue(root.StringId, out var clonedRoot);
-
                 return clonedRoot;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 Log.Error($"CloneTreeFromRoot failed: {ex}");
 
@@ -150,10 +166,66 @@ namespace Retinues.Campaign
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                  Generic builder entry                 //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public sealed class TroopBuildRequest
+        {
+            public string Name { get; set; }
+            public WCulture CultureContext { get; set; }
+            public bool CopySkills { get; set; } = true;
+            public bool CreateCivilianSet { get; set; } = true;
+
+            /// <summary>
+            /// When true, every item assigned to the troop is immediately unlocked.
+            /// </summary>
+            public bool UnlockItems { get; set; } = true;
+        }
+
+        public static WCharacter BuildFromTemplate(WCharacter template, TroopBuildRequest req)
+        {
+            if (template?.Base == null)
+                return null;
+
+            req ??= new TroopBuildRequest();
+
+            var troop = template.Clone(skills: req.CopySkills, equipments: false, intoStub: null);
+            if (troop?.Base == null)
+                return null;
+
+            troop.UpgradeTargets = [];
+            troop.Name = req.Name ?? string.Empty;
+
+            ApplyStarterEquipments(
+                template: template,
+                clone: troop,
+                cultureContext: req.CultureContext ?? template.Culture,
+                createCivilianSet: req.CreateCivilianSet
+            );
+
+            if (req.UnlockItems)
+            {
+                foreach (WItem item in troop.EquipmentRoster.Items)
+                    item.Unlock();
+            }
+
+            return troop;
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                   Equipment Strategy                   //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private static void ApplyStarterEquipments(WCharacter template, WCharacter clone)
+        /// <summary>
+        /// Applies starter equipment policy driven by Settings.StarterEquipment.
+        /// Equipment creation strategies never depend on unlock status.
+        /// </summary>
+        private static void ApplyStarterEquipments(
+            WCharacter template,
+            WCharacter clone,
+            WCulture cultureContext,
+            bool createCivilianSet
+        )
         {
             if (template == null || clone == null)
                 return;
@@ -162,69 +234,85 @@ namespace Retinues.Campaign
             {
                 case Settings.EquipmentMode.AllSets:
                     clone.EquipmentRoster.Copy(template.EquipmentRoster, EquipmentCopyMode.All);
-                    break;
+                    return;
 
                 case Settings.EquipmentMode.SingleSet:
                     clone.EquipmentRoster.Copy(
                         template.EquipmentRoster,
                         EquipmentCopyMode.FirstOfEach
                     );
-                    break;
-
-                case Settings.EquipmentMode.RandomSet:
-                {
-                    var culture = template.Culture;
-                    int maxTier = template.Tier;
-                    int minTier = Math.Max(1, maxTier - 1);
-
-                    var acceptableCultures = culture == null ? null : new[] { culture };
-
-                    // Default is 0% for everything (by omission).
-                    var noItemBattle = new Dictionary<EquipmentIndex, float>
-                    {
-                        [EquipmentIndex.Head] = 25f,
-                        [EquipmentIndex.Gloves] = 25f,
-                        [EquipmentIndex.Horse] = 50f,
-                        // Note: no HorseHarness entry on purpose.
-                        // RandomHelper enforces:
-                        // - if horse present => harness attempted 100%
-                        // - if no horse => harness never present
-                    };
-
-                    // Civilian: keep defaults (0% empty everywhere) unless you later want civilian-specific rules.
-                    Dictionary<EquipmentIndex, float> noItemCivil = null;
-
-                    var battle = RandomHelper.CreateRandomEquipment(
-                        owner: clone,
-                        civilian: false,
-                        minTier: minTier,
-                        maxTier: maxTier,
-                        acceptableCultures: acceptableCultures,
-                        acceptNeutralCulture: true,
-                        noItemChanceBySlotPercent: noItemBattle,
-                        requireSkillForItem: true
-                    );
-
-                    var civil = RandomHelper.CreateRandomEquipment(
-                        owner: clone,
-                        civilian: true,
-                        minTier: minTier,
-                        maxTier: maxTier,
-                        acceptableCultures: acceptableCultures,
-                        acceptNeutralCulture: true,
-                        noItemChanceBySlotPercent: noItemCivil,
-                        requireSkillForItem: true
-                    );
-
-                    clone.EquipmentRoster.Equipments = new List<MEquipment> { battle, civil };
-                    break;
-                }
+                    return;
 
                 case Settings.EquipmentMode.EmptySet:
-                default:
                     clone.EquipmentRoster.Copy(template.EquipmentRoster, EquipmentCopyMode.Reset);
+                    return;
+
+                case Settings.EquipmentMode.RandomSet:
+                default:
                     break;
             }
+
+            // RANDOM
+            var culture = cultureContext ?? template.Culture;
+
+            // Max tier: setting-bound, never exceed troop tier.
+            int maxTierSetting = MBMath.ClampInt(Settings.DefaultUnlockedItemMaxTier.Value, 1, 6);
+            int troopTier = Math.Max(1, clone.Tier);
+            int maxTier = Math.Min(maxTierSetting, troopTier);
+
+            // Minimum tier: fixed value.
+            int minTier = 1;
+
+            // Battle: empty slot chances.
+            var noItemBattle = new Dictionary<EquipmentIndex, float>
+            {
+                [EquipmentIndex.Head] = 25f,
+                [EquipmentIndex.Gloves] = 25f,
+                [EquipmentIndex.Horse] = 50f,
+                // Note: no HorseHarness entry on purpose.
+                // RandomHelper enforces:
+                // - if horse present => harness attempted 100%
+                // - if no horse => harness never present
+            };
+
+            // Civilian: empty slot chances.
+            Dictionary<EquipmentIndex, float> noItemCivil = new()
+            {
+                [EquipmentIndex.Head] = 50f,
+                [EquipmentIndex.Gloves] = 50f,
+                [EquipmentIndex.Horse] = 100f, // No horses for civilian sets
+            };
+
+            // IMPORTANT: No unlocked-only filtering here.
+            var battle = RandomHelper.CreateRandomEquipment(
+                owner: clone,
+                civilian: false,
+                minTier: minTier,
+                maxTier: maxTier,
+                acceptableCultures: culture != null ? [culture] : null,
+                acceptNeutralCulture: true,
+                noItemChanceBySlotPercent: noItemBattle,
+                requireSkillForItem: true,
+                itemFilter: null
+            );
+
+            MEquipment civil = null;
+            if (createCivilianSet)
+            {
+                civil = RandomHelper.CreateRandomEquipment(
+                    owner: clone,
+                    civilian: true,
+                    minTier: minTier,
+                    maxTier: maxTier,
+                    acceptableCultures: culture != null ? [culture] : null,
+                    acceptNeutralCulture: true,
+                    noItemChanceBySlotPercent: noItemCivil,
+                    requireSkillForItem: true,
+                    itemFilter: null
+                );
+            }
+
+            clone.EquipmentRoster.Equipments = createCivilianSet ? [battle, civil] : [battle];
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Retinues.Domain.Characters.Wrappers;
+using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Framework.Model;
 using Retinues.Framework.Model.Attributes;
 using TaleWorlds.Core;
@@ -145,6 +146,24 @@ namespace Retinues.Domain.Equipments.Models
             Add(new MEquipment(new Equipment(false), owner));
             Add(new MEquipment(new Equipment(true), owner));
 #endif
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Items                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public IEnumerable<WItem> Items
+        {
+            get
+            {
+                foreach (MEquipment equipment in Equipments)
+                {
+                    foreach (WItem item in equipment.Items)
+                    {
+                        yield return item;
+                    }
+                }
+            }
         }
     }
 }

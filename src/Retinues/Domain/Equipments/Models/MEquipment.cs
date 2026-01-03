@@ -1,4 +1,4 @@
-using System;
+using System.Collections.Generic;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Framework.Model;
@@ -9,13 +9,18 @@ namespace Retinues.Domain.Equipments.Models
 {
     public class MEquipment(Equipment @base, WCharacter owner) : MBase<Equipment>(@base)
     {
+        private static readonly int SlotCount = (int)EquipmentIndex.NumEquipmentSetSlots;
+
+        private static bool IsValidSlot(EquipmentIndex index)
+        {
+            int i = (int)index;
+            return i >= 0 && i < SlotCount;
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Creation                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        /// <summary>
-        /// Creates a new equipment for the given owner, optionally copying from a source equipment.
-        /// </summary>
         public static MEquipment Create(
             WCharacter owner,
             bool civilian = false,
@@ -57,15 +62,11 @@ namespace Retinues.Domain.Equipments.Models
                     if (src == null)
                         return;
 
-                    // Copy all slots defensively (Bannerlord versions differ a bit).
-                    foreach (EquipmentIndex idx in Enum.GetValues(typeof(EquipmentIndex)))
+                    // Copy only real slots: [0..NumEquipmentSetSlots-1].
+                    for (int i = 0; i < SlotCount; i++)
                     {
-                        try
-                        {
-                            var element = src[idx];
-                            Base[idx] = element;
-                        }
-                        catch { }
+                        var idx = (EquipmentIndex)i;
+                        Base[idx] = src[idx];
                     }
                 }
             );
@@ -106,8 +107,25 @@ namespace Retinues.Domain.Equipments.Models
         //                          Items                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        public IEnumerable<WItem> Items
+        {
+            get
+            {
+                // Only iterate real equipment slots.
+                for (int i = 0; i < SlotCount; i++)
+                {
+                    var item = Get((EquipmentIndex)i);
+                    if (item != null)
+                        yield return item;
+                }
+            }
+        }
+
         public WItem Get(EquipmentIndex index)
         {
+            if (!IsValidSlot(index))
+                return null;
+
             var element = Base[index];
             var item = element.Item;
             return item == null ? null : WItem.Get(item);
@@ -115,19 +133,20 @@ namespace Retinues.Domain.Equipments.Models
 
         public void Set(EquipmentIndex index, WItem item)
         {
+            if (!IsValidSlot(index))
+                return;
+
             owner.TouchEquipments();
             var element = item == null ? EquipmentElement.Invalid : new EquipmentElement(item.Base);
             Base[index] = element;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                          Items                         //
+        //                         Helpers                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public void MarkAllAttributesDirty()
         {
-            // Ensure all IMAttribute properties (CodeAttribute, IsCivilianAttribute, and any
-            // future ones) are instantiated before we try to mark them dirty.
             EnsureAttributesCreated();
 
             foreach (var obj in _attributes.Values)

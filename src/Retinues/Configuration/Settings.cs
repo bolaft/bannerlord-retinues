@@ -31,6 +31,43 @@ namespace Retinues.Configuration
         );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                    Equipment Unlocks                   //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public static readonly Section EquipmentUnlocks = CreateSection(
+            name: L.F("mcm_section_equipment_unlocks", "Equipment Unlocks")
+        );
+
+        /* ━━━━━━━━ Options ━━━━━━━ */
+
+        public static readonly Option<int> DefaultUnlockedAmountPerSlot = CreateOption(
+            section: EquipmentUnlocks,
+            name: L.F(
+                "mcm_option_default_unlocked_amount_per_slot",
+                "Pre-Unlocked Amount Per Slot"
+            ),
+            hint: L.F(
+                "mcm_option_default_unlocked_amount_per_slot_hint",
+                "The number of items unlocked per equipment slot on game start."
+            ),
+            minValue: 0,
+            maxValue: 9,
+            @default: 3
+        );
+
+        public static readonly Option<int> DefaultUnlockedItemMaxTier = CreateOption(
+            section: EquipmentUnlocks,
+            name: L.F("mcm_option_default_unlocked_item_max_tier", "Pre-Unlocked Item Max Tier"),
+            hint: L.F(
+                "mcm_option_default_unlocked_item_max_tier_hint",
+                "The maximum tier of items unlocked on game start."
+            ),
+            minValue: 1,
+            maxValue: 6,
+            @default: 2
+        );
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Troop Unlocks                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
@@ -72,11 +109,8 @@ namespace Retinues.Configuration
                             "Copy One Set"
                         ),
                         EquipmentMode.AllSets => L.S("starter_equipment_all_sets", "Copy All Sets"),
-                        EquipmentMode.RandomSet => L.S(
-                            "starter_equipment_random_set",
-                            "Random Set"
-                        ),
-                        EquipmentMode.EmptySet => L.S("starter_equipment_empty_set", "Empty Set"),
+                        EquipmentMode.RandomSet => L.S("starter_equipment_random_set", "Random"),
+                        EquipmentMode.EmptySet => L.S("starter_equipment_empty_set", "Empty"),
                         _ => v.ToString(),
                     }
             );

@@ -78,11 +78,7 @@ namespace Retinues.Domain.Equipments.Helpers
 
         /// <summary>
         /// Returns a random equipment (battle or civilian) for the given owner.
-        /// Parameters:
-        /// - min/max tier: inclusive item tier bounds
-        /// - acceptable cultures: whitelist; null/empty means "any culture"
-        /// - accept neutral culture: also allow items with Culture == null (neutral)
-        /// - no item chance: per-slot percent chance to leave the slot empty (defaults to 0% if missing)
+        /// itemFilter: optional global filter applied to every candidate (ex: unlocked-only).
         /// </summary>
         public static MEquipment CreateRandomEquipment(
             WCharacter owner,
@@ -92,7 +88,8 @@ namespace Retinues.Domain.Equipments.Helpers
             IEnumerable<WCulture> acceptableCultures = null,
             bool acceptNeutralCulture = false,
             Dictionary<EquipmentIndex, float> noItemChanceBySlotPercent = null,
-            bool requireSkillForItem = true
+            bool requireSkillForItem = true,
+            Func<WItem, bool> itemFilter = null
         )
         {
             if (owner?.Base == null)
@@ -102,7 +99,6 @@ namespace Retinues.Domain.Equipments.Helpers
 
             var me = MEquipment.Create(owner, civilian: civilian, source: null);
 
-            // Fast culture whitelist
             HashSet<string> cultureIds = null;
             if (acceptableCultures != null)
             {
@@ -115,7 +111,6 @@ namespace Retinues.Domain.Equipments.Helpers
                     cultureIds = [.. list];
             }
 
-            // Armor (per-slot empty chance; default 0%)
             for (int i = 0; i < ArmorSlots.Length; i++)
             {
                 var slot = ArmorSlots[i];
@@ -135,16 +130,13 @@ namespace Retinues.Domain.Equipments.Helpers
                     cultureIds,
                     acceptNeutralCulture,
                     requireSkillForItem,
-                    predicate: it => it.IsArmor
+                    predicate: it => it.IsArmor,
+                    itemFilter: itemFilter
                 );
 
                 me.Set(slot, item);
             }
 
-            // Mounts (battle only) with strict horse/harness rule:
-            // - Horse can be absent via per-slot chance (default 0%).
-            // - If horse is present, harness is attempted 100% of the time.
-            // - If horse is absent, harness is always null.
             if (!civilian)
                 FillMounts(
                     owner,
@@ -154,13 +146,12 @@ namespace Retinues.Domain.Equipments.Helpers
                     cultureIds,
                     acceptNeutralCulture,
                     noItemChanceBySlotPercent,
-                    requireSkillForItem
+                    requireSkillForItem,
+                    itemFilter
                 );
 
-            // Weapons
             if (civilian)
             {
-                // Civilian: keep it simple (no presets).
                 FillCivilianWeapons(
                     owner,
                     me,
@@ -168,7 +159,8 @@ namespace Retinues.Domain.Equipments.Helpers
                     maxTier,
                     cultureIds,
                     acceptNeutralCulture,
-                    requireSkillForItem
+                    requireSkillForItem,
+                    itemFilter
                 );
             }
             else
@@ -180,17 +172,14 @@ namespace Retinues.Domain.Equipments.Helpers
                     maxTier,
                     cultureIds,
                     acceptNeutralCulture,
-                    requireSkillForItem
+                    requireSkillForItem,
+                    itemFilter
                 );
             }
 
             return me;
         }
 
-        /// <summary>
-        /// Gets a random equippable item for a given slot matching constraints.
-        /// Returns null if no suitable item exists.
-        /// </summary>
         public static WItem GetRandomItemForSlot(
             WCharacter owner,
             EquipmentIndex slot,
@@ -199,7 +188,8 @@ namespace Retinues.Domain.Equipments.Helpers
             int maxTier,
             IEnumerable<WCulture> acceptableCultures,
             bool acceptNeutralCulture,
-            bool requireSkillForItem = true
+            bool requireSkillForItem = true,
+            Func<WItem, bool> itemFilter = null
         )
         {
             HashSet<string> cultureIds = null;
@@ -220,7 +210,8 @@ namespace Retinues.Domain.Equipments.Helpers
                 cultureIds,
                 acceptNeutralCulture,
                 requireSkillForItem,
-                predicate: null
+                predicate: null,
+                itemFilter: itemFilter
             );
         }
 
@@ -236,10 +227,10 @@ namespace Retinues.Domain.Equipments.Helpers
             HashSet<string> cultureIds,
             bool acceptNeutralCulture,
             Dictionary<EquipmentIndex, float> noItemChanceBySlotPercent,
-            bool requireSkillForItem
+            bool requireSkillForItem,
+            Func<WItem, bool> itemFilter
         )
         {
-            // Decide horse first
             if (ShouldSkipSlot(EquipmentIndex.Horse, noItemChanceBySlotPercent))
             {
                 me.Set(EquipmentIndex.Horse, null);
@@ -256,7 +247,8 @@ namespace Retinues.Domain.Equipments.Helpers
                 cultureIds,
                 acceptNeutralCulture,
                 requireSkillForItem,
-                predicate: it => it.IsHorse
+                predicate: it => it.IsHorse,
+                itemFilter: itemFilter
             );
 
             if (horse == null)
@@ -268,7 +260,6 @@ namespace Retinues.Domain.Equipments.Helpers
 
             me.Set(EquipmentIndex.Horse, horse);
 
-            // Horse present => harness attempted 100% of the time (no skip roll).
             var harness = GetRandomItemForSlotFiltered(
                 owner,
                 EquipmentIndex.HorseHarness,
@@ -278,7 +269,8 @@ namespace Retinues.Domain.Equipments.Helpers
                 cultureIds,
                 acceptNeutralCulture,
                 requireSkillForItem,
-                predicate: it => it.IsHorseHarness && it.IsCompatibleWith(horse)
+                predicate: it => it.IsHorseHarness && it.IsCompatibleWith(horse),
+                itemFilter: itemFilter
             );
 
             me.Set(EquipmentIndex.HorseHarness, harness);
@@ -305,14 +297,13 @@ namespace Retinues.Domain.Equipments.Helpers
             int maxTier,
             HashSet<string> cultureIds,
             bool acceptNeutralCulture,
-            bool requireSkillForItem
+            bool requireSkillForItem,
+            Func<WItem, bool> itemFilter
         )
         {
-            // Clear weapons first
             for (int i = 0; i < WeaponSlots.Length; i++)
                 me.Set(WeaponSlots[i], null);
 
-            // Try a few times to find a satisfiable preset with available items.
             for (int attempt = 0; attempt < 8; attempt++)
             {
                 var preset = PickWeaponPreset();
@@ -326,35 +317,79 @@ namespace Retinues.Domain.Equipments.Helpers
                         maxTier,
                         cultureIds,
                         acceptNeutralCulture,
-                        requireSkillForItem
+                        requireSkillForItem,
+                        itemFilter
                     )
                 )
                     return;
 
-                // reset and retry
                 for (int i = 0; i < WeaponSlots.Length; i++)
                     me.Set(WeaponSlots[i], null);
             }
 
-            // Fallback: just ensure at least one weapon.
-            var forced = PickByTypes(
+            // Fallback: avoid ranged-without-ammo.
+            var meleeOrThrown = PickByTypes(
                 owner,
-                slot: EquipmentIndex.Weapon0,
+                EquipmentIndex.Weapon0,
                 civilian: false,
                 minTier,
                 maxTier,
                 cultureIds,
                 acceptNeutralCulture,
                 requireSkillForItem,
-                allowed: RangedWeaponTypes
-                    .Concat(OneHandedTypes)
+                itemFilter,
+                OneHandedTypes
                     .Concat(TwoHandedTypes)
                     .Concat(PolearmTypes)
                     .Concat(ThrownTypes)
                     .ToArray()
             );
 
-            me.Set(EquipmentIndex.Weapon0, forced);
+            if (meleeOrThrown != null)
+            {
+                me.Set(EquipmentIndex.Weapon0, meleeOrThrown);
+                return;
+            }
+
+            // Last resort: try ranged + ammo (2 slots).
+            var ranged = PickByTypes(
+                owner,
+                EquipmentIndex.Weapon0,
+                civilian: false,
+                minTier,
+                maxTier,
+                cultureIds,
+                acceptNeutralCulture,
+                requireSkillForItem,
+                itemFilter,
+                RangedWeaponTypes
+            );
+
+            if (ranged == null)
+                return;
+
+            var ammoType = GetAmmoTypeForRanged(ranged.Type);
+            if (ammoType == null)
+                return;
+
+            var ammo = PickByTypes(
+                owner,
+                EquipmentIndex.Weapon1,
+                civilian: false,
+                minTier,
+                maxTier,
+                cultureIds,
+                acceptNeutralCulture,
+                requireSkillForItem,
+                itemFilter,
+                [ammoType.Value]
+            );
+
+            if (ammo == null)
+                return;
+
+            me.Set(EquipmentIndex.Weapon0, ranged);
+            me.Set(EquipmentIndex.Weapon1, ammo);
         }
 
         private static bool TryApplyWeaponPreset(
@@ -365,7 +400,8 @@ namespace Retinues.Domain.Equipments.Helpers
             int maxTier,
             HashSet<string> cultureIds,
             bool acceptNeutralCulture,
-            bool requireSkillForItem
+            bool requireSkillForItem,
+            Func<WItem, bool> itemFilter
         )
         {
             switch (preset)
@@ -381,6 +417,7 @@ namespace Retinues.Domain.Equipments.Helpers
                         cultureIds,
                         acceptNeutralCulture,
                         requireSkillForItem,
+                        itemFilter,
                         OneHandedTypes
                     );
                     var shield = PickByTypes(
@@ -392,6 +429,7 @@ namespace Retinues.Domain.Equipments.Helpers
                         cultureIds,
                         acceptNeutralCulture,
                         requireSkillForItem,
+                        itemFilter,
                         ShieldTypes
                     );
 
@@ -414,6 +452,7 @@ namespace Retinues.Domain.Equipments.Helpers
                         cultureIds,
                         acceptNeutralCulture,
                         requireSkillForItem,
+                        itemFilter,
                         TwoHandedTypes
                     );
                     if (twoHand == null)
@@ -434,6 +473,7 @@ namespace Retinues.Domain.Equipments.Helpers
                         cultureIds,
                         acceptNeutralCulture,
                         requireSkillForItem,
+                        itemFilter,
                         PolearmTypes
                     );
                     if (polearm == null)
@@ -455,6 +495,7 @@ namespace Retinues.Domain.Equipments.Helpers
                         cultureIds,
                         acceptNeutralCulture,
                         requireSkillForItem,
+                        itemFilter,
                         RangedWeaponTypes
                     );
                     if (ranged == null)
@@ -473,6 +514,7 @@ namespace Retinues.Domain.Equipments.Helpers
                         cultureIds,
                         acceptNeutralCulture,
                         requireSkillForItem,
+                        itemFilter,
                         [ammoType.Value]
                     );
                     var oneHand = PickByTypes(
@@ -484,6 +526,7 @@ namespace Retinues.Domain.Equipments.Helpers
                         cultureIds,
                         acceptNeutralCulture,
                         requireSkillForItem,
+                        itemFilter,
                         OneHandedTypes
                     );
 
@@ -505,6 +548,7 @@ namespace Retinues.Domain.Equipments.Helpers
                             cultureIds,
                             acceptNeutralCulture,
                             requireSkillForItem,
+                            itemFilter,
                             ShieldTypes
                         );
                         if (shield == null)
@@ -527,6 +571,7 @@ namespace Retinues.Domain.Equipments.Helpers
                         cultureIds,
                         acceptNeutralCulture,
                         requireSkillForItem,
+                        itemFilter,
                         ThrownTypes
                     );
                     var oneHand = PickByTypes(
@@ -538,6 +583,7 @@ namespace Retinues.Domain.Equipments.Helpers
                         cultureIds,
                         acceptNeutralCulture,
                         requireSkillForItem,
+                        itemFilter,
                         OneHandedTypes
                     );
                     var shield = PickByTypes(
@@ -549,6 +595,7 @@ namespace Retinues.Domain.Equipments.Helpers
                         cultureIds,
                         acceptNeutralCulture,
                         requireSkillForItem,
+                        itemFilter,
                         ShieldTypes
                     );
 
@@ -567,7 +614,6 @@ namespace Retinues.Domain.Equipments.Helpers
 
         private static WeaponPreset PickWeaponPreset()
         {
-            // Weights are implicit by duplication. Tweak later if needed.
             WeaponPreset[] presets =
             [
                 WeaponPreset.ShieldAndOneHanded,
@@ -607,10 +653,10 @@ namespace Retinues.Domain.Equipments.Helpers
             int maxTier,
             HashSet<string> cultureIds,
             bool acceptNeutralCulture,
-            bool requireSkillForItem
+            bool requireSkillForItem,
+            Func<WItem, bool> itemFilter
         )
         {
-            // Civilian gear can be unarmed: try a one-hander, otherwise keep empty.
             var oneHand = PickByTypes(
                 owner,
                 EquipmentIndex.Weapon0,
@@ -620,6 +666,7 @@ namespace Retinues.Domain.Equipments.Helpers
                 cultureIds,
                 acceptNeutralCulture,
                 requireSkillForItem,
+                itemFilter,
                 OneHandedTypes
             );
             me.Set(EquipmentIndex.Weapon0, oneHand);
@@ -642,6 +689,7 @@ namespace Retinues.Domain.Equipments.Helpers
             HashSet<string> cultureIds,
             bool acceptNeutralCulture,
             bool requireSkillForItem,
+            Func<WItem, bool> itemFilter,
             ItemObject.ItemTypeEnum[] allowed
         )
         {
@@ -656,7 +704,8 @@ namespace Retinues.Domain.Equipments.Helpers
                 cultureIds,
                 acceptNeutralCulture,
                 requireSkillForItem,
-                predicate: it => set.Contains(it.Type)
+                predicate: it => set.Contains(it.Type),
+                itemFilter: itemFilter
             );
         }
 
@@ -669,7 +718,8 @@ namespace Retinues.Domain.Equipments.Helpers
             HashSet<string> cultureIds,
             bool acceptNeutralCulture,
             bool requireSkillForItem,
-            Func<WItem, bool> predicate
+            Func<WItem, bool> predicate,
+            Func<WItem, bool> itemFilter
         )
         {
             var items = WItem.GetEquipmentsForSlot(slot);
@@ -688,23 +738,20 @@ namespace Retinues.Domain.Equipments.Helpers
                 if (!it.IsEquippableInSlot(slot))
                     continue;
 
-                // Skip female-coded items for male troops
                 if (
                     !owner.IsFemale
                     && InvalidTokensForMale.Any(token => it.StringId.ToLower().Contains(token))
                 )
                     continue;
 
-                // Civilian sets: must be civilian items. Battle sets: can use anything.
                 if (civilian && !it.IsCivilian)
                     continue;
 
-                var tier = MBMath.ClampInt(it.Tier + 1, 1, 6);
+                var tier = MBMath.ClampInt(it.Tier, 0, 6);
                 if (tier < minTier || tier > maxTier)
                     continue;
 
-                // Culture gating + "prefer cultured, fallback neutral"
-                var c = it.Culture; // null => neutral
+                var c = it.Culture;
                 var isNeutral = c == null;
 
                 if (cultureIds != null)
@@ -722,12 +769,14 @@ namespace Retinues.Domain.Equipments.Helpers
                 }
                 else
                 {
-                    // No culture whitelist: allow any cultured item; neutral only if requested.
                     if (isNeutral && !acceptNeutralCulture)
                         continue;
                 }
 
                 if (requireSkillForItem && !it.IsEquippableByCharacter(owner))
+                    continue;
+
+                if (itemFilter != null && !itemFilter(it))
                     continue;
 
                 if (predicate != null && !predicate(it))
@@ -745,7 +794,6 @@ namespace Retinues.Domain.Equipments.Helpers
                 }
             }
 
-            // Prefer cultured items if any exist; only fallback to neutral if none exist.
             var pool = (cultured != null && cultured.Count > 0) ? cultured : neutral;
 
             if (pool == null || pool.Count == 0)
@@ -786,7 +834,6 @@ namespace Retinues.Domain.Equipments.Helpers
             if (chance >= 100f)
                 return true;
 
-            // MBRandom.RandomFloat is [0..1]
             var roll = MBRandom.RandomFloat * 100f;
             return roll < chance;
         }

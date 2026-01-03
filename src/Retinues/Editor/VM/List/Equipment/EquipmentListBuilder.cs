@@ -142,6 +142,9 @@ namespace Retinues.Editor.VM.List.Equipment
                     if (item == null)
                         continue;
 
+                    if (EditorState.Instance.Mode == EditorMode.Player && !item.IsUnlocked)
+                        continue;
+
                     header.AddRow(new EquipmentListRowVM(header, item)); // use AddRow
                 }
             }
