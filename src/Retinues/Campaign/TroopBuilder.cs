@@ -265,12 +265,12 @@ namespace Retinues.Campaign
             var culture = cultureContext ?? template.Culture;
 
             // Max tier: setting-bound, never exceed troop tier.
-            int maxTierSetting = MBMath.ClampInt(Settings.DefaultUnlockedItemMaxTier.Value, 1, 6);
-            int troopTier = Math.Max(1, clone.Tier);
+            int maxTierSetting = MBMath.ClampInt(Settings.DefaultUnlockedItemMaxTier.Value, 0, 6);
+            int troopTier = Math.Max(0, clone.Tier);
             int maxTier = Math.Min(maxTierSetting, troopTier);
 
             // Minimum tier: fixed value.
-            int minTier = 1;
+            int minTier = 0;
 
             // Battle: empty slot chances.
             var noItemBattle = new Dictionary<EquipmentIndex, float>

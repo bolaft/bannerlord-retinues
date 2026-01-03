@@ -103,7 +103,7 @@ namespace Retinues.Campaign
                 return;
 
             int targetPerSlot = Math.Max(0, Settings.DefaultUnlockedAmountPerSlot.Value);
-            int maxTier = Math.Max(1, Math.Min(6, Settings.DefaultUnlockedItemMaxTier.Value));
+            int maxTier = Math.Max(0, Math.Min(6, Settings.DefaultUnlockedItemMaxTier.Value));
 
             if (targetPerSlot <= 0)
                 return;
@@ -166,7 +166,7 @@ namespace Retinues.Campaign
                     owner: picker,
                     slot: slot,
                     civilian: false,
-                    minTier: 1,
+                    minTier: 0,
                     maxTier: maxTier,
                     acceptableCultures: culture != null ? [culture] : null,
                     acceptNeutralCulture: true,
