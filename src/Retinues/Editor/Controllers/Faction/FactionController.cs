@@ -1,8 +1,10 @@
 using System.Collections.Generic;
+using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Factions.Wrappers;
 using Retinues.Editor.Events;
 using Retinues.Framework.Model.Exports;
 using Retinues.UI.Services;
+using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 
 namespace Retinues.Editor.Controllers.Faction
@@ -10,17 +12,86 @@ namespace Retinues.Editor.Controllers.Faction
     public class FactionController : BaseController
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                      Select Culture                    //
+        //                        Banners                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public static EditorAction<bool> SelectCulturePopup { get; } =
-            Action<bool>("SelectCulturePopup")
-                .DefaultTooltip(L.T("editor_culture_select", "Select a Culture"))
+        public static EditorAction<bool> SelectLeftBannerPopup { get; } =
+            Action<bool>("SelectLeftBannerPopup")
+                .DefaultTooltip(L.T("editor_left_banner_select", "Select"))
                 .AddCondition(
-                    _ => WCulture.All != null,
-                    L.T("no_cultures_text", "No cultures are loaded in the current game.")
+                    _ => CanSelectLeftBanner(),
+                    L.T("editor_left_banner_unavailable", "This selection is not available.")
                 )
-                .ExecuteWith(_ => ShowCulturePopup());
+                .ExecuteWith(_ => ExecuteSelectLeftBanner());
+
+        public static EditorAction<bool> SelectRightBannerPopup { get; } =
+            Action<bool>("SelectRightBannerPopup")
+                .DefaultTooltip(L.T("editor_right_banner_select", "Select"))
+                .AddCondition(
+                    _ => CanSelectRightBanner(),
+                    L.T("editor_right_banner_unavailable", "This selection is not available.")
+                )
+                .ExecuteWith(_ => ExecuteSelectRightBanner());
+
+        private static bool CanSelectLeftBanner()
+        {
+            if (State.Mode == EditorMode.Universal)
+                return WCulture.All != null;
+
+            // Player: left banner is only selectable if the player is a kingdom ruler.
+            return IsPlayerKingdomRuler(out _, out _);
+        }
+
+        private static bool CanSelectRightBanner()
+        {
+            if (State.Mode == EditorMode.Universal)
+                return WClan.All != null;
+
+            // Player: right banner exists only for kingdom rulers (click sets faction to kingdom).
+            return IsPlayerKingdomRuler(out _, out _);
+        }
+
+        private static void ExecuteSelectLeftBanner()
+        {
+            if (State.Mode == EditorMode.Universal)
+            {
+                ShowCulturePopup();
+                return;
+            }
+
+            // Player: select a clan from the player's kingdom.
+            ShowPlayerKingdomClanPopup();
+        }
+
+        private static void ExecuteSelectRightBanner()
+        {
+            if (State.Mode == EditorMode.Universal)
+            {
+                ShowClanPopupUniversal();
+                return;
+            }
+
+            // Player: click sets faction to the player's kingdom.
+            if (!IsPlayerKingdomRuler(out _, out var kingdom))
+                return;
+
+            ApplyKingdom(kingdom);
+        }
+
+        private static bool IsPlayerKingdomRuler(out WHero hero, out WKingdom kingdom)
+        {
+            hero = WHero.Get(Hero.MainHero);
+            kingdom = hero?.Kingdom;
+
+            if (hero == null || kingdom == null)
+                return false;
+
+            return ReferenceEquals(kingdom.Leader?.Base, hero.Base);
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Universal Left                    //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private static void ShowCulturePopup()
         {
@@ -55,50 +126,41 @@ namespace Retinues.Editor.Controllers.Faction
             Inquiries.SelectPopup(
                 title: L.T("select_culture_title", "Select Culture"),
                 elements: elements,
-                onSelect: element => ApplyCulture(element?.Identifier as WCulture)
+                onSelect: element => ApplyCultureUniversal(element?.Identifier as WCulture)
             );
         }
 
-        private static void ApplyCulture(WCulture culture)
+        private static void ApplyCultureUniversal(WCulture culture)
         {
             if (culture == null)
                 return;
 
-            if (State.Faction is WCulture c && culture == c)
-                return;
-
-            State.Clan = null;
-
-            if (State.Culture != culture)
-                State.Culture = culture;
-
+            // Always clear the right banner when selecting a culture.
+            State.RightBannerFaction = null;
+            State.LeftBannerFaction = culture;
             State.Faction = culture;
 
-            EventManager.Fire(UIEvent.CultureFaction);
-            EventManager.Fire(UIEvent.ClanFaction);
-            EventManager.Fire(UIEvent.Faction);
+            EventManager.FireBatch(() =>
+            {
+                EventManager.Fire(UIEvent.CultureFaction);
+                EventManager.Fire(UIEvent.ClanFaction);
+                EventManager.Fire(UIEvent.Faction);
+            });
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Select Clan                     //
+        //                      Universal Right                   //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public static EditorAction<bool> SelectClanPopup { get; } =
-            Action<bool>("SelectClanPopup")
-                .DefaultTooltip(L.T("editor_clan_select", "Select a Clan"))
-                .AddCondition(
-                    _ => WClan.All != null,
-                    L.T("no_clans_text", "No clans are loaded in the current game.")
-                )
-                .ExecuteWith(_ => ShowClanPopup());
-
-        private static void ShowClanPopup()
+        private static void ShowClanPopupUniversal()
         {
             var elements = new List<InquiryElement>();
 
+            var culture = State.LeftBannerFaction as WCulture;
+
             foreach (var clan in WClan.All)
             {
-                if (State.Culture != null && clan.Culture != State.Culture)
+                if (culture != null && clan.Culture != culture)
                     continue;
 
                 var imageIdentifier = clan?.ImageIdentifier;
@@ -128,27 +190,113 @@ namespace Retinues.Editor.Controllers.Faction
             Inquiries.SelectPopup(
                 title: L.T("select_clan_title", "Select Clan"),
                 elements: elements,
-                onSelect: element => ApplyClan(element?.Identifier as WClan)
+                onSelect: element => ApplyClanUniversal(element?.Identifier as WClan)
             );
         }
 
-        private static void ApplyClan(WClan clan)
+        private static void ApplyClanUniversal(WClan clan)
         {
             if (clan == null)
                 return;
 
-            if (State.Faction is WClan c && clan == c)
-                return;
-
-            if (State.Culture != clan.Culture)
-                State.Culture = clan.Culture;
-
-            State.Clan = clan;
+            // Selecting a clan also updates the left culture banner for filtering.
+            State.LeftBannerFaction = clan.Culture;
+            State.RightBannerFaction = clan;
             State.Faction = clan;
 
-            EventManager.Fire(UIEvent.CultureFaction);
-            EventManager.Fire(UIEvent.ClanFaction);
-            EventManager.Fire(UIEvent.Faction);
+            EventManager.FireBatch(() =>
+            {
+                EventManager.Fire(UIEvent.CultureFaction);
+                EventManager.Fire(UIEvent.ClanFaction);
+                EventManager.Fire(UIEvent.Faction);
+            });
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Player Left                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private static void ShowPlayerKingdomClanPopup()
+        {
+            if (!IsPlayerKingdomRuler(out var hero, out var kingdom))
+                return;
+
+            var elements = new List<InquiryElement>();
+
+            foreach (var clan in WClan.All)
+            {
+                if (kingdom != null && clan.Base.Kingdom != kingdom.Base)
+                    continue;
+
+                var imageIdentifier = clan?.ImageIdentifier;
+                var name = clan?.Name;
+
+                if (imageIdentifier == null || name == null)
+                    continue;
+
+                elements.Add(
+                    new InquiryElement(
+                        identifier: clan,
+                        title: name,
+                        imageIdentifier: imageIdentifier
+                    )
+                );
+            }
+
+            if (elements.Count == 0)
+            {
+                Inquiries.Popup(
+                    L.T("no_clans_title", "No Clans Found"),
+                    L.T("no_clans_text", "No clans are loaded in the current game.")
+                );
+                return;
+            }
+
+            Inquiries.SelectPopup(
+                title: L.T("select_clan_title", "Select Clan"),
+                elements: elements,
+                onSelect: element => ApplyClanPlayer(element?.Identifier as WClan, hero, kingdom)
+            );
+        }
+
+        private static void ApplyClanPlayer(WClan clan, WHero hero, WKingdom kingdom)
+        {
+            if (clan == null || hero == null || kingdom == null)
+                return;
+
+            // Safety: clamp to kingdom.
+            if (clan.Base.Kingdom != kingdom.Base)
+                clan = hero.Clan;
+
+            State.LeftBannerFaction = clan;
+            State.RightBannerFaction = kingdom;
+            State.Faction = clan;
+
+            EventManager.FireBatch(() =>
+            {
+                EventManager.Fire(UIEvent.CultureFaction);
+                EventManager.Fire(UIEvent.ClanFaction);
+                EventManager.Fire(UIEvent.Faction);
+            });
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Player Right                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private static void ApplyKingdom(WKingdom kingdom)
+        {
+            if (kingdom == null)
+                return;
+
+            State.RightBannerFaction = kingdom;
+            State.Faction = kingdom;
+
+            EventManager.FireBatch(() =>
+            {
+                EventManager.Fire(UIEvent.ClanFaction);
+                EventManager.Fire(UIEvent.Faction);
+            });
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

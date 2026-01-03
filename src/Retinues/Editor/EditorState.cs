@@ -187,19 +187,36 @@ namespace Retinues.Editor
         {
             var hero = WHero.Get(Hero.MainHero);
 
-            Culture = hero.Culture;
-
             if (Mode == EditorMode.Player)
             {
-                // Player mode: default to player's clan.
-                Clan = hero.Clan;
-                Faction = hero.Clan;
+                var clan = hero?.Clan;
+                var kingdom = hero?.Kingdom;
+
+                // Player mode: Left banner is Clan.
+                LeftBannerFaction = clan;
+
+                if (IsPlayerKingdomRuler(hero, kingdom))
+                {
+                    // Player is a kingdom ruler: Right banner is Kingdom.
+                    RightBannerFaction = kingdom;
+                }
+                else
+                {
+                    // Not a ruler: no right banner.
+                    RightBannerFaction = null;
+                }
+
+                // Start on clan (not kingdom) by default.
+                Faction = clan;
             }
             else
             {
-                // Universal mode: default to hero's cultur.
-                Clan = null;
-                Faction = hero.Culture;
+                // Universal mode: Left banner is Culture, right banner is Clan (optional).
+                var culture = hero?.Culture;
+
+                LeftBannerFaction = culture;
+                RightBannerFaction = null;
+                Faction = culture;
             }
 
             Character = PickFirstTroop(Faction, Mode);
@@ -210,9 +227,29 @@ namespace Retinues.Editor
 
         private void ApplyHero(WHero hero)
         {
-            Culture = hero.Culture;
-            Clan = hero.Clan;
-            Faction = hero.Clan;
+            if (hero == null)
+            {
+                ApplyDefault();
+                return;
+            }
+
+            if (Mode == EditorMode.Player)
+            {
+                var clan = hero.Clan;
+                var kingdom = hero.Kingdom;
+
+                LeftBannerFaction = clan;
+                RightBannerFaction = IsPlayerKingdomRuler(hero, kingdom) ? kingdom : null;
+
+                Faction = clan;
+            }
+            else
+            {
+                LeftBannerFaction = hero.Culture;
+                RightBannerFaction = hero.Clan;
+
+                Faction = hero.Clan;
+            }
 
             Character = PickFirstTroop(Faction, Mode);
             Equipment = PickFirstEquipment(Character);
@@ -222,9 +259,16 @@ namespace Retinues.Editor
 
         private void ApplyCharacter(WCharacter character)
         {
-            Culture = character.Culture;
-            Clan = null;
-            Faction = Culture;
+            if (character == null)
+            {
+                ApplyDefault();
+                return;
+            }
+
+            // Character launch: keep universal semantics.
+            LeftBannerFaction = character.Culture;
+            RightBannerFaction = null;
+            Faction = LeftBannerFaction;
 
             Character = character;
             Equipment = PickFirstEquipment(Character);
@@ -234,9 +278,45 @@ namespace Retinues.Editor
 
         private void ApplyClan(WClan clan)
         {
-            Culture = clan.Culture;
-            Clan = clan;
-            Faction = clan;
+            if (clan == null)
+            {
+                ApplyDefault();
+                return;
+            }
+
+            if (Mode == EditorMode.Player)
+            {
+                // Player mode rules:
+                // - If not a kingdom ruler, force the player clan and hide the kingdom banner.
+                // - If a kingdom ruler, allow selecting clans within that kingdom.
+                var hero = WHero.Get(Hero.MainHero);
+                var playerClan = hero?.Clan;
+                var playerKingdom = hero?.Kingdom;
+
+                if (!IsPlayerKingdomRuler(hero, playerKingdom))
+                {
+                    LeftBannerFaction = playerClan;
+                    RightBannerFaction = null;
+                    Faction = playerClan;
+                }
+                else
+                {
+                    // Clamp to the player's kingdom.
+                    if (playerKingdom != null && clan.Base.Kingdom != playerKingdom.Base)
+                        clan = playerClan;
+
+                    LeftBannerFaction = clan;
+                    RightBannerFaction = playerKingdom;
+                    Faction = clan;
+                }
+            }
+            else
+            {
+                // Universal: left is culture, right is clan, latest selection is faction.
+                LeftBannerFaction = clan.Culture;
+                RightBannerFaction = clan;
+                Faction = clan;
+            }
 
             Character = PickFirstTroop(Faction, Mode);
             Equipment = PickFirstEquipment(Character);
@@ -246,8 +326,15 @@ namespace Retinues.Editor
 
         private void ApplyCulture(WCulture culture)
         {
-            Culture = culture;
-            Clan = null;
+            if (culture == null)
+            {
+                ApplyDefault();
+                return;
+            }
+
+            // Universal: left is culture, right is cleared, latest selection is faction.
+            LeftBannerFaction = culture;
+            RightBannerFaction = null;
             Faction = culture;
 
             Character = PickFirstTroop(Faction, Mode);
@@ -310,42 +397,57 @@ namespace Retinues.Editor
         //                          State                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        /* ━━━━━━━━ Culture ━━━━━━━ */
+        /* ━━━━━━ Left Banner ━━━━━ */
 
-        private WCulture _culture;
+        private IBaseFaction _leftBannerFaction;
 
-        public WCulture Culture
+        /// <summary>
+        /// The faction displayed on the left banner.
+        /// Universal: Culture. Player: Clan.
+        /// </summary>
+        public IBaseFaction LeftBannerFaction
         {
-            get => _culture;
+            get => _leftBannerFaction;
             set
             {
-                if (value == _culture)
+                if (value == _leftBannerFaction)
                     return;
 
-                if (value == null)
-                    return;
-
-                _culture = value;
+                // Allow null (some launch modes intentionally clear banners).
+                _leftBannerFaction = value;
                 Fire(UIEvent.CultureFaction);
             }
         }
 
-        /* ━━━━━━━━━ Clan ━━━━━━━━━ */
+        /* ━━━━━ Right Banner ━━━━━ */
 
-        private WClan _clan;
+        private IBaseFaction _rightBannerFaction;
 
-        public WClan Clan
+        /// <summary>
+        /// The faction displayed on the right banner.
+        /// Universal: Clan. Player: Kingdom (only when player is a kingdom ruler).
+        /// </summary>
+        public IBaseFaction RightBannerFaction
         {
-            get => _clan;
+            get => _rightBannerFaction;
             set
             {
-                if (value == _clan)
+                if (value == _rightBannerFaction)
                     return;
 
-                // Allow null (launch modes can intentionally clear clan).
-                _clan = value;
+                // Allow null (player mode can intentionally hide right banner).
+                _rightBannerFaction = value;
                 Fire(UIEvent.ClanFaction);
             }
+        }
+
+        private static bool IsPlayerKingdomRuler(WHero hero, WKingdom kingdom)
+        {
+            if (hero == null || kingdom == null)
+                return false;
+
+            // Kingdom rulership is defined by the kingdom leader being the hero.
+            return ReferenceEquals(kingdom.Leader?.Base, hero.Base);
         }
 
         /* ━━━━━━━━ Faction ━━━━━━━ */

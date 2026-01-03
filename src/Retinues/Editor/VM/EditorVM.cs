@@ -1,7 +1,9 @@
 using System;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Configuration;
+using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Factions.Helpers;
+using Retinues.Domain.Factions.Wrappers;
 using Retinues.Editor.Controllers.Faction;
 using Retinues.Editor.Events;
 using Retinues.Editor.VM.Column;
@@ -12,6 +14,7 @@ using Retinues.Editor.VM.Panel.Library;
 using Retinues.UI.Services;
 using Retinues.UI.VM;
 using Retinues.Utilities;
+using TaleWorlds.CampaignSystem;
 using TaleWorlds.Library;
 
 namespace Retinues.Editor.VM
@@ -166,9 +169,9 @@ namespace Retinues.Editor.VM
         [EventListener(UIEvent.Faction)]
         [DataSourceProperty]
         public string FactionColor =>
-            State.Mode == EditorMode.Player || State.Culture == null
-                ? "#ffffffff"
-                : UintColorToHex(State.Culture.Color, 0.4f);
+            State.Mode == EditorMode.Player ? "#ffffffff"
+            : (State.LeftBannerFaction as WCulture) == null ? "#ffffffff"
+            : UintColorToHex(((WCulture)State.LeftBannerFaction).Color, 0.4f);
 
         private static string UintColorToHex(uint color, float towardWhite = 0.0f)
         {
@@ -191,49 +194,78 @@ namespace Retinues.Editor.VM
             return $"#{r:X2}{g:X2}{b:X2}{a:X2}";
         }
 
-        /* ━━━━━━━━ Culture ━━━━━━━ */
+        /* ━━━━━━ Left Banner ━━━━━ */
 
         [EventListener(UIEvent.CultureFaction)]
         [DataSourceProperty]
-        public string CultureName =>
-            State.Culture?.Name?.ToString() ?? L.S("editor_culture_select", "Select a Culture");
+        public string LeftBannerName =>
+            State.Mode == EditorMode.Universal
+                ? (State.LeftBannerFaction as WCulture)?.Name?.ToString()
+                    ?? L.S("editor_culture_select", "Select a Culture")
+                : (State.LeftBannerFaction as WClan)?.Name?.ToString()
+                    ?? L.S("editor_clan_select", "Select a Clan");
 
         [EventListener(UIEvent.CultureFaction)]
         [DataSourceProperty]
-        public object CultureBanner => State.Culture?.Image ?? BannerHelper.EmptyImage;
+        public object LeftBanner => State.LeftBannerFaction?.Image ?? BannerHelper.EmptyImage;
 
-        [EventListener(UIEvent.CultureFaction, UIEvent.Faction)]
+        [EventListener(UIEvent.CultureFaction, UIEvent.ClanFaction, UIEvent.Faction)]
         [DataSourceProperty]
-        public bool CanSelectCulture => FactionController.SelectCulturePopup.Allow(true);
+        public bool CanSelectLeftBanner => FactionController.SelectLeftBannerPopup.Allow(true);
 
-        [EventListener(UIEvent.CultureFaction, UIEvent.Faction)]
+        [EventListener(UIEvent.CultureFaction, UIEvent.ClanFaction, UIEvent.Faction)]
         [DataSourceProperty]
-        public Tooltip CultureBannerHint => FactionController.SelectCulturePopup.Tooltip(true);
+        public Tooltip LeftBannerHint => FactionController.SelectLeftBannerPopup.Tooltip(true);
 
         [DataSourceMethod]
-        public void ExecuteSelectCulture() => FactionController.SelectCulturePopup.Execute(true);
+        public void ExecuteSelectLeftBanner() =>
+            FactionController.SelectLeftBannerPopup.Execute(true);
 
-        /* ━━━━━━━━━ Clan ━━━━━━━━━ */
+        [DataSourceProperty]
+        public bool IsLeftBannerVisible => true;
+
+        /* ━━━━━ Right Banner ━━━━━ */
 
         [EventListener(UIEvent.ClanFaction)]
         [DataSourceProperty]
-        public string ClanName =>
-            State.Clan?.Name?.ToString() ?? L.S("editor_clan_select", "Select a Clan");
+        public string RightBannerName =>
+            State.Mode == EditorMode.Universal
+                ? (State.RightBannerFaction as WClan)?.Name?.ToString()
+                    ?? L.S("editor_clan_select", "Select a Clan")
+                : (State.RightBannerFaction as WKingdom)?.Name?.ToString()
+                    ?? L.S("editor_kingdom_none", "No Kingdom");
 
         [EventListener(UIEvent.ClanFaction)]
         [DataSourceProperty]
-        public object ClanBanner => State.Clan?.Image ?? BannerHelper.EmptyImage;
+        public object RightBanner => State.RightBannerFaction?.Image ?? BannerHelper.EmptyImage;
 
         [EventListener(UIEvent.ClanFaction, UIEvent.CultureFaction, UIEvent.Faction)]
         [DataSourceProperty]
-        public bool CanSelectClan => FactionController.SelectClanPopup.Allow(true);
+        public bool CanSelectRightBanner => FactionController.SelectRightBannerPopup.Allow(true);
 
         [EventListener(UIEvent.ClanFaction, UIEvent.CultureFaction, UIEvent.Faction)]
         [DataSourceProperty]
-        public Tooltip ClanBannerHint => FactionController.SelectClanPopup.Tooltip(true);
+        public Tooltip RightBannerHint => FactionController.SelectRightBannerPopup.Tooltip(true);
 
         [DataSourceMethod]
-        public void ExecuteSelectClan() => FactionController.SelectClanPopup.Execute(true);
+        public void ExecuteSelectRightBanner() =>
+            FactionController.SelectRightBannerPopup.Execute(true);
+
+        [EventListener(UIEvent.ClanFaction, UIEvent.CultureFaction, UIEvent.Faction)]
+        [DataSourceProperty]
+        public bool IsRightBannerVisible =>
+            State.Mode == EditorMode.Universal || IsPlayerKingdomRuler();
+
+        private static bool IsPlayerKingdomRuler()
+        {
+            var hero = WHero.Get(Hero.MainHero);
+            var kingdom = hero?.Kingdom;
+
+            if (hero == null || kingdom == null)
+                return false;
+
+            return ReferenceEquals(kingdom.Leader?.Base, hero.Base);
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Components                       //

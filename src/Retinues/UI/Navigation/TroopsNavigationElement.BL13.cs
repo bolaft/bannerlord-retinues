@@ -18,7 +18,9 @@ public sealed class TroopsNavigationElement(MapNavigationHandler handler)
     public override string StringId => TroopsId;
 
     public override bool IsActive =>
-        _game.GameStateManager.ActiveState is EditorGameState egs && egs.IsMapBarIntegrated;
+        ScreenManager.TopScreen is EditorScreen
+        && _game.GameStateManager.ActiveState is EditorGameState egs
+        && egs.IsMapBarIntegrated;
     public override bool IsLockingNavigation => false;
     public override bool HasAlert => false;
 
