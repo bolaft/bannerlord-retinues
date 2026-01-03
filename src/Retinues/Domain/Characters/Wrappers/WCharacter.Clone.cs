@@ -18,7 +18,7 @@ namespace Retinues.Domain.Characters.Wrappers
         /// </summary>
         public WCharacter Clone(
             bool skills = true,
-            EquipmentCopyMode equipments = EquipmentCopyMode.All,
+            bool equipments = true,
             WCharacter intoStub = null
         )
         {
@@ -51,7 +51,7 @@ namespace Retinues.Domain.Characters.Wrappers
             stub.IsMariner = IsMariner;
             stub.SkillPoints = SkillPoints;
 
-            // Always ignore upgrades
+            // Always ignore upgrades (builder can re-wire later if needed)
             stub.UpgradeTargets = [];
 
             // Body: serialize from source, apply to stub (also breaks shared refs)
@@ -82,8 +82,11 @@ namespace Retinues.Domain.Characters.Wrappers
                 stub.Skills.Set(skill, value);
             }
 
-            // Equipment: copy mode controlled by param
-            stub.EquipmentRoster.Copy(EquipmentRoster, equipments);
+            // Equipment: coarse toggle only (policy handled by TroopBuilder)
+            if (equipments)
+                stub.EquipmentRoster.Copy(EquipmentRoster, EquipmentCopyMode.All);
+            else
+                stub.EquipmentRoster.Reset();
 
             return stub;
         }

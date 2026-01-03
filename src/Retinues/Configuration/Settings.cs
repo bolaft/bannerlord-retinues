@@ -31,6 +31,57 @@ namespace Retinues.Configuration
         );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Troop Unlocks                     //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public static readonly Section TroopUnlocks = CreateSection(
+            name: L.F("mcm_section_troop_unlocks", "Troop Unlocks")
+        );
+
+        /* ━━━━━━━━ Options ━━━━━━━ */
+
+        public enum EquipmentMode
+        {
+            SingleSet,
+            AllSets,
+            RandomSet,
+            EmptySet,
+        }
+
+        public static readonly MultiChoiceOption<EquipmentMode> StarterEquipment =
+            CreateMultiChoiceOption(
+                section: () => TroopUnlocks.Name,
+                name: L.F("mcm_option_starter_equipment", "Starter Equipment"),
+                hint: L.F(
+                    "mcm_option_starter_equipment_hint",
+                    "Sets the starter equipment for newly unlocked troops."
+                ),
+                @default: EquipmentMode.SingleSet,
+                choices:
+                [
+                    EquipmentMode.SingleSet,
+                    EquipmentMode.AllSets,
+                    EquipmentMode.RandomSet,
+                    EquipmentMode.EmptySet,
+                ],
+                choiceFormatter: v =>
+                    v switch
+                    {
+                        EquipmentMode.SingleSet => L.S(
+                            "starter_equipment_single_set",
+                            "Copy One Set"
+                        ),
+                        EquipmentMode.AllSets => L.S("starter_equipment_all_sets", "Copy All Sets"),
+                        EquipmentMode.RandomSet => L.S(
+                            "starter_equipment_random_set",
+                            "Random Set"
+                        ),
+                        EquipmentMode.EmptySet => L.S("starter_equipment_empty_set", "Empty Set"),
+                        _ => v.ToString(),
+                    }
+            );
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Debug                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
@@ -46,21 +97,5 @@ namespace Retinues.Configuration
             hint: L.F("mcm_option_debug_mode_hint", "Enables debug logging and additional checks."),
             @default: false
         );
-
-        // public enum Level
-        // {
-        //     Low,
-        //     Medium,
-        //     High,
-        // }
-
-        // public static readonly MultiChoiceOption<Level> DebugLevel = CreateMultiChoiceOption(
-        //     section: () => Debug.Name,
-        //     name: L.F("mcm_option_debug_level", "Debug Level"),
-        //     hint: L.F("mcm_option_debug_level_hint", "Sets the level of debug information logged."),
-        //     @default: Level.Medium,
-        //     choices: [Level.Low, Level.Medium, Level.High],
-        //     dependsOn: DebugMode
-        // );
     }
 }

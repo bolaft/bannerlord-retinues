@@ -200,6 +200,19 @@ namespace Retinues.Domain.Factions.Base
             WCharacter.InvalidateCustomTreeCache();
         }
 
+        /// <summary>
+        /// Adds a retinue troop to this map faction.
+        /// </summary>
+        public void AddRetinue(WCharacter troop)
+        {
+            var troops = RosterRetinues;
+            if (troops.Contains(troop))
+                return;
+
+            troops.Add(troop);
+            SetRetinues(troops);
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Territory                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

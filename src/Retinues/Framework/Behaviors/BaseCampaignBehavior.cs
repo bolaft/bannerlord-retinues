@@ -123,4 +123,39 @@ namespace Retinues.Framework.Behaviors
             }
         }
     }
+
+    /// <summary>
+    /// Generic base for campaign behaviors that exposes a concrete Instance getter.
+    /// Returns null when Campaign.Current is not available yet, or when the behavior
+    /// was not added to the campaign starter.
+    /// </summary>
+    [SafeClass(IncludeDerived = true)]
+    public abstract class BaseCampaignBehavior<TSelf> : BaseCampaignBehavior
+        where TSelf : CampaignBehaviorBase
+    {
+        /// <summary>
+        /// Gets the current campaign instance of this behavior type.
+        /// This mirrors Campaign.Current.GetCampaignBehavior<TSelf>().
+        /// </summary>
+        public static TSelf Instance
+        {
+            get
+            {
+                var campaign = TaleWorlds.CampaignSystem.Campaign.Current;
+                if (campaign == null)
+                    return null;
+
+                return campaign.GetCampaignBehavior<TSelf>();
+            }
+        }
+
+        /// <summary>
+        /// Convenience helper for call sites that prefer a bool guard.
+        /// </summary>
+        public static bool TryGetInstance(out TSelf behavior)
+        {
+            behavior = Instance;
+            return behavior != null;
+        }
+    }
 }
