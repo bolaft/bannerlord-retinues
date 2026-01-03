@@ -21,17 +21,27 @@ namespace Retinues.UI.Prefabs.Encyclopedia
         {
             try
             {
-                // Kingdoms show up on the faction page; ignore other faction types.
                 if (ViewModel.Obj is not Kingdom kingdom)
                     return;
 
-                // Use kingdom culture.
-                var culture = WKingdom.Get(kingdom)?.Culture;
+                var wk = WKingdom.Get(kingdom);
+                if (wk == null)
+                    return;
+
+                var playerKingdom = Hero.MainHero?.Clan?.Kingdom;
+
+                if (playerKingdom != null && ReferenceEquals(playerKingdom, kingdom))
+                {
+                    EditorLauncher.Launch(EditorLaunchArgs.Player(faction: wk));
+                    return;
+                }
+
+                // Other kingdoms keep the old behavior: universal, culture-selected.
+                var culture = wk.Culture;
                 if (culture == null)
                     return;
 
-                // Launch the editor with the kingdom culture.
-                EditorLauncher.Launch(culture);
+                EditorLauncher.Launch(EditorLaunchArgs.Universal(faction: culture));
             }
             catch (Exception e)
             {

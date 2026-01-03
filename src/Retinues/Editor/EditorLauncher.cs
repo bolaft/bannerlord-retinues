@@ -1,36 +1,22 @@
 using System.Linq;
-using Retinues.Domain.Characters.Wrappers;
+using Retinues.Domain.Factions;
 using Retinues.Domain.Factions.Wrappers;
 using Retinues.Utilities;
+using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 
 namespace Retinues.Editor
 {
     public static class EditorLauncher
     {
-        public static void Launch(EditorMode mode = EditorMode.Universal)
+        public static void Launch(EditorLaunchArgs args = null)
         {
-            LaunchInternal(new EditorLaunchArgs(mode));
+            LaunchInternal(args ?? EditorLaunchArgs.Universal());
         }
 
-        public static void Launch(WCharacter character)
+        public static void Launch(EditorMode mode)
         {
-            LaunchInternal(new EditorLaunchArgs(character));
-        }
-
-        public static void Launch(WHero hero)
-        {
-            LaunchInternal(new EditorLaunchArgs(hero));
-        }
-
-        public static void Launch(WClan clan)
-        {
-            LaunchInternal(new EditorLaunchArgs(clan));
-        }
-
-        public static void Launch(WCulture culture)
-        {
-            LaunchInternal(new EditorLaunchArgs(culture));
+            LaunchInternal(EditorLaunchArgs.ForMode(mode));
         }
 
         private static void LaunchInternal(EditorLaunchArgs args)
@@ -41,9 +27,13 @@ namespace Retinues.Editor
 
             if ((args?.Mode ?? EditorMode.Universal) == EditorMode.Player)
             {
-                if (!EditorAvailability.HasPlayerClanCustomTreeTroops())
+                // Player-mode availability must be based on the intended selection,
+                // not always on the player clan. :contentReference[oaicite:3]{index=3}
+                var gateFaction = ResolveGateFaction(args);
+
+                if (!EditorAvailability.HasAnyCustomTreeTroops(gateFaction))
                 {
-                    Log.Info("Troops editor blocked: player clan has no custom troops.");
+                    Log.Info("Troops editor blocked: selected map-faction has no custom troops.");
                     return;
                 }
             }
@@ -56,10 +46,31 @@ namespace Retinues.Editor
             gsm.PushState(state);
         }
 
+        private static IBaseFaction ResolveGateFaction(EditorLaunchArgs args)
+        {
+            if (args == null)
+                return GetPlayerClan();
+
+            if (args.Faction != null)
+                return args.Faction;
+
+            if (args.Character != null && args.Character.InCustomTree)
+                return args.Character.AssignedMapFaction ?? GetPlayerClan();
+
+            if (args.Hero != null)
+                return args.Hero.Clan ?? GetPlayerClan();
+
+            return GetPlayerClan();
+        }
+
+        private static IBaseFaction GetPlayerClan()
+        {
+            var hero = Hero.MainHero;
+            return hero?.Clan == null ? null : WClan.Get(hero.Clan);
+        }
+
         private static void ClosePreviousEditorInstances(GameStateManager gsm)
         {
-            // Pop from the top until no EditorState remains.
-            // This prevents stacking editor-on-editor (and also cleans up cases like editor + barber etc).
             while (gsm.GameStates.Any(s => s is EditorGameState))
             {
                 var active = gsm.ActiveState;

@@ -20,13 +20,22 @@ namespace Retinues.UI.Prefabs.Encyclopedia
                 if (ViewModel.Obj is not CharacterObject co)
                     return;
 
-                // Wrap the character object.
                 var character = WCharacter.Get(co);
                 if (character == null)
                     return;
 
-                // Launch the editor with the character.
-                EditorLauncher.Launch(character);
+                if (character.InCustomTree)
+                {
+                    // Player-mode editor, preselect the assigned map-faction (clan/kingdom).
+                    var faction = character.AssignedMapFaction;
+                    EditorLauncher.Launch(
+                        EditorLaunchArgs.Player(faction: faction, character: character)
+                    );
+                    return;
+                }
+
+                // Vanilla/universal troop: keep universal semantics.
+                EditorLauncher.Launch(EditorLaunchArgs.Universal(character: character));
             }
             catch (Exception e)
             {

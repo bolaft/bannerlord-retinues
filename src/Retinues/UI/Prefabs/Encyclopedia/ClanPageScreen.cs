@@ -27,13 +27,20 @@ namespace Retinues.UI.Prefabs.Encyclopedia
                 if (ViewModel.Obj is not Clan clan)
                     return;
 
-                // Get the wrapped clan.
                 var wc = WClan.Get(clan);
                 if (wc == null)
                     return;
 
-                // Launch the editor with the clan.
-                EditorLauncher.Launch(wc);
+                var playerClan = Hero.MainHero?.Clan;
+
+                if (playerClan != null && ReferenceEquals(playerClan, clan))
+                {
+                    EditorLauncher.Launch(EditorLaunchArgs.Player(faction: wc));
+                    return;
+                }
+
+                // Other clans stay universal.
+                EditorLauncher.Launch(EditorLaunchArgs.Universal(faction: wc));
             }
             catch (Exception e)
             {

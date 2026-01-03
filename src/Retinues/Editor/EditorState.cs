@@ -23,47 +23,43 @@ namespace Retinues.Editor
 
     /// <summary>
     /// Optional launch parameters for the editor.
-    /// Only one of Character/Clan/Culture should be set.
     /// </summary>
     public sealed class EditorLaunchArgs
     {
         public EditorMode Mode { get; } = EditorMode.Universal;
 
+        public IBaseFaction Faction { get; }
         public WCharacter Character { get; }
         public WHero Hero { get; }
-        public WClan Clan { get; }
-        public WCulture Culture { get; }
 
-        public EditorLaunchArgs(EditorMode mode = EditorMode.Universal)
+        private EditorLaunchArgs(
+            EditorMode mode,
+            IBaseFaction faction = null,
+            WCharacter character = null,
+            WHero hero = null
+        )
         {
             Mode = mode;
-        }
-
-        public EditorLaunchArgs(WCharacter character, EditorMode mode = EditorMode.Universal)
-        {
+            Faction = faction;
             Character = character;
-            Mode = mode;
-        }
-
-        public EditorLaunchArgs(WHero hero, EditorMode mode = EditorMode.Universal)
-        {
             Hero = hero;
-            Mode = mode;
         }
 
-        public EditorLaunchArgs(WClan clan, EditorMode mode = EditorMode.Universal)
-        {
-            Clan = clan;
-            Mode = mode;
-        }
+        public static EditorLaunchArgs ForMode(EditorMode mode) => new(mode);
 
-        public EditorLaunchArgs(WCulture culture, EditorMode mode = EditorMode.Universal)
-        {
-            Culture = culture;
-            Mode = mode;
-        }
+        public static EditorLaunchArgs Universal(
+            IBaseFaction faction = null,
+            WCharacter character = null,
+            WHero hero = null
+        ) => new(EditorMode.Universal, faction, character, hero);
 
-        public bool IsEmpty => Character == null && Hero == null && Clan == null && Culture == null;
+        public static EditorLaunchArgs Player(
+            IBaseFaction faction = null,
+            WCharacter character = null,
+            WHero hero = null
+        ) => new(EditorMode.Player, faction, character, hero);
+
+        public bool IsEmpty => Faction == null && Character == null && Hero == null;
     }
 
     [SafeClass]
@@ -140,50 +136,70 @@ namespace Retinues.Editor
         /// </summary>
         public static void Reset(EditorLaunchArgs args = null) => _instance = new EditorState(args);
 
-        /// <summary>
-        /// Applies the given launch arguments to the state.
-        /// </summary>
         private void ApplyLaunchArgs(EditorLaunchArgs args)
         {
-            // Set mode first.
             Mode = args?.Mode ?? EditorMode.Universal;
-
             Log.Info($"Launch Mode: {Mode}.");
 
-            if (args == null || args.IsEmpty)
-            {
-                ApplyDefault();
-                return;
-            }
+            var resolved = ResolveLaunch(args);
 
-            if (args.Character != null)
-            {
-                ApplyCharacter(args.Character);
-                return;
-            }
+            LeftBannerFaction = resolved.LeftBanner;
+            RightBannerFaction = resolved.RightBanner;
 
-            if (args.Hero != null)
-            {
-                ApplyHero(args.Hero);
-                return;
-            }
+            // Setting Faction will also pick the first troop automatically.
+            Faction = resolved.Faction;
 
-            if (args.Clan != null)
-            {
-                ApplyClan(args.Clan);
-                return;
-            }
+            // If a specific character was requested, apply it after the faction selection.
+            if (resolved.Character != null)
+                Character = resolved.Character;
 
-            if (args.Culture != null)
-            {
-                ApplyCulture(args.Culture);
-                return;
-            }
-
-            ApplyDefault();
+            Equipment = PickFirstEquipment(Character);
+            Slot = EquipmentIndex.Weapon0;
         }
 
-        private void ApplyDefault()
+        private sealed class ResolvedLaunch
+        {
+            public IBaseFaction LeftBanner { get; set; }
+            public IBaseFaction RightBanner { get; set; }
+            public IBaseFaction Faction { get; set; }
+            public WCharacter Character { get; set; }
+        }
+
+        private ResolvedLaunch ResolveLaunch(EditorLaunchArgs args)
+        {
+            if (args == null || args.IsEmpty)
+                return ResolveDefault();
+
+            // Prefer explicit faction when provided.
+            var faction = args.Faction;
+
+            // Prefer explicit character; if hero is provided, focus the hero's CharacterObject.
+            var character = args.Character ?? args.Hero?.Character;
+
+            if (faction == null && character != null)
+            {
+                if (Mode == EditorMode.Player && character.InCustomTree)
+                    faction = character.AssignedMapFaction;
+
+                if (Mode == EditorMode.Universal)
+                    faction = character.Culture;
+            }
+
+            if (faction == null && args.Hero != null)
+            {
+                faction =
+                    Mode == EditorMode.Universal ? (IBaseFaction)args.Hero.Clan : args.Hero.Clan;
+            }
+
+            if (faction == null)
+                return ResolveDefault(character);
+
+            return Mode == EditorMode.Player
+                ? ResolvePlayer(faction, character)
+                : ResolveUniversal(faction, character);
+        }
+
+        private ResolvedLaunch ResolveDefault(WCharacter focus = null)
         {
             var hero = WHero.Get(Hero.MainHero);
 
@@ -192,155 +208,77 @@ namespace Retinues.Editor
                 var clan = hero?.Clan;
                 var kingdom = hero?.Kingdom;
 
-                // Player mode: Left banner is Clan.
-                LeftBannerFaction = clan;
-
-                if (IsPlayerKingdomRuler(hero, kingdom))
+                // Same default as before: start on clan.
+                return new ResolvedLaunch
                 {
-                    // Player is a kingdom ruler: Right banner is Kingdom.
-                    RightBannerFaction = kingdom;
-                }
-                else
-                {
-                    // Not a ruler: no right banner.
-                    RightBannerFaction = null;
-                }
-
-                // Start on clan (not kingdom) by default.
-                Faction = clan;
+                    LeftBanner = clan,
+                    RightBanner = IsPlayerKingdomRuler(hero, kingdom) ? kingdom : null,
+                    Faction = clan,
+                    Character = focus,
+                };
             }
-            else
+
+            var culture = hero?.Culture;
+
+            return new ResolvedLaunch
             {
-                // Universal mode: Left banner is Culture, right banner is Clan (optional).
-                var culture = hero?.Culture;
-
-                LeftBannerFaction = culture;
-                RightBannerFaction = null;
-                Faction = culture;
-            }
-
-            Character = PickFirstTroop(Faction, Mode);
-            Equipment = PickFirstEquipment(Character);
-
-            Slot = EquipmentIndex.Weapon0;
+                LeftBanner = culture,
+                RightBanner = null,
+                Faction = culture,
+                Character = focus,
+            };
         }
 
-        private void ApplyHero(WHero hero)
+        private ResolvedLaunch ResolveUniversal(IBaseFaction faction, WCharacter focus)
         {
-            if (hero == null)
+            // Universal UI is: Left = Culture, Right = Clan (optional), Selected = faction (culture or clan).
+            if (faction is WClan clan)
             {
-                ApplyDefault();
-                return;
-            }
-
-            if (Mode == EditorMode.Player)
-            {
-                var clan = hero.Clan;
-                var kingdom = hero.Kingdom;
-
-                LeftBannerFaction = clan;
-                RightBannerFaction = IsPlayerKingdomRuler(hero, kingdom) ? kingdom : null;
-
-                Faction = clan;
-            }
-            else
-            {
-                LeftBannerFaction = hero.Culture;
-                RightBannerFaction = hero.Clan;
-
-                Faction = hero.Clan;
-            }
-
-            Character = PickFirstTroop(Faction, Mode);
-            Equipment = PickFirstEquipment(Character);
-
-            Slot = EquipmentIndex.Weapon0;
-        }
-
-        private void ApplyCharacter(WCharacter character)
-        {
-            if (character == null)
-            {
-                ApplyDefault();
-                return;
-            }
-
-            // Character launch: keep universal semantics.
-            LeftBannerFaction = character.Culture;
-            RightBannerFaction = null;
-            Faction = LeftBannerFaction;
-
-            Character = character;
-            Equipment = PickFirstEquipment(Character);
-
-            Slot = EquipmentIndex.Weapon0;
-        }
-
-        private void ApplyClan(WClan clan)
-        {
-            if (clan == null)
-            {
-                ApplyDefault();
-                return;
-            }
-
-            if (Mode == EditorMode.Player)
-            {
-                // Player mode rules:
-                // - If not a kingdom ruler, force the player clan and hide the kingdom banner.
-                // - If a kingdom ruler, allow selecting clans within that kingdom.
-                var hero = WHero.Get(Hero.MainHero);
-                var playerClan = hero?.Clan;
-                var playerKingdom = hero?.Kingdom;
-
-                if (!IsPlayerKingdomRuler(hero, playerKingdom))
+                return new ResolvedLaunch
                 {
-                    LeftBannerFaction = playerClan;
-                    RightBannerFaction = null;
-                    Faction = playerClan;
-                }
-                else
-                {
-                    // Clamp to the player's kingdom.
-                    if (playerKingdom != null && clan.Base.Kingdom != playerKingdom.Base)
-                        clan = playerClan;
-
-                    LeftBannerFaction = clan;
-                    RightBannerFaction = playerKingdom;
-                    Faction = clan;
-                }
+                    LeftBanner = clan.Culture,
+                    RightBanner = clan,
+                    Faction = clan,
+                    Character = focus,
+                };
             }
-            else
+
+            if (faction is WCulture culture)
             {
-                // Universal: left is culture, right is clan, latest selection is faction.
-                LeftBannerFaction = clan.Culture;
-                RightBannerFaction = clan;
-                Faction = clan;
+                return new ResolvedLaunch
+                {
+                    LeftBanner = culture,
+                    RightBanner = null,
+                    Faction = culture,
+                    Character = focus,
+                };
             }
 
-            Character = PickFirstTroop(Faction, Mode);
-            Equipment = PickFirstEquipment(Character);
-
-            Slot = EquipmentIndex.Weapon0;
+            // Fallback: treat unknown as culture-based.
+            return ResolveDefault(focus);
         }
 
-        private void ApplyCulture(WCulture culture)
+        private ResolvedLaunch ResolvePlayer(IBaseFaction faction, WCharacter focus)
         {
-            if (culture == null)
+            // Player UI is: Left = Clan, Right = Kingdom (only visible when ruler), Selected can be Clan or Kingdom.
+            var hero = WHero.Get(Hero.MainHero);
+            var playerClan = hero?.Clan;
+            var playerKingdom = hero?.Kingdom;
+
+            var right =
+                faction is WKingdom k ? k
+                : IsPlayerKingdomRuler(hero, playerKingdom) ? playerKingdom
+                : null;
+
+            var left = faction is WClan c ? c : playerClan;
+
+            return new ResolvedLaunch
             {
-                ApplyDefault();
-                return;
-            }
-
-            // Universal: left is culture, right is cleared, latest selection is faction.
-            LeftBannerFaction = culture;
-            RightBannerFaction = null;
-            Faction = culture;
-
-            Character = PickFirstTroop(Faction, Mode);
-            Equipment = PickFirstEquipment(Character);
-
-            Slot = EquipmentIndex.Weapon0;
+                LeftBanner = left,
+                RightBanner = right,
+                Faction = faction,
+                Character = focus,
+            };
         }
 
         private static WCharacter PickFirstTroop(IBaseFaction faction, EditorMode mode)

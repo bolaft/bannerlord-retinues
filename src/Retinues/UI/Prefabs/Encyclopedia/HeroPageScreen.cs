@@ -39,13 +39,11 @@ namespace Retinues.UI.Prefabs.Encyclopedia
                 if (ViewModel.Obj is not Hero hero)
                     return;
 
-                // Wrap the hero object.
                 var wh = WHero.Get(hero);
                 if (wh == null)
                     return;
 
-                // Launch the editor with the hero.
-                EditorLauncher.Launch(wh);
+                EditorLauncher.Launch(EditorLaunchArgs.Universal(hero: wh));
             }
             catch (Exception e)
             {

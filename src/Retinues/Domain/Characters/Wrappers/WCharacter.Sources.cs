@@ -136,6 +136,26 @@ namespace Retinues.Domain.Characters.Wrappers
 
         public List<IBaseFaction> Factions => TroopFactionCache.Get(this);
 
+        public IBaseFaction AssignedMapFaction
+        {
+            get
+            {
+                var list = Factions;
+                if (list == null || list.Count == 0)
+                    return null;
+
+                for (int i = 0; i < list.Count; i++)
+                    if (list[i] is WKingdom)
+                        return list[i];
+
+                for (int i = 0; i < list.Count; i++)
+                    if (list[i] is WClan)
+                        return list[i];
+
+                return null;
+            }
+        }
+
         public bool BelongsTo(IBaseFaction faction)
         {
             if (faction == null)

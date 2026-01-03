@@ -40,7 +40,16 @@ namespace Retinues.Editor.VM.Panel.Character
             }
 
             // Different faction, launch editor for the new character.
-            EditorLauncher.Launch(_character);
+            var faction =
+                State.Mode == EditorMode.Player && _character.InCustomTree
+                    ? _character.AssignedMapFaction
+                    : _character.Culture;
+
+            EditorLauncher.Launch(
+                State.Mode == EditorMode.Player
+                    ? EditorLaunchArgs.Player(faction: faction, character: _character)
+                    : EditorLaunchArgs.Universal(faction: faction, character: _character)
+            );
         }
     }
 }
