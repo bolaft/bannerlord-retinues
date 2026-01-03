@@ -180,6 +180,11 @@ namespace Retinues.Campaign
             /// When true, every item assigned to the troop is immediately unlocked.
             /// </summary>
             public bool UnlockItems { get; set; } = true;
+
+            /// <summary>
+            /// If true, the created troop is unhidden in the encyclopedia.
+            /// </summary>
+            public bool UnhideInEncyclopedia { get; set; } = true;
         }
 
         public static WCharacter BuildFromTemplate(WCharacter template, TroopBuildRequest req)
@@ -208,6 +213,10 @@ namespace Retinues.Campaign
                 foreach (WItem item in troop.EquipmentRoster.Items)
                     item.Unlock();
             }
+
+            // Make sure the retinue is visible in the encyclopedia.
+            if (req.UnhideInEncyclopedia)
+                troop.HiddenInEncyclopedia = false;
 
             return troop;
         }
