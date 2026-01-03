@@ -83,8 +83,11 @@
       id="ret_cant_equip_reason_civilian"
       text="민간인이 아님" />
     <string
+      id="ret_cant_equip_reason_mount_compat"
+      text="호환되지 않음" />
+    <string
       id="ret_cant_equip_reason_no_equipment"
-      text="선택된 장비 세트가 없습니다." />
+      text="장비 세트 없음" />
     <string
       id="ret_cant_equip_reason_skill"
       text="{SKILL} {VALUE}" />
@@ -148,6 +151,15 @@
     <string
       id="ret_editor_done_button"
       text="완료" />
+    <string
+      id="ret_editor_kingdom_none"
+      text="왕국 없음" />
+    <string
+      id="ret_editor_left_banner_unavailable"
+      text="이 선택은 사용할 수 없습니다." />
+    <string
+      id="ret_editor_right_banner_unavailable"
+      text="이 선택은 사용할 수 없습니다." />
     <string
       id="ret_editor_tab_doctrines"
       text="교리" />
@@ -563,14 +575,38 @@
       id="ret_mcm_option_debug_mode_hint"
       text="디버그 로깅 및 추가 검사를 활성화합니다." />
     <string
+      id="ret_mcm_option_default_unlocked_amount_per_slot"
+      text="슬롯당 사전 잠금 해제 수량" />
+    <string
+      id="ret_mcm_option_default_unlocked_amount_per_slot_hint"
+      text="게임 시작 시 장비 슬롯당 잠금 해제되는 아이템 수입니다." />
+    <string
+      id="ret_mcm_option_default_unlocked_item_max_tier"
+      text="사전 잠금 해제된 아이템 최대 등급" />
+    <string
+      id="ret_mcm_option_default_unlocked_item_max_tier_hint"
+      text="게임 시작 시 잠금 해제되는 아이템의 최대 등급입니다." />
+    <string
       id="ret_mcm_option_editor_hotkey"
       text="편집기 단축키" />
     <string
       id="ret_mcm_option_editor_hotkey_hint"
       text="편집기를 열기 위해 [R] 단축키를 활성화합니다." />
     <string
+      id="ret_mcm_option_starter_equipment"
+      text="초기 장비" />
+    <string
+      id="ret_mcm_option_starter_equipment_hint"
+      text="새로 잠금 해제된 부대의 시작 장비를 설정합니다." />
+    <string
       id="ret_mcm_section_debug"
       text="디버그" />
+    <string
+      id="ret_mcm_section_equipment_unlocks"
+      text="장비 잠금 해제" />
+    <string
+      id="ret_mcm_section_troop_unlocks"
+      text="부대 잠금 해제" />
     <string
       id="ret_mcm_section_user_interface"
       text="사용자 인터페이스" />
@@ -616,6 +652,9 @@
     <string
       id="ret_rename_unit"
       text="새 이름" />
+    <string
+      id="ret_retinue_default_name"
+      text="{CLAN} 하우스 가드" />
     <string
       id="ret_retinues_update_title"
       text="Retinues 업데이트" />
@@ -674,6 +713,18 @@
       id="ret_sort_by_value"
       text="값" />
     <string
+      id="ret_starter_equipment_all_sets"
+      text="모든 세트 복사" />
+    <string
+      id="ret_starter_equipment_empty_set"
+      text="비어 있음" />
+    <string
+      id="ret_starter_equipment_random_set"
+      text="무작위" />
+    <string
+      id="ret_starter_equipment_single_set"
+      text="한 세트 복사" />
+    <string
       id="ret_trait_decrease_mined_reason"
       text="특성이 이미 최소 값에 도달했습니다." />
     <string
@@ -691,6 +742,9 @@
     <string
       id="ret_troops_editor_locked"
       text="부대 편집기는 사용할 수 없습니다." />
+    <string
+      id="ret_troops_editor_no_custom"
+      text="사용 가능한 부대가 없습니다." />
     <string
       id="ret_troops_navigation_tooltip"
       text="부대" />

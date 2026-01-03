@@ -83,8 +83,11 @@
       id="ret_cant_equip_reason_civilian"
       text="非平民" />
     <string
+      id="ret_cant_equip_reason_mount_compat"
+      text="不兼容" />
+    <string
       id="ret_cant_equip_reason_no_equipment"
-      text="未選擇裝備套裝。" />
+      text="無裝備套裝" />
     <string
       id="ret_cant_equip_reason_skill"
       text="{SKILL} {VALUE}" />
@@ -148,6 +151,15 @@
     <string
       id="ret_editor_done_button"
       text="完成" />
+    <string
+      id="ret_editor_kingdom_none"
+      text="無王國" />
+    <string
+      id="ret_editor_left_banner_unavailable"
+      text="此選擇不可用。" />
+    <string
+      id="ret_editor_right_banner_unavailable"
+      text="此選擇不可用。" />
     <string
       id="ret_editor_tab_doctrines"
       text="學說" />
@@ -563,14 +575,38 @@
       id="ret_mcm_option_debug_mode_hint"
       text="啟用調試日誌記錄和其他檢查。" />
     <string
+      id="ret_mcm_option_default_unlocked_amount_per_slot"
+      text="每個槽的預解鎖數量" />
+    <string
+      id="ret_mcm_option_default_unlocked_amount_per_slot_hint"
+      text="遊戲開始時每個裝備槽解鎖的物品數量。" />
+    <string
+      id="ret_mcm_option_default_unlocked_item_max_tier"
+      text="預解鎖物品最高等級" />
+    <string
+      id="ret_mcm_option_default_unlocked_item_max_tier_hint"
+      text="遊戲開始時解鎖的物品的最高等級。" />
+    <string
       id="ret_mcm_option_editor_hotkey"
       text="編輯器熱鍵" />
     <string
       id="ret_mcm_option_editor_hotkey_hint"
       text="啟用[R]熱鍵以打開編輯器。" />
     <string
+      id="ret_mcm_option_starter_equipment"
+      text="起始裝備" />
+    <string
+      id="ret_mcm_option_starter_equipment_hint"
+      text="為新解鎖的部隊設置起始裝備。" />
+    <string
       id="ret_mcm_section_debug"
       text="調試" />
+    <string
+      id="ret_mcm_section_equipment_unlocks"
+      text="裝備解鎖" />
+    <string
+      id="ret_mcm_section_troop_unlocks"
+      text="部隊解鎖" />
     <string
       id="ret_mcm_section_user_interface"
       text="用戶界面" />
@@ -616,6 +652,9 @@
     <string
       id="ret_rename_unit"
       text="新名稱" />
+    <string
+      id="ret_retinue_default_name"
+      text="{CLAN} 守衛隊" />
     <string
       id="ret_retinues_update_title"
       text="Retinues 更新" />
@@ -674,6 +713,18 @@
       id="ret_sort_by_value"
       text="數值" />
     <string
+      id="ret_starter_equipment_all_sets"
+      text="複製所有套裝" />
+    <string
+      id="ret_starter_equipment_empty_set"
+      text="空" />
+    <string
+      id="ret_starter_equipment_random_set"
+      text="隨機" />
+    <string
+      id="ret_starter_equipment_single_set"
+      text="複製一個套裝" />
+    <string
       id="ret_trait_decrease_mined_reason"
       text="特質已達到最低值。" />
     <string
@@ -691,6 +742,9 @@
     <string
       id="ret_troops_editor_locked"
       text="部隊編輯器不可用。" />
+    <string
+      id="ret_troops_editor_no_custom"
+      text="沒有可用的部隊。" />
     <string
       id="ret_troops_navigation_tooltip"
       text="部隊" />

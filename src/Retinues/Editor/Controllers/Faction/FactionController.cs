@@ -17,7 +17,6 @@ namespace Retinues.Editor.Controllers.Faction
 
         public static EditorAction<bool> SelectLeftBannerPopup { get; } =
             Action<bool>("SelectLeftBannerPopup")
-                .DefaultTooltip(L.T("editor_left_banner_select", "Select"))
                 .AddCondition(
                     _ => CanSelectLeftBanner(),
                     L.T("editor_left_banner_unavailable", "This selection is not available.")
@@ -26,7 +25,6 @@ namespace Retinues.Editor.Controllers.Faction
 
         public static EditorAction<bool> SelectRightBannerPopup { get; } =
             Action<bool>("SelectRightBannerPopup")
-                .DefaultTooltip(L.T("editor_right_banner_select", "Select"))
                 .AddCondition(
                     _ => CanSelectRightBanner(),
                     L.T("editor_right_banner_unavailable", "This selection is not available.")

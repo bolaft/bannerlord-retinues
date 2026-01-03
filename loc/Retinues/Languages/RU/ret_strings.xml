@@ -83,8 +83,11 @@
       id="ret_cant_equip_reason_civilian"
       text="Не гражданский" />
     <string
+      id="ret_cant_equip_reason_mount_compat"
+      text="Несовместимо" />
+    <string
       id="ret_cant_equip_reason_no_equipment"
-      text="Не выбран набор снаряжения." />
+      text="Нет набора снаряжения" />
     <string
       id="ret_cant_equip_reason_skill"
       text="{SKILL} {VALUE}" />
@@ -148,6 +151,15 @@
     <string
       id="ret_editor_done_button"
       text="Готово" />
+    <string
+      id="ret_editor_kingdom_none"
+      text="Нет королевства" />
+    <string
+      id="ret_editor_left_banner_unavailable"
+      text="Этот выбор недоступен." />
+    <string
+      id="ret_editor_right_banner_unavailable"
+      text="Этот выбор недоступен." />
     <string
       id="ret_editor_tab_doctrines"
       text="Доктрины" />
@@ -563,14 +575,38 @@
       id="ret_mcm_option_debug_mode_hint"
       text="Включает отладочное ведение журнала и дополнительные проверки." />
     <string
+      id="ret_mcm_option_default_unlocked_amount_per_slot"
+      text="Предварительно разблокированное количество на слот" />
+    <string
+      id="ret_mcm_option_default_unlocked_amount_per_slot_hint"
+      text="Количество предметов, разблокированных на слот экипировки при начале игры." />
+    <string
+      id="ret_mcm_option_default_unlocked_item_max_tier"
+      text="Максимальный уровень предварительно разблокированного предмета" />
+    <string
+      id="ret_mcm_option_default_unlocked_item_max_tier_hint"
+      text="Максимальный уровень предметов, разблокированных при начале игры." />
+    <string
       id="ret_mcm_option_editor_hotkey"
       text="Горячая клавиша редактора" />
     <string
       id="ret_mcm_option_editor_hotkey_hint"
       text="Включает горячую клавишу [R] для открытия редактора." />
     <string
+      id="ret_mcm_option_starter_equipment"
+      text="Начальное снаряжение" />
+    <string
+      id="ret_mcm_option_starter_equipment_hint"
+      text="Устанавливает начальное снаряжение для недавно разблокированных войск." />
+    <string
       id="ret_mcm_section_debug"
       text="Отладка" />
+    <string
+      id="ret_mcm_section_equipment_unlocks"
+      text="Разблокировка снаряжения" />
+    <string
+      id="ret_mcm_section_troop_unlocks"
+      text="Разблокировка войск" />
     <string
       id="ret_mcm_section_user_interface"
       text="Пользовательский интерфейс" />
@@ -616,6 +652,9 @@
     <string
       id="ret_rename_unit"
       text="Новое имя" />
+    <string
+      id="ret_retinue_default_name"
+      text="Домашняя стража {CLAN}" />
     <string
       id="ret_retinues_update_title"
       text="Обновление Retinues" />
@@ -674,6 +713,18 @@
       id="ret_sort_by_value"
       text="Значение" />
     <string
+      id="ret_starter_equipment_all_sets"
+      text="Скопировать все наборы" />
+    <string
+      id="ret_starter_equipment_empty_set"
+      text="Пусто" />
+    <string
+      id="ret_starter_equipment_random_set"
+      text="Случайный" />
+    <string
+      id="ret_starter_equipment_single_set"
+      text="Скопировать один набор" />
+    <string
       id="ret_trait_decrease_mined_reason"
       text="Черта уже на минимальном значении." />
     <string
@@ -691,6 +742,9 @@
     <string
       id="ret_troops_editor_locked"
       text="Редактор войск недоступен." />
+    <string
+      id="ret_troops_editor_no_custom"
+      text="Нет доступных войск." />
     <string
       id="ret_troops_navigation_tooltip"
       text="Войска" />

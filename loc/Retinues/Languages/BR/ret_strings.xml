@@ -83,8 +83,11 @@
       id="ret_cant_equip_reason_civilian"
       text="Não civil" />
     <string
+      id="ret_cant_equip_reason_mount_compat"
+      text="Incompatível" />
+    <string
       id="ret_cant_equip_reason_no_equipment"
-      text="Nenhum conjunto de equipamento selecionado." />
+      text="Nenhum conjunto de equipamento" />
     <string
       id="ret_cant_equip_reason_skill"
       text="{SKILL} {VALUE}" />
@@ -148,6 +151,15 @@
     <string
       id="ret_editor_done_button"
       text="Concluído" />
+    <string
+      id="ret_editor_kingdom_none"
+      text="Nenhum Reino" />
+    <string
+      id="ret_editor_left_banner_unavailable"
+      text="Esta seleção não está disponível." />
+    <string
+      id="ret_editor_right_banner_unavailable"
+      text="Esta seleção não está disponível." />
     <string
       id="ret_editor_tab_doctrines"
       text="Doutrinas" />
@@ -563,14 +575,38 @@
       id="ret_mcm_option_debug_mode_hint"
       text="Ativa o registro de depuração e verificações adicionais." />
     <string
+      id="ret_mcm_option_default_unlocked_amount_per_slot"
+      text="Quantidade Pré-Desbloqueada por Slot" />
+    <string
+      id="ret_mcm_option_default_unlocked_amount_per_slot_hint"
+      text="O número de itens desbloqueados por slot de equipamento no início do jogo." />
+    <string
+      id="ret_mcm_option_default_unlocked_item_max_tier"
+      text="Nível Máximo de Item Pré-Desbloqueado" />
+    <string
+      id="ret_mcm_option_default_unlocked_item_max_tier_hint"
+      text="O nível máximo de itens desbloqueados no início do jogo." />
+    <string
       id="ret_mcm_option_editor_hotkey"
       text="Atalho do Editor" />
     <string
       id="ret_mcm_option_editor_hotkey_hint"
       text="Ativa a tecla de atalho [R] para abrir o editor." />
     <string
+      id="ret_mcm_option_starter_equipment"
+      text="Equipamento Inicial" />
+    <string
+      id="ret_mcm_option_starter_equipment_hint"
+      text="Define o equipamento inicial para tropas recém-desbloqueadas." />
+    <string
       id="ret_mcm_section_debug"
       text="Depuração" />
+    <string
+      id="ret_mcm_section_equipment_unlocks"
+      text="Desbloqueios de Equipamento" />
+    <string
+      id="ret_mcm_section_troop_unlocks"
+      text="Desbloqueios de Tropas" />
     <string
       id="ret_mcm_section_user_interface"
       text="Interface do Usuário" />
@@ -616,6 +652,9 @@
     <string
       id="ret_rename_unit"
       text="Novo Nome" />
+    <string
+      id="ret_retinue_default_name"
+      text="Guarda da Casa {CLAN}" />
     <string
       id="ret_retinues_update_title"
       text="Atualização do Retinues" />
@@ -674,6 +713,18 @@
       id="ret_sort_by_value"
       text="Valor" />
     <string
+      id="ret_starter_equipment_all_sets"
+      text="Copiar Todos os Conjuntos" />
+    <string
+      id="ret_starter_equipment_empty_set"
+      text="Vazio" />
+    <string
+      id="ret_starter_equipment_random_set"
+      text="Aleatório" />
+    <string
+      id="ret_starter_equipment_single_set"
+      text="Copiar Um Conjunto" />
+    <string
       id="ret_trait_decrease_mined_reason"
       text="O traço já está no valor mínimo." />
     <string
@@ -691,6 +742,9 @@
     <string
       id="ret_troops_editor_locked"
       text="O editor de tropas não está disponível." />
+    <string
+      id="ret_troops_editor_no_custom"
+      text="Nenhuma tropa está disponível." />
     <string
       id="ret_troops_navigation_tooltip"
       text="Tropas" />

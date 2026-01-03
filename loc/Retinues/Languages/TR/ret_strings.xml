@@ -83,8 +83,11 @@
       id="ret_cant_equip_reason_civilian"
       text="Sivil Değil" />
     <string
+      id="ret_cant_equip_reason_mount_compat"
+      text="Uyumsuz" />
+    <string
       id="ret_cant_equip_reason_no_equipment"
-      text="Seçilen ekipman seti yok." />
+      text="Ekipman seti yok" />
     <string
       id="ret_cant_equip_reason_skill"
       text="{SKILL} {VALUE}" />
@@ -148,6 +151,15 @@
     <string
       id="ret_editor_done_button"
       text="Tamamlandı" />
+    <string
+      id="ret_editor_kingdom_none"
+      text="Krallık Yok" />
+    <string
+      id="ret_editor_left_banner_unavailable"
+      text="Bu seçim kullanılamıyor." />
+    <string
+      id="ret_editor_right_banner_unavailable"
+      text="Bu seçim kullanılamıyor." />
     <string
       id="ret_editor_tab_doctrines"
       text="Doktrinler" />
@@ -563,14 +575,38 @@
       id="ret_mcm_option_debug_mode_hint"
       text="Hata ayıklama günlük kaydını ve ek kontrolleri etkinleştirir." />
     <string
+      id="ret_mcm_option_default_unlocked_amount_per_slot"
+      text="Slot Başına Önceden Kilidi Açılmış Miktar" />
+    <string
+      id="ret_mcm_option_default_unlocked_amount_per_slot_hint"
+      text="Oyun başlangıcında ekipman yuvası başına kilidi açılan öğe sayısı." />
+    <string
+      id="ret_mcm_option_default_unlocked_item_max_tier"
+      text="Önceden Kilidi Açılmış Öğenin Maksimum Seviyesi" />
+    <string
+      id="ret_mcm_option_default_unlocked_item_max_tier_hint"
+      text="Oyun başlangıcında kilidi açılan öğelerin maksimum seviyesi." />
+    <string
       id="ret_mcm_option_editor_hotkey"
       text="Düzenleyici Kısayolu" />
     <string
       id="ret_mcm_option_editor_hotkey_hint"
       text="Düzenleyiciyi açmak için [R] kısayolunu etkinleştirir." />
     <string
+      id="ret_mcm_option_starter_equipment"
+      text="Başlangıç Ekipmanı" />
+    <string
+      id="ret_mcm_option_starter_equipment_hint"
+      text="Yeni kilidi açılmış birlikler için başlangıç ekipmanını ayarlar." />
+    <string
       id="ret_mcm_section_debug"
       text="Hata Ayıklama" />
+    <string
+      id="ret_mcm_section_equipment_unlocks"
+      text="Ekipman Kilidi Açma" />
+    <string
+      id="ret_mcm_section_troop_unlocks"
+      text="Birlik Kilidi Açma" />
     <string
       id="ret_mcm_section_user_interface"
       text="Kullanıcı Arayüzü" />
@@ -616,6 +652,9 @@
     <string
       id="ret_rename_unit"
       text="Yeni İsim" />
+    <string
+      id="ret_retinue_default_name"
+      text="{CLAN} Ev Muhafızı" />
     <string
       id="ret_retinues_update_title"
       text="Retinues Güncellemesi" />
@@ -674,6 +713,18 @@
       id="ret_sort_by_value"
       text="Değer" />
     <string
+      id="ret_starter_equipment_all_sets"
+      text="Tüm Setleri Kopyala" />
+    <string
+      id="ret_starter_equipment_empty_set"
+      text="Boş" />
+    <string
+      id="ret_starter_equipment_random_set"
+      text="Rastgele" />
+    <string
+      id="ret_starter_equipment_single_set"
+      text="Bir Seti Kopyala" />
+    <string
       id="ret_trait_decrease_mined_reason"
       text="Özellik zaten minimum değerde." />
     <string
@@ -691,6 +742,9 @@
     <string
       id="ret_troops_editor_locked"
       text="Birlik düzenleyicisi kullanılamıyor." />
+    <string
+      id="ret_troops_editor_no_custom"
+      text="Kullanılabilir birlik yok." />
     <string
       id="ret_troops_navigation_tooltip"
       text="Birlikler" />

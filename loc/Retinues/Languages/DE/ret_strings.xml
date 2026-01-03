@@ -83,8 +83,11 @@
       id="ret_cant_equip_reason_civilian"
       text="Nicht zivil" />
     <string
+      id="ret_cant_equip_reason_mount_compat"
+      text="Inkompatibel" />
+    <string
       id="ret_cant_equip_reason_no_equipment"
-      text="Kein Ausrüstungsset ausgewählt." />
+      text="Kein Ausrüstungsset" />
     <string
       id="ret_cant_equip_reason_skill"
       text="{SKILL} {VALUE}" />
@@ -148,6 +151,15 @@
     <string
       id="ret_editor_done_button"
       text="Fertig" />
+    <string
+      id="ret_editor_kingdom_none"
+      text="Kein Königreich" />
+    <string
+      id="ret_editor_left_banner_unavailable"
+      text="Diese Auswahl ist nicht verfügbar." />
+    <string
+      id="ret_editor_right_banner_unavailable"
+      text="Diese Auswahl ist nicht verfügbar." />
     <string
       id="ret_editor_tab_doctrines"
       text="Doktrinen" />
@@ -563,14 +575,38 @@
       id="ret_mcm_option_debug_mode_hint"
       text="Aktiviert Debug-Protokollierung und zusätzliche Überprüfungen." />
     <string
+      id="ret_mcm_option_default_unlocked_amount_per_slot"
+      text="Vorab entsperrte Menge pro Steckplatz" />
+    <string
+      id="ret_mcm_option_default_unlocked_amount_per_slot_hint"
+      text="Die Anzahl der zu Spielbeginn pro Ausrüstungsplatz entsperrten Gegenstände." />
+    <string
+      id="ret_mcm_option_default_unlocked_item_max_tier"
+      text="Vorab entsperrter maximaler Gegenstandsstufe" />
+    <string
+      id="ret_mcm_option_default_unlocked_item_max_tier_hint"
+      text="Die maximale Stufe der zu Spielbeginn entsperrten Gegenstände." />
+    <string
       id="ret_mcm_option_editor_hotkey"
       text="Editor-Hotkey" />
     <string
       id="ret_mcm_option_editor_hotkey_hint"
       text="Aktiviert die [R]-Hotkey zum Öffnen des Editors." />
     <string
+      id="ret_mcm_option_starter_equipment"
+      text="Startausrüstung" />
+    <string
+      id="ret_mcm_option_starter_equipment_hint"
+      text="Legt die Starterausrüstung für neu freigeschaltete Truppen fest." />
+    <string
       id="ret_mcm_section_debug"
       text="Debug" />
+    <string
+      id="ret_mcm_section_equipment_unlocks"
+      text="Ausrüstungsfreischaltungen" />
+    <string
+      id="ret_mcm_section_troop_unlocks"
+      text="Truppenfreischaltungen" />
     <string
       id="ret_mcm_section_user_interface"
       text="Benutzeroberfläche" />
@@ -616,6 +652,9 @@
     <string
       id="ret_rename_unit"
       text="Neuer Name" />
+    <string
+      id="ret_retinue_default_name"
+      text="{CLAN}-Hauswache" />
     <string
       id="ret_retinues_update_title"
       text="Retinues-Update" />
@@ -674,6 +713,18 @@
       id="ret_sort_by_value"
       text="Wert" />
     <string
+      id="ret_starter_equipment_all_sets"
+      text="Alle Sätze kopieren" />
+    <string
+      id="ret_starter_equipment_empty_set"
+      text="Leer" />
+    <string
+      id="ret_starter_equipment_random_set"
+      text="Zufällig" />
+    <string
+      id="ret_starter_equipment_single_set"
+      text="Einen Satz kopieren" />
+    <string
       id="ret_trait_decrease_mined_reason"
       text="Eigenschaft ist bereits auf dem Mindestwert." />
     <string
@@ -691,6 +742,9 @@
     <string
       id="ret_troops_editor_locked"
       text="Der Truppen-Editor ist nicht verfügbar." />
+    <string
+      id="ret_troops_editor_no_custom"
+      text="Keine Truppen verfügbar." />
     <string
       id="ret_troops_navigation_tooltip"
       text="Truppen" />
