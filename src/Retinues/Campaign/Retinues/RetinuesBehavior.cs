@@ -13,10 +13,14 @@ namespace Retinues.Campaign.Retinues
     {
         public override void RegisterEvents()
         {
-            Hook(BehaviorEvent.GameLoadFinished, OnGameLoadFinished);
+            // New game: after character creation, first time you hit the campaign map.
+            Hook(BehaviorEvent.CharacterCreationIsOver, EnsureDefaultRetinue);
+
+            // Loaded save: when the campaign has finished loading.
+            Hook(BehaviorEvent.GameLoadFinished, EnsureDefaultRetinue);
         }
 
-        private void OnGameLoadFinished()
+        private void EnsureDefaultRetinue()
         {
             var hero = WHero.Get(Hero.MainHero);
             var clan = hero.Clan;

@@ -23,6 +23,7 @@ namespace Retinues.Framework.Behaviors
             GameLoadFinished,
             SessionLaunched,
             HourlyTickParty,
+            CharacterCreationIsOver,
         }
 
         /// <summary>
@@ -106,6 +107,13 @@ namespace Retinues.Framework.Behaviors
                     CampaignEvents.HourlyTickPartyEvent.AddNonSerializedListener(
                         this,
                         _ => Wrapper()
+                    );
+                    break;
+
+                case BehaviorEvent.CharacterCreationIsOver:
+                    CampaignEvents.OnCharacterCreationIsOverEvent.AddNonSerializedListener(
+                        this,
+                        Wrapper
                     );
                     break;
 
