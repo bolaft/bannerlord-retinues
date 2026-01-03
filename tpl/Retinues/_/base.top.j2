@@ -26,7 +26,7 @@
                 {# ------------------------------------------ #}
 
                 {# Banner button (culture / clan) #}
-                {% macro banner(command, banner, hint, text, offset, text_offset, alignment, is_enabled="true") %}
+                {% macro banner(command, banner, hint, text, offset, text_offset, alignment, is_enabled="true", is_visible="true") %}
                     <ButtonWidget
                         DoNotPassEventsToChildren="true"
                         WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed"
@@ -35,6 +35,7 @@
                         PositionXOffset="{{ offset }}" PositionYOffset="-8"
                         Command.Click="{{ command }}"
                         IsEnabled="{{ is_enabled }}"
+                        IsVisible="{{ is_visible }}"
                         UpdateChildrenStates="true"
                         GamepadNavigationIndex="0">
                         <Children>
@@ -101,10 +102,10 @@
                 {# ------------------------------------------ #}
 
                 {# Culture banner #}
-                {{ banner("ExecuteSelectCulture", "{CultureBanner}", "{CultureBannerHint}", "@CultureName", "20", "120", "Left") }}
+                {{ banner("ExecuteSelectLeftBanner", "{LeftBanner}", "{LeftBannerHint}", "@LeftBannerName", "20", "120", "Left", is_enabled="@CanSelectLeftBanner", is_visible="@IsLeftBannerVisible") }}
 
                 {# Clan banner #}
-                {{ banner("ExecuteSelectClan", "{ClanBanner}", "{ClanBannerHint}", "@ClanName", "-20", "-120", "Right") }}
+                {{ banner("ExecuteSelectRightBanner", "{RightBanner}", "{RightBannerHint}", "@RightBannerName", "-20", "-120", "Right", is_enabled="@CanSelectRightBanner", is_visible="@IsRightBannerVisible") }}
 
                 {# ------------------------------------------ #}
                 {# Name panel                                 #}
