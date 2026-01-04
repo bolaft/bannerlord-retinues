@@ -3,8 +3,8 @@ using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Factions.Wrappers;
 using Retinues.Editor.Events;
 using Retinues.Framework.Model.Exports;
+using Retinues.Game;
 using Retinues.UI.Services;
-using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 
 namespace Retinues.Editor.Controllers.Faction
@@ -37,7 +37,7 @@ namespace Retinues.Editor.Controllers.Faction
                 return WCulture.All != null;
 
             // Player: left banner is only selectable if the player is a kingdom ruler.
-            return IsPlayerKingdomRuler(out _, out _);
+            return Player.IsRuler;
         }
 
         private static bool CanSelectRightBanner()
@@ -46,7 +46,7 @@ namespace Retinues.Editor.Controllers.Faction
                 return WClan.All != null;
 
             // Player: right banner exists only for kingdom rulers (click sets faction to kingdom).
-            return IsPlayerKingdomRuler(out _, out _);
+            return Player.IsRuler;
         }
 
         private static void ExecuteSelectLeftBanner()
@@ -70,21 +70,10 @@ namespace Retinues.Editor.Controllers.Faction
             }
 
             // Player: click sets faction to the player's kingdom.
-            if (!IsPlayerKingdomRuler(out _, out var kingdom))
+            if (!Player.IsRuler)
                 return;
 
-            ApplyKingdom(kingdom);
-        }
-
-        private static bool IsPlayerKingdomRuler(out WHero hero, out WKingdom kingdom)
-        {
-            hero = WHero.Get(Hero.MainHero);
-            kingdom = hero?.Kingdom;
-
-            if (hero == null || kingdom == null)
-                return false;
-
-            return ReferenceEquals(kingdom.Leader?.Base, hero.Base);
+            ApplyKingdom(Player.Kingdom);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -216,14 +205,14 @@ namespace Retinues.Editor.Controllers.Faction
 
         private static void ShowPlayerKingdomClanPopup()
         {
-            if (!IsPlayerKingdomRuler(out var hero, out var kingdom))
+            if (!Player.IsRuler)
                 return;
 
             var elements = new List<InquiryElement>();
 
             foreach (var clan in WClan.All)
             {
-                if (kingdom != null && clan.Base.Kingdom != kingdom.Base)
+                if (Player.Kingdom != null && clan.Base.Kingdom != Player.Kingdom.Base)
                     continue;
 
                 var imageIdentifier = clan?.ImageIdentifier;
@@ -253,7 +242,8 @@ namespace Retinues.Editor.Controllers.Faction
             Inquiries.SelectPopup(
                 title: L.T("select_clan_title", "Select Clan"),
                 elements: elements,
-                onSelect: element => ApplyClanPlayer(element?.Identifier as WClan, hero, kingdom)
+                onSelect: element =>
+                    ApplyClanPlayer(element?.Identifier as WClan, Player.Hero, Player.Kingdom)
             );
         }
 

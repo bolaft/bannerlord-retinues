@@ -1,0 +1,127 @@
+using System;
+using Retinues.Domain.Characters.Wrappers;
+using Retinues.Domain.Factions;
+using Retinues.Domain.Factions.Wrappers;
+using Retinues.Domain.Parties.Wrappers;
+using Retinues.Framework.Runtime;
+using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.Party;
+
+namespace Retinues.Game
+{
+    /// <summary>
+    /// Static helpers for accessing player-related game state and attributes.
+    /// </summary>
+    [SafeClass]
+    public static class Player
+    {
+        private static Hero MainHero => TaleWorlds.CampaignSystem.Hero.MainHero;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Attributes                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public static string Name => MainHero.Name.ToString();
+        public static bool IsFemale => MainHero.IsFemale;
+        public static bool IsRuler => MainHero.IsKingdomLeader;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Components                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public static WCulture Culture => WCulture.Get(MainHero.Culture);
+        public static WClan Clan => WClan.Get(MainHero.Clan);
+        public static WKingdom Kingdom => WKingdom.Get(MainHero.Clan?.Kingdom);
+        public static WHero Hero => WHero.Get(MainHero);
+        public static WParty Party => new(MobileParty.MainParty);
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Map Faction                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public static IBaseFaction MapFaction
+        {
+            get
+            {
+                var faction = MainHero.MapFaction;
+                if (faction is Kingdom kingdom)
+                    return new WKingdom(kingdom);
+                if (faction is Clan clan)
+                    return new WClan(clan);
+                return null;
+            }
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Renown                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public static float Renown => MainHero.Clan.Renown;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Gold                          //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public static int Gold => MainHero.Gold;
+
+        public static void ChangeGold(int amount)
+        {
+            MainHero.ChangeHeroGold(amount);
+        }
+
+        public static void AddGold(int amount)
+        {
+            if (amount <= 0)
+                return;
+            ChangeGold(amount);
+        }
+
+        public static bool TrySpendGold(int amount)
+        {
+            if (amount <= 0)
+                return true;
+            if (Gold < amount)
+                return false;
+            ChangeGold(-amount);
+            return true;
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Influence                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public static int Influence
+        {
+            get
+            {
+                if (TaleWorlds.CampaignSystem.Clan.PlayerClan == null)
+                    return 0;
+                return (int)TaleWorlds.CampaignSystem.Clan.PlayerClan.Influence;
+            }
+        }
+
+        public static void ChangeInfluence(int amount)
+        {
+            if (TaleWorlds.CampaignSystem.Clan.PlayerClan == null)
+                return;
+            TaleWorlds.CampaignSystem.Clan.PlayerClan.Influence = Math.Max(0f, Influence + amount);
+        }
+
+        public static void AddInfluence(int amount)
+        {
+            if (amount <= 0)
+                return;
+            ChangeInfluence(amount);
+        }
+
+        public static bool TrySpendInfluence(int amount)
+        {
+            if (amount <= 0)
+                return true;
+            if (Influence < amount)
+                return false;
+            ChangeInfluence(-amount);
+            return true;
+        }
+    }
+}

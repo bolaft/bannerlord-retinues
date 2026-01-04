@@ -1,8 +1,7 @@
 using System.Linq;
 using Retinues.Domain.Factions;
-using Retinues.Domain.Factions.Wrappers;
+using Retinues.Game;
 using Retinues.Utilities;
-using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 
 namespace Retinues.Editor
@@ -49,24 +48,18 @@ namespace Retinues.Editor
         private static IBaseFaction ResolveGateFaction(EditorLaunchArgs args)
         {
             if (args == null)
-                return GetPlayerClan();
+                return Player.Clan;
 
             if (args.Faction != null)
                 return args.Faction;
 
             if (args.Character != null && args.Character.InCustomTree)
-                return args.Character.AssignedMapFaction ?? GetPlayerClan();
+                return args.Character.AssignedMapFaction ?? Player.Clan;
 
             if (args.Hero != null)
-                return args.Hero.Clan ?? GetPlayerClan();
+                return args.Hero.Clan ?? Player.Clan;
 
-            return GetPlayerClan();
-        }
-
-        private static IBaseFaction GetPlayerClan()
-        {
-            var hero = Hero.MainHero;
-            return hero?.Clan == null ? null : WClan.Get(hero.Clan);
+            return Player.Clan;
         }
 
         private static void ClosePreviousEditorInstances(GameStateManager gsm)

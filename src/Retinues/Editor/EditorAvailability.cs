@@ -1,7 +1,4 @@
 using Retinues.Domain.Factions;
-using Retinues.Domain.Factions.Wrappers;
-using Retinues.Utilities;
-using TaleWorlds.CampaignSystem;
 
 namespace Retinues.Editor
 {
@@ -27,27 +24,6 @@ namespace Retinues.Editor
 
             var retinues = faction.RosterRetinues;
             return retinues != null && retinues.Count > 0;
-        }
-
-        /// <summary>
-        /// True if the current player clan has any custom-tree troops.
-        /// </summary>
-        public static bool HasPlayerClanCustomTreeTroops()
-        {
-            try
-            {
-                var hero = Hero.MainHero;
-                if (hero == null)
-                    return false;
-
-                var clan = WClan.Get(hero.Clan);
-                return HasAnyCustomTreeTroops(clan);
-            }
-            catch (System.Exception e)
-            {
-                Log.Exception(e, "Failed to evaluate editor availability.");
-                return false;
-            }
         }
     }
 }

@@ -6,6 +6,7 @@ using Retinues.Domain.Factions.Wrappers;
 using Retinues.Editor.Events;
 using Retinues.Framework.Model.Exports;
 using Retinues.Framework.Runtime;
+using Retinues.Game;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
@@ -201,24 +202,19 @@ namespace Retinues.Editor
 
         private ResolvedLaunch ResolveDefault(WCharacter focus = null)
         {
-            var hero = WHero.Get(Hero.MainHero);
-
             if (Mode == EditorMode.Player)
             {
-                var clan = hero?.Clan;
-                var kingdom = hero?.Kingdom;
-
                 // Same default as before: start on clan.
                 return new ResolvedLaunch
                 {
-                    LeftBanner = clan,
-                    RightBanner = IsPlayerKingdomRuler(hero, kingdom) ? kingdom : null,
-                    Faction = clan,
+                    LeftBanner = Player.Clan,
+                    RightBanner = Player.IsRuler ? Player.Kingdom : null,
+                    Faction = Player.Clan,
                     Character = focus,
                 };
             }
 
-            var culture = hero?.Culture;
+            var culture = Player.Culture;
 
             return new ResolvedLaunch
             {
@@ -261,16 +257,13 @@ namespace Retinues.Editor
         private ResolvedLaunch ResolvePlayer(IBaseFaction faction, WCharacter focus)
         {
             // Player UI is: Left = Clan, Right = Kingdom (only visible when ruler), Selected can be Clan or Kingdom.
-            var hero = WHero.Get(Hero.MainHero);
-            var playerClan = hero?.Clan;
-            var playerKingdom = hero?.Kingdom;
 
             var right =
                 faction is WKingdom k ? k
-                : IsPlayerKingdomRuler(hero, playerKingdom) ? playerKingdom
+                : Player.IsRuler ? Player.Kingdom
                 : null;
 
-            var left = faction is WClan c ? c : playerClan;
+            var left = faction is WClan c ? c : Player.Clan;
 
             return new ResolvedLaunch
             {
@@ -377,15 +370,6 @@ namespace Retinues.Editor
                 _rightBannerFaction = value;
                 Fire(UIEvent.ClanFaction);
             }
-        }
-
-        private static bool IsPlayerKingdomRuler(WHero hero, WKingdom kingdom)
-        {
-            if (hero == null || kingdom == null)
-                return false;
-
-            // Kingdom rulership is defined by the kingdom leader being the hero.
-            return ReferenceEquals(kingdom.Leader?.Base, hero.Base);
         }
 
         /* ━━━━━━━━ Faction ━━━━━━━ */

@@ -3,6 +3,7 @@ using SandBox.View;
 using Retinues.Configuration;
 using Retinues.Editor;
 using Retinues.UI.Services;
+using Retinues.Game;
 using SandBox.View.Map.Navigation;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Library;
@@ -37,7 +38,7 @@ public sealed class TroopsNavigationElement(MapNavigationHandler handler)
             return new NavigationPermissionItem(isAuthorized: false, reasonString: null);
 
         // Player mode requires at least one custom-tree troop to exist.
-        if (!EditorAvailability.HasPlayerClanCustomTreeTroops())
+        if (!EditorAvailability.HasAnyCustomTreeTroops(Player.Clan))
             return new NavigationPermissionItem(
                 isAuthorized: false,
                 L.T("troops_editor_no_custom", "No troops are available.")

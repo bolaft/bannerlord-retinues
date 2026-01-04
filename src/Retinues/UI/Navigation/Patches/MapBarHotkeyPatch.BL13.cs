@@ -3,6 +3,7 @@ using SandBox.GauntletUI.Map;
 using SandBox.View.Map.Navigation;
 using HarmonyLib;
 using Retinues.Configuration;
+using Retinues.Game;
 using Retinues.Utilities;
 using Retinues.Editor;
 using TaleWorlds.InputSystem;
@@ -39,7 +40,7 @@ namespace Retinues.UI.Navigation.Patches
             if (el == null)
                 return;
 
-            if (!EditorAvailability.HasPlayerClanCustomTreeTroops())
+            if (!EditorAvailability.HasAnyCustomTreeTroops(Player.Clan))
                 return;
 
             if (!el.Permission.IsAuthorized || el.IsActive)

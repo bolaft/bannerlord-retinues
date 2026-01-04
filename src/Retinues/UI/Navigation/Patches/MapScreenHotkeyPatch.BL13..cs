@@ -3,6 +3,7 @@ using HarmonyLib;
 using Retinues.Configuration;
 using Retinues.Utilities;
 using Retinues.Editor;
+using Retinues.Game;
 using SandBox.View.Map;
 using SandBox.View.Map.Navigation;
 using TaleWorlds.InputSystem;
@@ -37,15 +38,17 @@ internal static class MapScreenTroopsHotkeyPatch
         if (!sceneLayer.Input.IsKeyPressed(InputKey.R))
             return;
 
-        if (!EditorAvailability.HasPlayerClanCustomTreeTroops())
+        if (!EditorAvailability.HasAnyCustomTreeTroops(Player.Clan))
             return;
 
         var handler = Reflection.GetFieldValue<MapNavigationHandler>(
             __instance,
             "_navigationHandler"
         );
-        var el = handler?.GetElement(TroopsNavigationElement.TroopsId) as MapNavigationElementBase;
-        if (el == null)
+
+        if (
+            handler?.GetElement(TroopsNavigationElement.TroopsId) is not MapNavigationElementBase el
+        )
             return;
 
         if (!el.Permission.IsAuthorized || el.IsActive)

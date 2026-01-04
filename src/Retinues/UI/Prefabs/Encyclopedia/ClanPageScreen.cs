@@ -2,6 +2,7 @@ using System;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Domain.Factions.Wrappers;
 using Retinues.Editor;
+using Retinues.Game;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.ViewModelCollection.Encyclopedia.Pages;
@@ -31,9 +32,7 @@ namespace Retinues.UI.Prefabs.Encyclopedia
                 if (wc == null)
                     return;
 
-                var playerClan = Hero.MainHero?.Clan;
-
-                if (playerClan != null && ReferenceEquals(playerClan, clan))
+                if (Player.Clan == wc)
                 {
                     EditorLauncher.Launch(EditorLaunchArgs.Player(faction: wc));
                     return;

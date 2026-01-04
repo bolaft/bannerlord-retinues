@@ -1,7 +1,9 @@
 using System;
 using HarmonyLib;
 using Helpers;
+using Retinues.Domain.Characters.Wrappers;
 using Retinues.Framework.Runtime;
+using Retinues.Game;
 using Retinues.Utilities;
 using SandBox.GauntletUI;
 using TaleWorlds.CampaignSystem;
@@ -54,14 +56,14 @@ namespace Retinues.UI.Screens
     [SafeClass]
     public static class Barber
     {
-        private static Hero _currentTarget;
+        private static WHero _currentTarget;
 
         private static BodyProperties _savedMainBody;
         private static bool _hasSavedMainBody;
         private static bool _savedMainIsFemale;
         private static bool _hasSavedMainGender;
 
-        public static bool HasActiveSession => _currentTarget != null;
+        public static bool HasActiveSession => _currentTarget?.Base != null;
 
         private static bool _needsPrime;
         private static bool _hasPrimed;
@@ -76,36 +78,38 @@ namespace Retinues.UI.Screens
             if (hero == null)
                 return;
 
-            if (
-                TaleWorlds.Core.Game.Current == null
-                || TaleWorlds.Core.Game.Current.GameStateManager == null
-            )
+            var target = WHero.Get(hero);
+            if (target?.Base == null)
                 return;
 
-            if (
-                TaleWorlds.CampaignSystem.Campaign.Current == null
-                || !TaleWorlds.CampaignSystem.Campaign.Current.IsFaceGenEnabled
-            )
+            if (TaleWorlds.Core.Game.Current?.GameStateManager == null)
+                return;
+
+            if (Campaign.Current == null || !Campaign.Current.IsFaceGenEnabled)
                 return;
 
             // Only one redirected session at a time.
             if (_currentTarget != null)
                 return;
 
+            var main = Player.Hero;
+            if (main?.Base == null)
+                return;
+
             try
             {
-                bool isMainHero = hero == Hero.MainHero;
+                bool isMainHero = target.IsMainHero;
 
-                _currentTarget = hero;
+                _currentTarget = target;
                 _onClosed = onClosed;
 
                 // Save main hero body + gender only if we're redirecting to a different hero.
                 if (!isMainHero)
                 {
-                    _savedMainBody = Hero.MainHero.BodyProperties;
+                    _savedMainBody = main.Base.BodyProperties;
                     _hasSavedMainBody = true;
 
-                    _savedMainIsFemale = GetHeroIsFemale(Hero.MainHero);
+                    _savedMainIsFemale = main.IsFemale;
                     _hasSavedMainGender = true;
                 }
 
@@ -115,19 +119,16 @@ namespace Retinues.UI.Screens
                 // If editing a different hero, apply that hero's gender/body to MainHero so FaceGen shows the correct face.
                 if (!isMainHero)
                 {
-                    var targetIsFemale = GetHeroIsFemale(hero);
-                    SetHeroIsFemale(Hero.MainHero, targetIsFemale);
-
-                    var targetBody = hero.BodyProperties;
-                    ApplyBodyPropertiesToHero(Hero.MainHero, targetBody);
+                    main.IsFemale = target.IsFemale;
+                    ApplyBodyPropertiesToHero(main.Base, target.Base.BodyProperties);
                 }
 
-                // Open vanilla barber screen for MainHero, as MapScreen does
+                // Open vanilla barber screen for MainHero, as MapScreen does.
                 IFaceGeneratorCustomFilter filter = CharacterHelper.GetFaceGeneratorFilter();
 
                 var barberState =
                     TaleWorlds.Core.Game.Current.GameStateManager.CreateState<BarberState>(
-                        [Hero.MainHero.CharacterObject, filter]
+                        [main.Base.CharacterObject, filter]
                     );
 
                 GameStateManager.Current.PushState(barberState);
@@ -167,18 +168,25 @@ namespace Retinues.UI.Screens
         /// </summary>
         public static void OnBarberClosed()
         {
-            if (_currentTarget == null)
+            if (_currentTarget?.Base == null)
                 return;
+
+            var main = Player.Hero;
+            if (main?.Base == null)
+            {
+                ClearSession(restoreMain: false);
+                return;
+            }
 
             try
             {
-                // Whatever FaceGen changed is now on MainHero
-                var editedBody = Hero.MainHero.BodyProperties;
-                var editedIsFemale = GetHeroIsFemale(Hero.MainHero);
+                // Whatever FaceGen changed is now on MainHero.
+                var editedBody = main.Base.BodyProperties;
+                var editedIsFemale = main.IsFemale;
 
-                // Apply edited body + gender to the target hero
-                ApplyBodyPropertiesToHero(_currentTarget, editedBody);
-                SetHeroIsFemale(_currentTarget, editedIsFemale);
+                // Apply edited body + gender to the target hero.
+                ApplyBodyPropertiesToHero(_currentTarget.Base, editedBody);
+                _currentTarget.IsFemale = editedIsFemale;
             }
             catch (Exception e)
             {
@@ -202,15 +210,17 @@ namespace Retinues.UI.Screens
 
         private static void ClearSession(bool restoreMain)
         {
-            if (restoreMain && Hero.MainHero != null)
+            var main = Player.Hero;
+
+            if (restoreMain && main?.Base != null)
             {
                 try
                 {
                     if (_hasSavedMainBody)
-                        ApplyBodyPropertiesToHero(Hero.MainHero, _savedMainBody);
+                        ApplyBodyPropertiesToHero(main.Base, _savedMainBody);
 
                     if (_hasSavedMainGender)
-                        SetHeroIsFemale(Hero.MainHero, _savedMainIsFemale);
+                        main.IsFemale = _savedMainIsFemale;
                 }
                 catch (Exception e)
                 {
@@ -228,9 +238,9 @@ namespace Retinues.UI.Screens
 
         /// <summary>
         /// Applies a full BodyProperties (dynamic + static) to a hero:
-        /// - StaticBodyProperties for face/keys
+        /// - StaticBodyProperties for face keys
         /// - SetBirthDay for age
-        /// - Weight / Build.
+        /// - Weight and Build
         /// </summary>
         private static void ApplyBodyPropertiesToHero(Hero hero, in BodyProperties body)
         {
@@ -255,21 +265,6 @@ namespace Retinues.UI.Screens
             {
                 Log.Exception(ex);
             }
-        }
-
-        private static bool GetHeroIsFemale(Hero hero) => hero?.IsFemale ?? false;
-
-        private static void SetHeroIsFemale(Hero hero, bool value)
-        {
-            if (hero == null)
-                return;
-
-#if BL13
-            hero.IsFemale = value;
-#else
-            // BL12: IsFemale has private setter; use reflection.
-            Reflection.SetPropertyValue(hero, "IsFemale", value);
-#endif
         }
     }
 }

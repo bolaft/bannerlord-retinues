@@ -83,8 +83,7 @@ namespace Retinues.Game.Troops.Retinues
             // Create + equip (settings-driven by TroopBuilder).
             var created = behavior.CreateRetinue(culture, retinueName);
 
-            var clan = WHero.Get(Hero.MainHero).Clan;
-            clan.AddRetinue(created);
+            Player.Clan.AddRetinue(created);
 
             return $"Created new retinue '{retinueName}' for player clan based on culture '{culture.Name}'.";
         }
