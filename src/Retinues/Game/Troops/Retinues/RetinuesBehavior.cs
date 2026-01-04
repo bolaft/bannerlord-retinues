@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Retinues.Campaign;
+using Retinues.Configuration;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Factions.Wrappers;
 using Retinues.Framework.Behaviors;
@@ -7,7 +7,7 @@ using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 
-namespace Retinues.Campaign.Retinues
+namespace Retinues.Game.Troops.Retinues
 {
     /// <summary>
     /// Retinue management behavior.
@@ -21,6 +21,9 @@ namespace Retinues.Campaign.Retinues
 
         public WCharacter EnsureDefaultRetinue(WClan clan, string name)
         {
+            if (!Settings.EnableRetinues)
+                return null;
+
             if (clan?.Base == null)
                 return null;
 
@@ -37,6 +40,9 @@ namespace Retinues.Campaign.Retinues
 
         public WCharacter CreateRetinue(WCulture culture, string name)
         {
+            if (!Settings.EnableRetinues)
+                return null;
+
             var template = culture?.RootElite ?? culture?.RootBasic;
             if (template?.Base == null)
                 return null;

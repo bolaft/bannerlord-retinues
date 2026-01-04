@@ -21,7 +21,7 @@ namespace Retinues.Editor
 
         private static void LaunchInternal(EditorLaunchArgs args)
         {
-            var gsm = Game.Current?.GameStateManager;
+            var gsm = TaleWorlds.Core.Game.Current?.GameStateManager;
             if (gsm == null)
                 return;
 

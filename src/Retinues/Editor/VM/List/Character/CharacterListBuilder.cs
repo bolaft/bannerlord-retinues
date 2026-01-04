@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Retinues.Configuration;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Factions.Wrappers;
 using Retinues.UI.Services;
@@ -106,17 +107,15 @@ namespace Retinues.Editor.VM.List.Character
             }
 
             // Heroes are only shown in universal mode.
-            if (EditorState.Instance.Mode == EditorMode.Universal)
-            {
-                AddSection(
-                    headers,
-                    "heroes",
-                    "list_header_heroes",
-                    L.S("list_header_heroes", "Heroes"),
-                    faction.RosterHeroes,
-                    condition: () => faction is WClan
-                );
-            }
+            AddSection(
+                headers,
+                "heroes",
+                "list_header_heroes",
+                L.S("list_header_heroes", "Heroes"),
+                faction.RosterHeroes,
+                condition: () =>
+                    faction is WClan && EditorState.Instance.Mode == EditorMode.Universal
+            );
 
             // Retinues: only meaningful in player mode (custom only).
             AddSection(
@@ -125,7 +124,10 @@ namespace Retinues.Editor.VM.List.Character
                 "list_header_retinues",
                 L.S("list_header_retinues", "Retinues"),
                 faction.RosterRetinues,
-                condition: () => EditorState.Instance.Mode == EditorMode.Player && faction is WClan
+                condition: () =>
+                    EditorState.Instance.Mode == EditorMode.Player
+                    && faction is WClan
+                    && Settings.EnableRetinues
             );
 
             // Elite tree.

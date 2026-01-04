@@ -170,7 +170,7 @@ namespace Retinues.Editor
 
         private void Close()
         {
-            Game.Current?.GameStateManager?.PopState();
+            TaleWorlds.Core.Game.Current?.GameStateManager?.PopState();
         }
     }
 }

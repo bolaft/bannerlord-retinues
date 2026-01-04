@@ -76,7 +76,10 @@ namespace Retinues.UI.Screens
             if (hero == null)
                 return;
 
-            if (Game.Current == null || Game.Current.GameStateManager == null)
+            if (
+                TaleWorlds.Core.Game.Current == null
+                || TaleWorlds.Core.Game.Current.GameStateManager == null
+            )
                 return;
 
             if (
@@ -122,9 +125,10 @@ namespace Retinues.UI.Screens
                 // Open vanilla barber screen for MainHero, as MapScreen does
                 IFaceGeneratorCustomFilter filter = CharacterHelper.GetFaceGeneratorFilter();
 
-                var barberState = Game.Current.GameStateManager.CreateState<BarberState>(
-                    [Hero.MainHero.CharacterObject, filter]
-                );
+                var barberState =
+                    TaleWorlds.Core.Game.Current.GameStateManager.CreateState<BarberState>(
+                        [Hero.MainHero.CharacterObject, filter]
+                    );
 
                 GameStateManager.Current.PushState(barberState);
             }

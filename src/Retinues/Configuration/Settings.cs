@@ -1,4 +1,5 @@
 using Retinues.Framework.Runtime;
+using Retinues.Modules;
 using Retinues.UI.Services;
 using static Retinues.Configuration.SettingsManager;
 
@@ -28,6 +29,62 @@ namespace Retinues.Configuration
                 "Enables the [R] hotkey to open the editor."
             ),
             @default: true
+        );
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Doctrines                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public static readonly Section Doctrines = CreateSection(
+            name: L.F("mcm_section_doctrines", "Doctrines")
+        );
+
+        /* ━━━━━━━━ Options ━━━━━━━ */
+
+        public static readonly Option<bool> EnableDoctrines = CreateOption(
+            section: Doctrines,
+            name: L.F("mcm_option_enable_doctrines", "Enable Doctrines"),
+            hint: L.F(
+                "mcm_option_enable_doctrines_hint",
+                "Toggles the Doctrines feature on or off."
+            ),
+#if !DEBUG
+            requiresRestart: true,
+#endif
+            @default: true
+        );
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Retinues                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public static readonly Section Retinues = CreateSection(
+            name: L.F("mcm_section_retinues", "Retinues")
+        );
+
+        /* ━━━━━━━━ Options ━━━━━━━ */
+
+        public static readonly Option<bool> EnableRetinues = CreateOption(
+            section: Retinues,
+            name: L.F("mcm_option_enable_retinues", "Enable Retinues"),
+            hint: L.F("mcm_option_enable_retinues_hint", "Toggles the Retinues feature on or off."),
+            @default: true
+        );
+
+        public static readonly Option<float> MaxRetinueRatio = CreateOption(
+            section: Retinues,
+            name: L.F("mcm_option_max_retinue_ratio", "Max Retinue Ratio"),
+            hint: L.F(
+                "mcm_option_max_retinue_ratio_hint",
+                "The maximum number of retinues as a ratio of the party size limit."
+            ),
+            minValue: 0,
+            maxValue: 1,
+            @default: 0.15f,
+#if !DEBUG
+            requiresRestart: true,
+#endif
+            dependsOn: EnableRetinues
         );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -161,7 +218,7 @@ namespace Retinues.Configuration
             ),
             minValue: 20,
             maxValue: 360,
-            @default: 50
+            @default: 60
         );
 
         public static readonly Option<int> SkillCapT3 = CreateOption(
@@ -226,7 +283,8 @@ namespace Retinues.Configuration
             ),
             minValue: 20,
             maxValue: 360,
-            @default: 360
+            @default: 360,
+            disabled: !Mods.T7TroopUnlocker.IsLoaded
         );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -340,7 +398,8 @@ namespace Retinues.Configuration
             ),
             minValue: 90,
             maxValue: 1600,
-            @default: 1600
+            @default: 1600,
+            disabled: !Mods.T7TroopUnlocker.IsLoaded
         );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

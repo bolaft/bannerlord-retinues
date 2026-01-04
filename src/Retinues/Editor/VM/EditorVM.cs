@@ -134,7 +134,7 @@ namespace Retinues.Editor.VM
         public bool IsLibraryTabSelected => Page == EditorPage.Library;
 
         [DataSourceProperty]
-        public bool IsDoctrinesTabVisible => IsPlayerMode;
+        public bool IsDoctrinesTabVisible => IsPlayerMode && Settings.EnableDoctrines;
 
         [DataSourceMethod]
         public void ExecuteSelectEditorTab()

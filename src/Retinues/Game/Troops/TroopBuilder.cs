@@ -11,7 +11,7 @@ using Retinues.Utilities;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 
-namespace Retinues.Campaign
+namespace Retinues.Game.Troops
 {
     /// <summary>
     /// Centralized troop creation and cloning helpers.
@@ -261,13 +261,13 @@ namespace Retinues.Campaign
                     break;
             }
 
-            // RANDOM
+            /* ━━━━━━━━ Random ━━━━━━━━ */
+
+            // Culture
             var culture = cultureContext ?? template.Culture;
 
-            // Max tier: setting-bound, never exceed troop tier.
-            int maxTierSetting = MBMath.ClampInt(Settings.DefaultUnlockedItemMaxTier.Value, 0, 6);
-            int troopTier = Math.Max(0, clone.Tier);
-            int maxTier = Math.Min(maxTierSetting, troopTier);
+            // Max tier: never exceed troop tier.
+            int maxTier = MBMath.ClampInt(clone.Tier, 0, 6);
 
             // Minimum tier: fixed value.
             int minTier = 0;

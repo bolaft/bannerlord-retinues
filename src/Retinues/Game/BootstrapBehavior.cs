@@ -1,19 +1,19 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Retinues.Campaign.Retinues;
 using Retinues.Configuration;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Equipments.Helpers;
 using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Domain.Factions.Wrappers;
 using Retinues.Framework.Behaviors;
+using Retinues.Game.Troops.Retinues;
 using Retinues.UI.Services;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 
-namespace Retinues.Campaign
+namespace Retinues.Game
 {
     /// <summary>
     /// Centralizes one-time campaign startup logic for Retinues.
@@ -25,12 +25,17 @@ namespace Retinues.Campaign
         //                        Sync Data                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private const string DataStoreKey = "Retinues_Bootstrapped";
-        private bool _bootstrapped;
+        private const string DataStoreKey_Retinue = "Retinues_Bootstrapped_Retinue";
+        private const string DataStoreKey_Unlocks = "Retinues_Bootstrapped_Unlocks";
+
+        // Per-section bootstrapped flags so parts can run independently.
+        private bool _retinueBootstrapped;
+        private bool _unlocksBootstrapped;
 
         public override void SyncData(IDataStore dataStore)
         {
-            dataStore.SyncData(DataStoreKey, ref _bootstrapped);
+            dataStore.SyncData(DataStoreKey_Retinue, ref _retinueBootstrapped);
+            dataStore.SyncData(DataStoreKey_Unlocks, ref _unlocksBootstrapped);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -52,30 +57,49 @@ namespace Retinues.Campaign
 
         private void TryBootstrap()
         {
-            if (_bootstrapped)
+            if (_retinueBootstrapped && _unlocksBootstrapped)
                 return;
 
             var hero = WHero.Get(Hero.MainHero);
             var clan = hero?.Clan;
+            var culture = clan?.Culture;
 
-            if (clan?.Base == null)
-                return;
-
-            var culture = clan.Culture;
-            if (culture?.Base == null)
-                return;
-
-            Log.Info("Bootstrapping campaign.");
+            Log.Info("Bootstrapping campaign (per-section). Checking pending sections...");
 
             // 1) Ensure default retinue for player clan (TroopBuilder unlocks its assigned items).
-            CreateDefaultRetinue(clan);
+            if (!_retinueBootstrapped)
+            {
+                if (clan?.Base != null && Settings.EnableRetinues)
+                {
+                    CreateDefaultRetinue(clan);
+                    _retinueBootstrapped = true;
+                    Log.Info("Retinue bootstrap complete.");
+                }
+                else
+                {
+                    Log.Info("Retinue bootstrap skipped (missing clan or retinues disabled).");
+                }
+            }
 
             // 2) Ensure starter items after troop creation based on current unlocked pool.
-            EnsureStarterUnlocks(culture);
+            if (!_unlocksBootstrapped)
+            {
+                if (culture?.Base != null)
+                {
+                    EnsureStarterUnlocks(culture);
+                    _unlocksBootstrapped = true;
+                    Log.Info("Starter unlocks bootstrap complete.");
+                }
+                else
+                {
+                    Log.Info("Starter unlocks bootstrap skipped (missing culture).");
+                }
+            }
 
-            // Mark as done.
-            _bootstrapped = true;
-            Log.Info("Bootstrap complete.");
+            if (_retinueBootstrapped && _unlocksBootstrapped)
+            {
+                Log.Info("All bootstrap sections complete.");
+            }
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -192,6 +216,9 @@ namespace Retinues.Campaign
 
         private static void CreateDefaultRetinue(WClan clan)
         {
+            if (!Settings.EnableRetinues)
+                return;
+
             if (RetinuesBehavior.TryGetInstance(out var retinues))
             {
                 var name = L.T("retinue_default_name", "{CLAN} House Guard")

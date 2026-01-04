@@ -73,7 +73,7 @@ namespace Retinues
         /// <summary>
         /// Called when a game starts or loads.
         /// </summary>
-        protected override void OnGameStart(Game game, IGameStarter gameStarter)
+        protected override void OnGameStart(TaleWorlds.Core.Game game, IGameStarter gameStarter)
         {
             base.OnGameStart(game, gameStarter);
 

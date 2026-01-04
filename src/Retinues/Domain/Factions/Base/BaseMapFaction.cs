@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Retinues.Configuration;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Factions.Wrappers;
 using Retinues.Domain.Parties.Wrappers;
@@ -143,6 +144,9 @@ namespace Retinues.Domain.Factions.Base
         {
             get
             {
+                if (Settings.EnableRetinues == false)
+                    return [];
+
                 var src = RetinueTroopsAttribute.Get();
                 if (src == null || src.Count == 0)
                     return [];
