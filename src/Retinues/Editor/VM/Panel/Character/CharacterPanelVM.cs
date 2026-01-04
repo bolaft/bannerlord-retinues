@@ -144,8 +144,16 @@ namespace Retinues.Editor.VM.Panel.Character
         [DataSourceProperty]
         public string SkillDescriptionText =>
             State.Mode == EditorMode.Player
-                ? $"{State.Character.SkillPoints} sp - {State.Character.SkillCapForTier} skill cap"
-                : $"{State.Character.SkillCapForTier} skill cap";
+                ? L.T(
+                        "skill_description_text",
+                        "Skill Points: {SKILL_POINTS} - Skill Cap: {SKILL_CAP}"
+                    )
+                    .SetTextVariable("SKILL_POINTS", State.Character.SkillPoints)
+                    .SetTextVariable("SKILL_CAP", State.Character.SkillCapForTier)
+                    .ToString()
+                : L.T("skill_description_text_short", "Skill Cap: {SKILL_CAP}")
+                    .SetTextVariable("SKILL_CAP", State.Character.SkillCapForTier)
+                    .ToString();
 
         [DataSourceProperty]
         public MBBindingList<CharacterSkillVM> SkillsRow1 { get; } = [];

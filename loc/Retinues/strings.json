@@ -3744,6 +3744,38 @@
     "TR": "Yetenek 0'ın altına düşürülemez."
   },
   {
+    "id": "ret_skill_description_text",
+    "EN": "Skill Points: {SKILL_POINTS} - Skill Cap: {SKILL_CAP}",
+    "FR": "Points de compétence : {SKILL_POINTS} - Plafond de compétence : {SKILL_CAP}",
+    "BR": "Pontos de Habilidade: {SKILL_POINTS} - Limite de Habilidade: {SKILL_CAP}",
+    "CNs": "技能点：{SKILL_POINTS} - 技能上限：{SKILL_CAP}",
+    "CNt": "技能點：{SKILL_POINTS} - 技能上限：{SKILL_CAP}",
+    "DE": "Fertigkeitspunkte: {SKILL_POINTS} - Fähigkeitslimit: {SKILL_CAP}",
+    "IT": "Punti abilità: {SKILL_POINTS} - Limite abilità: {SKILL_CAP}",
+    "JP": "スキルポイント: {SKILL_POINTS} - スキル上限: {SKILL_CAP}",
+    "KO": "기술 포인트: {SKILL_POINTS} - 기술 한도: {SKILL_CAP}",
+    "PL": "Punkty umiejętności: {SKILL_POINTS} - Limit umiejętności: {SKILL_CAP}",
+    "RU": "Очки навыков: {SKILL_POINTS} - Лимит навыков: {SKILL_CAP}",
+    "SP": "Puntos de habilidad: {SKILL_POINTS} - Límite de habilidad: {SKILL_CAP}",
+    "TR": "Yetenek Puanları: {SKILL_POINTS} - Yetenek Limiti: {SKILL_CAP}"
+  },
+  {
+    "id": "ret_skill_description_text_short",
+    "EN": "Skill Cap: {SKILL_CAP}",
+    "FR": "Plafond de compétence : {SKILL_CAP}",
+    "BR": "Limite de Habilidade: {SKILL_CAP}",
+    "CNs": "技能上限：{SKILL_CAP}",
+    "CNt": "技能上限：{SKILL_CAP}",
+    "DE": "Fähigkeitslimit: {SKILL_CAP}",
+    "IT": "Limite abilità: {SKILL_CAP}",
+    "JP": "スキル上限: {SKILL_CAP}",
+    "KO": "기술 한도: {SKILL_CAP}",
+    "PL": "Limit umiejętności: {SKILL_CAP}",
+    "RU": "Лимит навыков: {SKILL_CAP}",
+    "SP": "Límite de habilidad: {SKILL_CAP}",
+    "TR": "Yetenek Limiti: {SKILL_CAP}"
+  },
+  {
     "id": "ret_skill_increase_maxed_reason",
     "EN": "Skill is already at maximum level.",
     "FR": "La compétence est déjà au niveau maximum.",

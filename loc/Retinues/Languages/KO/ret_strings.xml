@@ -707,6 +707,12 @@
       id="ret_skill_decrease_min_reason"
       text="기술은 0 미만으로 감소할 수 없습니다." />
     <string
+      id="ret_skill_description_text"
+      text="기술 포인트: {SKILL_POINTS} - 기술 한도: {SKILL_CAP}" />
+    <string
+      id="ret_skill_description_text_short"
+      text="기술 한도: {SKILL_CAP}" />
+    <string
       id="ret_skill_increase_maxed_reason"
       text="기술이 이미 최대 수준에 도달했습니다." />
     <string

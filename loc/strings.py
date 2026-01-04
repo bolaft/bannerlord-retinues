@@ -30,19 +30,19 @@ LOCS_DIRNAME = "Languages"  # locales live under ./loc/Languages/<LOCALE>/
 
 # Double-quoted: L.S("key", "text")
 RE_DQ = re.compile(
-    r"""L\.(?:S|T|F)\(\s*"(?P<key>(?:\\.|[^"\\])*)"\s*,\s*"(?P<text>(?:\\.|[^"\\])*)"\s*\)""",
+    r"""L\.(?:S|T|F)\(\s*"(?P<key>(?:\\.|[^"\\])*)"\s*,\s*"(?P<text>(?:\\.|[^"\\])*)"(?:\s*,\s*[^)]*)?\s*\)""",
     re.DOTALL,
 )
 
 # Single-quoted: L.S('key', 'text')
 RE_SQ = re.compile(
-    r"""L\.(?:S|T|F)\(\s*'(?P<key>(?:\\.|[^'\\])*)'\s*,\s*'(?P<text>(?:\\.|[^'\\])*)'\s*\)""",
+    r"""L\.(?:S|T|F)\(\s*'(?P<key>(?:\\.|[^'\\])*)'\s*,\s*'(?P<text>(?:\\.|[^'\\])*)'(?:\s*,\s*[^)]*)?\s*\)""",
     re.DOTALL,
 )
 
 # Verbatim strings: L.S(@"key", @"text")
 RE_VB = re.compile(
-    r"""L\.(?:S|T|F)\(\s*@\"(?P<key>(?:\"\"|[^"])*)\"\s*,\s*@\"(?P<text>(?:\"\"|[^"])*)\"\s*\)""",
+    r"""L\.(?:S|T|F)\(\s*@\"(?P<key>(?:\"\"|[^"])*)\"\s*,\s*@\"(?P<text>(?:\"\"|[^"])*)\"(?:\s*,\s*[^)]*)?\s*\)""",
     re.DOTALL,
 )
 

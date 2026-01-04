@@ -26,7 +26,7 @@ namespace Retinues.Domain.Characters.Wrappers
         //                    Skill Rules (Tier)                  //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        const int MaxSkillLevel = 330;
+        const int MaxSkillLevel = 360;
 
         public int SkillCapForTier =>
             !IsHero ? Helpers.SkillsHelper.GetSkillCapForTier(Tier) : MaxSkillLevel;

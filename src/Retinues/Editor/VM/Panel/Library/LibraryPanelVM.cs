@@ -141,7 +141,7 @@ namespace Retinues.Editor.VM.Panel.Library
                 _troopNames.Add(
                     new FactionTroopNameVM(
                         L.T("troop_count_more", "and {NUMBER} more troops.")
-                            .SetTextVariable("NUMBER", (total - limit))
+                            .SetTextVariable("NUMBER", total - limit)
                             .ToString()
                     )
                 );

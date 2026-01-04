@@ -707,6 +707,12 @@
       id="ret_skill_decrease_min_reason"
       text="Cannot decrease skill below 0." />
     <string
+      id="ret_skill_description_text"
+      text="Skill Points: {SKILL_POINTS} - Skill Cap: {SKILL_CAP}" />
+    <string
+      id="ret_skill_description_text_short"
+      text="Skill Cap: {SKILL_CAP}" />
+    <string
       id="ret_skill_increase_maxed_reason"
       text="Skill is already at maximum level." />
     <string

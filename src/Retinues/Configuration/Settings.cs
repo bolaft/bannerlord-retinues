@@ -127,17 +127,25 @@ namespace Retinues.Configuration
 
         public static readonly Option<int> SkillCapT0 = CreateOption(
             section: SkillCaps,
-            name: L.F("mcm_option_skill_cap", "Tier {TIER} Skill Cap"),
-            hint: L.F("mcm_option_skill_cap_hint", "Maximum skill level for Tier {TIER} troops."),
+            name: L.F("mcm_option_skill_cap", "Tier {TIER} Skill Cap", ("TIER", 0)),
+            hint: L.F(
+                "mcm_option_skill_cap_hint",
+                "Maximum skill level for Tier {TIER} troops.",
+                ("TIER", 0)
+            ),
             minValue: 20,
-            maxValue: 330,
-            @default: 100
+            maxValue: 360,
+            @default: 20
         );
 
         public static readonly Option<int> SkillCapT1 = CreateOption(
             section: SkillCaps,
-            name: L.F("mcm_option_skill_cap", "Tier {TIER} Skill Cap"),
-            hint: L.F("mcm_option_skill_cap_hint", "Maximum skill level for Tier {TIER} troops."),
+            name: L.F("mcm_option_skill_cap", "Tier {TIER} Skill Cap", ("TIER", 1)),
+            hint: L.F(
+                "mcm_option_skill_cap_hint",
+                "Maximum skill level for Tier {TIER} troops.",
+                ("TIER", 1)
+            ),
             minValue: 20,
             maxValue: 360,
             @default: 20
@@ -145,8 +153,12 @@ namespace Retinues.Configuration
 
         public static readonly Option<int> SkillCapT2 = CreateOption(
             section: SkillCaps,
-            name: L.F("mcm_option_skill_cap", "Tier {TIER} Skill Cap"),
-            hint: L.F("mcm_option_skill_cap_hint", "Maximum skill level for Tier {TIER} troops."),
+            name: L.F("mcm_option_skill_cap", "Tier {TIER} Skill Cap", ("TIER", 2)),
+            hint: L.F(
+                "mcm_option_skill_cap_hint",
+                "Maximum skill level for Tier {TIER} troops.",
+                ("TIER", 2)
+            ),
             minValue: 20,
             maxValue: 360,
             @default: 50
@@ -154,8 +166,12 @@ namespace Retinues.Configuration
 
         public static readonly Option<int> SkillCapT3 = CreateOption(
             section: SkillCaps,
-            name: L.F("mcm_option_skill_cap", "Tier {TIER} Skill Cap"),
-            hint: L.F("mcm_option_skill_cap_hint", "Maximum skill level for Tier {TIER} troops."),
+            name: L.F("mcm_option_skill_cap", "Tier {TIER} Skill Cap", ("TIER", 3)),
+            hint: L.F(
+                "mcm_option_skill_cap_hint",
+                "Maximum skill level for Tier {TIER} troops.",
+                ("TIER", 3)
+            ),
             minValue: 20,
             maxValue: 360,
             @default: 80
@@ -163,8 +179,12 @@ namespace Retinues.Configuration
 
         public static readonly Option<int> SkillCapT4 = CreateOption(
             section: SkillCaps,
-            name: L.F("mcm_option_skill_cap", "Tier {TIER} Skill Cap"),
-            hint: L.F("mcm_option_skill_cap_hint", "Maximum skill level for Tier {TIER} troops."),
+            name: L.F("mcm_option_skill_cap", "Tier {TIER} Skill Cap", ("TIER", 4)),
+            hint: L.F(
+                "mcm_option_skill_cap_hint",
+                "Maximum skill level for Tier {TIER} troops.",
+                ("TIER", 4)
+            ),
             minValue: 20,
             maxValue: 360,
             @default: 120
@@ -172,8 +192,12 @@ namespace Retinues.Configuration
 
         public static readonly Option<int> SkillCapT5 = CreateOption(
             section: SkillCaps,
-            name: L.F("mcm_option_skill_cap", "Tier {TIER} Skill Cap"),
-            hint: L.F("mcm_option_skill_cap_hint", "Maximum skill level for Tier {TIER} troops."),
+            name: L.F("mcm_option_skill_cap", "Tier {TIER} Skill Cap", ("TIER", 5)),
+            hint: L.F(
+                "mcm_option_skill_cap_hint",
+                "Maximum skill level for Tier {TIER} troops.",
+                ("TIER", 5)
+            ),
             minValue: 20,
             maxValue: 360,
             @default: 160
@@ -181,8 +205,12 @@ namespace Retinues.Configuration
 
         public static readonly Option<int> SkillCapT6 = CreateOption(
             section: SkillCaps,
-            name: L.F("mcm_option_skill_cap", "Tier {TIER} Skill Cap"),
-            hint: L.F("mcm_option_skill_cap_hint", "Maximum skill level for Tier {TIER} troops."),
+            name: L.F("mcm_option_skill_cap", "Tier {TIER} Skill Cap", ("TIER", 6)),
+            hint: L.F(
+                "mcm_option_skill_cap_hint",
+                "Maximum skill level for Tier {TIER} troops.",
+                ("TIER", 6)
+            ),
             minValue: 20,
             maxValue: 360,
             @default: 260
@@ -190,8 +218,12 @@ namespace Retinues.Configuration
 
         public static readonly Option<int> SkillCapT7 = CreateOption(
             section: SkillCaps,
-            name: L.F("mcm_option_skill_cap", "Tier {TIER} Skill Cap"),
-            hint: L.F("mcm_option_skill_cap_hint", "Maximum skill level for Tier {TIER} troops."),
+            name: L.F("mcm_option_skill_cap", "Tier {TIER} Skill Cap", ("TIER", 7)),
+            hint: L.F(
+                "mcm_option_skill_cap_hint",
+                "Maximum skill level for Tier {TIER} troops.",
+                ("TIER", 7)
+            ),
             minValue: 20,
             maxValue: 360,
             @default: 360
@@ -209,10 +241,11 @@ namespace Retinues.Configuration
 
         public static readonly Option<int> SkillTotalT0 = CreateOption(
             section: SkillTotals,
-            name: L.F("mcm_option_skill_total", "Tier {TIER} Skill Total"),
+            name: L.F("mcm_option_skill_total", "Tier {TIER} Skill Total", ("TIER", 0)),
             hint: L.F(
                 "mcm_option_skill_total_hint",
-                "Total available skill points for Tier {TIER} troops."
+                "Total available skill points for Tier {TIER} troops.",
+                ("TIER", 0)
             ),
             minValue: 90,
             maxValue: 1600,
@@ -221,10 +254,11 @@ namespace Retinues.Configuration
 
         public static readonly Option<int> SkillTotalT1 = CreateOption(
             section: SkillTotals,
-            name: L.F("mcm_option_skill_total", "Tier {TIER} Skill Total"),
+            name: L.F("mcm_option_skill_total", "Tier {TIER} Skill Total", ("TIER", 1)),
             hint: L.F(
                 "mcm_option_skill_total_hint",
-                "Total available skill points for Tier {TIER} troops."
+                "Total available skill points for Tier {TIER} troops.",
+                ("TIER", 1)
             ),
             minValue: 90,
             maxValue: 1600,
@@ -233,10 +267,11 @@ namespace Retinues.Configuration
 
         public static readonly Option<int> SkillTotalT2 = CreateOption(
             section: SkillTotals,
-            name: L.F("mcm_option_skill_total", "Tier {TIER} Skill Total"),
+            name: L.F("mcm_option_skill_total", "Tier {TIER} Skill Total", ("TIER", 2)),
             hint: L.F(
                 "mcm_option_skill_total_hint",
-                "Total available skill points for Tier {TIER} troops."
+                "Total available skill points for Tier {TIER} troops.",
+                ("TIER", 2)
             ),
             minValue: 90,
             maxValue: 1600,
@@ -245,10 +280,11 @@ namespace Retinues.Configuration
 
         public static readonly Option<int> SkillTotalT3 = CreateOption(
             section: SkillTotals,
-            name: L.F("mcm_option_skill_total", "Tier {TIER} Skill Total"),
+            name: L.F("mcm_option_skill_total", "Tier {TIER} Skill Total", ("TIER", 3)),
             hint: L.F(
                 "mcm_option_skill_total_hint",
-                "Total available skill points for Tier {TIER} troops."
+                "Total available skill points for Tier {TIER} troops.",
+                ("TIER", 3)
             ),
             minValue: 90,
             maxValue: 1600,
@@ -257,10 +293,11 @@ namespace Retinues.Configuration
 
         public static readonly Option<int> SkillTotalT4 = CreateOption(
             section: SkillTotals,
-            name: L.F("mcm_option_skill_total", "Tier {TIER} Skill Total"),
+            name: L.F("mcm_option_skill_total", "Tier {TIER} Skill Total", ("TIER", 4)),
             hint: L.F(
                 "mcm_option_skill_total_hint",
-                "Total available skill points for Tier {TIER} troops."
+                "Total available skill points for Tier {TIER} troops.",
+                ("TIER", 4)
             ),
             minValue: 90,
             maxValue: 1600,
@@ -269,10 +306,11 @@ namespace Retinues.Configuration
 
         public static readonly Option<int> SkillTotalT5 = CreateOption(
             section: SkillTotals,
-            name: L.F("mcm_option_skill_total", "Tier {TIER} Skill Total"),
+            name: L.F("mcm_option_skill_total", "Tier {TIER} Skill Total", ("TIER", 5)),
             hint: L.F(
                 "mcm_option_skill_total_hint",
-                "Total available skill points for Tier {TIER} troops."
+                "Total available skill points for Tier {TIER} troops.",
+                ("TIER", 5)
             ),
             minValue: 90,
             maxValue: 1600,
@@ -281,10 +319,11 @@ namespace Retinues.Configuration
 
         public static readonly Option<int> SkillTotalT6 = CreateOption(
             section: SkillTotals,
-            name: L.F("mcm_option_skill_total", "Tier {TIER} Skill Total"),
+            name: L.F("mcm_option_skill_total", "Tier {TIER} Skill Total", ("TIER", 6)),
             hint: L.F(
                 "mcm_option_skill_total_hint",
-                "Total available skill points for Tier {TIER} troops."
+                "Total available skill points for Tier {TIER} troops.",
+                ("TIER", 6)
             ),
             minValue: 90,
             maxValue: 1600,
@@ -293,10 +332,11 @@ namespace Retinues.Configuration
 
         public static readonly Option<int> SkillTotalT7 = CreateOption(
             section: SkillTotals,
-            name: L.F("mcm_option_skill_total", "Tier {TIER} Skill Total"),
+            name: L.F("mcm_option_skill_total", "Tier {TIER} Skill Total", ("TIER", 7)),
             hint: L.F(
                 "mcm_option_skill_total_hint",
-                "Total available skill points for Tier {TIER} troops."
+                "Total available skill points for Tier {TIER} troops.",
+                ("TIER", 7)
             ),
             minValue: 90,
             maxValue: 1600,

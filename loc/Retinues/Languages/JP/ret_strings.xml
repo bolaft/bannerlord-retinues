@@ -707,6 +707,12 @@
       id="ret_skill_decrease_min_reason"
       text="スキルは0未満に減少できません。" />
     <string
+      id="ret_skill_description_text"
+      text="スキルポイント: {SKILL_POINTS} - スキル上限: {SKILL_CAP}" />
+    <string
+      id="ret_skill_description_text_short"
+      text="スキル上限: {SKILL_CAP}" />
+    <string
       id="ret_skill_increase_maxed_reason"
       text="スキルはすでに最大レベルです。" />
     <string

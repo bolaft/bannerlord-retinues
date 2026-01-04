@@ -707,6 +707,12 @@
       id="ret_skill_decrease_min_reason"
       text="Une compétence ne peut pas descendre en dessous de 0." />
     <string
+      id="ret_skill_description_text"
+      text="Points de compétence : {SKILL_POINTS} - Plafond de compétence : {SKILL_CAP}" />
+    <string
+      id="ret_skill_description_text_short"
+      text="Plafond de compétence : {SKILL_CAP}" />
+    <string
       id="ret_skill_increase_maxed_reason"
       text="La compétence est déjà au niveau maximum." />
     <string

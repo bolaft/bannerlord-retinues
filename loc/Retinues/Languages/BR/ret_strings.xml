@@ -707,6 +707,12 @@
       id="ret_skill_decrease_min_reason"
       text="Não é possível diminuir a habilidade abaixo de 0." />
     <string
+      id="ret_skill_description_text"
+      text="Pontos de Habilidade: {SKILL_POINTS} - Limite de Habilidade: {SKILL_CAP}" />
+    <string
+      id="ret_skill_description_text_short"
+      text="Limite de Habilidade: {SKILL_CAP}" />
+    <string
       id="ret_skill_increase_maxed_reason"
       text="A habilidade já está no nível máximo." />
     <string

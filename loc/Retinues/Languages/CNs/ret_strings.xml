@@ -707,6 +707,12 @@
       id="ret_skill_decrease_min_reason"
       text="技能不能降低到0以下。" />
     <string
+      id="ret_skill_description_text"
+      text="技能点：{SKILL_POINTS} - 技能上限：{SKILL_CAP}" />
+    <string
+      id="ret_skill_description_text_short"
+      text="技能上限：{SKILL_CAP}" />
+    <string
       id="ret_skill_increase_maxed_reason"
       text="技能已达到最高水平。" />
     <string
