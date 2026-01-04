@@ -1,8 +1,10 @@
 using System;
 using Bannerlord.UIExtenderEx.Attributes;
+using Retinues.Configuration;
 using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Editor.Controllers.Equipment;
 using Retinues.Editor.Events;
+using Retinues.UI.Services;
 using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Library;
 
@@ -74,17 +76,79 @@ namespace Retinues.Editor.VM.List.Equipment
         public bool IsCivilian => _item.IsCivilian;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                          Data                          //
+        //                         Roster                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public bool AvailableInRoster => State.Equipment.IsAvailableInRoster(State.Slot, _item);
+        private bool EconomyEnabled =>
+            State.Mode == EditorMode.Player && Settings.EquipmentCostsGold;
+
+        [EventListener(UIEvent.Item, Global = true)]
+        [DataSourceProperty]
+        public bool ShowEquipped => IsEnabled && EconomyEnabled && AvailableInRoster;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Unlock                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceProperty]
         public bool IsUnlocked => _item.IsUnlocked;
 
-        [DataSourceProperty]
-        public bool IsStocked => Stock > 0;
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Stock                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        [EventListener(UIEvent.Item, Global = true)]
         [DataSourceProperty]
-        public int Stock => _item.Stock;
+        public bool ShowStock =>
+            IsEnabled && EconomyEnabled && !AvailableInRoster && _item.Stock > 0;
+
+        [EventListener(UIEvent.Item, Global = true)]
+        [DataSourceProperty]
+        public string StockText =>
+            L.T("in_stock", "In Stock ({STOCK})").SetTextVariable("STOCK", _item.Stock).ToString();
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Cost                          //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [EventListener(UIEvent.Item, Global = true)]
+        [DataSourceProperty]
+        public bool ShowCost =>
+            IsEnabled && EconomyEnabled && !AvailableInRoster && _item.Stock <= 0;
+
+        [EventListener(UIEvent.Item)]
+        [DataSourceProperty]
+        public string CostFontColor
+        {
+            get
+            {
+                // if (EquipmentRebateBehavior.HasRebate(RowItem))
+                //     return "#c5eb89ff"; // Light green
+
+                return "#F4E1C4FF"; // Default color
+            }
+        }
+
+        [EventListener(UIEvent.Item, Global = true)]
+        [DataSourceProperty]
+        public int Cost
+        {
+            get
+            {
+                if (!ShowCost)
+                    return 0;
+
+                if (_item == null)
+                    return 0;
+
+                double multiplier = Settings.EquipmentCostMultiplier.Value;
+                double raw = _item.Value * multiplier;
+
+                int cost = (int)Math.Round(raw, MidpointRounding.AwayFromZero);
+                return Math.Max(cost, 0);
+            }
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Tooltip                        //

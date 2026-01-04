@@ -5,6 +5,7 @@ using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Framework.Model;
 using Retinues.Framework.Model.Attributes;
+using Retinues.Utilities;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 
@@ -31,9 +32,11 @@ namespace Retinues.Domain.Equipments.Models
             Attribute<List<MEquipment>>(
                 getter: _ =>
                     [
-                        .. (EquipmentsAttribute.Get() ?? []).Select(
-                            (e, i) => new MEquipment(e, owner)
-                        ),
+                        .. (EquipmentsAttribute.Get() ?? []).Select(e => new MEquipment(
+                            e,
+                            owner,
+                            roster: this
+                        )),
                     ],
                 setter: (_, value) =>
                 {
@@ -48,6 +51,7 @@ namespace Retinues.Domain.Equipments.Models
             {
                 owner.TouchEquipments();
                 EquipmentsMAttribute.Set(value);
+                InvalidateItemCountsCache();
             }
         }
 
@@ -107,18 +111,22 @@ namespace Retinues.Domain.Equipments.Models
                 var newList = new List<MEquipment>(2)
                 {
                     firstBattle != null
-                        ? MEquipment.Create(owner, civilian: false, source: firstBattle)
-                        : MEquipment.Create(owner, civilian: false, source: null),
+                        ? MEquipment.Create(
+                            owner,
+                            civilian: false,
+                            source: firstBattle,
+                            roster: this
+                        )
+                        : MEquipment.Create(owner, civilian: false, source: null, roster: this),
                     firstCivil != null
-                        ? MEquipment.Create(owner, civilian: true, source: firstCivil)
-                        : MEquipment.Create(owner, civilian: true, source: null),
+                        ? MEquipment.Create(owner, civilian: true, source: firstCivil, roster: this)
+                        : MEquipment.Create(owner, civilian: true, source: null, roster: this),
                 };
 
                 Equipments = newList;
                 return;
             }
 
-            // Default: deep copy all sets
             var all = new List<MEquipment>();
             for (int i = 0; i < sourceEquipments.Count; i++)
             {
@@ -126,8 +134,8 @@ namespace Retinues.Domain.Equipments.Models
 
                 var clone =
                     src == null
-                        ? MEquipment.Create(owner, civilian: false, source: null)
-                        : MEquipment.Create(owner, src.IsCivilian, src);
+                        ? MEquipment.Create(owner, civilian: false, source: null, roster: this)
+                        : MEquipment.Create(owner, src.IsCivilian, src, roster: this);
 
                 all.Add(clone);
             }
@@ -140,11 +148,13 @@ namespace Retinues.Domain.Equipments.Models
             Equipments = [];
 
 #if BL13
-            Add(new MEquipment(new Equipment(Equipment.EquipmentType.Battle), owner));
-            Add(new MEquipment(new Equipment(Equipment.EquipmentType.Civilian), owner));
+            Add(new MEquipment(new Equipment(Equipment.EquipmentType.Battle), owner, roster: this));
+            Add(
+                new MEquipment(new Equipment(Equipment.EquipmentType.Civilian), owner, roster: this)
+            );
 #else
-            Add(new MEquipment(new Equipment(false), owner));
-            Add(new MEquipment(new Equipment(true), owner));
+            Add(new MEquipment(new Equipment(false), owner, roster: this));
+            Add(new MEquipment(new Equipment(true), owner, roster: this));
 #endif
         }
 
@@ -164,6 +174,100 @@ namespace Retinues.Domain.Equipments.Models
                     }
                 }
             }
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                   Cached Item Counts                   //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private readonly Cache<MEquipmentRoster, Dictionary<string, int>> _itemCountsCache = new(
+            r => r.ComputeItemCounts()
+        );
+
+        /// <summary>
+        /// Required roster stock per item id.
+        /// Rule: for each item, keep the max number of copies used by any single equipment.
+        /// </summary>
+        public Dictionary<string, int> ItemCountsById => _itemCountsCache.Get(this);
+
+        public void InvalidateItemCountsCache() => _itemCountsCache.Clear();
+
+        private Dictionary<string, int> ComputeItemCounts()
+        {
+            Dictionary<string, int> result = [];
+
+            var list = EquipmentsAttribute.Get() ?? [];
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                var eq = list[i];
+                if (eq == null)
+                    continue;
+
+                // Count multiplicity within this one equipment.
+                Dictionary<string, int> per = [];
+
+                var me = new MEquipment(eq, owner, roster: this);
+
+                foreach (var item in me.Items)
+                {
+                    if (item == null)
+                        continue;
+
+                    string id = item.StringId;
+                    if (string.IsNullOrEmpty(id))
+                        continue;
+
+                    if (!per.ContainsKey(id))
+                        per[id] = 0;
+
+                    per[id]++;
+                }
+
+                // Merge via max across equipments.
+                foreach (var kv in per)
+                {
+                    if (!result.TryGetValue(kv.Key, out int current))
+                        result[kv.Key] = kv.Value;
+                    else
+                        result[kv.Key] = Math.Max(current, kv.Value);
+                }
+            }
+
+            return result;
+        }
+
+        internal int GetMaxCountExcludingEquipment(Equipment exclude, string itemId)
+        {
+            if (exclude == null || string.IsNullOrEmpty(itemId))
+                return 0;
+
+            int max = 0;
+
+            var list = EquipmentsAttribute.Get() ?? [];
+            for (int i = 0; i < list.Count; i++)
+            {
+                var eq = list[i];
+                if (eq == null)
+                    continue;
+
+                if (ReferenceEquals(eq, exclude))
+                    continue;
+
+                int count = 0;
+                var me = new MEquipment(eq, owner, roster: this);
+
+                foreach (var item in me.Items)
+                {
+                    if (item != null && item.StringId == itemId)
+                        count++;
+                }
+
+                if (count > max)
+                    max = count;
+            }
+
+            return max;
         }
     }
 }

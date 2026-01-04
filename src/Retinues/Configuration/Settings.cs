@@ -125,6 +125,33 @@ namespace Retinues.Configuration
         );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Equipment                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public static readonly Option<bool> EquipmentCostsGold = CreateOption(
+            section: EquipmentUnlocks,
+            name: L.F("mcm_option_equipment_costs_gold", "Equipment Costs Gold"),
+            hint: L.F(
+                "mcm_option_equipment_costs_gold_hint",
+                "Whether equipping new items should cost gold."
+            ),
+            @default: true
+        );
+
+        public static readonly Option<float> EquipmentCostMultiplier = CreateOption(
+            section: EquipmentUnlocks,
+            name: L.F("mcm_option_equipment_cost_multiplier", "Equipment Cost Multiplier"),
+            hint: L.F(
+                "mcm_option_equipment_cost_multiplier_hint",
+                "Multiplier applied to the base cost of items when calculating equip costs."
+            ),
+            minValue: 0.1f,
+            maxValue: 10f,
+            @default: 1f,
+            dependsOn: EquipmentCostsGold
+        );
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Troop Unlocks                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 

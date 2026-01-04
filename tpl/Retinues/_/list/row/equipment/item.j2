@@ -40,4 +40,40 @@
         MarginRight="8"
         Text="@DisabledReason" />
 
+    <TextWidget
+        IsVisible="@ShowStock"
+        WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+        Brush="Clan.RightPanel.Name.Text"
+        Brush.FontColor="@CostFontColor"
+        Brush.FontSize="24"
+        MarginLeft="4"
+        Text="@StockText"
+        HorizontalAlignment="Right" VerticalAlignment="Center"
+        ClipContents="false" />
+
+    <TextWidget
+        IsVisible="@ShowCost"
+        WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+        Brush="InventoryGoldFontBrush"
+        Brush.FontColor="@CostFontColor"
+        MarginLeft="4"
+        IntText="@Cost"
+        HorizontalAlignment="Right" VerticalAlignment="Center"
+        ClipContents="false" />
+
+    <SpriteWidget
+        IsVisible="@ShowCost"
+        WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+        SuggestedWidth="20" SuggestedHeight="20"
+        Sprite="General\Icons\Coin@2x"
+        HorizontalAlignment="Right" VerticalAlignment="Center" />
+
+    <SpriteWidget
+        IsVisible="@ShowEquipped"
+        WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+        SuggestedWidth="40" SuggestedHeight="40"
+        Sprite="General\Icons\icon_quest_done_checkmark"
+        Color="#ffae00ff"
+        HorizontalAlignment="Right" VerticalAlignment="Center" />
+
 {% endcall %}

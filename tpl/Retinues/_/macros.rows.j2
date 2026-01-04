@@ -2,11 +2,12 @@
 {# Row macros                                     #}
 {# ---------------------------------------------- #}
 
-{% macro row_wrapper(is_visible, margin_left="8") %}
+{% macro row_wrapper(is_visible, margin_left="8", margin_right="8") %}
     <Widget
         WidthSizePolicy="StretchToParent"
         HeightSizePolicy="StretchToParent"
         MarginLeft="{{ margin_left }}"
+        MarginRight="{{ margin_right }}"
         DoNotAcceptEvents="true"
         IsVisible="{{ is_visible }}">
         <Children>
