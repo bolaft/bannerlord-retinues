@@ -693,6 +693,24 @@ namespace Retinues.Framework.Model.Attributes
                 return el;
             }
 
+            if (
+                value is IDictionary dict
+                && TryGetStringKeyedDictionaryValueType(typeof(T), out var valueType)
+            )
+            {
+                el.SetAttributeValue("t", "map");
+
+                foreach (DictionaryEntry entry in dict)
+                {
+                    var k = entry.Key?.ToString() ?? string.Empty;
+                    var v = SerializeScalarLike(entry.Value, valueType);
+
+                    el.Add(new XElement("E", new XAttribute("k", k), new XAttribute("v", v)));
+                }
+
+                return el;
+            }
+
             // IEnumerable -> <Attr><Item>..</Item></Attr>
             if (value is IEnumerable enumerable && value is not string)
             {
@@ -1131,6 +1149,45 @@ namespace Retinues.Framework.Model.Attributes
                     return;
                 }
 
+                if (tag == "map")
+                {
+                    if (TryGetStringKeyedDictionaryValueType(typeof(T), out var valueType))
+                    {
+                        var dictType = typeof(Dictionary<,>).MakeGenericType(
+                            typeof(string),
+                            valueType
+                        );
+                        var result = (IDictionary)Activator.CreateInstance(dictType);
+
+                        foreach (var e in el.Elements("E"))
+                        {
+                            var k = ((string)e.Attribute("k") ?? string.Empty).Trim();
+                            var vRaw = ((string)e.Attribute("v") ?? string.Empty).Trim();
+
+                            // ParseScalar already exists inside your DeserializeXml
+                            var vObj = ParseScalar(vRaw, valueType);
+
+                            result[k] = vObj;
+                        }
+
+                        Assign((T)(object)result);
+                    }
+
+                    return;
+                }
+
+                if (tag == "list")
+                {
+                    var obj = ParseListFromChildren(el, typeof(T));
+                    if (obj is T typed)
+                    {
+                        Assign(typed);
+                        return;
+                    }
+
+                    return;
+                }
+
                 if (tag == "mb")
                 {
                     var mb = ResolveMbObject(typeof(T), raw);
@@ -1148,6 +1205,59 @@ namespace Retinues.Framework.Model.Attributes
             {
                 Log.Warn($"MAttribute.DeserializeXml failed for '{Name}': {ex.Message}");
             }
+        }
+
+        static bool TryGetStringKeyedDictionaryValueType(Type t, out Type valueType)
+        {
+            valueType = null;
+
+            if (t == null || !t.IsGenericType)
+                return false;
+
+            if (t.GetGenericTypeDefinition() != typeof(Dictionary<,>))
+                return false;
+
+            var args = t.GetGenericArguments();
+            if (args.Length != 2)
+                return false;
+
+            if (args[0] != typeof(string))
+                return false;
+
+            valueType = args[1];
+            return true;
+        }
+
+        static string SerializeScalarLike(object obj, Type targetType)
+        {
+            if (obj == null)
+                return string.Empty;
+
+            if (targetType == typeof(string))
+                return (string)obj;
+
+            if (targetType == typeof(TextObject))
+                return ((TextObject)obj)?.Value ?? string.Empty;
+
+            if (targetType == typeof(bool))
+                return ((bool)obj) ? "true" : "false";
+
+            if (targetType == typeof(int))
+                return ((int)obj).ToString(Inv);
+
+            if (targetType == typeof(float))
+                return ((float)obj).ToString("R", Inv);
+
+            if (targetType == typeof(double))
+                return ((double)obj).ToString("R", Inv);
+
+            if (targetType.IsEnum)
+                return obj.ToString();
+
+            if (typeof(MBObjectBase).IsAssignableFrom(targetType))
+                return ((MBObjectBase)obj)?.StringId ?? string.Empty;
+
+            return Convert.ToString(obj, Inv) ?? string.Empty;
         }
     }
 }
