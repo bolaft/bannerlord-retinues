@@ -25,6 +25,7 @@ namespace Retinues.Domain.Factions
         uint Color { get; }
         uint Color2 { get; }
         Banner Banner { get; }
+        WHero Leader { get; }
 
         /* ━━━━━━━━━ Image ━━━━━━━━ */
 

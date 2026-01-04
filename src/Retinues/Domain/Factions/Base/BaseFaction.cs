@@ -24,6 +24,7 @@ namespace Retinues.Domain.Factions.Base
         public abstract string Name { get; }
         public abstract uint Color { get; }
         public abstract uint Color2 { get; }
+        public abstract WHero Leader { get; }
         public abstract Banner Banner { get; }
 
 #if BL12

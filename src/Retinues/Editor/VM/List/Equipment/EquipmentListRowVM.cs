@@ -50,14 +50,14 @@ namespace Retinues.Editor.VM.List.Equipment
         //                         Enabled                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        [EventListener(UIEvent.Equipment)]
+        [EventListener(UIEvent.Equipment, Global = true)]
         private void UpdateBrush() => OnPropertyChanged(nameof(Brush));
 
-        [EventListener(UIEvent.Equipment)]
+        [EventListener(UIEvent.Equipment, Global = true)]
         [DataSourceProperty]
         public override bool IsEnabled => ItemController.Equip.Allow(_item);
 
-        [EventListener(UIEvent.Equipment)]
+        [EventListener(UIEvent.Equipment, Global = true)]
         [DataSourceProperty]
         public string DisabledReason =>
             ItemController.Equip.Reason(_item)?.ToString() ?? string.Empty;

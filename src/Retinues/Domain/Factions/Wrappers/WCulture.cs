@@ -18,6 +18,7 @@ namespace Retinues.Domain.Factions.Wrappers
         public override uint Color => Base.Color;
         public override uint Color2 => Base.Color2;
 
+        public override WHero Leader => null; // Cultures do not have leaders.
 #if BL13
         public override Banner Banner =>
             BannerHelper.GetOrFallbackBanner(Base.Banner, Troops.FirstOrDefault());

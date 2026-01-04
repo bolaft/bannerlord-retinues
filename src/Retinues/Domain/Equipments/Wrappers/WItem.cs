@@ -6,6 +6,7 @@ using Retinues.Domain.Factions.Wrappers;
 using Retinues.Framework.Model;
 using Retinues.Framework.Model.Attributes;
 using Retinues.Framework.Runtime;
+using Retinues.Game;
 using Retinues.Utilities;
 using TaleWorlds.Core;
 #if BL13
@@ -95,23 +96,69 @@ namespace Retinues.Domain.Equipments.Wrappers
         //                          Stock                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        MAttribute<int> StockAttribute => Attribute(initialValue: 0);
+        MAttribute<Dictionary<string, int>> StockByHeroAttribute =>
+            Attribute<Dictionary<string, int>>(initialValue: []);
 
         public int Stock
         {
-            get => StockAttribute.Get();
-            set => StockAttribute.Set(value);
+            get => GetStock(Player.Hero);
+            set => SetStock(Player.Hero, value);
+        }
+
+        /// <summary>
+        /// Gets the stock for the given hero.
+        /// </summary>
+        public int GetStock() => GetStock(Player.Hero);
+
+        public int GetStock(WHero hero)
+        {
+            var map = StockByHeroAttribute.Get() ?? [];
+
+            if (map.TryGetValue(hero.StringId, out var value))
+                return value;
+
+            return 0;
+        }
+
+        /// <summary>
+        /// Sets the stock to the given value.
+        /// </summary>
+        public void SetStock(int value) => SetStock(Player.Hero, value);
+
+        public void SetStock(WHero hero, int value)
+        {
+            value = System.Math.Max(value, 0);
+
+            var current = StockByHeroAttribute.Get() ?? [];
+            var map = new Dictionary<string, int>(current) { [hero.StringId] = value };
+            StockByHeroAttribute.Set(map);
         }
 
         /// <summary>
         /// Increases the stock by the given amount.
         /// </summary>
-        public void IncreaseStock(int amount = 1) => Stock += amount;
+        public void IncreaseStock(int amount = 1) => IncreaseStock(Player.Hero, amount);
+
+        public void IncreaseStock(WHero hero, int amount = 1)
+        {
+            if (amount <= 0)
+                return;
+
+            SetStock(hero, GetStock(hero) + amount);
+        }
 
         /// <summary>
         /// Decreases the stock by the given amount.
         /// </summary>
-        public void DecreaseStock(int amount = 1) => Stock = System.Math.Max(Stock - amount, 0);
+        public void DecreaseStock(int amount = 1) => DecreaseStock(Player.Hero, amount);
+
+        public void DecreaseStock(WHero hero, int amount = 1)
+        {
+            if (amount <= 0)
+                return;
+
+            SetStock(hero, System.Math.Max(GetStock(hero) - amount, 0));
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Unlock                         //
@@ -122,47 +169,96 @@ namespace Retinues.Domain.Equipments.Wrappers
         /// </summary>
         const int UnlockThreshold = 100;
 
-        public bool IsUnlocked => UnlockProgress >= UnlockThreshold;
+        MAttribute<Dictionary<string, int>> UnlockProgressByHeroAttribute =>
+            Attribute<Dictionary<string, int>>(initialValue: []);
+
+        public bool IsUnlocked => IsUnlockedFor(Player.Hero);
+
+        /// <summary>
+        /// Indicates whether this item is unlocked for the given hero.
+        /// </summary>
+        public bool IsUnlockedFor(WHero hero) => GetUnlockProgress(hero) >= UnlockThreshold;
 
         public int UnlockProgress
         {
-            get => UnlockProgressAttribute.Get();
-            set => UnlockProgressAttribute.Set(value);
+            get => GetUnlockProgress(Player.Hero);
+            set => SetUnlockProgress(Player.Hero, value);
         }
 
-        MAttribute<int> UnlockProgressAttribute => Attribute(initialValue: 0);
+        /// <summary>
+        /// Gets the unlock progress for the given hero.
+        /// </summary>
+        public int GetUnlockProgress() => GetUnlockProgress(Player.Hero);
+
+        public int GetUnlockProgress(WHero hero)
+        {
+            var map = UnlockProgressByHeroAttribute.Get() ?? [];
+
+            if (map.TryGetValue(hero.StringId, out var value))
+                return value;
+
+            return 0;
+        }
+
+        /// <summary>
+        /// Sets the unlock progress to the given value.
+        /// </summary>
+        public void SetUnlockProgress(int value) => SetUnlockProgress(Player.Hero, value);
+
+        public void SetUnlockProgress(WHero hero, int value)
+        {
+            value = System.Math.Max(value, 0);
+            value = System.Math.Min(value, UnlockThreshold);
+
+            var current = UnlockProgressByHeroAttribute.Get() ?? [];
+            var map = new Dictionary<string, int>(current) { [hero.StringId] = value };
+            UnlockProgressByHeroAttribute.Set(map);
+        }
 
         /// <summary>
         /// Increases the unlock progress by the given amount,
         /// capping it at the unlock threshold.
         /// </summary>
-        public bool IncreaseUnlockProgress(int amount)
+        public bool IncreaseUnlockProgress(int amount) =>
+            IncreaseUnlockProgress(Player.Hero, amount);
+
+        public bool IncreaseUnlockProgress(WHero hero, int amount)
         {
-            if (IsUnlocked)
+            if (amount <= 0)
+                return IsUnlockedFor(hero);
+
+            if (IsUnlockedFor(hero))
                 return true;
 
-            UnlockProgress = System.Math.Min(UnlockProgress + amount, UnlockThreshold);
+            SetUnlockProgress(
+                hero,
+                System.Math.Min(GetUnlockProgress(hero) + amount, UnlockThreshold)
+            );
 
-            return IsUnlocked;
+            return IsUnlockedFor(hero);
         }
 
         /// <summary>
         /// Immediately unlocks this item.
         /// </summary>
-        public void Unlock()
+        public void Unlock() => Unlock(Player.Hero);
+
+        public void Unlock(WHero hero)
         {
-            Log.Info($"Unlocking item '{Name}'");
-            UnlockProgress = UnlockThreshold;
+            SetUnlockProgress(hero, UnlockThreshold);
         }
 
         /// <summary>
         /// Gets all unlocked items that can be equipped in the given slot.
         /// </summary>
-        public static IEnumerable<WItem> GetUnlockedItems(EquipmentIndex slot)
+        public static IEnumerable<WItem> GetUnlockedItems(EquipmentIndex slot) =>
+            GetUnlockedItems(slot, Player.Hero);
+
+        public static IEnumerable<WItem> GetUnlockedItems(EquipmentIndex slot, WHero hero)
         {
             foreach (var item in GetEquipmentsForSlot(slot))
             {
-                if (item.IsUnlocked)
+                if (item.IsUnlockedFor(hero))
                     yield return item;
             }
         }
