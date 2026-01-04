@@ -5,6 +5,7 @@ using Retinues.Editor.Controllers.Equipment;
 using Retinues.Editor.Events;
 using Retinues.UI.Services;
 using Retinues.UI.VM;
+using TaleWorlds.Core;
 using TaleWorlds.Library;
 
 namespace Retinues.Editor.VM.Column.Equipment
@@ -173,5 +174,29 @@ namespace Retinues.Editor.VM.Column.Equipment
 
         [DataSourceProperty]
         public string PreviewModeText => L.S("preview_mode", "Preview Mode");
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                     Crafted Items                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [EventListener(UIEvent.Page)]
+        [DataSourceProperty]
+        public bool ShowCraftedToggle =>
+            EditorVM.Page == EditorPage.Equipment && State.Mode == EditorMode.Player;
+
+        [EventListener(UIEvent.Crafted)]
+        [DataSourceProperty]
+        public bool ShowCrafted
+        {
+            get => State.ShowCrafted;
+            set => State.ShowCrafted = value;
+        }
+
+        [EventListener(UIEvent.Slot, UIEvent.Crafted)]
+        [DataSourceProperty]
+        public Tooltip CraftedToggleTooltip =>
+            State.ShowCrafted
+                ? new Tooltip(L.T("crafted_items_only_tooltip", "Hide crafted weapons."))
+                : new Tooltip(L.T("crafted_items_hide_tooltip", "Include crafted weapons."));
     }
 }

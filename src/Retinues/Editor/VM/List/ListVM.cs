@@ -158,6 +158,19 @@ namespace Retinues.Editor.VM.List
             _previousSlot = currentSlot;
         }
 
+        [EventListener(UIEvent.Crafted)]
+        private void OnCraftedFilterChange()
+        {
+            if (EditorVM.Page != EditorPage.Equipment)
+                return;
+
+            AutoScrollRowsEnabled = true;
+            AutoScrollVersion++;
+
+            Builder.Build(this);
+            UpdateEquipmentHeaderExpansion();
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Headers                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

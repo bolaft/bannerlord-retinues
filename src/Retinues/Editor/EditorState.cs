@@ -470,6 +470,27 @@ namespace Retinues.Editor
             }
         }
 
+        /* ━━━━━━━━ Crafted ━━━━━━━ */
+
+        private bool _showCrafted;
+
+        /// <summary>
+        /// When true, the equipment list (weapons) shows only crafted items.
+        /// When false, crafted items are hidden from the list.
+        /// </summary>
+        public bool ShowCrafted
+        {
+            get => _showCrafted;
+            set
+            {
+                if (value == _showCrafted)
+                    return;
+
+                _showCrafted = value;
+                Fire(UIEvent.Crafted);
+            }
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Refresh                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

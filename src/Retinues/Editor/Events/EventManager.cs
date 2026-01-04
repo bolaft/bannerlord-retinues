@@ -30,6 +30,7 @@ namespace Retinues.Editor.Events
         Formation,
         Library,
         Preview,
+        Crafted,
     }
 
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

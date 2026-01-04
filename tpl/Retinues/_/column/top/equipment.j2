@@ -58,13 +58,13 @@
 
                         <SpriteWidget
                             WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                            SuggestedWidth="32" SuggestedHeight="32"
+                            SuggestedWidth="24" SuggestedHeight="24"
                             HorizontalAlignment="Center" VerticalAlignment="Center"
-                            Sprite="Inventory\icon_inspect" />
+                            Sprite="General\Mission\smithy" />
                     </Children>
                 </SpriteWidget>
 
-                {{ checkbox(binding="@PreviewMode", size="32", tooltip="{PreviewModeTooltip}") }}
+                {{ checkbox(binding="@ShowCrafted", size="32", tooltip="{CraftedToggleTooltip}") }}
 
             </Children>
         </ListPanel>

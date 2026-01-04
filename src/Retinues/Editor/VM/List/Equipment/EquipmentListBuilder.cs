@@ -134,6 +134,9 @@ namespace Retinues.Editor.VM.List.Equipment
         {
             var header = new EquipmentListHeaderVM(list, headerId, headerText);
 
+            bool isPlayerMode = EditorState.Instance.Mode == EditorMode.Player;
+            bool includeCrafted = EditorState.Instance.ShowCrafted;
+
             if (items != null && items.Count > 0)
             {
                 for (int i = 0; i < items.Count; i++)
@@ -142,10 +145,15 @@ namespace Retinues.Editor.VM.List.Equipment
                     if (item == null)
                         continue;
 
-                    if (EditorState.Instance.Mode == EditorMode.Player && !item.IsUnlocked)
+                    // Skip crafted items if the filter is off.
+                    if (!includeCrafted && item.IsCrafted)
                         continue;
 
-                    header.AddRow(new EquipmentListRowVM(header, item)); // use AddRow
+                    // Player mode: keep your existing "unlock" gate for non-crafted items.
+                    if (isPlayerMode && !item.IsCrafted && !item.IsUnlocked)
+                        continue;
+
+                    header.AddRow(new EquipmentListRowVM(header, item));
                 }
             }
 
