@@ -593,6 +593,18 @@
       id="ret_mcm_option_editor_hotkey_hint"
       text="Aktiviert die [R]-Hotkey zum Öffnen des Editors." />
     <string
+      id="ret_mcm_option_skill_cap"
+      text="Fähigkeitsgrenze Stufe {TIER}" />
+    <string
+      id="ret_mcm_option_skill_cap_hint"
+      text="Maximales Fähigkeitsniveau für Truppen der Stufe {TIER}." />
+    <string
+      id="ret_mcm_option_skill_total"
+      text="Gesamtfähigkeiten Stufe {TIER}" />
+    <string
+      id="ret_mcm_option_skill_total_hint"
+      text="Gesamt verfügbare Fertigkeitspunkte für Truppen der Stufe {TIER}." />
+    <string
       id="ret_mcm_option_starter_equipment"
       text="Startausrüstung" />
     <string
@@ -604,6 +616,12 @@
     <string
       id="ret_mcm_section_equipment_unlocks"
       text="Ausrüstungsfreischaltungen" />
+    <string
+      id="ret_mcm_section_skill_caps"
+      text="Fähigkeitsgrenzen" />
+    <string
+      id="ret_mcm_section_skill_totals"
+      text="Gesamtfähigkeiten" />
     <string
       id="ret_mcm_section_troop_unlocks"
       text="Truppenfreischaltungen" />
@@ -686,7 +704,7 @@
       id="ret_select_culture_title"
       text="Kultur auswählen" />
     <string
-      id="ret_skill_decrease_mined_reason"
+      id="ret_skill_decrease_min_reason"
       text="Fähigkeit kann nicht unter 0 verringert werden." />
     <string
       id="ret_skill_increase_maxed_reason"
@@ -694,6 +712,9 @@
     <string
       id="ret_skill_increase_no_points_reason"
       text="Nicht genug Fertigkeitspunkte." />
+    <string
+      id="ret_skill_increase_total_reason"
+      text="Gesamtes Fähigkeitslimit erreicht." />
     <string
       id="ret_skills_header_text"
       text="Fähigkeiten" />

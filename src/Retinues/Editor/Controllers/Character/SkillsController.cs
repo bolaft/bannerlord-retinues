@@ -8,8 +8,6 @@ namespace Retinues.Editor.Controllers.Character
     public class SkillsController : BaseController
     {
         const int MaxBatch = int.MaxValue;
-        const int MaxSkillLevel = 330;
-        const int MinSkillLevel = 0;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Increase                        //
@@ -17,21 +15,27 @@ namespace Retinues.Editor.Controllers.Character
 
         public static EditorAction<SkillObject> SkillIncrease { get; } =
             Action<SkillObject>("SkillIncrease")
+                // Skill cap
                 .AddCondition(
-                    s => State.Character.Editable.Skills.Get(s) < MaxSkillLevel,
+                    s => State.Character.Editable.Skills.Get(s) < State.Character.SkillCapForTier,
                     L.T("skill_increase_maxed_reason", "Skill is already at maximum level.")
                 )
+                // Skill total
+                .AddCondition(
+                    s =>
+                        State.Character.IsHero
+                        || (State.Character.SkillTotalUsed + 1)
+                            <= State.Character.SkillTotalMaxForTier,
+                    L.T("skill_increase_total_reason", "Total skill limit reached.")
+                )
+                // Spend points only in Player mode, and only for non-heroes.
                 .WhenMode(
                     EditorMode.Player,
                     m =>
                         m.AddCondition(
-                                s => State.Character.SkillPoints > 0,
-                                L.T("skill_increase_no_points_reason", "Not enough skill points.")
-                            )
-                            .PostExecute(_ =>
-                            {
-                                State.Character.SkillPoints -= 1;
-                            })
+                            s => State.Character.IsHero || State.Character.SkillPoints > 0,
+                            L.T("skill_increase_no_points_reason", "Not enough skill points.")
+                        )
                 )
                 .ExecuteWith(s => ChangeSkill(s, +1))
                 .Fire(UIEvent.Skill);
@@ -43,16 +47,8 @@ namespace Retinues.Editor.Controllers.Character
         public static EditorAction<SkillObject> SkillDecrease { get; } =
             Action<SkillObject>("SkillDecrease")
                 .AddCondition(
-                    s => State.Character.Editable.Skills.Get(s) > MinSkillLevel,
-                    L.T("skill_decrease_mined_reason", "Cannot decrease skill below 0.")
-                )
-                .WhenMode(
-                    EditorMode.Player,
-                    m =>
-                        m.PostExecute(_ =>
-                        {
-                            State.Character.SkillPoints += 1;
-                        })
+                    s => State.Character.Editable.Skills.Get(s) > 0,
+                    L.T("skill_decrease_min_reason", "Cannot decrease skill below 0.")
                 )
                 .ExecuteWith(s => ChangeSkill(s, -1))
                 .Fire(UIEvent.Skill);
@@ -64,13 +60,24 @@ namespace Retinues.Editor.Controllers.Character
         private static void ChangeSkill(SkillObject skill, int delta)
         {
             int amount = Inputs.BatchInput(MaxBatch);
-            var skills = State.Character.Editable.Skills;
+            var c = State.Character;
+            var skills = c.Editable.Skills;
 
-            Func<SkillObject, bool> check = delta > 0 ? SkillIncrease.Allow : SkillDecrease.Allow;
+            Func<SkillObject, bool> allow = delta > 0 ? SkillIncrease.Allow : SkillDecrease.Allow;
 
-            while (check(skill) && amount > 0)
+            while (allow(skill) && amount > 0)
             {
                 skills.Modify(skill, delta);
+
+                // Spend/refund skill points only in Player mode, and only for non-heroes.
+                if (!c.IsHero && State.Mode == EditorMode.Player)
+                {
+                    if (delta > 0)
+                        c.SkillPoints = Math.Max(0, c.SkillPoints - 1);
+                    else if (delta < 0)
+                        c.SkillPoints += 1;
+                }
+
                 amount--;
             }
         }

@@ -1,4 +1,43 @@
 {% from "_/macros.buttons.j2" import button_chevron_left, button_chevron_right %}
+{% from "_/macros.panel.j2" import panel_header %}
+
+{{ panel_header("@SkillsHeaderText") }}
+
+<!-- SP used / SP total -->
+<ListPanel
+    IsVisible="@ShowSkillDetails"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    HorizontalAlignment="Center"
+    StackLayout.LayoutMethod="HorizontalLeftToRight"
+    UpdateChildrenStates="true">
+    <Children>
+        <TextWidget
+            Text="@SkillTotalText"
+            Brush="Clan.RightPanel.Name.Text"
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            HorizontalAlignment="Center" VerticalAlignment="Center"
+            MarginRight="8" />
+    </Children>
+</ListPanel>
+
+<!-- SP & Skill Cap -->
+<ListPanel
+    IsVisible="@ShowSkillDetails"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed"
+    SuggestedHeight="30"
+    HorizontalAlignment="Center"
+    StackLayout.LayoutMethod="HorizontalLeftToRight"
+    UpdateChildrenStates="true"
+    MarginBottom="12">
+    <Children>
+        <TextWidget
+            Text="@SkillDescriptionText"
+            Brush="InventoryGoldFontBrush"
+            Brush.FontColor="#F4E1C4FF"
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            HorizontalAlignment="Center" VerticalAlignment="Center" />
+    </Children>
+</ListPanel>
 
 {% macro skill(icon, chev, small) -%}
 {% set margin = small * 2 %}
@@ -57,10 +96,6 @@
 </Widget>
 
 {%- endmacro %}
-
-{% from "_/macros.panel.j2" import panel_header %}
-
-{{ panel_header("@SkillsHeaderText") }}
 
 {# Skills Grid #}
 

@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Domain.Characters.Helpers;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Editor.Controllers.Character;
@@ -131,6 +130,22 @@ namespace Retinues.Editor.VM.Panel.Character
 
         [DataSourceProperty]
         public string SkillsHeaderText => L.S("skills_header_text", "Skills");
+
+        [EventListener(UIEvent.Character)]
+        [DataSourceProperty]
+        public bool ShowSkillDetails => !State.Character.IsHero;
+
+        [EventListener(UIEvent.Skill)]
+        [DataSourceProperty]
+        public string SkillTotalText =>
+            $"{State.Character.SkillTotalUsed} / {State.Character.SkillTotalMaxForTier}";
+
+        [EventListener(UIEvent.Skill)]
+        [DataSourceProperty]
+        public string SkillDescriptionText =>
+            State.Mode == EditorMode.Player
+                ? $"{State.Character.SkillPoints} sp - {State.Character.SkillCapForTier} skill cap"
+                : $"{State.Character.SkillCapForTier} skill cap";
 
         [DataSourceProperty]
         public MBBindingList<CharacterSkillVM> SkillsRow1 { get; } = [];

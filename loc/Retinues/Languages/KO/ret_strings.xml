@@ -593,6 +593,18 @@
       id="ret_mcm_option_editor_hotkey_hint"
       text="편집기를 열기 위해 [R] 단축키를 활성화합니다." />
     <string
+      id="ret_mcm_option_skill_cap"
+      text="티어 {TIER} 기술 한도" />
+    <string
+      id="ret_mcm_option_skill_cap_hint"
+      text="티어 {TIER} 부대의 최대 기술 수준입니다." />
+    <string
+      id="ret_mcm_option_skill_total"
+      text="티어 {TIER} 기술 총합" />
+    <string
+      id="ret_mcm_option_skill_total_hint"
+      text="티어 {TIER} 부대의 총 사용 가능한 기술 포인트입니다." />
+    <string
       id="ret_mcm_option_starter_equipment"
       text="초기 장비" />
     <string
@@ -604,6 +616,12 @@
     <string
       id="ret_mcm_section_equipment_unlocks"
       text="장비 잠금 해제" />
+    <string
+      id="ret_mcm_section_skill_caps"
+      text="기술 한도" />
+    <string
+      id="ret_mcm_section_skill_totals"
+      text="기술 총합" />
     <string
       id="ret_mcm_section_troop_unlocks"
       text="부대 잠금 해제" />
@@ -686,14 +704,17 @@
       id="ret_select_culture_title"
       text="문화 선택" />
     <string
-      id="ret_skill_decrease_mined_reason"
-      text="기술을 0 이하로 낮출 수 없습니다." />
+      id="ret_skill_decrease_min_reason"
+      text="기술은 0 미만으로 감소할 수 없습니다." />
     <string
       id="ret_skill_increase_maxed_reason"
       text="기술이 이미 최대 수준에 도달했습니다." />
     <string
       id="ret_skill_increase_no_points_reason"
       text="기술 포인트가 부족합니다." />
+    <string
+      id="ret_skill_increase_total_reason"
+      text="총 기술 한도에 도달했습니다." />
     <string
       id="ret_skills_header_text"
       text="기술" />

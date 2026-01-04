@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Retinues.Configuration;
 using Retinues.Framework.Runtime;
 using Retinues.Modules;
 using TaleWorlds.Core;
@@ -10,6 +12,46 @@ namespace Retinues.Domain.Characters.Helpers
 {
     public static class SkillsHelper
     {
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Caps                          //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        static int ClampTier(int tier) => Math.Max(0, Math.Min(7, tier));
+
+        public static int GetSkillCapForTier(int tier)
+        {
+            tier = ClampTier(tier);
+            return tier switch
+            {
+                0 => Settings.SkillCapT0.Value,
+                1 => Settings.SkillCapT1.Value,
+                2 => Settings.SkillCapT2.Value,
+                3 => Settings.SkillCapT3.Value,
+                4 => Settings.SkillCapT4.Value,
+                5 => Settings.SkillCapT5.Value,
+                6 => Settings.SkillCapT6.Value,
+                7 => Settings.SkillCapT7.Value,
+                _ => Settings.SkillCapT7.Value,
+            };
+        }
+
+        public static int GetSkillTotalForTier(int tier)
+        {
+            tier = ClampTier(tier);
+            return tier switch
+            {
+                0 => Settings.SkillTotalT0.Value,
+                1 => Settings.SkillTotalT1.Value,
+                2 => Settings.SkillTotalT2.Value,
+                3 => Settings.SkillTotalT3.Value,
+                4 => Settings.SkillTotalT4.Value,
+                5 => Settings.SkillTotalT5.Value,
+                6 => Settings.SkillTotalT6.Value,
+                7 => Settings.SkillTotalT7.Value,
+                _ => Settings.SkillTotalT7.Value,
+            };
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Options                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

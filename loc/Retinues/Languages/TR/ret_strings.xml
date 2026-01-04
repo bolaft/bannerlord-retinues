@@ -593,6 +593,18 @@
       id="ret_mcm_option_editor_hotkey_hint"
       text="Düzenleyiciyi açmak için [R] kısayolunu etkinleştirir." />
     <string
+      id="ret_mcm_option_skill_cap"
+      text="{TIER} Seviye Yetenek Sınırı" />
+    <string
+      id="ret_mcm_option_skill_cap_hint"
+      text="{TIER} seviye birlikler için maksimum yetenek seviyesi." />
+    <string
+      id="ret_mcm_option_skill_total"
+      text="{TIER} Seviye Yetenek Toplamı" />
+    <string
+      id="ret_mcm_option_skill_total_hint"
+      text="{TIER} seviye birlikler için toplam kullanılabilir yetenek puanı." />
+    <string
       id="ret_mcm_option_starter_equipment"
       text="Başlangıç Ekipmanı" />
     <string
@@ -604,6 +616,12 @@
     <string
       id="ret_mcm_section_equipment_unlocks"
       text="Ekipman Kilidi Açma" />
+    <string
+      id="ret_mcm_section_skill_caps"
+      text="Yetenek Sınırları" />
+    <string
+      id="ret_mcm_section_skill_totals"
+      text="Yetenek Toplamları" />
     <string
       id="ret_mcm_section_troop_unlocks"
       text="Birlik Kilidi Açma" />
@@ -686,7 +704,7 @@
       id="ret_select_culture_title"
       text="Kültür Seç" />
     <string
-      id="ret_skill_decrease_mined_reason"
+      id="ret_skill_decrease_min_reason"
       text="Yetenek 0&apos;ın altına düşürülemez." />
     <string
       id="ret_skill_increase_maxed_reason"
@@ -694,6 +712,9 @@
     <string
       id="ret_skill_increase_no_points_reason"
       text="Yeterli yetenek puanı yok." />
+    <string
+      id="ret_skill_increase_total_reason"
+      text="Toplam yetenek limiti aşıldı." />
     <string
       id="ret_skills_header_text"
       text="Yetenekler" />

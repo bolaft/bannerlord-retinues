@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using Retinues.Framework.Model.Attributes;
 using Retinues.Framework.Runtime;
 using Retinues.Utilities;
@@ -19,6 +21,41 @@ namespace Retinues.Domain.Characters.Wrappers
             get => SkillPointsAttribute.Get();
             set => SkillPointsAttribute.Set(value);
         }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                    Skill Rules (Tier)                  //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        const int MaxSkillLevel = 330;
+
+        public int SkillCapForTier =>
+            !IsHero ? Helpers.SkillsHelper.GetSkillCapForTier(Tier) : MaxSkillLevel;
+
+        public int SkillTotalMaxForTier =>
+            !IsHero ? Helpers.SkillsHelper.GetSkillTotalForTier(Tier) : int.MaxValue;
+
+        public int SkillTotalUsed
+        {
+            get
+            {
+                // Sum the currently relevant skills for this character type.
+                var list = Helpers.SkillsHelper.GetSkillListForCharacter(
+                    IsHero,
+                    includeModded: true
+                );
+                if (list == null || list.Count == 0)
+                    return 0;
+
+                int sum = 0;
+                foreach (var s in list)
+                    sum += Skills.Get(s);
+
+                return sum;
+            }
+        }
+
+        public int SkillTotalRemaining =>
+            !IsHero ? Math.Max(0, SkillTotalMaxForTier - SkillTotalUsed) : int.MaxValue;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Skills                         //

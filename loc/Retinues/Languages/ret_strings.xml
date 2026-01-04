@@ -593,6 +593,18 @@
       id="ret_mcm_option_editor_hotkey_hint"
       text="Enables the [R] hotkey to open the editor." />
     <string
+      id="ret_mcm_option_skill_cap"
+      text="Tier {TIER} Skill Cap" />
+    <string
+      id="ret_mcm_option_skill_cap_hint"
+      text="Maximum skill level for Tier {TIER} troops." />
+    <string
+      id="ret_mcm_option_skill_total"
+      text="Tier {TIER} Skill Total" />
+    <string
+      id="ret_mcm_option_skill_total_hint"
+      text="Total available skill points for Tier {TIER} troops." />
+    <string
       id="ret_mcm_option_starter_equipment"
       text="Starter Equipment" />
     <string
@@ -604,6 +616,12 @@
     <string
       id="ret_mcm_section_equipment_unlocks"
       text="Equipment Unlocks" />
+    <string
+      id="ret_mcm_section_skill_caps"
+      text="Skill Caps" />
+    <string
+      id="ret_mcm_section_skill_totals"
+      text="Skill Totals" />
     <string
       id="ret_mcm_section_troop_unlocks"
       text="Troop Unlocks" />
@@ -686,7 +704,7 @@
       id="ret_select_culture_title"
       text="Select Culture" />
     <string
-      id="ret_skill_decrease_mined_reason"
+      id="ret_skill_decrease_min_reason"
       text="Cannot decrease skill below 0." />
     <string
       id="ret_skill_increase_maxed_reason"
@@ -694,6 +712,9 @@
     <string
       id="ret_skill_increase_no_points_reason"
       text="Not enough skill points." />
+    <string
+      id="ret_skill_increase_total_reason"
+      text="Total skill limit reached." />
     <string
       id="ret_skills_header_text"
       text="Skills" />

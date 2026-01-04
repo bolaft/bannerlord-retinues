@@ -593,6 +593,18 @@
       id="ret_mcm_option_editor_hotkey_hint"
       text="Abilita il tasto di scelta rapida [R] per aprire l&apos;editor." />
     <string
+      id="ret_mcm_option_skill_cap"
+      text="Limite di abilità del livello {TIER}" />
+    <string
+      id="ret_mcm_option_skill_cap_hint"
+      text="Livello massimo di abilità per le truppe del livello {TIER}." />
+    <string
+      id="ret_mcm_option_skill_total"
+      text="Totale abilità del livello {TIER}" />
+    <string
+      id="ret_mcm_option_skill_total_hint"
+      text="Totale punti abilità disponibili per le truppe del livello {TIER}." />
+    <string
       id="ret_mcm_option_starter_equipment"
       text="Equipaggiamento iniziale" />
     <string
@@ -604,6 +616,12 @@
     <string
       id="ret_mcm_section_equipment_unlocks"
       text="Sblocchi dell&apos;equipaggiamento" />
+    <string
+      id="ret_mcm_section_skill_caps"
+      text="Limiti di abilità" />
+    <string
+      id="ret_mcm_section_skill_totals"
+      text="Totali delle abilità" />
     <string
       id="ret_mcm_section_troop_unlocks"
       text="Sblocchi delle truppe" />
@@ -686,14 +704,17 @@
       id="ret_select_culture_title"
       text="Seleziona cultura" />
     <string
-      id="ret_skill_decrease_mined_reason"
-      text="Impossibile diminuire l&apos;abilità al di sotto di 0." />
+      id="ret_skill_decrease_min_reason"
+      text="L&apos;abilità non può essere diminuita sotto 0." />
     <string
       id="ret_skill_increase_maxed_reason"
       text="L&apos;abilità è già al livello massimo." />
     <string
       id="ret_skill_increase_no_points_reason"
       text="Non ci sono abbastanza punti abilità." />
+    <string
+      id="ret_skill_increase_total_reason"
+      text="Limite totale di abilità raggiunta." />
     <string
       id="ret_skills_header_text"
       text="Abilità" />

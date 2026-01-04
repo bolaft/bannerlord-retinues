@@ -593,6 +593,18 @@
       id="ret_mcm_option_editor_hotkey_hint"
       text="Active la touche [R] pour ouvrir l&apos;éditeur." />
     <string
+      id="ret_mcm_option_skill_cap"
+      text="Maximum de Compétence au Niveau {TIER}" />
+    <string
+      id="ret_mcm_option_skill_cap_hint"
+      text="Niveau de compétence maximum pour les troupes de niveau {TIER}." />
+    <string
+      id="ret_mcm_option_skill_total"
+      text="Total de Compétences au Niveau {TIER}" />
+    <string
+      id="ret_mcm_option_skill_total_hint"
+      text="Total des points de compétence disponibles pour les troupes de niveau {TIER}." />
+    <string
       id="ret_mcm_option_starter_equipment"
       text="Équipement Initial" />
     <string
@@ -604,6 +616,12 @@
     <string
       id="ret_mcm_section_equipment_unlocks"
       text="Acquisitions d&apos;Équipements" />
+    <string
+      id="ret_mcm_section_skill_caps"
+      text="Limites de Compétences" />
+    <string
+      id="ret_mcm_section_skill_totals"
+      text="Totaux de Compétences" />
     <string
       id="ret_mcm_section_troop_unlocks"
       text="Acquisitions de Troupes" />
@@ -686,14 +704,17 @@
       id="ret_select_culture_title"
       text="Sélectionner une culture" />
     <string
-      id="ret_skill_decrease_mined_reason"
-      text="Impossible de diminuer une compétence en dessous de 0." />
+      id="ret_skill_decrease_min_reason"
+      text="Une compétence ne peut pas descendre en dessous de 0." />
     <string
       id="ret_skill_increase_maxed_reason"
       text="La compétence est déjà au niveau maximum." />
     <string
       id="ret_skill_increase_no_points_reason"
       text="Pas assez de points de compétence." />
+    <string
+      id="ret_skill_increase_total_reason"
+      text="Maximum de compétences atteint." />
     <string
       id="ret_skills_header_text"
       text="Compétences" />
