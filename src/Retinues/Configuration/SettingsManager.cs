@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
+using Retinues.Editor;
+using Retinues.Editor.Events;
 using Retinues.Framework.Runtime;
 using Retinues.Utilities;
 
@@ -65,6 +67,7 @@ namespace Retinues.Configuration
         bool IsDisabled { get; }
         object DisabledOverrideBoxed { get; }
         IOption DependsOn { get; }
+        UIEvent? Fires { get; }
 
         /// <summary>
         /// Get the current option value as an object.
@@ -118,7 +121,8 @@ namespace Retinues.Configuration
             IReadOnlyDictionary<string, object> presetOverrides,
             bool disabled,
             T disabledOverride,
-            IOption dependsOn = null
+            IOption dependsOn = null,
+            UIEvent? fires = null
         )
         {
             _section = section ?? (() => "General");
@@ -134,6 +138,7 @@ namespace Retinues.Configuration
             IsDisabled = disabled;
             DisabledOverride = disabledOverride;
             DependsOn = dependsOn;
+            Fires = fires;
 
             // Fallbacks; real delegates are wired by SettingsManager.DiscoverOptions.
             Getter = () => DefaultTyped;
@@ -160,6 +165,7 @@ namespace Retinues.Configuration
         public Type Type => typeof(T);
         public object Default => DefaultTyped;
         public object DisabledOverrideBoxed => DisabledOverride;
+        public UIEvent? Fires { get; set; }
 
         public IReadOnlyDictionary<string, object> PresetOverrides { get; set; }
         public bool IsDisabled { get; set; }
@@ -250,7 +256,8 @@ namespace Retinues.Configuration
             bool disabled,
             T disabledOverride,
             IOption dependsOn,
-            Func<T, string> choiceFormatter
+            Func<T, string> choiceFormatter,
+            UIEvent? fires
         )
             : base(
                 section,
@@ -263,7 +270,8 @@ namespace Retinues.Configuration
                 presetOverrides,
                 disabled,
                 disabledOverride,
-                dependsOn
+                dependsOn,
+                fires
             )
         {
             if (choices != null)
@@ -415,7 +423,8 @@ namespace Retinues.Configuration
             IReadOnlyDictionary<string, object> presets = null,
             bool disabled = false,
             T disabledOverride = default,
-            IOption dependsOn = null
+            IOption dependsOn = null,
+            UIEvent? fires = null
         )
         {
             Func<string> sectionFunc = null;
@@ -433,15 +442,16 @@ namespace Retinues.Configuration
                 presets,
                 disabled,
                 disabledOverride,
-                dependsOn
+                dependsOn,
+                fires
             );
         }
 
         /// <summary>
-        /// Helper factory to create a MultiChoiceOption&lt;T&gt;.
+        /// Helper factory to create a MultiChoiceOption.
         /// </summary>
         public static MultiChoiceOption<T> CreateMultiChoiceOption<T>(
-            Func<string> section,
+            Section section,
             Func<string> name,
             Func<string> hint,
             T @default,
@@ -453,11 +463,16 @@ namespace Retinues.Configuration
             bool disabled = false,
             T disabledOverride = default,
             Func<T, string> choiceFormatter = null,
-            IOption dependsOn = null
+            IOption dependsOn = null,
+            UIEvent? fires = null
         )
         {
+            Func<string> sectionFunc = null;
+            if (section != null)
+                sectionFunc = () => section.Name;
+
             return new MultiChoiceOption<T>(
-                section,
+                sectionFunc,
                 name,
                 hint,
                 @default,
@@ -469,7 +484,8 @@ namespace Retinues.Configuration
                 disabled,
                 disabledOverride,
                 dependsOn,
-                choiceFormatter
+                choiceFormatter,
+                fires
             );
         }
 
@@ -724,6 +740,11 @@ namespace Retinues.Configuration
         {
             return delegate(T v)
             {
+                if (_values.TryGetValue(key, out object old) && Equals(old, v))
+                {
+                    return;
+                }
+
                 _values[key] = v;
 
                 try
@@ -734,7 +755,32 @@ namespace Retinues.Configuration
                 {
                     Log.Exception(e, "OptionChanged handler failed.");
                 }
+
+                try
+                {
+                    FireUIEventsIfNeeded(key);
+                }
+                catch (Exception e)
+                {
+                    Log.Exception(e, "Option fires handler failed.");
+                }
             };
+        }
+
+        private static void FireUIEventsIfNeeded(string key)
+        {
+            if (!EditorScreen.IsOpen)
+                return;
+
+            DiscoverOptions();
+
+            if (!_byKey.TryGetValue(key, out var opt) || opt == null)
+                return;
+
+            if (!opt.Fires.HasValue)
+                return;
+
+            EventManager.Fire(opt.Fires.Value);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

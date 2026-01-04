@@ -1,4 +1,5 @@
 using Retinues.Editor.VM;
+using Retinues.Framework.Runtime;
 using Retinues.UI.Screens;
 using Retinues.UI.Services;
 using TaleWorlds.Core;
@@ -31,6 +32,14 @@ namespace Retinues.Editor
     [GameStateScreen(typeof(EditorGameState))]
     public sealed class EditorScreen(GameState state) : ScreenBase, IGameStateListener
     {
+        /// <summary>
+        /// True while an editor game state exists.
+        /// </summary>
+        public static bool IsOpen { get; internal set; }
+
+        [StaticClearAction]
+        public static void Clear() => IsOpen = false;
+
 #if BL13
         private GauntletMovieIdentifier _movie;
 #else
@@ -80,7 +89,8 @@ namespace Retinues.Editor
 
         void IGameStateListener.OnActivate()
         {
-            base.OnActivate();
+            OnActivate();
+            IsOpen = true;
 
             // If we are coming back from the barber, keep the existing movie/layer.
             if (_gauntletLayer != null)
@@ -121,6 +131,8 @@ namespace Retinues.Editor
             _dataSource?.OnFinalize();
             _dataSource = null;
 
+            IsOpen = false;
+
             // Ensure we clean up even if we skipped teardown during barber.
             if (_gauntletLayer != null && _movie != null)
             {
@@ -137,7 +149,7 @@ namespace Retinues.Editor
 
         void IGameStateListener.OnDeactivate()
         {
-            base.OnDeactivate();
+            OnDeactivate();
 
             if (_gauntletLayer == null)
                 return;

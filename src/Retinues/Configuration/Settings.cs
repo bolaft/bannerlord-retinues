@@ -1,3 +1,4 @@
+using Retinues.Editor.Events;
 using Retinues.Framework.Runtime;
 using Retinues.Modules;
 using Retinues.UI.Services;
@@ -68,7 +69,8 @@ namespace Retinues.Configuration
             section: Retinues,
             name: L.F("mcm_option_enable_retinues", "Enable Retinues"),
             hint: L.F("mcm_option_enable_retinues_hint", "Toggles the Retinues feature on or off."),
-            @default: true
+            @default: true,
+            fires: UIEvent.Faction
         );
 
         public static readonly Option<float> MaxRetinueRatio = CreateOption(
@@ -128,18 +130,25 @@ namespace Retinues.Configuration
         //                        Equipment                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        public static readonly Section Equipment = CreateSection(
+            name: L.F("mcm_section_equipment", "Equipment")
+        );
+
+        /* ━━━━━━━━ Options ━━━━━━━ */
+
         public static readonly Option<bool> EquipmentCostsGold = CreateOption(
-            section: EquipmentUnlocks,
+            section: Equipment,
             name: L.F("mcm_option_equipment_costs_gold", "Equipment Costs Gold"),
             hint: L.F(
                 "mcm_option_equipment_costs_gold_hint",
                 "Whether equipping new items should cost gold."
             ),
-            @default: true
+            @default: true,
+            fires: UIEvent.Page
         );
 
         public static readonly Option<float> EquipmentCostMultiplier = CreateOption(
-            section: EquipmentUnlocks,
+            section: Equipment,
             name: L.F("mcm_option_equipment_cost_multiplier", "Equipment Cost Multiplier"),
             hint: L.F(
                 "mcm_option_equipment_cost_multiplier_hint",
@@ -148,7 +157,8 @@ namespace Retinues.Configuration
             minValue: 0.1f,
             maxValue: 10f,
             @default: 1f,
-            dependsOn: EquipmentCostsGold
+            dependsOn: EquipmentCostsGold,
+            fires: UIEvent.Page
         );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -171,7 +181,7 @@ namespace Retinues.Configuration
 
         public static readonly MultiChoiceOption<EquipmentMode> StarterEquipment =
             CreateMultiChoiceOption(
-                section: () => TroopUnlocks.Name,
+                section: TroopUnlocks,
                 name: L.F("mcm_option_starter_equipment", "Starter Equipment"),
                 hint: L.F(
                     "mcm_option_starter_equipment_hint",
@@ -219,7 +229,8 @@ namespace Retinues.Configuration
             ),
             minValue: 20,
             maxValue: 360,
-            @default: 20
+            @default: 20,
+            fires: UIEvent.Skill
         );
 
         public static readonly Option<int> SkillCapT1 = CreateOption(
@@ -232,7 +243,8 @@ namespace Retinues.Configuration
             ),
             minValue: 20,
             maxValue: 360,
-            @default: 20
+            @default: 20,
+            fires: UIEvent.Skill
         );
 
         public static readonly Option<int> SkillCapT2 = CreateOption(
@@ -245,7 +257,8 @@ namespace Retinues.Configuration
             ),
             minValue: 20,
             maxValue: 360,
-            @default: 60
+            @default: 60,
+            fires: UIEvent.Skill
         );
 
         public static readonly Option<int> SkillCapT3 = CreateOption(
@@ -258,7 +271,8 @@ namespace Retinues.Configuration
             ),
             minValue: 20,
             maxValue: 360,
-            @default: 80
+            @default: 80,
+            fires: UIEvent.Skill
         );
 
         public static readonly Option<int> SkillCapT4 = CreateOption(
@@ -271,7 +285,8 @@ namespace Retinues.Configuration
             ),
             minValue: 20,
             maxValue: 360,
-            @default: 120
+            @default: 120,
+            fires: UIEvent.Skill
         );
 
         public static readonly Option<int> SkillCapT5 = CreateOption(
@@ -284,7 +299,8 @@ namespace Retinues.Configuration
             ),
             minValue: 20,
             maxValue: 360,
-            @default: 160
+            @default: 160,
+            fires: UIEvent.Skill
         );
 
         public static readonly Option<int> SkillCapT6 = CreateOption(
@@ -297,7 +313,8 @@ namespace Retinues.Configuration
             ),
             minValue: 20,
             maxValue: 360,
-            @default: 260
+            @default: 260,
+            fires: UIEvent.Skill
         );
 
         public static readonly Option<int> SkillCapT7 = CreateOption(
@@ -311,7 +328,8 @@ namespace Retinues.Configuration
             minValue: 20,
             maxValue: 360,
             @default: 360,
-            disabled: !Mods.T7TroopUnlocker.IsLoaded
+            disabled: !Mods.T7TroopUnlocker.IsLoaded,
+            fires: UIEvent.Skill
         );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -334,7 +352,8 @@ namespace Retinues.Configuration
             ),
             minValue: 90,
             maxValue: 1600,
-            @default: 90
+            @default: 90,
+            fires: UIEvent.Skill
         );
 
         public static readonly Option<int> SkillTotalT1 = CreateOption(
@@ -347,7 +366,8 @@ namespace Retinues.Configuration
             ),
             minValue: 90,
             maxValue: 1600,
-            @default: 90
+            @default: 90,
+            fires: UIEvent.Skill
         );
 
         public static readonly Option<int> SkillTotalT2 = CreateOption(
@@ -360,7 +380,8 @@ namespace Retinues.Configuration
             ),
             minValue: 90,
             maxValue: 1600,
-            @default: 210
+            @default: 210,
+            fires: UIEvent.Skill
         );
 
         public static readonly Option<int> SkillTotalT3 = CreateOption(
@@ -373,7 +394,8 @@ namespace Retinues.Configuration
             ),
             minValue: 90,
             maxValue: 1600,
-            @default: 360
+            @default: 360,
+            fires: UIEvent.Skill
         );
 
         public static readonly Option<int> SkillTotalT4 = CreateOption(
@@ -386,7 +408,8 @@ namespace Retinues.Configuration
             ),
             minValue: 90,
             maxValue: 1600,
-            @default: 555
+            @default: 555,
+            fires: UIEvent.Skill
         );
 
         public static readonly Option<int> SkillTotalT5 = CreateOption(
@@ -399,7 +422,8 @@ namespace Retinues.Configuration
             ),
             minValue: 90,
             maxValue: 1600,
-            @default: 780
+            @default: 780,
+            fires: UIEvent.Skill
         );
 
         public static readonly Option<int> SkillTotalT6 = CreateOption(
@@ -412,7 +436,8 @@ namespace Retinues.Configuration
             ),
             minValue: 90,
             maxValue: 1600,
-            @default: 1015
+            @default: 1015,
+            fires: UIEvent.Skill
         );
 
         public static readonly Option<int> SkillTotalT7 = CreateOption(
@@ -426,7 +451,8 @@ namespace Retinues.Configuration
             minValue: 90,
             maxValue: 1600,
             @default: 1600,
-            disabled: !Mods.T7TroopUnlocker.IsLoaded
+            disabled: !Mods.T7TroopUnlocker.IsLoaded,
+            fires: UIEvent.Skill
         );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
