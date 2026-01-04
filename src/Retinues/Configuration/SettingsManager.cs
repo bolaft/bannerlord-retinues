@@ -58,8 +58,8 @@ namespace Retinues.Configuration
         string Hint { get; }
         Type Type { get; }
         bool RequiresRestart { get; }
-        int MinValue { get; }
-        int MaxValue { get; }
+        double MinValue { get; }
+        double MaxValue { get; }
         object Default { get; }
         IReadOnlyDictionary<string, object> PresetOverrides { get; }
         bool IsDisabled { get; }
@@ -112,8 +112,8 @@ namespace Retinues.Configuration
             Func<string> name,
             Func<string> hint,
             T @default,
-            int minValue,
-            int maxValue,
+            double minValue,
+            double maxValue,
             bool requiresRestart,
             IReadOnlyDictionary<string, object> presetOverrides,
             bool disabled,
@@ -148,8 +148,8 @@ namespace Retinues.Configuration
         public string Hint => _hint();
 
         public bool RequiresRestart { get; set; }
-        public int MinValue { get; set; }
-        public int MaxValue { get; set; }
+        public double MinValue { get; set; }
+        public double MaxValue { get; set; }
         public T DefaultTyped { get; set; }
 
         // Backing store supplied by SettingsManager at runtime
@@ -243,8 +243,8 @@ namespace Retinues.Configuration
             Func<string> hint,
             T @default,
             IList<T> choices,
-            int minValue,
-            int maxValue,
+            double minValue,
+            double maxValue,
             bool requiresRestart,
             IReadOnlyDictionary<string, object> presetOverrides,
             bool disabled,
@@ -409,8 +409,8 @@ namespace Retinues.Configuration
             Func<string> name,
             Func<string> hint,
             T @default,
-            int minValue = 0,
-            int maxValue = 1000,
+            double minValue = 0,
+            double maxValue = 1000,
             bool requiresRestart = false,
             IReadOnlyDictionary<string, object> presets = null,
             bool disabled = false,
@@ -446,8 +446,8 @@ namespace Retinues.Configuration
             Func<string> hint,
             T @default,
             IList<T> choices,
-            int minValue = 0,
-            int maxValue = 1000,
+            double minValue = 0,
+            double maxValue = 1000,
             bool requiresRestart = false,
             IReadOnlyDictionary<string, object> presets = null,
             bool disabled = false,

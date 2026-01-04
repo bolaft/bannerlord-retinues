@@ -202,8 +202,8 @@ namespace Retinues.Configuration
                                     group.AddInteger(
                                         id,
                                         name,
-                                        opt.MinValue,
-                                        opt.MaxValue,
+                                        ToIntMin(opt.MinValue),
+                                        ToIntMax(opt.MaxValue),
                                         new ProxyRef<int>(
                                             () =>
                                             {
@@ -227,8 +227,8 @@ namespace Retinues.Configuration
                                     group.AddFloatingInteger(
                                         id,
                                         name,
-                                        minValue: opt.MinValue,
-                                        maxValue: opt.MaxValue,
+                                        minValue: (float)opt.MinValue,
+                                        maxValue: (float)opt.MaxValue,
                                         new ProxyRef<float>(
                                             () =>
                                             {
@@ -436,6 +436,20 @@ namespace Retinues.Configuration
             {
                 _isSyncingWithMCM = false;
             }
+        }
+
+        private static int ToIntMin(double v)
+        {
+            if (double.IsNaN(v) || double.IsInfinity(v))
+                return 0;
+            return (int)Math.Floor(v);
+        }
+
+        private static int ToIntMax(double v)
+        {
+            if (double.IsNaN(v) || double.IsInfinity(v))
+                return 0;
+            return (int)Math.Ceiling(v);
         }
     }
 }
