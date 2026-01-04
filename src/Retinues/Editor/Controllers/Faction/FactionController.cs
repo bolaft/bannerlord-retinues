@@ -127,12 +127,7 @@ namespace Retinues.Editor.Controllers.Faction
             State.LeftBannerFaction = culture;
             State.Faction = culture;
 
-            EventManager.FireBatch(() =>
-            {
-                EventManager.Fire(UIEvent.CultureFaction);
-                EventManager.Fire(UIEvent.ClanFaction);
-                EventManager.Fire(UIEvent.Faction);
-            });
+            EventManager.Fire(UIEvent.Faction);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -191,12 +186,7 @@ namespace Retinues.Editor.Controllers.Faction
             State.RightBannerFaction = clan;
             State.Faction = clan;
 
-            EventManager.FireBatch(() =>
-            {
-                EventManager.Fire(UIEvent.CultureFaction);
-                EventManager.Fire(UIEvent.ClanFaction);
-                EventManager.Fire(UIEvent.Faction);
-            });
+            EventManager.Fire(UIEvent.Faction);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -260,12 +250,7 @@ namespace Retinues.Editor.Controllers.Faction
             State.RightBannerFaction = kingdom;
             State.Faction = clan;
 
-            EventManager.FireBatch(() =>
-            {
-                EventManager.Fire(UIEvent.CultureFaction);
-                EventManager.Fire(UIEvent.ClanFaction);
-                EventManager.Fire(UIEvent.Faction);
-            });
+            EventManager.Fire(UIEvent.Faction);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -280,11 +265,7 @@ namespace Retinues.Editor.Controllers.Faction
             State.RightBannerFaction = kingdom;
             State.Faction = kingdom;
 
-            EventManager.FireBatch(() =>
-            {
-                EventManager.Fire(UIEvent.ClanFaction);
-                EventManager.Fire(UIEvent.Faction);
-            });
+            EventManager.Fire(UIEvent.Faction);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

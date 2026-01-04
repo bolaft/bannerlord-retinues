@@ -2,7 +2,6 @@ using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Editor.Controllers.Equipment;
 using Retinues.Editor.Events;
-using Retinues.UI.Services;
 using Retinues.UI.VM;
 using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection;
@@ -26,7 +25,7 @@ namespace Retinues.Editor.VM.Panel.Equipment
         //                          Item                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private WItem Item => State.Equipment.Get(slot);
+        private WItem Item => PreviewController.GetItem(slot);
 
         [EventListener(UIEvent.Item)]
         [DataSourceProperty]
@@ -75,8 +74,8 @@ namespace Retinues.Editor.VM.Panel.Equipment
             get
             {
                 if (slot == EquipmentIndex.HorseHarness)
-                    if (State.Equipment.Get(EquipmentIndex.Horse) == null)
-                        return false; // Horse harness requires a horse.
+                    if (PreviewController.GetItem(EquipmentIndex.Horse) == null)
+                        return false; // Harness requires a horse.
                 return true;
             }
         }

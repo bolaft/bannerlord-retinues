@@ -15,8 +15,6 @@ namespace Retinues.Editor.Events
     public enum UIEvent
     {
         Page,
-        CultureFaction,
-        ClanFaction,
         Faction,
         Character,
         Name,
@@ -31,6 +29,7 @@ namespace Retinues.Editor.Events
         Tree,
         Formation,
         Library,
+        Preview,
     }
 
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -153,6 +152,7 @@ namespace Retinues.Editor.Events
             { UIEvent.Gender, new[] { UIEvent.Appearance } },
             { UIEvent.Item, new[] { UIEvent.Appearance } },
             { UIEvent.Slot, new[] { UIEvent.Item } },
+            { UIEvent.Preview, new[] { UIEvent.Appearance } },
         };
 
         /// <summary>

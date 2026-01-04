@@ -133,5 +133,45 @@ namespace Retinues.Editor.VM.Column.Equipment
                 arg: () => _civilian,
                 refresh: [UIEvent.Character, UIEvent.Equipment]
             );
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Preview Mode                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [EventListener(UIEvent.Page)]
+        [DataSourceProperty]
+        public bool ShowPreviewModeToggle =>
+            EditorVM.Page == EditorPage.Equipment && State.Mode == EditorMode.Player;
+
+        [EventListener(UIEvent.Preview)]
+        [DataSourceProperty]
+        public bool PreviewMode
+        {
+            get => PreviewController.Enabled;
+            set => PreviewController.SetPreviewMode.Execute(value);
+        }
+
+        [EventListener(UIEvent.Preview)]
+        [DataSourceProperty]
+        public Tooltip PreviewModeTooltip =>
+            PreviewController.Enabled
+                ? new Tooltip(L.T("preview_enable_tooltip", "Enable preview mode."))
+                : new Tooltip(L.T("preview_disable_tooltip", "Disable preview mode."));
+
+        [EventListener(UIEvent.Character, UIEvent.Page)]
+        private void DisablePreviewOnContextChange()
+        {
+            if (!PreviewController.Enabled)
+                return;
+
+            PreviewController.DisablePreview();
+        }
+
+        [EventListener(UIEvent.Preview)]
+        [DataSourceProperty]
+        public bool ShowPreviewModeText => PreviewController.Enabled;
+
+        [DataSourceProperty]
+        public string PreviewModeText => L.S("preview_mode", "Preview Mode");
     }
 }

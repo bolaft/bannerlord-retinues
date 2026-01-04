@@ -41,7 +41,7 @@ namespace Retinues.Editor.VM.List.Equipment
 
         [EventListener(UIEvent.Item, Global = true)]
         [DataSourceProperty]
-        public override bool IsSelected => State.Equipment.Get(State.Slot) == _item;
+        public override bool IsSelected => PreviewController.GetItem(State.Slot) == _item;
 
         [DataSourceMethod]
         public override void ExecuteSelect() => ItemController.Equip.Execute(_item);
@@ -81,7 +81,9 @@ namespace Retinues.Editor.VM.List.Equipment
 
         public bool AvailableInRoster => State.Equipment.IsAvailableInRoster(State.Slot, _item);
         private bool EconomyEnabled =>
-            State.Mode == EditorMode.Player && Settings.EquipmentCostsGold;
+            !PreviewController.Enabled
+            && State.Mode == EditorMode.Player
+            && Settings.EquipmentCostsGold;
 
         [EventListener(UIEvent.Item, Global = true)]
         [DataSourceProperty]
@@ -221,7 +223,7 @@ namespace Retinues.Editor.VM.List.Equipment
         private int _negativeChevrons;
         private string _chevronsKey = string.Empty;
 
-        private WItem CurrentItem => State.Equipment.Get(State.Slot);
+        private WItem CurrentItem => PreviewController.GetItem(State.Slot);
 
         private void EnsureComparisonChevrons()
         {

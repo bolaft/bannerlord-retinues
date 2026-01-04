@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Retinues.Configuration;
-using Retinues.Domain.Equipments.Models;
 using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Editor.Events;
 using Retinues.Game;
@@ -14,11 +12,13 @@ namespace Retinues.Editor.Controllers.Equipment
     public class ItemController : BaseController
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Economy                        //
+        //                         Economy                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private static bool EconomyEnabled =>
-            State.Mode == EditorMode.Player && Settings.EquipmentCostsGold.Value;
+            !PreviewController.Enabled
+            && State.Mode == EditorMode.Player
+            && Settings.EquipmentCostsGold;
 
         private static Dictionary<string, WItem> _itemById;
 
@@ -186,11 +186,9 @@ namespace Retinues.Editor.Controllers.Equipment
 
             var slot = EditorState.Instance.Slot;
 
-            // Only enforce when equipping a harness onto an already-equipped horse.
-            // (Equipping a horse will auto-clear an incompatible harness instead.)
             if (slot == EquipmentIndex.HorseHarness)
             {
-                var horse = State.Equipment.Get(EquipmentIndex.Horse);
+                var horse = PreviewController.GetItem(EquipmentIndex.Horse);
                 if (horse == null)
                     return true;
 
@@ -206,7 +204,7 @@ namespace Retinues.Editor.Controllers.Equipment
                 return;
 
             var slot = EditorState.Instance.Slot;
-            var equipped = State.Equipment.Get(slot);
+            var equipped = PreviewController.GetItem(slot);
 
             if (equipped == item)
                 return;
@@ -217,6 +215,20 @@ namespace Retinues.Editor.Controllers.Equipment
                 var horse = State.Equipment.Get(EquipmentIndex.Horse);
                 if (horse != null && !horse.IsCompatibleWith(item))
                     return;
+            }
+
+            if (PreviewController.Enabled)
+            {
+                // Safety: still prevent incompatible harness equip.
+                if (slot == EquipmentIndex.HorseHarness)
+                {
+                    var horse = PreviewController.GetItem(EquipmentIndex.Horse);
+                    if (horse != null && !horse.IsCompatibleWith(item))
+                        return;
+                }
+
+                PreviewController.SetItem(slot, item);
+                return;
             }
 
             // Economy rules only apply in Player mode and when the setting is enabled.
@@ -384,7 +396,7 @@ namespace Retinues.Editor.Controllers.Equipment
         public static EditorAction<EquipmentIndex> Unequip { get; } =
             Action<EquipmentIndex>("UnequipItem")
                 .AddCondition(
-                    slot => State.Equipment != null && State.Equipment.Get(slot) != null,
+                    slot => State.Equipment != null && PreviewController.GetItem(slot) != null,
                     L.T("cant_unequip_reason_empty", "Nothing to unequip.")
                 )
                 .DefaultTooltip(L.T("unequip_item_tooltip", "Unequip this item."))
@@ -396,19 +408,26 @@ namespace Retinues.Editor.Controllers.Equipment
             if (State.Equipment == null)
                 return;
 
-            var equipped = State.Equipment.Get(slot);
+            var equipped = PreviewController.GetItem(slot);
             if (equipped == null)
                 return;
 
             void Apply()
             {
+                if (PreviewController.Enabled)
+                {
+                    PreviewController.ClearItem(slot);
+
+                    if (slot == EquipmentIndex.Horse)
+                        PreviewController.ClearItem(EquipmentIndex.HorseHarness);
+
+                    return;
+                }
+
                 State.Equipment.Set(slot, null);
 
                 if (slot == EquipmentIndex.Horse)
-                {
-                    // No behavior change: unequipping a horse also clears harness.
                     State.Equipment.Set(EquipmentIndex.HorseHarness, null);
-                }
             }
 
             if (EconomyEnabled)

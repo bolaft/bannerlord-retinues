@@ -1,6 +1,7 @@
 using System;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Domain.Characters.Wrappers;
+using Retinues.Editor.Controllers.Equipment;
 using Retinues.Editor.Events;
 using Retinues.Editor.Services.Library.NPCCharacters;
 using Retinues.Editor.VM.Column.Character;
@@ -128,7 +129,7 @@ namespace Retinues.Editor.VM.Column
                 // not the editor-selected equipment.
                 if (EditorVM.Page != EditorPage.Library)
                 {
-                    var equipment = State.Equipment?.Base;
+                    var equipment = PreviewController.GetEquipmentForModel();
                     if (equipment == null)
                         return;
 
@@ -152,6 +153,26 @@ namespace Retinues.Editor.VM.Column
             finally
             {
                 lease?.Dispose();
+            }
+        }
+
+        [EventListener(UIEvent.Item)]
+        private void RefreshEquipmentOnModel()
+        {
+            if (EditorVM.Page == EditorPage.Library)
+                return;
+
+            var equipment = PreviewController.GetEquipmentForModel();
+            if (equipment == null || Model == null)
+                return;
+
+            try
+            {
+                Model.SetEquipment(equipment);
+            }
+            catch (Exception e)
+            {
+                Log.Exception(e);
             }
         }
 

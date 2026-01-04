@@ -207,7 +207,7 @@ namespace Retinues.Editor.VM
 
         /* ━━━━━━ Left Banner ━━━━━ */
 
-        [EventListener(UIEvent.CultureFaction)]
+        [EventListener(UIEvent.Faction)]
         [DataSourceProperty]
         public string LeftBannerName =>
             State.Mode == EditorMode.Universal
@@ -216,15 +216,15 @@ namespace Retinues.Editor.VM
                 : (State.LeftBannerFaction as WClan)?.Name?.ToString()
                     ?? L.S("editor_clan_select", "Select a Clan");
 
-        [EventListener(UIEvent.CultureFaction)]
+        [EventListener(UIEvent.Faction)]
         [DataSourceProperty]
         public object LeftBanner => GetFactionBanner(State.LeftBannerFaction);
 
-        [EventListener(UIEvent.CultureFaction, UIEvent.ClanFaction, UIEvent.Faction)]
+        [EventListener(UIEvent.Faction)]
         [DataSourceProperty]
         public bool CanSelectLeftBanner => FactionController.SelectLeftBannerPopup.Allow(true);
 
-        [EventListener(UIEvent.CultureFaction, UIEvent.ClanFaction, UIEvent.Faction)]
+        [EventListener(UIEvent.Faction)]
         [DataSourceProperty]
         public Tooltip LeftBannerHint => FactionController.SelectLeftBannerPopup.Tooltip(true);
 
@@ -237,7 +237,7 @@ namespace Retinues.Editor.VM
 
         /* ━━━━━ Right Banner ━━━━━ */
 
-        [EventListener(UIEvent.ClanFaction)]
+        [EventListener(UIEvent.Faction)]
         [DataSourceProperty]
         public string RightBannerName =>
             State.Mode == EditorMode.Universal
@@ -246,15 +246,15 @@ namespace Retinues.Editor.VM
                 : (State.RightBannerFaction as WKingdom)?.Name?.ToString()
                     ?? L.S("editor_kingdom_none", "No Kingdom");
 
-        [EventListener(UIEvent.ClanFaction)]
+        [EventListener(UIEvent.Faction)]
         [DataSourceProperty]
         public object RightBanner => GetFactionBanner(State.RightBannerFaction);
 
-        [EventListener(UIEvent.ClanFaction, UIEvent.CultureFaction, UIEvent.Faction)]
+        [EventListener(UIEvent.Faction)]
         [DataSourceProperty]
         public bool CanSelectRightBanner => FactionController.SelectRightBannerPopup.Allow(true);
 
-        [EventListener(UIEvent.ClanFaction, UIEvent.CultureFaction, UIEvent.Faction)]
+        [EventListener(UIEvent.Faction)]
         [DataSourceProperty]
         public Tooltip RightBannerHint => FactionController.SelectRightBannerPopup.Tooltip(true);
 
@@ -262,7 +262,7 @@ namespace Retinues.Editor.VM
         public void ExecuteSelectRightBanner() =>
             FactionController.SelectRightBannerPopup.Execute(true);
 
-        [EventListener(UIEvent.ClanFaction, UIEvent.CultureFaction, UIEvent.Faction)]
+        [EventListener(UIEvent.Faction)]
         [DataSourceProperty]
         public bool IsRightBannerVisible =>
             State.Mode == EditorMode.Universal || IsPlayerKingdomRuler();

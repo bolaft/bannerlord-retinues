@@ -1,8 +1,76 @@
+{% from "_/macros.checkbox.j2" import checkbox %}
 {% from "_/macros.buttons.j2" import button_chevron_left, button_chevron_right, button_brush %}
 
 {# ---------------------------------------------- #}
 {# Equipment controls                             #}
 {# ---------------------------------------------- #}
+
+<ListPanel
+    DataSource="{EquipmentControls}"
+    IsVisible="@IsVisible"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    StackLayout.LayoutMethod="VerticalBottomToTop"
+    HorizontalAlignment="Left" VerticalAlignment="Top">
+    <Children>
+
+        <ListPanel
+            IsVisible="@ShowPreviewModeToggle"
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            HorizontalAlignment="Left" VerticalAlignment="Top"
+            MarginBottom="8">
+            <Children>
+
+                <SpriteWidget
+                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                    SuggestedWidth="32" SuggestedHeight="32"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    MarginRight="4"
+                    Sprite="StdAssets\Popup\order_popup_card_default" >
+                    <Children>
+
+                        <SpriteWidget
+                            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                            SuggestedWidth="32" SuggestedHeight="32"
+                            HorizontalAlignment="Center" VerticalAlignment="Center"
+                            Sprite="Inventory\icon_inspect" />
+                    </Children>
+                </SpriteWidget>
+
+                {{ checkbox(binding="@PreviewMode", size="32", tooltip="{PreviewModeTooltip}") }}
+
+            </Children>
+        </ListPanel>
+
+        <ListPanel
+            IsVisible="@ShowCraftedToggle"
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            HorizontalAlignment="Left" VerticalAlignment="Top"
+            MarginBottom="8">
+            <Children>
+
+                <SpriteWidget
+                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                    SuggestedWidth="32" SuggestedHeight="32"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    MarginRight="4"
+                    Sprite="StdAssets\Popup\order_popup_card_default" >
+                    <Children>
+
+                        <SpriteWidget
+                            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                            SuggestedWidth="32" SuggestedHeight="32"
+                            HorizontalAlignment="Center" VerticalAlignment="Center"
+                            Sprite="Inventory\icon_inspect" />
+                    </Children>
+                </SpriteWidget>
+
+                {{ checkbox(binding="@PreviewMode", size="32", tooltip="{PreviewModeTooltip}") }}
+
+            </Children>
+        </ListPanel>
+
+    </Children>
+</ListPanel>
 
 <ListPanel
     DataSource="{EquipmentControls}"
@@ -64,6 +132,18 @@
 
             </Children>
         </ListPanel>
+
+        {# ------------------------------------------ #}
+        {# Preview Mode Text                          #}
+        {# ------------------------------------------ #}
+
+        <TextWidget
+            IsVisible="@ShowPreviewModeText"
+            MarginTop="6"
+            Text="@PreviewModeText"
+            Brush="Clan.Tuple.Name.Text"
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            HorizontalAlignment="Center" VerticalAlignment="Center" />
 
     </Children>
 </ListPanel>

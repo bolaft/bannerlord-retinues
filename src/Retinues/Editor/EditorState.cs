@@ -123,8 +123,6 @@ namespace Retinues.Editor
             // Notify listeners.
             EventManager.FireBatch(() =>
             {
-                EventManager.Fire(UIEvent.CultureFaction);
-                EventManager.Fire(UIEvent.ClanFaction);
                 EventManager.Fire(UIEvent.Faction);
                 EventManager.Fire(UIEvent.Character);
                 EventManager.Fire(UIEvent.Equipment);
@@ -346,7 +344,7 @@ namespace Retinues.Editor
 
                 // Allow null (some launch modes intentionally clear banners).
                 _leftBannerFaction = value;
-                Fire(UIEvent.CultureFaction);
+                Fire(UIEvent.Faction);
             }
         }
 
@@ -368,7 +366,7 @@ namespace Retinues.Editor
 
                 // Allow null (player mode can intentionally hide right banner).
                 _rightBannerFaction = value;
-                Fire(UIEvent.ClanFaction);
+                Fire(UIEvent.Faction);
             }
         }
 
