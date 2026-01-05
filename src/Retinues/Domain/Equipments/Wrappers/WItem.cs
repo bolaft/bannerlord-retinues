@@ -82,6 +82,7 @@ namespace Retinues.Domain.Equipments.Wrappers
         public string Name => Base.Name.ToString();
         public int Tier => (int)Base.Tier + 1; // Tier is 0-indexed internally.
         public int Value => Base.Value;
+        public float Weight => Base.Weight;
 
         public ItemCategory Category => Base.ItemCategory;
         public ItemObject.ItemTypeEnum Type => Base.ItemType;

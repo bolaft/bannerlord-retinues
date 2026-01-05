@@ -19,6 +19,18 @@ namespace Retinues.Editor.VM.Panel.Equipment
         public bool IsVisible => EditorVM.Page == EditorPage.Equipment;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Infos                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [EventListener(UIEvent.Item)]
+        [DataSourceProperty]
+        public string InfoText =>
+            L.T("equipment_panel_info", "{WEIGHT} kg / {VALUE} denars")
+                .SetTextVariable("WEIGHT", State.Equipment.Weight)
+                .SetTextVariable("VALUE", State.Equipment.Value)
+                .ToString();
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Weapons                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 

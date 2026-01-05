@@ -17,6 +17,50 @@ namespace Retinues.Domain.Equipments.Models
         private readonly MEquipmentRoster _roster = roster;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Infos                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public int Value
+        {
+            get
+            {
+                int total = 0;
+
+                for (int i = 0; i < SlotCount; i++)
+                {
+                    var element = Base[(EquipmentIndex)i];
+                    var item = element.Item;
+                    if (item != null)
+                        total += item.Value;
+                }
+
+                return total;
+            }
+        }
+
+        public float Weight
+        {
+            get
+            {
+                float total = 0f;
+
+                for (int i = 0; i < SlotCount; i++)
+                {
+                    var idx = (EquipmentIndex)i;
+                    if (idx == EquipmentIndex.Horse || idx == EquipmentIndex.HorseHarness)
+                        continue; // Ignore horse and horse harness weight.
+
+                    var element = Base[idx];
+                    var item = element.Item;
+                    if (item != null)
+                        total += item.Weight;
+                }
+
+                return total;
+            }
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Creation                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
