@@ -341,11 +341,9 @@ namespace Retinues.Editor.VM.Panel.Character
                 var extra = Math.Max(0, rows - 4);
 
                 var w = Math.Max(46, 54 - extra * 4);
-                var h = Math.Max(72, 84 - extra * 6);
                 var icon = w;
                 var font = Math.Max(16, 18 - extra);
                 var gapX = Math.Max(10, 16 - extra * 2);
-                var gapY = Math.Max(8, 10 - extra);
 
                 return new SkillsGridLayout(
                     rows: rows,

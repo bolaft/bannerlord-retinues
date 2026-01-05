@@ -1,4 +1,5 @@
 using System.Linq;
+using Retinues.Domain.Equipments.Helpers;
 using Retinues.Domain.Factions.Wrappers;
 using Retinues.Framework.Model;
 using Retinues.Framework.Model.Attributes;
@@ -197,6 +198,19 @@ namespace Retinues.Domain.Characters.Wrappers
         //                        Formation                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        MAttribute<FormationClass> FormationClassOverrideAttribute =>
+            Attribute(initialValue: FormationClass.Unset);
+
+        public FormationClass FormationClassOverride
+        {
+            get => FormationClassOverrideAttribute.Get();
+            set
+            {
+                FormationClassOverrideAttribute.Set(value);
+                RefreshFormationFromOverride();
+            }
+        }
+
         MAttribute<FormationClass> FormationClassAttribute =>
             Attribute<FormationClass>(nameof(CharacterObject.DefaultFormationClass));
 
@@ -229,6 +243,49 @@ namespace Retinues.Domain.Characters.Wrappers
         {
             get => IsMountedAttribute.Get();
             set => IsMountedAttribute.Set(value);
+        }
+
+        /// <summary>
+        /// Applies formation properties from the given info.
+        /// </summary>
+        private void ApplyFormation(FormationClassHelper.FormationInfo info)
+        {
+            FormationClass = info.FormationClass;
+            FormationGroup = info.FormationGroup;
+            IsRanged = info.IsRanged;
+            IsMounted = info.IsMounted;
+        }
+
+        /// <summary>
+        /// Refreshes formation properties from the first battle equipment.
+        /// </summary>
+        private void RefreshFormationFromFirstBattleEquipment()
+        {
+            if (FormationClassOverride != FormationClass.Unset)
+            {
+                ApplyFormation(FormationClassHelper.FromFormationClass(FormationClassOverride));
+                return;
+            }
+
+            var eq = GetFirstBattleEquipment(Equipments);
+            if (eq == null)
+                return;
+
+            ApplyFormation(eq.FormationInfo);
+        }
+
+        /// <summary>
+        /// Refreshes formation properties from the override, or first battle equipment if no override is set.
+        /// </summary>
+        private void RefreshFormationFromOverride()
+        {
+            if (FormationClassOverride == FormationClass.Unset)
+            {
+                RefreshFormationFromFirstBattleEquipment();
+                return;
+            }
+
+            ApplyFormation(FormationClassHelper.FromFormationClass(FormationClassOverride));
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

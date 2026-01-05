@@ -1,5 +1,6 @@
 {% from "_/macros.checkbox.j2" import checkbox %}
 {% from "_/macros.buttons.j2" import button_brush, button_text %}
+{% from "_/macros.columns.j2" import column_icon %}
 
 {# ---------------------------------------------- #}
 {# Character controls                             #}
@@ -23,15 +24,26 @@
             MarginBottom="8">
             <Children>
 
-                <SpriteWidget
-                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                    SuggestedWidth="32" SuggestedHeight="32"
-                    HorizontalAlignment="Center" VerticalAlignment="Center"
-                    MarginRight="4"
-                    Color="#f8eed1ff"
-                    Sprite="SPGeneral\Skills\gui_skills_icon_steward_tiny" />
+                {{ column_icon("StdAssets\lock_closed") }}
 
                 {{ button_brush("{ExportButton}", "TownManagement.Reserve.ConfirmButton", "32", "32") }}
+
+            </Children>
+        </ListPanel>
+
+        {# ------------------------------------------ #}
+        {# Formation Class                            #}
+        {# ------------------------------------------ #}
+
+        <ListPanel
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            HorizontalAlignment="Left" VerticalAlignment="Top"
+            MarginBottom="8">
+            <Children>
+
+                {{ column_icon(FormationClassIcon) }}
+
+                {{ button_brush("{ChangeFormationClassButton}", "SPClan.Members.RecallIcon", "34", "34") }}
 
             </Children>
         </ListPanel>
@@ -47,13 +59,7 @@
             MarginBottom="8">
             <Children>
 
-                <SpriteWidget
-                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                    SuggestedWidth="32" SuggestedHeight="32"
-                    HorizontalAlignment="Center" VerticalAlignment="Center"
-                    MarginRight="4"
-                    Color="#f8eed1ff"
-                    Sprite="SPGeneral\Skills\gui_skills_icon_mariner_tiny" />
+                {{ column_icon("SPGeneral\Skills\gui_skills_icon_mariner_tiny", size="26", margin_right="2") }}
 
                 {{ checkbox(binding="@IsMariner", size="32", tooltip="{MarinerTooltip}") }}
 

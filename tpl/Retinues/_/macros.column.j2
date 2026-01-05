@@ -1,0 +1,22 @@
+{# ---------------------------------------------- #}
+{# Column macros                                  #}
+{# ---------------------------------------------- #}
+
+{% macro column_icon(sprite, size="24", margin_right="4") %}
+    <SpriteWidget
+        WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+        SuggestedWidth="32" SuggestedHeight="32"
+        HorizontalAlignment="Center" VerticalAlignment="Center"
+        MarginRight="{{ margin_right }}"
+        Sprite="StdAssets\Popup\order_popup_card_default" >
+        <Children>
+
+            <SpriteWidget
+                WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                SuggestedWidth="{{ size }}" SuggestedHeight="{{ size }}"
+                HorizontalAlignment="Center" VerticalAlignment="Center"
+                Sprite="@{{ sprite }}" />
+
+        </Children>
+    </SpriteWidget>
+{% endmacro %}

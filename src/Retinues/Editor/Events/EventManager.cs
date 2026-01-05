@@ -151,7 +151,7 @@ namespace Retinues.Editor.Events
             { UIEvent.Equipment, new[] { UIEvent.Appearance, UIEvent.Item } },
             { UIEvent.Culture, new[] { UIEvent.Appearance } },
             { UIEvent.Gender, new[] { UIEvent.Appearance } },
-            { UIEvent.Item, new[] { UIEvent.Appearance } },
+            { UIEvent.Item, new[] { UIEvent.Appearance, UIEvent.Formation } },
             { UIEvent.Slot, new[] { UIEvent.Item } },
             { UIEvent.Preview, new[] { UIEvent.Appearance } },
         };

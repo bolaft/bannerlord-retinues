@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using Retinues.Domain.Characters.Wrappers;
+using Retinues.Domain.Equipments.Helpers;
 using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Framework.Model;
 using Retinues.Framework.Model.Attributes;
@@ -149,6 +151,8 @@ namespace Retinues.Domain.Equipments.Models
             var element = item == null ? EquipmentElement.Invalid : new EquipmentElement(item.Base);
             Base[index] = element;
 
+            _formationDirty = true;
+            ItemsChanged?.Invoke(this);
             _roster?.InvalidateItemCountsCache();
         }
 
@@ -223,6 +227,30 @@ namespace Retinues.Domain.Equipments.Models
 
             return count;
         }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                     Formation Class                    //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        public event Action<MEquipment> ItemsChanged;
+
+        private bool _formationDirty = true;
+        private FormationClassHelper.FormationInfo _formationInfo;
+
+        public FormationClassHelper.FormationInfo FormationInfo
+        {
+            get
+            {
+                if (_formationDirty)
+                {
+                    _formationInfo = FormationClassHelper.Compute(this);
+                    _formationDirty = false;
+                }
+
+                return _formationInfo;
+            }
+        }
+
+        public FormationClass FormationClass => FormationInfo.FormationClass;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Helpers                        //

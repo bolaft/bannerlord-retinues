@@ -4,6 +4,7 @@ using Retinues.Editor.Events;
 using Retinues.Modules;
 using Retinues.UI.Services;
 using Retinues.UI.VM;
+using TaleWorlds.Core;
 using TaleWorlds.Library;
 
 namespace Retinues.Editor.VM.Column.Character
@@ -63,6 +64,23 @@ namespace Retinues.Editor.VM.Column.Character
                         "Set this unit's mariner ability.\nMariners are better suited for naval combat, but earn skill points at a slightly reduced rate."
                     )
                 );
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                     Formation Class                    //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [EventListener(UIEvent.Formation)]
+        [DataSourceProperty]
+        public string FormationClassIcon => Icons.GetFormationClassIcon(State.Character);
+
+        [DataSourceProperty]
+        public Button<WCharacter> ChangeFormationClassButton { get; } =
+            new(
+                action: FormationClassController.ChangeFormationClass,
+                label: State.Character.FormationClass.GetLocalizedName().ToString(),
+                arg: () => State.Character,
+                refresh: [UIEvent.Formation]
+            );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Remove                          //

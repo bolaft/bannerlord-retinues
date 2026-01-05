@@ -1,3 +1,4 @@
+using System.Numerics;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Framework.Runtime;
 using Retinues.Modules;
@@ -9,13 +10,14 @@ namespace Retinues.UI.Services
     public static class Icons
     {
         const string BaseIconPath = @"General\TroopTypeIcons\";
-        const string MarinerSuffix = "_mariner_big";
+        const string BigSuffix = "_big";
+        const string MarinerSuffix = "_mariner";
         const string IconInfantry = "icon_troop_type_infantry";
         const string IconRanged = "icon_troop_type_bow";
         const string IconCavalry = "icon_troop_type_cavalry";
         const string IconHorseArcher = "icon_troop_type_horse_archer";
 
-        public static string GetFormationClassIcon(WCharacter troop)
+        public static string GetFormationClassIcon(WCharacter troop, bool big = true)
         {
             string icon = (troop?.FormationClass) switch
             {
@@ -38,6 +40,9 @@ namespace Retinues.UI.Services
                 if (icon == BaseIconPath + IconInfantry || icon == BaseIconPath + IconRanged)
                     icon += MarinerSuffix;
             }
+
+            if (big)
+                icon += BigSuffix;
 
             return icon;
         }
