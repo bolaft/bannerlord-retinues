@@ -968,6 +968,12 @@
       id="ret_stocks_remove"
       text="在庫から {AMOUNT} 個の {ITEM} を削除しました。" />
     <string
+      id="ret_tooltip_culture"
+      text="文化" />
+    <string
+      id="ret_tooltip_culture_none"
+      text="なし" />
+    <string
       id="ret_trait_decrease_mined_reason"
       text="特性はすでに最小値です。" />
     <string

@@ -968,6 +968,12 @@
       id="ret_stocks_remove"
       text="Usunięto {AMOUNT} {ITEM} ze zapasów." />
     <string
+      id="ret_tooltip_culture"
+      text="Kultura" />
+    <string
+      id="ret_tooltip_culture_none"
+      text="Brak" />
+    <string
       id="ret_trait_decrease_mined_reason"
       text="Cechy są już na minimalnej wartości." />
     <string

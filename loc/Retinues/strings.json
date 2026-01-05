@@ -5136,6 +5136,38 @@
     "TR": "Stoklardan {AMOUNT} {ITEM} kaldırıldı."
   },
   {
+    "id": "ret_tooltip_culture",
+    "EN": "Culture",
+    "FR": "Culture",
+    "BR": "Cultura",
+    "CNs": "文化",
+    "CNt": "文化",
+    "DE": "Kultur",
+    "IT": "Cultura",
+    "JP": "文化",
+    "KO": "문화",
+    "PL": "Kultura",
+    "RU": "Культура",
+    "SP": "Cultura",
+    "TR": "Kültür"
+  },
+  {
+    "id": "ret_tooltip_culture_none",
+    "EN": "None",
+    "FR": "Aucun",
+    "BR": "Nenhum",
+    "CNs": "无",
+    "CNt": "無",
+    "DE": "Keine",
+    "IT": "Nessuno",
+    "JP": "なし",
+    "KO": "없음",
+    "PL": "Brak",
+    "RU": "Нет",
+    "SP": "Ninguno",
+    "TR": "Yok"
+  },
+  {
     "id": "ret_trait_decrease_mined_reason",
     "EN": "Trait is already at minimum value.",
     "FR": "Le trait est déjà au minimum.",

@@ -968,6 +968,12 @@
       id="ret_stocks_remove"
       text="Stoklardan {AMOUNT} {ITEM} kaldırıldı." />
     <string
+      id="ret_tooltip_culture"
+      text="Kültür" />
+    <string
+      id="ret_tooltip_culture_none"
+      text="Yok" />
+    <string
       id="ret_trait_decrease_mined_reason"
       text="Özellik zaten minimum değerde." />
     <string

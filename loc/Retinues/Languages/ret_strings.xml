@@ -968,6 +968,12 @@
       id="ret_stocks_remove"
       text="Removed {AMOUNT} {ITEM} from stocks." />
     <string
+      id="ret_tooltip_culture"
+      text="Culture" />
+    <string
+      id="ret_tooltip_culture_none"
+      text="None" />
+    <string
       id="ret_trait_decrease_mined_reason"
       text="Trait is already at minimum value." />
     <string

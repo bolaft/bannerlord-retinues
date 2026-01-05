@@ -968,6 +968,12 @@
       id="ret_stocks_remove"
       text="Removido {AMOUNT} {ITEM} dos estoques." />
     <string
+      id="ret_tooltip_culture"
+      text="Cultura" />
+    <string
+      id="ret_tooltip_culture_none"
+      text="Nenhum" />
+    <string
       id="ret_trait_decrease_mined_reason"
       text="O traço já está no valor mínimo." />
     <string

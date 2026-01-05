@@ -968,6 +968,12 @@
       id="ret_stocks_remove"
       text="Rimossi {AMOUNT} {ITEM} dalle scorte." />
     <string
+      id="ret_tooltip_culture"
+      text="Cultura" />
+    <string
+      id="ret_tooltip_culture_none"
+      text="Nessuno" />
+    <string
       id="ret_trait_decrease_mined_reason"
       text="Il tratto è già al valore minimo." />
     <string

@@ -968,6 +968,12 @@
       id="ret_stocks_remove"
       text="Se eliminaron {AMOUNT} {ITEM} de las existencias." />
     <string
+      id="ret_tooltip_culture"
+      text="Cultura" />
+    <string
+      id="ret_tooltip_culture_none"
+      text="Ninguno" />
+    <string
       id="ret_trait_decrease_mined_reason"
       text="El rasgo ya está en el valor mínimo." />
     <string

@@ -968,6 +968,12 @@
       id="ret_stocks_remove"
       text="재고에서 {AMOUNT} {ITEM} 제거됨." />
     <string
+      id="ret_tooltip_culture"
+      text="문화" />
+    <string
+      id="ret_tooltip_culture_none"
+      text="없음" />
+    <string
       id="ret_trait_decrease_mined_reason"
       text="특성이 이미 최소 값에 도달했습니다." />
     <string

@@ -968,6 +968,12 @@
       id="ret_stocks_remove"
       text="已從庫存中移除 {AMOUNT} 個 {ITEM}。" />
     <string
+      id="ret_tooltip_culture"
+      text="文化" />
+    <string
+      id="ret_tooltip_culture_none"
+      text="無" />
+    <string
       id="ret_trait_decrease_mined_reason"
       text="特質已達到最低值。" />
     <string
