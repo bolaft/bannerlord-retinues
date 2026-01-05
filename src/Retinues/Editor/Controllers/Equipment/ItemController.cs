@@ -323,7 +323,7 @@ namespace Retinues.Editor.Controllers.Equipment
             void NotEnoughGoldPopup(int required)
             {
                 Inquiries.Popup(
-                    title: L.T("cant_afford_title", "Not Enough Gold"),
+                    title: L.T("cant_afford_title", "Not Enough Money"),
                     description: L.T(
                             "cant_afford_desc",
                             "You need {COST} denars to buy {ITEM}, but you only have {GOLD}."

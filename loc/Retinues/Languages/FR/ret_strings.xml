@@ -65,6 +65,9 @@
       id="ret_build_hint"
       text="Musculature" />
     <string
+      id="ret_button_change_formation_class_tooltip"
+      text="Sélectionner une formation." />
+    <string
       id="ret_button_export_character_tooltip"
       text="Sauvegarder cette unité et l&apos;ajouter à la bibliothèque." />
     <string
@@ -80,6 +83,12 @@
       id="ret_button_show_civilian"
       text="Civil" />
     <string
+      id="ret_cant_afford_desc"
+      text="Vous avez besoin de {COST} dinars pour acheter {ITEM}, mais vous n&apos;avez que {GOLD}." />
+    <string
+      id="ret_cant_afford_title"
+      text="Argent Insuffisant" />
+    <string
       id="ret_cant_equip_reason_civilian"
       text="Non civil" />
     <string
@@ -89,8 +98,14 @@
       id="ret_cant_equip_reason_no_equipment"
       text="Aucun équipement" />
     <string
+      id="ret_cant_equip_reason_null"
+      text="Objet invalide" />
+    <string
       id="ret_cant_equip_reason_skill"
       text="{SKILL} {VALUE}" />
+    <string
+      id="ret_cant_preview_reason_no_equipment"
+      text="Aucun équipement." />
     <string
       id="ret_cant_unequip_reason_empty"
       text="Rien à déséquiper." />
@@ -115,6 +130,12 @@
     <string
       id="ret_close_equipment_button_text"
       text="Retour" />
+    <string
+      id="ret_crafted_items_hide_tooltip"
+      text="Inclure les armes forgées." />
+    <string
+      id="ret_crafted_items_only_tooltip"
+      text="Masquer les armes forgées." />
     <string
       id="ret_create_unit"
       text="Nouvelle unité" />
@@ -277,6 +298,12 @@
     <string
       id="ret_filter_tooltip_description_equipment"
       text="Entrez du texte pour filtrer la liste par nom, catégorie ou niveau." />
+    <string
+      id="ret_formation_no_character_reason"
+      text="Aucune unité n&apos;est sélectionnée." />
+    <string
+      id="ret_formation_option_auto"
+      text="Auto" />
     <string
       id="ret_gender_no_culture"
       text="Aucune culture n&apos;est sélectionnée." />

@@ -1,6 +1,6 @@
 {% from "_/macros.checkbox.j2" import checkbox %}
 {% from "_/macros.buttons.j2" import button_brush, button_text %}
-{% from "_/macros.columns.j2" import column_icon %}
+{% from "_/macros.column.j2" import column_icon %}
 
 {# ---------------------------------------------- #}
 {# Character controls                             #}
@@ -41,7 +41,7 @@
             MarginBottom="8">
             <Children>
 
-                {{ column_icon(FormationClassIcon) }}
+                {{ column_icon("@FormationClassIcon", size="20", margin_right="2") }}
 
                 {{ button_brush("{ChangeFormationClassButton}", "SPClan.Members.RecallIcon", "34", "34") }}
 
@@ -59,7 +59,7 @@
             MarginBottom="8">
             <Children>
 
-                {{ column_icon("SPGeneral\Skills\gui_skills_icon_mariner_tiny", size="26", margin_right="2") }}
+                {{ column_icon("SPGeneral\Skills\gui_skills_icon_mariner_tiny", size="24") }}
 
                 {{ checkbox(binding="@IsMariner", size="32", tooltip="{MarinerTooltip}") }}
 

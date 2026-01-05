@@ -65,6 +65,9 @@
       id="ret_build_hint"
       text="體型" />
     <string
+      id="ret_button_change_formation_class_tooltip"
+      text="選擇一個編隊類別。" />
+    <string
       id="ret_button_export_character_tooltip"
       text="保存此角色並將其添加到庫中。" />
     <string
@@ -80,6 +83,12 @@
       id="ret_button_show_civilian"
       text="平民" />
     <string
+      id="ret_cant_afford_desc"
+      text="你需要 {COST} 戈爾購買 {ITEM}，但你只有 {GOLD}。" />
+    <string
+      id="ret_cant_afford_title"
+      text="資金不足" />
+    <string
       id="ret_cant_equip_reason_civilian"
       text="非平民" />
     <string
@@ -89,8 +98,14 @@
       id="ret_cant_equip_reason_no_equipment"
       text="無裝備套裝" />
     <string
+      id="ret_cant_equip_reason_null"
+      text="無效物品" />
+    <string
       id="ret_cant_equip_reason_skill"
       text="{SKILL} {VALUE}" />
+    <string
+      id="ret_cant_preview_reason_no_equipment"
+      text="無裝備套裝。" />
     <string
       id="ret_cant_unequip_reason_empty"
       text="沒有可卸下的物品。" />
@@ -115,6 +130,12 @@
     <string
       id="ret_close_equipment_button_text"
       text="返回" />
+    <string
+      id="ret_crafted_items_hide_tooltip"
+      text="包含製作的武器。" />
+    <string
+      id="ret_crafted_items_only_tooltip"
+      text="隱藏製作的武器。" />
     <string
       id="ret_create_unit"
       text="新單位" />
@@ -277,6 +298,12 @@
     <string
       id="ret_filter_tooltip_description_equipment"
       text="輸入以按名稱、類別或等級過濾列表。" />
+    <string
+      id="ret_formation_no_character_reason"
+      text="未選擇角色。" />
+    <string
+      id="ret_formation_option_auto"
+      text="自動" />
     <string
       id="ret_gender_no_culture"
       text="未選擇任何文化。" />

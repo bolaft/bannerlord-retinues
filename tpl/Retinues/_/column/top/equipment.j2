@@ -1,6 +1,6 @@
 {% from "_/macros.checkbox.j2" import checkbox %}
 {% from "_/macros.buttons.j2" import button_chevron_left, button_chevron_right, button_brush %}
-{% from "_/macros.columns.j2" import column_icon %}
+{% from "_/macros.column.j2" import column_icon %}
 
 {# ---------------------------------------------- #}
 {# Equipment controls                             #}
@@ -21,7 +21,7 @@
             MarginBottom="8">
             <Children>
 
-                {{ column_icon("Inventory\icon_inspect") }}
+                {{ column_icon("Inventory\icon_inspect", size="32") }}
 
                 {{ checkbox(binding="@PreviewMode", size="32", tooltip="{PreviewModeTooltip}") }}
 

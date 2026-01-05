@@ -187,6 +187,7 @@ namespace Retinues.UI.Services
             TextObject title,
             List<InquiryElement> elements,
             Action<InquiryElement> onSelect,
+            TextObject description = null,
             TextObject confirmText = null,
             TextObject cancelText = null,
             bool pauseGame = true
@@ -203,7 +204,7 @@ namespace Retinues.UI.Services
                 MBInformationManager.ShowMultiSelectionInquiry(
                     new MultiSelectionInquiryData(
                         titleText: title?.ToString() ?? string.Empty,
-                        descriptionText: string.Empty,
+                        descriptionText: description?.ToString() ?? string.Empty,
                         inquiryElements: elements,
                         isExitShown: true,
                         minSelectableOptionCount: 1,

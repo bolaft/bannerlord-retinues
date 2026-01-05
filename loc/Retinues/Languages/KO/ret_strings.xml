@@ -65,6 +65,9 @@
       id="ret_build_hint"
       text="체격" />
     <string
+      id="ret_button_change_formation_class_tooltip"
+      text="대형 클래스를 선택합니다." />
+    <string
       id="ret_button_export_character_tooltip"
       text="이 캐릭터를 저장하고 라이브러리에 추가합니다." />
     <string
@@ -80,6 +83,12 @@
       id="ret_button_show_civilian"
       text="민간인" />
     <string
+      id="ret_cant_afford_desc"
+      text="{ITEM} 을(를) 구매하려면 {COST} 데나르가 필요하지만, 당신은 {GOLD} 만 가지고 있습니다." />
+    <string
+      id="ret_cant_afford_title"
+      text="돈 부족" />
+    <string
       id="ret_cant_equip_reason_civilian"
       text="민간인이 아님" />
     <string
@@ -89,8 +98,14 @@
       id="ret_cant_equip_reason_no_equipment"
       text="장비 세트 없음" />
     <string
+      id="ret_cant_equip_reason_null"
+      text="잘못된 아이템" />
+    <string
       id="ret_cant_equip_reason_skill"
       text="{SKILL} {VALUE}" />
+    <string
+      id="ret_cant_preview_reason_no_equipment"
+      text="장비 세트 없음." />
     <string
       id="ret_cant_unequip_reason_empty"
       text="해제할 항목이 없습니다." />
@@ -115,6 +130,12 @@
     <string
       id="ret_close_equipment_button_text"
       text="뒤로" />
+    <string
+      id="ret_crafted_items_hide_tooltip"
+      text="제작된 무기 포함." />
+    <string
+      id="ret_crafted_items_only_tooltip"
+      text="제작된 무기 숨기기." />
     <string
       id="ret_create_unit"
       text="새 유닛" />
@@ -277,6 +298,12 @@
     <string
       id="ret_filter_tooltip_description_equipment"
       text="이름, 카테고리 또는 등급별로 목록을 필터링하려면 입력하세요." />
+    <string
+      id="ret_formation_no_character_reason"
+      text="선택된 캐릭터가 없습니다." />
+    <string
+      id="ret_formation_option_auto"
+      text="자동" />
     <string
       id="ret_gender_no_culture"
       text="선택된 문화가 없습니다." />

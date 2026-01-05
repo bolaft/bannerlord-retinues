@@ -65,6 +65,9 @@
       id="ret_build_hint"
       text="Телосложение" />
     <string
+      id="ret_button_change_formation_class_tooltip"
+      text="Выберите класс формации." />
+    <string
       id="ret_button_export_character_tooltip"
       text="Сохранить этого персонажа и добавить его в библиотеку." />
     <string
@@ -80,6 +83,12 @@
       id="ret_button_show_civilian"
       text="Гражданский" />
     <string
+      id="ret_cant_afford_desc"
+      text="Вам нужно {COST} денариев, чтобы купить {ITEM}, но у вас есть только {GOLD}." />
+    <string
+      id="ret_cant_afford_title"
+      text="Недостаточно денег" />
+    <string
       id="ret_cant_equip_reason_civilian"
       text="Не гражданский" />
     <string
@@ -89,8 +98,14 @@
       id="ret_cant_equip_reason_no_equipment"
       text="Нет набора снаряжения" />
     <string
+      id="ret_cant_equip_reason_null"
+      text="Недействительный предмет" />
+    <string
       id="ret_cant_equip_reason_skill"
       text="{SKILL} {VALUE}" />
+    <string
+      id="ret_cant_preview_reason_no_equipment"
+      text="Нет набора снаряжения." />
     <string
       id="ret_cant_unequip_reason_empty"
       text="Нечего снимать." />
@@ -115,6 +130,12 @@
     <string
       id="ret_close_equipment_button_text"
       text="Назад" />
+    <string
+      id="ret_crafted_items_hide_tooltip"
+      text="Включить изготовленное оружие." />
+    <string
+      id="ret_crafted_items_only_tooltip"
+      text="Скрыть изготовленное оружие." />
     <string
       id="ret_create_unit"
       text="Новая единица" />
@@ -277,6 +298,12 @@
     <string
       id="ret_filter_tooltip_description_equipment"
       text="Введите текст для фильтрации списка по имени, категории или уровню." />
+    <string
+      id="ret_formation_no_character_reason"
+      text="Персонаж не выбран." />
+    <string
+      id="ret_formation_option_auto"
+      text="Авто" />
     <string
       id="ret_gender_no_culture"
       text="Культура не выбрана." />

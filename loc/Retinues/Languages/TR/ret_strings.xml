@@ -65,6 +65,9 @@
       id="ret_build_hint"
       text="Yapı" />
     <string
+      id="ret_button_change_formation_class_tooltip"
+      text="Bir düzen sınıfı seçin." />
+    <string
       id="ret_button_export_character_tooltip"
       text="Bu karakteri kaydedin ve kütüphaneye ekleyin." />
     <string
@@ -80,6 +83,12 @@
       id="ret_button_show_civilian"
       text="Sivil" />
     <string
+      id="ret_cant_afford_desc"
+      text="{ITEM} satın almak için {COST} denara ihtiyacınız var, ancak sadece {GOLD} var." />
+    <string
+      id="ret_cant_afford_title"
+      text="Yeterli Para Yok" />
+    <string
       id="ret_cant_equip_reason_civilian"
       text="Sivil Değil" />
     <string
@@ -89,8 +98,14 @@
       id="ret_cant_equip_reason_no_equipment"
       text="Ekipman seti yok" />
     <string
+      id="ret_cant_equip_reason_null"
+      text="Geçersiz öğe" />
+    <string
       id="ret_cant_equip_reason_skill"
       text="{SKILL} {VALUE}" />
+    <string
+      id="ret_cant_preview_reason_no_equipment"
+      text="Ekipman seti yok." />
     <string
       id="ret_cant_unequip_reason_empty"
       text="Kaldırılacak bir şey yok." />
@@ -115,6 +130,12 @@
     <string
       id="ret_close_equipment_button_text"
       text="Geri" />
+    <string
+      id="ret_crafted_items_hide_tooltip"
+      text="El yapımı silahları dahil et." />
+    <string
+      id="ret_crafted_items_only_tooltip"
+      text="El yapımı silahları gizle." />
     <string
       id="ret_create_unit"
       text="Yeni Birim" />
@@ -277,6 +298,12 @@
     <string
       id="ret_filter_tooltip_description_equipment"
       text="Listeyi ada, kategoriye veya seviyeye göre filtrelemek için yazın." />
+    <string
+      id="ret_formation_no_character_reason"
+      text="Hiçbir karakter seçilmedi." />
+    <string
+      id="ret_formation_option_auto"
+      text="Otomatik" />
     <string
       id="ret_gender_no_culture"
       text="Hiçbir kültür seçilmedi." />

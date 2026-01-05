@@ -65,6 +65,9 @@
       id="ret_build_hint"
       text="Build" />
     <string
+      id="ret_button_change_formation_class_tooltip"
+      text="Select a formation class." />
+    <string
       id="ret_button_export_character_tooltip"
       text="Save this character and add it to the library." />
     <string
@@ -80,6 +83,12 @@
       id="ret_button_show_civilian"
       text="Civilian" />
     <string
+      id="ret_cant_afford_desc"
+      text="You need {COST} denars to buy {ITEM}, but you only have {GOLD}." />
+    <string
+      id="ret_cant_afford_title"
+      text="Not Enough Money" />
+    <string
       id="ret_cant_equip_reason_civilian"
       text="Not civilian" />
     <string
@@ -89,8 +98,14 @@
       id="ret_cant_equip_reason_no_equipment"
       text="No equipment set" />
     <string
+      id="ret_cant_equip_reason_null"
+      text="Invalid item" />
+    <string
       id="ret_cant_equip_reason_skill"
       text="{SKILL} {VALUE}" />
+    <string
+      id="ret_cant_preview_reason_no_equipment"
+      text="No equipment set." />
     <string
       id="ret_cant_unequip_reason_empty"
       text="Nothing to unequip." />
@@ -115,6 +130,12 @@
     <string
       id="ret_close_equipment_button_text"
       text="Back" />
+    <string
+      id="ret_crafted_items_hide_tooltip"
+      text="Include crafted weapons." />
+    <string
+      id="ret_crafted_items_only_tooltip"
+      text="Hide crafted weapons." />
     <string
       id="ret_create_unit"
       text="New Unit" />
@@ -278,6 +299,18 @@
       id="ret_filter_tooltip_description_equipment"
       text="Type to filter the list by name, category or tier." />
     <string
+      id="ret_formation_no_character_reason"
+      text="No character selected." />
+    <string
+      id="ret_formation_option_auto"
+      text="Auto" />
+    <string
+      id="ret_formation_popup_desc"
+      text="Choose how this unit is categorized. Auto uses equipment to decide." />
+    <string
+      id="ret_formation_popup_title"
+      text="Formation Class" />
+    <string
       id="ret_gender_no_culture"
       text="No culture is selected." />
     <string
@@ -295,6 +328,9 @@
     <string
       id="ret_height_hint"
       text="Height" />
+    <string
+      id="ret_in_stock"
+      text="In Stock ({STOCK})" />
     <string
       id="ret_init_error_body_detailed"
       text="Retinues mod dependencies failed to initialize properly:{newline}{newline}{DETAILS}{newline}{newline}The mod may not function correctly until the dependencies are fixed." />
@@ -593,6 +629,36 @@
       id="ret_mcm_option_editor_hotkey_hint"
       text="Enables the [R] hotkey to open the editor." />
     <string
+      id="ret_mcm_option_enable_doctrines"
+      text="Enable Doctrines" />
+    <string
+      id="ret_mcm_option_enable_doctrines_hint"
+      text="Toggles the Doctrines feature on or off." />
+    <string
+      id="ret_mcm_option_enable_retinues"
+      text="Enable Retinues" />
+    <string
+      id="ret_mcm_option_enable_retinues_hint"
+      text="Toggles the Retinues feature on or off." />
+    <string
+      id="ret_mcm_option_equipment_cost_multiplier"
+      text="Equipment Cost Multiplier" />
+    <string
+      id="ret_mcm_option_equipment_cost_multiplier_hint"
+      text="Multiplier applied to the base cost of items when calculating equip costs." />
+    <string
+      id="ret_mcm_option_equipment_costs_gold"
+      text="Equipment Costs Gold" />
+    <string
+      id="ret_mcm_option_equipment_costs_gold_hint"
+      text="Whether equipping new items should cost gold." />
+    <string
+      id="ret_mcm_option_max_retinue_ratio"
+      text="Max Retinue Ratio" />
+    <string
+      id="ret_mcm_option_max_retinue_ratio_hint"
+      text="The maximum number of retinues as a ratio of the party size limit." />
+    <string
       id="ret_mcm_option_skill_cap"
       text="Tier {TIER} Skill Cap" />
     <string
@@ -614,8 +680,17 @@
       id="ret_mcm_section_debug"
       text="Debug" />
     <string
+      id="ret_mcm_section_doctrines"
+      text="Doctrines" />
+    <string
+      id="ret_mcm_section_equipment"
+      text="Equipment" />
+    <string
       id="ret_mcm_section_equipment_unlocks"
       text="Equipment Unlocks" />
+    <string
+      id="ret_mcm_section_retinues"
+      text="Retinues" />
     <string
       id="ret_mcm_section_skill_caps"
       text="Skill Caps" />
@@ -652,6 +727,21 @@
     <string
       id="ret_no_valid_model_title_species"
       text="No Valid Model" />
+    <string
+      id="ret_preview_disable_tooltip"
+      text="Disable preview mode." />
+    <string
+      id="ret_preview_enable_tooltip"
+      text="Enable preview mode." />
+    <string
+      id="ret_preview_mode"
+      text="Preview Mode" />
+    <string
+      id="ret_purchase_item_desc"
+      text="Buy {ITEM} for {COST} denars?" />
+    <string
+      id="ret_purchase_item_title"
+      text="Purchase Item" />
     <string
       id="ret_race_cannot_change"
       text="Species cannot be changed for this unit." />

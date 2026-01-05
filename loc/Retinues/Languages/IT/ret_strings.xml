@@ -65,6 +65,9 @@
       id="ret_build_hint"
       text="Struttura" />
     <string
+      id="ret_button_change_formation_class_tooltip"
+      text="Seleziona una classe di formazione." />
+    <string
       id="ret_button_export_character_tooltip"
       text="Salva questo personaggio e aggiungilo alla libreria." />
     <string
@@ -80,6 +83,12 @@
       id="ret_button_show_civilian"
       text="Civile" />
     <string
+      id="ret_cant_afford_desc"
+      text="Hai bisogno di {COST} denari per acquistare {ITEM}, ma hai solo {GOLD}." />
+    <string
+      id="ret_cant_afford_title"
+      text="Denaro Insufficiente" />
+    <string
       id="ret_cant_equip_reason_civilian"
       text="Non civile" />
     <string
@@ -89,8 +98,14 @@
       id="ret_cant_equip_reason_no_equipment"
       text="Nessun set di equipaggiamento" />
     <string
+      id="ret_cant_equip_reason_null"
+      text="Oggetto non valido" />
+    <string
       id="ret_cant_equip_reason_skill"
       text="{SKILL} {VALUE}" />
+    <string
+      id="ret_cant_preview_reason_no_equipment"
+      text="Nessun set di equipaggiamento." />
     <string
       id="ret_cant_unequip_reason_empty"
       text="Niente da disequipaggiare." />
@@ -115,6 +130,12 @@
     <string
       id="ret_close_equipment_button_text"
       text="Indietro" />
+    <string
+      id="ret_crafted_items_hide_tooltip"
+      text="Includi armi create." />
+    <string
+      id="ret_crafted_items_only_tooltip"
+      text="Nascondi armi create." />
     <string
       id="ret_create_unit"
       text="Nuova unità" />
@@ -277,6 +298,12 @@
     <string
       id="ret_filter_tooltip_description_equipment"
       text="Digita per filtrare l&apos;elenco per nome, categoria o livello." />
+    <string
+      id="ret_formation_no_character_reason"
+      text="Nessun personaggio selezionato." />
+    <string
+      id="ret_formation_option_auto"
+      text="Auto" />
     <string
       id="ret_gender_no_culture"
       text="Nessuna cultura selezionata." />

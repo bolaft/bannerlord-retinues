@@ -65,6 +65,9 @@
       id="ret_build_hint"
       text="体格" />
     <string
+      id="ret_button_change_formation_class_tooltip"
+      text="編成クラスを選択します。" />
+    <string
       id="ret_button_export_character_tooltip"
       text="このキャラクターを保存してライブラリに追加します。" />
     <string
@@ -80,6 +83,12 @@
       id="ret_button_show_civilian"
       text="民間人" />
     <string
+      id="ret_cant_afford_desc"
+      text="{ITEM} を購入するには {COST} デナールが必要ですが、あなたは {GOLD} しか持っていません。" />
+    <string
+      id="ret_cant_afford_title"
+      text="資金不足" />
+    <string
       id="ret_cant_equip_reason_civilian"
       text="民間人ではない" />
     <string
@@ -89,8 +98,14 @@
       id="ret_cant_equip_reason_no_equipment"
       text="装備セットなし" />
     <string
+      id="ret_cant_equip_reason_null"
+      text="無効なアイテム" />
+    <string
       id="ret_cant_equip_reason_skill"
       text="{SKILL} {VALUE}" />
+    <string
+      id="ret_cant_preview_reason_no_equipment"
+      text="装備セットなし。" />
     <string
       id="ret_cant_unequip_reason_empty"
       text="解除するものがありません。" />
@@ -115,6 +130,12 @@
     <string
       id="ret_close_equipment_button_text"
       text="戻る" />
+    <string
+      id="ret_crafted_items_hide_tooltip"
+      text="作成した武器を含める。" />
+    <string
+      id="ret_crafted_items_only_tooltip"
+      text="作成した武器を非表示にする。" />
     <string
       id="ret_create_unit"
       text="新しいユニット" />
@@ -277,6 +298,12 @@
     <string
       id="ret_filter_tooltip_description_equipment"
       text="名前、カテゴリ、または階級でリストをフィルタリングするには入力してください。" />
+    <string
+      id="ret_formation_no_character_reason"
+      text="キャラクターが選択されていません。" />
+    <string
+      id="ret_formation_option_auto"
+      text="自動" />
     <string
       id="ret_gender_no_culture"
       text="文化が選択されていません。" />

@@ -38,24 +38,15 @@ namespace Retinues.Editor.Controllers.Character
 
             var options = BuildOptions(character);
 
-            MBInformationManager.ShowMultiSelectionInquiry(
-                new MultiSelectionInquiryData(
-                    titleText: L.S("formation_popup_title", "Formation Class"),
-                    descriptionText: L.S(
-                        "formation_popup_desc",
-                        "Choose how this troop is categorized. Auto uses equipment to decide."
-                    ),
-                    inquiryElements: options,
-                    isExitShown: true,
-                    minSelectableOptionCount: 1,
-                    maxSelectableOptionCount: 1,
-                    affirmativeText: L.S("formation_popup_apply", "Apply"),
-                    negativeText: L.S("formation_popup_cancel", "Cancel"),
-                    affirmativeAction: selected => ApplySelection(character, selected),
-                    negativeAction: _ => { }
+            Inquiries.SelectPopup(
+                L.T("formation_popup_title", "Formation Class"),
+                options,
+                selected => ApplySelection(character, [selected]),
+                description: L.T(
+                    "formation_popup_desc",
+                    "Choose how this unit is categorized. Leave on 'Auto' to categorize it based on its equipment."
                 ),
-                pauseGameActiveState: true,
-                prioritize: true
+                pauseGame: true
             );
         }
 
