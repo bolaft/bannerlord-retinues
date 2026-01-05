@@ -167,10 +167,6 @@ namespace Retinues.Domain.Characters.Wrappers
                 blobs.Add(blob ?? string.Empty);
             }
 
-            Log.Info(
-                $"WCharacter.SerializeEquipments: serialized {equipments.Count} equipments for '{StringId}'."
-            );
-
             return blobs;
         }
 
