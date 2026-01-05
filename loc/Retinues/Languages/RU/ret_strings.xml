@@ -53,9 +53,6 @@
       id="ret_battle_types_civilian_reason"
       text="Гражданские комплекты снаряжения не имеют ограничений по типу сражений." />
     <string
-      id="ret_battle_types_no_set_selected"
-      text="Комплект снаряжения не выбран." />
-    <string
       id="ret_body_age_decrease_tip"
       text="Уменьшить возраст" />
     <string
@@ -91,9 +88,6 @@
     <string
       id="ret_body_height_min_reason"
       text="Рост уже на минимуме." />
-    <string
-      id="ret_body_no_character_reason"
-      text="Персонаж не выбран." />
     <string
       id="ret_body_weight_decrease_tip"
       text="Уменьшить вес" />
@@ -140,17 +134,17 @@
       id="ret_cant_equip_reason_mount_compat"
       text="Несовместимо" />
     <string
-      id="ret_cant_equip_reason_no_equipment"
-      text="Нет набора снаряжения" />
-    <string
       id="ret_cant_equip_reason_null"
       text="Недействительный предмет" />
     <string
       id="ret_cant_equip_reason_skill"
       text="{SKILL} {VALUE}" />
     <string
-      id="ret_cant_preview_reason_no_equipment"
-      text="Нет набора снаряжения." />
+      id="ret_cant_equip_reason_value_limit"
+      text="Слишком ценный" />
+    <string
+      id="ret_cant_equip_reason_weight_limit"
+      text="Слишком тяжелый" />
     <string
       id="ret_cant_unequip_reason_empty"
       text="Нечего снимать." />
@@ -191,14 +185,23 @@
       id="ret_create_unit"
       text="Новая единица" />
     <string
+      id="ret_create_unit_mode_best_stock"
+      text="Из запасов" />
+    <string
+      id="ret_create_unit_mode_desc"
+      text="Как должно быть инициализировано снаряжение новой единицы?" />
+    <string
+      id="ret_create_unit_mode_empty"
+      text="Без снаряжения" />
+    <string
+      id="ret_create_unit_mode_title"
+      text="Создать единицу" />
+    <string
       id="ret_culture_header_text"
       text="Культура" />
     <string
       id="ret_culture_header_text_with_race"
       text="Культура и вид" />
-    <string
-      id="ret_culture_no_selection"
-      text="Персонаж не выбран." />
     <string
       id="ret_dependencies_all_ok"
       text="Все зависимости инициализированы правильно." />
@@ -266,14 +269,20 @@
       id="ret_equipment_hero_sets_reason"
       text="У героев не может быть несколько наборов снаряжения." />
     <string
-      id="ret_equipment_no_character_reason"
-      text="Персонаж не выбран." />
-    <string
       id="ret_equipment_no_more_sets"
       text="Больше нет наборов снаряжения." />
     <string
-      id="ret_equipment_no_set_selected_reason"
-      text="Не выбран набор снаряжения." />
+      id="ret_equipment_panel_value_limit"
+      text="{LIMIT} денаров" />
+    <string
+      id="ret_equipment_panel_value_value"
+      text="{VALUE} денаров" />
+    <string
+      id="ret_equipment_panel_weight_limit"
+      text="{LIMIT} кг" />
+    <string
+      id="ret_equipment_panel_weight_value"
+      text="{WEIGHT} кг" />
     <string
       id="ret_equipment_slot_body"
       text="Тело" />
@@ -320,9 +329,6 @@
       id="ret_export_character_no_heroes"
       text="Данные героя привязаны к состоянию сохранения." />
     <string
-      id="ret_export_character_no_selection"
-      text="Персонаж не выбран." />
-    <string
       id="ret_export_character_tooltip"
       text="Экспортировать персонажа." />
     <string
@@ -356,9 +362,6 @@
       id="ret_filter_tooltip_description_equipment"
       text="Введите текст для фильтрации списка по имени, категории или уровню." />
     <string
-      id="ret_formation_no_character_reason"
-      text="Персонаж не выбран." />
-    <string
       id="ret_formation_option_auto"
       text="Авто" />
     <string
@@ -370,9 +373,6 @@
     <string
       id="ret_gender_no_culture"
       text="Культура не выбрана." />
-    <string
-      id="ret_gender_no_selection"
-      text="Персонаж не выбран." />
     <string
       id="ret_gender_no_template"
       text="У этой культуры нет действительного шаблона тела для этого пола/вида." />
@@ -659,14 +659,11 @@
       id="ret_mariner_hero_reason"
       text="Герои не могут быть мореплавателями." />
     <string
-      id="ret_mariner_no_selection"
-      text="Персонаж не выбран." />
-    <string
       id="ret_mariner_toggle_tooltip"
-      text="Установите способность мореплавателя для этого юнита.{newline}Мореплаватели лучше подходят для морского боя, но зарабатывают очки навыков с немного сниженной скоростью." />
+      text="Мореплаватели лучше подходят для морского боя, но зарабатывают очки навыков с немного сниженной скоростью." />
     <string
       id="ret_mariner_toggle_tooltip_universal"
-      text="Установите способность мореплавателя для этого юнита.{newline}Мореплаватели лучше подходят для морского боя." />
+      text="Мореплаватели лучше подходят для морского боя." />
     <string
       id="ret_mcm_option_debug_mode"
       text="Режим отладки" />
@@ -715,6 +712,30 @@
     <string
       id="ret_mcm_option_equipment_costs_gold_hint"
       text="Стоит ли экипировка новых предметов золото." />
+    <string
+      id="ret_mcm_option_equipment_value_limit_multiplier"
+      text="Множитель ограничения стоимости оборудования" />
+    <string
+      id="ret_mcm_option_equipment_value_limit_multiplier_hint"
+      text="Множитель, применяемый к базовому ограничению стоимости при расчете экипируемых предметов." />
+    <string
+      id="ret_mcm_option_equipment_weight_limit_multiplier"
+      text="Множитель ограничения веса оборудования" />
+    <string
+      id="ret_mcm_option_equipment_weight_limit_multiplier_hint"
+      text="Множитель, применяемый к базовому ограничению веса при расчете экипируемых предметов." />
+    <string
+      id="ret_mcm_option_limit_equipment_by_value"
+      text="Ограничения стоимости оборудования на основе уровня" />
+    <string
+      id="ret_mcm_option_limit_equipment_by_value_hint"
+      text="Ограничивать ли экипируемые предметы в зависимости от уровня войск и общей стоимости предметов." />
+    <string
+      id="ret_mcm_option_limit_equipment_by_weight"
+      text="Ограничения веса оборудования на основе уровня" />
+    <string
+      id="ret_mcm_option_limit_equipment_by_weight_hint"
+      text="Ограничивать ли экипируемые предметы в зависимости от уровня войск и общего веса предметов." />
     <string
       id="ret_mcm_option_max_retinue_ratio"
       text="Максимальное соотношение Retinue" />
@@ -818,9 +839,6 @@
       id="ret_race_invalid_model"
       text="Для этого вида не существует действительной модели." />
     <string
-      id="ret_rename_no_selection"
-      text="Персонаж не выбран." />
-    <string
       id="ret_rename_tooltip"
       text="Переименовать" />
     <string
@@ -907,6 +925,12 @@
     <string
       id="ret_starter_equipment_single_set"
       text="Скопировать один набор" />
+    <string
+      id="ret_stocks_add"
+      text="Добавлено {AMOUNT} {ITEM} в запасы." />
+    <string
+      id="ret_stocks_remove"
+      text="Удалено {AMOUNT} {ITEM} из запасов." />
     <string
       id="ret_trait_decrease_mined_reason"
       text="Черта уже на минимальном значении." />

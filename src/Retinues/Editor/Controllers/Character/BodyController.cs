@@ -58,10 +58,6 @@ namespace Retinues.Editor.Controllers.Character
         public static EditorAction<WCharacter> DecreaseAge { get; } =
             Action<WCharacter>("DecreaseAge")
                 .AddCondition(
-                    c => c != null,
-                    L.T("body_no_character_reason", "No character is selected.")
-                )
-                .AddCondition(
                     c => CanStepPreset(AgePresets, c.AgeMin, c.AgeMax, -1),
                     L.T("body_age_min_reason", "Age is already at minimum.")
                 )
@@ -89,10 +85,6 @@ namespace Retinues.Editor.Controllers.Character
         public static EditorAction<WCharacter> IncreaseAge { get; } =
             Action<WCharacter>("IncreaseAge")
                 .AddCondition(
-                    c => c != null,
-                    L.T("body_no_character_reason", "No character is selected.")
-                )
-                .AddCondition(
                     c => CanStepPreset(AgePresets, c.AgeMin, c.AgeMax, +1),
                     L.T("body_age_max_reason", "Age is already at maximum.")
                 )
@@ -106,10 +98,6 @@ namespace Retinues.Editor.Controllers.Character
 
         public static EditorAction<WCharacter> DecreaseHeight { get; } =
             Action<WCharacter>("DecreaseHeight")
-                .AddCondition(
-                    c => c != null,
-                    L.T("body_no_character_reason", "No character is selected.")
-                )
                 .AddCondition(
                     c => CanStepPreset(HeightPresets, c.HeightMin, c.HeightMax, -1),
                     L.T("body_height_min_reason", "Height is already at minimum.")
@@ -138,10 +126,6 @@ namespace Retinues.Editor.Controllers.Character
         public static EditorAction<WCharacter> IncreaseHeight { get; } =
             Action<WCharacter>("IncreaseHeight")
                 .AddCondition(
-                    c => c != null,
-                    L.T("body_no_character_reason", "No character is selected.")
-                )
-                .AddCondition(
                     c => CanStepPreset(HeightPresets, c.HeightMin, c.HeightMax, +1),
                     L.T("body_height_max_reason", "Height is already at maximum.")
                 )
@@ -155,10 +139,6 @@ namespace Retinues.Editor.Controllers.Character
 
         public static EditorAction<WCharacter> DecreaseWeight { get; } =
             Action<WCharacter>("DecreaseWeight")
-                .AddCondition(
-                    c => c != null,
-                    L.T("body_no_character_reason", "No character is selected.")
-                )
                 .AddCondition(
                     c => CanStepPreset(WeightPresets, c.WeightMin, c.WeightMax, -1),
                     L.T("body_weight_min_reason", "Weight is already at minimum.")
@@ -187,10 +167,6 @@ namespace Retinues.Editor.Controllers.Character
         public static EditorAction<WCharacter> IncreaseWeight { get; } =
             Action<WCharacter>("IncreaseWeight")
                 .AddCondition(
-                    c => c != null,
-                    L.T("body_no_character_reason", "No character is selected.")
-                )
-                .AddCondition(
                     c => CanStepPreset(WeightPresets, c.WeightMin, c.WeightMax, +1),
                     L.T("body_weight_max_reason", "Weight is already at maximum.")
                 )
@@ -204,10 +180,6 @@ namespace Retinues.Editor.Controllers.Character
 
         public static EditorAction<WCharacter> DecreaseBuild { get; } =
             Action<WCharacter>("DecreaseBuild")
-                .AddCondition(
-                    c => c != null,
-                    L.T("body_no_character_reason", "No character is selected.")
-                )
                 .AddCondition(
                     c => CanStepPreset(BuildPresets, c.BuildMin, c.BuildMax, -1),
                     L.T("body_build_min_reason", "Build is already at minimum.")
@@ -235,10 +207,6 @@ namespace Retinues.Editor.Controllers.Character
 
         public static EditorAction<WCharacter> IncreaseBuild { get; } =
             Action<WCharacter>("IncreaseBuild")
-                .AddCondition(
-                    c => c != null,
-                    L.T("body_no_character_reason", "No character is selected.")
-                )
                 .AddCondition(
                     c => CanStepPreset(BuildPresets, c.BuildMin, c.BuildMax, +1),
                     L.T("body_build_max_reason", "Build is already at maximum.")

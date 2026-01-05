@@ -53,9 +53,6 @@
       id="ret_battle_types_civilian_reason"
       text="Cywilne zestawy wyposażenia nie mają ograniczeń dotyczących typu bitwy." />
     <string
-      id="ret_battle_types_no_set_selected"
-      text="Nie wybrano zestawu wyposażenia." />
-    <string
       id="ret_body_age_decrease_tip"
       text="Zmniejsz wiek" />
     <string
@@ -91,9 +88,6 @@
     <string
       id="ret_body_height_min_reason"
       text="Wzrost jest już na minimum." />
-    <string
-      id="ret_body_no_character_reason"
-      text="Nie wybrano postaci." />
     <string
       id="ret_body_weight_decrease_tip"
       text="Zmniejsz wagę" />
@@ -140,17 +134,17 @@
       id="ret_cant_equip_reason_mount_compat"
       text="Niezgodne" />
     <string
-      id="ret_cant_equip_reason_no_equipment"
-      text="Brak zestawu wyposażenia" />
-    <string
       id="ret_cant_equip_reason_null"
       text="Nieprawidłowy przedmiot" />
     <string
       id="ret_cant_equip_reason_skill"
       text="{SKILL} {VALUE}" />
     <string
-      id="ret_cant_preview_reason_no_equipment"
-      text="Brak zestawu wyposażenia." />
+      id="ret_cant_equip_reason_value_limit"
+      text="Zbyt cenny" />
+    <string
+      id="ret_cant_equip_reason_weight_limit"
+      text="Zbyt ciężki" />
     <string
       id="ret_cant_unequip_reason_empty"
       text="Brak rzeczy do zdjęcia." />
@@ -191,14 +185,23 @@
       id="ret_create_unit"
       text="Nowa jednostka" />
     <string
+      id="ret_create_unit_mode_best_stock"
+      text="Z zapasów" />
+    <string
+      id="ret_create_unit_mode_desc"
+      text="Jak powinno zostać zainicjowane wyposażenie nowej jednostki?" />
+    <string
+      id="ret_create_unit_mode_empty"
+      text="Brak wyposażenia" />
+    <string
+      id="ret_create_unit_mode_title"
+      text="Utwórz jednostkę" />
+    <string
       id="ret_culture_header_text"
       text="Kultura" />
     <string
       id="ret_culture_header_text_with_race"
       text="Kultura i Gatunek" />
-    <string
-      id="ret_culture_no_selection"
-      text="Nie wybrano postaci." />
     <string
       id="ret_dependencies_all_ok"
       text="Wszystkie zależności zostały poprawnie zainicjowane." />
@@ -266,14 +269,20 @@
       id="ret_equipment_hero_sets_reason"
       text="Bohaterowie nie mogą mieć wielu zestawów ekwipunku." />
     <string
-      id="ret_equipment_no_character_reason"
-      text="Nie wybrano postaci." />
-    <string
       id="ret_equipment_no_more_sets"
       text="Brak kolejnych zestawów ekwipunku." />
     <string
-      id="ret_equipment_no_set_selected_reason"
-      text="Nie wybrano zestawu wyposażenia." />
+      id="ret_equipment_panel_value_limit"
+      text="{LIMIT} denarów" />
+    <string
+      id="ret_equipment_panel_value_value"
+      text="{VALUE} denarów" />
+    <string
+      id="ret_equipment_panel_weight_limit"
+      text="{LIMIT} kg" />
+    <string
+      id="ret_equipment_panel_weight_value"
+      text="{WEIGHT} kg" />
     <string
       id="ret_equipment_slot_body"
       text="Ciało" />
@@ -320,9 +329,6 @@
       id="ret_export_character_no_heroes"
       text="Dane bohatera są powiązane ze stanem zapisu." />
     <string
-      id="ret_export_character_no_selection"
-      text="Nie wybrano postaci." />
-    <string
       id="ret_export_character_tooltip"
       text="Eksportuj postać." />
     <string
@@ -356,9 +362,6 @@
       id="ret_filter_tooltip_description_equipment"
       text="Wpisz, aby filtrować listę według nazwy, kategorii lub poziomu." />
     <string
-      id="ret_formation_no_character_reason"
-      text="Nie wybrano postaci." />
-    <string
       id="ret_formation_option_auto"
       text="Auto" />
     <string
@@ -370,9 +373,6 @@
     <string
       id="ret_gender_no_culture"
       text="Nie wybrano żadnej kultury." />
-    <string
-      id="ret_gender_no_selection"
-      text="Nie wybrano postaci." />
     <string
       id="ret_gender_no_template"
       text="Ta kultura nie ma prawidłowego szablonu ciała dla tej płci/rasy." />
@@ -659,14 +659,11 @@
       id="ret_mariner_hero_reason"
       text="Bohaterowie nie mogą być marynarzami." />
     <string
-      id="ret_mariner_no_selection"
-      text="Nie wybrano postaci." />
-    <string
       id="ret_mariner_toggle_tooltip"
-      text="Ustaw zdolność marynarza tej jednostki.{newline}Marynarze są lepiej przystosowani do walki morskiej, ale zdobywają punkty umiejętności w nieco zmniejszonym tempie." />
+      text="Marynarze są lepiej przystosowani do walki morskiej, ale zdobywają punkty umiejętności w nieco zmniejszonym tempie." />
     <string
       id="ret_mariner_toggle_tooltip_universal"
-      text="Ustaw zdolność marynarza tej jednostki.{newline}Marynarze są lepiej przystosowani do walki morskiej." />
+      text="Marynarze są lepiej przystosowani do walki morskiej." />
     <string
       id="ret_mcm_option_debug_mode"
       text="Tryb debugowania" />
@@ -715,6 +712,30 @@
     <string
       id="ret_mcm_option_equipment_costs_gold_hint"
       text="Czy wyposażenie nowych przedmiotów powinno kosztować złoto." />
+    <string
+      id="ret_mcm_option_equipment_value_limit_multiplier"
+      text="Mnożnik limitu wartości wyposażenia" />
+    <string
+      id="ret_mcm_option_equipment_value_limit_multiplier_hint"
+      text="Mnożnik stosowany do podstawowego limitu wartości podczas obliczania wyposażalnych przedmiotów." />
+    <string
+      id="ret_mcm_option_equipment_weight_limit_multiplier"
+      text="Mnożnik limitu wagi wyposażenia" />
+    <string
+      id="ret_mcm_option_equipment_weight_limit_multiplier_hint"
+      text="Mnożnik stosowany do podstawowego limitu wagi podczas obliczania wyposażalnych przedmiotów." />
+    <string
+      id="ret_mcm_option_limit_equipment_by_value"
+      text="Ograniczenia wartości wyposażenia oparte na poziomie" />
+    <string
+      id="ret_mcm_option_limit_equipment_by_value_hint"
+      text="Czy ograniczyć wyposażalne przedmioty na podstawie poziomu oddziału i całkowitych wartości przedmiotów." />
+    <string
+      id="ret_mcm_option_limit_equipment_by_weight"
+      text="Ograniczenia wagi wyposażenia oparte na poziomie" />
+    <string
+      id="ret_mcm_option_limit_equipment_by_weight_hint"
+      text="Czy ograniczyć wyposażalne przedmioty na podstawie poziomu oddziału i całkowitej wagi przedmiotów." />
     <string
       id="ret_mcm_option_max_retinue_ratio"
       text="Maksymalny stosunek Retinue" />
@@ -818,9 +839,6 @@
       id="ret_race_invalid_model"
       text="Dla tego gatunku nie istnieje prawidłowy model." />
     <string
-      id="ret_rename_no_selection"
-      text="Nie wybrano postaci." />
-    <string
       id="ret_rename_tooltip"
       text="Zmień nazwę" />
     <string
@@ -907,6 +925,12 @@
     <string
       id="ret_starter_equipment_single_set"
       text="Kopiuj jeden zestaw" />
+    <string
+      id="ret_stocks_add"
+      text="Dodano {AMOUNT} {ITEM} do zapasów." />
+    <string
+      id="ret_stocks_remove"
+      text="Usunięto {AMOUNT} {ITEM} ze zapasów." />
     <string
       id="ret_trait_decrease_mined_reason"
       text="Cechy są już na minimalnej wartości." />

@@ -80,7 +80,7 @@ namespace Retinues.Editor.Controllers.Character
                     onChoice1: () => CreateUpgrade_Player_Empty(character, name),
                     onChoice2: () => CreateUpgrade_Player_BestFromStocks(character, name),
                     choice1Text: L.T("create_unit_mode_empty", "No Equipment"),
-                    choice2Text: L.T("create_unit_mode_best_stock", "Pick Best From Stocks")
+                    choice2Text: L.T("create_unit_mode_best_stock", "From Stocks")
                 );
             }
 

@@ -53,9 +53,6 @@
       id="ret_battle_types_civilian_reason"
       text="Civilian equipment sets do not have battle type restrictions." />
     <string
-      id="ret_battle_types_no_set_selected"
-      text="No equipment set selected." />
-    <string
       id="ret_body_age_decrease_tip"
       text="Decrease age" />
     <string
@@ -91,9 +88,6 @@
     <string
       id="ret_body_height_min_reason"
       text="Height is already at minimum." />
-    <string
-      id="ret_body_no_character_reason"
-      text="No character is selected." />
     <string
       id="ret_body_weight_decrease_tip"
       text="Decrease weight" />
@@ -140,17 +134,17 @@
       id="ret_cant_equip_reason_mount_compat"
       text="Incompatible" />
     <string
-      id="ret_cant_equip_reason_no_equipment"
-      text="No equipment set" />
-    <string
       id="ret_cant_equip_reason_null"
       text="Invalid item" />
     <string
       id="ret_cant_equip_reason_skill"
       text="{SKILL} {VALUE}" />
     <string
-      id="ret_cant_preview_reason_no_equipment"
-      text="No equipment set." />
+      id="ret_cant_equip_reason_value_limit"
+      text="Too valuable" />
+    <string
+      id="ret_cant_equip_reason_weight_limit"
+      text="Too heavy" />
     <string
       id="ret_cant_unequip_reason_empty"
       text="Nothing to unequip." />
@@ -191,14 +185,23 @@
       id="ret_create_unit"
       text="New Unit" />
     <string
+      id="ret_create_unit_mode_best_stock"
+      text="From Stocks" />
+    <string
+      id="ret_create_unit_mode_desc"
+      text="How should the new unit&apos;s equipment be initialized?" />
+    <string
+      id="ret_create_unit_mode_empty"
+      text="No Equipment" />
+    <string
+      id="ret_create_unit_mode_title"
+      text="Create Unit" />
+    <string
       id="ret_culture_header_text"
       text="Culture" />
     <string
       id="ret_culture_header_text_with_race"
       text="Culture &amp; Species" />
-    <string
-      id="ret_culture_no_selection"
-      text="No character selected." />
     <string
       id="ret_dependencies_all_ok"
       text="All dependencies initialized correctly." />
@@ -266,14 +269,20 @@
       id="ret_equipment_hero_sets_reason"
       text="Heroes cannot have multiple equipment sets." />
     <string
-      id="ret_equipment_no_character_reason"
-      text="No character selected." />
-    <string
       id="ret_equipment_no_more_sets"
       text="No more equipment sets." />
     <string
-      id="ret_equipment_no_set_selected_reason"
-      text="No equipment set selected." />
+      id="ret_equipment_panel_value_limit"
+      text="{LIMIT} denars" />
+    <string
+      id="ret_equipment_panel_value_value"
+      text="{VALUE} denars" />
+    <string
+      id="ret_equipment_panel_weight_limit"
+      text="{LIMIT} kg" />
+    <string
+      id="ret_equipment_panel_weight_value"
+      text="{WEIGHT} kg" />
     <string
       id="ret_equipment_slot_body"
       text="Body" />
@@ -320,9 +329,6 @@
       id="ret_export_character_no_heroes"
       text="Hero data is tied to the save state." />
     <string
-      id="ret_export_character_no_selection"
-      text="No character selected." />
-    <string
       id="ret_export_character_tooltip"
       text="Export character." />
     <string
@@ -356,9 +362,6 @@
       id="ret_filter_tooltip_description_equipment"
       text="Type to filter the list by name, category or tier." />
     <string
-      id="ret_formation_no_character_reason"
-      text="No character selected." />
-    <string
       id="ret_formation_option_auto"
       text="Auto" />
     <string
@@ -370,9 +373,6 @@
     <string
       id="ret_gender_no_culture"
       text="No culture is selected." />
-    <string
-      id="ret_gender_no_selection"
-      text="No character selected." />
     <string
       id="ret_gender_no_template"
       text="This culture has no valid body template for that gender/species." />
@@ -659,14 +659,11 @@
       id="ret_mariner_hero_reason"
       text="Heroes cannot be mariners." />
     <string
-      id="ret_mariner_no_selection"
-      text="No character selected." />
-    <string
       id="ret_mariner_toggle_tooltip"
-      text="Set this unit&apos;s mariner ability.{newline}Mariners are better suited for naval combat, but earn skill points at a slightly reduced rate." />
+      text="Mariners are better suited for naval combat, but earn skill points at a slightly reduced rate." />
     <string
       id="ret_mariner_toggle_tooltip_universal"
-      text="Set this unit&apos;s mariner ability.{newline}Mariners are better suited for naval combat." />
+      text="Mariners are better suited for naval combat." />
     <string
       id="ret_mcm_option_debug_mode"
       text="Debug Mode" />
@@ -715,6 +712,30 @@
     <string
       id="ret_mcm_option_equipment_costs_gold_hint"
       text="Whether equipping new items should cost gold." />
+    <string
+      id="ret_mcm_option_equipment_value_limit_multiplier"
+      text="Equipment Value Limit Multiplier" />
+    <string
+      id="ret_mcm_option_equipment_value_limit_multiplier_hint"
+      text="Multiplier applied to the base value limit when calculating equippable items." />
+    <string
+      id="ret_mcm_option_equipment_weight_limit_multiplier"
+      text="Equipment Weight Limit Multiplier" />
+    <string
+      id="ret_mcm_option_equipment_weight_limit_multiplier_hint"
+      text="Multiplier applied to the base weight limit when calculating equippable items." />
+    <string
+      id="ret_mcm_option_limit_equipment_by_value"
+      text="Tier-Based Equipment Value Limits" />
+    <string
+      id="ret_mcm_option_limit_equipment_by_value_hint"
+      text="Whether to limit equippable items based on troop tier and total item values." />
+    <string
+      id="ret_mcm_option_limit_equipment_by_weight"
+      text="Tier-Based Equipment Weight Limits" />
+    <string
+      id="ret_mcm_option_limit_equipment_by_weight_hint"
+      text="Whether to limit equippable items based on troop tier and total item weights." />
     <string
       id="ret_mcm_option_max_retinue_ratio"
       text="Max Retinue Ratio" />
@@ -818,9 +839,6 @@
       id="ret_race_invalid_model"
       text="No valid model exists for this species." />
     <string
-      id="ret_rename_no_selection"
-      text="No character selected." />
-    <string
       id="ret_rename_tooltip"
       text="Rename" />
     <string
@@ -907,6 +925,12 @@
     <string
       id="ret_starter_equipment_single_set"
       text="Copy One Set" />
+    <string
+      id="ret_stocks_add"
+      text="Added {AMOUNT} {ITEM} to stocks." />
+    <string
+      id="ret_stocks_remove"
+      text="Removed {AMOUNT} {ITEM} from stocks." />
     <string
       id="ret_trait_decrease_mined_reason"
       text="Trait is already at minimum value." />

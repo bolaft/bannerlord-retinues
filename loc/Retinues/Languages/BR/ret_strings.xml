@@ -53,9 +53,6 @@
       id="ret_battle_types_civilian_reason"
       text="Conjuntos de equipamentos civis não possuem restrições de tipo de batalha." />
     <string
-      id="ret_battle_types_no_set_selected"
-      text="Nenhum conjunto de equipamento selecionado." />
-    <string
       id="ret_body_age_decrease_tip"
       text="Diminuir idade" />
     <string
@@ -91,9 +88,6 @@
     <string
       id="ret_body_height_min_reason"
       text="A altura já está no mínimo." />
-    <string
-      id="ret_body_no_character_reason"
-      text="Nenhum personagem está selecionado." />
     <string
       id="ret_body_weight_decrease_tip"
       text="Diminuir peso" />
@@ -140,17 +134,17 @@
       id="ret_cant_equip_reason_mount_compat"
       text="Incompatível" />
     <string
-      id="ret_cant_equip_reason_no_equipment"
-      text="Nenhum conjunto de equipamento" />
-    <string
       id="ret_cant_equip_reason_null"
       text="Item inválido" />
     <string
       id="ret_cant_equip_reason_skill"
       text="{SKILL} {VALUE}" />
     <string
-      id="ret_cant_preview_reason_no_equipment"
-      text="Nenhum conjunto de equipamento." />
+      id="ret_cant_equip_reason_value_limit"
+      text="Muito valioso" />
+    <string
+      id="ret_cant_equip_reason_weight_limit"
+      text="Muito pesado" />
     <string
       id="ret_cant_unequip_reason_empty"
       text="Nada para desequipar." />
@@ -191,14 +185,23 @@
       id="ret_create_unit"
       text="Nova Unidade" />
     <string
+      id="ret_create_unit_mode_best_stock"
+      text="Dos Estoques" />
+    <string
+      id="ret_create_unit_mode_desc"
+      text="Como o equipamento da nova unidade deve ser inicializado?" />
+    <string
+      id="ret_create_unit_mode_empty"
+      text="Nenhum Equipamento" />
+    <string
+      id="ret_create_unit_mode_title"
+      text="Criar Unidade" />
+    <string
       id="ret_culture_header_text"
       text="Cultura" />
     <string
       id="ret_culture_header_text_with_race"
       text="Cultura e Espécie" />
-    <string
-      id="ret_culture_no_selection"
-      text="Nenhum personagem selecionado." />
     <string
       id="ret_dependencies_all_ok"
       text="Todas as dependências foram inicializadas corretamente." />
@@ -266,14 +269,20 @@
       id="ret_equipment_hero_sets_reason"
       text="Heróis não podem ter múltiplos conjuntos de equipamentos." />
     <string
-      id="ret_equipment_no_character_reason"
-      text="Nenhum personagem selecionado." />
-    <string
       id="ret_equipment_no_more_sets"
       text="Não há mais conjuntos de equipamentos." />
     <string
-      id="ret_equipment_no_set_selected_reason"
-      text="Nenhum conjunto de equipamento selecionado." />
+      id="ret_equipment_panel_value_limit"
+      text="{LIMIT} denares" />
+    <string
+      id="ret_equipment_panel_value_value"
+      text="{VALUE} denares" />
+    <string
+      id="ret_equipment_panel_weight_limit"
+      text="{LIMIT} kg" />
+    <string
+      id="ret_equipment_panel_weight_value"
+      text="{WEIGHT} kg" />
     <string
       id="ret_equipment_slot_body"
       text="Corpo" />
@@ -320,9 +329,6 @@
       id="ret_export_character_no_heroes"
       text="Os dados do herói estão vinculados ao estado de salvamento." />
     <string
-      id="ret_export_character_no_selection"
-      text="Nenhum personagem selecionado." />
-    <string
       id="ret_export_character_tooltip"
       text="Exportar personagem." />
     <string
@@ -356,9 +362,6 @@
       id="ret_filter_tooltip_description_equipment"
       text="Digite para filtrar a lista por nome, categoria ou nível." />
     <string
-      id="ret_formation_no_character_reason"
-      text="Nenhum personagem selecionado." />
-    <string
       id="ret_formation_option_auto"
       text="Auto" />
     <string
@@ -370,9 +373,6 @@
     <string
       id="ret_gender_no_culture"
       text="Nenhuma cultura está selecionada." />
-    <string
-      id="ret_gender_no_selection"
-      text="Nenhum personagem selecionado." />
     <string
       id="ret_gender_no_template"
       text="Esta cultura não possui um modelo de corpo válido para esse gênero/espécie." />
@@ -659,14 +659,11 @@
       id="ret_mariner_hero_reason"
       text="Heróis não podem ser marinheiros." />
     <string
-      id="ret_mariner_no_selection"
-      text="Nenhum personagem selecionado." />
-    <string
       id="ret_mariner_toggle_tooltip"
-      text="Defina a habilidade de marinheiro desta unidade.{newline}Os marinheiros são mais adequados para o combate naval, mas ganham pontos de habilidade em uma taxa ligeiramente reduzida." />
+      text="Marinheiros são mais adequados para o combate naval, mas ganham pontos de habilidade em uma taxa ligeiramente reduzida." />
     <string
       id="ret_mariner_toggle_tooltip_universal"
-      text="Defina a habilidade de marinheiro desta unidade.{newline}Os marinheiros são mais adequados para o combate naval." />
+      text="Marinheiros são mais adequados para o combate naval." />
     <string
       id="ret_mcm_option_debug_mode"
       text="Modo de Depuração" />
@@ -715,6 +712,30 @@
     <string
       id="ret_mcm_option_equipment_costs_gold_hint"
       text="Se equipar novos itens deve custar ouro." />
+    <string
+      id="ret_mcm_option_equipment_value_limit_multiplier"
+      text="Multiplicador de Limite de Valor de Equipamento" />
+    <string
+      id="ret_mcm_option_equipment_value_limit_multiplier_hint"
+      text="Multiplicador aplicado ao limite de valor base ao calcular itens equipáveis." />
+    <string
+      id="ret_mcm_option_equipment_weight_limit_multiplier"
+      text="Multiplicador de Limite de Peso de Equipamento" />
+    <string
+      id="ret_mcm_option_equipment_weight_limit_multiplier_hint"
+      text="Multiplicador aplicado ao limite de peso base ao calcular itens equipáveis." />
+    <string
+      id="ret_mcm_option_limit_equipment_by_value"
+      text="Limites de Valor de Equipamento Baseadas em Nível" />
+    <string
+      id="ret_mcm_option_limit_equipment_by_value_hint"
+      text="Se deve limitar os itens equipáveis com base no nível da tropa e nos valores totais dos itens." />
+    <string
+      id="ret_mcm_option_limit_equipment_by_weight"
+      text="Limites de Peso de Equipamento Baseadas em Nível" />
+    <string
+      id="ret_mcm_option_limit_equipment_by_weight_hint"
+      text="Se deve limitar os itens equipáveis com base no nível da tropa e nos pesos totais dos itens." />
     <string
       id="ret_mcm_option_max_retinue_ratio"
       text="Razão Máxima de Retinues" />
@@ -818,9 +839,6 @@
       id="ret_race_invalid_model"
       text="Não existe um modelo válido para esta espécie." />
     <string
-      id="ret_rename_no_selection"
-      text="Nenhum personagem selecionado." />
-    <string
       id="ret_rename_tooltip"
       text="Renomear" />
     <string
@@ -907,6 +925,12 @@
     <string
       id="ret_starter_equipment_single_set"
       text="Copiar Um Conjunto" />
+    <string
+      id="ret_stocks_add"
+      text="Adicionado {AMOUNT} {ITEM} aos estoques." />
+    <string
+      id="ret_stocks_remove"
+      text="Removido {AMOUNT} {ITEM} dos estoques." />
     <string
       id="ret_trait_decrease_mined_reason"
       text="O traço já está no valor mínimo." />

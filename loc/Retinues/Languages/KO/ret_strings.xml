@@ -53,9 +53,6 @@
       id="ret_battle_types_civilian_reason"
       text="민간 장비 세트에는 전투 유형 제한이 없습니다." />
     <string
-      id="ret_battle_types_no_set_selected"
-      text="선택된 장비 세트가 없습니다." />
-    <string
       id="ret_body_age_decrease_tip"
       text="나이 감소" />
     <string
@@ -91,9 +88,6 @@
     <string
       id="ret_body_height_min_reason"
       text="키가 이미 최소입니다." />
-    <string
-      id="ret_body_no_character_reason"
-      text="선택된 캐릭터가 없습니다." />
     <string
       id="ret_body_weight_decrease_tip"
       text="체중 감소" />
@@ -140,17 +134,17 @@
       id="ret_cant_equip_reason_mount_compat"
       text="호환되지 않음" />
     <string
-      id="ret_cant_equip_reason_no_equipment"
-      text="장비 세트 없음" />
-    <string
       id="ret_cant_equip_reason_null"
       text="잘못된 아이템" />
     <string
       id="ret_cant_equip_reason_skill"
       text="{SKILL} {VALUE}" />
     <string
-      id="ret_cant_preview_reason_no_equipment"
-      text="장비 세트 없음." />
+      id="ret_cant_equip_reason_value_limit"
+      text="너무 귀중함" />
+    <string
+      id="ret_cant_equip_reason_weight_limit"
+      text="너무 무거움" />
     <string
       id="ret_cant_unequip_reason_empty"
       text="해제할 항목이 없습니다." />
@@ -191,14 +185,23 @@
       id="ret_create_unit"
       text="새 유닛" />
     <string
+      id="ret_create_unit_mode_best_stock"
+      text="재고에서" />
+    <string
+      id="ret_create_unit_mode_desc"
+      text="새 유닛의 장비를 어떻게 초기화해야 합니까?" />
+    <string
+      id="ret_create_unit_mode_empty"
+      text="장비 없음" />
+    <string
+      id="ret_create_unit_mode_title"
+      text="유닛 생성" />
+    <string
       id="ret_culture_header_text"
       text="문화" />
     <string
       id="ret_culture_header_text_with_race"
       text="문화 및 종" />
-    <string
-      id="ret_culture_no_selection"
-      text="선택된 캐릭터가 없습니다." />
     <string
       id="ret_dependencies_all_ok"
       text="모든 종속 항목이 올바르게 초기화되었습니다." />
@@ -266,14 +269,20 @@
       id="ret_equipment_hero_sets_reason"
       text="영웅은 여러 장비 세트를 가질 수 없습니다." />
     <string
-      id="ret_equipment_no_character_reason"
-      text="선택된 캐릭터가 없습니다." />
-    <string
       id="ret_equipment_no_more_sets"
       text="더 이상 장비 세트가 없습니다." />
     <string
-      id="ret_equipment_no_set_selected_reason"
-      text="선택된 장비 세트가 없습니다." />
+      id="ret_equipment_panel_value_limit"
+      text="{LIMIT} 데나르" />
+    <string
+      id="ret_equipment_panel_value_value"
+      text="{VALUE} 데나르" />
+    <string
+      id="ret_equipment_panel_weight_limit"
+      text="{LIMIT} kg" />
+    <string
+      id="ret_equipment_panel_weight_value"
+      text="{WEIGHT} kg" />
     <string
       id="ret_equipment_slot_body"
       text="몸" />
@@ -320,9 +329,6 @@
       id="ret_export_character_no_heroes"
       text="영웅 데이터는 저장 상태에 연결되어 있습니다." />
     <string
-      id="ret_export_character_no_selection"
-      text="선택된 캐릭터가 없습니다." />
-    <string
       id="ret_export_character_tooltip"
       text="캐릭터 내보내기." />
     <string
@@ -356,9 +362,6 @@
       id="ret_filter_tooltip_description_equipment"
       text="이름, 카테고리 또는 등급별로 목록을 필터링하려면 입력하세요." />
     <string
-      id="ret_formation_no_character_reason"
-      text="선택된 캐릭터가 없습니다." />
-    <string
       id="ret_formation_option_auto"
       text="자동" />
     <string
@@ -370,9 +373,6 @@
     <string
       id="ret_gender_no_culture"
       text="선택된 문화가 없습니다." />
-    <string
-      id="ret_gender_no_selection"
-      text="선택된 캐릭터가 없습니다." />
     <string
       id="ret_gender_no_template"
       text="이 문화에는 해당 성별/종에 대한 유효한 신체 템플릿이 없습니다." />
@@ -659,14 +659,11 @@
       id="ret_mariner_hero_reason"
       text="영웅은 선원이 될 수 없습니다." />
     <string
-      id="ret_mariner_no_selection"
-      text="선택된 캐릭터가 없습니다." />
-    <string
       id="ret_mariner_toggle_tooltip"
-      text="이 유닛의 선원 능력을 설정합니다.{newline}선원은 해상 전투에 더 적합하지만 약간 감소된 비율로 기술 포인트를 얻습니다." />
+      text="선원은 해상 전투에 더 적합하지만 기술 포인트 획득 속도가 약간 감소합니다." />
     <string
       id="ret_mariner_toggle_tooltip_universal"
-      text="이 유닛의 선원 능력을 설정합니다.{newline}선원은 해상 전투에 더 적합합니다." />
+      text="선원은 해상 전투에 더 적합합니다." />
     <string
       id="ret_mcm_option_debug_mode"
       text="디버그 모드" />
@@ -715,6 +712,30 @@
     <string
       id="ret_mcm_option_equipment_costs_gold_hint"
       text="새 항목을 장착하는 데 골드가 소요되는지 여부입니다." />
+    <string
+      id="ret_mcm_option_equipment_value_limit_multiplier"
+      text="장비 가치 한도 배수" />
+    <string
+      id="ret_mcm_option_equipment_value_limit_multiplier_hint"
+      text="장착 가능한 아이템을 계산할 때 기본 가치 한도에 적용되는 배수입니다." />
+    <string
+      id="ret_mcm_option_equipment_weight_limit_multiplier"
+      text="장비 무게 한도 배수" />
+    <string
+      id="ret_mcm_option_equipment_weight_limit_multiplier_hint"
+      text="장착 가능한 아이템을 계산할 때 기본 무게 한도에 적용되는 배수입니다." />
+    <string
+      id="ret_mcm_option_limit_equipment_by_value"
+      text="티어 기반 장비 가치 한도" />
+    <string
+      id="ret_mcm_option_limit_equipment_by_value_hint"
+      text="부대 티어 및 총 아이템 가치를 기반으로 장착 가능한 아이템을 제한할지 여부입니다." />
+    <string
+      id="ret_mcm_option_limit_equipment_by_weight"
+      text="티어 기반 장비 무게 한도" />
+    <string
+      id="ret_mcm_option_limit_equipment_by_weight_hint"
+      text="부대 티어 및 총 아이템 무게를 기반으로 장착 가능한 아이템을 제한할지 여부입니다." />
     <string
       id="ret_mcm_option_max_retinue_ratio"
       text="최대 Retinue 비율" />
@@ -818,9 +839,6 @@
       id="ret_race_invalid_model"
       text="이 종에는 유효한 모델이 없습니다." />
     <string
-      id="ret_rename_no_selection"
-      text="선택된 캐릭터가 없습니다." />
-    <string
       id="ret_rename_tooltip"
       text="이름 바꾸기" />
     <string
@@ -907,6 +925,12 @@
     <string
       id="ret_starter_equipment_single_set"
       text="한 세트 복사" />
+    <string
+      id="ret_stocks_add"
+      text="재고에 {AMOUNT} {ITEM} 추가됨." />
+    <string
+      id="ret_stocks_remove"
+      text="재고에서 {AMOUNT} {ITEM} 제거됨." />
     <string
       id="ret_trait_decrease_mined_reason"
       text="특성이 이미 최소 값에 도달했습니다." />

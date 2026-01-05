@@ -21,10 +21,6 @@ namespace Retinues.Editor.Controllers.Character
                 .DefaultTooltip(
                     L.T("button_change_formation_class_tooltip", "Select a formation class.")
                 )
-                .AddCondition(
-                    _ => State.Character != null,
-                    L.T("formation_no_character_reason", "No character selected.")
-                )
                 .ExecuteWith(_ => ShowPicker(State.Character));
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

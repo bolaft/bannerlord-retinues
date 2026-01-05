@@ -53,9 +53,6 @@
       id="ret_battle_types_civilian_reason"
       text="民間の装備セットには戦闘タイプの制限がありません。" />
     <string
-      id="ret_battle_types_no_set_selected"
-      text="装備セットが選択されていません。" />
-    <string
       id="ret_body_age_decrease_tip"
       text="年齢を減らす" />
     <string
@@ -91,9 +88,6 @@
     <string
       id="ret_body_height_min_reason"
       text="身長はすでに最小です。" />
-    <string
-      id="ret_body_no_character_reason"
-      text="キャラクターが選択されていません。" />
     <string
       id="ret_body_weight_decrease_tip"
       text="体重を減らす" />
@@ -140,17 +134,17 @@
       id="ret_cant_equip_reason_mount_compat"
       text="互換性なし" />
     <string
-      id="ret_cant_equip_reason_no_equipment"
-      text="装備セットなし" />
-    <string
       id="ret_cant_equip_reason_null"
       text="無効なアイテム" />
     <string
       id="ret_cant_equip_reason_skill"
       text="{SKILL} {VALUE}" />
     <string
-      id="ret_cant_preview_reason_no_equipment"
-      text="装備セットなし。" />
+      id="ret_cant_equip_reason_value_limit"
+      text="価値が高すぎる" />
+    <string
+      id="ret_cant_equip_reason_weight_limit"
+      text="重すぎる" />
     <string
       id="ret_cant_unequip_reason_empty"
       text="解除するものがありません。" />
@@ -191,14 +185,23 @@
       id="ret_create_unit"
       text="新しいユニット" />
     <string
+      id="ret_create_unit_mode_best_stock"
+      text="在庫から" />
+    <string
+      id="ret_create_unit_mode_desc"
+      text="新しいユニットの装備はどのように初期化されるべきですか？" />
+    <string
+      id="ret_create_unit_mode_empty"
+      text="装備なし" />
+    <string
+      id="ret_create_unit_mode_title"
+      text="ユニットを作成" />
+    <string
       id="ret_culture_header_text"
       text="文化" />
     <string
       id="ret_culture_header_text_with_race"
       text="文化と種族" />
-    <string
-      id="ret_culture_no_selection"
-      text="キャラクターが選択されていません。" />
     <string
       id="ret_dependencies_all_ok"
       text="すべての依存関係が正しく初期化されました。" />
@@ -266,14 +269,20 @@
       id="ret_equipment_hero_sets_reason"
       text="英雄は複数の装備セットを持つことはできません。" />
     <string
-      id="ret_equipment_no_character_reason"
-      text="キャラクターが選択されていません。" />
-    <string
       id="ret_equipment_no_more_sets"
       text="これ以上の装備セットはありません。" />
     <string
-      id="ret_equipment_no_set_selected_reason"
-      text="装備セットが選択されていません。" />
+      id="ret_equipment_panel_value_limit"
+      text="{LIMIT} デナール" />
+    <string
+      id="ret_equipment_panel_value_value"
+      text="{VALUE} デナール" />
+    <string
+      id="ret_equipment_panel_weight_limit"
+      text="{LIMIT} kg" />
+    <string
+      id="ret_equipment_panel_weight_value"
+      text="{WEIGHT} kg" />
     <string
       id="ret_equipment_slot_body"
       text="体" />
@@ -320,9 +329,6 @@
       id="ret_export_character_no_heroes"
       text="ヒーローデータは保存状態に結び付けられています。" />
     <string
-      id="ret_export_character_no_selection"
-      text="キャラクターが選択されていません。" />
-    <string
       id="ret_export_character_tooltip"
       text="キャラクターをエクスポートします。" />
     <string
@@ -356,9 +362,6 @@
       id="ret_filter_tooltip_description_equipment"
       text="名前、カテゴリ、または階級でリストをフィルタリングするには入力してください。" />
     <string
-      id="ret_formation_no_character_reason"
-      text="キャラクターが選択されていません。" />
-    <string
       id="ret_formation_option_auto"
       text="自動" />
     <string
@@ -370,9 +373,6 @@
     <string
       id="ret_gender_no_culture"
       text="文化が選択されていません。" />
-    <string
-      id="ret_gender_no_selection"
-      text="キャラクターが選択されていません。" />
     <string
       id="ret_gender_no_template"
       text="この文化には、その性別/種に適した有効な体テンプレートがありません。" />
@@ -659,14 +659,11 @@
       id="ret_mariner_hero_reason"
       text="英雄は水兵になることはできません。" />
     <string
-      id="ret_mariner_no_selection"
-      text="キャラクターが選択されていません。" />
-    <string
       id="ret_mariner_toggle_tooltip"
-      text="このユニットの水兵能力を設定します。{newline}水兵は海戦に適していますが、スキルポイントの獲得率がわずかに低くなります。" />
+      text="水兵は海戦に適していますが、スキルポイントの獲得速度がわずかに低下します。" />
     <string
       id="ret_mariner_toggle_tooltip_universal"
-      text="このユニットの水兵能力を設定します。{newline}水兵は海戦に適しています。" />
+      text="水兵は海戦に適しています。" />
     <string
       id="ret_mcm_option_debug_mode"
       text="デバッグモード" />
@@ -715,6 +712,30 @@
     <string
       id="ret_mcm_option_equipment_costs_gold_hint"
       text="新しいアイテムの装備にゴールドがかかるかどうか。" />
+    <string
+      id="ret_mcm_option_equipment_value_limit_multiplier"
+      text="装備価値制限乗数" />
+    <string
+      id="ret_mcm_option_equipment_value_limit_multiplier_hint"
+      text="装備可能なアイテムを計算する際に、基本価値制限に適用される乗数。" />
+    <string
+      id="ret_mcm_option_equipment_weight_limit_multiplier"
+      text="装備重量制限乗数" />
+    <string
+      id="ret_mcm_option_equipment_weight_limit_multiplier_hint"
+      text="装備可能なアイテムを計算する際に、基本重量制限に適用される乗数。" />
+    <string
+      id="ret_mcm_option_limit_equipment_by_value"
+      text="ティアベースの装備価値制限" />
+    <string
+      id="ret_mcm_option_limit_equipment_by_value_hint"
+      text="部隊のティアとアイテムの総価値に基づいて装備可能なアイテムを制限するかどうか。" />
+    <string
+      id="ret_mcm_option_limit_equipment_by_weight"
+      text="ティアベースの装備重量制限" />
+    <string
+      id="ret_mcm_option_limit_equipment_by_weight_hint"
+      text="部隊のティアとアイテムの総重量に基づいて装備可能なアイテムを制限するかどうか。" />
     <string
       id="ret_mcm_option_max_retinue_ratio"
       text="最大リティニュース比率" />
@@ -818,9 +839,6 @@
       id="ret_race_invalid_model"
       text="この種には有効なモデルが存在しません。" />
     <string
-      id="ret_rename_no_selection"
-      text="キャラクターが選択されていません。" />
-    <string
       id="ret_rename_tooltip"
       text="名前を変更" />
     <string
@@ -907,6 +925,12 @@
     <string
       id="ret_starter_equipment_single_set"
       text="1つのセットをコピー" />
+    <string
+      id="ret_stocks_add"
+      text="在庫に {AMOUNT} 個の {ITEM} を追加しました。" />
+    <string
+      id="ret_stocks_remove"
+      text="在庫から {AMOUNT} 個の {ITEM} を削除しました。" />
     <string
       id="ret_trait_decrease_mined_reason"
       text="特性はすでに最小値です。" />

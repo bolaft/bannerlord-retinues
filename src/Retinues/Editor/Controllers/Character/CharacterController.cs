@@ -24,10 +24,6 @@ namespace Retinues.Editor.Controllers.Character
         public static EditorAction<WCharacter> ExportCharacter { get; } =
             Action<WCharacter>("ExportCharacter")
                 .AddCondition(
-                    c => c != null,
-                    L.T("export_character_no_selection", "No character selected.")
-                )
-                .AddCondition(
                     c => !c.IsHero,
                     L.T("export_character_no_heroes", "Hero data is tied to the save state.")
                 )
@@ -53,7 +49,6 @@ namespace Retinues.Editor.Controllers.Character
 
         public static EditorAction<WCharacter> Rename { get; } =
             Action<WCharacter>("Rename")
-                .AddCondition(c => c != null, L.T("rename_no_selection", "No character selected."))
                 .DefaultTooltip(L.T("rename_tooltip", "Rename"))
                 .ExecuteWith(RenameImpl);
 
@@ -96,7 +91,6 @@ namespace Retinues.Editor.Controllers.Character
 
         public static EditorAction<WCharacter> SelectCulture { get; } =
             Action<WCharacter>("SelectCulture")
-                .AddCondition(c => c != null, L.T("culture_no_selection", "No character selected."))
                 .AddCondition(
                     _ => WCulture.All != null && WCulture.All.Any(),
                     L.T("no_cultures_text", "No cultures are loaded in the current game.")
@@ -181,10 +175,6 @@ namespace Retinues.Editor.Controllers.Character
 
         public static EditorAction<WCharacter> ToggleGender { get; } =
             Action<WCharacter>("ToggleGender")
-                .AddCondition(
-                    c => (c ?? State.Character) != null,
-                    L.T("gender_no_selection", "No character selected.")
-                )
                 .AddCondition(
                     applies: _ => HasAlternateSpecies() && State.Character?.Editable is WCharacter,
                     test: c => c?.Culture != null,
@@ -653,10 +643,6 @@ namespace Retinues.Editor.Controllers.Character
                 .AddCondition(
                     _ => Mods.NavalDLC.IsLoaded,
                     L.T("naval_dlc_not_loaded", "War Sails is not installed.")
-                )
-                .AddCondition(
-                    _ => State.Character != null,
-                    L.T("mariner_no_selection", "No character selected.")
                 )
                 .AddCondition(
                     _ => State.Character.IsHero == false,

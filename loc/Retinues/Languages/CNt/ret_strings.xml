@@ -53,9 +53,6 @@
       id="ret_battle_types_civilian_reason"
       text="平民裝備套裝沒有戰鬥類型限制。" />
     <string
-      id="ret_battle_types_no_set_selected"
-      text="未選擇裝備套裝。" />
-    <string
       id="ret_body_age_decrease_tip"
       text="減少年齡" />
     <string
@@ -91,9 +88,6 @@
     <string
       id="ret_body_height_min_reason"
       text="身高已達到最小值。" />
-    <string
-      id="ret_body_no_character_reason"
-      text="未選擇角色。" />
     <string
       id="ret_body_weight_decrease_tip"
       text="減少體重" />
@@ -140,17 +134,17 @@
       id="ret_cant_equip_reason_mount_compat"
       text="不兼容" />
     <string
-      id="ret_cant_equip_reason_no_equipment"
-      text="無裝備套裝" />
-    <string
       id="ret_cant_equip_reason_null"
       text="無效物品" />
     <string
       id="ret_cant_equip_reason_skill"
       text="{SKILL} {VALUE}" />
     <string
-      id="ret_cant_preview_reason_no_equipment"
-      text="無裝備套裝。" />
+      id="ret_cant_equip_reason_value_limit"
+      text="太貴重" />
+    <string
+      id="ret_cant_equip_reason_weight_limit"
+      text="太重" />
     <string
       id="ret_cant_unequip_reason_empty"
       text="沒有可卸下的物品。" />
@@ -191,14 +185,23 @@
       id="ret_create_unit"
       text="新單位" />
     <string
+      id="ret_create_unit_mode_best_stock"
+      text="從庫存" />
+    <string
+      id="ret_create_unit_mode_desc"
+      text="新單位的裝備應如何初始化？" />
+    <string
+      id="ret_create_unit_mode_empty"
+      text="無裝備" />
+    <string
+      id="ret_create_unit_mode_title"
+      text="創建單位" />
+    <string
       id="ret_culture_header_text"
       text="文化" />
     <string
       id="ret_culture_header_text_with_race"
       text="文化與物種" />
-    <string
-      id="ret_culture_no_selection"
-      text="未選擇角色。" />
     <string
       id="ret_dependencies_all_ok"
       text="所有依賴項均已正確初始化。" />
@@ -266,14 +269,20 @@
       id="ret_equipment_hero_sets_reason"
       text="英雄不能擁有多個裝備套裝。" />
     <string
-      id="ret_equipment_no_character_reason"
-      text="未選擇角色。" />
-    <string
       id="ret_equipment_no_more_sets"
       text="沒有更多的裝備套裝。" />
     <string
-      id="ret_equipment_no_set_selected_reason"
-      text="未選擇裝備套裝。" />
+      id="ret_equipment_panel_value_limit"
+      text="{LIMIT} 丹納爾" />
+    <string
+      id="ret_equipment_panel_value_value"
+      text="{VALUE} 丹納爾" />
+    <string
+      id="ret_equipment_panel_weight_limit"
+      text="{LIMIT} 公斤" />
+    <string
+      id="ret_equipment_panel_weight_value"
+      text="{WEIGHT} 公斤" />
     <string
       id="ret_equipment_slot_body"
       text="身體" />
@@ -320,9 +329,6 @@
       id="ret_export_character_no_heroes"
       text="英雄數據與保存狀態相關聯。" />
     <string
-      id="ret_export_character_no_selection"
-      text="未選擇角色。" />
-    <string
       id="ret_export_character_tooltip"
       text="導出角色。" />
     <string
@@ -356,9 +362,6 @@
       id="ret_filter_tooltip_description_equipment"
       text="輸入以按名稱、類別或等級過濾列表。" />
     <string
-      id="ret_formation_no_character_reason"
-      text="未選擇角色。" />
-    <string
       id="ret_formation_option_auto"
       text="自動" />
     <string
@@ -370,9 +373,6 @@
     <string
       id="ret_gender_no_culture"
       text="未選擇任何文化。" />
-    <string
-      id="ret_gender_no_selection"
-      text="未選擇角色。" />
     <string
       id="ret_gender_no_template"
       text="該文化沒有適用於該性別/物種的有效身體模板。" />
@@ -659,14 +659,11 @@
       id="ret_mariner_hero_reason"
       text="英雄不能成為水手。" />
     <string
-      id="ret_mariner_no_selection"
-      text="未選擇角色。" />
-    <string
       id="ret_mariner_toggle_tooltip"
-      text="設置此單位的水手能力。{newline}水手更適合海戰，但技能點的獲得速度略有降低。" />
+      text="水手更適合海戰，但技能點的獲得速度略有降低。" />
     <string
       id="ret_mariner_toggle_tooltip_universal"
-      text="設置此單位的水手能力。{newline}水手更適合海戰。" />
+      text="水手更適合海戰。" />
     <string
       id="ret_mcm_option_debug_mode"
       text="調試模式" />
@@ -715,6 +712,30 @@
     <string
       id="ret_mcm_option_equipment_costs_gold_hint"
       text="裝備新物品是否應花費黃金。" />
+    <string
+      id="ret_mcm_option_equipment_value_limit_multiplier"
+      text="裝備價值限制乘數" />
+    <string
+      id="ret_mcm_option_equipment_value_limit_multiplier_hint"
+      text="計算可裝備物品時應用於基礎價值限制的乘數。" />
+    <string
+      id="ret_mcm_option_equipment_weight_limit_multiplier"
+      text="裝備重量限制乘數" />
+    <string
+      id="ret_mcm_option_equipment_weight_limit_multiplier_hint"
+      text="計算可裝備物品時應用於基礎重量限制的乘數。" />
+    <string
+      id="ret_mcm_option_limit_equipment_by_value"
+      text="基於等級的裝備價值限制" />
+    <string
+      id="ret_mcm_option_limit_equipment_by_value_hint"
+      text="是否根據部隊等級和物品總價值限制可裝備物品。" />
+    <string
+      id="ret_mcm_option_limit_equipment_by_weight"
+      text="基於等級的裝備重量限制" />
+    <string
+      id="ret_mcm_option_limit_equipment_by_weight_hint"
+      text="是否根據部隊等級和物品總重量限制可裝備物品。" />
     <string
       id="ret_mcm_option_max_retinue_ratio"
       text="最大隨從比例" />
@@ -818,9 +839,6 @@
       id="ret_race_invalid_model"
       text="此物種不存在有效模型。" />
     <string
-      id="ret_rename_no_selection"
-      text="未選擇角色。" />
-    <string
       id="ret_rename_tooltip"
       text="重新命名" />
     <string
@@ -907,6 +925,12 @@
     <string
       id="ret_starter_equipment_single_set"
       text="複製一個套裝" />
+    <string
+      id="ret_stocks_add"
+      text="已向庫存添加 {AMOUNT} 個 {ITEM}。" />
+    <string
+      id="ret_stocks_remove"
+      text="已從庫存中移除 {AMOUNT} 個 {ITEM}。" />
     <string
       id="ret_trait_decrease_mined_reason"
       text="特質已達到最低值。" />

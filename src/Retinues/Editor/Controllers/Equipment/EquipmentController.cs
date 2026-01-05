@@ -23,19 +23,6 @@ namespace Retinues.Editor.Controllers.Equipment
         public static EditorAction<bool> SelectPrevSet { get; } =
             Action<bool>("SelectPrevSet")
                 .AddCondition(
-                    _ => State.Character != null,
-                    L.T("equipment_no_character_reason", "No character selected.")
-                )
-                .AddCondition(
-                    civilian =>
-                    {
-                        var list = GetEquipments(civilian);
-                        int i = IndexOfByBase(list, State.Equipment);
-                        return i >= 0;
-                    },
-                    L.T("equipment_no_set_selected_reason", "No equipment set selected.")
-                )
-                .AddCondition(
                     civilian =>
                     {
                         var list = GetEquipments(civilian);
@@ -60,19 +47,6 @@ namespace Retinues.Editor.Controllers.Equipment
 
         public static EditorAction<bool> SelectNextSet { get; } =
             Action<bool>("SelectNextSet")
-                .AddCondition(
-                    _ => State.Character != null,
-                    L.T("equipment_no_character_reason", "No character selected.")
-                )
-                .AddCondition(
-                    civilian =>
-                    {
-                        var list = GetEquipments(civilian);
-                        int i = IndexOfByBase(list, State.Equipment);
-                        return i >= 0;
-                    },
-                    L.T("equipment_no_set_selected_reason", "No equipment set selected.")
-                )
                 .AddCondition(
                     civilian =>
                     {
@@ -99,10 +73,6 @@ namespace Retinues.Editor.Controllers.Equipment
         public static EditorAction<bool> CreateSet { get; } =
             Action<bool>("CreateSet")
                 .AddCondition(
-                    _ => State.Character != null,
-                    L.T("equipment_no_character_reason", "No character selected.")
-                )
-                .AddCondition(
                     _ => State.Character.IsHero == false,
                     L.T("equipment_hero_sets_reason", "Heroes cannot have multiple equipment sets.")
                 )
@@ -115,10 +85,6 @@ namespace Retinues.Editor.Controllers.Equipment
 
         public static EditorAction<bool> DeleteSet { get; } =
             Action<bool>("DeleteSet")
-                .AddCondition(
-                    _ => State.Character != null,
-                    L.T("equipment_no_character_reason", "No character selected.")
-                )
                 .AddCondition(
                     _ => State.Character.IsHero == false,
                     L.T("equipment_hero_sets_reason", "Heroes cannot have multiple equipment sets.")
@@ -370,10 +336,6 @@ namespace Retinues.Editor.Controllers.Equipment
         public static EditorAction<bool> SetFieldBattleSet { get; } =
             Action<bool>("SetFieldBattleSet")
                 .AddCondition(
-                    _ => State.Equipment != null,
-                    L.T("battle_types_no_set_selected", "No equipment set selected.")
-                )
-                .AddCondition(
                     _ => State.Equipment != null && State.Equipment.IsCivilian == false,
                     L.T(
                         "battle_types_civilian_reason",
@@ -412,10 +374,6 @@ namespace Retinues.Editor.Controllers.Equipment
 
         public static EditorAction<bool> SetSiegeBattleSet { get; } =
             Action<bool>("SetSiegeBattleSet")
-                .AddCondition(
-                    _ => State.Equipment != null,
-                    L.T("battle_types_no_set_selected", "No equipment set selected.")
-                )
                 .AddCondition(
                     _ => State.Equipment != null && State.Equipment.IsCivilian == false,
                     L.T(
@@ -458,10 +416,6 @@ namespace Retinues.Editor.Controllers.Equipment
                 .AddCondition(
                     _ => Mods.NavalDLC.IsLoaded,
                     L.T("naval_dlc_not_loaded", "War Sails is not installed.")
-                )
-                .AddCondition(
-                    _ => State.Equipment != null,
-                    L.T("battle_types_no_set_selected", "No equipment set selected.")
                 )
                 .AddCondition(
                     _ => State.Equipment != null && State.Equipment.IsCivilian == false,

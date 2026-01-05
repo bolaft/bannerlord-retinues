@@ -211,10 +211,6 @@ namespace Retinues.Editor.Controllers.Equipment
         public static EditorAction<WItem> Equip { get; } =
             Action<WItem>("EquipItem")
                 .AddCondition(
-                    _ => State.Equipment != null,
-                    L.T("cant_equip_reason_no_equipment", "No equipment set")
-                )
-                .AddCondition(
                     item => item != null,
                     _ => L.T("cant_equip_reason_null", "Invalid item")
                 )
