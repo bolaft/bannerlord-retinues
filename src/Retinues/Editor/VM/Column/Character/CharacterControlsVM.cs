@@ -39,31 +39,18 @@ namespace Retinues.Editor.VM.Column.Character
 
         [EventListener(UIEvent.Character)]
         [DataSourceProperty]
-        public bool ShowMarinerToggle => Mods.NavalDLC.IsLoaded && !State.Character.IsHero;
-
-        [EventListener(UIEvent.Formation)]
-        [DataSourceProperty]
-        public bool IsMariner
-        {
-            get => State.Character.IsMariner;
-            set => CharacterController.SetMariner.Execute(value);
-        }
+        public bool ShowMarinerToggle =>
+            Mods.NavalDLC.IsLoaded && State.Character != null && !State.Character.IsHero;
 
         [DataSourceProperty]
-        public Tooltip MarinerTooltip =>
-            State.Mode == EditorMode.Universal
-                ? new Tooltip(
-                    L.S(
-                        "mariner_toggle_tooltip_universal",
-                        "Set this unit's mariner ability.\nMariners are better suited for naval combat."
-                    )
-                )
-                : new Tooltip(
-                    L.S(
-                        "mariner_toggle_tooltip",
-                        "Set this unit's mariner ability.\nMariners are better suited for naval combat, but earn skill points at a slightly reduced rate."
-                    )
-                );
+        public Checkbox MarinerToggle { get; } =
+            new(
+                action: CharacterController.SetMariner,
+                getSelected: () => State.Character?.IsMariner ?? false,
+                refresh: [UIEvent.Character, UIEvent.Formation],
+                visibilityGate: () =>
+                    Mods.NavalDLC.IsLoaded && State.Character != null && !State.Character.IsHero
+            );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Formation Class                    //

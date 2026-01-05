@@ -23,7 +23,7 @@
 
                 {{ column_icon("Inventory\icon_inspect", size="32") }}
 
-                {{ checkbox(binding="@PreviewMode", size="32", tooltip="{PreviewModeTooltip}") }}
+                {{ checkbox("{PreviewModeToggle}", "32") }}
 
             </Children>
         </ListPanel>
@@ -37,7 +37,7 @@
 
                 {{ column_icon("General\Mission\smithy") }}
 
-                {{ checkbox(binding="@ShowCrafted", size="32", tooltip="{CraftedToggleTooltip}") }}
+                {{ checkbox("{CraftedToggle}", "32") }}
 
             </Children>
         </ListPanel>
@@ -118,7 +118,7 @@
             StackLayout.LayoutMethod="HorizontalLeftToRight">
             <Children>
 
-                {% macro battle_set_toggle(sprite, binding, tooltip, checkbox_tooltip, enabled = "true", is_visible = "true") %}
+                {% macro battle_set_toggle(sprite, tooltip, checkbox_datasource, is_visible="true") %}
                     <ListPanel
                         IsVisible="{{ is_visible }}"
                         WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed"
@@ -139,7 +139,7 @@
                                 </Children>
                             </SpriteWidget>
 
-                            {{ checkbox(binding=binding, size="24", tooltip=checkbox_tooltip, enabled=enabled) }}
+                            {{ checkbox(checkbox_datasource, "24") }}
 
                         </Children>
                     </ListPanel>
@@ -147,26 +147,20 @@
 
                 {{ battle_set_toggle(
                     "SPGeneral\MapOverlay\Settlement\icon_garrison_big",
-                    "@FieldBattleSet",
                     "{FieldBattleTooltip}",
-                    "{FieldBattleCheckboxTooltip}",
-                    enabled="@FieldBattleCheckboxEnabled"
+                    "{FieldBattleToggle}"
                 ) }}
 
                 {{ battle_set_toggle(
                     "SPGeneral\MapOverlay\Settlement\icon_wall_big",
-                    "@SiegeBattleSet",
                     "{SiegeBattleTooltip}",
-                    "{SiegeBattleCheckboxTooltip}",
-                    enabled="@SiegeBattleCheckboxEnabled"
+                    "{SiegeBattleToggle}"
                 ) }}
 
                 {{ battle_set_toggle(
                     "SPGeneral\MapOverlay\Settlement\icon_prosperity_big",
-                    "@NavalBattleSet",
                     "{NavalBattleTooltip}",
-                    "{NavalBattleCheckboxTooltip}",
-                    enabled="@NavalBattleCheckboxEnabled",
+                    "{NavalBattleToggle}",
                     is_visible="@ShowNavalBattleToggle"
                 ) }}
 

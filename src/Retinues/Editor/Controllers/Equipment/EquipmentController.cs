@@ -6,6 +6,7 @@ using Retinues.Editor.Events;
 using Retinues.Modules;
 using Retinues.UI.Services;
 using Retinues.Utilities;
+using TaleWorlds.Core;
 using TaleWorlds.Localization;
 
 namespace Retinues.Editor.Controllers.Equipment
@@ -145,6 +146,40 @@ namespace Retinues.Editor.Controllers.Equipment
                 )
                 .DefaultTooltip(L.T("equipments_delete_set", "Delete the selected equipment set."))
                 .ExecuteWith(DeleteSetImpl);
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Crafted Items                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private static bool IsWeaponSlot(EquipmentIndex slot)
+        {
+            return slot == EquipmentIndex.Weapon0
+                || slot == EquipmentIndex.Weapon1
+                || slot == EquipmentIndex.Weapon2
+                || slot == EquipmentIndex.Weapon3;
+        }
+
+        public static EditorAction<bool> SetShowCrafted { get; } =
+            Action<bool>("SetShowCrafted")
+                .AddCondition(
+                    _ => State.Mode == EditorMode.Player,
+                    L.T("crafted_player_only_reason", "Only available in player mode.")
+                )
+                // Allow disabling anywhere, but only allow enabling on weapon slots.
+                .AddCondition(
+                    value => !value || IsWeaponSlot(State.Slot),
+                    L.T(
+                        "crafted_toggle_weapon_only",
+                        "Crafted items are only available for weapon slots."
+                    )
+                )
+                .DefaultTooltip(value =>
+                    value
+                        ? L.T("crafted_items_only_tooltip", "Show only crafted weapons.")
+                        : L.T("crafted_items_hide_tooltip", "Hide crafted weapons.")
+                )
+                .ExecuteWith(value => State.ShowCrafted = value)
+                .Fire(UIEvent.Crafted);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Battle Types                      //
@@ -365,6 +400,17 @@ namespace Retinues.Editor.Controllers.Equipment
                     value => value || CanDisableBattleType(State.Equipment, BattleType.Field),
                     GetDisableReason(BattleType.Field)
                 )
+                .DefaultTooltip(value =>
+                    value
+                        ? L.T(
+                            "battle_type_field_checkbox_tooltip_enable",
+                            "Enable for field battles."
+                        )
+                        : L.T(
+                            "battle_type_field_checkbox_tooltip_disable",
+                            "Disable for field battles."
+                        )
+                )
                 .ExecuteWith(SetFieldBattleSetImpl)
                 .Fire(UIEvent.BattleToggle);
 
@@ -396,6 +442,17 @@ namespace Retinues.Editor.Controllers.Equipment
                 .AddCondition(
                     value => value || CanDisableBattleType(State.Equipment, BattleType.Siege),
                     GetDisableReason(BattleType.Siege)
+                )
+                .DefaultTooltip(value =>
+                    value
+                        ? L.T(
+                            "battle_type_siege_checkbox_tooltip_enable",
+                            "Enable for siege battles."
+                        )
+                        : L.T(
+                            "battle_type_siege_checkbox_tooltip_disable",
+                            "Disable for siege battles."
+                        )
                 )
                 .ExecuteWith(SetSiegeBattleSetImpl)
                 .Fire(UIEvent.BattleToggle);
@@ -432,6 +489,17 @@ namespace Retinues.Editor.Controllers.Equipment
                 .AddCondition(
                     value => value || CanDisableBattleType(State.Equipment, BattleType.Naval),
                     GetDisableReason(BattleType.Naval)
+                )
+                .DefaultTooltip(value =>
+                    value
+                        ? L.T(
+                            "battle_type_naval_checkbox_tooltip_enable",
+                            "Enable for naval battles."
+                        )
+                        : L.T(
+                            "battle_type_naval_checkbox_tooltip_disable",
+                            "Disable for naval battles."
+                        )
                 )
                 .ExecuteWith(SetNavalBattleSetImpl)
                 .Fire(UIEvent.BattleToggle);

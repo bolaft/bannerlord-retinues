@@ -101,8 +101,6 @@ namespace Retinues.Editor.VM.Column.Equipment
             }
         }
 
-        // Buttons
-
         [DataSourceProperty]
         public Button<bool> PrevSetButton { get; } =
             new(
@@ -146,30 +144,6 @@ namespace Retinues.Editor.VM.Column.Equipment
             && State.Equipment != null
             && State.Equipment.IsCivilian == false;
 
-        [EventListener(UIEvent.BattleToggle)]
-        [DataSourceProperty]
-        public bool FieldBattleSet
-        {
-            get => State.Equipment?.FieldBattleSet ?? false;
-            set => EquipmentController.SetFieldBattleSet.Execute(value);
-        }
-
-        [EventListener(UIEvent.BattleToggle)]
-        [DataSourceProperty]
-        public bool SiegeBattleSet
-        {
-            get => State.Equipment?.SiegeBattleSet ?? false;
-            set => EquipmentController.SetSiegeBattleSet.Execute(value);
-        }
-
-        [EventListener(UIEvent.BattleToggle)]
-        [DataSourceProperty]
-        public bool NavalBattleSet
-        {
-            get => State.Equipment?.NavalBattleSet ?? false;
-            set => EquipmentController.SetNavalBattleSet.Execute(value);
-        }
-
         [EventListener(UIEvent.Equipment)]
         [DataSourceProperty]
         public bool ShowNavalBattleToggle =>
@@ -177,114 +151,56 @@ namespace Retinues.Editor.VM.Column.Equipment
             && State.Equipment != null
             && State.Equipment.IsCivilian == false;
 
-        // Enabled state for the checkbox widgets
-
-        [EventListener(UIEvent.Equipment, UIEvent.BattleToggle)]
-        [DataSourceProperty]
-        public bool FieldBattleCheckboxEnabled =>
-            !FieldBattleSet || EquipmentController.GetFieldBattleDisableReason() == null;
-
-        [EventListener(UIEvent.Equipment, UIEvent.BattleToggle)]
-        [DataSourceProperty]
-        public bool SiegeBattleCheckboxEnabled =>
-            !SiegeBattleSet || EquipmentController.GetSiegeBattleDisableReason() == null;
-
-        [EventListener(UIEvent.Equipment, UIEvent.BattleToggle)]
-        [DataSourceProperty]
-        public bool NavalBattleCheckboxEnabled =>
-            !NavalBattleSet || EquipmentController.GetNavalBattleDisableReason() == null;
-
-        // Tooltips (show disable reason when disabled)
-
+        // Sprite tooltips (not action tooltips)
         [DataSourceProperty]
         public Tooltip FieldBattleTooltip =>
             new(L.T("battle_type_field_tooltip", "Field battles."));
-
-        [EventListener(UIEvent.Equipment, UIEvent.BattleToggle)]
-        [DataSourceProperty]
-        public Tooltip FieldBattleCheckboxTooltip
-        {
-            get
-            {
-                var reason = EquipmentController.GetFieldBattleDisableReason();
-                if (FieldBattleSet && reason != null)
-                    return new Tooltip(reason);
-
-                return FieldBattleSet
-                    ? new Tooltip(
-                        L.T(
-                            "battle_type_field_checkbox_tooltip_disable",
-                            "Disable for field battles."
-                        )
-                    )
-                    : new Tooltip(
-                        L.T(
-                            "battle_type_field_checkbox_tooltip_enable",
-                            "Enable for field battles."
-                        )
-                    );
-            }
-        }
 
         [DataSourceProperty]
         public Tooltip SiegeBattleTooltip =>
             new(L.T("battle_type_siege_tooltip", "Siege battles."));
 
-        [EventListener(UIEvent.Equipment, UIEvent.BattleToggle)]
-        [DataSourceProperty]
-        public Tooltip SiegeBattleCheckboxTooltip
-        {
-            get
-            {
-                var reason = EquipmentController.GetSiegeBattleDisableReason();
-                if (SiegeBattleSet && reason != null)
-                    return new Tooltip(reason);
-
-                return SiegeBattleSet
-                    ? new Tooltip(
-                        L.T(
-                            "battle_type_siege_checkbox_tooltip_disable",
-                            "Disable for siege battles."
-                        )
-                    )
-                    : new Tooltip(
-                        L.T(
-                            "battle_type_siege_checkbox_tooltip_enable",
-                            "Enable for siege battles."
-                        )
-                    );
-            }
-        }
-
         [DataSourceProperty]
         public Tooltip NavalBattleTooltip =>
             new(L.T("battle_type_naval_tooltip", "Naval battles."));
 
-        [EventListener(UIEvent.Equipment, UIEvent.BattleToggle)]
+        // Checkbox VMs (tooltips + enabled reasons come from controller EditorActions)
         [DataSourceProperty]
-        public Tooltip NavalBattleCheckboxTooltip
-        {
-            get
-            {
-                var reason = EquipmentController.GetNavalBattleDisableReason();
-                if (NavalBattleSet && reason != null)
-                    return new Tooltip(reason);
+        public Checkbox FieldBattleToggle { get; } =
+            new(
+                action: EquipmentController.SetFieldBattleSet,
+                getSelected: () => State.Equipment?.FieldBattleSet ?? false,
+                refresh: [UIEvent.Equipment, UIEvent.BattleToggle],
+                visibilityGate: () =>
+                    State.Mode == EditorMode.Player
+                    && State.Equipment != null
+                    && State.Equipment.IsCivilian == false
+            );
 
-                return NavalBattleSet
-                    ? new Tooltip(
-                        L.T(
-                            "battle_type_naval_checkbox_tooltip_disable",
-                            "Disable for naval battles."
-                        )
-                    )
-                    : new Tooltip(
-                        L.T(
-                            "battle_type_naval_checkbox_tooltip_enable",
-                            "Enable for naval battles."
-                        )
-                    );
-            }
-        }
+        [DataSourceProperty]
+        public Checkbox SiegeBattleToggle { get; } =
+            new(
+                action: EquipmentController.SetSiegeBattleSet,
+                getSelected: () => State.Equipment?.SiegeBattleSet ?? false,
+                refresh: [UIEvent.Equipment, UIEvent.BattleToggle],
+                visibilityGate: () =>
+                    State.Mode == EditorMode.Player
+                    && State.Equipment != null
+                    && State.Equipment.IsCivilian == false
+            );
+
+        [DataSourceProperty]
+        public Checkbox NavalBattleToggle { get; } =
+            new(
+                action: EquipmentController.SetNavalBattleSet,
+                getSelected: () => State.Equipment?.NavalBattleSet ?? false,
+                refresh: [UIEvent.Equipment, UIEvent.BattleToggle],
+                visibilityGate: () =>
+                    Mods.NavalDLC.IsLoaded
+                    && State.Mode == EditorMode.Player
+                    && State.Equipment != null
+                    && State.Equipment.IsCivilian == false
+            );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Preview Mode                      //
@@ -295,20 +211,13 @@ namespace Retinues.Editor.VM.Column.Equipment
         public bool ShowPreviewModeToggle =>
             EditorVM.Page == EditorPage.Equipment && State.Mode == EditorMode.Player;
 
-        [EventListener(UIEvent.Preview)]
         [DataSourceProperty]
-        public bool PreviewMode
-        {
-            get => PreviewController.Enabled;
-            set => PreviewController.SetPreviewMode.Execute(value);
-        }
-
-        [EventListener(UIEvent.Preview)]
-        [DataSourceProperty]
-        public Tooltip PreviewModeTooltip =>
-            PreviewController.Enabled
-                ? new Tooltip(L.T("preview_enable_tooltip", "Enable preview mode."))
-                : new Tooltip(L.T("preview_disable_tooltip", "Disable preview mode."));
+        public Checkbox PreviewModeToggle { get; } =
+            new(
+                action: PreviewController.SetPreviewMode,
+                getSelected: () => PreviewController.Enabled,
+                refresh: [UIEvent.Preview, UIEvent.Page, UIEvent.Character]
+            );
 
         [EventListener(UIEvent.Character, UIEvent.Page)]
         private void DisablePreviewOnContextChange()
@@ -335,19 +244,14 @@ namespace Retinues.Editor.VM.Column.Equipment
         public bool ShowCraftedToggle =>
             EditorVM.Page == EditorPage.Equipment && State.Mode == EditorMode.Player;
 
-        [EventListener(UIEvent.Crafted)]
         [DataSourceProperty]
-        public bool ShowCrafted
-        {
-            get => State.ShowCrafted;
-            set => State.ShowCrafted = value;
-        }
-
-        [EventListener(UIEvent.Slot, UIEvent.Crafted)]
-        [DataSourceProperty]
-        public Tooltip CraftedToggleTooltip =>
-            State.ShowCrafted
-                ? new Tooltip(L.T("crafted_items_only_tooltip", "Hide crafted weapons."))
-                : new Tooltip(L.T("crafted_items_hide_tooltip", "Include crafted weapons."));
+        public Checkbox CraftedToggle { get; } =
+            new(
+                action: EquipmentController.SetShowCrafted,
+                getSelected: () => State.ShowCrafted,
+                refresh: [UIEvent.Slot, UIEvent.Crafted, UIEvent.Page],
+                visibilityGate: () =>
+                    EditorVM.Page == EditorPage.Equipment && State.Mode == EditorMode.Player
+            );
     }
 }

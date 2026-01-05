@@ -50,6 +50,11 @@ namespace Retinues.Editor.Controllers.Equipment
                     enable => !enable || State.Equipment != null,
                     L.T("cant_preview_reason_no_equipment", "No equipment set.")
                 )
+                .DefaultTooltip(enable =>
+                    enable
+                        ? L.T("preview_mode_enable_tooltip", "Enable preview mode.")
+                        : L.T("preview_mode_disable_tooltip", "Disable preview mode.")
+                )
                 .ExecuteWith(enable =>
                 {
                     if (enable)
