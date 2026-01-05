@@ -125,6 +125,17 @@ namespace Retinues.Editor.Controllers.Equipment
         }
 
         /// <summary>
+        /// Checks whether the given harness is compatible with the given horse.
+        /// </summary>
+        private static bool IsHarnessCompatible(WItem horse, WItem harness)
+        {
+            if (horse == null || harness == null)
+                return true;
+
+            return horse.IsCompatibleWith(harness);
+        }
+
+        /// <summary>
         /// Sets a slot in the preview equipment. No-op when preview is disabled.
         /// This does not touch the real MEquipment or any roster or economy.
         /// </summary>
@@ -133,30 +144,28 @@ namespace Retinues.Editor.Controllers.Equipment
             if (!EnsureValid())
                 return;
 
-            // Safety: prevent incompatible harness equip against the current preview horse.
+            // Read current preview state (important: we haven't written yet).
+            var currentHorse = GetItem(EquipmentIndex.Horse);
+            var currentHarness = GetItem(EquipmentIndex.HorseHarness);
+
             if (slot == EquipmentIndex.HorseHarness)
             {
-                var horse = GetItem(EquipmentIndex.Horse);
-                if (horse != null && item != null && !horse.IsCompatibleWith(item))
+                // Reject incompatible harness.
+                if (!IsHarnessCompatible(currentHorse, item))
                     return;
             }
 
             _preview[slot] =
                 item == null ? EquipmentElement.Invalid : new EquipmentElement(item.Base);
 
-            // If a new horse makes the currently equipped harness incompatible, clear the harness.
             if (slot == EquipmentIndex.Horse)
             {
-                var harness = GetItem(EquipmentIndex.HorseHarness);
-                if (harness != null && item != null && !item.IsCompatibleWith(harness))
+                // After changing horse, clear harness if it no longer fits.
+                if (!IsHarnessCompatible(item, currentHarness))
                     _preview[EquipmentIndex.HorseHarness] = EquipmentElement.Invalid;
             }
 
-            EventManager.FireBatch(() =>
-            {
-                EventManager.Fire(UIEvent.Item);
-                EventManager.Fire(UIEvent.Appearance);
-            });
+            EventManager.Fire(UIEvent.Item);
         }
 
         /// <summary>
@@ -175,11 +184,7 @@ namespace Retinues.Editor.Controllers.Equipment
                 _preview[EquipmentIndex.HorseHarness] = EquipmentElement.Invalid;
             }
 
-            EventManager.FireBatch(() =>
-            {
-                EventManager.Fire(UIEvent.Item);
-                EventManager.Fire(UIEvent.Appearance);
-            });
+            EventManager.Fire(UIEvent.Item);
         }
     }
 }
