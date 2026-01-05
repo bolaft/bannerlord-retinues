@@ -1,5 +1,7 @@
 using System.Linq;
 using Retinues.Domain.Characters.Wrappers;
+using Retinues.Domain.Equipments.Helpers;
+using Retinues.Domain.Equipments.Models;
 using Retinues.Editor.Controllers.Equipment;
 using Retinues.Editor.Events;
 using Retinues.UI.Services;
@@ -42,7 +44,7 @@ namespace Retinues.Editor.Controllers.Character
             if (!AddUpgradeTarget.Allow(character))
                 return;
 
-            void Apply(string name)
+            void ApplyName(string name)
             {
                 if (string.IsNullOrWhiteSpace(name))
                 {
@@ -53,22 +55,103 @@ namespace Retinues.Editor.Controllers.Character
                     return;
                 }
 
-                bool copyEquipments = State.Mode != EditorMode.Player;
-                var clone = character.Clone(equipments: copyEquipments);
-                clone.Name = name.Trim();
-                clone.Level = character.Level + 5;
-                clone.HiddenInEncyclopedia = false;
+                name = name.Trim();
 
-                character.AddUpgradeTarget(clone);
-                EventManager.Fire(UIEvent.Tree);
+                // Universal mode: keep current behavior unchanged.
+                if (State.Mode != EditorMode.Player)
+                {
+                    var cloneU = character.Clone(equipments: true);
+                    cloneU.Name = name;
+                    cloneU.Level = character.Level + 5;
+                    cloneU.HiddenInEncyclopedia = false;
+
+                    character.AddUpgradeTarget(cloneU);
+                    EventManager.Fire(UIEvent.Tree);
+                    return;
+                }
+
+                // Player mode: ask how to initialize equipment.
+                Inquiries.Popup(
+                    title: L.T("create_unit_mode_title", "Create Unit"),
+                    description: L.T(
+                        "create_unit_mode_desc",
+                        "How should the new unit's equipment be initialized?"
+                    ),
+                    onChoice1: () => CreateUpgrade_Player_Empty(character, name),
+                    onChoice2: () => CreateUpgrade_Player_BestFromStocks(character, name),
+                    choice1Text: L.T("create_unit_mode_empty", "No Equipment"),
+                    choice2Text: L.T("create_unit_mode_best_stock", "Pick Best From Stocks")
+                );
             }
 
             Inquiries.TextInputPopup(
                 title: L.T("create_unit", "New Unit"),
                 defaultInput: character.Name,
-                onConfirm: Apply,
+                onConfirm: ApplyName,
                 description: L.T("enter_name", "Enter a name:")
             );
+        }
+
+        private static void CreateUpgrade_Player_Empty(WCharacter parent, string name)
+        {
+            var clone = parent.Clone(equipments: false);
+            clone.Name = name;
+            clone.Level = parent.Level + 5;
+            clone.HiddenInEncyclopedia = false;
+
+            parent.AddUpgradeTarget(clone);
+            EventManager.Fire(UIEvent.Tree);
+        }
+
+        private static void CreateUpgrade_Player_BestFromStocks(WCharacter parent, string name)
+        {
+            // Create the troop with no copied equipments first.
+            var clone = parent.Clone(equipments: false);
+            clone.Name = name;
+            clone.Level = parent.Level + 5;
+            clone.HiddenInEncyclopedia = false;
+
+            // Build two sets: battle + civilian, best-from-stock.
+            // (This does not consume stock by itself. We consume after the sets exist.)
+            var roster = clone.EquipmentRoster;
+
+            // Ensure a clean roster state. (Roster API differs across refactors; use what you have.)
+            // We avoid calling Remove on existing sets while economy might be active; clone has none anyway.
+            // If your roster can contain defaults even when equipments:false, reset it safely.
+            roster?.InvalidateItemCountsCache();
+
+            var battle = RandomHelper.CreateRandomEquipment(
+                owner: clone,
+                civilian: false,
+                minTier: 1,
+                maxTier: 6,
+                fromStocks: true,
+                pickBest: true
+            );
+
+            var civilian = RandomHelper.CreateRandomEquipment(
+                owner: clone,
+                civilian: true,
+                minTier: 1,
+                maxTier: 6,
+                fromStocks: true,
+                pickBest: true
+            );
+
+            // If your roster has explicit Add/Remove methods, use them.
+            // Otherwise adapt these 2 lines to your roster API.
+            roster.Add(battle);
+            roster.Add(civilian);
+
+            // Consume the conceptual requirement from stock (max-per-equipment logic).
+            // Only do this when economy is active.
+            if (ItemController.EconomyActive)
+                StocksHelper.ConsumeStock(roster.ItemCountsById);
+
+            parent.AddUpgradeTarget(clone);
+
+            EventManager.Fire(UIEvent.Tree);
+            EventManager.Fire(UIEvent.Item);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
