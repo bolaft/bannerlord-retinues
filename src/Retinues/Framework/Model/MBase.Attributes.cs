@@ -14,6 +14,7 @@ namespace Retinues.Framework.Model
     public interface IMAttribute
     {
         string Name { get; }
+        bool IsDirty { get; }
         void AddDependent(IMAttribute dependent);
         void MarkDirty();
     }
@@ -236,29 +237,54 @@ namespace Retinues.Framework.Model
             [CallerMemberName] string name = null
         )
         {
-            if (Base is not MBObjectBase mbo)
-                throw new InvalidOperationException(
-                    "Stored attributes are only supported on WBase wrappers."
+            if (name == null)
+                throw new ArgumentNullException(nameof(name));
+
+            // WBase wrappers: stable cross-wrapper storage keyed by MBObjectBase.StringId
+            if (Base is MBObjectBase mbo)
+            {
+                var storeKey = $"{GetType().FullName}:{mbo.StringId}:{name}";
+
+                var wrapperAttr = GetOrCreateAttribute(
+                    name,
+                    () =>
+                        new MAttribute<T>(
+                            this,
+                            name,
+                            () => MAttribute<T>.Store.GetOrInit(storeKey, initialValue),
+                            value => MAttribute<T>.Store.Set(storeKey, value),
+                            persistent,
+                            priority
+                        )
                 );
 
-            var storeKey = $"{GetType().FullName}:{mbo.StringId}:{name}";
-            var attr = GetOrCreateAttribute(
+                if (wrapperAttr is IMAttribute im1)
+                    RegisterDependencyNames(im1, dependsOn);
+
+                return wrapperAttr;
+            }
+
+            // Non-MBObjectBase models (ex: MEquipment): store value on this model instance.
+            // This still serializes/deserializes normally because MAttribute<T> is persistent.
+            T stored = initialValue;
+
+            var modelAttr = GetOrCreateAttribute(
                 name,
                 () =>
                     new MAttribute<T>(
                         this,
                         name,
-                        () => MAttribute<T>.Store.GetOrInit(storeKey, initialValue),
-                        value => MAttribute<T>.Store.Set(storeKey, value),
+                        () => stored,
+                        value => stored = value,
                         persistent,
                         priority
                     )
             );
 
-            if (attr is IMAttribute im)
-                RegisterDependencyNames(im, dependsOn);
+            if (modelAttr is IMAttribute im2)
+                RegisterDependencyNames(im2, dependsOn);
 
-            return attr;
+            return modelAttr;
         }
     }
 }

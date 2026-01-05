@@ -2,7 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Retinues.Domain.Equipments.Models;
+using Retinues.Editor.Events;
+using Retinues.Modules;
 using Retinues.UI.Services;
+using Retinues.Utilities;
+using TaleWorlds.Localization;
 
 namespace Retinues.Editor.Controllers.Equipment
 {
@@ -125,8 +129,327 @@ namespace Retinues.Editor.Controllers.Equipment
                         "At least one equipment set must remain."
                     )
                 )
+                .AddCondition(
+                    civilian =>
+                    {
+                        if (civilian)
+                            return true;
+
+                        var target = State.Equipment;
+                        return CanDeleteBattleEquipment(target);
+                    },
+                    L.T(
+                        "equipment_delete_breaks_battle_types_reason",
+                        "Cannot delete this set because it is the last one enabled for at least one battle type."
+                    )
+                )
                 .DefaultTooltip(L.T("equipments_delete_set", "Delete the selected equipment set."))
                 .ExecuteWith(DeleteSetImpl);
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Battle Types                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private enum BattleType
+        {
+            Field,
+            Siege,
+            Naval,
+        }
+
+        private static IEnumerable<BattleType> RequiredBattleTypes()
+        {
+            yield return BattleType.Field;
+            yield return BattleType.Siege;
+
+            if (Mods.NavalDLC.IsLoaded)
+                yield return BattleType.Naval;
+        }
+
+        private static bool GetBattleTypeValue(MEquipment e, BattleType type)
+        {
+            if (e == null)
+                return false;
+
+            return type switch
+            {
+                BattleType.Field => e.FieldBattleSet,
+                BattleType.Siege => e.SiegeBattleSet,
+                BattleType.Naval => e.NavalBattleSet,
+                _ => false,
+            };
+        }
+
+        private static void SetBattleTypeValue(MEquipment e, BattleType type, bool value)
+        {
+            if (e == null)
+                return;
+
+            switch (type)
+            {
+                case BattleType.Field:
+                    e.FieldBattleSet = value;
+                    break;
+                case BattleType.Siege:
+                    e.SiegeBattleSet = value;
+                    break;
+                case BattleType.Naval:
+                    e.NavalBattleSet = value;
+                    break;
+            }
+        }
+
+        private static TextObject GetDisableReason(BattleType type)
+        {
+            return type switch
+            {
+                BattleType.Field => L.T(
+                    "battle_type_field_required_reason",
+                    "At least one battle equipment set must remain enabled for field battles."
+                ),
+                BattleType.Siege => L.T(
+                    "battle_type_siege_required_reason",
+                    "At least one battle equipment set must remain enabled for siege battles."
+                ),
+                BattleType.Naval => L.T(
+                    "battle_type_naval_required_reason",
+                    "At least one battle equipment set must remain enabled for naval battles."
+                ),
+                _ => L.T(
+                    "battle_type_required_reason",
+                    "At least one battle equipment set must remain enabled for this battle type."
+                ),
+            };
+        }
+
+        private static bool CoverageSatisfiedAfterChange(
+            List<MEquipment> battleEquipments,
+            MEquipment changing,
+            BattleType type,
+            bool newValue
+        )
+        {
+            if (type == BattleType.Naval && !Mods.NavalDLC.IsLoaded)
+                return true;
+
+            if (battleEquipments == null || battleEquipments.Count == 0)
+                return false;
+
+            var changingBase = changing?.Base;
+
+            for (int i = 0; i < battleEquipments.Count; i++)
+            {
+                var e = battleEquipments[i];
+                if (e == null || e.IsCivilian)
+                    continue;
+
+                bool value = GetBattleTypeValue(e, type);
+
+                if (changingBase != null && e.Base == changingBase)
+                    value = newValue;
+
+                if (value)
+                    return true;
+            }
+
+            return false;
+        }
+
+        private static bool CanDisableBattleType(MEquipment equipment, BattleType type)
+        {
+            if (equipment == null || equipment.IsCivilian)
+                return false;
+
+            if (!GetBattleTypeValue(equipment, type))
+                return true;
+
+            var battle = GetEquipments(civilian: false);
+            return CoverageSatisfiedAfterChange(battle, equipment, type, newValue: false);
+        }
+
+        public static TextObject GetFieldBattleDisableReason()
+        {
+            var e = State.Equipment;
+            if (e == null || e.IsCivilian)
+                return null;
+
+            if (!e.FieldBattleSet)
+                return null;
+
+            return CanDisableBattleType(e, BattleType.Field)
+                ? null
+                : GetDisableReason(BattleType.Field);
+        }
+
+        public static TextObject GetSiegeBattleDisableReason()
+        {
+            var e = State.Equipment;
+            if (e == null || e.IsCivilian)
+                return null;
+
+            if (!e.SiegeBattleSet)
+                return null;
+
+            return CanDisableBattleType(e, BattleType.Siege)
+                ? null
+                : GetDisableReason(BattleType.Siege);
+        }
+
+        public static TextObject GetNavalBattleDisableReason()
+        {
+            if (!Mods.NavalDLC.IsLoaded)
+                return null;
+
+            var e = State.Equipment;
+            if (e == null || e.IsCivilian)
+                return null;
+
+            if (!e.NavalBattleSet)
+                return null;
+
+            return CanDisableBattleType(e, BattleType.Naval)
+                ? null
+                : GetDisableReason(BattleType.Naval);
+        }
+
+        public static bool CanDeleteBattleEquipment(MEquipment equipment)
+        {
+            if (equipment == null || equipment.IsCivilian)
+                return true;
+
+            var battle = GetEquipments(civilian: false);
+            if (battle == null || battle.Count <= 1)
+                return false;
+
+            var targetBase = equipment.Base;
+            var remaining = battle.Where(e => e != null && e.Base != targetBase).ToList();
+
+            foreach (var type in RequiredBattleTypes())
+            {
+                bool any = false;
+
+                for (int i = 0; i < remaining.Count; i++)
+                {
+                    var e = remaining[i];
+                    if (e == null || e.IsCivilian)
+                        continue;
+
+                    if (GetBattleTypeValue(e, type))
+                    {
+                        any = true;
+                        break;
+                    }
+                }
+
+                if (!any)
+                    return false;
+            }
+
+            return true;
+        }
+
+        public static EditorAction<bool> SetFieldBattleSet { get; } =
+            Action<bool>("SetFieldBattleSet")
+                .AddCondition(
+                    _ => State.Equipment != null,
+                    L.T("battle_types_no_set_selected", "No equipment set selected.")
+                )
+                .AddCondition(
+                    _ => State.Equipment != null && State.Equipment.IsCivilian == false,
+                    L.T(
+                        "battle_types_civilian_reason",
+                        "Civilian equipment sets do not have battle type restrictions."
+                    )
+                )
+                .AddCondition(
+                    value => value || CanDisableBattleType(State.Equipment, BattleType.Field),
+                    GetDisableReason(BattleType.Field)
+                )
+                .ExecuteWith(SetFieldBattleSetImpl)
+                .Fire(UIEvent.BattleToggle);
+
+        private static void SetFieldBattleSetImpl(bool value)
+        {
+            var e = State.Equipment;
+            if (e == null || e.IsCivilian)
+                return;
+
+            if (!value && !CanDisableBattleType(e, BattleType.Field))
+                return;
+
+            SetBattleTypeValue(e, BattleType.Field, value);
+        }
+
+        public static EditorAction<bool> SetSiegeBattleSet { get; } =
+            Action<bool>("SetSiegeBattleSet")
+                .AddCondition(
+                    _ => State.Equipment != null,
+                    L.T("battle_types_no_set_selected", "No equipment set selected.")
+                )
+                .AddCondition(
+                    _ => State.Equipment != null && State.Equipment.IsCivilian == false,
+                    L.T(
+                        "battle_types_civilian_reason",
+                        "Civilian equipment sets do not have battle type restrictions."
+                    )
+                )
+                .AddCondition(
+                    value => value || CanDisableBattleType(State.Equipment, BattleType.Siege),
+                    GetDisableReason(BattleType.Siege)
+                )
+                .ExecuteWith(SetSiegeBattleSetImpl)
+                .Fire(UIEvent.BattleToggle);
+
+        private static void SetSiegeBattleSetImpl(bool value)
+        {
+            var e = State.Equipment;
+            if (e == null || e.IsCivilian)
+                return;
+
+            if (!value && !CanDisableBattleType(e, BattleType.Siege))
+                return;
+
+            SetBattleTypeValue(e, BattleType.Siege, value);
+        }
+
+        public static EditorAction<bool> SetNavalBattleSet { get; } =
+            Action<bool>("SetNavalBattleSet")
+                .AddCondition(
+                    _ => Mods.NavalDLC.IsLoaded,
+                    L.T("naval_dlc_not_loaded", "War Sails is not installed.")
+                )
+                .AddCondition(
+                    _ => State.Equipment != null,
+                    L.T("battle_types_no_set_selected", "No equipment set selected.")
+                )
+                .AddCondition(
+                    _ => State.Equipment != null && State.Equipment.IsCivilian == false,
+                    L.T(
+                        "battle_types_civilian_reason",
+                        "Civilian equipment sets do not have battle type restrictions."
+                    )
+                )
+                .AddCondition(
+                    value => value || CanDisableBattleType(State.Equipment, BattleType.Naval),
+                    GetDisableReason(BattleType.Naval)
+                )
+                .ExecuteWith(SetNavalBattleSetImpl)
+                .Fire(UIEvent.BattleToggle);
+
+        private static void SetNavalBattleSetImpl(bool value)
+        {
+            if (!Mods.NavalDLC.IsLoaded)
+                return;
+
+            var e = State.Equipment;
+            if (e == null || e.IsCivilian)
+                return;
+
+            if (!value && !CanDisableBattleType(e, BattleType.Naval))
+                return;
+
+            SetBattleTypeValue(e, BattleType.Naval, value);
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Queries                        //

@@ -28,29 +28,26 @@ namespace Retinues.Domain.Equipments.Models
         MAttribute<MBList<Equipment>> EquipmentsAttribute =>
             Attribute<MBList<Equipment>>("_equipments");
 
-        MAttribute<List<MEquipment>> EquipmentsMAttribute =>
-            Attribute<List<MEquipment>>(
-                getter: _ =>
-                    [
-                        .. (EquipmentsAttribute.Get() ?? []).Select(e => new MEquipment(
-                            e,
-                            owner,
-                            roster: this
-                        )),
-                    ],
-                setter: (_, value) =>
-                {
-                    EquipmentsAttribute.Set([.. (value ?? []).Select(e => e.Base).ToList()]);
-                }
-            );
+        private List<MEquipment> _equipmentsCache;
 
         public List<MEquipment> Equipments
         {
-            get => EquipmentsMAttribute.Get();
+            get
+            {
+                if (_equipmentsCache != null)
+                    return _equipmentsCache;
+
+                var list = EquipmentsAttribute.Get() ?? [];
+                _equipmentsCache = [.. list.Select(e => new MEquipment(e, owner, roster: this))];
+                return _equipmentsCache;
+            }
             set
             {
                 owner.TouchEquipments();
-                EquipmentsMAttribute.Set(value);
+
+                _equipmentsCache = value ?? [];
+                EquipmentsAttribute.Set([.. _equipmentsCache.Select(e => e.Base).ToList()]);
+
                 InvalidateItemCountsCache();
             }
         }
@@ -196,18 +193,16 @@ namespace Retinues.Domain.Equipments.Models
         {
             Dictionary<string, int> result = [];
 
-            var list = EquipmentsAttribute.Get() ?? [];
+            // Use cached wrappers, not fresh wrappers
+            var list = Equipments;
 
             for (int i = 0; i < list.Count; i++)
             {
-                var eq = list[i];
-                if (eq == null)
+                var me = list[i];
+                if (me == null)
                     continue;
 
-                // Count multiplicity within this one equipment.
                 Dictionary<string, int> per = [];
-
-                var me = new MEquipment(eq, owner, roster: this);
 
                 foreach (var item in me.Items)
                 {
@@ -224,7 +219,6 @@ namespace Retinues.Domain.Equipments.Models
                     per[id]++;
                 }
 
-                // Merge via max across equipments.
                 foreach (var kv in per)
                 {
                     if (!result.TryGetValue(kv.Key, out int current))
@@ -244,19 +238,17 @@ namespace Retinues.Domain.Equipments.Models
 
             int max = 0;
 
-            var list = EquipmentsAttribute.Get() ?? [];
+            var list = Equipments;
             for (int i = 0; i < list.Count; i++)
             {
-                var eq = list[i];
-                if (eq == null)
+                var me = list[i];
+                if (me == null)
                     continue;
 
-                if (ReferenceEquals(eq, exclude))
+                if (ReferenceEquals(me.Base, exclude))
                     continue;
 
                 int count = 0;
-                var me = new MEquipment(eq, owner, roster: this);
-
                 foreach (var item in me.Items)
                 {
                     if (item != null && item.StringId == itemId)

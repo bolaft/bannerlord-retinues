@@ -15,10 +15,15 @@ namespace Retinues.Domain.Characters.Wrappers
 
         private bool _initializingEquipmentRoster;
 
+        private MEquipmentRoster _equipmentRosterCache;
+
         public MEquipmentRoster EquipmentRoster
         {
             get
             {
+                if (_equipmentRosterCache != null)
+                    return _equipmentRosterCache;
+
                 var roster = Reflection.GetFieldValue<MBEquipmentRoster>(Base, "_equipmentRoster");
 
                 if (roster == null)
@@ -27,15 +32,14 @@ namespace Retinues.Domain.Characters.Wrappers
                     Reflection.SetFieldValue(Base, "_equipmentRoster", roster);
                 }
 
-                var mroster = new MEquipmentRoster(roster, this);
+                _equipmentRosterCache = new MEquipmentRoster(roster, this);
 
-                if (mroster.Equipments.Count == 0)
-                    mroster.Reset();
+                if (_equipmentRosterCache.Equipments.Count == 0)
+                    _equipmentRosterCache.Reset();
 
-                // IMPORTANT: avoid recursion by not touching Equipments/EquipmentRoster again here.
-                EnsureFirstBattleHookAndFormation(mroster);
+                EnsureFirstBattleHookAndFormation(_equipmentRosterCache);
 
-                return mroster;
+                return _equipmentRosterCache;
             }
         }
 

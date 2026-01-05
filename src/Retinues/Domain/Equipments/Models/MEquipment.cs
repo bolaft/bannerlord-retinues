@@ -16,12 +16,6 @@ namespace Retinues.Domain.Equipments.Models
 
         private readonly MEquipmentRoster _roster = roster;
 
-        private static bool IsValidSlot(EquipmentIndex index)
-        {
-            int i = (int)index;
-            return i >= 0 && i < SlotCount;
-        }
-
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Creation                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -38,8 +32,7 @@ namespace Retinues.Domain.Equipments.Models
             var equipment =
                 source == null ? new Equipment() : Equipment.CreateFromEquipmentCode(source.Code);
 
-            if (equipment == null)
-                equipment = new Equipment();
+            equipment ??= new Equipment();
 
             var me = new MEquipment(equipment, owner, roster)
             {
@@ -116,6 +109,52 @@ namespace Retinues.Domain.Equipments.Models
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Battle Types                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        MAttribute<bool> FieldBattleSetAttribute => Attribute(initialValue: true);
+
+        public bool FieldBattleSet
+        {
+            get => IsCivilian || FieldBattleSetAttribute.Get();
+            set
+            {
+                if (IsCivilian)
+                    return;
+                owner.TouchEquipments();
+                FieldBattleSetAttribute.Set(value);
+            }
+        }
+
+        MAttribute<bool> SiegeBattleSetAttribute => Attribute(initialValue: true);
+
+        public bool SiegeBattleSet
+        {
+            get => IsCivilian || SiegeBattleSetAttribute.Get();
+            set
+            {
+                if (IsCivilian)
+                    return;
+                owner.TouchEquipments();
+                SiegeBattleSetAttribute.Set(value);
+            }
+        }
+
+        MAttribute<bool> NavalBattleSetAttribute => Attribute(initialValue: true);
+
+        public bool NavalBattleSet
+        {
+            get => IsCivilian || NavalBattleSetAttribute.Get();
+            set
+            {
+                if (IsCivilian)
+                    return;
+                owner.TouchEquipments();
+                NavalBattleSetAttribute.Set(value);
+            }
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Items                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
@@ -154,6 +193,12 @@ namespace Retinues.Domain.Equipments.Models
             _formationDirty = true;
             ItemsChanged?.Invoke(this);
             _roster?.InvalidateItemCountsCache();
+        }
+
+        private static bool IsValidSlot(EquipmentIndex index)
+        {
+            int i = (int)index;
+            return i >= 0 && i < SlotCount;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

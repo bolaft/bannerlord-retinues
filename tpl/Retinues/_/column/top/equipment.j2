@@ -107,6 +107,73 @@
         </ListPanel>
 
         {# ------------------------------------------ #}
+        {# Set Toggles                                #}
+        {# ------------------------------------------ #}
+
+        <ListPanel
+            IsVisible="@ShowBattleTypeToggles"
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            HorizontalAlignment="Center"
+            MarginTop="4"
+            StackLayout.LayoutMethod="HorizontalLeftToRight">
+            <Children>
+
+                {% macro battle_set_toggle(sprite, binding, tooltip, checkbox_tooltip, enabled = "true", is_visible = "true") %}
+                    <ListPanel
+                        IsVisible="{{ is_visible }}"
+                        WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed"
+                        SuggestedHeight="32"
+                        HorizontalAlignment="Center">
+                        <Children>
+
+                            <SpriteWidget
+                                WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                                SuggestedWidth="32" SuggestedHeight="32"
+                                HorizontalAlignment="Center" VerticalAlignment="Center"
+                                Sprite="{{ sprite }}" >
+                                <Children>
+                                    <HintWidget
+                                        DataSource="{{ tooltip }}"
+                                        Command.HoverBegin="ExecuteBeginHint"
+                                        Command.HoverEnd="ExecuteEndHint" />
+                                </Children>
+                            </SpriteWidget>
+
+                            {{ checkbox(binding=binding, size="24", tooltip=checkbox_tooltip, enabled=enabled) }}
+
+                        </Children>
+                    </ListPanel>
+                {% endmacro %}
+
+                {{ battle_set_toggle(
+                    "SPGeneral\MapOverlay\Settlement\icon_garrison_big",
+                    "@FieldBattleSet",
+                    "{FieldBattleTooltip}",
+                    "{FieldBattleCheckboxTooltip}",
+                    enabled="@FieldBattleCheckboxEnabled"
+                ) }}
+
+                {{ battle_set_toggle(
+                    "SPGeneral\MapOverlay\Settlement\icon_wall_big",
+                    "@SiegeBattleSet",
+                    "{SiegeBattleTooltip}",
+                    "{SiegeBattleCheckboxTooltip}",
+                    enabled="@SiegeBattleCheckboxEnabled"
+                ) }}
+
+                {{ battle_set_toggle(
+                    "SPGeneral\MapOverlay\Settlement\icon_prosperity_big",
+                    "@NavalBattleSet",
+                    "{NavalBattleTooltip}",
+                    "{NavalBattleCheckboxTooltip}",
+                    enabled="@NavalBattleCheckboxEnabled",
+                    is_visible="@ShowNavalBattleToggle"
+                ) }}
+
+            </Children>
+        </ListPanel>
+
+        {# ------------------------------------------ #}
         {# Preview Mode Text                          #}
         {# ------------------------------------------ #}
 

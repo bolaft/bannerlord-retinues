@@ -3,9 +3,9 @@ using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Domain.Equipments.Models;
 using Retinues.Editor.Controllers.Equipment;
 using Retinues.Editor.Events;
+using Retinues.Modules;
 using Retinues.UI.Services;
 using Retinues.UI.VM;
-using TaleWorlds.Core;
 using TaleWorlds.Library;
 
 namespace Retinues.Editor.VM.Column.Equipment
@@ -108,7 +108,7 @@ namespace Retinues.Editor.VM.Column.Equipment
             new(
                 action: EquipmentController.SelectPrevSet,
                 arg: () => _civilian,
-                refresh: [UIEvent.Character, UIEvent.Equipment]
+                refresh: [UIEvent.Equipment]
             );
 
         [DataSourceProperty]
@@ -116,7 +116,7 @@ namespace Retinues.Editor.VM.Column.Equipment
             new(
                 action: EquipmentController.SelectNextSet,
                 arg: () => _civilian,
-                refresh: [UIEvent.Character, UIEvent.Equipment]
+                refresh: [UIEvent.Equipment]
             );
 
         [DataSourceProperty]
@@ -124,7 +124,7 @@ namespace Retinues.Editor.VM.Column.Equipment
             new(
                 action: EquipmentController.CreateSet,
                 arg: () => _civilian,
-                refresh: [UIEvent.Character, UIEvent.Equipment]
+                refresh: [UIEvent.Equipment]
             );
 
         [DataSourceProperty]
@@ -132,8 +132,159 @@ namespace Retinues.Editor.VM.Column.Equipment
             new(
                 action: EquipmentController.DeleteSet,
                 arg: () => _civilian,
-                refresh: [UIEvent.Character, UIEvent.Equipment]
+                refresh: [UIEvent.Equipment]
             );
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Battle Types                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [EventListener(UIEvent.Equipment)]
+        [DataSourceProperty]
+        public bool ShowBattleTypeToggles =>
+            State.Mode == EditorMode.Player
+            && State.Equipment != null
+            && State.Equipment.IsCivilian == false;
+
+        [EventListener(UIEvent.BattleToggle)]
+        [DataSourceProperty]
+        public bool FieldBattleSet
+        {
+            get => State.Equipment?.FieldBattleSet ?? false;
+            set => EquipmentController.SetFieldBattleSet.Execute(value);
+        }
+
+        [EventListener(UIEvent.BattleToggle)]
+        [DataSourceProperty]
+        public bool SiegeBattleSet
+        {
+            get => State.Equipment?.SiegeBattleSet ?? false;
+            set => EquipmentController.SetSiegeBattleSet.Execute(value);
+        }
+
+        [EventListener(UIEvent.BattleToggle)]
+        [DataSourceProperty]
+        public bool NavalBattleSet
+        {
+            get => State.Equipment?.NavalBattleSet ?? false;
+            set => EquipmentController.SetNavalBattleSet.Execute(value);
+        }
+
+        [EventListener(UIEvent.Equipment)]
+        [DataSourceProperty]
+        public bool ShowNavalBattleToggle =>
+            Mods.NavalDLC.IsLoaded
+            && State.Equipment != null
+            && State.Equipment.IsCivilian == false;
+
+        // Enabled state for the checkbox widgets
+
+        [EventListener(UIEvent.Equipment, UIEvent.BattleToggle)]
+        [DataSourceProperty]
+        public bool FieldBattleCheckboxEnabled =>
+            !FieldBattleSet || EquipmentController.GetFieldBattleDisableReason() == null;
+
+        [EventListener(UIEvent.Equipment, UIEvent.BattleToggle)]
+        [DataSourceProperty]
+        public bool SiegeBattleCheckboxEnabled =>
+            !SiegeBattleSet || EquipmentController.GetSiegeBattleDisableReason() == null;
+
+        [EventListener(UIEvent.Equipment, UIEvent.BattleToggle)]
+        [DataSourceProperty]
+        public bool NavalBattleCheckboxEnabled =>
+            !NavalBattleSet || EquipmentController.GetNavalBattleDisableReason() == null;
+
+        // Tooltips (show disable reason when disabled)
+
+        [DataSourceProperty]
+        public Tooltip FieldBattleTooltip =>
+            new(L.T("battle_type_field_tooltip", "Field battles."));
+
+        [EventListener(UIEvent.Equipment, UIEvent.BattleToggle)]
+        [DataSourceProperty]
+        public Tooltip FieldBattleCheckboxTooltip
+        {
+            get
+            {
+                var reason = EquipmentController.GetFieldBattleDisableReason();
+                if (FieldBattleSet && reason != null)
+                    return new Tooltip(reason);
+
+                return FieldBattleSet
+                    ? new Tooltip(
+                        L.T(
+                            "battle_type_field_checkbox_tooltip_disable",
+                            "Disable for field battles."
+                        )
+                    )
+                    : new Tooltip(
+                        L.T(
+                            "battle_type_field_checkbox_tooltip_enable",
+                            "Enable for field battles."
+                        )
+                    );
+            }
+        }
+
+        [DataSourceProperty]
+        public Tooltip SiegeBattleTooltip =>
+            new(L.T("battle_type_siege_tooltip", "Siege battles."));
+
+        [EventListener(UIEvent.Equipment, UIEvent.BattleToggle)]
+        [DataSourceProperty]
+        public Tooltip SiegeBattleCheckboxTooltip
+        {
+            get
+            {
+                var reason = EquipmentController.GetSiegeBattleDisableReason();
+                if (SiegeBattleSet && reason != null)
+                    return new Tooltip(reason);
+
+                return SiegeBattleSet
+                    ? new Tooltip(
+                        L.T(
+                            "battle_type_siege_checkbox_tooltip_disable",
+                            "Disable for siege battles."
+                        )
+                    )
+                    : new Tooltip(
+                        L.T(
+                            "battle_type_siege_checkbox_tooltip_enable",
+                            "Enable for siege battles."
+                        )
+                    );
+            }
+        }
+
+        [DataSourceProperty]
+        public Tooltip NavalBattleTooltip =>
+            new(L.T("battle_type_naval_tooltip", "Naval battles."));
+
+        [EventListener(UIEvent.Equipment, UIEvent.BattleToggle)]
+        [DataSourceProperty]
+        public Tooltip NavalBattleCheckboxTooltip
+        {
+            get
+            {
+                var reason = EquipmentController.GetNavalBattleDisableReason();
+                if (NavalBattleSet && reason != null)
+                    return new Tooltip(reason);
+
+                return NavalBattleSet
+                    ? new Tooltip(
+                        L.T(
+                            "battle_type_naval_checkbox_tooltip_disable",
+                            "Disable for naval battles."
+                        )
+                    )
+                    : new Tooltip(
+                        L.T(
+                            "battle_type_naval_checkbox_tooltip_enable",
+                            "Enable for naval battles."
+                        )
+                    );
+            }
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Preview Mode                      //

@@ -31,6 +31,7 @@ namespace Retinues.Editor.Events
         Library,
         Preview,
         Crafted,
+        BattleToggle,
     }
 
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -148,7 +149,7 @@ namespace Retinues.Editor.Events
                     UIEvent.Formation,
                 }
             },
-            { UIEvent.Equipment, new[] { UIEvent.Appearance, UIEvent.Item } },
+            { UIEvent.Equipment, new[] { UIEvent.Appearance, UIEvent.Item, UIEvent.BattleToggle } },
             { UIEvent.Culture, new[] { UIEvent.Appearance } },
             { UIEvent.Gender, new[] { UIEvent.Appearance } },
             { UIEvent.Item, new[] { UIEvent.Appearance, UIEvent.Formation } },

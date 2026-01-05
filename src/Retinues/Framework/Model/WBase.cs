@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Retinues.Framework.Model.Attributes;
 using Retinues.Framework.Runtime;
 using TaleWorlds.ObjectSystem;
 
@@ -18,6 +19,24 @@ namespace Retinues.Framework.Model
 
         public string StringId => Base.StringId;
         public string UniqueId => $"{Base.GetType().FullName}:{StringId}";
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Dirty                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public bool IsDirty
+        {
+            get
+            {
+                foreach (var obj in _attributes.Values)
+                {
+                    if (obj is IMAttribute attr && attr.IsDirty)
+                        return true;
+                }
+
+                return false;
+            }
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Cache                         //
