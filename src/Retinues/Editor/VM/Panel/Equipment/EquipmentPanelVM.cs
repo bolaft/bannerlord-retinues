@@ -1,5 +1,8 @@
+using Retinues.Configuration;
+using Retinues.Editor.Controllers.Equipment;
 using Retinues.Editor.Events;
 using Retinues.UI.Services;
+using Retinues.Utilities;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 
@@ -22,13 +25,149 @@ namespace Retinues.Editor.VM.Panel.Equipment
         //                          Infos                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        private static bool IsPlayerMode => State.Mode == EditorMode.Player;
+        private static bool WeightLimitActive => IsPlayerMode && Settings.LimitEquipmentByWeight;
+        private static bool ValueLimitActive => IsPlayerMode && Settings.LimitEquipmentByValue;
+
         [EventListener(UIEvent.Item)]
+        [EventListener(UIEvent.Equipment)]
         [DataSourceProperty]
-        public string InfoText =>
-            L.T("equipment_panel_info", "{WEIGHT} kg / {VALUE} denars")
-                .SetTextVariable("WEIGHT", State.Equipment.Weight)
-                .SetTextVariable("VALUE", State.Equipment.Value)
-                .ToString();
+        public bool IsWeightLimitVisible => WeightLimitActive;
+
+        [EventListener(UIEvent.Item)]
+        [EventListener(UIEvent.Equipment)]
+        [DataSourceProperty]
+        public bool IsValueLimitVisible => ValueLimitActive;
+
+        [EventListener(UIEvent.Item)]
+        [EventListener(UIEvent.Equipment)]
+        [DataSourceProperty]
+        public string WeightValueText
+        {
+            get
+            {
+                var eq = State.Equipment;
+                if (eq == null)
+                    return string.Empty;
+
+                return L.T("equipment_panel_weight_value", "{WEIGHT} kg")
+                    .SetTextVariable("WEIGHT", eq.Weight.ToString("0.0"))
+                    .ToString();
+            }
+        }
+
+        [EventListener(UIEvent.Item)]
+        [EventListener(UIEvent.Equipment)]
+        [DataSourceProperty]
+        public string WeightLimitText
+        {
+            get
+            {
+                if (!WeightLimitActive)
+                    return string.Empty;
+
+                int tier = State.Character?.Tier ?? 0;
+                float limit = ItemController.GetEquipmentWeightLimit(tier);
+
+                return L.T("equipment_panel_weight_limit", "{LIMIT} kg")
+                    .SetTextVariable("LIMIT", limit.ToString("0.0"))
+                    .ToString();
+            }
+        }
+
+        [EventListener(UIEvent.Item)]
+        [EventListener(UIEvent.Equipment)]
+        [DataSourceProperty]
+        public string ValueValueText
+        {
+            get
+            {
+                var eq = State.Equipment;
+                if (eq == null)
+                    return string.Empty;
+
+                return L.T("equipment_panel_value_value", "{VALUE} denars")
+                    .SetTextVariable("VALUE", eq.Value)
+                    .ToString();
+            }
+        }
+
+        [EventListener(UIEvent.Item)]
+        [EventListener(UIEvent.Equipment)]
+        [DataSourceProperty]
+        public string ValueLimitText
+        {
+            get
+            {
+                if (!ValueLimitActive)
+                    return string.Empty;
+
+                int tier = State.Character?.Tier ?? 0;
+                int limit = ItemController.GetEquipmentValueLimit(tier);
+
+                return L.T("equipment_panel_value_limit", "{LIMIT} denars")
+                    .SetTextVariable("LIMIT", limit)
+                    .ToString();
+            }
+        }
+
+        [EventListener(UIEvent.Item)]
+        [EventListener(UIEvent.Equipment)]
+        [DataSourceProperty]
+        public Color WeightValueColor
+        {
+            get
+            {
+                var eq = State.Equipment;
+                if (eq == null)
+                    return Color.White;
+
+                if (!WeightLimitActive)
+                    return Color.White;
+
+                int tier = State.Character?.Tier ?? 0;
+                float limit = ItemController.GetEquipmentWeightLimit(tier);
+                if (limit <= 0f)
+                    return Color.White;
+
+                float ratio = eq.Weight / limit;
+
+                return Utilities.Colors.ProximityLimitColor(
+                    ratio,
+                    saturation: 0.78f,
+                    tintStrength: 0.88f
+                );
+            }
+        }
+
+        [EventListener(UIEvent.Item)]
+        [EventListener(UIEvent.Equipment)]
+        [DataSourceProperty]
+        public Color ValueValueColor
+        {
+            get
+            {
+                var eq = State.Equipment;
+                if (eq == null)
+                    return Color.White;
+
+                if (!ValueLimitActive)
+                    return Color.White;
+
+                int tier = State.Character?.Tier ?? 0;
+                int limit = ItemController.GetEquipmentValueLimit(tier);
+                if (limit <= 0)
+                    return Color.White;
+
+                float ratio = (float)eq.Value / limit;
+
+                return Utilities.Colors.ProximityLimitColor(
+                    ratio,
+                    saturation: 0.78f,
+                    tintStrength: 0.88f
+                );
+            }
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Weapons                        //

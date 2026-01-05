@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Retinues.Configuration;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Equipments.Models;
 using Retinues.Domain.Equipments.Wrappers;
@@ -15,7 +16,7 @@ namespace Retinues.Domain.Equipments.Helpers
     /// Helpers for selecting random items and building random equipment sets.
     /// </summary>
     [SafeClass]
-    public static class RandomHelper
+    public static class RandomEquipmentHelper
     {
         public static string[] InvalidTokensForMale = ["skirt", "dress", "lady"];
 
@@ -81,6 +82,7 @@ namespace Retinues.Domain.Equipments.Helpers
         /// itemFilter: optional global filter applied to every candidate (ex: unlocked-only).
         /// fromStocks: if true, only pick items with Stock > 0 (and do not exceed stock count within this equipment).
         /// pickBest: if true, pick the best candidate from the computed pool instead of random.
+        /// enforceLimits: if true, applies current tier-based weight/value limits while generating.
         /// </summary>
         public static MEquipment CreateRandomEquipment(
             WCharacter owner,
@@ -93,7 +95,8 @@ namespace Retinues.Domain.Equipments.Helpers
             bool requireSkillForItem = true,
             Func<WItem, bool> itemFilter = null,
             bool fromStocks = false,
-            bool pickBest = false
+            bool pickBest = false,
+            bool enforceLimits = false
         )
         {
             if (owner?.Base == null)
@@ -114,6 +117,24 @@ namespace Retinues.Domain.Equipments.Helpers
                 if (list.Count > 0)
                     cultureIds = [.. list];
             }
+
+            // Limits
+            bool weightLimitActive = enforceLimits && Settings.LimitEquipmentByWeight;
+            bool valueLimitActive = enforceLimits && Settings.LimitEquipmentByValue;
+
+            float weightLimit = weightLimitActive
+                ? EquipmentLimitsHelper.GetWeightLimit(
+                    owner.Tier,
+                    Settings.EquipmentWeightLimitMultiplier
+                )
+                : 0f;
+
+            int valueLimit = valueLimitActive
+                ? EquipmentLimitsHelper.GetValueLimit(
+                    owner.Tier,
+                    Settings.EquipmentValueLimitMultiplier
+                )
+                : 0;
 
             Func<WItem, bool> finalFilter = itemFilter;
 
@@ -149,6 +170,7 @@ namespace Retinues.Domain.Equipments.Helpers
 
                 var item = GetRandomItemForSlotFiltered(
                     owner,
+                    me,
                     slot,
                     civilian,
                     minTier,
@@ -158,7 +180,11 @@ namespace Retinues.Domain.Equipments.Helpers
                     requireSkillForItem,
                     predicate: it => it.IsArmor,
                     itemFilter: finalFilter,
-                    pickBest: pickBest
+                    pickBest: pickBest,
+                    weightLimitActive: weightLimitActive,
+                    weightLimit: weightLimit,
+                    valueLimitActive: valueLimitActive,
+                    valueLimit: valueLimit
                 );
 
                 me.Set(slot, item);
@@ -175,7 +201,11 @@ namespace Retinues.Domain.Equipments.Helpers
                     noItemChanceBySlotPercent,
                     requireSkillForItem,
                     finalFilter,
-                    pickBest
+                    pickBest,
+                    weightLimitActive,
+                    weightLimit,
+                    valueLimitActive,
+                    valueLimit
                 );
 
             if (civilian)
@@ -189,7 +219,11 @@ namespace Retinues.Domain.Equipments.Helpers
                     acceptNeutralCulture,
                     requireSkillForItem,
                     finalFilter,
-                    pickBest
+                    pickBest,
+                    weightLimitActive,
+                    weightLimit,
+                    valueLimitActive,
+                    valueLimit
                 );
             }
             else
@@ -203,7 +237,11 @@ namespace Retinues.Domain.Equipments.Helpers
                     acceptNeutralCulture,
                     requireSkillForItem,
                     finalFilter,
-                    pickBest
+                    pickBest,
+                    weightLimitActive,
+                    weightLimit,
+                    valueLimitActive,
+                    valueLimit
                 );
             }
 
@@ -231,8 +269,10 @@ namespace Retinues.Domain.Equipments.Helpers
                     cultureIds = null;
             }
 
+            // No limits here (this method returns a slot item without equipment context).
             return GetRandomItemForSlotFiltered(
                 owner,
+                currentEquipment: null,
                 slot,
                 civilian,
                 minTier,
@@ -242,7 +282,11 @@ namespace Retinues.Domain.Equipments.Helpers
                 requireSkillForItem,
                 predicate: null,
                 itemFilter: itemFilter,
-                pickBest: false
+                pickBest: false,
+                weightLimitActive: false,
+                weightLimit: 0f,
+                valueLimitActive: false,
+                valueLimit: 0
             );
         }
 
@@ -260,7 +304,11 @@ namespace Retinues.Domain.Equipments.Helpers
             Dictionary<EquipmentIndex, float> noItemChanceBySlotPercent,
             bool requireSkillForItem,
             Func<WItem, bool> itemFilter,
-            bool pickBest
+            bool pickBest,
+            bool weightLimitActive,
+            float weightLimit,
+            bool valueLimitActive,
+            int valueLimit
         )
         {
             if (ShouldSkipSlot(EquipmentIndex.Horse, noItemChanceBySlotPercent))
@@ -272,6 +320,7 @@ namespace Retinues.Domain.Equipments.Helpers
 
             var horse = GetRandomItemForSlotFiltered(
                 owner,
+                me,
                 EquipmentIndex.Horse,
                 civilian: false,
                 minTier,
@@ -281,7 +330,11 @@ namespace Retinues.Domain.Equipments.Helpers
                 requireSkillForItem,
                 predicate: it => it.IsHorse,
                 itemFilter: itemFilter,
-                pickBest: pickBest
+                pickBest: pickBest,
+                weightLimitActive: weightLimitActive,
+                weightLimit: weightLimit,
+                valueLimitActive: valueLimitActive,
+                valueLimit: valueLimit
             );
 
             if (horse == null)
@@ -295,6 +348,7 @@ namespace Retinues.Domain.Equipments.Helpers
 
             var harness = GetRandomItemForSlotFiltered(
                 owner,
+                me,
                 EquipmentIndex.HorseHarness,
                 civilian: false,
                 minTier,
@@ -304,7 +358,11 @@ namespace Retinues.Domain.Equipments.Helpers
                 requireSkillForItem,
                 predicate: it => it.IsHorseHarness && it.IsCompatibleWith(horse),
                 itemFilter: itemFilter,
-                pickBest: pickBest
+                pickBest: pickBest,
+                weightLimitActive: weightLimitActive,
+                weightLimit: weightLimit,
+                valueLimitActive: valueLimitActive,
+                valueLimit: valueLimit
             );
 
             me.Set(EquipmentIndex.HorseHarness, harness);
@@ -333,7 +391,11 @@ namespace Retinues.Domain.Equipments.Helpers
             bool acceptNeutralCulture,
             bool requireSkillForItem,
             Func<WItem, bool> itemFilter,
-            bool pickBest
+            bool pickBest,
+            bool weightLimitActive,
+            float weightLimit,
+            bool valueLimitActive,
+            int valueLimit
         )
         {
             for (int i = 0; i < WeaponSlots.Length; i++)
@@ -354,7 +416,11 @@ namespace Retinues.Domain.Equipments.Helpers
                         acceptNeutralCulture,
                         requireSkillForItem,
                         itemFilter,
-                        pickBest
+                        pickBest,
+                        weightLimitActive,
+                        weightLimit,
+                        valueLimitActive,
+                        valueLimit
                     )
                 )
                     return;
@@ -366,6 +432,7 @@ namespace Retinues.Domain.Equipments.Helpers
             // Fallback: avoid ranged-without-ammo.
             var meleeOrThrown = PickByTypes(
                 owner,
+                me,
                 EquipmentIndex.Weapon0,
                 civilian: false,
                 minTier,
@@ -379,7 +446,11 @@ namespace Retinues.Domain.Equipments.Helpers
                     .Concat(PolearmTypes)
                     .Concat(ThrownTypes)
                     .ToArray(),
-                pickBest
+                pickBest,
+                weightLimitActive,
+                weightLimit,
+                valueLimitActive,
+                valueLimit
             );
 
             if (meleeOrThrown != null)
@@ -391,6 +462,7 @@ namespace Retinues.Domain.Equipments.Helpers
             // Last resort: try ranged + ammo (2 slots).
             var ranged = PickByTypes(
                 owner,
+                me,
                 EquipmentIndex.Weapon0,
                 civilian: false,
                 minTier,
@@ -400,7 +472,11 @@ namespace Retinues.Domain.Equipments.Helpers
                 requireSkillForItem,
                 itemFilter,
                 RangedWeaponTypes,
-                pickBest
+                pickBest,
+                weightLimitActive,
+                weightLimit,
+                valueLimitActive,
+                valueLimit
             );
 
             if (ranged == null)
@@ -412,6 +488,7 @@ namespace Retinues.Domain.Equipments.Helpers
 
             var ammo = PickByTypes(
                 owner,
+                me,
                 EquipmentIndex.Weapon1,
                 civilian: false,
                 minTier,
@@ -421,7 +498,11 @@ namespace Retinues.Domain.Equipments.Helpers
                 requireSkillForItem,
                 itemFilter,
                 [ammoType.Value],
-                pickBest
+                pickBest,
+                weightLimitActive,
+                weightLimit,
+                valueLimitActive,
+                valueLimit
             );
 
             if (ammo == null)
@@ -441,7 +522,11 @@ namespace Retinues.Domain.Equipments.Helpers
             bool acceptNeutralCulture,
             bool requireSkillForItem,
             Func<WItem, bool> itemFilter,
-            bool pickBest
+            bool pickBest,
+            bool weightLimitActive,
+            float weightLimit,
+            bool valueLimitActive,
+            int valueLimit
         )
         {
             switch (preset)
@@ -450,6 +535,7 @@ namespace Retinues.Domain.Equipments.Helpers
                 {
                     var oneHand = PickByTypes(
                         owner,
+                        me,
                         EquipmentIndex.Weapon0,
                         false,
                         minTier,
@@ -459,10 +545,15 @@ namespace Retinues.Domain.Equipments.Helpers
                         requireSkillForItem,
                         itemFilter,
                         OneHandedTypes,
-                        pickBest
+                        pickBest,
+                        weightLimitActive,
+                        weightLimit,
+                        valueLimitActive,
+                        valueLimit
                     );
                     var shield = PickByTypes(
                         owner,
+                        me,
                         EquipmentIndex.Weapon1,
                         false,
                         minTier,
@@ -472,7 +563,11 @@ namespace Retinues.Domain.Equipments.Helpers
                         requireSkillForItem,
                         itemFilter,
                         ShieldTypes,
-                        pickBest
+                        pickBest,
+                        weightLimitActive,
+                        weightLimit,
+                        valueLimitActive,
+                        valueLimit
                     );
 
                     if (oneHand == null || shield == null)
@@ -487,6 +582,7 @@ namespace Retinues.Domain.Equipments.Helpers
                 {
                     var twoHand = PickByTypes(
                         owner,
+                        me,
                         EquipmentIndex.Weapon0,
                         false,
                         minTier,
@@ -496,7 +592,11 @@ namespace Retinues.Domain.Equipments.Helpers
                         requireSkillForItem,
                         itemFilter,
                         TwoHandedTypes,
-                        pickBest
+                        pickBest,
+                        weightLimitActive,
+                        weightLimit,
+                        valueLimitActive,
+                        valueLimit
                     );
                     if (twoHand == null)
                         return false;
@@ -509,6 +609,7 @@ namespace Retinues.Domain.Equipments.Helpers
                 {
                     var polearm = PickByTypes(
                         owner,
+                        me,
                         EquipmentIndex.Weapon0,
                         false,
                         minTier,
@@ -518,7 +619,11 @@ namespace Retinues.Domain.Equipments.Helpers
                         requireSkillForItem,
                         itemFilter,
                         PolearmTypes,
-                        pickBest
+                        pickBest,
+                        weightLimitActive,
+                        weightLimit,
+                        valueLimitActive,
+                        valueLimit
                     );
                     if (polearm == null)
                         return false;
@@ -532,6 +637,7 @@ namespace Retinues.Domain.Equipments.Helpers
                 {
                     var ranged = PickByTypes(
                         owner,
+                        me,
                         EquipmentIndex.Weapon0,
                         false,
                         minTier,
@@ -541,7 +647,11 @@ namespace Retinues.Domain.Equipments.Helpers
                         requireSkillForItem,
                         itemFilter,
                         RangedWeaponTypes,
-                        pickBest
+                        pickBest,
+                        weightLimitActive,
+                        weightLimit,
+                        valueLimitActive,
+                        valueLimit
                     );
                     if (ranged == null)
                         return false;
@@ -552,6 +662,7 @@ namespace Retinues.Domain.Equipments.Helpers
 
                     var ammo = PickByTypes(
                         owner,
+                        me,
                         EquipmentIndex.Weapon1,
                         false,
                         minTier,
@@ -561,10 +672,15 @@ namespace Retinues.Domain.Equipments.Helpers
                         requireSkillForItem,
                         itemFilter,
                         [ammoType.Value],
-                        pickBest
+                        pickBest,
+                        weightLimitActive,
+                        weightLimit,
+                        valueLimitActive,
+                        valueLimit
                     );
                     var oneHand = PickByTypes(
                         owner,
+                        me,
                         EquipmentIndex.Weapon2,
                         false,
                         minTier,
@@ -574,7 +690,11 @@ namespace Retinues.Domain.Equipments.Helpers
                         requireSkillForItem,
                         itemFilter,
                         OneHandedTypes,
-                        pickBest
+                        pickBest,
+                        weightLimitActive,
+                        weightLimit,
+                        valueLimitActive,
+                        valueLimit
                     );
 
                     if (ammo == null || oneHand == null)
@@ -588,6 +708,7 @@ namespace Retinues.Domain.Equipments.Helpers
                     {
                         var shield = PickByTypes(
                             owner,
+                            me,
                             EquipmentIndex.Weapon3,
                             false,
                             minTier,
@@ -597,7 +718,11 @@ namespace Retinues.Domain.Equipments.Helpers
                             requireSkillForItem,
                             itemFilter,
                             ShieldTypes,
-                            pickBest
+                            pickBest,
+                            weightLimitActive,
+                            weightLimit,
+                            valueLimitActive,
+                            valueLimit
                         );
                         if (shield == null)
                             return false;
@@ -612,6 +737,7 @@ namespace Retinues.Domain.Equipments.Helpers
                 {
                     var thrown = PickByTypes(
                         owner,
+                        me,
                         EquipmentIndex.Weapon0,
                         false,
                         minTier,
@@ -621,10 +747,15 @@ namespace Retinues.Domain.Equipments.Helpers
                         requireSkillForItem,
                         itemFilter,
                         ThrownTypes,
-                        pickBest
+                        pickBest,
+                        weightLimitActive,
+                        weightLimit,
+                        valueLimitActive,
+                        valueLimit
                     );
                     var oneHand = PickByTypes(
                         owner,
+                        me,
                         EquipmentIndex.Weapon1,
                         false,
                         minTier,
@@ -634,10 +765,15 @@ namespace Retinues.Domain.Equipments.Helpers
                         requireSkillForItem,
                         itemFilter,
                         OneHandedTypes,
-                        pickBest
+                        pickBest,
+                        weightLimitActive,
+                        weightLimit,
+                        valueLimitActive,
+                        valueLimit
                     );
                     var shield = PickByTypes(
                         owner,
+                        me,
                         EquipmentIndex.Weapon2,
                         false,
                         minTier,
@@ -647,7 +783,11 @@ namespace Retinues.Domain.Equipments.Helpers
                         requireSkillForItem,
                         itemFilter,
                         ShieldTypes,
-                        pickBest
+                        pickBest,
+                        weightLimitActive,
+                        weightLimit,
+                        valueLimitActive,
+                        valueLimit
                     );
 
                     if (thrown == null || oneHand == null || shield == null)
@@ -706,11 +846,16 @@ namespace Retinues.Domain.Equipments.Helpers
             bool acceptNeutralCulture,
             bool requireSkillForItem,
             Func<WItem, bool> itemFilter,
-            bool pickBest
+            bool pickBest,
+            bool weightLimitActive,
+            float weightLimit,
+            bool valueLimitActive,
+            int valueLimit
         )
         {
             var oneHand = PickByTypes(
                 owner,
+                me,
                 EquipmentIndex.Weapon0,
                 true,
                 minTier,
@@ -720,7 +865,11 @@ namespace Retinues.Domain.Equipments.Helpers
                 requireSkillForItem,
                 itemFilter,
                 OneHandedTypes,
-                pickBest
+                pickBest,
+                weightLimitActive,
+                weightLimit,
+                valueLimitActive,
+                valueLimit
             );
             me.Set(EquipmentIndex.Weapon0, oneHand);
 
@@ -735,6 +884,7 @@ namespace Retinues.Domain.Equipments.Helpers
 
         private static WItem PickByTypes(
             WCharacter owner,
+            MEquipment me,
             EquipmentIndex slot,
             bool civilian,
             int minTier,
@@ -744,13 +894,18 @@ namespace Retinues.Domain.Equipments.Helpers
             bool requireSkillForItem,
             Func<WItem, bool> itemFilter,
             ItemObject.ItemTypeEnum[] allowed,
-            bool pickBest
+            bool pickBest,
+            bool weightLimitActive,
+            float weightLimit,
+            bool valueLimitActive,
+            int valueLimit
         )
         {
             HashSet<ItemObject.ItemTypeEnum> set = [.. allowed];
 
             return GetRandomItemForSlotFiltered(
                 owner,
+                me,
                 slot,
                 civilian,
                 minTier,
@@ -760,12 +915,17 @@ namespace Retinues.Domain.Equipments.Helpers
                 requireSkillForItem,
                 predicate: it => set.Contains(it.Type),
                 itemFilter: itemFilter,
-                pickBest: pickBest
+                pickBest: pickBest,
+                weightLimitActive: weightLimitActive,
+                weightLimit: weightLimit,
+                valueLimitActive: valueLimitActive,
+                valueLimit: valueLimit
             );
         }
 
         private static WItem GetRandomItemForSlotFiltered(
             WCharacter owner,
+            MEquipment currentEquipment,
             EquipmentIndex slot,
             bool civilian,
             int minTier,
@@ -775,7 +935,11 @@ namespace Retinues.Domain.Equipments.Helpers
             bool requireSkillForItem,
             Func<WItem, bool> predicate,
             Func<WItem, bool> itemFilter,
-            bool pickBest
+            bool pickBest,
+            bool weightLimitActive,
+            float weightLimit,
+            bool valueLimitActive,
+            int valueLimit
         )
         {
             var items = WItem.GetEquipmentsForSlot(slot);
@@ -837,6 +1001,24 @@ namespace Retinues.Domain.Equipments.Helpers
 
                 if (predicate != null && !predicate(it))
                     continue;
+
+                // Limits (only if we have an equipment context).
+                if (currentEquipment != null && (weightLimitActive || valueLimitActive))
+                {
+                    bool fits = EquipmentLimitsHelper.FitsLimitsAfterSet(
+                        idx => currentEquipment.Get(idx),
+                        slot,
+                        it,
+                        weightLimitActive,
+                        weightLimit,
+                        valueLimitActive,
+                        valueLimit,
+                        allowNonIncreasingWhenOver: false
+                    );
+
+                    if (!fits)
+                        continue;
+                }
 
                 if (isNeutral)
                 {
@@ -923,9 +1105,7 @@ namespace Retinues.Domain.Equipments.Helpers
             maxTier = MBMath.ClampInt(maxTier, 1, 6);
 
             if (maxTier < minTier)
-            {
                 (maxTier, minTier) = (minTier, maxTier);
-            }
         }
 
         private static bool ShouldSkipSlot(

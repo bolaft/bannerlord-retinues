@@ -1,0 +1,83 @@
+{# ---------------------------------------------- #}
+{# Equipment info                                 #}
+{# ---------------------------------------------- #}
+
+<ListPanel
+    DataSource="{EquipmentPanel}"
+    IsVisible="@IsVisible"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    HorizontalAlignment="Right" VerticalAlignment="Top"
+    StackLayout.LayoutMethod="VerticalBottomToTop"
+    MarginTop="-20" MarginRight="6">
+    <Children>
+
+        {# Value row #}
+        <ListPanel
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            HorizontalAlignment="Right" VerticalAlignment="Center"
+            StackLayout.LayoutMethod="HorizontalRightToLeft">
+            <Children>
+
+                <TextWidget
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                    HorizontalAlignment="Right" VerticalAlignment="Center"
+                    IsVisible="@IsValueLimitVisible"
+                    Brush="Popup.Button.Text"
+                    Brush.FontSize="18"
+                    Text="@ValueLimitText" />
+
+                <TextWidget
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                    HorizontalAlignment="Right" VerticalAlignment="Center"
+                    IsVisible="@IsValueLimitVisible"
+                    Brush="Popup.Button.Text"
+                    Brush.FontSize="18"
+                    Text=" / " />
+
+                <TextWidget
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                    HorizontalAlignment="Right" VerticalAlignment="Center"
+                    Brush="Popup.Button.Text"
+                    Brush.FontSize="18"
+                    Brush.FontColor="@ValueValueColor"
+                    Text="@ValueValueText" />
+
+            </Children>
+        </ListPanel>
+
+        {# Weight row #}
+        <ListPanel
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            HorizontalAlignment="Right" VerticalAlignment="Center"
+            StackLayout.LayoutMethod="HorizontalRightToLeft">
+            <Children>
+
+                <TextWidget
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                    HorizontalAlignment="Right" VerticalAlignment="Center"
+                    IsVisible="@IsWeightLimitVisible"
+                    Brush="Popup.Button.Text"
+                    Brush.FontSize="18"
+                    Text="@WeightLimitText" />
+
+                <TextWidget
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                    HorizontalAlignment="Right" VerticalAlignment="Center"
+                    IsVisible="@IsWeightLimitVisible"
+                    Brush="Popup.Button.Text"
+                    Brush.FontSize="18"
+                    Text=" / " />
+
+                <TextWidget
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                    HorizontalAlignment="Right" VerticalAlignment="Center"
+                    Brush="Popup.Button.Text"
+                    Brush.FontSize="18"
+                    Brush.FontColor="@WeightValueColor"
+                    Text="@WeightValueText" />
+
+            </Children>
+        </ListPanel>
+
+    </Children>
+</ListPanel>

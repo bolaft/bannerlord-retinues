@@ -8,6 +8,7 @@ using Retinues.Editor.Events;
 using Retinues.Game;
 using Retinues.UI.Services;
 using TaleWorlds.Core;
+using TaleWorlds.Localization;
 
 namespace Retinues.Editor.Controllers.Equipment
 {
@@ -71,6 +72,139 @@ namespace Retinues.Editor.Controllers.Equipment
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Limits                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private static bool LimitsEnabled => State.Mode == EditorMode.Player;
+
+        private static bool WeightLimitActive => LimitsEnabled && Settings.LimitEquipmentByWeight;
+
+        private static bool ValueLimitActive => LimitsEnabled && Settings.LimitEquipmentByValue;
+
+        // Keep these public methods to avoid touching VMs that call ItemController.
+        public static float GetEquipmentWeightLimit(int tier)
+        {
+            return EquipmentLimitsHelper.GetWeightLimit(
+                tier,
+                Settings.EquipmentWeightLimitMultiplier
+            );
+        }
+
+        public static int GetEquipmentValueLimit(int tier)
+        {
+            return EquipmentLimitsHelper.GetValueLimit(
+                tier,
+                Settings.EquipmentValueLimitMultiplier
+            );
+        }
+
+        private static bool WithinWeightLimit(WItem item)
+        {
+            if (!WeightLimitActive)
+                return true;
+
+            if (State.Equipment == null)
+                return true;
+
+            var slot = EditorState.Instance.Slot;
+
+            var currentItem = PreviewController.GetItem(slot);
+
+            var current = EquipmentLimitsHelper.GetTotals(
+                idx => PreviewController.GetItem(idx),
+                slot,
+                currentItem
+            );
+
+            var next = EquipmentLimitsHelper.GetTotals(
+                idx => PreviewController.GetItem(idx),
+                slot,
+                item
+            );
+
+            int tier = State.Character?.Tier ?? 0;
+            float limit = GetEquipmentWeightLimit(tier);
+
+            return EquipmentLimitsHelper.FitsWeight(
+                current,
+                next,
+                limit,
+                allowNonIncreasingWhenOver: true
+            );
+        }
+
+        private static TextObject WeightLimitTooltip(WItem item)
+        {
+            var slot = EditorState.Instance.Slot;
+
+            var next = EquipmentLimitsHelper.GetTotals(
+                idx => PreviewController.GetItem(idx),
+                slot,
+                item
+            );
+
+            int tier = State.Character?.Tier ?? 0;
+            float limit = GetEquipmentWeightLimit(tier);
+
+            return L.T("cant_equip_reason_weight_limit", "Too heavy")
+                .SetTextVariable("WEIGHT", next.Weight.ToString("0.0"))
+                .SetTextVariable("LIMIT", limit.ToString("0.0"));
+        }
+
+        private static bool WithinValueLimit(WItem item)
+        {
+            if (!ValueLimitActive)
+                return true;
+
+            if (State.Equipment == null)
+                return true;
+
+            var slot = EditorState.Instance.Slot;
+
+            var currentItem = PreviewController.GetItem(slot);
+
+            var current = EquipmentLimitsHelper.GetTotals(
+                idx => PreviewController.GetItem(idx),
+                slot,
+                currentItem
+            );
+
+            var next = EquipmentLimitsHelper.GetTotals(
+                idx => PreviewController.GetItem(idx),
+                slot,
+                item
+            );
+
+            int tier = State.Character?.Tier ?? 0;
+            int limit = GetEquipmentValueLimit(tier);
+
+            return EquipmentLimitsHelper.FitsValue(
+                current,
+                next,
+                limit,
+                allowNonIncreasingWhenOver: true
+            );
+        }
+
+        private static TextObject ValueLimitTooltip(WItem item)
+        {
+            var slot = EditorState.Instance.Slot;
+
+            var next = EquipmentLimitsHelper.GetTotals(
+                idx => PreviewController.GetItem(idx),
+                slot,
+                item
+            );
+
+            int tier = State.Character?.Tier ?? 0;
+            int limit = GetEquipmentValueLimit(tier);
+
+            return L.T("cant_equip_reason_value_limit", "Too valuable")
+                .SetTextVariable("VALUE", next.Value)
+                .SetTextVariable("LIMIT", limit);
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Equip                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
@@ -99,8 +233,9 @@ namespace Retinues.Editor.Controllers.Equipment
                     IsCompatibleWithCurrentEquipment,
                     _ => L.T("cant_equip_reason_mount_compat", "Incompatible")
                 )
-                .ExecuteWith(EquipItem)
-                .Fire(UIEvent.Item);
+                .AddCondition(WithinWeightLimit, WeightLimitTooltip)
+                .AddCondition(WithinValueLimit, ValueLimitTooltip)
+                .ExecuteWith(EquipItem);
 
         private static bool IsCompatibleWithCurrentEquipment(WItem item)
         {
@@ -157,8 +292,6 @@ namespace Retinues.Editor.Controllers.Equipment
             // Economy rules only apply in Player mode and when the setting is enabled.
             if (EconomyEnabled)
             {
-                // If equipping this item requires increasing the roster requirement,
-                // try consuming stock first (no popup, no gold).
                 if (
                     !State.Equipment.IsAvailableInRoster(slot, item)
                     && item != null
@@ -167,15 +300,19 @@ namespace Retinues.Editor.Controllers.Equipment
                 {
                     item.DecreaseStock(1);
                     TrackRosterStock(() => EquipItemCore(slot, item));
+                    EventManager.Fire(UIEvent.Item);
                     return;
                 }
 
-                // If stock is empty and a new copy is required, purchase flow.
                 if (TryGetPurchaseCost(slot, item, out int cost))
                 {
                     ShowPurchaseInquiry(slot, item, cost);
                     return;
                 }
+
+                TrackRosterStock(() => EquipItemCore(slot, item));
+                EventManager.Fire(UIEvent.Item);
+                return;
             }
 
             // Default: equip directly. When economy is enabled, still track roster removals -> stock.
@@ -183,6 +320,8 @@ namespace Retinues.Editor.Controllers.Equipment
                 TrackRosterStock(() => EquipItemCore(slot, item));
             else
                 EquipItemCore(slot, item);
+
+            EventManager.Fire(UIEvent.Item);
         }
 
         private static void EquipItemCore(EquipmentIndex slot, WItem item)
@@ -340,18 +479,15 @@ namespace Retinues.Editor.Controllers.Equipment
             if (equipped == null)
                 return;
 
+            if (PreviewController.Enabled)
+            {
+                // PreviewController.ClearItem already fires UIEvent.Item
+                PreviewController.ClearItem(slot);
+                return;
+            }
+
             void Apply()
             {
-                if (PreviewController.Enabled)
-                {
-                    PreviewController.ClearItem(slot);
-
-                    if (slot == EquipmentIndex.Horse)
-                        PreviewController.ClearItem(EquipmentIndex.HorseHarness);
-
-                    return;
-                }
-
                 State.Equipment.Set(slot, null);
 
                 if (slot == EquipmentIndex.Horse)
@@ -362,6 +498,8 @@ namespace Retinues.Editor.Controllers.Equipment
                 TrackRosterStock(Apply);
             else
                 Apply();
+
+            EventManager.Fire(UIEvent.Item);
         }
     }
 }

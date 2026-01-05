@@ -120,7 +120,7 @@ namespace Retinues.Editor.Controllers.Character
             // If your roster can contain defaults even when equipments:false, reset it safely.
             roster?.InvalidateItemCountsCache();
 
-            var battle = RandomHelper.CreateRandomEquipment(
+            var battle = RandomEquipmentHelper.CreateRandomEquipment(
                 owner: clone,
                 civilian: false,
                 minTier: 1,
@@ -129,7 +129,7 @@ namespace Retinues.Editor.Controllers.Character
                 pickBest: true
             );
 
-            var civilian = RandomHelper.CreateRandomEquipment(
+            var civilian = RandomEquipmentHelper.CreateRandomEquipment(
                 owner: clone,
                 civilian: true,
                 minTier: 1,

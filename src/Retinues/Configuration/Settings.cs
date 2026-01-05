@@ -161,6 +161,62 @@ namespace Retinues.Configuration
             fires: UIEvent.Page
         );
 
+        public static readonly Option<bool> LimitEquipmentByWeight = CreateOption(
+            section: Equipment,
+            name: L.F("mcm_option_limit_equipment_by_weight", "Tier-Based Equipment Weight Limits"),
+            hint: L.F(
+                "mcm_option_limit_equipment_by_weight_hint",
+                "Whether to limit equippable items based on troop tier and total item weights."
+            ),
+            @default: true,
+            fires: UIEvent.Equipment
+        );
+
+        public static readonly Option<float> EquipmentWeightLimitMultiplier = CreateOption(
+            section: Equipment,
+            name: L.F(
+                "mcm_option_equipment_weight_limit_multiplier",
+                "Equipment Weight Limit Multiplier"
+            ),
+            hint: L.F(
+                "mcm_option_equipment_weight_limit_multiplier_hint",
+                "Multiplier applied to the base weight limit when calculating equippable items."
+            ),
+            minValue: 0.1f,
+            maxValue: 10f,
+            @default: 1f,
+            dependsOn: LimitEquipmentByWeight,
+            fires: UIEvent.Equipment
+        );
+
+        public static readonly Option<bool> LimitEquipmentByValue = CreateOption(
+            section: Equipment,
+            name: L.F("mcm_option_limit_equipment_by_value", "Tier-Based Equipment Value Limits"),
+            hint: L.F(
+                "mcm_option_limit_equipment_by_value_hint",
+                "Whether to limit equippable items based on troop tier and total item values."
+            ),
+            @default: false,
+            fires: UIEvent.Equipment
+        );
+
+        public static readonly Option<float> EquipmentValueLimitMultiplier = CreateOption(
+            section: Equipment,
+            name: L.F(
+                "mcm_option_equipment_value_limit_multiplier",
+                "Equipment Value Limit Multiplier"
+            ),
+            hint: L.F(
+                "mcm_option_equipment_value_limit_multiplier_hint",
+                "Multiplier applied to the base value limit when calculating equippable items."
+            ),
+            minValue: 0.1f,
+            maxValue: 10f,
+            @default: 1f,
+            dependsOn: LimitEquipmentByValue,
+            fires: UIEvent.Equipment
+        );
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Troop Unlocks                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

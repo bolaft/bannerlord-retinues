@@ -293,7 +293,7 @@ namespace Retinues.Game.Troops
             };
 
             // IMPORTANT: No unlocked-only filtering here.
-            var battle = RandomHelper.CreateRandomEquipment(
+            var battle = RandomEquipmentHelper.CreateRandomEquipment(
                 owner: clone,
                 civilian: false,
                 minTier: minTier,
@@ -302,13 +302,14 @@ namespace Retinues.Game.Troops
                 acceptNeutralCulture: true,
                 noItemChanceBySlotPercent: noItemBattle,
                 requireSkillForItem: true,
-                itemFilter: null
+                itemFilter: null,
+                enforceLimits: true
             );
 
             MEquipment civil = null;
             if (createCivilianSet)
             {
-                civil = RandomHelper.CreateRandomEquipment(
+                civil = RandomEquipmentHelper.CreateRandomEquipment(
                     owner: clone,
                     civilian: true,
                     minTier: minTier,
@@ -317,7 +318,8 @@ namespace Retinues.Game.Troops
                     acceptNeutralCulture: true,
                     noItemChanceBySlotPercent: noItemCivil,
                     requireSkillForItem: true,
-                    itemFilter: null
+                    itemFilter: null,
+                    enforceLimits: true
                 );
             }
 
