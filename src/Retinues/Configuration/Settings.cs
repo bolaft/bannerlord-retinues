@@ -196,7 +196,7 @@ namespace Retinues.Configuration
                 "mcm_option_limit_equipment_by_value_hint",
                 "Whether to limit equippable items based on troop tier and total item values."
             ),
-            @default: false,
+            @default: true,
             fires: UIEvent.Equipment
         );
 
