@@ -58,13 +58,13 @@ namespace Retinues.Editor.VM.Column.Character
                         ? new Tooltip(
                             L.T(
                                 "mariner_toggle_tooltip_universal",
-                                "Set this unit's mariner ability.\nMariners are better suited for naval combat."
+                                "Mariners are better suited for naval combat."
                             )
                         )
                         : new Tooltip(
                             L.T(
                                 "mariner_toggle_tooltip",
-                                "Set this unit's mariner ability.\nMariners are better suited for naval combat, but earn skill points at a slightly reduced rate."
+                                "Mariners are better suited for naval combat, but earn skill points at a slightly reduced rate."
                             )
                         ),
                 refresh: [UIEvent.Formation],

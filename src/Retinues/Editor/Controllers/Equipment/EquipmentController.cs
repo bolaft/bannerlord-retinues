@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Retinues.Configuration;
+using Retinues.Domain.Equipments.Helpers;
 using Retinues.Domain.Equipments.Models;
 using Retinues.Editor.Events;
 using Retinues.Modules;
 using Retinues.UI.Services;
-using Retinues.Utilities;
-using TaleWorlds.Core;
 using TaleWorlds.Localization;
 
 namespace Retinues.Editor.Controllers.Equipment
@@ -625,8 +625,29 @@ namespace Retinues.Editor.Controllers.Equipment
                 ),
                 onConfirm: () =>
                 {
-                    State.Character.EquipmentRoster.Remove(State.Equipment);
-                    State.Equipment = GetEquipments(civilian).FirstOrDefault();
+                    // Economy is only active in player mode, when the setting is enabled, and preview is off.
+                    bool economyActive =
+                        State.Mode == EditorMode.Player
+                        && Settings.EquipmentCostsGold
+                        && !PreviewController.Enabled;
+
+                    if (!economyActive)
+                    {
+                        State.Character.EquipmentRoster.Remove(State.Equipment);
+                        State.Equipment = GetEquipments(civilian).FirstOrDefault();
+                        return;
+                    }
+
+                    var roster = State.Character?.EquipmentRoster;
+
+                    StocksHelper.TrackRosterStock(
+                        roster,
+                        () =>
+                        {
+                            State.Character.EquipmentRoster.Remove(State.Equipment);
+                            State.Equipment = GetEquipments(civilian).FirstOrDefault();
+                        }
+                    );
                 }
             );
         }

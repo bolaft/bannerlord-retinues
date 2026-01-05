@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using Retinues.Configuration;
+using Retinues.Domain.Characters.Wrappers;
+using Retinues.Domain.Equipments.Helpers;
 using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Editor.Events;
 using Retinues.Game;
@@ -20,90 +22,16 @@ namespace Retinues.Editor.Controllers.Equipment
             && State.Mode == EditorMode.Player
             && Settings.EquipmentCostsGold;
 
-        private static Dictionary<string, WItem> _itemById;
-
-        private static WItem GetItemById(string id)
-        {
-            if (string.IsNullOrEmpty(id))
-                return null;
-
-            _itemById ??= BuildItemByIdCache();
-
-            if (_itemById.TryGetValue(id, out var item))
-                return item;
-
-            // Fallback: crafted / uncommon items may not be in Equipments.
-            foreach (var it in WItem.All)
-            {
-                if (it != null && it.StringId == id)
-                {
-                    _itemById[id] = it;
-                    return it;
-                }
-            }
-
-            return null;
-        }
-
-        private static Dictionary<string, WItem> BuildItemByIdCache()
-        {
-            Dictionary<string, WItem> map = [];
-
-            foreach (var item in WItem.Equipments)
-            {
-                var id = item?.StringId;
-                if (string.IsNullOrEmpty(id))
-                    continue;
-
-                if (!map.ContainsKey(id))
-                    map[id] = item;
-            }
-
-            return map;
-        }
-
-        private static Dictionary<string, int> ComputeRosterRequiredCounts()
-        {
-            var character = State.Character;
-            if (character == null)
-                return [];
-
-            var roster = character.EquipmentRoster;
-            var equipments = roster?.Equipments ?? [];
-
-            Dictionary<string, int> maxById = [];
-
-            foreach (var equipment in equipments)
-            {
-                if (equipment == null)
-                    continue;
-
-                Dictionary<string, int> counts = [];
-
-                foreach (var item in equipment.Items)
-                {
-                    var id = item?.StringId;
-                    if (string.IsNullOrEmpty(id))
-                        continue;
-
-                    counts[id] = counts.TryGetValue(id, out var n) ? n + 1 : 1;
-                }
-
-                foreach (var kv in counts)
-                {
-                    if (!maxById.TryGetValue(kv.Key, out var prev) || kv.Value > prev)
-                        maxById[kv.Key] = kv.Value;
-                }
-            }
-
-            return maxById;
-        }
+        /// <summary>
+        /// Indicates whether the editor economy is currently active.
+        /// </summary>
+        public static bool EconomyActive => EconomyEnabled;
 
         /// <summary>
-        /// Applies stock changes based on the roster requirement delta.
-        /// Only active when economy is enabled.
+        /// Runs the given action while tracking roster requirement removals and
+        /// converting them into stock increases.
         /// </summary>
-        private static void WithRosterStockTracking(Action action)
+        public static void TrackRosterStock(Action action)
         {
             if (!EconomyEnabled)
             {
@@ -111,40 +39,35 @@ namespace Retinues.Editor.Controllers.Equipment
                 return;
             }
 
-            var before = ComputeRosterRequiredCounts();
-
-            action?.Invoke();
-
-            var after = ComputeRosterRequiredCounts();
-            ApplyRosterRemovalsToStock(before, after);
+            StocksHelper.TrackRosterStock(State.Character?.EquipmentRoster, action);
         }
 
-        private static void ApplyRosterRemovalsToStock(
-            Dictionary<string, int> before,
-            Dictionary<string, int> after
-        )
+        /// <summary>
+        /// Stocks all items described by the given required-count map.
+        /// Intended for destructive operations (eg deleting a unit) where the
+        /// roster requirement becomes zero.
+        /// </summary>
+        public static void StockItems(Dictionary<string, int> requiredCountsById)
         {
-            if (before == null || before.Count == 0)
+            if (!EconomyEnabled)
                 return;
 
-            after ??= [];
+            StocksHelper.StockItems(requiredCountsById);
+        }
 
-            foreach (var kv in before)
-            {
-                string id = kv.Key;
-                int oldRequired = kv.Value;
-                int newRequired = after.TryGetValue(id, out var n) ? n : 0;
+        /// <summary>
+        /// Stocks all items required by the given character's equipment roster.
+        /// Uses the roster's conceptual requirement count (max-per-equipment).
+        /// </summary>
+        public static void StockCharacterRoster(WCharacter character)
+        {
+            if (character == null)
+                return;
 
-                int removed = oldRequired - newRequired;
-                if (removed <= 0)
-                    continue;
+            if (!EconomyEnabled)
+                return;
 
-                var item = GetItemById(id);
-                if (item == null)
-                    continue;
-
-                item.IncreaseStock(removed);
-            }
+            StocksHelper.StockCharacterRoster(character);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -213,7 +136,7 @@ namespace Retinues.Editor.Controllers.Equipment
             if (slot == EquipmentIndex.HorseHarness)
             {
                 var horse = State.Equipment.Get(EquipmentIndex.Horse);
-                if (horse != null && !horse.IsCompatibleWith(item))
+                if (horse != null && item != null && !horse.IsCompatibleWith(item))
                     return;
             }
 
@@ -223,7 +146,7 @@ namespace Retinues.Editor.Controllers.Equipment
                 if (slot == EquipmentIndex.HorseHarness)
                 {
                     var horse = PreviewController.GetItem(EquipmentIndex.Horse);
-                    if (horse != null && !horse.IsCompatibleWith(item))
+                    if (horse != null && item != null && !horse.IsCompatibleWith(item))
                         return;
                 }
 
@@ -236,10 +159,14 @@ namespace Retinues.Editor.Controllers.Equipment
             {
                 // If equipping this item requires increasing the roster requirement,
                 // try consuming stock first (no popup, no gold).
-                if (!State.Equipment.IsAvailableInRoster(slot, item) && item.Stock > 0)
+                if (
+                    !State.Equipment.IsAvailableInRoster(slot, item)
+                    && item != null
+                    && item.Stock > 0
+                )
                 {
                     item.DecreaseStock(1);
-                    WithRosterStockTracking(() => EquipItemCore(slot, item));
+                    TrackRosterStock(() => EquipItemCore(slot, item));
                     return;
                 }
 
@@ -253,7 +180,7 @@ namespace Retinues.Editor.Controllers.Equipment
 
             // Default: equip directly. When economy is enabled, still track roster removals -> stock.
             if (EconomyEnabled)
-                WithRosterStockTracking(() => EquipItemCore(slot, item));
+                TrackRosterStock(() => EquipItemCore(slot, item));
             else
                 EquipItemCore(slot, item);
         }
@@ -329,7 +256,7 @@ namespace Retinues.Editor.Controllers.Equipment
                             "You need {COST} denars to buy {ITEM}, but you only have {GOLD}."
                         )
                         .SetTextVariable("COST", required)
-                        .SetTextVariable("ITEM", item.Name)
+                        .SetTextVariable("ITEM", item?.Name)
                         .SetTextVariable("GOLD", Player.Gold)
                 );
             }
@@ -343,7 +270,7 @@ namespace Retinues.Editor.Controllers.Equipment
             Inquiries.Popup(
                 title: L.T("purchase_item_title", "Purchase Item"),
                 description: L.T("purchase_item_desc", "Buy {ITEM} for {COST} denars?")
-                    .SetTextVariable("ITEM", item.Name)
+                    .SetTextVariable("ITEM", item?.Name)
                     .SetTextVariable("COST", cost),
                 onConfirm: () =>
                 {
@@ -357,12 +284,13 @@ namespace Retinues.Editor.Controllers.Equipment
                     // If roster requirement changed, stock might now be available.
                     if (
                         EconomyEnabled
+                        && item != null
                         && !State.Equipment.IsAvailableInRoster(slot, item)
                         && item.Stock > 0
                     )
                     {
                         item.DecreaseStock(1);
-                        WithRosterStockTracking(() => EquipItemCore(slot, item));
+                        TrackRosterStock(() => EquipItemCore(slot, item));
                         EventManager.Fire(UIEvent.Item);
                         return;
                     }
@@ -383,7 +311,7 @@ namespace Retinues.Editor.Controllers.Equipment
                         }
                     }
 
-                    WithRosterStockTracking(() => EquipItemCore(slot, item));
+                    TrackRosterStock(() => EquipItemCore(slot, item));
                     EventManager.Fire(UIEvent.Item);
                 }
             );
@@ -431,7 +359,7 @@ namespace Retinues.Editor.Controllers.Equipment
             }
 
             if (EconomyEnabled)
-                WithRosterStockTracking(Apply);
+                TrackRosterStock(Apply);
             else
                 Apply();
         }

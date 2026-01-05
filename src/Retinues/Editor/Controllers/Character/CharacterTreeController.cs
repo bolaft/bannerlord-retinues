@@ -1,5 +1,6 @@
 using System.Linq;
 using Retinues.Domain.Characters.Wrappers;
+using Retinues.Editor.Controllers.Equipment;
 using Retinues.Editor.Events;
 using Retinues.UI.Services;
 
@@ -52,7 +53,8 @@ namespace Retinues.Editor.Controllers.Character
                     return;
                 }
 
-                var clone = character.Clone();
+                bool copyEquipments = State.Mode != EditorMode.Player;
+                var clone = character.Clone(equipments: copyEquipments);
                 clone.Name = name.Trim();
                 clone.Level = character.Level + 5;
                 clone.HiddenInEncyclopedia = false;
@@ -106,6 +108,9 @@ namespace Retinues.Editor.Controllers.Character
                     .SetTextVariable("UNIT_NAME", character.Name.ToString()),
                 onConfirm: () =>
                 {
+                    if (ItemController.EconomyActive)
+                        ItemController.StockCharacterRoster(character);
+
                     State.Character = State.Faction.Troops.FirstOrDefault(c => c != character);
                     character.Remove();
                     EventManager.Fire(UIEvent.Tree);

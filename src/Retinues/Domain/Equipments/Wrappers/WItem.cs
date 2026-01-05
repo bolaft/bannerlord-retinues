@@ -7,7 +7,7 @@ using Retinues.Framework.Model;
 using Retinues.Framework.Model.Attributes;
 using Retinues.Framework.Runtime;
 using Retinues.Game;
-using Retinues.Utilities;
+using Retinues.UI.Services;
 using TaleWorlds.Core;
 #if BL13
 using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
@@ -123,9 +123,7 @@ namespace Retinues.Domain.Equipments.Wrappers
         /// <summary>
         /// Sets the stock to the given value.
         /// </summary>
-        public void SetStock(int value) => SetStock(Player.Hero, value);
-
-        public void SetStock(WHero hero, int value)
+        private void SetStock(WHero hero, int value)
         {
             value = System.Math.Max(value, 0);
 
@@ -144,6 +142,12 @@ namespace Retinues.Domain.Equipments.Wrappers
             if (amount <= 0)
                 return;
 
+            Notifications.Message(
+                L.T("stocks_add", "Added {AMOUNT} {ITEM} to stocks.")
+                    .SetTextVariable("AMOUNT", amount)
+                    .SetTextVariable("ITEM", Name)
+            );
+
             SetStock(hero, GetStock(hero) + amount);
         }
 
@@ -156,6 +160,12 @@ namespace Retinues.Domain.Equipments.Wrappers
         {
             if (amount <= 0)
                 return;
+
+            Notifications.Message(
+                L.T("stocks_remove", "Removed {AMOUNT} {ITEM} from stocks.")
+                    .SetTextVariable("AMOUNT", amount)
+                    .SetTextVariable("ITEM", Name)
+            );
 
             SetStock(hero, System.Math.Max(GetStock(hero) - amount, 0));
         }

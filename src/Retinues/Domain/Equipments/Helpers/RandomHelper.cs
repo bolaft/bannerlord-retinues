@@ -79,6 +79,8 @@ namespace Retinues.Domain.Equipments.Helpers
         /// <summary>
         /// Returns a random equipment (battle or civilian) for the given owner.
         /// itemFilter: optional global filter applied to every candidate (ex: unlocked-only).
+        /// fromStocks: if true, only pick items with Stock > 0 (and do not exceed stock count within this equipment).
+        /// pickBest: if true, pick the best candidate from the computed pool instead of random.
         /// </summary>
         public static MEquipment CreateRandomEquipment(
             WCharacter owner,
@@ -89,7 +91,9 @@ namespace Retinues.Domain.Equipments.Helpers
             bool acceptNeutralCulture = false,
             Dictionary<EquipmentIndex, float> noItemChanceBySlotPercent = null,
             bool requireSkillForItem = true,
-            Func<WItem, bool> itemFilter = null
+            Func<WItem, bool> itemFilter = null,
+            bool fromStocks = false,
+            bool pickBest = false
         )
         {
             if (owner?.Base == null)
@@ -109,6 +113,28 @@ namespace Retinues.Domain.Equipments.Helpers
 
                 if (list.Count > 0)
                     cultureIds = [.. list];
+            }
+
+            Func<WItem, bool> finalFilter = itemFilter;
+
+            if (fromStocks)
+            {
+                // Enforce: stock-only, and never pick more copies inside a single equipment than current stock.
+                // This matches the roster's conceptual logic (max-per-equipment).
+                finalFilter = it =>
+                {
+                    if (it?.Base == null)
+                        return false;
+
+                    if (it.Stock <= 0)
+                        return false;
+
+                    int usedInSet = CountInEquipment(me, it.StringId);
+                    if (usedInSet >= it.Stock)
+                        return false;
+
+                    return itemFilter == null || itemFilter(it);
+                };
             }
 
             for (int i = 0; i < ArmorSlots.Length; i++)
@@ -131,7 +157,8 @@ namespace Retinues.Domain.Equipments.Helpers
                     acceptNeutralCulture,
                     requireSkillForItem,
                     predicate: it => it.IsArmor,
-                    itemFilter: itemFilter
+                    itemFilter: finalFilter,
+                    pickBest: pickBest
                 );
 
                 me.Set(slot, item);
@@ -147,7 +174,8 @@ namespace Retinues.Domain.Equipments.Helpers
                     acceptNeutralCulture,
                     noItemChanceBySlotPercent,
                     requireSkillForItem,
-                    itemFilter
+                    finalFilter,
+                    pickBest
                 );
 
             if (civilian)
@@ -160,7 +188,8 @@ namespace Retinues.Domain.Equipments.Helpers
                     cultureIds,
                     acceptNeutralCulture,
                     requireSkillForItem,
-                    itemFilter
+                    finalFilter,
+                    pickBest
                 );
             }
             else
@@ -173,7 +202,8 @@ namespace Retinues.Domain.Equipments.Helpers
                     cultureIds,
                     acceptNeutralCulture,
                     requireSkillForItem,
-                    itemFilter
+                    finalFilter,
+                    pickBest
                 );
             }
 
@@ -211,7 +241,8 @@ namespace Retinues.Domain.Equipments.Helpers
                 acceptNeutralCulture,
                 requireSkillForItem,
                 predicate: null,
-                itemFilter: itemFilter
+                itemFilter: itemFilter,
+                pickBest: false
             );
         }
 
@@ -228,7 +259,8 @@ namespace Retinues.Domain.Equipments.Helpers
             bool acceptNeutralCulture,
             Dictionary<EquipmentIndex, float> noItemChanceBySlotPercent,
             bool requireSkillForItem,
-            Func<WItem, bool> itemFilter
+            Func<WItem, bool> itemFilter,
+            bool pickBest
         )
         {
             if (ShouldSkipSlot(EquipmentIndex.Horse, noItemChanceBySlotPercent))
@@ -248,7 +280,8 @@ namespace Retinues.Domain.Equipments.Helpers
                 acceptNeutralCulture,
                 requireSkillForItem,
                 predicate: it => it.IsHorse,
-                itemFilter: itemFilter
+                itemFilter: itemFilter,
+                pickBest: pickBest
             );
 
             if (horse == null)
@@ -270,7 +303,8 @@ namespace Retinues.Domain.Equipments.Helpers
                 acceptNeutralCulture,
                 requireSkillForItem,
                 predicate: it => it.IsHorseHarness && it.IsCompatibleWith(horse),
-                itemFilter: itemFilter
+                itemFilter: itemFilter,
+                pickBest: pickBest
             );
 
             me.Set(EquipmentIndex.HorseHarness, harness);
@@ -298,7 +332,8 @@ namespace Retinues.Domain.Equipments.Helpers
             HashSet<string> cultureIds,
             bool acceptNeutralCulture,
             bool requireSkillForItem,
-            Func<WItem, bool> itemFilter
+            Func<WItem, bool> itemFilter,
+            bool pickBest
         )
         {
             for (int i = 0; i < WeaponSlots.Length; i++)
@@ -318,7 +353,8 @@ namespace Retinues.Domain.Equipments.Helpers
                         cultureIds,
                         acceptNeutralCulture,
                         requireSkillForItem,
-                        itemFilter
+                        itemFilter,
+                        pickBest
                     )
                 )
                     return;
@@ -342,7 +378,8 @@ namespace Retinues.Domain.Equipments.Helpers
                     .Concat(TwoHandedTypes)
                     .Concat(PolearmTypes)
                     .Concat(ThrownTypes)
-                    .ToArray()
+                    .ToArray(),
+                pickBest
             );
 
             if (meleeOrThrown != null)
@@ -362,7 +399,8 @@ namespace Retinues.Domain.Equipments.Helpers
                 acceptNeutralCulture,
                 requireSkillForItem,
                 itemFilter,
-                RangedWeaponTypes
+                RangedWeaponTypes,
+                pickBest
             );
 
             if (ranged == null)
@@ -382,7 +420,8 @@ namespace Retinues.Domain.Equipments.Helpers
                 acceptNeutralCulture,
                 requireSkillForItem,
                 itemFilter,
-                [ammoType.Value]
+                [ammoType.Value],
+                pickBest
             );
 
             if (ammo == null)
@@ -401,7 +440,8 @@ namespace Retinues.Domain.Equipments.Helpers
             HashSet<string> cultureIds,
             bool acceptNeutralCulture,
             bool requireSkillForItem,
-            Func<WItem, bool> itemFilter
+            Func<WItem, bool> itemFilter,
+            bool pickBest
         )
         {
             switch (preset)
@@ -418,7 +458,8 @@ namespace Retinues.Domain.Equipments.Helpers
                         acceptNeutralCulture,
                         requireSkillForItem,
                         itemFilter,
-                        OneHandedTypes
+                        OneHandedTypes,
+                        pickBest
                     );
                     var shield = PickByTypes(
                         owner,
@@ -430,7 +471,8 @@ namespace Retinues.Domain.Equipments.Helpers
                         acceptNeutralCulture,
                         requireSkillForItem,
                         itemFilter,
-                        ShieldTypes
+                        ShieldTypes,
+                        pickBest
                     );
 
                     if (oneHand == null || shield == null)
@@ -453,7 +495,8 @@ namespace Retinues.Domain.Equipments.Helpers
                         acceptNeutralCulture,
                         requireSkillForItem,
                         itemFilter,
-                        TwoHandedTypes
+                        TwoHandedTypes,
+                        pickBest
                     );
                     if (twoHand == null)
                         return false;
@@ -474,7 +517,8 @@ namespace Retinues.Domain.Equipments.Helpers
                         acceptNeutralCulture,
                         requireSkillForItem,
                         itemFilter,
-                        PolearmTypes
+                        PolearmTypes,
+                        pickBest
                     );
                     if (polearm == null)
                         return false;
@@ -496,7 +540,8 @@ namespace Retinues.Domain.Equipments.Helpers
                         acceptNeutralCulture,
                         requireSkillForItem,
                         itemFilter,
-                        RangedWeaponTypes
+                        RangedWeaponTypes,
+                        pickBest
                     );
                     if (ranged == null)
                         return false;
@@ -515,7 +560,8 @@ namespace Retinues.Domain.Equipments.Helpers
                         acceptNeutralCulture,
                         requireSkillForItem,
                         itemFilter,
-                        [ammoType.Value]
+                        [ammoType.Value],
+                        pickBest
                     );
                     var oneHand = PickByTypes(
                         owner,
@@ -527,7 +573,8 @@ namespace Retinues.Domain.Equipments.Helpers
                         acceptNeutralCulture,
                         requireSkillForItem,
                         itemFilter,
-                        OneHandedTypes
+                        OneHandedTypes,
+                        pickBest
                     );
 
                     if (ammo == null || oneHand == null)
@@ -549,7 +596,8 @@ namespace Retinues.Domain.Equipments.Helpers
                             acceptNeutralCulture,
                             requireSkillForItem,
                             itemFilter,
-                            ShieldTypes
+                            ShieldTypes,
+                            pickBest
                         );
                         if (shield == null)
                             return false;
@@ -572,7 +620,8 @@ namespace Retinues.Domain.Equipments.Helpers
                         acceptNeutralCulture,
                         requireSkillForItem,
                         itemFilter,
-                        ThrownTypes
+                        ThrownTypes,
+                        pickBest
                     );
                     var oneHand = PickByTypes(
                         owner,
@@ -584,7 +633,8 @@ namespace Retinues.Domain.Equipments.Helpers
                         acceptNeutralCulture,
                         requireSkillForItem,
                         itemFilter,
-                        OneHandedTypes
+                        OneHandedTypes,
+                        pickBest
                     );
                     var shield = PickByTypes(
                         owner,
@@ -596,7 +646,8 @@ namespace Retinues.Domain.Equipments.Helpers
                         acceptNeutralCulture,
                         requireSkillForItem,
                         itemFilter,
-                        ShieldTypes
+                        ShieldTypes,
+                        pickBest
                     );
 
                     if (thrown == null || oneHand == null || shield == null)
@@ -654,7 +705,8 @@ namespace Retinues.Domain.Equipments.Helpers
             HashSet<string> cultureIds,
             bool acceptNeutralCulture,
             bool requireSkillForItem,
-            Func<WItem, bool> itemFilter
+            Func<WItem, bool> itemFilter,
+            bool pickBest
         )
         {
             var oneHand = PickByTypes(
@@ -667,7 +719,8 @@ namespace Retinues.Domain.Equipments.Helpers
                 acceptNeutralCulture,
                 requireSkillForItem,
                 itemFilter,
-                OneHandedTypes
+                OneHandedTypes,
+                pickBest
             );
             me.Set(EquipmentIndex.Weapon0, oneHand);
 
@@ -690,7 +743,8 @@ namespace Retinues.Domain.Equipments.Helpers
             bool acceptNeutralCulture,
             bool requireSkillForItem,
             Func<WItem, bool> itemFilter,
-            ItemObject.ItemTypeEnum[] allowed
+            ItemObject.ItemTypeEnum[] allowed,
+            bool pickBest
         )
         {
             HashSet<ItemObject.ItemTypeEnum> set = [.. allowed];
@@ -705,7 +759,8 @@ namespace Retinues.Domain.Equipments.Helpers
                 acceptNeutralCulture,
                 requireSkillForItem,
                 predicate: it => set.Contains(it.Type),
-                itemFilter: itemFilter
+                itemFilter: itemFilter,
+                pickBest: pickBest
             );
         }
 
@@ -719,7 +774,8 @@ namespace Retinues.Domain.Equipments.Helpers
             bool acceptNeutralCulture,
             bool requireSkillForItem,
             Func<WItem, bool> predicate,
-            Func<WItem, bool> itemFilter
+            Func<WItem, bool> itemFilter,
+            bool pickBest
         )
         {
             var items = WItem.GetEquipmentsForSlot(slot);
@@ -799,7 +855,62 @@ namespace Retinues.Domain.Equipments.Helpers
             if (pool == null || pool.Count == 0)
                 return null;
 
-            return pool[MBRandom.RandomInt(pool.Count)];
+            if (!pickBest || pool.Count == 1)
+                return pool[MBRandom.RandomInt(pool.Count)];
+
+            return PickBest(pool);
+        }
+
+        private static WItem PickBest(List<WItem> pool)
+        {
+            if (pool == null || pool.Count == 0)
+                return null;
+
+            WItem best = pool[0];
+
+            for (int i = 1; i < pool.Count; i++)
+            {
+                var cand = pool[i];
+                if (cand == null)
+                    continue;
+
+                cand.GetComparisonChevrons(best, out int pos, out int neg);
+
+                // If comparable and clearly better, take it.
+                if (pos > neg)
+                {
+                    best = cand;
+                    continue;
+                }
+
+                // If not comparable (0/0) or tie-ish, break ties by tier/value.
+                if (pos == neg)
+                {
+                    if (cand.Tier > best.Tier)
+                        best = cand;
+                    else if (cand.Tier == best.Tier && cand.Value > best.Value)
+                        best = cand;
+                }
+            }
+
+            return best;
+        }
+
+        private static int CountInEquipment(MEquipment me, string itemId)
+        {
+            if (me == null || string.IsNullOrEmpty(itemId))
+                return 0;
+
+            int count = 0;
+
+            for (int i = 0; i < (int)EquipmentIndex.NumEquipmentSetSlots; i++)
+            {
+                var w = me.Get((EquipmentIndex)i);
+                if (w != null && w.StringId == itemId)
+                    count++;
+            }
+
+            return count;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
