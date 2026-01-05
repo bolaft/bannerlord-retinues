@@ -64,6 +64,9 @@ namespace Retinues.Domain.Equipments.Models
             var list = Equipments.ToList();
             list.Remove(equipment);
             Equipments = list;
+
+            // Update formation class in case the first battle equipment was removed.
+            owner.UpdateFormationClass();
         }
 
         public void Copy(MEquipmentRoster source, EquipmentCopyMode mode = EquipmentCopyMode.All)

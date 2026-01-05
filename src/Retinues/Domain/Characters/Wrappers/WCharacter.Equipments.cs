@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Retinues.Domain.Equipments.Helpers;
 using Retinues.Domain.Equipments.Models;
 using Retinues.Framework.Model.Attributes;
 using Retinues.Utilities;
@@ -12,8 +11,6 @@ namespace Retinues.Domain.Characters.Wrappers
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Access                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        private bool _initializingEquipmentRoster;
 
         private MEquipmentRoster _equipmentRosterCache;
 
@@ -37,93 +34,24 @@ namespace Retinues.Domain.Characters.Wrappers
                 if (_equipmentRosterCache.Equipments.Count == 0)
                     _equipmentRosterCache.Reset();
 
-                EnsureFirstBattleHookAndFormation(_equipmentRosterCache);
-
                 return _equipmentRosterCache;
-            }
-        }
-
-        private void EnsureFirstBattleHookAndFormation(MEquipmentRoster mroster)
-        {
-            if (_initializingEquipmentRoster)
-                return;
-
-            _initializingEquipmentRoster = true;
-
-            try
-            {
-                HookFirstBattleEquipment(mroster.Equipments);
-
-                // Refresh formation without calling Equipments again.
-                if (FormationClassOverride != FormationClass.Unset)
-                {
-                    ApplyFormation(FormationClassHelper.FromFormationClass(FormationClassOverride));
-                    return;
-                }
-
-                if (_hookedFirstBattleEquipment != null)
-                    ApplyFormation(_hookedFirstBattleEquipment.FormationInfo);
-            }
-            finally
-            {
-                _initializingEquipmentRoster = false;
             }
         }
 
         public List<MEquipment> Equipments => EquipmentRoster.Equipments;
 
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                   First Battle Hook                    //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        private MEquipment _hookedFirstBattleEquipment;
-
-        /// <summary>
-        /// Gets the first battle equipment in the roster.
-        /// </summary>
-        private static MEquipment GetFirstBattleEquipment(List<MEquipment> equipments)
+        public MEquipment FirstBattleEquipment
         {
-            if (equipments == null)
-                return null;
-
-            foreach (var eq in equipments)
+            get
             {
-                if (eq == null)
-                    continue;
+                foreach (var equipment in Equipments)
+                {
+                    if (equipment?.IsCivilian == false)
+                        return equipment;
+                }
 
-                if (eq.IsCivilian)
-                    continue;
-
-                return eq;
+                return null;
             }
-
-            return null;
-        }
-
-        /// <summary>
-        /// Hooks into the first battle equipment to listen for item changes.
-        /// </summary>
-        private void HookFirstBattleEquipment(List<MEquipment> equipments)
-        {
-            var eq = GetFirstBattleEquipment(equipments);
-            if (ReferenceEquals(eq, _hookedFirstBattleEquipment))
-                return;
-
-            if (_hookedFirstBattleEquipment != null)
-                _hookedFirstBattleEquipment.ItemsChanged -= OnFirstBattleEquipmentItemsChanged;
-
-            _hookedFirstBattleEquipment = eq;
-
-            if (_hookedFirstBattleEquipment != null)
-                _hookedFirstBattleEquipment.ItemsChanged += OnFirstBattleEquipmentItemsChanged;
-        }
-
-        /// <summary>
-        /// Called when items in the first battle equipment change.
-        /// </summary>
-        private void OnFirstBattleEquipmentItemsChanged(MEquipment _)
-        {
-            RefreshFormationFromFirstBattleEquipment();
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

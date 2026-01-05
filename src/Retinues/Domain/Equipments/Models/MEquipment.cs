@@ -117,6 +117,9 @@ namespace Retinues.Domain.Equipments.Models
                     }
 
                     _roster?.InvalidateItemCountsCache();
+
+                    // Update formation class in case the first battle equipment changed.
+                    owner.UpdateFormationClass();
                 }
             );
 
@@ -237,6 +240,9 @@ namespace Retinues.Domain.Equipments.Models
             _formationDirty = true;
             ItemsChanged?.Invoke(this);
             _roster?.InvalidateItemCountsCache();
+
+            // Update formation class in case the first battle equipment changed.
+            owner.UpdateFormationClass();
         }
 
         private static bool IsValidSlot(EquipmentIndex index)
