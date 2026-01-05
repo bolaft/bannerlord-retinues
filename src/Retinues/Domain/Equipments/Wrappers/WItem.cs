@@ -1,6 +1,7 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using Retinues.Configuration;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Factions.Wrappers;
 using Retinues.Framework.Model;
@@ -178,7 +179,7 @@ namespace Retinues.Domain.Equipments.Wrappers
         /// <summary>
         /// The unlock progress required to unlock this item.
         /// </summary>
-        const int UnlockThreshold = 100;
+        const int UnlockThreshold = 1000;
 
         MAttribute<Dictionary<string, int>> UnlockProgressByHeroAttribute =>
             Attribute<Dictionary<string, int>>(initialValue: []);
@@ -203,6 +204,9 @@ namespace Retinues.Domain.Equipments.Wrappers
 
         public int GetUnlockProgress(WHero hero)
         {
+            if (Settings.AllEquipmentUnlocked)
+                return UnlockThreshold; // Always unlocked.
+
             var map = UnlockProgressByHeroAttribute.Get() ?? [];
 
             if (map.TryGetValue(hero.StringId, out var value))

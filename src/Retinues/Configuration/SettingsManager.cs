@@ -67,6 +67,7 @@ namespace Retinues.Configuration
         bool IsDisabled { get; }
         object DisabledOverrideBoxed { get; }
         IOption DependsOn { get; }
+        object DependsOnValue { get; }
         UIEvent? Fires { get; }
 
         /// <summary>
@@ -122,6 +123,7 @@ namespace Retinues.Configuration
             bool disabled,
             T disabledOverride,
             IOption dependsOn = null,
+            object dependsOnValue = null,
             UIEvent? fires = null
         )
         {
@@ -138,6 +140,7 @@ namespace Retinues.Configuration
             IsDisabled = disabled;
             DisabledOverride = disabledOverride;
             DependsOn = dependsOn;
+            DependsOnValue = dependsOnValue;
             Fires = fires;
 
             // Fallbacks; real delegates are wired by SettingsManager.DiscoverOptions.
@@ -171,6 +174,7 @@ namespace Retinues.Configuration
         public bool IsDisabled { get; set; }
         public T DisabledOverride { get; set; }
         public IOption DependsOn { get; set; }
+        public object DependsOnValue { get; set; }
 
         /// <summary>
         /// The current typed option value (uses the runtime-backed getter/setter).
@@ -256,6 +260,7 @@ namespace Retinues.Configuration
             bool disabled,
             T disabledOverride,
             IOption dependsOn,
+            object dependsOnValue,
             Func<T, string> choiceFormatter,
             UIEvent? fires
         )
@@ -271,6 +276,7 @@ namespace Retinues.Configuration
                 disabled,
                 disabledOverride,
                 dependsOn,
+                dependsOnValue,
                 fires
             )
         {
@@ -421,15 +427,36 @@ namespace Retinues.Configuration
             double maxValue = 1000,
             bool requiresRestart = false,
             IReadOnlyDictionary<string, object> presets = null,
+            object freeform = null,
+            object realistic = null,
             bool disabled = false,
             T disabledOverride = default,
             IOption dependsOn = null,
+            object dependsOnValue = null,
             UIEvent? fires = null
         )
         {
             Func<string> sectionFunc = null;
             if (section != null)
                 sectionFunc = () => section.Name;
+
+            // Merge: existing presets + short-hand params
+            Dictionary<string, object> merged = null;
+
+            if (presets != null)
+                merged = presets.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+
+            if (freeform != null)
+            {
+                merged ??= [];
+                merged[Presets.Freeform] = CoerceToType(freeform, typeof(T));
+            }
+
+            if (realistic != null)
+            {
+                merged ??= [];
+                merged[Presets.Realistic] = CoerceToType(realistic, typeof(T));
+            }
 
             return new Option<T>(
                 sectionFunc,
@@ -439,10 +466,11 @@ namespace Retinues.Configuration
                 minValue,
                 maxValue,
                 requiresRestart,
-                presets,
+                merged,
                 disabled,
                 disabledOverride,
                 dependsOn,
+                dependsOnValue,
                 fires
             );
         }
@@ -460,16 +488,36 @@ namespace Retinues.Configuration
             double maxValue = 1000,
             bool requiresRestart = false,
             IReadOnlyDictionary<string, object> presets = null,
+            object freeform = null,
+            object realistic = null,
             bool disabled = false,
             T disabledOverride = default,
             Func<T, string> choiceFormatter = null,
             IOption dependsOn = null,
+            object dependsOnValue = null,
             UIEvent? fires = null
         )
         {
             Func<string> sectionFunc = null;
             if (section != null)
                 sectionFunc = () => section.Name;
+
+            Dictionary<string, object> merged = null;
+
+            if (presets != null)
+                merged = presets.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+
+            if (freeform != null)
+            {
+                merged ??= new Dictionary<string, object>();
+                merged[Presets.Freeform] = CoerceToType(freeform, typeof(T));
+            }
+
+            if (realistic != null)
+            {
+                merged ??= new Dictionary<string, object>();
+                merged[Presets.Realistic] = CoerceToType(realistic, typeof(T));
+            }
 
             return new MultiChoiceOption<T>(
                 sectionFunc,
@@ -480,10 +528,11 @@ namespace Retinues.Configuration
                 minValue,
                 maxValue,
                 requiresRestart,
-                presets,
+                merged,
                 disabled,
                 disabledOverride,
                 dependsOn,
+                dependsOnValue,
                 choiceFormatter,
                 fires
             );
@@ -817,16 +866,25 @@ namespace Retinues.Configuration
             if (!IsVisibleInMCM(dep, stack))
                 return false;
 
-            // Dependency gate: only hide when dependency value is not true
-            if (dep.Type != typeof(bool))
-                return true;
-
             try
             {
+                // New: if DependsOnValue is set, gate on equality for any dependency type.
+                if (opt.DependsOnValue != null)
+                {
+                    object current = dep.GetObject();
+                    object expected = CoerceToType(opt.DependsOnValue, dep.Type);
+                    return Equals(current, expected);
+                }
+
+                // Old behavior: only hide when dependency value is not true
+                if (dep.Type != typeof(bool))
+                    return true;
+
                 return Convert.ToBoolean(dep.GetObject(), CultureInfo.InvariantCulture);
             }
-            catch
+            catch (Exception e)
             {
+                Log.Exception(e, "DependsOn visibility check failed.");
                 return true;
             }
             finally
@@ -834,6 +892,32 @@ namespace Retinues.Configuration
                 if (!string.IsNullOrWhiteSpace(k))
                     stack.Remove(k);
             }
+        }
+
+        private static object CoerceToType(object value, Type targetType)
+        {
+            if (targetType == null)
+                return value;
+
+            var t = Nullable.GetUnderlyingType(targetType) ?? targetType;
+
+            if (value == null)
+                return null;
+
+            if (t.IsInstanceOfType(value))
+                return value;
+
+            if (t.IsEnum)
+            {
+                if (value is string s)
+                    return Enum.Parse(t, s, ignoreCase: true);
+
+                var underlying = Enum.GetUnderlyingType(t);
+                var num = Convert.ChangeType(value, underlying, CultureInfo.InvariantCulture);
+                return Enum.ToObject(t, num);
+            }
+
+            return Convert.ChangeType(value, t, CultureInfo.InvariantCulture);
         }
     }
 }

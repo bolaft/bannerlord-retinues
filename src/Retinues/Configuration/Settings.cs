@@ -83,6 +83,8 @@ namespace Retinues.Configuration
             minValue: 0,
             maxValue: 1,
             @default: 0.15f,
+            @freeform: 1f,
+            @realistic: 0.1f,
 #if !DEBUG
             requiresRestart: true,
 #endif
@@ -99,6 +101,71 @@ namespace Retinues.Configuration
 
         /* ━━━━━━━━ Options ━━━━━━━ */
 
+        public static readonly Option<bool> AllEquipmentUnlocked = CreateOption(
+            section: EquipmentUnlocks,
+            name: L.F("mcm_option_all_equipment_unlocked", "All Equipment Unlocked"),
+            hint: L.F(
+                "mcm_option_all_equipment_unlocked_hint",
+                "Whether all equipment is immediately unlocked or needs to be unlocked through gameplay."
+            ),
+            @default: false,
+            @freeform: true,
+            fires: UIEvent.Page
+        );
+
+        public static readonly Option<bool> UnlockItemsThroughKills = CreateOption(
+            section: EquipmentUnlocks,
+            name: L.F("mcm_option_unlock_items_through_kills", "Unlock Items Through Kills"),
+            hint: L.F(
+                "mcm_option_unlock_items_through_kills_hint",
+                "Whether items are unlocked by defeating enemies in battles."
+            ),
+            @default: true,
+            dependsOn: AllEquipmentUnlocked,
+            dependsOnValue: false
+        );
+
+        public static readonly Option<int> RequiredKillsForUnlock = CreateOption(
+            section: EquipmentUnlocks,
+            name: L.F("mcm_option_required_kills_for_unlock", "Required Kills For Unlock"),
+            hint: L.F(
+                "mcm_option_required_kills_for_unlock_hint",
+                "The number of enemy troops wearing an item that must be defeated to unlock it."
+            ),
+            minValue: 1,
+            maxValue: 1000,
+            @default: 100,
+            @realistic: 200,
+            dependsOn: UnlockItemsThroughKills,
+            dependsOnValue: true
+        );
+
+        public static readonly Option<bool> UnlockItemsThroughDiscards = CreateOption(
+            section: EquipmentUnlocks,
+            name: L.F("mcm_option_unlock_items_through_discards", "Unlock Items Through Discards"),
+            hint: L.F(
+                "mcm_option_unlock_items_through_discards_hint",
+                "Whether items are unlocked by discarding items."
+            ),
+            @default: false,
+            dependsOn: AllEquipmentUnlocked,
+            dependsOnValue: false
+        );
+
+        public static readonly Option<int> RequiredDiscardsForUnlock = CreateOption(
+            section: EquipmentUnlocks,
+            name: L.F("mcm_option_required_discards_for_unlock", "Required Discards For Unlock"),
+            hint: L.F(
+                "mcm_option_required_discards_for_unlock_hint",
+                "The number of times an item must be discarded to unlock it."
+            ),
+            minValue: 1,
+            maxValue: 1000,
+            @default: 10,
+            @realistic: 20,
+            dependsOn: UnlockItemsThroughDiscards
+        );
+
         public static readonly Option<int> DefaultUnlockedAmountPerSlot = CreateOption(
             section: EquipmentUnlocks,
             name: L.F(
@@ -109,6 +176,8 @@ namespace Retinues.Configuration
                 "mcm_option_default_unlocked_amount_per_slot_hint",
                 "The number of items unlocked per equipment slot on game start."
             ),
+            dependsOn: AllEquipmentUnlocked,
+            dependsOnValue: false,
             minValue: 0,
             maxValue: 9,
             @default: 3
@@ -121,9 +190,12 @@ namespace Retinues.Configuration
                 "mcm_option_default_unlocked_item_max_tier_hint",
                 "The maximum tier of items unlocked on game start."
             ),
+            dependsOn: AllEquipmentUnlocked,
+            dependsOnValue: false,
             minValue: 1,
             maxValue: 6,
-            @default: 2
+            @default: 2,
+            @realistic: 1
         );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -144,6 +216,7 @@ namespace Retinues.Configuration
                 "Whether equipping new items should cost gold."
             ),
             @default: true,
+            @freeform: false,
             fires: UIEvent.Page
         );
 
@@ -157,6 +230,7 @@ namespace Retinues.Configuration
             minValue: 0.1f,
             maxValue: 10f,
             @default: 1f,
+            @realistic: 2f,
             dependsOn: EquipmentCostsGold,
             fires: UIEvent.Page
         );
