@@ -665,6 +665,12 @@
       id="ret_mariner_toggle_tooltip_universal"
       text="Мореплаватели лучше подходят для морского боя." />
     <string
+      id="ret_mcm_option_all_equipment_unlocked"
+      text="Все оборудование разблокировано" />
+    <string
+      id="ret_mcm_option_all_equipment_unlocked_hint"
+      text="Все оборудование разблокировано сразу или его нужно разблокировать через игровой процесс." />
+    <string
       id="ret_mcm_option_debug_mode"
       text="Режим отладки" />
     <string
@@ -743,6 +749,18 @@
       id="ret_mcm_option_max_retinue_ratio_hint"
       text="Максимальное количество retinues в зависимости от ограничения размера партии." />
     <string
+      id="ret_mcm_option_required_discards_for_unlock"
+      text="Требуемые отказы для разблокировки" />
+    <string
+      id="ret_mcm_option_required_discards_for_unlock_hint"
+      text="Количество раз, которое предмет должен быть отброшен, чтобы разблокировать его." />
+    <string
+      id="ret_mcm_option_required_kills_for_unlock"
+      text="Требуемые убийства для разблокировки" />
+    <string
+      id="ret_mcm_option_required_kills_for_unlock_hint"
+      text="Количество вражеских войск, носящих предмет, которые необходимо победить, чтобы разблокировать его." />
+    <string
       id="ret_mcm_option_skill_cap"
       text="Максимальный уровень навыков уровня {TIER}" />
     <string
@@ -760,6 +778,18 @@
     <string
       id="ret_mcm_option_starter_equipment_hint"
       text="Устанавливает начальное снаряжение для недавно разблокированных войск." />
+    <string
+      id="ret_mcm_option_unlock_items_through_discards"
+      text="Разблокировка предметов через отказы" />
+    <string
+      id="ret_mcm_option_unlock_items_through_discards_hint"
+      text="Разблокируются ли предметы путем их отброса." />
+    <string
+      id="ret_mcm_option_unlock_items_through_kills"
+      text="Разблокировка предметов через убийства" />
+    <string
+      id="ret_mcm_option_unlock_items_through_kills_hint"
+      text="Разблокируются ли предметы путем победы над врагами в боях." />
     <string
       id="ret_mcm_section_debug"
       text="Отладка" />

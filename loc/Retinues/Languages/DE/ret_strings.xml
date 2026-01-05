@@ -665,6 +665,12 @@
       id="ret_mariner_toggle_tooltip_universal"
       text="Seefahrer sind besser für den Seekampf geeignet." />
     <string
+      id="ret_mcm_option_all_equipment_unlocked"
+      text="Alle Ausrüstungen freigeschaltet" />
+    <string
+      id="ret_mcm_option_all_equipment_unlocked_hint"
+      text="Ob alle Ausrüstungen sofort freigeschaltet sind oder durch das Gameplay freigeschaltet werden müssen." />
+    <string
       id="ret_mcm_option_debug_mode"
       text="Debug-Modus" />
     <string
@@ -743,6 +749,18 @@
       id="ret_mcm_option_max_retinue_ratio_hint"
       text="Die maximale Anzahl von Retinues als Verhältnis zur Partikelgrößenbegrenzung." />
     <string
+      id="ret_mcm_option_required_discards_for_unlock"
+      text="Erforderliche Verwerfung zum Entsperren" />
+    <string
+      id="ret_mcm_option_required_discards_for_unlock_hint"
+      text="Die Anzahl der Male, die ein Gegenstand verworfen werden muss, um ihn zu entsperren." />
+    <string
+      id="ret_mcm_option_required_kills_for_unlock"
+      text="Erforderliche Tötungen zum Entsperren" />
+    <string
+      id="ret_mcm_option_required_kills_for_unlock_hint"
+      text="Die Anzahl der feindlichen Truppen, die einen Gegenstand tragen und besiegt werden müssen, um ihn zu entsperren." />
+    <string
       id="ret_mcm_option_skill_cap"
       text="Fähigkeitsgrenze Stufe {TIER}" />
     <string
@@ -760,6 +778,18 @@
     <string
       id="ret_mcm_option_starter_equipment_hint"
       text="Legt die Starterausrüstung für neu freigeschaltete Truppen fest." />
+    <string
+      id="ret_mcm_option_unlock_items_through_discards"
+      text="Gegenstände durch Verwerfung freischalten" />
+    <string
+      id="ret_mcm_option_unlock_items_through_discards_hint"
+      text="Ob Gegenstände durch das Verwerfen von Gegenständen freigeschaltet werden." />
+    <string
+      id="ret_mcm_option_unlock_items_through_kills"
+      text="Gegenstände durch Tötungen freischalten" />
+    <string
+      id="ret_mcm_option_unlock_items_through_kills_hint"
+      text="Ob Gegenstände durch das Besiegen von Feinden in Schlachten freigeschaltet werden." />
     <string
       id="ret_mcm_section_debug"
       text="Debug" />

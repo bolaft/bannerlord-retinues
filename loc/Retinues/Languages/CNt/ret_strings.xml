@@ -665,6 +665,12 @@
       id="ret_mariner_toggle_tooltip_universal"
       text="水手更適合海戰。" />
     <string
+      id="ret_mcm_option_all_equipment_unlocked"
+      text="所有裝備已解鎖" />
+    <string
+      id="ret_mcm_option_all_equipment_unlocked_hint"
+      text="所有裝備是立即解鎖還是需要通過遊戲玩法解鎖。" />
+    <string
       id="ret_mcm_option_debug_mode"
       text="調試模式" />
     <string
@@ -743,6 +749,18 @@
       id="ret_mcm_option_max_retinue_ratio_hint"
       text="隨從的最大數量與隊伍規模限制的比例。" />
     <string
+      id="ret_mcm_option_required_discards_for_unlock"
+      text="解鎖所需的丟棄次數" />
+    <string
+      id="ret_mcm_option_required_discards_for_unlock_hint"
+      text="必須丟棄物品的次數才能解鎖它。" />
+    <string
+      id="ret_mcm_option_required_kills_for_unlock"
+      text="解鎖所需的擊殺數" />
+    <string
+      id="ret_mcm_option_required_kills_for_unlock_hint"
+      text="必須擊敗穿戴某物品的敵軍數量才能解鎖它。" />
+    <string
       id="ret_mcm_option_skill_cap"
       text="等級 {TIER} 技能上限" />
     <string
@@ -760,6 +778,18 @@
     <string
       id="ret_mcm_option_starter_equipment_hint"
       text="為新解鎖的部隊設置起始裝備。" />
+    <string
+      id="ret_mcm_option_unlock_items_through_discards"
+      text="通過丟棄解鎖物品" />
+    <string
+      id="ret_mcm_option_unlock_items_through_discards_hint"
+      text="物品是否通過丟棄物品來解鎖。" />
+    <string
+      id="ret_mcm_option_unlock_items_through_kills"
+      text="通過擊殺解鎖物品" />
+    <string
+      id="ret_mcm_option_unlock_items_through_kills_hint"
+      text="物品是否通過在戰鬥中擊敗敵人來解鎖。" />
     <string
       id="ret_mcm_section_debug"
       text="調試" />

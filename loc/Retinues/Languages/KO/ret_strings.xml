@@ -665,6 +665,12 @@
       id="ret_mariner_toggle_tooltip_universal"
       text="선원은 해상 전투에 더 적합합니다." />
     <string
+      id="ret_mcm_option_all_equipment_unlocked"
+      text="모든 장비 잠금 해제" />
+    <string
+      id="ret_mcm_option_all_equipment_unlocked_hint"
+      text="모든 장비가 즉시 잠금 해제되었는지 아니면 게임 플레이를 통해 잠금 해제해야 하는지 여부입니다." />
+    <string
       id="ret_mcm_option_debug_mode"
       text="디버그 모드" />
     <string
@@ -743,6 +749,18 @@
       id="ret_mcm_option_max_retinue_ratio_hint"
       text="파티 크기 제한의 비율로서 최대 Retinues 수입니다." />
     <string
+      id="ret_mcm_option_required_discards_for_unlock"
+      text="잠금 해제에 필요한 폐기물" />
+    <string
+      id="ret_mcm_option_required_discards_for_unlock_hint"
+      text="항목의 잠금을 해제하기 위해 폐기해야 하는 횟수입니다." />
+    <string
+      id="ret_mcm_option_required_kills_for_unlock"
+      text="잠금 해제에 필요한 킬 수" />
+    <string
+      id="ret_mcm_option_required_kills_for_unlock_hint"
+      text="잠금을 해제하기 위해 물건을 착용한 적군 부대의 수입니다." />
+    <string
       id="ret_mcm_option_skill_cap"
       text="티어 {TIER} 기술 한도" />
     <string
@@ -760,6 +778,18 @@
     <string
       id="ret_mcm_option_starter_equipment_hint"
       text="새로 잠금 해제된 부대의 시작 장비를 설정합니다." />
+    <string
+      id="ret_mcm_option_unlock_items_through_discards"
+      text="폐기를 통해 항목 잠금 해제" />
+    <string
+      id="ret_mcm_option_unlock_items_through_discards_hint"
+      text="항목이 항목을 폐기하여 잠금 해제되는지 여부입니다." />
+    <string
+      id="ret_mcm_option_unlock_items_through_kills"
+      text="킬을 통해 항목 잠금 해제" />
+    <string
+      id="ret_mcm_option_unlock_items_through_kills_hint"
+      text="전투에서 적을 물리쳐 항목이 잠금 해제되는지 여부입니다." />
     <string
       id="ret_mcm_section_debug"
       text="디버그" />

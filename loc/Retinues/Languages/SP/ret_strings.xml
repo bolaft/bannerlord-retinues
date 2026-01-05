@@ -665,6 +665,12 @@
       id="ret_mariner_toggle_tooltip_universal"
       text="Los marineros son más adecuados para el combate naval." />
     <string
+      id="ret_mcm_option_all_equipment_unlocked"
+      text="Todo el equipo desbloqueado" />
+    <string
+      id="ret_mcm_option_all_equipment_unlocked_hint"
+      text="Si todo el equipo está desbloqueado inmediatamente o necesita ser desbloqueado a través del juego." />
+    <string
       id="ret_mcm_option_debug_mode"
       text="Modo de depuración" />
     <string
@@ -743,6 +749,18 @@
       id="ret_mcm_option_max_retinue_ratio_hint"
       text="El número máximo de retinues como una proporción del límite de tamaño del grupo." />
     <string
+      id="ret_mcm_option_required_discards_for_unlock"
+      text="Descarte requerido para desbloquear" />
+    <string
+      id="ret_mcm_option_required_discards_for_unlock_hint"
+      text="El número de veces que se debe descartar un artículo para desbloquearlo." />
+    <string
+      id="ret_mcm_option_required_kills_for_unlock"
+      text="Muertes requeridas para desbloquear" />
+    <string
+      id="ret_mcm_option_required_kills_for_unlock_hint"
+      text="El número de tropas enemigas que llevan un artículo que deben ser derrotadas para desbloquearlo." />
+    <string
       id="ret_mcm_option_skill_cap"
       text="Límite de habilidad de nivel {TIER}" />
     <string
@@ -760,6 +778,18 @@
     <string
       id="ret_mcm_option_starter_equipment_hint"
       text="Establece el equipo inicial para las tropas recién desbloqueadas." />
+    <string
+      id="ret_mcm_option_unlock_items_through_discards"
+      text="Desbloquear artículos a través de descartes" />
+    <string
+      id="ret_mcm_option_unlock_items_through_discards_hint"
+      text="Si los artículos se desbloquean descartando artículos." />
+    <string
+      id="ret_mcm_option_unlock_items_through_kills"
+      text="Desbloquear artículos a través de muertes" />
+    <string
+      id="ret_mcm_option_unlock_items_through_kills_hint"
+      text="Si los artículos se desbloquean al derrotar enemigos en batallas." />
     <string
       id="ret_mcm_section_debug"
       text="Depuración" />

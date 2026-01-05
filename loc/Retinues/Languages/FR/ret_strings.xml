@@ -665,6 +665,12 @@
       id="ret_mariner_toggle_tooltip_universal"
       text="Les marins sont mieux adaptés au combat naval." />
     <string
+      id="ret_mcm_option_all_equipment_unlocked"
+      text="Tous les Équipements Débloqués" />
+    <string
+      id="ret_mcm_option_all_equipment_unlocked_hint"
+      text="Si tout l&apos;équipement est immédiatement débloqué ou doit être débloqué via le gameplay." />
+    <string
       id="ret_mcm_option_debug_mode"
       text="Mode Débogage" />
     <string
@@ -743,6 +749,18 @@
       id="ret_mcm_option_max_retinue_ratio_hint"
       text="Le nombre maximum de rétinues en fonction de la taille maximale du groupe." />
     <string
+      id="ret_mcm_option_required_discards_for_unlock"
+      text="Nombre de Rejets Requis pour le Débloquer" />
+    <string
+      id="ret_mcm_option_required_discards_for_unlock_hint"
+      text="Le nombre de fois qu&apos;un objet doit être rejeté pour le débloquer." />
+    <string
+      id="ret_mcm_option_required_kills_for_unlock"
+      text="Nombre d&apos;Ennemis Vaincus Requis pour Débloquer" />
+    <string
+      id="ret_mcm_option_required_kills_for_unlock_hint"
+      text="Le nombre d&apos;ennemis portant un objet qui doivent être vaincus pour le débloquer." />
+    <string
       id="ret_mcm_option_skill_cap"
       text="Maximum de Compétence au Niveau {TIER}" />
     <string
@@ -760,6 +778,18 @@
     <string
       id="ret_mcm_option_starter_equipment_hint"
       text="Définit l&apos;équipement de départ pour les troupes nouvellement débloquées." />
+    <string
+      id="ret_mcm_option_unlock_items_through_discards"
+      text="Débloquer les Objets en les Rejetant" />
+    <string
+      id="ret_mcm_option_unlock_items_through_discards_hint"
+      text="Si les objets sont débloqués en rejetant des objets." />
+    <string
+      id="ret_mcm_option_unlock_items_through_kills"
+      text="Débloquer les Objets en Vainquant des Ennemis" />
+    <string
+      id="ret_mcm_option_unlock_items_through_kills_hint"
+      text="Si les objets sont débloqués en vainquant des ennemis au combat." />
     <string
       id="ret_mcm_section_debug"
       text="Debug" />

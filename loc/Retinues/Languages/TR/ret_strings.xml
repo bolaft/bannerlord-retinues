@@ -665,6 +665,12 @@
       id="ret_mariner_toggle_tooltip_universal"
       text="Denizciler deniz savaşları için daha uygundur." />
     <string
+      id="ret_mcm_option_all_equipment_unlocked"
+      text="Tüm Ekipmanlar Kilidi Açıldı" />
+    <string
+      id="ret_mcm_option_all_equipment_unlocked_hint"
+      text="Tüm ekipmanların hemen kilidi açılır mı yoksa oyun oynanarak mı açılması gerekir." />
+    <string
       id="ret_mcm_option_debug_mode"
       text="Hata Ayıklama Modu" />
     <string
@@ -743,6 +749,18 @@
       id="ret_mcm_option_max_retinue_ratio_hint"
       text="Grup boyutu sınırının bir oranı olarak maksimum retinue sayısı." />
     <string
+      id="ret_mcm_option_required_discards_for_unlock"
+      text="Kilidi Açmak İçin Gerekli Atmalar" />
+    <string
+      id="ret_mcm_option_required_discards_for_unlock_hint"
+      text="Bir öğenin kilidini açmak için atılması gereken sayıdır." />
+    <string
+      id="ret_mcm_option_required_kills_for_unlock"
+      text="Kilidi Açmak İçin Gerekli Ölümler" />
+    <string
+      id="ret_mcm_option_required_kills_for_unlock_hint"
+      text="Kilidi açmak için yenilmesi gereken bir öğe giyen düşman birliklerinin sayısı." />
+    <string
       id="ret_mcm_option_skill_cap"
       text="{TIER} Seviye Yetenek Sınırı" />
     <string
@@ -760,6 +778,18 @@
     <string
       id="ret_mcm_option_starter_equipment_hint"
       text="Yeni kilidi açılmış birlikler için başlangıç ekipmanını ayarlar." />
+    <string
+      id="ret_mcm_option_unlock_items_through_discards"
+      text="Atmalarla Öğeleri Kilidini Açma" />
+    <string
+      id="ret_mcm_option_unlock_items_through_discards_hint"
+      text="Öğelerin öğeleri atarak kilidinin açılıp açılmayacağı." />
+    <string
+      id="ret_mcm_option_unlock_items_through_kills"
+      text="Ölümlerle Öğeleri Kilidini Açma" />
+    <string
+      id="ret_mcm_option_unlock_items_through_kills_hint"
+      text="Öğelerin savaşlarda düşmanları yenerek kilidinin açılıp açılmayacağı." />
     <string
       id="ret_mcm_section_debug"
       text="Hata Ayıklama" />

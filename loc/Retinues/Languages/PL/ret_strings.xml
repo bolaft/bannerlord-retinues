@@ -665,6 +665,12 @@
       id="ret_mariner_toggle_tooltip_universal"
       text="Marynarze są lepiej przystosowani do walki morskiej." />
     <string
+      id="ret_mcm_option_all_equipment_unlocked"
+      text="Wszystkie wyposażenie odblokowane" />
+    <string
+      id="ret_mcm_option_all_equipment_unlocked_hint"
+      text="Czy całe wyposażenie jest natychmiast odblokowane, czy musi zostać odblokowane poprzez rozgrywkę." />
+    <string
       id="ret_mcm_option_debug_mode"
       text="Tryb debugowania" />
     <string
@@ -743,6 +749,18 @@
       id="ret_mcm_option_max_retinue_ratio_hint"
       text="Maksymalna liczba retinue jako stosunek do limitu wielkości drużyny." />
     <string
+      id="ret_mcm_option_required_discards_for_unlock"
+      text="Wymagane odrzucenia do odblokowania" />
+    <string
+      id="ret_mcm_option_required_discards_for_unlock_hint"
+      text="Liczba razy, jaką przedmiot musi zostać odrzucony, aby go odblokować." />
+    <string
+      id="ret_mcm_option_required_kills_for_unlock"
+      text="Wymagane zabójstwa do odblokowania" />
+    <string
+      id="ret_mcm_option_required_kills_for_unlock_hint"
+      text="Liczba wrogich oddziałów noszących przedmiot, które muszą zostać pokonane, aby go odblokować." />
+    <string
       id="ret_mcm_option_skill_cap"
       text="Limit umiejętności poziomu {TIER}" />
     <string
@@ -760,6 +778,18 @@
     <string
       id="ret_mcm_option_starter_equipment_hint"
       text="Ustawia początkowy ekwipunek dla nowo odblokowanych oddziałów." />
+    <string
+      id="ret_mcm_option_unlock_items_through_discards"
+      text="Odblokuj przedmioty poprzez odrzucenia" />
+    <string
+      id="ret_mcm_option_unlock_items_through_discards_hint"
+      text="Czy przedmioty są odblokowywane poprzez odrzucanie przedmiotów." />
+    <string
+      id="ret_mcm_option_unlock_items_through_kills"
+      text="Odblokuj przedmioty poprzez zabójstwa" />
+    <string
+      id="ret_mcm_option_unlock_items_through_kills_hint"
+      text="Czy przedmioty są odblokowywane poprzez pokonywanie wrogów w bitwach." />
     <string
       id="ret_mcm_section_debug"
       text="Debugowanie" />
