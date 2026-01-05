@@ -171,6 +171,7 @@ namespace Retinues.Domain.Characters.Wrappers
         public bool IsPlayer => Base.IsPlayerCharacter;
         public bool IsCustom => StringId.StartsWith(CustomTroopPrefix);
         public bool IsVanilla => !IsCustom;
+        public bool IsEdited => IsDirty;
         public bool InTree => IsBasic || IsElite || IsMercenary || IsBandit;
         public bool IsRoot => Root == this;
         public bool IsLeaf => UpgradeTargets.Count == 0;
