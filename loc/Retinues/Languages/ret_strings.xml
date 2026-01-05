@@ -11,6 +11,51 @@
       id="ret_age_hint"
       text="Age" />
     <string
+      id="ret_battle_type_field_checkbox_tooltip_disable"
+      text="Disable for field battles." />
+    <string
+      id="ret_battle_type_field_checkbox_tooltip_enable"
+      text="Enable for field battles." />
+    <string
+      id="ret_battle_type_field_required_reason"
+      text="At least one battle equipment set must remain enabled for field battles." />
+    <string
+      id="ret_battle_type_field_tooltip"
+      text="Field battles." />
+    <string
+      id="ret_battle_type_naval_checkbox_tooltip_disable"
+      text="Disable for naval battles." />
+    <string
+      id="ret_battle_type_naval_checkbox_tooltip_enable"
+      text="Enable for naval battles." />
+    <string
+      id="ret_battle_type_naval_required_reason"
+      text="At least one battle equipment set must remain enabled for naval battles." />
+    <string
+      id="ret_battle_type_naval_tooltip"
+      text="Naval battles." />
+    <string
+      id="ret_battle_type_required_reason"
+      text="At least one battle equipment set must remain enabled for this battle type." />
+    <string
+      id="ret_battle_type_siege_checkbox_tooltip_disable"
+      text="Disable for siege battles." />
+    <string
+      id="ret_battle_type_siege_checkbox_tooltip_enable"
+      text="Enable for siege battles." />
+    <string
+      id="ret_battle_type_siege_required_reason"
+      text="At least one battle equipment set must remain enabled for siege battles." />
+    <string
+      id="ret_battle_type_siege_tooltip"
+      text="Siege battles." />
+    <string
+      id="ret_battle_types_civilian_reason"
+      text="Civilian equipment sets do not have battle type restrictions." />
+    <string
+      id="ret_battle_types_no_set_selected"
+      text="No equipment set selected." />
+    <string
       id="ret_body_age_decrease_tip"
       text="Decrease age" />
     <string
@@ -132,10 +177,16 @@
       text="Back" />
     <string
       id="ret_crafted_items_hide_tooltip"
-      text="Include crafted weapons." />
+      text="Hide crafted weapons." />
     <string
       id="ret_crafted_items_only_tooltip"
-      text="Hide crafted weapons." />
+      text="Show only crafted weapons." />
+    <string
+      id="ret_crafted_items_toggle_tooltip"
+      text="Crafted items." />
+    <string
+      id="ret_crafted_player_only_reason"
+      text="Only available in player mode." />
     <string
       id="ret_create_unit"
       text="New Unit" />
@@ -209,6 +260,9 @@
       id="ret_equipment_cannot_delete_last_set"
       text="At least one equipment set must remain." />
     <string
+      id="ret_equipment_delete_breaks_battle_types_reason"
+      text="Cannot delete this set because it is the last one enabled for at least one battle type." />
+    <string
       id="ret_equipment_hero_sets_reason"
       text="Heroes cannot have multiple equipment sets." />
     <string
@@ -269,6 +323,9 @@
       id="ret_export_character_no_selection"
       text="No character selected." />
     <string
+      id="ret_export_character_tooltip"
+      text="Export character." />
+    <string
       id="ret_export_desc"
       text="Choose a save name:" />
     <string
@@ -306,7 +363,7 @@
       text="Auto" />
     <string
       id="ret_formation_popup_desc"
-      text="Choose how this unit is categorized. Auto uses equipment to decide." />
+      text="Choose how this unit is categorized. Leave on &apos;Auto&apos; to categorize it based on its equipment." />
     <string
       id="ret_formation_popup_title"
       text="Formation Class" />
@@ -593,6 +650,12 @@
       id="ret_list_header_villagers"
       text="Villagers" />
     <string
+      id="ret_mariner_disable_tooltip"
+      text="Disable the mariner ability for this unit." />
+    <string
+      id="ret_mariner_enable_tooltip"
+      text="Enable the mariner ability for this unit." />
+    <string
       id="ret_mariner_hero_reason"
       text="Heroes cannot be mariners." />
     <string
@@ -728,14 +791,17 @@
       id="ret_no_valid_model_title_species"
       text="No Valid Model" />
     <string
-      id="ret_preview_disable_tooltip"
-      text="Disable preview mode." />
-    <string
-      id="ret_preview_enable_tooltip"
-      text="Enable preview mode." />
-    <string
       id="ret_preview_mode"
       text="Preview Mode" />
+    <string
+      id="ret_preview_mode_disable_tooltip"
+      text="Disable preview mode." />
+    <string
+      id="ret_preview_mode_enable_tooltip"
+      text="Enable preview mode." />
+    <string
+      id="ret_preview_mode_toggle_tooltip"
+      text="Preview mode." />
     <string
       id="ret_purchase_item_desc"
       text="Buy {ITEM} for {COST} denars?" />

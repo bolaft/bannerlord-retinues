@@ -11,6 +11,51 @@
       id="ret_age_hint"
       text="年齡" />
     <string
+      id="ret_battle_type_field_checkbox_tooltip_disable"
+      text="禁用平地戰鬥。" />
+    <string
+      id="ret_battle_type_field_checkbox_tooltip_enable"
+      text="啟用平地戰鬥。" />
+    <string
+      id="ret_battle_type_field_required_reason"
+      text="至少有一套戰鬥裝備必須保持啟用以進行平地戰鬥。" />
+    <string
+      id="ret_battle_type_field_tooltip"
+      text="平地戰鬥。" />
+    <string
+      id="ret_battle_type_naval_checkbox_tooltip_disable"
+      text="禁用海戰。" />
+    <string
+      id="ret_battle_type_naval_checkbox_tooltip_enable"
+      text="啟用海戰。" />
+    <string
+      id="ret_battle_type_naval_required_reason"
+      text="至少有一套戰鬥裝備必須保持啟用以進行海戰。" />
+    <string
+      id="ret_battle_type_naval_tooltip"
+      text="海戰。" />
+    <string
+      id="ret_battle_type_required_reason"
+      text="至少有一套戰鬥裝備必須保持啟用以適應此類戰鬥。" />
+    <string
+      id="ret_battle_type_siege_checkbox_tooltip_disable"
+      text="禁用攻城戰鬥。" />
+    <string
+      id="ret_battle_type_siege_checkbox_tooltip_enable"
+      text="啟用攻城戰鬥。" />
+    <string
+      id="ret_battle_type_siege_required_reason"
+      text="至少有一套戰鬥裝備必須保持啟用以進行攻城戰鬥。" />
+    <string
+      id="ret_battle_type_siege_tooltip"
+      text="攻城戰鬥。" />
+    <string
+      id="ret_battle_types_civilian_reason"
+      text="平民裝備套裝沒有戰鬥類型限制。" />
+    <string
+      id="ret_battle_types_no_set_selected"
+      text="未選擇裝備套裝。" />
+    <string
       id="ret_body_age_decrease_tip"
       text="減少年齡" />
     <string
@@ -137,6 +182,12 @@
       id="ret_crafted_items_only_tooltip"
       text="隱藏製作的武器。" />
     <string
+      id="ret_crafted_items_toggle_tooltip"
+      text="製作的物品。" />
+    <string
+      id="ret_crafted_player_only_reason"
+      text="僅在玩家模式下可用。" />
+    <string
       id="ret_create_unit"
       text="新單位" />
     <string
@@ -209,6 +260,9 @@
       id="ret_equipment_cannot_delete_last_set"
       text="至少必須保留一個裝備套裝。" />
     <string
+      id="ret_equipment_delete_breaks_battle_types_reason"
+      text="無法刪除此套裝，因為它是至少一種戰鬥類型啟用的最後一個套裝。" />
+    <string
       id="ret_equipment_hero_sets_reason"
       text="英雄不能擁有多個裝備套裝。" />
     <string
@@ -269,6 +323,9 @@
       id="ret_export_character_no_selection"
       text="未選擇角色。" />
     <string
+      id="ret_export_character_tooltip"
+      text="導出角色。" />
+    <string
       id="ret_export_desc"
       text="選擇一個保存名稱：" />
     <string
@@ -305,6 +362,12 @@
       id="ret_formation_option_auto"
       text="自動" />
     <string
+      id="ret_formation_popup_desc"
+      text="選擇此單位的分類方式。保持“自動”以根據其裝備進行分類。" />
+    <string
+      id="ret_formation_popup_title"
+      text="編隊類別" />
+    <string
       id="ret_gender_no_culture"
       text="未選擇任何文化。" />
     <string
@@ -322,6 +385,9 @@
     <string
       id="ret_height_hint"
       text="身高" />
+    <string
+      id="ret_in_stock"
+      text="有庫存 ({STOCK})" />
     <string
       id="ret_init_error_body_detailed"
       text="Retinues 模組的依賴項未能正確初始化：{newline}{newline}{DETAILS}{newline}{newline}在修復依賴項之前，模組可能無法正常運行。" />
@@ -584,6 +650,12 @@
       id="ret_list_header_villagers"
       text="村民" />
     <string
+      id="ret_mariner_disable_tooltip"
+      text="禁用此單位的水手能力。" />
+    <string
+      id="ret_mariner_enable_tooltip"
+      text="啟用此單位的水手能力。" />
+    <string
       id="ret_mariner_hero_reason"
       text="英雄不能成為水手。" />
     <string
@@ -620,6 +692,36 @@
       id="ret_mcm_option_editor_hotkey_hint"
       text="啟用[R]熱鍵以打開編輯器。" />
     <string
+      id="ret_mcm_option_enable_doctrines"
+      text="啟用學說" />
+    <string
+      id="ret_mcm_option_enable_doctrines_hint"
+      text="切換學說功能的開或關。" />
+    <string
+      id="ret_mcm_option_enable_retinues"
+      text="啟用隨從" />
+    <string
+      id="ret_mcm_option_enable_retinues_hint"
+      text="切換隨從功能的開或關。" />
+    <string
+      id="ret_mcm_option_equipment_cost_multiplier"
+      text="裝備成本乘數" />
+    <string
+      id="ret_mcm_option_equipment_cost_multiplier_hint"
+      text="計算裝備成本時應用於物品基礎成本的乘數。" />
+    <string
+      id="ret_mcm_option_equipment_costs_gold"
+      text="裝備成本黃金" />
+    <string
+      id="ret_mcm_option_equipment_costs_gold_hint"
+      text="裝備新物品是否應花費黃金。" />
+    <string
+      id="ret_mcm_option_max_retinue_ratio"
+      text="最大隨從比例" />
+    <string
+      id="ret_mcm_option_max_retinue_ratio_hint"
+      text="隨從的最大數量與隊伍規模限制的比例。" />
+    <string
       id="ret_mcm_option_skill_cap"
       text="等級 {TIER} 技能上限" />
     <string
@@ -641,8 +743,17 @@
       id="ret_mcm_section_debug"
       text="調試" />
     <string
+      id="ret_mcm_section_doctrines"
+      text="學說" />
+    <string
+      id="ret_mcm_section_equipment"
+      text="裝備" />
+    <string
       id="ret_mcm_section_equipment_unlocks"
       text="裝備解鎖" />
+    <string
+      id="ret_mcm_section_retinues"
+      text="隨從" />
     <string
       id="ret_mcm_section_skill_caps"
       text="技能上限" />
@@ -679,6 +790,24 @@
     <string
       id="ret_no_valid_model_title_species"
       text="無有效模型" />
+    <string
+      id="ret_preview_mode"
+      text="預覽模式" />
+    <string
+      id="ret_preview_mode_disable_tooltip"
+      text="禁用預覽模式。" />
+    <string
+      id="ret_preview_mode_enable_tooltip"
+      text="啟用預覽模式。" />
+    <string
+      id="ret_preview_mode_toggle_tooltip"
+      text="預覽模式。" />
+    <string
+      id="ret_purchase_item_desc"
+      text="以 {COST} 戈德購買 {ITEM}？" />
+    <string
+      id="ret_purchase_item_title"
+      text="購買物品" />
     <string
       id="ret_race_cannot_change"
       text="無法更改此單位的物種。" />

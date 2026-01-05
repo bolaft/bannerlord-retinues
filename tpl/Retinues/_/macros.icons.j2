@@ -1,0 +1,38 @@
+{# ---------------------------------------------- #}
+{# Icon macros                                    #}
+{# ---------------------------------------------- #}
+
+{% macro icon(datasource, sprite, background_sprite, size="32", sprite_size=None, margin_right="4") %}
+    <SpriteWidget
+        DataSource="{{ datasource }}"
+        IsVisible="@IsVisible"
+        WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+        SuggestedWidth="{{ size }}" SuggestedHeight="{{ size }}"
+        HorizontalAlignment="Center" VerticalAlignment="Center"
+        MarginRight="{{ margin_right }}"
+        Sprite="{{ background_sprite }}">
+        <Children>
+
+            <HintWidget
+                DataSource="{Tooltip}"
+                Command.HoverBegin="ExecuteBeginHint"
+                Command.HoverEnd="ExecuteEndHint" />
+
+            <SpriteWidget
+                WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                SuggestedWidth="{{ sprite_size or size }}" SuggestedHeight="{{ sprite_size or size }}"
+                HorizontalAlignment="Center" VerticalAlignment="Center"
+                Sprite="{{ sprite }}">
+                <Children>
+
+                    <HintWidget
+                        DataSource="{Tooltip}"
+                        Command.HoverBegin="ExecuteBeginHint"
+                        Command.HoverEnd="ExecuteEndHint" />
+
+                </Children>
+            </SpriteWidget>
+
+        </Children>
+    </SpriteWidget>
+{% endmacro %}

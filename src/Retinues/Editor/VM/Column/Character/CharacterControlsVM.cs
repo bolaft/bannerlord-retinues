@@ -24,6 +24,14 @@ namespace Retinues.Editor.VM.Column.Character
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceProperty]
+        public Icon ExportIcon { get; } =
+            new(
+                tooltipFactory: () => new(L.T("export_character_tooltip", "Export character.")),
+                refresh: [UIEvent.Character],
+                visibilityGate: () => State.Character != null
+            );
+
+        [DataSourceProperty]
         public Button<WCharacter> ExportButton { get; } =
             new(
                 action: CharacterController.ExportCharacter,
@@ -43,11 +51,33 @@ namespace Retinues.Editor.VM.Column.Character
             Mods.NavalDLC.IsLoaded && State.Character != null && !State.Character.IsHero;
 
         [DataSourceProperty]
+        public Icon MarinerIcon { get; } =
+            new(
+                tooltipFactory: () =>
+                    State.Mode == EditorMode.Universal
+                        ? new Tooltip(
+                            L.T(
+                                "mariner_toggle_tooltip_universal",
+                                "Set this unit's mariner ability.\nMariners are better suited for naval combat."
+                            )
+                        )
+                        : new Tooltip(
+                            L.T(
+                                "mariner_toggle_tooltip",
+                                "Set this unit's mariner ability.\nMariners are better suited for naval combat, but earn skill points at a slightly reduced rate."
+                            )
+                        ),
+                refresh: [UIEvent.Formation],
+                visibilityGate: () =>
+                    Mods.NavalDLC.IsLoaded && State.Character != null && !State.Character.IsHero
+            );
+
+        [DataSourceProperty]
         public Checkbox MarinerToggle { get; } =
             new(
                 action: CharacterController.SetMariner,
                 getSelected: () => State.Character?.IsMariner ?? false,
-                refresh: [UIEvent.Character, UIEvent.Formation],
+                refresh: [UIEvent.Formation],
                 visibilityGate: () =>
                     Mods.NavalDLC.IsLoaded && State.Character != null && !State.Character.IsHero
             );
@@ -56,9 +86,21 @@ namespace Retinues.Editor.VM.Column.Character
         //                     Formation Class                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        [EventListener(UIEvent.Formation)]
         [DataSourceProperty]
-        public string FormationClassIcon => Icons.GetFormationClassIcon(State.Character);
+        public Icon FormationClassIcon { get; } =
+            new(
+                tooltipFactory: () =>
+                {
+                    var c = State.Character;
+                    if (c == null)
+                        return null;
+
+                    return new Tooltip(c.FormationClass.GetLocalizedName().ToString());
+                },
+                spriteFactory: () => Icons.GetFormationClassIcon(State.Character),
+                refresh: [UIEvent.Formation],
+                visibilityGate: () => State.Character != null
+            );
 
         [DataSourceProperty]
         public Button<WCharacter> ChangeFormationClassButton { get; } =

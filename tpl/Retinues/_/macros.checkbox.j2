@@ -15,7 +15,7 @@
             <ButtonWidget
                 IsSelected="@IsSelected"
                 IsEnabled="@IsEnabled"
-                DoNotPassEventsToChildren="false"
+                DoNotPassEventsToChildren="true"
                 WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
                 HorizontalAlignment="Center" VerticalAlignment="Center"
                 Brush="SPOptions.Checkbox.Empty.Button"
@@ -30,7 +30,9 @@
                         HeightSizePolicy="StretchToParent"
                         Brush="SPOptions.Checkbox.Full.Button" />
 
+                    {# Important: don't let the hint overlay consume clicks #}
                     <HintWidget
+                        DoNotAcceptEvents="true"
                         WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
                         DataSource="{Tooltip}"
                         Command.HoverBegin="ExecuteBeginHint"

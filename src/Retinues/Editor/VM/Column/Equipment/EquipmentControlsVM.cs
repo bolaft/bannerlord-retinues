@@ -212,6 +212,15 @@ namespace Retinues.Editor.VM.Column.Equipment
             EditorVM.Page == EditorPage.Equipment && State.Mode == EditorMode.Player;
 
         [DataSourceProperty]
+        public Icon PreviewModeIcon { get; } =
+            new(
+                tooltipFactory: () => new(L.T("preview_mode_toggle_tooltip", "Preview mode.")),
+                refresh: [UIEvent.Preview, UIEvent.Page, UIEvent.Character],
+                visibilityGate: () =>
+                    EditorVM.Page == EditorPage.Equipment && State.Mode == EditorMode.Player
+            );
+
+        [DataSourceProperty]
         public Checkbox PreviewModeToggle { get; } =
             new(
                 action: PreviewController.SetPreviewMode,
@@ -243,6 +252,15 @@ namespace Retinues.Editor.VM.Column.Equipment
         [DataSourceProperty]
         public bool ShowCraftedToggle =>
             EditorVM.Page == EditorPage.Equipment && State.Mode == EditorMode.Player;
+
+        [DataSourceProperty]
+        public Icon CraftedIcon { get; } =
+            new(
+                tooltipFactory: () => new(L.T("crafted_items_toggle_tooltip", "Crafted items.")),
+                refresh: [UIEvent.Slot, UIEvent.Crafted, UIEvent.Page],
+                visibilityGate: () =>
+                    EditorVM.Page == EditorPage.Equipment && State.Mode == EditorMode.Player
+            );
 
         [DataSourceProperty]
         public Checkbox CraftedToggle { get; } =

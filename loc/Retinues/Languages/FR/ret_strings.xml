@@ -11,6 +11,51 @@
       id="ret_age_hint"
       text="Âge" />
     <string
+      id="ret_battle_type_field_checkbox_tooltip_disable"
+      text="Désactiver pour les batailles rangées." />
+    <string
+      id="ret_battle_type_field_checkbox_tooltip_enable"
+      text="Activer pour les batailles rangées." />
+    <string
+      id="ret_battle_type_field_required_reason"
+      text="Au moins un équipement doit rester activé pour les batailles rangées." />
+    <string
+      id="ret_battle_type_field_tooltip"
+      text="Batailles rangées." />
+    <string
+      id="ret_battle_type_naval_checkbox_tooltip_disable"
+      text="Désactiver pour les batailles navales." />
+    <string
+      id="ret_battle_type_naval_checkbox_tooltip_enable"
+      text="Activer pour les batailles navales." />
+    <string
+      id="ret_battle_type_naval_required_reason"
+      text="Au moins un équipement doit rester activé pour les batailles navales." />
+    <string
+      id="ret_battle_type_naval_tooltip"
+      text="Batailles navales." />
+    <string
+      id="ret_battle_type_required_reason"
+      text="Au moins un équipement doit rester activé pour ce type de bataille." />
+    <string
+      id="ret_battle_type_siege_checkbox_tooltip_disable"
+      text="Désactiver pour les sièges." />
+    <string
+      id="ret_battle_type_siege_checkbox_tooltip_enable"
+      text="Activer pour les sièges." />
+    <string
+      id="ret_battle_type_siege_required_reason"
+      text="Au moins un équipement doit rester activé pour les sièges." />
+    <string
+      id="ret_battle_type_siege_tooltip"
+      text="Sièges." />
+    <string
+      id="ret_battle_types_civilian_reason"
+      text="Les équipements civils n&apos;ont pas de restrictions de type de bataille." />
+    <string
+      id="ret_battle_types_no_set_selected"
+      text="Aucun équipement sélectionné." />
+    <string
       id="ret_body_age_decrease_tip"
       text="Diminuer l&apos;âge" />
     <string
@@ -137,6 +182,12 @@
       id="ret_crafted_items_only_tooltip"
       text="Masquer les armes forgées." />
     <string
+      id="ret_crafted_items_toggle_tooltip"
+      text="Objets forgés." />
+    <string
+      id="ret_crafted_player_only_reason"
+      text="Disponible uniquement en mode joueur." />
+    <string
       id="ret_create_unit"
       text="Nouvelle unité" />
     <string
@@ -209,6 +260,9 @@
       id="ret_equipment_cannot_delete_last_set"
       text="Il doit rester au moins un équipement." />
     <string
+      id="ret_equipment_delete_breaks_battle_types_reason"
+      text="Impossible de supprimer cet ensemble car c&apos;est le dernier activé pour au moins un type de bataille." />
+    <string
       id="ret_equipment_hero_sets_reason"
       text="Les héros ne peuvent pas avoir plusieurs ensembles d&apos;équipement." />
     <string
@@ -269,6 +323,9 @@
       id="ret_export_character_no_selection"
       text="Aucune unité n&apos;est sélectionnée." />
     <string
+      id="ret_export_character_tooltip"
+      text="Export&apos;." />
+    <string
       id="ret_export_desc"
       text="Choisissez un nom de sauvegarde :" />
     <string
@@ -305,6 +362,12 @@
       id="ret_formation_option_auto"
       text="Auto" />
     <string
+      id="ret_formation_popup_desc"
+      text="Choisissez comment cette unité est catégorisée. Laissez sur &apos;Auto&apos; pour la catégoriser en fonction de son équipement." />
+    <string
+      id="ret_formation_popup_title"
+      text="Formation" />
+    <string
       id="ret_gender_no_culture"
       text="Aucune culture n&apos;est sélectionnée." />
     <string
@@ -322,6 +385,9 @@
     <string
       id="ret_height_hint"
       text="Taille" />
+    <string
+      id="ret_in_stock"
+      text="En stock ({STOCK})" />
     <string
       id="ret_init_error_body_detailed"
       text="Les dépendances du mod Retinues n&apos;ont pas pu être initialisées correctement :{newline}{newline}{DETAILS}{newline}{newline}Le mod peut ne pas fonctionner correctement tant que les dépendances ne sont pas corrigées." />
@@ -584,6 +650,12 @@
       id="ret_list_header_villagers"
       text="Villageois" />
     <string
+      id="ret_mariner_disable_tooltip"
+      text="Désactive le trait &quot;marin&quot; pour cette unité." />
+    <string
+      id="ret_mariner_enable_tooltip"
+      text="Active le trait &quot;marin&quot; pour cette unité." />
+    <string
       id="ret_mariner_hero_reason"
       text="Les héros ne peuvent pas être des marins." />
     <string
@@ -620,6 +692,36 @@
       id="ret_mcm_option_editor_hotkey_hint"
       text="Active la touche [R] pour ouvrir l&apos;éditeur." />
     <string
+      id="ret_mcm_option_enable_doctrines"
+      text="Activer les Doctrines" />
+    <string
+      id="ret_mcm_option_enable_doctrines_hint"
+      text="Active ou désactive la fonctionnalité des doctrines." />
+    <string
+      id="ret_mcm_option_enable_retinues"
+      text="Activer les Rétinues" />
+    <string
+      id="ret_mcm_option_enable_retinues_hint"
+      text="Active ou désactive la fonctionnalité des rétinues." />
+    <string
+      id="ret_mcm_option_equipment_cost_multiplier"
+      text="Multiplicateur de Coût d&apos;Équipement" />
+    <string
+      id="ret_mcm_option_equipment_cost_multiplier_hint"
+      text="Multiplicateur appliqué au coût de base des objets lors du calcul des coûts d&apos;équipement." />
+    <string
+      id="ret_mcm_option_equipment_costs_gold"
+      text="Les Coûts d&apos;Équipement en Or" />
+    <string
+      id="ret_mcm_option_equipment_costs_gold_hint"
+      text="Si l&apos;équipement de nouveaux objets doit coûter de l&apos;or." />
+    <string
+      id="ret_mcm_option_max_retinue_ratio"
+      text="Ratio Maximum de Rétinues" />
+    <string
+      id="ret_mcm_option_max_retinue_ratio_hint"
+      text="Le nombre maximum de rétinues en fonction de la taille maximale du groupe." />
+    <string
       id="ret_mcm_option_skill_cap"
       text="Maximum de Compétence au Niveau {TIER}" />
     <string
@@ -641,8 +743,17 @@
       id="ret_mcm_section_debug"
       text="Debug" />
     <string
+      id="ret_mcm_section_doctrines"
+      text="Doctrines" />
+    <string
+      id="ret_mcm_section_equipment"
+      text="Équipement" />
+    <string
       id="ret_mcm_section_equipment_unlocks"
       text="Acquisitions d&apos;Équipements" />
+    <string
+      id="ret_mcm_section_retinues"
+      text="Rétinues" />
     <string
       id="ret_mcm_section_skill_caps"
       text="Limites de Compétences" />
@@ -679,6 +790,24 @@
     <string
       id="ret_no_valid_model_title_species"
       text="Aucun modèle valide" />
+    <string
+      id="ret_preview_mode"
+      text="Mode Aperçu" />
+    <string
+      id="ret_preview_mode_disable_tooltip"
+      text="Désactiver le mode aperçu." />
+    <string
+      id="ret_preview_mode_enable_tooltip"
+      text="Activer le mode aperçu." />
+    <string
+      id="ret_preview_mode_toggle_tooltip"
+      text="Mode Aperçu." />
+    <string
+      id="ret_purchase_item_desc"
+      text="Acheter {ITEM} pour {COST} dinars ?" />
+    <string
+      id="ret_purchase_item_title"
+      text="Acheter" />
     <string
       id="ret_race_cannot_change"
       text="L&apos;espèce ne peut pas être changée pour cette unité." />

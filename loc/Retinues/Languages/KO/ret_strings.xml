@@ -11,6 +11,51 @@
       id="ret_age_hint"
       text="나이" />
     <string
+      id="ret_battle_type_field_checkbox_tooltip_disable"
+      text="야전 전투에서 비활성화." />
+    <string
+      id="ret_battle_type_field_checkbox_tooltip_enable"
+      text="야전 전투에서 활성화." />
+    <string
+      id="ret_battle_type_field_required_reason"
+      text="야전 전투를 위해 최소한 하나의 전투 장비 세트가 활성화되어 있어야 합니다." />
+    <string
+      id="ret_battle_type_field_tooltip"
+      text="야전 전투." />
+    <string
+      id="ret_battle_type_naval_checkbox_tooltip_disable"
+      text="해상 전투에서 비활성화." />
+    <string
+      id="ret_battle_type_naval_checkbox_tooltip_enable"
+      text="해상 전투에서 활성화." />
+    <string
+      id="ret_battle_type_naval_required_reason"
+      text="해상 전투를 위해 최소한 하나의 전투 장비 세트가 활성화되어 있어야 합니다." />
+    <string
+      id="ret_battle_type_naval_tooltip"
+      text="해상 전투." />
+    <string
+      id="ret_battle_type_required_reason"
+      text="이 전투 유형을 위해 최소한 하나의 전투 장비 세트가 활성화되어 있어야 합니다." />
+    <string
+      id="ret_battle_type_siege_checkbox_tooltip_disable"
+      text="공성 전투에서 비활성화." />
+    <string
+      id="ret_battle_type_siege_checkbox_tooltip_enable"
+      text="공성 전투에서 활성화." />
+    <string
+      id="ret_battle_type_siege_required_reason"
+      text="공성 전투를 위해 최소한 하나의 전투 장비 세트가 활성화되어 있어야 합니다." />
+    <string
+      id="ret_battle_type_siege_tooltip"
+      text="공성 전투." />
+    <string
+      id="ret_battle_types_civilian_reason"
+      text="민간 장비 세트에는 전투 유형 제한이 없습니다." />
+    <string
+      id="ret_battle_types_no_set_selected"
+      text="선택된 장비 세트가 없습니다." />
+    <string
       id="ret_body_age_decrease_tip"
       text="나이 감소" />
     <string
@@ -137,6 +182,12 @@
       id="ret_crafted_items_only_tooltip"
       text="제작된 무기 숨기기." />
     <string
+      id="ret_crafted_items_toggle_tooltip"
+      text="제작된 아이템." />
+    <string
+      id="ret_crafted_player_only_reason"
+      text="플레이어 모드에서만 사용 가능." />
+    <string
       id="ret_create_unit"
       text="새 유닛" />
     <string
@@ -209,6 +260,9 @@
       id="ret_equipment_cannot_delete_last_set"
       text="적어도 하나의 장비 세트가 남아 있어야 합니다." />
     <string
+      id="ret_equipment_delete_breaks_battle_types_reason"
+      text="이 세트는 최소한 하나의 전투 유형에 대해 활성화된 마지막 세트이므로 삭제할 수 없습니다." />
+    <string
       id="ret_equipment_hero_sets_reason"
       text="영웅은 여러 장비 세트를 가질 수 없습니다." />
     <string
@@ -269,6 +323,9 @@
       id="ret_export_character_no_selection"
       text="선택된 캐릭터가 없습니다." />
     <string
+      id="ret_export_character_tooltip"
+      text="캐릭터 내보내기." />
+    <string
       id="ret_export_desc"
       text="저장 이름을 선택하세요:" />
     <string
@@ -305,6 +362,12 @@
       id="ret_formation_option_auto"
       text="자동" />
     <string
+      id="ret_formation_popup_desc"
+      text="이 유닛이 분류되는 방식을 선택하십시오. 장비를 기반으로 분류하려면 &apos;자동&apos;으로 두십시오." />
+    <string
+      id="ret_formation_popup_title"
+      text="대형 클래스" />
+    <string
       id="ret_gender_no_culture"
       text="선택된 문화가 없습니다." />
     <string
@@ -322,6 +385,9 @@
     <string
       id="ret_height_hint"
       text="신장" />
+    <string
+      id="ret_in_stock"
+      text="재고 있음 ({STOCK})" />
     <string
       id="ret_init_error_body_detailed"
       text="Retinues 모드 종속 항목을 제대로 초기화하지 못했습니다:{newline}{newline}{DETAILS}{newline}{newline}종속 항목이 수정될 때까지 모드가 제대로 작동하지 않을 수 있습니다." />
@@ -584,6 +650,12 @@
       id="ret_list_header_villagers"
       text="마을 사람들" />
     <string
+      id="ret_mariner_disable_tooltip"
+      text="이 유닛의 선원 능력을 비활성화합니다." />
+    <string
+      id="ret_mariner_enable_tooltip"
+      text="이 유닛의 선원 능력을 활성화합니다." />
+    <string
       id="ret_mariner_hero_reason"
       text="영웅은 선원이 될 수 없습니다." />
     <string
@@ -620,6 +692,36 @@
       id="ret_mcm_option_editor_hotkey_hint"
       text="편집기를 열기 위해 [R] 단축키를 활성화합니다." />
     <string
+      id="ret_mcm_option_enable_doctrines"
+      text="교리 활성화" />
+    <string
+      id="ret_mcm_option_enable_doctrines_hint"
+      text="교리 기능을 켜거나 끕니다." />
+    <string
+      id="ret_mcm_option_enable_retinues"
+      text="Retinues 활성화" />
+    <string
+      id="ret_mcm_option_enable_retinues_hint"
+      text="Retinues 기능을 켜거나 끕니다." />
+    <string
+      id="ret_mcm_option_equipment_cost_multiplier"
+      text="장비 비용 배수" />
+    <string
+      id="ret_mcm_option_equipment_cost_multiplier_hint"
+      text="장비 비용을 계산할 때 항목의 기본 비용에 적용되는 배수입니다." />
+    <string
+      id="ret_mcm_option_equipment_costs_gold"
+      text="장비 비용 골드" />
+    <string
+      id="ret_mcm_option_equipment_costs_gold_hint"
+      text="새 항목을 장착하는 데 골드가 소요되는지 여부입니다." />
+    <string
+      id="ret_mcm_option_max_retinue_ratio"
+      text="최대 Retinue 비율" />
+    <string
+      id="ret_mcm_option_max_retinue_ratio_hint"
+      text="파티 크기 제한의 비율로서 최대 Retinues 수입니다." />
+    <string
       id="ret_mcm_option_skill_cap"
       text="티어 {TIER} 기술 한도" />
     <string
@@ -641,8 +743,17 @@
       id="ret_mcm_section_debug"
       text="디버그" />
     <string
+      id="ret_mcm_section_doctrines"
+      text="교리" />
+    <string
+      id="ret_mcm_section_equipment"
+      text="장비" />
+    <string
       id="ret_mcm_section_equipment_unlocks"
       text="장비 잠금 해제" />
+    <string
+      id="ret_mcm_section_retinues"
+      text="Retinues" />
     <string
       id="ret_mcm_section_skill_caps"
       text="기술 한도" />
@@ -679,6 +790,24 @@
     <string
       id="ret_no_valid_model_title_species"
       text="유효한 모델 없음" />
+    <string
+      id="ret_preview_mode"
+      text="미리보기 모드" />
+    <string
+      id="ret_preview_mode_disable_tooltip"
+      text="미리보기 모드를 비활성화합니다." />
+    <string
+      id="ret_preview_mode_enable_tooltip"
+      text="미리보기 모드를 활성화합니다." />
+    <string
+      id="ret_preview_mode_toggle_tooltip"
+      text="미리보기 모드." />
+    <string
+      id="ret_purchase_item_desc"
+      text="{COST} 데나르에 {ITEM}을(를) 구매하시겠습니까?" />
+    <string
+      id="ret_purchase_item_title"
+      text="아이템 구매" />
     <string
       id="ret_race_cannot_change"
       text="이 유닛의 종은 변경할 수 없습니다." />

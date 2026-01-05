@@ -11,6 +11,51 @@
       id="ret_age_hint"
       text="Возраст" />
     <string
+      id="ret_battle_type_field_checkbox_tooltip_disable"
+      text="Отключить для полевых сражений." />
+    <string
+      id="ret_battle_type_field_checkbox_tooltip_enable"
+      text="Включить для полевых сражений." />
+    <string
+      id="ret_battle_type_field_required_reason"
+      text="Для полевых сражений должен оставаться включенным как минимум один набор боевого снаряжения." />
+    <string
+      id="ret_battle_type_field_tooltip"
+      text="Полевые сражения." />
+    <string
+      id="ret_battle_type_naval_checkbox_tooltip_disable"
+      text="Отключить для морских сражений." />
+    <string
+      id="ret_battle_type_naval_checkbox_tooltip_enable"
+      text="Включить для морских сражений." />
+    <string
+      id="ret_battle_type_naval_required_reason"
+      text="Для морских сражений должен оставаться включенным как минимум один набор боевого снаряжения." />
+    <string
+      id="ret_battle_type_naval_tooltip"
+      text="Морские сражения." />
+    <string
+      id="ret_battle_type_required_reason"
+      text="Для этого типа сражений должен оставаться включенным как минимум один набор боевого снаряжения." />
+    <string
+      id="ret_battle_type_siege_checkbox_tooltip_disable"
+      text="Отключить для осадных сражений." />
+    <string
+      id="ret_battle_type_siege_checkbox_tooltip_enable"
+      text="Включить для осадных сражений." />
+    <string
+      id="ret_battle_type_siege_required_reason"
+      text="Для осадных сражений должен оставаться включенным как минимум один набор боевого снаряжения." />
+    <string
+      id="ret_battle_type_siege_tooltip"
+      text="Осадные сражения." />
+    <string
+      id="ret_battle_types_civilian_reason"
+      text="Гражданские комплекты снаряжения не имеют ограничений по типу сражений." />
+    <string
+      id="ret_battle_types_no_set_selected"
+      text="Комплект снаряжения не выбран." />
+    <string
       id="ret_body_age_decrease_tip"
       text="Уменьшить возраст" />
     <string
@@ -137,6 +182,12 @@
       id="ret_crafted_items_only_tooltip"
       text="Скрыть изготовленное оружие." />
     <string
+      id="ret_crafted_items_toggle_tooltip"
+      text="Изготовленные предметы." />
+    <string
+      id="ret_crafted_player_only_reason"
+      text="Доступно только в режиме игрока." />
+    <string
       id="ret_create_unit"
       text="Новая единица" />
     <string
@@ -209,6 +260,9 @@
       id="ret_equipment_cannot_delete_last_set"
       text="Должен остаться как минимум один набор снаряжения." />
     <string
+      id="ret_equipment_delete_breaks_battle_types_reason"
+      text="Невозможно удалить этот набор, так как он является последним, включенным для как минимум одного типа боя." />
+    <string
       id="ret_equipment_hero_sets_reason"
       text="У героев не может быть несколько наборов снаряжения." />
     <string
@@ -269,6 +323,9 @@
       id="ret_export_character_no_selection"
       text="Персонаж не выбран." />
     <string
+      id="ret_export_character_tooltip"
+      text="Экспортировать персонажа." />
+    <string
       id="ret_export_desc"
       text="Выберите имя для сохранения:" />
     <string
@@ -305,6 +362,12 @@
       id="ret_formation_option_auto"
       text="Авто" />
     <string
+      id="ret_formation_popup_desc"
+      text="Выберите, как эта единица классифицируется. Оставьте на &apos;Авто&apos;, чтобы классифицировать ее на основе ее снаряжения." />
+    <string
+      id="ret_formation_popup_title"
+      text="Класс формации" />
+    <string
       id="ret_gender_no_culture"
       text="Культура не выбрана." />
     <string
@@ -322,6 +385,9 @@
     <string
       id="ret_height_hint"
       text="Рост" />
+    <string
+      id="ret_in_stock"
+      text="В наличии ({STOCK})" />
     <string
       id="ret_init_error_body_detailed"
       text="Не удалось правильно инициализировать зависимости мода Retinues:{newline}{newline}{DETAILS}{newline}{newline}Мод может работать некорректно, пока зависимости не будут исправлены." />
@@ -584,6 +650,12 @@
       id="ret_list_header_villagers"
       text="Жители деревень" />
     <string
+      id="ret_mariner_disable_tooltip"
+      text="Отключите способность мореплавателя для этого юнита." />
+    <string
+      id="ret_mariner_enable_tooltip"
+      text="Включите способность мореплавателя для этого юнита." />
+    <string
       id="ret_mariner_hero_reason"
       text="Герои не могут быть мореплавателями." />
     <string
@@ -620,6 +692,36 @@
       id="ret_mcm_option_editor_hotkey_hint"
       text="Включает горячую клавишу [R] для открытия редактора." />
     <string
+      id="ret_mcm_option_enable_doctrines"
+      text="Включить доктрины" />
+    <string
+      id="ret_mcm_option_enable_doctrines_hint"
+      text="Включает или отключает функцию доктрин." />
+    <string
+      id="ret_mcm_option_enable_retinues"
+      text="Включить Retinues" />
+    <string
+      id="ret_mcm_option_enable_retinues_hint"
+      text="Включает или отключает функцию Retinues." />
+    <string
+      id="ret_mcm_option_equipment_cost_multiplier"
+      text="Множитель стоимости оборудования" />
+    <string
+      id="ret_mcm_option_equipment_cost_multiplier_hint"
+      text="Множитель, применяемый к базовой стоимости предметов при расчете стоимости экипировки." />
+    <string
+      id="ret_mcm_option_equipment_costs_gold"
+      text="Стоимость оборудования в золоте" />
+    <string
+      id="ret_mcm_option_equipment_costs_gold_hint"
+      text="Стоит ли экипировка новых предметов золото." />
+    <string
+      id="ret_mcm_option_max_retinue_ratio"
+      text="Максимальное соотношение Retinue" />
+    <string
+      id="ret_mcm_option_max_retinue_ratio_hint"
+      text="Максимальное количество retinues в зависимости от ограничения размера партии." />
+    <string
       id="ret_mcm_option_skill_cap"
       text="Максимальный уровень навыков уровня {TIER}" />
     <string
@@ -641,8 +743,17 @@
       id="ret_mcm_section_debug"
       text="Отладка" />
     <string
+      id="ret_mcm_section_doctrines"
+      text="Доктрины" />
+    <string
+      id="ret_mcm_section_equipment"
+      text="Оборудование" />
+    <string
       id="ret_mcm_section_equipment_unlocks"
       text="Разблокировка снаряжения" />
+    <string
+      id="ret_mcm_section_retinues"
+      text="Retinues" />
     <string
       id="ret_mcm_section_skill_caps"
       text="Максимальные уровни навыков" />
@@ -679,6 +790,24 @@
     <string
       id="ret_no_valid_model_title_species"
       text="Нет действительной модели" />
+    <string
+      id="ret_preview_mode"
+      text="Режим предварительного просмотра" />
+    <string
+      id="ret_preview_mode_disable_tooltip"
+      text="Отключить режим предварительного просмотра." />
+    <string
+      id="ret_preview_mode_enable_tooltip"
+      text="Включить режим предварительного просмотра." />
+    <string
+      id="ret_preview_mode_toggle_tooltip"
+      text="Режим предварительного просмотра." />
+    <string
+      id="ret_purchase_item_desc"
+      text="Купить {ITEM} за {COST} денаров?" />
+    <string
+      id="ret_purchase_item_title"
+      text="Купить предмет" />
     <string
       id="ret_race_cannot_change"
       text="Вид для этого юнита изменить нельзя." />

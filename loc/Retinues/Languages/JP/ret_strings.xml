@@ -11,6 +11,51 @@
       id="ret_age_hint"
       text="年齢" />
     <string
+      id="ret_battle_type_field_checkbox_tooltip_disable"
+      text="野戦で無効にする。" />
+    <string
+      id="ret_battle_type_field_checkbox_tooltip_enable"
+      text="野戦で有効にする。" />
+    <string
+      id="ret_battle_type_field_required_reason"
+      text="野戦で少なくとも1つの戦闘装備セットを有効にしておく必要があります。" />
+    <string
+      id="ret_battle_type_field_tooltip"
+      text="野戦。" />
+    <string
+      id="ret_battle_type_naval_checkbox_tooltip_disable"
+      text="海戦で無効にする。" />
+    <string
+      id="ret_battle_type_naval_checkbox_tooltip_enable"
+      text="海戦で有効にする。" />
+    <string
+      id="ret_battle_type_naval_required_reason"
+      text="海戦で少なくとも1つの戦闘装備セットを有効にしておく必要があります。" />
+    <string
+      id="ret_battle_type_naval_tooltip"
+      text="海戦。" />
+    <string
+      id="ret_battle_type_required_reason"
+      text="この戦闘タイプでは、少なくとも1つの戦闘装備セットを有効にしておく必要があります。" />
+    <string
+      id="ret_battle_type_siege_checkbox_tooltip_disable"
+      text="攻城戦で無効にする。" />
+    <string
+      id="ret_battle_type_siege_checkbox_tooltip_enable"
+      text="攻城戦で有効にする。" />
+    <string
+      id="ret_battle_type_siege_required_reason"
+      text="攻城戦で少なくとも1つの戦闘装備セットを有効にしておく必要があります。" />
+    <string
+      id="ret_battle_type_siege_tooltip"
+      text="攻城戦。" />
+    <string
+      id="ret_battle_types_civilian_reason"
+      text="民間の装備セットには戦闘タイプの制限がありません。" />
+    <string
+      id="ret_battle_types_no_set_selected"
+      text="装備セットが選択されていません。" />
+    <string
       id="ret_body_age_decrease_tip"
       text="年齢を減らす" />
     <string
@@ -137,6 +182,12 @@
       id="ret_crafted_items_only_tooltip"
       text="作成した武器を非表示にする。" />
     <string
+      id="ret_crafted_items_toggle_tooltip"
+      text="作成したアイテム。" />
+    <string
+      id="ret_crafted_player_only_reason"
+      text="プレイヤーモードでのみ利用可能です。" />
+    <string
       id="ret_create_unit"
       text="新しいユニット" />
     <string
@@ -209,6 +260,9 @@
       id="ret_equipment_cannot_delete_last_set"
       text="少なくとも1つの装備セットを残す必要があります。" />
     <string
+      id="ret_equipment_delete_breaks_battle_types_reason"
+      text="このセットは、少なくとも1つの戦闘タイプで有効になっている最後のセットであるため、削除できません。" />
+    <string
       id="ret_equipment_hero_sets_reason"
       text="英雄は複数の装備セットを持つことはできません。" />
     <string
@@ -269,6 +323,9 @@
       id="ret_export_character_no_selection"
       text="キャラクターが選択されていません。" />
     <string
+      id="ret_export_character_tooltip"
+      text="キャラクターをエクスポートします。" />
+    <string
       id="ret_export_desc"
       text="保存名を選択してください：" />
     <string
@@ -305,6 +362,12 @@
       id="ret_formation_option_auto"
       text="自動" />
     <string
+      id="ret_formation_popup_desc"
+      text="このユニットの分類方法を選択してください。装備に基づいて分類するには、「自動」のままにしてください。" />
+    <string
+      id="ret_formation_popup_title"
+      text="編成クラス" />
+    <string
       id="ret_gender_no_culture"
       text="文化が選択されていません。" />
     <string
@@ -322,6 +385,9 @@
     <string
       id="ret_height_hint"
       text="身長" />
+    <string
+      id="ret_in_stock"
+      text="在庫あり ({STOCK})" />
     <string
       id="ret_init_error_body_detailed"
       text="Retinues モッドの依存関係が正しく初期化されませんでした:{newline}{newline}{DETAILS}{newline}{newline}依存関係が修正されるまで、モッドは正しく機能しない可能性があります。" />
@@ -584,6 +650,12 @@
       id="ret_list_header_villagers"
       text="村人" />
     <string
+      id="ret_mariner_disable_tooltip"
+      text="このユニットの水兵能力を無効にします。" />
+    <string
+      id="ret_mariner_enable_tooltip"
+      text="このユニットの水兵能力を有効にします。" />
+    <string
       id="ret_mariner_hero_reason"
       text="英雄は水兵になることはできません。" />
     <string
@@ -620,6 +692,36 @@
       id="ret_mcm_option_editor_hotkey_hint"
       text="[R]ホットキーを有効にしてエディターを開きます。" />
     <string
+      id="ret_mcm_option_enable_doctrines"
+      text="ドクトリンを有効にする" />
+    <string
+      id="ret_mcm_option_enable_doctrines_hint"
+      text="ドクトリン機能のオンまたはオフを切り替えます。" />
+    <string
+      id="ret_mcm_option_enable_retinues"
+      text="リティニュースを有効にする" />
+    <string
+      id="ret_mcm_option_enable_retinues_hint"
+      text="リティニュース機能のオンまたはオフを切り替えます。" />
+    <string
+      id="ret_mcm_option_equipment_cost_multiplier"
+      text="装備コスト乗数" />
+    <string
+      id="ret_mcm_option_equipment_cost_multiplier_hint"
+      text="装備コストを計算する際に、アイテムの基本コストに適用される乗数。" />
+    <string
+      id="ret_mcm_option_equipment_costs_gold"
+      text="装備コストゴールド" />
+    <string
+      id="ret_mcm_option_equipment_costs_gold_hint"
+      text="新しいアイテムの装備にゴールドがかかるかどうか。" />
+    <string
+      id="ret_mcm_option_max_retinue_ratio"
+      text="最大リティニュース比率" />
+    <string
+      id="ret_mcm_option_max_retinue_ratio_hint"
+      text="パーティーサイズの制限に対するリティニュースの最大数の比率。" />
+    <string
       id="ret_mcm_option_skill_cap"
       text="ティア {TIER} スキルキャップ" />
     <string
@@ -641,8 +743,17 @@
       id="ret_mcm_section_debug"
       text="デバッグ" />
     <string
+      id="ret_mcm_section_doctrines"
+      text="ドクトリン" />
+    <string
+      id="ret_mcm_section_equipment"
+      text="装備" />
+    <string
       id="ret_mcm_section_equipment_unlocks"
       text="装備のアンロック" />
+    <string
+      id="ret_mcm_section_retinues"
+      text="リティニュース" />
     <string
       id="ret_mcm_section_skill_caps"
       text="スキルキャップ" />
@@ -679,6 +790,24 @@
     <string
       id="ret_no_valid_model_title_species"
       text="有効なモデルがありません" />
+    <string
+      id="ret_preview_mode"
+      text="プレビューモード" />
+    <string
+      id="ret_preview_mode_disable_tooltip"
+      text="プレビューモードを無効にします。" />
+    <string
+      id="ret_preview_mode_enable_tooltip"
+      text="プレビューモードを有効にします。" />
+    <string
+      id="ret_preview_mode_toggle_tooltip"
+      text="プレビューモード。" />
+    <string
+      id="ret_purchase_item_desc"
+      text="{COST} デナリで {ITEM} を購入しますか？" />
+    <string
+      id="ret_purchase_item_title"
+      text="アイテムを購入" />
     <string
       id="ret_race_cannot_change"
       text="このユニットの種を変更することはできません。" />

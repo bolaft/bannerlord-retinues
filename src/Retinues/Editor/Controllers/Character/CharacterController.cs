@@ -663,15 +663,12 @@ namespace Retinues.Editor.Controllers.Character
                     L.T("mariner_hero_reason", "Heroes cannot be mariners.")
                 )
                 .DefaultTooltip(_ =>
-                    State.Mode == EditorMode.Universal
+                    State.Character.IsMariner
                         ? L.T(
-                            "mariner_toggle_tooltip_universal",
-                            "Set this unit's mariner ability.\nMariners are better suited for naval combat."
+                            "mariner_disable_tooltip",
+                            "Disable the mariner ability for this unit."
                         )
-                        : L.T(
-                            "mariner_toggle_tooltip",
-                            "Set this unit's mariner ability.\nMariners are better suited for naval combat, but earn skill points at a slightly reduced rate."
-                        )
+                        : L.T("mariner_enable_tooltip", "Enable the mariner ability for this unit.")
                 )
                 .ExecuteWith(SetMarinerImpl)
                 .Fire(UIEvent.Formation);

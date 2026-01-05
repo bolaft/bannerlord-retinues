@@ -151,27 +151,11 @@ namespace Retinues.Editor.Controllers.Equipment
         //                      Crafted Items                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private static bool IsWeaponSlot(EquipmentIndex slot)
-        {
-            return slot == EquipmentIndex.Weapon0
-                || slot == EquipmentIndex.Weapon1
-                || slot == EquipmentIndex.Weapon2
-                || slot == EquipmentIndex.Weapon3;
-        }
-
         public static EditorAction<bool> SetShowCrafted { get; } =
             Action<bool>("SetShowCrafted")
                 .AddCondition(
                     _ => State.Mode == EditorMode.Player,
                     L.T("crafted_player_only_reason", "Only available in player mode.")
-                )
-                // Allow disabling anywhere, but only allow enabling on weapon slots.
-                .AddCondition(
-                    value => !value || IsWeaponSlot(State.Slot),
-                    L.T(
-                        "crafted_toggle_weapon_only",
-                        "Crafted items are only available for weapon slots."
-                    )
                 )
                 .DefaultTooltip(value =>
                     value
