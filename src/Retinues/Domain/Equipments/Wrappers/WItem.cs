@@ -179,7 +179,7 @@ namespace Retinues.Domain.Equipments.Wrappers
         /// <summary>
         /// The unlock progress required to unlock this item.
         /// </summary>
-        const int UnlockThreshold = 1000;
+        public const int UnlockThreshold = 1000;
 
         MAttribute<Dictionary<string, int>> UnlockProgressByHeroAttribute =>
             Attribute<Dictionary<string, int>>(initialValue: []);

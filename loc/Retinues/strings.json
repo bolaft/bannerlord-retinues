@@ -672,6 +672,22 @@
     "TR": "Sivil Değil"
   },
   {
+    "id": "ret_cant_equip_reason_locked",
+    "EN": "Locked",
+    "FR": "Verrouillé",
+    "BR": "Bloqueado",
+    "CNs": "已锁定",
+    "CNt": "已鎖定",
+    "DE": "Gesperrt",
+    "IT": "Bloccato",
+    "JP": "ロック済み",
+    "KO": "잠금",
+    "PL": "Zablokowany",
+    "RU": "Заблокировано",
+    "SP": "Bloqueado",
+    "TR": "Kilitli"
+  },
+  {
     "id": "ret_cant_equip_reason_mount_compat",
     "EN": "Incompatible",
     "FR": "Incompatible",
@@ -718,6 +734,22 @@
     "RU": "{SKILL} {VALUE}",
     "SP": "{SKILL} {VALUE}",
     "TR": "{SKILL} {VALUE}"
+  },
+  {
+    "id": "ret_cant_equip_reason_unlocking",
+    "EN": "Unlocking {PERCENT}%",
+    "FR": "Acquisition {PERCENT}%",
+    "BR": "Desbloqueando {PERCENT}%",
+    "CNs": "解锁中 {PERCENT}%",
+    "CNt": "解鎖中 {PERCENT}%",
+    "DE": "Entsperren {PERCENT}%",
+    "IT": "Sbloccando {PERCENT}%",
+    "JP": "解除中 {PERCENT}%",
+    "KO": "잠금 해제 중 {PERCENT}%",
+    "PL": "Odblokowywanie {PERCENT}%",
+    "RU": "Разблокировка {PERCENT}%",
+    "SP": "Desbloqueando {PERCENT}%",
+    "TR": "{PERCENT}% Kilit Açılıyor"
   },
   {
     "id": "ret_cant_equip_reason_value_limit",

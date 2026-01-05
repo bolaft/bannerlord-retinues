@@ -131,6 +131,9 @@
       id="ret_cant_equip_reason_civilian"
       text="Не гражданский" />
     <string
+      id="ret_cant_equip_reason_locked"
+      text="Заблокировано" />
+    <string
       id="ret_cant_equip_reason_mount_compat"
       text="Несовместимо" />
     <string
@@ -139,6 +142,9 @@
     <string
       id="ret_cant_equip_reason_skill"
       text="{SKILL} {VALUE}" />
+    <string
+      id="ret_cant_equip_reason_unlocking"
+      text="Разблокировка {PERCENT}%" />
     <string
       id="ret_cant_equip_reason_value_limit"
       text="Слишком ценный" />

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Domain.Characters.Wrappers;
+using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Editor.Events;
 using Retinues.Editor.VM.List.Character;
 using Retinues.Editor.VM.List.Equipment;
@@ -403,9 +404,73 @@ namespace Retinues.Editor.VM.List
             if (header.Rows.Count <= 1)
                 return;
 
-            var sorted = ascending
-                ? header.Rows.OrderBy(row => row.GetSortValue(sortKey)).ToList()
-                : [.. header.Rows.OrderByDescending(row => row.GetSortValue(sortKey))];
+            // Special-case: equipment lists must always keep "unlocking" items pinned to the end.
+            // We detect equipment headers by type-homogeneity.
+            bool isEquipmentHeader = true;
+            for (int i = 0; i < header.Rows.Count; i++)
+            {
+                if (header.Rows[i] is not EquipmentListRowVM)
+                {
+                    isEquipmentHeader = false;
+                    break;
+                }
+            }
+
+            if (!isEquipmentHeader)
+            {
+                var sortedDefault = ascending
+                    ? header.Rows.OrderBy(row => row.GetSortValue(sortKey)).ToList()
+                    : [.. header.Rows.OrderByDescending(row => row.GetSortValue(sortKey))];
+
+                header.Rows.Clear();
+                for (int i = 0; i < sortedDefault.Count; i++)
+                    header.Rows.Add(sortedDefault[i]);
+
+                if (header.IsExpanded)
+                {
+                    header.ExpandedRows.Clear();
+                    for (int i = 0; i < sortedDefault.Count; i++)
+                        header.ExpandedRows.Add(sortedDefault[i]);
+                }
+
+                return;
+            }
+
+            // Partition rows.
+            var normal = new List<BaseListRowVM>(header.Rows.Count);
+            var unlocking = new List<BaseListRowVM>();
+            var unlockProgress = new Dictionary<BaseListRowVM, int>();
+
+            for (int i = 0; i < header.Rows.Count; i++)
+            {
+                var row = header.Rows[i];
+
+                if (TryGetUnlockingProgress(row, out var p))
+                {
+                    unlocking.Add(row);
+                    unlockProgress[row] = p;
+                }
+                else
+                {
+                    normal.Add(row);
+                }
+            }
+
+            // Sort normal rows by the active sort key.
+            var sortedNormal = ascending
+                ? normal.OrderBy(r => r.GetSortValue(sortKey)).ToList()
+                : normal.OrderByDescending(r => r.GetSortValue(sortKey)).ToList();
+
+            // Sort unlocking rows by progress DESC always (regardless of ascending/descending).
+            // Deterministic tie-break: Name ascending.
+            var sortedUnlocking = unlocking
+                .OrderByDescending(r => unlockProgress.TryGetValue(r, out var p) ? p : 0)
+                .ThenBy(r => r.GetSortValue(ListSortKey.Name))
+                .ToList();
+
+            var sorted = new List<BaseListRowVM>(sortedNormal.Count + sortedUnlocking.Count);
+            sorted.AddRange(sortedNormal);
+            sorted.AddRange(sortedUnlocking);
 
             header.Rows.Clear();
             for (int i = 0; i < sorted.Count; i++)
@@ -413,7 +478,6 @@ namespace Retinues.Editor.VM.List
 
             if (header.IsExpanded)
             {
-                // Update expanded rows as well.
                 header.ExpandedRows.Clear();
                 for (int i = 0; i < sorted.Count; i++)
                     header.ExpandedRows.Add(sorted[i]);
@@ -565,6 +629,34 @@ namespace Retinues.Editor.VM.List
 
             foreach (var child in orderedChildren)
                 VisitTreeNode(child, sortKey, ascending, rowByCharacter, visited, output);
+        }
+
+        private static bool TryGetUnlockingProgress(BaseListRowVM row, out int progress)
+        {
+            progress = 0;
+
+            // Only relevant in player mode (your unlock system is hero-based).
+            if (State.Mode != EditorMode.Player)
+                return false;
+
+            if (row is not EquipmentListRowVM)
+                return false;
+
+            // Row Id for equipment rows is the item StringId (set in EquipmentListRowVM ctor).
+            var item = WItem.Get(row.Id);
+            if (item == null)
+                return false;
+
+            if (item.IsCrafted)
+                return false;
+
+            if (item.IsUnlocked)
+                return false;
+
+            progress = item.UnlockProgress;
+
+            // "In progress" means > 0 here (0% are filtered out by builder).
+            return progress > 0;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

@@ -131,6 +131,9 @@
       id="ret_cant_equip_reason_civilian"
       text="非平民" />
     <string
+      id="ret_cant_equip_reason_locked"
+      text="已锁定" />
+    <string
       id="ret_cant_equip_reason_mount_compat"
       text="不兼容" />
     <string
@@ -139,6 +142,9 @@
     <string
       id="ret_cant_equip_reason_skill"
       text="{SKILL} {VALUE}" />
+    <string
+      id="ret_cant_equip_reason_unlocking"
+      text="解锁中 {PERCENT}%" />
     <string
       id="ret_cant_equip_reason_value_limit"
       text="太贵重" />

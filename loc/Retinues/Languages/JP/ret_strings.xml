@@ -131,6 +131,9 @@
       id="ret_cant_equip_reason_civilian"
       text="民間人ではない" />
     <string
+      id="ret_cant_equip_reason_locked"
+      text="ロック済み" />
+    <string
       id="ret_cant_equip_reason_mount_compat"
       text="互換性なし" />
     <string
@@ -139,6 +142,9 @@
     <string
       id="ret_cant_equip_reason_skill"
       text="{SKILL} {VALUE}" />
+    <string
+      id="ret_cant_equip_reason_unlocking"
+      text="解除中 {PERCENT}%" />
     <string
       id="ret_cant_equip_reason_value_limit"
       text="価値が高すぎる" />

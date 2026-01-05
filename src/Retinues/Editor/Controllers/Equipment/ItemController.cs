@@ -214,6 +214,7 @@ namespace Retinues.Editor.Controllers.Equipment
                     item => item != null,
                     _ => L.T("cant_equip_reason_null", "Invalid item")
                 )
+                .AddCondition(UnlockAllowed, UnlockTooltip)
                 .AddCondition(
                     item => item.IsEquippableByCharacter(State.Character),
                     item =>
@@ -334,6 +335,58 @@ namespace Retinues.Editor.Controllers.Equipment
                 if (harness != null && item != null && !item.IsCompatibleWith(harness))
                     State.Equipment.Set(EquipmentIndex.HorseHarness, null);
             }
+        }
+
+        private static bool UnlockAllowed(WItem item)
+        {
+            if (item == null)
+                return true;
+
+            // Preview mode should ignore unlock restrictions.
+            if (PreviewController.Enabled)
+                return true;
+
+            // Only enforce unlock gating in Player mode.
+            if (State.Mode != EditorMode.Player)
+                return true;
+
+            // Crafted items are handled by the crafted filter; don't gate them here.
+            if (item.IsCrafted)
+                return true;
+
+            // Fully unlocked is fine.
+            if (item.IsUnlocked)
+                return true;
+
+            // Locked (0%) or partially unlocking (1-99%) => not equipable (disabled in list).
+            return false;
+        }
+
+        private static TextObject UnlockTooltip(WItem item)
+        {
+            if (item == null)
+                return L.T("cant_equip_reason_null", "Invalid item");
+
+            // Be defensive about types/ranges. Compute percent as proportion
+            // of UnlockProgress to UnlockThreshold (as percentage).
+            double progress = Convert.ToDouble(item.UnlockProgress);
+            double percentDouble = progress / WItem.UnlockThreshold * 100.0;
+            int percent = (int)Math.Round(percentDouble, MidpointRounding.AwayFromZero);
+
+            if (percent < 0)
+                percent = 0;
+            if (percent > 100)
+                percent = 100;
+
+            if (percent > 0)
+            {
+                return L.T("cant_equip_reason_unlocking", "Unlocking {PERCENT}%")
+                    .SetTextVariable("PERCENT", percent);
+            }
+
+            // Fully locked items are normally filtered out by the list builder,
+            // but keep a sane reason in case something tries to equip them anyway.
+            return L.T("cant_equip_reason_locked", "Locked");
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

@@ -131,6 +131,9 @@
       id="ret_cant_equip_reason_civilian"
       text="Sivil Değil" />
     <string
+      id="ret_cant_equip_reason_locked"
+      text="Kilitli" />
+    <string
       id="ret_cant_equip_reason_mount_compat"
       text="Uyumsuz" />
     <string
@@ -139,6 +142,9 @@
     <string
       id="ret_cant_equip_reason_skill"
       text="{SKILL} {VALUE}" />
+    <string
+      id="ret_cant_equip_reason_unlocking"
+      text="{PERCENT}% Kilit Açılıyor" />
     <string
       id="ret_cant_equip_reason_value_limit"
       text="Çok değerli" />

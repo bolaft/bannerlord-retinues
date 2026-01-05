@@ -139,6 +139,9 @@ namespace Retinues.Editor.VM.List.Equipment
 
             if (items != null && items.Count > 0)
             {
+                var normal = new List<WItem>();
+                var unlocking = new List<WItem>();
+
                 for (int i = 0; i < items.Count; i++)
                 {
                     var item = items[i];
@@ -149,12 +152,46 @@ namespace Retinues.Editor.VM.List.Equipment
                     if (!includeCrafted && item.IsCrafted)
                         continue;
 
-                    // Player mode: keep your existing "unlock" gate for non-crafted items.
+                    // Player mode:
+                    // - Fully locked (0%) items stay hidden.
+                    // - Partially unlocked (1-99%) items are included, but should appear at the end.
                     if (isPlayerMode && !item.IsCrafted && !item.IsUnlocked)
-                        continue;
+                    {
+                        if (item.UnlockProgress <= 0)
+                            continue;
 
-                    header.AddRow(new EquipmentListRowVM(header, item));
+                        unlocking.Add(item);
+                        continue;
+                    }
+
+                    normal.Add(item);
                 }
+
+                // Default view (no sort active): keep current order for normal items,
+                // and append "unlocking" items at end by progress desc (higher first).
+                unlocking.Sort(
+                    (a, b) =>
+                    {
+                        int pa = a?.UnlockProgress ?? 0;
+                        int pb = b?.UnlockProgress ?? 0;
+                        int cmp = pb.CompareTo(pa); // desc
+                        if (cmp != 0)
+                            return cmp;
+
+                        // deterministic tie-break
+                        return string.Compare(
+                            a?.Name,
+                            b?.Name,
+                            System.StringComparison.OrdinalIgnoreCase
+                        );
+                    }
+                );
+
+                for (int i = 0; i < normal.Count; i++)
+                    header.AddRow(new EquipmentListRowVM(header, normal[i]));
+
+                for (int i = 0; i < unlocking.Count; i++)
+                    header.AddRow(new EquipmentListRowVM(header, unlocking[i]));
             }
 
             header.UpdateRowCount();

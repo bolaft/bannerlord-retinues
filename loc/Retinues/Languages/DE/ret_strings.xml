@@ -131,6 +131,9 @@
       id="ret_cant_equip_reason_civilian"
       text="Nicht zivil" />
     <string
+      id="ret_cant_equip_reason_locked"
+      text="Gesperrt" />
+    <string
       id="ret_cant_equip_reason_mount_compat"
       text="Inkompatibel" />
     <string
@@ -139,6 +142,9 @@
     <string
       id="ret_cant_equip_reason_skill"
       text="{SKILL} {VALUE}" />
+    <string
+      id="ret_cant_equip_reason_unlocking"
+      text="Entsperren {PERCENT}%" />
     <string
       id="ret_cant_equip_reason_value_limit"
       text="Zu wertvoll" />
