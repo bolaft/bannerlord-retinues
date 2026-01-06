@@ -160,7 +160,7 @@ namespace Retinues.Configuration
                 "The number of times an item must be discarded to unlock it."
             ),
             minValue: 1,
-            maxValue: 1000,
+            maxValue: 100,
             @default: 10,
             @realistic: 20,
             dependsOn: UnlockItemsThroughDiscards
@@ -179,7 +179,7 @@ namespace Retinues.Configuration
             dependsOn: AllEquipmentUnlocked,
             dependsOnValue: false,
             minValue: 0,
-            maxValue: 9,
+            maxValue: 10,
             @default: 3
         );
 
@@ -256,8 +256,8 @@ namespace Retinues.Configuration
                 "mcm_option_equipment_weight_limit_multiplier_hint",
                 "Multiplier applied to the base weight limit when calculating equippable items."
             ),
-            minValue: 0.1f,
-            maxValue: 10f,
+            minValue: 0.5f,
+            maxValue: 2f,
             @default: 1f,
             dependsOn: LimitEquipmentByWeight,
             fires: UIEvent.Equipment
@@ -284,8 +284,8 @@ namespace Retinues.Configuration
                 "mcm_option_equipment_value_limit_multiplier_hint",
                 "Multiplier applied to the base value limit when calculating equippable items."
             ),
-            minValue: 0.1f,
-            maxValue: 10f,
+            minValue: 0.5f,
+            maxValue: 2f,
             @default: 1f,
             dependsOn: LimitEquipmentByValue,
             fires: UIEvent.Equipment
