@@ -224,6 +224,24 @@
       id="ret_dependencies_version_mismatch_label"
       text="Wrong version" />
     <string
+      id="ret_editing_restriction_in_fief"
+      text="In Faction Fief" />
+    <string
+      id="ret_editing_restriction_in_settlement"
+      text="In Any Settlement" />
+    <string
+      id="ret_editing_restriction_need_faction_fief_reason"
+      text="You can only edit this unit in a fief owned by {FACTION}." />
+    <string
+      id="ret_editing_restriction_need_settlement_reason"
+      text="You can only edit units while inside a settlement." />
+    <string
+      id="ret_editing_restriction_none"
+      text="Anywhere" />
+    <string
+      id="ret_editing_restriction_unknown_faction_reason"
+      text="Cannot determine this unit&apos;s faction for editing restrictions." />
+    <string
       id="ret_editor_clan_select"
       text="Select a Clan" />
     <string
@@ -698,6 +716,12 @@
       id="ret_mcm_option_default_unlocked_item_max_tier_hint"
       text="The maximum tier of items unlocked on game start." />
     <string
+      id="ret_mcm_option_editing_restriction"
+      text="Location Restrictions" />
+    <string
+      id="ret_mcm_option_editing_restriction_hint"
+      text="Restricts where custom troops can be edited. Note: retinues are unaffected by this setting." />
+    <string
       id="ret_mcm_option_editor_hotkey"
       text="Editor Hotkey" />
     <string
@@ -715,6 +739,12 @@
     <string
       id="ret_mcm_option_enable_retinues_hint"
       text="Toggles the Retinues feature on or off." />
+    <string
+      id="ret_mcm_option_enable_skill_points_system"
+      text="Enable Skill Points System" />
+    <string
+      id="ret_mcm_option_enable_skill_points_system_hint"
+      text="Toggles the Skill Points System feature on or off. If disabled, troops will not need to earn skill points in battle." />
     <string
       id="ret_mcm_option_equipment_cost_multiplier"
       text="Equipment Cost Multiplier" />
@@ -776,6 +806,12 @@
       id="ret_mcm_option_skill_cap_hint"
       text="Maximum skill level for Tier {TIER} troops." />
     <string
+      id="ret_mcm_option_skill_point_gain_multiplier"
+      text="Skill Point Gain Multiplier" />
+    <string
+      id="ret_mcm_option_skill_point_gain_multiplier_hint"
+      text="Multiplier applied to the base skill point gain rate." />
+    <string
       id="ret_mcm_option_skill_total"
       text="Tier {TIER} Skill Total" />
     <string
@@ -812,6 +848,9 @@
       id="ret_mcm_section_equipment_unlocks"
       text="Equipment Unlocks" />
     <string
+      id="ret_mcm_section_restrictions"
+      text="Restrictions" />
+    <string
       id="ret_mcm_section_retinues"
       text="Retinues" />
     <string
@@ -820,6 +859,9 @@
     <string
       id="ret_mcm_section_skill_totals"
       text="Skill Totals" />
+    <string
+      id="ret_mcm_section_skills"
+      text="Skills" />
     <string
       id="ret_mcm_section_troop_unlocks"
       text="Troop Unlocks" />

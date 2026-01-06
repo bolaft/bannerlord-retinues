@@ -224,6 +224,24 @@
       id="ret_dependencies_version_mismatch_label"
       text="Falsche Version" />
     <string
+      id="ret_editing_restriction_in_fief"
+      text="Im Fraktionslehen" />
+    <string
+      id="ret_editing_restriction_in_settlement"
+      text="In jeder Siedlung" />
+    <string
+      id="ret_editing_restriction_need_faction_fief_reason"
+      text="Sie können diese Einheit nur in einem Lehen bearbeiten, das {FACTION} gehört." />
+    <string
+      id="ret_editing_restriction_need_settlement_reason"
+      text="Sie können Einheiten nur bearbeiten, wenn Sie sich in einer Siedlung befinden." />
+    <string
+      id="ret_editing_restriction_none"
+      text="Überall" />
+    <string
+      id="ret_editing_restriction_unknown_faction_reason"
+      text="Die Fraktion dieser Einheit kann für Bearbeitungseinschränkungen nicht bestimmt werden." />
+    <string
       id="ret_editor_clan_select"
       text="Wählen Sie einen Clan" />
     <string
@@ -698,6 +716,12 @@
       id="ret_mcm_option_default_unlocked_item_max_tier_hint"
       text="Die maximale Stufe der zu Spielbeginn entsperrten Gegenstände." />
     <string
+      id="ret_mcm_option_editing_restriction"
+      text="Standortbeschränkungen" />
+    <string
+      id="ret_mcm_option_editing_restriction_hint"
+      text="Beschränkt, wo benutzerdefinierte Truppen bearbeitet werden können. Hinweis: Retinues sind von dieser Einstellung nicht betroffen." />
+    <string
       id="ret_mcm_option_editor_hotkey"
       text="Editor-Hotkey" />
     <string
@@ -715,6 +739,12 @@
     <string
       id="ret_mcm_option_enable_retinues_hint"
       text="Schaltet die Retinues-Funktion ein oder aus." />
+    <string
+      id="ret_mcm_option_enable_skill_points_system"
+      text="Fähigkeiten-Punkte-System aktivieren" />
+    <string
+      id="ret_mcm_option_enable_skill_points_system_hint"
+      text="Schaltet die Fähigkeiten-Punkte-System-Funktion ein oder aus. Wenn deaktiviert, müssen Truppen im Kampf keine Fähigkeiten-Punkte verdienen." />
     <string
       id="ret_mcm_option_equipment_cost_multiplier"
       text="Ausrüstungskosten-Multiplikator" />
@@ -776,6 +806,12 @@
       id="ret_mcm_option_skill_cap_hint"
       text="Maximales Fähigkeitsniveau für Truppen der Stufe {TIER}." />
     <string
+      id="ret_mcm_option_skill_point_gain_multiplier"
+      text="Fähigkeiten-Punkte-Gewinn-Multiplikator" />
+    <string
+      id="ret_mcm_option_skill_point_gain_multiplier_hint"
+      text="Multiplikator, der auf die Basis-Fähigkeiten-Punkte-Gewinnrate angewendet wird." />
+    <string
       id="ret_mcm_option_skill_total"
       text="Gesamtfähigkeiten Stufe {TIER}" />
     <string
@@ -812,6 +848,9 @@
       id="ret_mcm_section_equipment_unlocks"
       text="Ausrüstungsfreischaltungen" />
     <string
+      id="ret_mcm_section_restrictions"
+      text="Einschränkungen" />
+    <string
       id="ret_mcm_section_retinues"
       text="Retinues" />
     <string
@@ -820,6 +859,9 @@
     <string
       id="ret_mcm_section_skill_totals"
       text="Gesamtfähigkeiten" />
+    <string
+      id="ret_mcm_section_skills"
+      text="Fähigkeiten" />
     <string
       id="ret_mcm_section_troop_unlocks"
       text="Truppenfreischaltungen" />

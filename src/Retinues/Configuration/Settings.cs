@@ -70,7 +70,7 @@ namespace Retinues.Configuration
             name: L.F("mcm_option_enable_retinues", "Enable Retinues"),
             hint: L.F("mcm_option_enable_retinues_hint", "Toggles the Retinues feature on or off."),
             @default: true,
-            fires: UIEvent.Faction
+            fires: [UIEvent.Faction]
         );
 
         public static readonly Option<float> MaxRetinueRatio = CreateOption(
@@ -110,7 +110,7 @@ namespace Retinues.Configuration
             ),
             @default: false,
             @freeform: true,
-            fires: UIEvent.Page
+            fires: [UIEvent.Page]
         );
 
         public static readonly Option<bool> UnlockItemsThroughKills = CreateOption(
@@ -247,6 +247,56 @@ namespace Retinues.Configuration
             );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Restrictions                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public static readonly Section Restrictions = CreateSection(
+            name: L.F("mcm_section_restrictions", "Restrictions")
+        );
+
+        /* ━━━━━━━━ Options ━━━━━━━ */
+
+        public enum EditingRestrictionMode
+        {
+            None,
+            InSettlement,
+            InFief,
+        }
+
+        public static readonly MultiChoiceOption<EditingRestrictionMode> EditingRestriction =
+            CreateMultiChoiceOption(
+                section: Restrictions,
+                name: L.F("mcm_option_editing_restriction", "Location Restrictions"),
+                hint: L.F(
+                    "mcm_option_editing_restriction_hint",
+                    "Restricts where custom troops can be edited. Note: retinues are unaffected by this setting."
+                ),
+                @default: EditingRestrictionMode.None,
+                @realistic: EditingRestrictionMode.InFief,
+                choices:
+                [
+                    EditingRestrictionMode.None,
+                    EditingRestrictionMode.InSettlement,
+                    EditingRestrictionMode.InFief,
+                ],
+                choiceFormatter: v =>
+                    v switch
+                    {
+                        EditingRestrictionMode.None => L.S("editing_restriction_none", "Anywhere"),
+                        EditingRestrictionMode.InSettlement => L.S(
+                            "editing_restriction_in_settlement",
+                            "In Any Settlement"
+                        ),
+                        EditingRestrictionMode.InFief => L.S(
+                            "editing_restriction_in_fief",
+                            "In Faction Fief"
+                        ),
+                        _ => v.ToString(),
+                    },
+                fires: [UIEvent.Character]
+            );
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Equipment                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
@@ -265,7 +315,7 @@ namespace Retinues.Configuration
             ),
             @default: true,
             @freeform: false,
-            fires: UIEvent.Page
+            fires: [UIEvent.Page]
         );
 
         public static readonly Option<float> EquipmentCostMultiplier = CreateOption(
@@ -280,7 +330,7 @@ namespace Retinues.Configuration
             @default: 1f,
             @realistic: 2f,
             dependsOn: EquipmentCostsGold,
-            fires: UIEvent.Page
+            fires: [UIEvent.Page]
         );
 
         public static readonly Option<bool> LimitEquipmentByWeight = CreateOption(
@@ -291,7 +341,7 @@ namespace Retinues.Configuration
                 "Whether to limit equippable items based on troop tier and total item weights."
             ),
             @default: true,
-            fires: UIEvent.Equipment
+            fires: [UIEvent.Equipment]
         );
 
         public static readonly Option<float> EquipmentWeightLimitMultiplier = CreateOption(
@@ -308,7 +358,7 @@ namespace Retinues.Configuration
             maxValue: 2f,
             @default: 1f,
             dependsOn: LimitEquipmentByWeight,
-            fires: UIEvent.Equipment
+            fires: [UIEvent.Equipment]
         );
 
         public static readonly Option<bool> LimitEquipmentByValue = CreateOption(
@@ -319,7 +369,7 @@ namespace Retinues.Configuration
                 "Whether to limit equippable items based on troop tier and total item values."
             ),
             @default: true,
-            fires: UIEvent.Equipment
+            fires: [UIEvent.Equipment]
         );
 
         public static readonly Option<float> EquipmentValueLimitMultiplier = CreateOption(
@@ -336,7 +386,7 @@ namespace Retinues.Configuration
             maxValue: 2f,
             @default: 1f,
             dependsOn: LimitEquipmentByValue,
-            fires: UIEvent.Equipment
+            fires: [UIEvent.Equipment]
         );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -358,7 +408,7 @@ namespace Retinues.Configuration
             ),
             @default: true,
             @freeform: false,
-            fires: UIEvent.Page
+            fires: [UIEvent.Page]
         );
 
         public static readonly Option<float> SkillPointGainMultiplier = CreateOption(
@@ -396,7 +446,7 @@ namespace Retinues.Configuration
             minValue: 20,
             maxValue: 360,
             @default: 20,
-            fires: UIEvent.Skill
+            fires: [UIEvent.Skill]
         );
 
         public static readonly Option<int> SkillCapT1 = CreateOption(
@@ -410,7 +460,7 @@ namespace Retinues.Configuration
             minValue: 20,
             maxValue: 360,
             @default: 20,
-            fires: UIEvent.Skill
+            fires: [UIEvent.Skill]
         );
 
         public static readonly Option<int> SkillCapT2 = CreateOption(
@@ -424,7 +474,7 @@ namespace Retinues.Configuration
             minValue: 20,
             maxValue: 360,
             @default: 60,
-            fires: UIEvent.Skill
+            fires: [UIEvent.Skill]
         );
 
         public static readonly Option<int> SkillCapT3 = CreateOption(
@@ -438,7 +488,7 @@ namespace Retinues.Configuration
             minValue: 20,
             maxValue: 360,
             @default: 80,
-            fires: UIEvent.Skill
+            fires: [UIEvent.Skill]
         );
 
         public static readonly Option<int> SkillCapT4 = CreateOption(
@@ -452,7 +502,7 @@ namespace Retinues.Configuration
             minValue: 20,
             maxValue: 360,
             @default: 120,
-            fires: UIEvent.Skill
+            fires: [UIEvent.Skill]
         );
 
         public static readonly Option<int> SkillCapT5 = CreateOption(
@@ -466,7 +516,7 @@ namespace Retinues.Configuration
             minValue: 20,
             maxValue: 360,
             @default: 160,
-            fires: UIEvent.Skill
+            fires: [UIEvent.Skill]
         );
 
         public static readonly Option<int> SkillCapT6 = CreateOption(
@@ -480,7 +530,7 @@ namespace Retinues.Configuration
             minValue: 20,
             maxValue: 360,
             @default: 260,
-            fires: UIEvent.Skill
+            fires: [UIEvent.Skill]
         );
 
         public static readonly Option<int> SkillCapT7 = CreateOption(
@@ -495,7 +545,7 @@ namespace Retinues.Configuration
             maxValue: 360,
             @default: 360,
             disabled: !Mods.T7TroopUnlocker.IsLoaded,
-            fires: UIEvent.Skill
+            fires: [UIEvent.Skill]
         );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -519,7 +569,7 @@ namespace Retinues.Configuration
             minValue: 90,
             maxValue: 1600,
             @default: 90,
-            fires: UIEvent.Skill
+            fires: [UIEvent.Skill]
         );
 
         public static readonly Option<int> SkillTotalT1 = CreateOption(
@@ -533,7 +583,7 @@ namespace Retinues.Configuration
             minValue: 90,
             maxValue: 1600,
             @default: 90,
-            fires: UIEvent.Skill
+            fires: [UIEvent.Skill]
         );
 
         public static readonly Option<int> SkillTotalT2 = CreateOption(
@@ -547,7 +597,7 @@ namespace Retinues.Configuration
             minValue: 90,
             maxValue: 1600,
             @default: 210,
-            fires: UIEvent.Skill
+            fires: [UIEvent.Skill]
         );
 
         public static readonly Option<int> SkillTotalT3 = CreateOption(
@@ -561,7 +611,7 @@ namespace Retinues.Configuration
             minValue: 90,
             maxValue: 1600,
             @default: 360,
-            fires: UIEvent.Skill
+            fires: [UIEvent.Skill]
         );
 
         public static readonly Option<int> SkillTotalT4 = CreateOption(
@@ -575,7 +625,7 @@ namespace Retinues.Configuration
             minValue: 90,
             maxValue: 1600,
             @default: 555,
-            fires: UIEvent.Skill
+            fires: [UIEvent.Skill]
         );
 
         public static readonly Option<int> SkillTotalT5 = CreateOption(
@@ -589,7 +639,7 @@ namespace Retinues.Configuration
             minValue: 90,
             maxValue: 1600,
             @default: 780,
-            fires: UIEvent.Skill
+            fires: [UIEvent.Skill]
         );
 
         public static readonly Option<int> SkillTotalT6 = CreateOption(
@@ -603,7 +653,7 @@ namespace Retinues.Configuration
             minValue: 90,
             maxValue: 1600,
             @default: 1015,
-            fires: UIEvent.Skill
+            fires: [UIEvent.Skill]
         );
 
         public static readonly Option<int> SkillTotalT7 = CreateOption(
@@ -618,7 +668,7 @@ namespace Retinues.Configuration
             maxValue: 1600,
             @default: 1600,
             disabled: !Mods.T7TroopUnlocker.IsLoaded,
-            fires: UIEvent.Skill
+            fires: [UIEvent.Skill]
         );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

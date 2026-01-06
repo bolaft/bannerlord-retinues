@@ -5,6 +5,7 @@ using Retinues.Domain.Characters;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Factions.Wrappers;
 using Retinues.Editor.Events;
+using Retinues.Editor.Services;
 using Retinues.Framework.Model.Exports;
 using Retinues.Modules;
 using Retinues.UI.Services;
@@ -640,6 +641,7 @@ namespace Retinues.Editor.Controllers.Character
 
         public static EditorAction<bool> SetMariner { get; } =
             Action<bool>("SetMariner")
+                .RequireValidEditingContext()
                 .AddCondition(
                     _ => Mods.NavalDLC.IsLoaded,
                     L.T("naval_dlc_not_loaded", "War Sails is not installed.")

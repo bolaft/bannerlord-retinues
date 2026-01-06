@@ -224,6 +224,24 @@
       id="ret_dependencies_version_mismatch_label"
       text="Versione errata" />
     <string
+      id="ret_editing_restriction_in_fief"
+      text="Nel feudo della fazione" />
+    <string
+      id="ret_editing_restriction_in_settlement"
+      text="In qualsiasi insediamento" />
+    <string
+      id="ret_editing_restriction_need_faction_fief_reason"
+      text="Puoi modificare questa unità solo in un feudo di proprietà di {FACTION}." />
+    <string
+      id="ret_editing_restriction_need_settlement_reason"
+      text="Puoi modificare le unità solo quando ti trovi all&apos;interno di un insediamento." />
+    <string
+      id="ret_editing_restriction_none"
+      text="Ovunque" />
+    <string
+      id="ret_editing_restriction_unknown_faction_reason"
+      text="Impossibile determinare la fazione di questa unità per le restrizioni di modifica." />
+    <string
       id="ret_editor_clan_select"
       text="Seleziona un clan" />
     <string
@@ -698,6 +716,12 @@
       id="ret_mcm_option_default_unlocked_item_max_tier_hint"
       text="Il livello massimo degli oggetti sbloccati all&apos;inizio del gioco." />
     <string
+      id="ret_mcm_option_editing_restriction"
+      text="Restrizioni di posizione" />
+    <string
+      id="ret_mcm_option_editing_restriction_hint"
+      text="Limita i luoghi in cui le truppe personalizzate possono essere modificate. Nota: le retinues non sono influenzate da questa impostazione." />
+    <string
       id="ret_mcm_option_editor_hotkey"
       text="Tasto di scelta rapida dell&apos;editor" />
     <string
@@ -715,6 +739,12 @@
     <string
       id="ret_mcm_option_enable_retinues_hint"
       text="Attiva o disattiva la funzione Retinues." />
+    <string
+      id="ret_mcm_option_enable_skill_points_system"
+      text="Abilita il sistema di punti abilità" />
+    <string
+      id="ret_mcm_option_enable_skill_points_system_hint"
+      text="Attiva o disattiva la funzione del sistema di punti abilità. Se disabilitato, le truppe non dovranno guadagnare punti abilità in battaglia." />
     <string
       id="ret_mcm_option_equipment_cost_multiplier"
       text="Moltiplicatore del costo dell&apos;equipaggiamento" />
@@ -776,6 +806,12 @@
       id="ret_mcm_option_skill_cap_hint"
       text="Livello massimo di abilità per le truppe del livello {TIER}." />
     <string
+      id="ret_mcm_option_skill_point_gain_multiplier"
+      text="Moltiplicatore di guadagno dei punti abilità" />
+    <string
+      id="ret_mcm_option_skill_point_gain_multiplier_hint"
+      text="Moltiplicatore applicato al tasso di guadagno dei punti abilità base." />
+    <string
       id="ret_mcm_option_skill_total"
       text="Totale abilità del livello {TIER}" />
     <string
@@ -812,6 +848,9 @@
       id="ret_mcm_section_equipment_unlocks"
       text="Sblocchi dell&apos;equipaggiamento" />
     <string
+      id="ret_mcm_section_restrictions"
+      text="Restrizioni" />
+    <string
       id="ret_mcm_section_retinues"
       text="Retinues" />
     <string
@@ -820,6 +859,9 @@
     <string
       id="ret_mcm_section_skill_totals"
       text="Totali delle abilità" />
+    <string
+      id="ret_mcm_section_skills"
+      text="Abilità" />
     <string
       id="ret_mcm_section_troop_unlocks"
       text="Sblocchi delle truppe" />

@@ -1,9 +1,9 @@
 using System.Linq;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Equipments.Helpers;
-using Retinues.Domain.Equipments.Models;
 using Retinues.Editor.Controllers.Equipment;
 using Retinues.Editor.Events;
+using Retinues.Editor.Services;
 using Retinues.UI.Services;
 
 namespace Retinues.Editor.Controllers.Character
@@ -18,6 +18,7 @@ namespace Retinues.Editor.Controllers.Character
 
         public static EditorAction<WCharacter> AddUpgradeTarget { get; } =
             Action<WCharacter>("AddUpgradeTarget")
+                .RequireValidEditingContext()
                 .AddCondition(
                     c => c != null && !c.IsHero,
                     L.T("upgrade_cannot_add_hero", "Heroes cannot have upgrade targets.")
@@ -160,6 +161,7 @@ namespace Retinues.Editor.Controllers.Character
 
         public static EditorAction<WCharacter> RemoveCharacter { get; } =
             Action<WCharacter>("RemoveCharacter")
+                .RequireValidEditingContext()
                 .AddCondition(
                     c => c != null && c.IsHero == false,
                     L.T("character_cannot_remove_hero", "Heroes cannot be removed.")

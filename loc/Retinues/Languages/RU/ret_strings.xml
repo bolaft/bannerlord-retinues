@@ -224,6 +224,24 @@
       id="ret_dependencies_version_mismatch_label"
       text="Неправильная версия" />
     <string
+      id="ret_editing_restriction_in_fief"
+      text="В фьефе фракции" />
+    <string
+      id="ret_editing_restriction_in_settlement"
+      text="В любом поселении" />
+    <string
+      id="ret_editing_restriction_need_faction_fief_reason"
+      text="Вы можете редактировать эту единицу только в фьефе, принадлежащем {FACTION}." />
+    <string
+      id="ret_editing_restriction_need_settlement_reason"
+      text="Вы можете редактировать юниты только находясь внутри поселения." />
+    <string
+      id="ret_editing_restriction_none"
+      text="Везде" />
+    <string
+      id="ret_editing_restriction_unknown_faction_reason"
+      text="Невозможно определить фракцию этой единицы для ограничений редактирования." />
+    <string
       id="ret_editor_clan_select"
       text="Выберите клан" />
     <string
@@ -698,6 +716,12 @@
       id="ret_mcm_option_default_unlocked_item_max_tier_hint"
       text="Максимальный уровень предметов, разблокированных при начале игры." />
     <string
+      id="ret_mcm_option_editing_restriction"
+      text="Ограничения по местоположению" />
+    <string
+      id="ret_mcm_option_editing_restriction_hint"
+      text="Ограничивает места, где можно редактировать пользовательские войска. Примечание: retinues не затрагиваются этой настройкой." />
+    <string
       id="ret_mcm_option_editor_hotkey"
       text="Горячая клавиша редактора" />
     <string
@@ -715,6 +739,12 @@
     <string
       id="ret_mcm_option_enable_retinues_hint"
       text="Включает или отключает функцию Retinues." />
+    <string
+      id="ret_mcm_option_enable_skill_points_system"
+      text="Включить систему очков навыков" />
+    <string
+      id="ret_mcm_option_enable_skill_points_system_hint"
+      text="Включает или отключает функцию системы очков навыков. Если отключено, войскам не нужно будет зарабатывать очки навыков в бою." />
     <string
       id="ret_mcm_option_equipment_cost_multiplier"
       text="Множитель стоимости оборудования" />
@@ -776,6 +806,12 @@
       id="ret_mcm_option_skill_cap_hint"
       text="Максимальный уровень навыков для войск уровня {TIER}." />
     <string
+      id="ret_mcm_option_skill_point_gain_multiplier"
+      text="Множитель получения очков навыков" />
+    <string
+      id="ret_mcm_option_skill_point_gain_multiplier_hint"
+      text="Множитель, применяемый к базовой скорости получения очков навыков." />
+    <string
       id="ret_mcm_option_skill_total"
       text="Общее количество навыков уровня {TIER}" />
     <string
@@ -812,6 +848,9 @@
       id="ret_mcm_section_equipment_unlocks"
       text="Разблокировка снаряжения" />
     <string
+      id="ret_mcm_section_restrictions"
+      text="Ограничения" />
+    <string
       id="ret_mcm_section_retinues"
       text="Retinues" />
     <string
@@ -820,6 +859,9 @@
     <string
       id="ret_mcm_section_skill_totals"
       text="Общее количество навыков" />
+    <string
+      id="ret_mcm_section_skills"
+      text="Навыки" />
     <string
       id="ret_mcm_section_troop_unlocks"
       text="Разблокировка войск" />

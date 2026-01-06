@@ -5,6 +5,7 @@ using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Equipments.Helpers;
 using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Editor.Events;
+using Retinues.Editor.Services;
 using Retinues.Game;
 using Retinues.UI.Services;
 using TaleWorlds.Core;
@@ -210,6 +211,7 @@ namespace Retinues.Editor.Controllers.Equipment
 
         public static EditorAction<WItem> Equip { get; } =
             Action<WItem>("EquipItem")
+                .RequireValidEditingContext()
                 .AddCondition(
                     item => item != null,
                     _ => L.T("cant_equip_reason_null", "Invalid item")
@@ -511,6 +513,7 @@ namespace Retinues.Editor.Controllers.Equipment
 
         public static EditorAction<EquipmentIndex> Unequip { get; } =
             Action<EquipmentIndex>("UnequipItem")
+                .RequireValidEditingContext()
                 .AddCondition(
                     slot => State.Equipment != null && PreviewController.GetItem(slot) != null,
                     L.T("cant_unequip_reason_empty", "Nothing to unequip.")

@@ -224,6 +224,21 @@
       id="ret_dependencies_version_mismatch_label"
       text="Yanlış sürüm" />
     <string
+      id="ret_editing_restriction_in_fief"
+      text="Fraksiyon Arazisinde" />
+    <string
+      id="ret_editing_restriction_in_settlement"
+      text="Herhangi Bir Yerleşim Yerinde" />
+    <string
+      id="ret_editing_restriction_need_faction_fief_reason"
+      text="Bu birimi yalnızca {FACTION} ait bir arazide düzenleyebilirsiniz." />
+    <string
+      id="ret_editing_restriction_none"
+      text="Her Yerde" />
+    <string
+      id="ret_editing_restriction_unknown_faction_reason"
+      text="Düzenleme kısıtlamaları için bu birimin fraksiyonunu belirleyemiyor." />
+    <string
       id="ret_editor_clan_select"
       text="Bir Klan Seçin" />
     <string
@@ -698,6 +713,12 @@
       id="ret_mcm_option_default_unlocked_item_max_tier_hint"
       text="Oyun başlangıcında kilidi açılan öğelerin maksimum seviyesi." />
     <string
+      id="ret_mcm_option_editing_restriction"
+      text="Konum Kısıtlamaları" />
+    <string
+      id="ret_mcm_option_editing_restriction_hint"
+      text="Özel birliklerin düzenlenebileceği yerleri kısıtlar. Not: retinues bu ayardan etkilenmez." />
+    <string
       id="ret_mcm_option_editor_hotkey"
       text="Düzenleyici Kısayolu" />
     <string
@@ -715,6 +736,12 @@
     <string
       id="ret_mcm_option_enable_retinues_hint"
       text="Retinues özelliğini açar veya kapatır." />
+    <string
+      id="ret_mcm_option_enable_skill_points_system"
+      text="Yetenek Puanları Sistemini Etkinleştir" />
+    <string
+      id="ret_mcm_option_enable_skill_points_system_hint"
+      text="Yetenek Puanları Sistemi özelliğini açar veya kapatır. Devre dışı bırakılırsa, birliklerin savaşta yetenek puanı kazanmaları gerekmez." />
     <string
       id="ret_mcm_option_equipment_cost_multiplier"
       text="Ekipman Maliyet Çarpanı" />
@@ -776,6 +803,12 @@
       id="ret_mcm_option_skill_cap_hint"
       text="{TIER} seviye birlikler için maksimum yetenek seviyesi." />
     <string
+      id="ret_mcm_option_skill_point_gain_multiplier"
+      text="Yetenek Puanı Kazanma Çarpanı" />
+    <string
+      id="ret_mcm_option_skill_point_gain_multiplier_hint"
+      text="Temel yetenek puanı kazanma oranına uygulanan çarpan." />
+    <string
       id="ret_mcm_option_skill_total"
       text="{TIER} Seviye Yetenek Toplamı" />
     <string
@@ -812,6 +845,9 @@
       id="ret_mcm_section_equipment_unlocks"
       text="Ekipman Kilidi Açma" />
     <string
+      id="ret_mcm_section_restrictions"
+      text="Kısıtlamalar" />
+    <string
       id="ret_mcm_section_retinues"
       text="Retinues" />
     <string
@@ -820,6 +856,9 @@
     <string
       id="ret_mcm_section_skill_totals"
       text="Yetenek Toplamları" />
+    <string
+      id="ret_mcm_section_skills"
+      text="Yetenekler" />
     <string
       id="ret_mcm_section_troop_unlocks"
       text="Birlik Kilidi Açma" />

@@ -224,6 +224,24 @@
       id="ret_dependencies_version_mismatch_label"
       text="错误的版本" />
     <string
+      id="ret_editing_restriction_in_fief"
+      text="在派系封地内" />
+    <string
+      id="ret_editing_restriction_in_settlement"
+      text="在任何定居点内" />
+    <string
+      id="ret_editing_restriction_need_faction_fief_reason"
+      text="您只能在属于 {FACTION} 的封地中编辑此单位。" />
+    <string
+      id="ret_editing_restriction_need_settlement_reason"
+      text="只有在定居点内时，您才能编辑单位。" />
+    <string
+      id="ret_editing_restriction_none"
+      text="任何地方" />
+    <string
+      id="ret_editing_restriction_unknown_faction_reason"
+      text="无法确定此单位的派系以进行编辑限制。" />
+    <string
       id="ret_editor_clan_select"
       text="选择一个氏族" />
     <string
@@ -698,6 +716,12 @@
       id="ret_mcm_option_default_unlocked_item_max_tier_hint"
       text="游戏开始时解锁的物品的最高等级。" />
     <string
+      id="ret_mcm_option_editing_restriction"
+      text="位置限制" />
+    <string
+      id="ret_mcm_option_editing_restriction_hint"
+      text="限制自定义部队可以编辑的位置。注意：随从不受此设置影响。" />
+    <string
       id="ret_mcm_option_editor_hotkey"
       text="编辑器热键" />
     <string
@@ -715,6 +739,12 @@
     <string
       id="ret_mcm_option_enable_retinues_hint"
       text="切换随从功能的开或关。" />
+    <string
+      id="ret_mcm_option_enable_skill_points_system"
+      text="启用技能点系统" />
+    <string
+      id="ret_mcm_option_enable_skill_points_system_hint"
+      text="切换技能点系统功能的开或关。如果禁用，部队在战斗中将不需要获得技能点。" />
     <string
       id="ret_mcm_option_equipment_cost_multiplier"
       text="装备成本乘数" />
@@ -776,6 +806,12 @@
       id="ret_mcm_option_skill_cap_hint"
       text="等级 {TIER} 部队的最高技能水平。" />
     <string
+      id="ret_mcm_option_skill_point_gain_multiplier"
+      text="技能点获取乘数" />
+    <string
+      id="ret_mcm_option_skill_point_gain_multiplier_hint"
+      text="应用于基础技能点获取率的乘数。" />
+    <string
       id="ret_mcm_option_skill_total"
       text="等级 {TIER} 技能总数" />
     <string
@@ -812,6 +848,9 @@
       id="ret_mcm_section_equipment_unlocks"
       text="装备解锁" />
     <string
+      id="ret_mcm_section_restrictions"
+      text="限制" />
+    <string
       id="ret_mcm_section_retinues"
       text="随从" />
     <string
@@ -820,6 +859,9 @@
     <string
       id="ret_mcm_section_skill_totals"
       text="技能总数" />
+    <string
+      id="ret_mcm_section_skills"
+      text="技能" />
     <string
       id="ret_mcm_section_troop_unlocks"
       text="部队解锁" />

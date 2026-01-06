@@ -224,6 +224,24 @@
       id="ret_dependencies_version_mismatch_label"
       text="Versão errada" />
     <string
+      id="ret_editing_restriction_in_fief"
+      text="No Feudo da Facção" />
+    <string
+      id="ret_editing_restriction_in_settlement"
+      text="Em Qualquer Assentamento" />
+    <string
+      id="ret_editing_restriction_need_faction_fief_reason"
+      text="Você só pode editar esta unidade em um feudo pertencente a {FACTION}." />
+    <string
+      id="ret_editing_restriction_need_settlement_reason"
+      text="Você só pode editar unidades enquanto estiver dentro de um assentamento." />
+    <string
+      id="ret_editing_restriction_none"
+      text="Em Qualquer Lugar" />
+    <string
+      id="ret_editing_restriction_unknown_faction_reason"
+      text="Não é possível determinar a facção desta unidade para restrições de edição." />
+    <string
       id="ret_editor_clan_select"
       text="Selecione um clã" />
     <string
@@ -698,6 +716,12 @@
       id="ret_mcm_option_default_unlocked_item_max_tier_hint"
       text="O nível máximo de itens desbloqueados no início do jogo." />
     <string
+      id="ret_mcm_option_editing_restriction"
+      text="Restrições de Localização" />
+    <string
+      id="ret_mcm_option_editing_restriction_hint"
+      text="Restringe onde as tropas personalizadas podem ser editadas. Nota: retinues não são afetadas por esta configuração." />
+    <string
       id="ret_mcm_option_editor_hotkey"
       text="Atalho do Editor" />
     <string
@@ -715,6 +739,12 @@
     <string
       id="ret_mcm_option_enable_retinues_hint"
       text="Ativa ou desativa o recurso de Retinues." />
+    <string
+      id="ret_mcm_option_enable_skill_points_system"
+      text="Ativar o Sistema de Pontos de Habilidade" />
+    <string
+      id="ret_mcm_option_enable_skill_points_system_hint"
+      text="Ativa ou desativa o recurso do Sistema de Pontos de Habilidade. Se desativado, as tropas não precisarão ganhar pontos de habilidade em batalha." />
     <string
       id="ret_mcm_option_equipment_cost_multiplier"
       text="Multiplicador de Custo de Equipamento" />
@@ -776,6 +806,12 @@
       id="ret_mcm_option_skill_cap_hint"
       text="Nível máximo de habilidade para tropas do Nível {TIER}." />
     <string
+      id="ret_mcm_option_skill_point_gain_multiplier"
+      text="Multiplicador de Ganho de Pontos de Habilidade" />
+    <string
+      id="ret_mcm_option_skill_point_gain_multiplier_hint"
+      text="Multiplicador aplicado à taxa de ganho de pontos de habilidade base." />
+    <string
       id="ret_mcm_option_skill_total"
       text="Total de Habilidades do Nível {TIER}" />
     <string
@@ -812,6 +848,9 @@
       id="ret_mcm_section_equipment_unlocks"
       text="Desbloqueios de Equipamento" />
     <string
+      id="ret_mcm_section_restrictions"
+      text="Restrições" />
+    <string
       id="ret_mcm_section_retinues"
       text="Retinues" />
     <string
@@ -820,6 +859,9 @@
     <string
       id="ret_mcm_section_skill_totals"
       text="Totais de Habilidades" />
+    <string
+      id="ret_mcm_section_skills"
+      text="Habilidades" />
     <string
       id="ret_mcm_section_troop_unlocks"
       text="Desbloqueios de Tropas" />

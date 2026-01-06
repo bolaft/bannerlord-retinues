@@ -1,6 +1,7 @@
 using System;
 using Retinues.Configuration;
 using Retinues.Editor.Events;
+using Retinues.Editor.Services;
 using Retinues.UI.Services;
 using TaleWorlds.Core;
 
@@ -16,6 +17,7 @@ namespace Retinues.Editor.Controllers.Character
 
         public static EditorAction<SkillObject> SkillIncrease { get; } =
             Action<SkillObject>("SkillIncrease")
+                .RequireValidEditingContext()
                 // Skill cap
                 .AddCondition(
                     s => State.Character.Editable.Skills.Get(s) < State.Character.SkillCapForTier,
@@ -50,6 +52,7 @@ namespace Retinues.Editor.Controllers.Character
 
         public static EditorAction<SkillObject> SkillDecrease { get; } =
             Action<SkillObject>("SkillDecrease")
+                .RequireValidEditingContext()
                 .AddCondition(
                     s => State.Character.Editable.Skills.Get(s) > 0,
                     L.T("skill_decrease_min_reason", "Cannot decrease skill below 0.")

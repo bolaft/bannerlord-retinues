@@ -224,6 +224,24 @@
       id="ret_dependencies_version_mismatch_label"
       text="잘못된 버전" />
     <string
+      id="ret_editing_restriction_in_fief"
+      text="진영 영지 내에서" />
+    <string
+      id="ret_editing_restriction_in_settlement"
+      text="모든 정착지 내에서" />
+    <string
+      id="ret_editing_restriction_need_faction_fief_reason"
+      text="이 유닛은 {FACTION} 소유의 영지에서만 편집할 수 있습니다." />
+    <string
+      id="ret_editing_restriction_need_settlement_reason"
+      text="정착지 내에 있을 때만 유닛을 편집할 수 있습니다." />
+    <string
+      id="ret_editing_restriction_none"
+      text="어디서나" />
+    <string
+      id="ret_editing_restriction_unknown_faction_reason"
+      text="편집 제한을 위해 이 유닛의 진영을 결정할 수 없습니다." />
+    <string
       id="ret_editor_clan_select"
       text="클랜 선택" />
     <string
@@ -698,6 +716,12 @@
       id="ret_mcm_option_default_unlocked_item_max_tier_hint"
       text="게임 시작 시 잠금 해제되는 아이템의 최대 등급입니다." />
     <string
+      id="ret_mcm_option_editing_restriction"
+      text="위치 제한" />
+    <string
+      id="ret_mcm_option_editing_restriction_hint"
+      text="사용자 지정 부대를 편집할 수 있는 위치를 제한합니다. 참고: Retinues는 이 설정의 영향을 받지 않습니다." />
+    <string
       id="ret_mcm_option_editor_hotkey"
       text="편집기 단축키" />
     <string
@@ -715,6 +739,12 @@
     <string
       id="ret_mcm_option_enable_retinues_hint"
       text="Retinues 기능을 켜거나 끕니다." />
+    <string
+      id="ret_mcm_option_enable_skill_points_system"
+      text="기술 포인트 시스템 활성화" />
+    <string
+      id="ret_mcm_option_enable_skill_points_system_hint"
+      text="기술 포인트 시스템 기능을 켜거나 끕니다. 비활성화된 경우 부대는 전투에서 기술 포인트를 얻을 필요가 없습니다." />
     <string
       id="ret_mcm_option_equipment_cost_multiplier"
       text="장비 비용 배수" />
@@ -776,6 +806,12 @@
       id="ret_mcm_option_skill_cap_hint"
       text="티어 {TIER} 부대의 최대 기술 수준입니다." />
     <string
+      id="ret_mcm_option_skill_point_gain_multiplier"
+      text="기술 포인트 획득 배수" />
+    <string
+      id="ret_mcm_option_skill_point_gain_multiplier_hint"
+      text="기본 기술 포인트 획득률에 적용되는 배수입니다." />
+    <string
       id="ret_mcm_option_skill_total"
       text="티어 {TIER} 기술 총합" />
     <string
@@ -812,6 +848,9 @@
       id="ret_mcm_section_equipment_unlocks"
       text="장비 잠금 해제" />
     <string
+      id="ret_mcm_section_restrictions"
+      text="제한" />
+    <string
       id="ret_mcm_section_retinues"
       text="Retinues" />
     <string
@@ -820,6 +859,9 @@
     <string
       id="ret_mcm_section_skill_totals"
       text="기술 총합" />
+    <string
+      id="ret_mcm_section_skills"
+      text="기술" />
     <string
       id="ret_mcm_section_troop_unlocks"
       text="부대 잠금 해제" />

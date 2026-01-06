@@ -68,7 +68,7 @@ namespace Retinues.Configuration
         object DisabledOverrideBoxed { get; }
         IOption DependsOn { get; }
         object DependsOnValue { get; }
-        UIEvent? Fires { get; }
+        UIEvent[] Fires { get; }
 
         /// <summary>
         /// Get the current option value as an object.
@@ -124,7 +124,7 @@ namespace Retinues.Configuration
             T disabledOverride,
             IOption dependsOn = null,
             object dependsOnValue = null,
-            UIEvent? fires = null
+            UIEvent[] fires = null
         )
         {
             _section = section ?? (() => "General");
@@ -168,7 +168,7 @@ namespace Retinues.Configuration
         public Type Type => typeof(T);
         public object Default => DefaultTyped;
         public object DisabledOverrideBoxed => DisabledOverride;
-        public UIEvent? Fires { get; set; }
+        public UIEvent[] Fires { get; set; }
 
         public IReadOnlyDictionary<string, object> PresetOverrides { get; set; }
         public bool IsDisabled { get; set; }
@@ -262,7 +262,7 @@ namespace Retinues.Configuration
             IOption dependsOn,
             object dependsOnValue,
             Func<T, string> choiceFormatter,
-            UIEvent? fires
+            UIEvent[] fires
         )
             : base(
                 section,
@@ -433,7 +433,7 @@ namespace Retinues.Configuration
             T disabledOverride = default,
             IOption dependsOn = null,
             object dependsOnValue = null,
-            UIEvent? fires = null
+            UIEvent[] fires = null
         )
         {
             Func<string> sectionFunc = null;
@@ -495,7 +495,7 @@ namespace Retinues.Configuration
             Func<T, string> choiceFormatter = null,
             IOption dependsOn = null,
             object dependsOnValue = null,
-            UIEvent? fires = null
+            UIEvent[] fires = null
         )
         {
             Func<string> sectionFunc = null;
@@ -826,10 +826,20 @@ namespace Retinues.Configuration
             if (!_byKey.TryGetValue(key, out var opt) || opt == null)
                 return;
 
-            if (!opt.Fires.HasValue)
+            if (opt.Fires == null || opt.Fires.Length == 0)
                 return;
 
-            EventManager.Fire(opt.Fires.Value);
+            foreach (var ev in opt.Fires)
+            {
+                try
+                {
+                    EventManager.Fire(ev);
+                }
+                catch (Exception e)
+                {
+                    Log.Exception(e, "EventManager.Fire failed for event.");
+                }
+            }
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

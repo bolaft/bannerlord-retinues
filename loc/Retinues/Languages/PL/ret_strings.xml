@@ -224,6 +224,24 @@
       id="ret_dependencies_version_mismatch_label"
       text="Zła wersja" />
     <string
+      id="ret_editing_restriction_in_fief"
+      text="W lenno frakcji" />
+    <string
+      id="ret_editing_restriction_in_settlement"
+      text="W dowolnym osiedlu" />
+    <string
+      id="ret_editing_restriction_need_faction_fief_reason"
+      text="Możesz edytować tę jednostkę tylko w lenno należącym do {FACTION}." />
+    <string
+      id="ret_editing_restriction_need_settlement_reason"
+      text="Możesz edytować jednostki tylko będąc wewnątrz osiedla." />
+    <string
+      id="ret_editing_restriction_none"
+      text="W dowolnym miejscu" />
+    <string
+      id="ret_editing_restriction_unknown_faction_reason"
+      text="Nie można określić frakcji tej jednostki dla ograniczeń edycji." />
+    <string
       id="ret_editor_clan_select"
       text="Wybierz klan" />
     <string
@@ -698,6 +716,12 @@
       id="ret_mcm_option_default_unlocked_item_max_tier_hint"
       text="Maksymalny poziom przedmiotów odblokowanych na początku gry." />
     <string
+      id="ret_mcm_option_editing_restriction"
+      text="Ograniczenia lokalizacji" />
+    <string
+      id="ret_mcm_option_editing_restriction_hint"
+      text="Ogranicza miejsca, w których można edytować niestandardowe oddziały. Uwaga: retinues nie są objęte tym ustawieniem." />
+    <string
       id="ret_mcm_option_editor_hotkey"
       text="Klawisz skrótu edytora" />
     <string
@@ -715,6 +739,12 @@
     <string
       id="ret_mcm_option_enable_retinues_hint"
       text="Przełącza funkcję Retinues włączoną lub wyłączoną." />
+    <string
+      id="ret_mcm_option_enable_skill_points_system"
+      text="Włącz system punktów umiejętności" />
+    <string
+      id="ret_mcm_option_enable_skill_points_system_hint"
+      text="Przełącza funkcję Systemu Punktów Umiejętności włączoną lub wyłączoną. Jeśli jest wyłączona, oddziały nie będą musiały zdobywać punktów umiejętności w walce." />
     <string
       id="ret_mcm_option_equipment_cost_multiplier"
       text="Mnożnik kosztów wyposażenia" />
@@ -776,6 +806,12 @@
       id="ret_mcm_option_skill_cap_hint"
       text="Maksymalny poziom umiejętności dla oddziałów poziomu {TIER}." />
     <string
+      id="ret_mcm_option_skill_point_gain_multiplier"
+      text="Mnożnik zdobywania punktów umiejętności" />
+    <string
+      id="ret_mcm_option_skill_point_gain_multiplier_hint"
+      text="Mnożnik stosowany do podstawowej szybkości zdobywania punktów umiejętności." />
+    <string
       id="ret_mcm_option_skill_total"
       text="Łączna liczba umiejętności poziomu {TIER}" />
     <string
@@ -812,6 +848,9 @@
       id="ret_mcm_section_equipment_unlocks"
       text="Odblokowania ekwipunku" />
     <string
+      id="ret_mcm_section_restrictions"
+      text="Ograniczenia" />
+    <string
       id="ret_mcm_section_retinues"
       text="Retinues" />
     <string
@@ -820,6 +859,9 @@
     <string
       id="ret_mcm_section_skill_totals"
       text="Łączna liczba umiejętności" />
+    <string
+      id="ret_mcm_section_skills"
+      text="Umiejętności" />
     <string
       id="ret_mcm_section_troop_unlocks"
       text="Odblokowania oddziałów" />

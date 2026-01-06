@@ -224,6 +224,24 @@
       id="ret_dependencies_version_mismatch_label"
       text="間違ったバージョン" />
     <string
+      id="ret_editing_restriction_in_fief"
+      text="派閥の領地内で" />
+    <string
+      id="ret_editing_restriction_in_settlement"
+      text="任意の集落内で" />
+    <string
+      id="ret_editing_restriction_need_faction_fief_reason"
+      text="このユニットは、{FACTION} が所有する領地内でのみ編集できます。" />
+    <string
+      id="ret_editing_restriction_need_settlement_reason"
+      text="集落内にいる間のみ、ユニットを編集できます。" />
+    <string
+      id="ret_editing_restriction_none"
+      text="どこでも" />
+    <string
+      id="ret_editing_restriction_unknown_faction_reason"
+      text="このユニットの派閥を編集制限のために特定できません。" />
+    <string
       id="ret_editor_clan_select"
       text="クランを選択" />
     <string
@@ -698,6 +716,12 @@
       id="ret_mcm_option_default_unlocked_item_max_tier_hint"
       text="ゲーム開始時にアンロックされるアイテムの最大ティア。" />
     <string
+      id="ret_mcm_option_editing_restriction"
+      text="場所の制限" />
+    <string
+      id="ret_mcm_option_editing_restriction_hint"
+      text="カスタム部隊を編集できる場所を制限します。注意：リティニュースはこの設定の影響を受けません。" />
+    <string
       id="ret_mcm_option_editor_hotkey"
       text="エディターホットキー" />
     <string
@@ -715,6 +739,12 @@
     <string
       id="ret_mcm_option_enable_retinues_hint"
       text="リティニュース機能のオンまたはオフを切り替えます。" />
+    <string
+      id="ret_mcm_option_enable_skill_points_system"
+      text="スキルポイントシステムを有効にする" />
+    <string
+      id="ret_mcm_option_enable_skill_points_system_hint"
+      text="スキルポイントシステム機能のオンまたはオフを切り替えます。無効にすると、部隊は戦闘でスキルポイントを獲得する必要がなくなります。" />
     <string
       id="ret_mcm_option_equipment_cost_multiplier"
       text="装備コスト乗数" />
@@ -776,6 +806,12 @@
       id="ret_mcm_option_skill_cap_hint"
       text="ティア {TIER} 部隊の最大スキルレベル。" />
     <string
+      id="ret_mcm_option_skill_point_gain_multiplier"
+      text="スキルポイント獲得乗数" />
+    <string
+      id="ret_mcm_option_skill_point_gain_multiplier_hint"
+      text="基本的なスキルポイント獲得率に適用される乗数。" />
+    <string
       id="ret_mcm_option_skill_total"
       text="ティア {TIER} スキル合計" />
     <string
@@ -812,6 +848,9 @@
       id="ret_mcm_section_equipment_unlocks"
       text="装備のアンロック" />
     <string
+      id="ret_mcm_section_restrictions"
+      text="制限" />
+    <string
       id="ret_mcm_section_retinues"
       text="リティニュース" />
     <string
@@ -820,6 +859,9 @@
     <string
       id="ret_mcm_section_skill_totals"
       text="スキル合計" />
+    <string
+      id="ret_mcm_section_skills"
+      text="スキル" />
     <string
       id="ret_mcm_section_troop_unlocks"
       text="部隊のアンロック" />

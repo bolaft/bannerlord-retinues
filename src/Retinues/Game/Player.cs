@@ -3,6 +3,7 @@ using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Factions;
 using Retinues.Domain.Factions.Wrappers;
 using Retinues.Domain.Parties.Wrappers;
+using Retinues.Domain.Settlements.Wrappers;
 using Retinues.Framework.Runtime;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Party;
@@ -34,6 +35,13 @@ namespace Retinues.Game
         public static WKingdom Kingdom => WKingdom.Get(MainHero.Clan?.Kingdom);
         public static WHero Hero => WHero.Get(MainHero);
         public static WParty Party => new(MobileParty.MainParty);
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Location                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public static WSettlement CurrentSettlement =>
+            WSettlement.Get(Party?.Base?.CurrentSettlement);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Map Faction                      //

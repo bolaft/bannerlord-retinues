@@ -224,6 +224,24 @@
       id="ret_dependencies_version_mismatch_label"
       text="Mauvaise version" />
     <string
+      id="ret_editing_restriction_in_fief"
+      text="Dans un fief de la faction" />
+    <string
+      id="ret_editing_restriction_in_settlement"
+      text="Dans n&apos;importe quel fief" />
+    <string
+      id="ret_editing_restriction_need_faction_fief_reason"
+      text="Vous ne pouvez modifier cette unité que dans un fief appartenant à {FACTION}." />
+    <string
+      id="ret_editing_restriction_need_settlement_reason"
+      text="Vous ne pouvez modifier les unités que lorsque vous êtes à l&apos;intérieur d&apos;un fief." />
+    <string
+      id="ret_editing_restriction_none"
+      text="N&apos;importe où" />
+    <string
+      id="ret_editing_restriction_unknown_faction_reason"
+      text="Impossible de déterminer la faction de cette unité pour les restrictions d&apos;édition." />
+    <string
       id="ret_editor_clan_select"
       text="Sélectionner un clan" />
     <string
@@ -698,6 +716,12 @@
       id="ret_mcm_option_default_unlocked_item_max_tier_hint"
       text="Le niveau maximum des objets débloqués au début du jeu." />
     <string
+      id="ret_mcm_option_editing_restriction"
+      text="Restrictions de Localisation" />
+    <string
+      id="ret_mcm_option_editing_restriction_hint"
+      text="Restreint les endroits où les troupes personnalisées peuvent être modifiées. Remarque : les rétinues ne sont pas affectées par ce paramètre." />
+    <string
       id="ret_mcm_option_editor_hotkey"
       text="Raccourci Éditeur" />
     <string
@@ -715,6 +739,12 @@
     <string
       id="ret_mcm_option_enable_retinues_hint"
       text="Active ou désactive la fonctionnalité des rétinues." />
+    <string
+      id="ret_mcm_option_enable_skill_points_system"
+      text="Activer le Système de Points de Compétence" />
+    <string
+      id="ret_mcm_option_enable_skill_points_system_hint"
+      text="Active ou désactive la fonctionnalité du système de points de compétence. Si désactivé, les troupes n&apos;auront pas besoin de gagner des points de compétence au combat." />
     <string
       id="ret_mcm_option_equipment_cost_multiplier"
       text="Multiplicateur de Coût d&apos;Équipement" />
@@ -776,6 +806,12 @@
       id="ret_mcm_option_skill_cap_hint"
       text="Niveau de compétence maximum pour les troupes de niveau {TIER}." />
     <string
+      id="ret_mcm_option_skill_point_gain_multiplier"
+      text="Multiplicateur de Gain de Points de Compétence" />
+    <string
+      id="ret_mcm_option_skill_point_gain_multiplier_hint"
+      text="Multiplicateur appliqué au taux de gain de points de compétence." />
+    <string
       id="ret_mcm_option_skill_total"
       text="Total de Compétences au Niveau {TIER}" />
     <string
@@ -812,6 +848,9 @@
       id="ret_mcm_section_equipment_unlocks"
       text="Acquisitions d&apos;Équipements" />
     <string
+      id="ret_mcm_section_restrictions"
+      text="Restrictions" />
+    <string
       id="ret_mcm_section_retinues"
       text="Rétinues" />
     <string
@@ -820,6 +859,9 @@
     <string
       id="ret_mcm_section_skill_totals"
       text="Totaux de Compétences" />
+    <string
+      id="ret_mcm_section_skills"
+      text="Compétences" />
     <string
       id="ret_mcm_section_troop_unlocks"
       text="Acquisitions de Troupes" />

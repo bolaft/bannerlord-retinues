@@ -5,6 +5,7 @@ using Retinues.Configuration;
 using Retinues.Domain.Equipments.Helpers;
 using Retinues.Domain.Equipments.Models;
 using Retinues.Editor.Events;
+using Retinues.Editor.Services;
 using Retinues.Modules;
 using Retinues.UI.Services;
 using TaleWorlds.Localization;
@@ -72,6 +73,7 @@ namespace Retinues.Editor.Controllers.Equipment
 
         public static EditorAction<bool> CreateSet { get; } =
             Action<bool>("CreateSet")
+                .RequireValidEditingContext()
                 .AddCondition(
                     _ => State.Character.IsHero == false,
                     L.T("equipment_hero_sets_reason", "Heroes cannot have multiple equipment sets.")
@@ -85,6 +87,7 @@ namespace Retinues.Editor.Controllers.Equipment
 
         public static EditorAction<bool> DeleteSet { get; } =
             Action<bool>("DeleteSet")
+                .RequireValidEditingContext()
                 .AddCondition(
                     _ => State.Character.IsHero == false,
                     L.T("equipment_hero_sets_reason", "Heroes cannot have multiple equipment sets.")
