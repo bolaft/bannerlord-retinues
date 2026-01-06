@@ -124,17 +124,26 @@ namespace Retinues.Editor.VM.Column
                     return;
                 }
 
-                // Important: apply selected equipment after FillFrom.
+                // Important: apply equipment after FillFrom.
                 // In Library mode, we want the equipment from the XML-applied character,
                 // not the editor-selected equipment.
-                if (EditorVM.Page != EditorPage.Library)
-                {
-                    var equipment = PreviewController.GetEquipmentForModel();
-                    if (equipment == null)
-                        return;
+                TaleWorlds.Core.Equipment equipmentForModel = null;
 
-                    vm.SetEquipment(equipment);
+                if (EditorVM.Page == EditorPage.Library)
+                {
+                    var src = character?.FirstBattleEquipment?.Base ?? co?.FirstBattleEquipment;
+                    if (src != null)
+                        equipmentForModel = new TaleWorlds.Core.Equipment(src);
                 }
+                else
+                {
+                    equipmentForModel = PreviewController.GetEquipmentForModel();
+                    if (equipmentForModel == null)
+                        return;
+                }
+
+                if (equipmentForModel != null)
+                    vm.SetEquipment(equipmentForModel);
 
                 // Apply faction visuals (colors, heraldry).
                 var faction = State.Faction;
