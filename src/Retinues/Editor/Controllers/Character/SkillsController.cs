@@ -1,4 +1,5 @@
 using System;
+using Retinues.Configuration;
 using Retinues.Editor.Events;
 using Retinues.UI.Services;
 using TaleWorlds.Core;
@@ -33,7 +34,10 @@ namespace Retinues.Editor.Controllers.Character
                     EditorMode.Player,
                     m =>
                         m.AddCondition(
-                            s => State.Character.IsHero || State.Character.SkillPoints > 0,
+                            s =>
+                                !Settings.EnableSkillPointsSystem
+                                || State.Character.IsHero
+                                || State.Character.SkillPoints > 0,
                             L.T("skill_increase_no_points_reason", "Not enough skill points.")
                         )
                 )

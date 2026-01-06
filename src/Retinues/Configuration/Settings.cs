@@ -199,6 +199,54 @@ namespace Retinues.Configuration
         );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Troop Unlocks                     //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public static readonly Section TroopUnlocks = CreateSection(
+            name: L.F("mcm_section_troop_unlocks", "Troop Unlocks")
+        );
+
+        /* ━━━━━━━━ Options ━━━━━━━ */
+
+        public enum EquipmentMode
+        {
+            SingleSet,
+            AllSets,
+            RandomSet,
+            EmptySet,
+        }
+
+        public static readonly MultiChoiceOption<EquipmentMode> StarterEquipment =
+            CreateMultiChoiceOption(
+                section: TroopUnlocks,
+                name: L.F("mcm_option_starter_equipment", "Starter Equipment"),
+                hint: L.F(
+                    "mcm_option_starter_equipment_hint",
+                    "Sets the starter equipment for newly unlocked troops."
+                ),
+                @default: EquipmentMode.RandomSet,
+                choices:
+                [
+                    EquipmentMode.SingleSet,
+                    EquipmentMode.AllSets,
+                    EquipmentMode.RandomSet,
+                    EquipmentMode.EmptySet,
+                ],
+                choiceFormatter: v =>
+                    v switch
+                    {
+                        EquipmentMode.SingleSet => L.S(
+                            "starter_equipment_single_set",
+                            "Copy One Set"
+                        ),
+                        EquipmentMode.AllSets => L.S("starter_equipment_all_sets", "Copy All Sets"),
+                        EquipmentMode.RandomSet => L.S("starter_equipment_random_set", "Random"),
+                        EquipmentMode.EmptySet => L.S("starter_equipment_empty_set", "Empty"),
+                        _ => v.ToString(),
+                    }
+            );
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Equipment                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
@@ -292,52 +340,40 @@ namespace Retinues.Configuration
         );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                      Troop Unlocks                     //
+        //                         Skills                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public static readonly Section TroopUnlocks = CreateSection(
-            name: L.F("mcm_section_troop_unlocks", "Troop Unlocks")
+        public static readonly Section Skills = CreateSection(
+            name: L.F("mcm_section_skills", "Skills")
         );
 
         /* ━━━━━━━━ Options ━━━━━━━ */
 
-        public enum EquipmentMode
-        {
-            SingleSet,
-            AllSets,
-            RandomSet,
-            EmptySet,
-        }
+        public static readonly Option<bool> EnableSkillPointsSystem = CreateOption(
+            section: Skills,
+            name: L.F("mcm_option_enable_skill_points_system", "Enable Skill Points System"),
+            hint: L.F(
+                "mcm_option_enable_skill_points_system_hint",
+                "Toggles the Skill Points System feature on or off. If disabled, troops will not need to earn skill points in battle."
+            ),
+            @default: true,
+            @freeform: false,
+            fires: UIEvent.Page
+        );
 
-        public static readonly MultiChoiceOption<EquipmentMode> StarterEquipment =
-            CreateMultiChoiceOption(
-                section: TroopUnlocks,
-                name: L.F("mcm_option_starter_equipment", "Starter Equipment"),
-                hint: L.F(
-                    "mcm_option_starter_equipment_hint",
-                    "Sets the starter equipment for newly unlocked troops."
-                ),
-                @default: EquipmentMode.RandomSet,
-                choices:
-                [
-                    EquipmentMode.SingleSet,
-                    EquipmentMode.AllSets,
-                    EquipmentMode.RandomSet,
-                    EquipmentMode.EmptySet,
-                ],
-                choiceFormatter: v =>
-                    v switch
-                    {
-                        EquipmentMode.SingleSet => L.S(
-                            "starter_equipment_single_set",
-                            "Copy One Set"
-                        ),
-                        EquipmentMode.AllSets => L.S("starter_equipment_all_sets", "Copy All Sets"),
-                        EquipmentMode.RandomSet => L.S("starter_equipment_random_set", "Random"),
-                        EquipmentMode.EmptySet => L.S("starter_equipment_empty_set", "Empty"),
-                        _ => v.ToString(),
-                    }
-            );
+        public static readonly Option<float> SkillPointGainMultiplier = CreateOption(
+            section: Skills,
+            name: L.F("mcm_option_skill_point_gain_multiplier", "Skill Point Gain Multiplier"),
+            hint: L.F(
+                "mcm_option_skill_point_gain_multiplier_hint",
+                "Multiplier applied to the base skill point gain rate."
+            ),
+            minValue: 0.1f,
+            maxValue: 5f,
+            @default: 1f,
+            @realistic: 0.5f,
+            dependsOn: EnableSkillPointsSystem
+        );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Skill Caps                       //

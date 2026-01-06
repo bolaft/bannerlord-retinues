@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Retinues.Configuration;
 using Retinues.Domain.Characters.Helpers;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Editor.Controllers.Character;
@@ -143,7 +144,7 @@ namespace Retinues.Editor.VM.Panel.Character
         [EventListener(UIEvent.Skill)]
         [DataSourceProperty]
         public string SkillDescriptionText =>
-            State.Mode == EditorMode.Player
+            State.Mode == EditorMode.Player && Settings.EnableSkillPointsSystem
                 ? L.T(
                         "skill_description_text",
                         "Skill Points: {SKILL_POINTS} - Skill Cap: {SKILL_CAP}"
