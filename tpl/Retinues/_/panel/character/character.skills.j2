@@ -82,7 +82,12 @@
                             Brush.FontSize="24"
                             WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
                             SuggestedWidth="{{ textw }}" SuggestedHeight="24"
-                            HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Children>
+                                <HintWidget DataSource="{ValueHint}"
+                                    Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
+                            </Children>
+                        </TextWidget>
 
                         {{ button_chevron_right("{IncreaseButton}", chev, chev) }}
 
