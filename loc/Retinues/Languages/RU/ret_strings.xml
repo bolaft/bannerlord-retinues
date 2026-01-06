@@ -758,6 +758,12 @@
       id="ret_mcm_option_equipment_cost_multiplier_hint"
       text="Множитель, применяемый к базовой стоимости предметов при расчете стоимости экипировки." />
     <string
+      id="ret_mcm_option_equipment_time_multiplier"
+      text="Множитель времени экипировки" />
+    <string
+      id="ret_mcm_option_equipment_time_multiplier_hint"
+      text="Множитель, применяемый к базовому времени экипировки при расчете того, сколько времени занимает экипировка." />
+    <string
       id="ret_mcm_option_equipment_value_limit_multiplier"
       text="Множитель ограничения стоимости оборудования" />
     <string
@@ -769,6 +775,12 @@
     <string
       id="ret_mcm_option_equipment_weight_limit_multiplier_hint"
       text="Множитель, применяемый к базовому ограничению веса при расчете экипируемых предметов." />
+    <string
+      id="ret_mcm_option_equipments_take_time_to_equip"
+      text="Экипировка требует времени на экипировку" />
+    <string
+      id="ret_mcm_option_equipments_take_time_to_equip_hint"
+      text="Если включено, экипировка войск не будет мгновенной и займет время для завершения." />
     <string
       id="ret_mcm_option_limit_equipment_by_value"
       text="Ограничения стоимости оборудования на основе уровня" />
@@ -806,6 +818,12 @@
       id="ret_mcm_option_skill_cap_hint"
       text="Максимальный уровень навыков для войск уровня {TIER}." />
     <string
+      id="ret_mcm_option_skill_improve_time_multiplier"
+      text="Множитель времени улучшения навыков" />
+    <string
+      id="ret_mcm_option_skill_improve_time_multiplier_hint"
+      text="Множитель, применяемый к базовому времени улучшения при расчете того, сколько времени занимают повышения навыков." />
+    <string
       id="ret_mcm_option_skill_points_gain_rate"
       text="Скорость получения очков навыков" />
     <string
@@ -817,6 +835,12 @@
     <string
       id="ret_mcm_option_skill_total_hint"
       text="Общее количество доступных очков навыков для войск уровня {TIER}." />
+    <string
+      id="ret_mcm_option_skills_take_time_to_improve"
+      text="Навыки требуют времени на улучшение" />
+    <string
+      id="ret_mcm_option_skills_take_time_to_improve_hint"
+      text="Если включено, повышение навыков не будет мгновенным и займет время на улучшение." />
     <string
       id="ret_mcm_option_starter_equipment"
       text="Начальное снаряжение" />

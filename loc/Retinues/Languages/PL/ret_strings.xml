@@ -758,6 +758,12 @@
       id="ret_mcm_option_equipment_cost_multiplier_hint"
       text="Mnożnik stosowany do podstawowego kosztu przedmiotów podczas obliczania kosztów wyposażenia." />
     <string
+      id="ret_mcm_option_equipment_time_multiplier"
+      text="Mnożnik czasu wyposażenia" />
+    <string
+      id="ret_mcm_option_equipment_time_multiplier_hint"
+      text="Mnożnik stosowany do podstawowego czasu wyposażenia podczas obliczania, ile czasu zajmuje wyposażenie." />
+    <string
       id="ret_mcm_option_equipment_value_limit_multiplier"
       text="Mnożnik limitu wartości wyposażenia" />
     <string
@@ -769,6 +775,12 @@
     <string
       id="ret_mcm_option_equipment_weight_limit_multiplier_hint"
       text="Mnożnik stosowany do podstawowego limitu wagi podczas obliczania wyposażalnych przedmiotów." />
+    <string
+      id="ret_mcm_option_equipments_take_time_to_equip"
+      text="Wyposażenie wymaga czasu na wyposażenie" />
+    <string
+      id="ret_mcm_option_equipments_take_time_to_equip_hint"
+      text="Jeśli włączone, wyposażenie oddziałów nie będzie natychmiastowe i zajmie trochę czasu na ukończenie." />
     <string
       id="ret_mcm_option_limit_equipment_by_value"
       text="Ograniczenia wartości wyposażenia oparte na poziomie" />
@@ -806,6 +818,12 @@
       id="ret_mcm_option_skill_cap_hint"
       text="Maksymalny poziom umiejętności dla oddziałów poziomu {TIER}." />
     <string
+      id="ret_mcm_option_skill_improve_time_multiplier"
+      text="Mnożnik czasu poprawy umiejętności" />
+    <string
+      id="ret_mcm_option_skill_improve_time_multiplier_hint"
+      text="Mnożnik stosowany do podstawowego czasu poprawy podczas obliczania, ile czasu zajmują zwiększenia umiejętności." />
+    <string
       id="ret_mcm_option_skill_points_gain_rate"
       text="Tempo zdobywania punktów umiejętności" />
     <string
@@ -817,6 +835,12 @@
     <string
       id="ret_mcm_option_skill_total_hint"
       text="Łączna liczba dostępnych punktów umiejętności dla oddziałów poziomu {TIER}." />
+    <string
+      id="ret_mcm_option_skills_take_time_to_improve"
+      text="Umiejętności wymagają czasu na poprawę" />
+    <string
+      id="ret_mcm_option_skills_take_time_to_improve_hint"
+      text="Jeśli włączone, zwiększanie umiejętności nie będzie natychmiastowe i zajmie trochę czasu na poprawę." />
     <string
       id="ret_mcm_option_starter_equipment"
       text="Początkowy ekwipunek" />

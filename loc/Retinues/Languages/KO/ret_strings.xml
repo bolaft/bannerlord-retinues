@@ -758,6 +758,12 @@
       id="ret_mcm_option_equipment_cost_multiplier_hint"
       text="장비 비용을 계산할 때 항목의 기본 비용에 적용되는 배수입니다." />
     <string
+      id="ret_mcm_option_equipment_time_multiplier"
+      text="장비 시간 배수" />
+    <string
+      id="ret_mcm_option_equipment_time_multiplier_hint"
+      text="장비 장착에 걸리는 시간을 계산할 때 기본 장비 시간에 적용되는 배수입니다." />
+    <string
       id="ret_mcm_option_equipment_value_limit_multiplier"
       text="장비 가치 한도 배수" />
     <string
@@ -769,6 +775,12 @@
     <string
       id="ret_mcm_option_equipment_weight_limit_multiplier_hint"
       text="장착 가능한 아이템을 계산할 때 기본 무게 한도에 적용되는 배수입니다." />
+    <string
+      id="ret_mcm_option_equipments_take_time_to_equip"
+      text="장비 장착에는 시간이 걸립니다" />
+    <string
+      id="ret_mcm_option_equipments_take_time_to_equip_hint"
+      text="활성화되면 부대 장비가 즉시 완료되지 않고 완료하는 데 시간이 걸립니다." />
     <string
       id="ret_mcm_option_limit_equipment_by_value"
       text="티어 기반 장비 가치 한도" />
@@ -806,6 +818,12 @@
       id="ret_mcm_option_skill_cap_hint"
       text="티어 {TIER} 부대의 최대 기술 수준입니다." />
     <string
+      id="ret_mcm_option_skill_improve_time_multiplier"
+      text="기술 향상 시간 배수" />
+    <string
+      id="ret_mcm_option_skill_improve_time_multiplier_hint"
+      text="기술 향상에 걸리는 시간을 계산할 때 기본 향상 시간에 적용되는 배수입니다." />
+    <string
       id="ret_mcm_option_skill_points_gain_rate"
       text="기술 포인트 획득률" />
     <string
@@ -817,6 +835,12 @@
     <string
       id="ret_mcm_option_skill_total_hint"
       text="티어 {TIER} 부대의 총 사용 가능한 기술 포인트입니다." />
+    <string
+      id="ret_mcm_option_skills_take_time_to_improve"
+      text="기술 향상에는 시간이 걸립니다" />
+    <string
+      id="ret_mcm_option_skills_take_time_to_improve_hint"
+      text="활성화되면 기술 향상이 즉시 완료되지 않고 향상하는 데 시간이 걸립니다." />
     <string
       id="ret_mcm_option_starter_equipment"
       text="초기 장비" />

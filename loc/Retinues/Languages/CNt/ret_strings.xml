@@ -758,6 +758,12 @@
       id="ret_mcm_option_equipment_cost_multiplier_hint"
       text="計算裝備成本時應用於物品基礎成本的乘數。" />
     <string
+      id="ret_mcm_option_equipment_time_multiplier"
+      text="裝備時間乘數" />
+    <string
+      id="ret_mcm_option_equipment_time_multiplier_hint"
+      text="計算裝備所需時間時應用於基礎裝備時間的乘數。" />
+    <string
       id="ret_mcm_option_equipment_value_limit_multiplier"
       text="裝備價值限制乘數" />
     <string
@@ -769,6 +775,12 @@
     <string
       id="ret_mcm_option_equipment_weight_limit_multiplier_hint"
       text="計算可裝備物品時應用於基礎重量限制的乘數。" />
+    <string
+      id="ret_mcm_option_equipments_take_time_to_equip"
+      text="裝備需要時間來裝備" />
+    <string
+      id="ret_mcm_option_equipments_take_time_to_equip_hint"
+      text="如果啟用，裝備部隊將不是即時完成的，而是需要時間來完成。" />
     <string
       id="ret_mcm_option_limit_equipment_by_value"
       text="基於等級的裝備價值限制" />
@@ -806,6 +818,12 @@
       id="ret_mcm_option_skill_cap_hint"
       text="等級 {TIER} 部隊的最高技能水平。" />
     <string
+      id="ret_mcm_option_skill_improve_time_multiplier"
+      text="技能提升時間乘數" />
+    <string
+      id="ret_mcm_option_skill_improve_time_multiplier_hint"
+      text="計算技能提升所需時間時應用於基礎提升時間的乘數。" />
+    <string
       id="ret_mcm_option_skill_points_gain_rate"
       text="技能點獲取速率" />
     <string
@@ -817,6 +835,12 @@
     <string
       id="ret_mcm_option_skill_total_hint"
       text="等級 {TIER} 部隊的可用技能點總數。" />
+    <string
+      id="ret_mcm_option_skills_take_time_to_improve"
+      text="技能提升需要時間" />
+    <string
+      id="ret_mcm_option_skills_take_time_to_improve_hint"
+      text="如果啟用，提升技能將不是即時完成的，而是需要時間來提升。" />
     <string
       id="ret_mcm_option_starter_equipment"
       text="起始裝備" />

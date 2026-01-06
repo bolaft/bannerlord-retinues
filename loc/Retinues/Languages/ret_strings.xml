@@ -758,6 +758,12 @@
       id="ret_mcm_option_equipment_cost_multiplier_hint"
       text="Multiplier applied to the base cost of items when calculating equip costs." />
     <string
+      id="ret_mcm_option_equipment_time_multiplier"
+      text="Equipment Time Multiplier" />
+    <string
+      id="ret_mcm_option_equipment_time_multiplier_hint"
+      text="Multiplier applied to the base equip time when calculating how long equipping takes." />
+    <string
       id="ret_mcm_option_equipment_value_limit_multiplier"
       text="Equipment Value Limit Multiplier" />
     <string
@@ -769,6 +775,12 @@
     <string
       id="ret_mcm_option_equipment_weight_limit_multiplier_hint"
       text="Multiplier applied to the base weight limit when calculating equippable items." />
+    <string
+      id="ret_mcm_option_equipments_take_time_to_equip"
+      text="Equipments Take Time To Equip" />
+    <string
+      id="ret_mcm_option_equipments_take_time_to_equip_hint"
+      text="If enabled, equipping troops will not be instant and will take time to be completed." />
     <string
       id="ret_mcm_option_limit_equipment_by_value"
       text="Tier-Based Equipment Value Limits" />
@@ -806,6 +818,12 @@
       id="ret_mcm_option_skill_cap_hint"
       text="Maximum skill level for Tier {TIER} troops." />
     <string
+      id="ret_mcm_option_skill_improve_time_multiplier"
+      text="Skill Improve Time Multiplier" />
+    <string
+      id="ret_mcm_option_skill_improve_time_multiplier_hint"
+      text="Multiplier applied to the base improve time when calculating how long skill increases take." />
+    <string
       id="ret_mcm_option_skill_points_gain_rate"
       text="Skill Points Gain Rate" />
     <string
@@ -817,6 +835,12 @@
     <string
       id="ret_mcm_option_skill_total_hint"
       text="Total available skill points for Tier {TIER} troops." />
+    <string
+      id="ret_mcm_option_skills_take_time_to_improve"
+      text="Skills Take Time To Improve" />
+    <string
+      id="ret_mcm_option_skills_take_time_to_improve_hint"
+      text="If enabled, increasing skills will not be instant and will take time to be improve." />
     <string
       id="ret_mcm_option_starter_equipment"
       text="Starter Equipment" />

@@ -758,6 +758,12 @@
       id="ret_mcm_option_equipment_cost_multiplier_hint"
       text="装備コストを計算する際に、アイテムの基本コストに適用される乗数。" />
     <string
+      id="ret_mcm_option_equipment_time_multiplier"
+      text="装備時間乗数" />
+    <string
+      id="ret_mcm_option_equipment_time_multiplier_hint"
+      text="装備にかかる時間を計算する際に、基本装備時間に適用される乗数。" />
+    <string
       id="ret_mcm_option_equipment_value_limit_multiplier"
       text="装備価値制限乗数" />
     <string
@@ -769,6 +775,12 @@
     <string
       id="ret_mcm_option_equipment_weight_limit_multiplier_hint"
       text="装備可能なアイテムを計算する際に、基本重量制限に適用される乗数。" />
+    <string
+      id="ret_mcm_option_equipments_take_time_to_equip"
+      text="装備には装備するのに時間がかかります" />
+    <string
+      id="ret_mcm_option_equipments_take_time_to_equip_hint"
+      text="有効にすると、部隊の装備は即座には完了せず、完了するまでに時間がかかります。" />
     <string
       id="ret_mcm_option_limit_equipment_by_value"
       text="ティアベースの装備価値制限" />
@@ -806,6 +818,12 @@
       id="ret_mcm_option_skill_cap_hint"
       text="ティア {TIER} 部隊の最大スキルレベル。" />
     <string
+      id="ret_mcm_option_skill_improve_time_multiplier"
+      text="スキル向上時間乗数" />
+    <string
+      id="ret_mcm_option_skill_improve_time_multiplier_hint"
+      text="スキルの向上にかかる時間を計算する際に、基本的な向上時間に適用される乗数。" />
+    <string
       id="ret_mcm_option_skill_points_gain_rate"
       text="スキルポイント獲得率" />
     <string
@@ -817,6 +835,12 @@
     <string
       id="ret_mcm_option_skill_total_hint"
       text="ティア {TIER} 部隊の利用可能なスキルポイントの合計。" />
+    <string
+      id="ret_mcm_option_skills_take_time_to_improve"
+      text="スキルの向上には時間がかかります" />
+    <string
+      id="ret_mcm_option_skills_take_time_to_improve_hint"
+      text="有効にすると、スキルの向上は即座には完了せず、改善するまでに時間がかかります。" />
     <string
       id="ret_mcm_option_starter_equipment"
       text="スターター装備" />

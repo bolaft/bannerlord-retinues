@@ -758,6 +758,12 @@
       id="ret_mcm_option_equipment_cost_multiplier_hint"
       text="Multiplicateur appliqué au coût de base des objets lors du calcul des coûts d&apos;équipement." />
     <string
+      id="ret_mcm_option_equipment_time_multiplier"
+      text="Multiplicateur de Temps d&apos;Équipement" />
+    <string
+      id="ret_mcm_option_equipment_time_multiplier_hint"
+      text="Multiplicateur appliqué au temps d&apos;équipement lors du calcul de la durée de l&apos;équipement." />
+    <string
       id="ret_mcm_option_equipment_value_limit_multiplier"
       text="Multiplicateur de Limite de Valeur d&apos;Équipement" />
     <string
@@ -769,6 +775,12 @@
     <string
       id="ret_mcm_option_equipment_weight_limit_multiplier_hint"
       text="Multiplicateur appliqué à la limite de poids lors du calcul des objets équipables." />
+    <string
+      id="ret_mcm_option_equipments_take_time_to_equip"
+      text="Équiper Prend du Temps" />
+    <string
+      id="ret_mcm_option_equipments_take_time_to_equip_hint"
+      text="Si activé, l&apos;équipement des troupes ne sera pas instantané et prendra du temps à être terminé." />
     <string
       id="ret_mcm_option_limit_equipment_by_value"
       text="Limites de Valeur d&apos;Équipement Basés sur le Niveau" />
@@ -806,6 +818,12 @@
       id="ret_mcm_option_skill_cap_hint"
       text="Niveau de compétence maximum pour les troupes de niveau {TIER}." />
     <string
+      id="ret_mcm_option_skill_improve_time_multiplier"
+      text="Multiplicateur de Temps d&apos;Amélioration des Compétences" />
+    <string
+      id="ret_mcm_option_skill_improve_time_multiplier_hint"
+      text="Multiplicateur appliqué au temps d&apos;amélioration de base lors du calcul de la durée des augmentations de compétences." />
+    <string
       id="ret_mcm_option_skill_points_gain_rate"
       text="Taux de Gain de Points de Compétence" />
     <string
@@ -817,6 +835,12 @@
     <string
       id="ret_mcm_option_skill_total_hint"
       text="Total des points de compétence disponibles pour les troupes de niveau {TIER}." />
+    <string
+      id="ret_mcm_option_skills_take_time_to_improve"
+      text="Améliorer les Compétences Prend du Temps" />
+    <string
+      id="ret_mcm_option_skills_take_time_to_improve_hint"
+      text="Si activé, l&apos;augmentation des compétences ne sera pas instantanée et prendra du temps à s&apos;améliorer." />
     <string
       id="ret_mcm_option_starter_equipment"
       text="Équipement Initial" />

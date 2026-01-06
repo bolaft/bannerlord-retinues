@@ -758,6 +758,12 @@
       id="ret_mcm_option_equipment_cost_multiplier_hint"
       text="Moltiplicatore applicato al costo base degli oggetti durante il calcolo dei costi di equipaggiamento." />
     <string
+      id="ret_mcm_option_equipment_time_multiplier"
+      text="Moltiplicatore del tempo di equipaggiamento" />
+    <string
+      id="ret_mcm_option_equipment_time_multiplier_hint"
+      text="Moltiplicatore applicato al tempo di equipaggiamento base durante il calcolo di quanto tempo richiede l&apos;equipaggiamento." />
+    <string
       id="ret_mcm_option_equipment_value_limit_multiplier"
       text="Moltiplicatore del limite di valore dell&apos;equipaggiamento" />
     <string
@@ -769,6 +775,12 @@
     <string
       id="ret_mcm_option_equipment_weight_limit_multiplier_hint"
       text="Moltiplicatore applicato al limite di peso base durante il calcolo degli oggetti equipaggiabili." />
+    <string
+      id="ret_mcm_option_equipments_take_time_to_equip"
+      text="Gli equipaggiamenti richiedono tempo per essere equipaggiati" />
+    <string
+      id="ret_mcm_option_equipments_take_time_to_equip_hint"
+      text="Se abilitato, equipaggiare le truppe non sarà istantaneo e richiederà del tempo per essere completato." />
     <string
       id="ret_mcm_option_limit_equipment_by_value"
       text="Limiti di valore dell&apos;equipaggiamento basati sul livello" />
@@ -806,6 +818,12 @@
       id="ret_mcm_option_skill_cap_hint"
       text="Livello massimo di abilità per le truppe del livello {TIER}." />
     <string
+      id="ret_mcm_option_skill_improve_time_multiplier"
+      text="Moltiplicatore del tempo di miglioramento delle abilità" />
+    <string
+      id="ret_mcm_option_skill_improve_time_multiplier_hint"
+      text="Moltiplicatore applicato al tempo di miglioramento base durante il calcolo di quanto tempo richiedono gli aumenti delle abilità." />
+    <string
       id="ret_mcm_option_skill_points_gain_rate"
       text="Tasso di guadagno dei punti abilità" />
     <string
@@ -817,6 +835,12 @@
     <string
       id="ret_mcm_option_skill_total_hint"
       text="Totale punti abilità disponibili per le truppe del livello {TIER}." />
+    <string
+      id="ret_mcm_option_skills_take_time_to_improve"
+      text="Le abilità richiedono tempo per migliorare" />
+    <string
+      id="ret_mcm_option_skills_take_time_to_improve_hint"
+      text="Se abilitato, aumentare le abilità non sarà istantaneo e richiederà del tempo per migliorare." />
     <string
       id="ret_mcm_option_starter_equipment"
       text="Equipaggiamento iniziale" />

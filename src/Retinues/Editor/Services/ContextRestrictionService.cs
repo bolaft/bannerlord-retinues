@@ -71,9 +71,10 @@ namespace Retinues.Editor.Services
             {
                 return restriction == Settings.EditingRestrictionMode.InFief && troopFaction != null
                     ? L.T(
-                        "editing_restriction_need_faction_fief_reason",
-                        "You can only edit this unit in a fief owned by {FACTION}."
-                    ).SetTextVariable("FACTION", troopFaction.Name)
+                            "editing_restriction_need_faction_fief_reason",
+                            "You can only edit this unit in a fief owned by {FACTION}."
+                        )
+                        .SetTextVariable("FACTION", troopFaction.Name)
                     : L.T(
                         "editing_restriction_need_settlement_reason",
                         "You can only edit units while inside a settlement."
@@ -96,9 +97,10 @@ namespace Retinues.Editor.Services
                 return null;
 
             return L.T(
-                "editing_restriction_need_faction_fief_reason",
-                "You can only edit this unit in a fief owned by {FACTION}."
-            ).SetTextVariable("FACTION", troopFaction.Name);
+                    "editing_restriction_need_faction_fief_reason",
+                    "You can only edit this unit in a fief owned by {FACTION}."
+                )
+                .SetTextVariable("FACTION", troopFaction.Name);
         }
 
         private static bool IsCharacterFactionOwnedFief(

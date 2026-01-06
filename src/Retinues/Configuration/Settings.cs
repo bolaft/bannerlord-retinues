@@ -333,6 +333,33 @@ namespace Retinues.Configuration
             fires: [UIEvent.Page]
         );
 
+        public static readonly Option<bool> EquipmentsTakeTimeToEquip = CreateOption(
+            section: Equipment,
+            name: L.F("mcm_option_equipments_take_time_to_equip", "Equipments Take Time To Equip"),
+            hint: L.F(
+                "mcm_option_equipments_take_time_to_equip_hint",
+                "If enabled, equipping troops will not be instant and will take time to be completed."
+            ),
+            @default: true,
+            dependsOn: EnableEquipmentCostsSystem,
+            fires: [UIEvent.Page]
+        );
+
+        public static readonly Option<float> EquipmentEquipTimeMultiplier = CreateOption(
+            section: Equipment,
+            name: L.F("mcm_option_equipment_time_multiplier", "Equipment Time Multiplier"),
+            hint: L.F(
+                "mcm_option_equipment_time_multiplier_hint",
+                "Multiplier applied to the base equip time when calculating how long equipping takes."
+            ),
+            minValue: 0.5f,
+            maxValue: 5f,
+            @default: 1f,
+            @realistic: 2f,
+            dependsOn: EquipmentsTakeTimeToEquip,
+            fires: [UIEvent.Equipment]
+        );
+
         public static readonly Option<bool> LimitEquipmentByWeight = CreateOption(
             section: Equipment,
             name: L.F("mcm_option_limit_equipment_by_weight", "Tier-Based Equipment Weight Limits"),
@@ -423,6 +450,32 @@ namespace Retinues.Configuration
             @default: 1f,
             @realistic: 0.5f,
             dependsOn: EnableSkillGainSystem
+        );
+
+        public static readonly Option<bool> SkillsTakeTimeToImprove = CreateOption(
+            section: Skills,
+            name: L.F("mcm_option_skills_take_time_to_improve", "Skills Take Time To Improve"),
+            hint: L.F(
+                "mcm_option_skills_take_time_to_improve_hint",
+                "If enabled, increasing skills will not be instant and will take time to be improve."
+            ),
+            @default: true,
+            fires: [UIEvent.Page]
+        );
+
+        public static readonly Option<float> SkillImproveTimeMultiplier = CreateOption(
+            section: Skills,
+            name: L.F("mcm_option_skill_improve_time_multiplier", "Skill Improve Time Multiplier"),
+            hint: L.F(
+                "mcm_option_skill_improve_time_multiplier_hint",
+                "Multiplier applied to the base improve time when calculating how long skill increases take."
+            ),
+            minValue: 0.5f,
+            maxValue: 5f,
+            @default: 1f,
+            @realistic: 2f,
+            dependsOn: SkillsTakeTimeToImprove,
+            fires: [UIEvent.Skill]
         );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
