@@ -84,7 +84,7 @@ namespace Retinues.Editor.VM.List.Equipment
         private bool EconomyEnabled =>
             !PreviewController.Enabled
             && State.Mode == EditorMode.Player
-            && Settings.EquipmentCostsGold;
+            && Settings.EnableEquipmentCostsSystem;
 
         [EventListener(UIEvent.Item, Global = true)]
         [DataSourceProperty]

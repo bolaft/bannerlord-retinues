@@ -734,29 +734,29 @@
       id="ret_mcm_option_enable_doctrines_hint"
       text="Toggles the Doctrines feature on or off." />
     <string
+      id="ret_mcm_option_enable_equipment_costs_system"
+      text="Enable Equipment Costs System" />
+    <string
+      id="ret_mcm_option_enable_equipment_costs_system_hint"
+      text="If enabled, equipping troops will cost gold. Also enables the stocks system." />
+    <string
       id="ret_mcm_option_enable_retinues"
       text="Enable Retinues" />
     <string
       id="ret_mcm_option_enable_retinues_hint"
       text="Toggles the Retinues feature on or off." />
     <string
-      id="ret_mcm_option_enable_skill_points_system"
-      text="Enable Skill Points System" />
+      id="ret_mcm_option_enable_skill_gain_system"
+      text="Enable Skill Gain System" />
     <string
-      id="ret_mcm_option_enable_skill_points_system_hint"
-      text="Toggles the Skill Points System feature on or off. If disabled, troops will not need to earn skill points in battle." />
+      id="ret_mcm_option_enable_skill_gain_system_hint"
+      text="If enabled, troops will need to earn skill points in battle before leveling up skills." />
     <string
       id="ret_mcm_option_equipment_cost_multiplier"
       text="Equipment Cost Multiplier" />
     <string
       id="ret_mcm_option_equipment_cost_multiplier_hint"
       text="Multiplier applied to the base cost of items when calculating equip costs." />
-    <string
-      id="ret_mcm_option_equipment_costs_gold"
-      text="Equipment Costs Gold" />
-    <string
-      id="ret_mcm_option_equipment_costs_gold_hint"
-      text="Whether equipping new items should cost gold." />
     <string
       id="ret_mcm_option_equipment_value_limit_multiplier"
       text="Equipment Value Limit Multiplier" />
@@ -806,11 +806,11 @@
       id="ret_mcm_option_skill_cap_hint"
       text="Maximum skill level for Tier {TIER} troops." />
     <string
-      id="ret_mcm_option_skill_point_gain_multiplier"
-      text="Skill Point Gain Multiplier" />
+      id="ret_mcm_option_skill_points_gain_rate"
+      text="Skill Points Gain Rate" />
     <string
-      id="ret_mcm_option_skill_point_gain_multiplier_hint"
-      text="Multiplier applied to the base skill point gain rate." />
+      id="ret_mcm_option_skill_points_gain_rate_hint"
+      text="Rate at which troops gain skill points in battle." />
     <string
       id="ret_mcm_option_skill_total"
       text="Tier {TIER} Skill Total" />

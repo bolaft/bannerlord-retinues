@@ -734,29 +734,29 @@
       id="ret_mcm_option_enable_doctrines_hint"
       text="Ativa ou desativa o recurso de Doutrinas." />
     <string
+      id="ret_mcm_option_enable_equipment_costs_system"
+      text="Ativar o Sistema de Custos de Equipamento" />
+    <string
+      id="ret_mcm_option_enable_equipment_costs_system_hint"
+      text="Se ativado, equipar tropas custará ouro. Também ativa o sistema de estoques." />
+    <string
       id="ret_mcm_option_enable_retinues"
       text="Ativar Retinues" />
     <string
       id="ret_mcm_option_enable_retinues_hint"
       text="Ativa ou desativa o recurso de Retinues." />
     <string
-      id="ret_mcm_option_enable_skill_points_system"
-      text="Ativar o Sistema de Pontos de Habilidade" />
+      id="ret_mcm_option_enable_skill_gain_system"
+      text="Ativar o Sistema de Ganho de Habilidades" />
     <string
-      id="ret_mcm_option_enable_skill_points_system_hint"
-      text="Ativa ou desativa o recurso do Sistema de Pontos de Habilidade. Se desativado, as tropas não precisarão ganhar pontos de habilidade em batalha." />
+      id="ret_mcm_option_enable_skill_gain_system_hint"
+      text="Se ativado, as tropas precisarão ganhar pontos de habilidade em batalha antes de subir de nível nas habilidades." />
     <string
       id="ret_mcm_option_equipment_cost_multiplier"
       text="Multiplicador de Custo de Equipamento" />
     <string
       id="ret_mcm_option_equipment_cost_multiplier_hint"
       text="Multiplicador aplicado ao custo base dos itens ao calcular os custos de equipamento." />
-    <string
-      id="ret_mcm_option_equipment_costs_gold"
-      text="Custos de Equipamento em Ouro" />
-    <string
-      id="ret_mcm_option_equipment_costs_gold_hint"
-      text="Se equipar novos itens deve custar ouro." />
     <string
       id="ret_mcm_option_equipment_value_limit_multiplier"
       text="Multiplicador de Limite de Valor de Equipamento" />
@@ -806,11 +806,11 @@
       id="ret_mcm_option_skill_cap_hint"
       text="Nível máximo de habilidade para tropas do Nível {TIER}." />
     <string
-      id="ret_mcm_option_skill_point_gain_multiplier"
-      text="Multiplicador de Ganho de Pontos de Habilidade" />
+      id="ret_mcm_option_skill_points_gain_rate"
+      text="Taxa de Ganho de Pontos de Habilidade" />
     <string
-      id="ret_mcm_option_skill_point_gain_multiplier_hint"
-      text="Multiplicador aplicado à taxa de ganho de pontos de habilidade base." />
+      id="ret_mcm_option_skill_points_gain_rate_hint"
+      text="Taxa na qual as tropas ganham pontos de habilidade em batalha." />
     <string
       id="ret_mcm_option_skill_total"
       text="Total de Habilidades do Nível {TIER}" />

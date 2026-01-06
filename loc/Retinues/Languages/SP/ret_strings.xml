@@ -734,29 +734,29 @@
       id="ret_mcm_option_enable_doctrines_hint"
       text="Activa o desactiva la función de doctrinas." />
     <string
+      id="ret_mcm_option_enable_equipment_costs_system"
+      text="Habilitar el sistema de costos de equipo" />
+    <string
+      id="ret_mcm_option_enable_equipment_costs_system_hint"
+      text="Si está habilitado, equipar tropas costará oro. También habilita el sistema de existencias." />
+    <string
       id="ret_mcm_option_enable_retinues"
       text="Habilitar Retinues" />
     <string
       id="ret_mcm_option_enable_retinues_hint"
       text="Activa o desactiva la función de Retinues." />
     <string
-      id="ret_mcm_option_enable_skill_points_system"
-      text="Habilitar el sistema de puntos de habilidad" />
+      id="ret_mcm_option_enable_skill_gain_system"
+      text="Habilitar el sistema de ganancia de habilidades" />
     <string
-      id="ret_mcm_option_enable_skill_points_system_hint"
-      text="Activa o desactiva la función del sistema de puntos de habilidad. Si está deshabilitado, las tropas no necesitarán ganar puntos de habilidad en la batalla." />
+      id="ret_mcm_option_enable_skill_gain_system_hint"
+      text="Si está habilitado, las tropas deberán ganar puntos de habilidad en batalla antes de subir de nivel en habilidades." />
     <string
       id="ret_mcm_option_equipment_cost_multiplier"
       text="Multiplicador de costo de equipo" />
     <string
       id="ret_mcm_option_equipment_cost_multiplier_hint"
       text="Multiplicador aplicado al costo base de los artículos al calcular los costos de equipamiento." />
-    <string
-      id="ret_mcm_option_equipment_costs_gold"
-      text="Costos de equipo en oro" />
-    <string
-      id="ret_mcm_option_equipment_costs_gold_hint"
-      text="Si equipar nuevos artículos debería costar oro." />
     <string
       id="ret_mcm_option_equipment_value_limit_multiplier"
       text="Multiplicador del límite de valor del equipo" />
@@ -806,11 +806,11 @@
       id="ret_mcm_option_skill_cap_hint"
       text="Nivel máximo de habilidad para las tropas de nivel {TIER}." />
     <string
-      id="ret_mcm_option_skill_point_gain_multiplier"
-      text="Multiplicador de ganancia de puntos de habilidad" />
+      id="ret_mcm_option_skill_points_gain_rate"
+      text="Tasa de ganancia de puntos de habilidad" />
     <string
-      id="ret_mcm_option_skill_point_gain_multiplier_hint"
-      text="Multiplicador aplicado a la tasa base de ganancia de puntos de habilidad." />
+      id="ret_mcm_option_skill_points_gain_rate_hint"
+      text="Tasa a la que las tropas ganan puntos de habilidad en batalla." />
     <string
       id="ret_mcm_option_skill_total"
       text="Total de habilidades de nivel {TIER}" />

@@ -734,29 +734,29 @@
       id="ret_mcm_option_enable_doctrines_hint"
       text="Przełącza funkcję Doktryn włączoną lub wyłączoną." />
     <string
+      id="ret_mcm_option_enable_equipment_costs_system"
+      text="Włącz system kosztów wyposażenia" />
+    <string
+      id="ret_mcm_option_enable_equipment_costs_system_hint"
+      text="Jeśli włączone, wyposażenie oddziałów będzie kosztować złoto. Włącza również system zapasów." />
+    <string
       id="ret_mcm_option_enable_retinues"
       text="Włącz Retinues" />
     <string
       id="ret_mcm_option_enable_retinues_hint"
       text="Przełącza funkcję Retinues włączoną lub wyłączoną." />
     <string
-      id="ret_mcm_option_enable_skill_points_system"
-      text="Włącz system punktów umiejętności" />
+      id="ret_mcm_option_enable_skill_gain_system"
+      text="Włącz system zdobywania umiejętności" />
     <string
-      id="ret_mcm_option_enable_skill_points_system_hint"
-      text="Przełącza funkcję Systemu Punktów Umiejętności włączoną lub wyłączoną. Jeśli jest wyłączona, oddziały nie będą musiały zdobywać punktów umiejętności w walce." />
+      id="ret_mcm_option_enable_skill_gain_system_hint"
+      text="Jeśli włączone, oddziały będą musiały zdobywać punkty umiejętności w bitwie, zanim podniosą poziom umiejętności." />
     <string
       id="ret_mcm_option_equipment_cost_multiplier"
       text="Mnożnik kosztów wyposażenia" />
     <string
       id="ret_mcm_option_equipment_cost_multiplier_hint"
       text="Mnożnik stosowany do podstawowego kosztu przedmiotów podczas obliczania kosztów wyposażenia." />
-    <string
-      id="ret_mcm_option_equipment_costs_gold"
-      text="Koszty wyposażenia w złoto" />
-    <string
-      id="ret_mcm_option_equipment_costs_gold_hint"
-      text="Czy wyposażenie nowych przedmiotów powinno kosztować złoto." />
     <string
       id="ret_mcm_option_equipment_value_limit_multiplier"
       text="Mnożnik limitu wartości wyposażenia" />
@@ -806,11 +806,11 @@
       id="ret_mcm_option_skill_cap_hint"
       text="Maksymalny poziom umiejętności dla oddziałów poziomu {TIER}." />
     <string
-      id="ret_mcm_option_skill_point_gain_multiplier"
-      text="Mnożnik zdobywania punktów umiejętności" />
+      id="ret_mcm_option_skill_points_gain_rate"
+      text="Tempo zdobywania punktów umiejętności" />
     <string
-      id="ret_mcm_option_skill_point_gain_multiplier_hint"
-      text="Mnożnik stosowany do podstawowej szybkości zdobywania punktów umiejętności." />
+      id="ret_mcm_option_skill_points_gain_rate_hint"
+      text="Tempo, w jakim oddziały zdobywają punkty umiejętności w bitwie." />
     <string
       id="ret_mcm_option_skill_total"
       text="Łączna liczba umiejętności poziomu {TIER}" />

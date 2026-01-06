@@ -585,7 +585,7 @@ namespace Retinues.Editor.Controllers.Equipment
                     // Economy is only active in player mode, when the setting is enabled, and preview is off.
                     bool economyActive =
                         State.Mode == EditorMode.Player
-                        && Settings.EquipmentCostsGold
+                        && Settings.EnableEquipmentCostsSystem
                         && !PreviewController.Enabled;
 
                     if (!economyActive)

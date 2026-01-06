@@ -22,7 +22,7 @@ namespace Retinues.Editor.Controllers.Equipment
         private static bool EconomyEnabled =>
             !PreviewController.Enabled
             && State.Mode == EditorMode.Player
-            && Settings.EquipmentCostsGold;
+            && Settings.EnableEquipmentCostsSystem;
 
         /// <summary>
         /// Indicates whether the editor economy is currently active.

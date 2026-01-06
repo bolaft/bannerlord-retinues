@@ -734,29 +734,29 @@
       id="ret_mcm_option_enable_doctrines_hint"
       text="교리 기능을 켜거나 끕니다." />
     <string
+      id="ret_mcm_option_enable_equipment_costs_system"
+      text="장비 비용 시스템 활성화" />
+    <string
+      id="ret_mcm_option_enable_equipment_costs_system_hint"
+      text="활성화되면 부대를 장비하는 데 골드가 필요합니다. 재고 시스템도 활성화됩니다." />
+    <string
       id="ret_mcm_option_enable_retinues"
       text="Retinues 활성화" />
     <string
       id="ret_mcm_option_enable_retinues_hint"
       text="Retinues 기능을 켜거나 끕니다." />
     <string
-      id="ret_mcm_option_enable_skill_points_system"
-      text="기술 포인트 시스템 활성화" />
+      id="ret_mcm_option_enable_skill_gain_system"
+      text="기술 습득 시스템 활성화" />
     <string
-      id="ret_mcm_option_enable_skill_points_system_hint"
-      text="기술 포인트 시스템 기능을 켜거나 끕니다. 비활성화된 경우 부대는 전투에서 기술 포인트를 얻을 필요가 없습니다." />
+      id="ret_mcm_option_enable_skill_gain_system_hint"
+      text="활성화되면 부대는 기술을 레벨업하기 전에 전투에서 기술 포인트를 획득해야 합니다." />
     <string
       id="ret_mcm_option_equipment_cost_multiplier"
       text="장비 비용 배수" />
     <string
       id="ret_mcm_option_equipment_cost_multiplier_hint"
       text="장비 비용을 계산할 때 항목의 기본 비용에 적용되는 배수입니다." />
-    <string
-      id="ret_mcm_option_equipment_costs_gold"
-      text="장비 비용 골드" />
-    <string
-      id="ret_mcm_option_equipment_costs_gold_hint"
-      text="새 항목을 장착하는 데 골드가 소요되는지 여부입니다." />
     <string
       id="ret_mcm_option_equipment_value_limit_multiplier"
       text="장비 가치 한도 배수" />
@@ -806,11 +806,11 @@
       id="ret_mcm_option_skill_cap_hint"
       text="티어 {TIER} 부대의 최대 기술 수준입니다." />
     <string
-      id="ret_mcm_option_skill_point_gain_multiplier"
-      text="기술 포인트 획득 배수" />
+      id="ret_mcm_option_skill_points_gain_rate"
+      text="기술 포인트 획득률" />
     <string
-      id="ret_mcm_option_skill_point_gain_multiplier_hint"
-      text="기본 기술 포인트 획득률에 적용되는 배수입니다." />
+      id="ret_mcm_option_skill_points_gain_rate_hint"
+      text="부대가 전투에서 기술 포인트를 얻는 속도입니다." />
     <string
       id="ret_mcm_option_skill_total"
       text="티어 {TIER} 기술 총합" />

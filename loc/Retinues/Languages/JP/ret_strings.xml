@@ -734,29 +734,29 @@
       id="ret_mcm_option_enable_doctrines_hint"
       text="ドクトリン機能のオンまたはオフを切り替えます。" />
     <string
+      id="ret_mcm_option_enable_equipment_costs_system"
+      text="装備コストシステムを有効にする" />
+    <string
+      id="ret_mcm_option_enable_equipment_costs_system_hint"
+      text="有効にすると、部隊の装備にゴールドがかかります。また、在庫システムも有効になります。" />
+    <string
       id="ret_mcm_option_enable_retinues"
       text="リティニュースを有効にする" />
     <string
       id="ret_mcm_option_enable_retinues_hint"
       text="リティニュース機能のオンまたはオフを切り替えます。" />
     <string
-      id="ret_mcm_option_enable_skill_points_system"
-      text="スキルポイントシステムを有効にする" />
+      id="ret_mcm_option_enable_skill_gain_system"
+      text="スキル獲得システムを有効にする" />
     <string
-      id="ret_mcm_option_enable_skill_points_system_hint"
-      text="スキルポイントシステム機能のオンまたはオフを切り替えます。無効にすると、部隊は戦闘でスキルポイントを獲得する必要がなくなります。" />
+      id="ret_mcm_option_enable_skill_gain_system_hint"
+      text="有効にすると、部隊はスキルをレベルアップする前に戦闘でスキルポイントを獲得する必要があります。" />
     <string
       id="ret_mcm_option_equipment_cost_multiplier"
       text="装備コスト乗数" />
     <string
       id="ret_mcm_option_equipment_cost_multiplier_hint"
       text="装備コストを計算する際に、アイテムの基本コストに適用される乗数。" />
-    <string
-      id="ret_mcm_option_equipment_costs_gold"
-      text="装備コストゴールド" />
-    <string
-      id="ret_mcm_option_equipment_costs_gold_hint"
-      text="新しいアイテムの装備にゴールドがかかるかどうか。" />
     <string
       id="ret_mcm_option_equipment_value_limit_multiplier"
       text="装備価値制限乗数" />
@@ -806,11 +806,11 @@
       id="ret_mcm_option_skill_cap_hint"
       text="ティア {TIER} 部隊の最大スキルレベル。" />
     <string
-      id="ret_mcm_option_skill_point_gain_multiplier"
-      text="スキルポイント獲得乗数" />
+      id="ret_mcm_option_skill_points_gain_rate"
+      text="スキルポイント獲得率" />
     <string
-      id="ret_mcm_option_skill_point_gain_multiplier_hint"
-      text="基本的なスキルポイント獲得率に適用される乗数。" />
+      id="ret_mcm_option_skill_points_gain_rate_hint"
+      text="部隊が戦闘でスキルポイントを獲得する速度。" />
     <string
       id="ret_mcm_option_skill_total"
       text="ティア {TIER} スキル合計" />

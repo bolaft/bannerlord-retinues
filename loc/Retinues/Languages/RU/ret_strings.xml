@@ -734,29 +734,29 @@
       id="ret_mcm_option_enable_doctrines_hint"
       text="Включает или отключает функцию доктрин." />
     <string
+      id="ret_mcm_option_enable_equipment_costs_system"
+      text="Включить систему стоимости оборудования" />
+    <string
+      id="ret_mcm_option_enable_equipment_costs_system_hint"
+      text="Если включено, экипировка войск будет стоить золото. Также включает систему запасов." />
+    <string
       id="ret_mcm_option_enable_retinues"
       text="Включить Retinues" />
     <string
       id="ret_mcm_option_enable_retinues_hint"
       text="Включает или отключает функцию Retinues." />
     <string
-      id="ret_mcm_option_enable_skill_points_system"
-      text="Включить систему очков навыков" />
+      id="ret_mcm_option_enable_skill_gain_system"
+      text="Включить систему повышения навыков" />
     <string
-      id="ret_mcm_option_enable_skill_points_system_hint"
-      text="Включает или отключает функцию системы очков навыков. Если отключено, войскам не нужно будет зарабатывать очки навыков в бою." />
+      id="ret_mcm_option_enable_skill_gain_system_hint"
+      text="Если включено, войскам потребуется зарабатывать очки навыков в бою, прежде чем повышать уровень навыков." />
     <string
       id="ret_mcm_option_equipment_cost_multiplier"
       text="Множитель стоимости оборудования" />
     <string
       id="ret_mcm_option_equipment_cost_multiplier_hint"
       text="Множитель, применяемый к базовой стоимости предметов при расчете стоимости экипировки." />
-    <string
-      id="ret_mcm_option_equipment_costs_gold"
-      text="Стоимость оборудования в золоте" />
-    <string
-      id="ret_mcm_option_equipment_costs_gold_hint"
-      text="Стоит ли экипировка новых предметов золото." />
     <string
       id="ret_mcm_option_equipment_value_limit_multiplier"
       text="Множитель ограничения стоимости оборудования" />
@@ -806,11 +806,11 @@
       id="ret_mcm_option_skill_cap_hint"
       text="Максимальный уровень навыков для войск уровня {TIER}." />
     <string
-      id="ret_mcm_option_skill_point_gain_multiplier"
-      text="Множитель получения очков навыков" />
+      id="ret_mcm_option_skill_points_gain_rate"
+      text="Скорость получения очков навыков" />
     <string
-      id="ret_mcm_option_skill_point_gain_multiplier_hint"
-      text="Множитель, применяемый к базовой скорости получения очков навыков." />
+      id="ret_mcm_option_skill_points_gain_rate_hint"
+      text="Скорость, с которой войска получают очки навыков в бою." />
     <string
       id="ret_mcm_option_skill_total"
       text="Общее количество навыков уровня {TIER}" />

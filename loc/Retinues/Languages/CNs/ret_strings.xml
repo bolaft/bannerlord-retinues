@@ -734,29 +734,29 @@
       id="ret_mcm_option_enable_doctrines_hint"
       text="切换学说功能的开或关。" />
     <string
+      id="ret_mcm_option_enable_equipment_costs_system"
+      text="启用装备成本系统" />
+    <string
+      id="ret_mcm_option_enable_equipment_costs_system_hint"
+      text="如果启用，装备部队将花费金币。还启用库存系统。" />
+    <string
       id="ret_mcm_option_enable_retinues"
       text="启用随从" />
     <string
       id="ret_mcm_option_enable_retinues_hint"
       text="切换随从功能的开或关。" />
     <string
-      id="ret_mcm_option_enable_skill_points_system"
-      text="启用技能点系统" />
+      id="ret_mcm_option_enable_skill_gain_system"
+      text="启用技能提升系统" />
     <string
-      id="ret_mcm_option_enable_skill_points_system_hint"
-      text="切换技能点系统功能的开或关。如果禁用，部队在战斗中将不需要获得技能点。" />
+      id="ret_mcm_option_enable_skill_gain_system_hint"
+      text="如果启用，部队需要在战斗中获得技能点才能提升技能等级。" />
     <string
       id="ret_mcm_option_equipment_cost_multiplier"
       text="装备成本乘数" />
     <string
       id="ret_mcm_option_equipment_cost_multiplier_hint"
       text="计算装备成本时应用于物品基础成本的乘数。" />
-    <string
-      id="ret_mcm_option_equipment_costs_gold"
-      text="装备成本黄金" />
-    <string
-      id="ret_mcm_option_equipment_costs_gold_hint"
-      text="装备新物品是否应花费黄金。" />
     <string
       id="ret_mcm_option_equipment_value_limit_multiplier"
       text="装备价值限制乘数" />
@@ -806,11 +806,11 @@
       id="ret_mcm_option_skill_cap_hint"
       text="等级 {TIER} 部队的最高技能水平。" />
     <string
-      id="ret_mcm_option_skill_point_gain_multiplier"
-      text="技能点获取乘数" />
+      id="ret_mcm_option_skill_points_gain_rate"
+      text="技能点获取速率" />
     <string
-      id="ret_mcm_option_skill_point_gain_multiplier_hint"
-      text="应用于基础技能点获取率的乘数。" />
+      id="ret_mcm_option_skill_points_gain_rate_hint"
+      text="部队在战斗中获得技能点的速率。" />
     <string
       id="ret_mcm_option_skill_total"
       text="等级 {TIER} 技能总数" />

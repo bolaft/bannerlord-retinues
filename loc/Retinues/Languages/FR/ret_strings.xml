@@ -734,29 +734,29 @@
       id="ret_mcm_option_enable_doctrines_hint"
       text="Active ou désactive la fonctionnalité des doctrines." />
     <string
+      id="ret_mcm_option_enable_equipment_costs_system"
+      text="Activer le Système de Coûts d&apos;Équipement" />
+    <string
+      id="ret_mcm_option_enable_equipment_costs_system_hint"
+      text="Si activé, l&apos;équipement des troupes coûtera de l&apos;or. Active également le système de stocks." />
+    <string
       id="ret_mcm_option_enable_retinues"
       text="Activer les Rétinues" />
     <string
       id="ret_mcm_option_enable_retinues_hint"
       text="Active ou désactive la fonctionnalité des rétinues." />
     <string
-      id="ret_mcm_option_enable_skill_points_system"
-      text="Activer le Système de Points de Compétence" />
+      id="ret_mcm_option_enable_skill_gain_system"
+      text="Activer le Système de Gain de Compétences" />
     <string
-      id="ret_mcm_option_enable_skill_points_system_hint"
-      text="Active ou désactive la fonctionnalité du système de points de compétence. Si désactivé, les troupes n&apos;auront pas besoin de gagner des points de compétence au combat." />
+      id="ret_mcm_option_enable_skill_gain_system_hint"
+      text="Si activé, les troupes devront gagner des points de compétence au combat avant de monter en compétence." />
     <string
       id="ret_mcm_option_equipment_cost_multiplier"
       text="Multiplicateur de Coût d&apos;Équipement" />
     <string
       id="ret_mcm_option_equipment_cost_multiplier_hint"
       text="Multiplicateur appliqué au coût de base des objets lors du calcul des coûts d&apos;équipement." />
-    <string
-      id="ret_mcm_option_equipment_costs_gold"
-      text="Les Coûts d&apos;Équipement en Or" />
-    <string
-      id="ret_mcm_option_equipment_costs_gold_hint"
-      text="Si l&apos;équipement de nouveaux objets doit coûter de l&apos;or." />
     <string
       id="ret_mcm_option_equipment_value_limit_multiplier"
       text="Multiplicateur de Limite de Valeur d&apos;Équipement" />
@@ -806,11 +806,11 @@
       id="ret_mcm_option_skill_cap_hint"
       text="Niveau de compétence maximum pour les troupes de niveau {TIER}." />
     <string
-      id="ret_mcm_option_skill_point_gain_multiplier"
-      text="Multiplicateur de Gain de Points de Compétence" />
+      id="ret_mcm_option_skill_points_gain_rate"
+      text="Taux de Gain de Points de Compétence" />
     <string
-      id="ret_mcm_option_skill_point_gain_multiplier_hint"
-      text="Multiplicateur appliqué au taux de gain de points de compétence." />
+      id="ret_mcm_option_skill_points_gain_rate_hint"
+      text="Taux auquel les troupes gagnent des points de compétence au combat." />
     <string
       id="ret_mcm_option_skill_total"
       text="Total de Compétences au Niveau {TIER}" />

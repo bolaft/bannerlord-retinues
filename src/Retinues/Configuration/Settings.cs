@@ -306,12 +306,12 @@ namespace Retinues.Configuration
 
         /* ━━━━━━━━ Options ━━━━━━━ */
 
-        public static readonly Option<bool> EquipmentCostsGold = CreateOption(
+        public static readonly Option<bool> EnableEquipmentCostsSystem = CreateOption(
             section: Equipment,
-            name: L.F("mcm_option_equipment_costs_gold", "Equipment Costs Gold"),
+            name: L.F("mcm_option_enable_equipment_costs_system", "Enable Equipment Costs System"),
             hint: L.F(
-                "mcm_option_equipment_costs_gold_hint",
-                "Whether equipping new items should cost gold."
+                "mcm_option_enable_equipment_costs_system_hint",
+                "If enabled, equipping troops will cost gold. Also enables the stocks system."
             ),
             @default: true,
             @freeform: false,
@@ -329,7 +329,7 @@ namespace Retinues.Configuration
             maxValue: 10f,
             @default: 1f,
             @realistic: 2f,
-            dependsOn: EquipmentCostsGold,
+            dependsOn: EnableEquipmentCostsSystem,
             fires: [UIEvent.Page]
         );
 
@@ -399,30 +399,30 @@ namespace Retinues.Configuration
 
         /* ━━━━━━━━ Options ━━━━━━━ */
 
-        public static readonly Option<bool> EnableSkillPointsSystem = CreateOption(
+        public static readonly Option<bool> EnableSkillGainSystem = CreateOption(
             section: Skills,
-            name: L.F("mcm_option_enable_skill_points_system", "Enable Skill Points System"),
+            name: L.F("mcm_option_enable_skill_gain_system", "Enable Skill Gain System"),
             hint: L.F(
-                "mcm_option_enable_skill_points_system_hint",
-                "Toggles the Skill Points System feature on or off. If disabled, troops will not need to earn skill points in battle."
+                "mcm_option_enable_skill_gain_system_hint",
+                "If enabled, troops will need to earn skill points in battle before leveling up skills."
             ),
             @default: true,
             @freeform: false,
             fires: [UIEvent.Page]
         );
 
-        public static readonly Option<float> SkillPointGainMultiplier = CreateOption(
+        public static readonly Option<float> SkillPointsGainRate = CreateOption(
             section: Skills,
-            name: L.F("mcm_option_skill_point_gain_multiplier", "Skill Point Gain Multiplier"),
+            name: L.F("mcm_option_skill_points_gain_rate", "Skill Points Gain Rate"),
             hint: L.F(
-                "mcm_option_skill_point_gain_multiplier_hint",
-                "Multiplier applied to the base skill point gain rate."
+                "mcm_option_skill_points_gain_rate_hint",
+                "Rate at which troops gain skill points in battle."
             ),
             minValue: 0.1f,
             maxValue: 5f,
             @default: 1f,
             @realistic: 0.5f,
-            dependsOn: EnableSkillPointsSystem
+            dependsOn: EnableSkillGainSystem
         );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

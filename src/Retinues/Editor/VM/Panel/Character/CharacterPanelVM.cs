@@ -144,7 +144,7 @@ namespace Retinues.Editor.VM.Panel.Character
         [EventListener(UIEvent.Skill)]
         [DataSourceProperty]
         public string SkillDescriptionText =>
-            State.Mode == EditorMode.Player && Settings.EnableSkillPointsSystem
+            State.Mode == EditorMode.Player && Settings.EnableSkillGainSystem
                 ? L.T(
                         "skill_description_text",
                         "Skill Points: {SKILL_POINTS} - Skill Cap: {SKILL_CAP}"

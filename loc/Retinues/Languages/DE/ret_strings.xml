@@ -734,29 +734,29 @@
       id="ret_mcm_option_enable_doctrines_hint"
       text="Schaltet die Doktrinen-Funktion ein oder aus." />
     <string
+      id="ret_mcm_option_enable_equipment_costs_system"
+      text="Ausrüstungskosten-System aktivieren" />
+    <string
+      id="ret_mcm_option_enable_equipment_costs_system_hint"
+      text="Wenn aktiviert, kostet die Ausrüstung von Truppen Gold. Aktiviert auch das Lagersystem." />
+    <string
       id="ret_mcm_option_enable_retinues"
       text="Retinues aktivieren" />
     <string
       id="ret_mcm_option_enable_retinues_hint"
       text="Schaltet die Retinues-Funktion ein oder aus." />
     <string
-      id="ret_mcm_option_enable_skill_points_system"
-      text="Fähigkeiten-Punkte-System aktivieren" />
+      id="ret_mcm_option_enable_skill_gain_system"
+      text="Fähigkeiten-Erwerbssystem aktivieren" />
     <string
-      id="ret_mcm_option_enable_skill_points_system_hint"
-      text="Schaltet die Fähigkeiten-Punkte-System-Funktion ein oder aus. Wenn deaktiviert, müssen Truppen im Kampf keine Fähigkeiten-Punkte verdienen." />
+      id="ret_mcm_option_enable_skill_gain_system_hint"
+      text="Wenn aktiviert, müssen Truppen im Kampf Fertigkeitspunkte verdienen, bevor sie Fertigkeiten verbessern können." />
     <string
       id="ret_mcm_option_equipment_cost_multiplier"
       text="Ausrüstungskosten-Multiplikator" />
     <string
       id="ret_mcm_option_equipment_cost_multiplier_hint"
       text="Multiplikator, der auf die Grundkosten von Gegenständen angewendet wird, wenn die Ausrüstungskosten berechnet werden." />
-    <string
-      id="ret_mcm_option_equipment_costs_gold"
-      text="Ausrüstungskosten Gold" />
-    <string
-      id="ret_mcm_option_equipment_costs_gold_hint"
-      text="Ob das Ausrüsten neuer Gegenstände Gold kosten soll." />
     <string
       id="ret_mcm_option_equipment_value_limit_multiplier"
       text="Ausrüstungswert-Limit-Multiplikator" />
@@ -806,11 +806,11 @@
       id="ret_mcm_option_skill_cap_hint"
       text="Maximales Fähigkeitsniveau für Truppen der Stufe {TIER}." />
     <string
-      id="ret_mcm_option_skill_point_gain_multiplier"
-      text="Fähigkeiten-Punkte-Gewinn-Multiplikator" />
+      id="ret_mcm_option_skill_points_gain_rate"
+      text="Fertigkeitspunkte-Gewinnrate" />
     <string
-      id="ret_mcm_option_skill_point_gain_multiplier_hint"
-      text="Multiplikator, der auf die Basis-Fähigkeiten-Punkte-Gewinnrate angewendet wird." />
+      id="ret_mcm_option_skill_points_gain_rate_hint"
+      text="Rate, mit der Truppen im Kampf Fertigkeitspunkte gewinnen." />
     <string
       id="ret_mcm_option_skill_total"
       text="Gesamtfähigkeiten Stufe {TIER}" />

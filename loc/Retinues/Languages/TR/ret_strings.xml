@@ -233,6 +233,9 @@
       id="ret_editing_restriction_need_faction_fief_reason"
       text="Bu birimi yalnızca {FACTION} ait bir arazide düzenleyebilirsiniz." />
     <string
+      id="ret_editing_restriction_need_settlement_reason"
+      text="Bir yerleşim yerindeyken birimleri yalnızca düzenleyebilirsiniz." />
+    <string
       id="ret_editing_restriction_none"
       text="Her Yerde" />
     <string
@@ -731,29 +734,29 @@
       id="ret_mcm_option_enable_doctrines_hint"
       text="Doktrinler özelliğini açar veya kapatır." />
     <string
+      id="ret_mcm_option_enable_equipment_costs_system"
+      text="Ekipman Maliyetleri Sistemini Etkinleştir" />
+    <string
+      id="ret_mcm_option_enable_equipment_costs_system_hint"
+      text="Etkinleştirilirse, birliklerin donatılması altın maliyeti gerektirir. Ayrıca stok sistemini etkinleştirir." />
+    <string
       id="ret_mcm_option_enable_retinues"
       text="Retinues&apos;u Etkinleştir" />
     <string
       id="ret_mcm_option_enable_retinues_hint"
       text="Retinues özelliğini açar veya kapatır." />
     <string
-      id="ret_mcm_option_enable_skill_points_system"
-      text="Yetenek Puanları Sistemini Etkinleştir" />
+      id="ret_mcm_option_enable_skill_gain_system"
+      text="Yetenek Kazanma Sistemini Etkinleştir" />
     <string
-      id="ret_mcm_option_enable_skill_points_system_hint"
-      text="Yetenek Puanları Sistemi özelliğini açar veya kapatır. Devre dışı bırakılırsa, birliklerin savaşta yetenek puanı kazanmaları gerekmez." />
+      id="ret_mcm_option_enable_skill_gain_system_hint"
+      text="Etkinleştirilirse, birliklerin becerileri geliştirmeden önce savaşta beceri puanları kazanmaları gerekecektir." />
     <string
       id="ret_mcm_option_equipment_cost_multiplier"
       text="Ekipman Maliyet Çarpanı" />
     <string
       id="ret_mcm_option_equipment_cost_multiplier_hint"
       text="Ekipman maliyetlerini hesaplarken öğelerin temel maliyetine uygulanan çarpan." />
-    <string
-      id="ret_mcm_option_equipment_costs_gold"
-      text="Ekipman Maliyetleri Altın" />
-    <string
-      id="ret_mcm_option_equipment_costs_gold_hint"
-      text="Yeni öğelerin donatılması altın maliyetli olmalı mı." />
     <string
       id="ret_mcm_option_equipment_value_limit_multiplier"
       text="Ekipman Değer Limiti Çarpanı" />
@@ -803,11 +806,11 @@
       id="ret_mcm_option_skill_cap_hint"
       text="{TIER} seviye birlikler için maksimum yetenek seviyesi." />
     <string
-      id="ret_mcm_option_skill_point_gain_multiplier"
-      text="Yetenek Puanı Kazanma Çarpanı" />
+      id="ret_mcm_option_skill_points_gain_rate"
+      text="Yetenek Puanı Kazanma Hızı" />
     <string
-      id="ret_mcm_option_skill_point_gain_multiplier_hint"
-      text="Temel yetenek puanı kazanma oranına uygulanan çarpan." />
+      id="ret_mcm_option_skill_points_gain_rate_hint"
+      text="Birliklerin savaşta yetenek puanları kazanma hızı." />
     <string
       id="ret_mcm_option_skill_total"
       text="{TIER} Seviye Yetenek Toplamı" />
