@@ -209,6 +209,12 @@
       id="ret_culture_header_text_with_race"
       text="Kültür ve Tür" />
     <string
+      id="ret_customization_hint_hide"
+      text="Özelleştirme Kontrollerini Göster" />
+    <string
+      id="ret_customization_hint_show"
+      text="Özelleştirme Kontrollerini Gizle" />
+    <string
       id="ret_dependencies_all_ok"
       text="Tüm bağımlılıklar doğru şekilde başlatıldı." />
     <string
@@ -225,10 +231,10 @@
       text="Yanlış sürüm" />
     <string
       id="ret_editing_restriction_in_fief"
-      text="Fraksiyon Arazisinde" />
+      text="Fraksiyon Arazisi" />
     <string
       id="ret_editing_restriction_in_settlement"
-      text="Herhangi Bir Yerleşim Yerinde" />
+      text="Herhangi Bir Arazi" />
     <string
       id="ret_editing_restriction_need_faction_fief_reason"
       text="Bu birimi yalnızca {FACTION} ait bir arazide düzenleyebilirsiniz." />
@@ -692,12 +698,6 @@
       id="ret_mariner_toggle_tooltip_universal"
       text="Denizciler deniz savaşları için daha uygundur." />
     <string
-      id="ret_mcm_option_all_equipment_unlocked"
-      text="Tüm Ekipmanlar Kilidi Açıldı" />
-    <string
-      id="ret_mcm_option_all_equipment_unlocked_hint"
-      text="Tüm ekipmanların hemen kilidi açılır mı yoksa oyun oynanarak mı açılması gerekir." />
-    <string
       id="ret_mcm_option_debug_mode"
       text="Hata Ayıklama Modu" />
     <string
@@ -711,7 +711,7 @@
       text="Oyun başlangıcında ekipman yuvası başına kilidi açılan öğe sayısı." />
     <string
       id="ret_mcm_option_default_unlocked_item_max_tier"
-      text="Önceden Kilidi Açılmış Öğenin Maksimum Seviyesi" />
+      text="Önceden Kilidi Açılmış Maksimum Seviye" />
     <string
       id="ret_mcm_option_default_unlocked_item_max_tier_hint"
       text="Oyun başlangıcında kilidi açılan öğelerin maksimum seviyesi." />
@@ -734,10 +734,7 @@
       id="ret_mcm_option_enable_doctrines_hint"
       text="Doktrinler özelliğini açar veya kapatır." />
     <string
-      id="ret_mcm_option_enable_equipment_costs_system"
-      text="Ekipman Maliyetleri Sistemini Etkinleştir" />
-    <string
-      id="ret_mcm_option_enable_equipment_costs_system_hint"
+      id="ret_mcm_option_enable_equipment_costs_money_hint"
       text="Etkinleştirilirse, birliklerin donatılması altın maliyeti gerektirir. Ayrıca stok sistemini etkinleştirir." />
     <string
       id="ret_mcm_option_enable_retinues"
@@ -747,52 +744,58 @@
       text="Retinues özelliğini açar veya kapatır." />
     <string
       id="ret_mcm_option_enable_skill_gain_system"
-      text="Yetenek Kazanma Sistemini Etkinleştir" />
+      text="Yetenek Puanları Kazanılmalıdır" />
     <string
       id="ret_mcm_option_enable_skill_gain_system_hint"
       text="Etkinleştirilirse, birliklerin becerileri geliştirmeden önce savaşta beceri puanları kazanmaları gerekecektir." />
     <string
+      id="ret_mcm_option_equipment_cost_money"
+      text="Ekipman Para Tutar" />
+    <string
       id="ret_mcm_option_equipment_cost_multiplier"
-      text="Ekipman Maliyet Çarpanı" />
+      text="Maliyet Çarpanı" />
     <string
       id="ret_mcm_option_equipment_cost_multiplier_hint"
-      text="Ekipman maliyetlerini hesaplarken öğelerin temel maliyetine uygulanan çarpan." />
+      text="Yeni bir ekipman parçası donatmanın maliyetini belirler." />
     <string
-      id="ret_mcm_option_equipment_time_multiplier"
-      text="Ekipman Zaman Çarpanı" />
+      id="ret_mcm_option_equipment_needs_unlocking"
+      text="Ekipmanın Kilidi Açılmalı" />
     <string
-      id="ret_mcm_option_equipment_time_multiplier_hint"
-      text="Ekipmanlanmanın ne kadar sürdüğünü hesaplarken temel ekipman süresine uygulanan çarpan." />
+      id="ret_mcm_option_equipment_needs_unlocking_hint"
+      text="Etkinleştirilirse, birliklerin ekipmanları donatabilmeden önce ekipman öğelerinin kilidini açması gerekecektir." />
+    <string
+      id="ret_mcm_option_equipment_value_limit"
+      text="Değere Göre Sınırlandırma" />
+    <string
+      id="ret_mcm_option_equipment_value_limit_hint"
+      text="Toplam ekipman değerini sınırlayıp sınırlamayacağı (sınırlamalar seviye tabanlıdır)." />
     <string
       id="ret_mcm_option_equipment_value_limit_multiplier"
-      text="Ekipman Değer Limiti Çarpanı" />
+      text="Değer Sınırı Çarpanı" />
     <string
       id="ret_mcm_option_equipment_value_limit_multiplier_hint"
-      text="Ekipmanlanabilir öğeleri hesaplarken temel değer limitine uygulanan çarpan." />
+      text="Maksimum toplam ekipman değeri sınırını etkiler." />
+    <string
+      id="ret_mcm_option_equipment_weight_limit"
+      text="Ağırlığa Göre Sınırlandırma" />
     <string
       id="ret_mcm_option_equipment_weight_limit_multiplier"
-      text="Ekipman Ağırlık Limiti Çarpanı" />
+      text="Ağırlık Sınırı Çarpanı" />
     <string
       id="ret_mcm_option_equipment_weight_limit_multiplier_hint"
-      text="Ekipmanlanabilir öğeleri hesaplarken temel ağırlık limitine uygulanan çarpan." />
+      text="Maksimum toplam ekipman ağırlık sınırını etkiler." />
     <string
-      id="ret_mcm_option_equipments_take_time_to_equip"
-      text="Ekipmanların Donatılması Zaman Alır" />
+      id="ret_mcm_option_equipping_progresses_while_travelling"
+      text="Seyahat Ederken Donat" />
     <string
-      id="ret_mcm_option_equipments_take_time_to_equip_hint"
+      id="ret_mcm_option_equipping_progresses_while_travelling_hint"
+      text="Ekipman, parti seyahat ederken mi yoksa yerleşimlerde beklerken mi ilerliyor." />
+    <string
+      id="ret_mcm_option_equipping_takes_time"
+      text="Donatma Zaman Alır" />
+    <string
+      id="ret_mcm_option_equipping_takes_time_hint"
       text="Etkinleştirilirse, birliklerin donatılması anında olmayacak ve tamamlanması zaman alacaktır." />
-    <string
-      id="ret_mcm_option_limit_equipment_by_value"
-      text="Seviye Tabanlı Ekipman Değer Limitleri" />
-    <string
-      id="ret_mcm_option_limit_equipment_by_value_hint"
-      text="Ekipmanlanabilir öğeleri birlik seviyesi ve toplam öğe değerlerine göre sınırlayıp sınırlamayacağı." />
-    <string
-      id="ret_mcm_option_limit_equipment_by_weight"
-      text="Seviye Tabanlı Ekipman Ağırlık Limitleri" />
-    <string
-      id="ret_mcm_option_limit_equipment_by_weight_hint"
-      text="Ekipmanlanabilir öğeleri birlik seviyesi ve toplam öğe ağırlıklarına göre sınırlayıp sınırlamayacağı." />
     <string
       id="ret_mcm_option_max_retinue_ratio"
       text="Maksimum Retinue Oranı" />
@@ -800,53 +803,65 @@
       id="ret_mcm_option_max_retinue_ratio_hint"
       text="Grup boyutu sınırının bir oranı olarak maksimum retinue sayısı." />
     <string
-      id="ret_mcm_option_required_discards_for_unlock"
+      id="ret_mcm_option_required_discards_to_unlock"
       text="Kilidi Açmak İçin Gerekli Atmalar" />
     <string
-      id="ret_mcm_option_required_discards_for_unlock_hint"
+      id="ret_mcm_option_required_discards_to_unlock_hint"
       text="Bir öğenin kilidini açmak için atılması gereken sayıdır." />
     <string
-      id="ret_mcm_option_required_kills_for_unlock"
+      id="ret_mcm_option_required_kills_to_unlock"
       text="Kilidi Açmak İçin Gerekli Ölümler" />
     <string
-      id="ret_mcm_option_required_kills_for_unlock_hint"
-      text="Kilidi açmak için yenilmesi gereken bir öğe giyen düşman birliklerinin sayısı." />
+      id="ret_mcm_option_required_kills_to_unlock_hint"
+      text="Kilidini açmak için yenilmesi gereken bir öğe giyen düşman birliklerinin sayısı." />
     <string
       id="ret_mcm_option_skill_cap"
-      text="{TIER} Seviye Yetenek Sınırı" />
+      text="{TIER} Seviye" />
     <string
       id="ret_mcm_option_skill_cap_hint"
       text="{TIER} seviye birlikler için maksimum yetenek seviyesi." />
     <string
-      id="ret_mcm_option_skill_improve_time_multiplier"
-      text="Yetenek Geliştirme Zaman Çarpanı" />
-    <string
-      id="ret_mcm_option_skill_improve_time_multiplier_hint"
-      text="Yetenek artışlarının ne kadar sürdüğünü hesaplarken temel geliştirme süresine uygulanan çarpan." />
-    <string
       id="ret_mcm_option_skill_points_gain_rate"
-      text="Yetenek Puanı Kazanma Hızı" />
+      text="Kazanma Hızı" />
     <string
       id="ret_mcm_option_skill_points_gain_rate_hint"
       text="Birliklerin savaşta yetenek puanları kazanma hızı." />
     <string
+      id="ret_mcm_option_skill_progress_per_day"
+      text="Günde Eğitilen Puanlar" />
+    <string
+      id="ret_mcm_option_skill_progress_per_day_hint"
+      text="Günde puan başına eğitim hızını belirler." />
+    <string
       id="ret_mcm_option_skill_total"
-      text="{TIER} Seviye Yetenek Toplamı" />
+      text="{TIER} Seviye" />
     <string
       id="ret_mcm_option_skill_total_hint"
-      text="{TIER} seviye birlikler için toplam kullanılabilir yetenek puanı." />
-    <string
-      id="ret_mcm_option_skills_take_time_to_improve"
-      text="Yeteneklerin Gelişmesi Zaman Alır" />
-    <string
-      id="ret_mcm_option_skills_take_time_to_improve_hint"
-      text="Etkinleştirilirse, yeteneklerin artırılması anında olmayacak ve gelişmesi zaman alacaktır." />
+      text="{TIER} seviye birlikler için maksimum toplam yetenek puanları." />
     <string
       id="ret_mcm_option_starter_equipment"
       text="Başlangıç Ekipmanı" />
     <string
       id="ret_mcm_option_starter_equipment_hint"
       text="Yeni kilidi açılmış birlikler için başlangıç ekipmanını ayarlar." />
+    <string
+      id="ret_mcm_option_time_multiplier"
+      text="Ekipman Zaman Çarpanı" />
+    <string
+      id="ret_mcm_option_time_multiplier_hint"
+      text="Yeni bir ekipman parçasını donatmanın ne kadar sürdüğünü belirler." />
+    <string
+      id="ret_mcm_option_training_progresses_while_travelling"
+      text="Seyahat Ederken Eğit" />
+    <string
+      id="ret_mcm_option_training_progresses_while_travelling_hint"
+      text="Parti seyahat ederken mi yoksa yerleşimlerde beklerken mi eğitim ilerlemesi olur." />
+    <string
+      id="ret_mcm_option_training_takes_time"
+      text="Eğitim Zaman Alır" />
+    <string
+      id="ret_mcm_option_training_takes_time_hint"
+      text="Etkinleştirilirse, becerilerin artırılması anında olmayacak ve geliştirilmesi zaman alacaktır." />
     <string
       id="ret_mcm_option_unlock_items_through_discards"
       text="Atmalarla Öğeleri Kilidini Açma" />
@@ -859,6 +874,9 @@
     <string
       id="ret_mcm_option_unlock_items_through_kills_hint"
       text="Öğelerin savaşlarda düşmanları yenerek kilidinin açılıp açılmayacağı." />
+    <string
+      id="ret_mcm_option_weight_limit_hint"
+      text="Toplam ekipman ağırlığını sınırlayıp sınırlamayacağı (sınırlamalar seviye tabanlıdır)." />
     <string
       id="ret_mcm_section_debug"
       text="Hata Ayıklama" />
@@ -887,8 +905,8 @@
       id="ret_mcm_section_skills"
       text="Yetenekler" />
     <string
-      id="ret_mcm_section_troop_unlocks"
-      text="Birlik Kilidi Açma" />
+      id="ret_mcm_section_troops"
+      text="Birlikler" />
     <string
       id="ret_mcm_section_user_interface"
       text="Kullanıcı Arayüzü" />
@@ -1018,6 +1036,9 @@
     <string
       id="ret_sort_by_value"
       text="Değer" />
+    <string
+      id="ret_staged_skill_unlock"
+      text="{TROOP}, {SKILL} becerisini {VALUE} seviyesine yükseltti." />
     <string
       id="ret_starter_equipment_all_sets"
       text="Tüm Setleri Kopyala" />

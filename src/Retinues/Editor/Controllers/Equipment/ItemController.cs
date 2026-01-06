@@ -22,7 +22,7 @@ namespace Retinues.Editor.Controllers.Equipment
         private static bool EconomyEnabled =>
             !PreviewController.Enabled
             && State.Mode == EditorMode.Player
-            && Settings.EnableEquipmentCostsSystem;
+            && Settings.EquipmentCostsMoney;
 
         /// <summary>
         /// Indicates whether the editor economy is currently active.
@@ -78,9 +78,9 @@ namespace Retinues.Editor.Controllers.Equipment
 
         private static bool LimitsEnabled => State.Mode == EditorMode.Player;
 
-        private static bool WeightLimitActive => LimitsEnabled && Settings.LimitEquipmentByWeight;
+        private static bool WeightLimitActive => LimitsEnabled && Settings.EquipmentWeightLimit;
 
-        private static bool ValueLimitActive => LimitsEnabled && Settings.LimitEquipmentByValue;
+        private static bool ValueLimitActive => LimitsEnabled && Settings.EquipmentValueLimit;
 
         // Keep these public methods to avoid touching VMs that call ItemController.
         public static float GetEquipmentWeightLimit(int tier)

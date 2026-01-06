@@ -209,6 +209,12 @@
       id="ret_culture_header_text_with_race"
       text="Kultura i Gatunek" />
     <string
+      id="ret_customization_hint_hide"
+      text="Pokaż kontrolki dostosowywania" />
+    <string
+      id="ret_customization_hint_show"
+      text="Ukryj kontrolki dostosowywania" />
+    <string
       id="ret_dependencies_all_ok"
       text="Wszystkie zależności zostały poprawnie zainicjowane." />
     <string
@@ -225,10 +231,10 @@
       text="Zła wersja" />
     <string
       id="ret_editing_restriction_in_fief"
-      text="W lenno frakcji" />
+      text="Lenno frakcji" />
     <string
       id="ret_editing_restriction_in_settlement"
-      text="W dowolnym osiedlu" />
+      text="Dowolne lenno" />
     <string
       id="ret_editing_restriction_need_faction_fief_reason"
       text="Możesz edytować tę jednostkę tylko w lenno należącym do {FACTION}." />
@@ -692,12 +698,6 @@
       id="ret_mariner_toggle_tooltip_universal"
       text="Marynarze są lepiej przystosowani do walki morskiej." />
     <string
-      id="ret_mcm_option_all_equipment_unlocked"
-      text="Wszystkie wyposażenie odblokowane" />
-    <string
-      id="ret_mcm_option_all_equipment_unlocked_hint"
-      text="Czy całe wyposażenie jest natychmiast odblokowane, czy musi zostać odblokowane poprzez rozgrywkę." />
-    <string
       id="ret_mcm_option_debug_mode"
       text="Tryb debugowania" />
     <string
@@ -711,7 +711,7 @@
       text="Liczba przedmiotów odblokowanych na slot ekwipunku na początku gry." />
     <string
       id="ret_mcm_option_default_unlocked_item_max_tier"
-      text="Maksymalny poziom wstępnie odblokowanego przedmiotu" />
+      text="Wstępnie odblokowany maksymalny poziom" />
     <string
       id="ret_mcm_option_default_unlocked_item_max_tier_hint"
       text="Maksymalny poziom przedmiotów odblokowanych na początku gry." />
@@ -734,10 +734,7 @@
       id="ret_mcm_option_enable_doctrines_hint"
       text="Przełącza funkcję Doktryn włączoną lub wyłączoną." />
     <string
-      id="ret_mcm_option_enable_equipment_costs_system"
-      text="Włącz system kosztów wyposażenia" />
-    <string
-      id="ret_mcm_option_enable_equipment_costs_system_hint"
+      id="ret_mcm_option_enable_equipment_costs_money_hint"
       text="Jeśli włączone, wyposażenie oddziałów będzie kosztować złoto. Włącza również system zapasów." />
     <string
       id="ret_mcm_option_enable_retinues"
@@ -747,52 +744,58 @@
       text="Przełącza funkcję Retinues włączoną lub wyłączoną." />
     <string
       id="ret_mcm_option_enable_skill_gain_system"
-      text="Włącz system zdobywania umiejętności" />
+      text="Punkty umiejętności muszą być zdobywane" />
     <string
       id="ret_mcm_option_enable_skill_gain_system_hint"
       text="Jeśli włączone, oddziały będą musiały zdobywać punkty umiejętności w bitwie, zanim podniosą poziom umiejętności." />
     <string
+      id="ret_mcm_option_equipment_cost_money"
+      text="Ekwipunek kosztuje pieniądze" />
+    <string
       id="ret_mcm_option_equipment_cost_multiplier"
-      text="Mnożnik kosztów wyposażenia" />
+      text="Mnożnik kosztów" />
     <string
       id="ret_mcm_option_equipment_cost_multiplier_hint"
-      text="Mnożnik stosowany do podstawowego kosztu przedmiotów podczas obliczania kosztów wyposażenia." />
+      text="Określa koszt wyposażenia nowego elementu ekwipunku." />
     <string
-      id="ret_mcm_option_equipment_time_multiplier"
-      text="Mnożnik czasu wyposażenia" />
+      id="ret_mcm_option_equipment_needs_unlocking"
+      text="Ekwipunek wymaga odblokowania" />
     <string
-      id="ret_mcm_option_equipment_time_multiplier_hint"
-      text="Mnożnik stosowany do podstawowego czasu wyposażenia podczas obliczania, ile czasu zajmuje wyposażenie." />
+      id="ret_mcm_option_equipment_needs_unlocking_hint"
+      text="Jeśli włączone, oddziały będą musiały odblokować przedmioty ekwipunku, zanim będą mogły je wyposażyć." />
+    <string
+      id="ret_mcm_option_equipment_value_limit"
+      text="Limit według wartości" />
+    <string
+      id="ret_mcm_option_equipment_value_limit_hint"
+      text="Czy ograniczyć całkowitą wartość ekwipunku (limity są oparte na poziomach)." />
     <string
       id="ret_mcm_option_equipment_value_limit_multiplier"
-      text="Mnożnik limitu wartości wyposażenia" />
+      text="Mnożnik limitu wartości" />
     <string
       id="ret_mcm_option_equipment_value_limit_multiplier_hint"
-      text="Mnożnik stosowany do podstawowego limitu wartości podczas obliczania wyposażalnych przedmiotów." />
+      text="Wpływa na maksymalny limit całkowitej wartości ekwipunku." />
+    <string
+      id="ret_mcm_option_equipment_weight_limit"
+      text="Limit według wagi" />
     <string
       id="ret_mcm_option_equipment_weight_limit_multiplier"
-      text="Mnożnik limitu wagi wyposażenia" />
+      text="Mnożnik limitu wagi" />
     <string
       id="ret_mcm_option_equipment_weight_limit_multiplier_hint"
-      text="Mnożnik stosowany do podstawowego limitu wagi podczas obliczania wyposażalnych przedmiotów." />
+      text="Wpływa na maksymalny limit całkowitej wagi ekwipunku." />
     <string
-      id="ret_mcm_option_equipments_take_time_to_equip"
-      text="Wyposażenie wymaga czasu na wyposażenie" />
+      id="ret_mcm_option_equipping_progresses_while_travelling"
+      text="Wyposażanie podczas podróży" />
     <string
-      id="ret_mcm_option_equipments_take_time_to_equip_hint"
-      text="Jeśli włączone, wyposażenie oddziałów nie będzie natychmiastowe i zajmie trochę czasu na ukończenie." />
+      id="ret_mcm_option_equipping_progresses_while_travelling_hint"
+      text="Czy wyposażenie postępuje podczas podróży drużyny, czy tylko podczas oczekiwania w osadach." />
     <string
-      id="ret_mcm_option_limit_equipment_by_value"
-      text="Ograniczenia wartości wyposażenia oparte na poziomie" />
+      id="ret_mcm_option_equipping_takes_time"
+      text="Wyposażanie zajmuje czas" />
     <string
-      id="ret_mcm_option_limit_equipment_by_value_hint"
-      text="Czy ograniczyć wyposażalne przedmioty na podstawie poziomu oddziału i całkowitych wartości przedmiotów." />
-    <string
-      id="ret_mcm_option_limit_equipment_by_weight"
-      text="Ograniczenia wagi wyposażenia oparte na poziomie" />
-    <string
-      id="ret_mcm_option_limit_equipment_by_weight_hint"
-      text="Czy ograniczyć wyposażalne przedmioty na podstawie poziomu oddziału i całkowitej wagi przedmiotów." />
+      id="ret_mcm_option_equipping_takes_time_hint"
+      text="Jeśli włączone, wyposażenie oddziałów nie będzie natychmiastowe i zajmie trochę czasu, aby zostało ukończone." />
     <string
       id="ret_mcm_option_max_retinue_ratio"
       text="Maksymalny stosunek Retinue" />
@@ -800,53 +803,65 @@
       id="ret_mcm_option_max_retinue_ratio_hint"
       text="Maksymalna liczba retinue jako stosunek do limitu wielkości drużyny." />
     <string
-      id="ret_mcm_option_required_discards_for_unlock"
+      id="ret_mcm_option_required_discards_to_unlock"
       text="Wymagane odrzucenia do odblokowania" />
     <string
-      id="ret_mcm_option_required_discards_for_unlock_hint"
+      id="ret_mcm_option_required_discards_to_unlock_hint"
       text="Liczba razy, jaką przedmiot musi zostać odrzucony, aby go odblokować." />
     <string
-      id="ret_mcm_option_required_kills_for_unlock"
+      id="ret_mcm_option_required_kills_to_unlock"
       text="Wymagane zabójstwa do odblokowania" />
     <string
-      id="ret_mcm_option_required_kills_for_unlock_hint"
+      id="ret_mcm_option_required_kills_to_unlock_hint"
       text="Liczba wrogich oddziałów noszących przedmiot, które muszą zostać pokonane, aby go odblokować." />
     <string
       id="ret_mcm_option_skill_cap"
-      text="Limit umiejętności poziomu {TIER}" />
+      text="Poziom {TIER}" />
     <string
       id="ret_mcm_option_skill_cap_hint"
       text="Maksymalny poziom umiejętności dla oddziałów poziomu {TIER}." />
     <string
-      id="ret_mcm_option_skill_improve_time_multiplier"
-      text="Mnożnik czasu poprawy umiejętności" />
-    <string
-      id="ret_mcm_option_skill_improve_time_multiplier_hint"
-      text="Mnożnik stosowany do podstawowego czasu poprawy podczas obliczania, ile czasu zajmują zwiększenia umiejętności." />
-    <string
       id="ret_mcm_option_skill_points_gain_rate"
-      text="Tempo zdobywania punktów umiejętności" />
+      text="Tempo zdobywania" />
     <string
       id="ret_mcm_option_skill_points_gain_rate_hint"
       text="Tempo, w jakim oddziały zdobywają punkty umiejętności w bitwie." />
     <string
+      id="ret_mcm_option_skill_progress_per_day"
+      text="Wytrenowane punkty na dzień" />
+    <string
+      id="ret_mcm_option_skill_progress_per_day_hint"
+      text="Określa szybkość treningu w punktach na dzień." />
+    <string
       id="ret_mcm_option_skill_total"
-      text="Łączna liczba umiejętności poziomu {TIER}" />
+      text="Poziom {TIER}" />
     <string
       id="ret_mcm_option_skill_total_hint"
-      text="Łączna liczba dostępnych punktów umiejętności dla oddziałów poziomu {TIER}." />
-    <string
-      id="ret_mcm_option_skills_take_time_to_improve"
-      text="Umiejętności wymagają czasu na poprawę" />
-    <string
-      id="ret_mcm_option_skills_take_time_to_improve_hint"
-      text="Jeśli włączone, zwiększanie umiejętności nie będzie natychmiastowe i zajmie trochę czasu na poprawę." />
+      text="Maksymalna łączna liczba punktów umiejętności dla oddziałów poziomu {TIER}." />
     <string
       id="ret_mcm_option_starter_equipment"
       text="Początkowy ekwipunek" />
     <string
       id="ret_mcm_option_starter_equipment_hint"
       text="Ustawia początkowy ekwipunek dla nowo odblokowanych oddziałów." />
+    <string
+      id="ret_mcm_option_time_multiplier"
+      text="Mnożnik czasu wyposażenia" />
+    <string
+      id="ret_mcm_option_time_multiplier_hint"
+      text="Określa, ile czasu zajmuje wyposażenie nowego elementu ekwipunku." />
+    <string
+      id="ret_mcm_option_training_progresses_while_travelling"
+      text="Trening podczas podróży" />
+    <string
+      id="ret_mcm_option_training_progresses_while_travelling_hint"
+      text="Czy postęp w treningu następuje podczas podróży drużyny, czy tylko podczas oczekiwania w osadach." />
+    <string
+      id="ret_mcm_option_training_takes_time"
+      text="Trening zajmuje czas" />
+    <string
+      id="ret_mcm_option_training_takes_time_hint"
+      text="Jeśli włączone, zwiększanie umiejętności nie będzie natychmiastowe i zajmie trochę czasu, aby zostało poprawione." />
     <string
       id="ret_mcm_option_unlock_items_through_discards"
       text="Odblokuj przedmioty poprzez odrzucenia" />
@@ -859,6 +874,9 @@
     <string
       id="ret_mcm_option_unlock_items_through_kills_hint"
       text="Czy przedmioty są odblokowywane poprzez pokonywanie wrogów w bitwach." />
+    <string
+      id="ret_mcm_option_weight_limit_hint"
+      text="Czy ograniczyć całkowitą wagę ekwipunku (limity są oparte na poziomach)." />
     <string
       id="ret_mcm_section_debug"
       text="Debugowanie" />
@@ -887,8 +905,8 @@
       id="ret_mcm_section_skills"
       text="Umiejętności" />
     <string
-      id="ret_mcm_section_troop_unlocks"
-      text="Odblokowania oddziałów" />
+      id="ret_mcm_section_troops"
+      text="Oddziały" />
     <string
       id="ret_mcm_section_user_interface"
       text="Interfejs użytkownika" />
@@ -1018,6 +1036,9 @@
     <string
       id="ret_sort_by_value"
       text="Wartość" />
+    <string
+      id="ret_staged_skill_unlock"
+      text="{TROOP} poprawił {SKILL} do {VALUE}." />
     <string
       id="ret_starter_equipment_all_sets"
       text="Kopiuj wszystkie zestawy" />

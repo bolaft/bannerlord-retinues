@@ -101,15 +101,15 @@ namespace Retinues.Configuration
 
         /* ━━━━━━━━ Options ━━━━━━━ */
 
-        public static readonly Option<bool> AllEquipmentUnlocked = CreateOption(
+        public static readonly Option<bool> EquipmentNeedsUnlocking = CreateOption(
             section: EquipmentUnlocks,
-            name: L.F("mcm_option_all_equipment_unlocked", "All Equipment Unlocked"),
+            name: L.F("mcm_option_equipment_needs_unlocking", "Equipment Needs Unlocking"),
             hint: L.F(
-                "mcm_option_all_equipment_unlocked_hint",
-                "Whether all equipment is immediately unlocked or needs to be unlocked through gameplay."
+                "mcm_option_equipment_needs_unlocking_hint",
+                "If enabled, troops will need to unlock equipment items before being able to equip them."
             ),
-            @default: false,
-            @freeform: true,
+            @default: true,
+            @freeform: false,
             fires: [UIEvent.Page]
         );
 
@@ -121,23 +121,21 @@ namespace Retinues.Configuration
                 "Whether items are unlocked by defeating enemies in battles."
             ),
             @default: true,
-            dependsOn: AllEquipmentUnlocked,
-            dependsOnValue: false
+            dependsOn: EquipmentNeedsUnlocking
         );
 
-        public static readonly Option<int> RequiredKillsForUnlock = CreateOption(
+        public static readonly Option<int> RequiredKillsToUnlock = CreateOption(
             section: EquipmentUnlocks,
-            name: L.F("mcm_option_required_kills_for_unlock", "Required Kills For Unlock"),
+            name: L.F("mcm_option_required_kills_to_unlock", "Required Kills To Unlock"),
             hint: L.F(
-                "mcm_option_required_kills_for_unlock_hint",
+                "mcm_option_required_kills_to_unlock_hint",
                 "The number of enemy troops wearing an item that must be defeated to unlock it."
             ),
             minValue: 1,
             maxValue: 1000,
             @default: 100,
             @realistic: 200,
-            dependsOn: UnlockItemsThroughKills,
-            dependsOnValue: true
+            dependsOn: UnlockItemsThroughKills
         );
 
         public static readonly Option<bool> UnlockItemsThroughDiscards = CreateOption(
@@ -148,15 +146,14 @@ namespace Retinues.Configuration
                 "Whether items are unlocked by discarding items."
             ),
             @default: false,
-            dependsOn: AllEquipmentUnlocked,
-            dependsOnValue: false
+            dependsOn: EquipmentNeedsUnlocking
         );
 
-        public static readonly Option<int> RequiredDiscardsForUnlock = CreateOption(
+        public static readonly Option<int> RequiredDiscardsToUnlock = CreateOption(
             section: EquipmentUnlocks,
-            name: L.F("mcm_option_required_discards_for_unlock", "Required Discards For Unlock"),
+            name: L.F("mcm_option_required_discards_to_unlock", "Required Discards To Unlock"),
             hint: L.F(
-                "mcm_option_required_discards_for_unlock_hint",
+                "mcm_option_required_discards_to_unlock_hint",
                 "The number of times an item must be discarded to unlock it."
             ),
             minValue: 1,
@@ -176,8 +173,7 @@ namespace Retinues.Configuration
                 "mcm_option_default_unlocked_amount_per_slot_hint",
                 "The number of items unlocked per equipment slot on game start."
             ),
-            dependsOn: AllEquipmentUnlocked,
-            dependsOnValue: false,
+            dependsOn: EquipmentNeedsUnlocking,
             minValue: 0,
             maxValue: 10,
             @default: 3
@@ -185,13 +181,12 @@ namespace Retinues.Configuration
 
         public static readonly Option<int> DefaultUnlockedItemMaxTier = CreateOption(
             section: EquipmentUnlocks,
-            name: L.F("mcm_option_default_unlocked_item_max_tier", "Pre-Unlocked Item Max Tier"),
+            name: L.F("mcm_option_default_unlocked_item_max_tier", "Pre-Unlocked Max Tier"),
             hint: L.F(
                 "mcm_option_default_unlocked_item_max_tier_hint",
                 "The maximum tier of items unlocked on game start."
             ),
-            dependsOn: AllEquipmentUnlocked,
-            dependsOnValue: false,
+            dependsOn: EquipmentNeedsUnlocking,
             minValue: 1,
             maxValue: 6,
             @default: 2,
@@ -199,26 +194,26 @@ namespace Retinues.Configuration
         );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                      Troop Unlocks                     //
+        //                         Troops                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public static readonly Section TroopUnlocks = CreateSection(
-            name: L.F("mcm_section_troop_unlocks", "Troop Unlocks")
+        public static readonly Section Troops = CreateSection(
+            name: L.F("mcm_section_troops", "Troops")
         );
 
         /* ━━━━━━━━ Options ━━━━━━━ */
 
         public enum EquipmentMode
         {
+            RandomSet,
             SingleSet,
             AllSets,
-            RandomSet,
             EmptySet,
         }
 
         public static readonly MultiChoiceOption<EquipmentMode> StarterEquipment =
             CreateMultiChoiceOption(
-                section: TroopUnlocks,
+                section: Troops,
                 name: L.F("mcm_option_starter_equipment", "Starter Equipment"),
                 hint: L.F(
                     "mcm_option_starter_equipment_hint",
@@ -227,20 +222,20 @@ namespace Retinues.Configuration
                 @default: EquipmentMode.RandomSet,
                 choices:
                 [
+                    EquipmentMode.RandomSet,
                     EquipmentMode.SingleSet,
                     EquipmentMode.AllSets,
-                    EquipmentMode.RandomSet,
                     EquipmentMode.EmptySet,
                 ],
                 choiceFormatter: v =>
                     v switch
                     {
+                        EquipmentMode.RandomSet => L.S("starter_equipment_random_set", "Random"),
                         EquipmentMode.SingleSet => L.S(
                             "starter_equipment_single_set",
                             "Copy One Set"
                         ),
                         EquipmentMode.AllSets => L.S("starter_equipment_all_sets", "Copy All Sets"),
-                        EquipmentMode.RandomSet => L.S("starter_equipment_random_set", "Random"),
                         EquipmentMode.EmptySet => L.S("starter_equipment_empty_set", "Empty"),
                         _ => v.ToString(),
                     }
@@ -285,11 +280,11 @@ namespace Retinues.Configuration
                         EditingRestrictionMode.None => L.S("editing_restriction_none", "Anywhere"),
                         EditingRestrictionMode.InSettlement => L.S(
                             "editing_restriction_in_settlement",
-                            "In Any Settlement"
+                            "Any Settlement"
                         ),
                         EditingRestrictionMode.InFief => L.S(
                             "editing_restriction_in_fief",
-                            "In Faction Fief"
+                            "Faction Settlement"
                         ),
                         _ => v.ToString(),
                     },
@@ -306,11 +301,11 @@ namespace Retinues.Configuration
 
         /* ━━━━━━━━ Options ━━━━━━━ */
 
-        public static readonly Option<bool> EnableEquipmentCostsSystem = CreateOption(
+        public static readonly Option<bool> EquipmentCostsMoney = CreateOption(
             section: Equipment,
-            name: L.F("mcm_option_enable_equipment_costs_system", "Enable Equipment Costs System"),
+            name: L.F("mcm_option_equipment_cost_money", "Equipment Costs Money"),
             hint: L.F(
-                "mcm_option_enable_equipment_costs_system_hint",
+                "mcm_option_enable_equipment_costs_money_hint",
                 "If enabled, equipping troops will cost gold. Also enables the stocks system."
             ),
             @default: true,
@@ -320,52 +315,62 @@ namespace Retinues.Configuration
 
         public static readonly Option<float> EquipmentCostMultiplier = CreateOption(
             section: Equipment,
-            name: L.F("mcm_option_equipment_cost_multiplier", "Equipment Cost Multiplier"),
+            name: L.F("mcm_option_equipment_cost_multiplier", "Cost Multiplier"),
             hint: L.F(
                 "mcm_option_equipment_cost_multiplier_hint",
-                "Multiplier applied to the base cost of items when calculating equip costs."
+                "Determines the cost to equip a new piece of equipment."
             ),
             minValue: 0.1f,
             maxValue: 10f,
             @default: 1f,
             @realistic: 2f,
-            dependsOn: EnableEquipmentCostsSystem,
+            dependsOn: EquipmentCostsMoney,
             fires: [UIEvent.Page]
         );
 
-        public static readonly Option<bool> EquipmentsTakeTimeToEquip = CreateOption(
+        public static readonly Option<bool> EquippingTakesTime = CreateOption(
             section: Equipment,
-            name: L.F("mcm_option_equipments_take_time_to_equip", "Equipments Take Time To Equip"),
+            name: L.F("mcm_option_equipping_takes_time", "Equipping Takes Time"),
             hint: L.F(
-                "mcm_option_equipments_take_time_to_equip_hint",
+                "mcm_option_equipping_takes_time_hint",
                 "If enabled, equipping troops will not be instant and will take time to be completed."
             ),
             @default: true,
-            dependsOn: EnableEquipmentCostsSystem,
-            fires: [UIEvent.Page]
+            fires: [UIEvent.Equipment]
         );
 
-        public static readonly Option<float> EquipmentEquipTimeMultiplier = CreateOption(
+        public static readonly Option<float> EquipTimeMultiplier = CreateOption(
             section: Equipment,
-            name: L.F("mcm_option_equipment_time_multiplier", "Equipment Time Multiplier"),
+            name: L.F("mcm_option_time_multiplier", "Equip Time Multiplier"),
             hint: L.F(
-                "mcm_option_equipment_time_multiplier_hint",
-                "Multiplier applied to the base equip time when calculating how long equipping takes."
+                "mcm_option_time_multiplier_hint",
+                "Determines how long it takes to equip a new piece of equipment."
             ),
             minValue: 0.5f,
             maxValue: 5f,
             @default: 1f,
             @realistic: 2f,
-            dependsOn: EquipmentsTakeTimeToEquip,
+            dependsOn: EquippingTakesTime,
             fires: [UIEvent.Equipment]
         );
 
-        public static readonly Option<bool> LimitEquipmentByWeight = CreateOption(
+        public static readonly Option<bool> EquippingProgressesWhileTravelling = CreateOption(
             section: Equipment,
-            name: L.F("mcm_option_limit_equipment_by_weight", "Tier-Based Equipment Weight Limits"),
+            name: L.F("mcm_option_equipping_progresses_while_travelling", "Equip While Travelling"),
             hint: L.F(
-                "mcm_option_limit_equipment_by_weight_hint",
-                "Whether to limit equippable items based on troop tier and total item weights."
+                "mcm_option_equipping_progresses_while_travelling_hint",
+                "Whether equipping progresses while the party is travelling or only while waiting in settlements."
+            ),
+            @default: true,
+            dependsOn: EquippingTakesTime
+        );
+
+        public static readonly Option<bool> EquipmentWeightLimit = CreateOption(
+            section: Equipment,
+            name: L.F("mcm_option_equipment_weight_limit", "Limit By Weight"),
+            hint: L.F(
+                "mcm_option_weight_limit_hint",
+                "Whether to limit the total equipment weight (limits are tier-based)."
             ),
             @default: true,
             fires: [UIEvent.Equipment]
@@ -373,27 +378,24 @@ namespace Retinues.Configuration
 
         public static readonly Option<float> EquipmentWeightLimitMultiplier = CreateOption(
             section: Equipment,
-            name: L.F(
-                "mcm_option_equipment_weight_limit_multiplier",
-                "Equipment Weight Limit Multiplier"
-            ),
+            name: L.F("mcm_option_equipment_weight_limit_multiplier", "Weight Limit Multiplier"),
             hint: L.F(
                 "mcm_option_equipment_weight_limit_multiplier_hint",
-                "Multiplier applied to the base weight limit when calculating equippable items."
+                "Affects the maximum total equipment weight limit."
             ),
             minValue: 0.5f,
             maxValue: 2f,
             @default: 1f,
-            dependsOn: LimitEquipmentByWeight,
+            dependsOn: EquipmentWeightLimit,
             fires: [UIEvent.Equipment]
         );
 
-        public static readonly Option<bool> LimitEquipmentByValue = CreateOption(
+        public static readonly Option<bool> EquipmentValueLimit = CreateOption(
             section: Equipment,
-            name: L.F("mcm_option_limit_equipment_by_value", "Tier-Based Equipment Value Limits"),
+            name: L.F("mcm_option_equipment_value_limit", "Limit By Value"),
             hint: L.F(
-                "mcm_option_limit_equipment_by_value_hint",
-                "Whether to limit equippable items based on troop tier and total item values."
+                "mcm_option_equipment_value_limit_hint",
+                "Whether to limit the total equipment value (limits are tier-based)."
             ),
             @default: true,
             fires: [UIEvent.Equipment]
@@ -401,18 +403,15 @@ namespace Retinues.Configuration
 
         public static readonly Option<float> EquipmentValueLimitMultiplier = CreateOption(
             section: Equipment,
-            name: L.F(
-                "mcm_option_equipment_value_limit_multiplier",
-                "Equipment Value Limit Multiplier"
-            ),
+            name: L.F("mcm_option_equipment_value_limit_multiplier", "Value Limit Multiplier"),
             hint: L.F(
                 "mcm_option_equipment_value_limit_multiplier_hint",
-                "Multiplier applied to the base value limit when calculating equippable items."
+                "Affects the maximum total equipment value limit."
             ),
             minValue: 0.5f,
             maxValue: 2f,
             @default: 1f,
-            dependsOn: LimitEquipmentByValue,
+            dependsOn: EquipmentValueLimit,
             fires: [UIEvent.Equipment]
         );
 
@@ -428,7 +427,7 @@ namespace Retinues.Configuration
 
         public static readonly Option<bool> EnableSkillGainSystem = CreateOption(
             section: Skills,
-            name: L.F("mcm_option_enable_skill_gain_system", "Enable Skill Gain System"),
+            name: L.F("mcm_option_enable_skill_gain_system", "Skill Points Must Be Earned"),
             hint: L.F(
                 "mcm_option_enable_skill_gain_system_hint",
                 "If enabled, troops will need to earn skill points in battle before leveling up skills."
@@ -440,7 +439,7 @@ namespace Retinues.Configuration
 
         public static readonly Option<float> SkillPointsGainRate = CreateOption(
             section: Skills,
-            name: L.F("mcm_option_skill_points_gain_rate", "Skill Points Gain Rate"),
+            name: L.F("mcm_option_skill_points_gain_rate", "Gain Rate"),
             hint: L.F(
                 "mcm_option_skill_points_gain_rate_hint",
                 "Rate at which troops gain skill points in battle."
@@ -452,30 +451,41 @@ namespace Retinues.Configuration
             dependsOn: EnableSkillGainSystem
         );
 
-        public static readonly Option<bool> SkillsTakeTimeToImprove = CreateOption(
+        public static readonly Option<bool> TrainingTakesTime = CreateOption(
             section: Skills,
-            name: L.F("mcm_option_skills_take_time_to_improve", "Skills Take Time To Improve"),
+            name: L.F("mcm_option_training_takes_time", "Training Takes Time"),
             hint: L.F(
-                "mcm_option_skills_take_time_to_improve_hint",
-                "If enabled, increasing skills will not be instant and will take time to be improve."
+                "mcm_option_training_takes_time_hint",
+                "If enabled, increasing skills will not be instant and will take time to be improved."
             ),
             @default: true,
-            fires: [UIEvent.Page]
+            fires: [UIEvent.Skill]
         );
 
-        public static readonly Option<float> SkillImproveTimeMultiplier = CreateOption(
+        public static readonly Option<float> SkillProgressPerDay = CreateOption(
             section: Skills,
-            name: L.F("mcm_option_skill_improve_time_multiplier", "Skill Improve Time Multiplier"),
+            name: L.F("mcm_option_skill_progress_per_day", "Trained Points Per Day"),
             hint: L.F(
-                "mcm_option_skill_improve_time_multiplier_hint",
-                "Multiplier applied to the base improve time when calculating how long skill increases take."
+                "mcm_option_skill_progress_per_day_hint",
+                "Determines training speed in points per day."
             ),
-            minValue: 0.5f,
-            maxValue: 5f,
+            minValue: 0.1f,
+            maxValue: 4f,
             @default: 1f,
             @realistic: 2f,
-            dependsOn: SkillsTakeTimeToImprove,
+            dependsOn: TrainingTakesTime,
             fires: [UIEvent.Skill]
+        );
+
+        public static readonly Option<bool> TrainingProgressesWhileTravelling = CreateOption(
+            section: Skills,
+            name: L.F("mcm_option_training_progresses_while_travelling", "Train While Travelling"),
+            hint: L.F(
+                "mcm_option_training_progresses_while_travelling_hint",
+                "Whether training progress occurs while the party is travelling or only while waiting in settlements."
+            ),
+            @default: true,
+            dependsOn: TrainingTakesTime
         );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -490,7 +500,7 @@ namespace Retinues.Configuration
 
         public static readonly Option<int> SkillCapT0 = CreateOption(
             section: SkillCaps,
-            name: L.F("mcm_option_skill_cap", "Tier {TIER} Skill Cap", ("TIER", 0)),
+            name: L.F("mcm_option_skill_cap", "Tier {TIER}", ("TIER", 0)),
             hint: L.F(
                 "mcm_option_skill_cap_hint",
                 "Maximum skill level for Tier {TIER} troops.",
@@ -504,7 +514,7 @@ namespace Retinues.Configuration
 
         public static readonly Option<int> SkillCapT1 = CreateOption(
             section: SkillCaps,
-            name: L.F("mcm_option_skill_cap", "Tier {TIER} Skill Cap", ("TIER", 1)),
+            name: L.F("mcm_option_skill_cap", "Tier {TIER}", ("TIER", 1)),
             hint: L.F(
                 "mcm_option_skill_cap_hint",
                 "Maximum skill level for Tier {TIER} troops.",
@@ -518,7 +528,7 @@ namespace Retinues.Configuration
 
         public static readonly Option<int> SkillCapT2 = CreateOption(
             section: SkillCaps,
-            name: L.F("mcm_option_skill_cap", "Tier {TIER} Skill Cap", ("TIER", 2)),
+            name: L.F("mcm_option_skill_cap", "Tier {TIER}", ("TIER", 2)),
             hint: L.F(
                 "mcm_option_skill_cap_hint",
                 "Maximum skill level for Tier {TIER} troops.",
@@ -532,7 +542,7 @@ namespace Retinues.Configuration
 
         public static readonly Option<int> SkillCapT3 = CreateOption(
             section: SkillCaps,
-            name: L.F("mcm_option_skill_cap", "Tier {TIER} Skill Cap", ("TIER", 3)),
+            name: L.F("mcm_option_skill_cap", "Tier {TIER}", ("TIER", 3)),
             hint: L.F(
                 "mcm_option_skill_cap_hint",
                 "Maximum skill level for Tier {TIER} troops.",
@@ -546,7 +556,7 @@ namespace Retinues.Configuration
 
         public static readonly Option<int> SkillCapT4 = CreateOption(
             section: SkillCaps,
-            name: L.F("mcm_option_skill_cap", "Tier {TIER} Skill Cap", ("TIER", 4)),
+            name: L.F("mcm_option_skill_cap", "Tier {TIER}", ("TIER", 4)),
             hint: L.F(
                 "mcm_option_skill_cap_hint",
                 "Maximum skill level for Tier {TIER} troops.",
@@ -560,7 +570,7 @@ namespace Retinues.Configuration
 
         public static readonly Option<int> SkillCapT5 = CreateOption(
             section: SkillCaps,
-            name: L.F("mcm_option_skill_cap", "Tier {TIER} Skill Cap", ("TIER", 5)),
+            name: L.F("mcm_option_skill_cap", "Tier {TIER}", ("TIER", 5)),
             hint: L.F(
                 "mcm_option_skill_cap_hint",
                 "Maximum skill level for Tier {TIER} troops.",
@@ -574,7 +584,7 @@ namespace Retinues.Configuration
 
         public static readonly Option<int> SkillCapT6 = CreateOption(
             section: SkillCaps,
-            name: L.F("mcm_option_skill_cap", "Tier {TIER} Skill Cap", ("TIER", 6)),
+            name: L.F("mcm_option_skill_cap", "Tier {TIER}", ("TIER", 6)),
             hint: L.F(
                 "mcm_option_skill_cap_hint",
                 "Maximum skill level for Tier {TIER} troops.",
@@ -588,7 +598,7 @@ namespace Retinues.Configuration
 
         public static readonly Option<int> SkillCapT7 = CreateOption(
             section: SkillCaps,
-            name: L.F("mcm_option_skill_cap", "Tier {TIER} Skill Cap", ("TIER", 7)),
+            name: L.F("mcm_option_skill_cap", "Tier {TIER}", ("TIER", 7)),
             hint: L.F(
                 "mcm_option_skill_cap_hint",
                 "Maximum skill level for Tier {TIER} troops.",
@@ -613,10 +623,10 @@ namespace Retinues.Configuration
 
         public static readonly Option<int> SkillTotalT0 = CreateOption(
             section: SkillTotals,
-            name: L.F("mcm_option_skill_total", "Tier {TIER} Skill Total", ("TIER", 0)),
+            name: L.F("mcm_option_skill_total", "Tier {TIER}", ("TIER", 0)),
             hint: L.F(
                 "mcm_option_skill_total_hint",
-                "Total available skill points for Tier {TIER} troops.",
+                "Maximum total skill points for Tier {TIER} troops.",
                 ("TIER", 0)
             ),
             minValue: 90,
@@ -627,10 +637,10 @@ namespace Retinues.Configuration
 
         public static readonly Option<int> SkillTotalT1 = CreateOption(
             section: SkillTotals,
-            name: L.F("mcm_option_skill_total", "Tier {TIER} Skill Total", ("TIER", 1)),
+            name: L.F("mcm_option_skill_total", "Tier {TIER}", ("TIER", 1)),
             hint: L.F(
                 "mcm_option_skill_total_hint",
-                "Total available skill points for Tier {TIER} troops.",
+                "Maximum total skill points for Tier {TIER} troops.",
                 ("TIER", 1)
             ),
             minValue: 90,
@@ -641,10 +651,10 @@ namespace Retinues.Configuration
 
         public static readonly Option<int> SkillTotalT2 = CreateOption(
             section: SkillTotals,
-            name: L.F("mcm_option_skill_total", "Tier {TIER} Skill Total", ("TIER", 2)),
+            name: L.F("mcm_option_skill_total", "Tier {TIER}", ("TIER", 2)),
             hint: L.F(
                 "mcm_option_skill_total_hint",
-                "Total available skill points for Tier {TIER} troops.",
+                "Maximum total skill points for Tier {TIER} troops.",
                 ("TIER", 2)
             ),
             minValue: 90,
@@ -655,10 +665,10 @@ namespace Retinues.Configuration
 
         public static readonly Option<int> SkillTotalT3 = CreateOption(
             section: SkillTotals,
-            name: L.F("mcm_option_skill_total", "Tier {TIER} Skill Total", ("TIER", 3)),
+            name: L.F("mcm_option_skill_total", "Tier {TIER}", ("TIER", 3)),
             hint: L.F(
                 "mcm_option_skill_total_hint",
-                "Total available skill points for Tier {TIER} troops.",
+                "Maximum total skill points for Tier {TIER} troops.",
                 ("TIER", 3)
             ),
             minValue: 90,
@@ -669,10 +679,10 @@ namespace Retinues.Configuration
 
         public static readonly Option<int> SkillTotalT4 = CreateOption(
             section: SkillTotals,
-            name: L.F("mcm_option_skill_total", "Tier {TIER} Skill Total", ("TIER", 4)),
+            name: L.F("mcm_option_skill_total", "Tier {TIER}", ("TIER", 4)),
             hint: L.F(
                 "mcm_option_skill_total_hint",
-                "Total available skill points for Tier {TIER} troops.",
+                "Maximum total skill points for Tier {TIER} troops.",
                 ("TIER", 4)
             ),
             minValue: 90,
@@ -683,10 +693,10 @@ namespace Retinues.Configuration
 
         public static readonly Option<int> SkillTotalT5 = CreateOption(
             section: SkillTotals,
-            name: L.F("mcm_option_skill_total", "Tier {TIER} Skill Total", ("TIER", 5)),
+            name: L.F("mcm_option_skill_total", "Tier {TIER}", ("TIER", 5)),
             hint: L.F(
                 "mcm_option_skill_total_hint",
-                "Total available skill points for Tier {TIER} troops.",
+                "Maximum total skill points for Tier {TIER} troops.",
                 ("TIER", 5)
             ),
             minValue: 90,
@@ -697,10 +707,10 @@ namespace Retinues.Configuration
 
         public static readonly Option<int> SkillTotalT6 = CreateOption(
             section: SkillTotals,
-            name: L.F("mcm_option_skill_total", "Tier {TIER} Skill Total", ("TIER", 6)),
+            name: L.F("mcm_option_skill_total", "Tier {TIER}", ("TIER", 6)),
             hint: L.F(
                 "mcm_option_skill_total_hint",
-                "Total available skill points for Tier {TIER} troops.",
+                "Maximum total skill points for Tier {TIER} troops.",
                 ("TIER", 6)
             ),
             minValue: 90,
@@ -711,10 +721,10 @@ namespace Retinues.Configuration
 
         public static readonly Option<int> SkillTotalT7 = CreateOption(
             section: SkillTotals,
-            name: L.F("mcm_option_skill_total", "Tier {TIER} Skill Total", ("TIER", 7)),
+            name: L.F("mcm_option_skill_total", "Tier {TIER}", ("TIER", 7)),
             hint: L.F(
                 "mcm_option_skill_total_hint",
-                "Total available skill points for Tier {TIER} troops.",
+                "Maximum total skill points for Tier {TIER} troops.",
                 ("TIER", 7)
             ),
             minValue: 90,

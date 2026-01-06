@@ -204,7 +204,7 @@ namespace Retinues.Domain.Equipments.Wrappers
 
         public int GetUnlockProgress(WHero hero)
         {
-            if (Settings.AllEquipmentUnlocked)
+            if (!Settings.EquipmentNeedsUnlocking)
                 return UnlockThreshold; // Always unlocked.
 
             var map = UnlockProgressByHeroAttribute.Get() ?? [];

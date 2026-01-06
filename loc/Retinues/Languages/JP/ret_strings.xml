@@ -209,6 +209,12 @@
       id="ret_culture_header_text_with_race"
       text="文化と種族" />
     <string
+      id="ret_customization_hint_hide"
+      text="カスタマイズコントロールを表示" />
+    <string
+      id="ret_customization_hint_show"
+      text="カスタマイズコントロールを非表示" />
+    <string
       id="ret_dependencies_all_ok"
       text="すべての依存関係が正しく初期化されました。" />
     <string
@@ -225,10 +231,10 @@
       text="間違ったバージョン" />
     <string
       id="ret_editing_restriction_in_fief"
-      text="派閥の領地内で" />
+      text="派閥の領地" />
     <string
       id="ret_editing_restriction_in_settlement"
-      text="任意の集落内で" />
+      text="任意の領地" />
     <string
       id="ret_editing_restriction_need_faction_fief_reason"
       text="このユニットは、{FACTION} が所有する領地内でのみ編集できます。" />
@@ -692,12 +698,6 @@
       id="ret_mariner_toggle_tooltip_universal"
       text="水兵は海戦に適しています。" />
     <string
-      id="ret_mcm_option_all_equipment_unlocked"
-      text="すべての装備がアンロックされました" />
-    <string
-      id="ret_mcm_option_all_equipment_unlocked_hint"
-      text="すべての装備が即座にアンロックされるか、ゲームプレイを通じてアンロックする必要があるかどうか。" />
-    <string
       id="ret_mcm_option_debug_mode"
       text="デバッグモード" />
     <string
@@ -711,7 +711,7 @@
       text="ゲーム開始時に装備スロットごとにアンロックされるアイテムの数。" />
     <string
       id="ret_mcm_option_default_unlocked_item_max_tier"
-      text="事前アンロックされたアイテムの最大ティア" />
+      text="事前アンロックされた最大ティア" />
     <string
       id="ret_mcm_option_default_unlocked_item_max_tier_hint"
       text="ゲーム開始時にアンロックされるアイテムの最大ティア。" />
@@ -734,10 +734,7 @@
       id="ret_mcm_option_enable_doctrines_hint"
       text="ドクトリン機能のオンまたはオフを切り替えます。" />
     <string
-      id="ret_mcm_option_enable_equipment_costs_system"
-      text="装備コストシステムを有効にする" />
-    <string
-      id="ret_mcm_option_enable_equipment_costs_system_hint"
+      id="ret_mcm_option_enable_equipment_costs_money_hint"
       text="有効にすると、部隊の装備にゴールドがかかります。また、在庫システムも有効になります。" />
     <string
       id="ret_mcm_option_enable_retinues"
@@ -747,52 +744,58 @@
       text="リティニュース機能のオンまたはオフを切り替えます。" />
     <string
       id="ret_mcm_option_enable_skill_gain_system"
-      text="スキル獲得システムを有効にする" />
+      text="スキルポイントは獲得する必要があります" />
     <string
       id="ret_mcm_option_enable_skill_gain_system_hint"
       text="有効にすると、部隊はスキルをレベルアップする前に戦闘でスキルポイントを獲得する必要があります。" />
     <string
+      id="ret_mcm_option_equipment_cost_money"
+      text="装備にはお金がかかります" />
+    <string
       id="ret_mcm_option_equipment_cost_multiplier"
-      text="装備コスト乗数" />
+      text="コスト乗数" />
     <string
       id="ret_mcm_option_equipment_cost_multiplier_hint"
-      text="装備コストを計算する際に、アイテムの基本コストに適用される乗数。" />
+      text="新しい装備品を装備するためのコストを決定します。" />
     <string
-      id="ret_mcm_option_equipment_time_multiplier"
-      text="装備時間乗数" />
+      id="ret_mcm_option_equipment_needs_unlocking"
+      text="装備はアンロックが必要です" />
     <string
-      id="ret_mcm_option_equipment_time_multiplier_hint"
-      text="装備にかかる時間を計算する際に、基本装備時間に適用される乗数。" />
+      id="ret_mcm_option_equipment_needs_unlocking_hint"
+      text="有効にすると、部隊は装備品を装備できるようになる前にそれらをアンロックする必要があります。" />
+    <string
+      id="ret_mcm_option_equipment_value_limit"
+      text="価値による制限" />
+    <string
+      id="ret_mcm_option_equipment_value_limit_hint"
+      text="総装備価値を制限するかどうか（制限はティアベースです）。" />
     <string
       id="ret_mcm_option_equipment_value_limit_multiplier"
-      text="装備価値制限乗数" />
+      text="価値制限乗数" />
     <string
       id="ret_mcm_option_equipment_value_limit_multiplier_hint"
-      text="装備可能なアイテムを計算する際に、基本価値制限に適用される乗数。" />
+      text="最大総装備価値制限に影響します。" />
+    <string
+      id="ret_mcm_option_equipment_weight_limit"
+      text="重量による制限" />
     <string
       id="ret_mcm_option_equipment_weight_limit_multiplier"
-      text="装備重量制限乗数" />
+      text="重量制限乗数" />
     <string
       id="ret_mcm_option_equipment_weight_limit_multiplier_hint"
-      text="装備可能なアイテムを計算する際に、基本重量制限に適用される乗数。" />
+      text="最大総装備重量制限に影響します。" />
     <string
-      id="ret_mcm_option_equipments_take_time_to_equip"
-      text="装備には装備するのに時間がかかります" />
+      id="ret_mcm_option_equipping_progresses_while_travelling"
+      text="移動中に装備" />
     <string
-      id="ret_mcm_option_equipments_take_time_to_equip_hint"
+      id="ret_mcm_option_equipping_progresses_while_travelling_hint"
+      text="パーティーが移動中に装備が進行するか、定住地で待機している間のみ進行するか。" />
+    <string
+      id="ret_mcm_option_equipping_takes_time"
+      text="装備には時間がかかります" />
+    <string
+      id="ret_mcm_option_equipping_takes_time_hint"
       text="有効にすると、部隊の装備は即座には完了せず、完了するまでに時間がかかります。" />
-    <string
-      id="ret_mcm_option_limit_equipment_by_value"
-      text="ティアベースの装備価値制限" />
-    <string
-      id="ret_mcm_option_limit_equipment_by_value_hint"
-      text="部隊のティアとアイテムの総価値に基づいて装備可能なアイテムを制限するかどうか。" />
-    <string
-      id="ret_mcm_option_limit_equipment_by_weight"
-      text="ティアベースの装備重量制限" />
-    <string
-      id="ret_mcm_option_limit_equipment_by_weight_hint"
-      text="部隊のティアとアイテムの総重量に基づいて装備可能なアイテムを制限するかどうか。" />
     <string
       id="ret_mcm_option_max_retinue_ratio"
       text="最大リティニュース比率" />
@@ -800,53 +803,65 @@
       id="ret_mcm_option_max_retinue_ratio_hint"
       text="パーティーサイズの制限に対するリティニュースの最大数の比率。" />
     <string
-      id="ret_mcm_option_required_discards_for_unlock"
-      text="アンロックに必要な破棄数" />
+      id="ret_mcm_option_required_discards_to_unlock"
+      text="アンロックするために必要な破棄数" />
     <string
-      id="ret_mcm_option_required_discards_for_unlock_hint"
+      id="ret_mcm_option_required_discards_to_unlock_hint"
       text="アイテムをアンロックするために破棄する必要がある回数。" />
     <string
-      id="ret_mcm_option_required_kills_for_unlock"
-      text="アンロックに必要なキル数" />
+      id="ret_mcm_option_required_kills_to_unlock"
+      text="アンロックするために必要なキル数" />
     <string
-      id="ret_mcm_option_required_kills_for_unlock_hint"
+      id="ret_mcm_option_required_kills_to_unlock_hint"
       text="アイテムをアンロックするために倒さなければならないアイテムを装備している敵部隊の数。" />
     <string
       id="ret_mcm_option_skill_cap"
-      text="ティア {TIER} スキルキャップ" />
+      text="ティア {TIER}" />
     <string
       id="ret_mcm_option_skill_cap_hint"
       text="ティア {TIER} 部隊の最大スキルレベル。" />
     <string
-      id="ret_mcm_option_skill_improve_time_multiplier"
-      text="スキル向上時間乗数" />
-    <string
-      id="ret_mcm_option_skill_improve_time_multiplier_hint"
-      text="スキルの向上にかかる時間を計算する際に、基本的な向上時間に適用される乗数。" />
-    <string
       id="ret_mcm_option_skill_points_gain_rate"
-      text="スキルポイント獲得率" />
+      text="獲得率" />
     <string
       id="ret_mcm_option_skill_points_gain_rate_hint"
       text="部隊が戦闘でスキルポイントを獲得する速度。" />
     <string
+      id="ret_mcm_option_skill_progress_per_day"
+      text="1日あたりの訓練ポイント" />
+    <string
+      id="ret_mcm_option_skill_progress_per_day_hint"
+      text="1日あたりのポイントでトレーニング速度を決定します。" />
+    <string
       id="ret_mcm_option_skill_total"
-      text="ティア {TIER} スキル合計" />
+      text="ティア {TIER}" />
     <string
       id="ret_mcm_option_skill_total_hint"
-      text="ティア {TIER} 部隊の利用可能なスキルポイントの合計。" />
-    <string
-      id="ret_mcm_option_skills_take_time_to_improve"
-      text="スキルの向上には時間がかかります" />
-    <string
-      id="ret_mcm_option_skills_take_time_to_improve_hint"
-      text="有効にすると、スキルの向上は即座には完了せず、改善するまでに時間がかかります。" />
+      text="ティア {TIER} 部隊の最大総スキルポイント。" />
     <string
       id="ret_mcm_option_starter_equipment"
       text="スターター装備" />
     <string
       id="ret_mcm_option_starter_equipment_hint"
       text="新たにアンロックされた部隊のスターター装備を設定します。" />
+    <string
+      id="ret_mcm_option_time_multiplier"
+      text="装備時間乗数" />
+    <string
+      id="ret_mcm_option_time_multiplier_hint"
+      text="新しい装備を装備するのにどれくらい時間がかかるかを決定します。" />
+    <string
+      id="ret_mcm_option_training_progresses_while_travelling"
+      text="移動中に訓練" />
+    <string
+      id="ret_mcm_option_training_progresses_while_travelling_hint"
+      text="パーティーが移動中にトレーニングの進行が発生するか、定住地で待機している間のみ発生するか。" />
+    <string
+      id="ret_mcm_option_training_takes_time"
+      text="訓練には時間がかかります" />
+    <string
+      id="ret_mcm_option_training_takes_time_hint"
+      text="有効にすると、スキルの向上は即座には完了せず、改善するまでに時間がかかります。" />
     <string
       id="ret_mcm_option_unlock_items_through_discards"
       text="破棄を通じてアイテムをアンロック" />
@@ -859,6 +874,9 @@
     <string
       id="ret_mcm_option_unlock_items_through_kills_hint"
       text="戦闘で敵を倒すことでアイテムがアンロックされるかどうか。" />
+    <string
+      id="ret_mcm_option_weight_limit_hint"
+      text="総装備重量を制限するかどうか（制限はティアベースです）。" />
     <string
       id="ret_mcm_section_debug"
       text="デバッグ" />
@@ -887,8 +905,8 @@
       id="ret_mcm_section_skills"
       text="スキル" />
     <string
-      id="ret_mcm_section_troop_unlocks"
-      text="部隊のアンロック" />
+      id="ret_mcm_section_troops"
+      text="部隊" />
     <string
       id="ret_mcm_section_user_interface"
       text="ユーザーインターフェース" />
@@ -1018,6 +1036,9 @@
     <string
       id="ret_sort_by_value"
       text="値" />
+    <string
+      id="ret_staged_skill_unlock"
+      text="{TROOP} は {SKILL} を {VALUE} に向上させました。" />
     <string
       id="ret_starter_equipment_all_sets"
       text="すべてのセットをコピー" />

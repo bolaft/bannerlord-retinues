@@ -209,6 +209,12 @@
       id="ret_culture_header_text_with_race"
       text="문화 및 종" />
     <string
+      id="ret_customization_hint_hide"
+      text="사용자 지정 컨트롤 표시" />
+    <string
+      id="ret_customization_hint_show"
+      text="사용자 지정 컨트롤 숨기기" />
+    <string
       id="ret_dependencies_all_ok"
       text="모든 종속 항목이 올바르게 초기화되었습니다." />
     <string
@@ -225,10 +231,10 @@
       text="잘못된 버전" />
     <string
       id="ret_editing_restriction_in_fief"
-      text="진영 영지 내에서" />
+      text="진영 영지" />
     <string
       id="ret_editing_restriction_in_settlement"
-      text="모든 정착지 내에서" />
+      text="모든 정착지" />
     <string
       id="ret_editing_restriction_need_faction_fief_reason"
       text="이 유닛은 {FACTION} 소유의 영지에서만 편집할 수 있습니다." />
@@ -692,12 +698,6 @@
       id="ret_mariner_toggle_tooltip_universal"
       text="선원은 해상 전투에 더 적합합니다." />
     <string
-      id="ret_mcm_option_all_equipment_unlocked"
-      text="모든 장비 잠금 해제" />
-    <string
-      id="ret_mcm_option_all_equipment_unlocked_hint"
-      text="모든 장비가 즉시 잠금 해제되었는지 아니면 게임 플레이를 통해 잠금 해제해야 하는지 여부입니다." />
-    <string
       id="ret_mcm_option_debug_mode"
       text="디버그 모드" />
     <string
@@ -711,7 +711,7 @@
       text="게임 시작 시 장비 슬롯당 잠금 해제되는 아이템 수입니다." />
     <string
       id="ret_mcm_option_default_unlocked_item_max_tier"
-      text="사전 잠금 해제된 아이템 최대 등급" />
+      text="사전 잠금 해제된 최대 등급" />
     <string
       id="ret_mcm_option_default_unlocked_item_max_tier_hint"
       text="게임 시작 시 잠금 해제되는 아이템의 최대 등급입니다." />
@@ -734,10 +734,7 @@
       id="ret_mcm_option_enable_doctrines_hint"
       text="교리 기능을 켜거나 끕니다." />
     <string
-      id="ret_mcm_option_enable_equipment_costs_system"
-      text="장비 비용 시스템 활성화" />
-    <string
-      id="ret_mcm_option_enable_equipment_costs_system_hint"
+      id="ret_mcm_option_enable_equipment_costs_money_hint"
       text="활성화되면 부대를 장비하는 데 골드가 필요합니다. 재고 시스템도 활성화됩니다." />
     <string
       id="ret_mcm_option_enable_retinues"
@@ -747,52 +744,58 @@
       text="Retinues 기능을 켜거나 끕니다." />
     <string
       id="ret_mcm_option_enable_skill_gain_system"
-      text="기술 습득 시스템 활성화" />
+      text="기술 포인트는 획득해야 합니다" />
     <string
       id="ret_mcm_option_enable_skill_gain_system_hint"
       text="활성화되면 부대는 기술을 레벨업하기 전에 전투에서 기술 포인트를 획득해야 합니다." />
     <string
+      id="ret_mcm_option_equipment_cost_money"
+      text="장비는 돈이 듭니다" />
+    <string
       id="ret_mcm_option_equipment_cost_multiplier"
-      text="장비 비용 배수" />
+      text="비용 배수" />
     <string
       id="ret_mcm_option_equipment_cost_multiplier_hint"
-      text="장비 비용을 계산할 때 항목의 기본 비용에 적용되는 배수입니다." />
+      text="새 장비를 장착하는 비용을 결정합니다." />
     <string
-      id="ret_mcm_option_equipment_time_multiplier"
-      text="장비 시간 배수" />
+      id="ret_mcm_option_equipment_needs_unlocking"
+      text="장비는 잠금 해제가 필요합니다" />
     <string
-      id="ret_mcm_option_equipment_time_multiplier_hint"
-      text="장비 장착에 걸리는 시간을 계산할 때 기본 장비 시간에 적용되는 배수입니다." />
+      id="ret_mcm_option_equipment_needs_unlocking_hint"
+      text="활성화되면 부대는 장비를 장착하기 전에 장비 아이템의 잠금을 해제해야 합니다." />
+    <string
+      id="ret_mcm_option_equipment_value_limit"
+      text="가치별 제한" />
+    <string
+      id="ret_mcm_option_equipment_value_limit_hint"
+      text="총 장비 가치를 제한할지 여부(제한은 등급 기반임)." />
     <string
       id="ret_mcm_option_equipment_value_limit_multiplier"
-      text="장비 가치 한도 배수" />
+      text="가치 제한 배수" />
     <string
       id="ret_mcm_option_equipment_value_limit_multiplier_hint"
-      text="장착 가능한 아이템을 계산할 때 기본 가치 한도에 적용되는 배수입니다." />
+      text="최대 총 장비 가치 한도에 영향을 미칩니다." />
+    <string
+      id="ret_mcm_option_equipment_weight_limit"
+      text="무게별 제한" />
     <string
       id="ret_mcm_option_equipment_weight_limit_multiplier"
-      text="장비 무게 한도 배수" />
+      text="무게 제한 배수" />
     <string
       id="ret_mcm_option_equipment_weight_limit_multiplier_hint"
-      text="장착 가능한 아이템을 계산할 때 기본 무게 한도에 적용되는 배수입니다." />
+      text="최대 총 장비 무게 한도에 영향을 미칩니다." />
     <string
-      id="ret_mcm_option_equipments_take_time_to_equip"
-      text="장비 장착에는 시간이 걸립니다" />
+      id="ret_mcm_option_equipping_progresses_while_travelling"
+      text="여행 중 장비" />
     <string
-      id="ret_mcm_option_equipments_take_time_to_equip_hint"
-      text="활성화되면 부대 장비가 즉시 완료되지 않고 완료하는 데 시간이 걸립니다." />
+      id="ret_mcm_option_equipping_progresses_while_travelling_hint"
+      text="파티가 여행하는 동안 장비가 진행되는지 또는 정착지에서 대기하는 동안에만 진행되는지 여부입니다." />
     <string
-      id="ret_mcm_option_limit_equipment_by_value"
-      text="티어 기반 장비 가치 한도" />
+      id="ret_mcm_option_equipping_takes_time"
+      text="장비에는 시간이 걸립니다" />
     <string
-      id="ret_mcm_option_limit_equipment_by_value_hint"
-      text="부대 티어 및 총 아이템 가치를 기반으로 장착 가능한 아이템을 제한할지 여부입니다." />
-    <string
-      id="ret_mcm_option_limit_equipment_by_weight"
-      text="티어 기반 장비 무게 한도" />
-    <string
-      id="ret_mcm_option_limit_equipment_by_weight_hint"
-      text="부대 티어 및 총 아이템 무게를 기반으로 장착 가능한 아이템을 제한할지 여부입니다." />
+      id="ret_mcm_option_equipping_takes_time_hint"
+      text="활성화되면 부대를 장비하는 것이 즉각적이지 않으며 완료하는 데 시간이 걸립니다." />
     <string
       id="ret_mcm_option_max_retinue_ratio"
       text="최대 Retinue 비율" />
@@ -800,53 +803,65 @@
       id="ret_mcm_option_max_retinue_ratio_hint"
       text="파티 크기 제한의 비율로서 최대 Retinues 수입니다." />
     <string
-      id="ret_mcm_option_required_discards_for_unlock"
-      text="잠금 해제에 필요한 폐기물" />
+      id="ret_mcm_option_required_discards_to_unlock"
+      text="잠금을 해제하는 데 필요한 폐기물" />
     <string
-      id="ret_mcm_option_required_discards_for_unlock_hint"
+      id="ret_mcm_option_required_discards_to_unlock_hint"
       text="항목의 잠금을 해제하기 위해 폐기해야 하는 횟수입니다." />
     <string
-      id="ret_mcm_option_required_kills_for_unlock"
-      text="잠금 해제에 필요한 킬 수" />
+      id="ret_mcm_option_required_kills_to_unlock"
+      text="잠금을 해제하는 데 필요한 킬 수" />
     <string
-      id="ret_mcm_option_required_kills_for_unlock_hint"
+      id="ret_mcm_option_required_kills_to_unlock_hint"
       text="잠금을 해제하기 위해 물건을 착용한 적군 부대의 수입니다." />
     <string
       id="ret_mcm_option_skill_cap"
-      text="티어 {TIER} 기술 한도" />
+      text="티어 {TIER}" />
     <string
       id="ret_mcm_option_skill_cap_hint"
       text="티어 {TIER} 부대의 최대 기술 수준입니다." />
     <string
-      id="ret_mcm_option_skill_improve_time_multiplier"
-      text="기술 향상 시간 배수" />
-    <string
-      id="ret_mcm_option_skill_improve_time_multiplier_hint"
-      text="기술 향상에 걸리는 시간을 계산할 때 기본 향상 시간에 적용되는 배수입니다." />
-    <string
       id="ret_mcm_option_skill_points_gain_rate"
-      text="기술 포인트 획득률" />
+      text="획득 속도" />
     <string
       id="ret_mcm_option_skill_points_gain_rate_hint"
       text="부대가 전투에서 기술 포인트를 얻는 속도입니다." />
     <string
+      id="ret_mcm_option_skill_progress_per_day"
+      text="하루 훈련 포인트" />
+    <string
+      id="ret_mcm_option_skill_progress_per_day_hint"
+      text="하루 포인트로 훈련 속도를 결정합니다." />
+    <string
       id="ret_mcm_option_skill_total"
-      text="티어 {TIER} 기술 총합" />
+      text="티어 {TIER}" />
     <string
       id="ret_mcm_option_skill_total_hint"
-      text="티어 {TIER} 부대의 총 사용 가능한 기술 포인트입니다." />
-    <string
-      id="ret_mcm_option_skills_take_time_to_improve"
-      text="기술 향상에는 시간이 걸립니다" />
-    <string
-      id="ret_mcm_option_skills_take_time_to_improve_hint"
-      text="활성화되면 기술 향상이 즉시 완료되지 않고 향상하는 데 시간이 걸립니다." />
+      text="티어 {TIER} 부대의 최대 총 기술 포인트입니다." />
     <string
       id="ret_mcm_option_starter_equipment"
       text="초기 장비" />
     <string
       id="ret_mcm_option_starter_equipment_hint"
       text="새로 잠금 해제된 부대의 시작 장비를 설정합니다." />
+    <string
+      id="ret_mcm_option_time_multiplier"
+      text="장비 시간 배수" />
+    <string
+      id="ret_mcm_option_time_multiplier_hint"
+      text="새 장비를 장착하는 데 걸리는 시간을 결정합니다." />
+    <string
+      id="ret_mcm_option_training_progresses_while_travelling"
+      text="여행 중 훈련" />
+    <string
+      id="ret_mcm_option_training_progresses_while_travelling_hint"
+      text="파티가 여행하는 동안 훈련 진행이 발생하는지 또는 정착지에서 대기하는 동안에만 발생하는지 여부입니다." />
+    <string
+      id="ret_mcm_option_training_takes_time"
+      text="훈련에는 시간이 걸립니다" />
+    <string
+      id="ret_mcm_option_training_takes_time_hint"
+      text="활성화되면 기술 향상이 즉각적이지 않으며 개선하는 데 시간이 걸립니다." />
     <string
       id="ret_mcm_option_unlock_items_through_discards"
       text="폐기를 통해 항목 잠금 해제" />
@@ -859,6 +874,9 @@
     <string
       id="ret_mcm_option_unlock_items_through_kills_hint"
       text="전투에서 적을 물리쳐 항목이 잠금 해제되는지 여부입니다." />
+    <string
+      id="ret_mcm_option_weight_limit_hint"
+      text="총 장비 무게를 제한할지 여부(제한은 티어 기반임)." />
     <string
       id="ret_mcm_section_debug"
       text="디버그" />
@@ -887,8 +905,8 @@
       id="ret_mcm_section_skills"
       text="기술" />
     <string
-      id="ret_mcm_section_troop_unlocks"
-      text="부대 잠금 해제" />
+      id="ret_mcm_section_troops"
+      text="부대" />
     <string
       id="ret_mcm_section_user_interface"
       text="사용자 인터페이스" />
@@ -1018,6 +1036,9 @@
     <string
       id="ret_sort_by_value"
       text="값" />
+    <string
+      id="ret_staged_skill_unlock"
+      text="{TROOP} 이(가) {SKILL} 을(를) {VALUE} 로 향상시켰습니다." />
     <string
       id="ret_starter_equipment_all_sets"
       text="모든 세트 복사" />

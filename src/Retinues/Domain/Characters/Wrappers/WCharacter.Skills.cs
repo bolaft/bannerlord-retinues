@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using Retinues.Configuration;
+using Retinues.Editor;
 using Retinues.Framework.Model.Attributes;
 using Retinues.Framework.Runtime;
 using Retinues.Utilities;
 using TaleWorlds.Core;
+using TaleWorlds.ObjectSystem;
 
 namespace Retinues.Domain.Characters.Wrappers
 {
@@ -21,41 +23,6 @@ namespace Retinues.Domain.Characters.Wrappers
             get => SkillPointsAttribute.Get();
             set => SkillPointsAttribute.Set(value);
         }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                    Skill Rules (Tier)                  //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        const int MaxSkillLevel = 360;
-
-        public int SkillCapForTier =>
-            !IsHero ? Helpers.SkillsHelper.GetSkillCapForTier(Tier) : MaxSkillLevel;
-
-        public int SkillTotalMaxForTier =>
-            !IsHero ? Helpers.SkillsHelper.GetSkillTotalForTier(Tier) : int.MaxValue;
-
-        public int SkillTotalUsed
-        {
-            get
-            {
-                // Sum the currently relevant skills for this character type.
-                var list = Helpers.SkillsHelper.GetSkillListForCharacter(
-                    IsHero,
-                    includeModded: true
-                );
-                if (list == null || list.Count == 0)
-                    return 0;
-
-                int sum = 0;
-                foreach (var s in list)
-                    sum += Skills.Get(s);
-
-                return sum;
-            }
-        }
-
-        public int SkillTotalRemaining =>
-            !IsHero ? Math.Max(0, SkillTotalMaxForTier - SkillTotalUsed) : int.MaxValue;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Skills                         //
@@ -109,7 +76,7 @@ namespace Retinues.Domain.Characters.Wrappers
             private readonly Dictionary<SkillObject, MAttribute<int>> _attributes = [];
 
             private MAttribute<int> MakeSkillAttribute(SkillObject skill) =>
-                // Use the wrapper's Attribute helper to create a per‑skill attribute. The
+                // Use the wrapper's Attribute helper to create a per-skill attribute. The
                 // target name is stable across saves to persist each skill independently.
                 _wc.Attribute(
                     getter: _ => _wc.Base.GetSkillValue(skill),
@@ -126,9 +93,9 @@ namespace Retinues.Domain.Characters.Wrappers
                 ((PropertyOwner<SkillObject>)(object)skills.Skills).SetPropertyValue(skill, value);
             }
 
-            /* ━━━━━━━ Get / Set ━━━━━━ */
+            /* ━━━━━━━ Helpers ━━━━━━━ */
 
-            public int Get(SkillObject skill)
+            private int GetBase(SkillObject skill)
             {
                 if (skill == null)
                     return 0;
@@ -136,8 +103,30 @@ namespace Retinues.Domain.Characters.Wrappers
                 if (_attributes.TryGetValue(skill, out var attribute))
                     return attribute.Get();
 
-                // Fallback for unexpected/mod-added skills
                 return _wc.Base.GetSkillValue(skill);
+            }
+
+            private int GetStaged(SkillObject skill)
+            {
+                if (skill == null || string.IsNullOrEmpty(skill.StringId))
+                    return 0;
+
+                return _wc.GetStagedSkillDelta(skill.StringId);
+            }
+
+            public bool IsStaged(SkillObject skill) =>
+                IsSkillStagingActive(_wc) && GetStaged(skill) > 0;
+
+            /* ━━━━━━━ Get / Set ━━━━━━ */
+
+            public int Get(SkillObject skill)
+            {
+                var baseValue = GetBase(skill);
+
+                if (!IsSkillStagingActive(_wc))
+                    return baseValue;
+
+                return baseValue + GetStaged(skill);
             }
 
             public void Set(SkillObject skill, int value)
@@ -160,12 +149,235 @@ namespace Retinues.Domain.Characters.Wrappers
 
             public void Modify(SkillObject skill, int amount)
             {
-                if (skill == null)
+                if (skill == null || amount == 0)
                     return;
 
-                var current = Get(skill);
-                Set(skill, current + amount);
+                // Default behavior (universal mode, setting off, heroes, outside editor):
+                // apply instantly to the base skill.
+                if (!IsSkillStagingActive(_wc))
+                {
+                    var current = Get(skill);
+                    Set(skill, current + amount);
+                    return;
+                }
+
+                // Staging behavior (player mode only, WCharacter only):
+                // - increases are staged
+                // - decreases consume staging first, then apply instantly to base
+                var id = skill.StringId;
+                if (string.IsNullOrEmpty(id))
+                    return;
+
+                if (amount > 0)
+                {
+                    _wc.AddStagedSkillDelta(id, amount);
+                    return;
+                }
+
+                var remaining = -amount;
+
+                var staged = _wc.GetStagedSkillDelta(id);
+                if (staged > 0)
+                {
+                    var consume = Math.Min(staged, remaining);
+                    _wc.AddStagedSkillDelta(id, -consume);
+                    remaining -= consume;
+                }
+
+                if (remaining > 0)
+                {
+                    var currentBase = GetBase(skill);
+                    Set(skill, currentBase - remaining);
+                }
             }
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                    Skill Rules (Tier)                  //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        const int MaxSkillLevel = 360;
+
+        public int SkillCapForTier =>
+            !IsHero ? Helpers.SkillsHelper.GetSkillCapForTier(Tier) : MaxSkillLevel;
+
+        public int SkillTotalMaxForTier =>
+            !IsHero ? Helpers.SkillsHelper.GetSkillTotalForTier(Tier) : int.MaxValue;
+
+        public int SkillTotalUsed
+        {
+            get
+            {
+                // Sum the currently relevant skills for this character type.
+                // If staging is enabled, Skills.Get() returns base + staged.
+                var list = Helpers.SkillsHelper.GetSkillListForCharacter(
+                    IsHero,
+                    includeModded: true
+                );
+                if (list == null || list.Count == 0)
+                    return 0;
+
+                int sum = 0;
+                foreach (var s in list)
+                    sum += Skills.Get(s);
+
+                return sum;
+            }
+        }
+
+        public int SkillTotalRemaining =>
+            !IsHero ? Math.Max(0, SkillTotalMaxForTier - SkillTotalUsed) : int.MaxValue;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Skills Staging                    //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        MAttribute<Dictionary<string, int>> SkillsStagingAttribute =>
+            Attribute(initialValue: new Dictionary<string, int>(), name: "SkillsStaging");
+
+        /// <summary>
+        /// Map of staged skill increases by SkillObject.StringId.
+        /// Stored as an attribute so it persists via the attribute store.
+        /// </summary>
+        public Dictionary<string, int> SkillsStaging
+        {
+            get => new(SkillsStagingAttribute.Get() ?? new Dictionary<string, int>());
+            set => SkillsStagingAttribute.Set(value == null ? new() : new(value));
+        }
+
+        internal int GetStagedSkillDelta(string skillId)
+        {
+            if (string.IsNullOrEmpty(skillId))
+                return 0;
+
+            var map = SkillsStagingAttribute.Get();
+            if (map == null)
+                return 0;
+
+            return map.TryGetValue(skillId, out var v) ? Math.Max(0, v) : 0;
+        }
+
+        internal bool HasStagedSkillDelta(string skillId) => GetStagedSkillDelta(skillId) > 0;
+
+        internal void AddStagedSkillDelta(string skillId, int delta)
+        {
+            if (string.IsNullOrEmpty(skillId) || delta == 0)
+                return;
+
+            var current = SkillsStagingAttribute.Get() ?? new Dictionary<string, int>();
+            var map = new Dictionary<string, int>(current);
+
+            map.TryGetValue(skillId, out var oldValue);
+            var next = Math.Max(0, oldValue + delta);
+
+            if (next <= 0)
+                map.Remove(skillId);
+            else
+                map[skillId] = next;
+
+            if (map.Count == current.Count && next == oldValue)
+                return;
+
+            SkillsStagingAttribute.Set(map);
+        }
+
+        internal static bool IsSkillStagingActive(WCharacter wc)
+        {
+            if (wc == null || wc.IsHero)
+                return false;
+
+            if (!Settings.TrainingTakesTime)
+                return false;
+
+            return EditorState.Instance.Mode == EditorMode.Player;
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                 Skills Staging Progress                //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        MAttribute<float> SkillStagingProgressAttribute =>
+            Attribute(initialValue: 0f, name: "SkillStagingProgress");
+
+        public float SkillStagingProgress
+        {
+            get => SkillStagingProgressAttribute.Get();
+            set => SkillStagingProgressAttribute.Set(value);
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                 Staged Training Helpers                //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public bool HasAnyStagedSkillPoints()
+        {
+            var map = SkillsStagingAttribute.Get();
+            if (map == null || map.Count == 0)
+                return false;
+
+            foreach (var kv in map)
+            {
+                if (kv.Value > 0)
+                    return true;
+            }
+
+            return false;
+        }
+
+        internal bool TryApplyOneStagedSkillPointRandom(out SkillObject skill, out int newValue)
+        {
+            skill = null;
+            newValue = Skills.Get(skill) + 1;
+
+            var map0 = SkillsStagingAttribute.Get();
+            if (map0 == null || map0.Count == 0)
+                return false;
+
+            // Snapshot keys with > 0 staged points.
+            var keys = new List<string>();
+            foreach (var kv in map0)
+            {
+                if (!string.IsNullOrEmpty(kv.Key) && kv.Value > 0)
+                    keys.Add(kv.Key);
+            }
+
+            if (keys.Count == 0)
+                return false;
+
+            // Random pick among staged skills.
+            var pick = keys[MBRandom.RandomInt(keys.Count)];
+
+            var manager = MBObjectManager.Instance;
+            if (manager == null)
+                return false;
+
+            skill = manager.GetObject<SkillObject>(pick);
+            if (skill == null)
+            {
+                // Clean invalid entry (mod removed etc).
+                AddStagedSkillDelta(pick, -int.MaxValue);
+                return false;
+            }
+
+            // Apply to base skill (not staged).
+            int baseValue = Base.GetSkillValue(skill);
+            int next = Math.Min(360, baseValue + 1);
+            SetBaseSkillValue(skill, next);
+
+            // Consume one staged point.
+            AddStagedSkillDelta(pick, -1);
+
+            return true;
+        }
+
+        private void SetBaseSkillValue(SkillObject skill, int value)
+        {
+            var skills = Reflection.GetFieldValue<MBCharacterSkills>(
+                Base,
+                "DefaultCharacterSkills"
+            );
+
+            ((PropertyOwner<SkillObject>)(object)skills.Skills).SetPropertyValue(skill, value);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

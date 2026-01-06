@@ -1,3 +1,4 @@
+using Retinues.Domain.Characters.Wrappers;
 using Retinues.Editor.Controllers.Character;
 using Retinues.Editor.Events;
 using Retinues.UI.VM;
@@ -22,8 +23,14 @@ namespace Retinues.Editor.VM.Panel.Character
         [DataSourceProperty]
         public int Value => State.Character.Editable.Skills.Get(skill);
 
+        [EventListener(UIEvent.Skill)]
         [DataSourceProperty]
-        public string ValueColor => "#F4E1C4FF";
+        public bool IsStaged =>
+            State.Character?.Editable is WCharacter wc && wc.Skills.IsStaged(skill);
+
+        [EventListener(UIEvent.Skill)]
+        [DataSourceProperty]
+        public string ValueColor => IsStaged ? "#ebaf2fff" : "#F4E1C4FF";
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Buttons                        //

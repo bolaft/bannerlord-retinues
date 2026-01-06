@@ -126,8 +126,8 @@ namespace Retinues.Game
             if (culture?.Base == null)
                 return;
 
-            int targetPerSlot = Math.Max(0, Settings.DefaultUnlockedAmountPerSlot.Value);
-            int maxTier = Math.Max(0, Math.Min(6, Settings.DefaultUnlockedItemMaxTier.Value));
+            int targetPerSlot = Math.Max(0, Settings.DefaultUnlockedAmountPerSlot);
+            int maxTier = Math.Max(0, Math.Min(6, Settings.DefaultUnlockedItemMaxTier));
 
             if (targetPerSlot <= 0)
                 return;

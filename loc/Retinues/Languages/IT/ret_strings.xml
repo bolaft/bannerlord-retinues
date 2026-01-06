@@ -209,6 +209,12 @@
       id="ret_culture_header_text_with_race"
       text="Cultura e Specie" />
     <string
+      id="ret_customization_hint_hide"
+      text="Mostra i controlli di personalizzazione" />
+    <string
+      id="ret_customization_hint_show"
+      text="Nascondi i controlli di personalizzazione" />
+    <string
       id="ret_dependencies_all_ok"
       text="Tutte le dipendenze sono state inizializzate correttamente." />
     <string
@@ -225,10 +231,10 @@
       text="Versione errata" />
     <string
       id="ret_editing_restriction_in_fief"
-      text="Nel feudo della fazione" />
+      text="Feudo di fazione" />
     <string
       id="ret_editing_restriction_in_settlement"
-      text="In qualsiasi insediamento" />
+      text="Qualsiasi feudo" />
     <string
       id="ret_editing_restriction_need_faction_fief_reason"
       text="Puoi modificare questa unità solo in un feudo di proprietà di {FACTION}." />
@@ -692,12 +698,6 @@
       id="ret_mariner_toggle_tooltip_universal"
       text="I marinai sono più adatti al combattimento navale." />
     <string
-      id="ret_mcm_option_all_equipment_unlocked"
-      text="Tutto l&apos;equipaggiamento sbloccato" />
-    <string
-      id="ret_mcm_option_all_equipment_unlocked_hint"
-      text="Se tutto l&apos;equipaggiamento è immediatamente sbloccato o deve essere sbloccato attraverso il gameplay." />
-    <string
       id="ret_mcm_option_debug_mode"
       text="Modalità di debug" />
     <string
@@ -711,7 +711,7 @@
       text="Il numero di oggetti sbloccati per slot di equipaggiamento all&apos;inizio del gioco." />
     <string
       id="ret_mcm_option_default_unlocked_item_max_tier"
-      text="Livello massimo dell&apos;oggetto pre-sbloccato" />
+      text="Livello massimo pre-sbloccato" />
     <string
       id="ret_mcm_option_default_unlocked_item_max_tier_hint"
       text="Il livello massimo degli oggetti sbloccati all&apos;inizio del gioco." />
@@ -734,10 +734,7 @@
       id="ret_mcm_option_enable_doctrines_hint"
       text="Attiva o disattiva la funzione Dottrine." />
     <string
-      id="ret_mcm_option_enable_equipment_costs_system"
-      text="Abilita il sistema dei costi dell&apos;equipaggiamento" />
-    <string
-      id="ret_mcm_option_enable_equipment_costs_system_hint"
+      id="ret_mcm_option_enable_equipment_costs_money_hint"
       text="Se abilitato, equipaggiare le truppe costerà oro. Abilita anche il sistema di scorte." />
     <string
       id="ret_mcm_option_enable_retinues"
@@ -747,52 +744,58 @@
       text="Attiva o disattiva la funzione Retinues." />
     <string
       id="ret_mcm_option_enable_skill_gain_system"
-      text="Abilita il sistema di guadagno delle abilità" />
+      text="I Punti Abilità Devono Essere Guadagnati" />
     <string
       id="ret_mcm_option_enable_skill_gain_system_hint"
       text="Se abilitato, le truppe dovranno guadagnare punti abilità in battaglia prima di salire di livello nelle abilità." />
     <string
+      id="ret_mcm_option_equipment_cost_money"
+      text="L&apos;equipaggiamento costa denaro" />
+    <string
       id="ret_mcm_option_equipment_cost_multiplier"
-      text="Moltiplicatore del costo dell&apos;equipaggiamento" />
+      text="Moltiplicatore di costo" />
     <string
       id="ret_mcm_option_equipment_cost_multiplier_hint"
-      text="Moltiplicatore applicato al costo base degli oggetti durante il calcolo dei costi di equipaggiamento." />
+      text="Determina il costo per equipaggiare un nuovo pezzo di equipaggiamento." />
     <string
-      id="ret_mcm_option_equipment_time_multiplier"
-      text="Moltiplicatore del tempo di equipaggiamento" />
+      id="ret_mcm_option_equipment_needs_unlocking"
+      text="L&apos;equipaggiamento deve essere sbloccato" />
     <string
-      id="ret_mcm_option_equipment_time_multiplier_hint"
-      text="Moltiplicatore applicato al tempo di equipaggiamento base durante il calcolo di quanto tempo richiede l&apos;equipaggiamento." />
+      id="ret_mcm_option_equipment_needs_unlocking_hint"
+      text="Se abilitato, le truppe dovranno sbloccare gli oggetti di equipaggiamento prima di poterli equipaggiare." />
+    <string
+      id="ret_mcm_option_equipment_value_limit"
+      text="Limite per valore" />
+    <string
+      id="ret_mcm_option_equipment_value_limit_hint"
+      text="Se limitare il valore totale dell&apos;equipaggiamento (i limiti sono basati sui livelli)." />
     <string
       id="ret_mcm_option_equipment_value_limit_multiplier"
-      text="Moltiplicatore del limite di valore dell&apos;equipaggiamento" />
+      text="Moltiplicatore del limite di valore" />
     <string
       id="ret_mcm_option_equipment_value_limit_multiplier_hint"
-      text="Moltiplicatore applicato al limite di valore base durante il calcolo degli oggetti equipaggiabili." />
+      text="Influisce sul limite massimo del valore totale dell&apos;equipaggiamento." />
+    <string
+      id="ret_mcm_option_equipment_weight_limit"
+      text="Limite per peso" />
     <string
       id="ret_mcm_option_equipment_weight_limit_multiplier"
-      text="Moltiplicatore del limite di peso dell&apos;equipaggiamento" />
+      text="Moltiplicatore del limite di peso" />
     <string
       id="ret_mcm_option_equipment_weight_limit_multiplier_hint"
-      text="Moltiplicatore applicato al limite di peso base durante il calcolo degli oggetti equipaggiabili." />
+      text="Influisce sul limite massimo del peso totale dell&apos;equipaggiamento." />
     <string
-      id="ret_mcm_option_equipments_take_time_to_equip"
-      text="Gli equipaggiamenti richiedono tempo per essere equipaggiati" />
+      id="ret_mcm_option_equipping_progresses_while_travelling"
+      text="Equipaggia durante il viaggio" />
     <string
-      id="ret_mcm_option_equipments_take_time_to_equip_hint"
+      id="ret_mcm_option_equipping_progresses_while_travelling_hint"
+      text="Se l&apos;equipaggiamento progredisce mentre il gruppo viaggia o solo durante l&apos;attesa negli insediamenti." />
+    <string
+      id="ret_mcm_option_equipping_takes_time"
+      text="Equipaggiare richiede tempo" />
+    <string
+      id="ret_mcm_option_equipping_takes_time_hint"
       text="Se abilitato, equipaggiare le truppe non sarà istantaneo e richiederà del tempo per essere completato." />
-    <string
-      id="ret_mcm_option_limit_equipment_by_value"
-      text="Limiti di valore dell&apos;equipaggiamento basati sul livello" />
-    <string
-      id="ret_mcm_option_limit_equipment_by_value_hint"
-      text="Se limitare gli oggetti equipaggiabili in base al livello delle truppe e ai valori totali degli oggetti." />
-    <string
-      id="ret_mcm_option_limit_equipment_by_weight"
-      text="Limiti di peso dell&apos;equipaggiamento basati sul livello" />
-    <string
-      id="ret_mcm_option_limit_equipment_by_weight_hint"
-      text="Se limitare gli oggetti equipaggiabili in base al livello delle truppe e ai pesi totali degli oggetti." />
     <string
       id="ret_mcm_option_max_retinue_ratio"
       text="Rapporto massimo di Retinues" />
@@ -800,53 +803,65 @@
       id="ret_mcm_option_max_retinue_ratio_hint"
       text="Il numero massimo di Retinues in rapporto al limite di dimensione del gruppo." />
     <string
-      id="ret_mcm_option_required_discards_for_unlock"
+      id="ret_mcm_option_required_discards_to_unlock"
       text="Scarti necessari per sbloccare" />
     <string
-      id="ret_mcm_option_required_discards_for_unlock_hint"
+      id="ret_mcm_option_required_discards_to_unlock_hint"
       text="Il numero di volte in cui un oggetto deve essere scartato per sbloccarlo." />
     <string
-      id="ret_mcm_option_required_kills_for_unlock"
+      id="ret_mcm_option_required_kills_to_unlock"
       text="Uccisioni necessarie per sbloccare" />
     <string
-      id="ret_mcm_option_required_kills_for_unlock_hint"
+      id="ret_mcm_option_required_kills_to_unlock_hint"
       text="Il numero di truppe nemiche che indossano un oggetto che devono essere sconfitte per sbloccarlo." />
     <string
       id="ret_mcm_option_skill_cap"
-      text="Limite di abilità del livello {TIER}" />
+      text="Livello {TIER}" />
     <string
       id="ret_mcm_option_skill_cap_hint"
       text="Livello massimo di abilità per le truppe del livello {TIER}." />
     <string
-      id="ret_mcm_option_skill_improve_time_multiplier"
-      text="Moltiplicatore del tempo di miglioramento delle abilità" />
-    <string
-      id="ret_mcm_option_skill_improve_time_multiplier_hint"
-      text="Moltiplicatore applicato al tempo di miglioramento base durante il calcolo di quanto tempo richiedono gli aumenti delle abilità." />
-    <string
       id="ret_mcm_option_skill_points_gain_rate"
-      text="Tasso di guadagno dei punti abilità" />
+      text="Tasso di guadagno" />
     <string
       id="ret_mcm_option_skill_points_gain_rate_hint"
       text="Velocità con cui le truppe guadagnano punti abilità in battaglia." />
     <string
+      id="ret_mcm_option_skill_progress_per_day"
+      text="Punti addestrati al giorno" />
+    <string
+      id="ret_mcm_option_skill_progress_per_day_hint"
+      text="Determina la velocità di allenamento in punti al giorno." />
+    <string
       id="ret_mcm_option_skill_total"
-      text="Totale abilità del livello {TIER}" />
+      text="Livello {TIER}" />
     <string
       id="ret_mcm_option_skill_total_hint"
-      text="Totale punti abilità disponibili per le truppe del livello {TIER}." />
-    <string
-      id="ret_mcm_option_skills_take_time_to_improve"
-      text="Le abilità richiedono tempo per migliorare" />
-    <string
-      id="ret_mcm_option_skills_take_time_to_improve_hint"
-      text="Se abilitato, aumentare le abilità non sarà istantaneo e richiederà del tempo per migliorare." />
+      text="Punti totali massimi di abilità per le truppe del livello {TIER}." />
     <string
       id="ret_mcm_option_starter_equipment"
       text="Equipaggiamento iniziale" />
     <string
       id="ret_mcm_option_starter_equipment_hint"
       text="Imposta l&apos;equipaggiamento iniziale per le truppe appena sbloccate." />
+    <string
+      id="ret_mcm_option_time_multiplier"
+      text="Moltiplicatore del tempo di equipaggiamento" />
+    <string
+      id="ret_mcm_option_time_multiplier_hint"
+      text="Determina quanto tempo ci vuole per equipaggiare un nuovo pezzo di equipaggiamento." />
+    <string
+      id="ret_mcm_option_training_progresses_while_travelling"
+      text="Allena durante il viaggio" />
+    <string
+      id="ret_mcm_option_training_progresses_while_travelling_hint"
+      text="Se il progresso dell&apos;addestramento avviene mentre il gruppo viaggia o solo durante l&apos;attesa negli insediamenti." />
+    <string
+      id="ret_mcm_option_training_takes_time"
+      text="L&apos;addestramento richiede tempo" />
+    <string
+      id="ret_mcm_option_training_takes_time_hint"
+      text="Se abilitato, l&apos;aumento delle abilità non sarà istantaneo e richiederà del tempo per essere migliorato." />
     <string
       id="ret_mcm_option_unlock_items_through_discards"
       text="Sblocca gli oggetti attraverso gli scarti" />
@@ -859,6 +874,9 @@
     <string
       id="ret_mcm_option_unlock_items_through_kills_hint"
       text="Se gli oggetti vengono sbloccati sconfiggendo i nemici nelle battaglie." />
+    <string
+      id="ret_mcm_option_weight_limit_hint"
+      text="Se limitare il peso totale dell&apos;equipaggiamento (i limiti sono basati sui livelli)." />
     <string
       id="ret_mcm_section_debug"
       text="Debug" />
@@ -887,8 +905,8 @@
       id="ret_mcm_section_skills"
       text="Abilità" />
     <string
-      id="ret_mcm_section_troop_unlocks"
-      text="Sblocchi delle truppe" />
+      id="ret_mcm_section_troops"
+      text="Truppe" />
     <string
       id="ret_mcm_section_user_interface"
       text="Interfaccia utente" />
@@ -1018,6 +1036,9 @@
     <string
       id="ret_sort_by_value"
       text="Valore" />
+    <string
+      id="ret_staged_skill_unlock"
+      text="{TROOP} ha migliorato {SKILL} a {VALUE}." />
     <string
       id="ret_starter_equipment_all_sets"
       text="Copia tutti i set" />

@@ -25,8 +25,8 @@ namespace Retinues.Editor.VM.Panel.Equipment
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private static bool IsPlayerMode => State.Mode == EditorMode.Player;
-        private static bool WeightLimitActive => IsPlayerMode && Settings.LimitEquipmentByWeight;
-        private static bool ValueLimitActive => IsPlayerMode && Settings.LimitEquipmentByValue;
+        private static bool WeightLimitActive => IsPlayerMode && Settings.EquipmentWeightLimit;
+        private static bool ValueLimitActive => IsPlayerMode && Settings.EquipmentValueLimit;
 
         [EventListener(UIEvent.Item)]
         [EventListener(UIEvent.Equipment)]

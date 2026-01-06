@@ -30,12 +30,9 @@ namespace Retinues.Editor.VM.Column
         [DataSourceProperty]
         public Tooltip CustomizationHint =>
             new(
-                L.S(
-                    "customization_hint",
-                    ShowCustomization
-                        ? "Hide Customization Controls"
-                        : "Show Customization Controls"
-                )
+                ShowCustomization
+                    ? L.S("customization_hint_show", "Hide Customization Controls")
+                    : L.S("customization_hint_hide", "Show Customization Controls")
             );
 
         [DataSourceMethod]

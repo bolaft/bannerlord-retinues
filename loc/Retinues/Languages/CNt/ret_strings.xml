@@ -209,6 +209,12 @@
       id="ret_culture_header_text_with_race"
       text="文化與物種" />
     <string
+      id="ret_customization_hint_hide"
+      text="顯示自定義控件" />
+    <string
+      id="ret_customization_hint_show"
+      text="隱藏自定義控件" />
+    <string
       id="ret_dependencies_all_ok"
       text="所有依賴項均已正確初始化。" />
     <string
@@ -225,10 +231,10 @@
       text="錯誤的版本" />
     <string
       id="ret_editing_restriction_in_fief"
-      text="在派系封地內" />
+      text="派系封地" />
     <string
       id="ret_editing_restriction_in_settlement"
-      text="在任何定居點內" />
+      text="任何封地" />
     <string
       id="ret_editing_restriction_need_faction_fief_reason"
       text="您只能在屬於 {FACTION} 的封地中編輯此單位。" />
@@ -692,12 +698,6 @@
       id="ret_mariner_toggle_tooltip_universal"
       text="水手更適合海戰。" />
     <string
-      id="ret_mcm_option_all_equipment_unlocked"
-      text="所有裝備已解鎖" />
-    <string
-      id="ret_mcm_option_all_equipment_unlocked_hint"
-      text="所有裝備是立即解鎖還是需要通過遊戲玩法解鎖。" />
-    <string
       id="ret_mcm_option_debug_mode"
       text="調試模式" />
     <string
@@ -711,7 +711,7 @@
       text="遊戲開始時每個裝備槽解鎖的物品數量。" />
     <string
       id="ret_mcm_option_default_unlocked_item_max_tier"
-      text="預解鎖物品最高等級" />
+      text="預解鎖最高等級" />
     <string
       id="ret_mcm_option_default_unlocked_item_max_tier_hint"
       text="遊戲開始時解鎖的物品的最高等級。" />
@@ -734,10 +734,7 @@
       id="ret_mcm_option_enable_doctrines_hint"
       text="切換學說功能的開或關。" />
     <string
-      id="ret_mcm_option_enable_equipment_costs_system"
-      text="啟用裝備成本系統" />
-    <string
-      id="ret_mcm_option_enable_equipment_costs_system_hint"
+      id="ret_mcm_option_enable_equipment_costs_money_hint"
       text="如果啟用，裝備部隊將花費金幣。還啟用庫存系統。" />
     <string
       id="ret_mcm_option_enable_retinues"
@@ -747,52 +744,58 @@
       text="切換隨從功能的開或關。" />
     <string
       id="ret_mcm_option_enable_skill_gain_system"
-      text="啟用技能提升系統" />
+      text="必須獲得技能點" />
     <string
       id="ret_mcm_option_enable_skill_gain_system_hint"
       text="如果啟用，部隊需要在戰鬥中獲得技能點才能提升技能等級。" />
     <string
+      id="ret_mcm_option_equipment_cost_money"
+      text="裝備需要花錢" />
+    <string
       id="ret_mcm_option_equipment_cost_multiplier"
-      text="裝備成本乘數" />
+      text="成本乘數" />
     <string
       id="ret_mcm_option_equipment_cost_multiplier_hint"
-      text="計算裝備成本時應用於物品基礎成本的乘數。" />
+      text="決定裝備新裝備的成本。" />
     <string
-      id="ret_mcm_option_equipment_time_multiplier"
-      text="裝備時間乘數" />
+      id="ret_mcm_option_equipment_needs_unlocking"
+      text="裝備需要解鎖" />
     <string
-      id="ret_mcm_option_equipment_time_multiplier_hint"
-      text="計算裝備所需時間時應用於基礎裝備時間的乘數。" />
+      id="ret_mcm_option_equipment_needs_unlocking_hint"
+      text="如果啟用，部隊需要解鎖裝備物品才能裝備它們。" />
+    <string
+      id="ret_mcm_option_equipment_value_limit"
+      text="按價值限制" />
+    <string
+      id="ret_mcm_option_equipment_value_limit_hint"
+      text="是否限制總裝備價值（限制基於等級）。" />
     <string
       id="ret_mcm_option_equipment_value_limit_multiplier"
-      text="裝備價值限制乘數" />
+      text="價值限制乘數" />
     <string
       id="ret_mcm_option_equipment_value_limit_multiplier_hint"
-      text="計算可裝備物品時應用於基礎價值限制的乘數。" />
+      text="影響最大總裝備價值限制。" />
+    <string
+      id="ret_mcm_option_equipment_weight_limit"
+      text="按重量限制" />
     <string
       id="ret_mcm_option_equipment_weight_limit_multiplier"
-      text="裝備重量限制乘數" />
+      text="重量限制乘數" />
     <string
       id="ret_mcm_option_equipment_weight_limit_multiplier_hint"
-      text="計算可裝備物品時應用於基礎重量限制的乘數。" />
+      text="影響最大總裝備重量限制。" />
     <string
-      id="ret_mcm_option_equipments_take_time_to_equip"
-      text="裝備需要時間來裝備" />
+      id="ret_mcm_option_equipping_progresses_while_travelling"
+      text="旅行時裝備" />
     <string
-      id="ret_mcm_option_equipments_take_time_to_equip_hint"
-      text="如果啟用，裝備部隊將不是即時完成的，而是需要時間來完成。" />
+      id="ret_mcm_option_equipping_progresses_while_travelling_hint"
+      text="裝備是在隊伍旅行時進行，還是僅在定居點等待時進行。" />
     <string
-      id="ret_mcm_option_limit_equipment_by_value"
-      text="基於等級的裝備價值限制" />
+      id="ret_mcm_option_equipping_takes_time"
+      text="裝備需要時間" />
     <string
-      id="ret_mcm_option_limit_equipment_by_value_hint"
-      text="是否根據部隊等級和物品總價值限制可裝備物品。" />
-    <string
-      id="ret_mcm_option_limit_equipment_by_weight"
-      text="基於等級的裝備重量限制" />
-    <string
-      id="ret_mcm_option_limit_equipment_by_weight_hint"
-      text="是否根據部隊等級和物品總重量限制可裝備物品。" />
+      id="ret_mcm_option_equipping_takes_time_hint"
+      text="如果啟用，裝備部隊將不是即時完成的，需要時間來完成。" />
     <string
       id="ret_mcm_option_max_retinue_ratio"
       text="最大隨從比例" />
@@ -800,53 +803,65 @@
       id="ret_mcm_option_max_retinue_ratio_hint"
       text="隨從的最大數量與隊伍規模限制的比例。" />
     <string
-      id="ret_mcm_option_required_discards_for_unlock"
+      id="ret_mcm_option_required_discards_to_unlock"
       text="解鎖所需的丟棄次數" />
     <string
-      id="ret_mcm_option_required_discards_for_unlock_hint"
+      id="ret_mcm_option_required_discards_to_unlock_hint"
       text="必須丟棄物品的次數才能解鎖它。" />
     <string
-      id="ret_mcm_option_required_kills_for_unlock"
+      id="ret_mcm_option_required_kills_to_unlock"
       text="解鎖所需的擊殺數" />
     <string
-      id="ret_mcm_option_required_kills_for_unlock_hint"
-      text="必須擊敗穿戴某物品的敵軍數量才能解鎖它。" />
+      id="ret_mcm_option_required_kills_to_unlock_hint"
+      text="必須擊敗穿戴某物品的敵軍部隊數量才能解鎖它。" />
     <string
       id="ret_mcm_option_skill_cap"
-      text="等級 {TIER} 技能上限" />
+      text="等級 {TIER}" />
     <string
       id="ret_mcm_option_skill_cap_hint"
       text="等級 {TIER} 部隊的最高技能水平。" />
     <string
-      id="ret_mcm_option_skill_improve_time_multiplier"
-      text="技能提升時間乘數" />
-    <string
-      id="ret_mcm_option_skill_improve_time_multiplier_hint"
-      text="計算技能提升所需時間時應用於基礎提升時間的乘數。" />
-    <string
       id="ret_mcm_option_skill_points_gain_rate"
-      text="技能點獲取速率" />
+      text="獲得速率" />
     <string
       id="ret_mcm_option_skill_points_gain_rate_hint"
       text="部隊在戰鬥中獲得技能點的速率。" />
     <string
+      id="ret_mcm_option_skill_progress_per_day"
+      text="每天訓練點數" />
+    <string
+      id="ret_mcm_option_skill_progress_per_day_hint"
+      text="確定每天的訓練速度（點數）。" />
+    <string
       id="ret_mcm_option_skill_total"
-      text="等級 {TIER} 技能總數" />
+      text="等級 {TIER}" />
     <string
       id="ret_mcm_option_skill_total_hint"
-      text="等級 {TIER} 部隊的可用技能點總數。" />
-    <string
-      id="ret_mcm_option_skills_take_time_to_improve"
-      text="技能提升需要時間" />
-    <string
-      id="ret_mcm_option_skills_take_time_to_improve_hint"
-      text="如果啟用，提升技能將不是即時完成的，而是需要時間來提升。" />
+      text="等級 {TIER} 部隊的最高總技能點數。" />
     <string
       id="ret_mcm_option_starter_equipment"
       text="起始裝備" />
     <string
       id="ret_mcm_option_starter_equipment_hint"
       text="為新解鎖的部隊設置起始裝備。" />
+    <string
+      id="ret_mcm_option_time_multiplier"
+      text="裝備時間乘數" />
+    <string
+      id="ret_mcm_option_time_multiplier_hint"
+      text="確定裝備一件新裝備需要多長時間。" />
+    <string
+      id="ret_mcm_option_training_progresses_while_travelling"
+      text="旅行時訓練" />
+    <string
+      id="ret_mcm_option_training_progresses_while_travelling_hint"
+      text="訓練進度是在隊伍旅行時進行，還是僅在定居點等待時進行。" />
+    <string
+      id="ret_mcm_option_training_takes_time"
+      text="訓練需要時間" />
+    <string
+      id="ret_mcm_option_training_takes_time_hint"
+      text="如果啟用，技能提升將不是即時完成的，需要時間來提升。" />
     <string
       id="ret_mcm_option_unlock_items_through_discards"
       text="通過丟棄解鎖物品" />
@@ -859,6 +874,9 @@
     <string
       id="ret_mcm_option_unlock_items_through_kills_hint"
       text="物品是否通過在戰鬥中擊敗敵人來解鎖。" />
+    <string
+      id="ret_mcm_option_weight_limit_hint"
+      text="是否限制總裝備重量（限制基於等級）。" />
     <string
       id="ret_mcm_section_debug"
       text="調試" />
@@ -887,8 +905,8 @@
       id="ret_mcm_section_skills"
       text="技能" />
     <string
-      id="ret_mcm_section_troop_unlocks"
-      text="部隊解鎖" />
+      id="ret_mcm_section_troops"
+      text="部隊" />
     <string
       id="ret_mcm_section_user_interface"
       text="用戶界面" />
@@ -1018,6 +1036,9 @@
     <string
       id="ret_sort_by_value"
       text="數值" />
+    <string
+      id="ret_staged_skill_unlock"
+      text="{TROOP} 將 {SKILL} 提升至 {VALUE}。" />
     <string
       id="ret_starter_equipment_all_sets"
       text="複製所有套裝" />

@@ -119,8 +119,8 @@ namespace Retinues.Domain.Equipments.Helpers
             }
 
             // Limits
-            bool weightLimitActive = enforceLimits && Settings.LimitEquipmentByWeight;
-            bool valueLimitActive = enforceLimits && Settings.LimitEquipmentByValue;
+            bool weightLimitActive = enforceLimits && Settings.EquipmentWeightLimit;
+            bool valueLimitActive = enforceLimits && Settings.EquipmentValueLimit;
 
             float weightLimit = weightLimitActive
                 ? EquipmentLimitsHelper.GetWeightLimit(

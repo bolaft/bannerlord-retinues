@@ -209,6 +209,12 @@
       id="ret_culture_header_text_with_race"
       text="Kultur &amp; Spezies" />
     <string
+      id="ret_customization_hint_hide"
+      text="Anpassungssteuerungen anzeigen" />
+    <string
+      id="ret_customization_hint_show"
+      text="Anpassungssteuerungen ausblenden" />
+    <string
       id="ret_dependencies_all_ok"
       text="Alle Abhängigkeiten wurden korrekt initialisiert." />
     <string
@@ -225,10 +231,10 @@
       text="Falsche Version" />
     <string
       id="ret_editing_restriction_in_fief"
-      text="Im Fraktionslehen" />
+      text="Fraktionslehen" />
     <string
       id="ret_editing_restriction_in_settlement"
-      text="In jeder Siedlung" />
+      text="Jedes Lehen" />
     <string
       id="ret_editing_restriction_need_faction_fief_reason"
       text="Sie können diese Einheit nur in einem Lehen bearbeiten, das {FACTION} gehört." />
@@ -692,12 +698,6 @@
       id="ret_mariner_toggle_tooltip_universal"
       text="Seefahrer sind besser für den Seekampf geeignet." />
     <string
-      id="ret_mcm_option_all_equipment_unlocked"
-      text="Alle Ausrüstungen freigeschaltet" />
-    <string
-      id="ret_mcm_option_all_equipment_unlocked_hint"
-      text="Ob alle Ausrüstungen sofort freigeschaltet sind oder durch das Gameplay freigeschaltet werden müssen." />
-    <string
       id="ret_mcm_option_debug_mode"
       text="Debug-Modus" />
     <string
@@ -711,7 +711,7 @@
       text="Die Anzahl der zu Spielbeginn pro Ausrüstungsplatz entsperrten Gegenstände." />
     <string
       id="ret_mcm_option_default_unlocked_item_max_tier"
-      text="Vorab entsperrter maximaler Gegenstandsstufe" />
+      text="Vorab entsperrte Maximalstufe" />
     <string
       id="ret_mcm_option_default_unlocked_item_max_tier_hint"
       text="Die maximale Stufe der zu Spielbeginn entsperrten Gegenstände." />
@@ -734,10 +734,7 @@
       id="ret_mcm_option_enable_doctrines_hint"
       text="Schaltet die Doktrinen-Funktion ein oder aus." />
     <string
-      id="ret_mcm_option_enable_equipment_costs_system"
-      text="Ausrüstungskosten-System aktivieren" />
-    <string
-      id="ret_mcm_option_enable_equipment_costs_system_hint"
+      id="ret_mcm_option_enable_equipment_costs_money_hint"
       text="Wenn aktiviert, kostet die Ausrüstung von Truppen Gold. Aktiviert auch das Lagersystem." />
     <string
       id="ret_mcm_option_enable_retinues"
@@ -747,52 +744,58 @@
       text="Schaltet die Retinues-Funktion ein oder aus." />
     <string
       id="ret_mcm_option_enable_skill_gain_system"
-      text="Fähigkeiten-Erwerbssystem aktivieren" />
+      text="Fertigkeitspunkte müssen verdient werden" />
     <string
       id="ret_mcm_option_enable_skill_gain_system_hint"
       text="Wenn aktiviert, müssen Truppen im Kampf Fertigkeitspunkte verdienen, bevor sie Fertigkeiten verbessern können." />
     <string
+      id="ret_mcm_option_equipment_cost_money"
+      text="Ausrüstung kostet Geld" />
+    <string
       id="ret_mcm_option_equipment_cost_multiplier"
-      text="Ausrüstungskosten-Multiplikator" />
+      text="Kostenmultiplikator" />
     <string
       id="ret_mcm_option_equipment_cost_multiplier_hint"
-      text="Multiplikator, der auf die Grundkosten von Gegenständen angewendet wird, wenn die Ausrüstungskosten berechnet werden." />
+      text="Bestimmt die Kosten für die Ausrüstung eines neuen Ausrüstungsgegenstands." />
     <string
-      id="ret_mcm_option_equipment_time_multiplier"
-      text="Ausrüstungszeit-Multiplikator" />
+      id="ret_mcm_option_equipment_needs_unlocking"
+      text="Ausrüstung muss freigeschaltet werden" />
     <string
-      id="ret_mcm_option_equipment_time_multiplier_hint"
-      text="Multiplikator, der auf die Basis-Ausrüstungszeit angewendet wird, wenn berechnet wird, wie lange das Ausrüsten dauert." />
+      id="ret_mcm_option_equipment_needs_unlocking_hint"
+      text="Wenn aktiviert, müssen Truppen Ausrüstungsgegenstände freischalten, bevor sie diese ausrüsten können." />
+    <string
+      id="ret_mcm_option_equipment_value_limit"
+      text="Begrenzung nach Wert" />
+    <string
+      id="ret_mcm_option_equipment_value_limit_hint"
+      text="Ob der Gesamtwert der Ausrüstung begrenzt werden soll (Grenzen basieren auf Stufen)." />
     <string
       id="ret_mcm_option_equipment_value_limit_multiplier"
-      text="Ausrüstungswert-Limit-Multiplikator" />
+      text="Wertbegrenzungsmultiplikator" />
     <string
       id="ret_mcm_option_equipment_value_limit_multiplier_hint"
-      text="Multiplikator, der auf das Basiswertlimit angewendet wird, wenn ausrüstbare Gegenstände berechnet werden." />
+      text="Beeinflusst die maximale Gesamtwertbegrenzung der Ausrüstung." />
+    <string
+      id="ret_mcm_option_equipment_weight_limit"
+      text="Begrenzung nach Gewicht" />
     <string
       id="ret_mcm_option_equipment_weight_limit_multiplier"
-      text="Ausrüstungsgewicht-Limit-Multiplikator" />
+      text="Gewichtsbegrenzungsmultiplikator" />
     <string
       id="ret_mcm_option_equipment_weight_limit_multiplier_hint"
-      text="Multiplikator, der auf das Basisgewichtslimit angewendet wird, wenn ausrüstbare Gegenstände berechnet werden." />
+      text="Beeinflusst die maximale Gesamtgewichtbegrenzung der Ausrüstung." />
     <string
-      id="ret_mcm_option_equipments_take_time_to_equip"
-      text="Ausrüstungen benötigen Zeit zum Ausrüsten" />
+      id="ret_mcm_option_equipping_progresses_while_travelling"
+      text="Ausrüsten während der Reise" />
     <string
-      id="ret_mcm_option_equipments_take_time_to_equip_hint"
-      text="Wenn aktiviert, erfolgt die Ausrüstung von Truppen nicht sofort und benötigt Zeit, um abgeschlossen zu werden." />
+      id="ret_mcm_option_equipping_progresses_while_travelling_hint"
+      text="Ob das Ausrüsten während der Reise der Partei oder nur während des Wartens in Siedlungen fortschreitet." />
     <string
-      id="ret_mcm_option_limit_equipment_by_value"
-      text="Wertgrenzen für Ausrüstung basierend auf Stufen" />
+      id="ret_mcm_option_equipping_takes_time"
+      text="Ausrüsten braucht Zeit" />
     <string
-      id="ret_mcm_option_limit_equipment_by_value_hint"
-      text="Ob ausrüstbare Gegenstände basierend auf Truppentier und Gesamtgegenstandswerten begrenzt werden sollen." />
-    <string
-      id="ret_mcm_option_limit_equipment_by_weight"
-      text="Gewichtsgrenzen für Ausrüstung basierend auf Stufen" />
-    <string
-      id="ret_mcm_option_limit_equipment_by_weight_hint"
-      text="Ob ausrüstbare Gegenstände basierend auf Truppentier und Gesamtgegenstandsgewichten begrenzt werden sollen." />
+      id="ret_mcm_option_equipping_takes_time_hint"
+      text="Wenn aktiviert, wird das Ausrüsten von Truppen nicht sofort erfolgen und es wird Zeit in Anspruch nehmen, bis es abgeschlossen ist." />
     <string
       id="ret_mcm_option_max_retinue_ratio"
       text="Maximales Retinue-Verhältnis" />
@@ -800,53 +803,65 @@
       id="ret_mcm_option_max_retinue_ratio_hint"
       text="Die maximale Anzahl von Retinues als Verhältnis zur Partikelgrößenbegrenzung." />
     <string
-      id="ret_mcm_option_required_discards_for_unlock"
+      id="ret_mcm_option_required_discards_to_unlock"
       text="Erforderliche Verwerfung zum Entsperren" />
     <string
-      id="ret_mcm_option_required_discards_for_unlock_hint"
-      text="Die Anzahl der Male, die ein Gegenstand verworfen werden muss, um ihn zu entsperren." />
+      id="ret_mcm_option_required_discards_to_unlock_hint"
+      text="Die Anzahl der Male, die ein Gegenstand verworfen werden muss, um ihn freizuschalten." />
     <string
-      id="ret_mcm_option_required_kills_for_unlock"
-      text="Erforderliche Tötungen zum Entsperren" />
+      id="ret_mcm_option_required_kills_to_unlock"
+      text="Erforderliche Kills zum Entsperren" />
     <string
-      id="ret_mcm_option_required_kills_for_unlock_hint"
-      text="Die Anzahl der feindlichen Truppen, die einen Gegenstand tragen und besiegt werden müssen, um ihn zu entsperren." />
+      id="ret_mcm_option_required_kills_to_unlock_hint"
+      text="Die Anzahl der feindlichen Truppen, die einen Gegenstand tragen und besiegt werden müssen, um ihn freizuschalten." />
     <string
       id="ret_mcm_option_skill_cap"
-      text="Fähigkeitsgrenze Stufe {TIER}" />
+      text="Stufe {TIER}" />
     <string
       id="ret_mcm_option_skill_cap_hint"
       text="Maximales Fähigkeitsniveau für Truppen der Stufe {TIER}." />
     <string
-      id="ret_mcm_option_skill_improve_time_multiplier"
-      text="Fähigkeitsverbesserungszeit-Multiplikator" />
-    <string
-      id="ret_mcm_option_skill_improve_time_multiplier_hint"
-      text="Multiplikator, der auf die Basis-Verbesserungszeit angewendet wird, wenn berechnet wird, wie lange Fähigkeitssteigerungen dauern." />
-    <string
       id="ret_mcm_option_skill_points_gain_rate"
-      text="Fertigkeitspunkte-Gewinnrate" />
+      text="Gewinnrate" />
     <string
       id="ret_mcm_option_skill_points_gain_rate_hint"
       text="Rate, mit der Truppen im Kampf Fertigkeitspunkte gewinnen." />
     <string
+      id="ret_mcm_option_skill_progress_per_day"
+      text="Trainierte Punkte pro Tag" />
+    <string
+      id="ret_mcm_option_skill_progress_per_day_hint"
+      text="Bestimmt die Trainingsgeschwindigkeit in Punkten pro Tag." />
+    <string
       id="ret_mcm_option_skill_total"
-      text="Gesamtfähigkeiten Stufe {TIER}" />
+      text="Stufe {TIER}" />
     <string
       id="ret_mcm_option_skill_total_hint"
-      text="Gesamt verfügbare Fertigkeitspunkte für Truppen der Stufe {TIER}." />
-    <string
-      id="ret_mcm_option_skills_take_time_to_improve"
-      text="Fähigkeiten benötigen Zeit zur Verbesserung" />
-    <string
-      id="ret_mcm_option_skills_take_time_to_improve_hint"
-      text="Wenn aktiviert, erfolgt die Erhöhung von Fähigkeiten nicht sofort und benötigt Zeit zur Verbesserung." />
+      text="Maximale Gesamtfertigkeitspunkte für Truppen der Stufe {TIER}." />
     <string
       id="ret_mcm_option_starter_equipment"
       text="Startausrüstung" />
     <string
       id="ret_mcm_option_starter_equipment_hint"
       text="Legt die Starterausrüstung für neu freigeschaltete Truppen fest." />
+    <string
+      id="ret_mcm_option_time_multiplier"
+      text="Ausrüstungszeit-Multiplikator" />
+    <string
+      id="ret_mcm_option_time_multiplier_hint"
+      text="Bestimmt, wie lange es dauert, ein neues Ausrüstungsstück auszurüsten." />
+    <string
+      id="ret_mcm_option_training_progresses_while_travelling"
+      text="Trainieren während der Reise" />
+    <string
+      id="ret_mcm_option_training_progresses_while_travelling_hint"
+      text="Ob der Trainingsfortschritt während der Reise der Partei oder nur während des Wartens in Siedlungen erfolgt." />
+    <string
+      id="ret_mcm_option_training_takes_time"
+      text="Training braucht Zeit" />
+    <string
+      id="ret_mcm_option_training_takes_time_hint"
+      text="Wenn aktiviert, wird die Erhöhung der Fähigkeiten nicht sofort erfolgen und es wird Zeit in Anspruch nehmen, bis sie verbessert ist." />
     <string
       id="ret_mcm_option_unlock_items_through_discards"
       text="Gegenstände durch Verwerfung freischalten" />
@@ -859,6 +874,9 @@
     <string
       id="ret_mcm_option_unlock_items_through_kills_hint"
       text="Ob Gegenstände durch das Besiegen von Feinden in Schlachten freigeschaltet werden." />
+    <string
+      id="ret_mcm_option_weight_limit_hint"
+      text="Ob das Gesamtgewicht der Ausrüstung begrenzt werden soll (Grenzen basieren auf Stufen)." />
     <string
       id="ret_mcm_section_debug"
       text="Debug" />
@@ -887,8 +905,8 @@
       id="ret_mcm_section_skills"
       text="Fähigkeiten" />
     <string
-      id="ret_mcm_section_troop_unlocks"
-      text="Truppenfreischaltungen" />
+      id="ret_mcm_section_troops"
+      text="Truppen" />
     <string
       id="ret_mcm_section_user_interface"
       text="Benutzeroberfläche" />
@@ -1018,6 +1036,9 @@
     <string
       id="ret_sort_by_value"
       text="Wert" />
+    <string
+      id="ret_staged_skill_unlock"
+      text="{TROOP} hat {SKILL} auf {VALUE} verbessert." />
     <string
       id="ret_starter_equipment_all_sets"
       text="Alle Sätze kopieren" />

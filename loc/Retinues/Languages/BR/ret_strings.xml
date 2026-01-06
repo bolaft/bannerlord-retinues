@@ -209,6 +209,12 @@
       id="ret_culture_header_text_with_race"
       text="Cultura e Espécie" />
     <string
+      id="ret_customization_hint_hide"
+      text="Mostrar controles de personalização" />
+    <string
+      id="ret_customization_hint_show"
+      text="Ocultar controles de personalização" />
+    <string
       id="ret_dependencies_all_ok"
       text="Todas as dependências foram inicializadas corretamente." />
     <string
@@ -225,10 +231,10 @@
       text="Versão errada" />
     <string
       id="ret_editing_restriction_in_fief"
-      text="No Feudo da Facção" />
+      text="Feudo da Facção" />
     <string
       id="ret_editing_restriction_in_settlement"
-      text="Em Qualquer Assentamento" />
+      text="Qualquer Feudo" />
     <string
       id="ret_editing_restriction_need_faction_fief_reason"
       text="Você só pode editar esta unidade em um feudo pertencente a {FACTION}." />
@@ -692,12 +698,6 @@
       id="ret_mariner_toggle_tooltip_universal"
       text="Marinheiros são mais adequados para o combate naval." />
     <string
-      id="ret_mcm_option_all_equipment_unlocked"
-      text="Todo o Equipamento Desbloqueado" />
-    <string
-      id="ret_mcm_option_all_equipment_unlocked_hint"
-      text="Se todo o equipamento é desbloqueado imediatamente ou precisa ser desbloqueado através do jogo." />
-    <string
       id="ret_mcm_option_debug_mode"
       text="Modo de Depuração" />
     <string
@@ -711,7 +711,7 @@
       text="O número de itens desbloqueados por slot de equipamento no início do jogo." />
     <string
       id="ret_mcm_option_default_unlocked_item_max_tier"
-      text="Nível Máximo de Item Pré-Desbloqueado" />
+      text="Nível Máximo Pré-Desbloqueado" />
     <string
       id="ret_mcm_option_default_unlocked_item_max_tier_hint"
       text="O nível máximo de itens desbloqueados no início do jogo." />
@@ -734,10 +734,7 @@
       id="ret_mcm_option_enable_doctrines_hint"
       text="Ativa ou desativa o recurso de Doutrinas." />
     <string
-      id="ret_mcm_option_enable_equipment_costs_system"
-      text="Ativar o Sistema de Custos de Equipamento" />
-    <string
-      id="ret_mcm_option_enable_equipment_costs_system_hint"
+      id="ret_mcm_option_enable_equipment_costs_money_hint"
       text="Se ativado, equipar tropas custará ouro. Também ativa o sistema de estoques." />
     <string
       id="ret_mcm_option_enable_retinues"
@@ -747,52 +744,58 @@
       text="Ativa ou desativa o recurso de Retinues." />
     <string
       id="ret_mcm_option_enable_skill_gain_system"
-      text="Ativar o Sistema de Ganho de Habilidades" />
+      text="Pontos de Habilidade Devem Ser Ganhos" />
     <string
       id="ret_mcm_option_enable_skill_gain_system_hint"
       text="Se ativado, as tropas precisarão ganhar pontos de habilidade em batalha antes de subir de nível nas habilidades." />
     <string
+      id="ret_mcm_option_equipment_cost_money"
+      text="Equipamento Custa Dinheiro" />
+    <string
       id="ret_mcm_option_equipment_cost_multiplier"
-      text="Multiplicador de Custo de Equipamento" />
+      text="Multiplicador de Custo" />
     <string
       id="ret_mcm_option_equipment_cost_multiplier_hint"
-      text="Multiplicador aplicado ao custo base dos itens ao calcular os custos de equipamento." />
+      text="Determina o custo para equipar uma nova peça de equipamento." />
     <string
-      id="ret_mcm_option_equipment_time_multiplier"
-      text="Multiplicador de Tempo de Equipamento" />
+      id="ret_mcm_option_equipment_needs_unlocking"
+      text="Equipamento Precisa Ser Desbloqueado" />
     <string
-      id="ret_mcm_option_equipment_time_multiplier_hint"
-      text="Multiplicador aplicado ao tempo base de equipamento ao calcular quanto tempo o equipamento leva." />
+      id="ret_mcm_option_equipment_needs_unlocking_hint"
+      text="Se ativado, as tropas precisarão desbloquear os itens de equipamento antes de poder equipá-los." />
+    <string
+      id="ret_mcm_option_equipment_value_limit"
+      text="Limitar por Valor" />
+    <string
+      id="ret_mcm_option_equipment_value_limit_hint"
+      text="Se deve limitar o valor total do equipamento (os limites são baseados em níveis)." />
     <string
       id="ret_mcm_option_equipment_value_limit_multiplier"
-      text="Multiplicador de Limite de Valor de Equipamento" />
+      text="Multiplicador de Limite de Valor" />
     <string
       id="ret_mcm_option_equipment_value_limit_multiplier_hint"
-      text="Multiplicador aplicado ao limite de valor base ao calcular itens equipáveis." />
+      text="Afeta o limite máximo do valor total do equipamento." />
+    <string
+      id="ret_mcm_option_equipment_weight_limit"
+      text="Limitar por Peso" />
     <string
       id="ret_mcm_option_equipment_weight_limit_multiplier"
-      text="Multiplicador de Limite de Peso de Equipamento" />
+      text="Multiplicador de Limite de Peso" />
     <string
       id="ret_mcm_option_equipment_weight_limit_multiplier_hint"
-      text="Multiplicador aplicado ao limite de peso base ao calcular itens equipáveis." />
+      text="Afeta o limite máximo do peso total do equipamento." />
     <string
-      id="ret_mcm_option_equipments_take_time_to_equip"
-      text="Equipamentos Levam Tempo para Equipar" />
+      id="ret_mcm_option_equipping_progresses_while_travelling"
+      text="Equipar Enquanto Viaja" />
     <string
-      id="ret_mcm_option_equipments_take_time_to_equip_hint"
+      id="ret_mcm_option_equipping_progresses_while_travelling_hint"
+      text="Se o equipamento progride enquanto o grupo está viajando ou apenas enquanto espera em assentamentos." />
+    <string
+      id="ret_mcm_option_equipping_takes_time"
+      text="Equipar Leva Tempo" />
+    <string
+      id="ret_mcm_option_equipping_takes_time_hint"
       text="Se ativado, equipar tropas não será instantâneo e levará tempo para ser concluído." />
-    <string
-      id="ret_mcm_option_limit_equipment_by_value"
-      text="Limites de Valor de Equipamento Baseadas em Nível" />
-    <string
-      id="ret_mcm_option_limit_equipment_by_value_hint"
-      text="Se deve limitar os itens equipáveis com base no nível da tropa e nos valores totais dos itens." />
-    <string
-      id="ret_mcm_option_limit_equipment_by_weight"
-      text="Limites de Peso de Equipamento Baseadas em Nível" />
-    <string
-      id="ret_mcm_option_limit_equipment_by_weight_hint"
-      text="Se deve limitar os itens equipáveis com base no nível da tropa e nos pesos totais dos itens." />
     <string
       id="ret_mcm_option_max_retinue_ratio"
       text="Razão Máxima de Retinues" />
@@ -800,53 +803,65 @@
       id="ret_mcm_option_max_retinue_ratio_hint"
       text="O número máximo de retinues como uma proporção do limite de tamanho do grupo." />
     <string
-      id="ret_mcm_option_required_discards_for_unlock"
-      text="Descartes Necessários para Desbloquear" />
+      id="ret_mcm_option_required_discards_to_unlock"
+      text="Descartes Necessários Para Desbloquear" />
     <string
-      id="ret_mcm_option_required_discards_for_unlock_hint"
+      id="ret_mcm_option_required_discards_to_unlock_hint"
       text="O número de vezes que um item deve ser descartado para desbloqueá-lo." />
     <string
-      id="ret_mcm_option_required_kills_for_unlock"
-      text="Mortes Necessárias para Desbloquear" />
+      id="ret_mcm_option_required_kills_to_unlock"
+      text="Mortes Necessárias Para Desbloquear" />
     <string
-      id="ret_mcm_option_required_kills_for_unlock_hint"
+      id="ret_mcm_option_required_kills_to_unlock_hint"
       text="O número de tropas inimigas que usam um item que deve ser derrotado para desbloqueá-lo." />
     <string
       id="ret_mcm_option_skill_cap"
-      text="Limite de Habilidade do Nível {TIER}" />
+      text="Nível {TIER}" />
     <string
       id="ret_mcm_option_skill_cap_hint"
       text="Nível máximo de habilidade para tropas do Nível {TIER}." />
     <string
-      id="ret_mcm_option_skill_improve_time_multiplier"
-      text="Multiplicador de Tempo de Melhoria de Habilidade" />
-    <string
-      id="ret_mcm_option_skill_improve_time_multiplier_hint"
-      text="Multiplicador aplicado ao tempo base de melhoria ao calcular quanto tempo as melhorias de habilidade levam." />
-    <string
       id="ret_mcm_option_skill_points_gain_rate"
-      text="Taxa de Ganho de Pontos de Habilidade" />
+      text="Taxa de Ganho" />
     <string
       id="ret_mcm_option_skill_points_gain_rate_hint"
       text="Taxa na qual as tropas ganham pontos de habilidade em batalha." />
     <string
+      id="ret_mcm_option_skill_progress_per_day"
+      text="Pontos Treinados Por Dia" />
+    <string
+      id="ret_mcm_option_skill_progress_per_day_hint"
+      text="Determina a velocidade de treinamento em pontos por dia." />
+    <string
       id="ret_mcm_option_skill_total"
-      text="Total de Habilidades do Nível {TIER}" />
+      text="Nível {TIER}" />
     <string
       id="ret_mcm_option_skill_total_hint"
-      text="Total de pontos de habilidade disponíveis para tropas do Nível {TIER}." />
-    <string
-      id="ret_mcm_option_skills_take_time_to_improve"
-      text="Habilidades Levam Tempo para Melhorar" />
-    <string
-      id="ret_mcm_option_skills_take_time_to_improve_hint"
-      text="Se ativado, aumentar as habilidades não será instantâneo e levará tempo para melhorar." />
+      text="Pontos totais máximos de habilidade para tropas do Nível {TIER}." />
     <string
       id="ret_mcm_option_starter_equipment"
       text="Equipamento Inicial" />
     <string
       id="ret_mcm_option_starter_equipment_hint"
       text="Define o equipamento inicial para tropas recém-desbloqueadas." />
+    <string
+      id="ret_mcm_option_time_multiplier"
+      text="Multiplicador de Tempo de Equipamento" />
+    <string
+      id="ret_mcm_option_time_multiplier_hint"
+      text="Determina quanto tempo leva para equipar uma nova peça de equipamento." />
+    <string
+      id="ret_mcm_option_training_progresses_while_travelling"
+      text="Treinar Enquanto Viaja" />
+    <string
+      id="ret_mcm_option_training_progresses_while_travelling_hint"
+      text="Se o progresso do treinamento ocorre enquanto o grupo está viajando ou apenas enquanto espera em assentamentos." />
+    <string
+      id="ret_mcm_option_training_takes_time"
+      text="O Treinamento Leva Tempo" />
+    <string
+      id="ret_mcm_option_training_takes_time_hint"
+      text="Se ativado, o aumento de habilidades não será instantâneo e levará tempo para ser aprimorado." />
     <string
       id="ret_mcm_option_unlock_items_through_discards"
       text="Desbloquear Itens Através de Descartes" />
@@ -859,6 +874,9 @@
     <string
       id="ret_mcm_option_unlock_items_through_kills_hint"
       text="Se os itens são desbloqueados derrotando inimigos em batalhas." />
+    <string
+      id="ret_mcm_option_weight_limit_hint"
+      text="Se deve limitar o peso total do equipamento (os limites são baseados em níveis)." />
     <string
       id="ret_mcm_section_debug"
       text="Depuração" />
@@ -887,8 +905,8 @@
       id="ret_mcm_section_skills"
       text="Habilidades" />
     <string
-      id="ret_mcm_section_troop_unlocks"
-      text="Desbloqueios de Tropas" />
+      id="ret_mcm_section_troops"
+      text="Tropas" />
     <string
       id="ret_mcm_section_user_interface"
       text="Interface do Usuário" />
@@ -1018,6 +1036,9 @@
     <string
       id="ret_sort_by_value"
       text="Valor" />
+    <string
+      id="ret_staged_skill_unlock"
+      text="{TROOP} melhorou {SKILL} para {VALUE}." />
     <string
       id="ret_starter_equipment_all_sets"
       text="Copiar Todos os Conjuntos" />

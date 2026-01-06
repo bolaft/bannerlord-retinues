@@ -209,6 +209,12 @@
       id="ret_culture_header_text_with_race"
       text="Культура и вид" />
     <string
+      id="ret_customization_hint_hide"
+      text="Показать элементы управления настройками" />
+    <string
+      id="ret_customization_hint_show"
+      text="Скрыть элементы управления настройками" />
+    <string
       id="ret_dependencies_all_ok"
       text="Все зависимости инициализированы правильно." />
     <string
@@ -225,10 +231,10 @@
       text="Неправильная версия" />
     <string
       id="ret_editing_restriction_in_fief"
-      text="В фьефе фракции" />
+      text="Фьеф фракции" />
     <string
       id="ret_editing_restriction_in_settlement"
-      text="В любом поселении" />
+      text="Любое поселение" />
     <string
       id="ret_editing_restriction_need_faction_fief_reason"
       text="Вы можете редактировать эту единицу только в фьефе, принадлежащем {FACTION}." />
@@ -692,12 +698,6 @@
       id="ret_mariner_toggle_tooltip_universal"
       text="Мореплаватели лучше подходят для морского боя." />
     <string
-      id="ret_mcm_option_all_equipment_unlocked"
-      text="Все оборудование разблокировано" />
-    <string
-      id="ret_mcm_option_all_equipment_unlocked_hint"
-      text="Все оборудование разблокировано сразу или его нужно разблокировать через игровой процесс." />
-    <string
       id="ret_mcm_option_debug_mode"
       text="Режим отладки" />
     <string
@@ -711,7 +711,7 @@
       text="Количество предметов, разблокированных на слот экипировки при начале игры." />
     <string
       id="ret_mcm_option_default_unlocked_item_max_tier"
-      text="Максимальный уровень предварительно разблокированного предмета" />
+      text="Предварительно разблокированный максимальный уровень" />
     <string
       id="ret_mcm_option_default_unlocked_item_max_tier_hint"
       text="Максимальный уровень предметов, разблокированных при начале игры." />
@@ -734,10 +734,7 @@
       id="ret_mcm_option_enable_doctrines_hint"
       text="Включает или отключает функцию доктрин." />
     <string
-      id="ret_mcm_option_enable_equipment_costs_system"
-      text="Включить систему стоимости оборудования" />
-    <string
-      id="ret_mcm_option_enable_equipment_costs_system_hint"
+      id="ret_mcm_option_enable_equipment_costs_money_hint"
       text="Если включено, экипировка войск будет стоить золото. Также включает систему запасов." />
     <string
       id="ret_mcm_option_enable_retinues"
@@ -747,52 +744,58 @@
       text="Включает или отключает функцию Retinues." />
     <string
       id="ret_mcm_option_enable_skill_gain_system"
-      text="Включить систему повышения навыков" />
+      text="Очки навыков должны быть заработаны" />
     <string
       id="ret_mcm_option_enable_skill_gain_system_hint"
       text="Если включено, войскам потребуется зарабатывать очки навыков в бою, прежде чем повышать уровень навыков." />
     <string
+      id="ret_mcm_option_equipment_cost_money"
+      text="Экипировка стоит денег" />
+    <string
       id="ret_mcm_option_equipment_cost_multiplier"
-      text="Множитель стоимости оборудования" />
+      text="Множитель стоимости" />
     <string
       id="ret_mcm_option_equipment_cost_multiplier_hint"
-      text="Множитель, применяемый к базовой стоимости предметов при расчете стоимости экипировки." />
+      text="Определяет стоимость экипировки нового предмета." />
     <string
-      id="ret_mcm_option_equipment_time_multiplier"
-      text="Множитель времени экипировки" />
+      id="ret_mcm_option_equipment_needs_unlocking"
+      text="Экипировка требует разблокировки" />
     <string
-      id="ret_mcm_option_equipment_time_multiplier_hint"
-      text="Множитель, применяемый к базовому времени экипировки при расчете того, сколько времени занимает экипировка." />
+      id="ret_mcm_option_equipment_needs_unlocking_hint"
+      text="Если включено, войскам потребуется разблокировать предметы экипировки, прежде чем они смогут их экипировать." />
+    <string
+      id="ret_mcm_option_equipment_value_limit"
+      text="Ограничение по стоимости" />
+    <string
+      id="ret_mcm_option_equipment_value_limit_hint"
+      text="Ограничение общей стоимости экипировки (ограничения основаны на уровнях)." />
     <string
       id="ret_mcm_option_equipment_value_limit_multiplier"
-      text="Множитель ограничения стоимости оборудования" />
+      text="Множитель ограничения стоимости" />
     <string
       id="ret_mcm_option_equipment_value_limit_multiplier_hint"
-      text="Множитель, применяемый к базовому ограничению стоимости при расчете экипируемых предметов." />
+      text="Влияет на максимальное ограничение общей стоимости экипировки." />
+    <string
+      id="ret_mcm_option_equipment_weight_limit"
+      text="Ограничение по весу" />
     <string
       id="ret_mcm_option_equipment_weight_limit_multiplier"
-      text="Множитель ограничения веса оборудования" />
+      text="Множитель ограничения веса" />
     <string
       id="ret_mcm_option_equipment_weight_limit_multiplier_hint"
-      text="Множитель, применяемый к базовому ограничению веса при расчете экипируемых предметов." />
+      text="Влияет на максимальное ограничение общего веса экипировки." />
     <string
-      id="ret_mcm_option_equipments_take_time_to_equip"
-      text="Экипировка требует времени на экипировку" />
+      id="ret_mcm_option_equipping_progresses_while_travelling"
+      text="Экипировка во время путешествия" />
     <string
-      id="ret_mcm_option_equipments_take_time_to_equip_hint"
+      id="ret_mcm_option_equipping_progresses_while_travelling_hint"
+      text="Экипировка прогрессирует во время путешествия партии или только во время ожидания в поселениях." />
+    <string
+      id="ret_mcm_option_equipping_takes_time"
+      text="Экипировка занимает время" />
+    <string
+      id="ret_mcm_option_equipping_takes_time_hint"
       text="Если включено, экипировка войск не будет мгновенной и займет время для завершения." />
-    <string
-      id="ret_mcm_option_limit_equipment_by_value"
-      text="Ограничения стоимости оборудования на основе уровня" />
-    <string
-      id="ret_mcm_option_limit_equipment_by_value_hint"
-      text="Ограничивать ли экипируемые предметы в зависимости от уровня войск и общей стоимости предметов." />
-    <string
-      id="ret_mcm_option_limit_equipment_by_weight"
-      text="Ограничения веса оборудования на основе уровня" />
-    <string
-      id="ret_mcm_option_limit_equipment_by_weight_hint"
-      text="Ограничивать ли экипируемые предметы в зависимости от уровня войск и общего веса предметов." />
     <string
       id="ret_mcm_option_max_retinue_ratio"
       text="Максимальное соотношение Retinue" />
@@ -800,53 +803,65 @@
       id="ret_mcm_option_max_retinue_ratio_hint"
       text="Максимальное количество retinues в зависимости от ограничения размера партии." />
     <string
-      id="ret_mcm_option_required_discards_for_unlock"
+      id="ret_mcm_option_required_discards_to_unlock"
       text="Требуемые отказы для разблокировки" />
     <string
-      id="ret_mcm_option_required_discards_for_unlock_hint"
+      id="ret_mcm_option_required_discards_to_unlock_hint"
       text="Количество раз, которое предмет должен быть отброшен, чтобы разблокировать его." />
     <string
-      id="ret_mcm_option_required_kills_for_unlock"
+      id="ret_mcm_option_required_kills_to_unlock"
       text="Требуемые убийства для разблокировки" />
     <string
-      id="ret_mcm_option_required_kills_for_unlock_hint"
+      id="ret_mcm_option_required_kills_to_unlock_hint"
       text="Количество вражеских войск, носящих предмет, которые необходимо победить, чтобы разблокировать его." />
     <string
       id="ret_mcm_option_skill_cap"
-      text="Максимальный уровень навыков уровня {TIER}" />
+      text="Уровень {TIER}" />
     <string
       id="ret_mcm_option_skill_cap_hint"
       text="Максимальный уровень навыков для войск уровня {TIER}." />
     <string
-      id="ret_mcm_option_skill_improve_time_multiplier"
-      text="Множитель времени улучшения навыков" />
-    <string
-      id="ret_mcm_option_skill_improve_time_multiplier_hint"
-      text="Множитель, применяемый к базовому времени улучшения при расчете того, сколько времени занимают повышения навыков." />
-    <string
       id="ret_mcm_option_skill_points_gain_rate"
-      text="Скорость получения очков навыков" />
+      text="Скорость получения" />
     <string
       id="ret_mcm_option_skill_points_gain_rate_hint"
       text="Скорость, с которой войска получают очки навыков в бою." />
     <string
+      id="ret_mcm_option_skill_progress_per_day"
+      text="Обученные очки в день" />
+    <string
+      id="ret_mcm_option_skill_progress_per_day_hint"
+      text="Определяет скорость обучения в очках в день." />
+    <string
       id="ret_mcm_option_skill_total"
-      text="Общее количество навыков уровня {TIER}" />
+      text="Уровень {TIER}" />
     <string
       id="ret_mcm_option_skill_total_hint"
-      text="Общее количество доступных очков навыков для войск уровня {TIER}." />
-    <string
-      id="ret_mcm_option_skills_take_time_to_improve"
-      text="Навыки требуют времени на улучшение" />
-    <string
-      id="ret_mcm_option_skills_take_time_to_improve_hint"
-      text="Если включено, повышение навыков не будет мгновенным и займет время на улучшение." />
+      text="Максимальное общее количество очков навыков для войск уровня {TIER}." />
     <string
       id="ret_mcm_option_starter_equipment"
       text="Начальное снаряжение" />
     <string
       id="ret_mcm_option_starter_equipment_hint"
       text="Устанавливает начальное снаряжение для недавно разблокированных войск." />
+    <string
+      id="ret_mcm_option_time_multiplier"
+      text="Множитель времени экипировки" />
+    <string
+      id="ret_mcm_option_time_multiplier_hint"
+      text="Определяет, сколько времени занимает экипировка нового предмета снаряжения." />
+    <string
+      id="ret_mcm_option_training_progresses_while_travelling"
+      text="Тренировка во время путешествия" />
+    <string
+      id="ret_mcm_option_training_progresses_while_travelling_hint"
+      text="Прогресс тренировки происходит во время путешествия партии или только во время ожидания в поселениях." />
+    <string
+      id="ret_mcm_option_training_takes_time"
+      text="Тренировка занимает время" />
+    <string
+      id="ret_mcm_option_training_takes_time_hint"
+      text="Если включено, повышение навыков не будет мгновенным и займет время для улучшения." />
     <string
       id="ret_mcm_option_unlock_items_through_discards"
       text="Разблокировка предметов через отказы" />
@@ -859,6 +874,9 @@
     <string
       id="ret_mcm_option_unlock_items_through_kills_hint"
       text="Разблокируются ли предметы путем победы над врагами в боях." />
+    <string
+      id="ret_mcm_option_weight_limit_hint"
+      text="Ограничивать ли общий вес снаряжения (ограничения основаны на уровнях)." />
     <string
       id="ret_mcm_section_debug"
       text="Отладка" />
@@ -887,8 +905,8 @@
       id="ret_mcm_section_skills"
       text="Навыки" />
     <string
-      id="ret_mcm_section_troop_unlocks"
-      text="Разблокировка войск" />
+      id="ret_mcm_section_troops"
+      text="Войска" />
     <string
       id="ret_mcm_section_user_interface"
       text="Пользовательский интерфейс" />
@@ -1018,6 +1036,9 @@
     <string
       id="ret_sort_by_value"
       text="Значение" />
+    <string
+      id="ret_staged_skill_unlock"
+      text="{TROOP} улучшил {SKILL} до {VALUE}." />
     <string
       id="ret_starter_equipment_all_sets"
       text="Скопировать все наборы" />

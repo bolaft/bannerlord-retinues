@@ -209,6 +209,12 @@
       id="ret_culture_header_text_with_race"
       text="Culture &amp; Species" />
     <string
+      id="ret_customization_hint_hide"
+      text="Show Customization Controls" />
+    <string
+      id="ret_customization_hint_show"
+      text="Hide Customization Controls" />
+    <string
       id="ret_dependencies_all_ok"
       text="All dependencies initialized correctly." />
     <string
@@ -225,10 +231,10 @@
       text="Wrong version" />
     <string
       id="ret_editing_restriction_in_fief"
-      text="In Faction Fief" />
+      text="Faction Settlement" />
     <string
       id="ret_editing_restriction_in_settlement"
-      text="In Any Settlement" />
+      text="Any Settlement" />
     <string
       id="ret_editing_restriction_need_faction_fief_reason"
       text="You can only edit this unit in a fief owned by {FACTION}." />
@@ -692,12 +698,6 @@
       id="ret_mariner_toggle_tooltip_universal"
       text="Mariners are better suited for naval combat." />
     <string
-      id="ret_mcm_option_all_equipment_unlocked"
-      text="All Equipment Unlocked" />
-    <string
-      id="ret_mcm_option_all_equipment_unlocked_hint"
-      text="Whether all equipment is immediately unlocked or needs to be unlocked through gameplay." />
-    <string
       id="ret_mcm_option_debug_mode"
       text="Debug Mode" />
     <string
@@ -711,7 +711,7 @@
       text="The number of items unlocked per equipment slot on game start." />
     <string
       id="ret_mcm_option_default_unlocked_item_max_tier"
-      text="Pre-Unlocked Item Max Tier" />
+      text="Pre-Unlocked Max Tier" />
     <string
       id="ret_mcm_option_default_unlocked_item_max_tier_hint"
       text="The maximum tier of items unlocked on game start." />
@@ -734,10 +734,7 @@
       id="ret_mcm_option_enable_doctrines_hint"
       text="Toggles the Doctrines feature on or off." />
     <string
-      id="ret_mcm_option_enable_equipment_costs_system"
-      text="Enable Equipment Costs System" />
-    <string
-      id="ret_mcm_option_enable_equipment_costs_system_hint"
+      id="ret_mcm_option_enable_equipment_costs_money_hint"
       text="If enabled, equipping troops will cost gold. Also enables the stocks system." />
     <string
       id="ret_mcm_option_enable_retinues"
@@ -747,52 +744,58 @@
       text="Toggles the Retinues feature on or off." />
     <string
       id="ret_mcm_option_enable_skill_gain_system"
-      text="Enable Skill Gain System" />
+      text="Skill Points Must Be Earned" />
     <string
       id="ret_mcm_option_enable_skill_gain_system_hint"
       text="If enabled, troops will need to earn skill points in battle before leveling up skills." />
     <string
+      id="ret_mcm_option_equipment_cost_money"
+      text="Equipment Costs Money" />
+    <string
       id="ret_mcm_option_equipment_cost_multiplier"
-      text="Equipment Cost Multiplier" />
+      text="Cost Multiplier" />
     <string
       id="ret_mcm_option_equipment_cost_multiplier_hint"
-      text="Multiplier applied to the base cost of items when calculating equip costs." />
+      text="Determines the cost to equip a new piece of equipment." />
     <string
-      id="ret_mcm_option_equipment_time_multiplier"
-      text="Equipment Time Multiplier" />
+      id="ret_mcm_option_equipment_needs_unlocking"
+      text="Equipment Needs Unlocking" />
     <string
-      id="ret_mcm_option_equipment_time_multiplier_hint"
-      text="Multiplier applied to the base equip time when calculating how long equipping takes." />
+      id="ret_mcm_option_equipment_needs_unlocking_hint"
+      text="If enabled, troops will need to unlock equipment items before being able to equip them." />
+    <string
+      id="ret_mcm_option_equipment_value_limit"
+      text="Limit By Value" />
+    <string
+      id="ret_mcm_option_equipment_value_limit_hint"
+      text="Whether to limit the total equipment value (limits are tier-based)." />
     <string
       id="ret_mcm_option_equipment_value_limit_multiplier"
-      text="Equipment Value Limit Multiplier" />
+      text="Value Limit Multiplier" />
     <string
       id="ret_mcm_option_equipment_value_limit_multiplier_hint"
-      text="Multiplier applied to the base value limit when calculating equippable items." />
+      text="Affects the maximum total equipment value limit." />
+    <string
+      id="ret_mcm_option_equipment_weight_limit"
+      text="Limit By Weight" />
     <string
       id="ret_mcm_option_equipment_weight_limit_multiplier"
-      text="Equipment Weight Limit Multiplier" />
+      text="Weight Limit Multiplier" />
     <string
       id="ret_mcm_option_equipment_weight_limit_multiplier_hint"
-      text="Multiplier applied to the base weight limit when calculating equippable items." />
+      text="Affects the maximum total equipment weight limit." />
     <string
-      id="ret_mcm_option_equipments_take_time_to_equip"
-      text="Equipments Take Time To Equip" />
+      id="ret_mcm_option_equipping_progresses_while_travelling"
+      text="Equip While Travelling" />
     <string
-      id="ret_mcm_option_equipments_take_time_to_equip_hint"
+      id="ret_mcm_option_equipping_progresses_while_travelling_hint"
+      text="Whether equipping progresses while the party is travelling or only while waiting in settlements." />
+    <string
+      id="ret_mcm_option_equipping_takes_time"
+      text="Equipping Takes Time" />
+    <string
+      id="ret_mcm_option_equipping_takes_time_hint"
       text="If enabled, equipping troops will not be instant and will take time to be completed." />
-    <string
-      id="ret_mcm_option_limit_equipment_by_value"
-      text="Tier-Based Equipment Value Limits" />
-    <string
-      id="ret_mcm_option_limit_equipment_by_value_hint"
-      text="Whether to limit equippable items based on troop tier and total item values." />
-    <string
-      id="ret_mcm_option_limit_equipment_by_weight"
-      text="Tier-Based Equipment Weight Limits" />
-    <string
-      id="ret_mcm_option_limit_equipment_by_weight_hint"
-      text="Whether to limit equippable items based on troop tier and total item weights." />
     <string
       id="ret_mcm_option_max_retinue_ratio"
       text="Max Retinue Ratio" />
@@ -800,53 +803,65 @@
       id="ret_mcm_option_max_retinue_ratio_hint"
       text="The maximum number of retinues as a ratio of the party size limit." />
     <string
-      id="ret_mcm_option_required_discards_for_unlock"
-      text="Required Discards For Unlock" />
+      id="ret_mcm_option_required_discards_to_unlock"
+      text="Required Discards To Unlock" />
     <string
-      id="ret_mcm_option_required_discards_for_unlock_hint"
+      id="ret_mcm_option_required_discards_to_unlock_hint"
       text="The number of times an item must be discarded to unlock it." />
     <string
-      id="ret_mcm_option_required_kills_for_unlock"
-      text="Required Kills For Unlock" />
+      id="ret_mcm_option_required_kills_to_unlock"
+      text="Required Kills To Unlock" />
     <string
-      id="ret_mcm_option_required_kills_for_unlock_hint"
+      id="ret_mcm_option_required_kills_to_unlock_hint"
       text="The number of enemy troops wearing an item that must be defeated to unlock it." />
     <string
       id="ret_mcm_option_skill_cap"
-      text="Tier {TIER} Skill Cap" />
+      text="Tier {TIER}" />
     <string
       id="ret_mcm_option_skill_cap_hint"
       text="Maximum skill level for Tier {TIER} troops." />
     <string
-      id="ret_mcm_option_skill_improve_time_multiplier"
-      text="Skill Improve Time Multiplier" />
-    <string
-      id="ret_mcm_option_skill_improve_time_multiplier_hint"
-      text="Multiplier applied to the base improve time when calculating how long skill increases take." />
-    <string
       id="ret_mcm_option_skill_points_gain_rate"
-      text="Skill Points Gain Rate" />
+      text="Gain Rate" />
     <string
       id="ret_mcm_option_skill_points_gain_rate_hint"
       text="Rate at which troops gain skill points in battle." />
     <string
+      id="ret_mcm_option_skill_progress_per_day"
+      text="Trained Points Per Day" />
+    <string
+      id="ret_mcm_option_skill_progress_per_day_hint"
+      text="Determines training speed in points per day." />
+    <string
       id="ret_mcm_option_skill_total"
-      text="Tier {TIER} Skill Total" />
+      text="Tier {TIER}" />
     <string
       id="ret_mcm_option_skill_total_hint"
-      text="Total available skill points for Tier {TIER} troops." />
-    <string
-      id="ret_mcm_option_skills_take_time_to_improve"
-      text="Skills Take Time To Improve" />
-    <string
-      id="ret_mcm_option_skills_take_time_to_improve_hint"
-      text="If enabled, increasing skills will not be instant and will take time to be improve." />
+      text="Maximum total skill points for Tier {TIER} troops." />
     <string
       id="ret_mcm_option_starter_equipment"
       text="Starter Equipment" />
     <string
       id="ret_mcm_option_starter_equipment_hint"
       text="Sets the starter equipment for newly unlocked troops." />
+    <string
+      id="ret_mcm_option_time_multiplier"
+      text="Equip Time Multiplier" />
+    <string
+      id="ret_mcm_option_time_multiplier_hint"
+      text="Determines how long it takes to equip a new piece of equipment." />
+    <string
+      id="ret_mcm_option_training_progresses_while_travelling"
+      text="Train While Travelling" />
+    <string
+      id="ret_mcm_option_training_progresses_while_travelling_hint"
+      text="Whether training progress occurs while the party is travelling or only while waiting in settlements." />
+    <string
+      id="ret_mcm_option_training_takes_time"
+      text="Training Takes Time" />
+    <string
+      id="ret_mcm_option_training_takes_time_hint"
+      text="If enabled, increasing skills will not be instant and will take time to be improved." />
     <string
       id="ret_mcm_option_unlock_items_through_discards"
       text="Unlock Items Through Discards" />
@@ -859,6 +874,9 @@
     <string
       id="ret_mcm_option_unlock_items_through_kills_hint"
       text="Whether items are unlocked by defeating enemies in battles." />
+    <string
+      id="ret_mcm_option_weight_limit_hint"
+      text="Whether to limit the total equipment weight (limits are tier-based)." />
     <string
       id="ret_mcm_section_debug"
       text="Debug" />
@@ -887,8 +905,8 @@
       id="ret_mcm_section_skills"
       text="Skills" />
     <string
-      id="ret_mcm_section_troop_unlocks"
-      text="Troop Unlocks" />
+      id="ret_mcm_section_troops"
+      text="Troops" />
     <string
       id="ret_mcm_section_user_interface"
       text="User Interface" />
@@ -1018,6 +1036,9 @@
     <string
       id="ret_sort_by_value"
       text="Value" />
+    <string
+      id="ret_staged_skill_unlock"
+      text="{TROOP} improved {SKILL} to {VALUE}." />
     <string
       id="ret_starter_equipment_all_sets"
       text="Copy All Sets" />

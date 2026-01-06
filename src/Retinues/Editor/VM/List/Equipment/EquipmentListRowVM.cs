@@ -84,7 +84,7 @@ namespace Retinues.Editor.VM.List.Equipment
         private bool EconomyEnabled =>
             !PreviewController.Enabled
             && State.Mode == EditorMode.Player
-            && Settings.EnableEquipmentCostsSystem;
+            && Settings.EquipmentCostsMoney;
 
         [EventListener(UIEvent.Item, Global = true)]
         [DataSourceProperty]
@@ -145,7 +145,7 @@ namespace Retinues.Editor.VM.List.Equipment
                 if (_item == null)
                     return 0;
 
-                double multiplier = Settings.EquipmentCostMultiplier.Value;
+                double multiplier = Settings.EquipmentCostMultiplier;
                 double raw = _item.Value * multiplier;
 
                 int cost = (int)Math.Round(raw, MidpointRounding.AwayFromZero);
