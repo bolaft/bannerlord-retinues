@@ -214,7 +214,13 @@ namespace Retinues.Editor.VM.Column.Equipment
         [DataSourceProperty]
         public Icon PreviewModeIcon { get; } =
             new(
-                tooltipFactory: () => new(L.T("preview_mode_toggle_tooltip", "Preview mode.")),
+                tooltipFactory: () =>
+                    new(
+                        L.T(
+                            "preview_mode_toggle_tooltip",
+                            "Use preview mode to see how equipment looks without actually applying changes."
+                        )
+                    ),
                 refresh: [UIEvent.Preview, UIEvent.Page, UIEvent.Character],
                 visibilityGate: () =>
                     EditorVM.Page == EditorPage.Equipment && State.Mode == EditorMode.Player

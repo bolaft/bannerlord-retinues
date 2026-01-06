@@ -125,7 +125,7 @@ namespace Retinues.Editor.Controllers.Equipment
                 )
                 .DefaultTooltip(value =>
                     value
-                        ? L.T("crafted_items_only_tooltip", "Show only crafted weapons.")
+                        ? L.T("crafted_items_only_tooltip", "Show crafted weapons.")
                         : L.T("crafted_items_hide_tooltip", "Hide crafted weapons.")
                 )
                 .ExecuteWith(value => State.ShowCrafted = value)

@@ -180,7 +180,7 @@
       text="El yapımı silahları dahil et." />
     <string
       id="ret_crafted_items_only_tooltip"
-      text="El yapımı silahları gizle." />
+      text="El yapımı silahları göster." />
     <string
       id="ret_crafted_items_toggle_tooltip"
       text="El yapımı öğeler." />
@@ -336,7 +336,7 @@
       text="Kahraman verileri kaydetme durumuna bağlıdır." />
     <string
       id="ret_export_character_tooltip"
-      text="Karakteri dışa aktar." />
+      text="Kaydet ve dışa aktar." />
     <string
       id="ret_export_desc"
       text="Kaydetme adı seçin:" />
@@ -367,6 +367,9 @@
     <string
       id="ret_filter_tooltip_description_equipment"
       text="Listeyi ada, kategoriye veya seviyeye göre filtrelemek için yazın." />
+    <string
+      id="ret_formation_class_icon_tooltip"
+      text="Formasyon: {CLASS}." />
     <string
       id="ret_formation_option_auto"
       text="Otomatik" />
@@ -858,7 +861,7 @@
       text="Önizleme modunu etkinleştir." />
     <string
       id="ret_preview_mode_toggle_tooltip"
-      text="Önizleme modu." />
+      text="Değişiklikleri gerçekten uygulamadan ekipmanın nasıl göründüğünü görmek için önizleme modunu kullanın." />
     <string
       id="ret_purchase_item_desc"
       text="{ITEM} için {COST} denar alınsın mı?" />
@@ -1002,7 +1005,7 @@
       text="Birlikler [R]" />
     <string
       id="ret_unequip_item_tooltip"
-      text="Bu öğeyi donanımdan çıkar." />
+      text="Ekipmanı Çıkar" />
     <string
       id="ret_upgrade_cannot_add_hero"
       text="Kahramanların yükseltme hedefleri olamaz." />

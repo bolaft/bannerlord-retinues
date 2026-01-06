@@ -11,6 +11,13 @@
         SuggestedWidth="{{ size }}" SuggestedHeight="{{ size }}"
         HorizontalAlignment="Center" VerticalAlignment="Center">
         <Children>
+            <HintWidget
+                IsHidden="@IsEnabled"
+                DoNotAcceptEvents="true"
+                WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+                DataSource="{Tooltip}"
+                Command.HoverBegin="ExecuteBeginHint"
+                Command.HoverEnd="ExecuteEndHint"/>
 
             <ButtonWidget
                 IsSelected="@IsSelected"

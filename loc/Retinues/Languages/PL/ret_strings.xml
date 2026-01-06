@@ -180,7 +180,7 @@
       text="Uwzględnij wykonane bronie." />
     <string
       id="ret_crafted_items_only_tooltip"
-      text="Ukryj wykonane bronie." />
+      text="Pokaż wykonane bronie." />
     <string
       id="ret_crafted_items_toggle_tooltip"
       text="Wykonane przedmioty." />
@@ -336,7 +336,7 @@
       text="Dane bohatera są powiązane ze stanem zapisu." />
     <string
       id="ret_export_character_tooltip"
-      text="Eksportuj postać." />
+      text="Zapisz i eksportuj." />
     <string
       id="ret_export_desc"
       text="Wybierz nazwę zapisu:" />
@@ -367,6 +367,9 @@
     <string
       id="ret_filter_tooltip_description_equipment"
       text="Wpisz, aby filtrować listę według nazwy, kategorii lub poziomu." />
+    <string
+      id="ret_formation_class_icon_tooltip"
+      text="Formacja: {CLASS}." />
     <string
       id="ret_formation_option_auto"
       text="Auto" />
@@ -858,7 +861,7 @@
       text="Włącz tryb podglądu." />
     <string
       id="ret_preview_mode_toggle_tooltip"
-      text="Tryb podglądu." />
+      text="Użyj trybu podglądu, aby zobaczyć, jak wygląda ekwipunek bez faktycznego wprowadzania zmian." />
     <string
       id="ret_purchase_item_desc"
       text="Kupić {ITEM} za {COST} denarów?" />
@@ -1002,7 +1005,7 @@
       text="Oddziały [R]" />
     <string
       id="ret_unequip_item_tooltip"
-      text="Odłóż ten przedmiot." />
+      text="Zdejmij wyposażenie" />
     <string
       id="ret_upgrade_cannot_add_hero"
       text="Bohaterowie nie mogą mieć celów ulepszeń." />

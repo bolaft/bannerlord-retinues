@@ -180,7 +180,7 @@
       text="Incluir armas fabricadas." />
     <string
       id="ret_crafted_items_only_tooltip"
-      text="Ocultar armas fabricadas." />
+      text="Mostrar armas fabricadas." />
     <string
       id="ret_crafted_items_toggle_tooltip"
       text="Itens fabricados." />
@@ -336,7 +336,7 @@
       text="Os dados do herói estão vinculados ao estado de salvamento." />
     <string
       id="ret_export_character_tooltip"
-      text="Exportar personagem." />
+      text="Salvar e exportar." />
     <string
       id="ret_export_desc"
       text="Escolha um nome para salvar:" />
@@ -367,6 +367,9 @@
     <string
       id="ret_filter_tooltip_description_equipment"
       text="Digite para filtrar a lista por nome, categoria ou nível." />
+    <string
+      id="ret_formation_class_icon_tooltip"
+      text="Formação: {CLASS}." />
     <string
       id="ret_formation_option_auto"
       text="Auto" />
@@ -858,7 +861,7 @@
       text="Ativar o modo de visualização." />
     <string
       id="ret_preview_mode_toggle_tooltip"
-      text="Modo de Visualização." />
+      text="Use o modo de visualização para ver como o equipamento fica sem realmente aplicar as alterações." />
     <string
       id="ret_purchase_item_desc"
       text="Comprar {ITEM} por {COST} denários?" />
@@ -1002,7 +1005,7 @@
       text="Tropas [R]" />
     <string
       id="ret_unequip_item_tooltip"
-      text="Desequipar este item." />
+      text="Desequipar" />
     <string
       id="ret_upgrade_cannot_add_hero"
       text="Heróis não podem ter alvos de melhoria." />

@@ -180,7 +180,7 @@
       text="包含製作的武器。" />
     <string
       id="ret_crafted_items_only_tooltip"
-      text="隱藏製作的武器。" />
+      text="顯示製作的武器。" />
     <string
       id="ret_crafted_items_toggle_tooltip"
       text="製作的物品。" />
@@ -336,7 +336,7 @@
       text="英雄數據與保存狀態相關聯。" />
     <string
       id="ret_export_character_tooltip"
-      text="導出角色。" />
+      text="保存並導出。" />
     <string
       id="ret_export_desc"
       text="選擇一個保存名稱：" />
@@ -367,6 +367,9 @@
     <string
       id="ret_filter_tooltip_description_equipment"
       text="輸入以按名稱、類別或等級過濾列表。" />
+    <string
+      id="ret_formation_class_icon_tooltip"
+      text="編隊：{CLASS}。" />
     <string
       id="ret_formation_option_auto"
       text="自動" />
@@ -858,7 +861,7 @@
       text="啟用預覽模式。" />
     <string
       id="ret_preview_mode_toggle_tooltip"
-      text="預覽模式。" />
+      text="使用預覽模式查看裝備的外觀，而無需實際應用更改。" />
     <string
       id="ret_purchase_item_desc"
       text="以 {COST} 戈德購買 {ITEM}？" />
@@ -1002,7 +1005,7 @@
       text="部隊 [R]" />
     <string
       id="ret_unequip_item_tooltip"
-      text="卸下此物品。" />
+      text="卸下裝備" />
     <string
       id="ret_upgrade_cannot_add_hero"
       text="英雄不能有升級目標。" />

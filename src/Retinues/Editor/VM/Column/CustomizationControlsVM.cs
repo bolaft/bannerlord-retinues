@@ -33,8 +33,8 @@ namespace Retinues.Editor.VM.Column
                 L.S(
                     "customization_hint",
                     ShowCustomization
-                        ? "Hide customization controls"
-                        : "Show customization controls"
+                        ? "Hide Customization Controls"
+                        : "Show Customization Controls"
                 )
             );
 

@@ -180,7 +180,7 @@
       text="Hide crafted weapons." />
     <string
       id="ret_crafted_items_only_tooltip"
-      text="Show only crafted weapons." />
+      text="Show crafted weapons." />
     <string
       id="ret_crafted_items_toggle_tooltip"
       text="Crafted items." />
@@ -336,7 +336,7 @@
       text="Hero data is tied to the save state." />
     <string
       id="ret_export_character_tooltip"
-      text="Export character." />
+      text="Save &amp; export." />
     <string
       id="ret_export_desc"
       text="Choose a save name:" />
@@ -367,6 +367,9 @@
     <string
       id="ret_filter_tooltip_description_equipment"
       text="Type to filter the list by name, category or tier." />
+    <string
+      id="ret_formation_class_icon_tooltip"
+      text="Formation: {CLASS}." />
     <string
       id="ret_formation_option_auto"
       text="Auto" />
@@ -858,7 +861,7 @@
       text="Enable preview mode." />
     <string
       id="ret_preview_mode_toggle_tooltip"
-      text="Preview mode." />
+      text="Use preview mode to see how equipment looks without actually applying changes." />
     <string
       id="ret_purchase_item_desc"
       text="Buy {ITEM} for {COST} denars?" />
@@ -1002,7 +1005,7 @@
       text="Troops [R]" />
     <string
       id="ret_unequip_item_tooltip"
-      text="Unequip this item." />
+      text="Unequip" />
     <string
       id="ret_upgrade_cannot_add_hero"
       text="Heroes cannot have upgrade targets." />

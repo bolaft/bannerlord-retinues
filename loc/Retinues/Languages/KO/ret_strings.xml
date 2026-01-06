@@ -180,7 +180,7 @@
       text="제작된 무기 포함." />
     <string
       id="ret_crafted_items_only_tooltip"
-      text="제작된 무기 숨기기." />
+      text="제작된 무기 표시." />
     <string
       id="ret_crafted_items_toggle_tooltip"
       text="제작된 아이템." />
@@ -336,7 +336,7 @@
       text="영웅 데이터는 저장 상태에 연결되어 있습니다." />
     <string
       id="ret_export_character_tooltip"
-      text="캐릭터 내보내기." />
+      text="저장 및 내보내기." />
     <string
       id="ret_export_desc"
       text="저장 이름을 선택하세요:" />
@@ -367,6 +367,9 @@
     <string
       id="ret_filter_tooltip_description_equipment"
       text="이름, 카테고리 또는 등급별로 목록을 필터링하려면 입력하세요." />
+    <string
+      id="ret_formation_class_icon_tooltip"
+      text="대형: {CLASS}." />
     <string
       id="ret_formation_option_auto"
       text="자동" />
@@ -858,7 +861,7 @@
       text="미리보기 모드를 활성화합니다." />
     <string
       id="ret_preview_mode_toggle_tooltip"
-      text="미리보기 모드." />
+      text="미리보기 모드를 사용하여 변경 사항을 실제로 적용하지 않고 장비가 어떻게 보이는지 확인하십시오." />
     <string
       id="ret_purchase_item_desc"
       text="{COST} 데나르에 {ITEM}을(를) 구매하시겠습니까?" />
@@ -1002,7 +1005,7 @@
       text="부대 [R]" />
     <string
       id="ret_unequip_item_tooltip"
-      text="이 아이템을 장비 해제합니다." />
+      text="장비 해제" />
     <string
       id="ret_upgrade_cannot_add_hero"
       text="영웅은 업그레이드 대상을 가질 수 없습니다." />

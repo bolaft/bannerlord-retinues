@@ -26,7 +26,7 @@ namespace Retinues.Editor.VM.Column.Character
         [DataSourceProperty]
         public Icon ExportIcon { get; } =
             new(
-                tooltipFactory: () => new(L.T("export_character_tooltip", "Export character.")),
+                tooltipFactory: () => new(L.T("export_character_tooltip", "Save & export.")),
                 refresh: [UIEvent.Character],
                 visibilityGate: () => State.Character != null
             );
@@ -99,7 +99,13 @@ namespace Retinues.Editor.VM.Column.Character
                     if (c == null)
                         return null;
 
-                    return new Tooltip(c.FormationClass.GetLocalizedName().ToString());
+                    return new Tooltip(
+                        L.T("formation_class_icon_tooltip", "Formation: {CLASS}.")
+                            .SetTextVariable(
+                                "CLASS",
+                                c.FormationClass.GetLocalizedName().ToString().ToLower()
+                            )
+                    );
                 },
                 spriteFactory: () => Icons.GetFormationClassIcon(State.Character),
                 refresh: [UIEvent.Formation],

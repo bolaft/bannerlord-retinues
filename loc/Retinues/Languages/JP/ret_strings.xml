@@ -180,7 +180,7 @@
       text="作成した武器を含める。" />
     <string
       id="ret_crafted_items_only_tooltip"
-      text="作成した武器を非表示にする。" />
+      text="作成した武器を表示します。" />
     <string
       id="ret_crafted_items_toggle_tooltip"
       text="作成したアイテム。" />
@@ -336,7 +336,7 @@
       text="ヒーローデータは保存状態に結び付けられています。" />
     <string
       id="ret_export_character_tooltip"
-      text="キャラクターをエクスポートします。" />
+      text="保存してエクスポートします。" />
     <string
       id="ret_export_desc"
       text="保存名を選択してください：" />
@@ -367,6 +367,9 @@
     <string
       id="ret_filter_tooltip_description_equipment"
       text="名前、カテゴリ、または階級でリストをフィルタリングするには入力してください。" />
+    <string
+      id="ret_formation_class_icon_tooltip"
+      text="編成：{CLASS}。" />
     <string
       id="ret_formation_option_auto"
       text="自動" />
@@ -858,7 +861,7 @@
       text="プレビューモードを有効にします。" />
     <string
       id="ret_preview_mode_toggle_tooltip"
-      text="プレビューモード。" />
+      text="プレビューモードを使用して、変更を実際に適用せずに装備の外観を確認します。" />
     <string
       id="ret_purchase_item_desc"
       text="{COST} デナリで {ITEM} を購入しますか？" />
@@ -1002,7 +1005,7 @@
       text="部隊 [R]" />
     <string
       id="ret_unequip_item_tooltip"
-      text="このアイテムを装備解除します。" />
+      text="装備解除" />
     <string
       id="ret_upgrade_cannot_add_hero"
       text="英雄にはアップグレードターゲットを設定できません。" />
