@@ -105,6 +105,11 @@
       <HintPath>$(ReferenceRoot)/TaleWorlds.SaveSystem.dll</HintPath>
       <Private>false</Private>
     </Reference>
+    <!-- System -->
+    <Reference Include="System.Numerics.Vectors">
+      <HintPath>$(ReferenceRoot)/System.Numerics.Vectors.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
     <!-- SandBox -->
     <Reference Include="SandBox">
       <HintPath>$(ReferenceRoot)/SandBox.dll</HintPath>
