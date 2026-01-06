@@ -317,7 +317,7 @@ namespace Retinues.Configuration
                     "mcm_option_starter_equipment_hint",
                     "Sets the starter equipment for newly unlocked troops."
                 ),
-                @default: EquipmentMode.SingleSet,
+                @default: EquipmentMode.RandomSet,
                 choices:
                 [
                     EquipmentMode.SingleSet,

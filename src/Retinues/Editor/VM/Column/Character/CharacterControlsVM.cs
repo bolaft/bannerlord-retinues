@@ -86,6 +86,10 @@ namespace Retinues.Editor.VM.Column.Character
         //                     Formation Class                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        [EventListener(UIEvent.Character)]
+        [DataSourceProperty]
+        public bool ShowFormationClass => State.Character?.IsHero == false;
+
         [DataSourceProperty]
         public Icon FormationClassIcon { get; } =
             new(
