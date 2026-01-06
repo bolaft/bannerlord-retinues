@@ -636,6 +636,36 @@ namespace Retinues.Editor.Controllers.Character
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Mixed Gender                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public static EditorAction<bool> SetMixedGender { get; } =
+            Action<bool>("SetMixedGender")
+                .RequireValidEditingContext()
+                .AddCondition(
+                    _ => State.Character.IsHero == false,
+                    L.T("mixed_gender_hero_reason", "Not available to heroes.")
+                )
+                .DefaultTooltip(_ =>
+                    State.Character?.IsMixedGender == true
+                        ? L.T("mixed_gender_disable_tooltip", "Disable mixed gender for this unit.")
+                        : L.T("mixed_gender_enable_tooltip", "Enable mixed gender for this unit.")
+                )
+                .ExecuteWith(SetMixedGenderImpl)
+                .Fire(UIEvent.Character);
+
+        private static void SetMixedGenderImpl(bool isMixedGender)
+        {
+            if (State.Character == null)
+                return;
+
+            if (State.Character.IsHero)
+                return;
+
+            State.Character.IsMixedGender = isMixedGender;
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Mariner                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 

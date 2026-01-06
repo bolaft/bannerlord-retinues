@@ -803,6 +803,12 @@
       id="ret_mcm_option_max_retinue_ratio_hint"
       text="Le nombre maximum de rétinues en fonction de la taille maximale du groupe." />
     <string
+      id="ret_mcm_option_mixed_gender_ratio"
+      text="Ratio de Genre Mixte" />
+    <string
+      id="ret_mcm_option_mixed_gender_ratio_hint"
+      text="Définit la probabilité pour que les unités de genre mixte apparaissent en tant que membre du sexe opposé." />
+    <string
       id="ret_mcm_option_required_discards_to_unlock"
       text="Rejets Requis Pour Déverrouiller" />
     <string
@@ -910,6 +916,18 @@
     <string
       id="ret_mcm_section_user_interface"
       text="Interface Utilisateur" />
+    <string
+      id="ret_mixed_gender_disable_tooltip"
+      text="Désactiver le genre mixte pour cette unité." />
+    <string
+      id="ret_mixed_gender_enable_tooltip"
+      text="Activer le genre mixte pour cette unité." />
+    <string
+      id="ret_mixed_gender_hero_reason"
+      text="Non disponible pour les héros." />
+    <string
+      id="ret_mixed_gender_toggle_tooltip"
+      text="Permet à l&apos;unité d&apos;apparaître en tant qu&apos;homme ou femme." />
     <string
       id="ret_name_header_text"
       text="Nom" />

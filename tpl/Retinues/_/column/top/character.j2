@@ -38,6 +38,30 @@
         </ListPanel>
 
         {# ------------------------------------------ #}
+        {# Mixed Gender Toggle                        #}
+        {# ------------------------------------------ #}
+
+        <ListPanel
+            IsVisible="@ShowMixedGenderToggle"
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            HorizontalAlignment="Left" VerticalAlignment="Top"
+            MarginBottom="8">
+            <Children>
+
+                {{ icon_sprite(
+                    "{MixedGenderIcon}",
+                    "@Sprite",
+                    "StdAssets\Popup\order_popup_card_default",
+                    size="32",
+                    sprite_size="24"
+                ) }}
+
+                {{ checkbox("{MixedGenderToggle}", "32") }}
+
+            </Children>
+        </ListPanel>
+
+        {# ------------------------------------------ #}
         {# Formation Class                            #}
         {# ------------------------------------------ #}
 
@@ -63,7 +87,7 @@
         </ListPanel>
 
         {# ------------------------------------------ #}
-        {# Mariner toggle                             #}
+        {# Mariner Toggle                             #}
         {# ------------------------------------------ #}
 
         <ListPanel

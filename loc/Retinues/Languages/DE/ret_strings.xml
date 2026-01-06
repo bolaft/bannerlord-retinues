@@ -803,6 +803,12 @@
       id="ret_mcm_option_max_retinue_ratio_hint"
       text="Die maximale Anzahl von Retinues als Verhältnis zur Partikelgrößenbegrenzung." />
     <string
+      id="ret_mcm_option_mixed_gender_ratio"
+      text="Gemischtes Geschlechterverhältnis" />
+    <string
+      id="ret_mcm_option_mixed_gender_ratio_hint"
+      text="Legt die Chance fest, dass gemischte Geschlechtereinheiten als Mitglied des anderen Geschlechts erscheinen." />
+    <string
       id="ret_mcm_option_required_discards_to_unlock"
       text="Erforderliche Verwerfung zum Entsperren" />
     <string
@@ -910,6 +916,18 @@
     <string
       id="ret_mcm_section_user_interface"
       text="Benutzeroberfläche" />
+    <string
+      id="ret_mixed_gender_disable_tooltip"
+      text="Deaktivieren Sie das gemischte Geschlecht für diese Einheit." />
+    <string
+      id="ret_mixed_gender_enable_tooltip"
+      text="Aktivieren Sie das gemischte Geschlecht für diese Einheit." />
+    <string
+      id="ret_mixed_gender_hero_reason"
+      text="Nicht für Helden verfügbar." />
+    <string
+      id="ret_mixed_gender_toggle_tooltip"
+      text="Ermöglicht es der Einheit, entweder als Mann oder Frau zu erscheinen." />
     <string
       id="ret_name_header_text"
       text="Name" />

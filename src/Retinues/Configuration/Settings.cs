@@ -241,6 +241,18 @@ namespace Retinues.Configuration
                     }
             );
 
+        public static readonly Option<float> MixedGenderRatio = CreateOption(
+            section: Troops,
+            name: L.F("mcm_option_mixed_gender_ratio", "Mixed Gender Ratio"),
+            hint: L.F(
+                "mcm_option_mixed_gender_ratio_hint",
+                "Sets the chance for mixed gender units to spawn as a member of the opposite sex."
+            ),
+            minValue: 0f,
+            maxValue: 0.5f,
+            @default: 0.5f
+        );
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Restrictions                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

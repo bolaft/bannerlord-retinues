@@ -803,6 +803,12 @@
       id="ret_mcm_option_max_retinue_ratio_hint"
       text="O número máximo de retinues como uma proporção do limite de tamanho do grupo." />
     <string
+      id="ret_mcm_option_mixed_gender_ratio"
+      text="Razão de Gênero Misto" />
+    <string
+      id="ret_mcm_option_mixed_gender_ratio_hint"
+      text="Define a chance de unidades de gênero misto aparecerem como membro do sexo oposto." />
+    <string
       id="ret_mcm_option_required_discards_to_unlock"
       text="Descartes Necessários Para Desbloquear" />
     <string
@@ -910,6 +916,18 @@
     <string
       id="ret_mcm_section_user_interface"
       text="Interface do Usuário" />
+    <string
+      id="ret_mixed_gender_disable_tooltip"
+      text="Desativar gênero misto para esta unidade." />
+    <string
+      id="ret_mixed_gender_enable_tooltip"
+      text="Ativar gênero misto para esta unidade." />
+    <string
+      id="ret_mixed_gender_hero_reason"
+      text="Não disponível para heróis." />
+    <string
+      id="ret_mixed_gender_toggle_tooltip"
+      text="Permite que a unidade apareça como homem ou mulher." />
     <string
       id="ret_name_header_text"
       text="Nome" />

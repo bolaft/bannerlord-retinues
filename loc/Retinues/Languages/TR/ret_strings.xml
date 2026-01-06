@@ -803,6 +803,12 @@
       id="ret_mcm_option_max_retinue_ratio_hint"
       text="Grup boyutu sınırının bir oranı olarak maksimum retinue sayısı." />
     <string
+      id="ret_mcm_option_mixed_gender_ratio"
+      text="Karma Cinsiyet Oranı" />
+    <string
+      id="ret_mcm_option_mixed_gender_ratio_hint"
+      text="Karma cinsiyet birimlerinin karşı cins üyesi olarak ortaya çıkma şansını ayarlar." />
+    <string
       id="ret_mcm_option_required_discards_to_unlock"
       text="Kilidi Açmak İçin Gerekli Atmalar" />
     <string
@@ -910,6 +916,18 @@
     <string
       id="ret_mcm_section_user_interface"
       text="Kullanıcı Arayüzü" />
+    <string
+      id="ret_mixed_gender_disable_tooltip"
+      text="Bu birim için karışık cinsiyeti devre dışı bırak." />
+    <string
+      id="ret_mixed_gender_enable_tooltip"
+      text="Bu birim için karışık cinsiyeti etkinleştir." />
+    <string
+      id="ret_mixed_gender_hero_reason"
+      text="Kahramanlar için mevcut değil." />
+    <string
+      id="ret_mixed_gender_toggle_tooltip"
+      text="Birimin erkek veya kadın olarak ortaya çıkmasına izin verir." />
     <string
       id="ret_name_header_text"
       text="İsim" />

@@ -83,6 +83,47 @@ namespace Retinues.Editor.VM.Column.Character
             );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Mixed Gender                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [EventListener(UIEvent.Character)]
+        [DataSourceProperty]
+        public bool ShowMixedGenderToggle => State.Character != null && !State.Character.IsHero;
+
+        [DataSourceProperty]
+        public Icon MixedGenderIcon { get; } =
+            new(
+                tooltipFactory: () =>
+                    new Tooltip(
+                        L.T(
+                            "mixed_gender_toggle_tooltip",
+                            "Allows the unit to spawn as either a man or a woman."
+                        )
+                    ),
+                refresh: [UIEvent.Character, UIEvent.Gender],
+                spriteFactory: () =>
+                {
+                    var c = State.Character;
+                    if (c == null)
+                        return null;
+
+                    return c.IsFemale
+                        ? "SPGeneral\\GeneralFlagIcons\\male_only"
+                        : "SPGeneral\\GeneralFlagIcons\\female_only";
+                },
+                visibilityGate: () => State.Character != null && !State.Character.IsHero
+            );
+
+        [DataSourceProperty]
+        public Checkbox MixedGenderToggle { get; } =
+            new(
+                action: CharacterController.SetMixedGender,
+                getSelected: () => State.Character?.IsMixedGender ?? false,
+                refresh: [UIEvent.Character],
+                visibilityGate: () => State.Character != null && !State.Character.IsHero
+            );
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Formation Class                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 

@@ -803,6 +803,12 @@
       id="ret_mcm_option_max_retinue_ratio_hint"
       text="隨從的最大數量與隊伍規模限制的比例。" />
     <string
+      id="ret_mcm_option_mixed_gender_ratio"
+      text="混合性別比例" />
+    <string
+      id="ret_mcm_option_mixed_gender_ratio_hint"
+      text="設置混合性別單位作為異性成員生成的機會。" />
+    <string
       id="ret_mcm_option_required_discards_to_unlock"
       text="解鎖所需的丟棄次數" />
     <string
@@ -910,6 +916,18 @@
     <string
       id="ret_mcm_section_user_interface"
       text="用戶界面" />
+    <string
+      id="ret_mixed_gender_disable_tooltip"
+      text="禁用此單位的混合性別。" />
+    <string
+      id="ret_mixed_gender_enable_tooltip"
+      text="為此單位啟用混合性別。" />
+    <string
+      id="ret_mixed_gender_hero_reason"
+      text="英雄不可用。" />
+    <string
+      id="ret_mixed_gender_toggle_tooltip"
+      text="允許該單位以男性或女性身份生成。" />
     <string
       id="ret_name_header_text"
       text="名稱" />

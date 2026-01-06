@@ -69,6 +69,18 @@ namespace Retinues.Domain.Characters.Wrappers
         public ICharacter Editable => IsHero ? Hero : this;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Mixed Gender                     //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        MAttribute<bool> IsMixedGenderAttribute => Attribute(false);
+
+        public bool IsMixedGender
+        {
+            get => IsMixedGenderAttribute.Get();
+            set => IsMixedGenderAttribute.Set(value);
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Removal                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 

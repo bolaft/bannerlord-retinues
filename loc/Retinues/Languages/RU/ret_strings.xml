@@ -803,6 +803,12 @@
       id="ret_mcm_option_max_retinue_ratio_hint"
       text="Максимальное количество retinues в зависимости от ограничения размера партии." />
     <string
+      id="ret_mcm_option_mixed_gender_ratio"
+      text="Соотношение смешанных полов" />
+    <string
+      id="ret_mcm_option_mixed_gender_ratio_hint"
+      text="Устанавливает шанс появления смешанных гендерных единиц в качестве члена противоположного пола." />
+    <string
       id="ret_mcm_option_required_discards_to_unlock"
       text="Требуемые отказы для разблокировки" />
     <string
@@ -910,6 +916,18 @@
     <string
       id="ret_mcm_section_user_interface"
       text="Пользовательский интерфейс" />
+    <string
+      id="ret_mixed_gender_disable_tooltip"
+      text="Отключить смешанный пол для этой единицы." />
+    <string
+      id="ret_mixed_gender_enable_tooltip"
+      text="Включить смешанный пол для этой единицы." />
+    <string
+      id="ret_mixed_gender_hero_reason"
+      text="Недоступно для героев." />
+    <string
+      id="ret_mixed_gender_toggle_tooltip"
+      text="Позволяет юниту появляться как мужчиной, так и женщиной." />
     <string
       id="ret_name_header_text"
       text="Имя" />
