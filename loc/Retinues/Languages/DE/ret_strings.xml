@@ -918,16 +918,16 @@
       text="Benutzeroberfläche" />
     <string
       id="ret_mixed_gender_disable_tooltip"
-      text="Deaktivieren Sie das gemischte Geschlecht für diese Einheit." />
+      text="Verhindert, dass diese Einheit entweder als männlich oder weiblich erscheint." />
     <string
       id="ret_mixed_gender_enable_tooltip"
-      text="Aktivieren Sie das gemischte Geschlecht für diese Einheit." />
+      text="Ermöglicht es dieser Einheit, entweder als männlich oder weiblich zu erscheinen." />
     <string
       id="ret_mixed_gender_hero_reason"
       text="Nicht für Helden verfügbar." />
     <string
       id="ret_mixed_gender_toggle_tooltip"
-      text="Ermöglicht es der Einheit, entweder als Mann oder Frau zu erscheinen." />
+      text="Einheit mit gemischtem Geschlecht." />
     <string
       id="ret_name_header_text"
       text="Name" />

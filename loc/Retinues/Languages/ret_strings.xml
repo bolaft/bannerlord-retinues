@@ -918,16 +918,16 @@
       text="User Interface" />
     <string
       id="ret_mixed_gender_disable_tooltip"
-      text="Disable mixed gender for this unit." />
+      text="Disallow this unit from spawning as either male or female." />
     <string
       id="ret_mixed_gender_enable_tooltip"
-      text="Enable mixed gender for this unit." />
+      text="Allow this unit to spawn as either male or female." />
     <string
       id="ret_mixed_gender_hero_reason"
       text="Not available to heroes." />
     <string
       id="ret_mixed_gender_toggle_tooltip"
-      text="Allows the unit to spawn as either a man or a woman." />
+      text="Mixed gender unit." />
     <string
       id="ret_name_header_text"
       text="Name" />

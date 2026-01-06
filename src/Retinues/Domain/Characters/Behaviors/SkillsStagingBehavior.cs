@@ -65,7 +65,7 @@ namespace Retinues.Domain.Characters.Behaviors
                         L.T("staged_skill_unlock", "{TROOP} improved {SKILL} to {VALUE}.")
                             .SetTextVariable("TROOP", troopName)
                             .SetTextVariable("SKILL", skillName)
-                            .SetTextVariable("VALUE", newValue.ToString())
+                            .SetTextVariable("VALUE", newValue)
                     );
                 }
                 if (!wc.HasAnyStagedSkillPoints())

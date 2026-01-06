@@ -918,16 +918,16 @@
       text="Interfaz de usuario" />
     <string
       id="ret_mixed_gender_disable_tooltip"
-      text="Desactivar género mixto para esta unidad." />
+      text="No permite que esta unidad aparezca como masculina o femenina." />
     <string
       id="ret_mixed_gender_enable_tooltip"
-      text="Activar género mixto para esta unidad." />
+      text="Permite que esta unidad aparezca como masculina o femenina." />
     <string
       id="ret_mixed_gender_hero_reason"
       text="No disponible para héroes." />
     <string
       id="ret_mixed_gender_toggle_tooltip"
-      text="Permite que la unidad aparezca como hombre o mujer." />
+      text="Unidad de género mixto." />
     <string
       id="ret_name_header_text"
       text="Nombre" />

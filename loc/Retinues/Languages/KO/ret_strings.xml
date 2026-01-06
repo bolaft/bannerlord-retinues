@@ -918,16 +918,16 @@
       text="사용자 인터페이스" />
     <string
       id="ret_mixed_gender_disable_tooltip"
-      text="이 유닛에 대한 혼합 성별을 비활성화합니다." />
+      text="이 유닛이 남성 또는 여성으로 생성되는 것을 허용하지 않습니다." />
     <string
       id="ret_mixed_gender_enable_tooltip"
-      text="이 유닛에 대한 혼합 성별을 활성화합니다." />
+      text="이 유닛이 남성 또는 여성으로 생성되도록 허용합니다." />
     <string
       id="ret_mixed_gender_hero_reason"
       text="영웅에게는 사용할 수 없습니다." />
     <string
       id="ret_mixed_gender_toggle_tooltip"
-      text="유닛이 남성 또는 여성으로 생성되도록 허용합니다." />
+      text="혼성 유닛." />
     <string
       id="ret_name_header_text"
       text="이름" />

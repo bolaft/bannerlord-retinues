@@ -918,16 +918,16 @@
       text="ユーザーインターフェース" />
     <string
       id="ret_mixed_gender_disable_tooltip"
-      text="このユニットの混合性別を無効にします。" />
+      text="このユニットが男性または女性として出現することを禁止します。" />
     <string
       id="ret_mixed_gender_enable_tooltip"
-      text="このユニットの混合性別を有効にします。" />
+      text="このユニットが男性または女性として出現することを許可します。" />
     <string
       id="ret_mixed_gender_hero_reason"
       text="ヒーローには利用できません。" />
     <string
       id="ret_mixed_gender_toggle_tooltip"
-      text="ユニットが男性または女性として出現できるようにします。" />
+      text="混合性別ユニット。" />
     <string
       id="ret_name_header_text"
       text="名前" />

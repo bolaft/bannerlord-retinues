@@ -918,16 +918,16 @@
       text="用户界面" />
     <string
       id="ret_mixed_gender_disable_tooltip"
-      text="禁用此单位的混合性别。" />
+      text="不允许该单位以男性或女性身份出现。" />
     <string
       id="ret_mixed_gender_enable_tooltip"
-      text="为此单位启用混合性别。" />
+      text="允许该单位以男性或女性身份出现。" />
     <string
       id="ret_mixed_gender_hero_reason"
       text="英雄不可用。" />
     <string
       id="ret_mixed_gender_toggle_tooltip"
-      text="允许该单位以男性或女性身份生成。" />
+      text="混合性别单位。" />
     <string
       id="ret_name_header_text"
       text="名称" />

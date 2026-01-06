@@ -94,12 +94,7 @@ namespace Retinues.Editor.VM.Column.Character
         public Icon MixedGenderIcon { get; } =
             new(
                 tooltipFactory: () =>
-                    new Tooltip(
-                        L.T(
-                            "mixed_gender_toggle_tooltip",
-                            "Allows the unit to spawn as either a man or a woman."
-                        )
-                    ),
+                    new Tooltip(L.T("mixed_gender_toggle_tooltip", "Mixed gender unit.")),
                 refresh: [UIEvent.Character, UIEvent.Gender],
                 spriteFactory: () =>
                 {

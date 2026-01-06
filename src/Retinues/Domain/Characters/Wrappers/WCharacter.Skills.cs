@@ -327,13 +327,12 @@ namespace Retinues.Domain.Characters.Wrappers
         internal bool TryApplyOneStagedSkillPointRandom(out SkillObject skill, out int newValue)
         {
             skill = null;
-            newValue = Skills.Get(skill) + 1;
+            newValue = 0;
 
             var map0 = SkillsStagingAttribute.Get();
             if (map0 == null || map0.Count == 0)
                 return false;
 
-            // Snapshot keys with > 0 staged points.
             var keys = new List<string>();
             foreach (var kv in map0)
             {
@@ -344,7 +343,6 @@ namespace Retinues.Domain.Characters.Wrappers
             if (keys.Count == 0)
                 return false;
 
-            // Random pick among staged skills.
             var pick = keys[MBRandom.RandomInt(keys.Count)];
 
             var manager = MBObjectManager.Instance;
@@ -354,7 +352,6 @@ namespace Retinues.Domain.Characters.Wrappers
             skill = manager.GetObject<SkillObject>(pick);
             if (skill == null)
             {
-                // Clean invalid entry (mod removed etc).
                 AddStagedSkillDelta(pick, -int.MaxValue);
                 return false;
             }
@@ -367,6 +364,7 @@ namespace Retinues.Domain.Characters.Wrappers
             // Consume one staged point.
             AddStagedSkillDelta(pick, -1);
 
+            newValue = next;
             return true;
         }
 

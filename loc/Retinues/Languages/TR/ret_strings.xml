@@ -918,16 +918,16 @@
       text="Kullanıcı Arayüzü" />
     <string
       id="ret_mixed_gender_disable_tooltip"
-      text="Bu birim için karışık cinsiyeti devre dışı bırak." />
+      text="Bu birimin erkek veya kadın olarak ortaya çıkmasını engelle." />
     <string
       id="ret_mixed_gender_enable_tooltip"
-      text="Bu birim için karışık cinsiyeti etkinleştir." />
+      text="Bu birimin erkek veya kadın olarak ortaya çıkmasına izin ver." />
     <string
       id="ret_mixed_gender_hero_reason"
       text="Kahramanlar için mevcut değil." />
     <string
       id="ret_mixed_gender_toggle_tooltip"
-      text="Birimin erkek veya kadın olarak ortaya çıkmasına izin verir." />
+      text="Karma cinsiyet birimi." />
     <string
       id="ret_name_header_text"
       text="İsim" />
