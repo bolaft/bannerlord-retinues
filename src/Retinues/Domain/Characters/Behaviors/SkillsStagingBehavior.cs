@@ -26,12 +26,11 @@ namespace Retinues.Domain.Characters.Behaviors
             if (!Settings.TrainingProgressesWhileTravelling && Player.CurrentSettlement == null)
                 return;
 
-            float mult = Settings.SkillProgressPerDay;
-            if (mult <= 0.01f)
-                mult = 0.01f;
+            float pointsPerDay = Settings.SkillProgressPerDay;
+            if (pointsPerDay <= 0.01f)
+                pointsPerDay = 0.01f;
 
-            // Base: 1 staged point per hour at multiplier 1.0
-            float progressDelta = 1f / mult;
+            float progressDelta = pointsPerDay / 24f;
 
             bool changed = false;
 
