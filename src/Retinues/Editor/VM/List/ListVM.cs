@@ -159,8 +159,8 @@ namespace Retinues.Editor.VM.List
             _previousSlot = currentSlot;
         }
 
-        [EventListener(UIEvent.Crafted)]
-        private void OnCraftedFilterChange()
+        [EventListener(UIEvent.Crafted, UIEvent.Preview)]
+        private void OnModeChange()
         {
             if (EditorVM.Page != EditorPage.Equipment)
                 return;

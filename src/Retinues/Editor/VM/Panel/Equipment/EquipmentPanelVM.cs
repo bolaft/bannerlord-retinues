@@ -2,7 +2,6 @@ using Retinues.Configuration;
 using Retinues.Editor.Controllers.Equipment;
 using Retinues.Editor.Events;
 using Retinues.UI.Services;
-using Retinues.Utilities;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 

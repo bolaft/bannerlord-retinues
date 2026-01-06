@@ -25,6 +25,7 @@ namespace Retinues.Editor.VM.List.Equipment
             : base(header, item?.StringId ?? string.Empty)
         {
             _item = item;
+
             UpdateBrush();
         }
 
@@ -103,7 +104,7 @@ namespace Retinues.Editor.VM.List.Equipment
         [EventListener(UIEvent.Item, Global = true)]
         [DataSourceProperty]
         public bool ShowStock =>
-            IsEnabled && EconomyEnabled && !AvailableInRoster && _item.Stock > 0;
+            IsEnabled && EconomyEnabled && !IsSelected && !AvailableInRoster && _item.Stock > 0;
 
         [EventListener(UIEvent.Item, Global = true)]
         [DataSourceProperty]
@@ -117,7 +118,7 @@ namespace Retinues.Editor.VM.List.Equipment
         [EventListener(UIEvent.Item, Global = true)]
         [DataSourceProperty]
         public bool ShowCost =>
-            IsEnabled && EconomyEnabled && !AvailableInRoster && _item.Stock <= 0;
+            IsEnabled && EconomyEnabled && !IsSelected && !AvailableInRoster && _item.Stock <= 0;
 
         [EventListener(UIEvent.Item)]
         [DataSourceProperty]
