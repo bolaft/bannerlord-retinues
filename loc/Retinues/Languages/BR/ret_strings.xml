@@ -1004,6 +1004,12 @@
       id="ret_skill_decrease_min_reason"
       text="Não é possível diminuir a habilidade abaixo de 0." />
     <string
+      id="ret_skill_decrease_warning_text"
+      text="Diminuir uma habilidade é instantâneo, mas re-treiná-la levará tempo.{newline}{newline}Continuar?" />
+    <string
+      id="ret_skill_decrease_warning_title"
+      text="Diminuir Habilidade" />
+    <string
       id="ret_skill_description_text"
       text="Pontos de Habilidade: {SKILL_POINTS} - Limite de Habilidade: {SKILL_CAP}" />
     <string
@@ -1018,6 +1024,9 @@
     <string
       id="ret_skill_increase_total_reason"
       text="Limite total de habilidades atingida." />
+    <string
+      id="ret_skill_value_hint_staged"
+      text="Valor real da habilidade até o treinamento ser concluído: {CURRENT}." />
     <string
       id="ret_skills_header_text"
       text="Habilidades" />

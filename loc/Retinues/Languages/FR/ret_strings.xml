@@ -1004,6 +1004,12 @@
       id="ret_skill_decrease_min_reason"
       text="Une compétence ne peut pas descendre en dessous de 0." />
     <string
+      id="ret_skill_decrease_warning_text"
+      text="Diminuer une compétence est instantané, mais la réentrainer prendra du temps.{newline}{newline}Continuer ?" />
+    <string
+      id="ret_skill_decrease_warning_title"
+      text="Diminution de compétence" />
+    <string
       id="ret_skill_description_text"
       text="Points de compétence : {SKILL_POINTS} - Plafond de compétence : {SKILL_CAP}" />
     <string
@@ -1018,6 +1024,9 @@
     <string
       id="ret_skill_increase_total_reason"
       text="Maximum de compétences atteint." />
+    <string
+      id="ret_skill_value_hint_staged"
+      text="Valeur réelle de la compétence avant entraînement : {CURRENT}." />
     <string
       id="ret_skills_header_text"
       text="Compétences" />

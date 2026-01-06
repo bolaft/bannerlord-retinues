@@ -5328,6 +5328,38 @@
     "TR": "Yetenek 0'ın altına düşürülemez."
   },
   {
+    "id": "ret_skill_decrease_warning_text",
+    "EN": "Decreasing a skill is instant, but retraining it will take time.\\n\\nContinue?",
+    "FR": "Diminuer une compétence est instantané, mais la réentrainer prendra du temps.\\n\\nContinuer ?",
+    "BR": "Diminuir uma habilidade é instantâneo, mas re-treiná-la levará tempo.\\n\\nContinuar?",
+    "CNs": "降低技能是即时的，但重新训练需要时间。\\n\\n继续？",
+    "CNt": "降低技能是即時的，但重新訓練需要時間。\\n\\n繼續？",
+    "DE": "Das Verringern einer Fähigkeit ist sofortig, aber das erneute Trainieren dauert Zeit.\\n\\nFortfahren?",
+    "IT": "Diminuire un'abilità è istantaneo, ma riaddestrarla richiederà tempo.\\n\\nContinuare?",
+    "JP": "スキルを下げるのは即座に行われますが、再訓練には時間がかかります。\\n\\n続行しますか？",
+    "KO": "기술을 감소시키는 것은 즉시 이루어지지만 재훈련에는 시간이 걸립니다.\\n\\n계속하시겠습니까?",
+    "PL": "Zmniejszenie umiejętności jest natychmiastowe, ale ponowne jej wytrenowanie zajmie trochę czasu.\\n\\nKontynuować?",
+    "RU": "Уменьшение навыка происходит мгновенно, но его повторная тренировка займет время.\\n\\nПродолжить?",
+    "SP": "Disminuir una habilidad es instantáneo, pero volver a entrenarla tomará tiempo.\\n\\n¿Continuar?",
+    "TR": "Bir yeteneği düşürmek anında gerçekleşir, ancak yeniden eğitilmesi zaman alır.\\n\\nDevam edilsin mi?"
+  },
+  {
+    "id": "ret_skill_decrease_warning_title",
+    "EN": "Decrease Skill",
+    "FR": "Diminution de compétence",
+    "BR": "Diminuir Habilidade",
+    "CNs": "降低技能",
+    "CNt": "降低技能",
+    "DE": "Fähigkeit verringern",
+    "IT": "Diminuisci abilità",
+    "JP": "スキルを下げる",
+    "KO": "기술 감소",
+    "PL": "Zmniejsz umiejętność",
+    "RU": "Уменьшить навык",
+    "SP": "Disminuir habilidad",
+    "TR": "Yetenek Düşür"
+  },
+  {
     "id": "ret_skill_description_text",
     "EN": "Skill Points: {SKILL_POINTS} - Skill Cap: {SKILL_CAP}",
     "FR": "Points de compétence : {SKILL_POINTS} - Plafond de compétence : {SKILL_CAP}",
@@ -5406,6 +5438,22 @@
     "RU": "Достигнут общий лимит навыков.",
     "SP": "Límite total de habilidades alcanzado.",
     "TR": "Toplam yetenek limiti aşıldı."
+  },
+  {
+    "id": "ret_skill_value_hint_staged",
+    "EN": "Actual skill value until training completes: {CURRENT}.",
+    "FR": "Valeur réelle de la compétence avant entraînement : {CURRENT}.",
+    "BR": "Valor real da habilidade até o treinamento ser concluído: {CURRENT}.",
+    "CNs": "训练完成前的实际技能值：{CURRENT}。",
+    "CNt": "訓練完成前的實際技能值：{CURRENT}。",
+    "DE": "Tatsächlicher Fähigkeitswert bis zum Abschluss des Trainings: {CURRENT}.",
+    "IT": "Valore effettivo dell'abilità fino al completamento dell'addestramento: {CURRENT}.",
+    "JP": "トレーニングが完了するまでの実際のスキル値：{CURRENT}。",
+    "KO": "훈련이 완료될 때까지의 실제 기술 값: {CURRENT}.",
+    "PL": "Rzeczywista wartość umiejętności do czasu ukończenia treningu: {CURRENT}.",
+    "RU": "Фактическое значение навыка до завершения тренировки: {CURRENT}.",
+    "SP": "Valor real de la habilidad hasta que se complete el entrenamiento: {CURRENT}.",
+    "TR": "Eğitim tamamlanana kadar gerçek yetenek değeri: {CURRENT}."
   },
   {
     "id": "ret_skills_header_text",

@@ -1004,6 +1004,12 @@
       id="ret_skill_decrease_min_reason"
       text="Невозможно уменьшить навык ниже 0." />
     <string
+      id="ret_skill_decrease_warning_text"
+      text="Уменьшение навыка происходит мгновенно, но его повторная тренировка займет время.{newline}{newline}Продолжить?" />
+    <string
+      id="ret_skill_decrease_warning_title"
+      text="Уменьшить навык" />
+    <string
       id="ret_skill_description_text"
       text="Очки навыков: {SKILL_POINTS} - Лимит навыков: {SKILL_CAP}" />
     <string
@@ -1018,6 +1024,9 @@
     <string
       id="ret_skill_increase_total_reason"
       text="Достигнут общий лимит навыков." />
+    <string
+      id="ret_skill_value_hint_staged"
+      text="Фактическое значение навыка до завершения тренировки: {CURRENT}." />
     <string
       id="ret_skills_header_text"
       text="Навыки" />

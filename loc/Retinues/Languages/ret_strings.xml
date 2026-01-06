@@ -1004,6 +1004,12 @@
       id="ret_skill_decrease_min_reason"
       text="Cannot decrease skill below 0." />
     <string
+      id="ret_skill_decrease_warning_text"
+      text="Decreasing a skill is instant, but retraining it will take time.{newline}{newline}Continue?" />
+    <string
+      id="ret_skill_decrease_warning_title"
+      text="Decrease Skill" />
+    <string
       id="ret_skill_description_text"
       text="Skill Points: {SKILL_POINTS} - Skill Cap: {SKILL_CAP}" />
     <string
@@ -1018,6 +1024,9 @@
     <string
       id="ret_skill_increase_total_reason"
       text="Total skill limit reached." />
+    <string
+      id="ret_skill_value_hint_staged"
+      text="Actual skill value until training completes: {CURRENT}." />
     <string
       id="ret_skills_header_text"
       text="Skills" />

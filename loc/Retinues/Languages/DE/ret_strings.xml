@@ -1004,6 +1004,12 @@
       id="ret_skill_decrease_min_reason"
       text="Fähigkeit kann nicht unter 0 verringert werden." />
     <string
+      id="ret_skill_decrease_warning_text"
+      text="Das Verringern einer Fähigkeit ist sofortig, aber das erneute Trainieren dauert Zeit.{newline}{newline}Fortfahren?" />
+    <string
+      id="ret_skill_decrease_warning_title"
+      text="Fähigkeit verringern" />
+    <string
       id="ret_skill_description_text"
       text="Fertigkeitspunkte: {SKILL_POINTS} - Fähigkeitslimit: {SKILL_CAP}" />
     <string
@@ -1018,6 +1024,9 @@
     <string
       id="ret_skill_increase_total_reason"
       text="Gesamtes Fähigkeitslimit erreicht." />
+    <string
+      id="ret_skill_value_hint_staged"
+      text="Tatsächlicher Fähigkeitswert bis zum Abschluss des Trainings: {CURRENT}." />
     <string
       id="ret_skills_header_text"
       text="Fähigkeiten" />

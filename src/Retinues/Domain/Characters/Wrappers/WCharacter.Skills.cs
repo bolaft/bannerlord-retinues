@@ -95,7 +95,7 @@ namespace Retinues.Domain.Characters.Wrappers
 
             /* ━━━━━━━ Helpers ━━━━━━━ */
 
-            private int GetBase(SkillObject skill)
+            public int GetBase(SkillObject skill)
             {
                 if (skill == null)
                     return 0;
@@ -106,7 +106,7 @@ namespace Retinues.Domain.Characters.Wrappers
                 return _wc.Base.GetSkillValue(skill);
             }
 
-            private int GetStaged(SkillObject skill)
+            public int GetStaged(SkillObject skill)
             {
                 if (skill == null || string.IsNullOrEmpty(skill.StringId))
                     return 0;

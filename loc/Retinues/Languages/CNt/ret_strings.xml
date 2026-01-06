@@ -1004,6 +1004,12 @@
       id="ret_skill_decrease_min_reason"
       text="技能不能降低到0以下。" />
     <string
+      id="ret_skill_decrease_warning_text"
+      text="降低技能是即時的，但重新訓練需要時間。{newline}{newline}繼續？" />
+    <string
+      id="ret_skill_decrease_warning_title"
+      text="降低技能" />
+    <string
       id="ret_skill_description_text"
       text="技能點：{SKILL_POINTS} - 技能上限：{SKILL_CAP}" />
     <string
@@ -1018,6 +1024,9 @@
     <string
       id="ret_skill_increase_total_reason"
       text="已達到總技能限制。" />
+    <string
+      id="ret_skill_value_hint_staged"
+      text="訓練完成前的實際技能值：{CURRENT}。" />
     <string
       id="ret_skills_header_text"
       text="技能" />

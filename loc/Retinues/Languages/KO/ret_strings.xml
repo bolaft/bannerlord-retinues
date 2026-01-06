@@ -1004,6 +1004,12 @@
       id="ret_skill_decrease_min_reason"
       text="기술은 0 미만으로 감소할 수 없습니다." />
     <string
+      id="ret_skill_decrease_warning_text"
+      text="기술을 감소시키는 것은 즉시 이루어지지만 재훈련에는 시간이 걸립니다.{newline}{newline}계속하시겠습니까?" />
+    <string
+      id="ret_skill_decrease_warning_title"
+      text="기술 감소" />
+    <string
       id="ret_skill_description_text"
       text="기술 포인트: {SKILL_POINTS} - 기술 한도: {SKILL_CAP}" />
     <string
@@ -1018,6 +1024,9 @@
     <string
       id="ret_skill_increase_total_reason"
       text="총 기술 한도에 도달했습니다." />
+    <string
+      id="ret_skill_value_hint_staged"
+      text="훈련이 완료될 때까지의 실제 기술 값: {CURRENT}." />
     <string
       id="ret_skills_header_text"
       text="기술" />
