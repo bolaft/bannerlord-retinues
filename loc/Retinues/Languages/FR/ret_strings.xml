@@ -183,7 +183,7 @@
       text="Afficher les armes forgées." />
     <string
       id="ret_crafted_items_toggle_tooltip"
-      text="Objets forgés." />
+      text="Inclure les objets forgés dans la liste d&apos;équipements." />
     <string
       id="ret_crafted_player_only_reason"
       text="Disponible uniquement en mode joueur." />

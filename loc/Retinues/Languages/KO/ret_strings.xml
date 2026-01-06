@@ -183,7 +183,7 @@
       text="제작된 무기 표시." />
     <string
       id="ret_crafted_items_toggle_tooltip"
-      text="제작된 아이템." />
+      text="제작된 아이템을 장비 목록에 포함." />
     <string
       id="ret_crafted_player_only_reason"
       text="플레이어 모드에서만 사용 가능." />

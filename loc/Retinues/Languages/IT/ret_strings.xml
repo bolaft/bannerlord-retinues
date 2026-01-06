@@ -183,7 +183,7 @@
       text="Mostra armi create." />
     <string
       id="ret_crafted_items_toggle_tooltip"
-      text="Oggetti creati." />
+      text="Includi gli oggetti creati nell&apos;elenco dell&apos;equipaggiamento." />
     <string
       id="ret_crafted_player_only_reason"
       text="Disponibile solo in modalità giocatore." />

@@ -262,7 +262,13 @@ namespace Retinues.Editor.VM.Column.Equipment
         [DataSourceProperty]
         public Icon CraftedIcon { get; } =
             new(
-                tooltipFactory: () => new(L.T("crafted_items_toggle_tooltip", "Crafted items.")),
+                tooltipFactory: () =>
+                    new(
+                        L.T(
+                            "crafted_items_toggle_tooltip",
+                            "Include crafted items in the equipment list."
+                        )
+                    ),
                 refresh: [UIEvent.Slot, UIEvent.Crafted, UIEvent.Page],
                 visibilityGate: () =>
                     EditorVM.Page == EditorPage.Equipment && State.Mode == EditorMode.Player

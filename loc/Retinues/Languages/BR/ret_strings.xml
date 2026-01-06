@@ -183,7 +183,7 @@
       text="Mostrar armas fabricadas." />
     <string
       id="ret_crafted_items_toggle_tooltip"
-      text="Itens fabricados." />
+      text="Incluir itens fabricados na lista de equipamentos." />
     <string
       id="ret_crafted_player_only_reason"
       text="Disponível apenas no modo jogador." />

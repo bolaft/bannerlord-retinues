@@ -183,7 +183,7 @@
       text="Pokaż wykonane bronie." />
     <string
       id="ret_crafted_items_toggle_tooltip"
-      text="Wykonane przedmioty." />
+      text="Uwzględnij wykonane przedmioty na liście wyposażenia." />
     <string
       id="ret_crafted_player_only_reason"
       text="Dostępne tylko w trybie gracza." />

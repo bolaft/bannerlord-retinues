@@ -183,7 +183,7 @@
       text="顯示製作的武器。" />
     <string
       id="ret_crafted_items_toggle_tooltip"
-      text="製作的物品。" />
+      text="將製作的物品包含在裝備列表中。" />
     <string
       id="ret_crafted_player_only_reason"
       text="僅在玩家模式下可用。" />

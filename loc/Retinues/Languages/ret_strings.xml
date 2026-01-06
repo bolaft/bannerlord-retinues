@@ -183,7 +183,7 @@
       text="Show crafted weapons." />
     <string
       id="ret_crafted_items_toggle_tooltip"
-      text="Crafted items." />
+      text="Include crafted items in the equipment list." />
     <string
       id="ret_crafted_player_only_reason"
       text="Only available in player mode." />

@@ -183,7 +183,7 @@
       text="Handgefertigte Waffen anzeigen." />
     <string
       id="ret_crafted_items_toggle_tooltip"
-      text="Handgefertigte Gegenstände." />
+      text="Handgefertigte Gegenstände in die Ausrüstungsliste aufnehmen." />
     <string
       id="ret_crafted_player_only_reason"
       text="Nur im Spielermodus verfügbar." />

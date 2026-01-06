@@ -183,7 +183,7 @@
       text="Показать изготовленное оружие." />
     <string
       id="ret_crafted_items_toggle_tooltip"
-      text="Изготовленные предметы." />
+      text="Включить изготовленные предметы в список снаряжения." />
     <string
       id="ret_crafted_player_only_reason"
       text="Доступно только в режиме игрока." />

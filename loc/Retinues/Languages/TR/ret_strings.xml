@@ -183,7 +183,7 @@
       text="El yapımı silahları göster." />
     <string
       id="ret_crafted_items_toggle_tooltip"
-      text="El yapımı öğeler." />
+      text="Ekipman listesine el yapımı öğeleri dahil et." />
     <string
       id="ret_crafted_player_only_reason"
       text="Yalnızca oyuncu modunda kullanılabilir." />

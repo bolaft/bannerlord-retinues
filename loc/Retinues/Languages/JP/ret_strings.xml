@@ -183,7 +183,7 @@
       text="作成した武器を表示します。" />
     <string
       id="ret_crafted_items_toggle_tooltip"
-      text="作成したアイテム。" />
+      text="作成したアイテムを装備リストに含めます。" />
     <string
       id="ret_crafted_player_only_reason"
       text="プレイヤーモードでのみ利用可能です。" />
