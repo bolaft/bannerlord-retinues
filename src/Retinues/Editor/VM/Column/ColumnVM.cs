@@ -54,6 +54,33 @@ namespace Retinues.Editor.VM.Column
             }
         }
 
+        private static void ApplyPlannedEquipmentForModel(
+            TaleWorlds.Core.Equipment equipmentForModel
+        )
+        {
+            // Preview mode must win: the preview clone already contains the temporary items.
+            // Overlaying planned/staged equipment would overwrite the preview and break it.
+            if (PreviewController.Enabled)
+                return;
+
+            var me = State.Equipment;
+            if (me == null || equipmentForModel == null)
+                return;
+
+            int slots = (int)TaleWorlds.Core.EquipmentIndex.NumEquipmentSetSlots;
+
+            for (int i = 0; i < slots; i++)
+            {
+                var slot = (TaleWorlds.Core.EquipmentIndex)i;
+                var item = me.Get(slot);
+
+                equipmentForModel[slot] =
+                    item == null
+                        ? TaleWorlds.Core.EquipmentElement.Invalid
+                        : new TaleWorlds.Core.EquipmentElement(item.Base);
+            }
+        }
+
         [EventListener(UIEvent.Appearance, UIEvent.Page, UIEvent.Library)]
         private void RebuildModel()
         {
@@ -140,6 +167,9 @@ namespace Retinues.Editor.VM.Column
                     equipmentForModel = PreviewController.GetEquipmentForModel();
                     if (equipmentForModel == null)
                         return;
+
+                    // Overlay planned/staged items so the 3D model reflects them.
+                    ApplyPlannedEquipmentForModel(equipmentForModel);
                 }
 
                 if (equipmentForModel != null)
@@ -177,6 +207,9 @@ namespace Retinues.Editor.VM.Column
 
             try
             {
+                // Overlay planned/staged items so the 3D model reflects them.
+                ApplyPlannedEquipmentForModel(equipment);
+
                 Model.SetEquipment(equipment);
             }
             catch (Exception e)

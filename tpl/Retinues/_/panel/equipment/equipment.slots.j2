@@ -1,3 +1,5 @@
+{% from "_/macros.icons.j2" import icon_sprite %}
+
 {# ---------------------------------------------- #}
 {# Equipment slots                                #}
 {# ---------------------------------------------- #}
@@ -117,13 +119,20 @@
             {# Item label                                 #}
             {# ------------------------------------------ #}
 
+            {{ icon_sprite(
+                "{StagingIcon}",
+                "CharacterDeveloper\skill_description",
+                size="@Size",
+                margin_right="12"
+            ) }}
+
             <TextWidget
                 Text="@ItemText"
                 Brush="Clan.RightPanel.Name.Text"
                 Brush.FontSize="24"
                 Brush.FontColor="@ItemTextColor"
                 WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren"
-                SuggestedWidth="600"
+                SuggestedWidth="@TextWidth"
                 HorizontalAlignment="Left" VerticalAlignment="Center" />
 
         </Children>

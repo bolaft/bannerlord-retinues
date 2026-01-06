@@ -929,6 +929,9 @@
       id="ret_no_cultures_title"
       text="文化が見つかりません" />
     <string
+      id="ret_no_item_in_slot"
+      text="なし" />
+    <string
       id="ret_no_valid_model_body_species"
       text="この性別、文化、種の組み合わせはレンダリングできません。{newline}{newline}以前の外観が復元されました。" />
     <string
@@ -1031,6 +1034,9 @@
       id="ret_skills_header_text"
       text="スキル" />
     <string
+      id="ret_slot_value_hint_staged"
+      text="装備が完了するまでの実際のアイテム：{CURRENT}。" />
+    <string
       id="ret_sort_by_culture"
       text="文化" />
     <string
@@ -1045,6 +1051,9 @@
     <string
       id="ret_sort_by_value"
       text="値" />
+    <string
+      id="ret_staged_item_equipped"
+      text="{TROOP} は {ITEM} の装備を完了しました。" />
     <string
       id="ret_staged_skill_unlock"
       text="{TROOP} は {SKILL} を {VALUE} に向上させました。" />
@@ -1102,6 +1111,9 @@
     <string
       id="ret_unequip_item_tooltip"
       text="装備解除" />
+    <string
+      id="ret_unstage_item_tooltip"
+      text="ステージ解除" />
     <string
       id="ret_upgrade_cannot_add_hero"
       text="英雄にはアップグレードターゲットを設定できません。" />

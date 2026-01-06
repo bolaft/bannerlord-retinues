@@ -18,10 +18,11 @@ namespace Retinues.Editor.VM.Panel.Character
         public string Id => skill.StringId;
 
         [DataSourceProperty]
-        public Tooltip Hint => new(skill.Name.ToString());
+        public Tooltip Tooltip => new(skill.Name.ToString());
 
+        [EventListener(UIEvent.Skill)]
         [DataSourceProperty]
-        public Tooltip ValueHint =>
+        public Tooltip StagingTooltip =>
             IsStaged
                 ? new Tooltip(
                     L.T(

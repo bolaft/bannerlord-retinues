@@ -929,6 +929,9 @@
       id="ret_no_cultures_title"
       text="Nessuna cultura trovata" />
     <string
+      id="ret_no_item_in_slot"
+      text="nessuno" />
+    <string
       id="ret_no_valid_model_body_species"
       text="Questa combinazione di genere, cultura e specie non può essere resa.{newline}{newline}L&apos;aspetto precedente è stato ripristinato." />
     <string
@@ -1031,6 +1034,9 @@
       id="ret_skills_header_text"
       text="Abilità" />
     <string
+      id="ret_slot_value_hint_staged"
+      text="Oggetto effettivo fino al completamento dell&apos;equipaggiamento: {CURRENT}." />
+    <string
       id="ret_sort_by_culture"
       text="Cultura" />
     <string
@@ -1045,6 +1051,9 @@
     <string
       id="ret_sort_by_value"
       text="Valore" />
+    <string
+      id="ret_staged_item_equipped"
+      text="{TROOP} ha finito di equipaggiare {ITEM}." />
     <string
       id="ret_staged_skill_unlock"
       text="{TROOP} ha migliorato {SKILL} a {VALUE}." />
@@ -1102,6 +1111,9 @@
     <string
       id="ret_unequip_item_tooltip"
       text="Desequipaggia" />
+    <string
+      id="ret_unstage_item_tooltip"
+      text="Annulla" />
     <string
       id="ret_upgrade_cannot_add_hero"
       text="Gli eroi non possono avere obiettivi di miglioramento." />

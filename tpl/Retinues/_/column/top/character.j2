@@ -1,6 +1,6 @@
 {% from "_/macros.checkbox.j2" import checkbox %}
 {% from "_/macros.buttons.j2" import button_brush, button_text %}
-{% from "_/macros.icons.j2" import icon %}
+{% from "_/macros.icons.j2" import icon_sprite %}
 
 {# ---------------------------------------------- #}
 {# Character controls                             #}
@@ -24,7 +24,7 @@
             MarginBottom="8">
             <Children>
 
-                {{ icon(
+                {{ icon_sprite(
                     "{ExportIcon}",
                     "StdAssets\lock_closed",
                     "StdAssets\Popup\order_popup_card_default",
@@ -48,7 +48,7 @@
             MarginBottom="8">
             <Children>
 
-                {{ icon(
+                {{ icon_sprite(
                     "{FormationClassIcon}",
                     "@Sprite",
                     "StdAssets\Popup\order_popup_card_default",
@@ -73,7 +73,7 @@
             MarginBottom="8">
             <Children>
 
-                {{ icon(
+                {{ icon_sprite(
                     "{MarinerIcon}",
                     "SPGeneral\Skills\gui_skills_icon_mariner_tiny",
                     "StdAssets\Popup\order_popup_card_default",

@@ -63,7 +63,7 @@
                     DoNotPassEventsToChildren="false"
                     MarginBottom="{{ margin }}">
                     <Children>
-                        <HintWidget DataSource="{Hint}"
+                        <HintWidget DataSource="{Tooltip}"
                             Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
                     </Children>
                 </SkillIconVisualWidget>
@@ -84,7 +84,7 @@
                             SuggestedWidth="{{ textw }}" SuggestedHeight="24"
                             HorizontalAlignment="Center" VerticalAlignment="Center">
                             <Children>
-                                <HintWidget DataSource="{ValueHint}"
+                                <HintWidget DataSource="{StagingTooltip}"
                                     Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
                             </Children>
                         </TextWidget>

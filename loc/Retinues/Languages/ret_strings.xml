@@ -929,6 +929,9 @@
       id="ret_no_cultures_title"
       text="No Cultures Found" />
     <string
+      id="ret_no_item_in_slot"
+      text="none" />
+    <string
       id="ret_no_valid_model_body_species"
       text="This combination of gender, culture and species cannot be rendered.{newline}{newline}The previous appearance has been restored." />
     <string
@@ -1031,6 +1034,9 @@
       id="ret_skills_header_text"
       text="Skills" />
     <string
+      id="ret_slot_value_hint_staged"
+      text="Actual item until equipping completes: {CURRENT}." />
+    <string
       id="ret_sort_by_culture"
       text="Culture" />
     <string
@@ -1045,6 +1051,9 @@
     <string
       id="ret_sort_by_value"
       text="Value" />
+    <string
+      id="ret_staged_item_equipped"
+      text="{TROOP} finished equipping {ITEM}." />
     <string
       id="ret_staged_skill_unlock"
       text="{TROOP} improved {SKILL} to {VALUE}." />
@@ -1102,6 +1111,9 @@
     <string
       id="ret_unequip_item_tooltip"
       text="Unequip" />
+    <string
+      id="ret_unstage_item_tooltip"
+      text="Unstage" />
     <string
       id="ret_upgrade_cannot_add_hero"
       text="Heroes cannot have upgrade targets." />

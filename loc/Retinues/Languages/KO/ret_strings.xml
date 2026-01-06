@@ -929,6 +929,9 @@
       id="ret_no_cultures_title"
       text="문화가 없습니다" />
     <string
+      id="ret_no_item_in_slot"
+      text="없음" />
+    <string
       id="ret_no_valid_model_body_species"
       text="이 성별, 문화 및 종 조합은 렌더링할 수 없습니다.{newline}{newline}이전 모양이 복원되었습니다." />
     <string
@@ -1031,6 +1034,9 @@
       id="ret_skills_header_text"
       text="기술" />
     <string
+      id="ret_slot_value_hint_staged"
+      text="장착이 완료될 때까지의 실제 아이템: {CURRENT}." />
+    <string
       id="ret_sort_by_culture"
       text="문화" />
     <string
@@ -1045,6 +1051,9 @@
     <string
       id="ret_sort_by_value"
       text="값" />
+    <string
+      id="ret_staged_item_equipped"
+      text="{TROOP} 이(가) {ITEM} 장착을 완료했습니다." />
     <string
       id="ret_staged_skill_unlock"
       text="{TROOP} 이(가) {SKILL} 을(를) {VALUE} 로 향상시켰습니다." />
@@ -1102,6 +1111,9 @@
     <string
       id="ret_unequip_item_tooltip"
       text="장비 해제" />
+    <string
+      id="ret_unstage_item_tooltip"
+      text="단계 해제" />
     <string
       id="ret_upgrade_cannot_add_hero"
       text="영웅은 업그레이드 대상을 가질 수 없습니다." />

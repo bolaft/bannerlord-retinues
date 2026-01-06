@@ -78,7 +78,12 @@ namespace Retinues.Editor.Controllers.Equipment
 
             Log.Info("Preview mode enabled.");
 
-            EventManager.Fire(UIEvent.Preview);
+            EventManager.FireBatch(() =>
+            {
+                EventManager.Fire(UIEvent.Preview);
+                EventManager.Fire(UIEvent.Item);
+                EventManager.Fire(UIEvent.Appearance);
+            });
         }
 
         public static void DisablePreview()
@@ -91,7 +96,12 @@ namespace Retinues.Editor.Controllers.Equipment
 
             Log.Info("Preview mode disabled.");
 
-            EventManager.Fire(UIEvent.Preview);
+            EventManager.FireBatch(() =>
+            {
+                EventManager.Fire(UIEvent.Preview);
+                EventManager.Fire(UIEvent.Item);
+                EventManager.Fire(UIEvent.Appearance);
+            });
         }
 
         /// <summary>
@@ -100,10 +110,36 @@ namespace Retinues.Editor.Controllers.Equipment
         /// </summary>
         public static TaleWorlds.Core.Equipment GetEquipmentForModel()
         {
+            // Preview mode: already a clone, safe to return.
             if (EnsureValid())
                 return _preview;
 
-            return State.Equipment?.Base;
+            var real = State.Equipment?.Base;
+            if (real == null)
+                return null;
+
+            // Important: NEVER return the real equipment instance here.
+            // Callers are allowed to mutate this for visuals, and that must not persist.
+            var model = new TaleWorlds.Core.Equipment(real);
+
+            // Also reflect staged/planned items on the 3D model.
+            // State.Equipment.Get(slot) returns staged when staging is active, otherwise real.
+            var me = State.Equipment;
+            if (me != null)
+            {
+                int slots = (int)EquipmentIndex.NumEquipmentSetSlots;
+
+                for (int i = 0; i < slots; i++)
+                {
+                    var slot = (EquipmentIndex)i;
+                    var item = me.Get(slot);
+
+                    model[slot] =
+                        item == null ? EquipmentElement.Invalid : new EquipmentElement(item.Base);
+                }
+            }
+
+            return model;
         }
 
         /// <summary>

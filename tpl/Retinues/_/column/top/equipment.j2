@@ -1,6 +1,6 @@
 {% from "_/macros.checkbox.j2" import checkbox %}
 {% from "_/macros.buttons.j2" import button_chevron_left, button_chevron_right, button_brush %}
-{% from "_/macros.icons.j2" import icon %}
+{% from "_/macros.icons.j2" import icon_sprite %}
 
 {# ---------------------------------------------- #}
 {# Equipment controls                             #}
@@ -21,7 +21,7 @@
             MarginBottom="8">
             <Children>
 
-                {{ icon(
+                {{ icon_sprite(
                     "{PreviewModeIcon}",
                     "Inventory\icon_inspect",
                     "StdAssets\Popup\order_popup_card_default",
@@ -41,7 +41,7 @@
             MarginBottom="8">
             <Children>
 
-                {{ icon(
+                {{ icon_sprite(
                     "{CraftedIcon}",
                     "General\Mission\smithy",
                     "StdAssets\Popup\order_popup_card_default",

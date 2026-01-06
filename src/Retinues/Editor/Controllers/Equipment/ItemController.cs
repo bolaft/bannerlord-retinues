@@ -518,7 +518,11 @@ namespace Retinues.Editor.Controllers.Equipment
                     slot => State.Equipment != null && PreviewController.GetItem(slot) != null,
                     L.T("cant_unequip_reason_empty", "Nothing to unequip.")
                 )
-                .DefaultTooltip(L.T("unequip_item_tooltip", "Unequip"))
+                .DefaultTooltip(value =>
+                    State.Equipment.IsStaged(value)
+                        ? L.T("unstage_item_tooltip", "Unstage")
+                        : L.T("unequip_item_tooltip", "Unequip")
+                )
                 .ExecuteWith(UnequipItem)
                 .Fire(UIEvent.Item);
 

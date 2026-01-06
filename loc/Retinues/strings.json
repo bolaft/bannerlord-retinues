@@ -4928,6 +4928,22 @@
     "TR": "Kültür Bulunamadı"
   },
   {
+    "id": "ret_no_item_in_slot",
+    "EN": "none",
+    "FR": "aucun",
+    "BR": "nenhum",
+    "CNs": "无",
+    "CNt": "無",
+    "DE": "keine",
+    "IT": "nessuno",
+    "JP": "なし",
+    "KO": "없음",
+    "PL": "brak",
+    "RU": "нет",
+    "SP": "ninguno",
+    "TR": "yok"
+  },
+  {
     "id": "ret_no_valid_model_body_species",
     "EN": "This combination of gender, culture and species cannot be rendered.\\n\\nThe previous appearance has been restored.",
     "FR": "Cette combinaison de genre, de culture et d'espèce ne peut pas être rendue.\\n\\nL'apparence précédente a été restaurée.",
@@ -5472,6 +5488,22 @@
     "TR": "Yetenekler"
   },
   {
+    "id": "ret_slot_value_hint_staged",
+    "EN": "Actual item until equipping completes: {CURRENT}.",
+    "FR": "Équipé jusqu'à ce que le changement soit effectué : {CURRENT}.",
+    "BR": "Item atual até a equipagem ser concluída: {CURRENT}.",
+    "CNs": "装备完成前的实际物品：{CURRENT}。",
+    "CNt": "裝備完成前的實際物品：{CURRENT}。",
+    "DE": "Tatsächlicher Gegenstand bis zum Abschluss des Ausrüstens: {CURRENT}.",
+    "IT": "Oggetto effettivo fino al completamento dell'equipaggiamento: {CURRENT}.",
+    "JP": "装備が完了するまでの実際のアイテム：{CURRENT}。",
+    "KO": "장착이 완료될 때까지의 실제 아이템: {CURRENT}.",
+    "PL": "Rzeczywisty przedmiot do czasu ukończenia wyposażenia: {CURRENT}.",
+    "RU": "Фактический предмет до завершения экипировки: {CURRENT}.",
+    "SP": "Artículo real hasta que se complete el equipamiento: {CURRENT}.",
+    "TR": "Ekipman tamamlanana kadar gerçek öğe: {CURRENT}."
+  },
+  {
     "id": "ret_sort_by_culture",
     "EN": "Culture",
     "FR": "Culture",
@@ -5550,6 +5582,22 @@
     "RU": "Значение",
     "SP": "Valor",
     "TR": "Değer"
+  },
+  {
+    "id": "ret_staged_item_equipped",
+    "EN": "{TROOP} finished equipping {ITEM}.",
+    "FR": "{TROOP} a fini d'équiper {ITEM}.",
+    "BR": "{TROOP} terminou de equipar {ITEM}.",
+    "CNs": "{TROOP} 完成了装备 {ITEM}。",
+    "CNt": "{TROOP} 完成了裝備 {ITEM}。",
+    "DE": "{TROOP} hat {ITEM} ausgerüstet.",
+    "IT": "{TROOP} ha finito di equipaggiare {ITEM}.",
+    "JP": "{TROOP} は {ITEM} の装備を完了しました。",
+    "KO": "{TROOP} 이(가) {ITEM} 장착을 완료했습니다.",
+    "PL": "{TROOP} zakończył wyposażanie {ITEM}.",
+    "RU": "{TROOP} закончил экипировку {ITEM}.",
+    "SP": "{TROOP} terminó de equipar {ITEM}.",
+    "TR": "{TROOP}, {ITEM} ekipmanını tamamladı."
   },
   {
     "id": "ret_staged_skill_unlock",
@@ -5854,6 +5902,22 @@
     "RU": "Снять",
     "SP": "Desequipar",
     "TR": "Ekipmanı Çıkar"
+  },
+  {
+    "id": "ret_unstage_item_tooltip",
+    "EN": "Unstage",
+    "FR": "Annuler",
+    "BR": "Desencenar",
+    "CNs": "取消分阶段",
+    "CNt": "取消分階段",
+    "DE": "Rückgängig",
+    "IT": "Annulla",
+    "JP": "ステージ解除",
+    "KO": "단계 해제",
+    "PL": "Cofnij etap",
+    "RU": "Отменить этап",
+    "SP": "Anular",
+    "TR": "Aşamayı Kaldır"
   },
   {
     "id": "ret_upgrade_cannot_add_hero",

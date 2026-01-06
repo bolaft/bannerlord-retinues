@@ -2,37 +2,91 @@
 {# Icon macros                                    #}
 {# ---------------------------------------------- #}
 
-{% macro icon(datasource, sprite, background_sprite, size="32", sprite_size=None, margin_right="4") %}
-    <SpriteWidget
+{% macro _icon_hint() %}
+    <HintWidget
+        DataSource="{Tooltip}"
+        Command.HoverBegin="ExecuteBeginHint"
+        Command.HoverEnd="ExecuteEndHint" />
+{% endmacro %}
+
+{# Common interactive root: ButtonWidget owns hover state #}
+{% macro _icon_base_button(datasource, size="32", margin_right="4") %}
+    <ButtonWidget
         DataSource="{{ datasource }}"
         IsVisible="@IsVisible"
+        IsEnabled="true"
         WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
         SuggestedWidth="{{ size }}" SuggestedHeight="{{ size }}"
         HorizontalAlignment="Center" VerticalAlignment="Center"
         MarginRight="{{ margin_right }}"
-        Sprite="{{ background_sprite }}">
+        UpdateChildrenStates="true"
+        DoNotPassEventsToChildren="true">
         <Children>
 
-            <HintWidget
-                DataSource="{Tooltip}"
-                Command.HoverBegin="ExecuteBeginHint"
-                Command.HoverEnd="ExecuteEndHint" />
+            {{ _icon_hint() }}
 
-            <SpriteWidget
-                WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                SuggestedWidth="{{ sprite_size or size }}" SuggestedHeight="{{ sprite_size or size }}"
-                HorizontalAlignment="Center" VerticalAlignment="Center"
-                Sprite="{{ sprite }}">
-                <Children>
-
-                    <HintWidget
-                        DataSource="{Tooltip}"
-                        Command.HoverBegin="ExecuteBeginHint"
-                        Command.HoverEnd="ExecuteEndHint" />
-
-                </Children>
-            </SpriteWidget>
+            {{ caller() }}
 
         </Children>
-    </SpriteWidget>
+    </ButtonWidget>
+{% endmacro %}
+
+{% macro _icon_background(background_sprite, size="32") %}
+    {% if background_sprite %}
+        <SpriteWidget
+            DoNotAcceptEvents="true"
+            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+            SuggestedWidth="{{ size }}" SuggestedHeight="{{ size }}"
+            HorizontalAlignment="Center" VerticalAlignment="Center"
+            Sprite="{{ background_sprite }}" />
+    {% endif %}
+{% endmacro %}
+
+{# Sprite icon: still uses ButtonWidget wrapper so the tooltip behaves consistently #}
+{% macro icon_sprite(datasource, sprite, background_sprite=None, size="32", sprite_size=None, margin_right="4") %}
+    {% call _icon_base_button(datasource, size=size, margin_right=margin_right) %}
+        {{ _icon_background(background_sprite, size=size) }}
+
+        <SpriteWidget
+            DoNotAcceptEvents="true"
+            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+            SuggestedWidth="{{ sprite_size or size }}" SuggestedHeight="{{ sprite_size or size }}"
+            HorizontalAlignment="Center" VerticalAlignment="Center"
+            Sprite="{{ sprite }}" />
+    {% endcall %}
+{% endmacro %}
+
+{# Brush icon: apply the brush to the ButtonWidget itself (this is what makes hover work) #}
+{% macro icon_brush(datasource, brush, background_sprite=None, size="32", brush_size=None, margin_right="4") %}
+    <ButtonWidget
+        DataSource="{{ datasource }}"
+        IsVisible="@IsVisible"
+        IsEnabled="true"
+        WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+        SuggestedWidth="{{ size }}" SuggestedHeight="{{ size }}"
+        HorizontalAlignment="Center" VerticalAlignment="Center"
+        MarginRight="{{ margin_right }}"
+        Brush="{{ brush }}"
+        UpdateChildrenStates="true"
+        DoNotPassEventsToChildren="true">
+        <Children>
+
+            {{ _icon_hint() }}
+
+            {# optional background drawn behind the brush #}
+            {{ _icon_background(background_sprite, size=size) }}
+
+            {# If you want to enforce a smaller drawn area than the button size,
+               keep a child BrushWidget. Usually not needed unless your brush expects it. #}
+            {% if brush_size %}
+                <BrushWidget
+                    DoNotAcceptEvents="true"
+                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                    SuggestedWidth="{{ brush_size }}" SuggestedHeight="{{ brush_size }}"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Brush="{{ brush }}" />
+            {% endif %}
+
+        </Children>
+    </ButtonWidget>
 {% endmacro %}
