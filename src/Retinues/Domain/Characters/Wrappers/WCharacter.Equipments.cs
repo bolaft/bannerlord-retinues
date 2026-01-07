@@ -69,6 +69,8 @@ namespace Retinues.Domain.Characters.Wrappers
                 priority: AttributePriority.Low
             );
 
+        private UpgradeItemRequirementKey _lastFirstBattleMountKey;
+
         public void OnEquipmentChange()
         {
             // Touch the equipment serialization attribute to ensure it gets saved.
@@ -82,6 +84,14 @@ namespace Retinues.Domain.Characters.Wrappers
 
             // Invalidate conversion sources cache, as equipment changes may affect eligibility.
             ConversionCache.Clear();
+
+            // Update upgrade item requirements only when the first battle mount changed.
+            var mountKey = GetBestBattleMountKey();
+            if (mountKey != _lastFirstBattleMountKey)
+            {
+                _lastFirstBattleMountKey = mountKey;
+                UpdateItemRequirements(updateTargets: true);
+            }
         }
 
         private List<string> SerializeEquipments()

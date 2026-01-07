@@ -35,6 +35,9 @@ namespace Retinues.Domain.Characters.Wrappers
             // Apply targets retinue for real.
             wc.UpgradeTargets = targets;
 
+            // Update item requirements as needed.
+            wc.UpdateItemRequirementsFromSources(sources, updateTargets: true);
+
             return sources;
         }
 
