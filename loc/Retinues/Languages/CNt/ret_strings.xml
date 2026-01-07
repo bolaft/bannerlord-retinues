@@ -128,6 +128,9 @@
       id="ret_cant_afford_title"
       text="資金不足" />
     <string
+      id="ret_cant_change_retinue_culture"
+      text="隨從無法更改文化。" />
+    <string
       id="ret_cant_equip_reason_civilian"
       text="非平民" />
     <string

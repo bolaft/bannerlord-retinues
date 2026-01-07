@@ -128,6 +128,9 @@
       id="ret_cant_afford_title"
       text="돈 부족" />
     <string
+      id="ret_cant_change_retinue_culture"
+      text="수행원은 문화를 변경할 수 없습니다." />
+    <string
       id="ret_cant_equip_reason_civilian"
       text="민간인이 아님" />
     <string

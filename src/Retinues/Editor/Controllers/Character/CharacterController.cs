@@ -93,6 +93,10 @@ namespace Retinues.Editor.Controllers.Character
         public static EditorAction<WCharacter> SelectCulture { get; } =
             Action<WCharacter>("SelectCulture")
                 .AddCondition(
+                    _ => !State.Character.IsRetinue,
+                    L.T("cant_change_retinue_culture", "Retinues cannot change culture.")
+                )
+                .AddCondition(
                     _ => WCulture.All != null && WCulture.All.Any(),
                     L.T("no_cultures_text", "No cultures are loaded in the current game.")
                 )

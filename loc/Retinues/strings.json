@@ -656,6 +656,22 @@
     "TR": "Yeterli Para Yok"
   },
   {
+    "id": "ret_cant_change_retinue_culture",
+    "EN": "Retinues cannot change culture.",
+    "FR": "Les rétinues ne peuvent pas changer de culture.",
+    "BR": "As retinues não podem mudar de cultura.",
+    "CNs": "随从无法更改文化。",
+    "CNt": "隨從無法更改文化。",
+    "DE": "Gefolgschaften können ihre Kultur nicht ändern.",
+    "IT": "Le retinues non possono cambiare cultura.",
+    "JP": "従者は文化を変更できません。",
+    "KO": "수행원은 문화를 변경할 수 없습니다.",
+    "PL": "Zastępy nie mogą zmieniać kultury.",
+    "RU": "Придворные не могут менять культуру.",
+    "SP": "Las retinues no pueden cambiar de cultura.",
+    "TR": "Müritler kültür değiştiremez."
+  },
+  {
     "id": "ret_cant_equip_reason_civilian",
     "EN": "Not civilian",
     "FR": "Non civil",

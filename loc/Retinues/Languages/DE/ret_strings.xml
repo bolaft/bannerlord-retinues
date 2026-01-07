@@ -128,6 +128,9 @@
       id="ret_cant_afford_title"
       text="Nicht genug Geld" />
     <string
+      id="ret_cant_change_retinue_culture"
+      text="Gefolgschaften können ihre Kultur nicht ändern." />
+    <string
       id="ret_cant_equip_reason_civilian"
       text="Nicht zivil" />
     <string

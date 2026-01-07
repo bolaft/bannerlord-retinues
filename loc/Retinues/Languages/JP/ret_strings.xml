@@ -128,6 +128,9 @@
       id="ret_cant_afford_title"
       text="資金不足" />
     <string
+      id="ret_cant_change_retinue_culture"
+      text="従者は文化を変更できません。" />
+    <string
       id="ret_cant_equip_reason_civilian"
       text="民間人ではない" />
     <string

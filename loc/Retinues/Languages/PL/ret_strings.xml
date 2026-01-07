@@ -128,6 +128,9 @@
       id="ret_cant_afford_title"
       text="Niewystarczająca ilość pieniędzy" />
     <string
+      id="ret_cant_change_retinue_culture"
+      text="Zastępy nie mogą zmieniać kultury." />
+    <string
       id="ret_cant_equip_reason_civilian"
       text="Nie cywilny" />
     <string

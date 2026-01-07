@@ -82,6 +82,7 @@ namespace Retinues.Editor.VM.Panel.Character
                 action: CharacterController.SelectCulture,
                 arg: () => State.Character,
                 refresh: [UIEvent.Character, UIEvent.Culture],
+                visibilityGate: () => !State.Character.IsRetinue,
                 sprite: "SPClan.Parties.ChangePartyLeaderIcon",
                 color: "f8eed1ff"
             );
@@ -400,10 +401,7 @@ namespace Retinues.Editor.VM.Panel.Character
         {
             // Only retinues use conversion sources.
             if (State.Character?.IsRetinue == true)
-            {
-                Log.Info("Refreshing upgrade sources/targets for retinue.");
                 RefreshUpgrades();
-            }
         }
 
         [EventListener(UIEvent.Character, UIEvent.Tree)]

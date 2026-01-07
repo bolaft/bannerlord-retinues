@@ -128,6 +128,9 @@
       id="ret_cant_afford_title"
       text="Dinheiro Insuficiente" />
     <string
+      id="ret_cant_change_retinue_culture"
+      text="As retinues não podem mudar de cultura." />
+    <string
       id="ret_cant_equip_reason_civilian"
       text="Não civil" />
     <string
