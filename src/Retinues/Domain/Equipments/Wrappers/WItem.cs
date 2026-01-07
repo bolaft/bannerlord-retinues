@@ -25,6 +25,7 @@ namespace Retinues.Domain.Equipments.Wrappers
         /// <summary>
         /// All items that are considered valid equipment.
         /// </summary>
+        [StaticClear]
         private static List<WItem> _equipments;
         public static List<WItem> Equipments =>
             _equipments ??= [.. All.Where(i => i.IsValidEquipment)];
@@ -32,6 +33,7 @@ namespace Retinues.Domain.Equipments.Wrappers
         /// <summary>
         /// Equipments indexed by their equippable slots.
         /// </summary>
+        [StaticClear]
         private static Dictionary<EquipmentIndex, List<WItem>> _equipmentsBySlot;
         public static Dictionary<EquipmentIndex, List<WItem>> EquipmentsBySlot
         {
@@ -65,15 +67,6 @@ namespace Retinues.Domain.Equipments.Wrappers
                 return items;
 
             return [];
-        }
-
-        [StaticClearAction]
-        public static void ClearStaticCaches()
-        {
-            _equipments = null;
-            _equipmentsBySlot = null;
-            _vassalRewards = null;
-            _chevronCache.Clear();
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -476,6 +469,7 @@ namespace Retinues.Domain.Equipments.Wrappers
         /// <summary>
         /// All items that can be given as vassal rewards.
         /// </summary>
+        [StaticClear]
         private static HashSet<WItem> _vassalRewards;
         public static HashSet<WItem> VassalRewards
         {
@@ -602,6 +596,7 @@ namespace Retinues.Domain.Equipments.Wrappers
             public int Negative;
         }
 
+        [StaticClear]
         private static readonly ConcurrentDictionary<string, ChevronCacheEntry> _chevronCache = [];
 
         private static string GetChevronCacheKey(WItem a, WItem b)

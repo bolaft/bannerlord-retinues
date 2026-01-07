@@ -15,6 +15,7 @@ namespace Retinues.Domain.Events.Models
         //                        Current                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        [StaticClear]
         public static MMapEvent Current { get; private set; }
 
         internal static void SetCurrent(MapEvent mapEvent)
@@ -22,7 +23,6 @@ namespace Retinues.Domain.Events.Models
             Current = mapEvent != null ? new MMapEvent(mapEvent) : null;
         }
 
-        [StaticClearAction]
         public static void ClearCurrent() => Current = null;
 
         internal static void ClearCurrentIf(MapEvent mapEvent)

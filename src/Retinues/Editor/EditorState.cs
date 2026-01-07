@@ -73,11 +73,9 @@ namespace Retinues.Editor
         /// <summary>
         /// The singleton instance of the editor state.
         /// </summary>
+        [StaticClear]
         private static EditorState _instance;
         public static EditorState Instance => _instance ??= new EditorState();
-
-        [StaticClearAction]
-        public static void ClearInstance() => _instance = null;
 
         /// <summary>
         /// The current editor mode.

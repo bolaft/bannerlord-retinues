@@ -26,19 +26,13 @@ namespace Retinues.Domain.Characters.Wrappers
             set => IsMarinerAttribute.Set(value);
         }
 
-        [StaticClearAction]
-        public static void ClearNavalTraitCache() => NavalTraitHelper.ClearCache();
-
         private static class NavalTraitHelper
         {
+            [StaticClear]
             private static TraitObject _navalSoldierTrait;
-            private static bool _navalTraitMissing;
 
-            public static void ClearCache()
-            {
-                _navalSoldierTrait = null;
-                _navalTraitMissing = false;
-            }
+            [StaticClear]
+            private static bool _navalTraitMissing;
 
             private static TraitObject TryGetNavalSoldierTrait()
             {

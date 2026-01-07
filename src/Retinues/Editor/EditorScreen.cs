@@ -35,10 +35,8 @@ namespace Retinues.Editor
         /// <summary>
         /// True while an editor game state exists.
         /// </summary>
+        [StaticClear]
         public static bool IsOpen { get; internal set; }
-
-        [StaticClearAction]
-        public static void Clear() => IsOpen = false;
 
 #if BL13
         private GauntletMovieIdentifier _movie;
