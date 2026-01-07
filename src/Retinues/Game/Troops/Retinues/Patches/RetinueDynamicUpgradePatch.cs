@@ -1,8 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using HarmonyLib;
+using Retinues.Configuration;
 using Retinues.Domain.Characters.Wrappers;
+using Retinues.UI.Services;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Party;
@@ -173,36 +176,36 @@ namespace Retinues.Game.Troops.Retinues.Patches
                         || upgradeTargetType < 0
                         || upgradeTargetType >= targets.Length
                     )
-                        return true;
+                        return true; // Invalid target, let vanilla handle it.
 
                     var target = targets[upgradeTargetType];
                     if (target == null)
-                        return true;
+                        return true; // No valid target, let vanilla handle it.
 
                     var wTarget = WCharacter.Get(target);
                     if (wTarget == null || !wTarget.IsRetinue)
+                        return true; // Not a retinue upgrade, let vanilla handle it.
+
+                    var party = Player.Party;
+                    var cap = (int)Math.Floor(party.PartySizeLimit * Settings.MaxRetinueRatio);
+                    var totalRetinues = party
+                        .MemberRoster.Elements.Where(e => e.Troop.IsRetinue == true)
+                        .Sum(e => e.Number);
+
+                    if (totalRetinues < cap)
                         return true;
-
-                    // Only intercept if this retinue is actually a player retinue sourced from this troop.
-                    var source = WCharacter.Get(troop.Character);
-                    var possible = WCharacter.GetPlayerRetinuesForSource(source);
-                    var ok = false;
-
-                    for (int i = 0; i < possible.Count; i++)
+                    else
                     {
-                        if (possible[i]?.StringId == wTarget.StringId)
-                        {
-                            ok = true;
-                            break;
-                        }
+                        Inquiries.Popup(
+                            L.T("retinue_upgrade_cap_reached_title", "Retinue Cap Reached"),
+                            L.T(
+                                    "retinue_upgrade_cap_reached_message",
+                                    "You have reached the maximum allowed amount of retinues in your party ({CAP}).\n\nIncrease your max party size to allow for more retinues."
+                                )
+                                .SetTextVariable("CAP", cap.ToString())
+                        );
+                        return false; // Handled.
                     }
-
-                    if (!ok)
-                        return true;
-
-                    // TODO: perform your gold+influence conversion here, then refresh party VM.
-
-                    return false;
                 }
                 catch (Exception ex)
                 {
