@@ -1,83 +1,164 @@
 using System;
+using System.Reflection;
 using Retinues.Framework.Runtime;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.MapEvents;
+using TaleWorlds.CampaignSystem.Party;
+using TaleWorlds.Core;
 
 namespace Retinues.Framework.Behaviors
 {
-    /// <summary>
-    /// Base class for Retinues campaign behaviors.
-    /// Provides logging, enabled flag, and simple CampaignEvents hook helpers.
-    /// </summary>
     [SafeClass(IncludeDerived = true)]
     public abstract class BaseCampaignBehavior : CampaignBehaviorBase
     {
-        /// <summary>
-        /// High-level hook IDs for common CampaignEvents.
-        /// These wrap TaleWorlds.CampaignSystem.CampaignEvents for simple use.
-        /// </summary>
         public enum BehaviorEvent
         {
+            GameLoadFinished,
+            CharacterCreationIsOver,
+            SessionLaunched,
+
+            HourlyTick,
+            HourlyTickParty,
+
             MissionStarted,
             MissionEnded,
-            GameLoadFinished,
-            SessionLaunched,
-            HourlyTickParty,
-            CharacterCreationIsOver,
+
+            MapEventStarted,
+            MapEventEnded,
         }
 
-        /// <summary>
-        /// Name of the behavior for logging.
-        /// </summary>
         protected string Name => GetType().Name;
 
-        /// <summary>
-        /// Whether this behavior should be active.
-        /// Recommended pattern in children:
-        ///   public static bool Enabled => Config.EnableFoo;
-        ///   public override bool IsEnabled => Enabled;
-        /// </summary>
         public virtual bool IsEnabled => true;
 
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                  CampaignBehaviorBase                  //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        public sealed override void RegisterEvents()
+        {
+            AutoRegisterEvents();
+            RegisterCustomEvents();
+        }
 
-        /// <summary>
-        /// No-op by default so children can skip if they don't need events.
-        /// </summary>
-        public override void RegisterEvents() { }
-
-        /// <summary>
-        /// No-op by default so children can skip if they don't need persistence.
-        /// </summary>
         public override void SyncData(IDataStore dataStore) { }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                     Auto handlers                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        protected virtual void OnGameLoadFinished() { }
+
+        protected virtual void OnCharacterCreationIsOver() { }
+
+        protected virtual void OnSessionLaunched(CampaignGameStarter starter) { }
+
+        protected virtual void OnHourlyTick() { }
+
+        protected virtual void OnHourlyTickParty(MobileParty party) { }
+
+        protected virtual void OnMissionStarted(IMission mission) { }
+
+        protected virtual void OnMissionEnded(IMission mission) { }
+
+        protected virtual void OnMapEventStarted(
+            MapEvent mapEvent,
+            PartyBase attackerParty,
+            PartyBase defenderParty
+        ) { }
+
+        protected virtual void OnMapEventEnded(MapEvent mapEvent) { }
+
+        protected virtual void RegisterCustomEvents() { }
+
+        private void AutoRegisterEvents()
+        {
+            if (IsOverridden(nameof(OnGameLoadFinished)))
+                Hook(BehaviorEvent.GameLoadFinished, OnGameLoadFinished);
+
+            if (IsOverridden(nameof(OnCharacterCreationIsOver)))
+                Hook(BehaviorEvent.CharacterCreationIsOver, OnCharacterCreationIsOver);
+
+            if (IsOverridden(nameof(OnSessionLaunched)))
+                Hook(BehaviorEvent.SessionLaunched, OnSessionLaunched);
+
+            if (IsOverridden(nameof(OnHourlyTick)))
+                Hook(BehaviorEvent.HourlyTick, OnHourlyTick);
+
+            if (IsOverridden(nameof(OnHourlyTickParty)))
+                Hook(BehaviorEvent.HourlyTickParty, OnHourlyTickParty);
+
+            if (IsOverridden(nameof(OnMissionStarted)))
+                Hook(BehaviorEvent.MissionStarted, OnMissionStarted);
+
+            if (IsOverridden(nameof(OnMissionEnded)))
+                Hook(BehaviorEvent.MissionEnded, OnMissionEnded);
+
+            if (IsOverridden(nameof(OnMapEventStarted)))
+                Hook(BehaviorEvent.MapEventStarted, OnMapEventStarted);
+
+            if (IsOverridden(nameof(OnMapEventEnded)))
+                Hook(BehaviorEvent.MapEventEnded, OnMapEventEnded);
+        }
+
+        private bool IsOverridden(string methodName)
+        {
+            const BindingFlags Flags =
+                BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
+
+            var method = GetType().GetMethod(methodName, Flags);
+            if (method == null)
+                return false;
+
+            return method.DeclaringType != typeof(BaseCampaignBehavior);
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Hooks                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        /// <summary>
-        /// Hooks a simple Action into a common CampaignEvent.
-        /// The action is only called when IsEnabled is true.
-        /// Example:
-        ///   Hook(BehaviorEvent.MissionStarted, () => _inMission = true);
-        /// </summary>
+        // No-arg hook (kept for convenience)
         protected void Hook(BehaviorEvent evt, Action action)
         {
             if (action == null)
                 return;
 
-            // Wrap with IsEnabled guard so disabled behaviors bail early.
             void Wrapper()
             {
                 if (!IsEnabled)
                     return;
+
                 action();
             }
 
             switch (evt)
             {
+                case BehaviorEvent.GameLoadFinished:
+                    CampaignEvents.OnGameLoadFinishedEvent.AddNonSerializedListener(this, Wrapper);
+                    break;
+
+                case BehaviorEvent.CharacterCreationIsOver:
+                    CampaignEvents.OnCharacterCreationIsOverEvent.AddNonSerializedListener(
+                        this,
+                        Wrapper
+                    );
+                    break;
+
+                case BehaviorEvent.SessionLaunched:
+                    CampaignEvents.OnSessionLaunchedEvent.AddNonSerializedListener(
+                        this,
+                        _ => Wrapper()
+                    );
+                    break;
+
+                case BehaviorEvent.HourlyTick:
+                    CampaignEvents.HourlyTickEvent.AddNonSerializedListener(this, Wrapper);
+                    break;
+
+                case BehaviorEvent.HourlyTickParty:
+                    CampaignEvents.HourlyTickPartyEvent.AddNonSerializedListener(
+                        this,
+                        _ => Wrapper()
+                    );
+                    break;
+
                 case BehaviorEvent.MissionStarted:
                     CampaignEvents.OnMissionStartedEvent.AddNonSerializedListener(
                         this,
@@ -92,56 +173,166 @@ namespace Retinues.Framework.Behaviors
                     );
                     break;
 
-                case BehaviorEvent.GameLoadFinished:
-                    CampaignEvents.OnGameLoadFinishedEvent.AddNonSerializedListener(this, Wrapper);
-                    break;
-
-                case BehaviorEvent.SessionLaunched:
-                    CampaignEvents.OnSessionLaunchedEvent.AddNonSerializedListener(
+                case BehaviorEvent.MapEventStarted:
+                    CampaignEvents.MapEventStarted.AddNonSerializedListener(
                         this,
-                        _ => Wrapper()
+                        (_, __, ___) => Wrapper()
                     );
                     break;
 
-                case BehaviorEvent.HourlyTickParty:
-                    CampaignEvents.HourlyTickPartyEvent.AddNonSerializedListener(
-                        this,
-                        _ => Wrapper()
-                    );
-                    break;
-
-                case BehaviorEvent.CharacterCreationIsOver:
-                    CampaignEvents.OnCharacterCreationIsOverEvent.AddNonSerializedListener(
-                        this,
-                        Wrapper
-                    );
+                case BehaviorEvent.MapEventEnded:
+                    CampaignEvents.MapEventEnded.AddNonSerializedListener(this, _ => Wrapper());
                     break;
 
                 default:
-                    Log.Warn($"[{Name}] Unsupported BehaviorEvent: {evt}");
+                    Log.Warn($"[{Name}] Unsupported BehaviorEvent (Action): {evt}");
+                    break;
+            }
+        }
+
+        protected void Hook(BehaviorEvent evt, Action<CampaignGameStarter> action)
+        {
+            if (action == null)
+                return;
+
+            void Wrapper(CampaignGameStarter starter)
+            {
+                if (!IsEnabled)
+                    return;
+
+                action(starter);
+            }
+
+            switch (evt)
+            {
+                case BehaviorEvent.SessionLaunched:
+                    CampaignEvents.OnSessionLaunchedEvent.AddNonSerializedListener(this, Wrapper);
+                    break;
+
+                default:
+                    Log.Warn(
+                        $"[{Name}] Unsupported BehaviorEvent (Action<CampaignGameStarter>): {evt}"
+                    );
+                    break;
+            }
+        }
+
+        protected void Hook(BehaviorEvent evt, Action<MobileParty> action)
+        {
+            if (action == null)
+                return;
+
+            void Wrapper(MobileParty party)
+            {
+                if (!IsEnabled)
+                    return;
+
+                action(party);
+            }
+
+            switch (evt)
+            {
+                case BehaviorEvent.HourlyTickParty:
+                    CampaignEvents.HourlyTickPartyEvent.AddNonSerializedListener(this, Wrapper);
+                    break;
+
+                default:
+                    Log.Warn($"[{Name}] Unsupported BehaviorEvent (Action<MobileParty>): {evt}");
+                    break;
+            }
+        }
+
+        protected void Hook(BehaviorEvent evt, Action<IMission> action)
+        {
+            if (action == null)
+                return;
+
+            void Wrapper(IMission mission)
+            {
+                if (!IsEnabled)
+                    return;
+
+                action(mission);
+            }
+
+            switch (evt)
+            {
+                case BehaviorEvent.MissionStarted:
+                    CampaignEvents.OnMissionStartedEvent.AddNonSerializedListener(this, Wrapper);
+                    break;
+
+                case BehaviorEvent.MissionEnded:
+                    CampaignEvents.OnMissionEndedEvent.AddNonSerializedListener(this, Wrapper);
+                    break;
+
+                default:
+                    Log.Warn($"[{Name}] Unsupported BehaviorEvent (Action<IMission>): {evt}");
+                    break;
+            }
+        }
+
+        protected void Hook(BehaviorEvent evt, Action<MapEvent, PartyBase, PartyBase> action)
+        {
+            if (action == null)
+                return;
+
+            void Wrapper(MapEvent me, PartyBase atk, PartyBase def)
+            {
+                if (!IsEnabled)
+                    return;
+
+                action(me, atk, def);
+            }
+
+            switch (evt)
+            {
+                case BehaviorEvent.MapEventStarted:
+                    CampaignEvents.MapEventStarted.AddNonSerializedListener(this, Wrapper);
+                    break;
+
+                default:
+                    Log.Warn(
+                        $"[{Name}] Unsupported BehaviorEvent (Action<MapEvent,PartyBase,PartyBase>): {evt}"
+                    );
+                    break;
+            }
+        }
+
+        protected void Hook(BehaviorEvent evt, Action<MapEvent> action)
+        {
+            if (action == null)
+                return;
+
+            void Wrapper(MapEvent me)
+            {
+                if (!IsEnabled)
+                    return;
+
+                action(me);
+            }
+
+            switch (evt)
+            {
+                case BehaviorEvent.MapEventEnded:
+                    CampaignEvents.MapEventEnded.AddNonSerializedListener(this, Wrapper);
+                    break;
+
+                default:
+                    Log.Warn($"[{Name}] Unsupported BehaviorEvent (Action<MapEvent>): {evt}");
                     break;
             }
         }
     }
 
-    /// <summary>
-    /// Generic base for campaign behaviors that exposes a concrete Instance getter.
-    /// Returns null when Campaign.Current is not available yet, or when the behavior
-    /// was not added to the campaign starter.
-    /// </summary>
     [SafeClass(IncludeDerived = true)]
     public abstract class BaseCampaignBehavior<TSelf> : BaseCampaignBehavior
         where TSelf : CampaignBehaviorBase
     {
-        /// <summary>
-        /// Gets the current campaign instance of this behavior type.
-        /// This mirrors Campaign.Current.GetCampaignBehavior<TSelf>().
-        /// </summary>
         public static TSelf Instance
         {
             get
             {
-                var campaign = TaleWorlds.CampaignSystem.Campaign.Current;
+                var campaign = Campaign.Current;
                 if (campaign == null)
                     return null;
 
@@ -149,9 +340,6 @@ namespace Retinues.Framework.Behaviors
             }
         }
 
-        /// <summary>
-        /// Convenience helper for call sites that prefer a bool guard.
-        /// </summary>
         public static bool TryGetInstance(out TSelf behavior)
         {
             behavior = Instance;

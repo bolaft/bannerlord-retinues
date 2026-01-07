@@ -7,7 +7,7 @@ using Retinues.Domain.Equipments.Helpers;
 using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Domain.Factions.Wrappers;
 using Retinues.Framework.Behaviors;
-using Retinues.Game.Troops.Retinues;
+using Retinues.Game.Retinues;
 using Retinues.UI.Services;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
@@ -39,17 +39,12 @@ namespace Retinues.Game.Bootstrap
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                    Event Registration                  //
+        //                     Auto handlers                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public override void RegisterEvents()
-        {
-            // New game: after character creation, first time the player hits the campaign map.
-            Hook(BehaviorEvent.CharacterCreationIsOver, TryBootstrap);
+        protected override void OnCharacterCreationIsOver() => TryBootstrap();
 
-            // Loaded save: when the campaign has finished loading.
-            Hook(BehaviorEvent.GameLoadFinished, TryBootstrap);
-        }
+        protected override void OnGameLoadFinished() => TryBootstrap();
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Bootstrap                      //

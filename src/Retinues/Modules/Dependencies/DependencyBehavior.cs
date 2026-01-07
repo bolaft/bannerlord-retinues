@@ -15,13 +15,7 @@ namespace Retinues.Modules.Dependencies
     /// </summary>
     public class DependencyBehavior : BaseCampaignBehavior
     {
-        public override void RegisterEvents()
-        {
-            Log.Info("[Deps] RegisterEvents()");
-            Hook(BehaviorEvent.GameLoadFinished, OnGameLoadFinished);
-        }
-
-        private void OnGameLoadFinished()
+        protected override void OnGameLoadFinished()
         {
             Log.Info("[Deps] OnGameLoadFinished() -> CheckDependencies(showPopup=true)");
             CheckDependencies(showPopup: true);

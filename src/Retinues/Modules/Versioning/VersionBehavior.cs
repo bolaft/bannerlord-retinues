@@ -45,20 +45,10 @@ namespace Retinues.Modules.Versioning
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                    Event Registration                  //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        public override void RegisterEvents()
-        {
-            // Once the game is fully loaded, check the saved vs current version.
-            Hook(BehaviorEvent.GameLoadFinished, OnGameLoadFinished);
-        }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Events                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private void OnGameLoadFinished()
+        protected override void OnGameLoadFinished()
         {
             try
             {
