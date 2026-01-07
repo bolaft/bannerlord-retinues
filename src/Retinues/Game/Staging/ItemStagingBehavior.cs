@@ -1,13 +1,13 @@
 using Retinues.Configuration;
 using Retinues.Domain.Characters.Wrappers;
+using Retinues.Domain.Equipments.Models;
 using Retinues.Framework.Behaviors;
-using Retinues.Game;
 using Retinues.UI.Services;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Library;
 
-namespace Retinues.Domain.Equipments.Behaviors
+namespace Retinues.Game.Staging
 {
     public sealed class ItemStagingBehavior : BaseCampaignBehavior
     {
@@ -40,7 +40,7 @@ namespace Retinues.Domain.Equipments.Behaviors
                 if (wc == null || wc.IsHero)
                     continue;
 
-                if (!Models.MEquipment.IsItemStagingActive(wc))
+                if (!MEquipment.IsItemStagingActive(wc))
                     continue;
 
                 var list = wc.Equipments;

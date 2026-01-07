@@ -11,14 +11,14 @@ using Retinues.Utilities;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 
-namespace Retinues.Game.Troops
+namespace Retinues.Domain.Characters.Helpers
 {
     /// <summary>
     /// Centralized troop creation and cloning helpers.
     /// Starter equipment is always applied from Settings.StarterEquipment.
     /// </summary>
     [SafeClass]
-    public static class TroopBuilder
+    public static class CharacterCloner
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Public API                       //

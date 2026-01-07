@@ -13,7 +13,7 @@ using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 
-namespace Retinues.Game
+namespace Retinues.Game.Bootstrap
 {
     /// <summary>
     /// Centralizes one-time campaign startup logic for Retinues.
