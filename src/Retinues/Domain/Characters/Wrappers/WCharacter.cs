@@ -201,8 +201,7 @@ namespace Retinues.Domain.Characters.Wrappers
             {
                 CultureAttribute.Set(value?.Base);
 
-                // Invalidate related caches.
-                InvalidateTroopFactionsCache();
+                TroopFactionCache.Invalidate();
             }
         }
 

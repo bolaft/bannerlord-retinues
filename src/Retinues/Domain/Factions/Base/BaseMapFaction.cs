@@ -180,8 +180,7 @@ namespace Retinues.Domain.Factions.Base
         public void SetRootBasic(WCharacter root)
         {
             CustomRootBasicAttribute.Set(root);
-            WCharacter.InvalidateTroopFactionsCache();
-            WCharacter.InvalidateCustomTreeCache();
+            WCharacter.InvalidateTroopSourceCaches();
         }
 
         /// <summary>
@@ -190,8 +189,7 @@ namespace Retinues.Domain.Factions.Base
         public void SetRootElite(WCharacter root)
         {
             CustomRootEliteAttribute.Set(root);
-            WCharacter.InvalidateTroopFactionsCache();
-            WCharacter.InvalidateCustomTreeCache();
+            WCharacter.InvalidateTroopSourceCaches();
         }
 
         /// <summary>
@@ -200,8 +198,7 @@ namespace Retinues.Domain.Factions.Base
         public void SetRetinues(List<WCharacter> troops)
         {
             RetinueTroopsAttribute.Set(troops ?? []);
-            WCharacter.InvalidateTroopFactionsCache();
-            WCharacter.InvalidateCustomTreeCache();
+            WCharacter.InvalidateTroopSourceCaches();
         }
 
         /// <summary>

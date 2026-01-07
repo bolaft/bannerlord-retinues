@@ -52,8 +52,7 @@ namespace Retinues.Domain.Characters.Wrappers
                     TryApplyUpgradeTargetIds();
 
                     // Invalidate related caches.
-                    InvalidateTroopSourceFlagsCache();
-                    InvalidateTroopFactionsCache();
+                    InvalidateTroopSourceCaches();
 
                     // Rebuild tree caches (safe even if application is deferred).
                     CharacterTreeCacheHelper.MarkDirty();

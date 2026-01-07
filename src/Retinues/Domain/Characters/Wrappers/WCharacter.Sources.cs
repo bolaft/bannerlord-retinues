@@ -40,7 +40,12 @@ namespace Retinues.Domain.Characters.Wrappers
         public bool IsCivilian => (SourceFlags & TroopSourceFlags.Civilian) != 0;
 
         [StaticClearAction]
-        public static void InvalidateTroopSourceFlagsCache() => TroopSourceFlagCache.Invalidate();
+        public static void InvalidateTroopSourceCaches()
+        {
+            TroopSourceFlagCache.Invalidate();
+            TroopFactionCache.Invalidate();
+            CustomTreeFlagCache.Invalidate();
+        }
 
         private static class TroopSourceFlagCache
         {
@@ -100,6 +105,13 @@ namespace Retinues.Domain.Characters.Wrappers
                         MarkMany(culture.RosterVillager, TroopSourceFlags.Villager);
                         MarkMany(culture.RosterCivilian, TroopSourceFlags.Civilian);
                     }
+
+                    // Retinues live on map-factions (clans/kingdoms).
+                    foreach (var clan in WClan.All)
+                        MarkMany(clan.RosterRetinues, TroopSourceFlags.Retinue);
+
+                    foreach (var kingdom in WKingdom.All)
+                        MarkMany(kingdom.RosterRetinues, TroopSourceFlags.Retinue);
 
                     _built = true;
                 }
@@ -168,9 +180,6 @@ namespace Retinues.Domain.Characters.Wrappers
 
             return false;
         }
-
-        [StaticClearAction]
-        public static void InvalidateTroopFactionsCache() => TroopFactionCache.Invalidate();
 
         private static class TroopFactionCache
         {
@@ -279,9 +288,6 @@ namespace Retinues.Domain.Characters.Wrappers
         /// This is independent from IsCustom.
         /// </summary>
         public bool InCustomTree => CustomTreeFlagCache.Get(this);
-
-        [StaticClearAction]
-        public static void InvalidateCustomTreeCache() => CustomTreeFlagCache.Invalidate();
 
         private static class CustomTreeFlagCache
         {

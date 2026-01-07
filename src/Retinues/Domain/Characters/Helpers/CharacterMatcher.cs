@@ -16,7 +16,9 @@ namespace Retinues.Domain.Characters.Helpers
             WCharacter troop,
             IEnumerable<WCharacter> troops,
             bool strictTierMatch = false,
-            WCharacter fallback = null
+            bool regularOnly = true,
+            WCharacter fallback = null,
+            int? requestedTier = null
         )
         {
             if (troop == null || troops == null)
@@ -36,6 +38,9 @@ namespace Retinues.Domain.Characters.Helpers
                 if (string.IsNullOrEmpty(id))
                     continue;
 
+                if (regularOnly && (c.IsElite || c.IsBasic))
+                    continue;
+
                 // Exact id match wins immediately.
                 if (string.Equals(id, troop.StringId, StringComparison.Ordinal))
                     return c;
@@ -47,8 +52,10 @@ namespace Retinues.Domain.Characters.Helpers
             if (candidates.Count == 0)
                 return fallback;
 
+            var tier = requestedTier ?? troop.Tier;
+
             // 1) Tier (closest, or strict exact)
-            FilterByTier(troop, candidates, strictTierMatch);
+            FilterByTier(tier, candidates, strictTierMatch);
             if (candidates.Count == 0)
                 return fallback;
             if (candidates.Count == 1)
@@ -84,40 +91,57 @@ namespace Retinues.Domain.Characters.Helpers
             WCharacter troop,
             WCharacter root,
             bool strictTierMatch = false,
-            WCharacter fallback = null
+            WCharacter fallback = null,
+            int? requestedTier = null
         )
         {
             if (root == null)
                 return fallback;
 
-            return PickBest(troop, root.Tree, strictTierMatch, fallback);
+            return PickBest(
+                troop,
+                root.Tree,
+                strictTierMatch,
+                regularOnly: false,
+                fallback,
+                requestedTier
+            );
         }
 
         public static WCharacter PickBestFromFaction(
             WCharacter troop,
             IBaseFaction faction,
             bool strictTierMatch = false,
-            WCharacter fallback = null
+            bool regularOnly = true,
+            WCharacter fallback = null,
+            int? requestedTier = null
         )
         {
             if (faction == null)
                 return fallback;
 
-            return PickBest(troop, faction.Troops, strictTierMatch, fallback);
+            return PickBest(
+                troop,
+                faction.Troops,
+                strictTierMatch,
+                regularOnly,
+                fallback,
+                requestedTier
+            );
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Tier Match                       //
+        //                       Tier Match                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private static void FilterByTier(WCharacter troop, List<WCharacter> candidates, bool strict)
+        private static void FilterByTier(int tier, List<WCharacter> candidates, bool strict)
         {
             int bestDist = int.MaxValue;
 
             for (int i = 0; i < candidates.Count; i++)
             {
                 var c = candidates[i];
-                var dist = Math.Abs(c.Tier - troop.Tier);
+                var dist = Math.Abs(c.Tier - tier);
                 if (dist < bestDist)
                     bestDist = dist;
             }
@@ -132,13 +156,13 @@ namespace Retinues.Domain.Characters.Helpers
             for (int i = candidates.Count - 1; i >= 0; i--)
             {
                 var c = candidates[i];
-                if (Math.Abs(c.Tier - troop.Tier) != bestDist)
+                if (Math.Abs(c.Tier - tier) != bestDist)
                     candidates.RemoveAt(i);
             }
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                       Bool Match                        //
+        //                       Bool Match                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private static void FilterByBoolMatch(
@@ -169,7 +193,7 @@ namespace Retinues.Domain.Characters.Helpers
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                 Weapon Categories Similarity            //
+        //              Weapon Categories Similarity              //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private static void FilterByWeaponCategoriesSimilarity(
@@ -272,7 +296,7 @@ namespace Retinues.Domain.Characters.Helpers
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                   Skillset Similarity                   //
+        //                   Skillset Similarity                  //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private static void FilterBySkillsSimilarity(WCharacter troop, List<WCharacter> candidates)

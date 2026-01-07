@@ -7,6 +7,7 @@ using Retinues.Editor.Controllers.Character;
 using Retinues.Editor.Events;
 using Retinues.UI.Services;
 using Retinues.UI.VM;
+using Retinues.Utilities;
 using TaleWorlds.Library;
 
 namespace Retinues.Editor.VM.Panel.Character
@@ -377,7 +378,7 @@ namespace Retinues.Editor.VM.Panel.Character
         private bool _hasUpgradeTargets;
 
         [DataSourceProperty]
-        public string UpgradeSourcesHeaderText => L.S("upgrade_sources_header_text", "Origin");
+        public string UpgradeSourcesHeaderText => L.S("upgrade_sources_header_text", "Sources");
 
         [DataSourceProperty]
         public string UpgradeTargetsHeaderText => L.S("upgrade_targets_header_text", "Upgrades");
@@ -401,9 +402,14 @@ namespace Retinues.Editor.VM.Panel.Character
             _upgradeTargets.Clear();
 
             var c = State.Character;
+            Log.Info($"Refreshing upgrades for character '{c?.Name ?? "<null>"}'.");
             if (c != null)
             {
-                foreach (var source in c.UpgradeSources)
+                Log.Info($"  Is retinue: {c.IsRetinue}.");
+                // Use conversion sources for retinues, upgrade sources for regular troops.
+                var sources = c.IsRetinue ? c.ConversionSources : c.UpgradeSources;
+
+                foreach (var source in sources)
                     _upgradeSources.Add(new CharacterUpgradeVM(source));
 
                 foreach (var target in c.UpgradeTargets)
