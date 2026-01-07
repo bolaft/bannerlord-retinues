@@ -13,7 +13,7 @@ using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.CampaignSystem.ViewModelCollection.Party;
 using TaleWorlds.Core.ViewModelCollection.Information;
 
-namespace Retinues.Game.Troops.Retinues.Patches
+namespace Retinues.Game.Retinues.Patches
 {
     internal static class RetinueDynamicUpgradePatch
     {

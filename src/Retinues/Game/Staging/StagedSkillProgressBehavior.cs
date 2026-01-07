@@ -1,6 +1,7 @@
 using Retinues.Configuration;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Framework.Behaviors;
+using Retinues.Game;
 using Retinues.UI.Services;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
@@ -8,7 +9,7 @@ using TaleWorlds.Library;
 
 namespace Retinues.Game.Staging
 {
-    public sealed class SkillStagingBehavior : BaseCampaignBehavior
+    public sealed class StagedSkillProgressBehavior : BaseCampaignBehavior
     {
         public override void RegisterEvents()
         {

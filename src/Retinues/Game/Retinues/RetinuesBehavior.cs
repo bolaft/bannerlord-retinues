@@ -7,7 +7,7 @@ using Retinues.Framework.Behaviors;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 
-namespace Retinues.Game.Troops.Retinues
+namespace Retinues.Game.Retinues
 {
     /// <summary>
     /// Retinue management behavior.
