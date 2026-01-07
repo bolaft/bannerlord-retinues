@@ -992,6 +992,9 @@
       id="ret_retinue_default_name"
       text="Домашняя стража {CLAN}" />
     <string
+      id="ret_retinue_upgrade_cap_reached_hint"
+      text="Обновление до {RETINUE}{newline}Достигнут максимальный предел ретинусов: {CAP}{newline}Увеличьте лимит размера вашей партии, чтобы позволить больше ретинусов" />
+    <string
       id="ret_retinues_update_title"
       text="Обновление Retinues" />
     <string

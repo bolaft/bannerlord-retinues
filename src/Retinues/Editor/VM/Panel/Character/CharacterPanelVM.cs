@@ -395,6 +395,17 @@ namespace Retinues.Editor.VM.Panel.Character
         [DataSourceProperty]
         public bool HasUpgradeTargets => _hasUpgradeTargets;
 
+        [EventListener(UIEvent.Skill, UIEvent.Item)]
+        private void RefreshUpgradesIfRetinue()
+        {
+            // Only retinues use conversion sources.
+            if (State.Character?.IsRetinue == true)
+            {
+                Log.Info("Refreshing upgrade sources/targets for retinue.");
+                RefreshUpgrades();
+            }
+        }
+
         [EventListener(UIEvent.Character, UIEvent.Tree)]
         private void RefreshUpgrades()
         {
@@ -411,7 +422,16 @@ namespace Retinues.Editor.VM.Panel.Character
                 foreach (var source in sources)
                     _upgradeSources.Add(new CharacterUpgradeVM(source));
 
-                foreach (var target in c.UpgradeTargets)
+                var targets = c.UpgradeTargets.ToList();
+
+                // Ensure all player retinues that can convert from this troop are included.
+                foreach (var retinue in WCharacter.GetPlayerRetinuesForSource(c))
+                {
+                    if (!targets.Contains(retinue))
+                        targets.Add(retinue);
+                }
+
+                foreach (var target in targets)
                     _upgradeTargets.Add(new CharacterUpgradeVM(target));
             }
 

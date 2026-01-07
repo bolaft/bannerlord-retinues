@@ -360,18 +360,60 @@ namespace Retinues.Domain.Characters.Wrappers
                     MarkTree(faction.RootBasic);
                     MarkTree(faction.RootElite);
 
-                    // Retinues: treat them as custom sources, mark their trees too.
-                    MarkManyTrees(faction.RosterRetinues);
+                    // Retinues: mark ONLY retinue-to-retinue trees (conversion targets must not count).
+                    MarkManyRetinueTrees(faction.RosterRetinues);
                 }
             }
 
-            private static void MarkManyTrees(IEnumerable<WCharacter> troops)
+            private static void MarkManyRetinueTrees(IEnumerable<WCharacter> troops)
             {
                 if (troops == null)
                     return;
 
                 foreach (var wc in troops)
-                    MarkTree(wc);
+                    MarkRetinueTree(wc);
+            }
+
+            private static void MarkRetinueTree(WCharacter root)
+            {
+                if (root == null)
+                    return;
+
+                // Always mark the root retinue troop itself.
+                Mark(root);
+
+                // Only traverse upgrade edges where BOTH sides are retinues.
+                var visited = new HashSet<WCharacter>();
+
+                void Dfs(WCharacter current)
+                {
+                    if (current == null)
+                        return;
+
+                    if (!visited.Add(current))
+                        return;
+
+                    Mark(current);
+
+                    var targets = current.UpgradeTargets;
+                    if (targets == null || targets.Count == 0)
+                        return;
+
+                    for (int i = 0; i < targets.Count; i++)
+                    {
+                        var child = targets[i];
+                        if (child == null)
+                            continue;
+
+                        if (!child.IsRetinue)
+                            continue; // conversion link, ignore for tree marking
+
+                        Dfs(child);
+                    }
+                }
+
+                if (root.IsRetinue)
+                    Dfs(root);
             }
 
             private static void MarkTree(WCharacter root)

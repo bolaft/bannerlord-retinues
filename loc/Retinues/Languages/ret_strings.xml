@@ -992,6 +992,9 @@
       id="ret_retinue_default_name"
       text="{CLAN} House Guard" />
     <string
+      id="ret_retinue_upgrade_cap_reached_hint"
+      text="Upgrade to {RETINUE}{newline}Max retinue cap reached: {CAP}{newline}Increase your party size limit to allow for more retinues" />
+    <string
       id="ret_retinues_update_title"
       text="Retinues Update" />
     <string

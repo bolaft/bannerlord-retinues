@@ -81,7 +81,7 @@ namespace Retinues.Domain.Characters.Wrappers
             EquipmentRoster.InvalidateItemCountsCache();
 
             // Invalidate conversion sources cache, as equipment changes may affect eligibility.
-            ConversionSourcesCache.Clear();
+            ConversionCache.Clear();
         }
 
         private List<string> SerializeEquipments()

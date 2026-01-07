@@ -992,6 +992,9 @@
       id="ret_retinue_default_name"
       text="{CLAN}-Hauswache" />
     <string
+      id="ret_retinue_upgrade_cap_reached_hint"
+      text="Upgrade zu {RETINUE}{newline}Maximale Retinue-Grenze erreicht: {CAP}{newline}Erhöhen Sie Ihr Partymitgliederlimit, um mehr Retinues zu ermöglichen" />
+    <string
       id="ret_retinues_update_title"
       text="Retinues-Update" />
     <string

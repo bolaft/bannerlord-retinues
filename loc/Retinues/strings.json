@@ -5264,6 +5264,22 @@
     "TR": "{CLAN} Ev Muhafızı"
   },
   {
+    "id": "ret_retinue_upgrade_cap_reached_hint",
+    "EN": "Upgrade to {RETINUE}\\nMax retinue cap reached: {CAP}\\nIncrease your party size limit to allow for more retinues",
+    "FR": "Amélioration vers {RETINUE}\\nCapacité maximale de rétinue atteinte : {CAP}\\nAugmentez la limite de taille de votre groupe pour permettre plus de rétines",
+    "BR": "Atualização para {RETINUE}\\nLimite máxima de retinue atingida: {CAP}\\nAumente o limite de tamanho do seu grupo para permitir mais retinues",
+    "CNs": "升级到 {RETINUE}\\n已达到随从上限：{CAP}\\n增加你的队伍规模上限以允许更多的随从",
+    "CNt": "升級到 {RETINUE}\\n已達到隨從上限：{CAP}\\n增加你的隊伍規模上限以允許更多的隨從",
+    "DE": "Upgrade zu {RETINUE}\\nMaximale Retinue-Grenze erreicht: {CAP}\\nErhöhen Sie Ihr Partymitgliederlimit, um mehr Retinues zu ermöglichen",
+    "IT": "Aggiornamento a {RETINUE}\\nLimite massimo di retinue raggiunto: {CAP}\\nAumenta il limite di dimensione del tuo gruppo per consentire più retinues",
+    "JP": "{RETINUE} にアップグレード\\n最大随行員数に達しました: {CAP}\\nパーティーサイズの制限を増やして、より多くの随行員を許可します",
+    "KO": "{RETINUE}로 업그레이드\\n최대 수행원 한도 도달: {CAP}\\n더 많은 수행원을 허용하려면 파티 크기 제한을 늘리세요",
+    "PL": "Ulepszenie do {RETINUE}\\nOsiągnięto maksymalny limit retinues: {CAP}\\nZwiększ limit wielkości swojej drużyny, aby umożliwić więcej retinues",
+    "RU": "Обновление до {RETINUE}\\nДостигнут максимальный предел ретинусов: {CAP}\\nУвеличьте лимит размера вашей партии, чтобы позволить больше ретинусов",
+    "SP": "Actualizar a {RETINUE}\\nLímite máximo de retinue alcanzado: {CAP}\\nAumenta el límite de tamaño de tu grupo para permitir más retinues",
+    "TR": "{RETINUE} yükseltmesi\\nMaksimum retinue sınırına ulaşıldı: {CAP}\\nDaha fazla retinue için parti boyutu sınırınızı artırın"
+  },
+  {
     "id": "ret_retinues_update_title",
     "EN": "Retinues Update",
     "FR": "Mise à jour de Retinues",

@@ -14,25 +14,33 @@ namespace Retinues.Domain.Characters.Wrappers
         //                    Conversion Sources                  //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        internal const string ConversionSourcesCacheKey = "retinues.conversion_sources";
-
-        private readonly Cache<WCharacter, List<WCharacter>> ConversionSourcesCache = new(
-            BuildConversionSources,
-            ConversionSourcesCacheKey
+        // Shared cache: sources and targets are computed together.
+        private readonly Cache<WCharacter, List<WCharacter>> ConversionCache = new(
+            BuildConversionLinks
         );
 
-        public List<WCharacter> ConversionSources => ConversionSourcesCache.Get(this);
+        public List<WCharacter> ConversionSources => ConversionCache.Get(this);
 
-        private static List<WCharacter> BuildConversionSources(WCharacter wc)
+        private static List<WCharacter> BuildConversionLinks(WCharacter wc)
         {
-            if (wc == null)
-                return [];
-
-            if (!wc.IsRetinue)
+            if (wc == null || !wc.IsRetinue)
                 return [];
 
             var belowTier = wc.Tier - 1;
-            if (belowTier < 1)
+            var aboveTier = wc.Tier + 1;
+
+            var sources = belowTier >= 1 ? BuildConversionMatches(wc, belowTier) : [];
+            var targets = aboveTier >= 1 ? BuildConversionMatches(wc, aboveTier) : [];
+
+            // Apply targets retinue for real.
+            wc.UpgradeTargets = targets;
+
+            return sources;
+        }
+
+        private static List<WCharacter> BuildConversionMatches(WCharacter wc, int requestedTier)
+        {
+            if (wc == null)
                 return [];
 
             var results = new List<WCharacter>();
@@ -57,7 +65,7 @@ namespace Retinues.Domain.Characters.Wrappers
                         strictTierMatch: true,
                         fallback: null,
                         regularOnly: true,
-                        requestedTier: belowTier
+                        requestedTier: requestedTier
                     );
 
                     if (match == null)
@@ -81,7 +89,7 @@ namespace Retinues.Domain.Characters.Wrappers
                     faction: culture,
                     strictTierMatch: true,
                     fallback: null,
-                    requestedTier: belowTier
+                    requestedTier: requestedTier
                 );
 
                 if (match != null)

@@ -992,6 +992,9 @@
       id="ret_retinue_default_name"
       text="Garde Seigneurial {CLAN}" />
     <string
+      id="ret_retinue_upgrade_cap_reached_hint"
+      text="Amélioration vers {RETINUE}{newline}Capacité maximale de rétinue atteinte : {CAP}{newline}Augmentez la limite de taille de votre groupe pour permettre plus de rétines" />
+    <string
       id="ret_retinues_update_title"
       text="Mise à jour de Retinues" />
     <string

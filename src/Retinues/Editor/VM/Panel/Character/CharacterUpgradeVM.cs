@@ -30,25 +30,39 @@ namespace Retinues.Editor.VM.Panel.Character
         [DataSourceMethod]
         public void ExecuteSelect()
         {
-            foreach (var character in State.Faction.Troops)
+            // Upgrade targets can cross mode boundaries:
+            // - Custom tree troops must open in Player mode
+            // - Non-custom troops must open in Universal mode
+            var desiredMode = _character.InCustomTree ? EditorMode.Player : EditorMode.Universal;
+
+            // Fast path: same mode + same selected faction -> just select.
+            if (desiredMode == State.Mode)
             {
-                if (character == _character)
+                foreach (var character in State.Faction.Troops)
                 {
-                    State.Character = character;
-                    return; // Is of the same faction, no need to change further.
+                    if (character == _character)
+                    {
+                        State.Character = character;
+                        return;
+                    }
                 }
             }
 
-            // Different faction, launch editor for the new character.
-            var faction =
-                State.Mode == EditorMode.Player && _character.InCustomTree
-                    ? _character.AssignedMapFaction
-                    : _character.Culture;
+            // Otherwise we must relaunch, potentially switching editor mode.
+            if (desiredMode == EditorMode.Player)
+            {
+                // Player-mode editor, preselect the assigned map-faction (clan/kingdom).
+                var faction = _character.AssignedMapFaction;
 
+                EditorLauncher.Launch(
+                    EditorLaunchArgs.Player(faction: faction, character: _character)
+                );
+                return;
+            }
+
+            // Universal-mode editor, preselect culture.
             EditorLauncher.Launch(
-                State.Mode == EditorMode.Player
-                    ? EditorLaunchArgs.Player(faction: faction, character: _character)
-                    : EditorLaunchArgs.Universal(faction: faction, character: _character)
+                EditorLaunchArgs.Universal(faction: _character.Culture, character: _character)
             );
         }
     }

@@ -992,6 +992,9 @@
       id="ret_retinue_default_name"
       text="{CLAN} ハウスガード" />
     <string
+      id="ret_retinue_upgrade_cap_reached_hint"
+      text="{RETINUE} にアップグレード{newline}最大随行員数に達しました: {CAP}{newline}パーティーサイズの制限を増やして、より多くの随行員を許可します" />
+    <string
       id="ret_retinues_update_title"
       text="Retinues アップデート" />
     <string

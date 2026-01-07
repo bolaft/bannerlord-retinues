@@ -992,6 +992,9 @@
       id="ret_retinue_default_name"
       text="Straż Domowa {CLAN}" />
     <string
+      id="ret_retinue_upgrade_cap_reached_hint"
+      text="Ulepszenie do {RETINUE}{newline}Osiągnięto maksymalny limit retinues: {CAP}{newline}Zwiększ limit wielkości swojej drużyny, aby umożliwić więcej retinues" />
+    <string
       id="ret_retinues_update_title"
       text="Aktualizacja Retinues" />
     <string

@@ -992,6 +992,9 @@
       id="ret_retinue_default_name"
       text="{CLAN} Ev Muhafızı" />
     <string
+      id="ret_retinue_upgrade_cap_reached_hint"
+      text="{RETINUE} yükseltmesi{newline}Maksimum retinue sınırına ulaşıldı: {CAP}{newline}Daha fazla retinue için parti boyutu sınırınızı artırın" />
+    <string
       id="ret_retinues_update_title"
       text="Retinues Güncellemesi" />
     <string

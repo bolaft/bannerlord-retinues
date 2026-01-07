@@ -62,12 +62,14 @@ namespace Retinues.Domain.Characters.Helpers
                 return candidates[0];
 
             // 2) Mounted
-            FilterByBoolMatch(troop.IsMounted, candidates, c => c.IsMounted);
+            var desiredMounted = EffectiveIsMounted(troop);
+            FilterByBoolMatch(desiredMounted, candidates, EffectiveIsMounted);
             if (candidates.Count == 1)
                 return candidates[0];
 
             // 3) Ranged
-            FilterByBoolMatch(troop.IsRanged, candidates, c => c.IsRanged);
+            var desiredRanged = EffectiveIsRanged(troop);
+            FilterByBoolMatch(desiredRanged, candidates, EffectiveIsRanged);
             if (candidates.Count == 1)
                 return candidates[0];
 
@@ -333,6 +335,34 @@ namespace Retinues.Domain.Characters.Helpers
                 if (scores[i] != best)
                     candidates.RemoveAt(i);
             }
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                    Mounted / Ranged                    //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private static bool EffectiveIsMounted(WCharacter wc)
+        {
+            if (wc == null)
+                return false;
+
+            var eq = wc.FirstBattleEquipment;
+            if (eq != null)
+                return eq.FormationInfo.IsMounted;
+
+            return wc.IsMounted;
+        }
+
+        private static bool EffectiveIsRanged(WCharacter wc)
+        {
+            if (wc == null)
+                return false;
+
+            var eq = wc.FirstBattleEquipment;
+            if (eq != null)
+                return eq.FormationInfo.IsRanged;
+
+            return wc.IsRanged;
         }
     }
 }

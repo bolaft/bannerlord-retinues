@@ -992,6 +992,9 @@
       id="ret_retinue_default_name"
       text="{CLAN} 하우스 가드" />
     <string
+      id="ret_retinue_upgrade_cap_reached_hint"
+      text="{RETINUE}로 업그레이드{newline}최대 수행원 한도 도달: {CAP}{newline}더 많은 수행원을 허용하려면 파티 크기 제한을 늘리세요" />
+    <string
       id="ret_retinues_update_title"
       text="Retinues 업데이트" />
     <string

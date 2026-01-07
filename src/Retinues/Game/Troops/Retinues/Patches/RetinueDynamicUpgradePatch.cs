@@ -6,19 +6,129 @@ using HarmonyLib;
 using Retinues.Configuration;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.UI.Services;
+using Retinues.UI.VM;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.CampaignSystem.ViewModelCollection.Party;
+using TaleWorlds.Core.ViewModelCollection.Information;
 
 namespace Retinues.Game.Troops.Retinues.Patches
 {
-    internal static class RetinueUpgradeTargetsTempPatch
+    internal static class RetinueDynamicUpgradePatch
     {
         private static readonly object Sync = new();
         private static readonly Dictionary<string, CharacterObject[]> OriginalById = new(
             StringComparer.Ordinal
         );
+
+        private sealed class SavedUpgradeState(
+            int availableUpgrades,
+            bool isAvailable,
+            bool isInsufficient,
+            BasicTooltipViewModel hint
+        )
+        {
+            public readonly int AvailableUpgrades = availableUpgrades;
+            public readonly bool IsAvailable = isAvailable;
+            public readonly bool IsInsufficient = isInsufficient;
+            public readonly BasicTooltipViewModel Hint = hint;
+        }
+
+        private static readonly Dictionary<object, SavedUpgradeState> SavedUpgradeByVm = [];
+
+        private static void ApplyRetinueCapRule(PartyCharacterVM vm)
+        {
+            if (vm?.Character == null)
+                return;
+
+            // Only for right-side member troops (player party side).
+            if (vm.Side != PartyScreenLogic.PartyRosterSide.Right)
+                return;
+            if (vm.Type != PartyScreenLogic.TroopType.Member)
+                return;
+            if (vm.IsHero)
+                return;
+
+            var upgrades = vm.Upgrades;
+            var targets = vm.Character.UpgradeTargets;
+
+            if (upgrades == null || targets == null || upgrades.Count == 0 || targets.Length == 0)
+                return;
+
+            var party = Player.Party;
+            if (party == null)
+                return;
+
+            var cap = (int)Math.Floor(party.PartySizeLimit * Settings.MaxRetinueRatio);
+
+            var totalRetinues = party
+                .MemberRoster.Elements.Where(e => e.Troop.IsRetinue == true)
+                .Sum(e => e.Number);
+
+            var atCap = totalRetinues >= cap;
+
+            var n = Math.Min(upgrades.Count, targets.Length);
+
+            for (int i = 0; i < n; i++)
+            {
+                var target = targets[i];
+                if (target == null)
+                    continue;
+
+                var wTarget = WCharacter.Get(target);
+                if (wTarget == null || !wTarget.IsRetinue)
+                    continue;
+
+                var u = upgrades[i];
+                if (u == null)
+                    continue;
+
+                // Restore path
+                if (!atCap)
+                {
+                    if (SavedUpgradeByVm.TryGetValue(u, out var saved))
+                    {
+                        u.Hint = saved.Hint;
+                        u.AvailableUpgrades = saved.AvailableUpgrades;
+                        u.IsAvailable = saved.IsAvailable;
+                        u.IsInsufficient = saved.IsInsufficient;
+
+                        SavedUpgradeByVm.Remove(u);
+                    }
+
+                    continue;
+                }
+
+                // Disable path (save once, then override)
+                if (!SavedUpgradeByVm.ContainsKey(u))
+                {
+                    SavedUpgradeByVm[u] = new SavedUpgradeState(
+                        u.AvailableUpgrades,
+                        u.IsAvailable,
+                        u.IsInsufficient,
+                        u.Hint
+                    );
+                }
+
+                var capLine = L.T(
+                        "retinue_upgrade_cap_reached_hint",
+                        "Upgrade to {RETINUE}\nMax retinue cap reached: {CAP}\nIncrease your party size limit to allow for more retinues"
+                    )
+                    .SetTextVariable("RETINUE", target.Name)
+                    .SetTextVariable("CAP", cap.ToString())
+                    .ToString();
+
+                u.Hint = new Tooltip(capLine);
+
+                // Grey out: Unavailable brush
+                u.IsAvailable = false;
+                u.IsInsufficient = false;
+
+                // IMPORTANT: do NOT zero this, otherwise you have nothing to restore.
+                // u.AvailableUpgrades stays whatever vanilla computed.
+            }
+        }
 
         private static CharacterObject[] GetUpgradeTargets(CharacterObject c)
         {
@@ -97,7 +207,7 @@ namespace Retinues.Game.Troops.Retinues.Patches
             lock (Sync)
                 OriginalById[sid] = original;
 
-            SetUpgradeTargets(source, list.ToArray());
+            SetUpgradeTargets(source, [.. list]);
         }
 
         private static void RestoreAll()
@@ -117,6 +227,7 @@ namespace Retinues.Game.Troops.Retinues.Patches
                 }
 
                 OriginalById.Clear();
+                SavedUpgradeByVm.Clear();
             }
         }
 
@@ -150,67 +261,41 @@ namespace Retinues.Game.Troops.Retinues.Patches
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //          Intercept click on retinue "upgrade"          //
+        //         Disable retinue upgrade when cap reached       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        [HarmonyPatch(typeof(PartyVM))]
-        internal static class PartyVM_ExecuteUpgrade_Patch
+        [HarmonyPatch(typeof(PartyCharacterVM))]
+        internal static class PartyCharacterVM_InitializeUpgrades_RetinueCap_Patch
         {
-            [HarmonyPrefix]
-            [HarmonyPatch(nameof(PartyVM.ExecuteUpgrade))]
-            private static bool Prefix(
-                PartyVM __instance,
-                PartyCharacterVM troop,
-                int upgradeTargetType,
-                int maxUpgradeCount
-            )
+            [HarmonyPostfix]
+            [HarmonyPatch(nameof(PartyCharacterVM.InitializeUpgrades))]
+            private static void Postfix(PartyCharacterVM __instance)
             {
                 try
                 {
-                    if (troop?.Character == null)
-                        return true;
-
-                    var targets = troop.Character.UpgradeTargets;
-                    if (
-                        targets == null
-                        || upgradeTargetType < 0
-                        || upgradeTargetType >= targets.Length
-                    )
-                        return true; // Invalid target, let vanilla handle it.
-
-                    var target = targets[upgradeTargetType];
-                    if (target == null)
-                        return true; // No valid target, let vanilla handle it.
-
-                    var wTarget = WCharacter.Get(target);
-                    if (wTarget == null || !wTarget.IsRetinue)
-                        return true; // Not a retinue upgrade, let vanilla handle it.
-
-                    var party = Player.Party;
-                    var cap = (int)Math.Floor(party.PartySizeLimit * Settings.MaxRetinueRatio);
-                    var totalRetinues = party
-                        .MemberRoster.Elements.Where(e => e.Troop.IsRetinue == true)
-                        .Sum(e => e.Number);
-
-                    if (totalRetinues < cap)
-                        return true;
-                    else
-                    {
-                        Inquiries.Popup(
-                            L.T("retinue_upgrade_cap_reached_title", "Retinue Cap Reached"),
-                            L.T(
-                                    "retinue_upgrade_cap_reached_message",
-                                    "You have reached the maximum allowed amount of retinues in your party ({CAP}).\n\nIncrease your max party size to allow for more retinues."
-                                )
-                                .SetTextVariable("CAP", cap.ToString())
-                        );
-                        return false; // Handled.
-                    }
+                    ApplyRetinueCapRule(__instance);
                 }
                 catch (Exception ex)
                 {
-                    Log.Exception(ex, "Retinue ExecuteUpgrade intercept failed.");
-                    return true;
+                    Log.Exception(ex, "Retinue cap upgrade disable failed.");
+                }
+            }
+        }
+
+        [HarmonyPatch(typeof(PartyCharacterVM))]
+        internal static class PartyCharacterVM_RefreshValues_RetinueCap_Patch
+        {
+            [HarmonyPostfix]
+            [HarmonyPatch(nameof(PartyCharacterVM.RefreshValues))]
+            private static void Postfix(PartyCharacterVM __instance)
+            {
+                try
+                {
+                    ApplyRetinueCapRule(__instance);
+                }
+                catch (Exception ex)
+                {
+                    Log.Exception(ex, "Retinue cap refresh disable failed.");
                 }
             }
         }
@@ -242,6 +327,50 @@ namespace Retinues.Game.Troops.Retinues.Patches
             private static void Postfix()
             {
                 RestoreAll();
+            }
+        }
+
+        [HarmonyPatch(typeof(PartyVM))]
+        internal static class PartyVM_Update_RetinueCapRefresh_Patch
+        {
+            [HarmonyPostfix]
+            [HarmonyPatch("Update")] // private method
+            private static void Postfix(PartyVM __instance, PartyScreenLogic.PartyCommand command)
+            {
+                try
+                {
+                    if (__instance == null || command == null)
+                        return;
+
+                    // Only after actions that can change retinue count / eligibility.
+                    switch (command.Code)
+                    {
+                        case PartyScreenLogic.PartyCommandCode.ExecuteTroop: // dismiss
+                        case PartyScreenLogic.PartyCommandCode.TransferTroop:
+                        case PartyScreenLogic.PartyCommandCode.TransferPartyLeaderTroop:
+                        case PartyScreenLogic.PartyCommandCode.TransferTroopToLeaderSlot:
+                        case PartyScreenLogic.PartyCommandCode.TransferAllTroops:
+                        case PartyScreenLogic.PartyCommandCode.RecruitTroop:
+                            break;
+
+                        default:
+                            return;
+                    }
+
+                    // Refresh upgrades for ALL main-party troops (vanilla does this only on UpgradeTroop).
+                    var troops = __instance.MainPartyTroops;
+                    if (troops == null)
+                        return;
+
+                    for (int i = 0; i < troops.Count; i++)
+                        troops[i]?.InitializeUpgrades();
+
+                    // No need to call ApplyRetinueCapRule here: your InitializeUpgrades postfix handles it.
+                }
+                catch (Exception ex)
+                {
+                    Log.Exception(ex, "Retinue cap refresh (PartyVM.Update) failed.");
+                }
             }
         }
     }

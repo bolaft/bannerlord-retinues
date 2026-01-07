@@ -52,7 +52,7 @@ namespace Retinues.Domain.Characters.Wrappers
                 LevelAttribute.Set(value);
 
                 // Invalidate conversion sources cache for retinues.
-                ConversionSourcesCache.Clear();
+                ConversionCache.Clear();
             }
         }
 

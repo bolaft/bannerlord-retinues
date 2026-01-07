@@ -992,6 +992,9 @@
       id="ret_retinue_default_name"
       text="{CLAN} 守卫队" />
     <string
+      id="ret_retinue_upgrade_cap_reached_hint"
+      text="升级到 {RETINUE}{newline}已达到随从上限：{CAP}{newline}增加你的队伍规模上限以允许更多的随从" />
+    <string
       id="ret_retinues_update_title"
       text="Retinues 更新" />
     <string

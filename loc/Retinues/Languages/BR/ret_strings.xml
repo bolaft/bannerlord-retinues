@@ -992,6 +992,9 @@
       id="ret_retinue_default_name"
       text="Guarda da Casa {CLAN}" />
     <string
+      id="ret_retinue_upgrade_cap_reached_hint"
+      text="Atualização para {RETINUE}{newline}Limite máxima de retinue atingida: {CAP}{newline}Aumente o limite de tamanho do seu grupo para permitir mais retinues" />
+    <string
       id="ret_retinues_update_title"
       text="Atualização do Retinues" />
     <string
