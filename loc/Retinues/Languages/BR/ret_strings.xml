@@ -1146,7 +1146,7 @@
       text="Esta unidade não está em uma árvore de tropas." />
     <string
       id="ret_upgrade_sources_header_text"
-      text="Origem" />
+      text="Fontes" />
     <string
       id="ret_upgrade_targets_header_text"
       text="Melhorias" />

@@ -1146,7 +1146,7 @@
       text="Diese Einheit ist nicht in einem Truppenbaum." />
     <string
       id="ret_upgrade_sources_header_text"
-      text="Herkunft" />
+      text="Quellen" />
     <string
       id="ret_upgrade_targets_header_text"
       text="Upgrades" />

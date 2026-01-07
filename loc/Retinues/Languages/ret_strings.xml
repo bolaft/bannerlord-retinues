@@ -1146,7 +1146,7 @@
       text="This unit is not in a troop tree." />
     <string
       id="ret_upgrade_sources_header_text"
-      text="Origin" />
+      text="Sources" />
     <string
       id="ret_upgrade_targets_header_text"
       text="Upgrades" />

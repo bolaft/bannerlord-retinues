@@ -1146,7 +1146,7 @@
       text="Эта единица не находится в дереве войск." />
     <string
       id="ret_upgrade_sources_header_text"
-      text="Происхождение" />
+      text="Источники" />
     <string
       id="ret_upgrade_targets_header_text"
       text="Улучшения" />

@@ -1146,7 +1146,7 @@
       text="Bu birim bir birlik ağacında değil." />
     <string
       id="ret_upgrade_sources_header_text"
-      text="Kaynak" />
+      text="Kaynaklar" />
     <string
       id="ret_upgrade_targets_header_text"
       text="Yükseltmeler" />

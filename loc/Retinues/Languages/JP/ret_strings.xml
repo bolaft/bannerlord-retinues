@@ -1146,7 +1146,7 @@
       text="このユニットは部隊ツリーにありません。" />
     <string
       id="ret_upgrade_sources_header_text"
-      text="起源" />
+      text="入手方法" />
     <string
       id="ret_upgrade_targets_header_text"
       text="アップグレード" />

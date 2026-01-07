@@ -1146,7 +1146,7 @@
       text="Jednostka nie znajduje się w drzewku oddziałów." />
     <string
       id="ret_upgrade_sources_header_text"
-      text="Pochodzenie" />
+      text="Źródła" />
     <string
       id="ret_upgrade_targets_header_text"
       text="Ulepszenia" />
