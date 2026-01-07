@@ -38,7 +38,7 @@ namespace Retinues.Domain.Characters.Helpers
                 if (string.IsNullOrEmpty(id))
                     continue;
 
-                if (regularOnly && (c.IsElite || c.IsBasic))
+                if (regularOnly && !c.IsElite && !c.IsBasic)
                     continue;
 
                 // Exact id match wins immediately.
@@ -80,9 +80,6 @@ namespace Retinues.Domain.Characters.Helpers
             FilterBySkillsSimilarity(troop, candidates);
             if (candidates.Count == 1)
                 return candidates[0];
-
-            // 6) Female
-            FilterByBoolMatch(troop.IsFemale, candidates, c => c.IsFemale);
 
             return candidates.Count > 0 ? candidates[0] : fallback;
         }

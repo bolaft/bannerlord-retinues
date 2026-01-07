@@ -47,7 +47,13 @@ namespace Retinues.Domain.Characters.Wrappers
         public int Level
         {
             get => LevelAttribute.Get();
-            set => LevelAttribute.Set(value);
+            set
+            {
+                LevelAttribute.Set(value);
+
+                // Invalidate conversion sources cache for retinues.
+                ConversionSourcesCache.Clear();
+            }
         }
 
         /* ━━━━━━━━━ Name ━━━━━━━━━ */

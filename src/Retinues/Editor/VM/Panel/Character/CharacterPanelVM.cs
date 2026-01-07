@@ -402,10 +402,9 @@ namespace Retinues.Editor.VM.Panel.Character
             _upgradeTargets.Clear();
 
             var c = State.Character;
-            Log.Info($"Refreshing upgrades for character '{c?.Name ?? "<null>"}'.");
+
             if (c != null)
             {
-                Log.Info($"  Is retinue: {c.IsRetinue}.");
                 // Use conversion sources for retinues, upgrade sources for regular troops.
                 var sources = c.IsRetinue ? c.ConversionSources : c.UpgradeSources;
 

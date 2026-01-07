@@ -43,12 +43,10 @@ namespace Retinues.Domain.Equipments.Models
             }
             set
             {
-                owner.TouchEquipments();
-
                 _equipmentsCache = value ?? [];
                 EquipmentsAttribute.Set([.. _equipmentsCache.Select(e => e.Base).ToList()]);
 
-                InvalidateItemCountsCache();
+                owner.OnEquipmentChange();
             }
         }
 

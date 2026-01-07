@@ -73,8 +73,6 @@ namespace Retinues.Domain.Equipments.Models
             MEquipmentRoster roster = null
         )
         {
-            owner.TouchEquipments();
-
             var equipment =
                 source == null ? new Equipment() : Equipment.CreateFromEquipmentCode(source.Code);
 
@@ -87,7 +85,7 @@ namespace Retinues.Domain.Equipments.Models
                     : Equipment.EquipmentType.Battle,
             };
 
-            roster?.InvalidateItemCountsCache();
+            owner.OnEquipmentChange();
             return me;
         }
 
@@ -109,8 +107,6 @@ namespace Retinues.Domain.Equipments.Models
                     if (src == null)
                         return;
 
-                    owner.TouchEquipments();
-
                     // Copy only real slots: [0..NumEquipmentSetSlots-1].
                     for (int i = 0; i < SlotCount; i++)
                     {
@@ -118,10 +114,7 @@ namespace Retinues.Domain.Equipments.Models
                         Base[idx] = src[idx];
                     }
 
-                    _roster?.InvalidateItemCountsCache();
-
-                    // Update formation class in case the first battle equipment changed.
-                    owner.UpdateFormationClass();
+                    owner.OnEquipmentChange();
                 }
             );
 
@@ -137,7 +130,7 @@ namespace Retinues.Domain.Equipments.Models
             get => EquipmentTypeAttribute.Get();
             set
             {
-                owner.TouchEquipments();
+                owner.OnEquipmentChange();
                 EquipmentTypeAttribute.Set(value);
             }
         }
@@ -170,7 +163,7 @@ namespace Retinues.Domain.Equipments.Models
             {
                 if (IsCivilian)
                     return;
-                owner.TouchEquipments();
+                owner.OnEquipmentChange();
                 FieldBattleSetAttribute.Set(value);
             }
         }
@@ -184,7 +177,7 @@ namespace Retinues.Domain.Equipments.Models
             {
                 if (IsCivilian)
                     return;
-                owner.TouchEquipments();
+                owner.OnEquipmentChange();
                 SiegeBattleSetAttribute.Set(value);
             }
         }
@@ -198,7 +191,7 @@ namespace Retinues.Domain.Equipments.Models
             {
                 if (IsCivilian)
                     return;
-                owner.TouchEquipments();
+                owner.OnEquipmentChange();
                 NavalBattleSetAttribute.Set(value);
             }
         }
@@ -304,7 +297,6 @@ namespace Retinues.Domain.Equipments.Models
             if (!IsValidSlot(index))
                 return;
 
-            owner.TouchEquipments();
             var element = item == null ? EquipmentElement.Invalid : new EquipmentElement(item.Base);
             Base[index] = element;
 
@@ -313,10 +305,8 @@ namespace Retinues.Domain.Equipments.Models
 
             _formationDirty = true;
             ItemsChanged?.Invoke(this);
-            _roster?.InvalidateItemCountsCache();
 
-            // Update formation class in case the first battle equipment changed.
-            owner.UpdateFormationClass();
+            owner.OnEquipmentChange();
         }
 
         private static bool IsValidSlot(EquipmentIndex index)
@@ -355,7 +345,7 @@ namespace Retinues.Domain.Equipments.Models
             get => ItemStagingProgressAttribute.Get();
             set
             {
-                owner.TouchEquipments();
+                owner.OnEquipmentChange();
                 ItemStagingProgressAttribute.Set(value);
             }
         }
@@ -470,7 +460,6 @@ namespace Retinues.Domain.Equipments.Models
             if (!any)
                 return;
 
-            owner.TouchEquipments();
             ItemsStagingAttribute.Set(next);
 
             if (next.Count == 0)
@@ -478,7 +467,7 @@ namespace Retinues.Domain.Equipments.Models
 
             _formationDirty = true;
             ItemsChanged?.Invoke(this);
-            _roster?.InvalidateItemCountsCache();
+            owner.OnEquipmentChange();
         }
 
         internal void Stage(EquipmentIndex slot, WItem item)
@@ -515,7 +504,6 @@ namespace Retinues.Domain.Equipments.Models
             // If staging back to base, this is a cancel for that slot.
             if (string.Equals(baseId, newId, StringComparison.Ordinal))
             {
-                owner.TouchEquipments();
                 ItemsStagingAttribute.Set(next);
 
                 if (next.Count == 0)
@@ -523,19 +511,18 @@ namespace Retinues.Domain.Equipments.Models
 
                 _formationDirty = true;
                 ItemsChanged?.Invoke(this);
-                _roster?.InvalidateItemCountsCache();
+                owner.OnEquipmentChange();
                 return;
             }
 
             // Add as last action (FIFO).
             next.Add(EncodeStage(slot, newId));
 
-            owner.TouchEquipments();
             ItemsStagingAttribute.Set(next);
 
             _formationDirty = true;
             ItemsChanged?.Invoke(this);
-            _roster?.InvalidateItemCountsCache();
+            owner.OnEquipmentChange();
         }
 
         internal float GetNextStagedHours(float timeMultiplier)
@@ -580,7 +567,7 @@ namespace Retinues.Domain.Equipments.Models
                 var nextBad = new List<string>(current);
                 nextBad.RemoveAt(0);
 
-                owner.TouchEquipments();
+                owner.OnEquipmentChange();
                 ItemsStagingAttribute.Set(nextBad);
 
                 if (nextBad.Count == 0)
@@ -606,7 +593,7 @@ namespace Retinues.Domain.Equipments.Models
                     var nextMissing = new List<string>(current);
                     nextMissing.RemoveAt(0);
 
-                    owner.TouchEquipments();
+                    owner.OnEquipmentChange();
                     ItemsStagingAttribute.Set(nextMissing);
 
                     if (nextMissing.Count == 0)
@@ -631,7 +618,7 @@ namespace Retinues.Domain.Equipments.Models
                     next = new List<string>(next);
                     next.RemoveAt(0);
 
-                    owner.TouchEquipments();
+                    owner.OnEquipmentChange();
                     ItemsStagingAttribute.Set(next);
 
                     if (next.Count == 0)

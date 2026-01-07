@@ -51,9 +51,6 @@ namespace Retinues.Domain.Characters.Wrappers
                     // Try to apply to the underlying CharacterObject now if possible.
                     TryApplyUpgradeTargetIds();
 
-                    // Invalidate related caches.
-                    InvalidateTroopSourceCaches();
-
                     // Rebuild tree caches (safe even if application is deferred).
                     CharacterTreeCacheHelper.MarkDirty();
                 }

@@ -1,0 +1,170 @@
+using System;
+using System.Collections.Generic;
+using Retinues.Domain.Characters.Helpers;
+using Retinues.Domain.Factions;
+using Retinues.Domain.Factions.Wrappers;
+using Retinues.Game;
+using Retinues.Utilities;
+
+namespace Retinues.Domain.Characters.Wrappers
+{
+    public partial class WCharacter
+    {
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                    Conversion Sources                  //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        internal const string ConversionSourcesCacheKey = "retinues.conversion_sources";
+
+        private readonly Cache<WCharacter, List<WCharacter>> ConversionSourcesCache = new(
+            BuildConversionSources,
+            ConversionSourcesCacheKey
+        );
+
+        public List<WCharacter> ConversionSources => ConversionSourcesCache.Get(this);
+
+        private static List<WCharacter> BuildConversionSources(WCharacter wc)
+        {
+            if (wc == null)
+                return [];
+
+            if (!wc.IsRetinue)
+                return [];
+
+            var belowTier = wc.Tier - 1;
+            if (belowTier < 1)
+                return [];
+
+            var results = new List<WCharacter>();
+            var seen = new HashSet<string>(StringComparer.Ordinal);
+
+            // 1) Best match in each of the troop's factions (excluding culture to avoid double counting).
+            var factions = wc.Factions;
+            if (factions != null && factions.Count > 0)
+            {
+                for (int i = 0; i < factions.Count; i++)
+                {
+                    var faction = factions[i];
+                    if (faction == null)
+                        continue;
+
+                    if (faction is WCulture)
+                        continue;
+
+                    var match = MatcherHelper.PickBestFromFaction(
+                        troop: wc,
+                        faction: faction,
+                        strictTierMatch: true,
+                        fallback: null,
+                        regularOnly: true,
+                        requestedTier: belowTier
+                    );
+
+                    if (match == null)
+                        continue;
+
+                    var id = match.StringId;
+                    if (string.IsNullOrEmpty(id))
+                        continue;
+
+                    if (seen.Add(id))
+                        results.Add(match);
+                }
+            }
+
+            // 2) Best match in culture.
+            var culture = wc.Culture;
+            if (culture != null)
+            {
+                var match = MatcherHelper.PickBestFromFaction(
+                    troop: wc,
+                    faction: culture,
+                    strictTierMatch: true,
+                    fallback: null,
+                    requestedTier: belowTier
+                );
+
+                if (match != null)
+                {
+                    var id = match.StringId;
+                    if (!string.IsNullOrEmpty(id) && seen.Add(id))
+                        results.Add(match);
+                }
+            }
+
+            return results;
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //               Player Retinue Upgrade Targets           //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Returns retinues owned by a player faction (clan, and kingdom if player is ruler)
+        /// that list the given troop as a conversion source.
+        /// </summary>
+        public static List<WCharacter> GetPlayerRetinuesForSource(WCharacter source)
+        {
+            if (source?.Base == null)
+                return [];
+
+            var results = new List<WCharacter>();
+            var seen = new HashSet<string>(StringComparer.Ordinal);
+
+            var sourceId = source.StringId;
+            if (string.IsNullOrEmpty(sourceId))
+                return [];
+
+            void AddFromFaction(IBaseFaction faction)
+            {
+                var roster = faction?.RosterRetinues;
+                if (roster == null || roster.Count == 0)
+                    return;
+
+                for (int i = 0; i < roster.Count; i++)
+                {
+                    var retinue = roster[i];
+                    if (retinue?.Base == null)
+                        continue;
+
+                    // Safety: only consider real retinues
+                    if (!retinue.IsRetinue)
+                        continue;
+
+                    var conv = retinue.ConversionSources;
+                    if (conv == null || conv.Count == 0)
+                        continue;
+
+                    var has = false;
+                    for (int j = 0; j < conv.Count; j++)
+                    {
+                        if (conv[j]?.StringId == sourceId)
+                        {
+                            has = true;
+                            break;
+                        }
+                    }
+
+                    if (!has)
+                        continue;
+
+                    var rid = retinue.StringId;
+                    if (string.IsNullOrEmpty(rid))
+                        continue;
+
+                    if (seen.Add(rid))
+                        results.Add(retinue);
+                }
+            }
+
+            // Clan retinues: always relevant for player
+            AddFromFaction(Player.Clan);
+
+            // Kingdom retinues: only if player is the ruler
+            if (Player.IsRuler)
+                AddFromFaction(Player.Kingdom);
+
+            return results;
+        }
+    }
+}

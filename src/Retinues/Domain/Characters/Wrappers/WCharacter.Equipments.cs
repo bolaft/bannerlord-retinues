@@ -69,7 +69,20 @@ namespace Retinues.Domain.Characters.Wrappers
                 priority: AttributePriority.Low
             );
 
-        public void TouchEquipments() => EquipmentsSerializedAttribute.Touch();
+        public void OnEquipmentChange()
+        {
+            // Touch the equipment serialization attribute to ensure it gets saved.
+            EquipmentsSerializedAttribute.Touch();
+
+            // Update formation class in case the first battle equipment changed.
+            UpdateFormationClass();
+
+            // Refresh item counts cache.
+            EquipmentRoster.InvalidateItemCountsCache();
+
+            // Invalidate conversion sources cache, as equipment changes may affect eligibility.
+            ConversionSourcesCache.Clear();
+        }
 
         private List<string> SerializeEquipments()
         {

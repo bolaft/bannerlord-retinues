@@ -145,6 +145,9 @@ namespace Retinues.Domain.Characters.Wrappers
                     _attributes[skill] = attribute;
                     attribute.Set(value);
                 }
+
+                // Invalidate conversion sources cache for retinues.
+                _wc.ConversionSourcesCache.Clear();
             }
 
             public void Modify(SkillObject skill, int amount)
