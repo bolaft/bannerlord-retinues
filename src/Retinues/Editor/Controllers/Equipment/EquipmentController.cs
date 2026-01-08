@@ -5,7 +5,7 @@ using Retinues.Configuration;
 using Retinues.Domain.Equipments.Helpers;
 using Retinues.Domain.Equipments.Models;
 using Retinues.Editor.Events;
-using Retinues.Editor.Services;
+using Retinues.Editor.Services.Context;
 using Retinues.Modules;
 using Retinues.UI.Services;
 using TaleWorlds.Localization;

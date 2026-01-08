@@ -1,17 +1,16 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Retinues.Domain.Characters;
+using Retinues.Domain.Characters.Helpers;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Factions.Wrappers;
 using Retinues.Editor.Events;
-using Retinues.Editor.Services;
+using Retinues.Editor.Services.Appearance;
+using Retinues.Editor.Services.Context;
 using Retinues.Framework.Model.Exports;
 using Retinues.Modules;
 using Retinues.UI.Services;
-using Retinues.Utilities;
 using TaleWorlds.Core;
-using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Localization;
 
 namespace Retinues.Editor.Controllers.Character
@@ -171,15 +170,18 @@ namespace Retinues.Editor.Controllers.Character
                 return false;
 
             if (
-                !TryApplyAppearanceChange(() =>
-                {
-                    character.Culture = newCulture;
+                !AppearanceGuard.TryApply(
+                    () =>
+                    {
+                        character.Culture = newCulture;
 
-                    if (character is WCharacter wc)
-                        wc.ApplyCultureBodyProperties();
+                        if (character is WCharacter wc)
+                            wc.ApplyCultureBodyProperties();
 
-                    return true;
-                })
+                        return true;
+                    },
+                    character as WCharacter
+                )
             )
                 return false;
 
@@ -193,19 +195,21 @@ namespace Retinues.Editor.Controllers.Character
         public static EditorAction<WCharacter> ToggleGender { get; } =
             Action<WCharacter>("ToggleGender")
                 .AddCondition(
-                    applies: _ => HasAlternateSpecies() && State.Character?.Editable is WCharacter,
+                    applies: _ =>
+                        RaceHelper.HasAlternateSpecies() && State.Character?.Editable is WCharacter,
                     test: c => c?.Culture != null,
                     reason: L.T("gender_no_culture", "No culture is selected.")
                 )
                 .AddCondition(
-                    applies: _ => HasAlternateSpecies() && State.Character?.Editable is WCharacter,
+                    applies: _ =>
+                        RaceHelper.HasAlternateSpecies() && State.Character?.Editable is WCharacter,
                     test: c =>
                     {
                         if (c == null)
                             return true;
 
                         var targetFemale = !c.IsFemale;
-                        return FindTemplate(c.Culture, targetFemale, c.Race) != null;
+                        return RaceHelper.FindTemplate(c.Culture, targetFemale, c.Race) != null;
                     },
                     reason: L.T(
                         "gender_no_template",
@@ -213,14 +217,15 @@ namespace Retinues.Editor.Controllers.Character
                     )
                 )
                 .AddCondition(
-                    applies: _ => HasAlternateSpecies() && State.Character?.Editable is WCharacter,
+                    applies: _ =>
+                        RaceHelper.HasAlternateSpecies() && State.Character?.Editable is WCharacter,
                     test: c =>
                     {
                         if (c == null)
                             return true;
 
                         var targetFemale = !c.IsFemale;
-                        return IsRenderable(c.Culture, targetFemale, c.Race);
+                        return AppearanceGuard.CanRender(c.Culture, targetFemale, c.Race);
                     },
                     reason: L.T(
                         "gender_not_renderable",
@@ -239,8 +244,8 @@ namespace Retinues.Editor.Controllers.Character
             if (character == null)
                 return;
 
-            if (
-                !TryApplyAppearanceChange(() =>
+            AppearanceGuard.TryApply(
+                () =>
                 {
                     character.IsFemale = !character.IsFemale;
 
@@ -248,9 +253,9 @@ namespace Retinues.Editor.Controllers.Character
                         wc.ApplyCultureBodyProperties();
 
                     return true;
-                })
-            )
-                return;
+                },
+                character as WCharacter
+            );
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -277,52 +282,24 @@ namespace Retinues.Editor.Controllers.Character
             if (wc == null)
                 return;
 
-            int raceCount;
-            try
-            {
-                raceCount = FaceGen.GetRaceCount();
-            }
-            catch
-            {
-                return;
-            }
-
+            var raceCount = RaceHelper.GetRaceCount();
             if (raceCount <= 0)
                 return;
 
-            var names = GetRaceNames();
-
-            var valid = new HashSet<int>(GetValidRacesFor(wc.Culture, wc.IsFemale));
-
-            bool HasTemplateForRace(int race) =>
-                wc.Culture != null
-                && wc.Culture.Troops.Any(t =>
-                    t != null && t.IsFemale == wc.IsFemale && t.Race == race
-                );
-
-            bool IsRaceModelValid(int race)
-            {
-                try
-                {
-                    return FaceGen.GetBaseMonsterFromRace(race) != null;
-                }
-                catch
-                {
-                    return false;
-                }
-            }
-
-            bool IsRaceCompatible(int race) => valid.Count == 0 || valid.Contains(race);
+            var names = RaceHelper.GetRaceNames();
+            var valid = new HashSet<int>(RaceHelper.GetValidRacesFor(wc.Culture, wc.IsFemale));
 
             string GetRaceTitle(int race)
             {
                 string title = null;
 
                 if (names != null && race >= 0 && race < names.Length)
-                    title = FormatRaceName(names[race]);
+                    title = RaceHelper.FormatRaceName(names[race]);
 
                 return title ?? $"Race {race}";
             }
+
+            bool IsRaceCompatible(int race) => valid.Count == 0 || valid.Contains(race);
 
             var elements = new List<InquiryElement>(raceCount);
 
@@ -331,7 +308,7 @@ namespace Retinues.Editor.Controllers.Character
                 var enabled = Check(
                     [
                         (
-                            () => IsRaceModelValid(race),
+                            () => RaceHelper.IsRaceModelValid(race),
                             L.T("race_invalid_model", "No valid model exists for this species.")
                         ),
                         (
@@ -342,14 +319,14 @@ namespace Retinues.Editor.Controllers.Character
                             )
                         ),
                         (
-                            () => HasTemplateForRace(race),
+                            () => RaceHelper.HasTemplateForRace(wc.Culture, wc.IsFemale, race),
                             L.T(
                                 "race_incompatible_culture_gender",
                                 "This species is not compatible with the current culture/gender."
                             )
                         ),
                         (
-                            () => IsRenderable(wc.Culture, wc.IsFemale, race),
+                            () => AppearanceGuard.CanRender(wc.Culture, wc.IsFemale, race),
                             L.T(
                                 "race_incompatible_culture_gender",
                                 "This species is not compatible with the current culture/gender."
@@ -404,45 +381,17 @@ namespace Retinues.Editor.Controllers.Character
             if (newRace == wc.Race)
                 return false;
 
-            if (!TryApplyAppearanceChange(() => wc.ApplyCultureBodyPropertiesForRace(newRace)))
+            if (!AppearanceGuard.TryApply(() => wc.ApplyCultureBodyPropertiesForRace(newRace), wc))
                 return false;
 
             return true;
         }
 
         /// <summary>
-        /// Check if there are alternate species available.
-        /// </summary>
-        static bool HasAlternateSpecies() => FaceGen.GetRaceCount() > 1;
-
-        /// <summary>
-        /// Get the list of race names.
-        /// </summary>
-        static string[] _raceNamesCache;
-
-        static string[] GetRaceNames() => _raceNamesCache ??= FaceGen.GetRaceNames() ?? [];
-
-        /// <summary>
-        /// Format the race name for display.
-        /// </summary>
-        static string FormatRaceName(string raw)
-        {
-            if (string.IsNullOrWhiteSpace(raw))
-                return null;
-
-            raw = raw.Replace('_', ' ').Trim();
-
-            if (raw.Length == 1)
-                return raw.ToUpperInvariant();
-
-            return char.ToUpperInvariant(raw[0]) + raw.Substring(1);
-        }
-
-        /// <summary>
         /// Check if the race can be changed for the current character.
         /// </summary>
         public static bool CanChangeRace =>
-            HasAlternateSpecies() && State.Character?.Editable is WCharacter;
+            RaceHelper.HasAlternateSpecies() && State.Character?.Editable is WCharacter;
 
         /// <summary>
         /// Get the display text for the current character's race.
@@ -452,248 +401,7 @@ namespace Retinues.Editor.Controllers.Character
             if (State.Character?.Editable is not WCharacter wc)
                 return null;
 
-            var names = GetRaceNames();
-            int r = wc.Race;
-
-            if (names != null && r >= 0 && r < names.Length)
-                return FormatRaceName(names[r]) ?? $"Race {r}";
-
-            return $"Race {r}";
-        }
-
-        /// <summary>
-        /// Get the valid races for the given culture and gender.
-        /// </summary>
-        static List<int> GetValidRacesFor(WCulture culture, bool isFemale)
-        {
-            if (culture == null)
-                return [];
-
-            var set = new HashSet<int>();
-
-            foreach (var troop in culture.Troops)
-            {
-                if (troop == null)
-                    continue;
-
-                if (troop.IsFemale != isFemale)
-                    continue;
-
-                set.Add(troop.Race);
-            }
-
-            if (set.Count == 0)
-            {
-                foreach (var troop in culture.Troops)
-                {
-                    if (troop == null)
-                        continue;
-
-                    set.Add(troop.Race);
-                }
-            }
-
-            var list = new List<int>(set);
-            list.Sort();
-            return list;
-        }
-
-        static readonly Dictionary<string, bool> _renderableCache = [];
-
-        /// <summary>
-        /// Get the cache key for the given culture, gender and race.
-        /// </summary>
-        static string RenderKey(WCulture culture, bool isFemale, int race)
-        {
-            var c = culture?.StringId ?? "null";
-            return $"{c}|{(isFemale ? "F" : "M")}|{race}";
-        }
-
-        /// <summary>
-        /// Find a valid template for the given culture, gender and race.
-        /// </summary>
-        static WCharacter FindTemplate(WCulture culture, bool isFemale, int race)
-        {
-            if (culture == null)
-                return null;
-
-            var root = culture.RootBasic ?? culture.RootElite;
-            if (root != null && root.IsFemale == isFemale && root.Race == race)
-                return root;
-
-            var villager = isFemale ? culture.VillageWoman : culture.Villager;
-            if (villager != null && villager.IsFemale == isFemale && villager.Race == race)
-                return villager;
-
-            foreach (var troop in culture.Troops)
-            {
-                if (troop == null)
-                    continue;
-
-                if (troop.IsFemale == isFemale && troop.Race == race)
-                    return troop;
-            }
-
-            return null;
-        }
-
-        /// <summary>
-        /// Check if the given culture, gender and race combination is renderable.
-        /// </summary>
-        static bool IsRenderable(WCulture culture, bool isFemale, int race)
-        {
-            var key = RenderKey(culture, isFemale, race);
-            if (_renderableCache.TryGetValue(key, out var cached))
-                return cached;
-
-            var template = FindTemplate(culture, isFemale, race);
-            if (template?.Base == null)
-            {
-                _renderableCache[key] = false;
-                return false;
-            }
-
-            try
-            {
-                var vm = new CharacterViewModel(CharacterViewModel.StanceTypes.None);
-                vm.FillFrom(template.Base, seed: 0);
-
-                _renderableCache[key] = true;
-                return true;
-            }
-            catch (Exception e)
-            {
-                Log.Exception(e);
-                _renderableCache[key] = false;
-                return false;
-            }
-        }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                     Appearance Guard                   //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        /// <summary>
-        /// Snapshot of a character's appearance data.
-        /// </summary>
-        readonly struct AppearanceSnapshot(WCharacter wc)
-        {
-            public readonly WCulture Culture = wc?.Culture;
-            public readonly bool IsFemale = wc?.IsFemale ?? false;
-            public readonly int Race = wc?.Race ?? 0;
-            public readonly string BodyEnvelope = wc?.SerializeBodyEnvelope();
-
-            public void Restore(WCharacter wc)
-            {
-                if (wc == null)
-                    return;
-
-                try
-                {
-                    if (Culture != null)
-                        wc.Culture = Culture;
-
-                    wc.IsFemale = IsFemale;
-                    wc.Race = Race;
-
-                    if (!string.IsNullOrEmpty(BodyEnvelope))
-                        wc.ApplySerializedBodyEnvelope(BodyEnvelope);
-                }
-                catch (Exception e)
-                {
-                    Log.Exception(e);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Check if the given character has a valid species combination.
-        /// </summary>
-        static bool IsValidSpeciesCombo(WCharacter wc)
-        {
-            if (wc == null)
-                return true;
-
-            if (!HasAlternateSpecies())
-                return true;
-
-            try
-            {
-                if (FaceGen.GetBaseMonsterFromRace(wc.Race) == null)
-                    return false;
-            }
-            catch
-            {
-                return false;
-            }
-
-            var valid = GetValidRacesFor(wc.Culture, wc.IsFemale);
-            if (valid.Count == 0)
-                return true;
-
-            return valid.Contains(wc.Race);
-        }
-
-        /// <summary>
-        /// Try to apply an appearance change, restoring previous appearance on failure.
-        /// </summary>
-        static bool TryApplyAppearanceChange(Func<bool> applyChange)
-        {
-            if (applyChange == null)
-                return false;
-
-            if (!HasAlternateSpecies())
-                return applyChange();
-
-            if (State.Character?.Editable is not WCharacter wc)
-                return applyChange();
-
-            var snap = new AppearanceSnapshot(wc);
-
-            bool changed;
-            try
-            {
-                changed = applyChange();
-            }
-            catch (Exception e)
-            {
-                Log.Exception(e);
-                snap.Restore(wc);
-                return false;
-            }
-
-            if (!changed)
-                return false;
-
-            if (!IsRenderable(wc.Culture, wc.IsFemale, wc.Race))
-            {
-                snap.Restore(wc);
-
-                Inquiries.Popup(
-                    L.T("no_valid_model_title_species", "No Valid Model"),
-                    L.T(
-                        "no_valid_model_body_species",
-                        "This combination of gender, culture and species cannot be rendered.\n\nThe previous appearance has been restored."
-                    )
-                );
-
-                return false;
-            }
-
-            if (IsValidSpeciesCombo(wc))
-                return true;
-
-            snap.Restore(wc);
-
-            Inquiries.Popup(
-                L.T("no_valid_model_title_species", "No Valid Model"),
-                L.T(
-                    "no_valid_model_body_species",
-                    "This combination of gender, culture and species cannot be rendered.\n\nThe previous appearance has been restored."
-                )
-            );
-
-            return false;
+            return RaceHelper.GetRaceText(wc);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

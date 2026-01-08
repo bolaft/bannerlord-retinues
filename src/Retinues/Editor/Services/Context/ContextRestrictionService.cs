@@ -8,7 +8,7 @@ using Retinues.Game;
 using Retinues.UI.Services;
 using TaleWorlds.Localization;
 
-namespace Retinues.Editor.Services
+namespace Retinues.Editor.Services.Context
 {
     /// <summary>
     /// Convenience extensions to attach the restriction guard to EditorActions.

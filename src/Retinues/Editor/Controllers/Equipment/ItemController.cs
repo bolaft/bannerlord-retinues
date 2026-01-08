@@ -5,7 +5,7 @@ using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Equipments.Helpers;
 using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Editor.Events;
-using Retinues.Editor.Services;
+using Retinues.Editor.Services.Context;
 using Retinues.Game;
 using Retinues.UI.Services;
 using TaleWorlds.Core;

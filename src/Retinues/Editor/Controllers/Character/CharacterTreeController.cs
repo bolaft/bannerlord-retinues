@@ -3,7 +3,7 @@ using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Equipments.Helpers;
 using Retinues.Editor.Controllers.Equipment;
 using Retinues.Editor.Events;
-using Retinues.Editor.Services;
+using Retinues.Editor.Services.Context;
 using Retinues.UI.Services;
 
 namespace Retinues.Editor.Controllers.Character
