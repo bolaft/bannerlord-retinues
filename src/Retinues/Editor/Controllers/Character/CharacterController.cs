@@ -36,6 +36,9 @@ namespace Retinues.Editor.Controllers.Character
                 )
                 .ExecuteWith(ExportCharacterImpl);
 
+        /// <summary>
+        /// Export the given character.
+        /// </summary>
         private static void ExportCharacterImpl(WCharacter c)
         {
             if (c == null)
@@ -53,6 +56,9 @@ namespace Retinues.Editor.Controllers.Character
                 .DefaultTooltip(L.T("rename_tooltip", "Rename"))
                 .ExecuteWith(RenameImpl);
 
+        /// <summary>
+        /// Rename the given character.
+        /// </summary>
         private static void RenameImpl(WCharacter c)
         {
             if (c == null)
@@ -103,6 +109,9 @@ namespace Retinues.Editor.Controllers.Character
                 .DefaultTooltip(L.T("change_culture_title", "Change Culture"))
                 .ExecuteWith(SelectCultureImpl);
 
+        /// <summary>
+        /// Show the culture picker for the given character.
+        /// </summary>
         private static void SelectCultureImpl(WCharacter c)
         {
             if (c == null)
@@ -150,6 +159,9 @@ namespace Retinues.Editor.Controllers.Character
             );
         }
 
+        /// <summary>
+        /// Apply the selected culture to the character.
+        /// </summary>
         private static bool ApplyCulture(ICharacter character, WCulture newCulture)
         {
             if (character == null)
@@ -219,6 +231,9 @@ namespace Retinues.Editor.Controllers.Character
                 .ExecuteWith(c => ToggleGenderImpl((c ?? State.Character)?.Editable))
                 .Fire(UIEvent.Gender);
 
+        /// <summary>
+        /// Toggle the gender of the given character.
+        /// </summary>
         private static void ToggleGenderImpl(ICharacter character)
         {
             if (character == null)
@@ -242,42 +257,6 @@ namespace Retinues.Editor.Controllers.Character
         //                          Race                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        static string[] _raceNamesCache;
-
-        static bool HasAlternateSpecies() => FaceGen.GetRaceCount() > 1;
-
-        static string[] GetRaceNames() => _raceNamesCache ??= FaceGen.GetRaceNames() ?? [];
-
-        static string FormatRaceName(string raw)
-        {
-            if (string.IsNullOrWhiteSpace(raw))
-                return null;
-
-            raw = raw.Replace('_', ' ').Trim();
-
-            if (raw.Length == 1)
-                return raw.ToUpperInvariant();
-
-            return char.ToUpperInvariant(raw[0]) + raw.Substring(1);
-        }
-
-        public static bool CanChangeRace =>
-            HasAlternateSpecies() && State.Character?.Editable is WCharacter;
-
-        public static string GetRaceText()
-        {
-            if (State.Character?.Editable is not WCharacter wc)
-                return null;
-
-            var names = GetRaceNames();
-            int r = wc.Race;
-
-            if (names != null && r >= 0 && r < names.Length)
-                return FormatRaceName(names[r]) ?? $"Race {r}";
-
-            return $"Race {r}";
-        }
-
         public static EditorAction<WCharacter> SelectRace { get; } =
             Action<WCharacter>("SelectRace")
                 .AddCondition(
@@ -287,6 +266,9 @@ namespace Retinues.Editor.Controllers.Character
                 .DefaultTooltip(L.T("change_species_title", "Change Species"))
                 .ExecuteWith(SelectRaceImpl);
 
+        /// <summary>
+        /// Show the race picker for the given character.
+        /// </summary>
         private static void SelectRaceImpl(WCharacter wc)
         {
             if (!CanChangeRace)
@@ -408,6 +390,9 @@ namespace Retinues.Editor.Controllers.Character
             );
         }
 
+        /// <summary>
+        /// Apply the selected race to the character.
+        /// </summary>
         private static bool ApplyRace(WCharacter wc, int newRace)
         {
             if (!CanChangeRace)
@@ -425,6 +410,60 @@ namespace Retinues.Editor.Controllers.Character
             return true;
         }
 
+        /// <summary>
+        /// Check if there are alternate species available.
+        /// </summary>
+        static bool HasAlternateSpecies() => FaceGen.GetRaceCount() > 1;
+
+        /// <summary>
+        /// Get the list of race names.
+        /// </summary>
+        static string[] _raceNamesCache;
+
+        static string[] GetRaceNames() => _raceNamesCache ??= FaceGen.GetRaceNames() ?? [];
+
+        /// <summary>
+        /// Format the race name for display.
+        /// </summary>
+        static string FormatRaceName(string raw)
+        {
+            if (string.IsNullOrWhiteSpace(raw))
+                return null;
+
+            raw = raw.Replace('_', ' ').Trim();
+
+            if (raw.Length == 1)
+                return raw.ToUpperInvariant();
+
+            return char.ToUpperInvariant(raw[0]) + raw.Substring(1);
+        }
+
+        /// <summary>
+        /// Check if the race can be changed for the current character.
+        /// </summary>
+        public static bool CanChangeRace =>
+            HasAlternateSpecies() && State.Character?.Editable is WCharacter;
+
+        /// <summary>
+        /// Get the display text for the current character's race.
+        /// </summary>
+        public static string GetRaceText()
+        {
+            if (State.Character?.Editable is not WCharacter wc)
+                return null;
+
+            var names = GetRaceNames();
+            int r = wc.Race;
+
+            if (names != null && r >= 0 && r < names.Length)
+                return FormatRaceName(names[r]) ?? $"Race {r}";
+
+            return $"Race {r}";
+        }
+
+        /// <summary>
+        /// Get the valid races for the given culture and gender.
+        /// </summary>
         static List<int> GetValidRacesFor(WCulture culture, bool isFemale)
         {
             if (culture == null)
@@ -459,14 +498,20 @@ namespace Retinues.Editor.Controllers.Character
             return list;
         }
 
-        static readonly Dictionary<string, bool> _renderableCache = new();
+        static readonly Dictionary<string, bool> _renderableCache = [];
 
+        /// <summary>
+        /// Get the cache key for the given culture, gender and race.
+        /// </summary>
         static string RenderKey(WCulture culture, bool isFemale, int race)
         {
             var c = culture?.StringId ?? "null";
             return $"{c}|{(isFemale ? "F" : "M")}|{race}";
         }
 
+        /// <summary>
+        /// Find a valid template for the given culture, gender and race.
+        /// </summary>
         static WCharacter FindTemplate(WCulture culture, bool isFemale, int race)
         {
             if (culture == null)
@@ -492,6 +537,9 @@ namespace Retinues.Editor.Controllers.Character
             return null;
         }
 
+        /// <summary>
+        /// Check if the given culture, gender and race combination is renderable.
+        /// </summary>
         static bool IsRenderable(WCulture culture, bool isFemale, int race)
         {
             var key = RenderKey(culture, isFemale, race);
@@ -525,6 +573,9 @@ namespace Retinues.Editor.Controllers.Character
         //                     Appearance Guard                   //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Snapshot of a character's appearance data.
+        /// </summary>
         readonly struct AppearanceSnapshot(WCharacter wc)
         {
             public readonly WCulture Culture = wc?.Culture;
@@ -555,6 +606,9 @@ namespace Retinues.Editor.Controllers.Character
             }
         }
 
+        /// <summary>
+        /// Check if the given character has a valid species combination.
+        /// </summary>
         static bool IsValidSpeciesCombo(WCharacter wc)
         {
             if (wc == null)
@@ -580,6 +634,9 @@ namespace Retinues.Editor.Controllers.Character
             return valid.Contains(wc.Race);
         }
 
+        /// <summary>
+        /// Try to apply an appearance change, restoring previous appearance on failure.
+        /// </summary>
         static bool TryApplyAppearanceChange(Func<bool> applyChange)
         {
             if (applyChange == null)
@@ -664,6 +721,9 @@ namespace Retinues.Editor.Controllers.Character
                 .ExecuteWith(SetMixedGenderImpl)
                 .Fire(UIEvent.Character);
 
+        /// <summary>
+        /// Set the mixed gender flag for the current character.
+        /// </summary>
         private static void SetMixedGenderImpl(bool isMixedGender)
         {
             if (State.Character == null)
@@ -701,6 +761,9 @@ namespace Retinues.Editor.Controllers.Character
                 .ExecuteWith(SetMarinerImpl)
                 .Fire(UIEvent.Formation);
 
+        /// <summary>
+        /// Set the mariner flag for the current character.
+        /// </summary>
         private static void SetMarinerImpl(bool isMariner)
         {
             if (!Mods.NavalDLC.IsLoaded)

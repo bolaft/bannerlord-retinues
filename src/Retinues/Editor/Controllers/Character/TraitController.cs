@@ -45,6 +45,9 @@ namespace Retinues.Editor.Controllers.Character
         //                         Helpers                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Change the trait by the given delta.
+        /// </summary>
         private static void ChangeTrait(TraitObject trait, int delta)
         {
             if (State.Character.Editable is not WHero hero)

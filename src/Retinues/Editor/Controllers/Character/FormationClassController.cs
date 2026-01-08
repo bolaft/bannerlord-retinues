@@ -27,6 +27,9 @@ namespace Retinues.Editor.Controllers.Character
         //                         Popup                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Show the formation class picker for the given character.
+        /// </summary>
         private static void ShowPicker(WCharacter character)
         {
             if (character == null)
@@ -46,6 +49,9 @@ namespace Retinues.Editor.Controllers.Character
             );
         }
 
+        /// <summary>
+        /// Build the list of formation class options.
+        /// </summary>
         private static List<InquiryElement> BuildOptions(WCharacter character)
         {
             var cur = character.FormationClassOverride;
@@ -64,6 +70,9 @@ namespace Retinues.Editor.Controllers.Character
             return list;
         }
 
+        /// <summary>
+        /// Make an inquiry element for the given formation class.
+        /// </summary>
         private static InquiryElement Make(FormationClass id, string title = null)
         {
             // Fallback to localized name if no custom title provided.
@@ -79,6 +88,9 @@ namespace Retinues.Editor.Controllers.Character
             );
         }
 
+        /// <summary>
+        /// Apply the selected formation class to the character.
+        /// </summary>
         private static void ApplySelection(WCharacter character, List<InquiryElement> selected)
         {
             if (character == null)

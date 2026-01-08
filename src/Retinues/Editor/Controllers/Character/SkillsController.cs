@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Retinues.Configuration;
 using Retinues.Editor.Events;
 using Retinues.Editor.Services;
@@ -73,9 +74,66 @@ namespace Retinues.Editor.Controllers.Character
                     s => State.Character.Editable.Skills.Get(s) > 0,
                     L.T("skill_decrease_min_reason", "Cannot decrease skill below 0.")
                 )
+                .AddCondition(
+                    s => CanDecreasePastUpgradeSourceFloor(s),
+                    L.T(
+                        "skill_decrease_sources_reason",
+                        "Cannot decrease below upgrade source minimum."
+                    )
+                )
                 .ExecuteWith(DecreaseWithWarning)
                 .Fire(UIEvent.Skill);
 
+        /// <summary>
+        /// Check if the skill can be decreased past the minimum floor set by upgrade sources.
+        /// </summary>
+        private static bool CanDecreasePastUpgradeSourceFloor(SkillObject skill)
+        {
+            var c = State.Character;
+            if (c == null || skill == null)
+                return true;
+
+            // Current editable value (real or staged depending on mode/settings).
+            var current = c.Editable.Skills.Get(skill);
+
+            var floor = GetUpgradeSourceSkillFloor(c, skill);
+
+            // If floor is 0, this behaves like vanilla (only the >0 condition matters).
+            // If floor > 0, do not allow decreasing to <= floor.
+            return current > floor;
+        }
+
+        /// <summary>
+        /// Get the highest skill value among all upgrade source troops for the given skill.
+        /// </summary>
+        private static int GetUpgradeSourceSkillFloor(
+            Domain.Characters.Wrappers.WCharacter character,
+            SkillObject skill
+        )
+        {
+            var sources = character.UpgradeSources;
+            if (sources == null || sources.Count == 0)
+                return 0;
+
+            var floor = 0;
+            for (int i = 0; i < sources.Count; i++)
+            {
+                var src = sources[i];
+                if (src == null)
+                    continue;
+
+                // Use the source troop's current (non-edited) skill value.
+                var v = src.Skills.Get(skill);
+                if (v > floor)
+                    floor = v;
+            }
+
+            return floor;
+        }
+
+        /// <summary>
+        /// Decrease skill with warning popup if needed.
+        /// </summary>
         private static void DecreaseWithWarning(SkillObject skill)
         {
             if (ShouldShowDecreaseWarning(skill) && !_decreaseWarningShown)
@@ -104,6 +162,9 @@ namespace Retinues.Editor.Controllers.Character
             ChangeSkill(skill, -1);
         }
 
+        /// <summary>
+        /// Determine if we should show the decrease warning for the given skill.
+        /// </summary>
         private static bool ShouldShowDecreaseWarning(SkillObject skill)
         {
             // Only relevant when training takes time (staging system enabled).
@@ -129,6 +190,9 @@ namespace Retinues.Editor.Controllers.Character
         //                         Helpers                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Change the skill by the given delta, handling batch input and skill points.
+        /// </summary>
         private static void ChangeSkill(SkillObject skill, int delta)
         {
             int amount = Inputs.BatchInput(MaxBatch);
@@ -158,6 +222,9 @@ namespace Retinues.Editor.Controllers.Character
         //                     Reset hook VM                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Listener to reset the decrease warning flag on page/character changes.
+        /// </summary>
         private sealed class WarningResetListener : EventListenerVM
         {
             [EventListener(UIEvent.Page, UIEvent.Character)]

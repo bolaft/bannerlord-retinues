@@ -40,6 +40,9 @@ namespace Retinues.Editor.Controllers.Character
                 )
                 .ExecuteWith(AddUpgradeTargetImpl);
 
+        /// <summary>
+        /// Add an upgrade target to the given character.
+        /// </summary>
         private static void AddUpgradeTargetImpl(WCharacter character)
         {
             if (!AddUpgradeTarget.Allow(character))
@@ -93,6 +96,9 @@ namespace Retinues.Editor.Controllers.Character
             );
         }
 
+        /// <summary>
+        /// Create an upgrade target with empty equipment (Player mode).
+        /// </summary>
         private static void CreateUpgrade_Player_Empty(WCharacter parent, string name)
         {
             var clone = parent.Clone(equipments: false);
@@ -104,6 +110,9 @@ namespace Retinues.Editor.Controllers.Character
             EventManager.Fire(UIEvent.Tree);
         }
 
+        /// <summary>
+        /// Create an upgrade target with best-from-stock equipment (Player mode).
+        /// </summary>
         private static void CreateUpgrade_Player_BestFromStocks(WCharacter parent, string name)
         {
             // Create the troop with no copied equipments first.
@@ -179,6 +188,9 @@ namespace Retinues.Editor.Controllers.Character
                 )
                 .ExecuteWith(RemoveCharacterImpl);
 
+        /// <summary>
+        /// Remove the given character after confirmation.
+        /// </summary>
         private static void RemoveCharacterImpl(WCharacter character)
         {
             if (!RemoveCharacter.Allow(character))
