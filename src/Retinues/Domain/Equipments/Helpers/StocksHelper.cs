@@ -13,7 +13,6 @@ namespace Retinues.Domain.Equipments.Helpers
         //                         Lookup                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        [StaticClear]
         private static Dictionary<string, WItem> _itemById;
 
         private static WItem GetItemById(string id)
@@ -54,6 +53,12 @@ namespace Retinues.Domain.Equipments.Helpers
             }
 
             return map;
+        }
+
+        [StaticClearAction]
+        public static void ClearStaticCaches()
+        {
+            _itemById = null;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

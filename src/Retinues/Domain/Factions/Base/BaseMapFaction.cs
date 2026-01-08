@@ -57,11 +57,15 @@ namespace Retinues.Domain.Factions.Base
         //                     Custom Roots/Rosters               //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        [StaticClear]
         static List<WCharacter> _cultureRootBasics;
-
-        [StaticClear]
         static List<WCharacter> _cultureRootElites;
+
+        [StaticClearAction]
+        public static void ClearRootsCache()
+        {
+            _cultureRootBasics = null;
+            _cultureRootElites = null;
+        }
 
         void EnsureCultureRoots()
         {

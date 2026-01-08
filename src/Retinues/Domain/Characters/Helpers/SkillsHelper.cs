@@ -111,7 +111,6 @@ namespace Retinues.Domain.Characters.Helpers
         //                        Discovery                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        [StaticClear]
         static HashSet<string> _defaultSkillIds;
         static HashSet<string> DefaultSkillIds
         {
@@ -133,7 +132,6 @@ namespace Retinues.Domain.Characters.Helpers
             }
         }
 
-        [StaticClear]
         static List<SkillObject> _allSkillsCached;
 
         static List<SkillObject> GetAllSkillsFromObjectManager()
@@ -144,6 +142,13 @@ namespace Retinues.Domain.Characters.Helpers
 
             // Includes vanilla + DLC (if loaded) + modded.
             return [.. mgr.GetObjectTypeList<SkillObject>().Where(s => s != null)];
+        }
+
+        [StaticClearAction]
+        public static void ClearCache()
+        {
+            _defaultSkillIds = null;
+            _allSkillsCached = null;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

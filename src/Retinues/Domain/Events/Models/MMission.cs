@@ -16,13 +16,15 @@ namespace Retinues.Domain.Events.Models
         //                        Current                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        [StaticClear]
         public static MMission Current { get; private set; }
 
         internal static void SetCurrent(Mission mission)
         {
             Current = mission != null ? new MMission(mission) : null;
         }
+
+        [StaticClearAction]
+        public static void ClearCurrent() => Current = null;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Scene                         //
