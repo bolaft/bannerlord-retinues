@@ -4,6 +4,7 @@ using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Events.Helpers;
 using Retinues.Domain.Parties.Wrappers;
 using Retinues.Framework.Model;
+using Retinues.Framework.Runtime;
 using Retinues.Game;
 using TaleWorlds.CampaignSystem.MapEvents;
 using TaleWorlds.Core;
@@ -16,6 +17,31 @@ namespace Retinues.Domain.Events.Models
     /// </summary>
     public class MMapEvent(MapEvent @base) : MBase<MapEvent>(@base)
     {
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Current                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [StaticClear]
+        public static MMapEvent Current { get; private set; }
+
+        internal static void SetCurrent(MapEvent mapEvent)
+        {
+            Current = mapEvent != null ? new MMapEvent(mapEvent) : null;
+        }
+
+        public static void ClearCurrent() => Current = null;
+
+        internal static void ClearCurrentIf(MapEvent mapEvent)
+        {
+            if (Current == null)
+                return;
+
+            if (mapEvent != null && !ReferenceEquals(Current.Base, mapEvent))
+                return;
+
+            Current = null;
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Event Type                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
