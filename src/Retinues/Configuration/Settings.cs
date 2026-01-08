@@ -60,7 +60,8 @@ namespace Retinues.Configuration
                             "Log Message"
                         ),
                         _ => v.ToString(),
-                    }
+                    },
+                dependsOn: EquipmentNeedsUnlocking
             );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

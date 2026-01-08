@@ -212,10 +212,6 @@ namespace Retinues.Game.Agents
                     }
             );
 
-            // If everything is eligible, do not override (let vanilla/random happen).
-            if (eligible.Count == allBattle.Count)
-                return;
-
             // Safety fallback if player disabled everything for this context.
             if (eligible.Count == 0)
             {
@@ -231,7 +227,12 @@ namespace Retinues.Game.Agents
                 return;
             }
 
-            var chosenEq = eligible[MBRandom.RandomInt(eligible.Count)];
+            // Always force a single full equipment set when multiple are eligible.
+            // This prevents per-slot mixing when more than one set is enabled for the context.
+            var chosenEq = eligible.Count == 1
+                ? eligible[0]
+                : eligible[MBRandom.RandomInt(eligible.Count)];
+
             if (chosenEq?.Base == null)
                 return;
 
