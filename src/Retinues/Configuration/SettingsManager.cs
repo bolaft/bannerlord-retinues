@@ -578,7 +578,7 @@ namespace Retinues.Configuration
             {
                 DiscoverOptions();
 
-                Log.Info("Retinues Config:");
+                Log.Debug("Retinues Config:");
 
                 var grouped = new Dictionary<string, List<IOption>>();
                 for (int i = 0; i < _all.Count; i++)
@@ -599,7 +599,7 @@ namespace Retinues.Configuration
                     string sectionName = kv.Key;
                     List<IOption> options = kv.Value;
 
-                    Log.Info($"[{sectionName}]");
+                    Log.Debug($"[{sectionName}]");
 
                     options.Sort(
                         (a, b) =>
@@ -629,11 +629,11 @@ namespace Retinues.Configuration
 
                         if (opt.IsDisabled)
                         {
-                            Log.Info($"{marker} {label} = {currentText} (DISABLED; override)");
+                            Log.Debug($"{marker} {label} = {currentText} (DISABLED; override)");
                         }
                         else
                         {
-                            Log.Info($"{marker} {label} = {currentText} (default: {defaultText})");
+                            Log.Debug($"{marker} {label} = {currentText} (default: {defaultText})");
                         }
                     }
                 }

@@ -157,7 +157,7 @@ namespace Retinues.Editor.VM
         [DataSourceMethod]
         public void ExecuteSelectSettingsTab()
         {
-            Log.Info("Settings tab clicked. Opening MCM settings: Retinues.Settings");
+            Log.Debug("Settings tab clicked. Opening MCM settings: Retinues.Settings");
 
             if (!MCMLauncher.TryOpenSettings("Retinues.Settings"))
                 Log.Warn("Failed to open MCM settings screen.");

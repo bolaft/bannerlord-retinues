@@ -29,12 +29,12 @@ namespace Retinues.Modules.Dependencies
         {
             if (!IsModuleLoaded)
             {
-                Log.Info("[MCM] MCM module not loaded; configuration UI will be unavailable.");
+                Log.Debug("[MCM] MCM module not loaded; configuration UI will be unavailable.");
                 MarkError();
                 return;
             }
 
-            Log.Info(
+            Log.Debug(
                 "[MCM] MCM module detected; waiting for UI to become ready before registering."
             );
         }
@@ -63,13 +63,13 @@ namespace Retinues.Modules.Dependencies
             if (!ok)
             {
                 if (_retryCount == 1)
-                    Log.Info("[MCM] Registration not yet accepted; will retry for a few seconds.");
+                    Log.Debug("[MCM] Registration not yet accepted; will retry for a few seconds.");
                 return;
             }
 
             _registrationSucceeded = true;
             MarkInitialized();
-            Log.Info("[MCM] Registration succeeded.");
+            Log.Debug("[MCM] Registration succeeded.");
         }
     }
 }

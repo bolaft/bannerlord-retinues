@@ -168,7 +168,7 @@ namespace Retinues.Framework.Runtime
                         {
                             try
                             {
-                                Log.Info($"Statics: running clear action: {id}");
+                                Log.Debug($"Statics: running clear action: {id}");
                                 mi.Invoke(null, null);
                             }
                             catch (Exception ex)
@@ -227,7 +227,7 @@ namespace Retinues.Framework.Runtime
                             {
                                 try
                                 {
-                                    Log.Info($"Statics: running clear action: {id}");
+                                    Log.Debug($"Statics: running clear action: {id}");
 
                                     object value = null;
                                     try
@@ -346,7 +346,7 @@ namespace Retinues.Framework.Runtime
                             {
                                 try
                                 {
-                                    Log.Info($"Statics: running clear action: {id}");
+                                    Log.Debug($"Statics: running clear action: {id}");
 
                                     object value = null;
                                     var canRead = getter != null && getter.IsStatic;

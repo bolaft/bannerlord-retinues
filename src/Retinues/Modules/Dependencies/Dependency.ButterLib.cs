@@ -28,7 +28,7 @@ namespace Retinues.Modules.Dependencies
             }
 
             MarkInitialized();
-            Log.Info("[ButterLib] ButterLib present.");
+            Log.Debug("[ButterLib] ButterLib present.");
         }
 
         public override void Shutdown()

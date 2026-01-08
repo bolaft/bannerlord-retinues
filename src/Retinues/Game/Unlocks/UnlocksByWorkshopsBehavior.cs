@@ -230,7 +230,7 @@ namespace Retinues.Game.Unlocks
 
             if (Settings.DebugMode && itemsTouched > 0)
             {
-                Log.Info(
+                Log.Debug(
                     $"[Unlocks] Workshop progress: day={dayIndex}, workshops={workshops.Count}, items={itemsTouched}, newlyUnlocked={unlocked.Count}, totalAdded={totalAdded}."
                 );
             }

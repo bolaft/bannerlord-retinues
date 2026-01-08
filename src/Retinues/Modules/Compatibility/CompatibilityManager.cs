@@ -19,15 +19,21 @@ namespace Retinues.Modules.Compatibility
         /// <summary>
         /// Adds mod-specific behaviors to the campaign starter if compatible mods are detected.
         /// </summary>
-        public static void RegisterCompatibilityBehaviors(CampaignGameStarter cs) { }
+        public static void RegisterCompatibilityBehaviors(CampaignGameStarter cs)
+        {
+            // Currently no compatibility behaviors to register.
+        }
 
         /// <summary>
         /// Adds Harmony patches for compatible mods.
         /// </summary>
         public static void AddPatches(Harmony harmony)
         {
-            if (harmony == null)
-                throw new ArgumentNullException("harmony");
+            if (Mods.Shokuho.IsLoaded)
+                Shokuho.ShokuhoEquipmentPatcher.TryPatch(harmony);
+
+            if (Mods.BanditMilitias.IsLoaded)
+                BanditMilitias.BanditMilitiasTroopsPatcher.TryPatch(harmony);
         }
 
         /// <summary>

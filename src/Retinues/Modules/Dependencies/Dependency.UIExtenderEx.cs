@@ -44,7 +44,7 @@ namespace Retinues.Modules.Dependencies
                 _extender.Enable();
 
                 MarkInitialized();
-                Log.Info("[UIExtenderEx] UIExtenderEx enabled & Retinues assembly registered.");
+                Log.Debug("[UIExtenderEx] UIExtenderEx enabled & Retinues assembly registered.");
             }
             catch (Exception e)
             {
@@ -61,7 +61,7 @@ namespace Retinues.Modules.Dependencies
             try
             {
                 _extender.Disable();
-                Log.Info("[UIExtenderEx] UIExtenderEx disabled.");
+                Log.Debug("[UIExtenderEx] UIExtenderEx disabled.");
             }
             catch (Exception e)
             {

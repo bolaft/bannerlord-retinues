@@ -59,7 +59,7 @@ namespace Retinues.Game.Bootstrap
             var clan = hero?.Clan;
             var culture = clan?.Culture;
 
-            Log.Info("Bootstrapping campaign (per-section). Checking pending sections...");
+            Log.Debug("Bootstrapping campaign (per-section). Checking pending sections...");
 
             // 1) Ensure default retinue for player clan (TroopBuilder unlocks its assigned items).
             if (!_retinueBootstrapped)
@@ -68,11 +68,11 @@ namespace Retinues.Game.Bootstrap
                 {
                     CreateDefaultRetinue(clan);
                     _retinueBootstrapped = true;
-                    Log.Info("Retinue bootstrap complete.");
+                    Log.Debug("Retinue bootstrap complete.");
                 }
                 else
                 {
-                    Log.Info("Retinue bootstrap skipped (missing clan or retinues disabled).");
+                    Log.Debug("Retinue bootstrap skipped (missing clan or retinues disabled).");
                 }
             }
 
@@ -83,17 +83,17 @@ namespace Retinues.Game.Bootstrap
                 {
                     EnsureStarterUnlocks(culture);
                     _unlocksBootstrapped = true;
-                    Log.Info("Starter unlocks bootstrap complete.");
+                    Log.Debug("Starter unlocks bootstrap complete.");
                 }
                 else
                 {
-                    Log.Info("Starter unlocks bootstrap skipped (missing culture).");
+                    Log.Debug("Starter unlocks bootstrap skipped (missing culture).");
                 }
             }
 
             if (_retinueBootstrapped && _unlocksBootstrapped)
             {
-                Log.Info("All bootstrap sections complete.");
+                Log.Debug("All bootstrap sections complete.");
             }
         }
 
@@ -153,7 +153,7 @@ namespace Retinues.Game.Bootstrap
                 );
             }
 
-            Log.Info(
+            Log.Debug(
                 $"Unlocked {totalUnlocked} starter items (max tier {maxTier}, target {targetPerSlot} per slot)."
             );
         }

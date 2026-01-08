@@ -36,7 +36,7 @@ namespace Retinues.Game.Missions
             var attacker = attackerParty?.Name?.ToString();
             var defender = defenderParty?.Name?.ToString();
 
-            Log.Info(
+            Log.Debug(
                 $"Map event started. Type='{mapEvent?.EventType}', Id='{mapEvent?.StringId}', Attacker='{attacker}', Defender='{defender}'."
             );
         }
@@ -63,7 +63,7 @@ namespace Retinues.Game.Missions
             }
 #endif
 
-            Log.Info($"Map event ended. Type='{mapEvent?.EventType}', Id='{mapEvent?.StringId}'.");
+            Log.Debug($"Map event ended. Type='{mapEvent?.EventType}', Id='{mapEvent?.StringId}'.");
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -94,7 +94,7 @@ namespace Retinues.Game.Missions
             AppendSideSummary(sb, mapEvent, BattleSideEnum.Attacker);
             AppendSideSummary(sb, mapEvent, BattleSideEnum.Defender);
 
-            Log.Info(sb.ToString());
+            Log.Debug(sb.ToString());
         }
 
         private static void AppendSideSummary(

@@ -67,7 +67,7 @@ namespace Retinues
             // Log configuration
             SettingsManager.LogSettings();
 
-            Log.Info("SubModule loaded.");
+            Log.Debug("SubModule loaded.");
         }
 
         /// <summary>
@@ -90,7 +90,7 @@ namespace Retinues
                 CompatibilityManager.RegisterCompatibilityBehaviors(cs);
             }
 
-            Log.Info("Game started.");
+            Log.Debug("Game started.");
         }
 
         /// <summary>
@@ -115,7 +115,7 @@ namespace Retinues
             foreach (var dependency in Dependencies)
                 dependency.Shutdown();
 
-            Log.Info("SubModule unloaded.");
+            Log.Debug("SubModule unloaded.");
         }
     }
 }

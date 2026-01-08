@@ -45,7 +45,7 @@ namespace Retinues.Configuration
                 // Important: selection must be deferred (MCM populates the list via SyncContext.Send).
                 QueueSelectWhenReady(screen, settingsId, nonce);
 
-                Log.Info($"Opened MCM settings screen (target: {settingsId})");
+                Log.Debug($"Opened MCM settings screen (target: {settingsId})");
                 return true;
             }
             catch (Exception ex)
@@ -111,7 +111,7 @@ namespace Retinues.Configuration
                 // We are already deferred via SynchronizationContext.Post, so it's safe here.
                 Reflection.InvokeMethod(entry, "ExecuteSelect", Type.EmptyTypes);
 
-                Log.Info($"Selected MCM entry: {settingsId}");
+                Log.Debug($"Selected MCM entry: {settingsId}");
             }
             catch (Exception ex)
             {
@@ -136,7 +136,7 @@ namespace Retinues.Configuration
         {
             if (attempt >= maxAttempts)
             {
-                Log.Info($"Could not auto-select MCM entry '{settingsId}' (timed out).");
+                Log.Debug($"Could not auto-select MCM entry '{settingsId}' (timed out).");
                 return;
             }
 

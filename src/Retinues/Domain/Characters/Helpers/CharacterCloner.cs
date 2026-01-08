@@ -40,7 +40,7 @@ namespace Retinues.Domain.Characters.Helpers
                 return null;
 
             if (!template.IsVanilla)
-                Log.Info($"CloneVanilla called with non-vanilla troop '{template.StringId}'.");
+                Log.Debug($"CloneVanilla called with non-vanilla troop '{template.StringId}'.");
 
             // Clone with equipment copy disabled here; we apply configured strategy below.
             var clone = template.Clone(skills: skills, equipments: false, intoStub: intoStub);

@@ -81,7 +81,7 @@ namespace Retinues.Domain.Characters.Wrappers
                 if (target != null)
                     resolved.Add(target);
                 else
-                    Log.Info($"Could not resolve upgrade target '{id}' for '{StringId}' yet.");
+                    Log.Debug($"Could not resolve upgrade target '{id}' for '{StringId}' yet.");
             }
 
             Reflection.SetPropertyValue(Base, "UpgradeTargets", resolved.ToArray());

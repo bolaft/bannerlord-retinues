@@ -63,8 +63,8 @@ namespace Retinues.Modules.Versioning
                     currentModule.Version ?? ModuleManager.UnknownVersionString;
                 var currentAppVersion = currentModule.AppVersion;
 
-                Log.Info($"Retinues version (current): {currentVersionString}");
-                Log.Info($"Retinues version (in save): {_savedVersion}");
+                Log.Debug($"Retinues version (current): {currentVersionString}");
+                Log.Debug($"Retinues version (in save): {_savedVersion}");
 
                 // Old saves or missing data: treat as "no stored version yet".
                 if (
@@ -73,7 +73,7 @@ namespace Retinues.Modules.Versioning
                 )
                 {
                     _savedVersion = currentVersionString;
-                    Log.Info(
+                    Log.Debug(
                         $"No Retinues version stored in save; assuming current version {_savedVersion}."
                     );
                     return;
@@ -86,7 +86,7 @@ namespace Retinues.Modules.Versioning
                     string.Equals(saveVersionString, currentVersionString, StringComparison.Ordinal)
                 )
                 {
-                    Log.Info(
+                    Log.Debug(
                         $"Retinues version in save matches current version {currentVersionString}."
                     );
                     return;

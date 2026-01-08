@@ -108,7 +108,7 @@ namespace Retinues.Editor
         /// </summary>
         public EditorState(EditorLaunchArgs args)
         {
-            Log.Info("Initializing new editor state");
+            Log.Debug("Initializing new editor state");
 
             // Set the singleton instance.
             _instance = this;
@@ -136,7 +136,7 @@ namespace Retinues.Editor
         private void ApplyLaunchArgs(EditorLaunchArgs args)
         {
             Mode = args?.Mode ?? EditorMode.Universal;
-            Log.Info($"Launch Mode: {Mode}.");
+            Log.Debug($"Launch Mode: {Mode}.");
 
             var resolved = ResolveLaunch(args);
 

@@ -76,7 +76,7 @@ namespace Retinues.Editor.Controllers.Equipment
             _source = src;
             _preview = new TaleWorlds.Core.Equipment(src);
 
-            Log.Info("Preview mode enabled.");
+            Log.Debug("Preview mode enabled.");
 
             EventManager.FireBatch(() =>
             {
@@ -94,7 +94,7 @@ namespace Retinues.Editor.Controllers.Equipment
             _source = null;
             _preview = null;
 
-            Log.Info("Preview mode disabled.");
+            Log.Debug("Preview mode disabled.");
 
             EventManager.FireBatch(() =>
             {

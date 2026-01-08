@@ -195,7 +195,7 @@ namespace Retinues.Domain.Characters.Wrappers
             // Nothing to apply, bail out.
             if (!hasHair && !hasBeard && !hasTattoo)
             {
-                Log.Info("Template has no tags, nothing to apply.");
+                Log.Debug("Template has no tags, nothing to apply.");
                 return;
             }
 

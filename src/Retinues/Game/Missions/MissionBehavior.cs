@@ -32,7 +32,7 @@ namespace Retinues.Game.Missions
             _started = true;
             MMission.SetCurrent(Mission);
 
-            Log.Info($"Mission started. Scene='{Mission?.SceneName}'.");
+            Log.Debug($"Mission started. Scene='{Mission?.SceneName}'.");
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -65,7 +65,7 @@ namespace Retinues.Game.Missions
             }
 #endif
 
-            Log.Info($"Mission ended. Scene='{Mission?.SceneName}'.");
+            Log.Debug($"Mission ended. Scene='{Mission?.SceneName}'.");
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -116,7 +116,7 @@ namespace Retinues.Game.Missions
 
             if (kills == null || kills.Count == 0)
             {
-                Log.Info(sb.ToString());
+                Log.Debug(sb.ToString());
                 return;
             }
 
@@ -194,7 +194,7 @@ namespace Retinues.Game.Missions
             AppendTopN(sb, "WeaponClass distribution", killsByWeaponClass, 8);
             AppendTopN(sb, "DamageType distribution", killsByDamageType, 8);
 
-            Log.Info(sb.ToString());
+            Log.Debug(sb.ToString());
         }
 
         private static void AppendTopNCharacters(

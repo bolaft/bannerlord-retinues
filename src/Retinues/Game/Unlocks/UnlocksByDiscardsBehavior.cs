@@ -90,7 +90,7 @@ namespace Retinues.Game.Unlocks
 
             if (Settings.DebugMode && itemsTouched > 0)
             {
-                Log.Info(
+                Log.Debug(
                     $"[Unlocks] Discard progress applied: items={itemsTouched}, newlyUnlocked={unlocked.Count}, totalAdded={totalAdded}."
                 );
             }

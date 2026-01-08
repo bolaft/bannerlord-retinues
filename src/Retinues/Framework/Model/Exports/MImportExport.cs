@@ -60,7 +60,7 @@ namespace Retinues.Framework.Model.Exports
                         Notifications.Message(
                             $"Exported '{c.StringId}' to '{Path.GetFileName(path)}'."
                         );
-                        Log.Info($"Exported character '{c.StringId}' to '{path}'.");
+                        Log.Debug($"Exported character '{c.StringId}' to '{path}'.");
                     }
                     catch (Exception ex)
                     {
@@ -116,7 +116,7 @@ namespace Retinues.Framework.Model.Exports
                         Notifications.Message(
                             $"Exported '{f.StringId}' ({troops.Count} troops) to '{Path.GetFileName(path)}'."
                         );
-                        Log.Info(
+                        Log.Debug(
                             $"Exported faction '{f.StringId}' to '{path}' with {troops.Count + 1} elements."
                         );
                     }
@@ -200,7 +200,7 @@ namespace Retinues.Framework.Model.Exports
 
                 c.Deserialize(ExtractPayload(el));
 
-                Log.Info($"Imported character '{stringId}' from '{filepath}'.");
+                Log.Debug($"Imported character '{stringId}' from '{filepath}'.");
                 return true;
             }
             catch (Exception ex)
@@ -300,7 +300,7 @@ namespace Retinues.Framework.Model.Exports
                     imported++;
                 }
 
-                Log.Info(
+                Log.Debug(
                     $"Imported faction '{factionId}' from '{filepath}'. Troops imported={imported}, skipped={skipped}."
                 );
 

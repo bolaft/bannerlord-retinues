@@ -33,7 +33,7 @@ namespace Retinues.Framework.Model.Persistence
                 dataStore.SyncData(SaveKey, ref blob);
 
                 if (!string.IsNullOrEmpty(blob))
-                    Log.Info(
+                    Log.Debug(
                         $"MPersistenceBehavior.SyncData: SyncData ok for key '{SaveKey}'. blob length={(blob == null ? 0 : blob.Length)}"
                     );
 
@@ -146,7 +146,7 @@ namespace Retinues.Framework.Model.Persistence
                 var fileContent = root.ToString(SaveOptions.None);
 
                 File.WriteAllText(filePath, fileContent, Encoding.UTF8);
-                Log.Info(
+                Log.Debug(
                     $"MPersistenceBehavior.SyncData: wrote persistence XML to '{filePath}' (length={fileContent.Length})."
                 );
             }

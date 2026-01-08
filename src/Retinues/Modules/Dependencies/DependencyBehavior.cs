@@ -17,7 +17,7 @@ namespace Retinues.Modules.Dependencies
     {
         protected override void OnGameLoadFinished()
         {
-            Log.Info("[Deps] OnGameLoadFinished() -> CheckDependencies(showPopup=true)");
+            Log.Debug("[Deps] OnGameLoadFinished() -> CheckDependencies(showPopup=true)");
             CheckDependencies(showPopup: true);
         }
 
@@ -26,14 +26,14 @@ namespace Retinues.Modules.Dependencies
         /// </summary>
         public static void CheckDependencies(bool showPopup)
         {
-            Log.Info("[Deps] CheckDependencies(showPopup=" + showPopup + ")");
+            Log.Debug("[Deps] CheckDependencies(showPopup=" + showPopup + ")");
             var missing = new List<Dependency>();
             var versionMismatch = new List<Dependency>();
             var notInitialized = new List<Dependency>();
 
             foreach (var dep in SubModule.Dependencies)
             {
-                Log.Info(
+                Log.Debug(
                     "[Deps] "
                         + dep.DisplayName
                         + " id="
@@ -79,7 +79,7 @@ namespace Retinues.Modules.Dependencies
 
             if (missing.Count == 0 && versionMismatch.Count == 0 && notInitialized.Count == 0)
             {
-                Log.Info(summary.ToString());
+                Log.Debug(summary.ToString());
                 return;
             }
 

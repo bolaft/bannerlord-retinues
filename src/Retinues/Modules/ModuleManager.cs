@@ -172,7 +172,7 @@ namespace Retinues.Modules
             try
             {
                 var appVersion = ApplicationVersion.FromParametersFile();
-                Log.Info(
+                Log.Debug(
                     string.Format(
                         "Bannerlord version: {0}.{1}.{2}",
                         appVersion.Major,
@@ -183,13 +183,13 @@ namespace Retinues.Modules
             }
             catch
             {
-                Log.Info("Bannerlord version: <unknown>");
+                Log.Debug("Bannerlord version: <unknown>");
             }
 
-            Log.Info("Active modules:");
+            Log.Debug("Active modules:");
             foreach (var mod in modules)
             {
-                Log.Info(
+                Log.Debug(
                     string.Format(
                         "    {0} {1} {2}",
                         mod.IsOfficial ? "[Official] " : "[Community]",
@@ -244,7 +244,7 @@ namespace Retinues.Modules
                 _cachedExpectedVersionsOwnerPath = ownerPath;
                 _cachedExpectedDependencyVersions = LoadExpectedDependencyVersions(ownerPath);
 
-                Log.Info(
+                Log.Debug(
                     "[Deps] Expected versions loaded: "
                         + (
                             _cachedExpectedDependencyVersions == null
@@ -266,7 +266,7 @@ namespace Retinues.Modules
                 return null;
 
             var subModulePath = Path.Combine(moduleRoot, "SubModule.xml");
-            Log.Info("[Deps] Reading expected versions from: " + subModulePath);
+            Log.Debug("[Deps] Reading expected versions from: " + subModulePath);
 
             if (!File.Exists(subModulePath))
             {
@@ -277,7 +277,7 @@ namespace Retinues.Modules
             var map = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 
             foreach (var kv in map)
-                Log.Info("[Deps] Expected: " + kv.Key + " => " + kv.Value);
+                Log.Debug("[Deps] Expected: " + kv.Key + " => " + kv.Value);
 
             XDocument doc;
             try

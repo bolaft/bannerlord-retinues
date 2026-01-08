@@ -79,7 +79,7 @@ namespace Retinues.Modules.Submods
                     }
                 }
 
-                Log.Info($"Wrote submod '{project.Manifest.Id}' ({filesWritten} files).");
+                Log.Debug($"Wrote submod '{project.Manifest.Id}' ({filesWritten} files).");
 
                 return SubmodWriteResult.Ok(
                     moduleId: project.Manifest.Id,

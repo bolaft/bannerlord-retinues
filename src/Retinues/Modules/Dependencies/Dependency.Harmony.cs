@@ -47,7 +47,7 @@ namespace Retinues.Modules.Dependencies
                 _harmony.PatchAll(asm);
 
                 MarkInitialized();
-                Log.Info("[Harmony] Harmony patches applied.");
+                Log.Debug("[Harmony] Harmony patches applied.");
             }
             catch (Exception e)
             {
@@ -64,7 +64,7 @@ namespace Retinues.Modules.Dependencies
             try
             {
                 _harmony.UnpatchAll(HarmonyInstanceId);
-                Log.Info("[Harmony] Harmony patches removed.");
+                Log.Debug("[Harmony] Harmony patches removed.");
             }
 #if DEBUG
             catch

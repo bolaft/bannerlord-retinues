@@ -32,7 +32,7 @@ namespace Retinues.Editor
 
                 if (!EditorAvailability.HasAnyCustomTreeTroops(gateFaction))
                 {
-                    Log.Info("Troops editor blocked: selected map-faction has no custom troops.");
+                    Log.Debug("Troops editor blocked: selected map-faction has no custom troops.");
                     return;
                 }
             }

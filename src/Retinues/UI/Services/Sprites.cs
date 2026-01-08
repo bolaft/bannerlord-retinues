@@ -13,7 +13,7 @@ namespace Retinues.UI.Services
         /// </summary>
         public static void Load(params string[] names)
         {
-            Log.Info($"Loading sprites {string.Join(", ", names)}...");
+            Log.Debug($"Loading sprites {string.Join(", ", names)}...");
 
             var data = UIResourceManager.SpriteData;
             var context = UIResourceManager.ResourceContext;
@@ -29,7 +29,7 @@ namespace Retinues.UI.Services
                 if (data.SpriteCategories.TryGetValue(name, out var category) && !category.IsLoaded)
                     category.Load(context, depot);
 
-            Log.Info("Sprites loaded.");
+            Log.Debug("Sprites loaded.");
         }
     }
 }
