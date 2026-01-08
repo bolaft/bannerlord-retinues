@@ -44,5 +44,29 @@ namespace Retinues.Domain.Parties.Wrappers
 
         public int PartySize => Base.Party?.NumberOfAllMembers ?? 0;
         public int PartySizeLimit => Base.Party?.PartySizeLimit ?? 0;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Army                          //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public bool IsInArmy => Base.Army != null;
+
+        public bool IsArmyLeader
+        {
+            get
+            {
+                var army = Base.Army;
+                if (army == null)
+                    return false;
+
+                return army.LeaderParty == Base;
+            }
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Strength                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public float Strength => Base.Party?.EstimatedStrength ?? 0f;
     }
 }
