@@ -1,0 +1,99 @@
+using System;
+using System.Collections.Generic;
+using Retinues.Configuration;
+using Retinues.Domain.Equipments.Wrappers;
+using Retinues.Framework.Behaviors;
+using Retinues.Utilities;
+using TaleWorlds.CampaignSystem.Roster;
+
+namespace Retinues.Game.Unlocks
+{
+    /// <summary>
+    /// Applies equipment unlock progress from items discarded by the player.
+    /// </summary>
+    public sealed class UnlocksByDiscardsBehavior : BaseCampaignBehavior
+    {
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Events                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Called when the player discards items.
+        /// </summary>
+        protected override void OnItemsDiscardedByPlayer(ItemRoster roster)
+        {
+            if (!Settings.EquipmentNeedsUnlocking || !Settings.UnlockItemsThroughDiscards)
+                return;
+
+            try
+            {
+                ApplyProgressFromDiscards(roster);
+            }
+            catch (Exception e)
+            {
+                Log.Exception(e, "Item unlock progress failed on player discards.");
+            }
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Apply                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Applies unlock progress based on items discarded in the given roster.
+        /// </summary>
+        private static void ApplyProgressFromDiscards(ItemRoster roster)
+        {
+            if (roster == null || roster.Count == 0)
+                return;
+
+            var required = (int)Settings.RequiredDiscardsToUnlock;
+            if (required <= 0)
+                return;
+
+            var perDiscard = Math.Max(1, WItem.UnlockThreshold / required);
+
+            var itemsTouched = 0;
+            var unlocked = new List<WItem>();
+            long totalAdded = 0;
+
+            for (var i = 0; i < roster.Count; i++)
+            {
+                var e = roster[i];
+                if (e.Amount <= 0)
+                    continue;
+
+                var item = e.EquipmentElement.Item;
+                if (item == null)
+                    continue;
+
+                var wItem = WItem.Get(item);
+                if (wItem == null || !wItem.IsValidEquipment)
+                    continue;
+
+                var add = perDiscard * e.Amount;
+                if (add <= 0)
+                    continue;
+
+                var wasUnlocked = wItem.IsUnlocked;
+                var isUnlocked = wItem.IncreaseUnlockProgress(add);
+
+                itemsTouched++;
+                totalAdded += add;
+
+                if (!wasUnlocked && isUnlocked)
+                    unlocked.Add(wItem);
+            }
+
+            if (unlocked.Count > 0)
+                UnlockNotifier.ItemsUnlocked(UnlockNotifier.UnlockMethod.Discards, unlocked);
+
+            if (Settings.DebugMode && itemsTouched > 0)
+            {
+                Log.Info(
+                    $"[Unlocks] Discard progress applied: items={itemsTouched}, newlyUnlocked={unlocked.Count}, totalAdded={totalAdded}."
+                );
+            }
+        }
+    }
+}

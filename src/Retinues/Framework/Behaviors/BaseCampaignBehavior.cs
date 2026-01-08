@@ -1,10 +1,12 @@
 using System;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using Retinues.Framework.Runtime;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.MapEvents;
 using TaleWorlds.CampaignSystem.Party;
+using TaleWorlds.CampaignSystem.Roster;
 using TaleWorlds.Core;
 
 namespace Retinues.Framework.Behaviors
@@ -18,6 +20,7 @@ namespace Retinues.Framework.Behaviors
             CharacterCreationIsOver,
             SessionLaunched,
 
+            DailyTick,
             HourlyTick,
             HourlyTickParty,
 
@@ -26,6 +29,8 @@ namespace Retinues.Framework.Behaviors
 
             MapEventStarted,
             MapEventEnded,
+
+            ItemsDiscardedByPlayer,
         }
 
         protected string Name => GetType().Name;
@@ -50,6 +55,8 @@ namespace Retinues.Framework.Behaviors
 
         protected virtual void OnSessionLaunched(CampaignGameStarter starter) { }
 
+        protected virtual void OnDailyTick() { }
+
         protected virtual void OnHourlyTick() { }
 
         protected virtual void OnHourlyTickParty(MobileParty party) { }
@@ -66,6 +73,8 @@ namespace Retinues.Framework.Behaviors
 
         protected virtual void OnMapEventEnded(MapEvent mapEvent) { }
 
+        protected virtual void OnItemsDiscardedByPlayer(ItemRoster roster) { }
+
         protected virtual void RegisterCustomEvents() { }
 
         private void AutoRegisterEvents()
@@ -78,6 +87,9 @@ namespace Retinues.Framework.Behaviors
 
             if (IsOverridden(nameof(OnSessionLaunched)))
                 Hook(BehaviorEvent.SessionLaunched, OnSessionLaunched);
+
+            if (IsOverridden(nameof(OnDailyTick)))
+                Hook(BehaviorEvent.DailyTick, OnDailyTick);
 
             if (IsOverridden(nameof(OnHourlyTick)))
                 Hook(BehaviorEvent.HourlyTick, OnHourlyTick);
@@ -96,6 +108,9 @@ namespace Retinues.Framework.Behaviors
 
             if (IsOverridden(nameof(OnMapEventEnded)))
                 Hook(BehaviorEvent.MapEventEnded, OnMapEventEnded);
+
+            if (IsOverridden(nameof(OnItemsDiscardedByPlayer)))
+                Hook(BehaviorEvent.ItemsDiscardedByPlayer, OnItemsDiscardedByPlayer);
         }
 
         private bool IsOverridden(string methodName)
@@ -114,213 +129,198 @@ namespace Retinues.Framework.Behaviors
         //                          Hooks                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        // No-arg hook (kept for convenience)
-        protected void Hook(BehaviorEvent evt, Action action)
+        protected void Hook<THandler>(BehaviorEvent evt, THandler handler)
+            where THandler : Delegate
         {
-            if (action == null)
+            HookInternal(evt, handler, null);
+        }
+
+        protected void Hook<THandler, TNormalize>(
+            BehaviorEvent evt,
+            THandler handler,
+            TNormalize normalize
+        )
+            where THandler : Delegate
+            where TNormalize : Delegate
+        {
+            HookInternal(evt, handler, normalize);
+        }
+
+        private void HookInternal(BehaviorEvent evt, Delegate handler, Delegate normalize)
+        {
+            if (handler == null)
                 return;
-
-            void Wrapper()
-            {
-                if (!IsEnabled)
-                    return;
-
-                action();
-            }
 
             switch (evt)
             {
                 case BehaviorEvent.GameLoadFinished:
-                    CampaignEvents.OnGameLoadFinishedEvent.AddNonSerializedListener(this, Wrapper);
+                    CampaignEvents.OnGameLoadFinishedEvent.AddNonSerializedListener(
+                        this,
+                        () => InvokeHook(evt, handler, normalize)
+                    );
                     break;
 
                 case BehaviorEvent.CharacterCreationIsOver:
                     CampaignEvents.OnCharacterCreationIsOverEvent.AddNonSerializedListener(
                         this,
-                        Wrapper
+                        () => InvokeHook(evt, handler, normalize)
                     );
                     break;
 
                 case BehaviorEvent.SessionLaunched:
                     CampaignEvents.OnSessionLaunchedEvent.AddNonSerializedListener(
                         this,
-                        _ => Wrapper()
+                        starter => InvokeHook(evt, handler, normalize, starter)
+                    );
+                    break;
+
+                case BehaviorEvent.DailyTick:
+                    CampaignEvents.DailyTickEvent.AddNonSerializedListener(
+                        this,
+                        () => InvokeHook(evt, handler, normalize)
                     );
                     break;
 
                 case BehaviorEvent.HourlyTick:
-                    CampaignEvents.HourlyTickEvent.AddNonSerializedListener(this, Wrapper);
+                    CampaignEvents.HourlyTickEvent.AddNonSerializedListener(
+                        this,
+                        () => InvokeHook(evt, handler, normalize)
+                    );
                     break;
 
                 case BehaviorEvent.HourlyTickParty:
                     CampaignEvents.HourlyTickPartyEvent.AddNonSerializedListener(
                         this,
-                        _ => Wrapper()
+                        party => InvokeHook(evt, handler, normalize, party)
                     );
                     break;
 
                 case BehaviorEvent.MissionStarted:
                     CampaignEvents.OnMissionStartedEvent.AddNonSerializedListener(
                         this,
-                        _ => Wrapper()
+                        mission => InvokeHook(evt, handler, normalize, mission)
                     );
                     break;
 
                 case BehaviorEvent.MissionEnded:
                     CampaignEvents.OnMissionEndedEvent.AddNonSerializedListener(
                         this,
-                        _ => Wrapper()
+                        mission => InvokeHook(evt, handler, normalize, mission)
                     );
                     break;
 
                 case BehaviorEvent.MapEventStarted:
                     CampaignEvents.MapEventStarted.AddNonSerializedListener(
                         this,
-                        (_, __, ___) => Wrapper()
+                        (me, atk, def) => InvokeHook(evt, handler, normalize, me, atk, def)
                     );
                     break;
 
                 case BehaviorEvent.MapEventEnded:
-                    CampaignEvents.MapEventEnded.AddNonSerializedListener(this, _ => Wrapper());
-                    break;
-
-                default:
-                    Log.Warn($"[{Name}] Unsupported BehaviorEvent (Action): {evt}");
-                    break;
-            }
-        }
-
-        protected void Hook(BehaviorEvent evt, Action<CampaignGameStarter> action)
-        {
-            if (action == null)
-                return;
-
-            void Wrapper(CampaignGameStarter starter)
-            {
-                if (!IsEnabled)
-                    return;
-
-                action(starter);
-            }
-
-            switch (evt)
-            {
-                case BehaviorEvent.SessionLaunched:
-                    CampaignEvents.OnSessionLaunchedEvent.AddNonSerializedListener(this, Wrapper);
-                    break;
-
-                default:
-                    Log.Warn(
-                        $"[{Name}] Unsupported BehaviorEvent (Action<CampaignGameStarter>): {evt}"
+                    CampaignEvents.MapEventEnded.AddNonSerializedListener(
+                        this,
+                        me => InvokeHook(evt, handler, normalize, me)
                     );
                     break;
-            }
-        }
 
-        protected void Hook(BehaviorEvent evt, Action<MobileParty> action)
-        {
-            if (action == null)
-                return;
-
-            void Wrapper(MobileParty party)
-            {
-                if (!IsEnabled)
-                    return;
-
-                action(party);
-            }
-
-            switch (evt)
-            {
-                case BehaviorEvent.HourlyTickParty:
-                    CampaignEvents.HourlyTickPartyEvent.AddNonSerializedListener(this, Wrapper);
-                    break;
-
-                default:
-                    Log.Warn($"[{Name}] Unsupported BehaviorEvent (Action<MobileParty>): {evt}");
-                    break;
-            }
-        }
-
-        protected void Hook(BehaviorEvent evt, Action<IMission> action)
-        {
-            if (action == null)
-                return;
-
-            void Wrapper(IMission mission)
-            {
-                if (!IsEnabled)
-                    return;
-
-                action(mission);
-            }
-
-            switch (evt)
-            {
-                case BehaviorEvent.MissionStarted:
-                    CampaignEvents.OnMissionStartedEvent.AddNonSerializedListener(this, Wrapper);
-                    break;
-
-                case BehaviorEvent.MissionEnded:
-                    CampaignEvents.OnMissionEndedEvent.AddNonSerializedListener(this, Wrapper);
-                    break;
-
-                default:
-                    Log.Warn($"[{Name}] Unsupported BehaviorEvent (Action<IMission>): {evt}");
-                    break;
-            }
-        }
-
-        protected void Hook(BehaviorEvent evt, Action<MapEvent, PartyBase, PartyBase> action)
-        {
-            if (action == null)
-                return;
-
-            void Wrapper(MapEvent me, PartyBase atk, PartyBase def)
-            {
-                if (!IsEnabled)
-                    return;
-
-                action(me, atk, def);
-            }
-
-            switch (evt)
-            {
-                case BehaviorEvent.MapEventStarted:
-                    CampaignEvents.MapEventStarted.AddNonSerializedListener(this, Wrapper);
-                    break;
-
-                default:
-                    Log.Warn(
-                        $"[{Name}] Unsupported BehaviorEvent (Action<MapEvent,PartyBase,PartyBase>): {evt}"
+                case BehaviorEvent.ItemsDiscardedByPlayer:
+                    CampaignEvents.OnItemsDiscardedByPlayerEvent.AddNonSerializedListener(
+                        this,
+                        roster => InvokeHook(evt, handler, normalize, roster)
                     );
                     break;
+
+                default:
+                    Log.Warn($"Unsupported BehaviorEvent {evt}.");
+                    break;
             }
         }
 
-        protected void Hook(BehaviorEvent evt, Action<MapEvent> action)
+        private void InvokeHook(
+            BehaviorEvent evt,
+            Delegate handler,
+            Delegate normalize,
+            params object[] vanillaArgs
+        )
         {
-            if (action == null)
+            if (!IsEnabled)
                 return;
 
-            void Wrapper(MapEvent me)
+            try
             {
-                if (!IsEnabled)
-                    return;
+                var handlerArgs = vanillaArgs ?? new object[0];
 
-                action(me);
+                if (normalize != null)
+                    handlerArgs = NormalizeArgs(evt, handler, normalize, handlerArgs);
+
+                InvokeHandler(evt, handler, handlerArgs);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex.ToString());
+            }
+        }
+
+        private object[] NormalizeArgs(
+            BehaviorEvent evt,
+            Delegate handler,
+            Delegate normalize,
+            object[] vanillaArgs
+        )
+        {
+            var normParams = normalize.Method.GetParameters();
+            if (normParams.Length != (vanillaArgs?.Length ?? 0))
+            {
+                Log.Warn($"Normalizer arg count mismatch for {evt}.");
+                return vanillaArgs ?? new object[0];
             }
 
-            switch (evt)
-            {
-                case BehaviorEvent.MapEventEnded:
-                    CampaignEvents.MapEventEnded.AddNonSerializedListener(this, Wrapper);
-                    break;
+            var result = normalize.DynamicInvoke(vanillaArgs ?? new object[0]);
+            if (result == null)
+                return vanillaArgs ?? new object[0];
 
-                default:
-                    Log.Warn($"[{Name}] Unsupported BehaviorEvent (Action<MapEvent>): {evt}");
-                    break;
+            if (result is object[] arr)
+                return arr;
+
+            if (result is ITuple tuple)
+            {
+                var items = new object[tuple.Length];
+                for (var i = 0; i < tuple.Length; i++)
+                    items[i] = tuple[i];
+                return items;
             }
+
+            return new[] { result };
+        }
+
+        private void InvokeHandler(BehaviorEvent evt, Delegate handler, object[] args)
+        {
+            var expected = handler.Method.GetParameters().Length;
+
+            if (expected == 0)
+            {
+                handler.DynamicInvoke();
+                return;
+            }
+
+            if (args == null)
+                args = new object[0];
+
+            if (args.Length < expected)
+            {
+                Log.Warn($"Handler arg count mismatch for {evt}.");
+                return;
+            }
+
+            if (args.Length == expected)
+            {
+                handler.DynamicInvoke(args);
+                return;
+            }
+
+            var trimmed = new object[expected];
+            Array.Copy(args, trimmed, expected);
+            handler.DynamicInvoke(trimmed);
         }
     }
 

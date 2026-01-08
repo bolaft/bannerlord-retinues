@@ -24,17 +24,6 @@ namespace Retinues.Domain.Events.Models
             Current = mission != null ? new MMission(mission) : null;
         }
 
-        internal static void ClearCurrentIf(Mission mission)
-        {
-            if (Current == null)
-                return;
-
-            if (mission != null && !ReferenceEquals(Current.Base, mission))
-                return;
-
-            Current = null;
-        }
-
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Scene                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

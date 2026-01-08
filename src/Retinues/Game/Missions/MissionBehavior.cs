@@ -18,13 +18,14 @@ namespace Retinues.Game.Missions
     /// </summary>
     public sealed class MissionBehavior : BaseMissionBehavior
     {
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Start                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
         private bool _started;
-        private bool _ended;
 
         public override void AfterStart()
         {
-            base.AfterStart();
-
             if (_started)
                 return;
 
@@ -34,47 +35,15 @@ namespace Retinues.Game.Missions
             Log.Info($"Mission started. Scene='{Mission?.SceneName}'.");
         }
 
-        protected override void OnEndMission()
-        {
-            base.OnEndMission();
-            End();
-        }
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                           End                          //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public override void OnRemoveBehavior()
-        {
-            base.OnRemoveBehavior();
-            End();
-        }
+        private bool _ended;
 
-        public override void OnAgentRemoved(
-            Agent victim,
-            Agent killer,
-            AgentState state,
-            KillingBlow blow
-        )
-        {
-            base.OnAgentRemoved(victim, killer, state, blow);
+        protected override void OnEndMission() => End();
 
-            try
-            {
-                var mission = MMission.Current;
-                if (mission == null)
-                    return;
-
-                var v = victim != null ? new MAgent(victim) : null;
-                var k = killer != null ? new MAgent(killer) : null;
-
-                if (!MMission.Kill.IsValid(v, k, state))
-                    return;
-
-                var kill = new MMission.Kill(v, k, state, blow);
-                mission.AddKill(in kill);
-            }
-            catch (Exception ex)
-            {
-                Log.Exception(ex);
-            }
-        }
+        public override void OnRemoveBehavior() => End();
 
         private void End()
         {
@@ -97,10 +66,43 @@ namespace Retinues.Game.Missions
 #endif
 
             Log.Info($"Mission ended. Scene='{Mission?.SceneName}'.");
-
-            // Only clear if we're still the current mission.
-            MMission.ClearCurrentIf(Mission);
         }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Kill Tracker                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public override void OnAgentRemoved(
+            Agent victim,
+            Agent killer,
+            AgentState state,
+            KillingBlow blow
+        )
+        {
+            try
+            {
+                var mission = MMission.Current;
+                if (mission == null)
+                    return;
+
+                var v = victim != null ? new MAgent(victim) : null;
+                var k = killer != null ? new MAgent(killer) : null;
+
+                if (!MMission.Kill.IsValid(v, k, state))
+                    return;
+
+                var kill = new MMission.Kill(v, k, state, blow);
+                mission.AddKill(in kill);
+            }
+            catch (Exception ex)
+            {
+                Log.Exception(ex);
+            }
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Debug                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
 #if DEBUG
         private static void DebugLogMissionSummary(MMission mission)

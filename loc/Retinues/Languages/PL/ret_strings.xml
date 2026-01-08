@@ -476,6 +476,27 @@
       id="ret_invalid_name_title"
       text="Nieprawidłowa nazwa" />
     <string
+      id="ret_item_unlock_desc"
+      text="{METHOD}: {ITEMS}" />
+    <string
+      id="ret_item_unlock_method_discards"
+      text="Odrzuty" />
+    <string
+      id="ret_item_unlock_method_kills"
+      text="Bitwa" />
+    <string
+      id="ret_item_unlock_method_workshops"
+      text="Warsztaty" />
+    <string
+      id="ret_item_unlock_notification_message"
+      text="Komunikat dziennika" />
+    <string
+      id="ret_item_unlock_notification_popup"
+      text="Popup" />
+    <string
+      id="ret_item_unlock_title"
+      text="Odblokowane przedmioty" />
+    <string
       id="ret_library_contents_header"
       text="Zawartość" />
     <string
@@ -701,6 +722,18 @@
       id="ret_mariner_toggle_tooltip_universal"
       text="Marynarze są lepiej przystosowani do walki morskiej." />
     <string
+      id="ret_mcm_option_count_ally_casualties"
+      text="Liczenie strat sojuszniczych" />
+    <string
+      id="ret_mcm_option_count_ally_casualties_hint"
+      text="Czy straty sojusznicze również liczą się do odblokowywania przedmiotów." />
+    <string
+      id="ret_mcm_option_count_ally_kills"
+      text="Liczenie zabójstw sojuszniczych" />
+    <string
+      id="ret_mcm_option_count_ally_kills_hint"
+      text="Czy zabójstwa dokonane przez sojusznicze oddziały również liczą się do odblokowywania przedmiotów." />
+    <string
       id="ret_mcm_option_debug_mode"
       text="Tryb debugowania" />
     <string
@@ -800,6 +833,12 @@
       id="ret_mcm_option_equipping_takes_time_hint"
       text="Jeśli włączone, wyposażenie oddziałów nie będzie natychmiastowe i zajmie trochę czasu, aby zostało ukończone." />
     <string
+      id="ret_mcm_option_item_unlock_notification"
+      text="Powiadomienie o odblokowaniu przedmiotu" />
+    <string
+      id="ret_mcm_option_item_unlock_notification_hint"
+      text="Określa styl powiadomienia, gdy odblokowywane są nowe przedmioty." />
+    <string
       id="ret_mcm_option_max_retinue_ratio"
       text="Maksymalny stosunek Retinue" />
     <string
@@ -811,6 +850,12 @@
     <string
       id="ret_mcm_option_mixed_gender_ratio_hint"
       text="Ustawia szansę na pojawienie się jednostek o mieszanej płci jako członka przeciwnej płci." />
+    <string
+      id="ret_mcm_option_required_days_to_unlock"
+      text="Wymagane dni do odblokowania" />
+    <string
+      id="ret_mcm_option_required_days_to_unlock_hint"
+      text="Liczba dni, które zajmuje jeden warsztat, aby odblokować przedmiot." />
     <string
       id="ret_mcm_option_required_discards_to_unlock"
       text="Wymagane odrzucenia do odblokowania" />
@@ -883,6 +928,12 @@
     <string
       id="ret_mcm_option_unlock_items_through_kills_hint"
       text="Czy przedmioty są odblokowywane poprzez pokonywanie wrogów w bitwach." />
+    <string
+      id="ret_mcm_option_unlock_items_through_workshops"
+      text="Odblokuj przedmioty poprzez warsztaty" />
+    <string
+      id="ret_mcm_option_unlock_items_through_workshops_hint"
+      text="Czy posiadanie warsztatów odblokowuje przedmioty z czasem. Przedmioty są wybierane na podstawie typu warsztatu i kultury osady." />
     <string
       id="ret_mcm_option_weight_limit_hint"
       text="Czy ograniczyć całkowitą wagę ekwipunku (limity są oparte na poziomach)." />
@@ -1031,6 +1082,9 @@
       id="ret_skill_decrease_min_reason"
       text="Nie można zmniejszyć umiejętności poniżej 0." />
     <string
+      id="ret_skill_decrease_sources_reason"
+      text="Nie można zmniejszyć poniżej minimalnej wartości źródła ulepszenia." />
+    <string
       id="ret_skill_decrease_warning_text"
       text="Zmniejszenie umiejętności jest natychmiastowe, ale ponowne jej wytrenowanie zajmie trochę czasu.{newline}{newline}Kontynuować?" />
     <string
@@ -1162,5 +1216,11 @@
     <string
       id="ret_weight_hint"
       text="Waga" />
+    <string
+      id="ret_workshop_unlock_start_desc"
+      text="{ITEMS}" />
+    <string
+      id="ret_workshop_unlock_start_title"
+      text="Warsztaty" />
   </strings>
 </base>

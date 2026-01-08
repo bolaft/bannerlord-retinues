@@ -29,19 +29,6 @@ namespace Retinues.Domain.Events.Models
             Current = mapEvent != null ? new MMapEvent(mapEvent) : null;
         }
 
-        public static void ClearCurrent() => Current = null;
-
-        internal static void ClearCurrentIf(MapEvent mapEvent)
-        {
-            if (Current == null)
-                return;
-
-            if (mapEvent != null && !ReferenceEquals(Current.Base, mapEvent))
-                return;
-
-            Current = null;
-        }
-
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Event Type                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

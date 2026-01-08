@@ -16,6 +16,10 @@ namespace Retinues.Game.Missions
     /// </summary>
     public sealed class MapEventBehavior : BaseCampaignBehavior
     {
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Start                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
         protected override void OnMapEventStarted(
             MapEvent mapEvent,
             PartyBase attackerParty,
@@ -26,7 +30,8 @@ namespace Retinues.Game.Missions
             if (!IsEnabled)
                 return;
 
-            MMapEvent.SetCurrent(mapEvent);
+            if (mapEvent != null && mapEvent.IsPlayerMapEvent)
+                MMapEvent.SetCurrent(mapEvent);
 
             var attacker = attackerParty?.Name?.ToString();
             var defender = defenderParty?.Name?.ToString();
@@ -35,6 +40,10 @@ namespace Retinues.Game.Missions
                 $"Map event started. Type='{mapEvent?.EventType}', Id='{mapEvent?.StringId}', Attacker='{attacker}', Defender='{defender}'."
             );
         }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                           End                          //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         protected override void OnMapEventEnded(MapEvent mapEvent)
         {
@@ -55,17 +64,11 @@ namespace Retinues.Game.Missions
 #endif
 
             Log.Info($"Map event ended. Type='{mapEvent?.EventType}', Id='{mapEvent?.StringId}'.");
-
-            // Only clear if we're still the current map event.
-            MMapEvent.ClearCurrentIf(mapEvent);
         }
 
-        protected override void OnMissionEnded(IMission mission)
-        {
-            // Spec: clear statics on mission end. This avoids stale state if MapEventEnded is skipped.
-            // Intentionally not gated behind IsEnabled.
-            MMapEvent.ClearCurrent();
-        }
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Debug                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
 #if DEBUG
         private static void DebugLogMapEventSummary(MapEvent mapEvent)

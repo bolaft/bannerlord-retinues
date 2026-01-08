@@ -32,6 +32,37 @@ namespace Retinues.Configuration
             @default: true
         );
 
+        public enum ItemUnlockNotificationStyle
+        {
+            Popup,
+            Message,
+        }
+
+        public static readonly MultiChoiceOption<ItemUnlockNotificationStyle> ItemUnlockNotification =
+            CreateMultiChoiceOption(
+                section: UserInterface,
+                name: L.F("mcm_option_item_unlock_notification", "Item Unlock Notification"),
+                hint: L.F(
+                    "mcm_option_item_unlock_notification_hint",
+                    "Determines how the notification style when when new items are unlocked."
+                ),
+                @default: ItemUnlockNotificationStyle.Popup,
+                choices: [ItemUnlockNotificationStyle.Popup, ItemUnlockNotificationStyle.Message],
+                choiceFormatter: v =>
+                    v switch
+                    {
+                        ItemUnlockNotificationStyle.Popup => L.S(
+                            "item_unlock_notification_popup",
+                            "Popup"
+                        ),
+                        ItemUnlockNotificationStyle.Message => L.S(
+                            "item_unlock_notification_message",
+                            "Log Message"
+                        ),
+                        _ => v.ToString(),
+                    }
+            );
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Doctrines                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -136,6 +167,56 @@ namespace Retinues.Configuration
             @default: 100,
             @realistic: 200,
             dependsOn: UnlockItemsThroughKills
+        );
+
+        public static readonly Option<bool> CountAllyKills = CreateOption(
+            section: EquipmentUnlocks,
+            name: L.F("mcm_option_count_ally_kills", "Count Ally Kills"),
+            hint: L.F(
+                "mcm_option_count_ally_kills_hint",
+                "Whether kills made by allied troops also count towards unlocking items."
+            ),
+            @default: false,
+            dependsOn: UnlockItemsThroughKills
+        );
+
+        public static readonly Option<bool> CountAllyCasualties = CreateOption(
+            section: EquipmentUnlocks,
+            name: L.F("mcm_option_count_ally_casualties", "Count Ally Casualties"),
+            hint: L.F(
+                "mcm_option_count_ally_casualties_hint",
+                "Whether ally casualties also count towards unlocking items."
+            ),
+            @default: false,
+            dependsOn: UnlockItemsThroughKills
+        );
+
+        public static readonly Option<bool> UnlockItemsThroughWorkshops = CreateOption(
+            section: EquipmentUnlocks,
+            name: L.F(
+                "mcm_option_unlock_items_through_workshops",
+                "Unlock Items Through Workshops"
+            ),
+            hint: L.F(
+                "mcm_option_unlock_items_through_workshops_hint",
+                "Whether owning workshops unlocks items over time. Items are selected based on workshop type and settlement culture."
+            ),
+            @default: true,
+            dependsOn: EquipmentNeedsUnlocking
+        );
+
+        public static readonly Option<int> RequiredDaysToUnlock = CreateOption(
+            section: EquipmentUnlocks,
+            name: L.F("mcm_option_required_days_to_unlock", "Required Days To Unlock"),
+            hint: L.F(
+                "mcm_option_required_days_to_unlock_hint",
+                "The number of days it takes one workshop to unlock an item."
+            ),
+            minValue: 1,
+            maxValue: 100,
+            @default: 14,
+            @realistic: 28,
+            dependsOn: UnlockItemsThroughWorkshops
         );
 
         public static readonly Option<bool> UnlockItemsThroughDiscards = CreateOption(

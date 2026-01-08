@@ -3,6 +3,7 @@ using Retinues.Domain.Parties.Wrappers;
 using Retinues.Domain.Settlements.Wrappers;
 using Retinues.Framework.Model;
 using TaleWorlds.CampaignSystem.Settlements;
+using TaleWorlds.CampaignSystem.Settlements.Workshops;
 
 namespace Retinues.Domain.Settlements.Models
 {
@@ -46,6 +47,13 @@ namespace Retinues.Domain.Settlements.Models
         public float Security => Base.Security;
         public float Militia => Base.Militia;
         public float FoodStocks => Base.FoodStocks;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Workshops                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public Workshop[] Workshops => Base?.Workshops;
+        public bool HasWorkshops => Workshops != null && Workshops.Length > 0;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Garrison                        //
