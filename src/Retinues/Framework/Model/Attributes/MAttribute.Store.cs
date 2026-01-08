@@ -68,16 +68,10 @@ namespace Retinues.Framework.Model.Attributes
 
             // We must keep type information even when the value is null, otherwise future GetOrInit()
             // calls cannot safely validate type and will throw.
-            private sealed class Entry
+            private sealed class Entry(Type type, object value)
             {
-                public Type Type;
-                public object Value;
-
-                public Entry(Type type, object value)
-                {
-                    Type = type;
-                    Value = value;
-                }
+                public Type Type = type;
+                public object Value = value;
             }
 
             private static readonly Dictionary<string, Entry> Values = new(StringComparer.Ordinal);

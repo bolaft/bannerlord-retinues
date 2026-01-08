@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Xml.Linq;
+using Retinues.Framework.Model.Attributes;
 using Retinues.Utilities;
 
 namespace Retinues.Framework.Model.Persistence
@@ -64,9 +65,6 @@ namespace Retinues.Framework.Model.Persistence
             if (string.IsNullOrEmpty(uid))
                 return;
 
-            Log.Info($"MPersistence: Applying data for {uid}");
-            Log.Info($"Data: {data}");
-
             var sep = uid.IndexOf(':');
             if (sep <= 0 || sep >= uid.Length - 1)
                 return;
@@ -81,7 +79,11 @@ namespace Retinues.Framework.Model.Persistence
             if (wrapper == null)
                 return;
 
+            using var scope = PersistenceLoadLog.Begin(uid);
             WrapperReflection.TryDeserialize(wrapperType, wrapper, data);
+
+            var line = scope.BuildLine();
+            Log.Debug(line);
         }
 
         static class WrapperReflection

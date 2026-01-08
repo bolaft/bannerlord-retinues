@@ -828,13 +828,116 @@ namespace Retinues.Framework.Model.Attributes
                 catch { }
             }
 
+            string CleanForLoadLog(string s)
+            {
+                s ??= string.Empty;
+
+                s = s.Replace("\r", " ").Replace("\n", " ");
+                s = s.Replace("|", "/");
+
+                s = s.Trim();
+
+                const int max = 140;
+                if (s.Length > max)
+                    s =
+                        s.Substring(0, max)
+                        + "...("
+                        + s.Length.ToString(CultureInfo.InvariantCulture)
+                        + ")";
+
+                return s;
+            }
+
+            string PreviewList(XElement listEl)
+            {
+                if (listEl == null)
+                    return "list[0]";
+
+                int count = 0;
+                var items = new List<string>();
+
+                foreach (var child in listEl.Elements())
+                {
+                    count++;
+
+                    if (items.Count >= 3)
+                        continue;
+
+                    if (child.Name.LocalName == "Item")
+                    {
+                        if (child.HasElements)
+                        {
+                            var first = child.Elements().FirstOrDefault();
+                            items.Add(first == null ? "" : first.Name.LocalName);
+                        }
+                        else
+                        {
+                            items.Add((child.Value ?? string.Empty).Trim());
+                        }
+                    }
+                    else
+                    {
+                        items.Add(child.Name.LocalName);
+                    }
+                }
+
+                var preview =
+                    items.Count == 0
+                        ? ""
+                        : "(" + string.Join(",", items.Select(CleanForLoadLog)) + ")";
+                return "list[" + count.ToString(CultureInfo.InvariantCulture) + "]" + preview;
+            }
+
+            string PreviewMap(XElement mapEl)
+            {
+                if (mapEl == null)
+                    return "map[0]";
+
+                var entries = mapEl.Elements("E").ToList();
+                var preview = new List<string>();
+
+                for (int i = 0; i < entries.Count && i < 3; i++)
+                {
+                    var e = entries[i];
+                    var k = ((string)e.Attribute("k") ?? string.Empty).Trim();
+                    var v = ((string)e.Attribute("v") ?? string.Empty).Trim();
+                    preview.Add(CleanForLoadLog(k) + "=" + CleanForLoadLog(v));
+                }
+
+                var p = preview.Count == 0 ? "" : "(" + string.Join(",", preview) + ")";
+                return "map[" + entries.Count.ToString(CultureInfo.InvariantCulture) + "]" + p;
+            }
+
             void Assign(T value)
             {
                 try
                 {
                     Set(value);
                     MarkCleanIfAllowed();
-                    Log.Info($"[LOAD] {Name} = '{Get()}' dirty={IsDirty} restoring={restoring}");
+
+                    // Prefer compact, stable representations based on XML tag.
+                    string formatted;
+
+                    if (tag == "list")
+                        formatted = PreviewList(el);
+                    else if (tag == "map")
+                        formatted = PreviewMap(el);
+                    else if (tag == "mb")
+                        formatted = CleanForLoadLog(raw);
+                    else if (
+                        tag == "text"
+                        || tag == "string"
+                        || tag == "enum"
+                        || tag == "bool"
+                        || tag == "int"
+                        || tag == "float"
+                        || tag == "double"
+                    )
+                        formatted = CleanForLoadLog(raw);
+                    else
+                        formatted = CleanForLoadLog(value == null ? "" : value.ToString());
+
+                    PersistenceLoadLog.Add(Name, formatted);
                 }
                 catch
                 {
