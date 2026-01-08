@@ -1267,7 +1267,7 @@ namespace Retinues.Framework.Model.Attributes
                             var k = ((string)e.Attribute("k") ?? string.Empty).Trim();
                             var vRaw = ((string)e.Attribute("v") ?? string.Empty).Trim();
 
-                            // ParseScalar already exists inside your DeserializeXml
+                            // ParseScalar already exists in DeserializeXml
                             var vObj = ParseScalar(vRaw, valueType);
 
                             result[k] = vObj;

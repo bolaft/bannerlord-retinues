@@ -365,7 +365,7 @@ namespace Retinues.Game.Retinues.Patches
                     for (int i = 0; i < troops.Count; i++)
                         troops[i]?.InitializeUpgrades();
 
-                    // No need to call ApplyRetinueCapRule here: your InitializeUpgrades postfix handles it.
+                    // No need to call ApplyRetinueCapRule here: the InitializeUpgrades postfix handles it.
                 }
                 catch (Exception ex)
                 {

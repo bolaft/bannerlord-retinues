@@ -27,7 +27,7 @@ namespace Retinues.Editor
             if ((args?.Mode ?? EditorMode.Universal) == EditorMode.Player)
             {
                 // Player-mode availability must be based on the intended selection,
-                // not always on the player clan. :contentReference[oaicite:3]{index=3}
+                // not always on the player clan.
                 var gateFaction = ResolveGateFaction(args);
 
                 if (!EditorAvailability.HasAnyCustomTreeTroops(gateFaction))

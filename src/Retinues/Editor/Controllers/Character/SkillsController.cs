@@ -174,7 +174,7 @@ namespace Retinues.Editor.Controllers.Character
             if (State.Mode != EditorMode.Player)
                 return false;
 
-            // Heroes don't stage/retrain over time in your system.
+            // Heroes don't stage/retrain over time.
             if (State.Character.IsHero)
                 return false;
 

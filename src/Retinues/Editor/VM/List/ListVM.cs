@@ -635,7 +635,7 @@ namespace Retinues.Editor.VM.List
         {
             progress = 0;
 
-            // Only relevant in player mode (your unlock system is hero-based).
+            // Only relevant in player mode.
             if (State.Mode != EditorMode.Player)
                 return false;
 

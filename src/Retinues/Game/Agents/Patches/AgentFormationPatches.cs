@@ -7,7 +7,7 @@ using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 
-namespace Retinues.Game.Missions.Patches
+namespace Retinues.Game.Agents.Patches
 {
     [HarmonyPatch(typeof(Mission), nameof(Mission.GetAgentTroopClass))]
     internal static class Mission_GetAgentTroopClass_Patch
@@ -114,7 +114,7 @@ namespace Retinues.Game.Missions.Patches
         [HarmonyPrefix]
         private static bool Prefix(BasicCharacterObject __instance, ref bool __result)
         {
-            // Only enforce when your formation override is active.
+            // Only enforce when a formation override is active.
             if (__instance is not CharacterObject co)
                 return true;
 

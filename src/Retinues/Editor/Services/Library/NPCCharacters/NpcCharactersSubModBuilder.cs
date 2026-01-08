@@ -30,7 +30,7 @@ namespace Retinues.Editor.Services.Library.NPCCharacters
 
             var project = new SubmodProject(manifest);
 
-            // 1) Write the new NPCCharacter definitions (only your edited troops).
+            // 1) Write the new NPCCharacter definitions (only edited troops).
             project.AddXml(
                 "ModuleData/spnpccharacters.xml",
                 BuildNpcCharactersDocument(npcElements)

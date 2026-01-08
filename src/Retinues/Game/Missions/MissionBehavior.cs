@@ -226,7 +226,6 @@ namespace Retinues.Game.Missions
 
             try
             {
-                // Per your codebase: prefer wrapper lookup by string id.
                 var w = WCharacter.Get(stringId);
                 var n = w?.Name?.ToString();
                 if (!string.IsNullOrEmpty(n))

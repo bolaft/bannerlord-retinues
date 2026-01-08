@@ -330,7 +330,7 @@ namespace Retinues.Configuration
                 dd = new Dropdown<string>(labels, selected);
                 _dropdownsByKey[key] = dd;
 
-                // When MCM UI changes SelectedIndex, update your option
+                // When MCM UI changes SelectedIndex, update the option
                 dd.PropertyChanged += (_, e) =>
                 {
                     if (e.PropertyName != nameof(Dropdown<string>.SelectedIndex))

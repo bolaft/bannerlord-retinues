@@ -569,7 +569,7 @@ namespace Retinues.Domain.Equipments.Wrappers
             var monster = horse?.HorseComponent?.Monster;
             var armor = harness?.ArmorComponent;
 
-            // If we cannot read either side, do not block (your current desired behavior).
+            // If we cannot read either side, do not block.
             if (monster == null || armor == null)
                 return true;
 

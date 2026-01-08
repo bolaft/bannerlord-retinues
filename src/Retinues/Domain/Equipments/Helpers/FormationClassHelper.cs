@@ -34,7 +34,6 @@ namespace Retinues.Domain.Equipments.Helpers
                 || (equipment.Get(EquipmentIndex.Weapon3)?.IsRangedWeapon ?? false);
 
             // Simple, robust mapping.
-            // If you have extra FormationClass values in your build, keep this conservative.
             if (mounted && ranged)
                 return FromFormationClass(FormationClass.HorseArcher);
             if (mounted)

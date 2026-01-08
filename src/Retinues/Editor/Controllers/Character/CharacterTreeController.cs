@@ -127,7 +127,6 @@ namespace Retinues.Editor.Controllers.Character
 
             // Ensure a clean roster state. (Roster API differs across refactors; use what you have.)
             // We avoid calling Remove on existing sets while economy might be active; clone has none anyway.
-            // If your roster can contain defaults even when equipments:false, reset it safely.
             roster?.InvalidateItemCountsCache();
 
             var battle = RandomEquipmentHelper.CreateRandomEquipment(
@@ -148,8 +147,6 @@ namespace Retinues.Editor.Controllers.Character
                 pickBest: true
             );
 
-            // If your roster has explicit Add/Remove methods, use them.
-            // Otherwise adapt these 2 lines to your roster API.
             roster.Add(battle);
             roster.Add(civilian);
 
