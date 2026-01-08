@@ -1097,6 +1097,9 @@
       id="ret_skill_description_text_short"
       text="スキル上限: {SKILL_CAP}" />
     <string
+      id="ret_skill_experience_tooltip"
+      text="次のスキルポイントまでのXP：{XP}/{XP_REQUIRED}。" />
+    <string
       id="ret_skill_increase_maxed_reason"
       text="スキルはすでに最大レベルです。" />
     <string
@@ -1105,6 +1108,9 @@
     <string
       id="ret_skill_increase_total_reason"
       text="総スキル制限に達しました。" />
+    <string
+      id="ret_skill_points_gained"
+      text="{TROOP} は {POINTS} のスキルポイントを獲得しました。" />
     <string
       id="ret_skill_value_hint_staged"
       text="トレーニングが完了するまでの実際のスキル値：{CURRENT}。" />

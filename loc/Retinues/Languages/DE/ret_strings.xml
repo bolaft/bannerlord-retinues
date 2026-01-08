@@ -1097,6 +1097,9 @@
       id="ret_skill_description_text_short"
       text="Fähigkeitslimit: {SKILL_CAP}" />
     <string
+      id="ret_skill_experience_tooltip"
+      text="{XP}/{XP_REQUIRED} XP bis zum nächsten Fertigkeitspunkt." />
+    <string
       id="ret_skill_increase_maxed_reason"
       text="Fähigkeit ist bereits auf dem maximalen Niveau." />
     <string
@@ -1105,6 +1108,9 @@
     <string
       id="ret_skill_increase_total_reason"
       text="Gesamtes Fähigkeitslimit erreicht." />
+    <string
+      id="ret_skill_points_gained"
+      text="{TROOP} hat {POINTS} Fertigkeitspunkte verdient." />
     <string
       id="ret_skill_value_hint_staged"
       text="Tatsächlicher Fähigkeitswert bis zum Abschluss des Trainings: {CURRENT}." />

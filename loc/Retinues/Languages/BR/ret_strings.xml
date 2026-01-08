@@ -1097,6 +1097,9 @@
       id="ret_skill_description_text_short"
       text="Limite de Habilidade: {SKILL_CAP}" />
     <string
+      id="ret_skill_experience_tooltip"
+      text="{XP}/{XP_REQUIRED} XP para o próximo ponto de habilidade." />
+    <string
       id="ret_skill_increase_maxed_reason"
       text="A habilidade já está no nível máximo." />
     <string
@@ -1105,6 +1108,9 @@
     <string
       id="ret_skill_increase_total_reason"
       text="Limite total de habilidades atingida." />
+    <string
+      id="ret_skill_points_gained"
+      text="{TROOP} ganhou {POINTS} pontos de habilidade." />
     <string
       id="ret_skill_value_hint_staged"
       text="Valor real da habilidade até o treinamento ser concluído: {CURRENT}." />

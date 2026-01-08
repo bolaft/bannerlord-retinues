@@ -1097,6 +1097,9 @@
       id="ret_skill_description_text_short"
       text="Skill Cap: {SKILL_CAP}" />
     <string
+      id="ret_skill_experience_tooltip"
+      text="{XP}/{XP_REQUIRED} XP towards next skill point." />
+    <string
       id="ret_skill_increase_maxed_reason"
       text="Skill is already at maximum level." />
     <string
@@ -1105,6 +1108,9 @@
     <string
       id="ret_skill_increase_total_reason"
       text="Total skill limit reached." />
+    <string
+      id="ret_skill_points_gained"
+      text="{TROOP} earned {POINTS} skill points." />
     <string
       id="ret_skill_value_hint_staged"
       text="Actual skill value until training completes: {CURRENT}." />

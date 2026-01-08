@@ -1097,6 +1097,9 @@
       id="ret_skill_description_text_short"
       text="Plafond de compétence : {SKILL_CAP}" />
     <string
+      id="ret_skill_experience_tooltip"
+      text="{XP}/{XP_REQUIRED} XP avant le prochain point de compétence." />
+    <string
       id="ret_skill_increase_maxed_reason"
       text="La compétence est déjà au niveau maximum." />
     <string
@@ -1105,6 +1108,9 @@
     <string
       id="ret_skill_increase_total_reason"
       text="Maximum de compétences atteint." />
+    <string
+      id="ret_skill_points_gained"
+      text="{TROOP} a gagné {POINTS} points de compétence." />
     <string
       id="ret_skill_value_hint_staged"
       text="Valeur réelle de la compétence avant entraînement : {CURRENT}." />

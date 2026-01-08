@@ -5824,6 +5824,22 @@
     "TR": "Yetenek Limiti: {SKILL_CAP}"
   },
   {
+    "id": "ret_skill_experience_tooltip",
+    "EN": "{XP}/{XP_REQUIRED} XP towards next skill point.",
+    "FR": "{XP}/{XP_REQUIRED} XP avant le prochain point de compétence.",
+    "BR": "{XP}/{XP_REQUIRED} XP para o próximo ponto de habilidade.",
+    "CNs": "{XP}/{XP_REQUIRED} 经验值，距离下一个技能点。",
+    "CNt": "{XP}/{XP_REQUIRED} 經驗值，距離下一個技能點。",
+    "DE": "{XP}/{XP_REQUIRED} XP bis zum nächsten Fertigkeitspunkt.",
+    "IT": "{XP}/{XP_REQUIRED} XP verso il prossimo punto abilità.",
+    "JP": "次のスキルポイントまでのXP：{XP}/{XP_REQUIRED}。",
+    "KO": "다음 기술 포인트까지의 XP: {XP}/{XP_REQUIRED}.",
+    "PL": "{XP}/{XP_REQUIRED} XP do następnego punktu umiejętności.",
+    "RU": "{XP}/{XP_REQUIRED} XP до следующего очка навыка.",
+    "SP": "{XP}/{XP_REQUIRED} XP para el próximo punto de habilidad.",
+    "TR": "Sonraki yetenek puanı için {XP}/{XP_REQUIRED} XP."
+  },
+  {
     "id": "ret_skill_increase_maxed_reason",
     "EN": "Skill is already at maximum level.",
     "FR": "La compétence est déjà au niveau maximum.",
@@ -5870,6 +5886,22 @@
     "RU": "Достигнут общий лимит навыков.",
     "SP": "Límite total de habilidades alcanzado.",
     "TR": "Toplam yetenek limiti aşıldı."
+  },
+  {
+    "id": "ret_skill_points_gained",
+    "EN": "{TROOP} earned {POINTS} skill points.",
+    "FR": "{TROOP} a gagné {POINTS} points de compétence.",
+    "BR": "{TROOP} ganhou {POINTS} pontos de habilidade.",
+    "CNs": "{TROOP} 获得了 {POINTS} 个技能点。",
+    "CNt": "{TROOP} 獲得了 {POINTS} 個技能點。",
+    "DE": "{TROOP} hat {POINTS} Fertigkeitspunkte verdient.",
+    "IT": "{TROOP} ha guadagnato {POINTS} punti abilità.",
+    "JP": "{TROOP} は {POINTS} のスキルポイントを獲得しました。",
+    "KO": "{TROOP}이(가) {POINTS} 기술 포인트를 획득했습니다.",
+    "PL": "{TROOP} zdobył {POINTS} punktów umiejętności.",
+    "RU": "{TROOP} заработал {POINTS} очков навыков.",
+    "SP": "{TROOP} ganó {POINTS} puntos de habilidad.",
+    "TR": "{TROOP}, {POINTS} yetenek puanı kazandı."
   },
   {
     "id": "ret_skill_value_hint_staged",

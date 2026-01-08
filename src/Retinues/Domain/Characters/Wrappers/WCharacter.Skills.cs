@@ -24,6 +24,14 @@ namespace Retinues.Domain.Characters.Wrappers
             set => SkillPointsAttribute.Set(value);
         }
 
+        MAttribute<int> SkillPointsExperienceAttribute => Attribute(initialValue: 0);
+
+        public int SkillPointsExperience
+        {
+            get => SkillPointsExperienceAttribute.Get();
+            set => SkillPointsExperienceAttribute.Set(value);
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Skills                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

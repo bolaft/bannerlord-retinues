@@ -1097,6 +1097,9 @@
       id="ret_skill_description_text_short"
       text="技能上限：{SKILL_CAP}" />
     <string
+      id="ret_skill_experience_tooltip"
+      text="{XP}/{XP_REQUIRED} 经验值，距离下一个技能点。" />
+    <string
       id="ret_skill_increase_maxed_reason"
       text="技能已达到最高水平。" />
     <string
@@ -1105,6 +1108,9 @@
     <string
       id="ret_skill_increase_total_reason"
       text="已达到总技能限制。" />
+    <string
+      id="ret_skill_points_gained"
+      text="{TROOP} 获得了 {POINTS} 个技能点。" />
     <string
       id="ret_skill_value_hint_staged"
       text="训练完成前的实际技能值：{CURRENT}。" />

@@ -1097,6 +1097,9 @@
       id="ret_skill_description_text_short"
       text="기술 한도: {SKILL_CAP}" />
     <string
+      id="ret_skill_experience_tooltip"
+      text="다음 기술 포인트까지의 XP: {XP}/{XP_REQUIRED}." />
+    <string
       id="ret_skill_increase_maxed_reason"
       text="기술이 이미 최대 수준에 도달했습니다." />
     <string
@@ -1105,6 +1108,9 @@
     <string
       id="ret_skill_increase_total_reason"
       text="총 기술 한도에 도달했습니다." />
+    <string
+      id="ret_skill_points_gained"
+      text="{TROOP}이(가) {POINTS} 기술 포인트를 획득했습니다." />
     <string
       id="ret_skill_value_hint_staged"
       text="훈련이 완료될 때까지의 실제 기술 값: {CURRENT}." />

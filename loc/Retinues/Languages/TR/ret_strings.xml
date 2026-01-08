@@ -1097,6 +1097,9 @@
       id="ret_skill_description_text_short"
       text="Yetenek Limiti: {SKILL_CAP}" />
     <string
+      id="ret_skill_experience_tooltip"
+      text="Sonraki yetenek puanı için {XP}/{XP_REQUIRED} XP." />
+    <string
       id="ret_skill_increase_maxed_reason"
       text="Yetenek zaten maksimum seviyede." />
     <string
@@ -1105,6 +1108,9 @@
     <string
       id="ret_skill_increase_total_reason"
       text="Toplam yetenek limiti aşıldı." />
+    <string
+      id="ret_skill_points_gained"
+      text="{TROOP}, {POINTS} yetenek puanı kazandı." />
     <string
       id="ret_skill_value_hint_staged"
       text="Eğitim tamamlanana kadar gerçek yetenek değeri: {CURRENT}." />

@@ -1,5 +1,6 @@
 {% from "_/macros.buttons.j2" import button_chevron_left, button_chevron_right %}
 {% from "_/macros.panel.j2" import panel_header %}
+{% from "_/macros.icons.j2" import icon_sprite %}
 
 {{ panel_header("@SkillsHeaderText") }}
 
@@ -30,6 +31,13 @@
     UpdateChildrenStates="true"
     MarginBottom="12">
     <Children>
+        {{ icon_sprite(
+            "{ExperienceIcon}",
+            "CharacterDeveloper\skill_description",
+            size="20",
+            margin_right="8"
+        ) }}
+
         <TextWidget
             Text="@SkillDescriptionText"
             Brush="InventoryGoldFontBrush"

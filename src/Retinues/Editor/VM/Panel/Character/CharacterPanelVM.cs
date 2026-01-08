@@ -5,6 +5,7 @@ using Retinues.Domain.Characters.Helpers;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Editor.Controllers.Character;
 using Retinues.Editor.Events;
+using Retinues.Game.Experience;
 using Retinues.UI.Services;
 using Retinues.UI.VM;
 using Retinues.Utilities;
@@ -157,6 +158,28 @@ namespace Retinues.Editor.VM.Panel.Character
                 : L.T("skill_description_text_short", "Skill Cap: {SKILL_CAP}")
                     .SetTextVariable("SKILL_CAP", State.Character.SkillCapForTier)
                     .ToString();
+
+        [DataSourceProperty]
+        public Icon ExperienceIcon =>
+            new(
+                tooltip: new(
+                    L.T(
+                            "skill_experience_tooltip",
+                            "{XP}/{XP_REQUIRED} XP towards next skill point."
+                        )
+                        .SetTextVariable("XP", (int)State.Character.SkillPointsExperience)
+                        .SetTextVariable("XP", State.Character.SkillPointsExperience)
+                        .SetTextVariable(
+                            "XP_REQUIRED",
+                            SkillPointExperienceGain.GetXpRequiredForSkillPoint(
+                                State.Character.Base
+                            )
+                        )
+                ),
+                refresh: [UIEvent.Character],
+                visibilityGate: () =>
+                    Settings.EnableSkillGainSystem && State.Mode == EditorMode.Player
+            );
 
         [DataSourceProperty]
         public MBBindingList<CharacterSkillVM> SkillsRow1 { get; } = [];

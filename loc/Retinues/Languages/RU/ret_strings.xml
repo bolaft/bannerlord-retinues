@@ -1097,6 +1097,9 @@
       id="ret_skill_description_text_short"
       text="Лимит навыков: {SKILL_CAP}" />
     <string
+      id="ret_skill_experience_tooltip"
+      text="{XP}/{XP_REQUIRED} XP до следующего очка навыка." />
+    <string
       id="ret_skill_increase_maxed_reason"
       text="Навык уже на максимальном уровне." />
     <string
@@ -1105,6 +1108,9 @@
     <string
       id="ret_skill_increase_total_reason"
       text="Достигнут общий лимит навыков." />
+    <string
+      id="ret_skill_points_gained"
+      text="{TROOP} заработал {POINTS} очков навыков." />
     <string
       id="ret_skill_value_hint_staged"
       text="Фактическое значение навыка до завершения тренировки: {CURRENT}." />

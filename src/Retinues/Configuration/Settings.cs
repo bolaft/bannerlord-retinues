@@ -542,7 +542,8 @@ namespace Retinues.Configuration
             maxValue: 5f,
             @default: 1f,
             @realistic: 0.5f,
-            dependsOn: EnableSkillGainSystem
+            dependsOn: EnableSkillGainSystem,
+            fires: [UIEvent.Character]
         );
 
         public static readonly Option<bool> TrainingTakesTime = CreateOption(
