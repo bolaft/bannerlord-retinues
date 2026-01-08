@@ -119,7 +119,10 @@ namespace Retinues.Game.Unlocks
             }
 
             if (unlocked.Count > 0)
-                UnlockNotifier.ItemsUnlocked(UnlockNotifier.UnlockMethod.Kills, unlocked);
+                UnlockNotifierBehavior.ItemsUnlocked(
+                    UnlockNotifierBehavior.UnlockMethod.Kills,
+                    unlocked
+                );
 
             if (Settings.DebugMode && itemsTouched > 0)
             {

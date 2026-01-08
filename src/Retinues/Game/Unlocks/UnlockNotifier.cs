@@ -1,11 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Retinues.Configuration;
 using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Framework.Runtime;
 using Retinues.UI.Services;
-using TaleWorlds.Localization;
 
 namespace Retinues.Game.Unlocks
 {
@@ -56,7 +54,7 @@ namespace Retinues.Game.Unlocks
                 .SetTextVariable("METHOD", methodText)
                 .SetTextVariable("ITEMS", summary);
 
-            Notify(title, desc);
+            UnlockNotifierBehavior.Notify(title, desc);
         }
 
         public static void WorkshopsStarted(IReadOnlyList<WorkshopStartInfo> starts)
@@ -92,31 +90,12 @@ namespace Retinues.Game.Unlocks
             var desc = L.T("workshop_unlock_start_desc", "{ITEMS}")
                 .SetTextVariable("ITEMS", summary);
 
-            Notify(title, desc);
+            UnlockNotifierBehavior.Notify(title, desc);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Helpers                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        private static void Notify(TextObject title, TextObject description)
-        {
-            switch (Settings.ItemUnlockNotification.Value)
-            {
-                case Settings.ItemUnlockNotificationStyle.Popup:
-                    Inquiries.Popup(title, description);
-                    break;
-
-                case Settings.ItemUnlockNotificationStyle.Message:
-                    // Keep messages small. Title + one-line summary.
-                    Notifications.Message($"{title}\n{description}");
-                    break;
-
-                default:
-                    Inquiries.Popup(title, description);
-                    break;
-            }
-        }
 
         private static string MethodLabel(UnlockMethod method)
         {

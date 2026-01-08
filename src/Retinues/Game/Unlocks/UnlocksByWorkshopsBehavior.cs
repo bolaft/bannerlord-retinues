@@ -134,7 +134,7 @@ namespace Retinues.Game.Unlocks
             var maxCatchupDays = 60;
             var daysToProcess = Math.Min(currentDay - _lastProcessedDay, maxCatchupDays);
             var unlocked = new List<WItem>();
-            var started = new List<UnlockNotifier.WorkshopStartInfo>();
+            var started = new List<UnlockNotifierBehavior.WorkshopStartInfo>();
 
             for (var d = 0; d < daysToProcess; d++)
             {
@@ -142,8 +142,11 @@ namespace Retinues.Game.Unlocks
                 ApplyOneDay(workshops, perDay, dayIndex, unlocked, started);
             }
 
-            UnlockNotifier.ItemsUnlocked(UnlockNotifier.UnlockMethod.Workshops, unlocked);
-            UnlockNotifier.WorkshopsStarted(started);
+            UnlockNotifierBehavior.ItemsUnlocked(
+                UnlockNotifierBehavior.UnlockMethod.Workshops,
+                unlocked
+            );
+            UnlockNotifierBehavior.WorkshopsStarted(started);
 
             _lastProcessedDay += daysToProcess;
 
@@ -193,7 +196,7 @@ namespace Retinues.Game.Unlocks
             int perDay,
             int dayIndex,
             List<WItem> unlocked,
-            List<UnlockNotifier.WorkshopStartInfo> started
+            List<UnlockNotifierBehavior.WorkshopStartInfo> started
         )
         {
             var itemsTouched = 0;
@@ -240,7 +243,7 @@ namespace Retinues.Game.Unlocks
             Workshop w,
             string workshopKey,
             int dayIndex,
-            List<UnlockNotifier.WorkshopStartInfo> started
+            List<UnlockNotifierBehavior.WorkshopStartInfo> started
         )
         {
             if (
@@ -268,7 +271,7 @@ namespace Retinues.Game.Unlocks
                 w.WorkshopType?.Name?.ToString() ?? w.WorkshopType?.StringId ?? "Workshop";
             var townName = w.Settlement?.Name?.ToString() ?? w.Settlement?.StringId ?? "Unknown";
             started?.Add(
-                new UnlockNotifier.WorkshopStartInfo
+                new UnlockNotifierBehavior.WorkshopStartInfo
                 {
                     WorkshopLabel = $"{typeName} ({townName})",
                     Item = next,
