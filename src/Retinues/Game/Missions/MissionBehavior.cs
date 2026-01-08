@@ -32,7 +32,9 @@ namespace Retinues.Game.Missions
             _started = true;
             MMission.SetCurrent(Mission);
 
-            Log.Debug($"Mission started. Scene='{Mission?.SceneName}'.");
+            Log.Debug(
+                $"Mission started. Mode='{Mission?.Mode.ToString()}'. Scene='{Mission?.SceneName}'."
+            );
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -65,7 +67,9 @@ namespace Retinues.Game.Missions
             }
 #endif
 
-            Log.Debug($"Mission ended. Scene='{Mission?.SceneName}'.");
+            Log.Debug(
+                $"Mission ended. Mode='{Mission?.Mode.ToString()}'. Scene='{Mission?.SceneName}'."
+            );
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

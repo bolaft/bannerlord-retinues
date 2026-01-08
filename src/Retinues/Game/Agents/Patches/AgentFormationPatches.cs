@@ -9,6 +9,20 @@ using TaleWorlds.MountAndBlade;
 
 namespace Retinues.Game.Agents.Patches
 {
+    internal static class FormationOverrideContext
+    {
+        public static bool IsActive(Mission mission = null)
+        {
+            var m = mission ?? Mission.Current;
+            if (m == null)
+                return false;
+
+            // Only apply during actual combat and the deployment screen.
+            // This prevents UI / character editor / inventory preview missions from being affected.
+            return m.Mode == MissionMode.Battle || m.Mode == MissionMode.Deployment;
+        }
+    }
+
     [HarmonyPatch(typeof(Mission), nameof(Mission.GetAgentTroopClass))]
     internal static class Mission_GetAgentTroopClass_Patch
     {
@@ -22,6 +36,9 @@ namespace Retinues.Game.Agents.Patches
         {
             try
             {
+                if (!FormationOverrideContext.IsActive(__instance))
+                    return true;
+
                 if (agentCharacter is not CharacterObject co)
                     return true;
 
@@ -30,14 +47,13 @@ namespace Retinues.Game.Agents.Patches
                     return true;
 
                 if (w.IsEdited == false)
-                    return true; // skip vanilla
+                    return true;
 
                 var fc = w.FormationClassOverride;
                 if (fc == FormationClass.Unset)
                     return true;
 
-                // IMPORTANT: Mission.GetAgentTroopClass normally dismounts in sieges/sally-out.
-                // If we override here, we must keep the same rule.
+                // Keep vanilla siege/sally-out dismount semantics.
                 if (
                     __instance.IsSiegeBattle
                     || (__instance.IsSallyOutBattle && battleSide == BattleSideEnum.Attacker)
@@ -45,7 +61,7 @@ namespace Retinues.Game.Agents.Patches
                     fc = fc.DismountedClass();
 
                 __result = fc;
-                return false; // skip vanilla
+                return false;
             }
             catch (Exception ex)
             {
@@ -75,6 +91,9 @@ namespace Retinues.Game.Agents.Patches
                 return;
 
             var mission = Mission.Current;
+            if (!FormationOverrideContext.IsActive(mission))
+                return;
+
             for (int i = 0; i < __result.Count; i++)
             {
                 var origin = __result[i].origin;
@@ -86,10 +105,8 @@ namespace Retinues.Game.Agents.Patches
                 if (w == null || w.FormationClassOverride == FormationClass.Unset)
                     continue;
 
-                // Use the effective class you already computed in UpdateFormationClass().
                 var fc = w.FormationClass;
 
-                // Keep vanilla siege/sally-out dismount semantics.
                 if (
                     mission != null
                     && (
@@ -99,9 +116,8 @@ namespace Retinues.Game.Agents.Patches
                 )
                     fc = fc.DismountedClass();
 
-                // Initial spawn assignments only support formations 0..7.
                 if ((int)fc >= 8)
-                    fc = fc.DefaultClass(); // 0..3
+                    fc = fc.DefaultClass();
 
                 __result[i] = (origin, (int)fc);
             }
@@ -114,7 +130,10 @@ namespace Retinues.Game.Agents.Patches
         [HarmonyPrefix]
         private static bool Prefix(BasicCharacterObject __instance, ref bool __result)
         {
-            // Only enforce when a formation override is active.
+            // Avoid UI / preview contexts.
+            if (!FormationOverrideContext.IsActive())
+                return true;
+
             if (__instance is not CharacterObject co)
                 return true;
 
@@ -122,25 +141,7 @@ namespace Retinues.Game.Agents.Patches
             if (w == null || w.FormationClassOverride == FormationClass.Unset)
                 return true;
 
-            __result = w.IsMounted; // "virtual mounted"
-            return false; // skip vanilla Equipment[10] check
-        }
-    }
-
-    [HarmonyPatch(typeof(Agent), "get_IsRangedCached")]
-    internal static class Agent_IsRangedCached_Patch
-    {
-        [HarmonyPrefix]
-        private static bool Prefix(Agent __instance, ref bool __result)
-        {
-            if (__instance?.Character is not CharacterObject co)
-                return true;
-
-            var w = WCharacter.Get(co);
-            if (w == null || w.FormationClassOverride == FormationClass.Unset)
-                return true;
-
-            __result = w.IsRanged; // "virtual ranged"
+            __result = w.IsMounted;
             return false;
         }
     }
@@ -152,7 +153,14 @@ namespace Retinues.Game.Agents.Patches
             mounted = false;
             ranged = false;
 
-            if (a?.Character is not CharacterObject co)
+            if (a == null)
+                return false;
+
+            // Avoid UI / preview contexts.
+            if (!FormationOverrideContext.IsActive(a.Mission))
+                return false;
+
+            if (a.Character is not CharacterObject co)
                 return false;
 
             var w = WCharacter.Get(co);

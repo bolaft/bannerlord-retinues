@@ -43,7 +43,7 @@ namespace Retinues.Configuration
 
             try
             {
-                Log.Info("Attempting to register Retinues with MCM...");
+                Log.Debug("Attempting to register Retinues with MCM...");
 
                 // Ensure SettingsManager has discovered all options
                 var _ = SettingsManager.AllOptions;
@@ -56,7 +56,7 @@ namespace Retinues.Configuration
                 }
 
                 _isRegistered = true;
-                Log.Info("Retinues options registered with MCM.");
+                Log.Debug("Retinues options registered with MCM.");
 
                 return true;
             }

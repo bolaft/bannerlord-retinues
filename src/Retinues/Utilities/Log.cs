@@ -42,7 +42,7 @@ namespace Retinues.Utilities
         /// <summary>
         /// Lowest level written to file.
         /// </summary>
-        public static LogLevel MinFileLevel => DebugMode ? LogLevel.Trace : LogLevel.Info;
+        public static LogLevel MinFileLevel => DebugMode ? LogLevel.Trace : LogLevel.Debug;
 
         /// <summary>
         /// Lowest level shown in-game (InformationManager).

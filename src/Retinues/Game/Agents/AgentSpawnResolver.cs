@@ -229,9 +229,8 @@ namespace Retinues.Game.Agents
 
             // Always force a single full equipment set when multiple are eligible.
             // This prevents per-slot mixing when more than one set is enabled for the context.
-            var chosenEq = eligible.Count == 1
-                ? eligible[0]
-                : eligible[MBRandom.RandomInt(eligible.Count)];
+            var chosenEq =
+                eligible.Count == 1 ? eligible[0] : eligible[MBRandom.RandomInt(eligible.Count)];
 
             if (chosenEq?.Base == null)
                 return;
