@@ -26,12 +26,13 @@ namespace Retinues.Game.Missions
             PartyBase defenderParty
         )
         {
-            // Respect IsEnabled like the old behavior.
             if (!IsEnabled)
                 return;
 
-            if (mapEvent != null && mapEvent.IsPlayerMapEvent)
-                MMapEvent.SetCurrent(mapEvent);
+            if (mapEvent?.IsPlayerMapEvent != true)
+                return; // Only care about player-involved events.
+
+            MMapEvent.SetCurrent(mapEvent);
 
             var attacker = attackerParty?.Name?.ToString();
             var defender = defenderParty?.Name?.ToString();
@@ -50,6 +51,8 @@ namespace Retinues.Game.Missions
             if (!IsEnabled)
                 return;
 
+            if (mapEvent?.IsPlayerMapEvent != true)
+                return; // Only care about player-involved events.
 #if DEBUG
             try
             {
