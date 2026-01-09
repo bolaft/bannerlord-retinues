@@ -200,8 +200,43 @@ namespace Retinues.Configuration
         /// </summary>
         public void SetObject(object value)
         {
-            T typed = (T)Convert.ChangeType(value, typeof(T), CultureInfo.InvariantCulture);
-            Value = typed;
+            var targetType = typeof(T);
+            var t = Nullable.GetUnderlyingType(targetType) ?? targetType;
+
+            if (value == null)
+                return;
+
+            try
+            {
+                if (t.IsInstanceOfType(value))
+                {
+                    Value = (T)value;
+                    return;
+                }
+
+                if (t.IsEnum)
+                {
+                    if (value is string s)
+                    {
+                        var parsed = Enum.Parse(t, s, ignoreCase: true);
+                        Value = (T)parsed;
+                        return;
+                    }
+
+                    var underlying = Enum.GetUnderlyingType(t);
+                    var num = Convert.ChangeType(value, underlying, CultureInfo.InvariantCulture);
+                    var boxedEnum = Enum.ToObject(t, num);
+                    Value = (T)boxedEnum;
+                    return;
+                }
+
+                var coerced = Convert.ChangeType(value, t, CultureInfo.InvariantCulture);
+                Value = (T)coerced;
+            }
+            catch
+            {
+                // Keep current value on bad coercion (prevents dropdowns from going blank).
+            }
         }
 
         /// <summary>

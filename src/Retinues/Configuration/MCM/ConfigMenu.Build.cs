@@ -75,7 +75,10 @@ namespace Retinues.Configuration.MCM
                                     id,
                                     name,
                                     selectedIndex: dd.SelectedIndex,
-                                    @ref: new ProxyRef<Dropdown<string>>(() => dd, null),
+                                    @ref: new ProxyRef<Dropdown<string>>(
+                                        () => dd,
+                                        v => ApplyDropdownFromMCM(opt.Key, mc, v)
+                                    ),
                                     builder: d =>
                                         d.SetOrder(oIndex++)
                                             .SetHintText(opt.Hint)
@@ -193,13 +196,63 @@ namespace Retinues.Configuration.MCM
                     p.SetPropertyValue(kv.Key, kv.Value);
             }
 
-            var freeform = all.ToDictionary(
-                o => o.Key,
-                o => o.PresetOverrides.TryGetValue(Presets.Freeform, out var v) ? v : o.Default
-            );
+            static object MakePresetValue(IOption opt, string presetKey)
+            {
+                object desired;
+
+                if (presetKey != null && opt.PresetOverrides != null)
+                {
+                    if (opt.PresetOverrides.TryGetValue(presetKey, out var v) && v != null)
+                        desired = v;
+                    else
+                        desired = opt.Default;
+                }
+                else
+                {
+                    desired = opt.Default;
+                }
+
+                if (opt is IMultiChoiceOption mc)
+                {
+                    var choices = mc.Choices;
+                    if (choices == null || choices.Count == 0)
+                        return new Dropdown<string>([string.Empty], 0);
+
+                    int idx = 0;
+
+                    if (desired != null)
+                    {
+                        for (int i = 0; i < choices.Count; i++)
+                        {
+                            if (Equals(choices[i], desired))
+                            {
+                                idx = i;
+                                break;
+                            }
+                        }
+                    }
+
+                    var labels = choices
+                        .Select(c => mc.ChoiceFormatter(c) ?? string.Empty)
+                        .ToList();
+                    if (labels.Count == 0)
+                        labels.Add(string.Empty);
+
+                    if (idx < 0)
+                        idx = 0;
+                    if (idx >= labels.Count)
+                        idx = labels.Count - 1;
+
+                    return new Dropdown<string>(labels, idx);
+                }
+
+                return desired;
+            }
+
+            var freeform = all.ToDictionary(o => o.Key, o => MakePresetValue(o, Presets.Freeform));
             var realistic = all.ToDictionary(
                 o => o.Key,
-                o => o.PresetOverrides.TryGetValue(Presets.Realistic, out var v) ? v : o.Default
+                o => MakePresetValue(o, Presets.Realistic)
             );
 
             builder.CreatePreset(Presets.Freeform, "Freeform", p => ApplyPreset(p, freeform));

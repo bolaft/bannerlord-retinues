@@ -21,7 +21,7 @@ namespace Retinues.Configuration.MCM
         private static Dropdown<string> GetOrCreateDropdown(string key, IMultiChoiceOption opt)
         {
             // Build labels
-            var labels = opt.Choices.Select(opt.ChoiceFormatter).ToList();
+            var labels = opt.Choices.Select(c => opt.ChoiceFormatter(c) ?? string.Empty).ToList();
             if (labels.Count == 0)
                 labels.Add(string.Empty);
 
@@ -67,6 +67,72 @@ namespace Retinues.Configuration.MCM
             return dd;
         }
 
+        private static void ApplyDropdownFromMCM(
+            string key,
+            IMultiChoiceOption opt,
+            Dropdown<string> incoming
+        )
+        {
+            if (string.IsNullOrWhiteSpace(key) || opt == null)
+                return;
+
+            if (!_dropdownsByKey.TryGetValue(key, out var dd) || dd == null)
+                return;
+
+            if (_isSyncingWithMCM)
+                return;
+
+            try
+            {
+                _isSyncingWithMCM = true;
+
+                // Some MCM paths may provide a dropdown with no items; never wipe ours in that case.
+                if (incoming != null)
+                {
+                    bool hasItems = false;
+                    try
+                    {
+                        // Dropdown<T> behaves like a list in MCM.Common
+                        hasItems = incoming.Count > 0;
+                    }
+                    catch
+                    {
+                        // ignore
+                    }
+
+                    if (hasItems)
+                    {
+                        dd.Clear();
+                        dd.AddRange(incoming);
+                    }
+
+                    int idx = incoming.SelectedIndex;
+                    if (idx < 0)
+                        idx = 0;
+                    if (dd.Count > 0 && idx >= dd.Count)
+                        idx = dd.Count - 1;
+
+                    dd.SelectedIndex = idx;
+                    opt.SelectedIndex = idx;
+                }
+                else
+                {
+                    // Treat null as "keep current option state"
+                    int idx = opt.SelectedIndex;
+                    if (idx < 0)
+                        idx = 0;
+                    if (dd.Count > 0 && idx >= dd.Count)
+                        idx = dd.Count - 1;
+
+                    dd.SelectedIndex = idx;
+                }
+            }
+            finally
+            {
+                _isSyncingWithMCM = false;
+            }
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Helpers                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -98,7 +164,12 @@ namespace Retinues.Configuration.MCM
                 try
                 {
                     _isSyncingWithMCM = true;
-                    dd.SelectedIndex = mc.SelectedIndex;
+
+                    int idx = mc.SelectedIndex;
+                    if (idx < 0)
+                        idx = 0;
+
+                    dd.SelectedIndex = idx;
                 }
                 finally
                 {

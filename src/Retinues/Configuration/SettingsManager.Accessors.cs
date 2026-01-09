@@ -95,7 +95,7 @@ namespace Retinues.Configuration
             T disabledOverride = default,
             IOption dependsOn = null,
             object dependsOnValue = null,
-            Retinues.Editor.Events.UIEvent[] fires = null
+            Editor.Events.UIEvent[] fires = null
         )
         {
             Func<string> sectionFunc = null;
@@ -157,7 +157,7 @@ namespace Retinues.Configuration
             Func<T, string> choiceFormatter = null,
             IOption dependsOn = null,
             object dependsOnValue = null,
-            Retinues.Editor.Events.UIEvent[] fires = null
+            Editor.Events.UIEvent[] fires = null
         )
         {
             Func<string> sectionFunc = null;
@@ -171,13 +171,13 @@ namespace Retinues.Configuration
 
             if (freeform != null)
             {
-                merged ??= new Dictionary<string, object>();
+                merged ??= [];
                 merged[Presets.Freeform] = CoerceToType(freeform, typeof(T));
             }
 
             if (realistic != null)
             {
-                merged ??= new Dictionary<string, object>();
+                merged ??= [];
                 merged[Presets.Realistic] = CoerceToType(realistic, typeof(T));
             }
 
@@ -198,37 +198,6 @@ namespace Retinues.Configuration
                 choiceFormatter,
                 fires
             );
-        }
-
-        /// <summary>
-        /// Apply one of the three built-in presets to all options.
-        /// </summary>
-        public static void ApplyPresetsToAll(ConfigPreset preset)
-        {
-            DiscoverOptions();
-
-            string presetKey = null;
-            if (preset == ConfigPreset.Freeform)
-                presetKey = Presets.Freeform;
-            else if (preset == ConfigPreset.Realistic)
-                presetKey = Presets.Realistic;
-
-            for (int i = 0; i < _all.Count; i++)
-            {
-                IOption opt = _all[i];
-                object value;
-
-                if (presetKey == null)
-                {
-                    value = opt.Default;
-                }
-                else if (!opt.PresetOverrides.TryGetValue(presetKey, out value))
-                {
-                    value = opt.Default;
-                }
-
-                opt.SetObject(value);
-            }
         }
 
         /// <summary>
@@ -322,10 +291,47 @@ namespace Retinues.Configuration
         {
             return delegate
             {
-                if (!_values.TryGetValue(key, out object raw))
+                if (!_values.TryGetValue(key, out object raw) || raw == null)
                     return default;
 
-                T value = (T)Convert.ChangeType(raw, typeof(T), CultureInfo.InvariantCulture);
+                var targetType = typeof(T);
+                var t = Nullable.GetUnderlyingType(targetType) ?? targetType;
+
+                object boxed = raw;
+
+                try
+                {
+                    if (!t.IsInstanceOfType(boxed))
+                    {
+                        if (t.IsEnum)
+                        {
+                            if (boxed is string s)
+                            {
+                                boxed = Enum.Parse(t, s, ignoreCase: true);
+                            }
+                            else
+                            {
+                                var underlying = Enum.GetUnderlyingType(t);
+                                var num = Convert.ChangeType(
+                                    boxed,
+                                    underlying,
+                                    CultureInfo.InvariantCulture
+                                );
+                                boxed = Enum.ToObject(t, num);
+                            }
+                        }
+                        else
+                        {
+                            boxed = Convert.ChangeType(boxed, t, CultureInfo.InvariantCulture);
+                        }
+                    }
+                }
+                catch
+                {
+                    return default;
+                }
+
+                T value = (T)boxed;
 
                 if (_byKey.TryGetValue(key, out IOption opt))
                 {
