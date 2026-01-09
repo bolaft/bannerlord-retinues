@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Retinues.Domain.Factions;
 using Retinues.Domain.Factions.Wrappers;
 using Retinues.Framework.Runtime;
+using Retinues.Utilities;
 
 namespace Retinues.Domain.Characters.Wrappers
 {
@@ -45,6 +46,9 @@ namespace Retinues.Domain.Characters.Wrappers
             TroopSourceFlagCache.Invalidate();
             TroopFactionCache.Invalidate();
             CustomTreeFlagCache.Invalidate();
+
+            // Also invalidate retinue conversion sources/targets caches.
+            CacheRegistry.ClearGroup(ConversionCacheGroupKey);
         }
 
         private static class TroopSourceFlagCache
@@ -104,6 +108,20 @@ namespace Retinues.Domain.Characters.Wrappers
                         MarkMany(culture.RosterCaravan, TroopSourceFlags.Caravan);
                         MarkMany(culture.RosterVillager, TroopSourceFlags.Villager);
                         MarkMany(culture.RosterCivilian, TroopSourceFlags.Civilian);
+                    }
+
+                    // Same for clan rosters.
+                    foreach (var clan in WClan.All)
+                    {
+                        MarkMany(clan.RosterBasic, TroopSourceFlags.Basic);
+                        MarkMany(clan.RosterElite, TroopSourceFlags.Elite);
+                    }
+
+                    // Same for kingdom rosters.
+                    foreach (var kingdom in WKingdom.All)
+                    {
+                        MarkMany(kingdom.RosterBasic, TroopSourceFlags.Basic);
+                        MarkMany(kingdom.RosterElite, TroopSourceFlags.Elite);
                     }
 
                     // Retinues live on map-factions (clans/kingdoms).

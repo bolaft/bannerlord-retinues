@@ -246,6 +246,9 @@ namespace Retinues.Configuration
                     ClanTroopsUnlockMode.UnlockedWithFirstFief,
                     ClanTroopsUnlockMode.Disabled,
                 ],
+#if !DEBUG
+                requiresRestart: true,
+#endif
                 choiceFormatter: v =>
                     v switch
                     {
@@ -287,6 +290,9 @@ namespace Retinues.Configuration
                     KingdomTroopsUnlockMode.UnlockedUponBecomingRuler,
                     KingdomTroopsUnlockMode.Disabled,
                 ],
+#if !DEBUG
+                requiresRestart: true,
+#endif
                 choiceFormatter: v =>
                     v switch
                     {

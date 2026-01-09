@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Factions;
+using Retinues.Utilities;
 using TaleWorlds.Core;
 
 namespace Retinues.Domain.Characters.Helpers
@@ -34,18 +35,10 @@ namespace Retinues.Domain.Characters.Helpers
                 if (c == null)
                     continue;
 
-                var id = c.StringId;
-                if (string.IsNullOrEmpty(id))
-                    continue;
-
                 if (regularOnly && !c.IsElite && !c.IsBasic)
                     continue;
 
-                // Exact id match wins immediately.
-                if (string.Equals(id, troop.StringId, StringComparison.Ordinal))
-                    return c;
-
-                if (seen.Add(id))
+                if (seen.Add(c.StringId))
                     candidates.Add(c);
             }
 

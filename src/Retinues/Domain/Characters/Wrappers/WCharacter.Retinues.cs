@@ -14,12 +14,51 @@ namespace Retinues.Domain.Characters.Wrappers
         //                    Conversion Sources                  //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        private const string ConversionCacheGroupKey = "retinues.wcharacter.conversions";
+
         // Shared cache: sources and targets are computed together.
         private readonly Cache<WCharacter, List<WCharacter>> ConversionCache = new(
-            BuildConversionLinks
+            BuildConversionLinks,
+            key: ConversionCacheGroupKey
         );
 
         public List<WCharacter> ConversionSources => ConversionCache.Get(this);
+
+        /// <summary>
+        /// Forces recomputation of conversion sources/targets and re-applies UpgradeTargets.
+        /// Useful when faction rosters changed (clan/kingdom troops unlocked).
+        /// </summary>
+        public void RefreshConversionLinks()
+        {
+            if (!IsRetinue)
+                return;
+
+            // Local clear (not group clear) then rebuild.
+            ConversionCache.ClearLocal();
+            _ = ConversionSources;
+        }
+
+        /// <summary>
+        /// Refreshes conversion links for all retinues owned by the given faction.
+        /// </summary>
+        public static void RefreshRetinueConversions(IBaseFaction faction)
+        {
+            var roster = faction?.RosterRetinues;
+            if (roster == null || roster.Count == 0)
+                return;
+
+            for (int i = 0; i < roster.Count; i++)
+            {
+                var r = roster[i];
+                if (r?.Base == null)
+                    continue;
+
+                if (!r.IsRetinue)
+                    continue;
+
+                r.RefreshConversionLinks();
+            }
+        }
 
         private static List<WCharacter> BuildConversionLinks(WCharacter wc)
         {
@@ -49,12 +88,16 @@ namespace Retinues.Domain.Characters.Wrappers
             var results = new List<WCharacter>();
             var seen = new HashSet<string>(StringComparer.Ordinal);
 
+            Log.Info($"Building conversion matches for '{wc.Name}' at tier {requestedTier}.");
             // 1) Best match in each of the troop's factions (excluding culture to avoid double counting).
             var factions = wc.Factions;
             if (factions != null && factions.Count > 0)
             {
                 for (int i = 0; i < factions.Count; i++)
                 {
+                    Log.Info(
+                        $"Looking for conversion match for '{wc.Name}' at tier {requestedTier} in faction '{factions[i]?.Name}'."
+                    );
                     var faction = factions[i];
                     if (faction == null)
                         continue;
@@ -69,6 +112,12 @@ namespace Retinues.Domain.Characters.Wrappers
                         fallback: null,
                         regularOnly: true,
                         requestedTier: requestedTier
+                    );
+
+                    Log.Info(
+                        match != null
+                            ? $"  Found match: '{match.Name}'."
+                            : "  No suitable match found."
                     );
 
                     if (match == null)

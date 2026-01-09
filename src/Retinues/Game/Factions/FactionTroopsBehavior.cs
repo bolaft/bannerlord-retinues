@@ -213,6 +213,9 @@ namespace Retinues.Game.Factions
 
             Log.Info($"Unlocked {label} troops for '{faction.Name}'.");
 
+            // Ensure existing retinues immediately see the new clan/kingdom troops as valid conversions.
+            WCharacter.RefreshRetinueConversions(faction.Faction);
+
             if (unlockSink != null && unlockSink.Count > 0)
             {
                 // Single merged popup sentence, deduped by UnlockNotifier.
@@ -223,6 +226,7 @@ namespace Retinues.Game.Factions
             if (fromBootstrap)
                 return;
 
+            // Show representative troop in popup.
             var select = createdElite ?? createdBasic ?? faction.RootElite ?? faction.RootBasic;
             if (select?.Base == null)
                 return;
