@@ -131,18 +131,16 @@ namespace Retinues.Editor.Controllers.Character
 
             var battle = RandomEquipmentHelper.CreateRandomEquipment(
                 owner: clone,
+                source: parent.FirstBattleEquipment,
                 civilian: false,
-                minTier: 1,
-                maxTier: 6,
                 fromStocks: true,
                 pickBest: true
             );
 
             var civilian = RandomEquipmentHelper.CreateRandomEquipment(
                 owner: clone,
+                source: parent.FirstCivilianEquipment,
                 civilian: true,
-                minTier: 1,
-                maxTier: 6,
                 fromStocks: true,
                 pickBest: true
             );

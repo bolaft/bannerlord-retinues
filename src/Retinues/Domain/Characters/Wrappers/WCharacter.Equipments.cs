@@ -13,7 +13,6 @@ namespace Retinues.Domain.Characters.Wrappers
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private MEquipmentRoster _equipmentRosterCache;
-
         public MEquipmentRoster EquipmentRoster
         {
             get
@@ -40,18 +39,18 @@ namespace Retinues.Domain.Characters.Wrappers
 
         public List<MEquipment> Equipments => EquipmentRoster.Equipments;
 
-        public MEquipment FirstBattleEquipment
-        {
-            get
-            {
-                foreach (var equipment in Equipments)
-                {
-                    if (equipment?.IsCivilian == false)
-                        return equipment;
-                }
+        public MEquipment FirstBattleEquipment => GetFirstEquipment(civilian: false);
+        public MEquipment FirstCivilianEquipment => GetFirstEquipment(civilian: true);
 
-                return null;
+        public MEquipment GetFirstEquipment(bool civilian)
+        {
+            foreach (var equipment in Equipments)
+            {
+                if (equipment?.IsCivilian == civilian)
+                    return equipment;
             }
+
+            return null;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

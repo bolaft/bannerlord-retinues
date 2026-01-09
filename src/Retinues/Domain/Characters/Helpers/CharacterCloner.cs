@@ -33,7 +33,8 @@ namespace Retinues.Domain.Characters.Helpers
             WCharacter intoStub = null,
             bool unlockItems = true,
             bool notifyUnlocks = true,
-            List<WItem> unlockSink = null
+            List<WItem> unlockSink = null,
+            RandomEquipmentHelper.RandomEquipmentReuseContext equipmentReuseContext = null
         )
         {
             if (template == null)
@@ -58,7 +59,8 @@ namespace Retinues.Domain.Characters.Helpers
                 template: template,
                 clone: clone,
                 cultureContext: template.Culture,
-                createCivilianSet: true
+                createCivilianSet: true,
+                reuseContext: equipmentReuseContext
             );
 
             if (unlockItems)
@@ -86,12 +88,17 @@ namespace Retinues.Domain.Characters.Helpers
             if (!root.IsVanilla)
                 Log.Warn($"CloneTreeFromRoot expects vanilla root; got '{root.StringId}'.");
 
-            var templates = root.RootTree;
+            var templates = root.Tree;
             if (templates == null || templates.Count == 0)
                 templates = [root];
 
             var created = new List<WCharacter>(templates.Count);
             var map = new Dictionary<string, WCharacter>(templates.Count);
+
+            // Minimize variety across the whole tree (only matters for RandomSet).
+            RandomEquipmentHelper.RandomEquipmentReuseContext reuseContext = null;
+            if (equipments && Settings.StarterEquipment.Value == Settings.EquipmentMode.RandomSet)
+                reuseContext = new RandomEquipmentHelper.RandomEquipmentReuseContext();
 
             try
             {
@@ -109,7 +116,9 @@ namespace Retinues.Domain.Characters.Helpers
                             equipments: equipments,
                             intoStub: null,
                             unlockItems: false,
-                            notifyUnlocks: false
+                            notifyUnlocks: false,
+                            unlockSink: null,
+                            equipmentReuseContext: reuseContext
                         )
                         ?? throw new InvalidOperationException(
                             "No free stub available for tree clone."
@@ -297,7 +306,8 @@ namespace Retinues.Domain.Characters.Helpers
             WCharacter template,
             WCharacter clone,
             WCulture cultureContext,
-            bool createCivilianSet
+            bool createCivilianSet,
+            RandomEquipmentHelper.RandomEquipmentReuseContext reuseContext = null
         )
         {
             if (template == null || clone == null)
@@ -327,34 +337,63 @@ namespace Retinues.Domain.Characters.Helpers
 
             var culture = cultureContext ?? template.Culture;
 
-            int maxTier = MBMath.ClampInt(clone.Tier, 0, 6);
-            int minTier = 0;
+            // Pick the template's first battle/civilian sets as the "slot spec" source.
+            MEquipment srcBattle = null;
+            MEquipment srcCivil = null;
 
-            var noItemBattle = new Dictionary<EquipmentIndex, float>
+            var tplEquipments = template.EquipmentRoster?.Equipments;
+            if (tplEquipments != null)
             {
-                [EquipmentIndex.Head] = 25f,
-                [EquipmentIndex.Gloves] = 25f,
-                [EquipmentIndex.Horse] = 50f,
-            };
+                for (int i = 0; i < tplEquipments.Count; i++)
+                {
+                    var e = tplEquipments[i];
+                    if (e == null)
+                        continue;
 
-            Dictionary<EquipmentIndex, float> noItemCivil = new()
+                    if (e.IsCivilian)
+                    {
+                        if (srcCivil == null)
+                            srcCivil = e;
+                    }
+                    else
+                    {
+                        if (srcBattle == null)
+                            srcBattle = e;
+                    }
+
+                    if (srcBattle != null && srcCivil != null)
+                        break;
+                }
+            }
+
+            if (srcBattle == null && srcCivil != null)
+                srcBattle = srcCivil;
+
+            if (srcBattle == null)
             {
-                [EquipmentIndex.Head] = 50f,
-                [EquipmentIndex.Gloves] = 50f,
-                [EquipmentIndex.Horse] = 100f,
-            };
+                Log.Warn(
+                    $"ApplyStarterEquipments(RandomSet) has no source equipment for '{template.StringId}'. Resetting."
+                );
+                clone.EquipmentRoster.Copy(template.EquipmentRoster, EquipmentCopyMode.Reset);
+                return;
+            }
+
+            if (srcCivil == null)
+                srcCivil = srcBattle;
 
             var battle = RandomEquipmentHelper.CreateRandomEquipment(
                 owner: clone,
+                source: srcBattle,
                 civilian: false,
-                minTier: minTier,
-                maxTier: maxTier,
                 acceptableCultures: culture != null ? [culture] : null,
                 acceptNeutralCulture: true,
-                noItemChanceBySlotPercent: noItemBattle,
                 requireSkillForItem: true,
                 itemFilter: null,
-                enforceLimits: true
+                fromStocks: false,
+                pickBest: false,
+                enforceLimits: true,
+                reuseContext: reuseContext,
+                preferUnlocked: true
             );
 
             MEquipment civil = null;
@@ -362,15 +401,17 @@ namespace Retinues.Domain.Characters.Helpers
             {
                 civil = RandomEquipmentHelper.CreateRandomEquipment(
                     owner: clone,
+                    source: srcCivil,
                     civilian: true,
-                    minTier: minTier,
-                    maxTier: maxTier,
                     acceptableCultures: culture != null ? [culture] : null,
                     acceptNeutralCulture: true,
-                    noItemChanceBySlotPercent: noItemCivil,
                     requireSkillForItem: true,
                     itemFilter: null,
-                    enforceLimits: true
+                    fromStocks: false,
+                    pickBest: false,
+                    enforceLimits: true,
+                    reuseContext: reuseContext,
+                    preferUnlocked: true
                 );
             }
 

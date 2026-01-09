@@ -95,9 +95,6 @@ namespace Retinues.Domain.Characters.Wrappers
             {
                 for (int i = 0; i < factions.Count; i++)
                 {
-                    Log.Info(
-                        $"Looking for conversion match for '{wc.Name}' at tier {requestedTier} in faction '{factions[i]?.Name}'."
-                    );
                     var faction = factions[i];
                     if (faction == null)
                         continue;
@@ -112,12 +109,6 @@ namespace Retinues.Domain.Characters.Wrappers
                         fallback: null,
                         regularOnly: true,
                         requestedTier: requestedTier
-                    );
-
-                    Log.Info(
-                        match != null
-                            ? $"  Found match: '{match.Name}'."
-                            : "  No suitable match found."
                     );
 
                     if (match == null)
