@@ -83,12 +83,17 @@ namespace Retinues.Domain.Characters.Helpers
             if (rootTemplate == null)
                 return null;
 
-            var root = rootTemplate.Root ?? rootTemplate;
+            // IMPORTANT:
+            // Do NOT use rootTemplate.Root here.
+            // Root is computed from upgrade SOURCES, so Culture.Villager often becomes the component root.
+            var root = rootTemplate;
 
             if (!root.IsVanilla)
                 Log.Warn($"CloneTreeFromRoot expects vanilla root; got '{root.StringId}'.");
 
+            // Tree is subtree: self + descendants only (follows UpgradeTargets only).
             var templates = root.Tree;
+
             if (templates == null || templates.Count == 0)
                 templates = [root];
 

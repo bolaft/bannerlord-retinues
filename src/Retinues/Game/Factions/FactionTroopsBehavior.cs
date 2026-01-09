@@ -178,6 +178,12 @@ namespace Retinues.Game.Factions
 
             if (faction.RootBasic == null)
             {
+                Log.Info(
+                    $"Creating faction basic troops for '{faction.Name}' from culture '{culture.Name}'."
+                );
+                Log.Info(
+                    $"Template basic troop: '{culture.RootBasic?.Name ?? "null"}' ({culture.RootBasic?.StringId ?? "null"})"
+                );
                 createdBasic = CreateFromCultureRoot(
                     template: culture.RootBasic,
                     factionName: faction.Name,
@@ -194,6 +200,12 @@ namespace Retinues.Game.Factions
 
             if (faction.RootElite == null)
             {
+                Log.Info(
+                    $"Creating faction elite troops for '{faction.Name}' from culture '{culture.Name}'."
+                );
+                Log.Info(
+                    $"Template elite troop: '{culture.RootElite?.Name ?? "null"}' ({culture.RootElite?.StringId ?? "null"})"
+                );
                 createdElite = CreateFromCultureRoot(
                     template: culture.RootElite,
                     factionName: faction.Name,
