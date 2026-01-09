@@ -476,15 +476,6 @@
       id="ret_invalid_name_title"
       text="Nome non valido" />
     <string
-      id="ret_item_unlock_method_discards"
-      text="Scarti" />
-    <string
-      id="ret_item_unlock_method_kills"
-      text="Battaglia" />
-    <string
-      id="ret_item_unlock_method_workshops"
-      text="Officine" />
-    <string
       id="ret_item_unlock_notification_message"
       text="Messaggio di registro" />
     <string
@@ -1127,6 +1118,9 @@
       id="ret_skill_increase_total_reason"
       text="Limite totale di abilità raggiunta." />
     <string
+      id="ret_skill_point_gained"
+      text="{TROOP} ha guadagnato un punto abilità." />
+    <string
       id="ret_skill_points_gained"
       text="{TROOP} ha guadagnato {POINTS} punti abilità." />
     <string
@@ -1256,8 +1250,11 @@
       id="ret_weight_hint"
       text="Peso" />
     <string
-      id="ret_workshop_unlock_start_desc"
-      text="{ITEMS}" />
+      id="ret_workshop_unlock_start_line"
+      text="La tua {WORKSHOP} a {TOWN} ha iniziato a lavorare per sbloccare {ITEM}." />
+    <string
+      id="ret_workshop_unlock_start_more"
+      text="E altre {COUNT} officine hanno avviato nuovi progetti." />
     <string
       id="ret_workshop_unlock_start_title"
       text="Officine" />

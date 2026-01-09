@@ -476,15 +476,6 @@
       id="ret_invalid_name_title"
       text="잘못된 이름" />
     <string
-      id="ret_item_unlock_method_discards"
-      text="폐기물" />
-    <string
-      id="ret_item_unlock_method_kills"
-      text="전투" />
-    <string
-      id="ret_item_unlock_method_workshops"
-      text="작업장" />
-    <string
       id="ret_item_unlock_notification_message"
       text="로그 메시지" />
     <string
@@ -1127,6 +1118,9 @@
       id="ret_skill_increase_total_reason"
       text="총 기술 한도에 도달했습니다." />
     <string
+      id="ret_skill_point_gained"
+      text="{TROOP}이(가) 기술 포인트를 획득했습니다." />
+    <string
       id="ret_skill_points_gained"
       text="{TROOP}이(가) {POINTS} 기술 포인트를 획득했습니다." />
     <string
@@ -1256,8 +1250,11 @@
       id="ret_weight_hint"
       text="무게" />
     <string
-      id="ret_workshop_unlock_start_desc"
-      text="{ITEMS}" />
+      id="ret_workshop_unlock_start_line"
+      text="{TOWN} 에 있는 귀하의 {WORKSHOP} 이(가) {ITEM} 잠금 해제 작업을 시작했습니다." />
+    <string
+      id="ret_workshop_unlock_start_more"
+      text="그리고 {COUNT} 개의 추가 작업장이 새 프로젝트를 시작했습니다." />
     <string
       id="ret_workshop_unlock_start_title"
       text="작업장" />

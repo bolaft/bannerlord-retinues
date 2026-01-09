@@ -1118,6 +1118,9 @@
       id="ret_skill_increase_total_reason"
       text="Total skill limit reached." />
     <string
+      id="ret_skill_point_gained"
+      text="{TROOP} earned a skill point." />
+    <string
       id="ret_skill_points_gained"
       text="{TROOP} earned {POINTS} skill points." />
     <string

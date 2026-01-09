@@ -476,15 +476,6 @@
       id="ret_invalid_name_title"
       text="无效名称" />
     <string
-      id="ret_item_unlock_method_discards"
-      text="丢弃" />
-    <string
-      id="ret_item_unlock_method_kills"
-      text="战斗" />
-    <string
-      id="ret_item_unlock_method_workshops"
-      text="车间" />
-    <string
       id="ret_item_unlock_notification_message"
       text="日志消息" />
     <string
@@ -1127,6 +1118,9 @@
       id="ret_skill_increase_total_reason"
       text="已达到总技能限制。" />
     <string
+      id="ret_skill_point_gained"
+      text="{TROOP} 获得了一个技能点。" />
+    <string
       id="ret_skill_points_gained"
       text="{TROOP} 获得了 {POINTS} 个技能点。" />
     <string
@@ -1256,8 +1250,11 @@
       id="ret_weight_hint"
       text="重量" />
     <string
-      id="ret_workshop_unlock_start_desc"
-      text="{ITEMS}" />
+      id="ret_workshop_unlock_start_line"
+      text="您在 {TOWN} 的 {WORKSHOP} 开始解锁 {ITEM} 的工作。" />
+    <string
+      id="ret_workshop_unlock_start_more"
+      text="另外 {COUNT} 个作坊开始了新项目。" />
     <string
       id="ret_workshop_unlock_start_title"
       text="作坊" />

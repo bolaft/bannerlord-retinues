@@ -476,15 +476,6 @@
       id="ret_invalid_name_title"
       text="Nom invalide" />
     <string
-      id="ret_item_unlock_method_discards"
-      text="Rejets" />
-    <string
-      id="ret_item_unlock_method_kills"
-      text="Bataille" />
-    <string
-      id="ret_item_unlock_method_workshops"
-      text="Ateliers" />
-    <string
       id="ret_item_unlock_notification_message"
       text="Message de log" />
     <string
@@ -1127,6 +1118,9 @@
       id="ret_skill_increase_total_reason"
       text="Maximum de compétences atteint." />
     <string
+      id="ret_skill_point_gained"
+      text="{TROOP} a gagné un point de compétence." />
+    <string
       id="ret_skill_points_gained"
       text="{TROOP} a gagné {POINTS} points de compétence." />
     <string
@@ -1256,8 +1250,11 @@
       id="ret_weight_hint"
       text="Poids" />
     <string
-      id="ret_workshop_unlock_start_desc"
-      text="{ITEMS}" />
+      id="ret_workshop_unlock_start_line"
+      text="Votre {WORKSHOP} à {TOWN} a commencé à travailler sur le déverrouillage de {ITEM}." />
+    <string
+      id="ret_workshop_unlock_start_more"
+      text="Et {COUNT} autres ateliers ont lancé de nouveaux projets." />
     <string
       id="ret_workshop_unlock_start_title"
       text="Ateliers" />

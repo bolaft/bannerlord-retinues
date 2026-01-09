@@ -48,11 +48,17 @@ namespace Retinues.Game.Experience
                 wc.SkillPoints += chunks;
                 wc.SkillPointsExperience -= chunks * xpRequired;
 
-                Notifications.Message(
-                    L.T("skill_points_gained", "{TROOP} earned {POINTS} skill points.")
-                        .SetTextVariable("TROOP", wc.Name)
-                        .SetTextVariable("POINTS", chunks)
-                );
+                if (chunks > 1)
+                    Notifications.Message(
+                        L.T("skill_points_gained", "{TROOP} earned {POINTS} skill points.")
+                            .SetTextVariable("TROOP", wc.Name)
+                            .SetTextVariable("POINTS", chunks)
+                    );
+                else
+                    Notifications.Message(
+                        L.T("skill_point_gained", "{TROOP} earned a skill point.")
+                            .SetTextVariable("TROOP", wc.Name)
+                    );
             }
         }
 

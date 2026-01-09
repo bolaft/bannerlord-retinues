@@ -476,15 +476,6 @@
       id="ret_invalid_name_title"
       text="Nombre inválido" />
     <string
-      id="ret_item_unlock_method_discards"
-      text="Descartes" />
-    <string
-      id="ret_item_unlock_method_kills"
-      text="Batalla" />
-    <string
-      id="ret_item_unlock_method_workshops"
-      text="Talleres" />
-    <string
       id="ret_item_unlock_notification_message"
       text="Mensaje de registro" />
     <string
@@ -1127,6 +1118,9 @@
       id="ret_skill_increase_total_reason"
       text="Límite total de habilidades alcanzado." />
     <string
+      id="ret_skill_point_gained"
+      text="{TROOP} ganó un punto de habilidad." />
+    <string
       id="ret_skill_points_gained"
       text="{TROOP} ganó {POINTS} puntos de habilidad." />
     <string
@@ -1256,8 +1250,11 @@
       id="ret_weight_hint"
       text="Peso" />
     <string
-      id="ret_workshop_unlock_start_desc"
-      text="{ITEMS}" />
+      id="ret_workshop_unlock_start_line"
+      text="Su {WORKSHOP} en {TOWN} comenzó a trabajar en el desbloqueo de {ITEM}." />
+    <string
+      id="ret_workshop_unlock_start_more"
+      text="Y {COUNT} talleres más comenzaron nuevos proyectos." />
     <string
       id="ret_workshop_unlock_start_title"
       text="Talleres" />

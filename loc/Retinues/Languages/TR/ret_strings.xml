@@ -476,15 +476,6 @@
       id="ret_invalid_name_title"
       text="Geçersiz İsim" />
     <string
-      id="ret_item_unlock_method_discards"
-      text="Atıklar" />
-    <string
-      id="ret_item_unlock_method_kills"
-      text="Savaş" />
-    <string
-      id="ret_item_unlock_method_workshops"
-      text="Atölyeler" />
-    <string
       id="ret_item_unlock_notification_message"
       text="Günlük Mesajı" />
     <string
@@ -1127,6 +1118,9 @@
       id="ret_skill_increase_total_reason"
       text="Toplam yetenek limiti aşıldı." />
     <string
+      id="ret_skill_point_gained"
+      text="{TROOP}, bir yetenek puanı kazandı." />
+    <string
       id="ret_skill_points_gained"
       text="{TROOP}, {POINTS} yetenek puanı kazandı." />
     <string
@@ -1256,8 +1250,11 @@
       id="ret_weight_hint"
       text="Ağırlık" />
     <string
-      id="ret_workshop_unlock_start_desc"
-      text="{ITEMS}" />
+      id="ret_workshop_unlock_start_line"
+      text="{TOWN} şehrinizdeki {WORKSHOP}, {ITEM} kilidini açma çalışmasına başladı." />
+    <string
+      id="ret_workshop_unlock_start_more"
+      text="Ve {COUNT} daha fazla atölye yeni projelere başladı." />
     <string
       id="ret_workshop_unlock_start_title"
       text="Atölyeler" />

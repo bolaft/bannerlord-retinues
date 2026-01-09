@@ -476,15 +476,6 @@
       id="ret_invalid_name_title"
       text="無効な名前" />
     <string
-      id="ret_item_unlock_method_discards"
-      text="廃棄物" />
-    <string
-      id="ret_item_unlock_method_kills"
-      text="戦闘" />
-    <string
-      id="ret_item_unlock_method_workshops"
-      text="工房" />
-    <string
       id="ret_item_unlock_notification_message"
       text="ログメッセージ" />
     <string
@@ -1127,6 +1118,9 @@
       id="ret_skill_increase_total_reason"
       text="総スキル制限に達しました。" />
     <string
+      id="ret_skill_point_gained"
+      text="{TROOP} はスキルポイントを獲得しました。" />
+    <string
       id="ret_skill_points_gained"
       text="{TROOP} は {POINTS} のスキルポイントを獲得しました。" />
     <string
@@ -1256,8 +1250,11 @@
       id="ret_weight_hint"
       text="重量" />
     <string
-      id="ret_workshop_unlock_start_desc"
-      text="{ITEMS}" />
+      id="ret_workshop_unlock_start_line"
+      text="{TOWN} のあなたの {WORKSHOP} は、{ITEM} のアンロック作業を開始しました。" />
+    <string
+      id="ret_workshop_unlock_start_more"
+      text="さらに {COUNT} の工房が新しいプロジェクトを開始しました。" />
     <string
       id="ret_workshop_unlock_start_title"
       text="工房" />

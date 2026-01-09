@@ -476,15 +476,6 @@
       id="ret_invalid_name_title"
       text="Ungültiger Name" />
     <string
-      id="ret_item_unlock_method_discards"
-      text="Verwerfung" />
-    <string
-      id="ret_item_unlock_method_kills"
-      text="Kampf" />
-    <string
-      id="ret_item_unlock_method_workshops"
-      text="Werkstätten" />
-    <string
       id="ret_item_unlock_notification_message"
       text="Protokollnachricht" />
     <string
@@ -1127,6 +1118,9 @@
       id="ret_skill_increase_total_reason"
       text="Gesamtes Fähigkeitslimit erreicht." />
     <string
+      id="ret_skill_point_gained"
+      text="{TROOP} hat einen Fertigkeitspunkt verdient." />
+    <string
       id="ret_skill_points_gained"
       text="{TROOP} hat {POINTS} Fertigkeitspunkte verdient." />
     <string
@@ -1256,8 +1250,11 @@
       id="ret_weight_hint"
       text="Gewicht" />
     <string
-      id="ret_workshop_unlock_start_desc"
-      text="{ITEMS}" />
+      id="ret_workshop_unlock_start_line"
+      text="Ihre {WORKSHOP} in {TOWN} hat mit der Arbeit an der Freischaltung von {ITEM} begonnen." />
+    <string
+      id="ret_workshop_unlock_start_more"
+      text="Und {COUNT} weitere Werkstätten haben neue Projekte gestartet." />
     <string
       id="ret_workshop_unlock_start_title"
       text="Werkstätten" />

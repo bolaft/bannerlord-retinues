@@ -476,15 +476,6 @@
       id="ret_invalid_name_title"
       text="Недопустимое имя" />
     <string
-      id="ret_item_unlock_method_discards"
-      text="Отбросы" />
-    <string
-      id="ret_item_unlock_method_kills"
-      text="Бой" />
-    <string
-      id="ret_item_unlock_method_workshops"
-      text="Мастерские" />
-    <string
       id="ret_item_unlock_notification_message"
       text="Сообщение журнала" />
     <string
@@ -1127,6 +1118,9 @@
       id="ret_skill_increase_total_reason"
       text="Достигнут общий лимит навыков." />
     <string
+      id="ret_skill_point_gained"
+      text="{TROOP} заработал очко навыков." />
+    <string
       id="ret_skill_points_gained"
       text="{TROOP} заработал {POINTS} очков навыков." />
     <string
@@ -1256,8 +1250,11 @@
       id="ret_weight_hint"
       text="Вес" />
     <string
-      id="ret_workshop_unlock_start_desc"
-      text="{ITEMS}" />
+      id="ret_workshop_unlock_start_line"
+      text="Ваша {WORKSHOP} в {TOWN} начала работу над разблокировкой {ITEM}." />
+    <string
+      id="ret_workshop_unlock_start_more"
+      text="И еще {COUNT} мастерских начали новые проекты." />
     <string
       id="ret_workshop_unlock_start_title"
       text="Мастерские" />
