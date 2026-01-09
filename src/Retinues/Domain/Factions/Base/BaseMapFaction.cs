@@ -89,18 +89,13 @@ namespace Retinues.Domain.Factions.Base
 
         /// <summary>
         /// Gets the custom root basic troop for this map faction, if any.
-        /// Uses the stored custom root first, then falls back to the vanilla BasicTroop when available.
-        /// Returns null if the resolved root is a culture root (not custom).
+        /// Returns null if unset or if the stored root is a culture root (not custom).
         /// </summary>
         public override WCharacter RootBasic
         {
             get
             {
                 var root = CustomRootBasicAttribute.Get();
-
-                // Fallback to vanilla BasicTroop (Clan has a settable BasicTroop; Kingdom is culture-based).
-                root ??= WCharacter.Get(Base.BasicTroop);
-
                 if (root == null)
                     return null;
 
