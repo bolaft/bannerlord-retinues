@@ -464,6 +464,27 @@ namespace Retinues.Domain.Equipments.Wrappers
             return character.Skills.Get(RelevantSkill) >= Difficulty;
         }
 
+        /// <summary>
+        /// Indicates whether the given character of the given tier can equip this item,
+        /// considering mount restrictions for low-tier troops.
+        /// </summary>
+        public bool IsEquippableByCharacterOfTier(int tier)
+        {
+            if (IsHorse && tier < Settings.MinTierForMounts)
+                return false;
+
+            if (Category == DefaultItemCategories.WarHorse && tier < Settings.MinTierForWarMounts)
+                return false;
+
+            if (
+                Category == DefaultItemCategories.NobleHorse
+                && tier < Settings.MinTierForNobleMounts
+            )
+                return false;
+
+            return true;
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Vassal Rewards                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

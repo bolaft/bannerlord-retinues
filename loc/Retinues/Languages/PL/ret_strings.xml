@@ -140,6 +140,9 @@
       id="ret_cant_equip_reason_mount_compat"
       text="Niezgodne" />
     <string
+      id="ret_cant_equip_reason_mount_disallowed"
+      text="Zbyt niski poziom" />
+    <string
       id="ret_cant_equip_reason_null"
       text="Nieprawidłowy przedmiot" />
     <string
@@ -825,7 +828,7 @@
       text="Przełącza funkcję Doktryn włączoną lub wyłączoną." />
     <string
       id="ret_mcm_option_enable_equipment_costs_money_hint"
-      text="Jeśli włączone, wyposażenie oddziałów będzie kosztować złoto. Włącza również system zapasów." />
+      text="Jeśli włączone, wyposażenie oddziałów będzie kosztować pieniądze. Włącza również system zapasów." />
     <string
       id="ret_mcm_option_enable_retinues"
       text="Włącz Retinues" />
@@ -904,6 +907,24 @@
     <string
       id="ret_mcm_option_max_retinue_ratio_hint"
       text="Maksymalna liczba retinue jako stosunek do limitu wielkości drużyny." />
+    <string
+      id="ret_mcm_option_min_tier_for_mounts"
+      text="Minimalny poziom dla wierzchowców" />
+    <string
+      id="ret_mcm_option_min_tier_for_mounts_hint"
+      text="Oddziały poniżej określonego poziomu nie będą mogły być montowane." />
+    <string
+      id="ret_mcm_option_min_tier_for_noble_mounts"
+      text="Minimalny poziom dla szlachetnych wierzchowców" />
+    <string
+      id="ret_mcm_option_min_tier_for_noble_mounts_hint"
+      text="Oddziały poniżej określonego poziomu nie będą mogły korzystać z szlachetnych wierzchowców." />
+    <string
+      id="ret_mcm_option_min_tier_for_war_mounts"
+      text="Minimalny poziom dla wojennych wierzchowców" />
+    <string
+      id="ret_mcm_option_min_tier_for_war_mounts_hint"
+      text="Oddziały poniżej określonego poziomu nie będą mogły korzystać z wojennych wierzchowców." />
     <string
       id="ret_mcm_option_mixed_gender_ratio"
       text="Mieszany stosunek płci" />

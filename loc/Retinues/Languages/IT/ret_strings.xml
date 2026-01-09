@@ -140,6 +140,9 @@
       id="ret_cant_equip_reason_mount_compat"
       text="Incompatibile" />
     <string
+      id="ret_cant_equip_reason_mount_disallowed"
+      text="Livello troppo basso" />
+    <string
       id="ret_cant_equip_reason_null"
       text="Oggetto non valido" />
     <string
@@ -825,7 +828,7 @@
       text="Attiva o disattiva la funzione Dottrine." />
     <string
       id="ret_mcm_option_enable_equipment_costs_money_hint"
-      text="Se abilitato, equipaggiare le truppe costerà oro. Abilita anche il sistema di scorte." />
+      text="Se abilitato, equipaggiare le truppe costerà denaro. Abilita anche il sistema di scorte." />
     <string
       id="ret_mcm_option_enable_retinues"
       text="Abilita Retinues" />
@@ -904,6 +907,24 @@
     <string
       id="ret_mcm_option_max_retinue_ratio_hint"
       text="Il numero massimo di Retinues in rapporto al limite di dimensione del gruppo." />
+    <string
+      id="ret_mcm_option_min_tier_for_mounts"
+      text="Livello minimo per le cavalcature" />
+    <string
+      id="ret_mcm_option_min_tier_for_mounts_hint"
+      text="Le truppe al di sotto del livello specificato non potranno essere montate." />
+    <string
+      id="ret_mcm_option_min_tier_for_noble_mounts"
+      text="Livello minimo per le cavalcature nobili" />
+    <string
+      id="ret_mcm_option_min_tier_for_noble_mounts_hint"
+      text="Le truppe al di sotto del livello specificato non potranno usare le cavalcature nobili." />
+    <string
+      id="ret_mcm_option_min_tier_for_war_mounts"
+      text="Livello minimo per le cavalcature da guerra" />
+    <string
+      id="ret_mcm_option_min_tier_for_war_mounts_hint"
+      text="Le truppe al di sotto del livello specificato non potranno usare le cavalcature da guerra." />
     <string
       id="ret_mcm_option_mixed_gender_ratio"
       text="Rapporto di genere misto" />

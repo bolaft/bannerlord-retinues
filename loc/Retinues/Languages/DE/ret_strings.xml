@@ -140,6 +140,9 @@
       id="ret_cant_equip_reason_mount_compat"
       text="Inkompatibel" />
     <string
+      id="ret_cant_equip_reason_mount_disallowed"
+      text="Zu niedriger Rang" />
+    <string
       id="ret_cant_equip_reason_null"
       text="Ungültiger Gegenstand" />
     <string
@@ -825,7 +828,7 @@
       text="Schaltet die Doktrinen-Funktion ein oder aus." />
     <string
       id="ret_mcm_option_enable_equipment_costs_money_hint"
-      text="Wenn aktiviert, kostet die Ausrüstung von Truppen Gold. Aktiviert auch das Lagersystem." />
+      text="Wenn aktiviert, kostet die Ausrüstung von Truppen Geld. Aktiviert auch das Lagersystem." />
     <string
       id="ret_mcm_option_enable_retinues"
       text="Retinues aktivieren" />
@@ -904,6 +907,24 @@
     <string
       id="ret_mcm_option_max_retinue_ratio_hint"
       text="Die maximale Anzahl von Retinues als Verhältnis zur Partikelgrößenbegrenzung." />
+    <string
+      id="ret_mcm_option_min_tier_for_mounts"
+      text="Mindeststufe für Reittiere" />
+    <string
+      id="ret_mcm_option_min_tier_for_mounts_hint"
+      text="Truppen unterhalb der angegebenen Stufe dürfen nicht beritten sein." />
+    <string
+      id="ret_mcm_option_min_tier_for_noble_mounts"
+      text="Mindeststufe für edle Reittiere" />
+    <string
+      id="ret_mcm_option_min_tier_for_noble_mounts_hint"
+      text="Truppen unterhalb der angegebenen Stufe dürfen keine edlen Reittiere verwenden." />
+    <string
+      id="ret_mcm_option_min_tier_for_war_mounts"
+      text="Mindeststufe für Kriegspferde" />
+    <string
+      id="ret_mcm_option_min_tier_for_war_mounts_hint"
+      text="Truppen unterhalb der angegebenen Stufe dürfen keine Kriegspferde verwenden." />
     <string
       id="ret_mcm_option_mixed_gender_ratio"
       text="Gemischtes Geschlechterverhältnis" />

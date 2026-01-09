@@ -140,6 +140,9 @@
       id="ret_cant_equip_reason_mount_compat"
       text="호환되지 않음" />
     <string
+      id="ret_cant_equip_reason_mount_disallowed"
+      text="등급이 너무 낮음" />
+    <string
       id="ret_cant_equip_reason_null"
       text="잘못된 아이템" />
     <string
@@ -825,7 +828,7 @@
       text="교리 기능을 켜거나 끕니다." />
     <string
       id="ret_mcm_option_enable_equipment_costs_money_hint"
-      text="활성화되면 부대를 장비하는 데 골드가 필요합니다. 재고 시스템도 활성화됩니다." />
+      text="활성화되면 부대 장비에 비용이 듭니다. 재고 시스템도 활성화됩니다." />
     <string
       id="ret_mcm_option_enable_retinues"
       text="Retinues 활성화" />
@@ -904,6 +907,24 @@
     <string
       id="ret_mcm_option_max_retinue_ratio_hint"
       text="파티 크기 제한의 비율로서 최대 Retinues 수입니다." />
+    <string
+      id="ret_mcm_option_min_tier_for_mounts"
+      text="탑승을 위한 최소 등급" />
+    <string
+      id="ret_mcm_option_min_tier_for_mounts_hint"
+      text="지정된 등급 이하의 부대는 탑승할 수 없습니다." />
+    <string
+      id="ret_mcm_option_min_tier_for_noble_mounts"
+      text="고귀한 탑승을 위한 최소 등급" />
+    <string
+      id="ret_mcm_option_min_tier_for_noble_mounts_hint"
+      text="지정된 등급 이하의 부대는 고귀한 탑승을 사용할 수 없습니다." />
+    <string
+      id="ret_mcm_option_min_tier_for_war_mounts"
+      text="전쟁 탑승을 위한 최소 등급" />
+    <string
+      id="ret_mcm_option_min_tier_for_war_mounts_hint"
+      text="지정된 등급 이하의 부대는 전쟁 탑승을 사용할 수 없습니다." />
     <string
       id="ret_mcm_option_mixed_gender_ratio"
       text="혼합 성비" />

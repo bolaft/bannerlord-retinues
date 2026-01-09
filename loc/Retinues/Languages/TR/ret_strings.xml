@@ -140,6 +140,9 @@
       id="ret_cant_equip_reason_mount_compat"
       text="Uyumsuz" />
     <string
+      id="ret_cant_equip_reason_mount_disallowed"
+      text="Çok düşük seviye" />
+    <string
       id="ret_cant_equip_reason_null"
       text="Geçersiz öğe" />
     <string
@@ -825,7 +828,7 @@
       text="Doktrinler özelliğini açar veya kapatır." />
     <string
       id="ret_mcm_option_enable_equipment_costs_money_hint"
-      text="Etkinleştirilirse, birliklerin donatılması altın maliyeti gerektirir. Ayrıca stok sistemini etkinleştirir." />
+      text="Etkinleştirilirse, birliklerin donatılması para maliyeti olacaktır. Ayrıca stok sistemini etkinleştirir." />
     <string
       id="ret_mcm_option_enable_retinues"
       text="Retinues&apos;u Etkinleştir" />
@@ -904,6 +907,24 @@
     <string
       id="ret_mcm_option_max_retinue_ratio_hint"
       text="Grup boyutu sınırının bir oranı olarak maksimum retinue sayısı." />
+    <string
+      id="ret_mcm_option_min_tier_for_mounts"
+      text="Binekler İçin Minimum Seviye" />
+    <string
+      id="ret_mcm_option_min_tier_for_mounts_hint"
+      text="Belirtilen seviyenin altındaki birliklerin binmesine izin verilmeyecektir." />
+    <string
+      id="ret_mcm_option_min_tier_for_noble_mounts"
+      text="Asil Binekler İçin Minimum Seviye" />
+    <string
+      id="ret_mcm_option_min_tier_for_noble_mounts_hint"
+      text="Belirtilen seviyenin altındaki birliklerin asil binekleri kullanmasına izin verilmeyecektir." />
+    <string
+      id="ret_mcm_option_min_tier_for_war_mounts"
+      text="Savaş Binekleri İçin Minimum Seviye" />
+    <string
+      id="ret_mcm_option_min_tier_for_war_mounts_hint"
+      text="Belirtilen seviyenin altındaki birliklerin savaş bineklerini kullanmasına izin verilmeyecektir." />
     <string
       id="ret_mcm_option_mixed_gender_ratio"
       text="Karma Cinsiyet Oranı" />

@@ -112,16 +112,12 @@ namespace Retinues.Editor.Controllers.Equipment
             var currentItem = PreviewController.GetItem(slot);
 
             var current = EquipmentLimitsHelper.GetTotals(
-                idx => PreviewController.GetItem(idx),
+                PreviewController.GetItem,
                 slot,
                 currentItem
             );
 
-            var next = EquipmentLimitsHelper.GetTotals(
-                idx => PreviewController.GetItem(idx),
-                slot,
-                item
-            );
+            var next = EquipmentLimitsHelper.GetTotals(PreviewController.GetItem, slot, item);
 
             int tier = State.Character?.Tier ?? 0;
             float limit = GetEquipmentWeightLimit(tier);
@@ -138,11 +134,7 @@ namespace Retinues.Editor.Controllers.Equipment
         {
             var slot = EditorState.Instance.Slot;
 
-            var next = EquipmentLimitsHelper.GetTotals(
-                idx => PreviewController.GetItem(idx),
-                slot,
-                item
-            );
+            var next = EquipmentLimitsHelper.GetTotals(PreviewController.GetItem, slot, item);
 
             int tier = State.Character?.Tier ?? 0;
             float limit = GetEquipmentWeightLimit(tier);
@@ -165,16 +157,12 @@ namespace Retinues.Editor.Controllers.Equipment
             var currentItem = PreviewController.GetItem(slot);
 
             var current = EquipmentLimitsHelper.GetTotals(
-                idx => PreviewController.GetItem(idx),
+                PreviewController.GetItem,
                 slot,
                 currentItem
             );
 
-            var next = EquipmentLimitsHelper.GetTotals(
-                idx => PreviewController.GetItem(idx),
-                slot,
-                item
-            );
+            var next = EquipmentLimitsHelper.GetTotals(PreviewController.GetItem, slot, item);
 
             int tier = State.Character?.Tier ?? 0;
             int limit = GetEquipmentValueLimit(tier);
@@ -191,11 +179,7 @@ namespace Retinues.Editor.Controllers.Equipment
         {
             var slot = EditorState.Instance.Slot;
 
-            var next = EquipmentLimitsHelper.GetTotals(
-                idx => PreviewController.GetItem(idx),
-                slot,
-                item
-            );
+            var next = EquipmentLimitsHelper.GetTotals(PreviewController.GetItem, slot, item);
 
             int tier = State.Character?.Tier ?? 0;
             int limit = GetEquipmentValueLimit(tier);
@@ -217,6 +201,10 @@ namespace Retinues.Editor.Controllers.Equipment
                     _ => L.T("cant_equip_reason_null", "Invalid item")
                 )
                 .AddCondition(UnlockAllowed, UnlockTooltip)
+                .AddCondition(
+                    item => item.IsEquippableByCharacterOfTier(State.Character.Tier),
+                    _ => L.T("cant_equip_reason_mount_disallowed", "Too low tier")
+                )
                 .AddCondition(
                     item => item.IsEquippableByCharacter(State.Character),
                     item =>

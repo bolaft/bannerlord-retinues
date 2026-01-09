@@ -140,6 +140,9 @@
       id="ret_cant_equip_reason_mount_compat"
       text="Incompatible" />
     <string
+      id="ret_cant_equip_reason_mount_disallowed"
+      text="Too low tier" />
+    <string
       id="ret_cant_equip_reason_null"
       text="Invalid item" />
     <string
@@ -825,7 +828,7 @@
       text="Toggles the Doctrines feature on or off." />
     <string
       id="ret_mcm_option_enable_equipment_costs_money_hint"
-      text="If enabled, equipping troops will cost gold. Also enables the stocks system." />
+      text="If enabled, equipping troops will cost money. Also enables the stocks system." />
     <string
       id="ret_mcm_option_enable_retinues"
       text="Enable Retinues" />
@@ -904,6 +907,24 @@
     <string
       id="ret_mcm_option_max_retinue_ratio_hint"
       text="The maximum number of retinues as a ratio of the party size limit." />
+    <string
+      id="ret_mcm_option_min_tier_for_mounts"
+      text="Minimum Tier For Mounts" />
+    <string
+      id="ret_mcm_option_min_tier_for_mounts_hint"
+      text="Troops below the specified tier will not be allowed to be mounted." />
+    <string
+      id="ret_mcm_option_min_tier_for_noble_mounts"
+      text="Minimum Tier For Noble Mounts" />
+    <string
+      id="ret_mcm_option_min_tier_for_noble_mounts_hint"
+      text="Troops below the specified tier will not be allowed to use noble mounts." />
+    <string
+      id="ret_mcm_option_min_tier_for_war_mounts"
+      text="Minimum Tier For War Mounts" />
+    <string
+      id="ret_mcm_option_min_tier_for_war_mounts_hint"
+      text="Troops below the specified tier will not be allowed to use war mounts." />
     <string
       id="ret_mcm_option_mixed_gender_ratio"
       text="Mixed Gender Ratio" />

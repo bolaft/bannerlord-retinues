@@ -140,6 +140,9 @@
       id="ret_cant_equip_reason_mount_compat"
       text="Incompatível" />
     <string
+      id="ret_cant_equip_reason_mount_disallowed"
+      text="Nível muito baixo" />
+    <string
       id="ret_cant_equip_reason_null"
       text="Item inválido" />
     <string
@@ -825,7 +828,7 @@
       text="Ativa ou desativa o recurso de Doutrinas." />
     <string
       id="ret_mcm_option_enable_equipment_costs_money_hint"
-      text="Se ativado, equipar tropas custará ouro. Também ativa o sistema de estoques." />
+      text="Se ativado, equipar tropas custará dinheiro. Também ativa o sistema de estoques." />
     <string
       id="ret_mcm_option_enable_retinues"
       text="Ativar Retinues" />
@@ -904,6 +907,24 @@
     <string
       id="ret_mcm_option_max_retinue_ratio_hint"
       text="O número máximo de retinues como uma proporção do limite de tamanho do grupo." />
+    <string
+      id="ret_mcm_option_min_tier_for_mounts"
+      text="Nível Mínimo Para Montarias" />
+    <string
+      id="ret_mcm_option_min_tier_for_mounts_hint"
+      text="As tropas abaixo do nível especificado não poderão ser montadas." />
+    <string
+      id="ret_mcm_option_min_tier_for_noble_mounts"
+      text="Nível Mínimo Para Montarias Nobres" />
+    <string
+      id="ret_mcm_option_min_tier_for_noble_mounts_hint"
+      text="As tropas abaixo do nível especificado não poderão usar montarias nobres." />
+    <string
+      id="ret_mcm_option_min_tier_for_war_mounts"
+      text="Nível Mínimo Para Montarias de Guerra" />
+    <string
+      id="ret_mcm_option_min_tier_for_war_mounts_hint"
+      text="As tropas abaixo do nível especificado não poderão usar montarias de guerra." />
     <string
       id="ret_mcm_option_mixed_gender_ratio"
       text="Razão de Gênero Misto" />

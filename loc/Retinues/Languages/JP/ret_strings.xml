@@ -140,6 +140,9 @@
       id="ret_cant_equip_reason_mount_compat"
       text="互換性なし" />
     <string
+      id="ret_cant_equip_reason_mount_disallowed"
+      text="ランクが低すぎる" />
+    <string
       id="ret_cant_equip_reason_null"
       text="無効なアイテム" />
     <string
@@ -825,7 +828,7 @@
       text="ドクトリン機能のオンまたはオフを切り替えます。" />
     <string
       id="ret_mcm_option_enable_equipment_costs_money_hint"
-      text="有効にすると、部隊の装備にゴールドがかかります。また、在庫システムも有効になります。" />
+      text="有効にすると、部隊の装備にお金がかかります。また、在庫システムも有効になります。" />
     <string
       id="ret_mcm_option_enable_retinues"
       text="リティニュースを有効にする" />
@@ -904,6 +907,24 @@
     <string
       id="ret_mcm_option_max_retinue_ratio_hint"
       text="パーティーサイズの制限に対するリティニュースの最大数の比率。" />
+    <string
+      id="ret_mcm_option_min_tier_for_mounts"
+      text="マウントの最低ティア" />
+    <string
+      id="ret_mcm_option_min_tier_for_mounts_hint"
+      text="指定されたティア以下の部隊は搭乗できません。" />
+    <string
+      id="ret_mcm_option_min_tier_for_noble_mounts"
+      text="高貴なマウントの最低ティア" />
+    <string
+      id="ret_mcm_option_min_tier_for_noble_mounts_hint"
+      text="指定されたティア以下の部隊は高貴なマウントを使用できません。" />
+    <string
+      id="ret_mcm_option_min_tier_for_war_mounts"
+      text="戦争用マウントの最低ティア" />
+    <string
+      id="ret_mcm_option_min_tier_for_war_mounts_hint"
+      text="指定されたティア以下の部隊は戦争用マウントを使用できません。" />
     <string
       id="ret_mcm_option_mixed_gender_ratio"
       text="混合性別比率" />

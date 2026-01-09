@@ -140,6 +140,9 @@
       id="ret_cant_equip_reason_mount_compat"
       text="不兼容" />
     <string
+      id="ret_cant_equip_reason_mount_disallowed"
+      text="等級過低" />
+    <string
       id="ret_cant_equip_reason_null"
       text="無效物品" />
     <string
@@ -825,7 +828,7 @@
       text="切換學說功能的開或關。" />
     <string
       id="ret_mcm_option_enable_equipment_costs_money_hint"
-      text="如果啟用，裝備部隊將花費金幣。還啟用庫存系統。" />
+      text="如果啟用，裝備部隊將花費金錢。還啟用庫存系統。" />
     <string
       id="ret_mcm_option_enable_retinues"
       text="啟用隨從" />
@@ -904,6 +907,24 @@
     <string
       id="ret_mcm_option_max_retinue_ratio_hint"
       text="隨從的最大數量與隊伍規模限制的比例。" />
+    <string
+      id="ret_mcm_option_min_tier_for_mounts"
+      text="坐騎的最低等級" />
+    <string
+      id="ret_mcm_option_min_tier_for_mounts_hint"
+      text="低於指定等級的部隊將不允許騎乘。" />
+    <string
+      id="ret_mcm_option_min_tier_for_noble_mounts"
+      text="貴族坐騎的最低等級" />
+    <string
+      id="ret_mcm_option_min_tier_for_noble_mounts_hint"
+      text="低於指定等級的部隊將不允許使用貴族坐騎。" />
+    <string
+      id="ret_mcm_option_min_tier_for_war_mounts"
+      text="戰爭坐騎的最低等級" />
+    <string
+      id="ret_mcm_option_min_tier_for_war_mounts_hint"
+      text="低於指定等級的部隊將不允許使用戰爭坐騎。" />
     <string
       id="ret_mcm_option_mixed_gender_ratio"
       text="混合性別比例" />

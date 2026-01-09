@@ -140,6 +140,9 @@
       id="ret_cant_equip_reason_mount_compat"
       text="Несовместимо" />
     <string
+      id="ret_cant_equip_reason_mount_disallowed"
+      text="Слишком низкий уровень" />
+    <string
       id="ret_cant_equip_reason_null"
       text="Недействительный предмет" />
     <string
@@ -825,7 +828,7 @@
       text="Включает или отключает функцию доктрин." />
     <string
       id="ret_mcm_option_enable_equipment_costs_money_hint"
-      text="Если включено, экипировка войск будет стоить золото. Также включает систему запасов." />
+      text="Если включено, экипировка войск будет стоить денег. Также включает систему запасов." />
     <string
       id="ret_mcm_option_enable_retinues"
       text="Включить Retinues" />
@@ -904,6 +907,24 @@
     <string
       id="ret_mcm_option_max_retinue_ratio_hint"
       text="Максимальное количество retinues в зависимости от ограничения размера партии." />
+    <string
+      id="ret_mcm_option_min_tier_for_mounts"
+      text="Минимальный уровень для ездовых животных" />
+    <string
+      id="ret_mcm_option_min_tier_for_mounts_hint"
+      text="Войска ниже указанного уровня не смогут быть наездниками." />
+    <string
+      id="ret_mcm_option_min_tier_for_noble_mounts"
+      text="Минимальный уровень для благородных ездовых животных" />
+    <string
+      id="ret_mcm_option_min_tier_for_noble_mounts_hint"
+      text="Войска ниже указанного уровня не смогут использовать благородных ездовых животных." />
+    <string
+      id="ret_mcm_option_min_tier_for_war_mounts"
+      text="Минимальный уровень для боевых ездовых животных" />
+    <string
+      id="ret_mcm_option_min_tier_for_war_mounts_hint"
+      text="Войска ниже указанного уровня не смогут использовать боевых ездовых животных." />
     <string
       id="ret_mcm_option_mixed_gender_ratio"
       text="Соотношение смешанных полов" />

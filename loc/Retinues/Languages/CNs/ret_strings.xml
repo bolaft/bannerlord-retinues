@@ -140,6 +140,9 @@
       id="ret_cant_equip_reason_mount_compat"
       text="不兼容" />
     <string
+      id="ret_cant_equip_reason_mount_disallowed"
+      text="等级过低" />
+    <string
       id="ret_cant_equip_reason_null"
       text="无效物品" />
     <string
@@ -825,7 +828,7 @@
       text="切换学说功能的开或关。" />
     <string
       id="ret_mcm_option_enable_equipment_costs_money_hint"
-      text="如果启用，装备部队将花费金币。还启用库存系统。" />
+      text="如果启用，装备部队将花费金钱。还启用库存系统。" />
     <string
       id="ret_mcm_option_enable_retinues"
       text="启用随从" />
@@ -904,6 +907,24 @@
     <string
       id="ret_mcm_option_max_retinue_ratio_hint"
       text="随从的最大数量与队伍规模限制的比例。" />
+    <string
+      id="ret_mcm_option_min_tier_for_mounts"
+      text="坐骑的最低等级" />
+    <string
+      id="ret_mcm_option_min_tier_for_mounts_hint"
+      text="低于指定等级的部队将不允许骑乘。" />
+    <string
+      id="ret_mcm_option_min_tier_for_noble_mounts"
+      text="贵族坐骑的最低等级" />
+    <string
+      id="ret_mcm_option_min_tier_for_noble_mounts_hint"
+      text="低于指定等级的部队将不允许使用贵族坐骑。" />
+    <string
+      id="ret_mcm_option_min_tier_for_war_mounts"
+      text="战争坐骑的最低等级" />
+    <string
+      id="ret_mcm_option_min_tier_for_war_mounts_hint"
+      text="低于指定等级的部队将不允许使用战争坐骑。" />
     <string
       id="ret_mcm_option_mixed_gender_ratio"
       text="混合性别比例" />

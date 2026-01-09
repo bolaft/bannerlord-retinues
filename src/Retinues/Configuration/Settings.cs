@@ -114,6 +114,42 @@ namespace Retinues.Configuration
                 fires: [UIEvent.Character]
             );
 
+        public static readonly Option<int> MinTierForMounts = CreateOption(
+            section: Restrictions,
+            name: L.F("mcm_option_min_tier_for_mounts", "Minimum Tier For Mounts"),
+            hint: L.F(
+                "mcm_option_min_tier_for_mounts_hint",
+                "Troops below the specified tier will not be allowed to be mounted."
+            ),
+            minValue: 0,
+            maxValue: 6,
+            @default: 2
+        );
+
+        public static readonly Option<int> MinTierForWarMounts = CreateOption(
+            section: Restrictions,
+            name: L.F("mcm_option_min_tier_for_war_mounts", "Minimum Tier For War Mounts"),
+            hint: L.F(
+                "mcm_option_min_tier_for_war_mounts_hint",
+                "Troops below the specified tier will not be allowed to use war mounts."
+            ),
+            minValue: 0,
+            maxValue: 6,
+            @default: 3
+        );
+
+        public static readonly Option<int> MinTierForNobleMounts = CreateOption(
+            section: Restrictions,
+            name: L.F("mcm_option_min_tier_for_noble_mounts", "Minimum Tier For Noble Mounts"),
+            hint: L.F(
+                "mcm_option_min_tier_for_noble_mounts_hint",
+                "Troops below the specified tier will not be allowed to use noble mounts."
+            ),
+            minValue: 0,
+            maxValue: 6,
+            @default: 5
+        );
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Doctrines                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -181,7 +217,7 @@ namespace Retinues.Configuration
                 "The amount added to retinue troop health when Buff Retinue Health is enabled."
             ),
             minValue: 0,
-            maxValue: 50,
+            maxValue: 100,
             @default: 20,
             dependsOn: EnableRetinues
         );
@@ -408,7 +444,7 @@ namespace Retinues.Configuration
             name: L.F("mcm_option_equipment_cost_money", "Equipment Costs Money"),
             hint: L.F(
                 "mcm_option_enable_equipment_costs_money_hint",
-                "If enabled, equipping troops will cost gold. Also enables the stocks system."
+                "If enabled, equipping troops will cost money. Also enables the stocks system."
             ),
             @default: true,
             @freeform: false,
