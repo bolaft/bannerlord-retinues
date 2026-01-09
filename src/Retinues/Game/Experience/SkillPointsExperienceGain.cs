@@ -33,6 +33,9 @@ namespace Retinues.Game.Experience
             if (!wc.InCustomTree)
                 return;
 
+            if (wc.IsVanilla)
+                return; // Extra safety.
+
             // Determine XP required per skill point.
             int xpRequired = GetXpRequiredForSkillPoint(wc.Base, party);
             if (xpRequired <= 0 || xpRequired >= VanillaInvalidXpCost)
