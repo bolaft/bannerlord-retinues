@@ -49,6 +49,9 @@ namespace Retinues.Domain.Characters.Helpers
 
             clone.UpgradeTargets = [];
 
+            if (skills)
+                EnforceSkillLimits(clone);
+
             if (!equipments)
             {
                 clone.EquipmentRoster.Reset();
@@ -261,6 +264,9 @@ namespace Retinues.Domain.Characters.Helpers
             troop.UpgradeTargets = [];
             troop.Name = req.Name ?? string.Empty;
 
+            if (req.CopySkills)
+                EnforceSkillLimits(troop);
+
             ApplyStarterEquipments(
                 template: template,
                 clone: troop,
@@ -421,6 +427,141 @@ namespace Retinues.Domain.Characters.Helpers
             }
 
             clone.EquipmentRoster.Equipments = createCivilianSet ? [battle, civil] : [battle];
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Skills                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private readonly struct SkillValue(SkillObject skill, int value, float scaled, int floor)
+        {
+            public readonly SkillObject Skill = skill;
+            public readonly int Value = value;
+            public readonly float Scaled = scaled;
+            public readonly int Floor = floor;
+        }
+
+        private static void EnforceSkillLimits(WCharacter wc)
+        {
+            if (wc == null || wc.Base == null)
+                return;
+
+            // Heroes are intentionally unrestricted in WCharacter.Skills.cs
+            if (wc.IsHero)
+                return;
+
+            var cap = wc.SkillCapForTier;
+            var totalMax = wc.SkillTotalMaxForTier;
+
+            if (cap <= 0 || totalMax <= 0)
+                return;
+
+            var skills = SkillsHelper.GetSkillListForCharacter(
+                isHeroLike: false,
+                includeModded: true
+            );
+            if (skills == null || skills.Count == 0)
+                return;
+
+            // 1) Clamp each skill to cap (and >= 0)
+            var values = new List<(SkillObject skill, int value)>(skills.Count);
+            int total = 0;
+
+            for (int i = 0; i < skills.Count; i++)
+            {
+                var s = skills[i];
+                if (s == null)
+                    continue;
+
+                int v = wc.Base.GetSkillValue(s);
+                if (v < 0)
+                    v = 0;
+                if (v > cap)
+                    v = cap;
+
+                values.Add((s, v));
+                total += v;
+            }
+
+            if (values.Count == 0)
+                return;
+
+            // If only per-skill cap mattered, apply and exit.
+            if (total <= totalMax)
+            {
+                for (int i = 0; i < values.Count; i++)
+                    wc.Skills.Set(values[i].skill, values[i].value);
+
+                return;
+            }
+
+            // 2) Enforce total max by scaling down proportionally.
+            // Use floor to guarantee we don't exceed totalMax, then distribute leftover.
+            float factor = totalMax / (float)total;
+
+            var scaled = new List<SkillValue>(values.Count);
+            int sumFloor = 0;
+
+            for (int i = 0; i < values.Count; i++)
+            {
+                var (skill, v) = values[i];
+
+                float sv = v * factor;
+                int fv = (int)Math.Floor(sv);
+
+                if (fv < 0)
+                    fv = 0;
+                if (fv > cap)
+                    fv = cap;
+
+                scaled.Add(new SkillValue(skill, v, sv, fv));
+                sumFloor += fv;
+            }
+
+            int remaining = totalMax - sumFloor;
+            if (remaining < 0)
+                remaining = 0;
+
+            // Distribute remaining points to the biggest fractional parts first,
+            // without exceeding per-skill cap.
+            scaled.Sort(
+                (a, b) =>
+                {
+                    float fa = a.Scaled - a.Floor;
+                    float fb = b.Scaled - b.Floor;
+                    return fb.CompareTo(fa);
+                }
+            );
+
+            var final = new Dictionary<string, int>(scaled.Count, StringComparer.Ordinal);
+            for (int i = 0; i < scaled.Count; i++)
+                final[scaled[i].Skill.StringId] = scaled[i].Floor;
+
+            for (int i = 0; i < scaled.Count && remaining > 0; i++)
+            {
+                var sv = scaled[i];
+                var id = sv.Skill?.StringId;
+                if (string.IsNullOrEmpty(id))
+                    continue;
+
+                int current = final[id];
+                if (current >= cap)
+                    continue;
+
+                final[id] = current + 1;
+                remaining--;
+            }
+
+            // Apply
+            for (int i = 0; i < skills.Count; i++)
+            {
+                var s = skills[i];
+                if (s == null || string.IsNullOrEmpty(s.StringId))
+                    continue;
+
+                if (final.TryGetValue(s.StringId, out var v))
+                    wc.Skills.Set(s, v);
+            }
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
