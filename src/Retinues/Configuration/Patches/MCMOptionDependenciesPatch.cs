@@ -97,7 +97,7 @@ namespace Retinues.Configuration.Patches
         }
     }
 
-    // Patch 1: SettingsPropertyVM.IsSettingVisible getter -> additionally check our dependency graph.
+    // Patch 1: SettingsPropertyVM.IsSettingVisible getter -> additionally check the dependency graph.
     [HarmonyPatch]
     internal static class SettingsPropertyVM_IsSettingVisible_Patch
     {
@@ -154,7 +154,7 @@ namespace Retinues.Configuration.Patches
             return AccessTools.Method(
                 t,
                 "OnPropertyChanged",
-                new[] { typeof(object), typeof(PropertyChangedEventArgs) }
+                [typeof(object), typeof(PropertyChangedEventArgs)]
             );
         }
 

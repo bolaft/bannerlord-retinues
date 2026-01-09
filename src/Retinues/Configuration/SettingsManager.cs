@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
@@ -807,13 +808,101 @@ namespace Retinues.Configuration
 
                 try
                 {
-                    FireUIEventsIfNeeded(key);
+                    QueueUIEventsIfNeeded(key);
                 }
                 catch (Exception e)
                 {
                     Log.Exception(e, "Option fires handler failed.");
                 }
             };
+        }
+
+        private static void QueueUIEventsIfNeeded(string key)
+        {
+            if (!EditorScreen.IsOpen)
+                return;
+
+            DiscoverOptions();
+
+            if (!_byKey.TryGetValue(key, out var opt) || opt == null)
+                return;
+
+            if (opt.Fires == null || opt.Fires.Length == 0)
+                return;
+
+            // Only throttle slider spam (float/double). Everything else stays instant.
+            if (opt.Type != typeof(float) && opt.Type != typeof(double))
+            {
+                _lastUiEventFireTime[key] = NowSeconds();
+                FireUIEventsIfNeeded(key);
+                return;
+            }
+
+            double now = NowSeconds();
+
+            if (!_lastUiEventFireTime.TryGetValue(key, out double last))
+                last = 0;
+
+            if (now - last >= UiEventThrottleSeconds)
+            {
+                _lastUiEventFireTime[key] = now;
+                FireUIEventsIfNeeded(key);
+                return;
+            }
+
+            // Too soon - coalesce and let Tick() flush later.
+            _pendingUiEventKeys.Add(key);
+        }
+
+        /// <summary>
+        /// Flushes throttled UI events. Call this periodically while the editor is open.
+        /// </summary>
+        internal static void Tick()
+        {
+            if (!EditorScreen.IsOpen)
+                return;
+
+            if (_pendingUiEventKeys.Count == 0)
+                return;
+
+            double now = NowSeconds();
+
+            // Copy to avoid modifying while iterating.
+            foreach (var key in _pendingUiEventKeys.ToArray())
+            {
+                if (!_lastUiEventFireTime.TryGetValue(key, out double last))
+                    last = 0;
+
+                if (now - last < UiEventThrottleSeconds)
+                    continue;
+
+                _pendingUiEventKeys.Remove(key);
+                _lastUiEventFireTime[key] = now;
+
+                try
+                {
+                    FireUIEventsIfNeeded(key);
+                }
+                catch (Exception e)
+                {
+                    Log.Exception(e, "EventManager.Fire failed for throttled event.");
+                }
+            }
+        }
+
+        private const double UiEventThrottleSeconds = 0.25;
+
+        private static readonly Dictionary<string, double> _lastUiEventFireTime = new(
+            StringComparer.OrdinalIgnoreCase
+        );
+
+        private static readonly HashSet<string> _pendingUiEventKeys = new(
+            StringComparer.OrdinalIgnoreCase
+        );
+
+        private static double NowSeconds()
+        {
+            return Stopwatch.GetTimestamp() / (double)Stopwatch.Frequency;
         }
 
         private static void FireUIEventsIfNeeded(string key)

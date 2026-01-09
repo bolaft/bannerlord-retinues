@@ -167,7 +167,7 @@ namespace Retinues.Editor.VM.Panel.Character
                             "skill_experience_tooltip",
                             "{XP}/{XP_REQUIRED} XP towards next skill point."
                         )
-                        .SetTextVariable("XP", (int)State.Character.SkillPointsExperience)
+                        .SetTextVariable("XP", State.Character.SkillPointsExperience)
                         .SetTextVariable("XP", State.Character.SkillPointsExperience)
                         .SetTextVariable(
                             "XP_REQUIRED",

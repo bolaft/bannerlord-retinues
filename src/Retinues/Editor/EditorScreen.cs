@@ -1,3 +1,4 @@
+using Retinues.Configuration;
 using Retinues.Editor.VM;
 using Retinues.Framework.Runtime;
 using Retinues.UI.Screens;
@@ -72,8 +73,6 @@ namespace Retinues.Editor
 
         protected override void OnFrameTick(float dt)
         {
-            base.OnFrameTick(dt);
-
             if (_gauntletLayer == null)
                 return;
 
@@ -85,6 +84,9 @@ namespace Retinues.Editor
             {
                 Close();
             }
+
+            // Tick for the settings manager to buffer events.
+            SettingsManager.Tick();
         }
 
         void IGameStateListener.OnActivate()
