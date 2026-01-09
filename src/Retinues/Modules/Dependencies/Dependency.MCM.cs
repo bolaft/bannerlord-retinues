@@ -59,7 +59,7 @@ namespace Retinues.Modules.Dependencies
 
             _retryCount++;
 
-            bool ok = Configuration.MCM.Register();
+            bool ok = Configuration.MCM.MCMBuilder.Register();
             if (!ok)
             {
                 if (_retryCount == 1)

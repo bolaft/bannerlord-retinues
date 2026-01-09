@@ -4,9 +4,9 @@ using System.Reflection;
 using HarmonyLib;
 using TaleWorlds.Library;
 
-namespace Retinues.Configuration.Patches
+namespace Retinues.Configuration.MCM.Patches
 {
-    internal static class MCMDeps
+    internal static class MCMDependencies
     {
         internal static readonly string SettingsPropertyVMTypeName =
             "MCM.UI.GUI.ViewModels.SettingsPropertyVM";
@@ -103,12 +103,12 @@ namespace Retinues.Configuration.Patches
     {
         private static bool Prepare()
         {
-            return MCMDeps.CanPatch();
+            return MCMDependencies.CanPatch();
         }
 
         private static MethodBase TargetMethod()
         {
-            var t = AccessTools.TypeByName(MCMDeps.SettingsPropertyVMTypeName);
+            var t = AccessTools.TypeByName(MCMDependencies.SettingsPropertyVMTypeName);
             if (t == null)
                 return null;
 
@@ -122,7 +122,7 @@ namespace Retinues.Configuration.Patches
 
             try
             {
-                var id = MCMDeps.TryGetSettingId(__instance);
+                var id = MCMDependencies.TryGetSettingId(__instance);
                 if (string.IsNullOrWhiteSpace(id))
                     return;
 
@@ -142,12 +142,12 @@ namespace Retinues.Configuration.Patches
     {
         private static bool Prepare()
         {
-            return MCMDeps.CanPatch();
+            return MCMDependencies.CanPatch();
         }
 
         private static MethodBase TargetMethod()
         {
-            var t = AccessTools.TypeByName(MCMDeps.SettingsPropertyVMTypeName);
+            var t = AccessTools.TypeByName(MCMDependencies.SettingsPropertyVMTypeName);
             if (t == null)
                 return null;
 
@@ -162,9 +162,9 @@ namespace Retinues.Configuration.Patches
         {
             try
             {
-                var settingsVm = MCMDeps.TryGetSettingsVM(__instance);
+                var settingsVm = MCMDependencies.TryGetSettingsVM(__instance);
                 if (settingsVm != null)
-                    MCMDeps.RefreshAllVisibility(settingsVm);
+                    MCMDependencies.RefreshAllVisibility(settingsVm);
             }
             catch
             {

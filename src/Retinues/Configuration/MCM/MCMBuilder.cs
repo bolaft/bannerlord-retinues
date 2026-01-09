@@ -9,13 +9,13 @@ using MCM.Abstractions.FluentBuilder;
 using MCM.Common;
 using Retinues.Utilities;
 
-namespace Retinues.Configuration
+namespace Retinues.Configuration.MCM
 {
     /// <summary>
     /// MCM interop wrapper for Retinues settings.
     /// Generic settings logic lives in SettingsManager and Settings.
     /// </summary>
-    public static class MCM
+    public static class MCMBuilder
     {
         private const string MCMId = "Retinues.Settings";
         private const string MCMDisplay = "Retinues";

@@ -6,7 +6,7 @@ using System.Threading;
 using Retinues.Utilities;
 using TaleWorlds.ScreenSystem;
 
-namespace Retinues.Configuration
+namespace Retinues.Configuration.MCM
 {
     static class MCMLauncher
     {

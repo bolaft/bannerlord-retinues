@@ -1,6 +1,7 @@
 using System;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Configuration;
+using Retinues.Configuration.MCM;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Factions;
 using Retinues.Domain.Factions.Helpers;
