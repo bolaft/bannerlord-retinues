@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Retinues.Configuration;
+using Retinues.Domain.Characters.Wrappers;
 using Retinues.Framework.Runtime;
 using Retinues.Modules;
 using TaleWorlds.Core;
@@ -18,10 +19,10 @@ namespace Retinues.Domain.Characters.Helpers
 
         static int ClampTier(int tier) => Math.Max(0, Math.Min(7, tier));
 
-        public static int GetSkillCapForTier(int tier)
+        public static int GetSkillCap(WCharacter wc)
         {
-            tier = ClampTier(tier);
-            return tier switch
+            var tier = ClampTier(wc.Tier);
+            var cap = tier switch
             {
                 0 => Settings.SkillCapT0,
                 1 => Settings.SkillCapT1,
@@ -33,12 +34,17 @@ namespace Retinues.Domain.Characters.Helpers
                 7 => Settings.SkillCapT7,
                 _ => Settings.SkillCapT7,
             };
+
+            // Add bonus if enabled
+            var bonus = Settings.BuffRetinueSkillCap ? Settings.RetinueSkillCapBuff : 0;
+
+            return cap + bonus;
         }
 
-        public static int GetSkillTotalForTier(int tier)
+        public static int GetSkillTotal(WCharacter wc)
         {
-            tier = ClampTier(tier);
-            return tier switch
+            var tier = ClampTier(wc.Tier);
+            var total = tier switch
             {
                 0 => Settings.SkillTotalT0,
                 1 => Settings.SkillTotalT1,
@@ -50,6 +56,11 @@ namespace Retinues.Domain.Characters.Helpers
                 7 => Settings.SkillTotalT7,
                 _ => Settings.SkillTotalT7,
             };
+
+            // Add bonus if enabled
+            var bonus = Settings.BuffRetinueSkillTotal ? Settings.RetinueSkillTotalBuff : 0;
+
+            return total + bonus;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

@@ -210,10 +210,10 @@ namespace Retinues.Domain.Characters.Wrappers
         const int MaxSkillLevel = 360;
 
         public int SkillCapForTier =>
-            !IsHero ? Helpers.SkillsHelper.GetSkillCapForTier(Tier) : MaxSkillLevel;
+            !IsHero ? Helpers.SkillsHelper.GetSkillCap(this) : MaxSkillLevel;
 
         public int SkillTotalMaxForTier =>
-            !IsHero ? Helpers.SkillsHelper.GetSkillTotalForTier(Tier) : int.MaxValue;
+            !IsHero ? Helpers.SkillsHelper.GetSkillTotal(this) : int.MaxValue;
 
         public int SkillTotalUsed
         {
