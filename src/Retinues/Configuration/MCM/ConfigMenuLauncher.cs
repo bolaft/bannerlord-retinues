@@ -8,7 +8,7 @@ using TaleWorlds.ScreenSystem;
 
 namespace Retinues.Configuration.MCM
 {
-    static class MCMLauncher
+    static class ConfigMenuLauncher
     {
         private const string ModOptionsScreenTypeName =
             "MCM.UI.GUI.GauntletUI.ModOptionsGauntletScreen";

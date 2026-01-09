@@ -160,7 +160,7 @@ namespace Retinues.Editor.VM
         {
             Log.Debug("Settings tab clicked. Opening MCM settings: Retinues.Settings");
 
-            if (!MCMLauncher.TryOpenSettings("Retinues.Settings"))
+            if (!ConfigMenuLauncher.TryOpenSettings("Retinues.Settings"))
                 Log.Warn("Failed to open MCM settings screen.");
         }
 

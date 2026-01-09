@@ -2,103 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Reflection;
-using MCM.Abstractions;
-using MCM.Abstractions.Base.Global;
 using MCM.Abstractions.FluentBuilder;
 using MCM.Common;
 using Retinues.Utilities;
 
 namespace Retinues.Configuration.MCM
 {
-    /// <summary>
-    /// MCM interop wrapper for Retinues settings.
-    /// Generic settings logic lives in SettingsManager and Settings.
-    /// </summary>
-    public static class MCMBuilder
+    public static partial class ConfigMenu
     {
-        private const string MCMId = "Retinues.Settings";
-        private const string MCMDisplay = "Retinues";
-        private const string MCMFolder = "Retinues";
-        private const string MCMFormat = "xml";
-
-        private static FluentGlobalSettings _MCMSettings;
-        private static object _MCMSettingsInstance;
-        private static Type _MCMSettingsType;
-        private static bool _isSyncingWithMCM;
-        private static bool _isRegistered;
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                       Public API                       //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        /// <summary>
-        /// Register the configuration page and options with MCM (returns true when successful).
-        /// Can safely be called many times; after first success it is a cheap no-op.
-        /// </summary>
-        public static bool Register()
-        {
-            if (_isRegistered)
-                return true;
-
-            try
-            {
-                Log.Debug("Attempting to register Retinues with MCM...");
-
-                // Ensure SettingsManager has discovered all options
-                var _ = SettingsManager.AllOptions;
-
-                var ok = Build();
-                if (!ok)
-                {
-                    // Builder not ready or provider refused the page this tick
-                    return false;
-                }
-
-                _isRegistered = true;
-                Log.Debug("Retinues options registered with MCM.");
-
-                return true;
-            }
-            catch (Exception e)
-            {
-                Log.Exception(e, "MCM.Register failed.");
-                return false;
-            }
-        }
-
-        /// <summary>
-        /// Ask MCM to persist the current Retinues settings to disk.
-        /// Uses MCM's DefaultSettingsProvider pipeline, so it behaves exactly
-        /// like pressing 'Save' in the MCM UI.
-        /// </summary>
-        public static void Save()
-        {
-            try
-            {
-                if (_MCMSettings == null)
-                {
-                    Log.Info("MCM.Save called but _mcmSettings is null; skipping.");
-                    return;
-                }
-
-                var provider = BaseSettingsProvider.Instance;
-                if (provider == null)
-                {
-                    Log.Info(
-                        "MCM.Save called but BaseSettingsProvider.Instance is null; skipping."
-                    );
-                    return;
-                }
-
-                provider.SaveSettings(_MCMSettings);
-            }
-            catch (Exception e)
-            {
-                Log.Exception(e, "MCM.Save failed.");
-            }
-        }
-
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Builder                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -155,7 +66,7 @@ namespace Retinues.Configuration.MCM
                                 continue;
                             }
 
-                            // Multi-choice options: not yet wired as dropdowns in MCM
+                            // Multi-choice options: dropdowns
                             if (opt is IMultiChoiceOption mc)
                             {
                                 var dd = GetOrCreateDropdown(opt.Key, mc);
@@ -302,140 +213,6 @@ namespace Retinues.Configuration.MCM
             _MCMSettings.Register();
 
             return true;
-        }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Dropdown                        //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        private static readonly Dictionary<string, Dropdown<string>> _dropdownsByKey = new(
-            StringComparer.OrdinalIgnoreCase
-        );
-
-        private static Dropdown<string> GetOrCreateDropdown(string key, IMultiChoiceOption opt)
-        {
-            // Build labels
-            var labels = opt.Choices.Select(opt.ChoiceFormatter).ToList();
-            if (labels.Count == 0)
-                labels.Add(string.Empty);
-
-            var selected = opt.SelectedIndex;
-            if (selected < 0)
-                selected = 0;
-            if (selected >= labels.Count)
-                selected = labels.Count - 1;
-
-            if (!_dropdownsByKey.TryGetValue(key, out var dd))
-            {
-                dd = new Dropdown<string>(labels, selected);
-                _dropdownsByKey[key] = dd;
-
-                // When MCM UI changes SelectedIndex, update the option
-                dd.PropertyChanged += (_, e) =>
-                {
-                    if (e.PropertyName != nameof(Dropdown<string>.SelectedIndex))
-                        return;
-
-                    if (_isSyncingWithMCM)
-                        return;
-
-                    try
-                    {
-                        _isSyncingWithMCM = true;
-                        opt.SelectedIndex = dd.SelectedIndex;
-                    }
-                    finally
-                    {
-                        _isSyncingWithMCM = false;
-                    }
-                };
-            }
-            else
-            {
-                // Keep existing instance (important), but refresh labels/selection
-                dd.Clear();
-                dd.AddRange(labels);
-                dd.SelectedIndex = selected;
-            }
-
-            return dd;
-        }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Helpers                        //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        private static void HookMCMSettings(object settings)
-        {
-            if (settings == null)
-                return;
-
-            _MCMSettingsInstance = settings;
-            _MCMSettingsType = settings.GetType();
-
-            // Ensure we only have one handler attached
-            SettingsManager.OptionChanged -= SyncOptionToMCM;
-            SettingsManager.OptionChanged += SyncOptionToMCM;
-        }
-
-        private static void SyncOptionToMCM(string key, object value)
-        {
-            if (
-                SettingsManager.TryGetOption(key, out var opt)
-                && opt is IMultiChoiceOption mc
-                && _dropdownsByKey.TryGetValue(key, out var dd)
-            )
-            {
-                if (_isSyncingWithMCM)
-                    return;
-
-                try
-                {
-                    _isSyncingWithMCM = true;
-                    dd.SelectedIndex = mc.SelectedIndex;
-                }
-                finally
-                {
-                    _isSyncingWithMCM = false;
-                }
-
-                return;
-            }
-
-            var settings = _MCMSettingsInstance;
-            var type = _MCMSettingsType;
-            if (settings == null || type == null)
-                return;
-
-            // Prevent infinite recursion when we set the MCM property
-            if (_isSyncingWithMCM)
-                return;
-
-            try
-            {
-                var prop = type.GetProperty(
-                    key,
-                    BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic
-                );
-
-                if (prop == null || !prop.CanWrite)
-                    return;
-
-                _isSyncingWithMCM = true;
-
-                var targetType = Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType;
-
-                var coerced = Convert.ChangeType(value, targetType, CultureInfo.InvariantCulture);
-                prop.SetValue(settings, coerced);
-            }
-            catch (Exception e)
-            {
-                Log.Exception(e, "Failed to sync option to MCM.");
-            }
-            finally
-            {
-                _isSyncingWithMCM = false;
-            }
         }
 
         private static int ToIntMin(double v)

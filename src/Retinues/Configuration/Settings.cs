@@ -429,7 +429,8 @@ namespace Retinues.Configuration
                 "mcm_option_equipping_takes_time_hint",
                 "If enabled, equipping troops will not be instant and will take time to be completed."
             ),
-            @default: true,
+            @default: false,
+            @realistic: true,
             fires: [UIEvent.Equipment]
         );
 
@@ -553,7 +554,8 @@ namespace Retinues.Configuration
                 "mcm_option_training_takes_time_hint",
                 "If enabled, increasing skills will not be instant and will take time to be improved."
             ),
-            @default: true,
+            @default: false,
+            @realistic: true,
             fires: [UIEvent.Skill]
         );
 
