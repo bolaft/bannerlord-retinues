@@ -476,23 +476,32 @@
       id="ret_invalid_name_title"
       text="Invalid Name" />
     <string
-      id="ret_item_unlock_desc"
-      text="{METHOD}: {ITEMS}" />
-    <string
-      id="ret_item_unlock_method_discards"
-      text="Discards" />
-    <string
-      id="ret_item_unlock_method_kills"
-      text="Battle" />
-    <string
-      id="ret_item_unlock_method_workshops"
-      text="Workshops" />
-    <string
       id="ret_item_unlock_notification_message"
       text="Log Message" />
     <string
       id="ret_item_unlock_notification_popup"
       text="Popup" />
+    <string
+      id="ret_item_unlock_scoreboard_line"
+      text="Item unlocked: {ITEM}." />
+    <string
+      id="ret_item_unlock_scoreboard_many"
+      text="You unlocked {COUNT} new items." />
+    <string
+      id="ret_item_unlock_scoreboard_tooltip_title"
+      text="Unlocked items" />
+    <string
+      id="ret_item_unlock_sentence_battle"
+      text="{ITEMS} {VERB} unlocked in battle." />
+    <string
+      id="ret_item_unlock_sentence_donations"
+      text="{ITEMS} {VERB} unlocked through direct donations." />
+    <string
+      id="ret_item_unlock_sentence_generic"
+      text="{ITEMS} {VERB} unlocked." />
+    <string
+      id="ret_item_unlock_sentence_workshops"
+      text="{ITEMS} {VERB} unlocked through workshops." />
     <string
       id="ret_item_unlock_title"
       text="Items unlocked" />
@@ -1196,6 +1205,21 @@
       id="ret_unequip_item_tooltip"
       text="Unequip" />
     <string
+      id="ret_unlock_and"
+      text="and" />
+    <string
+      id="ret_unlock_more"
+      text="{COUNT} more" />
+    <string
+      id="ret_unlock_notify_title_multi"
+      text="Unlocks" />
+    <string
+      id="ret_unlock_verb_was"
+      text="was" />
+    <string
+      id="ret_unlock_verb_were"
+      text="were" />
+    <string
       id="ret_unstage_item_tooltip"
       text="Unstage" />
     <string
@@ -1223,8 +1247,11 @@
       id="ret_weight_hint"
       text="Weight" />
     <string
-      id="ret_workshop_unlock_start_desc"
-      text="{ITEMS}" />
+      id="ret_workshop_unlock_start_line"
+      text="Your {WORKSHOP} in {TOWN} started work on unlocking {ITEM}." />
+    <string
+      id="ret_workshop_unlock_start_more"
+      text="And {COUNT} more workshops started new projects." />
     <string
       id="ret_workshop_unlock_start_title"
       text="Workshops" />

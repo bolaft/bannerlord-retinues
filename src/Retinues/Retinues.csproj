@@ -119,6 +119,10 @@
       <HintPath>$(ReferenceRoot)/SandBox.View.dll</HintPath>
       <Private>false</Private>
     </Reference>
+    <Reference Include="SandBox.ViewModelCollection">
+      <HintPath>$(ReferenceRoot)/SandBox.ViewModelCollection.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
     <Reference Include="SandBox.GauntletUI">
       <HintPath>$(ReferenceRoot)/SandBox.GauntletUI.dll</HintPath>
       <Private>false</Private>

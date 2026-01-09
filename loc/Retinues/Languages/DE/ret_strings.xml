@@ -476,9 +476,6 @@
       id="ret_invalid_name_title"
       text="Ungültiger Name" />
     <string
-      id="ret_item_unlock_desc"
-      text="{METHOD}: {ITEMS}" />
-    <string
       id="ret_item_unlock_method_discards"
       text="Verwerfung" />
     <string
@@ -493,6 +490,27 @@
     <string
       id="ret_item_unlock_notification_popup"
       text="Popup" />
+    <string
+      id="ret_item_unlock_scoreboard_line"
+      text="Gegenstand freigeschaltet: {ITEM}." />
+    <string
+      id="ret_item_unlock_scoreboard_many"
+      text="Sie haben {COUNT} neue Gegenstände freigeschaltet." />
+    <string
+      id="ret_item_unlock_scoreboard_tooltip_title"
+      text="Freigeschaltete Gegenstände" />
+    <string
+      id="ret_item_unlock_sentence_battle"
+      text="{ITEMS} {VERB} im Kampf freigeschaltet." />
+    <string
+      id="ret_item_unlock_sentence_donations"
+      text="{ITEMS} {VERB} durch direkte Spenden freigeschaltet." />
+    <string
+      id="ret_item_unlock_sentence_generic"
+      text="{ITEMS} {VERB} freigeschaltet." />
+    <string
+      id="ret_item_unlock_sentence_workshops"
+      text="{ITEMS} {VERB} durch Werkstätten freigeschaltet." />
     <string
       id="ret_item_unlock_title"
       text="Freigeschaltete Gegenstände" />
@@ -1195,6 +1213,21 @@
     <string
       id="ret_unequip_item_tooltip"
       text="Ablegen" />
+    <string
+      id="ret_unlock_and"
+      text="und" />
+    <string
+      id="ret_unlock_more"
+      text="{COUNT} weitere" />
+    <string
+      id="ret_unlock_notify_title_multi"
+      text="Freischaltungen" />
+    <string
+      id="ret_unlock_verb_was"
+      text="war" />
+    <string
+      id="ret_unlock_verb_were"
+      text="waren" />
     <string
       id="ret_unstage_item_tooltip"
       text="Rückgängig" />

@@ -476,9 +476,6 @@
       id="ret_invalid_name_title"
       text="Nieprawidłowa nazwa" />
     <string
-      id="ret_item_unlock_desc"
-      text="{METHOD}: {ITEMS}" />
-    <string
       id="ret_item_unlock_method_discards"
       text="Odrzuty" />
     <string
@@ -493,6 +490,27 @@
     <string
       id="ret_item_unlock_notification_popup"
       text="Popup" />
+    <string
+      id="ret_item_unlock_scoreboard_line"
+      text="Przedmiot odblokowany: {ITEM}." />
+    <string
+      id="ret_item_unlock_scoreboard_many"
+      text="Odblokowałeś {COUNT} nowych przedmiotów." />
+    <string
+      id="ret_item_unlock_scoreboard_tooltip_title"
+      text="Odblokowane przedmioty" />
+    <string
+      id="ret_item_unlock_sentence_battle"
+      text="{ITEMS} {VERB} odblokowane w bitwie." />
+    <string
+      id="ret_item_unlock_sentence_donations"
+      text="{ITEMS} {VERB} odblokowane dzięki bezpośrednim darowiznom." />
+    <string
+      id="ret_item_unlock_sentence_generic"
+      text="{ITEMS} {VERB} odblokowane." />
+    <string
+      id="ret_item_unlock_sentence_workshops"
+      text="{ITEMS} {VERB} odblokowane dzięki warsztatom." />
     <string
       id="ret_item_unlock_title"
       text="Odblokowane przedmioty" />
@@ -1195,6 +1213,21 @@
     <string
       id="ret_unequip_item_tooltip"
       text="Zdejmij wyposażenie" />
+    <string
+      id="ret_unlock_and"
+      text="i" />
+    <string
+      id="ret_unlock_more"
+      text="jeszcze {COUNT}" />
+    <string
+      id="ret_unlock_notify_title_multi"
+      text="Odblokowania" />
+    <string
+      id="ret_unlock_verb_was"
+      text="był" />
+    <string
+      id="ret_unlock_verb_were"
+      text="były" />
     <string
       id="ret_unstage_item_tooltip"
       text="Cofnij etap" />

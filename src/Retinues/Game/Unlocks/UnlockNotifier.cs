@@ -4,6 +4,7 @@ using System.Linq;
 using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Framework.Runtime;
 using Retinues.UI.Services;
+using TaleWorlds.Localization;
 
 namespace Retinues.Game.Unlocks
 {
@@ -19,7 +20,8 @@ namespace Retinues.Game.Unlocks
 
         public struct WorkshopStartInfo
         {
-            public string WorkshopLabel;
+            public string WorkshopTypeName;
+            public string SettlementName;
             public WItem Item;
         }
 
@@ -46,15 +48,82 @@ namespace Retinues.Game.Unlocks
             if (unique.Count == 0)
                 return;
 
-            var methodText = MethodLabel(method);
-            var summary = Summarize(unique.Select(GetItemName), max: 5);
+            var names = unique.Select(GetItemName).Where(s => !string.IsNullOrEmpty(s)).ToList();
+            if (names.Count == 0)
+                return;
+
+            var listText = JoinWithAnd(names, max: 5, out var isPlural);
+            var wasWere = isPlural
+                ? L.S("unlock_verb_were", "were")
+                : L.S("unlock_verb_was", "was");
 
             var title = L.T("item_unlock_title", "Items unlocked");
-            var desc = L.T("item_unlock_desc", "{METHOD}: {ITEMS}")
-                .SetTextVariable("METHOD", methodText)
-                .SetTextVariable("ITEMS", summary);
 
-            UnlockNotifierBehavior.Notify(title, desc);
+            var desc = method switch
+            {
+                UnlockMethod.Kills => L.T(
+                    "item_unlock_sentence_battle",
+                    "{ITEMS} {VERB} unlocked in battle."
+                ),
+                UnlockMethod.Discards => L.T(
+                    "item_unlock_sentence_donations",
+                    "{ITEMS} {VERB} unlocked through direct donations."
+                ),
+                UnlockMethod.Workshops => L.T(
+                    "item_unlock_sentence_workshops",
+                    "{ITEMS} {VERB} unlocked through workshops."
+                ),
+                _ => L.T("item_unlock_sentence_generic", "{ITEMS} {VERB} unlocked."),
+            };
+
+            desc = desc.SetTextVariable("ITEMS", listText).SetTextVariable("VERB", wasWere);
+
+            Notify(title, desc);
+        }
+
+        private static string JoinWithAnd(IReadOnlyList<string> items, int max, out bool isPlural)
+        {
+            if (items == null)
+            {
+                isPlural = true;
+                return string.Empty;
+            }
+
+            // Filter empties first so counts are correct.
+            var filtered = items.Where(s => !string.IsNullOrEmpty(s)).ToList();
+            if (filtered.Count == 0)
+            {
+                isPlural = true;
+                return string.Empty;
+            }
+
+            isPlural = filtered.Count != 1;
+
+            var take = Math.Min(max, filtered.Count);
+            var shown = filtered.Take(take).ToList();
+            var more = filtered.Count - take;
+
+            var andWord = L.S("unlock_and", "and");
+
+            // If we have more items than we show, use:
+            // "A, B and 3 more"
+            if (more > 0)
+            {
+                var prefix = string.Join(", ", shown);
+                var moreText = L.T("unlock_more", "{COUNT} more")
+                    .SetTextVariable("COUNT", more)
+                    .ToString();
+
+                return $"{prefix} {andWord} {moreText}";
+            }
+
+            if (shown.Count == 1)
+                return shown[0];
+
+            if (shown.Count == 2)
+                return $"{shown[0]} {andWord} {shown[1]}";
+
+            return $"{string.Join(", ", shown.GetRange(0, shown.Count - 1))} {andWord} {shown[shown.Count - 1]}";
         }
 
         public static void WorkshopsStarted(IReadOnlyList<WorkshopStartInfo> starts)
@@ -62,79 +131,93 @@ namespace Retinues.Game.Unlocks
             if (starts == null || starts.Count == 0)
                 return;
 
-            // Dedupe by workshop label + item id (helps during multi-day catch-up).
-            var lines = new List<string>(starts.Count);
+            // Dedupe by workshop+town+item (helps during multi-day catch-up).
+            var distinct = new List<WorkshopStartInfo>(starts.Count);
             var seen = new HashSet<string>(StringComparer.Ordinal);
 
             for (var i = 0; i < starts.Count; i++)
             {
                 var s = starts[i];
+
+                var wk = s.WorkshopTypeName ?? string.Empty;
+                var town = s.SettlementName ?? string.Empty;
                 var itemId = s.Item?.StringId ?? string.Empty;
-                var wk = s.WorkshopLabel ?? string.Empty;
-                if (string.IsNullOrEmpty(wk) || string.IsNullOrEmpty(itemId))
+
+                if (
+                    string.IsNullOrEmpty(wk)
+                    || string.IsNullOrEmpty(town)
+                    || string.IsNullOrEmpty(itemId)
+                )
                     continue;
 
-                var key = wk + "|" + itemId;
+                var key = wk + "|" + town + "|" + itemId;
                 if (!seen.Add(key))
                     continue;
 
-                lines.Add($"{wk}: {GetItemName(s.Item)}");
+                distinct.Add(s);
             }
 
-            if (lines.Count == 0)
+            if (distinct.Count == 0)
                 return;
 
-            var summary = Summarize(lines, max: 5);
-
             var title = L.T("workshop_unlock_start_title", "Workshops");
-            var desc = L.T("workshop_unlock_start_desc", "{ITEMS}")
-                .SetTextVariable("ITEMS", summary);
 
-            UnlockNotifierBehavior.Notify(title, desc);
+            // Keep the popup readable.
+            const int maxParagraphs = 3;
+            var take = Math.Min(maxParagraphs, distinct.Count);
+
+            var paragraphs = new List<string>(take + 1);
+
+            for (var i = 0; i < take; i++)
+            {
+                var s = distinct[i];
+
+                var line = L.T(
+                        "workshop_unlock_start_line",
+                        "Your {WORKSHOP} in {TOWN} started work on unlocking {ITEM}."
+                    )
+                    .SetTextVariable("WORKSHOP", s.WorkshopTypeName.ToLowerInvariant())
+                    .SetTextVariable("TOWN", s.SettlementName)
+                    .SetTextVariable("ITEM", GetItemName(s.Item))
+                    .ToString();
+
+                paragraphs.Add(line);
+            }
+
+            if (distinct.Count > take)
+            {
+                var more = distinct.Count - take;
+                var moreLine = L.T(
+                        "workshop_unlock_start_more",
+                        "And {COUNT} more workshops started new projects."
+                    )
+                    .SetTextVariable("COUNT", more)
+                    .ToString();
+
+                paragraphs.Add(moreLine);
+            }
+
+            var desc = new TextObject(string.Join("\n\n", paragraphs));
+            Notify(title, desc);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Helpers                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private static string MethodLabel(UnlockMethod method)
+        private static void Notify(TextObject title, TextObject description)
         {
-            return method switch
-            {
-                UnlockMethod.Kills => L.S("item_unlock_method_kills", "Battle"),
-                UnlockMethod.Discards => L.S("item_unlock_method_discards", "Discards"),
-                UnlockMethod.Workshops => L.S("item_unlock_method_workshops", "Workshops"),
-                _ => method.ToString(),
-            };
+            // Centralized: delays until player returns to MapState.
+            UnlockNotifierBehavior.Notify(title, description);
         }
 
         private static string GetItemName(WItem item)
         {
-            // Prefer underlying base name if wrapper doesn't expose Name.
             var name = item?.Base?.Name?.ToString();
             if (!string.IsNullOrEmpty(name))
                 return name;
 
             return item?.StringId ?? "Unknown";
-        }
-
-        private static string Summarize(IEnumerable<string> items, int max)
-        {
-            if (items == null)
-                return string.Empty;
-
-            var list = items.Where(s => !string.IsNullOrEmpty(s)).ToList();
-            if (list.Count == 0)
-                return string.Empty;
-
-            var take = Math.Min(max, list.Count);
-            var shown = string.Join(", ", list.Take(take));
-
-            if (list.Count <= max)
-                return shown;
-
-            var remaining = list.Count - max;
-            return $"{shown}, ... (+{remaining})";
         }
     }
 }

@@ -476,9 +476,6 @@
       id="ret_invalid_name_title"
       text="Nom invalide" />
     <string
-      id="ret_item_unlock_desc"
-      text="{METHOD} : {ITEMS}" />
-    <string
       id="ret_item_unlock_method_discards"
       text="Rejets" />
     <string
@@ -493,6 +490,27 @@
     <string
       id="ret_item_unlock_notification_popup"
       text="Popup" />
+    <string
+      id="ret_item_unlock_scoreboard_line"
+      text="Objet déverrouillé : {ITEM}." />
+    <string
+      id="ret_item_unlock_scoreboard_many"
+      text="Vous avez déverrouillé {COUNT} nouveaux objets." />
+    <string
+      id="ret_item_unlock_scoreboard_tooltip_title"
+      text="Objets déverrouillés" />
+    <string
+      id="ret_item_unlock_sentence_battle"
+      text="{ITEMS} {VERB} déverrouillés au combat." />
+    <string
+      id="ret_item_unlock_sentence_donations"
+      text="{ITEMS} {VERB} déverrouillés grâce à des dons directs." />
+    <string
+      id="ret_item_unlock_sentence_generic"
+      text="{ITEMS} {VERB} déverrouillés." />
+    <string
+      id="ret_item_unlock_sentence_workshops"
+      text="{ITEMS} {VERB} déverrouillés grâce aux ateliers." />
     <string
       id="ret_item_unlock_title"
       text="Objets déverouillés" />
@@ -1195,6 +1213,21 @@
     <string
       id="ret_unequip_item_tooltip"
       text="Déséquiper" />
+    <string
+      id="ret_unlock_and"
+      text="et" />
+    <string
+      id="ret_unlock_more"
+      text="{COUNT} de plus" />
+    <string
+      id="ret_unlock_notify_title_multi"
+      text="Équipement Déverrouillé" />
+    <string
+      id="ret_unlock_verb_was"
+      text="a été" />
+    <string
+      id="ret_unlock_verb_were"
+      text="ont été" />
     <string
       id="ret_unstage_item_tooltip"
       text="Annuler" />

@@ -476,9 +476,6 @@
       id="ret_invalid_name_title"
       text="无效名称" />
     <string
-      id="ret_item_unlock_desc"
-      text="{METHOD}：{ITEMS}" />
-    <string
       id="ret_item_unlock_method_discards"
       text="丢弃" />
     <string
@@ -493,6 +490,27 @@
     <string
       id="ret_item_unlock_notification_popup"
       text="弹出窗口" />
+    <string
+      id="ret_item_unlock_scoreboard_line"
+      text="解锁物品：{ITEM}。" />
+    <string
+      id="ret_item_unlock_scoreboard_many"
+      text="您解锁了 {COUNT} 个新物品。" />
+    <string
+      id="ret_item_unlock_scoreboard_tooltip_title"
+      text="解锁的物品" />
+    <string
+      id="ret_item_unlock_sentence_battle"
+      text="{ITEMS} {VERB} 在战斗中解锁。" />
+    <string
+      id="ret_item_unlock_sentence_donations"
+      text="{ITEMS} {VERB} 通过直接捐赠解锁。" />
+    <string
+      id="ret_item_unlock_sentence_generic"
+      text="{ITEMS} {VERB} 已解锁。" />
+    <string
+      id="ret_item_unlock_sentence_workshops"
+      text="{ITEMS} {VERB} 通过车间解锁。" />
     <string
       id="ret_item_unlock_title"
       text="解锁的物品" />
@@ -1195,6 +1213,21 @@
     <string
       id="ret_unequip_item_tooltip"
       text="卸下装备" />
+    <string
+      id="ret_unlock_and"
+      text="和" />
+    <string
+      id="ret_unlock_more"
+      text="另外 {COUNT}" />
+    <string
+      id="ret_unlock_notify_title_multi"
+      text="解锁" />
+    <string
+      id="ret_unlock_verb_was"
+      text="是" />
+    <string
+      id="ret_unlock_verb_were"
+      text="是" />
     <string
       id="ret_unstage_item_tooltip"
       text="取消分阶段" />

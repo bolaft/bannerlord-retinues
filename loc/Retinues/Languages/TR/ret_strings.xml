@@ -476,9 +476,6 @@
       id="ret_invalid_name_title"
       text="Geçersiz İsim" />
     <string
-      id="ret_item_unlock_desc"
-      text="{METHOD}: {ITEMS}" />
-    <string
       id="ret_item_unlock_method_discards"
       text="Atıklar" />
     <string
@@ -493,6 +490,27 @@
     <string
       id="ret_item_unlock_notification_popup"
       text="Açılır Pencere" />
+    <string
+      id="ret_item_unlock_scoreboard_line"
+      text="Öğe kilidi açıldı: {ITEM}." />
+    <string
+      id="ret_item_unlock_scoreboard_many"
+      text="{COUNT} yeni öğenin kilidini açtınız." />
+    <string
+      id="ret_item_unlock_scoreboard_tooltip_title"
+      text="Kilit Açılan Öğeler" />
+    <string
+      id="ret_item_unlock_sentence_battle"
+      text="{ITEMS} {VERB} savaşta kilidi açıldı." />
+    <string
+      id="ret_item_unlock_sentence_donations"
+      text="{ITEMS} {VERB} doğrudan bağışlarla kilidi açıldı." />
+    <string
+      id="ret_item_unlock_sentence_generic"
+      text="{ITEMS} {VERB} kilidi açıldı." />
+    <string
+      id="ret_item_unlock_sentence_workshops"
+      text="{ITEMS} {VERB} atölyeler aracılığıyla kilidi açıldı." />
     <string
       id="ret_item_unlock_title"
       text="Kilit Açılan Öğeler" />
@@ -1195,6 +1213,21 @@
     <string
       id="ret_unequip_item_tooltip"
       text="Ekipmanı Çıkar" />
+    <string
+      id="ret_unlock_and"
+      text="ve" />
+    <string
+      id="ret_unlock_more"
+      text="daha {COUNT}" />
+    <string
+      id="ret_unlock_notify_title_multi"
+      text="Kilit Açma" />
+    <string
+      id="ret_unlock_verb_was"
+      text="idi" />
+    <string
+      id="ret_unlock_verb_were"
+      text="idi" />
     <string
       id="ret_unstage_item_tooltip"
       text="Aşamayı Kaldır" />

@@ -476,9 +476,6 @@
       id="ret_invalid_name_title"
       text="Nome non valido" />
     <string
-      id="ret_item_unlock_desc"
-      text="{METHOD}: {ITEMS}" />
-    <string
       id="ret_item_unlock_method_discards"
       text="Scarti" />
     <string
@@ -493,6 +490,27 @@
     <string
       id="ret_item_unlock_notification_popup"
       text="Popup" />
+    <string
+      id="ret_item_unlock_scoreboard_line"
+      text="Oggetto sbloccato: {ITEM}." />
+    <string
+      id="ret_item_unlock_scoreboard_many"
+      text="Hai sbloccato {COUNT} nuovi oggetti." />
+    <string
+      id="ret_item_unlock_scoreboard_tooltip_title"
+      text="Oggetti sbloccati" />
+    <string
+      id="ret_item_unlock_sentence_battle"
+      text="{ITEMS} {VERB} sbloccati in battaglia." />
+    <string
+      id="ret_item_unlock_sentence_donations"
+      text="{ITEMS} {VERB} sbloccati tramite donazioni dirette." />
+    <string
+      id="ret_item_unlock_sentence_generic"
+      text="{ITEMS} {VERB} sbloccati." />
+    <string
+      id="ret_item_unlock_sentence_workshops"
+      text="{ITEMS} {VERB} sbloccati tramite officine." />
     <string
       id="ret_item_unlock_title"
       text="Oggetti sbloccati" />
@@ -1195,6 +1213,21 @@
     <string
       id="ret_unequip_item_tooltip"
       text="Desequipaggia" />
+    <string
+      id="ret_unlock_and"
+      text="e" />
+    <string
+      id="ret_unlock_more"
+      text="altri {COUNT}" />
+    <string
+      id="ret_unlock_notify_title_multi"
+      text="Sblocchi" />
+    <string
+      id="ret_unlock_verb_was"
+      text="è stato" />
+    <string
+      id="ret_unlock_verb_were"
+      text="sono stati" />
     <string
       id="ret_unstage_item_tooltip"
       text="Annulla" />

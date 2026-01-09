@@ -476,9 +476,6 @@
       id="ret_invalid_name_title"
       text="Nome Inválido" />
     <string
-      id="ret_item_unlock_desc"
-      text="{METHOD}: {ITEMS}" />
-    <string
       id="ret_item_unlock_method_discards"
       text="Descarte" />
     <string
@@ -493,6 +490,27 @@
     <string
       id="ret_item_unlock_notification_popup"
       text="Popup" />
+    <string
+      id="ret_item_unlock_scoreboard_line"
+      text="Item desbloqueado: {ITEM}." />
+    <string
+      id="ret_item_unlock_scoreboard_many"
+      text="Você desbloqueou {COUNT} novos itens." />
+    <string
+      id="ret_item_unlock_scoreboard_tooltip_title"
+      text="Itens desbloqueados" />
+    <string
+      id="ret_item_unlock_sentence_battle"
+      text="{ITEMS} {VERB} desbloqueados em batalha." />
+    <string
+      id="ret_item_unlock_sentence_donations"
+      text="{ITEMS} {VERB} desbloqueados por meio de doações diretas." />
+    <string
+      id="ret_item_unlock_sentence_generic"
+      text="{ITEMS} {VERB} desbloqueados." />
+    <string
+      id="ret_item_unlock_sentence_workshops"
+      text="{ITEMS} {VERB} desbloqueados por meio de oficinas." />
     <string
       id="ret_item_unlock_title"
       text="Itens desbloqueados" />
@@ -1195,6 +1213,21 @@
     <string
       id="ret_unequip_item_tooltip"
       text="Desequipar" />
+    <string
+      id="ret_unlock_and"
+      text="e" />
+    <string
+      id="ret_unlock_more"
+      text="{COUNT} mais" />
+    <string
+      id="ret_unlock_notify_title_multi"
+      text="Desbloqueios" />
+    <string
+      id="ret_unlock_verb_was"
+      text="foi" />
+    <string
+      id="ret_unlock_verb_were"
+      text="foram" />
     <string
       id="ret_unstage_item_tooltip"
       text="Desencenar" />

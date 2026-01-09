@@ -1,3 +1,5 @@
+// File: Retinues/Game/Unlocks/UnlocksByKillsBehavior.cs
+
 using System;
 using System.Collections.Generic;
 using Retinues.Configuration;
@@ -7,6 +9,7 @@ using Retinues.Domain.Events.Models;
 using Retinues.Domain.Parties.Wrappers;
 using Retinues.Framework.Behaviors;
 using Retinues.Utilities;
+using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 
@@ -17,9 +20,7 @@ namespace Retinues.Game.Unlocks
     /// </summary>
     public sealed class UnlocksByKillsBehavior : BaseCampaignBehavior
     {
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Events                         //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        private static Mission _lastAppliedMission;
 
         /// <summary>
         /// Called when a mission ends.
@@ -31,7 +32,12 @@ namespace Retinues.Game.Unlocks
 
             try
             {
-                ApplyProgressFromMissionKills(mission);
+                if (!IsPlayerVictory())
+                    return;
+
+                // Keep the legacy behavior as a fallback path (for cases where
+                // the post-battle scoreboard patch did not run).
+                _ = ApplyProgressFromMissionKills(mission, notify: true);
             }
             catch (Exception e)
             {
@@ -39,30 +45,33 @@ namespace Retinues.Game.Unlocks
             }
         }
 
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                          Apply                         //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
         /// <summary>
         /// Applies unlock progress based on kills recorded in the given mission.
+        /// Returns the list of newly-unlocked items (if any).
         /// </summary>
-        private static void ApplyProgressFromMissionKills(IMission mission)
+        internal static IReadOnlyList<WItem> ApplyProgressFromMissionKills(
+            IMission mission,
+            bool notify
+        )
         {
             var mm = MMission.Current;
             if (mm == null)
-                return;
+                return Array.Empty<WItem>();
 
             var mbMission = mission as Mission;
             if (mbMission != null && !ReferenceEquals(mm.Base, mbMission))
-                return;
+                return Array.Empty<WItem>();
+
+            if (mbMission != null && ReferenceEquals(_lastAppliedMission, mbMission))
+                return Array.Empty<WItem>();
 
             var kills = mm.Kills;
             if (kills == null || kills.Count == 0)
-                return;
+                return Array.Empty<WItem>();
 
             var required = (int)Settings.RequiredKillsToUnlock;
             if (required <= 0)
-                return;
+                return Array.Empty<WItem>();
 
             var perKill = Math.Max(1, WItem.UnlockThreshold / required);
 
@@ -92,7 +101,7 @@ namespace Retinues.Game.Unlocks
             }
 
             if (counts.Count == 0)
-                return;
+                return Array.Empty<WItem>();
 
             var itemsTouched = 0;
             var unlocked = new List<WItem>();
@@ -118,11 +127,11 @@ namespace Retinues.Game.Unlocks
                     unlocked.Add(wItem);
             }
 
-            if (unlocked.Count > 0)
-                UnlockNotifierBehavior.ItemsUnlocked(
-                    UnlockNotifierBehavior.UnlockMethod.Kills,
-                    unlocked
-                );
+            if (unlocked.Count > 0 && notify)
+                UnlockNotifier.ItemsUnlocked(UnlockNotifier.UnlockMethod.Kills, unlocked);
+
+            if (mbMission != null)
+                _lastAppliedMission = mbMission;
 
             if (Settings.DebugMode && itemsTouched > 0)
             {
@@ -130,11 +139,26 @@ namespace Retinues.Game.Unlocks
                     $"[Unlocks] Mission kill progress applied: items={itemsTouched}, newlyUnlocked={unlocked.Count}, totalAdded={totalAdded}."
                 );
             }
+
+            return unlocked;
         }
 
-        /// <summary>
-        /// Infers the player's battle side from the given kills.
-        /// </summary>
+        private static bool IsPlayerVictory()
+        {
+            // Prefer our wrapper if available.
+            var mm = MMapEvent.Current;
+            if (mm != null)
+                return mm.IsWon;
+
+            // Fallback for cases where Current was cleared early.
+            var me = MobileParty.MainParty?.MapEvent;
+            if (me == null)
+                return false;
+
+            var wrapped = new MMapEvent(me);
+            return wrapped.IsWon;
+        }
+
         private static BattleSideEnum InferPlayerSideFromKills(IReadOnlyList<MMission.Kill> kills)
         {
             var party = Player.Party;
@@ -151,9 +175,6 @@ namespace Retinues.Game.Unlocks
             return BattleSideEnum.None;
         }
 
-        /// <summary>
-        /// Determines if the given kill qualifies for unlock progress based on settings.
-        /// </summary>
         private static bool IsQualifyingKill(
             WParty party,
             MMission.Kill k,
@@ -183,9 +204,6 @@ namespace Retinues.Game.Unlocks
             return true;
         }
 
-        /// <summary>
-        /// Determines if the character with the given ID is in the given party.
-        /// </summary>
         private static bool IsInParty(WParty party, string characterId)
         {
             if (party == null || string.IsNullOrEmpty(characterId))
@@ -198,9 +216,6 @@ namespace Retinues.Game.Unlocks
             return party.MemberRoster.CountOf(w) > 0;
         }
 
-        /// <summary>
-        /// Accumulates equipment items from the given equipment into the counts dictionary.
-        /// </summary>
         private static void AccumulateFromEquipment(Equipment eq, Dictionary<string, int> counts)
         {
             var slotCount = (int)EquipmentIndex.NumEquipmentSetSlots;

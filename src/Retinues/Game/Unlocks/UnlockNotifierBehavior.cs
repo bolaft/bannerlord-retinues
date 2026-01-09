@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using Retinues.Configuration;
 using Retinues.Framework.Behaviors;
+using Retinues.Framework.Runtime;
 using Retinues.UI.Services;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.GameState;
@@ -8,10 +10,8 @@ using TaleWorlds.Localization;
 
 namespace Retinues.Game.Unlocks
 {
-    /// <summary>
-    /// Buffers unlock notifications until the player is back on the main campaign map.
-    /// </summary>
-    public sealed class UnlockNotifierBehavior : BaseCampaignBehavior<UnlockNotifierBehavior>
+    [SafeClass]
+    public sealed class UnlockNotifierBehavior : BaseCampaignBehavior
     {
         private struct PendingNotification
         {
@@ -19,10 +19,10 @@ namespace Retinues.Game.Unlocks
             public TextObject Description;
         }
 
-        private static readonly List<PendingNotification> _pending = [];
+        private static readonly List<PendingNotification> Pending = new(8);
 
         /// <summary>
-        /// Shows the notification immediately if on world map, otherwise queues it.
+        /// Show immediately if on world map, otherwise queue until the player returns to the campaign map.
         /// </summary>
         public static void Notify(TextObject title, TextObject description)
         {
@@ -35,11 +35,11 @@ namespace Retinues.Game.Unlocks
                 return;
             }
 
-            _pending.Add(new PendingNotification { Title = title, Description = description });
+            Pending.Add(new PendingNotification { Title = title, Description = description });
 
-            // Avoid unbounded growth in weird cases (loading loops, etc).
-            if (_pending.Count > 32)
-                _pending.RemoveAt(0);
+            // Safety guard: keep queue bounded in edge cases.
+            if (Pending.Count > 32)
+                Pending.RemoveAt(0);
         }
 
         protected override void RegisterCustomEvents()
@@ -49,17 +49,40 @@ namespace Retinues.Game.Unlocks
 
         private void OnTick(float dt)
         {
-            if (_pending.Count == 0)
+            if (Pending.Count == 0)
                 return;
 
             if (!IsOnWorldMap())
                 return;
 
-            // Drain one per tick to avoid stacking popups in the same frame.
-            var p = _pending[0];
-            _pending.RemoveAt(0);
+            Flush();
+        }
 
-            Show(p.Title, p.Description);
+        private static void Flush()
+        {
+            if (Pending.Count == 0)
+                return;
+
+            var count = Pending.Count;
+
+            var title = count == 1 ? Pending[0].Title : L.T("unlock_notify_title_multi", "Unlocks");
+
+            const int maxLines = 8;
+            var take = Math.Min(maxLines, count);
+
+            var lines = new List<string>(take + 1);
+            for (var i = 0; i < take; i++)
+                lines.Add(Pending[i].Description.ToString());
+
+            if (count > take)
+                lines.Add($"... (+{count - take})");
+
+            Pending.Clear();
+
+            // IMPORTANT: blank line between method paragraphs.
+            var desc = new TextObject(string.Join("\n\n", lines));
+
+            Show(title, desc);
         }
 
         private static void Show(TextObject title, TextObject description)

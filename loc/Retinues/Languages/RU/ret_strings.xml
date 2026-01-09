@@ -476,9 +476,6 @@
       id="ret_invalid_name_title"
       text="Недопустимое имя" />
     <string
-      id="ret_item_unlock_desc"
-      text="{METHOD}: {ITEMS}" />
-    <string
       id="ret_item_unlock_method_discards"
       text="Отбросы" />
     <string
@@ -493,6 +490,27 @@
     <string
       id="ret_item_unlock_notification_popup"
       text="Всплывающее окно" />
+    <string
+      id="ret_item_unlock_scoreboard_line"
+      text="Предмет разблокирован: {ITEM}." />
+    <string
+      id="ret_item_unlock_scoreboard_many"
+      text="Вы разблокировали {COUNT} новых предметов." />
+    <string
+      id="ret_item_unlock_scoreboard_tooltip_title"
+      text="Разблокированные предметы" />
+    <string
+      id="ret_item_unlock_sentence_battle"
+      text="{ITEMS} {VERB} разблокированы в бою." />
+    <string
+      id="ret_item_unlock_sentence_donations"
+      text="{ITEMS} {VERB} разблокированы через прямые пожертвования." />
+    <string
+      id="ret_item_unlock_sentence_generic"
+      text="{ITEMS} {VERB} разблокированы." />
+    <string
+      id="ret_item_unlock_sentence_workshops"
+      text="{ITEMS} {VERB} разблокированы через мастерские." />
     <string
       id="ret_item_unlock_title"
       text="Разблокированные предметы" />
@@ -1195,6 +1213,21 @@
     <string
       id="ret_unequip_item_tooltip"
       text="Снять" />
+    <string
+      id="ret_unlock_and"
+      text="и" />
+    <string
+      id="ret_unlock_more"
+      text="еще {COUNT}" />
+    <string
+      id="ret_unlock_notify_title_multi"
+      text="Разблокировки" />
+    <string
+      id="ret_unlock_verb_was"
+      text="был" />
+    <string
+      id="ret_unlock_verb_were"
+      text="были" />
     <string
       id="ret_unstage_item_tooltip"
       text="Отменить этап" />

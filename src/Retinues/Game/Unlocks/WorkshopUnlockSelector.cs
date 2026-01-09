@@ -29,6 +29,19 @@ namespace Retinues.Game.Unlocks
             StringComparer.Ordinal
         );
 
+        public static bool CanUnlock(Workshop workshop)
+        {
+            if (workshop?.WorkshopType == null)
+                return false;
+
+            return CanUnlock(workshop.WorkshopType);
+        }
+
+        public static bool CanUnlock(WorkshopType type)
+        {
+            return GetWorkshopMaterials(type) != Mat.None;
+        }
+
         public static WItem PickTargetItem(Workshop workshop, int seed)
         {
             var cultureId = workshop.Settlement.Culture?.StringId;
@@ -92,6 +105,16 @@ namespace Retinues.Game.Unlocks
                 return cached;
 
             var mats = GetWorkshopMaterials(type);
+
+            // If we cannot infer any relevant "equipment material" for this workshop (wine press, brewery,
+            // olive press, etc), then it should not unlock equipment at all.
+            if (mats == Mat.None)
+            {
+                var empty = new List<Candidate>(0);
+                _cache[key] = empty;
+                return empty;
+            }
+
             var list = new List<Candidate>(256);
 
             foreach (var item in WItem.Equipments)
@@ -131,8 +154,9 @@ namespace Retinues.Game.Unlocks
 
         private static int ScoreItem(WItem item, Mat workshopMats)
         {
+            // No "broad fallback": if the workshop doesn't map to equipment materials, it shouldn't unlock.
             if (workshopMats == Mat.None)
-                return BroadScore(item);
+                return 0;
 
             var itemMats = GetItemMaterials(item);
             if (itemMats == Mat.None)
@@ -161,6 +185,10 @@ namespace Retinues.Game.Unlocks
                     score += 15;
                 if (item.IsArmor)
                     score += 8;
+
+                // Prefer leather-first projects: penalize mixed leather+metal items for tanneries.
+                if ((itemMats & Mat.Metal) != 0)
+                    score -= 25;
             }
 
             if ((workshopMats & Mat.Cloth) != 0)
@@ -169,6 +197,10 @@ namespace Retinues.Game.Unlocks
                     score += 15;
                 if (item.IsArmor)
                     score += 8;
+
+                // Prefer cloth-first projects: penalize mixed cloth+metal items for weaveries.
+                if ((itemMats & Mat.Metal) != 0)
+                    score -= 25;
             }
 
             if ((workshopMats & Mat.Wood) != 0)
@@ -184,33 +216,47 @@ namespace Retinues.Game.Unlocks
                     score += 8;
             }
 
+            // Metal shops should strongly prefer metal-first items (and avoid cloth/leather-first).
             if ((workshopMats & Mat.Metal) != 0)
             {
                 var ac = item.Base?.ArmorComponent;
+
                 if (ac != null)
                 {
-                    if (ac.MaterialType == ArmorComponent.ArmorMaterialTypes.Leather)
-                        score -= 30;
-                    if (ac.MaterialType == ArmorComponent.ArmorMaterialTypes.Cloth)
-                        score -= 30;
+                    // ArmorComponent gives a strong signal for armor/harnesses.
+                    switch (ac.MaterialType)
+                    {
+                        case ArmorComponent.ArmorMaterialTypes.Leather:
+                            score -= 45; // stronger penalty than before
+                            break;
+
+                        case ArmorComponent.ArmorMaterialTypes.Cloth:
+                            score -= 55; // even less desirable for smithies
+                            break;
+
+                        case ArmorComponent.ArmorMaterialTypes.Chainmail:
+                        case ArmorComponent.ArmorMaterialTypes.Plate:
+                            score += 20; // metal-first bonus
+                            break;
+                    }
+                }
+                else
+                {
+                    // Fallback: if it's not clearly "metal-only", penalize a bit.
+                    // This keeps smithies from selecting wood/leather/cloth-heavy items when any metal-heavy item exists.
+                    var hasMetal = (itemMats & Mat.Metal) != 0;
+                    var hasOther = (itemMats & (Mat.Leather | Mat.Cloth | Mat.Wood)) != 0;
+
+                    if (hasMetal && !hasOther)
+                        score += 15; // "full metal" per our heuristic
+                    else if (!hasMetal)
+                        score -= 40; // no metal at all => very unlikely for smithy
+                    else
+                        score -= 10; // mixed => mild penalty (still possible for crossbows/shields etc)
                 }
             }
 
             return Math.Max(score, 1);
-        }
-
-        private static int BroadScore(WItem item)
-        {
-            if (item.IsWeapon || item.IsArmor || item.IsShield || item.IsAmmo)
-                return 10;
-
-            if (
-                item.Type == ItemObject.ItemTypeEnum.HorseHarness
-                || item.Type == ItemObject.ItemTypeEnum.Cape
-            )
-                return 8;
-
-            return 0;
         }
 
         private static Mat GetWorkshopMaterials(WorkshopType type)

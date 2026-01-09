@@ -134,7 +134,7 @@ namespace Retinues.Game.Unlocks
             var maxCatchupDays = 60;
             var daysToProcess = Math.Min(currentDay - _lastProcessedDay, maxCatchupDays);
             var unlocked = new List<WItem>();
-            var started = new List<UnlockNotifierBehavior.WorkshopStartInfo>();
+            var started = new List<UnlockNotifier.WorkshopStartInfo>();
 
             for (var d = 0; d < daysToProcess; d++)
             {
@@ -142,11 +142,8 @@ namespace Retinues.Game.Unlocks
                 ApplyOneDay(workshops, perDay, dayIndex, unlocked, started);
             }
 
-            UnlockNotifierBehavior.ItemsUnlocked(
-                UnlockNotifierBehavior.UnlockMethod.Workshops,
-                unlocked
-            );
-            UnlockNotifierBehavior.WorkshopsStarted(started);
+            UnlockNotifier.ItemsUnlocked(UnlockNotifier.UnlockMethod.Workshops, unlocked);
+            UnlockNotifier.WorkshopsStarted(started);
 
             _lastProcessedDay += daysToProcess;
 
@@ -196,7 +193,7 @@ namespace Retinues.Game.Unlocks
             int perDay,
             int dayIndex,
             List<WItem> unlocked,
-            List<UnlockNotifierBehavior.WorkshopStartInfo> started
+            List<UnlockNotifier.WorkshopStartInfo> started
         )
         {
             var itemsTouched = 0;
@@ -211,6 +208,14 @@ namespace Retinues.Game.Unlocks
                 var workshopKey = GetWorkshopKey(w);
                 if (string.IsNullOrEmpty(workshopKey))
                     continue;
+
+                // Some workshops should not unlock equipment at all (wine press, brewery, etc).
+                // If a save already contains a target mapping for them, purge it.
+                if (!WorkshopUnlockSelector.CanUnlock(w))
+                {
+                    _targetByWorkshopKey.Remove(workshopKey);
+                    continue;
+                }
 
                 // Resolve current target, or pick a new one if missing/unlocked/invalid.
                 var target = GetOrAssignTarget(w, workshopKey, dayIndex, started);
@@ -243,7 +248,7 @@ namespace Retinues.Game.Unlocks
             Workshop w,
             string workshopKey,
             int dayIndex,
-            List<UnlockNotifierBehavior.WorkshopStartInfo> started
+            List<UnlockNotifier.WorkshopStartInfo> started
         )
         {
             if (
@@ -270,10 +275,12 @@ namespace Retinues.Game.Unlocks
             var typeName =
                 w.WorkshopType?.Name?.ToString() ?? w.WorkshopType?.StringId ?? "Workshop";
             var townName = w.Settlement?.Name?.ToString() ?? w.Settlement?.StringId ?? "Unknown";
+
             started?.Add(
-                new UnlockNotifierBehavior.WorkshopStartInfo
+                new UnlockNotifier.WorkshopStartInfo
                 {
-                    WorkshopLabel = $"{typeName} ({townName})",
+                    WorkshopTypeName = typeName,
+                    SettlementName = townName,
                     Item = next,
                 }
             );

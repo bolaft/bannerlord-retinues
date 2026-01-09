@@ -476,9 +476,6 @@
       id="ret_invalid_name_title"
       text="無効な名前" />
     <string
-      id="ret_item_unlock_desc"
-      text="{METHOD}：{ITEMS}" />
-    <string
       id="ret_item_unlock_method_discards"
       text="廃棄物" />
     <string
@@ -493,6 +490,27 @@
     <string
       id="ret_item_unlock_notification_popup"
       text="ポップアップ" />
+    <string
+      id="ret_item_unlock_scoreboard_line"
+      text="アイテムがアンロックされました: {ITEM}。" />
+    <string
+      id="ret_item_unlock_scoreboard_many"
+      text="{COUNT} 個の新しいアイテムをアンロックしました。" />
+    <string
+      id="ret_item_unlock_scoreboard_tooltip_title"
+      text="アンロックされたアイテム" />
+    <string
+      id="ret_item_unlock_sentence_battle"
+      text="{ITEMS} {VERB} 戦闘でアンロックされました。" />
+    <string
+      id="ret_item_unlock_sentence_donations"
+      text="{ITEMS} {VERB} 直接寄付でアンロックされました。" />
+    <string
+      id="ret_item_unlock_sentence_generic"
+      text="{ITEMS} {VERB} アンロックされました。" />
+    <string
+      id="ret_item_unlock_sentence_workshops"
+      text="{ITEMS} {VERB} 工房でアンロックされました。" />
     <string
       id="ret_item_unlock_title"
       text="アンロックされたアイテム" />
@@ -1195,6 +1213,21 @@
     <string
       id="ret_unequip_item_tooltip"
       text="装備解除" />
+    <string
+      id="ret_unlock_and"
+      text="と" />
+    <string
+      id="ret_unlock_more"
+      text="さらに {COUNT}" />
+    <string
+      id="ret_unlock_notify_title_multi"
+      text="アンロック" />
+    <string
+      id="ret_unlock_verb_was"
+      text="でした" />
+    <string
+      id="ret_unlock_verb_were"
+      text="でした" />
     <string
       id="ret_unstage_item_tooltip"
       text="ステージ解除" />

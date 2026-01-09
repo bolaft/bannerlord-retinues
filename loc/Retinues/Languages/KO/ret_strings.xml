@@ -476,9 +476,6 @@
       id="ret_invalid_name_title"
       text="잘못된 이름" />
     <string
-      id="ret_item_unlock_desc"
-      text="{METHOD}: {ITEMS}" />
-    <string
       id="ret_item_unlock_method_discards"
       text="폐기물" />
     <string
@@ -493,6 +490,27 @@
     <string
       id="ret_item_unlock_notification_popup"
       text="팝업" />
+    <string
+      id="ret_item_unlock_scoreboard_line"
+      text="아이템 잠금 해제: {ITEM}." />
+    <string
+      id="ret_item_unlock_scoreboard_many"
+      text="새로운 아이템 {COUNT}개를 잠금 해제했습니다." />
+    <string
+      id="ret_item_unlock_scoreboard_tooltip_title"
+      text="잠금 해제된 항목" />
+    <string
+      id="ret_item_unlock_sentence_battle"
+      text="{ITEMS} {VERB} 전투에서 잠금 해제되었습니다." />
+    <string
+      id="ret_item_unlock_sentence_donations"
+      text="{ITEMS} {VERB} 직접 기부를 통해 잠금 해제되었습니다." />
+    <string
+      id="ret_item_unlock_sentence_generic"
+      text="{ITEMS} {VERB} 잠금 해제되었습니다." />
+    <string
+      id="ret_item_unlock_sentence_workshops"
+      text="{ITEMS} {VERB} 작업장을 통해 잠금 해제되었습니다." />
     <string
       id="ret_item_unlock_title"
       text="잠금 해제된 항목" />
@@ -1195,6 +1213,21 @@
     <string
       id="ret_unequip_item_tooltip"
       text="장비 해제" />
+    <string
+      id="ret_unlock_and"
+      text="및" />
+    <string
+      id="ret_unlock_more"
+      text="추가 {COUNT}" />
+    <string
+      id="ret_unlock_notify_title_multi"
+      text="잠금 해제" />
+    <string
+      id="ret_unlock_verb_was"
+      text="이었다" />
+    <string
+      id="ret_unlock_verb_were"
+      text="이었다" />
     <string
       id="ret_unstage_item_tooltip"
       text="단계 해제" />
