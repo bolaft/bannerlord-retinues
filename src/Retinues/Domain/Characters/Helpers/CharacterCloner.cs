@@ -13,27 +13,27 @@ using TaleWorlds.Library;
 
 namespace Retinues.Domain.Characters.Helpers
 {
-    /// <summary>
-    /// Centralized troop creation and cloning helpers.
-    /// Starter equipment is always applied from Settings.StarterEquipment.
-    /// </summary>
     [SafeClass]
     public static class CharacterCloner
     {
+        /// <summary>
+        /// Fired when CharacterCloner unlocks items as part of troop creation.
+        /// Listener is in Game layer (UnlockNotifierBehavior).
+        /// </summary>
+        public static event Action<IReadOnlyList<WItem>> ItemsUnlockedByCloner;
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Public API                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        /// <summary>
-        /// Clones a vanilla troop into a custom stub.
-        /// Equipment initialization is driven by Settings.StarterEquipment.
-        /// </summary>
         public static WCharacter CloneVanilla(
             WCharacter template,
             bool skills = true,
             bool equipments = true,
             WCharacter intoStub = null,
-            bool unlockItems = true
+            bool unlockItems = true,
+            bool notifyUnlocks = true,
+            List<WItem> unlockSink = null
         )
         {
             if (template == null)
@@ -42,12 +42,10 @@ namespace Retinues.Domain.Characters.Helpers
             if (!template.IsVanilla)
                 Log.Debug($"CloneVanilla called with non-vanilla troop '{template.StringId}'.");
 
-            // Clone with equipment copy disabled here; we apply configured strategy below.
             var clone = template.Clone(skills: skills, equipments: false, intoStub: intoStub);
             if (clone == null)
                 return null;
 
-            // Ensure no upgrade links by default (tree-building re-wires them explicitly).
             clone.UpgradeTargets = [];
 
             if (!equipments)
@@ -56,8 +54,6 @@ namespace Retinues.Domain.Characters.Helpers
                 return clone;
             }
 
-            // Apply configured starter equipment strategy (Settings-driven).
-            // Equipment creation strategies never depend on unlock status.
             ApplyStarterEquipments(
                 template: template,
                 clone: clone,
@@ -65,30 +61,26 @@ namespace Retinues.Domain.Characters.Helpers
                 createCivilianSet: true
             );
 
-            // Unlock all items if requested.
             if (unlockItems)
             {
-                foreach (WItem item in clone.EquipmentRoster.Items)
-                    item.Unlock();
+                var newly = UnlockAllItems(clone);
+                CollectUnlocks(newly, notifyUnlocks, unlockSink);
             }
 
             return clone;
         }
 
-        /// <summary>
-        /// Clones the full upgrade tree starting from a vanilla root troop.
-        /// Returns a result containing the cloned root and all cloned troops.
-        /// </summary>
         public static WCharacter CloneTreeFromRoot(
             WCharacter rootTemplate,
             bool skills = true,
-            bool equipments = true
+            bool equipments = true,
+            bool notifyUnlocks = true,
+            List<WItem> unlockSink = null
         )
         {
             if (rootTemplate == null)
                 return null;
 
-            // Be forgiving: if caller passes a non-root troop, build from its root anyway.
             var root = rootTemplate.Root ?? rootTemplate;
 
             if (!root.IsVanilla)
@@ -103,7 +95,7 @@ namespace Retinues.Domain.Characters.Helpers
 
             try
             {
-                // 1) Clone every troop with configured equipment policy
+                // 1) Clone every troop. IMPORTANT: do not unlock here.
                 for (int i = 0; i < templates.Count; i++)
                 {
                     var t = templates[i];
@@ -111,7 +103,14 @@ namespace Retinues.Domain.Characters.Helpers
                         continue;
 
                     var c =
-                        CloneVanilla(t, skills: skills, equipments: equipments)
+                        CloneVanilla(
+                            t,
+                            skills: skills,
+                            equipments: equipments,
+                            intoStub: null,
+                            unlockItems: false,
+                            notifyUnlocks: false
+                        )
                         ?? throw new InvalidOperationException(
                             "No free stub available for tree clone."
                         );
@@ -152,6 +151,37 @@ namespace Retinues.Domain.Characters.Helpers
                     clonedSrc.UpgradeTargets = clonedTargets;
                 }
 
+                // 3) Unlock items for the whole tree (single notification).
+                if (equipments)
+                {
+                    var allNew = new List<WItem>(64);
+                    var seen = new HashSet<string>(StringComparer.Ordinal);
+
+                    for (int i = 0; i < created.Count; i++)
+                    {
+                        var c = created[i];
+                        if (c?.Base == null)
+                            continue;
+
+                        var newly = UnlockAllItems(c);
+                        if (newly == null || newly.Count == 0)
+                            continue;
+
+                        for (int k = 0; k < newly.Count; k++)
+                        {
+                            var it = newly[k];
+                            var id = it?.StringId;
+                            if (string.IsNullOrEmpty(id))
+                                continue;
+
+                            if (seen.Add(id))
+                                allNew.Add(it);
+                        }
+                    }
+
+                    CollectUnlocks(allNew, notifyUnlocks, unlockSink);
+                }
+
                 map.TryGetValue(root.StringId, out var clonedRoot);
                 return clonedRoot;
             }
@@ -159,14 +189,31 @@ namespace Retinues.Domain.Characters.Helpers
             {
                 Log.Error($"CloneTreeFromRoot failed: {ex}");
 
-                // Best-effort rollback: return stubs to the pool.
                 CleanupCreated(created);
                 return null;
             }
         }
 
+        private static void CollectUnlocks(
+            List<WItem> newlyUnlocked,
+            bool notifyUnlocks,
+            List<WItem> unlockSink
+        )
+        {
+            if (newlyUnlocked == null || newlyUnlocked.Count == 0)
+                return;
+
+            if (unlockSink != null)
+                unlockSink.AddRange(newlyUnlocked);
+
+            if (!notifyUnlocks)
+                return;
+
+            ItemsUnlockedByCloner?.Invoke(newlyUnlocked);
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                  Generic builder entry                 //
+        //                  Generic Builder Entry                 //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public sealed class TroopBuildRequest
@@ -176,14 +223,13 @@ namespace Retinues.Domain.Characters.Helpers
             public bool CopySkills { get; set; } = true;
             public bool CreateCivilianSet { get; set; } = true;
 
-            /// <summary>
-            /// When true, every item assigned to the troop is immediately unlocked.
-            /// </summary>
             public bool UnlockItems { get; set; } = true;
 
             /// <summary>
-            /// If true, the created troop is unhidden in the encyclopedia.
+            /// When true, CharacterCloner will emit an unlock notification event if it unlocked new items.
             /// </summary>
+            public bool NotifyUnlocks { get; set; } = true;
+
             public bool UnhideInEncyclopedia { get; set; } = true;
         }
 
@@ -210,11 +256,10 @@ namespace Retinues.Domain.Characters.Helpers
 
             if (req.UnlockItems)
             {
-                foreach (WItem item in troop.EquipmentRoster.Items)
-                    item.Unlock();
+                var newly = UnlockAllItems(troop);
+                CollectUnlocks(newly, req.NotifyUnlocks, unlockSink: null);
             }
 
-            // Make sure the retinue is visible in the encyclopedia.
             if (req.UnhideInEncyclopedia)
                 troop.HiddenInEncyclopedia = false;
 
@@ -222,13 +267,32 @@ namespace Retinues.Domain.Characters.Helpers
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Notifier                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private static List<WItem> UnlockAllItems(WCharacter troop)
+        {
+            var list = new List<WItem>(16);
+
+            foreach (WItem item in troop.EquipmentRoster.Items)
+            {
+                if (item == null)
+                    continue;
+
+                if (item.IsUnlocked)
+                    continue;
+
+                item.Unlock();
+                list.Add(item);
+            }
+
+            return list;
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                   Equipment Strategy                   //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        /// <summary>
-        /// Applies starter equipment policy driven by Settings.StarterEquipment.
-        /// Equipment creation strategies never depend on unlock status.
-        /// </summary>
         private static void ApplyStarterEquipments(
             WCharacter template,
             WCharacter clone,
@@ -261,38 +325,25 @@ namespace Retinues.Domain.Characters.Helpers
                     break;
             }
 
-            /* ━━━━━━━━ Random ━━━━━━━━ */
-
-            // Culture
             var culture = cultureContext ?? template.Culture;
 
-            // Max tier: never exceed troop tier.
             int maxTier = MBMath.ClampInt(clone.Tier, 0, 6);
-
-            // Minimum tier: fixed value.
             int minTier = 0;
 
-            // Battle: empty slot chances.
             var noItemBattle = new Dictionary<EquipmentIndex, float>
             {
                 [EquipmentIndex.Head] = 25f,
                 [EquipmentIndex.Gloves] = 25f,
                 [EquipmentIndex.Horse] = 50f,
-                // Note: no HorseHarness entry on purpose.
-                // RandomHelper enforces:
-                // - if horse present => harness attempted 100%
-                // - if no horse => harness never present
             };
 
-            // Civilian: empty slot chances.
             Dictionary<EquipmentIndex, float> noItemCivil = new()
             {
                 [EquipmentIndex.Head] = 50f,
                 [EquipmentIndex.Gloves] = 50f,
-                [EquipmentIndex.Horse] = 100f, // No horses for civilian sets
+                [EquipmentIndex.Horse] = 100f,
             };
 
-            // IMPORTANT: No unlocked-only filtering here.
             var battle = RandomEquipmentHelper.CreateRandomEquipment(
                 owner: clone,
                 civilian: false,

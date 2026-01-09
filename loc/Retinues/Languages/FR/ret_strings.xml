@@ -173,6 +173,15 @@
       id="ret_character_cannot_remove_with_upgrades"
       text="Impossible de supprimer une unité qui a encore des améliorations." />
     <string
+      id="ret_clan_troops_unlock_always_unlocked"
+      text="Toujours déverrouillées" />
+    <string
+      id="ret_clan_troops_unlock_disabled"
+      text="Désactivées" />
+    <string
+      id="ret_clan_troops_unlock_with_first_fief"
+      text="Déverrouillé avec le premier fief" />
+    <string
       id="ret_clear_filter_tooltip"
       text="Effacer le texte du filtre actuel." />
     <string
@@ -383,6 +392,24 @@
       id="ret_export_title"
       text="Sauvegarder" />
     <string
+      id="ret_faction_troops_unlocked_desc"
+      text="{COUNT} nouvelles troupes sont désormais disponibles pour le {FACTION_TYPE} {FACTION}." />
+    <string
+      id="ret_faction_troops_unlocked_go"
+      text="Ouvrir l&apos;éditeur" />
+    <string
+      id="ret_faction_troops_unlocked_title"
+      text="Troupes de {FACTION}" />
+    <string
+      id="ret_faction_type_clan"
+      text="clan" />
+    <string
+      id="ret_faction_type_faction"
+      text="faction" />
+    <string
+      id="ret_faction_type_kingdom"
+      text="royaume" />
+    <string
       id="ret_filter_label"
       text="Filtre :" />
     <string
@@ -500,11 +527,23 @@
       id="ret_item_unlock_sentence_generic"
       text="{ITEMS} {VERB} déverrouillés." />
     <string
+      id="ret_item_unlock_sentence_troops"
+      text="{ITEMS} {VERB} déverrouillés lors de la création de troupes." />
+    <string
       id="ret_item_unlock_sentence_workshops"
       text="{ITEMS} {VERB} déverrouillés grâce aux ateliers." />
     <string
       id="ret_item_unlock_title"
       text="Objets déverouillés" />
+    <string
+      id="ret_kingdom_troops_unlock_always_unlocked"
+      text="Toujours déverrouillées" />
+    <string
+      id="ret_kingdom_troops_unlock_disabled"
+      text="Désactivées" />
+    <string
+      id="ret_kingdom_troops_unlock_upon_becoming_ruler"
+      text="Déverrouillées en devenant souverain" />
     <string
       id="ret_library_contents_header"
       text="Contenu" />
@@ -731,6 +770,12 @@
       id="ret_mariner_toggle_tooltip_universal"
       text="Les marins sont mieux adaptés au combat naval." />
     <string
+      id="ret_mcm_option_clan_troops_unlock"
+      text="Troupes de clan" />
+    <string
+      id="ret_mcm_option_clan_troops_unlock_hint"
+      text="Détermine quand les troupes de clan deviennent disponibles." />
+    <string
       id="ret_mcm_option_count_ally_casualties"
       text="Compter les pertes alliées" />
     <string
@@ -848,6 +893,12 @@
       id="ret_mcm_option_item_unlock_notification_hint"
       text="Détermine le style de notification lorsque de nouveaux objets sont déverrouillés." />
     <string
+      id="ret_mcm_option_kingdom_troops_unlock"
+      text="Troupes royales" />
+    <string
+      id="ret_mcm_option_kingdom_troops_unlock_hint"
+      text="Détermine quand les troupes royales deviennent disponibles." />
+    <string
       id="ret_mcm_option_max_retinue_ratio"
       text="Ratio Maximum de Rétinues" />
     <string
@@ -925,6 +976,12 @@
     <string
       id="ret_mcm_option_starter_equipment_hint"
       text="Définit l&apos;équipement de départ pour les troupes nouvellement déverrouillées." />
+    <string
+      id="ret_mcm_option_starter_troops"
+      text="Troupes Initiales" />
+    <string
+      id="ret_mcm_option_starter_troops_hint"
+      text="Détermine les troupes de départ du clan et du royaume." />
     <string
       id="ret_mcm_option_time_multiplier"
       text="Multiplicateur de Temps d&apos;Équipement" />
@@ -1184,6 +1241,12 @@
       id="ret_starter_equipment_single_set"
       text="Copier Un Seul" />
     <string
+      id="ret_starter_troops_clone_culture_roots"
+      text="Unités de Base Uniquement" />
+    <string
+      id="ret_starter_troops_clone_culture_trees"
+      text="Arbres de Troupes Entiers" />
+    <string
       id="ret_stocks_add"
       text="Ajout de {AMOUNT} {ITEM} aux stocks." />
     <string
@@ -1233,7 +1296,7 @@
       text="{COUNT} de plus" />
     <string
       id="ret_unlock_notify_title_multi"
-      text="Équipement Déverrouillé" />
+      text="Équipements" />
     <string
       id="ret_unlock_verb_was"
       text="a été" />

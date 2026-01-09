@@ -65,6 +65,56 @@ namespace Retinues.Configuration
             );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Restrictions                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public static readonly Section Restrictions = CreateSection(
+            name: L.F("mcm_section_restrictions", "Restrictions")
+        );
+
+        /* ━━━━━━━━ Options ━━━━━━━ */
+
+        public enum EditingRestrictionMode
+        {
+            None,
+            InSettlement,
+            InFief,
+        }
+
+        public static readonly MultiChoiceOption<EditingRestrictionMode> EditingRestriction =
+            CreateMultiChoiceOption(
+                section: Restrictions,
+                name: L.F("mcm_option_editing_restriction", "Location Restrictions"),
+                hint: L.F(
+                    "mcm_option_editing_restriction_hint",
+                    "Restricts where custom troops can be edited. Note: retinues are unaffected by this setting."
+                ),
+                @default: EditingRestrictionMode.None,
+                @realistic: EditingRestrictionMode.InFief,
+                choices:
+                [
+                    EditingRestrictionMode.None,
+                    EditingRestrictionMode.InSettlement,
+                    EditingRestrictionMode.InFief,
+                ],
+                choiceFormatter: v =>
+                    v switch
+                    {
+                        EditingRestrictionMode.None => L.S("editing_restriction_none", "Anywhere"),
+                        EditingRestrictionMode.InSettlement => L.S(
+                            "editing_restriction_in_settlement",
+                            "Any Settlement"
+                        ),
+                        EditingRestrictionMode.InFief => L.S(
+                            "editing_restriction_in_fief",
+                            "Faction Settlement"
+                        ),
+                        _ => v.ToString(),
+                    },
+                fires: [UIEvent.Character]
+            );
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Doctrines                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
@@ -162,6 +212,304 @@ namespace Retinues.Configuration
             @default: 20,
             dependsOn: EnableRetinues,
             fires: [UIEvent.Skill]
+        );
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Troops                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public static readonly Section Troops = CreateSection(
+            name: L.F("mcm_section_troops", "Troops")
+        );
+
+        /* ━━━━━━━━ Options ━━━━━━━ */
+
+        public enum ClanTroopsUnlockMode
+        {
+            AlwaysUnlocked,
+            UnlockedWithFirstFief,
+            Disabled,
+        }
+
+        public static readonly MultiChoiceOption<ClanTroopsUnlockMode> ClanTroopsUnlock =
+            CreateMultiChoiceOption(
+                section: Troops,
+                name: L.F("mcm_option_clan_troops_unlock", "Clan Troops"),
+                hint: L.F(
+                    "mcm_option_clan_troops_unlock_hint",
+                    "Determines when clan troops become available."
+                ),
+                @default: ClanTroopsUnlockMode.UnlockedWithFirstFief,
+                choices:
+                [
+                    ClanTroopsUnlockMode.AlwaysUnlocked,
+                    ClanTroopsUnlockMode.UnlockedWithFirstFief,
+                    ClanTroopsUnlockMode.Disabled,
+                ],
+                choiceFormatter: v =>
+                    v switch
+                    {
+                        ClanTroopsUnlockMode.AlwaysUnlocked => L.S(
+                            "clan_troops_unlock_always_unlocked",
+                            "Always Unlocked"
+                        ),
+                        ClanTroopsUnlockMode.UnlockedWithFirstFief => L.S(
+                            "clan_troops_unlock_with_first_fief",
+                            "Unlocked With First Fief"
+                        ),
+                        ClanTroopsUnlockMode.Disabled => L.S(
+                            "clan_troops_unlock_disabled",
+                            "Disabled"
+                        ),
+                        _ => v.ToString(),
+                    }
+            );
+
+        public enum KingdomTroopsUnlockMode
+        {
+            AlwaysUnlocked,
+            UnlockedUponBecomingRuler,
+            Disabled,
+        }
+
+        public static readonly MultiChoiceOption<KingdomTroopsUnlockMode> KingdomTroopsUnlock =
+            CreateMultiChoiceOption(
+                section: Troops,
+                name: L.F("mcm_option_kingdom_troops_unlock", "Kingdom Troops"),
+                hint: L.F(
+                    "mcm_option_kingdom_troops_unlock_hint",
+                    "Determines when kingdom troops become available."
+                ),
+                @default: KingdomTroopsUnlockMode.UnlockedUponBecomingRuler,
+                choices:
+                [
+                    KingdomTroopsUnlockMode.AlwaysUnlocked,
+                    KingdomTroopsUnlockMode.UnlockedUponBecomingRuler,
+                    KingdomTroopsUnlockMode.Disabled,
+                ],
+                choiceFormatter: v =>
+                    v switch
+                    {
+                        KingdomTroopsUnlockMode.AlwaysUnlocked => L.S(
+                            "kingdom_troops_unlock_always_unlocked",
+                            "Always Unlocked"
+                        ),
+                        KingdomTroopsUnlockMode.UnlockedUponBecomingRuler => L.S(
+                            "kingdom_troops_unlock_upon_becoming_ruler",
+                            "Unlocked Upon Becoming Ruler"
+                        ),
+                        KingdomTroopsUnlockMode.Disabled => L.S(
+                            "kingdom_troops_unlock_disabled",
+                            "Disabled"
+                        ),
+                        _ => v.ToString(),
+                    }
+            );
+
+        public enum TroopsMode
+        {
+            CloneRoots,
+            CloneTrees,
+        }
+
+        public static readonly MultiChoiceOption<TroopsMode> StarterTroops =
+            CreateMultiChoiceOption(
+                section: Troops,
+                name: L.F("mcm_option_starter_troops", "Starter Troops"),
+                hint: L.F(
+                    "mcm_option_starter_troops_hint",
+                    "Determines clan and kingdom starter troops."
+                ),
+                @default: TroopsMode.CloneTrees,
+                choices: [TroopsMode.CloneRoots, TroopsMode.CloneTrees],
+                choiceFormatter: v =>
+                    v switch
+                    {
+                        TroopsMode.CloneRoots => L.S(
+                            "starter_troops_clone_culture_roots",
+                            "Root Troops Only"
+                        ),
+                        TroopsMode.CloneTrees => L.S(
+                            "starter_troops_clone_culture_trees",
+                            "Entire Troop Trees"
+                        ),
+                        _ => v.ToString(),
+                    }
+            );
+
+        public enum EquipmentMode
+        {
+            RandomSet,
+            SingleSet,
+            AllSets,
+            EmptySet,
+        }
+
+        public static readonly MultiChoiceOption<EquipmentMode> StarterEquipment =
+            CreateMultiChoiceOption(
+                section: Troops,
+                name: L.F("mcm_option_starter_equipment", "Starter Equipment"),
+                hint: L.F(
+                    "mcm_option_starter_equipment_hint",
+                    "Sets the starter equipment for newly unlocked troops."
+                ),
+                @default: EquipmentMode.RandomSet,
+                choices:
+                [
+                    EquipmentMode.RandomSet,
+                    EquipmentMode.SingleSet,
+                    EquipmentMode.AllSets,
+                    EquipmentMode.EmptySet,
+                ],
+                choiceFormatter: v =>
+                    v switch
+                    {
+                        EquipmentMode.RandomSet => L.S("starter_equipment_random_set", "Random"),
+                        EquipmentMode.SingleSet => L.S(
+                            "starter_equipment_single_set",
+                            "Copy One Set"
+                        ),
+                        EquipmentMode.AllSets => L.S("starter_equipment_all_sets", "Copy All Sets"),
+                        EquipmentMode.EmptySet => L.S("starter_equipment_empty_set", "Empty"),
+                        _ => v.ToString(),
+                    }
+            );
+
+        public static readonly Option<float> MixedGenderRatio = CreateOption(
+            section: Troops,
+            name: L.F("mcm_option_mixed_gender_ratio", "Mixed Gender Ratio"),
+            hint: L.F(
+                "mcm_option_mixed_gender_ratio_hint",
+                "Sets the chance for mixed gender units to spawn as a member of the opposite sex."
+            ),
+            minValue: 0f,
+            maxValue: 0.5f,
+            @default: 0.5f
+        );
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Equipment                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public static readonly Section Equipment = CreateSection(
+            name: L.F("mcm_section_equipment", "Equipment")
+        );
+
+        /* ━━━━━━━━ Options ━━━━━━━ */
+
+        public static readonly Option<bool> EquipmentCostsMoney = CreateOption(
+            section: Equipment,
+            name: L.F("mcm_option_equipment_cost_money", "Equipment Costs Money"),
+            hint: L.F(
+                "mcm_option_enable_equipment_costs_money_hint",
+                "If enabled, equipping troops will cost gold. Also enables the stocks system."
+            ),
+            @default: true,
+            @freeform: false,
+            fires: [UIEvent.Page]
+        );
+
+        public static readonly Option<float> EquipmentCostMultiplier = CreateOption(
+            section: Equipment,
+            name: L.F("mcm_option_equipment_cost_multiplier", "Cost Multiplier"),
+            hint: L.F(
+                "mcm_option_equipment_cost_multiplier_hint",
+                "Determines the cost to equip a new piece of equipment."
+            ),
+            minValue: 0.1f,
+            maxValue: 10f,
+            @default: 1f,
+            @realistic: 2f,
+            dependsOn: EquipmentCostsMoney,
+            fires: [UIEvent.Page]
+        );
+
+        public static readonly Option<bool> EquippingTakesTime = CreateOption(
+            section: Equipment,
+            name: L.F("mcm_option_equipping_takes_time", "Equipping Takes Time"),
+            hint: L.F(
+                "mcm_option_equipping_takes_time_hint",
+                "If enabled, equipping troops will not be instant and will take time to be completed."
+            ),
+            @default: false,
+            @realistic: true,
+            fires: [UIEvent.Equipment]
+        );
+
+        public static readonly Option<float> EquipTimeMultiplier = CreateOption(
+            section: Equipment,
+            name: L.F("mcm_option_time_multiplier", "Equip Time Multiplier"),
+            hint: L.F(
+                "mcm_option_time_multiplier_hint",
+                "Determines how long it takes to equip a new piece of equipment."
+            ),
+            minValue: 0.5f,
+            maxValue: 5f,
+            @default: 1f,
+            @realistic: 2f,
+            dependsOn: EquippingTakesTime,
+            fires: [UIEvent.Equipment]
+        );
+
+        public static readonly Option<bool> EquippingProgressesWhileTravelling = CreateOption(
+            section: Equipment,
+            name: L.F("mcm_option_equipping_progresses_while_travelling", "Equip While Travelling"),
+            hint: L.F(
+                "mcm_option_equipping_progresses_while_travelling_hint",
+                "Whether equipping progresses while the party is travelling or only while waiting in settlements."
+            ),
+            @default: true,
+            dependsOn: EquippingTakesTime
+        );
+
+        public static readonly Option<bool> EquipmentWeightLimit = CreateOption(
+            section: Equipment,
+            name: L.F("mcm_option_equipment_weight_limit", "Limit By Weight"),
+            hint: L.F(
+                "mcm_option_weight_limit_hint",
+                "Whether to limit the total equipment weight (limits are tier-based)."
+            ),
+            @default: true,
+            fires: [UIEvent.Equipment]
+        );
+
+        public static readonly Option<float> EquipmentWeightLimitMultiplier = CreateOption(
+            section: Equipment,
+            name: L.F("mcm_option_equipment_weight_limit_multiplier", "Weight Limit Multiplier"),
+            hint: L.F(
+                "mcm_option_equipment_weight_limit_multiplier_hint",
+                "Affects the maximum total equipment weight limit."
+            ),
+            minValue: 0.5f,
+            maxValue: 2f,
+            @default: 1f,
+            dependsOn: EquipmentWeightLimit,
+            fires: [UIEvent.Equipment]
+        );
+
+        public static readonly Option<bool> EquipmentValueLimit = CreateOption(
+            section: Equipment,
+            name: L.F("mcm_option_equipment_value_limit", "Limit By Value"),
+            hint: L.F(
+                "mcm_option_equipment_value_limit_hint",
+                "Whether to limit the total equipment value (limits are tier-based)."
+            ),
+            @default: true,
+            fires: [UIEvent.Equipment]
+        );
+
+        public static readonly Option<float> EquipmentValueLimitMultiplier = CreateOption(
+            section: Equipment,
+            name: L.F("mcm_option_equipment_value_limit_multiplier", "Value Limit Multiplier"),
+            hint: L.F(
+                "mcm_option_equipment_value_limit_multiplier_hint",
+                "Affects the maximum total equipment value limit."
+            ),
+            minValue: 0.5f,
+            maxValue: 2f,
+            @default: 1f,
+            dependsOn: EquipmentValueLimit,
+            fires: [UIEvent.Equipment]
         );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -314,241 +662,6 @@ namespace Retinues.Configuration
             maxValue: 6,
             @default: 2,
             @realistic: 1
-        );
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Troops                         //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        public static readonly Section Troops = CreateSection(
-            name: L.F("mcm_section_troops", "Troops")
-        );
-
-        /* ━━━━━━━━ Options ━━━━━━━ */
-
-        public enum EquipmentMode
-        {
-            RandomSet,
-            SingleSet,
-            AllSets,
-            EmptySet,
-        }
-
-        public static readonly MultiChoiceOption<EquipmentMode> StarterEquipment =
-            CreateMultiChoiceOption(
-                section: Troops,
-                name: L.F("mcm_option_starter_equipment", "Starter Equipment"),
-                hint: L.F(
-                    "mcm_option_starter_equipment_hint",
-                    "Sets the starter equipment for newly unlocked troops."
-                ),
-                @default: EquipmentMode.RandomSet,
-                choices:
-                [
-                    EquipmentMode.RandomSet,
-                    EquipmentMode.SingleSet,
-                    EquipmentMode.AllSets,
-                    EquipmentMode.EmptySet,
-                ],
-                choiceFormatter: v =>
-                    v switch
-                    {
-                        EquipmentMode.RandomSet => L.S("starter_equipment_random_set", "Random"),
-                        EquipmentMode.SingleSet => L.S(
-                            "starter_equipment_single_set",
-                            "Copy One Set"
-                        ),
-                        EquipmentMode.AllSets => L.S("starter_equipment_all_sets", "Copy All Sets"),
-                        EquipmentMode.EmptySet => L.S("starter_equipment_empty_set", "Empty"),
-                        _ => v.ToString(),
-                    }
-            );
-
-        public static readonly Option<float> MixedGenderRatio = CreateOption(
-            section: Troops,
-            name: L.F("mcm_option_mixed_gender_ratio", "Mixed Gender Ratio"),
-            hint: L.F(
-                "mcm_option_mixed_gender_ratio_hint",
-                "Sets the chance for mixed gender units to spawn as a member of the opposite sex."
-            ),
-            minValue: 0f,
-            maxValue: 0.5f,
-            @default: 0.5f
-        );
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                      Restrictions                      //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        public static readonly Section Restrictions = CreateSection(
-            name: L.F("mcm_section_restrictions", "Restrictions")
-        );
-
-        /* ━━━━━━━━ Options ━━━━━━━ */
-
-        public enum EditingRestrictionMode
-        {
-            None,
-            InSettlement,
-            InFief,
-        }
-
-        public static readonly MultiChoiceOption<EditingRestrictionMode> EditingRestriction =
-            CreateMultiChoiceOption(
-                section: Restrictions,
-                name: L.F("mcm_option_editing_restriction", "Location Restrictions"),
-                hint: L.F(
-                    "mcm_option_editing_restriction_hint",
-                    "Restricts where custom troops can be edited. Note: retinues are unaffected by this setting."
-                ),
-                @default: EditingRestrictionMode.None,
-                @realistic: EditingRestrictionMode.InFief,
-                choices:
-                [
-                    EditingRestrictionMode.None,
-                    EditingRestrictionMode.InSettlement,
-                    EditingRestrictionMode.InFief,
-                ],
-                choiceFormatter: v =>
-                    v switch
-                    {
-                        EditingRestrictionMode.None => L.S("editing_restriction_none", "Anywhere"),
-                        EditingRestrictionMode.InSettlement => L.S(
-                            "editing_restriction_in_settlement",
-                            "Any Settlement"
-                        ),
-                        EditingRestrictionMode.InFief => L.S(
-                            "editing_restriction_in_fief",
-                            "Faction Settlement"
-                        ),
-                        _ => v.ToString(),
-                    },
-                fires: [UIEvent.Character]
-            );
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Equipment                       //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        public static readonly Section Equipment = CreateSection(
-            name: L.F("mcm_section_equipment", "Equipment")
-        );
-
-        /* ━━━━━━━━ Options ━━━━━━━ */
-
-        public static readonly Option<bool> EquipmentCostsMoney = CreateOption(
-            section: Equipment,
-            name: L.F("mcm_option_equipment_cost_money", "Equipment Costs Money"),
-            hint: L.F(
-                "mcm_option_enable_equipment_costs_money_hint",
-                "If enabled, equipping troops will cost gold. Also enables the stocks system."
-            ),
-            @default: true,
-            @freeform: false,
-            fires: [UIEvent.Page]
-        );
-
-        public static readonly Option<float> EquipmentCostMultiplier = CreateOption(
-            section: Equipment,
-            name: L.F("mcm_option_equipment_cost_multiplier", "Cost Multiplier"),
-            hint: L.F(
-                "mcm_option_equipment_cost_multiplier_hint",
-                "Determines the cost to equip a new piece of equipment."
-            ),
-            minValue: 0.1f,
-            maxValue: 10f,
-            @default: 1f,
-            @realistic: 2f,
-            dependsOn: EquipmentCostsMoney,
-            fires: [UIEvent.Page]
-        );
-
-        public static readonly Option<bool> EquippingTakesTime = CreateOption(
-            section: Equipment,
-            name: L.F("mcm_option_equipping_takes_time", "Equipping Takes Time"),
-            hint: L.F(
-                "mcm_option_equipping_takes_time_hint",
-                "If enabled, equipping troops will not be instant and will take time to be completed."
-            ),
-            @default: false,
-            @realistic: true,
-            fires: [UIEvent.Equipment]
-        );
-
-        public static readonly Option<float> EquipTimeMultiplier = CreateOption(
-            section: Equipment,
-            name: L.F("mcm_option_time_multiplier", "Equip Time Multiplier"),
-            hint: L.F(
-                "mcm_option_time_multiplier_hint",
-                "Determines how long it takes to equip a new piece of equipment."
-            ),
-            minValue: 0.5f,
-            maxValue: 5f,
-            @default: 1f,
-            @realistic: 2f,
-            dependsOn: EquippingTakesTime,
-            fires: [UIEvent.Equipment]
-        );
-
-        public static readonly Option<bool> EquippingProgressesWhileTravelling = CreateOption(
-            section: Equipment,
-            name: L.F("mcm_option_equipping_progresses_while_travelling", "Equip While Travelling"),
-            hint: L.F(
-                "mcm_option_equipping_progresses_while_travelling_hint",
-                "Whether equipping progresses while the party is travelling or only while waiting in settlements."
-            ),
-            @default: true,
-            dependsOn: EquippingTakesTime
-        );
-
-        public static readonly Option<bool> EquipmentWeightLimit = CreateOption(
-            section: Equipment,
-            name: L.F("mcm_option_equipment_weight_limit", "Limit By Weight"),
-            hint: L.F(
-                "mcm_option_weight_limit_hint",
-                "Whether to limit the total equipment weight (limits are tier-based)."
-            ),
-            @default: true,
-            fires: [UIEvent.Equipment]
-        );
-
-        public static readonly Option<float> EquipmentWeightLimitMultiplier = CreateOption(
-            section: Equipment,
-            name: L.F("mcm_option_equipment_weight_limit_multiplier", "Weight Limit Multiplier"),
-            hint: L.F(
-                "mcm_option_equipment_weight_limit_multiplier_hint",
-                "Affects the maximum total equipment weight limit."
-            ),
-            minValue: 0.5f,
-            maxValue: 2f,
-            @default: 1f,
-            dependsOn: EquipmentWeightLimit,
-            fires: [UIEvent.Equipment]
-        );
-
-        public static readonly Option<bool> EquipmentValueLimit = CreateOption(
-            section: Equipment,
-            name: L.F("mcm_option_equipment_value_limit", "Limit By Value"),
-            hint: L.F(
-                "mcm_option_equipment_value_limit_hint",
-                "Whether to limit the total equipment value (limits are tier-based)."
-            ),
-            @default: true,
-            fires: [UIEvent.Equipment]
-        );
-
-        public static readonly Option<float> EquipmentValueLimitMultiplier = CreateOption(
-            section: Equipment,
-            name: L.F("mcm_option_equipment_value_limit_multiplier", "Value Limit Multiplier"),
-            hint: L.F(
-                "mcm_option_equipment_value_limit_multiplier_hint",
-                "Affects the maximum total equipment value limit."
-            ),
-            minValue: 0.5f,
-            maxValue: 2f,
-            @default: 1f,
-            dependsOn: EquipmentValueLimit,
-            fires: [UIEvent.Equipment]
         );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

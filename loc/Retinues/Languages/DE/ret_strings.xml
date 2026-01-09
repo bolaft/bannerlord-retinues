@@ -173,6 +173,15 @@
       id="ret_character_cannot_remove_with_upgrades"
       text="Eine Einheit, die noch Upgrades hat, kann nicht entfernt werden." />
     <string
+      id="ret_clan_troops_unlock_always_unlocked"
+      text="Immer entsperrt" />
+    <string
+      id="ret_clan_troops_unlock_disabled"
+      text="Deaktiviert" />
+    <string
+      id="ret_clan_troops_unlock_with_first_fief"
+      text="Mit dem ersten Lehen entsperrt" />
+    <string
       id="ret_clear_filter_tooltip"
       text="Den aktuellen Filtertext löschen." />
     <string
@@ -383,6 +392,24 @@
       id="ret_export_title"
       text="Speichern" />
     <string
+      id="ret_faction_troops_unlocked_desc"
+      text="{COUNT} neue Truppen sind jetzt für die {FACTION_TYPE} {FACTION} verfügbar." />
+    <string
+      id="ret_faction_troops_unlocked_go"
+      text="Zum Editor gehen" />
+    <string
+      id="ret_faction_troops_unlocked_title"
+      text="{FACTION}-Truppen" />
+    <string
+      id="ret_faction_type_clan"
+      text="Clan" />
+    <string
+      id="ret_faction_type_faction"
+      text="Fraktion" />
+    <string
+      id="ret_faction_type_kingdom"
+      text="Königreich" />
+    <string
       id="ret_filter_label"
       text="Filter:" />
     <string
@@ -500,11 +527,23 @@
       id="ret_item_unlock_sentence_generic"
       text="{ITEMS} {VERB} freigeschaltet." />
     <string
+      id="ret_item_unlock_sentence_troops"
+      text="{ITEMS} {VERB} beim Erstellen von Truppen freigeschaltet." />
+    <string
       id="ret_item_unlock_sentence_workshops"
       text="{ITEMS} {VERB} durch Werkstätten freigeschaltet." />
     <string
       id="ret_item_unlock_title"
       text="Freigeschaltete Gegenstände" />
+    <string
+      id="ret_kingdom_troops_unlock_always_unlocked"
+      text="Immer freigeschaltet" />
+    <string
+      id="ret_kingdom_troops_unlock_disabled"
+      text="Deaktiviert" />
+    <string
+      id="ret_kingdom_troops_unlock_upon_becoming_ruler"
+      text="Freigeschaltet beim Herrscherwerden" />
     <string
       id="ret_library_contents_header"
       text="Inhalt" />
@@ -731,6 +770,12 @@
       id="ret_mariner_toggle_tooltip_universal"
       text="Seefahrer sind besser für den Seekampf geeignet." />
     <string
+      id="ret_mcm_option_clan_troops_unlock"
+      text="Clan-Truppen" />
+    <string
+      id="ret_mcm_option_clan_troops_unlock_hint"
+      text="Bestimmt, wann Clan-Truppen verfügbar werden." />
+    <string
       id="ret_mcm_option_count_ally_casualties"
       text="Zähle Verbündetenverluste" />
     <string
@@ -848,6 +893,12 @@
       id="ret_mcm_option_item_unlock_notification_hint"
       text="Bestimmt den Benachrichtigungsstil, wenn neue Gegenstände freigeschaltet werden." />
     <string
+      id="ret_mcm_option_kingdom_troops_unlock"
+      text="Königreichstruppen" />
+    <string
+      id="ret_mcm_option_kingdom_troops_unlock_hint"
+      text="Bestimmt, wann Königreichstruppen verfügbar werden." />
+    <string
       id="ret_mcm_option_max_retinue_ratio"
       text="Maximales Retinue-Verhältnis" />
     <string
@@ -925,6 +976,12 @@
     <string
       id="ret_mcm_option_starter_equipment_hint"
       text="Legt die Starterausrüstung für neu freigeschaltete Truppen fest." />
+    <string
+      id="ret_mcm_option_starter_troops"
+      text="Starter-Truppen" />
+    <string
+      id="ret_mcm_option_starter_troops_hint"
+      text="Bestimmt die Starter-Truppen von Clan und Königreich." />
     <string
       id="ret_mcm_option_time_multiplier"
       text="Ausrüstungszeit-Multiplikator" />
@@ -1183,6 +1240,12 @@
     <string
       id="ret_starter_equipment_single_set"
       text="Einen Satz kopieren" />
+    <string
+      id="ret_starter_troops_clone_culture_roots"
+      text="Nur Basiseinheiten" />
+    <string
+      id="ret_starter_troops_clone_culture_trees"
+      text="Ganze Truppenbäume" />
     <string
       id="ret_stocks_add"
       text="Es wurden {AMOUNT} {ITEM} zu den Beständen hinzugefügt." />

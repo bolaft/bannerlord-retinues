@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using Retinues.Framework.Runtime;
 using Retinues.Utilities;
+using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.GameState;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
@@ -15,55 +17,146 @@ namespace Retinues.UI.Services
     [SafeClass]
     public static class Inquiries
     {
+        private sealed class ListenerOwner { }
+
+        private static readonly ListenerOwner Owner = new();
+
+        private static bool _hooked;
+        private static readonly List<Action> Pending = new(16);
+
+        [StaticClearAction]
+        public static void ClearStatic()
+        {
+            Pending.Clear();
+
+            // IMPORTANT: do NOT reset _hooked here; CampaignEvents does not support
+            // removing non-serialized listeners, and re-registering would duplicate calls.
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                   Delayed Popup Core                   //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private static void EnsureHooked()
+        {
+            if (_hooked)
+                return;
+
+            try
+            {
+                // Safe to call multiple times; we guard with _hooked.
+                CampaignEvents.TickEvent.AddNonSerializedListener(Owner, OnTick);
+                _hooked = true;
+            }
+            catch (Exception e)
+            {
+                Log.Exception(e, "Inquiries.EnsureHooked failed.");
+            }
+        }
+
+        private static void OnTick(float dt)
+        {
+            if (Pending.Count == 0)
+                return;
+
+            if (!IsOnWorldMap())
+                return;
+
+            // Flush one at a time to avoid inquiry stacking spam.
+            var action = Pending[0];
+            Pending.RemoveAt(0);
+
+            try
+            {
+                action?.Invoke();
+            }
+            catch (Exception e)
+            {
+                Log.Exception(e, "Inquiries delayed action failed.");
+            }
+        }
+
+        private static bool IsOnWorldMap()
+        {
+            var game = TaleWorlds.Core.Game.Current;
+            var gsm = game?.GameStateManager;
+            if (gsm == null)
+                return false;
+
+            return gsm.ActiveState is MapState;
+        }
+
+        private static void ShowOrDelay(bool delayUntilOnWorldMap, Action show)
+        {
+            if (show == null)
+                return;
+
+            if (!delayUntilOnWorldMap)
+            {
+                show();
+                return;
+            }
+
+            EnsureHooked();
+
+            if (IsOnWorldMap())
+            {
+                show();
+                return;
+            }
+
+            Pending.Add(show);
+
+            if (Pending.Count > 64)
+                Pending.RemoveAt(0);
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Popup                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
         /// Popup with title, description and an OK-style button.
-        /// Example:
-        ///   Notifications.Popup(
-        ///       L.T("op_complete", "Operation completed successfully."),
-        ///       L.T("op_details", "Your changes have been saved.")
-        ///   );
         /// </summary>
         public static void Popup(
             TextObject title,
             TextObject description,
             TextObject buttonText = null,
-            bool pauseGame = true
+            bool pauseGame = true,
+            bool delayUntilOnWorldMap = false
         )
         {
-            try
-            {
-                buttonText ??= GameTexts.FindText("str_ok");
+            ShowOrDelay(
+                delayUntilOnWorldMap,
+                () =>
+                {
+                    try
+                    {
+                        buttonText ??= GameTexts.FindText("str_ok");
 
-                var inquiry = new InquiryData(
-                    title?.ToString() ?? string.Empty,
-                    description?.ToString() ?? string.Empty,
-                    isAffirmativeOptionShown: false,
-                    isNegativeOptionShown: true, // "OK" uses negative slot in vanilla
-                    affirmativeText: null,
-                    negativeText: buttonText.ToString(),
-                    affirmativeAction: null,
-                    negativeAction: null
-                );
+                        var inquiry = new InquiryData(
+                            title?.ToString() ?? string.Empty,
+                            description?.ToString() ?? string.Empty,
+                            isAffirmativeOptionShown: false,
+                            isNegativeOptionShown: true, // "OK" uses negative slot in vanilla
+                            affirmativeText: null,
+                            negativeText: buttonText.ToString(),
+                            affirmativeAction: null,
+                            negativeAction: null
+                        );
 
-                InformationManager.ShowInquiry(inquiry, pauseGame);
-            }
-            catch (Exception e)
-            {
-                Log.Exception(e, "Notifications.Popup failed.");
-            }
+                        InformationManager.ShowInquiry(inquiry, pauseGame);
+                    }
+                    catch (Exception e)
+                    {
+                        Log.Exception(e, "Notifications.Popup failed.");
+                    }
+                }
+            );
         }
 
         /// <summary>
         /// Confirmation popup with default Confirm / Cancel.
-        /// Example:
-        ///   Notifications.Popup(
-        ///       L.T("confirm_title", "Are you sure?"),
-        ///       onConfirm: DoTheThing
-        ///   );
         /// </summary>
         public static void Popup(
             TextObject title,
@@ -71,53 +164,55 @@ namespace Retinues.UI.Services
             TextObject description = null,
             TextObject confirmText = null,
             TextObject cancelText = null,
-            bool pauseGame = true
+            bool pauseGame = true,
+            bool delayUntilOnWorldMap = false
         )
         {
-            try
-            {
-                confirmText ??= GameTexts.FindText("str_accept");
-                cancelText ??= GameTexts.FindText("str_cancel");
-
-                var inquiry = new InquiryData(
-                    title?.ToString() ?? string.Empty,
-                    description?.ToString() ?? string.Empty,
-                    isAffirmativeOptionShown: true,
-                    isNegativeOptionShown: true,
-                    affirmativeText: confirmText.ToString(),
-                    negativeText: cancelText.ToString(),
-                    affirmativeAction: () =>
+            ShowOrDelay(
+                delayUntilOnWorldMap,
+                () =>
+                {
+                    try
                     {
-                        try
-                        {
-                            onConfirm?.Invoke();
-                        }
-                        catch (Exception e)
-                        {
-                            Log.Exception(e, "Notifications.Popup confirm callback failed.");
-                        }
-                    },
-                    negativeAction: null
-                );
+                        confirmText ??= GameTexts.FindText("str_accept");
+                        cancelText ??= GameTexts.FindText("str_cancel");
 
-                InformationManager.ShowInquiry(inquiry, pauseGame);
-            }
-            catch (Exception e)
-            {
-                Log.Exception(e, "Notifications.Popup (confirm) failed.");
-            }
+                        var inquiry = new InquiryData(
+                            title?.ToString() ?? string.Empty,
+                            description?.ToString() ?? string.Empty,
+                            isAffirmativeOptionShown: true,
+                            isNegativeOptionShown: true,
+                            affirmativeText: confirmText.ToString(),
+                            negativeText: cancelText.ToString(),
+                            affirmativeAction: () =>
+                            {
+                                try
+                                {
+                                    onConfirm?.Invoke();
+                                }
+                                catch (Exception e)
+                                {
+                                    Log.Exception(
+                                        e,
+                                        "Notifications.Popup confirm callback failed."
+                                    );
+                                }
+                            },
+                            negativeAction: null
+                        );
+
+                        InformationManager.ShowInquiry(inquiry, pauseGame);
+                    }
+                    catch (Exception e)
+                    {
+                        Log.Exception(e, "Notifications.Popup (confirm) failed.");
+                    }
+                }
+            );
         }
 
         /// <summary>
         /// Confirmation popup with two choices.
-        /// Example:
-        ///   Notifications.Popup(
-        ///       L.T("choose_option", "Choose an option:"),
-        ///       onChoice1: DoThing1,
-        ///       onChoice2: DoThing2,
-        ///       choice1Text: L.T("option_1", "Option 1"),
-        ///       choice2Text: L.T("option_2", "Option 2")
-        ///   );
         /// </summary>
         public static void Popup(
             TextObject title,
@@ -126,63 +221,67 @@ namespace Retinues.UI.Services
             TextObject choice1Text,
             TextObject choice2Text,
             TextObject description = null,
-            bool pauseGame = true
+            bool pauseGame = true,
+            bool delayUntilOnWorldMap = false
         )
         {
-            try
-            {
-                var inquiry = new InquiryData(
-                    title?.ToString() ?? string.Empty,
-                    description?.ToString() ?? string.Empty,
-                    isAffirmativeOptionShown: true,
-                    isNegativeOptionShown: true,
-                    affirmativeText: choice1Text.ToString(),
-                    negativeText: choice2Text.ToString(),
-                    affirmativeAction: () =>
+            ShowOrDelay(
+                delayUntilOnWorldMap,
+                () =>
+                {
+                    try
                     {
-                        try
-                        {
-                            onChoice1?.Invoke();
-                        }
-                        catch (Exception e)
-                        {
-                            Log.Exception(e, "Notifications.Popup choice1 callback failed.");
-                        }
-                    },
-                    negativeAction: () =>
-                    {
-                        try
-                        {
-                            onChoice2?.Invoke();
-                        }
-                        catch (Exception e)
-                        {
-                            Log.Exception(e, "Notifications.Popup choice2 callback failed.");
-                        }
-                    }
-                );
+                        var inquiry = new InquiryData(
+                            title?.ToString() ?? string.Empty,
+                            description?.ToString() ?? string.Empty,
+                            isAffirmativeOptionShown: true,
+                            isNegativeOptionShown: true,
+                            affirmativeText: choice1Text.ToString(),
+                            negativeText: choice2Text.ToString(),
+                            affirmativeAction: () =>
+                            {
+                                try
+                                {
+                                    onChoice1?.Invoke();
+                                }
+                                catch (Exception e)
+                                {
+                                    Log.Exception(
+                                        e,
+                                        "Notifications.Popup choice1 callback failed."
+                                    );
+                                }
+                            },
+                            negativeAction: () =>
+                            {
+                                try
+                                {
+                                    onChoice2?.Invoke();
+                                }
+                                catch (Exception e)
+                                {
+                                    Log.Exception(
+                                        e,
+                                        "Notifications.Popup choice2 callback failed."
+                                    );
+                                }
+                            }
+                        );
 
-                InformationManager.ShowInquiry(inquiry, pauseGame);
-            }
-            catch (Exception e)
-            {
-                Log.Exception(e, "Notifications.Popup (choice) failed.");
-            }
+                        InformationManager.ShowInquiry(inquiry, pauseGame);
+                    }
+                    catch (Exception e)
+                    {
+                        Log.Exception(e, "Notifications.Popup (choice) failed.");
+                    }
+                }
+            );
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                   Single-Select Popup                  //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        /// <summary>
-        /// Single-selection popup (wraps MultiSelectionInquiryData with max=1).
-        /// Example:
-        ///   Notifications.SelectPopup(
-        ///       L.T("choose_option", "Choose an option:"),
-        ///       elements,
-        ///       elem => { ... }
-        ///   );
-        /// </summary>
         public static void SelectPopup(
             TextObject title,
             List<InquiryElement> elements,
@@ -190,7 +289,8 @@ namespace Retinues.UI.Services
             TextObject description = null,
             TextObject confirmText = null,
             TextObject cancelText = null,
-            bool pauseGame = true
+            bool pauseGame = true,
+            bool delayUntilOnWorldMap = false
         )
         {
             if (elements == null || elements.Count == 0)
@@ -199,61 +299,56 @@ namespace Retinues.UI.Services
             confirmText ??= GameTexts.FindText("str_accept");
             cancelText ??= GameTexts.FindText("str_cancel");
 
-            try
-            {
-                MBInformationManager.ShowMultiSelectionInquiry(
-                    new MultiSelectionInquiryData(
-                        titleText: title?.ToString() ?? string.Empty,
-                        descriptionText: description?.ToString() ?? string.Empty,
-                        inquiryElements: elements,
-                        isExitShown: true,
-                        minSelectableOptionCount: 1,
-                        maxSelectableOptionCount: 1,
-                        affirmativeText: confirmText.ToString(),
-                        negativeText: cancelText.ToString(),
-                        affirmativeAction: selected =>
-                        {
-                            try
-                            {
-                                if (selected == null || selected.Count == 0)
-                                    return;
+            ShowOrDelay(
+                delayUntilOnWorldMap,
+                () =>
+                {
+                    try
+                    {
+                        MBInformationManager.ShowMultiSelectionInquiry(
+                            new MultiSelectionInquiryData(
+                                titleText: title?.ToString() ?? string.Empty,
+                                descriptionText: description?.ToString() ?? string.Empty,
+                                inquiryElements: elements,
+                                isExitShown: true,
+                                minSelectableOptionCount: 1,
+                                maxSelectableOptionCount: 1,
+                                affirmativeText: confirmText.ToString(),
+                                negativeText: cancelText.ToString(),
+                                affirmativeAction: selected =>
+                                {
+                                    try
+                                    {
+                                        if (selected == null || selected.Count == 0)
+                                            return;
 
-                                onSelect?.Invoke(selected[0]);
-                            }
-                            catch (Exception e)
-                            {
-                                Log.Exception(
-                                    e,
-                                    "Notifications.SelectPopup affirmative callback failed."
-                                );
-                            }
-                        },
-                        negativeAction: _ => { }
-                    ),
-                    pauseGame
-                );
-            }
-            catch (Exception e)
-            {
-                Log.Exception(e, "Notifications.SelectPopup failed.");
-            }
+                                        onSelect?.Invoke(selected[0]);
+                                    }
+                                    catch (Exception e)
+                                    {
+                                        Log.Exception(
+                                            e,
+                                            "Notifications.SelectPopup affirmative callback failed."
+                                        );
+                                    }
+                                },
+                                negativeAction: _ => { }
+                            ),
+                            pauseGame
+                        );
+                    }
+                    catch (Exception e)
+                    {
+                        Log.Exception(e, "Notifications.SelectPopup failed.");
+                    }
+                }
+            );
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                   Multi-Select Popup                   //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        /// <summary>
-        /// Multi-selection popup.
-        /// Example:
-        ///   Notifications.MultiSelectPopup(
-        ///       L.T("choose_options", "Choose an option:"),
-        ///       elements,
-        ///       onSelect: selected => { ... },
-        ///       minSelectable: 0,
-        ///       maxSelectable: 3
-        ///   );
-        /// </summary>
         public static void MultiSelectPopup(
             TextObject title,
             List<InquiryElement> elements,
@@ -262,7 +357,8 @@ namespace Retinues.UI.Services
             int maxSelectable = int.MaxValue,
             TextObject confirmText = null,
             TextObject cancelText = null,
-            bool pauseGame = true
+            bool pauseGame = true,
+            bool delayUntilOnWorldMap = false
         )
         {
             if (elements == null || elements.Count == 0)
@@ -280,51 +376,53 @@ namespace Retinues.UI.Services
             confirmText ??= GameTexts.FindText("str_done");
             cancelText ??= GameTexts.FindText("str_cancel");
 
-            try
-            {
-                MBInformationManager.ShowMultiSelectionInquiry(
-                    new MultiSelectionInquiryData(
-                        titleText: title?.ToString() ?? string.Empty,
-                        descriptionText: string.Empty,
-                        inquiryElements: elements,
-                        isExitShown: true,
-                        minSelectableOptionCount: minSelectable,
-                        maxSelectableOptionCount: maxSelectable,
-                        affirmativeText: confirmText.ToString(),
-                        negativeText: cancelText.ToString(),
-                        affirmativeAction: selected =>
-                        {
-                            try
-                            {
-                                onSelect?.Invoke(selected ?? new List<InquiryElement>());
-                            }
-                            catch (Exception e)
-                            {
-                                Log.Exception(
-                                    e,
-                                    "Notifications.MultiSelectPopup affirmative callback failed."
-                                );
-                            }
-                        },
-                        negativeAction: _ => { }
-                    ),
-                    pauseGame
-                );
-            }
-            catch (Exception e)
-            {
-                Log.Exception(e, "Notifications.MultiSelectPopup failed.");
-            }
+            ShowOrDelay(
+                delayUntilOnWorldMap,
+                () =>
+                {
+                    try
+                    {
+                        MBInformationManager.ShowMultiSelectionInquiry(
+                            new MultiSelectionInquiryData(
+                                titleText: title?.ToString() ?? string.Empty,
+                                descriptionText: string.Empty,
+                                inquiryElements: elements,
+                                isExitShown: true,
+                                minSelectableOptionCount: minSelectable,
+                                maxSelectableOptionCount: maxSelectable,
+                                affirmativeText: confirmText.ToString(),
+                                negativeText: cancelText.ToString(),
+                                affirmativeAction: selected =>
+                                {
+                                    try
+                                    {
+                                        onSelect?.Invoke(selected ?? new List<InquiryElement>());
+                                    }
+                                    catch (Exception e)
+                                    {
+                                        Log.Exception(
+                                            e,
+                                            "Notifications.MultiSelectPopup affirmative callback failed."
+                                        );
+                                    }
+                                },
+                                negativeAction: _ => { }
+                            ),
+                            pauseGame
+                        );
+                    }
+                    catch (Exception e)
+                    {
+                        Log.Exception(e, "Notifications.MultiSelectPopup failed.");
+                    }
+                }
+            );
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                    Text Input Popup                   //
+        //                    Text Input Popup                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        /// <summary>
-        /// Text input popup (single-line) with Confirm / Cancel and default input text.
-        /// Calls onConfirm with the entered string if the user confirms.
-        /// </summary>
         public static void TextInputPopup(
             TextObject title,
             string defaultInput,
@@ -332,45 +430,52 @@ namespace Retinues.UI.Services
             TextObject description = null,
             TextObject confirmText = null,
             TextObject cancelText = null,
-            bool pauseGame = true
+            bool pauseGame = true,
+            bool delayUntilOnWorldMap = false
         )
         {
-            try
-            {
-                confirmText ??= GameTexts.FindText("str_accept");
-                cancelText ??= GameTexts.FindText("str_cancel");
-
-                var inquiry = new TextInquiryData(
-                    title?.ToString() ?? string.Empty,
-                    description?.ToString() ?? string.Empty,
-                    isAffirmativeOptionShown: true,
-                    isNegativeOptionShown: true,
-                    affirmativeText: confirmText.ToString(),
-                    negativeText: cancelText.ToString(),
-                    affirmativeAction: input =>
+            ShowOrDelay(
+                delayUntilOnWorldMap,
+                () =>
+                {
+                    try
                     {
-                        try
-                        {
-                            onConfirm?.Invoke(input);
-                        }
-                        catch (Exception e)
-                        {
-                            Log.Exception(
-                                e,
-                                "Notifications.TextInputPopup confirm callback failed."
-                            );
-                        }
-                    },
-                    negativeAction: () => { },
-                    defaultInputText: defaultInput ?? string.Empty
-                );
+                        confirmText ??= GameTexts.FindText("str_accept");
+                        cancelText ??= GameTexts.FindText("str_cancel");
 
-                InformationManager.ShowTextInquiry(inquiry, pauseGame);
-            }
-            catch (Exception e)
-            {
-                Log.Exception(e, "Notifications.TextInputPopup failed.");
-            }
+                        var inquiry = new TextInquiryData(
+                            title?.ToString() ?? string.Empty,
+                            description?.ToString() ?? string.Empty,
+                            isAffirmativeOptionShown: true,
+                            isNegativeOptionShown: true,
+                            affirmativeText: confirmText.ToString(),
+                            negativeText: cancelText.ToString(),
+                            affirmativeAction: input =>
+                            {
+                                try
+                                {
+                                    onConfirm?.Invoke(input);
+                                }
+                                catch (Exception e)
+                                {
+                                    Log.Exception(
+                                        e,
+                                        "Notifications.TextInputPopup confirm callback failed."
+                                    );
+                                }
+                            },
+                            negativeAction: () => { },
+                            defaultInputText: defaultInput ?? string.Empty
+                        );
+
+                        InformationManager.ShowTextInquiry(inquiry, pauseGame);
+                    }
+                    catch (Exception e)
+                    {
+                        Log.Exception(e, "Notifications.TextInputPopup failed.");
+                    }
+                }
+            );
         }
     }
 }

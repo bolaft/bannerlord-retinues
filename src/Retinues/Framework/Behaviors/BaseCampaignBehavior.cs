@@ -4,9 +4,11 @@ using System.Runtime.CompilerServices;
 using Retinues.Framework.Runtime;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.Actions;
 using TaleWorlds.CampaignSystem.MapEvents;
 using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.CampaignSystem.Roster;
+using TaleWorlds.CampaignSystem.Settlements;
 using TaleWorlds.Core;
 
 namespace Retinues.Framework.Behaviors
@@ -31,6 +33,9 @@ namespace Retinues.Framework.Behaviors
             MapEventEnded,
 
             ItemsDiscardedByPlayer,
+
+            SettlementOwnerChanged,
+            KingdomCreated,
         }
 
         protected string Name => GetType().Name;
@@ -75,6 +80,17 @@ namespace Retinues.Framework.Behaviors
 
         protected virtual void OnItemsDiscardedByPlayer(ItemRoster roster) { }
 
+        protected virtual void OnSettlementOwnerChanged(
+            Settlement settlement,
+            bool openToClaim,
+            Hero newOwner,
+            Hero oldOwner,
+            Hero capturerHero,
+            ChangeOwnerOfSettlementAction.ChangeOwnerOfSettlementDetail detail
+        ) { }
+
+        protected virtual void OnKingdomCreated(Kingdom kingdom) { }
+
         protected virtual void RegisterCustomEvents() { }
 
         private void AutoRegisterEvents()
@@ -111,6 +127,12 @@ namespace Retinues.Framework.Behaviors
 
             if (IsOverridden(nameof(OnItemsDiscardedByPlayer)))
                 Hook(BehaviorEvent.ItemsDiscardedByPlayer, OnItemsDiscardedByPlayer);
+
+            if (IsOverridden(nameof(OnSettlementOwnerChanged)))
+                Hook(BehaviorEvent.SettlementOwnerChanged, OnSettlementOwnerChanged);
+
+            if (IsOverridden(nameof(OnKingdomCreated)))
+                Hook(BehaviorEvent.KingdomCreated, OnKingdomCreated);
         }
 
         private bool IsOverridden(string methodName)
@@ -227,6 +249,31 @@ namespace Retinues.Framework.Behaviors
                     CampaignEvents.OnItemsDiscardedByPlayerEvent.AddNonSerializedListener(
                         this,
                         roster => InvokeHook(evt, handler, normalize, roster)
+                    );
+                    break;
+
+                case BehaviorEvent.SettlementOwnerChanged:
+                    CampaignEvents.OnSettlementOwnerChangedEvent.AddNonSerializedListener(
+                        this,
+                        (settlement, openToClaim, newOwner, oldOwner, capturerHero, detail) =>
+                            InvokeHook(
+                                evt,
+                                handler,
+                                normalize,
+                                settlement,
+                                openToClaim,
+                                newOwner,
+                                oldOwner,
+                                capturerHero,
+                                detail
+                            )
+                    );
+                    break;
+
+                case BehaviorEvent.KingdomCreated:
+                    CampaignEvents.KingdomCreatedEvent.AddNonSerializedListener(
+                        this,
+                        kingdom => InvokeHook(evt, handler, normalize, kingdom)
                     );
                     break;
 

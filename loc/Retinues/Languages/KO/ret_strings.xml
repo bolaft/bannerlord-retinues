@@ -173,6 +173,15 @@
       id="ret_character_cannot_remove_with_upgrades"
       text="업그레이드가 아직 있는 유닛은 제거할 수 없습니다." />
     <string
+      id="ret_clan_troops_unlock_always_unlocked"
+      text="항상 잠금 해제" />
+    <string
+      id="ret_clan_troops_unlock_disabled"
+      text="비활성화됨" />
+    <string
+      id="ret_clan_troops_unlock_with_first_fief"
+      text="첫 번째 영지와 함께 잠금 해제" />
+    <string
       id="ret_clear_filter_tooltip"
       text="현재 필터 텍스트를 지웁니다." />
     <string
@@ -383,6 +392,24 @@
       id="ret_export_title"
       text="저장" />
     <string
+      id="ret_faction_troops_unlocked_desc"
+      text="{COUNT}명의 새로운 부대가 이제 {FACTION} {FACTION_TYPE}에서 사용할 수 있습니다." />
+    <string
+      id="ret_faction_troops_unlocked_go"
+      text="편집기로 이동" />
+    <string
+      id="ret_faction_troops_unlocked_title"
+      text="{FACTION} 부대" />
+    <string
+      id="ret_faction_type_clan"
+      text="클랜" />
+    <string
+      id="ret_faction_type_faction"
+      text="진영" />
+    <string
+      id="ret_faction_type_kingdom"
+      text="왕국" />
+    <string
       id="ret_filter_label"
       text="필터:" />
     <string
@@ -500,11 +527,23 @@
       id="ret_item_unlock_sentence_generic"
       text="{ITEMS} {VERB} 잠금 해제되었습니다." />
     <string
+      id="ret_item_unlock_sentence_troops"
+      text="{ITEMS} {VERB} 부대를 생성하는 동안 잠금 해제되었습니다." />
+    <string
       id="ret_item_unlock_sentence_workshops"
       text="{ITEMS} {VERB} 작업장을 통해 잠금 해제되었습니다." />
     <string
       id="ret_item_unlock_title"
       text="잠금 해제된 항목" />
+    <string
+      id="ret_kingdom_troops_unlock_always_unlocked"
+      text="항상 잠금 해제" />
+    <string
+      id="ret_kingdom_troops_unlock_disabled"
+      text="비활성화됨" />
+    <string
+      id="ret_kingdom_troops_unlock_upon_becoming_ruler"
+      text="통치자가 되면 잠금 해제" />
     <string
       id="ret_library_contents_header"
       text="내용" />
@@ -731,6 +770,12 @@
       id="ret_mariner_toggle_tooltip_universal"
       text="선원은 해상 전투에 더 적합합니다." />
     <string
+      id="ret_mcm_option_clan_troops_unlock"
+      text="클랜 부대" />
+    <string
+      id="ret_mcm_option_clan_troops_unlock_hint"
+      text="클랜 부대가 언제 사용 가능한지 결정합니다." />
+    <string
       id="ret_mcm_option_count_ally_casualties"
       text="아군 사상자 집계" />
     <string
@@ -848,6 +893,12 @@
       id="ret_mcm_option_item_unlock_notification_hint"
       text="새 항목이 잠금 해제될 때 알림 스타일을 결정합니다." />
     <string
+      id="ret_mcm_option_kingdom_troops_unlock"
+      text="왕국 군대" />
+    <string
+      id="ret_mcm_option_kingdom_troops_unlock_hint"
+      text="왕국 군대가 언제 이용 가능해지는지 결정합니다." />
+    <string
       id="ret_mcm_option_max_retinue_ratio"
       text="최대 Retinue 비율" />
     <string
@@ -925,6 +976,12 @@
     <string
       id="ret_mcm_option_starter_equipment_hint"
       text="새로 잠금 해제된 부대의 시작 장비를 설정합니다." />
+    <string
+      id="ret_mcm_option_starter_troops"
+      text="초기 부대" />
+    <string
+      id="ret_mcm_option_starter_troops_hint"
+      text="클랜 및 왕국 시작 부대를 결정합니다." />
     <string
       id="ret_mcm_option_time_multiplier"
       text="장비 시간 배수" />
@@ -1183,6 +1240,12 @@
     <string
       id="ret_starter_equipment_single_set"
       text="한 세트 복사" />
+    <string
+      id="ret_starter_troops_clone_culture_roots"
+      text="루트 부대만" />
+    <string
+      id="ret_starter_troops_clone_culture_trees"
+      text="전체 부대 트리" />
     <string
       id="ret_stocks_add"
       text="재고에 {AMOUNT} {ITEM} 추가됨." />

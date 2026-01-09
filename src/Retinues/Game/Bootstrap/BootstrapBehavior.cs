@@ -7,6 +7,7 @@ using Retinues.Domain.Equipments.Helpers;
 using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Domain.Factions.Wrappers;
 using Retinues.Framework.Behaviors;
+using Retinues.Game.Factions;
 using Retinues.Game.Retinues;
 using Retinues.UI.Services;
 using Retinues.Utilities;
@@ -27,15 +28,18 @@ namespace Retinues.Game.Bootstrap
 
         private const string DataStoreKey_Retinue = "Retinues_Bootstrapped_Retinue";
         private const string DataStoreKey_Unlocks = "Retinues_Bootstrapped_Unlocks";
+        private const string DataStoreKey_FactionTroops = "Retinues_Bootstrapped_FactionTroops";
 
         // Per-section bootstrapped flags so parts can run independently.
         private bool _retinueBootstrapped;
         private bool _unlocksBootstrapped;
+        private bool _factionTroopsBootstrapped;
 
         public override void SyncData(IDataStore dataStore)
         {
             dataStore.SyncData(DataStoreKey_Retinue, ref _retinueBootstrapped);
             dataStore.SyncData(DataStoreKey_Unlocks, ref _unlocksBootstrapped);
+            dataStore.SyncData(DataStoreKey_FactionTroops, ref _factionTroopsBootstrapped);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -52,7 +56,7 @@ namespace Retinues.Game.Bootstrap
 
         private void TryBootstrap()
         {
-            if (_retinueBootstrapped && _unlocksBootstrapped)
+            if (_retinueBootstrapped && _unlocksBootstrapped && _factionTroopsBootstrapped)
                 return;
 
             var hero = WHero.Get(Hero.MainHero);
@@ -91,7 +95,23 @@ namespace Retinues.Game.Bootstrap
                 }
             }
 
-            if (_retinueBootstrapped && _unlocksBootstrapped)
+            // 3) If the player already meets requirements for faction troop unlocks, trigger it once.
+            //    (Future unlocks are still handled by FactionTroopsBehavior event listeners.)
+            if (!_factionTroopsBootstrapped)
+            {
+                if (clan?.Base != null)
+                {
+                    FactionTroopsBehavior.TryUnlockNow(fromBootstrap: true);
+                    _factionTroopsBootstrapped = true;
+                    Log.Debug("Faction troops bootstrap complete.");
+                }
+                else
+                {
+                    Log.Debug("Faction troops bootstrap skipped (missing player clan).");
+                }
+            }
+
+            if (_retinueBootstrapped && _unlocksBootstrapped && _factionTroopsBootstrapped)
             {
                 Log.Debug("All bootstrap sections complete.");
             }
@@ -220,7 +240,7 @@ namespace Retinues.Game.Bootstrap
                     .SetTextVariable("CLAN", clan.Name)
                     .ToString();
 
-                retinues.EnsureDefaultRetinue(clan, name);
+                retinues.EnsureDefaultRetinue(clan, name, notifyUnlocks: false);
             }
         }
     }

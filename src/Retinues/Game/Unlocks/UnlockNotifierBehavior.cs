@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
 using Retinues.Configuration;
+using Retinues.Domain.Characters.Helpers;
+using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Framework.Behaviors;
 using Retinues.Framework.Runtime;
 using Retinues.UI.Services;
 using TaleWorlds.CampaignSystem;
-using TaleWorlds.CampaignSystem.GameState;
 using TaleWorlds.Localization;
 
 namespace Retinues.Game.Unlocks
@@ -19,40 +20,58 @@ namespace Retinues.Game.Unlocks
             public TextObject Description;
         }
 
-        private static readonly List<PendingNotification> Pending = new(8);
+        private static readonly List<PendingNotification> Pending = new(16);
+
+        private static bool _clonerHooked;
+
+        [StaticClearAction]
+        public static void ClearStatic()
+        {
+            Pending.Clear();
+
+            if (_clonerHooked)
+            {
+                CharacterCloner.ItemsUnlockedByCloner -= OnClonerItemsUnlocked;
+                _clonerHooked = false;
+            }
+        }
+
+        protected override void RegisterCustomEvents()
+        {
+            // Flush queued notifications (batch) once we're back in a safe UI context.
+            // We do NOT check MapState here; Inquiries handles delaying.
+            CampaignEvents.TickEvent.AddNonSerializedListener(this, OnTick);
+
+            if (_clonerHooked)
+                return;
+
+            CharacterCloner.ItemsUnlockedByCloner += OnClonerItemsUnlocked;
+            _clonerHooked = true;
+        }
 
         /// <summary>
-        /// Show immediately if on world map, otherwise queue until the player returns to the campaign map.
+        /// Queue notification. It will be flushed (batched) on the next campaign tick.
         /// </summary>
         public static void Notify(TextObject title, TextObject description)
         {
             if (title == null || description == null)
                 return;
 
-            if (IsOnWorldMap())
-            {
-                Show(title, description);
-                return;
-            }
-
             Pending.Add(new PendingNotification { Title = title, Description = description });
 
-            // Safety guard: keep queue bounded in edge cases.
-            if (Pending.Count > 32)
+            if (Pending.Count > 64)
                 Pending.RemoveAt(0);
         }
 
-        protected override void RegisterCustomEvents()
+        private static void OnClonerItemsUnlocked(IReadOnlyList<WItem> items)
         {
-            CampaignEvents.TickEvent.AddNonSerializedListener(this, OnTick);
+            // UnlockNotifier will call UnlockNotifierBehavior.Notify(...) internally in your setup.
+            UnlockNotifier.ItemsUnlocked(UnlockNotifier.UnlockMethod.Troops, items);
         }
 
         private void OnTick(float dt)
         {
             if (Pending.Count == 0)
-                return;
-
-            if (!IsOnWorldMap())
                 return;
 
             Flush();
@@ -67,22 +86,21 @@ namespace Retinues.Game.Unlocks
 
             var title = count == 1 ? Pending[0].Title : L.T("unlock_notify_title_multi", "Unlocks");
 
-            const int maxLines = 8;
-            var take = Math.Min(maxLines, count);
+            const int maxBlocks = 8;
+            var take = Math.Min(maxBlocks, count);
 
-            var lines = new List<string>(take + 1);
+            var blocks = new List<string>(take + 1);
             for (var i = 0; i < take; i++)
-                lines.Add(Pending[i].Description.ToString());
+                blocks.Add(Pending[i].Description.ToString());
 
             if (count > take)
-                lines.Add($"... (+{count - take})");
+                blocks.Add($"... (+{count - take})");
 
             Pending.Clear();
 
-            // IMPORTANT: blank line between method paragraphs.
-            var desc = new TextObject(string.Join("\n\n", lines));
+            var description = new TextObject(string.Join("\n\n", blocks));
 
-            Show(title, desc);
+            Show(title, description);
         }
 
         private static void Show(TextObject title, TextObject description)
@@ -90,7 +108,7 @@ namespace Retinues.Game.Unlocks
             switch (Settings.ItemUnlockNotification.Value)
             {
                 case Settings.ItemUnlockNotificationStyle.Popup:
-                    Inquiries.Popup(title, description);
+                    Inquiries.Popup(title, description, delayUntilOnWorldMap: true);
                     break;
 
                 case Settings.ItemUnlockNotificationStyle.Message:
@@ -98,22 +116,9 @@ namespace Retinues.Game.Unlocks
                     break;
 
                 default:
-                    Inquiries.Popup(title, description);
+                    Inquiries.Popup(title, description, delayUntilOnWorldMap: true);
                     break;
             }
-        }
-
-        /// <summary>
-        /// Returns true if the player is currently on the world map state.
-        /// </summary>
-        private static bool IsOnWorldMap()
-        {
-            var game = TaleWorlds.Core.Game.Current;
-            var gsm = game?.GameStateManager;
-            if (gsm == null)
-                return false;
-
-            return gsm.ActiveState is MapState;
         }
     }
 }

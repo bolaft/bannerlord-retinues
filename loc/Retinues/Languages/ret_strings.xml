@@ -173,6 +173,15 @@
       id="ret_character_cannot_remove_with_upgrades"
       text="Can&apos;t remove a unit that still has upgrades." />
     <string
+      id="ret_clan_troops_unlock_always_unlocked"
+      text="Always Unlocked" />
+    <string
+      id="ret_clan_troops_unlock_disabled"
+      text="Disabled" />
+    <string
+      id="ret_clan_troops_unlock_with_first_fief"
+      text="Unlocked With First Fief" />
+    <string
       id="ret_clear_filter_tooltip"
       text="Clear the current filter text." />
     <string
@@ -383,6 +392,24 @@
       id="ret_export_title"
       text="Save" />
     <string
+      id="ret_faction_troops_unlocked_desc"
+      text="{COUNT} new troops are now available for the {FACTION} {FACTION_TYPE}." />
+    <string
+      id="ret_faction_troops_unlocked_go"
+      text="Go to Editor" />
+    <string
+      id="ret_faction_troops_unlocked_title"
+      text="{FACTION} Troops" />
+    <string
+      id="ret_faction_type_clan"
+      text="clan" />
+    <string
+      id="ret_faction_type_faction"
+      text="faction" />
+    <string
+      id="ret_faction_type_kingdom"
+      text="kingdom" />
+    <string
       id="ret_filter_label"
       text="Filter:" />
     <string
@@ -500,11 +527,23 @@
       id="ret_item_unlock_sentence_generic"
       text="{ITEMS} {VERB} unlocked." />
     <string
+      id="ret_item_unlock_sentence_troops"
+      text="{ITEMS} {VERB} unlocked while creating troops." />
+    <string
       id="ret_item_unlock_sentence_workshops"
       text="{ITEMS} {VERB} unlocked through workshops." />
     <string
       id="ret_item_unlock_title"
       text="Items unlocked" />
+    <string
+      id="ret_kingdom_troops_unlock_always_unlocked"
+      text="Always Unlocked" />
+    <string
+      id="ret_kingdom_troops_unlock_disabled"
+      text="Disabled" />
+    <string
+      id="ret_kingdom_troops_unlock_upon_becoming_ruler"
+      text="Unlocked Upon Becoming Ruler" />
     <string
       id="ret_library_contents_header"
       text="Contents" />
@@ -731,6 +770,12 @@
       id="ret_mariner_toggle_tooltip_universal"
       text="Mariners are better suited for naval combat." />
     <string
+      id="ret_mcm_option_clan_troops_unlock"
+      text="Clan Troops" />
+    <string
+      id="ret_mcm_option_clan_troops_unlock_hint"
+      text="Determines when clan troops become available." />
+    <string
       id="ret_mcm_option_count_ally_casualties"
       text="Count Ally Casualties" />
     <string
@@ -848,6 +893,12 @@
       id="ret_mcm_option_item_unlock_notification_hint"
       text="Determines how the notification style when when new items are unlocked." />
     <string
+      id="ret_mcm_option_kingdom_troops_unlock"
+      text="Kingdom Troops" />
+    <string
+      id="ret_mcm_option_kingdom_troops_unlock_hint"
+      text="Determines when kingdom troops become available." />
+    <string
       id="ret_mcm_option_max_retinue_ratio"
       text="Max Retinue Ratio" />
     <string
@@ -925,6 +976,12 @@
     <string
       id="ret_mcm_option_starter_equipment_hint"
       text="Sets the starter equipment for newly unlocked troops." />
+    <string
+      id="ret_mcm_option_starter_troops"
+      text="Starter Troops" />
+    <string
+      id="ret_mcm_option_starter_troops_hint"
+      text="Determines clan and kingdom starter troops." />
     <string
       id="ret_mcm_option_time_multiplier"
       text="Equip Time Multiplier" />
@@ -1183,6 +1240,12 @@
     <string
       id="ret_starter_equipment_single_set"
       text="Copy One Set" />
+    <string
+      id="ret_starter_troops_clone_culture_roots"
+      text="Root Troops Only" />
+    <string
+      id="ret_starter_troops_clone_culture_trees"
+      text="Entire Troop Trees" />
     <string
       id="ret_stocks_add"
       text="Added {AMOUNT} {ITEM} to stocks." />

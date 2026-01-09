@@ -173,6 +173,15 @@
       id="ret_character_cannot_remove_with_upgrades"
       text="無法移除仍有升級的單位。" />
     <string
+      id="ret_clan_troops_unlock_always_unlocked"
+      text="始終解鎖" />
+    <string
+      id="ret_clan_troops_unlock_disabled"
+      text="已禁用" />
+    <string
+      id="ret_clan_troops_unlock_with_first_fief"
+      text="與第一個領地一起解鎖" />
+    <string
       id="ret_clear_filter_tooltip"
       text="清除當前的過濾文本。" />
     <string
@@ -383,6 +392,24 @@
       id="ret_export_title"
       text="保存" />
     <string
+      id="ret_faction_troops_unlocked_desc"
+      text="{COUNT} 名新兵現已可供 {FACTION} {FACTION_TYPE} 使用。" />
+    <string
+      id="ret_faction_troops_unlocked_go"
+      text="前往編輯器" />
+    <string
+      id="ret_faction_troops_unlocked_title"
+      text="{FACTION} 部隊" />
+    <string
+      id="ret_faction_type_clan"
+      text="氏族" />
+    <string
+      id="ret_faction_type_faction"
+      text="派系" />
+    <string
+      id="ret_faction_type_kingdom"
+      text="王國" />
+    <string
       id="ret_filter_label"
       text="過濾器：" />
     <string
@@ -500,11 +527,23 @@
       id="ret_item_unlock_sentence_generic"
       text="{ITEMS} {VERB} 已解鎖。" />
     <string
+      id="ret_item_unlock_sentence_troops"
+      text="{ITEMS} {VERB} 在創建部隊時解鎖。" />
+    <string
       id="ret_item_unlock_sentence_workshops"
       text="{ITEMS} {VERB} 通過車間解鎖。" />
     <string
       id="ret_item_unlock_title"
       text="解鎖的物品" />
+    <string
+      id="ret_kingdom_troops_unlock_always_unlocked"
+      text="始終解鎖" />
+    <string
+      id="ret_kingdom_troops_unlock_disabled"
+      text="已禁用" />
+    <string
+      id="ret_kingdom_troops_unlock_upon_becoming_ruler"
+      text="成為統治者時解鎖" />
     <string
       id="ret_library_contents_header"
       text="內容" />
@@ -731,6 +770,12 @@
       id="ret_mariner_toggle_tooltip_universal"
       text="水手更適合海戰。" />
     <string
+      id="ret_mcm_option_clan_troops_unlock"
+      text="氏族部隊" />
+    <string
+      id="ret_mcm_option_clan_troops_unlock_hint"
+      text="確定氏族部隊何時可用。" />
+    <string
       id="ret_mcm_option_count_ally_casualties"
       text="計算盟友傷亡" />
     <string
@@ -848,6 +893,12 @@
       id="ret_mcm_option_item_unlock_notification_hint"
       text="確定解鎖新物品時的通知樣式。" />
     <string
+      id="ret_mcm_option_kingdom_troops_unlock"
+      text="王國部隊" />
+    <string
+      id="ret_mcm_option_kingdom_troops_unlock_hint"
+      text="確定王國部隊何時可用。" />
+    <string
       id="ret_mcm_option_max_retinue_ratio"
       text="最大隨從比例" />
     <string
@@ -925,6 +976,12 @@
     <string
       id="ret_mcm_option_starter_equipment_hint"
       text="為新解鎖的部隊設置起始裝備。" />
+    <string
+      id="ret_mcm_option_starter_troops"
+      text="起始部隊" />
+    <string
+      id="ret_mcm_option_starter_troops_hint"
+      text="確定氏族和王國的起始部隊。" />
     <string
       id="ret_mcm_option_time_multiplier"
       text="裝備時間乘數" />
@@ -1183,6 +1240,12 @@
     <string
       id="ret_starter_equipment_single_set"
       text="複製一個套裝" />
+    <string
+      id="ret_starter_troops_clone_culture_roots"
+      text="僅根部部隊" />
+    <string
+      id="ret_starter_troops_clone_culture_trees"
+      text="整個部隊樹" />
     <string
       id="ret_stocks_add"
       text="已向庫存添加 {AMOUNT} 個 {ITEM}。" />

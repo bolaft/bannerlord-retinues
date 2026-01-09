@@ -16,6 +16,7 @@ namespace Retinues.Game.Unlocks
             Kills,
             Discards,
             Workshops,
+            Troops,
         }
 
         public struct WorkshopStartInfo
@@ -72,6 +73,10 @@ namespace Retinues.Game.Unlocks
                 UnlockMethod.Workshops => L.T(
                     "item_unlock_sentence_workshops",
                     "{ITEMS} {VERB} unlocked through workshops."
+                ),
+                UnlockMethod.Troops => L.T(
+                    "item_unlock_sentence_troops",
+                    "{ITEMS} {VERB} unlocked while creating troops."
                 ),
                 _ => L.T("item_unlock_sentence_generic", "{ITEMS} {VERB} unlocked."),
             };

@@ -19,7 +19,7 @@ namespace Retinues.Game.Retinues
         //                    Retinue Creation                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public WCharacter EnsureDefaultRetinue(WClan clan, string name)
+        public WCharacter EnsureDefaultRetinue(WClan clan, string name, bool notifyUnlocks = true)
         {
             if (!Settings.EnableRetinues)
                 return null;
@@ -30,7 +30,7 @@ namespace Retinues.Game.Retinues
             if (!clan.RosterRetinues.IsEmpty())
                 return null;
 
-            var retinue = CreateRetinue(clan.Culture, name);
+            var retinue = CreateRetinue(clan.Culture, name, notifyUnlocks);
             if (retinue?.Base == null)
                 return null;
 
@@ -38,7 +38,7 @@ namespace Retinues.Game.Retinues
             return retinue;
         }
 
-        public WCharacter CreateRetinue(WCulture culture, string name)
+        public WCharacter CreateRetinue(WCulture culture, string name, bool notifyUnlocks = true)
         {
             if (!Settings.EnableRetinues)
                 return null;
@@ -55,6 +55,7 @@ namespace Retinues.Game.Retinues
                     CultureContext = culture,
                     CopySkills = true,
                     CreateCivilianSet = true,
+                    NotifyUnlocks = notifyUnlocks,
                 }
             );
         }

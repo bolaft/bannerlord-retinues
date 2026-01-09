@@ -173,6 +173,15 @@
       id="ret_character_cannot_remove_with_upgrades"
       text="Hala yükseltmeleri olan birim kaldırılamaz." />
     <string
+      id="ret_clan_troops_unlock_always_unlocked"
+      text="Her Zaman Kilit Açıldı" />
+    <string
+      id="ret_clan_troops_unlock_disabled"
+      text="Devre Dışı" />
+    <string
+      id="ret_clan_troops_unlock_with_first_fief"
+      text="İlk Arazisiyle Kilit Açıldı" />
+    <string
       id="ret_clear_filter_tooltip"
       text="Mevcut filtre metnini temizle." />
     <string
@@ -383,6 +392,24 @@
       id="ret_export_title"
       text="Kaydet" />
     <string
+      id="ret_faction_troops_unlocked_desc"
+      text="{COUNT} yeni asker artık {FACTION} {FACTION_TYPE} için kullanılabilir." />
+    <string
+      id="ret_faction_troops_unlocked_go"
+      text="Düzenleyiciye git" />
+    <string
+      id="ret_faction_troops_unlocked_title"
+      text="{FACTION} Askerleri" />
+    <string
+      id="ret_faction_type_clan"
+      text="klan" />
+    <string
+      id="ret_faction_type_faction"
+      text="fraksiyon" />
+    <string
+      id="ret_faction_type_kingdom"
+      text="krallık" />
+    <string
       id="ret_filter_label"
       text="Filtre:" />
     <string
@@ -500,11 +527,23 @@
       id="ret_item_unlock_sentence_generic"
       text="{ITEMS} {VERB} kilidi açıldı." />
     <string
+      id="ret_item_unlock_sentence_troops"
+      text="{ITEMS} {VERB} birlik oluştururken kilidi açıldı." />
+    <string
       id="ret_item_unlock_sentence_workshops"
       text="{ITEMS} {VERB} atölyeler aracılığıyla kilidi açıldı." />
     <string
       id="ret_item_unlock_title"
       text="Kilit Açılan Öğeler" />
+    <string
+      id="ret_kingdom_troops_unlock_always_unlocked"
+      text="Her Zaman Kilidi Açık" />
+    <string
+      id="ret_kingdom_troops_unlock_disabled"
+      text="Devre Dışı" />
+    <string
+      id="ret_kingdom_troops_unlock_upon_becoming_ruler"
+      text="Hükümdar Olunca Kilidi Açılır" />
     <string
       id="ret_library_contents_header"
       text="İçerik" />
@@ -731,6 +770,12 @@
       id="ret_mariner_toggle_tooltip_universal"
       text="Denizciler deniz savaşları için daha uygundur." />
     <string
+      id="ret_mcm_option_clan_troops_unlock"
+      text="Klan Birlikleri" />
+    <string
+      id="ret_mcm_option_clan_troops_unlock_hint"
+      text="Klan birliklerinin ne zaman kullanılabilir olacağını belirler." />
+    <string
       id="ret_mcm_option_count_ally_casualties"
       text="Müttefik Kayıplarını Say" />
     <string
@@ -848,6 +893,12 @@
       id="ret_mcm_option_item_unlock_notification_hint"
       text="Yeni öğelerin kilidi açıldığında bildirim stilini belirler." />
     <string
+      id="ret_mcm_option_kingdom_troops_unlock"
+      text="Krallık Birlikleri" />
+    <string
+      id="ret_mcm_option_kingdom_troops_unlock_hint"
+      text="Krallık birliklerinin ne zaman kullanılabilir hale geleceğini belirler." />
+    <string
       id="ret_mcm_option_max_retinue_ratio"
       text="Maksimum Retinue Oranı" />
     <string
@@ -925,6 +976,12 @@
     <string
       id="ret_mcm_option_starter_equipment_hint"
       text="Yeni kilidi açılmış birlikler için başlangıç ekipmanını ayarlar." />
+    <string
+      id="ret_mcm_option_starter_troops"
+      text="Başlangıç Birlikleri" />
+    <string
+      id="ret_mcm_option_starter_troops_hint"
+      text="Klan ve krallık başlangıç birliklerini belirler." />
     <string
       id="ret_mcm_option_time_multiplier"
       text="Ekipman Zaman Çarpanı" />
@@ -1183,6 +1240,12 @@
     <string
       id="ret_starter_equipment_single_set"
       text="Bir Seti Kopyala" />
+    <string
+      id="ret_starter_troops_clone_culture_roots"
+      text="Yalnızca Kök Birlikler" />
+    <string
+      id="ret_starter_troops_clone_culture_trees"
+      text="Tüm Birlik Ağaçları" />
     <string
       id="ret_stocks_add"
       text="Stoklara {AMOUNT} {ITEM} eklendi." />

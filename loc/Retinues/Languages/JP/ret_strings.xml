@@ -173,6 +173,15 @@
       id="ret_character_cannot_remove_with_upgrades"
       text="アップグレードがまだあるユニットは削除できません。" />
     <string
+      id="ret_clan_troops_unlock_always_unlocked"
+      text="常に解除済み" />
+    <string
+      id="ret_clan_troops_unlock_disabled"
+      text="無効" />
+    <string
+      id="ret_clan_troops_unlock_with_first_fief"
+      text="最初の領地で解除済み" />
+    <string
       id="ret_clear_filter_tooltip"
       text="現在のフィルターテキストをクリアします。" />
     <string
@@ -383,6 +392,24 @@
       id="ret_export_title"
       text="保存" />
     <string
+      id="ret_faction_troops_unlocked_desc"
+      text="{COUNT} 人の新しい部隊が {FACTION} の {FACTION_TYPE} で利用可能になりました。" />
+    <string
+      id="ret_faction_troops_unlocked_go"
+      text="エディターへ移動" />
+    <string
+      id="ret_faction_troops_unlocked_title"
+      text="{FACTION} 部隊" />
+    <string
+      id="ret_faction_type_clan"
+      text="クラン" />
+    <string
+      id="ret_faction_type_faction"
+      text="派閥" />
+    <string
+      id="ret_faction_type_kingdom"
+      text="王国" />
+    <string
       id="ret_filter_label"
       text="フィルター：" />
     <string
@@ -500,11 +527,23 @@
       id="ret_item_unlock_sentence_generic"
       text="{ITEMS} {VERB} アンロックされました。" />
     <string
+      id="ret_item_unlock_sentence_troops"
+      text="{ITEMS} {VERB} 部隊を作成する際にアンロックされました。" />
+    <string
       id="ret_item_unlock_sentence_workshops"
       text="{ITEMS} {VERB} 工房でアンロックされました。" />
     <string
       id="ret_item_unlock_title"
       text="アンロックされたアイテム" />
+    <string
+      id="ret_kingdom_troops_unlock_always_unlocked"
+      text="常にアンロック" />
+    <string
+      id="ret_kingdom_troops_unlock_disabled"
+      text="無効" />
+    <string
+      id="ret_kingdom_troops_unlock_upon_becoming_ruler"
+      text="支配者になるとアンロック" />
     <string
       id="ret_library_contents_header"
       text="内容" />
@@ -731,6 +770,12 @@
       id="ret_mariner_toggle_tooltip_universal"
       text="水兵は海戦に適しています。" />
     <string
+      id="ret_mcm_option_clan_troops_unlock"
+      text="クラン部隊" />
+    <string
+      id="ret_mcm_option_clan_troops_unlock_hint"
+      text="クラン部隊が利用可能になる時期を決定します。" />
+    <string
       id="ret_mcm_option_count_ally_casualties"
       text="味方の戦死者をカウント" />
     <string
@@ -848,6 +893,12 @@
       id="ret_mcm_option_item_unlock_notification_hint"
       text="新しいアイテムがアンロックされたときの通知スタイルを決定します。" />
     <string
+      id="ret_mcm_option_kingdom_troops_unlock"
+      text="王国の部隊" />
+    <string
+      id="ret_mcm_option_kingdom_troops_unlock_hint"
+      text="王国の部隊が利用可能になる時期を決定します。" />
+    <string
       id="ret_mcm_option_max_retinue_ratio"
       text="最大リティニュース比率" />
     <string
@@ -925,6 +976,12 @@
     <string
       id="ret_mcm_option_starter_equipment_hint"
       text="新たにアンロックされた部隊のスターター装備を設定します。" />
+    <string
+      id="ret_mcm_option_starter_troops"
+      text="スタータートループ" />
+    <string
+      id="ret_mcm_option_starter_troops_hint"
+      text="クランと王国のスタータートループを決定します。" />
     <string
       id="ret_mcm_option_time_multiplier"
       text="装備時間乗数" />
@@ -1183,6 +1240,12 @@
     <string
       id="ret_starter_equipment_single_set"
       text="1つのセットをコピー" />
+    <string
+      id="ret_starter_troops_clone_culture_roots"
+      text="ルート部隊のみ" />
+    <string
+      id="ret_starter_troops_clone_culture_trees"
+      text="部隊ツリー全体" />
     <string
       id="ret_stocks_add"
       text="在庫に {AMOUNT} 個の {ITEM} を追加しました。" />

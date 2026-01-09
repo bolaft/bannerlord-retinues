@@ -173,6 +173,15 @@
       id="ret_character_cannot_remove_with_upgrades"
       text="No se puede eliminar una unidad que aún tiene mejoras." />
     <string
+      id="ret_clan_troops_unlock_always_unlocked"
+      text="Siempre desbloqueado" />
+    <string
+      id="ret_clan_troops_unlock_disabled"
+      text="Desactivados" />
+    <string
+      id="ret_clan_troops_unlock_with_first_fief"
+      text="Desbloqueado con el primer feudo" />
+    <string
       id="ret_clear_filter_tooltip"
       text="Borrar el texto del filtro actual." />
     <string
@@ -383,6 +392,24 @@
       id="ret_export_title"
       text="Guardar" />
     <string
+      id="ret_faction_troops_unlocked_desc"
+      text="{COUNT} nuevas tropas ya están disponibles para la {FACTION_TYPE} {FACTION}." />
+    <string
+      id="ret_faction_troops_unlocked_go"
+      text="Ir al Editor" />
+    <string
+      id="ret_faction_troops_unlocked_title"
+      text="Tropas de {FACTION}" />
+    <string
+      id="ret_faction_type_clan"
+      text="clan" />
+    <string
+      id="ret_faction_type_faction"
+      text="facción" />
+    <string
+      id="ret_faction_type_kingdom"
+      text="reino" />
+    <string
       id="ret_filter_label"
       text="Filtro:" />
     <string
@@ -500,11 +527,23 @@
       id="ret_item_unlock_sentence_generic"
       text="{ITEMS} {VERB} desbloqueados." />
     <string
+      id="ret_item_unlock_sentence_troops"
+      text="{ITEMS} {VERB} desbloqueados al crear tropas." />
+    <string
       id="ret_item_unlock_sentence_workshops"
       text="{ITEMS} {VERB} desbloqueados a través de talleres." />
     <string
       id="ret_item_unlock_title"
       text="Objetos desbloqueados" />
+    <string
+      id="ret_kingdom_troops_unlock_always_unlocked"
+      text="Siempre desbloqueados" />
+    <string
+      id="ret_kingdom_troops_unlock_disabled"
+      text="Desactivados" />
+    <string
+      id="ret_kingdom_troops_unlock_upon_becoming_ruler"
+      text="Desbloqueados al convertirse en gobernante" />
     <string
       id="ret_library_contents_header"
       text="Contenido" />
@@ -731,6 +770,12 @@
       id="ret_mariner_toggle_tooltip_universal"
       text="Los marineros son más adecuados para el combate naval." />
     <string
+      id="ret_mcm_option_clan_troops_unlock"
+      text="Tropas de clan" />
+    <string
+      id="ret_mcm_option_clan_troops_unlock_hint"
+      text="Determina cuándo las tropas de clan están disponibles." />
+    <string
       id="ret_mcm_option_count_ally_casualties"
       text="Contar bajas aliadas" />
     <string
@@ -848,6 +893,12 @@
       id="ret_mcm_option_item_unlock_notification_hint"
       text="Determina el estilo de notificación cuando se desbloquean nuevos artículos." />
     <string
+      id="ret_mcm_option_kingdom_troops_unlock"
+      text="Tropas del Reino" />
+    <string
+      id="ret_mcm_option_kingdom_troops_unlock_hint"
+      text="Determina cuándo las tropas del reino están disponibles." />
+    <string
       id="ret_mcm_option_max_retinue_ratio"
       text="Relación máxima de Retinues" />
     <string
@@ -925,6 +976,12 @@
     <string
       id="ret_mcm_option_starter_equipment_hint"
       text="Establece el equipo inicial para las tropas recién desbloqueadas." />
+    <string
+      id="ret_mcm_option_starter_troops"
+      text="Tropas iniciales" />
+    <string
+      id="ret_mcm_option_starter_troops_hint"
+      text="Determina las tropas iniciales del clan y del reino." />
     <string
       id="ret_mcm_option_time_multiplier"
       text="Multiplicador de tiempo de equipamiento" />
@@ -1183,6 +1240,12 @@
     <string
       id="ret_starter_equipment_single_set"
       text="Copiar un conjunto" />
+    <string
+      id="ret_starter_troops_clone_culture_roots"
+      text="Solo tropas raíz" />
+    <string
+      id="ret_starter_troops_clone_culture_trees"
+      text="Árboles completos de tropas" />
     <string
       id="ret_stocks_add"
       text="Se añadieron {AMOUNT} {ITEM} a las existencias." />
