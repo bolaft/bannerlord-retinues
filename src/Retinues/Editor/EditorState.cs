@@ -8,11 +8,14 @@ using Retinues.Framework.Model.Exports;
 using Retinues.Framework.Runtime;
 using Retinues.Game;
 using Retinues.Utilities;
-using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 
 namespace Retinues.Editor
 {
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+    //                      Editor Mode                       //
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
     /// <summary>
     /// Editor modes..
     /// </summary>
@@ -21,6 +24,10 @@ namespace Retinues.Editor
         Universal = 0,
         Player = 1,
     }
+
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+    //                   Editor Launch Args                   //
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
     /// <summary>
     /// Optional launch parameters for the editor.
@@ -66,8 +73,18 @@ namespace Retinues.Editor
     [SafeClass]
     public class EditorState
     {
+        /// <summary>
+        /// The current editor mode.
+        /// </summary>
+        public EditorMode Mode { get; private set; } = EditorMode.Universal;
+
+        /// <summary>
+        /// Whether the state is currently initializing.
+        /// </summary>
+        private readonly bool _isInitializing;
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                      Construction                      //
+        //                        Instance                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
@@ -80,24 +97,13 @@ namespace Retinues.Editor
         public static void ClearInstance() => _instance = null;
 
         /// <summary>
-        /// The current editor mode.
+        /// Resets the singleton instance with optional launch arguments.
         /// </summary>
-        public EditorMode Mode { get; private set; } = EditorMode.Universal;
+        public static void Reset(EditorLaunchArgs args = null) => _instance = new EditorState(args);
 
-        /// <summary>
-        /// Whether the state is currently initializing.
-        /// </summary>
-        private readonly bool _isInitializing;
-
-        /// <summary>
-        /// Fires a UI event if not initializing.
-        /// </summary>
-        private void Fire(UIEvent e)
-        {
-            if (_isInitializing)
-                return;
-            EventManager.Fire(e);
-        }
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                     Initialization                     //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
         /// Constructs a new editor state without launch arguments.
@@ -129,11 +135,6 @@ namespace Retinues.Editor
                 EventManager.Fire(UIEvent.Slot);
             });
         }
-
-        /// <summary>
-        /// Resets the singleton instance with optional launch arguments.
-        /// </summary>
-        public static void Reset(EditorLaunchArgs args = null) => _instance = new EditorState(args);
 
         private void ApplyLaunchArgs(EditorLaunchArgs args)
         {
@@ -323,6 +324,20 @@ namespace Retinues.Editor
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Events                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Fires a UI event if not initializing.
+        /// </summary>
+        private void Fire(UIEvent e)
+        {
+            if (_isInitializing)
+                return;
+            EventManager.Fire(e);
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          State                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
@@ -474,10 +489,6 @@ namespace Retinues.Editor
 
         private bool _showCrafted;
 
-        /// <summary>
-        /// When true, the equipment list (weapons) shows only crafted items.
-        /// When false, crafted items are hidden from the list.
-        /// </summary>
         public bool ShowCrafted
         {
             get => _showCrafted;

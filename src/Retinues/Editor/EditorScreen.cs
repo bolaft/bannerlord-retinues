@@ -15,24 +15,26 @@ using TaleWorlds.GauntletUI.Data;
 namespace Retinues.Editor
 {
     /// <summary>
-    /// Game state for the editor screen.
-    /// </summary>
-    public sealed class EditorGameState : GameState
-    {
-        public override bool IsMenuState => true;
-        public EditorLaunchArgs LaunchArgs { get; set; }
-
-        // Convenience helpers for navigation / UI layers.
-        public EditorMode Mode => LaunchArgs?.Mode ?? EditorMode.Universal;
-        public bool IsMapBarIntegrated => Mode == EditorMode.Player;
-    }
-
-    /// <summary>
     /// Gauntlet screen for the editor.
     /// </summary>
     [GameStateScreen(typeof(EditorGameState))]
     public sealed class EditorScreen(GameState state) : ScreenBase, IGameStateListener
     {
+        private readonly GameState _state = state;
+
+        private GauntletLayer _gauntletLayer;
+        private EditorVM _dataSource;
+
+#if BL13
+        private GauntletMovieIdentifier _movie;
+#else
+        private IGauntletMovie _movie;
+#endif
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Open / Close                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
         /// <summary>
         /// True while an editor game state exists.
         /// </summary>
@@ -41,16 +43,9 @@ namespace Retinues.Editor
         [StaticClearAction]
         public static void Clear() => IsOpen = false;
 
-#if BL13
-        private GauntletMovieIdentifier _movie;
-#else
-        private IGauntletMovie _movie;
-#endif
-
-        private readonly GameState _state = state;
-
-        private GauntletLayer _gauntletLayer;
-        private EditorVM _dataSource;
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Sprites                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         static readonly string[] SpriteSheetsToLoad =
         [
@@ -70,6 +65,10 @@ namespace Retinues.Editor
             "ui_saveload",
             "ui_boardgame",
         ];
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Events                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         protected override void OnFrameTick(float dt)
         {
@@ -182,9 +181,30 @@ namespace Retinues.Editor
             OnInitialize();
         }
 
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Helpers                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
         private void Close()
         {
             TaleWorlds.Core.Game.Current?.GameStateManager?.PopState();
         }
+    }
+
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+    //                       Game State                       //
+    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+    /// <summary>
+    /// Game state for the editor screen.
+    /// </summary>
+    public sealed class EditorGameState : GameState
+    {
+        public override bool IsMenuState => true;
+        public EditorLaunchArgs LaunchArgs { get; set; }
+
+        // Convenience helpers for navigation / UI layers.
+        public EditorMode Mode => LaunchArgs?.Mode ?? EditorMode.Universal;
+        public bool IsMapBarIntegrated => Mode == EditorMode.Player;
     }
 }

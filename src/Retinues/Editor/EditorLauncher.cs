@@ -8,16 +8,29 @@ namespace Retinues.Editor
 {
     public static class EditorLauncher
     {
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Launch                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Launch the troops editor with the given arguments.
+        /// </summary>
         public static void Launch(EditorLaunchArgs args = null)
         {
             LaunchInternal(args ?? EditorLaunchArgs.Universal());
         }
 
+        /// <summary>
+        /// Launch the troops editor in the given mode.
+        /// </summary>
         public static void Launch(EditorMode mode)
         {
             LaunchInternal(EditorLaunchArgs.ForMode(mode));
         }
 
+        /// <summary>
+        /// Internal launch logic.
+        /// </summary>
         private static void LaunchInternal(EditorLaunchArgs args)
         {
             var gsm = TaleWorlds.Core.Game.Current?.GameStateManager;
@@ -45,6 +58,13 @@ namespace Retinues.Editor
             gsm.PushState(state);
         }
 
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Helpers                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Resolve the faction to use for editor availability checks.
+        /// </summary>
         private static IBaseFaction ResolveGateFaction(EditorLaunchArgs args)
         {
             if (args == null)
@@ -62,6 +82,9 @@ namespace Retinues.Editor
             return Player.Clan;
         }
 
+        /// <summary>
+        /// Close any previously opened editor instances.
+        /// </summary>
         private static void ClosePreviousEditorInstances(GameStateManager gsm)
         {
             while (gsm.GameStates.Any(s => s is EditorGameState))
