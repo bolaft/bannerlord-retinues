@@ -11,6 +11,15 @@
       id="ret_age_hint"
       text="나이" />
     <string
+      id="ret_allowed_recruiters_everyone"
+      text="모두" />
+    <string
+      id="ret_allowed_recruiters_faction_only"
+      text="파벌 전용" />
+    <string
+      id="ret_allowed_recruiters_player_only"
+      text="플레이어 전용" />
+    <string
       id="ret_battle_type_field_checkbox_tooltip_disable"
       text="야전 전투에서 비활성화." />
     <string
@@ -773,6 +782,18 @@
       id="ret_mariner_toggle_tooltip_universal"
       text="선원은 해상 전투에 더 적합합니다." />
     <string
+      id="ret_mcm_option_allowed_recruiters"
+      text="허용된 모집자" />
+    <string
+      id="ret_mcm_option_allowed_recruiters_hint"
+      text="누가 맞춤 부대를 모집할 수 있는지 결정합니다. &apos;모두&apos;는 다른 모집 모드와의 호환성을 위해 권장됩니다." />
+    <string
+      id="ret_mcm_option_clan_troops_availability"
+      text="클랜 부대 가용성" />
+    <string
+      id="ret_mcm_option_clan_troops_availability_hint"
+      text="클랜 부대가 어디에서 모집될 수 있는지 결정합니다." />
+    <string
       id="ret_mcm_option_clan_troops_unlock"
       text="클랜 부대" />
     <string
@@ -896,6 +917,12 @@
       id="ret_mcm_option_item_unlock_notification_hint"
       text="새 항목이 잠금 해제될 때 알림 스타일을 결정합니다." />
     <string
+      id="ret_mcm_option_kingdom_troops_availability"
+      text="왕국 군대 가용성" />
+    <string
+      id="ret_mcm_option_kingdom_troops_availability_hint"
+      text="왕국 군대를 어디에서 모집할 수 있는지 결정합니다." />
+    <string
       id="ret_mcm_option_kingdom_troops_unlock"
       text="왕국 군대" />
     <string
@@ -925,6 +952,18 @@
     <string
       id="ret_mcm_option_min_tier_for_war_mounts_hint"
       text="지정된 등급 이하의 부대는 전쟁 탑승을 사용할 수 없습니다." />
+    <string
+      id="ret_mcm_option_mix_ratio"
+      text="혼합 비율" />
+    <string
+      id="ret_mcm_option_mix_ratio_hint"
+      text="모집 풀에서 맞춤형 부대와 기본 부대의 비율을 결정합니다." />
+    <string
+      id="ret_mcm_option_mix_with_vanilla_troops"
+      text="기본 부대와 혼합" />
+    <string
+      id="ret_mcm_option_mix_with_vanilla_troops_hint"
+      text="활성화되면 맞춤형 부대가 모집 풀에서 기본 부대와 혼합됩니다." />
     <string
       id="ret_mcm_option_mixed_gender_ratio"
       text="혼합 성비" />
@@ -1054,6 +1093,9 @@
     <string
       id="ret_mcm_section_equipment_unlocks"
       text="장비 잠금 해제" />
+    <string
+      id="ret_mcm_section_recruitment"
+      text="모집" />
     <string
       id="ret_mcm_section_restrictions"
       text="제한" />
@@ -1294,6 +1336,21 @@
     <string
       id="ret_troop_count_more"
       text="및 {NUMBER} 개의 추가 부대." />
+    <string
+      id="ret_troops_availability_anywhere"
+      text="어디서나" />
+    <string
+      id="ret_troops_availability_clan_fiefs"
+      text="클랜 영지" />
+    <string
+      id="ret_troops_availability_clan_or_kingdom_fiefs"
+      text="클랜 또는 왕국 영지" />
+    <string
+      id="ret_troops_availability_kingdom_fiefs"
+      text="왕국 영지" />
+    <string
+      id="ret_troops_availability_nowhere"
+      text="어디에도 없음" />
     <string
       id="ret_troops_editor_locked"
       text="부대 편집기는 사용할 수 없습니다." />

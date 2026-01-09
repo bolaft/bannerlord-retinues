@@ -11,6 +11,15 @@
       id="ret_age_hint"
       text="年齢" />
     <string
+      id="ret_allowed_recruiters_everyone"
+      text="全員" />
+    <string
+      id="ret_allowed_recruiters_faction_only"
+      text="派閥のみ" />
+    <string
+      id="ret_allowed_recruiters_player_only"
+      text="プレイヤーのみ" />
+    <string
       id="ret_battle_type_field_checkbox_tooltip_disable"
       text="野戦で無効にする。" />
     <string
@@ -773,6 +782,18 @@
       id="ret_mariner_toggle_tooltip_universal"
       text="水兵は海戦に適しています。" />
     <string
+      id="ret_mcm_option_allowed_recruiters"
+      text="許可されたリクルーター" />
+    <string
+      id="ret_mcm_option_allowed_recruiters_hint"
+      text="カスタム部隊を募集できる人を決定します。&apos;全員&apos;は、他の募集モッドとの互換性のために推奨されます。" />
+    <string
+      id="ret_mcm_option_clan_troops_availability"
+      text="クラン部隊の可用性" />
+    <string
+      id="ret_mcm_option_clan_troops_availability_hint"
+      text="クラン部隊がどこから募集できるかを決定します。" />
+    <string
       id="ret_mcm_option_clan_troops_unlock"
       text="クラン部隊" />
     <string
@@ -896,6 +917,12 @@
       id="ret_mcm_option_item_unlock_notification_hint"
       text="新しいアイテムがアンロックされたときの通知スタイルを決定します。" />
     <string
+      id="ret_mcm_option_kingdom_troops_availability"
+      text="王国の部隊の可用性" />
+    <string
+      id="ret_mcm_option_kingdom_troops_availability_hint"
+      text="王国の部隊をどこから募集できるかを決定します。" />
+    <string
       id="ret_mcm_option_kingdom_troops_unlock"
       text="王国の部隊" />
     <string
@@ -925,6 +952,18 @@
     <string
       id="ret_mcm_option_min_tier_for_war_mounts_hint"
       text="指定されたティア以下の部隊は戦争用マウントを使用できません。" />
+    <string
+      id="ret_mcm_option_mix_ratio"
+      text="ミックス比率" />
+    <string
+      id="ret_mcm_option_mix_ratio_hint"
+      text="採用プールにおけるカスタム部隊とバニラ部隊の比率を決定します。" />
+    <string
+      id="ret_mcm_option_mix_with_vanilla_troops"
+      text="バニラ部隊と混合" />
+    <string
+      id="ret_mcm_option_mix_with_vanilla_troops_hint"
+      text="有効にすると、カスタム部隊は採用プールでバニラ部隊と混合されます。" />
     <string
       id="ret_mcm_option_mixed_gender_ratio"
       text="混合性別比率" />
@@ -1054,6 +1093,9 @@
     <string
       id="ret_mcm_section_equipment_unlocks"
       text="装備のアンロック" />
+    <string
+      id="ret_mcm_section_recruitment"
+      text="採用" />
     <string
       id="ret_mcm_section_restrictions"
       text="制限" />
@@ -1294,6 +1336,21 @@
     <string
       id="ret_troop_count_more"
       text="およびさらに {NUMBER} 部隊。" />
+    <string
+      id="ret_troops_availability_anywhere"
+      text="どこでも" />
+    <string
+      id="ret_troops_availability_clan_fiefs"
+      text="クランの領地" />
+    <string
+      id="ret_troops_availability_clan_or_kingdom_fiefs"
+      text="クランまたは王国の領地" />
+    <string
+      id="ret_troops_availability_kingdom_fiefs"
+      text="王国の領地" />
+    <string
+      id="ret_troops_availability_nowhere"
+      text="どこにもない" />
     <string
       id="ret_troops_editor_locked"
       text="部隊エディターは利用できません。" />

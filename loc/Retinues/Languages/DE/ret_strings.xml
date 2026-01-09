@@ -11,6 +11,15 @@
       id="ret_age_hint"
       text="Alter" />
     <string
+      id="ret_allowed_recruiters_everyone"
+      text="Jeder" />
+    <string
+      id="ret_allowed_recruiters_faction_only"
+      text="Nur Fraktion" />
+    <string
+      id="ret_allowed_recruiters_player_only"
+      text="Nur Spieler" />
+    <string
       id="ret_battle_type_field_checkbox_tooltip_disable"
       text="Deaktiviere für Feldschlachten." />
     <string
@@ -773,6 +782,18 @@
       id="ret_mariner_toggle_tooltip_universal"
       text="Seefahrer sind besser für den Seekampf geeignet." />
     <string
+      id="ret_mcm_option_allowed_recruiters"
+      text="Erlaubte Rekrutierer" />
+    <string
+      id="ret_mcm_option_allowed_recruiters_hint"
+      text="Bestimmt, wer benutzerdefinierte Truppen rekrutieren kann. &apos;Jeder&apos; wird für die Kompatibilität mit anderen Rekrutierungs-Mods empfohlen." />
+    <string
+      id="ret_mcm_option_clan_troops_availability"
+      text="Verfügbarkeit von Clan-Truppen" />
+    <string
+      id="ret_mcm_option_clan_troops_availability_hint"
+      text="Bestimmt, wo Clan-Truppen rekrutiert werden können." />
+    <string
       id="ret_mcm_option_clan_troops_unlock"
       text="Clan-Truppen" />
     <string
@@ -896,6 +917,12 @@
       id="ret_mcm_option_item_unlock_notification_hint"
       text="Bestimmt den Benachrichtigungsstil, wenn neue Gegenstände freigeschaltet werden." />
     <string
+      id="ret_mcm_option_kingdom_troops_availability"
+      text="Verfügbarkeit von Königreichstruppen" />
+    <string
+      id="ret_mcm_option_kingdom_troops_availability_hint"
+      text="Bestimmt, wo Königreichstruppen rekrutiert werden können." />
+    <string
       id="ret_mcm_option_kingdom_troops_unlock"
       text="Königreichstruppen" />
     <string
@@ -925,6 +952,18 @@
     <string
       id="ret_mcm_option_min_tier_for_war_mounts_hint"
       text="Truppen unterhalb der angegebenen Stufe dürfen keine Kriegspferde verwenden." />
+    <string
+      id="ret_mcm_option_mix_ratio"
+      text="Mischungsverhältnis" />
+    <string
+      id="ret_mcm_option_mix_ratio_hint"
+      text="Bestimmt das Verhältnis von benutzerdefinierten Truppen zu Standardtruppen in den Rekrutierungspools." />
+    <string
+      id="ret_mcm_option_mix_with_vanilla_troops"
+      text="Mischen mit Standardtruppen" />
+    <string
+      id="ret_mcm_option_mix_with_vanilla_troops_hint"
+      text="Wenn aktiviert, werden benutzerdefinierte Truppen mit Standardtruppen in den Rekrutierungspools gemischt." />
     <string
       id="ret_mcm_option_mixed_gender_ratio"
       text="Gemischtes Geschlechterverhältnis" />
@@ -1054,6 +1093,9 @@
     <string
       id="ret_mcm_section_equipment_unlocks"
       text="Ausrüstungsfreischaltungen" />
+    <string
+      id="ret_mcm_section_recruitment"
+      text="Rekrutierung" />
     <string
       id="ret_mcm_section_restrictions"
       text="Einschränkungen" />
@@ -1294,6 +1336,21 @@
     <string
       id="ret_troop_count_more"
       text="und {NUMBER} weitere Truppen." />
+    <string
+      id="ret_troops_availability_anywhere"
+      text="Überall" />
+    <string
+      id="ret_troops_availability_clan_fiefs"
+      text="Clan-Lehen" />
+    <string
+      id="ret_troops_availability_clan_or_kingdom_fiefs"
+      text="Clan- oder Königreich-Lehen" />
+    <string
+      id="ret_troops_availability_kingdom_fiefs"
+      text="Königreich-Lehen" />
+    <string
+      id="ret_troops_availability_nowhere"
+      text="Nirgendwo" />
     <string
       id="ret_troops_editor_locked"
       text="Der Truppen-Editor ist nicht verfügbar." />

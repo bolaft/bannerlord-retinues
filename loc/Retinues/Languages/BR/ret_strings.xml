@@ -11,6 +11,15 @@
       id="ret_age_hint"
       text="Idade" />
     <string
+      id="ret_allowed_recruiters_everyone"
+      text="Todos" />
+    <string
+      id="ret_allowed_recruiters_faction_only"
+      text="Apenas facção" />
+    <string
+      id="ret_allowed_recruiters_player_only"
+      text="Apenas jogador" />
+    <string
       id="ret_battle_type_field_checkbox_tooltip_disable"
       text="Desativar para batalhas campais." />
     <string
@@ -773,6 +782,18 @@
       id="ret_mariner_toggle_tooltip_universal"
       text="Marinheiros são mais adequados para o combate naval." />
     <string
+      id="ret_mcm_option_allowed_recruiters"
+      text="Recrutadores Permitidos" />
+    <string
+      id="ret_mcm_option_allowed_recruiters_hint"
+      text="Determina quem pode recrutar tropas personalizadas. &apos;Todos&apos; é recomendado para compatibilidade com outros mods de recrutamento." />
+    <string
+      id="ret_mcm_option_clan_troops_availability"
+      text="Disponibilidade de Tropas de Clã" />
+    <string
+      id="ret_mcm_option_clan_troops_availability_hint"
+      text="Determina onde as tropas de clã podem ser recrutadas." />
+    <string
       id="ret_mcm_option_clan_troops_unlock"
       text="Tropas de Clã" />
     <string
@@ -896,6 +917,12 @@
       id="ret_mcm_option_item_unlock_notification_hint"
       text="Determina o estilo de notificação quando novos itens são desbloqueados." />
     <string
+      id="ret_mcm_option_kingdom_troops_availability"
+      text="Disponibilidade de Tropas do Reino" />
+    <string
+      id="ret_mcm_option_kingdom_troops_availability_hint"
+      text="Determina de onde as tropas do reino podem ser recrutadas." />
+    <string
       id="ret_mcm_option_kingdom_troops_unlock"
       text="Tropas do Reino" />
     <string
@@ -925,6 +952,18 @@
     <string
       id="ret_mcm_option_min_tier_for_war_mounts_hint"
       text="As tropas abaixo do nível especificado não poderão usar montarias de guerra." />
+    <string
+      id="ret_mcm_option_mix_ratio"
+      text="Razão de Mistura" />
+    <string
+      id="ret_mcm_option_mix_ratio_hint"
+      text="Determina a proporção de tropas personalizadas para tropas padrão nas piscinas de recrutamento." />
+    <string
+      id="ret_mcm_option_mix_with_vanilla_troops"
+      text="Misturar com Tropas Padrão" />
+    <string
+      id="ret_mcm_option_mix_with_vanilla_troops_hint"
+      text="Se ativado, tropas personalizadas serão misturadas com tropas padrão nas piscinas de recrutamento." />
     <string
       id="ret_mcm_option_mixed_gender_ratio"
       text="Razão de Gênero Misto" />
@@ -1054,6 +1093,9 @@
     <string
       id="ret_mcm_section_equipment_unlocks"
       text="Desbloqueios de Equipamento" />
+    <string
+      id="ret_mcm_section_recruitment"
+      text="Recrutamento" />
     <string
       id="ret_mcm_section_restrictions"
       text="Restrições" />
@@ -1294,6 +1336,21 @@
     <string
       id="ret_troop_count_more"
       text="e mais {NUMBER} tropas." />
+    <string
+      id="ret_troops_availability_anywhere"
+      text="Em Qualquer Lugar" />
+    <string
+      id="ret_troops_availability_clan_fiefs"
+      text="Feudos do Clã" />
+    <string
+      id="ret_troops_availability_clan_or_kingdom_fiefs"
+      text="Feudos do Clã ou do Reino" />
+    <string
+      id="ret_troops_availability_kingdom_fiefs"
+      text="Feudos do Reino" />
+    <string
+      id="ret_troops_availability_nowhere"
+      text="Em Lugar Nenhum" />
     <string
       id="ret_troops_editor_locked"
       text="O editor de tropas não está disponível." />

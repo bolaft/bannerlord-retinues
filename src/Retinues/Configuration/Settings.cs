@@ -430,6 +430,166 @@ namespace Retinues.Configuration
         );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Recruitement                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public static readonly Section Recruitment = CreateSection(
+            name: L.F("mcm_section_recruitment", "Recruitment")
+        );
+
+        /* ━━━━━━━━ Options ━━━━━━━ */
+
+        public enum RecruitmentMode
+        {
+            Anywhere,
+            FactionFiefs,
+            ClanOrKingdomFiefs,
+            Nowhere,
+        }
+
+        public static readonly MultiChoiceOption<RecruitmentMode> ClanTroopsAvailability =
+            CreateMultiChoiceOption(
+                section: Recruitment,
+                name: L.F("mcm_option_clan_troops_availability", "Clan Troops Availability"),
+                hint: L.F(
+                    "mcm_option_clan_troops_availability_hint",
+                    "Determines where clan troops can be recruited from."
+                ),
+                @default: RecruitmentMode.FactionFiefs,
+                choices:
+                [
+                    RecruitmentMode.Anywhere,
+                    RecruitmentMode.FactionFiefs,
+                    RecruitmentMode.ClanOrKingdomFiefs,
+                    RecruitmentMode.Nowhere,
+                ],
+                choiceFormatter: v =>
+                    v switch
+                    {
+                        RecruitmentMode.Anywhere => L.S("troops_availability_anywhere", "Anywhere"),
+                        RecruitmentMode.FactionFiefs => L.S(
+                            "troops_availability_clan_fiefs",
+                            "Clan Fiefs"
+                        ),
+                        RecruitmentMode.ClanOrKingdomFiefs => L.S(
+                            "troops_availability_clan_or_kingdom_fiefs",
+                            "Clan or Kingdom Fiefs"
+                        ),
+                        RecruitmentMode.Nowhere => L.S("troops_availability_nowhere", "Nowhere"),
+                        _ => v.ToString(),
+                    },
+                dependsOn: ClanTroopsUnlock,
+                dependsOnValue: new[]
+                {
+                    ClanTroopsUnlockMode.AlwaysUnlocked,
+                    ClanTroopsUnlockMode.UnlockedWithFirstFief,
+                }
+            );
+
+        public static readonly MultiChoiceOption<RecruitmentMode> KingdomTroopsAvailability =
+            CreateMultiChoiceOption(
+                section: Recruitment,
+                name: L.F("mcm_option_kingdom_troops_availability", "Kingdom Troops Availability"),
+                hint: L.F(
+                    "mcm_option_kingdom_troops_availability_hint",
+                    "Determines where kingdom troops can be recruited from."
+                ),
+                @default: RecruitmentMode.FactionFiefs,
+                choices:
+                [
+                    RecruitmentMode.Anywhere,
+                    RecruitmentMode.FactionFiefs,
+                    RecruitmentMode.ClanOrKingdomFiefs,
+                    RecruitmentMode.Nowhere,
+                ],
+                choiceFormatter: v =>
+                    v switch
+                    {
+                        RecruitmentMode.Anywhere => L.S("troops_availability_anywhere", "Anywhere"),
+                        RecruitmentMode.FactionFiefs => L.S(
+                            "troops_availability_kingdom_fiefs",
+                            "Kingdom Fiefs"
+                        ),
+                        RecruitmentMode.ClanOrKingdomFiefs => L.S(
+                            "troops_availability_clan_or_kingdom_fiefs",
+                            "Clan or Kingdom Fiefs"
+                        ),
+                        RecruitmentMode.Nowhere => L.S("troops_availability_nowhere", "Nowhere"),
+                        _ => v.ToString(),
+                    },
+                dependsOn: KingdomTroopsUnlock,
+                dependsOnValue: new[]
+                {
+                    KingdomTroopsUnlockMode.AlwaysUnlocked,
+                    KingdomTroopsUnlockMode.UnlockedUponBecomingRuler,
+                }
+            );
+
+        public static readonly Option<bool> MixWithVanillaTroops = CreateOption(
+            section: Recruitment,
+            name: L.F("mcm_option_mix_with_vanilla_troops", "Mix With Vanilla Troops"),
+            hint: L.F(
+                "mcm_option_mix_with_vanilla_troops_hint",
+                "If enabled, custom troops will be mixed with vanilla troops in recruitment pools."
+            ),
+            @default: false
+        );
+
+        public static readonly Option<float> MixRatio = CreateOption(
+            section: Recruitment,
+            name: L.F("mcm_option_mix_ratio", "Mix Ratio"),
+            hint: L.F(
+                "mcm_option_mix_ratio_hint",
+                "Determines the ratio of custom troops to vanilla troops in recruitment pools."
+            ),
+            minValue: 0f,
+            maxValue: 1f,
+            @default: 0.5f,
+            dependsOn: MixWithVanillaTroops
+        );
+
+        public enum AllowedRecruitersMode
+        {
+            Everyone,
+            FactionOnly,
+            PlayerOnly,
+        }
+
+        public static readonly MultiChoiceOption<AllowedRecruitersMode> AllowedRecruiters =
+            CreateMultiChoiceOption(
+                section: Recruitment,
+                name: L.F("mcm_option_allowed_recruiters", "Allowed Recruiters"),
+                hint: L.F(
+                    "mcm_option_allowed_recruiters_hint",
+                    "Determines who can recruit custom troops. 'Everyone' is recommended for compatibility with other recruitement mods."
+                ),
+                @default: AllowedRecruitersMode.Everyone,
+                choices:
+                [
+                    AllowedRecruitersMode.Everyone,
+                    AllowedRecruitersMode.FactionOnly,
+                    AllowedRecruitersMode.PlayerOnly,
+                ],
+                choiceFormatter: v =>
+                    v switch
+                    {
+                        AllowedRecruitersMode.Everyone => L.S(
+                            "allowed_recruiters_everyone",
+                            "Everyone"
+                        ),
+                        AllowedRecruitersMode.FactionOnly => L.S(
+                            "allowed_recruiters_faction_only",
+                            "Faction Only"
+                        ),
+                        AllowedRecruitersMode.PlayerOnly => L.S(
+                            "allowed_recruiters_player_only",
+                            "Player Only"
+                        ),
+                        _ => v.ToString(),
+                    }
+            );
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Equipment                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 

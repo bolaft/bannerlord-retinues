@@ -11,6 +11,15 @@
       id="ret_age_hint"
       text="年齡" />
     <string
+      id="ret_allowed_recruiters_everyone"
+      text="所有人" />
+    <string
+      id="ret_allowed_recruiters_faction_only"
+      text="僅限派系" />
+    <string
+      id="ret_allowed_recruiters_player_only"
+      text="僅限玩家" />
+    <string
       id="ret_battle_type_field_checkbox_tooltip_disable"
       text="禁用平地戰鬥。" />
     <string
@@ -773,6 +782,18 @@
       id="ret_mariner_toggle_tooltip_universal"
       text="水手更適合海戰。" />
     <string
+      id="ret_mcm_option_allowed_recruiters"
+      text="允許的招募者" />
+    <string
+      id="ret_mcm_option_allowed_recruiters_hint"
+      text="確定誰可以招募自定義部隊。建議選擇“所有人”，以兼容其他招募模組。" />
+    <string
+      id="ret_mcm_option_clan_troops_availability"
+      text="氏族部隊可用性" />
+    <string
+      id="ret_mcm_option_clan_troops_availability_hint"
+      text="確定氏族部隊可以從哪裡招募。" />
+    <string
       id="ret_mcm_option_clan_troops_unlock"
       text="氏族部隊" />
     <string
@@ -896,6 +917,12 @@
       id="ret_mcm_option_item_unlock_notification_hint"
       text="確定解鎖新物品時的通知樣式。" />
     <string
+      id="ret_mcm_option_kingdom_troops_availability"
+      text="王國部隊可用性" />
+    <string
+      id="ret_mcm_option_kingdom_troops_availability_hint"
+      text="確定可以從哪裡招募王國部隊。" />
+    <string
       id="ret_mcm_option_kingdom_troops_unlock"
       text="王國部隊" />
     <string
@@ -925,6 +952,18 @@
     <string
       id="ret_mcm_option_min_tier_for_war_mounts_hint"
       text="低於指定等級的部隊將不允許使用戰爭坐騎。" />
+    <string
+      id="ret_mcm_option_mix_ratio"
+      text="混合比例" />
+    <string
+      id="ret_mcm_option_mix_ratio_hint"
+      text="確定招募池中自定義部隊與原版部隊的比例。" />
+    <string
+      id="ret_mcm_option_mix_with_vanilla_troops"
+      text="與原版部隊混合" />
+    <string
+      id="ret_mcm_option_mix_with_vanilla_troops_hint"
+      text="如果啟用，自定義部隊將在招募池中與原版部隊混合。" />
     <string
       id="ret_mcm_option_mixed_gender_ratio"
       text="混合性別比例" />
@@ -1054,6 +1093,9 @@
     <string
       id="ret_mcm_section_equipment_unlocks"
       text="裝備解鎖" />
+    <string
+      id="ret_mcm_section_recruitment"
+      text="招募" />
     <string
       id="ret_mcm_section_restrictions"
       text="限制" />
@@ -1294,6 +1336,21 @@
     <string
       id="ret_troop_count_more"
       text="以及另外 {NUMBER} 部隊。" />
+    <string
+      id="ret_troops_availability_anywhere"
+      text="任何地方" />
+    <string
+      id="ret_troops_availability_clan_fiefs"
+      text="氏族封地" />
+    <string
+      id="ret_troops_availability_clan_or_kingdom_fiefs"
+      text="氏族或王國封地" />
+    <string
+      id="ret_troops_availability_kingdom_fiefs"
+      text="王國封地" />
+    <string
+      id="ret_troops_availability_nowhere"
+      text="無處" />
     <string
       id="ret_troops_editor_locked"
       text="部隊編輯器不可用。" />

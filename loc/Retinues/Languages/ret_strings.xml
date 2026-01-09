@@ -11,6 +11,15 @@
       id="ret_age_hint"
       text="Age" />
     <string
+      id="ret_allowed_recruiters_everyone"
+      text="Everyone" />
+    <string
+      id="ret_allowed_recruiters_faction_only"
+      text="Faction Only" />
+    <string
+      id="ret_allowed_recruiters_player_only"
+      text="Player Only" />
+    <string
       id="ret_battle_type_field_checkbox_tooltip_disable"
       text="Disable for field battles." />
     <string
@@ -773,6 +782,18 @@
       id="ret_mariner_toggle_tooltip_universal"
       text="Mariners are better suited for naval combat." />
     <string
+      id="ret_mcm_option_allowed_recruiters"
+      text="Allowed Recruiters" />
+    <string
+      id="ret_mcm_option_allowed_recruiters_hint"
+      text="Determines who can recruit custom troops. &apos;Everyone&apos; is recommended for compatibility with other recruitement mods." />
+    <string
+      id="ret_mcm_option_clan_troops_availability"
+      text="Clan Troops Availability" />
+    <string
+      id="ret_mcm_option_clan_troops_availability_hint"
+      text="Determines where clan troops can be recruited from." />
+    <string
       id="ret_mcm_option_clan_troops_unlock"
       text="Clan Troops" />
     <string
@@ -896,6 +917,12 @@
       id="ret_mcm_option_item_unlock_notification_hint"
       text="Determines how the notification style when when new items are unlocked." />
     <string
+      id="ret_mcm_option_kingdom_troops_availability"
+      text="Kingdom Troops Availability" />
+    <string
+      id="ret_mcm_option_kingdom_troops_availability_hint"
+      text="Determines where kingdom troops can be recruited from." />
+    <string
       id="ret_mcm_option_kingdom_troops_unlock"
       text="Kingdom Troops" />
     <string
@@ -925,6 +952,18 @@
     <string
       id="ret_mcm_option_min_tier_for_war_mounts_hint"
       text="Troops below the specified tier will not be allowed to use war mounts." />
+    <string
+      id="ret_mcm_option_mix_ratio"
+      text="Mix Ratio" />
+    <string
+      id="ret_mcm_option_mix_ratio_hint"
+      text="Determines the ratio of custom troops to vanilla troops in recruitment pools." />
+    <string
+      id="ret_mcm_option_mix_with_vanilla_troops"
+      text="Mix With Vanilla Troops" />
+    <string
+      id="ret_mcm_option_mix_with_vanilla_troops_hint"
+      text="If enabled, custom troops will be mixed with vanilla troops in recruitment pools." />
     <string
       id="ret_mcm_option_mixed_gender_ratio"
       text="Mixed Gender Ratio" />
@@ -1054,6 +1093,9 @@
     <string
       id="ret_mcm_section_equipment_unlocks"
       text="Equipment Unlocks" />
+    <string
+      id="ret_mcm_section_recruitment"
+      text="Recruitment" />
     <string
       id="ret_mcm_section_restrictions"
       text="Restrictions" />
@@ -1294,6 +1336,21 @@
     <string
       id="ret_troop_count_more"
       text="and {NUMBER} more troops." />
+    <string
+      id="ret_troops_availability_anywhere"
+      text="Anywhere" />
+    <string
+      id="ret_troops_availability_clan_fiefs"
+      text="Clan Fiefs" />
+    <string
+      id="ret_troops_availability_clan_or_kingdom_fiefs"
+      text="Clan or Kingdom Fiefs" />
+    <string
+      id="ret_troops_availability_kingdom_fiefs"
+      text="Kingdom Fiefs" />
+    <string
+      id="ret_troops_availability_nowhere"
+      text="Nowhere" />
     <string
       id="ret_troops_editor_locked"
       text="The troop editor is not available." />

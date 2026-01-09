@@ -86,13 +86,11 @@ namespace Retinues.Configuration.MCM
             {
                 _isSyncingWithMCM = true;
 
-                // Some MCM paths may provide a dropdown with no items; never wipe ours in that case.
                 if (incoming != null)
                 {
                     bool hasItems = false;
                     try
                     {
-                        // Dropdown<T> behaves like a list in MCM.Common
                         hasItems = incoming.Count > 0;
                     }
                     catch
@@ -100,7 +98,8 @@ namespace Retinues.Configuration.MCM
                         // ignore
                     }
 
-                    if (hasItems)
+                    // IMPORTANT: avoid wiping the dropdown when MCM gives us the same instance back.
+                    if (hasItems && !ReferenceEquals(incoming, dd))
                     {
                         dd.Clear();
                         dd.AddRange(incoming);
@@ -117,7 +116,6 @@ namespace Retinues.Configuration.MCM
                 }
                 else
                 {
-                    // Treat null as "keep current option state"
                     int idx = opt.SelectedIndex;
                     if (idx < 0)
                         idx = 0;

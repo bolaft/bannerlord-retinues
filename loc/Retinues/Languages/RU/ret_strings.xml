@@ -11,6 +11,15 @@
       id="ret_age_hint"
       text="Возраст" />
     <string
+      id="ret_allowed_recruiters_everyone"
+      text="Все" />
+    <string
+      id="ret_allowed_recruiters_faction_only"
+      text="Только фракция" />
+    <string
+      id="ret_allowed_recruiters_player_only"
+      text="Только игрок" />
+    <string
       id="ret_battle_type_field_checkbox_tooltip_disable"
       text="Отключить для полевых сражений." />
     <string
@@ -773,6 +782,18 @@
       id="ret_mariner_toggle_tooltip_universal"
       text="Мореплаватели лучше подходят для морского боя." />
     <string
+      id="ret_mcm_option_allowed_recruiters"
+      text="Разрешенные рекрутеры" />
+    <string
+      id="ret_mcm_option_allowed_recruiters_hint"
+      text="Определяет, кто может набирать пользовательские отряды. Рекомендуется выбрать &apos;Все&apos; для совместимости с другими модами набора." />
+    <string
+      id="ret_mcm_option_clan_troops_availability"
+      text="Доступность отрядов клана" />
+    <string
+      id="ret_mcm_option_clan_troops_availability_hint"
+      text="Определяет, откуда можно набирать отряды клана." />
+    <string
       id="ret_mcm_option_clan_troops_unlock"
       text="Отряды клана" />
     <string
@@ -896,6 +917,12 @@
       id="ret_mcm_option_item_unlock_notification_hint"
       text="Определяет стиль уведомления при разблокировке новых предметов." />
     <string
+      id="ret_mcm_option_kingdom_troops_availability"
+      text="Доступность королевских войск" />
+    <string
+      id="ret_mcm_option_kingdom_troops_availability_hint"
+      text="Определяет, откуда можно набирать королевские войска." />
+    <string
       id="ret_mcm_option_kingdom_troops_unlock"
       text="Королевские войска" />
     <string
@@ -925,6 +952,18 @@
     <string
       id="ret_mcm_option_min_tier_for_war_mounts_hint"
       text="Войска ниже указанного уровня не смогут использовать боевых ездовых животных." />
+    <string
+      id="ret_mcm_option_mix_ratio"
+      text="Соотношение смешивания" />
+    <string
+      id="ret_mcm_option_mix_ratio_hint"
+      text="Определяет соотношение пользовательских войск и стандартных войск в пулах набора." />
+    <string
+      id="ret_mcm_option_mix_with_vanilla_troops"
+      text="Смешивание со стандартными войсками" />
+    <string
+      id="ret_mcm_option_mix_with_vanilla_troops_hint"
+      text="Если включено, пользовательские войска будут смешаны со стандартными войсками в пулах набора." />
     <string
       id="ret_mcm_option_mixed_gender_ratio"
       text="Соотношение смешанных полов" />
@@ -1054,6 +1093,9 @@
     <string
       id="ret_mcm_section_equipment_unlocks"
       text="Разблокировка снаряжения" />
+    <string
+      id="ret_mcm_section_recruitment"
+      text="Набор" />
     <string
       id="ret_mcm_section_restrictions"
       text="Ограничения" />
@@ -1294,6 +1336,21 @@
     <string
       id="ret_troop_count_more"
       text="и еще {NUMBER} войск." />
+    <string
+      id="ret_troops_availability_anywhere"
+      text="Везде" />
+    <string
+      id="ret_troops_availability_clan_fiefs"
+      text="Клановые фьефы" />
+    <string
+      id="ret_troops_availability_clan_or_kingdom_fiefs"
+      text="Клановые или королевские фьефы" />
+    <string
+      id="ret_troops_availability_kingdom_fiefs"
+      text="Королевские фьефы" />
+    <string
+      id="ret_troops_availability_nowhere"
+      text="Нигде" />
     <string
       id="ret_troops_editor_locked"
       text="Редактор войск недоступен." />

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using Retinues.Utilities;
@@ -43,12 +44,27 @@ namespace Retinues.Configuration
 
             try
             {
-                // New: if DependsOnValue is set, gate on equality for any dependency type.
+                //If DependsOnValue is set, gate on equality for any dependency type.
                 if (opt.DependsOnValue != null)
                 {
                     object current = dep.GetObject();
-                    object expected = CoerceToType(opt.DependsOnValue, dep.Type);
-                    return Equals(current, expected);
+
+                    // NEW: allow multiple acceptable values via IEnumerable (but not string)
+                    if (opt.DependsOnValue is IEnumerable many && opt.DependsOnValue is not string)
+                    {
+                        foreach (var raw in many)
+                        {
+                            object expected = CoerceToType(raw, dep.Type);
+                            if (Equals(current, expected))
+                                return true;
+                        }
+
+                        return false;
+                    }
+
+                    // Old: single acceptable value
+                    object single = CoerceToType(opt.DependsOnValue, dep.Type);
+                    return Equals(current, single);
                 }
 
                 // Old behavior: only hide when dependency value is not true

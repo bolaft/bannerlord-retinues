@@ -11,6 +11,15 @@
       id="ret_age_hint"
       text="Yaş" />
     <string
+      id="ret_allowed_recruiters_everyone"
+      text="Herkes" />
+    <string
+      id="ret_allowed_recruiters_faction_only"
+      text="Sadece Faksiyon" />
+    <string
+      id="ret_allowed_recruiters_player_only"
+      text="Sadece Oyuncu" />
+    <string
       id="ret_battle_type_field_checkbox_tooltip_disable"
       text="Saha savaşları için devre dışı bırak." />
     <string
@@ -773,6 +782,18 @@
       id="ret_mariner_toggle_tooltip_universal"
       text="Denizciler deniz savaşları için daha uygundur." />
     <string
+      id="ret_mcm_option_allowed_recruiters"
+      text="İzin Verilen İşe Alımcılar" />
+    <string
+      id="ret_mcm_option_allowed_recruiters_hint"
+      text="Özel birlikleri kimin işe alabileceğini belirler. Diğer işe alım modlarıyla uyumluluk için &apos;Herkes&apos; önerilir." />
+    <string
+      id="ret_mcm_option_clan_troops_availability"
+      text="Klan Birlikleri Kullanılabilirliği" />
+    <string
+      id="ret_mcm_option_clan_troops_availability_hint"
+      text="Klan Birliklerinin Nereden İşe Alınabileceğini Belirler." />
+    <string
       id="ret_mcm_option_clan_troops_unlock"
       text="Klan Birlikleri" />
     <string
@@ -896,6 +917,12 @@
       id="ret_mcm_option_item_unlock_notification_hint"
       text="Yeni öğelerin kilidi açıldığında bildirim stilini belirler." />
     <string
+      id="ret_mcm_option_kingdom_troops_availability"
+      text="Krallık Birlikleri Kullanılabilirliği" />
+    <string
+      id="ret_mcm_option_kingdom_troops_availability_hint"
+      text="Krallık birliklerinin nereden işe alınabileceğini belirler." />
+    <string
       id="ret_mcm_option_kingdom_troops_unlock"
       text="Krallık Birlikleri" />
     <string
@@ -925,6 +952,18 @@
     <string
       id="ret_mcm_option_min_tier_for_war_mounts_hint"
       text="Belirtilen seviyenin altındaki birliklerin savaş bineklerini kullanmasına izin verilmeyecektir." />
+    <string
+      id="ret_mcm_option_mix_ratio"
+      text="Karışım Oranı" />
+    <string
+      id="ret_mcm_option_mix_ratio_hint"
+      text="İşe alım havuzlarındaki özel birliklerin vanilya birliklerine oranını belirler." />
+    <string
+      id="ret_mcm_option_mix_with_vanilla_troops"
+      text="Vanilya Birlikleri ile Karıştır" />
+    <string
+      id="ret_mcm_option_mix_with_vanilla_troops_hint"
+      text="Etkinleştirilirse, özel birlikler işe alım havuzlarında vanilya birlikleriyle karıştırılacaktır." />
     <string
       id="ret_mcm_option_mixed_gender_ratio"
       text="Karma Cinsiyet Oranı" />
@@ -1054,6 +1093,9 @@
     <string
       id="ret_mcm_section_equipment_unlocks"
       text="Ekipman Kilidi Açma" />
+    <string
+      id="ret_mcm_section_recruitment"
+      text="Asker Toplama" />
     <string
       id="ret_mcm_section_restrictions"
       text="Kısıtlamalar" />
@@ -1294,6 +1336,21 @@
     <string
       id="ret_troop_count_more"
       text="ve {NUMBER} daha fazla birlik." />
+    <string
+      id="ret_troops_availability_anywhere"
+      text="Her Yerde" />
+    <string
+      id="ret_troops_availability_clan_fiefs"
+      text="Klan Arazileri" />
+    <string
+      id="ret_troops_availability_clan_or_kingdom_fiefs"
+      text="Klan veya Krallık Arazileri" />
+    <string
+      id="ret_troops_availability_kingdom_fiefs"
+      text="Krallık Arazileri" />
+    <string
+      id="ret_troops_availability_nowhere"
+      text="Hiçbir Yerde" />
     <string
       id="ret_troops_editor_locked"
       text="Birlik düzenleyicisi kullanılamıyor." />

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Reflection;
@@ -97,6 +98,69 @@ namespace Retinues.Configuration.MCM.Patches
         }
     }
 
+    internal static class MCMVisibilityBridge
+    {
+        private static MethodInfo _isVisibleById;
+        private static MethodInfo _isVisibleByOption;
+
+        internal static bool IsVisible(string id)
+        {
+            if (string.IsNullOrWhiteSpace(id))
+                return true;
+
+            try
+            {
+                // Prefer option-based visibility if possible (more robust if ids get normalized).
+                if (SettingsManager.TryGetOption(id, out var opt) && opt != null)
+                {
+                    var byOpt = GetIsVisibleByOption();
+                    if (byOpt != null)
+                        return SafeInvokeBool(byOpt, null, [opt]);
+                }
+
+                var byId = GetIsVisibleById();
+                if (byId != null)
+                    return SafeInvokeBool(byId, null, [id]);
+
+                return true;
+            }
+            catch
+            {
+                return true;
+            }
+        }
+
+        private static MethodInfo GetIsVisibleById()
+        {
+            _isVisibleById ??= AccessTools.Method(
+                typeof(SettingsManager),
+                "IsVisibleInMCM",
+                [typeof(string)]
+            );
+
+            return _isVisibleById;
+        }
+
+        private static MethodInfo GetIsVisibleByOption()
+        {
+            _isVisibleByOption ??= AccessTools.Method(
+                typeof(SettingsManager),
+                "IsVisibleInMCM",
+                [typeof(IOption)]
+            );
+
+            return _isVisibleByOption;
+        }
+
+        private static bool SafeInvokeBool(MethodInfo mi, object instance, object[] args)
+        {
+            var r = mi.Invoke(instance, args);
+            if (r is bool b)
+                return b;
+            return true;
+        }
+    }
+
     // Patch 1: SettingsPropertyVM.IsSettingVisible getter -> additionally check the dependency graph.
     [HarmonyPatch]
     internal static class SettingsPropertyVM_IsSettingVisible_Patch
@@ -126,7 +190,7 @@ namespace Retinues.Configuration.MCM.Patches
                 if (string.IsNullOrWhiteSpace(id))
                     return;
 
-                if (!SettingsManager.IsVisibleInMCM(id))
+                if (!MCMVisibilityBridge.IsVisible(id))
                     __result = false;
             }
             catch
