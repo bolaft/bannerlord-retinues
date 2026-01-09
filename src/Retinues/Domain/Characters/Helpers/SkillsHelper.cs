@@ -36,7 +36,7 @@ namespace Retinues.Domain.Characters.Helpers
             };
 
             // Add bonus if enabled
-            var bonus = Settings.BuffRetinueSkillCap ? Settings.RetinueSkillCapBuff : 0;
+            var bonus = wc.IsRetinue ? Settings.RetinueSkillCapBonus : 0;
 
             return cap + bonus;
         }
@@ -58,7 +58,7 @@ namespace Retinues.Domain.Characters.Helpers
             };
 
             // Add bonus if enabled
-            var bonus = Settings.BuffRetinueSkillTotal ? Settings.RetinueSkillTotalBuff : 0;
+            var bonus = wc.IsRetinue ? Settings.RetinueSkillTotalBonus : 0;
 
             return total + bonus;
         }

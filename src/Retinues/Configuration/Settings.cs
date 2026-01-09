@@ -123,82 +123,44 @@ namespace Retinues.Configuration
             dependsOn: EnableRetinues
         );
 
-        public static readonly Option<bool> BuffRetinueHealth = CreateOption(
+        public static readonly Option<int> RetinueHealthBonus = CreateOption(
             section: Retinues,
-            name: L.F("mcm_option_buff_retinue_health", "Buff Retinue Health"),
+            name: L.F("mcm_option_retinue_health_bonus", "Retinue Health Bonus"),
             hint: L.F(
-                "mcm_option_buff_retinue_health_hint",
-                "If enabled, all retinue troops will receive a health buff to improve their survivability."
+                "mcm_option_retinue_health_bonus_hint",
+                "The amount added to retinue troop health when Buff Retinue Health is enabled."
             ),
-            @default: true,
-            @realistic: false,
+            minValue: 0,
+            maxValue: 50,
+            @default: 20,
             dependsOn: EnableRetinues
         );
 
-        public static readonly Option<int> RetinueHealthBuff = CreateOption(
+        public static readonly Option<int> RetinueSkillCapBonus = CreateOption(
             section: Retinues,
-            name: L.F("mcm_option_retinue_health_buff", "Retinue Health Buff"),
+            name: L.F("mcm_option_retinue_skill_cap_bonus", "Retinue Skill Cap Bonus"),
             hint: L.F(
-                "mcm_option_retinue_health_buff_hint",
-                "The amount added to retinue troop health when Buff Retinue Health is enabled."
-            ),
-            minValue: 1,
-            maxValue: 50,
-            @default: 20,
-            dependsOn: BuffRetinueHealth
-        );
-
-        public static readonly Option<bool> BuffRetinueSkillCap = CreateOption(
-            section: Retinues,
-            name: L.F("mcm_option_buff_retinue_skill_cap", "Buff Retinue Skill Cap"),
-            hint: L.F(
-                "mcm_option_buff_retinue_skill_cap_hint",
-                "If enabled, all retinue troops will receive a skill cap buff to improve their effectiveness."
-            ),
-            @default: true,
-            @realistic: false,
-            dependsOn: EnableRetinues,
-            fires: [UIEvent.Skill]
-        );
-
-        public static readonly Option<int> RetinueSkillCapBuff = CreateOption(
-            section: Retinues,
-            name: L.F("mcm_option_retinue_skill_cap_buff", "Retinue Skill Cap Buff"),
-            hint: L.F(
-                "mcm_option_retinue_skill_cap_buff_hint",
+                "mcm_option_retinue_skill_cap_bonus_hint",
                 "The amount added to retinue troop skill caps when Buff Retinue Skill Cap is enabled."
             ),
             minValue: 0,
             maxValue: 50,
             @default: 5,
-            dependsOn: BuffRetinueSkillCap,
-            fires: [UIEvent.Skill]
-        );
-
-        public static readonly Option<bool> BuffRetinueSkillTotal = CreateOption(
-            section: Retinues,
-            name: L.F("mcm_option_buff_retinue_skill_total", "Buff Retinue Skill Total"),
-            hint: L.F(
-                "mcm_option_buff_retinue_skill_total_hint",
-                "If enabled, all retinue troops will receive a skill total buff to improve their effectiveness."
-            ),
-            @default: true,
-            @realistic: false,
             dependsOn: EnableRetinues,
             fires: [UIEvent.Skill]
         );
 
-        public static readonly Option<int> RetinueSkillTotalBuff = CreateOption(
+        public static readonly Option<int> RetinueSkillTotalBonus = CreateOption(
             section: Retinues,
-            name: L.F("mcm_option_retinue_skill_total_buff", "Retinue Skill Total Buff"),
+            name: L.F("mcm_option_retinue_skill_total_bonus", "Retinue Skill Total Bonus"),
             hint: L.F(
-                "mcm_option_retinue_skill_total_buff_hint",
+                "mcm_option_retinue_skill_total_bonus_hint",
                 "The amount added to retinue troop skill totals when Buff Retinue Skill Total is enabled."
             ),
             minValue: 0,
             maxValue: 200,
             @default: 20,
-            dependsOn: BuffRetinueSkillTotal,
+            dependsOn: EnableRetinues,
             fires: [UIEvent.Skill]
         );
 
