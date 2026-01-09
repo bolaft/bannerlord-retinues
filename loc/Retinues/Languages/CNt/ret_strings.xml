@@ -878,6 +878,24 @@
       id="ret_mcm_option_required_kills_to_unlock_hint"
       text="必須擊敗穿戴某物品的敵軍部隊數量才能解鎖它。" />
     <string
+      id="ret_mcm_option_retinue_health_bonus"
+      text="隨從健康加成" />
+    <string
+      id="ret_mcm_option_retinue_health_bonus_hint"
+      text="啟用隨從健康增益時添加到隨從部隊健康的數量。" />
+    <string
+      id="ret_mcm_option_retinue_skill_cap_bonus"
+      text="隨從技能上限加成" />
+    <string
+      id="ret_mcm_option_retinue_skill_cap_bonus_hint"
+      text="啟用隨從技能上限增益時添加到隨從部隊技能上限的數量。" />
+    <string
+      id="ret_mcm_option_retinue_skill_total_bonus"
+      text="隨從技能總加成" />
+    <string
+      id="ret_mcm_option_retinue_skill_total_bonus_hint"
+      text="啟用隨從技能總增益時添加到隨從部隊技能總數的數量。" />
+    <string
       id="ret_mcm_option_skill_cap"
       text="等級 {TIER}" />
     <string

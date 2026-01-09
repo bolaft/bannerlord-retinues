@@ -878,6 +878,24 @@
       id="ret_mcm_option_required_kills_to_unlock_hint"
       text="Liczba wrogich oddziałów noszących przedmiot, które muszą zostać pokonane, aby go odblokować." />
     <string
+      id="ret_mcm_option_retinue_health_bonus"
+      text="Bonus zdrowia Retinue" />
+    <string
+      id="ret_mcm_option_retinue_health_bonus_hint"
+      text="Ilość dodana do zdrowia oddziałów retinue, gdy Buff Retinue Health jest włączony." />
+    <string
+      id="ret_mcm_option_retinue_skill_cap_bonus"
+      text="Bonus do limitu umiejętności Retinue" />
+    <string
+      id="ret_mcm_option_retinue_skill_cap_bonus_hint"
+      text="Ilość dodana do limitów umiejętności oddziałów retinue, gdy Buff Retinue Skill Cap jest włączony." />
+    <string
+      id="ret_mcm_option_retinue_skill_total_bonus"
+      text="Całkowity bonus umiejętności Retinue" />
+    <string
+      id="ret_mcm_option_retinue_skill_total_bonus_hint"
+      text="Ilość dodana do łącznej liczby umiejętności oddziałów retinue, gdy Buff Retinue Skill Total jest włączony." />
+    <string
       id="ret_mcm_option_skill_cap"
       text="Poziom {TIER}" />
     <string

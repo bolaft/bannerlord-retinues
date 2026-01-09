@@ -878,6 +878,24 @@
       id="ret_mcm_option_required_kills_to_unlock_hint"
       text="잠금을 해제하기 위해 물건을 착용한 적군 부대의 수입니다." />
     <string
+      id="ret_mcm_option_retinue_health_bonus"
+      text="Retinue 체력 보너스" />
+    <string
+      id="ret_mcm_option_retinue_health_bonus_hint"
+      text="Buff Retinue Health가 활성화되면 Retinue 부대 건강에 추가되는 양입니다." />
+    <string
+      id="ret_mcm_option_retinue_skill_cap_bonus"
+      text="Retinue 기술 한도 보너스" />
+    <string
+      id="ret_mcm_option_retinue_skill_cap_bonus_hint"
+      text="Buff Retinue Skill Cap가 활성화되면 Retinue 부대 기술 상한에 추가되는 양입니다." />
+    <string
+      id="ret_mcm_option_retinue_skill_total_bonus"
+      text="Retinue 총 기술 보너스" />
+    <string
+      id="ret_mcm_option_retinue_skill_total_bonus_hint"
+      text="Buff Retinue Skill Total이 활성화되면 Retinue 부대 기술 총계에 추가되는 양입니다." />
+    <string
       id="ret_mcm_option_skill_cap"
       text="티어 {TIER}" />
     <string

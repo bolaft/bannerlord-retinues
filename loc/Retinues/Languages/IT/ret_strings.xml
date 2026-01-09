@@ -878,6 +878,24 @@
       id="ret_mcm_option_required_kills_to_unlock_hint"
       text="Il numero di truppe nemiche che indossano un oggetto che devono essere sconfitte per sbloccarlo." />
     <string
+      id="ret_mcm_option_retinue_health_bonus"
+      text="Bonus Salute Retinues" />
+    <string
+      id="ret_mcm_option_retinue_health_bonus_hint"
+      text="La quantità aggiunta alla salute delle truppe Retinues quando Buff Retinue Health è abilitato." />
+    <string
+      id="ret_mcm_option_retinue_skill_cap_bonus"
+      text="Bonus al Cap di Abilità Retinues" />
+    <string
+      id="ret_mcm_option_retinue_skill_cap_bonus_hint"
+      text="La quantità aggiunta ai limiti di abilità delle truppe Retinues quando Buff Retinue Skill Cap è abilitato." />
+    <string
+      id="ret_mcm_option_retinue_skill_total_bonus"
+      text="Bonus Totale Abilità Retinues" />
+    <string
+      id="ret_mcm_option_retinue_skill_total_bonus_hint"
+      text="La quantità aggiunta ai totali delle abilità delle truppe Retinues quando Buff Retinue Skill Total è abilitato." />
+    <string
       id="ret_mcm_option_skill_cap"
       text="Livello {TIER}" />
     <string

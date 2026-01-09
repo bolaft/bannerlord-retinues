@@ -878,6 +878,24 @@
       id="ret_mcm_option_required_kills_to_unlock_hint"
       text="The number of enemy troops wearing an item that must be defeated to unlock it." />
     <string
+      id="ret_mcm_option_retinue_health_bonus"
+      text="Retinue Health Bonus" />
+    <string
+      id="ret_mcm_option_retinue_health_bonus_hint"
+      text="The amount added to retinue troop health when Buff Retinue Health is enabled." />
+    <string
+      id="ret_mcm_option_retinue_skill_cap_bonus"
+      text="Retinue Skill Cap Bonus" />
+    <string
+      id="ret_mcm_option_retinue_skill_cap_bonus_hint"
+      text="The amount added to retinue troop skill caps when Buff Retinue Skill Cap is enabled." />
+    <string
+      id="ret_mcm_option_retinue_skill_total_bonus"
+      text="Retinue Skill Total Bonus" />
+    <string
+      id="ret_mcm_option_retinue_skill_total_bonus_hint"
+      text="The amount added to retinue troop skill totals when Buff Retinue Skill Total is enabled." />
+    <string
       id="ret_mcm_option_skill_cap"
       text="Tier {TIER}" />
     <string

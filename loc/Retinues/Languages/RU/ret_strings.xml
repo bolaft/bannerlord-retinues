@@ -878,6 +878,24 @@
       id="ret_mcm_option_required_kills_to_unlock_hint"
       text="Количество вражеских войск, носящих предмет, которые необходимо победить, чтобы разблокировать его." />
     <string
+      id="ret_mcm_option_retinue_health_bonus"
+      text="Бонус здоровья Retinue" />
+    <string
+      id="ret_mcm_option_retinue_health_bonus_hint"
+      text="Количество, добавляемое к здоровью войск retinue при включении Buff Retinue Health." />
+    <string
+      id="ret_mcm_option_retinue_skill_cap_bonus"
+      text="Бонус к максимальному уровню навыков Retinue" />
+    <string
+      id="ret_mcm_option_retinue_skill_cap_bonus_hint"
+      text="Количество, добавляемое к максимальному уровню навыков войск retinue при включении Buff Retinue Skill Cap." />
+    <string
+      id="ret_mcm_option_retinue_skill_total_bonus"
+      text="Общий бонус навыков Retinue" />
+    <string
+      id="ret_mcm_option_retinue_skill_total_bonus_hint"
+      text="Количество, добавляемое к общему уровню навыков войск retinue при включении Buff Retinue Skill Total." />
+    <string
       id="ret_mcm_option_skill_cap"
       text="Уровень {TIER}" />
     <string

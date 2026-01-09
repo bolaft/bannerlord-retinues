@@ -878,6 +878,24 @@
       id="ret_mcm_option_required_kills_to_unlock_hint"
       text="アイテムをアンロックするために倒さなければならないアイテムを装備している敵部隊の数。" />
     <string
+      id="ret_mcm_option_retinue_health_bonus"
+      text="リティニュース体力ボーナス" />
+    <string
+      id="ret_mcm_option_retinue_health_bonus_hint"
+      text="Buff Retinue Health が有効になっている場合、リティニュース部隊の体力に追加される量。" />
+    <string
+      id="ret_mcm_option_retinue_skill_cap_bonus"
+      text="リティニューススキルキャップボーナス" />
+    <string
+      id="ret_mcm_option_retinue_skill_cap_bonus_hint"
+      text="Buff Retinue Skill Cap が有効になっている場合、リティニュース部隊のスキルキャップに追加される量。" />
+    <string
+      id="ret_mcm_option_retinue_skill_total_bonus"
+      text="リティニュースキル合計ボーナス" />
+    <string
+      id="ret_mcm_option_retinue_skill_total_bonus_hint"
+      text="Buff Retinue Skill Total が有効になっている場合、リティニュース部隊のスキル合計に追加される量。" />
+    <string
       id="ret_mcm_option_skill_cap"
       text="ティア {TIER}" />
     <string

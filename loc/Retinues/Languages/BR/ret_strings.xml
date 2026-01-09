@@ -878,6 +878,24 @@
       id="ret_mcm_option_required_kills_to_unlock_hint"
       text="O número de tropas inimigas que usam um item que deve ser derrotado para desbloqueá-lo." />
     <string
+      id="ret_mcm_option_retinue_health_bonus"
+      text="Bônus de Saúde de Retinues" />
+    <string
+      id="ret_mcm_option_retinue_health_bonus_hint"
+      text="A quantidade adicionada à saúde das tropas de retinues quando o Buff Retinue Health está ativado." />
+    <string
+      id="ret_mcm_option_retinue_skill_cap_bonus"
+      text="Bônus de Limite de Habilidade de Retinues" />
+    <string
+      id="ret_mcm_option_retinue_skill_cap_bonus_hint"
+      text="A quantidade adicionada aos limites de habilidade das tropas de retinues quando o Buff Retinue Skill Cap está ativado." />
+    <string
+      id="ret_mcm_option_retinue_skill_total_bonus"
+      text="Bônus Total de Habilidade de Retinues" />
+    <string
+      id="ret_mcm_option_retinue_skill_total_bonus_hint"
+      text="A quantidade adicionada aos totais de habilidades das tropas de retinues quando o Buff Retinue Skill Total está ativado." />
+    <string
       id="ret_mcm_option_skill_cap"
       text="Nível {TIER}" />
     <string

@@ -878,6 +878,24 @@
       id="ret_mcm_option_required_kills_to_unlock_hint"
       text="Die Anzahl der feindlichen Truppen, die einen Gegenstand tragen und besiegt werden müssen, um ihn freizuschalten." />
     <string
+      id="ret_mcm_option_retinue_health_bonus"
+      text="Retinue-Gesundheitsbonus" />
+    <string
+      id="ret_mcm_option_retinue_health_bonus_hint"
+      text="Der Betrag, der der Gesundheit der Retinue-Truppen hinzugefügt wird, wenn Buff Retinue Health aktiviert ist." />
+    <string
+      id="ret_mcm_option_retinue_skill_cap_bonus"
+      text="Retinue-Fähigkeitsgrenzenbonus" />
+    <string
+      id="ret_mcm_option_retinue_skill_cap_bonus_hint"
+      text="Der Betrag, der den Fähigkeitsgrenzen der Retinue-Truppen hinzugefügt wird, wenn Buff Retinue Skill Cap aktiviert ist." />
+    <string
+      id="ret_mcm_option_retinue_skill_total_bonus"
+      text="Retinue-Gesamtfähigkeitsbonus" />
+    <string
+      id="ret_mcm_option_retinue_skill_total_bonus_hint"
+      text="Der Betrag, der den Gesamtfähigkeiten der Retinue-Truppen hinzugefügt wird, wenn Buff Retinue Skill Total aktiviert ist." />
+    <string
       id="ret_mcm_option_skill_cap"
       text="Stufe {TIER}" />
     <string

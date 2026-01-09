@@ -878,6 +878,24 @@
       id="ret_mcm_option_required_kills_to_unlock_hint"
       text="Kilidini açmak için yenilmesi gereken bir öğe giyen düşman birliklerinin sayısı." />
     <string
+      id="ret_mcm_option_retinue_health_bonus"
+      text="Retinue Sağlık Bonusu" />
+    <string
+      id="ret_mcm_option_retinue_health_bonus_hint"
+      text="Buff Retinue Health etkinleştirildiğinde retinue birlik sağlığına eklenen miktar." />
+    <string
+      id="ret_mcm_option_retinue_skill_cap_bonus"
+      text="Retinue Yetenek Sınırı Bonusu" />
+    <string
+      id="ret_mcm_option_retinue_skill_cap_bonus_hint"
+      text="Buff Retinue Skill Cap etkinleştirildiğinde retinue birlik yetenek sınırlarına eklenen miktar." />
+    <string
+      id="ret_mcm_option_retinue_skill_total_bonus"
+      text="Retinue Yetenek Toplam Bonusu" />
+    <string
+      id="ret_mcm_option_retinue_skill_total_bonus_hint"
+      text="Buff Retinue Skill Total etkinleştirildiğinde retinue birlik yetenek toplamlarına eklenen miktar." />
+    <string
       id="ret_mcm_option_skill_cap"
       text="{TIER} Seviye" />
     <string

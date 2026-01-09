@@ -878,6 +878,24 @@
       id="ret_mcm_option_required_kills_to_unlock_hint"
       text="Le nombre de troupes ennemies portant un objet qui doivent être vaincues pour le déverrouiller." />
     <string
+      id="ret_mcm_option_retinue_health_bonus"
+      text="Bonus de Santé des Rétinues" />
+    <string
+      id="ret_mcm_option_retinue_health_bonus_hint"
+      text="Le montant ajouté à la santé des rétinues lorsque le bonus de santé des rétinues est activé." />
+    <string
+      id="ret_mcm_option_retinue_skill_cap_bonus"
+      text="Bonus de Plafond de Compétence des Rétinues" />
+    <string
+      id="ret_mcm_option_retinue_skill_cap_bonus_hint"
+      text="Le montant ajouté aux plafonds de compétence des rétinues lorsque le bonus de plafond de compétence des rétinues est activé." />
+    <string
+      id="ret_mcm_option_retinue_skill_total_bonus"
+      text="Bonus de Compétence Totale des Rétinues" />
+    <string
+      id="ret_mcm_option_retinue_skill_total_bonus_hint"
+      text="Le montant ajouté aux totaux de compétences des rétinues lorsque le bonus de compétence totale des rétinues est activé." />
+    <string
       id="ret_mcm_option_skill_cap"
       text="Niveau {TIER}" />
     <string
