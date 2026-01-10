@@ -35,7 +35,7 @@ namespace Retinues.Framework.Model.Persistence
             return map;
         }
 
-        static void ApplyXml(XElement root)
+        static void ApplyXml(XElement root, bool allowDefer)
         {
             foreach (var el in root.Elements())
             {
@@ -56,11 +56,11 @@ namespace Retinues.Framework.Model.Persistence
                     payload = copy.ToString(SaveOptions.DisableFormatting);
                 }
 
-                ApplySingle(uid, payload);
+                ApplySingle(uid, payload, allowDefer);
             }
         }
 
-        static void ApplySingle(string uid, string data)
+        static void ApplySingle(string uid, string data, bool allowDefer)
         {
             if (string.IsNullOrEmpty(uid))
                 return;
@@ -72,18 +72,63 @@ namespace Retinues.Framework.Model.Persistence
             var baseTypeFullName = uid.Substring(0, sep);
             var stringId = uid.Substring(sep + 1);
 
+            // Defer clan and kingdom restores until session is launched
+            if (allowDefer && ShouldDefer(baseTypeFullName))
+            {
+                EnqueueDeferred(uid, data);
+                return;
+            }
+
             if (!WrapperByBaseFullName.TryGetValue(baseTypeFullName, out var wrapperType))
                 return;
 
-            var wrapper = WrapperReflection.TryGetWrapperInstance(wrapperType, stringId);
+            object wrapper;
+
+            try
+            {
+                wrapper = WrapperReflection.TryGetWrapperInstance(wrapperType, stringId);
+            }
+            catch (Exception ex)
+            {
+                Log.Warn(
+                    $"MPersistence: failed to resolve wrapper instance for uid='{uid}' type='{wrapperType?.FullName}' id='{stringId}': {ex}"
+                );
+                return;
+            }
+
             if (wrapper == null)
                 return;
 
             using var scope = PersistenceLoadLog.Begin(uid);
-            WrapperReflection.TryDeserialize(wrapperType, wrapper, data);
 
-            var line = scope.BuildLine();
-            Log.Debug(line);
+            try
+            {
+                WrapperReflection.TryDeserialize(wrapperType, wrapper, data);
+
+                var line = scope.BuildLine();
+                Log.Debug(line);
+            }
+            catch (Exception ex)
+            {
+                Log.Warn(
+                    $"MPersistence: failed to deserialize uid='{uid}' type='{wrapperType?.FullName}' id='{stringId}': {ex}"
+                );
+            }
+        }
+
+        static bool ShouldDefer(string baseTypeFullName)
+        {
+            // No dependency on wrapper classes, only the base types
+            return string.Equals(
+                    baseTypeFullName,
+                    typeof(TaleWorlds.CampaignSystem.Clan).FullName,
+                    StringComparison.Ordinal
+                )
+                || string.Equals(
+                    baseTypeFullName,
+                    typeof(TaleWorlds.CampaignSystem.Kingdom).FullName,
+                    StringComparison.Ordinal
+                );
         }
 
         static class WrapperReflection
@@ -153,9 +198,7 @@ namespace Retinues.Framework.Model.Persistence
                 }
                 catch (Exception ex)
                 {
-                    Retinues.Utilities.Log.Warn(
-                        $"MPersistence: failed to evaluate {wrapperType?.FullName}.All: {ex}"
-                    );
+                    Log.Warn($"MPersistence: failed to evaluate {wrapperType?.FullName}.All: {ex}");
                     return null;
                 }
             }
@@ -221,9 +264,7 @@ namespace Retinues.Framework.Model.Persistence
                 }
                 catch (Exception ex)
                 {
-                    Retinues.Utilities.Log.Warn(
-                        $"MPersistence: failed to resolve {wrapperType.FullName}.All: {ex}"
-                    );
+                    Log.Warn($"MPersistence: failed to resolve {wrapperType.FullName}.All: {ex}");
                 }
 
                 if (best != null)

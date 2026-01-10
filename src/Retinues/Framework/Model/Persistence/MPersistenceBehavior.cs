@@ -1,6 +1,8 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 using Retinues.Framework.Behaviors;
@@ -20,6 +22,7 @@ namespace Retinues.Framework.Model.Persistence
 
         public override void SyncData(IDataStore dataStore)
         {
+            Log.Info("MPersistenceBehavior.SyncData called.");
             if (dataStore == null)
                 return;
 
@@ -30,12 +33,11 @@ namespace Retinues.Framework.Model.Persistence
                 if (dataStore.IsSaving)
                     blob = BuildSaveBlob();
 
+                Log.Info(
+                    $"MPersistenceBehavior.SyncData: {(dataStore.IsSaving ? "Saving" : "Loading")} data (length={(blob != null ? blob.Length.ToString() : "null")})."
+                );
                 dataStore.SyncData(SaveKey, ref blob);
-
-                if (!string.IsNullOrEmpty(blob))
-                    Log.Debug(
-                        $"MPersistenceBehavior.SyncData: SyncData ok for key '{SaveKey}'. blob length={(blob == null ? 0 : blob.Length)}"
-                    );
+                Log.Info($"MPersistenceBehavior.SyncData: data sync complete.");
 
                 if (!dataStore.IsLoading)
                     return;
@@ -43,18 +45,18 @@ namespace Retinues.Framework.Model.Persistence
                 if (string.IsNullOrEmpty(blob))
                     return;
 
-                if (TryParseXmlRoot(blob, out var xmlRoot))
-                {
-                    if (xmlRoot.Name.LocalName == RootName)
-                    {
-                        var v = (string)xmlRoot.Attribute("v");
-                        if (v == RootVersion)
-                        {
-                            ApplyXml(xmlRoot);
-                            return;
-                        }
-                    }
-                }
+                if (!TryParseXmlRoot(blob, out var xmlRoot))
+                    return;
+
+                if (xmlRoot.Name.LocalName != RootName)
+                    return;
+
+                var v = (string)xmlRoot.Attribute("v");
+                if (v != RootVersion)
+                    return;
+
+                // Apply what is safe immediately, defer clan and kingdom entries
+                ApplyXml(xmlRoot, allowDefer: true);
             }
             catch (Exception e)
             {
@@ -62,12 +64,149 @@ namespace Retinues.Framework.Model.Persistence
             }
         }
 
+        protected override void OnSessionLaunched(CampaignGameStarter starter)
+        {
+            FlushDeferred();
+        }
+
+        static readonly List<(string uid, string data)> _deferred = new();
+
+        static void EnqueueDeferred(string uid, string data)
+        {
+            if (string.IsNullOrEmpty(uid))
+                return;
+
+            _deferred.Add((uid, data ?? string.Empty));
+        }
+
+        static void FlushDeferred()
+        {
+            if (_deferred.Count == 0)
+                return;
+
+            var copy = _deferred.ToArray();
+            _deferred.Clear();
+
+            for (int i = 0; i < copy.Length; i++)
+            {
+                var (uid, data) = copy[i];
+                ApplySingle(uid, data, allowDefer: false);
+            }
+        }
+
         static string BuildSaveBlob()
         {
-            var root = new XElement(RootName);
+            var root = new XElement(RootName)
+            {
+                // keep compact output
+            };
             root.SetAttributeValue("v", RootVersion);
 
             var seen = new HashSet<string>(StringComparer.Ordinal);
+
+            // Resolve MBObjectManager.GetObjectTypeList<T>() once (reflection)
+            var mgr = TaleWorlds.ObjectSystem.MBObjectManager.Instance;
+            var getObjectTypeListGeneric = typeof(TaleWorlds.ObjectSystem.MBObjectManager)
+                .GetMethods(
+                    System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance
+                )
+                .FirstOrDefault(m =>
+                    m.Name == "GetObjectTypeList"
+                    && m.IsGenericMethodDefinition
+                    && m.GetParameters().Length == 0
+                );
+
+            IEnumerable EnumerateInstances(Type wrapperType)
+            {
+                // If the wrapper declares its own All, do NOT execute it
+                // (it may depend on Campaign.Current or be accidentally recursive).
+                var allProp = wrapperType.GetProperty(
+                    "All",
+                    System.Reflection.BindingFlags.Public
+                        | System.Reflection.BindingFlags.Static
+                        | System.Reflection.BindingFlags.FlattenHierarchy
+                );
+
+                var declaresAll = allProp != null && allProp.DeclaringType == wrapperType;
+
+                if (declaresAll && mgr != null && getObjectTypeListGeneric != null)
+                {
+                    var wb = WrapperReflection.GetWBaseGeneric(wrapperType);
+                    if (wb != null)
+                    {
+                        var baseArg = wb.GetGenericArguments()[1];
+
+                        if (
+                            baseArg != null
+                            && typeof(TaleWorlds.ObjectSystem.MBObjectBase).IsAssignableFrom(
+                                baseArg
+                            )
+                        )
+                        {
+                            // Prefer Get(TBase) instead of Get(string) to avoid custom Get(string)->All recursion.
+                            var getByBase = wrapperType.GetMethod(
+                                "Get",
+                                System.Reflection.BindingFlags.Public
+                                    | System.Reflection.BindingFlags.Static
+                                    | System.Reflection.BindingFlags.FlattenHierarchy,
+                                binder: null,
+                                types: new[] { baseArg },
+                                modifiers: null
+                            );
+
+                            if (getByBase != null)
+                            {
+                                object baseListObj = null;
+                                try
+                                {
+                                    baseListObj = getObjectTypeListGeneric
+                                        .MakeGenericMethod(baseArg)
+                                        .Invoke(mgr, null);
+                                }
+                                catch
+                                {
+                                    baseListObj = null;
+                                }
+
+                                if (baseListObj is IEnumerable baseList)
+                                {
+                                    foreach (var mbo in baseList)
+                                    {
+                                        if (mbo == null)
+                                            continue;
+
+                                        object w = null;
+                                        try
+                                        {
+                                            w = getByBase.Invoke(null, new[] { mbo });
+                                        }
+                                        catch
+                                        {
+                                            w = null;
+                                        }
+
+                                        if (w != null)
+                                            yield return w;
+                                    }
+
+                                    yield break;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // Fallback: original path (may execute wrapper.All)
+                var all = WrapperReflection.TryGetAllEnumerable(wrapperType);
+                if (all == null)
+                    yield break;
+
+                foreach (var inst in all)
+                {
+                    if (inst != null)
+                        yield return inst;
+                }
+            }
 
             var asm = typeof(MPersistenceBehavior).Assembly;
             foreach (var t in asm.GetTypes())
@@ -75,15 +214,8 @@ namespace Retinues.Framework.Model.Persistence
                 if (!WrapperReflection.IsConcreteWrapperType(t))
                     continue;
 
-                var all = WrapperReflection.TryGetAllEnumerable(t);
-                if (all == null)
-                    continue;
-
-                foreach (var inst in all)
+                foreach (var inst in EnumerateInstances(t))
                 {
-                    if (inst == null)
-                        continue;
-
                     var uid = WrapperReflection.TryGetUniqueId(inst);
                     if (string.IsNullOrEmpty(uid))
                         continue;
@@ -96,15 +228,12 @@ namespace Retinues.Framework.Model.Persistence
                         continue;
 
                     seen.Add(uid);
-
                     AddEntry(root, uid, serialized);
                 }
             }
 
             var blob = root.ToString(SaveOptions.DisableFormatting);
-
             TryWriteBackupFile(root);
-
             return blob;
         }
 
