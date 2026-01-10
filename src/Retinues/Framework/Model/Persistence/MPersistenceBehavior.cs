@@ -53,10 +53,6 @@ namespace Retinues.Framework.Model.Persistence
                         dataStore.SyncData(V2PartKeyPrefix + i, ref part);
                     }
 
-                    // Important: prevent writing the legacy single-entry blob (can corrupt saves).
-                    var legacy = string.Empty;
-                    dataStore.SyncData(SaveKey, ref legacy);
-
                     Log.Info(
                         $"MPersistenceBehavior.SyncData: Saving v2 chunks. xmlChars={xml.Length} packedChars={packed.Length} parts={parts.Count}"
                     );
@@ -90,14 +86,8 @@ namespace Retinues.Framework.Model.Persistence
                 }
                 else
                 {
-                    // Legacy fallback (old saves)
-                    var legacy = string.Empty;
-                    dataStore.SyncData(SaveKey, ref legacy);
-                    xmlBlob = legacy;
-
-                    Log.Info(
-                        $"MPersistenceBehavior.SyncData: Loaded legacy blob. xmlChars={(xmlBlob != null ? xmlBlob.Length : 0)}"
-                    );
+                    Log.Info("MPersistenceBehavior.SyncData: No v2 chunks found.");
+                    return;
                 }
 
                 if (string.IsNullOrEmpty(xmlBlob))
