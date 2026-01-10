@@ -965,6 +965,12 @@
       id="ret_mcm_option_mixed_gender_ratio_hint"
       text="Karma cinsiyet birimlerinin karşı cins üyesi olarak ortaya çıkma şansını ayarlar." />
     <string
+      id="ret_mcm_option_random_item_max_tier"
+      text="Rastgele Öğenin Maksimum Seviyesi" />
+    <string
+      id="ret_mcm_option_random_item_max_tier_hint"
+      text="Rastgele atanan başlangıç ekipmanı için maksimum seviye. Öğenin seviyesi de birlik seviyesiyle sınırlıdır." />
+    <string
       id="ret_mcm_option_required_days_to_unlock"
       text="Kilidi Açmak İçin Gerekli Günler" />
     <string
@@ -1298,11 +1304,14 @@
       id="ret_starter_equipment_single_set"
       text="Bir Seti Kopyala" />
     <string
+      id="ret_starter_troops_clone_culture_full_trees"
+      text="Tam Birlik Ağaçları" />
+    <string
+      id="ret_starter_troops_clone_culture_lean_trees"
+      text="Sade Birlik Ağaçları" />
+    <string
       id="ret_starter_troops_clone_culture_roots"
       text="Yalnızca Kök Birlikler" />
-    <string
-      id="ret_starter_troops_clone_culture_trees"
-      text="Tüm Birlik Ağaçları" />
     <string
       id="ret_stocks_add"
       text="Stoklara {AMOUNT} {ITEM} eklendi." />
@@ -1331,14 +1340,59 @@
       id="ret_troop_count_more"
       text="ve {NUMBER} daha fazla birlik." />
     <string
-      id="ret_troops_availability_anywhere"
-      text="Her Yerde" />
+      id="ret_troop_formation_archer"
+      text="Okçu" />
+    <string
+      id="ret_troop_formation_cavalry"
+      text="Süvari" />
+    <string
+      id="ret_troop_formation_crossbowman"
+      text="Tüfekli Okçu" />
+    <string
+      id="ret_troop_formation_horse_archer"
+      text="Atlı Okçu" />
+    <string
+      id="ret_troop_formation_infantry"
+      text="Piyade" />
+    <string
+      id="ret_troop_formation_mounted_skirmisher"
+      text="Atlı Hafif Piyade" />
+    <string
+      id="ret_troop_formation_skirmisher"
+      text="Hafif Piyade" />
+    <string
+      id="ret_troop_formation_slinger"
+      text="Sapancı" />
+    <string
+      id="ret_troop_noble"
+      text="Asil" />
+    <string
+      id="ret_troop_prefix_champion"
+      text="Şampiyon" />
+    <string
+      id="ret_troop_prefix_elite"
+      text="Seçkin" />
+    <string
+      id="ret_troop_prefix_master"
+      text="Usta" />
+    <string
+      id="ret_troop_prefix_trained"
+      text="Eğitilmiş" />
+    <string
+      id="ret_troop_prefix_veteran"
+      text="Gazi" />
+    <string
+      id="ret_troop_recruit"
+      text="Acemi" />
     <string
       id="ret_troops_availability_clan_fiefs"
       text="Klan Arazileri" />
     <string
       id="ret_troops_availability_clan_or_kingdom_fiefs"
       text="Klan veya Krallık Arazileri" />
+    <string
+      id="ret_troops_availability_everywhere"
+      text="Her Yerde" />
     <string
       id="ret_troops_availability_kingdom_fiefs"
       text="Krallık Arazileri" />

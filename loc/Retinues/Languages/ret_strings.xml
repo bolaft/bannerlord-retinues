@@ -965,6 +965,12 @@
       id="ret_mcm_option_mixed_gender_ratio_hint"
       text="Sets the chance for mixed gender units to spawn as a member of the opposite sex." />
     <string
+      id="ret_mcm_option_random_item_max_tier"
+      text="Random Item Max Tier" />
+    <string
+      id="ret_mcm_option_random_item_max_tier_hint"
+      text="The maximum tier for randomly assigned starter equipment. Item tier is also capped by troop tier." />
+    <string
       id="ret_mcm_option_required_days_to_unlock"
       text="Required Days To Unlock" />
     <string
@@ -1298,11 +1304,14 @@
       id="ret_starter_equipment_single_set"
       text="Copy One Set" />
     <string
+      id="ret_starter_troops_clone_culture_full_trees"
+      text="Full Troop Trees" />
+    <string
+      id="ret_starter_troops_clone_culture_lean_trees"
+      text="Lean Troop Trees" />
+    <string
       id="ret_starter_troops_clone_culture_roots"
       text="Root Troops Only" />
-    <string
-      id="ret_starter_troops_clone_culture_trees"
-      text="Entire Troop Trees" />
     <string
       id="ret_stocks_add"
       text="Added {AMOUNT} {ITEM} to stocks." />
@@ -1331,6 +1340,51 @@
       id="ret_troop_count_more"
       text="and {NUMBER} more troops." />
     <string
+      id="ret_troop_formation_archer"
+      text="Archer" />
+    <string
+      id="ret_troop_formation_cavalry"
+      text="Cavalry" />
+    <string
+      id="ret_troop_formation_crossbowman"
+      text="Crossbowman" />
+    <string
+      id="ret_troop_formation_horse_archer"
+      text="Horse Archer" />
+    <string
+      id="ret_troop_formation_infantry"
+      text="Infantry" />
+    <string
+      id="ret_troop_formation_mounted_skirmisher"
+      text="Mounted Skirmisher" />
+    <string
+      id="ret_troop_formation_skirmisher"
+      text="Skirmisher" />
+    <string
+      id="ret_troop_formation_slinger"
+      text="Slinger" />
+    <string
+      id="ret_troop_noble"
+      text="Noble" />
+    <string
+      id="ret_troop_prefix_champion"
+      text="Champion" />
+    <string
+      id="ret_troop_prefix_elite"
+      text="Elite" />
+    <string
+      id="ret_troop_prefix_master"
+      text="Master" />
+    <string
+      id="ret_troop_prefix_trained"
+      text="Trained" />
+    <string
+      id="ret_troop_prefix_veteran"
+      text="Veteran" />
+    <string
+      id="ret_troop_recruit"
+      text="Recruit" />
+    <string
       id="ret_troops_availability_anywhere"
       text="Anywhere" />
     <string
@@ -1339,6 +1393,9 @@
     <string
       id="ret_troops_availability_clan_or_kingdom_fiefs"
       text="Clan or Kingdom Fiefs" />
+    <string
+      id="ret_troops_availability_everywhere"
+      text="Everywhere" />
     <string
       id="ret_troops_availability_kingdom_fiefs"
       text="Kingdom Fiefs" />

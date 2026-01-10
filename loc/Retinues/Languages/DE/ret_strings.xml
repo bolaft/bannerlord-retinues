@@ -965,6 +965,12 @@
       id="ret_mcm_option_mixed_gender_ratio_hint"
       text="Legt die Chance fest, dass gemischte Geschlechtereinheiten als Mitglied des anderen Geschlechts erscheinen." />
     <string
+      id="ret_mcm_option_random_item_max_tier"
+      text="Maximale Stufe für zufällige Gegenstände" />
+    <string
+      id="ret_mcm_option_random_item_max_tier_hint"
+      text="Die maximale Stufe für zufällig zugewiesene Starterausrüstung. Die Gegenstandsstufe ist auch durch die Truppenstufe begrenzt." />
+    <string
       id="ret_mcm_option_required_days_to_unlock"
       text="Erforderliche Tage zum Entsperren" />
     <string
@@ -1298,11 +1304,14 @@
       id="ret_starter_equipment_single_set"
       text="Einen Satz kopieren" />
     <string
+      id="ret_starter_troops_clone_culture_full_trees"
+      text="Vollständige Truppenbäume" />
+    <string
+      id="ret_starter_troops_clone_culture_lean_trees"
+      text="Schlanke Truppenbäume" />
+    <string
       id="ret_starter_troops_clone_culture_roots"
       text="Nur Basiseinheiten" />
-    <string
-      id="ret_starter_troops_clone_culture_trees"
-      text="Ganze Truppenbäume" />
     <string
       id="ret_stocks_add"
       text="Es wurden {AMOUNT} {ITEM} zu den Beständen hinzugefügt." />
@@ -1331,14 +1340,59 @@
       id="ret_troop_count_more"
       text="und {NUMBER} weitere Truppen." />
     <string
-      id="ret_troops_availability_anywhere"
-      text="Überall" />
+      id="ret_troop_formation_archer"
+      text="Bogenschütze" />
+    <string
+      id="ret_troop_formation_cavalry"
+      text="Kavallerie" />
+    <string
+      id="ret_troop_formation_crossbowman"
+      text="Armbrustschütze" />
+    <string
+      id="ret_troop_formation_horse_archer"
+      text="Pferdebogen" />
+    <string
+      id="ret_troop_formation_infantry"
+      text="Infanterie" />
+    <string
+      id="ret_troop_formation_mounted_skirmisher"
+      text="Berittener Scharmützler" />
+    <string
+      id="ret_troop_formation_skirmisher"
+      text="Scharmützler" />
+    <string
+      id="ret_troop_formation_slinger"
+      text="Schleuderer" />
+    <string
+      id="ret_troop_noble"
+      text="Adliger" />
+    <string
+      id="ret_troop_prefix_champion"
+      text="Champion" />
+    <string
+      id="ret_troop_prefix_elite"
+      text="Elite" />
+    <string
+      id="ret_troop_prefix_master"
+      text="Meister" />
+    <string
+      id="ret_troop_prefix_trained"
+      text="Ausgebildet" />
+    <string
+      id="ret_troop_prefix_veteran"
+      text="Veteran" />
+    <string
+      id="ret_troop_recruit"
+      text="Rekrut" />
     <string
       id="ret_troops_availability_clan_fiefs"
       text="Clan-Lehen" />
     <string
       id="ret_troops_availability_clan_or_kingdom_fiefs"
       text="Clan- oder Königreich-Lehen" />
+    <string
+      id="ret_troops_availability_everywhere"
+      text="Überall" />
     <string
       id="ret_troops_availability_kingdom_fiefs"
       text="Königreich-Lehen" />

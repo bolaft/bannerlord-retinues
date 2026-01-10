@@ -965,6 +965,12 @@
       id="ret_mcm_option_mixed_gender_ratio_hint"
       text="Устанавливает шанс появления смешанных гендерных единиц в качестве члена противоположного пола." />
     <string
+      id="ret_mcm_option_random_item_max_tier"
+      text="Максимальный уровень случайного предмета" />
+    <string
+      id="ret_mcm_option_random_item_max_tier_hint"
+      text="Максимальный уровень случайно назначенного стартового снаряжения. Уровень предмета также ограничен уровнем войск." />
+    <string
       id="ret_mcm_option_required_days_to_unlock"
       text="Требуемые дни для разблокировки" />
     <string
@@ -1298,11 +1304,14 @@
       id="ret_starter_equipment_single_set"
       text="Скопировать один набор" />
     <string
+      id="ret_starter_troops_clone_culture_full_trees"
+      text="Полные деревья войск" />
+    <string
+      id="ret_starter_troops_clone_culture_lean_trees"
+      text="Упрощенные деревья войск" />
+    <string
       id="ret_starter_troops_clone_culture_roots"
       text="Только корневые войска" />
-    <string
-      id="ret_starter_troops_clone_culture_trees"
-      text="Полные деревья войск" />
     <string
       id="ret_stocks_add"
       text="Добавлено {AMOUNT} {ITEM} в запасы." />
@@ -1331,14 +1340,59 @@
       id="ret_troop_count_more"
       text="и еще {NUMBER} войск." />
     <string
-      id="ret_troops_availability_anywhere"
-      text="Везде" />
+      id="ret_troop_formation_archer"
+      text="Лучник" />
+    <string
+      id="ret_troop_formation_cavalry"
+      text="Кавалерия" />
+    <string
+      id="ret_troop_formation_crossbowman"
+      text="Арбалетчик" />
+    <string
+      id="ret_troop_formation_horse_archer"
+      text="Конный лучник" />
+    <string
+      id="ret_troop_formation_infantry"
+      text="Пехота" />
+    <string
+      id="ret_troop_formation_mounted_skirmisher"
+      text="Конный легкий пехотинец" />
+    <string
+      id="ret_troop_formation_skirmisher"
+      text="Легкий пехотинец" />
+    <string
+      id="ret_troop_formation_slinger"
+      text="Метатель пращи" />
+    <string
+      id="ret_troop_noble"
+      text="Дворянин" />
+    <string
+      id="ret_troop_prefix_champion"
+      text="Чемпион" />
+    <string
+      id="ret_troop_prefix_elite"
+      text="Элита" />
+    <string
+      id="ret_troop_prefix_master"
+      text="Мастер" />
+    <string
+      id="ret_troop_prefix_trained"
+      text="Обученный" />
+    <string
+      id="ret_troop_prefix_veteran"
+      text="Ветеран" />
+    <string
+      id="ret_troop_recruit"
+      text="Новобранец" />
     <string
       id="ret_troops_availability_clan_fiefs"
       text="Клановые фьефы" />
     <string
       id="ret_troops_availability_clan_or_kingdom_fiefs"
       text="Клановые или королевские фьефы" />
+    <string
+      id="ret_troops_availability_everywhere"
+      text="Везде" />
     <string
       id="ret_troops_availability_kingdom_fiefs"
       text="Королевские фьефы" />

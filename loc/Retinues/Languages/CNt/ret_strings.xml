@@ -965,6 +965,12 @@
       id="ret_mcm_option_mixed_gender_ratio_hint"
       text="設置混合性別單位作為異性成員生成的機會。" />
     <string
+      id="ret_mcm_option_random_item_max_tier"
+      text="隨機物品最高等級" />
+    <string
+      id="ret_mcm_option_random_item_max_tier_hint"
+      text="隨機分配的起始裝備的最高等級。物品等級也受部隊等級的限制。" />
+    <string
       id="ret_mcm_option_required_days_to_unlock"
       text="解鎖所需天數" />
     <string
@@ -1298,11 +1304,14 @@
       id="ret_starter_equipment_single_set"
       text="複製一個套裝" />
     <string
+      id="ret_starter_troops_clone_culture_full_trees"
+      text="完整部隊樹" />
+    <string
+      id="ret_starter_troops_clone_culture_lean_trees"
+      text="精簡部隊樹" />
+    <string
       id="ret_starter_troops_clone_culture_roots"
       text="僅根部部隊" />
-    <string
-      id="ret_starter_troops_clone_culture_trees"
-      text="整個部隊樹" />
     <string
       id="ret_stocks_add"
       text="已向庫存添加 {AMOUNT} 個 {ITEM}。" />
@@ -1331,14 +1340,59 @@
       id="ret_troop_count_more"
       text="以及另外 {NUMBER} 部隊。" />
     <string
-      id="ret_troops_availability_anywhere"
-      text="任何地方" />
+      id="ret_troop_formation_archer"
+      text="弓箭手" />
+    <string
+      id="ret_troop_formation_cavalry"
+      text="騎兵" />
+    <string
+      id="ret_troop_formation_crossbowman"
+      text="弩手" />
+    <string
+      id="ret_troop_formation_horse_archer"
+      text="騎射手" />
+    <string
+      id="ret_troop_formation_infantry"
+      text="步兵" />
+    <string
+      id="ret_troop_formation_mounted_skirmisher"
+      text="騎兵散兵" />
+    <string
+      id="ret_troop_formation_skirmisher"
+      text="散兵" />
+    <string
+      id="ret_troop_formation_slinger"
+      text="投石手" />
+    <string
+      id="ret_troop_noble"
+      text="貴族" />
+    <string
+      id="ret_troop_prefix_champion"
+      text="冠軍" />
+    <string
+      id="ret_troop_prefix_elite"
+      text="精英" />
+    <string
+      id="ret_troop_prefix_master"
+      text="大師" />
+    <string
+      id="ret_troop_prefix_trained"
+      text="訓練有素" />
+    <string
+      id="ret_troop_prefix_veteran"
+      text="老兵" />
+    <string
+      id="ret_troop_recruit"
+      text="新兵" />
     <string
       id="ret_troops_availability_clan_fiefs"
       text="氏族封地" />
     <string
       id="ret_troops_availability_clan_or_kingdom_fiefs"
       text="氏族或王國封地" />
+    <string
+      id="ret_troops_availability_everywhere"
+      text="到處" />
     <string
       id="ret_troops_availability_kingdom_fiefs"
       text="王國封地" />

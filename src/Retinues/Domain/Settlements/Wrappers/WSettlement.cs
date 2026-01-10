@@ -108,7 +108,7 @@ namespace Retinues.Domain.Settlements.Wrappers
 
             return Settings.ClanTroopsAvailability.Value switch
             {
-                Settings.RecruitmentMode.Anywhere => true,
+                Settings.RecruitmentMode.Everywhere => true,
                 Settings.RecruitmentMode.FactionFiefs => Clan == Player.Clan,
                 Settings.RecruitmentMode.ClanOrKingdomFiefs => Clan == Player.Clan
                     || Kingdom == Player.Kingdom,
@@ -124,7 +124,7 @@ namespace Retinues.Domain.Settlements.Wrappers
 
             return Settings.KingdomTroopsAvailability.Value switch
             {
-                Settings.RecruitmentMode.Anywhere => true,
+                Settings.RecruitmentMode.Everywhere => true,
                 Settings.RecruitmentMode.FactionFiefs => Kingdom == Player.Kingdom,
                 Settings.RecruitmentMode.ClanOrKingdomFiefs => Clan == Player.Clan
                     || Kingdom == Player.Kingdom,

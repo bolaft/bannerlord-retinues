@@ -965,6 +965,12 @@
       id="ret_mcm_option_mixed_gender_ratio_hint"
       text="Imposta la possibilità che le unità di genere misto appaiano come membri del sesso opposto." />
     <string
+      id="ret_mcm_option_random_item_max_tier"
+      text="Livello massimo degli oggetti casuali" />
+    <string
+      id="ret_mcm_option_random_item_max_tier_hint"
+      text="Il livello massimo per l&apos;equipaggiamento iniziale assegnato casualmente. Il livello dell&apos;oggetto è anche limitato dal livello della truppa." />
+    <string
       id="ret_mcm_option_required_days_to_unlock"
       text="Giorni necessari per sbloccare" />
     <string
@@ -1298,11 +1304,14 @@
       id="ret_starter_equipment_single_set"
       text="Copia un set" />
     <string
+      id="ret_starter_troops_clone_culture_full_trees"
+      text="Alberi delle truppe completi" />
+    <string
+      id="ret_starter_troops_clone_culture_lean_trees"
+      text="Alberi delle truppe snelli" />
+    <string
       id="ret_starter_troops_clone_culture_roots"
       text="Solo truppe di base" />
-    <string
-      id="ret_starter_troops_clone_culture_trees"
-      text="Interi alberi delle truppe" />
     <string
       id="ret_stocks_add"
       text="Aggiunti {AMOUNT} {ITEM} alle scorte." />
@@ -1331,14 +1340,59 @@
       id="ret_troop_count_more"
       text="e altre {NUMBER} truppe." />
     <string
-      id="ret_troops_availability_anywhere"
-      text="Ovunque" />
+      id="ret_troop_formation_archer"
+      text="Arciere" />
+    <string
+      id="ret_troop_formation_cavalry"
+      text="Cavalleria" />
+    <string
+      id="ret_troop_formation_crossbowman"
+      text="Balestriere" />
+    <string
+      id="ret_troop_formation_horse_archer"
+      text="Arciere a Cavallo" />
+    <string
+      id="ret_troop_formation_infantry"
+      text="Fanteria" />
+    <string
+      id="ret_troop_formation_mounted_skirmisher"
+      text="Fante di Schermaglia a Cavallo" />
+    <string
+      id="ret_troop_formation_skirmisher"
+      text="Fante di Schermaglia" />
+    <string
+      id="ret_troop_formation_slinger"
+      text="Fiondaio" />
+    <string
+      id="ret_troop_noble"
+      text="Nobile" />
+    <string
+      id="ret_troop_prefix_champion"
+      text="Campione" />
+    <string
+      id="ret_troop_prefix_elite"
+      text="Elite" />
+    <string
+      id="ret_troop_prefix_master"
+      text="Maestro" />
+    <string
+      id="ret_troop_prefix_trained"
+      text="Addestrato" />
+    <string
+      id="ret_troop_prefix_veteran"
+      text="Veterano" />
+    <string
+      id="ret_troop_recruit"
+      text="Recluta" />
     <string
       id="ret_troops_availability_clan_fiefs"
       text="Feudi del clan" />
     <string
       id="ret_troops_availability_clan_or_kingdom_fiefs"
       text="Feudi del clan o del regno" />
+    <string
+      id="ret_troops_availability_everywhere"
+      text="Ovunque" />
     <string
       id="ret_troops_availability_kingdom_fiefs"
       text="Feudi del regno" />

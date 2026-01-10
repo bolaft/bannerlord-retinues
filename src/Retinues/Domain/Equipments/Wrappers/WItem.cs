@@ -350,7 +350,8 @@ namespace Retinues.Domain.Equipments.Wrappers
 
         public bool IsCivilian => Base.IsCivilian;
         public bool IsMeleeWeapon => PrimaryWeapon?.IsMeleeWeapon ?? false;
-        public bool IsRangedWeapon => PrimaryWeapon?.IsRangedWeapon ?? false;
+        public bool IsRangedWeapon => PrimaryWeapon?.IsRangedWeapon == true && !IsThrownWeapon;
+        public bool IsThrownWeapon => Type == ItemObject.ItemTypeEnum.Thrown;
         public bool IsArmor =>
             ArmorComponent != null && ItemObject.ItemTypeEnum.HorseHarness != Type;
         public bool IsHorse => HorseComponent != null;

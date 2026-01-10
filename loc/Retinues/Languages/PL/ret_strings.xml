@@ -965,6 +965,12 @@
       id="ret_mcm_option_mixed_gender_ratio_hint"
       text="Ustawia szansę na pojawienie się jednostek o mieszanej płci jako członka przeciwnej płci." />
     <string
+      id="ret_mcm_option_random_item_max_tier"
+      text="Maksymalny poziom losowego przedmiotu" />
+    <string
+      id="ret_mcm_option_random_item_max_tier_hint"
+      text="Maksymalny poziom losowo przypisanego ekwipunku startowego. Poziom przedmiotu jest również ograniczony przez poziom oddziału." />
+    <string
       id="ret_mcm_option_required_days_to_unlock"
       text="Wymagane dni do odblokowania" />
     <string
@@ -1298,11 +1304,14 @@
       id="ret_starter_equipment_single_set"
       text="Kopiuj jeden zestaw" />
     <string
+      id="ret_starter_troops_clone_culture_full_trees"
+      text="Pełne drzewa jednostek" />
+    <string
+      id="ret_starter_troops_clone_culture_lean_trees"
+      text="Szczupłe drzewa jednostek" />
+    <string
       id="ret_starter_troops_clone_culture_roots"
       text="Tylko jednostki bazowe" />
-    <string
-      id="ret_starter_troops_clone_culture_trees"
-      text="Całe drzewka jednostek" />
     <string
       id="ret_stocks_add"
       text="Dodano {AMOUNT} {ITEM} do zapasów." />
@@ -1331,14 +1340,59 @@
       id="ret_troop_count_more"
       text="i jeszcze {NUMBER} oddziałów." />
     <string
-      id="ret_troops_availability_anywhere"
-      text="Gdziekolwiek" />
+      id="ret_troop_formation_archer"
+      text="Łucznik" />
+    <string
+      id="ret_troop_formation_cavalry"
+      text="Kawaleria" />
+    <string
+      id="ret_troop_formation_crossbowman"
+      text="Kuszniczy" />
+    <string
+      id="ret_troop_formation_horse_archer"
+      text="Łucznik konny" />
+    <string
+      id="ret_troop_formation_infantry"
+      text="Piechota" />
+    <string
+      id="ret_troop_formation_mounted_skirmisher"
+      text="Strzelec wyborowy konny" />
+    <string
+      id="ret_troop_formation_skirmisher"
+      text="Strzelec wyborowy" />
+    <string
+      id="ret_troop_formation_slinger"
+      text="Procarz" />
+    <string
+      id="ret_troop_noble"
+      text="Szlachcic" />
+    <string
+      id="ret_troop_prefix_champion"
+      text="Mistrz" />
+    <string
+      id="ret_troop_prefix_elite"
+      text="Elita" />
+    <string
+      id="ret_troop_prefix_master"
+      text="Mistrz" />
+    <string
+      id="ret_troop_prefix_trained"
+      text="Wyszkolony" />
+    <string
+      id="ret_troop_prefix_veteran"
+      text="Weteran" />
+    <string
+      id="ret_troop_recruit"
+      text="Rekrut" />
     <string
       id="ret_troops_availability_clan_fiefs"
       text="Lenna klanowe" />
     <string
       id="ret_troops_availability_clan_or_kingdom_fiefs"
       text="Lenna klanowe lub królewskie" />
+    <string
+      id="ret_troops_availability_everywhere"
+      text="Wszędzie" />
     <string
       id="ret_troops_availability_kingdom_fiefs"
       text="Lenna królewskie" />

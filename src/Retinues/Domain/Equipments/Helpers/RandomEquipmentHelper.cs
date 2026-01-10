@@ -13,13 +13,12 @@ using TaleWorlds.Library;
 namespace Retinues.Domain.Equipments.Helpers
 {
     /// <summary>
-    /// Helpers for selecting random items and building random equipment sets.
+    /// Helpers for building random equipment sets.
+    /// Item picking logic lives in RandomItemHelper.
     /// </summary>
     [SafeClass]
     public static class RandomEquipmentHelper
     {
-        public static string[] InvalidTokensForMale = ["skirt", "dress", "lady", "moccasin"];
-
         private static readonly EquipmentIndex[] ArmorSlots =
         [
             EquipmentIndex.Head,
@@ -153,7 +152,7 @@ namespace Retinues.Domain.Equipments.Helpers
 
                 me.Set(
                     slot,
-                    PickLikeSource(
+                    RandomItemHelper.PickLikeSource(
                         owner,
                         me,
                         slot,
@@ -175,11 +174,19 @@ namespace Retinues.Domain.Equipments.Helpers
                 );
             }
 
-            // Mirror weapon slots (null stays null)
+            // Mirror weapon slots (two-pass):
+            // - pass 1: pick non-ammo weapons, enforcing "no duplicates" (except thrown/ammo)
+            //           and enforcing weapon-family constraints (thrown stays thrown).
+            // - pass 2: pick ammo, constrained to match selected ranged weapon(s)
+            var srcWeapons = new WItem[WeaponSlots.Length];
+            for (int i = 0; i < WeaponSlots.Length; i++)
+                srcWeapons[i] = source.Get(WeaponSlots[i]);
+
+            // Pass 1: non-ammo weapons (and thrown)
             for (int i = 0; i < WeaponSlots.Length; i++)
             {
                 var slot = WeaponSlots[i];
-                var src = source.Get(slot);
+                var src = srcWeapons[i];
 
                 if (src == null)
                 {
@@ -187,9 +194,58 @@ namespace Retinues.Domain.Equipments.Helpers
                     continue;
                 }
 
-                me.Set(
+                if (src.IsAmmo)
+                    continue;
+
+                // Enforce: source thrown -> picked must be thrown (never bow/crossbow/etc).
+                Func<WItem, bool> forceFamily = null;
+                if (src.IsThrownWeapon)
+                    forceFamily = it => it != null && it.IsThrownWeapon;
+
+                Func<WItem, bool> noDup = null;
+                if (PreventDuplicateInWeaponSlots(src))
+                {
+                    noDup = it =>
+                    {
+                        if (it == null)
+                            return false;
+
+                        if (IsDuplicateAllowedInWeaponSlots(it))
+                            return true;
+
+                        if (!PreventDuplicateInWeaponSlots(it))
+                            return true;
+
+                        return !HasItemInWeaponSlots(me, it.StringId);
+                    };
+                }
+
+                var predicate = RandomItemHelper.And(forceFamily, noDup);
+
+                var picked = RandomItemHelper.PickLikeSource(
+                    owner,
+                    me,
                     slot,
-                    PickLikeSource(
+                    civilian,
+                    src,
+                    cultureIds,
+                    acceptNeutralCulture,
+                    requireSkillForItem,
+                    finalFilter,
+                    pickBest,
+                    weightLimitActive,
+                    weightLimit,
+                    valueLimitActive,
+                    valueLimit,
+                    reuseContext,
+                    preferUnlocked,
+                    extraPredicate: predicate
+                );
+
+                // If uniqueness made us fail, retry once without uniqueness (but KEEP family constraint).
+                if (picked == null && noDup != null)
+                {
+                    picked = RandomItemHelper.PickLikeSource(
                         owner,
                         me,
                         slot,
@@ -206,9 +262,58 @@ namespace Retinues.Domain.Equipments.Helpers
                         valueLimit,
                         reuseContext,
                         preferUnlocked,
-                        extraPredicate: null
-                    )
+                        extraPredicate: forceFamily
+                    );
+                }
+
+                me.Set(slot, picked);
+            }
+
+            // Pass 2: ammo (match to ranged weapons chosen above)
+            var allowedAmmoTypes = GetAllowedAmmoTypes(me);
+
+            for (int i = 0; i < WeaponSlots.Length; i++)
+            {
+                var slot = WeaponSlots[i];
+                var src = srcWeapons[i];
+
+                if (src == null)
+                    continue;
+
+                if (!src.IsAmmo)
+                    continue;
+
+                if (allowedAmmoTypes == null || allowedAmmoTypes.Count == 0)
+                {
+                    me.Set(slot, null);
+                    continue;
+                }
+
+                var requiredAmmoType = allowedAmmoTypes.Contains(src.Type)
+                    ? src.Type
+                    : allowedAmmoTypes.First();
+
+                var ammo = RandomItemHelper.PickAmmoMatchingType(
+                    owner,
+                    me,
+                    slot,
+                    civilian,
+                    src,
+                    cultureIds,
+                    acceptNeutralCulture,
+                    requireSkillForItem,
+                    finalFilter,
+                    pickBest,
+                    weightLimitActive,
+                    weightLimit,
+                    valueLimitActive,
+                    valueLimit,
+                    reuseContext,
+                    preferUnlocked,
+                    requiredAmmoType
                 );
+
+                me.Set(slot, ammo);
             }
 
             // Mounts are battle-only, mirror null stays null; harness must match horse.
@@ -227,7 +332,7 @@ namespace Retinues.Domain.Equipments.Helpers
                 return me;
             }
 
-            var horse = PickLikeSource(
+            var horse = RandomItemHelper.PickLikeSource(
                 owner,
                 me,
                 EquipmentIndex.Horse,
@@ -263,7 +368,7 @@ namespace Retinues.Domain.Equipments.Helpers
                 return me;
             }
 
-            var harness = PickLikeSource(
+            var harness = RandomItemHelper.PickLikeSource(
                 owner,
                 me,
                 EquipmentIndex.HorseHarness,
@@ -291,321 +396,6 @@ namespace Retinues.Domain.Equipments.Helpers
         //                        Internals                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        /// <summary>
-        /// Picks an item similar to the given source item, trying to match category and tier.
-        /// </summary>
-        private static WItem PickLikeSource(
-            WCharacter owner,
-            MEquipment currentEquipment,
-            EquipmentIndex slot,
-            bool civilian,
-            WItem sourceItem,
-            HashSet<string> cultureIds,
-            bool acceptNeutralCulture,
-            bool requireSkillForItem,
-            Func<WItem, bool> itemFilter,
-            bool pickBest,
-            bool weightLimitActive,
-            float weightLimit,
-            bool valueLimitActive,
-            int valueLimit,
-            RandomEquipmentReuseContext reuseContext,
-            bool preferUnlocked,
-            Func<WItem, bool> extraPredicate
-        )
-        {
-            if (sourceItem?.Base == null)
-                return null;
-
-            int desiredTier = MBMath.ClampInt(sourceItem.Tier, 1, 6);
-            var desiredCategoryId = sourceItem.Category?.StringId;
-            var desiredType = sourceItem.Type;
-
-            // Strict first: category + exact tier (or type if category is null)
-            var picked = TryPickBySpec(
-                owner,
-                currentEquipment,
-                slot,
-                civilian,
-                desiredTier,
-                desiredTier,
-                cultureIds,
-                acceptNeutralCulture,
-                requireSkillForItem,
-                itemFilter,
-                pickBest,
-                weightLimitActive,
-                weightLimit,
-                valueLimitActive,
-                valueLimit,
-                desiredCategoryId,
-                desiredType,
-                matchCategory: !string.IsNullOrEmpty(desiredCategoryId),
-                reuseContext,
-                preferUnlocked,
-                extraPredicate
-            );
-
-            if (picked != null)
-                return picked;
-
-            // Small fallback: lower tiers
-            int lower = MBMath.ClampInt(desiredTier - 1, 1, 6);
-
-            return TryPickBySpec(
-                owner,
-                currentEquipment,
-                slot,
-                civilian,
-                0,
-                lower,
-                cultureIds,
-                acceptNeutralCulture,
-                requireSkillForItem,
-                itemFilter,
-                pickBest,
-                weightLimitActive,
-                weightLimit,
-                valueLimitActive,
-                valueLimit,
-                desiredCategoryId,
-                desiredType,
-                matchCategory: !string.IsNullOrEmpty(desiredCategoryId),
-                reuseContext,
-                preferUnlocked,
-                extraPredicate
-            );
-        }
-
-        /// <summary>
-        /// Tries to pick an item matching the given specifications.
-        /// </summary>
-        private static WItem TryPickBySpec(
-            WCharacter owner,
-            MEquipment currentEquipment,
-            EquipmentIndex slot,
-            bool civilian,
-            int minTier,
-            int maxTier,
-            HashSet<string> cultureIds,
-            bool acceptNeutralCulture,
-            bool requireSkillForItem,
-            Func<WItem, bool> itemFilter,
-            bool pickBest,
-            bool weightLimitActive,
-            float weightLimit,
-            bool valueLimitActive,
-            int valueLimit,
-            string desiredCategoryId,
-            ItemObject.ItemTypeEnum desiredType,
-            bool matchCategory,
-            RandomEquipmentReuseContext reuseContext,
-            bool preferUnlocked,
-            Func<WItem, bool> extraPredicate
-        )
-        {
-            var items = WItem.GetEquipmentsForSlot(slot);
-            if (items == null || items.Count == 0)
-                return null;
-
-            NormalizeTierRange(ref minTier, ref maxTier);
-
-            List<WItem> culturedUnlocked = null,
-                culturedLocked = null,
-                neutralUnlocked = null,
-                neutralLocked = null;
-
-            for (int i = 0; i < items.Count; i++)
-            {
-                var it = items[i];
-                if (it?.Base == null)
-                    continue;
-
-                if (
-                    !owner.IsFemale
-                    && InvalidTokensForMale.Any(token => it.StringId.ToLower().Contains(token))
-                )
-                    continue;
-
-                if (!it.IsEquippableInSlot(slot))
-                    continue;
-
-                if (civilian && !it.IsCivilian)
-                    continue;
-
-                int tier = MBMath.ClampInt(it.Tier, 1, 6);
-                if (tier < minTier || tier > maxTier)
-                    continue;
-
-                if (matchCategory)
-                {
-                    if (string.IsNullOrEmpty(desiredCategoryId))
-                        continue;
-                    if (it.Category == null || it.Category.StringId != desiredCategoryId)
-                        continue;
-                }
-                else
-                {
-                    if (it.Type != desiredType)
-                        continue;
-                }
-
-                var c = it.Culture;
-                bool isNeutral = c == null;
-
-                if (cultureIds != null)
-                {
-                    if (!isNeutral)
-                    {
-                        if (!cultureIds.Contains(c.StringId))
-                            continue;
-                    }
-                    else if (!acceptNeutralCulture)
-                        continue;
-                }
-                else
-                {
-                    if (isNeutral && !acceptNeutralCulture)
-                        continue;
-                }
-
-                if (requireSkillForItem && !it.IsEquippableByCharacter(owner))
-                    continue;
-
-                if (itemFilter != null && !itemFilter(it))
-                    continue;
-
-                if (extraPredicate != null && !extraPredicate(it))
-                    continue;
-
-                if (currentEquipment != null && (weightLimitActive || valueLimitActive))
-                {
-                    if (
-                        !EquipmentLimitsHelper.FitsLimitsAfterSet(
-                            idx => currentEquipment.Get(idx),
-                            slot,
-                            it,
-                            weightLimitActive,
-                            weightLimit,
-                            valueLimitActive,
-                            valueLimit,
-                            allowNonIncreasingWhenOver: false
-                        )
-                    )
-                    {
-                        continue;
-                    }
-                }
-
-                bool unlocked = !preferUnlocked || it.IsUnlocked;
-
-                if (isNeutral)
-                {
-                    if (unlocked)
-                        (neutralUnlocked ??= []).Add(it);
-                    else
-                        (neutralLocked ??= []).Add(it);
-                }
-                else
-                {
-                    if (unlocked)
-                        (culturedUnlocked ??= []).Add(it);
-                    else
-                        (culturedLocked ??= []).Add(it);
-                }
-            }
-
-            // Priority: culture first, then unlocked.
-            var pool =
-                (culturedUnlocked != null && culturedUnlocked.Count > 0) ? culturedUnlocked
-                : (culturedLocked != null && culturedLocked.Count > 0) ? culturedLocked
-                : (neutralUnlocked != null && neutralUnlocked.Count > 0) ? neutralUnlocked
-                : (neutralLocked != null && neutralLocked.Count > 0) ? neutralLocked
-                : null;
-
-            if (pool == null || pool.Count == 0)
-                return null;
-
-            // Reuse to minimize variety across tree clone.
-            string reuseKey = null;
-            if (reuseContext != null)
-            {
-                reuseKey =
-                    $"{(civilian ? 1 : 0)}|{(int)slot}|{minTier}-{maxTier}|{(matchCategory ? desiredCategoryId : "")}|{(matchCategory ? -1 : (int)desiredType)}|{(cultureIds == null ? "any" : string.Join(",", cultureIds.OrderBy(x => x)))}";
-                if (reuseContext.TryGet(reuseKey, out var remembered))
-                {
-                    for (int i = 0; i < pool.Count; i++)
-                    {
-                        if (pool[i].StringId == remembered)
-                            return pool[i];
-                    }
-                }
-            }
-
-            var chosen =
-                (!pickBest || pool.Count == 1)
-                    ? pool[MBRandom.RandomInt(pool.Count)]
-                    : PickBest(pool);
-
-            if (reuseContext != null && reuseKey != null)
-                reuseContext.Remember(reuseKey, chosen);
-
-            return chosen;
-        }
-
-        /// <summary>
-        /// Normalizes the given tier range to valid values.
-        /// </summary>
-        private static void NormalizeTierRange(ref int minTier, ref int maxTier)
-        {
-            minTier = MBMath.ClampInt(minTier, 1, 6);
-            maxTier = MBMath.ClampInt(maxTier, 1, 6);
-
-            if (maxTier < minTier)
-                (maxTier, minTier) = (minTier, maxTier);
-        }
-
-        /// <summary>
-        /// Tries to pick the best item from the given pool.
-        /// </summary>
-        private static WItem PickBest(List<WItem> pool)
-        {
-            if (pool == null || pool.Count == 0)
-                return null;
-
-            WItem best = pool[0];
-
-            for (int i = 1; i < pool.Count; i++)
-            {
-                var cand = pool[i];
-                if (cand == null)
-                    continue;
-
-                cand.GetComparisonChevrons(best, out int pos, out int neg);
-
-                // If comparable and clearly better, take it.
-                if (pos > neg)
-                {
-                    best = cand;
-                    continue;
-                }
-
-                // If not comparable (0/0) or tie-ish, break ties by tier/value.
-                if (pos == neg)
-                {
-                    if (cand.Tier > best.Tier)
-                        best = cand;
-                    else if (cand.Tier == best.Tier && cand.Value > best.Value)
-                        best = cand;
-                }
-            }
-
-            return best;
-        }
-
-        /// <summary>
-        /// Counts how many times the given item ID appears in the equipment set.
-        /// </summary>
         private static int CountInEquipment(MEquipment me, string itemId)
         {
             if (me == null || string.IsNullOrEmpty(itemId))
@@ -623,176 +413,72 @@ namespace Retinues.Domain.Equipments.Helpers
             return count;
         }
 
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                     Get Random Item                    //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        /// <summary>
-        /// Gets a random item for the given slot, with the specified constraints.
-        /// </summary>
-        public static WItem GetRandomItemForSlot(
-            WCharacter owner,
-            EquipmentIndex slot,
-            bool civilian,
-            int minTier,
-            int maxTier,
-            IEnumerable<WCulture> acceptableCultures,
-            bool acceptNeutralCulture,
-            bool requireSkillForItem = true,
-            Func<WItem, bool> itemFilter = null
-        )
+        private static bool HasItemInWeaponSlots(MEquipment me, string itemId)
         {
-            HashSet<string> cultureIds = null;
-            if (acceptableCultures != null)
-            {
-                cultureIds = [.. acceptableCultures.Where(c => c != null).Select(c => c.StringId)];
+            if (me == null || string.IsNullOrEmpty(itemId))
+                return false;
 
-                if (cultureIds.Count == 0)
-                    cultureIds = null;
+            for (int i = 0; i < WeaponSlots.Length; i++)
+            {
+                var w = me.Get(WeaponSlots[i]);
+                if (w != null && w.StringId == itemId)
+                    return true;
             }
 
-            // No limits here (this method returns a slot item without equipment context).
-            return GetRandomItemForSlotFiltered(
-                owner,
-                currentEquipment: null,
-                slot,
-                civilian,
-                minTier,
-                maxTier,
-                cultureIds,
-                acceptNeutralCulture,
-                requireSkillForItem,
-                predicate: null,
-                itemFilter: itemFilter,
-                pickBest: false,
-                weightLimitActive: false,
-                weightLimit: 0f,
-                valueLimitActive: false,
-                valueLimit: 0
-            );
+            return false;
         }
 
-        /// <summary>
-        /// Gets a random item for the given slot, with the specified constraints.
-        /// </summary>
-        private static WItem GetRandomItemForSlotFiltered(
-            WCharacter owner,
-            MEquipment currentEquipment,
-            EquipmentIndex slot,
-            bool civilian,
-            int minTier,
-            int maxTier,
-            HashSet<string> cultureIds,
-            bool acceptNeutralCulture,
-            bool requireSkillForItem,
-            Func<WItem, bool> predicate,
-            Func<WItem, bool> itemFilter,
-            bool pickBest,
-            bool weightLimitActive,
-            float weightLimit,
-            bool valueLimitActive,
-            int valueLimit
-        )
+        private static bool IsDuplicateAllowedInWeaponSlots(WItem it) =>
+            it != null && (it.IsAmmo || it.IsThrownWeapon);
+
+        private static bool PreventDuplicateInWeaponSlots(WItem it) =>
+            it != null && it.IsWeapon && !it.IsAmmo && !it.IsThrownWeapon;
+
+        private static ItemObject.ItemTypeEnum? GetRequiredAmmoType(WItem rangedWeapon)
         {
-            var items = WItem.GetEquipmentsForSlot(slot);
-            if (items == null || items.Count == 0)
+            if (rangedWeapon == null || !rangedWeapon.IsRangedWeapon)
                 return null;
 
-            List<WItem> cultured = null;
-            List<WItem> neutral = null;
-
-            for (int i = 0; i < items.Count; i++)
+            switch (rangedWeapon.Type)
             {
-                var it = items[i];
-                if (it?.Base == null)
+                case ItemObject.ItemTypeEnum.Bow:
+                    return ItemObject.ItemTypeEnum.Arrows;
+                case ItemObject.ItemTypeEnum.Crossbow:
+                    return ItemObject.ItemTypeEnum.Bolts;
+                case ItemObject.ItemTypeEnum.Pistol:
+                case ItemObject.ItemTypeEnum.Musket:
+                    return ItemObject.ItemTypeEnum.Bullets;
+#if BL13
+                case ItemObject.ItemTypeEnum.Sling:
+                    return ItemObject.ItemTypeEnum.SlingStones;
+#endif
+                default:
+                    return null;
+            }
+        }
+
+        private static HashSet<ItemObject.ItemTypeEnum> GetAllowedAmmoTypes(MEquipment me)
+        {
+            HashSet<ItemObject.ItemTypeEnum> set = null;
+
+            if (me == null)
+                return set;
+
+            for (int i = 0; i < WeaponSlots.Length; i++)
+            {
+                var w = me.Get(WeaponSlots[i]);
+                if (w == null || !w.IsRangedWeapon)
                     continue;
 
-                if (!it.IsEquippableInSlot(slot))
+                var req = GetRequiredAmmoType(w);
+                if (req == null)
                     continue;
 
-                if (
-                    !owner.IsFemale
-                    && InvalidTokensForMale.Any(token => it.StringId.ToLower().Contains(token))
-                )
-                    continue;
-
-                if (civilian && !it.IsCivilian)
-                    continue;
-
-                var tier = MBMath.ClampInt(it.Tier, 0, 6);
-                if (tier < minTier || tier > maxTier)
-                    continue;
-
-                var c = it.Culture;
-                var isNeutral = c == null;
-
-                if (cultureIds != null)
-                {
-                    if (!isNeutral)
-                    {
-                        if (!cultureIds.Contains(c.StringId))
-                            continue;
-                    }
-                    else
-                    {
-                        if (!acceptNeutralCulture)
-                            continue;
-                    }
-                }
-                else
-                {
-                    if (isNeutral && !acceptNeutralCulture)
-                        continue;
-                }
-
-                if (requireSkillForItem && !it.IsEquippableByCharacter(owner))
-                    continue;
-
-                if (itemFilter != null && !itemFilter(it))
-                    continue;
-
-                if (predicate != null && !predicate(it))
-                    continue;
-
-                // Limits (only if we have an equipment context).
-                if (currentEquipment != null && (weightLimitActive || valueLimitActive))
-                {
-                    bool fits = EquipmentLimitsHelper.FitsLimitsAfterSet(
-                        idx => currentEquipment.Get(idx),
-                        slot,
-                        it,
-                        weightLimitActive,
-                        weightLimit,
-                        valueLimitActive,
-                        valueLimit,
-                        allowNonIncreasingWhenOver: false
-                    );
-
-                    if (!fits)
-                        continue;
-                }
-
-                if (isNeutral)
-                {
-                    neutral ??= [];
-                    neutral.Add(it);
-                }
-                else
-                {
-                    cultured ??= [];
-                    cultured.Add(it);
-                }
+                set ??= [];
+                set.Add(req.Value);
             }
 
-            var pool = (cultured != null && cultured.Count > 0) ? cultured : neutral;
-
-            if (pool == null || pool.Count == 0)
-                return null;
-
-            if (!pickBest || pool.Count == 1)
-                return pool[MBRandom.RandomInt(pool.Count)];
-
-            return PickBest(pool);
+            return set;
         }
     }
 }

@@ -7,8 +7,8 @@ using Retinues.Domain.Equipments.Helpers;
 using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Domain.Factions.Wrappers;
 using Retinues.Framework.Behaviors;
-using Retinues.Game.Factions;
 using Retinues.Game.Retinues;
+using Retinues.Game.Troops;
 using Retinues.UI.Services;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
@@ -101,7 +101,7 @@ namespace Retinues.Game.Bootstrap
             {
                 if (clan?.Base != null)
                 {
-                    FactionTroopsBehavior.TryUnlockNow(fromBootstrap: true);
+                    TroopUnlockBehavior.TryUnlockNow(fromBootstrap: true);
                     _factionTroopsBootstrapped = true;
                     Log.Debug("Faction troops bootstrap complete.");
                 }
@@ -201,7 +201,7 @@ namespace Retinues.Game.Bootstrap
 
             for (int attempt = 0; attempt < maxAttempts && unlocked < missing; attempt++)
             {
-                var item = RandomEquipmentHelper.GetRandomItemForSlot(
+                var item = RandomItemHelper.GetRandomItemForSlot(
                     owner: picker,
                     slot: slot,
                     civilian: false,

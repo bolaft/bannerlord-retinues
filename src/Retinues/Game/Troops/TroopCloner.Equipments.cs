@@ -1,0 +1,128 @@
+using Retinues.Configuration;
+using Retinues.Domain.Characters.Wrappers;
+using Retinues.Domain.Equipments.Helpers;
+using Retinues.Domain.Equipments.Models;
+using Retinues.Domain.Factions.Wrappers;
+
+namespace Retinues.Game.Troops
+{
+    public static partial class TroopCloner
+    {
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                   Equipment Strategy                   //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private static void ApplyStarterEquipments(
+            WCharacter template,
+            WCharacter clone,
+            WCulture cultureContext,
+            bool createCivilianSet,
+            RandomEquipmentHelper.RandomEquipmentReuseContext reuseContext = null
+        )
+        {
+            if (template == null || clone == null)
+                return;
+
+            switch (Settings.StarterEquipment.Value)
+            {
+                case Settings.EquipmentMode.AllSets:
+                    clone.EquipmentRoster.Copy(template.EquipmentRoster, EquipmentCopyMode.All);
+                    return;
+
+                case Settings.EquipmentMode.SingleSet:
+                    clone.EquipmentRoster.Copy(
+                        template.EquipmentRoster,
+                        EquipmentCopyMode.FirstOfEach
+                    );
+                    return;
+
+                case Settings.EquipmentMode.EmptySet:
+                    clone.EquipmentRoster.Copy(template.EquipmentRoster, EquipmentCopyMode.Reset);
+                    return;
+
+                case Settings.EquipmentMode.RandomSet:
+                default:
+                    break;
+            }
+
+            var culture = cultureContext ?? template.Culture;
+
+            MEquipment srcBattle = null;
+            MEquipment srcCivil = null;
+
+            var tplEquipments = template.EquipmentRoster?.Equipments;
+            if (tplEquipments != null)
+            {
+                for (int i = 0; i < tplEquipments.Count; i++)
+                {
+                    var e = tplEquipments[i];
+                    if (e == null)
+                        continue;
+
+                    if (e.IsCivilian)
+                    {
+                        if (srcCivil == null)
+                            srcCivil = e;
+                    }
+                    else
+                    {
+                        if (srcBattle == null)
+                            srcBattle = e;
+                    }
+
+                    if (srcBattle != null && srcCivil != null)
+                        break;
+                }
+            }
+
+            if (srcBattle == null && srcCivil != null)
+                srcBattle = srcCivil;
+
+            if (srcBattle == null)
+            {
+                clone.EquipmentRoster.Copy(template.EquipmentRoster, EquipmentCopyMode.Reset);
+                return;
+            }
+
+            if (srcCivil == null)
+                srcCivil = srcBattle;
+
+            var battle = RandomEquipmentHelper.CreateRandomEquipment(
+                owner: clone,
+                source: srcBattle,
+                civilian: false,
+                acceptableCultures: culture != null ? [culture] : null,
+                acceptNeutralCulture: true,
+                requireSkillForItem: true,
+                itemFilter: null,
+                fromStocks: false,
+                pickBest: false,
+                enforceLimits: true,
+                reuseContext: reuseContext,
+                preferUnlocked: true
+            );
+
+            MEquipment civil = null;
+
+            if (createCivilianSet)
+            {
+                civil = RandomEquipmentHelper.CreateRandomEquipment(
+                    owner: clone,
+                    source: srcCivil,
+                    civilian: true,
+                    acceptableCultures: culture != null ? [culture] : null,
+                    acceptNeutralCulture: true,
+                    requireSkillForItem: true,
+                    itemFilter: null,
+                    fromStocks: false,
+                    pickBest: false,
+                    enforceLimits: true,
+                    reuseContext: reuseContext,
+                    preferUnlocked: true
+                );
+            }
+
+            clone.EquipmentRoster.Equipments = createCivilianSet ? [battle, civil] : [battle];
+        }
+    }
+}

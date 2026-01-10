@@ -965,6 +965,12 @@
       id="ret_mcm_option_mixed_gender_ratio_hint"
       text="혼합 성별 유닛이 반대 성별의 구성원으로 생성될 확률을 설정합니다." />
     <string
+      id="ret_mcm_option_random_item_max_tier"
+      text="무작위 아이템 최대 등급" />
+    <string
+      id="ret_mcm_option_random_item_max_tier_hint"
+      text="무작위로 할당된 시작 장비의 최대 등급입니다. 아이템 등급은 부대 등급에 의해서도 제한됩니다." />
+    <string
       id="ret_mcm_option_required_days_to_unlock"
       text="잠금을 해제하는 데 필요한 일수" />
     <string
@@ -1298,11 +1304,14 @@
       id="ret_starter_equipment_single_set"
       text="한 세트 복사" />
     <string
+      id="ret_starter_troops_clone_culture_full_trees"
+      text="전체 부대 트리" />
+    <string
+      id="ret_starter_troops_clone_culture_lean_trees"
+      text="간소화된 부대 트리" />
+    <string
       id="ret_starter_troops_clone_culture_roots"
       text="루트 부대만" />
-    <string
-      id="ret_starter_troops_clone_culture_trees"
-      text="전체 부대 트리" />
     <string
       id="ret_stocks_add"
       text="재고에 {AMOUNT} {ITEM} 추가됨." />
@@ -1331,14 +1340,59 @@
       id="ret_troop_count_more"
       text="및 {NUMBER} 개의 추가 부대." />
     <string
-      id="ret_troops_availability_anywhere"
-      text="어디서나" />
+      id="ret_troop_formation_archer"
+      text="궁수" />
+    <string
+      id="ret_troop_formation_cavalry"
+      text="기병" />
+    <string
+      id="ret_troop_formation_crossbowman"
+      text="석궁병" />
+    <string
+      id="ret_troop_formation_horse_archer"
+      text="기마 궁수" />
+    <string
+      id="ret_troop_formation_infantry"
+      text="보병" />
+    <string
+      id="ret_troop_formation_mounted_skirmisher"
+      text="기마 돌격병" />
+    <string
+      id="ret_troop_formation_skirmisher"
+      text="돌격병" />
+    <string
+      id="ret_troop_formation_slinger"
+      text="슬링거" />
+    <string
+      id="ret_troop_noble"
+      text="귀족" />
+    <string
+      id="ret_troop_prefix_champion"
+      text="챔피언" />
+    <string
+      id="ret_troop_prefix_elite"
+      text="엘리트" />
+    <string
+      id="ret_troop_prefix_master"
+      text="마스터" />
+    <string
+      id="ret_troop_prefix_trained"
+      text="훈련된" />
+    <string
+      id="ret_troop_prefix_veteran"
+      text="베테랑" />
+    <string
+      id="ret_troop_recruit"
+      text="신병" />
     <string
       id="ret_troops_availability_clan_fiefs"
       text="클랜 영지" />
     <string
       id="ret_troops_availability_clan_or_kingdom_fiefs"
       text="클랜 또는 왕국 영지" />
+    <string
+      id="ret_troops_availability_everywhere"
+      text="모든 곳" />
     <string
       id="ret_troops_availability_kingdom_fiefs"
       text="왕국 영지" />

@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using Retinues.Configuration;
-using Retinues.Domain.Characters.Helpers;
 using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Framework.Behaviors;
 using Retinues.Framework.Runtime;
+using Retinues.Game.Troops;
 using Retinues.UI.Services;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Localization;
@@ -31,7 +31,7 @@ namespace Retinues.Game.Unlocks
 
             if (_clonerHooked)
             {
-                CharacterCloner.ItemsUnlockedByCloner -= OnClonerItemsUnlocked;
+                TroopCloner.ItemsUnlockedByCloner -= OnClonerItemsUnlocked;
                 _clonerHooked = false;
             }
         }
@@ -45,7 +45,7 @@ namespace Retinues.Game.Unlocks
             if (_clonerHooked)
                 return;
 
-            CharacterCloner.ItemsUnlockedByCloner += OnClonerItemsUnlocked;
+            TroopCloner.ItemsUnlockedByCloner += OnClonerItemsUnlocked;
             _clonerHooked = true;
         }
 

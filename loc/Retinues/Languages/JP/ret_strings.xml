@@ -965,6 +965,12 @@
       id="ret_mcm_option_mixed_gender_ratio_hint"
       text="混合性別ユニットが異性のメンバーとして出現する確率を設定します。" />
     <string
+      id="ret_mcm_option_random_item_max_tier"
+      text="ランダムアイテムの最大ティア" />
+    <string
+      id="ret_mcm_option_random_item_max_tier_hint"
+      text="ランダムに割り当てられたスターター装備の最大ティア。アイテムのティアは部隊のティアによっても制限されます。" />
+    <string
       id="ret_mcm_option_required_days_to_unlock"
       text="アンロックするために必要な日数" />
     <string
@@ -1298,11 +1304,14 @@
       id="ret_starter_equipment_single_set"
       text="1つのセットをコピー" />
     <string
+      id="ret_starter_troops_clone_culture_full_trees"
+      text="完全な部隊ツリー" />
+    <string
+      id="ret_starter_troops_clone_culture_lean_trees"
+      text="リーン部隊ツリー" />
+    <string
       id="ret_starter_troops_clone_culture_roots"
       text="ルート部隊のみ" />
-    <string
-      id="ret_starter_troops_clone_culture_trees"
-      text="部隊ツリー全体" />
     <string
       id="ret_stocks_add"
       text="在庫に {AMOUNT} 個の {ITEM} を追加しました。" />
@@ -1331,14 +1340,59 @@
       id="ret_troop_count_more"
       text="およびさらに {NUMBER} 部隊。" />
     <string
-      id="ret_troops_availability_anywhere"
-      text="どこでも" />
+      id="ret_troop_formation_archer"
+      text="アーチャー" />
+    <string
+      id="ret_troop_formation_cavalry"
+      text="騎兵" />
+    <string
+      id="ret_troop_formation_crossbowman"
+      text="クロスボウマン" />
+    <string
+      id="ret_troop_formation_horse_archer"
+      text="ホースアーチャー" />
+    <string
+      id="ret_troop_formation_infantry"
+      text="歩兵" />
+    <string
+      id="ret_troop_formation_mounted_skirmisher"
+      text="騎乗スカーミッシャー" />
+    <string
+      id="ret_troop_formation_skirmisher"
+      text="スカーミッシャー" />
+    <string
+      id="ret_troop_formation_slinger"
+      text="スリンガー" />
+    <string
+      id="ret_troop_noble"
+      text="貴族" />
+    <string
+      id="ret_troop_prefix_champion"
+      text="チャンピオン" />
+    <string
+      id="ret_troop_prefix_elite"
+      text="エリート" />
+    <string
+      id="ret_troop_prefix_master"
+      text="マスター" />
+    <string
+      id="ret_troop_prefix_trained"
+      text="訓練済み" />
+    <string
+      id="ret_troop_prefix_veteran"
+      text="ベテラン" />
+    <string
+      id="ret_troop_recruit"
+      text="新兵" />
     <string
       id="ret_troops_availability_clan_fiefs"
       text="クランの領地" />
     <string
       id="ret_troops_availability_clan_or_kingdom_fiefs"
       text="クランまたは王国の領地" />
+    <string
+      id="ret_troops_availability_everywhere"
+      text="どこでも" />
     <string
       id="ret_troops_availability_kingdom_fiefs"
       text="王国の領地" />

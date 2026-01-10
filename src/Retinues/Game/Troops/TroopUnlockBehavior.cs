@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Retinues.Configuration;
-using Retinues.Domain.Characters.Helpers;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Domain.Factions;
@@ -16,13 +15,13 @@ using TaleWorlds.CampaignSystem.Actions;
 using TaleWorlds.CampaignSystem.Settlements;
 using TaleWorlds.Core;
 
-namespace Retinues.Game.Factions
+namespace Retinues.Game.Troops
 {
     /// <summary>
     /// Unlocks and assigns custom troops for the player clan and player kingdom.
     /// Clones culture roots or whole culture trees, then stores them on the faction wrappers.
     /// </summary>
-    public sealed class FactionTroopsBehavior : BaseCampaignBehavior<FactionTroopsBehavior>
+    public sealed class TroopUnlockBehavior : BaseCampaignBehavior<TroopUnlockBehavior>
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Auto Handlers                     //
@@ -308,11 +307,11 @@ namespace Retinues.Game.Factions
 
             WCharacter created;
 
-            var cloneEntireTroopTree = Settings.StarterTroops == Settings.TroopsMode.FullTrees;
+            var mode = Settings.StarterTroops.Value;
 
-            if (Settings.StarterTroops == Settings.TroopsMode.RootsOnly)
+            if (mode == Settings.TroopsMode.RootsOnly)
             {
-                created = CharacterCloner.CloneVanilla(
+                created = TroopCloner.CloneVanilla(
                     template,
                     skills: true,
                     equipments: true,
@@ -324,9 +323,9 @@ namespace Retinues.Game.Factions
             }
             else
             {
-                bool lean = Settings.StarterTroops == Settings.TroopsMode.LeanTrees;
+                bool lean = mode == Settings.TroopsMode.LeanTrees;
 
-                created = CharacterCloner.CloneTreeFromRoot(
+                created = TroopCloner.CloneTreeFromRoot(
                     template,
                     lean: lean,
                     skills: true,
@@ -339,7 +338,7 @@ namespace Retinues.Game.Factions
             if (created?.Base == null)
                 return null;
 
-            if (cloneEntireTroopTree)
+            if (mode == Settings.TroopsMode.FullTrees)
             {
                 var tree = created.Tree ?? [created];
                 for (int i = 0; i < tree.Count; i++)
@@ -349,6 +348,25 @@ namespace Retinues.Game.Factions
                         continue;
 
                     node.Name = BuildFactionTroopName(node.Name, factionName, culture);
+                    node.HiddenInEncyclopedia = false;
+                }
+            }
+            else if (mode == Settings.TroopsMode.LeanTrees)
+            {
+                var nobleLine =
+                    culture?.RootElite?.Base != null
+                    && template?.Base != null
+                    && template.StringId == culture.RootElite.StringId;
+
+                TroopCloner.ApplyLeanFactionNames(created, factionName, nobleLine: nobleLine);
+
+                var tree = created.Tree ?? [created];
+                for (int i = 0; i < tree.Count; i++)
+                {
+                    var node = tree[i];
+                    if (node?.Base == null)
+                        continue;
+
                     node.HiddenInEncyclopedia = false;
                 }
             }

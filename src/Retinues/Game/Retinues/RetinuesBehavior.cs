@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using Retinues.Configuration;
-using Retinues.Domain.Characters.Helpers;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Factions.Wrappers;
 using Retinues.Framework.Behaviors;
+using Retinues.Game.Troops;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 
@@ -47,9 +47,9 @@ namespace Retinues.Game.Retinues
             if (template?.Base == null)
                 return null;
 
-            return CharacterCloner.BuildFromTemplate(
+            return TroopCloner.BuildFromTemplate(
                 template,
-                new CharacterCloner.TroopBuildRequest
+                new TroopCloner.TroopBuildRequest
                 {
                     Name = name,
                     CultureContext = culture,

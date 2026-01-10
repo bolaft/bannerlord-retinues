@@ -422,6 +422,20 @@ namespace Retinues.Configuration
                     }
             );
 
+        public static readonly Option<int> RandomItemMaxTier = CreateOption(
+            section: Troops,
+            name: L.F("mcm_option_random_item_max_tier", "Random Item Max Tier"),
+            hint: L.F(
+                "mcm_option_random_item_max_tier_hint",
+                "The maximum tier for randomly assigned starter equipment. Item tier is also capped by troop tier."
+            ),
+            minValue: 1,
+            maxValue: 6,
+            @default: 4,
+            dependsOn: StarterEquipment,
+            dependsOnValue: new[] { EquipmentMode.RandomSet }
+        );
+
         public static readonly Option<float> MixedGenderRatio = CreateOption(
             section: Troops,
             name: L.F("mcm_option_mixed_gender_ratio", "Mixed Gender Ratio"),
@@ -446,7 +460,7 @@ namespace Retinues.Configuration
 
         public enum RecruitmentMode
         {
-            Anywhere,
+            Everywhere,
             FactionFiefs,
             ClanOrKingdomFiefs,
             Nowhere,
@@ -463,7 +477,7 @@ namespace Retinues.Configuration
                 @default: RecruitmentMode.FactionFiefs,
                 choices:
                 [
-                    RecruitmentMode.Anywhere,
+                    RecruitmentMode.Everywhere,
                     RecruitmentMode.FactionFiefs,
                     RecruitmentMode.ClanOrKingdomFiefs,
                     RecruitmentMode.Nowhere,
@@ -471,7 +485,7 @@ namespace Retinues.Configuration
                 choiceFormatter: v =>
                     v switch
                     {
-                        RecruitmentMode.Anywhere => L.S("troops_availability_anywhere", "Anywhere"),
+                        RecruitmentMode.Everywhere => L.S("troops_availability_everywhere", "Everywhere"),
                         RecruitmentMode.FactionFiefs => L.S(
                             "troops_availability_clan_fiefs",
                             "Clan Fiefs"
@@ -502,7 +516,7 @@ namespace Retinues.Configuration
                 @default: RecruitmentMode.FactionFiefs,
                 choices:
                 [
-                    RecruitmentMode.Anywhere,
+                    RecruitmentMode.Everywhere,
                     RecruitmentMode.FactionFiefs,
                     RecruitmentMode.ClanOrKingdomFiefs,
                     RecruitmentMode.Nowhere,
@@ -510,7 +524,7 @@ namespace Retinues.Configuration
                 choiceFormatter: v =>
                     v switch
                     {
-                        RecruitmentMode.Anywhere => L.S("troops_availability_anywhere", "Anywhere"),
+                        RecruitmentMode.Everywhere => L.S("troops_availability_anywhere", "Anywhere"),
                         RecruitmentMode.FactionFiefs => L.S(
                             "troops_availability_kingdom_fiefs",
                             "Kingdom Fiefs"
