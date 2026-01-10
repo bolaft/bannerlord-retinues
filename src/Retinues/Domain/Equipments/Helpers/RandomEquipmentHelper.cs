@@ -349,7 +349,7 @@ namespace Retinues.Domain.Equipments.Helpers
             if (picked != null)
                 return picked;
 
-            // Small fallback: - 1 tier
+            // Small fallback: lower tiers
             int lower = MBMath.ClampInt(desiredTier - 1, 1, 6);
 
             return TryPickBySpec(
@@ -357,7 +357,7 @@ namespace Retinues.Domain.Equipments.Helpers
                 currentEquipment,
                 slot,
                 civilian,
-                lower,
+                0,
                 lower,
                 cultureIds,
                 acceptNeutralCulture,
