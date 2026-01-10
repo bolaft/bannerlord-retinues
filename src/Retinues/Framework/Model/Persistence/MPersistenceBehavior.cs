@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
@@ -28,24 +29,81 @@ namespace Retinues.Framework.Model.Persistence
 
             try
             {
-                string blob = string.Empty;
+                const string V2CountKey = SaveKey + "_v2_count";
+                const string V2PartKeyPrefix = SaveKey + "_v2_part_";
+
+                // Base64 is ASCII, so chars == bytes for the stored payload.
+                // Keep a healthy margin under any per-entry limit.
+                const int MaxPartChars = 24000;
 
                 if (dataStore.IsSaving)
-                    blob = BuildSaveBlob();
+                {
+                    var xml = BuildSaveBlob();
 
-                Log.Info(
-                    $"MPersistenceBehavior.SyncData: {(dataStore.IsSaving ? "Saving" : "Loading")} data (length={(blob != null ? blob.Length.ToString() : "null")})."
-                );
-                dataStore.SyncData(SaveKey, ref blob);
-                Log.Info($"MPersistenceBehavior.SyncData: data sync complete.");
+                    // Pack (gzip + base64) then chunk into multiple small entries.
+                    var packed = PackToBase64Gzip(xml);
+                    var parts = SplitIntoParts(packed, MaxPartChars);
 
-                if (!dataStore.IsLoading)
+                    var count = parts.Count;
+                    dataStore.SyncData(V2CountKey, ref count);
+
+                    for (int i = 0; i < parts.Count; i++)
+                    {
+                        var part = parts[i] ?? string.Empty;
+                        dataStore.SyncData(V2PartKeyPrefix + i, ref part);
+                    }
+
+                    // Important: prevent writing the legacy single-entry blob (can corrupt saves).
+                    var legacy = string.Empty;
+                    dataStore.SyncData(SaveKey, ref legacy);
+
+                    Log.Info(
+                        $"MPersistenceBehavior.SyncData: Saving v2 chunks. xmlChars={xml.Length} packedChars={packed.Length} parts={parts.Count}"
+                    );
+
+                    return;
+                }
+
+                // Loading
+                var v2Count = 0;
+                dataStore.SyncData(V2CountKey, ref v2Count);
+
+                string xmlBlob = null;
+
+                if (v2Count > 0)
+                {
+                    var sb = new StringBuilder(v2Count * MaxPartChars);
+
+                    for (int i = 0; i < v2Count; i++)
+                    {
+                        var part = string.Empty;
+                        dataStore.SyncData(V2PartKeyPrefix + i, ref part);
+                        sb.Append(part ?? string.Empty);
+                    }
+
+                    var packed = sb.ToString();
+                    xmlBlob = UnpackFromBase64Gzip(packed);
+
+                    Log.Info(
+                        $"MPersistenceBehavior.SyncData: Loaded v2 chunks. packedChars={packed.Length} xmlChars={(xmlBlob != null ? xmlBlob.Length : 0)} parts={v2Count}"
+                    );
+                }
+                else
+                {
+                    // Legacy fallback (old saves)
+                    var legacy = string.Empty;
+                    dataStore.SyncData(SaveKey, ref legacy);
+                    xmlBlob = legacy;
+
+                    Log.Info(
+                        $"MPersistenceBehavior.SyncData: Loaded legacy blob. xmlChars={(xmlBlob != null ? xmlBlob.Length : 0)}"
+                    );
+                }
+
+                if (string.IsNullOrEmpty(xmlBlob))
                     return;
 
-                if (string.IsNullOrEmpty(blob))
-                    return;
-
-                if (!TryParseXmlRoot(blob, out var xmlRoot))
+                if (!TryParseXmlRoot(xmlBlob, out var xmlRoot))
                     return;
 
                 if (xmlRoot.Name.LocalName != RootName)
@@ -64,12 +122,76 @@ namespace Retinues.Framework.Model.Persistence
             }
         }
 
-        protected override void OnSessionLaunched(CampaignGameStarter starter)
+        static string PackToBase64Gzip(string s)
+        {
+            if (string.IsNullOrEmpty(s))
+                return string.Empty;
+
+            var input = Encoding.UTF8.GetBytes(s);
+
+            using var ms = new MemoryStream();
+            using (var gz = new GZipStream(ms, CompressionLevel.Optimal, leaveOpen: true))
+            {
+                gz.Write(input, 0, input.Length);
+            }
+
+            var compressed = ms.ToArray();
+            return Convert.ToBase64String(compressed);
+        }
+
+        static string UnpackFromBase64Gzip(string base64)
+        {
+            if (string.IsNullOrEmpty(base64))
+                return string.Empty;
+
+            byte[] compressed;
+
+            try
+            {
+                compressed = Convert.FromBase64String(base64);
+            }
+            catch
+            {
+                return string.Empty;
+            }
+
+            using var input = new MemoryStream(compressed);
+            using var gz = new GZipStream(input, CompressionMode.Decompress);
+            using var output = new MemoryStream();
+
+            gz.CopyTo(output);
+
+            var bytes = output.ToArray();
+            return Encoding.UTF8.GetString(bytes, 0, bytes.Length);
+        }
+
+        static List<string> SplitIntoParts(string s, int maxLen)
+        {
+            var list = new List<string>();
+            if (string.IsNullOrEmpty(s))
+                return list;
+
+            if (maxLen <= 0)
+            {
+                list.Add(s);
+                return list;
+            }
+
+            for (int i = 0; i < s.Length; i += maxLen)
+            {
+                var len = Math.Min(maxLen, s.Length - i);
+                list.Add(s.Substring(i, len));
+            }
+
+            return list;
+        }
+
+        protected override void OnGameLoadFinished()
         {
             FlushDeferred();
         }
 
-        static readonly List<(string uid, string data)> _deferred = new();
+        static readonly List<(string uid, string data)> _deferred = [];
 
         static void EnqueueDeferred(string uid, string data)
         {
@@ -124,10 +246,10 @@ namespace Retinues.Framework.Model.Persistence
                     "All",
                     System.Reflection.BindingFlags.Public
                         | System.Reflection.BindingFlags.Static
-                        | System.Reflection.BindingFlags.FlattenHierarchy
+                        | System.Reflection.BindingFlags.DeclaredOnly
                 );
 
-                var declaresAll = allProp != null && allProp.DeclaringType == wrapperType;
+                var declaresAll = allProp != null;
 
                 if (declaresAll && mgr != null && getObjectTypeListGeneric != null)
                 {
@@ -150,7 +272,7 @@ namespace Retinues.Framework.Model.Persistence
                                     | System.Reflection.BindingFlags.Static
                                     | System.Reflection.BindingFlags.FlattenHierarchy,
                                 binder: null,
-                                types: new[] { baseArg },
+                                types: [baseArg],
                                 modifiers: null
                             );
 
@@ -178,7 +300,7 @@ namespace Retinues.Framework.Model.Persistence
                                         object w = null;
                                         try
                                         {
-                                            w = getByBase.Invoke(null, new[] { mbo });
+                                            w = getByBase.Invoke(null, [mbo]);
                                         }
                                         catch
                                         {

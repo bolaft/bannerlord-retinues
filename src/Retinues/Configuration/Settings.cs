@@ -350,8 +350,9 @@ namespace Retinues.Configuration
 
         public enum TroopsMode
         {
-            CloneRoots,
-            CloneTrees,
+            RootsOnly,
+            LeanTrees,
+            FullTrees,
         }
 
         public static readonly MultiChoiceOption<TroopsMode> StarterTroops =
@@ -362,18 +363,22 @@ namespace Retinues.Configuration
                     "mcm_option_starter_troops_hint",
                     "Determines clan and kingdom starter troops."
                 ),
-                @default: TroopsMode.CloneTrees,
-                choices: [TroopsMode.CloneRoots, TroopsMode.CloneTrees],
+                @default: TroopsMode.LeanTrees,
+                choices: [TroopsMode.RootsOnly, TroopsMode.LeanTrees, TroopsMode.FullTrees],
                 choiceFormatter: v =>
                     v switch
                     {
-                        TroopsMode.CloneRoots => L.S(
+                        TroopsMode.RootsOnly => L.S(
                             "starter_troops_clone_culture_roots",
                             "Root Troops Only"
                         ),
-                        TroopsMode.CloneTrees => L.S(
-                            "starter_troops_clone_culture_trees",
-                            "Entire Troop Trees"
+                        TroopsMode.LeanTrees => L.S(
+                            "starter_troops_clone_culture_lean_trees",
+                            "Lean Troop Trees"
+                        ),
+                        TroopsMode.FullTrees => L.S(
+                            "starter_troops_clone_culture_full_trees",
+                            "Full Troop Trees"
                         ),
                         _ => v.ToString(),
                     }

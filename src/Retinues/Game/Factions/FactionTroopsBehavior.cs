@@ -308,17 +308,10 @@ namespace Retinues.Game.Factions
 
             WCharacter created;
 
-            var cloneEntireTroopTree = Settings.StarterTroops == Settings.TroopsMode.CloneTrees;
+            var cloneEntireTroopTree = Settings.StarterTroops == Settings.TroopsMode.FullTrees;
 
-            if (cloneEntireTroopTree)
-                created = CharacterCloner.CloneTreeFromRoot(
-                    template,
-                    skills: true,
-                    equipments: true,
-                    notifyUnlocks: false,
-                    unlockSink: unlockSink
-                );
-            else
+            if (Settings.StarterTroops == Settings.TroopsMode.RootsOnly)
+            {
                 created = CharacterCloner.CloneVanilla(
                     template,
                     skills: true,
@@ -328,6 +321,20 @@ namespace Retinues.Game.Factions
                     notifyUnlocks: false,
                     unlockSink: unlockSink
                 );
+            }
+            else
+            {
+                bool lean = Settings.StarterTroops == Settings.TroopsMode.LeanTrees;
+
+                created = CharacterCloner.CloneTreeFromRoot(
+                    template,
+                    lean: lean,
+                    skills: true,
+                    equipments: true,
+                    notifyUnlocks: false,
+                    unlockSink: unlockSink
+                );
+            }
 
             if (created?.Base == null)
                 return null;

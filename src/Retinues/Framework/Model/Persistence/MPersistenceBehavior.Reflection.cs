@@ -11,27 +11,67 @@ namespace Retinues.Framework.Model.Persistence
 {
     public sealed partial class MPersistenceBehavior
     {
-        static readonly Dictionary<string, Type> WrapperByBaseFullName = BuildWrapperTypeMap();
+        static Dictionary<string, Type> _wrapperByBaseFullName;
 
-        static Dictionary<string, Type> BuildWrapperTypeMap()
+        static Dictionary<string, Type> WrapperByBaseFullName =>
+            _wrapperByBaseFullName ??= BuildWrapperTypeMapSafe();
+
+        static Dictionary<string, Type> BuildWrapperTypeMapSafe()
         {
             var asm = typeof(MPersistenceBehavior).Assembly;
             var map = new Dictionary<string, Type>(StringComparer.Ordinal);
 
-            foreach (var t in asm.GetTypes())
+            Type[] types;
+
+            try
             {
-                if (!WrapperReflection.IsConcreteWrapperType(t))
-                    continue;
+                types = asm.GetTypes();
+            }
+            catch (ReflectionTypeLoadException ex)
+            {
+                // This is the big one: some types couldn't be loaded.
+                // Keep the ones we can, and log the loader exceptions.
+                types = ex.Types.Where(t => t != null).ToArray();
 
-                var wb = WrapperReflection.GetWBaseGeneric(t);
-                if (wb == null)
-                    continue;
-
-                var baseArg = wb.GetGenericArguments()[1];
-                if (baseArg != null && baseArg.FullName != null)
-                    map[baseArg.FullName] = t;
+                if (ex.LoaderExceptions != null)
+                {
+                    for (int i = 0; i < ex.LoaderExceptions.Length; i++)
+                    {
+                        var le = ex.LoaderExceptions[i];
+                        if (le != null)
+                            Log.Warn($"Persistence: loader exception while scanning types: {le}");
+                    }
+                }
             }
 
+            for (int i = 0; i < types.Length; i++)
+            {
+                var t = types[i];
+                if (t == null)
+                    continue;
+
+                try
+                {
+                    if (!WrapperReflection.IsConcreteWrapperType(t))
+                        continue;
+
+                    var wb = WrapperReflection.GetWBaseGeneric(t);
+                    if (wb == null)
+                        continue;
+
+                    var baseArg = wb.GetGenericArguments()[1];
+                    if (baseArg?.FullName == null)
+                        continue;
+
+                    map[baseArg.FullName] = t;
+                }
+                catch (Exception e)
+                {
+                    Log.Warn($"Persistence: failed to register wrapper type '{t.FullName}': {e}");
+                }
+            }
+
+            Log.Info($"Persistence: wrapper map built ({map.Count} entries).");
             return map;
         }
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Retinues.Configuration;
@@ -240,5 +241,68 @@ namespace Retinues.Domain.Factions.Base
             Base.TotalStrength;
 #endif
         public bool IsEliminated => Base.IsEliminated;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Access                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        protected static TWrapper GetFromCampaign(
+            string stringId,
+            Func<IEnumerable<TFaction>> allGetter
+        )
+        {
+            if (string.IsNullOrEmpty(stringId))
+                return null;
+
+            // Prefer MBObjectManager (does not require Campaign.Current / Clan.All to be ready)
+            try
+            {
+                var mgr = MBObjectManager.Instance;
+                if (mgr != null)
+                {
+                    var mbo = mgr.GetObject<TFaction>(stringId);
+                    if (mbo != null)
+                        return Get(mbo);
+                }
+            }
+            catch
+            {
+                // ignore; fallback to campaign list
+            }
+
+            var all = allGetter?.Invoke();
+            if (all == null)
+                return null;
+
+            foreach (var f in all)
+            {
+                if (f == null)
+                    continue;
+
+                if (f.StringId == stringId)
+                    return Get(f);
+            }
+
+            return null;
+        }
+
+        protected static IEnumerable<TWrapper> AllFromCampaign(
+            Func<IEnumerable<TFaction>> allGetter
+        )
+        {
+            var all = allGetter?.Invoke();
+            if (all == null)
+                yield break;
+
+            foreach (var f in all)
+            {
+                if (f == null)
+                    continue;
+
+                var w = Get(f);
+                if (w != null)
+                    yield return w;
+            }
+        }
     }
 }

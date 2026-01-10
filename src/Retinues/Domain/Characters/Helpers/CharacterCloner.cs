@@ -77,6 +77,7 @@ namespace Retinues.Domain.Characters.Helpers
 
         public static WCharacter CloneTreeFromRoot(
             WCharacter rootTemplate,
+            bool lean = false,
             bool skills = true,
             bool equipments = true,
             bool notifyUnlocks = true,
