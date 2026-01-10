@@ -953,12 +953,6 @@
       id="ret_mcm_option_min_tier_for_war_mounts_hint"
       text="Truppen unterhalb der angegebenen Stufe dürfen keine Kriegspferde verwenden." />
     <string
-      id="ret_mcm_option_mix_ratio"
-      text="Mischungsverhältnis" />
-    <string
-      id="ret_mcm_option_mix_ratio_hint"
-      text="Bestimmt das Verhältnis von benutzerdefinierten Truppen zu Standardtruppen in den Rekrutierungspools." />
-    <string
       id="ret_mcm_option_mix_with_vanilla_troops"
       text="Mischen mit Standardtruppen" />
     <string

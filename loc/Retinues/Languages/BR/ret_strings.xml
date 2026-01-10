@@ -953,12 +953,6 @@
       id="ret_mcm_option_min_tier_for_war_mounts_hint"
       text="As tropas abaixo do nível especificado não poderão usar montarias de guerra." />
     <string
-      id="ret_mcm_option_mix_ratio"
-      text="Razão de Mistura" />
-    <string
-      id="ret_mcm_option_mix_ratio_hint"
-      text="Determina a proporção de tropas personalizadas para tropas padrão nas piscinas de recrutamento." />
-    <string
       id="ret_mcm_option_mix_with_vanilla_troops"
       text="Misturar com Tropas Padrão" />
     <string

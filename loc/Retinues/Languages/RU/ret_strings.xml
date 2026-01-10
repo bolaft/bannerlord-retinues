@@ -953,12 +953,6 @@
       id="ret_mcm_option_min_tier_for_war_mounts_hint"
       text="Войска ниже указанного уровня не смогут использовать боевых ездовых животных." />
     <string
-      id="ret_mcm_option_mix_ratio"
-      text="Соотношение смешивания" />
-    <string
-      id="ret_mcm_option_mix_ratio_hint"
-      text="Определяет соотношение пользовательских войск и стандартных войск в пулах набора." />
-    <string
       id="ret_mcm_option_mix_with_vanilla_troops"
       text="Смешивание со стандартными войсками" />
     <string

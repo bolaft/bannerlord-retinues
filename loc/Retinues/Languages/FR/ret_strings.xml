@@ -953,12 +953,6 @@
       id="ret_mcm_option_min_tier_for_war_mounts_hint"
       text="Les troupes en dessous du niveau spécifié ne seront pas autorisées à utiliser des montures de guerre." />
     <string
-      id="ret_mcm_option_mix_ratio"
-      text="Ratio de Mélange" />
-    <string
-      id="ret_mcm_option_mix_ratio_hint"
-      text="Détermine le ratio de troupes personnalisées par rapport aux troupes originelles parmi les volontaires." />
-    <string
       id="ret_mcm_option_mix_with_vanilla_troops"
       text="Mélanger avec des Troupes Originelles" />
     <string

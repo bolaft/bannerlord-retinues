@@ -953,12 +953,6 @@
       id="ret_mcm_option_min_tier_for_war_mounts_hint"
       text="Belirtilen seviyenin altındaki birliklerin savaş bineklerini kullanmasına izin verilmeyecektir." />
     <string
-      id="ret_mcm_option_mix_ratio"
-      text="Karışım Oranı" />
-    <string
-      id="ret_mcm_option_mix_ratio_hint"
-      text="İşe alım havuzlarındaki özel birliklerin vanilya birliklerine oranını belirler." />
-    <string
       id="ret_mcm_option_mix_with_vanilla_troops"
       text="Vanilya Birlikleri ile Karıştır" />
     <string

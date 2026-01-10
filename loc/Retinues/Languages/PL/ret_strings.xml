@@ -953,12 +953,6 @@
       id="ret_mcm_option_min_tier_for_war_mounts_hint"
       text="Oddziały poniżej określonego poziomu nie będą mogły korzystać z wojennych wierzchowców." />
     <string
-      id="ret_mcm_option_mix_ratio"
-      text="Stosunek mieszania" />
-    <string
-      id="ret_mcm_option_mix_ratio_hint"
-      text="Określa stosunek niestandardowych oddziałów do oddziałów standardowych w pulach rekrutacyjnych." />
-    <string
       id="ret_mcm_option_mix_with_vanilla_troops"
       text="Mieszaj z oddziałami standardowymi" />
     <string

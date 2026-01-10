@@ -953,12 +953,6 @@
       id="ret_mcm_option_min_tier_for_war_mounts_hint"
       text="지정된 등급 이하의 부대는 전쟁 탑승을 사용할 수 없습니다." />
     <string
-      id="ret_mcm_option_mix_ratio"
-      text="혼합 비율" />
-    <string
-      id="ret_mcm_option_mix_ratio_hint"
-      text="모집 풀에서 맞춤형 부대와 기본 부대의 비율을 결정합니다." />
-    <string
       id="ret_mcm_option_mix_with_vanilla_troops"
       text="기본 부대와 혼합" />
     <string

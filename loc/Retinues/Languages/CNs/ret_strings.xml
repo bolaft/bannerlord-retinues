@@ -953,12 +953,6 @@
       id="ret_mcm_option_min_tier_for_war_mounts_hint"
       text="低于指定等级的部队将不允许使用战争坐骑。" />
     <string
-      id="ret_mcm_option_mix_ratio"
-      text="混合比例" />
-    <string
-      id="ret_mcm_option_mix_ratio_hint"
-      text="确定招募池中自定义部队与原版部队的比例。" />
-    <string
       id="ret_mcm_option_mix_with_vanilla_troops"
       text="与原版部队混合" />
     <string

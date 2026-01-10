@@ -5056,38 +5056,6 @@
     "TR": "Belirtilen seviyenin altındaki birliklerin savaş bineklerini kullanmasına izin verilmeyecektir."
   },
   {
-    "id": "ret_mcm_option_mix_ratio",
-    "EN": "Mix Ratio",
-    "FR": "Ratio de Mélange",
-    "BR": "Razão de Mistura",
-    "CNs": "混合比例",
-    "CNt": "混合比例",
-    "DE": "Mischungsverhältnis",
-    "IT": "Rapporto di miscelazione",
-    "JP": "ミックス比率",
-    "KO": "혼합 비율",
-    "PL": "Stosunek mieszania",
-    "RU": "Соотношение смешивания",
-    "SP": "Relación de mezcla",
-    "TR": "Karışım Oranı"
-  },
-  {
-    "id": "ret_mcm_option_mix_ratio_hint",
-    "EN": "Determines the ratio of custom troops to vanilla troops in recruitment pools.",
-    "FR": "Détermine le ratio de troupes personnalisées par rapport aux troupes originelles parmi les volontaires.",
-    "BR": "Determina a proporção de tropas personalizadas para tropas padrão nas piscinas de recrutamento.",
-    "CNs": "确定招募池中自定义部队与原版部队的比例。",
-    "CNt": "確定招募池中自定義部隊與原版部隊的比例。",
-    "DE": "Bestimmt das Verhältnis von benutzerdefinierten Truppen zu Standardtruppen in den Rekrutierungspools.",
-    "IT": "Determina il rapporto tra truppe personalizzate e truppe standard nelle pool di reclutamento.",
-    "JP": "採用プールにおけるカスタム部隊とバニラ部隊の比率を決定します。",
-    "KO": "모집 풀에서 맞춤형 부대와 기본 부대의 비율을 결정합니다.",
-    "PL": "Określa stosunek niestandardowych oddziałów do oddziałów standardowych w pulach rekrutacyjnych.",
-    "RU": "Определяет соотношение пользовательских войск и стандартных войск в пулах набора.",
-    "SP": "Determina la proporción de tropas personalizadas a tropas estándar en las piscinas de reclutamiento.",
-    "TR": "İşe alım havuzlarındaki özel birliklerin vanilya birliklerine oranını belirler."
-  },
-  {
     "id": "ret_mcm_option_mix_with_vanilla_troops",
     "EN": "Mix With Vanilla Troops",
     "FR": "Mélanger avec des Troupes Originelles",

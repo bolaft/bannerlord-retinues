@@ -953,12 +953,6 @@
       id="ret_mcm_option_min_tier_for_war_mounts_hint"
       text="Troops below the specified tier will not be allowed to use war mounts." />
     <string
-      id="ret_mcm_option_mix_ratio"
-      text="Mix Ratio" />
-    <string
-      id="ret_mcm_option_mix_ratio_hint"
-      text="Determines the ratio of custom troops to vanilla troops in recruitment pools." />
-    <string
       id="ret_mcm_option_mix_with_vanilla_troops"
       text="Mix With Vanilla Troops" />
     <string

@@ -953,12 +953,6 @@
       id="ret_mcm_option_min_tier_for_war_mounts_hint"
       text="Las tropas por debajo del nivel especificado no podrán usar monturas de guerra." />
     <string
-      id="ret_mcm_option_mix_ratio"
-      text="Relación de mezcla" />
-    <string
-      id="ret_mcm_option_mix_ratio_hint"
-      text="Determina la proporción de tropas personalizadas a tropas estándar en las piscinas de reclutamiento." />
-    <string
       id="ret_mcm_option_mix_with_vanilla_troops"
       text="Mezclar con tropas estándar" />
     <string

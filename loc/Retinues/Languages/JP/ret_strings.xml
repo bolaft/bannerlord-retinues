@@ -953,12 +953,6 @@
       id="ret_mcm_option_min_tier_for_war_mounts_hint"
       text="指定されたティア以下の部隊は戦争用マウントを使用できません。" />
     <string
-      id="ret_mcm_option_mix_ratio"
-      text="ミックス比率" />
-    <string
-      id="ret_mcm_option_mix_ratio_hint"
-      text="採用プールにおけるカスタム部隊とバニラ部隊の比率を決定します。" />
-    <string
       id="ret_mcm_option_mix_with_vanilla_troops"
       text="バニラ部隊と混合" />
     <string

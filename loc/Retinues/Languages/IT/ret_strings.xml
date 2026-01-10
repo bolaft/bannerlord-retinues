@@ -953,12 +953,6 @@
       id="ret_mcm_option_min_tier_for_war_mounts_hint"
       text="Le truppe al di sotto del livello specificato non potranno usare le cavalcature da guerra." />
     <string
-      id="ret_mcm_option_mix_ratio"
-      text="Rapporto di miscelazione" />
-    <string
-      id="ret_mcm_option_mix_ratio_hint"
-      text="Determina il rapporto tra truppe personalizzate e truppe standard nelle pool di reclutamento." />
-    <string
       id="ret_mcm_option_mix_with_vanilla_troops"
       text="Mischia con truppe standard" />
     <string
