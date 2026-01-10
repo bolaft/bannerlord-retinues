@@ -105,20 +105,6 @@ namespace Retinues.Domain.Characters.Wrappers
 
         public WKingdom Kingdom => WKingdom.Get(Base.Clan?.Kingdom);
 
-        public IBaseFaction Faction
-        {
-            get
-            {
-                if (Base.MapFaction is Clan clan)
-                    return WClan.Get(clan);
-
-                if (Base.MapFaction is Kingdom kingdom)
-                    return WKingdom.Get(kingdom);
-
-                return null;
-            }
-        }
-
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Culture                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

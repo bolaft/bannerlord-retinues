@@ -34,6 +34,9 @@ namespace Retinues.Framework.Behaviors
 
             ItemsDiscardedByPlayer,
 
+            SettlementLeft,
+            BeforeSave,
+
             SettlementOwnerChanged,
             KingdomCreated,
         }
@@ -79,6 +82,10 @@ namespace Retinues.Framework.Behaviors
         protected virtual void OnMapEventEnded(MapEvent mapEvent) { }
 
         protected virtual void OnItemsDiscardedByPlayer(ItemRoster roster) { }
+
+        protected virtual void OnSettlementLeft(MobileParty party, Settlement settlement) { }
+
+        protected virtual void OnBeforeSave() { }
 
         protected virtual void OnSettlementOwnerChanged(
             Settlement settlement,
@@ -127,6 +134,12 @@ namespace Retinues.Framework.Behaviors
 
             if (IsOverridden(nameof(OnItemsDiscardedByPlayer)))
                 Hook(BehaviorEvent.ItemsDiscardedByPlayer, OnItemsDiscardedByPlayer);
+
+            if (IsOverridden(nameof(OnSettlementLeft)))
+                Hook(BehaviorEvent.SettlementLeft, OnSettlementLeft);
+
+            if (IsOverridden(nameof(OnBeforeSave)))
+                Hook(BehaviorEvent.BeforeSave, OnBeforeSave);
 
             if (IsOverridden(nameof(OnSettlementOwnerChanged)))
                 Hook(BehaviorEvent.SettlementOwnerChanged, OnSettlementOwnerChanged);
@@ -242,6 +255,21 @@ namespace Retinues.Framework.Behaviors
                     CampaignEvents.MapEventEnded.AddNonSerializedListener(
                         this,
                         me => InvokeHook(evt, handler, normalize, me)
+                    );
+                    break;
+
+                case BehaviorEvent.SettlementLeft:
+                    CampaignEvents.OnSettlementLeftEvent.AddNonSerializedListener(
+                        this,
+                        (party, settlement) =>
+                            InvokeHook(evt, handler, normalize, party, settlement)
+                    );
+                    break;
+
+                case BehaviorEvent.BeforeSave:
+                    CampaignEvents.OnBeforeSaveEvent.AddNonSerializedListener(
+                        this,
+                        () => InvokeHook(evt, handler, normalize)
                     );
                     break;
 

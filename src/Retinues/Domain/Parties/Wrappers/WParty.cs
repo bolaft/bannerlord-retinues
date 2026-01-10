@@ -1,6 +1,9 @@
 using Retinues.Domain.Characters.Wrappers;
+using Retinues.Domain.Factions;
+using Retinues.Domain.Factions.Wrappers;
 using Retinues.Domain.Parties.Models;
 using Retinues.Framework.Model;
+using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Party;
 
 namespace Retinues.Domain.Parties.Wrappers
@@ -36,6 +39,13 @@ namespace Retinues.Domain.Parties.Wrappers
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public WHero Leader => WHero.Get(Base.LeaderHero);
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Factions                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public WClan Clan => WClan.Get(Base.ActualClan);
+        public WKingdom Kingdom => WKingdom.Get(Base.ActualClan.Kingdom);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Rosters                        //

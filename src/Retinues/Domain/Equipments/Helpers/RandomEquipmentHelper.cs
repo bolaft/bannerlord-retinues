@@ -18,7 +18,7 @@ namespace Retinues.Domain.Equipments.Helpers
     [SafeClass]
     public static class RandomEquipmentHelper
     {
-        public static string[] InvalidTokensForMale = ["skirt", "dress", "lady"];
+        public static string[] InvalidTokensForMale = ["skirt", "dress", "lady", "moccasin"];
 
         private static readonly EquipmentIndex[] ArmorSlots =
         [

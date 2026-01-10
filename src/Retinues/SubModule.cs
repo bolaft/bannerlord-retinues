@@ -1,13 +1,16 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using Retinues.Configuration;
-using Retinues.Editor;
 using Retinues.Framework.Behaviors;
 using Retinues.Framework.Runtime;
+using Retinues.Game.Recruitement.Models;
 using Retinues.Modules;
 using Retinues.Modules.Compatibility;
 using Retinues.Modules.Dependencies;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.ComponentInterfaces;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 
@@ -88,6 +91,9 @@ namespace Retinues
 
                 // Interops: add behaviors for mod compatibility.
                 CompatibilityManager.RegisterCompatibilityBehaviors(cs);
+
+                // Add upstream recruitment model wrapper (must be after other mods added their models).
+                TryAddRecruitementVolunteerModel(cs);
             }
 
             Log.Debug("Game started.");
@@ -116,6 +122,40 @@ namespace Retinues
                 dependency.Shutdown();
 
             Log.Debug("SubModule unloaded.");
+        }
+
+        private static void TryAddRecruitementVolunteerModel(CampaignGameStarter cs)
+        {
+            try
+            {
+                // IMPORTANT:
+                // At OnGameStart time Campaign.Current.Models is not created yet.
+                // We must read from the gameStarter's model list instead.
+                var inner = cs.Models.OfType<VolunteerModel>().LastOrDefault();
+                if (inner == null)
+                {
+                    Log.Warn(
+                        "Recruitement: no VolunteerModel found in CampaignGameStarter.Models; wrapper not installed."
+                    );
+                    return;
+                }
+
+                if (inner is CustomVolunteerModel)
+                {
+                    Log.Info("Recruitement: VolunteerModel wrapper already installed.");
+                    return;
+                }
+
+                cs.AddModel(new CustomVolunteerModel(inner));
+
+                Log.Info(
+                    $"Recruitement: VolunteerModel wrapper installed (inner={inner.GetType().Name})."
+                );
+            }
+            catch (Exception ex)
+            {
+                Log.Exception(ex, "Recruitement: failed to install VolunteerModel wrapper.");
+            }
         }
     }
 }

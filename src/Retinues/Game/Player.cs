@@ -53,9 +53,9 @@ namespace Retinues.Game
             {
                 var faction = MainHero.MapFaction;
                 if (faction is Kingdom kingdom)
-                    return new WKingdom(kingdom);
+                    return WKingdom.Get(kingdom);
                 if (faction is Clan clan)
-                    return new WClan(clan);
+                    return WClan.Get(clan);
                 return null;
             }
         }

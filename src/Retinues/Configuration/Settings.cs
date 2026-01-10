@@ -535,19 +535,6 @@ namespace Retinues.Configuration
             @default: false
         );
 
-        public static readonly Option<float> MixRatio = CreateOption(
-            section: Recruitment,
-            name: L.F("mcm_option_mix_ratio", "Mix Ratio"),
-            hint: L.F(
-                "mcm_option_mix_ratio_hint",
-                "Determines the ratio of custom troops to vanilla troops in recruitment pools."
-            ),
-            minValue: 0f,
-            maxValue: 1f,
-            @default: 0.5f,
-            dependsOn: MixWithVanillaTroops
-        );
-
         public enum AllowedRecruitersMode
         {
             Everyone,
