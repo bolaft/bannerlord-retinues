@@ -485,7 +485,10 @@ namespace Retinues.Configuration
                 choiceFormatter: v =>
                     v switch
                     {
-                        RecruitmentMode.Everywhere => L.S("troops_availability_everywhere", "Everywhere"),
+                        RecruitmentMode.Everywhere => L.S(
+                            "troops_availability_everywhere",
+                            "Everywhere"
+                        ),
                         RecruitmentMode.FactionFiefs => L.S(
                             "troops_availability_clan_fiefs",
                             "Clan Fiefs"
@@ -524,7 +527,10 @@ namespace Retinues.Configuration
                 choiceFormatter: v =>
                     v switch
                     {
-                        RecruitmentMode.Everywhere => L.S("troops_availability_anywhere", "Anywhere"),
+                        RecruitmentMode.Everywhere => L.S(
+                            "troops_availability_everywhere",
+                            "Everywhere"
+                        ),
                         RecruitmentMode.FactionFiefs => L.S(
                             "troops_availability_kingdom_fiefs",
                             "Kingdom Fiefs"

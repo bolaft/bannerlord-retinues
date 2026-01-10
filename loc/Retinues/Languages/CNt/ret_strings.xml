@@ -1184,6 +1184,39 @@
       id="ret_race_invalid_model"
       text="此物種不存在有效模型。" />
     <string
+      id="ret_rank_up_confirm_body"
+      text="升級 {NAME}？{newline}{newline}費用：{newline}- {SP_COST} 技能點{newline}- {GOLD_COST} 金幣{newline}{newline}效果：{newline}- +5 級（升級）" />
+    <string
+      id="ret_rank_up_confirm_no"
+      text="取消" />
+    <string
+      id="ret_rank_up_confirm_title"
+      text="確認升級" />
+    <string
+      id="ret_rank_up_confirm_yes"
+      text="升級" />
+    <string
+      id="ret_rank_up_max_tier"
+      text="此單位已達到最高等級。" />
+    <string
+      id="ret_rank_up_not_enough_money"
+      text="錢不夠（需要 {COST} 戈德）。" />
+    <string
+      id="ret_rank_up_not_enough_sp"
+      text="技能點不足（需要 {POINTS}）。" />
+    <string
+      id="ret_rank_up_player_only"
+      text="僅在玩家模式下可用。" />
+    <string
+      id="ret_rank_up_requires_maxed_skills"
+      text="此單位必須達到其等級的技能總數上限。" />
+    <string
+      id="ret_rank_up_retinue_only"
+      text="僅適用於隨從。" />
+    <string
+      id="ret_rank_up_tooltip"
+      text="提升此單位的等級。" />
+    <string
       id="ret_rename_tooltip"
       text="重新命名" />
     <string
@@ -1239,10 +1272,10 @@
       text="降低技能" />
     <string
       id="ret_skill_description_text"
-      text="技能點：{SKILL_POINTS} - 技能上限：{SKILL_CAP}" />
+      text="技能點：{SKILL_POINTS} - 技能上限：{SKILL_CAP} - 等級：{TIER}" />
     <string
       id="ret_skill_description_text_short"
-      text="技能上限：{SKILL_CAP}" />
+      text="技能上限：{SKILL_CAP} - 等級：{TIER}" />
     <string
       id="ret_skill_experience_tooltip"
       text="{XP}/{XP_REQUIRED} 經驗值，距離下一個技能點。" />

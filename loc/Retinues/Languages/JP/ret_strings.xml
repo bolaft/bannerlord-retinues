@@ -1184,6 +1184,39 @@
       id="ret_race_invalid_model"
       text="この種には有効なモデルが存在しません。" />
     <string
+      id="ret_rank_up_confirm_body"
+      text="{NAME} をランクアップしますか？{newline}{newline}コスト：{newline}- {SP_COST} スキルポイント{newline}- {GOLD_COST} ゴールド{newline}{newline}効果：{newline}- +5 レベル（ランクアップ）" />
+    <string
+      id="ret_rank_up_confirm_no"
+      text="キャンセル" />
+    <string
+      id="ret_rank_up_confirm_title"
+      text="ランクアップを確認" />
+    <string
+      id="ret_rank_up_confirm_yes"
+      text="ランクアップ" />
+    <string
+      id="ret_rank_up_max_tier"
+      text="このユニットはすでに最大階級に達しています。" />
+    <string
+      id="ret_rank_up_not_enough_money"
+      text="お金が足りません（{COST} デナリが必要です）。" />
+    <string
+      id="ret_rank_up_not_enough_sp"
+      text="スキルポイントが不足しています（{POINTS} が必要です）。" />
+    <string
+      id="ret_rank_up_player_only"
+      text="プレイヤーモードでのみ利用可能です。" />
+    <string
+      id="ret_rank_up_requires_maxed_skills"
+      text="このユニットは、その階級の総スキルを最大化している必要があります。" />
+    <string
+      id="ret_rank_up_retinue_only"
+      text="随行員のみ利用可能です。" />
+    <string
+      id="ret_rank_up_tooltip"
+      text="このユニットのランクを上げます。" />
+    <string
       id="ret_rename_tooltip"
       text="名前を変更" />
     <string
@@ -1239,10 +1272,10 @@
       text="スキルを下げる" />
     <string
       id="ret_skill_description_text"
-      text="スキルポイント: {SKILL_POINTS} - スキル上限: {SKILL_CAP}" />
+      text="スキルポイント：{SKILL_POINTS} - スキル上限：{SKILL_CAP} - 階層：{TIER}" />
     <string
       id="ret_skill_description_text_short"
-      text="スキル上限: {SKILL_CAP}" />
+      text="スキル上限：{SKILL_CAP} - 階層：{TIER}" />
     <string
       id="ret_skill_experience_tooltip"
       text="次のスキルポイントまでのXP：{XP}/{XP_REQUIRED}。" />

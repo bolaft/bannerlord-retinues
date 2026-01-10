@@ -51,9 +51,7 @@ namespace Retinues.Editor.VM.Panel.Character
             new(
                 action: CharacterController.Rename,
                 arg: () => State.Character,
-                refresh: [UIEvent.Character, UIEvent.Name],
-                sprite: "SPClan.NameChange.Icon",
-                color: "f8eed1ff"
+                refresh: [UIEvent.Character, UIEvent.Name]
             );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -150,13 +148,15 @@ namespace Retinues.Editor.VM.Panel.Character
             State.Mode == EditorMode.Player && Settings.EnableSkillGainSystem
                 ? L.T(
                         "skill_description_text",
-                        "Skill Points: {SKILL_POINTS} - Skill Cap: {SKILL_CAP}"
+                        "Skill Points: {SKILL_POINTS} - Skill Cap: {SKILL_CAP} - Tier: {TIER}"
                     )
                     .SetTextVariable("SKILL_POINTS", State.Character.SkillPoints)
                     .SetTextVariable("SKILL_CAP", State.Character.SkillCapForTier)
+                    .SetTextVariable("TIER", Format.ToRoman(State.Character.Tier))
                     .ToString()
-                : L.T("skill_description_text_short", "Skill Cap: {SKILL_CAP}")
+                : L.T("skill_description_text_short", "Skill Cap: {SKILL_CAP} - Tier: {TIER}")
                     .SetTextVariable("SKILL_CAP", State.Character.SkillCapForTier)
+                    .SetTextVariable("TIER", Format.ToRoman(State.Character.Tier))
                     .ToString();
 
         [DataSourceProperty]
@@ -179,6 +179,19 @@ namespace Retinues.Editor.VM.Panel.Character
                 refresh: [UIEvent.Character],
                 visibilityGate: () =>
                     Settings.EnableSkillGainSystem && State.Mode == EditorMode.Player
+            );
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Rank Up                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [DataSourceProperty]
+        public Button<WCharacter> RankUpButton { get; } =
+            new(
+                action: CharacterController.RankUp,
+                arg: () => State.Character,
+                refresh: [UIEvent.Skill],
+                visibilityGate: () => State.Mode == EditorMode.Player && State.Character.IsRetinue
             );
 
         [DataSourceProperty]

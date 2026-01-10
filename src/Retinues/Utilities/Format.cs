@@ -1,4 +1,5 @@
 using System.Globalization;
+using System.Text;
 
 namespace Retinues.Utilities
 {
@@ -45,11 +46,56 @@ namespace Retinues.Utilities
         /// <summary>
         /// Format an integer using a space as the thousands separator (e.g. "1 234 567").
         /// </summary>
-        public static string Number(int value)
+        public static string ToNumber(int value)
         {
             var nfi = (NumberFormatInfo)CultureInfo.InvariantCulture.NumberFormat.Clone();
             nfi.NumberGroupSeparator = " ";
             return value.ToString("N0", nfi);
+        }
+
+        /// <summary>
+        /// Convert an integer to a Roman numeral (1..3999).
+        /// </summary>
+        public static string ToRoman(int value)
+        {
+            if (value <= 0 || value > 3999)
+                return value.ToString();
+
+            // Ordered from largest to smallest, including subtractive forms.
+            int[] values = { 1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1 };
+
+            string[] symbols =
+            {
+                "M",
+                "CM",
+                "D",
+                "CD",
+                "C",
+                "XC",
+                "L",
+                "XL",
+                "X",
+                "IX",
+                "V",
+                "IV",
+                "I",
+            };
+
+            var sb = new StringBuilder(16);
+
+            for (int i = 0; i < values.Length; i++)
+            {
+                int v = values[i];
+                string sym = symbols[i];
+
+                while (value >= v)
+                {
+                    sb.Append(sym);
+                    value -= v;
+                }
+            }
+
+            return sb.ToString();
         }
     }
 }

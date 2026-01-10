@@ -64,7 +64,6 @@ namespace Retinues.Game.Retinues
         //                         Cheats                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-#if DEBUG
         [CommandLineFunctionality.CommandLineArgumentFunction("create_retinue", "retinues")]
         public static string CreateRetinueCommand(List<string> args)
         {
@@ -88,6 +87,5 @@ namespace Retinues.Game.Retinues
 
             return $"Created new retinue '{retinueName}' for player clan based on culture '{culture.Name}'.";
         }
-#endif
     }
 }

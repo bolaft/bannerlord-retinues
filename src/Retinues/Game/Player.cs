@@ -1,12 +1,15 @@
 using System;
+using System.Collections.Generic;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Factions;
 using Retinues.Domain.Factions.Wrappers;
 using Retinues.Domain.Parties.Wrappers;
 using Retinues.Domain.Settlements.Wrappers;
 using Retinues.Framework.Runtime;
+using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Party;
+using TaleWorlds.Library;
 
 namespace Retinues.Game
 {
@@ -130,6 +133,35 @@ namespace Retinues.Game
                 return false;
             ChangeInfluence(-amount);
             return true;
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Cheats                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [CommandLineFunctionality.CommandLineArgumentFunction("list_custom_troops", "retinues")]
+        public static string ListTroops(List<string> args)
+        {
+            string result = string.Empty;
+
+            result += $"Clan '{Clan?.Name}' (ID: {Clan?.StringId}):\n";
+
+            foreach (var troop in Clan.Troops)
+                if (!troop.IsHero)
+                    result += $"  - {troop.Name} (ID: {troop.StringId})\n";
+
+            if (Kingdom == null)
+                return result;
+            else
+                result += "\n";
+
+            result += $"Kingdom '{Kingdom?.Name}' (ID: {Kingdom?.StringId}):\n";
+
+            foreach (var troop in Kingdom.Troops)
+                if (!troop.IsHero)
+                    result += $"  - {troop.Name} (ID: {troop.StringId})\n";
+
+            return result;
         }
     }
 }

@@ -1184,6 +1184,39 @@
       id="ret_race_invalid_model"
       text="Non esiste un modello valido per questa specie." />
     <string
+      id="ret_rank_up_confirm_body"
+      text="Salire di livello {NAME}?{newline}{newline}Costi:{newline}- {SP_COST} punti abilità{newline}- {GOLD_COST} oro{newline}{newline}Effetto:{newline}- +5 livelli (salita di livello)" />
+    <string
+      id="ret_rank_up_confirm_no"
+      text="Annulla" />
+    <string
+      id="ret_rank_up_confirm_title"
+      text="Conferma salire di livello" />
+    <string
+      id="ret_rank_up_confirm_yes"
+      text="Salire di livello" />
+    <string
+      id="ret_rank_up_max_tier"
+      text="Questa unità è già al livello massimo." />
+    <string
+      id="ret_rank_up_not_enough_money"
+      text="Non ci sono abbastanza soldi (ne servono {COST} denari)." />
+    <string
+      id="ret_rank_up_not_enough_sp"
+      text="Non ci sono abbastanza punti abilità (ne servono {POINTS})." />
+    <string
+      id="ret_rank_up_player_only"
+      text="Disponibile solo in modalità giocatore." />
+    <string
+      id="ret_rank_up_requires_maxed_skills"
+      text="Questa unità deve aver massimizzato le sue abilità totali per il suo livello." />
+    <string
+      id="ret_rank_up_retinue_only"
+      text="Disponibile solo per le retinues." />
+    <string
+      id="ret_rank_up_tooltip"
+      text="Fai salire di grado questa unità." />
+    <string
       id="ret_rename_tooltip"
       text="Rinomina" />
     <string
@@ -1239,10 +1272,10 @@
       text="Diminuisci abilità" />
     <string
       id="ret_skill_description_text"
-      text="Punti abilità: {SKILL_POINTS} - Limite abilità: {SKILL_CAP}" />
+      text="Punti Abilità: {SKILL_POINTS} - Limite Abilità: {SKILL_CAP} - Livello: {TIER}" />
     <string
       id="ret_skill_description_text_short"
-      text="Limite abilità: {SKILL_CAP}" />
+      text="Limite Abilità: {SKILL_CAP} - Livello: {TIER}" />
     <string
       id="ret_skill_experience_tooltip"
       text="{XP}/{XP_REQUIRED} XP verso il prossimo punto abilità." />

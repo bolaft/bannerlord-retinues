@@ -163,6 +163,41 @@ namespace Retinues.Editor.Controllers
             return this;
         }
 
+        public EditorAction<TArg> AddCondition(
+            Func<TArg, bool> test,
+            Func<TextObject> reasonFactory
+        )
+        {
+            _baseConditions.Add(new Condition(null, test, _ => reasonFactory()));
+            return this;
+        }
+
+        public EditorAction<TArg> AddCondition(Func<TArg, bool> test, Func<string> reasonFactory)
+        {
+            _baseConditions.Add(new Condition(null, test, _ => new TextObject(reasonFactory())));
+            return this;
+        }
+
+        public EditorAction<TArg> AddCondition(
+            Func<EditorState, bool> applies,
+            Func<TArg, bool> test,
+            Func<TextObject> reasonFactory
+        )
+        {
+            _baseConditions.Add(new Condition(applies, test, _ => reasonFactory()));
+            return this;
+        }
+
+        public EditorAction<TArg> AddCondition(
+            Func<EditorState, bool> applies,
+            Func<TArg, bool> test,
+            Func<string> reasonFactory
+        )
+        {
+            _baseConditions.Add(new Condition(applies, test, _ => new TextObject(reasonFactory())));
+            return this;
+        }
+
         /// <summary>
         /// Default tooltip shown when the action is enabled.
         /// If the action is disabled, the blocking reason tooltip is shown instead.

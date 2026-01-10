@@ -1184,6 +1184,39 @@
       id="ret_race_invalid_model"
       text="No valid model exists for this species." />
     <string
+      id="ret_rank_up_confirm_body"
+      text="Rank up {NAME}?{newline}{newline}Costs:{newline}- {SP_COST} skill points{newline}- {GOLD_COST} gold{newline}{newline}Effect:{newline}- +5 levels (tier up)" />
+    <string
+      id="ret_rank_up_confirm_no"
+      text="Cancel" />
+    <string
+      id="ret_rank_up_confirm_title"
+      text="Confirm Rank Up" />
+    <string
+      id="ret_rank_up_confirm_yes"
+      text="Rank Up" />
+    <string
+      id="ret_rank_up_max_tier"
+      text="This unit is already at max tier." />
+    <string
+      id="ret_rank_up_not_enough_money"
+      text="Not enough money (needs {COST} denars)." />
+    <string
+      id="ret_rank_up_not_enough_sp"
+      text="Not enough skill points (needs {POINTS})." />
+    <string
+      id="ret_rank_up_player_only"
+      text="Only available in player mode." />
+    <string
+      id="ret_rank_up_requires_maxed_skills"
+      text="This unit must have maxed its total skills for its tier." />
+    <string
+      id="ret_rank_up_retinue_only"
+      text="Only available for retinues." />
+    <string
+      id="ret_rank_up_tooltip"
+      text="Rank up this unit." />
+    <string
       id="ret_rename_tooltip"
       text="Rename" />
     <string
@@ -1239,10 +1272,10 @@
       text="Decrease Skill" />
     <string
       id="ret_skill_description_text"
-      text="Skill Points: {SKILL_POINTS} - Skill Cap: {SKILL_CAP}" />
+      text="Skill Points: {SKILL_POINTS} - Skill Cap: {SKILL_CAP} - Tier: {TIER}" />
     <string
       id="ret_skill_description_text_short"
-      text="Skill Cap: {SKILL_CAP}" />
+      text="Skill Cap: {SKILL_CAP} - Tier: {TIER}" />
     <string
       id="ret_skill_experience_tooltip"
       text="{XP}/{XP_REQUIRED} XP towards next skill point." />
@@ -1384,9 +1417,6 @@
     <string
       id="ret_troop_recruit"
       text="Recruit" />
-    <string
-      id="ret_troops_availability_anywhere"
-      text="Anywhere" />
     <string
       id="ret_troops_availability_clan_fiefs"
       text="Clan Fiefs" />

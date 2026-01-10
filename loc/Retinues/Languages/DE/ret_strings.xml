@@ -1184,6 +1184,39 @@
       id="ret_race_invalid_model"
       text="Für diese Spezies existiert kein gültiges Modell." />
     <string
+      id="ret_rank_up_confirm_body"
+      text="Rangaufstieg {NAME}?{newline}{newline}Kosten:{newline}- {SP_COST} Fertigkeitspunkte{newline}- {GOLD_COST} Gold{newline}{newline}Effekt:{newline}- +5 Stufen (Rangaufstieg)" />
+    <string
+      id="ret_rank_up_confirm_no"
+      text="Abbrechen" />
+    <string
+      id="ret_rank_up_confirm_title"
+      text="Rangaufstieg bestätigen" />
+    <string
+      id="ret_rank_up_confirm_yes"
+      text="Rang erhöhen" />
+    <string
+      id="ret_rank_up_max_tier"
+      text="Diese Einheit ist bereits auf dem maximalen Rang." />
+    <string
+      id="ret_rank_up_not_enough_money"
+      text="Nicht genügend Geld (benötigt {COST} Denare)." />
+    <string
+      id="ret_rank_up_not_enough_sp"
+      text="Nicht genügend Fertigkeitspunkte (benötigt {POINTS})." />
+    <string
+      id="ret_rank_up_player_only"
+      text="Nur im Spielermodus verfügbar." />
+    <string
+      id="ret_rank_up_requires_maxed_skills"
+      text="Diese Einheit muss ihre Gesamtfähigkeiten für ihre Stufe maximiert haben." />
+    <string
+      id="ret_rank_up_retinue_only"
+      text="Nur für Retinues verfügbar." />
+    <string
+      id="ret_rank_up_tooltip"
+      text="Diese Einheit befördern." />
+    <string
       id="ret_rename_tooltip"
       text="Umbenennen" />
     <string
@@ -1239,10 +1272,10 @@
       text="Fähigkeit verringern" />
     <string
       id="ret_skill_description_text"
-      text="Fertigkeitspunkte: {SKILL_POINTS} - Fähigkeitslimit: {SKILL_CAP}" />
+      text="Fertigkeitspunkte: {SKILL_POINTS} - Fertigkeitslimit: {SKILL_CAP} - Stufe: {TIER}" />
     <string
       id="ret_skill_description_text_short"
-      text="Fähigkeitslimit: {SKILL_CAP}" />
+      text="Fertigkeitslimit: {SKILL_CAP} - Stufe: {TIER}" />
     <string
       id="ret_skill_experience_tooltip"
       text="{XP}/{XP_REQUIRED} XP bis zum nächsten Fertigkeitspunkt." />

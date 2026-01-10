@@ -1184,6 +1184,39 @@
       id="ret_race_invalid_model"
       text="Для этого вида не существует действительной модели." />
     <string
+      id="ret_rank_up_confirm_body"
+      text="Повысить уровень {NAME}?{newline}{newline}Стоимость:{newline}- {SP_COST} очков навыков{newline}- {GOLD_COST} золота{newline}{newline}Эффект:{newline}- +5 уровней (повышение уровня)" />
+    <string
+      id="ret_rank_up_confirm_no"
+      text="Отмена" />
+    <string
+      id="ret_rank_up_confirm_title"
+      text="Подтвердить повышение уровня" />
+    <string
+      id="ret_rank_up_confirm_yes"
+      text="Повысить уровень" />
+    <string
+      id="ret_rank_up_max_tier"
+      text="Этот юнит уже на максимальном уровне." />
+    <string
+      id="ret_rank_up_not_enough_money"
+      text="Недостаточно денег (требуется {COST} денаров)." />
+    <string
+      id="ret_rank_up_not_enough_sp"
+      text="Недостаточно очков навыков (требуется {POINTS})." />
+    <string
+      id="ret_rank_up_player_only"
+      text="Доступно только в режиме игрока." />
+    <string
+      id="ret_rank_up_requires_maxed_skills"
+      text="Этот юнит должен иметь максимальное количество навыков для своего уровня." />
+    <string
+      id="ret_rank_up_retinue_only"
+      text="Доступно только для ретинусов." />
+    <string
+      id="ret_rank_up_tooltip"
+      text="Повысить ранг этого юнита." />
+    <string
       id="ret_rename_tooltip"
       text="Переименовать" />
     <string
@@ -1239,10 +1272,10 @@
       text="Уменьшить навык" />
     <string
       id="ret_skill_description_text"
-      text="Очки навыков: {SKILL_POINTS} - Лимит навыков: {SKILL_CAP}" />
+      text="Очки навыков: {SKILL_POINTS} - Лимит навыков: {SKILL_CAP} - Уровень: {TIER}" />
     <string
       id="ret_skill_description_text_short"
-      text="Лимит навыков: {SKILL_CAP}" />
+      text="Лимит навыков: {SKILL_CAP} - Уровень: {TIER}" />
     <string
       id="ret_skill_experience_tooltip"
       text="{XP}/{XP_REQUIRED} XP до следующего очка навыка." />

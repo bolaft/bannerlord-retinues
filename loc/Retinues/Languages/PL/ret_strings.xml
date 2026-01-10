@@ -1184,6 +1184,39 @@
       id="ret_race_invalid_model"
       text="Dla tego gatunku nie istnieje prawidłowy model." />
     <string
+      id="ret_rank_up_confirm_body"
+      text="Awansować {NAME}?{newline}{newline}Koszty:{newline}- {SP_COST} punktów umiejętności{newline}- {GOLD_COST} złota{newline}{newline}Efekt:{newline}- +5 poziomów (awans)" />
+    <string
+      id="ret_rank_up_confirm_no"
+      text="Anuluj" />
+    <string
+      id="ret_rank_up_confirm_title"
+      text="Potwierdź awans" />
+    <string
+      id="ret_rank_up_confirm_yes"
+      text="Awansuj" />
+    <string
+      id="ret_rank_up_max_tier"
+      text="Ta jednostka jest już na maksymalnym poziomie." />
+    <string
+      id="ret_rank_up_not_enough_money"
+      text="Brak wystarczającej ilości pieniędzy (potrzeba {COST} denarów)." />
+    <string
+      id="ret_rank_up_not_enough_sp"
+      text="Brak wystarczającej liczby punktów umiejętności (potrzeba {POINTS})." />
+    <string
+      id="ret_rank_up_player_only"
+      text="Dostępne tylko w trybie gracza." />
+    <string
+      id="ret_rank_up_requires_maxed_skills"
+      text="Ta jednostka musi mieć maksymalnie rozwinięte umiejętności dla swojego poziomu." />
+    <string
+      id="ret_rank_up_retinue_only"
+      text="Dostępne tylko dla retinues." />
+    <string
+      id="ret_rank_up_tooltip"
+      text="Awansuj tę jednostkę." />
+    <string
       id="ret_rename_tooltip"
       text="Zmień nazwę" />
     <string
@@ -1239,10 +1272,10 @@
       text="Zmniejsz umiejętność" />
     <string
       id="ret_skill_description_text"
-      text="Punkty umiejętności: {SKILL_POINTS} - Limit umiejętności: {SKILL_CAP}" />
+      text="Punkty umiejętności: {SKILL_POINTS} - Limit umiejętności: {SKILL_CAP} - Poziom: {TIER}" />
     <string
       id="ret_skill_description_text_short"
-      text="Limit umiejętności: {SKILL_CAP}" />
+      text="Limit umiejętności: {SKILL_CAP} - Poziom: {TIER}" />
     <string
       id="ret_skill_experience_tooltip"
       text="{XP}/{XP_REQUIRED} XP do następnego punktu umiejętności." />

@@ -6,6 +6,7 @@ using Retinues.Framework.Model.Attributes;
 using Retinues.Framework.Runtime;
 using Retinues.Utilities;
 using TaleWorlds.Core;
+using TaleWorlds.Library;
 using TaleWorlds.ObjectSystem;
 
 namespace Retinues.Domain.Characters.Wrappers
@@ -410,6 +411,31 @@ namespace Retinues.Domain.Characters.Wrappers
                     name: "__SkillsBootstrap"
                 );
             }
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Cheats                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [CommandLineFunctionality.CommandLineArgumentFunction("add_skill_points", "retinues")]
+        public static string AddSkillPointsCommand(List<string> args)
+        {
+            if (args.Count < 2)
+                return "Usage: add_skill_points <troop_id> <amount>";
+
+            var troopId = args[0];
+            var retinueName = string.Join(" ", args.GetRange(1, args.Count - 1));
+
+            var troop = Get(troopId);
+            if (troop == null)
+                return $"Error: Troop with id '{troopId}' not found.";
+
+            if (!int.TryParse(retinueName, out var amount))
+                return $"Error: Invalid amount '{retinueName}'.";
+
+            troop.SkillPoints += amount;
+
+            return $"Added {amount} skill points to troop '{troop.Name}' ({troopId}).";
         }
     }
 }

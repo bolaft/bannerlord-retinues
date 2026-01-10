@@ -1184,6 +1184,39 @@
       id="ret_race_invalid_model"
       text="이 종에는 유효한 모델이 없습니다." />
     <string
+      id="ret_rank_up_confirm_body"
+      text="{NAME} 등급 올리기?{newline}{newline}비용:{newline}- {SP_COST} 기술 포인트{newline}- {GOLD_COST} 골드{newline}{newline}효과:{newline}- +5 레벨 (등급 상승)" />
+    <string
+      id="ret_rank_up_confirm_no"
+      text="취소" />
+    <string
+      id="ret_rank_up_confirm_title"
+      text="등급 올리기 확인" />
+    <string
+      id="ret_rank_up_confirm_yes"
+      text="등급 올리기" />
+    <string
+      id="ret_rank_up_max_tier"
+      text="이 유닛은 이미 최대 등급에 도달했습니다." />
+    <string
+      id="ret_rank_up_not_enough_money"
+      text="돈이 부족합니다({COST} 데나르 필요)." />
+    <string
+      id="ret_rank_up_not_enough_sp"
+      text="기술 포인트가 부족합니다({POINTS} 필요)." />
+    <string
+      id="ret_rank_up_player_only"
+      text="플레이어 모드에서만 사용할 수 있습니다." />
+    <string
+      id="ret_rank_up_requires_maxed_skills"
+      text="이 유닛은 자신의 등급에 대한 총 기술을 최대화해야 합니다." />
+    <string
+      id="ret_rank_up_retinue_only"
+      text="수행원에게만 제공됩니다." />
+    <string
+      id="ret_rank_up_tooltip"
+      text="이 유닛의 등급을 올리세요." />
+    <string
       id="ret_rename_tooltip"
       text="이름 바꾸기" />
     <string
@@ -1239,10 +1272,10 @@
       text="기술 감소" />
     <string
       id="ret_skill_description_text"
-      text="기술 포인트: {SKILL_POINTS} - 기술 한도: {SKILL_CAP}" />
+      text="기술 포인트: {SKILL_POINTS} - 기술 한도: {SKILL_CAP} - 등급: {TIER}" />
     <string
       id="ret_skill_description_text_short"
-      text="기술 한도: {SKILL_CAP}" />
+      text="기술 한도: {SKILL_CAP} - 등급: {TIER}" />
     <string
       id="ret_skill_experience_tooltip"
       text="다음 기술 포인트까지의 XP: {XP}/{XP_REQUIRED}." />

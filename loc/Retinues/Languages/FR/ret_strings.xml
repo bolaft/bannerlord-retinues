@@ -1184,6 +1184,39 @@
       id="ret_race_invalid_model"
       text="Aucun modèle valide n&apos;existe pour cette espèce." />
     <string
+      id="ret_rank_up_confirm_body"
+      text="Monter de niveau {NAME} ?{newline}{newline}Coûts :{newline}- {SP_COST} points de compétence{newline}- {GOLD_COST} or{newline}{newline}Effet :{newline}- +5 niveaux (montée de niveau)" />
+    <string
+      id="ret_rank_up_confirm_no"
+      text="Annuler" />
+    <string
+      id="ret_rank_up_confirm_title"
+      text="Confirmer la montée de niveau" />
+    <string
+      id="ret_rank_up_confirm_yes"
+      text="Monter de niveau" />
+    <string
+      id="ret_rank_up_max_tier"
+      text="Cette unité est déjà au niveau maximum." />
+    <string
+      id="ret_rank_up_not_enough_money"
+      text="Pas assez d&apos;argent (besoin de {COST} dinars)." />
+    <string
+      id="ret_rank_up_not_enough_sp"
+      text="Pas assez de points de compétence (besoin de {POINTS})." />
+    <string
+      id="ret_rank_up_player_only"
+      text="Disponible uniquement en mode joueur." />
+    <string
+      id="ret_rank_up_requires_maxed_skills"
+      text="Cette unité doit avoir maximisé ses compétences totales pour son niveau." />
+    <string
+      id="ret_rank_up_retinue_only"
+      text="Disponible uniquement pour les rétinues." />
+    <string
+      id="ret_rank_up_tooltip"
+      text="Monter en grade cette unité." />
+    <string
       id="ret_rename_tooltip"
       text="Renommer" />
     <string
@@ -1239,10 +1272,10 @@
       text="Diminution de compétence" />
     <string
       id="ret_skill_description_text"
-      text="Points de compétence : {SKILL_POINTS} - Plafond de compétence : {SKILL_CAP}" />
+      text="Points de compétence : {SKILL_POINTS} - Plafond de compétence : {SKILL_CAP} - Niveau : {TIER}" />
     <string
       id="ret_skill_description_text_short"
-      text="Plafond de compétence : {SKILL_CAP}" />
+      text="Plafond de compétence : {SKILL_CAP} - Niveau : {TIER}" />
     <string
       id="ret_skill_experience_tooltip"
       text="{XP}/{XP_REQUIRED} XP avant le prochain point de compétence." />

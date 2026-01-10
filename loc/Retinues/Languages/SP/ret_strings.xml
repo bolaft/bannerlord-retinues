@@ -1184,6 +1184,39 @@
       id="ret_race_invalid_model"
       text="No existe un modelo válido para esta especie." />
     <string
+      id="ret_rank_up_confirm_body"
+      text="¿Subir de nivel a {NAME}?{newline}{newline}Costos:{newline}- {SP_COST} puntos de habilidad{newline}- {GOLD_COST} oro{newline}{newline}Efecto:{newline}- +5 niveles (subida de nivel)" />
+    <string
+      id="ret_rank_up_confirm_no"
+      text="Cancelar" />
+    <string
+      id="ret_rank_up_confirm_title"
+      text="Confirmar subida de nivel" />
+    <string
+      id="ret_rank_up_confirm_yes"
+      text="Subir de nivel" />
+    <string
+      id="ret_rank_up_max_tier"
+      text="Esta unidad ya está en el nivel máximo." />
+    <string
+      id="ret_rank_up_not_enough_money"
+      text="No hay suficiente dinero (se necesitan {COST} denarios)." />
+    <string
+      id="ret_rank_up_not_enough_sp"
+      text="No hay suficientes puntos de habilidad (se necesitan {POINTS})." />
+    <string
+      id="ret_rank_up_player_only"
+      text="Solo disponible en el modo jugador." />
+    <string
+      id="ret_rank_up_requires_maxed_skills"
+      text="Esta unidad debe haber maximizado sus habilidades totales para su nivel." />
+    <string
+      id="ret_rank_up_retinue_only"
+      text="Solo disponible para retinues." />
+    <string
+      id="ret_rank_up_tooltip"
+      text="Subir de rango a esta unidad." />
+    <string
       id="ret_rename_tooltip"
       text="Renombrar" />
     <string
@@ -1239,10 +1272,10 @@
       text="Disminuir habilidad" />
     <string
       id="ret_skill_description_text"
-      text="Puntos de habilidad: {SKILL_POINTS} - Límite de habilidad: {SKILL_CAP}" />
+      text="Puntos de habilidad: {SKILL_POINTS} - Límite de habilidad: {SKILL_CAP} - Nivel: {TIER}" />
     <string
       id="ret_skill_description_text_short"
-      text="Límite de habilidad: {SKILL_CAP}" />
+      text="Límite de habilidad: {SKILL_CAP} - Nivel: {TIER}" />
     <string
       id="ret_skill_experience_tooltip"
       text="{XP}/{XP_REQUIRED} XP para el próximo punto de habilidad." />

@@ -1184,6 +1184,39 @@
       id="ret_race_invalid_model"
       text="Bu tür için geçerli bir model yok." />
     <string
+      id="ret_rank_up_confirm_body"
+      text="{NAME} rütbesi atlansın mı?{newline}{newline}Maliyetler:{newline}- {SP_COST} yetenek puanı{newline}- {GOLD_COST} altın{newline}{newline}Etkisi:{newline}- +5 seviye (rütbe atlama)" />
+    <string
+      id="ret_rank_up_confirm_no"
+      text="İptal" />
+    <string
+      id="ret_rank_up_confirm_title"
+      text="Rütbe Atlamayı Onayla" />
+    <string
+      id="ret_rank_up_confirm_yes"
+      text="Rütbe Atla" />
+    <string
+      id="ret_rank_up_max_tier"
+      text="Bu birim zaten maksimum seviyede." />
+    <string
+      id="ret_rank_up_not_enough_money"
+      text="Yeterli para yok ({COST} denar gerekli)." />
+    <string
+      id="ret_rank_up_not_enough_sp"
+      text="Yeterli yetenek puanı yok ({POINTS} gerekli)." />
+    <string
+      id="ret_rank_up_player_only"
+      text="Yalnızca oyuncu modunda kullanılabilir." />
+    <string
+      id="ret_rank_up_requires_maxed_skills"
+      text="Bu birim, seviyesindeki toplam becerilerini en üst düzeye çıkarmış olmalıdır." />
+    <string
+      id="ret_rank_up_retinue_only"
+      text="Yalnızca retinues için kullanılabilir." />
+    <string
+      id="ret_rank_up_tooltip"
+      text="Bu birimin rütbesini yükselt." />
+    <string
       id="ret_rename_tooltip"
       text="Yeniden Adlandır" />
     <string
@@ -1239,10 +1272,10 @@
       text="Yetenek Düşür" />
     <string
       id="ret_skill_description_text"
-      text="Yetenek Puanları: {SKILL_POINTS} - Yetenek Limiti: {SKILL_CAP}" />
+      text="Yetenek Puanları: {SKILL_POINTS} - Yetenek Limiti: {SKILL_CAP} - Seviye: {TIER}" />
     <string
       id="ret_skill_description_text_short"
-      text="Yetenek Limiti: {SKILL_CAP}" />
+      text="Yetenek Limiti: {SKILL_CAP} - Seviye: {TIER}" />
     <string
       id="ret_skill_experience_tooltip"
       text="Sonraki yetenek puanı için {XP}/{XP_REQUIRED} XP." />

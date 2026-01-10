@@ -14,6 +14,7 @@ using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Actions;
 using TaleWorlds.CampaignSystem.Settlements;
 using TaleWorlds.Core;
+using TaleWorlds.Library;
 
 namespace Retinues.Game.Troops
 {
@@ -522,5 +523,37 @@ namespace Retinues.Game.Troops
             string label,
             bool fromBootstrap
         ) => UnlockFactionTroops(new KingdomAdapter(kingdom), label, fromBootstrap);
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Cheats                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [CommandLineFunctionality.CommandLineArgumentFunction("unlock_clan_troops", "retinues")]
+        public static string UnlockClanTroopsCommand(List<string> args)
+        {
+            var clan = Player.Clan;
+            if (clan?.Base == null)
+                return "Player clan not found.";
+
+            if (clan.RootBasic != null && clan.RootElite != null)
+                return "Player clan troops are already unlocked.";
+
+            UnlockFactionTroops(clan, label: "clan", fromBootstrap: false);
+            return "Player clan troops unlocked.";
+        }
+
+        [CommandLineFunctionality.CommandLineArgumentFunction("unlock_kingdom_troops", "retinues")]
+        public static string UnlockKingdomTroopsCommand(List<string> args)
+        {
+            var kingdom = Player.Kingdom;
+            if (kingdom?.Base == null)
+                return "Player kingdom not found.";
+
+            if (kingdom.RootBasic != null && kingdom.RootElite != null)
+                return "Player kingdom troops are already unlocked.";
+
+            UnlockFactionTroops(kingdom, label: "kingdom", fromBootstrap: false);
+            return "Player kingdom troops unlocked.";
+        }
     }
 }
