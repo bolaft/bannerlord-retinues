@@ -1,5 +1,11 @@
 using System;
+using System.Collections.Generic;
 using System.Reflection;
+using Retinues.Domain.Characters.Wrappers;
+using Retinues.Domain.Events.Models;
+using Retinues.Domain.Parties.Wrappers;
+using Retinues.Domain.Settlements.Models;
+using Retinues.Domain.Settlements.Wrappers;
 using Retinues.Framework.Runtime;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
@@ -10,6 +16,7 @@ using TaleWorlds.CampaignSystem.Roster;
 using TaleWorlds.CampaignSystem.Settlements;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
+using TaleWorlds.MountAndBlade;
 
 namespace Retinues.Framework.Behaviors
 {
@@ -42,41 +49,41 @@ namespace Retinues.Framework.Behaviors
 
         protected virtual void OnHourlyTick() { }
 
-        protected virtual void OnHourlyTickParty(MobileParty party) { }
+        protected virtual void OnHourlyTickParty(WParty party) { }
 
-        protected virtual void OnMissionStarted(IMission mission) { }
+        protected virtual void OnMissionStarted(MMission mission) { }
 
-        protected virtual void OnMissionEnded(IMission mission) { }
+        protected virtual void OnMissionEnded(MMission mission) { }
 
         protected virtual void OnMapEventStarted(
-            MapEvent mapEvent,
-            PartyBase attackerParty,
-            PartyBase defenderParty
+            MMapEvent mapEvent,
+            WParty attackerParty,
+            WParty defenderParty
         ) { }
 
-        protected virtual void OnMapEventEnded(MapEvent mapEvent) { }
+        protected virtual void OnMapEventEnded(MMapEvent mapEvent) { }
 
         protected virtual void OnItemsDiscardedByPlayer(ItemRoster roster) { }
 
-        protected virtual void OnSettlementLeft(MobileParty party, Settlement settlement) { }
+        protected virtual void OnSettlementLeft(WParty party, WSettlement settlement) { }
 
         protected virtual void OnBeforeSave() { }
 
         protected virtual void OnSettlementOwnerChanged(
-            Settlement settlement,
+            WSettlement settlement,
             bool openToClaim,
-            Hero newOwner,
-            Hero oldOwner,
-            Hero capturerHero,
+            WHero newOwner,
+            WHero oldOwner,
+            WHero capturerHero,
             ChangeOwnerOfSettlementAction.ChangeOwnerOfSettlementDetail detail
         ) { }
 
         protected virtual void OnKingdomCreated(Kingdom kingdom) { }
 
         protected virtual void OnTournamentFinished(
-            CharacterObject winner,
-            MBReadOnlyList<CharacterObject> participants,
-            Town town,
+            WCharacter winner,
+            List<WCharacter> participants,
+            MTown town,
             ItemObject prize
         ) { }
 
@@ -126,31 +133,38 @@ namespace Retinues.Framework.Behaviors
             if (IsOverridden(nameof(OnHourlyTickParty)))
                 CampaignEvents.HourlyTickPartyEvent.AddNonSerializedListener(
                     this,
-                    party => SafeInvoke(() => OnHourlyTickParty(party))
+                    party => SafeInvoke(() => OnHourlyTickParty(WParty.Get(party)))
                 );
 
             if (IsOverridden(nameof(OnMissionStarted)))
                 CampaignEvents.OnMissionStartedEvent.AddNonSerializedListener(
                     this,
-                    mission => SafeInvoke(() => OnMissionStarted(mission))
+                    mission => SafeInvoke(() => OnMissionStarted(WrapMission(mission)))
                 );
 
             if (IsOverridden(nameof(OnMissionEnded)))
                 CampaignEvents.OnMissionEndedEvent.AddNonSerializedListener(
                     this,
-                    mission => SafeInvoke(() => OnMissionEnded(mission))
+                    mission => SafeInvoke(() => OnMissionEnded(WrapMission(mission)))
                 );
 
             if (IsOverridden(nameof(OnMapEventStarted)))
                 CampaignEvents.MapEventStarted.AddNonSerializedListener(
                     this,
-                    (mapEvent, atk, def) => SafeInvoke(() => OnMapEventStarted(mapEvent, atk, def))
+                    (mapEvent, atk, def) =>
+                        SafeInvoke(() =>
+                            OnMapEventStarted(
+                                WrapMapEvent(mapEvent),
+                                WParty.Get(atk.MobileParty),
+                                WParty.Get(def.MobileParty)
+                            )
+                        )
                 );
 
             if (IsOverridden(nameof(OnMapEventEnded)))
                 CampaignEvents.MapEventEnded.AddNonSerializedListener(
                     this,
-                    mapEvent => SafeInvoke(() => OnMapEventEnded(mapEvent))
+                    mapEvent => SafeInvoke(() => OnMapEventEnded(WrapMapEvent(mapEvent)))
                 );
 
             if (IsOverridden(nameof(OnItemsDiscardedByPlayer)))
@@ -162,7 +176,10 @@ namespace Retinues.Framework.Behaviors
             if (IsOverridden(nameof(OnSettlementLeft)))
                 CampaignEvents.OnSettlementLeftEvent.AddNonSerializedListener(
                     this,
-                    (party, settlement) => SafeInvoke(() => OnSettlementLeft(party, settlement))
+                    (party, settlement) =>
+                        SafeInvoke(() =>
+                            OnSettlementLeft(WParty.Get(party), WSettlement.Get(settlement))
+                        )
                 );
 
             if (IsOverridden(nameof(OnBeforeSave)))
@@ -177,11 +194,11 @@ namespace Retinues.Framework.Behaviors
                     (settlement, openToClaim, newOwner, oldOwner, capturerHero, detail) =>
                         SafeInvoke(() =>
                             OnSettlementOwnerChanged(
-                                settlement,
+                                WSettlement.Get(settlement),
                                 openToClaim,
-                                newOwner,
-                                oldOwner,
-                                capturerHero,
+                                WHero.Get(newOwner),
+                                WHero.Get(oldOwner),
+                                WHero.Get(capturerHero),
                                 detail
                             )
                         )
@@ -197,7 +214,14 @@ namespace Retinues.Framework.Behaviors
                 CampaignEvents.TournamentFinished.AddNonSerializedListener(
                     this,
                     (winner, participants, town, prize) =>
-                        SafeInvoke(() => OnTournamentFinished(winner, participants, town, prize))
+                        SafeInvoke(() =>
+                            OnTournamentFinished(
+                                WCharacter.Get(winner),
+                                WrapCharacters(participants),
+                                town != null ? new MTown(town) : null,
+                                prize
+                            )
+                        )
                 );
 
             if (IsOverridden(nameof(OnQuestCompleted)))
@@ -205,6 +229,44 @@ namespace Retinues.Framework.Behaviors
                     this,
                     (quest, details) => SafeInvoke(() => OnQuestCompleted(quest, details))
                 );
+        }
+
+        private static MMission WrapMission(IMission mission)
+        {
+            var m = mission as Mission;
+            if (m == null)
+                return null;
+
+            return new MMission(m);
+        }
+
+        private static MMapEvent WrapMapEvent(MapEvent mapEvent)
+        {
+            if (mapEvent == null)
+                return null;
+
+            return new MMapEvent(mapEvent);
+        }
+
+        private static List<WCharacter> WrapCharacters(MBReadOnlyList<CharacterObject> participants)
+        {
+            if (participants == null || participants.Count <= 0)
+                return new List<WCharacter>();
+
+            var list = new List<WCharacter>(participants.Count);
+
+            for (int i = 0; i < participants.Count; i++)
+            {
+                var c = participants[i];
+                if (c == null)
+                    continue;
+
+                var wc = WCharacter.Get(c);
+                if (wc != null)
+                    list.Add(wc);
+            }
+
+            return list;
         }
 
         private void SafeInvoke(Action action)

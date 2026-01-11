@@ -1,14 +1,15 @@
+using Retinues.Domain.Parties.Wrappers;
+using Retinues.Domain.Settlements.Wrappers;
 using Retinues.Framework.Behaviors;
 using TaleWorlds.CampaignSystem.Party;
-using TaleWorlds.CampaignSystem.Settlements;
 
 namespace Retinues.Game.Recruitement
 {
     internal sealed class PlayerRecruitementBehavior : BaseCampaignBehavior
     {
-        protected override void OnSettlementLeft(MobileParty party, Settlement settlement)
+        protected override void OnSettlementLeft(WParty party, WSettlement settlement)
         {
-            if (party != MobileParty.MainParty)
+            if (!party.IsMainParty)
                 return;
 
             PlayerVolunteerSwapState.RestoreIfActive();

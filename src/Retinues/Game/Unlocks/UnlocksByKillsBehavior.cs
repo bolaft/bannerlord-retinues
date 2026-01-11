@@ -1,5 +1,3 @@
-// File: Retinues/Game/Unlocks/UnlocksByKillsBehavior.cs
-
 using System;
 using System.Collections.Generic;
 using Retinues.Configuration;
@@ -9,7 +7,6 @@ using Retinues.Domain.Events.Models;
 using Retinues.Domain.Parties.Wrappers;
 using Retinues.Framework.Behaviors;
 using Retinues.Utilities;
-using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 
@@ -25,7 +22,7 @@ namespace Retinues.Game.Unlocks
         /// <summary>
         /// Called when a mission ends.
         /// </summary>
-        protected override void OnMissionEnded(IMission mission)
+        protected override void OnMissionEnded(MMission mission)
         {
             if (!Settings.EquipmentNeedsUnlocking || !Settings.UnlockItemsThroughKills)
                 return;
@@ -50,7 +47,7 @@ namespace Retinues.Game.Unlocks
         /// Returns the list of newly-unlocked items (if any).
         /// </summary>
         internal static IReadOnlyList<WItem> ApplyProgressFromMissionKills(
-            IMission mission,
+            MMission mission,
             bool notify
         )
         {
@@ -58,10 +55,11 @@ namespace Retinues.Game.Unlocks
             if (mm == null)
                 return Array.Empty<WItem>();
 
-            var mbMission = mission as Mission;
-            if (mbMission != null && !ReferenceEquals(mm.Base, mbMission))
+            // If we got a mission wrapper, ensure it matches Current (when available).
+            if (mission?.Base != null && !ReferenceEquals(mm.Base, mission.Base))
                 return Array.Empty<WItem>();
 
+            var mbMission = mission?.Base;
             if (mbMission != null && ReferenceEquals(_lastAppliedMission, mbMission))
                 return Array.Empty<WItem>();
 
@@ -151,7 +149,7 @@ namespace Retinues.Game.Unlocks
                 return mm.IsWon;
 
             // Fallback for cases where Current was cleared early.
-            var me = MobileParty.MainParty?.MapEvent;
+            var me = TaleWorlds.CampaignSystem.Party.MobileParty.MainParty?.MapEvent;
             if (me == null)
                 return false;
 

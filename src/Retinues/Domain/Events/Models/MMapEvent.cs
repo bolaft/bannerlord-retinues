@@ -23,13 +23,19 @@ namespace Retinues.Domain.Events.Models
 
         public static MMapEvent Current { get; private set; }
 
-        internal static void SetCurrent(MapEvent mapEvent)
+        public void SetCurrent()
         {
-            Current = mapEvent != null ? new MMapEvent(mapEvent) : null;
+            Current = this;
         }
 
         [StaticClearAction]
         public static void ClearCurrent() => Current = null;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Identity                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public string StringId => Base?.StringId;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Event Type                       //
@@ -120,7 +126,7 @@ namespace Retinues.Domain.Events.Models
         //                          Flags                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public bool IsPlayerInvolved => IsPartyInvolved(Player.Party);
+        public bool IsPlayerInvolved => Base.IsPlayerMapEvent;
         public bool IsPlayerAttacker => ReferenceEquals(PlayerSide, GetAttacker());
         public bool IsPlayerDefender => ReferenceEquals(PlayerSide, GetDefender());
 

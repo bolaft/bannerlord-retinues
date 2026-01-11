@@ -5,6 +5,7 @@ using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Domain.Factions;
 using Retinues.Domain.Factions.Wrappers;
+using Retinues.Domain.Settlements.Wrappers;
 using Retinues.Editor;
 using Retinues.Framework.Behaviors;
 using Retinues.Game.Unlocks;
@@ -12,7 +13,6 @@ using Retinues.UI.Services;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Actions;
-using TaleWorlds.CampaignSystem.Settlements;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 
@@ -35,24 +35,24 @@ namespace Retinues.Game.Troops
             TryUnlockFromCurrentState(fromBootstrap: true);
 
         protected override void OnSettlementOwnerChanged(
-            Settlement settlement,
+            WSettlement settlement,
             bool openToClaim,
-            Hero newOwner,
-            Hero oldOwner,
-            Hero capturerHero,
+            WHero newOwner,
+            WHero oldOwner,
+            WHero capturerHero,
             ChangeOwnerOfSettlementAction.ChangeOwnerOfSettlementDetail detail
         )
         {
             try
             {
-                if (newOwner?.Clan == null)
+                if (newOwner?.Base?.Clan == null)
                     return;
 
                 var playerClan = Player.Clan;
                 if (playerClan?.Base == null)
                     return;
 
-                if (newOwner.Clan != playerClan.Base)
+                if (newOwner.Base.Clan != playerClan.Base)
                     return;
 
                 // Event-driven unlock: should popup.

@@ -1,10 +1,9 @@
-// File: Retinues/Game/Unlocks/Patches/ScoreboardUnlocksPatch.cs
-
 using System;
 using System.Collections.Generic;
 using HarmonyLib;
 using Retinues.Configuration;
 using Retinues.Domain.Equipments.Wrappers;
+using Retinues.Domain.Events.Models;
 using Retinues.Framework.Runtime;
 using Retinues.UI.Services;
 using Retinues.Utilities;
@@ -40,7 +39,7 @@ namespace Retinues.Game.Unlocks.Patches
                 // We still want the normal unlock notification (popup/message), which is delayed
                 // to MapState by UnlockNotifierBehavior. This patch only adds scoreboard lines.
                 var unlocked = UnlocksByKillsBehavior.ApplyProgressFromMissionKills(
-                    mission,
+                    new MMission(mission),
                     notify: true
                 );
 

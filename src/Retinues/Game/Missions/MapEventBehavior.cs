@@ -1,10 +1,10 @@
 using System;
 using System.Text;
 using Retinues.Domain.Events.Models;
+using Retinues.Domain.Parties.Wrappers;
 using Retinues.Framework.Behaviors;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem.MapEvents;
-using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.Core;
 
 namespace Retinues.Game.Missions
@@ -21,21 +21,22 @@ namespace Retinues.Game.Missions
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         protected override void OnMapEventStarted(
-            MapEvent mapEvent,
-            PartyBase attackerParty,
-            PartyBase defenderParty
+            MMapEvent mapEvent,
+            WParty attackerParty,
+            WParty defenderParty
         )
         {
             if (!IsEnabled)
                 return;
 
-            if (mapEvent?.IsPlayerMapEvent != true)
+            if (mapEvent?.IsPlayerInvolved != true)
                 return; // Only care about player-involved events.
 
-            MMapEvent.SetCurrent(mapEvent);
+            // Keep Current based on the native MapEvent instance.
+            mapEvent.SetCurrent();
 
-            var attacker = attackerParty?.Name?.ToString();
-            var defender = defenderParty?.Name?.ToString();
+            var attacker = attackerParty?.Name;
+            var defender = defenderParty?.Name;
 
             Log.Debug(
                 $"Map event started. Type='{mapEvent?.EventType}', Id='{mapEvent?.StringId}', Attacker='{attacker}', Defender='{defender}'."
@@ -46,19 +47,19 @@ namespace Retinues.Game.Missions
         //                           End                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        protected override void OnMapEventEnded(MapEvent mapEvent)
+        protected override void OnMapEventEnded(MMapEvent mapEvent)
         {
             if (!IsEnabled)
                 return;
 
-            if (mapEvent?.IsPlayerMapEvent != true)
+            if (mapEvent?.IsPlayerInvolved != true)
                 return; // Only care about player-involved events.
 #if DEBUG
             try
             {
                 // Only summarize if player is involved.
-                if (mapEvent != null && mapEvent.IsPlayerMapEvent)
-                    DebugLogMapEventSummary(mapEvent);
+                if (mapEvent != null && mapEvent.IsPlayerInvolved)
+                    DebugLogMapEventSummary(mapEvent.Base);
             }
             catch (Exception ex)
             {
@@ -76,6 +77,9 @@ namespace Retinues.Game.Missions
 #if DEBUG
         private static void DebugLogMapEventSummary(MapEvent mapEvent)
         {
+            if (mapEvent == null)
+                return;
+
             var sb = new StringBuilder(4096);
 
             sb.AppendLine("=== MapEvent Summary (Player Involved) ===");

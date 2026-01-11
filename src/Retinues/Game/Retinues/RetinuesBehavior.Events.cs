@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using Retinues.Configuration;
+using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Events.Models;
 using Retinues.Domain.Factions.Wrappers;
+using Retinues.Domain.Settlements.Models;
 using TaleWorlds.CampaignSystem;
-using TaleWorlds.CampaignSystem.MapEvents;
-using TaleWorlds.CampaignSystem.Settlements;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 
@@ -36,22 +36,22 @@ namespace Retinues.Game.Retinues
         /// Handles tournament wins for retinue unlock progress.
         /// </summary>
         protected override void OnTournamentFinished(
-            CharacterObject winner,
-            MBReadOnlyList<CharacterObject> participants,
-            Town town,
+            WCharacter winner,
+            List<WCharacter> participants,
+            MTown town,
             ItemObject prize
         )
         {
             if (!Settings.EnableRetinues)
                 return;
 
-            if (winner == null || Hero.MainHero == null)
+            if (winner?.Base == null || Hero.MainHero == null)
                 return;
 
             if (winner.StringId != Hero.MainHero.StringId)
                 return;
 
-            var culture = town?.Settlement?.Culture;
+            var culture = town?.Base?.Settlement?.Culture;
             if (culture == null)
                 return;
 
@@ -93,16 +93,19 @@ namespace Retinues.Game.Retinues
         /// <summary>
         /// Handles map events ending to add progress for battles won with allies.
         /// </summary>
-        protected override void OnMapEventEnded(MapEvent mapEvent)
+        protected override void OnMapEventEnded(MMapEvent mapEvent)
         {
             if (!Settings.EnableRetinues)
                 return;
 
-            TryAddBattleAlliesProgress(new MMapEvent(mapEvent));
+            TryAddBattleAlliesProgress(mapEvent);
         }
 
         private void TryAddBattleAlliesProgress(MMapEvent mapEvent)
         {
+            if (mapEvent == null)
+                return;
+
             if (!mapEvent.IsPlayerInvolved)
                 return;
 
