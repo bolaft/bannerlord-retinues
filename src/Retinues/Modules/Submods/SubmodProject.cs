@@ -9,15 +9,11 @@ namespace Retinues.Modules.Submods
     /// <summary>
     /// A submod "project": manifest + a set of files to write relative to the module root.
     /// </summary>
-    public sealed class SubmodProject
+    public sealed class SubmodProject(SubmodManifest manifest)
     {
-        public SubmodManifest Manifest { get; }
+        public SubmodManifest Manifest { get; } =
+            manifest ?? throw new ArgumentNullException(nameof(manifest));
         public List<SubmodFile> Files { get; } = [];
-
-        public SubmodProject(SubmodManifest manifest)
-        {
-            Manifest = manifest ?? throw new ArgumentNullException(nameof(manifest));
-        }
 
         public SubmodProject AddText(string relativePath, string content)
         {

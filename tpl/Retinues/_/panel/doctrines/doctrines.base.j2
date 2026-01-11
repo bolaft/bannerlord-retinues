@@ -1,0 +1,117 @@
+{% from "_/macros.panel.j2" import panel_header, panel_label %}
+{% from "_/macros.buttons.j2" import button_text %}
+
+{# ---------------------------------------------- #}
+{# Doctrines panel                                #}
+{# ---------------------------------------------- #}
+
+<Widget
+    DataSource="{DoctrinesPanel}"
+    IsVisible="@IsVisible"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    HorizontalAlignment="Center" VerticalAlignment="Top"
+    MarginRight="160">
+    <Children>
+
+        <ListPanel
+            IsVisible="@HasSelection"
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            HorizontalAlignment="Center" VerticalAlignment="Center"
+            StackLayout.LayoutMethod="VerticalBottomToTop">
+            <Children>
+
+                {# Name #}
+                <TextWidget
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Brush="Kingdom.NameTitle.Text"
+                    Text="@NameText"
+                    Brush.FontSize="48"
+                    Brush.FontColor="#F4E1C4FF"
+                    MarginBottom="24" />
+
+                {# Progress #}
+                <ListPanel
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed"
+                    HorizontalAlignment="Center"
+                    StackLayout.LayoutMethod="HorizontalLeftToRight"
+                    MarginBottom="36">
+                    <Children>
+
+                        <TextWidget
+                            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                            HorizontalAlignment="Center" VerticalAlignment="Center"
+                            Brush="Clan.RightPanel.Name.Text"
+                            Brush.FontSize="22"
+                            Brush.FontColor="@ProgressTextColor"
+                            Text="@ProgressText" />
+
+                    </Children>
+                </ListPanel>
+
+                {# Description #}
+                {{ panel_header("@DescriptionHeaderText") }}
+
+                <TextWidget
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Brush="InventoryGoldFontBrush"
+                    Brush.FontColor="#f7ecddff"
+                    Brush.FontSize="24"
+                    Text="@DescriptionText"
+                    MarginBottom="12" />
+
+                {# Feats #}
+                {{ panel_header("@FeatsHeaderText", is_visible="@ShowFeats") }}
+
+                <ListPanel
+                    DataSource="{Feats}"
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                    StackLayout.LayoutMethod="VerticalBottomToTop"
+                    HorizontalAlignment="Center">
+                    <ItemTemplate>
+                        <ListPanel
+                            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                            StackLayout.LayoutMethod="VerticalBottomToTop"
+                            HorizontalAlignment="Center">
+                            <Children>
+
+                                <TextWidget
+                                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                                    Brush="Kingdom.DecisionParagraph.Text"
+                                    Brush.FontSize="18"
+                                    MaxWidth="720"
+                                    Text="@Description"
+                                    TextAlignment="Center" />
+
+                                <TextWidget
+                                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                                    Brush="Kingdom.DecisionParagraph.Text"
+                                    Brush.FontSize="18"
+                                    Text="@ProgressText"
+                                    TextAlignment="Center" />
+
+                            </Children>
+                        </ListPanel>
+                    </ItemTemplate>
+                </ListPanel>
+
+                {# Actions #}
+                {{ button_text("{AcquireButton}", "Popup.Done.Button", 260, 80) }}
+
+                {# Costs #}
+                <TextWidget
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Brush="Clan.RightPanel.Name.Text"
+                    Brush.FontSize="22"
+                    Brush.FontColor="#F4E1C4FF"
+                    Text="@CostsText" />
+
+            </Children>
+        </ListPanel>
+
+    </Children>
+</Widget>

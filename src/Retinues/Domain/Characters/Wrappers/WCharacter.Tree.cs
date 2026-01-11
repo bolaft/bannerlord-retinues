@@ -546,7 +546,7 @@ namespace Retinues.Domain.Characters.Wrappers
                         {
                             if (!newSourcesMap.TryGetValue(troop, out var list))
                             {
-                                list = new List<WCharacter>();
+                                list = [];
                                 newSourcesMap.Add(troop, list);
                             }
                         }

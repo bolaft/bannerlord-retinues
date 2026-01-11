@@ -14,7 +14,7 @@ namespace Retinues.Framework.Model.Attributes
         private static readonly object Sync = new();
 
         // One clearer per closed T.
-        private static readonly Dictionary<Type, Action> Clearers = new();
+        private static readonly Dictionary<Type, Action> Clearers = [];
 
         public static void Register(Type t, Action clear)
         {

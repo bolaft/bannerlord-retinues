@@ -251,7 +251,7 @@ namespace Retinues.Framework.Behaviors
         private static List<WCharacter> WrapCharacters(MBReadOnlyList<CharacterObject> participants)
         {
             if (participants == null || participants.Count <= 0)
-                return new List<WCharacter>();
+                return [];
 
             var list = new List<WCharacter>(participants.Count);
 

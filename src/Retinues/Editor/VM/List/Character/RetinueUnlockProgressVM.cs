@@ -10,17 +10,14 @@ namespace Retinues.Editor.VM.List.Character
     /// <summary>
     /// Disabled row shown for cultures whose retinue is being unlocked.
     /// </summary>
-    public sealed class RetinueUnlockProgressRowVM : BaseListRowVM
+    public sealed class RetinueUnlockProgressRowVM(
+        ListHeaderVM header,
+        WCulture culture,
+        int progress
+    ) : BaseListRowVM(header, culture?.StringId ?? string.Empty)
     {
-        private readonly WCulture _culture;
-        private readonly int _progress;
-
-        public RetinueUnlockProgressRowVM(ListHeaderVM header, WCulture culture, int progress)
-            : base(header, culture?.StringId ?? string.Empty)
-        {
-            _culture = culture;
-            _progress = Math.Max(0, progress);
-        }
+        private readonly WCulture _culture = culture;
+        private readonly int _progress = Math.Max(0, progress);
 
         [DataSourceProperty]
         public override bool IsRetinueUnlockProgress => true;

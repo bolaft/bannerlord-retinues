@@ -12,7 +12,7 @@ namespace Retinues.Framework.Model
         const string ModelXmlVersion = "1.0";
 
         static readonly object CacheLock = new();
-        static readonly Dictionary<Type, PropertyInfo[]> AttributePropertyCache = new();
+        static readonly Dictionary<Type, PropertyInfo[]> AttributePropertyCache = [];
 
         /// <summary>
         /// Diff serialization. Only dirty attributes are written.

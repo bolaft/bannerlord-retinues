@@ -1,0 +1,32 @@
+{% from "_/macros.rows.j2" import row_wrapper, icon_sprite %}
+
+{% call row_wrapper("@IsDoctrine") %}
+
+    {{ icon_sprite("@StateIconSprite", sug_w=28, sug_h=28, margin_right=14) }}
+
+    <TextWidget
+        WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+        VerticalAlignment="Center"
+        Brush="Clan.Tuple.Name.Text"
+        Text="@Name" />
+
+    <TextWidget
+        WidthSizePolicy="CoverChildren" HeightSizePolicy="StretchToParent"
+        VerticalAlignment="Center"
+        HorizontalAlignment="Right"
+        Brush="Clan.Tuple.Name.Text"
+        Brush.FontSize="22"
+        MarginLeft="12"
+        Text="@StateText" />
+
+    <TextWidget
+        IsVisible="@ShowProgress"
+        WidthSizePolicy="CoverChildren" HeightSizePolicy="StretchToParent"
+        VerticalAlignment="Center"
+        HorizontalAlignment="Right"
+        Brush="Clan.Tuple.Name.Text"
+        Brush.FontSize="22"
+        MarginLeft="18"
+        Text="@ProgressText" />
+
+{% endcall %}

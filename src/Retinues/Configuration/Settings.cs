@@ -32,13 +32,33 @@ namespace Retinues.Configuration
             @default: true
         );
 
-        public enum ItemUnlockNotificationStyle
+        public enum NotificationStyle
         {
             Popup,
             Message,
         }
 
-        public static readonly MultiChoiceOption<ItemUnlockNotificationStyle> ItemUnlockNotification =
+        public static readonly MultiChoiceOption<NotificationStyle> FeatCompleteNotification =
+            CreateMultiChoiceOption(
+                section: UserInterface,
+                name: L.F("mcm_option_feat_complete_notification", "Feat Complete Notification"),
+                hint: L.F(
+                    "mcm_option_feat_complete_notification_hint",
+                    "Determines how the notification style when when feats are completed."
+                ),
+                @default: NotificationStyle.Popup,
+                choices: [NotificationStyle.Popup, NotificationStyle.Message],
+                choiceFormatter: v =>
+                    v switch
+                    {
+                        NotificationStyle.Popup => L.S("popup", "Popup"),
+                        NotificationStyle.Message => L.S("message", "Log Message"),
+                        _ => v.ToString(),
+                    },
+                dependsOn: EnableDoctrines
+            );
+
+        public static readonly MultiChoiceOption<NotificationStyle> ItemUnlockNotification =
             CreateMultiChoiceOption(
                 section: UserInterface,
                 name: L.F("mcm_option_item_unlock_notification", "Item Unlock Notification"),
@@ -46,19 +66,13 @@ namespace Retinues.Configuration
                     "mcm_option_item_unlock_notification_hint",
                     "Determines how the notification style when when new items are unlocked."
                 ),
-                @default: ItemUnlockNotificationStyle.Popup,
-                choices: [ItemUnlockNotificationStyle.Popup, ItemUnlockNotificationStyle.Message],
+                @default: NotificationStyle.Popup,
+                choices: [NotificationStyle.Popup, NotificationStyle.Message],
                 choiceFormatter: v =>
                     v switch
                     {
-                        ItemUnlockNotificationStyle.Popup => L.S(
-                            "item_unlock_notification_popup",
-                            "Popup"
-                        ),
-                        ItemUnlockNotificationStyle.Message => L.S(
-                            "item_unlock_notification_message",
-                            "Log Message"
-                        ),
+                        NotificationStyle.Popup => L.S("notification_popup", "Popup"),
+                        NotificationStyle.Message => L.S("notification_message", "Log Message"),
                         _ => v.ToString(),
                     },
                 dependsOn: EquipmentNeedsUnlocking
@@ -107,6 +121,101 @@ namespace Retinues.Configuration
             ),
             @default: false,
             fires: [UIEvent.Equipment]
+        );
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Doctrines                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public static readonly Section Doctrines = CreateSection(
+            name: L.F("mcm_section_doctrines", "Doctrines")
+        );
+
+        /* ━━━━━━━━ Options ━━━━━━━ */
+
+        public static readonly Option<bool> EnableDoctrines = CreateOption(
+            section: Doctrines,
+            name: L.F("mcm_option_enable_doctrines", "Enable Doctrines"),
+            hint: L.F(
+                "mcm_option_enable_doctrines_hint",
+                "Toggles the Doctrines feature on or off."
+            ),
+#if !DEBUG
+            requiresRestart: true,
+#endif
+            @default: true
+        );
+
+        public static readonly Option<bool> EnableFeatRequirements = CreateOption(
+            section: Doctrines,
+            name: L.F("mcm_option_enable_feat_requirements", "Enable Feat Requirements"),
+            hint: L.F(
+                "mcm_option_enable_feat_requirements_hint",
+                "If enabled, doctrines require specific feats to be accomplished before they can be acquired."
+            ),
+            @default: true,
+            dependsOn: EnableDoctrines,
+            fires: [UIEvent.Doctrine]
+        );
+
+        public static readonly Option<bool> DoctrinesCostMoney = CreateOption(
+            section: Doctrines,
+            name: L.F("mcm_option_doctrines_cost_money", "Doctrines Cost Money"),
+            hint: L.F(
+                "mcm_option_doctrines_cost_money_hint",
+                "If enabled, acquiring doctrines will cost money."
+            ),
+            @default: true,
+            dependsOn: EnableDoctrines,
+            fires: [UIEvent.Doctrine]
+        );
+
+        public static readonly Option<float> DoctrineMoneyCostMultiplier = CreateOption(
+            section: Doctrines,
+            name: L.F(
+                "mcm_option_doctrine_money_cost_multiplier",
+                "Doctrine Money Cost Multiplier"
+            ),
+            hint: L.F(
+                "mcm_option_doctrine_money_cost_multiplier_hint",
+                "Multiplier affecting the money cost of acquiring doctrines."
+            ),
+            minValue: 0.1f,
+            maxValue: 5f,
+            @default: 1f,
+            @realistic: 1.5f,
+            dependsOn: DoctrinesCostMoney,
+            fires: [UIEvent.Doctrine]
+        );
+
+        public static readonly Option<bool> DoctrinesCostInfluence = CreateOption(
+            section: Doctrines,
+            name: L.F("mcm_option_doctrines_cost_influence", "Doctrines Cost Influence"),
+            hint: L.F(
+                "mcm_option_doctrines_cost_influence_hint",
+                "If enabled, acquiring doctrines will cost influence."
+            ),
+            @default: true,
+            dependsOn: EnableDoctrines,
+            fires: [UIEvent.Doctrine]
+        );
+
+        public static readonly Option<float> DoctrineInfluenceCostMultiplier = CreateOption(
+            section: Doctrines,
+            name: L.F(
+                "mcm_option_doctrine_influence_cost_multiplier",
+                "Doctrine Influence Cost Multiplier"
+            ),
+            hint: L.F(
+                "mcm_option_doctrine_influence_cost_multiplier_hint",
+                "Multiplier affecting the influence cost of acquiring doctrines."
+            ),
+            minValue: 0.1f,
+            maxValue: 5f,
+            @default: 1f,
+            @realistic: 1.5f,
+            dependsOn: DoctrinesCostInfluence,
+            fires: [UIEvent.Doctrine]
         );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -193,29 +302,6 @@ namespace Retinues.Configuration
             minValue: 0,
             maxValue: 6,
             @default: 5
-        );
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Doctrines                       //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        public static readonly Section Doctrines = CreateSection(
-            name: L.F("mcm_section_doctrines", "Doctrines")
-        );
-
-        /* ━━━━━━━━ Options ━━━━━━━ */
-
-        public static readonly Option<bool> EnableDoctrines = CreateOption(
-            section: Doctrines,
-            name: L.F("mcm_option_enable_doctrines", "Enable Doctrines"),
-            hint: L.F(
-                "mcm_option_enable_doctrines_hint",
-                "Toggles the Doctrines feature on or off."
-            ),
-#if !DEBUG
-            requiresRestart: true,
-#endif
-            @default: true
         );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

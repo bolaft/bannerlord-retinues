@@ -46,7 +46,7 @@ namespace Retinues.Game.Troops
         )
         {
             if (root?.Base == null || fullTemplates == null || fullTemplates.Count == 0)
-                return fullTemplates as List<WCharacter> ?? new List<WCharacter>(0);
+                return fullTemplates as List<WCharacter> ?? [];
 
             var depth = BuildDepthMap(root);
 
@@ -62,7 +62,7 @@ namespace Retinues.Game.Troops
 
                 if (!byTier.TryGetValue(tier, out var list))
                 {
-                    list = new List<WCharacter>();
+                    list = [];
                     byTier[tier] = list;
                 }
 
@@ -107,7 +107,7 @@ namespace Retinues.Game.Troops
 
                     if (!parents.TryGetValue(tgtId, out var list))
                     {
-                        list = new List<string>();
+                        list = [];
                         parents[tgtId] = list;
                     }
 

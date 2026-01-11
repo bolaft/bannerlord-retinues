@@ -8,24 +8,17 @@ namespace Retinues.Modules.Submods
     /// Represents the contents of SubModule.xml for a generated submod.
     /// Keeps generation logic out of controllers and feature code.
     /// </summary>
-    public sealed class SubmodManifest
+    public sealed class SubmodManifest(string id, string name, string version)
     {
-        public string Id { get; }
-        public string Name { get; }
-        public string Version { get; }
+        public string Id { get; } = id ?? string.Empty;
+        public string Name { get; } = name ?? string.Empty;
+        public string Version { get; } = version ?? "v1.0.0";
 
         public bool IsDefaultModule { get; set; } = false;
         public bool IsSingleplayerModule { get; set; } = true;
         public bool IsMultiplayerModule { get; set; } = false;
 
         public List<SubmodXmlNode> XmlNodes { get; } = [];
-
-        public SubmodManifest(string id, string name, string version)
-        {
-            Id = id ?? string.Empty;
-            Name = name ?? string.Empty;
-            Version = version ?? "v1.0.0";
-        }
 
         public XDocument ToXDocument()
         {

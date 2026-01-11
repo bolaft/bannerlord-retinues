@@ -130,14 +130,15 @@ namespace Retinues.Domain.Characters.Helpers
                 if (_defaultSkillIds != null)
                     return _defaultSkillIds;
 
-                _defaultSkillIds = new HashSet<string>(
-                    typeof(DefaultSkills)
+                _defaultSkillIds =
+                [
+                    .. typeof(DefaultSkills)
                         .GetProperties(BindingFlags.Public | BindingFlags.Static)
                         .Where(p => p.PropertyType == typeof(SkillObject))
                         .Select(p => p.GetValue(null) as SkillObject)
                         .Where(s => s != null && !string.IsNullOrEmpty(s.StringId))
-                        .Select(s => s.StringId)
-                );
+                        .Select(s => s.StringId),
+                ];
 
                 return _defaultSkillIds;
             }

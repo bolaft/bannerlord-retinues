@@ -253,7 +253,7 @@ namespace Retinues.Domain.Characters.Wrappers
         /// </summary>
         public Dictionary<string, int> SkillsStaging
         {
-            get => new(SkillsStagingAttribute.Get() ?? new Dictionary<string, int>());
+            get => new(SkillsStagingAttribute.Get() ?? []);
             set => SkillsStagingAttribute.Set(value == null ? new() : new(value));
         }
 
@@ -276,7 +276,7 @@ namespace Retinues.Domain.Characters.Wrappers
             if (string.IsNullOrEmpty(skillId) || delta == 0)
                 return;
 
-            var current = SkillsStagingAttribute.Get() ?? new Dictionary<string, int>();
+            var current = SkillsStagingAttribute.Get() ?? [];
             var map = new Dictionary<string, int>(current);
 
             map.TryGetValue(skillId, out var oldValue);

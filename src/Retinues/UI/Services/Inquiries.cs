@@ -397,7 +397,7 @@ namespace Retinues.UI.Services
                                 {
                                     try
                                     {
-                                        onSelect?.Invoke(selected ?? new List<InquiryElement>());
+                                        onSelect?.Invoke(selected ?? []);
                                     }
                                     catch (Exception e)
                                     {

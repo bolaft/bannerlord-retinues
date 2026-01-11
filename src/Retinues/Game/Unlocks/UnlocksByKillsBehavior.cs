@@ -53,23 +53,23 @@ namespace Retinues.Game.Unlocks
         {
             var mm = MMission.Current;
             if (mm == null)
-                return Array.Empty<WItem>();
+                return [];
 
             // If we got a mission wrapper, ensure it matches Current (when available).
             if (mission?.Base != null && !ReferenceEquals(mm.Base, mission.Base))
-                return Array.Empty<WItem>();
+                return [];
 
             var mbMission = mission?.Base;
             if (mbMission != null && ReferenceEquals(_lastAppliedMission, mbMission))
-                return Array.Empty<WItem>();
+                return [];
 
             var kills = mm.Kills;
             if (kills == null || kills.Count == 0)
-                return Array.Empty<WItem>();
+                return [];
 
             var required = (int)Settings.RequiredKillsToUnlock;
             if (required <= 0)
-                return Array.Empty<WItem>();
+                return [];
 
             var perKill = Math.Max(1, WItem.UnlockThreshold / required);
 
@@ -99,7 +99,7 @@ namespace Retinues.Game.Unlocks
             }
 
             if (counts.Count == 0)
-                return Array.Empty<WItem>();
+                return [];
 
             var itemsTouched = 0;
             var unlocked = new List<WItem>();

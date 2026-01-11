@@ -6,6 +6,7 @@ using Retinues.Editor.Events;
 using Retinues.Editor.Services.Library.NPCCharacters;
 using Retinues.Editor.VM.Column.Character;
 using Retinues.Editor.VM.Column.Equipment;
+using Retinues.Game;
 using Retinues.UI.Services;
 using Retinues.Utilities;
 using TaleWorlds.Core.ViewModelCollection;
@@ -124,6 +125,18 @@ namespace Retinues.Editor.VM.Column
                         Model = null;
                         return;
                     }
+                }
+                else if (EditorVM.Page == EditorPage.Doctrines)
+                {
+                    // Use player character for doctrines preview.
+                    var playerVM = new CharacterViewModel(CharacterViewModel.StanceTypes.None);
+                    playerVM.FillFrom(Player.Hero.Character.Base, seed: -1);
+
+                    // Use civilian equipment explicitly
+                    playerVM.SetEquipment(Player.Hero.CivilianEquipment.Base);
+
+                    Model = playerVM;
+                    return;
                 }
                 else
                 {

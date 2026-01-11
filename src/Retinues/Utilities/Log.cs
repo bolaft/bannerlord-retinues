@@ -265,7 +265,7 @@ namespace Retinues.Utilities
             sb.AppendLine("Exception stack:");
 
             var st = new StackTrace(ex, true);
-            var frames = st.GetFrames() ?? Array.Empty<StackFrame>();
+            var frames = st.GetFrames() ?? [];
 
             foreach (var f in frames)
             {

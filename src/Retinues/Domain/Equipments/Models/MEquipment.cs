@@ -329,7 +329,7 @@ namespace Retinues.Domain.Equipments.Models
 
         public List<string> ItemsStaging
         {
-            get => new(ItemsStagingAttribute.Get() ?? new List<string>());
+            get => [.. ItemsStagingAttribute.Get() ?? []];
             set => ItemsStagingAttribute.Set(value == null ? new() : new(value));
         }
 
@@ -489,7 +489,7 @@ namespace Retinues.Domain.Equipments.Models
             if (string.Equals(currentFinalId, newId, StringComparison.Ordinal))
                 return;
 
-            var current = ItemsStagingAttribute.Get() ?? new List<string>();
+            var current = ItemsStagingAttribute.Get() ?? [];
             var next = new List<string>(current.Count + 1);
 
             // Remove any existing entry for this slot.
@@ -610,12 +610,12 @@ namespace Retinues.Domain.Equipments.Models
             SetReal(slot, item);
 
             // Remove the staged entry (SetReal removed staged slot too, but keep queue FIFO correct)
-            var next = ItemsStagingAttribute.Get() ?? new List<string>();
+            var next = ItemsStagingAttribute.Get() ?? [];
             if (next.Count > 0 && TryDecodeStage(next[0], out var s2, out _))
             {
                 if (s2 == slot)
                 {
-                    next = new List<string>(next);
+                    next = [.. next];
                     next.RemoveAt(0);
 
                     owner.OnEquipmentChange();

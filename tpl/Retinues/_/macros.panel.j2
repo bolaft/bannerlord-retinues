@@ -12,12 +12,12 @@
         MarginBottom="12" />
 {% endmacro %}
 
-{% macro panel_label(text, is_visible="true") %}
+{% macro panel_label(text, is_visible="true", margin_bottom="0") %}
     <TextWidget
         IsVisible="{{ is_visible }}"
         Text="{{ text }}"
         Brush="Clan.RightPanel.Name.Text"
         WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-        MarginLeft="4" MarginRight="4"
+        MarginLeft="4" MarginRight="4" MarginBottom="{{ margin_bottom }}"
         HorizontalAlignment="Center" VerticalAlignment="Center" />
 {% endmacro %}

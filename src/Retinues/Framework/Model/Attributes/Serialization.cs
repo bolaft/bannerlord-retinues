@@ -201,8 +201,8 @@ namespace Retinues.Framework.Model.Attributes
 
         static MethodInfo _mbGetObjectGeneric;
 
-        static readonly Dictionary<Type, bool> IsWrapperCache = new();
-        static readonly Dictionary<Type, MethodInfo> WrapperGetCache = new();
+        static readonly Dictionary<Type, bool> IsWrapperCache = [];
+        static readonly Dictionary<Type, MethodInfo> WrapperGetCache = [];
 
         static MethodInfo GetMbGetObjectGeneric()
         {
@@ -558,7 +558,7 @@ namespace Retinues.Framework.Model.Attributes
 
         void DeserializeMbObjectList(Type elemType, string data)
         {
-            var ids = Serialization.Deserialize<List<string>>(data) ?? new List<string>();
+            var ids = Serialization.Deserialize<List<string>>(data) ?? [];
             var listType = typeof(List<>).MakeGenericType(elemType);
             var list = (IList)Activator.CreateInstance(listType);
 
@@ -575,7 +575,7 @@ namespace Retinues.Framework.Model.Attributes
         {
             try
             {
-                var ids = Serialization.Deserialize<List<string>>(data) ?? new List<string>();
+                var ids = Serialization.Deserialize<List<string>>(data) ?? [];
 
                 var listType = typeof(List<>).MakeGenericType(elemType);
                 var resultList = (IList)Activator.CreateInstance(listType);

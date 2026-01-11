@@ -32,6 +32,9 @@ namespace Retinues.Editor.VM.List
         public virtual bool IsEquipment => false;
 
         [DataSourceProperty]
+        public virtual bool IsDoctrine => false;
+
+        [DataSourceProperty]
         public virtual bool IsLibraryItem => false;
 
         [DataSourceProperty]

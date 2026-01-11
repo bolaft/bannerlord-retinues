@@ -11,6 +11,7 @@ using Retinues.Editor.Events;
 using Retinues.Editor.VM.Column;
 using Retinues.Editor.VM.List;
 using Retinues.Editor.VM.Panel.Character;
+using Retinues.Editor.VM.Panel.Doctrines;
 using Retinues.Editor.VM.Panel.Equipment;
 using Retinues.Editor.VM.Panel.Library;
 using Retinues.UI.Services;
@@ -58,6 +59,9 @@ namespace Retinues.Editor.VM
 
             // Initialize the equipment panel VM.
             EquipmentPanel = new EquipmentPanelVM();
+
+            // Initialize the doctrines panel VM.
+            DoctrinesPanel = new DoctrinesPanelVM();
 
             // Initialize the library panel VM.
             LibraryPanel = new LibraryPanelVM();
@@ -344,6 +348,22 @@ namespace Retinues.Editor.VM
 
                 _equipmentPanel = value;
                 OnPropertyChanged(nameof(EquipmentPanel));
+            }
+        }
+
+        private DoctrinesPanelVM _doctrinesPanel;
+
+        [DataSourceProperty]
+        public DoctrinesPanelVM DoctrinesPanel
+        {
+            get => _doctrinesPanel;
+            private set
+            {
+                if (value == _doctrinesPanel)
+                    return;
+
+                _doctrinesPanel = value;
+                OnPropertyChanged(nameof(DoctrinesPanel));
             }
         }
 

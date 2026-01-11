@@ -7,6 +7,7 @@ using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Editor.Events;
 using Retinues.Editor.VM.List.Character;
+using Retinues.Editor.VM.List.Doctrines;
 using Retinues.Editor.VM.List.Equipment;
 using Retinues.Editor.VM.List.Library;
 using Retinues.UI.Services;
@@ -64,6 +65,7 @@ namespace Retinues.Editor.VM.List
                     EditorPage.Character => new CharacterListBuilder(),
                     EditorPage.Equipment => new EquipmentListBuilder(),
                     EditorPage.Library => new LibraryListBuilder(),
+                    EditorPage.Doctrines => new DoctrinesListBuilder(),
                     _ => new EmptyListBuilder(),
                 };
             }

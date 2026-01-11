@@ -108,7 +108,7 @@ namespace Retinues.Framework.Model
                 {
                     if (!_pendingDependents.TryGetValue(target, out var list))
                     {
-                        list = new List<IMAttribute>();
+                        list = [];
                         _pendingDependents[target] = list;
                     }
                     list.Add(dependent);

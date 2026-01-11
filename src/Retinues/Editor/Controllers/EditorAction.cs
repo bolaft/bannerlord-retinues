@@ -44,7 +44,7 @@ namespace Retinues.Editor.Controllers
         }
 
         private int _cacheBurstId = int.MinValue;
-        private readonly Dictionary<TArg, CacheEntry> _burstCache = new();
+        private readonly Dictionary<TArg, CacheEntry> _burstCache = [];
         private readonly CacheEntry _nullBurstCache = new(); // for arg == null
 
         private void EnsureBurstCache()

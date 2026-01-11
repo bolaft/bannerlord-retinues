@@ -256,7 +256,7 @@ namespace Retinues.Configuration.MCM
                 // Prefer parameterless
                 var ctor0 = ctors.FirstOrDefault(c => c.GetParameters().Length == 0);
                 if (ctor0 != null)
-                    return ctor0.Invoke(Array.Empty<object>());
+                    return ctor0.Invoke([]);
 
                 // Prefer "logger" style ctor: ctor(ILogger<ModOptionsGauntletScreen> logger)
                 var ctorLogger = ctors.FirstOrDefault(c =>

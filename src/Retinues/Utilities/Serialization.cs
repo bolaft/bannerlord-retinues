@@ -99,7 +99,7 @@ namespace Retinues.Utilities
         public static List<string> DeserializeList(string data)
         {
             var result = Deserialize<List<string>>(data);
-            return result ?? new List<string>();
+            return result ?? [];
         }
 
         /* ━━━━━━━ Internals ━━━━━━ */

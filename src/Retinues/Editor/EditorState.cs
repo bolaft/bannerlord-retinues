@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Retinues.Configuration;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Equipments.Models;
@@ -8,6 +9,7 @@ using Retinues.Editor.Events;
 using Retinues.Framework.Model.Exports;
 using Retinues.Framework.Runtime;
 using Retinues.Game;
+using Retinues.Game.Doctrines;
 using Retinues.Utilities;
 using TaleWorlds.Core;
 
@@ -502,6 +504,23 @@ namespace Retinues.Editor
 
                 _showCrafted = value;
                 Fire(UIEvent.Crafted);
+            }
+        }
+
+        /* ━━━━━━━ Doctrine ━━━━━━━ */
+
+        private string _doctrineId = DoctrinesAPI.Doctrines.FirstOrDefault().Value?.Id;
+
+        public string DoctrineId
+        {
+            get => _doctrineId;
+            set
+            {
+                if (string.Equals(value, _doctrineId))
+                    return;
+
+                _doctrineId = value;
+                Fire(UIEvent.Doctrine);
             }
         }
 

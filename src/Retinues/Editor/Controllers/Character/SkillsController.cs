@@ -13,7 +13,7 @@ namespace Retinues.Editor.Controllers.Character
         const int MaxSkillLevel = 360;
 
         // Max batch size for skill changes depending on mode.
-        static readonly int MaxBatch = State.Mode == EditorMode.Player ? 10 : int.MaxValue;
+        private static int MaxBatch => State.Mode == EditorMode.Player ? 10 : int.MaxValue;
 
         // One-time warning flag. Reset on UIEvent.Page/UIEvent.Character.
         private static bool _decreaseWarningShown;

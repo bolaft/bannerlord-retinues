@@ -250,7 +250,7 @@ namespace Retinues.UI.VM
             _brush = brush;
             _brushFactory = brushFactory;
 
-            _refreshEvents = refresh ?? Array.Empty<UIEvent>();
+            _refreshEvents = refresh ?? [];
 
             _visibilityGate = visibilityGate;
 

@@ -94,18 +94,13 @@ namespace Retinues.Utilities
 
     internal static class CacheRegistry
     {
-        private sealed class Entry
+        private sealed class Entry(ICacheGroupEntry entry)
         {
-            public readonly WeakReference<ICacheGroupEntry> Reference;
-
-            public Entry(ICacheGroupEntry entry)
-            {
-                Reference = new WeakReference<ICacheGroupEntry>(entry);
-            }
+            public readonly WeakReference<ICacheGroupEntry> Reference =
+                new WeakReference<ICacheGroupEntry>(entry);
         }
 
-        private static readonly Dictionary<string, List<Entry>> _groups =
-            new Dictionary<string, List<Entry>>();
+        private static readonly Dictionary<string, List<Entry>> _groups = [];
 
         private static readonly object _lock = new object();
 
@@ -120,7 +115,7 @@ namespace Retinues.Utilities
             {
                 if (!_groups.TryGetValue(key, out var list))
                 {
-                    list = new List<Entry>();
+                    list = [];
                     _groups[key] = list;
                 }
 

@@ -13,7 +13,7 @@ namespace Retinues.Framework.Model.Attributes
         {
             readonly Scope _prev;
             readonly string _uid;
-            readonly List<KeyValuePair<string, string>> _pairs = new();
+            readonly List<KeyValuePair<string, string>> _pairs = [];
 
             internal Scope(string uid)
             {

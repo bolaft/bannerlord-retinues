@@ -17,6 +17,7 @@ namespace Retinues.Editor.Events
         Page,
         Faction,
         Character,
+        Doctrine,
         Name,
         Culture,
         Appearance,

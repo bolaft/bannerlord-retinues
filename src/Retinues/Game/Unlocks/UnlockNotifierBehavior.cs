@@ -107,11 +107,11 @@ namespace Retinues.Game.Unlocks
         {
             switch (Settings.ItemUnlockNotification.Value)
             {
-                case Settings.ItemUnlockNotificationStyle.Popup:
+                case Settings.NotificationStyle.Popup:
                     Inquiries.Popup(title, description, delayUntilOnWorldMap: true);
                     break;
 
-                case Settings.ItemUnlockNotificationStyle.Message:
+                case Settings.NotificationStyle.Message:
                     Notifications.Message($"{title}\n{description}");
                     break;
 
