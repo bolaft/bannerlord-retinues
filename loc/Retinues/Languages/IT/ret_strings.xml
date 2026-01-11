@@ -863,6 +863,24 @@
       id="ret_mcm_option_enable_skill_gain_system_hint"
       text="Se abilitato, le truppe dovranno guadagnare punti abilità in battaglia prima di salire di livello nelle abilità." />
     <string
+      id="ret_mcm_option_enable_universal_editor"
+      text="Abilita Editor Universale" />
+    <string
+      id="ret_mcm_option_enable_universal_editor_hint"
+      text="Abilita l&apos;Editor Universale, che può essere utilizzato per modificare le truppe e gli eroi vanilla." />
+    <string
+      id="ret_mcm_option_enforce_equipment_limits"
+      text="Applica i limiti di equipaggiamento" />
+    <string
+      id="ret_mcm_option_enforce_equipment_limits_hint"
+      text="Se abilitato, l&apos;Editor Universale applicherà i limiti di equipaggiamento normali durante la modifica delle truppe vanilla." />
+    <string
+      id="ret_mcm_option_enforce_skill_limits"
+      text="Applica i limiti di abilità" />
+    <string
+      id="ret_mcm_option_enforce_skill_limits_hint"
+      text="Se abilitato, l&apos;Editor Universale applicherà i limiti di abilità normali durante la modifica delle truppe vanilla." />
+    <string
       id="ret_mcm_option_equipment_cost_money"
       text="L&apos;equipaggiamento costa denaro" />
     <string
@@ -1120,6 +1138,9 @@
     <string
       id="ret_mcm_section_troops"
       text="Truppe" />
+    <string
+      id="ret_mcm_section_universal_editor"
+      text="Editor Universale" />
     <string
       id="ret_mcm_section_user_interface"
       text="Interfaccia utente" />

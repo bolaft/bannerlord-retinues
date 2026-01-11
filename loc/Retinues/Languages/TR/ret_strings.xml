@@ -863,6 +863,24 @@
       id="ret_mcm_option_enable_skill_gain_system_hint"
       text="Etkinleştirilirse, birliklerin becerileri geliştirmeden önce savaşta beceri puanları kazanmaları gerekecektir." />
     <string
+      id="ret_mcm_option_enable_universal_editor"
+      text="Evrensel Düzenleyiciyi Etkinleştir" />
+    <string
+      id="ret_mcm_option_enable_universal_editor_hint"
+      text="Vanilya birlikleri ve kahramanları düzenlemek için kullanılabilen Evrensel Düzenleyiciyi etkinleştirir." />
+    <string
+      id="ret_mcm_option_enforce_equipment_limits"
+      text="Ekipman Sınırlarını Uygula" />
+    <string
+      id="ret_mcm_option_enforce_equipment_limits_hint"
+      text="Etkinleştirilirse, Evrensel Düzenleyici vanilya birliklerini düzenlerken normal ekipman sınırlarını uygulayacaktır." />
+    <string
+      id="ret_mcm_option_enforce_skill_limits"
+      text="Yetenek Sınırlarını Uygula" />
+    <string
+      id="ret_mcm_option_enforce_skill_limits_hint"
+      text="Etkinleştirilirse, Evrensel Düzenleyici vanilya birliklerini düzenlerken normal beceri sınırlarını uygulayacaktır." />
+    <string
       id="ret_mcm_option_equipment_cost_money"
       text="Ekipman Para Tutar" />
     <string
@@ -1120,6 +1138,9 @@
     <string
       id="ret_mcm_section_troops"
       text="Birlikler" />
+    <string
+      id="ret_mcm_section_universal_editor"
+      text="Evrensel Düzenleyici" />
     <string
       id="ret_mcm_section_user_interface"
       text="Kullanıcı Arayüzü" />

@@ -863,6 +863,24 @@
       id="ret_mcm_option_enable_skill_gain_system_hint"
       text="Jeśli włączone, oddziały będą musiały zdobywać punkty umiejętności w bitwie, zanim podniosą poziom umiejętności." />
     <string
+      id="ret_mcm_option_enable_universal_editor"
+      text="Włącz Uniwersalny Edytor" />
+    <string
+      id="ret_mcm_option_enable_universal_editor_hint"
+      text="Włącza Uniwersalny Edytor, który można używać do edytowania standardowych oddziałów i bohaterów." />
+    <string
+      id="ret_mcm_option_enforce_equipment_limits"
+      text="Wymuś limity ekwipunku" />
+    <string
+      id="ret_mcm_option_enforce_equipment_limits_hint"
+      text="Jeśli włączone, Uniwersalny Edytor będzie wymuszał normalne limity ekwipunku podczas edytowania standardowych oddziałów." />
+    <string
+      id="ret_mcm_option_enforce_skill_limits"
+      text="Wymuś limity umiejętności" />
+    <string
+      id="ret_mcm_option_enforce_skill_limits_hint"
+      text="Jeśli włączone, Uniwersalny Edytor będzie wymuszał normalne limity umiejętności podczas edytowania standardowych oddziałów." />
+    <string
       id="ret_mcm_option_equipment_cost_money"
       text="Ekwipunek kosztuje pieniądze" />
     <string
@@ -1120,6 +1138,9 @@
     <string
       id="ret_mcm_section_troops"
       text="Oddziały" />
+    <string
+      id="ret_mcm_section_universal_editor"
+      text="Uniwersalny edytor" />
     <string
       id="ret_mcm_section_user_interface"
       text="Interfejs użytkownika" />

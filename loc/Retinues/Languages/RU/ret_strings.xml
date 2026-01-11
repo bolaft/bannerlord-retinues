@@ -863,6 +863,24 @@
       id="ret_mcm_option_enable_skill_gain_system_hint"
       text="Если включено, войскам потребуется зарабатывать очки навыков в бою, прежде чем повышать уровень навыков." />
     <string
+      id="ret_mcm_option_enable_universal_editor"
+      text="Включить универсальный редактор" />
+    <string
+      id="ret_mcm_option_enable_universal_editor_hint"
+      text="Включает универсальный редактор, который можно использовать для редактирования стандартных войск и героев." />
+    <string
+      id="ret_mcm_option_enforce_equipment_limits"
+      text="Применять ограничения на экипировку" />
+    <string
+      id="ret_mcm_option_enforce_equipment_limits_hint"
+      text="Если включено, универсальный редактор будет применять нормальные ограничения на экипировку при редактировании стандартных войск." />
+    <string
+      id="ret_mcm_option_enforce_skill_limits"
+      text="Применять ограничения навыков" />
+    <string
+      id="ret_mcm_option_enforce_skill_limits_hint"
+      text="Если включено, универсальный редактор будет применять нормальные ограничения навыков при редактировании стандартных войск." />
+    <string
       id="ret_mcm_option_equipment_cost_money"
       text="Экипировка стоит денег" />
     <string
@@ -1120,6 +1138,9 @@
     <string
       id="ret_mcm_section_troops"
       text="Войска" />
+    <string
+      id="ret_mcm_section_universal_editor"
+      text="Универсальный редактор" />
     <string
       id="ret_mcm_section_user_interface"
       text="Пользовательский интерфейс" />

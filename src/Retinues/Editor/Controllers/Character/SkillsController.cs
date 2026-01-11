@@ -10,7 +10,10 @@ namespace Retinues.Editor.Controllers.Character
 {
     public class SkillsController : BaseController
     {
-        const int MaxBatch = int.MaxValue;
+        const int MaxSkillLevel = 360;
+
+        // Max batch size for skill changes depending on mode.
+        static readonly int MaxBatch = State.Mode == EditorMode.Player ? 10 : int.MaxValue;
 
         // One-time warning flag. Reset on UIEvent.Page/UIEvent.Character.
         private static bool _decreaseWarningShown;
@@ -30,6 +33,10 @@ namespace Retinues.Editor.Controllers.Character
             EventManager.Register(_warningResetListener);
         }
 
+        private static bool SkillLimitsActive =>
+            State.Mode == EditorMode.Player
+            || (State.Mode == EditorMode.Universal && Settings.EnforceSkillLimitsInUniversalMode);
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Increase                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -38,12 +45,19 @@ namespace Retinues.Editor.Controllers.Character
             Action<SkillObject>("SkillIncrease")
                 .RequireValidEditingContext()
                 .AddCondition(
-                    s => State.Character.Editable.Skills.Get(s) < State.Character.SkillCapForTier,
+                    s =>
+                        State.Character.Editable.Skills.Get(s) < MaxSkillLevel
+                        == (
+                            !SkillLimitsActive
+                            || State.Character.Editable.Skills.Get(s)
+                                < State.Character.SkillCapForTier
+                        ),
                     L.T("skill_increase_maxed_reason", "Skill is already at maximum level.")
                 )
                 .AddCondition(
                     s =>
-                        State.Character.IsHero
+                        !SkillLimitsActive
+                        || State.Character.IsHero
                         || (State.Character.SkillTotalUsed + 1)
                             <= State.Character.SkillTotalMaxForTier,
                     L.T("skill_increase_total_reason", "Total skill limit reached.")

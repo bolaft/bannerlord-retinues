@@ -863,6 +863,24 @@
       id="ret_mcm_option_enable_skill_gain_system_hint"
       text="Se ativado, as tropas precisarão ganhar pontos de habilidade em batalha antes de subir de nível nas habilidades." />
     <string
+      id="ret_mcm_option_enable_universal_editor"
+      text="Ativar Editor Universal" />
+    <string
+      id="ret_mcm_option_enable_universal_editor_hint"
+      text="Ativa o Editor Universal, que pode ser usado para editar tropas e heróis padrão." />
+    <string
+      id="ret_mcm_option_enforce_equipment_limits"
+      text="Aplicar Limites de Equipamento" />
+    <string
+      id="ret_mcm_option_enforce_equipment_limits_hint"
+      text="Se ativado, o Editor Universal aplicará os limites normais de equipamento ao editar tropas padrão." />
+    <string
+      id="ret_mcm_option_enforce_skill_limits"
+      text="Aplicar Limites de Habilidade" />
+    <string
+      id="ret_mcm_option_enforce_skill_limits_hint"
+      text="Se ativado, o Editor Universal aplicará os limites normais de habilidade ao editar tropas padrão." />
+    <string
       id="ret_mcm_option_equipment_cost_money"
       text="Equipamento Custa Dinheiro" />
     <string
@@ -1120,6 +1138,9 @@
     <string
       id="ret_mcm_section_troops"
       text="Tropas" />
+    <string
+      id="ret_mcm_section_universal_editor"
+      text="Editor Universal" />
     <string
       id="ret_mcm_section_user_interface"
       text="Interface do Usuário" />

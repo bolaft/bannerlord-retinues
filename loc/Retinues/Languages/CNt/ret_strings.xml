@@ -863,6 +863,24 @@
       id="ret_mcm_option_enable_skill_gain_system_hint"
       text="如果啟用，部隊需要在戰鬥中獲得技能點才能提升技能等級。" />
     <string
+      id="ret_mcm_option_enable_universal_editor"
+      text="啟用通用編輯器" />
+    <string
+      id="ret_mcm_option_enable_universal_editor_hint"
+      text="啟用通用編輯器，可用於編輯原版部隊和英雄。" />
+    <string
+      id="ret_mcm_option_enforce_equipment_limits"
+      text="強制執行裝備限制" />
+    <string
+      id="ret_mcm_option_enforce_equipment_limits_hint"
+      text="如果啟用，通用編輯器在編輯原版部隊時將強制執行正常的裝備限制。" />
+    <string
+      id="ret_mcm_option_enforce_skill_limits"
+      text="強制執行技能限制" />
+    <string
+      id="ret_mcm_option_enforce_skill_limits_hint"
+      text="如果啟用，通用編輯器在編輯原版部隊時將強制執行正常的技能限制。" />
+    <string
       id="ret_mcm_option_equipment_cost_money"
       text="裝備需要花錢" />
     <string
@@ -1120,6 +1138,9 @@
     <string
       id="ret_mcm_section_troops"
       text="部隊" />
+    <string
+      id="ret_mcm_section_universal_editor"
+      text="通用編輯器" />
     <string
       id="ret_mcm_section_user_interface"
       text="用戶界面" />

@@ -76,7 +76,11 @@ namespace Retinues.Editor.Controllers.Equipment
         //                          Limits                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private static bool LimitsEnabled => State.Mode == EditorMode.Player;
+        private static bool LimitsEnabled =>
+            State.Mode == EditorMode.Player
+            || (
+                State.Mode == EditorMode.Universal && Settings.EnforceEquipmentLimitsInUniversalMode
+            );
 
         private static bool WeightLimitActive => LimitsEnabled && Settings.EquipmentWeightLimit;
 
@@ -202,7 +206,8 @@ namespace Retinues.Editor.Controllers.Equipment
                 )
                 .AddCondition(UnlockAllowed, UnlockTooltip)
                 .AddCondition(
-                    item => item.IsEquippableByCharacterOfTier(State.Character.Tier),
+                    item =>
+                        !LimitsEnabled || item.IsEquippableByCharacterOfTier(State.Character.Tier),
                     _ => L.T("cant_equip_reason_mount_disallowed", "Too low tier")
                 )
                 .AddCondition(

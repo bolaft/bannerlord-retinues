@@ -863,6 +863,24 @@
       id="ret_mcm_option_enable_skill_gain_system_hint"
       text="활성화되면 부대는 기술을 레벨업하기 전에 전투에서 기술 포인트를 획득해야 합니다." />
     <string
+      id="ret_mcm_option_enable_universal_editor"
+      text="범용 편집기 활성화" />
+    <string
+      id="ret_mcm_option_enable_universal_editor_hint"
+      text="바닐라 부대와 영웅을 편집하는 데 사용할 수 있는 범용 편집기를 활성화합니다." />
+    <string
+      id="ret_mcm_option_enforce_equipment_limits"
+      text="장비 제한 적용" />
+    <string
+      id="ret_mcm_option_enforce_equipment_limits_hint"
+      text="활성화되면 범용 편집기는 바닐라 부대를 편집할 때 정상적인 장비 제한을 적용합니다." />
+    <string
+      id="ret_mcm_option_enforce_skill_limits"
+      text="기술 제한 적용" />
+    <string
+      id="ret_mcm_option_enforce_skill_limits_hint"
+      text="활성화되면 범용 편집기는 바닐라 부대를 편집할 때 정상적인 기술 제한을 적용합니다." />
+    <string
       id="ret_mcm_option_equipment_cost_money"
       text="장비는 돈이 듭니다" />
     <string
@@ -1120,6 +1138,9 @@
     <string
       id="ret_mcm_section_troops"
       text="부대" />
+    <string
+      id="ret_mcm_section_universal_editor"
+      text="범용 편집기" />
     <string
       id="ret_mcm_section_user_interface"
       text="사용자 인터페이스" />

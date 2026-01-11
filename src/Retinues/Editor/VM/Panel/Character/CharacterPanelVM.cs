@@ -135,7 +135,9 @@ namespace Retinues.Editor.VM.Panel.Character
 
         [EventListener(UIEvent.Character)]
         [DataSourceProperty]
-        public bool ShowSkillDetails => !State.Character.IsHero;
+        public bool ShowSkillDetails =>
+            !State.Character.IsHero
+            && (State.Mode == EditorMode.Player || Settings.EnforceSkillLimitsInUniversalMode);
 
         [EventListener(UIEvent.Skill)]
         [DataSourceProperty]

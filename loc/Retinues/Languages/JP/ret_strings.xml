@@ -863,6 +863,24 @@
       id="ret_mcm_option_enable_skill_gain_system_hint"
       text="有効にすると、部隊はスキルをレベルアップする前に戦闘でスキルポイントを獲得する必要があります。" />
     <string
+      id="ret_mcm_option_enable_universal_editor"
+      text="ユニバーサルエディターを有効にする" />
+    <string
+      id="ret_mcm_option_enable_universal_editor_hint"
+      text="ユニバーサルエディターを有効にします。これは、バニラの部隊と英雄を編集するために使用できます。" />
+    <string
+      id="ret_mcm_option_enforce_equipment_limits"
+      text="装備制限を強制する" />
+    <string
+      id="ret_mcm_option_enforce_equipment_limits_hint"
+      text="有効にすると、ユニバーサルエディターはバニラの部隊を編集する際に通常の装備制限を強制します。" />
+    <string
+      id="ret_mcm_option_enforce_skill_limits"
+      text="スキル制限を強制する" />
+    <string
+      id="ret_mcm_option_enforce_skill_limits_hint"
+      text="有効にすると、ユニバーサルエディターはバニラの部隊を編集する際に通常のスキル制限を強制します。" />
+    <string
       id="ret_mcm_option_equipment_cost_money"
       text="装備にはお金がかかります" />
     <string
@@ -1120,6 +1138,9 @@
     <string
       id="ret_mcm_section_troops"
       text="部隊" />
+    <string
+      id="ret_mcm_section_universal_editor"
+      text="ユニバーサルエディター" />
     <string
       id="ret_mcm_section_user_interface"
       text="ユーザーインターフェース" />

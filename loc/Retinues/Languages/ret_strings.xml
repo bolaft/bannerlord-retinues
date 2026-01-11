@@ -869,6 +869,18 @@
       id="ret_mcm_option_enable_universal_editor_hint"
       text="Enables the Universal Editor, that can be used to edit vanilla troops and heroes." />
     <string
+      id="ret_mcm_option_enforce_equipment_limits"
+      text="Enforce Equipment Limits" />
+    <string
+      id="ret_mcm_option_enforce_equipment_limits_hint"
+      text="If enabled, the Universal Editor will enforce normal equipment limits when editing vanilla troops." />
+    <string
+      id="ret_mcm_option_enforce_skill_limits"
+      text="Enforce Skill Limits" />
+    <string
+      id="ret_mcm_option_enforce_skill_limits_hint"
+      text="If enabled, the Universal Editor will enforce normal skill limits when editing vanilla troops." />
+    <string
       id="ret_mcm_option_equipment_cost_money"
       text="Equipment Costs Money" />
     <string

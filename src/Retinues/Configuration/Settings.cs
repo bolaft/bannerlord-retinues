@@ -87,6 +87,28 @@ namespace Retinues.Configuration
             @default: true
         );
 
+        public static readonly Option<bool> EnforceSkillLimitsInUniversalMode = CreateOption(
+            section: UniversalEditor,
+            name: L.F("mcm_option_enforce_skill_limits", "Enforce Skill Limits"),
+            hint: L.F(
+                "mcm_option_enforce_skill_limits_hint",
+                "If enabled, the Universal Editor will enforce normal skill limits when editing vanilla troops."
+            ),
+            @default: false,
+            fires: [UIEvent.Character, UIEvent.Page]
+        );
+
+        public static readonly Option<bool> EnforceEquipmentLimitsInUniversalMode = CreateOption(
+            section: UniversalEditor,
+            name: L.F("mcm_option_enforce_equipment_limits", "Enforce Equipment Limits"),
+            hint: L.F(
+                "mcm_option_enforce_equipment_limits_hint",
+                "If enabled, the Universal Editor will enforce normal equipment limits when editing vanilla troops."
+            ),
+            @default: false,
+            fires: [UIEvent.Equipment]
+        );
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Restrictions                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -1175,7 +1197,7 @@ namespace Retinues.Configuration
             ),
             minValue: 90,
             maxValue: 1600,
-            @default: 360,
+            @default: 380,
             fires: [UIEvent.Skill]
         );
 
@@ -1189,7 +1211,7 @@ namespace Retinues.Configuration
             ),
             minValue: 90,
             maxValue: 1600,
-            @default: 555,
+            @default: 560,
             fires: [UIEvent.Skill]
         );
 
@@ -1217,7 +1239,7 @@ namespace Retinues.Configuration
             ),
             minValue: 90,
             maxValue: 1600,
-            @default: 1015,
+            @default: 1020,
             fires: [UIEvent.Skill]
         );
 

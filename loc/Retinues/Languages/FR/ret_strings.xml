@@ -863,6 +863,24 @@
       id="ret_mcm_option_enable_skill_gain_system_hint"
       text="Si activé, les troupes devront gagner des points de compétence au combat avant de monter en compétence." />
     <string
+      id="ret_mcm_option_enable_universal_editor"
+      text="Activer l&apos;Éditeur Universel" />
+    <string
+      id="ret_mcm_option_enable_universal_editor_hint"
+      text="Active l&apos;Éditeur Universel, qui peut être utilisé pour modifier les troupes et héros de base." />
+    <string
+      id="ret_mcm_option_enforce_equipment_limits"
+      text="Appliquer les limites d&apos;équipement" />
+    <string
+      id="ret_mcm_option_enforce_equipment_limits_hint"
+      text="Si activé, l&apos;Éditeur Universel appliquera les limites d&apos;équipement normales lors de la modification des troupes de base." />
+    <string
+      id="ret_mcm_option_enforce_skill_limits"
+      text="Appliquer les limites de compétence" />
+    <string
+      id="ret_mcm_option_enforce_skill_limits_hint"
+      text="Si activé, l&apos;Éditeur Universel appliquera les limites de compétence normales lors de la modification des troupes de base." />
+    <string
       id="ret_mcm_option_equipment_cost_money"
       text="L&apos;Équipement Coûte de l&apos;Argent" />
     <string
@@ -1120,6 +1138,9 @@
     <string
       id="ret_mcm_section_troops"
       text="Troupes" />
+    <string
+      id="ret_mcm_section_universal_editor"
+      text="Éditeur Universel" />
     <string
       id="ret_mcm_section_user_interface"
       text="Interface Utilisateur" />
