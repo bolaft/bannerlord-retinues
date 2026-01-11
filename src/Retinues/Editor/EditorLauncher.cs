@@ -1,5 +1,7 @@
 using System.Linq;
+using Retinues.Configuration;
 using Retinues.Domain.Factions;
+using Retinues.Domain.Factions.Wrappers;
 using Retinues.Game;
 using Retinues.Utilities;
 using TaleWorlds.Core;
@@ -8,39 +10,39 @@ namespace Retinues.Editor
 {
     public static class EditorLauncher
     {
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Launch                         //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        /// <summary>
-        /// Launch the troops editor with the given arguments.
-        /// </summary>
         public static void Launch(EditorLaunchArgs args = null)
         {
             LaunchInternal(args ?? EditorLaunchArgs.Universal());
         }
 
-        /// <summary>
-        /// Launch the troops editor in the given mode.
-        /// </summary>
         public static void Launch(EditorMode mode)
         {
             LaunchInternal(EditorLaunchArgs.ForMode(mode));
         }
 
-        /// <summary>
-        /// Internal launch logic.
-        /// </summary>
         private static void LaunchInternal(EditorLaunchArgs args)
         {
             var gsm = TaleWorlds.Core.Game.Current?.GameStateManager;
             if (gsm == null)
                 return;
 
-            if ((args?.Mode ?? EditorMode.Universal) == EditorMode.Player)
+            var mode = args?.Mode ?? EditorMode.Universal;
+
+            if (!Settings.EnableUniversalEditor && mode == EditorMode.Universal)
             {
-                // Player-mode availability must be based on the intended selection,
-                // not always on the player clan.
+                var downgraded = TryDowngradeUniversalToPlayer(args);
+                if (downgraded == null)
+                {
+                    Log.Debug("Troops editor blocked: Universal Editor is disabled in settings.");
+                    return;
+                }
+
+                args = downgraded;
+                mode = args.Mode;
+            }
+
+            if (mode == EditorMode.Player)
+            {
                 var gateFaction = ResolveGateFaction(args);
 
                 if (!EditorAvailability.HasAnyCustomTreeTroops(gateFaction))
@@ -58,13 +60,27 @@ namespace Retinues.Editor
             gsm.PushState(state);
         }
 
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Helpers                        //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        private static EditorLaunchArgs TryDowngradeUniversalToPlayer(EditorLaunchArgs args)
+        {
+            if (args == null)
+                return null;
 
-        /// <summary>
-        /// Resolve the faction to use for editor availability checks.
-        /// </summary>
+            if (args.Character != null && args.Character.InCustomTree)
+            {
+                var faction = args.Character.AssignedMapFaction ?? Player.Clan;
+                return EditorLaunchArgs.Player(faction: faction, character: args.Character);
+            }
+
+            if (args.Faction is WClan || args.Faction is WKingdom)
+                return EditorLaunchArgs.Player(faction: args.Faction);
+
+            // Heroes are universal-only (appearance editing etc).
+            if (args.Hero != null)
+                return null;
+
+            return null;
+        }
+
         private static IBaseFaction ResolveGateFaction(EditorLaunchArgs args)
         {
             if (args == null)
@@ -82,9 +98,6 @@ namespace Retinues.Editor
             return Player.Clan;
         }
 
-        /// <summary>
-        /// Close any previously opened editor instances.
-        /// </summary>
         private static void ClosePreviousEditorInstances(GameStateManager gsm)
         {
             while (gsm.GameStates.Any(s => s is EditorGameState))

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Bannerlord.UIExtenderEx.Attributes;
 using Bannerlord.UIExtenderEx.Prefabs2;
+using Retinues.Configuration;
 
 namespace Retinues.UI.Prefabs.EscapeMenu.Patches
 {
@@ -13,7 +14,14 @@ namespace Retinues.UI.Prefabs.EscapeMenu.Patches
         // Reduce the vertical gap between ESC menu buttons (default was 30)
         public override List<Attribute> Attributes
         {
-            get { return [new Attribute("MarginBottom", "22")]; }
+            get
+            {
+                // If Universal Editor is disabled, don't touch margins at all.
+                if (Settings.EnableUniversalEditor != true)
+                    return [];
+
+                return [new Attribute("MarginBottom", "22")];
+            }
         }
     }
 }

@@ -1,6 +1,8 @@
 using System;
 using Bannerlord.UIExtenderEx.Attributes;
 using Bannerlord.UIExtenderEx.ViewModels;
+using Retinues.Configuration;
+using Retinues.Editor;
 using Retinues.UI.Services;
 using Retinues.UI.VM;
 using Retinues.Utilities;
@@ -26,7 +28,19 @@ namespace Retinues.UI.Prefabs.Encyclopedia
         }
 
         [DataSourceProperty]
-        public virtual bool IsEnabled => true;
+        public virtual EditorMode DesiredEditorMode => EditorMode.Universal;
+
+        [DataSourceProperty]
+        public virtual bool IsEnabled
+        {
+            get
+            {
+                if (!Settings.EnableUniversalEditor && DesiredEditorMode == EditorMode.Universal)
+                    return false;
+
+                return true;
+            }
+        }
 
         [DataSourceProperty]
         public virtual int MarginTop => 10;

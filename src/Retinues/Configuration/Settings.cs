@@ -65,6 +65,29 @@ namespace Retinues.Configuration
             );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                    Universal Editor                    //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public static readonly Section UniversalEditor = CreateSection(
+            name: L.F("mcm_section_universal_editor", "Universal Editor")
+        );
+
+        /* ━━━━━━━━ Options ━━━━━━━ */
+
+        public static readonly Option<bool> EnableUniversalEditor = CreateOption(
+            section: UniversalEditor,
+            name: L.F("mcm_option_enable_universal_editor", "Enable Universal Editor"),
+            hint: L.F(
+                "mcm_option_enable_universal_editor_hint",
+                "Enables the Universal Editor, that can be used to edit vanilla troops and heroes."
+            ),
+#if !DEBUG
+            requiresRestart: true,
+#endif
+            @default: true
+        );
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Restrictions                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 

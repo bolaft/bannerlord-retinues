@@ -20,6 +20,22 @@ namespace Retinues.UI.Prefabs.Encyclopedia
         [DataSourceProperty]
         public override int MarginRight => 0;
 
+        [DataSourceProperty]
+        public override EditorMode DesiredEditorMode
+        {
+            get
+            {
+                if (ViewModel.Obj is not Clan clan)
+                    return EditorMode.Universal;
+
+                var wc = WClan.Get(clan);
+                if (wc == null)
+                    return EditorMode.Universal;
+
+                return Player.Clan == wc ? EditorMode.Player : EditorMode.Universal;
+            }
+        }
+
         [DataSourceMethod]
         public override void ExecuteOpenEditor()
         {

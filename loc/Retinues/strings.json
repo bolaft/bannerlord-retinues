@@ -4576,6 +4576,38 @@
     "TR": "Etkinleştirilirse, birliklerin becerileri geliştirmeden önce savaşta beceri puanları kazanmaları gerekecektir."
   },
   {
+    "id": "ret_mcm_option_enable_universal_editor",
+    "EN": "Enable Universal Editor",
+    "FR": "Activer l'Éditeur Universel",
+    "BR": "Ativar Editor Universal",
+    "CNs": "启用通用编辑器",
+    "CNt": "啟用通用編輯器",
+    "DE": "Universellen Editor aktivieren",
+    "IT": "Abilita Editor Universale",
+    "JP": "ユニバーサルエディターを有効にする",
+    "KO": "범용 편집기 활성화",
+    "PL": "Włącz Uniwersalny Edytor",
+    "RU": "Включить универсальный редактор",
+    "SP": "Habilitar editor universal",
+    "TR": "Evrensel Düzenleyiciyi Etkinleştir"
+  },
+  {
+    "id": "ret_mcm_option_enable_universal_editor_hint",
+    "EN": "Enables the Universal Editor, that can be used to edit vanilla troops and heroes.",
+    "FR": "Active l'Éditeur Universel, qui peut être utilisé pour modifier les troupes et héros de base.",
+    "BR": "Ativa o Editor Universal, que pode ser usado para editar tropas e heróis padrão.",
+    "CNs": "启用通用编辑器，可用于编辑原版部队和英雄。",
+    "CNt": "啟用通用編輯器，可用於編輯原版部隊和英雄。",
+    "DE": "Aktiviert den Universellen Editor, der zum Bearbeiten von Standardtruppen und Helden verwendet werden kann.",
+    "IT": "Abilita l'Editor Universale, che può essere utilizzato per modificare le truppe e gli eroi vanilla.",
+    "JP": "ユニバーサルエディターを有効にします。これは、バニラの部隊と英雄を編集するために使用できます。",
+    "KO": "바닐라 부대와 영웅을 편집하는 데 사용할 수 있는 범용 편집기를 활성화합니다.",
+    "PL": "Włącza Uniwersalny Edytor, który można używać do edytowania standardowych oddziałów i bohaterów.",
+    "RU": "Включает универсальный редактор, который можно использовать для редактирования стандартных войск и героев.",
+    "SP": "Habilita el Editor Universal, que se puede usar para editar tropas y héroes estándar.",
+    "TR": "Vanilya birlikleri ve kahramanları düzenlemek için kullanılabilen Evrensel Düzenleyiciyi etkinleştirir."
+  },
+  {
     "id": "ret_mcm_option_equipment_cost_money",
     "EN": "Equipment Costs Money",
     "FR": "L'Équipement Coûte de l'Argent",
@@ -5950,6 +5982,22 @@
     "RU": "Войска",
     "SP": "Tropas",
     "TR": "Birlikler"
+  },
+  {
+    "id": "ret_mcm_section_universal_editor",
+    "EN": "Universal Editor",
+    "FR": "Éditeur Universel",
+    "BR": "Editor Universal",
+    "CNs": "通用编辑器",
+    "CNt": "通用編輯器",
+    "DE": "Universeller Editor",
+    "IT": "Editor Universale",
+    "JP": "ユニバーサルエディター",
+    "KO": "범용 편집기",
+    "PL": "Uniwersalny edytor",
+    "RU": "Универсальный редактор",
+    "SP": "Editor Universal",
+    "TR": "Evrensel Düzenleyici"
   },
   {
     "id": "ret_mcm_section_user_interface",

@@ -863,6 +863,12 @@
       id="ret_mcm_option_enable_skill_gain_system_hint"
       text="If enabled, troops will need to earn skill points in battle before leveling up skills." />
     <string
+      id="ret_mcm_option_enable_universal_editor"
+      text="Enable Universal Editor" />
+    <string
+      id="ret_mcm_option_enable_universal_editor_hint"
+      text="Enables the Universal Editor, that can be used to edit vanilla troops and heroes." />
+    <string
       id="ret_mcm_option_equipment_cost_money"
       text="Equipment Costs Money" />
     <string
@@ -1120,6 +1126,9 @@
     <string
       id="ret_mcm_section_troops"
       text="Troops" />
+    <string
+      id="ret_mcm_section_universal_editor"
+      text="Universal Editor" />
     <string
       id="ret_mcm_section_user_interface"
       text="User Interface" />

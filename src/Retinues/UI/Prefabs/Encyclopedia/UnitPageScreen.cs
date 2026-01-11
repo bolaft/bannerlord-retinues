@@ -5,6 +5,7 @@ using Retinues.Editor;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.ViewModelCollection.Encyclopedia.Pages;
+using TaleWorlds.Library;
 
 namespace Retinues.UI.Prefabs.Encyclopedia
 {
@@ -12,6 +13,19 @@ namespace Retinues.UI.Prefabs.Encyclopedia
     public sealed class UnitPageScreen(EncyclopediaUnitPageVM vm)
         : BaseEncyclopediaPageScreen<EncyclopediaUnitPageVM>(vm)
     {
+        [DataSourceProperty]
+        public override EditorMode DesiredEditorMode
+        {
+            get
+            {
+                if (ViewModel.Obj is not CharacterObject co)
+                    return EditorMode.Universal;
+
+                var wc = WCharacter.Get(co);
+                return wc != null && wc.InCustomTree ? EditorMode.Player : EditorMode.Universal;
+            }
+        }
+
         [DataSourceMethod]
         public override void ExecuteOpenEditor()
         {

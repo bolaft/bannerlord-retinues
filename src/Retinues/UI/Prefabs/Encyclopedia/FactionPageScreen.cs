@@ -17,6 +17,22 @@ namespace Retinues.UI.Prefabs.Encyclopedia
         [DataSourceProperty]
         public override int MarginTop => 8;
 
+        [DataSourceProperty]
+        public override EditorMode DesiredEditorMode
+        {
+            get
+            {
+                if (ViewModel.Obj is not Kingdom kingdom)
+                    return EditorMode.Universal;
+
+                var wk = WKingdom.Get(kingdom);
+                if (wk == null)
+                    return EditorMode.Universal;
+
+                return Player.Kingdom == wk ? EditorMode.Player : EditorMode.Universal;
+            }
+        }
+
         [DataSourceMethod]
         public override void ExecuteOpenEditor()
         {

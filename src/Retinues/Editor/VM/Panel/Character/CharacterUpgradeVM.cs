@@ -1,4 +1,5 @@
 using Bannerlord.UIExtenderEx.Attributes;
+using Retinues.Configuration;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Editor.Events;
 using TaleWorlds.Library;
@@ -27,9 +28,15 @@ namespace Retinues.Editor.VM.Panel.Character
         //                        Selection                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        [DataSourceProperty]
+        public bool IsEnabled => _character.InCustomTree || Settings.EnableUniversalEditor;
+
         [DataSourceMethod]
         public void ExecuteSelect()
         {
+            if (!IsEnabled)
+                return;
+
             // Upgrade targets can cross mode boundaries:
             // - Custom tree troops must open in Player mode
             // - Non-custom troops must open in Universal mode
@@ -51,7 +58,6 @@ namespace Retinues.Editor.VM.Panel.Character
             // Otherwise we must relaunch, potentially switching editor mode.
             if (desiredMode == EditorMode.Player)
             {
-                // Player-mode editor, preselect the assigned map-faction (clan/kingdom).
                 var faction = _character.AssignedMapFaction;
 
                 EditorLauncher.Launch(
@@ -60,7 +66,6 @@ namespace Retinues.Editor.VM.Panel.Character
                 return;
             }
 
-            // Universal-mode editor, preselect culture.
             EditorLauncher.Launch(
                 EditorLaunchArgs.Universal(faction: _character.Culture, character: _character)
             );

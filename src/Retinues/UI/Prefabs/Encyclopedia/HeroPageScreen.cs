@@ -1,5 +1,6 @@
 using System;
 using Bannerlord.UIExtenderEx.Attributes;
+using Retinues.Configuration;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Editor;
 using Retinues.Utilities;
@@ -18,14 +19,17 @@ namespace Retinues.UI.Prefabs.Encyclopedia
         {
             get
             {
+                if (!Settings.EnableUniversalEditor)
+                    return false;
+
                 if (ViewModel.Obj is not Hero hero)
-                    return false; // Not a hero, cannot edit.
+                    return false;
 
                 if (hero.IsDead)
-                    return false; // Dead heroes are not editable.
+                    return false;
 
                 if (hero.Clan == null)
-                    return false; // No clan means no faction.
+                    return false;
 
                 return true;
             }

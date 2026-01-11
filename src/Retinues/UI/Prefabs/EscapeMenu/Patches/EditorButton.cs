@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using HarmonyLib;
+using Retinues.Configuration;
 using Retinues.Editor;
 using Retinues.UI.Services;
 using Retinues.Utilities;
@@ -22,6 +23,9 @@ namespace Retinues.UI.Prefabs.EscapeMenu.Patches
         {
             try
             {
+                if (Settings.EnableUniversalEditor != true)
+                    return; // Feature disabled
+
                 var title = L.T("escape_menu_editor_button", "Universal Editor");
                 static Tuple<bool, TextObject> notDisabled() =>
                     new(false, new TextObject(string.Empty));

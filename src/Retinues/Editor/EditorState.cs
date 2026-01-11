@@ -1,4 +1,5 @@
 using System;
+using Retinues.Configuration;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Equipments.Models;
 using Retinues.Domain.Factions;
@@ -139,7 +140,9 @@ namespace Retinues.Editor
         private void ApplyLaunchArgs(EditorLaunchArgs args)
         {
             Mode = args?.Mode ?? EditorMode.Universal;
-            Log.Debug($"Launch Mode: {Mode}.");
+
+            if (!Settings.EnableUniversalEditor && Mode == EditorMode.Universal)
+                Mode = EditorMode.Player;
 
             var resolved = ResolveLaunch(args);
 
