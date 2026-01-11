@@ -614,17 +614,14 @@
       id="ret_library_export_npc_button"
       text="Convertir" />
     <string
+      id="ret_library_export_npc_confirm_desc"
+      text="Cela générera un module autonome.{newline}{newline}- ID du module : {ID}{newline}- Dossier cible : {PATH}{newline}- Unités : {COUNT}{LIST}{newline}{newline}Si le dossier d&apos;installation du jeu est protégé, le module sera écrit ici à la place :{newline}{FALLBACK}{OVERWRITE}{newline}{newline}Continuer ?" />
+    <string
+      id="ret_library_export_npc_confirm_title"
+      text="Convertir en mod autonome" />
+    <string
       id="ret_library_export_npc_custom_troop_unsupported"
       text="Seules les modifications des troupes natives peuvent être converties en mods autonomes." />
-    <string
-      id="ret_library_export_npc_done_desc_fallback"
-      text="Le dossier d&apos;installation du jeu est protégé, le module a donc été écrit ici à la place :{newline}{PATH}{newline}{newline}Copiez ce dossier dans votre répertoire Modules de Bannerlord, puis redémarrez le jeu." />
-    <string
-      id="ret_library_export_npc_done_desc_mod"
-      text="Module autonome enregistré :{newline}{PATH}{newline}{newline}Redémarrez le jeu pour le charger." />
-    <string
-      id="ret_library_export_npc_done_title"
-      text="Export terminé" />
     <string
       id="ret_library_export_npc_failed_exception"
       text="Le fichier n&apos;a pas pu être exporté." />
@@ -633,7 +630,7 @@
       text="Impossible de localiser le dossier Modules du jeu." />
     <string
       id="ret_library_export_npc_failed_no_output"
-      text="Aucune unité n&apos;a pu être générée à partir de cet export." />
+      text="Aucun personnage n&apos;a pu être généré à partir de cet export." />
     <string
       id="ret_library_export_npc_failed_no_payload"
       text="Rien n&apos;a pu être exporté à partir de ce fichier." />
@@ -650,12 +647,6 @@
       id="ret_library_export_npc_no_selection"
       text="Aucun fichier d&apos;export sélectionné." />
     <string
-      id="ret_library_export_npc_overwrite_desc"
-      text="Un module avec ce nom existe déjà :{newline}{PATH}{newline}{newline}Le remplacer ?" />
-    <string
-      id="ret_library_export_npc_overwrite_title"
-      text="Remplacer le module" />
-    <string
       id="ret_library_export_npc_tooltip"
       text="Convertir cet export en un mod autonome." />
     <string
@@ -668,20 +659,14 @@
       id="ret_library_import_button"
       text="Importer" />
     <string
-      id="ret_library_import_confirm_desc_char"
-      text="Cela importera l&apos;unité exportée dans le jeu en cours.{newline}{newline}Continuer ?" />
+      id="ret_library_import_confirm_desc_faction_final_single"
+      text="Remplacer la faction :{newline}- {NAME}{newline}{newline}Les arbres de troupes de base et d&apos;élite seront écrasés.{newline}Les listes d&apos;unités manquantes dans l&apos;exportation resteront inchangées.{newline}{newline}Continuer ?" />
     <string
-      id="ret_library_import_confirm_desc_faction"
-      text="Cela importera la faction exportée dans le jeu en cours.{newline}{newline}Continuer ?" />
-    <string
-      id="ret_library_import_confirm_desc_unknown"
-      text="Cela importera les données exportées dans le jeu en cours.{newline}{newline}Continuer ?" />
+      id="ret_library_import_confirm_desc_replace_troop"
+      text="{TARGET} dans {FACTION} sera remplacé par la troupe importée.{newline}{newline}Continuer ?" />
     <string
       id="ret_library_import_confirm_title"
       text="Importer" />
-    <string
-      id="ret_library_import_deleted_custom_troop"
-      text="L&apos;unité correspondant à ce fichier a été supprimée." />
     <string
       id="ret_library_import_failed_exception"
       text="Le fichier n&apos;a pas pu être importé." />
@@ -689,26 +674,41 @@
       id="ret_library_import_failed_invalid"
       text="L&apos;export n&apos;a pas pu être importé." />
     <string
-      id="ret_library_import_failed_missing_file"
-      text="Fichier d&apos;export introuvable." />
-    <string
       id="ret_library_import_failed_title"
       text="Échec de l&apos;importation" />
     <string
       id="ret_library_import_missing_file"
       text="Fichier introuvable." />
     <string
+      id="ret_library_import_no_faction"
+      text="Aucune faction n&apos;est sélectionnée dans l&apos;éditeur." />
+    <string
+      id="ret_library_import_no_faction_targets"
+      text="Aucune faction n&apos;est disponible pour être remplacée dans le mode éditeur actuel." />
+    <string
+      id="ret_library_import_no_player_clan"
+      text="Impossible de résoudre le clan du joueur." />
+    <string
       id="ret_library_import_no_selection"
       text="Aucun export sélectionné." />
     <string
-      id="ret_library_import_target_missing_faction"
-      text="La faction cible n&apos;existe pas dans la campagne actuelle." />
+      id="ret_library_import_no_troop_targets"
+      text="Aucune troupe n&apos;est disponible pour être remplacée dans la faction actuelle." />
     <string
-      id="ret_library_import_target_missing_troop"
-      text="L&apos;unité cible n&apos;existe pas dans la campagne actuelle." />
+      id="ret_library_import_override_faction_desc"
+      text="Sélectionnez la faction à remplacer avec cette importation." />
     <string
-      id="ret_library_import_target_missing_unknown"
-      text="La cible de ce fichier n&apos;existe pas dans la campagne actuelle." />
+      id="ret_library_import_override_faction_title"
+      text="Remplacer la faction" />
+    <string
+      id="ret_library_import_replace_troop_desc"
+      text="Sélectionnez la troupe à remplacer dans {FACTION}." />
+    <string
+      id="ret_library_import_replace_troop_title"
+      text="Remplacer l&apos;unité" />
+    <string
+      id="ret_library_import_target_current_faction"
+      text="Faction actuelle : {NAME}" />
     <string
       id="ret_library_import_tooltip"
       text="Importer dans la campagne actuelle." />
@@ -727,9 +727,6 @@
     <string
       id="ret_library_name_faction_header"
       text="Faction" />
-    <string
-      id="ret_library_target_header"
-      text="Remplace" />
     <string
       id="ret_list_header_bandits"
       text="Bandits" />

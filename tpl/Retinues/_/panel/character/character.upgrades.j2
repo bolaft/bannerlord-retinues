@@ -3,6 +3,7 @@
 
 {% macro upgrade_text(text) -%}
     <ButtonWidget
+        IsEnabled="@IsEnabled"
         DoNotPassEventsToChildren="true"
         WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
         HorizontalAlignment="Center" VerticalAlignment="Center"

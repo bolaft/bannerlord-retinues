@@ -223,7 +223,7 @@ namespace Retinues.Domain.Characters.Wrappers
 
         public Dictionary<TraitObject, int> Traits
         {
-            get => PersonalityTraits.ToDictionary(t => t, t => Base.GetTraitLevel(t));
+            get => PersonalityTraits.ToDictionary(t => t, Base.GetTraitLevel);
             set
             {
                 if (value == null)

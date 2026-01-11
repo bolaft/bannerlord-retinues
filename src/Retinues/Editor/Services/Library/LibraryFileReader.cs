@@ -43,7 +43,7 @@ namespace Retinues.Editor.Services.Library
                         break;
                 }
 
-                troopNames = troopNames.Where(s => !string.IsNullOrWhiteSpace(s)).ToList();
+                troopNames = [.. troopNames.Where(s => !string.IsNullOrWhiteSpace(s))];
                 return troopNames.Count > 0;
             }
             catch (Exception ex)

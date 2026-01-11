@@ -614,17 +614,14 @@
       id="ret_library_export_npc_button"
       text="Преобразовать" />
     <string
+      id="ret_library_export_npc_confirm_desc"
+      text="Это создаст автономный модуль.{newline}{newline}- Идентификатор модуля: {ID}{newline}- Целевая папка: {PATH}{newline}- Персонажи: {COUNT}{LIST}{newline}{newline}Если папка установки игры защищена, модуль будет записан здесь:{newline}{FALLBACK}{OVERWRITE}{newline}{newline}Продолжить?" />
+    <string
+      id="ret_library_export_npc_confirm_title"
+      text="Преобразовать в автономный мод" />
+    <string
       id="ret_library_export_npc_custom_troop_unsupported"
       text="Только изменения стандартных отрядов могут быть преобразованы в автономные моды." />
-    <string
-      id="ret_library_export_npc_done_desc_fallback"
-      text="Папка установки игры защищена, поэтому модуль был записан здесь:{newline}{PATH}{newline}{newline}Скопируйте эту папку в каталог модулей Bannerlord, затем перезапустите игру." />
-    <string
-      id="ret_library_export_npc_done_desc_mod"
-      text="Записан автономный модуль:{newline}{PATH}{newline}{newline}Перезапустите игру, чтобы загрузить его." />
-    <string
-      id="ret_library_export_npc_done_title"
-      text="Экспорт завершен" />
     <string
       id="ret_library_export_npc_failed_exception"
       text="Не удалось экспортировать файл." />
@@ -650,12 +647,6 @@
       id="ret_library_export_npc_no_selection"
       text="Экспорт не выбран." />
     <string
-      id="ret_library_export_npc_overwrite_desc"
-      text="Модуль с таким именем уже существует:{newline}{PATH}{newline}{newline}Перезаписать его?" />
-    <string
-      id="ret_library_export_npc_overwrite_title"
-      text="Перезаписать модуль" />
-    <string
       id="ret_library_export_npc_tooltip"
       text="Преобразуйте этот экспорт в автономный мод." />
     <string
@@ -668,20 +659,14 @@
       id="ret_library_import_button"
       text="Импорт" />
     <string
-      id="ret_library_import_confirm_desc_char"
-      text="Это импортирует экспортированный отряд в текущую игру.{newline}{newline}Продолжить?" />
+      id="ret_library_import_confirm_desc_faction_final_single"
+      text="Переопределить фракцию:{newline}- {NAME}{newline}{newline}Основные и элитные деревья отрядов будут перезаписаны.{newline}Роты, отсутствующие в экспорте, останутся без изменений.{newline}{newline}Продолжить?" />
     <string
-      id="ret_library_import_confirm_desc_faction"
-      text="Это импортирует экспортированную фракцию в текущую игру.{newline}{newline}Продолжить?" />
-    <string
-      id="ret_library_import_confirm_desc_unknown"
-      text="Это импортирует экспортированные данные в текущую игру.{newline}{newline}Продолжить?" />
+      id="ret_library_import_confirm_desc_replace_troop"
+      text="{TARGET} в {FACTION} будет заменен на импортированный отряд.{newline}{newline}Продолжить?" />
     <string
       id="ret_library_import_confirm_title"
       text="Импорт" />
-    <string
-      id="ret_library_import_deleted_custom_troop"
-      text="Отряд, соответствующий этому экспорту, был удален." />
     <string
       id="ret_library_import_failed_exception"
       text="Не удалось импортировать файл." />
@@ -689,26 +674,41 @@
       id="ret_library_import_failed_invalid"
       text="Не удалось импортировать экспорт." />
     <string
-      id="ret_library_import_failed_missing_file"
-      text="Файл экспорта не найден." />
-    <string
       id="ret_library_import_failed_title"
       text="Ошибка импорта" />
     <string
       id="ret_library_import_missing_file"
       text="Файл экспорта не найден." />
     <string
+      id="ret_library_import_no_faction"
+      text="В редакторе не выбрана фракция." />
+    <string
+      id="ret_library_import_no_faction_targets"
+      text="В текущем режиме редактора нет фракций, которые можно переопределить." />
+    <string
+      id="ret_library_import_no_player_clan"
+      text="Не удалось определить клан игрока." />
+    <string
       id="ret_library_import_no_selection"
       text="Экспорт не выбран." />
     <string
-      id="ret_library_import_target_missing_faction"
-      text="Целевая фракция не существует в текущей игре." />
+      id="ret_library_import_no_troop_targets"
+      text="В текущей фракции нет отрядов, которые можно заменить." />
     <string
-      id="ret_library_import_target_missing_troop"
-      text="Целевая единица не существует в текущей игре." />
+      id="ret_library_import_override_faction_desc"
+      text="Выберите фракцию для переопределения с помощью этого импорта." />
     <string
-      id="ret_library_import_target_missing_unknown"
-      text="Цель этого экспорта не существует в текущей игре." />
+      id="ret_library_import_override_faction_title"
+      text="Переопределить фракцию" />
+    <string
+      id="ret_library_import_replace_troop_desc"
+      text="Выберите отряд для замены в {FACTION}." />
+    <string
+      id="ret_library_import_replace_troop_title"
+      text="Заменить отряд" />
+    <string
+      id="ret_library_import_target_current_faction"
+      text="Текущая фракция: {NAME}" />
     <string
       id="ret_library_import_tooltip"
       text="Импорт в текущую игру." />
@@ -727,9 +727,6 @@
     <string
       id="ret_library_name_faction_header"
       text="Фракция" />
-    <string
-      id="ret_library_target_header"
-      text="Заменяет" />
     <string
       id="ret_list_header_bandits"
       text="Бандиты" />

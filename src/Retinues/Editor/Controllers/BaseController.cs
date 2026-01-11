@@ -10,6 +10,9 @@ namespace Retinues.Editor.Controllers
     {
         internal static EditorState State => EditorState.Instance;
 
+        /// <summary>
+        /// Checks a series of conditions and returns the first failing reason, if any.
+        /// </summary>
         public static bool Check(
             IEnumerable<(Func<bool> Test, TextObject Reason)> conditions,
             out TextObject reason

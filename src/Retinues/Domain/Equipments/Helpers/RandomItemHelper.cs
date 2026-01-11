@@ -292,7 +292,7 @@ namespace Retinues.Domain.Equipments.Helpers
                 {
                     if (
                         !EquipmentLimitsHelper.FitsLimitsAfterSet(
-                            idx => currentEquipment.Get(idx),
+                            currentEquipment.Get,
                             slot,
                             it,
                             weightLimitActive,
@@ -577,7 +577,7 @@ namespace Retinues.Domain.Equipments.Helpers
                 if (currentEquipment != null && (weightLimitActive || valueLimitActive))
                 {
                     bool fits = EquipmentLimitsHelper.FitsLimitsAfterSet(
-                        idx => currentEquipment.Get(idx),
+                        currentEquipment.Get,
                         slot,
                         it,
                         weightLimitActive,

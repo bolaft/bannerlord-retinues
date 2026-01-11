@@ -65,6 +65,9 @@ namespace Retinues.Editor.Controllers.Character
                 .ExecuteWith(c => StepAgePreset(c, -1))
                 .Fire(UIEvent.Appearance);
 
+        /// <summary>
+        /// Steps the age preset for the character by the given step (-1 or +1).
+        /// </summary>
         private static void StepAgePreset(WCharacter c, int step)
         {
             StepPreset(
@@ -106,6 +109,9 @@ namespace Retinues.Editor.Controllers.Character
                 .ExecuteWith(c => StepHeightPreset(c, -1))
                 .Fire(UIEvent.Appearance);
 
+        /// <summary>
+        /// Steps the height preset for the character by the given step (-1 or +1).
+        /// </summary>
         private static void StepHeightPreset(WCharacter c, int step)
         {
             StepPreset(
@@ -147,6 +153,9 @@ namespace Retinues.Editor.Controllers.Character
                 .ExecuteWith(c => StepWeightPreset(c, -1))
                 .Fire(UIEvent.Appearance);
 
+        /// <summary>
+        /// Steps the weight preset for the character by the given step (-1 or +1).
+        /// </summary>
         private static void StepWeightPreset(WCharacter c, int step)
         {
             StepPreset(
@@ -188,6 +197,9 @@ namespace Retinues.Editor.Controllers.Character
                 .ExecuteWith(c => StepBuildPreset(c, -1))
                 .Fire(UIEvent.Appearance);
 
+        /// <summary>
+        /// Steps the build preset for the character by the given step (-1 or +1).
+        /// </summary>
         private static void StepBuildPreset(WCharacter c, int step)
         {
             StepPreset(
@@ -219,6 +231,9 @@ namespace Retinues.Editor.Controllers.Character
         //                      Shared Helpers                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Returns whether a preset step is valid for the given current min/max and step.
+        /// </summary>
         private static bool CanStepPreset(
             List<(float min, float max)> presets,
             float curMin,
@@ -235,6 +250,9 @@ namespace Retinues.Editor.Controllers.Character
             return next >= 0 && next < presets.Count;
         }
 
+        /// <summary>
+        /// Advances the character's min/max to the preset at the given step and re-applies culture tags.
+        /// </summary>
         private static void StepPreset(
             WCharacter c,
             List<(float min, float max)> presets,
@@ -278,6 +296,9 @@ namespace Retinues.Editor.Controllers.Character
             }
         }
 
+        /// <summary>
+        /// Finds the index of the nearest preset to the given current min/max.
+        /// </summary>
         private static int NearestPresetIndex(
             List<(float min, float max)> presets,
             float curMin,
@@ -301,6 +322,9 @@ namespace Retinues.Editor.Controllers.Character
             return best;
         }
 
+        /// <summary>
+        /// Picks an appropriate culture template character matching the given character's sex.
+        /// </summary>
         private static WCharacter PickCultureTemplate(WCharacter c)
         {
             if (c?.Culture == null)

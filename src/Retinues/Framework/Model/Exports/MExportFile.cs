@@ -129,7 +129,7 @@ namespace Retinues.Framework.Model.Exports
             if (!string.IsNullOrWhiteSpace(dir))
                 Directory.CreateDirectory(dir);
 
-            System.IO.File.WriteAllText(path, file.ToXmlString(), new UTF8Encoding(false));
+            File.WriteAllText(path, file.ToXmlString(), new UTF8Encoding(false));
         }
 
         public static MExportFile LoadFromPath(string path)
@@ -137,7 +137,7 @@ namespace Retinues.Framework.Model.Exports
             if (string.IsNullOrWhiteSpace(path))
                 throw new ArgumentException("path cannot be null/empty.", nameof(path));
 
-            var xml = System.IO.File.ReadAllText(path, Encoding.UTF8);
+            var xml = File.ReadAllText(path, Encoding.UTF8);
             return FromXmlString(xml);
         }
     }

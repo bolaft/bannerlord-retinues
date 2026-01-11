@@ -614,17 +614,14 @@
       id="ret_library_export_npc_button"
       text="Convert" />
     <string
+      id="ret_library_export_npc_confirm_desc"
+      text="This will generate a standalone module.{newline}{newline}- Module id: {ID}{newline}- Target folder: {PATH}{newline}- Characters: {COUNT}{LIST}{newline}{newline}If the game install folder is protected, the module will be written here instead:{newline}{FALLBACK}{OVERWRITE}{newline}{newline}Continue?" />
+    <string
+      id="ret_library_export_npc_confirm_title"
+      text="Convert to Standalone Mod" />
+    <string
       id="ret_library_export_npc_custom_troop_unsupported"
       text="Only vanilla troop edits can be converted to standalone mods." />
-    <string
-      id="ret_library_export_npc_done_desc_fallback"
-      text="The game install folder is protected, so the module was written here instead:{newline}{PATH}{newline}{newline}Copy this folder into your Bannerlord Modules directory, then restart the game." />
-    <string
-      id="ret_library_export_npc_done_desc_mod"
-      text="Standalone module written:{newline}{PATH}{newline}{newline}Restart the game to load it." />
-    <string
-      id="ret_library_export_npc_done_title"
-      text="Export Complete" />
     <string
       id="ret_library_export_npc_failed_exception"
       text="The file could not be exported." />
@@ -650,12 +647,6 @@
       id="ret_library_export_npc_no_selection"
       text="No export selected." />
     <string
-      id="ret_library_export_npc_overwrite_desc"
-      text="A module with this name already exists:{newline}{PATH}{newline}{newline}Overwrite it?" />
-    <string
-      id="ret_library_export_npc_overwrite_title"
-      text="Overwrite Module" />
-    <string
       id="ret_library_export_npc_tooltip"
       text="Convert this export into a standalone mod." />
     <string
@@ -668,20 +659,14 @@
       id="ret_library_import_button"
       text="Import" />
     <string
-      id="ret_library_import_confirm_desc_char"
-      text="This will import the exported troop into the current game.{newline}{newline}Continue?" />
+      id="ret_library_import_confirm_desc_faction_final_single"
+      text="Override faction:{newline}- {NAME}{newline}{newline}Basic and Elite troop trees will be overwritten.{newline}Rosters missing from the export will be left unchanged.{newline}{newline}Continue?" />
     <string
-      id="ret_library_import_confirm_desc_faction"
-      text="This will import the exported faction into the current game.{newline}{newline}Continue?" />
-    <string
-      id="ret_library_import_confirm_desc_unknown"
-      text="This will import the exported data into the current game.{newline}{newline}Continue?" />
+      id="ret_library_import_confirm_desc_replace_troop"
+      text="{TARGET} in {FACTION} will be replaced with the imported troop.{newline}{newline}Continue?" />
     <string
       id="ret_library_import_confirm_title"
       text="Import" />
-    <string
-      id="ret_library_import_deleted_custom_troop"
-      text="The troop corresponding to this export was deleted." />
     <string
       id="ret_library_import_failed_exception"
       text="The file could not be imported." />
@@ -689,26 +674,41 @@
       id="ret_library_import_failed_invalid"
       text="The export could not be imported." />
     <string
-      id="ret_library_import_failed_missing_file"
-      text="Export file was not found." />
-    <string
       id="ret_library_import_failed_title"
       text="Import Failed" />
     <string
       id="ret_library_import_missing_file"
       text="Export file was not found." />
     <string
+      id="ret_library_import_no_faction"
+      text="No faction is selected in the editor." />
+    <string
+      id="ret_library_import_no_faction_targets"
+      text="No factions are available to be overridden in the current editor mode." />
+    <string
+      id="ret_library_import_no_player_clan"
+      text="Could not resolve the player clan." />
+    <string
       id="ret_library_import_no_selection"
       text="No export selected." />
     <string
-      id="ret_library_import_target_missing_faction"
-      text="The target faction does not exist in the current game." />
+      id="ret_library_import_no_troop_targets"
+      text="No troops are available to be replaced in the current faction." />
     <string
-      id="ret_library_import_target_missing_troop"
-      text="The target troop does not exist in the current game." />
+      id="ret_library_import_override_faction_desc"
+      text="Select the faction to override with this import." />
     <string
-      id="ret_library_import_target_missing_unknown"
-      text="The target of this export does not exist in the current game." />
+      id="ret_library_import_override_faction_title"
+      text="Override Faction" />
+    <string
+      id="ret_library_import_replace_troop_desc"
+      text="Select the troop to replace in {FACTION}." />
+    <string
+      id="ret_library_import_replace_troop_title"
+      text="Replace Troop" />
+    <string
+      id="ret_library_import_target_current_faction"
+      text="Current faction: {NAME}" />
     <string
       id="ret_library_import_tooltip"
       text="Import into the current game." />
@@ -727,9 +727,6 @@
     <string
       id="ret_library_name_faction_header"
       text="Faction" />
-    <string
-      id="ret_library_target_header"
-      text="Replaces" />
     <string
       id="ret_list_header_bandits"
       text="Bandits" />

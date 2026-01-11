@@ -614,17 +614,14 @@
       id="ret_library_export_npc_button"
       text="Konwertuj" />
     <string
+      id="ret_library_export_npc_confirm_desc"
+      text="To wygeneruje samodzielny moduł.{newline}{newline}- Identyfikator modułu: {ID}{newline}- Folder docelowy: {PATH}{newline}- Postacie: {COUNT}{LIST}{newline}{newline}Jeśli folder instalacyjny gry jest chroniony, moduł zostanie zapisany tutaj:{newline}{FALLBACK}{OVERWRITE}{newline}{newline}Kontynuować?" />
+    <string
+      id="ret_library_export_npc_confirm_title"
+      text="Konwertuj na samodzielny mod" />
+    <string
       id="ret_library_export_npc_custom_troop_unsupported"
       text="Tylko edycje oddziałów z oryginalnej gry mogą być konwertowane na samodzielne mody." />
-    <string
-      id="ret_library_export_npc_done_desc_fallback"
-      text="Folder instalacyjny gry jest chroniony, więc moduł został zapisany tutaj:{newline}{PATH}{newline}{newline}Skopiuj ten folder do katalogu Moduły Bannerlord, a następnie uruchom ponownie grę." />
-    <string
-      id="ret_library_export_npc_done_desc_mod"
-      text="Napisano samodzielny moduł:{newline}{PATH}{newline}{newline}Uruchom ponownie grę, aby go załadować." />
-    <string
-      id="ret_library_export_npc_done_title"
-      text="Eksport zakończony" />
     <string
       id="ret_library_export_npc_failed_exception"
       text="Nie można wyeksportować pliku." />
@@ -650,12 +647,6 @@
       id="ret_library_export_npc_no_selection"
       text="Nie wybrano eksportu." />
     <string
-      id="ret_library_export_npc_overwrite_desc"
-      text="Moduł o tej nazwie już istnieje:{newline}{PATH}{newline}{newline}Nadpisać go?" />
-    <string
-      id="ret_library_export_npc_overwrite_title"
-      text="Nadpisz moduł" />
-    <string
       id="ret_library_export_npc_tooltip"
       text="Konwertuj ten eksport na samodzielny mod." />
     <string
@@ -668,20 +659,14 @@
       id="ret_library_import_button"
       text="Importuj" />
     <string
-      id="ret_library_import_confirm_desc_char"
-      text="To zaimportuje wyeksportowany oddział do bieżącej gry.{newline}{newline}Kontynuować?" />
+      id="ret_library_import_confirm_desc_faction_final_single"
+      text="Nadpisz frakcję:{newline}- {NAME}{newline}{newline}Podstawowe i elitarne drzewa oddziałów zostaną nadpisane.{newline}Listy brakujące w eksporcie pozostaną niezmienione.{newline}{newline}Kontynuować?" />
     <string
-      id="ret_library_import_confirm_desc_faction"
-      text="To zaimportuje wyeksportowaną frakcję do bieżącej gry.{newline}{newline}Kontynuować?" />
-    <string
-      id="ret_library_import_confirm_desc_unknown"
-      text="To zaimportuje wyeksportowane dane do bieżącej gry.{newline}{newline}Kontynuować?" />
+      id="ret_library_import_confirm_desc_replace_troop"
+      text="{TARGET} w {FACTION} zostanie zastąpiony zaimportowanym oddziałem.{newline}{newline}Kontynuować?" />
     <string
       id="ret_library_import_confirm_title"
       text="Importuj" />
-    <string
-      id="ret_library_import_deleted_custom_troop"
-      text="Jednostka odpowiadająca temu eksportowi została usunięta." />
     <string
       id="ret_library_import_failed_exception"
       text="Nie można zaimportować pliku." />
@@ -689,26 +674,41 @@
       id="ret_library_import_failed_invalid"
       text="Nie można zaimportować eksportu." />
     <string
-      id="ret_library_import_failed_missing_file"
-      text="Plik eksportu nie został znaleziony." />
-    <string
       id="ret_library_import_failed_title"
       text="Importowanie nie powiodło się" />
     <string
       id="ret_library_import_missing_file"
       text="Plik eksportu nie został znaleziony." />
     <string
+      id="ret_library_import_no_faction"
+      text="W edytorze nie wybrano żadnej frakcji." />
+    <string
+      id="ret_library_import_no_faction_targets"
+      text="W bieżącym trybie edytora nie ma frakcji do nadpisania." />
+    <string
+      id="ret_library_import_no_player_clan"
+      text="Nie można rozwiązać klanu gracza." />
+    <string
       id="ret_library_import_no_selection"
       text="Nie wybrano eksportu." />
     <string
-      id="ret_library_import_target_missing_faction"
-      text="Docelowa frakcja nie istnieje w bieżącej grze." />
+      id="ret_library_import_no_troop_targets"
+      text="W bieżącej frakcji nie ma oddziałów do zastąpienia." />
     <string
-      id="ret_library_import_target_missing_troop"
-      text="Docelowa jednostka nie istnieje w bieżącej grze." />
+      id="ret_library_import_override_faction_desc"
+      text="Wybierz frakcję do nadpisania za pomocą tego importu." />
     <string
-      id="ret_library_import_target_missing_unknown"
-      text="Cel tego eksportu nie istnieje w bieżącej grze." />
+      id="ret_library_import_override_faction_title"
+      text="Nadpisz frakcję" />
+    <string
+      id="ret_library_import_replace_troop_desc"
+      text="Wybierz oddział do zastąpienia w {FACTION}." />
+    <string
+      id="ret_library_import_replace_troop_title"
+      text="Zastąp oddział" />
+    <string
+      id="ret_library_import_target_current_faction"
+      text="Bieżąca frakcja: {NAME}" />
     <string
       id="ret_library_import_tooltip"
       text="Importuj do bieżącej gry." />
@@ -727,9 +727,6 @@
     <string
       id="ret_library_name_faction_header"
       text="Frakcja" />
-    <string
-      id="ret_library_target_header"
-      text="Zastępuje" />
     <string
       id="ret_list_header_bandits"
       text="Bandyci" />

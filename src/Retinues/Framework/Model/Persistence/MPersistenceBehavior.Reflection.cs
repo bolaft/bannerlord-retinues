@@ -31,7 +31,7 @@ namespace Retinues.Framework.Model.Persistence
             {
                 // This is the big one: some types couldn't be loaded.
                 // Keep the ones we can, and log the loader exceptions.
-                types = ex.Types.Where(t => t != null).ToArray();
+                types = [.. ex.Types.Where(t => t != null)];
 
                 if (ex.LoaderExceptions != null)
                 {

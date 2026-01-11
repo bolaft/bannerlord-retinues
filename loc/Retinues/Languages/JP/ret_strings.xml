@@ -614,17 +614,14 @@
       id="ret_library_export_npc_button"
       text="変換" />
     <string
+      id="ret_library_export_npc_confirm_desc"
+      text="これにより、スタンドアロンのモジュールが生成されます。{newline}{newline}- モジュールID: {ID}{newline}- ターゲットフォルダ: {PATH}{newline}- キャラクター: {COUNT}{LIST}{newline}{newline}ゲームのインストールフォルダが保護されている場合、モジュールは代わりにここに書き込まれます：{newline}{FALLBACK}{OVERWRITE}{newline}{newline}続行しますか？" />
+    <string
+      id="ret_library_export_npc_confirm_title"
+      text="スタンドアロンのモッドに変換" />
+    <string
       id="ret_library_export_npc_custom_troop_unsupported"
       text="バニラ部隊の編集のみがスタンドアロンのモッドに変換できます。" />
-    <string
-      id="ret_library_export_npc_done_desc_fallback"
-      text="ゲームのインストールフォルダは保護されているため、代わりにここにモジュールが書き込まれました：{newline}{PATH}{newline}{newline}このフォルダを Bannerlord のモジュールディレクトリにコピーして、ゲームを再起動してください。" />
-    <string
-      id="ret_library_export_npc_done_desc_mod"
-      text="スタンドアロンモジュールが書き込まれました：{newline}{PATH}{newline}{newline}ゲームを再起動してロードします。" />
-    <string
-      id="ret_library_export_npc_done_title"
-      text="エクスポート完了" />
     <string
       id="ret_library_export_npc_failed_exception"
       text="ファイルをエクスポートできませんでした。" />
@@ -650,12 +647,6 @@
       id="ret_library_export_npc_no_selection"
       text="エクスポートが選択されていません。" />
     <string
-      id="ret_library_export_npc_overwrite_desc"
-      text="この名前のモジュールはすでに存在します：{newline}{PATH}{newline}{newline}上書きしますか？" />
-    <string
-      id="ret_library_export_npc_overwrite_title"
-      text="モジュールを上書き" />
-    <string
       id="ret_library_export_npc_tooltip"
       text="このエクスポートをスタンドアロンのモッドに変換します。" />
     <string
@@ -668,20 +659,14 @@
       id="ret_library_import_button"
       text="インポート" />
     <string
-      id="ret_library_import_confirm_desc_char"
-      text="これにより、エクスポートされた部隊が現在のゲームにインポートされます。{newline}{newline}続行しますか？" />
+      id="ret_library_import_confirm_desc_faction_final_single"
+      text="派閥を上書きします：{newline}- {NAME}{newline}{newline}基本およびエリート部隊ツリーが上書きされます。{newline}エクスポートに存在しない名簿は変更されません。{newline}{newline}続行しますか？" />
     <string
-      id="ret_library_import_confirm_desc_faction"
-      text="これにより、エクスポートされた派閥が現在のゲームにインポートされます。{newline}{newline}続行しますか？" />
-    <string
-      id="ret_library_import_confirm_desc_unknown"
-      text="これにより、エクスポートされたデータが現在のゲームにインポートされます。{newline}{newline}続行しますか？" />
+      id="ret_library_import_confirm_desc_replace_troop"
+      text="{FACTION} の {TARGET} は、インポートされた部隊に置き換えられます。{newline}{newline}続行しますか？" />
     <string
       id="ret_library_import_confirm_title"
       text="インポート" />
-    <string
-      id="ret_library_import_deleted_custom_troop"
-      text="このエクスポートに対応する部隊が削除されました。" />
     <string
       id="ret_library_import_failed_exception"
       text="ファイルをインポートできませんでした。" />
@@ -689,26 +674,41 @@
       id="ret_library_import_failed_invalid"
       text="エクスポートをインポートできませんでした。" />
     <string
-      id="ret_library_import_failed_missing_file"
-      text="エクスポートファイルが見つかりませんでした。" />
-    <string
       id="ret_library_import_failed_title"
       text="インポートに失敗しました" />
     <string
       id="ret_library_import_missing_file"
       text="エクスポートファイルが見つかりませんでした。" />
     <string
+      id="ret_library_import_no_faction"
+      text="エディタで派閥が選択されていません。" />
+    <string
+      id="ret_library_import_no_faction_targets"
+      text="現在のエディタモードでは、上書きできる派閥がありません。" />
+    <string
+      id="ret_library_import_no_player_clan"
+      text="プレイヤークランを解決できませんでした。" />
+    <string
       id="ret_library_import_no_selection"
       text="エクスポートが選択されていません。" />
     <string
-      id="ret_library_import_target_missing_faction"
-      text="ターゲットの派閥は現在のゲームに存在しません。" />
+      id="ret_library_import_no_troop_targets"
+      text="現在の派閥では、置き換え可能な部隊がありません。" />
     <string
-      id="ret_library_import_target_missing_troop"
-      text="ターゲットの部隊は現在のゲームに存在しません。" />
+      id="ret_library_import_override_faction_desc"
+      text="このインポートで上書きする派閥を選択します。" />
     <string
-      id="ret_library_import_target_missing_unknown"
-      text="このエクスポートのターゲットは現在のゲームに存在しません。" />
+      id="ret_library_import_override_faction_title"
+      text="派閥を上書き" />
+    <string
+      id="ret_library_import_replace_troop_desc"
+      text="{FACTION} で置き換える部隊を選択します。" />
+    <string
+      id="ret_library_import_replace_troop_title"
+      text="部隊を置き換える" />
+    <string
+      id="ret_library_import_target_current_faction"
+      text="現在の派閥：{NAME}" />
     <string
       id="ret_library_import_tooltip"
       text="現在のゲームにインポートします。" />
@@ -727,9 +727,6 @@
     <string
       id="ret_library_name_faction_header"
       text="派閥" />
-    <string
-      id="ret_library_target_header"
-      text="置き換え先" />
     <string
       id="ret_list_header_bandits"
       text="山賊" />

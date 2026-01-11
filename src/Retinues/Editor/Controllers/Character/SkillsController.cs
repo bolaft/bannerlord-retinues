@@ -88,7 +88,7 @@ namespace Retinues.Editor.Controllers.Character
                     L.T("skill_decrease_min_reason", "Cannot decrease skill below 0.")
                 )
                 .AddCondition(
-                    s => CanDecreasePastUpgradeSourceFloor(s),
+                    CanDecreasePastUpgradeSourceFloor,
                     L.T(
                         "skill_decrease_sources_reason",
                         "Cannot decrease below upgrade source minimum."

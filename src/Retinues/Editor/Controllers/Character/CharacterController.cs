@@ -531,6 +531,9 @@ namespace Retinues.Editor.Controllers.Character
                 .ExecuteWith(RankUpImpl)
                 .Fire(UIEvent.Character);
 
+        /// <summary>
+        /// Returns the gold cost required to rank up the given character.
+        /// </summary>
         private static int GetRankUpGoldCost(WCharacter c)
         {
             if (c == null)
@@ -555,6 +558,9 @@ namespace Retinues.Editor.Controllers.Character
             return 5 * c.Tier;
         }
 
+        /// <summary>
+        /// Returns true if the character has enough skill points to pay the rank-up cost.
+        /// </summary>
         private static bool HasEnoughRankUpSkillPoints(WCharacter c)
         {
             if (c == null)
@@ -564,6 +570,9 @@ namespace Retinues.Editor.Controllers.Character
             return c.SkillPoints >= cost;
         }
 
+        /// <summary>
+        /// Returns true if the main hero has enough gold to pay the rank-up cost for the character.
+        /// </summary>
         private static bool HasEnoughGoldForRankUp(WCharacter c)
         {
             if (c == null)
@@ -577,6 +586,9 @@ namespace Retinues.Editor.Controllers.Character
             return hero.Gold >= cost;
         }
 
+        /// <summary>
+        /// Prompt for confirmation and perform the rank-up: deduct costs, increase level, and fire events.
+        /// </summary>
         private static void RankUpImpl(WCharacter c)
         {
             if (c == null)

@@ -614,17 +614,14 @@
       id="ret_library_export_npc_button"
       text="변환" />
     <string
+      id="ret_library_export_npc_confirm_desc"
+      text="이 작업은 독립 실행형 모듈을 생성합니다.{newline}{newline}- 모듈 ID: {ID}{newline}- 대상 폴더: {PATH}{newline}- 캐릭터: {COUNT}{LIST}{newline}{newline}게임 설치 폴더가 보호된 경우 모듈이 대신 여기에 작성됩니다:{newline}{FALLBACK}{OVERWRITE}{newline}{newline}계속하시겠습니까?" />
+    <string
+      id="ret_library_export_npc_confirm_title"
+      text="독립 실행형 모드로 변환" />
+    <string
       id="ret_library_export_npc_custom_troop_unsupported"
       text="독립 실행형 모드로 변환할 수 있는 것은 기본 부대 편집뿐입니다." />
-    <string
-      id="ret_library_export_npc_done_desc_fallback"
-      text="게임 설치 폴더가 보호되어 있으므로 대신 여기에 모듈이 작성되었습니다:{newline}{PATH}{newline}{newline}이 폴더를 Bannerlord 모듈 디렉터리에 복사한 다음 게임을 재시작하십시오." />
-    <string
-      id="ret_library_export_npc_done_desc_mod"
-      text="독립 실행형 모듈이 작성되었습니다:{newline}{PATH}{newline}{newline}로드하려면 게임을 재시작하십시오." />
-    <string
-      id="ret_library_export_npc_done_title"
-      text="내보내기 완료" />
     <string
       id="ret_library_export_npc_failed_exception"
       text="파일을 내보낼 수 없습니다." />
@@ -650,12 +647,6 @@
       id="ret_library_export_npc_no_selection"
       text="선택된 내보내기가 없습니다." />
     <string
-      id="ret_library_export_npc_overwrite_desc"
-      text="이 이름의 모듈이 이미 존재합니다:{newline}{PATH}{newline}{newline}덮어쓰시겠습니까?" />
-    <string
-      id="ret_library_export_npc_overwrite_title"
-      text="모듈 덮어쓰기" />
-    <string
       id="ret_library_export_npc_tooltip"
       text="이 내보내기를 독립 실행형 모드로 변환합니다." />
     <string
@@ -668,20 +659,14 @@
       id="ret_library_import_button"
       text="가져오기" />
     <string
-      id="ret_library_import_confirm_desc_char"
-      text="이 작업은 내보낸 부대를 현재 게임으로 가져옵니다.{newline}{newline}계속하시겠습니까?" />
+      id="ret_library_import_confirm_desc_faction_final_single"
+      text="진영 재정의:{newline}- {NAME}{newline}{newline}기본 및 엘리트 부대 트리가 덮어쓰여집니다.{newline}내보내기에서 누락된 명단은 변경되지 않은 상태로 유지됩니다.{newline}{newline}계속하시겠습니까?" />
     <string
-      id="ret_library_import_confirm_desc_faction"
-      text="이 작업은 내보낸 진영을 현재 게임으로 가져옵니다.{newline}{newline}계속하시겠습니까?" />
-    <string
-      id="ret_library_import_confirm_desc_unknown"
-      text="이 작업은 내보낸 데이터를 현재 게임으로 가져옵니다.{newline}{newline}계속하시겠습니까?" />
+      id="ret_library_import_confirm_desc_replace_troop"
+      text="{FACTION}의 {TARGET}이(가) 가져온 부대로 교체됩니다.{newline}{newline}계속하시겠습니까?" />
     <string
       id="ret_library_import_confirm_title"
       text="가져오기" />
-    <string
-      id="ret_library_import_deleted_custom_troop"
-      text="이 내보내기에 해당하는 부대가 삭제되었습니다." />
     <string
       id="ret_library_import_failed_exception"
       text="파일을 가져올 수 없습니다." />
@@ -689,26 +674,41 @@
       id="ret_library_import_failed_invalid"
       text="내보내기를 가져올 수 없습니다." />
     <string
-      id="ret_library_import_failed_missing_file"
-      text="내보내기 파일을 찾을 수 없습니다." />
-    <string
       id="ret_library_import_failed_title"
       text="가져오기 실패" />
     <string
       id="ret_library_import_missing_file"
       text="내보내기 파일을 찾을 수 없습니다." />
     <string
+      id="ret_library_import_no_faction"
+      text="편집기에서 진영이 선택되지 않았습니다." />
+    <string
+      id="ret_library_import_no_faction_targets"
+      text="현재 편집기 모드에서는 재정의할 수 있는 진영이 없습니다." />
+    <string
+      id="ret_library_import_no_player_clan"
+      text="플레이어 클랜을 확인할 수 없습니다." />
+    <string
       id="ret_library_import_no_selection"
       text="선택된 내보내기가 없습니다." />
     <string
-      id="ret_library_import_target_missing_faction"
-      text="대상 진영이 현재 게임에 존재하지 않습니다." />
+      id="ret_library_import_no_troop_targets"
+      text="현재 진영에서는 교체할 수 있는 부대가 없습니다." />
     <string
-      id="ret_library_import_target_missing_troop"
-      text="대상 부대가 현재 게임에 존재하지 않습니다." />
+      id="ret_library_import_override_faction_desc"
+      text="이 가져오기로 재정의할 진영을 선택하십시오." />
     <string
-      id="ret_library_import_target_missing_unknown"
-      text="이 내보내기의 대상이 현재 게임에 존재하지 않습니다." />
+      id="ret_library_import_override_faction_title"
+      text="진영 재정의" />
+    <string
+      id="ret_library_import_replace_troop_desc"
+      text="{FACTION}에서 교체할 부대를 선택하십시오." />
+    <string
+      id="ret_library_import_replace_troop_title"
+      text="부대 교체" />
+    <string
+      id="ret_library_import_target_current_faction"
+      text="현재 진영: {NAME}" />
     <string
       id="ret_library_import_tooltip"
       text="현재 게임으로 가져오기." />
@@ -727,9 +727,6 @@
     <string
       id="ret_library_name_faction_header"
       text="진영" />
-    <string
-      id="ret_library_target_header"
-      text="대상" />
     <string
       id="ret_list_header_bandits"
       text="산적" />

@@ -68,9 +68,6 @@ namespace Retinues.Editor.VM.Panel.Library
                 : L.S("library_name_character_header", "Unit");
 
         [DataSourceProperty]
-        public string TargetHeader => L.S("library_target_header", "Replaces");
-
-        [DataSourceProperty]
         public string ContentsHeader => L.S("library_contents_header", "Contents");
 
         [DataSourceProperty]
@@ -95,14 +92,6 @@ namespace Retinues.Editor.VM.Panel.Library
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Troops                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        /// <summary>
-        /// For Character exports: current in-game name of the troop matching the stringId.
-        /// </summary>
-        [EventListener(UIEvent.Library)]
-        [DataSourceProperty]
-        public string TargetName =>
-            IsTroop ? LibraryController.GetTargetName(State.LibraryItem) : string.Empty;
 
         public class FactionTroopNameVM(string name) : EventListenerVM
         {

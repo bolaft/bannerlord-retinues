@@ -614,17 +614,14 @@
       id="ret_library_export_npc_button"
       text="Dönüştür" />
     <string
+      id="ret_library_export_npc_confirm_desc"
+      text="Bu, bağımsız bir modül oluşturacaktır.{newline}{newline}- Modül kimliği: {ID}{newline}- Hedef klasör: {PATH}{newline}- Karakterler: {COUNT}{LIST}{newline}{newline}Oyun kurulum klasörü korunuyorsa, modül bunun yerine buraya yazılacaktır:{newline}{FALLBACK}{OVERWRITE}{newline}{newline}Devam edilsin mi?" />
+    <string
+      id="ret_library_export_npc_confirm_title"
+      text="Bağımsız Moda Dönüştür" />
+    <string
       id="ret_library_export_npc_custom_troop_unsupported"
       text="Yalnızca vanilya birlik düzenlemeleri bağımsız modlara dönüştürülebilir." />
-    <string
-      id="ret_library_export_npc_done_desc_fallback"
-      text="Oyun kurulum klasörü korumalıdır, bu nedenle modül bunun yerine buraya yazıldı:{newline}{PATH}{newline}{newline}Bu klasörü Bannerlord Modüller dizininize kopyalayın ve ardından oyunu yeniden başlatın." />
-    <string
-      id="ret_library_export_npc_done_desc_mod"
-      text="Bağımsız modül yazıldı:{newline}{PATH}{newline}{newline}Yüklemek için oyunu yeniden başlatın." />
-    <string
-      id="ret_library_export_npc_done_title"
-      text="Dışa Aktarma Tamamlandı" />
     <string
       id="ret_library_export_npc_failed_exception"
       text="Dosya dışa aktarılamadı." />
@@ -650,12 +647,6 @@
       id="ret_library_export_npc_no_selection"
       text="Hiçbir ihracat seçilmedi." />
     <string
-      id="ret_library_export_npc_overwrite_desc"
-      text="Bu isimde bir modül zaten var:{newline}{PATH}{newline}{newline}Üzerine yazılsın mı?" />
-    <string
-      id="ret_library_export_npc_overwrite_title"
-      text="Modülü Üzerine Yaz" />
-    <string
       id="ret_library_export_npc_tooltip"
       text="Bu ihracatı bağımsız bir modül haline dönüştür." />
     <string
@@ -668,20 +659,14 @@
       id="ret_library_import_button"
       text="İçe Aktar" />
     <string
-      id="ret_library_import_confirm_desc_char"
-      text="Bu, ihraç edilen birliği mevcut oyuna aktaracaktır.{newline}{newline}Devam edilsin mi?" />
+      id="ret_library_import_confirm_desc_faction_final_single"
+      text="Fraksiyonu geçersiz kıl:{newline}- {NAME}{newline}{newline}Temel ve Seçkin birlik ağaçları üzerine yazılacaktır.{newline}İhracatta eksik olan kadrolar değişmeden bırakılacaktır.{newline}{newline}Devam edilsin mi?" />
     <string
-      id="ret_library_import_confirm_desc_faction"
-      text="Bu, ihraç edilen fraksiyonu mevcut oyuna aktaracaktır.{newline}{newline}Devam edilsin mi?" />
-    <string
-      id="ret_library_import_confirm_desc_unknown"
-      text="Bu, ihraç edilen verileri mevcut oyuna aktaracaktır.{newline}{newline}Devam edilsin mi?" />
+      id="ret_library_import_confirm_desc_replace_troop"
+      text="{FACTION} içindeki {TARGET}, içe aktarılan birlik ile değiştirilecektir.{newline}{newline}Devam edilsin mi?" />
     <string
       id="ret_library_import_confirm_title"
       text="İçe Aktar" />
-    <string
-      id="ret_library_import_deleted_custom_troop"
-      text="Bu ihracata karşılık gelen birlik silindi." />
     <string
       id="ret_library_import_failed_exception"
       text="Dosya içe aktarılamadı." />
@@ -689,26 +674,41 @@
       id="ret_library_import_failed_invalid"
       text="İhracat içe aktarılamadı." />
     <string
-      id="ret_library_import_failed_missing_file"
-      text="İhracat dosyası bulunamadı." />
-    <string
       id="ret_library_import_failed_title"
       text="İçe Aktarma Başarısız" />
     <string
       id="ret_library_import_missing_file"
       text="İhracat dosyası bulunamadı." />
     <string
+      id="ret_library_import_no_faction"
+      text="Düzenleyicide hiçbir fraksiyon seçilmedi." />
+    <string
+      id="ret_library_import_no_faction_targets"
+      text="Mevcut düzenleyici modunda geçersiz kılınacak fraksiyon yok." />
+    <string
+      id="ret_library_import_no_player_clan"
+      text="Oyuncu klanı çözülemedi." />
+    <string
       id="ret_library_import_no_selection"
       text="Hiçbir ihracat seçilmedi." />
     <string
-      id="ret_library_import_target_missing_faction"
-      text="Hedef fraksiyon mevcut oyunda yok." />
+      id="ret_library_import_no_troop_targets"
+      text="Mevcut fraksiyonda değiştirilecek birlik yok." />
     <string
-      id="ret_library_import_target_missing_troop"
-      text="Hedef birlik mevcut oyunda yok." />
+      id="ret_library_import_override_faction_desc"
+      text="Bu ithalatla geçersiz kılınacak fraksiyonu seçin." />
     <string
-      id="ret_library_import_target_missing_unknown"
-      text="Bu ihracatın hedefi mevcut oyunda yok." />
+      id="ret_library_import_override_faction_title"
+      text="Fraksiyonu Geçersiz Kıl" />
+    <string
+      id="ret_library_import_replace_troop_desc"
+      text="{FACTION} içindeki değiştirilecek birliği seçin." />
+    <string
+      id="ret_library_import_replace_troop_title"
+      text="Birliği Değiştir" />
+    <string
+      id="ret_library_import_target_current_faction"
+      text="Mevcut fraksiyon: {NAME}" />
     <string
       id="ret_library_import_tooltip"
       text="Mevcut oyuna aktar." />
@@ -727,9 +727,6 @@
     <string
       id="ret_library_name_faction_header"
       text="Fraksiyon" />
-    <string
-      id="ret_library_target_header"
-      text="Değiştirir" />
     <string
       id="ret_list_header_bandits"
       text="Haydutlar" />

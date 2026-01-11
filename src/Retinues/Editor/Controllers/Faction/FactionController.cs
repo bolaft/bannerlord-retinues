@@ -31,6 +31,9 @@ namespace Retinues.Editor.Controllers.Faction
                 )
                 .ExecuteWith(_ => ExecuteSelectRightBanner());
 
+        /// <summary>
+        /// Returns whether the left banner may be selected in the current mode/context.
+        /// </summary>
         private static bool CanSelectLeftBanner()
         {
             if (State.Mode == EditorMode.Universal)
@@ -40,6 +43,9 @@ namespace Retinues.Editor.Controllers.Faction
             return Player.IsRuler;
         }
 
+        /// <summary>
+        /// Returns whether the right banner may be selected in the current mode/context.
+        /// </summary>
         private static bool CanSelectRightBanner()
         {
             if (State.Mode == EditorMode.Universal)
@@ -49,6 +55,9 @@ namespace Retinues.Editor.Controllers.Faction
             return Player.IsRuler;
         }
 
+        /// <summary>
+        /// Execute the left-banner selection action (culture picker or player kingdom clan picker).
+        /// </summary>
         private static void ExecuteSelectLeftBanner()
         {
             if (State.Mode == EditorMode.Universal)
@@ -61,6 +70,9 @@ namespace Retinues.Editor.Controllers.Faction
             ShowPlayerKingdomClanPopup();
         }
 
+        /// <summary>
+        /// Execute the right-banner selection action (clan picker in universal mode or apply player's kingdom).
+        /// </summary>
         private static void ExecuteSelectRightBanner()
         {
             if (State.Mode == EditorMode.Universal)
@@ -76,10 +88,9 @@ namespace Retinues.Editor.Controllers.Faction
             ApplyKingdom(Player.Kingdom);
         }
 
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                      Universal Left                    //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
+        /// <summary>
+        /// Show a popup allowing the user to select a culture.
+        /// </summary>
         private static void ShowCulturePopup()
         {
             var elements = new List<InquiryElement>();
@@ -117,6 +128,9 @@ namespace Retinues.Editor.Controllers.Faction
             );
         }
 
+        /// <summary>
+        /// Apply the selected culture in universal mode and update editor state.
+        /// </summary>
         private static void ApplyCultureUniversal(WCulture culture)
         {
             if (culture == null)
@@ -130,10 +144,9 @@ namespace Retinues.Editor.Controllers.Faction
             EventManager.Fire(UIEvent.Faction);
         }
 
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                      Universal Right                   //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
+        /// <summary>
+        /// Show a popup allowing the user to select a clan (universal mode).
+        /// </summary>
         private static void ShowClanPopupUniversal()
         {
             var elements = new List<InquiryElement>();
@@ -176,6 +189,9 @@ namespace Retinues.Editor.Controllers.Faction
             );
         }
 
+        /// <summary>
+        /// Apply the selected clan in universal mode and update editor state.
+        /// </summary>
         private static void ApplyClanUniversal(WClan clan)
         {
             if (clan == null)
@@ -189,10 +205,9 @@ namespace Retinues.Editor.Controllers.Faction
             EventManager.Fire(UIEvent.Faction);
         }
 
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                       Player Left                      //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
+        /// <summary>
+        /// Show a popup to select a clan from the player's kingdom.
+        /// </summary>
         private static void ShowPlayerKingdomClanPopup()
         {
             if (!Player.IsRuler)
@@ -237,6 +252,9 @@ namespace Retinues.Editor.Controllers.Faction
             );
         }
 
+        /// <summary>
+        /// Apply the selected clan for the player, clamped to the provided kingdom if necessary.
+        /// </summary>
         private static void ApplyClanPlayer(WClan clan, WHero hero, WKingdom kingdom)
         {
             if (clan == null || hero == null || kingdom == null)
@@ -253,10 +271,9 @@ namespace Retinues.Editor.Controllers.Faction
             EventManager.Fire(UIEvent.Faction);
         }
 
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                      Player Right                      //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
+        /// <summary>
+        /// Apply the selected kingdom as the right banner and update editor state.
+        /// </summary>
         private static void ApplyKingdom(WKingdom kingdom)
         {
             if (kingdom == null)

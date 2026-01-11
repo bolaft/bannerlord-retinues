@@ -614,17 +614,14 @@
       id="ret_library_export_npc_button"
       text="转换" />
     <string
+      id="ret_library_export_npc_confirm_desc"
+      text="这将生成一个独立的模块。{newline}{newline}- 模块 ID：{ID}{newline}- 目标文件夹：{PATH}{newline}- 角色：{COUNT}{LIST}{newline}{newline}如果游戏安装文件夹受保护，模块将改为写入此处：{newline}{FALLBACK}{OVERWRITE}{newline}{newline}继续？" />
+    <string
+      id="ret_library_export_npc_confirm_title"
+      text="转换为独立模组" />
+    <string
       id="ret_library_export_npc_custom_troop_unsupported"
       text="只有原版部队编辑才能转换为独立模组。" />
-    <string
-      id="ret_library_export_npc_done_desc_fallback"
-      text="游戏安装文件夹受保护，因此模块改为写在这里：{newline}{PATH}{newline}{newline}将此文件夹复制到您的 Bannerlord 模组目录中，然后重新启动游戏。" />
-    <string
-      id="ret_library_export_npc_done_desc_mod"
-      text="独立模块已写入：{newline}{PATH}{newline}{newline}重新启动游戏以加载它。" />
-    <string
-      id="ret_library_export_npc_done_title"
-      text="导出完成" />
     <string
       id="ret_library_export_npc_failed_exception"
       text="无法导出文件。" />
@@ -650,12 +647,6 @@
       id="ret_library_export_npc_no_selection"
       text="未选择导出。" />
     <string
-      id="ret_library_export_npc_overwrite_desc"
-      text="具有此名称的模块已存在：{newline}{PATH}{newline}{newline}要覆盖它吗？" />
-    <string
-      id="ret_library_export_npc_overwrite_title"
-      text="覆盖模块" />
-    <string
       id="ret_library_export_npc_tooltip"
       text="将此导出转换为独立模组。" />
     <string
@@ -668,20 +659,14 @@
       id="ret_library_import_button"
       text="导入" />
     <string
-      id="ret_library_import_confirm_desc_char"
-      text="这将把导出的部队导入当前游戏。{newline}{newline}继续？" />
+      id="ret_library_import_confirm_desc_faction_final_single"
+      text="覆盖派系：{newline}- {NAME}{newline}{newline}基础和精英部队树将被覆盖。{newline}导出中缺少的花名册将保持不变。{newline}{newline}继续？" />
     <string
-      id="ret_library_import_confirm_desc_faction"
-      text="这将把导出的派系导入当前游戏。{newline}{newline}继续？" />
-    <string
-      id="ret_library_import_confirm_desc_unknown"
-      text="这将把导出的数据导入当前游戏。{newline}{newline}继续？" />
+      id="ret_library_import_confirm_desc_replace_troop"
+      text="{FACTION} 中的 {TARGET} 将被导入的部队替换。{newline}{newline}继续？" />
     <string
       id="ret_library_import_confirm_title"
       text="导入" />
-    <string
-      id="ret_library_import_deleted_custom_troop"
-      text="与此导出对应的部队已被删除。" />
     <string
       id="ret_library_import_failed_exception"
       text="无法导入文件。" />
@@ -689,26 +674,41 @@
       id="ret_library_import_failed_invalid"
       text="无法导入导出。" />
     <string
-      id="ret_library_import_failed_missing_file"
-      text="未找到导出文件。" />
-    <string
       id="ret_library_import_failed_title"
       text="导入失败" />
     <string
       id="ret_library_import_missing_file"
       text="未找到导出文件。" />
     <string
+      id="ret_library_import_no_faction"
+      text="编辑器中未选择任何派系。" />
+    <string
+      id="ret_library_import_no_faction_targets"
+      text="当前编辑器模式下没有可覆盖的派系。" />
+    <string
+      id="ret_library_import_no_player_clan"
+      text="无法解析玩家氏族。" />
+    <string
       id="ret_library_import_no_selection"
       text="未选择导出。" />
     <string
-      id="ret_library_import_target_missing_faction"
-      text="目标派系在当前游戏中不存在。" />
+      id="ret_library_import_no_troop_targets"
+      text="当前派系中没有可替换的部队。" />
     <string
-      id="ret_library_import_target_missing_troop"
-      text="目标部队在当前游戏中不存在。" />
+      id="ret_library_import_override_faction_desc"
+      text="选择要使用此导入覆盖的派系。" />
     <string
-      id="ret_library_import_target_missing_unknown"
-      text="此导出的目标在当前游戏中不存在。" />
+      id="ret_library_import_override_faction_title"
+      text="覆盖派系" />
+    <string
+      id="ret_library_import_replace_troop_desc"
+      text="选择要在 {FACTION} 中替换的部队。" />
+    <string
+      id="ret_library_import_replace_troop_title"
+      text="替换部队" />
+    <string
+      id="ret_library_import_target_current_faction"
+      text="当前派系：{NAME}" />
     <string
       id="ret_library_import_tooltip"
       text="导入到当前游戏中。" />
@@ -727,9 +727,6 @@
     <string
       id="ret_library_name_faction_header"
       text="派系" />
-    <string
-      id="ret_library_target_header"
-      text="替换" />
     <string
       id="ret_list_header_bandits"
       text="强盗" />

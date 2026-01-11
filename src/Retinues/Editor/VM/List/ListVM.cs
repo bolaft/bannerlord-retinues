@@ -427,7 +427,7 @@ namespace Retinues.Editor.VM.List
             // Sort normal rows by active sort key.
             var sortedNormal = ascending
                 ? normal.OrderBy(r => r.GetSortValue(sortKey)).ToList()
-                : normal.OrderByDescending(r => r.GetSortValue(sortKey)).ToList();
+                : [.. normal.OrderByDescending(r => r.GetSortValue(sortKey))];
 
             // Unlocking/progress rows always:
             // - pinned to end

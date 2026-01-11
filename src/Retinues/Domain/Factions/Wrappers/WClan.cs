@@ -9,5 +9,7 @@ namespace Retinues.Domain.Factions.Wrappers
         public static new WClan Get(string stringId) => GetFromCampaign(stringId, () => Clan.All);
 
         public static new IEnumerable<WClan> All => AllFromCampaign(() => Clan.All);
+
+        public WKingdom Kingdom => WKingdom.Get(Base.Kingdom);
     }
 }

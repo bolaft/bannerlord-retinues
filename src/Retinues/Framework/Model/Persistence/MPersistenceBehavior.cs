@@ -383,7 +383,10 @@ namespace Retinues.Framework.Model.Persistence
                 if (string.IsNullOrWhiteSpace(blob))
                     return;
 
-                var filePath = FileSystem.GetPathInRetinuesDocuments("Backups", "BackupExport.xml");
+                var filePath = FileSystem.GetPathInRetinuesDocuments(
+                    "Snapshots",
+                    "LastSaveSnapshot.xml"
+                );
                 var fileContent = root.ToString(SaveOptions.None);
 
                 File.WriteAllText(filePath, fileContent, Encoding.UTF8);

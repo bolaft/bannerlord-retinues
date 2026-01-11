@@ -145,6 +145,9 @@ namespace Retinues.Editor.Controllers.Equipment
             Naval,
         }
 
+        /// <summary>
+        /// Enumerates the battle types required by the UI (field, siege and optionally naval).
+        /// </summary>
         private static IEnumerable<BattleType> RequiredBattleTypes()
         {
             yield return BattleType.Field;
@@ -154,6 +157,9 @@ namespace Retinues.Editor.Controllers.Equipment
                 yield return BattleType.Naval;
         }
 
+        /// <summary>
+        /// Get the current value for the given battle type flag on the equipment.
+        /// </summary>
         private static bool GetBattleTypeValue(MEquipment e, BattleType type)
         {
             if (e == null)
@@ -168,6 +174,9 @@ namespace Retinues.Editor.Controllers.Equipment
             };
         }
 
+        /// <summary>
+        /// Set the battle type flag on the equipment.
+        /// </summary>
         private static void SetBattleTypeValue(MEquipment e, BattleType type, bool value)
         {
             if (e == null)
@@ -187,6 +196,9 @@ namespace Retinues.Editor.Controllers.Equipment
             }
         }
 
+        /// <summary>
+        /// Returns a TextObject explaining why disabling the given battle type is not allowed.
+        /// </summary>
         private static TextObject GetDisableReason(BattleType type)
         {
             return type switch
@@ -210,6 +222,9 @@ namespace Retinues.Editor.Controllers.Equipment
             };
         }
 
+        /// <summary>
+        /// Determine whether coverage for the battle type remains satisfied after changing one equipment's value.
+        /// </summary>
         private static bool CoverageSatisfiedAfterChange(
             List<MEquipment> battleEquipments,
             MEquipment changing,
@@ -243,6 +258,9 @@ namespace Retinues.Editor.Controllers.Equipment
             return false;
         }
 
+        /// <summary>
+        /// Returns true if the given equipment can have the specified battle type disabled.
+        /// </summary>
         private static bool CanDisableBattleType(MEquipment equipment, BattleType type)
         {
             if (equipment == null || equipment.IsCivilian)
@@ -255,6 +273,9 @@ namespace Retinues.Editor.Controllers.Equipment
             return CoverageSatisfiedAfterChange(battle, equipment, type, newValue: false);
         }
 
+        /// <summary>
+        /// Get the disable reason for field battles, or null if disabling is allowed.
+        /// </summary>
         public static TextObject GetFieldBattleDisableReason()
         {
             var e = State.Equipment;
@@ -269,6 +290,9 @@ namespace Retinues.Editor.Controllers.Equipment
                 : GetDisableReason(BattleType.Field);
         }
 
+        /// <summary>
+        /// Get the disable reason for siege battles, or null if disabling is allowed.
+        /// </summary>
         public static TextObject GetSiegeBattleDisableReason()
         {
             var e = State.Equipment;
@@ -283,6 +307,9 @@ namespace Retinues.Editor.Controllers.Equipment
                 : GetDisableReason(BattleType.Siege);
         }
 
+        /// <summary>
+        /// Get the disable reason for naval battles, or null if disabling is allowed.
+        /// </summary>
         public static TextObject GetNavalBattleDisableReason()
         {
             if (!Mods.NavalDLC.IsLoaded)
@@ -300,6 +327,9 @@ namespace Retinues.Editor.Controllers.Equipment
                 : GetDisableReason(BattleType.Naval);
         }
 
+        /// <summary>
+        /// Determine if deleting the given battle equipment would leave required battle type coverage intact.
+        /// </summary>
         public static bool CanDeleteBattleEquipment(MEquipment equipment)
         {
             if (equipment == null || equipment.IsCivilian)

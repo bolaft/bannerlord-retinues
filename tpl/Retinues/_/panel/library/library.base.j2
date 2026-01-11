@@ -93,23 +93,6 @@
             </ListPanel>
 
             {# ------------------------------------------ #}
-            {# Troop (single)                             #}
-            {# ------------------------------------------ #}
-
-            {{ panel_header("@TargetHeader", "@IsTroop") }}
-
-            <ListPanel
-                IsVisible="@IsTroop"
-                WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-                HorizontalAlignment="Center" VerticalAlignment="Center"
-                StackLayout.LayoutMethod="HorizontalLeftToRight"
-                MarginBottom="12">
-                <Children>
-                    {{ panel_label("@TargetName") }}
-                </Children>
-            </ListPanel>
-
-            {# ------------------------------------------ #}
             {# File                                       #}
             {# ------------------------------------------ #}
 

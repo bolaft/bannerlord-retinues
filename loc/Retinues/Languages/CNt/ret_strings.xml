@@ -614,17 +614,14 @@
       id="ret_library_export_npc_button"
       text="轉換" />
     <string
+      id="ret_library_export_npc_confirm_desc"
+      text="這將生成一個獨立的模組。{newline}{newline}- 模組 ID：{ID}{newline}- 目標文件夾：{PATH}{newline}- 角色：{COUNT}{LIST}{newline}{newline}如果遊戲安裝文件夾受保護，模組將改為寫入此處：{newline}{FALLBACK}{OVERWRITE}{newline}{newline}繼續？" />
+    <string
+      id="ret_library_export_npc_confirm_title"
+      text="轉換為獨立模組" />
+    <string
       id="ret_library_export_npc_custom_troop_unsupported"
       text="只有原版部隊編輯才能轉換為獨立模組。" />
-    <string
-      id="ret_library_export_npc_done_desc_fallback"
-      text="遊戲安裝文件夾受保護，因此模組改為寫在這裡：{newline}{PATH}{newline}{newline}將此文件夾複製到您的 Bannerlord 模組目錄中，然後重新啟動遊戲。" />
-    <string
-      id="ret_library_export_npc_done_desc_mod"
-      text="獨立模組已寫入：{newline}{PATH}{newline}{newline}重新啟動遊戲以加載它。" />
-    <string
-      id="ret_library_export_npc_done_title"
-      text="導出完成" />
     <string
       id="ret_library_export_npc_failed_exception"
       text="無法導出文件。" />
@@ -650,12 +647,6 @@
       id="ret_library_export_npc_no_selection"
       text="未選擇導出。" />
     <string
-      id="ret_library_export_npc_overwrite_desc"
-      text="具有此名稱的模組已存在：{newline}{PATH}{newline}{newline}要覆蓋它嗎？" />
-    <string
-      id="ret_library_export_npc_overwrite_title"
-      text="覆蓋模組" />
-    <string
       id="ret_library_export_npc_tooltip"
       text="將此導出轉換為獨立模組。" />
     <string
@@ -668,20 +659,14 @@
       id="ret_library_import_button"
       text="導入" />
     <string
-      id="ret_library_import_confirm_desc_char"
-      text="這將把導出的部隊導入當前遊戲。{newline}{newline}繼續？" />
+      id="ret_library_import_confirm_desc_faction_final_single"
+      text="覆蓋派系：{newline}- {NAME}{newline}{newline}基礎和精英部隊樹將被覆蓋。{newline}導出中缺少的花名冊將保持不變。{newline}{newline}繼續？" />
     <string
-      id="ret_library_import_confirm_desc_faction"
-      text="這將把導出的派系導入當前遊戲。{newline}{newline}繼續？" />
-    <string
-      id="ret_library_import_confirm_desc_unknown"
-      text="這將把導出的數據導入當前遊戲。{newline}{newline}繼續？" />
+      id="ret_library_import_confirm_desc_replace_troop"
+      text="{FACTION} 中的 {TARGET} 將被導入的部隊替換。{newline}{newline}繼續？" />
     <string
       id="ret_library_import_confirm_title"
       text="導入" />
-    <string
-      id="ret_library_import_deleted_custom_troop"
-      text="與此導出對應的部隊已被刪除。" />
     <string
       id="ret_library_import_failed_exception"
       text="無法導入文件。" />
@@ -689,26 +674,41 @@
       id="ret_library_import_failed_invalid"
       text="無法導入導出。" />
     <string
-      id="ret_library_import_failed_missing_file"
-      text="未找到導出文件。" />
-    <string
       id="ret_library_import_failed_title"
       text="導入失敗" />
     <string
       id="ret_library_import_missing_file"
       text="未找到導出文件。" />
     <string
+      id="ret_library_import_no_faction"
+      text="編輯器中未選擇任何派系。" />
+    <string
+      id="ret_library_import_no_faction_targets"
+      text="當前編輯器模式下沒有可覆蓋的派系。" />
+    <string
+      id="ret_library_import_no_player_clan"
+      text="無法解析玩家氏族。" />
+    <string
       id="ret_library_import_no_selection"
       text="未選擇導出。" />
     <string
-      id="ret_library_import_target_missing_faction"
-      text="目標派系在當前遊戲中不存在。" />
+      id="ret_library_import_no_troop_targets"
+      text="當前派系中沒有可替換的部隊。" />
     <string
-      id="ret_library_import_target_missing_troop"
-      text="目標部隊在當前遊戲中不存在。" />
+      id="ret_library_import_override_faction_desc"
+      text="選擇要使用此導入覆蓋的派系。" />
     <string
-      id="ret_library_import_target_missing_unknown"
-      text="此導出的目標在當前遊戲中不存在。" />
+      id="ret_library_import_override_faction_title"
+      text="覆蓋派系" />
+    <string
+      id="ret_library_import_replace_troop_desc"
+      text="選擇要在 {FACTION} 中替換的部隊。" />
+    <string
+      id="ret_library_import_replace_troop_title"
+      text="替換部隊" />
+    <string
+      id="ret_library_import_target_current_faction"
+      text="當前派系：{NAME}" />
     <string
       id="ret_library_import_tooltip"
       text="導入到當前遊戲中。" />
@@ -727,9 +727,6 @@
     <string
       id="ret_library_name_faction_header"
       text="派系" />
-    <string
-      id="ret_library_target_header"
-      text="替換" />
     <string
       id="ret_list_header_bandits"
       text="強盜" />

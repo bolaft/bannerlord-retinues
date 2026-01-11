@@ -23,6 +23,9 @@ namespace Retinues.Editor.Controllers.Equipment
 
         public static bool Enabled => _preview != null;
 
+        /// <summary>
+        /// Ensures the preview clone is still valid for the current selection and disables preview if it is not.
+        /// </summary>
         private static bool EnsureValid()
         {
             if (_preview == null)
@@ -64,6 +67,9 @@ namespace Retinues.Editor.Controllers.Equipment
         //                         Public                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Enable preview mode by cloning the currently selected equipment for temporary edits.
+        /// </summary>
         public static void EnablePreview()
         {
             if (_preview != null)
@@ -86,6 +92,9 @@ namespace Retinues.Editor.Controllers.Equipment
             });
         }
 
+        /// <summary>
+        /// Disable preview mode and discard the preview clone, restoring normal visuals.
+        /// </summary>
         public static void DisablePreview()
         {
             if (_preview == null)

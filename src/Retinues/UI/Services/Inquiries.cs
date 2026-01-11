@@ -355,6 +355,7 @@ namespace Retinues.UI.Services
             Action<List<InquiryElement>> onSelect,
             int minSelectable = 0,
             int maxSelectable = int.MaxValue,
+            TextObject description = null,
             TextObject confirmText = null,
             TextObject cancelText = null,
             bool pauseGame = true,
@@ -385,7 +386,7 @@ namespace Retinues.UI.Services
                         MBInformationManager.ShowMultiSelectionInquiry(
                             new MultiSelectionInquiryData(
                                 titleText: title?.ToString() ?? string.Empty,
-                                descriptionText: string.Empty,
+                                descriptionText: description?.ToString() ?? string.Empty,
                                 inquiryElements: elements,
                                 isExitShown: true,
                                 minSelectableOptionCount: minSelectable,

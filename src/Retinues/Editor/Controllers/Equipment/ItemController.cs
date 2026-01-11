@@ -30,8 +30,7 @@ namespace Retinues.Editor.Controllers.Equipment
         public static bool EconomyActive => EconomyEnabled;
 
         /// <summary>
-        /// Runs the given action while tracking roster requirement removals and
-        /// converting them into stock increases.
+        /// Runs the given action while tracking roster requirement removals and converting them into stock increases.
         /// </summary>
         public static void TrackRosterStock(Action action)
         {
@@ -46,8 +45,6 @@ namespace Retinues.Editor.Controllers.Equipment
 
         /// <summary>
         /// Stocks all items described by the given required-count map.
-        /// Intended for destructive operations (eg deleting a unit) where the
-        /// roster requirement becomes zero.
         /// </summary>
         public static void StockItems(Dictionary<string, int> requiredCountsById)
         {
@@ -59,7 +56,6 @@ namespace Retinues.Editor.Controllers.Equipment
 
         /// <summary>
         /// Stocks all items required by the given character's equipment roster.
-        /// Uses the roster's conceptual requirement count (max-per-equipment).
         /// </summary>
         public static void StockCharacterRoster(WCharacter character)
         {
@@ -87,6 +83,9 @@ namespace Retinues.Editor.Controllers.Equipment
         private static bool ValueLimitActive => LimitsEnabled && Settings.EquipmentValueLimit;
 
         // Keep these public methods to avoid touching VMs that call ItemController.
+        /// <summary>
+        /// Get the equipment weight limit for the given tier.
+        /// </summary>
         public static float GetEquipmentWeightLimit(int tier)
         {
             return EquipmentLimitsHelper.GetWeightLimit(
@@ -95,6 +94,9 @@ namespace Retinues.Editor.Controllers.Equipment
             );
         }
 
+        /// <summary>
+        /// Get the equipment value limit for the given tier.
+        /// </summary>
         public static int GetEquipmentValueLimit(int tier)
         {
             return EquipmentLimitsHelper.GetValueLimit(
@@ -103,6 +105,9 @@ namespace Retinues.Editor.Controllers.Equipment
             );
         }
 
+        /// <summary>
+        /// Check whether equipping the given item would respect the weight limit.
+        /// </summary>
         private static bool WithinWeightLimit(WItem item)
         {
             if (!WeightLimitActive)
@@ -134,6 +139,9 @@ namespace Retinues.Editor.Controllers.Equipment
             );
         }
 
+        /// <summary>
+        /// Build the weight-limit tooltip for the given item.
+        /// </summary>
         private static TextObject WeightLimitTooltip(WItem item)
         {
             var slot = EditorState.Instance.Slot;
@@ -148,6 +156,9 @@ namespace Retinues.Editor.Controllers.Equipment
                 .SetTextVariable("LIMIT", limit.ToString("0.0"));
         }
 
+        /// <summary>
+        /// Check whether equipping the given item would respect the value limit.
+        /// </summary>
         private static bool WithinValueLimit(WItem item)
         {
             if (!ValueLimitActive)
@@ -179,6 +190,9 @@ namespace Retinues.Editor.Controllers.Equipment
             );
         }
 
+        /// <summary>
+        /// Build the value-limit tooltip for the given item.
+        /// </summary>
         private static TextObject ValueLimitTooltip(WItem item)
         {
             var slot = EditorState.Instance.Slot;
@@ -229,6 +243,9 @@ namespace Retinues.Editor.Controllers.Equipment
                 .AddCondition(WithinValueLimit, ValueLimitTooltip)
                 .ExecuteWith(EquipItem);
 
+        /// <summary>
+        /// Determine compatibility of the given item with currently equipped items (slot-specific).
+        /// </summary>
         private static bool IsCompatibleWithCurrentEquipment(WItem item)
         {
             if (State.Equipment == null)
@@ -248,6 +265,9 @@ namespace Retinues.Editor.Controllers.Equipment
             return true;
         }
 
+        /// <summary>
+        /// Equip the given item, handling preview, economy, and roster stock.
+        /// </summary>
         private static void EquipItem(WItem item)
         {
             if (State.Equipment == null)
@@ -316,6 +336,9 @@ namespace Retinues.Editor.Controllers.Equipment
             EventManager.Fire(UIEvent.Item);
         }
 
+        /// <summary>
+        /// Core equip operation that sets the item on the equipment and handles harness compatibility.
+        /// </summary>
         private static void EquipItemCore(EquipmentIndex slot, WItem item)
         {
             if (State.Equipment == null)
@@ -332,6 +355,9 @@ namespace Retinues.Editor.Controllers.Equipment
             }
         }
 
+        /// <summary>
+        /// Determine whether the item may be equipped based on unlock/progress rules.
+        /// </summary>
         private static bool UnlockAllowed(WItem item)
         {
             if (item == null)
@@ -357,6 +383,9 @@ namespace Retinues.Editor.Controllers.Equipment
             return false;
         }
 
+        /// <summary>
+        /// Build the tooltip describing unlock/progress status for the item.
+        /// </summary>
         private static TextObject UnlockTooltip(WItem item)
         {
             if (item == null)
@@ -388,6 +417,9 @@ namespace Retinues.Editor.Controllers.Equipment
         //                        Purchasing                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Determine purchase cost for equipping the item, if any.
+        /// </summary>
         private static bool TryGetPurchaseCost(EquipmentIndex slot, WItem item, out int cost)
         {
             cost = 0;
@@ -413,6 +445,9 @@ namespace Retinues.Editor.Controllers.Equipment
             return cost > 0;
         }
 
+        /// <summary>
+        /// Compute the monetary cost to equip the given item.
+        /// </summary>
         private static int ComputeEquipCost(WItem item)
         {
             if (item == null)
@@ -425,6 +460,9 @@ namespace Retinues.Editor.Controllers.Equipment
             return Math.Max(cost, 0);
         }
 
+        /// <summary>
+        /// Show a purchase confirmation popup and handle the purchase/equip flow.
+        /// </summary>
         private static void ShowPurchaseInquiry(EquipmentIndex slot, WItem item, int cost)
         {
             // Snapshot to avoid equipping into the wrong set if selection changes mid-popup.
@@ -519,6 +557,9 @@ namespace Retinues.Editor.Controllers.Equipment
                 .ExecuteWith(UnequipItem)
                 .Fire(UIEvent.Item);
 
+        /// <summary>
+        /// Unequip the item at the given slot, handling economy and preview.
+        /// </summary>
         private static void UnequipItem(EquipmentIndex slot)
         {
             if (State.Equipment == null)
