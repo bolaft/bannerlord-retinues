@@ -407,9 +407,6 @@
       id="ret_faction_troops_unlocked_desc"
       text="{COUNT} 名新兵现已可供 {FACTION} {FACTION_TYPE} 使用。" />
     <string
-      id="ret_faction_troops_unlocked_go"
-      text="前往编辑器" />
-    <string
       id="ret_faction_troops_unlocked_title"
       text="{FACTION} 部队" />
     <string
@@ -457,6 +454,9 @@
     <string
       id="ret_gender_toggle_hint"
       text="更改性别" />
+    <string
+      id="ret_go_to_editor"
+      text="前往编辑器" />
     <string
       id="ret_height_hint"
       text="身高" />
@@ -1007,6 +1007,12 @@
       id="ret_mcm_option_retinue_skill_total_bonus_hint"
       text="启用随从技能总增益时添加到随从部队技能总数的数量。" />
     <string
+      id="ret_mcm_option_retinue_unlock_speed"
+      text="随从解锁速度" />
+    <string
+      id="ret_mcm_option_retinue_unlock_speed_hint"
+      text="影响新随从解锁速度的乘数。" />
+    <string
       id="ret_mcm_option_skill_cap"
       text="等级 {TIER}" />
     <string
@@ -1223,8 +1229,41 @@
       id="ret_rename_unit"
       text="新名称" />
     <string
+      id="ret_retinue_culture_default_name"
+      text="{CLAN} {CULTURE} 随从" />
+    <string
       id="ret_retinue_default_name"
       text="{CLAN} 守卫队" />
+    <string
+      id="ret_retinue_progress_source_allies"
+      text="与盟友赢得战斗" />
+    <string
+      id="ret_retinue_progress_source_fiefs"
+      text="拥有的封地" />
+    <string
+      id="ret_retinue_progress_source_generic"
+      text="进度" />
+    <string
+      id="ret_retinue_progress_source_quest"
+      text="任务完成" />
+    <string
+      id="ret_retinue_progress_source_tournament"
+      text="赢得锦标赛" />
+    <string
+      id="ret_retinue_progress_source_workshops"
+      text="拥有的作坊" />
+    <string
+      id="ret_retinue_unlock_popup_text"
+      text="你现在可以雇佣你新获得的 {RETINUE}。" />
+    <string
+      id="ret_retinue_unlock_popup_title"
+      text="获得新随从" />
+    <string
+      id="ret_retinue_unlock_progress"
+      text="{SOURCE}：解锁 {CULTURE} 随从的进度增加了 +{DELTA}%。总进度：{TOTAL}%。" />
+    <string
+      id="ret_retinue_unlock_progress_row"
+      text="进度：{PCT}%" />
     <string
       id="ret_retinue_upgrade_cap_reached_hint"
       text="升级到 {RETINUE}{newline}已达到随从上限：{CAP}{newline}增加你的队伍规模上限以允许更多的随从" />
@@ -1403,11 +1442,23 @@
       id="ret_troop_prefix_champion"
       text="冠军" />
     <string
+      id="ret_troop_prefix_divine"
+      text="神圣" />
+    <string
       id="ret_troop_prefix_elite"
       text="精英" />
     <string
+      id="ret_troop_prefix_immortal"
+      text="不朽" />
+    <string
+      id="ret_troop_prefix_legendary"
+      text="传奇" />
+    <string
       id="ret_troop_prefix_master"
       text="大师" />
+    <string
+      id="ret_troop_prefix_mythic"
+      text="神话" />
     <string
       id="ret_troop_prefix_trained"
       text="训练有素" />

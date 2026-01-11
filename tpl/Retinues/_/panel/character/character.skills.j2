@@ -1,4 +1,4 @@
-{% from "_/macros.buttons.j2" import button_chevron_left, button_chevron_right %}
+{% from "_/macros.buttons.j2" import button_brush, button_chevron_left, button_chevron_right %}
 {% from "_/macros.panel.j2" import panel_header %}
 {% from "_/macros.icons.j2" import icon_sprite %}
 
@@ -44,6 +44,9 @@
             Brush.FontColor="#F4E1C4FF"
             WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
             HorizontalAlignment="Center" VerticalAlignment="Center" />
+
+
+        {{ button_brush("{RankUpButton}", "Inventory.Tuple.Extension.PlusButton", "28", "28", margin_left="4") }}
     </Children>
 </ListPanel>
 

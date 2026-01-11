@@ -209,6 +209,20 @@ namespace Retinues.Configuration
             dependsOn: EnableRetinues
         );
 
+        public static readonly Option<float> RetinueUnlockSpeed = CreateOption(
+            section: Retinues,
+            name: L.F("mcm_option_retinue_unlock_speed", "Retinue Unlock Speed"),
+            hint: L.F(
+                "mcm_option_retinue_unlock_speed_hint",
+                "Multiplier affecting how quickly new retinues are unlocked."
+            ),
+            minValue: 0.1f,
+            maxValue: 5f,
+            @default: 1f,
+            @realistic: 0.5f,
+            dependsOn: EnableRetinues
+        );
+
         public static readonly Option<int> RetinueHealthBonus = CreateOption(
             section: Retinues,
             name: L.F("mcm_option_retinue_health_bonus", "Retinue Health Bonus"),

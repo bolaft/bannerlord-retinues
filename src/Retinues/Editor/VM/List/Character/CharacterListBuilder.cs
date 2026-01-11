@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Retinues.Configuration;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Factions.Wrappers;
+using Retinues.Game.Retinues;
 using Retinues.UI.Services;
 
 namespace Retinues.Editor.VM.List.Character
@@ -118,17 +120,54 @@ namespace Retinues.Editor.VM.List.Character
             );
 
             // Retinues: only meaningful in player mode (custom only).
-            AddSection(
-                headers,
-                "retinues",
-                "list_header_retinues",
-                L.S("list_header_retinues", "Retinues"),
-                faction.RosterRetinues,
-                condition: () =>
-                    EditorState.Instance.Mode == EditorMode.Player
-                    && faction is WClan
-                    && Settings.EnableRetinues
-            );
+            if (
+                EditorState.Instance.Mode == EditorMode.Player
+                && faction is WClan
+                && Settings.EnableRetinues
+            )
+            {
+                var header = new CharacterListHeaderVM(
+                    list,
+                    "retinues",
+                    L.S("list_header_retinues", "Retinues")
+                )
+                {
+                    IsExpanded = true,
+                };
+
+                var any = false;
+
+                foreach (var character in faction.RosterRetinues)
+                {
+                    if (!ShouldInclude(character))
+                        continue;
+
+                    any = true;
+                    AddCharacterRow(header, character);
+                }
+
+                // Append "unlock in progress" rows (always at the bottom).
+                var progress = RetinuesBehavior.GetSnapshot();
+                // Sort by progress DESC.
+                foreach (var (culture, points) in progress.OrderByDescending(x => x.Progress))
+                {
+                    if (culture == null)
+                        continue;
+
+                    if (points <= 0)
+                        continue;
+
+                    any = true;
+                    header.AddRow(new RetinueUnlockProgressRowVM(header, culture, points));
+                }
+
+                if (any)
+                {
+                    headers.Add(header);
+                    header.UpdateRowCount();
+                    header.UpdateState();
+                }
+            }
 
             // Elite tree.
             AddSection(

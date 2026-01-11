@@ -79,13 +79,10 @@ namespace Retinues.Domain.Events.Models
                 if (PlayerSide == null)
                     return MapEventOutcome.Unset;
 
-                var isPlayerAttacker = ReferenceEquals(PlayerSide, GetAttacker());
-                var isPlayerDefender = ReferenceEquals(PlayerSide, GetDefender());
-
-                if (!isPlayerAttacker && !isPlayerDefender)
+                if (!IsPlayerAttacker && !IsPlayerDefender)
                     return MapEventOutcome.Unset;
 
-                if (isPlayerAttacker)
+                if (IsPlayerAttacker)
                 {
                     return Base.WinningSide == BattleSideEnum.Attacker
                         ? MapEventOutcome.Won
@@ -124,6 +121,8 @@ namespace Retinues.Domain.Events.Models
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public bool IsPlayerInvolved => IsPartyInvolved(Player.Party);
+        public bool IsPlayerAttacker => ReferenceEquals(PlayerSide, GetAttacker());
+        public bool IsPlayerDefender => ReferenceEquals(PlayerSide, GetDefender());
 
         public bool IsPlayerInArmy => IsPlayerInvolved && Player.Party?.IsInArmy == true;
 

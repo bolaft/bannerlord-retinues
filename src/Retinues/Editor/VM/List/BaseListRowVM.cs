@@ -40,6 +40,9 @@ namespace Retinues.Editor.VM.List
         [DataSourceProperty]
         public virtual bool IsLibraryCharacter => false;
 
+        [DataSourceProperty]
+        public virtual bool IsRetinueUnlockProgress => false;
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Identifier                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

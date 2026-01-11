@@ -407,9 +407,6 @@
       id="ret_faction_troops_unlocked_desc"
       text="{COUNT} 人の新しい部隊が {FACTION} の {FACTION_TYPE} で利用可能になりました。" />
     <string
-      id="ret_faction_troops_unlocked_go"
-      text="エディターへ移動" />
-    <string
       id="ret_faction_troops_unlocked_title"
       text="{FACTION} 部隊" />
     <string
@@ -457,6 +454,9 @@
     <string
       id="ret_gender_toggle_hint"
       text="性別を変更" />
+    <string
+      id="ret_go_to_editor"
+      text="エディターへ移動" />
     <string
       id="ret_height_hint"
       text="身長" />
@@ -1007,6 +1007,12 @@
       id="ret_mcm_option_retinue_skill_total_bonus_hint"
       text="Buff Retinue Skill Total が有効になっている場合、リティニュース部隊のスキル合計に追加される量。" />
     <string
+      id="ret_mcm_option_retinue_unlock_speed"
+      text="リティニュースアンロック速度" />
+    <string
+      id="ret_mcm_option_retinue_unlock_speed_hint"
+      text="新しいリティニュースがどれだけ早くアンロックされるかに影響する乗数。" />
+    <string
       id="ret_mcm_option_skill_cap"
       text="ティア {TIER}" />
     <string
@@ -1223,8 +1229,41 @@
       id="ret_rename_unit"
       text="新しい名前" />
     <string
+      id="ret_retinue_culture_default_name"
+      text="{CLAN} の {CULTURE} 随行員" />
+    <string
       id="ret_retinue_default_name"
       text="{CLAN} ハウスガード" />
+    <string
+      id="ret_retinue_progress_source_allies"
+      text="同盟と共に戦闘に勝利" />
+    <string
+      id="ret_retinue_progress_source_fiefs"
+      text="所有している領地" />
+    <string
+      id="ret_retinue_progress_source_generic"
+      text="進捗" />
+    <string
+      id="ret_retinue_progress_source_quest"
+      text="クエスト完了" />
+    <string
+      id="ret_retinue_progress_source_tournament"
+      text="トーナメントで優勝" />
+    <string
+      id="ret_retinue_progress_source_workshops"
+      text="所有している工房" />
+    <string
+      id="ret_retinue_unlock_popup_text"
+      text="新たに獲得した {RETINUE} を雇うことができます。" />
+    <string
+      id="ret_retinue_unlock_popup_title"
+      text="新しい随行員を獲得" />
+    <string
+      id="ret_retinue_unlock_progress"
+      text="{SOURCE}：{CULTURE} 随行員のアンロックに向けた進捗が +{DELTA}% 増加。総進捗：{TOTAL}%。" />
+    <string
+      id="ret_retinue_unlock_progress_row"
+      text="進捗：{PCT}%" />
     <string
       id="ret_retinue_upgrade_cap_reached_hint"
       text="{RETINUE} にアップグレード{newline}最大随行員数に達しました: {CAP}{newline}パーティーサイズの制限を増やして、より多くの随行員を許可します" />
@@ -1403,11 +1442,23 @@
       id="ret_troop_prefix_champion"
       text="チャンピオン" />
     <string
+      id="ret_troop_prefix_divine"
+      text="ディバイン" />
+    <string
       id="ret_troop_prefix_elite"
       text="エリート" />
     <string
+      id="ret_troop_prefix_immortal"
+      text="不死身" />
+    <string
+      id="ret_troop_prefix_legendary"
+      text="伝説的な" />
+    <string
       id="ret_troop_prefix_master"
       text="マスター" />
+    <string
+      id="ret_troop_prefix_mythic"
+      text="神話的な" />
     <string
       id="ret_troop_prefix_trained"
       text="訓練済み" />

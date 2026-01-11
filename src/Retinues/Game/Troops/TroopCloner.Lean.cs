@@ -535,7 +535,10 @@ namespace Retinues.Game.Troops
                 3 => L.S("troop_prefix_elite", "Elite"),
                 4 => L.S("troop_prefix_champion", "Champion"),
                 5 => L.S("troop_prefix_master", "Master"),
-                _ => L.S("troop_prefix_elite", "Elite"),
+                6 => L.S("troop_prefix_legendary", "Legendary"),
+                7 => L.S("troop_prefix_mythic", "Mythic"),
+                8 => L.S("troop_prefix_immortal", "Immortal"),
+                _ => L.S("troop_prefix_divine", "Divine"),
             };
         }
     }

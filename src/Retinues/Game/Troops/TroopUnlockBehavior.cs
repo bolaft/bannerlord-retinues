@@ -274,7 +274,7 @@ namespace Retinues.Game.Troops
                 .SetTextVariable("FACTION", faction.Name)
                 .SetTextVariable("FACTION_TYPE", factionType);
 
-            var go = L.T("faction_troops_unlocked_go", "Go to Editor");
+            var go = L.T("go_to_editor", "Go to editor");
             var ok = GameTexts.FindText("str_ok");
 
             Inquiries.Popup(
@@ -334,6 +334,9 @@ namespace Retinues.Game.Troops
                     notifyUnlocks: false,
                     unlockSink: unlockSink
                 );
+
+                // Ensure mariner flag is false for lean faction troops.
+                created.IsMariner = false;
             }
 
             if (created?.Base == null)

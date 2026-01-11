@@ -407,9 +407,6 @@
       id="ret_faction_troops_unlocked_desc"
       text="{COUNT} nuevas tropas ya están disponibles para la {FACTION_TYPE} {FACTION}." />
     <string
-      id="ret_faction_troops_unlocked_go"
-      text="Ir al Editor" />
-    <string
       id="ret_faction_troops_unlocked_title"
       text="Tropas de {FACTION}" />
     <string
@@ -457,6 +454,9 @@
     <string
       id="ret_gender_toggle_hint"
       text="Cambiar género" />
+    <string
+      id="ret_go_to_editor"
+      text="Ir al Editor" />
     <string
       id="ret_height_hint"
       text="Altura" />
@@ -1007,6 +1007,12 @@
       id="ret_mcm_option_retinue_skill_total_bonus_hint"
       text="La cantidad añadida a los totales de habilidades de las tropas de retinues cuando Buff Retinue Skill Total está habilitado." />
     <string
+      id="ret_mcm_option_retinue_unlock_speed"
+      text="Velocidad de desbloqueo de Retinues" />
+    <string
+      id="ret_mcm_option_retinue_unlock_speed_hint"
+      text="Multiplicador que afecta la rapidez con la que se desbloquean nuevos retinues." />
+    <string
       id="ret_mcm_option_skill_cap"
       text="Nivel {TIER}" />
     <string
@@ -1223,8 +1229,41 @@
       id="ret_rename_unit"
       text="Nuevo nombre" />
     <string
+      id="ret_retinue_culture_default_name"
+      text="Retinue {CULTURE} {CLAN}" />
+    <string
       id="ret_retinue_default_name"
       text="Guardia de la Casa {CLAN}" />
+    <string
+      id="ret_retinue_progress_source_allies"
+      text="Batalla ganada con aliados" />
+    <string
+      id="ret_retinue_progress_source_fiefs"
+      text="Feudos poseídos" />
+    <string
+      id="ret_retinue_progress_source_generic"
+      text="Progreso" />
+    <string
+      id="ret_retinue_progress_source_quest"
+      text="Misión completada" />
+    <string
+      id="ret_retinue_progress_source_tournament"
+      text="Torneo ganado" />
+    <string
+      id="ret_retinue_progress_source_workshops"
+      text="Talleres poseídos" />
+    <string
+      id="ret_retinue_unlock_popup_text"
+      text="Ahora puedes contratar tu nueva retinue {RETINUE}." />
+    <string
+      id="ret_retinue_unlock_popup_title"
+      text="Nueva retinue adquirida" />
+    <string
+      id="ret_retinue_unlock_progress"
+      text="{SOURCE}: +{DELTA}% de progreso hacia el desbloqueo de la retinue {CULTURE}. Progreso total: {TOTAL}%." />
+    <string
+      id="ret_retinue_unlock_progress_row"
+      text="Progreso: {PCT}%" />
     <string
       id="ret_retinue_upgrade_cap_reached_hint"
       text="Actualizar a {RETINUE}{newline}Límite máximo de retinue alcanzado: {CAP}{newline}Aumenta el límite de tamaño de tu grupo para permitir más retinues" />
@@ -1403,11 +1442,23 @@
       id="ret_troop_prefix_champion"
       text="Campeón" />
     <string
+      id="ret_troop_prefix_divine"
+      text="Divino" />
+    <string
       id="ret_troop_prefix_elite"
       text="Élite" />
     <string
+      id="ret_troop_prefix_immortal"
+      text="Inmortal" />
+    <string
+      id="ret_troop_prefix_legendary"
+      text="Legendario" />
+    <string
       id="ret_troop_prefix_master"
       text="Maestro" />
+    <string
+      id="ret_troop_prefix_mythic"
+      text="Mítico" />
     <string
       id="ret_troop_prefix_trained"
       text="Entrenado" />

@@ -1,5 +1,6 @@
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Factions;
+using Retinues.Domain.Factions.Base;
 using Retinues.Domain.Factions.Wrappers;
 using Retinues.Domain.Parties.Models;
 using Retinues.Framework.Model;
@@ -46,6 +47,7 @@ namespace Retinues.Domain.Parties.Wrappers
 
         public WClan Clan => WClan.Get(Base.ActualClan);
         public WKingdom Kingdom => WKingdom.Get(Base.ActualClan.Kingdom);
+        public WCulture Culture => Clan?.Culture ?? Kingdom?.Culture;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Rosters                        //

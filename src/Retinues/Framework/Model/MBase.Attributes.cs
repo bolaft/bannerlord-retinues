@@ -168,7 +168,7 @@ namespace Retinues.Framework.Model
             Action<object, TProp> setter = (_, _) =>
                 throw new InvalidOperationException($"Member '{targetName}' is read-only.");
 
-            if (member.Member is System.Reflection.PropertyInfo prop && prop.CanWrite)
+            if (member.Member is PropertyInfo prop && prop.CanWrite)
             {
                 var instanceParam = Expression.Parameter(typeof(TBase), "instance");
                 var valueParam = Expression.Parameter(typeof(TProp), "value");
@@ -179,7 +179,7 @@ namespace Retinues.Framework.Model
                     .Compile();
                 setter = (obj, value) => typedSetter((TBase)obj, value);
             }
-            else if (member.Member is System.Reflection.FieldInfo field)
+            else if (member.Member is FieldInfo field)
             {
                 var instanceParam = Expression.Parameter(typeof(TBase), "instance");
                 var valueParam = Expression.Parameter(typeof(TProp), "value");

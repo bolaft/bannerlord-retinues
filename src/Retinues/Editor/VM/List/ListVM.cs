@@ -404,39 +404,7 @@ namespace Retinues.Editor.VM.List
             if (header.Rows.Count <= 1)
                 return;
 
-            // Special-case: equipment lists must always keep "unlocking" items pinned to the end.
-            // We detect equipment headers by type-homogeneity.
-            bool isEquipmentHeader = true;
-            for (int i = 0; i < header.Rows.Count; i++)
-            {
-                if (header.Rows[i] is not EquipmentListRowVM)
-                {
-                    isEquipmentHeader = false;
-                    break;
-                }
-            }
-
-            if (!isEquipmentHeader)
-            {
-                var sortedDefault = ascending
-                    ? header.Rows.OrderBy(row => row.GetSortValue(sortKey)).ToList()
-                    : [.. header.Rows.OrderByDescending(row => row.GetSortValue(sortKey))];
-
-                header.Rows.Clear();
-                for (int i = 0; i < sortedDefault.Count; i++)
-                    header.Rows.Add(sortedDefault[i]);
-
-                if (header.IsExpanded)
-                {
-                    header.ExpandedRows.Clear();
-                    for (int i = 0; i < sortedDefault.Count; i++)
-                        header.ExpandedRows.Add(sortedDefault[i]);
-                }
-
-                return;
-            }
-
-            // Partition rows.
+            // Partition rows into normal vs "unlocking/progress" rows.
             var normal = new List<BaseListRowVM>(header.Rows.Count);
             var unlocking = new List<BaseListRowVM>();
             var unlockProgress = new Dictionary<BaseListRowVM, int>();
@@ -456,13 +424,15 @@ namespace Retinues.Editor.VM.List
                 }
             }
 
-            // Sort normal rows by the active sort key.
+            // Sort normal rows by active sort key.
             var sortedNormal = ascending
                 ? normal.OrderBy(r => r.GetSortValue(sortKey)).ToList()
                 : normal.OrderByDescending(r => r.GetSortValue(sortKey)).ToList();
 
-            // Sort unlocking rows by progress DESC always (regardless of ascending/descending).
-            // Deterministic tie-break: Name ascending.
+            // Unlocking/progress rows always:
+            // - pinned to end
+            // - ordered by progress DESC
+            // - tie-break by Name ASC
             var sortedUnlocking = unlocking
                 .OrderByDescending(r => unlockProgress.TryGetValue(r, out var p) ? p : 0)
                 .ThenBy(r => r.GetSortValue(ListSortKey.Name))
@@ -635,27 +605,28 @@ namespace Retinues.Editor.VM.List
         {
             progress = 0;
 
-            // Only relevant in player mode.
             if (State.Mode != EditorMode.Player)
                 return false;
 
+            // Retinue unlock progress rows.
+            if (row is RetinueUnlockProgressRowVM rr)
+            {
+                progress = rr.ProgressPoints;
+                return progress > 0;
+            }
+
+            // Equipment unlocking rows (existing logic).
             if (row is not EquipmentListRowVM)
                 return false;
 
-            // Row Id for equipment rows is the item StringId (set in EquipmentListRowVM ctor).
             var item = WItem.Get(row.Id);
             if (item == null)
                 return false;
 
-            if (item.IsCrafted)
-                return false;
-
-            if (item.IsUnlocked)
+            if (item.IsCrafted || item.IsUnlocked)
                 return false;
 
             progress = item.UnlockProgress;
-
-            // "In progress" means > 0 here (0% are filtered out by builder).
             return progress > 0;
         }
 

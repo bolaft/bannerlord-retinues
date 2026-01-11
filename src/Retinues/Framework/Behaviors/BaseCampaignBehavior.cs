@@ -1,6 +1,5 @@
 using System;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using Retinues.Framework.Runtime;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
@@ -10,37 +9,13 @@ using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.CampaignSystem.Roster;
 using TaleWorlds.CampaignSystem.Settlements;
 using TaleWorlds.Core;
+using TaleWorlds.Library;
 
 namespace Retinues.Framework.Behaviors
 {
     [SafeClass(IncludeDerived = true)]
     public abstract class BaseCampaignBehavior : CampaignBehaviorBase
     {
-        public enum BehaviorEvent
-        {
-            GameLoadFinished,
-            CharacterCreationIsOver,
-            SessionLaunched,
-
-            DailyTick,
-            HourlyTick,
-            HourlyTickParty,
-
-            MissionStarted,
-            MissionEnded,
-
-            MapEventStarted,
-            MapEventEnded,
-
-            ItemsDiscardedByPlayer,
-
-            SettlementLeft,
-            BeforeSave,
-
-            SettlementOwnerChanged,
-            KingdomCreated,
-        }
-
         protected string Name => GetType().Name;
 
         public virtual bool IsEnabled => true;
@@ -98,54 +73,156 @@ namespace Retinues.Framework.Behaviors
 
         protected virtual void OnKingdomCreated(Kingdom kingdom) { }
 
+        protected virtual void OnTournamentFinished(
+            CharacterObject winner,
+            MBReadOnlyList<CharacterObject> participants,
+            Town town,
+            ItemObject prize
+        ) { }
+
+        protected virtual void OnQuestCompleted(
+            QuestBase quest,
+            QuestBase.QuestCompleteDetails details
+        ) { }
+
         protected virtual void RegisterCustomEvents() { }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                     Auto-register                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private void AutoRegisterEvents()
         {
             if (IsOverridden(nameof(OnGameLoadFinished)))
-                Hook(BehaviorEvent.GameLoadFinished, OnGameLoadFinished);
+                CampaignEvents.OnGameLoadFinishedEvent.AddNonSerializedListener(
+                    this,
+                    () => SafeInvoke(OnGameLoadFinished)
+                );
 
             if (IsOverridden(nameof(OnCharacterCreationIsOver)))
-                Hook(BehaviorEvent.CharacterCreationIsOver, OnCharacterCreationIsOver);
+                CampaignEvents.OnCharacterCreationIsOverEvent.AddNonSerializedListener(
+                    this,
+                    () => SafeInvoke(OnCharacterCreationIsOver)
+                );
 
             if (IsOverridden(nameof(OnSessionLaunched)))
-                Hook(BehaviorEvent.SessionLaunched, OnSessionLaunched);
+                CampaignEvents.OnSessionLaunchedEvent.AddNonSerializedListener(
+                    this,
+                    starter => SafeInvoke(() => OnSessionLaunched(starter))
+                );
 
             if (IsOverridden(nameof(OnDailyTick)))
-                Hook(BehaviorEvent.DailyTick, OnDailyTick);
+                CampaignEvents.DailyTickEvent.AddNonSerializedListener(
+                    this,
+                    () => SafeInvoke(OnDailyTick)
+                );
 
             if (IsOverridden(nameof(OnHourlyTick)))
-                Hook(BehaviorEvent.HourlyTick, OnHourlyTick);
+                CampaignEvents.HourlyTickEvent.AddNonSerializedListener(
+                    this,
+                    () => SafeInvoke(OnHourlyTick)
+                );
 
             if (IsOverridden(nameof(OnHourlyTickParty)))
-                Hook(BehaviorEvent.HourlyTickParty, OnHourlyTickParty);
+                CampaignEvents.HourlyTickPartyEvent.AddNonSerializedListener(
+                    this,
+                    party => SafeInvoke(() => OnHourlyTickParty(party))
+                );
 
             if (IsOverridden(nameof(OnMissionStarted)))
-                Hook(BehaviorEvent.MissionStarted, OnMissionStarted);
+                CampaignEvents.OnMissionStartedEvent.AddNonSerializedListener(
+                    this,
+                    mission => SafeInvoke(() => OnMissionStarted(mission))
+                );
 
             if (IsOverridden(nameof(OnMissionEnded)))
-                Hook(BehaviorEvent.MissionEnded, OnMissionEnded);
+                CampaignEvents.OnMissionEndedEvent.AddNonSerializedListener(
+                    this,
+                    mission => SafeInvoke(() => OnMissionEnded(mission))
+                );
 
             if (IsOverridden(nameof(OnMapEventStarted)))
-                Hook(BehaviorEvent.MapEventStarted, OnMapEventStarted);
+                CampaignEvents.MapEventStarted.AddNonSerializedListener(
+                    this,
+                    (mapEvent, atk, def) => SafeInvoke(() => OnMapEventStarted(mapEvent, atk, def))
+                );
 
             if (IsOverridden(nameof(OnMapEventEnded)))
-                Hook(BehaviorEvent.MapEventEnded, OnMapEventEnded);
+                CampaignEvents.MapEventEnded.AddNonSerializedListener(
+                    this,
+                    mapEvent => SafeInvoke(() => OnMapEventEnded(mapEvent))
+                );
 
             if (IsOverridden(nameof(OnItemsDiscardedByPlayer)))
-                Hook(BehaviorEvent.ItemsDiscardedByPlayer, OnItemsDiscardedByPlayer);
+                CampaignEvents.OnItemsDiscardedByPlayerEvent.AddNonSerializedListener(
+                    this,
+                    roster => SafeInvoke(() => OnItemsDiscardedByPlayer(roster))
+                );
 
             if (IsOverridden(nameof(OnSettlementLeft)))
-                Hook(BehaviorEvent.SettlementLeft, OnSettlementLeft);
+                CampaignEvents.OnSettlementLeftEvent.AddNonSerializedListener(
+                    this,
+                    (party, settlement) => SafeInvoke(() => OnSettlementLeft(party, settlement))
+                );
 
             if (IsOverridden(nameof(OnBeforeSave)))
-                Hook(BehaviorEvent.BeforeSave, OnBeforeSave);
+                CampaignEvents.OnBeforeSaveEvent.AddNonSerializedListener(
+                    this,
+                    () => SafeInvoke(OnBeforeSave)
+                );
 
             if (IsOverridden(nameof(OnSettlementOwnerChanged)))
-                Hook(BehaviorEvent.SettlementOwnerChanged, OnSettlementOwnerChanged);
+                CampaignEvents.OnSettlementOwnerChangedEvent.AddNonSerializedListener(
+                    this,
+                    (settlement, openToClaim, newOwner, oldOwner, capturerHero, detail) =>
+                        SafeInvoke(() =>
+                            OnSettlementOwnerChanged(
+                                settlement,
+                                openToClaim,
+                                newOwner,
+                                oldOwner,
+                                capturerHero,
+                                detail
+                            )
+                        )
+                );
 
             if (IsOverridden(nameof(OnKingdomCreated)))
-                Hook(BehaviorEvent.KingdomCreated, OnKingdomCreated);
+                CampaignEvents.KingdomCreatedEvent.AddNonSerializedListener(
+                    this,
+                    kingdom => SafeInvoke(() => OnKingdomCreated(kingdom))
+                );
+
+            if (IsOverridden(nameof(OnTournamentFinished)))
+                CampaignEvents.TournamentFinished.AddNonSerializedListener(
+                    this,
+                    (winner, participants, town, prize) =>
+                        SafeInvoke(() => OnTournamentFinished(winner, participants, town, prize))
+                );
+
+            if (IsOverridden(nameof(OnQuestCompleted)))
+                CampaignEvents.OnQuestCompletedEvent.AddNonSerializedListener(
+                    this,
+                    (quest, details) => SafeInvoke(() => OnQuestCompleted(quest, details))
+                );
+        }
+
+        private void SafeInvoke(Action action)
+        {
+            if (!IsEnabled)
+                return;
+
+            if (action == null)
+                return;
+
+            try
+            {
+                action();
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex.ToString());
+            }
         }
 
         private bool IsOverridden(string methodName)
@@ -158,244 +235,6 @@ namespace Retinues.Framework.Behaviors
                 return false;
 
             return method.DeclaringType != typeof(BaseCampaignBehavior);
-        }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                          Hooks                         //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        protected void Hook<THandler>(BehaviorEvent evt, THandler handler)
-            where THandler : Delegate
-        {
-            HookInternal(evt, handler, null);
-        }
-
-        protected void Hook<THandler, TNormalize>(
-            BehaviorEvent evt,
-            THandler handler,
-            TNormalize normalize
-        )
-            where THandler : Delegate
-            where TNormalize : Delegate
-        {
-            HookInternal(evt, handler, normalize);
-        }
-
-        private void HookInternal(BehaviorEvent evt, Delegate handler, Delegate normalize)
-        {
-            if (handler == null)
-                return;
-
-            switch (evt)
-            {
-                case BehaviorEvent.GameLoadFinished:
-                    CampaignEvents.OnGameLoadFinishedEvent.AddNonSerializedListener(
-                        this,
-                        () => InvokeHook(evt, handler, normalize)
-                    );
-                    break;
-
-                case BehaviorEvent.CharacterCreationIsOver:
-                    CampaignEvents.OnCharacterCreationIsOverEvent.AddNonSerializedListener(
-                        this,
-                        () => InvokeHook(evt, handler, normalize)
-                    );
-                    break;
-
-                case BehaviorEvent.SessionLaunched:
-                    CampaignEvents.OnSessionLaunchedEvent.AddNonSerializedListener(
-                        this,
-                        starter => InvokeHook(evt, handler, normalize, starter)
-                    );
-                    break;
-
-                case BehaviorEvent.DailyTick:
-                    CampaignEvents.DailyTickEvent.AddNonSerializedListener(
-                        this,
-                        () => InvokeHook(evt, handler, normalize)
-                    );
-                    break;
-
-                case BehaviorEvent.HourlyTick:
-                    CampaignEvents.HourlyTickEvent.AddNonSerializedListener(
-                        this,
-                        () => InvokeHook(evt, handler, normalize)
-                    );
-                    break;
-
-                case BehaviorEvent.HourlyTickParty:
-                    CampaignEvents.HourlyTickPartyEvent.AddNonSerializedListener(
-                        this,
-                        party => InvokeHook(evt, handler, normalize, party)
-                    );
-                    break;
-
-                case BehaviorEvent.MissionStarted:
-                    CampaignEvents.OnMissionStartedEvent.AddNonSerializedListener(
-                        this,
-                        mission => InvokeHook(evt, handler, normalize, mission)
-                    );
-                    break;
-
-                case BehaviorEvent.MissionEnded:
-                    CampaignEvents.OnMissionEndedEvent.AddNonSerializedListener(
-                        this,
-                        mission => InvokeHook(evt, handler, normalize, mission)
-                    );
-                    break;
-
-                case BehaviorEvent.MapEventStarted:
-                    CampaignEvents.MapEventStarted.AddNonSerializedListener(
-                        this,
-                        (me, atk, def) => InvokeHook(evt, handler, normalize, me, atk, def)
-                    );
-                    break;
-
-                case BehaviorEvent.MapEventEnded:
-                    CampaignEvents.MapEventEnded.AddNonSerializedListener(
-                        this,
-                        me => InvokeHook(evt, handler, normalize, me)
-                    );
-                    break;
-
-                case BehaviorEvent.SettlementLeft:
-                    CampaignEvents.OnSettlementLeftEvent.AddNonSerializedListener(
-                        this,
-                        (party, settlement) =>
-                            InvokeHook(evt, handler, normalize, party, settlement)
-                    );
-                    break;
-
-                case BehaviorEvent.BeforeSave:
-                    CampaignEvents.OnBeforeSaveEvent.AddNonSerializedListener(
-                        this,
-                        () => InvokeHook(evt, handler, normalize)
-                    );
-                    break;
-
-                case BehaviorEvent.ItemsDiscardedByPlayer:
-                    CampaignEvents.OnItemsDiscardedByPlayerEvent.AddNonSerializedListener(
-                        this,
-                        roster => InvokeHook(evt, handler, normalize, roster)
-                    );
-                    break;
-
-                case BehaviorEvent.SettlementOwnerChanged:
-                    CampaignEvents.OnSettlementOwnerChangedEvent.AddNonSerializedListener(
-                        this,
-                        (settlement, openToClaim, newOwner, oldOwner, capturerHero, detail) =>
-                            InvokeHook(
-                                evt,
-                                handler,
-                                normalize,
-                                settlement,
-                                openToClaim,
-                                newOwner,
-                                oldOwner,
-                                capturerHero,
-                                detail
-                            )
-                    );
-                    break;
-
-                case BehaviorEvent.KingdomCreated:
-                    CampaignEvents.KingdomCreatedEvent.AddNonSerializedListener(
-                        this,
-                        kingdom => InvokeHook(evt, handler, normalize, kingdom)
-                    );
-                    break;
-
-                default:
-                    Log.Warn($"Unsupported BehaviorEvent {evt}.");
-                    break;
-            }
-        }
-
-        private void InvokeHook(
-            BehaviorEvent evt,
-            Delegate handler,
-            Delegate normalize,
-            params object[] vanillaArgs
-        )
-        {
-            if (!IsEnabled)
-                return;
-
-            try
-            {
-                var handlerArgs = vanillaArgs ?? new object[0];
-
-                if (normalize != null)
-                    handlerArgs = NormalizeArgs(evt, handler, normalize, handlerArgs);
-
-                InvokeHandler(evt, handler, handlerArgs);
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex.ToString());
-            }
-        }
-
-        private object[] NormalizeArgs(
-            BehaviorEvent evt,
-            Delegate handler,
-            Delegate normalize,
-            object[] vanillaArgs
-        )
-        {
-            var normParams = normalize.Method.GetParameters();
-            if (normParams.Length != (vanillaArgs?.Length ?? 0))
-            {
-                Log.Warn($"Normalizer arg count mismatch for {evt}.");
-                return vanillaArgs ?? new object[0];
-            }
-
-            var result = normalize.DynamicInvoke(vanillaArgs ?? new object[0]);
-            if (result == null)
-                return vanillaArgs ?? new object[0];
-
-            if (result is object[] arr)
-                return arr;
-
-            if (result is ITuple tuple)
-            {
-                var items = new object[tuple.Length];
-                for (var i = 0; i < tuple.Length; i++)
-                    items[i] = tuple[i];
-                return items;
-            }
-
-            return new[] { result };
-        }
-
-        private void InvokeHandler(BehaviorEvent evt, Delegate handler, object[] args)
-        {
-            var expected = handler.Method.GetParameters().Length;
-
-            if (expected == 0)
-            {
-                handler.DynamicInvoke();
-                return;
-            }
-
-            if (args == null)
-                args = new object[0];
-
-            if (args.Length < expected)
-            {
-                Log.Warn($"Handler arg count mismatch for {evt}.");
-                return;
-            }
-
-            if (args.Length == expected)
-            {
-                handler.DynamicInvoke(args);
-                return;
-            }
-
-            var trimmed = new object[expected];
-            Array.Copy(args, trimmed, expected);
-            handler.DynamicInvoke(trimmed);
         }
     }
 

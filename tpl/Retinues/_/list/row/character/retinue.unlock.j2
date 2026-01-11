@@ -1,0 +1,24 @@
+{% from "_/macros.rows.j2" import row_wrapper, image_cell %}
+
+{% call row_wrapper("@IsRetinueUnlockProgress") %}
+
+    {{ image_cell("{BannerImage}", margin_right=16) }}
+
+    <TextWidget
+        WidthSizePolicy="StretchToParent"
+        HeightSizePolicy="StretchToParent"
+        VerticalAlignment="Center"
+        Brush="Clan.Tuple.Name.Text"
+        Text="@Name" />
+
+    <TextWidget
+        WidthSizePolicy="CoverChildren"
+        HeightSizePolicy="CoverChildren"
+        HorizontalAlignment="Right"
+        VerticalAlignment="Center"
+        Brush="Clan.RightPanel.Name.Text"
+        Brush.FontSize="24"
+        MarginRight="8"
+        Text="@ProgressText" />
+
+{% endcall %}

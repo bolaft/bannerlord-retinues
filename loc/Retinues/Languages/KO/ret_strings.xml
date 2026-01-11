@@ -407,9 +407,6 @@
       id="ret_faction_troops_unlocked_desc"
       text="{COUNT}명의 새로운 부대가 이제 {FACTION} {FACTION_TYPE}에서 사용할 수 있습니다." />
     <string
-      id="ret_faction_troops_unlocked_go"
-      text="편집기로 이동" />
-    <string
       id="ret_faction_troops_unlocked_title"
       text="{FACTION} 부대" />
     <string
@@ -457,6 +454,9 @@
     <string
       id="ret_gender_toggle_hint"
       text="성별 변경" />
+    <string
+      id="ret_go_to_editor"
+      text="편집기로 이동" />
     <string
       id="ret_height_hint"
       text="신장" />
@@ -1007,6 +1007,12 @@
       id="ret_mcm_option_retinue_skill_total_bonus_hint"
       text="Buff Retinue Skill Total이 활성화되면 Retinue 부대 기술 총계에 추가되는 양입니다." />
     <string
+      id="ret_mcm_option_retinue_unlock_speed"
+      text="Retinue 잠금 해제 속도" />
+    <string
+      id="ret_mcm_option_retinue_unlock_speed_hint"
+      text="새로운 Retinue의 잠금 해제 속도에 영향을 미치는 승수입니다." />
+    <string
       id="ret_mcm_option_skill_cap"
       text="티어 {TIER}" />
     <string
@@ -1223,8 +1229,41 @@
       id="ret_rename_unit"
       text="새 이름" />
     <string
+      id="ret_retinue_culture_default_name"
+      text="{CLAN} {CULTURE} 수행원" />
+    <string
       id="ret_retinue_default_name"
       text="{CLAN} 하우스 가드" />
+    <string
+      id="ret_retinue_progress_source_allies"
+      text="동맹과 함께 전투에서 승리" />
+    <string
+      id="ret_retinue_progress_source_fiefs"
+      text="소유한 영지" />
+    <string
+      id="ret_retinue_progress_source_generic"
+      text="진행" />
+    <string
+      id="ret_retinue_progress_source_quest"
+      text="퀘스트 완료" />
+    <string
+      id="ret_retinue_progress_source_tournament"
+      text="토너먼트 우승" />
+    <string
+      id="ret_retinue_progress_source_workshops"
+      text="소유한 작업장" />
+    <string
+      id="ret_retinue_unlock_popup_text"
+      text="새로 획득한 {RETINUE}을(를) 고용할 수 있습니다." />
+    <string
+      id="ret_retinue_unlock_popup_title"
+      text="새로운 수행원 획득" />
+    <string
+      id="ret_retinue_unlock_progress"
+      text="{SOURCE}: {CULTURE} 수행원 잠금 해제 진행률이 +{DELTA}% 증가했습니다. 총 진행률: {TOTAL}%." />
+    <string
+      id="ret_retinue_unlock_progress_row"
+      text="진행률: {PCT}%" />
     <string
       id="ret_retinue_upgrade_cap_reached_hint"
       text="{RETINUE}로 업그레이드{newline}최대 수행원 한도 도달: {CAP}{newline}더 많은 수행원을 허용하려면 파티 크기 제한을 늘리세요" />
@@ -1403,11 +1442,23 @@
       id="ret_troop_prefix_champion"
       text="챔피언" />
     <string
+      id="ret_troop_prefix_divine"
+      text="신성한" />
+    <string
       id="ret_troop_prefix_elite"
       text="엘리트" />
     <string
+      id="ret_troop_prefix_immortal"
+      text="불멸의" />
+    <string
+      id="ret_troop_prefix_legendary"
+      text="전설적인" />
+    <string
       id="ret_troop_prefix_master"
       text="마스터" />
+    <string
+      id="ret_troop_prefix_mythic"
+      text="신화적인" />
     <string
       id="ret_troop_prefix_trained"
       text="훈련된" />

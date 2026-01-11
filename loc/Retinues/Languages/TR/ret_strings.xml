@@ -407,9 +407,6 @@
       id="ret_faction_troops_unlocked_desc"
       text="{COUNT} yeni asker artık {FACTION} {FACTION_TYPE} için kullanılabilir." />
     <string
-      id="ret_faction_troops_unlocked_go"
-      text="Düzenleyiciye git" />
-    <string
       id="ret_faction_troops_unlocked_title"
       text="{FACTION} Askerleri" />
     <string
@@ -457,6 +454,9 @@
     <string
       id="ret_gender_toggle_hint"
       text="Cinsiyeti Değiştir" />
+    <string
+      id="ret_go_to_editor"
+      text="Düzenleyiciye git" />
     <string
       id="ret_height_hint"
       text="Boy" />
@@ -1007,6 +1007,12 @@
       id="ret_mcm_option_retinue_skill_total_bonus_hint"
       text="Buff Retinue Skill Total etkinleştirildiğinde retinue birlik yetenek toplamlarına eklenen miktar." />
     <string
+      id="ret_mcm_option_retinue_unlock_speed"
+      text="Retinue Kilit Açma Hızı" />
+    <string
+      id="ret_mcm_option_retinue_unlock_speed_hint"
+      text="Yeni retinue&apos;ların ne kadar hızlı kilidinin açılacağını etkileyen çarpan." />
+    <string
       id="ret_mcm_option_skill_cap"
       text="{TIER} Seviye" />
     <string
@@ -1223,8 +1229,41 @@
       id="ret_rename_unit"
       text="Yeni İsim" />
     <string
+      id="ret_retinue_culture_default_name"
+      text="{CLAN} {CULTURE} Retinue" />
+    <string
       id="ret_retinue_default_name"
       text="{CLAN} Ev Muhafızı" />
+    <string
+      id="ret_retinue_progress_source_allies"
+      text="Müttefiklerle savaş kazanıldı" />
+    <string
+      id="ret_retinue_progress_source_fiefs"
+      text="Sahip olunan topraklar" />
+    <string
+      id="ret_retinue_progress_source_generic"
+      text="İlerleme" />
+    <string
+      id="ret_retinue_progress_source_quest"
+      text="Görev tamamlandı" />
+    <string
+      id="ret_retinue_progress_source_tournament"
+      text="Turnuva kazanıldı" />
+    <string
+      id="ret_retinue_progress_source_workshops"
+      text="Sahip olunan atölyeler" />
+    <string
+      id="ret_retinue_unlock_popup_text"
+      text="Yeni edinilen {RETINUE} şimdi kiralanabilir." />
+    <string
+      id="ret_retinue_unlock_popup_title"
+      text="Yeni Retinue Edinildi" />
+    <string
+      id="ret_retinue_unlock_progress"
+      text="{SOURCE}: {CULTURE} retinuesinin kilidini açma ilerlemesi +{DELTA}%. Toplam ilerleme: {TOTAL}%." />
+    <string
+      id="ret_retinue_unlock_progress_row"
+      text="İlerleme: {PCT}%" />
     <string
       id="ret_retinue_upgrade_cap_reached_hint"
       text="{RETINUE} yükseltmesi{newline}Maksimum retinue sınırına ulaşıldı: {CAP}{newline}Daha fazla retinue için parti boyutu sınırınızı artırın" />
@@ -1403,11 +1442,23 @@
       id="ret_troop_prefix_champion"
       text="Şampiyon" />
     <string
+      id="ret_troop_prefix_divine"
+      text="Kutsal" />
+    <string
       id="ret_troop_prefix_elite"
       text="Seçkin" />
     <string
+      id="ret_troop_prefix_immortal"
+      text="Ölümsüz" />
+    <string
+      id="ret_troop_prefix_legendary"
+      text="Efsanevi" />
+    <string
       id="ret_troop_prefix_master"
       text="Usta" />
+    <string
+      id="ret_troop_prefix_mythic"
+      text="Efsane" />
     <string
       id="ret_troop_prefix_trained"
       text="Eğitilmiş" />

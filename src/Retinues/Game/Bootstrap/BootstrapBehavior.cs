@@ -26,18 +26,15 @@ namespace Retinues.Game.Bootstrap
         //                        Sync Data                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private const string DataStoreKey_Retinue = "Retinues_Bootstrapped_Retinue";
         private const string DataStoreKey_Unlocks = "Retinues_Bootstrapped_Unlocks";
         private const string DataStoreKey_FactionTroops = "Retinues_Bootstrapped_FactionTroops";
 
         // Per-section bootstrapped flags so parts can run independently.
-        private bool _retinueBootstrapped;
         private bool _unlocksBootstrapped;
         private bool _factionTroopsBootstrapped;
 
         public override void SyncData(IDataStore dataStore)
         {
-            dataStore.SyncData(DataStoreKey_Retinue, ref _retinueBootstrapped);
             dataStore.SyncData(DataStoreKey_Unlocks, ref _unlocksBootstrapped);
             dataStore.SyncData(DataStoreKey_FactionTroops, ref _factionTroopsBootstrapped);
         }
@@ -56,7 +53,7 @@ namespace Retinues.Game.Bootstrap
 
         private void TryBootstrap()
         {
-            if (_retinueBootstrapped && _unlocksBootstrapped && _factionTroopsBootstrapped)
+            if (_unlocksBootstrapped && _factionTroopsBootstrapped)
                 return;
 
             var hero = WHero.Get(Hero.MainHero);
@@ -65,22 +62,7 @@ namespace Retinues.Game.Bootstrap
 
             Log.Debug("Bootstrapping campaign (per-section). Checking pending sections...");
 
-            // 1) Ensure default retinue for player clan (TroopBuilder unlocks its assigned items).
-            if (!_retinueBootstrapped)
-            {
-                if (clan?.Base != null && Settings.EnableRetinues)
-                {
-                    CreateDefaultRetinue(clan);
-                    _retinueBootstrapped = true;
-                    Log.Debug("Retinue bootstrap complete.");
-                }
-                else
-                {
-                    Log.Debug("Retinue bootstrap skipped (missing clan or retinues disabled).");
-                }
-            }
-
-            // 2) Ensure starter items after troop creation based on current unlocked pool.
+            // 1) Ensure starter items after troop creation based on current unlocked pool.
             if (!_unlocksBootstrapped)
             {
                 if (culture?.Base != null)
@@ -95,8 +77,7 @@ namespace Retinues.Game.Bootstrap
                 }
             }
 
-            // 3) If the player already meets requirements for faction troop unlocks, trigger it once.
-            //    (Future unlocks are still handled by FactionTroopsBehavior event listeners.)
+            // 2) If the player already meets requirements for faction troop unlocks, trigger it once.
             if (!_factionTroopsBootstrapped)
             {
                 if (clan?.Base != null)
@@ -111,7 +92,7 @@ namespace Retinues.Game.Bootstrap
                 }
             }
 
-            if (_retinueBootstrapped && _unlocksBootstrapped && _factionTroopsBootstrapped)
+            if (_unlocksBootstrapped && _factionTroopsBootstrapped)
             {
                 Log.Debug("All bootstrap sections complete.");
             }

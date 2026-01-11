@@ -407,9 +407,6 @@
       id="ret_faction_troops_unlocked_desc"
       text="Теперь для {FACTION_TYPE} {FACTION} доступно {COUNT} новых отрядов." />
     <string
-      id="ret_faction_troops_unlocked_go"
-      text="Перейти в редактор" />
-    <string
       id="ret_faction_troops_unlocked_title"
       text="Отряды {FACTION}" />
     <string
@@ -457,6 +454,9 @@
     <string
       id="ret_gender_toggle_hint"
       text="Изменить пол" />
+    <string
+      id="ret_go_to_editor"
+      text="Перейти в редактор" />
     <string
       id="ret_height_hint"
       text="Рост" />
@@ -1007,6 +1007,12 @@
       id="ret_mcm_option_retinue_skill_total_bonus_hint"
       text="Количество, добавляемое к общему уровню навыков войск retinue при включении Buff Retinue Skill Total." />
     <string
+      id="ret_mcm_option_retinue_unlock_speed"
+      text="Скорость разблокировки Retinue" />
+    <string
+      id="ret_mcm_option_retinue_unlock_speed_hint"
+      text="Множитель, влияющий на скорость разблокировки новых retinue." />
+    <string
       id="ret_mcm_option_skill_cap"
       text="Уровень {TIER}" />
     <string
@@ -1223,8 +1229,41 @@
       id="ret_rename_unit"
       text="Новое имя" />
     <string
+      id="ret_retinue_culture_default_name"
+      text="Ретинус {CULTURE} {CLAN}" />
+    <string
       id="ret_retinue_default_name"
       text="Домашняя стража {CLAN}" />
+    <string
+      id="ret_retinue_progress_source_allies"
+      text="Победа в битве с союзниками" />
+    <string
+      id="ret_retinue_progress_source_fiefs"
+      text="Владение феодами" />
+    <string
+      id="ret_retinue_progress_source_generic"
+      text="Прогресс" />
+    <string
+      id="ret_retinue_progress_source_quest"
+      text="Задание выполнено" />
+    <string
+      id="ret_retinue_progress_source_tournament"
+      text="Победа в турнире" />
+    <string
+      id="ret_retinue_progress_source_workshops"
+      text="Владение мастерскими" />
+    <string
+      id="ret_retinue_unlock_popup_text"
+      text="Теперь вы можете нанять свою новообретенную {RETINUE}." />
+    <string
+      id="ret_retinue_unlock_popup_title"
+      text="Получен новый ретинус" />
+    <string
+      id="ret_retinue_unlock_progress"
+      text="{SOURCE}: +{DELTA}% прогресса к разблокировке ретинуса {CULTURE}. Общий прогресс: {TOTAL}%." />
+    <string
+      id="ret_retinue_unlock_progress_row"
+      text="Прогресс: {PCT}%" />
     <string
       id="ret_retinue_upgrade_cap_reached_hint"
       text="Обновление до {RETINUE}{newline}Достигнут максимальный предел ретинусов: {CAP}{newline}Увеличьте лимит размера вашей партии, чтобы позволить больше ретинусов" />
@@ -1403,11 +1442,23 @@
       id="ret_troop_prefix_champion"
       text="Чемпион" />
     <string
+      id="ret_troop_prefix_divine"
+      text="Божественный" />
+    <string
       id="ret_troop_prefix_elite"
       text="Элита" />
     <string
+      id="ret_troop_prefix_immortal"
+      text="Бессмертный" />
+    <string
+      id="ret_troop_prefix_legendary"
+      text="Легендарный" />
+    <string
       id="ret_troop_prefix_master"
       text="Мастер" />
+    <string
+      id="ret_troop_prefix_mythic"
+      text="Мифический" />
     <string
       id="ret_troop_prefix_trained"
       text="Обученный" />
