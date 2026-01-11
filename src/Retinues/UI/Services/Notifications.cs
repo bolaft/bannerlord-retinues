@@ -15,12 +15,12 @@ namespace Retinues.UI.Services
         //                           Log                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public static void Message(string message, string color = "#ffffffff")
+        public static void Message(string message, string color = "#e7cb8dff")
         {
             InformationManager.DisplayMessage(new InformationMessage(message, color));
         }
 
-        public static void Message(TextObject message, string color = "#ffffffff")
+        public static void Message(TextObject message, string color = "#e7cb8dff")
         {
             Message(message?.ToString() ?? string.Empty, color);
         }
