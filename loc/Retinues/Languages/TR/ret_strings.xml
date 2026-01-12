@@ -254,6 +254,120 @@
       id="ret_dependencies_version_mismatch_label"
       text="Yanlış sürüm" />
     <string
+      id="ret_doctrine_acquire_already_acquired"
+      text="Bu doktrin zaten edinildi." />
+    <string
+      id="ret_doctrine_acquire_button"
+      text="Edin" />
+    <string
+      id="ret_doctrine_acquire_confirm_desc_both"
+      text="{NAME} için {GOLD} denar ve {INF} etki edinilsin mi?" />
+    <string
+      id="ret_doctrine_acquire_confirm_desc_free"
+      text="{NAME} edinilsin mi?" />
+    <string
+      id="ret_doctrine_acquire_confirm_desc_gold"
+      text="{NAME} için {GOLD} denar edinilsin mi?" />
+    <string
+      id="ret_doctrine_acquire_confirm_desc_influence"
+      text="{NAME} için {INF} etki edinilsin mi?" />
+    <string
+      id="ret_doctrine_acquire_confirm_title"
+      text="Doktrin Edin" />
+    <string
+      id="ret_doctrine_acquire_failed"
+      text="Doktrin edinilemez." />
+    <string
+      id="ret_doctrine_acquire_unavailable"
+      text="Bu doktrin hala kilitli." />
+    <string
+      id="ret_doctrine_acquired_msg"
+      text="Edinilen doktrin: {NAME}." />
+    <string
+      id="ret_doctrine_acquired_text"
+      text="EDİNİLDİ" />
+    <string
+      id="ret_doctrine_cost_text_both"
+      text="{GOLD} denar, {INFLUENCE} etki maliyeti" />
+    <string
+      id="ret_doctrine_cost_text_gold"
+      text="{GOLD} denar maliyeti" />
+    <string
+      id="ret_doctrine_cost_text_influence"
+      text="{INFLUENCE} etki maliyeti" />
+    <string
+      id="ret_doctrine_description_header"
+      text="Etkiler" />
+    <string
+      id="ret_doctrine_disabled"
+      text="Doktrinler devre dışı bırakıldı." />
+    <string
+      id="ret_doctrine_failed"
+      text="Doktrin edinilemedi." />
+    <string
+      id="ret_doctrine_feat_completed"
+      text="Tamamlandı" />
+    <string
+      id="ret_doctrine_feat_optional"
+      text="İsteğe Bağlı" />
+    <string
+      id="ret_doctrine_feat_progress_tooltip_completed"
+      text="Bu başarıyı tamamladınız." />
+    <string
+      id="ret_doctrine_feat_progress_tooltip_incomplete"
+      text="Bu başarıyı henüz tamamlamadınız." />
+    <string
+      id="ret_doctrine_feat_progress_tooltip_repeatable"
+      text="Bu başarı tekrarlanabilir. Birden çok kez tamamlayabilirsiniz." />
+    <string
+      id="ret_doctrine_feat_required"
+      text="Gerekli" />
+    <string
+      id="ret_doctrine_feats_header"
+      text="Başarılar" />
+    <string
+      id="ret_doctrine_missing_feats"
+      text="Gerekli başarılar tamamlanmadı." />
+    <string
+      id="ret_doctrine_not_enough_gold_desc"
+      text="Bu doktrini kilidini açmak için {COST} denar gerekir." />
+    <string
+      id="ret_doctrine_not_enough_gold_title"
+      text="Yeterli Para Yok" />
+    <string
+      id="ret_doctrine_not_enough_influence_desc"
+      text="Bu doktrini kilidini açmak için {COST} etki gerekir." />
+    <string
+      id="ret_doctrine_not_enough_influence_title"
+      text="Yeterli Etki Yok" />
+    <string
+      id="ret_doctrine_not_found"
+      text="Doktrin bulunamadı." />
+    <string
+      id="ret_doctrine_not_ready"
+      text="Doktrin edinilmeye hazır değil." />
+    <string
+      id="ret_doctrine_progress_text"
+      text="İlerleme: {PROGRESS}%" />
+    <string
+      id="ret_doctrine_select_reason"
+      text="Önce bir doktrin seçin." />
+    <string
+      id="ret_doctrine_state_acquired"
+      text="Edinildi" />
+    <string
+      id="ret_doctrine_state_in_progress"
+      text="Devam ediyor" />
+    <string
+      id="ret_doctrine_state_locked"
+      text="Kilitli" />
+    <string
+      id="ret_doctrine_state_unlocked"
+      text="Kilit Açıldı" />
+    <string
+      id="ret_doctrines_disabled"
+      text="Doktrinler devre dışı bırakıldı." />
+    <string
       id="ret_editing_restriction_in_fief"
       text="Fraksiyon Arazisi" />
     <string
@@ -419,6 +533,9 @@
       id="ret_faction_type_kingdom"
       text="krallık" />
     <string
+      id="ret_feat_complete_title"
+      text="Başarı tamamlandı" />
+    <string
       id="ret_filter_label"
       text="Filtre:" />
     <string
@@ -514,12 +631,6 @@
     <string
       id="ret_invalid_name_title"
       text="Geçersiz İsim" />
-    <string
-      id="ret_item_unlock_notification_message"
-      text="Günlük Mesajı" />
-    <string
-      id="ret_item_unlock_notification_popup"
-      text="Açılır Pencere" />
     <string
       id="ret_item_unlock_scoreboard_line"
       text="Öğe kilidi açıldı: {ITEM}." />
@@ -827,6 +938,30 @@
       id="ret_mcm_option_default_unlocked_item_max_tier_hint"
       text="Oyun başlangıcında kilidi açılan öğelerin maksimum seviyesi." />
     <string
+      id="ret_mcm_option_doctrine_influence_cost_multiplier"
+      text="Doktrin Etki Maliyet Çarpanı" />
+    <string
+      id="ret_mcm_option_doctrine_influence_cost_multiplier_hint"
+      text="Doktrin edinmenin etki maliyetini etkileyen çarpan." />
+    <string
+      id="ret_mcm_option_doctrine_money_cost_multiplier"
+      text="Doktrin Para Maliyet Çarpanı" />
+    <string
+      id="ret_mcm_option_doctrine_money_cost_multiplier_hint"
+      text="Doktrin edinmenin para maliyetini etkileyen çarpan." />
+    <string
+      id="ret_mcm_option_doctrines_cost_influence"
+      text="Doktrinler Etki Tüketir" />
+    <string
+      id="ret_mcm_option_doctrines_cost_influence_hint"
+      text="Etkinleştirilirse, doktrin edinmek etki maliyeti gerektirir." />
+    <string
+      id="ret_mcm_option_doctrines_cost_money"
+      text="Doktrinler Para Tüketir" />
+    <string
+      id="ret_mcm_option_doctrines_cost_money_hint"
+      text="Etkinleştirilirse, doktrin edinmek para maliyeti gerektirir." />
+    <string
       id="ret_mcm_option_editing_restriction"
       text="Konum Kısıtlamaları" />
     <string
@@ -847,6 +982,12 @@
     <string
       id="ret_mcm_option_enable_equipment_costs_money_hint"
       text="Etkinleştirilirse, birliklerin donatılması para maliyeti olacaktır. Ayrıca stok sistemini etkinleştirir." />
+    <string
+      id="ret_mcm_option_enable_feat_requirements"
+      text="Başarı Gereksinimlerini Etkinleştir" />
+    <string
+      id="ret_mcm_option_enable_feat_requirements_hint"
+      text="Etkinleştirilirse, doktrinlerin edinilmeden önce belirli başarıların tamamlanması gerekir." />
     <string
       id="ret_mcm_option_enable_retinues"
       text="Retinues&apos;u Etkinleştir" />
@@ -925,6 +1066,12 @@
     <string
       id="ret_mcm_option_equipping_takes_time_hint"
       text="Etkinleştirilirse, birliklerin donatılması anında olmayacak ve tamamlanması zaman alacaktır." />
+    <string
+      id="ret_mcm_option_feat_complete_notification"
+      text="Başarı Tamamlama Bildirimi" />
+    <string
+      id="ret_mcm_option_feat_complete_notification_hint"
+      text="Başarılar tamamlandığında bildirim stilini belirler." />
     <string
       id="ret_mcm_option_item_unlock_notification"
       text="Öğe Kilidi Açma Bildirimi" />
@@ -1180,6 +1327,12 @@
     <string
       id="ret_no_valid_model_title_species"
       text="Geçerli Model Yok" />
+    <string
+      id="ret_notification_message"
+      text="Günlük Mesajı" />
+    <string
+      id="ret_notification_popup"
+      text="Açılır Pencere" />
     <string
       id="ret_preview_mode"
       text="Önizleme Modu" />

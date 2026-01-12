@@ -254,6 +254,120 @@
       id="ret_dependencies_version_mismatch_label"
       text="Versione errata" />
     <string
+      id="ret_doctrine_acquire_already_acquired"
+      text="Questa dottrina è già stata acquisita." />
+    <string
+      id="ret_doctrine_acquire_button"
+      text="Acquisisci" />
+    <string
+      id="ret_doctrine_acquire_confirm_desc_both"
+      text="Acquisisci {NAME} per {GOLD} denari e {INF} influenza?" />
+    <string
+      id="ret_doctrine_acquire_confirm_desc_free"
+      text="Acquisisci {NAME}?" />
+    <string
+      id="ret_doctrine_acquire_confirm_desc_gold"
+      text="Acquisisci {NAME} per {GOLD} denari?" />
+    <string
+      id="ret_doctrine_acquire_confirm_desc_influence"
+      text="Acquisisci {NAME} per {INF} influenza?" />
+    <string
+      id="ret_doctrine_acquire_confirm_title"
+      text="Acquisisci dottrina" />
+    <string
+      id="ret_doctrine_acquire_failed"
+      text="Impossibile acquisire la dottrina." />
+    <string
+      id="ret_doctrine_acquire_unavailable"
+      text="Questa dottrina è ancora bloccata." />
+    <string
+      id="ret_doctrine_acquired_msg"
+      text="Dottrina acquisita: {NAME}." />
+    <string
+      id="ret_doctrine_acquired_text"
+      text="ACQUISITO" />
+    <string
+      id="ret_doctrine_cost_text_both"
+      text="Costa {GOLD} denari, {INFLUENCE} influenza" />
+    <string
+      id="ret_doctrine_cost_text_gold"
+      text="Costa {GOLD} denari" />
+    <string
+      id="ret_doctrine_cost_text_influence"
+      text="Costa {INFLUENCE} influenza" />
+    <string
+      id="ret_doctrine_description_header"
+      text="Effetti" />
+    <string
+      id="ret_doctrine_disabled"
+      text="Le dottrine sono disabilitate." />
+    <string
+      id="ret_doctrine_failed"
+      text="Impossibile acquisire la dottrina." />
+    <string
+      id="ret_doctrine_feat_completed"
+      text="Completato" />
+    <string
+      id="ret_doctrine_feat_optional"
+      text="Opzionale" />
+    <string
+      id="ret_doctrine_feat_progress_tooltip_completed"
+      text="Hai completato questa impresa." />
+    <string
+      id="ret_doctrine_feat_progress_tooltip_incomplete"
+      text="Non hai ancora completato questa impresa." />
+    <string
+      id="ret_doctrine_feat_progress_tooltip_repeatable"
+      text="Questa impresa è ripetibile. Puoi completarla più volte." />
+    <string
+      id="ret_doctrine_feat_required"
+      text="Richiesto" />
+    <string
+      id="ret_doctrine_feats_header"
+      text="Imprese" />
+    <string
+      id="ret_doctrine_missing_feats"
+      text="Le imprese richieste non sono state completate." />
+    <string
+      id="ret_doctrine_not_enough_gold_desc"
+      text="Hai bisogno di {COST} denari per sbloccare questa dottrina." />
+    <string
+      id="ret_doctrine_not_enough_gold_title"
+      text="Soldi insufficienti" />
+    <string
+      id="ret_doctrine_not_enough_influence_desc"
+      text="Hai bisogno di {COST} influenza per sbloccare questa dottrina." />
+    <string
+      id="ret_doctrine_not_enough_influence_title"
+      text="Influenza insufficiente" />
+    <string
+      id="ret_doctrine_not_found"
+      text="Dottrina non trovata." />
+    <string
+      id="ret_doctrine_not_ready"
+      text="La dottrina non è pronta per essere acquisita." />
+    <string
+      id="ret_doctrine_progress_text"
+      text="Progresso: {PROGRESS}%" />
+    <string
+      id="ret_doctrine_select_reason"
+      text="Seleziona prima una dottrina." />
+    <string
+      id="ret_doctrine_state_acquired"
+      text="Acquisito" />
+    <string
+      id="ret_doctrine_state_in_progress"
+      text="In corso" />
+    <string
+      id="ret_doctrine_state_locked"
+      text="Bloccato" />
+    <string
+      id="ret_doctrine_state_unlocked"
+      text="Sbloccato" />
+    <string
+      id="ret_doctrines_disabled"
+      text="Le dottrine sono disabilitate." />
+    <string
       id="ret_editing_restriction_in_fief"
       text="Feudo di fazione" />
     <string
@@ -419,6 +533,9 @@
       id="ret_faction_type_kingdom"
       text="regno" />
     <string
+      id="ret_feat_complete_title"
+      text="Impresa completata" />
+    <string
       id="ret_filter_label"
       text="Filtro:" />
     <string
@@ -514,12 +631,6 @@
     <string
       id="ret_invalid_name_title"
       text="Nome non valido" />
-    <string
-      id="ret_item_unlock_notification_message"
-      text="Messaggio di registro" />
-    <string
-      id="ret_item_unlock_notification_popup"
-      text="Popup" />
     <string
       id="ret_item_unlock_scoreboard_line"
       text="Oggetto sbloccato: {ITEM}." />
@@ -827,6 +938,30 @@
       id="ret_mcm_option_default_unlocked_item_max_tier_hint"
       text="Il livello massimo degli oggetti sbloccati all&apos;inizio del gioco." />
     <string
+      id="ret_mcm_option_doctrine_influence_cost_multiplier"
+      text="Moltiplicatore del costo in influenza delle dottrine" />
+    <string
+      id="ret_mcm_option_doctrine_influence_cost_multiplier_hint"
+      text="Moltiplicatore che influisce sul costo in influenza per acquisire le dottrine." />
+    <string
+      id="ret_mcm_option_doctrine_money_cost_multiplier"
+      text="Moltiplicatore del costo in denaro delle dottrine" />
+    <string
+      id="ret_mcm_option_doctrine_money_cost_multiplier_hint"
+      text="Moltiplicatore che influisce sul costo in denaro per acquisire le dottrine." />
+    <string
+      id="ret_mcm_option_doctrines_cost_influence"
+      text="Le dottrine costano influenza" />
+    <string
+      id="ret_mcm_option_doctrines_cost_influence_hint"
+      text="Se abilitato, acquisire le dottrine costerà influenza." />
+    <string
+      id="ret_mcm_option_doctrines_cost_money"
+      text="Le dottrine costano denaro" />
+    <string
+      id="ret_mcm_option_doctrines_cost_money_hint"
+      text="Se abilitato, acquisire le dottrine costerà denaro." />
+    <string
       id="ret_mcm_option_editing_restriction"
       text="Restrizioni di posizione" />
     <string
@@ -847,6 +982,12 @@
     <string
       id="ret_mcm_option_enable_equipment_costs_money_hint"
       text="Se abilitato, equipaggiare le truppe costerà denaro. Abilita anche il sistema di scorte." />
+    <string
+      id="ret_mcm_option_enable_feat_requirements"
+      text="Abilita i requisiti delle imprese" />
+    <string
+      id="ret_mcm_option_enable_feat_requirements_hint"
+      text="Se abilitato, le dottrine richiedono imprese specifiche da compiere prima di poter essere acquisite." />
     <string
       id="ret_mcm_option_enable_retinues"
       text="Abilita Retinues" />
@@ -925,6 +1066,12 @@
     <string
       id="ret_mcm_option_equipping_takes_time_hint"
       text="Se abilitato, equipaggiare le truppe non sarà istantaneo e richiederà del tempo per essere completato." />
+    <string
+      id="ret_mcm_option_feat_complete_notification"
+      text="Notifica di completamento dell&apos;impresa" />
+    <string
+      id="ret_mcm_option_feat_complete_notification_hint"
+      text="Determina lo stile di notifica quando le imprese sono completate." />
     <string
       id="ret_mcm_option_item_unlock_notification"
       text="Notifica di sblocco dell&apos;oggetto" />
@@ -1180,6 +1327,12 @@
     <string
       id="ret_no_valid_model_title_species"
       text="Nessun modello valido" />
+    <string
+      id="ret_notification_message"
+      text="Messaggio di registro" />
+    <string
+      id="ret_notification_popup"
+      text="Popup" />
     <string
       id="ret_preview_mode"
       text="Modalità di anteprima" />

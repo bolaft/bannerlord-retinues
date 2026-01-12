@@ -24,10 +24,10 @@ namespace Retinues.Game.Doctrines
             StringComparer.Ordinal
         );
 
-        // featId -> list of (doctrineId, progress, required)
+        // featId -> list of (doctrineId, worth, required)
         private static readonly Dictionary<
             string,
-            List<(string DoctrineId, int Progress, bool Required)>
+            List<(string DoctrineId, int Worth, bool Required)>
         > DoctrineLinksByFeatId = new(StringComparer.Ordinal);
 
         [StaticClearAction]
@@ -79,7 +79,7 @@ namespace Retinues.Game.Doctrines
                         DoctrineLinksByFeatId[link.FeatId] = list;
                     }
 
-                    list.Add((d.Id, link.Progress, link.Required));
+                    list.Add((d.Id, link.Worth, link.Required));
                 }
             }
         }
@@ -163,7 +163,7 @@ namespace Retinues.Game.Doctrines
 
         public static IReadOnlyList<(
             string DoctrineId,
-            int Progress,
+            int Worth,
             bool Required
         )> GetDoctrineLinksForFeat(string featId)
         {

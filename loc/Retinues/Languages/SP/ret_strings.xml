@@ -254,6 +254,120 @@
       id="ret_dependencies_version_mismatch_label"
       text="Versión incorrecta" />
     <string
+      id="ret_doctrine_acquire_already_acquired"
+      text="Esta doctrina ya ha sido adquirida." />
+    <string
+      id="ret_doctrine_acquire_button"
+      text="Adquirir" />
+    <string
+      id="ret_doctrine_acquire_confirm_desc_both"
+      text="¿Adquirir {NAME} por {GOLD} denarios e {INF} de influencia?" />
+    <string
+      id="ret_doctrine_acquire_confirm_desc_free"
+      text="¿Adquirir {NAME}?" />
+    <string
+      id="ret_doctrine_acquire_confirm_desc_gold"
+      text="¿Adquirir {NAME} por {GOLD} denarios?" />
+    <string
+      id="ret_doctrine_acquire_confirm_desc_influence"
+      text="¿Adquirir {NAME} por {INF} de influencia?" />
+    <string
+      id="ret_doctrine_acquire_confirm_title"
+      text="Adquirir doctrina" />
+    <string
+      id="ret_doctrine_acquire_failed"
+      text="No se puede adquirir la doctrina." />
+    <string
+      id="ret_doctrine_acquire_unavailable"
+      text="Esta doctrina todavía está bloqueada." />
+    <string
+      id="ret_doctrine_acquired_msg"
+      text="Doctrina adquirida: {NAME}." />
+    <string
+      id="ret_doctrine_acquired_text"
+      text="ADQUIRIDO" />
+    <string
+      id="ret_doctrine_cost_text_both"
+      text="Cuesta {GOLD} denares, {INFLUENCE} influencia" />
+    <string
+      id="ret_doctrine_cost_text_gold"
+      text="Cuesta {GOLD} denares" />
+    <string
+      id="ret_doctrine_cost_text_influence"
+      text="Cuesta {INFLUENCE} influencia" />
+    <string
+      id="ret_doctrine_description_header"
+      text="Efectos" />
+    <string
+      id="ret_doctrine_disabled"
+      text="Las doctrinas están desactivadas." />
+    <string
+      id="ret_doctrine_failed"
+      text="No se pudo adquirir la doctrina." />
+    <string
+      id="ret_doctrine_feat_completed"
+      text="Completado" />
+    <string
+      id="ret_doctrine_feat_optional"
+      text="Opcional" />
+    <string
+      id="ret_doctrine_feat_progress_tooltip_completed"
+      text="Has completado esta hazaña." />
+    <string
+      id="ret_doctrine_feat_progress_tooltip_incomplete"
+      text="Aún no has completado esta hazaña." />
+    <string
+      id="ret_doctrine_feat_progress_tooltip_repeatable"
+      text="Esta hazaña es repetible. Puedes completarla varias veces." />
+    <string
+      id="ret_doctrine_feat_required"
+      text="Requerido" />
+    <string
+      id="ret_doctrine_feats_header"
+      text="Hazañas" />
+    <string
+      id="ret_doctrine_missing_feats"
+      text="No se han completado las hazañas requeridas." />
+    <string
+      id="ret_doctrine_not_enough_gold_desc"
+      text="Necesitas {COST} denares para desbloquear esta doctrina." />
+    <string
+      id="ret_doctrine_not_enough_gold_title"
+      text="No hay suficiente dinero" />
+    <string
+      id="ret_doctrine_not_enough_influence_desc"
+      text="Necesitas {COST} influencia para desbloquear esta doctrina." />
+    <string
+      id="ret_doctrine_not_enough_influence_title"
+      text="No hay suficiente influencia" />
+    <string
+      id="ret_doctrine_not_found"
+      text="Doctrina no encontrada." />
+    <string
+      id="ret_doctrine_not_ready"
+      text="La doctrina no está lista para ser adquirida." />
+    <string
+      id="ret_doctrine_progress_text"
+      text="Progreso: {PROGRESS}%" />
+    <string
+      id="ret_doctrine_select_reason"
+      text="Selecciona una doctrina primero." />
+    <string
+      id="ret_doctrine_state_acquired"
+      text="Adquirido" />
+    <string
+      id="ret_doctrine_state_in_progress"
+      text="En progreso" />
+    <string
+      id="ret_doctrine_state_locked"
+      text="Bloqueado" />
+    <string
+      id="ret_doctrine_state_unlocked"
+      text="Desbloqueado" />
+    <string
+      id="ret_doctrines_disabled"
+      text="Las doctrinas están desactivadas." />
+    <string
       id="ret_editing_restriction_in_fief"
       text="Feudo de facción" />
     <string
@@ -419,6 +533,9 @@
       id="ret_faction_type_kingdom"
       text="reino" />
     <string
+      id="ret_feat_complete_title"
+      text="Hazaña completada" />
+    <string
       id="ret_filter_label"
       text="Filtro:" />
     <string
@@ -514,12 +631,6 @@
     <string
       id="ret_invalid_name_title"
       text="Nombre inválido" />
-    <string
-      id="ret_item_unlock_notification_message"
-      text="Mensaje de registro" />
-    <string
-      id="ret_item_unlock_notification_popup"
-      text="Popup" />
     <string
       id="ret_item_unlock_scoreboard_line"
       text="Objeto desbloqueado: {ITEM}." />
@@ -827,6 +938,30 @@
       id="ret_mcm_option_default_unlocked_item_max_tier_hint"
       text="El nivel máximo de artículos desbloqueados al inicio del juego." />
     <string
+      id="ret_mcm_option_doctrine_influence_cost_multiplier"
+      text="Multiplicador de costo de influencia de doctrina" />
+    <string
+      id="ret_mcm_option_doctrine_influence_cost_multiplier_hint"
+      text="Multiplicador que afecta el costo de influencia de adquirir doctrinas." />
+    <string
+      id="ret_mcm_option_doctrine_money_cost_multiplier"
+      text="Multiplicador de costo monetario de doctrina" />
+    <string
+      id="ret_mcm_option_doctrine_money_cost_multiplier_hint"
+      text="Multiplicador que afecta el costo monetario de adquirir doctrinas." />
+    <string
+      id="ret_mcm_option_doctrines_cost_influence"
+      text="Las doctrinas cuestan influencia" />
+    <string
+      id="ret_mcm_option_doctrines_cost_influence_hint"
+      text="Si está habilitado, adquirir doctrinas costará influencia." />
+    <string
+      id="ret_mcm_option_doctrines_cost_money"
+      text="Las doctrinas cuestan dinero" />
+    <string
+      id="ret_mcm_option_doctrines_cost_money_hint"
+      text="Si está habilitado, adquirir doctrinas costará dinero." />
+    <string
       id="ret_mcm_option_editing_restriction"
       text="Restricciones de ubicación" />
     <string
@@ -847,6 +982,12 @@
     <string
       id="ret_mcm_option_enable_equipment_costs_money_hint"
       text="Si está habilitado, equipar tropas costará dinero. También habilita el sistema de existencias." />
+    <string
+      id="ret_mcm_option_enable_feat_requirements"
+      text="Habilitar requisitos de hazañas" />
+    <string
+      id="ret_mcm_option_enable_feat_requirements_hint"
+      text="Si está habilitado, las doctrinas requieren hazañas específicas para ser cumplidas antes de poder ser adquiridas." />
     <string
       id="ret_mcm_option_enable_retinues"
       text="Habilitar Retinues" />
@@ -925,6 +1066,12 @@
     <string
       id="ret_mcm_option_equipping_takes_time_hint"
       text="Si está habilitado, equipar tropas no será instantáneo y tomará tiempo completarse." />
+    <string
+      id="ret_mcm_option_feat_complete_notification"
+      text="Notificación de finalización de hazaña" />
+    <string
+      id="ret_mcm_option_feat_complete_notification_hint"
+      text="Determina el estilo de notificación cuando se completan las hazañas." />
     <string
       id="ret_mcm_option_item_unlock_notification"
       text="Notificación de desbloqueo de artículo" />
@@ -1180,6 +1327,12 @@
     <string
       id="ret_no_valid_model_title_species"
       text="No hay un modelo válido" />
+    <string
+      id="ret_notification_message"
+      text="Mensaje de registro" />
+    <string
+      id="ret_notification_popup"
+      text="Popup" />
     <string
       id="ret_preview_mode"
       text="Modo de vista previa" />

@@ -19,6 +19,8 @@ namespace Retinues.Game.Doctrines
     {
         public override bool IsEnabled => Settings.EnableDoctrines;
 
+        private const int DoctrineUnlockTarget = DoctrineDefinition.UnlockProgressTarget;
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Persistence                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -29,13 +31,15 @@ namespace Retinues.Game.Doctrines
 
         private const string SyncKeyFeatIds = "ret_feat_ids";
         private const string SyncKeyFeatProgress = "ret_feat_progress";
-        private const string SyncKeyFeatCompleted = "ret_feat_completed";
+        private const string SyncKeyFeatConsumed = "ret_feat_consumed";
+        private const string SyncKeyFeatTimesCompleted = "ret_feat_times_completed";
 
         private readonly Dictionary<string, int> _doctrineProgress = new(StringComparer.Ordinal);
         private readonly Dictionary<string, bool> _doctrineAcquired = new(StringComparer.Ordinal);
 
         private readonly Dictionary<string, int> _featProgress = new(StringComparer.Ordinal);
-        private readonly Dictionary<string, bool> _featCompleted = new(StringComparer.Ordinal);
+        private readonly Dictionary<string, bool> _featConsumed = new(StringComparer.Ordinal);
+        private readonly Dictionary<string, int> _featTimesCompleted = new(StringComparer.Ordinal);
 
         public override void SyncData(IDataStore dataStore)
         {
@@ -47,7 +51,8 @@ namespace Retinues.Game.Doctrines
 
             List<string> fids = null;
             List<int> fprog = null;
-            List<bool> fdone = null;
+            List<bool> fcons = null;
+            List<int> ftimes = null;
 
             if (dataStore.IsSaving)
             {
@@ -68,7 +73,8 @@ namespace Retinues.Game.Doctrines
 
                 fids = new List<string>(_featProgress.Count);
                 fprog = new List<int>(_featProgress.Count);
-                fdone = new List<bool>(_featProgress.Count);
+                fcons = new List<bool>(_featProgress.Count);
+                ftimes = new List<int>(_featProgress.Count);
 
                 foreach (var kvp in _featProgress)
                 {
@@ -78,7 +84,8 @@ namespace Retinues.Game.Doctrines
 
                     fids.Add(id);
                     fprog.Add(kvp.Value);
-                    fdone.Add(_featCompleted.TryGetValue(id, out var c) && c);
+                    fcons.Add(_featConsumed.TryGetValue(id, out var c) && c);
+                    ftimes.Add(_featTimesCompleted.TryGetValue(id, out var t) ? Math.Max(0, t) : 0);
                 }
             }
 
@@ -88,7 +95,8 @@ namespace Retinues.Game.Doctrines
 
             dataStore.SyncData(SyncKeyFeatIds, ref fids);
             dataStore.SyncData(SyncKeyFeatProgress, ref fprog);
-            dataStore.SyncData(SyncKeyFeatCompleted, ref fdone);
+            dataStore.SyncData(SyncKeyFeatConsumed, ref fcons);
+            dataStore.SyncData(SyncKeyFeatTimesCompleted, ref ftimes);
 
             if (!dataStore.IsLoading)
                 return;
@@ -96,7 +104,8 @@ namespace Retinues.Game.Doctrines
             _doctrineProgress.Clear();
             _doctrineAcquired.Clear();
             _featProgress.Clear();
-            _featCompleted.Clear();
+            _featConsumed.Clear();
+            _featTimesCompleted.Clear();
 
             if (dids != null && dprog != null && dacq != null)
             {
@@ -107,14 +116,17 @@ namespace Retinues.Game.Doctrines
                     if (string.IsNullOrEmpty(id))
                         continue;
 
-                    _doctrineProgress[id] = Math.Max(0, dprog[i]);
+                    _doctrineProgress[id] = ClampDoctrineProgress(dprog[i]);
                     _doctrineAcquired[id] = dacq[i];
                 }
             }
 
-            if (fids != null && fprog != null && fdone != null)
+            if (fids != null && fprog != null && fcons != null && ftimes != null)
             {
-                var n = Math.Min(fids.Count, Math.Min(fprog.Count, fdone.Count));
+                var n = Math.Min(
+                    fids.Count,
+                    Math.Min(fprog.Count, Math.Min(fcons.Count, ftimes.Count))
+                );
                 for (var i = 0; i < n; i++)
                 {
                     var id = fids[i];
@@ -122,12 +134,21 @@ namespace Retinues.Game.Doctrines
                         continue;
 
                     _featProgress[id] = Math.Max(0, fprog[i]);
-                    _featCompleted[id] = fdone[i];
+                    _featConsumed[id] = fcons[i];
+                    _featTimesCompleted[id] = Math.Max(0, ftimes[i]);
                 }
             }
 
-            // Ensure new defs have entries.
             SeedMissing();
+        }
+
+        private static int ClampDoctrineProgress(int value)
+        {
+            if (value < 0)
+                return 0;
+            if (value > DoctrineUnlockTarget)
+                return DoctrineUnlockTarget;
+            return value;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -137,7 +158,6 @@ namespace Retinues.Game.Doctrines
         private struct PendingFeatNotification
         {
             public string FeatId;
-            public TextObject Source;
         }
 
         private static readonly List<PendingFeatNotification> PendingFeatNotifs = new(16);
@@ -161,12 +181,12 @@ namespace Retinues.Game.Doctrines
             FlushFeatNotifications();
         }
 
-        private static void QueueFeatCompleted(string featId, TextObject source)
+        private static void QueueFeatCompleted(string featId)
         {
             if (string.IsNullOrEmpty(featId))
                 return;
 
-            PendingFeatNotifs.Add(new PendingFeatNotification { FeatId = featId, Source = source });
+            PendingFeatNotifs.Add(new PendingFeatNotification { FeatId = featId });
 
             if (PendingFeatNotifs.Count > 64)
                 PendingFeatNotifs.RemoveAt(0);
@@ -179,11 +199,9 @@ namespace Retinues.Game.Doctrines
 
             DoctrinesCatalog.EnsureBuilt();
 
-            // Dedupe by feat id.
+            // Dedupe by feat id, preserve order.
             var seen = new HashSet<string>(StringComparer.Ordinal);
-            var names = new List<string>(PendingFeatNotifs.Count);
-
-            TextObject source = null;
+            var ids = new List<string>(PendingFeatNotifs.Count);
 
             for (var i = 0; i < PendingFeatNotifs.Count; i++)
             {
@@ -191,39 +209,27 @@ namespace Retinues.Game.Doctrines
                 if (string.IsNullOrEmpty(id) || !seen.Add(id))
                     continue;
 
-                if (source == null)
-                    source = PendingFeatNotifs[i].Source;
-
-                if (DoctrinesCatalog.TryGetFeat(id, out var feat) && feat?.Name != null)
-                    names.Add(feat.Name.ToString());
-                else
-                    names.Add(id);
+                ids.Add(id);
             }
 
             PendingFeatNotifs.Clear();
 
-            if (names.Count == 0)
+            if (ids.Count == 0)
                 return;
 
-            var title = L.T("feat_complete_title", "Feats completed");
-
-            var list = JoinWithAnd(names, max: 5, out var plural);
-            var desc = plural
-                ? L.T("feat_complete_desc_many", "{FEATS} were completed.")
-                : L.T("feat_complete_desc_one", "{FEATS} was completed.");
-
-            desc.SetTextVariable("FEATS", list);
-
-            if (source != null)
+            for (var i = 0; i < ids.Count; i++)
             {
-                // Optional one-line source prefix if provided.
-                var s = L.T("feat_complete_source", "{SOURCE}\n\n{DESC}");
-                s.SetTextVariable("SOURCE", source);
-                s.SetTextVariable("DESC", desc);
-                desc = s;
-            }
+                var id = ids[i];
 
-            ShowFeatNotification(title, desc);
+                if (!DoctrinesCatalog.TryGetFeat(id, out var feat) || feat == null)
+                    continue;
+
+                // Title can be anything; requirement is: body = feat description only.
+                var title = feat.Name ?? L.T("feat_complete_title", "Feat completed");
+                var body = feat.Description ?? new TextObject(string.Empty);
+
+                ShowFeatNotification(title, body);
+            }
         }
 
         private static void ShowFeatNotification(TextObject title, TextObject description)
@@ -235,62 +241,14 @@ namespace Retinues.Game.Doctrines
                     break;
 
                 case Settings.NotificationStyle.Message:
-                    Notifications.Message($"{title}\n{description}");
+                    // Body only: description, no extra text.
+                    Notifications.Message(description?.ToString() ?? string.Empty);
                     break;
 
                 default:
                     Inquiries.Popup(title, description, delayUntilOnWorldMap: true);
                     break;
             }
-        }
-
-        private static string JoinWithAnd(IReadOnlyList<string> items, int max, out bool isPlural)
-        {
-            if (items == null || items.Count == 0)
-            {
-                isPlural = true;
-                return string.Empty;
-            }
-
-            var filtered = new List<string>(items.Count);
-            for (var i = 0; i < items.Count; i++)
-            {
-                var s = items[i];
-                if (!string.IsNullOrEmpty(s))
-                    filtered.Add(s);
-            }
-
-            if (filtered.Count == 0)
-            {
-                isPlural = true;
-                return string.Empty;
-            }
-
-            isPlural = filtered.Count != 1;
-
-            var take = Math.Min(max, filtered.Count);
-            var shown = filtered.GetRange(0, take);
-            var more = filtered.Count - take;
-
-            var andWord = L.S("feat_and", "and");
-
-            if (more > 0)
-            {
-                var prefix = string.Join(", ", shown);
-                var moreText = L.T("feat_more", "{COUNT} more")
-                    .SetTextVariable("COUNT", more)
-                    .ToString();
-
-                return $"{prefix} {andWord} {moreText}";
-            }
-
-            if (shown.Count == 1)
-                return shown[0];
-
-            if (shown.Count == 2)
-                return $"{shown[0]} {andWord} {shown[1]}";
-
-            return $"{string.Join(", ", shown.GetRange(0, shown.Count - 1))} {andWord} {shown[shown.Count - 1]}";
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -309,7 +267,7 @@ namespace Retinues.Game.Doctrines
                 return DoctrineState.Locked;
 
             var p = GetDoctrineProgress(def.Id);
-            if (p >= def.ProgressTarget)
+            if (p >= DoctrineUnlockTarget)
                 return DoctrineState.Unlocked;
 
             return DoctrineState.InProgress;
@@ -317,7 +275,21 @@ namespace Retinues.Game.Doctrines
 
         public int GetDoctrineProgress(string doctrineId)
         {
-            return _doctrineProgress.TryGetValue(doctrineId ?? string.Empty, out var p) ? p : 0;
+            if (string.IsNullOrEmpty(doctrineId))
+                return 0;
+
+            // If feat requirements are disabled, treat all doctrines as "fully progressed"
+            // (do NOT persist this; user may re-enable the setting later).
+            if (!Settings.EnableFeatRequirements)
+            {
+                // Only for real doctrines; unknown ids stay 0.
+                if (DoctrinesCatalog.TryGetDoctrine(doctrineId, out var def) && def != null)
+                    return DoctrineUnlockTarget;
+
+                return 0;
+            }
+
+            return _doctrineProgress.TryGetValue(doctrineId, out var p) ? p : 0;
         }
 
         public bool IsDoctrineAcquired(string doctrineId)
@@ -330,9 +302,17 @@ namespace Retinues.Game.Doctrines
             return _featProgress.TryGetValue(featId ?? string.Empty, out var p) ? p : 0;
         }
 
+        // "Completed" means one-time feat consumed (non-repeatable completed once).
         public bool IsFeatCompleted(string featId)
         {
-            return _featCompleted.TryGetValue(featId ?? string.Empty, out var c) && c;
+            return _featConsumed.TryGetValue(featId ?? string.Empty, out var c) && c;
+        }
+
+        public int GetFeatTimesCompleted(string featId)
+        {
+            return _featTimesCompleted.TryGetValue(featId ?? string.Empty, out var t)
+                ? Math.Max(0, t)
+                : 0;
         }
 
         public bool TryAddFeatProgress(string featId, int amount, TextObject source = null)
@@ -343,10 +323,13 @@ namespace Retinues.Game.Doctrines
             if (!DoctrinesCatalog.TryGetFeat(featId, out var feat) || feat == null)
                 return false;
 
-            if (IsFeatCompleted(feat.Id))
+            if (amount <= 0)
                 return false;
 
-            if (amount <= 0)
+            if (!CanProgressFeatForAnyInProgressDoctrine(feat.Id))
+                return false;
+
+            if (!feat.Repeatable && IsFeatCompleted(feat.Id))
                 return false;
 
             var p = GetFeatProgress(feat.Id);
@@ -371,7 +354,8 @@ namespace Retinues.Game.Doctrines
                 return false;
 
             _featProgress[feat.Id] = 0;
-            _featCompleted[feat.Id] = false;
+            _featConsumed[feat.Id] = false;
+            _featTimesCompleted[feat.Id] = 0;
             return true;
         }
 
@@ -383,7 +367,10 @@ namespace Retinues.Game.Doctrines
             if (!DoctrinesCatalog.TryGetFeat(featId, out var feat) || feat == null)
                 return false;
 
-            if (IsFeatCompleted(feat.Id))
+            if (!CanProgressFeatForAnyInProgressDoctrine(feat.Id))
+                return false;
+
+            if (!feat.Repeatable && IsFeatCompleted(feat.Id))
                 return false;
 
             CompleteFeatInternal(feat.Id, source);
@@ -396,36 +383,33 @@ namespace Retinues.Game.Doctrines
 
             if (!IsEnabled)
             {
-                error = L.T("doctrine_err_disabled", "Doctrines are disabled.");
+                error = L.T("doctrine_disabled", "Doctrines are disabled.");
                 return false;
             }
 
             if (!DoctrinesCatalog.TryGetDoctrine(doctrineId, out var def) || def == null)
             {
-                error = L.T("doctrine_err_not_found", "Doctrine not found.");
+                error = L.T("doctrine_not_found", "Doctrine not found.");
                 return false;
             }
 
             var state = GetDoctrineState(def.Id);
             if (state != DoctrineState.Unlocked)
             {
-                error = L.T("doctrine_err_not_ready", "Doctrine is not ready to be acquired.");
+                error = L.T("doctrine_not_ready", "Doctrine is not ready to be acquired.");
                 return false;
             }
 
             if (Settings.EnableFeatRequirements && !AreRequiredFeatsMet(def))
             {
-                error = L.T(
-                    "doctrine_err_missing_feats",
-                    "Required feats have not been completed."
-                );
+                error = L.T("doctrine_missing_feats", "Required feats have not been completed.");
                 return false;
             }
 
             if (Player.Gold < def.GoldCost)
             {
                 error = L.TV(
-                    "doctrine_err_not_enough_gold",
+                    "doctrine_not_enough_gold",
                     "Not enough gold (needs {COST}).",
                     ("COST", def.GoldCost)
                 );
@@ -435,7 +419,7 @@ namespace Retinues.Game.Doctrines
             if (Player.Influence < def.InfluenceCost)
             {
                 error = L.TV(
-                    "doctrine_err_not_enough_influence",
+                    "doctrine_not_enough_influence",
                     "Not enough influence (needs {COST}).",
                     ("COST", def.InfluenceCost)
                 );
@@ -453,7 +437,7 @@ namespace Retinues.Game.Doctrines
             catch (Exception e)
             {
                 Log.Exception(e, "Failed to acquire doctrine.");
-                error = L.T("doctrine_err_failed", "Failed to acquire doctrine.");
+                error = L.T("doctrine_failed", "Failed to acquire doctrine.");
                 return false;
             }
         }
@@ -484,9 +468,30 @@ namespace Retinues.Game.Doctrines
                 var id = kvp.Key;
                 if (!_featProgress.ContainsKey(id))
                     _featProgress[id] = 0;
-                if (!_featCompleted.ContainsKey(id))
-                    _featCompleted[id] = false;
+                if (!_featConsumed.ContainsKey(id))
+                    _featConsumed[id] = false;
+                if (!_featTimesCompleted.ContainsKey(id))
+                    _featTimesCompleted[id] = 0;
             }
+        }
+
+        private bool CanProgressFeatForAnyInProgressDoctrine(string featId)
+        {
+            var links = DoctrinesCatalog.GetDoctrineLinksForFeat(featId);
+            if (links == null || links.Count == 0)
+                return false;
+
+            for (var i = 0; i < links.Count; i++)
+            {
+                var (doctrineId, _, _) = links[i];
+                if (string.IsNullOrEmpty(doctrineId))
+                    continue;
+
+                if (GetDoctrineState(doctrineId) == DoctrineState.InProgress)
+                    return true;
+            }
+
+            return false;
         }
 
         private void CompleteFeatInternal(string featId, TextObject source)
@@ -494,38 +499,69 @@ namespace Retinues.Game.Doctrines
             if (!DoctrinesCatalog.TryGetFeat(featId, out var feat) || feat == null)
                 return;
 
-            _featProgress[feat.Id] = feat.Target;
-            _featCompleted[feat.Id] = true;
+            // Feat completes: apply worth, then reset progress.
+            _featProgress[feat.Id] = 0;
 
-            ApplyFeatCompletionToDoctrines(feat.Id);
-            QueueFeatCompleted(feat.Id, source);
+            var times = GetFeatTimesCompleted(feat.Id) + 1;
+            _featTimesCompleted[feat.Id] = times;
+
+            if (!feat.Repeatable)
+                _featConsumed[feat.Id] = true;
+
+            // Only notify if this completion contributed doctrine progress.
+            var applied = ApplyFeatCompletionToDoctrines(feat.Id);
+            if (applied)
+                QueueFeatCompleted(feat.Id);
         }
 
-        private void ApplyFeatCompletionToDoctrines(string featId)
+        private bool ApplyFeatCompletionToDoctrines(string featId)
         {
             var links = DoctrinesCatalog.GetDoctrineLinksForFeat(featId);
             if (links == null || links.Count == 0)
-                return;
+                return false;
+
+            // Snapshot which doctrines are eligible before we change any progress.
+            var eligible = new HashSet<string>(StringComparer.Ordinal);
 
             for (var i = 0; i < links.Count; i++)
             {
-                var (doctrineId, progress, _) = links[i];
-                if (progress <= 0)
+                var (doctrineId, _, _) = links[i];
+                if (string.IsNullOrEmpty(doctrineId))
                     continue;
 
                 if (!DoctrinesCatalog.TryGetDoctrine(doctrineId, out var def) || def == null)
                     continue;
 
-                if (GetDoctrineState(def.Id) != DoctrineState.InProgress)
+                if (GetDoctrineState(def.Id) == DoctrineState.InProgress)
+                    eligible.Add(def.Id);
+            }
+
+            if (eligible.Count == 0)
+                return false;
+
+            var appliedAny = false;
+
+            // Apply worth only to doctrines that were already InProgress at snapshot time.
+            for (var i = 0; i < links.Count; i++)
+            {
+                var (doctrineId, worth, _) = links[i];
+                if (worth <= 0 || string.IsNullOrEmpty(doctrineId))
                     continue;
 
-                var cur = GetDoctrineProgress(def.Id);
-                var next = cur + progress;
-                if (next > def.ProgressTarget)
-                    next = def.ProgressTarget;
+                if (!eligible.Contains(doctrineId))
+                    continue;
 
-                _doctrineProgress[def.Id] = next;
+                var cur = GetDoctrineProgress(doctrineId);
+                var next = ClampDoctrineProgress(cur + worth);
+
+                if (next != cur)
+                {
+                    _doctrineProgress[doctrineId] = next;
+                    appliedAny = true;
+                }
             }
+
+            return appliedAny;
         }
 
         private bool IsDoctrineAvailable(DoctrineDefinition def)
@@ -551,8 +587,7 @@ namespace Retinues.Game.Doctrines
             if (!DoctrinesCatalog.TryGetDoctrine(prevId, out var prev) || prev == null)
                 return true;
 
-            var prevProgress = GetDoctrineProgress(prev.Id);
-            return prevProgress >= prev.ProgressTarget;
+            return IsDoctrineAcquired(prev.Id);
         }
 
         private bool AreRequiredFeatsMet(DoctrineDefinition def)
@@ -566,7 +601,7 @@ namespace Retinues.Game.Doctrines
                 if (!link.Required)
                     continue;
 
-                if (!IsFeatCompleted(link.FeatId))
+                if (GetFeatTimesCompleted(link.FeatId) <= 0)
                     return false;
             }
 

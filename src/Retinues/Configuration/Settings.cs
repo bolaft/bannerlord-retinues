@@ -51,8 +51,8 @@ namespace Retinues.Configuration
                 choiceFormatter: v =>
                     v switch
                     {
-                        NotificationStyle.Popup => L.S("popup", "Popup"),
-                        NotificationStyle.Message => L.S("message", "Log Message"),
+                        NotificationStyle.Popup => L.S("notification_popup", "Popup"),
+                        NotificationStyle.Message => L.S("notification_message", "Log Message"),
                         _ => v.ToString(),
                     },
                 dependsOn: EnableDoctrines
@@ -153,6 +153,9 @@ namespace Retinues.Configuration
                 "mcm_option_enable_feat_requirements_hint",
                 "If enabled, doctrines require specific feats to be accomplished before they can be acquired."
             ),
+#if !DEBUG
+            requiresRestart: true,
+#endif
             @default: true,
             dependsOn: EnableDoctrines,
             fires: [UIEvent.Doctrine]

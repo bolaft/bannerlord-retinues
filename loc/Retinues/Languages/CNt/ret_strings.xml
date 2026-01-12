@@ -254,6 +254,120 @@
       id="ret_dependencies_version_mismatch_label"
       text="錯誤的版本" />
     <string
+      id="ret_doctrine_acquire_already_acquired"
+      text="此學說已被採納。" />
+    <string
+      id="ret_doctrine_acquire_button"
+      text="獲取" />
+    <string
+      id="ret_doctrine_acquire_confirm_desc_both"
+      text="以 {GOLD} 丹納和 {INF} 影響力獲取 {NAME}？" />
+    <string
+      id="ret_doctrine_acquire_confirm_desc_free"
+      text="獲取 {NAME}？" />
+    <string
+      id="ret_doctrine_acquire_confirm_desc_gold"
+      text="以 {GOLD} 丹納爾獲取 {NAME}？" />
+    <string
+      id="ret_doctrine_acquire_confirm_desc_influence"
+      text="以 {INF} 影響力獲取 {NAME}？" />
+    <string
+      id="ret_doctrine_acquire_confirm_title"
+      text="獲取學說" />
+    <string
+      id="ret_doctrine_acquire_failed"
+      text="無法獲取學說。" />
+    <string
+      id="ret_doctrine_acquire_unavailable"
+      text="此學說仍然被鎖定。" />
+    <string
+      id="ret_doctrine_acquired_msg"
+      text="已獲取學說：{NAME}。" />
+    <string
+      id="ret_doctrine_acquired_text"
+      text="已獲取" />
+    <string
+      id="ret_doctrine_cost_text_both"
+      text="花費 {GOLD} 丹納爾，{INFLUENCE} 影響力" />
+    <string
+      id="ret_doctrine_cost_text_gold"
+      text="花費 {GOLD} 丹納爾" />
+    <string
+      id="ret_doctrine_cost_text_influence"
+      text="花費 {INFLUENCE} 影響力" />
+    <string
+      id="ret_doctrine_description_header"
+      text="效果" />
+    <string
+      id="ret_doctrine_disabled"
+      text="學說已被禁用。" />
+    <string
+      id="ret_doctrine_failed"
+      text="獲取學說失敗。" />
+    <string
+      id="ret_doctrine_feat_completed"
+      text="已完成" />
+    <string
+      id="ret_doctrine_feat_optional"
+      text="可選" />
+    <string
+      id="ret_doctrine_feat_progress_tooltip_completed"
+      text="您已完成此功績。" />
+    <string
+      id="ret_doctrine_feat_progress_tooltip_incomplete"
+      text="您尚未完成此功績。" />
+    <string
+      id="ret_doctrine_feat_progress_tooltip_repeatable"
+      text="此功績是可重複的。您可以多次完成它。" />
+    <string
+      id="ret_doctrine_feat_required"
+      text="必需" />
+    <string
+      id="ret_doctrine_feats_header"
+      text="功績" />
+    <string
+      id="ret_doctrine_missing_feats"
+      text="未完成所需的功績。" />
+    <string
+      id="ret_doctrine_not_enough_gold_desc"
+      text="您需要 {COST} 戈德來解鎖此學說。" />
+    <string
+      id="ret_doctrine_not_enough_gold_title"
+      text="資金不足" />
+    <string
+      id="ret_doctrine_not_enough_influence_desc"
+      text="您需要 {COST} 影響力來解鎖此學說。" />
+    <string
+      id="ret_doctrine_not_enough_influence_title"
+      text="影響力不足" />
+    <string
+      id="ret_doctrine_not_found"
+      text="未找到學說。" />
+    <string
+      id="ret_doctrine_not_ready"
+      text="學說尚未準備好被採納。" />
+    <string
+      id="ret_doctrine_progress_text"
+      text="進度：{PROGRESS}%" />
+    <string
+      id="ret_doctrine_select_reason"
+      text="請先選擇一個學說。" />
+    <string
+      id="ret_doctrine_state_acquired"
+      text="已獲取" />
+    <string
+      id="ret_doctrine_state_in_progress"
+      text="進行中" />
+    <string
+      id="ret_doctrine_state_locked"
+      text="已鎖定" />
+    <string
+      id="ret_doctrine_state_unlocked"
+      text="已解鎖" />
+    <string
+      id="ret_doctrines_disabled"
+      text="學說已被禁用。" />
+    <string
       id="ret_editing_restriction_in_fief"
       text="派系封地" />
     <string
@@ -419,6 +533,9 @@
       id="ret_faction_type_kingdom"
       text="王國" />
     <string
+      id="ret_feat_complete_title"
+      text="壯舉完成" />
+    <string
       id="ret_filter_label"
       text="過濾器：" />
     <string
@@ -514,12 +631,6 @@
     <string
       id="ret_invalid_name_title"
       text="無效名稱" />
-    <string
-      id="ret_item_unlock_notification_message"
-      text="日誌消息" />
-    <string
-      id="ret_item_unlock_notification_popup"
-      text="彈出窗口" />
     <string
       id="ret_item_unlock_scoreboard_line"
       text="解鎖物品：{ITEM}。" />
@@ -827,6 +938,30 @@
       id="ret_mcm_option_default_unlocked_item_max_tier_hint"
       text="遊戲開始時解鎖的物品的最高等級。" />
     <string
+      id="ret_mcm_option_doctrine_influence_cost_multiplier"
+      text="學說影響力成本乘數" />
+    <string
+      id="ret_mcm_option_doctrine_influence_cost_multiplier_hint"
+      text="影響獲取學說的影響力成本的乘數。" />
+    <string
+      id="ret_mcm_option_doctrine_money_cost_multiplier"
+      text="學說金錢成本乘數" />
+    <string
+      id="ret_mcm_option_doctrine_money_cost_multiplier_hint"
+      text="影響獲取學說的金錢成本的乘數。" />
+    <string
+      id="ret_mcm_option_doctrines_cost_influence"
+      text="學說消耗影響力" />
+    <string
+      id="ret_mcm_option_doctrines_cost_influence_hint"
+      text="如果啟用，獲取學說將消耗影響力。" />
+    <string
+      id="ret_mcm_option_doctrines_cost_money"
+      text="學說消耗金錢" />
+    <string
+      id="ret_mcm_option_doctrines_cost_money_hint"
+      text="如果啟用，獲取學說將消耗金錢。" />
+    <string
       id="ret_mcm_option_editing_restriction"
       text="位置限制" />
     <string
@@ -847,6 +982,12 @@
     <string
       id="ret_mcm_option_enable_equipment_costs_money_hint"
       text="如果啟用，裝備部隊將花費金錢。還啟用庫存系統。" />
+    <string
+      id="ret_mcm_option_enable_feat_requirements"
+      text="啟用壯舉要求" />
+    <string
+      id="ret_mcm_option_enable_feat_requirements_hint"
+      text="如果啟用，學說在獲得之前需要完成特定的壯舉。" />
     <string
       id="ret_mcm_option_enable_retinues"
       text="啟用隨從" />
@@ -925,6 +1066,12 @@
     <string
       id="ret_mcm_option_equipping_takes_time_hint"
       text="如果啟用，裝備部隊將不是即時完成的，需要時間來完成。" />
+    <string
+      id="ret_mcm_option_feat_complete_notification"
+      text="壯舉完成通知" />
+    <string
+      id="ret_mcm_option_feat_complete_notification_hint"
+      text="確定完成壯舉時的通知樣式。" />
     <string
       id="ret_mcm_option_item_unlock_notification"
       text="物品解鎖通知" />
@@ -1180,6 +1327,12 @@
     <string
       id="ret_no_valid_model_title_species"
       text="無有效模型" />
+    <string
+      id="ret_notification_message"
+      text="日誌消息" />
+    <string
+      id="ret_notification_popup"
+      text="彈出窗口" />
     <string
       id="ret_preview_mode"
       text="預覽模式" />

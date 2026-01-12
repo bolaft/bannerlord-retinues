@@ -254,6 +254,120 @@
       id="ret_dependencies_version_mismatch_label"
       text="Falsche Version" />
     <string
+      id="ret_doctrine_acquire_already_acquired"
+      text="Diese Doktrin wurde bereits erworben." />
+    <string
+      id="ret_doctrine_acquire_button"
+      text="Erwerben" />
+    <string
+      id="ret_doctrine_acquire_confirm_desc_both"
+      text="Erwerbe {NAME} für {GOLD} Denare und {INF} Einfluss?" />
+    <string
+      id="ret_doctrine_acquire_confirm_desc_free"
+      text="Erwerbe {NAME}?" />
+    <string
+      id="ret_doctrine_acquire_confirm_desc_gold"
+      text="Erwerbe {NAME} für {GOLD} Denare?" />
+    <string
+      id="ret_doctrine_acquire_confirm_desc_influence"
+      text="Erwerbe {NAME} für {INF} Einfluss?" />
+    <string
+      id="ret_doctrine_acquire_confirm_title"
+      text="Doktrin erwerben" />
+    <string
+      id="ret_doctrine_acquire_failed"
+      text="Doktrin kann nicht erworben werden." />
+    <string
+      id="ret_doctrine_acquire_unavailable"
+      text="Diese Doktrin ist noch gesperrt." />
+    <string
+      id="ret_doctrine_acquired_msg"
+      text="Erworbene Doktrin: {NAME}." />
+    <string
+      id="ret_doctrine_acquired_text"
+      text="ERWORBEN" />
+    <string
+      id="ret_doctrine_cost_text_both"
+      text="Kosten {GOLD} Denare, {INFLUENCE} Einfluss" />
+    <string
+      id="ret_doctrine_cost_text_gold"
+      text="Kosten {GOLD} Denare" />
+    <string
+      id="ret_doctrine_cost_text_influence"
+      text="Kosten {INFLUENCE} Einfluss" />
+    <string
+      id="ret_doctrine_description_header"
+      text="Effekte" />
+    <string
+      id="ret_doctrine_disabled"
+      text="Doktrinen sind deaktiviert." />
+    <string
+      id="ret_doctrine_failed"
+      text="Doktrin konnte nicht erworben werden." />
+    <string
+      id="ret_doctrine_feat_completed"
+      text="Abgeschlossen" />
+    <string
+      id="ret_doctrine_feat_optional"
+      text="Optional" />
+    <string
+      id="ret_doctrine_feat_progress_tooltip_completed"
+      text="Sie haben diese Tat abgeschlossen." />
+    <string
+      id="ret_doctrine_feat_progress_tooltip_incomplete"
+      text="Sie haben diese Tat noch nicht abgeschlossen." />
+    <string
+      id="ret_doctrine_feat_progress_tooltip_repeatable"
+      text="Diese Tat ist wiederholbar. Sie können sie mehrfach abschließen." />
+    <string
+      id="ret_doctrine_feat_required"
+      text="Erforderlich" />
+    <string
+      id="ret_doctrine_feats_header"
+      text="Taten" />
+    <string
+      id="ret_doctrine_missing_feats"
+      text="Erforderliche Taten wurden nicht abgeschlossen." />
+    <string
+      id="ret_doctrine_not_enough_gold_desc"
+      text="Sie benötigen {COST} Denare, um diese Doktrin freizuschalten." />
+    <string
+      id="ret_doctrine_not_enough_gold_title"
+      text="Nicht genug Geld" />
+    <string
+      id="ret_doctrine_not_enough_influence_desc"
+      text="Sie benötigen {COST} Einfluss, um diese Doktrin freizuschalten." />
+    <string
+      id="ret_doctrine_not_enough_influence_title"
+      text="Nicht genug Einfluss" />
+    <string
+      id="ret_doctrine_not_found"
+      text="Doktrin nicht gefunden." />
+    <string
+      id="ret_doctrine_not_ready"
+      text="Die Doktrin ist nicht bereit, erworben zu werden." />
+    <string
+      id="ret_doctrine_progress_text"
+      text="Fortschritt: {PROGRESS}%" />
+    <string
+      id="ret_doctrine_select_reason"
+      text="Wählen Sie zuerst eine Doktrin aus." />
+    <string
+      id="ret_doctrine_state_acquired"
+      text="Erworben" />
+    <string
+      id="ret_doctrine_state_in_progress"
+      text="In Bearbeitung" />
+    <string
+      id="ret_doctrine_state_locked"
+      text="Gesperrt" />
+    <string
+      id="ret_doctrine_state_unlocked"
+      text="Entsperrt" />
+    <string
+      id="ret_doctrines_disabled"
+      text="Doktrinen sind deaktiviert." />
+    <string
       id="ret_editing_restriction_in_fief"
       text="Fraktionslehen" />
     <string
@@ -419,6 +533,9 @@
       id="ret_faction_type_kingdom"
       text="Königreich" />
     <string
+      id="ret_feat_complete_title"
+      text="Heldentat abgeschlossen" />
+    <string
       id="ret_filter_label"
       text="Filter:" />
     <string
@@ -514,12 +631,6 @@
     <string
       id="ret_invalid_name_title"
       text="Ungültiger Name" />
-    <string
-      id="ret_item_unlock_notification_message"
-      text="Protokollnachricht" />
-    <string
-      id="ret_item_unlock_notification_popup"
-      text="Popup" />
     <string
       id="ret_item_unlock_scoreboard_line"
       text="Gegenstand freigeschaltet: {ITEM}." />
@@ -827,6 +938,30 @@
       id="ret_mcm_option_default_unlocked_item_max_tier_hint"
       text="Die maximale Stufe der zu Spielbeginn entsperrten Gegenstände." />
     <string
+      id="ret_mcm_option_doctrine_influence_cost_multiplier"
+      text="Multiplikator für die Einflusskosten von Doktrinen" />
+    <string
+      id="ret_mcm_option_doctrine_influence_cost_multiplier_hint"
+      text="Multiplikator, der die Einflusskosten für den Erwerb von Doktrinen beeinflusst." />
+    <string
+      id="ret_mcm_option_doctrine_money_cost_multiplier"
+      text="Multiplikator für die Geldkosten von Doktrinen" />
+    <string
+      id="ret_mcm_option_doctrine_money_cost_multiplier_hint"
+      text="Multiplikator, der die Geldkosten für den Erwerb von Doktrinen beeinflusst." />
+    <string
+      id="ret_mcm_option_doctrines_cost_influence"
+      text="Doktrinen kosten Einfluss" />
+    <string
+      id="ret_mcm_option_doctrines_cost_influence_hint"
+      text="Wenn aktiviert, kostet der Erwerb von Doktrinen Einfluss." />
+    <string
+      id="ret_mcm_option_doctrines_cost_money"
+      text="Doktrinen kosten Geld" />
+    <string
+      id="ret_mcm_option_doctrines_cost_money_hint"
+      text="Wenn aktiviert, kostet der Erwerb von Doktrinen Geld." />
+    <string
       id="ret_mcm_option_editing_restriction"
       text="Standortbeschränkungen" />
     <string
@@ -847,6 +982,12 @@
     <string
       id="ret_mcm_option_enable_equipment_costs_money_hint"
       text="Wenn aktiviert, kostet die Ausrüstung von Truppen Geld. Aktiviert auch das Lagersystem." />
+    <string
+      id="ret_mcm_option_enable_feat_requirements"
+      text="Aktiviere Anforderungen für Heldentaten" />
+    <string
+      id="ret_mcm_option_enable_feat_requirements_hint"
+      text="Wenn aktiviert, erfordern Doktrinen bestimmte Heldentaten, die erfüllt werden müssen, bevor sie erworben werden können." />
     <string
       id="ret_mcm_option_enable_retinues"
       text="Retinues aktivieren" />
@@ -925,6 +1066,12 @@
     <string
       id="ret_mcm_option_equipping_takes_time_hint"
       text="Wenn aktiviert, wird das Ausrüsten von Truppen nicht sofort erfolgen und es wird Zeit in Anspruch nehmen, bis es abgeschlossen ist." />
+    <string
+      id="ret_mcm_option_feat_complete_notification"
+      text="Benachrichtigung über abgeschlossene Leistung" />
+    <string
+      id="ret_mcm_option_feat_complete_notification_hint"
+      text="Bestimmt den Benachrichtigungsstil, wenn Leistungen abgeschlossen sind." />
     <string
       id="ret_mcm_option_item_unlock_notification"
       text="Gegenstandsfreischaltungsbenachrichtigung" />
@@ -1180,6 +1327,12 @@
     <string
       id="ret_no_valid_model_title_species"
       text="Kein gültiges Modell" />
+    <string
+      id="ret_notification_message"
+      text="Protokollnachricht" />
+    <string
+      id="ret_notification_popup"
+      text="Popup" />
     <string
       id="ret_preview_mode"
       text="Vorschaumodus" />

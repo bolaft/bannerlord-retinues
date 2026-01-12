@@ -254,6 +254,120 @@
       id="ret_dependencies_version_mismatch_label"
       text="Versão errada" />
     <string
+      id="ret_doctrine_acquire_already_acquired"
+      text="Esta doutrina já foi adquirida." />
+    <string
+      id="ret_doctrine_acquire_button"
+      text="Adquirir" />
+    <string
+      id="ret_doctrine_acquire_confirm_desc_both"
+      text="Adquirir {NAME} por {GOLD} denários e {INF} de influência?" />
+    <string
+      id="ret_doctrine_acquire_confirm_desc_free"
+      text="Adquirir {NAME}?" />
+    <string
+      id="ret_doctrine_acquire_confirm_desc_gold"
+      text="Adquirir {NAME} por {GOLD} denários?" />
+    <string
+      id="ret_doctrine_acquire_confirm_desc_influence"
+      text="Adquirir {NAME} por {INF} de influência?" />
+    <string
+      id="ret_doctrine_acquire_confirm_title"
+      text="Adquirir Doutrina" />
+    <string
+      id="ret_doctrine_acquire_failed"
+      text="Não é possível adquirir a doutrina." />
+    <string
+      id="ret_doctrine_acquire_unavailable"
+      text="Esta doutrina ainda está bloqueada." />
+    <string
+      id="ret_doctrine_acquired_msg"
+      text="Doutrina adquirida: {NAME}." />
+    <string
+      id="ret_doctrine_acquired_text"
+      text="ADQUIRIDO" />
+    <string
+      id="ret_doctrine_cost_text_both"
+      text="Custa {GOLD} denares, {INFLUENCE} influência" />
+    <string
+      id="ret_doctrine_cost_text_gold"
+      text="Custa {GOLD} denares" />
+    <string
+      id="ret_doctrine_cost_text_influence"
+      text="Custa {INFLUENCE} influência" />
+    <string
+      id="ret_doctrine_description_header"
+      text="Efeitos" />
+    <string
+      id="ret_doctrine_disabled"
+      text="As doutrinas estão desativadas." />
+    <string
+      id="ret_doctrine_failed"
+      text="Falha ao adquirir a doutrina." />
+    <string
+      id="ret_doctrine_feat_completed"
+      text="Concluído" />
+    <string
+      id="ret_doctrine_feat_optional"
+      text="Opcional" />
+    <string
+      id="ret_doctrine_feat_progress_tooltip_completed"
+      text="Você concluiu este feito." />
+    <string
+      id="ret_doctrine_feat_progress_tooltip_incomplete"
+      text="Você ainda não concluiu este feito." />
+    <string
+      id="ret_doctrine_feat_progress_tooltip_repeatable"
+      text="Este feito é repetível. Você pode concluí-lo várias vezes." />
+    <string
+      id="ret_doctrine_feat_required"
+      text="Obrigatório" />
+    <string
+      id="ret_doctrine_feats_header"
+      text="Feitos" />
+    <string
+      id="ret_doctrine_missing_feats"
+      text="Os feitos necessários não foram concluídos." />
+    <string
+      id="ret_doctrine_not_enough_gold_desc"
+      text="Você precisa de {COST} denários para desbloquear esta doutrina." />
+    <string
+      id="ret_doctrine_not_enough_gold_title"
+      text="Dinheiro insuficiente" />
+    <string
+      id="ret_doctrine_not_enough_influence_desc"
+      text="Você precisa de {COST} influência para desbloquear esta doutrina." />
+    <string
+      id="ret_doctrine_not_enough_influence_title"
+      text="Influência insuficiente" />
+    <string
+      id="ret_doctrine_not_found"
+      text="Doutrina não encontrada." />
+    <string
+      id="ret_doctrine_not_ready"
+      text="A doutrina não está pronta para ser adquirida." />
+    <string
+      id="ret_doctrine_progress_text"
+      text="Progresso: {PROGRESS}%" />
+    <string
+      id="ret_doctrine_select_reason"
+      text="Selecione uma doutrina primeiro." />
+    <string
+      id="ret_doctrine_state_acquired"
+      text="Adquirido" />
+    <string
+      id="ret_doctrine_state_in_progress"
+      text="Em progresso" />
+    <string
+      id="ret_doctrine_state_locked"
+      text="Bloqueado" />
+    <string
+      id="ret_doctrine_state_unlocked"
+      text="Desbloqueado" />
+    <string
+      id="ret_doctrines_disabled"
+      text="As doutrinas estão desativadas." />
+    <string
       id="ret_editing_restriction_in_fief"
       text="Feudo da Facção" />
     <string
@@ -419,6 +533,9 @@
       id="ret_faction_type_kingdom"
       text="reino" />
     <string
+      id="ret_feat_complete_title"
+      text="Feito concluído" />
+    <string
       id="ret_filter_label"
       text="Filtro:" />
     <string
@@ -514,12 +631,6 @@
     <string
       id="ret_invalid_name_title"
       text="Nome Inválido" />
-    <string
-      id="ret_item_unlock_notification_message"
-      text="Mensagem de Log" />
-    <string
-      id="ret_item_unlock_notification_popup"
-      text="Popup" />
     <string
       id="ret_item_unlock_scoreboard_line"
       text="Item desbloqueado: {ITEM}." />
@@ -827,6 +938,30 @@
       id="ret_mcm_option_default_unlocked_item_max_tier_hint"
       text="O nível máximo de itens desbloqueados no início do jogo." />
     <string
+      id="ret_mcm_option_doctrine_influence_cost_multiplier"
+      text="Multiplicador de Custo de Influência de Doutrina" />
+    <string
+      id="ret_mcm_option_doctrine_influence_cost_multiplier_hint"
+      text="Multiplicador que afeta o custo de influência para adquirir doutrinas." />
+    <string
+      id="ret_mcm_option_doctrine_money_cost_multiplier"
+      text="Multiplicador de Custo em Dinheiro de Doutrina" />
+    <string
+      id="ret_mcm_option_doctrine_money_cost_multiplier_hint"
+      text="Multiplicador que afeta o custo em dinheiro para adquirir doutrinas." />
+    <string
+      id="ret_mcm_option_doctrines_cost_influence"
+      text="Doutrinas Custam Influência" />
+    <string
+      id="ret_mcm_option_doctrines_cost_influence_hint"
+      text="Se ativado, adquirir doutrinas custará influência." />
+    <string
+      id="ret_mcm_option_doctrines_cost_money"
+      text="Doutrinas Custam Dinheiro" />
+    <string
+      id="ret_mcm_option_doctrines_cost_money_hint"
+      text="Se ativado, adquirir doutrinas custará dinheiro." />
+    <string
       id="ret_mcm_option_editing_restriction"
       text="Restrições de Localização" />
     <string
@@ -847,6 +982,12 @@
     <string
       id="ret_mcm_option_enable_equipment_costs_money_hint"
       text="Se ativado, equipar tropas custará dinheiro. Também ativa o sistema de estoques." />
+    <string
+      id="ret_mcm_option_enable_feat_requirements"
+      text="Ativar Requisitos de Feitos" />
+    <string
+      id="ret_mcm_option_enable_feat_requirements_hint"
+      text="Se ativado, as doutrinas exigem feitos específicos a serem realizados antes de serem adquiridas." />
     <string
       id="ret_mcm_option_enable_retinues"
       text="Ativar Retinues" />
@@ -925,6 +1066,12 @@
     <string
       id="ret_mcm_option_equipping_takes_time_hint"
       text="Se ativado, equipar tropas não será instantâneo e levará tempo para ser concluído." />
+    <string
+      id="ret_mcm_option_feat_complete_notification"
+      text="Notificação de Conclusão de Feito" />
+    <string
+      id="ret_mcm_option_feat_complete_notification_hint"
+      text="Determina o estilo de notificação quando feitos são concluídos." />
     <string
       id="ret_mcm_option_item_unlock_notification"
       text="Notificação de Desbloqueio de Item" />
@@ -1180,6 +1327,12 @@
     <string
       id="ret_no_valid_model_title_species"
       text="Nenhum Modelo Válido" />
+    <string
+      id="ret_notification_message"
+      text="Mensagem de Log" />
+    <string
+      id="ret_notification_popup"
+      text="Popup" />
     <string
       id="ret_preview_mode"
       text="Modo de Visualização" />

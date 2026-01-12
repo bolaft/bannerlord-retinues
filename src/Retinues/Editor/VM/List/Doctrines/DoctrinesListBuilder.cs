@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Retinues.Configuration;
 using Retinues.Editor.Controllers.Doctrines;
+using Retinues.Game.Doctrines;
 using Retinues.UI.Services;
 
 namespace Retinues.Editor.VM.List.Doctrines
@@ -37,34 +38,48 @@ namespace Retinues.Editor.VM.List.Doctrines
                 return;
             }
 
-            var categories = DoctrinesController.GetCategories();
+            var categories = DoctrinesCatalog.Categories;
             if (categories == null || categories.Count == 0)
             {
                 list.SetHeaders(headers);
                 return;
             }
 
-            foreach (var category in categories)
+            foreach (var kvp in categories)
             {
+                var category = kvp.Value;
                 if (category == null)
                     continue;
 
-                var header = new DoctrinesListHeader(list, category.Id, category.Name)
+                var header = new DoctrinesListHeader(
+                    list,
+                    category.Id,
+                    category.Name?.ToString() ?? string.Empty
+                )
                 {
                     IsExpanded = true,
                 };
 
                 var any = false;
 
-                if (category.Doctrines != null)
+                var ids = category.DoctrineIds;
+                if (ids != null)
                 {
-                    foreach (var doctrine in category.Doctrines)
+                    for (var i = 0; i < ids.Count; i++)
                     {
-                        if (doctrine == null)
+                        var doctrineId = ids[i];
+                        if (string.IsNullOrEmpty(doctrineId))
+                            continue;
+
+                        // Only add rows for doctrines that exist in the catalog.
+                        if (
+                            !DoctrinesCatalog.TryGetDoctrine(doctrineId, out DoctrineDefinition def)
+                            || def == null
+                        )
                             continue;
 
                         any = true;
-                        header.AddRow(new DoctrinesListRowVM(header, doctrine.Id));
+                        header.AddRow(new DoctrinesListRowVM(header, doctrineId));
                     }
                 }
 

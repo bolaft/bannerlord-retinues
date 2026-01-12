@@ -254,6 +254,120 @@
       id="ret_dependencies_version_mismatch_label"
       text="間違ったバージョン" />
     <string
+      id="ret_doctrine_acquire_already_acquired"
+      text="この教義はすでに取得されています。" />
+    <string
+      id="ret_doctrine_acquire_button"
+      text="取得" />
+    <string
+      id="ret_doctrine_acquire_confirm_desc_both"
+      text="{GOLD} デナリと {INF} の影響力で {NAME} を取得しますか？" />
+    <string
+      id="ret_doctrine_acquire_confirm_desc_free"
+      text="{NAME} を取得しますか？" />
+    <string
+      id="ret_doctrine_acquire_confirm_desc_gold"
+      text="{GOLD} デナリで {NAME} を取得しますか？" />
+    <string
+      id="ret_doctrine_acquire_confirm_desc_influence"
+      text="{INF} の影響力で {NAME} を取得しますか？" />
+    <string
+      id="ret_doctrine_acquire_confirm_title"
+      text="教義を取得" />
+    <string
+      id="ret_doctrine_acquire_failed"
+      text="教義を取得できません。" />
+    <string
+      id="ret_doctrine_acquire_unavailable"
+      text="この教義はまだロックされています。" />
+    <string
+      id="ret_doctrine_acquired_msg"
+      text="取得した教義: {NAME}。" />
+    <string
+      id="ret_doctrine_acquired_text"
+      text="取得済み" />
+    <string
+      id="ret_doctrine_cost_text_both"
+      text="{GOLD} デナール、{INFLUENCE} インフルエンスが必要" />
+    <string
+      id="ret_doctrine_cost_text_gold"
+      text="{GOLD} デナールが必要" />
+    <string
+      id="ret_doctrine_cost_text_influence"
+      text="{INFLUENCE} インフルエンスが必要" />
+    <string
+      id="ret_doctrine_description_header"
+      text="効果" />
+    <string
+      id="ret_doctrine_disabled"
+      text="教義は無効になっています。" />
+    <string
+      id="ret_doctrine_failed"
+      text="教義の取得に失敗しました。" />
+    <string
+      id="ret_doctrine_feat_completed"
+      text="完了" />
+    <string
+      id="ret_doctrine_feat_optional"
+      text="オプション" />
+    <string
+      id="ret_doctrine_feat_progress_tooltip_completed"
+      text="この偉業を完了しました。" />
+    <string
+      id="ret_doctrine_feat_progress_tooltip_incomplete"
+      text="この偉業はまだ完了していません。" />
+    <string
+      id="ret_doctrine_feat_progress_tooltip_repeatable"
+      text="この偉業は繰り返し可能です。複数回完了できます。" />
+    <string
+      id="ret_doctrine_feat_required"
+      text="必須" />
+    <string
+      id="ret_doctrine_feats_header"
+      text="偉業" />
+    <string
+      id="ret_doctrine_missing_feats"
+      text="必要な偉業が完了していません。" />
+    <string
+      id="ret_doctrine_not_enough_gold_desc"
+      text="この教義を解除するには、{COST} デナールが必要です。" />
+    <string
+      id="ret_doctrine_not_enough_gold_title"
+      text="資金不足" />
+    <string
+      id="ret_doctrine_not_enough_influence_desc"
+      text="この教義を解除するには、{COST} インフルエンスが必要です。" />
+    <string
+      id="ret_doctrine_not_enough_influence_title"
+      text="影響力不足" />
+    <string
+      id="ret_doctrine_not_found"
+      text="教義が見つかりません。" />
+    <string
+      id="ret_doctrine_not_ready"
+      text="教義は取得する準備ができていません。" />
+    <string
+      id="ret_doctrine_progress_text"
+      text="進捗：{PROGRESS}%" />
+    <string
+      id="ret_doctrine_select_reason"
+      text="最初に教義を選択してください。" />
+    <string
+      id="ret_doctrine_state_acquired"
+      text="取得済み" />
+    <string
+      id="ret_doctrine_state_in_progress"
+      text="進行中" />
+    <string
+      id="ret_doctrine_state_locked"
+      text="ロック済み" />
+    <string
+      id="ret_doctrine_state_unlocked"
+      text="アンロック済み" />
+    <string
+      id="ret_doctrines_disabled"
+      text="教義は無効になっています。" />
+    <string
       id="ret_editing_restriction_in_fief"
       text="派閥の領地" />
     <string
@@ -419,6 +533,9 @@
       id="ret_faction_type_kingdom"
       text="王国" />
     <string
+      id="ret_feat_complete_title"
+      text="偉業達成" />
+    <string
       id="ret_filter_label"
       text="フィルター：" />
     <string
@@ -514,12 +631,6 @@
     <string
       id="ret_invalid_name_title"
       text="無効な名前" />
-    <string
-      id="ret_item_unlock_notification_message"
-      text="ログメッセージ" />
-    <string
-      id="ret_item_unlock_notification_popup"
-      text="ポップアップ" />
     <string
       id="ret_item_unlock_scoreboard_line"
       text="アイテムがアンロックされました: {ITEM}。" />
@@ -827,6 +938,30 @@
       id="ret_mcm_option_default_unlocked_item_max_tier_hint"
       text="ゲーム開始時にアンロックされるアイテムの最大ティア。" />
     <string
+      id="ret_mcm_option_doctrine_influence_cost_multiplier"
+      text="ドクトリン影響力コスト乗数" />
+    <string
+      id="ret_mcm_option_doctrine_influence_cost_multiplier_hint"
+      text="ドクトリンの取得にかかる影響力コストに影響する乗数。" />
+    <string
+      id="ret_mcm_option_doctrine_money_cost_multiplier"
+      text="ドクトリン金銭コスト乗数" />
+    <string
+      id="ret_mcm_option_doctrine_money_cost_multiplier_hint"
+      text="ドクトリンの取得にかかる金銭コストに影響する乗数。" />
+    <string
+      id="ret_mcm_option_doctrines_cost_influence"
+      text="ドクトリンは影響力を消費する" />
+    <string
+      id="ret_mcm_option_doctrines_cost_influence_hint"
+      text="有効にすると、ドクトリンの取得に影響力が必要になります。" />
+    <string
+      id="ret_mcm_option_doctrines_cost_money"
+      text="ドクトリンは金銭を消費する" />
+    <string
+      id="ret_mcm_option_doctrines_cost_money_hint"
+      text="有効にすると、ドクトリンの取得に金銭が必要になります。" />
+    <string
       id="ret_mcm_option_editing_restriction"
       text="場所の制限" />
     <string
@@ -847,6 +982,12 @@
     <string
       id="ret_mcm_option_enable_equipment_costs_money_hint"
       text="有効にすると、部隊の装備にお金がかかります。また、在庫システムも有効になります。" />
+    <string
+      id="ret_mcm_option_enable_feat_requirements"
+      text="偉業の要件を有効にする" />
+    <string
+      id="ret_mcm_option_enable_feat_requirements_hint"
+      text="有効にすると、ドクトリンを取得する前に特定の偉業を達成する必要があります。" />
     <string
       id="ret_mcm_option_enable_retinues"
       text="リティニュースを有効にする" />
@@ -925,6 +1066,12 @@
     <string
       id="ret_mcm_option_equipping_takes_time_hint"
       text="有効にすると、部隊の装備は即座には完了せず、完了するまでに時間がかかります。" />
+    <string
+      id="ret_mcm_option_feat_complete_notification"
+      text="偉業完了通知" />
+    <string
+      id="ret_mcm_option_feat_complete_notification_hint"
+      text="偉業が完了したときの通知スタイルを決定します。" />
     <string
       id="ret_mcm_option_item_unlock_notification"
       text="アイテムアンロック通知" />
@@ -1180,6 +1327,12 @@
     <string
       id="ret_no_valid_model_title_species"
       text="有効なモデルがありません" />
+    <string
+      id="ret_notification_message"
+      text="ログメッセージ" />
+    <string
+      id="ret_notification_popup"
+      text="ポップアップ" />
     <string
       id="ret_preview_mode"
       text="プレビューモード" />

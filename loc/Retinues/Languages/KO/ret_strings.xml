@@ -254,6 +254,120 @@
       id="ret_dependencies_version_mismatch_label"
       text="잘못된 버전" />
     <string
+      id="ret_doctrine_acquire_already_acquired"
+      text="이 교리는 이미 획득되었습니다." />
+    <string
+      id="ret_doctrine_acquire_button"
+      text="획득" />
+    <string
+      id="ret_doctrine_acquire_confirm_desc_both"
+      text="{GOLD} 데나르와 {INF} 영향력으로 {NAME} 획득?" />
+    <string
+      id="ret_doctrine_acquire_confirm_desc_free"
+      text="{NAME} 획득?" />
+    <string
+      id="ret_doctrine_acquire_confirm_desc_gold"
+      text="{GOLD} 데나르로 {NAME} 획득?" />
+    <string
+      id="ret_doctrine_acquire_confirm_desc_influence"
+      text="{INF} 영향력으로 {NAME} 획득?" />
+    <string
+      id="ret_doctrine_acquire_confirm_title"
+      text="교리 획득" />
+    <string
+      id="ret_doctrine_acquire_failed"
+      text="교리를 획득할 수 없습니다." />
+    <string
+      id="ret_doctrine_acquire_unavailable"
+      text="이 교리는 아직 잠겨 있습니다." />
+    <string
+      id="ret_doctrine_acquired_msg"
+      text="획득한 교리: {NAME}." />
+    <string
+      id="ret_doctrine_acquired_text"
+      text="획득됨" />
+    <string
+      id="ret_doctrine_cost_text_both"
+      text="{GOLD} 데나르, {INFLUENCE} 영향력 필요" />
+    <string
+      id="ret_doctrine_cost_text_gold"
+      text="{GOLD} 데나르 필요" />
+    <string
+      id="ret_doctrine_cost_text_influence"
+      text="{INFLUENCE} 영향력 필요" />
+    <string
+      id="ret_doctrine_description_header"
+      text="효과" />
+    <string
+      id="ret_doctrine_disabled"
+      text="교리가 비활성화되었습니다." />
+    <string
+      id="ret_doctrine_failed"
+      text="교리 획득에 실패했습니다." />
+    <string
+      id="ret_doctrine_feat_completed"
+      text="완료됨" />
+    <string
+      id="ret_doctrine_feat_optional"
+      text="선택 사항" />
+    <string
+      id="ret_doctrine_feat_progress_tooltip_completed"
+      text="이 위업을 완료했습니다." />
+    <string
+      id="ret_doctrine_feat_progress_tooltip_incomplete"
+      text="이 위업을 아직 완료하지 않았습니다." />
+    <string
+      id="ret_doctrine_feat_progress_tooltip_repeatable"
+      text="이 위업은 반복할 수 있습니다. 여러 번 완료할 수 있습니다." />
+    <string
+      id="ret_doctrine_feat_required"
+      text="필수" />
+    <string
+      id="ret_doctrine_feats_header"
+      text="위업" />
+    <string
+      id="ret_doctrine_missing_feats"
+      text="필요한 위업이 완료되지 않았습니다." />
+    <string
+      id="ret_doctrine_not_enough_gold_desc"
+      text="이 교리를 잠금 해제하려면 {COST} 데나르가 필요합니다." />
+    <string
+      id="ret_doctrine_not_enough_gold_title"
+      text="돈이 부족합니다" />
+    <string
+      id="ret_doctrine_not_enough_influence_desc"
+      text="이 교리를 잠금 해제하려면 {COST} 영향력이 필요합니다." />
+    <string
+      id="ret_doctrine_not_enough_influence_title"
+      text="영향력이 부족합니다" />
+    <string
+      id="ret_doctrine_not_found"
+      text="교리를 찾을 수 없습니다." />
+    <string
+      id="ret_doctrine_not_ready"
+      text="교리를 획득할 준비가 되지 않았습니다." />
+    <string
+      id="ret_doctrine_progress_text"
+      text="진행률: {PROGRESS}%" />
+    <string
+      id="ret_doctrine_select_reason"
+      text="먼저 교리를 선택하세요." />
+    <string
+      id="ret_doctrine_state_acquired"
+      text="획득됨" />
+    <string
+      id="ret_doctrine_state_in_progress"
+      text="진행 중" />
+    <string
+      id="ret_doctrine_state_locked"
+      text="잠김" />
+    <string
+      id="ret_doctrine_state_unlocked"
+      text="잠금 해제됨" />
+    <string
+      id="ret_doctrines_disabled"
+      text="교리가 비활성화되었습니다." />
+    <string
       id="ret_editing_restriction_in_fief"
       text="진영 영지" />
     <string
@@ -419,6 +533,9 @@
       id="ret_faction_type_kingdom"
       text="왕국" />
     <string
+      id="ret_feat_complete_title"
+      text="위업 완료" />
+    <string
       id="ret_filter_label"
       text="필터:" />
     <string
@@ -514,12 +631,6 @@
     <string
       id="ret_invalid_name_title"
       text="잘못된 이름" />
-    <string
-      id="ret_item_unlock_notification_message"
-      text="로그 메시지" />
-    <string
-      id="ret_item_unlock_notification_popup"
-      text="팝업" />
     <string
       id="ret_item_unlock_scoreboard_line"
       text="아이템 잠금 해제: {ITEM}." />
@@ -827,6 +938,30 @@
       id="ret_mcm_option_default_unlocked_item_max_tier_hint"
       text="게임 시작 시 잠금 해제되는 아이템의 최대 등급입니다." />
     <string
+      id="ret_mcm_option_doctrine_influence_cost_multiplier"
+      text="교리 영향력 비용 배수" />
+    <string
+      id="ret_mcm_option_doctrine_influence_cost_multiplier_hint"
+      text="교리를 획득하는 데 드는 영향력 비용에 영향을 미치는 배수입니다." />
+    <string
+      id="ret_mcm_option_doctrine_money_cost_multiplier"
+      text="교리 금전 비용 배수" />
+    <string
+      id="ret_mcm_option_doctrine_money_cost_multiplier_hint"
+      text="교리를 획득하는 데 드는 금전 비용에 영향을 미치는 배수입니다." />
+    <string
+      id="ret_mcm_option_doctrines_cost_influence"
+      text="교리는 영향력을 소모합니다" />
+    <string
+      id="ret_mcm_option_doctrines_cost_influence_hint"
+      text="활성화된 경우 교리를 획득하는 데 영향력이 필요합니다." />
+    <string
+      id="ret_mcm_option_doctrines_cost_money"
+      text="교리는 금전을 소모합니다" />
+    <string
+      id="ret_mcm_option_doctrines_cost_money_hint"
+      text="활성화된 경우 교리를 획득하는 데 금전이 필요합니다." />
+    <string
       id="ret_mcm_option_editing_restriction"
       text="위치 제한" />
     <string
@@ -847,6 +982,12 @@
     <string
       id="ret_mcm_option_enable_equipment_costs_money_hint"
       text="활성화되면 부대 장비에 비용이 듭니다. 재고 시스템도 활성화됩니다." />
+    <string
+      id="ret_mcm_option_enable_feat_requirements"
+      text="위업 요구 사항 활성화" />
+    <string
+      id="ret_mcm_option_enable_feat_requirements_hint"
+      text="활성화되면 교리를 획득하기 전에 특정 위업을 완료해야 합니다." />
     <string
       id="ret_mcm_option_enable_retinues"
       text="Retinues 활성화" />
@@ -925,6 +1066,12 @@
     <string
       id="ret_mcm_option_equipping_takes_time_hint"
       text="활성화되면 부대를 장비하는 것이 즉각적이지 않으며 완료하는 데 시간이 걸립니다." />
+    <string
+      id="ret_mcm_option_feat_complete_notification"
+      text="위업 완료 알림" />
+    <string
+      id="ret_mcm_option_feat_complete_notification_hint"
+      text="위업이 완료될 때 알림 스타일을 결정합니다." />
     <string
       id="ret_mcm_option_item_unlock_notification"
       text="아이템 잠금 해제 알림" />
@@ -1180,6 +1327,12 @@
     <string
       id="ret_no_valid_model_title_species"
       text="유효한 모델 없음" />
+    <string
+      id="ret_notification_message"
+      text="로그 메시지" />
+    <string
+      id="ret_notification_popup"
+      text="팝업" />
     <string
       id="ret_preview_mode"
       text="미리보기 모드" />

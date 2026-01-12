@@ -254,6 +254,120 @@
       id="ret_dependencies_version_mismatch_label"
       text="Неправильная версия" />
     <string
+      id="ret_doctrine_acquire_already_acquired"
+      text="Эта доктрина уже была приобретена." />
+    <string
+      id="ret_doctrine_acquire_button"
+      text="Приобрести" />
+    <string
+      id="ret_doctrine_acquire_confirm_desc_both"
+      text="Приобрести {NAME} за {GOLD} денаров и {INF} влияния?" />
+    <string
+      id="ret_doctrine_acquire_confirm_desc_free"
+      text="Приобрести {NAME}?" />
+    <string
+      id="ret_doctrine_acquire_confirm_desc_gold"
+      text="Приобрести {NAME} за {GOLD} денаров?" />
+    <string
+      id="ret_doctrine_acquire_confirm_desc_influence"
+      text="Приобрести {NAME} за {INF} влияния?" />
+    <string
+      id="ret_doctrine_acquire_confirm_title"
+      text="Приобрести доктрину" />
+    <string
+      id="ret_doctrine_acquire_failed"
+      text="Невозможно приобрести доктрину." />
+    <string
+      id="ret_doctrine_acquire_unavailable"
+      text="Эта доктрина все еще заблокирована." />
+    <string
+      id="ret_doctrine_acquired_msg"
+      text="Приобретенная доктрина: {NAME}." />
+    <string
+      id="ret_doctrine_acquired_text"
+      text="ПРИОБРЕТЕНО" />
+    <string
+      id="ret_doctrine_cost_text_both"
+      text="Стоимость {GOLD} денаров, {INFLUENCE} влияния" />
+    <string
+      id="ret_doctrine_cost_text_gold"
+      text="Стоимость {GOLD} денаров" />
+    <string
+      id="ret_doctrine_cost_text_influence"
+      text="Стоимость {INFLUENCE} влияния" />
+    <string
+      id="ret_doctrine_description_header"
+      text="Эффекты" />
+    <string
+      id="ret_doctrine_disabled"
+      text="Доктрины отключены." />
+    <string
+      id="ret_doctrine_failed"
+      text="Не удалось приобрести доктрину." />
+    <string
+      id="ret_doctrine_feat_completed"
+      text="Завершено" />
+    <string
+      id="ret_doctrine_feat_optional"
+      text="Необязательно" />
+    <string
+      id="ret_doctrine_feat_progress_tooltip_completed"
+      text="Вы завершили этот подвиг." />
+    <string
+      id="ret_doctrine_feat_progress_tooltip_incomplete"
+      text="Вы еще не завершили этот подвиг." />
+    <string
+      id="ret_doctrine_feat_progress_tooltip_repeatable"
+      text="Этот подвиг можно повторять. Вы можете завершать его несколько раз." />
+    <string
+      id="ret_doctrine_feat_required"
+      text="Требуется" />
+    <string
+      id="ret_doctrine_feats_header"
+      text="Подвиги" />
+    <string
+      id="ret_doctrine_missing_feats"
+      text="Требуемые подвиги не были выполнены." />
+    <string
+      id="ret_doctrine_not_enough_gold_desc"
+      text="Вам нужно {COST} денариев, чтобы разблокировать эту доктрину." />
+    <string
+      id="ret_doctrine_not_enough_gold_title"
+      text="Недостаточно денег" />
+    <string
+      id="ret_doctrine_not_enough_influence_desc"
+      text="Вам нужно {COST} влияния, чтобы разблокировать эту доктрину." />
+    <string
+      id="ret_doctrine_not_enough_influence_title"
+      text="Недостаточно влияния" />
+    <string
+      id="ret_doctrine_not_found"
+      text="Доктрина не найдена." />
+    <string
+      id="ret_doctrine_not_ready"
+      text="Доктрина не готова к приобретению." />
+    <string
+      id="ret_doctrine_progress_text"
+      text="Прогресс: {PROGRESS}%" />
+    <string
+      id="ret_doctrine_select_reason"
+      text="Сначала выберите доктрину." />
+    <string
+      id="ret_doctrine_state_acquired"
+      text="Приобретено" />
+    <string
+      id="ret_doctrine_state_in_progress"
+      text="В процессе" />
+    <string
+      id="ret_doctrine_state_locked"
+      text="Заблокировано" />
+    <string
+      id="ret_doctrine_state_unlocked"
+      text="Разблокировано" />
+    <string
+      id="ret_doctrines_disabled"
+      text="Доктрины отключены." />
+    <string
       id="ret_editing_restriction_in_fief"
       text="Фьеф фракции" />
     <string
@@ -419,6 +533,9 @@
       id="ret_faction_type_kingdom"
       text="королевство" />
     <string
+      id="ret_feat_complete_title"
+      text="Подвиг завершен" />
+    <string
       id="ret_filter_label"
       text="Фильтр:" />
     <string
@@ -514,12 +631,6 @@
     <string
       id="ret_invalid_name_title"
       text="Недопустимое имя" />
-    <string
-      id="ret_item_unlock_notification_message"
-      text="Сообщение журнала" />
-    <string
-      id="ret_item_unlock_notification_popup"
-      text="Всплывающее окно" />
     <string
       id="ret_item_unlock_scoreboard_line"
       text="Предмет разблокирован: {ITEM}." />
@@ -827,6 +938,30 @@
       id="ret_mcm_option_default_unlocked_item_max_tier_hint"
       text="Максимальный уровень предметов, разблокированных при начале игры." />
     <string
+      id="ret_mcm_option_doctrine_influence_cost_multiplier"
+      text="Множитель стоимости влияния доктрины" />
+    <string
+      id="ret_mcm_option_doctrine_influence_cost_multiplier_hint"
+      text="Множитель, влияющий на стоимость влияния при приобретении доктрин." />
+    <string
+      id="ret_mcm_option_doctrine_money_cost_multiplier"
+      text="Множитель денежной стоимости доктрины" />
+    <string
+      id="ret_mcm_option_doctrine_money_cost_multiplier_hint"
+      text="Множитель, влияющий на денежную стоимость при приобретении доктрин." />
+    <string
+      id="ret_mcm_option_doctrines_cost_influence"
+      text="Доктрины требуют влияния" />
+    <string
+      id="ret_mcm_option_doctrines_cost_influence_hint"
+      text="Если включено, приобретение доктрин будет стоить влияния." />
+    <string
+      id="ret_mcm_option_doctrines_cost_money"
+      text="Доктрины требуют денег" />
+    <string
+      id="ret_mcm_option_doctrines_cost_money_hint"
+      text="Если включено, приобретение доктрин будет стоить денег." />
+    <string
       id="ret_mcm_option_editing_restriction"
       text="Ограничения по местоположению" />
     <string
@@ -847,6 +982,12 @@
     <string
       id="ret_mcm_option_enable_equipment_costs_money_hint"
       text="Если включено, экипировка войск будет стоить денег. Также включает систему запасов." />
+    <string
+      id="ret_mcm_option_enable_feat_requirements"
+      text="Включить требования к подвигам" />
+    <string
+      id="ret_mcm_option_enable_feat_requirements_hint"
+      text="Если включено, для приобретения доктрин требуется выполнение определенных подвигов." />
     <string
       id="ret_mcm_option_enable_retinues"
       text="Включить Retinues" />
@@ -925,6 +1066,12 @@
     <string
       id="ret_mcm_option_equipping_takes_time_hint"
       text="Если включено, экипировка войск не будет мгновенной и займет время для завершения." />
+    <string
+      id="ret_mcm_option_feat_complete_notification"
+      text="Уведомление о завершении подвига" />
+    <string
+      id="ret_mcm_option_feat_complete_notification_hint"
+      text="Определяет стиль уведомления при завершении подвигов." />
     <string
       id="ret_mcm_option_item_unlock_notification"
       text="Уведомление о разблокировке предмета" />
@@ -1180,6 +1327,12 @@
     <string
       id="ret_no_valid_model_title_species"
       text="Нет действительной модели" />
+    <string
+      id="ret_notification_message"
+      text="Сообщение журнала" />
+    <string
+      id="ret_notification_popup"
+      text="Всплывающее окно" />
     <string
       id="ret_preview_mode"
       text="Режим предварительного просмотра" />

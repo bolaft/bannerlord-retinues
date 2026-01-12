@@ -254,6 +254,120 @@
       id="ret_dependencies_version_mismatch_label"
       text="Mauvaise version" />
     <string
+      id="ret_doctrine_acquire_already_acquired"
+      text="Cette doctrine a déjà été acquise." />
+    <string
+      id="ret_doctrine_acquire_button"
+      text="Acquérir" />
+    <string
+      id="ret_doctrine_acquire_confirm_desc_both"
+      text="Acquérir {NAME} pour {GOLD} dinars et {INF} d&apos;influence ?" />
+    <string
+      id="ret_doctrine_acquire_confirm_desc_free"
+      text="Acquérir {NAME} ?" />
+    <string
+      id="ret_doctrine_acquire_confirm_desc_gold"
+      text="Acquérir {NAME} pour {GOLD} dinars ?" />
+    <string
+      id="ret_doctrine_acquire_confirm_desc_influence"
+      text="Acquérir {NAME} pour {INF} d&apos;influence ?" />
+    <string
+      id="ret_doctrine_acquire_confirm_title"
+      text="Acquérir la doctrine" />
+    <string
+      id="ret_doctrine_acquire_failed"
+      text="Impossible d&apos;acquérir la doctrine." />
+    <string
+      id="ret_doctrine_acquire_unavailable"
+      text="Cette doctrine est toujours verrouillée." />
+    <string
+      id="ret_doctrine_acquired_msg"
+      text="Doctrine acquise : {NAME}." />
+    <string
+      id="ret_doctrine_acquired_text"
+      text="ACQUIS" />
+    <string
+      id="ret_doctrine_cost_text_both"
+      text="Coûte {GOLD} dinars, {INFLUENCE} influence" />
+    <string
+      id="ret_doctrine_cost_text_gold"
+      text="Coûte {GOLD} dinars" />
+    <string
+      id="ret_doctrine_cost_text_influence"
+      text="Coûte {INFLUENCE} influence" />
+    <string
+      id="ret_doctrine_description_header"
+      text="Effets" />
+    <string
+      id="ret_doctrine_disabled"
+      text="Les doctrines sont désactivées." />
+    <string
+      id="ret_doctrine_failed"
+      text="Échec de l&apos;acquisition de la doctrine." />
+    <string
+      id="ret_doctrine_feat_completed"
+      text="Terminé" />
+    <string
+      id="ret_doctrine_feat_optional"
+      text="Optionnel" />
+    <string
+      id="ret_doctrine_feat_progress_tooltip_completed"
+      text="Vous avez accompli cet exploit." />
+    <string
+      id="ret_doctrine_feat_progress_tooltip_incomplete"
+      text="Vous n&apos;avez pas encore accompli cet exploit." />
+    <string
+      id="ret_doctrine_feat_progress_tooltip_repeatable"
+      text="Cet exploit est répétable. Vous pouvez le réaliser plusieurs fois." />
+    <string
+      id="ret_doctrine_feat_required"
+      text="Requis" />
+    <string
+      id="ret_doctrine_feats_header"
+      text="Exploits" />
+    <string
+      id="ret_doctrine_missing_feats"
+      text="Les exploits requis n&apos;ont pas été accomplis." />
+    <string
+      id="ret_doctrine_not_enough_gold_desc"
+      text="Vous avez besoin de {COST} dinars pour débloquer cette doctrine." />
+    <string
+      id="ret_doctrine_not_enough_gold_title"
+      text="Pas assez d&apos;argent" />
+    <string
+      id="ret_doctrine_not_enough_influence_desc"
+      text="Vous avez besoin de {COST} influence pour débloquer cette doctrine." />
+    <string
+      id="ret_doctrine_not_enough_influence_title"
+      text="Pas assez d&apos;influence" />
+    <string
+      id="ret_doctrine_not_found"
+      text="Doctrine introuvable." />
+    <string
+      id="ret_doctrine_not_ready"
+      text="La doctrine n&apos;est pas prête à être acquise." />
+    <string
+      id="ret_doctrine_progress_text"
+      text="Progrès : {PROGRESS}%" />
+    <string
+      id="ret_doctrine_select_reason"
+      text="Sélectionnez d&apos;abord une doctrine." />
+    <string
+      id="ret_doctrine_state_acquired"
+      text="Acquis" />
+    <string
+      id="ret_doctrine_state_in_progress"
+      text="En cours" />
+    <string
+      id="ret_doctrine_state_locked"
+      text="Verrouillé" />
+    <string
+      id="ret_doctrine_state_unlocked"
+      text="Déverrouillé" />
+    <string
+      id="ret_doctrines_disabled"
+      text="Les doctrines sont désactivées." />
+    <string
       id="ret_editing_restriction_in_fief"
       text="Fief de faction" />
     <string
@@ -419,6 +533,9 @@
       id="ret_faction_type_kingdom"
       text="royaume" />
     <string
+      id="ret_feat_complete_title"
+      text="Exploit accompli" />
+    <string
       id="ret_filter_label"
       text="Filtre :" />
     <string
@@ -514,12 +631,6 @@
     <string
       id="ret_invalid_name_title"
       text="Nom invalide" />
-    <string
-      id="ret_item_unlock_notification_message"
-      text="Message de log" />
-    <string
-      id="ret_item_unlock_notification_popup"
-      text="Popup" />
     <string
       id="ret_item_unlock_scoreboard_line"
       text="Objet déverrouillé : {ITEM}." />
@@ -827,6 +938,30 @@
       id="ret_mcm_option_default_unlocked_item_max_tier_hint"
       text="Le niveau maximum des objets déverrouillés au début du jeu." />
     <string
+      id="ret_mcm_option_doctrine_influence_cost_multiplier"
+      text="Multiplicateur du coût en influence des doctrines" />
+    <string
+      id="ret_mcm_option_doctrine_influence_cost_multiplier_hint"
+      text="Multiplicateur affectant le coût en influence de l&apos;acquisition des doctrines." />
+    <string
+      id="ret_mcm_option_doctrine_money_cost_multiplier"
+      text="Multiplicateur du coût en argent des doctrines" />
+    <string
+      id="ret_mcm_option_doctrine_money_cost_multiplier_hint"
+      text="Multiplicateur affectant le coût en argent de l&apos;acquisition des doctrines." />
+    <string
+      id="ret_mcm_option_doctrines_cost_influence"
+      text="Les doctrines coûtent de l&apos;influence" />
+    <string
+      id="ret_mcm_option_doctrines_cost_influence_hint"
+      text="Si activé, l&apos;acquisition des doctrines coûtera de l&apos;influence." />
+    <string
+      id="ret_mcm_option_doctrines_cost_money"
+      text="Les doctrines coûtent de l&apos;argent" />
+    <string
+      id="ret_mcm_option_doctrines_cost_money_hint"
+      text="Si activé, l&apos;acquisition des doctrines coûtera de l&apos;argent." />
+    <string
       id="ret_mcm_option_editing_restriction"
       text="Restrictions de Localisation" />
     <string
@@ -847,6 +982,12 @@
     <string
       id="ret_mcm_option_enable_equipment_costs_money_hint"
       text="Si activé, l&apos;équipement des troupes coûtera de l&apos;argent. Active également le système de stocks." />
+    <string
+      id="ret_mcm_option_enable_feat_requirements"
+      text="Activer les exigences d&apos;exploits" />
+    <string
+      id="ret_mcm_option_enable_feat_requirements_hint"
+      text="Si activé, les doctrines nécessitent des exploits spécifiques à accomplir avant de pouvoir être acquises." />
     <string
       id="ret_mcm_option_enable_retinues"
       text="Activer les Rétinues" />
@@ -925,6 +1066,12 @@
     <string
       id="ret_mcm_option_equipping_takes_time_hint"
       text="Si activé, l&apos;équipement des troupes ne sera pas instantané et prendra du temps à être terminé." />
+    <string
+      id="ret_mcm_option_feat_complete_notification"
+      text="Notification d&apos;Accomplissement d&apos;Exploit" />
+    <string
+      id="ret_mcm_option_feat_complete_notification_hint"
+      text="Détermine le style de notification lorsque des exploits sont accomplis." />
     <string
       id="ret_mcm_option_item_unlock_notification"
       text="Notification de Déverrouillage d&apos;Objet" />
@@ -1180,6 +1327,12 @@
     <string
       id="ret_no_valid_model_title_species"
       text="Aucun modèle valide" />
+    <string
+      id="ret_notification_message"
+      text="Message de log" />
+    <string
+      id="ret_notification_popup"
+      text="Popup" />
     <string
       id="ret_preview_mode"
       text="Mode Aperçu" />

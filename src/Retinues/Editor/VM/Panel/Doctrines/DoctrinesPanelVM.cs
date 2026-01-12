@@ -1,6 +1,8 @@
 using System.Diagnostics.Tracing;
+using Retinues.Configuration;
 using Retinues.Editor.Controllers.Doctrines;
 using Retinues.Editor.Events;
+using Retinues.Game.Doctrines;
 using Retinues.UI.Services;
 using Retinues.UI.VM;
 using TaleWorlds.Library;
@@ -33,12 +35,26 @@ namespace Retinues.Editor.VM.Panel.Doctrines
         //                        Selection                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private DoctrinesController.DoctrineInfo Selected =>
-            DoctrinesController.GetDoctrineInfo(State.DoctrineId);
+        private DoctrineDefinition Selected
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(State.DoctrineId))
+                    return null;
+
+                return DoctrinesCatalog.TryGetDoctrine(State.DoctrineId, out var d) ? d : null;
+            }
+        }
+
+        private DoctrineState SelectedState =>
+            Selected == null ? DoctrineState.Locked : DoctrinesAPI.GetState(Selected.Id);
+
+        private int SelectedProgress =>
+            Selected == null ? 0 : DoctrinesAPI.GetProgress(Selected.Id);
 
         [EventListener(UIEvent.Doctrine)]
         [DataSourceProperty]
-        public bool HasSelection => !string.IsNullOrEmpty(State.DoctrineId) && Selected != null;
+        public bool HasSelection => Selected != null;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Texts                         //
@@ -46,14 +62,14 @@ namespace Retinues.Editor.VM.Panel.Doctrines
 
         [EventListener(UIEvent.Doctrine)]
         [DataSourceProperty]
-        public string NameText => Selected?.Name ?? string.Empty;
+        public string NameText => Selected?.Name?.ToString() ?? string.Empty;
 
         [DataSourceProperty]
         public string DescriptionHeaderText => L.S("doctrine_description_header", "Effects");
 
         [EventListener(UIEvent.Doctrine)]
         [DataSourceProperty]
-        public string DescriptionText => Selected?.Description ?? string.Empty;
+        public string DescriptionText => Selected?.Description?.ToString() ?? string.Empty;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Progress                        //
@@ -61,28 +77,61 @@ namespace Retinues.Editor.VM.Panel.Doctrines
 
         [EventListener(UIEvent.Doctrine)]
         [DataSourceProperty]
-        public bool ShowProgress => Selected != null && Selected.Target > 0;
+        public bool IsAcquired => SelectedState == DoctrineState.Acquired;
+
+        [DataSourceProperty]
+        public string AcquiredText => L.S("doctrine_acquired_text", "ACQUIRED");
 
         [EventListener(UIEvent.Doctrine)]
         [DataSourceProperty]
-        public string ProgressText =>
-            Selected == null
-                ? string.Empty
-                : L.T("doctrine_progress_text", "Progress: {PROGRESS}%")
-                    .SetTextVariable(
-                        "PROGRESS",
-                        DoctrinesController.GetProgressPercent(Selected.Progress, Selected.Target)
-                    )
+        public bool ShowProgress =>
+            Selected != null
+            && Selected.ProgressTarget > 0
+            && !IsAcquired
+            && Settings.EnableFeatRequirements;
+
+        [EventListener(UIEvent.Doctrine)]
+        [DataSourceProperty]
+        public string ProgressText
+        {
+            get
+            {
+                if (Selected == null)
+                    return string.Empty;
+
+                var pct = GetProgressPercent(SelectedProgress, Selected.ProgressTarget);
+
+                return L.T("doctrine_progress_text", "Progress: {PROGRESS}%")
+                    .SetTextVariable("PROGRESS", pct)
                     .ToString();
+            }
+        }
 
         [EventListener(UIEvent.Doctrine)]
         public string ProgressTextColor =>
-            Selected.State switch
+            SelectedState switch
             {
-                DoctrinesController.DoctrineState.Acquired => "#f3c785ff",
-                DoctrinesController.DoctrineState.Unlocked => "#f3c785ff",
-                _ => "#F4E1C4FF",
+                DoctrineState.Acquired => "#ebaa49ff",
+                DoctrineState.Unlocked => "#ebaa49ff",
+                _ => "#eec485ff",
             };
+
+        private static int GetProgressPercent(int progress, int target)
+        {
+            if (target <= 0)
+                return 0;
+
+            var p = progress < 0 ? 0 : progress;
+            var t = target < 1 ? 1 : target;
+
+            var v = (int)System.Math.Round(p * 100.0 / t);
+            if (v < 0)
+                return 0;
+            if (v > 100)
+                return 100;
+
+            return v;
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Costs                         //
@@ -90,13 +139,42 @@ namespace Retinues.Editor.VM.Panel.Doctrines
 
         [EventListener(UIEvent.Doctrine)]
         [DataSourceProperty]
-        public string CostsText =>
-            Selected == null
-                ? string.Empty
-                : L.T("doctrine_cost_text", "Costs {GOLD} denars, {INFLUENCE} influence")
-                    .SetTextVariable("GOLD", Selected.GoldCost)
-                    .SetTextVariable("INFLUENCE", Selected.InfluenceCost)
+        public string CostsText
+        {
+            get
+            {
+                if (Selected == null)
+                    return string.Empty;
+
+                var gold = DoctrinesController.GetGoldCost(Selected);
+                var inf = DoctrinesController.GetInfluenceCost(Selected);
+
+                if (gold <= 0 && inf <= 0)
+                    return string.Empty;
+
+                if (gold > 0 && inf > 0)
+                {
+                    return L.T(
+                            "doctrine_cost_text_both",
+                            "Costs {GOLD} denars, {INFLUENCE} influence"
+                        )
+                        .SetTextVariable("GOLD", gold)
+                        .SetTextVariable("INFLUENCE", inf)
+                        .ToString();
+                }
+
+                if (gold > 0)
+                {
+                    return L.T("doctrine_cost_text_gold", "Costs {GOLD} denars")
+                        .SetTextVariable("GOLD", gold)
+                        .ToString();
+                }
+
+                return L.T("doctrine_cost_text_influence", "Costs {INFLUENCE} influence")
+                    .SetTextVariable("INFLUENCE", inf)
                     .ToString();
+            }
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Feats                         //
@@ -121,13 +199,20 @@ namespace Retinues.Editor.VM.Panel.Doctrines
             var d = Selected;
             if (d?.Feats != null)
             {
-                for (var i = 0; i < d.Feats.Length; i++)
+                for (var i = 0; i < d.Feats.Count; i++)
                 {
-                    var f = d.Feats[i];
-                    if (f == null)
+                    var link = d.Feats[i];
+
+                    if (string.IsNullOrEmpty(link.FeatId))
                         continue;
 
-                    _feats.Add(new FeatVM(f));
+                    if (
+                        !DoctrinesCatalog.TryGetFeat(link.FeatId, out var featDef)
+                        || featDef == null
+                    )
+                        continue;
+
+                    _feats.Add(new FeatVM(link, featDef));
                 }
             }
 
@@ -145,7 +230,8 @@ namespace Retinues.Editor.VM.Panel.Doctrines
                 action: DoctrinesController.Acquire,
                 arg: () => State.DoctrineId,
                 refresh: [UIEvent.Doctrine],
-                label: L.S("doctrine_acquire_button", "Acquire")
+                label: L.S("doctrine_acquire_button", "Acquire"),
+                visibilityGate: () => !DoctrinesAPI.IsAcquired(State.DoctrineId)
             );
     }
 }

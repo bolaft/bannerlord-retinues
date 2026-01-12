@@ -86,12 +86,15 @@
         Text="{{ time_var }}" />
 {% endmacro %}
 
-{% macro icon_sprite(sprite_expr, sug_w=24, sug_h=24, margin_right=12, is_visible="true") %}
+{% macro icon_sprite(sprite_expr, color=null, sug_w=24, sug_h=24, margin_right=12, is_visible="true") %}
     <SpriteWidget
         WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
         SuggestedWidth="{{ sug_w }}" SuggestedHeight="{{ sug_h }}"
         MarginRight="{{ margin_right }}"
         VerticalAlignment="Center"
         Sprite="{{ sprite_expr }}"
+    {% if color is not none %}
+        Color="{{ color }}"
+    {% endif %}
         IsVisible="{{ is_visible }}" />
 {% endmacro %}

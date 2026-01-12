@@ -254,6 +254,120 @@
       id="ret_dependencies_version_mismatch_label"
       text="Zła wersja" />
     <string
+      id="ret_doctrine_acquire_already_acquired"
+      text="Ta doktryna została już nabyta." />
+    <string
+      id="ret_doctrine_acquire_button"
+      text="Nabyć" />
+    <string
+      id="ret_doctrine_acquire_confirm_desc_both"
+      text="Nabyć {NAME} za {GOLD} denarów i {INF} wpływu?" />
+    <string
+      id="ret_doctrine_acquire_confirm_desc_free"
+      text="Nabyć {NAME}?" />
+    <string
+      id="ret_doctrine_acquire_confirm_desc_gold"
+      text="Nabyć {NAME} za {GOLD} denarów?" />
+    <string
+      id="ret_doctrine_acquire_confirm_desc_influence"
+      text="Nabyć {NAME} za {INF} wpływu?" />
+    <string
+      id="ret_doctrine_acquire_confirm_title"
+      text="Nabyć doktrynę" />
+    <string
+      id="ret_doctrine_acquire_failed"
+      text="Nie można nabyć doktryny." />
+    <string
+      id="ret_doctrine_acquire_unavailable"
+      text="Ta doktryna jest nadal zablokowana." />
+    <string
+      id="ret_doctrine_acquired_msg"
+      text="Nabyta doktryna: {NAME}." />
+    <string
+      id="ret_doctrine_acquired_text"
+      text="NABYTO" />
+    <string
+      id="ret_doctrine_cost_text_both"
+      text="Kosztuje {GOLD} denarów, {INFLUENCE} wpływu" />
+    <string
+      id="ret_doctrine_cost_text_gold"
+      text="Kosztuje {GOLD} denarów" />
+    <string
+      id="ret_doctrine_cost_text_influence"
+      text="Kosztuje {INFLUENCE} wpływu" />
+    <string
+      id="ret_doctrine_description_header"
+      text="Efekty" />
+    <string
+      id="ret_doctrine_disabled"
+      text="Doktryny są wyłączone." />
+    <string
+      id="ret_doctrine_failed"
+      text="Nie udało się nabyć doktryny." />
+    <string
+      id="ret_doctrine_feat_completed"
+      text="Ukończone" />
+    <string
+      id="ret_doctrine_feat_optional"
+      text="Opcjonalne" />
+    <string
+      id="ret_doctrine_feat_progress_tooltip_completed"
+      text="Ukończyłeś ten wyczyn." />
+    <string
+      id="ret_doctrine_feat_progress_tooltip_incomplete"
+      text="Jeszcze nie ukończyłeś tego wyczynu." />
+    <string
+      id="ret_doctrine_feat_progress_tooltip_repeatable"
+      text="Ten wyczyn jest powtarzalny. Możesz go ukończyć wielokrotnie." />
+    <string
+      id="ret_doctrine_feat_required"
+      text="Wymagane" />
+    <string
+      id="ret_doctrine_feats_header"
+      text="Wyczyny" />
+    <string
+      id="ret_doctrine_missing_feats"
+      text="Wymagane wyczyny nie zostały ukończone." />
+    <string
+      id="ret_doctrine_not_enough_gold_desc"
+      text="Aby odblokować tę doktrynę, potrzebujesz {COST} denarów." />
+    <string
+      id="ret_doctrine_not_enough_gold_title"
+      text="Niewystarczająca ilość pieniędzy" />
+    <string
+      id="ret_doctrine_not_enough_influence_desc"
+      text="Aby odblokować tę doktrynę, potrzebujesz {COST} wpływu." />
+    <string
+      id="ret_doctrine_not_enough_influence_title"
+      text="Niewystarczająca ilość wpływu" />
+    <string
+      id="ret_doctrine_not_found"
+      text="Nie znaleziono doktryny." />
+    <string
+      id="ret_doctrine_not_ready"
+      text="Doktryna nie jest gotowa do nabycia." />
+    <string
+      id="ret_doctrine_progress_text"
+      text="Postęp: {PROGRESS}%" />
+    <string
+      id="ret_doctrine_select_reason"
+      text="Najpierw wybierz doktrynę." />
+    <string
+      id="ret_doctrine_state_acquired"
+      text="Nabyto" />
+    <string
+      id="ret_doctrine_state_in_progress"
+      text="W trakcie" />
+    <string
+      id="ret_doctrine_state_locked"
+      text="Zablokowane" />
+    <string
+      id="ret_doctrine_state_unlocked"
+      text="Odblokowane" />
+    <string
+      id="ret_doctrines_disabled"
+      text="Doktryny są wyłączone." />
+    <string
       id="ret_editing_restriction_in_fief"
       text="Lenno frakcji" />
     <string
@@ -419,6 +533,9 @@
       id="ret_faction_type_kingdom"
       text="królestwo" />
     <string
+      id="ret_feat_complete_title"
+      text="Wyczyn ukończony" />
+    <string
       id="ret_filter_label"
       text="Filtr:" />
     <string
@@ -514,12 +631,6 @@
     <string
       id="ret_invalid_name_title"
       text="Nieprawidłowa nazwa" />
-    <string
-      id="ret_item_unlock_notification_message"
-      text="Komunikat dziennika" />
-    <string
-      id="ret_item_unlock_notification_popup"
-      text="Popup" />
     <string
       id="ret_item_unlock_scoreboard_line"
       text="Przedmiot odblokowany: {ITEM}." />
@@ -827,6 +938,30 @@
       id="ret_mcm_option_default_unlocked_item_max_tier_hint"
       text="Maksymalny poziom przedmiotów odblokowanych na początku gry." />
     <string
+      id="ret_mcm_option_doctrine_influence_cost_multiplier"
+      text="Mnożnik kosztów wpływu doktryny" />
+    <string
+      id="ret_mcm_option_doctrine_influence_cost_multiplier_hint"
+      text="Mnożnik wpływający na koszt wpływu przy zdobywaniu doktryn." />
+    <string
+      id="ret_mcm_option_doctrine_money_cost_multiplier"
+      text="Mnożnik kosztów pieniężnych doktryny" />
+    <string
+      id="ret_mcm_option_doctrine_money_cost_multiplier_hint"
+      text="Mnożnik wpływający na koszt pieniężny przy zdobywaniu doktryn." />
+    <string
+      id="ret_mcm_option_doctrines_cost_influence"
+      text="Doktryny kosztują wpływy" />
+    <string
+      id="ret_mcm_option_doctrines_cost_influence_hint"
+      text="Jeśli włączone, zdobywanie doktryn będzie kosztować wpływy." />
+    <string
+      id="ret_mcm_option_doctrines_cost_money"
+      text="Doktryny kosztują pieniądze" />
+    <string
+      id="ret_mcm_option_doctrines_cost_money_hint"
+      text="Jeśli włączone, zdobywanie doktryn będzie kosztować pieniądze." />
+    <string
       id="ret_mcm_option_editing_restriction"
       text="Ograniczenia lokalizacji" />
     <string
@@ -847,6 +982,12 @@
     <string
       id="ret_mcm_option_enable_equipment_costs_money_hint"
       text="Jeśli włączone, wyposażenie oddziałów będzie kosztować pieniądze. Włącza również system zapasów." />
+    <string
+      id="ret_mcm_option_enable_feat_requirements"
+      text="Włącz wymagania dotyczące wyczynów" />
+    <string
+      id="ret_mcm_option_enable_feat_requirements_hint"
+      text="Jeśli włączone, doktryny wymagają spełnienia określonych wyczynów, zanim będą mogły zostać nabyte." />
     <string
       id="ret_mcm_option_enable_retinues"
       text="Włącz Retinues" />
@@ -925,6 +1066,12 @@
     <string
       id="ret_mcm_option_equipping_takes_time_hint"
       text="Jeśli włączone, wyposażenie oddziałów nie będzie natychmiastowe i zajmie trochę czasu, aby zostało ukończone." />
+    <string
+      id="ret_mcm_option_feat_complete_notification"
+      text="Powiadomienie o ukończeniu wyczynu" />
+    <string
+      id="ret_mcm_option_feat_complete_notification_hint"
+      text="Określa styl powiadomienia, gdy wyczyny zostaną ukończone." />
     <string
       id="ret_mcm_option_item_unlock_notification"
       text="Powiadomienie o odblokowaniu przedmiotu" />
@@ -1180,6 +1327,12 @@
     <string
       id="ret_no_valid_model_title_species"
       text="Brak prawidłowego modelu" />
+    <string
+      id="ret_notification_message"
+      text="Komunikat dziennika" />
+    <string
+      id="ret_notification_popup"
+      text="Popup" />
     <string
       id="ret_preview_mode"
       text="Tryb podglądu" />

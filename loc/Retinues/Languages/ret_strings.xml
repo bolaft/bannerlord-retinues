@@ -254,6 +254,120 @@
       id="ret_dependencies_version_mismatch_label"
       text="Wrong version" />
     <string
+      id="ret_doctrine_acquire_already_acquired"
+      text="This doctrine has already been acquired." />
+    <string
+      id="ret_doctrine_acquire_button"
+      text="Acquire" />
+    <string
+      id="ret_doctrine_acquire_confirm_desc_both"
+      text="Acquire {NAME} for {GOLD} denars and {INF} influence?" />
+    <string
+      id="ret_doctrine_acquire_confirm_desc_free"
+      text="Acquire {NAME}?" />
+    <string
+      id="ret_doctrine_acquire_confirm_desc_gold"
+      text="Acquire {NAME} for {GOLD} denars?" />
+    <string
+      id="ret_doctrine_acquire_confirm_desc_influence"
+      text="Acquire {NAME} for {INF} influence?" />
+    <string
+      id="ret_doctrine_acquire_confirm_title"
+      text="Acquire Doctrine" />
+    <string
+      id="ret_doctrine_acquire_failed"
+      text="Cannot acquire doctrine." />
+    <string
+      id="ret_doctrine_acquire_unavailable"
+      text="This doctrine is still locked." />
+    <string
+      id="ret_doctrine_acquired_msg"
+      text="Acquired doctrine: {NAME}." />
+    <string
+      id="ret_doctrine_acquired_text"
+      text="ACQUIRED" />
+    <string
+      id="ret_doctrine_cost_text_both"
+      text="Costs {GOLD} denars, {INFLUENCE} influence" />
+    <string
+      id="ret_doctrine_cost_text_gold"
+      text="Costs {GOLD} denars" />
+    <string
+      id="ret_doctrine_cost_text_influence"
+      text="Costs {INFLUENCE} influence" />
+    <string
+      id="ret_doctrine_description_header"
+      text="Effects" />
+    <string
+      id="ret_doctrine_disabled"
+      text="Doctrines are disabled." />
+    <string
+      id="ret_doctrine_failed"
+      text="Failed to acquire doctrine." />
+    <string
+      id="ret_doctrine_feat_completed"
+      text="Completed" />
+    <string
+      id="ret_doctrine_feat_optional"
+      text="Optional" />
+    <string
+      id="ret_doctrine_feat_progress_tooltip_completed"
+      text="You have completed this feat." />
+    <string
+      id="ret_doctrine_feat_progress_tooltip_incomplete"
+      text="You have not yet completed this feat." />
+    <string
+      id="ret_doctrine_feat_progress_tooltip_repeatable"
+      text="This feat is repeatable. You can complete it multiple times." />
+    <string
+      id="ret_doctrine_feat_required"
+      text="Required" />
+    <string
+      id="ret_doctrine_feats_header"
+      text="Feats" />
+    <string
+      id="ret_doctrine_missing_feats"
+      text="Required feats have not been completed." />
+    <string
+      id="ret_doctrine_not_enough_gold_desc"
+      text="You need {COST} denars to unlock this doctrine." />
+    <string
+      id="ret_doctrine_not_enough_gold_title"
+      text="Not Enough Money" />
+    <string
+      id="ret_doctrine_not_enough_influence_desc"
+      text="You need {COST} influence to unlock this doctrine." />
+    <string
+      id="ret_doctrine_not_enough_influence_title"
+      text="Not Enough Influence" />
+    <string
+      id="ret_doctrine_not_found"
+      text="Doctrine not found." />
+    <string
+      id="ret_doctrine_not_ready"
+      text="Doctrine is not ready to be acquired." />
+    <string
+      id="ret_doctrine_progress_text"
+      text="Progress: {PROGRESS}%" />
+    <string
+      id="ret_doctrine_select_reason"
+      text="Select a doctrine first." />
+    <string
+      id="ret_doctrine_state_acquired"
+      text="Acquired" />
+    <string
+      id="ret_doctrine_state_in_progress"
+      text="In progress" />
+    <string
+      id="ret_doctrine_state_locked"
+      text="Locked" />
+    <string
+      id="ret_doctrine_state_unlocked"
+      text="Unlocked" />
+    <string
+      id="ret_doctrines_disabled"
+      text="Doctrines are disabled." />
+    <string
       id="ret_editing_restriction_in_fief"
       text="Faction Settlement" />
     <string
@@ -419,6 +533,9 @@
       id="ret_faction_type_kingdom"
       text="kingdom" />
     <string
+      id="ret_feat_complete_title"
+      text="Feat completed" />
+    <string
       id="ret_filter_label"
       text="Filter:" />
     <string
@@ -514,12 +631,6 @@
     <string
       id="ret_invalid_name_title"
       text="Invalid Name" />
-    <string
-      id="ret_item_unlock_notification_message"
-      text="Log Message" />
-    <string
-      id="ret_item_unlock_notification_popup"
-      text="Popup" />
     <string
       id="ret_item_unlock_scoreboard_line"
       text="Item unlocked: {ITEM}." />
@@ -827,6 +938,30 @@
       id="ret_mcm_option_default_unlocked_item_max_tier_hint"
       text="The maximum tier of items unlocked on game start." />
     <string
+      id="ret_mcm_option_doctrine_influence_cost_multiplier"
+      text="Doctrine Influence Cost Multiplier" />
+    <string
+      id="ret_mcm_option_doctrine_influence_cost_multiplier_hint"
+      text="Multiplier affecting the influence cost of acquiring doctrines." />
+    <string
+      id="ret_mcm_option_doctrine_money_cost_multiplier"
+      text="Doctrine Money Cost Multiplier" />
+    <string
+      id="ret_mcm_option_doctrine_money_cost_multiplier_hint"
+      text="Multiplier affecting the money cost of acquiring doctrines." />
+    <string
+      id="ret_mcm_option_doctrines_cost_influence"
+      text="Doctrines Cost Influence" />
+    <string
+      id="ret_mcm_option_doctrines_cost_influence_hint"
+      text="If enabled, acquiring doctrines will cost influence." />
+    <string
+      id="ret_mcm_option_doctrines_cost_money"
+      text="Doctrines Cost Money" />
+    <string
+      id="ret_mcm_option_doctrines_cost_money_hint"
+      text="If enabled, acquiring doctrines will cost money." />
+    <string
       id="ret_mcm_option_editing_restriction"
       text="Location Restrictions" />
     <string
@@ -847,6 +982,12 @@
     <string
       id="ret_mcm_option_enable_equipment_costs_money_hint"
       text="If enabled, equipping troops will cost money. Also enables the stocks system." />
+    <string
+      id="ret_mcm_option_enable_feat_requirements"
+      text="Enable Feat Requirements" />
+    <string
+      id="ret_mcm_option_enable_feat_requirements_hint"
+      text="If enabled, doctrines require specific feats to be accomplished before they can be acquired." />
     <string
       id="ret_mcm_option_enable_retinues"
       text="Enable Retinues" />
@@ -925,6 +1066,12 @@
     <string
       id="ret_mcm_option_equipping_takes_time_hint"
       text="If enabled, equipping troops will not be instant and will take time to be completed." />
+    <string
+      id="ret_mcm_option_feat_complete_notification"
+      text="Feat Complete Notification" />
+    <string
+      id="ret_mcm_option_feat_complete_notification_hint"
+      text="Determines how the notification style when when feats are completed." />
     <string
       id="ret_mcm_option_item_unlock_notification"
       text="Item Unlock Notification" />
@@ -1180,6 +1327,12 @@
     <string
       id="ret_no_valid_model_title_species"
       text="No Valid Model" />
+    <string
+      id="ret_notification_message"
+      text="Log Message" />
+    <string
+      id="ret_notification_popup"
+      text="Popup" />
     <string
       id="ret_preview_mode"
       text="Preview Mode" />

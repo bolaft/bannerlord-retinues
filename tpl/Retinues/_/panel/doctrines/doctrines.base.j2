@@ -1,5 +1,6 @@
 {% from "_/macros.panel.j2" import panel_header, panel_label %}
 {% from "_/macros.buttons.j2" import button_text %}
+{% from "_/macros.icons.j2" import icon_sprite %}
 
 {# ---------------------------------------------- #}
 {# Doctrines panel                                #}
@@ -32,6 +33,7 @@
 
                 {# Progress #}
                 <ListPanel
+                    IsVisible="@ShowProgress"
                     WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed"
                     HorizontalAlignment="Center"
                     StackLayout.LayoutMethod="HorizontalLeftToRight"
@@ -45,6 +47,25 @@
                             Brush.FontSize="22"
                             Brush.FontColor="@ProgressTextColor"
                             Text="@ProgressText" />
+
+                    </Children>
+                </ListPanel>
+
+                {# Progress #}
+                <ListPanel
+                    IsVisible="@IsAcquired"
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed"
+                    HorizontalAlignment="Center"
+                    StackLayout.LayoutMethod="HorizontalLeftToRight"
+                    MarginBottom="36">
+                    <Children>
+
+                        <TextWidget
+                            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                            HorizontalAlignment="Center" VerticalAlignment="Center"
+                            Brush="Clan.RightPanel.Name.Text"
+                            Brush.FontSize="36"
+                            Text="@AcquiredText" />
 
                     </Children>
                 </ListPanel>
@@ -65,37 +86,92 @@
                 {{ panel_header("@FeatsHeaderText", is_visible="@ShowFeats") }}
 
                 <ListPanel
-                    DataSource="{Feats}"
+                    IsVisible="@ShowFeats"
                     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-                    StackLayout.LayoutMethod="VerticalBottomToTop"
-                    HorizontalAlignment="Center">
-                    <ItemTemplate>
+                    HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Children>
                         <ListPanel
+                            DataSource="{Feats}"
                             WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                             StackLayout.LayoutMethod="VerticalBottomToTop"
                             HorizontalAlignment="Center">
-                            <Children>
-
-                                <TextWidget
+                            <ItemTemplate>
+                                <ListPanel
                                     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-                                    HorizontalAlignment="Center" VerticalAlignment="Center"
-                                    Brush="Kingdom.DecisionParagraph.Text"
-                                    Brush.FontSize="18"
-                                    MaxWidth="720"
-                                    Text="@Description"
-                                    TextAlignment="Center" />
+                                    StackLayout.LayoutMethod="HorizontalLeftToRight"
+                                    HorizontalAlignment="Center"
+                                    MarginBottom="10">
+                                    <Children>
 
-                                <TextWidget
-                                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-                                    HorizontalAlignment="Center" VerticalAlignment="Center"
-                                    Brush="Kingdom.DecisionParagraph.Text"
-                                    Brush.FontSize="18"
-                                    Text="@ProgressText"
-                                    TextAlignment="Center" />
+                                        <ListPanel
+                                            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                                            StackLayout.LayoutMethod="VerticalBottomToTop"
+                                            HorizontalAlignment="Center">
+                                            <Children>
 
-                            </Children>
+                                                <ListPanel
+                                                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                                                    StackLayout.LayoutMethod="HorizontalLeftToRight"
+                                                    MarginBottom="4"
+                                                    HorizontalAlignment="Center">
+                                                    <Children>
+
+                                                        <TextWidget
+                                                            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                                                            HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                            MarginRight="4"
+                                                            Brush="Kingdom.DecisionParagraph.Text"
+                                                            Brush.FontSize="18"
+                                                            MaxWidth="720"
+                                                            Text="@Description"
+                                                            TextAlignment="Center" />
+
+                                                        <TextWidget
+                                                            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                                                            HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                            Brush="Kingdom.DecisionParagraph.Text"
+                                                            Brush.FontSize="18"
+                                                            MaxWidth="720"
+                                                            Brush.FontColor="#eec485ff"
+                                                            Text="@WorthText"
+                                                            TextAlignment="Center" />
+
+                                                    </Children>
+                                                </ListPanel>
+
+                                                <ListPanel
+                                                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                                                    StackLayout.LayoutMethod="HorizontalLeftToRight"
+                                                    HorizontalAlignment="Center">
+                                                    <Children>
+
+                                                        <TextWidget
+                                                            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                                                            HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                            Brush="Kingdom.DecisionParagraph.Text"
+                                                            Brush.FontSize="18"
+                                                            Text="@ProgressText"
+                                                            MarginRight="4"
+                                                            TextAlignment="Center" />
+
+                                                        {# Completion / repeatable icon #}
+                                                        {{ icon_sprite(
+                                                            "{FeatProgressIcon}",
+                                                            sprite="@Sprite",
+                                                            size="20"
+                                                        ) }}
+
+                                                    </Children>
+                                                </ListPanel>
+
+                                            </Children>
+                                        </ListPanel>
+
+                                    </Children>
+                                </ListPanel>
+                            </ItemTemplate>
                         </ListPanel>
-                    </ItemTemplate>
+                    </Children>
                 </ListPanel>
 
                 {# Actions #}
@@ -103,6 +179,7 @@
 
                 {# Costs #}
                 <TextWidget
+                    IsHidden="@IsAcquired"
                     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                     HorizontalAlignment="Center" VerticalAlignment="Center"
                     Brush="Clan.RightPanel.Name.Text"
