@@ -14,16 +14,10 @@ namespace Retinues.Editor.VM.Panel.Doctrines
         public bool IsCompleted => def != null && !def.Repeatable && FeatsAPI.IsCompleted(def.Id);
 
         [DataSourceProperty]
+        public string Name => def?.Name?.ToString() ?? string.Empty;
+
+        [DataSourceProperty]
         public string Description => def?.Description?.ToString() ?? string.Empty;
-
-        [DataSourceProperty]
-        public bool IsRequired => link.Required;
-
-        [DataSourceProperty]
-        public string RequiredText =>
-            IsRequired
-                ? L.S("doctrine_feat_required", "Required")
-                : L.S("doctrine_feat_optional", "Optional");
 
         [DataSourceProperty]
         public string WorthText => $"+{link.Worth}%";

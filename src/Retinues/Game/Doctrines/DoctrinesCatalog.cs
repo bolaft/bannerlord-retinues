@@ -8,7 +8,7 @@ namespace Retinues.Game.Doctrines
     /// Central registry for doctrine categories, doctrines, and feats.
     /// </summary>
     [SafeClass]
-    public static partial class DoctrinesCatalog
+    public static class DoctrinesCatalog
     {
         private static bool _built;
 
@@ -24,10 +24,10 @@ namespace Retinues.Game.Doctrines
             StringComparer.Ordinal
         );
 
-        // featId -> list of (doctrineId, worth, required)
+        // featId -> list of (doctrineId, worth)
         private static readonly Dictionary<
             string,
-            List<(string DoctrineId, int Worth, bool Required)>
+            List<(string DoctrineId, int Worth)>
         > DoctrineLinksByFeatId = new(StringComparer.Ordinal);
 
         [StaticClearAction]
@@ -55,7 +55,14 @@ namespace Retinues.Game.Doctrines
             RebuildFeatIndex();
         }
 
-        static partial void RegisterDefaults();
+        static void RegisterDefaults()
+        {
+            // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+            //                        Catalog                        //
+            // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+            Catalog.Doctrines.RegisterAll();
+        }
 
         private static void RebuildFeatIndex()
         {
@@ -79,7 +86,7 @@ namespace Retinues.Game.Doctrines
                         DoctrineLinksByFeatId[link.FeatId] = list;
                     }
 
-                    list.Add((d.Id, link.Worth, link.Required));
+                    list.Add((d.Id, link.Worth));
                 }
             }
         }

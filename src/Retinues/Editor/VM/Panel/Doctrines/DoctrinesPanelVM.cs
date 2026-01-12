@@ -191,7 +191,7 @@ namespace Retinues.Editor.VM.Panel.Doctrines
         [DataSourceProperty]
         public bool ShowFeats => _feats.Count > 0;
 
-        [EventListener(UIEvent.Doctrine)]
+        [EventListener(UIEvent.Doctrine, UIEvent.Page)]
         private void RefreshFeats()
         {
             _feats.Clear();

@@ -37,14 +37,14 @@
                     WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed"
                     HorizontalAlignment="Center"
                     StackLayout.LayoutMethod="HorizontalLeftToRight"
-                    MarginBottom="36">
+                    MarginBottom="48">
                     <Children>
 
                         <TextWidget
                             WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                             HorizontalAlignment="Center" VerticalAlignment="Center"
                             Brush="Clan.RightPanel.Name.Text"
-                            Brush.FontSize="22"
+                            Brush.FontSize="28"
                             Brush.FontColor="@ProgressTextColor"
                             Text="@ProgressText" />
 
@@ -57,7 +57,7 @@
                     WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed"
                     HorizontalAlignment="Center"
                     StackLayout.LayoutMethod="HorizontalLeftToRight"
-                    MarginBottom="36">
+                    MarginBottom="48">
                     <Children>
 
                         <TextWidget
@@ -80,13 +80,14 @@
                     Brush.FontColor="#f7ecddff"
                     Brush.FontSize="24"
                     Text="@DescriptionText"
-                    MarginBottom="12" />
+                    MarginBottom="24" />
 
                 {# Feats #}
                 {{ panel_header("@FeatsHeaderText", is_visible="@ShowFeats") }}
 
                 <ListPanel
                     IsVisible="@ShowFeats"
+                    MarginTop="8"
                     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                     HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Children>
@@ -98,77 +99,77 @@
                             <ItemTemplate>
                                 <ListPanel
                                     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-                                    StackLayout.LayoutMethod="HorizontalLeftToRight"
-                                    HorizontalAlignment="Center"
-                                    MarginBottom="10">
+                                    StackLayout.LayoutMethod="VerticalBottomToTop"
+                                    MarginBottom="16"
+                                    HorizontalAlignment="Center">
                                     <Children>
+
+                                        <TextWidget
+                                            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                                            HorizontalAlignment="Center" VerticalAlignment="Center"
+                                            Brush="Kingdom.DecisionParagraph.Text"
+                                            MarginBottom="4"
+                                            Brush.FontSize="24"
+                                            Text="@Name"
+                                            TextAlignment="Center" />
 
                                         <ListPanel
                                             WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-                                            StackLayout.LayoutMethod="VerticalBottomToTop"
+                                            StackLayout.LayoutMethod="HorizontalLeftToRight"
+                                            MarginBottom="4"
                                             HorizontalAlignment="Center">
                                             <Children>
 
-                                                <ListPanel
+                                                <TextWidget
                                                     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-                                                    StackLayout.LayoutMethod="HorizontalLeftToRight"
-                                                    MarginBottom="4"
-                                                    HorizontalAlignment="Center">
-                                                    <Children>
+                                                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                    Brush="Kingdom.DecisionParagraph.Text"
+                                                    Brush.FontSize="18"
+                                                    MaxWidth="720"
+                                                    Text="@Description"
+                                                    TextAlignment="Center" />
 
-                                                        <TextWidget
-                                                            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-                                                            HorizontalAlignment="Center" VerticalAlignment="Center"
-                                                            MarginRight="4"
-                                                            Brush="Kingdom.DecisionParagraph.Text"
-                                                            Brush.FontSize="18"
-                                                            MaxWidth="720"
-                                                            Text="@Description"
-                                                            TextAlignment="Center" />
+                                            </Children>
+                                        </ListPanel>
 
-                                                        <TextWidget
-                                                            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-                                                            HorizontalAlignment="Center" VerticalAlignment="Center"
-                                                            Brush="Kingdom.DecisionParagraph.Text"
-                                                            Brush.FontSize="18"
-                                                            MaxWidth="720"
-                                                            Brush.FontColor="#eec485ff"
-                                                            Text="@WorthText"
-                                                            TextAlignment="Center" />
+                                        <ListPanel
+                                            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                                            StackLayout.LayoutMethod="HorizontalLeftToRight"
+                                            HorizontalAlignment="Center">
+                                            <Children>
 
-                                                    </Children>
-                                                </ListPanel>
-
-                                                <ListPanel
+                                                <TextWidget
                                                     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-                                                    StackLayout.LayoutMethod="HorizontalLeftToRight"
-                                                    HorizontalAlignment="Center">
-                                                    <Children>
+                                                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                    Brush="Kingdom.DecisionParagraph.Text"
+                                                    Brush.FontSize="18"
+                                                    Text="@ProgressText"
+                                                    MarginRight="4"
+                                                    TextAlignment="Center" />
 
-                                                        <TextWidget
-                                                            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-                                                            HorizontalAlignment="Center" VerticalAlignment="Center"
-                                                            Brush="Kingdom.DecisionParagraph.Text"
-                                                            Brush.FontSize="18"
-                                                            Text="@ProgressText"
-                                                            MarginRight="4"
-                                                            TextAlignment="Center" />
+                                                {# Completion / repeatable icon #}
+                                                {{ icon_sprite(
+                                                    "{FeatProgressIcon}",
+                                                    sprite="@Sprite",
+                                                    size="20"
+                                                ) }}
 
-                                                        {# Completion / repeatable icon #}
-                                                        {{ icon_sprite(
-                                                            "{FeatProgressIcon}",
-                                                            sprite="@Sprite",
-                                                            size="20"
-                                                        ) }}
-
-                                                    </Children>
-                                                </ListPanel>
+                                                <TextWidget
+                                                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                                                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                    Brush="Kingdom.DecisionParagraph.Text"
+                                                    Brush.FontSize="18"
+                                                    MaxWidth="720"
+                                                    Brush.FontColor="#eec485ff"
+                                                    Text="@WorthText"
+                                                    TextAlignment="Center" />
 
                                             </Children>
                                         </ListPanel>
 
                                     </Children>
                                 </ListPanel>
+
                             </ItemTemplate>
                         </ListPanel>
                     </Children>

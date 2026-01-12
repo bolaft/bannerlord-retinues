@@ -400,12 +400,6 @@ namespace Retinues.Game.Doctrines
                 return false;
             }
 
-            if (Settings.EnableFeatRequirements && !AreRequiredFeatsMet(def))
-            {
-                error = L.T("doctrine_missing_feats", "Required feats have not been completed.");
-                return false;
-            }
-
             if (Player.Gold < def.GoldCost)
             {
                 error = L.TV(
@@ -588,24 +582,6 @@ namespace Retinues.Game.Doctrines
                 return true;
 
             return IsDoctrineAcquired(prev.Id);
-        }
-
-        private bool AreRequiredFeatsMet(DoctrineDefinition def)
-        {
-            if (def == null || def.Feats == null || def.Feats.Count == 0)
-                return true;
-
-            for (var i = 0; i < def.Feats.Count; i++)
-            {
-                var link = def.Feats[i];
-                if (!link.Required)
-                    continue;
-
-                if (GetFeatTimesCompleted(link.FeatId) <= 0)
-                    return false;
-            }
-
-            return true;
         }
     }
 }
