@@ -1,4 +1,4 @@
-using Retinues.UI.Services;
+using TaleWorlds.Localization;
 
 namespace Retinues.Game.Doctrines.Catalog
 {
@@ -13,19 +13,20 @@ namespace Retinues.Game.Doctrines.Catalog
 
         private static void RegisterFeat(
             string id,
-            string nameId,
-            string nameFallback,
-            string descId,
-            string descFallback,
+            TextObject name,
+            TextObject description,
             int target,
             bool repeatable
         )
         {
+            // Set target variable in description.
+            description.SetTextVariable("TARGET", target);
+
             DoctrinesCatalog.RegisterFeat(
                 new FeatDefinition(
                     id: id,
-                    name: L.T(nameId, nameFallback),
-                    description: L.T(descId, descFallback),
+                    name: name,
+                    description: description,
                     target: target,
                     repeatable: repeatable
                 )

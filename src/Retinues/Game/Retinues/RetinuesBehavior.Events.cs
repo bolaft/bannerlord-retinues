@@ -2,12 +2,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Retinues.Configuration;
 using Retinues.Domain.Characters.Wrappers;
+using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Domain.Events.Models;
 using Retinues.Domain.Factions.Wrappers;
-using Retinues.Domain.Settlements.Models;
+using Retinues.Domain.Settlements.Wrappers;
 using TaleWorlds.CampaignSystem;
-using TaleWorlds.Core;
-using TaleWorlds.Library;
 
 namespace Retinues.Game.Retinues
 {
@@ -38,8 +37,8 @@ namespace Retinues.Game.Retinues
         protected override void OnTournamentFinished(
             WCharacter winner,
             List<WCharacter> participants,
-            MTown town,
-            ItemObject prize
+            WSettlement settlement,
+            WItem prize
         )
         {
             if (!Settings.EnableRetinues)
@@ -51,12 +50,12 @@ namespace Retinues.Game.Retinues
             if (winner.StringId != Hero.MainHero.StringId)
                 return;
 
-            var culture = town?.Base?.Settlement?.Culture;
+            var culture = settlement?.Culture;
             if (culture == null)
                 return;
 
             AddProgress(
-                WCulture.Get(culture),
+                culture,
                 Progress_TournamentWin,
                 RetinueProgressSource.TournamentWon,
                 showProgressMessage: true
@@ -66,24 +65,20 @@ namespace Retinues.Game.Retinues
         /// <summary>
         /// Handles quest completions for retinue unlock progress.
         /// </summary>
-        protected override void OnQuestCompleted(
-            QuestBase quest,
-            QuestBase.QuestCompleteDetails details
-        )
+        protected override void OnQuestCompleted(QuestBase quest, WHero giver, bool success)
         {
             if (!Settings.EnableRetinues)
                 return;
 
-            if (details != QuestBase.QuestCompleteDetails.Success)
+            if (!success)
                 return;
 
-            var giver = quest?.QuestGiver;
             var culture = giver?.Culture;
             if (culture == null)
                 return;
 
             AddProgress(
-                WCulture.Get(culture),
+                culture,
                 Progress_QuestCompleted,
                 RetinueProgressSource.QuestCompleted,
                 showProgressMessage: true

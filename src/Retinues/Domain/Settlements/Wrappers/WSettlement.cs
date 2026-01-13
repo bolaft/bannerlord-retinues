@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Retinues.Configuration;
@@ -10,9 +9,7 @@ using Retinues.Domain.Settlements.Models;
 using Retinues.Framework.Model;
 using Retinues.Game;
 using Retinues.Utilities;
-using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Settlements;
-using TaleWorlds.CampaignSystem.Settlements.Workshops;
 
 namespace Retinues.Domain.Settlements.Wrappers
 {

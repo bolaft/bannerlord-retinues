@@ -19,10 +19,6 @@ namespace Retinues.Game.Doctrines.Catalog
                 new DoctrineCategoryDefinition(
                     id: "cat_equipments",
                     name: L.T("doctrine_cat_equipments", "Equipments"),
-                    description: L.T(
-                        "doctrine_cat_equipments_desc",
-                        "Doctrines focused on outfitting, logistics, and equipment constraints."
-                    ),
                     doctrineIds:
                     [
                         "doc_armory_cultural_pride",

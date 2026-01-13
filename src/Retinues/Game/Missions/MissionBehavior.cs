@@ -95,7 +95,7 @@ namespace Retinues.Game.Missions
                 if (!MMission.Kill.IsValid(v, k, state))
                     return;
 
-                var kill = new MMission.Kill(v, k, state, blow);
+                var kill = new MMission.Kill(v, k, state, blow, v.Side, k.Side, MMapEvent.Current);
                 mission.AddKill(in kill);
             }
             catch (Exception ex)
@@ -129,9 +129,6 @@ namespace Retinues.Game.Missions
             int headshots = 0;
             int missiles = 0;
 
-            int attackerKills = 0;
-            int defenderKills = 0;
-
             var killsByKiller = new Dictionary<string, int>(64);
             var deathsByVictim = new Dictionary<string, int>(64);
             var killsByWeaponClass = new Dictionary<int, int>(16);
@@ -151,11 +148,6 @@ namespace Retinues.Game.Missions
 
                 if (k.IsMissile)
                     missiles++;
-
-                if (k.KillerSide == BattleSideEnum.Attacker)
-                    attackerKills++;
-                else if (k.KillerSide == BattleSideEnum.Defender)
-                    defenderKills++;
 
                 if (!string.IsNullOrEmpty(k.KillerCharacterId))
                 {
@@ -185,12 +177,6 @@ namespace Retinues.Game.Missions
                 .Append(headshots)
                 .Append(", missiles=")
                 .Append(missiles)
-                .AppendLine();
-
-            sb.Append("Kills by side: attacker=")
-                .Append(attackerKills)
-                .Append(", defender=")
-                .Append(defenderKills)
                 .AppendLine();
 
             AppendTopNCharacters(sb, "Top killers", killsByKiller, 8);

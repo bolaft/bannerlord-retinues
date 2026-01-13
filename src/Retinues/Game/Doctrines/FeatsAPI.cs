@@ -39,13 +39,16 @@ namespace Retinues.Game.Doctrines
             return b != null ? b.GetFeatTimesCompleted(featId) : 0;
         }
 
-        public static bool TryAddProgress(string featId, int amount, TextObject source = null)
+        public static bool TryAddProgress(string featId, int amount)
         {
+            if (amount <= 0)
+                return false;
+
             if (!Settings.EnableDoctrines || !Settings.EnableFeatRequirements)
                 return false;
 
             var b = DoctrinesBehavior.Instance;
-            return b != null && b.TryAddFeatProgress(featId, amount, source);
+            return b != null && b.TryAddFeatProgress(featId, amount);
         }
 
         public static bool TryReset(string featId)
@@ -57,16 +60,28 @@ namespace Retinues.Game.Doctrines
             return b != null && b.TryResetFeat(featId);
         }
 
-        public static bool TryComplete(string featId, TextObject source = null)
+        public static bool TrySet(string featId, int amount)
+        {
+            if (amount < 0)
+                return false;
+
+            if (!Settings.EnableDoctrines || !Settings.EnableFeatRequirements)
+                return false;
+
+            var b = DoctrinesBehavior.Instance;
+            return b != null && b.TrySetFeatProgress(featId, amount);
+        }
+
+        public static bool TryComplete(string featId)
         {
             if (!Settings.EnableDoctrines || !Settings.EnableFeatRequirements)
                 return false;
 
             var b = DoctrinesBehavior.Instance;
-            return b != null && b.TryCompleteFeat(featId, source);
+            return b != null && b.TryCompleteFeat(featId);
         }
 
-        public static int TryCompleteMany(IReadOnlyList<string> featIds, TextObject source = null)
+        public static int TryCompleteMany(IReadOnlyList<string> featIds)
         {
             if (featIds == null || featIds.Count == 0)
                 return 0;
@@ -83,7 +98,7 @@ namespace Retinues.Game.Doctrines
             for (var i = 0; i < featIds.Count; i++)
             {
                 var id = featIds[i];
-                if (b.TryCompleteFeat(id, source))
+                if (b.TryCompleteFeat(id))
                     done++;
             }
 

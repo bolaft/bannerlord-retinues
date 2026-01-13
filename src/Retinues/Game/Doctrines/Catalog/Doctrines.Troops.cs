@@ -19,10 +19,6 @@ namespace Retinues.Game.Doctrines.Catalog
                 new DoctrineCategoryDefinition(
                     id: "cat_troops",
                     name: L.T("doctrine_cat_troops", "Troops"),
-                    description: L.T(
-                        "doctrine_cat_troops_desc",
-                        "Doctrines focused on troop access and new troop variants."
-                    ),
                     doctrineIds:
                     [
                         "doc_troops_stalwart_militia",

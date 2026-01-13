@@ -1,3 +1,4 @@
+using System;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Factions;
 using Retinues.Domain.Factions.Base;
@@ -67,24 +68,43 @@ namespace Retinues.Domain.Parties.Wrappers
         //                          Army                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public bool IsInArmy => Base.Army != null;
+        public Army Army => Base.Army;
+        public bool IsInArmy => Army != null;
+        public bool IsArmyLeader => Army?.LeaderParty == Base;
 
-        public bool IsArmyLeader
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Ratios                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public float RetinueRatio => ComputeMemberRatio(t => t.IsRetinue);
+        public float CustomRatio => ComputeMemberRatio(t => t.InCustomTree);
+
+        public float ComputeMemberRatio(Func<WCharacter, bool> selector)
         {
-            get
-            {
-                var army = Base.Army;
-                if (army == null)
-                    return false;
+            int part = 0;
+            int total = 0;
 
-                return army.LeaderParty == Base;
+            foreach (var e in MemberRoster.Elements)
+            {
+                if (e.Troop.IsHero)
+                    continue; // Exclude heroes (including the player).
+
+                var selected = selector(e.Troop);
+                if (selected)
+                    part += e.Number;
+
+                total += e.Number;
             }
+
+            return total > 0 ? (float)part / total : 0f;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Strength                        //
+        //                         Values                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        public float Morale => Base.Morale;
         public float Strength => Base.Party?.EstimatedStrength ?? 0f;
+        public int TotalWage => Base.TotalWage;
     }
 }

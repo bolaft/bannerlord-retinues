@@ -165,7 +165,7 @@ namespace Retinues.Game.Doctrines
             var done = 0;
             for (var i = 0; i < times; i++)
             {
-                if (FeatsAPI.TryComplete(featId, new TextObject("[Cheat]")))
+                if (FeatsAPI.TryComplete(featId))
                     done++;
                 else
                     break;

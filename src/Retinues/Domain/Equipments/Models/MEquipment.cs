@@ -13,12 +13,11 @@ using TaleWorlds.ObjectSystem;
 
 namespace Retinues.Domain.Equipments.Models
 {
-    public class MEquipment(Equipment @base, WCharacter owner, MEquipmentRoster roster = null)
-        : MBase<Equipment>(@base)
+    public class MEquipment(Equipment @base, WCharacter owner) : MBase<Equipment>(@base)
     {
         private static readonly int SlotCount = (int)EquipmentIndex.NumEquipmentSetSlots;
 
-        private readonly MEquipmentRoster _roster = roster;
+        private readonly MEquipmentRoster _roster = owner.EquipmentRoster;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Infos                         //
@@ -69,8 +68,7 @@ namespace Retinues.Domain.Equipments.Models
         public static MEquipment Create(
             WCharacter owner,
             bool civilian = false,
-            MEquipment source = null,
-            MEquipmentRoster roster = null
+            MEquipment source = null
         )
         {
             var equipment =
@@ -78,13 +76,27 @@ namespace Retinues.Domain.Equipments.Models
 
             equipment ??= new Equipment();
 
-            var me = new MEquipment(equipment, owner, roster)
+            var me = new MEquipment(equipment, owner)
             {
                 EquipmentType = civilian
                     ? Equipment.EquipmentType.Civilian
                     : Equipment.EquipmentType.Battle,
             };
 
+            owner.OnEquipmentChange();
+            return me;
+        }
+
+        public static MEquipment FromCode(WCharacter owner, string code)
+        {
+            if (string.IsNullOrEmpty(code))
+                return null;
+
+            var equipment = Equipment.CreateFromEquipmentCode(code);
+            if (equipment == null)
+                return null;
+
+            var me = new MEquipment(equipment, owner);
             owner.OnEquipmentChange();
             return me;
         }

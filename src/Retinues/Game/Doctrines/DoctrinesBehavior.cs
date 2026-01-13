@@ -224,9 +224,10 @@ namespace Retinues.Game.Doctrines
                 if (!DoctrinesCatalog.TryGetFeat(id, out var feat) || feat == null)
                     continue;
 
-                // Title can be anything; requirement is: body = feat description only.
-                var title = feat.Name ?? L.T("feat_complete_title", "Feat completed");
-                var body = feat.Description ?? new TextObject(string.Empty);
+                var title = L.T("feat_complete_title", "Feat Completed");
+                var body = L.T("feat_notification_body", "{NAME}:\n\n{DESC}")
+                    .SetTextVariable("NAME", feat.Name)
+                    .SetTextVariable("DESC", feat.Description);
 
                 ShowFeatNotification(title, body);
             }
@@ -315,7 +316,7 @@ namespace Retinues.Game.Doctrines
                 : 0;
         }
 
-        public bool TryAddFeatProgress(string featId, int amount, TextObject source = null)
+        public bool TryAddFeatProgress(string featId, int amount)
         {
             if (!IsEnabled || !Settings.EnableFeatRequirements)
                 return false;
@@ -337,7 +338,7 @@ namespace Retinues.Game.Doctrines
 
             if (p >= feat.Target)
             {
-                CompleteFeatInternal(feat.Id, source);
+                CompleteFeatInternal(feat.Id);
                 return true;
             }
 
@@ -359,7 +360,34 @@ namespace Retinues.Game.Doctrines
             return true;
         }
 
-        public bool TryCompleteFeat(string featId, TextObject source = null)
+        public bool TrySetFeatProgress(string featId, int amount)
+        {
+            if (!IsEnabled || !Settings.EnableFeatRequirements)
+                return false;
+
+            if (!DoctrinesCatalog.TryGetFeat(featId, out var feat) || feat == null)
+                return false;
+
+            if (amount < 0)
+                return false;
+
+            if (!CanProgressFeatForAnyInProgressDoctrine(feat.Id))
+                return false;
+
+            if (!feat.Repeatable && IsFeatCompleted(feat.Id))
+                return false;
+
+            if (amount >= feat.Target)
+            {
+                CompleteFeatInternal(feat.Id);
+                return true;
+            }
+
+            _featProgress[feat.Id] = amount;
+            return true;
+        }
+
+        public bool TryCompleteFeat(string featId)
         {
             if (!IsEnabled || !Settings.EnableFeatRequirements)
                 return false;
@@ -373,7 +401,7 @@ namespace Retinues.Game.Doctrines
             if (!feat.Repeatable && IsFeatCompleted(feat.Id))
                 return false;
 
-            CompleteFeatInternal(feat.Id, source);
+            CompleteFeatInternal(feat.Id);
             return true;
         }
 
@@ -488,7 +516,7 @@ namespace Retinues.Game.Doctrines
             return false;
         }
 
-        private void CompleteFeatInternal(string featId, TextObject source)
+        private void CompleteFeatInternal(string featId)
         {
             if (!DoctrinesCatalog.TryGetFeat(featId, out var feat) || feat == null)
                 return;

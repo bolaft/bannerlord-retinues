@@ -1,7 +1,11 @@
 using System.Collections.Generic;
 using Retinues.Domain.Characters.Models;
+using Retinues.Domain.Characters.Wrappers;
+using Retinues.Domain.Equipments.Models;
 using Retinues.Framework.Model;
 using Retinues.Framework.Runtime;
+using Retinues.Game;
+using TaleWorlds.CampaignSystem.MapEvents;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 
@@ -33,6 +37,14 @@ namespace Retinues.Domain.Events.Models
         public string SceneName => Base.SceneName;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Flags                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public bool IsArena => Base.CombatType == Mission.MissionCombatType.ArenaCombat;
+        public bool IsBattle => Base.CombatType == Mission.MissionCombatType.Combat;
+        public bool IsNotCombat => Base.CombatType == Mission.MissionCombatType.NoCombat;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Kills                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
@@ -44,16 +56,36 @@ namespace Retinues.Domain.Events.Models
             MAgent victim,
             MAgent killer,
             AgentState state,
-            KillingBlow blow
+            KillingBlow blow,
+            MapEventSide victimSide,
+            MapEventSide killerSide,
+            MMapEvent mapEvent
         )
         {
             /* ━━━━━━ Fields (readonly for fast init) ━━━━━━ */
 
             public readonly string VictimCharacterId = victim?.Character?.StringId;
             public readonly string KillerCharacterId = killer?.Character?.StringId;
+            public WCharacter Victim => WCharacter.Get(VictimCharacterId);
+            public WCharacter Killer => WCharacter.Get(KillerCharacterId);
 
-            public readonly BattleSideEnum VictimSide = victim?.SideEnum ?? BattleSideEnum.None;
-            public readonly BattleSideEnum KillerSide = killer?.SideEnum ?? BattleSideEnum.None;
+            public readonly bool VictimIsPlayer => Victim == Player.Hero.Character;
+            public readonly bool KillerIsPlayer => Killer == Player.Hero.Character;
+
+            public readonly bool VictimIsPlayerSide = victimSide == mapEvent.PlayerSide;
+            public readonly bool KillerIsPlayerSide = killerSide == mapEvent.PlayerSide;
+
+            public readonly bool VictimIsEnemyTroop = victimSide != mapEvent.PlayerSide;
+            public readonly bool VictimIsPlayerTroop =
+                victimSide == mapEvent.PlayerSide && victim.Party.IsMainParty;
+            public readonly bool VictimIsAllyTroop =
+                victimSide == mapEvent.PlayerSide && !victim.Party.IsMainParty;
+
+            public readonly bool KillerIsEnemyTroop = killerSide != mapEvent.PlayerSide;
+            public readonly bool KillerIsPlayerTroop =
+                killerSide == mapEvent.PlayerSide && killer.Party.IsMainParty;
+            public readonly bool KillerIsAllyTroop =
+                killerSide == mapEvent.PlayerSide && !killer.Party.IsMainParty;
 
             public readonly AgentState State = state;
 
@@ -71,6 +103,10 @@ namespace Retinues.Domain.Events.Models
             public readonly int WeaponItemKind = blow.WeaponItemKind;
 
             public readonly string VictimEquipmentCode = victim?.Equipment?.Code;
+            public readonly string KillerEquipmentCode = killer?.Equipment?.Code;
+
+            public MEquipment KillerEquipment => MEquipment.FromCode(Killer, KillerEquipmentCode);
+            public MEquipment VictimEquipment => MEquipment.FromCode(Victim, VictimEquipmentCode);
 
             public static bool IsValid(MAgent victim, MAgent killer, AgentState state)
             {

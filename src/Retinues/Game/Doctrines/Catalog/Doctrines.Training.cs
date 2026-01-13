@@ -19,10 +19,6 @@ namespace Retinues.Game.Doctrines.Catalog
                 new DoctrineCategoryDefinition(
                     id: "cat_training",
                     name: L.T("doctrine_cat_training", "Training"),
-                    description: L.T(
-                        "doctrine_cat_training_desc",
-                        "Doctrines focused on skill caps, training, and troop development."
-                    ),
                     doctrineIds:
                     [
                         "doc_training_iron_discipline",

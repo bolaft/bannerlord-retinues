@@ -14,7 +14,7 @@ namespace Retinues.Game.Doctrines.Catalog
 
         public static void RegisterAll()
         {
-            RegisterSpoils();
+            RegisterLoot();
             RegisterEquipments();
             RegisterTroops();
             RegisterTraining();

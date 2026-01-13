@@ -38,7 +38,7 @@ namespace Retinues.Domain.Equipments.Models
                     return _equipmentsCache;
 
                 var list = EquipmentsAttribute.Get() ?? [];
-                _equipmentsCache = [.. list.Select(e => new MEquipment(e, owner, roster: this))];
+                _equipmentsCache = [.. list.Select(e => new MEquipment(e, owner))];
                 return _equipmentsCache;
             }
             set
@@ -109,16 +109,11 @@ namespace Retinues.Domain.Equipments.Models
                 var newList = new List<MEquipment>(2)
                 {
                     firstBattle != null
-                        ? MEquipment.Create(
-                            owner,
-                            civilian: false,
-                            source: firstBattle,
-                            roster: this
-                        )
-                        : MEquipment.Create(owner, civilian: false, source: null, roster: this),
+                        ? MEquipment.Create(owner, civilian: false, source: firstBattle)
+                        : MEquipment.Create(owner, civilian: false, source: null),
                     firstCivil != null
-                        ? MEquipment.Create(owner, civilian: true, source: firstCivil, roster: this)
-                        : MEquipment.Create(owner, civilian: true, source: null, roster: this),
+                        ? MEquipment.Create(owner, civilian: true, source: firstCivil)
+                        : MEquipment.Create(owner, civilian: true, source: null),
                 };
 
                 Equipments = newList;
@@ -132,8 +127,8 @@ namespace Retinues.Domain.Equipments.Models
 
                 var clone =
                     src == null
-                        ? MEquipment.Create(owner, civilian: false, source: null, roster: this)
-                        : MEquipment.Create(owner, src.IsCivilian, src, roster: this);
+                        ? MEquipment.Create(owner, civilian: false, source: null)
+                        : MEquipment.Create(owner, src.IsCivilian, src);
 
                 all.Add(clone);
             }
@@ -146,13 +141,11 @@ namespace Retinues.Domain.Equipments.Models
             Equipments = [];
 
 #if BL13
-            Add(new MEquipment(new Equipment(Equipment.EquipmentType.Battle), owner, roster: this));
-            Add(
-                new MEquipment(new Equipment(Equipment.EquipmentType.Civilian), owner, roster: this)
-            );
+            Add(new MEquipment(new Equipment(Equipment.EquipmentType.Battle), owner));
+            Add(new MEquipment(new Equipment(Equipment.EquipmentType.Civilian), owner));
 #else
-            Add(new MEquipment(new Equipment(false), owner, roster: this));
-            Add(new MEquipment(new Equipment(true), owner, roster: this));
+            Add(new MEquipment(new Equipment(false), owner));
+            Add(new MEquipment(new Equipment(true), owner));
 #endif
         }
 

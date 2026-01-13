@@ -1,0 +1,18 @@
+namespace Retinues.Game.Doctrines.Feats.Training
+{
+    /// <summary>
+    /// Lead an army for 10 days in a row.
+    /// </summary>
+    public sealed class Feat_IronDiscipline_General : FeatCampaignBehavior
+    {
+        protected override string FeatId => "feat_tr_general";
+
+        protected override void OnDailyTick()
+        {
+            if (!Player.Party.IsArmyLeader)
+                Progress(1);
+            else
+                Reset();
+        }
+    }
+}

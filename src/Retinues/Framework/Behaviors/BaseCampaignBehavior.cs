@@ -2,18 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using Retinues.Domain.Characters.Wrappers;
+using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Domain.Events.Models;
 using Retinues.Domain.Parties.Wrappers;
-using Retinues.Domain.Settlements.Models;
 using Retinues.Domain.Settlements.Wrappers;
 using Retinues.Framework.Runtime;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Actions;
 using TaleWorlds.CampaignSystem.MapEvents;
-using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.CampaignSystem.Roster;
-using TaleWorlds.CampaignSystem.Settlements;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 using TaleWorlds.MountAndBlade;
@@ -83,13 +81,30 @@ namespace Retinues.Framework.Behaviors
         protected virtual void OnTournamentFinished(
             WCharacter winner,
             List<WCharacter> participants,
-            MTown town,
-            ItemObject prize
+            WSettlement settlement,
+            WItem prize
         ) { }
 
-        protected virtual void OnQuestCompleted(
-            QuestBase quest,
-            QuestBase.QuestCompleteDetails details
+        protected virtual void OnQuestCompleted(QuestBase quest, WHero giver, bool success) { }
+
+        protected virtual void OnHideoutBattleCompleted(
+            BattleSideEnum winnerSide,
+            MMapEvent battle,
+            HideoutEventComponent hideoutEventComponent
+        ) { }
+
+        protected virtual void OnTroopRecruited(
+            WHero recruiterHero,
+            WSettlement recruitmentSettlement,
+            WHero recruitmentSource,
+            WCharacter troop,
+            int amount
+        ) { }
+
+        protected virtual void OnPlayerUpgradedTroops(
+            WCharacter source,
+            WCharacter target,
+            int number
         ) { }
 
         protected virtual void RegisterCustomEvents() { }
@@ -218,8 +233,8 @@ namespace Retinues.Framework.Behaviors
                             OnTournamentFinished(
                                 WCharacter.Get(winner),
                                 WrapCharacters(participants),
-                                town != null ? new MTown(town) : null,
-                                prize
+                                WSettlement.Get(town.Settlement),
+                                WItem.Get(prize)
                             )
                         )
                 );
@@ -227,7 +242,55 @@ namespace Retinues.Framework.Behaviors
             if (IsOverridden(nameof(OnQuestCompleted)))
                 CampaignEvents.OnQuestCompletedEvent.AddNonSerializedListener(
                     this,
-                    (quest, details) => SafeInvoke(() => OnQuestCompleted(quest, details))
+                    (quest, details) =>
+                        SafeInvoke(() =>
+                            OnQuestCompleted(
+                                quest,
+                                WHero.Get(quest.QuestGiver),
+                                details is QuestBase.QuestCompleteDetails.Success
+                            )
+                        )
+                );
+
+            if (IsOverridden(nameof(OnHideoutBattleCompleted)))
+                CampaignEvents.OnHideoutBattleCompletedEvent.AddNonSerializedListener(
+                    this,
+                    (winnerSide, hideoutEventComponent) =>
+                        SafeInvoke(() =>
+                            OnHideoutBattleCompleted(
+                                winnerSide,
+                                new MMapEvent(hideoutEventComponent.MapEvent),
+                                hideoutEventComponent
+                            )
+                        )
+                );
+
+            if (IsOverridden(nameof(OnTroopRecruited)))
+                CampaignEvents.OnTroopRecruitedEvent.AddNonSerializedListener(
+                    this,
+                    (recruiterHero, recruitmentSettlement, recruitmentSource, troop, amount) =>
+                        SafeInvoke(() =>
+                            OnTroopRecruited(
+                                WHero.Get(recruiterHero),
+                                WSettlement.Get(recruitmentSettlement),
+                                WHero.Get(recruitmentSource),
+                                WCharacter.Get(troop),
+                                amount
+                            )
+                        )
+                );
+
+            if (IsOverridden(nameof(OnPlayerUpgradedTroops)))
+                CampaignEvents.PlayerUpgradedTroopsEvent.AddNonSerializedListener(
+                    this,
+                    (upgradeFromTroop, upgradeToTroop, number) =>
+                        SafeInvoke(() =>
+                            OnPlayerUpgradedTroops(
+                                WCharacter.Get(upgradeFromTroop),
+                                WCharacter.Get(upgradeToTroop),
+                                number
+                            )
+                        )
                 );
         }
 

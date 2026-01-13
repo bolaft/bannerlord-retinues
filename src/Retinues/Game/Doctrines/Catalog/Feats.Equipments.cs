@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Retinues.UI.Services;
 
 namespace Retinues.Game.Doctrines.Catalog
 {
@@ -25,30 +26,30 @@ namespace Retinues.Game.Doctrines.Catalog
 
         public static IReadOnlyList<DoctrineFeatLink> CulturalPride =>
             [
-                new("feat_eq_cultural_pride_defeat_ruler_foreign_culture_1", worth: 40),
-                new("feat_eq_cultural_pride_kills_no_foreign_gear_100", worth: 30),
-                new("feat_eq_cultural_pride_win_tournament_clan_culture_1", worth: 15),
+                new("feat_eq_king_slayer", worth: 40),
+                new("feat_eq_proud_and_strong", worth: 30),
+                new("feat_eq_hometown_tournament", worth: 15),
             ];
 
         public static IReadOnlyList<DoctrineFeatLink> HonorGuard =>
             [
-                new("feat_eq_honor_guard_field_unit_value_over_100k_1", worth: 50),
-                new("feat_eq_honor_guard_loot_25000_battlefield_25000", worth: 20),
-                new("feat_eq_honor_guard_pay_wages_50000_50000", worth: 10),
+                new("feat_eq_golden_legion", worth: 50),
+                new("feat_eq_blood_money", worth: 20),
+                new("feat_eq_paid_in_full", worth: 10),
             ];
 
         public static IReadOnlyList<DoctrineFeatLink> Ironclad =>
             [
-                new("feat_eq_ironclad_field_unit_weight_over_60kg_1", worth: 40),
-                new("feat_eq_ironclad_own_smithy_days_30", worth: 30),
-                new("feat_eq_ironclad_win_battle_full_steel_only_1", worth: 30),
+                new("feat_eq_heavy_kit", worth: 40),
+                new("feat_eq_tailor_made", worth: 30),
+                new("feat_eq_ironmen", worth: 30),
             ];
 
         public static IReadOnlyList<DoctrineFeatLink> RoyalPatronage =>
             [
-                new("feat_eq_royal_patronage_governor_same_culture_days_30", worth: 40),
-                new("feat_eq_royal_patronage_kills_custom_kingdom_troops_1000", worth: 30),
-                new("feat_eq_royal_patronage_recruit_custom_kingdom_troops_100", worth: 15),
+                new("feat_eq_royal_stewardship", worth: 40),
+                new("feat_eq_royal_host", worth: 30),
+                new("feat_eq_royal_levy", worth: 15),
             ];
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -58,31 +59,34 @@ namespace Retinues.Game.Doctrines.Catalog
         private static void RegisterCulturalPride()
         {
             RegisterFeat(
-                id: "feat_eq_cultural_pride_defeat_ruler_foreign_culture_1",
-                nameId: "feat_eq_cultural_pride_defeat_ruler_foreign_culture_1",
-                nameFallback: "King Slayer",
-                descId: "feat_eq_cultural_pride_defeat_ruler_foreign_culture_1_desc",
-                descFallback: "Defeat a ruler of a different culture in battle.",
+                id: "feat_eq_king_slayer",
+                name: L.T("feat_eq_king_slayer_name", "King Slayer"),
+                description: L.T(
+                    "feat_eq_king_slayer_desc",
+                    "Defeat a ruler of a different culture in battle."
+                ),
                 target: 1,
                 repeatable: false
             );
 
             RegisterFeat(
-                id: "feat_eq_cultural_pride_kills_no_foreign_gear_100",
-                nameId: "feat_eq_cultural_pride_kills_no_foreign_gear_100",
-                nameFallback: "Proud & Strong",
-                descId: "feat_eq_cultural_pride_kills_no_foreign_gear_100_desc",
-                descFallback: "Get 100 kills in battle with troops wearing no foreign gear.",
+                id: "feat_eq_proud_and_strong",
+                name: L.T("feat_eq_proud_and_strong_name", "Proud & Strong"),
+                description: L.T(
+                    "feat_eq_proud_and_strong_desc",
+                    "Get {TARGET} kills in battle with troops wearing no foreign gear."
+                ),
                 target: 100,
                 repeatable: false
             );
 
             RegisterFeat(
-                id: "feat_eq_cultural_pride_win_tournament_clan_culture_1",
-                nameId: "feat_eq_cultural_pride_win_tournament_clan_culture_1",
-                nameFallback: "Hometown Tournament",
-                descId: "feat_eq_cultural_pride_win_tournament_clan_culture_1_desc",
-                descFallback: "Win a tournament in a town of your clan's culture.",
+                id: "feat_eq_hometown_tournament",
+                name: L.T("feat_eq_hometown_tournament_name", "Hometown Tournament"),
+                description: L.T(
+                    "feat_eq_hometown_tournament_desc",
+                    "Win a tournament in a town of your clan's culture."
+                ),
                 target: 1,
                 repeatable: true
             );
@@ -95,31 +99,34 @@ namespace Retinues.Game.Doctrines.Catalog
         private static void RegisterHonorGuard()
         {
             RegisterFeat(
-                id: "feat_eq_honor_guard_field_unit_value_over_100k_1",
-                nameId: "feat_eq_honor_guard_field_unit_value_over_100k_1",
-                nameFallback: "Golden Legion",
-                descId: "feat_eq_honor_guard_field_unit_value_over_100k_1_desc",
-                descFallback: "Field a unit wearing equipment worth over 100,000 denars.",
+                id: "feat_eq_golden_legion",
+                name: L.T("feat_eq_golden_legion_name", "Golden Legion"),
+                description: L.T(
+                    "feat_eq_golden_legion_desc",
+                    "Field a unit wearing equipment worth over 100,000 denars."
+                ),
                 target: 1,
                 repeatable: false
             );
 
             RegisterFeat(
-                id: "feat_eq_honor_guard_loot_25000_battlefield_25000",
-                nameId: "feat_eq_honor_guard_loot_25000_battlefield_25000",
-                nameFallback: "Blood Money",
-                descId: "feat_eq_honor_guard_loot_25000_battlefield_25000_desc",
-                descFallback: "Loot 25,000 denars on the battlefield.",
+                id: "feat_eq_blood_money",
+                name: L.T("feat_eq_blood_money_name", "Blood Money"),
+                description: L.T(
+                    "feat_eq_blood_money_desc",
+                    "Loot {TARGET} denars on the battlefield."
+                ),
                 target: 25000,
                 repeatable: true
             );
 
             RegisterFeat(
-                id: "feat_eq_honor_guard_pay_wages_50000_50000",
-                nameId: "feat_eq_honor_guard_pay_wages_50000_50000",
-                nameFallback: "Paid in Full",
-                descId: "feat_eq_honor_guard_pay_wages_50000_50000_desc",
-                descFallback: "Pay 50,000 denars in troop wages.",
+                id: "feat_eq_paid_in_full",
+                name: L.T("feat_eq_paid_in_full_name", "Paid in Full"),
+                description: L.T(
+                    "feat_eq_paid_in_full_desc",
+                    "Pay {TARGET} denars in troop wages."
+                ),
                 target: 50000,
                 repeatable: true
             );
@@ -132,31 +139,31 @@ namespace Retinues.Game.Doctrines.Catalog
         private static void RegisterIronclad()
         {
             RegisterFeat(
-                id: "feat_eq_ironclad_field_unit_weight_over_60kg_1",
-                nameId: "feat_eq_ironclad_field_unit_weight_over_60kg_1",
-                nameFallback: "Heavy Kit",
-                descId: "feat_eq_ironclad_field_unit_weight_over_60kg_1_desc",
-                descFallback: "Field a unit wearing equipment weighing over 60 kg.",
+                id: "feat_eq_heavy_kit",
+                name: L.T("feat_eq_heavy_kit_name", "Heavy Kit"),
+                description: L.T(
+                    "feat_eq_heavy_kit_desc",
+                    "Field a unit wearing equipment weighing over 60 kg."
+                ),
                 target: 1,
                 repeatable: false
             );
 
             RegisterFeat(
-                id: "feat_eq_ironclad_own_smithy_days_30",
-                nameId: "feat_eq_ironclad_own_smithy_days_30",
-                nameFallback: "Tailor Made",
-                descId: "feat_eq_ironclad_own_smithy_days_30_desc",
-                descFallback: "Own a smithy for 30 days.",
+                id: "feat_eq_tailor_made",
+                name: L.T("feat_eq_tailor_made_name", "Tailor Made"),
+                description: L.T("feat_eq_tailor_made_desc", "Own a smithy for {TARGET} days."),
                 target: 30,
                 repeatable: false
             );
 
             RegisterFeat(
-                id: "feat_eq_ironclad_win_battle_full_steel_only_1",
-                nameId: "feat_eq_ironclad_win_battle_full_steel_only_1",
-                nameFallback: "Steel Wave",
-                descId: "feat_eq_ironclad_win_battle_full_steel_only_1_desc",
-                descFallback: "Win a battle fielding only troops wearing full steel armor.",
+                id: "feat_eq_ironmen",
+                name: L.T("feat_eq_ironmen_name", "Ironmen"),
+                description: L.T(
+                    "feat_eq_ironmen_desc",
+                    "Win a battle fielding only troops wearing full metal armor."
+                ),
                 target: 1,
                 repeatable: false
             );
@@ -169,31 +176,34 @@ namespace Retinues.Game.Doctrines.Catalog
         private static void RegisterRoyalPatronage()
         {
             RegisterFeat(
-                id: "feat_eq_royal_patronage_governor_same_culture_days_30",
-                nameId: "feat_eq_royal_patronage_governor_same_culture_days_30",
-                nameFallback: "Royal Stewardship",
-                descId: "feat_eq_royal_patronage_governor_same_culture_days_30_desc",
-                descFallback: "Have a companion of the same culture as your kingdom govern a kingdom fief for 30 days.",
+                id: "feat_eq_royal_stewardship",
+                name: L.T("feat_eq_royal_stewardship_name", "Royal Stewardship"),
+                description: L.T(
+                    "feat_eq_royal_stewardship_desc",
+                    "Have a companion of the same culture as your kingdom govern a kingdom fief for {TARGET} days."
+                ),
                 target: 30,
                 repeatable: false
             );
 
             RegisterFeat(
-                id: "feat_eq_royal_patronage_kills_custom_kingdom_troops_1000",
-                nameId: "feat_eq_royal_patronage_kills_custom_kingdom_troops_1000",
-                nameFallback: "Royal Host",
-                descId: "feat_eq_royal_patronage_kills_custom_kingdom_troops_1000_desc",
-                descFallback: "Get 1,000 kills with custom kingdom troops.",
+                id: "feat_eq_royal_host",
+                name: L.T("feat_eq_royal_host_name", "Royal Host"),
+                description: L.T(
+                    "feat_eq_royal_host_desc",
+                    "Get {TARGET} kills with custom kingdom troops."
+                ),
                 target: 1000,
                 repeatable: false
             );
 
             RegisterFeat(
-                id: "feat_eq_royal_patronage_recruit_custom_kingdom_troops_100",
-                nameId: "feat_eq_royal_patronage_recruit_custom_kingdom_troops_100",
-                nameFallback: "Royal Levy",
-                descId: "feat_eq_royal_patronage_recruit_custom_kingdom_troops_100_desc",
-                descFallback: "Recruit 100 custom kingdom troops.",
+                id: "feat_eq_royal_levy",
+                name: L.T("feat_eq_royal_levy_name", "Royal Levy"),
+                description: L.T(
+                    "feat_eq_royal_levy_desc",
+                    "Recruit {TARGET} custom kingdom troops."
+                ),
                 target: 100,
                 repeatable: true
             );

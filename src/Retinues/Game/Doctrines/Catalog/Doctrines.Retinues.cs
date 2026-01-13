@@ -19,10 +19,6 @@ namespace Retinues.Game.Doctrines.Catalog
                 new DoctrineCategoryDefinition(
                     id: "cat_retinues",
                     name: L.T("doctrine_cat_retinues", "Retinues"),
-                    description: L.T(
-                        "doctrine_cat_retinues_desc",
-                        "Doctrines focused on retinue durability, morale, and capacity."
-                    ),
                     doctrineIds:
                     [
                         "doc_retinues_indomitable",

@@ -1,13 +1,11 @@
 using System;
 using System.Collections.Generic;
 using Retinues.Configuration;
-using Retinues.Domain.Characters.Wrappers;
+using Retinues.Domain.Equipments.Models;
 using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Domain.Events.Models;
-using Retinues.Domain.Parties.Wrappers;
 using Retinues.Framework.Behaviors;
 using Retinues.Utilities;
-using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 
 namespace Retinues.Game.Unlocks
@@ -29,8 +27,8 @@ namespace Retinues.Game.Unlocks
 
             try
             {
-                if (!IsPlayerVictory())
-                    return;
+                if (MMapEvent.Current.IsLost)
+                    return; // No progress on lost battles
 
                 // Keep the legacy behavior as a fallback path (for cases where
                 // the post-battle scoreboard patch did not run).
@@ -51,12 +49,8 @@ namespace Retinues.Game.Unlocks
             bool notify
         )
         {
-            var mm = MMission.Current;
+            var mm = mission ?? MMission.Current;
             if (mm == null)
-                return [];
-
-            // If we got a mission wrapper, ensure it matches Current (when available).
-            if (mission?.Base != null && !ReferenceEquals(mm.Base, mission.Base))
                 return [];
 
             var mbMission = mission?.Base;
@@ -73,29 +67,20 @@ namespace Retinues.Game.Unlocks
 
             var perKill = Math.Max(1, WItem.UnlockThreshold / required);
 
-            var playerSide = mbMission?.PlayerTeam?.Side ?? BattleSideEnum.None;
-            if (playerSide == BattleSideEnum.None)
-                playerSide = InferPlayerSideFromKills(kills);
-
             var counts = new Dictionary<string, int>(StringComparer.Ordinal);
-            var party = Player.Party;
 
             for (var i = 0; i < kills.Count; i++)
             {
                 var k = kills[i];
 
-                if (!IsQualifyingKill(party, k, playerSide))
-                    continue;
+                if (k.KillerIsPlayerSide == false)
+                    if (!Settings.CountAllyCasualties || !k.VictimIsAllyTroop)
+                        continue; // Only consider player side kills
 
-                var code = k.VictimEquipmentCode;
-                if (string.IsNullOrEmpty(code))
-                    continue;
+                if (!Settings.CountAllyKills && k.KillerIsAllyTroop)
+                    continue; // Skip ally kills if configured
 
-                var eq = Equipment.CreateFromEquipmentCode(code);
-                if (eq == null)
-                    continue;
-
-                AccumulateFromEquipment(eq, counts);
+                AccumulateFromEquipment(k.KillerEquipment, counts);
             }
 
             if (counts.Count == 0)
@@ -141,86 +126,10 @@ namespace Retinues.Game.Unlocks
             return unlocked;
         }
 
-        private static bool IsPlayerVictory()
+        private static void AccumulateFromEquipment(MEquipment eq, Dictionary<string, int> counts)
         {
-            // Prefer our wrapper if available.
-            var mm = MMapEvent.Current;
-            if (mm != null)
-                return mm.IsWon;
-
-            // Fallback for cases where Current was cleared early.
-            var me = TaleWorlds.CampaignSystem.Party.MobileParty.MainParty?.MapEvent;
-            if (me == null)
-                return false;
-
-            var wrapped = new MMapEvent(me);
-            return wrapped.IsWon;
-        }
-
-        private static BattleSideEnum InferPlayerSideFromKills(IReadOnlyList<MMission.Kill> kills)
-        {
-            var party = Player.Party;
-            if (party?.MemberRoster == null)
-                return BattleSideEnum.None;
-
-            for (var i = 0; i < kills.Count; i++)
+            foreach (var item in eq.Items)
             {
-                var killerId = kills[i].KillerCharacterId;
-                if (IsInParty(party, killerId))
-                    return kills[i].KillerSide;
-            }
-
-            return BattleSideEnum.None;
-        }
-
-        private static bool IsQualifyingKill(
-            WParty party,
-            MMission.Kill k,
-            BattleSideEnum playerSide
-        )
-        {
-            var killerInPlayerParty = IsInParty(party, k.KillerCharacterId);
-
-            if (!killerInPlayerParty)
-            {
-                if (!Settings.CountAllyKills)
-                    return false;
-
-                if (playerSide == BattleSideEnum.None)
-                    return false;
-
-                if (k.KillerSide != playerSide)
-                    return false;
-            }
-
-            if (!Settings.CountAllyCasualties && playerSide != BattleSideEnum.None)
-            {
-                if (k.VictimSide == playerSide)
-                    return false;
-            }
-
-            return true;
-        }
-
-        private static bool IsInParty(WParty party, string characterId)
-        {
-            if (party == null || string.IsNullOrEmpty(characterId))
-                return false;
-
-            var w = WCharacter.Get(characterId);
-            if (w?.Base == null)
-                return false;
-
-            return party.MemberRoster.CountOf(w) > 0;
-        }
-
-        private static void AccumulateFromEquipment(Equipment eq, Dictionary<string, int> counts)
-        {
-            var slotCount = (int)EquipmentIndex.NumEquipmentSetSlots;
-
-            for (var i = 0; i < slotCount; i++)
-            {
-                var item = eq[(EquipmentIndex)i].Item;
                 if (item == null)
                     continue;
 

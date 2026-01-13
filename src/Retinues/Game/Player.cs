@@ -136,6 +136,26 @@ namespace Retinues.Game
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Troops                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public static IEnumerable<WCharacter> Troops
+        {
+            get
+            {
+                if (Clan != null)
+                    foreach (var troop in Clan.Troops)
+                        if (!troop.IsHero)
+                            yield return troop;
+
+                if (Kingdom != null)
+                    foreach (var troop in Kingdom.Troops)
+                        if (!troop.IsHero)
+                            yield return troop;
+            }
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Cheats                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
