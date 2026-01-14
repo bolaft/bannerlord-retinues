@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Retinues.Domain.Events.Models;
+using Retinues.Game.Missions;
 using TaleWorlds.Core;
 
 namespace Retinues.Game.Doctrines.Feats.Training
@@ -11,16 +12,23 @@ namespace Retinues.Game.Doctrines.Feats.Training
     {
         protected override string FeatId => "feat_tr_combined_arms";
 
-        protected override void OnBattleOver(IReadOnlyList<MMission.Kill> kills, MMapEvent battle)
+        protected override void OnBattleOver(
+            IReadOnlyList<CombatBehavior.Kill> kills,
+            MMapEvent.Snapshot start,
+            MMapEvent end
+        )
         {
-            if (battle.IsLost)
-                return;
+            if (end.IsLost)
+                return; // Player lost the battle.
 
-            if (battle.EnemyTroopCount <= 100)
-                return;
+            if (start.EnemySide.HealthyTroops <= 100)
+                return; // Not enough enemies.
 
             var party = Player.Party;
 
+            /// <summary>
+            /// Check if the party has at least 25% of its members in the specified formations.
+            /// </summary>
             bool HasValidRatio(List<FormationClass> formations)
             {
                 float ratio = 0f;
@@ -32,15 +40,15 @@ namespace Retinues.Game.Doctrines.Feats.Training
             }
 
             if (!HasValidRatio([FormationClass.Infantry]))
-                return;
+                return; // Not enough infantry.
 
             if (!HasValidRatio([FormationClass.Cavalry, FormationClass.HorseArcher]))
-                return;
+                return; // Not enough cavalry.
 
             if (!HasValidRatio([FormationClass.Ranged]))
-                return;
+                return; // Not enough ranged troops.
 
-            Progress(1);
+            Progress();
         }
     }
 }

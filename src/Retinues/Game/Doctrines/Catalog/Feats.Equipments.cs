@@ -26,7 +26,7 @@ namespace Retinues.Game.Doctrines.Catalog
 
         public static IReadOnlyList<DoctrineFeatLink> CulturalPride =>
             [
-                new("feat_eq_king_slayer", worth: 40),
+                new("feat_eq_kingslayer", worth: 40),
                 new("feat_eq_proud_and_strong", worth: 30),
                 new("feat_eq_hometown_tournament", worth: 15),
             ];
@@ -59,10 +59,10 @@ namespace Retinues.Game.Doctrines.Catalog
         private static void RegisterCulturalPride()
         {
             RegisterFeat(
-                id: "feat_eq_king_slayer",
-                name: L.T("feat_eq_king_slayer_name", "King Slayer"),
+                id: "feat_eq_kingslayer",
+                name: L.T("feat_eq_kingslayer_name", "Kingslayer"),
                 description: L.T(
-                    "feat_eq_king_slayer_desc",
+                    "feat_eq_kingslayer_desc",
                     "Defeat a ruler of a different culture in battle."
                 ),
                 target: 1,

@@ -15,6 +15,7 @@ namespace Retinues.Game.Doctrines.Feats.Training
             {
                 var security = fief.Security;
 
+                // Track the highest security value among all fiefs.
                 if (security > highest)
                     highest = security;
             }

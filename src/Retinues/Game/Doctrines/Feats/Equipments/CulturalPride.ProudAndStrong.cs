@@ -1,6 +1,9 @@
 using System.Collections.Generic;
+using System.Linq;
+using Retinues.Domain.Equipments.Models;
 using Retinues.Domain.Events.Models;
-using static Retinues.Domain.Events.Models.MMission;
+using Retinues.Domain.Factions.Wrappers;
+using Retinues.Game.Missions;
 
 namespace Retinues.Game.Doctrines.Feats.Equipments
 {
@@ -11,35 +14,33 @@ namespace Retinues.Game.Doctrines.Feats.Equipments
     {
         protected override string FeatId => "feat_eq_proud_and_strong";
 
-        protected override void OnBattleOver(IReadOnlyList<Kill> kills, MMapEvent battle)
+        protected override void OnBattleOver(
+            IReadOnlyList<CombatBehavior.Kill> kills,
+            MMapEvent.Snapshot start,
+            MMapEvent end
+        )
         {
-            if (battle.IsLost)
-                return;
+            if (end.IsLost)
+                return; // Player lost the battle.
 
-            int count = 0;
-
-            var kf = Filter(
-                killers: a => a.IsPlayerTroop && a.IsCustom,
-                victims: v => v.IsEnemyTroop
-            );
-
-            foreach (var kill in kf.Filter(kills))
+            /// <summary>
+            /// Returns true if the equipment contains any items not of the specified culture.
+            /// </summary>
+            static bool ContainsForeignGear(MEquipment equipment, WCulture culture)
             {
-                var culture = kill.Killer.Culture;
-                bool hasForeignGear = false;
-
-                foreach (var item in kill.KillerEquipment.Items)
+                foreach (var item in equipment.Items)
                 {
-                    if (culture != item.Culture)
-                    {
-                        hasForeignGear = true;
-                        break;
-                    }
+                    if (item.Culture != culture)
+                        return true; // Found foreign gear.
                 }
-
-                if (!hasForeignGear)
-                    count++;
+                return false; // All gear is of the specified culture.
             }
+
+            int count = kills.Count(k =>
+                k.Victim.IsEnemyTroop // Enemy victim
+                && k.Killer.IsPlayerTroop // Friendly killer
+                && ContainsForeignGear(k.KillerEquipment, k.Killer.Character.Culture) == false // No foreign gear
+            );
 
             Progress(count);
         }

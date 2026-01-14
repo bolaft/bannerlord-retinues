@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Retinues.Domain.Events.Models;
-using static Retinues.Domain.Events.Models.MMission;
+using Retinues.Game.Missions;
 
 namespace Retinues.Game.Doctrines.Feats.Equipments
 {
@@ -12,19 +12,24 @@ namespace Retinues.Game.Doctrines.Feats.Equipments
     {
         protected override string FeatId => "feat_eq_royal_host";
 
-        protected override void OnBattleOver(IReadOnlyList<Kill> kills, MMapEvent battle)
+        protected override void OnBattleOver(
+            IReadOnlyList<CombatBehavior.Kill> kills,
+            MMapEvent.Snapshot start,
+            MMapEvent end
+        )
         {
             var kingdom = Player.Kingdom;
             if (kingdom == null)
-                return;
+                return; // Player has no kingdom.
 
-            var kf = Filter(
-                killers: a =>
-                    a.IsPlayerTroop && a.Character.InCustomTree && a.Character.BelongsTo(kingdom),
-                victims: v => v.IsEnemyTroop
-            );
-
-            int count = kf.Filter(kills).Count();
+            int count = kills
+                .Select(k =>
+                    k.Killer.IsPlayerTroop // Player troop
+                    && k.Killer.Character.IsFactionTroop // In custom troop tree
+                    && k.Killer.Character.BelongsTo(kingdom) // Belongs to player's kingdom
+                    && k.Victim.IsEnemyTroop // Enemy victim
+                )
+                .Count();
 
             Progress(count);
         }

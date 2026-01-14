@@ -5,6 +5,7 @@ using Retinues.Domain.Equipments.Models;
 using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Domain.Events.Models;
 using Retinues.Framework.Behaviors;
+using Retinues.Game.Missions;
 using Retinues.Utilities;
 using TaleWorlds.MountAndBlade;
 
@@ -15,49 +16,40 @@ namespace Retinues.Game.Unlocks
     /// </summary>
     public sealed class UnlocksByKillsBehavior : BaseCampaignBehavior
     {
-        private static Mission _lastAppliedMission;
+        static Mission _lastAppliedMission;
+
+        public override bool IsActive => Settings.UnlockItemsThroughKills;
 
         /// <summary>
         /// Called when a mission ends.
         /// </summary>
         protected override void OnMissionEnded(MMission mission)
         {
-            if (!Settings.EquipmentNeedsUnlocking || !Settings.UnlockItemsThroughKills)
-                return;
+            if (CombatBehavior.MapEvent?.IsLost == true)
+                return; // No progress on lost battles.
 
-            try
-            {
-                if (MMapEvent.Current.IsLost)
-                    return; // No progress on lost battles
+            // Kept in case the post-battle scoreboard patch did not run.
+            var unlocked = ApplyProgressFromMissionKills(mission.Base);
 
-                // Keep the legacy behavior as a fallback path (for cases where
-                // the post-battle scoreboard patch did not run).
-                _ = ApplyProgressFromMissionKills(mission, notify: true);
-            }
-            catch (Exception e)
-            {
-                Log.Exception(e, "Item unlock progress failed on mission end.");
-            }
+            Log.Debug($"Mission ended: {unlocked.Count} items unlocked from kills.");
         }
 
         /// <summary>
         /// Applies unlock progress based on kills recorded in the given mission.
         /// Returns the list of newly-unlocked items (if any).
         /// </summary>
-        internal static IReadOnlyList<WItem> ApplyProgressFromMissionKills(
-            MMission mission,
-            bool notify
-        )
+        internal static IReadOnlyList<WItem> ApplyProgressFromMissionKills(Mission mission)
         {
-            var mm = mission ?? MMission.Current;
-            if (mm == null)
-                return [];
+            if (ReferenceEquals(mission, _lastAppliedMission))
+            {
+                Log.Debug($"[Unlocks] Already applied for this mission.");
+                return []; // Already applied for this mission.
+            }
 
-            var mbMission = mission?.Base;
-            if (mbMission != null && ReferenceEquals(_lastAppliedMission, mbMission))
-                return [];
+            // Remember that we applied for this mission.
+            _lastAppliedMission = mission;
 
-            var kills = mm.Kills;
+            var kills = CombatBehavior.GetKills();
             if (kills == null || kills.Count == 0)
                 return [];
 
@@ -69,18 +61,17 @@ namespace Retinues.Game.Unlocks
 
             var counts = new Dictionary<string, int>(StringComparer.Ordinal);
 
-            for (var i = 0; i < kills.Count; i++)
+            foreach (var k in kills)
             {
-                var k = kills[i];
+                var killer = k.Killer;
+                var victim = k.Victim;
 
-                if (k.KillerIsPlayerSide == false)
-                    if (!Settings.CountAllyCasualties || !k.VictimIsAllyTroop)
-                        continue; // Only consider player side kills
+                float multiplier = GetLootMultiplier(killer, victim);
 
-                if (!Settings.CountAllyKills && k.KillerIsAllyTroop)
-                    continue; // Skip ally kills if configured
+                if (multiplier <= 0f)
+                    continue; // No progress for this kill.
 
-                AccumulateFromEquipment(k.KillerEquipment, counts);
+                AccumulateFromEquipment(k.VictimEquipment, counts);
             }
 
             if (counts.Count == 0)
@@ -110,24 +101,73 @@ namespace Retinues.Game.Unlocks
                     unlocked.Add(wItem);
             }
 
-            if (unlocked.Count > 0 && notify)
+            if (unlocked.Count > 0)
                 UnlockNotifier.ItemsUnlocked(UnlockNotifier.UnlockMethod.Kills, unlocked);
-
-            if (mbMission != null)
-                _lastAppliedMission = mbMission;
-
-            if (Settings.DebugMode && itemsTouched > 0)
-            {
-                Log.Debug(
-                    $"[Unlocks] Mission kill progress applied: items={itemsTouched}, newlyUnlocked={unlocked.Count}, totalAdded={totalAdded}."
-                );
-            }
 
             return unlocked;
         }
 
+        private static float GetLootMultiplier(MAgent.Snapshot killer, MAgent.Snapshot victim)
+        {
+            // Case 1: Victim is player troop.
+            if (victim.IsPlayerTroop)
+            {
+                return 0f;
+            }
+
+            // Case 2: Victim is ally troop.
+            if (victim.IsAllyTroop)
+            {
+                // Case 2.a: Count ally casualties.
+                if (false)
+                {
+                    return 1f;
+                }
+                // Case 2.b: Don't count ally casualties.
+                else
+                {
+                    return 0f;
+                }
+            }
+
+            // Case 3: Victim is enemy troop.
+            if (victim.IsEnemyTroop)
+            {
+                // Case 3.a: Killer is player.
+                if (killer.IsPlayer)
+                {
+                    return 1f;
+                }
+                // Case 3.b: Killer is player troop.
+                else if (killer.IsPlayerTroop)
+                {
+                    return 1f;
+                }
+                // Case 3.c: Killer is ally troop.
+                else if (killer.IsAllyTroop)
+                {
+                    if (false)
+                    {
+                        return 1f;
+                    }
+                    else
+                    {
+                        return 0f;
+                    }
+                }
+            }
+
+            return 0f;
+        }
+
+        /// <summary>
+        /// Accumulate kill counts from the given equipment.
+        /// </summary>
         private static void AccumulateFromEquipment(MEquipment eq, Dictionary<string, int> counts)
         {
+            if (eq == null)
+                return;
+
             foreach (var item in eq.Items)
             {
                 if (item == null)

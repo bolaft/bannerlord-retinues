@@ -305,7 +305,7 @@ namespace Retinues.Domain.Characters.Wrappers
         /// True if this troop belongs to a custom map-faction tree (retinues or custom clan/kingdom roots).
         /// This is independent from IsCustom.
         /// </summary>
-        public bool InCustomTree => CustomTreeFlagCache.Get(this);
+        public bool IsFactionTroop => CustomTreeFlagCache.Get(this);
 
         private static class CustomTreeFlagCache
         {

@@ -287,6 +287,21 @@
       id="ret_doctrine_acquired_text"
       text="ПРИОБРЕТЕНО" />
     <string
+      id="ret_doctrine_cat_equipments"
+      text="Снаряжение" />
+    <string
+      id="ret_doctrine_cat_loot"
+      text="Добыча" />
+    <string
+      id="ret_doctrine_cat_retinues"
+      text="Охрана" />
+    <string
+      id="ret_doctrine_cat_training"
+      text="Обучение" />
+    <string
+      id="ret_doctrine_cat_troops"
+      text="Войска" />
+    <string
       id="ret_doctrine_cost_text_both"
       text="Стоимость {GOLD} денаров, {INFLUENCE} влияния" />
     <string
@@ -308,9 +323,6 @@
       id="ret_doctrine_feat_completed"
       text="Завершено" />
     <string
-      id="ret_doctrine_feat_optional"
-      text="Необязательно" />
-    <string
       id="ret_doctrine_feat_progress_tooltip_completed"
       text="Вы завершили этот подвиг." />
     <string
@@ -320,14 +332,8 @@
       id="ret_doctrine_feat_progress_tooltip_repeatable"
       text="Этот подвиг можно повторять. Вы можете завершать его несколько раз." />
     <string
-      id="ret_doctrine_feat_required"
-      text="Требуется" />
-    <string
       id="ret_doctrine_feats_header"
       text="Подвиги" />
-    <string
-      id="ret_doctrine_missing_feats"
-      text="Требуемые подвиги не были выполнены." />
     <string
       id="ret_doctrine_not_enough_gold_desc"
       text="Вам нужно {COST} денариев, чтобы разблокировать эту доктрину." />
@@ -534,7 +540,187 @@
       text="королевство" />
     <string
       id="ret_feat_complete_title"
-      text="Подвиг завершен" />
+      text="Достижение выполнено" />
+    <string
+      id="ret_feat_eq_blood_money_desc"
+      text="Захватите на поле боя {TARGET} денаров." />
+    <string
+      id="ret_feat_eq_blood_money_name"
+      text="Кровавые деньги" />
+    <string
+      id="ret_feat_eq_golden_legion_desc"
+      text="Выведите на поле боя отряд снаряжением стоимостью более 100 000 денаров." />
+    <string
+      id="ret_feat_eq_golden_legion_name"
+      text="Золотой легион" />
+    <string
+      id="ret_feat_eq_heavy_kit_desc"
+      text="Выведите на поле боя отряд снаряжением весом более 60 кг." />
+    <string
+      id="ret_feat_eq_heavy_kit_name"
+      text="Тяжелое снаряжение" />
+    <string
+      id="ret_feat_eq_hometown_tournament_desc"
+      text="Выиграйте турнир в городе культуры вашего клана." />
+    <string
+      id="ret_feat_eq_hometown_tournament_name"
+      text="Турнир на родине" />
+    <string
+      id="ret_feat_eq_ironmen_desc"
+      text="Выиграйте битву, выставив только войска в полной металлической броне." />
+    <string
+      id="ret_feat_eq_ironmen_name"
+      text="Железные люди" />
+    <string
+      id="ret_feat_eq_kingslayer_desc"
+      text="Победите правителя другой культуры в бою." />
+    <string
+      id="ret_feat_eq_kingslayer_name"
+      text="Королевоубийца" />
+    <string
+      id="ret_feat_eq_paid_in_full_desc"
+      text="Заплатите {TARGET} денаров за жалование войскам." />
+    <string
+      id="ret_feat_eq_paid_in_full_name"
+      text="Полностью оплачено" />
+    <string
+      id="ret_feat_eq_proud_and_strong_desc"
+      text="Завоюйте {TARGET} убийств в бою с отрядами, не носящими иностранное снаряжение." />
+    <string
+      id="ret_feat_eq_proud_and_strong_name"
+      text="Гордый и сильный" />
+    <string
+      id="ret_feat_eq_royal_host_desc"
+      text="Завоюйте {TARGET} убийств с помощью настраиваемых войск королевства." />
+    <string
+      id="ret_feat_eq_royal_host_name"
+      text="Королевский двор" />
+    <string
+      id="ret_feat_eq_royal_levy_desc"
+      text="Наберите {TARGET} настраиваемых войск королевства." />
+    <string
+      id="ret_feat_eq_royal_levy_name"
+      text="Королевский призыв" />
+    <string
+      id="ret_feat_eq_royal_stewardship_desc"
+      text="Пусть спутник той же культуры, что и ваше королевство, управляет феодом королевства в течение {TARGET} дней." />
+    <string
+      id="ret_feat_eq_royal_stewardship_name"
+      text="Королевское управление" />
+    <string
+      id="ret_feat_eq_tailor_made_desc"
+      text="Владейте кузницей в течение {TARGET} дней." />
+    <string
+      id="ret_feat_eq_tailor_made_name"
+      text="Сделано на заказ" />
+    <string
+      id="ret_feat_notification_body"
+      text="{NAME}:{newline}{newline}{DESC}" />
+    <string
+      id="ret_feat_ret_against_all_odds_desc"
+      text="При численном превосходстве не менее 2 к 1 выиграйте битву, выставив только свиту." />
+    <string
+      id="ret_feat_ret_against_all_odds_name"
+      text="Несмотря ни на что" />
+    <string
+      id="ret_feat_ret_bounty_hunters_desc"
+      text="Уничтожьте {TARGET} бандитских отрядов." />
+    <string
+      id="ret_feat_ret_bounty_hunters_name"
+      text="Охотники за головами" />
+    <string
+      id="ret_feat_ret_defy_the_tide_desc"
+      text="Выиграйте битву против подавляющих сил, выставив в основном свиту." />
+    <string
+      id="ret_feat_ret_defy_the_tide_name"
+      text="Противостоять приливу" />
+    <string
+      id="ret_feat_ret_first_through_the_breach_desc"
+      text="Пусть свита получит первое убийство в рукопашной схватке во время осады." />
+    <string
+      id="ret_feat_ret_first_through_the_breach_name"
+      text="Первый через брешь" />
+    <string
+      id="ret_feat_ret_flawless_execution_desc"
+      text="Пусть ваши свиты победят {TARGET} вражеских солдат того же уровня без единой потери." />
+    <string
+      id="ret_feat_ret_flawless_execution_name"
+      text="Безупречное исполнение" />
+    <string
+      id="ret_feat_ret_high_spirits_desc"
+      text="Поддерживайте мораль партии, состоящей только из свиты, выше 90 в течение {TARGET} дней." />
+    <string
+      id="ret_feat_ret_high_spirits_name"
+      text="Высокий дух" />
+    <string
+      id="ret_feat_ret_hold_the_line_desc"
+      text="Выиграйте оборонительную битву с партией, состоящей только из свиты." />
+    <string
+      id="ret_feat_ret_hold_the_line_name"
+      text="Держать линию" />
+    <string
+      id="ret_feat_ret_perfect_victory_desc"
+      text="Выиграйте в одиночку против 100 или более врагов без единой смерти с вашей стороны." />
+    <string
+      id="ret_feat_ret_perfect_victory_name"
+      text="Идеальная победа" />
+    <string
+      id="ret_feat_ret_raise_the_vanguard_desc"
+      text="Нанять {TARGET} свит." />
+    <string
+      id="ret_feat_ret_raise_the_vanguard_name"
+      text="Поднять авангард" />
+    <string
+      id="ret_feat_ret_safe_travels_desc"
+      text="Спасите караван или деревенскую партию от вражеской атаки." />
+    <string
+      id="ret_feat_ret_safe_travels_name"
+      text="Безопасные путешествия" />
+    <string
+      id="ret_feat_ret_shock_assault_desc"
+      text="Выиграйте битву из 100 или более бойцов, используя только свою свиту." />
+    <string
+      id="ret_feat_ret_shock_assault_name"
+      text="Шоковый штурм" />
+    <string
+      id="ret_feat_ret_still_standing_desc"
+      text="Пусть {TARGET} свит переживут поражение в бою." />
+    <string
+      id="ret_feat_ret_still_standing_name"
+      text="Все еще стоит" />
+    <string
+      id="ret_feat_sp_allies_favor_desc"
+      text="Выполните задание для союзного лорда." />
+    <string
+      id="ret_feat_sp_allies_favor_name"
+      text="Благосклонность союзника" />
+    <string
+      id="ret_feat_sp_ancestral_duty_desc"
+      text="Выполните задание для лорда культуры вашего клана." />
+    <string
+      id="ret_feat_sp_ancestral_duty_name"
+      text="Родовой долг" />
+    <string
+      id="ret_feat_sp_blood_price_desc"
+      text="Лично победите {TARGET} врагов в одной битве." />
+    <string
+      id="ret_feat_sp_blood_price_name"
+      text="Цена крови" />
+    <string
+      id="ret_feat_sp_costly_victory_desc"
+      text="Выиграйте битву, в которой союзники понесли более 100 потерь." />
+    <string
+      id="ret_feat_sp_costly_victory_name"
+      text="Дорогая победа" />
+    <string
+      id="ret_feat_sp_cultural_triumph_desc"
+      text="В одиночку выиграйте битву против вражеской армии другой культуры." />
+    <string
+      id="ret_feat_sp_cultural_triumph_name"
+      text="Культурный триумф" />
+    <string
+      id="ret_feat_sp_cut_the_head_desc"
+      text="Лично победите в бою вражеского лорда." />
     <string
       id="ret_filter_label"
       text="Фильтр:" />
@@ -907,18 +1093,6 @@
     <string
       id="ret_mcm_option_clan_troops_unlock_hint"
       text="Определяет, когда отряды клана становятся доступными." />
-    <string
-      id="ret_mcm_option_count_ally_casualties"
-      text="Учитывать потери союзников" />
-    <string
-      id="ret_mcm_option_count_ally_casualties_hint"
-      text="Учитывать ли потери союзников для разблокировки предметов." />
-    <string
-      id="ret_mcm_option_count_ally_kills"
-      text="Учитывать убийства союзников" />
-    <string
-      id="ret_mcm_option_count_ally_kills_hint"
-      text="Учитывать ли убийства союзными войсками для разблокировки предметов." />
     <string
       id="ret_mcm_option_debug_mode"
       text="Режим отладки" />

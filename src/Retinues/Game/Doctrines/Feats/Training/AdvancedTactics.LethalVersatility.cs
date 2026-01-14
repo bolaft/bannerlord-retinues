@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Retinues.Domain.Events.Models;
-using static Retinues.Domain.Events.Models.MMission;
+using Retinues.Game.Missions;
 
 namespace Retinues.Game.Doctrines.Feats.Training
 {
@@ -11,25 +11,32 @@ namespace Retinues.Game.Doctrines.Feats.Training
     {
         protected override string FeatId => "feat_tr_lethal_versatility";
 
-        protected override void OnBattleOver(IReadOnlyList<Kill> kills, MMapEvent battle)
+        protected override void OnBattleOver(
+            IReadOnlyList<CombatBehavior.Kill> kills,
+            MMapEvent.Snapshot start,
+            MMapEvent end
+        )
         {
             var classes = new HashSet<int>();
 
             foreach (var kill in kills)
             {
-                if (!kill.VictimIsEnemyTroop)
-                    continue;
+                if (!kill.Victim.IsEnemyTroop)
+                    continue; // Victim is not an enemy troop.
 
-                if (!kill.KillerIsPlayer)
-                    continue;
+                if (!kill.Killer.IsPlayer)
+                    continue; // Killer is not a player troop.
 
+                // Record the weapon class used.
                 classes.Add(kill.WeaponClass);
+
+                // Check if we have reached five different weapon classes.
+                if (classes.Count >= 5)
+                {
+                    Progress();
+                    return;
+                }
             }
-
-            if (classes.Count < 5)
-                return;
-
-            Progress(1);
         }
     }
 }

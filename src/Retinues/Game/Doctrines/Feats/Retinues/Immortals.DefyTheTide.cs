@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Retinues.Domain.Events.Models;
-using static Retinues.Domain.Events.Models.MMission;
+using Retinues.Game.Missions;
 
 namespace Retinues.Game.Doctrines.Feats.Retinues
 {
@@ -11,24 +11,36 @@ namespace Retinues.Game.Doctrines.Feats.Retinues
     {
         protected override string FeatId => "feat_ret_defy_the_tide";
 
-        protected override void OnBattleOver(IReadOnlyList<Kill> kills, MMapEvent battle)
-        {
-            if (battle.IsLost)
-                return;
+        static bool IsMostlyRetinues;
 
-            var ally = battle.FriendlyTroopCount;
-            var enemy = battle.EnemyTroopCount;
+        protected override void OnBattleStart(MMapEvent battle)
+        {
+            // Check if the player's party is mostly retinues at the start of the battle.
+            IsMostlyRetinues = Player.Party.RetinueRatio >= 0.75f;
+        }
+
+        protected override void OnBattleOver(
+            IReadOnlyList<CombatBehavior.Kill> kills,
+            MMapEvent.Snapshot start,
+            MMapEvent end
+        )
+        {
+            if (end.IsLost)
+                return; // Player lost the battle.
+
+            if (!IsMostlyRetinues)
+                return; // Not mostly retinues.
+
+            var ally = start.PlayerSide.HealthyTroops;
+            var enemy = start.EnemySide.HealthyTroops;
 
             if (ally <= 0 || enemy <= 0)
-                return;
+                return; // No troops on one side.
 
             if (enemy < ally * 3)
-                return;
+                return; // Not overwhelming odds.
 
-            if (Player.Party.RetinueRatio < 0.75f)
-                return;
-
-            Progress(1);
+            Progress();
         }
     }
 }

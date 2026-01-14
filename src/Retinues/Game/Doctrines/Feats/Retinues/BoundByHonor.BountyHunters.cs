@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Retinues.Domain.Events.Models;
-using static Retinues.Domain.Events.Models.MMission;
+using Retinues.Game.Missions;
 
 namespace Retinues.Game.Doctrines.Feats.Retinues
 {
@@ -11,14 +11,18 @@ namespace Retinues.Game.Doctrines.Feats.Retinues
     {
         protected override string FeatId => "feat_ret_bounty_hunters";
 
-        protected override void OnBattleOver(IReadOnlyList<Kill> kills, MMapEvent battle)
+        protected override void OnBattleOver(
+            IReadOnlyList<CombatBehavior.Kill> kills,
+            MMapEvent.Snapshot start,
+            MMapEvent end
+        )
         {
-            if (battle.IsLost)
-                return;
+            if (end.IsLost)
+                return; // Player lost the battle.
 
-            foreach (var party in battle.EnemySideParties)
+            foreach (var party in start.EnemySide.Parties)
                 if (party.IsBandit)
-                    Progress(1);
+                    Progress(); // Progress for each bandit party defeated.
         }
     }
 }

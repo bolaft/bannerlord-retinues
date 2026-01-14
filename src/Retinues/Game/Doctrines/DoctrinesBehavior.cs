@@ -17,7 +17,7 @@ namespace Retinues.Game.Doctrines
     [SafeClass]
     public sealed class DoctrinesBehavior : BaseCampaignBehavior<DoctrinesBehavior>
     {
-        public override bool IsEnabled => Settings.EnableDoctrines;
+        public override bool IsActive => Settings.EnableDoctrines;
 
         private const int DoctrineUnlockTarget = DoctrineDefinition.UnlockProgressTarget;
 
@@ -168,12 +168,7 @@ namespace Retinues.Game.Doctrines
             PendingFeatNotifs.Clear();
         }
 
-        protected override void RegisterCustomEvents()
-        {
-            CampaignEvents.TickEvent.AddNonSerializedListener(this, OnTick);
-        }
-
-        private void OnTick(float dt)
+        protected override void OnTick()
         {
             if (PendingFeatNotifs.Count == 0)
                 return;
@@ -309,6 +304,25 @@ namespace Retinues.Game.Doctrines
             return _featConsumed.TryGetValue(featId ?? string.Empty, out var c) && c;
         }
 
+        public bool CanProgressFeat(string featId)
+        {
+            var links = DoctrinesCatalog.GetDoctrineLinksForFeat(featId);
+            if (links == null || links.Count == 0)
+                return false;
+
+            for (var i = 0; i < links.Count; i++)
+            {
+                var (doctrineId, _) = links[i];
+                if (string.IsNullOrEmpty(doctrineId))
+                    continue;
+
+                if (GetDoctrineState(doctrineId) == DoctrineState.InProgress)
+                    return true;
+            }
+
+            return false;
+        }
+
         public int GetFeatTimesCompleted(string featId)
         {
             return _featTimesCompleted.TryGetValue(featId ?? string.Empty, out var t)
@@ -327,7 +341,7 @@ namespace Retinues.Game.Doctrines
             if (amount <= 0)
                 return false;
 
-            if (!CanProgressFeatForAnyInProgressDoctrine(feat.Id))
+            if (!CanProgressFeat(feat.Id))
                 return false;
 
             if (!feat.Repeatable && IsFeatCompleted(feat.Id))
@@ -371,7 +385,7 @@ namespace Retinues.Game.Doctrines
             if (amount < 0)
                 return false;
 
-            if (!CanProgressFeatForAnyInProgressDoctrine(feat.Id))
+            if (!CanProgressFeat(feat.Id))
                 return false;
 
             if (!feat.Repeatable && IsFeatCompleted(feat.Id))
@@ -395,7 +409,7 @@ namespace Retinues.Game.Doctrines
             if (!DoctrinesCatalog.TryGetFeat(featId, out var feat) || feat == null)
                 return false;
 
-            if (!CanProgressFeatForAnyInProgressDoctrine(feat.Id))
+            if (!CanProgressFeat(feat.Id))
                 return false;
 
             if (!feat.Repeatable && IsFeatCompleted(feat.Id))
@@ -497,25 +511,6 @@ namespace Retinues.Game.Doctrines
             }
         }
 
-        private bool CanProgressFeatForAnyInProgressDoctrine(string featId)
-        {
-            var links = DoctrinesCatalog.GetDoctrineLinksForFeat(featId);
-            if (links == null || links.Count == 0)
-                return false;
-
-            for (var i = 0; i < links.Count; i++)
-            {
-                var (doctrineId, _, _) = links[i];
-                if (string.IsNullOrEmpty(doctrineId))
-                    continue;
-
-                if (GetDoctrineState(doctrineId) == DoctrineState.InProgress)
-                    return true;
-            }
-
-            return false;
-        }
-
         private void CompleteFeatInternal(string featId)
         {
             if (!DoctrinesCatalog.TryGetFeat(featId, out var feat) || feat == null)
@@ -547,7 +542,7 @@ namespace Retinues.Game.Doctrines
 
             for (var i = 0; i < links.Count; i++)
             {
-                var (doctrineId, _, _) = links[i];
+                var (doctrineId, _) = links[i];
                 if (string.IsNullOrEmpty(doctrineId))
                     continue;
 
@@ -566,7 +561,7 @@ namespace Retinues.Game.Doctrines
             // Apply worth only to doctrines that were already InProgress at snapshot time.
             for (var i = 0; i < links.Count; i++)
             {
-                var (doctrineId, worth, _) = links[i];
+                var (doctrineId, worth) = links[i];
                 if (worth <= 0 || string.IsNullOrEmpty(doctrineId))
                     continue;
 

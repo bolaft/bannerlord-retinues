@@ -241,9 +241,7 @@ namespace Retinues.Editor.VM.Panel.Character
         [EventListener(UIEvent.Character)]
         public void RefreshSkillsGrid()
         {
-            var skills =
-                SkillsHelper.GetSkillListForCharacter(State.Character.IsHero, includeModded: true)
-                ?? [];
+            var skills = SkillsHelper.GetSkillList(State.Character) ?? [];
             var list = skills.Where(s => s != null).Distinct().ToList();
 
             SkillsCount = list.Count;

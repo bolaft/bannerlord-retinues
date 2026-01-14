@@ -14,12 +14,20 @@ namespace Retinues.Game.Unlocks
     [SafeClass]
     public sealed class UnlockNotifierBehavior : BaseCampaignBehavior
     {
+        public override bool IsActive => Settings.EquipmentNeedsUnlocking;
+
+        /// <summary>
+        /// Pending notification data.
+        /// </summary>
         private struct PendingNotification
         {
             public TextObject Title;
             public TextObject Description;
         }
 
+        /// <summary>
+        /// Pending notifications to be flushed.
+        /// </summary>
         private static readonly List<PendingNotification> Pending = new(16);
 
         private static bool _clonerHooked;
@@ -36,12 +44,13 @@ namespace Retinues.Game.Unlocks
             }
         }
 
+        /// <summary>
+        /// Register custom campaign events.
+        /// </summary>
         protected override void RegisterCustomEvents()
         {
             // Flush queued notifications (batch) once we're back in a safe UI context.
             // We do NOT check MapState here; Inquiries handles delaying.
-            CampaignEvents.TickEvent.AddNonSerializedListener(this, OnTick);
-
             if (_clonerHooked)
                 return;
 
@@ -63,13 +72,18 @@ namespace Retinues.Game.Unlocks
                 Pending.RemoveAt(0);
         }
 
+        /// <summary>
+        /// Handle unlocks from TroopCloner.
+        /// </summary>
         private static void OnClonerItemsUnlocked(IReadOnlyList<WItem> items)
         {
-            // UnlockNotifier will call UnlockNotifierBehavior.Notify(...) internally in your setup.
-            UnlockNotifier.ItemsUnlocked(UnlockNotifier.UnlockMethod.Troops, items);
+            // UnlockNotifier will call UnlockNotifierBehavior.Notify(...) internally.
         }
 
-        private void OnTick(float dt)
+        /// <summary>
+        /// Campaign tick handler to flush pending notifications.
+        /// </summary>
+        protected override void OnTick()
         {
             if (Pending.Count == 0)
                 return;
@@ -77,6 +91,9 @@ namespace Retinues.Game.Unlocks
             Flush();
         }
 
+        /// <summary>
+        /// Flush pending notifications as a single batched notification.
+        /// </summary>
         private static void Flush()
         {
             if (Pending.Count == 0)
@@ -103,6 +120,9 @@ namespace Retinues.Game.Unlocks
             Show(title, description);
         }
 
+        /// <summary>
+        /// Show a notification with the given title and description.
+        /// </summary>
         private static void Show(TextObject title, TextObject description)
         {
             switch (Settings.ItemUnlockNotification.Value)

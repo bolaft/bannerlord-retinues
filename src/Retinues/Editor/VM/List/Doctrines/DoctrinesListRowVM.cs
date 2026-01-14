@@ -11,19 +11,14 @@ namespace Retinues.Editor.VM.List.Doctrines
     /// <summary>
     /// Row representing a doctrine in the list.
     /// </summary>
-    public sealed class DoctrinesListRowVM : BaseListRowVM
+    public sealed class DoctrinesListRowVM(ListHeaderVM header, string doctrineId)
+        : BaseListRowVM(header, doctrineId ?? string.Empty)
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Constructor                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private readonly string _doctrineId;
-
-        public DoctrinesListRowVM(ListHeaderVM header, string doctrineId)
-            : base(header, doctrineId ?? string.Empty)
-        {
-            _doctrineId = doctrineId ?? string.Empty;
-        }
+        private readonly string _doctrineId = doctrineId ?? string.Empty;
 
         private DoctrineDefinition Def =>
             DoctrinesCatalog.TryGetDoctrine(_doctrineId, out var d) ? d : null;

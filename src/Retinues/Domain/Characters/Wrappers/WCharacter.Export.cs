@@ -178,12 +178,7 @@ namespace Retinues.Domain.Characters.Wrappers
             var skills = new XElement("skills");
 
             // Use helper list so this includes modded skills too.
-            foreach (
-                var skill in Helpers.SkillsHelper.GetSkillListForCharacter(
-                    IsHero,
-                    includeModded: true
-                )
-            )
+            foreach (var skill in Helpers.SkillsHelper.GetSkillList(this))
             {
                 if (skill == null)
                     continue;

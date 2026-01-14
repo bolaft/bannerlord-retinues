@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Retinues.Domain.Events.Models;
-using static Retinues.Domain.Events.Models.MMission;
+using Retinues.Game.Missions;
 
 namespace Retinues.Game.Doctrines.Feats.Loot
 {
@@ -11,28 +11,29 @@ namespace Retinues.Game.Doctrines.Feats.Loot
     {
         protected override string FeatId => "feat_sp_rescue_mission";
 
-        protected override void OnBattleOver(IReadOnlyList<Kill> kills, MMapEvent battle)
+        protected override void OnBattleOver(
+            IReadOnlyList<CombatBehavior.Kill> kills,
+            MMapEvent.Snapshot start,
+            MMapEvent end
+        )
         {
-            if (battle.IsLost)
-                return;
+            if (end.IsLost)
+                return; // Player lost the battle.
 
-            foreach (var party in battle.EnemySideParties)
+            foreach (var party in start.EnemySide.Parties)
             {
-                if (party == null)
-                    continue;
-
                 foreach (var e in party.PrisonRoster.Elements)
                 {
                     var hero = e.Troop?.Hero;
 
                     if (hero?.IsLord != true)
-                        continue;
+                        continue; // Not a lord.
 
                     if (hero.Clan.MapFaction.StringId != Player.Clan.MapFaction.StringId)
-                        continue;
+                        continue; // Not ally.
 
-                    Progress(1);
-                    return;
+                    Progress();
+                    return; // Only count once per battle.
                 }
             }
         }

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Retinues.Domain.Events.Models;
-using static Retinues.Domain.Events.Models.MMission;
+using Retinues.Game.Missions;
 
 namespace Retinues.Game.Doctrines.Feats.Retinues
 {
@@ -11,18 +11,30 @@ namespace Retinues.Game.Doctrines.Feats.Retinues
     {
         protected override string FeatId => "feat_ret_shock_assault";
 
-        protected override void OnBattleOver(IReadOnlyList<Kill> kills, MMapEvent battle)
+        static bool IsAllRetinue;
+
+        protected override void OnBattleStart(MMapEvent battle)
         {
-            if (battle.IsLost)
-                return;
+            // Check if the player's party is retinue-only at the start of the battle.
+            IsAllRetinue = Player.Party.RetinueRatio >= 1f;
+        }
 
-            if (battle.TotalTroopCount < 100)
-                return;
+        protected override void OnBattleOver(
+            IReadOnlyList<CombatBehavior.Kill> kills,
+            MMapEvent.Snapshot start,
+            MMapEvent end
+        )
+        {
+            if (end.IsLost)
+                return; // Player lost the battle.
 
-            if (Player.Party.RetinueRatio < 1f)
-                return;
+            if ((start.PlayerSide.HealthyTroops + start.EnemySide.HealthyTroops) < 100)
+                return; // Not enough combatants.
 
-            Progress(1);
+            if (!IsAllRetinue)
+                return; // Not all retinues.
+
+            Progress();
         }
     }
 }

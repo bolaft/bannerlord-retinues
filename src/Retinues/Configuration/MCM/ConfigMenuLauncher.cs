@@ -285,13 +285,13 @@ namespace Retinues.Configuration.MCM
                     .Select(p =>
                     {
                         if (p.ParameterType == typeof(bool))
-                            return (object)false;
+                            return false;
                         if (p.ParameterType == typeof(int))
-                            return (object)0;
+                            return 0;
                         if (p.ParameterType == typeof(float))
-                            return (object)0f;
+                            return 0f;
                         if (p.ParameterType == typeof(string))
-                            return (object)null;
+                            return null;
                         if (p.ParameterType.IsValueType)
                             return Activator.CreateInstance(p.ParameterType);
                         return null;

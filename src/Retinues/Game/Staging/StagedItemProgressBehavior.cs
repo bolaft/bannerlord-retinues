@@ -10,11 +10,10 @@ namespace Retinues.Game.Staging
 {
     public sealed class StagedItemProgressBehavior : BaseCampaignBehavior
     {
+        public override bool IsActive => Settings.EquippingTakesTime;
+
         protected override void OnHourlyTick()
         {
-            if (!Settings.EquippingTakesTime)
-                return;
-
             if (!Settings.EquippingProgressesWhileTravelling && Player.CurrentSettlement == null)
                 return;
 

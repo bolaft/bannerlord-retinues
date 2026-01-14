@@ -98,7 +98,7 @@ namespace Retinues.Game.Recruitement.Patches
             if (wc == null)
                 return false;
 
-            if (!wc.InCustomTree)
+            if (!wc.IsFactionTroop)
                 return false;
 
             if (wc.IsRetinue)

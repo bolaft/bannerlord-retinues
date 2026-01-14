@@ -17,8 +17,15 @@ namespace Retinues.Domain.Characters.Helpers
         //                          Caps                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        static int ClampTier(int tier) => Math.Max(0, Math.Min(7, tier));
+        /// <summary>
+        /// Clamps the given tier to valid range.
+        /// </summary>
+        static int ClampTier(int tier) =>
+            Math.Max(0, Math.Min(Mods.T7TroopUnlocker.IsLoaded ? 7 : 6, tier));
 
+        /// <summary>
+        /// Gets the skill cap for the given wrapped character.
+        /// </summary>
         public static int GetSkillCap(WCharacter wc)
         {
             var tier = ClampTier(wc.Tier);
@@ -41,6 +48,9 @@ namespace Retinues.Domain.Characters.Helpers
             return cap + bonus;
         }
 
+        /// <summary>
+        /// Gets the skill total for the given wrapped character.
+        /// </summary>
         public static int GetSkillTotal(WCharacter wc)
         {
             var tier = ClampTier(wc.Tier);
@@ -67,6 +77,9 @@ namespace Retinues.Domain.Characters.Helpers
         //                         Options                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Options for skill list retrieval.
+        /// </summary>
         public readonly struct SkillListOptions(
             bool includeHeroOnly,
             bool includeDlc,
@@ -77,9 +90,15 @@ namespace Retinues.Domain.Characters.Helpers
             public readonly bool IncludeDlc = includeDlc;
             public readonly bool IncludeModded = includeModded;
 
-            public static SkillListOptions ForCharacter(bool isHeroLike) =>
-                new(includeHeroOnly: isHeroLike, includeDlc: isHeroLike, includeModded: true);
+            /// <summary>
+            /// Creates options for the given character.
+            /// </summary>
+            public static SkillListOptions ForCharacter() =>
+                new(includeHeroOnly: false, includeDlc: false, includeModded: true);
 
+            /// <summary>
+            /// Creates options for hero characters.
+            /// </summary>
             public static SkillListOptions ForHero() =>
                 new(includeHeroOnly: true, includeDlc: true, includeModded: true);
         }
@@ -122,56 +141,43 @@ namespace Retinues.Domain.Characters.Helpers
         //                        Discovery                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        static HashSet<string> _defaultSkillIds;
-        static HashSet<string> DefaultSkillIds
-        {
-            get
-            {
-                if (_defaultSkillIds != null)
-                    return _defaultSkillIds;
-
-                _defaultSkillIds =
-                [
-                    .. typeof(DefaultSkills)
-                        .GetProperties(BindingFlags.Public | BindingFlags.Static)
-                        .Where(p => p.PropertyType == typeof(SkillObject))
-                        .Select(p => p.GetValue(null) as SkillObject)
-                        .Where(s => s != null && !string.IsNullOrEmpty(s.StringId))
-                        .Select(s => s.StringId),
-                ];
-
-                return _defaultSkillIds;
-            }
-        }
-
-        static List<SkillObject> _allSkillsCached;
-
-        static List<SkillObject> GetAllSkillsFromObjectManager()
-        {
-            var mgr = MBObjectManager.Instance;
-            if (mgr == null)
-                return [];
-
-            // Includes vanilla + DLC (if loaded) + modded.
-            return [.. mgr.GetObjectTypeList<SkillObject>().Where(s => s != null)];
-        }
-
         [StaticClearAction]
-        public static void ClearCache()
+        public static void ClearSkillCaches()
         {
             _defaultSkillIds = null;
-            _allSkillsCached = null;
+            _allSkills = null;
         }
 
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Public                         //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        /// <summary>
+        /// Default skill IDs known to the game.
+        /// </summary>
+        static HashSet<string> _defaultSkillIds;
+        static HashSet<string> DefaultSkillIds =>
+            _defaultSkillIds ??= [
+                .. typeof(DefaultSkills)
+                    .GetProperties(BindingFlags.Public | BindingFlags.Static)
+                    .Where(p => p.PropertyType == typeof(SkillObject))
+                    .Select(p => p.GetValue(null) as SkillObject)
+                    .Where(s => s != null && !string.IsNullOrEmpty(s.StringId))
+                    .Select(s => s.StringId),
+            ];
 
-        public static List<SkillObject> GetSkillList(SkillListOptions options)
+        /// <summary>
+        /// All skills known to the object manager.
+        /// </summary>
+        static List<SkillObject> _allSkills;
+        static List<SkillObject> AllSkills =>
+            _allSkills ??= [
+                .. MBObjectManager.Instance?.GetObjectTypeList<SkillObject>().Where(s => s != null)
+                    ?? [],
+            ];
+
+        /// <summary>
+        /// Gets the skill list based on the given options.
+        /// </summary>
+        private static List<SkillObject> GetSkillList(SkillListOptions options)
         {
-            _allSkillsCached ??= GetAllSkillsFromObjectManager();
-
-            var all = _allSkillsCached;
+            var all = AllSkills;
             if (all == null || all.Count == 0)
                 return [];
 
@@ -217,22 +223,22 @@ namespace Retinues.Domain.Characters.Helpers
             ];
         }
 
-        public static List<SkillObject> GetSkillListForCharacter(
-            bool isHeroLike,
-            bool includeModded = true
-        ) =>
-            GetSkillList(
-                new SkillListOptions(
-                    includeHeroOnly: isHeroLike,
-                    includeDlc: isHeroLike,
-                    includeModded: includeModded
-                )
-            );
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Public                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public static List<SkillObject> GetSkillListForHero() =>
+        /// <summary>
+        /// Gets the skill list for the given character.
+        /// </summary>
+        public static List<SkillObject> GetSkillList(WCharacter character) =>
+            character.IsHero
+                ? GetSkillList(SkillListOptions.ForHero())
+                : GetSkillList(SkillListOptions.ForCharacter());
+
+        /// <summary>
+        /// Gets the skill list for the given hero.
+        /// </summary>
+        public static List<SkillObject> GetSkillList(WHero _) =>
             GetSkillList(SkillListOptions.ForHero());
-
-        public static SkillObject IdToSkill(string id) =>
-            string.IsNullOrEmpty(id) ? null : MBObjectManager.Instance?.GetObject<SkillObject>(id);
     }
 }

@@ -56,11 +56,11 @@ namespace Retinues.Editor.VM.List.Character
                     if (c.IsHero)
                         return false;
 
-                    return c.InCustomTree;
+                    return c.IsFactionTroop;
                 }
 
                 // Universal: no custom.
-                return !c.InCustomTree;
+                return !c.IsFactionTroop;
             }
 
             void AddSection(

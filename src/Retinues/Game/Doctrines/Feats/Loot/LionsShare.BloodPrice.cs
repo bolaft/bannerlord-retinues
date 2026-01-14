@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Retinues.Domain.Events.Models;
-using static Retinues.Domain.Events.Models.MMission;
+using Retinues.Game.Missions;
 
 namespace Retinues.Game.Doctrines.Feats.Loot
 {
@@ -12,14 +12,16 @@ namespace Retinues.Game.Doctrines.Feats.Loot
     {
         protected override string FeatId => "feat_sp_blood_price";
 
-        protected override void OnBattleOver(IReadOnlyList<Kill> kills, MMapEvent battle)
+        protected override void OnBattleOver(
+            IReadOnlyList<CombatBehavior.Kill> kills,
+            MMapEvent.Snapshot start,
+            MMapEvent end
+        )
         {
-            if (battle.IsLost)
-                return;
-
-            var kf = Filter(killers: a => a.IsPlayerCharacter, victims: v => v.IsEnemyTroop);
-
-            int count = kf.Filter(kills).Count();
+            int count = kills.Count(k =>
+                k.Killer.IsPlayer // Killer is the player
+                && k.Victim.IsEnemyTroop // Victim is an enemy troop
+            );
 
             SetProgress(count);
         }

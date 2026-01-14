@@ -1,37 +1,34 @@
 using System.Collections.Generic;
-using System.Linq;
 using Retinues.Domain.Events.Models;
-using static Retinues.Domain.Events.Models.MMission;
+using Retinues.Game.Missions;
 
 namespace Retinues.Game.Doctrines.Feats.Equipments
 {
     /// <summary>
-    /// Win a tournament in a town of your clan's culture.
+    /// Defeat a ruler of a different culture in battle.
     /// </summary>
     public sealed class Feat_CulturalPride_KingSlayer : FeatCampaignBehavior
     {
-        protected override string FeatId => "feat_eq_king_slayer";
+        protected override string FeatId => "feat_eq_kingslayer";
 
-        protected override void OnBattleOver(IReadOnlyList<Kill> kills, MMapEvent battle)
+        protected override void OnBattleOver(
+            IReadOnlyList<CombatBehavior.Kill> kills,
+            MMapEvent.Snapshot start,
+            MMapEvent end
+        )
         {
-            if (!battle.IsWon)
+            if (end.IsLost)
+                return; // Player lost the battle.
+
+            foreach (var party in start.EnemySide.Parties)
+            {
+                if (party.Leader?.IsFactionLeader != true)
+                    continue; // Not a faction leader.
+
+                // Found an enemy faction leader in the battle.
+                Progress();
                 return;
-
-            var kf = Filter(
-                killers: a => a.Character.IsPlayer,
-                victims: v =>
-                    v.IsEnemyTroop
-                    && v.Character.IsHero
-                    && v.Character.Hero.IsFactionLeader
-                    && v.Character.Culture != Player.Culture
-            );
-
-            var victim = kf.Filter(kills).FirstOrDefault().Victim?.Hero;
-            if (victim == null)
-                return;
-
-            Progress(1);
-            return;
+            }
         }
     }
 }

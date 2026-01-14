@@ -168,11 +168,9 @@ namespace Retinues.Game.Doctrines
             return FeatsById.TryGetValue(id ?? string.Empty, out feat);
         }
 
-        public static IReadOnlyList<(
-            string DoctrineId,
-            int Worth,
-            bool Required
-        )> GetDoctrineLinksForFeat(string featId)
+        public static IReadOnlyList<(string DoctrineId, int Worth)> GetDoctrineLinksForFeat(
+            string featId
+        )
         {
             EnsureBuilt();
 
@@ -180,7 +178,7 @@ namespace Retinues.Game.Doctrines
                 return [];
 
             return DoctrineLinksByFeatId.TryGetValue(featId, out var list)
-                ? (IReadOnlyList<(string, int, bool)>)list
+                ? (IReadOnlyList<(string, int)>)list
                 : [];
         }
     }

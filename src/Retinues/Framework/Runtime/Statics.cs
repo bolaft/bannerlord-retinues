@@ -144,7 +144,6 @@ namespace Retinues.Framework.Runtime
                         {
                             try
                             {
-                                Log.Debug($"Statics: running clear action: {id}");
                                 mi.Invoke(null, null);
                             }
                             catch (Exception ex)

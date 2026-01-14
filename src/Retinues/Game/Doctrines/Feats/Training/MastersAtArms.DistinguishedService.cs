@@ -15,11 +15,11 @@ namespace Retinues.Game.Doctrines.Feats.Training
             int number
         )
         {
-            if (!source.InCustomTree || !target.InCustomTree)
-                return;
+            if (!source.IsFactionTroop || !target.IsFactionTroop)
+                return; // Not faction troops.
 
             if (!source.IsElite || !target.IsElite)
-                return;
+                return; // Not elite troops.
 
             Progress(number);
         }

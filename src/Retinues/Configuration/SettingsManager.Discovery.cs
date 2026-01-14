@@ -11,6 +11,9 @@ namespace Retinues.Configuration
         //                      Internal wiring                   //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Discovers all static IOption fields in the Settings class via reflection.
+        /// </summary>
         internal static void DiscoverOptions()
         {
             if (_discovered)
@@ -102,6 +105,9 @@ namespace Retinues.Configuration
             }
         }
 
+        /// <summary>
+        /// Gets the ordinal of a section by name.
+        /// </summary>
         internal static int GetSectionOrdinal(string sectionName)
         {
             if (_sectionOrdinalByName.TryGetValue(sectionName, out int ordinal))
@@ -109,6 +115,9 @@ namespace Retinues.Configuration
             return int.MaxValue;
         }
 
+        /// <summary>
+        /// Gets the ordinal of an option by key.
+        /// </summary>
         internal static int GetOrdinal(string key)
         {
             if (_ordinalByKey.TryGetValue(key, out int idx))

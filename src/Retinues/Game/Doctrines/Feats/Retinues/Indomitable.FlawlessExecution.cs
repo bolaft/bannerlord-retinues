@@ -1,7 +1,6 @@
 using System.Collections.Generic;
-using System.Linq;
 using Retinues.Domain.Events.Models;
-using static Retinues.Domain.Events.Models.MMission;
+using Retinues.Game.Missions;
 
 namespace Retinues.Game.Doctrines.Feats.Retinues
 {
@@ -12,36 +11,31 @@ namespace Retinues.Game.Doctrines.Feats.Retinues
     {
         protected override string FeatId => "feat_ret_flawless_execution";
 
-        protected override void OnBattleOver(IReadOnlyList<Kill> kills, MMapEvent battle)
+        protected override void OnBattleOver(
+            IReadOnlyList<CombatBehavior.Kill> kills,
+            MMapEvent.Snapshot start,
+            MMapEvent end
+        )
         {
-            if (kills == null || kills.Count == 0)
-                return;
-
-            if (
-                Filter(victims: v => v.Character.IsRetinue && v.IsPlayerTroop && v.IsDead)
-                    .Filter(kills)
-                    .Count() > 0
-            )
-                return; // Retinue casualties present.
-
-            // Count equivalent-tier defeats performed by retinues.
-            var kf = Filter(
-                killers: a => a.IsPlayerTroop && a.Character.IsRetinue,
-                victims: v => v.IsEnemyTroop
-            );
-
-            int count = 0;
-
-            foreach (var kill in kf.Filter(kills))
+            foreach (var kill in kills)
             {
-                // Skip if killer's tier is higher than victim's tier.
-                if (kill.Killer.Tier > kill.Victim.Tier)
-                    continue;
-
-                count++;
+                if (
+                    kill.Victim.Character.IsRetinue // Victim is a retinue troop
+                    && kill.Victim.IsPlayerTroop // Victim is a retinue troop
+                )
+                {
+                    Reset(); // Any retinue troop deaths.
+                }
+                else if (
+                    kill.Killer.IsPlayerTroop // Killer is a player troop
+                    && kill.Killer.Character.IsRetinue // Killer is a retinue troop
+                    && kill.Victim.IsEnemyTroop // Victim is an enemy troop
+                    && kill.Killer.Character.Tier <= kill.Victim.Character.Tier // Equivalent tier or lower
+                )
+                {
+                    Progress(); // Progress for each valid kill.
+                }
             }
-
-            Progress(count);
         }
     }
 }

@@ -13,12 +13,12 @@ namespace Retinues.Game.Doctrines.Feats.Troops
         protected override void OnQuestCompleted(QuestBase quest, WHero giver, bool success)
         {
             if (!success)
-                return;
+                return; // Quest failed.
 
             if (!giver.Base.IsMerchant)
-                return;
+                return; // Not a merchant notable.
 
-            Progress(1);
+            Progress();
         }
     }
 }

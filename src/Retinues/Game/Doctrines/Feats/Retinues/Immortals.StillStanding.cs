@@ -1,7 +1,8 @@
 using System.Collections.Generic;
+using System.Linq;
 using Retinues.Domain.Events.Models;
+using Retinues.Game.Missions;
 using TaleWorlds.Core;
-using static Retinues.Domain.Events.Models.MMission;
 
 namespace Retinues.Game.Doctrines.Feats.Retinues
 {
@@ -12,19 +13,17 @@ namespace Retinues.Game.Doctrines.Feats.Retinues
     {
         protected override string FeatId => "feat_ret_still_standing";
 
-        protected override void OnBattleOver(IReadOnlyList<Kill> kills, MMapEvent battle)
+        protected override void OnBattleOver(
+            IReadOnlyList<CombatBehavior.Kill> kills,
+            MMapEvent.Snapshot start,
+            MMapEvent end
+        )
         {
-            var kf = Filter(victims: a => a.IsPlayerTroop && a.Character.IsRetinue);
-
-            int count = 0;
-
-            foreach (var k in kf.Filter(kills))
-            {
-                if (k.State != AgentState.Unconscious)
-                    continue;
-
-                count++;
-            }
+            int count = kills.Count(k =>
+                k.State == AgentState.Unconscious // Victim is still alive
+                && k.Victim.IsPlayerTroop // Victim is a player troop
+                && k.Victim.Character.IsRetinue // Victim is a retinue troop
+            );
 
             Progress(count);
         }

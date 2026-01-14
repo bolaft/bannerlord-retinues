@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Retinues.Domain.Events.Models;
-using static Retinues.Domain.Events.Models.MMission;
+using Retinues.Game.Missions;
 
 namespace Retinues.Game.Doctrines.Feats.Loot
 {
@@ -11,24 +11,28 @@ namespace Retinues.Game.Doctrines.Feats.Loot
     {
         protected override string FeatId => "feat_sp_homecoming";
 
-        protected override void OnBattleOver(IReadOnlyList<Kill> kills, MMapEvent battle)
+        protected override void OnBattleOver(
+            IReadOnlyList<CombatBehavior.Kill> kills,
+            MMapEvent.Snapshot start,
+            MMapEvent end
+        )
         {
-            if (battle.IsLost)
-                return;
+            if (end.IsLost)
+                return; // Player lost the battle.
 
-            if (!battle.IsSiege)
-                return;
+            if (!end.IsSiegeBattle)
+                return; // Must be a siege battle.
 
-            if (!battle.IsPlayerAttacker)
-                return;
+            if (!end.AttackerSide.IsPlayerSide)
+                return; // Player must be the attacker.
 
             if (Player.Party.IsInArmy && !Player.Party.IsArmyLeader)
                 return; // Must be the army leader or not in an army.
 
-            if (battle.Settlement?.Culture != Player.Culture)
-                return;
+            if (end.Settlement?.Culture != Player.Culture)
+                return; // Settlement is not of player's culture.
 
-            Progress(1);
+            Progress();
         }
     }
 }

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Retinues.Domain.Events.Models;
-using static Retinues.Domain.Events.Models.MMission;
+using Retinues.Game.Missions;
 
 namespace Retinues.Game.Doctrines.Feats.Troops
 {
@@ -12,19 +12,21 @@ namespace Retinues.Game.Doctrines.Feats.Troops
     {
         protected override string FeatId => "feat_trp_they_shall_not_pass";
 
-        protected override void OnBattleOver(IReadOnlyList<Kill> kills, MMapEvent battle)
+        protected override void OnBattleOver(
+            IReadOnlyList<CombatBehavior.Kill> kills,
+            MMapEvent.Snapshot start,
+            MMapEvent end
+        )
         {
-            if (!battle.IsSiege)
-                return;
+            if (!start.IsSiegeBattle)
+                return; // Not a siege battle.
 
-            if (!battle.IsPlayerDefender)
-                return;
+            if (!start.DefenderSide.IsPlayerSide)
+                return; // Player is not defending.
 
-            var kf = Filter(killers: a => a.IsPlayerCharacter, victims: v => v.IsEnemyTroop);
+            int count = kills.Count(k => k.Killer.IsPlayer && k.Victim.IsEnemyTroop);
 
-            int count = kf.Filter(kills).Count();
-
-            Progress(count);
+            SetProgress(count);
         }
     }
 }

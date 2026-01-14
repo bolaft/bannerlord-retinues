@@ -68,12 +68,7 @@ namespace Retinues.Domain.Characters.Wrappers
             // Detach skills container, then apply skill values
             DetachSkillsContainer(stub);
 
-            foreach (
-                var skill in Helpers.SkillsHelper.GetSkillListForCharacter(
-                    stub.IsHero,
-                    includeModded: true
-                )
-            )
+            foreach (var skill in Helpers.SkillsHelper.GetSkillList(stub))
             {
                 if (skill == null)
                     continue;

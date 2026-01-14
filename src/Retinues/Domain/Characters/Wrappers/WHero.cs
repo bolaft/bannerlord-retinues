@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Retinues.Domain.Equipments.Models;
-using Retinues.Domain.Factions;
 using Retinues.Domain.Factions.Wrappers;
 using Retinues.Framework.Model;
 using TaleWorlds.CampaignSystem;
@@ -17,8 +16,56 @@ namespace Retinues.Domain.Characters.Wrappers
     /// <summary>
     /// Wrapper for Hero.
     /// </summary>
-    public class WHero(Hero @base) : WBase<WHero, Hero>(@base), ICharacter
+    public class WHero(Hero @base) : WBase<WHero, Hero>(@base), ICharacterData
     {
+        static WHero()
+        {
+            RegisterResolver(ResolveHero);
+        }
+
+        static Hero ResolveHero(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+                return null;
+
+            var campaign = Campaign.Current;
+            if (campaign == null)
+                return null;
+
+            // Fast path: main hero
+            try
+            {
+                var mh = Hero.MainHero;
+                if (mh != null && mh.StringId == id)
+                    return mh;
+            }
+            catch { }
+
+            var alive = campaign.AliveHeroes;
+            if (alive != null)
+            {
+                for (int i = 0; i < alive.Count; i++)
+                {
+                    var h = alive[i];
+                    if (h != null && h.StringId == id)
+                        return h;
+                }
+            }
+
+            var dead = campaign.DeadOrDisabledHeroes;
+            if (dead != null)
+            {
+                for (int i = 0; i < dead.Count; i++)
+                {
+                    var h = dead[i];
+                    if (h != null && h.StringId == id)
+                        return h;
+                }
+            }
+
+            return null;
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Name                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -163,7 +210,7 @@ namespace Retinues.Domain.Characters.Wrappers
         private HeroSkills _skills;
         public HeroSkills Skills => _skills ??= new HeroSkills(this);
 
-        ICharacterSkills ICharacter.Skills => Skills;
+        ICharacterSkills ICharacterData.Skills => Skills;
 
         public class HeroSkills(WHero wh) : ICharacterSkills
         {

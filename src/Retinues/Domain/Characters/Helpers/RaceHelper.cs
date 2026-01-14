@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Retinues.Domain.Characters.Wrappers;
@@ -9,24 +8,59 @@ namespace Retinues.Domain.Characters.Helpers
 {
     public static class RaceHelper
     {
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Lists                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Gets the cached array of race names.
+        /// </summary>
         static string[] _raceNamesCache;
-
-        public static int GetRaceCount()
-        {
-            try
-            {
-                return FaceGen.GetRaceCount();
-            }
-            catch
-            {
-                return 0;
-            }
-        }
-
-        public static bool HasAlternateSpecies() => GetRaceCount() > 1;
 
         public static string[] GetRaceNames() => _raceNamesCache ??= FaceGen.GetRaceNames() ?? [];
 
+        /// <summary>
+        /// Gets the total number of defined races.
+        /// </summary>
+        public static int GetRaceCount() => FaceGen.GetRaceCount();
+
+        /// <summary>
+        /// Determines if there are multiple defined races.
+        /// </summary>
+        public static bool HasAlternateSpecies() => GetRaceCount() > 1;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Name                          //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Gets the display title for the given race index.
+        /// </summary>
+        public static string GetRaceName(int race)
+        {
+            var names = GetRaceNames();
+
+            string title = null;
+            if (names != null && race >= 0 && race < names.Length)
+                title = FormatRaceName(names[race]);
+
+            return title ?? $"Race {race}";
+        }
+
+        /// <summary>
+        /// Gets the race name for the given wrapped character.
+        /// </summary>
+        public static string GetRaceName(WCharacter wc)
+        {
+            if (wc == null)
+                return null;
+
+            return GetRaceName(wc.Race);
+        }
+
+        /// <summary>
+        /// Formats a raw race name into a user-friendly display name.
+        /// </summary>
         public static string FormatRaceName(string raw)
         {
             if (string.IsNullOrWhiteSpace(raw))
@@ -40,25 +74,13 @@ namespace Retinues.Domain.Characters.Helpers
             return char.ToUpperInvariant(raw[0]) + raw.Substring(1);
         }
 
-        public static string GetRaceTitle(int race)
-        {
-            var names = GetRaceNames();
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Validation                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-            string title = null;
-            if (names != null && race >= 0 && race < names.Length)
-                title = FormatRaceName(names[race]);
-
-            return title ?? $"Race {race}";
-        }
-
-        public static string GetRaceText(WCharacter wc)
-        {
-            if (wc == null)
-                return null;
-
-            return GetRaceTitle(wc.Race);
-        }
-
+        /// <summary>
+        /// Determines if the given race index has a valid model.
+        /// </summary>
         public static bool IsRaceModelValid(int race)
         {
             try
@@ -71,6 +93,9 @@ namespace Retinues.Domain.Characters.Helpers
             }
         }
 
+        /// <summary>
+        /// Gets the list of valid race indices for the given culture and gender.
+        /// </summary>
         public static List<int> GetValidRacesFor(WCulture culture, bool isFemale)
         {
             if (culture == null)
@@ -105,12 +130,13 @@ namespace Retinues.Domain.Characters.Helpers
             return list;
         }
 
-        public static bool IsRaceCompatible(WCulture culture, bool isFemale, int race)
-        {
-            var valid = GetValidRacesFor(culture, isFemale);
-            return valid.Count == 0 || valid.Contains(race);
-        }
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Templates                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Determines if the given culture has a template for the given race.
+        /// </summary>
         public static bool HasTemplateForRace(WCulture culture, bool isFemale, int race)
         {
             if (culture == null)
@@ -119,6 +145,9 @@ namespace Retinues.Domain.Characters.Helpers
             return culture.Troops.Any(t => t != null && t.IsFemale == isFemale && t.Race == race);
         }
 
+        /// <summary>
+        /// Finds a template troop for the given culture, gender, and race.
+        /// </summary>
         public static WCharacter FindTemplate(WCulture culture, bool isFemale, int race)
         {
             if (culture == null)

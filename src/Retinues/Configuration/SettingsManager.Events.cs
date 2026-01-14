@@ -10,6 +10,10 @@ namespace Retinues.Configuration
 {
     public static partial class SettingsManager
     {
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Events                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
         private const double EventThrottleSeconds = 0.1;
 
         private static readonly Dictionary<string, double> _lastUiEventFireTime = new(
@@ -20,11 +24,17 @@ namespace Retinues.Configuration
             StringComparer.OrdinalIgnoreCase
         );
 
+        /// <summary>
+        /// Gets the current time in seconds for event throttling.
+        /// </summary>
         private static double NowSeconds()
         {
             return Stopwatch.GetTimestamp() / (double)Stopwatch.Frequency;
         }
 
+        /// <summary>
+        /// Queues UI events for the given option key if needed.
+        /// </summary>
         private static void QueueUIEventsIfNeeded(string key)
         {
             if (!EditorScreen.IsOpen)
@@ -98,6 +108,9 @@ namespace Retinues.Configuration
             }
         }
 
+        /// <summary>
+        /// Fires UI events for the given option key.
+        /// </summary>
         private static void FireUIEventsIfNeeded(string key)
         {
             if (!EditorScreen.IsOpen)

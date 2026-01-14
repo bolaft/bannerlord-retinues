@@ -15,6 +15,7 @@ namespace Retinues.Game.Doctrines.Feats.Troops
             {
                 var militia = fief.Militia;
 
+                // Track the highest militia value among all fiefs.
                 if (militia > highest)
                     highest = militia;
             }

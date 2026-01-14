@@ -15,6 +15,8 @@ namespace Retinues.Game.Unlocks
     /// </summary>
     public sealed class UnlocksByWorkshopsBehavior : BaseCampaignBehavior
     {
+        public override bool IsActive => Settings.UnlockItemsThroughWorkshops;
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Persistence                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -30,6 +32,9 @@ namespace Retinues.Game.Unlocks
             StringComparer.Ordinal
         );
 
+        /// <summary>
+        /// Synchronizes persistent data.
+        /// </summary>
         public override void SyncData(IDataStore dataStore)
         {
             dataStore.SyncData(SyncKeyLastDay, ref _lastProcessedDay);
@@ -81,26 +86,10 @@ namespace Retinues.Game.Unlocks
         //                         Events                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Called each in-game day to apply workshop unlock progress.
+        /// </summary>
         protected override void OnDailyTick()
-        {
-            if (!Settings.EquipmentNeedsUnlocking || !Settings.UnlockItemsThroughWorkshops)
-                return;
-
-            try
-            {
-                ProcessWorkshopUnlocks();
-            }
-            catch (Exception e)
-            {
-                Log.Exception(e, "Workshop unlock progress failed on tick.");
-            }
-        }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                          Apply                         //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        private void ProcessWorkshopUnlocks()
         {
             var hero = Player.Hero?.Base;
             if (hero == null)
@@ -155,6 +144,13 @@ namespace Retinues.Game.Unlocks
             }
         }
 
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Helpers                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Cleans up target mappings for workshops no longer owned.
+        /// </summary>
         private void CleanupTargets(IReadOnlyList<Workshop> owned)
         {
             if (_targetByWorkshopKey.Count == 0)
@@ -188,6 +184,9 @@ namespace Retinues.Game.Unlocks
                 _targetByWorkshopKey.Remove(toRemove[i]);
         }
 
+        /// <summary>
+        /// Applies one day worth of unlock progress to all owned workshops.
+        /// </summary>
         private void ApplyOneDay(
             IReadOnlyList<Workshop> workshops,
             int perDay,
@@ -244,6 +243,9 @@ namespace Retinues.Game.Unlocks
             }
         }
 
+        /// <summary>
+        /// Gets or assigns the unlock target item for a workshop.
+        /// </summary>
         private WItem GetOrAssignTarget(
             Workshop w,
             string workshopKey,
@@ -288,6 +290,9 @@ namespace Retinues.Game.Unlocks
             return next;
         }
 
+        /// <summary>
+        /// Generates a stable key for a workshop to track its assigned unlock target.
+        /// </summary>
         private static string GetWorkshopKey(Workshop w)
         {
             // We need a key that is stable across save/load.

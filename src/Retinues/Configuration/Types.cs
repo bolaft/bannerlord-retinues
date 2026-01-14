@@ -81,19 +81,10 @@ namespace Retinues.Configuration
     /// </summary>
     public interface IMultiChoiceOption : IOption
     {
-        /// <summary>
-        /// Available choices for this option (boxed).
-        /// </summary>
         IReadOnlyList<object> Choices { get; }
 
-        /// <summary>
-        /// Formatter to render a choice as a label.
-        /// </summary>
         Func<object, string> ChoiceFormatter { get; }
 
-        /// <summary>
-        /// Index of the currently selected choice.
-        /// </summary>
         int SelectedIndex { get; set; }
     }
 

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Retinues.Domain.Events.Models;
-using static Retinues.Domain.Events.Models.MMission;
+using Retinues.Game.Missions;
 
 namespace Retinues.Game.Doctrines.Feats.Loot
 {
@@ -12,14 +12,18 @@ namespace Retinues.Game.Doctrines.Feats.Loot
     {
         protected override string FeatId => "feat_sp_costly_victory";
 
-        protected override void OnBattleOver(IReadOnlyList<Kill> kills, MMapEvent battle)
+        protected override void OnBattleOver(
+            IReadOnlyList<CombatBehavior.Kill> kills,
+            MMapEvent.Snapshot start,
+            MMapEvent end
+        )
         {
-            if (battle.IsLost)
-                return;
+            if (end.IsLost)
+                return; // Player lost the battle.
 
-            var kf = Filter(victims: v => v.IsAllyTroop);
-
-            int count = kf.Filter(kills).Count();
+            int count = kills.Count(k =>
+                k.Victim.IsAllyTroop // Victim is an allied troop
+            );
 
             SetProgress(count);
         }

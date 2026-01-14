@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Retinues.Domain.Events.Models;
-using static Retinues.Domain.Events.Models.MMission;
+using Retinues.Game.Missions;
 
 namespace Retinues.Game.Doctrines.Feats.Training
 {
@@ -11,18 +11,23 @@ namespace Retinues.Game.Doctrines.Feats.Training
     {
         protected override string FeatId => "feat_tr_unyielding_defense";
 
-        protected override void OnBattleOver(IReadOnlyList<Kill> kills, MMapEvent battle)
+        protected override void OnBattleOver(
+            IReadOnlyList<CombatBehavior.Kill> kills,
+            MMapEvent.Snapshot start,
+            MMapEvent end
+        )
         {
-            if (battle.IsLost)
+            if (end.IsLost)
             {
+                // Player lost the battle, reset progress.
                 Reset();
                 return;
             }
 
-            if (battle.IsPlayerAttacker)
-                return;
+            if (start.AttackerSide.IsPlayerSide)
+                return; // Not a defensive battle.
 
-            Progress(1);
+            Progress();
         }
     }
 }

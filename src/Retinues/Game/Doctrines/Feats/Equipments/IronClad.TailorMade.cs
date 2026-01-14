@@ -1,4 +1,3 @@
-using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Settlements.Workshops;
 
 namespace Retinues.Game.Doctrines.Feats.Equipments
@@ -14,22 +13,21 @@ namespace Retinues.Game.Doctrines.Feats.Equipments
         {
             var smithy = FindOwnedSmithy();
             if (smithy == null)
-                return;
+                return; // No owned smithy.
 
-            Progress(1);
+            Progress();
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Helpers                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Find an owned smithy workshop.
+        /// </summary>
         private static Workshop FindOwnedSmithy()
         {
-            var hero = Hero.MainHero;
-            if (hero == null)
-                return null;
-
-            var owned = hero.OwnedWorkshops;
+            var owned = Player.Hero.Base.OwnedWorkshops;
             if (owned != null)
             {
                 foreach (var w in owned)
@@ -42,6 +40,9 @@ namespace Retinues.Game.Doctrines.Feats.Equipments
             return null;
         }
 
+        /// <summary>
+        /// Check if the workshop is a smithy.
+        /// </summary>
         private static bool IsSmithy(Workshop w)
         {
             if (w == null)

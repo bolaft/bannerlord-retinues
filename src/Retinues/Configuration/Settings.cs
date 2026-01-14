@@ -921,28 +921,6 @@ namespace Retinues.Configuration
             dependsOn: UnlockItemsThroughKills
         );
 
-        public static readonly Option<bool> CountAllyKills = CreateOption(
-            section: EquipmentUnlocks,
-            name: L.F("mcm_option_count_ally_kills", "Count Ally Kills"),
-            hint: L.F(
-                "mcm_option_count_ally_kills_hint",
-                "Whether kills made by allied troops also count towards unlocking items."
-            ),
-            @default: false,
-            dependsOn: UnlockItemsThroughKills
-        );
-
-        public static readonly Option<bool> CountAllyCasualties = CreateOption(
-            section: EquipmentUnlocks,
-            name: L.F("mcm_option_count_ally_casualties", "Count Ally Casualties"),
-            hint: L.F(
-                "mcm_option_count_ally_casualties_hint",
-                "Whether ally casualties also count towards unlocking items."
-            ),
-            @default: false,
-            dependsOn: UnlockItemsThroughKills
-        );
-
         public static readonly Option<bool> UnlockItemsThroughWorkshops = CreateOption(
             section: EquipmentUnlocks,
             name: L.F(

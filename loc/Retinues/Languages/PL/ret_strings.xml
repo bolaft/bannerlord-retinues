@@ -287,6 +287,21 @@
       id="ret_doctrine_acquired_text"
       text="NABYTO" />
     <string
+      id="ret_doctrine_cat_equipments"
+      text="Wyposażenie" />
+    <string
+      id="ret_doctrine_cat_loot"
+      text="Łupy" />
+    <string
+      id="ret_doctrine_cat_retinues"
+      text="Zastępy" />
+    <string
+      id="ret_doctrine_cat_training"
+      text="Szkolenie" />
+    <string
+      id="ret_doctrine_cat_troops"
+      text="Oddziały" />
+    <string
       id="ret_doctrine_cost_text_both"
       text="Kosztuje {GOLD} denarów, {INFLUENCE} wpływu" />
     <string
@@ -308,9 +323,6 @@
       id="ret_doctrine_feat_completed"
       text="Ukończone" />
     <string
-      id="ret_doctrine_feat_optional"
-      text="Opcjonalne" />
-    <string
       id="ret_doctrine_feat_progress_tooltip_completed"
       text="Ukończyłeś ten wyczyn." />
     <string
@@ -320,14 +332,8 @@
       id="ret_doctrine_feat_progress_tooltip_repeatable"
       text="Ten wyczyn jest powtarzalny. Możesz go ukończyć wielokrotnie." />
     <string
-      id="ret_doctrine_feat_required"
-      text="Wymagane" />
-    <string
       id="ret_doctrine_feats_header"
       text="Wyczyny" />
-    <string
-      id="ret_doctrine_missing_feats"
-      text="Wymagane wyczyny nie zostały ukończone." />
     <string
       id="ret_doctrine_not_enough_gold_desc"
       text="Aby odblokować tę doktrynę, potrzebujesz {COST} denarów." />
@@ -534,7 +540,187 @@
       text="królestwo" />
     <string
       id="ret_feat_complete_title"
-      text="Wyczyn ukończony" />
+      text="Osiągnięcie ukończone" />
+    <string
+      id="ret_feat_eq_blood_money_desc"
+      text="Zdobądź {TARGET} denarów na polu bitwy." />
+    <string
+      id="ret_feat_eq_blood_money_name"
+      text="Krewne pieniądze" />
+    <string
+      id="ret_feat_eq_golden_legion_desc"
+      text="Wystaw jednostkę wyposażoną w ekwipunek o wartości ponad 100 000 denarów." />
+    <string
+      id="ret_feat_eq_golden_legion_name"
+      text="Złota Legia" />
+    <string
+      id="ret_feat_eq_heavy_kit_desc"
+      text="Wystaw jednostkę wyposażoną w ekwipunek ważący ponad 60 kg." />
+    <string
+      id="ret_feat_eq_heavy_kit_name"
+      text="Ciężki ekwipunek" />
+    <string
+      id="ret_feat_eq_hometown_tournament_desc"
+      text="Wygraj turniej w mieście o kulturze twojego klanu." />
+    <string
+      id="ret_feat_eq_hometown_tournament_name"
+      text="Turniej w rodzinnym mieście" />
+    <string
+      id="ret_feat_eq_ironmen_desc"
+      text="Wygraj bitwę, wystawiając tylko oddziały w pełnej metalowej zbroi." />
+    <string
+      id="ret_feat_eq_ironmen_name"
+      text="Ludzie z żelaza" />
+    <string
+      id="ret_feat_eq_kingslayer_desc"
+      text="Pokonaj władcę innej kultury w bitwie." />
+    <string
+      id="ret_feat_eq_kingslayer_name"
+      text="Królozabca" />
+    <string
+      id="ret_feat_eq_paid_in_full_desc"
+      text="Zapłać {TARGET} denarów za wynagrodzenia oddziałów." />
+    <string
+      id="ret_feat_eq_paid_in_full_name"
+      text="Opłacone w pełni" />
+    <string
+      id="ret_feat_eq_proud_and_strong_desc"
+      text="Zdobądź {TARGET} zabójstw w bitwie z oddziałami nie noszącymi obcego sprzętu." />
+    <string
+      id="ret_feat_eq_proud_and_strong_name"
+      text="Dumny i silny" />
+    <string
+      id="ret_feat_eq_royal_host_desc"
+      text="Zdobądź {TARGET} zabójstw za pomocą niestandardowych oddziałów królestwa." />
+    <string
+      id="ret_feat_eq_royal_host_name"
+      text="Królewska Gospodarza" />
+    <string
+      id="ret_feat_eq_royal_levy_desc"
+      text="Zrekrutuj {TARGET} niestandardowych oddziałów królestwa." />
+    <string
+      id="ret_feat_eq_royal_levy_name"
+      text="Królewski pobór" />
+    <string
+      id="ret_feat_eq_royal_stewardship_desc"
+      text="Niech towarzysz o tej samej kulturze co twoje królestwo zarządza lenno królestwa przez {TARGET} dni." />
+    <string
+      id="ret_feat_eq_royal_stewardship_name"
+      text="Królewska administracja" />
+    <string
+      id="ret_feat_eq_tailor_made_desc"
+      text="Posiadaj kuźnię przez {TARGET} dni." />
+    <string
+      id="ret_feat_eq_tailor_made_name"
+      text="Szyte na miarę" />
+    <string
+      id="ret_feat_notification_body"
+      text="{NAME}:{newline}{newline}{DESC}" />
+    <string
+      id="ret_feat_ret_against_all_odds_desc"
+      text="Przy liczebnej przewadze co najmniej 2 do 1, wygraj bitwę, wystawiając tylko drużyny retinue." />
+    <string
+      id="ret_feat_ret_against_all_odds_name"
+      text="Przeciw wszystkim przeciwnościom" />
+    <string
+      id="ret_feat_ret_bounty_hunters_desc"
+      text="Wyeliminuj {TARGET} grup bandytów." />
+    <string
+      id="ret_feat_ret_bounty_hunters_name"
+      text="Łowcy nagród" />
+    <string
+      id="ret_feat_ret_defy_the_tide_desc"
+      text="Wygraj bitwę przeciwko przytłaczającym przeciwnościom, wystawiając głównie drużyny retinue." />
+    <string
+      id="ret_feat_ret_defy_the_tide_name"
+      text="Przeciwstaw się fali" />
+    <string
+      id="ret_feat_ret_first_through_the_breach_desc"
+      text="Spraw, aby drużyna retinue zdobyła pierwsze zabójstwo w walce wręcz podczas szturmu na oblężenie." />
+    <string
+      id="ret_feat_ret_first_through_the_breach_name"
+      text="Pierwszy przez przełom" />
+    <string
+      id="ret_feat_ret_flawless_execution_desc"
+      text="Spraw, aby twoje drużyny retinue pokonały {TARGET} wrogich żołnierzy równoważnego szczebla bez żadnych strat." />
+    <string
+      id="ret_feat_ret_flawless_execution_name"
+      text="Nieskazitelne wykonanie" />
+    <string
+      id="ret_feat_ret_high_spirits_desc"
+      text="Utrzymaj morale drużyny składającej się wyłącznie z retinue powyżej 90 przez {TARGET} dni." />
+    <string
+      id="ret_feat_ret_high_spirits_name"
+      text="Wysoki duch" />
+    <string
+      id="ret_feat_ret_hold_the_line_desc"
+      text="Wygraj bitwę obronną z drużyną składającą się wyłącznie z retinue." />
+    <string
+      id="ret_feat_ret_hold_the_line_name"
+      text="Trzymaj linię" />
+    <string
+      id="ret_feat_ret_perfect_victory_desc"
+      text="Wygraj sam przeciwko 100 lub więcej wrogom bez żadnej śmierci po twojej stronie." />
+    <string
+      id="ret_feat_ret_perfect_victory_name"
+      text="Perfekcyjne zwycięstwo" />
+    <string
+      id="ret_feat_ret_raise_the_vanguard_desc"
+      text="Zatrudnij {TARGET} drużyn retinue." />
+    <string
+      id="ret_feat_ret_raise_the_vanguard_name"
+      text="Podnieś awangardę" />
+    <string
+      id="ret_feat_ret_safe_travels_desc"
+      text="Ocal karawanę lub drużynę wieśniaków przed atakiem wroga." />
+    <string
+      id="ret_feat_ret_safe_travels_name"
+      text="Bezpieczne podróże" />
+    <string
+      id="ret_feat_ret_shock_assault_desc"
+      text="Wygraj bitwę z udziałem 100 lub więcej bojowników, używając tylko swoich drużyn retinue." />
+    <string
+      id="ret_feat_ret_shock_assault_name"
+      text="Atak szokowy" />
+    <string
+      id="ret_feat_ret_still_standing_desc"
+      text="Spraw, aby {TARGET} drużyn retinue przeżyło upadek w bitwie." />
+    <string
+      id="ret_feat_ret_still_standing_name"
+      text="Wciąż stojący" />
+    <string
+      id="ret_feat_sp_allies_favor_desc"
+      text="Wykonaj zadanie dla sojuszniczego lorda." />
+    <string
+      id="ret_feat_sp_allies_favor_name"
+      text="Przychylność sojusznika" />
+    <string
+      id="ret_feat_sp_ancestral_duty_desc"
+      text="Wykonaj zadanie dla lorda z kultury twojego klanu." />
+    <string
+      id="ret_feat_sp_ancestral_duty_name"
+      text="Pradawny obowiązek" />
+    <string
+      id="ret_feat_sp_blood_price_desc"
+      text="Osobiście pokonaj {TARGET} wrogów w jednej bitwie." />
+    <string
+      id="ret_feat_sp_blood_price_name"
+      text="Cena krwi" />
+    <string
+      id="ret_feat_sp_costly_victory_desc"
+      text="Wygraj bitwę, w której sojusznicy ponoszą ponad 100 ofiar." />
+    <string
+      id="ret_feat_sp_costly_victory_name"
+      text="Kosztowne zwycięstwo" />
+    <string
+      id="ret_feat_sp_cultural_triumph_desc"
+      text="Samodzielnie wygraj bitwę przeciwko wrogiej armii innej kultury." />
+    <string
+      id="ret_feat_sp_cultural_triumph_name"
+      text="Kulturowy triumf" />
+    <string
+      id="ret_feat_sp_cut_the_head_desc"
+      text="Osobiście pokonaj w bitwie wrogiego lorda." />
     <string
       id="ret_filter_label"
       text="Filtr:" />
@@ -907,18 +1093,6 @@
     <string
       id="ret_mcm_option_clan_troops_unlock_hint"
       text="Określa, kiedy oddziały klanowe stają się dostępne." />
-    <string
-      id="ret_mcm_option_count_ally_casualties"
-      text="Liczenie strat sojuszniczych" />
-    <string
-      id="ret_mcm_option_count_ally_casualties_hint"
-      text="Czy straty sojusznicze również liczą się do odblokowywania przedmiotów." />
-    <string
-      id="ret_mcm_option_count_ally_kills"
-      text="Liczenie zabójstw sojuszniczych" />
-    <string
-      id="ret_mcm_option_count_ally_kills_hint"
-      text="Czy zabójstwa dokonane przez sojusznicze oddziały również liczą się do odblokowywania przedmiotów." />
     <string
       id="ret_mcm_option_debug_mode"
       text="Tryb debugowania" />

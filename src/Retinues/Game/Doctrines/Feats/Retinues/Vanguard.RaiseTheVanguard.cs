@@ -11,18 +11,18 @@ namespace Retinues.Game.Doctrines.Feats.Retinues
         protected override string FeatId => "feat_ret_raise_the_vanguard";
 
         protected override void OnTroopRecruited(
-            WHero recruiterHero,
-            WSettlement recruitmentSettlement,
-            WHero recruitmentSource,
+            WHero recruiter,
+            WSettlement settlement,
+            WHero source,
             WCharacter troop,
             int amount
         )
         {
-            if (!recruiterHero.IsMainHero)
-                return;
+            if (!recruiter.IsMainHero)
+                return; // Not the player.
 
             if (!troop.IsRetinue)
-                return;
+                return; // Not a retinue troop.
 
             Progress(amount);
         }

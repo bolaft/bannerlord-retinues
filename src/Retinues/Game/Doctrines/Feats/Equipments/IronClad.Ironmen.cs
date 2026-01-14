@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Retinues.Domain.Equipments.Models;
 using Retinues.Domain.Events.Models;
-using static Retinues.Domain.Events.Models.MMission;
+using Retinues.Game.Missions;
 
 namespace Retinues.Game.Doctrines.Feats.Equipments
 {
@@ -12,43 +12,62 @@ namespace Retinues.Game.Doctrines.Feats.Equipments
     {
         protected override string FeatId => "feat_eq_ironmen";
 
+        // Tracks if all troops are wearing full metal armor.
         static bool FullMetalOnly;
 
         protected override void OnBattleStart(MMapEvent battle)
         {
-            FullMetalOnly = false;
+            FullMetalOnly = false; // Assume false until proven otherwise.
 
             foreach (var e in Player.Party.MemberRoster.Elements)
             {
                 if (e.Number <= 0)
-                    continue;
+                    continue; // Skip empty.
 
                 var troop = e.Troop;
 
+                if (troop.IsHero)
+                    continue; // Skip heroes.
+
+                if (!troop.IsFactionTroop)
+                    continue; // Skip non-custom troops.
+
+                // Check each equipment.
                 foreach (var eq in troop.Equipments)
                 {
                     if (!IsValidForBattle(eq, battle))
                         continue;
 
-                    FullMetalOnly = IsFullMetal(eq);
-                    if (!FullMetalOnly)
-                        return;
+                    if (!IsFullMetal(eq))
+                        return; // Found non-full-metal equipment, exit early.
                 }
             }
+
+            FullMetalOnly = true; // All checked equipments are full metal.
         }
 
-        protected override void OnBattleOver(IReadOnlyList<Kill> kills, MMapEvent battle)
+        protected override void OnBattleOver(
+            IReadOnlyList<CombatBehavior.Kill> kills,
+            MMapEvent.Snapshot start,
+            MMapEvent end
+        )
         {
-            if (battle.IsWon == false || FullMetalOnly == false)
-                return;
+            if (end.IsLost)
+                return; // Player lost the battle.
 
-            Progress(1);
+            if (!FullMetalOnly)
+                return; // Not all troops were wearing full metal armor.
+
+            Progress();
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Helpers                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Check if the equipment is full metal armor.
+        /// </summary>
         private static bool IsFullMetal(MEquipment eq)
         {
             if (eq == null)

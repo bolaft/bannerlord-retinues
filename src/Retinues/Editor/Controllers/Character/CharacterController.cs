@@ -66,7 +66,7 @@ namespace Retinues.Editor.Controllers.Character
             if (c == null)
                 return;
 
-            static void Apply(ICharacter target, string newName)
+            static void Apply(Domain.Characters.ICharacterData target, string newName)
             {
                 if (string.IsNullOrWhiteSpace(newName))
                 {
@@ -164,7 +164,10 @@ namespace Retinues.Editor.Controllers.Character
         /// <summary>
         /// Apply the selected culture to the character.
         /// </summary>
-        private static bool ApplyCulture(ICharacter character, WCulture newCulture)
+        private static bool ApplyCulture(
+            Domain.Characters.ICharacterData character,
+            WCulture newCulture
+        )
         {
             if (character == null)
                 return false;
@@ -242,7 +245,7 @@ namespace Retinues.Editor.Controllers.Character
         /// <summary>
         /// Toggle the gender of the given character.
         /// </summary>
-        private static void ToggleGenderImpl(ICharacter character)
+        private static void ToggleGenderImpl(Domain.Characters.ICharacterData character)
         {
             if (character == null)
                 return;
@@ -404,7 +407,7 @@ namespace Retinues.Editor.Controllers.Character
             if (State.Character?.Editable is not WCharacter wc)
                 return null;
 
-            return RaceHelper.GetRaceText(wc);
+            return RaceHelper.GetRaceName(wc);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

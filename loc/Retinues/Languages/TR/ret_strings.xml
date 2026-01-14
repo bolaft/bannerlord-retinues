@@ -287,6 +287,21 @@
       id="ret_doctrine_acquired_text"
       text="EDİNİLDİ" />
     <string
+      id="ret_doctrine_cat_equipments"
+      text="Ekipmanlar" />
+    <string
+      id="ret_doctrine_cat_loot"
+      text="Yağma" />
+    <string
+      id="ret_doctrine_cat_retinues"
+      text="Hizmetliler" />
+    <string
+      id="ret_doctrine_cat_training"
+      text="Eğitim" />
+    <string
+      id="ret_doctrine_cat_troops"
+      text="Askerler" />
+    <string
       id="ret_doctrine_cost_text_both"
       text="{GOLD} denar, {INFLUENCE} etki maliyeti" />
     <string
@@ -308,9 +323,6 @@
       id="ret_doctrine_feat_completed"
       text="Tamamlandı" />
     <string
-      id="ret_doctrine_feat_optional"
-      text="İsteğe Bağlı" />
-    <string
       id="ret_doctrine_feat_progress_tooltip_completed"
       text="Bu başarıyı tamamladınız." />
     <string
@@ -320,14 +332,8 @@
       id="ret_doctrine_feat_progress_tooltip_repeatable"
       text="Bu başarı tekrarlanabilir. Birden çok kez tamamlayabilirsiniz." />
     <string
-      id="ret_doctrine_feat_required"
-      text="Gerekli" />
-    <string
       id="ret_doctrine_feats_header"
       text="Başarılar" />
-    <string
-      id="ret_doctrine_missing_feats"
-      text="Gerekli başarılar tamamlanmadı." />
     <string
       id="ret_doctrine_not_enough_gold_desc"
       text="Bu doktrini kilidini açmak için {COST} denar gerekir." />
@@ -534,7 +540,187 @@
       text="krallık" />
     <string
       id="ret_feat_complete_title"
-      text="Başarı tamamlandı" />
+      text="Başarı Tamamlandı" />
+    <string
+      id="ret_feat_eq_blood_money_desc"
+      text="Savaş alanında {TARGET} denar yağmalayın." />
+    <string
+      id="ret_feat_eq_blood_money_name"
+      text="Kan Parası" />
+    <string
+      id="ret_feat_eq_golden_legion_desc"
+      text="Değeri 100.000 denardan fazla olan ekipman giyen bir birlik sahaya sürün." />
+    <string
+      id="ret_feat_eq_golden_legion_name"
+      text="Altın Lejyon" />
+    <string
+      id="ret_feat_eq_heavy_kit_desc"
+      text="Ağırlığı 60 kg&apos;dan fazla olan ekipman giyen bir birlik sahaya sürün." />
+    <string
+      id="ret_feat_eq_heavy_kit_name"
+      text="Ağır Ekipman" />
+    <string
+      id="ret_feat_eq_hometown_tournament_desc"
+      text="Klanınızın kültürüne ait bir kasabada turnuva kazanın." />
+    <string
+      id="ret_feat_eq_hometown_tournament_name"
+      text="Memleket Turnuvası" />
+    <string
+      id="ret_feat_eq_ironmen_desc"
+      text="Sadece tam metal zırh giyen askerlerle bir savaşı kazanın." />
+    <string
+      id="ret_feat_eq_ironmen_name"
+      text="Demir Adamlar" />
+    <string
+      id="ret_feat_eq_kingslayer_desc"
+      text="Savaşta farklı bir kültürden bir hükümdarı yenin." />
+    <string
+      id="ret_feat_eq_kingslayer_name"
+      text="Kral Katili" />
+    <string
+      id="ret_feat_eq_paid_in_full_desc"
+      text="Asker maaşları için {TARGET} denar ödeyin." />
+    <string
+      id="ret_feat_eq_paid_in_full_name"
+      text="Tamamen Ödendi" />
+    <string
+      id="ret_feat_eq_proud_and_strong_desc"
+      text="Yabancı ekipman giymeyen askerlerle savaşta {TARGET} öldürme kazanın." />
+    <string
+      id="ret_feat_eq_proud_and_strong_name"
+      text="Gururlu ve Güçlü" />
+    <string
+      id="ret_feat_eq_royal_host_desc"
+      text="Özel krallık askerleriyle {TARGET} öldürme kazanın." />
+    <string
+      id="ret_feat_eq_royal_host_name"
+      text="Kraliyet Konuğu" />
+    <string
+      id="ret_feat_eq_royal_levy_desc"
+      text="{TARGET} özel krallık askeri toplayın." />
+    <string
+      id="ret_feat_eq_royal_levy_name"
+      text="Kraliyet Seferberliği" />
+    <string
+      id="ret_feat_eq_royal_stewardship_desc"
+      text="Krallığınızla aynı kültüre sahip bir yoldaşın bir krallık feodunu {TARGET} gün yönetmesini sağlayın." />
+    <string
+      id="ret_feat_eq_royal_stewardship_name"
+      text="Kraliyet Yönetimi" />
+    <string
+      id="ret_feat_eq_tailor_made_desc"
+      text="{TARGET} gün boyunca bir demirci dükkanına sahip olun." />
+    <string
+      id="ret_feat_eq_tailor_made_name"
+      text="Özel Dikim" />
+    <string
+      id="ret_feat_notification_body"
+      text="{NAME}:{newline}{newline}{DESC}" />
+    <string
+      id="ret_feat_ret_against_all_odds_desc"
+      text="En az 2&apos;ye 1 sayısal dezavantajla, sadece retinüler kullanarak bir savaşı kazanın." />
+    <string
+      id="ret_feat_ret_against_all_odds_name"
+      text="Tüm İhtimallere Rağmen" />
+    <string
+      id="ret_feat_ret_bounty_hunters_desc"
+      text="{TARGET} haydut partisini ortadan kaldırın." />
+    <string
+      id="ret_feat_ret_bounty_hunters_name"
+      text="Ödül Avcıları" />
+    <string
+      id="ret_feat_ret_defy_the_tide_desc"
+      text="Çoğunlukla retinüler kullanarak ezici ihtimallere karşı bir savaşı kazanın." />
+    <string
+      id="ret_feat_ret_defy_the_tide_name"
+      text="Akıntıya Karşı Gel" />
+    <string
+      id="ret_feat_ret_first_through_the_breach_desc"
+      text="Bir retinünün kuşatma saldırısında ilk yakın dövüşme öldürmesini almasını sağlayın." />
+    <string
+      id="ret_feat_ret_first_through_the_breach_name"
+      text="İlk Geçiş" />
+    <string
+      id="ret_feat_ret_flawless_execution_desc"
+      text="Retinülerinizin tek bir kayıp vermeden eşdeğer seviyedeki {TARGET} düşman askerini yenmesini sağlayın." />
+    <string
+      id="ret_feat_ret_flawless_execution_name"
+      text="Kusursuz İcra" />
+    <string
+      id="ret_feat_ret_high_spirits_desc"
+      text="Sadece retinülerden oluşan bir partinin moralini {TARGET} gün boyunca 90&apos;ın üzerinde tutun." />
+    <string
+      id="ret_feat_ret_high_spirits_name"
+      text="Yüksek Ruhlar" />
+    <string
+      id="ret_feat_ret_hold_the_line_desc"
+      text="Sadece retinülerden oluşan bir partiyle savunma savaşı kazanın." />
+    <string
+      id="ret_feat_ret_hold_the_line_name"
+      text="Hattı Tut" />
+    <string
+      id="ret_feat_ret_perfect_victory_desc"
+      text="Tarafınızdan tek bir ölüm olmadan 100 veya daha fazla düşmana karşı tek başınıza kazanın." />
+    <string
+      id="ret_feat_ret_perfect_victory_name"
+      text="Mükemmel Zafer" />
+    <string
+      id="ret_feat_ret_raise_the_vanguard_desc"
+      text="{TARGET} retinü kiralayın." />
+    <string
+      id="ret_feat_ret_raise_the_vanguard_name"
+      text="Öncüyü Yükselt" />
+    <string
+      id="ret_feat_ret_safe_travels_desc"
+      text="Bir kervanı veya köylü partisinin düşman saldırısından kurtarın." />
+    <string
+      id="ret_feat_ret_safe_travels_name"
+      text="Güvenli Seyahat" />
+    <string
+      id="ret_feat_ret_shock_assault_desc"
+      text="Sadece retinülerinizi kullanarak 100 veya daha fazla savaşçının katıldığı bir savaşı kazanın." />
+    <string
+      id="ret_feat_ret_shock_assault_name"
+      text="Şok Saldırısı" />
+    <string
+      id="ret_feat_ret_still_standing_desc"
+      text="Savaşta yere serildikten sonra {TARGET} retinünün hayatta kalmasını sağlayın." />
+    <string
+      id="ret_feat_ret_still_standing_name"
+      text="Hala Ayakta" />
+    <string
+      id="ret_feat_sp_allies_favor_desc"
+      text="Bir müttefik lord için bir görev tamamlayın." />
+    <string
+      id="ret_feat_sp_allies_favor_name"
+      text="Müttefiklerin İyiliği" />
+    <string
+      id="ret_feat_sp_ancestral_duty_desc"
+      text="Klanınızın kültüründen bir lord için bir görev tamamlayın." />
+    <string
+      id="ret_feat_sp_ancestral_duty_name"
+      text="Atalara Ait Görev" />
+    <string
+      id="ret_feat_sp_blood_price_desc"
+      text="Tek bir savaşta kişisel olarak {TARGET} düşmanı yenin." />
+    <string
+      id="ret_feat_sp_blood_price_name"
+      text="Kan Bedeli" />
+    <string
+      id="ret_feat_sp_costly_victory_desc"
+      text="Müttefiklerin 100&apos;den fazla kayıp verdiği bir savaşı kazanın." />
+    <string
+      id="ret_feat_sp_costly_victory_name"
+      text="Maliyetli Zafer" />
+    <string
+      id="ret_feat_sp_cultural_triumph_desc"
+      text="Farklı bir kültürden düşman ordusuna karşı tek başına bir savaş kazanın." />
+    <string
+      id="ret_feat_sp_cultural_triumph_name"
+      text="Kültürel Zafer" />
+    <string
+      id="ret_feat_sp_cut_the_head_desc"
+      text="Savaşta düşman bir lordu şahsen yenin." />
     <string
       id="ret_filter_label"
       text="Filtre:" />
@@ -907,18 +1093,6 @@
     <string
       id="ret_mcm_option_clan_troops_unlock_hint"
       text="Klan birliklerinin ne zaman kullanılabilir olacağını belirler." />
-    <string
-      id="ret_mcm_option_count_ally_casualties"
-      text="Müttefik Kayıplarını Say" />
-    <string
-      id="ret_mcm_option_count_ally_casualties_hint"
-      text="Müttefik kayıplarının öğelerin kilidini açmada sayılıp sayılmayacağı." />
-    <string
-      id="ret_mcm_option_count_ally_kills"
-      text="Müttefik Ölümlerini Say" />
-    <string
-      id="ret_mcm_option_count_ally_kills_hint"
-      text="Müttefik birlikler tarafından yapılan ölümlerin öğelerin kilidini açmada sayılıp sayılmayacağı." />
     <string
       id="ret_mcm_option_debug_mode"
       text="Hata Ayıklama Modu" />

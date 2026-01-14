@@ -9,11 +9,10 @@ namespace Retinues.Game.Staging
 {
     public sealed class StagedSkillProgressBehavior : BaseCampaignBehavior
     {
+        public override bool IsActive => Settings.TrainingTakesTime;
+
         protected override void OnHourlyTick()
         {
-            if (!Settings.TrainingTakesTime)
-                return;
-
             if (!Settings.TrainingProgressesWhileTravelling && Player.CurrentSettlement == null)
                 return;
 

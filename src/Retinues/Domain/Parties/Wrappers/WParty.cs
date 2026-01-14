@@ -1,7 +1,5 @@
 using System;
 using Retinues.Domain.Characters.Wrappers;
-using Retinues.Domain.Factions;
-using Retinues.Domain.Factions.Base;
 using Retinues.Domain.Factions.Wrappers;
 using Retinues.Domain.Parties.Models;
 using Retinues.Framework.Model;
@@ -12,6 +10,34 @@ namespace Retinues.Domain.Parties.Wrappers
 {
     public class WParty(MobileParty @base) : WBase<WParty, MobileParty>(@base)
     {
+        static WParty()
+        {
+            RegisterResolver(ResolveMobileParty);
+        }
+
+        static MobileParty ResolveMobileParty(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+                return null;
+
+            var campaign = Campaign.Current;
+            if (campaign == null)
+                return null;
+
+            var parties = campaign.MobileParties;
+            if (parties == null)
+                return null;
+
+            for (int i = 0; i < parties.Count; i++)
+            {
+                var p = parties[i];
+                if (p != null && p.StringId == id)
+                    return p;
+            }
+
+            return null;
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Identity                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -77,7 +103,7 @@ namespace Retinues.Domain.Parties.Wrappers
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public float RetinueRatio => ComputeMemberRatio(t => t.IsRetinue);
-        public float CustomRatio => ComputeMemberRatio(t => t.InCustomTree);
+        public float CustomRatio => ComputeMemberRatio(t => t.IsFactionTroop);
 
         public float ComputeMemberRatio(Func<WCharacter, bool> selector)
         {

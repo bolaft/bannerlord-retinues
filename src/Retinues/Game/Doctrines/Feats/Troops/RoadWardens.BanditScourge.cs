@@ -1,4 +1,5 @@
 using Retinues.Domain.Events.Models;
+using Retinues.Game.Missions;
 using TaleWorlds.CampaignSystem.MapEvents;
 using TaleWorlds.Core;
 
@@ -18,9 +19,9 @@ namespace Retinues.Game.Doctrines.Feats.Troops
         )
         {
             if (battle.IsLost)
-                return;
+                return; // Player lost the battle.
 
-            Progress(1);
+            Progress();
         }
     }
 }

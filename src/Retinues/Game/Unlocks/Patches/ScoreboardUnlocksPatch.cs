@@ -38,9 +38,10 @@ namespace Retinues.Game.Unlocks.Patches
                 // IMPORTANT:
                 // We still want the normal unlock notification (popup/message), which is delayed
                 // to MapState by UnlockNotifierBehavior. This patch only adds scoreboard lines.
-                var unlocked = UnlocksByKillsBehavior.ApplyProgressFromMissionKills(
-                    new MMission(mission),
-                    notify: true
+                var unlocked = UnlocksByKillsBehavior.ApplyProgressFromMissionKills(mission);
+
+                Log.Debug(
+                    $"ScoreboardUnlocksPatch: {unlocked.Count} items unlocked from mission kills."
                 );
 
                 if (unlocked == null || unlocked.Count == 0)

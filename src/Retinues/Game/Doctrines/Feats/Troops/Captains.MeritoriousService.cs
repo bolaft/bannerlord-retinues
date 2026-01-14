@@ -15,8 +15,8 @@ namespace Retinues.Game.Doctrines.Feats.Troops
             int number
         )
         {
-            if (!source.InCustomTree || !target.InCustomTree)
-                return;
+            if (!source.IsFactionTroop || !target.IsFactionTroop)
+                return; // Not faction troops.
 
             Progress(number);
         }

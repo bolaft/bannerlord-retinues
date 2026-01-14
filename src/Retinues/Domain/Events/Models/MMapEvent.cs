@@ -1,11 +1,9 @@
-using System;
 using System.Collections.Generic;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Events.Helpers;
 using Retinues.Domain.Parties.Wrappers;
 using Retinues.Domain.Settlements.Wrappers;
 using Retinues.Framework.Model;
-using Retinues.Framework.Runtime;
 using Retinues.Game;
 using TaleWorlds.CampaignSystem.MapEvents;
 using TaleWorlds.Core;
@@ -14,33 +12,12 @@ using TaleWorlds.Library;
 namespace Retinues.Domain.Events.Models
 {
     /// <summary>
-    /// Computed wrapper around a MapEvent.
-    /// Exposes wrapped parties, leaders, rosters, and derived stats.
+    /// Live wrapper around a MapEvent.
     /// </summary>
-    public class MMapEvent(MapEvent @base) : MBase<MapEvent>(@base)
+    public sealed class MMapEvent(MapEvent @base) : MBase<MapEvent>(@base)
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Current                         //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        public static MMapEvent Current { get; private set; }
-
-        public void SetCurrent()
-        {
-            Current = this;
-        }
-
-        [StaticClearAction]
-        public static void ClearCurrent() => Current = null;
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Identity                        //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        public string StringId => Base?.StringId;
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Location                        //
+        //                       Settlement                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public WSettlement Settlement => WSettlement.Get(Base.MapEventSettlement);
@@ -49,349 +26,328 @@ namespace Retinues.Domain.Events.Models
         //                       Event Type                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public MapEvent.BattleTypes EventType => Base?.EventType ?? default;
+        public MapEvent.BattleTypes EventType => Base.EventType;
 
-        public bool IsFieldBattle
-        {
-            get
-            {
-                if (Base == null)
-                    return false;
-
-                return !IsSiege && !IsRaid && !IsNavalBattle;
-            }
-        }
-
-        public bool IsSiege => EventType == MapEvent.BattleTypes.Siege;
-
-        public bool IsRaid => EventType == MapEvent.BattleTypes.Raid;
-
+        public bool IsFieldBattle => Base.EventType == MapEvent.BattleTypes.FieldBattle;
+        public bool IsSiegeBattle => Base.EventType == MapEvent.BattleTypes.Siege;
         public bool IsNavalBattle => NavalBattleHelper.IsNavalBattle(Base);
+        public bool IsRaid => Base.EventType == MapEvent.BattleTypes.Raid;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Outcome                        //
+        //                         Result                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public enum MapEventOutcome
-        {
-            Unset,
-            Won,
-            Lost,
-        }
+        public bool IsPlayerInvolved => Base.IsPlayerMapEvent;
 
-        public MapEventOutcome Outcome
-        {
-            get
-            {
-                if (Base == null || !IsPlayerInvolved)
-                    return MapEventOutcome.Unset;
+        public BattleSideEnum PlayerSideEnum => Base.PlayerSide;
 
-                // Battle not resolved yet.
-                if (Base.WinningSide == BattleSideEnum.None)
-                    return MapEventOutcome.Unset;
+        public bool HasWinner => Base.HasWinner;
 
-                if (PlayerSide == null)
-                    return MapEventOutcome.Unset;
+        public BattleSideEnum WinningSide => Base.WinningSide;
+        public BattleSideEnum DefeatedSide => Base.DefeatedSide;
 
-                if (!IsPlayerAttacker && !IsPlayerDefender)
-                    return MapEventOutcome.Unset;
+        public bool IsResolved => HasWinner && WinningSide != BattleSideEnum.None;
 
-                if (IsPlayerAttacker)
-                {
-                    return Base.WinningSide == BattleSideEnum.Attacker
-                        ? MapEventOutcome.Won
-                        : MapEventOutcome.Lost;
-                }
+        public bool IsWon =>
+            IsResolved
+            && IsPlayerInvolved
+            && PlayerSideEnum != BattleSideEnum.None
+            && WinningSide == PlayerSideEnum;
 
-                // Player is defender
-                return Base.WinningSide == BattleSideEnum.Defender
-                    ? MapEventOutcome.Won
-                    : MapEventOutcome.Lost;
-            }
-        }
-
-        public bool IsWon => Outcome == MapEventOutcome.Won;
-        public bool IsLost => Outcome == MapEventOutcome.Lost;
-        public bool IsResolved => Outcome != MapEventOutcome.Unset;
+        public bool IsLost =>
+            IsResolved
+            && IsPlayerInvolved
+            && PlayerSideEnum != BattleSideEnum.None
+            && WinningSide != PlayerSideEnum;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                     Battle Rewards                     //
+        //                         Armies                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        bool rewardsComputed = false;
+        public bool IsPlayerInArmy => Player.Party.IsInArmy;
+        public bool IsEnemyInArmy =>
+            (
+                PlayerSideEnum == BattleSideEnum.Attacker
+                && DefenderSide.LeaderParty?.IsInArmy == true
+            )
+            || (
+                PlayerSideEnum == BattleSideEnum.Defender
+                && AttackerSide.LeaderParty?.IsInArmy == true
+            );
 
-        /// <summary>
-        /// Renown reward for the player party.
-        /// </summary>
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Rewards                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        bool rewardsComputed;
+
         float _renownReward;
+        float _influenceReward;
+        float _moraleReward;
+        float _goldReward;
+
         public int RenownReward
         {
             get
             {
-                if (!rewardsComputed)
-                    GetBattleRewards();
-
+                EnsureRewards();
                 return MathF.Round(_renownReward);
             }
         }
 
-        /// <summary>
-        /// Influence reward for the player party.
-        /// </summary>
-        float _influenceReward;
         public int InfluenceReward
         {
             get
             {
-                if (!rewardsComputed)
-                    GetBattleRewards();
-
+                EnsureRewards();
                 return MathF.Round(_influenceReward);
             }
         }
 
-        /// <summary>
-        /// Morale reward for the player party.
-        /// </summary>
-        float _moraleReward;
         public int MoraleReward
         {
             get
             {
-                if (!rewardsComputed)
-                    GetBattleRewards();
-
+                EnsureRewards();
                 return MathF.Round(_moraleReward);
             }
         }
 
-        /// <summary>
-        /// Gold reward for the player party.
-        /// </summary>
-        float _goldReward;
         public int GoldReward
         {
             get
             {
-                if (!rewardsComputed)
-                    GetBattleRewards();
-
+                EnsureRewards();
                 return MathF.Round(_goldReward);
             }
         }
 
-        /// <summary>
-        /// Computes battle rewards for the player party.
-        /// </summary>
-        void GetBattleRewards()
+        void EnsureRewards()
         {
-            Base.GetBattleRewards(
-                Player.Party.PartyBase,
-                out _renownReward,
-                out _influenceReward,
-                out _moraleReward,
-                out _goldReward,
-                out _
-            );
+            if (rewardsComputed)
+                return;
+
             rewardsComputed = true;
-        }
 
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                      Wrapped Sides                     //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+            if (Base == null || !IsPlayerInvolved)
+                return;
 
-        public MapEventSide PlayerSide
-        {
-            get
+            try
             {
-                if (!IsPlayerInvolved)
-                    return null;
-
-                return GetSideOf(Player.Party);
+                Base.GetBattleRewards(
+                    Player.Party.PartyBase,
+                    out _renownReward,
+                    out _influenceReward,
+                    out _moraleReward,
+                    out _goldReward,
+                    out _
+                );
             }
-        }
-
-        public MapEventSide EnemySide
-        {
-            get
+            catch
             {
-                if (!IsPlayerInvolved)
-                    return null;
-
-                if (PlayerSide == null)
-                    return null;
-
-                var d = GetDefender();
-                var a = GetAttacker();
-
-                if (d == null || a == null)
-                    return null;
-
-                return ReferenceEquals(PlayerSide, d) ? a : d;
-            }
-        }
-
-        public IReadOnlyList<WParty> DefenderParties => GetParties(GetDefender());
-        public IReadOnlyList<WParty> AttackerParties => GetParties(GetAttacker());
-
-        public IReadOnlyList<WParty> PlayerSideParties => GetParties(PlayerSide);
-        public IReadOnlyList<WParty> EnemySideParties => GetParties(EnemySide);
-
-        public IReadOnlyList<WHero> DefenderLeaders => GetPartyLeaders(GetDefender());
-        public IReadOnlyList<WHero> AttackerLeaders => GetPartyLeaders(GetAttacker());
-
-        public IReadOnlyList<WHero> PlayerSideLeaders => GetPartyLeaders(PlayerSide);
-        public IReadOnlyList<WHero> EnemySideLeaders => GetPartyLeaders(EnemySide);
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                          Flags                         //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        public bool IsPlayerInvolved => Base.IsPlayerMapEvent;
-        public bool IsPlayerAttacker => ReferenceEquals(PlayerSide, GetAttacker());
-        public bool IsPlayerDefender => ReferenceEquals(PlayerSide, GetDefender());
-
-        public bool IsPlayerInArmy => IsPlayerInvolved && Player.Party?.IsInArmy == true;
-
-        public bool IsEnemyAnArmy
-        {
-            get
-            {
-                var enemy = EnemySide;
-                if (enemy == null)
-                    return false;
-
-                foreach (var wp in GetParties(enemy))
-                {
-                    if (wp.IsInArmy)
-                        return true;
-                }
-
-                return false;
+                // Live computed property.
             }
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                       Troop Counts                     //
+        //                          Sides                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public int TotalTroopCount => DefenderTroopCount + AttackerTroopCount;
+        public SideData PlayerSide => AttackerSide.IsPlayerSide ? AttackerSide : DefenderSide;
+        public SideData EnemySide => AttackerSide.IsPlayerSide ? DefenderSide : AttackerSide;
 
-        public int DefenderTroopCount => GetTroopCount(GetDefender());
-        public int AttackerTroopCount => GetTroopCount(GetAttacker());
+        public SideData AttackerSide => BuildSide(BattleSideEnum.Attacker);
+        public SideData DefenderSide => BuildSide(BattleSideEnum.Defender);
 
-        public int PlayerTroopCount => Player.Party?.PartySize ?? 0;
-        public int AllyTroopCount => GetTroopCount(PlayerSide) - PlayerTroopCount;
-        public int FriendlyTroopCount => GetTroopCount(PlayerSide);
-        public int EnemyTroopCount => GetTroopCount(EnemySide);
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Strength                        //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        public float TotalStrength => DefenderStrength + AttackerStrength;
-
-        public float DefenderStrength => GetTotalStrength(GetDefender());
-        public float AttackerStrength => GetTotalStrength(GetAttacker());
-
-        public float PlayerStrength => Player.Party?.Strength ?? 0f;
-        public float AllyStrength => GetTotalStrength(PlayerSide);
-        public float EnemyStrength => GetTotalStrength(EnemySide);
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Internals                      //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        MapEventSide GetDefender() => Base?.DefenderSide;
-
-        MapEventSide GetAttacker() => Base?.AttackerSide;
-
-        MapEventSide GetSideOf(WParty party)
+        SideData BuildSide(BattleSideEnum sideEnum)
         {
-            if (Base == null || party == null)
+            if (Base == null)
                 return null;
 
-            var d = GetDefender();
-            if (d != null)
+            var side = Base.GetMapEventSide(sideEnum);
+            if (side == null)
+                return null;
+
+            int men = 0;
+            try
             {
-                foreach (var p in d.Parties)
+                men = Base.GetNumberOfInvolvedMen(sideEnum);
+            }
+            catch { }
+
+            var parties = new List<PartyData>();
+            if (side.Parties != null)
+            {
+                for (int i = 0; i < side.Parties.Count; i++)
                 {
-                    if (ReferenceEquals(p?.Party, party.Base.Party))
-                        return d;
+                    var p = side.Parties[i];
+                    var party = p?.Party;
+
+                    int healthyEnd = 0;
+                    try
+                    {
+                        healthyEnd = party?.MemberRoster?.TotalHealthyCount ?? 0;
+                    }
+                    catch { }
+
+                    int healthyStart = p?.HealthyManCountAtStart ?? healthyEnd;
+
+                    parties.Add(
+                        new PartyData(
+                            partyId: party?.MobileParty?.StringId,
+                            leaderId: party?.LeaderHero?.StringId,
+                            healthyStart: healthyStart,
+                            healthyEnd: healthyEnd,
+                            contributionToBattle: p?.ContributionToBattle ?? 0,
+                            gainedRenown: p?.GainedRenown ?? 0f,
+                            gainedInfluence: p?.GainedInfluence ?? 0f,
+                            moraleChange: p?.MoraleChange ?? 0f,
+                            plunderedGold: p?.PlunderedGold ?? 0,
+                            goldLost: p?.GoldLost ?? 0
+                        )
+                    );
                 }
             }
 
-            var a = GetAttacker();
-            if (a != null)
+            return new SideData(
+                side: sideEnum,
+                isPlayerSide: sideEnum == PlayerSideEnum,
+                isInArmy: side.LeaderParty?.MobileParty?.Army != null,
+                leaderPartyId: side.LeaderParty?.MobileParty?.StringId,
+                menInvolved: men,
+                healthyTroops: side.GetTotalHealthyTroopCountOfSide(),
+                healthyHeroes: side.GetTotalHealthyHeroCountOfSide(),
+                strength: side.StrengthRatio,
+                parties: parties
+            );
+        }
+
+        public sealed class SideData(
+            BattleSideEnum side,
+            bool isPlayerSide,
+            bool isInArmy,
+            string leaderPartyId,
+            int menInvolved,
+            int healthyTroops,
+            int healthyHeroes,
+            float strength,
+            IReadOnlyList<PartyData> parties
+        )
+        {
+            public BattleSideEnum Side { get; } = side;
+            public bool IsPlayerSide { get; } = isPlayerSide;
+            public bool IsEnemySide { get; } = !isPlayerSide;
+            public bool IsInArmy { get; } = isInArmy;
+
+            public string LeaderPartyId { get; } = leaderPartyId;
+            public WParty LeaderParty => WParty.Get(LeaderPartyId);
+
+            public int MenInvolved { get; } = menInvolved;
+            public int HealthyTroops { get; } = healthyTroops;
+            public int HealthyHeroes { get; } = healthyHeroes;
+
+            public float Strength { get; } = strength;
+
+            public IReadOnlyList<PartyData> PartyData { get; } = parties ?? [];
+            public IEnumerable<WParty> Parties
             {
-                foreach (var p in a.Parties)
+                get
                 {
-                    if (ReferenceEquals(p?.Party, party))
-                        return a;
+                    foreach (var p in PartyData)
+                    {
+                        var party = p?.Party;
+                        if (party != null)
+                            yield return party;
+                    }
                 }
             }
-
-            return null;
         }
 
-        static IReadOnlyList<WParty> GetParties(MapEventSide side)
+        public sealed class PartyData(
+            string partyId,
+            string leaderId,
+            int healthyStart,
+            int healthyEnd,
+            int contributionToBattle,
+            float gainedRenown,
+            float gainedInfluence,
+            float moraleChange,
+            int plunderedGold,
+            int goldLost
+        )
         {
-            if (side == null)
-                return [];
+            public string PartyId { get; } = partyId;
+            public WParty Party => WParty.Get(PartyId);
+            public string LeaderId { get; } = leaderId;
+            public WHero Hero => WHero.Get(LeaderId);
 
-            var list = new List<WParty>(side.Parties.Count);
-            foreach (var p in side.Parties)
-            {
-                var mp = p?.Party?.MobileParty;
-                if (mp == null)
-                    continue;
+            public int HealthyStart { get; } = healthyStart;
+            public int HealthyEnd { get; } = healthyEnd;
 
-                var wp = WParty.Get(mp);
-                if (wp != null)
-                    list.Add(wp);
-            }
-
-            return list;
+            public int ContributionToBattle { get; } = contributionToBattle;
+            public float GainedRenown { get; } = gainedRenown;
+            public float GainedInfluence { get; } = gainedInfluence;
+            public float MoraleChange { get; } = moraleChange;
+            public int PlunderedGold { get; } = plunderedGold;
+            public int GoldLost { get; } = goldLost;
         }
 
-        static IReadOnlyList<WHero> GetPartyLeaders(MapEventSide side)
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Snapshot                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Creates a snapshot of the current map event state.
+        /// </summary>
+        public Snapshot TakeSnapshot() => new(this);
+
+        /// <summary>
+        /// Snapshot of a map event state at a point in time.
+        /// </summary>
+        public sealed class Snapshot(MMapEvent me)
         {
-            if (side == null)
-                return [];
+            /* ━━━━━━ Settlement ━━━━━━ */
 
-            var list = new List<WHero>();
-            var seen = new HashSet<string>(StringComparer.Ordinal);
+            public string SettlementId { get; } = me.Settlement?.StringId;
+            public WSettlement Settlement => WSettlement.Get(SettlementId);
 
-            foreach (var p in side.Parties)
-            {
-                var hero = p?.Party?.MobileParty?.LeaderHero;
-                if (hero == null)
-                    continue;
+            /* ━━━━━━━━━ Flags ━━━━━━━━ */
 
-                var id = hero.StringId;
-                if (string.IsNullOrEmpty(id) || !seen.Add(id))
-                    continue;
+            public bool IsFieldBattle { get; } = me.IsFieldBattle;
+            public bool IsSiegeBattle { get; } = me.IsSiegeBattle;
+            public bool IsNavalBattle { get; } = me.IsNavalBattle;
+            public bool IsRaid { get; } = me.IsRaid;
+            public bool IsPlayerInArmy { get; } = me.IsPlayerInArmy;
+            public bool IsEnemyInArmy { get; } = me.IsEnemyInArmy;
 
-                var wh = WHero.Get(hero);
-                if (wh != null)
-                    list.Add(wh);
-            }
+            /* ━━━━━━━━ Result ━━━━━━━━ */
 
-            return list;
-        }
+            public bool IsPlayerInvolved { get; } = me.IsPlayerInvolved;
+            public BattleSideEnum PlayerSideEnum { get; } = me.PlayerSideEnum;
 
-        static int GetTroopCount(MapEventSide side) => side?.TroopCount ?? 0;
+            public bool HasWinner { get; } = me.HasWinner;
+            public BattleSideEnum WinningSide { get; } = me.WinningSide;
+            public BattleSideEnum DefeatedSide { get; } = me.DefeatedSide;
 
-        static float GetTotalStrength(MapEventSide side)
-        {
-            if (side == null)
-                return 0f;
+            public bool IsResolved { get; } = me.IsResolved;
+            public bool IsWon { get; } = me.IsWon;
 
-            float total = 0f;
-            foreach (var wp in GetParties(side))
-                total += wp.Strength;
+            public bool IsLost { get; } = me.IsLost;
 
-            return total;
+            /* ━━━━━━━━ Rewards ━━━━━━━ */
+
+            public int RenownReward { get; } = me.RenownReward;
+            public int InfluenceReward { get; } = me.InfluenceReward;
+            public int MoraleReward { get; } = me.MoraleReward;
+            public int GoldReward { get; } = me.GoldReward;
+
+            /* ━━━━━━━━━ Sides ━━━━━━━━ */
+
+            public SideData PlayerSide => AttackerSide.IsPlayerSide ? AttackerSide : DefenderSide;
+            public SideData EnemySide => AttackerSide.IsPlayerSide ? DefenderSide : AttackerSide;
+
+            public SideData AttackerSide { get; } = me.AttackerSide;
+            public SideData DefenderSide { get; } = me.DefenderSide;
         }
     }
 }

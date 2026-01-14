@@ -1,4 +1,6 @@
+using System.Linq;
 using Retinues.Domain.Events.Models;
+using Retinues.Game.Missions;
 using TaleWorlds.Core;
 
 namespace Retinues.Game.Doctrines.Feats.Training
@@ -13,15 +15,16 @@ namespace Retinues.Game.Doctrines.Feats.Training
         protected override void OnMissionEnded(MMission mission)
         {
             if (!mission.IsArena)
-                return;
+                return; // Not an arena mission.
 
-            var kf = Filter(killers: a => a.IsPlayerCharacter);
+            int count = CombatBehavior
+                .GetKills()
+                .Count(k =>
+                    k.Killer.IsPlayer // Player killer
+                    && k.State == AgentState.Unconscious // Knocked out
+                );
 
-            foreach (var kill in kf.Filter(mission.Kills))
-            {
-                if (kill.State == AgentState.Unconscious)
-                    Progress(1);
-            }
+            Progress(count);
         }
     }
 }

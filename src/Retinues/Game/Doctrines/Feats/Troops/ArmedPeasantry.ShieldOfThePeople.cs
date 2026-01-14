@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Retinues.Domain.Events.Models;
-using static Retinues.Domain.Events.Models.MMission;
+using Retinues.Game.Missions;
 
 namespace Retinues.Game.Doctrines.Feats.Troops
 {
@@ -11,18 +11,22 @@ namespace Retinues.Game.Doctrines.Feats.Troops
     {
         protected override string FeatId => "feat_trp_shield_of_the_people";
 
-        protected override void OnBattleOver(IReadOnlyList<Kill> kills, MMapEvent battle)
+        protected override void OnBattleOver(
+            IReadOnlyList<CombatBehavior.Kill> kills,
+            MMapEvent.Snapshot start,
+            MMapEvent end
+        )
         {
-            if (battle.IsLost)
-                return;
+            if (end.IsLost)
+                return; // Player lost the battle.
 
-            if (!battle.IsRaid)
-                return;
+            if (!start.IsRaid)
+                return; // Not a raid.
 
-            if (!battle.IsPlayerDefender)
-                return;
+            if (!start.DefenderSide.IsPlayerSide)
+                return; // Player is not defending.
 
-            Progress(1);
+            Progress();
         }
     }
 }

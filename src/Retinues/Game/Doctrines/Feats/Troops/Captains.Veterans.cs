@@ -12,15 +12,15 @@ namespace Retinues.Game.Doctrines.Feats.Troops
             foreach (var troop in Player.Troops)
             {
                 if (!troop.IsBasic)
-                    continue;
+                    continue; // Not a basic troop.
 
                 if (troop.Tier != 5)
-                    continue;
+                    continue; // Not T5.
 
                 if (troop.SkillTotalRemaining > 0)
-                    continue;
+                    continue; // Skills not maxed.
 
-                Progress(1);
+                Progress();
                 return;
             }
         }

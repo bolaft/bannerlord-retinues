@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Retinues.Configuration;
+using Retinues.Domain.Characters.Helpers;
 using Retinues.Editor;
 using Retinues.Framework.Model.Attributes;
 using Retinues.Framework.Runtime;
@@ -39,7 +40,7 @@ namespace Retinues.Domain.Characters.Wrappers
 
         /* ━━━━━━ Interfacing ━━━━━ */
 
-        ICharacterSkills ICharacter.Skills => Skills;
+        ICharacterSkills ICharacterData.Skills => Skills;
 
         /* ━━━ Skills Container ━━━ */
 
@@ -66,12 +67,7 @@ namespace Retinues.Domain.Characters.Wrappers
             {
                 _wc = wc;
 
-                foreach (
-                    var skill in Helpers.SkillsHelper.GetSkillListForCharacter(
-                        _wc.IsHero,
-                        includeModded: true
-                    )
-                )
+                foreach (var skill in SkillsHelper.GetSkillList(_wc))
                 {
                     if (skill == null)
                         continue;
@@ -210,11 +206,10 @@ namespace Retinues.Domain.Characters.Wrappers
 
         const int MaxSkillLevel = 360;
 
-        public int SkillCapForTier =>
-            !IsHero ? Helpers.SkillsHelper.GetSkillCap(this) : MaxSkillLevel;
+        public int SkillCapForTier => !IsHero ? SkillsHelper.GetSkillCap(this) : MaxSkillLevel;
 
         public int SkillTotalMaxForTier =>
-            !IsHero ? Helpers.SkillsHelper.GetSkillTotal(this) : int.MaxValue;
+            !IsHero ? SkillsHelper.GetSkillTotal(this) : int.MaxValue;
 
         public int SkillTotalUsed
         {
@@ -222,10 +217,7 @@ namespace Retinues.Domain.Characters.Wrappers
             {
                 // Sum the currently relevant skills for this character type.
                 // If staging is enabled, Skills.Get() returns base + staged.
-                var list = Helpers.SkillsHelper.GetSkillListForCharacter(
-                    IsHero,
-                    includeModded: true
-                );
+                var list = SkillsHelper.GetSkillList(this);
                 if (list == null || list.Count == 0)
                     return 0;
 

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Retinues.Domain.Events.Models;
-using static Retinues.Domain.Events.Models.MMission;
+using Retinues.Game.Missions;
 
 namespace Retinues.Game.Doctrines.Feats.Retinues
 {
@@ -11,25 +11,31 @@ namespace Retinues.Game.Doctrines.Feats.Retinues
     {
         protected override string FeatId => "feat_ret_first_through_the_breach";
 
-        protected override void OnBattleOver(IReadOnlyList<Kill> kills, MMapEvent battle)
+        protected override void OnBattleOver(
+            IReadOnlyList<CombatBehavior.Kill> kills,
+            MMapEvent.Snapshot start,
+            MMapEvent end
+        )
         {
-            if (!battle.IsSiege || !battle.IsPlayerAttacker)
-                return;
+            if (!start.IsSiegeBattle)
+                return; // Not a siege battle.
+
+            if (!start.AttackerSide.IsPlayerSide)
+                return; // Not an assault.
 
             // First melee kill overall must be by a player retinue.
             foreach (var kill in kills)
             {
                 if (kill.IsMissile)
-                    continue;
+                    continue; // Ignore missile kills.
 
-                if (!kill.KillerIsPlayerTroop)
-                    return;
+                if (!kill.Killer.IsPlayerTroop)
+                    return; // Killer is not a player troop.
 
-                var killer = kill.Killer;
-                if (!killer.IsRetinue)
-                    return;
+                if (!kill.Killer.Character.IsRetinue)
+                    return; // Killer is not a retinue troop.
 
-                Progress(1);
+                Progress();
                 return;
             }
         }

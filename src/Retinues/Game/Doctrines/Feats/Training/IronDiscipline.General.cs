@@ -10,9 +10,9 @@ namespace Retinues.Game.Doctrines.Feats.Training
         protected override void OnDailyTick()
         {
             if (!Player.Party.IsArmyLeader)
-                Progress(1);
+                Progress(); // Progress for the day as army leader.
             else
-                Reset();
+                Reset(); // Reset progress if not army leader.
         }
     }
 }

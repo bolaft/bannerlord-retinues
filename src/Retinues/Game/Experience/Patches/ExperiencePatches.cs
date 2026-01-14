@@ -35,7 +35,7 @@ namespace Retinues.Game.Experience.Patches
                     return;
 
                 var wc = WCharacter.Get(character);
-                if (wc == null || !wc.InCustomTree)
+                if (wc == null || !wc.IsFactionTroop)
                     return;
 
                 int index = owner.MemberRoster.FindIndexOfTroop(character);
@@ -206,7 +206,7 @@ namespace Retinues.Game.Experience.Patches
                     return true;
 
                 var wc = WCharacter.Get(troop);
-                if (wc == null || !wc.InCustomTree)
+                if (wc == null || !wc.IsFactionTroop)
                     return true;
 
                 int xpRequired = SkillPointExperienceGain.GetXpRequiredToUpgradeThisUnit(
@@ -284,7 +284,7 @@ namespace Retinues.Game.Experience.Patches
                     return;
 
                 var wc = WCharacter.Get(troop);
-                if (wc == null || !wc.InCustomTree)
+                if (wc == null || !wc.IsFactionTroop)
                     return;
 
                 SkillPointExperienceGain.ApplyXpToSkillPointProgress(wc, ownerParty, gained);

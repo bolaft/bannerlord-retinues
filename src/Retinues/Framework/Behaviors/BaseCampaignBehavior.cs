@@ -24,6 +24,7 @@ namespace Retinues.Framework.Behaviors
         protected string Name => GetType().Name;
 
         public virtual bool IsEnabled => true;
+        public virtual bool IsActive => true;
 
         public sealed override void RegisterEvents()
         {
@@ -43,21 +44,19 @@ namespace Retinues.Framework.Behaviors
 
         protected virtual void OnSessionLaunched(CampaignGameStarter starter) { }
 
-        protected virtual void OnDailyTick() { }
+        protected virtual void OnTick() { }
 
         protected virtual void OnHourlyTick() { }
 
         protected virtual void OnHourlyTickParty(WParty party) { }
 
+        protected virtual void OnDailyTick() { }
+
         protected virtual void OnMissionStarted(MMission mission) { }
 
         protected virtual void OnMissionEnded(MMission mission) { }
 
-        protected virtual void OnMapEventStarted(
-            MMapEvent mapEvent,
-            WParty attackerParty,
-            WParty defenderParty
-        ) { }
+        protected virtual void OnMapEventStarted(MMapEvent mapEvent) { }
 
         protected virtual void OnMapEventEnded(MMapEvent mapEvent) { }
 
@@ -94,9 +93,9 @@ namespace Retinues.Framework.Behaviors
         ) { }
 
         protected virtual void OnTroopRecruited(
-            WHero recruiterHero,
-            WSettlement recruitmentSettlement,
-            WHero recruitmentSource,
+            WHero recruiter,
+            WSettlement settlement,
+            WHero source,
             WCharacter troop,
             int amount
         ) { }
@@ -133,11 +132,8 @@ namespace Retinues.Framework.Behaviors
                     starter => SafeInvoke(() => OnSessionLaunched(starter))
                 );
 
-            if (IsOverridden(nameof(OnDailyTick)))
-                CampaignEvents.DailyTickEvent.AddNonSerializedListener(
-                    this,
-                    () => SafeInvoke(OnDailyTick)
-                );
+            if (IsOverridden(nameof(OnTick)))
+                CampaignEvents.TickEvent.AddNonSerializedListener(this, dt => SafeInvoke(OnTick));
 
             if (IsOverridden(nameof(OnHourlyTick)))
                 CampaignEvents.HourlyTickEvent.AddNonSerializedListener(
@@ -149,6 +145,12 @@ namespace Retinues.Framework.Behaviors
                 CampaignEvents.HourlyTickPartyEvent.AddNonSerializedListener(
                     this,
                     party => SafeInvoke(() => OnHourlyTickParty(WParty.Get(party)))
+                );
+
+            if (IsOverridden(nameof(OnDailyTick)))
+                CampaignEvents.DailyTickEvent.AddNonSerializedListener(
+                    this,
+                    () => SafeInvoke(OnDailyTick)
                 );
 
             if (IsOverridden(nameof(OnMissionStarted)))
@@ -167,13 +169,7 @@ namespace Retinues.Framework.Behaviors
                 CampaignEvents.MapEventStarted.AddNonSerializedListener(
                     this,
                     (mapEvent, atk, def) =>
-                        SafeInvoke(() =>
-                            OnMapEventStarted(
-                                WrapMapEvent(mapEvent),
-                                WParty.Get(atk.MobileParty),
-                                WParty.Get(def.MobileParty)
-                            )
-                        )
+                        SafeInvoke(() => OnMapEventStarted(WrapMapEvent(mapEvent)))
                 );
 
             if (IsOverridden(nameof(OnMapEventEnded)))
@@ -259,7 +255,7 @@ namespace Retinues.Framework.Behaviors
                         SafeInvoke(() =>
                             OnHideoutBattleCompleted(
                                 winnerSide,
-                                new MMapEvent(hideoutEventComponent.MapEvent),
+                                WrapMapEvent(hideoutEventComponent.MapEvent),
                                 hideoutEventComponent
                             )
                         )
@@ -268,12 +264,12 @@ namespace Retinues.Framework.Behaviors
             if (IsOverridden(nameof(OnTroopRecruited)))
                 CampaignEvents.OnTroopRecruitedEvent.AddNonSerializedListener(
                     this,
-                    (recruiterHero, recruitmentSettlement, recruitmentSource, troop, amount) =>
+                    (recruiter, settlement, source, troop, amount) =>
                         SafeInvoke(() =>
                             OnTroopRecruited(
-                                WHero.Get(recruiterHero),
-                                WSettlement.Get(recruitmentSettlement),
-                                WHero.Get(recruitmentSource),
+                                WHero.Get(recruiter),
+                                WSettlement.Get(settlement),
+                                WHero.Get(source),
                                 WCharacter.Get(troop),
                                 amount
                             )
@@ -296,8 +292,7 @@ namespace Retinues.Framework.Behaviors
 
         private static MMission WrapMission(IMission mission)
         {
-            var m = mission as Mission;
-            if (m == null)
+            if (mission is not Mission m)
                 return null;
 
             return new MMission(m);
@@ -335,6 +330,9 @@ namespace Retinues.Framework.Behaviors
         private void SafeInvoke(Action action)
         {
             if (!IsEnabled)
+                return;
+
+            if (!IsActive)
                 return;
 
             if (action == null)

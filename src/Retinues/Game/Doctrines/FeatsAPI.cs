@@ -20,6 +20,12 @@ namespace Retinues.Game.Doctrines
             }
         }
 
+        public static bool CanProgress(string featId)
+        {
+            var b = DoctrinesBehavior.Instance;
+            return b != null && b.CanProgressFeat(featId);
+        }
+
         public static int GetProgress(string featId)
         {
             var b = DoctrinesBehavior.Instance;
@@ -79,30 +85,6 @@ namespace Retinues.Game.Doctrines
 
             var b = DoctrinesBehavior.Instance;
             return b != null && b.TryCompleteFeat(featId);
-        }
-
-        public static int TryCompleteMany(IReadOnlyList<string> featIds)
-        {
-            if (featIds == null || featIds.Count == 0)
-                return 0;
-
-            if (!Settings.EnableDoctrines || !Settings.EnableFeatRequirements)
-                return 0;
-
-            var b = DoctrinesBehavior.Instance;
-            if (b == null)
-                return 0;
-
-            var done = 0;
-
-            for (var i = 0; i < featIds.Count; i++)
-            {
-                var id = featIds[i];
-                if (b.TryCompleteFeat(id))
-                    done++;
-            }
-
-            return done;
         }
     }
 }

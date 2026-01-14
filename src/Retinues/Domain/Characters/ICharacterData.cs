@@ -5,7 +5,7 @@ using TaleWorlds.Core;
 
 namespace Retinues.Domain.Characters
 {
-    public interface ICharacter
+    public interface ICharacterData
     {
         string Name { get; set; }
         int Level { get; set; }

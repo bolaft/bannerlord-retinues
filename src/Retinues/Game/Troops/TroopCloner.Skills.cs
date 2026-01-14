@@ -34,10 +34,7 @@ namespace Retinues.Game.Troops
             if (cap <= 0 || totalMax <= 0)
                 return;
 
-            var skills = SkillsHelper.GetSkillListForCharacter(
-                isHeroLike: false,
-                includeModded: true
-            );
+            var skills = SkillsHelper.GetSkillList(wc);
 
             if (skills == null || skills.Count == 0)
                 return;

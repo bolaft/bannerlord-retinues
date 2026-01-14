@@ -287,6 +287,21 @@
       id="ret_doctrine_acquired_text"
       text="已獲取" />
     <string
+      id="ret_doctrine_cat_equipments"
+      text="裝備" />
+    <string
+      id="ret_doctrine_cat_loot"
+      text="戰利品" />
+    <string
+      id="ret_doctrine_cat_retinues"
+      text="侍從" />
+    <string
+      id="ret_doctrine_cat_training"
+      text="訓練" />
+    <string
+      id="ret_doctrine_cat_troops"
+      text="部隊" />
+    <string
       id="ret_doctrine_cost_text_both"
       text="花費 {GOLD} 丹納爾，{INFLUENCE} 影響力" />
     <string
@@ -308,9 +323,6 @@
       id="ret_doctrine_feat_completed"
       text="已完成" />
     <string
-      id="ret_doctrine_feat_optional"
-      text="可選" />
-    <string
       id="ret_doctrine_feat_progress_tooltip_completed"
       text="您已完成此功績。" />
     <string
@@ -320,14 +332,8 @@
       id="ret_doctrine_feat_progress_tooltip_repeatable"
       text="此功績是可重複的。您可以多次完成它。" />
     <string
-      id="ret_doctrine_feat_required"
-      text="必需" />
-    <string
       id="ret_doctrine_feats_header"
       text="功績" />
-    <string
-      id="ret_doctrine_missing_feats"
-      text="未完成所需的功績。" />
     <string
       id="ret_doctrine_not_enough_gold_desc"
       text="您需要 {COST} 戈德來解鎖此學說。" />
@@ -534,7 +540,187 @@
       text="王國" />
     <string
       id="ret_feat_complete_title"
-      text="壯舉完成" />
+      text="成就完成" />
+    <string
+      id="ret_feat_eq_blood_money_desc"
+      text="在戰場上掠奪 {TARGET} 丹納爾。" />
+    <string
+      id="ret_feat_eq_blood_money_name"
+      text="血錢" />
+    <string
+      id="ret_feat_eq_golden_legion_desc"
+      text="部署一支裝備價值超過100,000丹納爾的部隊。" />
+    <string
+      id="ret_feat_eq_golden_legion_name"
+      text="黃金軍團" />
+    <string
+      id="ret_feat_eq_heavy_kit_desc"
+      text="部署一支裝備重量超過60公斤的部隊。" />
+    <string
+      id="ret_feat_eq_heavy_kit_name"
+      text="重型裝備" />
+    <string
+      id="ret_feat_eq_hometown_tournament_desc"
+      text="在您氏族文化的城鎮中贏得一場比賽。" />
+    <string
+      id="ret_feat_eq_hometown_tournament_name"
+      text="家鄉錦標賽" />
+    <string
+      id="ret_feat_eq_ironmen_desc"
+      text="在戰鬥中僅使用穿戴全金屬盔甲的部隊獲勝。" />
+    <string
+      id="ret_feat_eq_ironmen_name"
+      text="鐵人" />
+    <string
+      id="ret_feat_eq_kingslayer_desc"
+      text="在戰鬥中擊敗不同文化的統治者。" />
+    <string
+      id="ret_feat_eq_kingslayer_name"
+      text="弒君者" />
+    <string
+      id="ret_feat_eq_paid_in_full_desc"
+      text="支付 {TARGET} 丹納爾的部隊工資。" />
+    <string
+      id="ret_feat_eq_paid_in_full_name"
+      text="全額支付" />
+    <string
+      id="ret_feat_eq_proud_and_strong_desc"
+      text="在戰鬥中使用不穿戴外來裝備的部隊獲得 {TARGET} 次擊殺。" />
+    <string
+      id="ret_feat_eq_proud_and_strong_name"
+      text="自豪與強大" />
+    <string
+      id="ret_feat_eq_royal_host_desc"
+      text="使用自定義王國部隊獲得 {TARGET} 次擊殺。" />
+    <string
+      id="ret_feat_eq_royal_host_name"
+      text="皇家主機" />
+    <string
+      id="ret_feat_eq_royal_levy_desc"
+      text="招募 {TARGET} 名自定義王國部隊。" />
+    <string
+      id="ret_feat_eq_royal_levy_name"
+      text="皇家徵兵" />
+    <string
+      id="ret_feat_eq_royal_stewardship_desc"
+      text="讓與您王國文化相同的同伴管理一個王國封地 {TARGET} 天。" />
+    <string
+      id="ret_feat_eq_royal_stewardship_name"
+      text="皇家管家" />
+    <string
+      id="ret_feat_eq_tailor_made_desc"
+      text="擁有一個鐵匠鋪 {TARGET} 天。" />
+    <string
+      id="ret_feat_eq_tailor_made_name"
+      text="量身定制" />
+    <string
+      id="ret_feat_notification_body"
+      text="{NAME}:{newline}{newline}{DESC}" />
+    <string
+      id="ret_feat_ret_against_all_odds_desc"
+      text="在至少2比1的劣勢下，僅使用隨從獲勝一場戰鬥。" />
+    <string
+      id="ret_feat_ret_against_all_odds_name"
+      text="逆境而上" />
+    <string
+      id="ret_feat_ret_bounty_hunters_desc"
+      text="消滅 {TARGET} 個強盜團伙。" />
+    <string
+      id="ret_feat_ret_bounty_hunters_name"
+      text="賞金獵人" />
+    <string
+      id="ret_feat_ret_defy_the_tide_desc"
+      text="在主要使用隨從的情況下，在壓倒性的劣勢下贏得一場戰鬥。" />
+    <string
+      id="ret_feat_ret_defy_the_tide_name"
+      text="抗拒潮流" />
+    <string
+      id="ret_feat_ret_first_through_the_breach_desc"
+      text="讓一個隨從在圍攻突襲中獲得第一次近戰擊殺。" />
+    <string
+      id="ret_feat_ret_first_through_the_breach_name"
+      text="首個突破口" />
+    <string
+      id="ret_feat_ret_flawless_execution_desc"
+      text="讓您的隨從在沒有任何傷亡的情況下擊敗 {TARGET} 名同等級的敵軍。" />
+    <string
+      id="ret_feat_ret_flawless_execution_name"
+      text="完美執行" />
+    <string
+      id="ret_feat_ret_high_spirits_desc"
+      text="讓一個僅有隨從的隊伍的士氣在 {TARGET} 天內保持在90以上。" />
+    <string
+      id="ret_feat_ret_high_spirits_name"
+      text="高昂的精神" />
+    <string
+      id="ret_feat_ret_hold_the_line_desc"
+      text="用一個僅有隨從的隊伍贏得一場防禦戰。" />
+    <string
+      id="ret_feat_ret_hold_the_line_name"
+      text="堅守陣線" />
+    <string
+      id="ret_feat_ret_perfect_victory_desc"
+      text="獨自一人擊敗100名或更多敵人，而你這邊沒有任何人死亡。" />
+    <string
+      id="ret_feat_ret_perfect_victory_name"
+      text="完美勝利" />
+    <string
+      id="ret_feat_ret_raise_the_vanguard_desc"
+      text="僱傭 {TARGET} 名隨從。" />
+    <string
+      id="ret_feat_ret_raise_the_vanguard_name"
+      text="提升先鋒" />
+    <string
+      id="ret_feat_ret_safe_travels_desc"
+      text="從敵人的攻擊中拯救一支商隊或村民隊伍。" />
+    <string
+      id="ret_feat_ret_safe_travels_name"
+      text="安全旅行" />
+    <string
+      id="ret_feat_ret_shock_assault_desc"
+      text="僅使用您的隨從贏得一場有100名或更多戰鬥人員的戰鬥。" />
+    <string
+      id="ret_feat_ret_shock_assault_name"
+      text="震撼突襲" />
+    <string
+      id="ret_feat_ret_still_standing_desc"
+      text="讓 {TARGET} 名隨從在戰鬥中被擊倒後幸存下來。" />
+    <string
+      id="ret_feat_ret_still_standing_name"
+      text="依然屹立" />
+    <string
+      id="ret_feat_sp_allies_favor_desc"
+      text="為一位盟友領主完成一個任務。" />
+    <string
+      id="ret_feat_sp_allies_favor_name"
+      text="盟友的恩惠" />
+    <string
+      id="ret_feat_sp_ancestral_duty_desc"
+      text="為您氏族文化的一位領主完成一個任務。" />
+    <string
+      id="ret_feat_sp_ancestral_duty_name"
+      text="祖傳職責" />
+    <string
+      id="ret_feat_sp_blood_price_desc"
+      text="在一場戰鬥中親自擊敗 {TARGET} 名敵人。" />
+    <string
+      id="ret_feat_sp_blood_price_name"
+      text="血價" />
+    <string
+      id="ret_feat_sp_costly_victory_desc"
+      text="贏得一場盟軍傷亡超過100人的戰鬥。" />
+    <string
+      id="ret_feat_sp_costly_victory_name"
+      text="代價高昂的勝利" />
+    <string
+      id="ret_feat_sp_cultural_triumph_desc"
+      text="單槍匹馬贏得一場對抗不同文化敵軍的戰鬥。" />
+    <string
+      id="ret_feat_sp_cultural_triumph_name"
+      text="文化的勝利" />
+    <string
+      id="ret_feat_sp_cut_the_head_desc"
+      text="在戰鬥中親自擊敗一位敵方領主。" />
     <string
       id="ret_filter_label"
       text="過濾器：" />
@@ -907,18 +1093,6 @@
     <string
       id="ret_mcm_option_clan_troops_unlock_hint"
       text="確定氏族部隊何時可用。" />
-    <string
-      id="ret_mcm_option_count_ally_casualties"
-      text="計算盟友傷亡" />
-    <string
-      id="ret_mcm_option_count_ally_casualties_hint"
-      text="盟友的傷亡是否也計入解鎖物品。" />
-    <string
-      id="ret_mcm_option_count_ally_kills"
-      text="計算盟友擊殺" />
-    <string
-      id="ret_mcm_option_count_ally_kills_hint"
-      text="盟軍部隊造成的擊殺是否也計入解鎖物品。" />
     <string
       id="ret_mcm_option_debug_mode"
       text="調試模式" />

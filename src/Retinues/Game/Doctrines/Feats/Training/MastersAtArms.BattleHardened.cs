@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Retinues.Domain.Events.Models;
-using static Retinues.Domain.Events.Models.MMission;
+using Retinues.Game.Missions;
 
 namespace Retinues.Game.Doctrines.Feats.Training
 {
@@ -12,15 +12,18 @@ namespace Retinues.Game.Doctrines.Feats.Training
     {
         protected override string FeatId => "feat_tr_battle_hardened";
 
-        protected override void OnBattleOver(IReadOnlyList<Kill> kills, MMapEvent battle)
+        protected override void OnBattleOver(
+            IReadOnlyList<CombatBehavior.Kill> kills,
+            MMapEvent.Snapshot start,
+            MMapEvent end
+        )
         {
-            // "Elite faction troops" = custom tree + elite (not retinues).
-            var kf = Filter(
-                killers: a => a.IsPlayerTroop && a.IsCustom && a.Character.IsElite,
-                victims: v => v.IsEnemyTroop
+            int count = kills.Count(k =>
+                k.Killer.IsPlayerTroop // Player troop killer
+                && k.Killer.Character.IsFactionTroop // Faction troop
+                && k.Killer.Character.IsElite // Elite troop
+                && k.Victim.IsEnemyTroop // Enemy victim
             );
-
-            int count = kf.Filter(kills).Count();
 
             Progress(count);
         }

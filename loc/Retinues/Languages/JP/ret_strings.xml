@@ -287,6 +287,21 @@
       id="ret_doctrine_acquired_text"
       text="取得済み" />
     <string
+      id="ret_doctrine_cat_equipments"
+      text="装備" />
+    <string
+      id="ret_doctrine_cat_loot"
+      text="戦利品" />
+    <string
+      id="ret_doctrine_cat_retinues"
+      text="従者" />
+    <string
+      id="ret_doctrine_cat_training"
+      text="訓練" />
+    <string
+      id="ret_doctrine_cat_troops"
+      text="部隊" />
+    <string
       id="ret_doctrine_cost_text_both"
       text="{GOLD} デナール、{INFLUENCE} インフルエンスが必要" />
     <string
@@ -308,9 +323,6 @@
       id="ret_doctrine_feat_completed"
       text="完了" />
     <string
-      id="ret_doctrine_feat_optional"
-      text="オプション" />
-    <string
       id="ret_doctrine_feat_progress_tooltip_completed"
       text="この偉業を完了しました。" />
     <string
@@ -320,14 +332,8 @@
       id="ret_doctrine_feat_progress_tooltip_repeatable"
       text="この偉業は繰り返し可能です。複数回完了できます。" />
     <string
-      id="ret_doctrine_feat_required"
-      text="必須" />
-    <string
       id="ret_doctrine_feats_header"
       text="偉業" />
-    <string
-      id="ret_doctrine_missing_feats"
-      text="必要な偉業が完了していません。" />
     <string
       id="ret_doctrine_not_enough_gold_desc"
       text="この教義を解除するには、{COST} デナールが必要です。" />
@@ -535,6 +541,186 @@
     <string
       id="ret_feat_complete_title"
       text="偉業達成" />
+    <string
+      id="ret_feat_eq_blood_money_desc"
+      text="戦場で {TARGET} デナールを略奪します。" />
+    <string
+      id="ret_feat_eq_blood_money_name"
+      text="血の代償" />
+    <string
+      id="ret_feat_eq_golden_legion_desc"
+      text="100,000 デナールを超える価値の装備を着用したユニットを配備します。" />
+    <string
+      id="ret_feat_eq_golden_legion_name"
+      text="ゴールデンレギオン" />
+    <string
+      id="ret_feat_eq_heavy_kit_desc"
+      text="60 kg を超える重量の装備を着用したユニットを配備します。" />
+    <string
+      id="ret_feat_eq_heavy_kit_name"
+      text="ヘビーキット" />
+    <string
+      id="ret_feat_eq_hometown_tournament_desc"
+      text="クランの文化がある町でトーナメントに勝利します。" />
+    <string
+      id="ret_feat_eq_hometown_tournament_name"
+      text="故郷のトーナメント" />
+    <string
+      id="ret_feat_eq_ironmen_desc"
+      text="完全な金属製の鎧を着用した部隊のみで戦闘に勝利します。" />
+    <string
+      id="ret_feat_eq_ironmen_name"
+      text="アイアンメン" />
+    <string
+      id="ret_feat_eq_kingslayer_desc"
+      text="異なる文化の支配者を戦闘で打ち負かします。" />
+    <string
+      id="ret_feat_eq_kingslayer_name"
+      text="キングスレイヤー" />
+    <string
+      id="ret_feat_eq_paid_in_full_desc"
+      text="部隊の給与に {TARGET} デナールを支払します。" />
+    <string
+      id="ret_feat_eq_paid_in_full_name"
+      text="全額支払い済み" />
+    <string
+      id="ret_feat_eq_proud_and_strong_desc"
+      text="外国製の装備を着用していない部隊で戦闘で {TARGET} キルを獲得します。" />
+    <string
+      id="ret_feat_eq_proud_and_strong_name"
+      text="プラウド＆ストロング" />
+    <string
+      id="ret_feat_eq_royal_host_desc"
+      text="カスタム王国部隊で {TARGET} キルを獲得します。" />
+    <string
+      id="ret_feat_eq_royal_host_name"
+      text="ロイヤルホスト" />
+    <string
+      id="ret_feat_eq_royal_levy_desc"
+      text="カスタム王国部隊を {TARGET} 人徴募します。" />
+    <string
+      id="ret_feat_eq_royal_levy_name"
+      text="ロイヤルリーヴィー" />
+    <string
+      id="ret_feat_eq_royal_stewardship_desc"
+      text="あなたの王国と同じ文化を持つ仲間に、王国の封土を {TARGET} 日間治めさせます。" />
+    <string
+      id="ret_feat_eq_royal_stewardship_name"
+      text="ロイヤルスチュワードシップ" />
+    <string
+      id="ret_feat_eq_tailor_made_desc"
+      text="鍛冶屋を {TARGET} 日間所有します。" />
+    <string
+      id="ret_feat_eq_tailor_made_name"
+      text="テーラーメイド" />
+    <string
+      id="ret_feat_notification_body"
+      text="{NAME}:{newline}{newline}{DESC}" />
+    <string
+      id="ret_feat_ret_against_all_odds_desc"
+      text="少なくとも2対1の数的不利な状況で、随行部隊のみを配備して戦闘に勝利します。" />
+    <string
+      id="ret_feat_ret_against_all_odds_name"
+      text="逆境に立ち向かう" />
+    <string
+      id="ret_feat_ret_bounty_hunters_desc"
+      text="{TARGET} の盗賊団を排除します。" />
+    <string
+      id="ret_feat_ret_bounty_hunters_name"
+      text="バウンティハンター" />
+    <string
+      id="ret_feat_ret_defy_the_tide_desc"
+      text="主に随行部隊を配備し、圧倒的な不利な状況で戦闘に勝利します。" />
+    <string
+      id="ret_feat_ret_defy_the_tide_name"
+      text="潮流に逆らう" />
+    <string
+      id="ret_feat_ret_first_through_the_breach_desc"
+      text="包囲攻撃で随行部隊に最初の近接戦キルを獲得させます。" />
+    <string
+      id="ret_feat_ret_first_through_the_breach_name"
+      text="最初の突破口" />
+    <string
+      id="ret_feat_ret_flawless_execution_desc"
+      text="あなたの随行部隊に、単一の犠牲者も出さずに同等の階級の敵軍 {TARGET} を倒させます。" />
+    <string
+      id="ret_feat_ret_flawless_execution_name"
+      text="完璧な実行" />
+    <string
+      id="ret_feat_ret_high_spirits_desc"
+      text="随行部隊のみのパーティーの士気を {TARGET} 日間90以上に維持します。" />
+    <string
+      id="ret_feat_ret_high_spirits_name"
+      text="高い精神" />
+    <string
+      id="ret_feat_ret_hold_the_line_desc"
+      text="随行部隊のみのパーティーで防御戦に勝利します。" />
+    <string
+      id="ret_feat_ret_hold_the_line_name"
+      text="ラインを保持する" />
+    <string
+      id="ret_feat_ret_perfect_victory_desc"
+      text="100人以上の敵に対して単独で勝利し、あなたの側で一人も死なせないでください。" />
+    <string
+      id="ret_feat_ret_perfect_victory_name"
+      text="完全勝利" />
+    <string
+      id="ret_feat_ret_raise_the_vanguard_desc"
+      text="{TARGET} の随行部隊を雇います。" />
+    <string
+      id="ret_feat_ret_raise_the_vanguard_name"
+      text="前衛を高める" />
+    <string
+      id="ret_feat_ret_safe_travels_desc"
+      text="敵の攻撃からキャラバンや村人のパーティーを救います。" />
+    <string
+      id="ret_feat_ret_safe_travels_name"
+      text="安全な旅行" />
+    <string
+      id="ret_feat_ret_shock_assault_desc"
+      text="100人以上の戦闘員の戦いに、あなたの随行部隊のみを使用して勝利します。" />
+    <string
+      id="ret_feat_ret_shock_assault_name"
+      text="ショックアサルト" />
+    <string
+      id="ret_feat_ret_still_standing_desc"
+      text="戦闘で倒された後に {TARGET} の随行部隊が生き残るようにします。" />
+    <string
+      id="ret_feat_ret_still_standing_name"
+      text="まだ立っている" />
+    <string
+      id="ret_feat_sp_allies_favor_desc"
+      text="同盟国の領主のためにクエストを完了します。" />
+    <string
+      id="ret_feat_sp_allies_favor_name"
+      text="同盟の好意" />
+    <string
+      id="ret_feat_sp_ancestral_duty_desc"
+      text="あなたの氏族の文化の領主のためにクエストを完了します。" />
+    <string
+      id="ret_feat_sp_ancestral_duty_name"
+      text="先祖の義務" />
+    <string
+      id="ret_feat_sp_blood_price_desc"
+      text="1つの戦いで個人的に {TARGET} の敵を倒します。" />
+    <string
+      id="ret_feat_sp_blood_price_name"
+      text="血の代償" />
+    <string
+      id="ret_feat_sp_costly_victory_desc"
+      text="味方が100人以上の犠牲を出した戦いに勝利します。" />
+    <string
+      id="ret_feat_sp_costly_victory_name"
+      text="高価な勝利" />
+    <string
+      id="ret_feat_sp_cultural_triumph_desc"
+      text="異なる文化の敵軍に対して単独で戦いに勝利します。" />
+    <string
+      id="ret_feat_sp_cultural_triumph_name"
+      text="文化の勝利" />
+    <string
+      id="ret_feat_sp_cut_the_head_desc"
+      text="戦闘で敵の領主を個人的に倒します。" />
     <string
       id="ret_filter_label"
       text="フィルター：" />
@@ -907,18 +1093,6 @@
     <string
       id="ret_mcm_option_clan_troops_unlock_hint"
       text="クラン部隊が利用可能になる時期を決定します。" />
-    <string
-      id="ret_mcm_option_count_ally_casualties"
-      text="味方の戦死者をカウント" />
-    <string
-      id="ret_mcm_option_count_ally_casualties_hint"
-      text="味方の戦死者もアイテムのアンロックにカウントされるかどうか。" />
-    <string
-      id="ret_mcm_option_count_ally_kills"
-      text="味方のキルをカウント" />
-    <string
-      id="ret_mcm_option_count_ally_kills_hint"
-      text="味方部隊によるキルもアイテムのアンロックにカウントされるかどうか。" />
     <string
       id="ret_mcm_option_debug_mode"
       text="デバッグモード" />

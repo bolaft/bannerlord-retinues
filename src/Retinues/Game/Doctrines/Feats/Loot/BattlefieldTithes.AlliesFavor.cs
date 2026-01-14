@@ -13,19 +13,18 @@ namespace Retinues.Game.Doctrines.Feats.Loot
         protected override void OnQuestCompleted(QuestBase quest, WHero giver, bool success)
         {
             if (!success)
-                return;
+                return; // Quest failed.
 
             if (giver == null)
-                return;
+                return; // No giver.
 
-            // Must be a lord.
             if (!giver.IsLord)
-                return;
+                return; // Giver is not a lord.
 
             if (giver.Base.MapFaction.StringId != Player.Clan.MapFaction.StringId)
-                return;
+                return; // Giver is not an ally.
 
-            Progress(1);
+            Progress();
         }
     }
 }

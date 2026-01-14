@@ -29,7 +29,7 @@ namespace Retinues.Editor.VM.Panel.Character
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceProperty]
-        public bool IsEnabled => _character.InCustomTree || Settings.EnableUniversalEditor;
+        public bool IsEnabled => _character.IsFactionTroop || Settings.EnableUniversalEditor;
 
         [DataSourceMethod]
         public void ExecuteSelect()
@@ -40,7 +40,7 @@ namespace Retinues.Editor.VM.Panel.Character
             // Upgrade targets can cross mode boundaries:
             // - Custom tree troops must open in Player mode
             // - Non-custom troops must open in Universal mode
-            var desiredMode = _character.InCustomTree ? EditorMode.Player : EditorMode.Universal;
+            var desiredMode = _character.IsFactionTroop ? EditorMode.Player : EditorMode.Universal;
 
             // Fast path: same mode + same selected faction -> just select.
             if (desiredMode == State.Mode)

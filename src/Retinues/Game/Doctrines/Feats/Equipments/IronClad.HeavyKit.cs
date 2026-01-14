@@ -14,31 +14,26 @@ namespace Retinues.Game.Doctrines.Feats.Equipments
             foreach (var e in Player.Party.MemberRoster.Elements)
             {
                 if (e.Number <= 0)
-                    continue;
+                    continue; // Skip empty.
 
                 var troop = e.Troop;
-                if (!troop.InCustomTree)
-                    continue;
 
+                if (troop.IsHero)
+                    continue; // Skip heroes.
+
+                if (!troop.IsFactionTroop)
+                    continue; // Skip non-custom troops.
+
+                // Check each equipment.
                 foreach (var eq in troop.Equipments)
                 {
                     if (!IsValidForBattle(eq, battle))
-                        continue;
+                        continue; // Not valid for this battle.
 
-                    float weight = 0;
+                    if (eq.Weight <= 60)
+                        continue; // Not heavy enough.
 
-                    foreach (var item in eq.Items)
-                    {
-                        if (item == null)
-                            continue;
-
-                        weight += item.Weight;
-                    }
-
-                    if (weight <= 60)
-                        continue;
-
-                    Progress(1);
+                    Progress();
                     return;
                 }
             }

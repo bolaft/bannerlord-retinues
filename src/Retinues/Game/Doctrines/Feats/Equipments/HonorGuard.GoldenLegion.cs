@@ -1,6 +1,4 @@
-using System.Collections.Generic;
 using Retinues.Domain.Events.Models;
-using static Retinues.Domain.Events.Models.MMission;
 
 namespace Retinues.Game.Doctrines.Feats.Equipments
 {
@@ -11,36 +9,31 @@ namespace Retinues.Game.Doctrines.Feats.Equipments
     {
         protected override string FeatId => "feat_eq_golden_legion";
 
-        protected override void OnBattleOver(IReadOnlyList<Kill> kills, MMapEvent battle)
+        protected override void OnBattleStart(MMapEvent battle)
         {
             foreach (var e in Player.Party.MemberRoster.Elements)
             {
                 if (e.Number <= 0)
-                    continue;
+                    continue; // Skip empty.
 
                 var troop = e.Troop;
-                if (!troop.InCustomTree)
-                    continue;
 
+                if (troop.IsHero)
+                    continue; // Skip heroes.
+
+                if (!troop.IsFactionTroop)
+                    continue; // Skip non-custom troops.
+
+                // Check each equipment.
                 foreach (var eq in troop.Equipments)
                 {
                     if (!IsValidForBattle(eq, battle))
-                        continue;
+                        continue; // Not valid for this battle.
 
-                    int value = 0;
+                    if (eq.Value <= 100000)
+                        continue; // Not expensive enough.
 
-                    foreach (var item in eq.Items)
-                    {
-                        if (item == null)
-                            continue;
-
-                        value += item.Value;
-                    }
-
-                    if (value <= 100000)
-                        continue;
-
-                    Progress(1);
+                    Progress();
                     return;
                 }
             }

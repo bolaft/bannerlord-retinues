@@ -30,7 +30,7 @@ namespace Retinues.Game.Experience
             if (wc.IsHero)
                 return;
 
-            if (!wc.InCustomTree)
+            if (!wc.IsFactionTroop)
                 return;
 
             if (wc.IsVanilla)
@@ -47,7 +47,7 @@ namespace Retinues.Game.Experience
             // Convert full XP chunks to skill points.
             if (wc.SkillPointsExperience >= xpRequired)
             {
-                int chunks = (int)(wc.SkillPointsExperience / xpRequired);
+                int chunks = wc.SkillPointsExperience / xpRequired;
                 wc.SkillPoints += chunks;
                 wc.SkillPointsExperience -= chunks * xpRequired;
 

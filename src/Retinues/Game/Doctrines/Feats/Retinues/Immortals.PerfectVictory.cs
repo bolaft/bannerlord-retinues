@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Retinues.Domain.Events.Models;
-using static Retinues.Domain.Events.Models.MMission;
+using Retinues.Game.Missions;
 
 namespace Retinues.Game.Doctrines.Feats.Retinues
 {
@@ -12,29 +12,26 @@ namespace Retinues.Game.Doctrines.Feats.Retinues
     {
         protected override string FeatId => "feat_ret_perfect_victory";
 
-        protected override void OnBattleOver(IReadOnlyList<Kill> kills, MMapEvent battle)
+        protected override void OnBattleOver(
+            IReadOnlyList<CombatBehavior.Kill> kills,
+            MMapEvent.Snapshot start,
+            MMapEvent end
+        )
         {
-            if (battle.IsLost)
-                return;
+            if (end.IsLost)
+                return; // Player lost the battle.
 
-            if (battle.EnemyTroopCount < 100)
-                return;
+            if (start.EnemySide.HealthyTroops < 100)
+                return; // Not enough enemies.
 
-            foreach (var party in battle.PlayerSideParties)
-            {
-                if (party.IsMainParty)
-                    continue;
+            foreach (var party in start.PlayerSide.Parties)
+                if (!party.IsMainParty)
+                    return; // Not winning by yourself.
 
-                // Not solo if there is any other party on the player side.
-                return;
-            }
-
-            var kf = Filter(victims: v => v.IsPlayerTroop);
-
-            if (kf.Filter(kills).Count() > 0)
+            if (kills.Count(k => k.Victim.IsPlayerTroop) > 0)
                 return; // Any player troop deaths.
 
-            Progress(1);
+            Progress();
         }
     }
 }

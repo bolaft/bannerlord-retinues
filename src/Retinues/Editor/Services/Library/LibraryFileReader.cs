@@ -62,7 +62,7 @@ namespace Retinues.Editor.Services.Library
             var nameEl = el.Elements().FirstOrDefault(x => x.Name.LocalName == "NameAttribute");
             if (nameEl != null)
             {
-                var raw = (string)nameEl.Value ?? string.Empty;
+                var raw = nameEl.Value ?? string.Empty;
                 raw = ResolveTextObjectString(raw);
                 if (!string.IsNullOrWhiteSpace(raw))
                     return raw;

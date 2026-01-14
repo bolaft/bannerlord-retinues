@@ -287,6 +287,21 @@
       id="ret_doctrine_acquired_text"
       text="ERWORBEN" />
     <string
+      id="ret_doctrine_cat_equipments"
+      text="Ausrüstungen" />
+    <string
+      id="ret_doctrine_cat_loot"
+      text="Beute" />
+    <string
+      id="ret_doctrine_cat_retinues"
+      text="Gefolgschaften" />
+    <string
+      id="ret_doctrine_cat_training"
+      text="Training" />
+    <string
+      id="ret_doctrine_cat_troops"
+      text="Truppen" />
+    <string
       id="ret_doctrine_cost_text_both"
       text="Kosten {GOLD} Denare, {INFLUENCE} Einfluss" />
     <string
@@ -308,9 +323,6 @@
       id="ret_doctrine_feat_completed"
       text="Abgeschlossen" />
     <string
-      id="ret_doctrine_feat_optional"
-      text="Optional" />
-    <string
       id="ret_doctrine_feat_progress_tooltip_completed"
       text="Sie haben diese Tat abgeschlossen." />
     <string
@@ -320,14 +332,8 @@
       id="ret_doctrine_feat_progress_tooltip_repeatable"
       text="Diese Tat ist wiederholbar. Sie können sie mehrfach abschließen." />
     <string
-      id="ret_doctrine_feat_required"
-      text="Erforderlich" />
-    <string
       id="ret_doctrine_feats_header"
       text="Taten" />
-    <string
-      id="ret_doctrine_missing_feats"
-      text="Erforderliche Taten wurden nicht abgeschlossen." />
     <string
       id="ret_doctrine_not_enough_gold_desc"
       text="Sie benötigen {COST} Denare, um diese Doktrin freizuschalten." />
@@ -534,7 +540,187 @@
       text="Königreich" />
     <string
       id="ret_feat_complete_title"
-      text="Heldentat abgeschlossen" />
+      text="Leistung abgeschlossen" />
+    <string
+      id="ret_feat_eq_blood_money_desc"
+      text="Plündere {TARGET} Denare auf dem Schlachtfeld." />
+    <string
+      id="ret_feat_eq_blood_money_name"
+      text="Blutgeld" />
+    <string
+      id="ret_feat_eq_golden_legion_desc"
+      text="Setze eine Einheit mit Ausrüstung im Wert von über 100.000 Denaren ein." />
+    <string
+      id="ret_feat_eq_golden_legion_name"
+      text="Goldene Legion" />
+    <string
+      id="ret_feat_eq_heavy_kit_desc"
+      text="Setze eine Einheit mit Ausrüstung ein, die über 60 kg wiegt." />
+    <string
+      id="ret_feat_eq_heavy_kit_name"
+      text="Schweres Equipment" />
+    <string
+      id="ret_feat_eq_hometown_tournament_desc"
+      text="Gewinne ein Turnier in einer Stadt der Kultur deines Clans." />
+    <string
+      id="ret_feat_eq_hometown_tournament_name"
+      text="Heimatturnier" />
+    <string
+      id="ret_feat_eq_ironmen_desc"
+      text="Gewinne eine Schlacht, indem du nur Truppen mit vollständiger Metallrüstung einsetzt." />
+    <string
+      id="ret_feat_eq_ironmen_name"
+      text="Eisenmänner" />
+    <string
+      id="ret_feat_eq_kingslayer_desc"
+      text="Besiege einen Herrscher einer anderen Kultur im Kampf." />
+    <string
+      id="ret_feat_eq_kingslayer_name"
+      text="Königsmörder" />
+    <string
+      id="ret_feat_eq_paid_in_full_desc"
+      text="Zahle {TARGET} Denare an Truppenlöhnen." />
+    <string
+      id="ret_feat_eq_paid_in_full_name"
+      text="Voll bezahlt" />
+    <string
+      id="ret_feat_eq_proud_and_strong_desc"
+      text="Erziele {TARGET} Kills im Kampf mit Truppen, die keine fremde Ausrüstung tragen." />
+    <string
+      id="ret_feat_eq_proud_and_strong_name"
+      text="Stolz &amp; Stark" />
+    <string
+      id="ret_feat_eq_royal_host_desc"
+      text="Erziele {TARGET} Kills mit benutzerdefinierten Königreichstruppen." />
+    <string
+      id="ret_feat_eq_royal_host_name"
+      text="Königliche Heerschar" />
+    <string
+      id="ret_feat_eq_royal_levy_desc"
+      text="Rekrutiere {TARGET} benutzerdefinierte Königreichstruppen." />
+    <string
+      id="ret_feat_eq_royal_levy_name"
+      text="Königliche Wehrpflicht" />
+    <string
+      id="ret_feat_eq_royal_stewardship_desc"
+      text="Lass einen Begleiter derselben Kultur wie dein Königreich ein Königreichslehen für {TARGET} Tage verwalten." />
+    <string
+      id="ret_feat_eq_royal_stewardship_name"
+      text="Königliche Verwaltung" />
+    <string
+      id="ret_feat_eq_tailor_made_desc"
+      text="Besitze eine Schmiede für {TARGET} Tage." />
+    <string
+      id="ret_feat_eq_tailor_made_name"
+      text="Maßgeschneidert" />
+    <string
+      id="ret_feat_notification_body"
+      text="{NAME}:{newline}{newline}{DESC}" />
+    <string
+      id="ret_feat_ret_against_all_odds_desc"
+      text="Bei einer Unterzahl von mindestens 2 zu 1 gewinne eine Schlacht, indem du nur Gefolgsleute einsetzt." />
+    <string
+      id="ret_feat_ret_against_all_odds_name"
+      text="Gegen alle Widrigkeiten" />
+    <string
+      id="ret_feat_ret_bounty_hunters_desc"
+      text="Eliminiere {TARGET} Banditenparteien." />
+    <string
+      id="ret_feat_ret_bounty_hunters_name"
+      text="Kopfgeldjäger" />
+    <string
+      id="ret_feat_ret_defy_the_tide_desc"
+      text="Gewinne eine Schlacht gegen überwältigende Widrigkeiten, indem du hauptsächlich Gefolgsleute einsetzt." />
+    <string
+      id="ret_feat_ret_defy_the_tide_name"
+      text="Der Flut trotzen" />
+    <string
+      id="ret_feat_ret_first_through_the_breach_desc"
+      text="Lass einen Gefolgsmann den ersten Nahkampf-Kill bei einem Belagerungsangriff erzielen." />
+    <string
+      id="ret_feat_ret_first_through_the_breach_name"
+      text="Erster durch die Bresche" />
+    <string
+      id="ret_feat_ret_flawless_execution_desc"
+      text="Lass deine Gefolgsleute {TARGET} feindliche Truppen gleicher Stufe ohne einen einzigen Verlust besiegen." />
+    <string
+      id="ret_feat_ret_flawless_execution_name"
+      text="Makellose Ausführung" />
+    <string
+      id="ret_feat_ret_high_spirits_desc"
+      text="Halte die Moral einer nur aus Gefolgsleuten bestehenden Partei für {TARGET} Tage über 90." />
+    <string
+      id="ret_feat_ret_high_spirits_name"
+      text="Gute Laune" />
+    <string
+      id="ret_feat_ret_hold_the_line_desc"
+      text="Gewinne eine defensive Schlacht mit einer nur aus Gefolgsleuten bestehenden Partei." />
+    <string
+      id="ret_feat_ret_hold_the_line_name"
+      text="Die Linie halten" />
+    <string
+      id="ret_feat_ret_perfect_victory_desc"
+      text="Gewinne alleine gegen 100 oder mehr Feinde, ohne dass auf deiner Seite ein einziger Tod zu verzeichnen ist." />
+    <string
+      id="ret_feat_ret_perfect_victory_name"
+      text="Perfekter Sieg" />
+    <string
+      id="ret_feat_ret_raise_the_vanguard_desc"
+      text="Stelle {TARGET} Gefolgsleute ein." />
+    <string
+      id="ret_feat_ret_raise_the_vanguard_name"
+      text="Erhebe die Vorhut" />
+    <string
+      id="ret_feat_ret_safe_travels_desc"
+      text="Rette eine Karawanen- oder Dorfbewohnerpartei vor einem feindlichen Angriff." />
+    <string
+      id="ret_feat_ret_safe_travels_name"
+      text="Sichere Reisen" />
+    <string
+      id="ret_feat_ret_shock_assault_desc"
+      text="Gewinne eine Schlacht mit 100 oder mehr Kämpfern, indem du nur deine Gefolgsleute einsetzt." />
+    <string
+      id="ret_feat_ret_shock_assault_name"
+      text="Schockangriff" />
+    <string
+      id="ret_feat_ret_still_standing_desc"
+      text="Lass {TARGET} Gefolgsleute überleben, nachdem sie im Kampf niedergeschlagen wurden." />
+    <string
+      id="ret_feat_ret_still_standing_name"
+      text="Steht noch" />
+    <string
+      id="ret_feat_sp_allies_favor_desc"
+      text="Schließe eine Quest für einen verbündeten Lord ab." />
+    <string
+      id="ret_feat_sp_allies_favor_name"
+      text="Gunst des Verbündeten" />
+    <string
+      id="ret_feat_sp_ancestral_duty_desc"
+      text="Schließe eine Quest für einen Lord der Kultur deines Clans ab." />
+    <string
+      id="ret_feat_sp_ancestral_duty_name"
+      text="Ahnenpflicht" />
+    <string
+      id="ret_feat_sp_blood_price_desc"
+      text="Besiege persönlich {TARGET} Feinde in einer einzigen Schlacht." />
+    <string
+      id="ret_feat_sp_blood_price_name"
+      text="Blutpreis" />
+    <string
+      id="ret_feat_sp_costly_victory_desc"
+      text="Gewinne eine Schlacht, in der Verbündete über 100 Verluste erleiden." />
+    <string
+      id="ret_feat_sp_costly_victory_name"
+      text="Kostspieliger Sieg" />
+    <string
+      id="ret_feat_sp_cultural_triumph_desc"
+      text="Gewinne im Alleingang eine Schlacht gegen eine feindliche Armee einer anderen Kultur." />
+    <string
+      id="ret_feat_sp_cultural_triumph_name"
+      text="Kultureller Triumph" />
+    <string
+      id="ret_feat_sp_cut_the_head_desc"
+      text="Besiege persönlich einen feindlichen Lord im Kampf." />
     <string
       id="ret_filter_label"
       text="Filter:" />
@@ -907,18 +1093,6 @@
     <string
       id="ret_mcm_option_clan_troops_unlock_hint"
       text="Bestimmt, wann Clan-Truppen verfügbar werden." />
-    <string
-      id="ret_mcm_option_count_ally_casualties"
-      text="Zähle Verbündetenverluste" />
-    <string
-      id="ret_mcm_option_count_ally_casualties_hint"
-      text="Ob Verbündetenverluste auch zum Freischalten von Gegenständen zählen." />
-    <string
-      id="ret_mcm_option_count_ally_kills"
-      text="Zähle Verbündetenabschüsse" />
-    <string
-      id="ret_mcm_option_count_ally_kills_hint"
-      text="Ob Abschüsse durch verbündete Truppen auch zum Freischalten von Gegenständen zählen." />
     <string
       id="ret_mcm_option_debug_mode"
       text="Debug-Modus" />

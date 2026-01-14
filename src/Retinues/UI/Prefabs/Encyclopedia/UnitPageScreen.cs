@@ -22,7 +22,7 @@ namespace Retinues.UI.Prefabs.Encyclopedia
                     return EditorMode.Universal;
 
                 var wc = WCharacter.Get(co);
-                return wc != null && wc.InCustomTree ? EditorMode.Player : EditorMode.Universal;
+                return wc != null && wc.IsFactionTroop ? EditorMode.Player : EditorMode.Universal;
             }
         }
 
@@ -38,7 +38,7 @@ namespace Retinues.UI.Prefabs.Encyclopedia
                 if (character == null)
                     return;
 
-                if (character.InCustomTree)
+                if (character.IsFactionTroop)
                 {
                     // Player-mode editor, preselect the assigned map-faction (clan/kingdom).
                     var faction = character.AssignedMapFaction;

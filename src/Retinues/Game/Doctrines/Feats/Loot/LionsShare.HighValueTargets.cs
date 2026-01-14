@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Retinues.Domain.Events.Models;
-using static Retinues.Domain.Events.Models.MMission;
+using Retinues.Game.Missions;
 
 namespace Retinues.Game.Doctrines.Feats.Loot
 {
@@ -12,17 +12,21 @@ namespace Retinues.Game.Doctrines.Feats.Loot
     {
         protected override string FeatId => "feat_sp_high_value_targets";
 
-        protected override void OnBattleOver(IReadOnlyList<Kill> kills, MMapEvent battle)
+        protected override void OnBattleOver(
+            IReadOnlyList<CombatBehavior.Kill> kills,
+            MMapEvent.Snapshot start,
+            MMapEvent end
+        )
         {
-            if (battle.IsLost)
-                return;
+            if (end.IsLost)
+                return; // Player lost the battle.
 
-            var kf = Filter(
-                killers: a => a.IsPlayerCharacter,
-                victims: v => v.IsEnemyTroop && !v.Character.IsHero && v.Character.Tier >= 5
+            int count = kills.Count(k =>
+                k.Killer.IsPlayer // Killer is the player
+                && k.Victim.IsEnemyTroop // Victim is an enemy troop
+                && !k.Victim.Character.IsHero // Victim is not a hero
+                && k.Victim.Character.Tier >= 5 // Victim is tier 5 or higher
             );
-
-            int count = kf.Filter(kills).Count();
 
             SetProgress(count);
         }

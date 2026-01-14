@@ -74,7 +74,7 @@ namespace Retinues.Framework.Model
         private static TBase GetBase(string stringId)
         {
             if (stringId == null)
-                throw new ArgumentNullException(nameof(stringId));
+                return null;
 
             if (Resolvers.TryGetValue(typeof(TBase), out var r))
                 return r(stringId) as TBase;
@@ -83,7 +83,25 @@ namespace Retinues.Framework.Model
             if (manager == null)
                 return null;
 
-            return manager.GetObject<TBase>(stringId);
+            // Fast path: works for most static MBObjects loaded from XML
+            var obj = manager.GetObject<TBase>(stringId);
+            if (obj != null)
+                return obj;
+
+            // Fallback: campaign/runtime objects (MobileParty, Hero, etc.) are often not in the id dictionary,
+            // but they do exist in the type list.
+            var list = manager.GetObjectTypeList<TBase>();
+            if (list == null)
+                return null;
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                var o = list[i];
+                if (o != null && o.StringId == stringId)
+                    return o;
+            }
+
+            return null;
         }
 
         /// <summary>

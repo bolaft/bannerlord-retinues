@@ -13,18 +13,18 @@ namespace Retinues.Game.Doctrines.Feats.Loot
         protected override void OnQuestCompleted(QuestBase quest, WHero giver, bool success)
         {
             if (!success)
-                return;
+                return; // Quest failed.
 
             if (giver == null)
-                return;
+                return; // No giver.
 
             if (!giver.IsLord)
-                return;
+                return; // Not a lord.
 
             if (giver.Culture != Player.Clan.Culture)
-                return;
+                return; // Not the player's clan culture.
 
-            Progress(1);
+            Progress();
         }
     }
 }

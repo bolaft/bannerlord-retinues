@@ -6,6 +6,9 @@ using TaleWorlds.Core;
 
 namespace Retinues.Game.Unlocks
 {
+    /// <summary>
+    /// Selects appropriate unlock target items for workshops.
+    /// </summary>
     public static class WorkshopUnlockSelector
     {
         [Flags]
@@ -29,6 +32,9 @@ namespace Retinues.Game.Unlocks
             StringComparer.Ordinal
         );
 
+        /// <summary>
+        /// Determines whether the given workshop can unlock equipment.
+        /// </summary>
         public static bool CanUnlock(Workshop workshop)
         {
             if (workshop?.WorkshopType == null)
@@ -37,11 +43,17 @@ namespace Retinues.Game.Unlocks
             return CanUnlock(workshop.WorkshopType);
         }
 
+        /// <summary>
+        /// Determines whether the given workshop type can unlock equipment.
+        /// </summary>
         public static bool CanUnlock(WorkshopType type)
         {
             return GetWorkshopMaterials(type) != Mat.None;
         }
 
+        /// <summary>
+        /// Picks a target item for the given workshop, or null if none available.
+        /// </summary>
         public static WItem PickTargetItem(Workshop workshop, int seed)
         {
             var cultureId = workshop.Settlement.Culture?.StringId;
@@ -95,6 +107,9 @@ namespace Retinues.Game.Unlocks
             return best[idx];
         }
 
+        /// <summary>
+        /// Gets candidate unlock items for the given workshop type and culture.
+        /// </summary>
         private static List<Candidate> GetCandidates(WorkshopType type, string cultureId)
         {
             cultureId ??= "neutral";
@@ -152,6 +167,9 @@ namespace Retinues.Game.Unlocks
             return list;
         }
 
+        /// <summary>
+        /// Scores an item for suitability for unlocking by a workshop producing the given materials.
+        /// </summary>
         private static int ScoreItem(WItem item, Mat workshopMats)
         {
             // No "broad fallback": if the workshop doesn't map to equipment materials, it shouldn't unlock.
@@ -259,6 +277,9 @@ namespace Retinues.Game.Unlocks
             return Math.Max(score, 1);
         }
 
+        /// <summary>
+        /// Gets candidate unlock items for the given workshop type and culture.
+        /// </summary>
         private static Mat GetWorkshopMaterials(WorkshopType type)
         {
             if (type?.Productions == null || type.Productions.Count == 0)
@@ -279,6 +300,9 @@ namespace Retinues.Game.Unlocks
             return mats;
         }
 
+        /// <summary>
+        /// Categorizes a list of item categories into material flags.
+        /// </summary>
         private static Mat CategorizeCategories(IReadOnlyList<(ItemCategory, int)> cats)
         {
             Mat mats = Mat.None;
@@ -298,6 +322,9 @@ namespace Retinues.Game.Unlocks
             return mats;
         }
 
+        /// <summary>
+        /// Gets the material types used by the given item.
+        /// </summary>
         private static Mat GetItemMaterials(WItem item)
         {
             if (item?.Base == null)
@@ -370,6 +397,9 @@ namespace Retinues.Game.Unlocks
             return mats;
         }
 
+        /// <summary>
+        /// Categorizes a string identifier into material flags.
+        /// </summary>
         private static Mat CategorizeString(string s)
         {
             if (string.IsNullOrEmpty(s))
@@ -419,6 +449,9 @@ namespace Retinues.Game.Unlocks
             return mats;
         }
 
+        /// <summary>
+        /// Gets candidate unlock items for the given workshop type and culture.
+        /// </summary>
         private static Mat FallbackWorkshopIdGuess(string workshopTypeId)
         {
             if (string.IsNullOrEmpty(workshopTypeId))
@@ -446,6 +479,9 @@ namespace Retinues.Game.Unlocks
             return Mat.None;
         }
 
+        /// <summary>
+        /// Counts the number of set bits in a byte.
+        /// </summary>
         private static int BitCount(byte v)
         {
             var c = 0;

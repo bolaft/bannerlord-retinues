@@ -6,7 +6,7 @@ using Retinues.Domain.Settlements.Wrappers;
 namespace Retinues.Game.Doctrines.Feats.Equipments
 {
     /// <summary>
-    /// Defeat a ruler of a different culture in battle.
+    /// Win a tournament in a town of your clan's culture.
     /// </summary>
     public sealed class Feat_CulturalPride_HometownTournament : FeatCampaignBehavior
     {
@@ -20,12 +20,12 @@ namespace Retinues.Game.Doctrines.Feats.Equipments
         )
         {
             if (!winner.IsPlayer)
-                return;
+                return; // Not the player.
 
             if (settlement.Culture != Player.Culture)
-                return;
+                return; // Not the player's culture.
 
-            Progress(1);
+            Progress();
         }
     }
 }

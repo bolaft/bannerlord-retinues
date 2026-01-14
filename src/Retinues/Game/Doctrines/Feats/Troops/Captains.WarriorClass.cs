@@ -12,15 +12,15 @@ namespace Retinues.Game.Doctrines.Feats.Troops
             foreach (var troop in Player.Troops)
             {
                 if (!troop.IsElite)
-                    continue;
+                    continue; // Not an elite troop.
 
                 if (troop.Tier != 6)
-                    continue;
+                    continue; // Not T6.
 
                 if (troop.SkillTotalRemaining > 0)
-                    continue;
+                    continue; // Skills not maxed.
 
-                Progress(1);
+                Progress();
                 return;
             }
         }

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Retinues.Domain.Events.Models;
-using static Retinues.Domain.Events.Models.MMission;
+using Retinues.Game.Missions;
 
 namespace Retinues.Game.Doctrines.Feats.Equipments
 {
@@ -11,12 +11,16 @@ namespace Retinues.Game.Doctrines.Feats.Equipments
     {
         protected override string FeatId => "feat_eq_blood_money";
 
-        protected override void OnBattleOver(IReadOnlyList<Kill> kills, MMapEvent battle)
+        protected override void OnBattleOver(
+            IReadOnlyList<CombatBehavior.Kill> kills,
+            MMapEvent.Snapshot start,
+            MMapEvent end
+        )
         {
-            if (battle.IsLost)
-                return;
+            if (end.IsLost)
+                return; // Player lost the battle.
 
-            Progress(battle.GoldReward);
+            Progress(end.GoldReward); // Progress by the amount of gold looted.
         }
     }
 }

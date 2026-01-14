@@ -12,6 +12,10 @@ namespace Retinues.Configuration
         //                       Visibility                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Determines whether the given option key is visible in MCM.
+        /// Used via reflection, DO NOT REMOVE.
+        /// </summary>
         internal static bool IsVisibleInMCM(string key)
         {
             DiscoverOptions();
@@ -22,6 +26,10 @@ namespace Retinues.Configuration
             return IsVisibleInMCM(opt, stack: null);
         }
 
+        /// <summary>
+        /// Determines whether the given option key is visible in MCM.
+        /// Used via reflection, DO NOT REMOVE.
+        /// </summary>
         private static bool IsVisibleInMCM(IOption opt, HashSet<string> stack)
         {
             if (opt == null)
@@ -85,6 +93,9 @@ namespace Retinues.Configuration
             }
         }
 
+        /// <summary>
+        /// Coerces the given value to the target type.
+        /// </summary>
         private static object CoerceToType(object value, Type targetType)
         {
             if (targetType == null)

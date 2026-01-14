@@ -11,28 +11,28 @@ namespace Retinues.Game.Doctrines.Feats.Equipments
         protected override string FeatId => "feat_eq_royal_levy";
 
         protected override void OnTroopRecruited(
-            WHero recruiterHero,
-            WSettlement recruitmentSettlement,
-            WHero recruitmentSource,
+            WHero recruiter,
+            WSettlement settlement,
+            WHero source,
             WCharacter troop,
             int amount
         )
         {
             if (amount <= 0)
-                return;
+                return; // No troops recruited.
 
-            if (!recruiterHero.IsMainHero)
-                return;
+            if (!recruiter.IsMainHero)
+                return; // Not the player.
 
             var kingdom = Player.Kingdom;
             if (kingdom == null)
-                return;
+                return; // Player has no kingdom.
 
-            if (!troop.InCustomTree)
-                return;
+            if (!troop.IsFactionTroop)
+                return; // Not faction troop.
 
             if (!troop.BelongsTo(kingdom))
-                return;
+                return; // Troop does not belong to player's kingdom.
 
             Progress(amount);
         }

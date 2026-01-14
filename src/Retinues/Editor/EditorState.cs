@@ -183,7 +183,7 @@ namespace Retinues.Editor
 
             if (faction == null && character != null)
             {
-                if (Mode == EditorMode.Player && character.InCustomTree)
+                if (Mode == EditorMode.Player && character.IsFactionTroop)
                     faction = character.AssignedMapFaction;
 
                 if (Mode == EditorMode.Universal)
@@ -192,8 +192,7 @@ namespace Retinues.Editor
 
             if (faction == null && args.Hero != null)
             {
-                faction =
-                    Mode == EditorMode.Universal ? (IBaseFaction)args.Hero.Clan : args.Hero.Clan;
+                faction = Mode == EditorMode.Universal ? args.Hero.Clan : args.Hero.Clan;
             }
 
             if (faction == null)
@@ -296,13 +295,13 @@ namespace Retinues.Editor
                     if (troop.IsHero)
                         continue;
 
-                    if (!troop.InCustomTree)
+                    if (!troop.IsFactionTroop)
                         continue;
                 }
                 else
                 {
                     // Universal: no custom.
-                    if (troop.InCustomTree)
+                    if (troop.IsFactionTroop)
                         continue;
                 }
 

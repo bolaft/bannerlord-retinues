@@ -11,6 +11,9 @@ namespace Retinues.Game.Unlocks
     [SafeClass]
     public static class UnlockNotifier
     {
+        /// <summary>
+        /// Method by which items were unlocked.
+        /// </summary>
         public enum UnlockMethod
         {
             Kills,
@@ -19,6 +22,9 @@ namespace Retinues.Game.Unlocks
             Troops,
         }
 
+        /// <summary>
+        /// Information about a workshop starting an unlock project.
+        /// </summary>
         public struct WorkshopStartInfo
         {
             public string WorkshopTypeName;
@@ -26,6 +32,9 @@ namespace Retinues.Game.Unlocks
             public WItem Item;
         }
 
+        /// <summary>
+        /// Notify the player of unlocked items.
+        /// </summary>
         public static void ItemsUnlocked(UnlockMethod method, IReadOnlyList<WItem> items)
         {
             if (items == null || items.Count == 0)
@@ -49,7 +58,7 @@ namespace Retinues.Game.Unlocks
             if (unique.Count == 0)
                 return;
 
-            var names = unique.Select(GetItemName).Where(s => !string.IsNullOrEmpty(s)).ToList();
+            var names = unique.Select(s => s.Name).Where(s => !string.IsNullOrEmpty(s)).ToList();
             if (names.Count == 0)
                 return;
 
@@ -83,9 +92,12 @@ namespace Retinues.Game.Unlocks
 
             desc = desc.SetTextVariable("ITEMS", listText).SetTextVariable("VERB", wasWere);
 
-            Notify(title, desc);
+            UnlockNotifierBehavior.Notify(title, desc);
         }
 
+        /// <summary>
+        /// Join a list of strings with commas and "and".
+        /// </summary>
         private static string JoinWithAnd(IReadOnlyList<string> items, int max, out bool isPlural)
         {
             if (items == null)
@@ -131,6 +143,9 @@ namespace Retinues.Game.Unlocks
             return $"{string.Join(", ", shown.GetRange(0, shown.Count - 1))} {andWord} {shown[shown.Count - 1]}";
         }
 
+        /// <summary>
+        /// Notify the player of workshops starting unlock projects.
+        /// </summary>
         public static void WorkshopsStarted(IReadOnlyList<WorkshopStartInfo> starts)
         {
             if (starts == null || starts.Count == 0)
@@ -183,7 +198,7 @@ namespace Retinues.Game.Unlocks
                     )
                     .SetTextVariable("WORKSHOP", s.WorkshopTypeName.ToLowerInvariant())
                     .SetTextVariable("TOWN", s.SettlementName)
-                    .SetTextVariable("ITEM", GetItemName(s.Item))
+                    .SetTextVariable("ITEM", s.Item.Name)
                     .ToString();
 
                 paragraphs.Add(line);
@@ -203,26 +218,8 @@ namespace Retinues.Game.Unlocks
             }
 
             var desc = new TextObject(string.Join("\n\n", paragraphs));
-            Notify(title, desc);
-        }
 
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Helpers                        //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        private static void Notify(TextObject title, TextObject description)
-        {
-            // Centralized: delays until player returns to MapState.
-            UnlockNotifierBehavior.Notify(title, description);
-        }
-
-        private static string GetItemName(WItem item)
-        {
-            var name = item?.Base?.Name?.ToString();
-            if (!string.IsNullOrEmpty(name))
-                return name;
-
-            return item?.StringId ?? "Unknown";
+            UnlockNotifierBehavior.Notify(title, desc);
         }
     }
 }

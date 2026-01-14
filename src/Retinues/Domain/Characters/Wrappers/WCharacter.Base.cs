@@ -15,7 +15,7 @@ namespace Retinues.Domain.Characters.Wrappers
 {
     public partial class WCharacter(CharacterObject @base)
         : WBase<WCharacter, CharacterObject>(@base),
-            ICharacter
+            ICharacterData
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Main Properties                    //
@@ -72,7 +72,7 @@ namespace Retinues.Domain.Characters.Wrappers
 
         /* ━━━━━━━━━ Unit ━━━━━━━━━ */
 
-        public ICharacter Editable => IsHero ? Hero : this;
+        public ICharacterData Editable => IsHero ? Hero : this;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Mixed Gender                     //

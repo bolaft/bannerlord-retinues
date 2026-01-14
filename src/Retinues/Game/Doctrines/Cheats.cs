@@ -180,63 +180,6 @@ namespace Retinues.Game.Doctrines
         //                       Internals                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private static void ForceCompleteInternal(DoctrinesBehavior behavior, string featId)
-        {
-            DoctrinesCatalog.EnsureBuilt();
-
-            if (!DoctrinesCatalog.TryGetFeat(featId, out var feat) || feat == null)
-                return;
-
-            // Update feat state (reset progress, increment times, consume if non-repeatable)
-            var featProgress = Reflection.GetFieldValue<Dictionary<string, int>>(
-                behavior,
-                "_featProgress"
-            );
-            var featConsumed = Reflection.GetFieldValue<Dictionary<string, bool>>(
-                behavior,
-                "_featConsumed"
-            );
-            var featTimes = Reflection.GetFieldValue<Dictionary<string, int>>(
-                behavior,
-                "_featTimesCompleted"
-            );
-
-            featProgress[featId] = 0;
-
-            featTimes.TryGetValue(featId, out var t);
-            featTimes[featId] = Math.Max(0, t) + 1;
-
-            if (!feat.Repeatable)
-                featConsumed[featId] = true;
-
-            // Apply worth to linked doctrines that are currently InProgress (same rule as runtime)
-            var links = DoctrinesCatalog.GetDoctrineLinksForFeat(featId);
-            if (links == null || links.Count == 0)
-                return;
-
-            var doctrineProgress = Reflection.GetFieldValue<Dictionary<string, int>>(
-                behavior,
-                "_doctrineProgress"
-            );
-
-            for (var i = 0; i < links.Count; i++)
-            {
-                var (doctrineId, worth, _) = links[i];
-                if (worth <= 0 || string.IsNullOrEmpty(doctrineId))
-                    continue;
-
-                if (behavior.GetDoctrineState(doctrineId) != DoctrineState.InProgress)
-                    continue;
-
-                doctrineProgress.TryGetValue(doctrineId, out var cur);
-                doctrineProgress[doctrineId] = Clamp(
-                    cur + worth,
-                    0,
-                    DoctrineDefinition.UnlockProgressTarget
-                );
-            }
-        }
-
         private static bool TryGetBehavior(out DoctrinesBehavior behavior, out string error)
         {
             behavior = null;

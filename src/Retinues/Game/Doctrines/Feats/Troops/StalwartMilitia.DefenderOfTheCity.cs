@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Retinues.Domain.Events.Models;
-using static Retinues.Domain.Events.Models.MMission;
+using Retinues.Game.Missions;
 
 namespace Retinues.Game.Doctrines.Feats.Troops
 {
@@ -11,21 +11,25 @@ namespace Retinues.Game.Doctrines.Feats.Troops
     {
         protected override string FeatId => "feat_trp_defender_of_the_city";
 
-        protected override void OnBattleOver(IReadOnlyList<Kill> kills, MMapEvent battle)
+        protected override void OnBattleOver(
+            IReadOnlyList<CombatBehavior.Kill> kills,
+            MMapEvent.Snapshot start,
+            MMapEvent end
+        )
         {
-            if (battle.IsLost)
-                return;
+            if (end.IsLost)
+                return; // Player lost the battle.
 
-            if (!battle.IsSiege)
-                return;
+            if (!start.IsSiegeBattle)
+                return; // Not a siege battle.
 
-            if (!battle.IsPlayerDefender)
-                return;
+            if (!start.DefenderSide.IsPlayerSide)
+                return; // Player is not defending.
 
-            if (!battle.IsEnemyAnArmy)
-                return;
+            if (!start.IsEnemyInArmy)
+                return; // Enemy is not an army.
 
-            Progress(1);
+            Progress();
         }
     }
 }

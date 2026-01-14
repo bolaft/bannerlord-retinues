@@ -1,8 +1,6 @@
 using System.Collections.Generic;
-using System.Linq;
 using Retinues.Domain.Events.Models;
-using Retinues.Domain.Factions.Wrappers;
-using static Retinues.Domain.Events.Models.MMission;
+using Retinues.Game.Missions;
 
 namespace Retinues.Game.Doctrines.Feats.Loot
 {
@@ -13,25 +11,27 @@ namespace Retinues.Game.Doctrines.Feats.Loot
     {
         protected override string FeatId => "feat_sp_cultural_triumph";
 
-        protected override void OnBattleOver(IReadOnlyList<Kill> kills, MMapEvent battle)
+        protected override void OnBattleOver(
+            IReadOnlyList<CombatBehavior.Kill> kills,
+            MMapEvent.Snapshot start,
+            MMapEvent end
+        )
         {
-            if (battle.IsLost)
-                return;
+            if (end.IsLost)
+                return; // Player lost the battle.
 
-            if (!battle.IsEnemyAnArmy)
-                return;
+            if (!start.IsEnemyInArmy)
+                return; // Enemy is not an army.
 
-            foreach (var party in battle.PlayerSideParties)
+            foreach (var party in start.PlayerSide.Parties)
                 if (party != Player.Party)
                     return; // Must be the main party only.
 
-            var army = battle.EnemySideParties.FirstOrDefault()?.Army;
-            var culture = WCulture.Get(army?.LeaderParty.LeaderHero.Culture);
-
+            var culture = start.EnemySide.LeaderParty.Leader.Culture;
             if (culture != Player.Clan.Culture)
-                return;
+                return; // Different culture.
 
-            Progress(1);
+            Progress();
         }
     }
 }

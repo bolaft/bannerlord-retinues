@@ -10,12 +10,18 @@ namespace Retinues.Game.Doctrines.Feats.Retinues
         protected override void OnDailyTick()
         {
             if (Player.Party.RetinueRatio < 1f)
+            {
+                Reset(); // Party is not retinue-only.
                 return;
+            }
 
             if (Player.Party.Morale <= 90f)
-                Reset();
-            else
-                Progress(1);
+            {
+                Reset(); // Morale dropped too low.
+                return;
+            }
+
+            Progress(); // Progress for the day with high morale.
         }
     }
 }

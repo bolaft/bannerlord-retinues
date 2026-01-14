@@ -47,7 +47,11 @@ namespace Retinues.Utilities
         /// <summary>
         /// Lowest level shown in-game (InformationManager).
         /// </summary>
+#if DEBUG
+        public static LogLevel MinInGameLevel => LogLevel.Error;
+#else
         public static LogLevel MinInGameLevel => DebugMode ? LogLevel.Info : LogLevel.Critical;
+#endif
 
         static Log()
         {

@@ -11,6 +11,7 @@ namespace Retinues.Game.Doctrines.Feats.Troops
 
         protected override void OnDailyTick()
         {
+            // Count the number of caravans owned by the player's clan.
             int count = Player.Clan.Parties.Count(party => party.IsCaravan);
 
             SetProgress(count);

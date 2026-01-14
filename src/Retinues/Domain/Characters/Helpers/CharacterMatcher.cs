@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Factions;
-using Retinues.Utilities;
 using TaleWorlds.Core;
 
 namespace Retinues.Domain.Characters.Helpers
@@ -13,6 +12,9 @@ namespace Retinues.Domain.Characters.Helpers
         //                        Public API                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Picks the best matching character from the given collection based on the provided troop.
+        /// </summary>
         public static WCharacter PickBest(
             WCharacter troop,
             IEnumerable<WCharacter> troops,
@@ -79,6 +81,9 @@ namespace Retinues.Domain.Characters.Helpers
             return candidates.Count > 0 ? candidates[0] : fallback;
         }
 
+        /// <summary>
+        /// Picks the best matching character from the given troop tree based on the provided troop.
+        /// </summary>
         public static WCharacter PickBestFromTree(
             WCharacter troop,
             WCharacter root,
@@ -100,6 +105,9 @@ namespace Retinues.Domain.Characters.Helpers
             );
         }
 
+        /// <summary>
+        /// Picks the best matching character from the given faction based on the provided troop.
+        /// </summary>
         public static WCharacter PickBestFromFaction(
             WCharacter troop,
             IBaseFaction faction,
@@ -126,6 +134,9 @@ namespace Retinues.Domain.Characters.Helpers
         //                       Tier Match                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Filters candidates by tier, keeping those closest to the target tier.
+        /// </summary>
         private static void FilterByTier(int tier, List<WCharacter> candidates, bool strict)
         {
             int bestDist = int.MaxValue;
@@ -157,6 +168,9 @@ namespace Retinues.Domain.Characters.Helpers
         //                       Bool Match                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Filters candidates by a boolean selector, keeping those that match the desired value.
+        /// </summary>
         private static void FilterByBoolMatch(
             bool desired,
             List<WCharacter> candidates,
@@ -188,6 +202,9 @@ namespace Retinues.Domain.Characters.Helpers
         //              Weapon Categories Similarity              //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Filters candidates by weapon categories similarity to the given troop.
+        /// </summary>
         private static void FilterByWeaponCategoriesSimilarity(
             WCharacter troop,
             List<WCharacter> candidates
@@ -227,6 +244,9 @@ namespace Retinues.Domain.Characters.Helpers
             }
         }
 
+        /// <summary>
+        /// Collects the weapon classes used by the given wrapped character.
+        /// </summary>
         private static void CollectWeaponClasses(WCharacter wc, HashSet<WeaponClass> set)
         {
             if (wc == null || set == null)
@@ -254,6 +274,9 @@ namespace Retinues.Domain.Characters.Helpers
             }
         }
 
+        /// <summary>
+        /// Computes the Jaccard similarity score (0-1000) between two sets of weapon classes.
+        /// </summary>
         private static int JaccardScoreThousand(HashSet<WeaponClass> a, HashSet<WeaponClass> b)
         {
             if (a == null || b == null)
@@ -291,12 +314,15 @@ namespace Retinues.Domain.Characters.Helpers
         //                   Skillset Similarity                  //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Filters candidates by skillset similarity to the given troop.
+        /// </summary>
         private static void FilterBySkillsSimilarity(WCharacter troop, List<WCharacter> candidates)
         {
             if (troop == null || candidates == null || candidates.Count <= 1)
                 return;
 
-            var skills = SkillsHelper.GetSkillListForCharacter(troop.IsHero, includeModded: true);
+            var skills = SkillsHelper.GetSkillList(troop);
             if (skills == null || skills.Count == 0)
                 return;
 
@@ -334,6 +360,9 @@ namespace Retinues.Domain.Characters.Helpers
         //                    Mounted / Ranged                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Determines if the given wrapped character is effectively mounted.
+        /// </summary>
         private static bool EffectiveIsMounted(WCharacter wc)
         {
             if (wc == null)
@@ -346,6 +375,9 @@ namespace Retinues.Domain.Characters.Helpers
             return wc.IsMounted;
         }
 
+        /// <summary>
+        /// Determines if the given wrapped character is effectively ranged.
+        /// </summary>
         private static bool EffectiveIsRanged(WCharacter wc)
         {
             if (wc == null)

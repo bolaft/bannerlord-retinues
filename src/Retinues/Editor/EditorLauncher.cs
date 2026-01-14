@@ -65,7 +65,7 @@ namespace Retinues.Editor
             if (args == null)
                 return null;
 
-            if (args.Character != null && args.Character.InCustomTree)
+            if (args.Character != null && args.Character.IsFactionTroop)
             {
                 var faction = args.Character.AssignedMapFaction ?? Player.Clan;
                 return EditorLaunchArgs.Player(faction: faction, character: args.Character);
@@ -89,7 +89,7 @@ namespace Retinues.Editor
             if (args.Faction != null)
                 return args.Faction;
 
-            if (args.Character != null && args.Character.InCustomTree)
+            if (args.Character != null && args.Character.IsFactionTroop)
                 return args.Character.AssignedMapFaction ?? Player.Clan;
 
             if (args.Hero != null)

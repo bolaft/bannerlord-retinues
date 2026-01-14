@@ -287,6 +287,21 @@
       id="ret_doctrine_acquired_text"
       text="ADQUIRIDO" />
     <string
+      id="ret_doctrine_cat_equipments"
+      text="Equipamientos" />
+    <string
+      id="ret_doctrine_cat_loot"
+      text="Botín" />
+    <string
+      id="ret_doctrine_cat_retinues"
+      text="Cortesanos" />
+    <string
+      id="ret_doctrine_cat_training"
+      text="Entrenamiento" />
+    <string
+      id="ret_doctrine_cat_troops"
+      text="Tropas" />
+    <string
       id="ret_doctrine_cost_text_both"
       text="Cuesta {GOLD} denares, {INFLUENCE} influencia" />
     <string
@@ -308,9 +323,6 @@
       id="ret_doctrine_feat_completed"
       text="Completado" />
     <string
-      id="ret_doctrine_feat_optional"
-      text="Opcional" />
-    <string
       id="ret_doctrine_feat_progress_tooltip_completed"
       text="Has completado esta hazaña." />
     <string
@@ -320,14 +332,8 @@
       id="ret_doctrine_feat_progress_tooltip_repeatable"
       text="Esta hazaña es repetible. Puedes completarla varias veces." />
     <string
-      id="ret_doctrine_feat_required"
-      text="Requerido" />
-    <string
       id="ret_doctrine_feats_header"
       text="Hazañas" />
-    <string
-      id="ret_doctrine_missing_feats"
-      text="No se han completado las hazañas requeridas." />
     <string
       id="ret_doctrine_not_enough_gold_desc"
       text="Necesitas {COST} denares para desbloquear esta doctrina." />
@@ -535,6 +541,186 @@
     <string
       id="ret_feat_complete_title"
       text="Hazaña completada" />
+    <string
+      id="ret_feat_eq_blood_money_desc"
+      text="Saquear {TARGET} denares en el campo de batalla." />
+    <string
+      id="ret_feat_eq_blood_money_name"
+      text="Dinero Sangriento" />
+    <string
+      id="ret_feat_eq_golden_legion_desc"
+      text="Despliega una unidad con equipo valorado en más de 100.000 denares." />
+    <string
+      id="ret_feat_eq_golden_legion_name"
+      text="Legión Dorada" />
+    <string
+      id="ret_feat_eq_heavy_kit_desc"
+      text="Despliega una unidad con equipo que pese más de 60 kg." />
+    <string
+      id="ret_feat_eq_heavy_kit_name"
+      text="Equipo Pesado" />
+    <string
+      id="ret_feat_eq_hometown_tournament_desc"
+      text="Gana un torneo en una ciudad de la cultura de tu clan." />
+    <string
+      id="ret_feat_eq_hometown_tournament_name"
+      text="Torneo en la Ciudad Natal" />
+    <string
+      id="ret_feat_eq_ironmen_desc"
+      text="Gana una batalla usando solo tropas que lleven armadura metálica completa." />
+    <string
+      id="ret_feat_eq_ironmen_name"
+      text="Hombres de Hierro" />
+    <string
+      id="ret_feat_eq_kingslayer_desc"
+      text="Derrota a un gobernante de una cultura diferente en batalla." />
+    <string
+      id="ret_feat_eq_kingslayer_name"
+      text="Asesino de Reyes" />
+    <string
+      id="ret_feat_eq_paid_in_full_desc"
+      text="Paga {TARGET} denares en salarios de tropas." />
+    <string
+      id="ret_feat_eq_paid_in_full_name"
+      text="Pagado en su totalidad" />
+    <string
+      id="ret_feat_eq_proud_and_strong_desc"
+      text="Consigue {TARGET} muertes en batalla con tropas que no lleven equipo extranjero." />
+    <string
+      id="ret_feat_eq_proud_and_strong_name"
+      text="Orgulloso y Fuerte" />
+    <string
+      id="ret_feat_eq_royal_host_desc"
+      text="Consigue {TARGET} muertes con tropas personalizadas del reino." />
+    <string
+      id="ret_feat_eq_royal_host_name"
+      text="Huéspedes Reales" />
+    <string
+      id="ret_feat_eq_royal_levy_desc"
+      text="Recluta {TARGET} tropas personalizadas del reino." />
+    <string
+      id="ret_feat_eq_royal_levy_name"
+      text="Leva Real" />
+    <string
+      id="ret_feat_eq_royal_stewardship_desc"
+      text="Haz que un compañero de la misma cultura que tu reino gobierne un feudo del reino durante {TARGET} días." />
+    <string
+      id="ret_feat_eq_royal_stewardship_name"
+      text="Mayordomía Real" />
+    <string
+      id="ret_feat_eq_tailor_made_desc"
+      text="Posee una herrería durante {TARGET} días." />
+    <string
+      id="ret_feat_eq_tailor_made_name"
+      text="Hecho a Medida" />
+    <string
+      id="ret_feat_notification_body"
+      text="{NAME}:{newline}{newline}{DESC}" />
+    <string
+      id="ret_feat_ret_against_all_odds_desc"
+      text="Con una desventaja numérica de al menos 2 a 1, gana una batalla usando solo invitados." />
+    <string
+      id="ret_feat_ret_against_all_odds_name"
+      text="Contra todo pronóstico" />
+    <string
+      id="ret_feat_ret_bounty_hunters_desc"
+      text="Elimina {TARGET} grupos de bandidos." />
+    <string
+      id="ret_feat_ret_bounty_hunters_name"
+      text="Cazadores de Recompensas" />
+    <string
+      id="ret_feat_ret_defy_the_tide_desc"
+      text="Gana una batalla contra probabilidades abrumadoras usando principalmente invitados." />
+    <string
+      id="ret_feat_ret_defy_the_tide_name"
+      text="Desafiar la Marea" />
+    <string
+      id="ret_feat_ret_first_through_the_breach_desc"
+      text="Haz que un invitado consiga la primera muerte cuerpo a cuerpo en un asalto de sitio." />
+    <string
+      id="ret_feat_ret_first_through_the_breach_name"
+      text="Primero a través de la Brecha" />
+    <string
+      id="ret_feat_ret_flawless_execution_desc"
+      text="Haz que tus invitados derroten a {TARGET} tropas enemigas de nivel equivalente sin una sola baja." />
+    <string
+      id="ret_feat_ret_flawless_execution_name"
+      text="Ejecución Impecable" />
+    <string
+      id="ret_feat_ret_high_spirits_desc"
+      text="Mantén la moral de un equipo compuesto solo por invitados por encima de 90 durante {TARGET} días." />
+    <string
+      id="ret_feat_ret_high_spirits_name"
+      text="Alto Ánimo" />
+    <string
+      id="ret_feat_ret_hold_the_line_desc"
+      text="Gana una batalla defensiva con un equipo compuesto solo por invitados." />
+    <string
+      id="ret_feat_ret_hold_the_line_name"
+      text="Mantén la Línea" />
+    <string
+      id="ret_feat_ret_perfect_victory_desc"
+      text="Gana tú solo contra 100 o más enemigos sin una sola muerte de tu lado." />
+    <string
+      id="ret_feat_ret_perfect_victory_name"
+      text="Victoria Perfecta" />
+    <string
+      id="ret_feat_ret_raise_the_vanguard_desc"
+      text="Contrata {TARGET} invitados." />
+    <string
+      id="ret_feat_ret_raise_the_vanguard_name"
+      text="Levanta la Vanguardia" />
+    <string
+      id="ret_feat_ret_safe_travels_desc"
+      text="Salva una caravana o un grupo de aldeanos de un ataque enemigo." />
+    <string
+      id="ret_feat_ret_safe_travels_name"
+      text="Viajes Seguros" />
+    <string
+      id="ret_feat_ret_shock_assault_desc"
+      text="Gana una batalla de 100 o más combatientes usando solo tus invitados." />
+    <string
+      id="ret_feat_ret_shock_assault_name"
+      text="Asalto de Choque" />
+    <string
+      id="ret_feat_ret_still_standing_desc"
+      text="Haz que {TARGET} invitados sobrevivan después de ser derribados en batalla." />
+    <string
+      id="ret_feat_ret_still_standing_name"
+      text="Aún de Pie" />
+    <string
+      id="ret_feat_sp_allies_favor_desc"
+      text="Completa una misión para un señor aliado." />
+    <string
+      id="ret_feat_sp_allies_favor_name"
+      text="Favor del Aliado" />
+    <string
+      id="ret_feat_sp_ancestral_duty_desc"
+      text="Completa una misión para un señor de la cultura de tu clan." />
+    <string
+      id="ret_feat_sp_ancestral_duty_name"
+      text="Deber Ancestral" />
+    <string
+      id="ret_feat_sp_blood_price_desc"
+      text="Derrota personalmente a {TARGET} enemigos en una sola batalla." />
+    <string
+      id="ret_feat_sp_blood_price_name"
+      text="Precio de Sangre" />
+    <string
+      id="ret_feat_sp_costly_victory_desc"
+      text="Gana una batalla en la que los aliados sufran más de 100 bajas." />
+    <string
+      id="ret_feat_sp_costly_victory_name"
+      text="Victoria Costosa" />
+    <string
+      id="ret_feat_sp_cultural_triumph_desc"
+      text="Gana una batalla tú solo contra un ejército enemigo de una cultura diferente." />
+    <string
+      id="ret_feat_sp_cultural_triumph_name"
+      text="Triunfo Cultural" />
+    <string
+      id="ret_feat_sp_cut_the_head_desc"
+      text="Derrota personalmente a un señor enemigo en batalla." />
     <string
       id="ret_filter_label"
       text="Filtro:" />
@@ -907,18 +1093,6 @@
     <string
       id="ret_mcm_option_clan_troops_unlock_hint"
       text="Determina cuándo las tropas de clan están disponibles." />
-    <string
-      id="ret_mcm_option_count_ally_casualties"
-      text="Contar bajas aliadas" />
-    <string
-      id="ret_mcm_option_count_ally_casualties_hint"
-      text="Si las bajas aliadas también cuentan para desbloquear artículos." />
-    <string
-      id="ret_mcm_option_count_ally_kills"
-      text="Contar muertes de aliados" />
-    <string
-      id="ret_mcm_option_count_ally_kills_hint"
-      text="Si las muertes realizadas por tropas aliadas también cuentan para desbloquear artículos." />
     <string
       id="ret_mcm_option_debug_mode"
       text="Modo de depuración" />

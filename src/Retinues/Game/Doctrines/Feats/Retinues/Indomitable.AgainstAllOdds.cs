@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Retinues.Domain.Events.Models;
-using static Retinues.Domain.Events.Models.MMission;
+using Retinues.Game.Missions;
 
 namespace Retinues.Game.Doctrines.Feats.Retinues
 {
@@ -11,25 +11,36 @@ namespace Retinues.Game.Doctrines.Feats.Retinues
     {
         protected override string FeatId => "feat_ret_against_all_odds";
 
-        protected override void OnBattleOver(IReadOnlyList<Kill> kills, MMapEvent battle)
+        static bool IsRetinueOnly;
+
+        protected override void OnBattleStart(MMapEvent battle)
         {
-            if (battle.IsLost)
-                return;
+            // Check if the player's party is all retinues at the start of the battle.
+            IsRetinueOnly = Player.Party.RetinueRatio >= 1f;
+        }
 
-            if (Player.Party.RetinueRatio < 1f)
-                return;
+        protected override void OnBattleOver(
+            IReadOnlyList<CombatBehavior.Kill> kills,
+            MMapEvent.Snapshot start,
+            MMapEvent end
+        )
+        {
+            if (end.IsLost)
+                return; // Player lost the battle.
 
-            var friendly = battle.FriendlyTroopCount;
-            var enemy = battle.EnemyTroopCount;
+            if (!IsRetinueOnly)
+                return; // Not all retinues.
+
+            var friendly = start.PlayerSide.HealthyTroops;
+            var enemy = start.EnemySide.HealthyTroops;
 
             if (friendly <= 0 || enemy <= 0)
-                return;
+                return; // No troops on one side.
 
-            // Outnumbered at least 2:1.
             if (friendly * 2 > enemy)
-                return;
+                return; // Not outnumbered enough.
 
-            Progress(1);
+            Progress();
         }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Globalization;
 using System.Text;
 
@@ -96,6 +97,64 @@ namespace Retinues.Utilities
             }
 
             return sb.ToString();
+        }
+
+        /// <summary>
+        /// Pad a string on the left to a fixed width (for aligned numeric columns).
+        /// </summary>
+        public static string PadLeft(string text, int width)
+        {
+            text ??= "";
+            if (width <= 0 || text.Length >= width)
+                return text;
+
+            return new string(' ', width - text.Length) + text;
+        }
+
+        /// <summary>
+        /// Pad a string on the right to a fixed width (for aligned columns).
+        /// </summary>
+        public static string PadRight(string text, int width)
+        {
+            text ??= "";
+            if (width <= 0 || text.Length >= width)
+                return text;
+
+            return text + new string(' ', width - text.Length);
+        }
+
+        /// <summary>
+        /// Format an integer with a leading '+' when non-negative.
+        /// Uses ToNumber() for grouping.
+        /// </summary>
+        public static string Signed(int value)
+        {
+            var n = ToNumber(value);
+            return value >= 0 ? "+" + n : n;
+        }
+
+        /// <summary>
+        /// Round a float to an integer and format with Signed().
+        /// </summary>
+        public static string SignedRounded(float value)
+        {
+            return Signed((int)Math.Round(value));
+        }
+
+        /// <summary>
+        /// Format "+X label" (e.g. "+10 386 gold").
+        /// </summary>
+        public static string PlusLabel(int value, string label)
+        {
+            return $"{Signed(value)} {label}";
+        }
+
+        /// <summary>
+        /// Format "+X label" from a float rounded to int.
+        /// </summary>
+        public static string PlusLabelRounded(float value, string label)
+        {
+            return $"{SignedRounded(value)} {label}";
         }
     }
 }

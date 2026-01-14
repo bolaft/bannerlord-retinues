@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Retinues.Domain.Events.Models;
-using static Retinues.Domain.Events.Models.MMission;
+using Retinues.Game.Missions;
 
 namespace Retinues.Game.Doctrines.Feats.Loot
 {
@@ -12,21 +12,19 @@ namespace Retinues.Game.Doctrines.Feats.Loot
     {
         protected override string FeatId => "feat_sp_cut_the_head";
 
-        protected override void OnBattleOver(IReadOnlyList<Kill> kills, MMapEvent battle)
+        protected override void OnBattleOver(
+            IReadOnlyList<CombatBehavior.Kill> kills,
+            MMapEvent.Snapshot start,
+            MMapEvent end
+        )
         {
-            if (!battle.IsWon)
-                return;
-
-            var kf = Filter(
-                killers: a => a.IsPlayerCharacter,
-                victims: v => v.IsEnemyTroop && v.Character.IsHero
+            int count = kills.Count(k =>
+                k.Killer.IsPlayer // Killer is the player
+                && k.Victim.IsEnemyTroop // Victim is an enemy troop
+                && k.Victim.Character.Hero?.IsLord == true // Victim is a hero
             );
 
-            var count = kf.Filter(kills).Count();
-            if (count == 0)
-                return;
-
-            Progress(1);
+            SetProgress(count);
         }
     }
 }

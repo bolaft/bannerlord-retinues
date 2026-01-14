@@ -287,6 +287,21 @@
       id="ret_doctrine_acquired_text"
       text="획득됨" />
     <string
+      id="ret_doctrine_cat_equipments"
+      text="장비" />
+    <string
+      id="ret_doctrine_cat_loot"
+      text="전리품" />
+    <string
+      id="ret_doctrine_cat_retinues"
+      text="수행원" />
+    <string
+      id="ret_doctrine_cat_training"
+      text="훈련" />
+    <string
+      id="ret_doctrine_cat_troops"
+      text="군대" />
+    <string
       id="ret_doctrine_cost_text_both"
       text="{GOLD} 데나르, {INFLUENCE} 영향력 필요" />
     <string
@@ -308,9 +323,6 @@
       id="ret_doctrine_feat_completed"
       text="완료됨" />
     <string
-      id="ret_doctrine_feat_optional"
-      text="선택 사항" />
-    <string
       id="ret_doctrine_feat_progress_tooltip_completed"
       text="이 위업을 완료했습니다." />
     <string
@@ -320,14 +332,8 @@
       id="ret_doctrine_feat_progress_tooltip_repeatable"
       text="이 위업은 반복할 수 있습니다. 여러 번 완료할 수 있습니다." />
     <string
-      id="ret_doctrine_feat_required"
-      text="필수" />
-    <string
       id="ret_doctrine_feats_header"
       text="위업" />
-    <string
-      id="ret_doctrine_missing_feats"
-      text="필요한 위업이 완료되지 않았습니다." />
     <string
       id="ret_doctrine_not_enough_gold_desc"
       text="이 교리를 잠금 해제하려면 {COST} 데나르가 필요합니다." />
@@ -534,7 +540,187 @@
       text="왕국" />
     <string
       id="ret_feat_complete_title"
-      text="위업 완료" />
+      text="업적 완료" />
+    <string
+      id="ret_feat_eq_blood_money_desc"
+      text="전장에서 {TARGET} 데나르를 약탈하십시오." />
+    <string
+      id="ret_feat_eq_blood_money_name"
+      text="피의 대가" />
+    <string
+      id="ret_feat_eq_golden_legion_desc"
+      text="100,000 데나르 이상의 장비를 착용한 부대를 배치하십시오." />
+    <string
+      id="ret_feat_eq_golden_legion_name"
+      text="황금 군단" />
+    <string
+      id="ret_feat_eq_heavy_kit_desc"
+      text="60kg 이상의 장비를 착용한 부대를 배치하십시오." />
+    <string
+      id="ret_feat_eq_heavy_kit_name"
+      text="헤비 키트" />
+    <string
+      id="ret_feat_eq_hometown_tournament_desc"
+      text="당신의 클랜 문화가 있는 마을에서 토너먼트에서 우승하십시오." />
+    <string
+      id="ret_feat_eq_hometown_tournament_name"
+      text="고향 토너먼트" />
+    <string
+      id="ret_feat_eq_ironmen_desc"
+      text="전체 금속 갑옷을 착용한 부대만으로 전투에서 승리하십시오." />
+    <string
+      id="ret_feat_eq_ironmen_name"
+      text="아이언맨" />
+    <string
+      id="ret_feat_eq_kingslayer_desc"
+      text="다른 문화의 통치자를 전투에서 물리치십시오." />
+    <string
+      id="ret_feat_eq_kingslayer_name"
+      text="킹슬레이어" />
+    <string
+      id="ret_feat_eq_paid_in_full_desc"
+      text="부대 임금으로 {TARGET} 데나르를 지불하십시오." />
+    <string
+      id="ret_feat_eq_paid_in_full_name"
+      text="전액 지불" />
+    <string
+      id="ret_feat_eq_proud_and_strong_desc"
+      text="외국 장비를 착용하지 않은 부대로 전투에서 {TARGET} 킬을 획득하십시오." />
+    <string
+      id="ret_feat_eq_proud_and_strong_name"
+      text="자랑스럽고 강함" />
+    <string
+      id="ret_feat_eq_royal_host_desc"
+      text="맞춤형 왕국 부대로 {TARGET} 킬을 획득하십시오." />
+    <string
+      id="ret_feat_eq_royal_host_name"
+      text="왕실 호스트" />
+    <string
+      id="ret_feat_eq_royal_levy_desc"
+      text="맞춤형 왕국 부대 {TARGET}명을 모집하십시오." />
+    <string
+      id="ret_feat_eq_royal_levy_name"
+      text="왕실 징병" />
+    <string
+      id="ret_feat_eq_royal_stewardship_desc"
+      text="귀하의 왕국과 동일한 문화를 가진 동료가 {TARGET} 일 동안 왕국 영지를 관리하게 하십시오." />
+    <string
+      id="ret_feat_eq_royal_stewardship_name"
+      text="왕실 관리" />
+    <string
+      id="ret_feat_eq_tailor_made_desc"
+      text="{TARGET} 일 동안 대장간을 소유하십시오." />
+    <string
+      id="ret_feat_eq_tailor_made_name"
+      text="맞춤 제작" />
+    <string
+      id="ret_feat_notification_body"
+      text="{NAME}:{newline}{newline}{DESC}" />
+    <string
+      id="ret_feat_ret_against_all_odds_desc"
+      text="최소 2대 1의 수적 열세에서 수행원만 배치하여 전투에서 승리하십시오." />
+    <string
+      id="ret_feat_ret_against_all_odds_name"
+      text="모든 역경에 맞서" />
+    <string
+      id="ret_feat_ret_bounty_hunters_desc"
+      text="{TARGET} 도적단을 제거하십시오." />
+    <string
+      id="ret_feat_ret_bounty_hunters_name"
+      text="현상금 사냥꾼" />
+    <string
+      id="ret_feat_ret_defy_the_tide_desc"
+      text="주로 수행원을 배치하여 압도적인 역경에 맞서 전투에서 승리하십시오." />
+    <string
+      id="ret_feat_ret_defy_the_tide_name"
+      text="조류에 도전" />
+    <string
+      id="ret_feat_ret_first_through_the_breach_desc"
+      text="공성 공격에서 수행원이 첫 번째 근접 킬을 획득하게 하십시오." />
+    <string
+      id="ret_feat_ret_first_through_the_breach_name"
+      text="최초의 돌파구" />
+    <string
+      id="ret_feat_ret_flawless_execution_desc"
+      text="귀하의 수행원이 단 한 명의 사상자 없이 동일한 계급의 적군 {TARGET}명을 물리치게 하십시오." />
+    <string
+      id="ret_feat_ret_flawless_execution_name"
+      text="완벽한 실행" />
+    <string
+      id="ret_feat_ret_high_spirits_desc"
+      text="수행원 전용 파티의 사기를 {TARGET} 일 동안 90 이상으로 유지하십시오." />
+    <string
+      id="ret_feat_ret_high_spirits_name"
+      text="높은 정신" />
+    <string
+      id="ret_feat_ret_hold_the_line_desc"
+      text="수행원 전용 파티로 방어 전투에서 승리하십시오." />
+    <string
+      id="ret_feat_ret_hold_the_line_name"
+      text="선을 지켜라" />
+    <string
+      id="ret_feat_ret_perfect_victory_desc"
+      text="100명 이상의 적을 상대로 혼자서 승리하고 당신 편에서 단 한 명도 죽지 않도록 하십시오." />
+    <string
+      id="ret_feat_ret_perfect_victory_name"
+      text="완벽한 승리" />
+    <string
+      id="ret_feat_ret_raise_the_vanguard_desc"
+      text="{TARGET} 수행원을 고용하십시오." />
+    <string
+      id="ret_feat_ret_raise_the_vanguard_name"
+      text="선봉을 올려라" />
+    <string
+      id="ret_feat_ret_safe_travels_desc"
+      text="적의 공격으로부터 캐러밴이나 마을 사람 파티를 구하십시오." />
+    <string
+      id="ret_feat_ret_safe_travels_name"
+      text="안전한 여행" />
+    <string
+      id="ret_feat_ret_shock_assault_desc"
+      text="100명 이상의 전투원이 참여하는 전투에서 수행원만 사용하여 승리하십시오." />
+    <string
+      id="ret_feat_ret_shock_assault_name"
+      text="충격 공격" />
+    <string
+      id="ret_feat_ret_still_standing_desc"
+      text="전투에서 쓰러진 후 {TARGET} 수행원이 살아남도록 하십시오." />
+    <string
+      id="ret_feat_ret_still_standing_name"
+      text="여전히 서 있다" />
+    <string
+      id="ret_feat_sp_allies_favor_desc"
+      text="동맹 영주를 위한 퀘스트를 완료하십시오." />
+    <string
+      id="ret_feat_sp_allies_favor_name"
+      text="동맹의 호의" />
+    <string
+      id="ret_feat_sp_ancestral_duty_desc"
+      text="당신의 씨족 문화의 영주를 위한 퀘스트를 완료하십시오." />
+    <string
+      id="ret_feat_sp_ancestral_duty_name"
+      text="조상의 의무" />
+    <string
+      id="ret_feat_sp_blood_price_desc"
+      text="한 전투에서 개인적으로 {TARGET} 적을 물리치십시오." />
+    <string
+      id="ret_feat_sp_blood_price_name"
+      text="피의 대가" />
+    <string
+      id="ret_feat_sp_costly_victory_desc"
+      text="동맹국이 100명 이상의 사상자를 입은 전투에서 승리하십시오." />
+    <string
+      id="ret_feat_sp_costly_victory_name"
+      text="비싼 승리" />
+    <string
+      id="ret_feat_sp_cultural_triumph_desc"
+      text="다른 문화의 적군에 맞서 단독으로 전투에서 승리하십시오." />
+    <string
+      id="ret_feat_sp_cultural_triumph_name"
+      text="문화적 승리" />
+    <string
+      id="ret_feat_sp_cut_the_head_desc"
+      text="전투에서 적 영주를 개인적으로 물리치십시오." />
     <string
       id="ret_filter_label"
       text="필터:" />
@@ -907,18 +1093,6 @@
     <string
       id="ret_mcm_option_clan_troops_unlock_hint"
       text="클랜 부대가 언제 사용 가능한지 결정합니다." />
-    <string
-      id="ret_mcm_option_count_ally_casualties"
-      text="아군 사상자 집계" />
-    <string
-      id="ret_mcm_option_count_ally_casualties_hint"
-      text="아이템 잠금 해제에 아군 사상자도 포함되는지 여부." />
-    <string
-      id="ret_mcm_option_count_ally_kills"
-      text="아군 킬 집계" />
-    <string
-      id="ret_mcm_option_count_ally_kills_hint"
-      text="아군 부대가 만든 킬도 아이템 잠금 해제에 포함되는지 여부." />
     <string
       id="ret_mcm_option_debug_mode"
       text="디버그 모드" />

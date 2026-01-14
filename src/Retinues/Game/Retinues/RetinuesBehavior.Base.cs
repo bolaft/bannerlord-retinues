@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Retinues.Configuration;
 using Retinues.Framework.Behaviors;
 using TaleWorlds.CampaignSystem;
 
@@ -11,12 +12,15 @@ namespace Retinues.Game.Retinues
     /// </summary>
     public partial class RetinuesBehavior : BaseCampaignBehavior<RetinuesBehavior>
     {
+        public override bool IsActive => Settings.EnableRetinues;
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Constants                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public const int UnlockProgressTarget = 1000;
 
+        /* ━━━━━━━━ Points ━━━━━━━━ */
         private const int Progress_TournamentWin = 50;
         private const int Progress_QuestCompleted = 25;
         private const int Progress_DailyPerOwnedFief = 5;

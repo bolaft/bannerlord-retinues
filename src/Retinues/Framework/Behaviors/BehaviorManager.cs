@@ -151,7 +151,6 @@ namespace Retinues.Framework.Behaviors
                     continue;
                 }
 
-                Log.Debug($"Registered campaign behavior {t.Name}.");
                 yield return instance;
             }
         }

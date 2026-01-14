@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Retinues.Domain.Events.Models;
-using static Retinues.Domain.Events.Models.MMission;
+using Retinues.Game.Missions;
 
 namespace Retinues.Game.Doctrines.Feats.Training
 {
@@ -11,18 +11,36 @@ namespace Retinues.Game.Doctrines.Feats.Training
     {
         protected override string FeatId => "feat_tr_disciplined_victory";
 
-        protected override void OnBattleOver(IReadOnlyList<Kill> kills, MMapEvent battle)
+        static bool IsAllCustom;
+
+        protected override void OnBattleStart(MMapEvent battle)
         {
-            if (battle.IsLost)
-                return;
+            // Check if the player's party is custom-only at the start of the battle.
+            IsAllCustom = Player.Party.CustomRatio >= 1f;
+        }
 
-            if (battle.FriendlyTroopCount * 2 > battle.EnemyTroopCount)
-                return;
+        protected override void OnBattleOver(
+            IReadOnlyList<CombatBehavior.Kill> kills,
+            MMapEvent.Snapshot start,
+            MMapEvent end
+        )
+        {
+            if (end.IsLost)
+                return; // Player lost the battle.
 
-            if (Player.Party.CustomRatio < 1f)
-                return;
+            var friendly = start.PlayerSide.HealthyTroops;
+            var enemy = start.EnemySide.HealthyTroops;
 
-            Progress(1);
+            if (friendly <= 0 || enemy <= 0)
+                return; // No troops on one side.
+
+            if (friendly * 2 > enemy)
+                return; // Not outnumbered enough.
+
+            if (!IsAllCustom)
+                return; // Not all custom troops.
+
+            Progress();
         }
     }
 }

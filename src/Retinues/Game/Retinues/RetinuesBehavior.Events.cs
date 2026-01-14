@@ -5,6 +5,7 @@ using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Domain.Events.Models;
 using Retinues.Domain.Factions.Wrappers;
+using Retinues.Domain.Parties.Wrappers;
 using Retinues.Domain.Settlements.Wrappers;
 using TaleWorlds.CampaignSystem;
 
@@ -110,8 +111,12 @@ namespace Retinues.Game.Retinues
             // Distinct cultures among allied parties (excluding main party).
             var cultures = new HashSet<WCulture>();
 
-            foreach (var party in mapEvent.PlayerSideParties)
+            foreach (var data in mapEvent.PlayerSide.PartyData)
             {
+                var party = WParty.Get(data.PartyId);
+                if (party == null)
+                    continue;
+
                 if (party.IsMainParty)
                     continue;
 

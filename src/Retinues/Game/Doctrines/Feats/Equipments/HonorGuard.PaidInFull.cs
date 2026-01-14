@@ -9,9 +9,8 @@ namespace Retinues.Game.Doctrines.Feats.Equipments
 
         protected override void OnDailyTick()
         {
+            // Get total daily troop wages.
             var wages = Player.Party.TotalWage;
-            if (wages <= 0)
-                return;
 
             Progress(wages);
         }

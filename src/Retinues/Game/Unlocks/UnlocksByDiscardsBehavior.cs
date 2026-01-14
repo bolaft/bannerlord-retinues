@@ -13,6 +13,8 @@ namespace Retinues.Game.Unlocks
     /// </summary>
     public sealed class UnlocksByDiscardsBehavior : BaseCampaignBehavior
     {
+        public override bool IsActive => Settings.UnlockItemsThroughDiscards;
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Events                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -21,28 +23,6 @@ namespace Retinues.Game.Unlocks
         /// Called when the player discards items.
         /// </summary>
         protected override void OnItemsDiscardedByPlayer(ItemRoster roster)
-        {
-            if (!Settings.EquipmentNeedsUnlocking || !Settings.UnlockItemsThroughDiscards)
-                return;
-
-            try
-            {
-                ApplyProgressFromDiscards(roster);
-            }
-            catch (Exception e)
-            {
-                Log.Exception(e, "Item unlock progress failed on player discards.");
-            }
-        }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                          Apply                         //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        /// <summary>
-        /// Applies unlock progress based on items discarded in the given roster.
-        /// </summary>
-        private static void ApplyProgressFromDiscards(ItemRoster roster)
         {
             if (roster == null || roster.Count == 0)
                 return;

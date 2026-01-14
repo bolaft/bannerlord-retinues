@@ -9,14 +9,14 @@ namespace Retinues.Game.Doctrines.Feats.Training
 
         protected override void OnDailyTick()
         {
-            var count = 0;
+            int count = 0;
 
             foreach (var troop in Player.Troops)
             {
                 if (troop.SkillTotalRemaining > 0)
-                    continue;
+                    continue; // Troop not maxed out.
 
-                count++;
+                count++; // Count maxed out troop.
             }
         }
     }

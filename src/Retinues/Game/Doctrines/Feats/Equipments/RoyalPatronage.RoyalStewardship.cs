@@ -13,30 +13,32 @@ namespace Retinues.Game.Doctrines.Feats.Equipments
         {
             var kingdom = Player.Kingdom;
             if (kingdom == null)
-                return;
+                return; // Player has no kingdom.
 
+            // Find a companion governor of the same culture as the kingdom.
             WHero match = null;
 
             foreach (var s in Player.Clan.Settlements)
             {
                 var governor = s.Town.Governor;
                 if (governor == null)
-                    continue;
+                    continue; // No governor.
 
                 if (!governor.IsCompanion)
-                    continue;
+                    continue; // Not a companion.
 
                 if (governor.Culture != Player.Kingdom.Culture)
                     continue;
 
+                // Found a match.
                 match = governor;
                 break;
             }
 
             if (match == null)
-                return;
+                return; // No matching governor.
 
-            Progress(1);
+            Progress();
         }
     }
 }

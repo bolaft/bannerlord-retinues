@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Retinues.Configuration;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Equipments.Models;
-using Retinues.Domain.Events.Models;
+using Retinues.Game.Missions;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
@@ -53,13 +53,13 @@ namespace Retinues.Game.Agents
 
         private static BattleContext ResolveContext(Mission mission)
         {
-            var mapEvent = MMapEvent.Current;
+            var mapEvent = CombatBehavior.MapEvent;
             if (mapEvent != null)
             {
                 if (mapEvent.IsNavalBattle)
                     return BattleContext.Naval;
 
-                if (mapEvent.IsSiege)
+                if (mapEvent.IsSiegeBattle)
                     return BattleContext.Siege;
 
                 return BattleContext.Field;

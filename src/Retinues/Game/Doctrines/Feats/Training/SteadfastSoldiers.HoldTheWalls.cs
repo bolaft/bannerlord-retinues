@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Retinues.Domain.Events.Models;
-using static Retinues.Domain.Events.Models.MMission;
+using Retinues.Game.Missions;
 
 namespace Retinues.Game.Doctrines.Feats.Training
 {
@@ -11,26 +11,33 @@ namespace Retinues.Game.Doctrines.Feats.Training
     {
         protected override string FeatId => "feat_tr_hold_the_walls";
 
-        static bool CustomOnly;
+        static bool IsCustomOnly;
 
         protected override void OnBattleStart(MMapEvent battle)
         {
-            CustomOnly = false;
-
-            if (!battle.IsSiege)
-                return;
-
-            if (!battle.IsPlayerDefender)
-                return;
-
-            CustomOnly = Player.Party.CustomRatio == 1f;
-            ;
+            // Check if the player's party is custom-only at the start of the battle.
+            IsCustomOnly = Player.Party.CustomRatio == 1f;
         }
 
-        protected override void OnBattleOver(IReadOnlyList<Kill> kills, MMapEvent battle)
+        protected override void OnBattleOver(
+            IReadOnlyList<CombatBehavior.Kill> kills,
+            MMapEvent.Snapshot start,
+            MMapEvent end
+        )
         {
-            if (CustomOnly && battle.IsWon)
-                Progress(1);
+            if (end.IsLost)
+                return; // Player lost the battle.
+
+            if (!IsCustomOnly)
+                return; // Not all custom troops.
+
+            if (!start.IsSiegeBattle)
+                return; // Not a siege battle.
+
+            if (!start.DefenderSide.IsPlayerSide)
+                return; // Player is not defending.
+
+            Progress();
         }
     }
 }
