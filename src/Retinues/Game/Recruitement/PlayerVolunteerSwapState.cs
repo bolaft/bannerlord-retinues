@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Retinues.Domain.Characters.Helpers;
+using Retinues.Domain.Characters.Services.Matching;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Settlements.Wrappers;
 using Retinues.Utilities;
@@ -189,7 +189,7 @@ namespace Retinues.Game.Recruitement
                     if (chosenRoot == null)
                         continue;
 
-                    var replacement = MatcherHelper.PickBestFromTree(wc, chosenRoot);
+                    var replacement = CharacterMatcher.PickBestFromTree(wc, chosenRoot);
                     var replacementBase = replacement?.Base;
                     if (replacementBase == null)
                         continue;

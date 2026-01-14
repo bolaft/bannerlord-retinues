@@ -1,6 +1,6 @@
 using System;
 using HarmonyLib;
-using Retinues.Domain.Characters.Helpers;
+using Retinues.Domain.Characters.Services.Matching;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Parties.Wrappers;
 using Retinues.Domain.Settlements.Wrappers;
@@ -76,7 +76,7 @@ namespace Retinues.Game.Recruitement.Patches
                 if (root == null)
                     return;
 
-                var replacement = MatcherHelper.PickBestFromTree(wc, root);
+                var replacement = CharacterMatcher.PickBestFromTree(wc, root);
                 var replacementBase = replacement?.Base;
                 if (replacementBase == null)
                     return;

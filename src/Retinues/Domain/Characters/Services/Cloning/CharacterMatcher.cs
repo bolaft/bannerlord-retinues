@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
+using Retinues.Domain.Characters.Helpers;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Factions;
 using TaleWorlds.Core;
 
-namespace Retinues.Domain.Characters.Helpers
+namespace Retinues.Domain.Characters.Services.Matching
 {
-    public static class MatcherHelper
+    public static class CharacterMatcher
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Public API                      //
