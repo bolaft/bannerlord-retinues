@@ -1,4 +1,5 @@
 using System.Linq;
+using Retinues.Domain.Characters.Services.Cloning;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Equipments.Helpers;
 using Retinues.Editor.Controllers.Equipment;
@@ -64,7 +65,7 @@ namespace Retinues.Editor.Controllers.Character
                 // Universal mode: keep current behavior unchanged.
                 if (State.Mode != EditorMode.Player)
                 {
-                    var cloneU = character.Clone(equipments: true);
+                    var cloneU = CharacterCloner.Clone(character, equipments: true);
                     cloneU.Name = name;
                     cloneU.Level = character.Level + 5;
                     cloneU.HiddenInEncyclopedia = false;
@@ -101,7 +102,7 @@ namespace Retinues.Editor.Controllers.Character
         /// </summary>
         private static void CreateUpgrade_Player_Empty(WCharacter parent, string name)
         {
-            var clone = parent.Clone(equipments: false);
+            var clone = CharacterCloner.Clone(parent, equipments: false);
             clone.Name = name;
             clone.Level = parent.Level + 5;
             clone.HiddenInEncyclopedia = false;
@@ -116,7 +117,7 @@ namespace Retinues.Editor.Controllers.Character
         private static void CreateUpgrade_Player_BestFromStocks(WCharacter parent, string name)
         {
             // Create the troop with no copied equipments first.
-            var clone = parent.Clone(equipments: false);
+            var clone = CharacterCloner.Clone(parent, equipments: false);
             clone.Name = name;
             clone.Level = parent.Level + 5;
             clone.HiddenInEncyclopedia = false;

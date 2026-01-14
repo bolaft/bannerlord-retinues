@@ -1,13 +1,13 @@
 using System;
 using System.Collections.Generic;
 using Retinues.Configuration;
+using Retinues.Domain.Characters.Services.Cloning;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Equipments.Helpers;
 using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Domain.Factions.Wrappers;
 using Retinues.Framework.Runtime;
 using Retinues.Utilities;
-using TaleWorlds.CampaignSystem;
 
 namespace Retinues.Game.Troops
 {
@@ -24,7 +24,11 @@ namespace Retinues.Game.Troops
         //                       Public API                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public static WCharacter CloneVanilla(
+        /// <summary>
+        /// Clone a vanilla troop into a free custom stub (default),
+        /// or into the provided stub if specified.
+        /// </summary>
+        public static WCharacter CloneTroop(
             WCharacter template,
             bool skills = true,
             bool equipments = true,
@@ -38,14 +42,19 @@ namespace Retinues.Game.Troops
             if (template == null)
                 return null;
 
-            var clone = template.Clone(skills: skills, equipments: false, intoStub: intoStub);
+            var clone = CharacterCloner.Clone(
+                template,
+                skills: skills,
+                equipments: false,
+                stub: intoStub
+            );
             if (clone == null)
                 return null;
 
             // Important: FillFrom copied origin UpgradeTargets to the stub.
             // Ensure the BASE object does not still point to vanilla nodes.
             clone.UpgradeTargets = [];
-            SetBaseUpgradeTargets(clone, []);
+            CharacterCloner.SetBaseUpgradeTargets(clone, []);
 
             if (skills)
                 EnforceSkillLimits(clone);
@@ -73,6 +82,9 @@ namespace Retinues.Game.Troops
             return clone;
         }
 
+        /// <summary>
+        /// Clone an entire upgrade tree from the specified root template.
+        /// </summary>
         public static WCharacter CloneTreeFromRoot(
             WCharacter rootTemplate,
             bool lean = false,
@@ -116,7 +128,7 @@ namespace Retinues.Game.Troops
                         continue;
 
                     var c =
-                        CloneVanilla(
+                        CloneTroop(
                             t,
                             skills: skills,
                             equipments: equipments,
@@ -148,7 +160,7 @@ namespace Retinues.Game.Troops
                     if (targets.Count == 0)
                     {
                         clonedSrc.UpgradeTargets = [];
-                        SetBaseUpgradeTargets(clonedSrc, []);
+                        CharacterCloner.SetBaseUpgradeTargets(clonedSrc, []);
                         continue;
                     }
 
@@ -165,7 +177,7 @@ namespace Retinues.Game.Troops
                     }
 
                     clonedSrc.UpgradeTargets = clonedTargets;
-                    SetBaseUpgradeTargets(clonedSrc, clonedTargets);
+                    CharacterCloner.SetBaseUpgradeTargets(clonedSrc, clonedTargets);
                 }
 
                 // 3) Unlock items for the whole tree (single notification).
@@ -210,6 +222,9 @@ namespace Retinues.Game.Troops
             }
         }
 
+        /// <summary>
+        /// Handle unlock notifications and sink collection.
+        /// </summary>
         private static void CollectUnlocks(
             List<WItem> newlyUnlocked,
             bool notifyUnlocks,
@@ -229,49 +244,12 @@ namespace Retinues.Game.Troops
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                    Base Upgrade Wiring                 //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        private static void SetBaseUpgradeTargets(WCharacter wc, List<WCharacter> targets)
-        {
-            if (wc?.Base == null)
-                return;
-
-            // CharacterObject.UpgradeTargets has a private setter.
-            // It's an auto-property in TW sources, so we can set the backing field.
-            var list = targets ?? [];
-            int count = 0;
-
-            for (int i = 0; i < list.Count; i++)
-                if (list[i]?.Base != null)
-                    count++;
-
-            var arr = count == 0 ? [] : new CharacterObject[count];
-
-            int idx = 0;
-            for (int i = 0; i < list.Count; i++)
-            {
-                var b = list[i]?.Base;
-                if (b == null)
-                    continue;
-
-                arr[idx++] = b;
-            }
-
-            try
-            {
-                Reflection.SetFieldValue(wc.Base, "<UpgradeTargets>k__BackingField", arr);
-            }
-            catch
-            {
-                // Best-effort: if backing field name changes, we still want to avoid hard crashing.
-            }
-        }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                  Generic Builder Entry                 //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Request parameters for troop building from template.
+        /// </summary>
         public sealed class TroopBuildRequest
         {
             public string Name { get; set; }
@@ -289,6 +267,9 @@ namespace Retinues.Game.Troops
             public bool UnhideInEncyclopedia { get; set; } = true;
         }
 
+        /// <summary>
+        /// Build a troop from a template according to the provided request.
+        /// </summary>
         public static WCharacter BuildFromTemplate(WCharacter template, TroopBuildRequest req)
         {
             if (template?.Base == null)
@@ -296,12 +277,17 @@ namespace Retinues.Game.Troops
 
             req ??= new TroopBuildRequest();
 
-            var troop = template.Clone(skills: req.CopySkills, equipments: false, intoStub: null);
+            var troop = CharacterCloner.Clone(
+                template,
+                skills: req.CopySkills,
+                equipments: false,
+                stub: null
+            );
             if (troop?.Base == null)
                 return null;
 
             troop.UpgradeTargets = [];
-            SetBaseUpgradeTargets(troop, []);
+            CharacterCloner.SetBaseUpgradeTargets(troop, []);
 
             troop.Name = req.Name ?? string.Empty;
 

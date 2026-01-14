@@ -312,7 +312,7 @@ namespace Retinues.Game.Troops
 
             if (mode == Settings.TroopsMode.RootsOnly)
             {
-                created = TroopCloner.CloneVanilla(
+                created = TroopCloner.CloneTroop(
                     template,
                     skills: true,
                     equipments: true,

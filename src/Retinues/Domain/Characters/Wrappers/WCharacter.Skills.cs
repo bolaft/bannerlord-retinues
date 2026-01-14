@@ -54,6 +54,8 @@ namespace Retinues.Domain.Characters.Wrappers
             }
         }
 
+        public void ClearSkillsCache() => _skills = null;
+
         /* ━━━ Attribute Helper ━━━ */
 
         [SafeClass]

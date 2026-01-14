@@ -1,4 +1,5 @@
 using System;
+using Retinues.Domain.Characters.Services.Cloning;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Utilities;
 
@@ -72,7 +73,7 @@ namespace Retinues.Editor.Services.Library.NPCCharacters
                     var src = WCharacter.Get(modelStringId);
 
                     if (src != null && src.IsVanilla)
-                        src.Clone(intoStub: stub);
+                        CharacterCloner.Clone(src, stub: stub);
                     else
                         missingVanillaBaseId = modelStringId;
                 }
