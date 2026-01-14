@@ -320,9 +320,6 @@
       id="ret_doctrine_failed"
       text="Échec de l&apos;acquisition de la doctrine." />
     <string
-      id="ret_doctrine_feat_completed"
-      text="Terminé" />
-    <string
       id="ret_doctrine_feat_progress_tooltip_completed"
       text="Vous avez accompli cet exploit." />
     <string
@@ -843,7 +840,7 @@
       text="{ITEMS} {VERB} déverrouillés grâce aux ateliers." />
     <string
       id="ret_item_unlock_title"
-      text="Objets déverouillés" />
+      text="Équipements déverrouillés" />
     <string
       id="ret_kingdom_troops_unlock_always_unlocked"
       text="Toujours déverrouillées" />

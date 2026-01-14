@@ -320,9 +320,6 @@
       id="ret_doctrine_failed"
       text="Doktrin edinilemedi." />
     <string
-      id="ret_doctrine_feat_completed"
-      text="Tamamlandı" />
-    <string
       id="ret_doctrine_feat_progress_tooltip_completed"
       text="Bu başarıyı tamamladınız." />
     <string

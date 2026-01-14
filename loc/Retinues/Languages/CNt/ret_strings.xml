@@ -320,9 +320,6 @@
       id="ret_doctrine_failed"
       text="獲取學說失敗。" />
     <string
-      id="ret_doctrine_feat_completed"
-      text="已完成" />
-    <string
       id="ret_doctrine_feat_progress_tooltip_completed"
       text="您已完成此功績。" />
     <string

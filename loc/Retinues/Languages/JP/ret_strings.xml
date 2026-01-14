@@ -320,9 +320,6 @@
       id="ret_doctrine_failed"
       text="教義の取得に失敗しました。" />
     <string
-      id="ret_doctrine_feat_completed"
-      text="完了" />
-    <string
       id="ret_doctrine_feat_progress_tooltip_completed"
       text="この偉業を完了しました。" />
     <string

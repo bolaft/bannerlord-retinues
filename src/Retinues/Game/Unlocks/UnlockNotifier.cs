@@ -67,7 +67,7 @@ namespace Retinues.Game.Unlocks
                 ? L.S("unlock_verb_were", "were")
                 : L.S("unlock_verb_was", "was");
 
-            var title = L.T("item_unlock_title", "Items unlocked");
+            var title = L.T("item_unlock_title", "Items Unlocked");
 
             var desc = method switch
             {

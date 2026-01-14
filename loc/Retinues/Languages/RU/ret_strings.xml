@@ -320,9 +320,6 @@
       id="ret_doctrine_failed"
       text="Не удалось приобрести доктрину." />
     <string
-      id="ret_doctrine_feat_completed"
-      text="Завершено" />
-    <string
       id="ret_doctrine_feat_progress_tooltip_completed"
       text="Вы завершили этот подвиг." />
     <string

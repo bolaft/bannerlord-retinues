@@ -320,9 +320,6 @@
       id="ret_doctrine_failed"
       text="Failed to acquire doctrine." />
     <string
-      id="ret_doctrine_feat_completed"
-      text="Completed" />
-    <string
       id="ret_doctrine_feat_progress_tooltip_completed"
       text="You have completed this feat." />
     <string
@@ -1026,7 +1023,7 @@
       text="{ITEMS} {VERB} unlocked through workshops." />
     <string
       id="ret_item_unlock_title"
-      text="Items unlocked" />
+      text="Items Unlocked" />
     <string
       id="ret_kingdom_troops_unlock_always_unlocked"
       text="Always Unlocked" />

@@ -320,9 +320,6 @@
       id="ret_doctrine_failed"
       text="Falha ao adquirir a doutrina." />
     <string
-      id="ret_doctrine_feat_completed"
-      text="Concluído" />
-    <string
       id="ret_doctrine_feat_progress_tooltip_completed"
       text="Você concluiu este feito." />
     <string
@@ -843,7 +840,7 @@
       text="{ITEMS} {VERB} desbloqueados por meio de oficinas." />
     <string
       id="ret_item_unlock_title"
-      text="Itens desbloqueados" />
+      text="Itens Desbloqueados" />
     <string
       id="ret_kingdom_troops_unlock_always_unlocked"
       text="Sempre Desbloqueados" />

@@ -1680,22 +1680,6 @@
     "TR": "Doktrin edinilemedi."
   },
   {
-    "id": "ret_doctrine_feat_completed",
-    "EN": "Completed",
-    "FR": "Terminé",
-    "BR": "Concluído",
-    "CNs": "已完成",
-    "CNt": "已完成",
-    "DE": "Abgeschlossen",
-    "IT": "Completato",
-    "JP": "完了",
-    "KO": "완료됨",
-    "PL": "Ukończone",
-    "RU": "Завершено",
-    "SP": "Completado",
-    "TR": "Tamamlandı"
-  },
-  {
     "id": "ret_doctrine_feat_progress_tooltip_completed",
     "EN": "You have completed this feat.",
     "FR": "Vous avez accompli cet exploit.",
@@ -5441,9 +5425,9 @@
   },
   {
     "id": "ret_item_unlock_title",
-    "EN": "Items unlocked",
-    "FR": "Objets déverouillés",
-    "BR": "Itens desbloqueados",
+    "EN": "Items Unlocked",
+    "FR": "Équipements déverrouillés",
+    "BR": "Itens Desbloqueados",
     "CNs": "解锁的物品",
     "CNt": "解鎖的物品",
     "DE": "Freigeschaltete Gegenstände",

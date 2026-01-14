@@ -320,9 +320,6 @@
       id="ret_doctrine_failed"
       text="Impossibile acquisire la dottrina." />
     <string
-      id="ret_doctrine_feat_completed"
-      text="Completato" />
-    <string
       id="ret_doctrine_feat_progress_tooltip_completed"
       text="Hai completato questa impresa." />
     <string

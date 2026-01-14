@@ -320,9 +320,6 @@
       id="ret_doctrine_failed"
       text="Doktrin konnte nicht erworben werden." />
     <string
-      id="ret_doctrine_feat_completed"
-      text="Abgeschlossen" />
-    <string
       id="ret_doctrine_feat_progress_tooltip_completed"
       text="Sie haben diese Tat abgeschlossen." />
     <string

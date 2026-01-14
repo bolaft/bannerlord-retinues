@@ -320,9 +320,6 @@
       id="ret_doctrine_failed"
       text="교리 획득에 실패했습니다." />
     <string
-      id="ret_doctrine_feat_completed"
-      text="완료됨" />
-    <string
       id="ret_doctrine_feat_progress_tooltip_completed"
       text="이 위업을 완료했습니다." />
     <string

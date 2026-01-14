@@ -11,13 +11,17 @@ namespace Retinues.Editor.VM.Panel.Doctrines
     /// </summary>
     public sealed class FeatVM(DoctrineFeatLink link, FeatDefinition def) : EventListenerVM
     {
-        public bool IsCompleted => def != null && !def.Repeatable && FeatsAPI.IsCompleted(def.Id);
+        [DataSourceProperty]
+        public bool IsCompleted => !def.Repeatable && FeatsAPI.IsCompleted(def.Id);
 
         [DataSourceProperty]
-        public string Name => def?.Name?.ToString() ?? string.Empty;
+        public bool IsAcquired => DoctrinesAPI.IsAcquired(link.DoctrineId);
 
         [DataSourceProperty]
-        public string Description => def?.Description?.ToString() ?? string.Empty;
+        public string Name => def.Name?.ToString() ?? string.Empty;
+
+        [DataSourceProperty]
+        public string Description => def.Description?.ToString() ?? string.Empty;
 
         [DataSourceProperty]
         public string WorthText => $"+{link.Worth}%";
@@ -30,11 +34,12 @@ namespace Retinues.Editor.VM.Panel.Doctrines
                 if (def == null)
                     return string.Empty;
 
+                var t = def.Target;
+
                 if (IsCompleted)
-                    return L.S("doctrine_feat_completed", "Completed");
+                    return $"{t}/{t}";
 
                 var p = FeatsAPI.GetProgress(def.Id);
-                var t = def.Target;
 
                 return $"{p}/{t}";
             }

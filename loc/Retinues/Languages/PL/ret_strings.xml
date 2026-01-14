@@ -320,9 +320,6 @@
       id="ret_doctrine_failed"
       text="Nie udało się nabyć doktryny." />
     <string
-      id="ret_doctrine_feat_completed"
-      text="Ukończone" />
-    <string
       id="ret_doctrine_feat_progress_tooltip_completed"
       text="Ukończyłeś ten wyczyn." />
     <string
