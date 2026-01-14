@@ -7,19 +7,6 @@ using TaleWorlds.Library;
 
 namespace Retinues.UI.VM
 {
-    /// <summary>
-    /// Small helper VM that adapts an EditorAction into a single bindable button model:
-    /// - IsEnabled: enabled state
-    /// - Tooltip: enabled or blocking reason (EditorAction semantics)
-    /// - Execute(): runs the action if allowed
-    ///
-    /// Optional visuals:
-    /// - Label: text shown by text buttons
-    /// - Sprite + Color: shown by sprite buttons
-    ///
-    /// The VM recomputes its cached values when one of the specified UI events fires.
-    /// This avoids duplicating CanX/TooltipX/ExecuteX triplets across VMs.
-    /// </summary>
     [SafeClass]
     public sealed class Button<TArg> : EventListenerVM
     {
@@ -37,6 +24,8 @@ namespace Retinues.UI.VM
         private readonly string _color;
         private readonly Func<string> _colorFactory;
 
+        private readonly string _hoverColor;
+
         private readonly Func<bool> _allowGate;
         private readonly Tooltip _allowGateTooltip;
 
@@ -51,6 +40,8 @@ namespace Retinues.UI.VM
         private string _resolvedLabel;
         private string _resolvedSprite;
         private string _resolvedColor;
+
+        private bool _isHovered;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Construction                      //
@@ -72,6 +63,7 @@ namespace Retinues.UI.VM
                 spriteFactory: null,
                 color: null,
                 colorFactory: null,
+                hoverColor: null,
                 allowGate: null,
                 allowGateTooltip: null,
                 visibilityGate: null,
@@ -88,6 +80,7 @@ namespace Retinues.UI.VM
             Func<string> spriteFactory = null,
             string color = null,
             Func<string> colorFactory = null,
+            string hoverColor = null,
             Func<bool> allowGate = null,
             Tooltip allowGateTooltip = null,
             Func<bool> visibilityGate = null,
@@ -107,6 +100,8 @@ namespace Retinues.UI.VM
 
             _color = color;
             _colorFactory = colorFactory;
+
+            _hoverColor = hoverColor;
 
             _allowGate = allowGate;
             _allowGateTooltip = allowGateTooltip;
@@ -151,6 +146,29 @@ namespace Retinues.UI.VM
             _action?.Execute(_arg());
         }
 
+        [DataSourceMethod]
+        public void ExecuteHoverBegin()
+        {
+            if (_isHovered)
+                return;
+
+            _isHovered = true;
+
+            // Only Color depends on hover.
+            OnPropertyChanged(nameof(Color));
+        }
+
+        [DataSourceMethod]
+        public void ExecuteHoverEnd()
+        {
+            if (!_isHovered)
+                return;
+
+            _isHovered = false;
+
+            OnPropertyChanged(nameof(Color));
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Event Wiring                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -190,7 +208,11 @@ namespace Retinues.UI.VM
                 context.RequestNotify(this, nameof(Sprite));
             }
 
-            if (_colorFactory != null)
+            if (
+                _colorFactory != null
+                || !string.IsNullOrEmpty(_color)
+                || !string.IsNullOrEmpty(_hoverColor)
+            )
             {
                 context.RequestNotify(this, nameof(Color));
             }
@@ -221,15 +243,21 @@ namespace Retinues.UI.VM
             _resolvedSprite = _spriteFactory != null ? _spriteFactory() : _sprite;
             _resolvedColor = _colorFactory != null ? _colorFactory() : _color;
 
-            if (!string.IsNullOrEmpty(_resolvedColor) && _resolvedColor[0] != '#')
-                _resolvedColor = "#" + _resolvedColor;
+            if (!_isVisible)
+            {
+                _isEnabled = false;
+                _tooltip = null;
+                ApplyHoverColorIfNeeded();
+                return;
+            }
 
             var gateOk = _allowGate == null || _allowGate();
 
-            if (!_isVisible || !gateOk || _action == null)
+            if (!gateOk || _action == null)
             {
                 _isEnabled = false;
                 _tooltip = !gateOk ? _allowGateTooltip : null;
+                ApplyHoverColorIfNeeded();
                 return;
             }
 
@@ -237,6 +265,23 @@ namespace Retinues.UI.VM
 
             _isEnabled = _action.Allow(arg);
             _tooltip = _action.Tooltip(arg);
+
+            ApplyHoverColorIfNeeded();
+        }
+
+        private void ApplyHoverColorIfNeeded()
+        {
+            var color = _resolvedColor;
+
+            if (!string.IsNullOrEmpty(_hoverColor) && _isHovered && _isEnabled)
+            {
+                color = _hoverColor;
+            }
+
+            if (!string.IsNullOrEmpty(color) && color[0] != '#')
+                color = "#" + color;
+
+            _resolvedColor = color;
         }
     }
 }

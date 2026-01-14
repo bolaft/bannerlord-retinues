@@ -72,14 +72,29 @@
 {% endmacro %}
 
 {# Sprite content button (icon inside the button) #}
-{% macro button_sprite(datasource, width, height, sprite="@Sprite", color="@Color", button_brush=null, margin_left="0", margin_right="0", margin_top="0", margin_bottom="0") %}
-    {% call button_base(datasource, width, height, button_brush=button_brush, margin_left=margin_left, margin_right=margin_right, margin_top=margin_top, margin_bottom=margin_bottom) %}
+{% macro button_sprite(datasource, width, height,
+    sprite="@Sprite",
+    color="@Color",
+    button_brush=null,
+    icon_w=null,
+    icon_h=null,
+    margin_left="0", margin_right="0", margin_top="0", margin_bottom="0") %}
+
+    {% if icon_w == null %}{% set icon_w = width %}{% endif %}
+    {% if icon_h == null %}{% set icon_h = height %}{% endif %}
+
+    {% call button_base(datasource, width, height,
+        button_brush=button_brush,
+        margin_left=margin_left, margin_right=margin_right,
+        margin_top=margin_top, margin_bottom=margin_bottom) %}
+
         <SpriteWidget
             WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-            SuggestedWidth="{{ width }}" SuggestedHeight="{{ height }}"
+            SuggestedWidth="{{ icon_w }}" SuggestedHeight="{{ icon_h }}"
             HorizontalAlignment="Center" VerticalAlignment="Center"
             Color="{{ color }}"
             Sprite="{{ sprite }}"/>
+
     {% endcall %}
 {% endmacro %}
 

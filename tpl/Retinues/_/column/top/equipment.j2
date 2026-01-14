@@ -102,6 +102,13 @@
 
                 {{ button_brush("{DeleteSetButton}", "Inventory.Tuple.Extension.MinusButton", "36", "36") }}
 
+                {{ button_sprite(
+                    "{CopyEquipmentButton}",
+                    "36", "36",
+                    button_brush="Inventory.Tuple.Extension.PlusButton",
+                    icon_w="24", icon_h="24"
+                ) }}
+
                 {{ button_chevron_left("{PrevSetButton}", "24", "24") }}
 
                 <TextWidget
@@ -112,6 +119,13 @@
                     HorizontalAlignment="Center" VerticalAlignment="Center" />
 
                 {{ button_chevron_right("{NextSetButton}", "24", "24") }}
+
+                {{ button_sprite(
+                    "{PasteEquipmentButton}",
+                    "36", "36",
+                    button_brush="Inventory.Tuple.Extension.PlusButton",
+                    icon_w="24", icon_h="24"
+                ) }}
 
                 {{ button_brush("{CreateSetButton}", "Inventory.Tuple.Extension.PlusButton", "36", "36") }}
 

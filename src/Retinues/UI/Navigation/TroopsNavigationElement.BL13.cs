@@ -63,7 +63,7 @@ public sealed class TroopsNavigationElement(MapNavigationHandler handler)
         if (!Permission.IsAuthorized)
             return;
 
-        void OpenEditor() => EditorLauncher.Launch(EditorMode.Player);
+        static void OpenEditor() => EditorLauncher.Launch(EditorMode.Player);
 
         // Match vanilla: warn about unsaved changes on the currently open panel.
         if (

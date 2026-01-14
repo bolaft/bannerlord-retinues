@@ -1,104 +1,10 @@
+{% from "_/macros.checkbox.j2" import checkbox %}
+{% from "_/macros.buttons.j2" import button_chevron_left, button_chevron_right, button_brush %}
+{% from "_/macros.icons.j2" import icon_sprite %}
 
-
-{% macro chevron(command, brush, enabled) %}
-
-<ButtonWidget
-    IsEnabled="{{ enabled }}"
-    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-    HorizontalAlignment="Center" VerticalAlignment="Center"
-    SuggestedWidth="24" SuggestedHeight="24"
-    Brush="Popup.Button.Text"
-    Command.Click="{{ command }}" UpdateChildrenStates="true" DoNotPassEventsToChildren="true">
-    <Children>
-        <BrushWidget WidthSizePolicy="Fixed"
-            HeightSizePolicy="Fixed"
-            SuggestedWidth="24" SuggestedHeight="24"
-            Brush="{{ brush }}"/>
-    </Children>
-</ButtonWidget>
-
-{%- endmacro %}
-
-{% macro icon_button(command, brush, enabled, visible) %}
-
-<ButtonWidget
-    IsVisible="{{ visible }}"
-    IsEnabled="{{ enabled }}"
-    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-    HorizontalAlignment="Center" VerticalAlignment="Center"
-    SuggestedWidth="36" SuggestedHeight="36"
-    Brush="{{ brush }}"
-    Command.Click="{{ command }}" UpdateChildrenStates="true" DoNotPassEventsToChildren="true"/>
-
-{%- endmacro %}
-
-
-{% macro checkbox(binding, size, tooltip, enabled) %}
-
-<Widget
-    HorizontalAlignment="Center" VerticalAlignment="Center"
-    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren">
-    <Children>
-        <HintWidget
-            DataSource="{{ tooltip }}"
-            Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
-
-        <ButtonWidget
-            IsVisible="{{ enabled }}"
-            IsSelected="{{ binding }}"
-            IsEnabled="true"
-            DoNotPassEventsToChildren="true"
-            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-            SuggestedWidth="{{ size }}" SuggestedHeight="{{ size }}"
-            HorizontalAlignment="Center" VerticalAlignment="Center"
-            Brush="SPOptions.Checkbox.Empty.Button"
-            ButtonType="Toggle"
-            ToggleIndicator="ToggleIndicator"
-            UpdateChildrenStates="true">
-            <Children>
-                <ImageWidget
-                    Id="ToggleIndicator"
-                    WidthSizePolicy="StretchToParent"
-                    HeightSizePolicy="StretchToParent"
-                    Brush="SPOptions.Checkbox.Full.Button"
-                />
-                <HintWidget
-                    DataSource="{{ tooltip }}"
-                    Command.HoverBegin="ExecuteBeginHint"
-                    Command.HoverEnd="ExecuteEndHint"/>
-            </Children>
-        </ButtonWidget>
-
-        <ButtonWidget
-            IsHidden="{{ enabled }}"
-            IsSelected="{{ binding }}"
-            IsEnabled="false"
-            DoNotPassEventsToChildren="true"
-            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-            SuggestedWidth="{{ size }}" SuggestedHeight="{{ size }}"
-            HorizontalAlignment="Center" VerticalAlignment="Center"
-            Brush="SPOptions.Checkbox.Empty.Button"
-            ButtonType="Toggle"
-            ToggleIndicator="ToggleIndicator"
-            UpdateChildrenStates="true">
-            <Children>
-                <ImageWidget
-                    Id="ToggleIndicator"
-                    WidthSizePolicy="StretchToParent"
-                    HeightSizePolicy="StretchToParent"
-                    Brush="SPOptions.Checkbox.Full.Button"
-                />
-                <HintWidget
-                    DataSource="{{ tooltip }}"
-                    Command.HoverBegin="ExecuteBeginHint"
-                    Command.HoverEnd="ExecuteEndHint"/>
-            </Children>
-        </ButtonWidget>
-    </Children>
-</Widget>
-
-{%- endmacro %}
-
+{# ---------------------------------------------- #}
+{# Equipment controls                             #}
+{# ---------------------------------------------- #}
 
 <ListPanel
     DataSource="{EquipmentControls}"
@@ -108,32 +14,42 @@
     HorizontalAlignment="Left" VerticalAlignment="Top">
     <Children>
 
-        {# Show Civilian #}
         <ListPanel
+            IsVisible="@ShowPreviewModeToggle"
             WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-            VerticalAlignment="Top" HorizontalAlignment="Left">
+            HorizontalAlignment="Left" VerticalAlignment="Top"
+            MarginBottom="8">
             <Children>
 
-                {# Civilian Icon #}
-                {# <SpriteWidget
-                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                    SuggestedWidth="30" SuggestedHeight="30"
-                    Color="f8eed1ff"
-                    Sprite="SPGeneral\MapOverlay\Settlement\icon_militia_big">
-                    <Children>
-                        <HintWidget
-                            DataSource="{CivilianTooltip}"
-                            Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
-                    </Children>
-                </SpriteWidget> #}
+                {{ icon_sprite(
+                    "{PreviewModeIcon}",
+                    "Inventory\icon_inspect",
+                    "StdAssets\Popup\order_popup_card_default",
+                    size="32",
+                    sprite_size="32"
+                ) }}
 
-                {# Show Civilian Checkbox #}
-                {# {{ checkbox(
-                    binding="@ShowCivilian",
-                    size="30",
-                    tooltip="{CivilianTooltip}",
-                    enabled="@CanToggleShowCivilian"
-                )}} #}
+                {{ checkbox("{PreviewModeToggle}", "32") }}
+
+            </Children>
+        </ListPanel>
+
+        <ListPanel
+            IsVisible="@ShowCraftedToggle"
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            HorizontalAlignment="Left" VerticalAlignment="Top"
+            MarginBottom="8">
+            <Children>
+
+                {{ icon_sprite(
+                    "{CraftedIcon}",
+                    "General\Mission\smithy",
+                    "StdAssets\Popup\order_popup_card_default",
+                    size="32",
+                    sprite_size="24"
+                ) }}
+
+                {{ checkbox("{CraftedToggle}", "32") }}
 
             </Children>
         </ListPanel>
@@ -149,33 +65,66 @@
     HorizontalAlignment="Center" VerticalAlignment="Top">
     <Children>
 
+        {# ------------------------------------------ #}
+        {# Civilian toggle                            #}
+        {# ------------------------------------------ #}
+
         <ButtonWidget
             WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-            HorizontalAlignment="Center" VerticalAlignment="Bottom"
             SuggestedWidth="200" SuggestedHeight="60"
+            HorizontalAlignment="Center" VerticalAlignment="Center"
             Brush="ButtonBrush3"
             Command.Click="ExecuteToggleShowCivilian"
-            UpdateChildrenStates="true" DoNotPassEventsToChildren="true">
+            UpdateChildrenStates="true"
+            DoNotPassEventsToChildren="true">
             <Children>
+
                 <TextWidget
                     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
                     Brush="Popup.Button.Text"
-                    VerticalAlignment="Center" HorizontalAlignment="Center"
-                    Text="@ToggleShowCivilianButtonText"/>
+                    Text="@ToggleShowCivilianButtonText" />
+
             </Children>
         </ButtonWidget>
 
+        {# ------------------------------------------ #}
+        {# Equipment set actions                      #}
+        {# ------------------------------------------ #}
+
         <ListPanel
+            IsVisible="@ShowSetActionButtons"
             MarginTop="4"
-            WidthSizePolicy="CoverChildren"
-            HeightSizePolicy="CoverChildren"
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
             StackLayout.LayoutMethod="HorizontalLeftToRight"
             HorizontalAlignment="Center">
             <Children>
 
-                {{ icon_button("ExecuteDeleteSet", "Inventory.Tuple.Extension.MinusButton", "@CanDeleteSet", "@ShowSetActionButtons") }}
+                {# Paste (left of delete) #}
+                <ButtonWidget
+                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                    SuggestedWidth="36" SuggestedHeight="36"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Brush="Inventory.Tuple.Extension.PlusButton"
+                    IsEnabled="@PasteEquipmentButton.IsEnabled"
+                    Command.Click="ExecutePasteEquipment"
+                    Command.HoverBegin="ExecutePasteHoverBegin"
+                    Command.HoverEnd="ExecutePasteHoverEnd"
+                    UpdateChildrenStates="true"
+                    DoNotPassEventsToChildren="true">
+                    <Children>
+                        <SpriteWidget
+                            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                            SuggestedWidth="24" SuggestedHeight="24"
+                            HorizontalAlignment="Center" VerticalAlignment="Center"
+                            Sprite="General\Icons\add_icon"
+                            Color="@PasteEquipmentIconColor" />
+                    </Children>
+                </ButtonWidget>
 
-                {{ chevron("ExecutePrevSet", "ButtonRightBigArrowBrush1", "@CanSelectPrevSet") }}
+                {{ button_brush("{DeleteSetButton}", "Inventory.Tuple.Extension.MinusButton", "36", "36") }}
+
+                {{ button_chevron_left("{PrevSetButton}", "24", "24") }}
 
                 <TextWidget
                     Text="@EquipmentLabel"
@@ -184,12 +133,107 @@
                     MarginLeft="8" MarginRight="8"
                     HorizontalAlignment="Center" VerticalAlignment="Center" />
 
-                {{ chevron("ExecuteNextSet", "ButtonLeftBigArrowBrush1", "@CanSelectNextSet") }}
+                {{ button_chevron_right("{NextSetButton}", "24", "24") }}
 
-                {{ icon_button("ExecuteCreateSet", "Inventory.Tuple.Extension.PlusButton", "@CanCreateSet", "@ShowSetActionButtons") }}
+                {{ button_brush("{CreateSetButton}", "Inventory.Tuple.Extension.PlusButton", "36", "36") }}
+
+                {# Copy (right of create) #}
+                <ButtonWidget
+                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                    SuggestedWidth="36" SuggestedHeight="36"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Brush="Inventory.Tuple.Extension.PlusButton"
+                    IsEnabled="@CopyEquipmentButton.IsEnabled"
+                    Command.Click="ExecuteCopyEquipment"
+                    Command.HoverBegin="ExecuteCopyHoverBegin"
+                    Command.HoverEnd="ExecuteCopyHoverEnd"
+                    UpdateChildrenStates="true"
+                    DoNotPassEventsToChildren="true">
+                    <Children>
+                        <SpriteWidget
+                            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                            SuggestedWidth="24" SuggestedHeight="24"
+                            HorizontalAlignment="Center" VerticalAlignment="Center"
+                            Sprite="General\Icons\copy_item_icon"
+                            Color="@CopyEquipmentIconColor" />
+                    </Children>
+                </ButtonWidget>
 
             </Children>
         </ListPanel>
+
+        {# ------------------------------------------ #}
+        {# Set Toggles                                #}
+        {# ------------------------------------------ #}
+
+        <ListPanel
+            IsVisible="@ShowBattleTypeToggles"
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            HorizontalAlignment="Center"
+            MarginTop="4"
+            StackLayout.LayoutMethod="HorizontalLeftToRight">
+            <Children>
+
+                {% macro battle_set_toggle(sprite, tooltip, checkbox_datasource, is_visible="true") %}
+                    <ListPanel
+                        IsVisible="{{ is_visible }}"
+                        WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed"
+                        SuggestedHeight="32"
+                        HorizontalAlignment="Center">
+                        <Children>
+
+                            <SpriteWidget
+                                WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                                SuggestedWidth="32" SuggestedHeight="32"
+                                HorizontalAlignment="Center" VerticalAlignment="Center"
+                                Sprite="{{ sprite }}" >
+                                <Children>
+                                    <HintWidget
+                                        DataSource="{{ tooltip }}"
+                                        Command.HoverBegin="ExecuteBeginHint"
+                                        Command.HoverEnd="ExecuteEndHint" />
+                                </Children>
+                            </SpriteWidget>
+
+                            {{ checkbox(checkbox_datasource, "24") }}
+
+                        </Children>
+                    </ListPanel>
+                {% endmacro %}
+
+                {{ battle_set_toggle(
+                    "SPGeneral\MapOverlay\Settlement\icon_garrison_big",
+                    "{FieldBattleTooltip}",
+                    "{FieldBattleToggle}"
+                ) }}
+
+                {{ battle_set_toggle(
+                    "SPGeneral\MapOverlay\Settlement\icon_wall_big",
+                    "{SiegeBattleTooltip}",
+                    "{SiegeBattleToggle}"
+                ) }}
+
+                {{ battle_set_toggle(
+                    "SPGeneral\MapOverlay\Settlement\icon_prosperity_big",
+                    "{NavalBattleTooltip}",
+                    "{NavalBattleToggle}",
+                    is_visible="@ShowNavalBattleToggle"
+                ) }}
+
+            </Children>
+        </ListPanel>
+
+        {# ------------------------------------------ #}
+        {# Preview Mode Text                          #}
+        {# ------------------------------------------ #}
+
+        <TextWidget
+            IsVisible="@ShowPreviewModeText"
+            MarginTop="6"
+            Text="@PreviewModeText"
+            Brush="Clan.Tuple.Name.Text"
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            HorizontalAlignment="Center" VerticalAlignment="Center" />
 
     </Children>
 </ListPanel>

@@ -33,6 +33,7 @@ namespace Retinues.Editor.Events
         Preview,
         Crafted,
         BattleToggle,
+        Clipboard,
     }
 
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

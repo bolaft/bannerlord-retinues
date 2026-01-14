@@ -1,13 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Retinues.Configuration;
 using Retinues.Domain.Equipments.Helpers;
 using Retinues.Domain.Equipments.Models;
+using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Editor.Events;
 using Retinues.Editor.Services.Context;
+using Retinues.Editor.Services.Equipments;
 using Retinues.Modules;
 using Retinues.UI.Services;
+using TaleWorlds.Core;
 using TaleWorlds.Localization;
 
 namespace Retinues.Editor.Controllers.Equipment
@@ -117,6 +119,356 @@ namespace Retinues.Editor.Controllers.Equipment
                 .ExecuteWith(DeleteSetImpl);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                   Equipment Clipboard                  //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private sealed class EquipmentClipboard
+        {
+            public string Code;
+            public bool IsCivilian;
+        }
+
+        private static EquipmentClipboard _clipboard;
+
+        /// <summary>
+        /// Whether the clipboard currently holds a valid equipment code.
+        /// </summary>
+        public static bool HasClipboard =>
+            _clipboard != null && !string.IsNullOrEmpty(_clipboard.Code);
+
+        public static EditorAction<bool> CopyEquipment { get; } =
+            Action<bool>("CopyEquipment")
+                .RequireValidEditingContext()
+                .AddCondition(
+                    _ => State.Equipment != null,
+                    L.T("equipment_copy_no_set_reason", "No equipment set selected.")
+                )
+                .DefaultTooltip(L.T("equipment_copy_tooltip", "Copy equipment to clipboard."))
+                .ExecuteWith(_ => CopyEquipmentImpl())
+                .Fire(UIEvent.Clipboard);
+
+        public static EditorAction<bool> PasteEquipment { get; } =
+            Action<bool>("PasteEquipment")
+                .RequireValidEditingContext()
+                .AddCondition(
+                    _ => State.Equipment != null,
+                    L.T("equipment_paste_no_set_reason", "No equipment set selected.")
+                )
+                .AddCondition(
+                    _ => HasClipboard,
+                    L.T("equipment_paste_empty_clipboard_reason", "Clipboard is empty.")
+                )
+                .DefaultTooltip(L.T("equipment_paste_tooltip", "Paste equipment from clipboard."))
+                .ExecuteWith(_ => PasteEquipmentImpl())
+                .Fire(UIEvent.Clipboard);
+
+        private static EquipContext Ctx() =>
+            new(State.Mode, PreviewController.Enabled, State.Character, State.Equipment);
+
+        private static string BuildEquipmentCode(MEquipment source)
+        {
+            if (source == null)
+                return null;
+
+            if (!PreviewController.Enabled)
+                return source.Code;
+
+#if BL13
+            var e = new TaleWorlds.Core.Equipment(TaleWorlds.Core.Equipment.EquipmentType.Battle);
+#else
+            var e = new TaleWorlds.Core.Equipment(false);
+#endif
+
+            int slotCount = (int)EquipmentIndex.NumEquipmentSetSlots;
+            for (int i = 0; i < slotCount; i++)
+            {
+                var idx = (EquipmentIndex)i;
+                var item = PreviewController.GetItem(idx);
+                e[idx] = item == null ? EquipmentElement.Invalid : new EquipmentElement(item.Base);
+            }
+
+            return e.CalculateEquipmentCode();
+        }
+
+        private static IEnumerable<(EquipmentIndex Slot, WItem Item)> DecodeEquipmentChanges(
+            string code
+        )
+        {
+            if (string.IsNullOrEmpty(code))
+                yield break;
+
+            var src = TaleWorlds.Core.Equipment.CreateFromEquipmentCode(code);
+            if (src == null)
+                yield break;
+
+            int slotCount = (int)EquipmentIndex.NumEquipmentSetSlots;
+
+            for (int i = 0; i < slotCount; i++)
+            {
+                var idx = (EquipmentIndex)i;
+                var baseItem = src[idx].Item;
+                var it = baseItem == null ? null : WItem.Get(baseItem);
+
+                yield return (idx, it);
+
+                // If the source clears horse, also clear harness explicitly (matches Unequip behavior).
+                if (idx == EquipmentIndex.Horse && it == null)
+                    yield return (EquipmentIndex.HorseHarness, null);
+            }
+        }
+
+        private static void FillArraysFromPlan(
+            Func<EquipmentIndex, WItem> getCurrent,
+            EquipPlan plan,
+            out WItem[] before,
+            out WItem[] after
+        )
+        {
+            int slotCount = (int)EquipmentIndex.NumEquipmentSetSlots;
+
+            before = new WItem[slotCount];
+            after = new WItem[slotCount];
+
+            for (int i = 0; i < slotCount; i++)
+            {
+                var idx = (EquipmentIndex)i;
+                var it = getCurrent(idx);
+                before[i] = it;
+                after[i] = it;
+            }
+
+            if (plan == null)
+                return;
+
+            foreach (var kv in plan.Changes)
+            {
+                int ii = (int)kv.Key;
+                if (ii < 0 || ii >= slotCount)
+                    continue;
+
+                after[ii] = kv.Value;
+            }
+        }
+
+        private static string BuildSkippedBreakdownText(EquipPlan plan)
+        {
+            if (plan == null || plan.SkippedOps <= 0)
+                return string.Empty;
+
+            List<string> lines = [];
+
+            int locked = plan.SkippedOf(EquipSkipReason.Locked);
+            int skill = plan.SkippedOf(EquipSkipReason.Skill);
+            int tier = plan.SkippedOf(EquipSkipReason.Tier);
+            int limits = plan.SkippedOf(EquipSkipReason.Limits);
+
+            int other =
+                plan.SkippedOps
+                - locked
+                - skill
+                - tier
+                - limits
+                - plan.SkippedOf(EquipSkipReason.CivilianMismatch)
+                - plan.SkippedOf(EquipSkipReason.Incompatible);
+
+            int civilian = plan.SkippedOf(EquipSkipReason.CivilianMismatch);
+            int incompatible = plan.SkippedOf(EquipSkipReason.Incompatible);
+
+            if (locked > 0)
+                lines.Add($"- Locked: {locked}");
+            if (skill > 0)
+                lines.Add($"- Skill: {skill}");
+            if (tier > 0)
+                lines.Add($"- Tier: {tier}");
+            if (limits > 0)
+                lines.Add($"- Limits: {limits}");
+            if (civilian > 0)
+                lines.Add($"- Civilian: {civilian}");
+            if (incompatible > 0)
+                lines.Add($"- Incompatible: {incompatible}");
+            if (other > 0)
+                lines.Add($"- Other: {other}");
+
+            if (lines.Count == 0)
+                return string.Empty;
+
+            return "\n\nSkipped breakdown:\n" + string.Join("\n", lines);
+        }
+
+        private static void CopyEquipmentImpl()
+        {
+            var e = State.Equipment;
+            if (e == null)
+                return;
+
+            _clipboard = new EquipmentClipboard
+            {
+                Code = BuildEquipmentCode(e),
+                IsCivilian = e.IsCivilian,
+            };
+
+            Notifications.Message(L.S("equipment_copied_toast", "Copied!"));
+
+            EventManager.Fire(UIEvent.Clipboard);
+        }
+
+        private static void ApplyPlan(EquipPlan plan)
+        {
+            if (plan == null)
+                return;
+
+            if (PreviewController.Enabled)
+            {
+                foreach (var kv in plan.Changes)
+                    PreviewController.SetItem(kv.Key, kv.Value);
+
+                return;
+            }
+
+            foreach (var kv in plan.Changes)
+                State.Equipment.Set(kv.Key, kv.Value);
+        }
+
+        private static void PasteEquipmentImpl()
+        {
+            if (State.Equipment == null)
+                return;
+
+            if (!HasClipboard)
+                return;
+
+            var equipmentRef = State.Equipment.Base;
+
+            var ctx = Ctx();
+
+            Func<EquipmentIndex, WItem> getCurrent = PreviewController.Enabled
+                ? PreviewController.GetItem
+                : State.Equipment.Get;
+
+            var changes = DecodeEquipmentChanges(_clipboard.Code);
+            var plan = EquipPlanner.BuildPlan(ctx, getCurrent, changes);
+            if (plan == null)
+                return;
+
+            FillArraysFromPlan(getCurrent, plan, out var before, out var after);
+            EquipEconomy.ComputeBatchEconomy(ctx, State.Equipment, before, after, plan);
+
+            if (plan.EquipOps == 0 && plan.UnequipOps == 0)
+            {
+                Inquiries.Popup(
+                    title: L.T("equipment_paste_nothing_title", "Paste Equipment"),
+                    description: L.T(
+                        "equipment_paste_nothing_desc",
+                        "No changes can be applied from the clipboard."
+                    )
+                );
+                return;
+            }
+
+            string skippedBreakdown = BuildSkippedBreakdownText(plan);
+
+            string costLine =
+                ctx.EconomyEnabled && plan.TotalCost > 0
+                    ? "\n\nCost: " + plan.TotalCost + " denars"
+                    : string.Empty;
+
+            string stockLine =
+                ctx.EconomyEnabled && plan.StockUseTotal > 0
+                    ? "\nFrom stock: " + plan.StockUseTotal
+                    : string.Empty;
+
+            var desc = L.T(
+                    "equipment_paste_confirm_desc",
+                    "Apply clipboard equipment to {UNIT_NAME}.\n\nEquipped: {EQUIP}\nUnequipped: {UNEQUIP}\nSkipped: {SKIP}{BREAKDOWN}{COST_LINE}{STOCK_LINE}"
+                )
+                .SetTextVariable("UNIT_NAME", State.Character?.Name?.ToString() ?? string.Empty)
+                .SetTextVariable("EQUIP", plan.EquipOps)
+                .SetTextVariable("UNEQUIP", plan.UnequipOps)
+                .SetTextVariable("SKIP", plan.SkippedOps)
+                .SetTextVariable("BREAKDOWN", skippedBreakdown)
+                .SetTextVariable("COST_LINE", costLine)
+                .SetTextVariable("STOCK_LINE", stockLine);
+
+            static void NotEnoughGoldPopup(int required)
+            {
+                Inquiries.Popup(
+                    title: L.T("cant_afford_title", "Not Enough Money"),
+                    description: L.T(
+                            "cant_afford_desc_simple",
+                            "You need {COST} denars, but you only have {GOLD}."
+                        )
+                        .SetTextVariable("COST", required)
+                        .SetTextVariable("GOLD", Game.Player.Gold)
+                );
+            }
+
+            Inquiries.Popup(
+                title: L.T("equipment_paste_confirm_title", "Paste Equipment"),
+                description: desc,
+                onConfirm: () =>
+                {
+                    if (
+                        State.Equipment == null
+                        || !ReferenceEquals(State.Equipment.Base, equipmentRef)
+                    )
+                        return;
+
+                    var liveCtx = Ctx();
+
+                    Func<EquipmentIndex, WItem> liveGetCurrent = PreviewController.Enabled
+                        ? PreviewController.GetItem
+                        : State.Equipment.Get;
+
+                    var livePlan = EquipPlanner.BuildPlan(
+                        liveCtx,
+                        liveGetCurrent,
+                        DecodeEquipmentChanges(_clipboard.Code)
+                    );
+
+                    if (livePlan == null)
+                        return;
+
+                    FillArraysFromPlan(
+                        liveGetCurrent,
+                        livePlan,
+                        out var liveBefore,
+                        out var liveAfter
+                    );
+                    EquipEconomy.ComputeBatchEconomy(
+                        liveCtx,
+                        State.Equipment,
+                        liveBefore,
+                        liveAfter,
+                        livePlan
+                    );
+
+                    if (livePlan.EquipOps == 0 && livePlan.UnequipOps == 0)
+                        return;
+
+                    if (liveCtx.EconomyEnabled && Game.Player.Gold < livePlan.TotalCost)
+                    {
+                        NotEnoughGoldPopup(livePlan.TotalCost);
+                        return;
+                    }
+
+                    bool ok = EquipApplier.Apply(liveCtx, livePlan, () => ApplyPlan(livePlan));
+                    if (!ok)
+                    {
+                        if (liveCtx.EconomyEnabled)
+                            NotEnoughGoldPopup(livePlan.TotalCost);
+                        return;
+                    }
+
+                    EventManager.FireBatch(() =>
+                    {
+                        EventManager.Fire(UIEvent.Item);
+                        EventManager.Fire(UIEvent.Equipment);
+                    });
+                }
+            );
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Crafted Items                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
@@ -145,9 +497,6 @@ namespace Retinues.Editor.Controllers.Equipment
             Naval,
         }
 
-        /// <summary>
-        /// Enumerates the battle types required by the UI (field, siege and optionally naval).
-        /// </summary>
         private static IEnumerable<BattleType> RequiredBattleTypes()
         {
             yield return BattleType.Field;
@@ -157,9 +506,6 @@ namespace Retinues.Editor.Controllers.Equipment
                 yield return BattleType.Naval;
         }
 
-        /// <summary>
-        /// Get the current value for the given battle type flag on the equipment.
-        /// </summary>
         private static bool GetBattleTypeValue(MEquipment e, BattleType type)
         {
             if (e == null)
@@ -174,9 +520,6 @@ namespace Retinues.Editor.Controllers.Equipment
             };
         }
 
-        /// <summary>
-        /// Set the battle type flag on the equipment.
-        /// </summary>
         private static void SetBattleTypeValue(MEquipment e, BattleType type, bool value)
         {
             if (e == null)
@@ -196,9 +539,6 @@ namespace Retinues.Editor.Controllers.Equipment
             }
         }
 
-        /// <summary>
-        /// Returns a TextObject explaining why disabling the given battle type is not allowed.
-        /// </summary>
         private static TextObject GetDisableReason(BattleType type)
         {
             return type switch
@@ -222,9 +562,6 @@ namespace Retinues.Editor.Controllers.Equipment
             };
         }
 
-        /// <summary>
-        /// Determine whether coverage for the battle type remains satisfied after changing one equipment's value.
-        /// </summary>
         private static bool CoverageSatisfiedAfterChange(
             List<MEquipment> battleEquipments,
             MEquipment changing,
@@ -258,9 +595,6 @@ namespace Retinues.Editor.Controllers.Equipment
             return false;
         }
 
-        /// <summary>
-        /// Returns true if the given equipment can have the specified battle type disabled.
-        /// </summary>
         private static bool CanDisableBattleType(MEquipment equipment, BattleType type)
         {
             if (equipment == null || equipment.IsCivilian)
@@ -273,9 +607,6 @@ namespace Retinues.Editor.Controllers.Equipment
             return CoverageSatisfiedAfterChange(battle, equipment, type, newValue: false);
         }
 
-        /// <summary>
-        /// Get the disable reason for field battles, or null if disabling is allowed.
-        /// </summary>
         public static TextObject GetFieldBattleDisableReason()
         {
             var e = State.Equipment;
@@ -290,9 +621,6 @@ namespace Retinues.Editor.Controllers.Equipment
                 : GetDisableReason(BattleType.Field);
         }
 
-        /// <summary>
-        /// Get the disable reason for siege battles, or null if disabling is allowed.
-        /// </summary>
         public static TextObject GetSiegeBattleDisableReason()
         {
             var e = State.Equipment;
@@ -307,9 +635,6 @@ namespace Retinues.Editor.Controllers.Equipment
                 : GetDisableReason(BattleType.Siege);
         }
 
-        /// <summary>
-        /// Get the disable reason for naval battles, or null if disabling is allowed.
-        /// </summary>
         public static TextObject GetNavalBattleDisableReason()
         {
             if (!Mods.NavalDLC.IsLoaded)
@@ -327,9 +652,6 @@ namespace Retinues.Editor.Controllers.Equipment
                 : GetDisableReason(BattleType.Naval);
         }
 
-        /// <summary>
-        /// Determine if deleting the given battle equipment would leave required battle type coverage intact.
-        /// </summary>
         public static bool CanDeleteBattleEquipment(MEquipment equipment)
         {
             if (equipment == null || equipment.IsCivilian)
@@ -570,9 +892,9 @@ namespace Retinues.Editor.Controllers.Equipment
                     .SetTextVariable("UNIT_NAME", character.Name.ToString()),
                 onConfirm: () =>
                 {
-                    var character = State.Character;
-                    var created = MEquipment.Create(character, civilian: civilian);
-                    character.EquipmentRoster.Add(created);
+                    var c = State.Character;
+                    var created = MEquipment.Create(c, civilian: civilian);
+                    c.EquipmentRoster.Add(created);
                     var refreshed = GetEquipments(civilian).FirstOrDefault();
                     applySelection(refreshed ?? created);
                 }
@@ -612,23 +934,17 @@ namespace Retinues.Editor.Controllers.Equipment
                 ),
                 onConfirm: () =>
                 {
-                    // Economy is only active in player mode, when the setting is enabled, and preview is off.
-                    bool economyActive =
-                        State.Mode == EditorMode.Player
-                        && Settings.EquipmentCostsMoney
-                        && !PreviewController.Enabled;
+                    var ctx = Ctx();
 
-                    if (!economyActive)
+                    if (!ctx.EconomyEnabled)
                     {
                         State.Character.EquipmentRoster.Remove(State.Equipment);
                         State.Equipment = GetEquipments(civilian).FirstOrDefault();
                         return;
                     }
 
-                    var roster = State.Character?.EquipmentRoster;
-
                     StocksHelper.TrackRosterStock(
-                        roster,
+                        State.Character?.EquipmentRoster,
                         () =>
                         {
                             State.Character.EquipmentRoster.Remove(State.Equipment);

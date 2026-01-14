@@ -134,6 +134,36 @@ namespace Retinues.Editor.VM.Column.Equipment
             );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                   Copy / Paste Buttons                 //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private const string HoveredColor = "#fdae1ae8";
+        private const string EnabledColor = "#f8d28ab4";
+        private const string DisabledColor = "#46433db4";
+
+        [DataSourceProperty]
+        public Button<bool> CopyEquipmentButton { get; } =
+            new(
+                action: EquipmentController.CopyEquipment,
+                arg: () => false,
+                refresh: [UIEvent.Equipment],
+                sprite: "General\\Icons\\copy_item_icon",
+                colorFactory: () => EnabledColor,
+                hoverColor: HoveredColor
+            );
+
+        [DataSourceProperty]
+        public Button<bool> PasteEquipmentButton { get; } =
+            new(
+                action: EquipmentController.PasteEquipment,
+                arg: () => false,
+                refresh: [UIEvent.Equipment, UIEvent.Item, UIEvent.Clipboard],
+                sprite: "General\\Icons\\add_icon",
+                colorFactory: () => EquipmentController.HasClipboard ? EnabledColor : DisabledColor,
+                hoverColor: HoveredColor
+            );
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Battle Types                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
@@ -151,7 +181,6 @@ namespace Retinues.Editor.VM.Column.Equipment
             && State.Equipment != null
             && State.Equipment.IsCivilian == false;
 
-        // Sprite tooltips (not action tooltips)
         [DataSourceProperty]
         public Tooltip FieldBattleTooltip =>
             new(L.T("battle_type_field_tooltip", "Field battles."));
@@ -164,7 +193,6 @@ namespace Retinues.Editor.VM.Column.Equipment
         public Tooltip NavalBattleTooltip =>
             new(L.T("battle_type_naval_tooltip", "Naval battles."));
 
-        // Checkbox VMs (tooltips + enabled reasons come from controller EditorActions)
         [DataSourceProperty]
         public Checkbox FieldBattleToggle { get; } =
             new(
