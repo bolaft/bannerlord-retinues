@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using Retinues.Configuration;
 using Retinues.Domain.Characters.Helpers;
+using Retinues.Domain.Characters.Services.Skills;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Editor.Controllers.Character;
 using Retinues.Editor.Events;
@@ -142,7 +143,7 @@ namespace Retinues.Editor.VM.Panel.Character
         [EventListener(UIEvent.Skill)]
         [DataSourceProperty]
         public string SkillTotalText =>
-            $"{State.Character.SkillTotalUsed} / {State.Character.SkillTotalMaxForTier}";
+            $"{State.Character.SkillTotalUsed} / {State.Character.SkillTotal}";
 
         [EventListener(UIEvent.Skill)]
         [DataSourceProperty]
@@ -153,11 +154,11 @@ namespace Retinues.Editor.VM.Panel.Character
                         "Skill Points: {SKILL_POINTS} - Skill Cap: {SKILL_CAP} - Tier: {TIER}"
                     )
                     .SetTextVariable("SKILL_POINTS", State.Character.SkillPoints)
-                    .SetTextVariable("SKILL_CAP", State.Character.SkillCapForTier)
+                    .SetTextVariable("SKILL_CAP", SkillRules.GetSkillCap(State.Character))
                     .SetTextVariable("TIER", Format.ToRoman(State.Character.Tier))
                     .ToString()
                 : L.T("skill_description_text_short", "Skill Cap: {SKILL_CAP} - Tier: {TIER}")
-                    .SetTextVariable("SKILL_CAP", State.Character.SkillCapForTier)
+                    .SetTextVariable("SKILL_CAP", SkillRules.GetSkillCap(State.Character))
                     .SetTextVariable("TIER", Format.ToRoman(State.Character.Tier))
                     .ToString();
 
@@ -241,10 +242,8 @@ namespace Retinues.Editor.VM.Panel.Character
         [EventListener(UIEvent.Character)]
         public void RefreshSkillsGrid()
         {
-            var skills = SkillsHelper.GetSkillList(State.Character) ?? [];
-            var list = skills.Where(s => s != null).Distinct().ToList();
-
-            SkillsCount = list.Count;
+            var skills = State.Character.Skills;
+            SkillsCount = skills.Count();
 
             var layout = SkillsGridLayout.ForCount(SkillsCount);
             SkillsGridRows = layout.Rows;
@@ -258,11 +257,15 @@ namespace Retinues.Editor.VM.Panel.Character
             SkillsRow5.Clear();
             SkillsRow6.Clear();
 
+            int i = 0;
+
             // Fill
-            for (int i = 0; i < list.Count; i++)
+            foreach (var (skill, value) in skills)
             {
                 var r = i / layout.Columns;
-                var vm = new CharacterSkillVM(list[i]);
+                var vm = new CharacterSkillVM(skill);
+
+                i++;
 
                 switch (r)
                 {

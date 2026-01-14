@@ -17,7 +17,7 @@ namespace Retinues.Domain.Characters.Wrappers
         private const string ConversionCacheGroupKey = "retinues.wcharacter.conversions";
 
         // Shared cache: sources and targets are computed together.
-        private readonly Cache<WCharacter, List<WCharacter>> ConversionCache = new(
+        public readonly Cache<WCharacter, List<WCharacter>> ConversionCache = new(
             BuildConversionLinks,
             key: ConversionCacheGroupKey
         );

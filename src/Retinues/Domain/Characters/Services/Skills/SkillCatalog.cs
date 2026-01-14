@@ -1,78 +1,16 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Retinues.Configuration;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Framework.Runtime;
 using Retinues.Modules;
 using TaleWorlds.Core;
 using TaleWorlds.ObjectSystem;
 
-namespace Retinues.Domain.Characters.Helpers
+namespace Retinues.Domain.Characters.Services.Skills
 {
-    public static class SkillsHelper
+    public static class SkillCatalog
     {
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                          Caps                          //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        /// <summary>
-        /// Clamps the given tier to valid range.
-        /// </summary>
-        static int ClampTier(int tier) =>
-            Math.Max(0, Math.Min(Mods.T7TroopUnlocker.IsLoaded ? 7 : 6, tier));
-
-        /// <summary>
-        /// Gets the skill cap for the given wrapped character.
-        /// </summary>
-        public static int GetSkillCap(WCharacter wc)
-        {
-            var tier = ClampTier(wc.Tier);
-            var cap = tier switch
-            {
-                0 => Settings.SkillCapT0,
-                1 => Settings.SkillCapT1,
-                2 => Settings.SkillCapT2,
-                3 => Settings.SkillCapT3,
-                4 => Settings.SkillCapT4,
-                5 => Settings.SkillCapT5,
-                6 => Settings.SkillCapT6,
-                7 => Settings.SkillCapT7,
-                _ => Settings.SkillCapT7,
-            };
-
-            // Add bonus if enabled
-            var bonus = wc.IsRetinue ? Settings.RetinueSkillCapBonus : 0;
-
-            return cap + bonus;
-        }
-
-        /// <summary>
-        /// Gets the skill total for the given wrapped character.
-        /// </summary>
-        public static int GetSkillTotal(WCharacter wc)
-        {
-            var tier = ClampTier(wc.Tier);
-            var total = tier switch
-            {
-                0 => Settings.SkillTotalT0,
-                1 => Settings.SkillTotalT1,
-                2 => Settings.SkillTotalT2,
-                3 => Settings.SkillTotalT3,
-                4 => Settings.SkillTotalT4,
-                5 => Settings.SkillTotalT5,
-                6 => Settings.SkillTotalT6,
-                7 => Settings.SkillTotalT7,
-                _ => Settings.SkillTotalT7,
-            };
-
-            // Add bonus if enabled
-            var bonus = wc.IsRetinue ? Settings.RetinueSkillTotalBonus : 0;
-
-            return total + bonus;
-        }
-
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Options                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -90,15 +28,9 @@ namespace Retinues.Domain.Characters.Helpers
             public readonly bool IncludeDlc = includeDlc;
             public readonly bool IncludeModded = includeModded;
 
-            /// <summary>
-            /// Creates options for the given character.
-            /// </summary>
             public static SkillListOptions ForCharacter() =>
                 new(includeHeroOnly: false, includeDlc: false, includeModded: true);
 
-            /// <summary>
-            /// Creates options for hero characters.
-            /// </summary>
             public static SkillListOptions ForHero() =>
                 new(includeHeroOnly: true, includeDlc: true, includeModded: true);
         }
@@ -148,9 +80,6 @@ namespace Retinues.Domain.Characters.Helpers
             _allSkills = null;
         }
 
-        /// <summary>
-        /// Default skill IDs known to the game.
-        /// </summary>
         static HashSet<string> _defaultSkillIds;
         static HashSet<string> DefaultSkillIds =>
             _defaultSkillIds ??= [
@@ -162,9 +91,6 @@ namespace Retinues.Domain.Characters.Helpers
                     .Select(s => s.StringId),
             ];
 
-        /// <summary>
-        /// All skills known to the object manager.
-        /// </summary>
         static List<SkillObject> _allSkills;
         static List<SkillObject> AllSkills =>
             _allSkills ??= [
@@ -172,10 +98,7 @@ namespace Retinues.Domain.Characters.Helpers
                     ?? [],
             ];
 
-        /// <summary>
-        /// Gets the skill list based on the given options.
-        /// </summary>
-        private static List<SkillObject> GetSkillList(SkillListOptions options)
+        static List<SkillObject> GetSkillList(SkillListOptions options)
         {
             var all = AllSkills;
             if (all == null || all.Count == 0)
@@ -193,14 +116,14 @@ namespace Retinues.Domain.Characters.Helpers
             IEnumerable<SkillObject> filteredKnown = known;
             IEnumerable<SkillObject> filteredModded = modded;
 
-            // Hero-only gating (apply to both buckets)
+            // Hero-only gating
             if (!options.IncludeHeroOnly)
             {
                 filteredKnown = filteredKnown.Where(s => !IsHeroOnlyId(s.StringId));
                 filteredModded = filteredModded.Where(s => !IsHeroOnlyId(s.StringId));
             }
 
-            // DLC gating (apply to both buckets)
+            // DLC gating
             if (!options.IncludeDlc || !navalLoaded)
             {
                 filteredKnown = filteredKnown.Where(s => !IsDlcId(s.StringId));
@@ -227,18 +150,31 @@ namespace Retinues.Domain.Characters.Helpers
         //                         Public                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        /// <summary>
-        /// Gets the skill list for the given character.
-        /// </summary>
-        public static List<SkillObject> GetSkillList(WCharacter character) =>
-            character.IsHero
+        public static List<SkillObject> GetSkills(WCharacter character) =>
+            character != null && character.IsHero
                 ? GetSkillList(SkillListOptions.ForHero())
                 : GetSkillList(SkillListOptions.ForCharacter());
 
-        /// <summary>
-        /// Gets the skill list for the given hero.
-        /// </summary>
-        public static List<SkillObject> GetSkillList(WHero _) =>
+        public static List<SkillObject> GetSkills(WHero _) =>
             GetSkillList(SkillListOptions.ForHero());
+
+        public static bool IsValidFor(WCharacter character, SkillObject skill)
+        {
+            if (character == null || skill == null || string.IsNullOrEmpty(skill.StringId))
+                return false;
+
+            // Keep this cheap: use the list we already compute and keep deterministic behavior.
+            var list = GetSkills(character);
+            if (list == null || list.Count == 0)
+                return false;
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (list[i] == skill)
+                    return true;
+            }
+
+            return false;
+        }
     }
 }

@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Retinues.Domain.Characters.Helpers;
+using System.Linq;
 using Retinues.Domain.Characters.Wrappers;
 using TaleWorlds.Core;
 
@@ -28,33 +28,22 @@ namespace Retinues.Game.Troops
             if (wc.IsHero)
                 return;
 
-            var cap = wc.SkillCapForTier;
-            var totalMax = wc.SkillTotalMaxForTier;
+            var cap = wc.SkillCap;
+            var totalMax = wc.SkillTotal;
 
             if (cap <= 0 || totalMax <= 0)
                 return;
 
-            var skills = SkillsHelper.GetSkillList(wc);
-
-            if (skills == null || skills.Count == 0)
-                return;
-
-            var values = new List<(SkillObject skill, int value)>(skills.Count);
+            var values = new List<(SkillObject skill, int value)>();
             int total = 0;
 
-            for (int i = 0; i < skills.Count; i++)
+            foreach (var (s, v) in wc.Skills)
             {
-                var s = skills[i];
-                if (s == null)
-                    continue;
-
-                int v = wc.Base.GetSkillValue(s);
-
                 if (v < 0)
-                    v = 0;
+                    wc.Skills.Set(s, 0);
 
                 if (v > cap)
-                    v = cap;
+                    wc.Skills.Set(s, cap);
 
                 values.Add((s, v));
                 total += v;
@@ -125,12 +114,8 @@ namespace Retinues.Game.Troops
                 remaining--;
             }
 
-            for (int i = 0; i < skills.Count; i++)
+            foreach (var s in values.Select(v => v.skill))
             {
-                var s = skills[i];
-                if (s == null || string.IsNullOrEmpty(s.StringId))
-                    continue;
-
                 if (final.TryGetValue(s.StringId, out var v))
                     wc.Skills.Set(s, v);
             }

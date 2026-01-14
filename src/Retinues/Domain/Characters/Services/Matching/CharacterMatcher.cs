@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Retinues.Domain.Characters.Helpers;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Factions;
@@ -323,32 +324,20 @@ namespace Retinues.Domain.Characters.Services.Matching
             if (troop == null || candidates == null || candidates.Count <= 1)
                 return;
 
-            var skills = SkillsHelper.GetSkillList(troop);
+            var skills = troop.Skills.ToList();
             if (skills == null || skills.Count == 0)
                 return;
 
-            var target = new int[skills.Count];
-            for (int i = 0; i < skills.Count; i++)
-                target[i] = troop.Skills.Get(skills[i]);
+            var target = skills.Select(s => troop.Skills.Get(s.Skill)).ToArray();
 
-            int best = int.MaxValue;
-            var scores = new int[candidates.Count];
+            // Compute the sum of absolute differences for each candidate
+            var scores = candidates
+                .Select(c =>
+                    skills.Select((s, i) => Math.Abs(c.Skills.Get(s.Skill) - target[i])).Sum()
+                )
+                .ToList();
 
-            for (int i = 0; i < candidates.Count; i++)
-            {
-                var c = candidates[i];
-
-                int sum = 0;
-                for (int s = 0; s < skills.Count; s++)
-                {
-                    var v = c.Skills.Get(skills[s]);
-                    sum += Math.Abs(v - target[s]);
-                }
-
-                scores[i] = sum;
-                if (sum < best)
-                    best = sum;
-            }
+            int best = scores.Min();
 
             for (int i = candidates.Count - 1; i >= 0; i--)
             {

@@ -177,21 +177,13 @@ namespace Retinues.Domain.Characters.Wrappers
         {
             var skills = new XElement("skills");
 
-            // Use helper list so this includes modded skills too.
-            foreach (var skill in Helpers.SkillsHelper.GetSkillList(this))
+            foreach (var (skill, value) in Skills)
             {
-                if (skill == null)
-                    continue;
-
-                var v = Skills.Get(skill);
-                if (v <= 0)
-                    continue;
-
                 skills.Add(
                     new XElement(
                         "skill",
                         new XAttribute("id", skill.StringId),
-                        new XAttribute("value", v)
+                        new XAttribute("value", value)
                     )
                 );
             }

@@ -1,0 +1,84 @@
+using System;
+using Retinues.Configuration;
+using Retinues.Domain.Characters.Wrappers;
+using Retinues.Modules;
+
+namespace Retinues.Domain.Characters.Services.Skills
+{
+    public static class SkillRules
+    {
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Consts                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public const int MaxSkillLevel = 360;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Caps                          //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Clamps the given tier to valid range.
+        /// </summary>
+        static int ClampTier(int tier) =>
+            Math.Max(0, Math.Min(Mods.T7TroopUnlocker.IsLoaded ? 7 : 6, tier));
+
+        /// <summary>
+        /// Gets the skill cap for the given wrapped character.
+        /// </summary>
+        public static int GetSkillCap(WCharacter wc)
+        {
+            if (wc == null)
+                return 0;
+
+            if (wc.IsHero)
+                return MaxSkillLevel;
+
+            var tier = ClampTier(wc.Tier);
+            var cap = tier switch
+            {
+                0 => Settings.SkillCapT0,
+                1 => Settings.SkillCapT1,
+                2 => Settings.SkillCapT2,
+                3 => Settings.SkillCapT3,
+                4 => Settings.SkillCapT4,
+                5 => Settings.SkillCapT5,
+                6 => Settings.SkillCapT6,
+                7 => Settings.SkillCapT7,
+                _ => Settings.SkillCapT7,
+            };
+
+            var bonus = wc.IsRetinue ? Settings.RetinueSkillCapBonus : 0;
+            return cap + bonus;
+        }
+
+        /// <summary>
+        /// Gets the skill total for the given wrapped character.
+        /// </summary>
+        public static int GetSkillTotal(WCharacter wc)
+        {
+            if (wc == null)
+                return 0;
+
+            if (wc.IsHero)
+                return int.MaxValue;
+
+            var tier = ClampTier(wc.Tier);
+            var total = tier switch
+            {
+                0 => Settings.SkillTotalT0,
+                1 => Settings.SkillTotalT1,
+                2 => Settings.SkillTotalT2,
+                3 => Settings.SkillTotalT3,
+                4 => Settings.SkillTotalT4,
+                5 => Settings.SkillTotalT5,
+                6 => Settings.SkillTotalT6,
+                7 => Settings.SkillTotalT7,
+                _ => Settings.SkillTotalT7,
+            };
+
+            var bonus = wc.IsRetinue ? Settings.RetinueSkillTotalBonus : 0;
+            return total + bonus;
+        }
+    }
+}

@@ -512,7 +512,7 @@ namespace Retinues.Editor.Controllers.Character
                     L.T("rank_up_max_tier", "This unit is already at max tier.")
                 )
                 .AddCondition(
-                    c => c != null && c.SkillTotalUsed >= c.SkillTotalMaxForTier,
+                    c => c != null && c.SkillTotalUsed >= c.SkillTotal,
                     L.T(
                         "rank_up_requires_maxed_skills",
                         "This unit must have maxed its total skills for its tier."

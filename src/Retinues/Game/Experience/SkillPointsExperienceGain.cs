@@ -1,8 +1,10 @@
+using System.Collections.Generic;
 using Retinues.Configuration;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.UI.Services;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Party;
+using TaleWorlds.Library;
 
 namespace Retinues.Game.Experience
 {
@@ -158,6 +160,31 @@ namespace Retinues.Game.Experience
                     int n = troop.Level + 4;
                     return (int)(1.333f * n * n);
             }
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Cheats                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [CommandLineFunctionality.CommandLineArgumentFunction("add_skill_points", "retinues")]
+        public static string AddSkillPointsCommand(List<string> args)
+        {
+            if (args.Count < 2)
+                return "Usage: add_skill_points <troop_id> <amount>";
+
+            var troopId = args[0];
+            var retinueName = string.Join(" ", args.GetRange(1, args.Count - 1));
+
+            var troop = WCharacter.Get(troopId);
+            if (troop == null)
+                return $"Error: Troop with id '{troopId}' not found.";
+
+            if (!int.TryParse(retinueName, out var amount))
+                return $"Error: Invalid amount '{retinueName}'.";
+
+            troop.SkillPoints += amount;
+
+            return $"Added {amount} skill points to troop '{troop.Name}' ({troopId}).";
         }
     }
 }

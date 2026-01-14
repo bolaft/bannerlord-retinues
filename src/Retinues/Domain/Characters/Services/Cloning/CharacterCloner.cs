@@ -79,14 +79,8 @@ namespace Retinues.Domain.Characters.Services.Cloning
             // Detach skills container, then apply skill values
             DetachSkillsContainer(stub);
 
-            foreach (var skill in SkillsHelper.GetSkillList((WCharacter)stub))
-            {
-                if (skill == null)
-                    continue;
-
-                var value = skills ? source.Skills.Get(skill) : 0;
+            foreach (var (skill, value) in stub.Skills)
                 stub.Skills.Set(skill, value);
-            }
 
             // Equipment: coarse toggle only (policy handled by callers)
             if (equipments)
