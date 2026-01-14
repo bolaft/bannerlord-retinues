@@ -10,11 +10,18 @@ namespace Retinues.Domain.Parties.Wrappers
 {
     public class WParty(MobileParty @base) : WBase<WParty, MobileParty>(@base)
     {
-        static WParty()
-        {
-            RegisterResolver(ResolveMobileParty);
-        }
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Resolver                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Static constructor to register the resolver.
+        /// </summary>
+        static WParty() => RegisterResolver(ResolveMobileParty);
+
+        /// <summary>
+        /// Resolves a MobileParty by its string ID.
+        /// </summary>
         static MobileParty ResolveMobileParty(string id)
         {
             if (string.IsNullOrEmpty(id))

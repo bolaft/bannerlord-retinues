@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Retinues.Framework.Model.Attributes;
 using Retinues.Framework.Runtime;
 using TaleWorlds.ObjectSystem;
 

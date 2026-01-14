@@ -18,11 +18,18 @@ namespace Retinues.Domain.Characters.Wrappers
     /// </summary>
     public class WHero(Hero @base) : WBase<WHero, Hero>(@base), ICharacterData
     {
-        static WHero()
-        {
-            RegisterResolver(ResolveHero);
-        }
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Resolver                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Static constructor to register the resolver.
+        /// </summary>
+        static WHero() => RegisterResolver(ResolveHero);
+
+        /// <summary>
+        /// Resolves a Hero by its string ID.
+        /// </summary>
         static Hero ResolveHero(string id)
         {
             if (string.IsNullOrEmpty(id))
@@ -31,15 +38,6 @@ namespace Retinues.Domain.Characters.Wrappers
             var campaign = Campaign.Current;
             if (campaign == null)
                 return null;
-
-            // Fast path: main hero
-            try
-            {
-                var mh = Hero.MainHero;
-                if (mh != null && mh.StringId == id)
-                    return mh;
-            }
-            catch { }
 
             var alive = campaign.AliveHeroes;
             if (alive != null)
