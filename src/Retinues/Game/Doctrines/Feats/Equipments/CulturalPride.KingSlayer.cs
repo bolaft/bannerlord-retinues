@@ -20,14 +20,18 @@ namespace Retinues.Game.Doctrines.Feats.Equipments
             if (end.IsLost)
                 return; // Player lost the battle.
 
-            foreach (var party in start.EnemySide.Parties)
+            foreach (var kill in kills)
             {
-                if (party.Leader?.IsFactionLeader != true)
-                    continue; // Not a faction leader.
-
-                // Found an enemy faction leader in the battle.
-                Progress();
-                return;
+                var hero = kill.Victim.Character.Hero;
+                if (
+                    hero != null // Victim is a hero
+                    && hero.IsFactionLeader // Victim is a ruler
+                    && hero.Culture != Player.Culture // Different culture
+                )
+                {
+                    Progress();
+                    return;
+                }
             }
         }
     }
