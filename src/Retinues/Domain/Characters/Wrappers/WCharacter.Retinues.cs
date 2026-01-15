@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Retinues.Domain.Characters.Services.Matching;
 using Retinues.Domain.Factions;
 using Retinues.Domain.Factions.Wrappers;
-using Retinues.Game;
 using Retinues.Utilities;
 
 namespace Retinues.Domain.Characters.Wrappers

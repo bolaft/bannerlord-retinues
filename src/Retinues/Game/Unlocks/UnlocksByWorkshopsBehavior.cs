@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Retinues.Configuration;
+using Retinues.Domain;
 using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Framework.Behaviors;
 using Retinues.Utilities;

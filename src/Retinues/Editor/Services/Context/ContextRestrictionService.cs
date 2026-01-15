@@ -1,10 +1,10 @@
 using Retinues.Configuration;
+using Retinues.Domain;
 using Retinues.Domain.Factions;
 using Retinues.Domain.Factions.Wrappers;
 using Retinues.Domain.Settlements.Wrappers;
 using Retinues.Editor.Controllers;
 using Retinues.Framework.Runtime;
-using Retinues.Game;
 using Retinues.UI.Services;
 using TaleWorlds.Localization;
 

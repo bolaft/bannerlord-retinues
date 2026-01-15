@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Retinues.Domain;
 using Retinues.Domain.Equipments.Helpers;
 using Retinues.Domain.Equipments.Models;
 using Retinues.Domain.Equipments.Wrappers;
@@ -398,7 +399,7 @@ namespace Retinues.Editor.Controllers.Equipment
                             "You need {COST} denars, but you only have {GOLD}."
                         )
                         .SetTextVariable("COST", required)
-                        .SetTextVariable("GOLD", Game.Player.Gold)
+                        .SetTextVariable("GOLD", Player.Gold)
                 );
             }
 
@@ -445,7 +446,7 @@ namespace Retinues.Editor.Controllers.Equipment
                     if (livePlan.EquipOps == 0 && livePlan.UnequipOps == 0)
                         return;
 
-                    if (liveCtx.EconomyEnabled && Game.Player.Gold < livePlan.TotalCost)
+                    if (liveCtx.EconomyEnabled && Player.Gold < livePlan.TotalCost)
                     {
                         NotEnoughGoldPopup(livePlan.TotalCost);
                         return;

@@ -1,3 +1,4 @@
+using Retinues.Domain;
 using Retinues.Domain.Events.Models;
 
 namespace Retinues.Game.Doctrines.Feats.Equipments

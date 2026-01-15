@@ -1,8 +1,8 @@
 using System;
 using Bannerlord.UIExtenderEx.Attributes;
+using Retinues.Domain;
 using Retinues.Domain.Factions.Wrappers;
 using Retinues.Editor;
-using Retinues.Game;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.ViewModelCollection.Encyclopedia.Pages;

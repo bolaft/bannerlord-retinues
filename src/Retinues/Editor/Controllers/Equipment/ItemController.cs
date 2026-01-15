@@ -1,13 +1,13 @@
 using System;
 using System.Collections.Generic;
 using Retinues.Configuration;
+using Retinues.Domain;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Equipments.Helpers;
 using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Editor.Events;
 using Retinues.Editor.Services.Context;
 using Retinues.Editor.Services.Equipments;
-using Retinues.Game;
 using Retinues.UI.Services;
 using TaleWorlds.Core;
 

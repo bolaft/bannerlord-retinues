@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using Retinues.Configuration;
+using Retinues.Domain;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Equipments.Models;
 using Retinues.Domain.Factions;
@@ -8,7 +9,6 @@ using Retinues.Domain.Factions.Wrappers;
 using Retinues.Editor.Events;
 using Retinues.Framework.Model.Exports;
 using Retinues.Framework.Runtime;
-using Retinues.Game;
 using Retinues.Game.Doctrines;
 using Retinues.Game.Doctrines.Definitions;
 using Retinues.Utilities;

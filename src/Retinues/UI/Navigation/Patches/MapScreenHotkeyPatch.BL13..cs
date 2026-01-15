@@ -3,7 +3,7 @@ using HarmonyLib;
 using Retinues.Configuration;
 using Retinues.Utilities;
 using Retinues.Editor;
-using Retinues.Game;
+using Retinues.Domain;
 using SandBox.View.Map;
 using SandBox.View.Map.Navigation;
 using TaleWorlds.InputSystem;

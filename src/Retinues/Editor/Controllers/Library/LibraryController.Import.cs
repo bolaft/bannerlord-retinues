@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
+using Retinues.Domain;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Factions;
 using Retinues.Editor.Events;
 using Retinues.Framework.Model.Exports;
-using Retinues.Game;
 using Retinues.UI.Services;
 using Retinues.Utilities;
 using TaleWorlds.Core;

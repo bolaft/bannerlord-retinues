@@ -6,7 +6,7 @@ using TaleWorlds.Library;
 namespace Retinues.Game.Unlocks
 {
     [SafeClass]
-    public static class UnlockCheats
+    public static class Cheats
     {
         [CommandLineFunctionality.CommandLineArgumentFunction("unlock_item", "retinues")]
         public static string CreateRetinueCommand(List<string> args)

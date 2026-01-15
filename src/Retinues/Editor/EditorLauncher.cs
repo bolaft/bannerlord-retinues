@@ -1,8 +1,8 @@
 using System.Linq;
 using Retinues.Configuration;
+using Retinues.Domain;
 using Retinues.Domain.Factions;
 using Retinues.Domain.Factions.Wrappers;
-using Retinues.Game;
 using Retinues.Utilities;
 using TaleWorlds.Core;
 

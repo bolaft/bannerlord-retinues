@@ -1,3 +1,5 @@
+using Retinues.Domain;
+
 namespace Retinues.Game.Doctrines.Feats.Troops
 {
     public sealed class Feat_StalwartMilitia_WatchersOnTheWalls : BaseFeatBehavior

@@ -1,9 +1,9 @@
 using System;
 using HarmonyLib;
 using Helpers;
+using Retinues.Domain;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Framework.Runtime;
-using Retinues.Game;
 using Retinues.Utilities;
 using SandBox.GauntletUI;
 using TaleWorlds.CampaignSystem;

@@ -1,4 +1,5 @@
 using Retinues.Configuration;
+using Retinues.Domain;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Equipments.Models;
 using Retinues.Framework.Behaviors;

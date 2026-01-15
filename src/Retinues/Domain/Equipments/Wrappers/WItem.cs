@@ -7,7 +7,6 @@ using Retinues.Domain.Factions.Wrappers;
 using Retinues.Framework.Model;
 using Retinues.Framework.Model.Attributes;
 using Retinues.Framework.Runtime;
-using Retinues.Game;
 using Retinues.UI.Services;
 using TaleWorlds.Core;
 #if BL13

@@ -1,12 +1,12 @@
 using System;
 using Bannerlord.UIExtenderEx.Attributes;
+using Retinues.Domain;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Editor.Controllers.Equipment;
 using Retinues.Editor.Events;
 using Retinues.Editor.Services.Library.NPCCharacters;
 using Retinues.Editor.VM.Column.Character;
 using Retinues.Editor.VM.Column.Equipment;
-using Retinues.Game;
 using Retinues.UI.Services;
 using Retinues.Utilities;
 using TaleWorlds.Core.ViewModelCollection;

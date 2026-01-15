@@ -1,3 +1,4 @@
+using Retinues.Domain;
 using Retinues.Domain.Characters.Wrappers;
 
 namespace Retinues.Game.Doctrines.Feats.Equipments

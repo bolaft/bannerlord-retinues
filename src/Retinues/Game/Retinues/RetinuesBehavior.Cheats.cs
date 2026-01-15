@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Retinues.Domain;
 using Retinues.Domain.Factions.Wrappers;
 using TaleWorlds.Library;
 

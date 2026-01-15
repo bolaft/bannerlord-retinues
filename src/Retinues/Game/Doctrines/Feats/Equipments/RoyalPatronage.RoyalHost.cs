@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Retinues.Domain;
 using Retinues.Domain.Events.Models;
 using Retinues.Game.Missions;
 

@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Retinues.Domain;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Factions;
 using Retinues.Domain.Factions.Wrappers;
 using Retinues.Framework.Model.Exports;
-using Retinues.Game;
 using Retinues.UI.Services;
 using TaleWorlds.Core;
 using TaleWorlds.Core.ImageIdentifiers;

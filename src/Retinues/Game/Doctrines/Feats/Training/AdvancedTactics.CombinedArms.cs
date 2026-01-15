@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Retinues.Domain;
 using Retinues.Domain.Events.Models;
 using Retinues.Game.Missions;
 using TaleWorlds.Core;

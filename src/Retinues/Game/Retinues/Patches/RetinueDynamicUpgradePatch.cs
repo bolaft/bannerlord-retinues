@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using HarmonyLib;
 using Retinues.Configuration;
+using Retinues.Domain;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.UI.Services;
 using Retinues.UI.VM;

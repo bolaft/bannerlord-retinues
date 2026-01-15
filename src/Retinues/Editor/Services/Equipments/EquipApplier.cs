@@ -1,6 +1,6 @@
+using Retinues.Domain;
 using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Editor.Controllers.Equipment;
-using Retinues.Game;
 
 namespace Retinues.Editor.Services.Equipments
 {

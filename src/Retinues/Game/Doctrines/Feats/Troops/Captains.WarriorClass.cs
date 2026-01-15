@@ -1,3 +1,5 @@
+using Retinues.Domain;
+
 namespace Retinues.Game.Doctrines.Feats.Troops
 {
     /// <summary>

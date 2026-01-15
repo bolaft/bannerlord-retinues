@@ -10,7 +10,7 @@ using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.Library;
 
-namespace Retinues.Game
+namespace Retinues.Domain
 {
     /// <summary>
     /// Static helpers for accessing player-related game state and attributes.

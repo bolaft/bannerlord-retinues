@@ -1,6 +1,6 @@
 using Retinues.Configuration;
+using Retinues.Domain;
 using Retinues.Editor.Events;
-using Retinues.Game;
 using Retinues.Game.Doctrines.Definitions;
 using Retinues.UI.Services;
 using TaleWorlds.Localization;

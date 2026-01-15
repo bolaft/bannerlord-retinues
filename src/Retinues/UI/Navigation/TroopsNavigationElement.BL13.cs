@@ -3,7 +3,7 @@ using SandBox.View;
 using Retinues.Configuration;
 using Retinues.Editor;
 using Retinues.UI.Services;
-using Retinues.Game;
+using Retinues.Domain;
 using SandBox.View.Map.Navigation;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Library;

@@ -1,3 +1,4 @@
+using Retinues.Domain;
 using TaleWorlds.CampaignSystem.Settlements.Workshops;
 
 namespace Retinues.Game.Doctrines.Feats.Equipments
