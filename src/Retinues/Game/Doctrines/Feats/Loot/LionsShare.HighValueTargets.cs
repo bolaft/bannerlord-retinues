@@ -8,7 +8,7 @@ namespace Retinues.Game.Doctrines.Feats.Loot
     /// <summary>
     /// Personally defeat 5 tier 5+ troops in one battle.
     /// </summary>
-    public sealed class Feat_LionsShare_HighValueTargets : FeatCampaignBehavior
+    public sealed class Feat_LionsShare_HighValueTargets : BaseFeatBehavior
     {
         protected override string FeatId => Catalogs.FeatCatalog.LS_HighValueTargets.Id;
 

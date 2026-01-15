@@ -7,7 +7,7 @@ namespace Retinues.Game.Doctrines.Feats.Equipments
     /// <summary>
     /// Loot 25000 denars on the battlefield.
     /// </summary>
-    public sealed class Feat_HonorGuard_BloodMoney : FeatCampaignBehavior
+    public sealed class Feat_HonorGuard_BloodMoney : BaseFeatBehavior
     {
         protected override string FeatId => Catalogs.FeatCatalog.HG_BloodMoney.Id;
 

@@ -5,7 +5,7 @@ namespace Retinues.Game.Doctrines.Feats.Equipments
     /// <summary>
     /// Field a unit wearing equipment weighing over 60 kg.
     /// </summary>
-    public sealed class Feat_Ironclad_HeavyKit : FeatCampaignBehavior
+    public sealed class Feat_Ironclad_HeavyKit : BaseFeatBehavior
     {
         protected override string FeatId => Catalogs.FeatCatalog.IR_HeavyKit.Id;
 

@@ -7,7 +7,7 @@ namespace Retinues.Game.Doctrines.Feats.Retinues
     /// <summary>
     /// Win a battle of 100 or more combatants using only your retinues.
     /// </summary>
-    public sealed class Feat_Vanguard_ShockAssault : FeatCampaignBehavior
+    public sealed class Feat_Vanguard_ShockAssault : BaseFeatBehavior
     {
         protected override string FeatId => Catalogs.FeatCatalog.VA_ShockAssault.Id;
 

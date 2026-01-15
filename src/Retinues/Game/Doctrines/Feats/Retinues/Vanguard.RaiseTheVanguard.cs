@@ -6,7 +6,7 @@ namespace Retinues.Game.Doctrines.Feats.Retinues
     /// <summary>
     /// Hire 100 retinues.
     /// </summary>
-    public sealed class Feat_Vanguard_RaiseTheVanguard : FeatCampaignBehavior
+    public sealed class Feat_Vanguard_RaiseTheVanguard : BaseFeatBehavior
     {
         protected override string FeatId => Catalogs.FeatCatalog.VA_RaiseTheVanguard.Id;
 

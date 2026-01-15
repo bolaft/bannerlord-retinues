@@ -8,7 +8,7 @@ namespace Retinues.Game.Doctrines.Feats.Loot
     /// <summary>
     /// Personally defeat 25 enemies in one battle.
     /// </summary>
-    public sealed class Feat_LionsShare_BloodPrice : FeatCampaignBehavior
+    public sealed class Feat_LionsShare_BloodPrice : BaseFeatBehavior
     {
         protected override string FeatId => Catalogs.FeatCatalog.LS_BloodPrice.Id;
 

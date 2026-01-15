@@ -5,7 +5,7 @@ namespace Retinues.Game.Doctrines.Feats.Equipments
     /// <summary>
     /// Have a companion of the same culture as your kingdom govern a kingdom fief for 30 days.
     /// </summary>
-    public sealed class Feat_RoyalPatronage_RoyalStewardship : FeatCampaignBehavior
+    public sealed class Feat_RoyalPatronage_RoyalStewardship : BaseFeatBehavior
     {
         protected override string FeatId => Catalogs.FeatCatalog.RP_RoyalStewardship.Id;
 

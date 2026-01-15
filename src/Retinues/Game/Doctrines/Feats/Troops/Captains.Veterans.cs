@@ -3,7 +3,7 @@ namespace Retinues.Game.Doctrines.Feats.Troops
     /// <summary>
     /// Max out the skills of a T5 basic troop.
     /// </summary>
-    public sealed class Feat_Captains_Veterans : FeatCampaignBehavior
+    public sealed class Feat_Captains_Veterans : BaseFeatBehavior
     {
         protected override string FeatId => Catalogs.FeatCatalog.CA_Veterans.Id;
 

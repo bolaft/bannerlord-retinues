@@ -7,7 +7,7 @@ namespace Retinues.Game.Doctrines.Feats.Loot
     /// <summary>
     /// Rescue a captive lord from an enemy party.
     /// </summary>
-    public sealed class Feat_PragmaticScavengers_RescueMission : FeatCampaignBehavior
+    public sealed class Feat_PragmaticScavengers_RescueMission : BaseFeatBehavior
     {
         protected override string FeatId => Catalogs.FeatCatalog.PR_RescueMission.Id;
 

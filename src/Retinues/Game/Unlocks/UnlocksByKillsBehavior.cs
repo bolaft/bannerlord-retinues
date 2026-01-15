@@ -5,7 +5,6 @@ using Retinues.Domain.Equipments.Models;
 using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Domain.Events.Models;
 using Retinues.Framework.Behaviors;
-using Retinues.Game.Doctrines;
 using Retinues.Game.Doctrines.Catalogs;
 using Retinues.Game.Missions;
 using Retinues.Utilities;
@@ -148,7 +147,7 @@ namespace Retinues.Game.Unlocks
                 // Case 3.c: Killer is ally troop.
                 else if (killer.IsAllyTroop)
                 {
-                    if (Doctrine.Get(DoctrineCatalog.LO_BattlefieldTithes).IsAcquired)
+                    if (DoctrineCatalog.BattlefieldTithes.IsAcquired)
                     {
                         return 1f;
                     }

@@ -8,7 +8,7 @@ namespace Retinues.Game.Doctrines.Feats.Retinues
     /// <summary>
     /// Win by yourself against 100 or more enemies without a single death on your side.
     /// </summary>
-    public sealed class Feat_Immortals_PerfectVictory : FeatCampaignBehavior
+    public sealed class Feat_Immortals_PerfectVictory : BaseFeatBehavior
     {
         protected override string FeatId => Catalogs.FeatCatalog.IM_PerfectVictory.Id;
 

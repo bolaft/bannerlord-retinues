@@ -3,7 +3,7 @@ namespace Retinues.Game.Doctrines.Feats.Troops
     /// <summary>
     /// Max out the skills of a T6 elite troop.
     /// </summary>
-    public sealed class Feat_Captains_WarriorClass : FeatCampaignBehavior
+    public sealed class Feat_Captains_WarriorClass : BaseFeatBehavior
     {
         protected override string FeatId => Catalogs.FeatCatalog.CA_WarriorClass.Id;
 

@@ -7,7 +7,7 @@ namespace Retinues.Game.Doctrines.Feats.Loot
     /// <summary>
     /// Win a battle while part of an allied lord's army.
     /// </summary>
-    public sealed class Feat_PragmaticScavengers_MarchTogether : FeatCampaignBehavior
+    public sealed class Feat_PragmaticScavengers_MarchTogether : BaseFeatBehavior
     {
         protected override string FeatId => Catalogs.FeatCatalog.PR_MarchTogether.Id;
 

@@ -8,7 +8,7 @@ namespace Retinues.Game.Doctrines.Feats.Equipments
     /// <summary>
     /// Get 1 000 kills with custom kingdom troops.
     /// </summary>
-    public sealed class Feat_RoyalPatronage_RoyalHost : FeatCampaignBehavior
+    public sealed class Feat_RoyalPatronage_RoyalHost : BaseFeatBehavior
     {
         protected override string FeatId => Catalogs.FeatCatalog.RP_RoyalHost.Id;
 

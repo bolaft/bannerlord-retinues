@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using Retinues.Game.Doctrines.Definitions;
 using Retinues.Utilities;
+using TaleWorlds.Library;
 using static Retinues.Game.Doctrines.Catalogs.DoctrineCatalog;
 
 namespace Retinues.Game.Doctrines
@@ -103,6 +105,53 @@ namespace Retinues.Game.Doctrines
             }
 
             RegistrationComplete = true;
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Cheats                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [CommandLineFunctionality.CommandLineArgumentFunction("doctrines_list", "retinues")]
+        public static string DoctrinesList(List<string> args)
+        {
+            var doctrines = GetDoctrines();
+            var lines = new List<string>(doctrines.Count + 8)
+            {
+                "Doctrines:",
+                "  id | state | progress",
+                "--------------------------------------------",
+            };
+
+            foreach (var doctrine in doctrines)
+            {
+                lines.Add(
+                    $"  {doctrine.Id} | {doctrine.GetState()} | {doctrine.Progress}/{Doctrine.ProgressTarget}"
+                );
+            }
+
+            return string.Join("\n", lines);
+        }
+
+        [CommandLineFunctionality.CommandLineArgumentFunction("feats_list", "retinues")]
+        public static string FeatsList(List<string> args)
+        {
+            var feats = GetFeats();
+
+            var lines = new List<string>(feats.Count + 8)
+            {
+                "Feats:",
+                "  id | repeatable | consumed | times | progress",
+                "---------------------------------------------------------------",
+            };
+
+            foreach (var feat in feats)
+            {
+                lines.Add(
+                    $"  {feat.Id} | {(feat.Repeatable ? "yes" : "no")} | {(feat.IsCompleted ? "yes" : "no")} | {feat.Progress}/{feat.Target}"
+                );
+            }
+
+            return string.Join("\n", lines);
         }
     }
 }

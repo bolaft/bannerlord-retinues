@@ -8,7 +8,7 @@ namespace Retinues.Game.Doctrines.Feats.Training
     /// <summary>
     /// Win a battle against over 100 enemies using a party evenly split among infantry, cavalry and ranged clan troops.
     /// </summary>
-    public sealed class Feat_AdvancedTactics_CombinedArms : FeatCampaignBehavior
+    public sealed class Feat_AdvancedTactics_CombinedArms : BaseFeatBehavior
     {
         protected override string FeatId => Catalogs.FeatCatalog.AT_CombinedArms.Id;
 

@@ -7,7 +7,7 @@ namespace Retinues.Game.Doctrines.Feats.Training
     /// <summary>
     /// Win a siege defense fielding only faction troops.
     /// </summary>
-    public sealed class Feat_SteadfastSoldiers_HoldTheWalls : FeatCampaignBehavior
+    public sealed class Feat_SteadfastSoldiers_HoldTheWalls : BaseFeatBehavior
     {
         protected override string FeatId => Catalogs.FeatCatalog.SS_HoldTheWalls.Id;
 

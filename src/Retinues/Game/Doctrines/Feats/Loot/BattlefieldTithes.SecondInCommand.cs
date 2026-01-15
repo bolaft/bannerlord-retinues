@@ -7,7 +7,7 @@ namespace Retinues.Game.Doctrines.Feats.Loot
     /// <summary>
     /// Win a battle where you are not the main commander.
     /// </summary>
-    public sealed class Feat_BattlefieldTithes_SecondInCommand : FeatCampaignBehavior
+    public sealed class Feat_BattlefieldTithes_SecondInCommand : BaseFeatBehavior
     {
         protected override string FeatId => Catalogs.FeatCatalog.BT_SecondInCommand.Id;
 

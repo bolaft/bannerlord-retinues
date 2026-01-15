@@ -7,7 +7,7 @@ namespace Retinues.Game.Doctrines.Feats.Retinues
     /// <summary>
     /// Win a defensive battle with a retinue-only party.
     /// </summary>
-    public sealed class Feat_Indomitable_HoldTheLine : FeatCampaignBehavior
+    public sealed class Feat_Indomitable_HoldTheLine : BaseFeatBehavior
     {
         protected override string FeatId => Catalogs.FeatCatalog.IN_HoldTheLine.Id;
 

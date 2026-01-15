@@ -6,7 +6,7 @@ namespace Retinues.Game.Doctrines.Feats.Troops
     /// <summary>
     /// Complete a quest for a village landowner.
     /// </summary>
-    public sealed class Feat_ArmedPeasantry_LandownersRequest : FeatCampaignBehavior
+    public sealed class Feat_ArmedPeasantry_LandownersRequest : BaseFeatBehavior
     {
         protected override string FeatId => Catalogs.FeatCatalog.AP_LandownersRequest.Id;
 

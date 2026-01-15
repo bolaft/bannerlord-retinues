@@ -3,17 +3,18 @@ using Retinues.Domain.Equipments.Models;
 using Retinues.Domain.Events.Models;
 using Retinues.Framework.Behaviors;
 using Retinues.Framework.Runtime;
+using Retinues.Game.Doctrines.Definitions;
 using Retinues.Game.Missions;
 using Retinues.Utilities;
 
-namespace Retinues.Game.Doctrines
+namespace Retinues.Game.Doctrines.Feats
 {
     /// <summary>
     /// Base class for concrete feat behaviors that listen to campaign events and award feat progress.
     /// Also dispatches custom "battle over" events with kill snapshots.
     /// </summary>
     [SafeClass(IncludeDerived = true)]
-    public abstract class FeatCampaignBehavior : BaseCampaignBehavior
+    public abstract class BaseFeatBehavior : BaseCampaignBehavior
     {
         public override bool IsActive => Feat.IsInProgress;
 

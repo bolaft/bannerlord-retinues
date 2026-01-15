@@ -7,7 +7,7 @@ namespace Retinues.Game.Doctrines.Feats.Loot
     /// <summary>
     /// Capture a fief of your own culture from an enemy kingdom.
     /// </summary>
-    public sealed class Feat_AncestralHeritage_Homecoming : FeatCampaignBehavior
+    public sealed class Feat_AncestralHeritage_Homecoming : BaseFeatBehavior
     {
         protected override string FeatId => Catalogs.FeatCatalog.AN_Homecoming.Id;
 

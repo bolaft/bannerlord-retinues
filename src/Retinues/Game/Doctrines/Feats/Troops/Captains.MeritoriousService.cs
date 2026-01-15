@@ -5,7 +5,7 @@ namespace Retinues.Game.Doctrines.Feats.Troops
     /// <summary>
     /// Promote 100 faction troops.
     /// </summary>
-    public sealed class Feat_Captains_MeritoriousService : FeatCampaignBehavior
+    public sealed class Feat_Captains_MeritoriousService : BaseFeatBehavior
     {
         protected override string FeatId => Catalogs.FeatCatalog.CA_MeritoriousService.Id;
 

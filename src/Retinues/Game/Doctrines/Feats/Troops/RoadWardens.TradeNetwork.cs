@@ -5,7 +5,7 @@ namespace Retinues.Game.Doctrines.Feats.Troops
     /// <summary>
     /// Own three caravans at the same time.
     /// </summary>
-    public sealed class Feat_RoadWardens_TradeNetwork : FeatCampaignBehavior
+    public sealed class Feat_RoadWardens_TradeNetwork : BaseFeatBehavior
     {
         protected override string FeatId => Catalogs.FeatCatalog.RW_TradeNetwork.Id;
 

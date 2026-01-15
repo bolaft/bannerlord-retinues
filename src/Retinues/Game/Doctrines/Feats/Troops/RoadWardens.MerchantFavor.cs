@@ -6,7 +6,7 @@ namespace Retinues.Game.Doctrines.Feats.Troops
     /// <summary>
     /// Complete a quest for a town merchant notable.
     /// </summary>
-    public sealed class Feat_RoadWardens_MerchantsFavor : FeatCampaignBehavior
+    public sealed class Feat_RoadWardens_MerchantsFavor : BaseFeatBehavior
     {
         protected override string FeatId => Catalogs.FeatCatalog.RW_MerchantsFavor.Id;
 

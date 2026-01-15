@@ -7,7 +7,7 @@ namespace Retinues.Game.Doctrines.Feats.Training
     /// <summary>
     /// Defeat a party twice your size using only faction troops.
     /// </summary>
-    public sealed class Feat_IronDiscipline_DisciplinedVictory : FeatCampaignBehavior
+    public sealed class Feat_IronDiscipline_DisciplinedVictory : BaseFeatBehavior
     {
         protected override string FeatId => Catalogs.FeatCatalog.ID_DisciplinedVictory.Id;
 

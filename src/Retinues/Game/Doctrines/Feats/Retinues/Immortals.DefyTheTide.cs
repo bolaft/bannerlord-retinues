@@ -7,7 +7,7 @@ namespace Retinues.Game.Doctrines.Feats.Retinues
     /// <summary>
     /// Win a battle against overwhelming odds while fielding mostly retinues.
     /// </summary>
-    public sealed class Feat_Immortals_DefyTheTide : FeatCampaignBehavior
+    public sealed class Feat_Immortals_DefyTheTide : BaseFeatBehavior
     {
         protected override string FeatId => Catalogs.FeatCatalog.IM_DefyTheTide.Id;
 

@@ -8,7 +8,7 @@ namespace Retinues.Game.Doctrines.Feats.Loot
     /// <summary>
     /// Personally defeat an enemy lord in battle.
     /// </summary>
-    public sealed class Feat_LionsShare_CutTheHead : FeatCampaignBehavior
+    public sealed class Feat_LionsShare_CutTheHead : BaseFeatBehavior
     {
         protected override string FeatId => Catalogs.FeatCatalog.LS_CutTheHead.Id;
 

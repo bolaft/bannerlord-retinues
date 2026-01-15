@@ -9,7 +9,7 @@ namespace Retinues.Game.Doctrines.Feats.Retinues
     /// <summary>
     /// Have 20 retinues survive being struck down in battle.
     /// </summary>
-    public sealed class Feat_Immortals_StillStanding : FeatCampaignBehavior
+    public sealed class Feat_Immortals_StillStanding : BaseFeatBehavior
     {
         protected override string FeatId => Catalogs.FeatCatalog.IM_StillStanding.Id;
 

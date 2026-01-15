@@ -3,7 +3,7 @@ namespace Retinues.Game.Doctrines.Feats.Training
     /// <summary>
     /// Max out the skills of 10 faction troops.
     /// </summary>
-    public sealed class Feat_SteadfastSoldiers_PeakPerformance : FeatCampaignBehavior
+    public sealed class Feat_SteadfastSoldiers_PeakPerformance : BaseFeatBehavior
     {
         protected override string FeatId => Catalogs.FeatCatalog.SS_PeakPerformance.Id;
 

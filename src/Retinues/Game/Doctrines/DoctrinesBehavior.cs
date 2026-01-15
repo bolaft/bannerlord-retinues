@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Retinues.Configuration;
 using Retinues.Framework.Behaviors;
 using Retinues.Framework.Runtime;
+using Retinues.Game.Doctrines.Definitions;
 using Retinues.UI.Services;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Localization;

@@ -8,7 +8,7 @@ namespace Retinues.Game.Doctrines.Feats.Loot
     /// <summary>
     /// Win a battle in which allies suffer over 100 casualties.
     /// </summary>
-    public sealed class Feat_PragmaticScavengers_CostlyVictory : FeatCampaignBehavior
+    public sealed class Feat_PragmaticScavengers_CostlyVictory : BaseFeatBehavior
     {
         protected override string FeatId => Catalogs.FeatCatalog.PR_CostlyVictory.Id;
 

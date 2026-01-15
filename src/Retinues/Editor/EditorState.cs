@@ -10,6 +10,7 @@ using Retinues.Framework.Model.Exports;
 using Retinues.Framework.Runtime;
 using Retinues.Game;
 using Retinues.Game.Doctrines;
+using Retinues.Game.Doctrines.Definitions;
 using Retinues.Utilities;
 using TaleWorlds.Core;
 

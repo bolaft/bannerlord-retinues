@@ -7,7 +7,7 @@ namespace Retinues.Game.Doctrines.Feats.Training
     /// <summary>
     /// In a single battle, get a kill using five different weapon classes.
     /// </summary>
-    public sealed class Feat_AdvancedTactics_LethalVersatility : FeatCampaignBehavior
+    public sealed class Feat_AdvancedTactics_LethalVersatility : BaseFeatBehavior
     {
         protected override string FeatId => Catalogs.FeatCatalog.AT_LethalVersatility.Id;
 

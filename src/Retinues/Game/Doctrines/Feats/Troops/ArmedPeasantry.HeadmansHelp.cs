@@ -6,7 +6,7 @@ namespace Retinues.Game.Doctrines.Feats.Troops
     /// <summary>
     /// Complete a quest for a village headman.
     /// </summary>
-    public sealed class Feat_ArmedPeasantry_HeadmansHelp : FeatCampaignBehavior
+    public sealed class Feat_ArmedPeasantry_HeadmansHelp : BaseFeatBehavior
     {
         protected override string FeatId => Catalogs.FeatCatalog.AP_HeadmansHelp.Id;
 

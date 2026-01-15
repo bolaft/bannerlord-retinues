@@ -1,3 +1,4 @@
+using Retinues.Game.Doctrines.Definitions;
 using Retinues.UI.Services;
 
 namespace Retinues.Game.Doctrines.Catalogs

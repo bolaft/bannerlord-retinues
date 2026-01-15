@@ -7,7 +7,7 @@ namespace Retinues.Game.Doctrines.Feats.Troops
     /// <summary>
     /// Defend a village against an enemy raid.
     /// </summary>
-    public sealed class Feat_ArmedPeasantry_ShieldOfThePeople : FeatCampaignBehavior
+    public sealed class Feat_ArmedPeasantry_ShieldOfThePeople : BaseFeatBehavior
     {
         protected override string FeatId => Catalogs.FeatCatalog.AP_ShieldOfThePeople.Id;
 

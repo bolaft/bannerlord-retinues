@@ -1,5 +1,5 @@
 using Retinues.Editor.Events;
-using Retinues.Game.Doctrines;
+using Retinues.Game.Doctrines.Definitions;
 using Retinues.UI.Services;
 using Retinues.UI.VM;
 using TaleWorlds.Library;

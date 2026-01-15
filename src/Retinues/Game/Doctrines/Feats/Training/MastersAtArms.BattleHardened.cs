@@ -8,7 +8,7 @@ namespace Retinues.Game.Doctrines.Feats.Training
     /// <summary>
     /// Get 1000 kills with elite faction troops.
     /// </summary>
-    public sealed class Feat_MastersAtArms_BattleHardened : FeatCampaignBehavior
+    public sealed class Feat_MastersAtArms_BattleHardened : BaseFeatBehavior
     {
         protected override string FeatId => Catalogs.FeatCatalog.MA_BattleHardened.Id;
 

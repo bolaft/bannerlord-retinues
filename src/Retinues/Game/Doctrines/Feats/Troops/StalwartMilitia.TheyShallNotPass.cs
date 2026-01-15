@@ -9,7 +9,7 @@ namespace Retinues.Game.Doctrines.Feats.Troops
     /// <summary>
     /// Personally slay 50 assailants during a siege defense.
     /// </summary>
-    public sealed class Feat_StalwartMilitia_TheyShallNotPass : FeatCampaignBehavior
+    public sealed class Feat_StalwartMilitia_TheyShallNotPass : BaseFeatBehavior
     {
         protected override string FeatId => FeatCatalog.SM_TheyShallNotPass.Id;
 

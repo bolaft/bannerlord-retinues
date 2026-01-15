@@ -7,7 +7,7 @@ namespace Retinues.Game.Doctrines.Feats.Training
     /// <summary>
     /// Win 3 defensive battles in a row.
     /// </summary>
-    public sealed class Feat_AdvancedTactics_UnyieldingDefense : FeatCampaignBehavior
+    public sealed class Feat_AdvancedTactics_UnyieldingDefense : BaseFeatBehavior
     {
         protected override string FeatId => Catalogs.FeatCatalog.AT_UnyieldingDefense.Id;
 

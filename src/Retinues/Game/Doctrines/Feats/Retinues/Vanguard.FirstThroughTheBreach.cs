@@ -7,7 +7,7 @@ namespace Retinues.Game.Doctrines.Feats.Retinues
     /// <summary>
     /// Have a retinue get the first melee kill in a siege assault.
     /// </summary>
-    public sealed class Feat_Vanguard_FirstThroughTheBreach : FeatCampaignBehavior
+    public sealed class Feat_Vanguard_FirstThroughTheBreach : BaseFeatBehavior
     {
         protected override string FeatId => Catalogs.FeatCatalog.VA_FirstThroughTheBreach.Id;
 

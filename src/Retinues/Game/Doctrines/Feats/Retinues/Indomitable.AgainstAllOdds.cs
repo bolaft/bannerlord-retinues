@@ -7,7 +7,7 @@ namespace Retinues.Game.Doctrines.Feats.Retinues
     /// <summary>
     /// Outnumbered at least 2 to 1, win a battle while fielding only retinues.
     /// </summary>
-    public sealed class Feat_Indomitable_AgainstAllOdds : FeatCampaignBehavior
+    public sealed class Feat_Indomitable_AgainstAllOdds : BaseFeatBehavior
     {
         protected override string FeatId => Catalogs.FeatCatalog.IN_AgainstAllOdds.Id;
 

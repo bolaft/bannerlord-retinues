@@ -10,7 +10,7 @@ namespace Retinues.Game.Doctrines.Feats.Equipments
     /// <summary>
     /// Get 100 kills in battle with troops wearing no foreign gear.
     /// </summary>
-    public sealed class Feat_CulturalPride_ProudAndStrong : FeatCampaignBehavior
+    public sealed class Feat_CulturalPride_ProudAndStrong : BaseFeatBehavior
     {
         protected override string FeatId => Catalogs.FeatCatalog.CP_ProudAndStrong.Id;
 

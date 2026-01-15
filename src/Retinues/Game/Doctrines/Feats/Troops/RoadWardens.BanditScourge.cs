@@ -7,7 +7,7 @@ namespace Retinues.Game.Doctrines.Feats.Troops
     /// <summary>
     /// Clear a bandit hideout.
     /// </summary>
-    public sealed class Feat_RoadWardens_BanditScourge : FeatCampaignBehavior
+    public sealed class Feat_RoadWardens_BanditScourge : BaseFeatBehavior
     {
         protected override string FeatId => Catalogs.FeatCatalog.RW_BanditScourge.Id;
 

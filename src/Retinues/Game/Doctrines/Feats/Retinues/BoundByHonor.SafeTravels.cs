@@ -7,7 +7,7 @@ namespace Retinues.Game.Doctrines.Feats.Retinues
     /// <summary>
     /// Save a caravan or villager party from an enemy attack.
     /// </summary>
-    public sealed class Feat_BoundByHonor_SafeTravels : FeatCampaignBehavior
+    public sealed class Feat_BoundByHonor_SafeTravels : BaseFeatBehavior
     {
         protected override string FeatId => Catalogs.FeatCatalog.BH_SafeTravels.Id;
 

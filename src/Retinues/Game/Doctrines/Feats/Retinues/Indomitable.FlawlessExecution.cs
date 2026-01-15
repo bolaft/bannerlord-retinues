@@ -7,7 +7,7 @@ namespace Retinues.Game.Doctrines.Feats.Retinues
     /// <summary>
     /// Have your retinues defeat 20 enemy troops of equivalent tier without a single casualty.
     /// </summary>
-    public sealed class Feat_Indomitable_FlawlessExecution : FeatCampaignBehavior
+    public sealed class Feat_Indomitable_FlawlessExecution : BaseFeatBehavior
     {
         protected override string FeatId => Catalogs.FeatCatalog.IN_FlawlessExecution.Id;
 

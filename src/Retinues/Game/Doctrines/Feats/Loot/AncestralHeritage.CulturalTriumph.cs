@@ -7,7 +7,7 @@ namespace Retinues.Game.Doctrines.Feats.Loot
     /// <summary>
     /// Single-handedly win a battle against an enemy army of a different culture.
     /// </summary>
-    public sealed class Feat_AncestralHeritage_CulturalTriumph : FeatCampaignBehavior
+    public sealed class Feat_AncestralHeritage_CulturalTriumph : BaseFeatBehavior
     {
         protected override string FeatId => Catalogs.FeatCatalog.AN_CulturalTriumph.Id;
 

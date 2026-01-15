@@ -5,7 +5,7 @@ namespace Retinues.Game.Doctrines.Feats.Equipments
     /// <summary>
     /// Field a unit wearing equipment worth over 100 000 denars.
     /// </summary>
-    public sealed class Feat_HonorGuard_GoldenLegion : FeatCampaignBehavior
+    public sealed class Feat_HonorGuard_GoldenLegion : BaseFeatBehavior
     {
         protected override string FeatId => Catalogs.FeatCatalog.HG_GoldenLegion.Id;
 

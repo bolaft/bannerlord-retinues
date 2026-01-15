@@ -8,7 +8,7 @@ namespace Retinues.Game.Doctrines.Feats.Equipments
     /// <summary>
     /// Win a tournament in a town of your clan's culture.
     /// </summary>
-    public sealed class Feat_CulturalPride_HometownTournament : FeatCampaignBehavior
+    public sealed class Feat_CulturalPride_HometownTournament : BaseFeatBehavior
     {
         protected override string FeatId => Catalogs.FeatCatalog.CP_HometownTournament.Id;
 

@@ -7,7 +7,7 @@ namespace Retinues.Game.Doctrines.Feats.Retinues
     /// <summary>
     /// Eliminate 5 bandit parties.
     /// </summary>
-    public sealed class Feat_BoundByHonor_BountyHunters : FeatCampaignBehavior
+    public sealed class Feat_BoundByHonor_BountyHunters : BaseFeatBehavior
     {
         protected override string FeatId => Catalogs.FeatCatalog.BH_BountyHunters.Id;
 

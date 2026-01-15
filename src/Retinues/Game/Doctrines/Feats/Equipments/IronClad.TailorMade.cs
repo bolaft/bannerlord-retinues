@@ -5,7 +5,7 @@ namespace Retinues.Game.Doctrines.Feats.Equipments
     /// <summary>
     /// Own a smithy for 30 days.
     /// </summary>
-    public sealed class Feat_Ironclad_TailorMade : FeatCampaignBehavior
+    public sealed class Feat_Ironclad_TailorMade : BaseFeatBehavior
     {
         protected override string FeatId => Catalogs.FeatCatalog.IR_TailorMade.Id;
 

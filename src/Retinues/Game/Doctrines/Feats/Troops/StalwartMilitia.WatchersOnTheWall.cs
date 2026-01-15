@@ -1,6 +1,6 @@
 namespace Retinues.Game.Doctrines.Feats.Troops
 {
-    public sealed class Feat_StalwartMilitia_WatchersOnTheWalls : FeatCampaignBehavior
+    public sealed class Feat_StalwartMilitia_WatchersOnTheWalls : BaseFeatBehavior
     {
         /// <summary>
         /// Raise the militia value of a fief to 400.

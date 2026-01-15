@@ -5,7 +5,7 @@ namespace Retinues.Game.Doctrines.Feats.Training
     /// <summary>
     /// Upgrade 100 elite faction troops to the next tier.
     /// </summary>
-    public sealed class Feat_MastersAtArms_DistinguishedService : FeatCampaignBehavior
+    public sealed class Feat_MastersAtArms_DistinguishedService : BaseFeatBehavior
     {
         protected override string FeatId => Catalogs.FeatCatalog.MA_DistinguishedService.Id;
 

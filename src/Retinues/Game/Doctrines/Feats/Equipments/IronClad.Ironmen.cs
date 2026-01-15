@@ -8,7 +8,7 @@ namespace Retinues.Game.Doctrines.Feats.Equipments
     /// <summary>
     /// Win a battle fielding only troops wearing full metal armor.
     /// </summary>
-    public sealed class Feat_Ironclad_Ironmen : FeatCampaignBehavior
+    public sealed class Feat_Ironclad_Ironmen : BaseFeatBehavior
     {
         protected override string FeatId => Catalogs.FeatCatalog.IR_Ironmen.Id;
 

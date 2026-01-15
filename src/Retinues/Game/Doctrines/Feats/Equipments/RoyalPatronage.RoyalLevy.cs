@@ -6,7 +6,7 @@ namespace Retinues.Game.Doctrines.Feats.Equipments
     /// <summary>
     /// Recruit 100 custom kingdom troops.
     /// </summary>
-    public sealed class Feat_RoyalPatronage_RoyalLevy : FeatCampaignBehavior
+    public sealed class Feat_RoyalPatronage_RoyalLevy : BaseFeatBehavior
     {
         protected override string FeatId => Catalogs.FeatCatalog.RP_RoyalLevy.Id;
 

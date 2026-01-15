@@ -6,7 +6,7 @@ namespace Retinues.Game.Doctrines.Feats.Loot
     /// <summary>
     /// Complete a quest for a lord of your clan's culture.
     /// </summary>
-    public sealed class Feat_AncestralHeritage_AncestralDuty : FeatCampaignBehavior
+    public sealed class Feat_AncestralHeritage_AncestralDuty : BaseFeatBehavior
     {
         protected override string FeatId => Catalogs.FeatCatalog.AN_AncestralDuty.Id;
 

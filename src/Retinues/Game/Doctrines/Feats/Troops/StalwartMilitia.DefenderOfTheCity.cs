@@ -7,7 +7,7 @@ namespace Retinues.Game.Doctrines.Feats.Troops
     /// <summary>
     /// Defend a city against a besieging army.
     /// </summary>
-    public sealed class Feat_StalwartMilitia_DefenderOfTheCity : FeatCampaignBehavior
+    public sealed class Feat_StalwartMilitia_DefenderOfTheCity : BaseFeatBehavior
     {
         protected override string FeatId => Catalogs.FeatCatalog.SM_DefenderOfTheCity.Id;
 

@@ -5,7 +5,7 @@ namespace Retinues.Game.Doctrines.Feats.Training
     /// <summary>
     /// Upgrade 100 faction troops to the next tier.
     /// </summary>
-    public sealed class Feat_IronDiscipline_ForgedInBattle : FeatCampaignBehavior
+    public sealed class Feat_IronDiscipline_ForgedInBattle : BaseFeatBehavior
     {
         protected override string FeatId => Catalogs.FeatCatalog.ID_ForgedInBattle.Id;
 

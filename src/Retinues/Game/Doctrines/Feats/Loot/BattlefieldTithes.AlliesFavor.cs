@@ -6,7 +6,7 @@ namespace Retinues.Game.Doctrines.Feats.Loot
     /// <summary>
     /// Complete a quest for an allied lord.
     /// </summary>
-    public sealed class Feat_BattlefieldTithes_AlliesFavor : FeatCampaignBehavior
+    public sealed class Feat_BattlefieldTithes_AlliesFavor : BaseFeatBehavior
     {
         protected override string FeatId => Catalogs.FeatCatalog.BT_AlliesFavor.Id;
 

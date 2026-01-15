@@ -7,7 +7,7 @@ namespace Retinues.Game.Doctrines.Feats.Equipments
     /// <summary>
     /// Defeat a ruler of a different culture in battle.
     /// </summary>
-    public sealed class Feat_CulturalPride_KingSlayer : FeatCampaignBehavior
+    public sealed class Feat_CulturalPride_KingSlayer : BaseFeatBehavior
     {
         protected override string FeatId => Catalogs.FeatCatalog.CP_KingSlayer.Id;
 

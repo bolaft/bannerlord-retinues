@@ -1,7 +1,7 @@
 using Retinues.Configuration;
 using Retinues.Editor.Events;
 using Retinues.Game;
-using Retinues.Game.Doctrines;
+using Retinues.Game.Doctrines.Definitions;
 using Retinues.UI.Services;
 using TaleWorlds.Localization;
 
