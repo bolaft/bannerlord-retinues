@@ -17,6 +17,7 @@ namespace Retinues.Game.Doctrines.Catalogs
             Name = L.T("feat_tr_general_name", "General"),
             Description = L.T("feat_tr_general_desc", "Lead an army for {TARGET} days in a row."),
             Target = 10,
+            Worth = 30,
             Repeatable = false,
         };
 
@@ -29,6 +30,7 @@ namespace Retinues.Game.Doctrines.Catalogs
                 "Defeat a party twice your size using only faction troops."
             ),
             Target = 1,
+            Worth = 30,
             Repeatable = false,
         };
 
@@ -41,6 +43,7 @@ namespace Retinues.Game.Doctrines.Catalogs
                 "Upgrade {TARGET} faction troops to the next tier."
             ),
             Target = 100,
+            Worth = 20,
             Repeatable = true,
         };
 
@@ -57,6 +60,7 @@ namespace Retinues.Game.Doctrines.Catalogs
                 "Max out the skills of {TARGET} faction troops."
             ),
             Target = 10,
+            Worth = 35,
             Repeatable = false,
         };
 
@@ -69,6 +73,7 @@ namespace Retinues.Game.Doctrines.Catalogs
                 "Raise the security value of a fief to {TARGET}."
             ),
             Target = 60,
+            Worth = 35,
             Repeatable = false,
         };
 
@@ -81,6 +86,7 @@ namespace Retinues.Game.Doctrines.Catalogs
                 "Win a siege defense fielding only faction troops."
             ),
             Target = 1,
+            Worth = 30,
             Repeatable = true,
         };
 
@@ -94,6 +100,7 @@ namespace Retinues.Game.Doctrines.Catalogs
             Name = L.T("feat_tr_brawler_name", "Brawler"),
             Description = L.T("feat_tr_brawler_desc", "Knock out {TARGET} opponents in the arena."),
             Target = 50,
+            Worth = 40,
             Repeatable = false,
         };
 
@@ -106,6 +113,7 @@ namespace Retinues.Game.Doctrines.Catalogs
                 "Get {TARGET} kills with elite faction troops."
             ),
             Target = 1000,
+            Worth = 40,
             Repeatable = false,
         };
 
@@ -118,6 +126,7 @@ namespace Retinues.Game.Doctrines.Catalogs
                 "Upgrade {TARGET} elite faction troops to the next tier."
             ),
             Target = 100,
+            Worth = 20,
             Repeatable = true,
         };
 
@@ -134,6 +143,7 @@ namespace Retinues.Game.Doctrines.Catalogs
                 "Win a battle against over 100 enemies using a party evenly split among infantry, cavalry and ranged clan troops."
             ),
             Target = 1,
+            Worth = 50,
             Repeatable = false,
         };
 
@@ -146,6 +156,7 @@ namespace Retinues.Game.Doctrines.Catalogs
                 "In a single battle, get a kill using five different weapon classes."
             ),
             Target = 1,
+            Worth = 30,
             Repeatable = false,
         };
 
@@ -158,6 +169,7 @@ namespace Retinues.Game.Doctrines.Catalogs
                 "Win {TARGET} defensive battles in a row."
             ),
             Target = 3,
+            Worth = 20,
             Repeatable = true,
         };
     }

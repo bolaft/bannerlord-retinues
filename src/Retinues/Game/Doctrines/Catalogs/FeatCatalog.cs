@@ -16,6 +16,7 @@ namespace Retinues.Game.Doctrines.Catalogs
             public TextObject Name;
             public TextObject Description;
             public int Target;
+            public int Worth;
             public bool Repeatable;
         }
     }

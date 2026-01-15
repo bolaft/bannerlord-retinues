@@ -20,6 +20,7 @@ namespace Retinues.Game.Doctrines.Catalogs
                 "Have your retinues defeat {TARGET} enemy troops of equivalent tier without a single casualty."
             ),
             Target = 20,
+            Worth = 30,
             Repeatable = false,
         };
 
@@ -32,6 +33,7 @@ namespace Retinues.Game.Doctrines.Catalogs
                 "Outnumbered at least 2 to 1, win a battle while fielding only retinues."
             ),
             Target = 1,
+            Worth = 30,
             Repeatable = false,
         };
 
@@ -44,6 +46,7 @@ namespace Retinues.Game.Doctrines.Catalogs
                 "Win a defensive battle with a retinue-only party."
             ),
             Target = 1,
+            Worth = 20,
             Repeatable = true,
         };
 
@@ -60,6 +63,7 @@ namespace Retinues.Game.Doctrines.Catalogs
                 "Maintain a retinue-only party's morale above 90 for {TARGET} days."
             ),
             Target = 15,
+            Worth = 30,
             Repeatable = false,
         };
 
@@ -69,6 +73,7 @@ namespace Retinues.Game.Doctrines.Catalogs
             Name = L.T("feat_ret_bounty_hunters_name", "Bounty Hunters"),
             Description = L.T("feat_ret_bounty_hunters_desc", "Eliminate {TARGET} bandit parties."),
             Target = 5,
+            Worth = 30,
             Repeatable = false,
         };
 
@@ -81,6 +86,7 @@ namespace Retinues.Game.Doctrines.Catalogs
                 "Save a caravan or villager party from an enemy attack."
             ),
             Target = 1,
+            Worth = 20,
             Repeatable = true,
         };
 
@@ -97,6 +103,7 @@ namespace Retinues.Game.Doctrines.Catalogs
                 "Have a retinue get the first melee kill in a siege assault."
             ),
             Target = 1,
+            Worth = 50,
             Repeatable = false,
         };
 
@@ -109,6 +116,7 @@ namespace Retinues.Game.Doctrines.Catalogs
                 "Win a battle of 100 or more combatants using only your retinues."
             ),
             Target = 1,
+            Worth = 30,
             Repeatable = true,
         };
 
@@ -118,6 +126,7 @@ namespace Retinues.Game.Doctrines.Catalogs
             Name = L.T("feat_ret_raise_the_vanguard_name", "Raise the Vanguard"),
             Description = L.T("feat_ret_raise_the_vanguard_desc", "Hire {TARGET} retinues."),
             Target = 100,
+            Worth = 20,
             Repeatable = false,
         };
 
@@ -134,6 +143,7 @@ namespace Retinues.Game.Doctrines.Catalogs
                 "Win by yourself against 100 or more enemies without a single death on your side."
             ),
             Target = 1,
+            Worth = 40,
             Repeatable = false,
         };
 
@@ -146,6 +156,7 @@ namespace Retinues.Game.Doctrines.Catalogs
                 "Win a battle against overwhelming odds while fielding mostly retinues."
             ),
             Target = 1,
+            Worth = 40,
             Repeatable = false,
         };
 
@@ -158,6 +169,7 @@ namespace Retinues.Game.Doctrines.Catalogs
                 "Have {TARGET} retinues survive being struck down in battle."
             ),
             Target = 20,
+            Worth = 10,
             Repeatable = true,
         };
     }

@@ -34,9 +34,9 @@ namespace Retinues.Game.Doctrines.Definitions
 
         /* ━━━━━━━ Progress ━━━━━━━ */
 
-        public int Worth { get; } = worth < 1 ? 1 : worth;
+        public int Worth { get; } = worth;
         public bool Repeatable { get; } = repeatable;
-        public int Target { get; } = target < 1 ? 1 : target;
+        public int Target { get; } = target;
 
         int _progress = 0;
         public int Progress

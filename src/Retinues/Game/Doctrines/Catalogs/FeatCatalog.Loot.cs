@@ -20,6 +20,7 @@ namespace Retinues.Game.Doctrines.Catalogs
                 "Personally defeat an enemy lord in battle."
             ),
             Target = 1,
+            Worth = 40,
             Repeatable = false,
         };
 
@@ -32,6 +33,7 @@ namespace Retinues.Game.Doctrines.Catalogs
                 "Personally defeat {TARGET} enemies in one battle."
             ),
             Target = 25,
+            Worth = 30,
             Repeatable = false,
         };
 
@@ -44,6 +46,7 @@ namespace Retinues.Game.Doctrines.Catalogs
                 "Personally defeat 5 tier 5+ troops in one battle."
             ),
             Target = 5,
+            Worth = 30,
             Repeatable = false,
         };
 
@@ -60,6 +63,7 @@ namespace Retinues.Game.Doctrines.Catalogs
                 "Turn the tide of a battle involving an allied army."
             ),
             Target = 1,
+            Worth = 35,
             Repeatable = false,
         };
 
@@ -72,6 +76,7 @@ namespace Retinues.Game.Doctrines.Catalogs
                 "Win a battle where you are not the main commander."
             ),
             Target = 1,
+            Worth = 35,
             Repeatable = false,
         };
 
@@ -81,6 +86,7 @@ namespace Retinues.Game.Doctrines.Catalogs
             Name = L.T("feat_sp_allies_favor_name", "Ally's Favor"),
             Description = L.T("feat_sp_allies_favor_desc", "Complete a quest for an allied lord."),
             Target = 1,
+            Worth = 15,
             Repeatable = true,
         };
 
@@ -97,6 +103,7 @@ namespace Retinues.Game.Doctrines.Catalogs
                 "Win a battle in which allies suffer over 100 casualties."
             ),
             Target = 1,
+            Worth = 40,
             Repeatable = false,
         };
 
@@ -109,6 +116,7 @@ namespace Retinues.Game.Doctrines.Catalogs
                 "Rescue a captive lord from an enemy party."
             ),
             Target = 1,
+            Worth = 40,
             Repeatable = false,
         };
 
@@ -121,6 +129,7 @@ namespace Retinues.Game.Doctrines.Catalogs
                 "Win a battle while part of an allied lord's army."
             ),
             Target = 1,
+            Worth = 10,
             Repeatable = true,
         };
 
@@ -137,6 +146,7 @@ namespace Retinues.Game.Doctrines.Catalogs
                 "Single-handedly win a battle against an enemy army of a different culture."
             ),
             Target = 1,
+            Worth = 50,
             Repeatable = false,
         };
 
@@ -149,6 +159,7 @@ namespace Retinues.Game.Doctrines.Catalogs
                 "Capture a fief of your own culture from an enemy kingdom."
             ),
             Target = 1,
+            Worth = 50,
             Repeatable = false,
         };
 
@@ -161,6 +172,7 @@ namespace Retinues.Game.Doctrines.Catalogs
                 "Complete a quest for a lord of your clan's culture."
             ),
             Target = 1,
+            Worth = 10,
             Repeatable = true,
         };
     }

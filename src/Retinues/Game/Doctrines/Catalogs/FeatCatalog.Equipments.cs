@@ -20,6 +20,7 @@ namespace Retinues.Game.Doctrines.Catalogs
                 "Defeat a ruler of a different culture in battle."
             ),
             Target = 1,
+            Worth = 40,
             Repeatable = false,
         };
 
@@ -32,6 +33,7 @@ namespace Retinues.Game.Doctrines.Catalogs
                 "Get {TARGET} kills in battle with troops wearing no foreign gear."
             ),
             Target = 100,
+            Worth = 40,
             Repeatable = false,
         };
 
@@ -44,6 +46,7 @@ namespace Retinues.Game.Doctrines.Catalogs
                 "Win a tournament in a town of your clan's culture."
             ),
             Target = 1,
+            Worth = 20,
             Repeatable = true,
         };
 
@@ -59,6 +62,7 @@ namespace Retinues.Game.Doctrines.Catalogs
                 "feat_eq_golden_legion_desc",
                 "Field a unit wearing equipment worth over 100,000 denars."
             ),
+            Worth = 40,
             Target = 1,
             Repeatable = false,
         };
@@ -72,6 +76,7 @@ namespace Retinues.Game.Doctrines.Catalogs
                 "Loot {TARGET} denars on the battlefield."
             ),
             Target = 25000,
+            Worth = 30,
             Repeatable = true,
         };
 
@@ -81,33 +86,13 @@ namespace Retinues.Game.Doctrines.Catalogs
             Name = L.T("feat_eq_paid_in_full_name", "Paid in Full"),
             Description = L.T("feat_eq_paid_in_full_desc", "Pay {TARGET} denars in troop wages."),
             Target = 50000,
+            Worth = 15,
             Repeatable = true,
         };
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Ironclad                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        public static FeatData IR_HeavyKit = new()
-        {
-            Id = "feat_eq_heavy_kit",
-            Name = L.T("feat_eq_heavy_kit_name", "Heavy Kit"),
-            Description = L.T(
-                "feat_eq_heavy_kit_desc",
-                "Field a unit wearing equipment weighing over 60 kg."
-            ),
-            Target = 1,
-            Repeatable = false,
-        };
-
-        public static FeatData IR_TailorMade = new()
-        {
-            Id = "feat_eq_tailor_made",
-            Name = L.T("feat_eq_tailor_made_name", "Tailor Made"),
-            Description = L.T("feat_eq_tailor_made_desc", "Own a smithy for {TARGET} days."),
-            Target = 30,
-            Repeatable = false,
-        };
 
         public static FeatData IR_Ironmen = new()
         {
@@ -118,6 +103,30 @@ namespace Retinues.Game.Doctrines.Catalogs
                 "Win a battle fielding only troops wearing full metal armor."
             ),
             Target = 1,
+            Worth = 40,
+            Repeatable = false,
+        };
+
+        public static FeatData IR_HeavyKit = new()
+        {
+            Id = "feat_eq_heavy_kit",
+            Name = L.T("feat_eq_heavy_kit_name", "Heavy Kit"),
+            Description = L.T(
+                "feat_eq_heavy_kit_desc",
+                "Field a unit wearing equipment weighing over 60 kg."
+            ),
+            Target = 1,
+            Worth = 30,
+            Repeatable = false,
+        };
+
+        public static FeatData IR_TailorMade = new()
+        {
+            Id = "feat_eq_tailor_made",
+            Name = L.T("feat_eq_tailor_made_name", "Tailor Made"),
+            Description = L.T("feat_eq_tailor_made_desc", "Own a smithy for {TARGET} days."),
+            Target = 30,
+            Worth = 30,
             Repeatable = false,
         };
 
@@ -134,6 +143,7 @@ namespace Retinues.Game.Doctrines.Catalogs
                 "Have a companion of the same culture as your kingdom govern a kingdom fief for {TARGET} days."
             ),
             Target = 30,
+            Worth = 40,
             Repeatable = false,
         };
 
@@ -146,6 +156,7 @@ namespace Retinues.Game.Doctrines.Catalogs
                 "Get {TARGET} kills with custom kingdom troops."
             ),
             Target = 1000,
+            Worth = 30,
             Repeatable = false,
         };
 
@@ -155,6 +166,7 @@ namespace Retinues.Game.Doctrines.Catalogs
             Name = L.T("feat_eq_royal_levy_name", "Royal Levy"),
             Description = L.T("feat_eq_royal_levy_desc", "Recruit {TARGET} custom kingdom troops."),
             Target = 100,
+            Worth = 15,
             Repeatable = true,
         };
     }

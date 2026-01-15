@@ -11,18 +11,6 @@ namespace Retinues.Game.Doctrines.Catalogs
         //                    Stalwart Militia                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public static FeatData SM_TheyShallNotPass = new()
-        {
-            Id = "feat_trp_they_shall_not_pass",
-            Name = L.T("feat_trp_they_shall_not_pass_name", "None Shall Pass"),
-            Description = L.T(
-                "feat_trp_they_shall_not_pass_desc",
-                "Personally slay {TARGET} assailants during a siege defense."
-            ),
-            Target = 50,
-            Repeatable = false,
-        };
-
         public static FeatData SM_WatchersOnTheWalls = new()
         {
             Id = "feat_trp_watchers_on_the_walls",
@@ -32,6 +20,20 @@ namespace Retinues.Game.Doctrines.Catalogs
                 "Raise the militia value of a fief to {TARGET}."
             ),
             Target = 400,
+            Worth = 55,
+            Repeatable = false,
+        };
+
+        public static FeatData SM_TheyShallNotPass = new()
+        {
+            Id = "feat_trp_they_shall_not_pass",
+            Name = L.T("feat_trp_they_shall_not_pass_name", "None Shall Pass"),
+            Description = L.T(
+                "feat_trp_they_shall_not_pass_desc",
+                "Personally slay {TARGET} assailants during a siege defense."
+            ),
+            Target = 50,
+            Worth = 30,
             Repeatable = false,
         };
 
@@ -44,6 +46,7 @@ namespace Retinues.Game.Doctrines.Catalogs
                 "Defend a city against a besieging army."
             ),
             Target = 1,
+            Worth = 15,
             Repeatable = true,
         };
 
@@ -60,6 +63,7 @@ namespace Retinues.Game.Doctrines.Catalogs
                 "Own {TARGET} caravans at the same time."
             ),
             Target = 3,
+            Worth = 40,
             Repeatable = false,
         };
 
@@ -69,6 +73,7 @@ namespace Retinues.Game.Doctrines.Catalogs
             Name = L.T("feat_trp_bandit_scourge_name", "Bandit Scourge"),
             Description = L.T("feat_trp_bandit_scourge_desc", "Clear a bandit hideout."),
             Target = 1,
+            Worth = 10,
             Repeatable = true,
         };
 
@@ -80,7 +85,8 @@ namespace Retinues.Game.Doctrines.Catalogs
                 "feat_trp_merchants_favor_desc",
                 "Complete a quest for a town merchant notable."
             ),
-            Target = 1,
+            Target = 10,
+            Worth = 10,
             Repeatable = true,
         };
 
@@ -97,6 +103,7 @@ namespace Retinues.Game.Doctrines.Catalogs
                 "Defend a village against an enemy raid."
             ),
             Target = 1,
+            Worth = 50,
             Repeatable = false,
         };
 
@@ -109,6 +116,7 @@ namespace Retinues.Game.Doctrines.Catalogs
                 "Complete a quest for a village headman."
             ),
             Target = 1,
+            Worth = 10,
             Repeatable = true,
         };
 
@@ -121,6 +129,7 @@ namespace Retinues.Game.Doctrines.Catalogs
                 "Complete a quest for a village landowner."
             ),
             Target = 1,
+            Worth = 10,
             Repeatable = true,
         };
 
@@ -137,6 +146,7 @@ namespace Retinues.Game.Doctrines.Catalogs
                 "Max out the skills of a T6 elite troop."
             ),
             Target = 1,
+            Worth = 40,
             Repeatable = false,
         };
 
@@ -146,6 +156,7 @@ namespace Retinues.Game.Doctrines.Catalogs
             Name = L.T("feat_trp_veterans_name", "Veterans"),
             Description = L.T("feat_trp_veterans_desc", "Max out the skills of a T5 basic troop."),
             Target = 1,
+            Worth = 40,
             Repeatable = false,
         };
 
@@ -158,6 +169,7 @@ namespace Retinues.Game.Doctrines.Catalogs
                 "Promote {TARGET} faction troops."
             ),
             Target = 100,
+            Worth = 10,
             Repeatable = true,
         };
     }

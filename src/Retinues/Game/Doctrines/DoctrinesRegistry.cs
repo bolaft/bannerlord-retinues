@@ -90,7 +90,7 @@ namespace Retinues.Game.Doctrines
                                 name: featData.Name,
                                 description: featData.Description,
                                 target: featData.Target,
-                                worth: 1,
+                                worth: featData.Worth,
                                 repeatable: featData.Repeatable
                             );
 
