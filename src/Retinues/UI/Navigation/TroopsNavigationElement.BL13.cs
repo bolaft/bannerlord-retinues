@@ -9,6 +9,7 @@ using TaleWorlds.CampaignSystem;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
 using TaleWorlds.ScreenSystem;
+using System.Linq;
 
 namespace Retinues.UI.Navigation;
 
@@ -38,7 +39,7 @@ public sealed class TroopsNavigationElement(MapNavigationHandler handler)
             return new NavigationPermissionItem(isAuthorized: false, reasonString: null);
 
         // Player mode requires at least one custom-tree troop to exist.
-        if (!EditorAvailability.HasAnyCustomTreeTroops(Player.Clan))
+        if (Player.Clan.Troops.Count() == 0)
             return new NavigationPermissionItem(
                 isAuthorized: false,
                 L.T("troops_editor_no_custom", "No troops are available.")

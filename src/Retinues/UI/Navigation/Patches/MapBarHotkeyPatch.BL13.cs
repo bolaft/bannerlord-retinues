@@ -7,6 +7,7 @@ using Retinues.Domain;
 using Retinues.Utilities;
 using Retinues.Editor;
 using TaleWorlds.InputSystem;
+using System.Linq;
 
 namespace Retinues.UI.Navigation.Patches
 {
@@ -40,7 +41,7 @@ namespace Retinues.UI.Navigation.Patches
             if (el == null)
                 return;
 
-            if (!EditorAvailability.HasAnyCustomTreeTroops(Player.Clan))
+            if (Player.Clan.Troops.Count() == 0)
                 return;
 
             if (!el.Permission.IsAuthorized || el.IsActive)

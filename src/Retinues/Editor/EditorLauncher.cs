@@ -10,6 +10,8 @@ namespace Retinues.Editor
 {
     public static class EditorLauncher
     {
+        public static IBaseFaction DefaultFaction => Player.Clan;
+
         public static void Launch(EditorLaunchArgs args = null)
         {
             LaunchInternal(args ?? EditorLaunchArgs.Universal());
@@ -45,7 +47,7 @@ namespace Retinues.Editor
             {
                 var gateFaction = ResolveGateFaction(args);
 
-                if (!EditorAvailability.HasAnyCustomTreeTroops(gateFaction))
+                if (gateFaction.Troops.Count() == 0)
                 {
                     Log.Debug("Troops editor blocked: selected map-faction has no custom troops.");
                     return;
@@ -81,21 +83,21 @@ namespace Retinues.Editor
             return null;
         }
 
-        private static IBaseFaction ResolveGateFaction(EditorLaunchArgs args)
+        public static IBaseFaction ResolveGateFaction(EditorLaunchArgs args)
         {
             if (args == null)
-                return Player.Clan;
+                return DefaultFaction;
 
             if (args.Faction != null)
                 return args.Faction;
 
             if (args.Character != null && args.Character.IsFactionTroop)
-                return args.Character.AssignedMapFaction ?? Player.Clan;
+                return args.Character.AssignedMapFaction ?? DefaultFaction;
 
             if (args.Hero != null)
-                return args.Hero.Clan ?? Player.Clan;
+                return args.Hero.Clan ?? DefaultFaction;
 
-            return Player.Clan;
+            return DefaultFaction;
         }
 
         private static void ClosePreviousEditorInstances(GameStateManager gsm)

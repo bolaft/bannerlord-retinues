@@ -8,6 +8,7 @@ using SandBox.View.Map;
 using SandBox.View.Map.Navigation;
 using TaleWorlds.InputSystem;
 using TaleWorlds.ScreenSystem;
+using System.Linq;
 
 namespace Retinues.UI.Navigation.Patches;
 
@@ -38,7 +39,7 @@ internal static class MapScreenTroopsHotkeyPatch
         if (!sceneLayer.Input.IsKeyPressed(InputKey.R))
             return;
 
-        if (!EditorAvailability.HasAnyCustomTreeTroops(Player.Clan))
+        if (Player.Clan.Troops.Count() == 0)
             return;
 
         var handler = Reflection.GetFieldValue<MapNavigationHandler>(
