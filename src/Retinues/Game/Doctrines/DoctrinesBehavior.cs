@@ -35,7 +35,7 @@ namespace Retinues.Game.Doctrines
         /// </summary>
         public override void SyncData(IDataStore dataStore)
         {
-            Catalogs.DoctrineCatalog.EnsureRegistered();
+            DoctrinesRegistry.EnsureRegistered();
 
             if (dataStore.IsSaving)
             {
@@ -43,7 +43,7 @@ namespace Retinues.Game.Doctrines
                 _doctrineAcquired.Clear();
                 _featProgress.Clear();
 
-                foreach (var doctrine in Catalogs.DoctrineCatalog.GetDoctrines())
+                foreach (var doctrine in DoctrinesRegistry.GetDoctrines())
                 {
                     _doctrineProgress[doctrine.Id] = doctrine.Progress;
                     _doctrineAcquired[doctrine.Id] = doctrine.IsAcquired;
@@ -64,7 +64,7 @@ namespace Retinues.Game.Doctrines
                 // Apply progress first.
                 foreach (var kvp in _doctrineProgress)
                 {
-                    var doctrine = Catalogs.DoctrineCatalog.GetDoctrine(kvp.Key);
+                    var doctrine = DoctrinesRegistry.GetDoctrine(kvp.Key);
                     if (doctrine == null)
                         continue;
 
@@ -74,7 +74,7 @@ namespace Retinues.Game.Doctrines
                 // Apply acquired state after progress to ensure consistency.
                 foreach (var kvp in _doctrineAcquired)
                 {
-                    var doctrine = Catalogs.DoctrineCatalog.GetDoctrine(kvp.Key);
+                    var doctrine = DoctrinesRegistry.GetDoctrine(kvp.Key);
                     if (doctrine == null)
                         continue;
 
@@ -84,7 +84,7 @@ namespace Retinues.Game.Doctrines
                 // Apply feat progress last.
                 foreach (var kvp in _featProgress)
                 {
-                    var feat = Catalogs.DoctrineCatalog.GetFeat(kvp.Key);
+                    var feat = DoctrinesRegistry.GetFeat(kvp.Key);
                     if (feat == null)
                         continue;
 
@@ -98,7 +98,7 @@ namespace Retinues.Game.Doctrines
         /// </summary>
         protected override void OnSessionLaunched(CampaignGameStarter starter)
         {
-            Catalogs.DoctrineCatalog.EnsureRegistered();
+            DoctrinesRegistry.EnsureRegistered();
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -146,7 +146,7 @@ namespace Retinues.Game.Doctrines
             if (PendingFeatNotifs.Count == 0)
                 return;
 
-            Catalogs.DoctrineCatalog.EnsureRegistered();
+            DoctrinesRegistry.EnsureRegistered();
 
             // Dedupe by feat id, preserve order.
             var seen = new HashSet<string>(StringComparer.Ordinal);

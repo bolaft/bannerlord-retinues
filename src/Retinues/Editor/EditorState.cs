@@ -10,7 +10,6 @@ using Retinues.Framework.Model.Exports;
 using Retinues.Framework.Runtime;
 using Retinues.Game;
 using Retinues.Game.Doctrines;
-using Retinues.Game.Doctrines.Catalogs;
 using Retinues.Utilities;
 using TaleWorlds.Core;
 
@@ -509,7 +508,7 @@ namespace Retinues.Editor
 
         /* ━━━━━━━ Doctrine ━━━━━━━ */
 
-        private Doctrine _doctrine = DoctrineCatalog.GetDoctrines().FirstOrDefault();
+        private Doctrine _doctrine = DoctrinesRegistry.GetDoctrines().FirstOrDefault();
 
         public Doctrine Doctrine
         {

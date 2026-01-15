@@ -9,7 +9,7 @@ namespace Retinues.Game.Doctrines
         /// <summary>
         /// Gets a category by its ID.
         /// </summary>
-        public static Category Get(string id) => Catalogs.DoctrineCatalog.GetCategory(id);
+        public static Category Get(string id) => DoctrinesRegistry.GetCategory(id);
 
         /* ━━━━━━━ Identity ━━━━━━━ */
 
@@ -48,7 +48,7 @@ namespace Retinues.Game.Doctrines
         /// <summary>
         /// Gets a doctrine by its ID.
         /// </summary>
-        public static Doctrine Get(string id) => Catalogs.DoctrineCatalog.GetDoctrine(id);
+        public static Doctrine Get(string id) => DoctrinesRegistry.GetDoctrine(id);
 
         /* ━━━━━━━ Identity ━━━━━━━ */
 
@@ -207,7 +207,7 @@ namespace Retinues.Game.Doctrines
         /// <summary>
         /// Gets a feat by its ID.
         /// </summary>
-        public static Feat Get(string id) => Catalogs.DoctrineCatalog.GetFeat(id);
+        public static Feat Get(string id) => DoctrinesRegistry.GetFeat(id);
 
         /* ━━━━━━━ Identity ━━━━━━━ */
 

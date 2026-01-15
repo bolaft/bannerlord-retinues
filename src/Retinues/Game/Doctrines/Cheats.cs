@@ -14,7 +14,7 @@ namespace Retinues.Game.Doctrines
         [CommandLineFunctionality.CommandLineArgumentFunction("doctrines_list", "retinues")]
         public static string DoctrinesList(List<string> args)
         {
-            var doctrines = Catalogs.DoctrineCatalog.GetDoctrines();
+            var doctrines = DoctrinesRegistry.GetDoctrines();
             var lines = new List<string>(doctrines.Count + 8)
             {
                 "Doctrines:",
@@ -59,7 +59,7 @@ namespace Retinues.Game.Doctrines
         [CommandLineFunctionality.CommandLineArgumentFunction("feats_list", "retinues")]
         public static string FeatsList(List<string> args)
         {
-            var feats = Catalogs.DoctrineCatalog.GetFeats();
+            var feats = DoctrinesRegistry.GetFeats();
 
             var lines = new List<string>(feats.Count + 8)
             {

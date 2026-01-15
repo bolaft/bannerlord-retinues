@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Retinues.Configuration;
+using Retinues.Game.Doctrines;
 using Retinues.UI.Services;
 
 namespace Retinues.Editor.VM.List.Doctrines
@@ -36,7 +37,7 @@ namespace Retinues.Editor.VM.List.Doctrines
                 return;
             }
 
-            var categories = Game.Doctrines.Catalogs.DoctrineCatalog.GetCategories();
+            var categories = DoctrinesRegistry.GetCategories();
             if (categories == null || categories.Count == 0)
             {
                 list.SetHeaders(headers);
