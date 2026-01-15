@@ -2,14 +2,14 @@ using System.Collections.Generic;
 using Retinues.Domain.Events.Models;
 using Retinues.Game.Missions;
 
-namespace Retinues.Game.Doctrines.FeatCatalog.Retinues
+namespace Retinues.Game.Doctrines.Feats.Retinues
 {
     /// <summary>
     /// Have a retinue get the first melee kill in a siege assault.
     /// </summary>
     public sealed class Feat_Vanguard_FirstThroughTheBreach : FeatCampaignBehavior
     {
-        protected override string FeatId => Catalogs.DoctrineCatalog.VA_FirstThroughTheBreach.Id;
+        protected override string FeatId => Catalogs.FeatCatalog.VA_FirstThroughTheBreach.Id;
 
         protected override void OnBattleOver(
             IReadOnlyList<CombatBehavior.Kill> kills,

@@ -1,11 +1,11 @@
-namespace Retinues.Game.Doctrines.FeatCatalog.Equipments
+namespace Retinues.Game.Doctrines.Feats.Equipments
 {
     /// <summary>
     /// Pay 50 000 denars in troop wages.
     /// </summary>
     public sealed class Feat_HonorGuard_PaidInFull : FeatCampaignBehavior
     {
-        protected override string FeatId => Catalogs.DoctrineCatalog.HG_PaidInFull.Id;
+        protected override string FeatId => Catalogs.FeatCatalog.HG_PaidInFull.Id;
 
         protected override void OnDailyTick()
         {

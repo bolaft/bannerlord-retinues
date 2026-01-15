@@ -33,7 +33,12 @@ namespace Retinues.Game.Doctrines.Catalogs
                             "doctrine_loot_lions_share_desc",
                             "Hero kills count twice toward unlocking enemy gear."
                         ),
-                        Feats = [LS_CutTheHead, LS_BloodPrice, LS_HighValueTargets],
+                        Feats =
+                        [
+                            FeatCatalog.LS_CutTheHead,
+                            FeatCatalog.LS_BloodPrice,
+                            FeatCatalog.LS_HighValueTargets,
+                        ],
                     },
                     new DoctrineData
                     {
@@ -43,7 +48,12 @@ namespace Retinues.Game.Doctrines.Catalogs
                             "doctrine_loot_battlefield_tithes_desc",
                             "Enemy gear used by troops killed by your allies can also be unlocked."
                         ),
-                        Feats = [BT_TurnTheTide, BT_SecondInCommand, BT_AlliesFavor],
+                        Feats =
+                        [
+                            FeatCatalog.BT_TurnTheTide,
+                            FeatCatalog.BT_SecondInCommand,
+                            FeatCatalog.BT_AlliesFavor,
+                        ],
                     },
                     new DoctrineData
                     {
@@ -53,7 +63,12 @@ namespace Retinues.Game.Doctrines.Catalogs
                             "doctrine_loot_pragmatic_scavengers_desc",
                             "Gear can be unlocked from allied casualties."
                         ),
-                        Feats = [PR_CostlyVictory, PR_RescueMission, PR_MarchTogether],
+                        Feats =
+                        [
+                            FeatCatalog.PR_CostlyVictory,
+                            FeatCatalog.PR_RescueMission,
+                            FeatCatalog.PR_MarchTogether,
+                        ],
                     },
                     new DoctrineData
                     {
@@ -63,7 +78,12 @@ namespace Retinues.Game.Doctrines.Catalogs
                             "doctrine_loot_ancestral_heritage_desc",
                             "All items of your clan's culture are unlocked."
                         ),
-                        Feats = [AN_CulturalTriumph, AN_Homecoming, AN_AncestralDuty],
+                        Feats =
+                        [
+                            FeatCatalog.AN_CulturalTriumph,
+                            FeatCatalog.AN_Homecoming,
+                            FeatCatalog.AN_AncestralDuty,
+                        ],
                     },
                 ],
             };

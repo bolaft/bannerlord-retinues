@@ -3,14 +3,14 @@ using Retinues.Domain.Events.Models;
 using Retinues.Game.Missions;
 using TaleWorlds.Core;
 
-namespace Retinues.Game.Doctrines.FeatCatalog.Training
+namespace Retinues.Game.Doctrines.Feats.Training
 {
     /// <summary>
     /// Win a battle against over 100 enemies using a party evenly split among infantry, cavalry and ranged clan troops.
     /// </summary>
     public sealed class Feat_AdvancedTactics_CombinedArms : FeatCampaignBehavior
     {
-        protected override string FeatId => Catalogs.DoctrineCatalog.AT_CombinedArms.Id;
+        protected override string FeatId => Catalogs.FeatCatalog.AT_CombinedArms.Id;
 
         protected override void OnBattleOver(
             IReadOnlyList<CombatBehavior.Kill> kills,

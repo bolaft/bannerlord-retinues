@@ -2,14 +2,14 @@ using System.Collections.Generic;
 using Retinues.Domain.Events.Models;
 using Retinues.Game.Missions;
 
-namespace Retinues.Game.Doctrines.FeatCatalog.Equipments
+namespace Retinues.Game.Doctrines.Feats.Equipments
 {
     /// <summary>
     /// Defeat a ruler of a different culture in battle.
     /// </summary>
     public sealed class Feat_CulturalPride_KingSlayer : FeatCampaignBehavior
     {
-        protected override string FeatId => Catalogs.DoctrineCatalog.CP_KingSlayer.Id;
+        protected override string FeatId => Catalogs.FeatCatalog.CP_KingSlayer.Id;
 
         protected override void OnBattleOver(
             IReadOnlyList<CombatBehavior.Kill> kills,

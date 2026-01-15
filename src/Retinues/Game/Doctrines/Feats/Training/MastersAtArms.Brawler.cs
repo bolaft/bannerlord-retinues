@@ -3,14 +3,14 @@ using Retinues.Domain.Events.Models;
 using Retinues.Game.Missions;
 using TaleWorlds.Core;
 
-namespace Retinues.Game.Doctrines.FeatCatalog.Training
+namespace Retinues.Game.Doctrines.Feats.Training
 {
     /// <summary>
     /// Knock out 50 opponents in the arena.
     /// </summary>
     public sealed class Feat_MastersAtArms_Brawler : FeatCampaignBehavior
     {
-        protected override string FeatId => Catalogs.DoctrineCatalog.MA_Brawler.Id;
+        protected override string FeatId => Catalogs.FeatCatalog.MA_Brawler.Id;
 
         protected override void OnMissionEnded(MMission mission)
         {

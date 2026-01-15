@@ -1,13 +1,13 @@
 using Retinues.Domain.Characters.Wrappers;
 
-namespace Retinues.Game.Doctrines.FeatCatalog.Training
+namespace Retinues.Game.Doctrines.Feats.Training
 {
     /// <summary>
     /// Upgrade 100 faction troops to the next tier.
     /// </summary>
     public sealed class Feat_IronDiscipline_ForgedInBattle : FeatCampaignBehavior
     {
-        protected override string FeatId => Catalogs.DoctrineCatalog.ID_ForgedInBattle.Id;
+        protected override string FeatId => Catalogs.FeatCatalog.ID_ForgedInBattle.Id;
 
         protected override void OnPlayerUpgradedTroops(
             WCharacter source,

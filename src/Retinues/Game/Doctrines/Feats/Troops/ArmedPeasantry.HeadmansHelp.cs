@@ -1,14 +1,14 @@
 using Retinues.Domain.Characters.Wrappers;
 using TaleWorlds.CampaignSystem;
 
-namespace Retinues.Game.Doctrines.FeatCatalog.Troops
+namespace Retinues.Game.Doctrines.Feats.Troops
 {
     /// <summary>
     /// Complete a quest for a village headman.
     /// </summary>
     public sealed class Feat_ArmedPeasantry_HeadmansHelp : FeatCampaignBehavior
     {
-        protected override string FeatId => Catalogs.DoctrineCatalog.AP_HeadmansHelp.Id;
+        protected override string FeatId => Catalogs.FeatCatalog.AP_HeadmansHelp.Id;
 
         protected override void OnQuestCompleted(QuestBase quest, WHero giver, bool success)
         {

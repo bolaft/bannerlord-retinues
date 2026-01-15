@@ -33,7 +33,12 @@ namespace Retinues.Game.Doctrines.Catalogs
                             "doctrine_training_iron_discipline_desc",
                             "Increases skill caps by +5 for all troops."
                         ),
-                        Feats = [ID_General, ID_DisciplinedVictory, ID_ForgedInBattle],
+                        Feats =
+                        [
+                            FeatCatalog.ID_General,
+                            FeatCatalog.ID_DisciplinedVictory,
+                            FeatCatalog.ID_ForgedInBattle,
+                        ],
                     },
                     new DoctrineData
                     {
@@ -43,7 +48,12 @@ namespace Retinues.Game.Doctrines.Catalogs
                             "doctrine_training_steadfast_soldiers_desc",
                             "Grants +10 skill points to basic troops."
                         ),
-                        Feats = [SS_PeakPerformance, SS_SecureHoldings, SS_HoldTheWalls],
+                        Feats =
+                        [
+                            FeatCatalog.SS_PeakPerformance,
+                            FeatCatalog.SS_SecureHoldings,
+                            FeatCatalog.SS_HoldTheWalls,
+                        ],
                     },
                     new DoctrineData
                     {
@@ -53,7 +63,12 @@ namespace Retinues.Game.Doctrines.Catalogs
                             "doctrine_training_masters_at_arms_desc",
                             "Grants +10 skill points to elite troops."
                         ),
-                        Feats = [MA_Brawler, MA_BattleHardened, MA_DistinguishedService],
+                        Feats =
+                        [
+                            FeatCatalog.MA_Brawler,
+                            FeatCatalog.MA_BattleHardened,
+                            FeatCatalog.MA_DistinguishedService,
+                        ],
                     },
                     new DoctrineData
                     {
@@ -63,7 +78,12 @@ namespace Retinues.Game.Doctrines.Catalogs
                             "doctrine_training_advanced_tactics_desc",
                             "+10% skill point gain rate."
                         ),
-                        Feats = [AT_CombinedArms, AT_LethalVersatility, AT_UnyieldingDefense],
+                        Feats =
+                        [
+                            FeatCatalog.AT_CombinedArms,
+                            FeatCatalog.AT_LethalVersatility,
+                            FeatCatalog.AT_UnyieldingDefense,
+                        ],
                     },
                 ],
             };

@@ -1,13 +1,13 @@
 using Retinues.Domain.Events.Models;
 
-namespace Retinues.Game.Doctrines.FeatCatalog.Equipments
+namespace Retinues.Game.Doctrines.Feats.Equipments
 {
     /// <summary>
     /// Field a unit wearing equipment worth over 100 000 denars.
     /// </summary>
     public sealed class Feat_HonorGuard_GoldenLegion : FeatCampaignBehavior
     {
-        protected override string FeatId => Catalogs.DoctrineCatalog.HG_GoldenLegion.Id;
+        protected override string FeatId => Catalogs.FeatCatalog.HG_GoldenLegion.Id;
 
         protected override void OnBattleStart(MMapEvent battle)
         {

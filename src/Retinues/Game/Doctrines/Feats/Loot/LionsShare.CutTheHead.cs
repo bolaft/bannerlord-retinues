@@ -3,14 +3,14 @@ using System.Linq;
 using Retinues.Domain.Events.Models;
 using Retinues.Game.Missions;
 
-namespace Retinues.Game.Doctrines.FeatCatalog.Loot
+namespace Retinues.Game.Doctrines.Feats.Loot
 {
     /// <summary>
     /// Personally defeat an enemy lord in battle.
     /// </summary>
     public sealed class Feat_LionsShare_CutTheHead : FeatCampaignBehavior
     {
-        protected override string FeatId => Catalogs.DoctrineCatalog.LS_CutTheHead.Id;
+        protected override string FeatId => Catalogs.FeatCatalog.LS_CutTheHead.Id;
 
         protected override void OnBattleOver(
             IReadOnlyList<CombatBehavior.Kill> kills,

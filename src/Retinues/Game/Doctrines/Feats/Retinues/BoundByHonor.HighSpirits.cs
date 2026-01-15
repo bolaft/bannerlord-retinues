@@ -1,11 +1,11 @@
-namespace Retinues.Game.Doctrines.FeatCatalog.Retinues
+namespace Retinues.Game.Doctrines.Feats.Retinues
 {
     /// <summary>
     /// Maintain a retinue-only party's morale above 90 for 15 days.
     /// </summary>
     public sealed class Feat_BoundByHonor_HighSpirits : FeatCampaignBehavior
     {
-        protected override string FeatId => Catalogs.DoctrineCatalog.BH_HighSpirits.Id;
+        protected override string FeatId => Catalogs.FeatCatalog.BH_HighSpirits.Id;
 
         protected override void OnDailyTick()
         {

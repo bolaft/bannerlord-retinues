@@ -2,14 +2,14 @@ using System.Collections.Generic;
 using Retinues.Domain.Events.Models;
 using Retinues.Game.Missions;
 
-namespace Retinues.Game.Doctrines.FeatCatalog.Equipments
+namespace Retinues.Game.Doctrines.Feats.Equipments
 {
     /// <summary>
     /// Loot 25000 denars on the battlefield.
     /// </summary>
     public sealed class Feat_HonorGuard_BloodMoney : FeatCampaignBehavior
     {
-        protected override string FeatId => Catalogs.DoctrineCatalog.HG_BloodMoney.Id;
+        protected override string FeatId => Catalogs.FeatCatalog.HG_BloodMoney.Id;
 
         protected override void OnBattleOver(
             IReadOnlyList<CombatBehavior.Kill> kills,

@@ -1,11 +1,11 @@
-namespace Retinues.Game.Doctrines.FeatCatalog.Training
+namespace Retinues.Game.Doctrines.Feats.Training
 {
     /// <summary>
     /// Lead an army for 10 days in a row.
     /// </summary>
     public sealed class Feat_IronDiscipline_General : FeatCampaignBehavior
     {
-        protected override string FeatId => Catalogs.DoctrineCatalog.ID_General.Id;
+        protected override string FeatId => Catalogs.FeatCatalog.ID_General.Id;
 
         protected override void OnDailyTick()
         {

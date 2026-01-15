@@ -1,14 +1,14 @@
 using Retinues.Domain.Characters.Wrappers;
 using TaleWorlds.CampaignSystem;
 
-namespace Retinues.Game.Doctrines.FeatCatalog.Loot
+namespace Retinues.Game.Doctrines.Feats.Loot
 {
     /// <summary>
     /// Complete a quest for a lord of your clan's culture.
     /// </summary>
     public sealed class Feat_AncestralHeritage_AncestralDuty : FeatCampaignBehavior
     {
-        protected override string FeatId => Catalogs.DoctrineCatalog.AN_AncestralDuty.Id;
+        protected override string FeatId => Catalogs.FeatCatalog.AN_AncestralDuty.Id;
 
         protected override void OnQuestCompleted(QuestBase quest, WHero giver, bool success)
         {

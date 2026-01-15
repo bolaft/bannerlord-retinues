@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Retinues.Utilities;
 using TaleWorlds.Localization;
+using static Retinues.Game.Doctrines.Catalogs.FeatCatalog;
 
 namespace Retinues.Game.Doctrines.Catalogs
 {

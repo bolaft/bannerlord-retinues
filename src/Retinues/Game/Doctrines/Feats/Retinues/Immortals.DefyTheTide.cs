@@ -2,14 +2,14 @@ using System.Collections.Generic;
 using Retinues.Domain.Events.Models;
 using Retinues.Game.Missions;
 
-namespace Retinues.Game.Doctrines.FeatCatalog.Retinues
+namespace Retinues.Game.Doctrines.Feats.Retinues
 {
     /// <summary>
     /// Win a battle against overwhelming odds while fielding mostly retinues.
     /// </summary>
     public sealed class Feat_Immortals_DefyTheTide : FeatCampaignBehavior
     {
-        protected override string FeatId => Catalogs.DoctrineCatalog.IM_DefyTheTide.Id;
+        protected override string FeatId => Catalogs.FeatCatalog.IM_DefyTheTide.Id;
 
         static bool IsMostlyRetinues;
 

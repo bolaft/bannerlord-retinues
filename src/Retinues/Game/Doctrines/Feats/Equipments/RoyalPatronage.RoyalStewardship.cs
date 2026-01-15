@@ -1,13 +1,13 @@
 using Retinues.Domain.Characters.Wrappers;
 
-namespace Retinues.Game.Doctrines.FeatCatalog.Equipments
+namespace Retinues.Game.Doctrines.Feats.Equipments
 {
     /// <summary>
     /// Have a companion of the same culture as your kingdom govern a kingdom fief for 30 days.
     /// </summary>
     public sealed class Feat_RoyalPatronage_RoyalStewardship : FeatCampaignBehavior
     {
-        protected override string FeatId => Catalogs.DoctrineCatalog.RP_RoyalStewardship.Id;
+        protected override string FeatId => Catalogs.FeatCatalog.RP_RoyalStewardship.Id;
 
         protected override void OnDailyTick()
         {

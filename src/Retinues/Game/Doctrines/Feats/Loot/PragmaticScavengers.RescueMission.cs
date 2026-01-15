@@ -2,14 +2,14 @@ using System.Collections.Generic;
 using Retinues.Domain.Events.Models;
 using Retinues.Game.Missions;
 
-namespace Retinues.Game.Doctrines.FeatCatalog.Loot
+namespace Retinues.Game.Doctrines.Feats.Loot
 {
     /// <summary>
     /// Rescue a captive lord from an enemy party.
     /// </summary>
     public sealed class Feat_PragmaticScavengers_RescueMission : FeatCampaignBehavior
     {
-        protected override string FeatId => Catalogs.DoctrineCatalog.PR_RescueMission.Id;
+        protected override string FeatId => Catalogs.FeatCatalog.PR_RescueMission.Id;
 
         protected override void OnBattleOver(
             IReadOnlyList<CombatBehavior.Kill> kills,

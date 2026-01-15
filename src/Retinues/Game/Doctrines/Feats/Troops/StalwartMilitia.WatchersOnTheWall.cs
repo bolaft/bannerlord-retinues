@@ -1,11 +1,11 @@
-namespace Retinues.Game.Doctrines.FeatCatalog.Troops
+namespace Retinues.Game.Doctrines.Feats.Troops
 {
     public sealed class Feat_StalwartMilitia_WatchersOnTheWalls : FeatCampaignBehavior
     {
         /// <summary>
         /// Raise the militia value of a fief to 400.
         /// </summary>
-        protected override string FeatId => Catalogs.DoctrineCatalog.SM_WatchersOnTheWalls.Id;
+        protected override string FeatId => Catalogs.FeatCatalog.SM_WatchersOnTheWalls.Id;
 
         protected override void OnDailyTick()
         {

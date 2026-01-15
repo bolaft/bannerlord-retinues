@@ -2,14 +2,14 @@ using System.Collections.Generic;
 using Retinues.Domain.Events.Models;
 using Retinues.Game.Missions;
 
-namespace Retinues.Game.Doctrines.FeatCatalog.Retinues
+namespace Retinues.Game.Doctrines.Feats.Retinues
 {
     /// <summary>
     /// Eliminate 5 bandit parties.
     /// </summary>
     public sealed class Feat_BoundByHonor_BountyHunters : FeatCampaignBehavior
     {
-        protected override string FeatId => Catalogs.DoctrineCatalog.BH_BountyHunters.Id;
+        protected override string FeatId => Catalogs.FeatCatalog.BH_BountyHunters.Id;
 
         protected override void OnBattleOver(
             IReadOnlyList<CombatBehavior.Kill> kills,

@@ -3,14 +3,14 @@ using Retinues.Domain.Equipments.Models;
 using Retinues.Domain.Events.Models;
 using Retinues.Game.Missions;
 
-namespace Retinues.Game.Doctrines.FeatCatalog.Equipments
+namespace Retinues.Game.Doctrines.Feats.Equipments
 {
     /// <summary>
     /// Win a battle fielding only troops wearing full metal armor.
     /// </summary>
     public sealed class Feat_Ironclad_Ironmen : FeatCampaignBehavior
     {
-        protected override string FeatId => Catalogs.DoctrineCatalog.IR_Ironmen.Id;
+        protected override string FeatId => Catalogs.FeatCatalog.IR_Ironmen.Id;
 
         // Tracks if all troops are wearing full metal armor.
         static bool FullMetalOnly;

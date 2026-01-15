@@ -2,14 +2,14 @@ using System.Collections.Generic;
 using Retinues.Domain.Events.Models;
 using Retinues.Game.Missions;
 
-namespace Retinues.Game.Doctrines.FeatCatalog.Retinues
+namespace Retinues.Game.Doctrines.Feats.Retinues
 {
     /// <summary>
     /// Outnumbered at least 2 to 1, win a battle while fielding only retinues.
     /// </summary>
     public sealed class Feat_Indomitable_AgainstAllOdds : FeatCampaignBehavior
     {
-        protected override string FeatId => Catalogs.DoctrineCatalog.IN_AgainstAllOdds.Id;
+        protected override string FeatId => Catalogs.FeatCatalog.IN_AgainstAllOdds.Id;
 
         static bool IsRetinueOnly;
 

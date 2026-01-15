@@ -1,13 +1,13 @@
 using System.Linq;
 
-namespace Retinues.Game.Doctrines.FeatCatalog.Troops
+namespace Retinues.Game.Doctrines.Feats.Troops
 {
     /// <summary>
     /// Own three caravans at the same time.
     /// </summary>
     public sealed class Feat_RoadWardens_TradeNetwork : FeatCampaignBehavior
     {
-        protected override string FeatId => Catalogs.DoctrineCatalog.RW_TradeNetwork.Id;
+        protected override string FeatId => Catalogs.FeatCatalog.RW_TradeNetwork.Id;
 
         protected override void OnDailyTick()
         {

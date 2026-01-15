@@ -2,14 +2,14 @@ using System.Collections.Generic;
 using Retinues.Domain.Events.Models;
 using Retinues.Game.Missions;
 
-namespace Retinues.Game.Doctrines.FeatCatalog.Loot
+namespace Retinues.Game.Doctrines.Feats.Loot
 {
     /// <summary>
     /// Win a battle where you are not the main commander.
     /// </summary>
     public sealed class Feat_BattlefieldTithes_SecondInCommand : FeatCampaignBehavior
     {
-        protected override string FeatId => Catalogs.DoctrineCatalog.BT_SecondInCommand.Id;
+        protected override string FeatId => Catalogs.FeatCatalog.BT_SecondInCommand.Id;
 
         protected override void OnBattleOver(
             IReadOnlyList<CombatBehavior.Kill> kills,

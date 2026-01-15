@@ -3,14 +3,14 @@ using System.Linq;
 using Retinues.Domain.Events.Models;
 using Retinues.Game.Missions;
 
-namespace Retinues.Game.Doctrines.FeatCatalog.Loot
+namespace Retinues.Game.Doctrines.Feats.Loot
 {
     /// <summary>
     /// Win a battle in which allies suffer over 100 casualties.
     /// </summary>
     public sealed class Feat_PragmaticScavengers_CostlyVictory : FeatCampaignBehavior
     {
-        protected override string FeatId => Catalogs.DoctrineCatalog.PR_CostlyVictory.Id;
+        protected override string FeatId => Catalogs.FeatCatalog.PR_CostlyVictory.Id;
 
         protected override void OnBattleOver(
             IReadOnlyList<CombatBehavior.Kill> kills,

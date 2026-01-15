@@ -33,7 +33,12 @@ namespace Retinues.Game.Doctrines.Catalogs
                             "doctrine_armory_cultural_pride_desc",
                             "20% rebate when equipping gear from your clan culture."
                         ),
-                        Feats = [CP_HometownTournament, CP_ProudAndStrong, CP_KingSlayer],
+                        Feats =
+                        [
+                            FeatCatalog.CP_KingSlayer,
+                            FeatCatalog.CP_HometownTournament,
+                            FeatCatalog.CP_ProudAndStrong,
+                        ],
                     },
                     new DoctrineData
                     {
@@ -43,7 +48,12 @@ namespace Retinues.Game.Doctrines.Catalogs
                             "doctrine_armory_honor_guard_desc",
                             "+15% to total equipment value limit."
                         ),
-                        Feats = [HG_BloodMoney, HG_PaidInFull, HG_GoldenLegion],
+                        Feats =
+                        [
+                            FeatCatalog.HG_BloodMoney,
+                            FeatCatalog.HG_PaidInFull,
+                            FeatCatalog.HG_GoldenLegion,
+                        ],
                     },
                     new DoctrineData
                     {
@@ -53,7 +63,12 @@ namespace Retinues.Game.Doctrines.Catalogs
                             "doctrine_armory_ironclad_desc",
                             "+15% to total equipment weight limit."
                         ),
-                        Feats = [IR_HeavyKit, IR_Ironmen, IR_TailorMade],
+                        Feats =
+                        [
+                            FeatCatalog.IR_HeavyKit,
+                            FeatCatalog.IR_Ironmen,
+                            FeatCatalog.IR_TailorMade,
+                        ],
                     },
                     new DoctrineData
                     {
@@ -63,7 +78,12 @@ namespace Retinues.Game.Doctrines.Catalogs
                             "doctrine_armory_royal_patronage_desc",
                             "20% rebate when equipping gear from your kingdom culture."
                         ),
-                        Feats = [RP_RoyalHost, RP_RoyalLevy, RP_RoyalStewardship],
+                        Feats =
+                        [
+                            FeatCatalog.RP_RoyalHost,
+                            FeatCatalog.RP_RoyalLevy,
+                            FeatCatalog.RP_RoyalStewardship,
+                        ],
                     },
                 ],
             };

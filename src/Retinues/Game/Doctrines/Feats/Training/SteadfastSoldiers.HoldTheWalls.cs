@@ -2,14 +2,14 @@ using System.Collections.Generic;
 using Retinues.Domain.Events.Models;
 using Retinues.Game.Missions;
 
-namespace Retinues.Game.Doctrines.FeatCatalog.Training
+namespace Retinues.Game.Doctrines.Feats.Training
 {
     /// <summary>
     /// Win a siege defense fielding only faction troops.
     /// </summary>
     public sealed class Feat_SteadfastSoldiers_HoldTheWalls : FeatCampaignBehavior
     {
-        protected override string FeatId => Catalogs.DoctrineCatalog.SS_HoldTheWalls.Id;
+        protected override string FeatId => Catalogs.FeatCatalog.SS_HoldTheWalls.Id;
 
         static bool IsCustomOnly;
 

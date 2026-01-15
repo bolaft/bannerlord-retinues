@@ -4,14 +4,14 @@ using Retinues.Domain.Events.Models;
 using Retinues.Game.Missions;
 using TaleWorlds.Core;
 
-namespace Retinues.Game.Doctrines.FeatCatalog.Retinues
+namespace Retinues.Game.Doctrines.Feats.Retinues
 {
     /// <summary>
     /// Have 20 retinues survive being struck down in battle.
     /// </summary>
     public sealed class Feat_Immortals_StillStanding : FeatCampaignBehavior
     {
-        protected override string FeatId => Catalogs.DoctrineCatalog.IM_StillStanding.Id;
+        protected override string FeatId => Catalogs.FeatCatalog.IM_StillStanding.Id;
 
         protected override void OnBattleOver(
             IReadOnlyList<CombatBehavior.Kill> kills,

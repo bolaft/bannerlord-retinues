@@ -1,16 +1,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using Retinues.Domain.Events.Models;
+using Retinues.Game.Doctrines.Catalogs;
 using Retinues.Game.Missions;
 
-namespace Retinues.Game.Doctrines.FeatCatalog.Troops
+namespace Retinues.Game.Doctrines.Feats.Troops
 {
     /// <summary>
     /// Personally slay 50 assailants during a siege defense.
     /// </summary>
     public sealed class Feat_StalwartMilitia_TheyShallNotPass : FeatCampaignBehavior
     {
-        protected override string FeatId => Catalogs.DoctrineCatalog.SM_TheyShallNotPass.Id;
+        protected override string FeatId => FeatCatalog.SM_TheyShallNotPass.Id;
 
         protected override void OnBattleOver(
             IReadOnlyList<CombatBehavior.Kill> kills,

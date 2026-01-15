@@ -2,14 +2,14 @@ using System.Collections.Generic;
 using Retinues.Domain.Events.Models;
 using Retinues.Game.Missions;
 
-namespace Retinues.Game.Doctrines.FeatCatalog.Training
+namespace Retinues.Game.Doctrines.Feats.Training
 {
     /// <summary>
     /// Win 3 defensive battles in a row.
     /// </summary>
     public sealed class Feat_AdvancedTactics_UnyieldingDefense : FeatCampaignBehavior
     {
-        protected override string FeatId => Catalogs.DoctrineCatalog.AT_UnyieldingDefense.Id;
+        protected override string FeatId => Catalogs.FeatCatalog.AT_UnyieldingDefense.Id;
 
         protected override void OnBattleOver(
             IReadOnlyList<CombatBehavior.Kill> kills,

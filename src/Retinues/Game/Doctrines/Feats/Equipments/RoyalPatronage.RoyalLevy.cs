@@ -1,14 +1,14 @@
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Settlements.Wrappers;
 
-namespace Retinues.Game.Doctrines.FeatCatalog.Equipments
+namespace Retinues.Game.Doctrines.Feats.Equipments
 {
     /// <summary>
     /// Recruit 100 custom kingdom troops.
     /// </summary>
     public sealed class Feat_RoyalPatronage_RoyalLevy : FeatCampaignBehavior
     {
-        protected override string FeatId => Catalogs.DoctrineCatalog.RP_RoyalLevy.Id;
+        protected override string FeatId => Catalogs.FeatCatalog.RP_RoyalLevy.Id;
 
         protected override void OnTroopRecruited(
             WHero recruiter,

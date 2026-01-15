@@ -5,7 +5,7 @@ namespace Retinues.Game.Doctrines.Catalogs
     /// <summary>
     /// Feat definitions for the Equipments category.
     /// </summary>
-    public static partial class DoctrineCatalog
+    public static partial class FeatCatalog
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Cultural Pride                     //

@@ -1,11 +1,11 @@
-namespace Retinues.Game.Doctrines.FeatCatalog.Training
+namespace Retinues.Game.Doctrines.Feats.Training
 {
     /// <summary>
     /// Raise the security value of a fief to 60.
     /// </summary>
     public sealed class Feat_SteadfastSoldiers_SecureHoldings : FeatCampaignBehavior
     {
-        protected override string FeatId => Catalogs.DoctrineCatalog.SS_SecureHoldings.Id;
+        protected override string FeatId => Catalogs.FeatCatalog.SS_SecureHoldings.Id;
 
         protected override void OnDailyTick()
         {

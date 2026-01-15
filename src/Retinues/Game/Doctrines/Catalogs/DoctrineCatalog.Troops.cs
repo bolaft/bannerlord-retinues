@@ -33,7 +33,12 @@ namespace Retinues.Game.Doctrines.Catalogs
                             "doctrine_troops_stalwart_militia_desc",
                             "Unlocks custom militia troops for your faction's towns and castles."
                         ),
-                        Feats = [SM_TheyShallNotPass, SM_WatchersOnTheWalls, SM_DefenderOfTheCity],
+                        Feats =
+                        [
+                            FeatCatalog.SM_TheyShallNotPass,
+                            FeatCatalog.SM_WatchersOnTheWalls,
+                            FeatCatalog.SM_DefenderOfTheCity,
+                        ],
                     },
                     new DoctrineData
                     {
@@ -43,7 +48,12 @@ namespace Retinues.Game.Doctrines.Catalogs
                             "doctrine_troops_road_wardens_desc",
                             "Unlocks custom caravan troop guards."
                         ),
-                        Feats = [RW_TradeNetwork, RW_BanditScourge, RW_MerchantsFavor],
+                        Feats =
+                        [
+                            FeatCatalog.RW_TradeNetwork,
+                            FeatCatalog.RW_BanditScourge,
+                            FeatCatalog.RW_MerchantsFavor,
+                        ],
                     },
                     new DoctrineData
                     {
@@ -53,7 +63,12 @@ namespace Retinues.Game.Doctrines.Catalogs
                             "doctrine_troops_armed_peasantry_desc",
                             "Unlocks custom villager troops for village parties."
                         ),
-                        Feats = [AP_ShieldOfThePeople, AP_HeadmansHelp, AP_LandownersRequest],
+                        Feats =
+                        [
+                            FeatCatalog.AP_ShieldOfThePeople,
+                            FeatCatalog.AP_HeadmansHelp,
+                            FeatCatalog.AP_LandownersRequest,
+                        ],
                     },
                     new DoctrineData
                     {
@@ -63,7 +78,12 @@ namespace Retinues.Game.Doctrines.Catalogs
                             "doctrine_troops_captains_desc",
                             "Unlocks Captain variants for all regular troops."
                         ),
-                        Feats = [CA_WarriorClass, CA_Veterans, CA_MeritoriousService],
+                        Feats =
+                        [
+                            FeatCatalog.CA_WarriorClass,
+                            FeatCatalog.CA_Veterans,
+                            FeatCatalog.CA_MeritoriousService,
+                        ],
                     },
                 ],
             };

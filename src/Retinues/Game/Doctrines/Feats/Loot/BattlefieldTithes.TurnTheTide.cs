@@ -2,14 +2,14 @@ using System.Collections.Generic;
 using Retinues.Domain.Events.Models;
 using Retinues.Game.Missions;
 
-namespace Retinues.Game.Doctrines.FeatCatalog.Loot
+namespace Retinues.Game.Doctrines.Feats.Loot
 {
     /// <summary>
     /// Turn the tide of a battle involving an allied army.
     /// </summary>
     public sealed class Feat_BattlefieldTithes_TurnTheTide : FeatCampaignBehavior
     {
-        protected override string FeatId => Catalogs.DoctrineCatalog.BT_TurnTheTide.Id;
+        protected override string FeatId => Catalogs.FeatCatalog.BT_TurnTheTide.Id;
 
         protected override void OnBattleOver(
             IReadOnlyList<CombatBehavior.Kill> kills,

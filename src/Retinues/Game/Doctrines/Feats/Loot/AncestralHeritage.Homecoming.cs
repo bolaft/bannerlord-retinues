@@ -2,14 +2,14 @@ using System.Collections.Generic;
 using Retinues.Domain.Events.Models;
 using Retinues.Game.Missions;
 
-namespace Retinues.Game.Doctrines.FeatCatalog.Loot
+namespace Retinues.Game.Doctrines.Feats.Loot
 {
     /// <summary>
     /// Capture a fief of your own culture from an enemy kingdom.
     /// </summary>
     public sealed class Feat_AncestralHeritage_Homecoming : FeatCampaignBehavior
     {
-        protected override string FeatId => Catalogs.DoctrineCatalog.AN_Homecoming.Id;
+        protected override string FeatId => Catalogs.FeatCatalog.AN_Homecoming.Id;
 
         protected override void OnBattleOver(
             IReadOnlyList<CombatBehavior.Kill> kills,

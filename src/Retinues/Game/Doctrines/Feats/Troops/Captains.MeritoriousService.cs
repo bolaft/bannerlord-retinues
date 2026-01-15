@@ -1,13 +1,13 @@
 using Retinues.Domain.Characters.Wrappers;
 
-namespace Retinues.Game.Doctrines.FeatCatalog.Troops
+namespace Retinues.Game.Doctrines.Feats.Troops
 {
     /// <summary>
     /// Promote 100 faction troops.
     /// </summary>
     public sealed class Feat_Captains_MeritoriousService : FeatCampaignBehavior
     {
-        protected override string FeatId => Catalogs.DoctrineCatalog.CA_MeritoriousService.Id;
+        protected override string FeatId => Catalogs.FeatCatalog.CA_MeritoriousService.Id;
 
         protected override void OnPlayerUpgradedTroops(
             WCharacter source,

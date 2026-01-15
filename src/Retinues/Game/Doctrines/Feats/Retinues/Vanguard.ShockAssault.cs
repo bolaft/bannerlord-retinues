@@ -2,14 +2,14 @@ using System.Collections.Generic;
 using Retinues.Domain.Events.Models;
 using Retinues.Game.Missions;
 
-namespace Retinues.Game.Doctrines.FeatCatalog.Retinues
+namespace Retinues.Game.Doctrines.Feats.Retinues
 {
     /// <summary>
     /// Win a battle of 100 or more combatants using only your retinues.
     /// </summary>
     public sealed class Feat_Vanguard_ShockAssault : FeatCampaignBehavior
     {
-        protected override string FeatId => Catalogs.DoctrineCatalog.VA_ShockAssault.Id;
+        protected override string FeatId => Catalogs.FeatCatalog.VA_ShockAssault.Id;
 
         static bool IsAllRetinue;
 

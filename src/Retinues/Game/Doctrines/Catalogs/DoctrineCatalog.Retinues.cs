@@ -33,7 +33,12 @@ namespace Retinues.Game.Doctrines.Catalogs
                             "doctrine_retinues_indomitable_desc",
                             "Retinues gain +5 HP each."
                         ),
-                        Feats = [IN_FlawlessExecution, IN_AgainstAllOdds, IN_HoldTheLine],
+                        Feats =
+                        [
+                            FeatCatalog.IN_FlawlessExecution,
+                            FeatCatalog.IN_AgainstAllOdds,
+                            FeatCatalog.IN_HoldTheLine,
+                        ],
                     },
                     new DoctrineData
                     {
@@ -43,7 +48,12 @@ namespace Retinues.Game.Doctrines.Catalogs
                             "doctrine_retinues_bound_by_honor_desc",
                             "Retinues gain +20% morale."
                         ),
-                        Feats = [BH_HighSpirits, BH_BountyHunters, BH_SafeTravels],
+                        Feats =
+                        [
+                            FeatCatalog.BH_HighSpirits,
+                            FeatCatalog.BH_BountyHunters,
+                            FeatCatalog.BH_SafeTravels,
+                        ],
                     },
                     new DoctrineData
                     {
@@ -53,7 +63,12 @@ namespace Retinues.Game.Doctrines.Catalogs
                             "doctrine_retinues_vanguard_desc",
                             "Increases retinue cap by +15%."
                         ),
-                        Feats = [VA_FirstThroughTheBreach, VA_ShockAssault, VA_RaiseTheVanguard],
+                        Feats =
+                        [
+                            FeatCatalog.VA_FirstThroughTheBreach,
+                            FeatCatalog.VA_ShockAssault,
+                            FeatCatalog.VA_RaiseTheVanguard,
+                        ],
                     },
                     new DoctrineData
                     {
@@ -63,7 +78,12 @@ namespace Retinues.Game.Doctrines.Catalogs
                             "doctrine_retinues_immortals_desc",
                             "Retinues are more likely to be wounded instead of killed (+20% survival chance)."
                         ),
-                        Feats = [IM_PerfectVictory, IM_DefyTheTide, IM_StillStanding],
+                        Feats =
+                        [
+                            FeatCatalog.IM_PerfectVictory,
+                            FeatCatalog.IM_DefyTheTide,
+                            FeatCatalog.IM_StillStanding,
+                        ],
                     },
                 ],
             };
