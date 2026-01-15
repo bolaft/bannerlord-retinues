@@ -57,9 +57,9 @@ namespace Retinues.Game.Doctrines.Catalogs
             Name = L.T("feat_trp_trade_network_name", "Trade Network"),
             Description = L.T(
                 "feat_trp_trade_network_desc",
-                "Own three caravans at the same time."
+                "Own {TARGET} caravans at the same time."
             ),
-            Target = 1,
+            Target = 3,
             Repeatable = false,
         };
 
