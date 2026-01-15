@@ -9,37 +9,34 @@ namespace Retinues.Editor.VM.Panel.Doctrines
     /// <summary>
     /// Doctrine feat card shown in the doctrines panel.
     /// </summary>
-    public sealed class FeatVM(DoctrineFeatLink link, FeatDefinition def) : EventListenerVM
+    public sealed class FeatVM(Feat feat) : EventListenerVM
     {
         [DataSourceProperty]
-        public bool IsCompleted => !def.Repeatable && FeatsAPI.IsCompleted(def.Id);
+        public bool IsCompleted => !feat.Repeatable && feat.IsCompleted;
 
         [DataSourceProperty]
-        public bool IsAcquired => DoctrinesAPI.IsAcquired(link.DoctrineId);
+        public bool IsAcquired => feat.Doctrine.IsAcquired;
 
         [DataSourceProperty]
-        public string Name => def.Name?.ToString() ?? string.Empty;
+        public string Name => feat.Name.ToString();
 
         [DataSourceProperty]
-        public string Description => def.Description?.ToString() ?? string.Empty;
+        public string Description => feat.Description.ToString();
 
         [DataSourceProperty]
-        public string WorthText => $"+{link.Worth}%";
+        public string WorthText => $"+{feat.Worth}%";
 
         [DataSourceProperty]
         public string ProgressText
         {
             get
             {
-                if (def == null)
-                    return string.Empty;
-
-                var t = def.Target;
+                var t = feat.Target;
 
                 if (IsCompleted)
                     return $"{t}/{t}";
 
-                var p = FeatsAPI.GetProgress(def.Id);
+                var p = feat.Progress;
 
                 return $"{p}/{t}";
             }
@@ -55,10 +52,7 @@ namespace Retinues.Editor.VM.Panel.Doctrines
 
         private string ResolveIconSprite()
         {
-            if (def == null)
-                return string.Empty;
-
-            if (def.Repeatable)
+            if (feat.Repeatable)
                 return "StdAssets\\switch_default";
 
             return IsCompleted ? "StdAssets\\checkbox_full" : "StdAssets\\checkbox_empty";
@@ -66,10 +60,7 @@ namespace Retinues.Editor.VM.Panel.Doctrines
 
         private Tooltip ResolveIconTooltip()
         {
-            if (def == null)
-                return null;
-
-            if (def.Repeatable)
+            if (feat.Repeatable)
             {
                 return new Tooltip(
                     L.T(

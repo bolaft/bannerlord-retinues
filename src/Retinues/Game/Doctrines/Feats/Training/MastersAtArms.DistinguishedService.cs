@@ -1,13 +1,13 @@
 using Retinues.Domain.Characters.Wrappers;
 
-namespace Retinues.Game.Doctrines.Feats.Training
+namespace Retinues.Game.Doctrines.FeatCatalog.Training
 {
     /// <summary>
     /// Upgrade 100 elite faction troops to the next tier.
     /// </summary>
     public sealed class Feat_MastersAtArms_DistinguishedService : FeatCampaignBehavior
     {
-        protected override string FeatId => "feat_tr_distinguished_service";
+        protected override string FeatId => Catalogs.DoctrineCatalog.MA_DistinguishedService.Id;
 
         protected override void OnPlayerUpgradedTroops(
             WCharacter source,
@@ -21,7 +21,7 @@ namespace Retinues.Game.Doctrines.Feats.Training
             if (!source.IsElite || !target.IsElite)
                 return; // Not elite troops.
 
-            Progress(number);
+            Feat.Add(number);
         }
     }
 }

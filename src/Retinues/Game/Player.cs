@@ -6,7 +6,6 @@ using Retinues.Domain.Factions.Wrappers;
 using Retinues.Domain.Parties.Wrappers;
 using Retinues.Domain.Settlements.Wrappers;
 using Retinues.Framework.Runtime;
-using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.Library;

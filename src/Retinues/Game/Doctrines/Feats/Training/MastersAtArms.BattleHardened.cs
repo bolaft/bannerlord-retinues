@@ -3,14 +3,14 @@ using System.Linq;
 using Retinues.Domain.Events.Models;
 using Retinues.Game.Missions;
 
-namespace Retinues.Game.Doctrines.Feats.Training
+namespace Retinues.Game.Doctrines.FeatCatalog.Training
 {
     /// <summary>
     /// Get 1000 kills with elite faction troops.
     /// </summary>
     public sealed class Feat_MastersAtArms_BattleHardened : FeatCampaignBehavior
     {
-        protected override string FeatId => "feat_tr_battle_hardened";
+        protected override string FeatId => Catalogs.DoctrineCatalog.MA_BattleHardened.Id;
 
         protected override void OnBattleOver(
             IReadOnlyList<CombatBehavior.Kill> kills,
@@ -25,7 +25,7 @@ namespace Retinues.Game.Doctrines.Feats.Training
                 && k.Victim.IsEnemyTroop // Enemy victim
             );
 
-            Progress(count);
+            Feat.Add(count);
         }
     }
 }

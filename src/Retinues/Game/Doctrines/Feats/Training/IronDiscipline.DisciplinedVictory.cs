@@ -2,14 +2,14 @@ using System.Collections.Generic;
 using Retinues.Domain.Events.Models;
 using Retinues.Game.Missions;
 
-namespace Retinues.Game.Doctrines.Feats.Training
+namespace Retinues.Game.Doctrines.FeatCatalog.Training
 {
     /// <summary>
     /// Defeat a party twice your size using only faction troops.
     /// </summary>
     public sealed class Feat_IronDiscipline_DisciplinedVictory : FeatCampaignBehavior
     {
-        protected override string FeatId => "feat_tr_disciplined_victory";
+        protected override string FeatId => Catalogs.DoctrineCatalog.ID_DisciplinedVictory.Id;
 
         static bool IsAllCustom;
 
@@ -40,7 +40,7 @@ namespace Retinues.Game.Doctrines.Feats.Training
             if (!IsAllCustom)
                 return; // Not all custom troops.
 
-            Progress();
+            Feat.Add();
         }
     }
 }

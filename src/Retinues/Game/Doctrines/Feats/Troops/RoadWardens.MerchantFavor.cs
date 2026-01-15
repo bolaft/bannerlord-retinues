@@ -1,14 +1,14 @@
 using Retinues.Domain.Characters.Wrappers;
 using TaleWorlds.CampaignSystem;
 
-namespace Retinues.Game.Doctrines.Feats.Troops
+namespace Retinues.Game.Doctrines.FeatCatalog.Troops
 {
     /// <summary>
     /// Complete a quest for a town merchant notable.
     /// </summary>
     public sealed class Feat_RoadWardens_MerchantsFavor : FeatCampaignBehavior
     {
-        protected override string FeatId => "feat_trp_merchants_favor";
+        protected override string FeatId => Catalogs.DoctrineCatalog.RW_MerchantsFavor.Id;
 
         protected override void OnQuestCompleted(QuestBase quest, WHero giver, bool success)
         {
@@ -18,7 +18,7 @@ namespace Retinues.Game.Doctrines.Feats.Troops
             if (!giver.Base.IsMerchant)
                 return; // Not a merchant notable.
 
-            Progress();
+            Feat.Add();
         }
     }
 }

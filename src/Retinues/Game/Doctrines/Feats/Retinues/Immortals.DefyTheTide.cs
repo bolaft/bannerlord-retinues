@@ -2,14 +2,14 @@ using System.Collections.Generic;
 using Retinues.Domain.Events.Models;
 using Retinues.Game.Missions;
 
-namespace Retinues.Game.Doctrines.Feats.Retinues
+namespace Retinues.Game.Doctrines.FeatCatalog.Retinues
 {
     /// <summary>
     /// Win a battle against overwhelming odds while fielding mostly retinues.
     /// </summary>
     public sealed class Feat_Immortals_DefyTheTide : FeatCampaignBehavior
     {
-        protected override string FeatId => "feat_ret_defy_the_tide";
+        protected override string FeatId => Catalogs.DoctrineCatalog.IM_DefyTheTide.Id;
 
         static bool IsMostlyRetinues;
 
@@ -40,7 +40,7 @@ namespace Retinues.Game.Doctrines.Feats.Retinues
             if (enemy < ally * 3)
                 return; // Not overwhelming odds.
 
-            Progress();
+            Feat.Add();
         }
     }
 }

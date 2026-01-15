@@ -11,26 +11,9 @@ namespace Retinues.Editor.VM.List.Doctrines
     /// <summary>
     /// Row representing a doctrine in the list.
     /// </summary>
-    public sealed class DoctrinesListRowVM(ListHeaderVM header, string doctrineId)
-        : BaseListRowVM(header, doctrineId ?? string.Empty)
+    public sealed class DoctrinesListRowVM(ListHeaderVM header, Doctrine doctrine)
+        : BaseListRowVM(header, doctrine.Id)
     {
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                       Constructor                      //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        private readonly string _doctrineId = doctrineId ?? string.Empty;
-
-        private DoctrineDefinition Def =>
-            DoctrinesCatalog.TryGetDoctrine(_doctrineId, out var d) ? d : null;
-
-        private DoctrineState StateValue =>
-            string.IsNullOrEmpty(_doctrineId)
-                ? DoctrineState.Locked
-                : DoctrinesAPI.GetState(_doctrineId);
-
-        private int ProgressValue =>
-            string.IsNullOrEmpty(_doctrineId) ? 0 : DoctrinesAPI.GetProgress(_doctrineId);
-
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Type Flags                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -44,7 +27,7 @@ namespace Retinues.Editor.VM.List.Doctrines
 
         [EventListener(UIEvent.Doctrine, Global = true)]
         [DataSourceProperty]
-        public override bool IsSelected => string.Equals(State.DoctrineId, _doctrineId);
+        public override bool IsSelected => State.Doctrine.Id == doctrine.Id;
 
         [DataSourceMethod]
         public override void ExecuteSelect()
@@ -52,7 +35,7 @@ namespace Retinues.Editor.VM.List.Doctrines
             if (!IsEnabled)
                 return;
 
-            State.DoctrineId = _doctrineId;
+            State.Doctrine = doctrine;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -61,7 +44,7 @@ namespace Retinues.Editor.VM.List.Doctrines
 
         [EventListener(UIEvent.Doctrine)]
         [DataSourceProperty]
-        public override bool IsEnabled => Def != null && StateValue != DoctrineState.Locked;
+        public override bool IsEnabled => !doctrine.IsLocked;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Name                          //
@@ -69,7 +52,7 @@ namespace Retinues.Editor.VM.List.Doctrines
 
         [EventListener(UIEvent.Doctrine)]
         [DataSourceProperty]
-        public string Name => Def?.Name?.ToString() ?? string.Empty;
+        public string Name => doctrine.Name.ToString();
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          State                         //
@@ -81,12 +64,12 @@ namespace Retinues.Editor.VM.List.Doctrines
         {
             get
             {
-                return StateValue switch
+                return doctrine.GetState() switch
                 {
-                    DoctrineState.Locked => L.S("doctrine_state_locked", "Locked"),
-                    DoctrineState.InProgress => L.S("doctrine_state_in_progress", "In progress"),
-                    DoctrineState.Unlocked => L.S("doctrine_state_unlocked", "Unlocked"),
-                    DoctrineState.Acquired => L.S("doctrine_state_acquired", "Acquired"),
+                    Doctrine.State.Locked => L.S("doctrine_state_locked", "Locked"),
+                    Doctrine.State.InProgress => L.S("doctrine_state_in_progress", "In progress"),
+                    Doctrine.State.Unlocked => L.S("doctrine_state_unlocked", "Unlocked"),
+                    Doctrine.State.Acquired => L.S("doctrine_state_acquired", "Acquired"),
                     _ => string.Empty,
                 };
             }
@@ -99,34 +82,11 @@ namespace Retinues.Editor.VM.List.Doctrines
         [EventListener(UIEvent.Doctrine)]
         [DataSourceProperty]
         public bool ShowProgress =>
-            Def != null
-            && Def.ProgressTarget > 0
-            && StateValue != DoctrineState.Acquired
-            && Settings.EnableFeatRequirements;
+            doctrine.GetState() != Doctrine.State.Acquired && Settings.EnableFeatRequirements;
 
         [EventListener(UIEvent.Doctrine)]
         [DataSourceProperty]
-        public string ProgressText =>
-            Def == null
-                ? string.Empty
-                : $"{GetProgressPercent(ProgressValue, Def.ProgressTarget)}%";
-
-        private static int GetProgressPercent(int progress, int target)
-        {
-            if (target <= 0)
-                return 0;
-
-            var p = progress < 0 ? 0 : progress;
-            var t = target < 1 ? 1 : target;
-
-            var v = (int)Math.Round(p * 100.0 / t);
-            if (v < 0)
-                return 0;
-            if (v > 100)
-                return 100;
-
-            return v;
-        }
+        public string ProgressText => $"{doctrine.Progress}%";
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Icon                          //
@@ -134,34 +94,24 @@ namespace Retinues.Editor.VM.List.Doctrines
 
         [EventListener(UIEvent.Doctrine)]
         [DataSourceProperty]
-        public string StateIconSprite => ResolveStateIconSprite(StateValue);
+        public string StateIconSprite =>
+            doctrine.GetState() switch
+            {
+                Doctrine.State.Locked => "StdAssets\\lock_closed",
+                Doctrine.State.InProgress => "StdAssets\\lock_closed",
+                Doctrine.State.Unlocked => "StdAssets\\lock_opened",
+                Doctrine.State.Acquired => "General\\Icons\\icon_quest_done_checkmark",
+                _ => string.Empty,
+            };
 
         [EventListener(UIEvent.Doctrine)]
         [DataSourceProperty]
-        public string StateIconColor => ResolveStateIconColor(StateValue);
-
-        private static string ResolveStateIconSprite(DoctrineState state)
-        {
-            // Keep using the same placeholder set as before (VM owns visuals).
-            // Swap these later if you want custom doctrine sprites.
-            return state switch
+        public string StateIconColor =>
+            doctrine.GetState() switch
             {
-                DoctrineState.Locked => "StdAssets\\lock_closed",
-                DoctrineState.InProgress => "StdAssets\\lock_closed",
-                DoctrineState.Unlocked => "StdAssets\\lock_opened",
-                DoctrineState.Acquired => "General\\Icons\\icon_quest_done_checkmark",
-                _ => string.Empty,
-            };
-        }
-
-        private static string ResolveStateIconColor(DoctrineState state)
-        {
-            return state switch
-            {
-                DoctrineState.Acquired => "#268a7cff",
+                Doctrine.State.Acquired => "#268a7cff",
                 _ => "#ffffffff",
             };
-        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Sorting                        //
@@ -194,9 +144,6 @@ namespace Retinues.Editor.VM.List.Doctrines
             var comparison = StringComparison.OrdinalIgnoreCase;
 
             if (!string.IsNullOrEmpty(Name) && Name.IndexOf(filter, comparison) >= 0)
-                return true;
-
-            if (!string.IsNullOrEmpty(StateText) && StateText.IndexOf(filter, comparison) >= 0)
                 return true;
 
             return false;

@@ -5,14 +5,14 @@ using Retinues.Domain.Events.Models;
 using Retinues.Domain.Factions.Wrappers;
 using Retinues.Game.Missions;
 
-namespace Retinues.Game.Doctrines.Feats.Equipments
+namespace Retinues.Game.Doctrines.FeatCatalog.Equipments
 {
     /// <summary>
     /// Get 100 kills in battle with troops wearing no foreign gear.
     /// </summary>
     public sealed class Feat_CulturalPride_ProudAndStrong : FeatCampaignBehavior
     {
-        protected override string FeatId => "feat_eq_proud_and_strong";
+        protected override string FeatId => Catalogs.DoctrineCatalog.CP_ProudAndStrong.Id;
 
         protected override void OnBattleOver(
             IReadOnlyList<CombatBehavior.Kill> kills,
@@ -42,7 +42,7 @@ namespace Retinues.Game.Doctrines.Feats.Equipments
                 && ContainsForeignGear(k.KillerEquipment, k.Killer.Character.Culture) == false // No foreign gear
             );
 
-            Progress(count);
+            Feat.Add(count);
         }
     }
 }

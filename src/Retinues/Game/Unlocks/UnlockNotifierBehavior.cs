@@ -6,7 +6,6 @@ using Retinues.Framework.Behaviors;
 using Retinues.Framework.Runtime;
 using Retinues.Game.Troops;
 using Retinues.UI.Services;
-using TaleWorlds.CampaignSystem;
 using TaleWorlds.Localization;
 
 namespace Retinues.Game.Unlocks

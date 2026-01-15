@@ -161,12 +161,6 @@
       id="ret_cant_equip_reason_unlocking"
       text="Odblokowywanie {PERCENT}%" />
     <string
-      id="ret_cant_equip_reason_value_limit"
-      text="Zbyt cenny" />
-    <string
-      id="ret_cant_equip_reason_weight_limit"
-      text="Zbyt ciężki" />
-    <string
       id="ret_cant_unequip_reason_empty"
       text="Brak rzeczy do zdjęcia." />
     <string
@@ -314,12 +308,6 @@
       id="ret_doctrine_description_header"
       text="Efekty" />
     <string
-      id="ret_doctrine_disabled"
-      text="Doktryny są wyłączone." />
-    <string
-      id="ret_doctrine_failed"
-      text="Nie udało się nabyć doktryny." />
-    <string
       id="ret_doctrine_feat_progress_tooltip_completed"
       text="Ukończyłeś ten wyczyn." />
     <string
@@ -344,17 +332,8 @@
       id="ret_doctrine_not_enough_influence_title"
       text="Niewystarczająca ilość wpływu" />
     <string
-      id="ret_doctrine_not_found"
-      text="Nie znaleziono doktryny." />
-    <string
-      id="ret_doctrine_not_ready"
-      text="Doktryna nie jest gotowa do nabycia." />
-    <string
       id="ret_doctrine_progress_text"
       text="Postęp: {PROGRESS}%" />
-    <string
-      id="ret_doctrine_select_reason"
-      text="Najpierw wybierz doktrynę." />
     <string
       id="ret_doctrine_state_acquired"
       text="Nabyto" />

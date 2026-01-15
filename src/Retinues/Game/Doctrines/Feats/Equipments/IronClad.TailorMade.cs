@@ -1,13 +1,13 @@
 using TaleWorlds.CampaignSystem.Settlements.Workshops;
 
-namespace Retinues.Game.Doctrines.Feats.Equipments
+namespace Retinues.Game.Doctrines.FeatCatalog.Equipments
 {
     /// <summary>
     /// Own a smithy for 30 days.
     /// </summary>
     public sealed class Feat_Ironclad_TailorMade : FeatCampaignBehavior
     {
-        protected override string FeatId => "feat_eq_tailor_made";
+        protected override string FeatId => Catalogs.DoctrineCatalog.IR_TailorMade.Id;
 
         protected override void OnDailyTick()
         {
@@ -15,7 +15,7 @@ namespace Retinues.Game.Doctrines.Feats.Equipments
             if (smithy == null)
                 return; // No owned smithy.
 
-            Progress();
+            Feat.Add();
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

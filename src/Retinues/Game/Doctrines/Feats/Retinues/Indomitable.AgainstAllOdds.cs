@@ -2,14 +2,14 @@ using System.Collections.Generic;
 using Retinues.Domain.Events.Models;
 using Retinues.Game.Missions;
 
-namespace Retinues.Game.Doctrines.Feats.Retinues
+namespace Retinues.Game.Doctrines.FeatCatalog.Retinues
 {
     /// <summary>
     /// Outnumbered at least 2 to 1, win a battle while fielding only retinues.
     /// </summary>
     public sealed class Feat_Indomitable_AgainstAllOdds : FeatCampaignBehavior
     {
-        protected override string FeatId => "feat_ret_against_all_odds";
+        protected override string FeatId => Catalogs.DoctrineCatalog.IN_AgainstAllOdds.Id;
 
         static bool IsRetinueOnly;
 
@@ -40,7 +40,7 @@ namespace Retinues.Game.Doctrines.Feats.Retinues
             if (friendly * 2 > enemy)
                 return; // Not outnumbered enough.
 
-            Progress();
+            Feat.Add();
         }
     }
 }

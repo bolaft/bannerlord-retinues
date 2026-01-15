@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using Retinues.Configuration;
-using Retinues.Domain.Characters.Helpers;
 using Retinues.Domain.Characters.Services.Skills;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Editor.Controllers.Character;

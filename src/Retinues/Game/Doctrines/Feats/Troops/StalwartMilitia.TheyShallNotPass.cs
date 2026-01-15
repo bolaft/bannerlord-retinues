@@ -3,14 +3,14 @@ using System.Linq;
 using Retinues.Domain.Events.Models;
 using Retinues.Game.Missions;
 
-namespace Retinues.Game.Doctrines.Feats.Troops
+namespace Retinues.Game.Doctrines.FeatCatalog.Troops
 {
     /// <summary>
     /// Personally slay 50 assailants during a siege defense.
     /// </summary>
     public sealed class Feat_StalwartMilitia_TheyShallNotPass : FeatCampaignBehavior
     {
-        protected override string FeatId => "feat_trp_they_shall_not_pass";
+        protected override string FeatId => Catalogs.DoctrineCatalog.SM_TheyShallNotPass.Id;
 
         protected override void OnBattleOver(
             IReadOnlyList<CombatBehavior.Kill> kills,
@@ -26,7 +26,7 @@ namespace Retinues.Game.Doctrines.Feats.Troops
 
             int count = kills.Count(k => k.Killer.IsPlayer && k.Victim.IsEnemyTroop);
 
-            SetProgress(count);
+            Feat.Set(count, bestOnly: true);
         }
     }
 }

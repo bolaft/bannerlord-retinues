@@ -3,14 +3,14 @@ using System.Linq;
 using Retinues.Domain.Events.Models;
 using Retinues.Game.Missions;
 
-namespace Retinues.Game.Doctrines.Feats.Loot
+namespace Retinues.Game.Doctrines.FeatCatalog.Loot
 {
     /// <summary>
     /// Personally defeat 5 tier 5+ troops in one battle.
     /// </summary>
     public sealed class Feat_LionsShare_HighValueTargets : FeatCampaignBehavior
     {
-        protected override string FeatId => "feat_sp_high_value_targets";
+        protected override string FeatId => Catalogs.DoctrineCatalog.LS_HighValueTargets.Id;
 
         protected override void OnBattleOver(
             IReadOnlyList<CombatBehavior.Kill> kills,
@@ -28,7 +28,7 @@ namespace Retinues.Game.Doctrines.Feats.Loot
                 && k.Victim.Character.Tier >= 5 // Victim is tier 5 or higher
             );
 
-            SetProgress(count);
+            Feat.Set(count, bestOnly: true);
         }
     }
 }

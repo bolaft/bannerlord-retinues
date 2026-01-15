@@ -1,11 +1,11 @@
-namespace Retinues.Game.Doctrines.Feats.Troops
+namespace Retinues.Game.Doctrines.FeatCatalog.Troops
 {
     /// <summary>
     /// Max out the skills of a T6 elite troop.
     /// </summary>
     public sealed class Feat_Captains_WarriorClass : FeatCampaignBehavior
     {
-        protected override string FeatId => "feat_trp_warrior_class";
+        protected override string FeatId => Catalogs.DoctrineCatalog.CA_WarriorClass.Id;
 
         protected override void OnDailyTick()
         {
@@ -20,7 +20,7 @@ namespace Retinues.Game.Doctrines.Feats.Troops
                 if (troop.SkillTotalRemaining > 0)
                     continue; // Skills not maxed.
 
-                Progress();
+                Feat.Add();
                 return;
             }
         }

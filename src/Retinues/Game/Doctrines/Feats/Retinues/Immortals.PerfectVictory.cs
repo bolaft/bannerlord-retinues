@@ -3,14 +3,14 @@ using System.Linq;
 using Retinues.Domain.Events.Models;
 using Retinues.Game.Missions;
 
-namespace Retinues.Game.Doctrines.Feats.Retinues
+namespace Retinues.Game.Doctrines.FeatCatalog.Retinues
 {
     /// <summary>
     /// Win by yourself against 100 or more enemies without a single death on your side.
     /// </summary>
     public sealed class Feat_Immortals_PerfectVictory : FeatCampaignBehavior
     {
-        protected override string FeatId => "feat_ret_perfect_victory";
+        protected override string FeatId => Catalogs.DoctrineCatalog.IM_PerfectVictory.Id;
 
         protected override void OnBattleOver(
             IReadOnlyList<CombatBehavior.Kill> kills,
@@ -31,7 +31,7 @@ namespace Retinues.Game.Doctrines.Feats.Retinues
             if (kills.Count(k => k.Victim.IsPlayerTroop) > 0)
                 return; // Any player troop deaths.
 
-            Progress();
+            Feat.Add();
         }
     }
 }

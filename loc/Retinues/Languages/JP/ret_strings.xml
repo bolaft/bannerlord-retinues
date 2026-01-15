@@ -161,12 +161,6 @@
       id="ret_cant_equip_reason_unlocking"
       text="解除中 {PERCENT}%" />
     <string
-      id="ret_cant_equip_reason_value_limit"
-      text="価値が高すぎる" />
-    <string
-      id="ret_cant_equip_reason_weight_limit"
-      text="重すぎる" />
-    <string
       id="ret_cant_unequip_reason_empty"
       text="解除するものがありません。" />
     <string
@@ -314,12 +308,6 @@
       id="ret_doctrine_description_header"
       text="効果" />
     <string
-      id="ret_doctrine_disabled"
-      text="教義は無効になっています。" />
-    <string
-      id="ret_doctrine_failed"
-      text="教義の取得に失敗しました。" />
-    <string
       id="ret_doctrine_feat_progress_tooltip_completed"
       text="この偉業を完了しました。" />
     <string
@@ -344,17 +332,8 @@
       id="ret_doctrine_not_enough_influence_title"
       text="影響力不足" />
     <string
-      id="ret_doctrine_not_found"
-      text="教義が見つかりません。" />
-    <string
-      id="ret_doctrine_not_ready"
-      text="教義は取得する準備ができていません。" />
-    <string
       id="ret_doctrine_progress_text"
       text="進捗：{PROGRESS}%" />
-    <string
-      id="ret_doctrine_select_reason"
-      text="最初に教義を選択してください。" />
     <string
       id="ret_doctrine_state_acquired"
       text="取得済み" />

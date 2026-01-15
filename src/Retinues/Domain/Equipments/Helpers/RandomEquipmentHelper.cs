@@ -8,7 +8,6 @@ using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Domain.Factions.Wrappers;
 using Retinues.Framework.Runtime;
 using TaleWorlds.Core;
-using TaleWorlds.Library;
 
 namespace Retinues.Domain.Equipments.Helpers
 {

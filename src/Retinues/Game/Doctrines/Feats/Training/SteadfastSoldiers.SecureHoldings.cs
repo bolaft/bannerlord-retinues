@@ -1,15 +1,15 @@
-namespace Retinues.Game.Doctrines.Feats.Training
+namespace Retinues.Game.Doctrines.FeatCatalog.Training
 {
     /// <summary>
     /// Raise the security value of a fief to 60.
     /// </summary>
     public sealed class Feat_SteadfastSoldiers_SecureHoldings : FeatCampaignBehavior
     {
-        protected override string FeatId => "feat_tr_secure_holdings";
+        protected override string FeatId => Catalogs.DoctrineCatalog.SS_SecureHoldings.Id;
 
         protected override void OnDailyTick()
         {
-            float highest = 0f;
+            int highest = 0;
 
             foreach (var fief in Player.Clan.Fiefs)
             {
@@ -17,10 +17,10 @@ namespace Retinues.Game.Doctrines.Feats.Training
 
                 // Track the highest security value among all fiefs.
                 if (security > highest)
-                    highest = security;
+                    highest = (int)security;
             }
 
-            SetProgress((int)highest);
+            Feat.Set(highest);
         }
     }
 }

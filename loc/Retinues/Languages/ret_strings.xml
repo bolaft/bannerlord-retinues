@@ -134,6 +134,9 @@
       id="ret_cant_afford_desc"
       text="You need {COST} denars to buy {ITEM}, but you only have {GOLD}." />
     <string
+      id="ret_cant_afford_desc_simple"
+      text="You need {COST} denars, but you only have {GOLD}." />
+    <string
       id="ret_cant_afford_title"
       text="Not Enough Money" />
     <string
@@ -142,6 +145,9 @@
     <string
       id="ret_cant_equip_reason_civilian"
       text="Not civilian" />
+    <string
+      id="ret_cant_equip_reason_limits"
+      text="Limits exceeded" />
     <string
       id="ret_cant_equip_reason_locked"
       text="Locked" />
@@ -155,17 +161,14 @@
       id="ret_cant_equip_reason_null"
       text="Invalid item" />
     <string
+      id="ret_cant_equip_reason_other"
+      text="Cannot equip" />
+    <string
       id="ret_cant_equip_reason_skill"
       text="{SKILL} {VALUE}" />
     <string
       id="ret_cant_equip_reason_unlocking"
       text="Unlocking {PERCENT}%" />
-    <string
-      id="ret_cant_equip_reason_value_limit"
-      text="Too valuable" />
-    <string
-      id="ret_cant_equip_reason_weight_limit"
-      text="Too heavy" />
     <string
       id="ret_cant_unequip_reason_empty"
       text="Nothing to unequip." />
@@ -287,6 +290,30 @@
       id="ret_doctrine_acquired_text"
       text="ACQUIRED" />
     <string
+      id="ret_doctrine_armory_cultural_pride"
+      text="Cultural Pride" />
+    <string
+      id="ret_doctrine_armory_cultural_pride_desc"
+      text="20% rebate when equipping gear from your clan culture." />
+    <string
+      id="ret_doctrine_armory_honor_guard"
+      text="Honor Guard" />
+    <string
+      id="ret_doctrine_armory_honor_guard_desc"
+      text="+15% to total equipment value limit." />
+    <string
+      id="ret_doctrine_armory_ironclad"
+      text="Ironclad" />
+    <string
+      id="ret_doctrine_armory_ironclad_desc"
+      text="+15% to total equipment weight limit." />
+    <string
+      id="ret_doctrine_armory_royal_patronage"
+      text="Royal Patronage" />
+    <string
+      id="ret_doctrine_armory_royal_patronage_desc"
+      text="20% rebate when equipping gear from your kingdom culture." />
+    <string
       id="ret_doctrine_cat_equipments"
       text="Equipments" />
     <string
@@ -314,12 +341,6 @@
       id="ret_doctrine_description_header"
       text="Effects" />
     <string
-      id="ret_doctrine_disabled"
-      text="Doctrines are disabled." />
-    <string
-      id="ret_doctrine_failed"
-      text="Failed to acquire doctrine." />
-    <string
       id="ret_doctrine_feat_progress_tooltip_completed"
       text="You have completed this feat." />
     <string
@@ -331,6 +352,30 @@
     <string
       id="ret_doctrine_feats_header"
       text="Feats" />
+    <string
+      id="ret_doctrine_loot_ancestral_heritage"
+      text="Ancestral Heritage" />
+    <string
+      id="ret_doctrine_loot_ancestral_heritage_desc"
+      text="All items of your clan&apos;s culture are unlocked." />
+    <string
+      id="ret_doctrine_loot_battlefield_tithes"
+      text="Battlefield Tithes" />
+    <string
+      id="ret_doctrine_loot_battlefield_tithes_desc"
+      text="Enemy gear used by troops killed by your allies can also be unlocked." />
+    <string
+      id="ret_doctrine_loot_lions_share"
+      text="Lion&apos;s Share" />
+    <string
+      id="ret_doctrine_loot_lions_share_desc"
+      text="Hero kills count twice toward unlocking enemy gear." />
+    <string
+      id="ret_doctrine_loot_pragmatic_scavengers"
+      text="Pragmatic Scavengers" />
+    <string
+      id="ret_doctrine_loot_pragmatic_scavengers_desc"
+      text="Gear can be unlocked from allied casualties." />
     <string
       id="ret_doctrine_not_enough_gold_desc"
       text="You need {COST} denars to unlock this doctrine." />
@@ -344,17 +389,32 @@
       id="ret_doctrine_not_enough_influence_title"
       text="Not Enough Influence" />
     <string
-      id="ret_doctrine_not_found"
-      text="Doctrine not found." />
-    <string
-      id="ret_doctrine_not_ready"
-      text="Doctrine is not ready to be acquired." />
-    <string
       id="ret_doctrine_progress_text"
       text="Progress: {PROGRESS}%" />
     <string
-      id="ret_doctrine_select_reason"
-      text="Select a doctrine first." />
+      id="ret_doctrine_retinues_bound_by_honor"
+      text="Bound by Honor" />
+    <string
+      id="ret_doctrine_retinues_bound_by_honor_desc"
+      text="Retinues gain +20% morale." />
+    <string
+      id="ret_doctrine_retinues_immortals"
+      text="Immortals" />
+    <string
+      id="ret_doctrine_retinues_immortals_desc"
+      text="Retinues are more likely to be wounded instead of killed (+20% survival chance)." />
+    <string
+      id="ret_doctrine_retinues_indomitable"
+      text="Indomitable" />
+    <string
+      id="ret_doctrine_retinues_indomitable_desc"
+      text="Retinues gain +5 HP each." />
+    <string
+      id="ret_doctrine_retinues_vanguard"
+      text="Vanguard" />
+    <string
+      id="ret_doctrine_retinues_vanguard_desc"
+      text="Increases retinue cap by +15%." />
     <string
       id="ret_doctrine_state_acquired"
       text="Acquired" />
@@ -367,6 +427,54 @@
     <string
       id="ret_doctrine_state_unlocked"
       text="Unlocked" />
+    <string
+      id="ret_doctrine_training_advanced_tactics"
+      text="Advanced Tactics" />
+    <string
+      id="ret_doctrine_training_advanced_tactics_desc"
+      text="+10% skill point gain rate." />
+    <string
+      id="ret_doctrine_training_iron_discipline"
+      text="Iron Discipline" />
+    <string
+      id="ret_doctrine_training_iron_discipline_desc"
+      text="Increases skill caps by +5 for all troops." />
+    <string
+      id="ret_doctrine_training_masters_at_arms"
+      text="Masters-at-Arms" />
+    <string
+      id="ret_doctrine_training_masters_at_arms_desc"
+      text="Grants +10 skill points to elite troops." />
+    <string
+      id="ret_doctrine_training_steadfast_soldiers"
+      text="Steadfast Soldiers" />
+    <string
+      id="ret_doctrine_training_steadfast_soldiers_desc"
+      text="Grants +10 skill points to basic troops." />
+    <string
+      id="ret_doctrine_troops_armed_peasantry"
+      text="Armed Peasantry" />
+    <string
+      id="ret_doctrine_troops_armed_peasantry_desc"
+      text="Unlocks custom villager troops for village parties." />
+    <string
+      id="ret_doctrine_troops_captains"
+      text="Captains" />
+    <string
+      id="ret_doctrine_troops_captains_desc"
+      text="Unlocks Captain variants for all regular troops." />
+    <string
+      id="ret_doctrine_troops_road_wardens"
+      text="Road Wardens" />
+    <string
+      id="ret_doctrine_troops_road_wardens_desc"
+      text="Unlocks custom caravan troop guards." />
+    <string
+      id="ret_doctrine_troops_stalwart_militia"
+      text="Stalwart Militia" />
+    <string
+      id="ret_doctrine_troops_stalwart_militia_desc"
+      text="Unlocks custom militia troops for your faction&apos;s towns and castles." />
     <string
       id="ret_doctrines_disabled"
       text="Doctrines are disabled." />
@@ -434,6 +542,15 @@
       id="ret_equipment_cannot_delete_last_set"
       text="At least one equipment set must remain." />
     <string
+      id="ret_equipment_copied_toast"
+      text="Copied!" />
+    <string
+      id="ret_equipment_copy_no_set_reason"
+      text="No equipment set selected." />
+    <string
+      id="ret_equipment_copy_tooltip"
+      text="Copy equipment to clipboard." />
+    <string
       id="ret_equipment_delete_breaks_battle_types_reason"
       text="Cannot delete this set because it is the last one enabled for at least one battle type." />
     <string
@@ -454,6 +571,27 @@
     <string
       id="ret_equipment_panel_weight_value"
       text="{WEIGHT} kg" />
+    <string
+      id="ret_equipment_paste_confirm_desc"
+      text="Apply clipboard equipment to {UNIT_NAME}.{newline}{newline}Equipped: {EQUIP}{newline}Unequipped: {UNEQUIP}{newline}Skipped: {SKIP}{BREAKDOWN}{COST_LINE}{STOCK_LINE}" />
+    <string
+      id="ret_equipment_paste_confirm_title"
+      text="Paste Equipment" />
+    <string
+      id="ret_equipment_paste_empty_clipboard_reason"
+      text="Clipboard is empty." />
+    <string
+      id="ret_equipment_paste_no_set_reason"
+      text="No equipment set selected." />
+    <string
+      id="ret_equipment_paste_nothing_desc"
+      text="No changes can be applied from the clipboard." />
+    <string
+      id="ret_equipment_paste_nothing_title"
+      text="Paste Equipment" />
+    <string
+      id="ret_equipment_paste_tooltip"
+      text="Paste equipment from clipboard." />
     <string
       id="ret_equipment_slot_body"
       text="Body" />

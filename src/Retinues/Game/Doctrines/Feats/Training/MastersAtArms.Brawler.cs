@@ -3,14 +3,14 @@ using Retinues.Domain.Events.Models;
 using Retinues.Game.Missions;
 using TaleWorlds.Core;
 
-namespace Retinues.Game.Doctrines.Feats.Training
+namespace Retinues.Game.Doctrines.FeatCatalog.Training
 {
     /// <summary>
     /// Knock out 50 opponents in the arena.
     /// </summary>
     public sealed class Feat_MastersAtArms_Brawler : FeatCampaignBehavior
     {
-        protected override string FeatId => "feat_tr_brawler";
+        protected override string FeatId => Catalogs.DoctrineCatalog.MA_Brawler.Id;
 
         protected override void OnMissionEnded(MMission mission)
         {
@@ -24,7 +24,7 @@ namespace Retinues.Game.Doctrines.Feats.Training
                     && k.State == AgentState.Unconscious // Knocked out
                 );
 
-            Progress(count);
+            Feat.Add(count);
         }
     }
 }

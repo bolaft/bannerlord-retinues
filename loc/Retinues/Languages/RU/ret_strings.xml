@@ -161,12 +161,6 @@
       id="ret_cant_equip_reason_unlocking"
       text="Разблокировка {PERCENT}%" />
     <string
-      id="ret_cant_equip_reason_value_limit"
-      text="Слишком ценный" />
-    <string
-      id="ret_cant_equip_reason_weight_limit"
-      text="Слишком тяжелый" />
-    <string
       id="ret_cant_unequip_reason_empty"
       text="Нечего снимать." />
     <string
@@ -314,12 +308,6 @@
       id="ret_doctrine_description_header"
       text="Эффекты" />
     <string
-      id="ret_doctrine_disabled"
-      text="Доктрины отключены." />
-    <string
-      id="ret_doctrine_failed"
-      text="Не удалось приобрести доктрину." />
-    <string
       id="ret_doctrine_feat_progress_tooltip_completed"
       text="Вы завершили этот подвиг." />
     <string
@@ -344,17 +332,8 @@
       id="ret_doctrine_not_enough_influence_title"
       text="Недостаточно влияния" />
     <string
-      id="ret_doctrine_not_found"
-      text="Доктрина не найдена." />
-    <string
-      id="ret_doctrine_not_ready"
-      text="Доктрина не готова к приобретению." />
-    <string
       id="ret_doctrine_progress_text"
       text="Прогресс: {PROGRESS}%" />
-    <string
-      id="ret_doctrine_select_reason"
-      text="Сначала выберите доктрину." />
     <string
       id="ret_doctrine_state_acquired"
       text="Приобретено" />

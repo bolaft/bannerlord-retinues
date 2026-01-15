@@ -1,13 +1,13 @@
 using Retinues.Domain.Characters.Wrappers;
 
-namespace Retinues.Game.Doctrines.Feats.Equipments
+namespace Retinues.Game.Doctrines.FeatCatalog.Equipments
 {
     /// <summary>
     /// Have a companion of the same culture as your kingdom govern a kingdom fief for 30 days.
     /// </summary>
     public sealed class Feat_RoyalPatronage_RoyalStewardship : FeatCampaignBehavior
     {
-        protected override string FeatId => "feat_eq_royal_stewardship";
+        protected override string FeatId => Catalogs.DoctrineCatalog.RP_RoyalStewardship.Id;
 
         protected override void OnDailyTick()
         {
@@ -38,7 +38,7 @@ namespace Retinues.Game.Doctrines.Feats.Equipments
             if (match == null)
                 return; // No matching governor.
 
-            Progress();
+            Feat.Add();
         }
     }
 }

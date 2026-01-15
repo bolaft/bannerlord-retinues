@@ -2,14 +2,14 @@ using System.Collections.Generic;
 using Retinues.Domain.Events.Models;
 using Retinues.Game.Missions;
 
-namespace Retinues.Game.Doctrines.Feats.Loot
+namespace Retinues.Game.Doctrines.FeatCatalog.Loot
 {
     /// <summary>
     /// Capture a fief of your own culture from an enemy kingdom.
     /// </summary>
     public sealed class Feat_AncestralHeritage_Homecoming : FeatCampaignBehavior
     {
-        protected override string FeatId => "feat_sp_homecoming";
+        protected override string FeatId => Catalogs.DoctrineCatalog.AN_Homecoming.Id;
 
         protected override void OnBattleOver(
             IReadOnlyList<CombatBehavior.Kill> kills,
@@ -32,7 +32,7 @@ namespace Retinues.Game.Doctrines.Feats.Loot
             if (end.Settlement?.Culture != Player.Culture)
                 return; // Settlement is not of player's culture.
 
-            Progress();
+            Feat.Add();
         }
     }
 }

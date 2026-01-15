@@ -2,14 +2,14 @@ using System.Collections.Generic;
 using Retinues.Domain.Events.Models;
 using Retinues.Game.Missions;
 
-namespace Retinues.Game.Doctrines.Feats.Loot
+namespace Retinues.Game.Doctrines.FeatCatalog.Loot
 {
     /// <summary>
     /// Rescue a captive lord from an enemy party.
     /// </summary>
     public sealed class Feat_PragmaticScavengers_RescueMission : FeatCampaignBehavior
     {
-        protected override string FeatId => "feat_sp_rescue_mission";
+        protected override string FeatId => Catalogs.DoctrineCatalog.PR_RescueMission.Id;
 
         protected override void OnBattleOver(
             IReadOnlyList<CombatBehavior.Kill> kills,
@@ -32,7 +32,7 @@ namespace Retinues.Game.Doctrines.Feats.Loot
                     if (hero.Clan.MapFaction.StringId != Player.Clan.MapFaction.StringId)
                         continue; // Not ally.
 
-                    Progress();
+                    Feat.Add();
                     return; // Only count once per battle.
                 }
             }

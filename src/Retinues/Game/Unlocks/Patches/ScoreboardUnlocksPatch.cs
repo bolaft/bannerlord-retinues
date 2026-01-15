@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using HarmonyLib;
 using Retinues.Configuration;
 using Retinues.Domain.Equipments.Wrappers;
-using Retinues.Domain.Events.Models;
 using Retinues.Framework.Runtime;
 using Retinues.UI.Services;
 using Retinues.Utilities;

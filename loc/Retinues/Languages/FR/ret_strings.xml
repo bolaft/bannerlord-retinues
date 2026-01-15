@@ -161,12 +161,6 @@
       id="ret_cant_equip_reason_unlocking"
       text="Acquisition {PERCENT}%" />
     <string
-      id="ret_cant_equip_reason_value_limit"
-      text="Trop cher" />
-    <string
-      id="ret_cant_equip_reason_weight_limit"
-      text="Trop lourd" />
-    <string
       id="ret_cant_unequip_reason_empty"
       text="Rien à déséquiper." />
     <string
@@ -314,12 +308,6 @@
       id="ret_doctrine_description_header"
       text="Effets" />
     <string
-      id="ret_doctrine_disabled"
-      text="Les doctrines sont désactivées." />
-    <string
-      id="ret_doctrine_failed"
-      text="Échec de l&apos;acquisition de la doctrine." />
-    <string
       id="ret_doctrine_feat_progress_tooltip_completed"
       text="Vous avez accompli cet exploit." />
     <string
@@ -344,17 +332,8 @@
       id="ret_doctrine_not_enough_influence_title"
       text="Pas assez d&apos;influence" />
     <string
-      id="ret_doctrine_not_found"
-      text="Doctrine introuvable." />
-    <string
-      id="ret_doctrine_not_ready"
-      text="La doctrine n&apos;est pas prête à être acquise." />
-    <string
       id="ret_doctrine_progress_text"
       text="Progrès : {PROGRESS}%" />
-    <string
-      id="ret_doctrine_select_reason"
-      text="Sélectionnez d&apos;abord une doctrine." />
     <string
       id="ret_doctrine_state_acquired"
       text="Acquis" />

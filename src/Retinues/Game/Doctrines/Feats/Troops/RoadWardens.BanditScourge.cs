@@ -1,16 +1,15 @@
 using Retinues.Domain.Events.Models;
-using Retinues.Game.Missions;
 using TaleWorlds.CampaignSystem.MapEvents;
 using TaleWorlds.Core;
 
-namespace Retinues.Game.Doctrines.Feats.Troops
+namespace Retinues.Game.Doctrines.FeatCatalog.Troops
 {
     /// <summary>
     /// Clear a bandit hideout.
     /// </summary>
     public sealed class Feat_RoadWardens_BanditScourge : FeatCampaignBehavior
     {
-        protected override string FeatId => "feat_trp_bandit_scourge";
+        protected override string FeatId => Catalogs.DoctrineCatalog.RW_BanditScourge.Id;
 
         protected override void OnHideoutBattleCompleted(
             BattleSideEnum winnerSide,
@@ -21,7 +20,7 @@ namespace Retinues.Game.Doctrines.Feats.Troops
             if (battle.IsLost)
                 return; // Player lost the battle.
 
-            Progress();
+            Feat.Add();
         }
     }
 }

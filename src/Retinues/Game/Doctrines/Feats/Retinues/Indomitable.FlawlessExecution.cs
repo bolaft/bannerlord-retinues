@@ -2,14 +2,14 @@ using System.Collections.Generic;
 using Retinues.Domain.Events.Models;
 using Retinues.Game.Missions;
 
-namespace Retinues.Game.Doctrines.Feats.Retinues
+namespace Retinues.Game.Doctrines.FeatCatalog.Retinues
 {
     /// <summary>
     /// Have your retinues defeat 20 enemy troops of equivalent tier without a single casualty.
     /// </summary>
     public sealed class Feat_Indomitable_FlawlessExecution : FeatCampaignBehavior
     {
-        protected override string FeatId => "feat_ret_flawless_execution";
+        protected override string FeatId => Catalogs.DoctrineCatalog.IN_FlawlessExecution.Id;
 
         protected override void OnBattleOver(
             IReadOnlyList<CombatBehavior.Kill> kills,
@@ -24,7 +24,7 @@ namespace Retinues.Game.Doctrines.Feats.Retinues
                     && kill.Victim.IsPlayerTroop // Victim is a retinue troop
                 )
                 {
-                    Reset(); // Any retinue troop deaths.
+                    Feat.Reset(); // Any retinue troop deaths.
                 }
                 else if (
                     kill.Killer.IsPlayerTroop // Killer is a player troop
@@ -33,7 +33,7 @@ namespace Retinues.Game.Doctrines.Feats.Retinues
                     && kill.Killer.Character.Tier <= kill.Victim.Character.Tier // Equivalent tier or lower
                 )
                 {
-                    Progress(); // Progress for each valid kill.
+                    Feat.Add(); // Progress for each valid kill.
                 }
             }
         }

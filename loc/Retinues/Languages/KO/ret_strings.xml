@@ -161,12 +161,6 @@
       id="ret_cant_equip_reason_unlocking"
       text="잠금 해제 중 {PERCENT}%" />
     <string
-      id="ret_cant_equip_reason_value_limit"
-      text="너무 귀중함" />
-    <string
-      id="ret_cant_equip_reason_weight_limit"
-      text="너무 무거움" />
-    <string
       id="ret_cant_unequip_reason_empty"
       text="해제할 항목이 없습니다." />
     <string
@@ -314,12 +308,6 @@
       id="ret_doctrine_description_header"
       text="효과" />
     <string
-      id="ret_doctrine_disabled"
-      text="교리가 비활성화되었습니다." />
-    <string
-      id="ret_doctrine_failed"
-      text="교리 획득에 실패했습니다." />
-    <string
       id="ret_doctrine_feat_progress_tooltip_completed"
       text="이 위업을 완료했습니다." />
     <string
@@ -344,17 +332,8 @@
       id="ret_doctrine_not_enough_influence_title"
       text="영향력이 부족합니다" />
     <string
-      id="ret_doctrine_not_found"
-      text="교리를 찾을 수 없습니다." />
-    <string
-      id="ret_doctrine_not_ready"
-      text="교리를 획득할 준비가 되지 않았습니다." />
-    <string
       id="ret_doctrine_progress_text"
       text="진행률: {PROGRESS}%" />
-    <string
-      id="ret_doctrine_select_reason"
-      text="먼저 교리를 선택하세요." />
     <string
       id="ret_doctrine_state_acquired"
       text="획득됨" />

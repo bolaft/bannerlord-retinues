@@ -1,13 +1,13 @@
 using Retinues.Domain.Events.Models;
 
-namespace Retinues.Game.Doctrines.Feats.Equipments
+namespace Retinues.Game.Doctrines.FeatCatalog.Equipments
 {
     /// <summary>
     /// Field a unit wearing equipment worth over 100 000 denars.
     /// </summary>
     public sealed class Feat_HonorGuard_GoldenLegion : FeatCampaignBehavior
     {
-        protected override string FeatId => "feat_eq_golden_legion";
+        protected override string FeatId => Catalogs.DoctrineCatalog.HG_GoldenLegion.Id;
 
         protected override void OnBattleStart(MMapEvent battle)
         {
@@ -33,7 +33,7 @@ namespace Retinues.Game.Doctrines.Feats.Equipments
                     if (eq.Value <= 100000)
                         continue; // Not expensive enough.
 
-                    Progress();
+                    Feat.Add();
                     return;
                 }
             }

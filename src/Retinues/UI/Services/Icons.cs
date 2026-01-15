@@ -1,4 +1,3 @@
-using System.Numerics;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Framework.Runtime;
 using Retinues.Modules;

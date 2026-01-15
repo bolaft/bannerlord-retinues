@@ -15,9 +15,10 @@ namespace Retinues.Game.Doctrines
     [SafeClass(IncludeDerived = true)]
     public abstract class FeatCampaignBehavior : BaseCampaignBehavior
     {
-        protected abstract string FeatId { get; }
+        public override bool IsActive => Feat.IsInProgress;
 
-        public override bool IsActive => FeatsAPI.CanProgress(FeatId);
+        protected abstract string FeatId { get; }
+        protected Feat Feat => Feat.Get(FeatId);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Custom Events                     //
@@ -87,40 +88,6 @@ namespace Retinues.Game.Doctrines
                 return false;
 
             return true;
-        }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                    Progress Helpers                    //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        /// <summary>
-        /// Adds feat progress, completing the feat if it reaches the target.
-        /// </summary>
-        protected void Progress(int amount = 1)
-        {
-            if (FeatsAPI.TryAddProgress(FeatId, amount))
-                Log.Debug($"Adding {amount} progress to feat '{FeatId}'");
-        }
-
-        /// <summary>
-        /// Resets the feat progress and completion flag.
-        /// </summary>
-        protected void Reset()
-        {
-            if (FeatsAPI.TryReset(FeatId))
-                Log.Debug($"Resetting feat '{FeatId}'");
-        }
-
-        /// <summary>
-        /// Sets the feat progress to the specified value, clamped to [0, target].
-        /// </summary>
-        protected void SetProgress(int amount)
-        {
-            if (amount < FeatsAPI.GetProgress(FeatId))
-                return; // Do not decrease progress.
-
-            if (FeatsAPI.TrySet(FeatId, amount))
-                Log.Debug($"Set progress of feat '{FeatId}' to {amount}");
         }
     }
 }

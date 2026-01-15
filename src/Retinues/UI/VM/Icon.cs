@@ -1,6 +1,4 @@
 using System;
-using System.Drawing;
-using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Editor.Events;
 using Retinues.Framework.Runtime;
 using TaleWorlds.Library;

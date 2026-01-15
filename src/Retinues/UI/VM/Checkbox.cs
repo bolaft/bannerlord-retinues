@@ -1,5 +1,4 @@
 using System;
-using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Editor.Controllers;
 using Retinues.Editor.Events;
 using Retinues.Framework.Runtime;

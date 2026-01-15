@@ -9,7 +9,6 @@ using Retinues.Game;
 using Retinues.UI.Services;
 using TaleWorlds.Core;
 using TaleWorlds.Core.ImageIdentifiers;
-using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
 using TaleWorlds.Localization;
 
 namespace Retinues.Editor.Controllers.Library

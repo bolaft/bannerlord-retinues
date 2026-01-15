@@ -1,14 +1,14 @@
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Settlements.Wrappers;
 
-namespace Retinues.Game.Doctrines.Feats.Retinues
+namespace Retinues.Game.Doctrines.FeatCatalog.Retinues
 {
     /// <summary>
     /// Hire 100 retinues.
     /// </summary>
     public sealed class Feat_Vanguard_RaiseTheVanguard : FeatCampaignBehavior
     {
-        protected override string FeatId => "feat_ret_raise_the_vanguard";
+        protected override string FeatId => Catalogs.DoctrineCatalog.VA_RaiseTheVanguard.Id;
 
         protected override void OnTroopRecruited(
             WHero recruiter,
@@ -24,7 +24,7 @@ namespace Retinues.Game.Doctrines.Feats.Retinues
             if (!troop.IsRetinue)
                 return; // Not a retinue troop.
 
-            Progress(amount);
+            Feat.Add(amount);
         }
     }
 }

@@ -2,14 +2,14 @@ using System.Collections.Generic;
 using Retinues.Domain.Events.Models;
 using Retinues.Game.Missions;
 
-namespace Retinues.Game.Doctrines.Feats.Loot
+namespace Retinues.Game.Doctrines.FeatCatalog.Loot
 {
     /// <summary>
     /// Single-handedly win a battle against an enemy army of a different culture.
     /// </summary>
     public sealed class Feat_AncestralHeritage_CulturalTriumph : FeatCampaignBehavior
     {
-        protected override string FeatId => "feat_sp_cultural_triumph";
+        protected override string FeatId => Catalogs.DoctrineCatalog.AN_CulturalTriumph.Id;
 
         protected override void OnBattleOver(
             IReadOnlyList<CombatBehavior.Kill> kills,
@@ -31,7 +31,7 @@ namespace Retinues.Game.Doctrines.Feats.Loot
             if (culture != Player.Clan.Culture)
                 return; // Different culture.
 
-            Progress();
+            Feat.Add();
         }
     }
 }

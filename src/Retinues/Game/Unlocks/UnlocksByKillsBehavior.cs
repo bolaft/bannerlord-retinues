@@ -5,6 +5,8 @@ using Retinues.Domain.Equipments.Models;
 using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Domain.Events.Models;
 using Retinues.Framework.Behaviors;
+using Retinues.Game.Doctrines;
+using Retinues.Game.Doctrines.Catalogs;
 using Retinues.Game.Missions;
 using Retinues.Utilities;
 using TaleWorlds.MountAndBlade;
@@ -119,7 +121,7 @@ namespace Retinues.Game.Unlocks
             if (victim.IsAllyTroop)
             {
                 // Case 2.a: Count ally casualties.
-                if (false)
+                if (DoctrineCatalog.PragmaticScavengers.IsAcquired)
                 {
                     return 1f;
                 }
@@ -146,7 +148,7 @@ namespace Retinues.Game.Unlocks
                 // Case 3.c: Killer is ally troop.
                 else if (killer.IsAllyTroop)
                 {
-                    if (false)
+                    if (Doctrine.Get(DoctrineCatalog.LO_BattlefieldTithes).IsAcquired)
                     {
                         return 1f;
                     }

@@ -3,14 +3,14 @@ using System.Linq;
 using Retinues.Domain.Events.Models;
 using Retinues.Game.Missions;
 
-namespace Retinues.Game.Doctrines.Feats.Loot
+namespace Retinues.Game.Doctrines.FeatCatalog.Loot
 {
     /// <summary>
     /// Personally defeat 25 enemies in one battle.
     /// </summary>
     public sealed class Feat_LionsShare_BloodPrice : FeatCampaignBehavior
     {
-        protected override string FeatId => "feat_sp_blood_price";
+        protected override string FeatId => Catalogs.DoctrineCatalog.LS_BloodPrice.Id;
 
         protected override void OnBattleOver(
             IReadOnlyList<CombatBehavior.Kill> kills,
@@ -23,7 +23,7 @@ namespace Retinues.Game.Doctrines.Feats.Loot
                 && k.Victim.IsEnemyTroop // Victim is an enemy troop
             );
 
-            SetProgress(count);
+            Feat.Set(count, bestOnly: true);
         }
     }
 }

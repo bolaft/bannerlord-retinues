@@ -2,14 +2,14 @@ using System.Collections.Generic;
 using Retinues.Domain.Events.Models;
 using Retinues.Game.Missions;
 
-namespace Retinues.Game.Doctrines.Feats.Training
+namespace Retinues.Game.Doctrines.FeatCatalog.Training
 {
     /// <summary>
     /// In a single battle, get a kill using five different weapon classes.
     /// </summary>
     public sealed class Feat_AdvancedTactics_LethalVersatility : FeatCampaignBehavior
     {
-        protected override string FeatId => "feat_tr_lethal_versatility";
+        protected override string FeatId => Catalogs.DoctrineCatalog.AT_LethalVersatility.Id;
 
         protected override void OnBattleOver(
             IReadOnlyList<CombatBehavior.Kill> kills,
@@ -33,7 +33,7 @@ namespace Retinues.Game.Doctrines.Feats.Training
                 // Check if we have reached five different weapon classes.
                 if (classes.Count >= 5)
                 {
-                    Progress();
+                    Feat.Add();
                     return;
                 }
             }

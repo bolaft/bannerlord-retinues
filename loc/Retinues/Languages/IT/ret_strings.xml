@@ -161,12 +161,6 @@
       id="ret_cant_equip_reason_unlocking"
       text="Sbloccando {PERCENT}%" />
     <string
-      id="ret_cant_equip_reason_value_limit"
-      text="Troppo prezioso" />
-    <string
-      id="ret_cant_equip_reason_weight_limit"
-      text="Troppo pesante" />
-    <string
       id="ret_cant_unequip_reason_empty"
       text="Niente da disequipaggiare." />
     <string
@@ -314,12 +308,6 @@
       id="ret_doctrine_description_header"
       text="Effetti" />
     <string
-      id="ret_doctrine_disabled"
-      text="Le dottrine sono disabilitate." />
-    <string
-      id="ret_doctrine_failed"
-      text="Impossibile acquisire la dottrina." />
-    <string
       id="ret_doctrine_feat_progress_tooltip_completed"
       text="Hai completato questa impresa." />
     <string
@@ -344,17 +332,8 @@
       id="ret_doctrine_not_enough_influence_title"
       text="Influenza insufficiente" />
     <string
-      id="ret_doctrine_not_found"
-      text="Dottrina non trovata." />
-    <string
-      id="ret_doctrine_not_ready"
-      text="La dottrina non è pronta per essere acquisita." />
-    <string
       id="ret_doctrine_progress_text"
       text="Progresso: {PROGRESS}%" />
-    <string
-      id="ret_doctrine_select_reason"
-      text="Seleziona prima una dottrina." />
     <string
       id="ret_doctrine_state_acquired"
       text="Acquisito" />

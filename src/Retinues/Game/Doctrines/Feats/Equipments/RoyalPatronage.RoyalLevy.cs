@@ -1,14 +1,14 @@
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Settlements.Wrappers;
 
-namespace Retinues.Game.Doctrines.Feats.Equipments
+namespace Retinues.Game.Doctrines.FeatCatalog.Equipments
 {
     /// <summary>
     /// Recruit 100 custom kingdom troops.
     /// </summary>
     public sealed class Feat_RoyalPatronage_RoyalLevy : FeatCampaignBehavior
     {
-        protected override string FeatId => "feat_eq_royal_levy";
+        protected override string FeatId => Catalogs.DoctrineCatalog.RP_RoyalLevy.Id;
 
         protected override void OnTroopRecruited(
             WHero recruiter,
@@ -34,7 +34,7 @@ namespace Retinues.Game.Doctrines.Feats.Equipments
             if (!troop.BelongsTo(kingdom))
                 return; // Troop does not belong to player's kingdom.
 
-            Progress(amount);
+            Feat.Add(amount);
         }
     }
 }

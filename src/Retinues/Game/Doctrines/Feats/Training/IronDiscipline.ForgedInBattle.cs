@@ -1,13 +1,13 @@
 using Retinues.Domain.Characters.Wrappers;
 
-namespace Retinues.Game.Doctrines.Feats.Training
+namespace Retinues.Game.Doctrines.FeatCatalog.Training
 {
     /// <summary>
     /// Upgrade 100 faction troops to the next tier.
     /// </summary>
     public sealed class Feat_IronDiscipline_ForgedInBattle : FeatCampaignBehavior
     {
-        protected override string FeatId => "feat_tr_forged_in_battle";
+        protected override string FeatId => Catalogs.DoctrineCatalog.ID_ForgedInBattle.Id;
 
         protected override void OnPlayerUpgradedTroops(
             WCharacter source,
@@ -18,7 +18,7 @@ namespace Retinues.Game.Doctrines.Feats.Training
             if (!source.IsFactionTroop || !target.IsFactionTroop)
                 return; // Not faction troops.
 
-            Progress(number);
+            Feat.Add(number);
         }
     }
 }

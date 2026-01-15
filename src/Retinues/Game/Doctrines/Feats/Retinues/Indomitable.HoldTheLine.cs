@@ -2,14 +2,14 @@ using System.Collections.Generic;
 using Retinues.Domain.Events.Models;
 using Retinues.Game.Missions;
 
-namespace Retinues.Game.Doctrines.Feats.Retinues
+namespace Retinues.Game.Doctrines.FeatCatalog.Retinues
 {
     /// <summary>
     /// Win a defensive battle with a retinue-only party.
     /// </summary>
     public sealed class Feat_Indomitable_HoldTheLine : FeatCampaignBehavior
     {
-        protected override string FeatId => "feat_ret_hold_the_line";
+        protected override string FeatId => Catalogs.DoctrineCatalog.IN_HoldTheLine.Id;
 
         static bool IsAllRetinue;
 
@@ -34,7 +34,7 @@ namespace Retinues.Game.Doctrines.Feats.Retinues
             if (!IsAllRetinue)
                 return; // Not all retinues.
 
-            Progress();
+            Feat.Add();
         }
     }
 }

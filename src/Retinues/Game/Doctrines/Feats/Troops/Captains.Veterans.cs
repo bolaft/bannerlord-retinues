@@ -1,11 +1,11 @@
-namespace Retinues.Game.Doctrines.Feats.Troops
+namespace Retinues.Game.Doctrines.FeatCatalog.Troops
 {
     /// <summary>
     /// Max out the skills of a T5 basic troop.
     /// </summary>
     public sealed class Feat_Captains_Veterans : FeatCampaignBehavior
     {
-        protected override string FeatId => "feat_trp_veterans";
+        protected override string FeatId => Catalogs.DoctrineCatalog.CA_Veterans.Id;
 
         protected override void OnDailyTick()
         {
@@ -20,7 +20,7 @@ namespace Retinues.Game.Doctrines.Feats.Troops
                 if (troop.SkillTotalRemaining > 0)
                     continue; // Skills not maxed.
 
-                Progress();
+                Feat.Add();
                 return;
             }
         }

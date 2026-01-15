@@ -1,7 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using Retinues.Configuration;
-using Retinues.Domain.Characters;
 using Retinues.Domain.Characters.Helpers;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Factions.Wrappers;
@@ -9,7 +7,6 @@ using Retinues.Editor.Events;
 using Retinues.Editor.Services.Appearance;
 using Retinues.Editor.Services.Context;
 using Retinues.Framework.Model.Exports;
-using Retinues.Game.Experience;
 using Retinues.Modules;
 using Retinues.UI.Services;
 using TaleWorlds.CampaignSystem;

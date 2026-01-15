@@ -1,15 +1,15 @@
-namespace Retinues.Game.Doctrines.Feats.Troops
+namespace Retinues.Game.Doctrines.FeatCatalog.Troops
 {
     public sealed class Feat_StalwartMilitia_WatchersOnTheWalls : FeatCampaignBehavior
     {
         /// <summary>
         /// Raise the militia value of a fief to 400.
         /// </summary>
-        protected override string FeatId => "feat_trp_watchers_on_the_walls";
+        protected override string FeatId => Catalogs.DoctrineCatalog.SM_WatchersOnTheWalls.Id;
 
         protected override void OnDailyTick()
         {
-            float highest = 0f;
+            int highest = 0;
 
             foreach (var fief in Player.Clan.Fiefs)
             {
@@ -17,10 +17,10 @@ namespace Retinues.Game.Doctrines.Feats.Troops
 
                 // Track the highest militia value among all fiefs.
                 if (militia > highest)
-                    highest = militia;
+                    highest = (int)militia;
             }
 
-            SetProgress((int)highest);
+            Feat.Set(highest, bestOnly: true);
         }
     }
 }

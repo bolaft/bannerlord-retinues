@@ -2,14 +2,14 @@ using System.Collections.Generic;
 using Retinues.Domain.Events.Models;
 using Retinues.Game.Missions;
 
-namespace Retinues.Game.Doctrines.Feats.Loot
+namespace Retinues.Game.Doctrines.FeatCatalog.Loot
 {
     /// <summary>
     /// Win a battle where you are not the main commander.
     /// </summary>
     public sealed class Feat_BattlefieldTithes_SecondInCommand : FeatCampaignBehavior
     {
-        protected override string FeatId => "feat_sp_second_in_command";
+        protected override string FeatId => Catalogs.DoctrineCatalog.BT_SecondInCommand.Id;
 
         protected override void OnBattleOver(
             IReadOnlyList<CombatBehavior.Kill> kills,
@@ -26,7 +26,7 @@ namespace Retinues.Game.Doctrines.Feats.Loot
             if (Player.Party.IsArmyLeader)
                 return; // Player must not be the army leader.
 
-            Progress();
+            Feat.Add();
         }
     }
 }

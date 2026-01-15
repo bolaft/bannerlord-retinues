@@ -161,12 +161,6 @@
       id="ret_cant_equip_reason_unlocking"
       text="Desbloqueando {PERCENT}%" />
     <string
-      id="ret_cant_equip_reason_value_limit"
-      text="Demasiado valioso" />
-    <string
-      id="ret_cant_equip_reason_weight_limit"
-      text="Demasiado pesado" />
-    <string
       id="ret_cant_unequip_reason_empty"
       text="Nada que desequipar." />
     <string
@@ -314,12 +308,6 @@
       id="ret_doctrine_description_header"
       text="Efectos" />
     <string
-      id="ret_doctrine_disabled"
-      text="Las doctrinas están desactivadas." />
-    <string
-      id="ret_doctrine_failed"
-      text="No se pudo adquirir la doctrina." />
-    <string
       id="ret_doctrine_feat_progress_tooltip_completed"
       text="Has completado esta hazaña." />
     <string
@@ -344,17 +332,8 @@
       id="ret_doctrine_not_enough_influence_title"
       text="No hay suficiente influencia" />
     <string
-      id="ret_doctrine_not_found"
-      text="Doctrina no encontrada." />
-    <string
-      id="ret_doctrine_not_ready"
-      text="La doctrina no está lista para ser adquirida." />
-    <string
       id="ret_doctrine_progress_text"
       text="Progreso: {PROGRESS}%" />
-    <string
-      id="ret_doctrine_select_reason"
-      text="Selecciona una doctrina primero." />
     <string
       id="ret_doctrine_state_acquired"
       text="Adquirido" />

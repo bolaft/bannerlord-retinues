@@ -161,12 +161,6 @@
       id="ret_cant_equip_reason_unlocking"
       text="解锁中 {PERCENT}%" />
     <string
-      id="ret_cant_equip_reason_value_limit"
-      text="太贵重" />
-    <string
-      id="ret_cant_equip_reason_weight_limit"
-      text="太重" />
-    <string
       id="ret_cant_unequip_reason_empty"
       text="没有可卸下的物品。" />
     <string
@@ -314,12 +308,6 @@
       id="ret_doctrine_description_header"
       text="效果" />
     <string
-      id="ret_doctrine_disabled"
-      text="学说已被禁用。" />
-    <string
-      id="ret_doctrine_failed"
-      text="获取学说失败。" />
-    <string
       id="ret_doctrine_feat_progress_tooltip_completed"
       text="您已完成此功绩。" />
     <string
@@ -344,17 +332,8 @@
       id="ret_doctrine_not_enough_influence_title"
       text="影响力不足" />
     <string
-      id="ret_doctrine_not_found"
-      text="未找到学说。" />
-    <string
-      id="ret_doctrine_not_ready"
-      text="学说尚未准备好被采纳。" />
-    <string
       id="ret_doctrine_progress_text"
       text="进度：{PROGRESS}%" />
-    <string
-      id="ret_doctrine_select_reason"
-      text="请先选择一个学说。" />
     <string
       id="ret_doctrine_state_acquired"
       text="已获取" />

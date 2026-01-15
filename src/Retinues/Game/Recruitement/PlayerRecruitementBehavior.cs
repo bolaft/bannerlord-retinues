@@ -1,7 +1,6 @@
 using Retinues.Domain.Parties.Wrappers;
 using Retinues.Domain.Settlements.Wrappers;
 using Retinues.Framework.Behaviors;
-using TaleWorlds.CampaignSystem.Party;
 
 namespace Retinues.Game.Recruitement
 {

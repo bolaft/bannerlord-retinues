@@ -6,8 +6,6 @@ using Retinues.Framework.Behaviors;
 using Retinues.Utilities;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
-using static Retinues.Domain.Events.Models.MAgent;
-using static Retinues.Domain.Events.Models.MMapEvent;
 
 namespace Retinues.Game.Missions
 {

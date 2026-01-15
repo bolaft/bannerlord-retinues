@@ -1,13 +1,13 @@
 using Retinues.Domain.Events.Models;
 
-namespace Retinues.Game.Doctrines.Feats.Equipments
+namespace Retinues.Game.Doctrines.FeatCatalog.Equipments
 {
     /// <summary>
     /// Field a unit wearing equipment weighing over 60 kg.
     /// </summary>
     public sealed class Feat_Ironclad_HeavyKit : FeatCampaignBehavior
     {
-        protected override string FeatId => "feat_eq_heavy_kit";
+        protected override string FeatId => Catalogs.DoctrineCatalog.IR_HeavyKit.Id;
 
         protected override void OnBattleStart(MMapEvent battle)
         {
@@ -33,7 +33,7 @@ namespace Retinues.Game.Doctrines.Feats.Equipments
                     if (eq.Weight <= 60)
                         continue; // Not heavy enough.
 
-                    Progress();
+                    Feat.Add();
                     return;
                 }
             }

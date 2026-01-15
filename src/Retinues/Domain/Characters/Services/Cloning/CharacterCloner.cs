@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Retinues.Domain.Characters.Helpers;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Equipments.Models;
 using Retinues.Utilities;

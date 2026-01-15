@@ -10,7 +10,6 @@ using Retinues.Editor.Services.Equipments;
 using Retinues.Game;
 using Retinues.UI.Services;
 using TaleWorlds.Core;
-using TaleWorlds.Localization;
 
 namespace Retinues.Editor.Controllers.Equipment
 {

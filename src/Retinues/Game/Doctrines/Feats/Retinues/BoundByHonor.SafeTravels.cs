@@ -2,14 +2,14 @@ using System.Collections.Generic;
 using Retinues.Domain.Events.Models;
 using Retinues.Game.Missions;
 
-namespace Retinues.Game.Doctrines.Feats.Retinues
+namespace Retinues.Game.Doctrines.FeatCatalog.Retinues
 {
     /// <summary>
     /// Save a caravan or villager party from an enemy attack.
     /// </summary>
     public sealed class Feat_BoundByHonor_SafeTravels : FeatCampaignBehavior
     {
-        protected override string FeatId => "feat_ret_safe_travels";
+        protected override string FeatId => Catalogs.DoctrineCatalog.BH_SafeTravels.Id;
 
         protected override void OnBattleOver(
             IReadOnlyList<CombatBehavior.Kill> kills,
@@ -24,7 +24,7 @@ namespace Retinues.Game.Doctrines.Feats.Retinues
             {
                 if (party.IsCaravan || party.IsVillager)
                 {
-                    Progress(); // Saved a caravan or villager party.
+                    Feat.Add(); // Saved a caravan or villager party.
                     break;
                 }
             }

@@ -1,14 +1,14 @@
 using Retinues.Domain.Characters.Wrappers;
 using TaleWorlds.CampaignSystem;
 
-namespace Retinues.Game.Doctrines.Feats.Loot
+namespace Retinues.Game.Doctrines.FeatCatalog.Loot
 {
     /// <summary>
     /// Complete a quest for an allied lord.
     /// </summary>
     public sealed class Feat_BattlefieldTithes_AlliesFavor : FeatCampaignBehavior
     {
-        protected override string FeatId => "feat_sp_allies_favor";
+        protected override string FeatId => Catalogs.DoctrineCatalog.BT_AlliesFavor.Id;
 
         protected override void OnQuestCompleted(QuestBase quest, WHero giver, bool success)
         {
@@ -24,7 +24,7 @@ namespace Retinues.Game.Doctrines.Feats.Loot
             if (giver.Base.MapFaction.StringId != Player.Clan.MapFaction.StringId)
                 return; // Giver is not an ally.
 
-            Progress();
+            Feat.Add();
         }
     }
 }
