@@ -9,7 +9,7 @@ using TaleWorlds.Localization;
 namespace Retinues.Game.Unlocks
 {
     [SafeClass]
-    public static class UnlockNotifier
+    public static class Notifier
     {
         /// <summary>
         /// Method by which items were unlocked.
@@ -92,7 +92,7 @@ namespace Retinues.Game.Unlocks
 
             desc = desc.SetTextVariable("ITEMS", listText).SetTextVariable("VERB", wasWere);
 
-            UnlockNotifierBehavior.Notify(title, desc);
+            NotifierBehavior.Notify(title, desc);
         }
 
         /// <summary>
@@ -219,7 +219,7 @@ namespace Retinues.Game.Unlocks
 
             var desc = new TextObject(string.Join("\n\n", paragraphs));
 
-            UnlockNotifierBehavior.Notify(title, desc);
+            NotifierBehavior.Notify(title, desc);
         }
     }
 }

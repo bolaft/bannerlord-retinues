@@ -7,7 +7,7 @@ using TaleWorlds.Core;
 
 namespace Retinues.Game.Troops
 {
-    public static partial class TroopCloner
+    public static partial class Cloner
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Lean Trees                       //

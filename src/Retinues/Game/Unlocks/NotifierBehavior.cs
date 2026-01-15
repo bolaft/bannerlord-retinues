@@ -11,7 +11,7 @@ using TaleWorlds.Localization;
 namespace Retinues.Game.Unlocks
 {
     [SafeClass]
-    public sealed class UnlockNotifierBehavior : BaseCampaignBehavior
+    public sealed class NotifierBehavior : BaseCampaignBehavior
     {
         public override bool IsActive => Settings.EquipmentNeedsUnlocking;
 
@@ -38,7 +38,7 @@ namespace Retinues.Game.Unlocks
 
             if (_clonerHooked)
             {
-                TroopCloner.ItemsUnlockedByCloner -= OnClonerItemsUnlocked;
+                Cloner.ItemsUnlockedByCloner -= OnClonerItemsUnlocked;
                 _clonerHooked = false;
             }
         }
@@ -53,7 +53,7 @@ namespace Retinues.Game.Unlocks
             if (_clonerHooked)
                 return;
 
-            TroopCloner.ItemsUnlockedByCloner += OnClonerItemsUnlocked;
+            Cloner.ItemsUnlockedByCloner += OnClonerItemsUnlocked;
             _clonerHooked = true;
         }
 

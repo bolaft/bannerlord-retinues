@@ -22,7 +22,7 @@ namespace Retinues.Game.Troops
     /// Unlocks and assigns custom troops for the player clan and player kingdom.
     /// Clones culture roots or whole culture trees, then stores them on the faction wrappers.
     /// </summary>
-    public sealed class TroopUnlockBehavior : BaseCampaignBehavior<TroopUnlockBehavior>
+    public sealed class TroopUnlockerBehavior : BaseCampaignBehavior<TroopUnlockerBehavior>
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Auto Handlers                     //
@@ -231,7 +231,7 @@ namespace Retinues.Game.Troops
             if (unlockSink != null && unlockSink.Count > 0)
             {
                 // Single merged popup sentence, deduped by UnlockNotifier.
-                UnlockNotifier.ItemsUnlocked(UnlockNotifier.UnlockMethod.Troops, unlockSink);
+                Notifier.ItemsUnlocked(Notifier.UnlockMethod.Troops, unlockSink);
             }
 
             // Popup only for event-driven unlocks (not bootstrap).
@@ -312,7 +312,7 @@ namespace Retinues.Game.Troops
 
             if (mode == Settings.TroopsMode.RootsOnly)
             {
-                created = TroopCloner.CloneTroop(
+                created = Cloner.CloneTroop(
                     template,
                     skills: true,
                     equipments: true,
@@ -326,7 +326,7 @@ namespace Retinues.Game.Troops
             {
                 bool lean = mode == Settings.TroopsMode.LeanTrees;
 
-                created = TroopCloner.CloneTreeFromRoot(
+                created = Cloner.CloneTreeFromRoot(
                     template,
                     lean: lean,
                     skills: true,
@@ -362,7 +362,7 @@ namespace Retinues.Game.Troops
                     && template?.Base != null
                     && template.StringId == culture.RootElite.StringId;
 
-                TroopCloner.ApplyLeanFactionNames(created, factionName, nobleLine: nobleLine);
+                Cloner.ApplyLeanFactionNames(created, factionName, nobleLine: nobleLine);
 
                 var tree = created.Tree ?? [created];
                 for (int i = 0; i < tree.Count; i++)

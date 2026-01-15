@@ -12,7 +12,7 @@ using Retinues.Utilities;
 namespace Retinues.Game.Troops
 {
     [SafeClass]
-    public static partial class TroopCloner
+    public static partial class Cloner
     {
         /// <summary>
         /// Fired when CharacterCloner unlocks items as part of troop creation.

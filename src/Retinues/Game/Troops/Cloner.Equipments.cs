@@ -6,7 +6,7 @@ using Retinues.Domain.Factions.Wrappers;
 
 namespace Retinues.Game.Troops
 {
-    public static partial class TroopCloner
+    public static partial class Cloner
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                   Equipment Strategy                   //

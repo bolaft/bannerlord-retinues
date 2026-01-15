@@ -82,7 +82,7 @@ namespace Retinues.Game.Bootstrap
             {
                 if (clan?.Base != null)
                 {
-                    TroopUnlockBehavior.TryUnlockNow(fromBootstrap: true);
+                    TroopUnlockerBehavior.TryUnlockNow(fromBootstrap: true);
                     _factionTroopsBootstrapped = true;
                     Log.Debug("Faction troops bootstrap complete.");
                 }

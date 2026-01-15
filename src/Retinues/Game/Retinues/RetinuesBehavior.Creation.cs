@@ -73,9 +73,9 @@ namespace Retinues.Game.Retinues
             if (template?.Base == null)
                 return null;
 
-            return TroopCloner.BuildFromTemplate(
+            return Cloner.BuildFromTemplate(
                 template,
-                new TroopCloner.TroopBuildRequest
+                new Cloner.TroopBuildRequest
                 {
                     Name = name,
                     CultureContext = culture,

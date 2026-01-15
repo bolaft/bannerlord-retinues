@@ -4,7 +4,7 @@ using Retinues.Domain.Equipments.Wrappers;
 
 namespace Retinues.Game.Troops
 {
-    public static partial class TroopCloner
+    public static partial class Cloner
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Unlocks                         //
