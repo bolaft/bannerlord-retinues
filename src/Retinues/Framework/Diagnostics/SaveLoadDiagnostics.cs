@@ -9,7 +9,7 @@ using TaleWorlds.Core;
 using TaleWorlds.SaveSystem;
 using TaleWorlds.SaveSystem.Load;
 
-namespace Retinues.Debug.Patches
+namespace Retinues.Framework.Diagnostics
 {
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
     //                  SaveLoad Diagnostics                  //
