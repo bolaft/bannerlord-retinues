@@ -688,22 +688,6 @@
     "TR": "{ITEM} satın almak için {COST} denara ihtiyacınız var, ancak sadece {GOLD} var."
   },
   {
-    "id": "ret_cant_afford_desc_simple",
-    "EN": "You need {COST} denars, but you only have {GOLD}.",
-    "FR": null,
-    "BR": null,
-    "CNs": null,
-    "CNt": null,
-    "DE": null,
-    "IT": null,
-    "JP": null,
-    "KO": null,
-    "PL": null,
-    "RU": null,
-    "SP": null,
-    "TR": null
-  },
-  {
     "id": "ret_cant_afford_title",
     "EN": "Not Enough Money",
     "FR": "Argent Insuffisant",
@@ -2896,8 +2880,24 @@
     "TR": "En az bir ekipman seti kalmalıdır."
   },
   {
+    "id": "ret_equipment_clipboard_source_fallback",
+    "EN": "Clipboard",
+    "FR": null,
+    "BR": null,
+    "CNs": null,
+    "CNt": null,
+    "DE": null,
+    "IT": null,
+    "JP": null,
+    "KO": null,
+    "PL": null,
+    "RU": null,
+    "SP": null,
+    "TR": null
+  },
+  {
     "id": "ret_equipment_copied_toast",
-    "EN": "Copied!",
+    "EN": "Copied equipment to clipboard.",
     "FR": null,
     "BR": null,
     "CNs": null,
@@ -3056,8 +3056,24 @@
     "TR": "{WEIGHT} kg"
   },
   {
-    "id": "ret_equipment_paste_confirm_desc",
-    "EN": "Apply clipboard equipment to {UNIT_NAME}.\\n\\nEquipped: {EQUIP}\\nUnequipped: {UNEQUIP}\\nSkipped: {SKIP}{BREAKDOWN}{COST_LINE}{STOCK_LINE}",
+    "id": "ret_equipment_paste_cant_afford_desc",
+    "EN": "Copying equipment from {SRC} to {DST} requires {COST} denars, but you only have {GOLD}.",
+    "FR": null,
+    "BR": null,
+    "CNs": null,
+    "CNt": null,
+    "DE": null,
+    "IT": null,
+    "JP": null,
+    "KO": null,
+    "PL": null,
+    "RU": null,
+    "SP": null,
+    "TR": null
+  },
+  {
+    "id": "ret_equipment_paste_confirm_question",
+    "EN": "Copy equipment from {SRC} to {DST}?",
     "FR": null,
     "BR": null,
     "CNs": null,
@@ -3073,7 +3089,7 @@
   },
   {
     "id": "ret_equipment_paste_confirm_title",
-    "EN": "Paste Equipment",
+    "EN": "Copy Equipment",
     "FR": null,
     "BR": null,
     "CNs": null,
@@ -3120,8 +3136,8 @@
     "TR": null
   },
   {
-    "id": "ret_equipment_paste_nothing_desc",
-    "EN": "No changes can be applied from the clipboard.",
+    "id": "ret_equipment_paste_nothing_desc2",
+    "EN": "Nothing from {SRC} can be equipped on {DST}.",
     "FR": null,
     "BR": null,
     "CNs": null,
@@ -3137,7 +3153,7 @@
   },
   {
     "id": "ret_equipment_paste_nothing_title",
-    "EN": "Paste Equipment",
+    "EN": "Copy Equipment",
     "FR": null,
     "BR": null,
     "CNs": null,

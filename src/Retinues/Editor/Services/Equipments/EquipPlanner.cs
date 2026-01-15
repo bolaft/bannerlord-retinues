@@ -7,10 +7,6 @@ namespace Retinues.Editor.Services.Equipments
 {
     public static class EquipPlanner
     {
-        /// <summary>
-        /// Builds a plan by applying proposed changes in order, using rules to skip invalid ones,
-        /// and tracking a "planned" equipment snapshot used for limit checks.
-        /// </summary>
         public static EquipPlan BuildPlan(
             EquipContext ctx,
             Func<EquipmentIndex, WItem> getCurrent,
@@ -22,15 +18,12 @@ namespace Retinues.Editor.Services.Equipments
 
             int slotCount = (int)EquipmentIndex.NumEquipmentSetSlots;
 
-            var current = new WItem[slotCount];
             var planned = new WItem[slotCount];
 
             for (int i = 0; i < slotCount; i++)
             {
                 var idx = (EquipmentIndex)i;
-                var it = getCurrent(idx);
-                current[i] = it;
-                planned[i] = it;
+                planned[i] = getCurrent(idx);
             }
 
             WItem GetPlanned(EquipmentIndex idx)
@@ -63,7 +56,7 @@ namespace Retinues.Editor.Services.Equipments
 
                 if (!decision.Allowed)
                 {
-                    plan.AddSkip(decision.Reason);
+                    plan.AddSkip(decision.Reason, to);
                     continue;
                 }
 
@@ -76,7 +69,6 @@ namespace Retinues.Editor.Services.Equipments
 
                 planned[i] = to;
 
-                // Keep harness consistent when horse changes.
                 if (slot == EquipmentIndex.Horse)
                 {
                     var harness = planned[(int)EquipmentIndex.HorseHarness];

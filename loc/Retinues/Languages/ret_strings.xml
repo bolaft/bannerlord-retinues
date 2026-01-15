@@ -134,9 +134,6 @@
       id="ret_cant_afford_desc"
       text="You need {COST} denars to buy {ITEM}, but you only have {GOLD}." />
     <string
-      id="ret_cant_afford_desc_simple"
-      text="You need {COST} denars, but you only have {GOLD}." />
-    <string
       id="ret_cant_afford_title"
       text="Not Enough Money" />
     <string
@@ -548,8 +545,11 @@
       id="ret_equipment_cannot_delete_last_set"
       text="At least one equipment set must remain." />
     <string
+      id="ret_equipment_clipboard_source_fallback"
+      text="Clipboard" />
+    <string
       id="ret_equipment_copied_toast"
-      text="Copied!" />
+      text="Copied equipment to clipboard." />
     <string
       id="ret_equipment_copy_no_set_reason"
       text="No equipment set selected." />
@@ -578,11 +578,14 @@
       id="ret_equipment_panel_weight_value"
       text="{WEIGHT} kg" />
     <string
-      id="ret_equipment_paste_confirm_desc"
-      text="Apply clipboard equipment to {UNIT_NAME}.{newline}{newline}Equipped: {EQUIP}{newline}Unequipped: {UNEQUIP}{newline}Skipped: {SKIP}{BREAKDOWN}{COST_LINE}{STOCK_LINE}" />
+      id="ret_equipment_paste_cant_afford_desc"
+      text="Copying equipment from {SRC} to {DST} requires {COST} denars, but you only have {GOLD}." />
+    <string
+      id="ret_equipment_paste_confirm_question"
+      text="Copy equipment from {SRC} to {DST}?" />
     <string
       id="ret_equipment_paste_confirm_title"
-      text="Paste Equipment" />
+      text="Copy Equipment" />
     <string
       id="ret_equipment_paste_empty_clipboard_reason"
       text="Clipboard is empty." />
@@ -590,11 +593,11 @@
       id="ret_equipment_paste_no_set_reason"
       text="No equipment set selected." />
     <string
-      id="ret_equipment_paste_nothing_desc"
-      text="No changes can be applied from the clipboard." />
+      id="ret_equipment_paste_nothing_desc2"
+      text="Nothing from {SRC} can be equipped on {DST}." />
     <string
       id="ret_equipment_paste_nothing_title"
-      text="Paste Equipment" />
+      text="Copy Equipment" />
     <string
       id="ret_equipment_paste_tooltip"
       text="Paste equipment from clipboard." />

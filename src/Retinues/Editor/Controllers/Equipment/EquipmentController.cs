@@ -127,13 +127,11 @@ namespace Retinues.Editor.Controllers.Equipment
         {
             public string Code;
             public bool IsCivilian;
+            public string SourceUnitName;
         }
 
         private static EquipmentClipboard _clipboard;
 
-        /// <summary>
-        /// Whether the clipboard currently holds a valid equipment code.
-        /// </summary>
         public static bool HasClipboard =>
             _clipboard != null && !string.IsNullOrEmpty(_clipboard.Code);
 
@@ -145,8 +143,7 @@ namespace Retinues.Editor.Controllers.Equipment
                     L.T("equipment_copy_no_set_reason", "No equipment set selected.")
                 )
                 .DefaultTooltip(L.T("equipment_copy_tooltip", "Copy equipment to clipboard."))
-                .ExecuteWith(_ => CopyEquipmentImpl())
-                .Fire(UIEvent.Clipboard);
+                .ExecuteWith(_ => CopyEquipmentImpl());
 
         public static EditorAction<bool> PasteEquipment { get; } =
             Action<bool>("PasteEquipment")
@@ -160,8 +157,7 @@ namespace Retinues.Editor.Controllers.Equipment
                     L.T("equipment_paste_empty_clipboard_reason", "Clipboard is empty.")
                 )
                 .DefaultTooltip(L.T("equipment_paste_tooltip", "Paste equipment from clipboard."))
-                .ExecuteWith(_ => PasteEquipmentImpl())
-                .Fire(UIEvent.Clipboard);
+                .ExecuteWith(_ => PasteEquipmentImpl());
 
         private static EquipContext Ctx() =>
             new(State.Mode, PreviewController.Enabled, State.Character, State.Equipment);
@@ -212,7 +208,6 @@ namespace Retinues.Editor.Controllers.Equipment
 
                 yield return (idx, it);
 
-                // If the source clears horse, also clear harness explicitly (matches Unequip behavior).
                 if (idx == EquipmentIndex.Horse && it == null)
                     yield return (EquipmentIndex.HorseHarness, null);
             }
@@ -251,51 +246,6 @@ namespace Retinues.Editor.Controllers.Equipment
             }
         }
 
-        private static string BuildSkippedBreakdownText(EquipPlan plan)
-        {
-            if (plan == null || plan.SkippedOps <= 0)
-                return string.Empty;
-
-            List<string> lines = [];
-
-            int locked = plan.SkippedOf(EquipSkipReason.Locked);
-            int skill = plan.SkippedOf(EquipSkipReason.Skill);
-            int tier = plan.SkippedOf(EquipSkipReason.Tier);
-            int limits = plan.SkippedOf(EquipSkipReason.Limits);
-
-            int other =
-                plan.SkippedOps
-                - locked
-                - skill
-                - tier
-                - limits
-                - plan.SkippedOf(EquipSkipReason.CivilianMismatch)
-                - plan.SkippedOf(EquipSkipReason.Incompatible);
-
-            int civilian = plan.SkippedOf(EquipSkipReason.CivilianMismatch);
-            int incompatible = plan.SkippedOf(EquipSkipReason.Incompatible);
-
-            if (locked > 0)
-                lines.Add($"- Locked: {locked}");
-            if (skill > 0)
-                lines.Add($"- Skill: {skill}");
-            if (tier > 0)
-                lines.Add($"- Tier: {tier}");
-            if (limits > 0)
-                lines.Add($"- Limits: {limits}");
-            if (civilian > 0)
-                lines.Add($"- Civilian: {civilian}");
-            if (incompatible > 0)
-                lines.Add($"- Incompatible: {incompatible}");
-            if (other > 0)
-                lines.Add($"- Other: {other}");
-
-            if (lines.Count == 0)
-                return string.Empty;
-
-            return "\n\nSkipped breakdown:\n" + string.Join("\n", lines);
-        }
-
         private static void CopyEquipmentImpl()
         {
             var e = State.Equipment;
@@ -306,9 +256,10 @@ namespace Retinues.Editor.Controllers.Equipment
             {
                 Code = BuildEquipmentCode(e),
                 IsCivilian = e.IsCivilian,
+                SourceUnitName = State.Character?.Name?.ToString(),
             };
 
-            Notifications.Message(L.S("equipment_copied_toast", "Copied!"));
+            Notifications.Message(L.S("equipment_copied_toast", "Copied equipment to clipboard."));
 
             EventManager.Fire(UIEvent.Clipboard);
         }
@@ -328,6 +279,253 @@ namespace Retinues.Editor.Controllers.Equipment
 
             foreach (var kv in plan.Changes)
                 State.Equipment.Set(kv.Key, kv.Value);
+        }
+
+        private static WItem FindItemById(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+                return null;
+
+            foreach (var it in WItem.All)
+            {
+                if (it != null && it.StringId == id)
+                    return it;
+            }
+
+            return null;
+        }
+
+        private static string JoinNatural(IReadOnlyList<string> names)
+        {
+            if (names == null || names.Count == 0)
+                return string.Empty;
+
+            if (names.Count == 1)
+                return names[0];
+
+            if (names.Count == 2)
+                return names[0] + " and " + names[1];
+
+            return string.Join(", ", names.Take(names.Count - 1))
+                + " and "
+                + names[names.Count - 1];
+        }
+
+        private static string JoinNaturalFromMap(Dictionary<string, int> map)
+        {
+            if (map == null || map.Count == 0)
+                return string.Empty;
+
+            var list = new List<string>();
+
+            foreach (var kv in map)
+            {
+                var item = FindItemById(kv.Key);
+                var name = item?.Name?.ToString();
+
+                if (string.IsNullOrEmpty(name))
+                    continue;
+
+                if (kv.Value > 1)
+                    list.Add($"{name} x{kv.Value}");
+                else
+                    list.Add(name);
+            }
+
+            return JoinNatural(list);
+        }
+
+        private static string BuildSentenceBlock(
+            EquipPlan plan,
+            bool economyEnabled,
+            string sourceName,
+            string targetName
+        )
+        {
+            if (plan == null)
+            {
+                return L.T(
+                        "equipment_paste_confirm_question",
+                        "Copy equipment from {SRC} to {DST}?"
+                    )
+                    .SetTextVariable("SRC", sourceName)
+                    .SetTextVariable("DST", targetName)
+                    .ToString();
+            }
+
+            static bool IsPlural(IReadOnlyList<string> names) => names != null && names.Count != 1;
+
+            static TextObject TPlural(
+                bool plural,
+                string idSingular,
+                string fallbackSingular,
+                string idPlural,
+                string fallbackPlural
+            )
+            {
+                return plural ? L.T(idPlural, fallbackPlural) : L.T(idSingular, fallbackSingular);
+            }
+
+            var lines = new List<string>();
+
+            // First line: the question (always first).
+            lines.Add(
+                L.T("equipment_paste_confirm_question", "Copy equipment from {SRC} to {DST}?")
+                    .SetTextVariable("SRC", sourceName)
+                    .SetTextVariable("DST", targetName)
+                    .ToString()
+            );
+
+            // Cost line (only if buying is required).
+            if (economyEnabled && plan.TotalCost > 0 && plan.PurchaseById.Count > 0)
+            {
+                var buyList = JoinNaturalFromMap(plan.PurchaseById);
+
+                if (!string.IsNullOrEmpty(buyList))
+                {
+                    // We decide singular/plural based on number of distinct purchased item names in the sentence.
+                    // (Even if English is identical, we still use distinct ids.)
+                    var buyNames = new List<string>();
+                    foreach (var kv in plan.PurchaseById)
+                    {
+                        var item = FindItemById(kv.Key);
+                        var name = item?.Name?.ToString();
+                        if (!string.IsNullOrEmpty(name))
+                            buyNames.Add(name);
+                    }
+
+                    bool plural = buyNames.Count != 1;
+
+                    lines.Add(
+                        TPlural(
+                                plural,
+                                idSingular: "equipment_paste_buy_singular",
+                                fallbackSingular: "Copying this equipment will require buying {ITEMS} for {COST} denars.",
+                                idPlural: "equipment_paste_buy_plural",
+                                fallbackPlural: "Copying this equipment will require buying {ITEMS} for {COST} denars."
+                            )
+                            .SetTextVariable("ITEMS", buyList)
+                            .SetTextVariable("COST", plan.TotalCost)
+                            .ToString()
+                    );
+                }
+            }
+
+            // "Only note things that won't be copied" -> sentences only for skipped categories that have names.
+            void AddSkipLine(
+                EquipSkipReason reason,
+                string idSingular,
+                string fallbackSingular,
+                string idPlural,
+                string fallbackPlural
+            )
+            {
+                var names = plan.SkippedNamesOf(reason);
+                if (names == null || names.Count == 0)
+                    return;
+
+                var joined = JoinNatural(names);
+                if (string.IsNullOrEmpty(joined))
+                    return;
+
+                bool plural = IsPlural(names);
+
+                lines.Add(
+                    TPlural(plural, idSingular, fallbackSingular, idPlural, fallbackPlural)
+                        .SetTextVariable("ITEMS", joined)
+                        .ToString()
+                );
+            }
+
+            AddSkipLine(
+                EquipSkipReason.Locked,
+                idSingular: "equipment_paste_locked_singular",
+                fallbackSingular: "{ITEMS} is not unlocked and will not be equipped.",
+                idPlural: "equipment_paste_locked_plural",
+                fallbackPlural: "{ITEMS} are not unlocked and will not be equipped."
+            );
+
+            AddSkipLine(
+                EquipSkipReason.Skill,
+                idSingular: "equipment_paste_skill_singular",
+                fallbackSingular: "{ITEMS} does not meet skill requirements and will not be equipped.",
+                idPlural: "equipment_paste_skill_plural",
+                fallbackPlural: "{ITEMS} do not meet skill requirements and will not be equipped."
+            );
+
+            AddSkipLine(
+                EquipSkipReason.Tier,
+                idSingular: "equipment_paste_tier_singular",
+                fallbackSingular: "{ITEMS} is above the unit tier and will not be equipped.",
+                idPlural: "equipment_paste_tier_plural",
+                fallbackPlural: "{ITEMS} are above the unit tier and will not be equipped."
+            );
+
+            AddSkipLine(
+                EquipSkipReason.Limits,
+                idSingular: "equipment_paste_limits_singular",
+                fallbackSingular: "{ITEMS} exceeds equipment limits and will not be equipped.",
+                idPlural: "equipment_paste_limits_plural",
+                fallbackPlural: "{ITEMS} exceed equipment limits and will not be equipped."
+            );
+
+            AddSkipLine(
+                EquipSkipReason.CivilianMismatch,
+                idSingular: "equipment_paste_civilian_singular",
+                fallbackSingular: "{ITEMS} is not a civilian item and will not be equipped.",
+                idPlural: "equipment_paste_civilian_plural",
+                fallbackPlural: "{ITEMS} are not civilian items and will not be equipped."
+            );
+
+            AddSkipLine(
+                EquipSkipReason.Incompatible,
+                idSingular: "equipment_paste_incompatible_singular",
+                fallbackSingular: "{ITEMS} is incompatible and will not be equipped.",
+                idPlural: "equipment_paste_incompatible_plural",
+                fallbackPlural: "{ITEMS} are incompatible and will not be equipped."
+            );
+
+            AddSkipLine(
+                EquipSkipReason.Other,
+                idSingular: "equipment_paste_other_singular",
+                fallbackSingular: "{ITEMS} cannot be equipped and will be skipped.",
+                idPlural: "equipment_paste_other_plural",
+                fallbackPlural: "{ITEMS} cannot be equipped and will be skipped."
+            );
+
+            // If we only have the question, return only it (no trailing blank lines).
+            if (lines.Count == 1)
+                return lines[0];
+
+            return string.Join("\n\n", lines);
+        }
+
+        private static void NotEnoughGoldPopup(string sourceName, string targetName, int required)
+        {
+            Inquiries.Popup(
+                title: L.T("cant_afford_title", "Not Enough Money"),
+                description: L.T(
+                        "equipment_paste_cant_afford_desc",
+                        "Copying equipment from {SRC} to {DST} requires {COST} denars, but you only have {GOLD}."
+                    )
+                    .SetTextVariable("SRC", sourceName)
+                    .SetTextVariable("DST", targetName)
+                    .SetTextVariable("COST", required)
+                    .SetTextVariable("GOLD", Player.Gold)
+            );
+        }
+
+        private static void NothingToApplyPopup(string sourceName, string targetName)
+        {
+            Inquiries.Popup(
+                title: L.T("equipment_paste_nothing_title", "Copy Equipment"),
+                description: L.T(
+                        "equipment_paste_nothing_desc2",
+                        "Nothing from {SRC} can be equipped on {DST}."
+                    )
+                    .SetTextVariable("SRC", sourceName)
+                    .SetTextVariable("DST", targetName)
+            );
         }
 
         private static void PasteEquipmentImpl()
@@ -354,58 +552,33 @@ namespace Retinues.Editor.Controllers.Equipment
             FillArraysFromPlan(getCurrent, plan, out var before, out var after);
             EquipEconomy.ComputeBatchEconomy(ctx, State.Equipment, before, after, plan);
 
+            string sourceName = _clipboard.SourceUnitName;
+            if (string.IsNullOrEmpty(sourceName))
+                sourceName = L.S("equipment_clipboard_source_fallback", "Clipboard");
+
+            string targetName = State.Character?.Name?.ToString() ?? string.Empty;
+
+            // 2) Show "nothing to apply" immediately.
             if (plan.EquipOps == 0 && plan.UnequipOps == 0)
             {
-                Inquiries.Popup(
-                    title: L.T("equipment_paste_nothing_title", "Paste Equipment"),
-                    description: L.T(
-                        "equipment_paste_nothing_desc",
-                        "No changes can be applied from the clipboard."
-                    )
-                );
+                NothingToApplyPopup(sourceName, targetName);
                 return;
             }
 
-            string skippedBreakdown = BuildSkippedBreakdownText(plan);
-
-            string costLine =
-                ctx.EconomyEnabled && plan.TotalCost > 0
-                    ? "\n\nCost: " + plan.TotalCost + " denars"
-                    : string.Empty;
-
-            string stockLine =
-                ctx.EconomyEnabled && plan.StockUseTotal > 0
-                    ? "\nFrom stock: " + plan.StockUseTotal
-                    : string.Empty;
-
-            var desc = L.T(
-                    "equipment_paste_confirm_desc",
-                    "Apply clipboard equipment to {UNIT_NAME}.\n\nEquipped: {EQUIP}\nUnequipped: {UNEQUIP}\nSkipped: {SKIP}{BREAKDOWN}{COST_LINE}{STOCK_LINE}"
-                )
-                .SetTextVariable("UNIT_NAME", State.Character?.Name?.ToString() ?? string.Empty)
-                .SetTextVariable("EQUIP", plan.EquipOps)
-                .SetTextVariable("UNEQUIP", plan.UnequipOps)
-                .SetTextVariable("SKIP", plan.SkippedOps)
-                .SetTextVariable("BREAKDOWN", skippedBreakdown)
-                .SetTextVariable("COST_LINE", costLine)
-                .SetTextVariable("STOCK_LINE", stockLine);
-
-            static void NotEnoughGoldPopup(int required)
+            // 2) Show "not enough gold" immediately (no confirm first).
+            if (ctx.EconomyEnabled && plan.TotalCost > 0 && Player.Gold < plan.TotalCost)
             {
-                Inquiries.Popup(
-                    title: L.T("cant_afford_title", "Not Enough Money"),
-                    description: L.T(
-                            "cant_afford_desc_simple",
-                            "You need {COST} denars, but you only have {GOLD}."
-                        )
-                        .SetTextVariable("COST", required)
-                        .SetTextVariable("GOLD", Player.Gold)
-                );
+                NotEnoughGoldPopup(sourceName, targetName, plan.TotalCost);
+                return;
             }
 
+            // 3) Sentence style body + source info, and only mention what won't be equipped.
+
+            string body = BuildSentenceBlock(plan, ctx.EconomyEnabled, sourceName, targetName);
+
             Inquiries.Popup(
-                title: L.T("equipment_paste_confirm_title", "Paste Equipment"),
-                description: desc,
+                title: L.T("equipment_paste_confirm_title", "Copy Equipment"),
+                description: new TextObject(body),
                 onConfirm: () =>
                 {
                     if (
@@ -446,19 +619,27 @@ namespace Retinues.Editor.Controllers.Equipment
                     if (livePlan.EquipOps == 0 && livePlan.UnequipOps == 0)
                         return;
 
-                    if (liveCtx.EconomyEnabled && Player.Gold < livePlan.TotalCost)
+                    // Still re-check; if gold changed after the popup, we must block.
+                    if (
+                        liveCtx.EconomyEnabled
+                        && livePlan.TotalCost > 0
+                        && Player.Gold < livePlan.TotalCost
+                    )
                     {
-                        NotEnoughGoldPopup(livePlan.TotalCost);
+                        NotEnoughGoldPopup(sourceName, targetName, livePlan.TotalCost);
                         return;
                     }
 
                     bool ok = EquipApplier.Apply(liveCtx, livePlan, () => ApplyPlan(livePlan));
                     if (!ok)
                     {
-                        if (liveCtx.EconomyEnabled)
-                            NotEnoughGoldPopup(livePlan.TotalCost);
+                        if (liveCtx.EconomyEnabled && livePlan.TotalCost > 0)
+                            NotEnoughGoldPopup(sourceName, targetName, livePlan.TotalCost);
+
                         return;
                     }
+
+                    _clipboard = null;
 
                     EventManager.FireBatch(() =>
                     {

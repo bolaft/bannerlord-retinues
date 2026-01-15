@@ -30,7 +30,9 @@
                 SuggestedWidth="{{ width }}" SuggestedHeight="{{ height }}"
                 HorizontalAlignment="Center" VerticalAlignment="Center"
                 {% if button_brush %}Brush="{{ button_brush }}"{% endif %}
-                Command.Click="Execute">
+                Command.Click="Execute"
+                Command.HoverBegin="ExecuteHoverBegin"
+                Command.HoverEnd="ExecuteHoverEnd">
                 <Children>
 
                     {{ _button_hint() }}

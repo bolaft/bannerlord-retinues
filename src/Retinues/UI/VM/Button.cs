@@ -40,6 +40,7 @@ namespace Retinues.UI.VM
         private string _resolvedLabel;
         private string _resolvedSprite;
         private string _resolvedColor;
+        private string _baseColorResolved;
 
         private bool _isHovered;
 
@@ -151,10 +152,9 @@ namespace Retinues.UI.VM
         {
             if (_isHovered)
                 return;
-
             _isHovered = true;
 
-            // Only Color depends on hover.
+            ApplyHoverColorIfNeeded();
             OnPropertyChanged(nameof(Color));
         }
 
@@ -163,9 +163,9 @@ namespace Retinues.UI.VM
         {
             if (!_isHovered)
                 return;
-
             _isHovered = false;
 
+            ApplyHoverColorIfNeeded();
             OnPropertyChanged(nameof(Color));
         }
 
@@ -241,7 +241,8 @@ namespace Retinues.UI.VM
 
             _resolvedLabel = _labelFactory != null ? _labelFactory() : _label;
             _resolvedSprite = _spriteFactory != null ? _spriteFactory() : _sprite;
-            _resolvedColor = _colorFactory != null ? _colorFactory() : _color;
+            _baseColorResolved = _colorFactory != null ? _colorFactory() : _color;
+            _resolvedColor = _baseColorResolved;
 
             if (!_isVisible)
             {
@@ -271,12 +272,10 @@ namespace Retinues.UI.VM
 
         private void ApplyHoverColorIfNeeded()
         {
-            var color = _resolvedColor;
+            var color = _baseColorResolved;
 
             if (!string.IsNullOrEmpty(_hoverColor) && _isHovered && _isEnabled)
-            {
                 color = _hoverColor;
-            }
 
             if (!string.IsNullOrEmpty(color) && color[0] != '#')
                 color = "#" + color;

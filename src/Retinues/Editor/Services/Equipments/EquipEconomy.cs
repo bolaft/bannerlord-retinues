@@ -39,7 +39,7 @@ namespace Retinues.Editor.Services.Equipments
             if (roster == null)
                 return;
 
-            static Dictionary<string, int> CountItems(WItem[] items)
+            Dictionary<string, int> CountItems(WItem[] items)
             {
                 Dictionary<string, int> map = [];
                 for (int i = 0; i < items.Length; i++)
@@ -85,6 +85,9 @@ namespace Retinues.Editor.Services.Equipments
 
                 if (stockUse > 0)
                     plan.StockUseById[id] = stockUse;
+
+                if (purchase > 0)
+                    plan.PurchaseById[id] = purchase;
 
                 if (purchase > 0)
                     plan.TotalCost += ComputeEquipCost(item) * purchase;
