@@ -34,6 +34,7 @@ namespace Retinues.Game.Doctrines.Catalogs
                             "doctrine_loot_lions_share_desc",
                             "Hero kills count twice toward unlocking enemy gear."
                         ),
+                        Sprite = "PerkFightingMadness",
                         Feats =
                         [
                             FeatCatalog.LS_CutTheHead,
@@ -47,8 +48,9 @@ namespace Retinues.Game.Doctrines.Catalogs
                         Name = L.T("doctrine_loot_battlefield_tithes", "Battlefield Tithes"),
                         Description = L.T(
                             "doctrine_loot_battlefield_tithes_desc",
-                            "Enemy gear used by troops killed by your allies can also be unlocked."
+                            "Allies contribute to equipment unlock progress."
                         ),
+                        Sprite = "PerkBrawny",
                         Feats =
                         [
                             FeatCatalog.BT_TurnTheTide,
@@ -64,6 +66,7 @@ namespace Retinues.Game.Doctrines.Catalogs
                             "doctrine_loot_pragmatic_scavengers_desc",
                             "Gear can be unlocked from allied casualties."
                         ),
+                        Sprite = "PerkTribesmen",
                         Feats =
                         [
                             FeatCatalog.PR_CostlyVictory,
@@ -77,8 +80,9 @@ namespace Retinues.Game.Doctrines.Catalogs
                         Name = L.T("doctrine_loot_ancestral_heritage", "Ancestral Heritage"),
                         Description = L.T(
                             "doctrine_loot_ancestral_heritage_desc",
-                            "All items of your clan's culture are unlocked."
+                            "Unlocks all clan culture items."
                         ),
+                        Sprite = "PerkHoldTheLine",
                         Feats =
                         [
                             FeatCatalog.AN_CulturalTriumph,

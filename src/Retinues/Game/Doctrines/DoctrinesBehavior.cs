@@ -58,7 +58,7 @@ namespace Retinues.Game.Doctrines
 
             dataStore.SyncData(SyncKeyDoctrineAcquired, ref _doctrineAcquired);
             dataStore.SyncData(SyncKeyDoctrineProgress, ref _doctrineProgress);
-            dataStore.SyncData(SyncKeyDoctrineAcquired, ref _doctrineAcquired);
+            dataStore.SyncData(SyncKeyFeatProgress, ref _featProgress);
 
             if (dataStore.IsLoading)
             {
@@ -109,10 +109,7 @@ namespace Retinues.Game.Doctrines
         private static readonly List<string> PendingFeatNotifs = new(16);
 
         [StaticClearAction]
-        public static void ClearStatic()
-        {
-            PendingFeatNotifs.Clear();
-        }
+        public static void ClearStatic() => PendingFeatNotifs.Clear();
 
         /// <summary>
         /// Processes pending feat completion notifications.

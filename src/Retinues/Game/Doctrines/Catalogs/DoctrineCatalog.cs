@@ -12,7 +12,7 @@ namespace Retinues.Game.Doctrines.Catalogs
         /// <summary>
         /// Defines data for a doctrine category.
         /// </summary>
-        public struct DoctrineCategoryData
+        public class DoctrineCategoryData()
         {
             public string Id;
             public TextObject Name;
@@ -27,6 +27,7 @@ namespace Retinues.Game.Doctrines.Catalogs
             public string Id;
             public TextObject Name;
             public TextObject Description;
+            public string Sprite;
             public List<FeatData> Feats;
         }
     }

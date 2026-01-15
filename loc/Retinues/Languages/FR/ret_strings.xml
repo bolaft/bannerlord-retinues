@@ -278,9 +278,6 @@
       id="ret_doctrine_acquired_msg"
       text="Doctrine acquise : {NAME}." />
     <string
-      id="ret_doctrine_acquired_text"
-      text="ACQUIS" />
-    <string
       id="ret_doctrine_cat_equipments"
       text="Équipements" />
     <string

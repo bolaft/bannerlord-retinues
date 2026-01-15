@@ -34,6 +34,7 @@ namespace Retinues.Game.Doctrines.Catalogs
                             "doctrine_retinues_indomitable_desc",
                             "Retinues gain +5 HP each."
                         ),
+                        Sprite = "PerkDieHard",
                         Feats =
                         [
                             FeatCatalog.IN_FlawlessExecution,
@@ -49,6 +50,7 @@ namespace Retinues.Game.Doctrines.Catalogs
                             "doctrine_retinues_bound_by_honor_desc",
                             "Retinues gain +20% morale."
                         ),
+                        Sprite = "PerkGeneral",
                         Feats =
                         [
                             FeatCatalog.BH_HighSpirits,
@@ -64,6 +66,7 @@ namespace Retinues.Game.Doctrines.Catalogs
                             "doctrine_retinues_vanguard_desc",
                             "Increases retinue cap by +15%."
                         ),
+                        Sprite = "PerkSpearhead",
                         Feats =
                         [
                             FeatCatalog.VA_FirstThroughTheBreach,
@@ -77,8 +80,9 @@ namespace Retinues.Game.Doctrines.Catalogs
                         Name = L.T("doctrine_retinues_immortals", "Immortals"),
                         Description = L.T(
                             "doctrine_retinues_immortals_desc",
-                            "Retinues are more likely to be wounded instead of killed (+20% survival chance)."
+                            "+20% retinue survival chance."
                         ),
+                        Sprite = "PerkToughness",
                         Feats =
                         [
                             FeatCatalog.IM_PerfectVictory,

@@ -34,6 +34,7 @@ namespace Retinues.Game.Doctrines.Catalogs
                             "doctrine_troops_stalwart_militia_desc",
                             "Unlocks custom militia troops for your faction's towns and castles."
                         ),
+                        Sprite = "PerkVillageMilitia",
                         Feats =
                         [
                             FeatCatalog.SM_TheyShallNotPass,
@@ -49,6 +50,7 @@ namespace Retinues.Game.Doctrines.Catalogs
                             "doctrine_troops_road_wardens_desc",
                             "Unlocks custom caravan troop guards."
                         ),
+                        Sprite = "PerkLineBreaker",
                         Feats =
                         [
                             FeatCatalog.RW_TradeNetwork,
@@ -64,6 +66,7 @@ namespace Retinues.Game.Doctrines.Catalogs
                             "doctrine_troops_armed_peasantry_desc",
                             "Unlocks custom villager troops for village parties."
                         ),
+                        Sprite = "PerkFarmer",
                         Feats =
                         [
                             FeatCatalog.AP_ShieldOfThePeople,
@@ -79,6 +82,7 @@ namespace Retinues.Game.Doctrines.Catalogs
                             "doctrine_troops_captains_desc",
                             "Unlocks Captain variants for all regular troops."
                         ),
+                        Sprite = "PerkVeteran",
                         Feats =
                         [
                             FeatCatalog.CA_WarriorClass,

@@ -15,7 +15,6 @@
     <Children>
 
         <ListPanel
-            IsVisible="@HasSelection"
             WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
             HorizontalAlignment="Center" VerticalAlignment="Center"
             StackLayout.LayoutMethod="VerticalBottomToTop">
@@ -33,7 +32,6 @@
 
                 {# Progress #}
                 <ListPanel
-                    IsVisible="@ShowProgress"
                     WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed"
                     HorizontalAlignment="Center"
                     StackLayout.LayoutMethod="HorizontalLeftToRight"
@@ -51,24 +49,13 @@
                     </Children>
                 </ListPanel>
 
-                {# Progress #}
-                <ListPanel
-                    IsVisible="@IsAcquired"
-                    WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed"
-                    HorizontalAlignment="Center"
-                    StackLayout.LayoutMethod="HorizontalLeftToRight"
-                    MarginBottom="48">
-                    <Children>
-
-                        <TextWidget
-                            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-                            HorizontalAlignment="Center" VerticalAlignment="Center"
-                            Brush="Clan.RightPanel.Name.Text"
-                            Brush.FontSize="36"
-                            Text="@AcquiredText" />
-
-                    </Children>
-                </ListPanel>
+                {# Image #}
+                <SpriteWidget
+                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Sprite="@Sprite"
+                    SuggestedWidth="75" SuggestedHeight="75"
+                    MarginBottom="24" />
 
                 {# Description #}
                 {{ panel_header("@DescriptionHeaderText") }}
@@ -81,6 +68,35 @@
                     Brush.FontSize="24"
                     Text="@DescriptionText"
                     MarginBottom="24" />
+
+                {# Status #}
+                <ListPanel
+                    IsHidden="@ShowFeats"
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed"
+                    HorizontalAlignment="Center"
+                    StackLayout.LayoutMethod="VerticalBottomToTop">
+                    <Children>
+
+                        <TextWidget
+                            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                            HorizontalAlignment="Center" VerticalAlignment="Center"
+                            Brush="Clan.RightPanel.Name.Text"
+                            Brush.FontSize="48"
+                            Brush.FontColor="@ProgressTextColor"
+                            Text="@StatusText" />
+                        
+                        <TextWidget
+                            IsVisible="@IsLocked"
+                            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                            HorizontalAlignment="Center" VerticalAlignment="Center"
+                            Brush="Clan.RightPanel.Name.Text"
+                            Brush.FontSize="22"
+                            Brush.FontColor="@ProgressTextColor"
+                            MarginTop="8"
+                            Text="@LockedHint" />
+
+                    </Children>
+                </ListPanel>
 
                 {# Feats #}
                 {{ panel_header("@FeatsHeaderText", is_visible="@ShowFeats") }}
@@ -180,7 +196,7 @@
 
                 {# Costs #}
                 <TextWidget
-                    IsHidden="@IsAcquired"
+                    IsVisible="@ShowCosts"
                     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                     HorizontalAlignment="Center" VerticalAlignment="Center"
                     Brush="Clan.RightPanel.Name.Text"

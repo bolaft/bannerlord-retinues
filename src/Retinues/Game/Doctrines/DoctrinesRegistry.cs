@@ -78,7 +78,8 @@ namespace Retinues.Game.Doctrines
                         var doctrine = category.Add(
                             id: doctrineData.Id,
                             name: doctrineData.Name,
-                            description: doctrineData.Description
+                            description: doctrineData.Description,
+                            sprite: doctrineData.Sprite
                         );
 
                         _doctrines[doctrine.Id] = doctrine;

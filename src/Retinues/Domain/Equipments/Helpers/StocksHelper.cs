@@ -56,10 +56,7 @@ namespace Retinues.Domain.Equipments.Helpers
         }
 
         [StaticClearAction]
-        public static void ClearStaticCaches()
-        {
-            _itemById = null;
-        }
+        public static void ClearItemCache() => _itemById = null;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                    Requirement Snapshots               //

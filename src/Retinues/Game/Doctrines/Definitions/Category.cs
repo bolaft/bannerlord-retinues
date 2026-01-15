@@ -22,13 +22,14 @@ namespace Retinues.Game.Doctrines.Definitions
         /// <summary>
         /// Adds a doctrine to this category.
         /// </summary>
-        public Doctrine Add(string id, TextObject name, TextObject description)
+        public Doctrine Add(string id, TextObject name, TextObject description, string sprite)
         {
             var doctrine = new Doctrine(
                 id: id,
                 category: this,
                 name: name,
-                description: description
+                description: description,
+                sprite: sprite
             );
 
             Doctrines.Add(doctrine);

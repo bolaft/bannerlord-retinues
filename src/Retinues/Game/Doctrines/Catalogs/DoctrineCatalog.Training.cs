@@ -34,6 +34,7 @@ namespace Retinues.Game.Doctrines.Catalogs
                             "doctrine_training_iron_discipline_desc",
                             "Increases skill caps by +5 for all troops."
                         ),
+                        Sprite = "PerkExtraTroop",
                         Feats =
                         [
                             FeatCatalog.ID_General,
@@ -49,6 +50,7 @@ namespace Retinues.Game.Doctrines.Catalogs
                             "doctrine_training_steadfast_soldiers_desc",
                             "Grants +10 skill points to basic troops."
                         ),
+                        Sprite = "PerkArmorUpgrade",
                         Feats =
                         [
                             FeatCatalog.SS_PeakPerformance,
@@ -64,6 +66,7 @@ namespace Retinues.Game.Doctrines.Catalogs
                             "doctrine_training_masters_at_arms_desc",
                             "Grants +10 skill points to elite troops."
                         ),
+                        Sprite = "PerkCavalrySpear",
                         Feats =
                         [
                             FeatCatalog.MA_Brawler,
@@ -79,6 +82,7 @@ namespace Retinues.Game.Doctrines.Catalogs
                             "doctrine_training_advanced_tactics_desc",
                             "+10% skill point gain rate."
                         ),
+                        Sprite = "PerkShieldWall",
                         Feats =
                         [
                             FeatCatalog.AT_CombinedArms,

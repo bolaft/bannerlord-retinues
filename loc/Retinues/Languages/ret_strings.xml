@@ -287,14 +287,11 @@
       id="ret_doctrine_acquired_msg"
       text="Acquired doctrine: {NAME}." />
     <string
-      id="ret_doctrine_acquired_text"
-      text="ACQUIRED" />
-    <string
       id="ret_doctrine_armory_cultural_pride"
       text="Cultural Pride" />
     <string
       id="ret_doctrine_armory_cultural_pride_desc"
-      text="20% rebate when equipping gear from your clan culture." />
+      text="-20% to clan culture equipment costs." />
     <string
       id="ret_doctrine_armory_honor_guard"
       text="Honor Guard" />
@@ -312,7 +309,7 @@
       text="Royal Patronage" />
     <string
       id="ret_doctrine_armory_royal_patronage_desc"
-      text="20% rebate when equipping gear from your kingdom culture." />
+      text="-20% to kingdom culture equipment costs." />
     <string
       id="ret_doctrine_cat_equipments"
       text="Equipments" />
@@ -353,17 +350,20 @@
       id="ret_doctrine_feats_header"
       text="Feats" />
     <string
+      id="ret_doctrine_locked_hint"
+      text="{DOCTRINE} must be acquired first." />
+    <string
       id="ret_doctrine_loot_ancestral_heritage"
       text="Ancestral Heritage" />
     <string
       id="ret_doctrine_loot_ancestral_heritage_desc"
-      text="All items of your clan&apos;s culture are unlocked." />
+      text="Unlocks all clan culture items." />
     <string
       id="ret_doctrine_loot_battlefield_tithes"
       text="Battlefield Tithes" />
     <string
       id="ret_doctrine_loot_battlefield_tithes_desc"
-      text="Enemy gear used by troops killed by your allies can also be unlocked." />
+      text="Allies contribute to equipment unlock progress." />
     <string
       id="ret_doctrine_loot_lions_share"
       text="Lion&apos;s Share" />
@@ -402,7 +402,7 @@
       text="Immortals" />
     <string
       id="ret_doctrine_retinues_immortals_desc"
-      text="Retinues are more likely to be wounded instead of killed (+20% survival chance)." />
+      text="+20% retinue survival chance." />
     <string
       id="ret_doctrine_retinues_indomitable"
       text="Indomitable" />
@@ -427,6 +427,12 @@
     <string
       id="ret_doctrine_state_unlocked"
       text="Unlocked" />
+    <string
+      id="ret_doctrine_status_acquired"
+      text="ACQUIRED" />
+    <string
+      id="ret_doctrine_status_locked"
+      text="LOCKED" />
     <string
       id="ret_doctrine_training_advanced_tactics"
       text="Advanced Tactics" />
@@ -1017,7 +1023,7 @@
       text="None Shall Pass" />
     <string
       id="ret_feat_trp_trade_network_desc"
-      text="Own three caravans at the same time." />
+      text="Own {TARGET} caravans at the same time." />
     <string
       id="ret_feat_trp_trade_network_name"
       text="Trade Network" />

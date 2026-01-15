@@ -278,9 +278,6 @@
       id="ret_doctrine_acquired_msg"
       text="已獲取學說：{NAME}。" />
     <string
-      id="ret_doctrine_acquired_text"
-      text="已獲取" />
-    <string
       id="ret_doctrine_cat_equipments"
       text="裝備" />
     <string

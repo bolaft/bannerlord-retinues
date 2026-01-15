@@ -278,9 +278,6 @@
       id="ret_doctrine_acquired_msg"
       text="획득한 교리: {NAME}." />
     <string
-      id="ret_doctrine_acquired_text"
-      text="획득됨" />
-    <string
       id="ret_doctrine_cat_equipments"
       text="장비" />
     <string

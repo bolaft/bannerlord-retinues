@@ -32,8 +32,9 @@ namespace Retinues.Game.Doctrines.Catalogs
                         Name = L.T("doctrine_armory_cultural_pride", "Cultural Pride"),
                         Description = L.T(
                             "doctrine_armory_cultural_pride_desc",
-                            "20% rebate when equipping gear from your clan culture."
+                            "-20% to clan culture equipment costs."
                         ),
+                        Sprite = "PerkHardened",
                         Feats =
                         [
                             FeatCatalog.CP_KingSlayer,
@@ -49,6 +50,7 @@ namespace Retinues.Game.Doctrines.Catalogs
                             "doctrine_armory_honor_guard_desc",
                             "+15% to total equipment value limit."
                         ),
+                        Sprite = "PerkFullBarding",
                         Feats =
                         [
                             FeatCatalog.HG_BloodMoney,
@@ -64,6 +66,7 @@ namespace Retinues.Game.Doctrines.Catalogs
                             "doctrine_armory_ironclad_desc",
                             "+15% to total equipment weight limit."
                         ),
+                        Sprite = "PerkArmorPadding",
                         Feats =
                         [
                             FeatCatalog.IR_HeavyKit,
@@ -77,8 +80,9 @@ namespace Retinues.Game.Doctrines.Catalogs
                         Name = L.T("doctrine_armory_royal_patronage", "Royal Patronage"),
                         Description = L.T(
                             "doctrine_armory_royal_patronage_desc",
-                            "20% rebate when equipping gear from your kingdom culture."
+                            "-20% to kingdom culture equipment costs."
                         ),
+                        Sprite = "PerkGold",
                         Feats =
                         [
                             FeatCatalog.RP_RoyalHost,

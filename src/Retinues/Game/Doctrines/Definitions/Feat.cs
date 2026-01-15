@@ -26,7 +26,7 @@ namespace Retinues.Game.Doctrines.Definitions
 
         public string Id { get; } = id ?? string.Empty;
         public TextObject Name { get; } = name;
-        public TextObject Description { get; } = description;
+        public TextObject Description { get; } = description.SetTextVariable("TARGET", target);
 
         /* ━━━━━━━ Doctrine ━━━━━━━ */
 
@@ -52,7 +52,7 @@ namespace Retinues.Game.Doctrines.Definitions
 
                 _progress = value;
 
-                if (_progress > Target)
+                if (_progress >= Target)
                 {
                     int completions = 0;
                     if (Repeatable)

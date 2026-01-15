@@ -1,5 +1,4 @@
 using System.Diagnostics.Tracing;
-using Retinues.Configuration;
 using Retinues.Editor.Controllers.Doctrines;
 using Retinues.Editor.Events;
 using Retinues.Game.Doctrines.Definitions;
@@ -18,10 +17,7 @@ namespace Retinues.Editor.VM.Panel.Doctrines
         //                       Constructor                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public DoctrinesPanelVM()
-        {
-            RefreshFeats();
-        }
+        public DoctrinesPanelVM() => RefreshFeats();
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Visibility                       //
@@ -32,12 +28,12 @@ namespace Retinues.Editor.VM.Panel.Doctrines
         public bool IsVisible => EditorVM.Page == EditorPage.Doctrines;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Selection                       //
+        //                         Sprite                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [EventListener(UIEvent.Doctrine)]
         [DataSourceProperty]
-        public bool HasSelection => State.Doctrine != null;
+        public string Sprite => $"General\\Perks\\{State.Doctrine.Sprite}";
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Texts                         //
@@ -60,18 +56,6 @@ namespace Retinues.Editor.VM.Panel.Doctrines
 
         [EventListener(UIEvent.Doctrine)]
         [DataSourceProperty]
-        public bool IsAcquired => State.Doctrine.IsAcquired;
-
-        [DataSourceProperty]
-        public string AcquiredText => L.S("doctrine_acquired_text", "ACQUIRED");
-
-        [EventListener(UIEvent.Doctrine)]
-        [DataSourceProperty]
-        public bool ShowProgress =>
-            State.Doctrine != null && !IsAcquired && Settings.EnableFeatRequirements;
-
-        [EventListener(UIEvent.Doctrine)]
-        [DataSourceProperty]
         public string ProgressText =>
             L.T("doctrine_progress_text", "Progress: {PROGRESS}%")
                 .SetTextVariable("PROGRESS", State.Doctrine.Progress)
@@ -86,9 +70,36 @@ namespace Retinues.Editor.VM.Panel.Doctrines
                 _ => "#eec485ff",
             };
 
+        [EventListener(UIEvent.Doctrine)]
+        [DataSourceProperty]
+        public string StatusText =>
+            State.Doctrine.GetState() switch
+            {
+                Doctrine.State.Acquired => L.S("doctrine_status_acquired", "ACQUIRED"),
+                Doctrine.State.Locked => L.S("doctrine_status_locked", "LOCKED"),
+                _ => string.Empty,
+            };
+
+        [EventListener(UIEvent.Doctrine)]
+        [DataSourceProperty]
+        public bool IsLocked => State.Doctrine.IsLocked;
+
+        [EventListener(UIEvent.Doctrine)]
+        [DataSourceProperty]
+        public string LockedHint =>
+            State.Doctrine.Previous != null
+                ? L.T("doctrine_locked_hint", "{DOCTRINE} must be acquired first.")
+                    .SetTextVariable("DOCTRINE", State.Doctrine.Previous.Name)
+                    .ToString()
+                : string.Empty;
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Costs                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [EventListener(UIEvent.Doctrine)]
+        [DataSourceProperty]
+        public bool ShowCosts => ShowButton;
 
         [EventListener(UIEvent.Doctrine)]
         [DataSourceProperty]
@@ -133,15 +144,15 @@ namespace Retinues.Editor.VM.Panel.Doctrines
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceProperty]
+        public bool ShowFeats => _feats.Count > 0 && State.Doctrine.IsInProgress;
+
+        [DataSourceProperty]
         public string FeatsHeaderText => L.S("doctrine_feats_header", "Feats");
 
         private readonly MBBindingList<FeatVM> _feats = [];
 
         [DataSourceProperty]
         public MBBindingList<FeatVM> Feats => _feats;
-
-        [DataSourceProperty]
-        public bool ShowFeats => _feats.Count > 0;
 
         [EventListener(UIEvent.Doctrine, UIEvent.Page)]
         private void RefreshFeats()
@@ -159,6 +170,10 @@ namespace Retinues.Editor.VM.Panel.Doctrines
         //                         Actions                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        static bool ShowButton =>
+            (State.Doctrine.IsInProgress || State.Doctrine.IsUnlocked)
+            && !State.Doctrine.IsAcquired;
+
         [DataSourceProperty]
         public Button<Doctrine> AcquireButton { get; } =
             new(
@@ -166,7 +181,7 @@ namespace Retinues.Editor.VM.Panel.Doctrines
                 arg: () => State.Doctrine,
                 refresh: [UIEvent.Doctrine],
                 label: L.S("doctrine_acquire_button", "Acquire"),
-                visibilityGate: () => !State.Doctrine.IsAcquired
+                visibilityGate: () => ShowButton
             );
     }
 }

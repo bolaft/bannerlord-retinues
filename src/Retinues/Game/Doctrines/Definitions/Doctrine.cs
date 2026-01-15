@@ -9,7 +9,8 @@ namespace Retinues.Game.Doctrines.Definitions
         string id,
         Category category,
         TextObject name,
-        TextObject description
+        TextObject description,
+        string sprite
     )
     {
         /// <summary>
@@ -23,10 +24,16 @@ namespace Retinues.Game.Doctrines.Definitions
         public TextObject Name { get; } = name;
         public TextObject Description { get; } = description;
 
+        /* ━━━━━━━━━ Image ━━━━━━━━ */
+
+        public string Sprite { get; } = sprite;
+
         /* ━━━━━━━ Category ━━━━━━━ */
 
         public Category Category { get; } = category;
         public int Index => Category.Doctrines.IndexOf(this);
+
+        public Doctrine Previous => Index > 0 ? Category.Doctrines[Index - 1] : null;
 
         /* ━━━━━━━━━ Costs ━━━━━━━━ */
 
@@ -115,11 +122,8 @@ namespace Retinues.Game.Doctrines.Definitions
             if (IsUnlocked)
                 return State.Unlocked;
 
-            // Check previous doctrine acquisition for unlocking.
-            var previous = Index > 0 ? Category.Doctrines[Index - 1] : null;
-
             // If there is a previous doctrine and it is not acquired, this one is locked.
-            if (previous != null && !previous.IsAcquired)
+            if (Previous != null && !Previous.IsAcquired)
                 return State.Locked;
 
             // Otherwise, return in progress.

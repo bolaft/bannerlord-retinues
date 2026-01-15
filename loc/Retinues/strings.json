@@ -1504,22 +1504,6 @@
     "TR": "Edinilen doktrin: {NAME}."
   },
   {
-    "id": "ret_doctrine_acquired_text",
-    "EN": "ACQUIRED",
-    "FR": "ACQUIS",
-    "BR": "ADQUIRIDO",
-    "CNs": "已获取",
-    "CNt": "已獲取",
-    "DE": "ERWORBEN",
-    "IT": "ACQUISITO",
-    "JP": "取得済み",
-    "KO": "획득됨",
-    "PL": "NABYTO",
-    "RU": "ПРИОБРЕТЕНО",
-    "SP": "ADQUIRIDO",
-    "TR": "EDİNİLDİ"
-  },
-  {
     "id": "ret_doctrine_armory_cultural_pride",
     "EN": "Cultural Pride",
     "FR": null,
@@ -1537,7 +1521,7 @@
   },
   {
     "id": "ret_doctrine_armory_cultural_pride_desc",
-    "EN": "20% rebate when equipping gear from your clan culture.",
+    "EN": "-20% to clan culture equipment costs.",
     "FR": null,
     "BR": null,
     "CNs": null,
@@ -1633,7 +1617,7 @@
   },
   {
     "id": "ret_doctrine_armory_royal_patronage_desc",
-    "EN": "20% rebate when equipping gear from your kingdom culture.",
+    "EN": "-20% to kingdom culture equipment costs.",
     "FR": null,
     "BR": null,
     "CNs": null,
@@ -1856,6 +1840,22 @@
     "TR": "Başarılar"
   },
   {
+    "id": "ret_doctrine_locked_hint",
+    "EN": "{DOCTRINE} must be acquired first.",
+    "FR": null,
+    "BR": null,
+    "CNs": null,
+    "CNt": null,
+    "DE": null,
+    "IT": null,
+    "JP": null,
+    "KO": null,
+    "PL": null,
+    "RU": null,
+    "SP": null,
+    "TR": null
+  },
+  {
     "id": "ret_doctrine_loot_ancestral_heritage",
     "EN": "Ancestral Heritage",
     "FR": null,
@@ -1873,7 +1873,7 @@
   },
   {
     "id": "ret_doctrine_loot_ancestral_heritage_desc",
-    "EN": "All items of your clan's culture are unlocked.",
+    "EN": "Unlocks all clan culture items.",
     "FR": null,
     "BR": null,
     "CNs": null,
@@ -1905,7 +1905,7 @@
   },
   {
     "id": "ret_doctrine_loot_battlefield_tithes_desc",
-    "EN": "Enemy gear used by troops killed by your allies can also be unlocked.",
+    "EN": "Allies contribute to equipment unlock progress.",
     "FR": null,
     "BR": null,
     "CNs": null,
@@ -2113,7 +2113,7 @@
   },
   {
     "id": "ret_doctrine_retinues_immortals_desc",
-    "EN": "Retinues are more likely to be wounded instead of killed (+20% survival chance).",
+    "EN": "+20% retinue survival chance.",
     "FR": null,
     "BR": null,
     "CNs": null,
@@ -2254,6 +2254,38 @@
     "RU": "Разблокировано",
     "SP": "Desbloqueado",
     "TR": "Kilit Açıldı"
+  },
+  {
+    "id": "ret_doctrine_status_acquired",
+    "EN": "ACQUIRED",
+    "FR": null,
+    "BR": null,
+    "CNs": null,
+    "CNt": null,
+    "DE": null,
+    "IT": null,
+    "JP": null,
+    "KO": null,
+    "PL": null,
+    "RU": null,
+    "SP": null,
+    "TR": null
+  },
+  {
+    "id": "ret_doctrine_status_locked",
+    "EN": "LOCKED",
+    "FR": null,
+    "BR": null,
+    "CNs": null,
+    "CNt": null,
+    "DE": null,
+    "IT": null,
+    "JP": null,
+    "KO": null,
+    "PL": null,
+    "RU": null,
+    "SP": null,
+    "TR": null
   },
   {
     "id": "ret_doctrine_training_advanced_tactics",
@@ -5393,7 +5425,7 @@
   },
   {
     "id": "ret_feat_trp_trade_network_desc",
-    "EN": "Own three caravans at the same time.",
+    "EN": "Own {TARGET} caravans at the same time.",
     "FR": null,
     "BR": null,
     "CNs": null,

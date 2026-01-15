@@ -25,13 +25,7 @@ namespace Retinues.UI.Services
         private static readonly List<Action> Pending = new(16);
 
         [StaticClearAction]
-        public static void ClearStatic()
-        {
-            Pending.Clear();
-
-            // IMPORTANT: do NOT reset _hooked here; CampaignEvents does not support
-            // removing non-serialized listeners, and re-registering would duplicate calls.
-        }
+        public static void ClearPending() => Pending.Clear();
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                   Delayed Popup Core                   //

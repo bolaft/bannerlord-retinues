@@ -39,14 +39,6 @@ namespace Retinues.Editor.VM.List.Doctrines
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Enable                         //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        [EventListener(UIEvent.Doctrine)]
-        [DataSourceProperty]
-        public override bool IsEnabled => !doctrine.IsLocked;
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Name                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
@@ -98,7 +90,7 @@ namespace Retinues.Editor.VM.List.Doctrines
             doctrine.GetState() switch
             {
                 Doctrine.State.Locked => "StdAssets\\lock_closed",
-                Doctrine.State.InProgress => "StdAssets\\lock_closed",
+                Doctrine.State.InProgress => "StdAssets\\lock_opened",
                 Doctrine.State.Unlocked => "StdAssets\\lock_opened",
                 Doctrine.State.Acquired => "General\\Icons\\icon_quest_done_checkmark",
                 _ => string.Empty,

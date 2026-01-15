@@ -278,9 +278,6 @@
       id="ret_doctrine_acquired_msg"
       text="Erworbene Doktrin: {NAME}." />
     <string
-      id="ret_doctrine_acquired_text"
-      text="ERWORBEN" />
-    <string
       id="ret_doctrine_cat_equipments"
       text="Ausrüstungen" />
     <string
