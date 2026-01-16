@@ -1,12 +1,13 @@
 using System;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Configuration;
-using Retinues.Editor.Events;
 using Retinues.Game.Doctrines.Definitions;
-using Retinues.UI.Services;
+using Retinues.GUI.Editor.Events;
+using Retinues.GUI.Editor.Shared.Views;
+using Retinues.GUI.Services;
 using TaleWorlds.Library;
 
-namespace Retinues.Editor.VM.List.Doctrines
+namespace Retinues.GUI.Editor.Modules.Pages.Doctrines.Views.List
 {
     /// <summary>
     /// Row representing a doctrine in the list.

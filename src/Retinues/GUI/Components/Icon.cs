@@ -1,9 +1,9 @@
 using System;
-using Retinues.Editor.Events;
 using Retinues.Framework.Runtime;
+using Retinues.GUI.Editor.Events;
 using TaleWorlds.Library;
 
-namespace Retinues.UI.VM
+namespace Retinues.GUI.Components
 {
     /// <summary>
     /// Small helper VM for "static" UI icons that need:

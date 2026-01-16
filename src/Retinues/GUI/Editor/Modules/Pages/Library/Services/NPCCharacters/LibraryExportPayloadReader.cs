@@ -5,7 +5,7 @@ using System.Xml.Linq;
 using Retinues.Framework.Model.Exports;
 using Retinues.Utilities;
 
-namespace Retinues.Editor.Services.Library.NPCCharacters
+namespace Retinues.GUI.Editor.Services.Library.NPCCharacters
 {
     public static class LibraryExportPayloadReader
     {

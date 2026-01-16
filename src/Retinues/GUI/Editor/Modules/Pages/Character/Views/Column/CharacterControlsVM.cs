@@ -1,13 +1,13 @@
 using Retinues.Domain.Characters.Wrappers;
-using Retinues.Editor.Controllers.Character;
-using Retinues.Editor.Events;
-using Retinues.Modules;
-using Retinues.UI.Services;
-using Retinues.UI.VM;
+using Retinues.GUI.Editor.Events;
+using Retinues.GUI.Services;
+using Retinues.GUI.Components;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
+using Retinues.Compatibility;
+using Retinues.GUI.Editor.Modules.Pages.Character.Controllers;
 
-namespace Retinues.Editor.VM.Column.Character
+namespace Retinues.GUI.Editor.VM.Column.Character
 {
     public class CharacterControlsVM : EventListenerVM
     {
@@ -17,7 +17,7 @@ namespace Retinues.Editor.VM.Column.Character
 
         [EventListener(UIEvent.Page)]
         [DataSourceProperty]
-        public bool IsVisible => EditorVM.Page == EditorPage.Character;
+        public bool IsVisible => State.Page == EditorPage.Character;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Export                         //

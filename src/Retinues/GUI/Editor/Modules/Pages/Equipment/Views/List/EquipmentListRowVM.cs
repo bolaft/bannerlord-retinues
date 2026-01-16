@@ -2,13 +2,14 @@ using System;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Configuration;
 using Retinues.Domain.Equipments.Wrappers;
-using Retinues.Editor.Controllers.Equipment;
-using Retinues.Editor.Events;
-using Retinues.UI.Services;
+using Retinues.GUI.Editor.Controllers.Equipment;
+using Retinues.GUI.Editor.Events;
+using Retinues.GUI.Editor.Shared.Views;
+using Retinues.GUI.Services;
 using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Library;
 
-namespace Retinues.Editor.VM.List.Equipment
+namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Views.List
 {
     /// <summary>
     /// Row representing an item in the list.

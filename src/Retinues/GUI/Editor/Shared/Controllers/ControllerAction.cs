@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
-using Retinues.Editor.Events;
 using Retinues.Framework.Runtime;
-using Retinues.UI.VM;
+using Retinues.GUI.Components;
+using Retinues.GUI.Editor.Events;
 using Retinues.Utilities;
 using TaleWorlds.Localization;
 
-namespace Retinues.Editor.Controllers
+namespace Retinues.GUI.Editor.Shared.Controllers
 {
     /// <summary>
     /// Reusable UI action: conditions, tooltip, execution, and post-success signaling.
@@ -17,7 +17,7 @@ namespace Retinues.Editor.Controllers
     /// Outside bursts, no caching is performed.
     /// </summary>
     [SafeClass]
-    public sealed class EditorAction<TArg>(string name)
+    public sealed class ControllerAction<TArg>(string name)
     {
         private readonly string _name = name ?? "";
         private readonly List<Condition> _baseConditions = [];
@@ -122,19 +122,19 @@ namespace Retinues.Editor.Controllers
         //                         Setup                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public EditorAction<TArg> ExecuteWith(Action<TArg> execute)
+        public ControllerAction<TArg> ExecuteWith(Action<TArg> execute)
         {
             _execute = execute;
             return this;
         }
 
-        public EditorAction<TArg> AddCondition(Func<TArg, bool> test, TextObject reason)
+        public ControllerAction<TArg> AddCondition(Func<TArg, bool> test, TextObject reason)
         {
             _baseConditions.Add(new Condition(null, test, reason));
             return this;
         }
 
-        public EditorAction<TArg> AddCondition(
+        public ControllerAction<TArg> AddCondition(
             Func<TArg, bool> test,
             Func<TArg, TextObject> reasonFactory
         )
@@ -143,7 +143,7 @@ namespace Retinues.Editor.Controllers
             return this;
         }
 
-        public EditorAction<TArg> AddCondition(
+        public ControllerAction<TArg> AddCondition(
             Func<EditorState, bool> applies,
             Func<TArg, bool> test,
             TextObject reason
@@ -153,7 +153,7 @@ namespace Retinues.Editor.Controllers
             return this;
         }
 
-        public EditorAction<TArg> AddCondition(
+        public ControllerAction<TArg> AddCondition(
             Func<EditorState, bool> applies,
             Func<TArg, bool> test,
             Func<TArg, TextObject> reasonFactory
@@ -163,7 +163,7 @@ namespace Retinues.Editor.Controllers
             return this;
         }
 
-        public EditorAction<TArg> AddCondition(
+        public ControllerAction<TArg> AddCondition(
             Func<TArg, bool> test,
             Func<TextObject> reasonFactory
         )
@@ -172,13 +172,16 @@ namespace Retinues.Editor.Controllers
             return this;
         }
 
-        public EditorAction<TArg> AddCondition(Func<TArg, bool> test, Func<string> reasonFactory)
+        public ControllerAction<TArg> AddCondition(
+            Func<TArg, bool> test,
+            Func<string> reasonFactory
+        )
         {
             _baseConditions.Add(new Condition(null, test, _ => new TextObject(reasonFactory())));
             return this;
         }
 
-        public EditorAction<TArg> AddCondition(
+        public ControllerAction<TArg> AddCondition(
             Func<EditorState, bool> applies,
             Func<TArg, bool> test,
             Func<TextObject> reasonFactory
@@ -188,7 +191,7 @@ namespace Retinues.Editor.Controllers
             return this;
         }
 
-        public EditorAction<TArg> AddCondition(
+        public ControllerAction<TArg> AddCondition(
             Func<EditorState, bool> applies,
             Func<TArg, bool> test,
             Func<string> reasonFactory
@@ -202,7 +205,7 @@ namespace Retinues.Editor.Controllers
         /// Default tooltip shown when the action is enabled.
         /// If the action is disabled, the blocking reason tooltip is shown instead.
         /// </summary>
-        public EditorAction<TArg> DefaultTooltip(TextObject tooltip)
+        public ControllerAction<TArg> DefaultTooltip(TextObject tooltip)
         {
             _defaultTooltip = tooltip;
             _defaultTooltipFactory = null;
@@ -213,32 +216,32 @@ namespace Retinues.Editor.Controllers
         /// Default tooltip shown when the action is enabled, computed from the argument.
         /// If the action is disabled, the blocking reason tooltip is shown instead.
         /// </summary>
-        public EditorAction<TArg> DefaultTooltip(Func<TArg, TextObject> tooltipFactory)
+        public ControllerAction<TArg> DefaultTooltip(Func<TArg, TextObject> tooltipFactory)
         {
             _defaultTooltip = null;
             _defaultTooltipFactory = tooltipFactory;
             return this;
         }
 
-        public EditorAction<TArg> PreExecute(Action<TArg> pre)
+        public ControllerAction<TArg> PreExecute(Action<TArg> pre)
         {
             _pre += pre;
             return this;
         }
 
-        public EditorAction<TArg> PostExecute(Action<TArg> post)
+        public ControllerAction<TArg> PostExecute(Action<TArg> post)
         {
             _post += post;
             return this;
         }
 
-        public EditorAction<TArg> Fire(UIEvent e)
+        public ControllerAction<TArg> Fire(UIEvent e)
         {
             _fireEvent = e;
             return this;
         }
 
-        public EditorAction<TArg> WhenMode(EditorMode mode, Action<ActionModeSpec> spec)
+        public ControllerAction<TArg> WhenMode(EditorMode mode, Action<ActionModeSpec> spec)
         {
             if (!_modeOverrides.TryGetValue(mode, out var ov))
             {
@@ -349,7 +352,7 @@ namespace Retinues.Editor.Controllers
 
             if (_execute == null)
             {
-                Log.Warn($"EditorAction '{_name}' has no execute delegate.");
+                Log.Warn($"ControllerAction '{_name}' has no execute delegate.");
                 return false;
             }
 

@@ -1,11 +1,11 @@
 using System;
 using System.IO;
-using Retinues.Editor.Events;
 using Retinues.Framework.Model.Exports;
-using Retinues.UI.Services;
+using Retinues.GUI.Editor.Events;
+using Retinues.GUI.Services;
 using Retinues.Utilities;
 
-namespace Retinues.Editor.Controllers.Library
+namespace Retinues.GUI.Editor.Controllers.Library
 {
     public partial class LibraryController
     {

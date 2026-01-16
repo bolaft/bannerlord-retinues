@@ -1,12 +1,12 @@
 using Retinues.Domain.Characters.Wrappers;
-using Retinues.Editor.Controllers.Character;
-using Retinues.Editor.Events;
-using Retinues.UI.Services;
-using Retinues.UI.VM;
+using Retinues.GUI.Components;
+using Retinues.GUI.Editor.Events;
+using Retinues.GUI.Editor.Modules.Pages.Character.Controllers;
+using Retinues.GUI.Services;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 
-namespace Retinues.Editor.VM.Panel.Character
+namespace Retinues.GUI.Editor.Modules.Pages.Character.Views.Panel
 {
     public class CharacterSkillVM(SkillObject skill) : EventListenerVM
     {

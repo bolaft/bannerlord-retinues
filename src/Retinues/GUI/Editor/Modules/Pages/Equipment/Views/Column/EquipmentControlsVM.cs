@@ -1,14 +1,14 @@
 using System.Collections.Generic;
 using Bannerlord.UIExtenderEx.Attributes;
+using Retinues.Compatibility;
 using Retinues.Domain.Equipments.Models;
-using Retinues.Editor.Controllers.Equipment;
-using Retinues.Editor.Events;
-using Retinues.Modules;
-using Retinues.UI.Services;
-using Retinues.UI.VM;
+using Retinues.GUI.Components;
+using Retinues.GUI.Editor.Controllers.Equipment;
+using Retinues.GUI.Editor.Events;
+using Retinues.GUI.Services;
 using TaleWorlds.Library;
 
-namespace Retinues.Editor.VM.Column.Equipment
+namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Views.Column
 {
     public class EquipmentControlsVM : EventListenerVM
     {
@@ -18,7 +18,7 @@ namespace Retinues.Editor.VM.Column.Equipment
 
         [EventListener(UIEvent.Page)]
         [DataSourceProperty]
-        public bool IsVisible => EditorVM.Page == EditorPage.Equipment;
+        public bool IsVisible => State.Page == EditorPage.Equipment;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Equipments                       //
@@ -198,7 +198,7 @@ namespace Retinues.Editor.VM.Column.Equipment
             new(
                 action: EquipmentController.SetFieldBattleSet,
                 getSelected: () => State.Equipment?.FieldBattleSet ?? false,
-                refresh: [UIEvent.Equipment, UIEvent.BattleToggle],
+                refresh: [UIEvent.Equipment, UIEvent.BattleType],
                 visibilityGate: () =>
                     State.Mode == EditorMode.Player
                     && State.Equipment != null
@@ -210,7 +210,7 @@ namespace Retinues.Editor.VM.Column.Equipment
             new(
                 action: EquipmentController.SetSiegeBattleSet,
                 getSelected: () => State.Equipment?.SiegeBattleSet ?? false,
-                refresh: [UIEvent.Equipment, UIEvent.BattleToggle],
+                refresh: [UIEvent.Equipment, UIEvent.BattleType],
                 visibilityGate: () =>
                     State.Mode == EditorMode.Player
                     && State.Equipment != null
@@ -222,7 +222,7 @@ namespace Retinues.Editor.VM.Column.Equipment
             new(
                 action: EquipmentController.SetNavalBattleSet,
                 getSelected: () => State.Equipment?.NavalBattleSet ?? false,
-                refresh: [UIEvent.Equipment, UIEvent.BattleToggle],
+                refresh: [UIEvent.Equipment, UIEvent.BattleType],
                 visibilityGate: () =>
                     Mods.NavalDLC.IsLoaded
                     && State.Mode == EditorMode.Player
@@ -237,7 +237,7 @@ namespace Retinues.Editor.VM.Column.Equipment
         [EventListener(UIEvent.Page)]
         [DataSourceProperty]
         public bool ShowPreviewModeToggle =>
-            EditorVM.Page == EditorPage.Equipment && State.Mode == EditorMode.Player;
+            State.Page == EditorPage.Equipment && State.Mode == EditorMode.Player;
 
         [DataSourceProperty]
         public Icon PreviewModeIcon { get; } =
@@ -251,7 +251,7 @@ namespace Retinues.Editor.VM.Column.Equipment
                     ),
                 refresh: [UIEvent.Preview, UIEvent.Page, UIEvent.Character],
                 visibilityGate: () =>
-                    EditorVM.Page == EditorPage.Equipment && State.Mode == EditorMode.Player
+                    State.Page == EditorPage.Equipment && State.Mode == EditorMode.Player
             );
 
         [DataSourceProperty]
@@ -285,7 +285,7 @@ namespace Retinues.Editor.VM.Column.Equipment
         [EventListener(UIEvent.Page)]
         [DataSourceProperty]
         public bool ShowCraftedToggle =>
-            EditorVM.Page == EditorPage.Equipment && State.Mode == EditorMode.Player;
+            State.Page == EditorPage.Equipment && State.Mode == EditorMode.Player;
 
         [DataSourceProperty]
         public Icon CraftedIcon { get; } =
@@ -299,7 +299,7 @@ namespace Retinues.Editor.VM.Column.Equipment
                     ),
                 refresh: [UIEvent.Slot, UIEvent.Crafted, UIEvent.Page],
                 visibilityGate: () =>
-                    EditorVM.Page == EditorPage.Equipment && State.Mode == EditorMode.Player
+                    State.Page == EditorPage.Equipment && State.Mode == EditorMode.Player
             );
 
         [DataSourceProperty]
@@ -309,7 +309,7 @@ namespace Retinues.Editor.VM.Column.Equipment
                 getSelected: () => State.ShowCrafted,
                 refresh: [UIEvent.Slot, UIEvent.Crafted, UIEvent.Page],
                 visibilityGate: () =>
-                    EditorVM.Page == EditorPage.Equipment && State.Mode == EditorMode.Player
+                    State.Page == EditorPage.Equipment && State.Mode == EditorMode.Player
             );
     }
 }

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using Retinues.Editor.Events;
+using Retinues.GUI.Editor.Events;
 
 namespace Retinues.Configuration
 {

@@ -1,10 +1,10 @@
-using Retinues.Editor.Events;
 using Retinues.Game.Doctrines.Definitions;
-using Retinues.UI.Services;
-using Retinues.UI.VM;
+using Retinues.GUI.Components;
+using Retinues.GUI.Editor.Events;
+using Retinues.GUI.Services;
 using TaleWorlds.Library;
 
-namespace Retinues.Editor.VM.Panel.Doctrines
+namespace Retinues.GUI.Editor.Modules.Pages.Doctrines.Views.Panel
 {
     /// <summary>
     /// Doctrine feat card shown in the doctrines panel.

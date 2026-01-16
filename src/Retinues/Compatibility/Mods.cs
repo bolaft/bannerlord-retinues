@@ -1,6 +1,7 @@
+using Retinues.Framework.Modules;
 using Retinues.Framework.Runtime;
 
-namespace Retinues.Modules
+namespace Retinues.Compatibility
 {
     [SafeClass]
     public static class Mods

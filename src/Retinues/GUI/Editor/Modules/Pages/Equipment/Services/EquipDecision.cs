@@ -1,6 +1,6 @@
 using TaleWorlds.Localization;
 
-namespace Retinues.Editor.Services.Equipments
+namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Services
 {
     /// <summary>
     /// Result of validating a single slot change (equip/unequip).

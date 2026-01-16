@@ -1,8 +1,7 @@
 using Retinues.Configuration;
-using Retinues.Editor.VM;
 using Retinues.Framework.Runtime;
-using Retinues.UI.Screens;
-using Retinues.UI.Services;
+using Retinues.GUI.Editor.Integration.Barber;
+using Retinues.GUI.Services;
 using TaleWorlds.Core;
 using TaleWorlds.Engine.GauntletUI;
 using TaleWorlds.InputSystem;
@@ -12,7 +11,7 @@ using TaleWorlds.ScreenSystem;
 using TaleWorlds.GauntletUI.Data;
 # endif
 
-namespace Retinues.Editor
+namespace Retinues.GUI.Editor
 {
     /// <summary>
     /// Gauntlet screen for the editor.

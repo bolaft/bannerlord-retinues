@@ -1,13 +1,14 @@
 using System;
 using Retinues.Configuration;
 using Retinues.Domain.Characters.Services.Skills;
-using Retinues.Editor.Events;
-using Retinues.Editor.Services.Context;
 using Retinues.Framework.Runtime;
-using Retinues.UI.Services;
+using Retinues.GUI.Editor.Events;
+using Retinues.GUI.Editor.Shared.Controllers;
+using Retinues.GUI.Editor.Shared.Controllers.Helpers;
+using Retinues.GUI.Services;
 using TaleWorlds.Core;
 
-namespace Retinues.Editor.Controllers.Character
+namespace Retinues.GUI.Editor.Modules.Pages.Character.Controllers
 {
     public class SkillsController : BaseController
     {
@@ -35,7 +36,7 @@ namespace Retinues.Editor.Controllers.Character
         //                        Increase                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public static EditorAction<SkillObject> SkillIncrease { get; } =
+        public static ControllerAction<SkillObject> SkillIncrease { get; } =
             Action<SkillObject>("SkillIncrease")
                 .RequireValidEditingContext()
                 .AddCondition(
@@ -73,7 +74,7 @@ namespace Retinues.Editor.Controllers.Character
         //                        Decrease                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public static EditorAction<SkillObject> SkillDecrease { get; } =
+        public static ControllerAction<SkillObject> SkillDecrease { get; } =
             Action<SkillObject>("SkillDecrease")
                 .RequireValidEditingContext()
                 .AddCondition(
@@ -151,7 +152,7 @@ namespace Retinues.Editor.Controllers.Character
 
         private static void ChangeSkill(SkillObject skill, int delta)
         {
-            int amount = Inputs.BatchInput(MaxBatch);
+            int amount = InputHelper.BatchInput(MaxBatch);
             var c = State.Character;
             var skills = c.Editable.Skills;
 

@@ -4,7 +4,7 @@ using HarmonyLib;
 using Retinues.Configuration;
 using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Framework.Runtime;
-using Retinues.UI.Services;
+using Retinues.GUI.Services;
 using Retinues.Utilities;
 using SandBox.ViewModelCollection;
 using TaleWorlds.Core.ViewModelCollection;

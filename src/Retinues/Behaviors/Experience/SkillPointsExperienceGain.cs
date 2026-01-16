@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Retinues.Configuration;
 using Retinues.Domain.Characters.Wrappers;
-using Retinues.UI.Services;
+using Retinues.GUI.Services;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.Library;

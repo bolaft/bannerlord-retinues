@@ -1,17 +1,18 @@
 using System.Diagnostics.Tracing;
-using Retinues.Editor.Controllers.Doctrines;
-using Retinues.Editor.Events;
 using Retinues.Game.Doctrines.Definitions;
-using Retinues.UI.Services;
-using Retinues.UI.VM;
+using Retinues.GUI.Components;
+using Retinues.GUI.Editor.Events;
+using Retinues.GUI.Editor.Modules.Pages.Doctrines.Controllers;
+using Retinues.GUI.Editor.Shared.Views;
+using Retinues.GUI.Services;
 using TaleWorlds.Library;
 
-namespace Retinues.Editor.VM.Panel.Doctrines
+namespace Retinues.GUI.Editor.Modules.Pages.Doctrines.Views.Panel
 {
     /// <summary>
     /// Doctrines panel.
     /// </summary>
-    public sealed class DoctrinesPanelVM : EventListenerVM
+    public sealed class DoctrinesPanelVM : BasePanelVM
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Constructor                      //
@@ -25,7 +26,7 @@ namespace Retinues.Editor.VM.Panel.Doctrines
 
         [EventListener(UIEvent.Page)]
         [DataSourceProperty]
-        public bool IsVisible => EditorVM.Page == EditorPage.Doctrines;
+        public bool IsVisible => State.Page == EditorPage.Doctrines;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Sprite                         //

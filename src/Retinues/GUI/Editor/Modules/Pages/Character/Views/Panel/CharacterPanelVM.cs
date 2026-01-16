@@ -3,20 +3,21 @@ using System.Linq;
 using Retinues.Configuration;
 using Retinues.Domain.Characters.Services.Skills;
 using Retinues.Domain.Characters.Wrappers;
-using Retinues.Editor.Controllers.Character;
-using Retinues.Editor.Events;
+using Retinues.GUI.Editor.Events;
 using Retinues.Game.Experience;
-using Retinues.UI.Services;
-using Retinues.UI.VM;
+using Retinues.GUI.Services;
+using Retinues.GUI.Components;
 using Retinues.Utilities;
 using TaleWorlds.Library;
+using Retinues.GUI.Editor.Shared.Views;
+using Retinues.GUI.Editor.Modules.Pages.Character.Controllers;
 
-namespace Retinues.Editor.VM.Panel.Character
+namespace Retinues.GUI.Editor.Modules.Pages.Character.Views.Panel
 {
     /// <summary>
     /// Character details panel.
     /// </summary>
-    public class CharacterPanelVM : EventListenerVM
+    public class CharacterPanelVM : BasePanelVM
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Constructor                      //
@@ -33,7 +34,7 @@ namespace Retinues.Editor.VM.Panel.Character
 
         [EventListener(UIEvent.Page)]
         [DataSourceProperty]
-        public bool IsVisible => EditorVM.Page == EditorPage.Character;
+        public bool IsVisible => State.Page == EditorPage.Character;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Name                          //
@@ -51,7 +52,7 @@ namespace Retinues.Editor.VM.Panel.Character
             new(
                 action: CharacterController.Rename,
                 arg: () => State.Character,
-                refresh: [UIEvent.Character, UIEvent.Name]
+                refresh: UIEvent.Name
             );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

@@ -4,7 +4,7 @@ using Retinues.Domain;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Factions.Wrappers;
 using Retinues.Game.Troops;
-using Retinues.UI.Services;
+using Retinues.GUI.Services;
 using TaleWorlds.Core;
 
 namespace Retinues.Game.Retinues

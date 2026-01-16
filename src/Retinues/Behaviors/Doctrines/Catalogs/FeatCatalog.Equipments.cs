@@ -1,4 +1,4 @@
-using Retinues.UI.Services;
+using Retinues.GUI.Services;
 
 namespace Retinues.Game.Doctrines.Catalogs
 {

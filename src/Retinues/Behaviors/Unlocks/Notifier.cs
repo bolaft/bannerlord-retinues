@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Framework.Runtime;
-using Retinues.UI.Services;
+using Retinues.GUI.Services;
 using TaleWorlds.Localization;
 
 namespace Retinues.Game.Unlocks

@@ -1,8 +1,9 @@
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Framework.Model.Exports;
-using Retinues.UI.Services;
+using Retinues.GUI.Editor.Shared.Controllers;
+using Retinues.GUI.Services;
 
-namespace Retinues.Editor.Controllers.Library
+namespace Retinues.GUI.Editor.Controllers.Library
 {
     public partial class LibraryController
     {
@@ -13,7 +14,7 @@ namespace Retinues.Editor.Controllers.Library
         /// <summary>
         /// Imports a library export into the current game.
         /// </summary>
-        public static EditorAction<MLibrary.Item> Import { get; } =
+        public static ControllerAction<MLibrary.Item> Import { get; } =
             Action<MLibrary.Item>("ImportLibraryItem")
                 .DefaultTooltip(L.T("library_import_tooltip", "Import into the current game."))
                 .AddCondition(
@@ -34,7 +35,7 @@ namespace Retinues.Editor.Controllers.Library
         /// <summary>
         /// Converts an export into a standalone NPCCharacters module.
         /// </summary>
-        public static EditorAction<MLibrary.Item> ExportNpcCharacters { get; } =
+        public static ControllerAction<MLibrary.Item> ExportNpcCharacters { get; } =
             Action<MLibrary.Item>("ExportNpcCharacters")
                 .DefaultTooltip(
                     L.T("library_export_npc_tooltip", "Convert this export into a standalone mod.")
@@ -79,7 +80,7 @@ namespace Retinues.Editor.Controllers.Library
         /// <summary>
         /// Opens the export file in an external editor.
         /// </summary>
-        public static EditorAction<MLibrary.Item> Edit { get; } =
+        public static ControllerAction<MLibrary.Item> Edit { get; } =
             Action<MLibrary.Item>("EditLibraryItem")
                 .DefaultTooltip(
                     L.T("library_edit_tooltip", "Directly edit this export's XML file contents.")
@@ -101,7 +102,7 @@ namespace Retinues.Editor.Controllers.Library
         /// <summary>
         /// Deletes the export file and removes it from the library list.
         /// </summary>
-        public static EditorAction<MLibrary.Item> Delete { get; } =
+        public static ControllerAction<MLibrary.Item> Delete { get; } =
             Action<MLibrary.Item>("DeleteLibraryItem")
                 .DefaultTooltip(
                     L.T(

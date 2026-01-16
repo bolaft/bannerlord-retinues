@@ -1,16 +1,16 @@
 using System;
 using Bannerlord.UIExtenderEx.Attributes;
-using Retinues.Editor.Controllers;
-using Retinues.Editor.Events;
 using Retinues.Framework.Runtime;
+using Retinues.GUI.Editor.Events;
+using Retinues.GUI.Editor.Shared.Controllers;
 using TaleWorlds.Library;
 
-namespace Retinues.UI.VM
+namespace Retinues.GUI.Components
 {
     [SafeClass]
     public sealed class Button<TArg> : EventListenerVM
     {
-        private readonly EditorAction<TArg> _action;
+        private readonly ControllerAction<TArg> _action;
         private readonly Func<TArg> _arg;
 
         private readonly UIEvent[] _refreshEvents;
@@ -49,7 +49,7 @@ namespace Retinues.UI.VM
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public Button(
-            EditorAction<TArg> action,
+            ControllerAction<TArg> action,
             Func<TArg> arg,
             UIEvent refresh,
             string label = null
@@ -72,7 +72,7 @@ namespace Retinues.UI.VM
             ) { }
 
         public Button(
-            EditorAction<TArg> action,
+            ControllerAction<TArg> action,
             Func<TArg> arg,
             UIEvent[] refresh,
             string label = null,

@@ -1,27 +1,24 @@
 using System;
 using System.Linq;
-using Retinues.Configuration;
-using Retinues.Domain;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Equipments.Models;
 using Retinues.Domain.Factions;
-using Retinues.Domain.Factions.Wrappers;
-using Retinues.Editor.Events;
 using Retinues.Framework.Model.Exports;
 using Retinues.Framework.Runtime;
 using Retinues.Game.Doctrines;
 using Retinues.Game.Doctrines.Definitions;
+using Retinues.GUI.Editor.Events;
 using Retinues.Utilities;
 using TaleWorlds.Core;
 
-namespace Retinues.Editor
+namespace Retinues.GUI.Editor
 {
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
     //                      Editor Mode                       //
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
     /// <summary>
-    /// Editor modes..
+    /// Editor modes.
     /// </summary>
     public enum EditorMode
     {
@@ -30,62 +27,27 @@ namespace Retinues.Editor
     }
 
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-    //                   Editor Launch Args                   //
+    //                      Editor Page                       //
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
     /// <summary>
-    /// Optional launch parameters for the editor.
+    /// Editor pages.
     /// </summary>
-    public sealed class EditorLaunchArgs
+    public enum EditorPage
     {
-        public EditorMode Mode { get; } = EditorMode.Universal;
-
-        public IBaseFaction Faction { get; }
-        public WCharacter Character { get; }
-        public WHero Hero { get; }
-
-        private EditorLaunchArgs(
-            EditorMode mode,
-            IBaseFaction faction = null,
-            WCharacter character = null,
-            WHero hero = null
-        )
-        {
-            Mode = mode;
-            Faction = faction;
-            Character = character;
-            Hero = hero;
-        }
-
-        public static EditorLaunchArgs ForMode(EditorMode mode) => new(mode);
-
-        public static EditorLaunchArgs Universal(
-            IBaseFaction faction = null,
-            WCharacter character = null,
-            WHero hero = null
-        ) => new(EditorMode.Universal, faction, character, hero);
-
-        public static EditorLaunchArgs Player(
-            IBaseFaction faction = null,
-            WCharacter character = null,
-            WHero hero = null
-        ) => new(EditorMode.Player, faction, character, hero);
-
-        public bool IsEmpty => Faction == null && Character == null && Hero == null;
+        Character = 0,
+        Equipment = 1,
+        Doctrines = 2,
+        Library = 3,
     }
 
     [SafeClass]
-    public class EditorState
+    public partial class EditorState
     {
         /// <summary>
         /// The current editor mode.
         /// </summary>
         public EditorMode Mode { get; private set; } = EditorMode.Universal;
-
-        /// <summary>
-        /// Whether the state is currently initializing.
-        /// </summary>
-        private readonly bool _isInitializing;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Instance                        //
@@ -109,6 +71,8 @@ namespace Retinues.Editor
         //                     Initialization                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        private readonly bool _isInitializing;
+
         /// <summary>
         /// Constructs a new editor state without launch arguments.
         /// </summary>
@@ -130,6 +94,9 @@ namespace Retinues.Editor
             ApplyLaunchArgs(args);
             _isInitializing = false;
 
+            // Page defaults to character editing.
+            SetPage(EditorPage.Character);
+
             // Notify listeners.
             EventManager.FireBatch(() =>
             {
@@ -138,194 +105,6 @@ namespace Retinues.Editor
                 EventManager.Fire(UIEvent.Equipment);
                 EventManager.Fire(UIEvent.Slot);
             });
-        }
-
-        private void ApplyLaunchArgs(EditorLaunchArgs args)
-        {
-            Mode = args?.Mode ?? EditorMode.Universal;
-
-            if (!Settings.EnableUniversalEditor && Mode == EditorMode.Universal)
-                Mode = EditorMode.Player;
-
-            var resolved = ResolveLaunch(args);
-
-            LeftBannerFaction = resolved.LeftBanner;
-            RightBannerFaction = resolved.RightBanner;
-
-            // Setting Faction will also pick the first troop automatically.
-            Faction = resolved.Faction;
-
-            // If a specific character was requested, apply it after the faction selection.
-            if (resolved.Character != null)
-                Character = resolved.Character;
-
-            Equipment = PickFirstEquipment(Character);
-            Slot = EquipmentIndex.Weapon0;
-        }
-
-        private sealed class ResolvedLaunch
-        {
-            public IBaseFaction LeftBanner { get; set; }
-            public IBaseFaction RightBanner { get; set; }
-            public IBaseFaction Faction { get; set; }
-            public WCharacter Character { get; set; }
-        }
-
-        private ResolvedLaunch ResolveLaunch(EditorLaunchArgs args)
-        {
-            if (args == null || args.IsEmpty)
-                return ResolveDefault();
-
-            // Prefer explicit faction when provided.
-            var faction = args.Faction;
-
-            // Prefer explicit character; if hero is provided, focus the hero's CharacterObject.
-            var character = args.Character ?? args.Hero?.Character;
-
-            if (faction == null && character != null)
-            {
-                if (Mode == EditorMode.Player && character.IsFactionTroop)
-                    faction = character.AssignedMapFaction;
-
-                if (Mode == EditorMode.Universal)
-                    faction = character.Culture;
-            }
-
-            if (faction == null && args.Hero != null)
-            {
-                faction = Mode == EditorMode.Universal ? args.Hero.Clan : args.Hero.Clan;
-            }
-
-            if (faction == null)
-                return ResolveDefault(character);
-
-            return Mode == EditorMode.Player
-                ? ResolvePlayer(faction, character)
-                : ResolveUniversal(faction, character);
-        }
-
-        private ResolvedLaunch ResolveDefault(WCharacter focus = null)
-        {
-            if (Mode == EditorMode.Player)
-            {
-                // Same default as before: start on clan.
-                return new ResolvedLaunch
-                {
-                    LeftBanner = Player.Clan,
-                    RightBanner = Player.IsRuler ? Player.Kingdom : null,
-                    Faction = Player.Clan,
-                    Character = focus,
-                };
-            }
-
-            var culture = Player.Culture;
-
-            return new ResolvedLaunch
-            {
-                LeftBanner = culture,
-                RightBanner = null,
-                Faction = culture,
-                Character = focus,
-            };
-        }
-
-        private ResolvedLaunch ResolveUniversal(IBaseFaction faction, WCharacter focus)
-        {
-            // Universal UI is: Left = Culture, Right = Clan (optional), Selected = faction (culture or clan).
-            if (faction is WClan clan)
-            {
-                return new ResolvedLaunch
-                {
-                    LeftBanner = clan.Culture,
-                    RightBanner = clan,
-                    Faction = clan,
-                    Character = focus,
-                };
-            }
-
-            if (faction is WCulture culture)
-            {
-                return new ResolvedLaunch
-                {
-                    LeftBanner = culture,
-                    RightBanner = null,
-                    Faction = culture,
-                    Character = focus,
-                };
-            }
-
-            // Fallback: treat unknown as culture-based.
-            return ResolveDefault(focus);
-        }
-
-        private ResolvedLaunch ResolvePlayer(IBaseFaction faction, WCharacter focus)
-        {
-            // Player UI is: Left = Clan, Right = Kingdom (only visible when ruler), Selected can be Clan or Kingdom.
-
-            var right =
-                faction is WKingdom k ? k
-                : Player.IsRuler ? Player.Kingdom
-                : null;
-
-            var left = faction is WClan c ? c : Player.Clan;
-
-            return new ResolvedLaunch
-            {
-                LeftBanner = left,
-                RightBanner = right,
-                Faction = faction,
-                Character = focus,
-            };
-        }
-
-        private static WCharacter PickFirstTroop(IBaseFaction faction, EditorMode mode)
-        {
-            if (faction?.Troops == null)
-                return null;
-
-            foreach (var troop in faction.Troops)
-            {
-                if (troop == null)
-                    continue;
-
-                if (troop.IsHero && troop.Hero.IsDead)
-                    continue; // Skip dead heroes.
-
-                if (mode == EditorMode.Player)
-                {
-                    if (troop.IsHero)
-                        continue;
-
-                    if (!troop.IsFactionTroop)
-                        continue;
-                }
-                else
-                {
-                    // Universal: no custom.
-                    if (troop.IsFactionTroop)
-                        continue;
-                }
-
-                return troop;
-            }
-
-            return null;
-        }
-
-        private static MEquipment PickFirstEquipment(WCharacter character)
-        {
-            var equipments = character?.Editable?.Equipments;
-
-            if (equipments == null || equipments.Count == 0)
-                return null;
-
-            foreach (var equipment in equipments)
-            {
-                if (equipment != null && equipment.IsCivilian == character.IsCivilian)
-                    return equipment;
-            }
-
-            return null;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -339,7 +118,39 @@ namespace Retinues.Editor
         {
             if (_isInitializing)
                 return;
+
             EventManager.Fire(e);
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Page                          //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public EditorPage Page { get; private set; } = EditorPage.Character;
+
+        EditorPage _lastEditorSubPage = EditorPage.Character;
+
+        /// <summary>
+        /// Sets the current editor page to the last editor sub-page.
+        /// </summary>
+        public void SetPage() => SetPage(_lastEditorSubPage);
+
+        /// <summary>
+        /// Sets the current editor page.
+        /// </summary>
+        public void SetPage(EditorPage page)
+        {
+            if (Page == page)
+                return;
+
+            Page = page;
+
+            // Keep "Editor" tab sticky to the last real editor sub-page.
+            if (page == EditorPage.Character || page == EditorPage.Equipment)
+                _lastEditorSubPage = page;
+
+            // Notify any listeners that page changed (columns, buttons, etc.).
+            EventManager.Fire(UIEvent.Page);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

@@ -3,77 +3,8 @@ using System.Collections.Generic;
 using Retinues.Framework.Runtime;
 using Retinues.Utilities;
 
-namespace Retinues.Editor.Events
+namespace Retinues.GUI.Editor.Events
 {
-    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-    //                       Events Enum                      //
-    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-    /// <summary>
-    /// Types of UI events emitted by the editor.
-    /// </summary>
-    public enum UIEvent
-    {
-        Page,
-        Faction,
-        Character,
-        Doctrine,
-        Name,
-        Culture,
-        Appearance,
-        Skill,
-        Gender,
-        Equipment,
-        Slot,
-        Item,
-        Trait,
-        Tree,
-        Formation,
-        Library,
-        Preview,
-        Crafted,
-        BattleToggle,
-        Clipboard,
-    }
-
-    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-    //                    Event Attributes                    //
-    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-    /// <summary>
-    /// Marks a property or method as listening to one or more UI events.
-    /// When any of these events fire, the property will be scheduled
-    /// for OnPropertyChanged in the current burst, and methods are
-    /// invoked immediately.
-    ///
-    /// If Global=true, ListRowVMs will refresh this property even when
-    /// the row is not selected.
-    /// </summary>
-    [AttributeUsage(
-        AttributeTargets.Property | AttributeTargets.Method,
-        AllowMultiple = true,
-        Inherited = true
-    )]
-    public sealed class EventListenerAttribute(params UIEvent[] events) : Attribute
-    {
-        public UIEvent[] Events { get; } = events ?? [];
-
-        // Named attribute argument, default false:
-        // [EventListener(UIEvent.Character, Global = true)]
-        public bool Global { get; set; } = false;
-    }
-
-    /// <summary>
-    /// Marks a method conceptually as an emitter for one or more
-    /// UI events. This is metadata/documentation for now; actual
-    /// emission is done by calling EventManager.Fire(...).
-    /// </summary>
-    [AttributeUsage(AttributeTargets.Method, AllowMultiple = true, Inherited = true)]
-    public sealed class EventEmitterAttribute(params UIEvent[] events) : Attribute
-    {
-        public UIEvent[] Events { get; } = events ?? [];
-    }
-
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
     //                      Event Manager                     //
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -88,7 +19,7 @@ namespace Retinues.Editor.Events
     ///   once even if many events chain into each other.
     /// </summary>
     [SafeClass]
-    public static class EventManager
+    public static partial class EventManager
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Burst Public API                  //
@@ -96,7 +27,7 @@ namespace Retinues.Editor.Events
 
         /// <summary>
         /// True while inside FireBatch / nested Fire calls.
-        /// Used by EditorAction to enable per-burst caching.
+        /// Used by ControllerAction to enable per-burst caching.
         /// </summary>
         internal static bool IsInBurst
         {
@@ -112,7 +43,7 @@ namespace Retinues.Editor.Events
         /// <summary>
         /// Monotonically increasing burst identifier.
         /// Changes only when entering the outermost burst.
-        /// Used by EditorAction to scope caches.
+        /// Used by ControllerAction to scope caches.
         /// </summary>
         internal static int CurrentBurstId
         {
@@ -121,72 +52,6 @@ namespace Retinues.Editor.Events
                 lock (_lock)
                 {
                     return _burstId;
-                }
-            }
-        }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                      Event Hierarchy                   //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        /// <summary>
-        /// Declarative parent -> children relationships between events.
-        /// Firing a parent will also fire all of its descendants once
-        /// in the current burst.
-        /// </summary>
-        private static readonly Dictionary<UIEvent, UIEvent[]> _hierarchy = new()
-        {
-            { UIEvent.Faction, new[] { UIEvent.Character, UIEvent.Tree } },
-            {
-                UIEvent.Character,
-                new[]
-                {
-                    UIEvent.Name,
-                    UIEvent.Culture,
-                    UIEvent.Appearance,
-                    UIEvent.Skill,
-                    UIEvent.Gender,
-                    UIEvent.Equipment,
-                    UIEvent.Trait,
-                    UIEvent.Formation,
-                }
-            },
-            { UIEvent.Equipment, new[] { UIEvent.Appearance, UIEvent.Item, UIEvent.BattleToggle } },
-            { UIEvent.Culture, new[] { UIEvent.Appearance } },
-            { UIEvent.Gender, new[] { UIEvent.Appearance } },
-            { UIEvent.Item, new[] { UIEvent.Appearance, UIEvent.Formation } },
-            { UIEvent.Slot, new[] { UIEvent.Item } },
-            { UIEvent.Preview, new[] { UIEvent.Appearance } },
-        };
-
-        /// <summary>
-        /// Expands a root event into itself + all transitive children,
-        /// with cycle protection and per-event dedup.
-        /// </summary>
-        private static IEnumerable<UIEvent> Expand(UIEvent root)
-        {
-            var visited = new HashSet<UIEvent>();
-            var stack = new Stack<UIEvent>();
-
-            stack.Push(root);
-
-            while (stack.Count > 0)
-            {
-                var current = stack.Pop();
-                if (!visited.Add(current))
-                {
-                    continue;
-                }
-
-                yield return current;
-
-                if (_hierarchy.TryGetValue(current, out var children) && children != null)
-                {
-                    // Push in reverse so the array order is preserved on pop.
-                    for (int i = children.Length - 1; i >= 0; i--)
-                    {
-                        stack.Push(children[i]);
-                    }
                 }
             }
         }
@@ -486,38 +351,6 @@ namespace Retinues.Editor.Events
                 }
 
                 return snapshot;
-            }
-        }
-
-        private readonly struct Expanded(UIEvent current, UIEvent parent)
-        {
-            public readonly UIEvent Current = current;
-            public readonly UIEvent Parent = parent;
-        }
-
-        private static IEnumerable<Expanded> ExpandWithParent(UIEvent root)
-        {
-            var visited = new HashSet<UIEvent>();
-            var stack = new Stack<Expanded>();
-
-            // Root has itself as parent.
-            stack.Push(new Expanded(root, root));
-
-            while (stack.Count > 0)
-            {
-                var exp = stack.Pop();
-                var current = exp.Current;
-
-                if (!visited.Add(current))
-                    continue;
-
-                yield return exp;
-
-                if (_hierarchy.TryGetValue(current, out var children) && children != null)
-                {
-                    for (int i = children.Length - 1; i >= 0; i--)
-                        stack.Push(new Expanded(children[i], current));
-                }
             }
         }
 

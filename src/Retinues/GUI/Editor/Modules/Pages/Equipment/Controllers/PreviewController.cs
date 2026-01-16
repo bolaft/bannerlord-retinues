@@ -1,10 +1,11 @@
 using Retinues.Domain.Equipments.Wrappers;
-using Retinues.Editor.Events;
-using Retinues.UI.Services;
+using Retinues.GUI.Editor.Events;
+using Retinues.GUI.Editor.Shared.Controllers;
+using Retinues.GUI.Services;
 using Retinues.Utilities;
 using TaleWorlds.Core;
 
-namespace Retinues.Editor.Controllers.Equipment
+namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Controllers
 {
     /// <summary>
     /// Temporary equipment preview.
@@ -47,7 +48,7 @@ namespace Retinues.Editor.Controllers.Equipment
         //                         Action                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public static EditorAction<bool> SetPreviewMode { get; } =
+        public static ControllerAction<bool> SetPreviewMode { get; } =
             Action<bool>("SetPreviewMode")
                 .DefaultTooltip(enable =>
                     enable

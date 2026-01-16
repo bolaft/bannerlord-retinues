@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
-using Retinues.Modules.Submods;
+using Retinues.Framework.Modules.Mods;
 
-namespace Retinues.Editor.Services.Library.NPCCharacters
+namespace Retinues.GUI.Editor.Services.Library.NPCCharacters
 {
-    public static class NpcCharactersSubmodBuilder
+    public static class NpcCharactersModBuilder
     {
-        public static SubModProject BuildNpcCharactersSubmodProject(
+        public static ModProject BuildNpcCharactersModProject(
             string moduleId,
             List<string> npcElements,
             List<string> npcIds
@@ -19,16 +19,16 @@ namespace Retinues.Editor.Services.Library.NPCCharacters
             npcElements ??= [];
             npcIds ??= [];
 
-            var manifest = new SubModManifest(moduleId, moduleId, "v1.0.0");
+            var manifest = new ModManifest(moduleId, moduleId, "v1.0.0");
             manifest.XmlNodes.Add(
-                new SubmodXmlNode(
+                new ModeXmlNode(
                     xmlNameId: "NPCCharacters",
                     path: "ModuleData/spnpccharacters.xml",
                     includedGameTypes: ["Campaign", "CampaignStoryMode", "CustomGame"]
                 )
             );
 
-            var project = new SubModProject(manifest);
+            var project = new ModProject(manifest);
 
             // 1) Write the new NPCCharacter definitions (only edited troops).
             project.AddXml(

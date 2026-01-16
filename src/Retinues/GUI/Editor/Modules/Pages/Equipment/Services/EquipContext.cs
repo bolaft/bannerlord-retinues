@@ -2,7 +2,7 @@ using Retinues.Configuration;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Equipments.Models;
 
-namespace Retinues.Editor.Services.Equipments
+namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Services
 {
     /// <summary>
     /// Captures the editor state relevant to equip validation/planning.

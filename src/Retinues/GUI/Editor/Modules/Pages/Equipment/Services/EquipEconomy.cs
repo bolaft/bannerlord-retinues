@@ -5,7 +5,7 @@ using Retinues.Configuration;
 using Retinues.Domain.Equipments.Models;
 using Retinues.Domain.Equipments.Wrappers;
 
-namespace Retinues.Editor.Services.Equipments
+namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Services
 {
     public static class EquipEconomy
     {

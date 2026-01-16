@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using Retinues.Domain.Characters.Helpers;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Factions.Wrappers;
-using Retinues.UI.Services;
+using Retinues.GUI.Services;
 using Retinues.Utilities;
 using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection;
 
-namespace Retinues.Editor.Services.Appearance
+namespace Retinues.GUI.Editor.Shared.Services.Appearance
 {
     public static class AppearanceGuard
     {

@@ -9,7 +9,7 @@ using TaleWorlds.CampaignSystem.GameState;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 
-namespace Retinues.UI.Screens
+namespace Retinues.GUI.Editor.Integration.Barber
 {
     /// <summary>
     /// Opens the vanilla barber / FaceGen screen and redirects changes

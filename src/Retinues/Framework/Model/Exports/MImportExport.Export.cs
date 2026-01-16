@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Factions;
-using Retinues.UI.Services;
+using Retinues.GUI.Services;
 using Retinues.Utilities;
 
 namespace Retinues.Framework.Model.Exports

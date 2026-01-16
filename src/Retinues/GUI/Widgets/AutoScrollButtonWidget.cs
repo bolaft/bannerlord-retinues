@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TaleWorlds.GauntletUI;
 using TaleWorlds.GauntletUI.BaseTypes;
 
-namespace Retinues.UI.Widgets
+namespace Retinues.GUI.Widgets
 {
     public class AutoScrollButtonWidget : ButtonWidget
     {

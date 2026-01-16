@@ -2,12 +2,12 @@ using System.Linq;
 using Retinues.Domain.Characters.Services.Cloning;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Equipments.Helpers;
-using Retinues.Editor.Controllers.Equipment;
-using Retinues.Editor.Events;
-using Retinues.Editor.Services.Context;
-using Retinues.UI.Services;
+using Retinues.GUI.Editor.Events;
+using Retinues.GUI.Editor.Modules.Pages.Equipment.Controllers;
+using Retinues.GUI.Editor.Shared.Controllers;
+using Retinues.GUI.Services;
 
-namespace Retinues.Editor.Controllers.Character
+namespace Retinues.GUI.Editor.Modules.Pages.Character.Controllers
 {
     public class CharacterTreeController : BaseController
     {
@@ -17,7 +17,7 @@ namespace Retinues.Editor.Controllers.Character
         //                        Add Upgrade                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public static EditorAction<WCharacter> AddUpgradeTarget { get; } =
+        public static ControllerAction<WCharacter> AddUpgradeTarget { get; } =
             Action<WCharacter>("AddUpgradeTarget")
                 .RequireValidEditingContext()
                 .AddCondition(
@@ -164,7 +164,7 @@ namespace Retinues.Editor.Controllers.Character
         //                      Remove Character                  //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public static EditorAction<WCharacter> RemoveCharacter { get; } =
+        public static ControllerAction<WCharacter> RemoveCharacter { get; } =
             Action<WCharacter>("RemoveCharacter")
                 .RequireValidEditingContext()
                 .AddCondition(

@@ -1,9 +1,9 @@
+using Retinues.Compatibility;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Framework.Runtime;
-using Retinues.Modules;
 using TaleWorlds.Core;
 
-namespace Retinues.UI.Services
+namespace Retinues.GUI.Services
 {
     [SafeClass]
     public static class Icons

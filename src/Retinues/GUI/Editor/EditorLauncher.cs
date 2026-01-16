@@ -6,22 +6,32 @@ using Retinues.Domain.Factions.Wrappers;
 using Retinues.Utilities;
 using TaleWorlds.Core;
 
-namespace Retinues.Editor
+namespace Retinues.GUI.Editor
 {
     public static class EditorLauncher
     {
+        // Default faction to use when none is specified.
         public static IBaseFaction DefaultFaction => Player.Clan;
 
+        /// <summary>
+        /// Launch the editor with the given args.
+        /// </summary>
         public static void Launch(EditorLaunchArgs args = null)
         {
             LaunchInternal(args ?? EditorLaunchArgs.Universal());
         }
 
+        /// <summary>
+        /// Launch the editor in the given mode.
+        /// </summary>
         public static void Launch(EditorMode mode)
         {
             LaunchInternal(EditorLaunchArgs.ForMode(mode));
         }
 
+        /// <summary>
+        /// Launch the editor with the given args.
+        /// </summary>
         private static void LaunchInternal(EditorLaunchArgs args)
         {
             var gsm = TaleWorlds.Core.Game.Current?.GameStateManager;
@@ -62,6 +72,9 @@ namespace Retinues.Editor
             gsm.PushState(state);
         }
 
+        /// <summary>
+        /// Try to downgrade a Universal editor launch to Player mode.
+        /// </summary>
         private static EditorLaunchArgs TryDowngradeUniversalToPlayer(EditorLaunchArgs args)
         {
             if (args == null)
@@ -83,6 +96,9 @@ namespace Retinues.Editor
             return null;
         }
 
+        /// <summary>
+        /// Resolve the gate faction for the editor based on the launch args.
+        /// </summary>
         public static IBaseFaction ResolveGateFaction(EditorLaunchArgs args)
         {
             if (args == null)
@@ -100,6 +116,9 @@ namespace Retinues.Editor
             return DefaultFaction;
         }
 
+        /// <summary>
+        /// Closes any previously opened editor instances.
+        /// </summary>
         private static void ClosePreviousEditorInstances(GameStateManager gsm)
         {
             while (gsm.GameStates.Any(s => s is EditorGameState))

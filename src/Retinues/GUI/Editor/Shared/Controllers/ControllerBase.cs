@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Retinues.Framework.Runtime;
 using TaleWorlds.Localization;
 
-namespace Retinues.Editor.Controllers
+namespace Retinues.GUI.Editor.Shared.Controllers
 {
     [SafeClass(IncludeDerived = true)]
     public abstract class BaseController
@@ -31,6 +31,6 @@ namespace Retinues.Editor.Controllers
             return true;
         }
 
-        protected static EditorAction<TArg> Action<TArg>(string name) => new(name);
+        protected static ControllerAction<TArg> Action<TArg>(string name) => new(name);
     }
 }

@@ -1,4 +1,4 @@
-namespace Retinues.Editor.Services.Equipments
+namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Services
 {
     public enum EquipSkipReason
     {

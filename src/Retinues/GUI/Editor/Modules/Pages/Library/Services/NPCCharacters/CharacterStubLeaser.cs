@@ -3,7 +3,7 @@ using Retinues.Domain.Characters.Services.Cloning;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Utilities;
 
-namespace Retinues.Editor.Services.Library.NPCCharacters
+namespace Retinues.GUI.Editor.Services.Library.NPCCharacters
 {
     /// <summary>
     /// Canonical leasing utility for temporary WCharacter stubs.

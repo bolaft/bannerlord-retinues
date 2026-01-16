@@ -1,10 +1,9 @@
-
 using System;
 using HarmonyLib;
 using Retinues.Utilities;
 using SandBox.GauntletUI;
 
-namespace Retinues.UI.Screens
+namespace Retinues.GUI.Editor.Integration.Barber.Patches
 {
     [HarmonyPatch(typeof(GauntletBarberScreen))]
     internal static class GauntletBarberScreenPatches

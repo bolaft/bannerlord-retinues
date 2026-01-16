@@ -1,7 +1,7 @@
 using TaleWorlds.GauntletUI;
 using TaleWorlds.GauntletUI.BaseTypes;
 
-namespace Retinues.UI.Widgets
+namespace Retinues.GUI.Widgets
 {
     public class ScrollToEdgeButtonWidget(UIContext context) : ButtonWidget(context)
     {

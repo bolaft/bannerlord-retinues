@@ -7,7 +7,7 @@ using Retinues.Utilities;
 using TaleWorlds.Library;
 using TaleWorlds.ModuleManager;
 
-namespace Retinues.Modules
+namespace Retinues.Framework.Modules
 {
     /// <summary>
     /// Utility for querying Bannerlord modules and their metadata.

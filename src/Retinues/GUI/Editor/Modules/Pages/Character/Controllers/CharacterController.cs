@@ -1,19 +1,19 @@
 using System.Collections.Generic;
 using System.Linq;
+using Retinues.Compatibility;
 using Retinues.Domain.Characters.Helpers;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Factions.Wrappers;
-using Retinues.Editor.Events;
-using Retinues.Editor.Services.Appearance;
-using Retinues.Editor.Services.Context;
 using Retinues.Framework.Model.Exports;
-using Retinues.Modules;
-using Retinues.UI.Services;
+using Retinues.GUI.Editor.Events;
+using Retinues.GUI.Editor.Shared.Controllers;
+using Retinues.GUI.Editor.Shared.Services.Appearance;
+using Retinues.GUI.Services;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.Localization;
 
-namespace Retinues.Editor.Controllers.Character
+namespace Retinues.GUI.Editor.Modules.Pages.Character.Controllers
 {
     public class CharacterController : BaseController
     {
@@ -21,7 +21,7 @@ namespace Retinues.Editor.Controllers.Character
         //                          Export                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public static EditorAction<WCharacter> ExportCharacter { get; } =
+        public static ControllerAction<WCharacter> ExportCharacter { get; } =
             Action<WCharacter>("ExportCharacter")
                 .AddCondition(
                     c => !c.IsHero,
@@ -50,7 +50,7 @@ namespace Retinues.Editor.Controllers.Character
         //                           Name                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public static EditorAction<WCharacter> Rename { get; } =
+        public static ControllerAction<WCharacter> Rename { get; } =
             Action<WCharacter>("Rename")
                 .DefaultTooltip(L.T("rename_tooltip", "Rename"))
                 .ExecuteWith(RenameImpl);
@@ -95,7 +95,7 @@ namespace Retinues.Editor.Controllers.Character
         //                         Culture                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public static EditorAction<WCharacter> SelectCulture { get; } =
+        public static ControllerAction<WCharacter> SelectCulture { get; } =
             Action<WCharacter>("SelectCulture")
                 .AddCondition(
                     _ => !State.Character.IsRetinue,
@@ -192,80 +192,10 @@ namespace Retinues.Editor.Controllers.Character
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Gender                         //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        public static EditorAction<WCharacter> ToggleGender { get; } =
-            Action<WCharacter>("ToggleGender")
-                .AddCondition(
-                    applies: _ =>
-                        RaceHelper.HasAlternateSpecies() && State.Character?.Editable is WCharacter,
-                    test: c => c?.Culture != null,
-                    reason: L.T("gender_no_culture", "No culture is selected.")
-                )
-                .AddCondition(
-                    applies: _ =>
-                        RaceHelper.HasAlternateSpecies() && State.Character?.Editable is WCharacter,
-                    test: c =>
-                    {
-                        if (c == null)
-                            return true;
-
-                        var targetFemale = !c.IsFemale;
-                        return RaceHelper.FindTemplate(c.Culture, targetFemale, c.Race) != null;
-                    },
-                    reason: L.T(
-                        "gender_no_template",
-                        "This culture has no valid body template for that gender/species."
-                    )
-                )
-                .AddCondition(
-                    applies: _ =>
-                        RaceHelper.HasAlternateSpecies() && State.Character?.Editable is WCharacter,
-                    test: c =>
-                    {
-                        if (c == null)
-                            return true;
-
-                        var targetFemale = !c.IsFemale;
-                        return AppearanceGuard.CanRender(c.Culture, targetFemale, c.Race);
-                    },
-                    reason: L.T(
-                        "gender_not_renderable",
-                        "That gender/species combination cannot be rendered."
-                    )
-                )
-                .DefaultTooltip(L.T("gender_toggle_hint", "Change Gender"))
-                .ExecuteWith(c => ToggleGenderImpl((c ?? State.Character)?.Editable))
-                .Fire(UIEvent.Gender);
-
-        /// <summary>
-        /// Toggle the gender of the given character.
-        /// </summary>
-        private static void ToggleGenderImpl(Domain.Characters.ICharacterData character)
-        {
-            if (character == null)
-                return;
-
-            AppearanceGuard.TryApply(
-                () =>
-                {
-                    character.IsFemale = !character.IsFemale;
-
-                    if (character is WCharacter wc)
-                        wc.ApplyCultureBodyProperties();
-
-                    return true;
-                },
-                character as WCharacter
-            );
-        }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Race                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public static EditorAction<WCharacter> SelectRace { get; } =
+        public static ControllerAction<WCharacter> SelectRace { get; } =
             Action<WCharacter>("SelectRace")
                 .AddCondition(
                     _ => CanChangeRace,
@@ -411,7 +341,7 @@ namespace Retinues.Editor.Controllers.Character
         //                      Mixed Gender                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public static EditorAction<bool> SetMixedGender { get; } =
+        public static ControllerAction<bool> SetMixedGender { get; } =
             Action<bool>("SetMixedGender")
                 .RequireValidEditingContext()
                 .AddCondition(
@@ -450,7 +380,7 @@ namespace Retinues.Editor.Controllers.Character
         //                         Mariner                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public static EditorAction<bool> SetMariner { get; } =
+        public static ControllerAction<bool> SetMariner { get; } =
             Action<bool>("SetMariner")
                 .RequireValidEditingContext()
                 .AddCondition(
@@ -493,7 +423,7 @@ namespace Retinues.Editor.Controllers.Character
         //                         Rank Up                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public static EditorAction<WCharacter> RankUp { get; } =
+        public static ControllerAction<WCharacter> RankUp { get; } =
             Action<WCharacter>("RankUp")
                 .RequireValidEditingContext()
                 .AddCondition(

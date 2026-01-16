@@ -1,19 +1,19 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Retinues.Compatibility;
 using Retinues.Domain;
 using Retinues.Domain.Equipments.Helpers;
 using Retinues.Domain.Equipments.Models;
 using Retinues.Domain.Equipments.Wrappers;
-using Retinues.Editor.Events;
-using Retinues.Editor.Services.Context;
-using Retinues.Editor.Services.Equipments;
-using Retinues.Modules;
-using Retinues.UI.Services;
+using Retinues.GUI.Editor.Events;
+using Retinues.GUI.Editor.Modules.Pages.Equipment.Services;
+using Retinues.GUI.Editor.Shared.Controllers;
+using Retinues.GUI.Services;
 using TaleWorlds.Core;
 using TaleWorlds.Localization;
 
-namespace Retinues.Editor.Controllers.Equipment
+namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Controllers
 {
     /// <summary>
     /// Non-view logic for equipment set navigation and mutation.
@@ -24,7 +24,7 @@ namespace Retinues.Editor.Controllers.Equipment
         //                      Select Prev Set                   //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public static EditorAction<bool> SelectPrevSet { get; } =
+        public static ControllerAction<bool> SelectPrevSet { get; } =
             Action<bool>("SelectPrevSet")
                 .AddCondition(
                     civilian =>
@@ -49,7 +49,7 @@ namespace Retinues.Editor.Controllers.Equipment
         //                      Select Next Set                   //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public static EditorAction<bool> SelectNextSet { get; } =
+        public static ControllerAction<bool> SelectNextSet { get; } =
             Action<bool>("SelectNextSet")
                 .AddCondition(
                     civilian =>
@@ -74,7 +74,7 @@ namespace Retinues.Editor.Controllers.Equipment
         //                        Create Set                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public static EditorAction<bool> CreateSet { get; } =
+        public static ControllerAction<bool> CreateSet { get; } =
             Action<bool>("CreateSet")
                 .RequireValidEditingContext()
                 .AddCondition(
@@ -88,7 +88,7 @@ namespace Retinues.Editor.Controllers.Equipment
         //                        Delete Set                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public static EditorAction<bool> DeleteSet { get; } =
+        public static ControllerAction<bool> DeleteSet { get; } =
             Action<bool>("DeleteSet")
                 .RequireValidEditingContext()
                 .AddCondition(
@@ -135,7 +135,7 @@ namespace Retinues.Editor.Controllers.Equipment
         public static bool HasClipboard =>
             _clipboard != null && !string.IsNullOrEmpty(_clipboard.Code);
 
-        public static EditorAction<bool> CopyEquipment { get; } =
+        public static ControllerAction<bool> CopyEquipment { get; } =
             Action<bool>("CopyEquipment")
                 .RequireValidEditingContext()
                 .AddCondition(
@@ -145,7 +145,7 @@ namespace Retinues.Editor.Controllers.Equipment
                 .DefaultTooltip(L.T("equipment_copy_tooltip", "Copy equipment to clipboard."))
                 .ExecuteWith(_ => CopyEquipmentImpl());
 
-        public static EditorAction<bool> PasteEquipment { get; } =
+        public static ControllerAction<bool> PasteEquipment { get; } =
             Action<bool>("PasteEquipment")
                 .RequireValidEditingContext()
                 .AddCondition(
@@ -159,7 +159,7 @@ namespace Retinues.Editor.Controllers.Equipment
                 .DefaultTooltip(L.T("equipment_paste_tooltip", "Paste equipment from clipboard."))
                 .ExecuteWith(_ => PasteEquipmentImpl());
 
-        private static EquipContext Ctx() =>
+        private static EquipContext Context() =>
             new(State.Mode, PreviewController.Enabled, State.Character, State.Equipment);
 
         private static string BuildEquipmentCode(MEquipment source)
@@ -538,7 +538,7 @@ namespace Retinues.Editor.Controllers.Equipment
 
             var equipmentRef = State.Equipment.Base;
 
-            var ctx = Ctx();
+            var ctx = Context();
 
             Func<EquipmentIndex, WItem> getCurrent = PreviewController.Enabled
                 ? PreviewController.GetItem
@@ -587,7 +587,7 @@ namespace Retinues.Editor.Controllers.Equipment
                     )
                         return;
 
-                    var liveCtx = Ctx();
+                    var liveCtx = Context();
 
                     Func<EquipmentIndex, WItem> liveGetCurrent = PreviewController.Enabled
                         ? PreviewController.GetItem
@@ -654,7 +654,7 @@ namespace Retinues.Editor.Controllers.Equipment
         //                      Crafted Items                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public static EditorAction<bool> SetShowCrafted { get; } =
+        public static ControllerAction<bool> SetShowCrafted { get; } =
             Action<bool>("SetShowCrafted")
                 .AddCondition(
                     _ => State.Mode == EditorMode.Player,
@@ -870,7 +870,7 @@ namespace Retinues.Editor.Controllers.Equipment
             return true;
         }
 
-        public static EditorAction<bool> SetFieldBattleSet { get; } =
+        public static ControllerAction<bool> SetFieldBattleSet { get; } =
             Action<bool>("SetFieldBattleSet")
                 .AddCondition(
                     _ => State.Equipment != null && State.Equipment.IsCivilian == false,
@@ -895,7 +895,7 @@ namespace Retinues.Editor.Controllers.Equipment
                         )
                 )
                 .ExecuteWith(SetFieldBattleSetImpl)
-                .Fire(UIEvent.BattleToggle);
+                .Fire(UIEvent.BattleType);
 
         private static void SetFieldBattleSetImpl(bool value)
         {
@@ -909,7 +909,7 @@ namespace Retinues.Editor.Controllers.Equipment
             SetBattleTypeValue(e, BattleType.Field, value);
         }
 
-        public static EditorAction<bool> SetSiegeBattleSet { get; } =
+        public static ControllerAction<bool> SetSiegeBattleSet { get; } =
             Action<bool>("SetSiegeBattleSet")
                 .AddCondition(
                     _ => State.Equipment != null && State.Equipment.IsCivilian == false,
@@ -934,7 +934,7 @@ namespace Retinues.Editor.Controllers.Equipment
                         )
                 )
                 .ExecuteWith(SetSiegeBattleSetImpl)
-                .Fire(UIEvent.BattleToggle);
+                .Fire(UIEvent.BattleType);
 
         private static void SetSiegeBattleSetImpl(bool value)
         {
@@ -948,7 +948,7 @@ namespace Retinues.Editor.Controllers.Equipment
             SetBattleTypeValue(e, BattleType.Siege, value);
         }
 
-        public static EditorAction<bool> SetNavalBattleSet { get; } =
+        public static ControllerAction<bool> SetNavalBattleSet { get; } =
             Action<bool>("SetNavalBattleSet")
                 .AddCondition(
                     _ => Mods.NavalDLC.IsLoaded,
@@ -977,7 +977,7 @@ namespace Retinues.Editor.Controllers.Equipment
                         )
                 )
                 .ExecuteWith(SetNavalBattleSetImpl)
-                .Fire(UIEvent.BattleToggle);
+                .Fire(UIEvent.BattleType);
 
         private static void SetNavalBattleSetImpl(bool value)
         {
@@ -1116,7 +1116,7 @@ namespace Retinues.Editor.Controllers.Equipment
                 ),
                 onConfirm: () =>
                 {
-                    var ctx = Ctx();
+                    var ctx = Context();
 
                     if (!ctx.EconomyEnabled)
                     {

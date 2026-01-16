@@ -3,7 +3,7 @@ using Retinues.Framework.Runtime;
 using Retinues.Utilities;
 using TaleWorlds.Engine;
 
-namespace Retinues.UI.Services
+namespace Retinues.GUI.Services
 {
     /// <summary>
     /// Centralised helpers for playing sound events.

@@ -1,17 +1,18 @@
 using System.Linq;
-using Retinues.Editor.Controllers.Library;
-using Retinues.Editor.Events;
 using Retinues.Framework.Model.Exports;
-using Retinues.UI.Services;
-using Retinues.UI.VM;
+using Retinues.GUI.Components;
+using Retinues.GUI.Editor.Controllers.Library;
+using Retinues.GUI.Editor.Events;
+using Retinues.GUI.Editor.Shared.Views;
+using Retinues.GUI.Services;
 using TaleWorlds.Library;
 
-namespace Retinues.Editor.VM.Panel.Library
+namespace Retinues.GUI.Editor.VM.Panel.Library
 {
     /// <summary>
     /// Library panel.
     /// </summary>
-    public class LibraryPanelVM : EventListenerVM
+    public class LibraryPanelVM : BasePanelVM
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Visibility                       //
@@ -19,7 +20,7 @@ namespace Retinues.Editor.VM.Panel.Library
 
         [EventListener(UIEvent.Page)]
         [DataSourceProperty]
-        public bool IsVisible => EditorVM.Page == EditorPage.Library;
+        public bool IsVisible => State.Page == EditorPage.Library;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Selection                       //

@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Retinues.Domain.Characters.Wrappers;
-using Retinues.Editor.Services.Library.NPCCharacters;
 using Retinues.Framework.Model.Exports;
-using Retinues.Modules.Submods;
-using Retinues.UI.Services;
+using Retinues.Framework.Modules.Mods;
+using Retinues.GUI.Editor.Services.Library.NPCCharacters;
+using Retinues.GUI.Services;
 using Retinues.Utilities;
 using TaleWorlds.Localization;
 
-namespace Retinues.Editor.Controllers.Library
+namespace Retinues.GUI.Editor.Controllers.Library
 {
     public partial class LibraryController
     {
@@ -27,7 +27,7 @@ namespace Retinues.Editor.Controllers.Library
                 return;
 
             if (
-                !SubModEnvironment.TryGetGameModulesDirectory(out var modulesDir)
+                !ModEnvironment.TryGetGameModulesDirectory(out var modulesDir)
                 || string.IsNullOrWhiteSpace(modulesDir)
             )
             {
@@ -113,7 +113,7 @@ namespace Retinues.Editor.Controllers.Library
                     return;
 
                 if (
-                    !SubModEnvironment.TryGetGameModulesDirectory(out var modulesDir)
+                    !ModEnvironment.TryGetGameModulesDirectory(out var modulesDir)
                     || string.IsNullOrWhiteSpace(modulesDir)
                 )
                 {
@@ -191,13 +191,13 @@ namespace Retinues.Editor.Controllers.Library
 
                 var moduleId = BuildNpcModuleId(item);
 
-                var project = NpcCharactersSubmodBuilder.BuildNpcCharactersSubmodProject(
+                var project = NpcCharactersModBuilder.BuildNpcCharactersModProject(
                     moduleId,
                     npcStrings,
                     npcIds
                 );
 
-                var writer = new SubModWriter();
+                var writer = new ModWriter();
 
                 // First try to write to the game's Modules folder.
                 var moduleRoot = Path.Combine(modulesDir, moduleId);
@@ -315,7 +315,7 @@ namespace Retinues.Editor.Controllers.Library
             if (string.IsNullOrWhiteSpace(raw))
                 raw = "Export";
 
-            var suffix = SubModEnvironment.SanitizeModuleId(raw, fallback: "Export");
+            var suffix = ModEnvironment.SanitizeModuleId(raw, fallback: "Export");
             return NpcExportModulePrefix + suffix;
         }
 

@@ -3,7 +3,7 @@ using Retinues.Framework.Runtime;
 using Retinues.Utilities;
 using TaleWorlds.Engine.GauntletUI;
 
-namespace Retinues.UI.Services
+namespace Retinues.GUI.Services
 {
     [SafeClass]
     public static class Sprites

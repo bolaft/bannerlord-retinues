@@ -1,16 +1,17 @@
 using Retinues.Configuration;
-using Retinues.Editor.Controllers.Equipment;
-using Retinues.Editor.Events;
-using Retinues.UI.Services;
+using Retinues.GUI.Editor.Controllers.Equipment;
+using Retinues.GUI.Editor.Events;
+using Retinues.GUI.Editor.Shared.Views;
+using Retinues.GUI.Services;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 
-namespace Retinues.Editor.VM.Panel.Equipment
+namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Views.Panel
 {
     /// <summary>
     /// Character details panel.
     /// </summary>
-    public partial class EquipmentPanelVM : EventListenerVM
+    public partial class EquipmentPanelVM : BasePanelVM
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Visibility                       //
@@ -18,7 +19,7 @@ namespace Retinues.Editor.VM.Panel.Equipment
 
         [EventListener(UIEvent.Page)]
         [DataSourceProperty]
-        public bool IsVisible => EditorVM.Page == EditorPage.Equipment;
+        public bool IsVisible => State.Page == EditorPage.Equipment;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Infos                         //

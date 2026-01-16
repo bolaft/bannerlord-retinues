@@ -1,9 +1,10 @@
 using Retinues.Domain.Characters.Wrappers;
-using Retinues.Editor.Events;
-using Retinues.UI.Services;
+using Retinues.GUI.Editor.Events;
+using Retinues.GUI.Editor.Shared.Controllers;
+using Retinues.GUI.Services;
 using TaleWorlds.CampaignSystem.CharacterDevelopment;
 
-namespace Retinues.Editor.Controllers.Character
+namespace Retinues.GUI.Editor.Modules.Pages.Character.Controllers
 {
     public class TraitController : BaseController
     {
@@ -11,7 +12,7 @@ namespace Retinues.Editor.Controllers.Character
         //                        Increase                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public static EditorAction<TraitObject> TraitIncrease { get; } =
+        public static ControllerAction<TraitObject> TraitIncrease { get; } =
             Action<TraitObject>("TraitIncrease")
                 .AddCondition(
                     _ => State.Character.Editable is WHero,
@@ -28,7 +29,7 @@ namespace Retinues.Editor.Controllers.Character
         //                        Decrease                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public static EditorAction<TraitObject> TraitDecrease { get; } =
+        public static ControllerAction<TraitObject> TraitDecrease { get; } =
             Action<TraitObject>("TraitDecrease")
                 .AddCondition(
                     _ => State.Character.Editable is WHero,

@@ -1,14 +1,13 @@
 using System.Linq;
 using HarmonyLib;
-using Retinues.Editor;
-using Retinues.UI.Services;
+using Retinues.GUI.Services;
 using TaleWorlds.CampaignSystem.ViewModelCollection;
 using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection.Information;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
 
-namespace Retinues.Patches.Tooltips
+namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Patches
 {
     [HarmonyPatch(
         typeof(TooltipRefresherCollection),

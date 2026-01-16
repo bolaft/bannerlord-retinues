@@ -1,7 +1,7 @@
 using System;
 using TaleWorlds.Localization;
 
-namespace Retinues.UI.Services
+namespace Retinues.GUI.Services
 {
     public static partial class L
     {

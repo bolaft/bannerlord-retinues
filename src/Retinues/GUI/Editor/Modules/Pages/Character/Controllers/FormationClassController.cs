@@ -1,11 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using Retinues.Domain.Characters.Wrappers;
-using Retinues.Editor.Events;
-using Retinues.UI.Services;
+using Retinues.GUI.Editor.Events;
+using Retinues.GUI.Editor.Shared.Controllers;
+using Retinues.GUI.Services;
 using TaleWorlds.Core;
 
-namespace Retinues.Editor.Controllers.Character
+namespace Retinues.GUI.Editor.Modules.Pages.Character.Controllers
 {
     /// <summary>
     /// Lets the player force a troop formation class, or revert back to auto.
@@ -16,7 +17,7 @@ namespace Retinues.Editor.Controllers.Character
         //                         Action                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public static EditorAction<WCharacter> ChangeFormationClass { get; } =
+        public static ControllerAction<WCharacter> ChangeFormationClass { get; } =
             Action<WCharacter>("ChangeFormationClass")
                 .DefaultTooltip(
                     L.T("button_change_formation_class_tooltip", "Select a formation class.")

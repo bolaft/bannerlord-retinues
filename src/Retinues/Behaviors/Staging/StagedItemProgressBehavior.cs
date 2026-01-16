@@ -3,7 +3,7 @@ using Retinues.Domain;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Equipments.Models;
 using Retinues.Framework.Behaviors;
-using Retinues.UI.Services;
+using Retinues.GUI.Services;
 using Retinues.Utilities;
 using TaleWorlds.Library;
 

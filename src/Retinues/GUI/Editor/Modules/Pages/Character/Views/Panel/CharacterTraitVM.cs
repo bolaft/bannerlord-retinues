@@ -1,11 +1,11 @@
 using Retinues.Domain.Characters.Wrappers;
-using Retinues.Editor.Controllers.Character;
-using Retinues.Editor.Events;
-using Retinues.UI.VM;
+using Retinues.GUI.Components;
+using Retinues.GUI.Editor.Events;
+using Retinues.GUI.Editor.Modules.Pages.Character.Controllers;
 using TaleWorlds.CampaignSystem.CharacterDevelopment;
 using TaleWorlds.Library;
 
-namespace Retinues.Editor.VM.Panel.Character
+namespace Retinues.GUI.Editor.Modules.Pages.Character.Views.Panel
 {
     /// <summary>
     /// Single hero trait row (name, value, +/-).

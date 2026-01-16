@@ -1,11 +1,12 @@
 using Retinues.Configuration;
 using Retinues.Domain;
-using Retinues.Editor.Events;
 using Retinues.Game.Doctrines.Definitions;
-using Retinues.UI.Services;
+using Retinues.GUI.Editor.Events;
+using Retinues.GUI.Editor.Shared.Controllers;
+using Retinues.GUI.Services;
 using TaleWorlds.Localization;
 
-namespace Retinues.Editor.Controllers.Doctrines
+namespace Retinues.GUI.Editor.Modules.Pages.Doctrines.Controllers
 {
     /// <summary>
     /// Provides doctrine data for the editor and implements actions.
@@ -16,7 +17,7 @@ namespace Retinues.Editor.Controllers.Doctrines
         //                        Actions                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public static EditorAction<Doctrine> Acquire { get; } =
+        public static ControllerAction<Doctrine> Acquire { get; } =
             Action<Doctrine>("Acquire")
                 .AddCondition(
                     _ => Settings.EnableDoctrines,

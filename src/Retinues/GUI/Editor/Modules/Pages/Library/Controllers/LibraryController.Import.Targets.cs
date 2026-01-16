@@ -6,12 +6,12 @@ using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Factions;
 using Retinues.Domain.Factions.Wrappers;
 using Retinues.Framework.Model.Exports;
-using Retinues.UI.Services;
+using Retinues.GUI.Services;
 using TaleWorlds.Core;
 using TaleWorlds.Core.ImageIdentifiers;
 using TaleWorlds.Localization;
 
-namespace Retinues.Editor.Controllers.Library
+namespace Retinues.GUI.Editor.Controllers.Library
 {
     public partial class LibraryController
     {

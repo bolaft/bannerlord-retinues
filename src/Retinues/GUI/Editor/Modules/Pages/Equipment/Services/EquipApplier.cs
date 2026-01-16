@@ -1,8 +1,8 @@
 using Retinues.Domain;
 using Retinues.Domain.Equipments.Wrappers;
-using Retinues.Editor.Controllers.Equipment;
+using Retinues.GUI.Editor.Modules.Pages.Equipment.Controllers;
 
-namespace Retinues.Editor.Services.Equipments
+namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Services
 {
     public static class EquipApplier
     {

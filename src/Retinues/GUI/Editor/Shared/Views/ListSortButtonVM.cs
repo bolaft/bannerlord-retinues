@@ -1,16 +1,20 @@
 using Bannerlord.UIExtenderEx.Attributes;
-using Retinues.Editor.Events;
+using Retinues.GUI.Editor.Events;
 using TaleWorlds.Library;
 
-namespace Retinues.Editor.VM.List
+namespace Retinues.GUI.Editor.Shared.Views
 {
     /// <summary>
     /// Header sort button with three-state sort (none, asc, desc).
     /// </summary>
-    public class ListSortButtonVM(ListVM list, ListSortKey sortKey, string text, int requestedWidth)
-        : EventListenerVM
+    public class ListSortButtonVM(
+        BaseListVM list,
+        ListSortKey sortKey,
+        string text,
+        int requestedWidth
+    ) : EventListenerVM
     {
-        private readonly ListVM _list = list;
+        private readonly BaseListVM _list = list;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       IsSelected                       //

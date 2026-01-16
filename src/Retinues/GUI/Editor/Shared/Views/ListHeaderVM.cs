@@ -1,20 +1,20 @@
 using System.Collections.Generic;
 using Bannerlord.UIExtenderEx.Attributes;
-using Retinues.Editor.Events;
+using Retinues.GUI.Editor.Events;
 using TaleWorlds.Library;
 
-namespace Retinues.Editor.VM.List
+namespace Retinues.GUI.Editor.Shared.Views
 {
     /// <summary>
     /// Collapsible header that groups list rows.
     /// </summary>
-    public class ListHeaderVM(ListVM list, string id, string name) : EventListenerVM
+    public class ListHeaderVM(BaseListVM list, string id, string name) : EventListenerVM
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Internals                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        internal ListVM List = list;
+        internal BaseListVM List = list;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Identifier                       //

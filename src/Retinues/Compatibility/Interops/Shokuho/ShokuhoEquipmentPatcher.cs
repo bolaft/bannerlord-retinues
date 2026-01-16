@@ -7,7 +7,7 @@ using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 
-namespace Retinues.Modules.Compatibility.Shokuho
+namespace Retinues.Compatibility.Interops.Shokuho
 {
     internal static class ShokuhoEquipmentPatcher
     {

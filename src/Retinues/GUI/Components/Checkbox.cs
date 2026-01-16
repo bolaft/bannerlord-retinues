@@ -1,16 +1,16 @@
 using System;
-using Retinues.Editor.Controllers;
-using Retinues.Editor.Events;
 using Retinues.Framework.Runtime;
+using Retinues.GUI.Editor.Events;
+using Retinues.GUI.Editor.Shared.Controllers;
 using TaleWorlds.Library;
 
-namespace Retinues.UI.VM
+namespace Retinues.GUI.Components
 {
     /// <summary>
-    /// Small helper VM that adapts an EditorAction<bool> into a single bindable checkbox model:
+    /// Small helper VM that adapts an ControllerAction<bool> into a single bindable checkbox model:
     /// - IsSelected: current checked state (from a getter)
     /// - IsEnabled: whether toggling to the next state is allowed
-    /// - Tooltip: enabled tooltip or blocking reason (EditorAction semantics)
+    /// - Tooltip: enabled tooltip or blocking reason (ControllerAction semantics)
     /// - IsVisible: optional visibility gate
     ///
     /// Supports optional allow/tooltip overrides for cases where the VM owns extra UI rules
@@ -19,7 +19,7 @@ namespace Retinues.UI.VM
     [SafeClass]
     public sealed class Checkbox : EventListenerVM
     {
-        private readonly EditorAction<bool> _action;
+        private readonly ControllerAction<bool> _action;
         private readonly Func<bool> _getSelected;
 
         private readonly UIEvent[] _refreshEvents;
@@ -43,7 +43,7 @@ namespace Retinues.UI.VM
         //                      Construction                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public Checkbox(EditorAction<bool> action, Func<bool> getSelected, UIEvent refresh)
+        public Checkbox(ControllerAction<bool> action, Func<bool> getSelected, UIEvent refresh)
             : this(
                 action: action,
                 getSelected: getSelected,
@@ -57,7 +57,7 @@ namespace Retinues.UI.VM
             ) { }
 
         public Checkbox(
-            EditorAction<bool> action,
+            ControllerAction<bool> action,
             Func<bool> getSelected,
             UIEvent[] refresh,
             Func<bool> allowGate = null,

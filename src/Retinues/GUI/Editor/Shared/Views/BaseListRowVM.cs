@@ -1,9 +1,9 @@
 using System;
 using Bannerlord.UIExtenderEx.Attributes;
-using Retinues.Editor.Events;
+using Retinues.GUI.Editor.Events;
 using TaleWorlds.Library;
 
-namespace Retinues.Editor.VM.List
+namespace Retinues.GUI.Editor.Shared.Views
 {
     /// <summary>
     /// Base row ViewModel used in list headers.

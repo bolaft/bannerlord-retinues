@@ -5,7 +5,7 @@ using Retinues.Framework.Runtime;
 using Retinues.Utilities;
 using TaleWorlds.Library;
 
-namespace Retinues.Editor.Events
+namespace Retinues.GUI.Editor.Events
 {
     /// <summary>
     /// Base ViewModel with shared editor state (faction and character) and

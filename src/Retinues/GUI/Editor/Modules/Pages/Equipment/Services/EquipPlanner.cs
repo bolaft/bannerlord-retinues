@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Retinues.Domain.Equipments.Wrappers;
 using TaleWorlds.Core;
 
-namespace Retinues.Editor.Services.Equipments
+namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Services
 {
     public static class EquipPlanner
     {

@@ -1,15 +1,15 @@
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Domain.Equipments.Wrappers;
-using Retinues.Editor.Controllers.Equipment;
-using Retinues.Editor.Events;
-using Retinues.UI.Services;
-using Retinues.UI.VM;
+using Retinues.GUI.Components;
+using Retinues.GUI.Editor.Controllers.Equipment;
+using Retinues.GUI.Editor.Events;
+using Retinues.GUI.Services;
 using Retinues.Utilities;
 using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Library;
 
-namespace Retinues.Editor.VM.Panel.Equipment
+namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Views.Panel
 {
     /// <summary>
     /// Equipment slot.

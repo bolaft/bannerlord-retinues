@@ -3,7 +3,7 @@ using Retinues.Framework.Runtime;
 using TaleWorlds.Core.ViewModelCollection.Information;
 using TaleWorlds.Localization;
 
-namespace Retinues.UI.VM
+namespace Retinues.GUI.Components
 {
     /// <summary>
     /// Tooltip with an optional title and a single message line.

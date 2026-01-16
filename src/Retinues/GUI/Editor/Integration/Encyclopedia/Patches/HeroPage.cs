@@ -1,7 +1,7 @@
 using Bannerlord.UIExtenderEx.Attributes;
 using Bannerlord.UIExtenderEx.Prefabs2;
 
-namespace Retinues.UI.Prefabs.Encyclopedia.Patches
+namespace Retinues.GUI.Editor.Integration.Encyclopedia.Patches
 {
     [PrefabExtension(
         "EncyclopediaHeroPage",

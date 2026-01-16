@@ -2,10 +2,11 @@ using System;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Domain.Factions.Wrappers;
 using Retinues.Game.Retinues;
-using Retinues.UI.Services;
+using Retinues.GUI.Editor.Shared.Views;
+using Retinues.GUI.Services;
 using TaleWorlds.Library;
 
-namespace Retinues.Editor.VM.List.Character
+namespace Retinues.GUI.Editor.Modules.Pages.Character.Views.List
 {
     /// <summary>
     /// Disabled row shown for cultures whose retinue is being unlocked.

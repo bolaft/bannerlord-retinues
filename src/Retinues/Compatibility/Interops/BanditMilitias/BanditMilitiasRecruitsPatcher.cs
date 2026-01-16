@@ -9,7 +9,7 @@ using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.CampaignSystem.Roster;
 using TaleWorlds.Library;
 
-namespace Retinues.Modules.Compatibility.BanditMilitias
+namespace Retinues.Compatibility.Interops.BanditMilitias
 {
     /// <summary>
     /// Harmony compatibility patch for the BanditMilitias mod.

@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using Retinues.Editor.Services.Library;
 using Retinues.Framework.Model.Exports;
-using Retinues.UI.Services;
+using Retinues.GUI.Editor.Services.Library;
+using Retinues.GUI.Services;
 
-namespace Retinues.Editor.Controllers.Library
+namespace Retinues.GUI.Editor.Controllers.Library
 {
     public partial class LibraryController
     {

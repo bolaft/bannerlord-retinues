@@ -1,12 +1,12 @@
 using System;
 using Retinues.Framework.Behaviors;
-using Retinues.UI.Services;
+using Retinues.GUI.Services;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
 
-namespace Retinues.Modules.Versions
+namespace Retinues.Framework.Modules.Versions
 {
     /// <summary>
     /// Tracks the Retinues mod version in save files and compares it to the currently loaded version.

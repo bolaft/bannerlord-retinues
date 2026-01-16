@@ -7,7 +7,7 @@ using Retinues.Framework.Model.Exports;
 using Retinues.Utilities;
 using TaleWorlds.Localization;
 
-namespace Retinues.Editor.Services.Library
+namespace Retinues.GUI.Editor.Services.Library
 {
     public static class LibraryFileReader
     {

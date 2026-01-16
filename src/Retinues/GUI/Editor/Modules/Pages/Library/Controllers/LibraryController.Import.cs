@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using Retinues.Domain;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Factions;
-using Retinues.Editor.Events;
 using Retinues.Framework.Model.Exports;
-using Retinues.UI.Services;
+using Retinues.GUI.Editor.Events;
+using Retinues.GUI.Services;
 using Retinues.Utilities;
 using TaleWorlds.Core;
 
-namespace Retinues.Editor.Controllers.Library
+namespace Retinues.GUI.Editor.Controllers.Library
 {
     public partial class LibraryController
     {

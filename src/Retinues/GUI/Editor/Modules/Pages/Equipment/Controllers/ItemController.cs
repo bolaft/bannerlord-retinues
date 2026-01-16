@@ -5,13 +5,13 @@ using Retinues.Domain;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Equipments.Helpers;
 using Retinues.Domain.Equipments.Wrappers;
-using Retinues.Editor.Events;
-using Retinues.Editor.Services.Context;
-using Retinues.Editor.Services.Equipments;
-using Retinues.UI.Services;
+using Retinues.GUI.Editor.Events;
+using Retinues.GUI.Editor.Modules.Pages.Equipment.Services;
+using Retinues.GUI.Editor.Shared.Controllers;
+using Retinues.GUI.Services;
 using TaleWorlds.Core;
 
-namespace Retinues.Editor.Controllers.Equipment
+namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Controllers
 {
     public class ItemController : BaseController
     {
@@ -109,7 +109,7 @@ namespace Retinues.Editor.Controllers.Equipment
         //                          Equip                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public static EditorAction<WItem> Equip { get; } =
+        public static ControllerAction<WItem> Equip { get; } =
             Action<WItem>("EquipItem")
                 .RequireValidEditingContext()
                 .AddCondition(
@@ -311,7 +311,7 @@ namespace Retinues.Editor.Controllers.Equipment
         //                         Unequip                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public static EditorAction<EquipmentIndex> Unequip { get; } =
+        public static ControllerAction<EquipmentIndex> Unequip { get; } =
             Action<EquipmentIndex>("UnequipItem")
                 .RequireValidEditingContext()
                 .AddCondition(

@@ -1,11 +1,12 @@
 using System;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Domain.Characters.Wrappers;
-using Retinues.Editor.Events;
-using Retinues.UI.Services;
+using Retinues.GUI.Editor.Events;
+using Retinues.GUI.Editor.Shared.Views;
+using Retinues.GUI.Services;
 using TaleWorlds.Library;
 
-namespace Retinues.Editor.VM.List.Character
+namespace Retinues.GUI.Editor.Modules.Pages.Character.Views.List
 {
     /// <summary>
     /// Row representing a troop character in the list.

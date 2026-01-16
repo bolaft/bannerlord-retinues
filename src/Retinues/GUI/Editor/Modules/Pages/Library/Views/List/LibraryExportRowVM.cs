@@ -3,12 +3,13 @@ using System.IO;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Domain.Factions;
 using Retinues.Domain.Factions.Wrappers;
-using Retinues.Editor.Events;
-using Retinues.Editor.Services.Library.NPCCharacters;
 using Retinues.Framework.Model.Exports;
+using Retinues.GUI.Editor.Events;
+using Retinues.GUI.Editor.Services.Library.NPCCharacters;
+using Retinues.GUI.Editor.Shared.Views;
 using TaleWorlds.Library;
 
-namespace Retinues.Editor.VM.List.Library
+namespace Retinues.GUI.Editor.Modules.Pages.Library.Views.List
 {
     /// <summary>
     /// Row representing an importable export file.

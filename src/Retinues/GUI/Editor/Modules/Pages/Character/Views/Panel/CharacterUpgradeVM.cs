@@ -1,10 +1,10 @@
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Configuration;
 using Retinues.Domain.Characters.Wrappers;
-using Retinues.Editor.Events;
+using Retinues.GUI.Editor.Events;
 using TaleWorlds.Library;
 
-namespace Retinues.Editor.VM.Panel.Character
+namespace Retinues.GUI.Editor.Modules.Pages.Character.Views.Panel
 {
     /// <summary>
     /// Character upgrade card.

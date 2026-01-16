@@ -1,5 +1,7 @@
-namespace Retinues.Editor.VM.List.Library
+using Retinues.GUI.Editor.Shared.Views;
+
+namespace Retinues.GUI.Editor.Modules.Pages.Library.Views.List
 {
-    public class LibraryListHeaderVM(ListVM list, string id, string name)
+    public class LibraryListHeaderVM(BaseListVM list, string id, string name)
         : ListHeaderVM(list, id, name) { }
 }

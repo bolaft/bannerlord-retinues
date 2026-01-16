@@ -1,6 +1,7 @@
 using Retinues.Framework.Model.Exports;
+using Retinues.GUI.Editor.Shared.Controllers;
 
-namespace Retinues.Editor.Controllers.Library
+namespace Retinues.GUI.Editor.Controllers.Library
 {
     /// <summary>
     /// Library screen operations (import/export/delete/edit).

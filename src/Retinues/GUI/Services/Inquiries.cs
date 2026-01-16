@@ -8,7 +8,7 @@ using TaleWorlds.Core;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
 
-namespace Retinues.UI.Services
+namespace Retinues.GUI.Services
 {
     /// <summary>
     /// Helpers for popups and selection inquiries.

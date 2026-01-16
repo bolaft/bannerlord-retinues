@@ -2,11 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Retinues.Framework.Behaviors;
-using Retinues.UI.Services;
+using Retinues.GUI.Services;
 using Retinues.Utilities;
 using TaleWorlds.Localization;
 
-namespace Retinues.Modules.Dependencies
+namespace Retinues.Framework.Modules.Dependencies
 {
     /// <summary>
     /// Campaign behavior that inspects Retinues' external dependencies and checks their status.
@@ -27,9 +27,9 @@ namespace Retinues.Modules.Dependencies
         public static void CheckDependencies(bool showPopup)
         {
             Log.Debug("[Deps] CheckDependencies(showPopup=" + showPopup + ")");
-            var missing = new List<Dependency>();
-            var versionMismatch = new List<Dependency>();
-            var notInitialized = new List<Dependency>();
+            var missing = new List<BaseDependency>();
+            var versionMismatch = new List<BaseDependency>();
+            var notInitialized = new List<BaseDependency>();
 
             foreach (var dep in SubModule.Dependencies)
             {
@@ -98,9 +98,9 @@ namespace Retinues.Modules.Dependencies
         }
 
         private static TextObject BuildStatusSummary(
-            List<Dependency> missing,
-            List<Dependency> versionMismatch,
-            List<Dependency> notInitialized
+            List<BaseDependency> missing,
+            List<BaseDependency> versionMismatch,
+            List<BaseDependency> notInitialized
         )
         {
             if (
