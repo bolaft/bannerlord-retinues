@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Retinues.Compatibility.Interops;
 using Retinues.Configuration;
 using Retinues.Framework.Behaviors;
+using Retinues.Framework.Modules;
+using Retinues.Framework.Modules.Dependencies;
+using Retinues.Framework.Modules.Dependencies.Core;
 using Retinues.Framework.Runtime;
 using Retinues.Game.Recruitement.Models;
-using Retinues.Modules;
-using Retinues.Modules.Compatibility;
-using Retinues.Modules.Dependencies;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.ComponentInterfaces;
@@ -25,7 +26,8 @@ namespace Retinues
         //                      Dependencies                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public static List<Dependency> Dependencies => [_harmony, _mcm, _uiextender, _butterlib];
+        public static List<BaseDependency> Dependencies =>
+            [_harmony, _mcm, _uiextender, _butterlib];
 
         private static readonly HarmonyDependency _harmony = new();
         private static readonly MCMDependency _mcm = new();

@@ -60,7 +60,7 @@ namespace Retinues.GUI.Editor.VM.List.Library
                 if (sectionItems == null || sectionItems.Count == 0)
                     return;
 
-                var header = new LibraryListHeaderVM(this, id, name);
+                var header = new ListHeaderVM(this, id, name);
                 headers.Add(header);
 
                 header.IsExpanded = true;

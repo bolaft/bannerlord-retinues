@@ -1,6 +1,6 @@
 using Retinues.Configuration;
-using Retinues.GUI.Editor.Controllers.Equipment;
 using Retinues.GUI.Editor.Events;
+using Retinues.GUI.Editor.Modules.Pages.Equipment.Controllers;
 using Retinues.GUI.Editor.Shared.Views;
 using Retinues.GUI.Services;
 using TaleWorlds.Core;
@@ -17,9 +17,8 @@ namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Views.Panel
         //                       Visibility                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        [EventListener(UIEvent.Page)]
         [DataSourceProperty]
-        public bool IsVisible => State.Page == EditorPage.Equipment;
+        public bool OnEquipmentPage => true;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Infos                         //

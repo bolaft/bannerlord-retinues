@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.GUI.Editor.Events;
 using TaleWorlds.Library;
@@ -16,7 +17,7 @@ namespace Retinues.GUI.Editor.Shared.Views
 
         private readonly ListHeaderVM _header = header;
         internal ListHeaderVM Header => _header;
-        internal ListVM List => Header.List;
+        internal BaseListVM List => Header.List;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Category Flags                     //
@@ -139,6 +140,31 @@ namespace Retinues.GUI.Editor.Shared.Views
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         internal abstract IComparable GetSortValue(ListSortKey sortKey);
+
+        /// <summary>
+        /// Returns true for rows that should stay pinned to the end of the header when sorting.
+        /// Used for special rows like partial unlock progress.
+        /// </summary>
+        internal virtual bool TryGetPinnedSortProgress(out int progress)
+        {
+            progress = 0;
+            return false;
+        }
+
+        /// <summary>
+        /// True when this row participates in tree sorting and tree filtering (ancestor visibility).
+        /// </summary>
+        internal virtual bool IsTreeNode => false;
+
+        /// <summary>
+        /// Parent ids for this row when used as a tree node.
+        /// </summary>
+        internal virtual IEnumerable<string> GetTreeParentIds() => null;
+
+        /// <summary>
+        /// Child ids for this row when used as a tree node.
+        /// </summary>
+        internal virtual IEnumerable<string> GetTreeChildIds() => null;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Filtering                       //

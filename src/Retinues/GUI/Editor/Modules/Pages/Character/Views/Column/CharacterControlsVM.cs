@@ -1,11 +1,11 @@
+using Retinues.Compatibility;
 using Retinues.Domain.Characters.Wrappers;
-using Retinues.GUI.Editor.Events;
-using Retinues.GUI.Services;
 using Retinues.GUI.Components;
+using Retinues.GUI.Editor.Events;
+using Retinues.GUI.Editor.Modules.Pages.Character.Controllers;
+using Retinues.GUI.Services;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
-using Retinues.Compatibility;
-using Retinues.GUI.Editor.Modules.Pages.Character.Controllers;
 
 namespace Retinues.GUI.Editor.VM.Column.Character
 {

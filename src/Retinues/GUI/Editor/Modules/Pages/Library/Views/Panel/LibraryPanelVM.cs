@@ -18,9 +18,8 @@ namespace Retinues.GUI.Editor.VM.Panel.Library
         //                       Visibility                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        [EventListener(UIEvent.Page)]
         [DataSourceProperty]
-        public bool IsVisible => State.Page == EditorPage.Library;
+        public bool OnLibraryPage => true;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Selection                       //
@@ -44,7 +43,7 @@ namespace Retinues.GUI.Editor.VM.Panel.Library
 
         [EventListener(UIEvent.Library, UIEvent.Page)]
         [DataSourceProperty]
-        public bool ShowEmptyText => IsVisible && !HasSelection;
+        public bool ShowEmptyText => !HasSelection;
 
         [DataSourceProperty]
         public string ExportsEmptyText =>

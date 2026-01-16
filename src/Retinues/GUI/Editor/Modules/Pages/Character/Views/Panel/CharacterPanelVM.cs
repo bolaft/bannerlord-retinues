@@ -3,14 +3,14 @@ using System.Linq;
 using Retinues.Configuration;
 using Retinues.Domain.Characters.Services.Skills;
 using Retinues.Domain.Characters.Wrappers;
-using Retinues.GUI.Editor.Events;
 using Retinues.Game.Experience;
-using Retinues.GUI.Services;
 using Retinues.GUI.Components;
+using Retinues.GUI.Editor.Events;
+using Retinues.GUI.Editor.Modules.Pages.Character.Controllers;
+using Retinues.GUI.Editor.Shared.Views;
+using Retinues.GUI.Services;
 using Retinues.Utilities;
 using TaleWorlds.Library;
-using Retinues.GUI.Editor.Shared.Views;
-using Retinues.GUI.Editor.Modules.Pages.Character.Controllers;
 
 namespace Retinues.GUI.Editor.Modules.Pages.Character.Views.Panel
 {
@@ -32,9 +32,8 @@ namespace Retinues.GUI.Editor.Modules.Pages.Character.Views.Panel
         //                       Visibility                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        [EventListener(UIEvent.Page)]
         [DataSourceProperty]
-        public bool IsVisible => State.Page == EditorPage.Character;
+        public bool OnCharacterPage => true;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Name                          //

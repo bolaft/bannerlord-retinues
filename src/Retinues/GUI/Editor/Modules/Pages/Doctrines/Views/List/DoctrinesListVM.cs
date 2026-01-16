@@ -52,7 +52,7 @@ namespace Retinues.GUI.Editor.Modules.Pages.Doctrines.Views.List
             {
                 bool any = category.Doctrines.Count > 0;
 
-                var header = new DoctrinesListHeader(this, category.Id, category.Name.ToString())
+                var header = new ListHeaderVM(this, category.Id, category.Name.ToString())
                 {
                     IsExpanded = any,
                 };

@@ -24,9 +24,8 @@ namespace Retinues.GUI.Editor.Modules.Pages.Doctrines.Views.Panel
         //                       Visibility                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        [EventListener(UIEvent.Page)]
         [DataSourceProperty]
-        public bool IsVisible => State.Page == EditorPage.Doctrines;
+        public bool OnDoctrinesPage => true;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Sprite                         //

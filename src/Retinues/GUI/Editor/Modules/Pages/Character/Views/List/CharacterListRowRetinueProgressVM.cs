@@ -64,6 +64,12 @@ namespace Retinues.GUI.Editor.Modules.Pages.Character.Views.List
 
         internal int ProgressPoints => _progress;
 
+        internal override bool TryGetPinnedSortProgress(out int progress)
+        {
+            progress = _progress;
+            return progress > 0;
+        }
+
         internal override IComparable GetSortValue(ListSortKey sortKey)
         {
             return sortKey switch

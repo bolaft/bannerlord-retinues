@@ -393,25 +393,25 @@
       text="Bound by Honor" />
     <string
       id="ret_doctrine_retinues_bound_by_honor_desc"
-      text="Retinues gain +20% morale." />
+      text="+20% to retinue morale." />
     <string
       id="ret_doctrine_retinues_immortals"
       text="Immortals" />
     <string
       id="ret_doctrine_retinues_immortals_desc"
-      text="+20% retinue survival chance." />
+      text="+20% to retinue survival chance." />
     <string
       id="ret_doctrine_retinues_indomitable"
       text="Indomitable" />
     <string
       id="ret_doctrine_retinues_indomitable_desc"
-      text="Retinues gain +5 HP each." />
+      text="+10% to retinue health." />
     <string
       id="ret_doctrine_retinues_vanguard"
       text="Vanguard" />
     <string
       id="ret_doctrine_retinues_vanguard_desc"
-      text="Increases retinue cap by +15%." />
+      text="+15% to max retinue number." />
     <string
       id="ret_doctrine_state_acquired"
       text="Acquired" />

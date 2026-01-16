@@ -1,8 +1,8 @@
 using System.Linq;
+using Retinues.Compatibility;
 using Retinues.Domain.Factions.Wrappers;
 using Retinues.Framework.Model;
 using Retinues.Framework.Model.Attributes;
-using Retinues.Modules;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.Localization;

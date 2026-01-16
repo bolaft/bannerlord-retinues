@@ -48,7 +48,7 @@ namespace Retinues.Configuration.Menu
                 // When MCM UI changes SelectedIndex, update the option
                 dd.PropertyChanged += (_, e) =>
                 {
-                    if (e.PropertyName != nameof(Dropdown<>.SelectedIndex))
+                    if (e.PropertyName != nameof(dd.SelectedIndex))
                         return;
 
                     if (_isSyncingWithMCM)

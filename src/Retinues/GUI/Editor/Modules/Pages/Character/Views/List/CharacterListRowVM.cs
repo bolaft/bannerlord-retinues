@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.GUI.Editor.Events;
@@ -106,6 +108,57 @@ namespace Retinues.GUI.Editor.Modules.Pages.Character.Views.List
                 ListSortKey.Tier => Character.Tier,
                 _ => Name,
             };
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Tree                          //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        internal override bool IsTreeNode =>
+            Character != null && !string.IsNullOrEmpty(Character.StringId);
+
+        internal override IEnumerable<string> GetTreeParentIds()
+        {
+            var sources = Character?.UpgradeSources;
+            if (sources == null || sources.Count() == 0)
+                return null;
+
+            var list = new List<string>();
+
+            for (int i = 0; i < sources.Count(); i++)
+            {
+                var parent = sources[i];
+                if (parent == null)
+                    continue;
+
+                var id = parent.StringId;
+                if (!string.IsNullOrEmpty(id))
+                    list.Add(id);
+            }
+
+            return list.Count > 0 ? list : null;
+        }
+
+        internal override IEnumerable<string> GetTreeChildIds()
+        {
+            var targets = Character?.UpgradeTargets;
+            if (targets == null || targets.Count() == 0)
+                return null;
+
+            var list = new List<string>();
+
+            for (int i = 0; i < targets.Count(); i++)
+            {
+                var child = targets[i];
+                if (child == null)
+                    continue;
+
+                var id = child.StringId;
+                if (!string.IsNullOrEmpty(id))
+                    list.Add(id);
+            }
+
+            return list.Count > 0 ? list : null;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

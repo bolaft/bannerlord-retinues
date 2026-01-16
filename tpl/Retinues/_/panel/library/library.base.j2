@@ -5,10 +5,9 @@
 {# Library panel helpers                          #}
 {# ---------------------------------------------- #}
 
-{% macro side_panel(is_visible="@IsVisible", margin_right="160", vertical_alignment="Top") %}
+{% macro side_panel(margin_right="160", vertical_alignment="Top") %}
     <Widget
-        DataSource="{LibraryPanel}"
-        IsVisible="{{ is_visible }}"
+        IsVisible="@OnLibraryPage"
         WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
         HorizontalAlignment="Center" VerticalAlignment="{{ vertical_alignment }}"
         MarginRight="{{ margin_right }}">
@@ -23,7 +22,6 @@
 {# ---------------------------------------------- #}
 
 <ListPanel
-    DataSource="{LibraryPanel}"
     IsVisible="@ShowEmptyText"
     MarginRight="160"
     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
@@ -67,7 +65,7 @@
 {# Selection details (top)                        #}
 {# ---------------------------------------------- #}
 
-{% call side_panel("@IsVisible", "160", "Top") %}
+{% call side_panel("160", "Top") %}
 
     <ListPanel
         WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
@@ -142,7 +140,7 @@
 {# Action buttons (bottom)                        #}
 {# ---------------------------------------------- #}
 
-{% call side_panel("@IsVisible", "160", "Bottom") %}
+{% call side_panel("160", "Bottom") %}
 
     <ListPanel
         WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"

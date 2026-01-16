@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Retinues.Domain.Equipments.Wrappers;
+using Retinues.GUI.Components;
 using Retinues.GUI.Editor.Events;
 using Retinues.GUI.Editor.Shared.Views;
 using Retinues.GUI.Services;
@@ -15,6 +16,16 @@ namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Views.List
     public sealed class EquipmentListVM : BaseListVM
     {
         protected override EditorPage Page => EditorPage.Equipment;
+
+        protected override Tooltip GetFilterTooltip()
+        {
+            return new(
+                L.S(
+                    "filter_tooltip_description_equipment",
+                    "Type to filter the list by name, category or tier."
+                )
+            );
+        }
 
         private EquipmentIndex _previousSlot = State.Slot;
 
@@ -108,9 +119,10 @@ namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Views.List
         private void BuildSections()
         {
             var headers = new List<ListHeaderVM>();
+            var slot = State.Slot;
 
             if (
-                EditorState.Instance.Slot
+                slot
                 is EquipmentIndex.Weapon0
                     or EquipmentIndex.Weapon1
                     or EquipmentIndex.Weapon2
@@ -120,11 +132,12 @@ namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Views.List
                 // Weapons are grouped by type.
                 var types = new Dictionary<ItemObject.ItemTypeEnum, List<WItem>>();
 
-                foreach (var item in WItem.GetEquipmentsForSlot(EditorState.Instance.Slot))
+                foreach (var item in WItem.GetEquipmentsForSlot(slot))
                 {
                     var type = item.Type;
                     if (!types.ContainsKey(type))
                         types[type] = [];
+
                     types[type].Add(item);
                 }
 
@@ -139,16 +152,17 @@ namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Views.List
                     );
                 }
             }
-            else if (EditorState.Instance.Slot == EquipmentIndex.Horse)
+            else if (slot == EquipmentIndex.Horse)
             {
                 // Horses are grouped by category.
                 var categories = new Dictionary<ItemCategory, List<WItem>>();
 
-                foreach (var item in WItem.GetEquipmentsForSlot(EditorState.Instance.Slot))
+                foreach (var item in WItem.GetEquipmentsForSlot(slot))
                 {
                     var category = item.Category;
                     if (!categories.ContainsKey(category))
                         categories[category] = [];
+
                     categories[category].Add(item);
                 }
 
@@ -168,9 +182,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Views.List
                 // Armor pieces are not grouped.
                 headers.Add(
                     CreateHeader(
-                        EditorState.Instance.Slot.ToString().ToLowerInvariant(),
-                        Format.CamelCaseToTitle(EditorState.Instance.Slot.ToString()),
-                        WItem.GetEquipmentsForSlot(EditorState.Instance.Slot)
+                        slot.ToString().ToLowerInvariant(),
+                        Format.CamelCaseToTitle(slot.ToString()),
+                        WItem.GetEquipmentsForSlot(slot)
                     )
                 );
             }
@@ -190,8 +204,8 @@ namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Views.List
         {
             var header = new EquipmentListHeaderVM(this, headerId, headerText);
 
-            bool isPlayerMode = EditorState.Instance.Mode == EditorMode.Player;
-            bool includeCrafted = EditorState.Instance.ShowCrafted;
+            bool isPlayerMode = State.Mode == EditorMode.Player;
+            bool includeCrafted = State.ShowCrafted;
 
             if (items != null && items.Count > 0)
             {

@@ -1,6 +1,5 @@
 using System;
 using MCM.Abstractions;
-using MCM.Abstractions.Base.Global;
 using Retinues.Utilities;
 
 namespace Retinues.Configuration.Menu

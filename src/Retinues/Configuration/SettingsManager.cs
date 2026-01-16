@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using Retinues.Framework.Runtime;
+using Retinues.GUI.Editor.Events;
 using Retinues.Utilities;
 
 namespace Retinues.Configuration
@@ -95,7 +96,7 @@ namespace Retinues.Configuration
             T disabledOverride = default,
             IOption dependsOn = null,
             object dependsOnValue = null,
-            Editor.Events.UIEvent[] fires = null
+            UIEvent[] fires = null
         )
         {
             Func<string> sectionFunc = null;
@@ -157,7 +158,7 @@ namespace Retinues.Configuration
             Func<T, string> choiceFormatter = null,
             IOption dependsOn = null,
             object dependsOnValue = null,
-            Editor.Events.UIEvent[] fires = null
+            UIEvent[] fires = null
         )
         {
             Func<string> sectionFunc = null;

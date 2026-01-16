@@ -21,6 +21,17 @@ namespace Retinues.GUI.Editor.Events
         internal static EditorState State => EditorState.Instance;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Gating                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// When false, this VM ignores all UIEvent effects
+        /// (no property refresh requests and no handler invocation).
+        /// Override in derived VMs to gate event processing.
+        /// </summary>
+        protected virtual bool EventGate => true;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                    Event registration                  //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
@@ -69,6 +80,11 @@ namespace Retinues.GUI.Editor.Events
         internal virtual void __OnGlobalEvent(EventManager.Context context, UIEvent e)
         {
             if (context == null)
+            {
+                return;
+            }
+
+            if (!EventGate)
             {
                 return;
             }

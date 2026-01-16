@@ -5,6 +5,7 @@ using Retinues.Configuration;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Factions.Wrappers;
 using Retinues.Game.Retinues;
+using Retinues.GUI.Components;
 using Retinues.GUI.Editor.Events;
 using Retinues.GUI.Editor.Shared.Views;
 using Retinues.GUI.Services;
@@ -17,6 +18,33 @@ namespace Retinues.GUI.Editor.Modules.Pages.Character.Views.List
     public sealed class CharacterListVM : BaseListVM
     {
         protected override EditorPage Page => EditorPage.Character;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                   BaseList Overrides                   //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        protected override bool IsTreeSortHeader(string headerId)
+        {
+            return headerId == "elite"
+                || headerId == "regular"
+                || headerId == "mercenaries"
+                || headerId == "bandits";
+        }
+
+        protected override bool IsTreeFilterHeader(string headerId)
+        {
+            return headerId == "elite" || headerId == "regular";
+        }
+
+        protected override Tooltip GetFilterTooltip()
+        {
+            return new(
+                L.S(
+                    "filter_tooltip_description_character",
+                    "Type to filter the list by name, culture or tier."
+                )
+            );
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Lifecycle                       //
@@ -112,11 +140,7 @@ namespace Retinues.GUI.Editor.Modules.Pages.Character.Views.List
                 if (characters == null)
                     return;
 
-                var header = new CharacterListHeaderVM(
-                    this,
-                    headerId,
-                    L.S(headerLocKey, headerFallback)
-                )
+                var header = new ListHeaderVM(this, headerId, L.S(headerLocKey, headerFallback))
                 {
                     // Character headers should always start expanded
                     IsExpanded = true,
@@ -160,7 +184,7 @@ namespace Retinues.GUI.Editor.Modules.Pages.Character.Views.List
                 && Settings.EnableRetinues
             )
             {
-                var header = new CharacterListHeaderVM(
+                var header = new ListHeaderVM(
                     this,
                     "retinues",
                     L.S("list_header_retinues", "Retinues")

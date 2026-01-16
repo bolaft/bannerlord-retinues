@@ -3,8 +3,8 @@ using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Compatibility;
 using Retinues.Domain.Equipments.Models;
 using Retinues.GUI.Components;
-using Retinues.GUI.Editor.Controllers.Equipment;
 using Retinues.GUI.Editor.Events;
+using Retinues.GUI.Editor.Modules.Pages.Equipment.Controllers;
 using Retinues.GUI.Services;
 using TaleWorlds.Library;
 

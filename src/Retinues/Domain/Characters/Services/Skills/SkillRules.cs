@@ -1,7 +1,7 @@
 using System;
+using Retinues.Compatibility;
 using Retinues.Configuration;
 using Retinues.Domain.Characters.Wrappers;
-using Retinues.Modules;
 
 namespace Retinues.Domain.Characters.Services.Skills
 {

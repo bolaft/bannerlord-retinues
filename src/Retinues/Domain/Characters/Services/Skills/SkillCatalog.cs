@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Retinues.Compatibility;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Framework.Runtime;
-using Retinues.Modules;
 using TaleWorlds.Core;
 using TaleWorlds.ObjectSystem;
 

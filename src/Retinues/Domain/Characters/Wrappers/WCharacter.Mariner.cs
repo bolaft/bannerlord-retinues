@@ -1,7 +1,7 @@
 using System;
+using Retinues.Compatibility;
 using Retinues.Framework.Model.Attributes;
 using Retinues.Framework.Runtime;
-using Retinues.Modules;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.CharacterDevelopment;
