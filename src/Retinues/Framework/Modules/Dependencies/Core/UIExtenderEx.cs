@@ -23,6 +23,9 @@ namespace Retinues.Framework.Modules.Dependencies.Core
                 kind: DependencyKind.Required
             ) { }
 
+        /// <summary>
+        /// Initializes UIExtenderEx and registers Retinues UI mixins.
+        /// </summary>
         public override void Initialize()
         {
             if (!IsModuleLoaded)
@@ -53,6 +56,9 @@ namespace Retinues.Framework.Modules.Dependencies.Core
             }
         }
 
+        /// <summary>
+        /// Disables UIExtenderEx.
+        /// </summary>
         public override void Shutdown()
         {
             if (_extender == null)

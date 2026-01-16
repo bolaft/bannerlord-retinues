@@ -7,6 +7,9 @@ namespace Retinues.Utilities
     //                          Cache                         //
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+    /// <summary>
+    /// Interface for cache entries that can be cleared by group.
+    /// </summary>
     internal interface ICacheGroupEntry
     {
         void ClearLocal();
@@ -76,11 +79,14 @@ namespace Retinues.Utilities
             }
         }
 
-        void ICacheGroupEntry.ClearLocal()
-        {
-            ClearLocal();
-        }
+        /// <summary>
+        /// Clear only this cache's local value.
+        /// </summary>
+        void ICacheGroupEntry.ClearLocal() => ClearLocal();
 
+        /// <summary>
+        /// Clear only this cache's local value.
+        /// </summary>
         internal void ClearLocal()
         {
             _hasValue = false;
@@ -89,21 +95,27 @@ namespace Retinues.Utilities
     }
 
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-    //                      CacheRegistry                     //
+    //                     Cache Registry                     //
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
     internal static class CacheRegistry
     {
+        /// <summary>
+        /// Wrapper for weak references to cache entries.
+        /// </summary>
+        /// <param name="entry"></param>
         private sealed class Entry(ICacheGroupEntry entry)
         {
-            public readonly WeakReference<ICacheGroupEntry> Reference =
-                new WeakReference<ICacheGroupEntry>(entry);
+            public readonly WeakReference<ICacheGroupEntry> Reference = new(entry);
         }
 
         private static readonly Dictionary<string, List<Entry>> _groups = [];
 
-        private static readonly object _lock = new object();
+        private static readonly object _lock = new();
 
+        /// <summary>
+        /// Register a cache entry under a group key for coordinated clearing.
+        /// </summary>
         public static void Register(string key, ICacheGroupEntry entry)
         {
             if (string.IsNullOrEmpty(key) || entry == null)
@@ -123,19 +135,18 @@ namespace Retinues.Utilities
             }
         }
 
+        /// <summary>
+        /// Clear all cache entries associated with the given group key.
+        /// </summary>
         public static void ClearGroup(string key)
         {
             if (string.IsNullOrEmpty(key))
-            {
                 return;
-            }
 
             lock (_lock)
             {
                 if (!_groups.TryGetValue(key, out var list))
-                {
                     return;
-                }
 
                 for (int i = list.Count - 1; i >= 0; i--)
                 {
@@ -150,9 +161,7 @@ namespace Retinues.Utilities
                 }
 
                 if (list.Count == 0)
-                {
                     _groups.Remove(key);
-                }
             }
         }
     }

@@ -28,84 +28,6 @@ namespace Retinues.GUI.Services
         public static void ClearPending() => Pending.Clear();
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                   Delayed Popup Core                   //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        private static void EnsureHooked()
-        {
-            if (_hooked)
-                return;
-
-            try
-            {
-                // Safe to call multiple times; we guard with _hooked.
-                CampaignEvents.TickEvent.AddNonSerializedListener(Owner, OnTick);
-                _hooked = true;
-            }
-            catch (Exception e)
-            {
-                Log.Exception(e, "Inquiries.EnsureHooked failed.");
-            }
-        }
-
-        private static void OnTick(float dt)
-        {
-            if (Pending.Count == 0)
-                return;
-
-            if (!IsOnWorldMap())
-                return;
-
-            // Flush one at a time to avoid inquiry stacking spam.
-            var action = Pending[0];
-            Pending.RemoveAt(0);
-
-            try
-            {
-                action?.Invoke();
-            }
-            catch (Exception e)
-            {
-                Log.Exception(e, "Inquiries delayed action failed.");
-            }
-        }
-
-        private static bool IsOnWorldMap()
-        {
-            var game = TaleWorlds.Core.Game.Current;
-            var gsm = game?.GameStateManager;
-            if (gsm == null)
-                return false;
-
-            return gsm.ActiveState is MapState;
-        }
-
-        private static void ShowOrDelay(bool delayUntilOnWorldMap, Action show)
-        {
-            if (show == null)
-                return;
-
-            if (!delayUntilOnWorldMap)
-            {
-                show();
-                return;
-            }
-
-            EnsureHooked();
-
-            if (IsOnWorldMap())
-            {
-                show();
-                return;
-            }
-
-            Pending.Add(show);
-
-            if (Pending.Count > 64)
-                Pending.RemoveAt(0);
-        }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Popup                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
@@ -276,6 +198,9 @@ namespace Retinues.GUI.Services
         //                   Single-Select Popup                  //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Shows a single-select popup and invokes the selection callback.
+        /// </summary>
         public static void SelectPopup(
             TextObject title,
             List<InquiryElement> elements,
@@ -343,6 +268,9 @@ namespace Retinues.GUI.Services
         //                   Multi-Select Popup                   //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Shows a multi-select popup and invokes the selection callback.
+        /// </summary>
         public static void MultiSelectPopup(
             TextObject title,
             List<InquiryElement> elements,
@@ -418,6 +346,9 @@ namespace Retinues.GUI.Services
         //                    Text Input Popup                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Shows a text input popup and invokes the confirm callback with input.
+        /// </summary>
         public static void TextInputPopup(
             TextObject title,
             string defaultInput,
@@ -471,6 +402,96 @@ namespace Retinues.GUI.Services
                     }
                 }
             );
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Delaying                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Ensure the tick listener is hooked to flush pending actions.
+        /// </summary>
+        private static void EnsureHooked()
+        {
+            if (_hooked)
+                return;
+
+            try
+            {
+                // Safe to call multiple times; we guard with _hooked.
+                CampaignEvents.TickEvent.AddNonSerializedListener(Owner, OnTick);
+                _hooked = true;
+            }
+            catch (Exception e)
+            {
+                Log.Exception(e, "Inquiries.EnsureHooked failed.");
+            }
+        }
+
+        /// <summary>
+        /// Tick handler that processes one pending action when appropriate.
+        /// </summary>
+        private static void OnTick(float dt)
+        {
+            if (Pending.Count == 0)
+                return;
+
+            if (!IsOnWorldMap())
+                return;
+
+            // Flush one at a time to avoid inquiry stacking spam.
+            var action = Pending[0];
+            Pending.RemoveAt(0);
+
+            try
+            {
+                action?.Invoke();
+            }
+            catch (Exception e)
+            {
+                Log.Exception(e, "Inquiries delayed action failed.");
+            }
+        }
+
+        /// <summary>
+        /// Returns whether the current active game state is the world map.
+        /// </summary>
+        private static bool IsOnWorldMap()
+        {
+            var game = TaleWorlds.Core.Game.Current;
+            var gsm = game?.GameStateManager;
+            if (gsm == null)
+                return false;
+
+            return gsm.ActiveState is MapState;
+        }
+
+        /// <summary>
+        /// Shows the given action immediately or queues it for the world map.
+        /// </summary>
+        private static void ShowOrDelay(bool delayUntilOnWorldMap, Action show)
+        {
+            if (show == null)
+                return;
+
+            if (!delayUntilOnWorldMap)
+            {
+                show();
+                return;
+            }
+
+            EnsureHooked();
+
+            if (IsOnWorldMap())
+            {
+                show();
+                return;
+            }
+
+            Pending.Add(show);
+
+            if (Pending.Count > 64)
+                Pending.RemoveAt(0);
         }
     }
 }

@@ -5,7 +5,7 @@ namespace Retinues.Utilities
     public static class Colors
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Constants                       //
+        //                        Constants                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         // A warm neutral (slightly yellow) blends better with Bannerlord UI.
@@ -19,37 +19,39 @@ namespace Retinues.Utilities
         public static readonly Color MutedRed = new(0.86f, 0.36f, 0.22f);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Basic Math                       //
+        //                   Proximity Gradients                  //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public static float Clamp01(float v)
+        /// <summary>
+        /// Returns a color based on ratio proximity to a limit.
+        /// - ratio: 0 far from limit, 1 at limit, >1 over limit.
+        /// - start: where the color shift begins (default 0.70).
+        /// - end: where the shift reaches the "near/at" color (default 1.00).
+        /// </summary>
+        public static Color ProximityLimitColor(
+            float ratio,
+            float start = 0.70f,
+            float end = 1.00f,
+            Color? far = null,
+            Color? near = null,
+            float saturation = 0.72f,
+            float tintStrength = 0.90f
+        )
         {
-            if (v < 0f)
-                return 0f;
-            if (v > 1f)
-                return 1f;
-            return v;
-        }
+            if (end <= start)
+                end = start + 0.0001f;
 
-        public static float Lerp(float a, float b, float t)
-        {
-            t = Clamp01(t);
-            return a + (b - a) * t;
-        }
+            float t = Clamp01((ratio - start) / (end - start));
 
-        public static Color Lerp(Color a, Color b, float t)
-        {
-            t = Clamp01(t);
-            return new Color(
-                Lerp(a.Red, b.Red, t),
-                Lerp(a.Green, b.Green, t),
-                Lerp(a.Blue, b.Blue, t),
-                Lerp(a.Alpha, b.Alpha, t)
-            );
+            var c0 = far ?? MutedGreen;
+            var c1 = near ?? MutedRed;
+
+            var baseColor = Lerp(c0, c1, t);
+            return UiMute(baseColor, saturation, tintStrength);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                     Color Utilities                     //
+        //                     Color Utilities                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public static float Luma(Color c)
@@ -92,45 +94,42 @@ namespace Retinues.Utilities
             return TintFrom(UiNeutral, desat, tintStrength);
         }
 
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                    Proximity Gradients                  //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
         /// <summary>
-        /// Returns a color based on ratio proximity to a limit.
-        /// - ratio: 0 far from limit, 1 at limit, >1 over limit.
-        /// - start: where the color shift begins (default 0.70).
-        /// - end: where the shift reaches the "near/at" color (default 1.00).
+        /// Returns a copy of the color with the given alpha.
         /// </summary>
-        public static Color ProximityLimitColor(
-            float ratio,
-            float start = 0.70f,
-            float end = 1.00f,
-            Color? far = null,
-            Color? near = null,
-            float saturation = 0.72f,
-            float tintStrength = 0.90f
-        )
-        {
-            if (end <= start)
-                end = start + 0.0001f;
-
-            float t = Clamp01((ratio - start) / (end - start));
-
-            var c0 = far ?? MutedGreen;
-            var c1 = near ?? MutedRed;
-
-            var baseColor = Lerp(c0, c1, t);
-            return UiMute(baseColor, saturation, tintStrength);
-        }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                       Small Helpers                     //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
         public static Color WithAlpha(this Color c, float alpha)
         {
             return new Color(c.Red, c.Green, c.Blue, alpha);
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Math Helpers                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public static float Clamp01(float v)
+        {
+            if (v < 0f)
+                return 0f;
+            if (v > 1f)
+                return 1f;
+            return v;
+        }
+
+        public static float Lerp(float a, float b, float t)
+        {
+            t = Clamp01(t);
+            return a + (b - a) * t;
+        }
+
+        public static Color Lerp(Color a, Color b, float t)
+        {
+            t = Clamp01(t);
+            return new Color(
+                Lerp(a.Red, b.Red, t),
+                Lerp(a.Green, b.Green, t),
+                Lerp(a.Blue, b.Blue, t),
+                Lerp(a.Alpha, b.Alpha, t)
+            );
         }
     }
 }

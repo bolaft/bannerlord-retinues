@@ -61,6 +61,9 @@ namespace Retinues.Utilities
         //                        Resolvers                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Resolves the directory containing the executing assembly.
+        /// </summary>
         private static string ResolveAssemblyDirectory()
         {
             try
@@ -81,6 +84,9 @@ namespace Retinues.Utilities
             return AppDomain.CurrentDomain.BaseDirectory;
         }
 
+        /// <summary>
+        /// Resolves the root directory of the module.
+        /// </summary>
         public static string ResolveModuleRoot()
         {
             try
@@ -109,6 +115,9 @@ namespace Retinues.Utilities
             }
         }
 
+        /// <summary>
+        /// Resolves the module name from the module root directory.
+        /// </summary>
         private static string ResolveModuleName()
         {
             try

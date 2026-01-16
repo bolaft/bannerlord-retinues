@@ -17,7 +17,7 @@ namespace Retinues.Utilities
         );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Public                          //
+        //                         Public                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
@@ -59,40 +59,13 @@ namespace Retinues.Utilities
             return path;
         }
 
-        public static bool TryGetBannerlordModulesDirectory(out string modulesDir)
-        {
-            modulesDir = null;
-
-            try
-            {
-                var d = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
-
-                // Walk upward and look for ".../Modules" or a parent that contains "Modules".
-                for (int i = 0; i < 12 && d != null; i++, d = d.Parent)
-                {
-                    if (string.Equals(d.Name, "Modules", StringComparison.OrdinalIgnoreCase))
-                    {
-                        modulesDir = d.FullName;
-                        return Directory.Exists(modulesDir);
-                    }
-
-                    var candidate = Path.Combine(d.FullName, "Modules");
-                    if (Directory.Exists(candidate))
-                    {
-                        modulesDir = candidate;
-                        return true;
-                    }
-                }
-            }
-            catch { }
-
-            return false;
-        }
-
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Resolvers                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Resolves the OS-appropriate "My Documents" directory (best-effort).
+        /// </summary>
         private static string ResolveDocumentsDirectory()
         {
             try
@@ -133,6 +106,9 @@ namespace Retinues.Utilities
             return AppDomain.CurrentDomain.BaseDirectory;
         }
 
+        /// <summary>
+        /// Resolves the Retinues documents directory and ensures it exists.
+        /// </summary>
         private static string ResolveRetinuesDocumentsDirectory()
         {
             var dir = Path.Combine(DocumentsDirectory, RetinuesFolderName);
@@ -140,6 +116,9 @@ namespace Retinues.Utilities
             return dir;
         }
 
+        /// <summary>
+        /// Ensures the given directory path exists.
+        /// </summary>
         private static void EnsureDirectoryExists(string path)
         {
             if (string.IsNullOrEmpty(path))

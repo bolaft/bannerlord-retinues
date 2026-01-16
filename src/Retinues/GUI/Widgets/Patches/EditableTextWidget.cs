@@ -8,7 +8,9 @@ namespace Retinues.GUI.Widgets.Patches
     [HarmonyPatch(typeof(EditableTextWidget))]
     static class EditableTextWidget_HotkeyBlocker
     {
-        // Called when any EditableTextWidget gains focus (user clicks into a text box).
+        /// <summary>
+        /// Called when any EditableTextWidget gains focus (user clicks into a text box).
+        /// </summary>
         [HarmonyPostfix]
         [HarmonyPatch("OnGainFocus")]
         static void OnGainFocus_Postfix()
@@ -16,7 +18,9 @@ namespace Retinues.GUI.Widgets.Patches
             HotkeyBlocker.SetBlocked(true);
         }
 
-        // Called when it loses focus (user clicks away / focus moves somewhere else).
+        /// <summary>
+        /// Called when it loses focus (user clicks away / focus moves somewhere else).
+        /// </summary>
         [HarmonyPostfix]
         [HarmonyPatch("OnLoseFocus")]
         static void OnLoseFocus_Postfix()

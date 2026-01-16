@@ -40,10 +40,6 @@ namespace Retinues.GUI.Services
         public static SoundHandle Education { get; } =
             new SoundHandle("event:/ui/notification/education");
 
-        // Add more as needed:
-        // public static SoundHandle SomeOtherEvent { get; } =
-        //     new SoundHandle("event:/ui/...");
-
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Utilities                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

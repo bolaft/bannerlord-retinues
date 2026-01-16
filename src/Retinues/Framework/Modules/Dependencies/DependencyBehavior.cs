@@ -15,6 +15,9 @@ namespace Retinues.Framework.Modules.Dependencies
     /// </summary>
     public class DependencyBehavior : BaseCampaignBehavior
     {
+        /// <summary>
+        /// Called when a game load is finished.
+        /// </summary>
         protected override void OnGameLoadFinished()
         {
             Log.Debug("[Deps] OnGameLoadFinished() -> CheckDependencies(showPopup=true)");
@@ -97,6 +100,9 @@ namespace Retinues.Framework.Modules.Dependencies
             ShowWarningPopup(summary);
         }
 
+        /// <summary>
+        /// Builds a summary of dependency issues.
+        /// </summary>
         private static TextObject BuildStatusSummary(
             List<BaseDependency> missing,
             List<BaseDependency> versionMismatch,
@@ -146,6 +152,9 @@ namespace Retinues.Framework.Modules.Dependencies
             return new TextObject(summary);
         }
 
+        /// <summary>
+        /// Shows a warning popup with the given summary.
+        /// </summary>
         private static void ShowWarningPopup(TextObject summary)
         {
             try

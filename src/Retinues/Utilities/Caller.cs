@@ -38,17 +38,12 @@ namespace Retinues.Utilities
             "TaleWorlds.Library",
             "TaleWorlds.DotNet",
             "Retinues.Utilities",
-            "Retinues.Utils", // legacy
         };
 
-        private static readonly HashSet<string> _skipTypes = new HashSet<string>(
-            StringComparer.Ordinal
-        )
+        private static readonly HashSet<string> _skipTypes = new(StringComparer.Ordinal)
         {
             "Retinues.Utilities.Log",
             "Retinues.Utilities.Caller",
-            "Retinues.Utils.Log", // legacy
-            "Retinues.Utils.Caller", // legacy
         };
 
         /// <summary>
@@ -250,6 +245,9 @@ namespace Retinues.Utilities
                 )?.Label ?? "<unknown>";
         }
 
+        /// <summary>
+        /// Checks if the given string starts with any of the provided prefixes.
+        /// </summary>
         private static bool StartsWithAny(string s, string[] prefixes)
         {
             if (string.IsNullOrEmpty(s))
@@ -264,6 +262,9 @@ namespace Retinues.Utilities
             return false;
         }
 
+        /// <summary>
+        /// Normalizes method names, converting constructors to type names.
+        /// </summary>
         private static string NormalizeMethodName(MethodBase m)
         {
             var n = m.Name;
@@ -303,6 +304,9 @@ namespace Retinues.Utilities
         //                         Helpers                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Determines if the given type is compiler-generated.
+        /// </summary>
         private static bool IsCompilerGeneratedType(Type t)
         {
             if (t == null)
@@ -321,6 +325,9 @@ namespace Retinues.Utilities
                 || n.Contains("AnonStorey");
         }
 
+        /// <summary>
+        /// Determines if the given method is compiler-generated.
+        /// </summary>
         private static bool IsCompilerGeneratedMethod(MethodBase m)
         {
             if (m == null)
@@ -338,6 +345,9 @@ namespace Retinues.Utilities
                 || n == "MoveNext";
         }
 
+        /// <summary>
+        /// Extracts the substring between angle brackets in a string.
+        /// </summary>
         private static string ExtractBetweenAngles(string s)
         {
             if (string.IsNullOrEmpty(s))

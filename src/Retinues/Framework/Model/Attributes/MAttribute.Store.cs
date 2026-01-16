@@ -16,6 +16,9 @@ namespace Retinues.Framework.Model.Attributes
         // One clearer per closed T.
         private static readonly Dictionary<Type, Action> Clearers = [];
 
+        /// <summary>
+        /// Registers a clear action for a specific MAttribute<T>.Store.
+        /// </summary>
         public static void Register(Type t, Action clear)
         {
             if (t == null || clear == null)
@@ -56,9 +59,16 @@ namespace Retinues.Framework.Model.Attributes
 
     public partial class MAttribute<T>
     {
+        /// <summary>
+        /// Type-safe storage for attribute values by string key.
+        /// </summary>
         internal static class Store
         {
+            // Sync root for this closed store.
             private static readonly object Sync = new();
+
+            // Keyed by attribute name.
+            private static readonly Dictionary<string, Entry> Values = new(StringComparer.Ordinal);
 
             // Register this closed store exactly once.
             static Store()
@@ -74,8 +84,9 @@ namespace Retinues.Framework.Model.Attributes
                 public object Value = value;
             }
 
-            private static readonly Dictionary<string, Entry> Values = new(StringComparer.Ordinal);
-
+            /// <summary>
+            /// Gets or initializes a stored attribute value.
+            /// </summary>
             public static TValue GetOrInit<TValue>(string key, TValue initialValue)
             {
                 lock (Sync)
@@ -117,6 +128,9 @@ namespace Retinues.Framework.Model.Attributes
                 }
             }
 
+            /// <summary>
+            /// Sets a stored attribute value.
+            /// </summary>
             public static void Set<TValue>(string key, TValue value)
             {
                 lock (Sync)
@@ -150,13 +164,9 @@ namespace Retinues.Framework.Model.Attributes
                 }
             }
 
-            // Keep this method for any internal call sites, but it is not a StaticClearAction anymore
-            // (it lives on an open generic type when reflected as MAttribute`1+Store).
-            public static void ClearAll()
-            {
-                ClearAllInternal();
-            }
-
+            /// <summary>
+            /// Clears all stored attribute values.
+            /// </summary>
             private static void ClearAllInternal()
             {
                 lock (Sync)

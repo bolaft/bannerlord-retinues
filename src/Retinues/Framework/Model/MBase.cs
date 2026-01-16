@@ -31,8 +31,14 @@ namespace Retinues.Framework.Model
         //                        Equality                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Equality based on the underlying base instance.
+        /// </summary>
         public override bool Equals(object obj) => Equals(obj as MBase<TBase>);
 
+        /// <summary>
+        /// Equality based on the underlying base instance.
+        /// </summary>
         public bool Equals(MBase<TBase> other)
         {
             if (ReferenceEquals(this, other))
@@ -58,6 +64,9 @@ namespace Retinues.Framework.Model
             return ReferenceEquals(Base, other.Base);
         }
 
+        /// <summary>
+        /// Hash code based on the underlying base instance.
+        /// </summary>
         public override int GetHashCode()
         {
             if (Base is MBObjectBase mbo)
@@ -69,6 +78,9 @@ namespace Retinues.Framework.Model
             return Base != null ? Base.GetHashCode() : 0;
         }
 
+        /// <summary>
+        /// Equality operator.
+        /// </summary>
         public static bool operator ==(MBase<TBase> left, MBase<TBase> right)
         {
             if (ReferenceEquals(left, right))
@@ -78,6 +90,9 @@ namespace Retinues.Framework.Model
             return left.Equals(right);
         }
 
+        /// <summary>
+        /// Inequality operator.
+        /// </summary>
         public static bool operator !=(MBase<TBase> left, MBase<TBase> right) => !(left == right);
     }
 }

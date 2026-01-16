@@ -134,27 +134,11 @@ namespace Retinues.Utilities
         }
 
         /// <summary>
-        /// Round a float to an integer and format with Signed().
-        /// </summary>
-        public static string SignedRounded(float value)
-        {
-            return Signed((int)Math.Round(value));
-        }
-
-        /// <summary>
         /// Format "+X label" (e.g. "+10 386 gold").
         /// </summary>
         public static string PlusLabel(int value, string label)
         {
             return $"{Signed(value)} {label}";
-        }
-
-        /// <summary>
-        /// Format "+X label" from a float rounded to int.
-        /// </summary>
-        public static string PlusLabelRounded(float value, string label)
-        {
-            return $"{SignedRounded(value)} {label}";
         }
     }
 }

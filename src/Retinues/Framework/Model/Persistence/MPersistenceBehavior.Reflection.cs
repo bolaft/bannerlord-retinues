@@ -139,7 +139,7 @@ namespace Retinues.Framework.Model.Persistence
             if (wrapper == null)
                 return;
 
-            using var scope = PersistenceLoadLog.Begin(uid);
+            using var scope = LoadingLogger.Begin(uid);
 
             try
             {

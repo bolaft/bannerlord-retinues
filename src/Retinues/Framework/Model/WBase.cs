@@ -57,14 +57,23 @@ namespace Retinues.Framework.Model
 
         static readonly Dictionary<Type, Func<string, MBObjectBase>> Resolvers = [];
 
+        /// <summary>
+        /// Registers a custom resolver for the underlying MBObjectBase type.
+        /// </summary>
         public static void RegisterResolver<T>(Func<string, T> resolver)
             where T : MBObjectBase
         {
             Resolvers[typeof(T)] = id => resolver(id);
         }
 
+        /// <summary>
+        /// Returns the wrapped object from MBObjectManager by StringId.
+        /// </summary>
         public static TWrapper Get(string stringId) => Wrap(GetBase(stringId));
 
+        /// <summary>
+        /// Returns the wrapped object from the given MBObjectBase instance.
+        /// </summary>
         public static TWrapper Get(TBase mbObject) => Wrap(mbObject);
 
         /// <summary>

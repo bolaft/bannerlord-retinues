@@ -4,6 +4,9 @@ using Retinues.GUI.Services;
 
 namespace Retinues.Framework.Modules.Dependencies
 {
+    /// <summary>
+    /// Kind of dependency.
+    /// </summary>
     public enum DependencyKind
     {
         Required,
@@ -11,6 +14,9 @@ namespace Retinues.Framework.Modules.Dependencies
         Optional,
     }
 
+    /// <summary>
+    /// State of the dependency.
+    /// </summary>
     public enum DependencyState
     {
         MissingModule,
@@ -39,15 +45,10 @@ namespace Retinues.Framework.Modules.Dependencies
 
         public bool IsInitialized { get; protected set; }
 
-        /// <summary>
-        /// Expected version read from this mod's SubModule.xml (DependedModules/DependedModule).
-        /// Treated as a minimum required version when comparing.
-        /// </summary>
+        // Expected minimum version read from this mod's SubModule.xml (DependedModules/DependedModule).
         public string ExpectedVersion => ModuleManager.GetExpectedDependencyVersion(ModuleId);
 
-        /// <summary>
-        /// Actual loaded module version as reported by TaleWorlds.ModuleManager (via ModuleHelper).
-        /// </summary>
+        // Actual loaded module version as reported by TaleWorlds.ModuleManager (via ModuleHelper).
         public string ActualVersion => ModuleManager.GetModule(ModuleId).Version;
 
         public bool HasExpectedVersion =>
@@ -118,6 +119,9 @@ namespace Retinues.Framework.Modules.Dependencies
         /// </summary>
         public abstract void Shutdown();
 
+        /// <summary>
+        /// Gets a diagnostic string representing the version status of the dependency.
+        /// </summary>
         public string GetVersionDiagnostic()
         {
             if (!HasExpectedVersion)
@@ -127,19 +131,6 @@ namespace Retinues.Framework.Modules.Dependencies
                 .SetTextVariable("CURRENT", ActualVersion)
                 .SetTextVariable("EXPECTED", ExpectedVersion)
                 .ToString();
-        }
-
-        public override string ToString()
-        {
-            return string.Format(
-                "{0} ({1}) - {2}, loaded={3}, initialized={4}, version={5}",
-                DisplayName,
-                ModuleId,
-                Kind,
-                IsModuleLoaded,
-                IsInitialized,
-                GetVersionDiagnostic()
-            );
         }
     }
 }

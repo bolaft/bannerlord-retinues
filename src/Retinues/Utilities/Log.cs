@@ -264,6 +264,9 @@ namespace Retinues.Utilities
         //                       Stack Trace                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Appends a detailed stack trace of the given exception to the StringBuilder.
+        /// </summary>
         private static void AppendStackTrace(StringBuilder sb, Exception ex)
         {
             sb.AppendLine("Exception stack:");
@@ -323,6 +326,9 @@ namespace Retinues.Utilities
             }
         }
 
+        /// <summary>
+        /// Prunes non-informative frames from a managed stack trace string.
+        /// </summary>
         private static string PruneManagedStack(string envStack, int maxLines = 100)
         {
             if (string.IsNullOrEmpty(envStack))
@@ -388,6 +394,9 @@ namespace Retinues.Utilities
         //                         Writers                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Core writer method that handles log level filtering and output destinations.
+        /// </summary>
         private static void Write(LogLevel level, string message, string caller = null)
         {
             caller ??= Caller.GetLabel();
@@ -402,6 +411,9 @@ namespace Retinues.Utilities
                 WriteInGame(message, level);
         }
 
+        /// <summary>
+        /// Writes a message to the in-game InformationManager with appropriate coloring.
+        /// </summary>
         private static void WriteInGame(string message, LogLevel level)
         {
             var color = LevelColor(level);
@@ -409,6 +421,9 @@ namespace Retinues.Utilities
             InformationManager.DisplayMessage(new InformationMessage(text, color));
         }
 
+        /// <summary>
+        /// Appends a line to the log file in a thread-safe manner.
+        /// </summary>
         private static void WriteToFile(string line)
         {
             try
@@ -428,6 +443,9 @@ namespace Retinues.Utilities
         //                         Colors                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Gets the color associated with a log level.
+        /// </summary>
         private static Color LevelColor(LogLevel level)
         {
             var colorString = level switch

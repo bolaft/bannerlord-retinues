@@ -51,10 +51,13 @@ namespace Retinues.Framework.Model.Attributes
         /// </summary>
         public void Set(T value) => SetValue(value, markDirty: true);
 
+        /// <summary>
+        /// Sets the value of the attribute, optionally marking it dirty.
+        /// </summary>
         void SetValue(T value, bool markDirty)
         {
             if (markDirty)
-                MarkDirtyCore();
+                Touch();
 
             _setter(value);
         }
@@ -64,21 +67,10 @@ namespace Retinues.Framework.Model.Attributes
         /// </summary>
         public bool IsDirty => _dirty;
 
-        public void Touch()
-        {
-            MarkDirtyCore();
-        }
-
         /// <summary>
-        /// Marks this attribute as not dirty.
-        /// Does not change the underlying value.
+        /// Marks this attribute and its dependents as dirty.
         /// </summary>
-        public void MarkClean()
-        {
-            _dirty = false;
-        }
-
-        void MarkDirtyCore()
+        public void Touch()
         {
             if (!_persistent)
                 return;

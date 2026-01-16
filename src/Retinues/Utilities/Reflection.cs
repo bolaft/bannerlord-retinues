@@ -22,6 +22,9 @@ namespace Retinues.Utilities
         //                     Core Resolvers                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Resolves a property by name, searching base types as needed.
+        /// </summary>
         private static PropertyInfo ResolveProperty(Type type, string name)
         {
             for (var t = type; t != null; t = t.BaseType)
@@ -33,6 +36,9 @@ namespace Retinues.Utilities
             return null;
         }
 
+        /// <summary>
+        /// Resolves a field by name, searching base types as needed.
+        /// </summary>
         private static FieldInfo ResolveField(Type type, string name)
         {
             for (var t = type; t != null; t = t.BaseType)
@@ -44,6 +50,9 @@ namespace Retinues.Utilities
             return null;
         }
 
+        /// <summary>
+        /// Resolves a method by name and parameter types, searching base types as needed.
+        /// </summary>
         private static MethodInfo ResolveMethod(Type type, string name, Type[] parameterTypes)
         {
             for (var t = type; t != null; t = t.BaseType)
@@ -256,6 +265,9 @@ namespace Retinues.Utilities
         //                         Helpers                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Converts a value to the target type if needed, handling nullables and enums.
+        /// </summary>
         private static object ConvertIfNeeded(object value, Type targetType)
         {
             if (targetType == typeof(void))

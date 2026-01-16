@@ -11,6 +11,7 @@ namespace Retinues.Framework.Model
     {
         const string ModelXmlVersion = "1.0";
 
+        public static bool IsRestoringFromPersistence;
         static readonly object CacheLock = new();
         static readonly Dictionary<Type, PropertyInfo[]> AttributePropertyCache = [];
 
@@ -26,6 +27,9 @@ namespace Retinues.Framework.Model
         /// </summary>
         public string SerializeAll() => SerializeCore(includeClean: true, persistentOnly: true);
 
+        /// <summary>
+        /// Core serialization method.
+        /// </summary>
         string SerializeCore(bool includeClean, bool persistentOnly)
         {
             try
@@ -68,8 +72,9 @@ namespace Retinues.Framework.Model
             }
         }
 
-        public static bool IsRestoringFromPersistence;
-
+        /// <summary>
+        /// Deserialize from XML string.
+        /// </summary>
         public string Deserialize(string data)
         {
             try
@@ -108,6 +113,9 @@ namespace Retinues.Framework.Model
             }
         }
 
+        /// <summary>
+        /// Checks whether the given attribute object is dirty.
+        /// </summary>
         static bool IsAttributeDirty(object attrObj)
         {
             var dirtyProp = attrObj
@@ -128,6 +136,9 @@ namespace Retinues.Framework.Model
             }
         }
 
+        /// <summary>
+        /// Checks whether the given attribute object is persistent.
+        /// </summary>
         static bool IsAttributePersistent(object attrObj)
         {
             // Prefer a public IsPersistent if it exists (future-proof).
@@ -166,6 +177,9 @@ namespace Retinues.Framework.Model
             return true;
         }
 
+        /// <summary>
+        /// Invokes the SerializeXml method on the attribute object.
+        /// </summary>
         static XElement InvokeSerializeXml(object attrObj)
         {
             var mi = attrObj
@@ -185,6 +199,9 @@ namespace Retinues.Framework.Model
             }
         }
 
+        /// <summary>
+        /// Applies XML deserialization to this model.
+        /// </summary>
         void ApplyXml(XElement root)
         {
             var entries =
@@ -224,6 +241,10 @@ namespace Retinues.Framework.Model
             }
         }
 
+        /// <summary>
+        /// Gets the priority of the given attribute object.
+        /// Higher priority attributes are deserialized first.
+        /// </summary>
         static int GetPriority(object attrObj)
         {
             var prProp = attrObj
@@ -251,6 +272,9 @@ namespace Retinues.Framework.Model
             }
         }
 
+        /// <summary>
+        /// Ensures that all MAttribute properties on this model are created.
+        /// </summary>
         protected void EnsureAttributesCreated()
         {
             var t = GetType();

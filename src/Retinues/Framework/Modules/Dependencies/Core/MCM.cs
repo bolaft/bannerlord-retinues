@@ -25,6 +25,9 @@ namespace Retinues.Framework.Modules.Dependencies.Core
                 kind: DependencyKind.Recommended
             ) { }
 
+        /// <summary>
+        /// Initializes the MCM dependency, waiting for UI readiness.
+        /// </summary>
         public override void Initialize()
         {
             if (!IsModuleLoaded)
@@ -39,6 +42,9 @@ namespace Retinues.Framework.Modules.Dependencies.Core
             );
         }
 
+        /// <summary>
+        /// Shutdown the dependency.
+        /// </summary>
         public override void Shutdown()
         {
             _registrationSucceeded = false;
@@ -46,6 +52,9 @@ namespace Retinues.Framework.Modules.Dependencies.Core
             IsInitialized = false;
         }
 
+        /// <summary>
+        /// Attempts to register with MCM if not already done.
+        /// </summary>
         public void TryRegister()
         {
             if (_registrationSucceeded)

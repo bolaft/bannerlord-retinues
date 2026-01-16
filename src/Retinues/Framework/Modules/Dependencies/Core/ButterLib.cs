@@ -18,6 +18,9 @@ namespace Retinues.Framework.Modules.Dependencies.Core
                 kind: DependencyKind.Recommended
             ) { }
 
+        /// <summary>
+        /// Checks for ButterLib presence.
+        /// </summary>
         public override void Initialize()
         {
             if (!IsModuleLoaded)
@@ -31,6 +34,9 @@ namespace Retinues.Framework.Modules.Dependencies.Core
             Log.Debug("[ButterLib] ButterLib present.");
         }
 
+        /// <summary>
+        /// Shutdown the dependency.
+        /// </summary>
         public override void Shutdown()
         {
             IsInitialized = false;

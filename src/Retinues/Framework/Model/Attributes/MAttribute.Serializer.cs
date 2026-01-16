@@ -9,6 +9,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Xml;
 using System.Xml.Linq;
+using Retinues.Framework.Model.Persistence;
 using Retinues.Utilities;
 using TaleWorlds.Localization;
 using TaleWorlds.ObjectSystem;
@@ -19,13 +20,8 @@ namespace Retinues.Framework.Model.Attributes
     /// File-local XML serialization helpers used by MAttribute only.
     /// This intentionally replaces the old Retinues.Utilities.Serialization.cs so the attribute system
     /// does not depend on a separate utility file.
-    ///
-    /// Behavior is intentionally identical to the previous implementation:
-    /// - Serialize returns an XmlBlob, and failures return empty xml.
-    /// - Deserialize returns default(T) on empty input or failure.
-    /// - Pretty vs compact forms are preserved (Compact is used for persistence).
     /// </summary>
-    internal static class Serialization
+    internal static class AttributeSerializer
     {
         /* ━━━━━━━ Public API ━━━━━━ */
 
@@ -121,12 +117,8 @@ namespace Retinues.Framework.Model.Attributes
     internal sealed class XmlBlob(string xml)
     {
         readonly string _xml = xml ?? "";
-        XDocument _doc;
 
-        /// <summary>
-        /// The raw XML string as produced by the serializer (usually indented).
-        /// </summary>
-        public string Xml => _xml;
+        XDocument _doc;
 
         /// <summary>
         /// Parsed XDocument (lazy). Useful if you want to inspect or edit the XML.
@@ -169,22 +161,6 @@ namespace Retinues.Framework.Model.Attributes
                 {
                     return "";
                 }
-            }
-        }
-
-        /// <summary>
-        /// Pretty printed XML string.
-        /// </summary>
-        public override string ToString()
-        {
-            try
-            {
-                var doc = Document;
-                return doc == null ? "" : doc.ToString();
-            }
-            catch
-            {
-                return "";
             }
         }
     }
@@ -334,7 +310,7 @@ namespace Retinues.Framework.Model.Attributes
                     return SerializeEnumerable(enumerable);
 
                 // Plain CLR type
-                return Serialization.Serialize(value).Compact;
+                return AttributeSerializer.Serialize(value).Compact;
             }
             catch (Exception e)
             {
@@ -383,7 +359,7 @@ namespace Retinues.Framework.Model.Attributes
             }
 
             // Fallback: generic XML serialization
-            return Serialization.Serialize(model).Compact;
+            return AttributeSerializer.Serialize(model).Compact;
         }
 
         static string SerializeEnumerable(IEnumerable enumerable)
@@ -443,10 +419,10 @@ namespace Retinues.Framework.Model.Attributes
                 }
 
                 // Fallback: generic XML for arbitrary CLR item
-                items.Add(Serialization.Serialize(item).Compact ?? string.Empty);
+                items.Add(AttributeSerializer.Serialize(item).Compact ?? string.Empty);
             }
 
-            return Serialization.Serialize(items).Compact;
+            return AttributeSerializer.Serialize(items).Compact;
         }
 
         public string Deserialize(string data)
@@ -513,7 +489,7 @@ namespace Retinues.Framework.Model.Attributes
                 }
 
                 // Fallback: generic deserialization
-                var deserialized = Serialization.Deserialize<T>(data);
+                var deserialized = AttributeSerializer.Deserialize<T>(data);
                 SetValue(deserialized, markDirty: true);
                 return data;
             }
@@ -558,7 +534,7 @@ namespace Retinues.Framework.Model.Attributes
 
         void DeserializeMbObjectList(Type elemType, string data)
         {
-            var ids = Serialization.Deserialize<List<string>>(data) ?? [];
+            var ids = AttributeSerializer.Deserialize<List<string>>(data) ?? [];
             var listType = typeof(List<>).MakeGenericType(elemType);
             var list = (IList)Activator.CreateInstance(listType);
 
@@ -575,7 +551,7 @@ namespace Retinues.Framework.Model.Attributes
         {
             try
             {
-                var ids = Serialization.Deserialize<List<string>>(data) ?? [];
+                var ids = AttributeSerializer.Deserialize<List<string>>(data) ?? [];
 
                 var listType = typeof(List<>).MakeGenericType(elemType);
                 var resultList = (IList)Activator.CreateInstance(listType);
@@ -937,7 +913,7 @@ namespace Retinues.Framework.Model.Attributes
                     else
                         formatted = CleanForLoadLog(value == null ? "" : value.ToString());
 
-                    PersistenceLoadLog.Add(Name, formatted);
+                    LoadingLogger.Add(Name, formatted);
                 }
                 catch
                 {

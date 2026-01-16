@@ -27,6 +27,9 @@ namespace Retinues.Framework.Modules.Dependencies.Core
                 kind: DependencyKind.Required
             ) { }
 
+        /// <summary>
+        /// Initializes Harmony and applies patches.
+        /// </summary>
         public override void Initialize()
         {
             if (!IsModuleLoaded)
@@ -56,6 +59,9 @@ namespace Retinues.Framework.Modules.Dependencies.Core
             }
         }
 
+        /// <summary>
+        /// Removes Harmony patches.
+        /// </summary>
         public override void Shutdown()
         {
             if (_harmony == null)
