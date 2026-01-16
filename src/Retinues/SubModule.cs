@@ -65,7 +65,7 @@ namespace Retinues
             SafeMethodPatcher.ApplyAll(_harmony.Harmony);
 
             // Check for incompatible or legacy mods.
-            CompatibilityManager.CheckIncompatibilities();
+            InteropsManager.DisplayWarnings();
 
             // Log configuration
             SettingsManager.LogSettings();
@@ -90,7 +90,7 @@ namespace Retinues
                 BehaviorManager.RegisterCampaignBehaviors(cs);
 
                 // Interops: add behaviors for mod compatibility.
-                CompatibilityManager.RegisterCompatibilityBehaviors(cs);
+                InteropsManager.RegisterBehaviors(cs);
 
                 // Add upstream recruitment model wrapper (must be after other mods added their models).
                 TryAddRecruitementVolunteerModel(cs);
