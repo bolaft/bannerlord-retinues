@@ -25,7 +25,9 @@ namespace Retinues.Framework.Modules.Dependencies.Core
         {
             if (!IsModuleLoaded)
             {
-                Log.Warn("[ButterLib] ButterLib module not loaded; some features may be disabled.");
+                Log.Warning(
+                    "[ButterLib] ButterLib module not loaded; some features may be disabled."
+                );
                 MarkError();
                 return;
             }

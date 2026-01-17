@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Retinues.Domain.Characters.Services.Exports.NpcCharacters;
 using Retinues.Domain.Characters.Wrappers;
+using Retinues.Domain.Factions.Services.Exports.NpcCharacters;
 using Retinues.Framework.Model.Exports;
 using Retinues.Framework.Modules.Mods;
 using Retinues.GUI.Editor.Services.Library.NPCCharacters;
@@ -191,7 +193,7 @@ namespace Retinues.GUI.Editor.Controllers.Library
 
                 var moduleId = BuildNpcModuleId(item);
 
-                var project = NpcCharactersModBuilder.BuildNpcCharactersModProject(
+                var project = NpcCharactersStandaloneModBuilder.BuildNpcCharactersModProject(
                     moduleId,
                     npcStrings,
                     npcIds
@@ -294,7 +296,7 @@ namespace Retinues.GUI.Editor.Controllers.Library
             if (string.IsNullOrWhiteSpace(npcId))
                 return false;
 
-            npcXml = character.ExportAsNPC(npcId);
+            npcXml = NpcCharacterXmlExporter.ExportAsNpc(character, npcId);
             return !string.IsNullOrWhiteSpace(npcXml);
         }
 

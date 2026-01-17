@@ -1282,7 +1282,7 @@ namespace Retinues.Framework.Model.Attributes
             }
             catch (Exception ex)
             {
-                Log.Warn($"MAttribute.DeserializeXml failed for '{Name}': {ex.Message}");
+                Log.Warning($"MAttribute.DeserializeXml failed for '{Name}': {ex.Message}");
             }
         }
 

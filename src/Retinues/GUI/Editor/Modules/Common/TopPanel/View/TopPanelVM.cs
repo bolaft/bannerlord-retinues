@@ -78,7 +78,7 @@ namespace Retinues.GUI.Editor.Modules.Common.TopPanel.View
             Log.Debug("Settings tab clicked. Opening MCM settings: Retinues.Settings");
 
             if (!Configuration.Menu.MCM.TryOpenSettings("Retinues.Settings"))
-                Log.Warn("Failed to open MCM settings screen.");
+                Log.Warning("Failed to open MCM settings screen.");
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

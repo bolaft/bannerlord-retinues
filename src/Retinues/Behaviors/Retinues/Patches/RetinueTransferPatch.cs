@@ -144,7 +144,7 @@ namespace Retinues.Game.Retinues.Patches
             }
             catch (System.Exception ex)
             {
-                Log.Warn(
+                Log.Warning(
                     $"[Retinues] PartyScreenLogic.IsTroopTransferable retinue guard failed: {ex}"
                 );
             }

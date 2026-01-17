@@ -139,7 +139,7 @@ namespace Retinues.Game.Unlocks
 
             if (currentDay - _lastProcessedDay > 0)
             {
-                Log.Warn(
+                Log.Warning(
                     $"[Unlocks] Workshop unlock catch-up capped. SkippedDays={currentDay - _lastProcessedDay}."
                 );
             }

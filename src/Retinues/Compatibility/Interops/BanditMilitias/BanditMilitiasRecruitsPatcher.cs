@@ -35,7 +35,7 @@ namespace Retinues.Compatibility.Interops.BanditMilitias
 
                 if (helperType == null || globalsType == null)
                 {
-                    Log.Warn(
+                    Log.Warning(
                         "BanditMilitias not found; skipping BanditMilitias compatibility patch."
                     );
                     return;
@@ -61,7 +61,7 @@ namespace Retinues.Compatibility.Interops.BanditMilitias
                 }
                 else
                 {
-                    Log.Warn(
+                    Log.Warning(
                         "BanditMilitias.Helper.InitMap not found; recruit pool filter skipped."
                     );
                 }
@@ -86,7 +86,7 @@ namespace Retinues.Compatibility.Interops.BanditMilitias
                 }
                 else
                 {
-                    Log.Warn(
+                    Log.Warning(
                         "BanditMilitias.Helper.InitMilitia not found; militia roster filter skipped."
                     );
                 }

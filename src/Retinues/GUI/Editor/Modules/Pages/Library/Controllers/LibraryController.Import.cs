@@ -101,7 +101,7 @@ namespace Retinues.GUI.Editor.Controllers.Library
                     )
                 );
                 if (!string.IsNullOrWhiteSpace(err))
-                    Log.Warn($"Import troop parse failed: {err}");
+                    Log.Warning($"Import troop parse failed: {err}");
                 return;
             }
 
@@ -168,7 +168,7 @@ namespace Retinues.GUI.Editor.Controllers.Library
                     )
                 );
                 if (!string.IsNullOrWhiteSpace(err))
-                    Log.Warn($"Import faction parse failed: {err}");
+                    Log.Warning($"Import faction parse failed: {err}");
                 return;
             }
 
@@ -267,7 +267,7 @@ namespace Retinues.GUI.Editor.Controllers.Library
                             )
                         );
                         if (!string.IsNullOrWhiteSpace(applyErr))
-                            Log.Warn($"Import troop apply failed: {applyErr}");
+                            Log.Warning($"Import troop apply failed: {applyErr}");
                         return;
                     }
 
@@ -314,7 +314,7 @@ namespace Retinues.GUI.Editor.Controllers.Library
 
             if (!MImportExport.TryApplyFactionExport(target, data, out var report, out var err))
             {
-                Log.Warn(
+                Log.Warning(
                     $"Faction import apply failed for '{target.StringId}': {err ?? "unknown error"}"
                 );
 

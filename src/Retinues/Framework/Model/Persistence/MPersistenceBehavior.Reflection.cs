@@ -39,7 +39,9 @@ namespace Retinues.Framework.Model.Persistence
                     {
                         var le = ex.LoaderExceptions[i];
                         if (le != null)
-                            Log.Warn($"Persistence: loader exception while scanning types: {le}");
+                            Log.Warning(
+                                $"Persistence: loader exception while scanning types: {le}"
+                            );
                     }
                 }
             }
@@ -67,7 +69,9 @@ namespace Retinues.Framework.Model.Persistence
                 }
                 catch (Exception e)
                 {
-                    Log.Warn($"Persistence: failed to register wrapper type '{t.FullName}': {e}");
+                    Log.Warning(
+                        $"Persistence: failed to register wrapper type '{t.FullName}': {e}"
+                    );
                 }
             }
 
@@ -130,7 +134,7 @@ namespace Retinues.Framework.Model.Persistence
             }
             catch (Exception ex)
             {
-                Log.Warn(
+                Log.Warning(
                     $"MPersistence: failed to resolve wrapper instance for uid='{uid}' type='{wrapperType?.FullName}' id='{stringId}': {ex}"
                 );
                 return;
@@ -150,7 +154,7 @@ namespace Retinues.Framework.Model.Persistence
             }
             catch (Exception ex)
             {
-                Log.Warn(
+                Log.Warning(
                     $"MPersistence: failed to deserialize uid='{uid}' type='{wrapperType?.FullName}' id='{stringId}': {ex}"
                 );
             }
@@ -238,7 +242,9 @@ namespace Retinues.Framework.Model.Persistence
                 }
                 catch (Exception ex)
                 {
-                    Log.Warn($"MPersistence: failed to evaluate {wrapperType?.FullName}.All: {ex}");
+                    Log.Warning(
+                        $"MPersistence: failed to evaluate {wrapperType?.FullName}.All: {ex}"
+                    );
                     return null;
                 }
             }
@@ -304,7 +310,9 @@ namespace Retinues.Framework.Model.Persistence
                 }
                 catch (Exception ex)
                 {
-                    Log.Warn($"MPersistence: failed to resolve {wrapperType.FullName}.All: {ex}");
+                    Log.Warning(
+                        $"MPersistence: failed to resolve {wrapperType.FullName}.All: {ex}"
+                    );
                 }
 
                 if (best != null)

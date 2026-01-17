@@ -35,7 +35,7 @@ namespace Retinues.Compatibility.Interops.Shokuho
 
                 if (original == null)
                 {
-                    Log.Warn(
+                    Log.Warning(
                         "ShokuhoAgentEquipmentMissionLogic.OnAgentBuild not found; skipping patch."
                     );
                     return;

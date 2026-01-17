@@ -1,5 +1,6 @@
 using System.Linq;
 using Retinues.Compatibility;
+using Retinues.Domain.Characters.Services.Caches;
 using Retinues.Domain.Factions.Wrappers;
 using Retinues.Framework.Model;
 using Retinues.Framework.Model.Attributes;
@@ -207,7 +208,7 @@ namespace Retinues.Domain.Characters.Wrappers
             {
                 CultureAttribute.Set(value?.Base);
 
-                TroopFactionCache.Invalidate();
+                FactionCache.Invalidate();
             }
         }
 

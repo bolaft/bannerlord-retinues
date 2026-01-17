@@ -1,95 +1,96 @@
+// File: src/Retinues/Domain/Characters/Services/Exports/NpcCharacters/NpcCharacterXmlExporter.cs
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using Retinues.Domain.Characters.Wrappers;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.ObjectSystem;
 
-namespace Retinues.Domain.Characters.Wrappers
+namespace Retinues.Domain.Characters.Services.Exports.NpcCharacters
 {
-    public partial class WCharacter
+    /// <summary>
+    /// Exports a Retinues character as a single NPCCharacter element.
+    /// </summary>
+    public static class NpcCharacterXmlExporter
     {
-        /// <summary>
-        /// Exports this character as a single NPCCharacter XML element.
-        /// </summary>
-        public string ExportAsNPC(string overrideStringId = null)
+        public static string ExportAsNpc(WCharacter character, string overrideStringId = null)
         {
-            var el = BuildNpcCharacterElement(overrideStringId);
-            return el.ToString(SaveOptions.DisableFormatting);
+            if (character == null)
+                return string.Empty;
+
+            var el = BuildNpcCharacterElement(character, overrideStringId);
+            return el?.ToString(SaveOptions.DisableFormatting) ?? string.Empty;
         }
 
-        private XElement BuildNpcCharacterElement(string overrideStringId)
+        private static XElement BuildNpcCharacterElement(
+            WCharacter character,
+            string overrideStringId
+        )
         {
-            var c = Base;
+            var c = character.Base;
+            if (c == null)
+                return null;
 
             var npc = new XElement("NPCCharacter");
 
-            // Use override id when provided (so NPC export doesn't inherit stub ids).
             var finalId = !string.IsNullOrWhiteSpace(overrideStringId)
                 ? overrideStringId
-                : StringId;
+                : character.StringId;
+
             npc.SetAttributeValue("id", finalId);
-
-            // Default group: Infantry/Ranged/Cavalry/HorseArcher (FormationClass.ToString()).
-            npc.SetAttributeValue("default_group", FormationClass.ToString());
-
-            // Level: always export.
-            npc.SetAttributeValue("level", Level);
-
-            // Always export is_hidden_encyclopedia to false.
+            npc.SetAttributeValue("default_group", character.FormationClass.ToString());
+            npc.SetAttributeValue("level", character.Level);
             npc.SetAttributeValue("is_hidden_encyclopedia", "false");
+            npc.SetAttributeValue("name", character.Name ?? finalId);
 
-            // Name: export as plain string.
-            npc.SetAttributeValue("name", Name ?? finalId);
-
-            // Occupation is read-only on CharacterObject; reflection keeps this version-safe.
             var occ = Reflection.GetPropertyValue<object>(c, "Occupation");
             if (occ != null)
                 npc.SetAttributeValue("occupation", occ.ToString());
 
-            // IsBasicTroop is not the same as IsBasic.
             var isBasicTroop = Reflection.GetPropertyValue<bool>(c, "IsBasicTroop");
             npc.SetAttributeValue("is_basic_troop", isBasicTroop ? "true" : "false");
 
-            // Always export IsFemale.
             var isFemale = Reflection.GetPropertyValue<bool>(c, "IsFemale");
             npc.SetAttributeValue("is_female", isFemale ? "true" : "false");
 
-            if (Culture?.Base != null)
-                npc.SetAttributeValue("culture", "Culture." + Culture.Base.StringId);
+            if (character.Culture?.Base != null)
+                npc.SetAttributeValue("culture", "Culture." + character.Culture.Base.StringId);
 
             var req = Reflection.GetPropertyValue<object>(c, "UpgradeRequiresItemFromCategory");
             var reqId = GetStringId(req);
             if (!string.IsNullOrWhiteSpace(reqId))
                 npc.SetAttributeValue("upgrade_requires", "ItemCategory." + reqId);
 
-            var face = BuildFaceElement(c, finalId);
+            var face = BuildFaceElement(character, c, finalId);
             if (face != null)
                 npc.Add(face);
 
-            npc.Add(BuildSkillsElement());
+            npc.Add(BuildSkillsElement(character));
             npc.Add(BuildUpgradeTargetsElement(c));
-            npc.Add(BuildEquipmentsElement(c));
+            npc.Add(BuildEquipmentsElement(character, c));
 
             return npc;
         }
 
-        private XElement BuildFaceElement(CharacterObject c, string finalId)
+        private static XElement BuildFaceElement(
+            WCharacter character,
+            CharacterObject c,
+            string finalId
+        )
         {
             try
             {
-                // If we're overriding an existing NPCCharacter id, BodyPropertyRange is already set
-                // from vanilla, and <BodyProperties/> won't be applied. Use face_key_template instead.
                 if (!string.IsNullOrWhiteSpace(finalId))
                 {
                     var existing = MBObjectManager.Instance.GetObject<CharacterObject>(finalId);
                     if (existing != null)
-                        return BuildFaceTemplateElement();
+                        return BuildFaceTemplateElement(character);
                 }
 
-                // New troop id: export an exact face (min=max) sampled deterministically.
                 return BuildExactFaceElement(c);
             }
             catch
@@ -98,17 +99,16 @@ namespace Retinues.Domain.Characters.Wrappers
             }
         }
 
-        private XElement BuildFaceTemplateElement()
+        private static XElement BuildFaceTemplateElement(WCharacter character)
         {
-            // Pick a sensible culture+gender template, then export its BodyPropertyRange id.
-            var culture = Culture;
+            var culture = character.Culture;
             if (culture == null)
                 return null;
 
             WCharacter template = culture.RootBasic ?? culture.RootElite;
 
-            if (template == null || template.IsFemale != IsFemale)
-                template = IsFemale ? culture.VillageWoman : culture.Villager;
+            if (template == null || template.IsFemale != character.IsFemale)
+                template = character.IsFemale ? culture.VillageWoman : culture.Villager;
 
             if (template == null)
             {
@@ -118,7 +118,7 @@ namespace Retinues.Domain.Characters.Wrappers
                         continue;
 
                     template = t;
-                    if (t.IsFemale == IsFemale)
+                    if (t.IsFemale == character.IsFemale)
                         break;
                 }
             }
@@ -142,13 +142,10 @@ namespace Retinues.Domain.Characters.Wrappers
             return face;
         }
 
-        private XElement BuildExactFaceElement(CharacterObject c)
+        private static XElement BuildExactFaceElement(CharacterObject c)
         {
-            // Deterministic sample: this matches the engine’s usual “seeded face per troop id” approach.
-            // Use rank 0 seed.
             var seed = c.GetDefaultFaceSeed(0);
 
-            // Use first battle equipment if available (hair cover affects the sampled face).
             Equipment eq;
             try
             {
@@ -163,7 +160,7 @@ namespace Retinues.Domain.Characters.Wrappers
 
             var face = new XElement("face");
 
-            var minEl = XElement.Parse(props.ToString()); // <BodyProperties ... />
+            var minEl = XElement.Parse(props.ToString());
             var maxEl = XElement.Parse(props.ToString());
             maxEl.Name = "BodyPropertiesMax";
 
@@ -173,11 +170,11 @@ namespace Retinues.Domain.Characters.Wrappers
             return face;
         }
 
-        private XElement BuildSkillsElement()
+        private static XElement BuildSkillsElement(WCharacter character)
         {
             var skills = new XElement("skills");
 
-            foreach (var (skill, value) in Skills)
+            foreach (var (skill, value) in character.Skills)
             {
                 skills.Add(
                     new XElement(
@@ -191,11 +188,10 @@ namespace Retinues.Domain.Characters.Wrappers
             return skills;
         }
 
-        private XElement BuildUpgradeTargetsElement(CharacterObject c)
+        private static XElement BuildUpgradeTargetsElement(CharacterObject c)
         {
             var root = new XElement("upgrade_targets");
 
-            // CharacterObject.UpgradeTargets is version-stable; keep it reflection-safe anyway.
             var targetsObj = Reflection.GetPropertyValue<object>(c, "UpgradeTargets");
             if (targetsObj is CharacterObject[] targets && targets.Length > 0)
             {
@@ -216,7 +212,7 @@ namespace Retinues.Domain.Characters.Wrappers
             return root;
         }
 
-        private XElement BuildEquipmentsElement(CharacterObject c)
+        private static XElement BuildEquipmentsElement(WCharacter character, CharacterObject c)
         {
             var eqs = new XElement("Equipments");
 
@@ -235,10 +231,9 @@ namespace Retinues.Domain.Characters.Wrappers
                 if (isCiv)
                 {
                     sawCivilian = true;
-                    continue; // do not export civilian rosters as battle rosters
+                    continue;
                 }
 
-                // Capture mount once (vanilla NPCCharacter XML typically places these outside rosters)
                 if (horse == null)
                     horse = e[EquipmentIndex.Horse].Item;
                 if (harness == null)
@@ -252,12 +247,11 @@ namespace Retinues.Domain.Characters.Wrappers
 
             if (sawCivilian)
             {
-                var cultureId = Culture?.Base?.StringId ?? string.Empty;
+                var cultureId = character.Culture?.Base?.StringId ?? string.Empty;
                 var tier = Reflection.GetPropertyValue<int>(c, "Tier");
                 if (tier <= 0)
                     tier = 1;
 
-                // Example: aserai_troop_civilian_template_t2
                 var templateId = $"{cultureId}_troop_civilian_template_t{tier}";
 
                 if (HasEquipmentRoster(templateId))
@@ -273,12 +267,11 @@ namespace Retinues.Domain.Characters.Wrappers
                 else
                 {
                     Log.Warning(
-                        $"NPC export: civilian template '{templateId}' not found; omitting civilian equipment for '{StringId}'."
+                        $"NPC export: civilian template '{templateId}' not found, omitting civilian equipment for '{character.StringId}'."
                     );
                 }
             }
 
-            // Add horse/harness outside rosters (if any)
             if (horse != null)
             {
                 eqs.Add(
@@ -304,7 +297,7 @@ namespace Retinues.Domain.Characters.Wrappers
             return eqs;
         }
 
-        private IEnumerable<Equipment> EnumerateEquipmentSets(CharacterObject c)
+        private static IEnumerable<Equipment> EnumerateEquipmentSets(CharacterObject c)
         {
             var all = Reflection.GetPropertyValue<object>(c, "AllEquipments");
 
@@ -335,7 +328,7 @@ namespace Retinues.Domain.Characters.Wrappers
             }
         }
 
-        private XElement BuildBattleEquipmentRosterElement(Equipment e)
+        private static XElement BuildBattleEquipmentRosterElement(Equipment e)
         {
             var roster = new XElement("EquipmentRoster");
 
@@ -351,7 +344,6 @@ namespace Retinues.Domain.Characters.Wrappers
             AddEquipment(roster, e, EquipmentIndex.Gloves, "Gloves");
             AddEquipment(roster, e, EquipmentIndex.Cape, "Cape");
 
-            // Do NOT add Horse/Harness here; they are emitted at top-level in <Equipments>.
             return roster;
         }
 
@@ -362,8 +354,6 @@ namespace Retinues.Domain.Characters.Wrappers
 
             try
             {
-                // In Bannerlord, equipment set templates are MBObjects.
-                // The concrete type name varies across versions/modded trees, so we resolve it safely.
                 var t =
                     Type.GetType("TaleWorlds.Core.MBEquipmentRoster, TaleWorlds.Core")
                     ?? Type.GetType("TaleWorlds.Core.EquipmentRoster, TaleWorlds.Core");
@@ -394,7 +384,12 @@ namespace Retinues.Domain.Characters.Wrappers
             }
         }
 
-        private void AddEquipment(XElement roster, Equipment e, EquipmentIndex idx, string slotName)
+        private static void AddEquipment(
+            XElement roster,
+            Equipment e,
+            EquipmentIndex idx,
+            string slotName
+        )
         {
             var item = e[idx].Item;
             if (item == null)
@@ -409,7 +404,7 @@ namespace Retinues.Domain.Characters.Wrappers
             );
         }
 
-        private bool IsEquipmentEmpty(Equipment e)
+        private static bool IsEquipmentEmpty(Equipment e)
         {
             for (int i = 0; i < (int)EquipmentIndex.NumEquipmentSetSlots; i++)
             {
@@ -417,6 +412,7 @@ namespace Retinues.Domain.Characters.Wrappers
                 if (item != null)
                     return false;
             }
+
             return true;
         }
 
@@ -425,7 +421,6 @@ namespace Retinues.Domain.Characters.Wrappers
             if (obj == null)
                 return string.Empty;
 
-            // MBObjectBase.StringId in most cases
             var s = Reflection.GetPropertyValue<string>(obj, "StringId");
             return s ?? string.Empty;
         }

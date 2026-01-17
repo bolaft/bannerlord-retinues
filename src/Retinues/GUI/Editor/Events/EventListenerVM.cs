@@ -265,7 +265,7 @@ namespace Retinues.GUI.Editor.Events
                 // Only parameterless void methods supported as handlers.
                 if (method.ReturnType != typeof(void) || method.GetParameters().Length != 0)
                 {
-                    Log.Warn(
+                    Log.Warning(
                         $"Ignoring method '{type.Name}.{method.Name}' with [EventListener]: handlers must be 'void' with no parameters."
                     );
                     continue;

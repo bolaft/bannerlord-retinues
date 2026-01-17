@@ -19,10 +19,37 @@ namespace Retinues.Domain.Characters.Wrappers
 
         MAttribute<int> SkillPointsAttribute => Attribute(initialValue: 0);
 
+        /// <summary>
+        /// Skill points for this unit.
+        /// Captains may share their skill point pool with their base troop.
+        /// </summary>
         public int SkillPoints
         {
-            get => SkillPointsAttribute.Get();
-            set => SkillPointsAttribute.Set(value);
+            get => ResolveSkillPointsAttribute().Get();
+            set => ResolveSkillPointsAttribute().Set(value);
+        }
+
+        private MAttribute<int> ResolveSkillPointsAttribute()
+        {
+            if (!IsCaptain)
+                return SkillPointsAttribute;
+
+            var ownerId = SkillPointsOwnerIdAttribute.Get();
+            if (
+                string.IsNullOrEmpty(ownerId)
+                || string.Equals(ownerId, StringId, StringComparison.Ordinal)
+            )
+                return SkillPointsAttribute;
+
+            var owner = Get(ownerId);
+            if (owner == null)
+                return SkillPointsAttribute;
+
+            // Avoid chaining captains to captains.
+            if (owner.IsCaptain)
+                return SkillPointsAttribute;
+
+            return owner.SkillPointsAttribute;
         }
 
         MAttribute<int> SkillPointsExperienceAttribute => Attribute(initialValue: 0);

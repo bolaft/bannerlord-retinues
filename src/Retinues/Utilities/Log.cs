@@ -114,7 +114,7 @@ namespace Retinues.Utilities
 
         public static void Success(string message) => Write(LogLevel.Success, message);
 
-        public static void Warn(string message) => Write(LogLevel.Warn, message);
+        public static void Warning(string message) => Write(LogLevel.Warn, message);
 
         public static void Error(string message) => Write(LogLevel.Error, message);
 

@@ -169,13 +169,13 @@ namespace Retinues.Game.Missions
             var start = CombatBehavior.Snapshot;
             if (start == null)
             {
-                Log.Warn("Skipping MapEvent summary: start snapshot is null.");
+                Log.Warning("Skipping MapEvent summary: start snapshot is null.");
                 return;
             }
 
             if (end == null)
             {
-                Log.Warn("Skipping MapEvent summary: MMapEvent.Current is null.");
+                Log.Warning("Skipping MapEvent summary: MMapEvent.Current is null.");
                 return;
             }
 

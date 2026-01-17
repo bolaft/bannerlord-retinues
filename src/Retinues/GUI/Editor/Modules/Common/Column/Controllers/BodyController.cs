@@ -53,7 +53,7 @@ namespace Retinues.GUI.Editor.Modules.Common.Column.Controllers
         ];
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                       Decrease Age                     //
+        //                      Decrease Age                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public static ControllerAction<WCharacter> DecreaseAge { get; } =
@@ -83,7 +83,7 @@ namespace Retinues.GUI.Editor.Modules.Common.Column.Controllers
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                       Increase Age                     //
+        //                      Increase Age                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public static ControllerAction<WCharacter> IncreaseAge { get; } =
@@ -97,7 +97,7 @@ namespace Retinues.GUI.Editor.Modules.Common.Column.Controllers
                 .Fire(UIEvent.Appearance);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                    Decrease Height                      //
+        //                     Decrease Height                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public static ControllerAction<WCharacter> DecreaseHeight { get; } =
@@ -127,7 +127,7 @@ namespace Retinues.GUI.Editor.Modules.Common.Column.Controllers
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                    Increase Height                      //
+        //                     Increase Height                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public static ControllerAction<WCharacter> IncreaseHeight { get; } =
@@ -141,7 +141,7 @@ namespace Retinues.GUI.Editor.Modules.Common.Column.Controllers
                 .Fire(UIEvent.Appearance);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                     Decrease Weight                     //
+        //                     Decrease Weight                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public static ControllerAction<WCharacter> DecreaseWeight { get; } =
@@ -171,7 +171,7 @@ namespace Retinues.GUI.Editor.Modules.Common.Column.Controllers
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                     Increase Weight                     //
+        //                     Increase Weight                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public static ControllerAction<WCharacter> IncreaseWeight { get; } =
@@ -185,7 +185,7 @@ namespace Retinues.GUI.Editor.Modules.Common.Column.Controllers
                 .Fire(UIEvent.Appearance);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                     Decrease Build                      //
+        //                     Decrease Build                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public static ControllerAction<WCharacter> DecreaseBuild { get; } =
@@ -215,7 +215,7 @@ namespace Retinues.GUI.Editor.Modules.Common.Column.Controllers
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                     Increase Build                      //
+        //                     Increase Build                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public static ControllerAction<WCharacter> IncreaseBuild { get; } =
@@ -229,7 +229,7 @@ namespace Retinues.GUI.Editor.Modules.Common.Column.Controllers
                 .Fire(UIEvent.Appearance);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                      Shared Helpers                     //
+        //                     Shared Helpers                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>

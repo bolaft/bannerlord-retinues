@@ -62,7 +62,7 @@ namespace Retinues.Game.Doctrines.Feats
 
             if (start == null || end == null)
             {
-                Log.Warn("Skipping OnBattleOver: missing battle snapshots.");
+                Log.Warning("Skipping OnBattleOver: missing battle snapshots.");
                 return;
             }
 

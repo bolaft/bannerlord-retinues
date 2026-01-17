@@ -136,7 +136,7 @@ namespace Retinues
                 var inner = cs.Models.OfType<VolunteerModel>().LastOrDefault();
                 if (inner == null)
                 {
-                    Log.Warn(
+                    Log.Warning(
                         "Recruitement: no VolunteerModel found in CampaignGameStarter.Models; wrapper not installed."
                     );
                     return;

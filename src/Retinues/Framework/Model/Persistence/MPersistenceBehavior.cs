@@ -396,7 +396,7 @@ namespace Retinues.Framework.Model.Persistence
             }
             catch (Exception e)
             {
-                Log.Warn($"MPersistenceBehavior.SyncData: failed to write persistence XML: {e}");
+                Log.Warning($"MPersistenceBehavior.SyncData: failed to write persistence XML: {e}");
             }
         }
 

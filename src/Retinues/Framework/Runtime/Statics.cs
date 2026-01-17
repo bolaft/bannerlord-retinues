@@ -129,7 +129,7 @@ namespace Retinues.Framework.Runtime
 
                         if (!TryValidateClearMethod(mi, out var reason))
                         {
-                            Log.Warn(
+                            Log.Warning(
                                 $"Statics: ignoring invalid [StaticClearAction] {t.FullName}.{mi.Name} ({reason})."
                             );
                             continue;

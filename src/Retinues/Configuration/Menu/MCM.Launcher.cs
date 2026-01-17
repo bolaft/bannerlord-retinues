@@ -32,14 +32,14 @@ namespace Retinues.Configuration.Menu
                 var screenType = FindType(ModOptionsScreenTypeName);
                 if (screenType == null)
                 {
-                    Log.Warn($"MCM screen type not found: {ModOptionsScreenTypeName}");
+                    Log.Warning($"MCM screen type not found: {ModOptionsScreenTypeName}");
                     return false;
                 }
 
                 var screenObj = CreateBest(screenType);
                 if (screenObj is not ScreenBase screen)
                 {
-                    Log.Warn($"Could not create MCM screen instance: {screenType.FullName}");
+                    Log.Warning($"Could not create MCM screen instance: {screenType.FullName}");
                     return false;
                 }
 
@@ -135,7 +135,7 @@ namespace Retinues.Configuration.Menu
                     return;
                 }
 
-                Log.Warn($"Failed to auto-select MCM entry '{settingsId}': {ex.GetType().Name}");
+                Log.Warning($"Failed to auto-select MCM entry '{settingsId}': {ex.GetType().Name}");
             }
         }
 

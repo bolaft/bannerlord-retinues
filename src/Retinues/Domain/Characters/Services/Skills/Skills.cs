@@ -47,6 +47,9 @@ namespace Retinues.Domain.Characters.Services.Skills
         //                         Helpers                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Get the base skill value, without any staging applied.
+        /// </summary>
         public int GetBase(SkillObject skill)
         {
             if (skill == null)
@@ -58,6 +61,9 @@ namespace Retinues.Domain.Characters.Services.Skills
             return _wc.Base.GetSkillValue(skill);
         }
 
+        /// <summary>
+        /// Get the staged skill delta for the given skill.
+        /// </summary>
         public int GetStaged(SkillObject skill)
         {
             if (skill == null || string.IsNullOrEmpty(skill.StringId))
@@ -66,6 +72,9 @@ namespace Retinues.Domain.Characters.Services.Skills
             return _wc.GetStagedSkillDelta(skill.StringId);
         }
 
+        /// <summary>
+        /// Determines whether the given skill has any staged increases.
+        /// </summary>
         public bool IsStaged(SkillObject skill) =>
             WCharacter.IsSkillStagingActive(_wc) && GetStaged(skill) > 0;
 
@@ -73,6 +82,9 @@ namespace Retinues.Domain.Characters.Services.Skills
         //                       Get / Set                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Get the effective skill value, including any staged increases.
+        /// </summary>
         public int Get(SkillObject skill)
         {
             var baseValue = GetBase(skill);
@@ -83,6 +95,9 @@ namespace Retinues.Domain.Characters.Services.Skills
             return baseValue + GetStaged(skill);
         }
 
+        /// <summary>
+        /// Set the base skill value, removing any staged increases.
+        /// </summary>
         public void Set(SkillObject skill, int value)
         {
             if (skill == null)
@@ -102,6 +117,9 @@ namespace Retinues.Domain.Characters.Services.Skills
             _wc.ConversionCache.Clear();
         }
 
+        /// <summary>
+        /// Modify the skill by the given amount, applying or consuming staged increases as needed.
+        /// </summary>
         public void Modify(SkillObject skill, int amount)
         {
             if (skill == null || amount == 0)
@@ -145,6 +163,11 @@ namespace Retinues.Domain.Characters.Services.Skills
         //                       Enumeration                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
+        /// <summary>
+        /// Enumerates all valid skills and their effective values.
+        /// </summary>
         public IEnumerator<(SkillObject Skill, int Value)> GetEnumerator()
         {
             for (int i = 0; i < _validSkills.Count; i++)
@@ -156,7 +179,5 @@ namespace Retinues.Domain.Characters.Services.Skills
                 yield return (s, Get(s));
             }
         }
-
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }

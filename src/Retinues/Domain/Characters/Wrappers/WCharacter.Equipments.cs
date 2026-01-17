@@ -9,7 +9,7 @@ namespace Retinues.Domain.Characters.Wrappers
     public partial class WCharacter
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Access                         //
+        //                         Roster                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private MEquipmentRoster _equipmentRosterCache;
@@ -36,6 +36,10 @@ namespace Retinues.Domain.Characters.Wrappers
                 return _equipmentRosterCache;
             }
         }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Convenience                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public List<MEquipment> Equipments => EquipmentRoster.Equipments;
 
@@ -70,6 +74,9 @@ namespace Retinues.Domain.Characters.Wrappers
 
         private UpgradeItemRequirementKey _lastFirstBattleMountKey;
 
+        /// <summary>
+        /// Called when the equipment roster changes.
+        /// </summary>
         public void OnEquipmentChange()
         {
             // Touch the equipment serialization attribute to ensure it gets saved.
@@ -93,6 +100,9 @@ namespace Retinues.Domain.Characters.Wrappers
             }
         }
 
+        /// <summary>
+        /// Serializes the equipment roster.
+        /// </summary>
         private List<string> SerializeEquipments()
         {
             var roster = EquipmentRoster;
@@ -120,6 +130,9 @@ namespace Retinues.Domain.Characters.Wrappers
             return blobs;
         }
 
+        /// <summary>
+        /// Applies the serialized equipment roster.
+        /// </summary>
         private void ApplySerializedEquipments(List<string> blobs)
         {
             if (blobs == null || blobs.Count == 0)

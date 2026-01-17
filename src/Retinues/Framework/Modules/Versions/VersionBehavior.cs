@@ -55,7 +55,7 @@ namespace Retinues.Framework.Modules.Versions
                 var currentModule = ModuleManager.GetModule("Retinues");
                 if (currentModule == null)
                 {
-                    Log.Warn("VersionBehavior: Retinues module not found by ModuleManager.");
+                    Log.Warning("VersionBehavior: Retinues module not found by ModuleManager.");
                     return;
                 }
 

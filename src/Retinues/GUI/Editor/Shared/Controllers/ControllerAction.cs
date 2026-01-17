@@ -352,7 +352,7 @@ namespace Retinues.GUI.Editor.Shared.Controllers
 
             if (_execute == null)
             {
-                Log.Warn($"ControllerAction '{_name}' has no execute delegate.");
+                Log.Warning($"ControllerAction '{_name}' has no execute delegate.");
                 return false;
             }
 

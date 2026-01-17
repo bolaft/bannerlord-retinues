@@ -34,7 +34,7 @@ namespace Retinues.Domain.Characters.Services.Cloning
 
             if (stub == null)
             {
-                Log.Warn("No free stub available");
+                Log.Warning("No free stub available");
                 return null;
             }
 
@@ -72,7 +72,7 @@ namespace Retinues.Domain.Characters.Services.Cloning
             }
             catch (Exception ex)
             {
-                Log.Warn($"Clone body copy failed: {ex}");
+                Log.Warning($"Clone body copy failed: {ex}");
             }
 
             // Detach skills container, then apply skill values
@@ -156,7 +156,7 @@ namespace Retinues.Domain.Characters.Services.Cloning
                 }
                 catch
                 {
-                    Log.Warn($"Copy field '{fieldName}' failed");
+                    Log.Warning($"Copy field '{fieldName}' failed");
                 }
             }
 
@@ -181,7 +181,7 @@ namespace Retinues.Domain.Characters.Services.Cloning
                     }
                     catch
                     {
-                        Log.Warn("Character traits copy ctor failed");
+                        Log.Warning("Character traits copy ctor failed");
                     }
 
                     Reflection.SetFieldValue(tgt, "_characterTraits", cloned ?? traits);
@@ -189,7 +189,7 @@ namespace Retinues.Domain.Characters.Services.Cloning
             }
             catch
             {
-                Log.Warn("Copy character traits failed");
+                Log.Warning("Copy character traits failed");
             }
 
             // Invoke FillFrom to copy the rest
@@ -199,7 +199,7 @@ namespace Retinues.Domain.Characters.Services.Cloning
             }
             catch
             {
-                Log.Warn("FillFrom invocation failed");
+                Log.Warning("FillFrom invocation failed");
             }
         }
 
@@ -243,7 +243,7 @@ namespace Retinues.Domain.Characters.Services.Cloning
             }
             catch (Exception ex)
             {
-                Log.Warn($"Detach equipment roster failed: {ex}");
+                Log.Warning($"Detach equipment roster failed: {ex}");
             }
         }
     }

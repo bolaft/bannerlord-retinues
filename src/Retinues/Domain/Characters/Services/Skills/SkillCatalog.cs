@@ -98,6 +98,9 @@ namespace Retinues.Domain.Characters.Services.Skills
                     ?? [],
             ];
 
+        /// <summary>
+        /// Gets the skill list based on the given options.
+        /// </summary>
         static List<SkillObject> GetSkillList(SkillListOptions options)
         {
             var all = AllSkills;
@@ -150,31 +153,18 @@ namespace Retinues.Domain.Characters.Services.Skills
         //                         Public                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Gets the valid skills for the given character.
+        /// </summary>
         public static List<SkillObject> GetSkills(WCharacter character) =>
             character != null && character.IsHero
                 ? GetSkillList(SkillListOptions.ForHero())
                 : GetSkillList(SkillListOptions.ForCharacter());
 
+        /// <summary>
+        /// Gets the valid skills for the given hero.
+        /// </summary>
         public static List<SkillObject> GetSkills(WHero _) =>
             GetSkillList(SkillListOptions.ForHero());
-
-        public static bool IsValidFor(WCharacter character, SkillObject skill)
-        {
-            if (character == null || skill == null || string.IsNullOrEmpty(skill.StringId))
-                return false;
-
-            // Keep this cheap: use the list we already compute and keep deterministic behavior.
-            var list = GetSkills(character);
-            if (list == null || list.Count == 0)
-                return false;
-
-            for (int i = 0; i < list.Count; i++)
-            {
-                if (list[i] == skill)
-                    return true;
-            }
-
-            return false;
-        }
     }
 }
