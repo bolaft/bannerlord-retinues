@@ -736,22 +736,6 @@
     "TR": "Sivil Değil"
   },
   {
-    "id": "ret_cant_equip_reason_limits",
-    "EN": "Limits exceeded",
-    "FR": null,
-    "BR": null,
-    "CNs": null,
-    "CNt": null,
-    "DE": null,
-    "IT": null,
-    "JP": null,
-    "KO": null,
-    "PL": null,
-    "RU": null,
-    "SP": null,
-    "TR": null
-  },
-  {
     "id": "ret_cant_equip_reason_locked",
     "EN": "Locked",
     "FR": "Verrouillé",
@@ -846,6 +830,38 @@
     "RU": "{SKILL} {VALUE}",
     "SP": "{SKILL} {VALUE}",
     "TR": "{SKILL} {VALUE}"
+  },
+  {
+    "id": "ret_cant_equip_reason_too_heavy",
+    "EN": "Too heavy",
+    "FR": null,
+    "BR": null,
+    "CNs": null,
+    "CNt": null,
+    "DE": null,
+    "IT": null,
+    "JP": null,
+    "KO": null,
+    "PL": null,
+    "RU": null,
+    "SP": null,
+    "TR": null
+  },
+  {
+    "id": "ret_cant_equip_reason_too_valuable",
+    "EN": "Too valuable",
+    "FR": null,
+    "BR": null,
+    "CNs": null,
+    "CNt": null,
+    "DE": null,
+    "IT": null,
+    "JP": null,
+    "KO": null,
+    "PL": null,
+    "RU": null,
+    "SP": null,
+    "TR": null
   },
   {
     "id": "ret_cant_equip_reason_unlocking",
@@ -7025,7 +7041,7 @@
   },
   {
     "id": "ret_library_import_confirm_desc_faction_final_single",
-    "EN": "Override faction:\\n- {NAME}\\n\\nBasic and Elite troop trees will be overwritten.\\nRosters missing from the export will be left unchanged.\\n\\nContinue?",
+    "EN": "This will overwrite the {NAME} troops.\\n\\nAnything missing from the export will be left unchanged.\\n\\nContinue?",
     "FR": "Remplacer la faction :\\n- {NAME}\\n\\nLes arbres de troupes de base et d'élite seront écrasés.\\nLes listes d'unités manquantes dans l'exportation resteront inchangées.\\n\\nContinuer ?",
     "BR": "Substituir facção:\\n- {NAME}\\n\\nAs árvores de tropas Básicas e de Elite serão sobrescritas.\\nAs listas de tropas ausentes na exportação permanecerão inalteradas.\\n\\nContinuar?",
     "CNs": "覆盖派系：\\n- {NAME}\\n\\n基础和精英部队树将被覆盖。\\n导出中缺少的花名册将保持不变。\\n\\n继续？",

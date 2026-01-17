@@ -132,22 +132,40 @@ namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Services
                     Configuration.Settings.EquipmentValueLimitMultiplier
                 );
 
-                bool fits = EquipmentLimitsHelper.FitsLimitsAfterSet(
-                    getPlanned,
-                    slot,
-                    item,
-                    weightLimitActive: ctx.WeightLimitActive,
-                    weightLimit: weightLimit,
-                    valueLimitActive: ctx.ValueLimitActive,
-                    valueLimit: valueLimit,
-                    allowNonIncreasingWhenOver: true
-                );
+                var current = EquipmentLimitsHelper.GetTotals(getPlanned);
+                var next = EquipmentLimitsHelper.GetTotals(getPlanned, slot, item);
 
-                if (!fits)
+                bool weightFits =
+                    !ctx.WeightLimitActive
+                    || EquipmentLimitsHelper.FitsWeight(
+                        current,
+                        next,
+                        weightLimit,
+                        allowNonIncreasingWhenOver: true
+                    );
+
+                bool valueFits =
+                    !ctx.ValueLimitActive
+                    || EquipmentLimitsHelper.FitsValue(
+                        current,
+                        next,
+                        valueLimit,
+                        allowNonIncreasingWhenOver: true
+                    );
+
+                if (!weightFits)
                 {
                     return EquipDecision.Skip(
                         EquipSkipReason.Limits,
-                        L.T("cant_equip_reason_limits", "Limits exceeded")
+                        L.T("cant_equip_reason_too_heavy", "Too heavy")
+                    );
+                }
+
+                if (!valueFits)
+                {
+                    return EquipDecision.Skip(
+                        EquipSkipReason.Limits,
+                        L.T("cant_equip_reason_too_valuable", "Too valuable")
                     );
                 }
             }

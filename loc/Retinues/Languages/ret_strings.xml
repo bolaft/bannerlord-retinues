@@ -143,9 +143,6 @@
       id="ret_cant_equip_reason_civilian"
       text="Not civilian" />
     <string
-      id="ret_cant_equip_reason_limits"
-      text="Limits exceeded" />
-    <string
       id="ret_cant_equip_reason_locked"
       text="Locked" />
     <string
@@ -163,6 +160,12 @@
     <string
       id="ret_cant_equip_reason_skill"
       text="{SKILL} {VALUE}" />
+    <string
+      id="ret_cant_equip_reason_too_heavy"
+      text="Too heavy" />
+    <string
+      id="ret_cant_equip_reason_too_valuable"
+      text="Too valuable" />
     <string
       id="ret_cant_equip_reason_unlocking"
       text="Unlocking {PERCENT}%" />
@@ -1323,7 +1326,7 @@
       text="Import" />
     <string
       id="ret_library_import_confirm_desc_faction_final_single"
-      text="Override faction:{newline}- {NAME}{newline}{newline}Basic and Elite troop trees will be overwritten.{newline}Rosters missing from the export will be left unchanged.{newline}{newline}Continue?" />
+      text="This will overwrite the {NAME} troops.{newline}{newline}Anything missing from the export will be left unchanged.{newline}{newline}Continue?" />
     <string
       id="ret_library_import_confirm_desc_replace_troop"
       text="{TARGET} in {FACTION} will be replaced with the imported troop.{newline}{newline}Continue?" />
