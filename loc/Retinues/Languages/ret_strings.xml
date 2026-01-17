@@ -170,6 +170,21 @@
       id="ret_cant_unequip_reason_empty"
       text="Nothing to unequip." />
     <string
+      id="ret_captain_no_character_reason"
+      text="No unit is selected." />
+    <string
+      id="ret_captain_suffix"
+      text="Captain" />
+    <string
+      id="ret_captain_toggle_enabled_hint"
+      text="Enable/Disable this Captain" />
+    <string
+      id="ret_captain_toggle_enabled_not_captain_reason"
+      text="This unit is not a Captain." />
+    <string
+      id="ret_captain_toggle_mode_hint"
+      text="Switch between the base troop and its Captain variant." />
+    <string
       id="ret_change_culture_title"
       text="Change Culture" />
     <string
@@ -184,6 +199,9 @@
     <string
       id="ret_character_cannot_remove_with_upgrades"
       text="Can&apos;t remove a unit that still has upgrades." />
+    <string
+      id="ret_character_is_null"
+      text="Character is null." />
     <string
       id="ret_clan_troops_unlock_always_unlocked"
       text="Always Unlocked" />
@@ -650,8 +668,11 @@
       id="ret_export_character_tooltip"
       text="Save &amp; export." />
     <string
-      id="ret_export_desc"
-      text="Choose a save name:" />
+      id="ret_export_done_desc"
+      text="Export written to:{newline}{PATH}" />
+    <string
+      id="ret_export_done_title"
+      text="Export Complete" />
     <string
       id="ret_export_faction_no_id"
       text="Selected faction is invalid." />
@@ -659,14 +680,26 @@
       id="ret_export_faction_none"
       text="No faction selected." />
     <string
+      id="ret_export_failed_exception"
+      text="The file could not be written." />
+    <string
+      id="ret_export_failed_generic"
+      text="Could not export: {ERROR}." />
+    <string
+      id="ret_export_failed_title"
+      text="Export Failed" />
+    <string
+      id="ret_export_name_desc"
+      text="Choose a file name for this export:" />
+    <string
+      id="ret_export_name_title"
+      text="Export Name" />
+    <string
       id="ret_export_overwrite_desc"
-      text="A file named &apos;{FILE}&apos; already exists and will be overwritten.{newline}{newline}{PATH}" />
+      text="A file named &apos;{NAME}&apos; already exists.{newline}{newline}Do you want to overwrite it?" />
     <string
       id="ret_export_overwrite_title"
-      text="Overwrite file?" />
-    <string
-      id="ret_export_title"
-      text="Save" />
+      text="File Already Exists" />
     <string
       id="ret_faction_troops_unlocked_desc"
       text="{COUNT} new troops are now available for the {FACTION} {FACTION_TYPE}." />
@@ -1091,6 +1124,9 @@
       id="ret_height_hint"
       text="Height" />
     <string
+      id="ret_heroes_cannot_be_exported"
+      text="Heroes cannot be exported." />
+    <string
       id="ret_in_stock"
       text="In Stock ({STOCK})" />
     <string
@@ -1141,6 +1177,9 @@
     <string
       id="ret_invalid_name_body"
       text="The name cannot be empty." />
+    <string
+      id="ret_invalid_name_sanitize"
+      text="This name contains no valid file characters." />
     <string
       id="ret_invalid_name_title"
       text="Invalid Name" />
@@ -1330,9 +1369,6 @@
     <string
       id="ret_library_import_replace_troop_title"
       text="Replace Troop" />
-    <string
-      id="ret_library_import_target_current_faction"
-      text="Current faction: {NAME}" />
     <string
       id="ret_library_import_tooltip"
       text="Import into the current game." />
@@ -1835,6 +1871,12 @@
       id="ret_notification_popup"
       text="Popup" />
     <string
+      id="ret_overwrite_cancel"
+      text="Cancel" />
+    <string
+      id="ret_overwrite_confirm"
+      text="Overwrite" />
+    <string
       id="ret_preview_mode"
       text="Preview Mode" />
     <string
@@ -2171,6 +2213,9 @@
       id="ret_unequip_item_tooltip"
       text="Unequip" />
     <string
+      id="ret_unknown_error"
+      text="Unknown error." />
+    <string
       id="ret_unlock_and"
       text="and" />
     <string
@@ -2198,8 +2243,8 @@
       id="ret_upgrade_cannot_add_max_tier"
       text="This unit is already at maximum tier." />
     <string
-      id="ret_upgrade_cannot_add_not_in_tree"
-      text="This unit is not in a troop tree." />
+      id="ret_upgrade_cannot_add_not_upgradable"
+      text="This unit is not upgradable." />
     <string
       id="ret_upgrade_sources_header_text"
       text="Sources" />

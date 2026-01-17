@@ -479,23 +479,11 @@
       id="ret_export_character_tooltip"
       text="Kaydet ve dışa aktar." />
     <string
-      id="ret_export_desc"
-      text="Kaydetme adı seçin:" />
-    <string
       id="ret_export_faction_no_id"
       text="Seçilen fraksiyon geçersiz." />
     <string
       id="ret_export_faction_none"
       text="Hiçbir fraksiyon seçilmedi." />
-    <string
-      id="ret_export_overwrite_desc"
-      text="&apos;{FILE}&apos; adlı bir dosya zaten var ve üzerine yazılacak.{newline}{newline}{PATH}" />
-    <string
-      id="ret_export_overwrite_title"
-      text="Dosya üzerine yazılsın mı?" />
-    <string
-      id="ret_export_title"
-      text="Kaydet" />
     <string
       id="ret_faction_troops_unlocked_desc"
       text="{COUNT} yeni asker artık {FACTION} {FACTION_TYPE} için kullanılabilir." />
@@ -976,9 +964,6 @@
     <string
       id="ret_library_import_replace_troop_title"
       text="Birliği Değiştir" />
-    <string
-      id="ret_library_import_target_current_faction"
-      text="Mevcut fraksiyon: {NAME}" />
     <string
       id="ret_library_import_tooltip"
       text="Mevcut oyuna aktar." />
@@ -1843,9 +1828,6 @@
     <string
       id="ret_upgrade_cannot_add_max_tier"
       text="Bu birim zaten maksimum seviyede." />
-    <string
-      id="ret_upgrade_cannot_add_not_in_tree"
-      text="Bu birim bir birlik ağacında değil." />
     <string
       id="ret_upgrade_sources_header_text"
       text="Kaynaklar" />

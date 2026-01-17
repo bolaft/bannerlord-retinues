@@ -479,23 +479,11 @@
       id="ret_export_character_tooltip"
       text="Salva ed esporta." />
     <string
-      id="ret_export_desc"
-      text="Scegli un nome per il salvataggio:" />
-    <string
       id="ret_export_faction_no_id"
       text="La fazione selezionata non è valida." />
     <string
       id="ret_export_faction_none"
       text="Nessuna fazione selezionata." />
-    <string
-      id="ret_export_overwrite_desc"
-      text="Un file chiamato &apos;{FILE}&apos; esiste già e verrà sovrascritto.{newline}{newline}{PATH}" />
-    <string
-      id="ret_export_overwrite_title"
-      text="Sovrascrivere il file?" />
-    <string
-      id="ret_export_title"
-      text="Salva" />
     <string
       id="ret_faction_troops_unlocked_desc"
       text="{COUNT} nuove truppe sono ora disponibili per la {FACTION_TYPE} {FACTION}." />
@@ -976,9 +964,6 @@
     <string
       id="ret_library_import_replace_troop_title"
       text="Sostituisci truppa" />
-    <string
-      id="ret_library_import_target_current_faction"
-      text="Fazione corrente: {NAME}" />
     <string
       id="ret_library_import_tooltip"
       text="Importa nel gioco attuale." />
@@ -1843,9 +1828,6 @@
     <string
       id="ret_upgrade_cannot_add_max_tier"
       text="Questa unità è già al livello massimo." />
-    <string
-      id="ret_upgrade_cannot_add_not_in_tree"
-      text="Questa unità non è in un albero delle truppe." />
     <string
       id="ret_upgrade_sources_header_text"
       text="Fonti" />

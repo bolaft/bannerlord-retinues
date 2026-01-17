@@ -479,23 +479,11 @@
       id="ret_export_character_tooltip"
       text="保存并导出。" />
     <string
-      id="ret_export_desc"
-      text="选择一个保存名称：" />
-    <string
       id="ret_export_faction_no_id"
       text="所选阵营无效。" />
     <string
       id="ret_export_faction_none"
       text="未选择阵营。" />
-    <string
-      id="ret_export_overwrite_desc"
-      text="名为&apos;{FILE}&apos;的文件已存在，将被覆盖。{newline}{newline}{PATH}" />
-    <string
-      id="ret_export_overwrite_title"
-      text="覆盖文件？" />
-    <string
-      id="ret_export_title"
-      text="保存" />
     <string
       id="ret_faction_troops_unlocked_desc"
       text="{COUNT} 名新兵现已可供 {FACTION} {FACTION_TYPE} 使用。" />
@@ -976,9 +964,6 @@
     <string
       id="ret_library_import_replace_troop_title"
       text="替换部队" />
-    <string
-      id="ret_library_import_target_current_faction"
-      text="当前派系：{NAME}" />
     <string
       id="ret_library_import_tooltip"
       text="导入到当前游戏中。" />
@@ -1843,9 +1828,6 @@
     <string
       id="ret_upgrade_cannot_add_max_tier"
       text="该单位已达到最高等级。" />
-    <string
-      id="ret_upgrade_cannot_add_not_in_tree"
-      text="该单位不在部队树中。" />
     <string
       id="ret_upgrade_sources_header_text"
       text="来源" />
