@@ -54,7 +54,7 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                         Feats =
                         [
                             FeatCatalog.SS_PeakPerformance,
-                            FeatCatalog.SS_SecureHoldings,
+                            FeatCatalog.SS_PublicSafety,
                             FeatCatalog.SS_HoldTheWalls,
                         ],
                     },

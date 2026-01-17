@@ -425,7 +425,7 @@ namespace Retinues.GUI.Editor.Modules.Common.TopPanel.Controllers
                                 )
                                 .SetTextVariable("NAME", safeFileName),
                             confirmText: L.T("overwrite_confirm", "Overwrite"),
-                            cancelText: L.T("overwrite_cancel", "Cancel"),
+                            cancelText: GameTexts.FindText("str_cancel"),
                             onConfirm: Write
                         );
 

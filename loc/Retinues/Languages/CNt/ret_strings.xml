@@ -155,14 +155,38 @@
       id="ret_cant_equip_reason_null"
       text="無效物品" />
     <string
+      id="ret_cant_equip_reason_other"
+      text="無法裝備" />
+    <string
       id="ret_cant_equip_reason_skill"
       text="{SKILL} {VALUE}" />
+    <string
+      id="ret_cant_equip_reason_too_heavy"
+      text="過重" />
+    <string
+      id="ret_cant_equip_reason_too_valuable"
+      text="過於珍貴" />
     <string
       id="ret_cant_equip_reason_unlocking"
       text="解鎖中 {PERCENT}%" />
     <string
       id="ret_cant_unequip_reason_empty"
       text="沒有可卸下的物品。" />
+    <string
+      id="ret_captain_suffix"
+      text="隊長" />
+    <string
+      id="ret_captain_toggle_disabled_hint"
+      text="禁用此隊長" />
+    <string
+      id="ret_captain_toggle_enabled_hint"
+      text="啟用此隊長" />
+    <string
+      id="ret_captain_toggle_enabled_not_captain_reason"
+      text="此單位不是隊長。" />
+    <string
+      id="ret_captain_toggle_mode_hint"
+      text="在基礎部隊及其隊長變體之間切換。" />
     <string
       id="ret_change_culture_title"
       text="更改文化" />
@@ -178,6 +202,9 @@
     <string
       id="ret_character_cannot_remove_with_upgrades"
       text="無法移除仍有升級的單位。" />
+    <string
+      id="ret_character_is_null"
+      text="角色為空。" />
     <string
       id="ret_clan_troops_unlock_always_unlocked"
       text="始終解鎖" />
@@ -278,6 +305,30 @@
       id="ret_doctrine_acquired_msg"
       text="已獲取學說：{NAME}。" />
     <string
+      id="ret_doctrine_armory_cultural_pride"
+      text="文化自豪感" />
+    <string
+      id="ret_doctrine_armory_cultural_pride_desc"
+      text="-20% 的氏族文化裝備成本。" />
+    <string
+      id="ret_doctrine_armory_honor_guard"
+      text="儀仗隊" />
+    <string
+      id="ret_doctrine_armory_honor_guard_desc"
+      text="+15% 到總裝備價值上限。" />
+    <string
+      id="ret_doctrine_armory_ironclad"
+      text="鐵甲艦" />
+    <string
+      id="ret_doctrine_armory_ironclad_desc"
+      text="+15% 到總裝備重量上限。" />
+    <string
+      id="ret_doctrine_armory_royal_patronage"
+      text="皇家贊助" />
+    <string
+      id="ret_doctrine_armory_royal_patronage_desc"
+      text="-20% 的王國文化裝備成本。" />
+    <string
       id="ret_doctrine_cat_equipments"
       text="裝備" />
     <string
@@ -317,6 +368,33 @@
       id="ret_doctrine_feats_header"
       text="功績" />
     <string
+      id="ret_doctrine_locked_hint"
+      text="必須先獲取 {DOCTRINE}。" />
+    <string
+      id="ret_doctrine_loot_ancestral_heritage"
+      text="祖傳遺產" />
+    <string
+      id="ret_doctrine_loot_ancestral_heritage_desc"
+      text="解鎖所有氏族文化物品。" />
+    <string
+      id="ret_doctrine_loot_battlefield_tithes"
+      text="戰場什一稅" />
+    <string
+      id="ret_doctrine_loot_battlefield_tithes_desc"
+      text="盟友有助於裝備解鎖進度。" />
+    <string
+      id="ret_doctrine_loot_lions_share"
+      text="獅子份額" />
+    <string
+      id="ret_doctrine_loot_lions_share_desc"
+      text="英雄擊殺對解鎖敵方裝備的貢獻翻倍。" />
+    <string
+      id="ret_doctrine_loot_pragmatic_scavengers"
+      text="務實的拾荒者" />
+    <string
+      id="ret_doctrine_loot_pragmatic_scavengers_desc"
+      text="裝備可以從盟友傷亡中解鎖。" />
+    <string
       id="ret_doctrine_not_enough_gold_desc"
       text="您需要 {COST} 戈德來解鎖此學說。" />
     <string
@@ -332,6 +410,30 @@
       id="ret_doctrine_progress_text"
       text="進度：{PROGRESS}%" />
     <string
+      id="ret_doctrine_retinues_bound_by_honor"
+      text="以榮譽為紐帶" />
+    <string
+      id="ret_doctrine_retinues_bound_by_honor_desc"
+      text="侍從士氣 +20%。" />
+    <string
+      id="ret_doctrine_retinues_immortals"
+      text="不朽者" />
+    <string
+      id="ret_doctrine_retinues_immortals_desc"
+      text="侍從存活幾率 +20%。" />
+    <string
+      id="ret_doctrine_retinues_indomitable"
+      text="不屈者" />
+    <string
+      id="ret_doctrine_retinues_indomitable_desc"
+      text="侍從生命值 +10%。" />
+    <string
+      id="ret_doctrine_retinues_vanguard"
+      text="先鋒" />
+    <string
+      id="ret_doctrine_retinues_vanguard_desc"
+      text="侍從最大數量 +15%。" />
+    <string
       id="ret_doctrine_state_acquired"
       text="已獲取" />
     <string
@@ -343,6 +445,60 @@
     <string
       id="ret_doctrine_state_unlocked"
       text="已解鎖" />
+    <string
+      id="ret_doctrine_status_acquired"
+      text="已獲取" />
+    <string
+      id="ret_doctrine_status_locked"
+      text="已鎖定" />
+    <string
+      id="ret_doctrine_training_advanced_tactics"
+      text="高級戰術" />
+    <string
+      id="ret_doctrine_training_advanced_tactics_desc"
+      text="技能點獲取速度 +10%。" />
+    <string
+      id="ret_doctrine_training_iron_discipline"
+      text="鐵的紀律" />
+    <string
+      id="ret_doctrine_training_iron_discipline_desc"
+      text="所有部隊的技能上限增加 +5。" />
+    <string
+      id="ret_doctrine_training_masters_at_arms"
+      text="武藝大師" />
+    <string
+      id="ret_doctrine_training_masters_at_arms_desc"
+      text="精英部隊獲得 +10 技能點。" />
+    <string
+      id="ret_doctrine_training_steadfast_soldiers"
+      text="堅定的士兵" />
+    <string
+      id="ret_doctrine_training_steadfast_soldiers_desc"
+      text="基礎部隊獲得 +10 技能點。" />
+    <string
+      id="ret_doctrine_troops_armed_peasantry"
+      text="武裝農民" />
+    <string
+      id="ret_doctrine_troops_armed_peasantry_desc"
+      text="為村莊隊伍解鎖自定義村民部隊。" />
+    <string
+      id="ret_doctrine_troops_captains"
+      text="隊長" />
+    <string
+      id="ret_doctrine_troops_captains_desc"
+      text="為所有常規部隊解鎖隊長變體。" />
+    <string
+      id="ret_doctrine_troops_road_wardens"
+      text="道路守衛" />
+    <string
+      id="ret_doctrine_troops_road_wardens_desc"
+      text="解鎖自定義商隊部隊護衛。" />
+    <string
+      id="ret_doctrine_troops_stalwart_militia"
+      text="堅定的民兵" />
+    <string
+      id="ret_doctrine_troops_stalwart_militia_desc"
+      text="為您的派系的城鎮和城堡解鎖自定義民兵部隊。" />
     <string
       id="ret_doctrines_disabled"
       text="學說已被禁用。" />
@@ -410,6 +566,15 @@
       id="ret_equipment_cannot_delete_last_set"
       text="至少必須保留一個裝備套裝。" />
     <string
+      id="ret_equipment_clipboard_source_fallback"
+      text="剪貼板" />
+    <string
+      id="ret_equipment_copied_toast"
+      text="已將裝備複製到剪貼板。" />
+    <string
+      id="ret_equipment_copy_tooltip"
+      text="將裝備複製到剪貼板。" />
+    <string
       id="ret_equipment_delete_breaks_battle_types_reason"
       text="無法刪除此套裝，因為它是至少一種戰鬥類型啟用的最後一個套裝。" />
     <string
@@ -430,6 +595,27 @@
     <string
       id="ret_equipment_panel_weight_value"
       text="{WEIGHT} 公斤" />
+    <string
+      id="ret_equipment_paste_cant_afford_desc"
+      text="將裝備從 {SRC} 複製到 {DST} 需要 {COST} 丹納爾，但您只有 {GOLD}。" />
+    <string
+      id="ret_equipment_paste_confirm_question"
+      text="將裝備從 {SRC} 複製到 {DST}？" />
+    <string
+      id="ret_equipment_paste_confirm_title"
+      text="複製裝備" />
+    <string
+      id="ret_equipment_paste_empty_clipboard_reason"
+      text="剪貼板為空。" />
+    <string
+      id="ret_equipment_paste_nothing_desc2"
+      text="從 {SRC} 沒有什麼可以裝備在 {DST} 上。" />
+    <string
+      id="ret_equipment_paste_nothing_title"
+      text="複製裝備" />
+    <string
+      id="ret_equipment_paste_tooltip"
+      text="從剪貼板粘貼裝備。" />
     <string
       id="ret_equipment_slot_body"
       text="身體" />
@@ -479,11 +665,38 @@
       id="ret_export_character_tooltip"
       text="保存並導出。" />
     <string
+      id="ret_export_done_desc"
+      text="導出寫入到：{newline}{PATH}" />
+    <string
+      id="ret_export_done_title"
+      text="導出完成" />
+    <string
       id="ret_export_faction_no_id"
       text="所選陣營無效。" />
     <string
       id="ret_export_faction_none"
       text="未選擇陣營。" />
+    <string
+      id="ret_export_failed_exception"
+      text="無法寫入文件。" />
+    <string
+      id="ret_export_failed_generic"
+      text="無法導出：{ERROR}。" />
+    <string
+      id="ret_export_failed_title"
+      text="導出失敗" />
+    <string
+      id="ret_export_name_desc"
+      text="為此導出選擇一個文件名：" />
+    <string
+      id="ret_export_name_title"
+      text="導出名稱" />
+    <string
+      id="ret_export_overwrite_desc"
+      text="名為“{NAME}”的文件已存在。{newline}{newline}您想要覆蓋它嗎？" />
+    <string
+      id="ret_export_overwrite_title"
+      text="文件已存在" />
     <string
       id="ret_faction_troops_unlocked_desc"
       text="{COUNT} 名新兵現已可供 {FACTION} {FACTION_TYPE} 使用。" />
@@ -683,6 +896,189 @@
       id="ret_feat_sp_cut_the_head_desc"
       text="在戰鬥中親自擊敗一位敵方領主。" />
     <string
+      id="ret_feat_sp_cut_the_head_name"
+      text="斬首" />
+    <string
+      id="ret_feat_sp_high_value_targets_desc"
+      text="在一場戰鬥中親自擊敗5名5級以上的部隊。" />
+    <string
+      id="ret_feat_sp_high_value_targets_name"
+      text="高價值目標" />
+    <string
+      id="ret_feat_sp_homecoming_desc"
+      text="從敵國手中奪取一個屬於您自己文化的封地。" />
+    <string
+      id="ret_feat_sp_homecoming_name"
+      text="歸鄉" />
+    <string
+      id="ret_feat_sp_march_together_desc"
+      text="作為盟友領主軍隊的一部分贏得一場戰鬥。" />
+    <string
+      id="ret_feat_sp_march_together_name"
+      text="一起前進" />
+    <string
+      id="ret_feat_sp_rescue_mission_desc"
+      text="從敵方隊伍中解救一位被俘的領主。" />
+    <string
+      id="ret_feat_sp_rescue_mission_name"
+      text="救援任務" />
+    <string
+      id="ret_feat_sp_second_in_command_desc"
+      text="贏得一場您不是主要指揮官的戰鬥。" />
+    <string
+      id="ret_feat_sp_second_in_command_name"
+      text="副指揮官" />
+    <string
+      id="ret_feat_sp_turn_the_tide_desc"
+      text="扭轉一場涉及盟軍的戰鬥的局勢。" />
+    <string
+      id="ret_feat_sp_turn_the_tide_name"
+      text="扭轉局勢" />
+    <string
+      id="ret_feat_tr_battle_hardened_desc"
+      text="使用精英派系部隊獲得 {TARGET} 次擊殺。" />
+    <string
+      id="ret_feat_tr_battle_hardened_name"
+      text="戰鬥磨練" />
+    <string
+      id="ret_feat_tr_brawler_desc"
+      text="在競技場擊倒 {TARGET} 名對手。" />
+    <string
+      id="ret_feat_tr_brawler_name"
+      text="鬥士" />
+    <string
+      id="ret_feat_tr_combined_arms_desc"
+      text="使用一個在步兵、騎兵和遠程氏族部隊之間均勻分配的隊伍，贏得一場對抗100多名敵人的戰鬥。" />
+    <string
+      id="ret_feat_tr_combined_arms_name"
+      text="聯合武器" />
+    <string
+      id="ret_feat_tr_disciplined_victory_desc"
+      text="僅使用派系部隊擊敗規模為你兩倍的隊伍。" />
+    <string
+      id="ret_feat_tr_disciplined_victory_name"
+      text="紀律勝利" />
+    <string
+      id="ret_feat_tr_distinguished_service_desc"
+      text="將 {TARGET} 名精英派系部隊升級到下一個等級。" />
+    <string
+      id="ret_feat_tr_distinguished_service_name"
+      text="傑出服務" />
+    <string
+      id="ret_feat_tr_forged_in_battle_desc"
+      text="將 {TARGET} 名派系部隊升級到下一個等級。" />
+    <string
+      id="ret_feat_tr_forged_in_battle_name"
+      text="戰鬥鍛造" />
+    <string
+      id="ret_feat_tr_general_desc"
+      text="連續領導一支軍隊 {TARGET} 天。" />
+    <string
+      id="ret_feat_tr_general_name"
+      text="將軍" />
+    <string
+      id="ret_feat_tr_hold_the_walls_desc"
+      text="僅使用派系部隊贏得一場圍城防禦戰。" />
+    <string
+      id="ret_feat_tr_hold_the_walls_name"
+      text="堅守城牆" />
+    <string
+      id="ret_feat_tr_lethal_versatility_desc"
+      text="在一場戰鬥中，使用五種不同的武器類別獲得一次擊殺。" />
+    <string
+      id="ret_feat_tr_lethal_versatility_name"
+      text="致命多才多藝" />
+    <string
+      id="ret_feat_tr_peak_performance_desc"
+      text="將 {TARGET} 名派系部隊的技能提升到最高水平。" />
+    <string
+      id="ret_feat_tr_peak_performance_name"
+      text="巔峰表現" />
+    <string
+      id="ret_feat_tr_public_safety_desc"
+      text="將一個封地的安全值提升到 {TARGET}。" />
+    <string
+      id="ret_feat_tr_public_safety_name"
+      text="公共安全" />
+    <string
+      id="ret_feat_tr_unyielding_defense_desc"
+      text="連續贏得 {TARGET} 場防禦戰。" />
+    <string
+      id="ret_feat_tr_unyielding_defense_name"
+      text="堅定防禦" />
+    <string
+      id="ret_feat_trp_bandit_scourge_desc"
+      text="清除一個強盜藏身處。" />
+    <string
+      id="ret_feat_trp_bandit_scourge_name"
+      text="強盜禍害" />
+    <string
+      id="ret_feat_trp_defender_of_the_city_desc"
+      text="保衛一座城市免受圍攻軍隊的攻擊。" />
+    <string
+      id="ret_feat_trp_defender_of_the_city_name"
+      text="城市守護者" />
+    <string
+      id="ret_feat_trp_headmans_help_desc"
+      text="為村莊的村長完成一個任務。" />
+    <string
+      id="ret_feat_trp_headmans_help_name"
+      text="村長的幫助" />
+    <string
+      id="ret_feat_trp_landowners_request_desc"
+      text="為村莊的地主完成一個任務。" />
+    <string
+      id="ret_feat_trp_landowners_request_name"
+      text="地主的請求" />
+    <string
+      id="ret_feat_trp_merchants_favor_desc"
+      text="為城鎮的著名商人完成一個任務。" />
+    <string
+      id="ret_feat_trp_merchants_favor_name"
+      text="商人的恩惠" />
+    <string
+      id="ret_feat_trp_meritorious_service_desc"
+      text="提升 {TARGET} 名派系部隊。" />
+    <string
+      id="ret_feat_trp_meritorious_service_name"
+      text="功績服務" />
+    <string
+      id="ret_feat_trp_shield_of_the_people_desc"
+      text="保衛一個村莊免受敵人的襲擊。" />
+    <string
+      id="ret_feat_trp_shield_of_the_people_name"
+      text="人民之盾" />
+    <string
+      id="ret_feat_trp_they_shall_not_pass_desc"
+      text="在圍城防禦戰中親自擊殺 {TARGET} 名襲擊者。" />
+    <string
+      id="ret_feat_trp_they_shall_not_pass_name"
+      text="無人通過" />
+    <string
+      id="ret_feat_trp_trade_network_desc"
+      text="同時擁有 {TARGET} 支商隊。" />
+    <string
+      id="ret_feat_trp_trade_network_name"
+      text="貿易網絡" />
+    <string
+      id="ret_feat_trp_veterans_desc"
+      text="將一名T5基礎部隊的技能提升到最高水平。" />
+    <string
+      id="ret_feat_trp_veterans_name"
+      text="老兵" />
+    <string
+      id="ret_feat_trp_warrior_class_desc"
+      text="將一名T6精英部隊的技能提升到最高水平。" />
+    <string
+      id="ret_feat_trp_warrior_class_name"
+      text="戰士階級" />
+    <string
+      id="ret_feat_trp_watchers_on_the_walls_desc"
+      text="將一個封地的民兵值提升到 {TARGET}。" />
+    <string
+      id="ret_feat_trp_watchers_on_the_walls_name"
+      text="城牆上的守望者" />
+    <string
       id="ret_filter_label"
       text="過濾器：" />
     <string
@@ -724,6 +1120,9 @@
     <string
       id="ret_height_hint"
       text="身高" />
+    <string
+      id="ret_heroes_cannot_be_exported"
+      text="英雄無法導出。" />
     <string
       id="ret_in_stock"
       text="有庫存 ({STOCK})" />
@@ -775,6 +1174,9 @@
     <string
       id="ret_invalid_name_body"
       text="名稱不能為空。" />
+    <string
+      id="ret_invalid_name_sanitize"
+      text="此名稱不包含任何有效的文件字符。" />
     <string
       id="ret_invalid_name_title"
       text="無效名稱" />
@@ -1466,6 +1868,9 @@
       id="ret_notification_popup"
       text="彈出窗口" />
     <string
+      id="ret_overwrite_confirm"
+      text="覆蓋" />
+    <string
       id="ret_preview_mode"
       text="預覽模式" />
     <string
@@ -1802,6 +2207,9 @@
       id="ret_unequip_item_tooltip"
       text="卸下裝備" />
     <string
+      id="ret_unknown_error"
+      text="未知錯誤。" />
+    <string
       id="ret_unlock_and"
       text="和" />
     <string
@@ -1828,6 +2236,9 @@
     <string
       id="ret_upgrade_cannot_add_max_tier"
       text="該單位已達到最高等級。" />
+    <string
+      id="ret_upgrade_cannot_add_not_upgradable"
+      text="該單位無法升級。" />
     <string
       id="ret_upgrade_sources_header_text"
       text="來源" />

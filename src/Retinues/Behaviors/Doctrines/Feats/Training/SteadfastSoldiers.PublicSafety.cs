@@ -5,9 +5,9 @@ namespace Retinues.Behaviors.Doctrines.Feats.Training
     /// <summary>
     /// Raise the security value of a fief to 60.
     /// </summary>
-    public sealed class Feat_SteadfastSoldiers_SecureHoldings : BaseFeatBehavior
+    public sealed class Feat_SteadfastSoldiers_PublicSafety : BaseFeatBehavior
     {
-        protected override string FeatId => Catalogs.FeatCatalog.SS_SecureHoldings.Id;
+        protected override string FeatId => Catalogs.FeatCatalog.SS_PublicSafety.Id;
 
         protected override void OnDailyTick()
         {

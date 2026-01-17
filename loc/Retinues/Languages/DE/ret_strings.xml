@@ -155,14 +155,38 @@
       id="ret_cant_equip_reason_null"
       text="Ungültiger Gegenstand" />
     <string
+      id="ret_cant_equip_reason_other"
+      text="Kann nicht ausgerüstet werden" />
+    <string
       id="ret_cant_equip_reason_skill"
       text="{SKILL} {VALUE}" />
+    <string
+      id="ret_cant_equip_reason_too_heavy"
+      text="Zu schwer" />
+    <string
+      id="ret_cant_equip_reason_too_valuable"
+      text="Zu wertvoll" />
     <string
       id="ret_cant_equip_reason_unlocking"
       text="Entsperren {PERCENT}%" />
     <string
       id="ret_cant_unequip_reason_empty"
       text="Nichts zum Ausrüsten." />
+    <string
+      id="ret_captain_suffix"
+      text="Hauptmann" />
+    <string
+      id="ret_captain_toggle_disabled_hint"
+      text="Diesen Hauptmann deaktivieren" />
+    <string
+      id="ret_captain_toggle_enabled_hint"
+      text="Diesen Hauptmann aktivieren" />
+    <string
+      id="ret_captain_toggle_enabled_not_captain_reason"
+      text="Diese Einheit ist kein Hauptmann." />
+    <string
+      id="ret_captain_toggle_mode_hint"
+      text="Wechsle zwischen der Basiseinheit und ihrer Hauptmann-Variante." />
     <string
       id="ret_change_culture_title"
       text="Kultur ändern" />
@@ -178,6 +202,9 @@
     <string
       id="ret_character_cannot_remove_with_upgrades"
       text="Eine Einheit, die noch Upgrades hat, kann nicht entfernt werden." />
+    <string
+      id="ret_character_is_null"
+      text="Charakter ist null." />
     <string
       id="ret_clan_troops_unlock_always_unlocked"
       text="Immer entsperrt" />
@@ -278,6 +305,30 @@
       id="ret_doctrine_acquired_msg"
       text="Erworbene Doktrin: {NAME}." />
     <string
+      id="ret_doctrine_armory_cultural_pride"
+      text="Kultureller Stolz" />
+    <string
+      id="ret_doctrine_armory_cultural_pride_desc"
+      text="-20 % auf die Ausrüstungskosten der Clan-Kultur." />
+    <string
+      id="ret_doctrine_armory_honor_guard"
+      text="Ehrenwache" />
+    <string
+      id="ret_doctrine_armory_honor_guard_desc"
+      text="+15 % an der Gesamtausrüstungswertgrenze." />
+    <string
+      id="ret_doctrine_armory_ironclad"
+      text="Panzerschiff" />
+    <string
+      id="ret_doctrine_armory_ironclad_desc"
+      text="+15 % an der Gesamtausrüstungsgewichtgrenze." />
+    <string
+      id="ret_doctrine_armory_royal_patronage"
+      text="Königliche Schirmherrschaft" />
+    <string
+      id="ret_doctrine_armory_royal_patronage_desc"
+      text="-20 % auf die Ausrüstungskosten der Königreich-Kultur." />
+    <string
       id="ret_doctrine_cat_equipments"
       text="Ausrüstungen" />
     <string
@@ -317,6 +368,33 @@
       id="ret_doctrine_feats_header"
       text="Taten" />
     <string
+      id="ret_doctrine_locked_hint"
+      text="{DOCTRINE} muss zuerst erworben werden." />
+    <string
+      id="ret_doctrine_loot_ancestral_heritage"
+      text="Ahnenerbe" />
+    <string
+      id="ret_doctrine_loot_ancestral_heritage_desc"
+      text="Schaltet alle Gegenstände der Clan-Kultur frei." />
+    <string
+      id="ret_doctrine_loot_battlefield_tithes"
+      text="Feldzehnten" />
+    <string
+      id="ret_doctrine_loot_battlefield_tithes_desc"
+      text="Verbündete tragen zum Fortschritt beim Freischalten von Ausrüstung bei." />
+    <string
+      id="ret_doctrine_loot_lions_share"
+      text="Löwenanteil" />
+    <string
+      id="ret_doctrine_loot_lions_share_desc"
+      text="Heldenkills zählen doppelt zum Freischalten feindlicher Ausrüstung." />
+    <string
+      id="ret_doctrine_loot_pragmatic_scavengers"
+      text="Pragmatische Aasfresser" />
+    <string
+      id="ret_doctrine_loot_pragmatic_scavengers_desc"
+      text="Ausrüstung kann aus alliierten Verlusten freigeschaltet werden." />
+    <string
       id="ret_doctrine_not_enough_gold_desc"
       text="Sie benötigen {COST} Denare, um diese Doktrin freizuschalten." />
     <string
@@ -332,6 +410,30 @@
       id="ret_doctrine_progress_text"
       text="Fortschritt: {PROGRESS}%" />
     <string
+      id="ret_doctrine_retinues_bound_by_honor"
+      text="Durch Ehre gebunden" />
+    <string
+      id="ret_doctrine_retinues_bound_by_honor_desc"
+      text="+20 % auf die Moral der Gefolgschaften." />
+    <string
+      id="ret_doctrine_retinues_immortals"
+      text="Unsterbliche" />
+    <string
+      id="ret_doctrine_retinues_immortals_desc"
+      text="+20 % auf die Überlebenschance der Gefolgschaften." />
+    <string
+      id="ret_doctrine_retinues_indomitable"
+      text="Unbeugsam" />
+    <string
+      id="ret_doctrine_retinues_indomitable_desc"
+      text="+10 % auf die Gesundheit der Gefolgschaften." />
+    <string
+      id="ret_doctrine_retinues_vanguard"
+      text="Vorhut" />
+    <string
+      id="ret_doctrine_retinues_vanguard_desc"
+      text="+15 % auf die maximale Anzahl der Gefolgschaften." />
+    <string
       id="ret_doctrine_state_acquired"
       text="Erworben" />
     <string
@@ -343,6 +445,60 @@
     <string
       id="ret_doctrine_state_unlocked"
       text="Entsperrt" />
+    <string
+      id="ret_doctrine_status_acquired"
+      text="ERWORBEN" />
+    <string
+      id="ret_doctrine_status_locked"
+      text="GESPERRT" />
+    <string
+      id="ret_doctrine_training_advanced_tactics"
+      text="Fortgeschrittene Taktiken" />
+    <string
+      id="ret_doctrine_training_advanced_tactics_desc"
+      text="+10 % auf die Rate des Fertigkeitspunktegewinns." />
+    <string
+      id="ret_doctrine_training_iron_discipline"
+      text="Eiserne Disziplin" />
+    <string
+      id="ret_doctrine_training_iron_discipline_desc"
+      text="Erhöht die Fähigkeitsgrenzen um +5 für alle Truppen." />
+    <string
+      id="ret_doctrine_training_masters_at_arms"
+      text="Waffenmeister" />
+    <string
+      id="ret_doctrine_training_masters_at_arms_desc"
+      text="Gewährt +10 Fertigkeitspunkte für Elite-Truppen." />
+    <string
+      id="ret_doctrine_training_steadfast_soldiers"
+      text="Unerschütterliche Soldaten" />
+    <string
+      id="ret_doctrine_training_steadfast_soldiers_desc"
+      text="Gewährt +10 Fertigkeitspunkte für Basistruppen." />
+    <string
+      id="ret_doctrine_troops_armed_peasantry"
+      text="Bewaffnete Bauern" />
+    <string
+      id="ret_doctrine_troops_armed_peasantry_desc"
+      text="Schaltet benutzerdefinierte Dorfbewohner-Truppen für Dorffahrten frei." />
+    <string
+      id="ret_doctrine_troops_captains"
+      text="Hauptmänner" />
+    <string
+      id="ret_doctrine_troops_captains_desc"
+      text="Schaltet Hauptmann-Varianten für alle regulären Truppen frei." />
+    <string
+      id="ret_doctrine_troops_road_wardens"
+      text="Straßenwärter" />
+    <string
+      id="ret_doctrine_troops_road_wardens_desc"
+      text="Schaltet benutzerdefinierte Karawanen-Truppengardisten frei." />
+    <string
+      id="ret_doctrine_troops_stalwart_militia"
+      text="Unerschütterliche Miliz" />
+    <string
+      id="ret_doctrine_troops_stalwart_militia_desc"
+      text="Schaltet benutzerdefinierte Miliztruppen für die Städte und Burgen Ihrer Fraktion frei." />
     <string
       id="ret_doctrines_disabled"
       text="Doktrinen sind deaktiviert." />
@@ -410,6 +566,15 @@
       id="ret_equipment_cannot_delete_last_set"
       text="Es muss mindestens ein Ausrüstungsset verbleiben." />
     <string
+      id="ret_equipment_clipboard_source_fallback"
+      text="Zwischenablage" />
+    <string
+      id="ret_equipment_copied_toast"
+      text="Ausrüstung in die Zwischenablage kopiert." />
+    <string
+      id="ret_equipment_copy_tooltip"
+      text="Ausrüstung in die Zwischenablage kopieren." />
+    <string
       id="ret_equipment_delete_breaks_battle_types_reason"
       text="Dieses Set kann nicht gelöscht werden, da es das letzte für mindestens einen Kampftyp aktivierte ist." />
     <string
@@ -430,6 +595,27 @@
     <string
       id="ret_equipment_panel_weight_value"
       text="{WEIGHT} kg" />
+    <string
+      id="ret_equipment_paste_cant_afford_desc"
+      text="Das Kopieren von Ausrüstung von {SRC} nach {DST} erfordert {COST} Denare, aber Sie haben nur {GOLD}." />
+    <string
+      id="ret_equipment_paste_confirm_question"
+      text="Ausrüstung von {SRC} nach {DST} kopieren?" />
+    <string
+      id="ret_equipment_paste_confirm_title"
+      text="Ausrüstung kopieren" />
+    <string
+      id="ret_equipment_paste_empty_clipboard_reason"
+      text="Die Zwischenablage ist leer." />
+    <string
+      id="ret_equipment_paste_nothing_desc2"
+      text="Nichts von {SRC} kann auf {DST} ausgerüstet werden." />
+    <string
+      id="ret_equipment_paste_nothing_title"
+      text="Ausrüstung kopieren" />
+    <string
+      id="ret_equipment_paste_tooltip"
+      text="Ausrüstung aus der Zwischenablage einfügen." />
     <string
       id="ret_equipment_slot_body"
       text="Körper" />
@@ -479,11 +665,38 @@
       id="ret_export_character_tooltip"
       text="Speichern &amp; exportieren." />
     <string
+      id="ret_export_done_desc"
+      text="Export geschrieben nach:{newline}{PATH}" />
+    <string
+      id="ret_export_done_title"
+      text="Export abgeschlossen" />
+    <string
       id="ret_export_faction_no_id"
       text="Die ausgewählte Fraktion ist ungültig." />
     <string
       id="ret_export_faction_none"
       text="Keine Fraktion ausgewählt." />
+    <string
+      id="ret_export_failed_exception"
+      text="Die Datei konnte nicht geschrieben werden." />
+    <string
+      id="ret_export_failed_generic"
+      text="Exportieren nicht möglich: {ERROR}." />
+    <string
+      id="ret_export_failed_title"
+      text="Export fehlgeschlagen" />
+    <string
+      id="ret_export_name_desc"
+      text="Wählen Sie einen Dateinamen für diesen Export:" />
+    <string
+      id="ret_export_name_title"
+      text="Exportname" />
+    <string
+      id="ret_export_overwrite_desc"
+      text="Eine Datei mit dem Namen &apos;{NAME}&apos; existiert bereits.{newline}{newline}Möchten Sie sie überschreiben?" />
+    <string
+      id="ret_export_overwrite_title"
+      text="Datei existiert bereits" />
     <string
       id="ret_faction_troops_unlocked_desc"
       text="{COUNT} neue Truppen sind jetzt für die {FACTION_TYPE} {FACTION} verfügbar." />
@@ -683,6 +896,189 @@
       id="ret_feat_sp_cut_the_head_desc"
       text="Besiege persönlich einen feindlichen Lord im Kampf." />
     <string
+      id="ret_feat_sp_cut_the_head_name"
+      text="Kopf abschlagen" />
+    <string
+      id="ret_feat_sp_high_value_targets_desc"
+      text="Besiege persönlich 5 Truppen der Stufe 5+ in einer einzigen Schlacht." />
+    <string
+      id="ret_feat_sp_high_value_targets_name"
+      text="Hochwertige Ziele" />
+    <string
+      id="ret_feat_sp_homecoming_desc"
+      text="Erobere ein Lehen deiner eigenen Kultur von einem feindlichen Königreich." />
+    <string
+      id="ret_feat_sp_homecoming_name"
+      text="Heimkehr" />
+    <string
+      id="ret_feat_sp_march_together_desc"
+      text="Gewinne eine Schlacht als Teil der Armee eines verbündeten Lords." />
+    <string
+      id="ret_feat_sp_march_together_name"
+      text="Gemeinsam marschieren" />
+    <string
+      id="ret_feat_sp_rescue_mission_desc"
+      text="Rette einen gefangenen Lord aus einer feindlichen Gruppe." />
+    <string
+      id="ret_feat_sp_rescue_mission_name"
+      text="Rettungsmission" />
+    <string
+      id="ret_feat_sp_second_in_command_desc"
+      text="Gewinne eine Schlacht, in der du nicht der Hauptkommandant bist." />
+    <string
+      id="ret_feat_sp_second_in_command_name"
+      text="Stellvertreter" />
+    <string
+      id="ret_feat_sp_turn_the_tide_desc"
+      text="Wende das Blatt in einer Schlacht, an der eine verbündete Armee beteiligt ist." />
+    <string
+      id="ret_feat_sp_turn_the_tide_name"
+      text="Wende das Blatt" />
+    <string
+      id="ret_feat_tr_battle_hardened_desc"
+      text="Erziele {TARGET} Kills mit Elite-Fraktionstruppen." />
+    <string
+      id="ret_feat_tr_battle_hardened_name"
+      text="Kampferprobt" />
+    <string
+      id="ret_feat_tr_brawler_desc"
+      text="Schlage {TARGET} Gegner in der Arena k.o." />
+    <string
+      id="ret_feat_tr_brawler_name"
+      text="Kämpfer" />
+    <string
+      id="ret_feat_tr_combined_arms_desc"
+      text="Gewinne eine Schlacht gegen über 100 Feinde mit einer Gruppe, die gleichmäßig auf Infanterie, Kavallerie und Fernkampfeinheiten des Clans aufgeteilt ist." />
+    <string
+      id="ret_feat_tr_combined_arms_name"
+      text="Verbundene Waffen" />
+    <string
+      id="ret_feat_tr_disciplined_victory_desc"
+      text="Besiege eine Gruppe, die doppelt so groß ist wie deine, indem du nur Fraktionssoldaten einsetzt." />
+    <string
+      id="ret_feat_tr_disciplined_victory_name"
+      text="Disziplinierter Sieg" />
+    <string
+      id="ret_feat_tr_distinguished_service_desc"
+      text="Rüste {TARGET} Elite-Fraktionstruppen auf die nächste Stufe auf." />
+    <string
+      id="ret_feat_tr_distinguished_service_name"
+      text="Ausgezeichneter Dienst" />
+    <string
+      id="ret_feat_tr_forged_in_battle_desc"
+      text="Rüste {TARGET} Fraktionstruppen auf die nächste Stufe auf." />
+    <string
+      id="ret_feat_tr_forged_in_battle_name"
+      text="Im Kampf geschmiedet" />
+    <string
+      id="ret_feat_tr_general_desc"
+      text="Führe eine Armee für {TARGET} Tage in Folge." />
+    <string
+      id="ret_feat_tr_general_name"
+      text="General" />
+    <string
+      id="ret_feat_tr_hold_the_walls_desc"
+      text="Gewinne eine Belagerungsverteidigung, bei der nur Fraktionstruppen eingesetzt werden." />
+    <string
+      id="ret_feat_tr_hold_the_walls_name"
+      text="Haltet die Mauern" />
+    <string
+      id="ret_feat_tr_lethal_versatility_desc"
+      text="Erziele in einer einzigen Schlacht einen Kill mit fünf verschiedenen Waffenklassen." />
+    <string
+      id="ret_feat_tr_lethal_versatility_name"
+      text="Tödliche Vielseitigkeit" />
+    <string
+      id="ret_feat_tr_peak_performance_desc"
+      text="Maximiere die Fähigkeiten von {TARGET} Fraktionstruppen." />
+    <string
+      id="ret_feat_tr_peak_performance_name"
+      text="Höchstleistung" />
+    <string
+      id="ret_feat_tr_public_safety_desc"
+      text="Erhöhe den Sicherheitswert eines Lehens auf {TARGET}." />
+    <string
+      id="ret_feat_tr_public_safety_name"
+      text="Öffentliche Sicherheit" />
+    <string
+      id="ret_feat_tr_unyielding_defense_desc"
+      text="Gewinne {TARGET} Verteidigungsschlachten in Folge." />
+    <string
+      id="ret_feat_tr_unyielding_defense_name"
+      text="Unnachgiebige Verteidigung" />
+    <string
+      id="ret_feat_trp_bandit_scourge_desc"
+      text="Räume ein Banditenversteck aus." />
+    <string
+      id="ret_feat_trp_bandit_scourge_name"
+      text="Banditenplage" />
+    <string
+      id="ret_feat_trp_defender_of_the_city_desc"
+      text="Verteidige eine Stadt gegen eine belagernde Armee." />
+    <string
+      id="ret_feat_trp_defender_of_the_city_name"
+      text="Verteidiger der Stadt" />
+    <string
+      id="ret_feat_trp_headmans_help_desc"
+      text="Schließe eine Quest für einen Dorfvorsteher ab." />
+    <string
+      id="ret_feat_trp_headmans_help_name"
+      text="Hilfe des Dorfvorstehers" />
+    <string
+      id="ret_feat_trp_landowners_request_desc"
+      text="Schließe eine Quest für einen Dorfgrundbesitzer ab." />
+    <string
+      id="ret_feat_trp_landowners_request_name"
+      text="Anfrage des Grundbesitzers" />
+    <string
+      id="ret_feat_trp_merchants_favor_desc"
+      text="Schließe eine Quest für einen bekannten Stadtmerchant ab." />
+    <string
+      id="ret_feat_trp_merchants_favor_name"
+      text="Gunst des Händlers" />
+    <string
+      id="ret_feat_trp_meritorious_service_desc"
+      text="Befördere {TARGET} Fraktionstruppen." />
+    <string
+      id="ret_feat_trp_meritorious_service_name"
+      text="Verdienstvoller Dienst" />
+    <string
+      id="ret_feat_trp_shield_of_the_people_desc"
+      text="Verteidige ein Dorf gegen einen feindlichen Überfall." />
+    <string
+      id="ret_feat_trp_shield_of_the_people_name"
+      text="Schild des Volkes" />
+    <string
+      id="ret_feat_trp_they_shall_not_pass_desc"
+      text="Töte persönlich {TARGET} Angreifer während einer Belagerungsverteidigung." />
+    <string
+      id="ret_feat_trp_they_shall_not_pass_name"
+      text="Sie werden nicht passieren" />
+    <string
+      id="ret_feat_trp_trade_network_desc"
+      text="Besitze gleichzeitig {TARGET} Karawanen." />
+    <string
+      id="ret_feat_trp_trade_network_name"
+      text="Handelsnetzwerk" />
+    <string
+      id="ret_feat_trp_veterans_desc"
+      text="Maximiere die Fähigkeiten einer T5-Grundtruppe." />
+    <string
+      id="ret_feat_trp_veterans_name"
+      text="Veteranen" />
+    <string
+      id="ret_feat_trp_warrior_class_desc"
+      text="Maximiere die Fähigkeiten einer T6-Elitetruppe." />
+    <string
+      id="ret_feat_trp_warrior_class_name"
+      text="Kriegerklasse" />
+    <string
+      id="ret_feat_trp_watchers_on_the_walls_desc"
+      text="Erhöhe den Milizwert eines Lehens auf {TARGET}." />
+    <string
+      id="ret_feat_trp_watchers_on_the_walls_name"
+      text="Wächter auf den Mauern" />
+    <string
       id="ret_filter_label"
       text="Filter:" />
     <string
@@ -724,6 +1120,9 @@
     <string
       id="ret_height_hint"
       text="Größe" />
+    <string
+      id="ret_heroes_cannot_be_exported"
+      text="Helden können nicht exportiert werden." />
     <string
       id="ret_in_stock"
       text="Auf Lager ({STOCK})" />
@@ -775,6 +1174,9 @@
     <string
       id="ret_invalid_name_body"
       text="Der Name darf nicht leer sein." />
+    <string
+      id="ret_invalid_name_sanitize"
+      text="Dieser Name enthält keine gültigen Dateizeichen." />
     <string
       id="ret_invalid_name_title"
       text="Ungültiger Name" />
@@ -1466,6 +1868,9 @@
       id="ret_notification_popup"
       text="Popup" />
     <string
+      id="ret_overwrite_confirm"
+      text="Überschreiben" />
+    <string
       id="ret_preview_mode"
       text="Vorschaumodus" />
     <string
@@ -1802,6 +2207,9 @@
       id="ret_unequip_item_tooltip"
       text="Ablegen" />
     <string
+      id="ret_unknown_error"
+      text="Unbekannter Fehler." />
+    <string
       id="ret_unlock_and"
       text="und" />
     <string
@@ -1828,6 +2236,9 @@
     <string
       id="ret_upgrade_cannot_add_max_tier"
       text="Diese Einheit ist bereits auf der höchsten Stufe." />
+    <string
+      id="ret_upgrade_cannot_add_not_upgradable"
+      text="Diese Einheit ist nicht aufrüstbar." />
     <string
       id="ret_upgrade_sources_header_text"
       text="Quellen" />

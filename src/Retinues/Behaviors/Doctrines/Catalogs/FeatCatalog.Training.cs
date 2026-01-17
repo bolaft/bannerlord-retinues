@@ -64,12 +64,12 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
             Repeatable = false,
         };
 
-        public static FeatData SS_SecureHoldings = new()
+        public static FeatData SS_PublicSafety = new()
         {
-            Id = "feat_tr_secure_holdings",
-            Name = L.T("feat_tr_secure_holdings_name", "Secure Holdings"),
+            Id = "feat_tr_public_safety",
+            Name = L.T("feat_tr_public_safety_name", "Public Safety"),
             Description = L.T(
-                "feat_tr_secure_holdings_desc",
+                "feat_tr_public_safety_desc",
                 "Raise the security value of a fief to {TARGET}."
             ),
             Target = 60,

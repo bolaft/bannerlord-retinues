@@ -173,14 +173,14 @@
       id="ret_cant_unequip_reason_empty"
       text="Nothing to unequip." />
     <string
-      id="ret_captain_no_character_reason"
-      text="No unit is selected." />
-    <string
       id="ret_captain_suffix"
       text="Captain" />
     <string
+      id="ret_captain_toggle_disabled_hint"
+      text="Disable this Captain" />
+    <string
       id="ret_captain_toggle_enabled_hint"
-      text="Enable/Disable this Captain" />
+      text="Enable this Captain" />
     <string
       id="ret_captain_toggle_enabled_not_captain_reason"
       text="This unit is not a Captain." />
@@ -572,9 +572,6 @@
       id="ret_equipment_copied_toast"
       text="Copied equipment to clipboard." />
     <string
-      id="ret_equipment_copy_no_set_reason"
-      text="No equipment set selected." />
-    <string
       id="ret_equipment_copy_tooltip"
       text="Copy equipment to clipboard." />
     <string
@@ -610,9 +607,6 @@
     <string
       id="ret_equipment_paste_empty_clipboard_reason"
       text="Clipboard is empty." />
-    <string
-      id="ret_equipment_paste_no_set_reason"
-      text="No equipment set selected." />
     <string
       id="ret_equipment_paste_nothing_desc2"
       text="Nothing from {SRC} can be equipped on {DST}." />
@@ -1001,11 +995,11 @@
       id="ret_feat_tr_peak_performance_name"
       text="Peak Performance" />
     <string
-      id="ret_feat_tr_secure_holdings_desc"
+      id="ret_feat_tr_public_safety_desc"
       text="Raise the security value of a fief to {TARGET}." />
     <string
-      id="ret_feat_tr_secure_holdings_name"
-      text="Secure Holdings" />
+      id="ret_feat_tr_public_safety_name"
+      text="Public Safety" />
     <string
       id="ret_feat_tr_unyielding_defense_desc"
       text="Win {TARGET} defensive battles in a row." />
@@ -1059,7 +1053,7 @@
       text="Personally slay {TARGET} assailants during a siege defense." />
     <string
       id="ret_feat_trp_they_shall_not_pass_name"
-      text="None Shall Pass" />
+      text="They Shall Not Pass" />
     <string
       id="ret_feat_trp_trade_network_desc"
       text="Own {TARGET} caravans at the same time." />
@@ -1873,9 +1867,6 @@
     <string
       id="ret_notification_popup"
       text="Popup" />
-    <string
-      id="ret_overwrite_cancel"
-      text="Cancel" />
     <string
       id="ret_overwrite_confirm"
       text="Overwrite" />

@@ -155,14 +155,38 @@
       id="ret_cant_equip_reason_null"
       text="Geçersiz öğe" />
     <string
+      id="ret_cant_equip_reason_other"
+      text="Ekipman takılamıyor" />
+    <string
       id="ret_cant_equip_reason_skill"
       text="{SKILL} {VALUE}" />
+    <string
+      id="ret_cant_equip_reason_too_heavy"
+      text="Çok ağır" />
+    <string
+      id="ret_cant_equip_reason_too_valuable"
+      text="Çok değerli" />
     <string
       id="ret_cant_equip_reason_unlocking"
       text="{PERCENT}% Kilit Açılıyor" />
     <string
       id="ret_cant_unequip_reason_empty"
       text="Kaldırılacak bir şey yok." />
+    <string
+      id="ret_captain_suffix"
+      text="Kaptan" />
+    <string
+      id="ret_captain_toggle_disabled_hint"
+      text="Bu Kaptanı Devre Dışı Bırak" />
+    <string
+      id="ret_captain_toggle_enabled_hint"
+      text="Bu Kaptanı Etkinleştir" />
+    <string
+      id="ret_captain_toggle_enabled_not_captain_reason"
+      text="Bu birim bir Kaptan değil." />
+    <string
+      id="ret_captain_toggle_mode_hint"
+      text="Temel birlik ile Kaptan varyantı arasında geçiş yapın." />
     <string
       id="ret_change_culture_title"
       text="Kültürü Değiştir" />
@@ -178,6 +202,9 @@
     <string
       id="ret_character_cannot_remove_with_upgrades"
       text="Hala yükseltmeleri olan birim kaldırılamaz." />
+    <string
+      id="ret_character_is_null"
+      text="Karakter null." />
     <string
       id="ret_clan_troops_unlock_always_unlocked"
       text="Her Zaman Kilit Açıldı" />
@@ -278,6 +305,30 @@
       id="ret_doctrine_acquired_msg"
       text="Edinilen doktrin: {NAME}." />
     <string
+      id="ret_doctrine_armory_cultural_pride"
+      text="Kültürel Gurur" />
+    <string
+      id="ret_doctrine_armory_cultural_pride_desc"
+      text="Klan kültürü ekipman maliyetlerinde %20 indirim." />
+    <string
+      id="ret_doctrine_armory_honor_guard"
+      text="Onur Muhafızı" />
+    <string
+      id="ret_doctrine_armory_honor_guard_desc"
+      text="Toplam ekipman değer sınırına %15 eklenir." />
+    <string
+      id="ret_doctrine_armory_ironclad"
+      text="Zırhlı" />
+    <string
+      id="ret_doctrine_armory_ironclad_desc"
+      text="Toplam ekipman ağırlık sınırına %15 eklenir." />
+    <string
+      id="ret_doctrine_armory_royal_patronage"
+      text="Kraliyet Himayesi" />
+    <string
+      id="ret_doctrine_armory_royal_patronage_desc"
+      text="Krallık kültürü ekipman maliyetlerinde %20 indirim." />
+    <string
       id="ret_doctrine_cat_equipments"
       text="Ekipmanlar" />
     <string
@@ -317,6 +368,33 @@
       id="ret_doctrine_feats_header"
       text="Başarılar" />
     <string
+      id="ret_doctrine_locked_hint"
+      text="Önce {DOCTRINE} edinilmelidir." />
+    <string
+      id="ret_doctrine_loot_ancestral_heritage"
+      text="Atasal Miras" />
+    <string
+      id="ret_doctrine_loot_ancestral_heritage_desc"
+      text="Tüm klan kültürü öğelerinin kilidini açar." />
+    <string
+      id="ret_doctrine_loot_battlefield_tithes"
+      text="Savaş Alanı Onlukları" />
+    <string
+      id="ret_doctrine_loot_battlefield_tithes_desc"
+      text="Müttefikler, ekipman kilidini açma ilerlemesine katkıda bulunur." />
+    <string
+      id="ret_doctrine_loot_lions_share"
+      text="Aslan Payı" />
+    <string
+      id="ret_doctrine_loot_lions_share_desc"
+      text="Kahraman öldürmeleri, düşman ekipmanının kilidini açmaya iki kat katkıda bulunur." />
+    <string
+      id="ret_doctrine_loot_pragmatic_scavengers"
+      text="Pragmatik Leş Kargacıları" />
+    <string
+      id="ret_doctrine_loot_pragmatic_scavengers_desc"
+      text="Ekipman, müttefik kayıplardan kilidi açılabilir." />
+    <string
       id="ret_doctrine_not_enough_gold_desc"
       text="Bu doktrini kilidini açmak için {COST} denar gerekir." />
     <string
@@ -332,6 +410,30 @@
       id="ret_doctrine_progress_text"
       text="İlerleme: {PROGRESS}%" />
     <string
+      id="ret_doctrine_retinues_bound_by_honor"
+      text="Onurla Bağlı" />
+    <string
+      id="ret_doctrine_retinues_bound_by_honor_desc"
+      text="Hizmetlilerin morali %20 artar." />
+    <string
+      id="ret_doctrine_retinues_immortals"
+      text="Ölümsüzler" />
+    <string
+      id="ret_doctrine_retinues_immortals_desc"
+      text="Hizmetlilerin hayatta kalma şansı %20 artar." />
+    <string
+      id="ret_doctrine_retinues_indomitable"
+      text="Yenilmez" />
+    <string
+      id="ret_doctrine_retinues_indomitable_desc"
+      text="Hizmetlilerin sağlığı %10 artar." />
+    <string
+      id="ret_doctrine_retinues_vanguard"
+      text="Öncü" />
+    <string
+      id="ret_doctrine_retinues_vanguard_desc"
+      text="Maksimum hizmetli sayısı %15 artar." />
+    <string
       id="ret_doctrine_state_acquired"
       text="Edinildi" />
     <string
@@ -343,6 +445,60 @@
     <string
       id="ret_doctrine_state_unlocked"
       text="Kilit Açıldı" />
+    <string
+      id="ret_doctrine_status_acquired"
+      text="EDİNİLDİ" />
+    <string
+      id="ret_doctrine_status_locked"
+      text="KİLİTLİ" />
+    <string
+      id="ret_doctrine_training_advanced_tactics"
+      text="Gelişmiş Taktikler" />
+    <string
+      id="ret_doctrine_training_advanced_tactics_desc"
+      text="Yetenek puanı kazanma oranı %10 artar." />
+    <string
+      id="ret_doctrine_training_iron_discipline"
+      text="Demir Disiplin" />
+    <string
+      id="ret_doctrine_training_iron_discipline_desc"
+      text="Tüm birlikler için yetenek sınırlarını +5 artırır." />
+    <string
+      id="ret_doctrine_training_masters_at_arms"
+      text="Silah Ustaları" />
+    <string
+      id="ret_doctrine_training_masters_at_arms_desc"
+      text="Seçkin birliklere +10 yetenek puanı verir." />
+    <string
+      id="ret_doctrine_training_steadfast_soldiers"
+      text="Sarsılmaz Askerler" />
+    <string
+      id="ret_doctrine_training_steadfast_soldiers_desc"
+      text="Temel birliklere +10 yetenek puanı verir." />
+    <string
+      id="ret_doctrine_troops_armed_peasantry"
+      text="Silahlı Köylüler" />
+    <string
+      id="ret_doctrine_troops_armed_peasantry_desc"
+      text="Köy partileri için özel köylü birliklerinin kilidini açar." />
+    <string
+      id="ret_doctrine_troops_captains"
+      text="Kaptanlar" />
+    <string
+      id="ret_doctrine_troops_captains_desc"
+      text="Tüm düzenli birlikler için Kaptan varyantlarının kilidini açar." />
+    <string
+      id="ret_doctrine_troops_road_wardens"
+      text="Yol Bekçileri" />
+    <string
+      id="ret_doctrine_troops_road_wardens_desc"
+      text="Özel kervan birlik muhafızlarının kilidini açar." />
+    <string
+      id="ret_doctrine_troops_stalwart_militia"
+      text="Dayanıklı Milis" />
+    <string
+      id="ret_doctrine_troops_stalwart_militia_desc"
+      text="Fraksiyonunuzun kasabaları ve kaleleri için özel milis birliklerinin kilidini açar." />
     <string
       id="ret_doctrines_disabled"
       text="Doktrinler devre dışı bırakıldı." />
@@ -410,6 +566,15 @@
       id="ret_equipment_cannot_delete_last_set"
       text="En az bir ekipman seti kalmalıdır." />
     <string
+      id="ret_equipment_clipboard_source_fallback"
+      text="Pano" />
+    <string
+      id="ret_equipment_copied_toast"
+      text="Ekipman panoya kopyalandı." />
+    <string
+      id="ret_equipment_copy_tooltip"
+      text="Ekipmanı panoya kopyalayın." />
+    <string
       id="ret_equipment_delete_breaks_battle_types_reason"
       text="Bu seti silemezsiniz çünkü en az bir savaş türü için etkinleştirilmiş son settir." />
     <string
@@ -430,6 +595,27 @@
     <string
       id="ret_equipment_panel_weight_value"
       text="{WEIGHT} kg" />
+    <string
+      id="ret_equipment_paste_cant_afford_desc"
+      text="{SRC} öğesinden {DST} öğesine ekipman kopyalamak {COST} denar gerektirir, ancak yalnızca {GOLD} var." />
+    <string
+      id="ret_equipment_paste_confirm_question"
+      text="{SRC} öğesinden {DST} öğesine ekipman kopyalansın mı?" />
+    <string
+      id="ret_equipment_paste_confirm_title"
+      text="Ekipmanı Kopyala" />
+    <string
+      id="ret_equipment_paste_empty_clipboard_reason"
+      text="Pano boş." />
+    <string
+      id="ret_equipment_paste_nothing_desc2"
+      text="{SRC} öğesinden {DST} öğesine donatılabilecek hiçbir şey yok." />
+    <string
+      id="ret_equipment_paste_nothing_title"
+      text="Ekipmanı Kopyala" />
+    <string
+      id="ret_equipment_paste_tooltip"
+      text="Panodan ekipman yapıştırın." />
     <string
       id="ret_equipment_slot_body"
       text="Gövde" />
@@ -479,11 +665,38 @@
       id="ret_export_character_tooltip"
       text="Kaydet ve dışa aktar." />
     <string
+      id="ret_export_done_desc"
+      text="Dışa aktarma yazıldı:{newline}{PATH}" />
+    <string
+      id="ret_export_done_title"
+      text="Dışa Aktarma Tamamlandı" />
+    <string
       id="ret_export_faction_no_id"
       text="Seçilen fraksiyon geçersiz." />
     <string
       id="ret_export_faction_none"
       text="Hiçbir fraksiyon seçilmedi." />
+    <string
+      id="ret_export_failed_exception"
+      text="Dosya yazılamadı." />
+    <string
+      id="ret_export_failed_generic"
+      text="Dışa aktarılamadı: {ERROR}." />
+    <string
+      id="ret_export_failed_title"
+      text="Dışa Aktarma Başarısız" />
+    <string
+      id="ret_export_name_desc"
+      text="Bu dışa aktarma için bir dosya adı seçin:" />
+    <string
+      id="ret_export_name_title"
+      text="Dışa Aktarma Adı" />
+    <string
+      id="ret_export_overwrite_desc"
+      text="&apos;{NAME}&apos; adlı bir dosya zaten var.{newline}{newline}Üzerine yazmak istiyor musunuz?" />
+    <string
+      id="ret_export_overwrite_title"
+      text="Dosya Zaten Var" />
     <string
       id="ret_faction_troops_unlocked_desc"
       text="{COUNT} yeni asker artık {FACTION} {FACTION_TYPE} için kullanılabilir." />
@@ -683,6 +896,189 @@
       id="ret_feat_sp_cut_the_head_desc"
       text="Savaşta düşman bir lordu şahsen yenin." />
     <string
+      id="ret_feat_sp_cut_the_head_name"
+      text="Kafayı Kes" />
+    <string
+      id="ret_feat_sp_high_value_targets_desc"
+      text="Tek bir savaşta şahsen 5 seviye 5+ birlik yenin." />
+    <string
+      id="ret_feat_sp_high_value_targets_name"
+      text="Yüksek Değerli Hedefler" />
+    <string
+      id="ret_feat_sp_homecoming_desc"
+      text="Düşman bir krallıktan kendi kültürünüze ait bir toprak parçası ele geçirin." />
+    <string
+      id="ret_feat_sp_homecoming_name"
+      text="Eve Dönüş" />
+    <string
+      id="ret_feat_sp_march_together_desc"
+      text="Müttefik bir lordun ordusunun bir parçası olarak bir savaşı kazanın." />
+    <string
+      id="ret_feat_sp_march_together_name"
+      text="Birlikte Yürüyün" />
+    <string
+      id="ret_feat_sp_rescue_mission_desc"
+      text="Düşman partisinden esir alınan bir lordu kurtarın." />
+    <string
+      id="ret_feat_sp_rescue_mission_name"
+      text="Kurtarma Görevi" />
+    <string
+      id="ret_feat_sp_second_in_command_desc"
+      text="Ana komutan olmadığınız bir savaşı kazanın." />
+    <string
+      id="ret_feat_sp_second_in_command_name"
+      text="Komutan Yardımcısı" />
+    <string
+      id="ret_feat_sp_turn_the_tide_desc"
+      text="Müttefik bir ordunun dahil olduğu bir savaşın seyrini değiştirin." />
+    <string
+      id="ret_feat_sp_turn_the_tide_name"
+      text="Seviyeyi Değiştir" />
+    <string
+      id="ret_feat_tr_battle_hardened_desc"
+      text="Seçkin fraksiyon birlikleriyle {TARGET} öldürme yapın." />
+    <string
+      id="ret_feat_tr_battle_hardened_name"
+      text="Savaşta Sertleşmiş" />
+    <string
+      id="ret_feat_tr_brawler_desc"
+      text="Arenada {TARGET} rakibi nakavt edin." />
+    <string
+      id="ret_feat_tr_brawler_name"
+      text="Dövüşçü" />
+    <string
+      id="ret_feat_tr_combined_arms_desc"
+      text="Piyade, süvari ve menzilli klan birlikleri arasında eşit olarak bölünmüş bir parti kullanarak 100&apos;den fazla düşmana karşı bir savaş kazanın." />
+    <string
+      id="ret_feat_tr_combined_arms_name"
+      text="Birleşik Silahlar" />
+    <string
+      id="ret_feat_tr_disciplined_victory_desc"
+      text="Sadece fraksiyon birliklerini kullanarak, kendi gücünüzün iki katı büyüklüğündeki bir grubu yenin." />
+    <string
+      id="ret_feat_tr_disciplined_victory_name"
+      text="Disiplinli Zafer" />
+    <string
+      id="ret_feat_tr_distinguished_service_desc"
+      text="Seçkin fraksiyon birliklerinden {TARGET} tanesini bir sonraki seviyeye yükseltin." />
+    <string
+      id="ret_feat_tr_distinguished_service_name"
+      text="Seçkin Hizmet" />
+    <string
+      id="ret_feat_tr_forged_in_battle_desc"
+      text="Fraksiyon birliklerinden {TARGET} tanesini bir sonraki seviyeye yükseltin." />
+    <string
+      id="ret_feat_tr_forged_in_battle_name"
+      text="Savaşta Dövülmüş" />
+    <string
+      id="ret_feat_tr_general_desc"
+      text="Armayı {TARGET} gün üst üste yönetin." />
+    <string
+      id="ret_feat_tr_general_name"
+      text="General" />
+    <string
+      id="ret_feat_tr_hold_the_walls_desc"
+      text="Yalnızca fraksiyon birliklerini kullanarak bir kuşatma savunmasını kazanın." />
+    <string
+      id="ret_feat_tr_hold_the_walls_name"
+      text="Duvarları Tut" />
+    <string
+      id="ret_feat_tr_lethal_versatility_desc"
+      text="Tek bir savaşta beş farklı silah sınıfı kullanarak bir öldürme yapın." />
+    <string
+      id="ret_feat_tr_lethal_versatility_name"
+      text="Öldürücü Çok Yönlülük" />
+    <string
+      id="ret_feat_tr_peak_performance_desc"
+      text="Fraksiyon birliklerinden {TARGET} tanesinin becerilerini en üst düzeye çıkarın." />
+    <string
+      id="ret_feat_tr_peak_performance_name"
+      text="Zirve Performans" />
+    <string
+      id="ret_feat_tr_public_safety_desc"
+      text="Bir toprak parçasının güvenlik değerini {TARGET} yapın." />
+    <string
+      id="ret_feat_tr_public_safety_name"
+      text="Kamu Güvenliği" />
+    <string
+      id="ret_feat_tr_unyielding_defense_desc"
+      text="Arka arkaya {TARGET} savunma savaşı kazanın." />
+    <string
+      id="ret_feat_tr_unyielding_defense_name"
+      text="Boyun Eğmez Savunma" />
+    <string
+      id="ret_feat_trp_bandit_scourge_desc"
+      text="Bir haydut saklanma yerini temizleyin." />
+    <string
+      id="ret_feat_trp_bandit_scourge_name"
+      text="Haydut Vebası" />
+    <string
+      id="ret_feat_trp_defender_of_the_city_desc"
+      text="Kuşatıcı bir orduya karşı bir şehri savunun." />
+    <string
+      id="ret_feat_trp_defender_of_the_city_name"
+      text="Şehrin Savunucusu" />
+    <string
+      id="ret_feat_trp_headmans_help_desc"
+      text="Bir köy muhtarı için bir görev tamamlayın." />
+    <string
+      id="ret_feat_trp_headmans_help_name"
+      text="Muhtarın Yardımı" />
+    <string
+      id="ret_feat_trp_landowners_request_desc"
+      text="Bir köy toprak sahibinin görevin tamamlayın." />
+    <string
+      id="ret_feat_trp_landowners_request_name"
+      text="Toprak Sahibinin Talebi" />
+    <string
+      id="ret_feat_trp_merchants_favor_desc"
+      text="Kasaba tüccarının ünlüsü için bir görev tamamlayın." />
+    <string
+      id="ret_feat_trp_merchants_favor_name"
+      text="Tüccarın İyiliği" />
+    <string
+      id="ret_feat_trp_meritorious_service_desc"
+      text="Fraksiyon birliklerinden {TARGET} tanesini terfi ettirin." />
+    <string
+      id="ret_feat_trp_meritorious_service_name"
+      text="Liyakatli Hizmet" />
+    <string
+      id="ret_feat_trp_shield_of_the_people_desc"
+      text="Bir köyü düşman baskınından koruyun." />
+    <string
+      id="ret_feat_trp_shield_of_the_people_name"
+      text="Halkın Kalkanı" />
+    <string
+      id="ret_feat_trp_they_shall_not_pass_desc"
+      text="Kuşatma savunması sırasında şahsen {TARGET} saldırganı öldürün." />
+    <string
+      id="ret_feat_trp_they_shall_not_pass_name"
+      text="Geçemeyecekler" />
+    <string
+      id="ret_feat_trp_trade_network_desc"
+      text="Aynı anda {TARGET} kervana sahip olun." />
+    <string
+      id="ret_feat_trp_trade_network_name"
+      text="Ticaret Ağı" />
+    <string
+      id="ret_feat_trp_veterans_desc"
+      text="T5 temel birliğinin becerilerini en üst düzeye çıkarın." />
+    <string
+      id="ret_feat_trp_veterans_name"
+      text="Gaziler" />
+    <string
+      id="ret_feat_trp_warrior_class_desc"
+      text="T6 elit birliğinin becerilerini en üst düzeye çıkarın." />
+    <string
+      id="ret_feat_trp_warrior_class_name"
+      text="Savaşçı Sınıfı" />
+    <string
+      id="ret_feat_trp_watchers_on_the_walls_desc"
+      text="Bir toprak parçasının milis değerini {TARGET} yapın." />
+    <string
+      id="ret_feat_trp_watchers_on_the_walls_name"
+      text="Duvarlardaki Gözcüler" />
+    <string
       id="ret_filter_label"
       text="Filtre:" />
     <string
@@ -724,6 +1120,9 @@
     <string
       id="ret_height_hint"
       text="Boy" />
+    <string
+      id="ret_heroes_cannot_be_exported"
+      text="Kahramanlar dışa aktarılamaz." />
     <string
       id="ret_in_stock"
       text="Stokta ({STOCK})" />
@@ -775,6 +1174,9 @@
     <string
       id="ret_invalid_name_body"
       text="İsim boş olamaz." />
+    <string
+      id="ret_invalid_name_sanitize"
+      text="Bu isim geçerli dosya karakterleri içermiyor." />
     <string
       id="ret_invalid_name_title"
       text="Geçersiz İsim" />
@@ -1466,6 +1868,9 @@
       id="ret_notification_popup"
       text="Açılır Pencere" />
     <string
+      id="ret_overwrite_confirm"
+      text="Üzerine Yaz" />
+    <string
       id="ret_preview_mode"
       text="Önizleme Modu" />
     <string
@@ -1802,6 +2207,9 @@
       id="ret_unequip_item_tooltip"
       text="Ekipmanı Çıkar" />
     <string
+      id="ret_unknown_error"
+      text="Bilinmeyen hata." />
+    <string
       id="ret_unlock_and"
       text="ve" />
     <string
@@ -1828,6 +2236,9 @@
     <string
       id="ret_upgrade_cannot_add_max_tier"
       text="Bu birim zaten maksimum seviyede." />
+    <string
+      id="ret_upgrade_cannot_add_not_upgradable"
+      text="Bu birim yükseltilemez." />
     <string
       id="ret_upgrade_sources_header_text"
       text="Kaynaklar" />

@@ -153,10 +153,6 @@ namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Controllers
         public static ControllerAction<bool> CopyEquipment { get; } =
             Action<bool>("CopyEquipment")
                 .RequireValidEditingContext()
-                .AddCondition(
-                    _ => State.Equipment != null,
-                    L.T("equipment_copy_no_set_reason", "No equipment set selected.")
-                )
                 .DefaultTooltip(L.T("equipment_copy_tooltip", "Copy equipment to clipboard."))
                 .ExecuteWith(_ => CopyEquipmentImpl());
 
@@ -166,10 +162,6 @@ namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Controllers
         public static ControllerAction<bool> PasteEquipment { get; } =
             Action<bool>("PasteEquipment")
                 .RequireValidEditingContext()
-                .AddCondition(
-                    _ => State.Equipment != null,
-                    L.T("equipment_paste_no_set_reason", "No equipment set selected.")
-                )
                 .AddCondition(
                     _ => HasClipboard,
                     L.T("equipment_paste_empty_clipboard_reason", "Clipboard is empty.")

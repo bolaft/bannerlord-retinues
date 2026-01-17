@@ -20,10 +20,6 @@ namespace Retinues.GUI.Editor.Modules.Pages.Character.Controllers
         /// </summary>
         public static ControllerAction<WCharacter> ToggleCaptainMode { get; } =
             Action<WCharacter>("ToggleCaptainMode")
-                .AddCondition(
-                    c => (c ?? State.Character) != null,
-                    L.T("captain_no_character_reason", "No unit is selected.")
-                )
                 .DefaultTooltip(
                     L.T(
                         "captain_toggle_mode_hint",
@@ -46,7 +42,11 @@ namespace Retinues.GUI.Editor.Modules.Pages.Character.Controllers
                     c => State.Character.IsCaptain,
                     L.T("captain_toggle_enabled_not_captain_reason", "This unit is not a Captain.")
                 )
-                .DefaultTooltip(L.T("captain_toggle_enabled_hint", "Enable/Disable this Captain"))
+                .DefaultTooltip(c =>
+                    State.Character.IsCaptainEnabled
+                        ? L.T("captain_toggle_disabled_hint", "Disable this Captain")
+                        : L.T("captain_toggle_enabled_hint", "Enable this Captain")
+                )
                 .ExecuteWith(c => ToggleCaptainEnabledImpl(c ?? State.Character))
                 .Fire(UIEvent.Character);
 

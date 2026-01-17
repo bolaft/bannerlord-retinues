@@ -27,7 +27,7 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
         public static FeatData SM_TheyShallNotPass = new()
         {
             Id = "feat_trp_they_shall_not_pass",
-            Name = L.T("feat_trp_they_shall_not_pass_name", "None Shall Pass"),
+            Name = L.T("feat_trp_they_shall_not_pass_name", "They Shall Not Pass"),
             Description = L.T(
                 "feat_trp_they_shall_not_pass_desc",
                 "Personally slay {TARGET} assailants during a siege defense."
