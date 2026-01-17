@@ -609,7 +609,7 @@
       text="클립보드가 비어 있습니다." />
     <string
       id="ret_equipment_paste_nothing_desc2"
-      text="{SRC}에서 {DST}에 장착할 수 있는 것이 없습니다." />
+      text="{SRC}에서 새로운 것을 {DST}에 장착할 수 없습니다." />
     <string
       id="ret_equipment_paste_nothing_title"
       text="장비 복사" />

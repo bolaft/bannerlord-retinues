@@ -609,7 +609,7 @@
       text="Le presse-papiers est vide." />
     <string
       id="ret_equipment_paste_nothing_desc2"
-      text="Rien de {SRC} ne peut être équipé sur {DST}." />
+      text="Rien de nouveau de {SRC} ne peut être équipé sur {DST}." />
     <string
       id="ret_equipment_paste_nothing_title"
       text="Copier l&apos;équipement" />

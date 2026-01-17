@@ -109,7 +109,8 @@ namespace Retinues.Configuration
                 "If enabled, the Universal Editor will enforce normal skill limits when editing vanilla troops."
             ),
             @default: false,
-            fires: [UIEvent.Character, UIEvent.Page]
+            fires: [UIEvent.Character, UIEvent.Page],
+            dependsOn: EnableUniversalEditor
         );
 
         public static readonly Option<bool> EnforceEquipmentLimitsInUniversalMode = CreateOption(
@@ -120,7 +121,8 @@ namespace Retinues.Configuration
                 "If enabled, the Universal Editor will enforce normal equipment limits when editing vanilla troops."
             ),
             @default: false,
-            fires: [UIEvent.Equipment]
+            fires: [UIEvent.Equipment],
+            dependsOn: EnableUniversalEditor
         );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -582,6 +584,18 @@ namespace Retinues.Configuration
             @default: 4,
             dependsOn: StarterEquipment,
             dependsOnValue: new[] { EquipmentMode.RandomSet }
+        );
+
+        public static readonly Option<int> CaptainSpawnRate = CreateOption(
+            section: Troops,
+            name: L.F("mcm_option_captain_spawn_rate", "Captain Spawn Rate"),
+            hint: L.F(
+                "mcm_option_captain_spawn_rate_hint",
+                "Determines how many regular troops must be fielded before another captain can spawn."
+            ),
+            minValue: 10,
+            maxValue: 50,
+            @default: 15
         );
 
         public static readonly Option<float> MixedGenderRatio = CreateOption(

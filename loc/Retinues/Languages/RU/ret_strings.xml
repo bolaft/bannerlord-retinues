@@ -609,7 +609,7 @@
       text="Буфер обмена пуст." />
     <string
       id="ret_equipment_paste_nothing_desc2"
-      text="Ничего из {SRC} нельзя экипировать на {DST}." />
+      text="Ничего нового из {SRC} нельзя экипировать на {DST}." />
     <string
       id="ret_equipment_paste_nothing_title"
       text="Копировать снаряжение" />

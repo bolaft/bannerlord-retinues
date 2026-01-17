@@ -609,7 +609,7 @@
       text="El portapapeles está vacío." />
     <string
       id="ret_equipment_paste_nothing_desc2"
-      text="Nada de {SRC} se puede equipar en {DST}." />
+      text="Nada nuevo de {SRC} se puede equipar en {DST}." />
     <string
       id="ret_equipment_paste_nothing_title"
       text="Copiar equipo" />

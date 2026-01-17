@@ -609,7 +609,7 @@
       text="Gli appunti sono vuoti." />
     <string
       id="ret_equipment_paste_nothing_desc2"
-      text="Niente da {SRC} può essere equipaggiato su {DST}." />
+      text="Niente di nuovo da {SRC} può essere equipaggiato su {DST}." />
     <string
       id="ret_equipment_paste_nothing_title"
       text="Copia l&apos;equipaggiamento" />

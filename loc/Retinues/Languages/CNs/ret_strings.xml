@@ -609,7 +609,7 @@
       text="剪贴板为空。" />
     <string
       id="ret_equipment_paste_nothing_desc2"
-      text="从 {SRC} 没有什么可以装备在 {DST} 上。" />
+      text="无法在 {DST} 上装备来自 {SRC} 的新物品。" />
     <string
       id="ret_equipment_paste_nothing_title"
       text="复制装备" />

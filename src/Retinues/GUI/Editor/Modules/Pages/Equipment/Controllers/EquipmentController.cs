@@ -563,7 +563,7 @@ namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Controllers
                 title: L.T("equipment_paste_nothing_title", "Copy Equipment"),
                 description: L.T(
                         "equipment_paste_nothing_desc2",
-                        "Nothing from {SRC} can be equipped on {DST}."
+                        "Nothing new from {SRC} can be equipped on {DST}."
                     )
                     .SetTextVariable("SRC", sourceName)
                     .SetTextVariable("DST", targetName)

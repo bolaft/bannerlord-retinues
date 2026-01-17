@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using HarmonyLib;
+using Retinues.Configuration;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
@@ -17,11 +18,6 @@ namespace Retinues.Behaviors.Agents.Patches
     [HarmonyPatch(typeof(PartyGroupTroopSupplier), "GetTroop")]
     internal static class PartyGroupTroopSupplier_GetTroop_CaptainsPatch
     {
-        /// <summary>
-        /// One captain per N occurrences of a given base troop.
-        /// </summary>
-        private const int CaptainFrequency = 15;
-
         private static Mission _lastMission;
         private static readonly Dictionary<string, int> _spawnCounts = [];
 
@@ -68,7 +64,9 @@ namespace Retinues.Behaviors.Agents.Patches
                 count++;
                 _spawnCounts[id] = count;
 
-                if (CaptainFrequency <= 0 || (count % CaptainFrequency) != 0)
+                int spawnRate = Settings.CaptainSpawnRate;
+
+                if (spawnRate <= 0 || (count % spawnRate) != 0)
                     return;
 
                 __result = captain.Base;

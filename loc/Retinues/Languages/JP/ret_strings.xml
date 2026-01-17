@@ -609,7 +609,7 @@
       text="クリップボードが空です。" />
     <string
       id="ret_equipment_paste_nothing_desc2"
-      text="{SRC} から {DST} に装備できるものはありません。" />
+      text="{SRC} からの新しいものは {DST} に装備できません。" />
     <string
       id="ret_equipment_paste_nothing_title"
       text="装備をコピー" />

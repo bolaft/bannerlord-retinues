@@ -609,7 +609,7 @@
       text="Schowek jest pusty." />
     <string
       id="ret_equipment_paste_nothing_desc2"
-      text="Nic z {SRC} nie można wyposażyć na {DST}." />
+      text="Nic nowego z {SRC} nie może być wyposażone na {DST}." />
     <string
       id="ret_equipment_paste_nothing_title"
       text="Kopiuj ekwipunek" />

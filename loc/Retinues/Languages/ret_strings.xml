@@ -609,7 +609,7 @@
       text="Clipboard is empty." />
     <string
       id="ret_equipment_paste_nothing_desc2"
-      text="Nothing from {SRC} can be equipped on {DST}." />
+      text="Nothing new from {SRC} can be equipped on {DST}." />
     <string
       id="ret_equipment_paste_nothing_title"
       text="Copy Equipment" />
@@ -1441,6 +1441,12 @@
     <string
       id="ret_mcm_option_allowed_recruiters_hint"
       text="Determines who can recruit custom troops. &apos;Everyone&apos; is recommended for compatibility with other recruitement mods." />
+    <string
+      id="ret_mcm_option_captain_spawn_rate"
+      text="Captain Spawn Rate" />
+    <string
+      id="ret_mcm_option_captain_spawn_rate_hint"
+      text="Determines how many regular troops must be fielded before another captain can spawn." />
     <string
       id="ret_mcm_option_clan_troops_availability"
       text="Clan Troops Availability" />

@@ -609,7 +609,7 @@
       text="A área de transferência está vazia." />
     <string
       id="ret_equipment_paste_nothing_desc2"
-      text="Nada de {SRC} pode ser equipado em {DST}." />
+      text="Nada novo de {SRC} pode ser equipado em {DST}." />
     <string
       id="ret_equipment_paste_nothing_title"
       text="Copiar Equipamento" />

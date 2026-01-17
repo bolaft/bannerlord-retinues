@@ -609,7 +609,7 @@
       text="Die Zwischenablage ist leer." />
     <string
       id="ret_equipment_paste_nothing_desc2"
-      text="Nichts von {SRC} kann auf {DST} ausgerüstet werden." />
+      text="Nichts Neues von {SRC} kann auf {DST} ausgerüstet werden." />
     <string
       id="ret_equipment_paste_nothing_title"
       text="Ausrüstung kopieren" />

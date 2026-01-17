@@ -609,7 +609,7 @@
       text="Pano boş." />
     <string
       id="ret_equipment_paste_nothing_desc2"
-      text="{SRC} öğesinden {DST} öğesine donatılabilecek hiçbir şey yok." />
+      text="{DST} öğesine {SRC} öğesinden yeni bir şey takılamaz." />
     <string
       id="ret_equipment_paste_nothing_title"
       text="Ekipmanı Kopyala" />
