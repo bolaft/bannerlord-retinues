@@ -312,7 +312,7 @@ namespace Retinues.GUI.Editor.Controllers.Library
 
             var desc = L.T(
                     "library_import_confirm_desc_faction_final_single",
-                    "Override faction:\n- {NAME}\n\nBasic and Elite troop trees will be overwritten.\nRosters missing from the export will be left unchanged.\n\nContinue?"
+                    "This will overwrite the {NAME} troops.\n\nAnything missing from the export will be left unchanged.\n\nContinue?"
                 )
                 .SetTextVariable("NAME", target.Name);
 
