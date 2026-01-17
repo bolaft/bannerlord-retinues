@@ -9,6 +9,9 @@ using TaleWorlds.InputSystem;
 
 namespace Retinues.GUI.Editor.Integration.MapBar.Patches
 {
+    /// <summary>
+    /// Enables opening the troop editor via the R hotkey on the map bar.
+    /// </summary>
     [HarmonyPatch(typeof(GauntletMapBarGlobalLayer), "HandlePanelSwitchingInput")]
     internal static class MapBarHotkeyPatch
     {

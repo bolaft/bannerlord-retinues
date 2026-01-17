@@ -10,7 +10,7 @@ using Retinues.Domain.Parties.Wrappers;
 using Retinues.Domain.Settlements.Wrappers;
 using TaleWorlds.CampaignSystem;
 
-namespace Retinues.Game.Retinues
+namespace Retinues.Behaviors.Retinues
 {
     public partial class RetinuesBehavior
     {

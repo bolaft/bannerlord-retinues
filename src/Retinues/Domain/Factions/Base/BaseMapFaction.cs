@@ -68,6 +68,9 @@ namespace Retinues.Domain.Factions.Base
             _cultureRootElites = null;
         }
 
+        /// <summary>
+        /// Ensures that the culture root caches are populated.
+        /// </summary>
         void EnsureCultureRoots()
         {
             if (_cultureRootBasics != null && _cultureRootElites != null)
@@ -246,6 +249,9 @@ namespace Retinues.Domain.Factions.Base
         //                         Access                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Gets a map faction wrapper from the campaign by string ID.
+        /// </summary>
         protected static TWrapper GetFromCampaign(
             string stringId,
             Func<IEnumerable<TFaction>> allGetter
@@ -286,6 +292,9 @@ namespace Retinues.Domain.Factions.Base
             return null;
         }
 
+        /// <summary>
+        /// Gets all map faction wrappers from the campaign.
+        /// </summary>
         protected static IEnumerable<TWrapper> AllFromCampaign(
             Func<IEnumerable<TFaction>> allGetter
         )

@@ -10,7 +10,7 @@ using TaleWorlds.CampaignSystem.CampaignBehaviors;
 using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.CampaignSystem.Settlements;
 
-namespace Retinues.Game.Recruitement.Patches
+namespace Retinues.Behaviors.Recruitement.Patches
 {
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
     //                    AI Recruit Rules                    //
@@ -22,9 +22,15 @@ namespace Retinues.Game.Recruitement.Patches
     // Applies only to non-player recruiters (AI parties and garrisons),
     // and only when the settlement has base custom troops.
 
+    /// <summary>
+    /// Remaps AI recruitment to vanilla equivalents when settlements enforce base custom troops.
+    /// </summary>
     [HarmonyPatch(typeof(RecruitmentCampaignBehavior), "ApplyInternal")]
     internal static class Recruitement_ApplyInternal_Patch
     {
+        /// <summary>
+        /// Prefix that may replace the recruited troop with a vanilla fallback for unauthorized recruiters.
+        /// </summary>
         [HarmonyPrefix]
         private static void Prefix(
             MobileParty side1Party,
@@ -92,6 +98,9 @@ namespace Retinues.Game.Recruitement.Patches
             }
         }
 
+        /// <summary>
+        /// Determines if the wrapped character represents a faction custom basic/elite troop.
+        /// </summary>
         private static bool IsFactionCustomTroop(WCharacter wc)
         {
             // 'Faction troops' here means the custom basic/elite trees (not retinues).

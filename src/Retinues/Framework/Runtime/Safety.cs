@@ -150,6 +150,9 @@ namespace Retinues.Framework.Runtime
         //                        Explicit                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Patches explicit safe methods.
+        /// </summary>
         private static void PatchExplicitSafeMethods(Harmony harmony, Type type)
         {
             var flags =
@@ -176,6 +179,9 @@ namespace Retinues.Framework.Runtime
             }
         }
 
+        /// <summary>
+        /// Patches explicit safe properties.
+        /// </summary>
         private static void PatchExplicitSafeProperties(Harmony harmony, Type type)
         {
             var flags =
@@ -247,6 +253,9 @@ namespace Retinues.Framework.Runtime
         //                       Class-wide                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Patches all eligible methods and accessors in the given type according to the class-level rule.
+        /// </summary>
         private static void PatchTypeByClassRule(Harmony harmony, Type type, SafeClassAttribute cfg)
         {
             var vis = cfg.PublicOnly
@@ -341,6 +350,9 @@ namespace Retinues.Framework.Runtime
         //                      Core Patching                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Patches a single method with a safe finalizer.
+        /// </summary>
         private static void PatchOne(Harmony harmony, MethodBase method, Behavior behavior)
         {
             // already-patched guard
@@ -404,6 +416,9 @@ namespace Retinues.Framework.Runtime
         //                       Finalizers                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Finalizer for void methods.
+        /// </summary>
         private static Exception FinalizerVoid(Exception __exception, MethodBase __originalMethod)
         {
             if (__exception == null)
@@ -418,6 +433,9 @@ namespace Retinues.Framework.Runtime
             return beh.Swallow ? null : __exception;
         }
 
+        /// <summary>
+        /// Finalizer for generic methods.
+        /// </summary>
         private static Exception FinalizerGeneric<T>(
             Exception __exception,
             ref T __result,
@@ -445,6 +463,9 @@ namespace Retinues.Framework.Runtime
             return __exception;
         }
 
+        /// <summary>
+        /// Gets the behavior configuration for the given method.
+        /// </summary>
         private static Behavior GetBehavior(MethodBase method)
         {
             if (_behaviorCache.TryGetValue(method, out var b))
@@ -492,6 +513,9 @@ namespace Retinues.Framework.Runtime
         //                        Fallbacks                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Tries to resolve a fallback value for the given return type and behavior.
+        /// </summary>
         private static bool TryResolveFallback(Type returnType, Behavior beh, out object value)
         {
             // 1) Explicit object fallback (per-method/property)
@@ -580,6 +604,9 @@ namespace Retinues.Framework.Runtime
             return false;
         }
 
+        /// <summary>
+        /// Tries to construct an instance of the given type compatible with the return type.
+        /// </summary>
         private static bool TryConstruct(Type toConstruct, Type returnType, out object value)
         {
             value = null;
@@ -603,6 +630,9 @@ namespace Retinues.Framework.Runtime
             return false;
         }
 
+        /// <summary>
+        /// Tries to get the item type of an enumerable type.
+        /// </summary>
         private static bool TryGetEnumerableItemType(Type t, out Type item)
         {
             item = null;
@@ -647,6 +677,9 @@ namespace Retinues.Framework.Runtime
         //                         Timer                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Starts the timer for the given method.
+        /// </summary>
         private static void PrefixTimer(MethodBase __originalMethod)
         {
             if (!Timer.IsRunning)
@@ -659,11 +692,17 @@ namespace Retinues.Framework.Runtime
             Timer.Begin(label);
         }
 
+        /// <summary>
+        /// Ends the timer for the given method.
+        /// </summary>
         private static void PostfixTimer(MethodBase __originalMethod)
         {
             EndTimer(__originalMethod);
         }
 
+        /// <summary>
+        /// Ends the timer for the given method.
+        /// </summary>
         private static void EndTimer(MethodBase method)
         {
             if (!Timer.IsRunning)
@@ -676,6 +715,9 @@ namespace Retinues.Framework.Runtime
             Timer.End(label);
         }
 
+        /// <summary>
+        /// Gets the timer label for the given method.
+        /// </summary>
         private static string GetTimerLabel(MethodBase method)
         {
             if (method == null)
@@ -684,6 +726,9 @@ namespace Retinues.Framework.Runtime
             return _timerLabelCache.GetOrAdd(method, BuildTimerLabel);
         }
 
+        /// <summary>
+        /// Builds the timer label for the given method.
+        /// </summary>
         private static string BuildTimerLabel(MethodBase method)
         {
             if (method == null)
@@ -716,6 +761,9 @@ namespace Retinues.Framework.Runtime
         //                          Utils                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Logs an exception from the given method.
+        /// </summary>
         private static void LogException(MethodBase method, Exception ex)
         {
             try
@@ -727,6 +775,9 @@ namespace Retinues.Framework.Runtime
             catch { }
         }
 
+        /// <summary>
+        /// Gets types from an assembly safely, handling ReflectionTypeLoadException.
+        /// </summary>
         private static IEnumerable<Type> SafeGetTypes(Assembly asm)
         {
             try
@@ -739,6 +790,9 @@ namespace Retinues.Framework.Runtime
             }
         }
 
+        /// <summary>
+        /// Determines if a method is patchable by Harmony.
+        /// </summary>
         private static bool IsHarmonyPatchable(MethodBase m)
         {
             if (m.IsAbstract || m.GetMethodBody() == null)

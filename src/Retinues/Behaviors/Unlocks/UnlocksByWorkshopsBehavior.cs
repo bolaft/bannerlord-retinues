@@ -8,7 +8,7 @@ using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Settlements.Workshops;
 
-namespace Retinues.Game.Unlocks
+namespace Retinues.Behaviors.Unlocks
 {
     /// <summary>
     /// Applies equipment unlock progress over time based on owned workshops.

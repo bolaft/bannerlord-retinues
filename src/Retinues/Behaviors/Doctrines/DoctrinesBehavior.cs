@@ -1,14 +1,14 @@
 using System;
 using System.Collections.Generic;
+using Retinues.Behaviors.Doctrines.Definitions;
 using Retinues.Configuration;
 using Retinues.Framework.Behaviors;
 using Retinues.Framework.Runtime;
-using Retinues.Game.Doctrines.Definitions;
 using Retinues.GUI.Services;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Localization;
 
-namespace Retinues.Game.Doctrines
+namespace Retinues.Behaviors.Doctrines
 {
     /// <summary>
     /// Stores doctrine and feat progress, persists it, and applies feat completion to doctrine progress.

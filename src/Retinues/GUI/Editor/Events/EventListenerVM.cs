@@ -35,11 +35,17 @@ namespace Retinues.GUI.Editor.Events
         //                    Event registration                  //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Initializes the event listener and registers it with the EventManager.
+        /// </summary>
         protected EventListenerVM()
         {
             EventManager.Register(this);
         }
 
+        /// <summary>
+        /// Unregisters the VM from the EventManager and performs finalization.
+        /// </summary>
         public override void OnFinalize()
         {
             EventManager.Unregister(this);
@@ -50,6 +56,9 @@ namespace Retinues.GUI.Editor.Events
         //                      Event handling                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Represents a property listener entry with its name and global flag.
+        /// </summary>
         internal readonly struct PropertyListener(string name, bool global)
         {
             internal string Name { get; } = name;
@@ -68,6 +77,9 @@ namespace Retinues.GUI.Editor.Events
             Dictionary<UIEvent, Action<EventListenerVM>[]>
         > _methodEventMapCache = [];
 
+        /// <summary>
+        /// Triggers a property change notification for the given property name.
+        /// </summary>
         internal void __NotifyPropertyChanged(string propertyName)
         {
             OnPropertyChanged(propertyName);
@@ -141,6 +153,9 @@ namespace Retinues.GUI.Editor.Events
             return true;
         }
 
+        /// <summary>
+        /// Gets or builds the cached property event map for the given type.
+        /// </summary>
         private static Dictionary<UIEvent, PropertyListener[]> GetOrBuildPropertyEventMap(Type type)
         {
             if (_propertyEventMapCache.TryGetValue(type, out var map))
@@ -153,6 +168,9 @@ namespace Retinues.GUI.Editor.Events
             return map;
         }
 
+        /// <summary>
+        /// Gets or builds the cached method event map for the given type.
+        /// </summary>
         private static Dictionary<UIEvent, Action<EventListenerVM>[]> GetOrBuildMethodEventMap(
             Type type
         )
@@ -167,6 +185,9 @@ namespace Retinues.GUI.Editor.Events
             return map;
         }
 
+        /// <summary>
+        /// Builds the mapping of UIEvents to property listeners for the type.
+        /// </summary>
         private static Dictionary<UIEvent, PropertyListener[]> BuildPropertyEventMap(Type type)
         {
             // event -> (property -> isGlobal)
@@ -239,6 +260,9 @@ namespace Retinues.GUI.Editor.Events
             return result;
         }
 
+        /// <summary>
+        /// Builds the mapping of UIEvents to method handlers for the type.
+        /// </summary>
         private static Dictionary<UIEvent, Action<EventListenerVM>[]> BuildMethodEventMap(Type type)
         {
             var temp = new Dictionary<UIEvent, List<Action<EventListenerVM>>>();

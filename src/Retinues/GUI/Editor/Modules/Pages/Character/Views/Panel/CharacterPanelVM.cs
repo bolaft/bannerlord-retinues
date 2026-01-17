@@ -1,9 +1,9 @@
 using System;
 using System.Linq;
+using Retinues.Behaviors.Experience;
 using Retinues.Configuration;
 using Retinues.Domain.Characters.Services.Skills;
 using Retinues.Domain.Characters.Wrappers;
-using Retinues.Game.Experience;
 using Retinues.GUI.Components;
 using Retinues.GUI.Editor.Events;
 using Retinues.GUI.Editor.Modules.Pages.Character.Controllers;

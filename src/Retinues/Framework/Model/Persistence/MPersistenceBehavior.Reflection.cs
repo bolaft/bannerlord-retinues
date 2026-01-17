@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Xml.Linq;
-using Retinues.Framework.Model.Attributes;
 using Retinues.Utilities;
 
 namespace Retinues.Framework.Model.Persistence
@@ -16,6 +15,9 @@ namespace Retinues.Framework.Model.Persistence
         static Dictionary<string, Type> WrapperByBaseFullName =>
             _wrapperByBaseFullName ??= BuildWrapperTypeMapSafe();
 
+        /// <summary>
+        /// Builds a map of base type full names to wrapper types.
+        /// </summary>
         static Dictionary<string, Type> BuildWrapperTypeMapSafe()
         {
             var asm = typeof(MPersistenceBehavior).Assembly;
@@ -79,6 +81,9 @@ namespace Retinues.Framework.Model.Persistence
             return map;
         }
 
+        /// <summary>
+        /// Applies the XML root to restore persistence entries.
+        /// </summary>
         static void ApplyXml(XElement root, bool allowDefer)
         {
             foreach (var el in root.Elements())
@@ -104,6 +109,9 @@ namespace Retinues.Framework.Model.Persistence
             }
         }
 
+        /// <summary>
+        /// Applies a single persistence entry by UID and data.
+        /// </summary>
         static void ApplySingle(string uid, string data, bool allowDefer)
         {
             if (string.IsNullOrEmpty(uid))
@@ -160,6 +168,9 @@ namespace Retinues.Framework.Model.Persistence
             }
         }
 
+        /// <summary>
+        /// Determines if the given base type full name should defer persistence application.
+        /// </summary>
         static bool ShouldDefer(string baseTypeFullName)
         {
             // No dependency on wrapper classes, only the base types
@@ -175,6 +186,9 @@ namespace Retinues.Framework.Model.Persistence
                 );
         }
 
+        /// <summary>
+        /// Reflection utilities for wrapper types.
+        /// </summary>
         static class WrapperReflection
         {
             static readonly object CacheLock = new();
@@ -186,6 +200,9 @@ namespace Retinues.Framework.Model.Persistence
             static readonly Dictionary<Type, MethodInfo> DeserializeMethodCache = [];
             static readonly Dictionary<Type, MethodInfo> GetMethodCache = [];
 
+            /// <summary>
+            /// Determines if the given type is a concrete wrapper type.
+            /// </summary>
             public static bool IsConcreteWrapperType(Type t)
             {
                 if (t == null)
@@ -197,6 +214,9 @@ namespace Retinues.Framework.Model.Persistence
                 return GetWBaseGeneric(t) != null;
             }
 
+            /// <summary>
+            /// Gets the WBase<,> generic base type for the given wrapper type.
+            /// </summary>
             public static Type GetWBaseGeneric(Type t)
             {
                 if (t == null)
@@ -230,6 +250,9 @@ namespace Retinues.Framework.Model.Persistence
 
             static readonly Dictionary<Type, PropertyInfo> WrapperAllPropertyCache = [];
 
+            /// <summary>
+            /// Tries to get all instances of the given wrapper type.
+            /// </summary>
             public static IEnumerable TryGetAllEnumerable(Type wrapperType)
             {
                 var allProp = GetAllPropertyForWrapper(wrapperType);
@@ -249,6 +272,9 @@ namespace Retinues.Framework.Model.Persistence
                 }
             }
 
+            /// <summary>
+            /// Gets the "All" property for the given wrapper type.
+            /// </summary>
             static PropertyInfo GetAllPropertyForWrapper(Type wrapperType)
             {
                 if (wrapperType == null)
@@ -333,6 +359,9 @@ namespace Retinues.Framework.Model.Persistence
                 return fallback;
             }
 
+            /// <summary>
+            /// Gets the inheritance distance between two types.
+            /// </summary>
             static int GetInheritanceDistance(Type from, Type declaring)
             {
                 if (from == null || declaring == null)
@@ -353,6 +382,9 @@ namespace Retinues.Framework.Model.Persistence
                 return int.MaxValue;
             }
 
+            /// <summary>
+            /// Gets the unique ID of the given wrapper instance.
+            /// </summary>
             public static string TryGetUniqueId(object wrapperInstance)
             {
                 if (wrapperInstance == null)
@@ -367,6 +399,9 @@ namespace Retinues.Framework.Model.Persistence
                 return p.GetValue(wrapperInstance, null) as string;
             }
 
+            /// <summary>
+            /// Gets the "UniqueId" property for the given wrapper type.
+            /// </summary>
             static PropertyInfo GetUniqueIdProperty(Type t)
             {
                 lock (CacheLock)
@@ -386,6 +421,9 @@ namespace Retinues.Framework.Model.Persistence
                 return prop;
             }
 
+            /// <summary>
+            /// Tries to serialize the given wrapper instance.
+            /// </summary>
             public static string TrySerialize(object wrapperInstance)
             {
                 if (wrapperInstance == null)
@@ -399,6 +437,9 @@ namespace Retinues.Framework.Model.Persistence
                 return mi.Invoke(wrapperInstance, null) as string;
             }
 
+            /// <summary>
+            /// Gets the "Serialize" method for the given wrapper type.
+            /// </summary>
             static MethodInfo GetSerializeMethod(Type t)
             {
                 lock (CacheLock)
@@ -421,6 +462,9 @@ namespace Retinues.Framework.Model.Persistence
                 return found;
             }
 
+            /// <summary>
+            /// Tries to get a wrapper instance of the given type by string ID.
+            /// </summary>
             public static object TryGetWrapperInstance(Type wrapperType, string stringId)
             {
                 var get = GetGetMethod(wrapperType);
@@ -430,6 +474,9 @@ namespace Retinues.Framework.Model.Persistence
                 return get.Invoke(null, [stringId]);
             }
 
+            /// <summary>
+            /// Gets the "Get" method for the given wrapper type.
+            /// </summary>
             static MethodInfo GetGetMethod(Type wrapperType)
             {
                 lock (CacheLock)
@@ -452,6 +499,9 @@ namespace Retinues.Framework.Model.Persistence
                 return found;
             }
 
+            /// <summary>
+            /// Tries to deserialize the given data into the wrapper instance.
+            /// </summary>
             public static void TryDeserialize(Type wrapperType, object wrapperInstance, string data)
             {
                 if (wrapperType == null || wrapperInstance == null)
@@ -473,6 +523,9 @@ namespace Retinues.Framework.Model.Persistence
                 }
             }
 
+            /// <summary>
+            /// Gets the "Deserialize" method for the given wrapper type.
+            /// </summary>
             static MethodInfo GetDeserializeMethod(Type wrapperType)
             {
                 lock (CacheLock)

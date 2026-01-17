@@ -1,6 +1,6 @@
 using Retinues.Domain;
 
-namespace Retinues.Game.Doctrines.Feats.Training
+namespace Retinues.Behaviors.Doctrines.Feats.Training
 {
     /// <summary>
     /// Max out the skills of 10 faction troops.

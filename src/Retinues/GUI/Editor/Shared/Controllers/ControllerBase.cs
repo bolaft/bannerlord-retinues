@@ -5,6 +5,9 @@ using TaleWorlds.Localization;
 
 namespace Retinues.GUI.Editor.Shared.Controllers
 {
+    /// <summary>
+    /// Base class for controllers in the editor GUI.
+    /// </summary>
     [SafeClass(IncludeDerived = true)]
     public abstract class BaseController
     {
@@ -31,6 +34,9 @@ namespace Retinues.GUI.Editor.Shared.Controllers
             return true;
         }
 
+        /// <summary>
+        /// Creates a new controller action with the given name.
+        /// </summary>
         protected static ControllerAction<TArg> Action<TArg>(string name) => new(name);
     }
 }

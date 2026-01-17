@@ -2,7 +2,7 @@ using Retinues.Domain.Events.Models;
 using TaleWorlds.CampaignSystem.MapEvents;
 using TaleWorlds.Core;
 
-namespace Retinues.Game.Doctrines.Feats.Troops
+namespace Retinues.Behaviors.Doctrines.Feats.Troops
 {
     /// <summary>
     /// Clear a bandit hideout.

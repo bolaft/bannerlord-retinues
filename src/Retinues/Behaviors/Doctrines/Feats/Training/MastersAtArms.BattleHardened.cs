@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
+using Retinues.Behaviors.Missions;
 using Retinues.Domain.Events.Models;
-using Retinues.Game.Missions;
 
-namespace Retinues.Game.Doctrines.Feats.Training
+namespace Retinues.Behaviors.Doctrines.Feats.Training
 {
     /// <summary>
     /// Get 1000 kills with elite faction troops.

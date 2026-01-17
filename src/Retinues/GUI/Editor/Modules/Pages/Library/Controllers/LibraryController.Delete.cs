@@ -1,12 +1,17 @@
 using System;
 using System.IO;
-using Retinues.Framework.Model.Exports;
+using System.Linq;
 using Retinues.GUI.Editor.Events;
+using Retinues.GUI.Editor.Modules.Pages.Library.Services;
+using Retinues.GUI.Editor.Shared.Controllers;
 using Retinues.GUI.Services;
 using Retinues.Utilities;
 
 namespace Retinues.GUI.Editor.Controllers.Library
 {
+    /// <summary>
+    /// Partial class for library controller delete actions.
+    /// </summary>
     public partial class LibraryController
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -14,9 +19,30 @@ namespace Retinues.GUI.Editor.Controllers.Library
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
+        /// Deletes the selected library export item and its associated file.
+        /// </summary>
+        public static ControllerAction<ExportLibrary.Entry> Delete { get; } =
+            Action<ExportLibrary.Entry>("DeleteLibraryItem")
+                .DefaultTooltip(
+                    L.T(
+                        "library_delete_tooltip",
+                        "Permanently deletes this library item and associated XML file."
+                    )
+                )
+                .AddCondition(
+                    item => item != null,
+                    L.T("library_delete_no_selection", "No export selected.")
+                )
+                .AddCondition(
+                    HasExistingFile,
+                    L.T("library_delete_failed_missing_file", "Export file was not found.")
+                )
+                .ExecuteWith(ExecuteDeleteWithConfirm);
+
+        /// <summary>
         /// Shows a confirmation popup before deleting the export file.
         /// </summary>
-        private static void ExecuteDeleteWithConfirm(MLibrary.Item item)
+        private static void ExecuteDeleteWithConfirm(ExportLibrary.Entry item)
         {
             if (item == null)
                 return;
@@ -34,7 +60,7 @@ namespace Retinues.GUI.Editor.Controllers.Library
         /// <summary>
         /// Deletes the export file and refreshes the library list.
         /// </summary>
-        private static void ApplyDelete(MLibrary.Item item)
+        private static void ApplyDelete(ExportLibrary.Entry item)
         {
             try
             {
@@ -68,11 +94,11 @@ namespace Retinues.GUI.Editor.Controllers.Library
         /// <summary>
         /// Refreshes library UI after create/delete operations.
         /// </summary>
-        private static void RefreshLibraryAfterChange(MLibrary.Item item)
+        private static void RefreshLibraryAfterChange(ExportLibrary.Entry item)
         {
             try
             {
-                // Clear selection if we deleted the selected entry.
+                // Reset selection if we deleted the selected entry.
                 var selected = EditorState.Instance.LibraryItem;
                 if (
                     selected != null
@@ -84,7 +110,7 @@ namespace Retinues.GUI.Editor.Controllers.Library
                     )
                 )
                 {
-                    EditorState.Instance.LibraryItem = null;
+                    EditorState.Instance.LibraryItem = ExportLibrary.GetAll().FirstOrDefault();
                 }
 
                 // Ask any list VMs to rebuild from disk.

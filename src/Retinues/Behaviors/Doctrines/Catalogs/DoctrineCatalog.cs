@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using TaleWorlds.Localization;
-using static Retinues.Game.Doctrines.Catalogs.FeatCatalog;
+using static Retinues.Behaviors.Doctrines.Catalogs.FeatCatalog;
 
-namespace Retinues.Game.Doctrines.Catalogs
+namespace Retinues.Behaviors.Doctrines.Catalogs
 {
     /// <summary>
     /// Registers built-in doctrine categories and doctrines.

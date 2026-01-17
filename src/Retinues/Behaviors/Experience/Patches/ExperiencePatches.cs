@@ -8,8 +8,11 @@ using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.CampaignSystem.Roster;
 using TaleWorlds.Library;
 
-namespace Retinues.Game.Experience.Patches
+namespace Retinues.Behaviors.Experience.Patches
 {
+    /// <summary>
+    /// Patches that ensure correct XP behavior and integrate skill point progress for faction troops.
+    /// </summary>
     [HarmonyPatch]
     internal static class SkillPointExperiencePatches
     {
@@ -17,6 +20,9 @@ namespace Retinues.Game.Experience.Patches
         //                 Vanilla XP Gate Fixes                  //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Postfix that fixes gainable XP limits for non-hero faction troops.
+        /// </summary>
         [HarmonyPatch(typeof(MobilePartyHelper), nameof(MobilePartyHelper.CanTroopGainXp))]
         [HarmonyPostfix]
         private static void Postfix_CanTroopGainXp(
@@ -72,7 +78,9 @@ namespace Retinues.Game.Experience.Patches
         }
 
 #if BL12
-        // BL1.2.x: clamping is done in TroopRoster.ClampXp / IsPrisonRoster exists.
+        /// <summary>
+        /// Prefix to clamp troop XP correctly for custom trees (BL1.2).
+        /// </summary>
         [HarmonyPatch(typeof(TroopRoster), "ClampXp")]
         [HarmonyPrefix]
         private static bool Prefix_TroopRoster_ClampXp(TroopRoster __instance, int index)
@@ -129,7 +137,9 @@ namespace Retinues.Game.Experience.Patches
             }
         }
 
-        // BL1.2.x: AddXpToTroopAtIndex returns "actually applied XP".
+        /// <summary>
+        /// Postfix that applies gained XP to skill point progress (BL1.2).
+        /// </summary>
         [HarmonyPatch(typeof(TroopRoster), nameof(TroopRoster.AddXpToTroopAtIndex))]
         [HarmonyPostfix]
         private static void Postfix_AddXpToTroopAtIndex_BL12(
@@ -171,8 +181,9 @@ namespace Retinues.Game.Experience.Patches
 #endif
 
 #if BL13
-        // BL1.3.x: clamping is done in PartyBase.OnXpChanged(roster, ref element).
-        // This is where "no upgrade targets => XP clamps to 0" happens.
+        /// <summary>
+        /// Prefix to clamp XP for faction troops when upgrade targets are absent (BL1.3).
+        /// </summary>
         [HarmonyPatch(typeof(PartyBase), "OnXpChanged")]
         [HarmonyPrefix]
         private static bool Prefix_PartyBase_OnXpChanged(
@@ -232,7 +243,9 @@ namespace Retinues.Game.Experience.Patches
             }
         }
 
-        // BL1.3.x: AddXpToTroopAtIndex is void; compute gained XP via prefix/postfix.
+        /// <summary>
+        /// Prefix that records pre-XP state to compute gained XP (BL1.3).
+        /// </summary>
         [HarmonyPatch(typeof(TroopRoster), nameof(TroopRoster.AddXpToTroopAtIndex))]
         [HarmonyPrefix]
         private static void Prefix_AddXpToTroopAtIndex_BL13(
@@ -256,6 +269,9 @@ namespace Retinues.Game.Experience.Patches
             }
         }
 
+        /// <summary>
+        /// Postfix that applies computed gained XP to skill point progress (BL1.3).
+        /// </summary>
         [HarmonyPatch(typeof(TroopRoster), nameof(TroopRoster.AddXpToTroopAtIndex))]
         [HarmonyPostfix]
         private static void Postfix_AddXpToTroopAtIndex_BL13(

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Retinues.Domain.Factions.Wrappers;
 
-namespace Retinues.Game.Retinues
+namespace Retinues.Behaviors.Retinues
 {
     public partial class RetinuesBehavior
     {

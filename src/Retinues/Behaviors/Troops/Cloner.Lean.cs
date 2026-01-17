@@ -5,14 +5,20 @@ using Retinues.Domain.Equipments.Wrappers;
 using Retinues.GUI.Services;
 using TaleWorlds.Core;
 
-namespace Retinues.Game.Troops
+namespace Retinues.Behaviors.Troops
 {
+    /// <summary>
+    /// Provides helper routines for building and naming "lean" template trees for cloned troops.
+    /// </summary>
     public static partial class Cloner
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Lean Trees                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Lightweight formation classification used for lean tree selection and naming.
+        /// </summary>
         private enum LeanFormation
         {
             Infantry,
@@ -21,25 +27,23 @@ namespace Retinues.Game.Troops
             HorseArcher,
         }
 
+        /// <summary>
+        /// Classifies a character into a lean formation category.
+        /// </summary>
         private static LeanFormation ClassifyFormation(WCharacter wc)
         {
-            if (wc == null)
-                return LeanFormation.Infantry;
-
-            var f = wc.FormationClass;
-
-            if (f == FormationClass.Cavalry)
-                return LeanFormation.Cavalry;
-
-            if (f == FormationClass.HorseArcher)
-                return LeanFormation.HorseArcher;
-
-            if (f == FormationClass.Ranged)
-                return LeanFormation.Ranged;
-
-            return LeanFormation.Infantry;
+            return wc.FormationClass switch
+            {
+                FormationClass.Cavalry => LeanFormation.Cavalry,
+                FormationClass.HorseArcher => LeanFormation.HorseArcher,
+                FormationClass.Ranged => LeanFormation.Ranged,
+                _ => LeanFormation.Infantry,
+            };
         }
 
+        /// <summary>
+        /// Builds a reduced template list from the full templates, selecting representative nodes.
+        /// </summary>
         private static List<WCharacter> BuildLeanTemplateList(
             WCharacter root,
             IReadOnlyList<WCharacter> fullTemplates
@@ -178,6 +182,9 @@ namespace Retinues.Game.Troops
             return result;
         }
 
+        /// <summary>
+        /// Picks the best template from a tier list for a given formation and marks it to keep.
+        /// </summary>
         private static void PickBestForFormation(
             List<WCharacter> tierList,
             Dictionary<string, int> depth,
@@ -216,6 +223,9 @@ namespace Retinues.Game.Troops
             keep.Add(best.StringId);
         }
 
+        /// <summary>
+        /// Builds a map of depths (distance from root) for nodes in the upgrade graph.
+        /// </summary>
         private static Dictionary<string, int> BuildDepthMap(WCharacter root)
         {
             var depth = new Dictionary<string, int>(StringComparer.Ordinal);
@@ -263,6 +273,9 @@ namespace Retinues.Game.Troops
         //                     Lean Tree Naming                   //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Assigns stable, faction-aware names to nodes in a lean cloned subtree.
+        /// </summary>
         public static void ApplyLeanFactionNames(
             WCharacter root,
             string factionName,
@@ -363,6 +376,9 @@ namespace Retinues.Game.Troops
             }
         }
 
+        /// <summary>
+        /// Returns a human-friendly formation label for a template based on its weapons.
+        /// </summary>
         private static string GetFormationLabel(WCharacter wc, LeanFormation f)
         {
             AnalyzeWeapons(
@@ -411,6 +427,9 @@ namespace Retinues.Game.Troops
             };
         }
 
+        /// <summary>
+        /// Analyzes a character's equipment to determine ranged/thyrown weapon flags.
+        /// </summary>
         private static void AnalyzeWeapons(
             WCharacter wc,
             out bool hasBow,
@@ -479,6 +498,9 @@ namespace Retinues.Game.Troops
             catch { }
         }
 
+        /// <summary>
+        /// Enumerates the subtree of upgrade targets starting at the given root.
+        /// </summary>
         private static List<WCharacter> EnumerateSubtree(WCharacter root)
         {
             var result = new List<WCharacter>(64);
@@ -518,6 +540,9 @@ namespace Retinues.Game.Troops
             return result;
         }
 
+        /// <summary>
+        /// Produces a textual prefix (Trained/Veteran/Elite/...) for upgrade tiers.
+        /// </summary>
         private static string GetUpgradePrefix(int index, int tier)
         {
             if (index <= 0)

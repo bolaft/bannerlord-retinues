@@ -1,8 +1,8 @@
 using System.Collections.Generic;
+using Retinues.Behaviors.Missions;
 using Retinues.Domain.Events.Models;
-using Retinues.Game.Missions;
 
-namespace Retinues.Game.Doctrines.Feats.Equipments
+namespace Retinues.Behaviors.Doctrines.Feats.Equipments
 {
     /// <summary>
     /// Loot 25000 denars on the battlefield.

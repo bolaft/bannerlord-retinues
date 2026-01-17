@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Compatibility;
 using Retinues.Domain.Equipments.Models;
@@ -10,6 +9,9 @@ using TaleWorlds.Library;
 
 namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Views.Column
 {
+    /// <summary>
+    /// ViewModel for the equipment controls.
+    /// </summary>
     public class EquipmentControlsVM : EventListenerVM
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -74,11 +76,6 @@ namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Views.Column
         [DataSourceMethod]
         public void ExecuteToggleShowCivilian() => ShowCivilian = !_civilian;
 
-        private static int IndexOfByBase(List<MEquipment> list, MEquipment equipment) =>
-            EquipmentController.IndexOfByBase(list, equipment);
-
-        private List<MEquipment> Equipments => EquipmentController.GetEquipments(_civilian);
-
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Set Controls                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -93,8 +90,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Views.Column
         {
             get
             {
-                var list = Equipments;
-                var i = IndexOfByBase(list, State.Equipment);
+                var list = EquipmentController.GetEquipments(_civilian);
+                ;
+                var i = EquipmentController.IndexOfByBase(list, State.Equipment);
                 if (i < 0)
                     return $"0 / {list.Count}";
                 return $"{i + 1} / {list.Count}";

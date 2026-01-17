@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Text;
 
 namespace Retinues.Utilities
 {
@@ -57,6 +58,40 @@ namespace Retinues.Utilities
                 EnsureDirectoryExists(parent);
 
             return path;
+        }
+
+        /// <summary>
+        /// Sanitizes a string to be safe for use as a filename.
+        /// Replaces invalid characters with underscores and falls back to the given string if the result is empty.
+        /// </summary>
+        public static string SanitizeFileName(string name, string fallback)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+                name = fallback;
+
+            // Replace invalid filename chars with '_'
+            var invalid = Path.GetInvalidFileNameChars();
+            var sb = new StringBuilder(name.Length);
+
+            for (int i = 0; i < name.Length; i++)
+            {
+                var ch = name[i];
+                var bad = false;
+
+                for (int j = 0; j < invalid.Length; j++)
+                {
+                    if (ch == invalid[j])
+                    {
+                        bad = true;
+                        break;
+                    }
+                }
+
+                sb.Append(bad ? '_' : ch);
+            }
+
+            var s = sb.ToString().Trim();
+            return string.IsNullOrWhiteSpace(s) ? fallback : s;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

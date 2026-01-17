@@ -11,13 +11,19 @@ using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Core.ViewModelCollection.Information;
 using TaleWorlds.MountAndBlade;
 
-namespace Retinues.Game.Unlocks.Patches
+namespace Retinues.Behaviors.Unlocks.Patches
 {
+    /// <summary>
+    /// Adds scoreboard entries for items unlocked via mission kills.
+    /// </summary>
     [HarmonyPatch]
     [SafeClass]
     internal static class ScoreboardUnlocksPatch
     {
         // SPScoreboardVM.GetBattleRewards(bool) is private.
+        /// <summary>
+        /// Postfix that applies unlock progress from mission kills when the player wins.
+        /// </summary>
         [HarmonyPatch(typeof(SPScoreboardVM), "GetBattleRewards")]
         [HarmonyPostfix]
         private static void Postfix_GetBattleRewards(SPScoreboardVM __instance, bool playerVictory)
@@ -54,6 +60,9 @@ namespace Retinues.Game.Unlocks.Patches
             }
         }
 
+        /// <summary>
+        /// Inserts human-readable unlock lines into the scoreboard results view model.
+        /// </summary>
         private static void InsertUnlockLines(SPScoreboardVM vm, IReadOnlyList<WItem> unlocked)
         {
             if (vm?.BattleResults == null || unlocked == null || unlocked.Count == 0)
@@ -107,6 +116,9 @@ namespace Retinues.Game.Unlocks.Patches
             );
         }
 
+        /// <summary>
+        /// Builds a compact tooltip listing unlocked items (capped for responsiveness).
+        /// </summary>
         private static List<TooltipProperty> BuildTooltip(IReadOnlyList<WItem> unlocked)
         {
             var props = new List<TooltipProperty>();
@@ -161,6 +173,9 @@ namespace Retinues.Game.Unlocks.Patches
             return props;
         }
 
+        /// <summary>
+        /// Returns a display name for the unlocked item, falling back to the item id.
+        /// </summary>
         private static string GetItemName(WItem item)
         {
             var name = item?.Base?.Name?.ToString();

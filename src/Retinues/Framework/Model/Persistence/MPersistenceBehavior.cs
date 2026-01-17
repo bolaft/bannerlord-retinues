@@ -21,6 +21,9 @@ namespace Retinues.Framework.Model.Persistence
         const string RootName = "Retinues";
         const string RootVersion = "1";
 
+        /// <summary>
+        /// Synchronizes persistent data to/from the save.
+        /// </summary>
         public override void SyncData(IDataStore dataStore)
         {
             Log.Info("MPersistenceBehavior.SyncData called.");
@@ -112,6 +115,9 @@ namespace Retinues.Framework.Model.Persistence
             }
         }
 
+        /// <summary>
+        /// Packs a string into a base64-gzip representation.
+        /// </summary>
         static string PackToBase64Gzip(string s)
         {
             if (string.IsNullOrEmpty(s))
@@ -129,6 +135,9 @@ namespace Retinues.Framework.Model.Persistence
             return Convert.ToBase64String(compressed);
         }
 
+        /// <summary>
+        /// Unpacks a base64-gzip string into its original representation.
+        /// </summary>
         static string UnpackFromBase64Gzip(string base64)
         {
             if (string.IsNullOrEmpty(base64))
@@ -155,6 +164,9 @@ namespace Retinues.Framework.Model.Persistence
             return Encoding.UTF8.GetString(bytes, 0, bytes.Length);
         }
 
+        /// <summary>
+        /// Splits a string into parts of maximum length.
+        /// </summary>
         static List<string> SplitIntoParts(string s, int maxLen)
         {
             var list = new List<string>();
@@ -176,6 +188,9 @@ namespace Retinues.Framework.Model.Persistence
             return list;
         }
 
+        /// <summary>
+        /// Called when the game load is finished to flush deferred entries.
+        /// </summary>
         protected override void OnGameLoadFinished()
         {
             FlushDeferred();
@@ -183,6 +198,9 @@ namespace Retinues.Framework.Model.Persistence
 
         static readonly List<(string uid, string data)> _deferred = [];
 
+        /// <summary>
+        /// Enqueues a deferred application of a persistence entry.
+        /// </summary>
         static void EnqueueDeferred(string uid, string data)
         {
             if (string.IsNullOrEmpty(uid))
@@ -191,6 +209,9 @@ namespace Retinues.Framework.Model.Persistence
             _deferred.Add((uid, data ?? string.Empty));
         }
 
+        /// <summary>
+        /// Flushes all deferred persistence entries.
+        /// </summary>
         static void FlushDeferred()
         {
             if (_deferred.Count == 0)
@@ -206,6 +227,9 @@ namespace Retinues.Framework.Model.Persistence
             }
         }
 
+        /// <summary>
+        /// Builds the save blob XML string.
+        /// </summary>
         static string BuildSaveBlob()
         {
             var root = new XElement(RootName)
@@ -228,6 +252,9 @@ namespace Retinues.Framework.Model.Persistence
                     && m.GetParameters().Length == 0
                 );
 
+            /// <summary>
+            /// Enumerates all instances of the given wrapper type.
+            /// </summary>
             IEnumerable EnumerateInstances(Type wrapperType)
             {
                 // If the wrapper declares its own All, do NOT execute it
@@ -349,6 +376,9 @@ namespace Retinues.Framework.Model.Persistence
             return blob;
         }
 
+        /// <summary>
+        /// Adds a serialized persistence entry to the given root.
+        /// </summary>
         static void AddEntry(XElement root, string uid, string serialized)
         {
             var trimmed = serialized.TrimStart();
@@ -375,6 +405,9 @@ namespace Retinues.Framework.Model.Persistence
             );
         }
 
+        /// <summary>
+        /// Tries to write a backup file of the persistence XML for debugging.
+        /// </summary>
         static void TryWriteBackupFile(XElement root)
         {
             try
@@ -400,6 +433,9 @@ namespace Retinues.Framework.Model.Persistence
             }
         }
 
+        /// <summary>
+        /// Tries to parse an XML root from the given string.
+        /// </summary>
         static bool TryParseXmlRoot(string xml, out XElement root)
         {
             root = null;

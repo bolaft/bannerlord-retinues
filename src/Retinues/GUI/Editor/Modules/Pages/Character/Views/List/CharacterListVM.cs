@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Retinues.Behaviors.Retinues;
 using Retinues.Configuration;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Factions.Wrappers;
-using Retinues.Game.Retinues;
 using Retinues.GUI.Components;
 using Retinues.GUI.Editor.Events;
 using Retinues.GUI.Editor.Shared.Views;
@@ -20,9 +20,12 @@ namespace Retinues.GUI.Editor.Modules.Pages.Character.Views.List
         protected override EditorPage Page => EditorPage.Character;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                   BaseList Overrides                   //
+        //                        Overrides                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Determines whether the given header is a tree sort header.
+        /// </summary>
         protected override bool IsTreeSortHeader(string headerId)
         {
             return headerId == "elite"
@@ -31,11 +34,17 @@ namespace Retinues.GUI.Editor.Modules.Pages.Character.Views.List
                 || headerId == "bandits";
         }
 
+        /// <summary>
+        /// Determines whether the given header is a tree filter header.
+        /// </summary>
         protected override bool IsTreeFilterHeader(string headerId)
         {
             return headerId == "elite" || headerId == "regular";
         }
 
+        /// <summary>
+        /// Gets the tooltip for the filter box.
+        /// </summary>
         protected override Tooltip GetFilterTooltip()
         {
             return new(
@@ -75,6 +84,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Character.Views.List
             Build();
         }
 
+        /// <summary>
+        /// Builds the character list.
+        /// </summary>
         public override void Build()
         {
             BuildSortButtons();
@@ -82,6 +94,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Character.Views.List
             RecomputeHeaderStates();
         }
 
+        /// <summary>
+        /// Builds the sort buttons for the character list.
+        /// </summary>
         private void BuildSortButtons()
         {
             SortButtons.Clear();
@@ -96,6 +111,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Character.Views.List
             RecomputeSortButtonProperties();
         }
 
+        /// <summary>
+        /// Builds the sections for the character list.
+        /// </summary>
         private void BuildSections()
         {
             // Single binding update instead of N inserts.
@@ -309,6 +327,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Character.Views.List
             SetHeaders(headers);
         }
 
+        /// <summary>
+        /// Adds a character row to the given header.
+        /// </summary>
         private void AddCharacterRow(ListHeaderVM header, WCharacter character)
         {
             if (character == null)

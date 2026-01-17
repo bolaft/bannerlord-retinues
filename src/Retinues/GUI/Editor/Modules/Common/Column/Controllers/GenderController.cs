@@ -7,12 +7,18 @@ using Retinues.GUI.Services;
 
 namespace Retinues.GUI.Editor.Modules.Common.Column.Controllers
 {
+    /// <summary>
+    /// Controller for gender/species toggling and related validation.
+    /// </summary>
     public class GenderController : BaseController
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Gender                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Toggles the selected character's gender/species when valid and fires a gender update event.
+        /// </summary>
         public static ControllerAction<WCharacter> ToggleGender { get; } =
             Action<WCharacter>("ToggleGender")
                 .AddCondition(

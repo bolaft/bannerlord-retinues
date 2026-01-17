@@ -24,12 +24,18 @@ namespace Retinues.Domain.Factions.Helpers
         public static ImageIdentifierVM EmptyImage => (ImageIdentifierVM)EmptyVm;
 #endif
 
+        /// <summary>
+        /// Creates a solid color banner view model with the given ARGB color.
+        /// </summary>
         public static object SolidColorVm(uint argb, bool nineGrid = true)
         {
             var banner = SolidBackgroundBanner(argb, argb);
             return GetBannerImage(banner, scale: 1.0f, nineGrid: nineGrid) ?? EmptyVm;
         }
 
+        /// <summary>
+        /// Creates a solid color banner with the given colors.
+        /// </summary>
         public static Banner SolidBackgroundBanner(uint argb1, uint argb2)
         {
             EnsureBannerManager();
@@ -168,6 +174,9 @@ namespace Retinues.Domain.Factions.Helpers
             return banner;
         }
 
+        /// <summary>
+        /// Tries to get the culture's template banner.
+        /// </summary>
         private static Banner TryGetCultureTemplateBanner(BasicCultureObject culture)
         {
             if (culture == null)
@@ -195,6 +204,9 @@ namespace Retinues.Domain.Factions.Helpers
 #endif
         }
 
+        /// <summary>
+        /// Determines whether the given banner is empty/invalid.
+        /// </summary>
         private static bool IsEmptyBanner(Banner banner)
         {
             if (banner == null)
@@ -252,6 +264,9 @@ namespace Retinues.Domain.Factions.Helpers
         //                         Scaling                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Returns a scaled version of the given banner.
+        /// </summary>
         public static Banner GetScaledBanner(Banner banner, float scale = 1.0f)
         {
             if (scale == 1.0f)
@@ -260,6 +275,9 @@ namespace Retinues.Domain.Factions.Helpers
             return banner != null ? ScaleBannerIcons(banner, scale) : null;
         }
 
+        /// <summary>
+        /// Scales all icons in the given banner by the given scale factor.
+        /// </summary>
         public static Banner ScaleBannerIcons(Banner src, float scale)
         {
             if (src == null || scale == 1.0f)
@@ -279,6 +297,9 @@ namespace Retinues.Domain.Factions.Helpers
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
 #if BL13
+        /// <summary>
+        /// Returns a banner image view model for the given banner.
+        /// </summary>
         public static BannerImageIdentifierVM GetBannerImage(
             Banner banner,
             float scale = 1.0f,
@@ -289,6 +310,9 @@ namespace Retinues.Domain.Factions.Helpers
             return scaled != null ? new BannerImageIdentifierVM(scaled, nineGrid: nineGrid) : null;
         }
 
+        /// <summary>
+        /// Returns a banner image identifier for the given banner.
+        /// </summary>
         public static ImageIdentifier GetImageIdentifier(
             Banner banner,
             float scale = 1.0f,
@@ -299,6 +323,9 @@ namespace Retinues.Domain.Factions.Helpers
             return scaled != null ? new BannerImageIdentifier(scaled, nineGrid: nineGrid) : null;
         }
 #else
+        /// <summary>
+        /// Returns a banner image view model for the given banner.
+        /// </summary>
         public static ImageIdentifierVM GetBannerImage(
             Banner banner,
             float scale = 1.0f,
@@ -317,6 +344,9 @@ namespace Retinues.Domain.Factions.Helpers
                 : null;
         }
 
+        /// <summary>
+        /// Returns a banner image identifier for the given banner code.
+        /// </summary>
         public static ImageIdentifier GetImageIdentifier(
             BannerCode bannerCode,
             Banner banner = null,
@@ -340,12 +370,18 @@ namespace Retinues.Domain.Factions.Helpers
         //                        Internals                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Ensures that the BannerManager instance is initialized.
+        /// </summary>
         private static void EnsureBannerManager()
         {
             if (BannerManager.Instance == null)
                 BannerManager.Initialize();
         }
 
+        /// <summary>
+        /// Gets any background mesh ID from the BannerManager.
+        /// </summary>
         private static int GetAnyBackgroundMeshIdSafe()
         {
             var mgr = BannerManager.Instance;
@@ -367,6 +403,9 @@ namespace Retinues.Domain.Factions.Helpers
             return 0;
         }
 
+        /// <summary>
+        /// Gets the closest background color ID for the given ARGB color.
+        /// </summary>
         private static int GetClosestBackgroundColorIdSafe(uint argb)
         {
             var palette = BannerManager.Instance.ReadOnlyColorPalette;

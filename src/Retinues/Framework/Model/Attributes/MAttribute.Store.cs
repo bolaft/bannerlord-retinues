@@ -57,6 +57,9 @@ namespace Retinues.Framework.Model.Attributes
         }
     }
 
+    /// <summary>
+    /// Partial class for MAttribute type-safe storage.
+    /// </summary>
     public partial class MAttribute<T>
     {
         /// <summary>

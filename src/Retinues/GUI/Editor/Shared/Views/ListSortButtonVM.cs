@@ -73,17 +73,21 @@ namespace Retinues.GUI.Editor.Shared.Views
             _list?.OnSortButtonClicked(this);
         }
 
+        /// <summary>
+        /// Cycles the sort state to the next one.
+        /// </summary>
         internal void CycleSortState()
         {
             SortState = (_sortStateIndex + 1) % 3;
         }
 
+        /// <summary>
+        /// Resets the sort state to 'none'.
+        /// </summary>
         internal void ResetSortState()
         {
             if (_sortStateIndex == 0)
-            {
                 return;
-            }
 
             SortState = 0;
         }
@@ -171,6 +175,9 @@ namespace Retinues.GUI.Editor.Shared.Views
             }
         }
 
+        /// <summary>
+        /// Sets whether this sort button is the last column in the header.
+        /// </summary>
         internal void SetIsLastColumn(bool isLast)
         {
             IsLastColumn = isLast;

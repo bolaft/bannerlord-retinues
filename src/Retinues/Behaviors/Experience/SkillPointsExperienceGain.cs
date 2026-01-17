@@ -6,7 +6,7 @@ using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.Library;
 
-namespace Retinues.Game.Experience
+namespace Retinues.Behaviors.Experience
 {
     /// <summary>
     /// XP to skill point progress conversion utilities for custom-tree troops.

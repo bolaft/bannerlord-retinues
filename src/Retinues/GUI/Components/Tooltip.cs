@@ -12,15 +12,27 @@ namespace Retinues.GUI.Components
     public class Tooltip(string title, string message)
         : BasicTooltipViewModel(() => BuildProperties(title, message))
     {
+        /// <summary>
+        /// Creates a Tooltip with only a message line.
+        /// </summary>
         public Tooltip(string message)
             : this(null, message) { }
 
+        /// <summary>
+        /// Creates a Tooltip from a localized message TextObject.
+        /// </summary>
         public Tooltip(TextObject message)
             : this(message?.ToString()) { }
 
+        /// <summary>
+        /// Creates a Tooltip from localized title and message TextObjects.
+        /// </summary>
         public Tooltip(TextObject title, TextObject message)
             : this(title?.ToString(), message?.ToString()) { }
 
+        /// <summary>
+        /// Builds the tooltip property list from title and message strings.
+        /// </summary>
         private static List<TooltipProperty> BuildProperties(string title, string message)
         {
             var props = new List<TooltipProperty>();

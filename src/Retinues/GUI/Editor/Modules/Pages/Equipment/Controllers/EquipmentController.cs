@@ -24,6 +24,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Controllers
         //                      Select Prev Set                   //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Select the previous equipment set for the character, if available.
+        /// </summary>
         public static ControllerAction<bool> SelectPrevSet { get; } =
             Action<bool>("SelectPrevSet")
                 .AddCondition(
@@ -49,6 +52,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Controllers
         //                      Select Next Set                   //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Select the next equipment set for the character, if available.
+        /// </summary>
         public static ControllerAction<bool> SelectNextSet { get; } =
             Action<bool>("SelectNextSet")
                 .AddCondition(
@@ -74,6 +80,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Controllers
         //                        Create Set                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Create a new equipment set for the current character.
+        /// </summary>
         public static ControllerAction<bool> CreateSet { get; } =
             Action<bool>("CreateSet")
                 .RequireValidEditingContext()
@@ -88,6 +97,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Controllers
         //                        Delete Set                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Delete the selected equipment set after validation/confirmation.
+        /// </summary>
         public static ControllerAction<bool> DeleteSet { get; } =
             Action<bool>("DeleteSet")
                 .RequireValidEditingContext()
@@ -135,6 +147,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Controllers
         public static bool HasClipboard =>
             _clipboard != null && !string.IsNullOrEmpty(_clipboard.Code);
 
+        /// <summary>
+        /// Copy the current equipment set to the clipboard.
+        /// </summary>
         public static ControllerAction<bool> CopyEquipment { get; } =
             Action<bool>("CopyEquipment")
                 .RequireValidEditingContext()
@@ -145,6 +160,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Controllers
                 .DefaultTooltip(L.T("equipment_copy_tooltip", "Copy equipment to clipboard."))
                 .ExecuteWith(_ => CopyEquipmentImpl());
 
+        /// <summary>
+        /// Paste equipment from the clipboard to the selected set.
+        /// </summary>
         public static ControllerAction<bool> PasteEquipment { get; } =
             Action<bool>("PasteEquipment")
                 .RequireValidEditingContext()
@@ -162,6 +180,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Controllers
         private static EquipContext Context() =>
             new(State.Mode, PreviewController.Enabled, State.Character, State.Equipment);
 
+        /// <summary>
+        /// Build a serializable equipment code for the given MEquipment, respecting preview mode.
+        /// </summary>
         private static string BuildEquipmentCode(MEquipment source)
         {
             if (source == null)
@@ -187,6 +208,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Controllers
             return e.CalculateEquipmentCode();
         }
 
+        /// <summary>
+        /// Decode equipment changes from an equipment code string into slot/item pairs.
+        /// </summary>
         private static IEnumerable<(EquipmentIndex Slot, WItem Item)> DecodeEquipmentChanges(
             string code
         )
@@ -213,6 +237,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Controllers
             }
         }
 
+        /// <summary>
+        /// Populate before/after item arrays from the given plan and current getter.
+        /// </summary>
         private static void FillArraysFromPlan(
             Func<EquipmentIndex, WItem> getCurrent,
             EquipPlan plan,
@@ -246,6 +273,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Controllers
             }
         }
 
+        /// <summary>
+        /// Copy implementation that stores the selected equipment set into the clipboard.
+        /// </summary>
         private static void CopyEquipmentImpl()
         {
             var e = State.Equipment;
@@ -264,6 +294,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Controllers
             EventManager.Fire(UIEvent.Clipboard);
         }
 
+        /// <summary>
+        /// Apply an equipment plan to either preview or live equipment.
+        /// </summary>
         private static void ApplyPlan(EquipPlan plan)
         {
             if (plan == null)
@@ -281,6 +314,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Controllers
                 State.Equipment.Set(kv.Key, kv.Value);
         }
 
+        /// <summary>
+        /// Find an item wrapper by its string id.
+        /// </summary>
         private static WItem FindItemById(string id)
         {
             if (string.IsNullOrEmpty(id))
@@ -295,6 +331,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Controllers
             return null;
         }
 
+        /// <summary>
+        /// Join a list of names into a natural English list (commas + 'and').
+        /// </summary>
         private static string JoinNatural(IReadOnlyList<string> names)
         {
             if (names == null || names.Count == 0)
@@ -311,6 +350,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Controllers
                 + names[names.Count - 1];
         }
 
+        /// <summary>
+        /// Join a map of item-id -> count into a natural string with quantities.
+        /// </summary>
         private static string JoinNaturalFromMap(Dictionary<string, int> map)
         {
             if (map == null || map.Count == 0)
@@ -335,6 +377,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Controllers
             return JoinNatural(list);
         }
 
+        /// <summary>
+        /// Build the confirmation message block describing what will/can't be copied and costs.
+        /// </summary>
         private static string BuildSentenceBlock(
             EquipPlan plan,
             bool economyEnabled,
@@ -500,6 +545,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Controllers
             return string.Join("\n\n", lines);
         }
 
+        /// <summary>
+        /// Show a popup indicating insufficient funds for the paste operation.
+        /// </summary>
         private static void NotEnoughGoldPopup(string sourceName, string targetName, int required)
         {
             Inquiries.Popup(
@@ -515,6 +563,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Controllers
             );
         }
 
+        /// <summary>
+        /// Show a popup indicating nothing can be applied from the clipboard.
+        /// </summary>
         private static void NothingToApplyPopup(string sourceName, string targetName)
         {
             Inquiries.Popup(
@@ -528,6 +579,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Controllers
             );
         }
 
+        /// <summary>
+        /// Execute the paste flow: compute plan, confirm costs, and apply equipment changes.
+        /// </summary>
         private static void PasteEquipmentImpl()
         {
             if (State.Equipment == null)
@@ -654,6 +708,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Controllers
         //                      Crafted Items                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Toggle whether crafted items are shown in the equipment picker (player mode only).
+        /// </summary>
         public static ControllerAction<bool> SetShowCrafted { get; } =
             Action<bool>("SetShowCrafted")
                 .AddCondition(
@@ -870,6 +927,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Controllers
             return true;
         }
 
+        /// <summary>
+        /// Toggle field battle applicability for the selected equipment set.
+        /// </summary>
         public static ControllerAction<bool> SetFieldBattleSet { get; } =
             Action<bool>("SetFieldBattleSet")
                 .AddCondition(
@@ -897,6 +957,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Controllers
                 .ExecuteWith(SetFieldBattleSetImpl)
                 .Fire(UIEvent.BattleType);
 
+        /// <summary>
+        /// Implementation to set the field battle flag on the current equipment.
+        /// </summary>
         private static void SetFieldBattleSetImpl(bool value)
         {
             var e = State.Equipment;
@@ -909,6 +972,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Controllers
             SetBattleTypeValue(e, BattleType.Field, value);
         }
 
+        /// <summary>
+        /// Toggle siege battle applicability for the selected equipment set.
+        /// </summary>
         public static ControllerAction<bool> SetSiegeBattleSet { get; } =
             Action<bool>("SetSiegeBattleSet")
                 .AddCondition(
@@ -936,6 +1002,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Controllers
                 .ExecuteWith(SetSiegeBattleSetImpl)
                 .Fire(UIEvent.BattleType);
 
+        /// <summary>
+        /// Implementation to set the siege battle flag on the current equipment.
+        /// </summary>
         private static void SetSiegeBattleSetImpl(bool value)
         {
             var e = State.Equipment;
@@ -948,6 +1017,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Controllers
             SetBattleTypeValue(e, BattleType.Siege, value);
         }
 
+        /// <summary>
+        /// Toggle naval battle applicability for the selected equipment set (naval DLC required).
+        /// </summary>
         public static ControllerAction<bool> SetNavalBattleSet { get; } =
             Action<bool>("SetNavalBattleSet")
                 .AddCondition(
@@ -979,6 +1051,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Controllers
                 .ExecuteWith(SetNavalBattleSetImpl)
                 .Fire(UIEvent.BattleType);
 
+        /// <summary>
+        /// Implementation to set the naval battle flag on the current equipment.
+        /// </summary>
         private static void SetNavalBattleSetImpl(bool value)
         {
             if (!Mods.NavalDLC.IsLoaded)
@@ -998,6 +1073,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Controllers
         //                         Queries                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Return equipment list for the current character filtered by civilian flag.
+        /// </summary>
         public static List<MEquipment> GetEquipments(bool civilian)
         {
             var all = State.Character?.Editable?.Equipments;
@@ -1009,6 +1087,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Controllers
                 : all.FindAll(e => e != null && !e.IsCivilian);
         }
 
+        /// <summary>
+        /// Find index of an equipment by matching base reference within a list.
+        /// </summary>
         public static int IndexOfByBase(List<MEquipment> list, MEquipment equipment)
         {
             if (list == null || list.Count == 0)
@@ -1028,10 +1109,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Controllers
             return -1;
         }
 
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                       Mutations                        //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
+        /// <summary>
+        /// Select the first equipment or prompt to create one if allowed.
+        /// </summary>
         public static void SelectFirstOrPromptCreate(
             bool civilian,
             Action<MEquipment> applySelection,
@@ -1083,6 +1163,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Controllers
             );
         }
 
+        /// <summary>
+        /// Implementation for creating a new equipment set (with copy/empty choice).
+        /// </summary>
         private static void CreateSetImpl(bool civilian)
         {
             void Apply(MEquipment source = null)
@@ -1106,6 +1189,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Controllers
             );
         }
 
+        /// <summary>
+        /// Implementation for deleting the current equipment set with stock handling.
+        /// </summary>
         private static void DeleteSetImpl(bool civilian)
         {
             Inquiries.Popup(

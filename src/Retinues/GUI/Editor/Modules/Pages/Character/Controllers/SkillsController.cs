@@ -1,6 +1,7 @@
 using System;
 using Retinues.Configuration;
 using Retinues.Domain.Characters.Services.Skills;
+using Retinues.Domain.Characters.Wrappers;
 using Retinues.Framework.Runtime;
 using Retinues.GUI.Editor.Events;
 using Retinues.GUI.Editor.Shared.Controllers;
@@ -10,6 +11,9 @@ using TaleWorlds.Core;
 
 namespace Retinues.GUI.Editor.Modules.Pages.Character.Controllers
 {
+    /// <summary>
+    /// Controller for skill editing, enforcing limits and handling UI interactions.
+    /// </summary>
     public class SkillsController : BaseController
     {
         // Max batch size for skill changes depending on mode.
@@ -21,13 +25,6 @@ namespace Retinues.GUI.Editor.Modules.Pages.Character.Controllers
         // IMPORTANT: EventManager stores listeners as WeakReference, so we MUST keep a strong ref.
         private static readonly WarningResetListener _warningResetListener = new();
 
-        [StaticClearAction(Order = 100, Name = "SkillsController.SkillDecreaseWarning")]
-        public static void ClearSkillDecreaseWarning()
-        {
-            _decreaseWarningShown = false;
-            EventManager.Register(_warningResetListener);
-        }
-
         private static bool SkillLimitsActive =>
             State.Mode == EditorMode.Player
             || (State.Mode == EditorMode.Universal && Settings.EnforceSkillLimitsInUniversalMode);
@@ -36,6 +33,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Character.Controllers
         //                        Increase                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Increases the specified skill for the current character, respecting limits and costs.
+        /// </summary>
         public static ControllerAction<SkillObject> SkillIncrease { get; } =
             Action<SkillObject>("SkillIncrease")
                 .RequireValidEditingContext()
@@ -74,6 +74,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Character.Controllers
         //                        Decrease                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Decreases the specified skill for the current character, with upgrade-source safeguards.
+        /// </summary>
         public static ControllerAction<SkillObject> SkillDecrease { get; } =
             Action<SkillObject>("SkillDecrease")
                 .RequireValidEditingContext()
@@ -99,9 +102,49 @@ namespace Retinues.GUI.Editor.Modules.Pages.Character.Controllers
 
             var current = c.Editable.Skills.Get(skill);
 
-            var floor = SkillFloors.GetUpgradeSourceSkillFloor(c, skill);
+            var floor = GetUpgradeSourceSkillFloor(c, skill);
 
             return current > floor;
+        }
+
+        /// <summary>
+        /// Get the highest base skill value among all upgrade source troops for the given skill.
+        /// </summary>
+        public static int GetUpgradeSourceSkillFloor(WCharacter character, SkillObject skill)
+        {
+            if (character == null || skill == null)
+                return 0;
+
+            var sources = character.UpgradeSources;
+            if (sources == null || sources.Count == 0)
+                return 0;
+
+            var floor = 0;
+
+            for (int i = 0; i < sources.Count; i++)
+            {
+                var src = sources[i];
+                if (src == null)
+                    continue;
+
+                // Source floor should reflect the real/base minimum.
+                var v = src.Skills.GetBase(skill);
+
+                if (v > floor)
+                    floor = v;
+            }
+
+            return floor;
+        }
+
+        /// <summary>
+        /// Clears the one-time skill-decrease warning flag and registers the reset listener.
+        /// </summary>
+        [StaticClearAction(Order = 100, Name = "SkillsController.SkillDecreaseWarning")]
+        public static void ClearSkillDecreaseWarning()
+        {
+            _decreaseWarningShown = false;
+            EventManager.Register(_warningResetListener);
         }
 
         private static void DecreaseWithWarning(SkillObject skill)
@@ -129,6 +172,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Character.Controllers
             ChangeSkill(skill, -1);
         }
 
+        /// <summary>
+        /// Returns whether a decrease warning should be shown for this skill change.
+        /// </summary>
         private static bool ShouldShowDecreaseWarning(SkillObject skill)
         {
             if (!Settings.TrainingTakesTime)
@@ -150,6 +196,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Character.Controllers
         //                         Helpers                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Change the given skill by delta, honoring batch input and point refunds/costs.
+        /// </summary>
         private static void ChangeSkill(SkillObject skill, int delta)
         {
             int amount = InputHelper.BatchInput(MaxBatch);
@@ -178,6 +227,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Character.Controllers
         //                     Reset Hook VM                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Listener to reset the decrease-warning flag on page/character changes.
+        /// </summary>
         private sealed class WarningResetListener : EventListenerVM
         {
             [EventListener(UIEvent.Page, UIEvent.Character)]

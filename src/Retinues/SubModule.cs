@@ -1,6 +1,5 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
+using Retinues.Behaviors.Recruitement.Models;
 using Retinues.Compatibility.Interops;
 using Retinues.Configuration;
 using Retinues.Framework.Behaviors;
@@ -8,10 +7,8 @@ using Retinues.Framework.Modules;
 using Retinues.Framework.Modules.Dependencies;
 using Retinues.Framework.Modules.Dependencies.Core;
 using Retinues.Framework.Runtime;
-using Retinues.Game.Recruitement.Models;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
-using TaleWorlds.CampaignSystem.ComponentInterfaces;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 
@@ -38,6 +35,9 @@ namespace Retinues
         //                       Event Hooks                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Called before the initial module screen is set as root.
+        /// </summary>
         protected override void OnBeforeInitialModuleScreenSetAsRoot()
         {
             base.OnBeforeInitialModuleScreenSetAsRoot();
@@ -78,7 +78,7 @@ namespace Retinues
         /// <summary>
         /// Called when a game starts or loads.
         /// </summary>
-        protected override void OnGameStart(TaleWorlds.Core.Game game, IGameStarter gameStarter)
+        protected override void OnGameStart(Game game, IGameStarter gameStarter)
         {
             base.OnGameStart(game, gameStarter);
 
@@ -94,8 +94,9 @@ namespace Retinues
                 // Interops: add behaviors for mod compatibility.
                 InteropsManager.RegisterBehaviors(cs);
 
-                // Add upstream recruitment model wrapper (must be after other mods added their models).
-                TryAddRecruitementVolunteerModel(cs);
+                // Add upstream recruitment model wrapper.
+                // This must be done after other mods have added their models.
+                CustomVolunteerModel.TryAdd(cs);
             }
 
             Log.Debug("Game started.");
@@ -124,40 +125,6 @@ namespace Retinues
                 dependency.Shutdown();
 
             Log.Debug("SubModule unloaded.");
-        }
-
-        private static void TryAddRecruitementVolunteerModel(CampaignGameStarter cs)
-        {
-            try
-            {
-                // IMPORTANT:
-                // At OnGameStart time Campaign.Current.Models is not created yet.
-                // We must read from the gameStarter's model list instead.
-                var inner = cs.Models.OfType<VolunteerModel>().LastOrDefault();
-                if (inner == null)
-                {
-                    Log.Warning(
-                        "Recruitement: no VolunteerModel found in CampaignGameStarter.Models; wrapper not installed."
-                    );
-                    return;
-                }
-
-                if (inner is CustomVolunteerModel)
-                {
-                    Log.Info("Recruitement: VolunteerModel wrapper already installed.");
-                    return;
-                }
-
-                cs.AddModel(new CustomVolunteerModel(inner));
-
-                Log.Info(
-                    $"Recruitement: VolunteerModel wrapper installed (inner={inner.GetType().Name})."
-                );
-            }
-            catch (Exception ex)
-            {
-                Log.Exception(ex, "Recruitement: failed to install VolunteerModel wrapper.");
-            }
         }
     }
 }

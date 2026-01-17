@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Retinues.Domain.Characters.Helpers;
 using Retinues.Domain.Equipments.Models;
 using Retinues.Framework.Model.Attributes;
 using Retinues.Utilities;
@@ -46,6 +47,9 @@ namespace Retinues.Domain.Characters.Wrappers
         public MEquipment FirstBattleEquipment => GetFirstEquipment(civilian: false);
         public MEquipment FirstCivilianEquipment => GetFirstEquipment(civilian: true);
 
+        /// <summary>
+        /// Gets the first equipment matching the civilian flag.
+        /// </summary>
         public MEquipment GetFirstEquipment(bool civilian)
         {
             foreach (var equipment in Equipments)
@@ -92,7 +96,7 @@ namespace Retinues.Domain.Characters.Wrappers
             ConversionCache.Clear();
 
             // Update upgrade item requirements only when the first battle mount changed.
-            var mountKey = GetBestBattleMountKey();
+            var mountKey = UpgradeRequirementHelper.GetBestBattleMountKey(this);
             if (mountKey != _lastFirstBattleMountKey)
             {
                 _lastFirstBattleMountKey = mountKey;

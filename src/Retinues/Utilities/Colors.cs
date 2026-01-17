@@ -2,6 +2,9 @@ using TaleWorlds.Library;
 
 namespace Retinues.Utilities
 {
+    /// <summary>
+    /// Color utilities for UI elements.
+    /// </summary>
     public static class Colors
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -54,12 +57,42 @@ namespace Retinues.Utilities
         //                     Color Utilities                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Converts a uint color to a hex string, optionally lightening it toward white.
+        /// </summary>
+        public static string UintColorToHex(uint color, float towardWhite = 0.0f)
+        {
+            // 0xAARRGGBB
+            byte a = (byte)((color >> 24) & 0xFF);
+            byte r = (byte)((color >> 16) & 0xFF);
+            byte g = (byte)((color >> 8) & 0xFF);
+            byte b = (byte)(color & 0xFF);
+
+            // clamp 0..1
+            if (towardWhite < 0f)
+                towardWhite = 0f;
+            if (towardWhite > 1f)
+                towardWhite = 1f;
+
+            r = (byte)(r + (255 - r) * towardWhite);
+            g = (byte)(g + (255 - g) * towardWhite);
+            b = (byte)(b + (255 - b) * towardWhite);
+
+            return $"#{r:X2}{g:X2}{b:X2}{a:X2}";
+        }
+
+        /// <summary>
+        /// Calculates the luma (perceived brightness) of a color.
+        /// </summary>
         public static float Luma(Color c)
         {
             // Linear RGB luma (good enough for UI tinting).
             return (c.Red * 0.2126f) + (c.Green * 0.7152f) + (c.Blue * 0.0722f);
         }
 
+        /// <summary>
+        /// Converts a color to grayscale based on luma.
+        /// </summary>
         public static Color ToGray(Color c)
         {
             float l = Luma(c);
@@ -106,6 +139,9 @@ namespace Retinues.Utilities
         //                      Math Helpers                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Clamps a float value to the 0..1 range.
+        /// </summary>
         public static float Clamp01(float v)
         {
             if (v < 0f)
@@ -115,12 +151,18 @@ namespace Retinues.Utilities
             return v;
         }
 
+        /// <summary>
+        /// Linearly interpolates between two values by t (clamped 0..1).
+        /// </summary>
         public static float Lerp(float a, float b, float t)
         {
             t = Clamp01(t);
             return a + (b - a) * t;
         }
 
+        /// <summary>
+        /// Linearly interpolates between two colors by t (clamped 0..1).
+        /// </summary>
         public static Color Lerp(Color a, Color b, float t)
         {
             t = Clamp01(t);

@@ -5,8 +5,14 @@ using TaleWorlds.Core;
 
 namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Services
 {
+    /// <summary>
+    /// Service to plan equipment changes, considering rules and economy.
+    /// </summary>
     public static class EquipPlanner
     {
+        /// <summary>
+        /// Builds an equipment plan based on the desired changes and current equipment.
+        /// </summary>
         public static EquipPlan BuildPlan(
             EquipContext ctx,
             Func<EquipmentIndex, WItem> getCurrent,

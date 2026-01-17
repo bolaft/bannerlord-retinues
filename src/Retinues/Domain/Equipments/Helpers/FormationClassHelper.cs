@@ -4,8 +4,14 @@ using TaleWorlds.Core;
 
 namespace Retinues.Domain.Equipments.Helpers
 {
+    /// <summary>
+    /// Utilities to compute formation class and related flags from equipment sets.
+    /// </summary>
     public static class FormationClassHelper
     {
+        /// <summary>
+        /// Lightweight value holding formation class, group and mounted/ranged flags.
+        /// </summary>
         public readonly struct FormationInfo(
             FormationClass formationClass,
             bool isRanged,
@@ -18,6 +24,9 @@ namespace Retinues.Domain.Equipments.Helpers
             public readonly bool IsMounted = isMounted;
         }
 
+        /// <summary>
+        /// Computes FormationInfo for the provided equipment set.
+        /// </summary>
         public static FormationInfo Compute(MEquipment equipment)
         {
             if (equipment == null)
@@ -44,6 +53,9 @@ namespace Retinues.Domain.Equipments.Helpers
             return FromFormationClass(FormationClass.Infantry);
         }
 
+        /// <summary>
+        /// Produces a FormationInfo for the given FormationClass enum.
+        /// </summary>
         public static FormationInfo FromFormationClass(FormationClass formationClass)
         {
             switch (formationClass)

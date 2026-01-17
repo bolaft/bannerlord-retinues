@@ -3,6 +3,9 @@ using Bannerlord.UIExtenderEx.Prefabs2;
 
 namespace Retinues.GUI.Editor.Integration.Encyclopedia.Patches
 {
+    /// <summary>
+    /// Inserts the editor button into the encyclopedia clan page.
+    /// </summary>
     [PrefabExtension(
         "EncyclopediaClanPage",
         "descendant::ListPanel[./Children/ButtonWidget[@Id='BookmarkButton']]/Children"

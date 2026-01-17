@@ -34,7 +34,6 @@ namespace Retinues.Domain.Events.Models
         /// <summary>
         /// Creates a snapshot of this agent.
         /// </summary>
-        /// <returns></returns>
         public Snapshot TakeSnapshot() => new(this);
 
         /// <summary>
@@ -169,6 +168,9 @@ namespace Retinues.Domain.Events.Models
         //                        Resolve                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Resolve the wrapped party for a given agent.
+        /// </summary>
         static WParty ResolveParty(Agent agent)
         {
             var partyBase = ResolvePartyBase(agent);
@@ -179,6 +181,9 @@ namespace Retinues.Domain.Events.Models
             return WParty.Get(mobileParty);
         }
 
+        /// <summary>
+        /// Resolve the PartyBase from an agent origin.
+        /// </summary>
         static PartyBase ResolvePartyBase(Agent agent)
         {
             var origin = agent?.Origin;
@@ -191,6 +196,9 @@ namespace Retinues.Domain.Events.Models
             return null;
         }
 
+        /// <summary>
+        /// Find the map event side that contains the agent's party.
+        /// </summary>
         static MapEventSide ResolveMapEventSide(MMapEvent mapEvent, Agent agent)
         {
             if (mapEvent == null || agent == null)

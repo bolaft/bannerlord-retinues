@@ -10,6 +10,9 @@ using TaleWorlds.Library;
 
 namespace Retinues.Utilities
 {
+    /// <summary>
+    /// Log levels for filtering output.
+    /// </summary>
     public enum LogLevel
     {
         Trace = 0,
@@ -379,6 +382,9 @@ namespace Retinues.Utilities
             return string.Join(Environment.NewLine, kept);
         }
 
+        /// <summary>
+        /// Checks if a line contains any of the given hints.
+        /// </summary>
         private static bool ContainsAny(string line, string[] hints)
         {
             foreach (var h in hints)

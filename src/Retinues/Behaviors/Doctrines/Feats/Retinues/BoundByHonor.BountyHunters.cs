@@ -1,8 +1,8 @@
 using System.Collections.Generic;
+using Retinues.Behaviors.Missions;
 using Retinues.Domain.Events.Models;
-using Retinues.Game.Missions;
 
-namespace Retinues.Game.Doctrines.Feats.Retinues
+namespace Retinues.Behaviors.Doctrines.Feats.Retinues
 {
     /// <summary>
     /// Eliminate 5 bandit parties.

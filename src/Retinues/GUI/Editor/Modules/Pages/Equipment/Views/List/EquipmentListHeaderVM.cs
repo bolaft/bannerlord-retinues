@@ -4,6 +4,9 @@ using TaleWorlds.Library;
 
 namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Views.List
 {
+    /// <summary>
+    /// Header for equipment list sections.
+    /// </summary>
     public class EquipmentListHeaderVM(BaseListVM list, string id, string name)
         : ListHeaderVM(list, id, name)
     {

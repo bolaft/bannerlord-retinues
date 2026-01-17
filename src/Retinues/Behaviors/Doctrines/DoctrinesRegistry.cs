@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
-using Retinues.Game.Doctrines.Definitions;
+using Retinues.Behaviors.Doctrines.Definitions;
 using Retinues.Utilities;
 using TaleWorlds.Library;
-using static Retinues.Game.Doctrines.Catalogs.DoctrineCatalog;
+using static Retinues.Behaviors.Doctrines.Catalogs.DoctrineCatalog;
 
-namespace Retinues.Game.Doctrines
+namespace Retinues.Behaviors.Doctrines
 {
     /// <summary>
     /// Registers built-in doctrine categories and doctrines.

@@ -3,9 +3,8 @@ using System.IO;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Domain.Factions;
 using Retinues.Domain.Factions.Wrappers;
-using Retinues.Framework.Model.Exports;
 using Retinues.GUI.Editor.Events;
-using Retinues.GUI.Editor.Services.Library.NPCCharacters;
+using Retinues.GUI.Editor.Modules.Pages.Library.Services;
 using Retinues.GUI.Editor.Shared.Views;
 using TaleWorlds.Library;
 
@@ -14,10 +13,10 @@ namespace Retinues.GUI.Editor.Modules.Pages.Library.Views.List
     /// <summary>
     /// Row representing an importable export file.
     /// </summary>
-    public abstract class LibraryExportRowVM(ListHeaderVM header, MLibrary.Item item)
+    public abstract class LibraryExportRowVM(ListHeaderVM header, ExportLibrary.Entry item)
         : BaseListRowVM(header, item?.FileName ?? string.Empty)
     {
-        protected readonly MLibrary.Item Item = item;
+        protected readonly ExportLibrary.Entry Item = item;
 
         object _xmlTroopImage;
         bool _xmlTroopImageLoaded;
@@ -30,10 +29,10 @@ namespace Retinues.GUI.Editor.Modules.Pages.Library.Views.List
         public override bool IsLibraryItem => true;
 
         [DataSourceProperty]
-        public override bool IsLibraryFaction => Item?.Kind == MLibraryKind.Faction;
+        public override bool IsLibraryFaction => Item?.Kind == ExportKind.Faction;
 
         [DataSourceProperty]
-        public override bool IsLibraryCharacter => Item?.Kind == MLibraryKind.Character;
+        public override bool IsLibraryCharacter => Item?.Kind == ExportKind.Character;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Selection                       //
@@ -73,7 +72,10 @@ namespace Retinues.GUI.Editor.Modules.Pages.Library.Views.List
         [DataSourceProperty]
         public abstract object Image { get; }
 
-        protected object GetXmlTroopImage()
+        /// <summary>
+        /// Gets the troop image from the XML export file.
+        /// </summary>
+        protected object GetXMLTroopImage()
         {
             if (_xmlTroopImageLoaded)
                 return _xmlTroopImage;
@@ -85,14 +87,14 @@ namespace Retinues.GUI.Editor.Modules.Pages.Library.Views.List
                 return null;
 
             if (
-                !LibraryExportPayloadReader.TryExtractModelCharacterPayloads(item, out var payloads)
+                !ExportXMLReader.TryExtractModelCharacterPayloads(item, out var payloads)
                 || payloads.Count == 0
             )
                 return null;
 
             var p = payloads[0];
 
-            using var lease = CharacterStubLeaser.LeaseFromPayload(
+            using var lease = CharacterPreviewLease.LeaseFromPayload(
                 p.Payload,
                 p.ModelStringId,
                 out _
@@ -110,6 +112,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Library.Views.List
         //                         Sorting                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Get the sort value for the given sort key.
+        /// </summary>
         internal override IComparable GetSortValue(ListSortKey sortKey)
         {
             if (Item == null)
@@ -127,6 +132,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Library.Views.List
         //                        Filtering                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Checks if this row matches the given filter string.
+        /// </summary>
         internal override bool MatchesFilter(string filter)
         {
             if (string.IsNullOrWhiteSpace(filter))
@@ -147,9 +155,12 @@ namespace Retinues.GUI.Editor.Modules.Pages.Library.Views.List
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                     Shared Helpers                     //
+        //                         Helpers                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Resolves a faction from its string identifier.
+        /// </summary>
         protected static IBaseFaction ResolveFaction(string stringId)
         {
             if (string.IsNullOrWhiteSpace(stringId))
@@ -171,17 +182,23 @@ namespace Retinues.GUI.Editor.Modules.Pages.Library.Views.List
         }
     }
 
-    public sealed class LibraryFactionExportRowVM(ListHeaderVM header, MLibrary.Item item)
+    /// <summary>
+    /// Row representing an importable faction export file.
+    /// </summary>
+    public sealed class LibraryFactionExportRowVM(ListHeaderVM header, ExportLibrary.Entry item)
         : LibraryExportRowVM(header, item)
     {
         [DataSourceProperty]
         public override object Image => ResolveFaction(Item?.SourceId)?.Image;
     }
 
-    public sealed class LibraryCharacterExportRowVM(ListHeaderVM header, MLibrary.Item item)
+    /// <summary>
+    /// Row representing an importable character export file.
+    /// </summary>
+    public sealed class LibraryCharacterExportRowVM(ListHeaderVM header, ExportLibrary.Entry item)
         : LibraryExportRowVM(header, item)
     {
         [DataSourceProperty]
-        public override object Image => GetXmlTroopImage();
+        public override object Image => GetXMLTroopImage();
     }
 }

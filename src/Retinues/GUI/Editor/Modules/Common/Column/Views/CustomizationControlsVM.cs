@@ -9,6 +9,9 @@ using TaleWorlds.Library;
 
 namespace Retinues.GUI.Editor.Modules.Common.Column.Views
 {
+    /// <summary>
+    /// ViewModel for the customization controls in the top panel.
+    /// </summary>
     public class CustomizationControlsVM : EventListenerVM
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

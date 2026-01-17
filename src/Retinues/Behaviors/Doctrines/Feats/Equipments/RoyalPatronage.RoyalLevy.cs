@@ -2,7 +2,7 @@ using Retinues.Domain;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Settlements.Wrappers;
 
-namespace Retinues.Game.Doctrines.Feats.Equipments
+namespace Retinues.Behaviors.Doctrines.Feats.Equipments
 {
     /// <summary>
     /// Recruit 100 custom kingdom troops.

@@ -98,6 +98,9 @@ namespace Retinues.Utilities
     //                     Cache Registry                     //
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+    /// <summary>
+    /// Registry for cache entries grouped by key for coordinated clearing.
+    /// </summary>
     internal static class CacheRegistry
     {
         /// <summary>

@@ -458,7 +458,7 @@ namespace Retinues.GUI.Services
         /// </summary>
         private static bool IsOnWorldMap()
         {
-            var game = TaleWorlds.Core.Game.Current;
+            var game = Game.Current;
             var gsm = game?.GameStateManager;
             if (gsm == null)
                 return false;

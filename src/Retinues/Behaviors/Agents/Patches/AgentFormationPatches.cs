@@ -7,10 +7,16 @@ using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 
-namespace Retinues.Game.Agents.Patches
+namespace Retinues.Behaviors.Agents.Patches
 {
+    /// <summary>
+    /// Helper to determine when formation override behavior should be applied.
+    /// </summary>
     internal static class FormationOverrideContext
     {
+        /// <summary>
+        /// Returns true when formation overrides are active for the given mission.
+        /// </summary>
         public static bool IsActive(Mission mission = null)
         {
             var m = mission ?? Mission.Current;
@@ -26,6 +32,9 @@ namespace Retinues.Game.Agents.Patches
     [HarmonyPatch(typeof(Mission), nameof(Mission.GetAgentTroopClass))]
     internal static class Mission_GetAgentTroopClass_Patch
     {
+        /// <summary>
+        /// Prefix patch to override an agent's formation class based on edited character data.
+        /// </summary>
         [HarmonyPrefix]
         private static bool Prefix(
             Mission __instance,
@@ -77,6 +86,9 @@ namespace Retinues.Game.Agents.Patches
     )]
     public static class Patch_SandboxBattleSpawnModel_GetInitialSpawnAssignments
     {
+        /// <summary>
+        /// Postfix that adjusts initial spawn assignments to honor edited formation classes.
+        /// </summary>
         [HarmonyPostfix]
         private static void Postfix(
             BattleSideEnum battleSide,
@@ -127,6 +139,9 @@ namespace Retinues.Game.Agents.Patches
     [HarmonyPatch(typeof(BasicCharacterObject), nameof(BasicCharacterObject.HasMount))]
     internal static class BasicCharacterObject_HasMount_Patch
     {
+        /// <summary>
+        /// Prefix to report mount availability based on edited character settings.
+        /// </summary>
         [HarmonyPrefix]
         private static bool Prefix(BasicCharacterObject __instance, ref bool __result)
         {
@@ -146,8 +161,14 @@ namespace Retinues.Game.Agents.Patches
         }
     }
 
+    /// <summary>
+    /// Utility for deriving virtual class attributes (mounted/ranged) for an agent.
+    /// </summary>
     internal static class VirtualClassHelper
     {
+        /// <summary>
+        /// Attempts to determine virtual mounted/ranged flags for the given agent.
+        /// </summary>
         public static bool TryGetVirtual(Agent a, out bool mounted, out bool ranged)
         {
             mounted = false;
@@ -176,6 +197,9 @@ namespace Retinues.Game.Agents.Patches
     [HarmonyPatch(typeof(QueryLibrary), nameof(QueryLibrary.IsInfantry))]
     internal static class QueryLibrary_IsInfantry_Patch
     {
+        /// <summary>
+        /// Prefix that treats an agent as infantry based on virtual class flags.
+        /// </summary>
         [HarmonyPrefix]
         private static bool Prefix(Agent a, ref bool __result)
         {
@@ -190,6 +214,9 @@ namespace Retinues.Game.Agents.Patches
     [HarmonyPatch(typeof(QueryLibrary), nameof(QueryLibrary.IsRanged))]
     internal static class QueryLibrary_IsRanged_Patch
     {
+        /// <summary>
+        /// Prefix that treats an agent as ranged based on virtual class flags.
+        /// </summary>
         [HarmonyPrefix]
         private static bool Prefix(Agent a, ref bool __result)
         {
@@ -204,6 +231,9 @@ namespace Retinues.Game.Agents.Patches
     [HarmonyPatch(typeof(QueryLibrary), nameof(QueryLibrary.IsCavalry))]
     internal static class QueryLibrary_IsCavalry_Patch
     {
+        /// <summary>
+        /// Prefix that treats an agent as cavalry based on virtual class flags.
+        /// </summary>
         [HarmonyPrefix]
         private static bool Prefix(Agent a, ref bool __result)
         {
@@ -218,6 +248,9 @@ namespace Retinues.Game.Agents.Patches
     [HarmonyPatch(typeof(QueryLibrary), nameof(QueryLibrary.IsRangedCavalry))]
     internal static class QueryLibrary_IsRangedCavalry_Patch
     {
+        /// <summary>
+        /// Prefix that treats an agent as ranged cavalry based on virtual class flags.
+        /// </summary>
         [HarmonyPrefix]
         private static bool Prefix(Agent a, ref bool __result)
         {

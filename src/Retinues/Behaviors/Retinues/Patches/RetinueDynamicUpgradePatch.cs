@@ -14,8 +14,11 @@ using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.CampaignSystem.ViewModelCollection.Party;
 using TaleWorlds.Core.ViewModelCollection.Information;
 
-namespace Retinues.Game.Retinues.Patches
+namespace Retinues.Behaviors.Retinues.Patches
 {
+    /// <summary>
+    /// Handles injection of retinue upgrade targets and enforces retinue upgrade cap UI rules.
+    /// </summary>
     internal static class RetinueDynamicUpgradePatch
     {
         private static readonly object Sync = new();
@@ -23,6 +26,9 @@ namespace Retinues.Game.Retinues.Patches
             StringComparer.Ordinal
         );
 
+        /// <summary>
+        /// Snapshot of upgrade-related VM state for later restoration.
+        /// </summary>
         private sealed class SavedUpgradeState(
             int availableUpgrades,
             bool isAvailable,
@@ -36,8 +42,11 @@ namespace Retinues.Game.Retinues.Patches
             public readonly BasicTooltipViewModel Hint = hint;
         }
 
-        private static readonly Dictionary<object, SavedUpgradeState> SavedUpgradeByVm = [];
+        private static readonly Dictionary<object, SavedUpgradeState> SavedUpgradeByVM = [];
 
+        /// <summary>
+        /// Applies UI rules to disable upgrades when the player's retinue cap is reached.
+        /// </summary>
         private static void ApplyRetinueCapRule(PartyCharacterVM vm)
         {
             if (vm?.Character == null)
@@ -88,23 +97,23 @@ namespace Retinues.Game.Retinues.Patches
                 // Restore path
                 if (!atCap)
                 {
-                    if (SavedUpgradeByVm.TryGetValue(u, out var saved))
+                    if (SavedUpgradeByVM.TryGetValue(u, out var saved))
                     {
                         u.Hint = saved.Hint;
                         u.AvailableUpgrades = saved.AvailableUpgrades;
                         u.IsAvailable = saved.IsAvailable;
                         u.IsInsufficient = saved.IsInsufficient;
 
-                        SavedUpgradeByVm.Remove(u);
+                        SavedUpgradeByVM.Remove(u);
                     }
 
                     continue;
                 }
 
                 // Disable path (save once, then override)
-                if (!SavedUpgradeByVm.ContainsKey(u))
+                if (!SavedUpgradeByVM.ContainsKey(u))
                 {
-                    SavedUpgradeByVm[u] = new SavedUpgradeState(
+                    SavedUpgradeByVM[u] = new SavedUpgradeState(
                         u.AvailableUpgrades,
                         u.IsAvailable,
                         u.IsInsufficient,
@@ -131,11 +140,17 @@ namespace Retinues.Game.Retinues.Patches
             }
         }
 
+        /// <summary>
+        /// Returns the upgrade targets array for the character.
+        /// </summary>
         private static CharacterObject[] GetUpgradeTargets(CharacterObject c)
         {
             return c?.UpgradeTargets ?? [];
         }
 
+        /// <summary>
+        /// Sets the upgrade targets array for the character via reflection.
+        /// </summary>
         private static void SetUpgradeTargets(CharacterObject c, CharacterObject[] targets)
         {
             if (c == null)
@@ -144,6 +159,9 @@ namespace Retinues.Game.Retinues.Patches
             Reflection.SetPropertyValue(c, "UpgradeTargets", targets ?? []);
         }
 
+        /// <summary>
+        /// Injects player-retinue targets into the source character's upgrade targets for the UI session.
+        /// </summary>
         private static void EnsureInjected(CharacterObject source)
         {
             if (source == null)
@@ -211,6 +229,9 @@ namespace Retinues.Game.Retinues.Patches
             SetUpgradeTargets(source, [.. list]);
         }
 
+        /// <summary>
+        /// Restores all modified upgrade targets and clears saved UI state.
+        /// </summary>
         private static void RestoreAll()
         {
             lock (Sync)
@@ -228,13 +249,16 @@ namespace Retinues.Game.Retinues.Patches
                 }
 
                 OriginalById.Clear();
-                SavedUpgradeByVm.Clear();
+                SavedUpgradeByVM.Clear();
             }
         }
 
         [HarmonyPatch(typeof(PartyCharacterVM))]
         internal static class PartyCharacterVM_SetCharacter_Patch
         {
+            /// <summary>
+            /// Prefix that ensures upgrade targets are injected when a party character VM is assigned.
+            /// </summary>
             [HarmonyPrefix]
             [HarmonyPatch("set_Character")]
             private static void Prefix(PartyCharacterVM __instance, CharacterObject value)
@@ -268,6 +292,9 @@ namespace Retinues.Game.Retinues.Patches
         [HarmonyPatch(typeof(PartyCharacterVM))]
         internal static class PartyCharacterVM_InitializeUpgrades_RetinueCap_Patch
         {
+            /// <summary>
+            /// Postfix that applies the retinue cap rule after upgrades are initialized.
+            /// </summary>
             [HarmonyPostfix]
             [HarmonyPatch(nameof(PartyCharacterVM.InitializeUpgrades))]
             private static void Postfix(PartyCharacterVM __instance)
@@ -286,6 +313,9 @@ namespace Retinues.Game.Retinues.Patches
         [HarmonyPatch(typeof(PartyCharacterVM))]
         internal static class PartyCharacterVM_RefreshValues_RetinueCap_Patch
         {
+            /// <summary>
+            /// Postfix that reapplies the retinue cap rule when VM values are refreshed.
+            /// </summary>
             [HarmonyPostfix]
             [HarmonyPatch(nameof(PartyCharacterVM.RefreshValues))]
             private static void Postfix(PartyCharacterVM __instance)
@@ -308,6 +338,9 @@ namespace Retinues.Game.Retinues.Patches
         [HarmonyPatch]
         internal static class PartyScreen_Close_Patch
         {
+            /// <summary>
+            /// Targets party screen close methods to restore injected state when the screen is closed.
+            /// </summary>
             private static MethodBase TargetMethod()
             {
                 // Try multiple known party screen type names.
@@ -324,6 +357,9 @@ namespace Retinues.Game.Retinues.Patches
                     ?? AccessTools.Method(t, "OnDeactivate");
             }
 
+            /// <summary>
+            /// Postfix that restores state when the party screen is closed.
+            /// </summary>
             [HarmonyPostfix]
             private static void Postfix()
             {
@@ -334,6 +370,9 @@ namespace Retinues.Game.Retinues.Patches
         [HarmonyPatch(typeof(PartyVM))]
         internal static class PartyVM_Update_RetinueCapRefresh_Patch
         {
+            /// <summary>
+            /// Postfix that refreshes retinue-related upgrade UI after party commands that affect retinues.
+            /// </summary>
             [HarmonyPostfix]
             [HarmonyPatch("Update")] // private method
             private static void Postfix(PartyVM __instance, PartyScreenLogic.PartyCommand command)

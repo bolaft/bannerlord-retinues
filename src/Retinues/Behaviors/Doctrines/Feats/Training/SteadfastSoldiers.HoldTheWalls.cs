@@ -1,9 +1,9 @@
 using System.Collections.Generic;
+using Retinues.Behaviors.Missions;
 using Retinues.Domain;
 using Retinues.Domain.Events.Models;
-using Retinues.Game.Missions;
 
-namespace Retinues.Game.Doctrines.Feats.Training
+namespace Retinues.Behaviors.Doctrines.Feats.Training
 {
     /// <summary>
     /// Win a siege defense fielding only faction troops.

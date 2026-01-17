@@ -3,12 +3,11 @@ using Bannerlord.UIExtenderEx.Attributes;
 using Bannerlord.UIExtenderEx.ViewModels;
 using Retinues.Configuration;
 using Retinues.GUI.Components;
-using Retinues.GUI.Editor;
 using Retinues.GUI.Services;
 using Retinues.Utilities;
 using TaleWorlds.Library;
 
-namespace Retinues.GUI.Integration.Encyclopedia
+namespace Retinues.GUI.Editor.Integration.Encyclopedia
 {
     [ViewModelMixin]
     public abstract class BasePageMixin<TViewModel> : BaseViewModelMixin<TViewModel>
@@ -52,6 +51,9 @@ namespace Retinues.GUI.Integration.Encyclopedia
         public Tooltip EditorHint =>
             new(L.S("encyclopedia_editor_button_hint", "Open in the editor."));
 
+        /// <summary>
+        /// Opens the editor for the current page.
+        /// </summary>
         [DataSourceMethod]
         public abstract void ExecuteOpenEditor();
     }

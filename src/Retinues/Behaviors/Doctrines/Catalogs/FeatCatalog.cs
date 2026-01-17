@@ -1,6 +1,6 @@
 using TaleWorlds.Localization;
 
-namespace Retinues.Game.Doctrines.Catalogs
+namespace Retinues.Behaviors.Doctrines.Catalogs
 {
     /// <summary>
     /// Feat definitions for the Equipments category.

@@ -1,16 +1,16 @@
 using System;
 using System.Collections.Generic;
+using Retinues.Behaviors.Doctrines.Catalogs;
+using Retinues.Behaviors.Missions;
 using Retinues.Configuration;
 using Retinues.Domain.Equipments.Models;
 using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Domain.Events.Models;
 using Retinues.Framework.Behaviors;
-using Retinues.Game.Doctrines.Catalogs;
-using Retinues.Game.Missions;
 using Retinues.Utilities;
 using TaleWorlds.MountAndBlade;
 
-namespace Retinues.Game.Unlocks
+namespace Retinues.Behaviors.Unlocks
 {
     /// <summary>
     /// Applies equipment unlock progress from mission outcomes (kills).

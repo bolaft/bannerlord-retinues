@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
+using Retinues.Behaviors.Missions;
 using Retinues.Domain.Events.Models;
-using Retinues.Game.Missions;
 using TaleWorlds.Core;
 
-namespace Retinues.Game.Doctrines.Feats.Retinues
+namespace Retinues.Behaviors.Doctrines.Feats.Retinues
 {
     /// <summary>
     /// Have 20 retinues survive being struck down in battle.

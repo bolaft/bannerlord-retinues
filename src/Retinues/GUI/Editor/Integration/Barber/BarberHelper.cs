@@ -44,7 +44,7 @@ namespace Retinues.GUI.Editor.Integration.Barber
             if (target?.Base == null)
                 return;
 
-            if (TaleWorlds.Core.Game.Current?.GameStateManager == null)
+            if (Game.Current?.GameStateManager == null)
                 return;
 
             if (Campaign.Current == null || !Campaign.Current.IsFaceGenEnabled)
@@ -88,10 +88,9 @@ namespace Retinues.GUI.Editor.Integration.Barber
                 // Open vanilla barber screen for MainHero, as MapScreen does.
                 IFaceGeneratorCustomFilter filter = CharacterHelper.GetFaceGeneratorFilter();
 
-                var barberState =
-                    TaleWorlds.Core.Game.Current.GameStateManager.CreateState<BarberState>(
-                        [main.Base.CharacterObject, filter]
-                    );
+                var barberState = Game.Current.GameStateManager.CreateState<BarberState>(
+                    [main.Base.CharacterObject, filter]
+                );
 
                 GameStateManager.Current.PushState(barberState);
             }
@@ -170,6 +169,9 @@ namespace Retinues.GUI.Editor.Integration.Barber
             }
         }
 
+        /// <summary>
+        /// Clears the current barber session state.
+        /// </summary>
         private static void ClearSession(bool restoreMain)
         {
             var main = Player.Hero;

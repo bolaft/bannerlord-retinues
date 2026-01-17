@@ -9,6 +9,9 @@ namespace Retinues.Domain.Events.Helpers
     /// </summary>
     public static class NavalBattleHelper
     {
+        /// <summary>
+        /// Returns true if the given MapEvent is considered a naval battle.
+        /// </summary>
         public static bool IsNavalBattle(MapEvent mapEvent)
         {
             if (mapEvent == null)
@@ -37,6 +40,9 @@ namespace Retinues.Domain.Events.Helpers
             }
         }
 
+        /// <summary>
+        /// Tries to read a boolean property from an object via reflection.
+        /// </summary>
         static bool TryGetBool(object instance, string propertyName, out bool value)
         {
             value = false;
@@ -61,6 +67,9 @@ namespace Retinues.Domain.Events.Helpers
             }
         }
 
+        /// <summary>
+        /// Heuristic that checks whether a MapEventSide contains any party that looks naval.
+        /// </summary>
         static bool SideHasNavalPartyHeuristic(MapEventSide side)
         {
             if (side == null)

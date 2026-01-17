@@ -1,7 +1,7 @@
 using System;
 using Bannerlord.UIExtenderEx.Attributes;
+using Retinues.Behaviors.Retinues;
 using Retinues.Domain.Factions.Wrappers;
-using Retinues.Game.Retinues;
 using Retinues.GUI.Editor.Shared.Views;
 using Retinues.GUI.Services;
 using TaleWorlds.Library;
@@ -62,14 +62,18 @@ namespace Retinues.GUI.Editor.Modules.Pages.Character.Views.List
                 .SetTextVariable("PCT", ProgressPercent)
                 .ToString();
 
-        internal int ProgressPoints => _progress;
-
+        /// <summary>
+        /// Tries to get the pinned sort progress for this row.
+        /// </summary>
         internal override bool TryGetPinnedSortProgress(out int progress)
         {
             progress = _progress;
             return progress > 0;
         }
 
+        /// <summary>
+        /// Gets the sort value for the given sort key.
+        /// </summary>
         internal override IComparable GetSortValue(ListSortKey sortKey)
         {
             return sortKey switch
@@ -79,6 +83,13 @@ namespace Retinues.GUI.Editor.Modules.Pages.Character.Views.List
             };
         }
 
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Filtering                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Determines whether this row matches the given filter.
+        /// </summary>
         internal override bool MatchesFilter(string filter)
         {
             if (string.IsNullOrWhiteSpace(filter))

@@ -3,7 +3,7 @@ using Retinues.Domain;
 using Retinues.Domain.Factions.Wrappers;
 using TaleWorlds.Library;
 
-namespace Retinues.Game.Retinues
+namespace Retinues.Behaviors.Retinues
 {
     public partial class RetinuesBehavior
     {

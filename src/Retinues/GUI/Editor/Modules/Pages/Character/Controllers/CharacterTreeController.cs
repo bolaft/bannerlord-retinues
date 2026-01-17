@@ -2,6 +2,7 @@ using System.Linq;
 using Retinues.Domain.Characters.Services.Cloning;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Equipments.Helpers;
+using Retinues.Domain.Equipments.Services.Random;
 using Retinues.GUI.Editor.Events;
 using Retinues.GUI.Editor.Modules.Pages.Equipment.Controllers;
 using Retinues.GUI.Editor.Shared.Controllers;
@@ -9,6 +10,9 @@ using Retinues.GUI.Services;
 
 namespace Retinues.GUI.Editor.Modules.Pages.Character.Controllers
 {
+    /// <summary>
+    /// Controller for managing character tree operations like upgrades and removal.
+    /// </summary>
     public class CharacterTreeController : BaseController
     {
         const int MaxUpgradeTargets = 4;
@@ -17,6 +21,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Character.Controllers
         //                        Add Upgrade                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Adds a new upgrade target for the selected character after prompting for name and options.
+        /// </summary>
         public static ControllerAction<WCharacter> AddUpgradeTarget { get; } =
             Action<WCharacter>("AddUpgradeTarget")
                 .RequireValidEditingContext()
@@ -32,8 +39,8 @@ namespace Retinues.GUI.Editor.Modules.Pages.Character.Controllers
                     )
                 )
                 .AddCondition(
-                    c => c != null && c.InTree,
-                    L.T("upgrade_cannot_add_not_in_tree", "This unit is not in a troop tree.")
+                    c => c != null && c.IsUpgradable,
+                    L.T("upgrade_cannot_add_not_upgradable", "This unit is not upgradable.")
                 )
                 .AddCondition(
                     c => c != null && !c.IsMaxTier,
@@ -130,7 +137,7 @@ namespace Retinues.GUI.Editor.Modules.Pages.Character.Controllers
             // We avoid calling Remove on existing sets while economy might be active; clone has none anyway.
             roster?.InvalidateItemCountsCache();
 
-            var battle = RandomEquipmentHelper.CreateRandomEquipment(
+            var battle = EquipmentRandomizer.CreateRandomEquipment(
                 owner: clone,
                 source: parent.FirstBattleEquipment,
                 civilian: false,
@@ -138,7 +145,7 @@ namespace Retinues.GUI.Editor.Modules.Pages.Character.Controllers
                 pickBest: true
             );
 
-            var civilian = RandomEquipmentHelper.CreateRandomEquipment(
+            var civilian = EquipmentRandomizer.CreateRandomEquipment(
                 owner: clone,
                 source: parent.FirstCivilianEquipment,
                 civilian: true,
@@ -164,6 +171,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Character.Controllers
         //                      Remove Character                  //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Removes the selected character after confirmation and optional stock handling.
+        /// </summary>
         public static ControllerAction<WCharacter> RemoveCharacter { get; } =
             Action<WCharacter>("RemoveCharacter")
                 .RequireValidEditingContext()

@@ -6,17 +6,26 @@ using Retinues.Utilities;
 using TaleWorlds.CampaignSystem.CampaignBehaviors;
 using TaleWorlds.CampaignSystem.GameMenus;
 
-namespace Retinues.Game.Recruitement.Patches
+namespace Retinues.Behaviors.Recruitement.Patches
 {
+    /// <summary>
+    /// Manages player volunteer swap lifecycle when entering/exiting recruit screens.
+    /// </summary>
     internal static class VolunteerSwapForPlayerPatches
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                   Enter Recruit Screen                 //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Targets various recruit-volunteers callbacks across versions to start swap for player.
+        /// </summary>
         [HarmonyPatch]
         private static class RecruitVolunteers_OnConsequence_Patch
         {
+            /// <summary>
+            /// Returns candidate methods for hooking the recruit-volunteers consequence.
+            /// </summary>
             private static IEnumerable<MethodBase> TargetMethods()
             {
                 // 1) Older/alternate path: behavior methods
@@ -61,6 +70,9 @@ namespace Retinues.Game.Recruitement.Patches
                 }
             }
 
+            /// <summary>
+            /// Prefix that begins the player recruit-menu swap state.
+            /// </summary>
             [HarmonyPrefix]
             private static void Prefix(MenuCallbackArgs args)
             {
@@ -81,6 +93,9 @@ namespace Retinues.Game.Recruitement.Patches
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         // Keep your restores (these already work for you; your probe hit town_on_init).
+        /// <summary>
+        /// Restores the player's volunteer snapshot on town menu init if active.
+        /// </summary>
         [HarmonyPatch(typeof(PlayerTownVisitCampaignBehavior), "game_menu_town_on_init")]
         [HarmonyPostfix]
         private static void Postfix_TownOnInit(MenuCallbackArgs args)
@@ -95,6 +110,9 @@ namespace Retinues.Game.Recruitement.Patches
             }
         }
 
+        /// <summary>
+        /// Restores the player's volunteer snapshot on castle menu init if active.
+        /// </summary>
         [HarmonyPatch(typeof(PlayerTownVisitCampaignBehavior), "game_menu_castle_on_init")]
         [HarmonyPostfix]
         private static void Postfix_CastleOnInit(MenuCallbackArgs args)
@@ -109,6 +127,9 @@ namespace Retinues.Game.Recruitement.Patches
             }
         }
 
+        /// <summary>
+        /// Restores the player's volunteer snapshot on village menu init if active.
+        /// </summary>
         [HarmonyPatch(typeof(PlayerTownVisitCampaignBehavior), "game_menu_village_on_init")]
         [HarmonyPostfix]
         private static void Postfix_VillageOnInit(MenuCallbackArgs args)
@@ -123,6 +144,9 @@ namespace Retinues.Game.Recruitement.Patches
             }
         }
 
+        /// <summary>
+        /// Restores the player's volunteer snapshot on settlement wait menu init if active.
+        /// </summary>
         [HarmonyPatch(typeof(PlayerTownVisitCampaignBehavior), "game_menu_settlement_wait_on_init")]
         [HarmonyPostfix]
         private static void Postfix_WaitOnInit(MenuCallbackArgs args)

@@ -19,6 +19,9 @@ namespace Retinues.Framework.Model
         void MarkDirty();
     }
 
+    /// <summary>
+    /// Base class for model wrappers providing attribute management.
+    /// </summary>
     public abstract partial class MBase<TBase> : IModel
     {
         // Pending dependents: key = target attribute name, value = list of dependents waiting
@@ -75,6 +78,9 @@ namespace Retinues.Framework.Model
             return attr;
         }
 
+        /// <summary>
+        /// Registers dependencies for the given dependent attribute on the specified target attribute names.
+        /// </summary>
         void RegisterDependencyNames(IMAttribute dependent, params string[] dependsOn)
         {
             if (dependsOn == null || dependsOn.Length == 0 || dependent == null)

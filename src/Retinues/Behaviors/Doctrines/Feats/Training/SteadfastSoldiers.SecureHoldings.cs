@@ -1,6 +1,6 @@
 using Retinues.Domain;
 
-namespace Retinues.Game.Doctrines.Feats.Training
+namespace Retinues.Behaviors.Doctrines.Feats.Training
 {
     /// <summary>
     /// Raise the security value of a fief to 60.

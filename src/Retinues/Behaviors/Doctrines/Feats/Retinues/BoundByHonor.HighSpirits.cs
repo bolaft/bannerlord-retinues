@@ -1,6 +1,6 @@
 using Retinues.Domain;
 
-namespace Retinues.Game.Doctrines.Feats.Retinues
+namespace Retinues.Behaviors.Doctrines.Feats.Retinues
 {
     /// <summary>
     /// Maintain a retinue-only party's morale above 90 for 15 days.

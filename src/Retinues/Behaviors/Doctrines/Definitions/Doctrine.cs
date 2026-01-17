@@ -3,7 +3,7 @@ using Retinues.Configuration;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
 
-namespace Retinues.Game.Doctrines.Definitions
+namespace Retinues.Behaviors.Doctrines.Definitions
 {
     public sealed class Doctrine(
         string id,

@@ -11,6 +11,9 @@ namespace Retinues.Utilities
     /// </summary>
     public static class Reflection
     {
+        /// <summary>
+        /// Binding flags used for all reflection lookups.
+        /// </summary>
         public const BindingFlags Flags =
             BindingFlags.Instance
             | BindingFlags.Static

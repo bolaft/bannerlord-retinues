@@ -1,6 +1,6 @@
 using Retinues.Domain.Characters.Wrappers;
 
-namespace Retinues.Game.Doctrines.Feats.Training
+namespace Retinues.Behaviors.Doctrines.Feats.Training
 {
     /// <summary>
     /// Upgrade 100 elite faction troops to the next tier.

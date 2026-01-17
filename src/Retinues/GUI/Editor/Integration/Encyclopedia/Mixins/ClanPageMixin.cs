@@ -2,13 +2,12 @@ using System;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Domain;
 using Retinues.Domain.Factions.Wrappers;
-using Retinues.GUI.Editor;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.ViewModelCollection.Encyclopedia.Pages;
 using TaleWorlds.Library;
 
-namespace Retinues.GUI.Integration.Encyclopedia.Mixins
+namespace Retinues.GUI.Editor.Integration.Encyclopedia.Mixins
 {
     [ViewModelMixin]
     public sealed class ClanPageMixin(EncyclopediaClanPageVM vm)
@@ -36,6 +35,9 @@ namespace Retinues.GUI.Integration.Encyclopedia.Mixins
             }
         }
 
+        /// <summary>
+        /// Opens the editor for the current clan page.
+        /// </summary>
         [DataSourceMethod]
         public override void ExecuteOpenEditor()
         {

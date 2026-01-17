@@ -36,6 +36,9 @@ namespace Retinues.GUI.Editor.Shared.Controllers
         //                         Cache                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Cache entry for a specific (burst, arg) pair.
+        /// </summary>
         private sealed class CacheEntry
         {
             public TextObject Reason;
@@ -47,6 +50,9 @@ namespace Retinues.GUI.Editor.Shared.Controllers
         private readonly Dictionary<TArg, CacheEntry> _burstCache = [];
         private readonly CacheEntry _nullBurstCache = new(); // for arg == null
 
+        /// <summary>
+        /// Ensure the burst cache is initialized for the current burst.
+        /// </summary>
         private void EnsureBurstCache()
         {
             if (!EventManager.IsInBurst)
@@ -67,6 +73,9 @@ namespace Retinues.GUI.Editor.Shared.Controllers
             _nullBurstCache.Tooltip = null;
         }
 
+        /// <summary>
+        /// Get or compute the cache entry for the given argument in the current burst.
+        /// </summary>
         private CacheEntry GetOrCompute(TArg arg)
         {
             // Only cache during bursts.
@@ -107,6 +116,9 @@ namespace Retinues.GUI.Editor.Shared.Controllers
             return entry;
         }
 
+        /// <summary>
+        /// Compute a cache entry without storing it (for non-burst calls).
+        /// </summary>
         private static CacheEntry ComputeNoCache(TArg arg)
         {
             // no caching outside a burst; compute new entry each call
@@ -119,41 +131,60 @@ namespace Retinues.GUI.Editor.Shared.Controllers
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Setup                          //
+        //                       Execution                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Set the execution delegate for this action.
+        /// </summary>
         public ControllerAction<TArg> ExecuteWith(Action<TArg> execute)
         {
             _execute = execute;
             return this;
         }
 
-        public ControllerAction<TArg> AddCondition(Func<TArg, bool> test, TextObject reason)
+        /// <summary>
+        /// Add a pre-execute handler invoked before the main execute.
+        /// </summary>
+        public ControllerAction<TArg> PreExecute(Action<TArg> pre)
         {
-            _baseConditions.Add(new Condition(null, test, reason));
+            _pre += pre;
             return this;
         }
 
-        public ControllerAction<TArg> AddCondition(
-            Func<TArg, bool> test,
-            Func<TArg, TextObject> reasonFactory
-        )
+        /// <summary>
+        /// Add a post-execute handler invoked after the main execute.
+        /// </summary>
+        public ControllerAction<TArg> PostExecute(Action<TArg> post)
         {
-            _baseConditions.Add(new Condition(null, test, reasonFactory));
+            _post += post;
             return this;
         }
 
-        public ControllerAction<TArg> AddCondition(
-            Func<EditorState, bool> applies,
-            Func<TArg, bool> test,
-            TextObject reason
-        )
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Condition                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Configure mode-specific overrides for this action.
+        /// </summary>
+        public ControllerAction<TArg> WhenMode(EditorMode mode, Action<ActionModeSpec> spec)
         {
-            _baseConditions.Add(new Condition(applies, test, reason));
+            if (!_modeOverrides.TryGetValue(mode, out var ov))
+            {
+                ov = new ModeOverrides();
+                _modeOverrides[mode] = ov;
+            }
+
+            spec?.Invoke(new ActionModeSpec(ov));
             return this;
         }
 
-        public ControllerAction<TArg> AddCondition(
+        /// <summary>
+        /// Core AddCondition implementation. All overloads delegate here to
+        /// centralize construction of the Condition instance.
+        /// </summary>
+        private ControllerAction<TArg> AddConditionCore(
             Func<EditorState, bool> applies,
             Func<TArg, bool> test,
             Func<TArg, TextObject> reasonFactory
@@ -163,43 +194,75 @@ namespace Retinues.GUI.Editor.Shared.Controllers
             return this;
         }
 
+        /// <summary>
+        /// Add a condition that must pass for the action to be allowed.
+        /// </summary>
+        public ControllerAction<TArg> AddCondition(Func<TArg, bool> test, TextObject reason) =>
+            AddConditionCore(null, test, _ => reason);
+
+        /// <summary>
+        /// Add a condition that must pass for the action to be allowed.
+        /// </summary>
+        public ControllerAction<TArg> AddCondition(
+            Func<TArg, bool> test,
+            Func<TArg, TextObject> reasonFactory
+        ) => AddConditionCore(null, test, reasonFactory);
+
+        /// <summary>
+        /// Add a condition that applies only when the provided state predicate is true.
+        /// </summary>
+        public ControllerAction<TArg> AddCondition(
+            Func<EditorState, bool> applies,
+            Func<TArg, bool> test,
+            TextObject reason
+        ) => AddConditionCore(applies, test, _ => reason);
+
+        /// <summary>
+        /// Add a condition with a reason factory that applies only when the state predicate is true.
+        /// </summary>
+        public ControllerAction<TArg> AddCondition(
+            Func<EditorState, bool> applies,
+            Func<TArg, bool> test,
+            Func<TArg, TextObject> reasonFactory
+        ) => AddConditionCore(applies, test, reasonFactory);
+
+        /// <summary>
+        /// Add a condition using a parameterless reason factory.
+        /// </summary>
         public ControllerAction<TArg> AddCondition(
             Func<TArg, bool> test,
             Func<TextObject> reasonFactory
-        )
-        {
-            _baseConditions.Add(new Condition(null, test, _ => reasonFactory()));
-            return this;
-        }
+        ) => AddConditionCore(null, test, _ => reasonFactory());
 
+        /// <summary>
+        /// Add a condition using a string-producing reason factory.
+        /// </summary>
         public ControllerAction<TArg> AddCondition(
             Func<TArg, bool> test,
             Func<string> reasonFactory
-        )
-        {
-            _baseConditions.Add(new Condition(null, test, _ => new TextObject(reasonFactory())));
-            return this;
-        }
+        ) => AddConditionCore(null, test, _ => new TextObject(reasonFactory()));
 
+        /// <summary>
+        /// Add a state-specific condition using a parameterless reason factory.
+        /// </summary>
         public ControllerAction<TArg> AddCondition(
             Func<EditorState, bool> applies,
             Func<TArg, bool> test,
             Func<TextObject> reasonFactory
-        )
-        {
-            _baseConditions.Add(new Condition(applies, test, _ => reasonFactory()));
-            return this;
-        }
+        ) => AddConditionCore(applies, test, _ => reasonFactory());
 
+        /// <summary>
+        /// Add a state-specific condition using a string-producing reason factory.
+        /// </summary>
         public ControllerAction<TArg> AddCondition(
             Func<EditorState, bool> applies,
             Func<TArg, bool> test,
             Func<string> reasonFactory
-        )
-        {
-            _baseConditions.Add(new Condition(applies, test, _ => new TextObject(reasonFactory())));
-            return this;
-        }
+        ) => AddConditionCore(applies, test, _ => new TextObject(reasonFactory()));
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                    Default Tooltip                     //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
         /// Default tooltip shown when the action is enabled.
@@ -223,40 +286,26 @@ namespace Retinues.GUI.Editor.Shared.Controllers
             return this;
         }
 
-        public ControllerAction<TArg> PreExecute(Action<TArg> pre)
-        {
-            _pre += pre;
-            return this;
-        }
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Event                          //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public ControllerAction<TArg> PostExecute(Action<TArg> post)
-        {
-            _post += post;
-            return this;
-        }
-
+        /// <summary>
+        /// Configure an event to fire after successful execution.
+        /// </summary>
         public ControllerAction<TArg> Fire(UIEvent e)
         {
             _fireEvent = e;
             return this;
         }
 
-        public ControllerAction<TArg> WhenMode(EditorMode mode, Action<ActionModeSpec> spec)
-        {
-            if (!_modeOverrides.TryGetValue(mode, out var ov))
-            {
-                ov = new ModeOverrides();
-                _modeOverrides[mode] = ov;
-            }
-
-            spec?.Invoke(new ActionModeSpec(ov));
-            return this;
-        }
-
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Query                          //
+        //                        Reasons                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Returns true if the action is allowed for the given argument.
+        /// </summary>
         public bool Allow(TArg arg)
         {
             // Cached during burst
@@ -269,6 +318,9 @@ namespace Retinues.GUI.Editor.Shared.Controllers
             return ComputeReason(arg) == null;
         }
 
+        /// <summary>
+        /// Returns the blocking reason if the action is not allowed, otherwise null.
+        /// </summary>
         public TextObject Reason(TArg arg)
         {
             if (EventManager.IsInBurst)
@@ -280,10 +332,7 @@ namespace Retinues.GUI.Editor.Shared.Controllers
         }
 
         /// <summary>
-        /// Tooltip for the action.
-        /// - If disabled, returns the blocking reason.
-        /// - If enabled, returns the optional default tooltip (if configured).
-        /// - Otherwise returns null.
+        /// Returns the tooltip for the action based on enablement and defaults.
         /// </summary>
         public Tooltip Tooltip(TArg arg)
         {
@@ -296,6 +345,9 @@ namespace Retinues.GUI.Editor.Shared.Controllers
             return ComputeTooltipFromReason(arg, reason);
         }
 
+        /// <summary>
+        /// Compute the blocking reason for the action, or null if allowed.
+        /// </summary>
         private TextObject ComputeReason(TArg arg)
         {
             // 1) Baseline conditions
@@ -314,6 +366,9 @@ namespace Retinues.GUI.Editor.Shared.Controllers
             return null;
         }
 
+        /// <summary>
+        /// Compute the tooltip based on the reason and defaults.
+        /// </summary>
         private Tooltip ComputeTooltipFromReason(TArg arg, TextObject reason)
         {
             if (reason != null)
@@ -342,6 +397,9 @@ namespace Retinues.GUI.Editor.Shared.Controllers
         //                        Execute                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Execute the action if allowed; returns true on success.
+        /// </summary>
         public bool Execute(TArg arg)
         {
             var reason = Reason(arg);
@@ -383,12 +441,18 @@ namespace Retinues.GUI.Editor.Shared.Controllers
             return true;
         }
 
+        /// <summary>
+        /// Fired when the action has been successfully executed.
+        /// </summary>
         public event Action<TArg> Executed;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Internals                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Evaluate the given conditions against the argument, returning the first blocking reason found.
+        /// </summary>
         private static TextObject Evaluate(List<Condition> conditions, TArg arg)
         {
             for (int i = 0; i < conditions.Count; i++)
@@ -405,6 +469,9 @@ namespace Retinues.GUI.Editor.Shared.Controllers
             return null;
         }
 
+        /// <summary>
+        /// Condition for action allowance.
+        /// </summary>
         public readonly struct Condition
         {
             public readonly Func<EditorState, bool> Applies;
@@ -440,6 +507,9 @@ namespace Retinues.GUI.Editor.Shared.Controllers
                 ReasonFactory != null ? ReasonFactory(arg) : Reason;
         }
 
+        /// <summary>
+        /// Mode-specific overrides for an action.
+        /// </summary>
         public sealed class ModeOverrides
         {
             public readonly List<Condition> Conditions = [];
@@ -458,21 +528,33 @@ namespace Retinues.GUI.Editor.Shared.Controllers
         {
             private readonly ModeOverrides _ov = ov;
 
-            public ActionModeSpec AddCondition(Func<TArg, bool> test, TextObject reason)
-            {
-                _ov.Conditions.Add(new Condition(null, test, reason));
-                return this;
-            }
-
-            public ActionModeSpec AddCondition(
+            private ActionModeSpec AddConditionCore(
+                Func<EditorState, bool> applies,
                 Func<TArg, bool> test,
                 Func<TArg, TextObject> reasonFactory
             )
             {
-                _ov.Conditions.Add(new Condition(null, test, reasonFactory));
+                _ov.Conditions.Add(new Condition(applies, test, reasonFactory));
                 return this;
             }
 
+            /// <summary>
+            /// Add a condition to the mode-specific overrides.
+            /// </summary>
+            public ActionModeSpec AddCondition(Func<TArg, bool> test, TextObject reason) =>
+                AddConditionCore(null, test, _ => reason);
+
+            /// <summary>
+            /// Add a condition with a reason factory to the mode-specific overrides.
+            /// </summary>
+            public ActionModeSpec AddCondition(
+                Func<TArg, bool> test,
+                Func<TArg, TextObject> reasonFactory
+            ) => AddConditionCore(null, test, reasonFactory);
+
+            /// <summary>
+            /// Set the default tooltip for this action in the current mode.
+            /// </summary>
             public ActionModeSpec DefaultTooltip(TextObject tooltip)
             {
                 _ov.DefaultTooltip = tooltip;
@@ -480,6 +562,9 @@ namespace Retinues.GUI.Editor.Shared.Controllers
                 return this;
             }
 
+            /// <summary>
+            /// Set the default tooltip factory for this action in the current mode.
+            /// </summary>
             public ActionModeSpec DefaultTooltip(Func<TArg, TextObject> tooltipFactory)
             {
                 _ov.DefaultTooltip = null;
@@ -487,18 +572,27 @@ namespace Retinues.GUI.Editor.Shared.Controllers
                 return this;
             }
 
+            /// <summary>
+            /// Add a pre-execute handler for this mode.
+            /// </summary>
             public ActionModeSpec PreExecute(Action<TArg> pre)
             {
                 _ov.Pre += pre;
                 return this;
             }
 
+            /// <summary>
+            /// Add a post-execute handler for this mode.
+            /// </summary>
             public ActionModeSpec PostExecute(Action<TArg> post)
             {
                 _ov.Post += post;
                 return this;
             }
 
+            /// <summary>
+            /// Add a handler invoked when the action is executed in this mode.
+            /// </summary>
             public ActionModeSpec OnExecuted(Action<TArg> executed)
             {
                 _ov.Executed += executed;

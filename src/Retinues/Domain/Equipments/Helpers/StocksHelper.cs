@@ -3,65 +3,21 @@ using System.Collections.Generic;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Equipments.Models;
 using Retinues.Domain.Equipments.Wrappers;
-using Retinues.Framework.Runtime;
 
 namespace Retinues.Domain.Equipments.Helpers
 {
+    /// <summary>
+    /// Utilities for resolving items by id and managing equipment stock changes and snapshots.
+    /// </summary>
     public static class StocksHelper
     {
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Lookup                         //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        private static Dictionary<string, WItem> _itemById;
-
-        private static WItem GetItemById(string id)
-        {
-            if (string.IsNullOrEmpty(id))
-                return null;
-
-            _itemById ??= BuildItemByIdCache();
-
-            if (_itemById.TryGetValue(id, out var item))
-                return item;
-
-            // Fallback: crafted / uncommon items may not be in Equipments.
-            foreach (var it in WItem.All)
-            {
-                if (it != null && it.StringId == id)
-                {
-                    _itemById[id] = it;
-                    return it;
-                }
-            }
-
-            return null;
-        }
-
-        private static Dictionary<string, WItem> BuildItemByIdCache()
-        {
-            Dictionary<string, WItem> map = [];
-
-            foreach (var item in WItem.Equipments)
-            {
-                var id = item?.StringId;
-                if (string.IsNullOrEmpty(id))
-                    continue;
-
-                if (!map.ContainsKey(id))
-                    map[id] = item;
-            }
-
-            return map;
-        }
-
-        [StaticClearAction]
-        public static void ClearItemCache() => _itemById = null;
-
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                    Requirement Snapshots               //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Builds a snapshot of required item counts from the given roster for later comparison.
+        /// </summary>
         public static Dictionary<string, int> SnapshotRequiredCounts(MEquipmentRoster roster)
         {
             if (roster == null)
@@ -89,8 +45,7 @@ namespace Retinues.Domain.Equipments.Helpers
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
-        /// Stock items described by a required-count map.
-        /// Use for destructive operations where requirement becomes 0 (eg deleting troop).
+        /// Stocks items described by a required-count map.
         /// </summary>
         public static void StockItems(Dictionary<string, int> requiredCountsById)
         {
@@ -105,15 +60,13 @@ namespace Retinues.Domain.Equipments.Helpers
                 if (string.IsNullOrEmpty(id) || count <= 0)
                     continue;
 
-                var item = GetItemById(id);
+                var item = WItem.Get(id);
                 item?.IncreaseStock(count);
             }
         }
 
         /// <summary>
         /// Consume stock based on a required-count map.
-        /// This consumes the conceptual roster requirement (max-per-equipment),
-        /// so shared items across sets are only consumed once.
         /// </summary>
         public static bool ConsumeStock(Dictionary<string, int> requiredCountsById)
         {
@@ -130,7 +83,7 @@ namespace Retinues.Domain.Equipments.Helpers
                 if (string.IsNullOrEmpty(id) || needed <= 0)
                     continue;
 
-                var item = GetItemById(id);
+                var item = WItem.Get(id);
                 if (item == null)
                     continue;
 
@@ -145,6 +98,9 @@ namespace Retinues.Domain.Equipments.Helpers
             return ok;
         }
 
+        /// <summary>
+        /// Applies roster removal deltas back into stock.
+        /// </summary>
         public static void ApplyRosterRemovalsToStock(
             Dictionary<string, int> before,
             Dictionary<string, int> after
@@ -165,13 +121,13 @@ namespace Retinues.Domain.Equipments.Helpers
                 if (removed <= 0)
                     continue;
 
-                var item = GetItemById(id);
+                var item = WItem.Get(id);
                 item?.IncreaseStock(removed);
             }
         }
 
         /// <summary>
-        /// Runs an action while tracking roster requirement removals and converting them to stock.
+        /// Runs an action while tracking roster requirement removals and converting them into stock.
         /// </summary>
         public static void TrackRosterStock(MEquipmentRoster roster, Action action)
         {
@@ -190,6 +146,9 @@ namespace Retinues.Domain.Equipments.Helpers
         //                      Convenience                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Stocks items for the given character's equipment roster.
+        /// </summary>
         public static void StockCharacterRoster(WCharacter character)
         {
             if (character == null)
@@ -198,6 +157,9 @@ namespace Retinues.Domain.Equipments.Helpers
             StockItems(character.EquipmentRoster?.ItemCountsById);
         }
 
+        /// <summary>
+        /// Consumes stock for the given character's equipment roster.
+        /// </summary>
         public static bool ConsumeCharacterRoster(WCharacter character)
         {
             if (character == null)

@@ -4,7 +4,7 @@ using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Domain.Settlements.Wrappers;
 
-namespace Retinues.Game.Doctrines.Feats.Equipments
+namespace Retinues.Behaviors.Doctrines.Feats.Equipments
 {
     /// <summary>
     /// Win a tournament in a town of your clan's culture.

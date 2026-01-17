@@ -94,29 +94,15 @@ namespace Retinues.GUI.Editor.Modules.Pages.Character.Views.List
         public object Image => Character?.GetImage(Character.IsCivilian);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Sorting                        //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        /// <summary>
-        /// Returns the sort value for the given sort key.
-        /// </summary>
-        internal override IComparable GetSortValue(ListSortKey sortKey)
-        {
-            return sortKey switch
-            {
-                ListSortKey.Name => Name,
-                ListSortKey.Tier => Character.Tier,
-                _ => Name,
-            };
-        }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Tree                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         internal override bool IsTreeNode =>
             Character != null && !string.IsNullOrEmpty(Character.StringId);
 
+        /// <summary>
+        /// Gets the parent IDs for this row in the tree.
+        /// </summary>
         internal override IEnumerable<string> GetTreeParentIds()
         {
             var sources = Character?.UpgradeSources;
@@ -139,6 +125,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Character.Views.List
             return list.Count > 0 ? list : null;
         }
 
+        /// <summary>
+        /// Gets the child IDs for this row in the tree.
+        /// </summary>
         internal override IEnumerable<string> GetTreeChildIds()
         {
             var targets = Character?.UpgradeTargets;
@@ -159,6 +148,23 @@ namespace Retinues.GUI.Editor.Modules.Pages.Character.Views.List
             }
 
             return list.Count > 0 ? list : null;
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Sorting                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Returns the sort value for the given sort key.
+        /// </summary>
+        internal override IComparable GetSortValue(ListSortKey sortKey)
+        {
+            return sortKey switch
+            {
+                ListSortKey.Name => Name,
+                ListSortKey.Tier => Character.Tier,
+                _ => Name,
+            };
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

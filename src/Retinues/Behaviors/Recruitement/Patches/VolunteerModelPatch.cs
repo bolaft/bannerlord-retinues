@@ -1,12 +1,12 @@
 using System;
 using HarmonyLib;
-using Retinues.Game.Recruitement.Models;
+using Retinues.Behaviors.Recruitement.Models;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.ComponentInterfaces;
 using TaleWorlds.Core;
 
-namespace Retinues.Game.Recruitement.Patches
+namespace Retinues.Behaviors.Recruitement.Patches
 {
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
     //                   VolunteerModel Hook                  //
@@ -18,6 +18,9 @@ namespace Retinues.Game.Recruitement.Patches
     // This keeps RetinuesVolunteerModel as the last VolunteerModel even
     // if another mod adds/replaces VolunteerModel after our OnGameStart.
 
+    /// <summary>
+    /// Ensures VolunteerModel registrations are re-wrapped so custom roots are preferred.
+    /// </summary>
     [HarmonyPatch(
         typeof(CampaignGameStarter),
         nameof(CampaignGameStarter.AddModel),
@@ -25,6 +28,9 @@ namespace Retinues.Game.Recruitement.Patches
     )]
     internal static class Recruitement_CampaignGameStarter_AddModel_Patch
     {
+        /// <summary>
+        /// Postfix that re-wraps VolunteerModel instances with CustomVolunteerModel.
+        /// </summary>
         [HarmonyPostfix]
         private static void Postfix(CampaignGameStarter __instance, GameModel gameModel)
         {

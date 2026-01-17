@@ -4,14 +4,20 @@ using System.Linq;
 using Retinues.Domain.Characters.Wrappers;
 using TaleWorlds.Core;
 
-namespace Retinues.Game.Troops
+namespace Retinues.Behaviors.Troops
 {
+    /// <summary>
+    /// Partial Cloner utilities for handling skill limits and normalization on cloned troops.
+    /// </summary>
     public static partial class Cloner
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Skills                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Helper tuple that holds original and scaled skill values for redistribution.
+        /// </summary>
         private readonly struct SkillValue(SkillObject skill, int value, float scaled, int floor)
         {
             public readonly SkillObject Skill = skill;
@@ -20,6 +26,9 @@ namespace Retinues.Game.Troops
             public readonly int Floor = floor;
         }
 
+        /// <summary>
+        /// Enforces per-skill caps and total skill point limits on a cloned character.
+        /// </summary>
         private static void EnforceSkillLimits(WCharacter wc)
         {
             if (wc == null || wc.Base == null)

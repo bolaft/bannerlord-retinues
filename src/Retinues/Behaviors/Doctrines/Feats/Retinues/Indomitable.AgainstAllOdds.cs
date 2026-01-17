@@ -1,9 +1,9 @@
 using System.Collections.Generic;
+using Retinues.Behaviors.Missions;
 using Retinues.Domain;
 using Retinues.Domain.Events.Models;
-using Retinues.Game.Missions;
 
-namespace Retinues.Game.Doctrines.Feats.Retinues
+namespace Retinues.Behaviors.Doctrines.Feats.Retinues
 {
     /// <summary>
     /// Outnumbered at least 2 to 1, win a battle while fielding only retinues.

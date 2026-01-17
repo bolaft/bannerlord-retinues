@@ -1,13 +1,11 @@
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using Retinues.Configuration;
 using Retinues.Domain.Characters.Wrappers;
+using Retinues.Domain.Equipments.Helpers;
 using Retinues.Domain.Factions.Wrappers;
 using Retinues.Framework.Model;
-using Retinues.Framework.Model.Attributes;
 using Retinues.Framework.Runtime;
-using Retinues.GUI.Services;
 using TaleWorlds.Core;
 #if BL13
 using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
@@ -15,10 +13,54 @@ using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
 
 namespace Retinues.Domain.Equipments.Wrappers
 {
-    public class WItem(ItemObject @base) : WBase<WItem, ItemObject>(@base)
+    public partial class WItem(ItemObject @base) : WBase<WItem, ItemObject>(@base)
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                   Cached Static Lists                  //
+        //                     Main Properties                    //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public string Name => Base.Name.ToString();
+        public int Tier => (int)Base.Tier + 1; // Tier is 0-indexed internally.
+        public int Value => Base.Value;
+        public float Weight => Base.Weight;
+
+        public ItemCategory Category => Base.ItemCategory;
+        public ItemObject.ItemTypeEnum Type => Base.ItemType;
+
+        // Neutral culture items ("calradian") return null for Culture.
+        public WCulture Culture =>
+            Base.Culture != null && Base.Culture.StringId != "neutral_culture"
+                ? WCulture.Get(Base.Culture.StringId)
+                : null;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Flags                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public bool IsCivilian => Base.IsCivilian;
+        public bool IsMeleeWeapon => PrimaryWeapon?.IsMeleeWeapon ?? false;
+        public bool IsRangedWeapon => PrimaryWeapon?.IsRangedWeapon == true && !IsThrownWeapon;
+        public bool IsThrownWeapon => Type == ItemObject.ItemTypeEnum.Thrown;
+        public bool IsArmor =>
+            ArmorComponent != null && ItemObject.ItemTypeEnum.HorseHarness != Type;
+        public bool IsHorse => HorseComponent != null;
+        public bool IsHorseHarness => Type == ItemObject.ItemTypeEnum.HorseHarness;
+        public bool IsWeapon => WeaponComponent != null && PrimaryWeapon != null;
+        public bool IsShield => PrimaryWeapon?.IsShield ?? false;
+        public bool IsAmmo => PrimaryWeapon?.IsAmmo ?? false;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Image                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+#if BL13
+        public ItemImageIdentifierVM Image => new(Base);
+#else
+        public ImageIdentifierVM Image => new(Base);
+#endif
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                 Equipment & Validation                 //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
@@ -72,214 +114,7 @@ namespace Retinues.Domain.Equipments.Wrappers
             _equipments = null;
             _equipmentsBySlot = null;
             _vassalRewards = null;
-            _chevronCache.Clear();
         }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                     Main Properties                    //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        public string Name => Base.Name.ToString();
-        public int Tier => (int)Base.Tier + 1; // Tier is 0-indexed internally.
-        public int Value => Base.Value;
-        public float Weight => Base.Weight;
-
-        public ItemCategory Category => Base.ItemCategory;
-        public ItemObject.ItemTypeEnum Type => Base.ItemType;
-
-        // Neutral culture items ("calradian") return null for Culture.
-        public WCulture Culture =>
-            Base.Culture != null && Base.Culture.StringId != "neutral_culture"
-                ? WCulture.Get(Base.Culture.StringId)
-                : null;
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                          Stock                         //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        MAttribute<Dictionary<string, int>> StockByHeroAttribute =>
-            Attribute<Dictionary<string, int>>(initialValue: []);
-
-        public int Stock
-        {
-            get => GetStock(Player.Hero);
-            set => SetStock(Player.Hero, value);
-        }
-
-        /// <summary>
-        /// Gets the stock for the given hero.
-        /// </summary>
-        public int GetStock() => GetStock(Player.Hero);
-
-        public int GetStock(WHero hero)
-        {
-            var map = StockByHeroAttribute.Get() ?? [];
-
-            if (map.TryGetValue(hero.StringId, out var value))
-                return value;
-
-            return 0;
-        }
-
-        /// <summary>
-        /// Sets the stock to the given value.
-        /// </summary>
-        private void SetStock(WHero hero, int value)
-        {
-            value = System.Math.Max(value, 0);
-
-            var current = StockByHeroAttribute.Get() ?? [];
-            var map = new Dictionary<string, int>(current) { [hero.StringId] = value };
-            StockByHeroAttribute.Set(map);
-        }
-
-        /// <summary>
-        /// Increases the stock by the given amount.
-        /// </summary>
-        public void IncreaseStock(int amount = 1) => IncreaseStock(Player.Hero, amount);
-
-        public void IncreaseStock(WHero hero, int amount = 1)
-        {
-            if (amount <= 0)
-                return;
-
-            Notifications.Message(
-                L.T("stocks_add", "Added {AMOUNT} {ITEM} to stocks.")
-                    .SetTextVariable("AMOUNT", amount)
-                    .SetTextVariable("ITEM", Name)
-            );
-
-            SetStock(hero, GetStock(hero) + amount);
-        }
-
-        /// <summary>
-        /// Decreases the stock by the given amount.
-        /// </summary>
-        public void DecreaseStock(int amount = 1) => DecreaseStock(Player.Hero, amount);
-
-        public void DecreaseStock(WHero hero, int amount = 1)
-        {
-            if (amount <= 0)
-                return;
-
-            Notifications.Message(
-                L.T("stocks_remove", "Removed {AMOUNT} {ITEM} from stocks.")
-                    .SetTextVariable("AMOUNT", amount)
-                    .SetTextVariable("ITEM", Name)
-            );
-
-            SetStock(hero, System.Math.Max(GetStock(hero) - amount, 0));
-        }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Unlock                         //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        /// <summary>
-        /// The unlock progress required to unlock this item.
-        /// </summary>
-        public const int UnlockThreshold = 1000;
-
-        MAttribute<Dictionary<string, int>> UnlockProgressByHeroAttribute =>
-            Attribute<Dictionary<string, int>>(initialValue: []);
-
-        public bool IsUnlocked => IsUnlockedFor(Player.Hero);
-
-        /// <summary>
-        /// Indicates whether this item is unlocked for the given hero.
-        /// </summary>
-        public bool IsUnlockedFor(WHero hero) => GetUnlockProgress(hero) >= UnlockThreshold;
-
-        public int UnlockProgress
-        {
-            get => GetUnlockProgress(Player.Hero);
-            set => SetUnlockProgress(Player.Hero, value);
-        }
-
-        /// <summary>
-        /// Gets the unlock progress for the given hero.
-        /// </summary>
-        public int GetUnlockProgress() => GetUnlockProgress(Player.Hero);
-
-        public int GetUnlockProgress(WHero hero)
-        {
-            if (!Settings.EquipmentNeedsUnlocking)
-                return UnlockThreshold; // Always unlocked.
-
-            var map = UnlockProgressByHeroAttribute.Get() ?? [];
-
-            if (map.TryGetValue(hero.StringId, out var value))
-                return value;
-
-            return 0;
-        }
-
-        /// <summary>
-        /// Sets the unlock progress to the given value.
-        /// </summary>
-        public void SetUnlockProgress(int value) => SetUnlockProgress(Player.Hero, value);
-
-        public void SetUnlockProgress(WHero hero, int value)
-        {
-            value = System.Math.Max(value, 0);
-            value = System.Math.Min(value, UnlockThreshold);
-
-            var current = UnlockProgressByHeroAttribute.Get() ?? [];
-            var map = new Dictionary<string, int>(current) { [hero.StringId] = value };
-            UnlockProgressByHeroAttribute.Set(map);
-        }
-
-        /// <summary>
-        /// Increases the unlock progress by the given amount,
-        /// capping it at the unlock threshold.
-        /// </summary>
-        public bool IncreaseUnlockProgress(int amount) =>
-            IncreaseUnlockProgress(Player.Hero, amount);
-
-        public bool IncreaseUnlockProgress(WHero hero, int amount)
-        {
-            if (amount <= 0)
-                return IsUnlockedFor(hero);
-
-            if (IsUnlockedFor(hero))
-                return true;
-
-            SetUnlockProgress(
-                hero,
-                System.Math.Min(GetUnlockProgress(hero) + amount, UnlockThreshold)
-            );
-
-            return IsUnlockedFor(hero);
-        }
-
-        /// <summary>
-        /// Immediately unlocks this item.
-        /// </summary>
-        public void Unlock() => Unlock(Player.Hero);
-
-        public void Unlock(WHero hero)
-        {
-            SetUnlockProgress(hero, UnlockThreshold);
-        }
-
-        /// <summary>
-        /// Gets all unlocked items that can be equipped in the given slot.
-        /// </summary>
-        public static IEnumerable<WItem> GetUnlockedItems(EquipmentIndex slot) =>
-            GetUnlockedItems(slot, Player.Hero);
-
-        public static IEnumerable<WItem> GetUnlockedItems(EquipmentIndex slot, WHero hero)
-        {
-            foreach (var item in GetEquipmentsForSlot(slot))
-            {
-                if (item.IsUnlockedFor(hero))
-                    yield return item;
-            }
-        }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                          Flags                         //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
         /// Indicates whether this item is considered valid equipment.
@@ -346,28 +181,6 @@ namespace Retinues.Domain.Equipments.Wrappers
                 return true;
             }
         }
-
-        public bool IsCivilian => Base.IsCivilian;
-        public bool IsMeleeWeapon => PrimaryWeapon?.IsMeleeWeapon ?? false;
-        public bool IsRangedWeapon => PrimaryWeapon?.IsRangedWeapon == true && !IsThrownWeapon;
-        public bool IsThrownWeapon => Type == ItemObject.ItemTypeEnum.Thrown;
-        public bool IsArmor =>
-            ArmorComponent != null && ItemObject.ItemTypeEnum.HorseHarness != Type;
-        public bool IsHorse => HorseComponent != null;
-        public bool IsHorseHarness => Type == ItemObject.ItemTypeEnum.HorseHarness;
-        public bool IsWeapon => WeaponComponent != null && PrimaryWeapon != null;
-        public bool IsShield => PrimaryWeapon?.IsShield ?? false;
-        public bool IsAmmo => PrimaryWeapon?.IsAmmo ?? false;
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                          Image                         //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-#if BL13
-        public ItemImageIdentifierVM Image => new(Base);
-#else
-        public ImageIdentifierVM Image => new(Base);
-#endif
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Slots                         //
@@ -591,6 +404,9 @@ namespace Retinues.Domain.Equipments.Wrappers
             return true;
         }
 
+        /// <summary>
+        /// Indicates whether the given horse harness is compatible with the given horse.
+        /// </summary>
         private static bool IsHorseHarnessCompatibleWithHorse(WItem harness, WItem horse)
         {
             var monster = horse?.HorseComponent?.Monster;
@@ -617,384 +433,18 @@ namespace Retinues.Domain.Equipments.Wrappers
         //                       Comparisons                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private struct ChevronCacheEntry
-        {
-            public int Positive;
-            public int Negative;
-        }
-
-        private static readonly ConcurrentDictionary<string, ChevronCacheEntry> _chevronCache = [];
-
-        private static string GetChevronCacheKey(WItem a, WItem b)
-        {
-            var idA = a?.StringId ?? "__NULL_A__";
-            var idB = b?.StringId ?? "__NULL_B__";
-            return idA + "=>" + idB;
-        }
-
         public void GetComparisonChevrons(
             WItem other,
             out int positiveChevrons,
             out int negativeChevrons
         )
         {
-            positiveChevrons = 0;
-            negativeChevrons = 0;
-
-            if (other == null)
-                return;
-
-            if (other == this)
-                return;
-
-            string key = GetChevronCacheKey(this, other);
-
-            if (_chevronCache.TryGetValue(key, out var cached))
-            {
-                positiveChevrons = cached.Positive;
-                negativeChevrons = cached.Negative;
-                return;
-            }
-
-            ComputeComparisonChevronScore(other, out positiveChevrons, out negativeChevrons);
-
-            _chevronCache[key] = new ChevronCacheEntry
-            {
-                Positive = positiveChevrons,
-                Negative = negativeChevrons,
-            };
-        }
-
-        private void ComputeComparisonChevronScore(
-            WItem other,
-            out int positiveChevrons,
-            out int negativeChevrons
-        )
-        {
-            positiveChevrons = 0;
-            negativeChevrons = 0;
-
-            // Weapons (melee / ranged / shields / ammo)
-            if (IsWeapon && other.IsWeapon)
-            {
-                var w1 = PrimaryWeapon;
-                var w2 = other.PrimaryWeapon;
-                if (w1 == null || w2 == null)
-                    return;
-
-                if (Type != other.Type)
-                    return;
-
-                if (IsShield || other.IsShield)
-                {
-                    if (!IsShield || !other.IsShield)
-                        return;
-
-                    CompareShieldChevrons(other, out positiveChevrons, out negativeChevrons);
-                    return;
-                }
-
-                if (IsAmmo || other.IsAmmo)
-                {
-                    if (!IsAmmo || !other.IsAmmo)
-                        return;
-
-                    CompareAmmoChevrons(other, out positiveChevrons, out negativeChevrons);
-                    return;
-                }
-
-                if (IsRangedWeapon && other.IsRangedWeapon)
-                {
-                    CompareRangedWeaponChevrons(other, out positiveChevrons, out negativeChevrons);
-                    return;
-                }
-
-                if (IsMeleeWeapon && other.IsMeleeWeapon)
-                {
-                    CompareMeleeWeaponChevrons(other, out positiveChevrons, out negativeChevrons);
-                    return;
-                }
-
-                return;
-            }
-
-            // Human armor (head, body, hands, legs)
-            if (
-                ArmorComponent != null
-                && other.ArmorComponent != null
-                && Type != ItemObject.ItemTypeEnum.HorseHarness
-                && other.Type != ItemObject.ItemTypeEnum.HorseHarness
-            )
-            {
-                if (Type != other.Type)
-                    return;
-
-                CompareArmorChevrons(other, out positiveChevrons, out negativeChevrons);
-                return;
-            }
-
-            // Horse harness
-            if (
-                Type == ItemObject.ItemTypeEnum.HorseHarness
-                && other.Type == ItemObject.ItemTypeEnum.HorseHarness
-                && ArmorComponent != null
-                && other.ArmorComponent != null
-            )
-            {
-                CompareHorseHarnessChevrons(other, out positiveChevrons, out negativeChevrons);
-                return;
-            }
-
-            // Horses
-            if (IsHorse && other.IsHorse && HorseComponent != null && other.HorseComponent != null)
-            {
-                CompareHorseChevrons(other, out positiveChevrons, out negativeChevrons);
-                return;
-            }
-        }
-
-        private static void AccumulateStatComparison(
-            int thisValue,
-            int otherValue,
-            bool higherIsBetter,
-            ref int better,
-            ref int worse
-        )
-        {
-            if (thisValue == otherValue)
-                return;
-
-            bool thisBetter = higherIsBetter ? thisValue > otherValue : thisValue < otherValue;
-
-            if (thisBetter)
-                better++;
-            else
-                worse++;
-        }
-
-        private static void GetChevronsFromCounts(
-            int better,
-            int worse,
-            out int positiveChevrons,
-            out int negativeChevrons
-        )
-        {
-            positiveChevrons = 0;
-            negativeChevrons = 0;
-
-            int nonEqual = better + worse;
-            if (nonEqual == 0)
-                return;
-
-            if (better == worse)
-                return;
-
-            if (worse == 0)
-            {
-                positiveChevrons = 3;
-                negativeChevrons = 0;
-                return;
-            }
-
-            if (better == 0)
-            {
-                positiveChevrons = 0;
-                negativeChevrons = 3;
-                return;
-            }
-
-            if (better > worse)
-            {
-                positiveChevrons = 2;
-                negativeChevrons = 1;
-            }
-            else
-            {
-                positiveChevrons = 1;
-                negativeChevrons = 2;
-            }
-        }
-
-        private void CompareMeleeWeaponChevrons(
-            WItem other,
-            out int positiveChevrons,
-            out int negativeChevrons
-        )
-        {
-            var w1 = PrimaryWeapon;
-            var w2 = other.PrimaryWeapon;
-
-            int better = 0,
-                worse = 0;
-
-            AccumulateStatComparison(w1.SwingDamage, w2.SwingDamage, true, ref better, ref worse);
-            AccumulateStatComparison(w1.ThrustDamage, w2.ThrustDamage, true, ref better, ref worse);
-
-            AccumulateStatComparison(w1.SwingSpeed, w2.SwingSpeed, true, ref better, ref worse);
-            AccumulateStatComparison(w1.ThrustSpeed, w2.ThrustSpeed, true, ref better, ref worse);
-
-            AccumulateStatComparison(w1.WeaponLength, w2.WeaponLength, true, ref better, ref worse);
-            AccumulateStatComparison(w1.Handling, w2.Handling, true, ref better, ref worse);
-
-            GetChevronsFromCounts(better, worse, out positiveChevrons, out negativeChevrons);
-        }
-
-        private void CompareRangedWeaponChevrons(
-            WItem other,
-            out int positiveChevrons,
-            out int negativeChevrons
-        )
-        {
-            var w1 = PrimaryWeapon;
-            var w2 = other.PrimaryWeapon;
-
-            int better = 0,
-                worse = 0;
-
-            AccumulateStatComparison(w1.SwingDamage, w2.SwingDamage, true, ref better, ref worse);
-            AccumulateStatComparison(w1.ThrustDamage, w2.ThrustDamage, true, ref better, ref worse);
-
-            AccumulateStatComparison(w1.MissileSpeed, w2.MissileSpeed, true, ref better, ref worse);
-            AccumulateStatComparison(w1.Accuracy, w2.Accuracy, true, ref better, ref worse);
-
-            GetChevronsFromCounts(better, worse, out positiveChevrons, out negativeChevrons);
-        }
-
-        private void CompareAmmoChevrons(
-            WItem other,
-            out int positiveChevrons,
-            out int negativeChevrons
-        )
-        {
-            var w1 = PrimaryWeapon;
-            var w2 = other.PrimaryWeapon;
-
-            int better = 0,
-                worse = 0;
-
-            AccumulateStatComparison(w1.SwingDamage, w2.SwingDamage, true, ref better, ref worse);
-            AccumulateStatComparison(w1.ThrustDamage, w2.ThrustDamage, true, ref better, ref worse);
-
-            AccumulateStatComparison(w1.MissileSpeed, w2.MissileSpeed, true, ref better, ref worse);
-            AccumulateStatComparison(w1.Accuracy, w2.Accuracy, true, ref better, ref worse);
-
-            int thisStack = w1.MaxDataValue;
-            int otherStack = w2.MaxDataValue;
-            AccumulateStatComparison(thisStack, otherStack, true, ref better, ref worse);
-
-            GetChevronsFromCounts(better, worse, out positiveChevrons, out negativeChevrons);
-        }
-
-        private void CompareShieldChevrons(
-            WItem other,
-            out int positiveChevrons,
-            out int negativeChevrons
-        )
-        {
-            var w1 = PrimaryWeapon;
-            var w2 = other.PrimaryWeapon;
-
-            int better = 0,
-                worse = 0;
-
-            int thisHp = w1.MaxDataValue;
-            int otherHp = w2.MaxDataValue;
-            AccumulateStatComparison(thisHp, otherHp, true, ref better, ref worse);
-
-            AccumulateStatComparison(w1.BodyArmor, w2.BodyArmor, true, ref better, ref worse);
-            AccumulateStatComparison(w1.Handling, w2.Handling, true, ref better, ref worse);
-
-            GetChevronsFromCounts(better, worse, out positiveChevrons, out negativeChevrons);
-        }
-
-        private void CompareArmorChevrons(
-            WItem other,
-            out int positiveChevrons,
-            out int negativeChevrons
-        )
-        {
-            var a1 = ArmorComponent;
-            var a2 = other.ArmorComponent;
-
-            if (a1 == null || a2 == null)
-            {
-                positiveChevrons = 0;
-                negativeChevrons = 0;
-                return;
-            }
-
-            int better = 0,
-                worse = 0;
-
-            AccumulateStatComparison(a1.HeadArmor, a2.HeadArmor, true, ref better, ref worse);
-            AccumulateStatComparison(a1.BodyArmor, a2.BodyArmor, true, ref better, ref worse);
-            AccumulateStatComparison(a1.ArmArmor, a2.ArmArmor, true, ref better, ref worse);
-            AccumulateStatComparison(a1.LegArmor, a2.LegArmor, true, ref better, ref worse);
-
-            GetChevronsFromCounts(better, worse, out positiveChevrons, out negativeChevrons);
-        }
-
-        private void CompareHorseHarnessChevrons(
-            WItem other,
-            out int positiveChevrons,
-            out int negativeChevrons
-        )
-        {
-            var a1 = ArmorComponent;
-            var a2 = other.ArmorComponent;
-
-            if (a1 == null || a2 == null)
-            {
-                positiveChevrons = 0;
-                negativeChevrons = 0;
-                return;
-            }
-
-            int better = 0,
-                worse = 0;
-
-            AccumulateStatComparison(a1.BodyArmor, a2.BodyArmor, true, ref better, ref worse);
-            AccumulateStatComparison(
-                a1.ManeuverBonus,
-                a2.ManeuverBonus,
-                true,
-                ref better,
-                ref worse
+            ItemComparisonHelper.GetComparisonChevrons(
+                this,
+                other,
+                out positiveChevrons,
+                out negativeChevrons
             );
-            AccumulateStatComparison(a1.SpeedBonus, a2.SpeedBonus, true, ref better, ref worse);
-            AccumulateStatComparison(a1.ChargeBonus, a2.ChargeBonus, true, ref better, ref worse);
-
-            GetChevronsFromCounts(better, worse, out positiveChevrons, out negativeChevrons);
-        }
-
-        private void CompareHorseChevrons(
-            WItem other,
-            out int positiveChevrons,
-            out int negativeChevrons
-        )
-        {
-            var h1 = HorseComponent;
-            var h2 = other.HorseComponent;
-
-            if (h1 == null || h2 == null)
-            {
-                positiveChevrons = 0;
-                negativeChevrons = 0;
-                return;
-            }
-
-            int better = 0,
-                worse = 0;
-
-            AccumulateStatComparison(h1.Speed, h2.Speed, true, ref better, ref worse);
-            AccumulateStatComparison(h1.Maneuver, h2.Maneuver, true, ref better, ref worse);
-            AccumulateStatComparison(h1.ChargeDamage, h2.ChargeDamage, true, ref better, ref worse);
-
-            int thisHp = h1.HitPoints + h1.HitPointBonus;
-            int otherHp = h2.HitPoints + h2.HitPointBonus;
-            AccumulateStatComparison(thisHp, otherHp, true, ref better, ref worse);
-
-            GetChevronsFromCounts(better, worse, out positiveChevrons, out negativeChevrons);
         }
     }
 }

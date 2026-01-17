@@ -17,6 +17,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Character.Controllers
         //                         Action                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Opens the formation class picker for the current character.
+        /// </summary>
         public static ControllerAction<WCharacter> ChangeFormationClass { get; } =
             Action<WCharacter>("ChangeFormationClass")
                 .DefaultTooltip(
@@ -51,7 +54,7 @@ namespace Retinues.GUI.Editor.Modules.Pages.Character.Controllers
         }
 
         /// <summary>
-        /// Build the list of formation class options.
+        /// Build the list of formation class options for the picker.
         /// </summary>
         private static List<InquiryElement> BuildOptions(WCharacter character)
         {
@@ -72,7 +75,7 @@ namespace Retinues.GUI.Editor.Modules.Pages.Character.Controllers
         }
 
         /// <summary>
-        /// Make an inquiry element for the given formation class.
+        /// Create an InquiryElement entry for a formation class.
         /// </summary>
         private static InquiryElement Make(FormationClass id, string title = null)
         {
@@ -90,7 +93,7 @@ namespace Retinues.GUI.Editor.Modules.Pages.Character.Controllers
         }
 
         /// <summary>
-        /// Apply the selected formation class to the character.
+        /// Apply the selected formation class to the character (Unset = Auto).
         /// </summary>
         private static void ApplySelection(WCharacter character, List<InquiryElement> selected)
         {

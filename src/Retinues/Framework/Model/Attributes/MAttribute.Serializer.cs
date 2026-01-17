@@ -77,6 +77,9 @@ namespace Retinues.Framework.Model.Attributes
             IgnoreWhitespace = true,
         };
 
+        /// <summary>
+        /// Serializes an object to an XML string.
+        /// </summary>
         static string SerializeToString(object value, Type declaredType)
         {
             var serializer = CreateSerializer(declaredType);
@@ -91,6 +94,9 @@ namespace Retinues.Framework.Model.Attributes
             return sb.ToString();
         }
 
+        /// <summary>
+        /// Deserializes an object from an XML string.
+        /// </summary>
         static object DeserializeFromString(string xml, Type declaredType)
         {
             var serializer = CreateSerializer(declaredType);
@@ -100,6 +106,9 @@ namespace Retinues.Framework.Model.Attributes
             return serializer.ReadObject(xr);
         }
 
+        /// <summary>
+        /// Creates a DataContractSerializer for the given type.
+        /// </summary>
         static DataContractSerializer CreateSerializer(Type type)
         {
             var settings = new DataContractSerializerSettings
@@ -165,10 +174,13 @@ namespace Retinues.Framework.Model.Attributes
         }
     }
 
+    /// <summary>
+    /// Serialization support for MAttribute<T>.
+    /// </summary>
     public partial class MAttribute<T>
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                     Reflection cache                   //
+        //                    Reflection Cache                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         static readonly CultureInfo Inv = CultureInfo.InvariantCulture;
@@ -180,7 +192,10 @@ namespace Retinues.Framework.Model.Attributes
         static readonly Dictionary<Type, bool> IsWrapperCache = [];
         static readonly Dictionary<Type, MethodInfo> WrapperGetCache = [];
 
-        static MethodInfo GetMbGetObjectGeneric()
+        /// <summary>
+        /// Gets the generic MBObjectManager.GetObject<T>(string) method.
+        /// </summary>
+        static MethodInfo GetMBGetObjectGeneric()
         {
             if (_mbGetObjectGeneric != null)
                 return _mbGetObjectGeneric;
@@ -204,6 +219,9 @@ namespace Retinues.Framework.Model.Attributes
             }
         }
 
+        /// <summary>
+        /// Determines whether the given type is a WBase<,> wrapper type.
+        /// </summary>
         static bool IsWBaseType(Type type)
         {
             if (type == null)
@@ -235,6 +253,9 @@ namespace Retinues.Framework.Model.Attributes
             return false;
         }
 
+        /// <summary>
+        /// Gets the static Get(string) method of a WBase<,> wrapper type.
+        /// </summary>
         static MethodInfo GetWrapperGetMethod(Type wrapperType)
         {
             if (wrapperType == null)
@@ -260,7 +281,10 @@ namespace Retinues.Framework.Model.Attributes
             return found;
         }
 
-        static MBObjectBase ResolveMbObject(Type objectType, string id)
+        /// <summary>
+        /// Resolves an MBObjectBase by type and StringId.
+        /// </summary>
+        static MBObjectBase ResolveMBObject(Type objectType, string id)
         {
             if (string.IsNullOrWhiteSpace(id) || id == "null")
                 return null;
@@ -269,7 +293,7 @@ namespace Retinues.Framework.Model.Attributes
             if (mgr == null)
                 return null;
 
-            var getObjectGeneric = GetMbGetObjectGeneric();
+            var getObjectGeneric = GetMBGetObjectGeneric();
             if (getObjectGeneric == null)
                 return null;
 
@@ -285,9 +309,12 @@ namespace Retinues.Framework.Model.Attributes
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                 String serialization (compact)          //
+        //             String Serialization (Compact)             //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Serializes the attribute value to a compact string representation.
+        /// </summary>
         public string Serialize()
         {
             try
@@ -319,6 +346,9 @@ namespace Retinues.Framework.Model.Attributes
             }
         }
 
+        /// <summary>
+        /// Serializes an IModel instance.
+        /// </summary>
         static string SerializeModel(object model)
         {
             if (model == null)
@@ -362,6 +392,9 @@ namespace Retinues.Framework.Model.Attributes
             return AttributeSerializer.Serialize(model).Compact;
         }
 
+        /// <summary>
+        /// Serializes an enumerable collection.
+        /// </summary>
         static string SerializeEnumerable(IEnumerable enumerable)
         {
             // Serialize collections as List<string> then XML-encode that list.
@@ -425,6 +458,9 @@ namespace Retinues.Framework.Model.Attributes
             return AttributeSerializer.Serialize(items).Compact;
         }
 
+        /// <summary>
+        /// Deserializes the attribute value from a compact string representation.
+        /// </summary>
         public string Deserialize(string data)
         {
             try
@@ -440,7 +476,7 @@ namespace Retinues.Framework.Model.Attributes
                 // Single MBObjectBase
                 if (typeof(MBObjectBase).IsAssignableFrom(t))
                 {
-                    var obj = ResolveMbObject(t, data);
+                    var obj = ResolveMBObject(t, data);
                     SetValue(obj == null ? default : (T)(object)obj, markDirty: true);
                     return data;
                 }
@@ -500,6 +536,9 @@ namespace Retinues.Framework.Model.Attributes
             }
         }
 
+        /// <summary>
+        /// Deserializes a single WBase<,> wrapper from its StringId.
+        /// </summary>
         void DeserializeSingleWrapper(Type wrapperType, string data)
         {
             try
@@ -532,6 +571,9 @@ namespace Retinues.Framework.Model.Attributes
             }
         }
 
+        /// <summary>
+        /// Deserializes a List<MBObjectBase> from a list of StringIds.
+        /// </summary>
         void DeserializeMbObjectList(Type elemType, string data)
         {
             var ids = AttributeSerializer.Deserialize<List<string>>(data) ?? [];
@@ -540,13 +582,16 @@ namespace Retinues.Framework.Model.Attributes
 
             foreach (var id in ids)
             {
-                var obj = ResolveMbObject(elemType, id);
+                var obj = ResolveMBObject(elemType, id);
                 list.Add(obj);
             }
 
             SetValue((T)list, markDirty: true);
         }
 
+        /// <summary>
+        /// Deserializes a List<WBase<,>> from a list of StringIds.
+        /// </summary>
         void DeserializeWrapperList(Type elemType, string data)
         {
             try
@@ -585,9 +630,12 @@ namespace Retinues.Framework.Model.Attributes
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                XML element serialization (MBase)        //
+        //            XML Element Serialization (MBase)           //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Serializes the attribute value to an XElement.
+        /// </summary>
         public XElement SerializeXml()
         {
             var elementName = Name;
@@ -773,6 +821,9 @@ namespace Retinues.Framework.Model.Attributes
             return el;
         }
 
+        /// <summary>
+        /// Deserializes the attribute value from an XElement.
+        /// </summary>
         public void DeserializeXml(XElement el)
         {
             if (el == null)
@@ -785,6 +836,9 @@ namespace Retinues.Framework.Model.Attributes
 
             bool restoring = MBase<IModel>.IsRestoringFromPersistence;
 
+            /// <summary>
+            /// Marks the attribute as clean if not restoring.
+            /// </summary>
             void MarkCleanIfAllowed()
             {
                 if (restoring)
@@ -804,6 +858,9 @@ namespace Retinues.Framework.Model.Attributes
                 catch { }
             }
 
+            /// <summary>
+            /// Cleans a string for logging during load.
+            /// </summary>
             string CleanForLoadLog(string s)
             {
                 s ??= string.Empty;
@@ -824,6 +881,9 @@ namespace Retinues.Framework.Model.Attributes
                 return s;
             }
 
+            /// <summary>
+            /// Previews a list XElement for logging.
+            /// </summary>
             string PreviewList(XElement listEl)
             {
                 if (listEl == null)
@@ -864,6 +924,9 @@ namespace Retinues.Framework.Model.Attributes
                 return "list[" + count.ToString(CultureInfo.InvariantCulture) + "]" + preview;
             }
 
+            /// <summary>
+            /// Previews a map XElement for logging.
+            /// </summary>
             string PreviewMap(XElement mapEl)
             {
                 if (mapEl == null)
@@ -884,6 +947,9 @@ namespace Retinues.Framework.Model.Attributes
                 return "map[" + entries.Count.ToString(CultureInfo.InvariantCulture) + "]" + p;
             }
 
+            /// <summary>
+            /// Assigns the parsed value and logs it.
+            /// </summary>
             void Assign(T value)
             {
                 try
@@ -929,6 +995,9 @@ namespace Retinues.Framework.Model.Attributes
                 }
             }
 
+            /// <summary>
+            /// Parses a scalar value from string.
+            /// </summary>
             object ParseScalar(string s, Type targetType)
             {
                 s = (s ?? string.Empty).Trim();
@@ -955,7 +1024,7 @@ namespace Retinues.Framework.Model.Attributes
                     return Enum.Parse(targetType, s, ignoreCase: true);
 
                 if (typeof(MBObjectBase).IsAssignableFrom(targetType))
-                    return ResolveMbObject(targetType, s);
+                    return ResolveMBObject(targetType, s);
 
                 try
                 {
@@ -967,6 +1036,9 @@ namespace Retinues.Framework.Model.Attributes
                 }
             }
 
+            /// <summary>
+            /// Parses a list from child elements.
+            /// </summary>
             object ParseListFromChildren(XElement listEl, Type listType)
             {
                 if (listType == null)
@@ -1041,7 +1113,7 @@ namespace Retinues.Framework.Model.Attributes
                             // List of MBObjects: Item contains StringId
                             else if (typeof(MBObjectBase).IsAssignableFrom(itemType))
                             {
-                                itemObj = ResolveMbObject(itemType, v);
+                                itemObj = ResolveMBObject(itemType, v);
                             }
                             // List of models: Item may contain an XML string
                             else if (typeof(IModel).IsAssignableFrom(itemType) && v.StartsWith("<"))
@@ -1269,7 +1341,7 @@ namespace Retinues.Framework.Model.Attributes
 
                 if (tag == "mb")
                 {
-                    var mb = ResolveMbObject(typeof(T), raw);
+                    var mb = ResolveMBObject(typeof(T), raw);
                     if (mb is T typed)
                         Assign(typed);
                     return;
@@ -1286,6 +1358,9 @@ namespace Retinues.Framework.Model.Attributes
             }
         }
 
+        /// <summary>
+        /// Tries to get the value type of a Dictionary with string keys.
+        /// </summary>
         static bool TryGetStringKeyedDictionaryValueType(Type t, out Type valueType)
         {
             valueType = null;
@@ -1307,6 +1382,9 @@ namespace Retinues.Framework.Model.Attributes
             return true;
         }
 
+        /// <summary>
+        /// Serializes a scalar-like object to string.
+        /// </summary>
         static string SerializeScalarLike(object obj, Type targetType)
         {
             if (obj == null)

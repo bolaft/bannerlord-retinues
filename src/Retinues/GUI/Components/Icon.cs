@@ -42,6 +42,9 @@ namespace Retinues.GUI.Components
         //                      Construction                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Creates an Icon with a static tooltip and a single refresh event.
+        /// </summary>
         public Icon(
             Tooltip tooltip,
             UIEvent refresh,
@@ -64,6 +67,9 @@ namespace Retinues.GUI.Components
                 shouldRefresh: null
             ) { }
 
+        /// <summary>
+        /// Creates an Icon with a tooltip factory and a single refresh event.
+        /// </summary>
         public Icon(
             Func<Tooltip> tooltipFactory,
             UIEvent refresh,
@@ -86,7 +92,9 @@ namespace Retinues.GUI.Components
                 shouldRefresh: null
             ) { }
 
-        // overloads that take a sprite factory
+        /// <summary>
+        /// Creates an Icon with a static tooltip and a sprite factory for a single refresh event.
+        /// </summary>
         public Icon(
             Tooltip tooltip,
             UIEvent refresh,
@@ -109,6 +117,9 @@ namespace Retinues.GUI.Components
                 shouldRefresh: null
             ) { }
 
+        /// <summary>
+        /// Creates an Icon with a tooltip factory and a sprite factory for a single refresh event.
+        /// </summary>
         public Icon(
             Func<Tooltip> tooltipFactory,
             UIEvent refresh,
@@ -131,6 +142,9 @@ namespace Retinues.GUI.Components
                 shouldRefresh: null
             ) { }
 
+        /// <summary>
+        /// Creates an Icon with a static tooltip and multiple refresh events.
+        /// </summary>
         public Icon(
             Tooltip tooltip,
             UIEvent[] refresh,
@@ -154,6 +168,9 @@ namespace Retinues.GUI.Components
                 shouldRefresh: shouldRefresh
             ) { }
 
+        /// <summary>
+        /// Creates an Icon with a tooltip factory and multiple refresh events.
+        /// </summary>
         public Icon(
             Func<Tooltip> tooltipFactory,
             UIEvent[] refresh,
@@ -177,7 +194,9 @@ namespace Retinues.GUI.Components
                 shouldRefresh: shouldRefresh
             ) { }
 
-        // array-based overloads that take a sprite factory
+        /// <summary>
+        /// Creates an Icon with a static tooltip, multiple refresh events and a sprite factory.
+        /// </summary>
         public Icon(
             Tooltip tooltip,
             UIEvent[] refresh,
@@ -201,6 +220,9 @@ namespace Retinues.GUI.Components
                 shouldRefresh: shouldRefresh
             ) { }
 
+        /// <summary>
+        /// Creates an Icon with a tooltip factory, multiple refresh events and a sprite factory.
+        /// </summary>
         public Icon(
             Func<Tooltip> tooltipFactory,
             UIEvent[] refresh,
@@ -224,6 +246,9 @@ namespace Retinues.GUI.Components
                 shouldRefresh: shouldRefresh
             ) { }
 
+        /// <summary>
+        /// Primary constructor that initializes all Icon fields.
+        /// </summary>
         private Icon(
             Tooltip tooltip,
             Func<Tooltip> tooltipFactory,
@@ -280,6 +305,9 @@ namespace Retinues.GUI.Components
         //                      Event Wiring                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Handles global UI events and refreshes the icon when appropriate.
+        /// </summary>
         internal override void __OnGlobalEvent(EventManager.Context context, UIEvent e)
         {
             base.__OnGlobalEvent(context, e);
@@ -301,6 +329,9 @@ namespace Retinues.GUI.Components
             context.RequestNotify(this, nameof(Brush));
         }
 
+        /// <summary>
+        /// Returns true if the provided event matches any configured refresh event.
+        /// </summary>
         private bool WantsEvent(UIEvent e)
         {
             for (int i = 0; i < _refreshEvents.Length; i++)
@@ -316,6 +347,9 @@ namespace Retinues.GUI.Components
         //                        Internals                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Recomputes visibility, tooltip, sprite, and brush values for the icon.
+        /// </summary>
         private void Recompute()
         {
             _isVisible = _visibilityGate == null || _visibilityGate();

@@ -1,8 +1,8 @@
 using System.Linq;
-using Retinues.Framework.Model.Exports;
 using Retinues.GUI.Components;
 using Retinues.GUI.Editor.Controllers.Library;
 using Retinues.GUI.Editor.Events;
+using Retinues.GUI.Editor.Modules.Pages.Library.Services;
 using Retinues.GUI.Editor.Shared.Views;
 using Retinues.GUI.Services;
 using TaleWorlds.Library;
@@ -31,11 +31,11 @@ namespace Retinues.GUI.Editor.VM.Panel.Library
 
         [EventListener(UIEvent.Library)]
         [DataSourceProperty]
-        public bool IsTroop => State.LibraryItem?.Kind == MLibraryKind.Character;
+        public bool IsTroop => State.LibraryItem?.Kind == ExportKind.Character;
 
         [EventListener(UIEvent.Library)]
         [DataSourceProperty]
-        public bool IsFaction => State.LibraryItem?.Kind == MLibraryKind.Faction;
+        public bool IsFaction => State.LibraryItem?.Kind == ExportKind.Faction;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Empty Page                       //
@@ -83,7 +83,13 @@ namespace Retinues.GUI.Editor.VM.Panel.Library
 
         [EventListener(UIEvent.Library)]
         [DataSourceProperty]
-        public string TypeText => LibraryController.GetTypeText(State.LibraryItem);
+        public string TypeText =>
+            State.LibraryItem.Kind switch
+            {
+                ExportKind.Character => L.T("library_kind_troop", "Troop").ToString(),
+                ExportKind.Faction => L.T("library_kind_faction", "Faction").ToString(),
+                _ => L.T("library_kind_unknown", "Unknown").ToString(),
+            };
 
         [EventListener(UIEvent.Library)]
         [DataSourceProperty]
@@ -117,8 +123,11 @@ namespace Retinues.GUI.Editor.VM.Panel.Library
                 return;
             }
 
-            var all =
-                LibraryController.GetFactionTroopNamesFromFile(State.LibraryItem)?.ToList() ?? [];
+            if (
+                !ExportXMLReader.TryReadTroopNames(State.LibraryItem, out var all)
+                || all.Count == 0
+            )
+                all = [];
 
             const int limit = 10;
             int total = all.Count;
@@ -143,7 +152,7 @@ namespace Retinues.GUI.Editor.VM.Panel.Library
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceProperty]
-        public Button<MLibrary.Item> ImportButton { get; } =
+        public Button<ExportLibrary.Entry> ImportButton { get; } =
             new(
                 action: LibraryController.Import,
                 arg: () => State.LibraryItem,
@@ -152,16 +161,16 @@ namespace Retinues.GUI.Editor.VM.Panel.Library
             );
 
         [DataSourceProperty]
-        public Button<MLibrary.Item> ConvertButton { get; } =
+        public Button<ExportLibrary.Entry> ConvertButton { get; } =
             new(
-                action: LibraryController.ExportNpcCharacters,
+                action: LibraryController.Export,
                 arg: () => State.LibraryItem,
                 refresh: [UIEvent.Library],
                 label: L.S("library_export_npc_button", "Convert")
             );
 
         [DataSourceProperty]
-        public Button<MLibrary.Item> EditButton { get; } =
+        public Button<ExportLibrary.Entry> EditButton { get; } =
             new(
                 action: LibraryController.Edit,
                 arg: () => State.LibraryItem,
@@ -170,7 +179,7 @@ namespace Retinues.GUI.Editor.VM.Panel.Library
             );
 
         [DataSourceProperty]
-        public Button<MLibrary.Item> DeleteButton { get; } =
+        public Button<ExportLibrary.Entry> DeleteButton { get; } =
             new(
                 action: LibraryController.Delete,
                 arg: () => State.LibraryItem,

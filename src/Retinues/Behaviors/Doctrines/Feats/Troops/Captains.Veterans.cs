@@ -1,6 +1,6 @@
 using Retinues.Domain;
 
-namespace Retinues.Game.Doctrines.Feats.Troops
+namespace Retinues.Behaviors.Doctrines.Feats.Troops
 {
     /// <summary>
     /// Max out the skills of a T5 basic troop.

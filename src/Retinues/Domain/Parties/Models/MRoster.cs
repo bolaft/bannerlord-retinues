@@ -16,20 +16,16 @@ namespace Retinues.Domain.Parties.Models
         public int Xp => element.Xp;
     }
 
+    /// <summary>
+    /// Wrapper for TroopRoster.
+    /// </summary>
     public class MRoster(TroopRoster @base) : MBase<TroopRoster>(@base)
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Counts                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        /// <summary>
-        /// Total number of men (regulars + heroes) in the roster.
-        /// </summary>
         public int Count => Base.TotalManCount;
-
-        /// <summary>
-        /// Number of distinct entries in the underlying troop list.
-        /// </summary>
         public int ElementsCount => Base.GetTroopRoster()?.Count ?? 0;
 
         /// <summary>

@@ -4,8 +4,14 @@ using Retinues.GUI.Editor.Modules.Pages.Equipment.Controllers;
 
 namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Services
 {
+    /// <summary>
+    /// Service to apply equipment plans with economy handling.
+    /// </summary>
     public static class EquipApplier
     {
+        /// <summary>
+        /// Applies the given equip plan within the provided context, handling economy if enabled.
+        /// </summary>
         public static bool Apply(EquipContext ctx, EquipPlan plan, System.Action applyCore)
         {
             if (plan == null || applyCore == null)

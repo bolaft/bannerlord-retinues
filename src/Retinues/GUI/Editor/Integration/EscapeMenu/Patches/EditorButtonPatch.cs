@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using HarmonyLib;
 using Retinues.Configuration;
-using Retinues.GUI.Editor;
 using Retinues.GUI.Services;
 using Retinues.Utilities;
 using TaleWorlds.Localization;
 using TaleWorlds.MountAndBlade.ViewModelCollection.EscapeMenu;
 
-namespace Retinues.GUI.Integration.EscapeMenu.Patches
+namespace Retinues.GUI.Editor.Integration.EscapeMenu.Patches
 {
+    /// <summary>
+    /// Injects the Troop Editor button into the ESC menu.
+    /// </summary>
     [HarmonyPatch(typeof(EscapeMenuVM))]
     internal static class EscapeMenuPatch
     {

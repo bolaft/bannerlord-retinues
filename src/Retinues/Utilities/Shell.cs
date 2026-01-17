@@ -4,6 +4,9 @@ using System.IO;
 
 namespace Retinues.Utilities
 {
+    /// <summary>
+    /// Shell utilities for opening files.
+    /// </summary>
     public static class Shell
     {
         /// <summary>

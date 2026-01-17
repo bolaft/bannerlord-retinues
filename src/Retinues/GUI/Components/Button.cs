@@ -8,6 +8,9 @@ using TaleWorlds.Library;
 namespace Retinues.GUI.Components
 {
     [SafeClass]
+    /// <summary>
+    /// A UI button that binds to a controller action with optional dynamic label, sprite and gates.
+    /// </summary>
     public sealed class Button<TArg> : EventListenerVM
     {
         private readonly ControllerAction<TArg> _action;
@@ -48,6 +51,9 @@ namespace Retinues.GUI.Components
         //                      Construction                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Construct a button with a single refresh event and optional static label.
+        /// </summary>
         public Button(
             ControllerAction<TArg> action,
             Func<TArg> arg,
@@ -71,6 +77,9 @@ namespace Retinues.GUI.Components
                 shouldRefresh: null
             ) { }
 
+        /// <summary>
+        /// Construct a button with detailed configuration including factories and gates.
+        /// </summary>
         public Button(
             ControllerAction<TArg> action,
             Func<TArg> arg,
@@ -136,6 +145,9 @@ namespace Retinues.GUI.Components
         [DataSourceProperty]
         public Tooltip Tooltip => _tooltip;
 
+        /// <summary>
+        /// Execute the bound action if the button is enabled.
+        /// </summary>
         [DataSourceMethod]
         public void Execute()
         {
@@ -147,6 +159,9 @@ namespace Retinues.GUI.Components
             _action?.Execute(_arg());
         }
 
+        /// <summary>
+        /// Begin hover state and apply hover color if applicable.
+        /// </summary>
         [DataSourceMethod]
         public void ExecuteHoverBegin()
         {
@@ -158,6 +173,9 @@ namespace Retinues.GUI.Components
             OnPropertyChanged(nameof(Color));
         }
 
+        /// <summary>
+        /// End hover state and restore base color if applicable.
+        /// </summary>
         [DataSourceMethod]
         public void ExecuteHoverEnd()
         {
@@ -173,6 +191,9 @@ namespace Retinues.GUI.Components
         //                      Event Wiring                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Handle global UI events and request property notifications when needed.
+        /// </summary>
         internal override void __OnGlobalEvent(EventManager.Context context, UIEvent e)
         {
             base.__OnGlobalEvent(context, e);
@@ -218,6 +239,9 @@ namespace Retinues.GUI.Components
             }
         }
 
+        /// <summary>
+        /// Determine whether this button cares about the given UI event.
+        /// </summary>
         private bool WantsEvent(UIEvent e)
         {
             for (int i = 0; i < _refreshEvents.Length; i++)
@@ -235,6 +259,9 @@ namespace Retinues.GUI.Components
         //                        Internals                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Recompute visibility, enablement, tooltip and resolved visuals.
+        /// </summary>
         private void Recompute()
         {
             _isVisible = _visibilityGate == null || _visibilityGate();
@@ -270,6 +297,9 @@ namespace Retinues.GUI.Components
             ApplyHoverColorIfNeeded();
         }
 
+        /// <summary>
+        /// Apply hover color to the resolved color when appropriate.
+        /// </summary>
         private void ApplyHoverColorIfNeeded()
         {
             var color = _baseColorResolved;

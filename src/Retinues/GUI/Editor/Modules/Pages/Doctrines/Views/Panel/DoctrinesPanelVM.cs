@@ -1,5 +1,5 @@
 using System.Diagnostics.Tracing;
-using Retinues.Game.Doctrines.Definitions;
+using Retinues.Behaviors.Doctrines.Definitions;
 using Retinues.GUI.Components;
 using Retinues.GUI.Editor.Events;
 using Retinues.GUI.Editor.Modules.Pages.Doctrines.Controllers;

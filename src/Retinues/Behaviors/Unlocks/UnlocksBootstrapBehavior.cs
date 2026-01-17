@@ -4,6 +4,7 @@ using System.Linq;
 using Retinues.Configuration;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Equipments.Helpers;
+using Retinues.Domain.Equipments.Services.Random;
 using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Domain.Factions.Wrappers;
 using Retinues.Framework.Behaviors;
@@ -11,11 +12,10 @@ using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 
-namespace Retinues.Game.Unlocks
+namespace Retinues.Behaviors.Unlocks
 {
     /// <summary>
-    /// Centralizes one-time campaign startup logic for Retinues.
-    /// Runs once per campaign and persists a flag to never re-run again.
+    /// Centralizes one-time campaign startup logic to ensure initial item unlocks are applied.
     /// </summary>
     public sealed class UnlocksBootstrapBehavior : BaseCampaignBehavior<UnlocksBootstrapBehavior>
     {
@@ -27,22 +27,27 @@ namespace Retinues.Game.Unlocks
 
         private bool _unlocksBootstrapped;
 
+        /// <summary>
+        /// Synchronizes the bootstrap flag to save/load.
+        /// </summary>
         public override void SyncData(IDataStore dataStore)
         {
             dataStore.SyncData(DataStoreKey_Unlocks, ref _unlocksBootstrapped);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                     Auto handlers                      //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        protected override void OnCharacterCreationIsOver() => TryBootstrap();
-
-        protected override void OnGameLoadFinished() => TryBootstrap();
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Bootstrap                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Called after character creation completes to attempt bootstrapping unlocks.
+        /// </summary>
+        protected override void OnCharacterCreationIsOver() => TryBootstrap();
+
+        /// <summary>
+        /// Called when game load finishes to attempt bootstrapping unlocks.
+        /// </summary>
+        protected override void OnGameLoadFinished() => TryBootstrap();
 
         private void TryBootstrap()
         {
@@ -90,6 +95,9 @@ namespace Retinues.Game.Unlocks
             EquipmentIndex.Weapon3,
         ];
 
+        /// <summary>
+        /// Ensures a baseline set of unlocked starter items exist for the given culture.
+        /// </summary>
         private static void EnsureStarterUnlocks(WCulture culture)
         {
             if (culture?.Base == null)
@@ -132,6 +140,9 @@ namespace Retinues.Game.Unlocks
             );
         }
 
+        /// <summary>
+        /// Unlocks a number of random missing items for the specified equipment slot.
+        /// </summary>
         private static int UnlockRandomMissingForSlot(
             WCharacter picker,
             WCulture culture,
@@ -155,7 +166,7 @@ namespace Retinues.Game.Unlocks
 
             for (int attempt = 0; attempt < maxAttempts && unlocked < missing; attempt++)
             {
-                var item = RandomItemHelper.GetRandomItemForSlot(
+                var item = ItemRandomizer.GetRandomItemForSlot(
                     owner: picker,
                     slot: slot,
                     civilian: false,

@@ -6,12 +6,21 @@ using Retinues.GUI.Services;
 using Retinues.Utilities;
 using TaleWorlds.Library;
 
-namespace Retinues.Game.Staging
+namespace Retinues.Behaviors.Staging
 {
+    /// <summary>
+    /// Advances staged skill training progress for NPC troops and applies skill points when ready.
+    /// </summary>
     public sealed class StagedSkillProgressBehavior : BaseCampaignBehavior
     {
+        /// <summary>
+        /// Returns true when staged training is enabled via settings.
+        /// </summary>
         public override bool IsActive => Settings.TrainingTakesTime;
 
+        /// <summary>
+        /// Hourly tick handler that progresses staged skill points and finalizes them when thresholds are met.
+        /// </summary>
         protected override void OnHourlyTick()
         {
             if (!Settings.TrainingProgressesWhileTravelling && Player.CurrentSettlement == null)

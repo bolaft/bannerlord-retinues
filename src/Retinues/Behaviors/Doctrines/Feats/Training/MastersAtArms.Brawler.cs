@@ -1,9 +1,9 @@
 using System.Linq;
+using Retinues.Behaviors.Missions;
 using Retinues.Domain.Events.Models;
-using Retinues.Game.Missions;
 using TaleWorlds.Core;
 
-namespace Retinues.Game.Doctrines.Feats.Training
+namespace Retinues.Behaviors.Doctrines.Feats.Training
 {
     /// <summary>
     /// Knock out 50 opponents in the arena.

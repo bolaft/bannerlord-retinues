@@ -3,10 +3,10 @@ using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Domain;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.GUI.Editor.Events;
+using Retinues.GUI.Editor.Modules.Pages.Character.Views.Column;
 using Retinues.GUI.Editor.Modules.Pages.Equipment.Controllers;
 using Retinues.GUI.Editor.Modules.Pages.Equipment.Views.Column;
-using Retinues.GUI.Editor.Services.Library.NPCCharacters;
-using Retinues.GUI.Editor.VM.Column.Character;
+using Retinues.GUI.Editor.Modules.Pages.Library.Services;
 using Retinues.GUI.Services;
 using Retinues.Utilities;
 using TaleWorlds.Core.ViewModelCollection;
@@ -14,6 +14,9 @@ using TaleWorlds.Library;
 
 namespace Retinues.GUI.Editor.Modules.Common.Column.Views
 {
+    /// <summary>
+    /// ViewModel for the column in the editor GUI.
+    /// </summary>
     public class ColumnVM : EventListenerVM
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -55,6 +58,9 @@ namespace Retinues.GUI.Editor.Modules.Common.Column.Views
             }
         }
 
+        /// <summary>
+        /// Applies the planned/staged equipment to the given equipment instance for the 3D model.
+        /// </summary>
         private static void ApplyPlannedEquipmentForModel(
             TaleWorlds.Core.Equipment equipmentForModel
         )
@@ -85,7 +91,7 @@ namespace Retinues.GUI.Editor.Modules.Common.Column.Views
         [EventListener(UIEvent.Appearance, UIEvent.Page, UIEvent.Library)]
         private void RebuildModel()
         {
-            CharacterStubLeaser.Lease lease = null;
+            CharacterPreviewLease.Lease lease = null;
 
             try
             {
@@ -104,10 +110,7 @@ namespace Retinues.GUI.Editor.Modules.Common.Column.Views
                     // Extract the first character payload from the export file.
                     // (For faction exports this means "preview first troop" which matches old behavior.)
                     if (
-                        !LibraryExportPayloadReader.TryExtractModelCharacterPayloads(
-                            item,
-                            out var payloads
-                        )
+                        !ExportXMLReader.TryExtractModelCharacterPayloads(item, out var payloads)
                         || payloads.Count == 0
                     )
                     {
@@ -117,7 +120,11 @@ namespace Retinues.GUI.Editor.Modules.Common.Column.Views
 
                     var p = payloads[0];
 
-                    lease = CharacterStubLeaser.LeaseFromPayload(p.Payload, p.ModelStringId, out _);
+                    lease = CharacterPreviewLease.LeaseFromPayload(
+                        p.Payload,
+                        p.ModelStringId,
+                        out _
+                    );
                     character = lease?.Character;
 
                     if (character?.Base == null)

@@ -95,12 +95,14 @@ namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Controllers
             );
         }
 
-        private static EquipContext Ctx() =>
-            new(State.Mode, PreviewController.Enabled, State.Character, State.Equipment);
-
         private static EquipDecision DecisionForSlot(WItem item)
         {
-            var ctx = Ctx();
+            var ctx = new EquipContext(
+                State.Mode,
+                PreviewController.Enabled,
+                State.Character,
+                State.Equipment
+            );
             var slot = EditorState.Instance.Slot;
             return EquipRules.CanSetItem(ctx, PreviewController.GetItem, slot, item);
         }
@@ -109,6 +111,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Controllers
         //                          Equip                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Equips the given item to the selected slot, handling economy and preview.
+        /// </summary>
         public static ControllerAction<WItem> Equip { get; } =
             Action<WItem>("EquipItem")
                 .RequireValidEditingContext()
@@ -311,6 +316,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Controllers
         //                         Unequip                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Unequips the item at the given slot, handling economy and preview.
+        /// </summary>
         public static ControllerAction<EquipmentIndex> Unequip { get; } =
             Action<EquipmentIndex>("UnequipItem")
                 .RequireValidEditingContext()

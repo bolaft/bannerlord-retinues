@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
+using Retinues.Behaviors.Missions;
 using Retinues.Domain.Equipments.Models;
 using Retinues.Domain.Events.Models;
 using Retinues.Domain.Factions.Wrappers;
-using Retinues.Game.Missions;
 
-namespace Retinues.Game.Doctrines.Feats.Equipments
+namespace Retinues.Behaviors.Doctrines.Feats.Equipments
 {
     /// <summary>
     /// Get 100 kills in battle with troops wearing no foreign gear.

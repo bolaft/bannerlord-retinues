@@ -5,7 +5,6 @@ using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Framework.Model;
 using Retinues.Framework.Model.Attributes;
-using Retinues.Utilities;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 
@@ -18,7 +17,7 @@ namespace Retinues.Domain.Equipments.Models
         Reset,
     }
 
-    public class MEquipmentRoster(MBEquipmentRoster @base, WCharacter owner)
+    public partial class MEquipmentRoster(MBEquipmentRoster @base, WCharacter owner)
         : MBase<MBEquipmentRoster>(@base)
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -50,6 +49,9 @@ namespace Retinues.Domain.Equipments.Models
             }
         }
 
+        /// <summary>
+        /// Adds a new equipment to the roster.
+        /// </summary>
         public void Add(MEquipment equipment)
         {
             var list = Equipments.ToList();
@@ -57,6 +59,9 @@ namespace Retinues.Domain.Equipments.Models
             Equipments = list;
         }
 
+        /// <summary>
+        /// Removes an equipment from the roster.
+        /// </summary>
         public void Remove(MEquipment equipment)
         {
             var list = Equipments.ToList();
@@ -67,6 +72,9 @@ namespace Retinues.Domain.Equipments.Models
             owner.UpdateFormationClass();
         }
 
+        /// <summary>
+        /// Copies equipments from another roster according to the specified mode.
+        /// </summary>
         public void Copy(MEquipmentRoster source, EquipmentCopyMode mode = EquipmentCopyMode.All)
         {
             if (mode == EquipmentCopyMode.Reset)
@@ -136,6 +144,9 @@ namespace Retinues.Domain.Equipments.Models
             Equipments = all;
         }
 
+        /// <summary>
+        /// Resets the roster to default equipments.
+        /// </summary>
         public void Reset()
         {
             Equipments = [];
@@ -165,95 +176,6 @@ namespace Retinues.Domain.Equipments.Models
                     }
                 }
             }
-        }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                   Cached Item Counts                   //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        private readonly Cache<MEquipmentRoster, Dictionary<string, int>> _itemCountsCache = new(
-            r => r.ComputeItemCounts()
-        );
-
-        /// <summary>
-        /// Required roster stock per item id.
-        /// Rule: for each item, keep the max number of copies used by any single equipment.
-        /// </summary>
-        public Dictionary<string, int> ItemCountsById => _itemCountsCache.Get(this);
-
-        public void InvalidateItemCountsCache() => _itemCountsCache.Clear();
-
-        private Dictionary<string, int> ComputeItemCounts()
-        {
-            Dictionary<string, int> result = [];
-
-            // Use cached wrappers, not fresh wrappers
-            var list = Equipments;
-
-            for (int i = 0; i < list.Count; i++)
-            {
-                var me = list[i];
-                if (me == null)
-                    continue;
-
-                Dictionary<string, int> per = [];
-
-                foreach (var item in me.Items)
-                {
-                    if (item == null)
-                        continue;
-
-                    string id = item.StringId;
-                    if (string.IsNullOrEmpty(id))
-                        continue;
-
-                    if (!per.ContainsKey(id))
-                        per[id] = 0;
-
-                    per[id]++;
-                }
-
-                foreach (var kv in per)
-                {
-                    if (!result.TryGetValue(kv.Key, out int current))
-                        result[kv.Key] = kv.Value;
-                    else
-                        result[kv.Key] = Math.Max(current, kv.Value);
-                }
-            }
-
-            return result;
-        }
-
-        internal int GetMaxCountExcludingEquipment(Equipment exclude, string itemId)
-        {
-            if (exclude == null || string.IsNullOrEmpty(itemId))
-                return 0;
-
-            int max = 0;
-
-            var list = Equipments;
-            for (int i = 0; i < list.Count; i++)
-            {
-                var me = list[i];
-                if (me == null)
-                    continue;
-
-                if (ReferenceEquals(me.Base, exclude))
-                    continue;
-
-                int count = 0;
-                foreach (var item in me.Items)
-                {
-                    if (item != null && item.StringId == itemId)
-                        count++;
-                }
-
-                if (count > max)
-                    max = count;
-            }
-
-            return max;
         }
     }
 }

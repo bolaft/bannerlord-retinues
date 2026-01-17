@@ -77,12 +77,13 @@ namespace Retinues.GUI.Editor.Events
                 CurrentEvent = current;
             }
 
+            /// <summary>
+            /// Queues a property notification for the VM in this context.
+            /// </summary>
             internal void RequestNotify(EventListenerVM vm, string propertyName)
             {
                 if (vm == null || string.IsNullOrEmpty(propertyName))
-                {
                     return;
-                }
 
                 AddNotification(vm, propertyName);
             }
@@ -114,12 +115,13 @@ namespace Retinues.GUI.Editor.Events
         //                  Listener Registration                 //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Registers a VM to receive UI events.
+        /// </summary>
         internal static void Register(EventListenerVM vm)
         {
             if (vm == null)
-            {
                 return;
-            }
 
             lock (_lock)
             {
@@ -127,12 +129,13 @@ namespace Retinues.GUI.Editor.Events
             }
         }
 
+        /// <summary>
+        /// Unregisters a VM so it no longer receives events.
+        /// </summary>
         internal static void Unregister(EventListenerVM vm)
         {
             if (vm == null)
-            {
                 return;
-            }
 
             lock (_lock)
             {
@@ -158,8 +161,7 @@ namespace Retinues.GUI.Editor.Events
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
-        /// Fire a single UI event. Outside a batch, this still behaves
-        /// as a mini-burst so listeners are only notified once.
+        /// Fire a single UI event. Outside a batch this is a mini-burst.
         /// </summary>
         public static void Fire(UIEvent e)
         {
@@ -183,14 +185,11 @@ namespace Retinues.GUI.Editor.Events
 
         /// <summary>
         /// Execute a batch of changes and flush notifications at the end.
-        /// Any events fired inside this delegate are part of the same burst.
         /// </summary>
         public static void FireBatch(Action emit)
         {
             if (emit == null)
-            {
                 return;
-            }
 
             BeginBurst();
             try
@@ -209,9 +208,7 @@ namespace Retinues.GUI.Editor.Events
         public static void FireSequence(params UIEvent[] events)
         {
             if (events == null || events.Length == 0)
-            {
                 return;
-            }
 
             FireBatch(() =>
             {
@@ -226,6 +223,9 @@ namespace Retinues.GUI.Editor.Events
         //                    Burst Management                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Begin a new burst, initializing burst state if outermost.
+        /// </summary>
         private static void BeginBurst()
         {
             lock (_lock)
@@ -240,6 +240,9 @@ namespace Retinues.GUI.Editor.Events
             }
         }
 
+        /// <summary>
+        /// End the current burst and flush notifications if outermost.
+        /// </summary>
         private static void EndBurst()
         {
             Dictionary<EventListenerVM, HashSet<string>> snapshot = null;
@@ -247,17 +250,13 @@ namespace Retinues.GUI.Editor.Events
             lock (_lock)
             {
                 if (_burstDepth == 0)
-                {
                     return;
-                }
 
                 _burstDepth--;
 
                 // Still inside nested bursts - do not flush yet.
                 if (_burstDepth > 0)
-                {
                     return;
-                }
 
                 if (_pendingNotifications.Count > 0)
                 {
@@ -269,18 +268,14 @@ namespace Retinues.GUI.Editor.Events
             }
 
             if (snapshot == null || snapshot.Count == 0)
-            {
                 return;
-            }
 
             // Flush outside the lock.
             foreach (var kvp in snapshot)
             {
                 var vm = kvp.Key;
                 if (vm == null)
-                {
                     continue;
-                }
 
                 foreach (var propertyName in kvp.Value)
                 {
@@ -302,6 +297,9 @@ namespace Retinues.GUI.Editor.Events
         //                      Static Clears                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Clears all listeners, pending notifications, and burst state.
+        /// </summary>
         [StaticClearAction]
         public static void ClearAll()
         {
@@ -318,6 +316,9 @@ namespace Retinues.GUI.Editor.Events
         //                        Internals                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Adds a pending property notification for the given VM.
+        /// </summary>
         private static void AddNotification(EventListenerVM vm, string propertyName)
         {
             lock (_lock)
@@ -332,6 +333,9 @@ namespace Retinues.GUI.Editor.Events
             }
         }
 
+        /// <summary>
+        /// Takes a snapshot of registered listeners, cleaning up dead references.
+        /// </summary>
         private static List<EventListenerVM> TakeSnapshot()
         {
             lock (_lock)
@@ -341,19 +345,18 @@ namespace Retinues.GUI.Editor.Events
                 for (int i = _listeners.Count - 1; i >= 0; i--)
                 {
                     if (_listeners[i].TryGetTarget(out var target) && target != null)
-                    {
                         snapshot.Add(target);
-                    }
                     else
-                    {
                         _listeners.RemoveAt(i);
-                    }
                 }
 
                 return snapshot;
             }
         }
 
+        /// <summary>
+        /// Dispatches the given root event (and its expanded parents) to listeners.
+        /// </summary>
         private static void NotifyListeners(UIEvent rootEvent)
         {
             var vms = TakeSnapshot();

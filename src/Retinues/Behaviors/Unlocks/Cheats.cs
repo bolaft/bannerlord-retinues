@@ -3,7 +3,7 @@ using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Framework.Runtime;
 using TaleWorlds.Library;
 
-namespace Retinues.Game.Unlocks
+namespace Retinues.Behaviors.Unlocks
 {
     [SafeClass]
     public static class Cheats

@@ -1,9 +1,6 @@
-using System;
-using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.GUI.Components;
 using Retinues.GUI.Editor.Events;
 using Retinues.GUI.Services;
-using TaleWorlds.Library;
 
 namespace Retinues.GUI.Editor.Shared.Views
 {

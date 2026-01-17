@@ -6,7 +6,7 @@ using Retinues.Framework.Runtime;
 using Retinues.GUI.Services;
 using TaleWorlds.Localization;
 
-namespace Retinues.Game.Unlocks
+namespace Retinues.Behaviors.Unlocks
 {
     [SafeClass]
     public static class Notifier

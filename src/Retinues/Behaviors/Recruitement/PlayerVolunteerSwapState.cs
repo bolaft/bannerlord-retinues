@@ -7,7 +7,7 @@ using Retinues.Domain.Settlements.Wrappers;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 
-namespace Retinues.Game.Recruitement
+namespace Retinues.Behaviors.Recruitement
 {
     /// <summary>
     /// Temporarily swaps notable volunteers while the player is in the recruit menu.
@@ -19,9 +19,12 @@ namespace Retinues.Game.Recruitement
         private static Dictionary<string, CharacterObject[]> _snapshot;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Public API                       //
+        //                       Public API                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Begins a deterministic, temporary swap of volunteers for the player's recruit menu.
+        /// </summary>
         public static void TryBeginSwapForPlayerRecruitMenu()
         {
             try
@@ -54,6 +57,9 @@ namespace Retinues.Game.Recruitement
             }
         }
 
+        /// <summary>
+        /// Restores the original volunteer snapshot if a swap is active.
+        /// </summary>
         public static void RestoreIfActive()
         {
             try
@@ -67,9 +73,12 @@ namespace Retinues.Game.Recruitement
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                     Snapshot / Restore                  //
+        //                   Snapshot / Restore                   //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Captures a snapshot of current notable volunteer arrays for restoration later.
+        /// </summary>
         private static void SnapshotVolunteers(WSettlement settlement)
         {
             var notables = settlement?.Notables;
@@ -101,6 +110,9 @@ namespace Retinues.Game.Recruitement
             _snapshot = snapshot;
         }
 
+        /// <summary>
+        /// Restores volunteers from the captured snapshot back into the settlement.
+        /// </summary>
         private static void RestoreSnapshot()
         {
             if (_snapshot == null || _settlement == null)
@@ -139,6 +151,9 @@ namespace Retinues.Game.Recruitement
             ClearSnapshot();
         }
 
+        /// <summary>
+        /// Clears any stored snapshot and settlement reference.
+        /// </summary>
         private static void ClearSnapshot()
         {
             _snapshot = null;
@@ -146,9 +161,12 @@ namespace Retinues.Game.Recruitement
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                       Swap Logic                        //
+        //                       Swap Logic                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Applies the deterministic replacement of volunteers for the player view.
+        /// </summary>
         private static void ApplySwapForPlayer(WSettlement settlement)
         {
             var notables = settlement?.Notables;
@@ -203,6 +221,9 @@ namespace Retinues.Game.Recruitement
             }
         }
 
+        /// <summary>
+        /// Chooses a root deterministically per day, settlement, notable and slot.
+        /// </summary>
         private static WCharacter ChooseRootDeterministic(
             WSettlement settlement,
             string notableId,
@@ -229,6 +250,9 @@ namespace Retinues.Game.Recruitement
             return roots[idx];
         }
 
+        /// <summary>
+        /// Computes a stable hash for deterministic selection.
+        /// </summary>
         private static int StableHash(string s)
         {
             unchecked

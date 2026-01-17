@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
 
-namespace Retinues.Game.Doctrines.Definitions
+namespace Retinues.Behaviors.Doctrines.Definitions
 {
     /// <summary>
     /// A feat that can be achieved to progress in a doctrine.
@@ -134,7 +134,7 @@ namespace Retinues.Game.Doctrines.Definitions
                 return "Usage: feat_complete <feat_id> [times]";
 
             var id = args[0];
-            var feat = Feat.Get(id);
+            var feat = Get(id);
 
             if (feat == null)
                 return $"Feat '{id}' not found.";

@@ -5,6 +5,9 @@ using TaleWorlds.Core;
 
 namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Services
 {
+    /// <summary>
+    /// Plan for equipment changes, including economy and skipped items.
+    /// </summary>
     public sealed class EquipPlan
     {
         public Dictionary<EquipmentIndex, WItem> Changes { get; } = [];
@@ -24,9 +27,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Services
         public int StockUseTotal => StockUseById.Values.Sum();
         public int PurchaseTotal => PurchaseById.Values.Sum();
 
-        public int SkippedOf(EquipSkipReason r) =>
-            SkippedByReason.TryGetValue(r, out var v) ? v : 0;
-
+        /// <summary>
+        /// Gets the names of skipped items for the given reason.
+        /// </summary>
         public IReadOnlyList<string> SkippedNamesOf(EquipSkipReason r)
         {
             if (SkippedItemNamesByReason.TryGetValue(r, out var list))
@@ -34,6 +37,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Services
             return [];
         }
 
+        /// <summary>
+        /// Records a skipped operation for the given reason and item.
+        /// </summary>
         public void AddSkip(EquipSkipReason reason, WItem item)
         {
             SkippedOps++;

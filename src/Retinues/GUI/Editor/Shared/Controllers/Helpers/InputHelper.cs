@@ -4,6 +4,9 @@ using TaleWorlds.InputSystem;
 
 namespace Retinues.GUI.Editor.Shared.Controllers.Helpers
 {
+    /// <summary>
+    /// Helper methods for input handling in the editor GUI.
+    /// </summary>
     [SafeClass]
     public static class InputHelper
     {

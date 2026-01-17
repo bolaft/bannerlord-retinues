@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
+using Retinues.Behaviors.Missions;
 using Retinues.Domain;
 using Retinues.Domain.Events.Models;
-using Retinues.Game.Missions;
 
-namespace Retinues.Game.Doctrines.Feats.Equipments
+namespace Retinues.Behaviors.Doctrines.Feats.Equipments
 {
     /// <summary>
     /// Get 1 000 kills with custom kingdom troops.

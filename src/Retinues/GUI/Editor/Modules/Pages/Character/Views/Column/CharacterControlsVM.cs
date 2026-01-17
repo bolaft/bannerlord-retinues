@@ -7,7 +7,7 @@ using Retinues.GUI.Services;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 
-namespace Retinues.GUI.Editor.VM.Column.Character
+namespace Retinues.GUI.Editor.Modules.Pages.Character.Views.Column
 {
     public class CharacterControlsVM : EventListenerVM
     {

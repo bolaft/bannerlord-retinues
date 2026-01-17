@@ -18,54 +18,115 @@ using TaleWorlds.MountAndBlade;
 
 namespace Retinues.Framework.Behaviors
 {
+    /// <summary>
+    /// Base class for campaign behaviors providing automatic event wiring and lifecycle helpers.
+    /// </summary>
     [SafeClass(IncludeDerived = true)]
     public abstract class BaseCampaignBehavior : CampaignBehaviorBase
     {
         protected string Name => GetType().Name;
 
+        /// <summary>
+        /// If false, the behavior is not registered.
+        /// </summary>
         public virtual bool IsEnabled => true;
+
+        /// <summary>
+        /// If false, events are not invoked.
+        /// </summary>
         public virtual bool IsActive => true;
 
+        /// <summary>
+        /// Register behavior events and custom events.
+        /// </summary>
         public sealed override void RegisterEvents()
         {
             AutoRegisterEvents();
             RegisterCustomEvents();
         }
 
+        /// <summary>
+        /// Sync persisted data for the behavior.
+        /// </summary>
         public override void SyncData(IDataStore dataStore) { }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Auto handlers                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Called after the game load finishes.
+        /// </summary>
         protected virtual void OnGameLoadFinished() { }
 
+        /// <summary>
+        /// Called when character creation is finished.
+        /// </summary>
         protected virtual void OnCharacterCreationIsOver() { }
 
+        /// <summary>
+        /// Called when the session is launched with the given starter.
+        /// </summary>
         protected virtual void OnSessionLaunched(CampaignGameStarter starter) { }
 
+        /// <summary>
+        /// Called every tick.
+        /// </summary>
         protected virtual void OnTick() { }
 
+        /// <summary>
+        /// Called on hourly tick.
+        /// </summary>
         protected virtual void OnHourlyTick() { }
 
+        /// <summary>
+        /// Called on hourly tick for a party.
+        /// </summary>
         protected virtual void OnHourlyTickParty(WParty party) { }
 
+        /// <summary>
+        /// Called on daily tick.
+        /// </summary>
         protected virtual void OnDailyTick() { }
 
+        /// <summary>
+        /// Called when a mission starts.
+        /// </summary>
         protected virtual void OnMissionStarted(MMission mission) { }
 
+        /// <summary>
+        /// Called when a mission ends.
+        /// </summary>
         protected virtual void OnMissionEnded(MMission mission) { }
 
+        /// <summary>
+        /// Called when a map event starts.
+        /// </summary>
         protected virtual void OnMapEventStarted(MMapEvent mapEvent) { }
 
+        /// <summary>
+        /// Called when a map event ends.
+        /// </summary>
         protected virtual void OnMapEventEnded(MMapEvent mapEvent) { }
 
+        /// <summary>
+        /// Called when items are discarded by the player.
+        /// </summary>
         protected virtual void OnItemsDiscardedByPlayer(ItemRoster roster) { }
 
+        /// <summary>
+        /// Called when a party leaves a settlement.
+        /// </summary>
         protected virtual void OnSettlementLeft(WParty party, WSettlement settlement) { }
 
+        /// <summary>
+        /// Called before saving the game.
+        /// </summary>
         protected virtual void OnBeforeSave() { }
 
+        /// <summary>
+        /// Called when a settlement's owner changes.
+        /// </summary>
         protected virtual void OnSettlementOwnerChanged(
             WSettlement settlement,
             bool openToClaim,
@@ -75,8 +136,14 @@ namespace Retinues.Framework.Behaviors
             ChangeOwnerOfSettlementAction.ChangeOwnerOfSettlementDetail detail
         ) { }
 
+        /// <summary>
+        /// Called when a kingdom is created.
+        /// </summary>
         protected virtual void OnKingdomCreated(Kingdom kingdom) { }
 
+        /// <summary>
+        /// Called when a tournament finishes.
+        /// </summary>
         protected virtual void OnTournamentFinished(
             WCharacter winner,
             List<WCharacter> participants,
@@ -84,14 +151,23 @@ namespace Retinues.Framework.Behaviors
             WItem prize
         ) { }
 
+        /// <summary>
+        /// Called when a quest completes.
+        /// </summary>
         protected virtual void OnQuestCompleted(QuestBase quest, WHero giver, bool success) { }
 
+        /// <summary>
+        /// Called when a hideout battle completes.
+        /// </summary>
         protected virtual void OnHideoutBattleCompleted(
             BattleSideEnum winnerSide,
             MMapEvent battle,
             HideoutEventComponent hideoutEventComponent
         ) { }
 
+        /// <summary>
+        /// Called when a troop is recruited.
+        /// </summary>
         protected virtual void OnTroopRecruited(
             WHero recruiter,
             WSettlement settlement,
@@ -100,18 +176,27 @@ namespace Retinues.Framework.Behaviors
             int amount
         ) { }
 
+        /// <summary>
+        /// Called when the player upgrades troops.
+        /// </summary>
         protected virtual void OnPlayerUpgradedTroops(
             WCharacter source,
             WCharacter target,
             int number
         ) { }
 
+        /// <summary>
+        /// Register custom events for derived behaviors.
+        /// </summary>
         protected virtual void RegisterCustomEvents() { }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Auto-register                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Automatically register overridden event handlers to campaign events.
+        /// </summary>
         private void AutoRegisterEvents()
         {
             if (IsOverridden(nameof(OnGameLoadFinished)))
@@ -290,6 +375,9 @@ namespace Retinues.Framework.Behaviors
                 );
         }
 
+        /// <summary>
+        /// Wrap an IMission into an MMission wrapper.
+        /// </summary>
         private static MMission WrapMission(IMission mission)
         {
             if (mission is not Mission m)
@@ -298,6 +386,9 @@ namespace Retinues.Framework.Behaviors
             return new MMission(m);
         }
 
+        /// <summary>
+        /// Wrap a MapEvent into an MMapEvent wrapper.
+        /// </summary>
         private static MMapEvent WrapMapEvent(MapEvent mapEvent)
         {
             if (mapEvent == null)
@@ -306,6 +397,9 @@ namespace Retinues.Framework.Behaviors
             return new MMapEvent(mapEvent);
         }
 
+        /// <summary>
+        /// Convert a participant list to wrapped WCharacter list.
+        /// </summary>
         private static List<WCharacter> WrapCharacters(MBReadOnlyList<CharacterObject> participants)
         {
             if (participants == null || participants.Count <= 0)
@@ -327,6 +421,9 @@ namespace Retinues.Framework.Behaviors
             return list;
         }
 
+        /// <summary>
+        /// Safely invoke an action if the behavior is enabled and active.
+        /// </summary>
         private void SafeInvoke(Action action)
         {
             if (!IsEnabled)
@@ -348,6 +445,9 @@ namespace Retinues.Framework.Behaviors
             }
         }
 
+        /// <summary>
+        /// Check whether a method is overridden in a derived type.
+        /// </summary>
         private bool IsOverridden(string methodName)
         {
             const BindingFlags Flags =
@@ -361,10 +461,16 @@ namespace Retinues.Framework.Behaviors
         }
     }
 
+    /// <summary>
+    /// Generic typed base behavior exposing a convenient static instance accessor.
+    /// </summary>
     [SafeClass(IncludeDerived = true)]
     public abstract class BaseCampaignBehavior<TSelf> : BaseCampaignBehavior
         where TSelf : CampaignBehaviorBase
     {
+        /// <summary>
+        /// Gets the static instance of the behavior.
+        /// </summary>
         public static TSelf Instance
         {
             get
@@ -377,6 +483,9 @@ namespace Retinues.Framework.Behaviors
             }
         }
 
+        /// <summary>
+        /// Try to get the behavior instance safely.
+        /// </summary>
         public static bool TryGetInstance(out TSelf behavior)
         {
             behavior = Instance;

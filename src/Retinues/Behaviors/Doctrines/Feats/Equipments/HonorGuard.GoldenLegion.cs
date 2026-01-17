@@ -1,7 +1,7 @@
 using Retinues.Domain;
 using Retinues.Domain.Events.Models;
 
-namespace Retinues.Game.Doctrines.Feats.Equipments
+namespace Retinues.Behaviors.Doctrines.Feats.Equipments
 {
     /// <summary>
     /// Field a unit wearing equipment worth over 100 000 denars.

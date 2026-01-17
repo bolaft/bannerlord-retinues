@@ -3,6 +3,9 @@ using Bannerlord.UIExtenderEx.Prefabs2;
 
 namespace Retinues.GUI.Editor.Integration.Encyclopedia.Patches
 {
+    /// <summary>
+    /// Inserts the editor button into the encyclopedia hero page.
+    /// </summary>
     [PrefabExtension(
         "EncyclopediaHeroPage",
         "descendant::Widget[./Children/ButtonWidget[@Id='BookmarkButton']]/Children"

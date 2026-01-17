@@ -9,6 +9,9 @@ namespace Retinues.Framework.Model
         object Base { get; }
     }
 
+    /// <summary>
+    /// Base class for model wrappers.
+    /// </summary>
     [SafeClass(IncludeDerived = true)]
     public abstract partial class MBase<TBase>(TBase baseInstance)
         : IEquatable<MBase<TBase>>,

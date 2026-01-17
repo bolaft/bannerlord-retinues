@@ -1,6 +1,6 @@
 using System.Collections.Generic;
+using Retinues.Behaviors.Doctrines;
 using Retinues.Configuration;
-using Retinues.Game.Doctrines;
 using Retinues.GUI.Editor.Shared.Views;
 using Retinues.GUI.Services;
 
@@ -13,6 +13,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Doctrines.Views.List
     {
         protected override EditorPage Page => EditorPage.Doctrines;
 
+        /// <summary>
+        /// Builds the doctrines list.
+        /// </summary>
         public override void Build()
         {
             BuildSortButtons();
@@ -20,6 +23,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Doctrines.Views.List
             RecomputeHeaderStates();
         }
 
+        /// <summary>
+        /// Builds the sort buttons for the doctrines list.
+        /// </summary>
         private void BuildSortButtons()
         {
             SortButtons.Clear();
@@ -31,6 +37,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Doctrines.Views.List
             RecomputeSortButtonProperties();
         }
 
+        /// <summary>
+        /// Builds the sections for the doctrines list.
+        /// </summary>
         private void BuildSections()
         {
             var headers = new List<ListHeaderVM>();

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Factions.Wrappers;
@@ -5,6 +6,21 @@ using Retinues.Framework.Runtime;
 
 namespace Retinues.Domain.Characters.Services.Caches
 {
+    [Flags]
+    public enum TroopSourceFlags
+    {
+        None = 0,
+        Basic = 1 << 0,
+        Elite = 1 << 1,
+        Retinue = 1 << 2,
+        Mercenary = 1 << 3,
+        Bandit = 1 << 4,
+        Militia = 1 << 5,
+        Caravan = 1 << 6,
+        Villager = 1 << 7,
+        Civilian = 1 << 8,
+    }
+
     /// <summary>
     /// Caches the source flags for troops based on their presence in faction rosters.
     /// </summary>
@@ -18,7 +34,7 @@ namespace Retinues.Domain.Characters.Services.Caches
         private static readonly object Sync = new();
 
         private static bool _built;
-        private static readonly Dictionary<string, WCharacter.TroopSourceFlags> ById = [];
+        private static readonly Dictionary<string, TroopSourceFlags> ById = [];
 
         /// <summary>
         /// Invalidates the cache.
@@ -36,22 +52,20 @@ namespace Retinues.Domain.Characters.Services.Caches
         /// <summary>
         /// Gets the source flags for the given wrapped character.
         /// </summary>
-        public static WCharacter.TroopSourceFlags Get(WCharacter wc)
+        public static TroopSourceFlags Get(WCharacter wc)
         {
             if (wc == null)
-                return WCharacter.TroopSourceFlags.None;
+                return TroopSourceFlags.None;
 
             EnsureBuilt();
 
             var id = wc.StringId;
             if (string.IsNullOrEmpty(id))
-                return WCharacter.TroopSourceFlags.None;
+                return TroopSourceFlags.None;
 
             lock (Sync)
             {
-                return ById.TryGetValue(id, out var flags)
-                    ? flags
-                    : WCharacter.TroopSourceFlags.None;
+                return ById.TryGetValue(id, out var flags) ? flags : TroopSourceFlags.None;
             }
         }
 
@@ -73,37 +87,37 @@ namespace Retinues.Domain.Characters.Services.Caches
                 // Culture rosters are the canonical classification layer.
                 foreach (var culture in WCulture.All)
                 {
-                    MarkMany(culture.RosterBasic, WCharacter.TroopSourceFlags.Basic);
-                    MarkMany(culture.RosterElite, WCharacter.TroopSourceFlags.Elite);
+                    MarkMany(culture.RosterBasic, TroopSourceFlags.Basic);
+                    MarkMany(culture.RosterElite, TroopSourceFlags.Elite);
 
-                    MarkMany(culture.RosterMercenary, WCharacter.TroopSourceFlags.Mercenary);
-                    MarkMany(culture.RosterBandit, WCharacter.TroopSourceFlags.Bandit);
-                    MarkMany(culture.RosterMilitia, WCharacter.TroopSourceFlags.Militia);
-                    MarkMany(culture.RosterCaravan, WCharacter.TroopSourceFlags.Caravan);
-                    MarkMany(culture.RosterVillager, WCharacter.TroopSourceFlags.Villager);
-                    MarkMany(culture.RosterCivilian, WCharacter.TroopSourceFlags.Civilian);
+                    MarkMany(culture.RosterMercenary, TroopSourceFlags.Mercenary);
+                    MarkMany(culture.RosterBandit, TroopSourceFlags.Bandit);
+                    MarkMany(culture.RosterMilitia, TroopSourceFlags.Militia);
+                    MarkMany(culture.RosterCaravan, TroopSourceFlags.Caravan);
+                    MarkMany(culture.RosterVillager, TroopSourceFlags.Villager);
+                    MarkMany(culture.RosterCivilian, TroopSourceFlags.Civilian);
                 }
 
                 // Same for clan rosters.
                 foreach (var clan in WClan.All)
                 {
-                    MarkMany(clan.RosterBasic, WCharacter.TroopSourceFlags.Basic);
-                    MarkMany(clan.RosterElite, WCharacter.TroopSourceFlags.Elite);
+                    MarkMany(clan.RosterBasic, TroopSourceFlags.Basic);
+                    MarkMany(clan.RosterElite, TroopSourceFlags.Elite);
                 }
 
                 // Same for kingdom rosters.
                 foreach (var kingdom in WKingdom.All)
                 {
-                    MarkMany(kingdom.RosterBasic, WCharacter.TroopSourceFlags.Basic);
-                    MarkMany(kingdom.RosterElite, WCharacter.TroopSourceFlags.Elite);
+                    MarkMany(kingdom.RosterBasic, TroopSourceFlags.Basic);
+                    MarkMany(kingdom.RosterElite, TroopSourceFlags.Elite);
                 }
 
                 // Retinues live on map-factions (clans/kingdoms).
                 foreach (var clan in WClan.All)
-                    MarkMany(clan.RosterRetinues, WCharacter.TroopSourceFlags.Retinue);
+                    MarkMany(clan.RosterRetinues, TroopSourceFlags.Retinue);
 
                 foreach (var kingdom in WKingdom.All)
-                    MarkMany(kingdom.RosterRetinues, WCharacter.TroopSourceFlags.Retinue);
+                    MarkMany(kingdom.RosterRetinues, TroopSourceFlags.Retinue);
 
                 _built = true;
             }
@@ -112,10 +126,7 @@ namespace Retinues.Domain.Characters.Services.Caches
         /// <summary>
         /// Marks many wrapped characters with the given flags.
         /// </summary>
-        private static void MarkMany(
-            IEnumerable<WCharacter> list,
-            WCharacter.TroopSourceFlags flags
-        )
+        private static void MarkMany(IEnumerable<WCharacter> list, TroopSourceFlags flags)
         {
             if (list == null)
                 return;
@@ -127,7 +138,7 @@ namespace Retinues.Domain.Characters.Services.Caches
         /// <summary>
         /// Marks a wrapped character with the given flags.
         /// </summary>
-        private static void Mark(WCharacter wc, WCharacter.TroopSourceFlags flags)
+        private static void Mark(WCharacter wc, TroopSourceFlags flags)
         {
             if (wc == null)
                 return;

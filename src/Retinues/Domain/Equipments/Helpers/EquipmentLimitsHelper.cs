@@ -12,6 +12,9 @@ namespace Retinues.Domain.Equipments.Helpers
     [SafeClass]
     public static class EquipmentLimitsHelper
     {
+        /// <summary>
+        /// Aggregated totals for an equipment snapshot (weight and value).
+        /// </summary>
         public struct Totals
         {
             public float Weight;
@@ -46,6 +49,9 @@ namespace Retinues.Domain.Equipments.Helpers
             720000, // T7
         ];
 
+        /// <summary>
+        /// Clamps the provided tier into the supported range [0..7].
+        /// </summary>
         public static int ClampTier(int tier)
         {
             if (tier < 0)
@@ -55,6 +61,9 @@ namespace Retinues.Domain.Equipments.Helpers
             return tier;
         }
 
+        /// <summary>
+        /// Returns the weight limit (kg) for the given tier and multiplier.
+        /// </summary>
         public static float GetWeightLimit(int tier, float multiplier)
         {
             tier = ClampTier(tier);
@@ -65,6 +74,9 @@ namespace Retinues.Domain.Equipments.Helpers
             return Math.Max(limit, 0f);
         }
 
+        /// <summary>
+        /// Returns the value limit (denars) for the given tier and multiplier.
+        /// </summary>
         public static int GetValueLimit(int tier, double multiplier)
         {
             tier = ClampTier(tier);
@@ -77,8 +89,7 @@ namespace Retinues.Domain.Equipments.Helpers
 
         /// <summary>
         /// Computes totals for an equipment snapshot, optionally overriding one slot.
-        /// Also simulates the horse->harness incompatibility rule.
-        /// Value includes horse/harness; weight ignores horse/harness.
+        /// Simulates horse/harness incompatibility; value includes horse/harness while weight ignores them.
         /// </summary>
         public static Totals GetTotals(
             Func<EquipmentIndex, WItem> getItem,
@@ -134,6 +145,9 @@ namespace Retinues.Domain.Equipments.Helpers
             return new Totals { Weight = weight, Value = value };
         }
 
+        /// <summary>
+        /// Checks whether the next totals fit the weight limit, handling "allow non-increasing when already over" semantics.
+        /// </summary>
         public static bool FitsWeight(
             Totals current,
             Totals next,
@@ -151,6 +165,9 @@ namespace Retinues.Domain.Equipments.Helpers
             return next.Weight <= limit + 0.0001f;
         }
 
+        /// <summary>
+        /// Checks whether the next totals fit the value limit, handling "allow non-increasing when already over" semantics.
+        /// </summary>
         public static bool FitsValue(
             Totals current,
             Totals next,
@@ -168,8 +185,7 @@ namespace Retinues.Domain.Equipments.Helpers
         }
 
         /// <summary>
-        /// Convenience: checks both limits for an equipment if one slot were set to a given item.
-        /// Designed for random generation and other non-editor scenarios.
+        /// Convenience check: verifies both weight and value limits if a slot were set to the given item.
         /// </summary>
         public static bool FitsLimitsAfterSet(
             Func<EquipmentIndex, WItem> getItem,

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Retinues.Behaviors.Unlocks;
 using Retinues.Configuration;
 using Retinues.Domain;
 using Retinues.Domain.Characters.Wrappers;
@@ -8,7 +9,6 @@ using Retinues.Domain.Factions;
 using Retinues.Domain.Factions.Wrappers;
 using Retinues.Domain.Settlements.Wrappers;
 using Retinues.Framework.Behaviors;
-using Retinues.Game.Unlocks;
 using Retinues.GUI.Editor;
 using Retinues.GUI.Services;
 using Retinues.Utilities;
@@ -17,11 +17,10 @@ using TaleWorlds.CampaignSystem.Actions;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 
-namespace Retinues.Game.Troops
+namespace Retinues.Behaviors.Troops
 {
     /// <summary>
-    /// Unlocks and assigns custom troops for the player clan and player kingdom.
-    /// Clones culture roots or whole culture trees, then stores them on the faction wrappers.
+    /// Unlocks and assigns custom troops for the player clan and kingdom by cloning culture roots/trees.
     /// </summary>
     public sealed class TroopUnlockerBehavior : BaseCampaignBehavior<TroopUnlockerBehavior>
     {
@@ -29,12 +28,21 @@ namespace Retinues.Game.Troops
         //                      Auto Handlers                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Called after character creation completes; triggers bootstrap unlock checks.
+        /// </summary>
         protected override void OnCharacterCreationIsOver() =>
             TryUnlockFromCurrentState(fromBootstrap: true);
 
+        /// <summary>
+        /// Called when game load is finished; triggers bootstrap unlock checks.
+        /// </summary>
         protected override void OnGameLoadFinished() =>
             TryUnlockFromCurrentState(fromBootstrap: true);
 
+        /// <summary>
+        /// Handles settlement owner changes to trigger clan troop unlocks when player gains a fief.
+        /// </summary>
         protected override void OnSettlementOwnerChanged(
             WSettlement settlement,
             bool openToClaim,
@@ -65,6 +73,9 @@ namespace Retinues.Game.Troops
             }
         }
 
+        /// <summary>
+        /// Handles kingdom creation events to unlock kingdom troops when applicable.
+        /// </summary>
         protected override void OnKingdomCreated(Kingdom kingdom)
         {
             try
@@ -89,6 +100,9 @@ namespace Retinues.Game.Troops
         //                         Unlock                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Public API to attempt unlocking faction troops immediately.
+        /// </summary>
         public static void TryUnlockNow(bool fromBootstrap = false)
         {
             if (!TryGetInstance(out var behavior) || behavior == null)
@@ -97,12 +111,18 @@ namespace Retinues.Game.Troops
             behavior.TryUnlockFromCurrentState(fromBootstrap);
         }
 
+        /// <summary>
+        /// Attempts to unlock clan and kingdom troops based on current player state.
+        /// </summary>
         private void TryUnlockFromCurrentState(bool fromBootstrap)
         {
             TryUnlockClanTroops(Player.Clan, fromBootstrap);
             TryUnlockKingdomTroops(Player.Kingdom, fromBootstrap);
         }
 
+        /// <summary>
+        /// Determines whether to unlock clan troops and performs unlock according to settings.
+        /// </summary>
         private static void TryUnlockClanTroops(WClan clan, bool fromBootstrap)
         {
             if (clan?.Base == null)
@@ -127,6 +147,9 @@ namespace Retinues.Game.Troops
             }
         }
 
+        /// <summary>
+        /// Determines whether to unlock kingdom troops and performs unlock according to settings.
+        /// </summary>
         private static void TryUnlockKingdomTroops(WKingdom kingdom, bool fromBootstrap)
         {
             if (kingdom?.Base == null)
@@ -155,6 +178,9 @@ namespace Retinues.Game.Troops
             }
         }
 
+        /// <summary>
+        /// Performs the actual unlocking and registration of faction troop roots, showing popups as needed.
+        /// </summary>
         private static void UnlockFactionTroops(
             BaseMapFactionWrapper faction,
             string label,
@@ -255,6 +281,9 @@ namespace Retinues.Game.Troops
             ShowUnlockPopup(faction.Faction, select, count);
         }
 
+        /// <summary>
+        /// Shows a UI popup announcing unlocked faction troops and offers to open the editor.
+        /// </summary>
         private static void ShowUnlockPopup(IBaseFaction faction, WCharacter select, int count)
         {
             var factionType = L.T("faction_type_faction", "faction");
@@ -293,10 +322,9 @@ namespace Retinues.Game.Troops
             );
         }
 
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                      Clone Helpers                     //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
+        /// <summary>
+        /// Creates cloned troops from a culture root according to configured starter mode.
+        /// </summary>
         private static WCharacter CreateFromCultureRoot(
             WCharacter template,
             string factionName,
@@ -384,10 +412,9 @@ namespace Retinues.Game.Troops
             return created;
         }
 
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Naming                         //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
+        /// <summary>
+        /// Builds a faction-prefixed troop name while avoiding duplicate culture prefixes.
+        /// </summary>
         private static string BuildFactionTroopName(
             string templateName,
             string factionName,
@@ -411,6 +438,9 @@ namespace Retinues.Game.Troops
             return $"{prefix} {stripped}";
         }
 
+        /// <summary>
+        /// Removes culture-derived prefixes from a troop name for cleaner faction naming.
+        /// </summary>
         private static string StripCulturePrefix(string name, WCulture culture)
         {
             if (string.IsNullOrEmpty(name))
@@ -436,6 +466,9 @@ namespace Retinues.Game.Troops
             return s;
         }
 
+        /// <summary>
+        /// Returns candidate culture prefix strings used when stripping culture prefixes.
+        /// </summary>
         private static List<string> BuildCulturePrefixCandidates(
             string cultureName,
             string cultureId
@@ -475,6 +508,9 @@ namespace Retinues.Game.Troops
         //                    Adapter Interface                   //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Adapter base exposing minimal faction mapping used by the unlocker.
+        /// </summary>
         private abstract class BaseMapFactionWrapper
         {
             public abstract IFaction MapFaction { get; }
@@ -487,6 +523,9 @@ namespace Retinues.Game.Troops
             public abstract void SetRootElite(WCharacter root);
         }
 
+        /// <summary>
+        /// Adapter for clan-specific unlocking operations.
+        /// </summary>
         private sealed class ClanAdapter(WClan clan) : BaseMapFactionWrapper
         {
             private readonly WClan _clan = clan;
@@ -503,6 +542,9 @@ namespace Retinues.Game.Troops
             public override void SetRootElite(WCharacter root) => _clan.SetRootElite(root);
         }
 
+        /// <summary>
+        /// Adapter for kingdom-specific unlocking operations.
+        /// </summary>
         private sealed class KingdomAdapter(WKingdom kingdom) : BaseMapFactionWrapper
         {
             private readonly WKingdom _kingdom = kingdom;
@@ -532,6 +574,9 @@ namespace Retinues.Game.Troops
         //                         Cheats                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// CLI: unlock player clan troops immediately.
+        /// </summary>
         [CommandLineFunctionality.CommandLineArgumentFunction("unlock_clan_troops", "retinues")]
         public static string UnlockClanTroopsCommand(List<string> args)
         {
@@ -546,6 +591,9 @@ namespace Retinues.Game.Troops
             return "Player clan troops unlocked.";
         }
 
+        /// <summary>
+        /// CLI: unlock player kingdom troops immediately.
+        /// </summary>
         [CommandLineFunctionality.CommandLineArgumentFunction("unlock_kingdom_troops", "retinues")]
         public static string UnlockKingdomTroopsCommand(List<string> args)
         {

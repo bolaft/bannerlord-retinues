@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using TaleWorlds.Localization;
 
-namespace Retinues.Game.Doctrines.Definitions
+namespace Retinues.Behaviors.Doctrines.Definitions
 {
     public sealed class Category(string id, TextObject name)
     {

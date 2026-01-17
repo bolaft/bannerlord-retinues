@@ -9,11 +9,20 @@ using TaleWorlds.MountAndBlade;
 
 namespace Retinues.Compatibility.Interops.Shokuho
 {
+    /// <summary>
+    /// Compatibility patch to skip Shokuho's agent-equipment logic for edited/custom troops.
+    /// </summary>
     internal static class ShokuhoEquipmentPatcher
     {
+        /// <summary>
+        /// Fully-qualified Shokuho MissionLogic type for OnAgentBuild hooking.
+        /// </summary>
         private const string ShokuhoTypeName =
             "Shokuho.ShokuhoMissions.MissionLogics.ShokuhoAgentEquipmentMissionLogic";
 
+        /// <summary>
+        /// Applies Harmony patches to Shokuho's agent equipment logic if the mod is present.
+        /// </summary>
         public static void TryPatch(Harmony harmony)
         {
             try
@@ -59,7 +68,9 @@ namespace Retinues.Compatibility.Interops.Shokuho
             }
         }
 
-        // If this returns false, Shokuho's OnAgentBuild is skipped.
+        /// <summary>
+        /// Prefix that skips Shokuho's OnAgentBuild for edited troops, returning false to bypass it.
+        /// </summary>
         private static bool Prefix(Agent agent, Banner banner)
         {
             try

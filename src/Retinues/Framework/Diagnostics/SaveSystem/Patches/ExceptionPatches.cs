@@ -15,16 +15,15 @@ namespace Retinues.Framework.Diagnostics.SaveSystem.Patches
     //            Patch: LoadContext.Load exception           //
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+    /// <summary>
+    /// Patches LoadContext.Load to capture and report exceptions with full details.
+    /// </summary>
     [HarmonyPatch(typeof(LoadContext), nameof(LoadContext.Load))]
     internal static class Patch_LoadContext_Load
     {
-        // We only need this transpiler to change:
-        //   Debug.Print(ex.Message);
-        // into:
-        //   Debug.Print(ex.ToString());  +  SaveLoadDiagnostics.ReportLoadContextException(ex.ToString());
-        //
-        // Because the exception is caught inside the method, Prefix/Finalizer won't see it.
-
+        /// <summary>
+        /// Transpiles the method IL to log exception.ToString() and report it.
+        /// </summary>
         static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
         {
             var list = new List<CodeInstruction>(instructions);
@@ -112,6 +111,9 @@ namespace Retinues.Framework.Diagnostics.SaveSystem.Patches
     //          Patch: SaveManager.Load call boundary         //
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+    /// <summary>
+    /// Instrument SaveManager.Load to track the save name and detect boundary failures.
+    /// </summary>
     [HarmonyPatch(
         typeof(SaveManager),
         nameof(SaveManager.Load),
@@ -119,12 +121,18 @@ namespace Retinues.Framework.Diagnostics.SaveSystem.Patches
     )]
     internal static class Patch_SaveManager_Load
     {
+        /// <summary>
+        /// Record the name of the save before loading.
+        /// </summary>
         static void Prefix(string saveName)
         {
             SaveSystemDiagnostics.LastSaveName = saveName;
             SaveSystemDiagnostics.LastLoadContextException = null;
         }
 
+        /// <summary>
+        /// Inspect the load result and emit diagnostics if loading failed.
+        /// </summary>
         static void Postfix(string saveName, LoadResult __result)
         {
             if (__result == null || __result.Successful)
@@ -163,14 +171,23 @@ namespace Retinues.Framework.Diagnostics.SaveSystem.Patches
     //           Patch: MBSaveLoad.LoadSaveGameData           //
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+    /// <summary>
+    /// Track MBSaveLoad.LoadSaveGameData invocations to provide context on failures.
+    /// </summary>
     [HarmonyPatch(typeof(MBSaveLoad), nameof(MBSaveLoad.LoadSaveGameData))]
     internal static class Patch_MBSaveLoad_LoadSaveGameData
     {
+        /// <summary>
+        /// Record the save name before attempting to load.
+        /// </summary>
         static void Prefix(string saveName)
         {
             SaveSystemDiagnostics.LastSaveName = saveName;
         }
 
+        /// <summary>
+        /// Log an error if MBSaveLoad failed to return a LoadResult.
+        /// </summary>
         static void Postfix(string saveName, LoadResult __result)
         {
             // MBSaveLoad returns null on failure, so __result will be null in the case you care about.

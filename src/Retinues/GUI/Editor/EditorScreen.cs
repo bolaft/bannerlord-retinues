@@ -69,6 +69,9 @@ namespace Retinues.GUI.Editor
         //                         Events                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Called each frame while the editor screen is active.
+        /// </summary>
         protected override void OnFrameTick(float dt)
         {
             if (_gauntletLayer == null)
@@ -87,6 +90,9 @@ namespace Retinues.GUI.Editor
             SettingsManager.Tick();
         }
 
+        /// <summary>
+        /// Called when the editor game state is activated.
+        /// </summary>
         void IGameStateListener.OnActivate()
         {
             OnActivate();
@@ -126,6 +132,9 @@ namespace Retinues.GUI.Editor
             _movie = _gauntletLayer.LoadMovie("EditorScreen", _dataSource);
         }
 
+        /// <summary>
+        /// Called when the editor game state is finalized.
+        /// </summary>
         void IGameStateListener.OnFinalize()
         {
             _dataSource?.OnFinalize();
@@ -147,6 +156,9 @@ namespace Retinues.GUI.Editor
             }
         }
 
+        /// <summary>
+        /// Called when the editor game state is deactivated.
+        /// </summary>
         void IGameStateListener.OnDeactivate()
         {
             OnDeactivate();
@@ -175,19 +187,16 @@ namespace Retinues.GUI.Editor
             _gauntletLayer = null;
         }
 
-        void IGameStateListener.OnInitialize()
-        {
-            OnInitialize();
-        }
+        /// <summary>
+        /// Called when the editor game state is initialized.
+        /// </summary>
+        void IGameStateListener.OnInitialize() => OnInitialize();
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Helpers                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private void Close()
-        {
-            TaleWorlds.Core.Game.Current?.GameStateManager?.PopState();
-        }
+        private void Close() => Game.Current?.GameStateManager?.PopState();
     }
 
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

@@ -6,7 +6,7 @@ using Retinues.Framework.Behaviors;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem.Roster;
 
-namespace Retinues.Game.Unlocks
+namespace Retinues.Behaviors.Unlocks
 {
     /// <summary>
     /// Applies equipment unlock progress from items discarded by the player.

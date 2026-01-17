@@ -8,6 +8,9 @@ using TaleWorlds.Core;
 
 namespace Retinues.GUI.Editor
 {
+    /// <summary>
+    /// Launcher for the editor GUI.
+    /// </summary>
     public static class EditorLauncher
     {
         // Default faction to use when none is specified.
@@ -34,7 +37,7 @@ namespace Retinues.GUI.Editor
         /// </summary>
         private static void LaunchInternal(EditorLaunchArgs args)
         {
-            var gsm = TaleWorlds.Core.Game.Current?.GameStateManager;
+            var gsm = Game.Current?.GameStateManager;
             if (gsm == null)
                 return;
 

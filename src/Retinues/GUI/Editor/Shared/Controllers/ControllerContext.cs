@@ -31,9 +31,15 @@ namespace Retinues.GUI.Editor.Shared.Controllers
         }
     }
 
+    /// <summary>
+    /// Service for checking context restrictions in the editor.
+    /// </summary>
     [SafeClass]
     public static class ContextRestrictionService
     {
+        /// <summary>
+        /// Determines if the current selection is a valid character for editing restrictions.
+        /// </summary>
         public static bool AppliesToCurrentSelection()
         {
             var state = EditorState.Instance;
@@ -54,6 +60,10 @@ namespace Retinues.GUI.Editor.Shared.Controllers
             return true;
         }
 
+        /// <summary>
+        /// Gets the reason why the current character cannot be edited under the configured restrictions, or null
+        /// if editing is allowed.
+        /// </summary>
         public static TextObject GetCharacterEditingBlockReason()
         {
             if (!AppliesToCurrentSelection())
@@ -102,6 +112,9 @@ namespace Retinues.GUI.Editor.Shared.Controllers
                 .SetTextVariable("FACTION", troopFaction.Name);
         }
 
+        /// <summary>
+        /// Determines if the given settlement is a fief owned by the given troop faction.
+        /// </summary>
         private static bool IsCharacterFactionOwnedFief(
             WSettlement settlement,
             IBaseFaction troopFaction

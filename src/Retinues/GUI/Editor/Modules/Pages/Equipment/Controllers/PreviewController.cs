@@ -48,6 +48,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Controllers
         //                         Action                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Enables or disables preview mode for equipment edits.
+        /// </summary>
         public static ControllerAction<bool> SetPreviewMode { get; } =
             Action<bool>("SetPreviewMode")
                 .DefaultTooltip(enable =>

@@ -9,6 +9,9 @@ using TaleWorlds.Localization;
 
 namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Patches
 {
+    /// <summary>
+    /// Adds extra tooltip properties in the editor for equipment items.
+    /// </summary>
     [HarmonyPatch(
         typeof(TooltipRefresherCollection),
         nameof(TooltipRefresherCollection.RefreshItemTooltip)

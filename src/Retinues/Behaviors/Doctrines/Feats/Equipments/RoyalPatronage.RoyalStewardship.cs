@@ -1,7 +1,7 @@
 using Retinues.Domain;
 using Retinues.Domain.Characters.Wrappers;
 
-namespace Retinues.Game.Doctrines.Feats.Equipments
+namespace Retinues.Behaviors.Doctrines.Feats.Equipments
 {
     /// <summary>
     /// Have a companion of the same culture as your kingdom govern a kingdom fief for 30 days.

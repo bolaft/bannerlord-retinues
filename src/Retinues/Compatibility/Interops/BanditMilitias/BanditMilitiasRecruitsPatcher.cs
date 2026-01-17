@@ -12,9 +12,7 @@ using TaleWorlds.Library;
 namespace Retinues.Compatibility.Interops.BanditMilitias
 {
     /// <summary>
-    /// Harmony compatibility patch for the BanditMilitias mod.
-    /// Filters out custom troops from Bandit Militias recruit and bandit pools,
-    /// and strips them from newly initialized militia rosters.
+    /// Filters custom troops from BanditMilitias recruit/bandit pools and militia rosters.
     /// </summary>
     internal static class BanditMilitiasTroopsPatcher
     {
@@ -26,6 +24,9 @@ namespace Retinues.Compatibility.Interops.BanditMilitias
         private static FieldInfo _basicRangedField;
         private static FieldInfo _basicCavalryField;
 
+        /// <summary>
+        /// Attempts to apply Harmony patches to BanditMilitias if available.
+        /// </summary>
         public static void TryPatch(Harmony harmony)
         {
             try
@@ -104,7 +105,9 @@ namespace Retinues.Compatibility.Interops.BanditMilitias
         //                        InitMap                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        // Called after BanditMilitias.Helper.InitMap() builds its recruit & bandit pools.
+        /// <summary>
+        /// Postfix executed after InitMap to filter recruit and bandit pools.
+        /// </summary>
         private static void InitMapPostfix()
         {
             try
@@ -118,6 +121,9 @@ namespace Retinues.Compatibility.Interops.BanditMilitias
             }
         }
 
+        /// <summary>
+        /// Removes custom troops from BanditMilitias recruit dictionaries.
+        /// </summary>
         private static void FilterRecruitPools()
         {
             if (_recruitsField == null)
@@ -152,6 +158,9 @@ namespace Retinues.Compatibility.Interops.BanditMilitias
             }
         }
 
+        /// <summary>
+        /// Removes custom troops from basic bandit pool lists.
+        /// </summary>
         private static void FilterBasicBanditPools()
         {
             FilterBasicList(_basicInfantryField, "BasicInfantry");
@@ -159,6 +168,9 @@ namespace Retinues.Compatibility.Interops.BanditMilitias
             FilterBasicList(_basicCavalryField, "BasicCavalry");
         }
 
+        /// <summary>
+        /// Removes custom troops from the provided basic pool field.
+        /// </summary>
         private static void FilterBasicList(FieldInfo field, string name)
         {
             if (field == null)
@@ -191,8 +203,9 @@ namespace Retinues.Compatibility.Interops.BanditMilitias
         //                      InitMilitia                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        // Called before BanditMilitias.Helper.InitMilitia initializes the party.
-        // We strip any custom troops from the member roster used to create the militia.
+        /// <summary>
+        /// Prefix executed before InitMilitia to strip custom troops from rosters.
+        /// </summary>
         private static void InitMilitiaPrefix(TroopRoster[] rosters)
         {
             try
@@ -212,6 +225,9 @@ namespace Retinues.Compatibility.Interops.BanditMilitias
             }
         }
 
+        /// <summary>
+        /// Removes custom troops from the given TroopRoster in-place.
+        /// </summary>
         private static void StripCustomFromRoster(TroopRoster roster)
         {
             try

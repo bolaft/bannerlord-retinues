@@ -7,8 +7,11 @@ using TaleWorlds.CampaignSystem.Party;
 using Helpers;
 #endif
 
-namespace Retinues.Game.Retinues.Patches
+namespace Retinues.Behaviors.Retinues.Patches
 {
+    /// <summary>
+    /// Tracks context flags for special party-screen flows (create clan party screen).
+    /// </summary>
     internal static class PartyScreenContext
     {
         // True while the "create clan party for hero" party screen is open.
@@ -16,9 +19,15 @@ namespace Retinues.Game.Retinues.Patches
     }
 
 #if BL13
+    /// <summary>
+    /// Sets/clears the create-clan-party context flag for BL1.3 party screens.
+    /// </summary>
     [HarmonyPatch(typeof(PartyScreenHelper))]
     internal static class PartyScreenHelper_CreateClanParty_ContextPatch
     {
+        /// <summary>
+        /// Marks the create-clan-party screen active before opening it.
+        /// </summary>
         [HarmonyPrefix]
         [HarmonyPatch("OpenScreenAsCreateClanPartyForHero")]
         private static void Prefix_OpenScreenAsCreateClanPartyForHero()
@@ -26,6 +35,9 @@ namespace Retinues.Game.Retinues.Patches
             PartyScreenContext.IsCreateClanPartyScreenActive = true;
         }
 
+        /// <summary>
+        /// Clears the create-clan-party context after the party screen closes.
+        /// </summary>
         [HarmonyPostfix]
         [HarmonyPatch("ClosePartyPresentation")]
         private static void Postfix_ClosePartyPresentation()
@@ -34,9 +46,15 @@ namespace Retinues.Game.Retinues.Patches
         }
     }
 #else
+    /// <summary>
+    /// Sets/clears the create-clan-party context flag for older party screen manager types.
+    /// </summary>
     [HarmonyPatch(typeof(PartyScreenManager))]
     internal static class PartyScreenManager_CreateClanParty_ContextPatch
     {
+        /// <summary>
+        /// Marks the create-clan-party screen active before opening it.
+        /// </summary>
         [HarmonyPrefix]
         [HarmonyPatch("OpenScreenAsCreateClanPartyForHero")]
         private static void Prefix_OpenScreenAsCreateClanPartyForHero()
@@ -44,6 +62,9 @@ namespace Retinues.Game.Retinues.Patches
             PartyScreenContext.IsCreateClanPartyScreenActive = true;
         }
 
+        /// <summary>
+        /// Clears the create-clan-party context after the party screen closes.
+        /// </summary>
         [HarmonyPostfix]
         [HarmonyPatch("ClosePartyPresentation")]
         private static void Postfix_ClosePartyPresentation()
@@ -54,12 +75,14 @@ namespace Retinues.Game.Retinues.Patches
 #endif
 
     /// <summary>
-    /// Ensures retinues can only be moved within main-party/dummy screens,
-    /// and never between two real parties (garrisons, other clan parties, etc.).
+    /// Prevents retinue troops being transferred between two real parties and enforces safe transfer rules.
     /// </summary>
     [HarmonyPatch(typeof(PartyScreenLogic))]
     internal static class PartyScreenLogic_IsTroopTransferable_RetinueGuardPatch
     {
+        /// <summary>
+        /// Postfix that restricts transfers of retinues depending on screen context and owner parties.
+        /// </summary>
         [HarmonyPostfix]
         [HarmonyPatch("IsTroopTransferable")]
         [HarmonyPriority(Priority.Last)]

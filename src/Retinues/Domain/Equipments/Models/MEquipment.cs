@@ -1,19 +1,16 @@
 using System;
 using System.Collections.Generic;
-using Retinues.Configuration;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Equipments.Helpers;
 using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Framework.Model;
 using Retinues.Framework.Model.Attributes;
-using Retinues.GUI.Editor;
 using TaleWorlds.Core;
-using TaleWorlds.Library;
 using TaleWorlds.ObjectSystem;
 
 namespace Retinues.Domain.Equipments.Models
 {
-    public class MEquipment(Equipment @base, WCharacter owner) : MBase<Equipment>(@base)
+    public partial class MEquipment(Equipment @base, WCharacter owner) : MBase<Equipment>(@base)
     {
         private static readonly int SlotCount = (int)EquipmentIndex.NumEquipmentSetSlots;
 
@@ -65,6 +62,9 @@ namespace Retinues.Domain.Equipments.Models
         //                        Creation                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Creates a new equipment instance for the given owner.
+        /// </summary>
         public static MEquipment Create(
             WCharacter owner,
             bool civilian = false,
@@ -87,6 +87,9 @@ namespace Retinues.Domain.Equipments.Models
             return me;
         }
 
+        /// <summary>
+        /// Creates a new equipment instance for the given owner from an equipment code.
+        /// </summary>
         public static MEquipment FromCode(WCharacter owner, string code)
         {
             if (string.IsNullOrEmpty(code))
@@ -225,6 +228,24 @@ namespace Retinues.Domain.Equipments.Models
             }
         }
 
+        /// <summary>
+        /// Gets the effective item for the specified equipment slot, considering staging.
+        /// </summary>
+        public WItem Get(EquipmentIndex index)
+        {
+            if (!IsValidSlot(index))
+                return null;
+
+            if (!IsItemStagingActive(owner))
+                return GetBase(index);
+
+            var staged = GetStaged(index);
+            return staged ?? GetBase(index);
+        }
+
+        /// <summary>
+        /// Gets the base (real) item for the specified equipment slot.
+        /// </summary>
         public WItem GetBase(EquipmentIndex index)
         {
             if (!IsValidSlot(index))
@@ -235,6 +256,9 @@ namespace Retinues.Domain.Equipments.Models
             return item == null ? null : WItem.Get(item);
         }
 
+        /// <summary>
+        /// Gets the staged item for the specified equipment slot, if any.
+        /// </summary>
         public WItem GetStaged(EquipmentIndex index)
         {
             if (!IsValidSlot(index))
@@ -252,6 +276,9 @@ namespace Retinues.Domain.Equipments.Models
             return obj == null ? null : WItem.Get(obj);
         }
 
+        /// <summary>
+        /// Returns true if there is a staged item for the specified equipment slot.
+        /// </summary>
         public bool IsStaged(EquipmentIndex index)
         {
             if (!IsValidSlot(index) || !IsItemStagingActive(owner))
@@ -263,18 +290,9 @@ namespace Retinues.Domain.Equipments.Models
             return !string.IsNullOrEmpty(id);
         }
 
-        public WItem Get(EquipmentIndex index)
-        {
-            if (!IsValidSlot(index))
-                return null;
-
-            if (!IsItemStagingActive(owner))
-                return GetBase(index);
-
-            var staged = GetStaged(index);
-            return staged ?? GetBase(index);
-        }
-
+        /// <summary>
+        /// Sets the item for the specified equipment slot, considering staging.
+        /// </summary>
         public void Set(EquipmentIndex index, WItem item)
         {
             if (!IsValidSlot(index))
@@ -290,21 +308,24 @@ namespace Retinues.Domain.Equipments.Models
                     return;
                 }
 
-                SetReal(index, null);
+                SetBase(index, null);
                 return;
             }
 
             // Equip path
             if (!IsItemStagingActive(owner))
             {
-                SetReal(index, item);
+                SetBase(index, item);
                 return;
             }
 
             Stage(index, item);
         }
 
-        private void SetReal(EquipmentIndex index, WItem item)
+        /// <summary>
+        /// Sets the base (real) item for the specified equipment slot.
+        /// </summary>
+        private void SetBase(EquipmentIndex index, WItem item)
         {
             if (!IsValidSlot(index))
                 return;
@@ -321,396 +342,13 @@ namespace Retinues.Domain.Equipments.Models
             owner.OnEquipmentChange();
         }
 
+        /// <summary>
+        /// Validates that the given equipment slot index is within bounds.
+        /// </summary>
         private static bool IsValidSlot(EquipmentIndex index)
         {
             int i = (int)index;
             return i >= 0 && i < SlotCount;
-        }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                       Item Staging                     //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        /// <summary>
-        /// FIFO queue of staged slot changes, encoded as "slotIndex|itemId".
-        /// itemId is empty for unequip.
-        /// We keep at most one entry per slot (new stage replaces older for same slot).
-        /// </summary>
-        MAttribute<List<string>> ItemsStagingAttribute =>
-            Attribute(initialValue: new List<string>(), name: "ItemsStaging");
-
-        public List<string> ItemsStaging
-        {
-            get => [.. ItemsStagingAttribute.Get() ?? []];
-            set => ItemsStagingAttribute.Set(value == null ? new() : new(value));
-        }
-
-        MAttribute<float> ItemStagingProgressAttribute =>
-            Attribute(initialValue: 0f, name: "ItemStagingProgress");
-
-        /// <summary>
-        /// Progress accumulator measured in "work hours".
-        /// The ItemStagingBehavior adds 1.0 per game hour when active.
-        /// </summary>
-        public float ItemStagingProgress
-        {
-            get => ItemStagingProgressAttribute.Get();
-            set
-            {
-                owner.OnEquipmentChange();
-                ItemStagingProgressAttribute.Set(value);
-            }
-        }
-
-        public bool HasAnyStagedItems()
-        {
-            var list = ItemsStagingAttribute.Get();
-            return list != null && list.Count > 0;
-        }
-
-        internal static bool IsItemStagingActive(WCharacter wc)
-        {
-            if (wc == null || wc.IsHero)
-                return false;
-
-            if (!Settings.EquippingTakesTime)
-                return false;
-
-            return EditorState.Instance.Mode == EditorMode.Player;
-        }
-
-        private static string EncodeStage(EquipmentIndex slot, string itemId) =>
-            $"{(int)slot}|{itemId ?? string.Empty}";
-
-        private static bool TryDecodeStage(
-            string encoded,
-            out EquipmentIndex slot,
-            out string itemId
-        )
-        {
-            slot = EquipmentIndex.None;
-            itemId = string.Empty;
-
-            if (string.IsNullOrEmpty(encoded))
-                return false;
-
-            int sep = encoded.IndexOf('|');
-            if (sep <= 0 || sep >= encoded.Length)
-                return false;
-
-            var a = encoded.Substring(0, sep);
-            var b = encoded.Substring(sep + 1);
-
-            if (!int.TryParse(a, out int slotInt))
-                return false;
-
-            if (slotInt < 0 || slotInt >= SlotCount)
-                return false;
-
-            slot = (EquipmentIndex)slotInt;
-            itemId = b ?? string.Empty;
-            return true;
-        }
-
-        private bool HasStagedSlot(EquipmentIndex slot)
-        {
-            var list = ItemsStagingAttribute.Get();
-            if (list == null || list.Count == 0)
-                return false;
-
-            for (int i = 0; i < list.Count; i++)
-            {
-                if (!TryDecodeStage(list[i], out var s, out _))
-                    continue;
-
-                if (s == slot)
-                    return true;
-            }
-
-            return false;
-        }
-
-        private string GetStagedItemId(EquipmentIndex slot)
-        {
-            var list = ItemsStagingAttribute.Get();
-            if (list == null || list.Count == 0)
-                return null;
-
-            for (int i = 0; i < list.Count; i++)
-            {
-                if (!TryDecodeStage(list[i], out var s, out var id))
-                    continue;
-
-                if (s == slot)
-                    return id;
-            }
-
-            return null;
-        }
-
-        private void RemoveStagedSlot(EquipmentIndex slot)
-        {
-            var current = ItemsStagingAttribute.Get();
-            if (current == null || current.Count == 0)
-                return;
-
-            bool any = false;
-            var next = new List<string>(current.Count);
-
-            for (int i = 0; i < current.Count; i++)
-            {
-                var e = current[i];
-                if (TryDecodeStage(e, out var s, out _) && s == slot)
-                {
-                    any = true;
-                    continue;
-                }
-
-                next.Add(e);
-            }
-
-            if (!any)
-                return;
-
-            ItemsStagingAttribute.Set(next);
-
-            if (next.Count == 0)
-                ItemStagingProgressAttribute.Set(0f);
-
-            _formationDirty = true;
-            ItemsChanged?.Invoke(this);
-            owner.OnEquipmentChange();
-        }
-
-        internal void Stage(EquipmentIndex slot, WItem item)
-        {
-            if (item == null)
-                return;
-
-            if (!IsValidSlot(slot))
-                return;
-
-            var baseId = GetBase(slot)?.StringId ?? string.Empty;
-            var newId = item?.StringId ?? string.Empty;
-
-            // Current "final" planned state: staged if exists, else base.
-            var stagedId = GetStagedItemId(slot);
-            var currentFinalId = stagedId ?? baseId;
-
-            // No change
-            if (string.Equals(currentFinalId, newId, StringComparison.Ordinal))
-                return;
-
-            var current = ItemsStagingAttribute.Get() ?? [];
-            var next = new List<string>(current.Count + 1);
-
-            // Remove any existing entry for this slot.
-            for (int i = 0; i < current.Count; i++)
-            {
-                var e = current[i];
-                if (TryDecodeStage(e, out var s, out _) && s == slot)
-                    continue;
-                next.Add(e);
-            }
-
-            // If staging back to base, this is a cancel for that slot.
-            if (string.Equals(baseId, newId, StringComparison.Ordinal))
-            {
-                ItemsStagingAttribute.Set(next);
-
-                if (next.Count == 0)
-                    ItemStagingProgressAttribute.Set(0f);
-
-                _formationDirty = true;
-                ItemsChanged?.Invoke(this);
-                owner.OnEquipmentChange();
-                return;
-            }
-
-            // Add as last action (FIFO).
-            next.Add(EncodeStage(slot, newId));
-
-            ItemsStagingAttribute.Set(next);
-
-            _formationDirty = true;
-            ItemsChanged?.Invoke(this);
-            owner.OnEquipmentChange();
-        }
-
-        internal float GetNextStagedHours(float timeMultiplier)
-        {
-            var list = ItemsStagingAttribute.Get();
-            if (list == null || list.Count == 0)
-                return 0f;
-
-            if (!TryDecodeStage(list[0], out _, out var itemId))
-                return 0f;
-
-            if (string.IsNullOrEmpty(itemId))
-                return 0f;
-
-            var manager = MBObjectManager.Instance;
-            var obj = manager?.GetObject<ItemObject>(itemId);
-            if (obj == null)
-                return 0f;
-
-            // 1 day per 1000 value, then multiplied by setting multiplier.
-            float days = obj.Value / 1000f * MathF.Max(0.01f, timeMultiplier);
-            return MathF.Max(0f, days * 24f);
-        }
-
-        internal bool TryApplyNextStagedItem(
-            out EquipmentIndex slot,
-            out WItem item,
-            out bool unequip
-        )
-        {
-            slot = EquipmentIndex.None;
-            item = null;
-            unequip = false;
-
-            var current = ItemsStagingAttribute.Get();
-            if (current == null || current.Count == 0)
-                return false;
-
-            if (!TryDecodeStage(current[0], out slot, out var itemId))
-            {
-                // Drop malformed entry
-                var nextBad = new List<string>(current);
-                nextBad.RemoveAt(0);
-
-                owner.OnEquipmentChange();
-                ItemsStagingAttribute.Set(nextBad);
-
-                if (nextBad.Count == 0)
-                    ItemStagingProgressAttribute.Set(0f);
-
-                return false;
-            }
-
-            // Resolve target item
-            if (string.IsNullOrEmpty(itemId))
-            {
-                item = null;
-                unequip = true;
-            }
-            else
-            {
-                var manager = MBObjectManager.Instance;
-                var obj = manager?.GetObject<ItemObject>(itemId);
-
-                if (obj == null)
-                {
-                    // Mod removed etc: drop this staged entry
-                    var nextMissing = new List<string>(current);
-                    nextMissing.RemoveAt(0);
-
-                    owner.OnEquipmentChange();
-                    ItemsStagingAttribute.Set(nextMissing);
-
-                    if (nextMissing.Count == 0)
-                        ItemStagingProgressAttribute.Set(0f);
-
-                    return false;
-                }
-
-                item = WItem.Get(obj);
-                unequip = false;
-            }
-
-            // Apply to real equipment
-            SetReal(slot, item);
-
-            // Remove the staged entry (SetReal removed staged slot too, but keep queue FIFO correct)
-            var next = ItemsStagingAttribute.Get() ?? [];
-            if (next.Count > 0 && TryDecodeStage(next[0], out var s2, out _))
-            {
-                if (s2 == slot)
-                {
-                    next = [.. next];
-                    next.RemoveAt(0);
-
-                    owner.OnEquipmentChange();
-                    ItemsStagingAttribute.Set(next);
-
-                    if (next.Count == 0)
-                        ItemStagingProgressAttribute.Set(0f);
-                }
-            }
-
-            return true;
-        }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Roster                         //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        /// <summary>
-        /// Slot-aware: returns true if setting this slot to item does not require increasing
-        /// the roster stock for this item (because another equipment already needs that many).
-        /// </summary>
-        public bool IsAvailableInRoster(EquipmentIndex slot, WItem item)
-        {
-            if (item == null)
-                return true;
-
-            if (_roster == null)
-                return false;
-
-            string id = item.StringId;
-            if (string.IsNullOrEmpty(id))
-                return false;
-
-            var old = Get(slot);
-            if (old != null && old.StringId == id)
-            {
-                // No net change for this item.
-                return true;
-            }
-
-            int thisCount = CountInThisEquipment(id);
-            int newCount = thisCount + 1;
-
-            int otherMax = _roster.GetMaxCountExcludingEquipment(Base, id);
-
-            // If someone else already requires >= newCount, roster already has enough copies.
-            return otherMax >= newCount;
-        }
-
-        /// <summary>
-        /// Non-slot-aware convenience: assumes you are adding one more copy of item somewhere.
-        /// Prefer the slot-aware overload in equip actions.
-        /// </summary>
-        public bool IsAvailableInRoster(WItem item)
-        {
-            if (item == null)
-                return true;
-
-            if (_roster == null)
-                return false;
-
-            string id = item.StringId;
-            if (string.IsNullOrEmpty(id))
-                return false;
-
-            int thisCount = CountInThisEquipment(id);
-            int otherMax = _roster.GetMaxCountExcludingEquipment(Base, id);
-
-            return otherMax >= thisCount + 1;
-        }
-
-        private int CountInThisEquipment(string itemId)
-        {
-            int count = 0;
-
-            for (int i = 0; i < SlotCount; i++)
-            {
-                var w = Get((EquipmentIndex)i);
-                if (w != null && w.StringId == itemId)
-                    count++;
-            }
-
-            return count;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -742,6 +380,9 @@ namespace Retinues.Domain.Equipments.Models
         //                         Helpers                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Marks all equipment attributes as dirty.
+        /// </summary>
         public void MarkAllAttributesDirty()
         {
             EnsureAttributesCreated();

@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
-using Bannerlord.UIExtenderEx.Attributes;
 using TaleWorlds.Library;
 
 namespace Retinues.GUI.Editor.Shared.Views
 {
+    /// <summary>
+    /// Partial class for base list ViewModel handling headers.
+    /// </summary>
     public abstract partial class BaseListVM
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

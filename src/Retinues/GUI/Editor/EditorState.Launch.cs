@@ -8,10 +8,6 @@ using TaleWorlds.Core;
 
 namespace Retinues.GUI.Editor
 {
-    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-    //                   Editor Launch Args                   //
-    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
     /// <summary>
     /// Optional launch parameters for the editor.
     /// </summary>
@@ -62,6 +58,9 @@ namespace Retinues.GUI.Editor
         public bool IsEmpty => Faction == null && Character == null && Hero == null;
     }
 
+    /// <summary>
+    /// Partial class for editor state launch handling.
+    /// </summary>
     public partial class EditorState
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

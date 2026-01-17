@@ -6,12 +6,18 @@ using TaleWorlds.CampaignSystem.CharacterDevelopment;
 
 namespace Retinues.GUI.Editor.Modules.Pages.Character.Controllers
 {
+    /// <summary>
+    /// Controller for hero trait modifications and related UI actions.
+    /// </summary>
     public class TraitController : BaseController
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Increase                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Increases the specified trait for the selected hero.
+        /// </summary>
         public static ControllerAction<TraitObject> TraitIncrease { get; } =
             Action<TraitObject>("TraitIncrease")
                 .AddCondition(
@@ -29,6 +35,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Character.Controllers
         //                        Decrease                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Decreases the specified trait for the selected hero.
+        /// </summary>
         public static ControllerAction<TraitObject> TraitDecrease { get; } =
             Action<TraitObject>("TraitDecrease")
                 .AddCondition(

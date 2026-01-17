@@ -1,7 +1,7 @@
 using System.Linq;
 using Retinues.Domain;
 
-namespace Retinues.Game.Doctrines.Feats.Troops
+namespace Retinues.Behaviors.Doctrines.Feats.Troops
 {
     /// <summary>
     /// Own three caravans at the same time.

@@ -1,6 +1,6 @@
+using Retinues.Behaviors.Doctrines.Definitions;
 using Retinues.Configuration;
 using Retinues.Domain;
-using Retinues.Game.Doctrines.Definitions;
 using Retinues.GUI.Editor.Events;
 using Retinues.GUI.Editor.Shared.Controllers;
 using Retinues.GUI.Services;
@@ -9,7 +9,7 @@ using TaleWorlds.Localization;
 namespace Retinues.GUI.Editor.Modules.Pages.Doctrines.Controllers
 {
     /// <summary>
-    /// Provides doctrine data for the editor and implements actions.
+    /// Provides doctrine data and actions for the editor UI.
     /// </summary>
     public sealed class DoctrinesController : BaseController
     {
@@ -17,6 +17,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Doctrines.Controllers
         //                        Actions                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Attempts to acquire the specified doctrine after validating costs and prerequisites.
+        /// </summary>
         public static ControllerAction<Doctrine> Acquire { get; } =
             Action<Doctrine>("Acquire")
                 .AddCondition(

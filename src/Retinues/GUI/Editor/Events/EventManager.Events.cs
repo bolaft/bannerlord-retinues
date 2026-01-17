@@ -51,6 +51,9 @@ namespace Retinues.GUI.Editor.Events
     //                      Event Hierarchy                   //
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+    /// <summary>
+    /// Manages the UI event hierarchy and related utilities for the editor.
+    /// </summary>
     public static partial class EventManager
     {
         /// <summary>

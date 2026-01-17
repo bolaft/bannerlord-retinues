@@ -1,7 +1,7 @@
-using Retinues.Game.Doctrines.Definitions;
+using Retinues.Behaviors.Doctrines.Definitions;
 using Retinues.GUI.Services;
 
-namespace Retinues.Game.Doctrines.Catalogs
+namespace Retinues.Behaviors.Doctrines.Catalogs
 {
     /// <summary>
     /// Doctrines definitions for the Retinues category.

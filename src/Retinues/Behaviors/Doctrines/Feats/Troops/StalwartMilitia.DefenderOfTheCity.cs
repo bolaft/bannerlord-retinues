@@ -1,8 +1,8 @@
 using System.Collections.Generic;
+using Retinues.Behaviors.Missions;
 using Retinues.Domain.Events.Models;
-using Retinues.Game.Missions;
 
-namespace Retinues.Game.Doctrines.Feats.Troops
+namespace Retinues.Behaviors.Doctrines.Feats.Troops
 {
     /// <summary>
     /// Defend a city against a besieging army.

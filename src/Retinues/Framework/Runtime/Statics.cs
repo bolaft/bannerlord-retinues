@@ -61,6 +61,9 @@ namespace Retinues.Framework.Runtime
         //                        Discovery                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Ensures that clear actions have been discovered.
+        /// </summary>
         private static void EnsureBuilt()
         {
             if (_built)
@@ -80,6 +83,9 @@ namespace Retinues.Framework.Runtime
             }
         }
 
+        /// <summary>
+        /// Builds the list of clear actions from the given assemblies.
+        /// </summary>
         private static List<Action> BuildClearActions(params Assembly[] assemblies)
         {
             var entries = new List<(int order, string id, Action action)>();
@@ -166,6 +172,9 @@ namespace Retinues.Framework.Runtime
             ];
         }
 
+        /// <summary>
+        /// Validates that the given method info matches the expected signature for a clear action.
+        /// </summary>
         private static bool TryValidateClearMethod(MethodInfo mi, out string reason)
         {
             reason = null;
@@ -215,6 +224,9 @@ namespace Retinues.Framework.Runtime
             return false;
         }
 
+        /// <summary>
+        /// Gets types from an assembly safely, handling ReflectionTypeLoadException.
+        /// </summary>
         private static IEnumerable<Type> SafeGetTypes(Assembly asm)
         {
             try

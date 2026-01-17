@@ -1,4 +1,4 @@
-using Retinues.Framework.Model.Exports;
+using Retinues.GUI.Editor.Modules.Pages.Library.Services;
 using Retinues.GUI.Editor.Shared.Controllers;
 
 namespace Retinues.GUI.Editor.Controllers.Library
@@ -17,11 +17,12 @@ namespace Retinues.GUI.Editor.Controllers.Library
         /// <summary>
         /// Returns the display name for a library item.
         /// </summary>
-        public static string GetName(MLibrary.Item item) => item?.DisplayName ?? string.Empty;
+        public static string GetName(ExportLibrary.Entry item) => item?.DisplayName ?? string.Empty;
 
         /// <summary>
         /// Returns the export file path for a library item.
         /// </summary>
-        public static string GetExportPath(MLibrary.Item item) => item?.FilePath ?? string.Empty;
+        public static string GetExportPath(ExportLibrary.Entry item) =>
+            item?.FilePath ?? string.Empty;
     }
 }

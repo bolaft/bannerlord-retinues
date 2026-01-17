@@ -5,6 +5,9 @@ using SandBox.View.Map.Navigation;
 
 namespace Retinues.GUI.Editor.Integration.MapBar.Patches
 {
+    /// <summary>
+    /// Injects the troop editor navigation element into the map bar.
+    /// </summary>
     [HarmonyPatch(typeof(MapNavigationHandler))]
     internal static class MapNavigationHandlerCtorPatch
     {

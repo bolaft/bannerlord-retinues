@@ -4,7 +4,7 @@ using Retinues.Domain.Equipments.Wrappers;
 using TaleWorlds.CampaignSystem.Settlements.Workshops;
 using TaleWorlds.Core;
 
-namespace Retinues.Game.Unlocks
+namespace Retinues.Behaviors.Unlocks
 {
     /// <summary>
     /// Selects appropriate unlock target items for workshops.

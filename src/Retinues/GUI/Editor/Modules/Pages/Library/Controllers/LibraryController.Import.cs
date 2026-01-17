@@ -3,14 +3,19 @@ using System.Collections.Generic;
 using Retinues.Domain;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Factions;
-using Retinues.Framework.Model.Exports;
+using Retinues.Exports;
 using Retinues.GUI.Editor.Events;
+using Retinues.GUI.Editor.Modules.Pages.Library.Services;
+using Retinues.GUI.Editor.Shared.Controllers;
 using Retinues.GUI.Services;
 using Retinues.Utilities;
 using TaleWorlds.Core;
 
 namespace Retinues.GUI.Editor.Controllers.Library
 {
+    /// <summary>
+    /// Partial class for library controller import actions.
+    /// </summary>
     public partial class LibraryController
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -18,9 +23,26 @@ namespace Retinues.GUI.Editor.Controllers.Library
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
+        /// Imports the selected library export item into the current game.
+        /// </summary>
+        public static ControllerAction<ExportLibrary.Entry> Import { get; } =
+            Action<ExportLibrary.Entry>("ImportLibraryItem")
+                .DefaultTooltip(L.T("library_import_tooltip", "Import into the current game."))
+                .AddCondition(
+                    item => item != null,
+                    L.T("library_import_no_selection", "No export selected.")
+                )
+                .AddCondition(
+                    HasExistingFile,
+                    _ => L.T("library_import_missing_file", "Export file was not found.")
+                )
+                .AddCondition(CanResolveImportContext, BuildCantResolveImportContextReason)
+                .ExecuteWith(ExecuteImport);
+
+        /// <summary>
         /// Entry point for the Import action.
         /// </summary>
-        private static void ExecuteImport(MLibrary.Item item)
+        private static void ExecuteImport(ExportLibrary.Entry item)
         {
             if (item == null)
                 return;
@@ -31,7 +53,7 @@ namespace Retinues.GUI.Editor.Controllers.Library
         /// <summary>
         /// Starts the import flow based on export kind.
         /// </summary>
-        private static void ApplyImport(MLibrary.Item item)
+        private static void ApplyImport(ExportLibrary.Entry item)
         {
             try
             {
@@ -40,13 +62,13 @@ namespace Retinues.GUI.Editor.Controllers.Library
 
                 var path = item.FilePath ?? string.Empty;
 
-                if (item.Kind == MLibraryKind.Character)
+                if (item.Kind == ExportKind.Character)
                 {
                     ApplyTroopImportWithSelection(path);
                     return;
                 }
 
-                if (item.Kind == MLibraryKind.Faction)
+                if (item.Kind == ExportKind.Faction)
                 {
                     ApplyFactionImportWithSelection(path);
                     return;
@@ -91,7 +113,7 @@ namespace Retinues.GUI.Editor.Controllers.Library
                 return;
             }
 
-            if (!MImportExport.TryParseCharacterExport(path, out var entry, out var err))
+            if (!ExportFileParser.TryParseCharacterExport(path, out var entry, out var err))
             {
                 Inquiries.Popup(
                     title: L.T("library_import_failed_title", "Import Failed"),
@@ -158,7 +180,7 @@ namespace Retinues.GUI.Editor.Controllers.Library
         /// </summary>
         private static void ApplyFactionImportWithSelection(string path)
         {
-            if (!MImportExport.TryParseFactionExport(path, out var data, out var err))
+            if (!ExportFileParser.TryParseFactionExport(path, out var data, out var err))
             {
                 Inquiries.Popup(
                     title: L.T("library_import_failed_title", "Import Failed"),
@@ -240,7 +262,7 @@ namespace Retinues.GUI.Editor.Controllers.Library
         /// Shows final confirmation for a troop import and applies it.
         /// </summary>
         private static void ConfirmAndApplyTroopImport(
-            MImportExport.CharacterExportEntry entry,
+            CharacterExportEntry entry,
             IBaseFaction faction,
             WCharacter target
         )
@@ -257,7 +279,7 @@ namespace Retinues.GUI.Editor.Controllers.Library
                 description: desc,
                 onConfirm: () =>
                 {
-                    if (!MImportExport.TryApplyCharacterExport(target, entry, out var applyErr))
+                    if (!CharacterImporter.TryApplyCharacterExport(target, entry, out var applyErr))
                     {
                         Inquiries.Popup(
                             title: L.T("library_import_failed_title", "Import Failed"),
@@ -281,7 +303,7 @@ namespace Retinues.GUI.Editor.Controllers.Library
         /// Shows final confirmation for a faction import and applies it.
         /// </summary>
         private static void ConfirmAndApplyFactionImport(
-            MImportExport.FactionExportData data,
+            FactionExportData data,
             IBaseFaction target
         )
         {
@@ -304,15 +326,12 @@ namespace Retinues.GUI.Editor.Controllers.Library
         /// <summary>
         /// Applies a faction export to the selected target.
         /// </summary>
-        private static void ApplyFactionExportToTarget(
-            MImportExport.FactionExportData data,
-            IBaseFaction target
-        )
+        private static void ApplyFactionExportToTarget(FactionExportData data, IBaseFaction target)
         {
             if (data == null || target == null)
                 return;
 
-            if (!MImportExport.TryApplyFactionExport(target, data, out var report, out var err))
+            if (!FactionImporter.TryApplyFactionExport(target, data, out var report, out var err))
             {
                 Log.Warning(
                     $"Faction import apply failed for '{target.StringId}': {err ?? "unknown error"}"

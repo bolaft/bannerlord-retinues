@@ -9,6 +9,9 @@ using TaleWorlds.Library;
 
 namespace Retinues.GUI.Editor.Shared.Views
 {
+    /// <summary>
+    /// Partial class for base list ViewModel handling filtering.
+    /// </summary>
     public abstract partial class BaseListVM
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

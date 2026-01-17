@@ -191,6 +191,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Views.List
         //                        Filtering                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Determines whether this row matches the given filter.
+        /// </summary>
         internal override bool MatchesFilter(string filter)
         {
             if (string.IsNullOrWhiteSpace(filter))
@@ -227,6 +230,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Views.List
 
         private WItem CurrentItem => PreviewController.GetItem(State.Slot);
 
+        /// <summary>
+        /// Ensures that the comparison chevrons are computed.
+        /// </summary>
         private void EnsureComparisonChevrons()
         {
             string currentId = CurrentItem?.StringId ?? "__NULL__";

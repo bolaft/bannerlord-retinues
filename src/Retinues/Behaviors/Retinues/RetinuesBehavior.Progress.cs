@@ -7,7 +7,7 @@ using Retinues.Utilities;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 
-namespace Retinues.Game.Retinues
+namespace Retinues.Behaviors.Retinues
 {
     public partial class RetinuesBehavior
     {

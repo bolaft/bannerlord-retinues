@@ -7,12 +7,18 @@ using Retinues.GUI.Services;
 using Retinues.Utilities;
 using TaleWorlds.Library;
 
-namespace Retinues.Game.Staging
+namespace Retinues.Behaviors.Staging
 {
+    /// <summary>
+    /// Advances staged equipping progress for NPC troops and applies items when ready.
+    /// </summary>
     public sealed class StagedItemProgressBehavior : BaseCampaignBehavior
     {
         public override bool IsActive => Settings.EquippingTakesTime;
 
+        /// <summary>
+        /// Hourly tick handler that progresses staged equipment and finalizes equips when thresholds are met.
+        /// </summary>
         protected override void OnHourlyTick()
         {
             if (!Settings.EquippingProgressesWhileTravelling && Player.CurrentSettlement == null)

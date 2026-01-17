@@ -5,6 +5,9 @@ using TaleWorlds.Engine.GauntletUI;
 
 namespace Retinues.GUI.Services
 {
+    /// <summary>
+    /// Helpers for loading sprite resources.
+    /// </summary>
     [SafeClass]
     public static class Sprites
     {

@@ -26,6 +26,9 @@ namespace Retinues.Framework.Modules.Versions
 
         const string DataStoreKey = "Retinues_Version";
 
+        /// <summary>
+        /// Synchronizes the saved version to save/load.
+        /// </summary>
         public override void SyncData(IDataStore dataStore)
         {
             try
@@ -48,6 +51,9 @@ namespace Retinues.Framework.Modules.Versions
         //                         Events                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Called when game load finishes to compare saved vs current version.
+        /// </summary>
         protected override void OnGameLoadFinished()
         {
             try
@@ -123,6 +129,9 @@ namespace Retinues.Framework.Modules.Versions
         //                         Popups                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Shows the "version upgraded" popup.
+        /// </summary>
         private static void ShowUpgradePopup(string currentVersionString, string saveVersionString)
         {
             var title = L.T("retinues_update_title", "Retinues Update");
@@ -149,6 +158,9 @@ namespace Retinues.Framework.Modules.Versions
             Inquiries.Popup(title, body);
         }
 
+        /// <summary>
+        /// Shows the "version discrepancy" popup.
+        /// </summary>
         private static void ShowDiscrepancyPopup(
             string currentVersionString,
             string saveVersionString

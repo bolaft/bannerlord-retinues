@@ -10,6 +10,9 @@ using TaleWorlds.ScreenSystem;
 
 namespace Retinues.GUI.Editor.Integration.MapBar.Patches
 {
+    /// <summary>
+    /// Enables opening the troop editor via the R hotkey on the map screen.
+    /// </summary>
     [HarmonyPatch(typeof(MapScreen), "TickNavigationInput")]
     internal static class MapScreenTroopsHotkeyPatch
     {

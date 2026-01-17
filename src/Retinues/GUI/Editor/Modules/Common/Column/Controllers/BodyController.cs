@@ -8,6 +8,9 @@ using Retinues.Utilities;
 
 namespace Retinues.GUI.Editor.Modules.Common.Column.Controllers
 {
+    /// <summary>
+    /// Controller for body-related appearance presets and actions.
+    /// </summary>
     public class BodyController : BaseController
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -56,6 +59,9 @@ namespace Retinues.GUI.Editor.Modules.Common.Column.Controllers
         //                      Decrease Age                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Decreases the character's age preset and triggers an appearance update.
+        /// </summary>
         public static ControllerAction<WCharacter> DecreaseAge { get; } =
             Action<WCharacter>("DecreaseAge")
                 .AddCondition(
@@ -86,6 +92,9 @@ namespace Retinues.GUI.Editor.Modules.Common.Column.Controllers
         //                      Increase Age                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Increases the character's age preset and triggers an appearance update.
+        /// </summary>
         public static ControllerAction<WCharacter> IncreaseAge { get; } =
             Action<WCharacter>("IncreaseAge")
                 .AddCondition(
@@ -100,6 +109,9 @@ namespace Retinues.GUI.Editor.Modules.Common.Column.Controllers
         //                     Decrease Height                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Decreases the character's height preset and triggers an appearance update.
+        /// </summary>
         public static ControllerAction<WCharacter> DecreaseHeight { get; } =
             Action<WCharacter>("DecreaseHeight")
                 .AddCondition(
@@ -130,6 +142,9 @@ namespace Retinues.GUI.Editor.Modules.Common.Column.Controllers
         //                     Increase Height                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Increases the character's height preset and triggers an appearance update.
+        /// </summary>
         public static ControllerAction<WCharacter> IncreaseHeight { get; } =
             Action<WCharacter>("IncreaseHeight")
                 .AddCondition(
@@ -144,6 +159,9 @@ namespace Retinues.GUI.Editor.Modules.Common.Column.Controllers
         //                     Decrease Weight                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Decreases the character's weight preset and triggers an appearance update.
+        /// </summary>
         public static ControllerAction<WCharacter> DecreaseWeight { get; } =
             Action<WCharacter>("DecreaseWeight")
                 .AddCondition(
@@ -174,6 +192,9 @@ namespace Retinues.GUI.Editor.Modules.Common.Column.Controllers
         //                     Increase Weight                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Increases the character's weight preset and triggers an appearance update.
+        /// </summary>
         public static ControllerAction<WCharacter> IncreaseWeight { get; } =
             Action<WCharacter>("IncreaseWeight")
                 .AddCondition(
@@ -188,6 +209,9 @@ namespace Retinues.GUI.Editor.Modules.Common.Column.Controllers
         //                     Decrease Build                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Decreases the character's build preset and triggers an appearance update.
+        /// </summary>
         public static ControllerAction<WCharacter> DecreaseBuild { get; } =
             Action<WCharacter>("DecreaseBuild")
                 .AddCondition(
@@ -218,6 +242,9 @@ namespace Retinues.GUI.Editor.Modules.Common.Column.Controllers
         //                     Increase Build                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Increases the character's build preset and triggers an appearance update.
+        /// </summary>
         public static ControllerAction<WCharacter> IncreaseBuild { get; } =
             Action<WCharacter>("IncreaseBuild")
                 .AddCondition(

@@ -17,6 +17,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Views.List
     {
         protected override EditorPage Page => EditorPage.Equipment;
 
+        /// <summary>
+        /// Gets the tooltip for the filter input.
+        /// </summary>
         protected override Tooltip GetFilterTooltip()
         {
             return new(

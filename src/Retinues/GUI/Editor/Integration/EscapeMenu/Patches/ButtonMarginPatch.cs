@@ -3,8 +3,11 @@ using Bannerlord.UIExtenderEx.Attributes;
 using Bannerlord.UIExtenderEx.Prefabs2;
 using Retinues.Configuration;
 
-namespace Retinues.GUI.Integration.EscapeMenu.Patches
+namespace Retinues.GUI.Editor.Integration.EscapeMenu.Patches
 {
+    /// <summary>
+    /// Adjusts the margins of the ESC menu item template to better fit the editor button.
+    /// </summary>
     [PrefabExtension(
         "EscapeMenu",
         "descendant::NavigatableListPanel[@Id='ButtonsContainer']/ItemTemplate/Widget"

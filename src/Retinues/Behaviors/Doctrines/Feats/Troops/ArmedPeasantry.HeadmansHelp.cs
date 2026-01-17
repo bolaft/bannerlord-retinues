@@ -1,7 +1,7 @@
 using Retinues.Domain.Characters.Wrappers;
 using TaleWorlds.CampaignSystem;
 
-namespace Retinues.Game.Doctrines.Feats.Troops
+namespace Retinues.Behaviors.Doctrines.Feats.Troops
 {
     /// <summary>
     /// Complete a quest for a village headman.

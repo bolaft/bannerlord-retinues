@@ -1,22 +1,18 @@
 using System;
 using System.Linq;
+using Retinues.Behaviors.Doctrines;
+using Retinues.Behaviors.Doctrines.Definitions;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Equipments.Models;
 using Retinues.Domain.Factions;
-using Retinues.Framework.Model.Exports;
 using Retinues.Framework.Runtime;
-using Retinues.Game.Doctrines;
-using Retinues.Game.Doctrines.Definitions;
 using Retinues.GUI.Editor.Events;
+using Retinues.GUI.Editor.Modules.Pages.Library.Services;
 using Retinues.Utilities;
 using TaleWorlds.Core;
 
 namespace Retinues.GUI.Editor
 {
-    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-    //                      Editor Mode                       //
-    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
     /// <summary>
     /// Editor modes.
     /// </summary>
@@ -25,10 +21,6 @@ namespace Retinues.GUI.Editor
         Universal = 0,
         Player = 1,
     }
-
-    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-    //                      Editor Page                       //
-    // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
     /// <summary>
     /// Editor pages.
@@ -41,6 +33,9 @@ namespace Retinues.GUI.Editor
         Library = 3,
     }
 
+    /// <summary>
+    /// Holds the state of the editor.
+    /// </summary>
     [SafeClass]
     public partial class EditorState
     {
@@ -205,6 +200,9 @@ namespace Retinues.GUI.Editor
 
         private IBaseFaction _faction;
 
+        /// <summary>
+        /// The currently selected faction.
+        /// </summary>
         public IBaseFaction Faction
         {
             get => _faction;
@@ -228,6 +226,9 @@ namespace Retinues.GUI.Editor
 
         private WCharacter _character;
 
+        /// <summary>
+        /// The currently selected character.
+        /// </summary>
         public WCharacter Character
         {
             get => _character ??= PickFirstTroop(_faction, Mode);
@@ -251,6 +252,9 @@ namespace Retinues.GUI.Editor
 
         private MEquipment _equipment;
 
+        /// <summary>
+        /// The currently selected equipment.
+        /// </summary>
         public MEquipment Equipment
         {
             get => _equipment;
@@ -271,6 +275,9 @@ namespace Retinues.GUI.Editor
 
         private EquipmentIndex _slot = EquipmentIndex.Weapon0;
 
+        /// <summary>
+        /// The currently selected equipment slot.
+        /// </summary>
         public EquipmentIndex Slot
         {
             get => _slot;
@@ -286,9 +293,12 @@ namespace Retinues.GUI.Editor
 
         /* ━━━━━━━ Library ━━━━━━━ */
 
-        private MLibrary.Item _libraryItem;
+        private ExportLibrary.Entry _libraryItem;
 
-        public MLibrary.Item LibraryItem
+        /// <summary>
+        /// The currently selected library item.
+        /// </summary>
+        public ExportLibrary.Entry LibraryItem
         {
             get => _libraryItem;
             set
@@ -301,27 +311,13 @@ namespace Retinues.GUI.Editor
             }
         }
 
-        /* ━━━━━━━━ Crafted ━━━━━━━ */
-
-        private bool _showCrafted;
-
-        public bool ShowCrafted
-        {
-            get => _showCrafted;
-            set
-            {
-                if (value == _showCrafted)
-                    return;
-
-                _showCrafted = value;
-                Fire(UIEvent.Crafted);
-            }
-        }
-
         /* ━━━━━━━ Doctrine ━━━━━━━ */
 
         private Doctrine _doctrine = DoctrinesRegistry.GetDoctrines().FirstOrDefault();
 
+        /// <summary>
+        /// The currently selected doctrine.
+        /// </summary>
         public Doctrine Doctrine
         {
             get => _doctrine;
@@ -335,40 +331,23 @@ namespace Retinues.GUI.Editor
             }
         }
 
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Refresh                        //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        /* ━━━━━━━━ Crafted ━━━━━━━ */
 
-        public void ForceRefreshSelection()
+        private bool _showCrafted;
+
+        /// <summary>
+        /// Whether to show crafted items in the equipment list.
+        /// </summary>
+        public bool ShowCrafted
         {
-            try
+            get => _showCrafted;
+            set
             {
-                if (_character == null)
+                if (value == _showCrafted)
                     return;
 
-                var c = _character;
-                var slot = _slot;
-
-                // Break reference equality so setters run again.
-                _character = null;
-                _equipment = null;
-
-                // Re-apply the same selection via setters (will repick equipment too).
-                Character = c;
-
-                // Restore slot and force Item refresh chain.
-                Slot = slot;
-
-                EventManager.FireBatch(() =>
-                {
-                    EventManager.Fire(UIEvent.Character);
-                    EventManager.Fire(UIEvent.Equipment);
-                    EventManager.Fire(UIEvent.Slot);
-                });
-            }
-            catch (Exception ex)
-            {
-                Log.Exception(ex, "State.ForceRefreshSelection failed.");
+                _showCrafted = value;
+                Fire(UIEvent.Crafted);
             }
         }
     }

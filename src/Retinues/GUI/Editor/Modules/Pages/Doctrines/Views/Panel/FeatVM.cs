@@ -1,4 +1,4 @@
-using Retinues.Game.Doctrines.Definitions;
+using Retinues.Behaviors.Doctrines.Definitions;
 using Retinues.GUI.Components;
 using Retinues.GUI.Editor.Events;
 using Retinues.GUI.Services;
@@ -50,6 +50,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Doctrines.Views.Panel
                 refresh: [UIEvent.Doctrine]
             );
 
+        /// <summary>
+        /// Resolves the sprite for the feat progress icon.
+        /// </summary>
         private string ResolveIconSprite()
         {
             if (feat.Repeatable)
@@ -58,6 +61,10 @@ namespace Retinues.GUI.Editor.Modules.Pages.Doctrines.Views.Panel
             return IsCompleted ? "StdAssets\\checkbox_full" : "StdAssets\\checkbox_empty";
         }
 
+        /// <summary>
+        /// Resolves the tooltip for the feat progress icon.
+        /// </summary>
+        /// <returns></returns>
         private Tooltip ResolveIconTooltip()
         {
             if (feat.Repeatable)

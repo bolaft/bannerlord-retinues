@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
+using Retinues.Behaviors.Missions;
 using Retinues.Domain.Events.Models;
-using Retinues.Game.Missions;
 
-namespace Retinues.Game.Doctrines.Feats.Retinues
+namespace Retinues.Behaviors.Doctrines.Feats.Retinues
 {
     /// <summary>
     /// Win by yourself against 100 or more enemies without a single death on your side.

@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
+using Retinues.Behaviors.Missions;
 using Retinues.Domain.Events.Models;
-using Retinues.Game.Missions;
 
-namespace Retinues.Game.Doctrines.Feats.Loot
+namespace Retinues.Behaviors.Doctrines.Feats.Loot
 {
     /// <summary>
     /// Win a battle in which allies suffer over 100 casualties.

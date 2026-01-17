@@ -3,7 +3,7 @@ using HarmonyLib;
 using Retinues.Utilities;
 using TaleWorlds.MountAndBlade;
 
-namespace Retinues.Game.Agents.Patches
+namespace Retinues.Behaviors.Agents.Patches
 {
     /// <summary>
     /// Applies spawn-time overrides (equipment context rules + mixed gender) to agent spawning.
@@ -11,6 +11,9 @@ namespace Retinues.Game.Agents.Patches
     [HarmonyPatch(typeof(Mission), "SpawnAgent")]
     internal static class AgentSpawnPatches
     {
+        /// <summary>
+        /// Prefix patch that applies spawn resolution to the agent build data before spawning.
+        /// </summary>
         [HarmonyPrefix]
         private static void Prefix(
             Mission __instance,

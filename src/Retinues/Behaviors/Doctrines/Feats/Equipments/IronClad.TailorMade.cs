@@ -1,7 +1,7 @@
 using Retinues.Domain;
 using TaleWorlds.CampaignSystem.Settlements.Workshops;
 
-namespace Retinues.Game.Doctrines.Feats.Equipments
+namespace Retinues.Behaviors.Doctrines.Feats.Equipments
 {
     /// <summary>
     /// Own a smithy for 30 days.

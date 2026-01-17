@@ -158,6 +158,9 @@ namespace Retinues.Domain.Events.Models
         public SideData AttackerSide => BuildSide(BattleSideEnum.Attacker);
         public SideData DefenderSide => BuildSide(BattleSideEnum.Defender);
 
+        /// <summary>
+        /// Builds the side data for the given side enum.
+        /// </summary>
         SideData BuildSide(BattleSideEnum sideEnum)
         {
             if (Base == null)
@@ -221,6 +224,9 @@ namespace Retinues.Domain.Events.Models
             );
         }
 
+        /// <summary>
+        /// Data about a battle side.
+        /// </summary>
         public sealed class SideData(
             BattleSideEnum side,
             bool isPlayerSide,
@@ -262,6 +268,9 @@ namespace Retinues.Domain.Events.Models
             }
         }
 
+        /// <summary>
+        /// Data about a party involved in a battle side.
+        /// </summary>
         public sealed class PartyData(
             string partyId,
             string leaderId,

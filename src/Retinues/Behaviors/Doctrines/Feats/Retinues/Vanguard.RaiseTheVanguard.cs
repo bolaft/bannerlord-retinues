@@ -1,7 +1,7 @@
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Settlements.Wrappers;
 
-namespace Retinues.Game.Doctrines.Feats.Retinues
+namespace Retinues.Behaviors.Doctrines.Feats.Retinues
 {
     /// <summary>
     /// Hire 100 retinues.

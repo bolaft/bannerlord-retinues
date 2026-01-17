@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
+using Retinues.Domain.Characters.Services.Skills;
 using Retinues.Domain.Equipments.Models;
 using Retinues.Domain.Factions.Wrappers;
 using Retinues.Framework.Model;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.CharacterDevelopment;
-using TaleWorlds.Core;
 using TaleWorlds.Localization;
 #if BL12
 using Retinues.Utilities;
@@ -14,7 +14,7 @@ using Retinues.Utilities;
 namespace Retinues.Domain.Characters.Wrappers
 {
     /// <summary>
-    /// Wrapper for Hero.
+    /// Wrapper for Hero providing convenience accessors and helpers.
     /// </summary>
     public class WHero(Hero @base) : WBase<WHero, Hero>(@base), ICharacterData
     {
@@ -23,12 +23,12 @@ namespace Retinues.Domain.Characters.Wrappers
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
-        /// Static constructor to register the resolver.
+        /// Static constructor that registers the WHero resolver.
         /// </summary>
         static WHero() => RegisterResolver(ResolveHero);
 
         /// <summary>
-        /// Resolves a Hero by its string ID.
+        /// Resolves a Hero by its string id from alive or dead hero lists.
         /// </summary>
         static Hero ResolveHero(string id)
         {
@@ -75,7 +75,7 @@ namespace Retinues.Domain.Characters.Wrappers
         }
 
         /// <summary>
-        /// Applies the first name while preserving the name template if any.
+        /// Applies a new display name to the hero, preserving template formatting.
         /// </summary>
         void ApplyName(string value)
         {
@@ -170,6 +170,9 @@ namespace Retinues.Domain.Characters.Wrappers
             set => ApplyIsFemaleInternal(Base, value);
         }
 
+        /// <summary>
+        /// Internal helper to apply the IsFemale flag in a version-safe way.
+        /// </summary>
         static void ApplyIsFemaleInternal(Hero hero, bool value)
         {
             if (hero == null)
@@ -206,36 +209,22 @@ namespace Retinues.Domain.Characters.Wrappers
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private HeroSkills _skills;
-        public HeroSkills Skills => _skills ??= new HeroSkills(this);
+
+        public HeroSkills Skills
+        {
+            get
+            {
+                _skills ??= new HeroSkills(this);
+                return _skills;
+            }
+        }
 
         ICharacterSkills ICharacterData.Skills => Skills;
 
-        public class HeroSkills(WHero wh) : ICharacterSkills
-        {
-            public int Get(SkillObject skill)
-            {
-                if (skill == null)
-                    return 0;
-
-                return wh.Base.GetSkillValue(skill);
-            }
-
-            public void Set(SkillObject skill, int value)
-            {
-                if (skill == null)
-                    return;
-
-                wh.Base.SetSkillValue(skill, value);
-            }
-
-            public void Modify(SkillObject skill, int amount)
-            {
-                if (skill == null)
-                    return;
-
-                Set(skill, Get(skill) + amount);
-            }
-        }
+        /// <summary>
+        /// Clears the cached skills wrapper so it will be rebuilt.
+        /// </summary>
+        public void ClearSkillsCache() => _skills = null;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Traits                        //
@@ -250,6 +239,9 @@ namespace Retinues.Domain.Characters.Wrappers
                 DefaultTraits.Calculating,
             ];
 
+        /// <summary>
+        /// Returns the trait level for the provided trait.
+        /// </summary>
         public int GetTrait(TraitObject trait)
         {
             if (trait == null)
@@ -258,6 +250,9 @@ namespace Retinues.Domain.Characters.Wrappers
             return Base.GetTraitLevel(trait);
         }
 
+        /// <summary>
+        /// Sets the trait level for the provided trait.
+        /// </summary>
         public void SetTrait(TraitObject trait, int value)
         {
             if (trait == null)

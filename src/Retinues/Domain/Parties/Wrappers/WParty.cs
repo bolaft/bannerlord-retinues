@@ -112,6 +112,9 @@ namespace Retinues.Domain.Parties.Wrappers
         public float RetinueRatio => ComputeMemberRatio(t => t.IsRetinue);
         public float CustomRatio => ComputeMemberRatio(t => t.IsFactionTroop);
 
+        /// <summary>
+        /// Computes the ratio of members in the roster that satisfy the given selector.
+        /// </summary>
         public float ComputeMemberRatio(Func<WCharacter, bool> selector)
         {
             int part = 0;

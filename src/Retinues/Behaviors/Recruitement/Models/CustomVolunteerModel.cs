@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Settlements.Wrappers;
 using Retinues.Utilities;
@@ -6,22 +7,24 @@ using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.ComponentInterfaces;
 using TaleWorlds.CampaignSystem.Settlements;
 
-namespace Retinues.Game.Recruitement.Models
+namespace Retinues.Behaviors.Recruitement.Models
 {
     /// <summary>
-    /// Wraps the currently active VolunteerModel to inject base (settings-agnostic) custom roots upstream.
-    /// Base rule (per settlement):
-    /// - If owner clan has custom troops: use clan roots
-    /// - Else if owner kingdom has custom troops: use kingdom roots
-    /// - Else: do not interfere (delegate to inner model, for vanilla or other recruitement mods)
+    /// Wraps the active VolunteerModel to prefer base custom troop roots per settlement.
     /// </summary>
     internal sealed class CustomVolunteerModel(VolunteerModel inner) : VolunteerModel
     {
         private readonly VolunteerModel _inner =
             inner ?? throw new ArgumentNullException(nameof(inner));
 
+        /// <summary>
+        /// Gets the maximum volunteer tier delegated to the inner model.
+        /// </summary>
         public override int MaxVolunteerTier => _inner.MaxVolunteerTier;
 
+        /// <summary>
+        /// Delegates maximum recruit index resolution to the inner model.
+        /// </summary>
         public override int MaximumIndexHeroCanRecruitFromHero(
             Hero buyerHero,
             Hero sellerHero,
@@ -29,20 +32,32 @@ namespace Retinues.Game.Recruitement.Models
         ) => _inner.MaximumIndexHeroCanRecruitFromHero(buyerHero, sellerHero, useValueAsRelation);
 
 #if BL13
+        /// <summary>
+        /// Delegates maximum index the garrison can recruit from a hero to the inner model.
+        /// </summary>
         public override int MaximumIndexGarrisonCanRecruitFromHero(
             Settlement settlement,
             Hero sellerHero
         ) => _inner.MaximumIndexGarrisonCanRecruitFromHero(settlement, sellerHero);
 #endif
 
+        /// <summary>
+        /// Delegates daily volunteer production probability calculation to the inner model.
+        /// </summary>
         public override float GetDailyVolunteerProductionProbability(
             Hero hero,
             int index,
             Settlement settlement
         ) => _inner.GetDailyVolunteerProductionProbability(hero, index, settlement);
 
+        /// <summary>
+        /// Delegates whether the hero can have recruits to the inner model.
+        /// </summary>
         public override bool CanHaveRecruits(Hero hero) => _inner.CanHaveRecruits(hero);
 
+        /// <summary>
+        /// Returns a basic volunteer, preferring clan/kingdom custom roots when available.
+        /// </summary>
         public override CharacterObject GetBasicVolunteer(Hero sellerHero)
         {
             // Always let the active model/mod compute its default first.
@@ -94,6 +109,43 @@ namespace Retinues.Game.Recruitement.Models
             {
                 Log.Exception(ex, "Recruitement: RetinuesVolunteerModel.GetBasicVolunteer failed.");
                 return inner;
+            }
+        }
+
+        /// <summary>
+        /// Try to add the recruitment VolunteerModel wrapper.
+        /// </summary>
+        public static void TryAdd(CampaignGameStarter cs)
+        {
+            try
+            {
+                // IMPORTANT:
+                // At OnGameStart time Campaign.Current.Models is not created yet.
+                // We must read from the gameStarter's model list instead.
+                var inner = cs.Models.OfType<VolunteerModel>().LastOrDefault();
+                if (inner == null)
+                {
+                    Log.Warning(
+                        "Recruitement: no VolunteerModel found in CampaignGameStarter.Models; wrapper not installed."
+                    );
+                    return;
+                }
+
+                if (inner is CustomVolunteerModel)
+                {
+                    Log.Info("Recruitement: VolunteerModel wrapper already installed.");
+                    return;
+                }
+
+                cs.AddModel(new CustomVolunteerModel(inner));
+
+                Log.Info(
+                    $"Recruitement: VolunteerModel wrapper installed (inner={inner.GetType().Name})."
+                );
+            }
+            catch (Exception ex)
+            {
+                Log.Exception(ex, "Recruitement: failed to install VolunteerModel wrapper.");
             }
         }
     }

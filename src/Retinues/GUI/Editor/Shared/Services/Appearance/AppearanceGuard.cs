@@ -10,8 +10,14 @@ using TaleWorlds.Core.ViewModelCollection;
 
 namespace Retinues.GUI.Editor.Shared.Services.Appearance
 {
+    /// <summary>
+    /// Service to guard against invalid appearance changes.
+    /// </summary>
     public static class AppearanceGuard
     {
+        /// <summary>
+        /// Snapshot of a character's appearance.
+        /// </summary>
         readonly struct AppearanceSnapshot(WCharacter wc)
         {
             public readonly WCulture Culture = wc?.Culture;
@@ -19,6 +25,9 @@ namespace Retinues.GUI.Editor.Shared.Services.Appearance
             public readonly int Race = wc?.Race ?? 0;
             public readonly string BodyEnvelope = wc?.SerializeBodyEnvelope();
 
+            /// <summary>
+            /// Restores the appearance to the snapshot state.
+            /// </summary>
             public void Restore(WCharacter wc)
             {
                 if (wc == null)
@@ -44,12 +53,18 @@ namespace Retinues.GUI.Editor.Shared.Services.Appearance
 
         static readonly Dictionary<string, bool> _renderableCache = [];
 
+        /// <summary>
+        /// Renders the cache key for the given appearance parameters.
+        /// </summary>
         static string RenderKey(WCulture culture, bool isFemale, int race)
         {
             var c = culture?.StringId ?? "null";
             return $"{c}|{(isFemale ? "F" : "M")}|{race}";
         }
 
+        /// <summary>
+        /// Determines if the given appearance parameters can be rendered.
+        /// </summary>
         public static bool CanRender(WCulture culture, bool isFemale, int race)
         {
             var key = RenderKey(culture, isFemale, race);
@@ -79,6 +94,9 @@ namespace Retinues.GUI.Editor.Shared.Services.Appearance
             }
         }
 
+        /// <summary>
+        /// Determines if the given character has a valid species combination.
+        /// </summary>
         static bool IsValidSpeciesCombo(WCharacter wc)
         {
             if (wc == null)
@@ -104,6 +122,9 @@ namespace Retinues.GUI.Editor.Shared.Services.Appearance
             return valid.Contains(wc.Race);
         }
 
+        /// <summary>
+        /// Shows a popup indicating that no valid model could be rendered.
+        /// </summary>
         static void ShowNoValidModelPopup()
         {
             Inquiries.Popup(
@@ -115,9 +136,9 @@ namespace Retinues.GUI.Editor.Shared.Services.Appearance
             );
         }
 
-        public static bool TryApply(Func<bool> applyChange) =>
-            TryApply(applyChange, EditorState.Instance.Character?.Editable as WCharacter);
-
+        /// <summary>
+        /// Tries to apply an appearance change, restoring the previous appearance if invalid.
+        /// </summary>
         public static bool TryApply(Func<bool> applyChange, WCharacter wc)
         {
             if (applyChange == null)

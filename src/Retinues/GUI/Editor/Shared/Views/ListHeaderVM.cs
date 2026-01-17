@@ -136,6 +136,9 @@ namespace Retinues.GUI.Editor.Shared.Views
         protected virtual bool CollapseWhenNotVisible => true;
         protected virtual bool ForceExpandedWhenNotVisible => false;
 
+        /// <summary>
+        /// Updates the state of this header based on visibility and enabled status.
+        /// </summary>
         public void UpdateState()
         {
             OnPropertyChanged(nameof(IsVisible));
@@ -150,6 +153,9 @@ namespace Retinues.GUI.Editor.Shared.Views
                 IsExpanded = true;
         }
 
+        /// <summary>
+        /// Called when one of the rows changes visibility.
+        /// </summary>
         internal void OnRowVisibilityChanged()
         {
             OnPropertyChanged(nameof(RowCountText));
@@ -205,9 +211,9 @@ namespace Retinues.GUI.Editor.Shared.Views
             }
         }
 
-        public void UpdateRowCount()
-        {
-            OnPropertyChanged(nameof(RowCountText));
-        }
+        /// <summary>
+        /// Notifies that the row count has changed.
+        /// </summary>
+        public void UpdateRowCount() => OnPropertyChanged(nameof(RowCountText));
     }
 }

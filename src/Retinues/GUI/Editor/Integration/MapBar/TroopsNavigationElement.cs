@@ -11,6 +11,9 @@ using TaleWorlds.ScreenSystem;
 
 namespace Retinues.GUI.Editor.Integration.MapBar;
 
+/// <summary>
+/// Navigation element that opens the troop editor from the map bar.
+/// </summary>
 public sealed class TroopsNavigationElement(MapNavigationHandler handler)
     : MapNavigationElementBase(handler)
 {
@@ -24,6 +27,9 @@ public sealed class TroopsNavigationElement(MapNavigationHandler handler)
     public override bool IsLockingNavigation => false;
     public override bool HasAlert => false;
 
+    /// <summary>
+    /// Determines whether the troop editor may be opened and returns a reason if not.
+    /// </summary>
     protected override NavigationPermissionItem GetPermission()
     {
         if (_handler.IsNavigationLocked)
@@ -50,13 +56,22 @@ public sealed class TroopsNavigationElement(MapNavigationHandler handler)
         return new NavigationPermissionItem(isAuthorized: true, reasonString: null);
     }
 
+    /// <summary>
+    /// Gets the tooltip text for the troops navigation button.
+    /// </summary>
     protected override TextObject GetTooltip() =>
         Settings.EditorHotkey
             ? L.T("troops_navigation_tooltip_hotkey", "Troops [R]")
             : L.T("troops_navigation_tooltip", "Troops");
 
+    /// <summary>
+    /// Gets the alert tooltip; unused for this element.
+    /// </summary>
     protected override TextObject GetAlertTooltip() => TextObject.GetEmpty();
 
+    /// <summary>
+    /// Opens the troop editor if permitted, handling unsaved changes and screen switching.
+    /// </summary>
     public override void OpenView()
     {
         if (!Permission.IsAuthorized)
@@ -83,7 +98,13 @@ public sealed class TroopsNavigationElement(MapNavigationHandler handler)
         }
     }
 
+    /// <summary>
+    /// Opens the troop editor (params overload).
+    /// </summary>
     public override void OpenView(params object[] parameters) => OpenView();
 
+    /// <summary>
+    /// No-op navigation link action for the troops element.
+    /// </summary>
     public override void GoToLink() { }
 }

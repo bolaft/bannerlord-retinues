@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
+using Retinues.Behaviors.Doctrines.Catalogs;
+using Retinues.Behaviors.Missions;
 using Retinues.Domain.Events.Models;
-using Retinues.Game.Doctrines.Catalogs;
-using Retinues.Game.Missions;
 
-namespace Retinues.Game.Doctrines.Feats.Troops
+namespace Retinues.Behaviors.Doctrines.Feats.Troops
 {
     /// <summary>
     /// Personally slay 50 assailants during a siege defense.

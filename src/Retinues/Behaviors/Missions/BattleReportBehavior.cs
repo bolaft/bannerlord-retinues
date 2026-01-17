@@ -8,7 +8,7 @@ using Retinues.Utilities;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 
-namespace Retinues.Game.Missions
+namespace Retinues.Behaviors.Missions
 {
     /// <summary>
     /// Battle lifecycle hook.

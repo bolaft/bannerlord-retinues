@@ -1,14 +1,14 @@
 using System;
 using System.Collections.Generic;
+using Retinues.Behaviors.Troops;
 using Retinues.Configuration;
 using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Framework.Behaviors;
 using Retinues.Framework.Runtime;
-using Retinues.Game.Troops;
 using Retinues.GUI.Services;
 using TaleWorlds.Localization;
 
-namespace Retinues.Game.Unlocks
+namespace Retinues.Behaviors.Unlocks
 {
     [SafeClass]
     public sealed class NotifierBehavior : BaseCampaignBehavior

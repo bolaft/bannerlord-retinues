@@ -1,13 +1,13 @@
 using System.Linq;
+using Retinues.Behaviors.Troops;
 using Retinues.Configuration;
 using Retinues.Domain;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Factions.Wrappers;
-using Retinues.Game.Troops;
 using Retinues.GUI.Services;
 using TaleWorlds.Core;
 
-namespace Retinues.Game.Retinues
+namespace Retinues.Behaviors.Retinues
 {
     public partial class RetinuesBehavior
     {

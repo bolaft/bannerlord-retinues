@@ -2,7 +2,7 @@ using Retinues.Domain;
 using Retinues.Domain.Characters.Wrappers;
 using TaleWorlds.CampaignSystem;
 
-namespace Retinues.Game.Doctrines.Feats.Loot
+namespace Retinues.Behaviors.Doctrines.Feats.Loot
 {
     /// <summary>
     /// Complete a quest for a lord of your clan's culture.

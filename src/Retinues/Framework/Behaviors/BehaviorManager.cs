@@ -124,6 +124,9 @@ namespace Retinues.Framework.Behaviors
                 mission.AddMissionBehavior(behavior);
         }
 
+        /// <summary>
+        /// Creates all enabled campaign behaviors.
+        /// </summary>
         private static IEnumerable<BaseCampaignBehavior> CreateCampaignBehaviors()
         {
             foreach (var t in BehaviorTypes)
@@ -155,6 +158,9 @@ namespace Retinues.Framework.Behaviors
             }
         }
 
+        /// <summary>
+        /// Creates all enabled mission behaviors.
+        /// </summary>
         private static IEnumerable<BaseMissionBehavior> CreateMissionBehaviors()
         {
             foreach (var t in BehaviorTypes)

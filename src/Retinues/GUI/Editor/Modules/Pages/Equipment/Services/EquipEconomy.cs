@@ -7,8 +7,14 @@ using Retinues.Domain.Equipments.Wrappers;
 
 namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Services
 {
+    /// <summary>
+    /// Service for equipment economy calculations.
+    /// </summary>
     public static class EquipEconomy
     {
+        /// <summary>
+        /// Computes the cost to equip the given item.
+        /// </summary>
         public static int ComputeEquipCost(WItem item)
         {
             if (item == null)
@@ -21,6 +27,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Services
             return Math.Max(cost, 0);
         }
 
+        /// <summary>
+        /// Computes the economy impact of changing equipment from 'before' to 'after' on the target.
+        /// </summary>
         public static void ComputeBatchEconomy(
             EquipContext ctx,
             MEquipment target,
@@ -39,7 +48,7 @@ namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Services
             if (roster == null)
                 return;
 
-            Dictionary<string, int> CountItems(WItem[] items)
+            static Dictionary<string, int> CountItems(WItem[] items)
             {
                 Dictionary<string, int> map = [];
                 for (int i = 0; i < items.Length; i++)
@@ -62,12 +71,12 @@ namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Services
             var ids = new HashSet<string>(beforeCounts.Keys);
             ids.UnionWith(afterCounts.Keys);
 
-            foreach (var id in ids)
+            foreach (var item in ids.Select(WItem.Get))
             {
-                int beforeThis = beforeCounts.TryGetValue(id, out var b) ? b : 0;
-                int afterThis = afterCounts.TryGetValue(id, out var a) ? a : 0;
+                int beforeThis = beforeCounts.TryGetValue(item.StringId, out var b) ? b : 0;
+                int afterThis = afterCounts.TryGetValue(item.StringId, out var a) ? a : 0;
 
-                int otherMax = roster.GetMaxCountExcludingEquipment(target.Base, id);
+                int otherMax = roster.GetMaxCountExcludingEquipment(target, item);
 
                 int requiredBefore = Math.Max(otherMax, beforeThis);
                 int requiredAfter = Math.Max(otherMax, afterThis);
@@ -76,18 +85,17 @@ namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Services
                 if (delta <= 0)
                     continue;
 
-                var item = after.FirstOrDefault(x => x != null && x.StringId == id);
-                if (item == null)
+                if (!after.Contains(item))
                     continue;
 
                 int stockUse = Math.Min(item.Stock, delta);
                 int purchase = delta - stockUse;
 
                 if (stockUse > 0)
-                    plan.StockUseById[id] = stockUse;
+                    plan.StockUseById[item.StringId] = stockUse;
 
                 if (purchase > 0)
-                    plan.PurchaseById[id] = purchase;
+                    plan.PurchaseById[item.StringId] = purchase;
 
                 if (purchase > 0)
                     plan.TotalCost += ComputeEquipCost(item) * purchase;

@@ -74,11 +74,17 @@ namespace Retinues.Domain
 
         public static int Gold => MainHero.Gold;
 
+        /// <summary>
+        /// Changes the player's gold by the given amount.
+        /// </summary>
         public static void ChangeGold(int amount)
         {
             MainHero.ChangeHeroGold(amount);
         }
 
+        /// <summary>
+        /// Adds the given amount of gold to the player.
+        /// </summary>
         public static void AddGold(int amount)
         {
             if (amount <= 0)
@@ -86,6 +92,9 @@ namespace Retinues.Domain
             ChangeGold(amount);
         }
 
+        /// <summary>
+        /// Tries to spend the given amount of gold from the player.
+        /// </summary>
         public static bool TrySpendGold(int amount)
         {
             if (amount <= 0)
@@ -100,6 +109,9 @@ namespace Retinues.Domain
         //                        Influence                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Gets the player's current influence.
+        /// </summary>
         public static int Influence
         {
             get
@@ -110,6 +122,9 @@ namespace Retinues.Domain
             }
         }
 
+        /// <summary>
+        /// Changes the player's influence by the given amount.
+        /// </summary>
         public static void ChangeInfluence(int amount)
         {
             if (TaleWorlds.CampaignSystem.Clan.PlayerClan == null)
@@ -117,6 +132,9 @@ namespace Retinues.Domain
             TaleWorlds.CampaignSystem.Clan.PlayerClan.Influence = Math.Max(0f, Influence + amount);
         }
 
+        /// <summary>
+        /// Adds the given amount of influence to the player.
+        /// </summary>
         public static void AddInfluence(int amount)
         {
             if (amount <= 0)
@@ -124,6 +142,9 @@ namespace Retinues.Domain
             ChangeInfluence(amount);
         }
 
+        /// <summary>
+        /// Tries to spend the given amount of influence from the player.
+        /// </summary>
         public static bool TrySpendInfluence(int amount)
         {
             if (amount <= 0)

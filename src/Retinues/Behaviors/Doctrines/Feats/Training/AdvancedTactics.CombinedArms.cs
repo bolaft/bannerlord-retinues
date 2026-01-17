@@ -1,10 +1,10 @@
 using System.Collections.Generic;
+using Retinues.Behaviors.Missions;
 using Retinues.Domain;
 using Retinues.Domain.Events.Models;
-using Retinues.Game.Missions;
 using TaleWorlds.Core;
 
-namespace Retinues.Game.Doctrines.Feats.Training
+namespace Retinues.Behaviors.Doctrines.Feats.Training
 {
     /// <summary>
     /// Win a battle against over 100 enemies using a party evenly split among infantry, cavalry and ranged clan troops.

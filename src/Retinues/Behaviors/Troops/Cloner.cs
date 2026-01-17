@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using Retinues.Configuration;
 using Retinues.Domain.Characters.Services.Cloning;
 using Retinues.Domain.Characters.Wrappers;
-using Retinues.Domain.Equipments.Helpers;
+using Retinues.Domain.Equipments.Services.Random;
 using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Domain.Factions.Wrappers;
 using Retinues.Framework.Runtime;
 using Retinues.Utilities;
 
-namespace Retinues.Game.Troops
+namespace Retinues.Behaviors.Troops
 {
     [SafeClass]
     public static partial class Cloner
@@ -36,7 +36,7 @@ namespace Retinues.Game.Troops
             bool unlockItems = true,
             bool notifyUnlocks = true,
             List<WItem> unlockSink = null,
-            RandomEquipmentHelper.RandomEquipmentReuseContext equipmentReuseContext = null
+            RandomEquipmentReuseContext equipmentReuseContext = null
         )
         {
             if (template == null)
@@ -114,9 +114,9 @@ namespace Retinues.Game.Troops
             var created = new List<WCharacter>(templates.Count);
             var map = new Dictionary<string, WCharacter>(templates.Count);
 
-            RandomEquipmentHelper.RandomEquipmentReuseContext reuseContext = null;
+            RandomEquipmentReuseContext reuseContext = null;
             if (equipments && Settings.StarterEquipment.Value == Settings.EquipmentMode.RandomSet)
-                reuseContext = new RandomEquipmentHelper.RandomEquipmentReuseContext();
+                reuseContext = new RandomEquipmentReuseContext();
 
             try
             {

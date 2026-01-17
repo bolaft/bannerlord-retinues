@@ -181,6 +181,10 @@ namespace Retinues.Framework.Model.Attributes
         // IMAttribute implementation
         string IMAttribute.Name => Name;
 
+        /// <summary>
+        /// Adds a dependent attribute that will be marked dirty when this attribute is marked dirty.
+        /// </summary>
+        /// <param name="dependent"></param>
         void IMAttribute.AddDependent(IMAttribute dependent)
         {
             if (dependent == null || ReferenceEquals(dependent, this))
@@ -189,6 +193,9 @@ namespace Retinues.Framework.Model.Attributes
             _dependents.Add(dependent);
         }
 
+        /// <summary>
+        /// Marks this attribute as dirty.
+        /// </summary>
         void IMAttribute.MarkDirty()
         {
             if (_persistent)

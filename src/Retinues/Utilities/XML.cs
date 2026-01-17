@@ -14,6 +14,9 @@ namespace Retinues.Utilities
     {
         static readonly UTF8Encoding Utf8NoBom = new(false);
 
+        /// <summary>
+        /// Tries to parse the root XElement from an XML string.
+        /// </summary>
         public static bool TryParseRoot(string xml, out XElement root)
         {
             root = null;
@@ -37,36 +40,9 @@ namespace Retinues.Utilities
             }
         }
 
-        public static bool TryLoad(string path, out XDocument doc)
-        {
-            doc = null;
-
-            try
-            {
-                if (string.IsNullOrWhiteSpace(path) || !File.Exists(path))
-                    return false;
-
-                doc = XDocument.Load(path, LoadOptions.None);
-                return doc?.Root != null;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        public static void WriteAllTextUtf8NoBom(string path, string content)
-        {
-            if (string.IsNullOrWhiteSpace(path))
-                return;
-
-            var dir = Path.GetDirectoryName(path);
-            if (!string.IsNullOrWhiteSpace(dir))
-                Directory.CreateDirectory(dir);
-
-            File.WriteAllText(path, content ?? string.Empty, Utf8NoBom);
-        }
-
+        /// <summary>
+        /// Saves an XDocument to the specified path as UTF-8 without BOM.
+        /// </summary>
         public static void SaveDocumentUtf8NoBom(
             string path,
             XDocument doc,

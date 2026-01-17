@@ -3,6 +3,9 @@ using TaleWorlds.Localization;
 
 namespace Retinues.GUI.Services
 {
+    /// <summary>
+    /// Localization helpers.
+    /// </summary>
     public static partial class L
     {
         public static TextObject T(string id, string fallback) => new($"{{=ret_{id}}}{fallback}");

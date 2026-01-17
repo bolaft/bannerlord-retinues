@@ -1,6 +1,6 @@
 using Retinues.Domain.Characters.Wrappers;
 
-namespace Retinues.Game.Doctrines.Feats.Troops
+namespace Retinues.Behaviors.Doctrines.Feats.Troops
 {
     /// <summary>
     /// Promote 100 faction troops.

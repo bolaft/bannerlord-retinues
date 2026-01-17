@@ -170,12 +170,18 @@ namespace Retinues.GUI.Editor.Shared.Views
         //                        Filtering                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Determines if this row matches the given filter string.
+        /// </summary>
         internal virtual bool MatchesFilter(string filter) => true;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                    Event Management                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Determines if property change notifications should be sent for the given event.
+        /// </summary>
         protected override bool __ShouldNotifyProperty(
             EventManager.Context context,
             UIEvent e,

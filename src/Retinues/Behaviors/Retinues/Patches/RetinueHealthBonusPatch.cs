@@ -5,14 +5,17 @@ using Retinues.Domain.Characters.Wrappers;
 using Retinues.Utilities;
 using TaleWorlds.MountAndBlade;
 
-namespace Retinues.Game.Retinues.Patches
+namespace Retinues.Behaviors.Retinues.Patches
 {
     /// <summary>
-    /// Applies the retinue health buff setting to spawned agents.
+    /// Applies configured retinue health bonus to spawned retinue agents.
     /// </summary>
     [HarmonyPatch(typeof(Mission), "SpawnAgent")]
     internal static class RetinueHealthBonusPatches
     {
+        /// <summary>
+        /// Postfix that increases health for retinue agents based on settings.
+        /// </summary>
         [HarmonyPostfix]
         private static void Postfix(
             Mission __instance,

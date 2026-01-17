@@ -6,12 +6,18 @@ using Retinues.Utilities;
 
 namespace Retinues.GUI.Editor.Modules.Pages.Character.Controllers
 {
+    /// <summary>
+    /// Controller for managing Captain variants and related UI actions.
+    /// </summary>
     public class CaptainsController : BaseController
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Toggle Mode                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Toggles between the base troop and its Captain variant and updates the character view.
+        /// </summary>
         public static ControllerAction<WCharacter> ToggleCaptainMode { get; } =
             Action<WCharacter>("ToggleCaptainMode")
                 .AddCondition(
@@ -31,6 +37,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Character.Controllers
         //                    Toggle Enabled                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Enables or disables the Captain variant for the selected unit.
+        /// </summary>
         public static ControllerAction<WCharacter> ToggleCaptainEnabled { get; } =
             Action<WCharacter>("ToggleCaptainEnabled")
                 .AddCondition(
@@ -45,6 +54,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Character.Controllers
         //                         Helpers                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Switches the provided character to its captain/base counterpart, creating one if necessary.
+        /// </summary>
         private static void ToggleCaptainModeImpl(WCharacter wc)
         {
             if (wc == null)
@@ -75,6 +87,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Character.Controllers
             State.Character = captain;
         }
 
+        /// <summary>
+        /// Toggles the enabled flag on the given Captain character.
+        /// </summary>
         private static void ToggleCaptainEnabledImpl(WCharacter wc)
         {
             if (wc == null)

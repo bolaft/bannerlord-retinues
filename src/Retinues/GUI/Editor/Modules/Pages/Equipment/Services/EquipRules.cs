@@ -7,12 +7,18 @@ using TaleWorlds.Localization;
 
 namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Services
 {
+    /// <summary>
+    /// Service for equipment rules and validations.
+    /// </summary>
     public static class EquipRules
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Unlock                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Determines if unlocking is allowed for the given item in the current context.
+        /// </summary>
         public static bool UnlockAllowed(EquipContext ctx, WItem item)
         {
             if (item == null)
@@ -30,6 +36,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Services
             return item.IsUnlocked;
         }
 
+        /// <summary>
+        /// Provides a tooltip explaining the unlock status of the given item.
+        /// </summary>
         public static TextObject UnlockTooltip(WItem item)
         {
             if (item == null)
@@ -57,6 +66,9 @@ namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Services
         //                       Validation                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Checks if the given item can be set in the specified slot within the provided context.
+        /// </summary>
         public static EquipDecision CanSetItem(
             EquipContext ctx,
             Func<EquipmentIndex, WItem> getPlanned,

@@ -1,10 +1,14 @@
 using System;
-using Retinues.Framework.Model.Exports;
+using Retinues.GUI.Editor.Modules.Pages.Library.Services;
+using Retinues.GUI.Editor.Shared.Controllers;
 using Retinues.GUI.Services;
 using Retinues.Utilities;
 
 namespace Retinues.GUI.Editor.Controllers.Library
 {
+    /// <summary>
+    /// Partial class for library controller edit actions.
+    /// </summary>
     public partial class LibraryController
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -12,9 +16,27 @@ namespace Retinues.GUI.Editor.Controllers.Library
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
+        /// Edits the selected library export item's XML file in the default editor.
+        /// </summary>
+        public static ControllerAction<ExportLibrary.Entry> Edit { get; } =
+            Action<ExportLibrary.Entry>("EditLibraryItem")
+                .DefaultTooltip(
+                    L.T("library_edit_tooltip", "Directly edit this export's XML file contents.")
+                )
+                .AddCondition(
+                    item => item != null,
+                    L.T("library_edit_no_selection", "No export selected.")
+                )
+                .AddCondition(
+                    HasExistingFile,
+                    L.T("library_edit_failed_missing_file", "Export file was not found.")
+                )
+                .ExecuteWith(ExecuteEditWithConfirm);
+
+        /// <summary>
         /// Shows a confirmation popup before opening the file for edit.
         /// </summary>
-        private static void ExecuteEditWithConfirm(MLibrary.Item item)
+        private static void ExecuteEditWithConfirm(ExportLibrary.Entry item)
         {
             if (item == null)
                 return;

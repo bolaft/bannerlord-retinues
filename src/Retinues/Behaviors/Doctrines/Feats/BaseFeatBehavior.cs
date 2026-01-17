@@ -1,13 +1,13 @@
 using System.Collections.Generic;
+using Retinues.Behaviors.Doctrines.Definitions;
+using Retinues.Behaviors.Missions;
 using Retinues.Domain.Equipments.Models;
 using Retinues.Domain.Events.Models;
 using Retinues.Framework.Behaviors;
 using Retinues.Framework.Runtime;
-using Retinues.Game.Doctrines.Definitions;
-using Retinues.Game.Missions;
 using Retinues.Utilities;
 
-namespace Retinues.Game.Doctrines.Feats
+namespace Retinues.Behaviors.Doctrines.Feats
 {
     /// <summary>
     /// Base class for concrete feat behaviors that listen to campaign events and award feat progress.

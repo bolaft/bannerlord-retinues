@@ -1,7 +1,7 @@
 using System;
 using Bannerlord.UIExtenderEx.Attributes;
+using Retinues.Behaviors.Doctrines.Definitions;
 using Retinues.Configuration;
-using Retinues.Game.Doctrines.Definitions;
 using Retinues.GUI.Editor.Events;
 using Retinues.GUI.Editor.Shared.Views;
 using Retinues.GUI.Services;

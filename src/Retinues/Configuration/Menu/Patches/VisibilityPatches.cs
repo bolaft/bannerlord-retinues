@@ -6,6 +6,9 @@ using TaleWorlds.Library;
 
 namespace Retinues.Configuration.Menu.Patches
 {
+    /// <summary>
+    /// Dependencies for MCM types and methods.
+    /// </summary>
     internal static class MCMDependencies
     {
         internal static readonly string SettingsPropertyVMTypeName =
@@ -112,6 +115,9 @@ namespace Retinues.Configuration.Menu.Patches
         }
     }
 
+    /// <summary>
+    /// Bridge to MCM visibility checking methods.
+    /// </summary>
     internal static class MCMVisibilityBridge
     {
         private static MethodInfo _isVisibleById;
@@ -187,7 +193,9 @@ namespace Retinues.Configuration.Menu.Patches
         }
     }
 
-    // Patch 1: SettingsPropertyVM.IsSettingVisible getter -> additionally check the dependency graph.
+    /// <summary>
+    /// Postfix for SettingsPropertyVM.IsSettingVisible to apply dependency-based visibility.
+    /// </summary>
     [HarmonyPatch]
     internal static class SettingsPropertyVM_IsSettingVisible_Patch
     {
@@ -235,7 +243,9 @@ namespace Retinues.Configuration.Menu.Patches
         }
     }
 
-    // Patch 2: SettingsPropertyVM.OnPropertyChanged(...) -> refresh visibility so dependents show/hide immediately.
+    /// <summary>
+    /// Postfix for SettingsPropertyVM.OnPropertyChanged to refresh visibility on property changes.
+    /// </summary>
     [HarmonyPatch]
     internal static class SettingsPropertyVM_OnPropertyChanged_Patch
     {

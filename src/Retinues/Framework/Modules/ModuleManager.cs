@@ -19,6 +19,9 @@ namespace Retinues.Framework.Modules
         public const string UnknownVersionString = "unknown";
         public const string SelfModuleId = "Retinues";
 
+        /// <summary>
+        /// Information about a Bannerlord module.
+        /// </summary>
         public sealed class ModuleInfo
         {
             public string Id { get; set; }
@@ -52,6 +55,9 @@ namespace Retinues.Framework.Modules
         private static Dictionary<string, string> _cachedExpectedDependencyVersions;
         private static string _cachedExpectedVersionsOwnerPath;
 
+        /// <summary>
+        /// Gets the list of active modules in load order.
+        /// </summary>
         public static IReadOnlyList<ModuleInfo> GetActiveModules()
         {
             if (_cachedActiveModules != null)
@@ -117,13 +123,9 @@ namespace Retinues.Framework.Modules
             return _cachedActiveModules;
         }
 
-        public static void ClearCache()
-        {
-            _cachedActiveModules = null;
-            _cachedExpectedDependencyVersions = null;
-            _cachedExpectedVersionsOwnerPath = null;
-        }
-
+        /// <summary>
+        /// Gets information about a specific module by id.
+        /// </summary>
         public static ModuleInfo GetModule(string id)
         {
             foreach (var mod in GetActiveModules())
@@ -140,11 +142,9 @@ namespace Retinues.Framework.Modules
             };
         }
 
-        public static bool IsLoaded(string id)
-        {
-            return GetModule(id).IsLoaded;
-        }
-
+        // /// <summary>
+        // /// Returns true if any of the specified modules are loaded.
+        // /// </summary>
         public static bool IsLoaded(params string[] ids)
         {
             if (ids == null || ids.Length == 0)
@@ -162,6 +162,9 @@ namespace Retinues.Framework.Modules
             return false;
         }
 
+        /// <summary>
+        /// Initializes the ModuleManager and logs active modules if requested.
+        /// </summary>
         public static void Initialize(bool logModules = true)
         {
             var modules = GetActiveModules();
@@ -224,6 +227,9 @@ namespace Retinues.Framework.Modules
             return UnknownVersionString;
         }
 
+        /// <summary>
+        /// Ensures that expected dependency versions are loaded from SubModule.xml.
+        /// </summary>
         private static void EnsureExpectedDependencyVersionsLoaded()
         {
             try
@@ -260,6 +266,10 @@ namespace Retinues.Framework.Modules
             }
         }
 
+        /// <summary>
+        /// Loads expected dependency versions from the SubModule.xml at the given module root path.
+        /// Returns null if loading/parsing failed.
+        /// </summary>
         private static Dictionary<string, string> LoadExpectedDependencyVersions(string moduleRoot)
         {
             if (string.IsNullOrWhiteSpace(moduleRoot) || moduleRoot == "<unknown>")
@@ -335,6 +345,9 @@ namespace Retinues.Framework.Modules
             return CompareVersion(a, b) >= 0;
         }
 
+        /// <summary>
+        /// Version parts structure.
+        /// </summary>
         private readonly struct VersionParts(int major, int minor, int revision, int build)
         {
             public readonly int Major = major;
@@ -343,6 +356,9 @@ namespace Retinues.Framework.Modules
             public readonly int Build = build;
         }
 
+        /// <summary>
+        /// Tries to parse a version string into its components.
+        /// </summary>
         private static bool TryParseVersion(string s, out VersionParts v)
         {
             v = new VersionParts(0, 0, 0, 0);
@@ -379,6 +395,9 @@ namespace Retinues.Framework.Modules
             return true;
         }
 
+        /// <summary>
+        /// Compares two version parts.
+        /// </summary>
         private static int CompareVersion(VersionParts a, VersionParts b)
         {
             if (a.Major != b.Major)
@@ -397,6 +416,9 @@ namespace Retinues.Framework.Modules
         //                         Helpers                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Returns true if the given module id is an official Bannerlord module.
+        /// </summary>
         private static bool IsOfficialModuleId(string id)
         {
             return id switch

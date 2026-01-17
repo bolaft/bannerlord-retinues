@@ -8,7 +8,7 @@ using Retinues.Utilities;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 
-namespace Retinues.Game.Missions
+namespace Retinues.Behaviors.Missions
 {
     /// <summary>
     /// Tracks mission and map event states and keep a record of kills.

@@ -43,6 +43,9 @@ namespace Retinues.GUI.Components
         //                      Construction                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Construct a checkbox bound to a single refresh event.
+        /// </summary>
         public Checkbox(ControllerAction<bool> action, Func<bool> getSelected, UIEvent refresh)
             : this(
                 action: action,
@@ -56,6 +59,9 @@ namespace Retinues.GUI.Components
                 tooltipOverride: null
             ) { }
 
+        /// <summary>
+        /// Construct a checkbox with detailed configuration and optional overrides.
+        /// </summary>
         public Checkbox(
             ControllerAction<bool> action,
             Func<bool> getSelected,
@@ -134,6 +140,9 @@ namespace Retinues.GUI.Components
         //                      Event Wiring                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Handle global UI events and request property notifications when needed.
+        /// </summary>
         internal override void __OnGlobalEvent(EventManager.Context context, UIEvent e)
         {
             base.__OnGlobalEvent(context, e);
@@ -155,6 +164,9 @@ namespace Retinues.GUI.Components
             context.RequestNotify(this, nameof(Tooltip));
         }
 
+        /// <summary>
+        /// Return true if the given UI event should trigger a refresh for this control.
+        /// </summary>
         private bool WantsEvent(UIEvent e)
         {
             for (int i = 0; i < _refreshEvents.Length; i++)
@@ -170,6 +182,9 @@ namespace Retinues.GUI.Components
         //                        Internals                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Recompute state and notify bound properties to update the UI.
+        /// </summary>
         private void RecomputeAndNotify()
         {
             Recompute();
@@ -180,8 +195,14 @@ namespace Retinues.GUI.Components
             OnPropertyChanged(nameof(Tooltip));
         }
 
+        /// <summary>
+        /// Check whether the external allow gate permits interaction.
+        /// </summary>
         private bool GateAllows() => _allowGate == null || _allowGate();
 
+        /// <summary>
+        /// Determine whether changing to the target value is allowed by action and overrides.
+        /// </summary>
         private bool IsAllowed(bool targetValue)
         {
             var ok = true;
@@ -195,6 +216,9 @@ namespace Retinues.GUI.Components
             return ok;
         }
 
+        /// <summary>
+        /// Compute the effective tooltip for an attempted toggle to the target value.
+        /// </summary>
         private Tooltip ComputeTooltip(
             bool targetValue,
             bool enabledByAction,
@@ -222,6 +246,9 @@ namespace Retinues.GUI.Components
             return _tooltipOverride?.Invoke(targetValue);
         }
 
+        /// <summary>
+        /// Recompute visibility, selection, enablement and tooltip state.
+        /// </summary>
         private void Recompute()
         {
             _isVisible = _visibilityGate == null || _visibilityGate();

@@ -1,6 +1,6 @@
 using Retinues.GUI.Services;
 
-namespace Retinues.Game.Doctrines.Catalogs
+namespace Retinues.Behaviors.Doctrines.Catalogs
 {
     /// <summary>
     /// Feat definitions for the Retinues category.

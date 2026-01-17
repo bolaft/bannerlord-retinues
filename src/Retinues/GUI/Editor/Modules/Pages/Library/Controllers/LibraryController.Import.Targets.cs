@@ -5,7 +5,7 @@ using Retinues.Domain;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Factions;
 using Retinues.Domain.Factions.Wrappers;
-using Retinues.Framework.Model.Exports;
+using Retinues.GUI.Editor.Modules.Pages.Library.Services;
 using Retinues.GUI.Services;
 using TaleWorlds.Core;
 using TaleWorlds.Core.ImageIdentifiers;
@@ -13,6 +13,9 @@ using TaleWorlds.Localization;
 
 namespace Retinues.GUI.Editor.Controllers.Library
 {
+    /// <summary>
+    /// Partial class for library controller import actions.
+    /// </summary>
     public partial class LibraryController
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -22,12 +25,12 @@ namespace Retinues.GUI.Editor.Controllers.Library
         /// <summary>
         /// Returns true if the current mode provides valid import targets.
         /// </summary>
-        private static bool CanResolveImportContext(MLibrary.Item item)
+        private static bool CanResolveImportContext(ExportLibrary.Entry item)
         {
             if (item == null)
                 return false;
 
-            if (item.Kind == MLibraryKind.Character)
+            if (item.Kind == ExportKind.Character)
             {
                 var faction = EditorState.Instance.Faction;
                 if (faction == null)
@@ -36,7 +39,7 @@ namespace Retinues.GUI.Editor.Controllers.Library
                 return GetTroopImportTargets(faction).Count > 0;
             }
 
-            if (item.Kind == MLibraryKind.Faction)
+            if (item.Kind == ExportKind.Faction)
             {
                 // Player mode: no kingdom => auto-select player clan.
                 if (EditorState.Instance.Mode == EditorMode.Player && Player.Kingdom == null)
@@ -51,12 +54,12 @@ namespace Retinues.GUI.Editor.Controllers.Library
         /// <summary>
         /// Builds a localized reason for why import targets cannot be resolved.
         /// </summary>
-        private static TextObject BuildCantResolveImportContextReason(MLibrary.Item item)
+        private static TextObject BuildCantResolveImportContextReason(ExportLibrary.Entry item)
         {
             if (item == null)
                 return L.T("library_import_no_selection", "No export selected.");
 
-            if (item.Kind == MLibraryKind.Character)
+            if (item.Kind == ExportKind.Character)
             {
                 if (EditorState.Instance.Faction == null)
                     return L.T(
@@ -70,7 +73,7 @@ namespace Retinues.GUI.Editor.Controllers.Library
                 );
             }
 
-            if (item.Kind == MLibraryKind.Faction)
+            if (item.Kind == ExportKind.Faction)
             {
                 return L.T(
                     "library_import_no_faction_targets",
@@ -204,7 +207,7 @@ namespace Retinues.GUI.Editor.Controllers.Library
         /// <summary>
         /// Returns true if the export file exists on disk.
         /// </summary>
-        private static bool HasExistingFile(MLibrary.Item item)
+        private static bool HasExistingFile(ExportLibrary.Entry item)
         {
             var path = item?.FilePath ?? string.Empty;
             return !string.IsNullOrWhiteSpace(path) && File.Exists(path);

@@ -1,13 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Retinues.Framework.Model.Exports;
-using Retinues.GUI.Editor.Modules.Pages.Library.Views.List;
+using Retinues.GUI.Editor.Modules.Pages.Library.Services;
 using Retinues.GUI.Editor.Shared.Views;
 using Retinues.GUI.Services;
 using Retinues.Utilities;
 
-namespace Retinues.GUI.Editor.VM.List.Library
+namespace Retinues.GUI.Editor.Modules.Pages.Library.Views.List
 {
     /// <summary>
     /// Library list ViewModel (exported factions and characters).
@@ -16,6 +15,9 @@ namespace Retinues.GUI.Editor.VM.List.Library
     {
         protected override EditorPage Page => EditorPage.Library;
 
+        /// <summary>
+        /// Builds the library list ViewModel.
+        /// </summary>
         public override void Build()
         {
             BuildSortButtons();
@@ -23,6 +25,9 @@ namespace Retinues.GUI.Editor.VM.List.Library
             RecomputeHeaderStates();
         }
 
+        /// <summary>
+        /// Builds the sort buttons for the library exports.
+        /// </summary>
         private void BuildSortButtons()
         {
             SortButtons.Clear();
@@ -38,11 +43,14 @@ namespace Retinues.GUI.Editor.VM.List.Library
             RecomputeSortButtonProperties();
         }
 
+        /// <summary>
+        /// Builds the sections for the library exports.
+        /// </summary>
         private void BuildSections()
         {
             var headers = new List<ListHeaderVM>();
 
-            var all = MLibrary.GetAll();
+            var all = ExportLibrary.GetAll();
             if (all == null || all.Count == 0)
             {
                 SetHeaders(headers);
@@ -52,7 +60,7 @@ namespace Retinues.GUI.Editor.VM.List.Library
             void AddSection(
                 string id,
                 string name,
-                IEnumerable<MLibrary.Item> items,
+                IEnumerable<ExportLibrary.Entry> items,
                 bool isFaction
             )
             {
@@ -84,14 +92,14 @@ namespace Retinues.GUI.Editor.VM.List.Library
             AddSection(
                 id: "exports_factions",
                 name: L.S("list_header_exports_factions", "Factions"),
-                items: all.Where(x => x.Kind == MLibraryKind.Faction),
+                items: all.Where(x => x.Kind == ExportKind.Faction),
                 isFaction: true
             );
 
             AddSection(
                 id: "exports_characters",
                 name: L.S("list_header_exports_characters", "Troops"),
-                items: all.Where(x => x.Kind == MLibraryKind.Character),
+                items: all.Where(x => x.Kind == ExportKind.Character),
                 isFaction: false
             );
 
