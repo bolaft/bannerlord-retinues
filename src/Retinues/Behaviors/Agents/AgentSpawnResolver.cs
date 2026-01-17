@@ -12,17 +12,8 @@ using TaleWorlds.MountAndBlade;
 namespace Retinues.Behaviors.Agents
 {
     /// <summary>
-    /// Context enum describing the battle environment for spawn resolution.
-    /// </summary>
-    public enum BattleContext
-    {
-        Field = 0,
-        Siege = 1,
-        Naval = 2,
-    }
-
-    /// <summary>
     /// Applies spawn-time overrides (equipment selection and mixed gender).
+    /// Battle context is resolved from MMapEvent/MMission to avoid duplicating engine heuristics.
     /// </summary>
     public sealed class AgentSpawnResolver
     {
@@ -30,19 +21,17 @@ namespace Retinues.Behaviors.Agents
         //                         Context                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        /// <summary>
-        /// Gets the current battle context resolved from the active mission.
-        /// </summary>
+        public enum BattleContext
+        {
+            Field = 0,
+            Siege = 1,
+            Naval = 2,
+        }
+
         public static BattleContext CurrentContext => ResolveContext(Mission.Current);
 
-        /// <summary>
-        /// Indicates whether the current mission is considered combat.
-        /// </summary>
         public static bool IsCombatMission => ResolveIsCombat(Mission.Current);
 
-        /// <summary>
-        /// Determines if the provided mission counts as combat (battle/deployment/etc.).
-        /// </summary>
         private static bool ResolveIsCombat(Mission mission)
         {
             if (mission == null)
@@ -62,9 +51,6 @@ namespace Retinues.Behaviors.Agents
             }
         }
 
-        /// <summary>
-        /// Resolves the battle context (field/siege/naval) for the given mission.
-        /// </summary>
         private static BattleContext ResolveContext(Mission mission)
         {
             var mapEvent = CombatBehavior.MapEvent;
@@ -133,9 +119,6 @@ namespace Retinues.Behaviors.Agents
             ApplyEquipmentRules(wc, mission, data);
         }
 
-        /// <summary>
-        /// Resolves the CharacterObject referenced by the AgentBuildData.
-        /// </summary>
         private static CharacterObject ResolveCharacter(AgentBuildData data)
         {
             if (data.AgentCharacter is CharacterObject a)
@@ -148,9 +131,6 @@ namespace Retinues.Behaviors.Agents
         //                      Mixed Gender                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        /// <summary>
-        /// Applies mixed-gender spawn rules based on character settings and random chance.
-        /// </summary>
         private static void ApplyMixedGender(WCharacter wc, AgentBuildData data)
         {
             if (wc == null || data == null)
@@ -176,9 +156,6 @@ namespace Retinues.Behaviors.Agents
         //                      Equipments                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        /// <summary>
-        /// Applies equipment selection rules based on context, civilian flag, and configured sets.
-        /// </summary>
         private static void ApplyEquipmentRules(WCharacter wc, Mission mission, AgentBuildData data)
         {
             if (wc == null || mission == null || data == null)
@@ -264,9 +241,6 @@ namespace Retinues.Behaviors.Agents
                 .CivilianEquipment(false);
         }
 
-        /// <summary>
-        /// Collects items from the source list that match the predicate.
-        /// </summary>
         private static List<MEquipment> Collect(List<MEquipment> src, Func<MEquipment, bool> pred)
         {
             var list = new List<MEquipment>(src.Count);

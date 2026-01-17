@@ -403,15 +403,14 @@ namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Controllers
                 return plural ? L.T(idPlural, fallbackPlural) : L.T(idSingular, fallbackSingular);
             }
 
-            var lines = new List<string>();
-
-            // First line: the question (always first).
-            lines.Add(
+            var lines = new List<string>
+            {
+                // First line: the question (always first).
                 L.T("equipment_paste_confirm_question", "Copy equipment from {SRC} to {DST}?")
                     .SetTextVariable("SRC", sourceName)
                     .SetTextVariable("DST", targetName)
-                    .ToString()
-            );
+                    .ToString(),
+            };
 
             // Cost line (only if buying is required).
             if (economyEnabled && plan.TotalCost > 0 && plan.PurchaseById.Count > 0)
