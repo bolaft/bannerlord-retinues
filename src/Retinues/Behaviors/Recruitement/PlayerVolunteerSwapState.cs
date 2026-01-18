@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Retinues.Configuration;
 using Retinues.Domain;
 using Retinues.Domain.Characters.Services.Matching;
 using Retinues.Domain.Characters.Wrappers;
@@ -173,6 +174,8 @@ namespace Retinues.Behaviors.Recruitement
             if (notables == null || notables.Count == 0)
                 return;
 
+            var settlementCulture = settlement.Base?.Culture;
+
             foreach (var notable in notables)
             {
                 if (string.IsNullOrEmpty(notable?.StringId))
@@ -215,6 +218,18 @@ namespace Retinues.Behaviors.Recruitement
 
                     if (replacementBase == current)
                         continue;
+
+                    if (Settings.SameCultureOnly)
+                    {
+                        var replacementCulture = replacementBase.Culture;
+
+                        if (
+                            settlementCulture != null
+                            && replacementCulture != null
+                            && replacementCulture != settlementCulture
+                        )
+                            continue;
+                    }
 
                     volunteers[i] = replacementBase;
                 }

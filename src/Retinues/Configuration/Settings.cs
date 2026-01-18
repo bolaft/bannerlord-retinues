@@ -246,7 +246,7 @@ namespace Retinues.Configuration
                 name: L.F("mcm_option_editing_restriction", "Location Restrictions"),
                 hint: L.F(
                     "mcm_option_editing_restriction_hint",
-                    "Restricts where custom troops can be edited. Note: retinues are unaffected by this setting."
+                    "Restricts where faction troops can be edited. 'Anywhere': No restrictions. 'Any Settlement': You must be in a settlement. 'Faction Settlement': You must be in an owned faction fief. Note: Retinues are not affected by this setting."
                 ),
                 @default: EditingRestrictionMode.None,
                 @realistic: EditingRestrictionMode.InFief,
@@ -423,7 +423,7 @@ namespace Retinues.Configuration
                 name: L.F("mcm_option_clan_troops_unlock", "Clan Troops"),
                 hint: L.F(
                     "mcm_option_clan_troops_unlock_hint",
-                    "Determines when clan troops become available."
+                    "Determines when clan troops become available. 'Always Unlocked': Clan troops are available from the start. 'Unlocked With First Fief': Clan troops unlock when the clan acquires its first fief. 'Disabled': Clan troops are never unlocked."
                 ),
                 @default: ClanTroopsUnlockMode.UnlockedWithFirstFief,
                 choices:
@@ -467,7 +467,7 @@ namespace Retinues.Configuration
                 name: L.F("mcm_option_kingdom_troops_unlock", "Kingdom Troops"),
                 hint: L.F(
                     "mcm_option_kingdom_troops_unlock_hint",
-                    "Determines when kingdom troops become available."
+                    "Determines when kingdom troops become available. 'Always Unlocked': Kingdom troops are available from the start. 'Unlocked Upon Becoming Ruler': Kingdom troops unlock when the player founds a kingdom. 'Disabled': Kingdom troops are never unlocked."
                 ),
                 @default: KingdomTroopsUnlockMode.UnlockedUponBecomingRuler,
                 choices:
@@ -511,7 +511,7 @@ namespace Retinues.Configuration
                 name: L.F("mcm_option_starter_troops", "Starter Troops"),
                 hint: L.F(
                     "mcm_option_starter_troops_hint",
-                    "Determines clan and kingdom starter troops."
+                    "Determines clan and kingdom starter troops. 'Roots Only': Only one basic and one elite troops are created. 'Lean Trees': A lean selection of troops is created on start. 'Full Trees': The full range of troops is automatically created."
                 ),
                 @default: TroopsMode.LeanTrees,
                 choices: [TroopsMode.RootsOnly, TroopsMode.LeanTrees, TroopsMode.FullTrees],
@@ -548,7 +548,7 @@ namespace Retinues.Configuration
                 name: L.F("mcm_option_starter_equipment", "Starter Equipment"),
                 hint: L.F(
                     "mcm_option_starter_equipment_hint",
-                    "Sets the starter equipment for newly unlocked troops."
+                    "Sets the starter equipment for newly unlocked troops. 'Random': A random equipment set is assigned. 'Copy One Set': One equipment set is copied from the base troop. 'Copy All Sets': All equipment sets are copied from the base troops. 'Empty': No starter equipment is created."
                 ),
                 @default: EquipmentMode.RandomSet,
                 choices:
@@ -634,7 +634,7 @@ namespace Retinues.Configuration
                 name: L.F("mcm_option_clan_troops_availability", "Clan Troops Availability"),
                 hint: L.F(
                     "mcm_option_clan_troops_availability_hint",
-                    "Determines where clan troops can be recruited from."
+                    "Determines where clan troops can be recruited from. 'Everywhere': Clan troops can be recruited from any settlement. 'Clan Fiefs': Clan troops can only be recruited fiefs owned by their clan. 'Clan or Kingdom Fiefs': Clan troops can be recruited from owned clan or kingdom fiefs. 'Nowhere': Clan troops cannot be recruited."
                 ),
                 @default: RecruitmentMode.FactionFiefs,
                 choices:
@@ -676,7 +676,7 @@ namespace Retinues.Configuration
                 name: L.F("mcm_option_kingdom_troops_availability", "Kingdom Troops Availability"),
                 hint: L.F(
                     "mcm_option_kingdom_troops_availability_hint",
-                    "Determines where kingdom troops can be recruited from."
+                    "Determines where kingdom troops can be recruited from. 'Everywhere': Kingdom troops can be recruited from any settlement. 'Kingdom Fiefs': Kingdom troops can only be recruited fiefs owned by their kingdom. 'Clan or Kingdom Fiefs': Kingdom troops can be recruited from owned clan or kingdom fiefs. 'Nowhere': Kingdom troops cannot be recruited."
                 ),
                 @default: RecruitmentMode.FactionFiefs,
                 choices:
@@ -712,6 +712,16 @@ namespace Retinues.Configuration
                 }
             );
 
+        public static readonly Option<bool> SameCultureOnly = CreateOption(
+            section: Recruitment,
+            name: L.F("mcm_option_same_culture_only", "Same Culture Only"),
+            hint: L.F(
+                "mcm_option_same_culture_only_hint",
+                "If enabled, custom troops can only be recruited in settlements of the same culture."
+            ),
+            @default: false
+        );
+
         public static readonly Option<bool> MixWithVanillaTroops = CreateOption(
             section: Recruitment,
             name: L.F("mcm_option_mix_with_vanilla_troops", "Mix With Vanilla Troops"),
@@ -735,7 +745,7 @@ namespace Retinues.Configuration
                 name: L.F("mcm_option_allowed_recruiters", "Allowed Recruiters"),
                 hint: L.F(
                     "mcm_option_allowed_recruiters_hint",
-                    "Determines who can recruit custom troops. 'Everyone' is recommended for compatibility with other recruitement mods."
+                    "Determines who can recruit custom troops. 'Everyone': All parties can recruit custom troops (recommended for compatibility with other recruitement mods). 'Faction Only': Only faction parties can recruit custom troops. 'Player Only': Only the player can recruit custom troops."
                 ),
                 @default: AllowedRecruitersMode.Everyone,
                 choices:

@@ -1439,20 +1439,11 @@
       id="ret_mcm_option_allowed_recruiters"
       text="Erlaubte Rekrutierer" />
     <string
-      id="ret_mcm_option_allowed_recruiters_hint"
-      text="Bestimmt, wer benutzerdefinierte Truppen rekrutieren kann. &apos;Jeder&apos; wird für die Kompatibilität mit anderen Rekrutierungs-Mods empfohlen." />
-    <string
       id="ret_mcm_option_clan_troops_availability"
       text="Verfügbarkeit von Clan-Truppen" />
     <string
-      id="ret_mcm_option_clan_troops_availability_hint"
-      text="Bestimmt, wo Clan-Truppen rekrutiert werden können." />
-    <string
       id="ret_mcm_option_clan_troops_unlock"
       text="Clan-Truppen" />
-    <string
-      id="ret_mcm_option_clan_troops_unlock_hint"
-      text="Bestimmt, wann Clan-Truppen verfügbar werden." />
     <string
       id="ret_mcm_option_debug_mode"
       text="Debug-Modus" />
@@ -1498,9 +1489,6 @@
     <string
       id="ret_mcm_option_editing_restriction"
       text="Standortbeschränkungen" />
-    <string
-      id="ret_mcm_option_editing_restriction_hint"
-      text="Beschränkt, wo benutzerdefinierte Truppen bearbeitet werden können. Hinweis: Retinues sind von dieser Einstellung nicht betroffen." />
     <string
       id="ret_mcm_option_editor_hotkey"
       text="Editor-Hotkey" />
@@ -1616,14 +1604,8 @@
       id="ret_mcm_option_kingdom_troops_availability"
       text="Verfügbarkeit von Königreichstruppen" />
     <string
-      id="ret_mcm_option_kingdom_troops_availability_hint"
-      text="Bestimmt, wo Königreichstruppen rekrutiert werden können." />
-    <string
       id="ret_mcm_option_kingdom_troops_unlock"
       text="Königreichstruppen" />
-    <string
-      id="ret_mcm_option_kingdom_troops_unlock_hint"
-      text="Bestimmt, wann Königreichstruppen verfügbar werden." />
     <string
       id="ret_mcm_option_max_retinue_ratio"
       text="Maximales Retinue-Verhältnis" />
@@ -1736,14 +1718,8 @@
       id="ret_mcm_option_starter_equipment"
       text="Startausrüstung" />
     <string
-      id="ret_mcm_option_starter_equipment_hint"
-      text="Legt die Starterausrüstung für neu freigeschaltete Truppen fest." />
-    <string
       id="ret_mcm_option_starter_troops"
       text="Starter-Truppen" />
-    <string
-      id="ret_mcm_option_starter_troops_hint"
-      text="Bestimmt die Starter-Truppen von Clan und Königreich." />
     <string
       id="ret_mcm_option_time_multiplier"
       text="Ausrüstungszeit-Multiplikator" />

@@ -1439,20 +1439,11 @@
       id="ret_mcm_option_allowed_recruiters"
       text="允许的招募者" />
     <string
-      id="ret_mcm_option_allowed_recruiters_hint"
-      text="确定谁可以招募自定义部队。建议选择“所有人”，以兼容其他招募模组。" />
-    <string
       id="ret_mcm_option_clan_troops_availability"
       text="氏族部队可用性" />
     <string
-      id="ret_mcm_option_clan_troops_availability_hint"
-      text="确定氏族部队可以从哪里招募。" />
-    <string
       id="ret_mcm_option_clan_troops_unlock"
       text="氏族部队" />
-    <string
-      id="ret_mcm_option_clan_troops_unlock_hint"
-      text="确定氏族部队何时可用。" />
     <string
       id="ret_mcm_option_debug_mode"
       text="调试模式" />
@@ -1498,9 +1489,6 @@
     <string
       id="ret_mcm_option_editing_restriction"
       text="位置限制" />
-    <string
-      id="ret_mcm_option_editing_restriction_hint"
-      text="限制自定义部队可以编辑的位置。注意：随从不受此设置影响。" />
     <string
       id="ret_mcm_option_editor_hotkey"
       text="编辑器热键" />
@@ -1616,14 +1604,8 @@
       id="ret_mcm_option_kingdom_troops_availability"
       text="王国部队可用性" />
     <string
-      id="ret_mcm_option_kingdom_troops_availability_hint"
-      text="确定可以从哪里招募王国部队。" />
-    <string
       id="ret_mcm_option_kingdom_troops_unlock"
       text="王国部队" />
-    <string
-      id="ret_mcm_option_kingdom_troops_unlock_hint"
-      text="确定王国部队何时可用。" />
     <string
       id="ret_mcm_option_max_retinue_ratio"
       text="最大随从比例" />
@@ -1736,14 +1718,8 @@
       id="ret_mcm_option_starter_equipment"
       text="起始装备" />
     <string
-      id="ret_mcm_option_starter_equipment_hint"
-      text="为新解锁的部队设置起始装备。" />
-    <string
       id="ret_mcm_option_starter_troops"
       text="起始部队" />
-    <string
-      id="ret_mcm_option_starter_troops_hint"
-      text="确定氏族和王国的起始部队。" />
     <string
       id="ret_mcm_option_time_multiplier"
       text="装备时间乘数" />

@@ -1440,7 +1440,7 @@
       text="Allowed Recruiters" />
     <string
       id="ret_mcm_option_allowed_recruiters_hint"
-      text="Determines who can recruit custom troops. &apos;Everyone&apos; is recommended for compatibility with other recruitement mods." />
+      text="Determines who can recruit custom troops. &apos;Everyone&apos;: All parties can recruit custom troops (recommended for compatibility with other recruitement mods). &apos;Faction Only&apos;: Only faction parties can recruit custom troops. &apos;Player Only&apos;: Only the player can recruit custom troops." />
     <string
       id="ret_mcm_option_captain_spawn_rate"
       text="Captain Spawn Rate" />
@@ -1452,13 +1452,13 @@
       text="Clan Troops Availability" />
     <string
       id="ret_mcm_option_clan_troops_availability_hint"
-      text="Determines where clan troops can be recruited from." />
+      text="Determines where clan troops can be recruited from. &apos;Everywhere&apos;: Clan troops can be recruited from any settlement. &apos;Clan Fiefs&apos;: Clan troops can only be recruited fiefs owned by their clan. &apos;Clan or Kingdom Fiefs&apos;: Clan troops can be recruited from owned clan or kingdom fiefs. &apos;Nowhere&apos;: Clan troops cannot be recruited." />
     <string
       id="ret_mcm_option_clan_troops_unlock"
       text="Clan Troops" />
     <string
       id="ret_mcm_option_clan_troops_unlock_hint"
-      text="Determines when clan troops become available." />
+      text="Determines when clan troops become available. &apos;Always Unlocked&apos;: Clan troops are available from the start. &apos;Unlocked With First Fief&apos;: Clan troops unlock when the clan acquires its first fief. &apos;Disabled&apos;: Clan troops are never unlocked." />
     <string
       id="ret_mcm_option_debug_mode"
       text="Debug Mode" />
@@ -1506,7 +1506,7 @@
       text="Location Restrictions" />
     <string
       id="ret_mcm_option_editing_restriction_hint"
-      text="Restricts where custom troops can be edited. Note: retinues are unaffected by this setting." />
+      text="Restricts where faction troops can be edited. &apos;Anywhere&apos;: No restrictions. &apos;Any Settlement&apos;: You must be in a settlement. &apos;Faction Settlement&apos;: You must be in an owned faction fief. Note: Retinues are not affected by this setting." />
     <string
       id="ret_mcm_option_editor_hotkey"
       text="Editor Hotkey" />
@@ -1623,13 +1623,13 @@
       text="Kingdom Troops Availability" />
     <string
       id="ret_mcm_option_kingdom_troops_availability_hint"
-      text="Determines where kingdom troops can be recruited from." />
+      text="Determines where kingdom troops can be recruited from. &apos;Everywhere&apos;: Kingdom troops can be recruited from any settlement. &apos;Kingdom Fiefs&apos;: Kingdom troops can only be recruited fiefs owned by their kingdom. &apos;Clan or Kingdom Fiefs&apos;: Kingdom troops can be recruited from owned clan or kingdom fiefs. &apos;Nowhere&apos;: Kingdom troops cannot be recruited." />
     <string
       id="ret_mcm_option_kingdom_troops_unlock"
       text="Kingdom Troops" />
     <string
       id="ret_mcm_option_kingdom_troops_unlock_hint"
-      text="Determines when kingdom troops become available." />
+      text="Determines when kingdom troops become available. &apos;Always Unlocked&apos;: Kingdom troops are available from the start. &apos;Unlocked Upon Becoming Ruler&apos;: Kingdom troops unlock when the player founds a kingdom. &apos;Disabled&apos;: Kingdom troops are never unlocked." />
     <string
       id="ret_mcm_option_max_retinue_ratio"
       text="Max Retinue Ratio" />
@@ -1715,6 +1715,12 @@
       id="ret_mcm_option_retinue_unlock_speed_hint"
       text="Multiplier affecting how quickly new retinues are unlocked." />
     <string
+      id="ret_mcm_option_same_culture_only"
+      text="Same Culture Only" />
+    <string
+      id="ret_mcm_option_same_culture_only_hint"
+      text="If enabled, custom troops can only be recruited in settlements of the same culture." />
+    <string
       id="ret_mcm_option_skill_cap"
       text="Tier {TIER}" />
     <string
@@ -1743,13 +1749,13 @@
       text="Starter Equipment" />
     <string
       id="ret_mcm_option_starter_equipment_hint"
-      text="Sets the starter equipment for newly unlocked troops." />
+      text="Sets the starter equipment for newly unlocked troops. &apos;Random&apos;: A random equipment set is assigned. &apos;Copy One Set&apos;: One equipment set is copied from the base troop. &apos;Copy All Sets&apos;: All equipment sets are copied from the base troops. &apos;Empty&apos;: No starter equipment is created." />
     <string
       id="ret_mcm_option_starter_troops"
       text="Starter Troops" />
     <string
       id="ret_mcm_option_starter_troops_hint"
-      text="Determines clan and kingdom starter troops." />
+      text="Determines clan and kingdom starter troops. &apos;Roots Only&apos;: Only one basic and one elite troops are created. &apos;Lean Trees&apos;: A lean selection of troops is created on start. &apos;Full Trees&apos;: The full range of troops is automatically created." />
     <string
       id="ret_mcm_option_time_multiplier"
       text="Equip Time Multiplier" />

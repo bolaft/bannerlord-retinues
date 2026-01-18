@@ -1439,20 +1439,11 @@
       id="ret_mcm_option_allowed_recruiters"
       text="Reclutadores permitidos" />
     <string
-      id="ret_mcm_option_allowed_recruiters_hint"
-      text="Determina quién puede reclutar tropas personalizadas. &apos;Todos&apos; se recomienda para la compatibilidad con otros mods de reclutamiento." />
-    <string
       id="ret_mcm_option_clan_troops_availability"
       text="Disponibilidad de tropas de clan" />
     <string
-      id="ret_mcm_option_clan_troops_availability_hint"
-      text="Determina de dónde se pueden reclutar tropas de clan." />
-    <string
       id="ret_mcm_option_clan_troops_unlock"
       text="Tropas de clan" />
-    <string
-      id="ret_mcm_option_clan_troops_unlock_hint"
-      text="Determina cuándo las tropas de clan están disponibles." />
     <string
       id="ret_mcm_option_debug_mode"
       text="Modo de depuración" />
@@ -1498,9 +1489,6 @@
     <string
       id="ret_mcm_option_editing_restriction"
       text="Restricciones de ubicación" />
-    <string
-      id="ret_mcm_option_editing_restriction_hint"
-      text="Restringe dónde se pueden editar las tropas personalizadas. Nota: las retinues no se ven afectadas por esta configuración." />
     <string
       id="ret_mcm_option_editor_hotkey"
       text="Tecla de acceso rápido del editor" />
@@ -1616,14 +1604,8 @@
       id="ret_mcm_option_kingdom_troops_availability"
       text="Disponibilidad de Tropas del Reino" />
     <string
-      id="ret_mcm_option_kingdom_troops_availability_hint"
-      text="Determina de dónde se pueden reclutar las tropas del reino." />
-    <string
       id="ret_mcm_option_kingdom_troops_unlock"
       text="Tropas del Reino" />
-    <string
-      id="ret_mcm_option_kingdom_troops_unlock_hint"
-      text="Determina cuándo las tropas del reino están disponibles." />
     <string
       id="ret_mcm_option_max_retinue_ratio"
       text="Relación máxima de Retinues" />
@@ -1736,14 +1718,8 @@
       id="ret_mcm_option_starter_equipment"
       text="Equipo inicial" />
     <string
-      id="ret_mcm_option_starter_equipment_hint"
-      text="Establece el equipo inicial para las tropas recién desbloqueadas." />
-    <string
       id="ret_mcm_option_starter_troops"
       text="Tropas iniciales" />
-    <string
-      id="ret_mcm_option_starter_troops_hint"
-      text="Determina las tropas iniciales del clan y del reino." />
     <string
       id="ret_mcm_option_time_multiplier"
       text="Multiplicador de tiempo de equipamiento" />

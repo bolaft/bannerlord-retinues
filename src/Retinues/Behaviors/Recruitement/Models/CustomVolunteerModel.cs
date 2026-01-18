@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Retinues.Configuration;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Settlements.Wrappers;
 using Retinues.Utilities;
@@ -103,7 +104,24 @@ namespace Retinues.Behaviors.Recruitement.Models
                 }
 
                 var root = wantElite ? ws.GetBaseEliteRoot() : ws.GetBaseBasicRoot();
-                return root?.Base ?? inner;
+                var rootBase = root?.Base;
+                if (rootBase == null)
+                    return inner;
+
+                if (Settings.SameCultureOnly)
+                {
+                    var settlementCulture = settlement.Culture;
+                    var rootCulture = rootBase.Culture;
+
+                    if (
+                        settlementCulture != null
+                        && rootCulture != null
+                        && rootCulture != settlementCulture
+                    )
+                        return inner;
+                }
+
+                return rootBase;
             }
             catch (Exception ex)
             {
