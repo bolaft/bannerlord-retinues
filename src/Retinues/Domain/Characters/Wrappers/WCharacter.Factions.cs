@@ -1,33 +1,12 @@
-using System;
 using System.Collections.Generic;
 using Retinues.Domain.Characters.Services.Caches;
 using Retinues.Domain.Factions;
 using Retinues.Domain.Factions.Wrappers;
-using Retinues.Utilities;
 
 namespace Retinues.Domain.Characters.Wrappers
 {
     public partial class WCharacter
     {
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                       Troop Type                       //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        public TroopSourceFlags SourceFlags => SourceFlagCache.Get(this);
-
-        /// <summary>
-        /// Invalidates all troop source caches.
-        /// </summary>
-        public static void InvalidateTroopSourceCaches()
-        {
-            FactionCache.Invalidate();
-            SourceFlagCache.Invalidate();
-            TreeFlagCache.Invalidate();
-
-            // Also invalidate retinue conversion sources/targets caches.
-            CacheRegistry.ClearGroup(ConversionCacheGroupKey);
-        }
-
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Factions                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

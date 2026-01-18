@@ -7,6 +7,8 @@ using Retinues.Domain.Characters.Services.Trees;
 using Retinues.Domain.Factions.Wrappers;
 using Retinues.Framework.Model;
 using Retinues.Framework.Model.Attributes;
+using Retinues.Framework.Runtime;
+using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.Localization;
@@ -106,17 +108,32 @@ namespace Retinues.Domain.Characters.Wrappers
         public int Depth => CharacterTreeCache.GetDepth(this);
         public bool IsLeaf => UpgradeTargets.Count == 0;
 
-        /* ━━━━━━━ Category ━━━━━━━ */
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Troop Type                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public bool IsRetinue => TroopSourceFlags.Retinue != 0;
-        public bool IsElite => TroopSourceFlags.Elite != 0;
-        public bool IsBasic => TroopSourceFlags.Basic != 0;
-        public bool IsMercenary => TroopSourceFlags.Mercenary != 0;
-        public bool IsBandit => TroopSourceFlags.Bandit != 0;
-        public bool IsMilitia => TroopSourceFlags.Militia != 0;
-        public bool IsCaravan => TroopSourceFlags.Caravan != 0;
-        public bool IsVillager => TroopSourceFlags.Villager != 0;
-        public bool IsCivilian => TroopSourceFlags.Civilian != 0;
+        public TroopSourceFlags SourceFlags => SourceFlagCache.Get(this);
+
+        [StaticClearAction]
+        public static void InvalidateTroopSourceCaches()
+        {
+            FactionCache.Invalidate();
+            SourceFlagCache.Invalidate();
+            TreeFlagCache.Invalidate();
+
+            // Also invalidate retinue conversion sources/targets caches.
+            CacheRegistry.ClearGroup(ConversionCacheGroupKey);
+        }
+
+        public bool IsRetinue => (SourceFlags & TroopSourceFlags.Retinue) != 0;
+        public bool IsElite => (SourceFlags & TroopSourceFlags.Elite) != 0;
+        public bool IsBasic => (SourceFlags & TroopSourceFlags.Basic) != 0;
+        public bool IsMercenary => (SourceFlags & TroopSourceFlags.Mercenary) != 0;
+        public bool IsBandit => (SourceFlags & TroopSourceFlags.Bandit) != 0;
+        public bool IsMilitia => (SourceFlags & TroopSourceFlags.Militia) != 0;
+        public bool IsCaravan => (SourceFlags & TroopSourceFlags.Caravan) != 0;
+        public bool IsVillager => (SourceFlags & TroopSourceFlags.Villager) != 0;
+        public bool IsCivilian => (SourceFlags & TroopSourceFlags.Civilian) != 0;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Culture                        //
