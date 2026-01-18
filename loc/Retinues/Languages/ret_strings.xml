@@ -1190,6 +1190,51 @@
       id="ret_heroes_cannot_be_exported"
       text="Heroes cannot be exported." />
     <string
+      id="ret_history_battles_field"
+      text="Field Battles" />
+    <string
+      id="ret_history_battles_fought"
+      text="Battles fought: {TOTAL} (won {WON}, lost {LOST})" />
+    <string
+      id="ret_history_battles_naval"
+      text="Naval Battles" />
+    <string
+      id="ret_history_battles_raids"
+      text="Raids" />
+    <string
+      id="ret_history_battles_siege"
+      text="Siege Battles" />
+    <string
+      id="ret_history_button_label"
+      text="Show Battle History" />
+    <string
+      id="ret_history_casualties_title"
+      text="Casualties" />
+    <string
+      id="ret_history_entry"
+      text="- {NAME}: {COUNT}" />
+    <string
+      id="ret_history_kills_title"
+      text="Kills" />
+    <string
+      id="ret_history_line_entry"
+      text="- {LABEL}: {COUNT}" />
+    <string
+      id="ret_history_more"
+      text="({COUNT} more...)" />
+    <string
+      id="ret_history_player_only"
+      text="Only available in player mode." />
+    <string
+      id="ret_history_popup_title"
+      text="Battle History" />
+    <string
+      id="ret_history_section_total"
+      text="{TITLE}: {TOTAL}" />
+    <string
+      id="ret_history_tooltip"
+      text="Show battle history." />
+    <string
       id="ret_in_stock"
       text="In Stock ({STOCK})" />
     <string
@@ -2322,7 +2367,7 @@
       text="Troops [R]" />
     <string
       id="ret_unequip_item_tooltip"
-      text="Unequip" />
+      text="Unequip." />
     <string
       id="ret_unknown_error"
       text="Unknown error." />
@@ -2343,7 +2388,7 @@
       text="were" />
     <string
       id="ret_unstage_item_tooltip"
-      text="Unstage" />
+      text="Unstage." />
     <string
       id="ret_upgrade_cannot_add_hero"
       text="Heroes cannot have upgrade targets." />

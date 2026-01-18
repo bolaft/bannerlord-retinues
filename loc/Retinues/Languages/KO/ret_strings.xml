@@ -2154,7 +2154,7 @@
       text="부대 [R]" />
     <string
       id="ret_unequip_item_tooltip"
-      text="장비 해제" />
+      text="장비 해제." />
     <string
       id="ret_unknown_error"
       text="알 수 없는 오류." />
@@ -2175,7 +2175,7 @@
       text="이었다" />
     <string
       id="ret_unstage_item_tooltip"
-      text="단계 해제" />
+      text="단계 해제." />
     <string
       id="ret_upgrade_cannot_add_hero"
       text="영웅은 업그레이드 대상을 가질 수 없습니다." />

@@ -172,17 +172,16 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Column
                 action: CaptainsController.ToggleCaptainEnabled,
                 arg: () => State.Character,
                 refresh: [UIEvent.Character],
+                spriteFactory: () =>
+                    State.Character?.IsCaptainEnabled == true
+                        ? "ButtonBrush3"
+                        : "ButtonBrush1",
                 labelFactory: () =>
                     State.Character?.IsCaptainEnabled == true
                         ? L.S("button_disable_captain", "Disable Captain")
                         : L.S("button_enable_captain", "Enable Captain"),
                 visibilityGate: () => State.Character?.IsCaptain == true
             );
-
-        [EventListener(UIEvent.Character)]
-        [DataSourceProperty]
-        public string ToggleCaptainButtonBrush =>
-            State.Character?.IsCaptainEnabled == true ? "Popup.Delete.Button" : "Popup.Done.Button";
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Remove                          //

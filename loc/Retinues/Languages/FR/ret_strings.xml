@@ -2154,7 +2154,7 @@
       text="Troupes [R]" />
     <string
       id="ret_unequip_item_tooltip"
-      text="Déséquiper" />
+      text="Déséquiper." />
     <string
       id="ret_unknown_error"
       text="Erreur inconnue." />
@@ -2175,7 +2175,7 @@
       text="ont été" />
     <string
       id="ret_unstage_item_tooltip"
-      text="Annuler" />
+      text="Annuler." />
     <string
       id="ret_upgrade_cannot_add_hero"
       text="Les héros ne peuvent pas avoir de promotions." />

@@ -2154,7 +2154,7 @@
       text="Birlikler [R]" />
     <string
       id="ret_unequip_item_tooltip"
-      text="Ekipmanı Çıkar" />
+      text="Ekipmanı Çıkar." />
     <string
       id="ret_unknown_error"
       text="Bilinmeyen hata." />
@@ -2175,7 +2175,7 @@
       text="idi" />
     <string
       id="ret_unstage_item_tooltip"
-      text="Aşamayı Kaldır" />
+      text="Aşamayı Kaldır." />
     <string
       id="ret_upgrade_cannot_add_hero"
       text="Kahramanların yükseltme hedefleri olamaz." />

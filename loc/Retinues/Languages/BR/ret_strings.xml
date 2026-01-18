@@ -2154,7 +2154,7 @@
       text="Tropas [R]" />
     <string
       id="ret_unequip_item_tooltip"
-      text="Desequipar" />
+      text="Desequipar." />
     <string
       id="ret_unknown_error"
       text="Erro desconhecido." />
@@ -2175,7 +2175,7 @@
       text="foram" />
     <string
       id="ret_unstage_item_tooltip"
-      text="Desencenar" />
+      text="Desencenar." />
     <string
       id="ret_upgrade_cannot_add_hero"
       text="Heróis não podem ter alvos de melhoria." />

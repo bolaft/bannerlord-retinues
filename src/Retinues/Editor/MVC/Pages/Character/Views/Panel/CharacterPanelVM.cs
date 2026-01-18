@@ -125,6 +125,22 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Panel
                 return _traits;
             }
         }
+        
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         History                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [DataSourceProperty]
+        public string HistoryButtonLabel => L.S("history_button_label", "Show Battle History");
+
+        [DataSourceProperty]
+        public Button<WCharacter> ShowHistoryButton { get; } =
+            new(
+                action: CharacterController.ShowHistory,
+                arg: () => State.Character,
+                refresh: [UIEvent.Character],
+                visibilityGate: () => State.Mode == EditorMode.Player
+            );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Skills                         //

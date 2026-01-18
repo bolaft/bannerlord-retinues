@@ -2154,7 +2154,7 @@
       text="Войска [R]" />
     <string
       id="ret_unequip_item_tooltip"
-      text="Снять" />
+      text="Снять." />
     <string
       id="ret_unknown_error"
       text="Неизвестная ошибка." />
@@ -2175,7 +2175,7 @@
       text="были" />
     <string
       id="ret_unstage_item_tooltip"
-      text="Отменить этап" />
+      text="Отменить этап." />
     <string
       id="ret_upgrade_cannot_add_hero"
       text="У героев не может быть целей для улучшения." />

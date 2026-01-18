@@ -2154,7 +2154,7 @@
       text="部队 [R]" />
     <string
       id="ret_unequip_item_tooltip"
-      text="卸下装备" />
+      text="卸下装备." />
     <string
       id="ret_unknown_error"
       text="未知错误。" />
@@ -2175,7 +2175,7 @@
       text="是" />
     <string
       id="ret_unstage_item_tooltip"
-      text="取消分阶段" />
+      text="取消分阶段." />
     <string
       id="ret_upgrade_cannot_add_hero"
       text="英雄不能有升级目标。" />

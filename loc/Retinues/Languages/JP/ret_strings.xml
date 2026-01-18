@@ -2154,7 +2154,7 @@
       text="部隊 [R]" />
     <string
       id="ret_unequip_item_tooltip"
-      text="装備解除" />
+      text="装備解除." />
     <string
       id="ret_unknown_error"
       text="不明なエラー。" />
@@ -2175,7 +2175,7 @@
       text="でした" />
     <string
       id="ret_unstage_item_tooltip"
-      text="ステージ解除" />
+      text="ステージ解除." />
     <string
       id="ret_upgrade_cannot_add_hero"
       text="英雄にはアップグレードターゲットを設定できません。" />

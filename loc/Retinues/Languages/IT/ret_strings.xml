@@ -2154,7 +2154,7 @@
       text="Truppe [R]" />
     <string
       id="ret_unequip_item_tooltip"
-      text="Desequipaggia" />
+      text="Desequipaggia." />
     <string
       id="ret_unknown_error"
       text="Errore sconosciuto." />
@@ -2175,7 +2175,7 @@
       text="sono stati" />
     <string
       id="ret_unstage_item_tooltip"
-      text="Annulla" />
+      text="Annulla." />
     <string
       id="ret_upgrade_cannot_add_hero"
       text="Gli eroi non possono avere obiettivi di miglioramento." />
