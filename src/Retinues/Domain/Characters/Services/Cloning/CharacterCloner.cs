@@ -58,7 +58,9 @@ namespace Retinues.Domain.Characters.Services.Cloning
             stub.Race = source.Race;
             stub.Age = source.Age;
             stub.IsMariner = source.IsMariner;
-            stub.SkillPoints = source.SkillPoints;
+
+            // Skill points are not cloned
+            stub.SkillPoints = 0;
 
             // Always ignore upgrades (builder can re-wire later if needed)
             stub.UpgradeTargets = [];
@@ -78,8 +80,9 @@ namespace Retinues.Domain.Characters.Services.Cloning
             // Detach skills container, then apply skill values
             DetachSkillsContainer(stub);
 
-            foreach (var (skill, value) in stub.Skills)
-                stub.Skills.Set(skill, value);
+            if (skills)
+                foreach (var (skill, value) in source.Skills)
+                    stub.Skills.Set(skill, value);
 
             // Equipment: coarse toggle only (policy handled by callers)
             if (equipments)
