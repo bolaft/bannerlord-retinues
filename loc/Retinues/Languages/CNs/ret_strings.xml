@@ -116,12 +116,6 @@
       id="ret_button_change_formation_class_tooltip"
       text="选择一个编队类别。" />
     <string
-      id="ret_button_export_character_tooltip"
-      text="保存此角色并将其添加到库中。" />
-    <string
-      id="ret_button_export_faction_tooltip"
-      text="保存所选派系并将其添加到库中。" />
-    <string
       id="ret_button_remove_character"
       text="删除" />
     <string
@@ -662,20 +656,11 @@
       id="ret_export_character_no_heroes"
       text="英雄数据与保存状态相关联。" />
     <string
-      id="ret_export_character_tooltip"
-      text="保存并导出。" />
-    <string
       id="ret_export_done_desc"
       text="导出写入到：{newline}{PATH}" />
     <string
       id="ret_export_done_title"
       text="导出完成" />
-    <string
-      id="ret_export_faction_no_id"
-      text="所选阵营无效。" />
-    <string
-      id="ret_export_faction_none"
-      text="未选择阵营。" />
     <string
       id="ret_export_failed_exception"
       text="无法写入文件。" />
@@ -1318,12 +1303,6 @@
     <string
       id="ret_library_import_button"
       text="导入" />
-    <string
-      id="ret_library_import_confirm_desc_faction_final_single"
-      text="覆盖派系：{newline}- {NAME}{newline}{newline}基础和精英部队树将被覆盖。{newline}导出中缺少的花名册将保持不变。{newline}{newline}继续？" />
-    <string
-      id="ret_library_import_confirm_desc_replace_troop"
-      text="{FACTION} 中的 {TARGET} 将被导入的部队替换。{newline}{newline}继续？" />
     <string
       id="ret_library_import_confirm_title"
       text="导入" />

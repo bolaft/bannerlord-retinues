@@ -116,12 +116,6 @@
       id="ret_button_change_formation_class_tooltip"
       text="Wybierz klasę formacji." />
     <string
-      id="ret_button_export_character_tooltip"
-      text="Zapisz tę postać i dodaj ją do biblioteki." />
-    <string
-      id="ret_button_export_faction_tooltip"
-      text="Zapisz wybraną frakcję i dodaj ją do biblioteki." />
-    <string
       id="ret_button_remove_character"
       text="Usuń" />
     <string
@@ -662,20 +656,11 @@
       id="ret_export_character_no_heroes"
       text="Dane bohatera są powiązane ze stanem zapisu." />
     <string
-      id="ret_export_character_tooltip"
-      text="Zapisz i eksportuj." />
-    <string
       id="ret_export_done_desc"
       text="Eksport zapisany do:{newline}{PATH}" />
     <string
       id="ret_export_done_title"
       text="Eksport zakończony" />
-    <string
-      id="ret_export_faction_no_id"
-      text="Wybrana frakcja jest nieprawidłowa." />
-    <string
-      id="ret_export_faction_none"
-      text="Nie wybrano frakcji." />
     <string
       id="ret_export_failed_exception"
       text="Nie można zapisać pliku." />
@@ -1318,12 +1303,6 @@
     <string
       id="ret_library_import_button"
       text="Importuj" />
-    <string
-      id="ret_library_import_confirm_desc_faction_final_single"
-      text="Nadpisz frakcję:{newline}- {NAME}{newline}{newline}Podstawowe i elitarne drzewa oddziałów zostaną nadpisane.{newline}Listy brakujące w eksporcie pozostaną niezmienione.{newline}{newline}Kontynuować?" />
-    <string
-      id="ret_library_import_confirm_desc_replace_troop"
-      text="{TARGET} w {FACTION} zostanie zastąpiony zaimportowanym oddziałem.{newline}{newline}Kontynuować?" />
     <string
       id="ret_library_import_confirm_title"
       text="Importuj" />

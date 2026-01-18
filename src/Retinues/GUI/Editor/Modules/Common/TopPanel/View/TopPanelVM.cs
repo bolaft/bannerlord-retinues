@@ -180,13 +180,33 @@ namespace Retinues.GUI.Editor.Modules.Common.TopPanel.View
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceProperty]
-        public Button<bool> ExportFactionButton { get; } =
+        public Button<bool> ExportButton { get; } =
             new(
-                action: FactionController.ExportFaction,
+                action: ExportController.Export,
                 arg: () => true,
                 refresh: [UIEvent.Faction],
-                sprite: "SPGeneral\\Skills\\gui_skills_icon_steward_tiny",
-                color: "#f8eed1ff"
+                label: L.S("button_export", "Export")
+            );
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Faction Reset                     //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [DataSourceProperty]
+        public Button<bool> ResetButton { get; } =
+            new(
+                action: ResetController.Reset,
+                arg: () => true,
+                refresh:
+                [
+                    UIEvent.Name,
+                    UIEvent.Culture,
+                    UIEvent.Skill,
+                    UIEvent.Gender,
+                    UIEvent.Item,
+                    UIEvent.Mode,
+                ],
+                label: L.S("button_reset", "Reset")
             );
     }
 }

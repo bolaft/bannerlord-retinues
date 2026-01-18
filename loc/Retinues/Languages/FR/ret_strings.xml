@@ -116,12 +116,6 @@
       id="ret_button_change_formation_class_tooltip"
       text="Sélectionner une formation." />
     <string
-      id="ret_button_export_character_tooltip"
-      text="Sauvegarder cette unité et l&apos;ajouter à la bibliothèque." />
-    <string
-      id="ret_button_export_faction_tooltip"
-      text="Sauvegarder la faction sélectionnée et l&apos;ajouter à la bibliothèque." />
-    <string
       id="ret_button_remove_character"
       text="Supprimer" />
     <string
@@ -662,20 +656,11 @@
       id="ret_export_character_no_heroes"
       text="Les héros sont liés à la sauvegarde." />
     <string
-      id="ret_export_character_tooltip"
-      text="Sauvegarde et export." />
-    <string
       id="ret_export_done_desc"
       text="Exporté vers :{newline}{PATH}" />
     <string
       id="ret_export_done_title"
       text="Exportation terminée" />
-    <string
-      id="ret_export_faction_no_id"
-      text="La faction sélectionnée est invalide." />
-    <string
-      id="ret_export_faction_none"
-      text="Aucune faction sélectionnée." />
     <string
       id="ret_export_failed_exception"
       text="Le fichier n&apos;a pas pu être écrit." />
@@ -1318,12 +1303,6 @@
     <string
       id="ret_library_import_button"
       text="Importer" />
-    <string
-      id="ret_library_import_confirm_desc_faction_final_single"
-      text="Remplacer la faction :{newline}- {NAME}{newline}{newline}Les arbres de troupes de base et d&apos;élite seront écrasés.{newline}Les listes d&apos;unités manquantes dans l&apos;exportation resteront inchangées.{newline}{newline}Continuer ?" />
-    <string
-      id="ret_library_import_confirm_desc_replace_troop"
-      text="{TARGET} dans {FACTION} sera remplacé par la troupe importée.{newline}{newline}Continuer ?" />
     <string
       id="ret_library_import_confirm_title"
       text="Importer" />

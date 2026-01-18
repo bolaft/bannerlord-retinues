@@ -13,6 +13,7 @@ namespace Retinues.GUI.Editor.Events
     {
         /* ━━━━━━━━ General ━━━━━━━ */
 
+        Mode,
         Page,
 
         /* ━━━━━━━ Character ━━━━━━ */

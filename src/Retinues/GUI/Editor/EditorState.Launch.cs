@@ -4,6 +4,7 @@ using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Equipments.Models;
 using Retinues.Domain.Factions;
 using Retinues.Domain.Factions.Wrappers;
+using Retinues.GUI.Editor.Events;
 using TaleWorlds.Core;
 
 namespace Retinues.GUI.Editor
@@ -91,6 +92,9 @@ namespace Retinues.GUI.Editor
 
             Equipment = PickFirstEquipment(Character);
             Slot = EquipmentIndex.Weapon0;
+
+            // Fire mode change event on launch.
+            EventManager.Fire(UIEvent.Mode);
         }
 
         /// <summary>

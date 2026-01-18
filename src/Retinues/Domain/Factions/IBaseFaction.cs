@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Retinues.Domain.Characters.Wrappers;
 using TaleWorlds.Core;
 #if BL13
+using TaleWorlds.Core.ImageIdentifiers;
 using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
 # endif
 
@@ -34,6 +35,8 @@ namespace Retinues.Domain.Factions
 #else
         public ImageIdentifierVM Image { get; }
 #endif
+
+        public ImageIdentifier ImageIdentifier { get; }
 
         /* ━━━━━━━━━ Roots ━━━━━━━━ */
 

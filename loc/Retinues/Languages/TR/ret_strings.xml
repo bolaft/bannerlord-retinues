@@ -116,12 +116,6 @@
       id="ret_button_change_formation_class_tooltip"
       text="Bir düzen sınıfı seçin." />
     <string
-      id="ret_button_export_character_tooltip"
-      text="Bu karakteri kaydedin ve kütüphaneye ekleyin." />
-    <string
-      id="ret_button_export_faction_tooltip"
-      text="Seçilen fraksiyonu kaydedin ve kütüphaneye ekleyin." />
-    <string
       id="ret_button_remove_character"
       text="Sil" />
     <string
@@ -662,20 +656,11 @@
       id="ret_export_character_no_heroes"
       text="Kahraman verileri kaydetme durumuna bağlıdır." />
     <string
-      id="ret_export_character_tooltip"
-      text="Kaydet ve dışa aktar." />
-    <string
       id="ret_export_done_desc"
       text="Dışa aktarma yazıldı:{newline}{PATH}" />
     <string
       id="ret_export_done_title"
       text="Dışa Aktarma Tamamlandı" />
-    <string
-      id="ret_export_faction_no_id"
-      text="Seçilen fraksiyon geçersiz." />
-    <string
-      id="ret_export_faction_none"
-      text="Hiçbir fraksiyon seçilmedi." />
     <string
       id="ret_export_failed_exception"
       text="Dosya yazılamadı." />
@@ -1318,12 +1303,6 @@
     <string
       id="ret_library_import_button"
       text="İçe Aktar" />
-    <string
-      id="ret_library_import_confirm_desc_faction_final_single"
-      text="Fraksiyonu geçersiz kıl:{newline}- {NAME}{newline}{newline}Temel ve Seçkin birlik ağaçları üzerine yazılacaktır.{newline}İhracatta eksik olan kadrolar değişmeden bırakılacaktır.{newline}{newline}Devam edilsin mi?" />
-    <string
-      id="ret_library_import_confirm_desc_replace_troop"
-      text="{FACTION} içindeki {TARGET}, içe aktarılan birlik ile değiştirilecektir.{newline}{newline}Devam edilsin mi?" />
     <string
       id="ret_library_import_confirm_title"
       text="İçe Aktar" />

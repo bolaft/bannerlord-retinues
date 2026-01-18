@@ -1,4 +1,4 @@
-{% from "_/macros.buttons.j2" import button_brush %}
+{% from "_/macros.buttons.j2" import button_text %}
 
 {# ---------------------------------------------- #}
 {# Top panel                                      #}
@@ -131,6 +131,7 @@
                                     SuggestedWidth="440" SuggestedHeight="47"
                                     Brush="Kingdom.Name.Edit.Button"
                                     UpdateChildrenStates="true"
+                                    HorizontalAlignment="Center"
                                     GamepadNavigationIndex="2">
                                     <Children>
 
@@ -147,17 +148,37 @@
                                                     Brush.FontSize="60"
                                                     Text="@EditorTitle" />
 
-                                                {# Export button #}
-                                                {{ button_brush("{ExportFactionButton}", "TownManagement.Reserve.ConfirmButton", "60", "60") }}
-
                                             </Children>
                                         </ListPanel>
 
                                     </Children>
                                 </Widget>
-
                             </Children>
                         </Widget>
+
+                    </Children>
+                </Widget>
+
+                {# Reset button #}
+                <Widget
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                    HorizontalAlignment="Left" VerticalAlignment="Top"
+                    MarginLeft="380">
+                    <Children>
+
+                        {{ button_text("{ResetButton}", "Popup.Delete.Button", "200", "60") }}
+
+                    </Children>
+                </Widget>
+
+                {# Export button #}
+                <Widget
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                    HorizontalAlignment="Right" VerticalAlignment="Top"
+                    MarginRight="380">
+                    <Children>
+
+                        {{ button_text("{ExportButton}", "Popup.Done.Button", "200", "60") }}
 
                     </Children>
                 </Widget>

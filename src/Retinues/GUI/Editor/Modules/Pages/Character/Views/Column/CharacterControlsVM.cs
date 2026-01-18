@@ -20,26 +20,6 @@ namespace Retinues.GUI.Editor.Modules.Pages.Character.Views.Column
         public bool IsVisible => State.Page == EditorPage.Character;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Export                         //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        [DataSourceProperty]
-        public Icon ExportIcon { get; } =
-            new(
-                tooltipFactory: () => new(L.T("export_character_tooltip", "Save & export.")),
-                refresh: [UIEvent.Character],
-                visibilityGate: () => State.Character != null
-            );
-
-        [DataSourceProperty]
-        public Button<WCharacter> ExportButton { get; } =
-            new(
-                action: CharacterController.ExportCharacter,
-                arg: () => State.Character,
-                refresh: [UIEvent.Character]
-            );
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Mariner                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
@@ -147,11 +127,12 @@ namespace Retinues.GUI.Editor.Modules.Pages.Character.Views.Column
             );
 
         [DataSourceProperty]
-        public Button<WCharacter> ChangeFormationClassButton { get; } =
+        public Checkbox FormationClassButton { get; } =
             new(
                 action: FormationClassController.ChangeFormationClass,
-                label: State.Character.FormationClass.GetLocalizedName().ToString(),
-                arg: () => State.Character,
+                getSelected: () =>
+                    State.Character != null
+                    && State.Character.FormationClassOverride != FormationClass.Unset,
                 refresh: [UIEvent.Formation]
             );
 

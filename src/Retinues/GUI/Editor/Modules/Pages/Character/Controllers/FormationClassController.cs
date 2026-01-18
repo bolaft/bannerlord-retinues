@@ -20,8 +20,8 @@ namespace Retinues.GUI.Editor.Modules.Pages.Character.Controllers
         /// <summary>
         /// Opens the formation class picker for the current character.
         /// </summary>
-        public static ControllerAction<WCharacter> ChangeFormationClass { get; } =
-            Action<WCharacter>("ChangeFormationClass")
+        public static ControllerAction<bool> ChangeFormationClass { get; } =
+            Action<bool>("ChangeFormationClass")
                 .DefaultTooltip(
                     L.T("button_change_formation_class_tooltip", "Select a formation class.")
                 )
@@ -64,7 +64,14 @@ namespace Retinues.GUI.Editor.Modules.Pages.Character.Controllers
             // WCharacter.FormationClassOverride already treats Unset as "no override".
             var list = new List<InquiryElement>
             {
-                Make(FormationClass.Unset, title: L.S("formation_option_auto", "Auto")),
+                Make(
+                    FormationClass.Unset,
+                    title: L.S("formation_option_auto", "Auto"),
+                    L.S(
+                        "formation_option_auto_hint",
+                        "Let the game automatically choose the formation class based on equipment."
+                    )
+                ),
                 Make(FormationClass.Infantry),
                 Make(FormationClass.Cavalry),
                 Make(FormationClass.Ranged),
@@ -77,10 +84,19 @@ namespace Retinues.GUI.Editor.Modules.Pages.Character.Controllers
         /// <summary>
         /// Create an InquiryElement entry for a formation class.
         /// </summary>
-        private static InquiryElement Make(FormationClass id, string title = null)
+        private static InquiryElement Make(
+            FormationClass id,
+            string title = null,
+            string hint = null
+        )
         {
             // Fallback to localized name if no custom title provided.
             title ??= id.GetLocalizedName().ToString();
+
+            // Fallback to default hint if no custom hint provided.
+            hint ??= L.T("formation_option_hint", "Force the {CLASS} formation.")
+                .SetTextVariable("CLASS", title.ToLower())
+                .ToString();
 
             // Pass null imageIdentifier to avoid BL12/BL13 ImageIdentifier namespace differences.
             return new InquiryElement(
@@ -88,7 +104,7 @@ namespace Retinues.GUI.Editor.Modules.Pages.Character.Controllers
                 title: title,
                 imageIdentifier: null,
                 isEnabled: true,
-                hint: null
+                hint: hint
             );
         }
 

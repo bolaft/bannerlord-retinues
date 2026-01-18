@@ -116,12 +116,6 @@
       id="ret_button_change_formation_class_tooltip"
       text="選擇一個編隊類別。" />
     <string
-      id="ret_button_export_character_tooltip"
-      text="保存此角色並將其添加到庫中。" />
-    <string
-      id="ret_button_export_faction_tooltip"
-      text="保存所選派系並將其添加到庫中。" />
-    <string
       id="ret_button_remove_character"
       text="刪除" />
     <string
@@ -662,20 +656,11 @@
       id="ret_export_character_no_heroes"
       text="英雄數據與保存狀態相關聯。" />
     <string
-      id="ret_export_character_tooltip"
-      text="保存並導出。" />
-    <string
       id="ret_export_done_desc"
       text="導出寫入到：{newline}{PATH}" />
     <string
       id="ret_export_done_title"
       text="導出完成" />
-    <string
-      id="ret_export_faction_no_id"
-      text="所選陣營無效。" />
-    <string
-      id="ret_export_faction_none"
-      text="未選擇陣營。" />
     <string
       id="ret_export_failed_exception"
       text="無法寫入文件。" />
@@ -1318,12 +1303,6 @@
     <string
       id="ret_library_import_button"
       text="導入" />
-    <string
-      id="ret_library_import_confirm_desc_faction_final_single"
-      text="覆蓋派系：{newline}- {NAME}{newline}{newline}基礎和精英部隊樹將被覆蓋。{newline}導出中缺少的花名冊將保持不變。{newline}{newline}繼續？" />
-    <string
-      id="ret_library_import_confirm_desc_replace_troop"
-      text="{FACTION} 中的 {TARGET} 將被導入的部隊替換。{newline}{newline}繼續？" />
     <string
       id="ret_library_import_confirm_title"
       text="導入" />

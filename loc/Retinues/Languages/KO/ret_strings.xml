@@ -116,12 +116,6 @@
       id="ret_button_change_formation_class_tooltip"
       text="대형 클래스를 선택합니다." />
     <string
-      id="ret_button_export_character_tooltip"
-      text="이 캐릭터를 저장하고 라이브러리에 추가합니다." />
-    <string
-      id="ret_button_export_faction_tooltip"
-      text="선택한 진영을 저장하고 라이브러리에 추가합니다." />
-    <string
       id="ret_button_remove_character"
       text="삭제" />
     <string
@@ -662,20 +656,11 @@
       id="ret_export_character_no_heroes"
       text="영웅 데이터는 저장 상태에 연결되어 있습니다." />
     <string
-      id="ret_export_character_tooltip"
-      text="저장 및 내보내기." />
-    <string
       id="ret_export_done_desc"
       text="내보내기가 다음 위치에 작성됨:{newline}{PATH}" />
     <string
       id="ret_export_done_title"
       text="내보내기 완료" />
-    <string
-      id="ret_export_faction_no_id"
-      text="선택한 진영이 잘못되었습니다." />
-    <string
-      id="ret_export_faction_none"
-      text="선택된 진영이 없습니다." />
     <string
       id="ret_export_failed_exception"
       text="파일을 쓸 수 없습니다." />
@@ -1318,12 +1303,6 @@
     <string
       id="ret_library_import_button"
       text="가져오기" />
-    <string
-      id="ret_library_import_confirm_desc_faction_final_single"
-      text="진영 재정의:{newline}- {NAME}{newline}{newline}기본 및 엘리트 부대 트리가 덮어쓰여집니다.{newline}내보내기에서 누락된 명단은 변경되지 않은 상태로 유지됩니다.{newline}{newline}계속하시겠습니까?" />
-    <string
-      id="ret_library_import_confirm_desc_replace_troop"
-      text="{FACTION}의 {TARGET}이(가) 가져온 부대로 교체됩니다.{newline}{newline}계속하시겠습니까?" />
     <string
       id="ret_library_import_confirm_title"
       text="가져오기" />

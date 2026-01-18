@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Retinues.Configuration;
 using Retinues.Domain.Characters.Wrappers;
-using Retinues.Domain.Equipments.Helpers;
 using Retinues.Domain.Equipments.Services.Random;
 using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Domain.Factions.Wrappers;

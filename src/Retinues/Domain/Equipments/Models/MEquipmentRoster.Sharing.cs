@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Retinues.Domain.Equipments.Wrappers;
-using Retinues.Framework.Runtime;
 using Retinues.Utilities;
-using TaleWorlds.Core;
 
 namespace Retinues.Domain.Equipments.Models
 {

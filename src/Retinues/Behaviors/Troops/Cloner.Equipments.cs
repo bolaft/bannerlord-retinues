@@ -1,6 +1,5 @@
 using Retinues.Configuration;
 using Retinues.Domain.Characters.Wrappers;
-using Retinues.Domain.Equipments.Helpers;
 using Retinues.Domain.Equipments.Models;
 using Retinues.Domain.Equipments.Services.Random;
 using Retinues.Domain.Factions.Wrappers;

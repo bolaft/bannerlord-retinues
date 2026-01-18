@@ -116,12 +116,6 @@
       id="ret_button_change_formation_class_tooltip"
       text="Выберите класс формации." />
     <string
-      id="ret_button_export_character_tooltip"
-      text="Сохранить этого персонажа и добавить его в библиотеку." />
-    <string
-      id="ret_button_export_faction_tooltip"
-      text="Сохранить выбранную фракцию и добавить ее в библиотеку." />
-    <string
       id="ret_button_remove_character"
       text="Удалить" />
     <string
@@ -662,20 +656,11 @@
       id="ret_export_character_no_heroes"
       text="Данные героя привязаны к состоянию сохранения." />
     <string
-      id="ret_export_character_tooltip"
-      text="Сохранить и экспортировать." />
-    <string
       id="ret_export_done_desc"
       text="Экспорт записан в:{newline}{PATH}" />
     <string
       id="ret_export_done_title"
       text="Экспорт завершен" />
-    <string
-      id="ret_export_faction_no_id"
-      text="Выбранная фракция недействительна." />
-    <string
-      id="ret_export_faction_none"
-      text="Фракция не выбрана." />
     <string
       id="ret_export_failed_exception"
       text="Не удалось записать файл." />
@@ -1318,12 +1303,6 @@
     <string
       id="ret_library_import_button"
       text="Импорт" />
-    <string
-      id="ret_library_import_confirm_desc_faction_final_single"
-      text="Переопределить фракцию:{newline}- {NAME}{newline}{newline}Основные и элитные деревья отрядов будут перезаписаны.{newline}Роты, отсутствующие в экспорте, останутся без изменений.{newline}{newline}Продолжить?" />
-    <string
-      id="ret_library_import_confirm_desc_replace_troop"
-      text="{TARGET} в {FACTION} будет заменен на импортированный отряд.{newline}{newline}Продолжить?" />
     <string
       id="ret_library_import_confirm_title"
       text="Импорт" />

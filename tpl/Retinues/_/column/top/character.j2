@@ -1,5 +1,5 @@
 {% from "_/macros.checkbox.j2" import checkbox %}
-{% from "_/macros.buttons.j2" import button_brush, button_text %}
+{% from "_/macros.buttons.j2" import button_brush, button_sprite, button_text %}
 {% from "_/macros.icons.j2" import icon_sprite %}
 
 {# ---------------------------------------------- #}
@@ -13,29 +13,6 @@
     StackLayout.LayoutMethod="VerticalBottomToTop"
     HorizontalAlignment="Left" VerticalAlignment="Top">
     <Children>
-
-        {# ------------------------------------------ #}
-        {# Export                                     #}
-        {# ------------------------------------------ #}
-
-        <ListPanel
-            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-            HorizontalAlignment="Left" VerticalAlignment="Top"
-            MarginBottom="8">
-            <Children>
-
-                {{ icon_sprite(
-                    "{ExportIcon}",
-                    "StdAssets\lock_closed",
-                    "StdAssets\Popup\order_popup_card_default",
-                    size="32",
-                    sprite_size="24"
-                ) }}
-
-                {{ button_brush("{ExportButton}", "TownManagement.Reserve.ConfirmButton", "32", "32") }}
-
-            </Children>
-        </ListPanel>
 
         {# ------------------------------------------ #}
         {# Mixed Gender Toggle                        #}
@@ -77,11 +54,10 @@
                     "@Sprite",
                     "StdAssets\Popup\order_popup_card_default",
                     size="32",
-                    sprite_size="20",
-                    margin_right="2"
+                    sprite_size="20"
                 ) }}
 
-                {{ button_brush("{ChangeFormationClassButton}", "SPClan.Members.RecallIcon", "34", "34") }}
+                {{ checkbox("{FormationClassButton}", "32") }}
 
             </Children>
         </ListPanel>

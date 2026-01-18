@@ -116,12 +116,6 @@
       id="ret_button_change_formation_class_tooltip"
       text="編成クラスを選択します。" />
     <string
-      id="ret_button_export_character_tooltip"
-      text="このキャラクターを保存してライブラリに追加します。" />
-    <string
-      id="ret_button_export_faction_tooltip"
-      text="選択した派閥を保存してライブラリに追加します。" />
-    <string
       id="ret_button_remove_character"
       text="削除" />
     <string
@@ -662,20 +656,11 @@
       id="ret_export_character_no_heroes"
       text="ヒーローデータは保存状態に結び付けられています。" />
     <string
-      id="ret_export_character_tooltip"
-      text="保存してエクスポートします。" />
-    <string
       id="ret_export_done_desc"
       text="エクスポート先：{newline}{PATH}" />
     <string
       id="ret_export_done_title"
       text="エクスポート完了" />
-    <string
-      id="ret_export_faction_no_id"
-      text="選択した派閥は無効です。" />
-    <string
-      id="ret_export_faction_none"
-      text="派閥が選択されていません。" />
     <string
       id="ret_export_failed_exception"
       text="ファイルを書き込めませんでした。" />
@@ -1318,12 +1303,6 @@
     <string
       id="ret_library_import_button"
       text="インポート" />
-    <string
-      id="ret_library_import_confirm_desc_faction_final_single"
-      text="派閥を上書きします：{newline}- {NAME}{newline}{newline}基本およびエリート部隊ツリーが上書きされます。{newline}エクスポートに存在しない名簿は変更されません。{newline}{newline}続行しますか？" />
-    <string
-      id="ret_library_import_confirm_desc_replace_troop"
-      text="{FACTION} の {TARGET} は、インポートされた部隊に置き換えられます。{newline}{newline}続行しますか？" />
     <string
       id="ret_library_import_confirm_title"
       text="インポート" />

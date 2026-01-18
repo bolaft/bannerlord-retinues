@@ -1,19 +1,13 @@
-using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
 using Retinues.Compatibility;
 using Retinues.Domain.Characters.Helpers;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Factions.Wrappers;
-using Retinues.Exports;
 using Retinues.GUI.Editor.Events;
-using Retinues.GUI.Editor.Modules.Pages.Library.Services;
 using Retinues.GUI.Editor.Shared.Controllers;
 using Retinues.GUI.Editor.Shared.Services.Appearance;
 using Retinues.GUI.Services;
-using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.Localization;
@@ -25,180 +19,6 @@ namespace Retinues.GUI.Editor.Modules.Pages.Character.Controllers
     /// </summary>
     public class CharacterController : BaseController
     {
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                          Export                        //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        /// <summary>
-        /// Exports the provided character to an XML document and initiates the save flow.
-        /// </summary>
-        public static ControllerAction<WCharacter> ExportCharacter { get; } =
-            Action<WCharacter>("ExportCharacter")
-                .AddCondition(
-                    c => !c.IsHero,
-                    L.T("export_character_no_heroes", "Hero data is tied to the save state.")
-                )
-                .DefaultTooltip(
-                    L.T(
-                        "button_export_character_tooltip",
-                        "Save this character and add it to the library."
-                    )
-                )
-                .ExecuteWith(ExportCharacterImpl);
-
-        /// <summary>
-        /// Builds the export document for the character and writes it to disk after user confirmation.
-        /// </summary>
-        private static void ExportCharacterImpl(WCharacter c)
-        {
-            if (c == null)
-                return;
-
-            if (!CharacterExporter.TryBuildExport(c, out var doc, out var err))
-            {
-                Inquiries.Popup(
-                    title: L.T("export_failed_title", "Export Failed"),
-                    description: L.T("export_failed_generic", "Could not export: {ERROR}.")
-                        .SetTextVariable("ERROR", err ?? L.S("unknown_error", "Unknown error."))
-                );
-
-                return;
-            }
-
-            var defaultName = c.Name;
-            if (string.IsNullOrWhiteSpace(defaultName))
-                defaultName = c.StringId;
-
-            Inquiries.TextInputPopup(
-                title: L.T("export_name_title", "Export Name"),
-                description: L.T("export_name_desc", "Choose a file name for this export:"),
-                defaultInput: defaultName,
-                onConfirm: input =>
-                {
-                    input = (input ?? string.Empty).Trim();
-                    if (string.IsNullOrWhiteSpace(input))
-                    {
-                        Inquiries.Popup(
-                            L.T("invalid_name_title", "Invalid Name"),
-                            L.T("invalid_name_body", "The name cannot be empty.")
-                        );
-                        return;
-                    }
-
-                    if (
-                        !TryBuildExportPath(
-                            input,
-                            out var path,
-                            out var safeFileName,
-                            out var error
-                        )
-                    )
-                    {
-                        Inquiries.Popup(
-                            L.T("invalid_name_title", "Invalid Name"),
-                            error ?? L.T("invalid_name_body", "The name cannot be empty.")
-                        );
-                        return;
-                    }
-
-                    void Write()
-                    {
-                        try
-                        {
-                            var dir = Path.GetDirectoryName(path);
-                            if (!string.IsNullOrWhiteSpace(dir))
-                                Directory.CreateDirectory(dir);
-
-                            File.WriteAllText(path, doc.ToString(), new UTF8Encoding(false));
-
-                            Inquiries.Popup(
-                                title: L.T("export_done_title", "Export Complete"),
-                                description: L.T("export_done_desc", "Export written to:\n{PATH}")
-                                    .SetTextVariable("PATH", path)
-                            );
-
-                            EventManager.Fire(UIEvent.Library);
-                        }
-                        catch (Exception ex)
-                        {
-                            Log.Exception(ex);
-
-                            Inquiries.Popup(
-                                title: L.T("export_failed_title", "Export Failed"),
-                                description: L.T(
-                                    "export_failed_exception",
-                                    "The file could not be written."
-                                )
-                            );
-                        }
-                    }
-
-                    if (File.Exists(path))
-                    {
-                        Inquiries.Popup(
-                            title: L.T("export_overwrite_title", "File Already Exists"),
-                            description: L.T(
-                                    "export_overwrite_desc",
-                                    "A file named '{NAME}' already exists.\n\nDo you want to overwrite it?"
-                                )
-                                .SetTextVariable("NAME", safeFileName),
-                            confirmText: L.T("overwrite_confirm", "Overwrite"),
-                            cancelText: GameTexts.FindText("str_cancel"),
-                            onConfirm: Write
-                        );
-
-                        return;
-                    }
-
-                    Write();
-                }
-            );
-        }
-
-        /// <summary>
-        /// Builds a safe file path for the export name and returns validation errors if any.
-        /// </summary>
-        private static bool TryBuildExportPath(
-            string inputFileName,
-            out string path,
-            out string safeFileName,
-            out TextObject error
-        )
-        {
-            path = null;
-            safeFileName = null;
-            error = null;
-
-            var raw = (inputFileName ?? string.Empty).Trim();
-            if (string.IsNullOrWhiteSpace(raw))
-            {
-                error = L.T("invalid_name_body", "The name cannot be empty.");
-                return false;
-            }
-
-            var safe = FileSystem.SanitizeFileName(raw, string.Empty);
-            safe = (safe ?? string.Empty).Trim();
-
-            if (string.IsNullOrWhiteSpace(safe))
-            {
-                error = L.T(
-                    "invalid_name_sanitize",
-                    "This name contains no valid file characters."
-                );
-                return false;
-            }
-
-            if (!safe.EndsWith(".xml", StringComparison.OrdinalIgnoreCase))
-                safe += ".xml";
-
-            safeFileName = safe;
-
-            var dir = ExportLibrary.ExportDirectory;
-            path = Path.Combine(dir, safeFileName);
-
-            return true;
-        }
-
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                           Name                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
