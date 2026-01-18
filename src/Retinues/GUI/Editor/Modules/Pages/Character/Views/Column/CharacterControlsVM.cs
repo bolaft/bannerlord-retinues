@@ -36,9 +36,7 @@ namespace Retinues.GUI.Editor.Modules.Pages.Character.Views.Column
             new(
                 action: CharacterController.ExportCharacter,
                 arg: () => State.Character,
-                refresh: [UIEvent.Character],
-                sprite: "SPGeneral\\Skills\\gui_skills_icon_steward_tiny",
-                color: "f8eed1ff"
+                refresh: [UIEvent.Character]
             );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

@@ -145,7 +145,6 @@ namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Views.Column
                 action: EquipmentController.CopyEquipment,
                 arg: () => false,
                 refresh: [UIEvent.Equipment],
-                sprite: "General\\Icons\\copy_item_icon",
                 colorFactory: () => EnabledColor,
                 hoverColor: HoveredColor
             );
@@ -156,7 +155,6 @@ namespace Retinues.GUI.Editor.Modules.Pages.Equipment.Views.Column
                 action: EquipmentController.PasteEquipment,
                 arg: () => false,
                 refresh: [UIEvent.Equipment, UIEvent.Item, UIEvent.Clipboard],
-                sprite: "General\\Icons\\add_icon",
                 colorFactory: () => EquipmentController.HasClipboard ? EnabledColor : DisabledColor,
                 hoverColor: HoveredColor
             );
