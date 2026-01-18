@@ -61,7 +61,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
                     m =>
                         m.AddCondition(
                             s =>
-                                !Settings.EnableSkillGainSystem
+                                !Settings.SkillPointsMustBeEarned
                                 || State.Character.IsHero
                                 || State.Character.SkillPoints > 0,
                             L.T("skill_increase_no_points_reason", "Not enough skill points.")

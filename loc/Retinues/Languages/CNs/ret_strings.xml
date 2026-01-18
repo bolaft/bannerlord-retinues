@@ -428,9 +428,6 @@
       id="ret_doctrine_state_acquired"
       text="已获取" />
     <string
-      id="ret_doctrine_state_in_progress"
-      text="进行中" />
-    <string
       id="ret_doctrine_state_locked"
       text="已锁定" />
     <string
@@ -1493,12 +1490,6 @@
       id="ret_mcm_option_enable_retinues_hint"
       text="切换随从功能的开或关。" />
     <string
-      id="ret_mcm_option_enable_skill_gain_system"
-      text="必须获得技能点" />
-    <string
-      id="ret_mcm_option_enable_skill_gain_system_hint"
-      text="如果启用，部队需要在战斗中获得技能点才能提升技能等级。" />
-    <string
       id="ret_mcm_option_enable_universal_editor"
       text="启用通用编辑器" />
     <string
@@ -1678,6 +1669,12 @@
     <string
       id="ret_mcm_option_skill_points_gain_rate_hint"
       text="部队在战斗中获得技能点的速率。" />
+    <string
+      id="ret_mcm_option_skill_points_must_be_earned"
+      text="必须获得技能点" />
+    <string
+      id="ret_mcm_option_skill_points_must_be_earned_hint"
+      text="如果启用，部队需要在战斗中获得技能点才能提升技能等级。" />
     <string
       id="ret_mcm_option_skill_progress_per_day"
       text="每天训练点数" />

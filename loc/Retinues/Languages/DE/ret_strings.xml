@@ -428,9 +428,6 @@
       id="ret_doctrine_state_acquired"
       text="Erworben" />
     <string
-      id="ret_doctrine_state_in_progress"
-      text="In Bearbeitung" />
-    <string
       id="ret_doctrine_state_locked"
       text="Gesperrt" />
     <string
@@ -1493,12 +1490,6 @@
       id="ret_mcm_option_enable_retinues_hint"
       text="Schaltet die Retinues-Funktion ein oder aus." />
     <string
-      id="ret_mcm_option_enable_skill_gain_system"
-      text="Fertigkeitspunkte müssen verdient werden" />
-    <string
-      id="ret_mcm_option_enable_skill_gain_system_hint"
-      text="Wenn aktiviert, müssen Truppen im Kampf Fertigkeitspunkte verdienen, bevor sie Fertigkeiten verbessern können." />
-    <string
       id="ret_mcm_option_enable_universal_editor"
       text="Universellen Editor aktivieren" />
     <string
@@ -1678,6 +1669,12 @@
     <string
       id="ret_mcm_option_skill_points_gain_rate_hint"
       text="Rate, mit der Truppen im Kampf Fertigkeitspunkte gewinnen." />
+    <string
+      id="ret_mcm_option_skill_points_must_be_earned"
+      text="Fertigkeitspunkte müssen verdient werden" />
+    <string
+      id="ret_mcm_option_skill_points_must_be_earned_hint"
+      text="Wenn aktiviert, müssen Truppen im Kampf Fertigkeitspunkte verdienen, bevor sie Fertigkeiten verbessern können." />
     <string
       id="ret_mcm_option_skill_progress_per_day"
       text="Trainierte Punkte pro Tag" />

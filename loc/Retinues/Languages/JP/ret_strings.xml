@@ -428,9 +428,6 @@
       id="ret_doctrine_state_acquired"
       text="取得済み" />
     <string
-      id="ret_doctrine_state_in_progress"
-      text="進行中" />
-    <string
       id="ret_doctrine_state_locked"
       text="ロック済み" />
     <string
@@ -1493,12 +1490,6 @@
       id="ret_mcm_option_enable_retinues_hint"
       text="リティニュース機能のオンまたはオフを切り替えます。" />
     <string
-      id="ret_mcm_option_enable_skill_gain_system"
-      text="スキルポイントは獲得する必要があります" />
-    <string
-      id="ret_mcm_option_enable_skill_gain_system_hint"
-      text="有効にすると、部隊はスキルをレベルアップする前に戦闘でスキルポイントを獲得する必要があります。" />
-    <string
       id="ret_mcm_option_enable_universal_editor"
       text="ユニバーサルエディターを有効にする" />
     <string
@@ -1678,6 +1669,12 @@
     <string
       id="ret_mcm_option_skill_points_gain_rate_hint"
       text="部隊が戦闘でスキルポイントを獲得する速度。" />
+    <string
+      id="ret_mcm_option_skill_points_must_be_earned"
+      text="スキルポイントは獲得する必要があります" />
+    <string
+      id="ret_mcm_option_skill_points_must_be_earned_hint"
+      text="有効にすると、部隊はスキルをレベルアップする前に戦闘でスキルポイントを獲得する必要があります。" />
     <string
       id="ret_mcm_option_skill_progress_per_day"
       text="1日あたりの訓練ポイント" />

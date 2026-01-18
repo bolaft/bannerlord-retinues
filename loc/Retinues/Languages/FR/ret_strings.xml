@@ -428,9 +428,6 @@
       id="ret_doctrine_state_acquired"
       text="Acquis" />
     <string
-      id="ret_doctrine_state_in_progress"
-      text="En cours" />
-    <string
       id="ret_doctrine_state_locked"
       text="Verrouillé" />
     <string
@@ -1493,12 +1490,6 @@
       id="ret_mcm_option_enable_retinues_hint"
       text="Active ou désactive la fonctionnalité des rétinues." />
     <string
-      id="ret_mcm_option_enable_skill_gain_system"
-      text="Les Points de Compétence Doivent Être Gagnés" />
-    <string
-      id="ret_mcm_option_enable_skill_gain_system_hint"
-      text="Si activé, les troupes devront gagner des points de compétence au combat avant de monter en compétence." />
-    <string
       id="ret_mcm_option_enable_universal_editor"
       text="Activer l&apos;Éditeur Universel" />
     <string
@@ -1678,6 +1669,12 @@
     <string
       id="ret_mcm_option_skill_points_gain_rate_hint"
       text="Taux auquel les troupes gagnent des points de compétence au combat." />
+    <string
+      id="ret_mcm_option_skill_points_must_be_earned"
+      text="Les Points de Compétence Doivent Être Gagnés" />
+    <string
+      id="ret_mcm_option_skill_points_must_be_earned_hint"
+      text="Si activé, les troupes devront gagner des points de compétence au combat avant de monter en compétence." />
     <string
       id="ret_mcm_option_skill_progress_per_day"
       text="Points Entraînés Par Jour" />

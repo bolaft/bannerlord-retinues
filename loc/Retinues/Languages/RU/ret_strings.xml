@@ -428,9 +428,6 @@
       id="ret_doctrine_state_acquired"
       text="Приобретено" />
     <string
-      id="ret_doctrine_state_in_progress"
-      text="В процессе" />
-    <string
       id="ret_doctrine_state_locked"
       text="Заблокировано" />
     <string
@@ -1493,12 +1490,6 @@
       id="ret_mcm_option_enable_retinues_hint"
       text="Включает или отключает функцию Retinues." />
     <string
-      id="ret_mcm_option_enable_skill_gain_system"
-      text="Очки навыков должны быть заработаны" />
-    <string
-      id="ret_mcm_option_enable_skill_gain_system_hint"
-      text="Если включено, войскам потребуется зарабатывать очки навыков в бою, прежде чем повышать уровень навыков." />
-    <string
       id="ret_mcm_option_enable_universal_editor"
       text="Включить универсальный редактор" />
     <string
@@ -1678,6 +1669,12 @@
     <string
       id="ret_mcm_option_skill_points_gain_rate_hint"
       text="Скорость, с которой войска получают очки навыков в бою." />
+    <string
+      id="ret_mcm_option_skill_points_must_be_earned"
+      text="Очки навыков должны быть заработаны" />
+    <string
+      id="ret_mcm_option_skill_points_must_be_earned_hint"
+      text="Если включено, войскам потребуется зарабатывать очки навыков в бою, прежде чем повышать уровень навыков." />
     <string
       id="ret_mcm_option_skill_progress_per_day"
       text="Обученные очки в день" />

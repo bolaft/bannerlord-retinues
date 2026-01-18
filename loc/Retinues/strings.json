@@ -1744,6 +1744,22 @@
     "TR": "Klan kültürü ekipman maliyetlerinde %20 indirim."
   },
   {
+    "id": "ret_doctrine_armory_cultural_pride_overridden",
+    "EN": "The option 'Equipment Costs Money' is disabled.",
+    "FR": null,
+    "BR": null,
+    "CNs": null,
+    "CNt": null,
+    "DE": null,
+    "IT": null,
+    "JP": null,
+    "KO": null,
+    "PL": null,
+    "RU": null,
+    "SP": null,
+    "TR": null
+  },
+  {
     "id": "ret_doctrine_armory_honor_guard",
     "EN": "Honor Guard",
     "FR": "Garde d'honneur",
@@ -1774,6 +1790,22 @@
     "RU": "+15% к общему лимиту стоимости снаряжения.",
     "SP": "+15% al límite total del valor del equipo.",
     "TR": "Toplam ekipman değer sınırına %15 eklenir."
+  },
+  {
+    "id": "ret_doctrine_armory_honor_guard_overridden",
+    "EN": "The option 'Equipment Value Limit' is disabled.",
+    "FR": null,
+    "BR": null,
+    "CNs": null,
+    "CNt": null,
+    "DE": null,
+    "IT": null,
+    "JP": null,
+    "KO": null,
+    "PL": null,
+    "RU": null,
+    "SP": null,
+    "TR": null
   },
   {
     "id": "ret_doctrine_armory_ironclad",
@@ -1808,6 +1840,22 @@
     "TR": "Toplam ekipman ağırlık sınırına %15 eklenir."
   },
   {
+    "id": "ret_doctrine_armory_ironclad_overridden",
+    "EN": "The option 'Equipment Weight Limit' is disabled.",
+    "FR": null,
+    "BR": null,
+    "CNs": null,
+    "CNt": null,
+    "DE": null,
+    "IT": null,
+    "JP": null,
+    "KO": null,
+    "PL": null,
+    "RU": null,
+    "SP": null,
+    "TR": null
+  },
+  {
     "id": "ret_doctrine_armory_royal_patronage",
     "EN": "Royal Patronage",
     "FR": "Patronage royal",
@@ -1838,6 +1886,22 @@
     "RU": "-20% к стоимости снаряжения культуры королевства.",
     "SP": "-20% en los costos de equipo de la cultura del reino.",
     "TR": "Krallık kültürü ekipman maliyetlerinde %20 indirim."
+  },
+  {
+    "id": "ret_doctrine_armory_royal_patronage_overridden",
+    "EN": "The option 'Equipment Costs Money' is disabled.",
+    "FR": null,
+    "BR": null,
+    "CNs": null,
+    "CNt": null,
+    "DE": null,
+    "IT": null,
+    "JP": null,
+    "KO": null,
+    "PL": null,
+    "RU": null,
+    "SP": null,
+    "TR": null
   },
   {
     "id": "ret_doctrine_cat_equipments",
@@ -2096,6 +2160,22 @@
     "TR": "Tüm klan kültürü öğelerinin kilidini açar."
   },
   {
+    "id": "ret_doctrine_loot_ancestral_heritage_overridden",
+    "EN": "The option 'Equipment Needs Unlocking' is disabled.",
+    "FR": null,
+    "BR": null,
+    "CNs": null,
+    "CNt": null,
+    "DE": null,
+    "IT": null,
+    "JP": null,
+    "KO": null,
+    "PL": null,
+    "RU": null,
+    "SP": null,
+    "TR": null
+  },
+  {
     "id": "ret_doctrine_loot_battlefield_tithes",
     "EN": "Battlefield Tithes",
     "FR": "Dîmes de Guerre",
@@ -2158,6 +2238,22 @@
     "RU": "Убийства героев учитываются вдвое при разблокировке вражеского снаряжения.",
     "SP": "Las muertes de héroes cuentan el doble para desbloquear el equipo enemigo.",
     "TR": "Kahraman öldürmeleri, düşman ekipmanının kilidini açmaya iki kat katkıda bulunur."
+  },
+  {
+    "id": "ret_doctrine_loot_lions_share_overridden",
+    "EN": "The option 'Unlock Items Through Kills' is disabled.",
+    "FR": null,
+    "BR": null,
+    "CNs": null,
+    "CNt": null,
+    "DE": null,
+    "IT": null,
+    "JP": null,
+    "KO": null,
+    "PL": null,
+    "RU": null,
+    "SP": null,
+    "TR": null
   },
   {
     "id": "ret_doctrine_loot_pragmatic_scavengers",
@@ -2368,6 +2464,22 @@
     "TR": "Hizmetlilerin sağlığı %10 artar."
   },
   {
+    "id": "ret_doctrine_retinues_indomitable_overridden",
+    "EN": "The option 'Enable Retinues' is disabled.",
+    "FR": null,
+    "BR": null,
+    "CNs": null,
+    "CNt": null,
+    "DE": null,
+    "IT": null,
+    "JP": null,
+    "KO": null,
+    "PL": null,
+    "RU": null,
+    "SP": null,
+    "TR": null
+  },
+  {
     "id": "ret_doctrine_retinues_vanguard",
     "EN": "Vanguard",
     "FR": "Avant-garde",
@@ -2417,19 +2529,19 @@
   },
   {
     "id": "ret_doctrine_state_in_progress",
-    "EN": "In progress",
-    "FR": "En cours",
-    "BR": "Em progresso",
-    "CNs": "进行中",
-    "CNt": "進行中",
-    "DE": "In Bearbeitung",
-    "IT": "In corso",
-    "JP": "進行中",
-    "KO": "진행 중",
-    "PL": "W trakcie",
-    "RU": "В процессе",
-    "SP": "En progreso",
-    "TR": "Devam ediyor"
+    "EN": "In Progress ({PROGRESS}%)",
+    "FR": null,
+    "BR": null,
+    "CNs": null,
+    "CNt": null,
+    "DE": null,
+    "IT": null,
+    "JP": null,
+    "KO": null,
+    "PL": null,
+    "RU": null,
+    "SP": null,
+    "TR": null
   },
   {
     "id": "ret_doctrine_state_locked",
@@ -2446,6 +2558,22 @@
     "RU": "Заблокировано",
     "SP": "Bloqueado",
     "TR": "Kilitli"
+  },
+  {
+    "id": "ret_doctrine_state_overridden",
+    "EN": "Overridden",
+    "FR": null,
+    "BR": null,
+    "CNs": null,
+    "CNt": null,
+    "DE": null,
+    "IT": null,
+    "JP": null,
+    "KO": null,
+    "PL": null,
+    "RU": null,
+    "SP": null,
+    "TR": null
   },
   {
     "id": "ret_doctrine_state_unlocked",
@@ -2496,6 +2624,22 @@
     "TR": "KİLİTLİ"
   },
   {
+    "id": "ret_doctrine_status_overridden",
+    "EN": "OVERRIDDEN",
+    "FR": null,
+    "BR": null,
+    "CNs": null,
+    "CNt": null,
+    "DE": null,
+    "IT": null,
+    "JP": null,
+    "KO": null,
+    "PL": null,
+    "RU": null,
+    "SP": null,
+    "TR": null
+  },
+  {
     "id": "ret_doctrine_training_advanced_tactics",
     "EN": "Advanced Tactics",
     "FR": "Tactiques avancées",
@@ -2526,6 +2670,22 @@
     "RU": "+10% к скорости получения очков навыков.",
     "SP": "+10% a la tasa de ganancia de puntos de habilidad.",
     "TR": "Yetenek puanı kazanma oranı %10 artar."
+  },
+  {
+    "id": "ret_doctrine_training_advanced_tactics_overridden",
+    "EN": "The option 'Skill Points Must Be Earned' is disabled.",
+    "FR": null,
+    "BR": null,
+    "CNs": null,
+    "CNt": null,
+    "DE": null,
+    "IT": null,
+    "JP": null,
+    "KO": null,
+    "PL": null,
+    "RU": null,
+    "SP": null,
+    "TR": null
   },
   {
     "id": "ret_doctrine_training_iron_discipline",
@@ -8336,38 +8496,6 @@
     "TR": "Retinues özelliğini açar veya kapatır."
   },
   {
-    "id": "ret_mcm_option_enable_skill_gain_system",
-    "EN": "Skill Points Must Be Earned",
-    "FR": "Les Points de Compétence Doivent Être Gagnés",
-    "BR": "Pontos de Habilidade Devem Ser Ganhos",
-    "CNs": "必须获得技能点",
-    "CNt": "必須獲得技能點",
-    "DE": "Fertigkeitspunkte müssen verdient werden",
-    "IT": "I Punti Abilità Devono Essere Guadagnati",
-    "JP": "スキルポイントは獲得する必要があります",
-    "KO": "기술 포인트는 획득해야 합니다",
-    "PL": "Punkty umiejętności muszą być zdobywane",
-    "RU": "Очки навыков должны быть заработаны",
-    "SP": "Los puntos de habilidad deben ganarse",
-    "TR": "Yetenek Puanları Kazanılmalıdır"
-  },
-  {
-    "id": "ret_mcm_option_enable_skill_gain_system_hint",
-    "EN": "If enabled, troops will need to earn skill points in battle before leveling up skills.",
-    "FR": "Si activé, les troupes devront gagner des points de compétence au combat avant de monter en compétence.",
-    "BR": "Se ativado, as tropas precisarão ganhar pontos de habilidade em batalha antes de subir de nível nas habilidades.",
-    "CNs": "如果启用，部队需要在战斗中获得技能点才能提升技能等级。",
-    "CNt": "如果啟用，部隊需要在戰鬥中獲得技能點才能提升技能等級。",
-    "DE": "Wenn aktiviert, müssen Truppen im Kampf Fertigkeitspunkte verdienen, bevor sie Fertigkeiten verbessern können.",
-    "IT": "Se abilitato, le truppe dovranno guadagnare punti abilità in battaglia prima di salire di livello nelle abilità.",
-    "JP": "有効にすると、部隊はスキルをレベルアップする前に戦闘でスキルポイントを獲得する必要があります。",
-    "KO": "활성화되면 부대는 기술을 레벨업하기 전에 전투에서 기술 포인트를 획득해야 합니다.",
-    "PL": "Jeśli włączone, oddziały będą musiały zdobywać punkty umiejętności w bitwie, zanim podniosą poziom umiejętności.",
-    "RU": "Если включено, войскам потребуется зарабатывать очки навыков в бою, прежде чем повышать уровень навыков.",
-    "SP": "Si está habilitado, las tropas deberán ganar puntos de habilidad en batalla antes de subir de nivel en habilidades.",
-    "TR": "Etkinleştirilirse, birliklerin becerileri geliştirmeden önce savaşta beceri puanları kazanmaları gerekecektir."
-  },
-  {
     "id": "ret_mcm_option_enable_universal_editor",
     "EN": "Enable Universal Editor",
     "FR": "Activer l'Éditeur Universel",
@@ -9390,6 +9518,38 @@
     "RU": "Скорость, с которой войска получают очки навыков в бою.",
     "SP": "Tasa a la que las tropas ganan puntos de habilidad en batalla.",
     "TR": "Birliklerin savaşta yetenek puanları kazanma hızı."
+  },
+  {
+    "id": "ret_mcm_option_skill_points_must_be_earned",
+    "EN": "Skill Points Must Be Earned",
+    "FR": "Les Points de Compétence Doivent Être Gagnés",
+    "BR": "Pontos de Habilidade Devem Ser Ganhos",
+    "CNs": "必须获得技能点",
+    "CNt": "必須獲得技能點",
+    "DE": "Fertigkeitspunkte müssen verdient werden",
+    "IT": "I Punti Abilità Devono Essere Guadagnati",
+    "JP": "スキルポイントは獲得する必要があります",
+    "KO": "기술 포인트는 획득해야 합니다",
+    "PL": "Punkty umiejętności muszą być zdobywane",
+    "RU": "Очки навыков должны быть заработаны",
+    "SP": "Los puntos de habilidad deben ganarse",
+    "TR": "Yetenek Puanları Kazanılmalıdır"
+  },
+  {
+    "id": "ret_mcm_option_skill_points_must_be_earned_hint",
+    "EN": "If enabled, troops will need to earn skill points in battle before leveling up skills.",
+    "FR": "Si activé, les troupes devront gagner des points de compétence au combat avant de monter en compétence.",
+    "BR": "Se ativado, as tropas precisarão ganhar pontos de habilidade em batalha antes de subir de nível nas habilidades.",
+    "CNs": "如果启用，部队需要在战斗中获得技能点才能提升技能等级。",
+    "CNt": "如果啟用，部隊需要在戰鬥中獲得技能點才能提升技能等級。",
+    "DE": "Wenn aktiviert, müssen Truppen im Kampf Fertigkeitspunkte verdienen, bevor sie Fertigkeiten verbessern können.",
+    "IT": "Se abilitato, le truppe dovranno guadagnare punti abilità in battaglia prima di salire di livello nelle abilità.",
+    "JP": "有効にすると、部隊はスキルをレベルアップする前に戦闘でスキルポイントを獲得する必要があります。",
+    "KO": "활성화되면 부대는 기술을 레벨업하기 전에 전투에서 기술 포인트를 획득해야 합니다.",
+    "PL": "Jeśli włączone, oddziały będą musiały zdobywać punkty umiejętności w bitwie, zanim podniosą poziom umiejętności.",
+    "RU": "Если включено, войскам потребуется зарабатывать очки навыков в бою, прежде чем повышать уровень навыков.",
+    "SP": "Si está habilitado, las tropas deberán ganar puntos de habilidad en batalla antes de subir de nivel en habilidades.",
+    "TR": "Etkinleştirilirse, birliklerin becerileri geliştirmeden önce savaşta beceri puanları kazanmaları gerekecektir."
   },
   {
     "id": "ret_mcm_option_skill_progress_per_day",

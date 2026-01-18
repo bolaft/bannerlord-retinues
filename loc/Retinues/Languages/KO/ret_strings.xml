@@ -428,9 +428,6 @@
       id="ret_doctrine_state_acquired"
       text="획득됨" />
     <string
-      id="ret_doctrine_state_in_progress"
-      text="진행 중" />
-    <string
       id="ret_doctrine_state_locked"
       text="잠김" />
     <string
@@ -1493,12 +1490,6 @@
       id="ret_mcm_option_enable_retinues_hint"
       text="Retinues 기능을 켜거나 끕니다." />
     <string
-      id="ret_mcm_option_enable_skill_gain_system"
-      text="기술 포인트는 획득해야 합니다" />
-    <string
-      id="ret_mcm_option_enable_skill_gain_system_hint"
-      text="활성화되면 부대는 기술을 레벨업하기 전에 전투에서 기술 포인트를 획득해야 합니다." />
-    <string
       id="ret_mcm_option_enable_universal_editor"
       text="범용 편집기 활성화" />
     <string
@@ -1678,6 +1669,12 @@
     <string
       id="ret_mcm_option_skill_points_gain_rate_hint"
       text="부대가 전투에서 기술 포인트를 얻는 속도입니다." />
+    <string
+      id="ret_mcm_option_skill_points_must_be_earned"
+      text="기술 포인트는 획득해야 합니다" />
+    <string
+      id="ret_mcm_option_skill_points_must_be_earned_hint"
+      text="활성화되면 부대는 기술을 레벨업하기 전에 전투에서 기술 포인트를 획득해야 합니다." />
     <string
       id="ret_mcm_option_skill_progress_per_day"
       text="하루 훈련 포인트" />

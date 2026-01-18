@@ -1,4 +1,5 @@
 using Retinues.Behaviors.Doctrines.Definitions;
+using Retinues.Configuration;
 using Retinues.Interface.Services;
 
 namespace Retinues.Behaviors.Doctrines.Catalogs
@@ -41,6 +42,11 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                             FeatCatalog.CP_HometownTournament,
                             FeatCatalog.CP_ProudAndStrong,
                         ],
+                        Overridden = () => Settings.EquipmentCostsMoney == false,
+                        OverriddenHint = L.T(
+                            "doctrine_armory_cultural_pride_overridden",
+                            "The option 'Equipment Costs Money' is disabled."
+                        ),
                     },
                     new DoctrineData
                     {
@@ -57,6 +63,11 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                             FeatCatalog.HG_PaidInFull,
                             FeatCatalog.HG_GoldenLegion,
                         ],
+                        Overridden = () => Settings.EquipmentValueLimit == false,
+                        OverriddenHint = L.T(
+                            "doctrine_armory_honor_guard_overridden",
+                            "The option 'Equipment Value Limit' is disabled."
+                        ),
                     },
                     new DoctrineData
                     {
@@ -73,6 +84,11 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                             FeatCatalog.IR_Ironmen,
                             FeatCatalog.IR_TailorMade,
                         ],
+                        Overridden = () => Settings.EquipmentWeightLimit == false,
+                        OverriddenHint = L.T(
+                            "doctrine_armory_ironclad_overridden",
+                            "The option 'Equipment Weight Limit' is disabled."
+                        ),
                     },
                     new DoctrineData
                     {
@@ -89,6 +105,11 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                             FeatCatalog.RP_RoyalLevy,
                             FeatCatalog.RP_RoyalStewardship,
                         ],
+                        Overridden = () => Settings.EquipmentCostsMoney == false,
+                        OverriddenHint = L.T(
+                            "doctrine_armory_royal_patronage_overridden",
+                            "The option 'Equipment Costs Money' is disabled."
+                        ),
                     },
                 ],
             };

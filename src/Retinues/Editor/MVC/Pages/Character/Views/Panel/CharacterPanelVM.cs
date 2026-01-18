@@ -147,7 +147,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Panel
         [EventListener(UIEvent.Skill)]
         [DataSourceProperty]
         public string SkillDescriptionText =>
-            State.Mode == EditorMode.Player && Settings.EnableSkillGainSystem
+            State.Mode == EditorMode.Player && Settings.SkillPointsMustBeEarned
                 ? L.T(
                         "skill_description_text",
                         "Skill Points: {SKILL_POINTS} - Skill Cap: {SKILL_CAP} - Tier: {TIER}"
@@ -180,7 +180,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Panel
                 ),
                 refresh: [UIEvent.Character],
                 visibilityGate: () =>
-                    Settings.EnableSkillGainSystem && State.Mode == EditorMode.Player
+                    Settings.SkillPointsMustBeEarned && State.Mode == EditorMode.Player
             );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

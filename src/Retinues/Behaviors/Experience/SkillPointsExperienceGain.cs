@@ -16,7 +16,7 @@ namespace Retinues.Behaviors.Experience
         private const int RequiredXpMultiplier = 20;
         private const int VanillaInvalidXpCost = 100000000;
 
-        public static bool IsEnabled => Settings.EnableSkillGainSystem;
+        public static bool IsEnabled => Settings.SkillPointsMustBeEarned;
 
         /// <summary>
         /// Applies gained XP to skill point progress for the given wrapped character.

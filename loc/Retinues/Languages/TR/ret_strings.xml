@@ -428,9 +428,6 @@
       id="ret_doctrine_state_acquired"
       text="Edinildi" />
     <string
-      id="ret_doctrine_state_in_progress"
-      text="Devam ediyor" />
-    <string
       id="ret_doctrine_state_locked"
       text="Kilitli" />
     <string
@@ -1493,12 +1490,6 @@
       id="ret_mcm_option_enable_retinues_hint"
       text="Retinues özelliğini açar veya kapatır." />
     <string
-      id="ret_mcm_option_enable_skill_gain_system"
-      text="Yetenek Puanları Kazanılmalıdır" />
-    <string
-      id="ret_mcm_option_enable_skill_gain_system_hint"
-      text="Etkinleştirilirse, birliklerin becerileri geliştirmeden önce savaşta beceri puanları kazanmaları gerekecektir." />
-    <string
       id="ret_mcm_option_enable_universal_editor"
       text="Evrensel Düzenleyiciyi Etkinleştir" />
     <string
@@ -1678,6 +1669,12 @@
     <string
       id="ret_mcm_option_skill_points_gain_rate_hint"
       text="Birliklerin savaşta yetenek puanları kazanma hızı." />
+    <string
+      id="ret_mcm_option_skill_points_must_be_earned"
+      text="Yetenek Puanları Kazanılmalıdır" />
+    <string
+      id="ret_mcm_option_skill_points_must_be_earned_hint"
+      text="Etkinleştirilirse, birliklerin becerileri geliştirmeden önce savaşta beceri puanları kazanmaları gerekecektir." />
     <string
       id="ret_mcm_option_skill_progress_per_day"
       text="Günde Eğitilen Puanlar" />

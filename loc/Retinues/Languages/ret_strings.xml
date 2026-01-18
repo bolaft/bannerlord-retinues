@@ -332,11 +332,17 @@
       id="ret_doctrine_armory_cultural_pride_desc"
       text="-20% to clan culture equipment costs." />
     <string
+      id="ret_doctrine_armory_cultural_pride_overridden"
+      text="The option &apos;Equipment Costs Money&apos; is disabled." />
+    <string
       id="ret_doctrine_armory_honor_guard"
       text="Honor Guard" />
     <string
       id="ret_doctrine_armory_honor_guard_desc"
       text="+15% to total equipment value limit." />
+    <string
+      id="ret_doctrine_armory_honor_guard_overridden"
+      text="The option &apos;Equipment Value Limit&apos; is disabled." />
     <string
       id="ret_doctrine_armory_ironclad"
       text="Ironclad" />
@@ -344,11 +350,17 @@
       id="ret_doctrine_armory_ironclad_desc"
       text="+15% to total equipment weight limit." />
     <string
+      id="ret_doctrine_armory_ironclad_overridden"
+      text="The option &apos;Equipment Weight Limit&apos; is disabled." />
+    <string
       id="ret_doctrine_armory_royal_patronage"
       text="Royal Patronage" />
     <string
       id="ret_doctrine_armory_royal_patronage_desc"
       text="-20% to kingdom culture equipment costs." />
+    <string
+      id="ret_doctrine_armory_royal_patronage_overridden"
+      text="The option &apos;Equipment Costs Money&apos; is disabled." />
     <string
       id="ret_doctrine_cat_equipments"
       text="Equipments" />
@@ -398,6 +410,9 @@
       id="ret_doctrine_loot_ancestral_heritage_desc"
       text="Unlocks all clan culture items." />
     <string
+      id="ret_doctrine_loot_ancestral_heritage_overridden"
+      text="The option &apos;Equipment Needs Unlocking&apos; is disabled." />
+    <string
       id="ret_doctrine_loot_battlefield_tithes"
       text="Battlefield Tithes" />
     <string
@@ -409,6 +424,9 @@
     <string
       id="ret_doctrine_loot_lions_share_desc"
       text="Hero kills count twice toward unlocking enemy gear." />
+    <string
+      id="ret_doctrine_loot_lions_share_overridden"
+      text="The option &apos;Unlock Items Through Kills&apos; is disabled." />
     <string
       id="ret_doctrine_loot_pragmatic_scavengers"
       text="Pragmatic Scavengers" />
@@ -449,6 +467,9 @@
       id="ret_doctrine_retinues_indomitable_desc"
       text="+10% to retinue health." />
     <string
+      id="ret_doctrine_retinues_indomitable_overridden"
+      text="The option &apos;Enable Retinues&apos; is disabled." />
+    <string
       id="ret_doctrine_retinues_vanguard"
       text="Vanguard" />
     <string
@@ -459,10 +480,13 @@
       text="Acquired" />
     <string
       id="ret_doctrine_state_in_progress"
-      text="In progress" />
+      text="In Progress ({PROGRESS}%)" />
     <string
       id="ret_doctrine_state_locked"
       text="Locked" />
+    <string
+      id="ret_doctrine_state_overridden"
+      text="Overridden" />
     <string
       id="ret_doctrine_state_unlocked"
       text="Unlocked" />
@@ -473,11 +497,17 @@
       id="ret_doctrine_status_locked"
       text="LOCKED" />
     <string
+      id="ret_doctrine_status_overridden"
+      text="OVERRIDDEN" />
+    <string
       id="ret_doctrine_training_advanced_tactics"
       text="Advanced Tactics" />
     <string
       id="ret_doctrine_training_advanced_tactics_desc"
       text="+10% skill point gain rate." />
+    <string
+      id="ret_doctrine_training_advanced_tactics_overridden"
+      text="The option &apos;Skill Points Must Be Earned&apos; is disabled." />
     <string
       id="ret_doctrine_training_iron_discipline"
       text="Iron Discipline" />
@@ -1568,12 +1598,6 @@
       id="ret_mcm_option_enable_retinues_hint"
       text="Toggles the Retinues feature on or off." />
     <string
-      id="ret_mcm_option_enable_skill_gain_system"
-      text="Skill Points Must Be Earned" />
-    <string
-      id="ret_mcm_option_enable_skill_gain_system_hint"
-      text="If enabled, troops will need to earn skill points in battle before leveling up skills." />
-    <string
       id="ret_mcm_option_enable_universal_editor"
       text="Enable Universal Editor" />
     <string
@@ -1765,6 +1789,12 @@
     <string
       id="ret_mcm_option_skill_points_gain_rate_hint"
       text="Rate at which troops gain skill points in battle." />
+    <string
+      id="ret_mcm_option_skill_points_must_be_earned"
+      text="Skill Points Must Be Earned" />
+    <string
+      id="ret_mcm_option_skill_points_must_be_earned_hint"
+      text="If enabled, troops will need to earn skill points in battle before leveling up skills." />
     <string
       id="ret_mcm_option_skill_progress_per_day"
       text="Trained Points Per Day" />

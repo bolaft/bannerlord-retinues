@@ -1,4 +1,5 @@
 using Retinues.Behaviors.Doctrines.Definitions;
+using Retinues.Configuration;
 using Retinues.Interface.Services;
 
 namespace Retinues.Behaviors.Doctrines.Catalogs
@@ -89,6 +90,11 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                             FeatCatalog.AT_LethalVersatility,
                             FeatCatalog.AT_UnyieldingDefense,
                         ],
+                        Overridden = () => Settings.SkillPointsMustBeEarned == false,
+                        OverriddenHint = L.T(
+                            "doctrine_training_advanced_tactics_overridden",
+                            "The option 'Skill Points Must Be Earned' is disabled."
+                        ),
                     },
                 ],
             };

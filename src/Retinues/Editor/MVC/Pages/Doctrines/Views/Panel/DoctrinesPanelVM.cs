@@ -77,6 +77,7 @@ namespace Retinues.Editor.MVC.Pages.Doctrines.Views.Panel
             {
                 Doctrine.State.Acquired => L.S("doctrine_status_acquired", "ACQUIRED"),
                 Doctrine.State.Locked => L.S("doctrine_status_locked", "LOCKED"),
+                Doctrine.State.Overridden => L.S("doctrine_status_overridden", "OVERRIDDEN"),
                 _ => string.Empty,
             };
 
@@ -86,12 +87,17 @@ namespace Retinues.Editor.MVC.Pages.Doctrines.Views.Panel
 
         [EventListener(UIEvent.Doctrine)]
         [DataSourceProperty]
-        public string LockedHint =>
-            State.Doctrine.Previous != null
-                ? L.T("doctrine_locked_hint", "{DOCTRINE} must be acquired first.")
-                    .SetTextVariable("DOCTRINE", State.Doctrine.Previous.Name)
-                    .ToString()
-                : string.Empty;
+        public string StatusHint =>
+            State.Doctrine.GetState() switch
+            {
+                Doctrine.State.Locked => State.Doctrine.Prerequisite != null
+                    ? L.T("doctrine_locked_hint", "{DOCTRINE} must be acquired first.")
+                        .SetTextVariable("DOCTRINE", State.Doctrine.Prerequisite.Name)
+                        .ToString()
+                    : string.Empty,
+                Doctrine.State.Overridden => State.Doctrine.OverriddenHint.ToString(),
+                _ => string.Empty,
+            };
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Costs                         //

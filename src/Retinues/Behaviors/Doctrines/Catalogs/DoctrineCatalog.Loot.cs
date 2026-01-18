@@ -1,4 +1,5 @@
 using Retinues.Behaviors.Doctrines.Definitions;
+using Retinues.Configuration;
 using Retinues.Interface.Services;
 
 namespace Retinues.Behaviors.Doctrines.Catalogs
@@ -41,6 +42,11 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                             FeatCatalog.LS_BloodPrice,
                             FeatCatalog.LS_HighValueTargets,
                         ],
+                        Overridden = () => Settings.UnlockItemsThroughKills == false,
+                        OverriddenHint = L.T(
+                            "doctrine_loot_lions_share_overridden",
+                            "The option 'Unlock Items Through Kills' is disabled."
+                        ),
                     },
                     new DoctrineData
                     {
@@ -57,6 +63,11 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                             FeatCatalog.BT_SecondInCommand,
                             FeatCatalog.BT_AlliesFavor,
                         ],
+                        Overridden = () => Settings.UnlockItemsThroughKills == false,
+                        OverriddenHint = L.T(
+                            "doctrine_loot_lions_share_overridden",
+                            "The option 'Unlock Items Through Kills' is disabled."
+                        ),
                     },
                     new DoctrineData
                     {
@@ -73,6 +84,11 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                             FeatCatalog.PR_RescueMission,
                             FeatCatalog.PR_MarchTogether,
                         ],
+                        Overridden = () => Settings.UnlockItemsThroughKills == false,
+                        OverriddenHint = L.T(
+                            "doctrine_loot_lions_share_overridden",
+                            "The option 'Unlock Items Through Kills' is disabled."
+                        ),
                     },
                     new DoctrineData
                     {
@@ -89,6 +105,11 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                             FeatCatalog.AN_Homecoming,
                             FeatCatalog.AN_AncestralDuty,
                         ],
+                        Overridden = () => Settings.EquipmentNeedsUnlocking == false,
+                        OverriddenHint = L.T(
+                            "doctrine_loot_ancestral_heritage_overridden",
+                            "The option 'Equipment Needs Unlocking' is disabled."
+                        ),
                     },
                 ],
             };

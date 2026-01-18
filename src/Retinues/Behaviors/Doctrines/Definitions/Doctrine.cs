@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Retinues.Configuration;
 using TaleWorlds.Library;
@@ -10,7 +11,9 @@ namespace Retinues.Behaviors.Doctrines.Definitions
         Category category,
         TextObject name,
         TextObject description,
-        string sprite
+        string sprite,
+        Func<bool> overridden = null,
+        TextObject overriddenHint = null
     )
     {
         /// <summary>
@@ -24,6 +27,11 @@ namespace Retinues.Behaviors.Doctrines.Definitions
         public TextObject Name { get; } = name;
         public TextObject Description { get; } = description;
 
+        /* ━━━━━━━ Override ━━━━━━━ */
+
+        public Func<bool> OverriddenFunc { get; } = overridden ?? (() => false);
+        public TextObject OverriddenHint { get; } = overriddenHint ?? new TextObject(string.Empty);
+
         /* ━━━━━━━━━ Image ━━━━━━━━ */
 
         public string Sprite { get; } = sprite;
@@ -33,7 +41,22 @@ namespace Retinues.Behaviors.Doctrines.Definitions
         public Category Category { get; } = category;
         public int Index => Category.Doctrines.IndexOf(this);
 
-        public Doctrine Previous => Index > 0 ? Category.Doctrines[Index - 1] : null;
+        /* ━━━━━ Prerequisite ━━━━━ */
+
+        public Doctrine Prerequisite
+        {
+            get
+            {
+                for (int i = Index - 1; i >= 0; i--)
+                {
+                    var doctrine = Category.Doctrines[i];
+                    if (!doctrine.IsOverridden)
+                        return doctrine;
+                }
+
+                return null;
+            }
+        }
 
         /* ━━━━━━━━━ Costs ━━━━━━━━ */
 
@@ -100,6 +123,7 @@ namespace Retinues.Behaviors.Doctrines.Definitions
         public bool IsUnlocked => Progress >= ProgressTarget;
         public bool IsInProgress => GetState() == State.InProgress;
         public bool IsLocked => GetState() == State.Locked;
+        public bool IsOverridden => OverriddenFunc();
 
         public enum State
         {
@@ -107,6 +131,7 @@ namespace Retinues.Behaviors.Doctrines.Definitions
             InProgress,
             Unlocked,
             Acquired,
+            Overridden,
         }
 
         /// <summary>
@@ -114,6 +139,10 @@ namespace Retinues.Behaviors.Doctrines.Definitions
         /// </summary>
         public State GetState()
         {
+            // If this doctrine is overridden, return overridden.
+            if (IsOverridden)
+                return State.Overridden;
+
             // If this doctrine is acquired, return acquired.
             if (IsAcquired)
                 return State.Acquired;
@@ -123,7 +152,7 @@ namespace Retinues.Behaviors.Doctrines.Definitions
                 return State.Unlocked;
 
             // If there is a previous doctrine and it is not acquired, this one is locked.
-            if (Previous != null && !Previous.IsAcquired)
+            if (Prerequisite != null && !Prerequisite.IsAcquired)
                 return State.Locked;
 
             // Otherwise, return in progress.

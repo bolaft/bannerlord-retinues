@@ -1038,11 +1038,11 @@ namespace Retinues.Configuration
 
         /* ━━━━━━━━ Options ━━━━━━━ */
 
-        public static readonly Option<bool> EnableSkillGainSystem = CreateOption(
+        public static readonly Option<bool> SkillPointsMustBeEarned = CreateOption(
             section: Skills,
-            name: L.F("mcm_option_enable_skill_gain_system", "Skill Points Must Be Earned"),
+            name: L.F("mcm_option_skill_points_must_be_earned", "Skill Points Must Be Earned"),
             hint: L.F(
-                "mcm_option_enable_skill_gain_system_hint",
+                "mcm_option_skill_points_must_be_earned_hint",
                 "If enabled, troops will need to earn skill points in battle before leveling up skills."
             ),
             @default: true,
@@ -1061,7 +1061,7 @@ namespace Retinues.Configuration
             maxValue: 5f,
             @default: 1f,
             @realistic: 0.5f,
-            dependsOn: EnableSkillGainSystem,
+            dependsOn: SkillPointsMustBeEarned,
             fires: [UIEvent.Character]
         );
 

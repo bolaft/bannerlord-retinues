@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TaleWorlds.Localization;
 using static Retinues.Behaviors.Doctrines.Catalogs.FeatCatalog;
@@ -28,6 +29,8 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
             public TextObject Name;
             public TextObject Description;
             public string Sprite;
+            public Func<bool> Overridden;
+            public TextObject OverriddenHint;
             public List<FeatData> Feats;
         }
     }

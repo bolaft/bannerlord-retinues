@@ -428,9 +428,6 @@
       id="ret_doctrine_state_acquired"
       text="Acquisito" />
     <string
-      id="ret_doctrine_state_in_progress"
-      text="In corso" />
-    <string
       id="ret_doctrine_state_locked"
       text="Bloccato" />
     <string
@@ -1493,12 +1490,6 @@
       id="ret_mcm_option_enable_retinues_hint"
       text="Attiva o disattiva la funzione Retinues." />
     <string
-      id="ret_mcm_option_enable_skill_gain_system"
-      text="I Punti Abilità Devono Essere Guadagnati" />
-    <string
-      id="ret_mcm_option_enable_skill_gain_system_hint"
-      text="Se abilitato, le truppe dovranno guadagnare punti abilità in battaglia prima di salire di livello nelle abilità." />
-    <string
       id="ret_mcm_option_enable_universal_editor"
       text="Abilita Editor Universale" />
     <string
@@ -1678,6 +1669,12 @@
     <string
       id="ret_mcm_option_skill_points_gain_rate_hint"
       text="Velocità con cui le truppe guadagnano punti abilità in battaglia." />
+    <string
+      id="ret_mcm_option_skill_points_must_be_earned"
+      text="I Punti Abilità Devono Essere Guadagnati" />
+    <string
+      id="ret_mcm_option_skill_points_must_be_earned_hint"
+      text="Se abilitato, le truppe dovranno guadagnare punti abilità in battaglia prima di salire di livello nelle abilità." />
     <string
       id="ret_mcm_option_skill_progress_per_day"
       text="Punti addestrati al giorno" />

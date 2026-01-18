@@ -428,9 +428,6 @@
       id="ret_doctrine_state_acquired"
       text="Nabyto" />
     <string
-      id="ret_doctrine_state_in_progress"
-      text="W trakcie" />
-    <string
       id="ret_doctrine_state_locked"
       text="Zablokowane" />
     <string
@@ -1493,12 +1490,6 @@
       id="ret_mcm_option_enable_retinues_hint"
       text="Przełącza funkcję Retinues włączoną lub wyłączoną." />
     <string
-      id="ret_mcm_option_enable_skill_gain_system"
-      text="Punkty umiejętności muszą być zdobywane" />
-    <string
-      id="ret_mcm_option_enable_skill_gain_system_hint"
-      text="Jeśli włączone, oddziały będą musiały zdobywać punkty umiejętności w bitwie, zanim podniosą poziom umiejętności." />
-    <string
       id="ret_mcm_option_enable_universal_editor"
       text="Włącz Uniwersalny Edytor" />
     <string
@@ -1678,6 +1669,12 @@
     <string
       id="ret_mcm_option_skill_points_gain_rate_hint"
       text="Tempo, w jakim oddziały zdobywają punkty umiejętności w bitwie." />
+    <string
+      id="ret_mcm_option_skill_points_must_be_earned"
+      text="Punkty umiejętności muszą być zdobywane" />
+    <string
+      id="ret_mcm_option_skill_points_must_be_earned_hint"
+      text="Jeśli włączone, oddziały będą musiały zdobywać punkty umiejętności w bitwie, zanim podniosą poziom umiejętności." />
     <string
       id="ret_mcm_option_skill_progress_per_day"
       text="Wytrenowane punkty na dzień" />

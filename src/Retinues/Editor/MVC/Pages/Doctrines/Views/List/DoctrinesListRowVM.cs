@@ -1,7 +1,6 @@
 using System;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Behaviors.Doctrines.Definitions;
-using Retinues.Configuration;
 using Retinues.Editor.Events;
 using Retinues.Editor.MVC.Shared.Views;
 using Retinues.Interface.Services;
@@ -60,26 +59,19 @@ namespace Retinues.Editor.MVC.Pages.Doctrines.Views.List
                 return doctrine.GetState() switch
                 {
                     Doctrine.State.Locked => L.S("doctrine_state_locked", "Locked"),
-                    Doctrine.State.InProgress => L.S("doctrine_state_in_progress", "In progress"),
+                    Doctrine.State.InProgress => L.T(
+                            "doctrine_state_in_progress",
+                            "In Progress ({PROGRESS}%)"
+                        )
+                        .SetTextVariable("PROGRESS", doctrine.Progress)
+                        .ToString(),
                     Doctrine.State.Unlocked => L.S("doctrine_state_unlocked", "Unlocked"),
                     Doctrine.State.Acquired => L.S("doctrine_state_acquired", "Acquired"),
+                    Doctrine.State.Overridden => L.S("doctrine_state_overridden", "Overridden"),
                     _ => string.Empty,
                 };
             }
         }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Progress                        //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        [EventListener(UIEvent.Doctrine)]
-        [DataSourceProperty]
-        public bool ShowProgress =>
-            doctrine.GetState() != Doctrine.State.Acquired && Settings.EnableFeatRequirements;
-
-        [EventListener(UIEvent.Doctrine)]
-        [DataSourceProperty]
-        public string ProgressText => $"{doctrine.Progress}%";
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Icon                          //
@@ -94,6 +86,7 @@ namespace Retinues.Editor.MVC.Pages.Doctrines.Views.List
                 Doctrine.State.InProgress => "StdAssets\\lock_opened",
                 Doctrine.State.Unlocked => "StdAssets\\lock_opened",
                 Doctrine.State.Acquired => "General\\Icons\\icon_quest_done_checkmark",
+                Doctrine.State.Overridden => "StdAssets\\none",
                 _ => string.Empty,
             };
 
