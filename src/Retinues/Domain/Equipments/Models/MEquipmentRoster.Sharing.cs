@@ -26,7 +26,9 @@ namespace Retinues.Domain.Equipments.Models
         /// </summary>
         public Dictionary<string, int> ItemCountsById => _itemCountsCache.Get(this);
 
-        [StaticClearAction]
+        /// <summary>
+        /// Invalidates the item counts cache.
+        /// </summary>
         public void InvalidateItemCountsCache() => _itemCountsCache.Clear();
 
         /// <summary>
