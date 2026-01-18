@@ -51,15 +51,5 @@ namespace Retinues.Domain.Characters.Wrappers
 
             return false;
         }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                    Custom Tree Flag                    //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        /// <summary>
-        /// True if this troop belongs to a custom map-faction tree (retinues or custom clan/kingdom roots).
-        /// This is independent from IsCustom.
-        /// </summary>
-        public bool IsFactionTroop => TreeFlagCache.Get(this);
     }
 }

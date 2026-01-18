@@ -328,8 +328,8 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Controllers
                 )
                 .DefaultTooltip(value =>
                     State.Equipment.IsStaged(value)
-                        ? L.T("unstage_item_tooltip", "Unstage")
-                        : L.T("unequip_item_tooltip", "Unequip")
+                        ? L.T("unstage_item_tooltip", "Unstage.")
+                        : L.T("unequip_item_tooltip", "Unequip.")
                 )
                 .ExecuteWith(UnequipItem)
                 .Fire(UIEvent.Item);

@@ -108,6 +108,14 @@ namespace Retinues.Domain.Characters.Wrappers
         public int Depth => CharacterTreeCache.GetDepth(this);
         public bool IsLeaf => UpgradeTargets.Count == 0;
 
+        /* ━━━━━━━━ Faction ━━━━━━━ */
+
+        /// <summary>
+        /// True if this troop belongs to a custom map-faction tree (retinues or custom clan/kingdom roots).
+        /// This is independent from IsCustom.
+        /// </summary>
+        public bool IsFactionTroop => TreeFlagCache.Get(this);
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Troop Type                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
