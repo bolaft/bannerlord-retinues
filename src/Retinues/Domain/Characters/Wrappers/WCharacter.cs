@@ -136,6 +136,20 @@ namespace Retinues.Domain.Characters.Wrappers
         public bool IsCivilian => (SourceFlags & TroopSourceFlags.Civilian) != 0;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Variants                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// True if this character is a variant of another character (e.g., a captain variant).
+        /// </summary>
+        public bool IsVariant => NonVariantBase() != this;
+
+        /// <summary>
+        /// For captain variants, returns the base unit they were cloned from; otherwise, returns self
+        /// </summary>
+        public WCharacter NonVariantBase() => IsCaptain ? (CaptainBase ?? this) : this;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Culture                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
@@ -217,8 +231,8 @@ namespace Retinues.Domain.Characters.Wrappers
 
         public bool IsMariner
         {
-            get => IsMarinerAttribute.Get();
-            set => IsMarinerAttribute.Set(value);
+            get => NonVariantBase().IsMarinerAttribute.Get();
+            set => NonVariantBase().IsMarinerAttribute.Set(value);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

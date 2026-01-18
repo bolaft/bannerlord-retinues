@@ -48,8 +48,25 @@ namespace Retinues.Domain.Characters.Services.Skills
                 _ => Settings.SkillCapT7,
             };
 
-            var bonus = wc.IsRetinue ? Settings.RetinueSkillCapBonus : 0;
-            return cap + bonus;
+            /// <summary>
+            /// Computes any bonus to be added to the base total.
+            /// </summary>
+            int ComputeBonus()
+            {
+                const float MaxTierCaptainMultiplier = 0.2f;
+
+                int bonus = 0;
+
+                if (wc.IsRetinue)
+                    bonus += Settings.RetinueSkillCapBonus;
+
+                if (wc.IsCaptain && wc.IsMaxTier)
+                    bonus = (int)(cap * MaxTierCaptainMultiplier);
+
+                return bonus;
+            }
+
+            return cap + ComputeBonus();
         }
 
         /// <summary>
@@ -77,8 +94,25 @@ namespace Retinues.Domain.Characters.Services.Skills
                 _ => Settings.SkillTotalT7,
             };
 
-            var bonus = wc.IsRetinue ? Settings.RetinueSkillTotalBonus : 0;
-            return total + bonus;
+            /// <summary>
+            /// Computes any applicable bonus to the skill total.
+            /// </summary>
+            int ComputeBonus()
+            {
+                const float MaxTierCaptainMultiplier = 0.2f;
+
+                int bonus = 0;
+
+                if (wc.IsRetinue)
+                    bonus += Settings.RetinueSkillTotalBonus;
+
+                if (wc.IsCaptain && wc.IsMaxTier)
+                    bonus = (int)(total * MaxTierCaptainMultiplier);
+
+                return bonus;
+            }
+
+            return total + ComputeBonus();
         }
     }
 }

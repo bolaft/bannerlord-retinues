@@ -179,9 +179,6 @@
       id="ret_captain_toggle_enabled_not_captain_reason"
       text="このユニットはキャプテンではありません。" />
     <string
-      id="ret_captain_toggle_mode_hint"
-      text="基本部隊とそのキャプテンバリアントを切り替えます。" />
-    <string
       id="ret_change_culture_title"
       text="文化を変更" />
     <string

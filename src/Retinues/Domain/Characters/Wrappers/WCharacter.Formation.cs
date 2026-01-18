@@ -22,11 +22,11 @@ namespace Retinues.Domain.Characters.Wrappers
         /// </summary>
         public FormationClass FormationClassOverride
         {
-            get => FormationClassOverrideAttribute.Get();
+            get => NonVariantBase().FormationClassOverrideAttribute.Get();
             set
             {
-                FormationClassOverrideAttribute.Set(value);
-                UpdateFormationClass();
+                NonVariantBase().FormationClassOverrideAttribute.Set(value);
+                NonVariantBase().UpdateFormationClass();
             }
         }
 
@@ -38,8 +38,8 @@ namespace Retinues.Domain.Characters.Wrappers
         /// </summary>
         public FormationClass FormationClass
         {
-            get => FormationClassAttribute.Get();
-            set => FormationClassAttribute.Set(value);
+            get => NonVariantBase().FormationClassAttribute.Get();
+            set => NonVariantBase().FormationClassAttribute.Set(value);
         }
 
         MAttribute<int> FormationGroupAttribute =>
@@ -50,8 +50,8 @@ namespace Retinues.Domain.Characters.Wrappers
         /// </summary>
         public int FormationGroup
         {
-            get => FormationGroupAttribute.Get();
-            set => FormationGroupAttribute.Set(value);
+            get => NonVariantBase().FormationGroupAttribute.Get();
+            set => NonVariantBase().FormationGroupAttribute.Set(value);
         }
 
         MAttribute<bool> IsRangedAttribute => Attribute<bool>(nameof(CharacterObject.IsRanged));
@@ -61,8 +61,8 @@ namespace Retinues.Domain.Characters.Wrappers
         /// </summary>
         public bool IsRanged
         {
-            get => IsRangedAttribute.Get();
-            set => IsRangedAttribute.Set(value);
+            get => NonVariantBase().IsRangedAttribute.Get();
+            set => NonVariantBase().IsRangedAttribute.Set(value);
         }
 
         MAttribute<bool> IsMountedAttribute => Attribute<bool>(nameof(CharacterObject.IsMounted));
@@ -72,8 +72,8 @@ namespace Retinues.Domain.Characters.Wrappers
         /// </summary>
         public bool IsMounted
         {
-            get => IsMountedAttribute.Get();
-            set => IsMountedAttribute.Set(value);
+            get => NonVariantBase().IsMountedAttribute.Get();
+            set => NonVariantBase().IsMountedAttribute.Set(value);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -85,6 +85,9 @@ namespace Retinues.Domain.Characters.Wrappers
         /// </summary>
         public void UpdateFormationClass()
         {
+            if (IsVariant)
+                return; // only apply on base variant
+
             if (FormationClassOverride != FormationClass.Unset)
                 ApplyFormationInfo(FormationClassHelper.FromFormationClass(FormationClassOverride));
             else if (FirstBattleEquipment != null)
@@ -96,6 +99,9 @@ namespace Retinues.Domain.Characters.Wrappers
         /// </summary>
         private void ApplyFormationInfo(FormationClassHelper.FormationInfo info)
         {
+            if (IsVariant)
+                return; // only apply on base variant
+
             FormationClass = info.FormationClass;
             FormationGroup = info.FormationGroup;
             IsRanged = info.IsRanged;

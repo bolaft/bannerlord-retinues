@@ -179,9 +179,6 @@
       id="ret_captain_toggle_enabled_not_captain_reason"
       text="Questa unità non è un capitano." />
     <string
-      id="ret_captain_toggle_mode_hint"
-      text="Passa tra la truppa base e la sua variante capitano." />
-    <string
       id="ret_change_culture_title"
       text="Cambia cultura" />
     <string

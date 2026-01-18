@@ -179,9 +179,6 @@
       id="ret_captain_toggle_enabled_not_captain_reason"
       text="Bu birim bir Kaptan değil." />
     <string
-      id="ret_captain_toggle_mode_hint"
-      text="Temel birlik ile Kaptan varyantı arasında geçiş yapın." />
-    <string
       id="ret_change_culture_title"
       text="Kültürü Değiştir" />
     <string

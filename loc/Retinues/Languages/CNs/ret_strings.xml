@@ -179,9 +179,6 @@
       id="ret_captain_toggle_enabled_not_captain_reason"
       text="此单位不是队长。" />
     <string
-      id="ret_captain_toggle_mode_hint"
-      text="在基础部队及其队长变体之间切换。" />
-    <string
       id="ret_change_culture_title"
       text="更改文化" />
     <string

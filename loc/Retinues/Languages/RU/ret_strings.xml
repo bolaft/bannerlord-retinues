@@ -179,9 +179,6 @@
       id="ret_captain_toggle_enabled_not_captain_reason"
       text="Этот юнит не является капитаном." />
     <string
-      id="ret_captain_toggle_mode_hint"
-      text="Переключение между базовым отрядом и его вариантом капитана." />
-    <string
       id="ret_change_culture_title"
       text="Изменить культуру" />
     <string

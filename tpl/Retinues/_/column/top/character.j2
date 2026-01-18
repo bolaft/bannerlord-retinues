@@ -63,6 +63,30 @@
         </ListPanel>
 
         {# ------------------------------------------ #}
+        {# Captain Mode Toggle                        #}
+        {# ------------------------------------------ #}
+
+        <ListPanel
+            IsVisible="@ShowCaptainModeToggle"
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            HorizontalAlignment="Left" VerticalAlignment="Top"
+            MarginBottom="8">
+            <Children>
+
+                {{ icon_sprite(
+                    "{CaptainModeIcon}",
+                    "@Sprite",
+                    "StdAssets\Popup\order_popup_card_default",
+                    size="32",
+                    sprite_size="32"
+                ) }}
+
+                {{ checkbox("{CaptainModeToggle}", "32") }}
+
+            </Children>
+        </ListPanel>
+
+        {# ------------------------------------------ #}
         {# Mariner Toggle                             #}
         {# ------------------------------------------ #}
 
@@ -97,6 +121,7 @@
     HorizontalAlignment="Center" VerticalAlignment="Top">
     <Children>
 
+        {{ button_text("{ToggleCaptainEnabledButton}", "@ToggleCaptainButtonBrush", "260", "60") }}
         {{ button_text("{RemoveCharacterButton}", "Popup.Delete.Button", "200", "60") }}
 
     </Children>

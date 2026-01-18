@@ -20,13 +20,41 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Column
         public bool IsVisible => State.Page == EditorPage.Character;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Captain Mode                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [EventListener(UIEvent.Character)]
+        [DataSourceProperty]
+        public bool ShowCaptainModeToggle => !State.Character.IsHero;
+
+        [DataSourceProperty]
+        public Icon CaptainModeIcon { get; } =
+            new(
+                tooltip: new Tooltip(L.T("captain_mode_toggle_tooltip", "Captain mode.")),
+                refresh: [UIEvent.Character],
+                spriteFactory: () =>
+                    State.Character.IsCaptain
+                        ? @"Encyclopedia\star_without_glow"
+                        : @"Encyclopedia\star_outline",
+                visibilityGate: () => !State.Character.IsHero
+            );
+
+        [DataSourceProperty]
+        public Checkbox CaptainModeToggle { get; } =
+            new(
+                action: CaptainsController.ToggleCaptainMode,
+                getSelected: () => State.Character?.IsCaptain ?? false,
+                refresh: [UIEvent.Character],
+                visibilityGate: () => !State.Character.IsHero
+            );
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Mariner                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [EventListener(UIEvent.Character)]
         [DataSourceProperty]
-        public bool ShowMarinerToggle =>
-            Mods.NavalDLC.IsLoaded && State.Character != null && !State.Character.IsHero;
+        public bool ShowMarinerToggle => Mods.NavalDLC.IsLoaded && !State.Character.IsHero;
 
         [DataSourceProperty]
         public Icon MarinerIcon { get; } =
@@ -46,8 +74,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Column
                             )
                         ),
                 refresh: [UIEvent.Formation],
-                visibilityGate: () =>
-                    Mods.NavalDLC.IsLoaded && State.Character != null && !State.Character.IsHero
+                visibilityGate: () => Mods.NavalDLC.IsLoaded && !State.Character.IsHero
             );
 
         [DataSourceProperty]
@@ -56,8 +83,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Column
                 action: CharacterController.SetMariner,
                 getSelected: () => State.Character?.IsMariner ?? false,
                 refresh: [UIEvent.Formation],
-                visibilityGate: () =>
-                    Mods.NavalDLC.IsLoaded && State.Character != null && !State.Character.IsHero
+                visibilityGate: () => Mods.NavalDLC.IsLoaded && !State.Character.IsHero
             );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -66,7 +92,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Column
 
         [EventListener(UIEvent.Character)]
         [DataSourceProperty]
-        public bool ShowMixedGenderToggle => State.Character != null && !State.Character.IsHero;
+        public bool ShowMixedGenderToggle => !State.Character.IsHero;
 
         [DataSourceProperty]
         public Icon MixedGenderIcon { get; } =
@@ -84,7 +110,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Column
                         ? "SPGeneral\\GeneralFlagIcons\\male_only"
                         : "SPGeneral\\GeneralFlagIcons\\female_only";
                 },
-                visibilityGate: () => State.Character != null && !State.Character.IsHero
+                visibilityGate: () => !State.Character.IsHero
             );
 
         [DataSourceProperty]
@@ -93,7 +119,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Column
                 action: CharacterController.SetMixedGender,
                 getSelected: () => State.Character?.IsMixedGender ?? false,
                 refresh: [UIEvent.Character],
-                visibilityGate: () => State.Character != null && !State.Character.IsHero
+                visibilityGate: () => !State.Character.IsHero
             );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -137,6 +163,28 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Column
             );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                     Captain Enabled                    //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [DataSourceProperty]
+        public Button<WCharacter> ToggleCaptainEnabledButton { get; } =
+            new(
+                action: CaptainsController.ToggleCaptainEnabled,
+                arg: () => State.Character,
+                refresh: [UIEvent.Character],
+                labelFactory: () =>
+                    State.Character?.IsCaptainEnabled == true
+                        ? L.S("button_disable_captain", "Disable Captain")
+                        : L.S("button_enable_captain", "Enable Captain"),
+                visibilityGate: () => State.Character?.IsCaptain == true
+            );
+
+        [EventListener(UIEvent.Character)]
+        [DataSourceProperty]
+        public string ToggleCaptainButtonBrush =>
+            State.Character?.IsCaptainEnabled == true ? "Popup.Delete.Button" : "Popup.Done.Button";
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Remove                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
@@ -147,7 +195,8 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Column
                 arg: () => State.Character,
                 refresh: [UIEvent.Character, UIEvent.Tree],
                 label: L.S("button_remove_character", "Delete"),
-                visibilityGate: () => State.Character.IsHero == false
+                visibilityGate: () =>
+                    State.Character.IsHero == false && State.Character.IsCaptain == false
             );
     }
 }

@@ -113,8 +113,17 @@
       id="ret_build_hint"
       text="Build" />
     <string
+      id="ret_button_change_formation_class_disabled_for_captains"
+      text="Captains share the formation class of their base troops." />
+    <string
       id="ret_button_change_formation_class_tooltip"
       text="Select a formation class." />
+    <string
+      id="ret_button_disable_captain"
+      text="Disable Captain" />
+    <string
+      id="ret_button_enable_captain"
+      text="Enable Captain" />
     <string
       id="ret_button_export"
       text="Export" />
@@ -179,6 +188,15 @@
       id="ret_cant_unequip_reason_empty"
       text="Nothing to unequip." />
     <string
+      id="ret_captain_mode_off_hint"
+      text="Switch to this captain&apos;s base troop." />
+    <string
+      id="ret_captain_mode_on_hint"
+      text="Switch to this troop&apos;s captain." />
+    <string
+      id="ret_captain_mode_toggle_tooltip"
+      text="Captain mode." />
+    <string
       id="ret_captain_suffix"
       text="Captain" />
     <string
@@ -190,9 +208,6 @@
     <string
       id="ret_captain_toggle_enabled_not_captain_reason"
       text="This unit is not a Captain." />
-    <string
-      id="ret_captain_toggle_mode_hint"
-      text="Switch between the base troop and its Captain variant." />
     <string
       id="ret_change_culture_title"
       text="Change Culture" />
@@ -1436,6 +1451,9 @@
       id="ret_list_header_villagers"
       text="Villagers" />
     <string
+      id="ret_mariner_captain_reason"
+      text="Captains share the mariner ability of their base troops." />
+    <string
       id="ret_mariner_disable_tooltip"
       text="Disable the mariner ability for this unit." />
     <string
@@ -1940,6 +1958,9 @@
       id="ret_rank_up_max_tier"
       text="This unit is already at max tier." />
     <string
+      id="ret_rank_up_no_captains"
+      text="Captains cannot rank up." />
+    <string
       id="ret_rank_up_not_enough_money"
       text="Not enough money (needs {COST} denars)." />
     <string
@@ -2305,6 +2326,9 @@
     <string
       id="ret_upgrade_cannot_add_not_upgradable"
       text="This unit is not upgradable." />
+    <string
+      id="ret_upgrade_no_captains"
+      text="Captains cannot have upgrades." />
     <string
       id="ret_upgrade_sources_header_text"
       text="Sources" />

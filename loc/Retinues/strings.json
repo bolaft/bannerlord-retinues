@@ -576,6 +576,22 @@
     "TR": "Yapı"
   },
   {
+    "id": "ret_button_change_formation_class_disabled_for_captains",
+    "EN": "Captains share the formation class of their base troops.",
+    "FR": null,
+    "BR": null,
+    "CNs": null,
+    "CNt": null,
+    "DE": null,
+    "IT": null,
+    "JP": null,
+    "KO": null,
+    "PL": null,
+    "RU": null,
+    "SP": null,
+    "TR": null
+  },
+  {
     "id": "ret_button_change_formation_class_tooltip",
     "EN": "Select a formation class.",
     "FR": "Sélectionner une formation.",
@@ -590,6 +606,38 @@
     "RU": "Выберите класс формации.",
     "SP": "Selecciona una clase de formación.",
     "TR": "Bir düzen sınıfı seçin."
+  },
+  {
+    "id": "ret_button_disable_captain",
+    "EN": "Disable Captain",
+    "FR": null,
+    "BR": null,
+    "CNs": null,
+    "CNt": null,
+    "DE": null,
+    "IT": null,
+    "JP": null,
+    "KO": null,
+    "PL": null,
+    "RU": null,
+    "SP": null,
+    "TR": null
+  },
+  {
+    "id": "ret_button_enable_captain",
+    "EN": "Enable Captain",
+    "FR": null,
+    "BR": null,
+    "CNs": null,
+    "CNt": null,
+    "DE": null,
+    "IT": null,
+    "JP": null,
+    "KO": null,
+    "PL": null,
+    "RU": null,
+    "SP": null,
+    "TR": null
   },
   {
     "id": "ret_button_export",
@@ -928,6 +976,54 @@
     "TR": "Kaldırılacak bir şey yok."
   },
   {
+    "id": "ret_captain_mode_off_hint",
+    "EN": "Switch to this captain's base troop.",
+    "FR": null,
+    "BR": null,
+    "CNs": null,
+    "CNt": null,
+    "DE": null,
+    "IT": null,
+    "JP": null,
+    "KO": null,
+    "PL": null,
+    "RU": null,
+    "SP": null,
+    "TR": null
+  },
+  {
+    "id": "ret_captain_mode_on_hint",
+    "EN": "Switch to this troop's captain.",
+    "FR": null,
+    "BR": null,
+    "CNs": null,
+    "CNt": null,
+    "DE": null,
+    "IT": null,
+    "JP": null,
+    "KO": null,
+    "PL": null,
+    "RU": null,
+    "SP": null,
+    "TR": null
+  },
+  {
+    "id": "ret_captain_mode_toggle_tooltip",
+    "EN": "Captain mode.",
+    "FR": null,
+    "BR": null,
+    "CNs": null,
+    "CNt": null,
+    "DE": null,
+    "IT": null,
+    "JP": null,
+    "KO": null,
+    "PL": null,
+    "RU": null,
+    "SP": null,
+    "TR": null
+  },
+  {
     "id": "ret_captain_suffix",
     "EN": "Captain",
     "FR": "Capitaine",
@@ -990,22 +1086,6 @@
     "RU": "Этот юнит не является капитаном.",
     "SP": "Esta unidad no es un capitán.",
     "TR": "Bu birim bir Kaptan değil."
-  },
-  {
-    "id": "ret_captain_toggle_mode_hint",
-    "EN": "Switch between the base troop and its Captain variant.",
-    "FR": "Basculer entre l'unité de base et sa variante capitaine.",
-    "BR": "Alternar entre a tropa base e sua variante Capitão.",
-    "CNs": "在基础部队及其队长变体之间切换。",
-    "CNt": "在基礎部隊及其隊長變體之間切換。",
-    "DE": "Wechsle zwischen der Basiseinheit und ihrer Hauptmann-Variante.",
-    "IT": "Passa tra la truppa base e la sua variante capitano.",
-    "JP": "基本部隊とそのキャプテンバリアントを切り替えます。",
-    "KO": "기본 부대와 그 대장 변형 간에 전환합니다.",
-    "PL": "Przełączaj między podstawową jednostką a jej wariantem kapitana.",
-    "RU": "Переключение между базовым отрядом и его вариантом капитана.",
-    "SP": "Cambiar entre la tropa base y su variante de capitán.",
-    "TR": "Temel birlik ile Kaptan varyantı arasında geçiş yapın."
   },
   {
     "id": "ret_change_culture_title",
@@ -7632,6 +7712,22 @@
     "TR": "Köylüler"
   },
   {
+    "id": "ret_mariner_captain_reason",
+    "EN": "Captains share the mariner ability of their base troops.",
+    "FR": null,
+    "BR": null,
+    "CNs": null,
+    "CNt": null,
+    "DE": null,
+    "IT": null,
+    "JP": null,
+    "KO": null,
+    "PL": null,
+    "RU": null,
+    "SP": null,
+    "TR": null
+  },
+  {
     "id": "ret_mariner_disable_tooltip",
     "EN": "Disable the mariner ability for this unit.",
     "FR": "Désactive le trait \"marin\" pour cette unité.",
@@ -10320,6 +10416,22 @@
     "TR": "Bu birim zaten maksimum seviyede."
   },
   {
+    "id": "ret_rank_up_no_captains",
+    "EN": "Captains cannot rank up.",
+    "FR": null,
+    "BR": null,
+    "CNs": null,
+    "CNt": null,
+    "DE": null,
+    "IT": null,
+    "JP": null,
+    "KO": null,
+    "PL": null,
+    "RU": null,
+    "SP": null,
+    "TR": null
+  },
+  {
     "id": "ret_rank_up_not_enough_money",
     "EN": "Not enough money (needs {COST} denars).",
     "FR": "Pas assez d'argent (besoin de {COST} dinars).",
@@ -12270,6 +12382,22 @@
     "RU": "Эту единицу нельзя улучшить.",
     "SP": "Esta unidad no se puede mejorar.",
     "TR": "Bu birim yükseltilemez."
+  },
+  {
+    "id": "ret_upgrade_no_captains",
+    "EN": "Captains cannot have upgrades.",
+    "FR": null,
+    "BR": null,
+    "CNs": null,
+    "CNt": null,
+    "DE": null,
+    "IT": null,
+    "JP": null,
+    "KO": null,
+    "PL": null,
+    "RU": null,
+    "SP": null,
+    "TR": null
   },
   {
     "id": "ret_upgrade_sources_header_text",

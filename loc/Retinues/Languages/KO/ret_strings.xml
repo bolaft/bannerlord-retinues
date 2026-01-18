@@ -179,9 +179,6 @@
       id="ret_captain_toggle_enabled_not_captain_reason"
       text="이 유닛은 대장이 아닙니다." />
     <string
-      id="ret_captain_toggle_mode_hint"
-      text="기본 부대와 그 대장 변형 간에 전환합니다." />
-    <string
       id="ret_change_culture_title"
       text="문화 변경" />
     <string

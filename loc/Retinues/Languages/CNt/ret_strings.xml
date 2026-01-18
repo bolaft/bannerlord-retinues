@@ -179,9 +179,6 @@
       id="ret_captain_toggle_enabled_not_captain_reason"
       text="此單位不是隊長。" />
     <string
-      id="ret_captain_toggle_mode_hint"
-      text="在基礎部隊及其隊長變體之間切換。" />
-    <string
       id="ret_change_culture_title"
       text="更改文化" />
     <string

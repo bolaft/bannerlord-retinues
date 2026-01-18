@@ -179,9 +179,6 @@
       id="ret_captain_toggle_enabled_not_captain_reason"
       text="Diese Einheit ist kein Hauptmann." />
     <string
-      id="ret_captain_toggle_mode_hint"
-      text="Wechsle zwischen der Basiseinheit und ihrer Hauptmann-Variante." />
-    <string
       id="ret_change_culture_title"
       text="Kultur ändern" />
     <string

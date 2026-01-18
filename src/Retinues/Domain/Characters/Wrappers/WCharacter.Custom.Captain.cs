@@ -71,12 +71,10 @@ namespace Retinues.Domain.Characters.Wrappers
             set => CaptainBaseIdAttribute.Set(value?.StringId);
         }
 
-        MAttribute<string> SkillPointsOwnerIdAttribute => Attribute<string>(initialValue: null);
-
         /// <summary>
         /// Creates and links a captain variant for this unit (shares skill-point pool if configured).
         /// </summary>
-        public WCharacter CreateCaptain(bool skills = true, bool equipments = true)
+        public WCharacter CreateCaptain()
         {
             if (IsCaptain)
                 return null;
@@ -84,17 +82,19 @@ namespace Retinues.Domain.Characters.Wrappers
             if (HasCaptain)
                 return Captain;
 
-            var captain = CharacterCloner.Clone(this, skills: skills, equipments: equipments);
+            var captain = CharacterCloner.Clone(this, skills: true, equipments: true);
             if (captain == null)
                 return null;
 
             captain.IsCaptain = true;
             captain.IsCaptainEnabled = false;
-
             captain.CaptainBase = this;
 
-            // Share the skill point pool with the base troop.
-            captain.SkillPointsOwnerIdAttribute.Set(StringId);
+            // Increase level to give captains a boost.
+            captain.Level += 5;
+
+            // Ensure captains are not shown visible.
+            captain.HiddenInEncyclopedia = true;
 
             // Name: "<Base> <CaptainSuffix>"
             captain.Name = MakeCaptainName(Name);

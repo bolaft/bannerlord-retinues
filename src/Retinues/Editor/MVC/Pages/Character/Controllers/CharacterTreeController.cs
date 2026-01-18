@@ -39,6 +39,10 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
                     )
                 )
                 .AddCondition(
+                    s => State.Character.IsCaptain != true,
+                    L.T("upgrade_no_captains", "Captains cannot have upgrades.")
+                )
+                .AddCondition(
                     c => c != null && c.IsUpgradable,
                     L.T("upgrade_cannot_add_not_upgradable", "This unit is not upgradable.")
                 )

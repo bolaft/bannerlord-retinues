@@ -372,6 +372,13 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
             Action<bool>("SetMariner")
                 .RequireValidEditingContext()
                 .AddCondition(
+                    s => State.Character.IsCaptain != true,
+                    L.T(
+                        "mariner_captain_reason",
+                        "Captains share the mariner ability of their base troops."
+                    )
+                )
+                .AddCondition(
                     _ => Mods.NavalDLC.IsLoaded,
                     L.T("naval_dlc_not_loaded", "War Sails is not installed.")
                 )
@@ -420,6 +427,10 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
                 .AddCondition(
                     _ => State.Mode == EditorMode.Player,
                     L.T("rank_up_player_only", "Only available in player mode.")
+                )
+                .AddCondition(
+                    s => State.Character.IsCaptain != true,
+                    L.T("rank_up_no_captains", "Captains cannot rank up.")
                 )
                 .AddCondition(
                     c => c != null && c.IsRetinue,

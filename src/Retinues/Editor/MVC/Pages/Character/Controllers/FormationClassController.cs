@@ -25,6 +25,13 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
                 .DefaultTooltip(
                     L.T("button_change_formation_class_tooltip", "Select a formation class.")
                 )
+                .AddCondition(
+                    s => State.Character.IsCaptain != true,
+                    L.T(
+                        "button_change_formation_class_disabled_for_captains",
+                        "Captains share the formation class of their base troops."
+                    )
+                )
                 .ExecuteWith(_ => ShowPicker(State.Character));
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -58,8 +65,6 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
         /// </summary>
         private static List<InquiryElement> BuildOptions(WCharacter character)
         {
-            var cur = character.FormationClassOverride;
-
             // Using FormationClass.Unset as the "Auto" identifier.
             // WCharacter.FormationClassOverride already treats Unset as "no override".
             var list = new List<InquiryElement>

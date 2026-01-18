@@ -179,9 +179,6 @@
       id="ret_captain_toggle_enabled_not_captain_reason"
       text="Cette unité n&apos;est pas un capitaine." />
     <string
-      id="ret_captain_toggle_mode_hint"
-      text="Basculer entre l&apos;unité de base et sa variante capitaine." />
-    <string
       id="ret_change_culture_title"
       text="Changer de culture" />
     <string

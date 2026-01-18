@@ -12,22 +12,65 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
     public class CaptainsController : BaseController
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                     Toggle Mode                       //
+        //                   Toggle Captain Mode                  //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
-        /// Toggles between the base troop and its Captain variant and updates the character view.
+        /// Toggles Captain mode for the selected character.
         /// </summary>
-        public static ControllerAction<WCharacter> ToggleCaptainMode { get; } =
-            Action<WCharacter>("ToggleCaptainMode")
-                .DefaultTooltip(
-                    L.T(
-                        "captain_toggle_mode_hint",
-                        "Switch between the base troop and its Captain variant."
-                    )
+        public static ControllerAction<bool> ToggleCaptainMode { get; } =
+            Action<bool>("ToggleCaptainMode")
+                .DefaultTooltip(value =>
+                    value
+                        ? L.T("captain_mode_on_hint", "Switch to this troop's captain.")
+                        : L.T("captain_mode_off_hint", "Switch to this captain's base troop.")
                 )
-                .ExecuteWith(c => ToggleCaptainModeImpl(c ?? State.Character))
+                .ExecuteWith(ToggleCaptainModeImpl)
                 .Fire(UIEvent.Character);
+
+        /// <summary>
+        /// Creates or switches to the Captain variant of the selected troop, or back to the base troop.
+        /// </summary>
+        private static void ToggleCaptainModeImpl(bool captainMode)
+        {
+            var wc = State.Character;
+            if (wc == null)
+                return;
+
+            if (wc.IsHero)
+                return;
+
+            if (captainMode)
+            {
+                // Base -> Captain (create if missing)
+                if (!wc.IsCaptain)
+                {
+                    var captain = wc.Captain ?? wc.CreateCaptain();
+                    if (captain == null)
+                    {
+                        Log.Warning("Could not create a Captain variant for this troop.");
+                        return;
+                    }
+
+                    State.Character = captain;
+                }
+
+                return;
+            }
+
+            // Captain -> Base
+            if (wc.IsCaptain)
+            {
+                var baseTroop = wc.CaptainBase;
+                if (baseTroop == null)
+                {
+                    Log.Warning($"Could not switch to base troop: Captain base is null for {wc}");
+                    return;
+                }
+
+                State.Character = baseTroop;
+            }
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                    Toggle Enabled                      //
@@ -49,43 +92,6 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
                 )
                 .ExecuteWith(c => ToggleCaptainEnabledImpl(c ?? State.Character))
                 .Fire(UIEvent.Character);
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Helpers                        //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        /// <summary>
-        /// Switches the provided character to its captain/base counterpart, creating one if necessary.
-        /// </summary>
-        private static void ToggleCaptainModeImpl(WCharacter wc)
-        {
-            if (wc == null)
-                return;
-
-            // Captain -> Base
-            if (wc.IsCaptain)
-            {
-                var baseTroop = wc.CaptainBase;
-                if (baseTroop == null)
-                {
-                    Log.Warning("Could not switch to base troop: Captain base is null for {0}");
-                    return;
-                }
-
-                State.Character = baseTroop;
-                return;
-            }
-
-            // Base -> Captain (create if missing)
-            var captain = wc.Captain ?? wc.CreateCaptain();
-            if (captain == null)
-            {
-                Log.Warning("Could not create a Captain variant for this troop.");
-                return;
-            }
-
-            State.Character = captain;
-        }
 
         /// <summary>
         /// Toggles the enabled flag on the given Captain character.
