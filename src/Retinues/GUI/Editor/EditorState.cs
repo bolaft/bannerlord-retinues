@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using Retinues.Behaviors.Doctrines;
 using Retinues.Behaviors.Doctrines.Definitions;
