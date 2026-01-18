@@ -267,9 +267,15 @@ namespace Retinues.GUI.Editor.Controllers.Library
             WCharacter target
         )
         {
+            var isPlayerMode = EditorState.Instance.Mode == EditorMode.Player;
+
             var desc = L.T(
-                    "library_import_confirm_desc_replace_troop",
-                    "{TARGET} in {FACTION} will be replaced with the imported troop.\n\nContinue?"
+                    isPlayerMode
+                        ? "library_import_confirm_desc_replace_troop_player"
+                        : "library_import_confirm_desc_replace_troop",
+                    isPlayerMode
+                        ? "{TARGET} in {FACTION} will be replaced with the imported troop.\n\nImported characters bypass rules and restrictions.\nUsing this feature in an ongoing campaign may be considered cheating.\n\nContinue?"
+                        : "{TARGET} in {FACTION} will be replaced with the imported troop.\n\nContinue?"
                 )
                 .SetTextVariable("TARGET", target?.Name ?? "Unknown")
                 .SetTextVariable("FACTION", faction?.Name ?? "Unknown");
@@ -310,9 +316,15 @@ namespace Retinues.GUI.Editor.Controllers.Library
             if (data == null || target == null)
                 return;
 
+            var isPlayerMode = EditorState.Instance.Mode == EditorMode.Player;
+
             var desc = L.T(
-                    "library_import_confirm_desc_faction_final_single",
-                    "This will overwrite the {NAME} troops.\n\nAnything missing from the export will be left unchanged.\n\nContinue?"
+                    isPlayerMode
+                        ? "library_import_confirm_desc_faction_final_single_player"
+                        : "library_import_confirm_desc_faction_final_single",
+                    isPlayerMode
+                        ? "This will overwrite the {NAME} troops.\n\nAnything missing from the export will be left unchanged.\n\nImported characters bypass rules and restrictions.\nUsing this in an ongoing campaign may be considered cheating.\n\nContinue?"
+                        : "This will overwrite the {NAME} troops.\n\nAnything missing from the export will be left unchanged.\n\nContinue?"
                 )
                 .SetTextVariable("NAME", target.Name);
 
