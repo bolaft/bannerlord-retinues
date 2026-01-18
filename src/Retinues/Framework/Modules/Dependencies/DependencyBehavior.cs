@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Retinues.Framework.Behaviors;
-using Retinues.GUI.Services;
+using Retinues.Interface.Services;
 using Retinues.Utilities;
 using TaleWorlds.Localization;
 

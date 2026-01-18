@@ -1,6 +1,6 @@
 using System.Xml.Linq;
 using Retinues.Domain.Characters.Wrappers;
-using Retinues.GUI.Services;
+using Retinues.Interface.Services;
 
 namespace Retinues.Exports
 {

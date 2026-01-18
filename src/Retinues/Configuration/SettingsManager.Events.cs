@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using Retinues.GUI.Editor;
-using Retinues.GUI.Editor.Events;
+using Retinues.Editor;
+using Retinues.Editor.Events;
 using Retinues.Utilities;
 
 namespace Retinues.Configuration

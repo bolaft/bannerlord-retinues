@@ -1,7 +1,7 @@
 using System;
 using Retinues.Domain.Characters.Services.Cloning;
 using Retinues.Framework.Model.Attributes;
-using Retinues.GUI.Services;
+using Retinues.Interface.Services;
 
 namespace Retinues.Domain.Characters.Wrappers
 {

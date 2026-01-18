@@ -1,6 +1,6 @@
 using System;
 using Retinues.Framework.Runtime;
-using Retinues.GUI.Services;
+using Retinues.Interface.Services;
 
 namespace Retinues.Framework.Modules.Dependencies
 {

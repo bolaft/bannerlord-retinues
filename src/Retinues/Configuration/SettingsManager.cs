@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using Retinues.Editor.Events;
 using Retinues.Framework.Runtime;
-using Retinues.GUI.Editor.Events;
 using Retinues.Utilities;
 
 namespace Retinues.Configuration

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Equipments.Wrappers;
-using Retinues.GUI.Services;
+using Retinues.Interface.Services;
 using TaleWorlds.Core;
 
 namespace Retinues.Behaviors.Troops

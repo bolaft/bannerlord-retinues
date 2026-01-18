@@ -4,7 +4,7 @@ using Retinues.Behaviors.Doctrines.Definitions;
 using Retinues.Configuration;
 using Retinues.Framework.Behaviors;
 using Retinues.Framework.Runtime;
-using Retinues.GUI.Services;
+using Retinues.Interface.Services;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Localization;
 

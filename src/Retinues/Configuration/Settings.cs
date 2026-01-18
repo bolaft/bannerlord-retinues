@@ -1,7 +1,7 @@
 using Retinues.Compatibility;
+using Retinues.Editor.Events;
 using Retinues.Framework.Runtime;
-using Retinues.GUI.Editor.Events;
-using Retinues.GUI.Services;
+using Retinues.Interface.Services;
 using static Retinues.Configuration.SettingsManager;
 
 namespace Retinues.Configuration

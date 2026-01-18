@@ -1,5 +1,5 @@
 using Retinues.Behaviors.Doctrines.Definitions;
-using Retinues.GUI.Services;
+using Retinues.Interface.Services;
 
 namespace Retinues.Behaviors.Doctrines.Catalogs
 {

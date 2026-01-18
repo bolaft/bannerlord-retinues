@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Framework.Model.Attributes;
-using Retinues.GUI.Services;
+using Retinues.Interface.Services;
 
 namespace Retinues.Domain.Equipments.Wrappers
 {

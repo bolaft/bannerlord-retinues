@@ -5,7 +5,7 @@ using Retinues.Configuration;
 using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Framework.Behaviors;
 using Retinues.Framework.Runtime;
-using Retinues.GUI.Services;
+using Retinues.Interface.Services;
 using TaleWorlds.Localization;
 
 namespace Retinues.Behaviors.Unlocks

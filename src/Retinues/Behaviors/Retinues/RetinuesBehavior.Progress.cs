@@ -2,7 +2,7 @@ using Retinues.Configuration;
 using Retinues.Domain;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Factions.Wrappers;
-using Retinues.GUI.Services;
+using Retinues.Interface.Services;
 using Retinues.Utilities;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
