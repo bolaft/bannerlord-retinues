@@ -84,7 +84,7 @@ namespace Retinues.Framework.Model.Persistence
         /// <summary>
         /// Applies the XML root to restore persistence entries.
         /// </summary>
-        static void ApplyXml(XElement root, bool allowDefer)
+        static void ApplyXml(XElement root)
         {
             foreach (var el in root.Elements())
             {
@@ -105,14 +105,14 @@ namespace Retinues.Framework.Model.Persistence
                     payload = copy.ToString(SaveOptions.DisableFormatting);
                 }
 
-                ApplySingle(uid, payload, allowDefer);
+                ApplySingle(uid, payload);
             }
         }
 
         /// <summary>
         /// Applies a single persistence entry by UID and data.
         /// </summary>
-        static void ApplySingle(string uid, string data, bool allowDefer)
+        static void ApplySingle(string uid, string data)
         {
             if (string.IsNullOrEmpty(uid))
                 return;
@@ -123,13 +123,6 @@ namespace Retinues.Framework.Model.Persistence
 
             var baseTypeFullName = uid.Substring(0, sep);
             var stringId = uid.Substring(sep + 1);
-
-            // Defer clan and kingdom restores until session is launched
-            if (allowDefer && ShouldDefer(baseTypeFullName))
-            {
-                EnqueueDeferred(uid, data);
-                return;
-            }
 
             if (!WrapperByBaseFullName.TryGetValue(baseTypeFullName, out var wrapperType))
                 return;
@@ -166,24 +159,6 @@ namespace Retinues.Framework.Model.Persistence
                     $"MPersistence: failed to deserialize uid='{uid}' type='{wrapperType?.FullName}' id='{stringId}': {ex}"
                 );
             }
-        }
-
-        /// <summary>
-        /// Determines if the given base type full name should defer persistence application.
-        /// </summary>
-        static bool ShouldDefer(string baseTypeFullName)
-        {
-            // No dependency on wrapper classes, only the base types
-            return string.Equals(
-                    baseTypeFullName,
-                    typeof(TaleWorlds.CampaignSystem.Clan).FullName,
-                    StringComparison.Ordinal
-                )
-                || string.Equals(
-                    baseTypeFullName,
-                    typeof(TaleWorlds.CampaignSystem.Kingdom).FullName,
-                    StringComparison.Ordinal
-                );
         }
 
         /// <summary>

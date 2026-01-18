@@ -106,8 +106,7 @@ namespace Retinues.Framework.Model.Persistence
                 if (v != RootVersion)
                     return;
 
-                // Apply what is safe immediately, defer clan and kingdom entries
-                ApplyXml(xmlRoot, allowDefer: true);
+                ApplyXml(xmlRoot);
             }
             catch (Exception e)
             {
@@ -186,45 +185,6 @@ namespace Retinues.Framework.Model.Persistence
             }
 
             return list;
-        }
-
-        /// <summary>
-        /// Called when the game load is finished to flush deferred entries.
-        /// </summary>
-        protected override void OnGameLoadFinished()
-        {
-            FlushDeferred();
-        }
-
-        static readonly List<(string uid, string data)> _deferred = [];
-
-        /// <summary>
-        /// Enqueues a deferred application of a persistence entry.
-        /// </summary>
-        static void EnqueueDeferred(string uid, string data)
-        {
-            if (string.IsNullOrEmpty(uid))
-                return;
-
-            _deferred.Add((uid, data ?? string.Empty));
-        }
-
-        /// <summary>
-        /// Flushes all deferred persistence entries.
-        /// </summary>
-        static void FlushDeferred()
-        {
-            if (_deferred.Count == 0)
-                return;
-
-            var copy = _deferred.ToArray();
-            _deferred.Clear();
-
-            for (int i = 0; i < copy.Length; i++)
-            {
-                var (uid, data) = copy[i];
-                ApplySingle(uid, data, allowDefer: false);
-            }
         }
 
         /// <summary>
