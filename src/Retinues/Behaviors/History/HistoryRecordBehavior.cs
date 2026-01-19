@@ -1,17 +1,18 @@
 using System.Collections.Generic;
+using Retinues.Behaviors.Missions;
 using Retinues.Domain;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Events.Models;
 using Retinues.Framework.Behaviors;
 
-namespace Retinues.Behaviors.Missions
+namespace Retinues.Behaviors.History
 {
     /// <summary>
     /// Updates WCharacter battle history attributes for faction troops.
     /// - Kills/casualties are recorded from CombatBehavior kills.
     /// - Battle result (type + won/lost) is recorded for all troops present in the player party roster at battle start.
     /// </summary>
-    public sealed class BattleHistoryBehavior : BaseCampaignBehavior
+    public sealed class HistoryRecordBehavior : BaseCampaignBehavior
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Pending                        //

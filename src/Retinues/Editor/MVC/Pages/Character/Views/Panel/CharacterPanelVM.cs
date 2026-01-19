@@ -125,18 +125,18 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Panel
                 return _traits;
             }
         }
-        
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         History                        //
+        //                       Statistics                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceProperty]
-        public string HistoryButtonLabel => L.S("history_button_label", "Show Battle History");
+        public string StatisticsButtonLabel => L.S("statistics_button_label", "Show Statistics");
 
         [DataSourceProperty]
-        public Button<WCharacter> ShowHistoryButton { get; } =
+        public Button<WCharacter> ShowStatisticsButton { get; } =
             new(
-                action: CharacterController.ShowHistory,
+                action: StatisticsController.ShowStatistics,
                 arg: () => State.Character,
                 refresh: [UIEvent.Character],
                 visibilityGate: () => State.Mode == EditorMode.Player
@@ -206,7 +206,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Panel
         [DataSourceProperty]
         public Button<WCharacter> RankUpButton { get; } =
             new(
-                action: CharacterController.RankUp,
+                action: RetinueController.RankUp,
                 arg: () => State.Character,
                 refresh: [UIEvent.Skill],
                 visibilityGate: () => State.Mode == EditorMode.Player && State.Character.IsRetinue
@@ -419,12 +419,11 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Panel
         [DataSourceProperty]
         public Button<WCharacter> AddUpgradeTargetButton { get; } =
             new(
-                action: CharacterTreeController.AddUpgradeTarget,
+                action: UpgradeController.AddUpgradeTarget,
                 arg: () => State.Character,
                 refresh: [UIEvent.Character, UIEvent.Tree],
                 label: L.S("add_upgrade_target_text", "Add Upgrade"),
-                visibilityGate: () =>
-                    CharacterTreeController.AddUpgradeTarget.Allow(State.Character)
+                visibilityGate: () => UpgradeController.AddUpgradeTarget.Allow(State.Character)
             );
 
         private readonly MBBindingList<CharacterUpgradeVM> _upgradeSources = [];

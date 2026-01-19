@@ -14,7 +14,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
     public class FormationClassController : BaseController
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Action                         //
+        //                     Formation Class                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
@@ -33,10 +33,6 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
                     )
                 )
                 .ExecuteWith(_ => ShowPicker(State.Character));
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Popup                          //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
         /// Show the formation class picker for the given character.

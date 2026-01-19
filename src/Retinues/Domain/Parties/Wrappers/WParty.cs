@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Factions.Wrappers;
 using Retinues.Domain.Parties.Models;
@@ -13,6 +14,29 @@ namespace Retinues.Domain.Parties.Wrappers
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Resolver                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Gets all WParty instances in the current campaign.
+        /// </summary>
+        public static new IEnumerable<WParty> All
+        {
+            get
+            {
+                var campaign = Campaign.Current;
+                if (campaign == null)
+                    yield break;
+
+                var parties = campaign.MobileParties;
+                if (parties == null)
+                    yield break;
+
+                foreach (var p in parties)
+                {
+                    if (p != null)
+                        yield return Get(p);
+                }
+            }
+        }
 
         /// <summary>
         /// Static constructor to register the resolver.

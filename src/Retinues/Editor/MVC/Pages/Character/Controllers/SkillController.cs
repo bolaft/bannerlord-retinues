@@ -14,7 +14,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
     /// <summary>
     /// Controller for skill editing, enforcing limits and handling UI interactions.
     /// </summary>
-    public class SkillsController : BaseController
+    public class SkillController : BaseController
     {
         // Max batch size for skill changes depending on mode.
         private static int MaxBatch => State.Mode == EditorMode.Player ? 10 : int.MaxValue;

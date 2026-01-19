@@ -173,9 +173,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Column
                 arg: () => State.Character,
                 refresh: [UIEvent.Character],
                 spriteFactory: () =>
-                    State.Character?.IsCaptainEnabled == true
-                        ? "ButtonBrush3"
-                        : "ButtonBrush1",
+                    State.Character?.IsCaptainEnabled == true ? "ButtonBrush3" : "ButtonBrush1",
                 labelFactory: () =>
                     State.Character?.IsCaptainEnabled == true
                         ? L.S("button_disable_captain", "Disable Captain")
@@ -190,7 +188,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Column
         [DataSourceProperty]
         public Button<WCharacter> RemoveCharacterButton { get; } =
             new(
-                action: CharacterTreeController.RemoveCharacter,
+                action: UpgradeController.RemoveCharacter,
                 arg: () => State.Character,
                 refresh: [UIEvent.Character, UIEvent.Tree],
                 label: L.S("button_remove_character", "Delete"),

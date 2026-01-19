@@ -52,10 +52,10 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Panel
 
         [DataSourceProperty]
         public Button<SkillObject> IncreaseButton { get; } =
-            new(action: SkillsController.SkillIncrease, arg: () => skill, refresh: UIEvent.Skill);
+            new(action: SkillController.SkillIncrease, arg: () => skill, refresh: UIEvent.Skill);
 
         [DataSourceProperty]
         public Button<SkillObject> DecreaseButton { get; } =
-            new(action: SkillsController.SkillDecrease, arg: () => skill, refresh: UIEvent.Skill);
+            new(action: SkillController.SkillDecrease, arg: () => skill, refresh: UIEvent.Skill);
     }
 }

@@ -53,18 +53,16 @@ namespace Retinues.Domain.Characters.Wrappers
             siegeBattles = HistorySiegeBattles.Get();
             navalBattles = HistoryNavalBattles.Get();
             raids = HistoryRaids.Get();
-            kills = HistoryKills.Get().Select(kv =>
-                new KeyValuePair<WCharacter, int>(
-                    Get(kv.Key),
-                    kv.Value
-                )
-            ).Where(kv => kv.Key != null).ToDictionary(kv => kv.Key, kv => kv.Value);
-            casualties = HistoryCasualties.Get().Select(kv =>
-                new KeyValuePair<WCharacter, int>(
-                    Get(kv.Key),
-                    kv.Value
-                )
-            ).Where(kv => kv.Key != null).ToDictionary(kv => kv.Key, kv => kv.Value);
+            kills = HistoryKills
+                .Get()
+                .Select(kv => new KeyValuePair<WCharacter, int>(Get(kv.Key), kv.Value))
+                .Where(kv => kv.Key != null)
+                .ToDictionary(kv => kv.Key, kv => kv.Value);
+            casualties = HistoryCasualties
+                .Get()
+                .Select(kv => new KeyValuePair<WCharacter, int>(Get(kv.Key), kv.Value))
+                .Where(kv => kv.Key != null)
+                .ToDictionary(kv => kv.Key, kv => kv.Value);
         }
 
         /// <summary>

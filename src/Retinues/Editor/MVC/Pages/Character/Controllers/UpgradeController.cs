@@ -13,7 +13,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
     /// <summary>
     /// Controller for managing character tree operations like upgrades and removal.
     /// </summary>
-    public class CharacterTreeController : BaseController
+    public class UpgradeController : BaseController
     {
         const int MaxUpgradeTargets = 4;
 
