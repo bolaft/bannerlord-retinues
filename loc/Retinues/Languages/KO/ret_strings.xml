@@ -131,6 +131,9 @@
       id="ret_button_export_tooltip"
       text="선택한 진영 또는 부대를 라이브러리로 내보냅니다." />
     <string
+      id="ret_button_rank_up"
+      text="계급 상승" />
+    <string
       id="ret_button_remove_character"
       text="삭제" />
     <string
@@ -1496,8 +1499,14 @@
       id="ret_mcm_option_clan_troops_availability"
       text="클랜 부대 가용성" />
     <string
+      id="ret_mcm_option_clan_troops_availability_hint"
+      text="클랜 부대를 어디서 모집할 수 있는지 결정합니다. &apos;모든 곳&apos;: 클랜 부대는 모든 정착지에서 모집할 수 있습니다. &apos;클랜 영지&apos;: 클랜 부대는 클랜이 소유한 영지에서만 모집할 수 있습니다. &apos;클랜 또는 왕국 영지&apos;: 클랜 또는 왕국이 소유한 영지에서 모집할 수 있습니다. &apos;어디서도&apos;: 클랜 부대를 모집할 수 없습니다." />
+    <string
       id="ret_mcm_option_clan_troops_unlock"
       text="클랜 부대" />
+    <string
+      id="ret_mcm_option_clan_troops_unlock_hint"
+      text="클랜 부대가 언제 이용 가능해지는지 결정합니다. &apos;항상 잠금 해제&apos;: 시작부터 이용 가능합니다. &apos;첫 영지 획득 시 잠금 해제&apos;: 클랜이 첫 영지를 획득하면 잠금 해제됩니다. &apos;비활성화&apos;: 클랜 부대는 절대 잠금 해제되지 않습니다." />
     <string
       id="ret_mcm_option_debug_mode"
       text="디버그 모드" />
@@ -1655,8 +1664,14 @@
       id="ret_mcm_option_kingdom_troops_availability"
       text="왕국 군대 가용성" />
     <string
+      id="ret_mcm_option_kingdom_troops_availability_hint"
+      text="왕국 군대를 어디에서 모집할 수 있는지 결정합니다. &apos;어디서나&apos;: 왕국 군대는 모든 정착지에서 모집할 수 있습니다. &apos;왕국 영지&apos;: 왕국 군대는 자신의 왕국이 소유한 영지에서만 모집할 수 있습니다. &apos;씨족 또는 왕국 영지&apos;: 왕국 군대는 소유한 씨족 또는 왕국 영지에서 모집할 수 있습니다. &apos;어디에도 없음&apos;: 왕국 군대를 모집할 수 없습니다." />
+    <string
       id="ret_mcm_option_kingdom_troops_unlock"
       text="왕국 군대" />
+    <string
+      id="ret_mcm_option_kingdom_troops_unlock_hint"
+      text="왕국 부대가 언제 이용 가능해지는지 결정합니다. &apos;항상 잠금 해제&apos;: 시작부터 이용 가능합니다. &apos;통치자가 되었을 때 잠금 해제&apos;: 플레이어가 왕국을 건국하면 왕국 부대가 잠금 해제됩니다. &apos;비활성화&apos;: 왕국 부대는 절대 잠금 해제되지 않습니다." />
     <string
       id="ret_mcm_option_max_retinue_ratio"
       text="최대 Retinue 비율" />
@@ -2182,6 +2197,9 @@
     <string
       id="ret_starter_troops_clone_culture_roots"
       text="루트 부대만" />
+    <string
+      id="ret_statistics_battles_field"
+      text="야전 전투" />
     <string
       id="ret_statistics_battles_fought"
       text="전투 횟수: {TOTAL} (승리 {WON}, 패배 {LOST})" />

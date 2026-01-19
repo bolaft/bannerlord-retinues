@@ -131,6 +131,9 @@
       id="ret_button_export_tooltip"
       text="Esporta la fazione o la truppa selezionata nella libreria." />
     <string
+      id="ret_button_rank_up"
+      text="Aumenta Grado" />
+    <string
       id="ret_button_remove_character"
       text="Elimina" />
     <string
@@ -1496,8 +1499,14 @@
       id="ret_mcm_option_clan_troops_availability"
       text="Disponibilità delle truppe del clan" />
     <string
+      id="ret_mcm_option_clan_troops_availability_hint"
+      text="Determina da dove si possono reclutare le truppe del clan. &apos;Ovunque&apos;: le truppe del clan possono essere reclutate in qualsiasi insediamento. &apos;Feudi del clan&apos;: le truppe del clan possono essere reclutate solo nei feudi posseduti dal loro clan. &apos;Feudi del clan o del regno&apos;: le truppe del clan possono essere reclutate nei feudi posseduti dal clan o dal regno. &apos;Da nessuna parte&apos;: le truppe del clan non possono essere reclutate." />
+    <string
       id="ret_mcm_option_clan_troops_unlock"
       text="Truppe del clan" />
+    <string
+      id="ret_mcm_option_clan_troops_unlock_hint"
+      text="Determina quando le truppe del clan diventano disponibili. &apos;Sempre sbloccate&apos;: disponibili dall&apos;inizio. &apos;Sbloccate con il primo feudo&apos;: si sbloccano quando il clan acquisisce il suo primo feudo. &apos;Disabilitate&apos;: le truppe del clan non vengono mai sbloccate." />
     <string
       id="ret_mcm_option_debug_mode"
       text="Modalità di debug" />
@@ -1655,8 +1664,14 @@
       id="ret_mcm_option_kingdom_troops_availability"
       text="Disponibilità delle Truppe del Regno" />
     <string
+      id="ret_mcm_option_kingdom_troops_availability_hint"
+      text="Determina da dove possono essere reclutate le truppe del regno. &apos;Ovunque&apos;: Le truppe del regno possono essere reclutate da qualsiasi insediamento. &apos;Feudi del Regno&apos;: Le truppe del regno possono essere reclutate solo dai feudi posseduti dal loro regno. &apos;Feudi di Clan o del Regno&apos;: Le truppe del regno possono essere reclutate dai feudi di clan o del regno posseduti. &apos;Da nessuna parte&apos;: Le truppe del regno non possono essere reclutate." />
+    <string
       id="ret_mcm_option_kingdom_troops_unlock"
       text="Truppe del Regno" />
+    <string
+      id="ret_mcm_option_kingdom_troops_unlock_hint"
+      text="Determina quando le truppe del regno diventano disponibili. &apos;Sempre sbloccate&apos;: disponibili dall&apos;inizio. &apos;Sbloccate al fondare un regno&apos;: le truppe del regno si sbloccano quando il giocatore fonda un regno. &apos;Disabilitate&apos;: le truppe del regno non vengono mai sbloccate." />
     <string
       id="ret_mcm_option_max_retinue_ratio"
       text="Rapporto massimo di Retinues" />
@@ -2182,6 +2197,9 @@
     <string
       id="ret_starter_troops_clone_culture_roots"
       text="Solo truppe di base" />
+    <string
+      id="ret_statistics_battles_field"
+      text="Battaglie campali" />
     <string
       id="ret_statistics_battles_fought"
       text="Battaglie combattute: {TOTAL} (vinte {WON}, perse {LOST})" />

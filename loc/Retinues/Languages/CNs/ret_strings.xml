@@ -131,6 +131,9 @@
       id="ret_button_export_tooltip"
       text="将所选派系或部队导出到库中。" />
     <string
+      id="ret_button_rank_up"
+      text="提升等级" />
+    <string
       id="ret_button_remove_character"
       text="删除" />
     <string
@@ -1496,8 +1499,14 @@
       id="ret_mcm_option_clan_troops_availability"
       text="氏族部队可用性" />
     <string
+      id="ret_mcm_option_clan_troops_availability_hint"
+      text="决定氏族部队可以从何处招募。&apos;所有地点&apos;：氏族部队可以从任何定居点招募。&apos;氏族封地&apos;：氏族部队只能从其氏族拥有的封地招募。&apos;氏族或王国封地&apos;：氏族部队可以从氏族或王国拥有的封地招募。&apos;无处&apos;：无法招募氏族部队。" />
+    <string
       id="ret_mcm_option_clan_troops_unlock"
       text="氏族部队" />
+    <string
+      id="ret_mcm_option_clan_troops_unlock_hint"
+      text="决定氏族部队何时可用。&apos;始终解锁&apos;：氏族部队从一开始就可用。&apos;在获得第一个封地时解锁&apos;：当氏族获得第一个封地时，氏族部队解锁。&apos;禁用&apos;：氏族部队永远不会解锁。" />
     <string
       id="ret_mcm_option_debug_mode"
       text="调试模式" />
@@ -1655,8 +1664,14 @@
       id="ret_mcm_option_kingdom_troops_availability"
       text="王国部队可用性" />
     <string
+      id="ret_mcm_option_kingdom_troops_availability_hint"
+      text="确定王国部队可以从哪里招募。&apos;任何地方&apos;：王国部队可以从任何定居点招募。&apos;王国封地&apos;：王国部队只能从其王国拥有的封地招募。&apos;氏族或王国封地&apos;：王国部队可以从拥有的氏族或王国封地招募。&apos;无处&apos;：无法招募王国部队。" />
+    <string
       id="ret_mcm_option_kingdom_troops_unlock"
       text="王国部队" />
+    <string
+      id="ret_mcm_option_kingdom_troops_unlock_hint"
+      text="决定王国部队何时可用。&apos;始终解锁&apos;：王国部队从一开始就可用。&apos;成为统治者时解锁&apos;：当玩家建立王国时，王国部队解锁。&apos;禁用&apos;：王国部队永远不会解锁。" />
     <string
       id="ret_mcm_option_max_retinue_ratio"
       text="最大随从比例" />
@@ -2182,6 +2197,9 @@
     <string
       id="ret_starter_troops_clone_culture_roots"
       text="仅根部部队" />
+    <string
+      id="ret_statistics_battles_field"
+      text="野战" />
     <string
       id="ret_statistics_battles_fought"
       text="战斗次数：{TOTAL}（胜利 {WON}，失败 {LOST}）" />

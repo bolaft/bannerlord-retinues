@@ -131,6 +131,9 @@
       id="ret_button_export_tooltip"
       text="Exportiere die ausgewählte Fraktion oder Truppe in die Bibliothek." />
     <string
+      id="ret_button_rank_up"
+      text="Rang erhöhen" />
+    <string
       id="ret_button_remove_character"
       text="Löschen" />
     <string
@@ -1496,8 +1499,14 @@
       id="ret_mcm_option_clan_troops_availability"
       text="Verfügbarkeit von Clan-Truppen" />
     <string
+      id="ret_mcm_option_clan_troops_availability_hint"
+      text="Legt fest, wo Clan-Truppen rekrutiert werden können. &apos;Überall&apos;: Clan-Truppen können in jeder Siedlung rekrutiert werden. &apos;Clan-Lehen&apos;: Clan-Truppen können nur in Lehen rekrutiert werden, die ihrem Clan gehören. &apos;Clan- oder Königreichs-Lehen&apos;: Clan-Truppen können in Lehen rekrutiert werden, die dem Clan oder dem Königreich gehören. &apos;Nirgendwo&apos;: Clan-Truppen können nicht rekrutiert werden." />
+    <string
       id="ret_mcm_option_clan_troops_unlock"
       text="Clan-Truppen" />
+    <string
+      id="ret_mcm_option_clan_troops_unlock_hint"
+      text="Bestimmt, wann Clan-Truppen verfügbar werden. &apos;Immer freigeschaltet&apos;: Clan-Truppen sind von Anfang an verfügbar. &apos;Mit dem ersten Lehen freigeschaltet&apos;: Clan-Truppen werden freigeschaltet, wenn der Clan sein erstes Lehen erwirbt. &apos;Deaktiviert&apos;: Clan-Truppen werden nie freigeschaltet." />
     <string
       id="ret_mcm_option_debug_mode"
       text="Debug-Modus" />
@@ -1655,8 +1664,14 @@
       id="ret_mcm_option_kingdom_troops_availability"
       text="Verfügbarkeit von Königreichstruppen" />
     <string
+      id="ret_mcm_option_kingdom_troops_availability_hint"
+      text="Bestimmt, wo Königreichstruppen rekrutiert werden können. &apos;Überall&apos;: Königreichstruppen können aus jeder Siedlung rekrutiert werden. &apos;Königreichslehen&apos;: Königreichstruppen können nur aus Lehen rekrutiert werden, die ihrem Königreich gehören. &apos;Clan- oder Königreichslehen&apos;: Königreichstruppen können aus besessenen Clan- oder Königreichslehen rekrutiert werden. &apos;Nirgendwo&apos;: Königreichstruppen können nicht rekrutiert werden." />
+    <string
       id="ret_mcm_option_kingdom_troops_unlock"
       text="Königreichstruppen" />
+    <string
+      id="ret_mcm_option_kingdom_troops_unlock_hint"
+      text="Bestimmt, wann Königreichstruppen verfügbar werden. &apos;Immer freigeschaltet&apos;: Königreichstruppen sind von Anfang an verfügbar. &apos;Freigeschaltet beim Werden des Herrschers&apos;: Königreichstruppen werden freigeschaltet, wenn der Spieler ein Königreich gründet. &apos;Deaktiviert&apos;: Königreichstruppen werden nie freigeschaltet." />
     <string
       id="ret_mcm_option_max_retinue_ratio"
       text="Maximales Retinue-Verhältnis" />
@@ -2182,6 +2197,9 @@
     <string
       id="ret_starter_troops_clone_culture_roots"
       text="Nur Basiseinheiten" />
+    <string
+      id="ret_statistics_battles_field"
+      text="Feldschlachten" />
     <string
       id="ret_statistics_battles_fought"
       text="Geführte Schlachten: {TOTAL} (gewonnen {WON}, verloren {LOST})" />

@@ -131,6 +131,9 @@
       id="ret_button_export_tooltip"
       text="Экспортировать выбранную фракцию или отряд в библиотеку." />
     <string
+      id="ret_button_rank_up"
+      text="Повысить ранг" />
+    <string
       id="ret_button_remove_character"
       text="Удалить" />
     <string
@@ -1496,8 +1499,14 @@
       id="ret_mcm_option_clan_troops_availability"
       text="Доступность отрядов клана" />
     <string
+      id="ret_mcm_option_clan_troops_availability_hint"
+      text="Определяет, откуда можно вербовать отряды клана. &apos;Везде&apos;: отряды клана можно вербовать в любом поселении. &apos;Феоды клана&apos;: отряды клана можно вербовать только в феодах, принадлежащих их клану. &apos;Феоды клана или королевства&apos;: отряды клана можно вербовать в феодах, принадлежащих клану или королевству. &apos;Нигде&apos;: отряды клана нельзя вербовать." />
+    <string
       id="ret_mcm_option_clan_troops_unlock"
       text="Отряды клана" />
+    <string
+      id="ret_mcm_option_clan_troops_unlock_hint"
+      text="Определяет, когда отряды клана становятся доступны. &apos;Всегда разблокированы&apos;: отряды клана доступны с самого начала. &apos;Разблокируются при первом феоде&apos;: отряды клана разблокируются, когда клан приобретает свой первый феод. &apos;Отключено&apos;: отряды клана никогда не разблокируются." />
     <string
       id="ret_mcm_option_debug_mode"
       text="Режим отладки" />
@@ -1655,8 +1664,14 @@
       id="ret_mcm_option_kingdom_troops_availability"
       text="Доступность королевских войск" />
     <string
+      id="ret_mcm_option_kingdom_troops_availability_hint"
+      text="Определяет, откуда можно набирать королевские войска. &apos;Везде&apos;: Королевские войска можно набирать из любого поселения. &apos;Фьефы королевства&apos;: Королевские войска можно набирать только из фьефов, принадлежащих их королевству. &apos;Фьефы клана или королевства&apos;: Королевские войска можно набирать из принадлежащих фьефов клана или королевства. &apos;Нигде&apos;: Королевские войска нельзя набирать." />
+    <string
       id="ret_mcm_option_kingdom_troops_unlock"
       text="Королевские войска" />
+    <string
+      id="ret_mcm_option_kingdom_troops_unlock_hint"
+      text="Определяет, когда королевские войска становятся доступны. &apos;Всегда разблокированы&apos;: королевские войска доступны с самого начала. &apos;Разблокируются при создании королевства&apos;: королевские войска разблокируются, когда игрок основывает королевство. &apos;Отключено&apos;: королевские войска никогда не разблокируются." />
     <string
       id="ret_mcm_option_max_retinue_ratio"
       text="Максимальное соотношение Retinue" />
@@ -2182,6 +2197,9 @@
     <string
       id="ret_starter_troops_clone_culture_roots"
       text="Только корневые войска" />
+    <string
+      id="ret_statistics_battles_field"
+      text="Полевые сражения" />
     <string
       id="ret_statistics_battles_fought"
       text="Проведено боев: {TOTAL} (победы {WON}, поражения {LOST})" />

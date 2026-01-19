@@ -131,6 +131,9 @@
       id="ret_button_export_tooltip"
       text="選択した派閥または部隊をライブラリにエクスポートします。" />
     <string
+      id="ret_button_rank_up"
+      text="ランクアップ" />
+    <string
       id="ret_button_remove_character"
       text="削除" />
     <string
@@ -1496,8 +1499,14 @@
       id="ret_mcm_option_clan_troops_availability"
       text="クラン部隊の可用性" />
     <string
+      id="ret_mcm_option_clan_troops_availability_hint"
+      text="氏族部隊をどこで募集できるかを決定します。&apos;どこでも&apos;：氏族部隊はどの集落でも募集できます。&apos;氏族の領地&apos;：氏族部隊は氏族が所有する領地からのみ募集できます。&apos;氏族または王国の領地&apos;：氏族または王国が所有する領地から募集できます。&apos;どこでも募集できない&apos;：氏族部隊は募集できません。" />
+    <string
       id="ret_mcm_option_clan_troops_unlock"
       text="クラン部隊" />
+    <string
+      id="ret_mcm_option_clan_troops_unlock_hint"
+      text="氏族部隊がいつ利用可能になるかを決定します。&apos;常に解除&apos;：氏族部隊は最初から利用可能です。&apos;最初の領地で解除&apos;：氏族が最初の領地を獲得したときに氏族部隊が解除されます。&apos;無効&apos;：氏族部隊は決して解除されません。" />
     <string
       id="ret_mcm_option_debug_mode"
       text="デバッグモード" />
@@ -1655,8 +1664,14 @@
       id="ret_mcm_option_kingdom_troops_availability"
       text="王国の部隊の可用性" />
     <string
+      id="ret_mcm_option_kingdom_troops_availability_hint"
+      text="王国の部隊がどこから募集できるかを決定します。&apos;どこでも&apos;：王国の部隊はどの集落からでも募集できます。&apos;王国の領地&apos;：王国の部隊は自分の王国が所有する領地からのみ募集できます。&apos;氏族または王国の領地&apos;：王国の部隊は所有する氏族または王国の領地から募集できます。&apos;どこにもない&apos;：王国の部隊は募集できません。" />
+    <string
       id="ret_mcm_option_kingdom_troops_unlock"
       text="王国の部隊" />
+    <string
+      id="ret_mcm_option_kingdom_troops_unlock_hint"
+      text="王国の部隊がいつ利用可能になるかを決定します。&apos;常に解除&apos;：王国の部隊は最初から利用可能です。&apos;統治者になったときに解除&apos;：プレイヤーが王国を建国したときに王国の部隊が解除されます。&apos;無効&apos;：王国の部隊は決して解除されません。" />
     <string
       id="ret_mcm_option_max_retinue_ratio"
       text="最大リティニュース比率" />
@@ -2182,6 +2197,9 @@
     <string
       id="ret_starter_troops_clone_culture_roots"
       text="ルート部隊のみ" />
+    <string
+      id="ret_statistics_battles_field"
+      text="野戦" />
     <string
       id="ret_statistics_battles_fought"
       text="戦闘回数：{TOTAL}（勝利 {WON}、敗北 {LOST}）" />

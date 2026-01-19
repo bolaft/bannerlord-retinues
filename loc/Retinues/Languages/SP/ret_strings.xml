@@ -131,6 +131,9 @@
       id="ret_button_export_tooltip"
       text="Exporta la facción o tropa seleccionada a la biblioteca." />
     <string
+      id="ret_button_rank_up"
+      text="Ascender de rango" />
+    <string
       id="ret_button_remove_character"
       text="Eliminar" />
     <string
@@ -1496,8 +1499,14 @@
       id="ret_mcm_option_clan_troops_availability"
       text="Disponibilidad de tropas de clan" />
     <string
+      id="ret_mcm_option_clan_troops_availability_hint"
+      text="Determina de dónde se pueden reclutar las tropas de clan. &apos;En todas partes&apos;: las tropas de clan se pueden reclutar en cualquier asentamiento. &apos;Feudos del clan&apos;: las tropas de clan solo se pueden reclutar en feudos propiedad de su clan. &apos;Feudos del clan o del reino&apos;: las tropas de clan se pueden reclutar en feudos propiedad del clan o del reino. &apos;En ningún lugar&apos;: no se pueden reclutar tropas de clan." />
+    <string
       id="ret_mcm_option_clan_troops_unlock"
       text="Tropas de clan" />
+    <string
+      id="ret_mcm_option_clan_troops_unlock_hint"
+      text="Determina cuándo las tropas de clan se vuelven disponibles. &apos;Siempre desbloqueadas&apos;: disponibles desde el principio. &apos;Desbloqueadas con el primer feudo&apos;: se desbloquean cuando el clan adquiere su primer feudo. &apos;Desactivado&apos;: las tropas de clan nunca se desbloquean." />
     <string
       id="ret_mcm_option_debug_mode"
       text="Modo de depuración" />
@@ -1655,8 +1664,14 @@
       id="ret_mcm_option_kingdom_troops_availability"
       text="Disponibilidad de Tropas del Reino" />
     <string
+      id="ret_mcm_option_kingdom_troops_availability_hint"
+      text="Determina de dónde se pueden reclutar las tropas del reino. &apos;En todas partes&apos;: Las tropas del reino se pueden reclutar de cualquier asentamiento. &apos;Feudos del Reino&apos;: Las tropas del reino solo se pueden reclutar de los feudos pertenecientes a su reino. &apos;Feudos de Clan o Reino&apos;: Las tropas del reino se pueden reclutar de los feudos de clan o reino poseídos. &apos;En ninguna parte&apos;: No se pueden reclutar tropas del reino." />
+    <string
       id="ret_mcm_option_kingdom_troops_unlock"
       text="Tropas del Reino" />
+    <string
+      id="ret_mcm_option_kingdom_troops_unlock_hint"
+      text="Determina cuándo las tropas del reino se vuelven disponibles. &apos;Siempre desbloqueadas&apos;: disponibles desde el principio. &apos;Desbloqueadas al fundar un reino&apos;: se desbloquean cuando el jugador funda un reino. &apos;Desactivado&apos;: las tropas del reino nunca se desbloquean." />
     <string
       id="ret_mcm_option_max_retinue_ratio"
       text="Relación máxima de Retinues" />
@@ -2182,6 +2197,9 @@
     <string
       id="ret_starter_troops_clone_culture_roots"
       text="Solo tropas raíz" />
+    <string
+      id="ret_statistics_battles_field"
+      text="Batallas campales" />
     <string
       id="ret_statistics_battles_fought"
       text="Batallas libradas: {TOTAL} (ganadas {WON}, perdidas {LOST})" />

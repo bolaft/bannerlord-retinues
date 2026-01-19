@@ -131,6 +131,9 @@
       id="ret_button_export_tooltip"
       text="Exporte a facção ou tropa selecionada para a biblioteca." />
     <string
+      id="ret_button_rank_up"
+      text="Subir de Patente" />
+    <string
       id="ret_button_remove_character"
       text="Excluir" />
     <string
@@ -1496,8 +1499,14 @@
       id="ret_mcm_option_clan_troops_availability"
       text="Disponibilidade de Tropas de Clã" />
     <string
+      id="ret_mcm_option_clan_troops_availability_hint"
+      text="Determina de onde as tropas de clã podem ser recrutadas. &apos;Em Todos os Lugares&apos;: tropas de clã podem ser recrutadas de qualquer assentamento. &apos;Feudos do Clã&apos;: tropas de clã só podem ser recrutadas em feudos pertencentes ao seu clã. &apos;Feudos do Clã ou do Reino&apos;: tropas de clã podem ser recrutadas em feudos pertencentes ao clã ou ao reino. &apos;Em Lugar Nenhum&apos;: tropas de clã não podem ser recrutadas." />
+    <string
       id="ret_mcm_option_clan_troops_unlock"
       text="Tropas de Clã" />
+    <string
+      id="ret_mcm_option_clan_troops_unlock_hint"
+      text="Determina quando as tropas de clã ficam disponíveis. &apos;Sempre Desbloqueadas&apos;: disponíveis desde o início. &apos;Desbloqueadas com o Primeiro Feudo&apos;: desbloqueiam quando o clã adquire seu primeiro feudo. &apos;Desativado&apos;: nunca são desbloqueadas." />
     <string
       id="ret_mcm_option_debug_mode"
       text="Modo de Depuração" />
@@ -1655,8 +1664,14 @@
       id="ret_mcm_option_kingdom_troops_availability"
       text="Disponibilidade de Tropas do Reino" />
     <string
+      id="ret_mcm_option_kingdom_troops_availability_hint"
+      text="Determina onde as tropas do reino podem ser recrutadas. &apos;Em qualquer lugar&apos;: As tropas do reino podem ser recrutadas de qualquer assentamento. &apos;Feudos do Reino&apos;: As tropas do reino só podem ser recrutadas em feudos pertencentes ao seu reino. &apos;Feudos de Clã ou Reino&apos;: As tropas do reino podem ser recrutadas em feudos de clã ou reino possuídos. &apos;Em nenhum lugar&apos;: As tropas do reino não podem ser recrutadas." />
+    <string
       id="ret_mcm_option_kingdom_troops_unlock"
       text="Tropas do Reino" />
+    <string
+      id="ret_mcm_option_kingdom_troops_unlock_hint"
+      text="Determina quando as tropas do reino ficam disponíveis. &apos;Sempre Desbloqueadas&apos;: disponíveis desde o início. &apos;Desbloqueadas ao fundar um reino&apos;: as tropas do reino são desbloqueadas quando o jogador funda um reino. &apos;Desativado&apos;: nunca são desbloqueadas." />
     <string
       id="ret_mcm_option_max_retinue_ratio"
       text="Razão Máxima de Retinues" />
@@ -2182,6 +2197,9 @@
     <string
       id="ret_starter_troops_clone_culture_roots"
       text="Apenas Tropas Raiz" />
+    <string
+      id="ret_statistics_battles_field"
+      text="Batalhas Campais" />
     <string
       id="ret_statistics_battles_fought"
       text="Batalhas travadas: {TOTAL} (vencidas {WON}, perdidas {LOST})" />

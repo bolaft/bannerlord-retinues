@@ -131,6 +131,9 @@
       id="ret_button_export_tooltip"
       text="Seçilen fraksiyonu veya birliği kütüphaneye aktar." />
     <string
+      id="ret_button_rank_up"
+      text="Rütbe Atla" />
+    <string
       id="ret_button_remove_character"
       text="Sil" />
     <string
@@ -1496,8 +1499,14 @@
       id="ret_mcm_option_clan_troops_availability"
       text="Klan Birlikleri Kullanılabilirliği" />
     <string
+      id="ret_mcm_option_clan_troops_availability_hint"
+      text="Klan birliklerinin nereden işe alınabileceğini belirler. &apos;Her Yerde&apos;: Klan birlikleri herhangi bir yerleşimden işe alınabilir. &apos;Klan Arazileri&apos;: Klan birlikleri yalnızca klanın sahip olduğu arazilerden işe alınabilir. &apos;Klan veya Krallık Arazileri&apos;: Klan birlikleri klan veya krallığa ait arazilerden işe alınabilir. &apos;Hiçbir Yerde&apos;: Klan birlikleri işe alınamaz." />
+    <string
       id="ret_mcm_option_clan_troops_unlock"
       text="Klan Birlikleri" />
+    <string
+      id="ret_mcm_option_clan_troops_unlock_hint"
+      text="Klan birliklerinin ne zaman kullanılabilir hale geleceğini belirler. &apos;Her Zaman Açık&apos;: Klan birlikleri başlangıçtan itibaren kullanılabilir. &apos;İlk Araziyle Açılır&apos;: Klan ilk arazisini edindiğinde birlikler açılır. &apos;Devre Dışı&apos;: Klan birlikleri asla açılmaz." />
     <string
       id="ret_mcm_option_debug_mode"
       text="Hata Ayıklama Modu" />
@@ -1655,8 +1664,14 @@
       id="ret_mcm_option_kingdom_troops_availability"
       text="Krallık Birlikleri Kullanılabilirliği" />
     <string
+      id="ret_mcm_option_kingdom_troops_availability_hint"
+      text="Krallık birliklerinin nereden işe alınabileceğini belirler. &apos;Her Yerde&apos;: Krallık birlikleri herhangi bir yerleşim yerinden işe alınabilir. &apos;Krallık Arazileri&apos;: Krallık birlikleri sadece kendi krallıklarına ait arazilerden işe alınabilir. &apos;Klan veya Krallık Arazileri&apos;: Krallık birlikleri sahip olunan klan veya krallık arazilerinden işe alınabilir. &apos;Hiçbir Yerde&apos;: Krallık birlikleri işe alınamaz." />
+    <string
       id="ret_mcm_option_kingdom_troops_unlock"
       text="Krallık Birlikleri" />
+    <string
+      id="ret_mcm_option_kingdom_troops_unlock_hint"
+      text="Krallık birliklerinin ne zaman kullanılabilir hale geleceğini belirler. &apos;Her Zaman Açık&apos;: Krallık birlikleri başlangıçtan itibaren kullanılabilir. &apos;Hükümdar Olunca Açılır (Krallık Kurulduğunda)&apos;: oyuncu bir krallık kurduğunda birlikler açılır. &apos;Devre Dışı&apos;: Krallık birlikleri asla açılmaz." />
     <string
       id="ret_mcm_option_max_retinue_ratio"
       text="Maksimum Retinue Oranı" />
@@ -2182,6 +2197,9 @@
     <string
       id="ret_starter_troops_clone_culture_roots"
       text="Yalnızca Kök Birlikler" />
+    <string
+      id="ret_statistics_battles_field"
+      text="Saha Savaşları" />
     <string
       id="ret_statistics_battles_fought"
       text="Savaşlar yapıldı: {TOTAL} (kazandı {WON}, kaybetti {LOST})" />

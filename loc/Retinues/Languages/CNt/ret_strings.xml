@@ -131,6 +131,9 @@
       id="ret_button_export_tooltip"
       text="將所選派系或部隊導出到庫中。" />
     <string
+      id="ret_button_rank_up"
+      text="提升等級" />
+    <string
       id="ret_button_remove_character"
       text="刪除" />
     <string
@@ -1496,8 +1499,14 @@
       id="ret_mcm_option_clan_troops_availability"
       text="氏族部隊可用性" />
     <string
+      id="ret_mcm_option_clan_troops_availability_hint"
+      text="決定氏族部隊可以從何處招募。&apos;所有地點&apos;：氏族部隊可以從任何定居點招募。&apos;氏族封地&apos;：氏族部隊只能從其氏族擁有的封地招募。&apos;氏族或王國封地&apos;：氏族部隊可以從氏族或王國擁有的封地招募。&apos;無處&apos;：無法招募氏族部隊。" />
+    <string
       id="ret_mcm_option_clan_troops_unlock"
       text="氏族部隊" />
+    <string
+      id="ret_mcm_option_clan_troops_unlock_hint"
+      text="決定氏族部隊何時可用。&apos;始終解鎖&apos;：氏族部隊從一開始就可用。&apos;在獲得第一個封地時解鎖&apos;：當氏族獲得第一個封地時，氏族部隊解鎖。&apos;停用&apos;：氏族部隊永遠不會解鎖。" />
     <string
       id="ret_mcm_option_debug_mode"
       text="調試模式" />
@@ -1655,8 +1664,14 @@
       id="ret_mcm_option_kingdom_troops_availability"
       text="王國部隊可用性" />
     <string
+      id="ret_mcm_option_kingdom_troops_availability_hint"
+      text="確定王國部隊可以從哪裡招募。&apos;任何地方&apos;：王國部隊可以從任何定居點招募。&apos;王國封地&apos;：王國部隊只能從其王國擁有的封地招募。&apos;氏族或王國封地&apos;：王國部隊可以從擁有的氏族或王國封地招募。&apos;無處&apos;：無法招募王國部隊。" />
+    <string
       id="ret_mcm_option_kingdom_troops_unlock"
       text="王國部隊" />
+    <string
+      id="ret_mcm_option_kingdom_troops_unlock_hint"
+      text="決定王國部隊何時可用。&apos;始終解鎖&apos;：王國部隊從一開始就可用。&apos;成為統治者時解鎖&apos;：當玩家建立王國時，王國部隊解鎖。&apos;停用&apos;：王國部隊永遠不會解鎖。" />
     <string
       id="ret_mcm_option_max_retinue_ratio"
       text="最大隨從比例" />
@@ -2182,6 +2197,9 @@
     <string
       id="ret_starter_troops_clone_culture_roots"
       text="僅根部部隊" />
+    <string
+      id="ret_statistics_battles_field"
+      text="野戰" />
     <string
       id="ret_statistics_battles_fought"
       text="戰鬥次數：{TOTAL}（勝利 {WON}，失敗 {LOST}）" />
