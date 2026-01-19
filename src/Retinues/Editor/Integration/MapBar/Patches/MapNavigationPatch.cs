@@ -1,3 +1,4 @@
+#if BL13
 using System.Linq;
 using HarmonyLib;
 using Retinues.Utilities;
@@ -6,7 +7,7 @@ using SandBox.View.Map.Navigation;
 namespace Retinues.Editor.Integration.MapBar.Patches
 {
     /// <summary>
-    /// Injects the troop editor navigation element into the map bar.
+    /// Injects the troop editor navigation element into the map bar (BL13 only).
     /// </summary>
     [HarmonyPatch(typeof(MapNavigationHandler))]
     internal static class MapNavigationHandlerCtorPatch
@@ -40,3 +41,12 @@ namespace Retinues.Editor.Integration.MapBar.Patches
         }
     }
 }
+#else
+namespace Retinues.Editor.Integration.MapBar.Patches
+{
+    /// <summary>
+    /// BL12: map bar navigation elements do not exist; no injection is performed.
+    /// </summary>
+    internal static class MapNavigationHandlerCtorPatch { }
+}
+#endif

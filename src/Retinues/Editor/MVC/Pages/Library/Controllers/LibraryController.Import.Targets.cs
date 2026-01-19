@@ -8,8 +8,10 @@ using Retinues.Domain.Factions.Wrappers;
 using Retinues.Editor.MVC.Pages.Library.Services;
 using Retinues.Interface.Services;
 using TaleWorlds.Core;
-using TaleWorlds.Core.ImageIdentifiers;
 using TaleWorlds.Localization;
+#if BL13
+using TaleWorlds.Core.ImageIdentifiers;
+#endif
 
 namespace Retinues.Editor.Controllers.Library
 {

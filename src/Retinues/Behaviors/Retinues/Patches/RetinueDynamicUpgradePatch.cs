@@ -13,7 +13,11 @@ using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.CampaignSystem.ViewModelCollection.Party;
-using TaleWorlds.Core.ViewModelCollection.Information;
+#if BL13
+using UpgradeHintVM = TaleWorlds.Core.ViewModelCollection.Information.BasicTooltipViewModel;
+#else
+using UpgradeHintVM = TaleWorlds.Core.ViewModelCollection.Information.HintViewModel;
+#endif
 
 namespace Retinues.Behaviors.Retinues.Patches
 {
@@ -34,13 +38,13 @@ namespace Retinues.Behaviors.Retinues.Patches
             int availableUpgrades,
             bool isAvailable,
             bool isInsufficient,
-            BasicTooltipViewModel hint
+            UpgradeHintVM hint
         )
         {
             public readonly int AvailableUpgrades = availableUpgrades;
             public readonly bool IsAvailable = isAvailable;
             public readonly bool IsInsufficient = isInsufficient;
-            public readonly BasicTooltipViewModel Hint = hint;
+            public readonly UpgradeHintVM Hint = hint;
         }
 
         private static readonly Dictionary<object, SavedUpgradeState> SavedUpgradeByVM = [];
@@ -134,6 +138,8 @@ namespace Retinues.Behaviors.Retinues.Patches
                     .SetTextVariable("CAP", cap.ToString())
                     .ToString();
 
+                // BL13: Tooltip : BasicTooltipViewModel
+                // BL12: Tooltip : HintViewModel
                 u.Hint = new Tooltip(capLine);
 
                 // Grey out: Unavailable brush

@@ -40,8 +40,7 @@ namespace Retinues.Behaviors.Experience.Patches
                 if (owner == null || character == null || character.IsHero)
                     return;
 
-                var wc = WCharacter.Get(character);
-                if (wc == null || !wc.IsFactionTroop)
+                if (!TryGetEligibleFactionTroop(character, out _))
                     return;
 
                 int index = owner.MemberRoster.FindIndexOfTroop(character);
@@ -54,21 +53,13 @@ namespace Retinues.Behaviors.Experience.Patches
 
                 int currentXp = owner.MemberRoster.GetElementXp(index);
 
-                int xpRequired = SkillPointExperienceGain.GetXpRequiredToUpgradeThisUnit(
-                    character,
-                    owner
-                );
-                if (xpRequired <= 0)
-                    return;
+                int xpRequired = GetXpRequired(character, owner);
+                int max = ComputeMaxXp(number, xpRequired);
 
-                long max = (long)xpRequired * number;
-                if (max > int.MaxValue)
-                    max = int.MaxValue;
-
-                if (currentXp < (int)max)
+                if (currentXp < max)
                 {
                     __result = true;
-                    gainableMaxXp = (int)max - currentXp;
+                    gainableMaxXp = max - currentXp;
                 }
             }
             catch (Exception ex)
@@ -79,7 +70,7 @@ namespace Retinues.Behaviors.Experience.Patches
 
 #if BL12
         /// <summary>
-        /// Prefix to clamp troop XP correctly for custom trees (BL1.2).
+        /// Prefix to clamp troop XP correctly for faction troops when upgrade targets are absent (BL1.2).
         /// </summary>
         [HarmonyPatch(typeof(TroopRoster), "ClampXp")]
         [HarmonyPrefix]
@@ -101,11 +92,11 @@ namespace Retinues.Behaviors.Experience.Patches
                 if (troop == null || troop.IsHero)
                     return true;
 
-                if (troop.UpgradeTargets != null && troop.UpgradeTargets.Length > 0)
+                // If the troop has targets, vanilla works.
+                if (!HasNoUpgradeTargets(troop))
                     return true;
 
-                var wc = WCharacter.Get(troop);
-                if (wc == null || !wc.InCustomTree)
+                if (!TryGetEligibleFactionTroop(troop, out _))
                     return true;
 
                 int number = data[index].Number;
@@ -115,17 +106,10 @@ namespace Retinues.Behaviors.Experience.Patches
                     return false;
                 }
 
-                var ownerParty = Reflection.GetPropertyValue<PartyBase>(__instance, "OwnerParty");
+                var ownerParty = GetOwnerParty(__instance);
+                int xpRequired = GetXpRequired(troop, ownerParty);
 
-                int xpRequired = SkillPointGain.GetXpRequiredToUpgradeThisUnit(ownerParty, troop);
-                if (xpRequired <= 0)
-                    xpRequired = 100;
-
-                long max = (long)xpRequired * number;
-                if (max > int.MaxValue)
-                    max = int.MaxValue;
-
-                data[index].Xp = MBMath.ClampInt(data[index].Xp, 0, (int)max);
+                data[index].Xp = ClampXp(data[index].Xp, number, xpRequired);
 
                 // Skip vanilla (it would clamp to 0 because UpgradeTargets.Length == 0).
                 return false;
@@ -163,15 +147,11 @@ namespace Retinues.Behaviors.Experience.Patches
                     return;
 
                 var troop = data[index].Character;
-                if (troop == null || troop.IsHero)
+                if (!TryGetEligibleFactionTroop(troop, out var wc))
                     return;
 
-                var wc = WCharacter.Get(troop);
-                if (wc == null || !wc.InCustomTree)
-                    return;
-
-                var ownerParty = Reflection.GetPropertyValue<PartyBase>(__instance, "OwnerParty");
-                SkillPointExperience.ApplyXpToSkillPointProgress(wc, ownerParty, gained);
+                var ownerParty = GetOwnerParty(__instance);
+                ApplyXpToSkillPointProgress(wc, ownerParty, gained);
             }
             catch (Exception ex)
             {
@@ -213,25 +193,14 @@ namespace Retinues.Behaviors.Experience.Patches
                     return true;
 
                 // If the troop has targets, vanilla works.
-                if (troop.UpgradeTargets != null && troop.UpgradeTargets.Length > 0)
+                if (!HasNoUpgradeTargets(troop))
                     return true;
 
-                var wc = WCharacter.Get(troop);
-                if (wc == null || !wc.IsFactionTroop)
+                if (!TryGetEligibleFactionTroop(troop, out _))
                     return true;
 
-                int xpRequired = SkillPointExperienceGain.GetXpRequiredToUpgradeThisUnit(
-                    troop,
-                    __instance
-                );
-                if (xpRequired <= 0)
-                    xpRequired = 100;
-
-                long max = (long)element.Number * xpRequired;
-                if (max > int.MaxValue)
-                    max = int.MaxValue;
-
-                element.Xp = MBMath.ClampInt(element.Xp, 0, (int)max);
+                int xpRequired = GetXpRequired(troop, __instance);
+                element.Xp = ClampXp(element.Xp, element.Number, xpRequired);
 
                 // Skip vanilla (it would compute num=0 then clamp to 0).
                 return false;
@@ -286,7 +255,7 @@ namespace Retinues.Behaviors.Experience.Patches
                     return;
 
                 // Skip prison roster: in 1.3 we can identify it through OwnerParty.PrisonRoster.
-                var ownerParty = Reflection.GetPropertyValue<PartyBase>(__instance, "OwnerParty");
+                var ownerParty = GetOwnerParty(__instance);
                 if (ownerParty != null && Equals(__instance, ownerParty.PrisonRoster))
                     return;
 
@@ -299,11 +268,10 @@ namespace Retinues.Behaviors.Experience.Patches
                 if (gained <= 0)
                     return;
 
-                var wc = WCharacter.Get(troop);
-                if (wc == null || !wc.IsFactionTroop)
+                if (!TryGetEligibleFactionTroop(troop, out var wc))
                     return;
 
-                SkillPointExperienceGain.ApplyXpToSkillPointProgress(wc, ownerParty, gained);
+                ApplyXpToSkillPointProgress(wc, ownerParty, gained);
             }
             catch (Exception ex)
             {
@@ -311,5 +279,86 @@ namespace Retinues.Behaviors.Experience.Patches
             }
         }
 #endif
+
+        /// <summary>
+        /// Returns true if this troop should be handled by our XP fixes (faction troop, non-hero).
+        /// </summary>
+        public static bool TryGetEligibleFactionTroop(CharacterObject troop, out WCharacter wc)
+        {
+            wc = null;
+
+            if (troop == null || troop.IsHero)
+                return false;
+
+            wc = WCharacter.Get(troop);
+            if (wc == null)
+                return false;
+
+            // Keep semantics aligned with SkillPointExperienceGain: faction troops only.
+            return wc.IsFactionTroop;
+        }
+
+        /// <summary>
+        /// Returns true if the troop has no upgrade targets (vanilla clamps to 0 in that case).
+        /// </summary>
+        public static bool HasNoUpgradeTargets(CharacterObject troop)
+        {
+            var targets = troop?.UpgradeTargets;
+            return targets == null || targets.Length == 0;
+        }
+
+        /// <summary>
+        /// Reads TroopRoster.OwnerParty via reflection (stable across versions).
+        /// </summary>
+        public static PartyBase GetOwnerParty(TroopRoster roster)
+        {
+            return roster == null
+                ? null
+                : Reflection.GetPropertyValue<PartyBase>(roster, "OwnerParty");
+        }
+
+        /// <summary>
+        /// Gets a stable XP required value for clamping, using the shared utility.
+        /// </summary>
+        public static int GetXpRequired(CharacterObject troop, PartyBase party)
+        {
+            int xpRequired = SkillPointExperienceGain.GetXpRequiredToUpgradeThisUnit(troop, party);
+            if (xpRequired <= 0)
+                xpRequired = 100;
+
+            return xpRequired;
+        }
+
+        /// <summary>
+        /// Computes the per-stack max XP cap (number * xpRequired), clamped to int range.
+        /// </summary>
+        public static int ComputeMaxXp(int number, int xpRequired)
+        {
+            long max = (long)number * xpRequired;
+            if (max > int.MaxValue)
+                max = int.MaxValue;
+
+            if (max < 0)
+                max = 0;
+
+            return (int)max;
+        }
+
+        /// <summary>
+        /// Clamps XP to [0..max] where max is number * xpRequired.
+        /// </summary>
+        public static int ClampXp(int xp, int number, int xpRequired)
+        {
+            int max = ComputeMaxXp(number, xpRequired);
+            return MBMath.ClampInt(xp, 0, max);
+        }
+
+        /// <summary>
+        /// Applies gained XP to skill point progress, respecting feature settings.
+        /// </summary>
+        public static void ApplyXpToSkillPointProgress(WCharacter wc, PartyBase party, int gainedXp)
+        {
+            SkillPointExperienceGain.ApplyXpToSkillPointProgress(wc, party, gainedXp);
+        }
     }
 }
