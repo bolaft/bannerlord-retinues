@@ -188,17 +188,13 @@ namespace Retinues.Behaviors.Doctrines
         {
             switch (Settings.FeatCompleteNotification.Value)
             {
-                case Settings.NotificationStyle.Popup:
-                    Inquiries.Popup(title, description, delayUntilOnWorldMap: true);
-                    break;
-
                 case Settings.NotificationStyle.Message:
                     // Body only: description, no extra text.
                     Notifications.Message(description?.ToString() ?? string.Empty);
                     break;
 
                 default:
-                    Inquiries.Popup(title, description, delayUntilOnWorldMap: true);
+                    Inquiries.Popup(title, description, delayUntilOnWorldMap: true, sound: Sounds.QuestFinished);
                     break;
             }
         }

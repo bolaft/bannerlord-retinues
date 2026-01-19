@@ -56,7 +56,7 @@ namespace Retinues.Interface.Services
     /// <summary>
     /// Lightweight wrapper around a sound event path.
     /// </summary>
-    public readonly struct SoundHandle
+    public class SoundHandle
     {
         public string EventPath { get; }
 

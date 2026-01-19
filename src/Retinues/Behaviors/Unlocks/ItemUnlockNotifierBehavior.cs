@@ -126,16 +126,12 @@ namespace Retinues.Behaviors.Unlocks
         {
             switch (Settings.ItemUnlockNotification.Value)
             {
-                case Settings.NotificationStyle.Popup:
-                    Inquiries.Popup(title, description, delayUntilOnWorldMap: true);
-                    break;
-
                 case Settings.NotificationStyle.Message:
                     Notifications.Message($"{title}\n{description}");
                     break;
 
                 default:
-                    Inquiries.Popup(title, description, delayUntilOnWorldMap: true);
+                    Inquiries.Popup(title, description, delayUntilOnWorldMap: true, sound: Sounds.TraitChange);
                     break;
             }
         }

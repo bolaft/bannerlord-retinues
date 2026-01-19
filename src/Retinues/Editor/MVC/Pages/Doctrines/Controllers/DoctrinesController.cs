@@ -129,6 +129,7 @@ namespace Retinues.Editor.MVC.Pages.Doctrines.Controllers
                             }
 
                             doctrine.IsAcquired = true;
+                            Sounds.ReignDecision.Play();
                             CustomEvents.FireDoctrineAcquired(doctrine);
 
                             Notifications.Message(

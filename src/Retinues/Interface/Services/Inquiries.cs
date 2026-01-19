@@ -39,7 +39,8 @@ namespace Retinues.Interface.Services
             TextObject description,
             TextObject buttonText = null,
             bool pauseGame = true,
-            bool delayUntilOnWorldMap = false
+            bool delayUntilOnWorldMap = false,
+            SoundHandle sound = null
         )
         {
             ShowOrDelay(
@@ -61,6 +62,7 @@ namespace Retinues.Interface.Services
                             negativeAction: null
                         );
 
+                        sound?.Play();
                         InformationManager.ShowInquiry(inquiry, pauseGame);
                     }
                     catch (Exception e)
@@ -81,7 +83,8 @@ namespace Retinues.Interface.Services
             TextObject confirmText = null,
             TextObject cancelText = null,
             bool pauseGame = true,
-            bool delayUntilOnWorldMap = false
+            bool delayUntilOnWorldMap = false,
+            SoundHandle sound = null
         )
         {
             ShowOrDelay(
@@ -117,6 +120,7 @@ namespace Retinues.Interface.Services
                             negativeAction: null
                         );
 
+                        sound?.Play();
                         InformationManager.ShowInquiry(inquiry, pauseGame);
                     }
                     catch (Exception e)
@@ -138,7 +142,8 @@ namespace Retinues.Interface.Services
             TextObject choice2Text,
             TextObject description = null,
             bool pauseGame = true,
-            bool delayUntilOnWorldMap = false
+            bool delayUntilOnWorldMap = false,
+            SoundHandle sound = null
         )
         {
             ShowOrDelay(
@@ -184,6 +189,7 @@ namespace Retinues.Interface.Services
                             }
                         );
 
+                        sound?.Play();
                         InformationManager.ShowInquiry(inquiry, pauseGame);
                     }
                     catch (Exception e)
