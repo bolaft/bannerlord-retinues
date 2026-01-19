@@ -3,6 +3,7 @@ using Retinues.Configuration;
 using Retinues.Domain;
 using Retinues.Editor.Events;
 using Retinues.Editor.MVC.Shared.Controllers;
+using Retinues.Framework.Behaviors;
 using Retinues.Interface.Services;
 using TaleWorlds.Localization;
 
@@ -128,6 +129,7 @@ namespace Retinues.Editor.MVC.Pages.Doctrines.Controllers
                             }
 
                             doctrine.IsAcquired = true;
+                            CustomEvents.FireDoctrineAcquired(doctrine);
 
                             Notifications.Message(
                                 L.T("doctrine_acquired_msg", "Acquired doctrine: {NAME}.")

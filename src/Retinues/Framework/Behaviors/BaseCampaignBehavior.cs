@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using Retinues.Behaviors.Doctrines.Definitions;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Domain.Events.Models;
@@ -42,6 +43,7 @@ namespace Retinues.Framework.Behaviors
         public sealed override void RegisterEvents()
         {
             AutoRegisterEvents();
+            AutoRegisterCustomEvents();
             RegisterCustomEvents();
         }
 
@@ -53,6 +55,11 @@ namespace Retinues.Framework.Behaviors
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Auto handlers                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Called when a doctrine is acquired.
+        /// </summary>
+        protected virtual void OnDoctrineAcquired(Doctrine doctrine) { }
 
         /// <summary>
         /// Called after the game load finishes.
@@ -372,6 +379,18 @@ namespace Retinues.Framework.Behaviors
                                 number
                             )
                         )
+                );
+        }
+
+        /// <summary>
+        /// Automatically register overridden custom event handlers.
+        /// </summary>
+        private void AutoRegisterCustomEvents()
+        {
+            if (IsOverridden(nameof(OnDoctrineAcquired)))
+                CustomEvents.DoctrineAcquiredEvent.AddNonSerializedListener(
+                    this,
+                    doctrine => SafeInvoke(() => OnDoctrineAcquired(doctrine))
                 );
         }
 
