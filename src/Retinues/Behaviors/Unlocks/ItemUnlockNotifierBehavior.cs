@@ -11,7 +11,7 @@ using TaleWorlds.Localization;
 namespace Retinues.Behaviors.Unlocks
 {
     [SafeClass]
-    public sealed class NotifierBehavior : BaseCampaignBehavior
+    public sealed class ItemUnlockNotifierBehavior : BaseCampaignBehavior
     {
         public override bool IsActive => Settings.EquipmentNeedsUnlocking;
 

@@ -270,7 +270,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.List
                 "list_header_militia",
                 L.S("list_header_militia", "Militia"),
                 faction.RosterMilitia,
-                condition: () => faction is WCulture
+                condition: () => faction is WCulture || faction.RosterMilitia.Count > 0
             );
 
             // Caravan.
@@ -280,7 +280,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.List
                 "list_header_caravan",
                 L.S("list_header_caravan", "Caravan"),
                 faction.RosterCaravan,
-                condition: () => faction is WCulture
+                condition: () => faction is WCulture || faction.RosterCaravan.Count > 0
             );
 
             // Villagers.
@@ -290,7 +290,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.List
                 "list_header_villagers",
                 L.S("list_header_villagers", "Villagers"),
                 faction.RosterVillager,
-                condition: () => faction is WCulture
+                condition: () => faction is WCulture || faction.RosterVillager.Count > 0
             );
 
             // Mercenaries.

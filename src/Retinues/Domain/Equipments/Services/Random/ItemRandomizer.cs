@@ -23,7 +23,14 @@ namespace Retinues.Domain.Equipments.Services.Random
         /// <summary>
         /// Tokens that make an item unsuitable for male characters.
         /// </summary>
-        public static string[] InvalidTokensForMale = ["skirt", "dress", "lady", "moccasin"];
+        public static string[] InvalidTokensForMale =
+        [
+            "skirt",
+            "dress",
+            "lady",
+            "moccasin",
+            "hijab",
+        ];
 
         /// <summary>
         /// Compose two predicates with logical AND.

@@ -61,11 +61,19 @@ namespace Retinues.Domain.Factions.Base
         static List<WCharacter> _cultureRootBasics;
         static List<WCharacter> _cultureRootElites;
 
+        static HashSet<string> _cultureMilitiaIds;
+        static HashSet<string> _cultureCaravanIds;
+        static HashSet<string> _cultureVillagerIds;
+
         [StaticClearAction]
         public static void ClearRootsCache()
         {
             _cultureRootBasics = null;
             _cultureRootElites = null;
+
+            _cultureMilitiaIds = null;
+            _cultureCaravanIds = null;
+            _cultureVillagerIds = null;
         }
 
         /// <summary>
@@ -73,11 +81,39 @@ namespace Retinues.Domain.Factions.Base
         /// </summary>
         void EnsureCultureRoots()
         {
-            if (_cultureRootBasics != null && _cultureRootElites != null)
+            if (
+                _cultureRootBasics != null
+                && _cultureRootElites != null
+                && _cultureMilitiaIds != null
+                && _cultureCaravanIds != null
+                && _cultureVillagerIds != null
+            )
                 return;
 
             _cultureRootBasics = [.. WCulture.All.Select(c => c.RootBasic).Where(r => r != null)];
             _cultureRootElites = [.. WCulture.All.Select(c => c.RootElite).Where(r => r != null)];
+
+            _cultureMilitiaIds = new HashSet<string>();
+            _cultureCaravanIds = new HashSet<string>();
+            _cultureVillagerIds = new HashSet<string>();
+
+            foreach (var culture in WCulture.All)
+            {
+                if (culture == null)
+                    continue;
+
+                foreach (var t in culture.RosterMilitia)
+                    if (!string.IsNullOrEmpty(t?.StringId))
+                        _cultureMilitiaIds.Add(t.StringId);
+
+                foreach (var t in culture.RosterCaravan)
+                    if (!string.IsNullOrEmpty(t?.StringId))
+                        _cultureCaravanIds.Add(t.StringId);
+
+                foreach (var t in culture.RosterVillager)
+                    if (!string.IsNullOrEmpty(t?.StringId))
+                        _cultureVillagerIds.Add(t.StringId);
+            }
         }
 
         /* ━━━━━━━━━ Stored Attributes ━━━━━━━━━ */
@@ -88,6 +124,34 @@ namespace Retinues.Domain.Factions.Base
             Attribute<WCharacter>(initialValue: null);
         protected MAttribute<List<WCharacter>> RetinueTroopsAttribute =>
             Attribute<List<WCharacter>>([]);
+
+        protected MAttribute<WCharacter> CustomVillagerAttribute =>
+            Attribute<WCharacter>(initialValue: null);
+
+        protected MAttribute<WCharacter> CustomCaravanMasterAttribute =>
+            Attribute<WCharacter>(initialValue: null);
+        protected MAttribute<WCharacter> CustomCaravanGuardAttribute =>
+            Attribute<WCharacter>(initialValue: null);
+        protected MAttribute<WCharacter> CustomArmedTraderAttribute =>
+            Attribute<WCharacter>(initialValue: null);
+
+        protected MAttribute<WCharacter> CustomMeleeMilitiaTroopAttribute =>
+            Attribute<WCharacter>(initialValue: null);
+        protected MAttribute<WCharacter> CustomMeleeEliteMilitiaTroopAttribute =>
+            Attribute<WCharacter>(initialValue: null);
+        protected MAttribute<WCharacter> CustomRangedMilitiaTroopAttribute =>
+            Attribute<WCharacter>(initialValue: null);
+        protected MAttribute<WCharacter> CustomRangedEliteMilitiaTroopAttribute =>
+            Attribute<WCharacter>(initialValue: null);
+
+        protected MAttribute<WCharacter> CustomMilitiaArcherAttribute =>
+            Attribute<WCharacter>(initialValue: null);
+        protected MAttribute<WCharacter> CustomMilitiaSpearmanAttribute =>
+            Attribute<WCharacter>(initialValue: null);
+        protected MAttribute<WCharacter> CustomMilitiaVeteranSpearmanAttribute =>
+            Attribute<WCharacter>(initialValue: null);
+        protected MAttribute<WCharacter> CustomMilitiaVeteranArcherAttribute =>
+            Attribute<WCharacter>(initialValue: null);
 
         /* ━━━━━━━━━ Roots ━━━━━━━━━ */
 
@@ -171,6 +235,71 @@ namespace Retinues.Domain.Factions.Base
             }
         }
 
+        /* ━━━━━━━ Villager ━━━━━━━ */
+
+        public override WCharacter Villager
+        {
+            get
+            {
+                var troop = CustomVillagerAttribute.Get();
+                if (troop == null)
+                    return null;
+
+                EnsureCultureRoots();
+                if (
+                    !string.IsNullOrEmpty(troop.StringId)
+                    && _cultureVillagerIds.Contains(troop.StringId)
+                )
+                    return null;
+
+                return troop;
+            }
+        }
+
+        /* ━━━━━━━ Caravans ━━━━━━━ */
+
+        public override WCharacter CaravanMaster =>
+            GetCustomOrNull(CustomCaravanMasterAttribute, _cultureCaravanIds);
+        public override WCharacter CaravanGuard =>
+            GetCustomOrNull(CustomCaravanGuardAttribute, _cultureCaravanIds);
+        public override WCharacter ArmedTrader =>
+            GetCustomOrNull(CustomArmedTraderAttribute, _cultureCaravanIds);
+
+        /* ━━━━━━━ Militias ━━━━━━━ */
+
+        public override WCharacter MeleeMilitiaTroop =>
+            GetCustomOrNull(CustomMeleeMilitiaTroopAttribute, _cultureMilitiaIds);
+        public override WCharacter MeleeEliteMilitiaTroop =>
+            GetCustomOrNull(CustomMeleeEliteMilitiaTroopAttribute, _cultureMilitiaIds);
+        public override WCharacter RangedMilitiaTroop =>
+            GetCustomOrNull(CustomRangedMilitiaTroopAttribute, _cultureMilitiaIds);
+        public override WCharacter RangedEliteMilitiaTroop =>
+            GetCustomOrNull(CustomRangedEliteMilitiaTroopAttribute, _cultureMilitiaIds);
+
+        public override WCharacter MilitiaArcher =>
+            GetCustomOrNull(CustomMilitiaArcherAttribute, _cultureMilitiaIds);
+        public override WCharacter MilitiaSpearman =>
+            GetCustomOrNull(CustomMilitiaSpearmanAttribute, _cultureMilitiaIds);
+        public override WCharacter MilitiaVeteranSpearman =>
+            GetCustomOrNull(CustomMilitiaVeteranSpearmanAttribute, _cultureMilitiaIds);
+        public override WCharacter MilitiaVeteranArcher =>
+            GetCustomOrNull(CustomMilitiaVeteranArcherAttribute, _cultureMilitiaIds);
+
+        WCharacter GetCustomOrNull(MAttribute<WCharacter> attr, HashSet<string> cultureSet)
+        {
+            var troop = attr.Get();
+            if (troop == null)
+                return null;
+
+            EnsureCultureRoots();
+
+            var id = troop.StringId;
+            if (!string.IsNullOrEmpty(id) && cultureSet != null && cultureSet.Contains(id))
+                return null;
+
+            return troop;
+        }
+
         /* ━━━━━━━━━ Mutators ━━━━━━━━━ */
 
         /// <summary>
@@ -211,6 +340,114 @@ namespace Retinues.Domain.Factions.Base
 
             troops.Add(troop);
             SetRetinues(troops);
+        }
+
+        /// <summary>
+        /// Sets the villager troop for this map faction.
+        /// </summary>
+        public void SetVillager(WCharacter troop)
+        {
+            CustomVillagerAttribute.Set(troop);
+            WCharacter.InvalidateTroopSourceCaches();
+        }
+
+        /// <summary>
+        /// Sets the caravan master troop for this map faction.
+        /// </summary>
+        public void SetCaravanMaster(WCharacter troop)
+        {
+            CustomCaravanMasterAttribute.Set(troop);
+            WCharacter.InvalidateTroopSourceCaches();
+        }
+
+        /// <summary>
+        /// Sets the caravan guard troop for this map faction.
+        /// </summary>
+        public void SetCaravanGuard(WCharacter troop)
+        {
+            CustomCaravanGuardAttribute.Set(troop);
+            WCharacter.InvalidateTroopSourceCaches();
+        }
+
+        /// <summary>
+        /// Sets the armed trader troop for this map faction.
+        /// </summary>
+        public void SetArmedTrader(WCharacter troop)
+        {
+            CustomArmedTraderAttribute.Set(troop);
+            WCharacter.InvalidateTroopSourceCaches();
+        }
+
+        /// <summary>
+        /// Sets the melee militia troop for this map faction.
+        /// </summary>
+        public void SetMeleeMilitiaTroop(WCharacter troop)
+        {
+            CustomMeleeMilitiaTroopAttribute.Set(troop);
+            WCharacter.InvalidateTroopSourceCaches();
+        }
+
+        /// <summary>
+        /// Sets the melee elite militia troop for this map faction.
+        /// </summary>
+        public void SetMeleeEliteMilitiaTroop(WCharacter troop)
+        {
+            CustomMeleeEliteMilitiaTroopAttribute.Set(troop);
+            WCharacter.InvalidateTroopSourceCaches();
+        }
+
+        /// <summary>
+        /// Sets the ranged militia troop for this map faction.
+        /// </summary>
+        public void SetRangedMilitiaTroop(WCharacter troop)
+        {
+            CustomRangedMilitiaTroopAttribute.Set(troop);
+            WCharacter.InvalidateTroopSourceCaches();
+        }
+
+        /// <summary>
+        /// Sets the ranged elite militia troop for this map faction.
+        /// </summary>
+        public void SetRangedEliteMilitiaTroop(WCharacter troop)
+        {
+            CustomRangedEliteMilitiaTroopAttribute.Set(troop);
+            WCharacter.InvalidateTroopSourceCaches();
+        }
+
+        /// <summary>
+        /// Sets the militia archer troop for this map faction.
+        /// </summary>
+        public void SetMilitiaArcher(WCharacter troop)
+        {
+            CustomMilitiaArcherAttribute.Set(troop);
+            WCharacter.InvalidateTroopSourceCaches();
+        }
+
+        /// <summary>
+        /// Sets the militia veteran archer troop for this map faction.
+        /// </summary>
+        public void SetMilitiaVeteranArcher(WCharacter troop)
+        {
+            CustomMilitiaVeteranArcherAttribute.Set(troop);
+            WCharacter.InvalidateTroopSourceCaches();
+        }
+
+        /// <summary>
+        /// Sets the militia spearman troop for this map faction.
+        /// </summary>
+        public void SetMilitiaSpearman(WCharacter troop)
+        {
+            CustomMilitiaSpearmanAttribute.Set(troop);
+            WCharacter.InvalidateTroopSourceCaches();
+        }
+
+        /// <summary>
+        /// Sets the militia veteran spearman troop for this map faction.
+        /// </summary>
+        public void SetMilitiaVeteranSpearman(WCharacter troop)
+        {
+            CustomMilitiaVeteranSpearmanAttribute.Set(troop);
+            WCharacter.InvalidateTroopSourceCaches();
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

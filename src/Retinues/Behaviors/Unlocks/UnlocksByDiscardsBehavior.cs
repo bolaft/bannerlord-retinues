@@ -66,7 +66,10 @@ namespace Retinues.Behaviors.Unlocks
             }
 
             if (unlocked.Count > 0)
-                Notifier.ItemsUnlocked(Notifier.UnlockMethod.Discards, unlocked);
+                ItemUnlockNotifier.ItemsUnlocked(
+                    ItemUnlockNotifier.UnlockMethod.Discards,
+                    unlocked
+                );
 
             if (Settings.DebugMode && itemsTouched > 0)
             {

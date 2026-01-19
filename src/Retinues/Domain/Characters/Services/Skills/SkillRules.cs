@@ -123,11 +123,7 @@ namespace Retinues.Domain.Characters.Services.Skills
                 return bonus;
             }
 
-            Log.Info($"Base skill total for tier {tier} is {total}.");
-            var bonus = ComputeBonus();
-            Log.Info($"Computed bonus is {bonus}.");
-
-            return total + bonus;
+            return total + ComputeBonus();
         }
     }
 }

@@ -97,7 +97,7 @@ namespace Retinues.Domain.Characters.Wrappers
         public bool IsCustom => StringId.StartsWith(CustomTroopPrefix);
         public bool IsVanilla => !IsCustom;
         public bool IsEdited => IsDirty;
-        public bool IsUpgradable => IsBasic || IsElite || IsMercenary || IsBandit;
+        public bool IsUpgradable => IsRegular || IsMercenary || IsBandit;
         public bool IsRoot => Root == this;
 
         /* ━━━━━━━━━ Tree ━━━━━━━━━ */
@@ -111,10 +111,24 @@ namespace Retinues.Domain.Characters.Wrappers
         /* ━━━━━━━━ Faction ━━━━━━━ */
 
         /// <summary>
-        /// True if this troop belongs to a custom map-faction tree (retinues or custom clan/kingdom roots).
+        /// True if this troop belongs to a custom map-faction.
         /// This is independent from IsCustom.
         /// </summary>
-        public bool IsFactionTroop => TreeFlagCache.Get(this);
+        public bool IsFactionTroop
+        {
+            get
+            {
+                var list = Factions;
+                if (list == null || list.Count == 0)
+                    return false;
+
+                for (int i = 0; i < list.Count; i++)
+                    if (list[i] is WKingdom || list[i] is WClan)
+                        return true;
+
+                return false;
+            }
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Troop Type                       //

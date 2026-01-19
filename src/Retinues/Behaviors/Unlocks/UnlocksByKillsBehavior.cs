@@ -103,7 +103,7 @@ namespace Retinues.Behaviors.Unlocks
             }
 
             if (unlocked.Count > 0)
-                Notifier.ItemsUnlocked(Notifier.UnlockMethod.Kills, unlocked);
+                ItemUnlockNotifier.ItemsUnlocked(ItemUnlockNotifier.UnlockMethod.Kills, unlocked);
 
             return unlocked;
         }

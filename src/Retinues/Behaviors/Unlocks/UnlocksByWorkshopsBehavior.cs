@@ -124,7 +124,7 @@ namespace Retinues.Behaviors.Unlocks
             var maxCatchupDays = 60;
             var daysToProcess = Math.Min(currentDay - _lastProcessedDay, maxCatchupDays);
             var unlocked = new List<WItem>();
-            var started = new List<Notifier.WorkshopStartInfo>();
+            var started = new List<ItemUnlockNotifier.WorkshopStartInfo>();
 
             for (var d = 0; d < daysToProcess; d++)
             {
@@ -132,8 +132,8 @@ namespace Retinues.Behaviors.Unlocks
                 ApplyOneDay(workshops, perDay, dayIndex, unlocked, started);
             }
 
-            Notifier.ItemsUnlocked(Notifier.UnlockMethod.Workshops, unlocked);
-            Notifier.WorkshopsStarted(started);
+            ItemUnlockNotifier.ItemsUnlocked(ItemUnlockNotifier.UnlockMethod.Workshops, unlocked);
+            ItemUnlockNotifier.WorkshopsStarted(started);
 
             _lastProcessedDay += daysToProcess;
 
@@ -193,7 +193,7 @@ namespace Retinues.Behaviors.Unlocks
             int perDay,
             int dayIndex,
             List<WItem> unlocked,
-            List<Notifier.WorkshopStartInfo> started
+            List<ItemUnlockNotifier.WorkshopStartInfo> started
         )
         {
             var itemsTouched = 0;
@@ -251,7 +251,7 @@ namespace Retinues.Behaviors.Unlocks
             Workshop w,
             string workshopKey,
             int dayIndex,
-            List<Notifier.WorkshopStartInfo> started
+            List<ItemUnlockNotifier.WorkshopStartInfo> started
         )
         {
             if (
@@ -280,7 +280,7 @@ namespace Retinues.Behaviors.Unlocks
             var townName = w.Settlement?.Name?.ToString() ?? w.Settlement?.StringId ?? "Unknown";
 
             started?.Add(
-                new Notifier.WorkshopStartInfo
+                new ItemUnlockNotifier.WorkshopStartInfo
                 {
                     WorkshopTypeName = typeName,
                     SettlementName = townName,
