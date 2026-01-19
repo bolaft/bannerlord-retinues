@@ -131,6 +131,9 @@
       id="ret_button_export_tooltip"
       text="Export the selected faction or troop to the library." />
     <string
+      id="ret_button_rank_up"
+      text="Rank Up" />
+    <string
       id="ret_button_remove_character"
       text="Delete" />
     <string
