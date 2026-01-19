@@ -131,7 +131,12 @@ namespace Retinues.Behaviors.Unlocks
                     break;
 
                 default:
-                    Inquiries.Popup(title, description, delayUntilOnWorldMap: true, sound: Sounds.TraitChange);
+                    Inquiries.Popup(
+                        title,
+                        description,
+                        delayUntilOnWorldMap: true,
+                        sound: Sounds.TraitChange
+                    );
                     break;
             }
         }

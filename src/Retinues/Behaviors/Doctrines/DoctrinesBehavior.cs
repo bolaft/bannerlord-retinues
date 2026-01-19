@@ -194,7 +194,12 @@ namespace Retinues.Behaviors.Doctrines
                     break;
 
                 default:
-                    Inquiries.Popup(title, description, delayUntilOnWorldMap: true, sound: Sounds.QuestFinished);
+                    Inquiries.Popup(
+                        title,
+                        description,
+                        delayUntilOnWorldMap: true,
+                        sound: Sounds.QuestFinished
+                    );
                     break;
             }
         }
