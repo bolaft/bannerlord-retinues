@@ -389,6 +389,9 @@
       id="ret_doctrine_feats_header"
       text="功績" />
     <string
+      id="ret_doctrine_is_overridden"
+      text="選項“{OPTION}”已禁用。" />
+    <string
       id="ret_doctrine_locked_hint"
       text="必須先獲取 {DOCTRINE}。" />
     <string
@@ -458,8 +461,14 @@
       id="ret_doctrine_state_acquired"
       text="已獲取" />
     <string
+      id="ret_doctrine_state_in_progress"
+      text="進行中（{PROGRESS}%）" />
+    <string
       id="ret_doctrine_state_locked"
       text="已鎖定" />
+    <string
+      id="ret_doctrine_state_overridden"
+      text="已覆蓋" />
     <string
       id="ret_doctrine_state_unlocked"
       text="已解鎖" />
@@ -469,6 +478,9 @@
     <string
       id="ret_doctrine_status_locked"
       text="已鎖定" />
+    <string
+      id="ret_doctrine_status_overridden"
+      text="已覆蓋" />
     <string
       id="ret_doctrine_training_advanced_tactics"
       text="高級戰術" />
@@ -1156,6 +1168,9 @@
     <string
       id="ret_heroes_cannot_be_exported"
       text="英雄無法導出。" />
+    <string
+      id="ret_immortals_restored_message"
+      text="不朽者：{TOTAL} 名倒下的 {TROOP} 中有 {REVIVED} 名倖存者從重傷中倖存下來。" />
     <string
       id="ret_in_stock"
       text="有庫存 ({STOCK})" />
@@ -2003,11 +2018,20 @@
       id="ret_reset_none_available"
       text="現在無法重置任何內容。" />
     <string
+      id="ret_reset_target_faction_disabled"
+      text="未找到可重置的已修改的原版部隊。" />
+    <string
+      id="ret_reset_target_troop_disabled"
+      text="只能重置已修改的非英雄原版部隊。" />
+    <string
       id="ret_retinue_culture_default_name"
       text="{CLAN} {CULTURE} 隨從" />
     <string
       id="ret_retinue_default_name"
       text="{CLAN} 守衛隊" />
+    <string
+      id="ret_retinue_morale_bonus_bound_by_honor"
+      text="以榮譽為約束" />
     <string
       id="ret_retinue_progress_source_allies"
       text="與盟友贏得戰鬥" />
@@ -2159,6 +2183,51 @@
       id="ret_starter_troops_clone_culture_roots"
       text="僅根部部隊" />
     <string
+      id="ret_statistics_battles_fought"
+      text="戰鬥次數：{TOTAL}（勝利 {WON}，失敗 {LOST}）" />
+    <string
+      id="ret_statistics_battles_naval"
+      text="海戰" />
+    <string
+      id="ret_statistics_battles_raids"
+      text="突襲" />
+    <string
+      id="ret_statistics_battles_siege"
+      text="圍城戰" />
+    <string
+      id="ret_statistics_button_label"
+      text="顯示統計數據" />
+    <string
+      id="ret_statistics_casualties_title"
+      text="傷亡" />
+    <string
+      id="ret_statistics_entry"
+      text="- {NAME}：{COUNT}" />
+    <string
+      id="ret_statistics_kills_title"
+      text="擊殺" />
+    <string
+      id="ret_statistics_line_entry"
+      text="- {LABEL}：{COUNT}" />
+    <string
+      id="ret_statistics_more"
+      text="（還有 {COUNT} 個...）" />
+    <string
+      id="ret_statistics_parties_garrisons"
+      text="部署次數：{TOTAL}（{PARTIES} 隊伍，{GARRISONS} 駐軍）" />
+    <string
+      id="ret_statistics_player_only"
+      text="僅在玩家模式下可用。" />
+    <string
+      id="ret_statistics_popup_title"
+      text="統計數據" />
+    <string
+      id="ret_statistics_section_total"
+      text="{TITLE}：{TOTAL}" />
+    <string
+      id="ret_statistics_tooltip"
+      text="顯示單位統計數據。" />
+    <string
       id="ret_stocks_add"
       text="已向庫存添加 {AMOUNT} 個 {ITEM}。" />
     <string
@@ -2305,6 +2374,9 @@
     <string
       id="ret_upgrade_cannot_add_not_upgradable"
       text="該單位無法升級。" />
+    <string
+      id="ret_upgrade_no_captains"
+      text="隊長不能有升級。" />
     <string
       id="ret_upgrade_sources_header_text"
       text="來源" />

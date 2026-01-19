@@ -389,6 +389,9 @@
       id="ret_doctrine_feats_header"
       text="Wyczyny" />
     <string
+      id="ret_doctrine_is_overridden"
+      text="Opcja &apos;{OPTION}&apos; jest wyłączona." />
+    <string
       id="ret_doctrine_locked_hint"
       text="Najpierw należy nabyć {DOCTRINE}." />
     <string
@@ -458,8 +461,14 @@
       id="ret_doctrine_state_acquired"
       text="Nabyto" />
     <string
+      id="ret_doctrine_state_in_progress"
+      text="W toku ({PROGRESS}%)" />
+    <string
       id="ret_doctrine_state_locked"
       text="Zablokowane" />
+    <string
+      id="ret_doctrine_state_overridden"
+      text="Nadpisane" />
     <string
       id="ret_doctrine_state_unlocked"
       text="Odblokowane" />
@@ -469,6 +478,9 @@
     <string
       id="ret_doctrine_status_locked"
       text="ZABLOKOWANE" />
+    <string
+      id="ret_doctrine_status_overridden"
+      text="NADPISANE" />
     <string
       id="ret_doctrine_training_advanced_tactics"
       text="Zaawansowane taktyki" />
@@ -1156,6 +1168,9 @@
     <string
       id="ret_heroes_cannot_be_exported"
       text="Bohaterowie nie mogą być eksportowani." />
+    <string
+      id="ret_immortals_restored_message"
+      text="Nieśmiertelni: {REVIVED} z {TOTAL} poległych {TROOP} przeżyło ciężkie rany." />
     <string
       id="ret_in_stock"
       text="Na stanie ({STOCK})" />
@@ -2003,11 +2018,20 @@
       id="ret_reset_none_available"
       text="Nic nie można teraz zresetować." />
     <string
+      id="ret_reset_target_faction_disabled"
+      text="Nie znaleziono zmodyfikowanych oddziałów vanilla do zresetowania." />
+    <string
+      id="ret_reset_target_troop_disabled"
+      text="Można zresetować tylko zmodyfikowane, niebohaterskie oddziały vanilla." />
+    <string
       id="ret_retinue_culture_default_name"
       text="Retinue {CULTURE} {CLAN}" />
     <string
       id="ret_retinue_default_name"
       text="Straż Domowa {CLAN}" />
+    <string
+      id="ret_retinue_morale_bonus_bound_by_honor"
+      text="Związani honorem" />
     <string
       id="ret_retinue_progress_source_allies"
       text="Wygrana bitwa z sojusznikami" />
@@ -2159,6 +2183,51 @@
       id="ret_starter_troops_clone_culture_roots"
       text="Tylko jednostki bazowe" />
     <string
+      id="ret_statistics_battles_fought"
+      text="Stoczonych bitew: {TOTAL} (wygrane {WON}, przegrane {LOST})" />
+    <string
+      id="ret_statistics_battles_naval"
+      text="Bitwy morskie" />
+    <string
+      id="ret_statistics_battles_raids"
+      text="Najazdy" />
+    <string
+      id="ret_statistics_battles_siege"
+      text="Bitwy oblężnicze" />
+    <string
+      id="ret_statistics_button_label"
+      text="Pokaż statystyki" />
+    <string
+      id="ret_statistics_casualties_title"
+      text="Straty" />
+    <string
+      id="ret_statistics_entry"
+      text="- {NAME}: {COUNT}" />
+    <string
+      id="ret_statistics_kills_title"
+      text="Zabójstwa" />
+    <string
+      id="ret_statistics_line_entry"
+      text="- {LABEL}: {COUNT}" />
+    <string
+      id="ret_statistics_more"
+      text="({COUNT} więcej...)" />
+    <string
+      id="ret_statistics_parties_garrisons"
+      text="Rozmieszczenia: {TOTAL} ({PARTIES} oddziały, {GARRISONS} garnizony)" />
+    <string
+      id="ret_statistics_player_only"
+      text="Dostępne tylko w trybie gracza." />
+    <string
+      id="ret_statistics_popup_title"
+      text="Statystyki" />
+    <string
+      id="ret_statistics_section_total"
+      text="{TITLE}: {TOTAL}" />
+    <string
+      id="ret_statistics_tooltip"
+      text="Pokaż statystyki jednostki." />
+    <string
       id="ret_stocks_add"
       text="Dodano {AMOUNT} {ITEM} do zapasów." />
     <string
@@ -2305,6 +2374,9 @@
     <string
       id="ret_upgrade_cannot_add_not_upgradable"
       text="Ta jednostka nie może być ulepszana." />
+    <string
+      id="ret_upgrade_no_captains"
+      text="Kapitanowie nie mogą mieć ulepszeń." />
     <string
       id="ret_upgrade_sources_header_text"
       text="Źródła" />

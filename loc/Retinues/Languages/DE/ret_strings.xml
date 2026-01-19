@@ -389,6 +389,9 @@
       id="ret_doctrine_feats_header"
       text="Taten" />
     <string
+      id="ret_doctrine_is_overridden"
+      text="Die Option &apos;{OPTION}&apos; ist deaktiviert." />
+    <string
       id="ret_doctrine_locked_hint"
       text="{DOCTRINE} muss zuerst erworben werden." />
     <string
@@ -458,8 +461,14 @@
       id="ret_doctrine_state_acquired"
       text="Erworben" />
     <string
+      id="ret_doctrine_state_in_progress"
+      text="In Bearbeitung ({PROGRESS}%)" />
+    <string
       id="ret_doctrine_state_locked"
       text="Gesperrt" />
+    <string
+      id="ret_doctrine_state_overridden"
+      text="Überschrieben" />
     <string
       id="ret_doctrine_state_unlocked"
       text="Entsperrt" />
@@ -469,6 +478,9 @@
     <string
       id="ret_doctrine_status_locked"
       text="GESPERRT" />
+    <string
+      id="ret_doctrine_status_overridden"
+      text="ÜBERSCHRIEBEN" />
     <string
       id="ret_doctrine_training_advanced_tactics"
       text="Fortgeschrittene Taktiken" />
@@ -1156,6 +1168,9 @@
     <string
       id="ret_heroes_cannot_be_exported"
       text="Helden können nicht exportiert werden." />
+    <string
+      id="ret_immortals_restored_message"
+      text="Unsterbliche: {REVIVED} von {TOTAL} gefallenen {TROOP} überlebten schwere Verletzungen." />
     <string
       id="ret_in_stock"
       text="Auf Lager ({STOCK})" />
@@ -2003,11 +2018,20 @@
       id="ret_reset_none_available"
       text="Nichts kann gerade zurückgesetzt werden." />
     <string
+      id="ret_reset_target_faction_disabled"
+      text="Keine modifizierten Standardtruppen zum Zurücksetzen gefunden." />
+    <string
+      id="ret_reset_target_troop_disabled"
+      text="Nur modifizierte, nicht-heroische Standardtruppen können zurückgesetzt werden." />
+    <string
       id="ret_retinue_culture_default_name"
       text="{CLAN} {CULTURE}-Retinue" />
     <string
       id="ret_retinue_default_name"
       text="{CLAN}-Hauswache" />
+    <string
+      id="ret_retinue_morale_bonus_bound_by_honor"
+      text="Durch Ehre gebunden" />
     <string
       id="ret_retinue_progress_source_allies"
       text="Schlacht mit Verbündeten gewonnen" />
@@ -2159,6 +2183,51 @@
       id="ret_starter_troops_clone_culture_roots"
       text="Nur Basiseinheiten" />
     <string
+      id="ret_statistics_battles_fought"
+      text="Geführte Schlachten: {TOTAL} (gewonnen {WON}, verloren {LOST})" />
+    <string
+      id="ret_statistics_battles_naval"
+      text="Seeschlachten" />
+    <string
+      id="ret_statistics_battles_raids"
+      text="Überfälle" />
+    <string
+      id="ret_statistics_battles_siege"
+      text="Belagerungsschlachten" />
+    <string
+      id="ret_statistics_button_label"
+      text="Statistiken anzeigen" />
+    <string
+      id="ret_statistics_casualties_title"
+      text="Verluste" />
+    <string
+      id="ret_statistics_entry"
+      text="- {NAME}: {COUNT}" />
+    <string
+      id="ret_statistics_kills_title"
+      text="Tötungen" />
+    <string
+      id="ret_statistics_line_entry"
+      text="- {LABEL}: {COUNT}" />
+    <string
+      id="ret_statistics_more"
+      text="({COUNT} weitere...)" />
+    <string
+      id="ret_statistics_parties_garrisons"
+      text="Einsätze: {TOTAL} ({PARTIES} Parteien, {GARRISONS} Garnisonen)" />
+    <string
+      id="ret_statistics_player_only"
+      text="Nur im Spielermodus verfügbar." />
+    <string
+      id="ret_statistics_popup_title"
+      text="Statistiken" />
+    <string
+      id="ret_statistics_section_total"
+      text="{TITLE}: {TOTAL}" />
+    <string
+      id="ret_statistics_tooltip"
+      text="Einheitsstatistiken anzeigen." />
+    <string
       id="ret_stocks_add"
       text="Es wurden {AMOUNT} {ITEM} zu den Beständen hinzugefügt." />
     <string
@@ -2305,6 +2374,9 @@
     <string
       id="ret_upgrade_cannot_add_not_upgradable"
       text="Diese Einheit ist nicht aufrüstbar." />
+    <string
+      id="ret_upgrade_no_captains"
+      text="Hauptmänner können keine Upgrades haben." />
     <string
       id="ret_upgrade_sources_header_text"
       text="Quellen" />

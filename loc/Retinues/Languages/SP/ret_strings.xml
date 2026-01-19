@@ -389,6 +389,9 @@
       id="ret_doctrine_feats_header"
       text="Hazañas" />
     <string
+      id="ret_doctrine_is_overridden"
+      text="La opción &apos;{OPTION}&apos; está deshabilitada." />
+    <string
       id="ret_doctrine_locked_hint"
       text="Primero se debe adquirir {DOCTRINE}." />
     <string
@@ -458,8 +461,14 @@
       id="ret_doctrine_state_acquired"
       text="Adquirido" />
     <string
+      id="ret_doctrine_state_in_progress"
+      text="En progreso ({PROGRESS}%)" />
+    <string
       id="ret_doctrine_state_locked"
       text="Bloqueado" />
+    <string
+      id="ret_doctrine_state_overridden"
+      text="Anulado" />
     <string
       id="ret_doctrine_state_unlocked"
       text="Desbloqueado" />
@@ -469,6 +478,9 @@
     <string
       id="ret_doctrine_status_locked"
       text="BLOQUEADO" />
+    <string
+      id="ret_doctrine_status_overridden"
+      text="ANULADO" />
     <string
       id="ret_doctrine_training_advanced_tactics"
       text="Tácticas avanzadas" />
@@ -1156,6 +1168,9 @@
     <string
       id="ret_heroes_cannot_be_exported"
       text="Los héroes no pueden ser exportados." />
+    <string
+      id="ret_immortals_restored_message"
+      text="Inmortales: {REVIVED} de {TOTAL} {TROOP} caídos sobrevivieron a heridas graves." />
     <string
       id="ret_in_stock"
       text="En stock ({STOCK})" />
@@ -2003,11 +2018,20 @@
       id="ret_reset_none_available"
       text="Nada se puede restablecer en este momento." />
     <string
+      id="ret_reset_target_faction_disabled"
+      text="No se encontraron tropas vanilla modificadas para restablecer." />
+    <string
+      id="ret_reset_target_troop_disabled"
+      text="Solo se pueden restablecer las tropas vanilla modificadas que no son héroes." />
+    <string
       id="ret_retinue_culture_default_name"
       text="Retinue {CULTURE} {CLAN}" />
     <string
       id="ret_retinue_default_name"
       text="Guardia de la Casa {CLAN}" />
+    <string
+      id="ret_retinue_morale_bonus_bound_by_honor"
+      text="Atados por el honor" />
     <string
       id="ret_retinue_progress_source_allies"
       text="Batalla ganada con aliados" />
@@ -2159,6 +2183,51 @@
       id="ret_starter_troops_clone_culture_roots"
       text="Solo tropas raíz" />
     <string
+      id="ret_statistics_battles_fought"
+      text="Batallas libradas: {TOTAL} (ganadas {WON}, perdidas {LOST})" />
+    <string
+      id="ret_statistics_battles_naval"
+      text="Batallas navales" />
+    <string
+      id="ret_statistics_battles_raids"
+      text="Incursiones" />
+    <string
+      id="ret_statistics_battles_siege"
+      text="Batallas de asedio" />
+    <string
+      id="ret_statistics_button_label"
+      text="Mostrar estadísticas" />
+    <string
+      id="ret_statistics_casualties_title"
+      text="Bajas" />
+    <string
+      id="ret_statistics_entry"
+      text="- {NAME}: {COUNT}" />
+    <string
+      id="ret_statistics_kills_title"
+      text="Muertes" />
+    <string
+      id="ret_statistics_line_entry"
+      text="- {LABEL}: {COUNT}" />
+    <string
+      id="ret_statistics_more"
+      text="({COUNT} más...)" />
+    <string
+      id="ret_statistics_parties_garrisons"
+      text="Despliegues: {TOTAL} ({PARTIES} partidas, {GARRISONS} guarniciones)" />
+    <string
+      id="ret_statistics_player_only"
+      text="Solo disponible en modo jugador." />
+    <string
+      id="ret_statistics_popup_title"
+      text="Estadísticas" />
+    <string
+      id="ret_statistics_section_total"
+      text="{TITLE}: {TOTAL}" />
+    <string
+      id="ret_statistics_tooltip"
+      text="Mostrar estadísticas de la unidad." />
+    <string
       id="ret_stocks_add"
       text="Se añadieron {AMOUNT} {ITEM} a las existencias." />
     <string
@@ -2305,6 +2374,9 @@
     <string
       id="ret_upgrade_cannot_add_not_upgradable"
       text="Esta unidad no se puede mejorar." />
+    <string
+      id="ret_upgrade_no_captains"
+      text="Los capitanes no pueden tener mejoras." />
     <string
       id="ret_upgrade_sources_header_text"
       text="Fuentes" />

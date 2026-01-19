@@ -389,6 +389,9 @@
       id="ret_doctrine_feats_header"
       text="偉業" />
     <string
+      id="ret_doctrine_is_overridden"
+      text="オプション &apos;{OPTION}&apos; は無効になっています。" />
+    <string
       id="ret_doctrine_locked_hint"
       text="最初に {DOCTRINE} を取得する必要があります。" />
     <string
@@ -458,8 +461,14 @@
       id="ret_doctrine_state_acquired"
       text="取得済み" />
     <string
+      id="ret_doctrine_state_in_progress"
+      text="進行中（{PROGRESS}%）" />
+    <string
       id="ret_doctrine_state_locked"
       text="ロック済み" />
+    <string
+      id="ret_doctrine_state_overridden"
+      text="上書き済み" />
     <string
       id="ret_doctrine_state_unlocked"
       text="アンロック済み" />
@@ -469,6 +478,9 @@
     <string
       id="ret_doctrine_status_locked"
       text="ロック済み" />
+    <string
+      id="ret_doctrine_status_overridden"
+      text="上書き済み" />
     <string
       id="ret_doctrine_training_advanced_tactics"
       text="高度な戦術" />
@@ -1156,6 +1168,9 @@
     <string
       id="ret_heroes_cannot_be_exported"
       text="英雄はエクスポートできません。" />
+    <string
+      id="ret_immortals_restored_message"
+      text="不死者：倒れた {TROOP} のうち {TOTAL} 人中 {REVIVED} 人が重傷から生還しました。" />
     <string
       id="ret_in_stock"
       text="在庫あり ({STOCK})" />
@@ -2003,11 +2018,20 @@
       id="ret_reset_none_available"
       text="今は何もリセットできません。" />
     <string
+      id="ret_reset_target_faction_disabled"
+      text="リセットするための変更されたバニラ部隊が見つかりませんでした。" />
+    <string
+      id="ret_reset_target_troop_disabled"
+      text="変更された非ヒーローのバニラ部隊のみがリセットできます。" />
+    <string
       id="ret_retinue_culture_default_name"
       text="{CLAN} の {CULTURE} 随行員" />
     <string
       id="ret_retinue_default_name"
       text="{CLAN} ハウスガード" />
+    <string
+      id="ret_retinue_morale_bonus_bound_by_honor"
+      text="名誉に縛られている" />
     <string
       id="ret_retinue_progress_source_allies"
       text="同盟と共に戦闘に勝利" />
@@ -2159,6 +2183,51 @@
       id="ret_starter_troops_clone_culture_roots"
       text="ルート部隊のみ" />
     <string
+      id="ret_statistics_battles_fought"
+      text="戦闘回数：{TOTAL}（勝利 {WON}、敗北 {LOST}）" />
+    <string
+      id="ret_statistics_battles_naval"
+      text="海戦" />
+    <string
+      id="ret_statistics_battles_raids"
+      text="襲撃" />
+    <string
+      id="ret_statistics_battles_siege"
+      text="包囲戦" />
+    <string
+      id="ret_statistics_button_label"
+      text="統計を表示" />
+    <string
+      id="ret_statistics_casualties_title"
+      text="戦死者" />
+    <string
+      id="ret_statistics_entry"
+      text="- {NAME}：{COUNT}" />
+    <string
+      id="ret_statistics_kills_title"
+      text="キル数" />
+    <string
+      id="ret_statistics_line_entry"
+      text="- {LABEL}：{COUNT}" />
+    <string
+      id="ret_statistics_more"
+      text="（さらに {COUNT} 件...）" />
+    <string
+      id="ret_statistics_parties_garrisons"
+      text="配備回数：{TOTAL}（{PARTIES} 部隊、{GARRISONS} 駐屯地）" />
+    <string
+      id="ret_statistics_player_only"
+      text="プレイヤーモードでのみ利用可能です。" />
+    <string
+      id="ret_statistics_popup_title"
+      text="統計" />
+    <string
+      id="ret_statistics_section_total"
+      text="{TITLE}：{TOTAL}" />
+    <string
+      id="ret_statistics_tooltip"
+      text="ユニットの統計を表示します。" />
+    <string
       id="ret_stocks_add"
       text="在庫に {AMOUNT} 個の {ITEM} を追加しました。" />
     <string
@@ -2305,6 +2374,9 @@
     <string
       id="ret_upgrade_cannot_add_not_upgradable"
       text="このユニットはアップグレードできません。" />
+    <string
+      id="ret_upgrade_no_captains"
+      text="隊長にはアップグレードを設定できません。" />
     <string
       id="ret_upgrade_sources_header_text"
       text="入手方法" />

@@ -389,6 +389,9 @@
       id="ret_doctrine_feats_header"
       text="위업" />
     <string
+      id="ret_doctrine_is_overridden"
+      text="옵션 &apos;{OPTION}&apos;이(가) 비활성화되었습니다." />
+    <string
       id="ret_doctrine_locked_hint"
       text="먼저 {DOCTRINE}을(를) 획득해야 합니다." />
     <string
@@ -458,8 +461,14 @@
       id="ret_doctrine_state_acquired"
       text="획득됨" />
     <string
+      id="ret_doctrine_state_in_progress"
+      text="진행 중 ({PROGRESS}%)" />
+    <string
       id="ret_doctrine_state_locked"
       text="잠김" />
+    <string
+      id="ret_doctrine_state_overridden"
+      text="무시됨" />
     <string
       id="ret_doctrine_state_unlocked"
       text="잠금 해제됨" />
@@ -469,6 +478,9 @@
     <string
       id="ret_doctrine_status_locked"
       text="잠김" />
+    <string
+      id="ret_doctrine_status_overridden"
+      text="무시됨" />
     <string
       id="ret_doctrine_training_advanced_tactics"
       text="고급 전술" />
@@ -1156,6 +1168,9 @@
     <string
       id="ret_heroes_cannot_be_exported"
       text="영웅은 내보낼 수 없습니다." />
+    <string
+      id="ret_immortals_restored_message"
+      text="불멸자: 쓰러진 {TROOP} {TOTAL}명 중 {REVIVED}명이 중상을 입고도 살아남았습니다." />
     <string
       id="ret_in_stock"
       text="재고 있음 ({STOCK})" />
@@ -2003,11 +2018,20 @@
       id="ret_reset_none_available"
       text="지금은 아무 것도 재설정할 수 없습니다." />
     <string
+      id="ret_reset_target_faction_disabled"
+      text="재설정할 수정된 기본 부대를 찾을 수 없습니다." />
+    <string
+      id="ret_reset_target_troop_disabled"
+      text="수정된 비영웅 기본 부대만 재설정할 수 있습니다." />
+    <string
       id="ret_retinue_culture_default_name"
       text="{CLAN} {CULTURE} 수행원" />
     <string
       id="ret_retinue_default_name"
       text="{CLAN} 하우스 가드" />
+    <string
+      id="ret_retinue_morale_bonus_bound_by_honor"
+      text="명예로 묶인" />
     <string
       id="ret_retinue_progress_source_allies"
       text="동맹과 함께 전투에서 승리" />
@@ -2159,6 +2183,51 @@
       id="ret_starter_troops_clone_culture_roots"
       text="루트 부대만" />
     <string
+      id="ret_statistics_battles_fought"
+      text="전투 횟수: {TOTAL} (승리 {WON}, 패배 {LOST})" />
+    <string
+      id="ret_statistics_battles_naval"
+      text="해상 전투" />
+    <string
+      id="ret_statistics_battles_raids"
+      text="습격" />
+    <string
+      id="ret_statistics_battles_siege"
+      text="공성전" />
+    <string
+      id="ret_statistics_button_label"
+      text="통계 표시" />
+    <string
+      id="ret_statistics_casualties_title"
+      text="사상자" />
+    <string
+      id="ret_statistics_entry"
+      text="- {NAME}: {COUNT}" />
+    <string
+      id="ret_statistics_kills_title"
+      text="킬" />
+    <string
+      id="ret_statistics_line_entry"
+      text="- {LABEL}: {COUNT}" />
+    <string
+      id="ret_statistics_more"
+      text="({COUNT} 더...)" />
+    <string
+      id="ret_statistics_parties_garrisons"
+      text="배치: {TOTAL} ({PARTIES} 부대, {GARRISONS} 주둔지)" />
+    <string
+      id="ret_statistics_player_only"
+      text="플레이어 모드에서만 사용 가능합니다." />
+    <string
+      id="ret_statistics_popup_title"
+      text="통계" />
+    <string
+      id="ret_statistics_section_total"
+      text="{TITLE}: {TOTAL}" />
+    <string
+      id="ret_statistics_tooltip"
+      text="유닛 통계 표시." />
+    <string
       id="ret_stocks_add"
       text="재고에 {AMOUNT} {ITEM} 추가됨." />
     <string
@@ -2305,6 +2374,9 @@
     <string
       id="ret_upgrade_cannot_add_not_upgradable"
       text="이 유닛은 업그레이드할 수 없습니다." />
+    <string
+      id="ret_upgrade_no_captains"
+      text="대장은 업그레이드를 가질 수 없습니다." />
     <string
       id="ret_upgrade_sources_header_text"
       text="출처" />

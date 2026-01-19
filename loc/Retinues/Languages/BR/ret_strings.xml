@@ -389,6 +389,9 @@
       id="ret_doctrine_feats_header"
       text="Feitos" />
     <string
+      id="ret_doctrine_is_overridden"
+      text="A opção &apos;{OPTION}&apos; está desativada." />
+    <string
       id="ret_doctrine_locked_hint"
       text="{DOCTRINE} deve ser adquirida primeiro." />
     <string
@@ -458,8 +461,14 @@
       id="ret_doctrine_state_acquired"
       text="Adquirido" />
     <string
+      id="ret_doctrine_state_in_progress"
+      text="Em Progresso ({PROGRESS}%)" />
+    <string
       id="ret_doctrine_state_locked"
       text="Bloqueado" />
+    <string
+      id="ret_doctrine_state_overridden"
+      text="Substituído" />
     <string
       id="ret_doctrine_state_unlocked"
       text="Desbloqueado" />
@@ -469,6 +478,9 @@
     <string
       id="ret_doctrine_status_locked"
       text="BLOQUEADO" />
+    <string
+      id="ret_doctrine_status_overridden"
+      text="SUBSTITUÍDO" />
     <string
       id="ret_doctrine_training_advanced_tactics"
       text="Táticas Avançadas" />
@@ -1156,6 +1168,9 @@
     <string
       id="ret_heroes_cannot_be_exported"
       text="Heróis não podem ser exportados." />
+    <string
+      id="ret_immortals_restored_message"
+      text="Imortais: {REVIVED} de {TOTAL} {TROOP} caídos sobreviveram a ferimentos graves." />
     <string
       id="ret_in_stock"
       text="Em estoque ({STOCK})" />
@@ -2003,11 +2018,20 @@
       id="ret_reset_none_available"
       text="Nada pode ser redefinido agora." />
     <string
+      id="ret_reset_target_faction_disabled"
+      text="Nenhuma tropa padrão modificada encontrada para redefinir." />
+    <string
+      id="ret_reset_target_troop_disabled"
+      text="Apenas tropas padrão modificadas e não heróicas podem ser redefinidas." />
+    <string
       id="ret_retinue_culture_default_name"
       text="Retinue {CULTURE} {CLAN}" />
     <string
       id="ret_retinue_default_name"
       text="Guarda da Casa {CLAN}" />
+    <string
+      id="ret_retinue_morale_bonus_bound_by_honor"
+      text="Ligados pela Honra" />
     <string
       id="ret_retinue_progress_source_allies"
       text="Batalha vencida com aliados" />
@@ -2159,6 +2183,51 @@
       id="ret_starter_troops_clone_culture_roots"
       text="Apenas Tropas Raiz" />
     <string
+      id="ret_statistics_battles_fought"
+      text="Batalhas travadas: {TOTAL} (vencidas {WON}, perdidas {LOST})" />
+    <string
+      id="ret_statistics_battles_naval"
+      text="Batalhas Navais" />
+    <string
+      id="ret_statistics_battles_raids"
+      text="Incursões" />
+    <string
+      id="ret_statistics_battles_siege"
+      text="Batalhas de Cerco" />
+    <string
+      id="ret_statistics_button_label"
+      text="Mostrar Estatísticas" />
+    <string
+      id="ret_statistics_casualties_title"
+      text="Baixas" />
+    <string
+      id="ret_statistics_entry"
+      text="- {NAME}: {COUNT}" />
+    <string
+      id="ret_statistics_kills_title"
+      text="Mortes" />
+    <string
+      id="ret_statistics_line_entry"
+      text="- {LABEL}: {COUNT}" />
+    <string
+      id="ret_statistics_more"
+      text="({COUNT} mais...)" />
+    <string
+      id="ret_statistics_parties_garrisons"
+      text="Desdobramentos: {TOTAL} ({PARTIES} grupos, {GARRISONS} guarnições)" />
+    <string
+      id="ret_statistics_player_only"
+      text="Disponível apenas no modo jogador." />
+    <string
+      id="ret_statistics_popup_title"
+      text="Estatísticas" />
+    <string
+      id="ret_statistics_section_total"
+      text="{TITLE}: {TOTAL}" />
+    <string
+      id="ret_statistics_tooltip"
+      text="Mostrar estatísticas da unidade." />
+    <string
       id="ret_stocks_add"
       text="Adicionado {AMOUNT} {ITEM} aos estoques." />
     <string
@@ -2305,6 +2374,9 @@
     <string
       id="ret_upgrade_cannot_add_not_upgradable"
       text="Esta unidade não pode ser melhorada." />
+    <string
+      id="ret_upgrade_no_captains"
+      text="Capitães não podem ter melhorias." />
     <string
       id="ret_upgrade_sources_header_text"
       text="Fontes" />

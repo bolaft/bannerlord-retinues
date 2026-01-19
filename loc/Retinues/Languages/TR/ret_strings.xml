@@ -389,6 +389,9 @@
       id="ret_doctrine_feats_header"
       text="Başarılar" />
     <string
+      id="ret_doctrine_is_overridden"
+      text="&apos;{OPTION}&apos; seçeneği devre dışı bırakıldı." />
+    <string
       id="ret_doctrine_locked_hint"
       text="Önce {DOCTRINE} edinilmelidir." />
     <string
@@ -458,8 +461,14 @@
       id="ret_doctrine_state_acquired"
       text="Edinildi" />
     <string
+      id="ret_doctrine_state_in_progress"
+      text="Devam Ediyor ({PROGRESS}%)" />
+    <string
       id="ret_doctrine_state_locked"
       text="Kilitli" />
+    <string
+      id="ret_doctrine_state_overridden"
+      text="Geçersiz Kılındı" />
     <string
       id="ret_doctrine_state_unlocked"
       text="Kilit Açıldı" />
@@ -469,6 +478,9 @@
     <string
       id="ret_doctrine_status_locked"
       text="KİLİTLİ" />
+    <string
+      id="ret_doctrine_status_overridden"
+      text="GEÇERSİZ KILINDI" />
     <string
       id="ret_doctrine_training_advanced_tactics"
       text="Gelişmiş Taktikler" />
@@ -1156,6 +1168,9 @@
     <string
       id="ret_heroes_cannot_be_exported"
       text="Kahramanlar dışa aktarılamaz." />
+    <string
+      id="ret_immortals_restored_message"
+      text="Ölümsüzler: Düşen {TROOP}&apos;den {TOTAL} kişiden {REVIVED} kişi ağır yaralardan kurtuldu." />
     <string
       id="ret_in_stock"
       text="Stokta ({STOCK})" />
@@ -2003,11 +2018,20 @@
       id="ret_reset_none_available"
       text="Şu anda hiçbir şey sıfırlanamaz." />
     <string
+      id="ret_reset_target_faction_disabled"
+      text="Sıfırlanacak değiştirilmiş vanilya birlikleri bulunamadı." />
+    <string
+      id="ret_reset_target_troop_disabled"
+      text="Yalnızca değiştirilmiş, kahraman olmayan vanilya birlikleri sıfırlanabilir." />
+    <string
       id="ret_retinue_culture_default_name"
       text="{CLAN} {CULTURE} Retinue" />
     <string
       id="ret_retinue_default_name"
       text="{CLAN} Ev Muhafızı" />
+    <string
+      id="ret_retinue_morale_bonus_bound_by_honor"
+      text="Onurla Bağlı" />
     <string
       id="ret_retinue_progress_source_allies"
       text="Müttefiklerle savaş kazanıldı" />
@@ -2159,6 +2183,51 @@
       id="ret_starter_troops_clone_culture_roots"
       text="Yalnızca Kök Birlikler" />
     <string
+      id="ret_statistics_battles_fought"
+      text="Savaşlar yapıldı: {TOTAL} (kazandı {WON}, kaybetti {LOST})" />
+    <string
+      id="ret_statistics_battles_naval"
+      text="Deniz Savaşları" />
+    <string
+      id="ret_statistics_battles_raids"
+      text="Baskınlar" />
+    <string
+      id="ret_statistics_battles_siege"
+      text="Kuşatma Savaşları" />
+    <string
+      id="ret_statistics_button_label"
+      text="İstatistikleri Göster" />
+    <string
+      id="ret_statistics_casualties_title"
+      text="Kayıplar" />
+    <string
+      id="ret_statistics_entry"
+      text="- {NAME}: {COUNT}" />
+    <string
+      id="ret_statistics_kills_title"
+      text="Ölümler" />
+    <string
+      id="ret_statistics_line_entry"
+      text="- {LABEL}: {COUNT}" />
+    <string
+      id="ret_statistics_more"
+      text="({COUNT} daha...)" />
+    <string
+      id="ret_statistics_parties_garrisons"
+      text="Dağıtımlar: {TOTAL} ({PARTIES} birlik, {GARRISONS} garnizon)" />
+    <string
+      id="ret_statistics_player_only"
+      text="Yalnızca oyuncu modunda kullanılabilir." />
+    <string
+      id="ret_statistics_popup_title"
+      text="İstatistikler" />
+    <string
+      id="ret_statistics_section_total"
+      text="{TITLE}: {TOTAL}" />
+    <string
+      id="ret_statistics_tooltip"
+      text="Birim istatistiklerini göster." />
+    <string
       id="ret_stocks_add"
       text="Stoklara {AMOUNT} {ITEM} eklendi." />
     <string
@@ -2305,6 +2374,9 @@
     <string
       id="ret_upgrade_cannot_add_not_upgradable"
       text="Bu birim yükseltilemez." />
+    <string
+      id="ret_upgrade_no_captains"
+      text="Kaptanların yükseltmeleri olamaz." />
     <string
       id="ret_upgrade_sources_header_text"
       text="Kaynaklar" />

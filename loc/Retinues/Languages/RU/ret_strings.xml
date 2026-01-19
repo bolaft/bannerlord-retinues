@@ -389,6 +389,9 @@
       id="ret_doctrine_feats_header"
       text="Подвиги" />
     <string
+      id="ret_doctrine_is_overridden"
+      text="Опция &apos;{OPTION}&apos; отключена." />
+    <string
       id="ret_doctrine_locked_hint"
       text="Сначала необходимо приобрести {DOCTRINE}." />
     <string
@@ -458,8 +461,14 @@
       id="ret_doctrine_state_acquired"
       text="Приобретено" />
     <string
+      id="ret_doctrine_state_in_progress"
+      text="В процессе ({PROGRESS}%)" />
+    <string
       id="ret_doctrine_state_locked"
       text="Заблокировано" />
+    <string
+      id="ret_doctrine_state_overridden"
+      text="Переопределено" />
     <string
       id="ret_doctrine_state_unlocked"
       text="Разблокировано" />
@@ -469,6 +478,9 @@
     <string
       id="ret_doctrine_status_locked"
       text="ЗАБЛОКИРОВАНО" />
+    <string
+      id="ret_doctrine_status_overridden"
+      text="ПЕРЕОПРЕДЕЛЕНО" />
     <string
       id="ret_doctrine_training_advanced_tactics"
       text="Продвинутые тактики" />
@@ -1156,6 +1168,9 @@
     <string
       id="ret_heroes_cannot_be_exported"
       text="Герои не могут быть экспортированы." />
+    <string
+      id="ret_immortals_restored_message"
+      text="Бессмертные: {REVIVED} из {TOTAL} павших {TROOP} выжили после тяжелых ран." />
     <string
       id="ret_in_stock"
       text="В наличии ({STOCK})" />
@@ -2003,11 +2018,20 @@
       id="ret_reset_none_available"
       text="Сейчас ничего нельзя сбросить." />
     <string
+      id="ret_reset_target_faction_disabled"
+      text="Не найдено измененных ванильных войск для сброса." />
+    <string
+      id="ret_reset_target_troop_disabled"
+      text="Можно сбросить только измененные ванильные войска, не являющиеся героями." />
+    <string
       id="ret_retinue_culture_default_name"
       text="Ретинус {CULTURE} {CLAN}" />
     <string
       id="ret_retinue_default_name"
       text="Домашняя стража {CLAN}" />
+    <string
+      id="ret_retinue_morale_bonus_bound_by_honor"
+      text="Связанные честью" />
     <string
       id="ret_retinue_progress_source_allies"
       text="Победа в битве с союзниками" />
@@ -2159,6 +2183,51 @@
       id="ret_starter_troops_clone_culture_roots"
       text="Только корневые войска" />
     <string
+      id="ret_statistics_battles_fought"
+      text="Проведено боев: {TOTAL} (победы {WON}, поражения {LOST})" />
+    <string
+      id="ret_statistics_battles_naval"
+      text="Морские сражения" />
+    <string
+      id="ret_statistics_battles_raids"
+      text="Налеты" />
+    <string
+      id="ret_statistics_battles_siege"
+      text="Осады" />
+    <string
+      id="ret_statistics_button_label"
+      text="Показать статистику" />
+    <string
+      id="ret_statistics_casualties_title"
+      text="Потери" />
+    <string
+      id="ret_statistics_entry"
+      text="- {NAME}: {COUNT}" />
+    <string
+      id="ret_statistics_kills_title"
+      text="Убийства" />
+    <string
+      id="ret_statistics_line_entry"
+      text="- {LABEL}: {COUNT}" />
+    <string
+      id="ret_statistics_more"
+      text="({COUNT} еще...)" />
+    <string
+      id="ret_statistics_parties_garrisons"
+      text="Развертывания: {TOTAL} ({PARTIES} отрядов, {GARRISONS} гарнизонов)" />
+    <string
+      id="ret_statistics_player_only"
+      text="Доступно только в режиме игрока." />
+    <string
+      id="ret_statistics_popup_title"
+      text="Статистика" />
+    <string
+      id="ret_statistics_section_total"
+      text="{TITLE}: {TOTAL}" />
+    <string
+      id="ret_statistics_tooltip"
+      text="Показать статистику юнита." />
+    <string
       id="ret_stocks_add"
       text="Добавлено {AMOUNT} {ITEM} в запасы." />
     <string
@@ -2305,6 +2374,9 @@
     <string
       id="ret_upgrade_cannot_add_not_upgradable"
       text="Эту единицу нельзя улучшить." />
+    <string
+      id="ret_upgrade_no_captains"
+      text="У капитанов не может быть улучшений." />
     <string
       id="ret_upgrade_sources_header_text"
       text="Источники" />
