@@ -241,19 +241,6 @@ namespace Retinues.Behaviors.Troops
                     culture.RangedEliteMilitiaTroop,
                     faction.SetRangedEliteMilitiaTroop
                 ),
-                // Optional (culture returns null on versions where they don't exist)
-                new(faction.MilitiaArcher, culture.MilitiaArcher, faction.SetMilitiaArcher),
-                new(faction.MilitiaSpearman, culture.MilitiaSpearman, faction.SetMilitiaSpearman),
-                new(
-                    faction.MilitiaVeteranSpearman,
-                    culture.MilitiaVeteranSpearman,
-                    faction.SetMilitiaVeteranSpearman
-                ),
-                new(
-                    faction.MilitiaVeteranArcher,
-                    culture.MilitiaVeteranArcher,
-                    faction.SetMilitiaVeteranArcher
-                ),
             };
 
             return CloneAndAssignMany(specs, unlockSink, created, faction.Name, culture);

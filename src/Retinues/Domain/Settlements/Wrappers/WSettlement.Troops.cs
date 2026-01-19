@@ -14,7 +14,7 @@ namespace Retinues.Domain.Settlements.Wrappers
         //                         Troops                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        /* ━━━━━━ Base troops ━━━━━ */
+        /* ━━━━━━ Base Troops ━━━━━ */
 
         public bool HasClanTroops => Clan?.RootBasic != null || Clan?.RootElite != null;
         public bool HasKingdomTroops => Kingdom?.RootBasic != null || Kingdom?.RootElite != null;

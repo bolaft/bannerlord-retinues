@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Factions.Helpers;
 using Retinues.Framework.Model;
@@ -69,11 +70,6 @@ namespace Retinues.Domain.Factions.Base
         public virtual WCharacter MeleeEliteMilitiaTroop => null;
         public virtual WCharacter RangedEliteMilitiaTroop => null;
         public virtual WCharacter RangedMilitiaTroop => null;
-
-        public virtual WCharacter MilitiaArcher => null;
-        public virtual WCharacter MilitiaSpearman => null;
-        public virtual WCharacter MilitiaVeteranSpearman => null;
-        public virtual WCharacter MilitiaVeteranArcher => null;
 
         /* ━━━━━━━ Caravans ━━━━━━━ */
 
@@ -153,11 +149,7 @@ namespace Retinues.Domain.Factions.Base
                 MeleeMilitiaTroop,
                 MeleeEliteMilitiaTroop,
                 RangedMilitiaTroop,
-                RangedEliteMilitiaTroop,
-                MilitiaArcher,
-                MilitiaSpearman,
-                MilitiaVeteranSpearman,
-                MilitiaVeteranArcher
+                RangedEliteMilitiaTroop
             );
 
         public virtual List<WCharacter> RosterMercenary => CollectTrees(MercenaryRoots);

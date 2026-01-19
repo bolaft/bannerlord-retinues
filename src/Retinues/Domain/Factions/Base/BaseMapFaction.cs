@@ -276,15 +276,6 @@ namespace Retinues.Domain.Factions.Base
         public override WCharacter RangedEliteMilitiaTroop =>
             GetCustomOrNull(CustomRangedEliteMilitiaTroopAttribute, _cultureMilitiaIds);
 
-        public override WCharacter MilitiaArcher =>
-            GetCustomOrNull(CustomMilitiaArcherAttribute, _cultureMilitiaIds);
-        public override WCharacter MilitiaSpearman =>
-            GetCustomOrNull(CustomMilitiaSpearmanAttribute, _cultureMilitiaIds);
-        public override WCharacter MilitiaVeteranSpearman =>
-            GetCustomOrNull(CustomMilitiaVeteranSpearmanAttribute, _cultureMilitiaIds);
-        public override WCharacter MilitiaVeteranArcher =>
-            GetCustomOrNull(CustomMilitiaVeteranArcherAttribute, _cultureMilitiaIds);
-
         WCharacter GetCustomOrNull(MAttribute<WCharacter> attr, HashSet<string> cultureSet)
         {
             var troop = attr.Get();

@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Retinues.Behaviors.Recruitement.Models;
+using Retinues.Behaviors.Volunteers.Models;
 using Retinues.Compatibility.Interops;
 using Retinues.Configuration;
 using Retinues.Framework.Behaviors;

@@ -97,6 +97,16 @@ namespace Retinues.Framework.Behaviors
         protected virtual void OnDailyTick() { }
 
         /// <summary>
+        /// Called on daily tick for a settlement.
+        /// </summary>
+        protected virtual void OnDailyTickSettlement(WSettlement settlement) { }
+
+        /// <summary>
+        /// Called on daily tick for a party.
+        /// </summary>
+        protected virtual void OnDailyTickParty(WParty party) { }
+
+        /// <summary>
         /// Called when a mission starts.
         /// </summary>
         protected virtual void OnMissionStarted(MMission mission) { }
@@ -243,6 +253,19 @@ namespace Retinues.Framework.Behaviors
                 CampaignEvents.DailyTickEvent.AddNonSerializedListener(
                     this,
                     () => SafeInvoke(OnDailyTick)
+                );
+
+            if (IsOverridden(nameof(OnDailyTickSettlement)))
+                CampaignEvents.DailyTickSettlementEvent.AddNonSerializedListener(
+                    this,
+                    settlement =>
+                        SafeInvoke(() => OnDailyTickSettlement(WSettlement.Get(settlement)))
+                );
+
+            if (IsOverridden(nameof(OnDailyTickParty)))
+                CampaignEvents.DailyTickPartyEvent.AddNonSerializedListener(
+                    this,
+                    party => SafeInvoke(() => OnDailyTickParty(WParty.Get(party)))
                 );
 
             if (IsOverridden(nameof(OnMissionStarted)))

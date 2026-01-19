@@ -1,12 +1,12 @@
 using System;
 using HarmonyLib;
-using Retinues.Behaviors.Recruitement.Models;
+using Retinues.Behaviors.Volunteers.Models;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.ComponentInterfaces;
 using TaleWorlds.Core;
 
-namespace Retinues.Behaviors.Recruitement.Patches
+namespace Retinues.Behaviors.Volunteers.Patches
 {
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
     //                   VolunteerModel Hook                  //

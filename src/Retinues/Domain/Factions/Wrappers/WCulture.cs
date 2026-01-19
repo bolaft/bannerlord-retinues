@@ -67,30 +67,9 @@ namespace Retinues.Domain.Factions.Wrappers
         public override WCharacter MeleeMilitiaTroop => WCharacter.Get(Base.MeleeMilitiaTroop);
         public override WCharacter MeleeEliteMilitiaTroop =>
             WCharacter.Get(Base.MeleeEliteMilitiaTroop);
+        public override WCharacter RangedMilitiaTroop => WCharacter.Get(Base.RangedMilitiaTroop);
         public override WCharacter RangedEliteMilitiaTroop =>
             WCharacter.Get(Base.RangedEliteMilitiaTroop);
-        public override WCharacter RangedMilitiaTroop => WCharacter.Get(Base.RangedMilitiaTroop);
-
-#if BL12
-        public override WCharacter MilitiaArcher => WCharacter.Get(Base.MilitiaArcher);
-#else
-        public override WCharacter MilitiaArcher => null;
-#endif
-
-#if BL12
-        public override WCharacter MilitiaSpearman => WCharacter.Get(Base.MilitiaSpearman);
-#else
-        public override WCharacter MilitiaSpearman => null;
-#endif
-
-#if BL12
-        public override WCharacter MilitiaVeteranSpearman =>
-            WCharacter.Get(Base.MilitiaVeteranSpearman);
-#else
-        public override WCharacter MilitiaVeteranSpearman => null;
-#endif
-        public override WCharacter MilitiaVeteranArcher =>
-            WCharacter.Get(Base.MilitiaVeteranArcher);
 
         /* ━━━━━━━ Caravans ━━━━━━━ */
 

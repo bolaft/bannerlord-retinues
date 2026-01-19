@@ -50,6 +50,23 @@ namespace Retinues.Domain.Factions
 
         List<WCharacter> RosterHeroes { get; }
 
+        /* ━━━━━━━ Villager ━━━━━━━ */
+
+        WCharacter Villager { get; }
+
+        /* ━━━━━━━━ Militia ━━━━━━━ */
+
+        WCharacter MeleeMilitiaTroop { get; }
+        WCharacter MeleeEliteMilitiaTroop { get; }
+        WCharacter RangedMilitiaTroop { get; }
+        WCharacter RangedEliteMilitiaTroop { get; }
+
+        /* ━━━━━━━━ Caravan ━━━━━━━ */
+
+        WCharacter CaravanGuard { get; }
+        WCharacter CaravanMaster { get; }
+        WCharacter ArmedTrader { get; }
+
         /* ━━━━━━━━━ Lists ━━━━━━━━ */
 
         List<WCharacter> RosterRetinues { get; }

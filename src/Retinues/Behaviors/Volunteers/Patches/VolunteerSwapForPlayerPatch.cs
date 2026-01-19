@@ -6,7 +6,7 @@ using Retinues.Utilities;
 using TaleWorlds.CampaignSystem.CampaignBehaviors;
 using TaleWorlds.CampaignSystem.GameMenus;
 
-namespace Retinues.Behaviors.Recruitement.Patches
+namespace Retinues.Behaviors.Volunteers.Patches
 {
     /// <summary>
     /// Manages player volunteer swap lifecycle when entering/exiting recruit screens.

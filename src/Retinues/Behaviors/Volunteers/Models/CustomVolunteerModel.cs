@@ -8,7 +8,7 @@ using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.ComponentInterfaces;
 using TaleWorlds.CampaignSystem.Settlements;
 
-namespace Retinues.Behaviors.Recruitement.Models
+namespace Retinues.Behaviors.Volunteers.Models
 {
     /// <summary>
     /// Wraps the active VolunteerModel to prefer base custom troop roots per settlement.

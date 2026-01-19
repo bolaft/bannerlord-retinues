@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Retinues.Domain.Characters.Services.Matching;
 using Retinues.Domain.Factions;
 using Retinues.Domain.Factions.Wrappers;
@@ -113,12 +114,11 @@ namespace Retinues.Domain.Characters.Wrappers
                     if (faction is WCulture)
                         continue;
 
-                    var match = CharacterMatcher.PickBestFromFaction(
+                    var match = CharacterMatcher.FindBest(
                         troop: wc,
-                        faction: faction,
+                        troops: faction.Troops.Where(t => t.IsRegular),
                         strictTierMatch: true,
                         fallback: null,
-                        regularOnly: true,
                         requestedTier: requestedTier
                     );
 
@@ -138,9 +138,9 @@ namespace Retinues.Domain.Characters.Wrappers
             var culture = wc.Culture;
             if (culture != null)
             {
-                var match = CharacterMatcher.PickBestFromFaction(
+                var match = CharacterMatcher.FindBest(
                     troop: wc,
-                    faction: culture,
+                    troops: culture.Troops.Where(t => t.IsRegular),
                     strictTierMatch: true,
                     fallback: null,
                     requestedTier: requestedTier

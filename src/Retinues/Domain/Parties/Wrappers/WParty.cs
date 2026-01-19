@@ -3,13 +3,17 @@ using System.Collections.Generic;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Factions.Wrappers;
 using Retinues.Domain.Parties.Models;
+using Retinues.Domain.Settlements.Wrappers;
 using Retinues.Framework.Model;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Party;
 
 namespace Retinues.Domain.Parties.Wrappers
 {
-    public class WParty(MobileParty @base) : WBase<WParty, MobileParty>(@base)
+    /// <summary>
+    /// Wrapper for MobileParty.
+    /// </summary>
+    public partial class WParty(MobileParty @base) : WBase<WParty, MobileParty>(@base)
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Resolver                        //
@@ -76,6 +80,13 @@ namespace Retinues.Domain.Parties.Wrappers
         public string Name => Base.Name?.ToString();
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Settlement                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public WSettlement HomeSettlement => WSettlement.Get(Base.HomeSettlement);
+        public WSettlement CurrentSettlement => WSettlement.Get(Base.CurrentSettlement);
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Party Base                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
@@ -105,7 +116,7 @@ namespace Retinues.Domain.Parties.Wrappers
 
         public WClan Clan => WClan.Get(Base.ActualClan);
         public WKingdom Kingdom => WKingdom.Get(Base.ActualClan.Kingdom);
-        public WCulture Culture => Clan?.Culture ?? Kingdom?.Culture;
+        public WCulture Culture => HomeSettlement?.Culture ?? Clan?.Culture ?? Kingdom?.Culture;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Rosters                        //

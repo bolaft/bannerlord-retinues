@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Factions;
+using Retinues.Domain.Factions.Base;
+using Retinues.Domain.Factions.Wrappers;
+using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
+using TaleWorlds.ObjectSystem;
 
 namespace Retinues.Domain.Characters.Services.Matching
 {
@@ -16,17 +20,37 @@ namespace Retinues.Domain.Characters.Services.Matching
         /// <summary>
         /// Picks the best matching character from the given collection based on the provided troop.
         /// </summary>
-        public static WCharacter PickBest(
+        public static WCharacter FindBest(
             WCharacter troop,
             IEnumerable<WCharacter> troops,
-            bool strictTierMatch = false,
-            bool regularOnly = true,
+            bool strictTierMatch = true,
+            bool strictCategoryMatch = true,
             WCharacter fallback = null,
             int? requestedTier = null
         )
         {
             if (troop == null || troops == null)
                 return fallback;
+
+            // Initial filtering by tier.
+            if (strictTierMatch)
+                troops = troops.Where(t => t.Tier == (requestedTier ?? troop.Tier));
+
+            // Initial filtering by category.
+            if (strictCategoryMatch)
+            {
+                troops = troops.Where(t =>
+                    t.IsRegular == troop.IsRegular
+                    && t.IsElite == troop.IsElite
+                    && t.IsBasic == troop.IsBasic
+                    && t.IsMercenary == troop.IsMercenary
+                    && t.IsBandit == troop.IsBandit
+                    && t.IsMilitia == troop.IsMilitia
+                    && t.IsCaravan == troop.IsCaravan
+                    && t.IsVillager == troop.IsVillager
+                    && t.IsCivilian == troop.IsCivilian
+                );
+            }
 
             // Materialize candidates once and drop nulls.
             // Also de-dup by StringId to avoid bias from repeated entries.
@@ -36,9 +60,6 @@ namespace Retinues.Domain.Characters.Services.Matching
             foreach (var c in troops)
             {
                 if (c == null)
-                    continue;
-
-                if (regularOnly && !c.IsElite && !c.IsBasic)
                     continue;
 
                 if (seen.Add(c.StringId))
@@ -51,7 +72,7 @@ namespace Retinues.Domain.Characters.Services.Matching
             var tier = requestedTier ?? troop.Tier;
 
             // 1) Tier (closest, or strict exact)
-            FilterByTier(tier, candidates, strictTierMatch);
+            FilterByTier(tier, candidates);
             if (candidates.Count == 0)
                 return fallback;
             if (candidates.Count == 1)
@@ -83,52 +104,106 @@ namespace Retinues.Domain.Characters.Services.Matching
         }
 
         /// <summary>
-        /// Picks the best matching character from the given troop tree based on the provided troop.
+        /// Finds the best matching counterpart of the given troop in the specified faction.
         /// </summary>
-        public static WCharacter PickBestFromTree(
-            WCharacter troop,
-            WCharacter root,
-            bool strictTierMatch = false,
-            WCharacter fallback = null,
-            int? requestedTier = null
-        )
-        {
-            if (root == null)
-                return fallback;
-
-            return PickBest(
-                troop,
-                root.Tree,
-                strictTierMatch,
-                regularOnly: false,
-                fallback,
-                requestedTier
-            );
-        }
-
-        /// <summary>
-        /// Picks the best matching character from the given faction based on the provided troop.
-        /// </summary>
-        public static WCharacter PickBestFromFaction(
+        public static WCharacter FindCounterpart(
             WCharacter troop,
             IBaseFaction faction,
             bool strictTierMatch = false,
-            bool regularOnly = true,
-            WCharacter fallback = null,
-            int? requestedTier = null
+            WCharacter fallback = null
         )
         {
-            if (faction == null)
+            if (troop == null || faction == null)
                 return fallback;
 
-            return PickBest(
-                troop,
-                faction.Troops,
-                strictTierMatch,
-                regularOnly,
-                fallback,
-                requestedTier
-            );
+            if (troop.IsHero)
+                return fallback;
+
+            var roster = troop switch
+            {
+                { IsRegular: true } => troop.IsElite ? faction.RosterElite : faction.RosterBasic,
+                { IsMercenary: true } => faction.RosterMercenary,
+                { IsBandit: true } => faction.RosterBandit,
+                _ => null,
+            };
+
+            // Troop is in a tree, find best match from that tree.
+            if (roster != null)
+                return FindBest(
+                    troop,
+                    roster,
+                    strictTierMatch: strictTierMatch,
+                    fallback: fallback
+                );
+
+            // Troop is not in a tree, try specific roles.
+            // Prioritize by faction type: Clan > Kingdom > Culture.
+            foreach (
+                var f in troop.Factions.OrderBy(f =>
+                    f switch
+                    {
+                        WClan _ => 0,
+                        WKingdom _ => 1,
+                        WCulture _ => 2,
+                        _ => 3,
+                    }
+                )
+            )
+            {
+                if (troop == f.Villager && faction.Villager != null && faction.Villager != troop)
+                    return faction.Villager;
+
+                if (
+                    troop == f.MeleeMilitiaTroop
+                    && faction.MeleeMilitiaTroop != null
+                    && faction.MeleeMilitiaTroop != troop
+                )
+                    return faction.MeleeMilitiaTroop;
+
+                if (
+                    troop == f.MeleeEliteMilitiaTroop
+                    && faction.MeleeEliteMilitiaTroop != null
+                    && faction.MeleeEliteMilitiaTroop != troop
+                )
+                    return faction.MeleeEliteMilitiaTroop;
+
+                if (
+                    troop == f.RangedMilitiaTroop
+                    && faction.RangedMilitiaTroop != null
+                    && faction.RangedMilitiaTroop != troop
+                )
+                    return faction.RangedMilitiaTroop;
+
+                if (
+                    troop == f.RangedEliteMilitiaTroop
+                    && faction.RangedEliteMilitiaTroop != null
+                    && faction.RangedEliteMilitiaTroop != troop
+                )
+                    return faction.RangedEliteMilitiaTroop;
+
+                if (
+                    troop == f.CaravanGuard
+                    && faction.CaravanGuard != null
+                    && faction.CaravanGuard != troop
+                )
+                    return faction.CaravanGuard;
+
+                if (
+                    troop == f.CaravanMaster
+                    && faction.CaravanMaster != null
+                    && faction.CaravanMaster != troop
+                )
+                    return faction.CaravanMaster;
+
+                if (
+                    troop == f.ArmedTrader
+                    && faction.ArmedTrader != null
+                    && faction.ArmedTrader != troop
+                )
+                    return faction.ArmedTrader;
+            }
+
+            return fallback;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -138,7 +213,7 @@ namespace Retinues.Domain.Characters.Services.Matching
         /// <summary>
         /// Filters candidates by tier, keeping those closest to the target tier.
         /// </summary>
-        private static void FilterByTier(int tier, List<WCharacter> candidates, bool strict)
+        private static void FilterByTier(int tier, List<WCharacter> candidates)
         {
             int bestDist = int.MaxValue;
 
@@ -148,12 +223,6 @@ namespace Retinues.Domain.Characters.Services.Matching
                 var dist = Math.Abs(c.Tier - tier);
                 if (dist < bestDist)
                     bestDist = dist;
-            }
-
-            if (strict && bestDist != 0)
-            {
-                candidates.Clear();
-                return;
             }
 
             // Keep only those with best distance.

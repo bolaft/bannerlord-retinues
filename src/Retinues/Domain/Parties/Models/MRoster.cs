@@ -73,13 +73,14 @@ namespace Retinues.Domain.Parties.Models
             int number,
             int woundedNumber = 0,
             int xp = 0,
-            bool insertAtFront = false
+            bool insertAtFront = false,
+            bool removeDepleted = true
         )
         {
             if (troop == null || number == 0)
                 return;
 
-            Base.AddToCounts(troop.Base, number, insertAtFront, woundedNumber, xp);
+            Base.AddToCounts(troop.Base, number, insertAtFront, woundedNumber, xp, removeDepleted);
         }
 
         /// <summary>
@@ -92,6 +93,35 @@ namespace Retinues.Domain.Parties.Models
 
             // Optional params (troopSeed, xp) take their defaults.
             Base.RemoveTroop(troop.Base, number, xp: xp);
+        }
+
+        /// <summary>
+        /// Removes troops from the roster, preserving wounded count and total XP removal.
+        /// </summary>
+        public void RemoveTroop(
+            WCharacter troop,
+            int number,
+            int woundedNumber,
+            int xp,
+            bool removeDepleted = true
+        )
+        {
+            if (troop == null)
+                return;
+
+            if (number <= 0 && woundedNumber <= 0 && xp == 0)
+                return;
+
+            // TroopRoster.RemoveTroop() does not let us remove wounded counts.
+            // For swaps we must remove both healthy and wounded in a single operation.
+            Base.AddToCounts(
+                troop.Base,
+                -number,
+                insertAtFront: false,
+                woundedCount: -woundedNumber,
+                xpChange: troop.IsHero ? 0 : -xp,
+                removeDepleted: removeDepleted
+            );
         }
     }
 }

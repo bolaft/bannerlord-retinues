@@ -8,7 +8,7 @@ using Retinues.Domain.Settlements.Wrappers;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 
-namespace Retinues.Behaviors.Recruitement
+namespace Retinues.Behaviors.Volunteers
 {
     /// <summary>
     /// Temporarily swaps notable volunteers while the player is in the recruit menu.
@@ -211,7 +211,7 @@ namespace Retinues.Behaviors.Recruitement
                     if (chosenRoot == null)
                         continue;
 
-                    var replacement = CharacterMatcher.PickBestFromTree(wc, chosenRoot);
+                    var replacement = CharacterMatcher.FindBest(wc, chosenRoot.Tree);
                     var replacementBase = replacement?.Base;
                     if (replacementBase == null)
                         continue;

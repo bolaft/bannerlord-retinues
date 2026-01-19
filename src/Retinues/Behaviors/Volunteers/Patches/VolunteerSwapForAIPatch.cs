@@ -11,7 +11,7 @@ using TaleWorlds.CampaignSystem.CampaignBehaviors;
 using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.CampaignSystem.Settlements;
 
-namespace Retinues.Behaviors.Recruitement.Patches
+namespace Retinues.Behaviors.Volunteers.Patches
 {
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
     //                    AI Recruit Rules                    //
@@ -116,7 +116,7 @@ namespace Retinues.Behaviors.Recruitement.Patches
             if (root == null)
                 return;
 
-            var replacement = CharacterMatcher.PickBestFromTree(wc, root);
+            var replacement = CharacterMatcher.FindBest(wc, root.Tree);
             var replacementBase = replacement?.Base;
             if (replacementBase == null)
                 return;

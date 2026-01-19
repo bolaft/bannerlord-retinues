@@ -2,12 +2,12 @@ using Retinues.Domain.Parties.Wrappers;
 using Retinues.Domain.Settlements.Wrappers;
 using Retinues.Framework.Behaviors;
 
-namespace Retinues.Behaviors.Recruitement
+namespace Retinues.Behaviors.Volunteers
 {
     /// <summary>
     /// Handles player-specific recruit-related lifecycle events for volunteer snapshot management.
     /// </summary>
-    internal sealed class PlayerRecruitementBehavior : BaseCampaignBehavior
+    internal sealed class PlayerVolunteersBehavior : BaseCampaignBehavior
     {
         /// <summary>
         /// Restores player volunteer snapshot when the main party leaves a settlement.
