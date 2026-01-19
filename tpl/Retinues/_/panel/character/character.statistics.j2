@@ -1,7 +1,7 @@
 {% from "_/macros.buttons.j2" import button_sprite %}
 
 {# ---------------------------------------------- #}
-{# Battle history                                 #}
+{# Statistics                                     #}
 {# ---------------------------------------------- #}
 
 <ListPanel
@@ -25,9 +25,9 @@
                     Brush="Popup.Button.Text"
                     Brush.FontSize="20"
                     MarginRight="8"
-                    Text="@HistoryButtonLabel" />
+                    Text="@StatisticsButtonLabel" />
 
-                {{ button_sprite("{ShowHistoryButton}", "32", "32", button_brush="DescriptionButtonToggleBrush") }}
+                {{ button_sprite("{ShowStatisticsButton}", "32", "32", button_brush="DescriptionButtonToggleBrush") }}
             
             </Children>
         </ListPanel>

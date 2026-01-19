@@ -1190,51 +1190,6 @@
       id="ret_heroes_cannot_be_exported"
       text="Heroes cannot be exported." />
     <string
-      id="ret_history_battles_field"
-      text="Field Battles" />
-    <string
-      id="ret_history_battles_fought"
-      text="Battles fought: {TOTAL} (won {WON}, lost {LOST})" />
-    <string
-      id="ret_history_battles_naval"
-      text="Naval Battles" />
-    <string
-      id="ret_history_battles_raids"
-      text="Raids" />
-    <string
-      id="ret_history_battles_siege"
-      text="Siege Battles" />
-    <string
-      id="ret_history_button_label"
-      text="Show Battle History" />
-    <string
-      id="ret_history_casualties_title"
-      text="Casualties" />
-    <string
-      id="ret_history_entry"
-      text="- {NAME}: {COUNT}" />
-    <string
-      id="ret_history_kills_title"
-      text="Kills" />
-    <string
-      id="ret_history_line_entry"
-      text="- {LABEL}: {COUNT}" />
-    <string
-      id="ret_history_more"
-      text="({COUNT} more...)" />
-    <string
-      id="ret_history_player_only"
-      text="Only available in player mode." />
-    <string
-      id="ret_history_popup_title"
-      text="Battle History" />
-    <string
-      id="ret_history_section_total"
-      text="{TITLE}: {TOTAL}" />
-    <string
-      id="ret_history_tooltip"
-      text="Show battle history." />
-    <string
       id="ret_in_stock"
       text="In Stock ({STOCK})" />
     <string
@@ -2254,6 +2209,54 @@
     <string
       id="ret_starter_troops_clone_culture_roots"
       text="Root Troops Only" />
+    <string
+      id="ret_statistics_battles_field"
+      text="Field Battles" />
+    <string
+      id="ret_statistics_battles_fought"
+      text="Battles fought: {TOTAL} (won {WON}, lost {LOST})" />
+    <string
+      id="ret_statistics_battles_naval"
+      text="Naval Battles" />
+    <string
+      id="ret_statistics_battles_raids"
+      text="Raids" />
+    <string
+      id="ret_statistics_battles_siege"
+      text="Siege Battles" />
+    <string
+      id="ret_statistics_button_label"
+      text="Show Statistics" />
+    <string
+      id="ret_statistics_casualties_title"
+      text="Casualties" />
+    <string
+      id="ret_statistics_entry"
+      text="- {NAME}: {COUNT}" />
+    <string
+      id="ret_statistics_kills_title"
+      text="Kills" />
+    <string
+      id="ret_statistics_line_entry"
+      text="- {LABEL}: {COUNT}" />
+    <string
+      id="ret_statistics_more"
+      text="({COUNT} more...)" />
+    <string
+      id="ret_statistics_parties_garrisons"
+      text="Deployments: {TOTAL} ({PARTIES} parties, {GARRISONS} garrisons)" />
+    <string
+      id="ret_statistics_player_only"
+      text="Only available in player mode." />
+    <string
+      id="ret_statistics_popup_title"
+      text="Statistics" />
+    <string
+      id="ret_statistics_section_total"
+      text="{TITLE}: {TOTAL}" />
+    <string
+      id="ret_statistics_tooltip"
+      text="Show unit statistics." />
     <string
       id="ret_stocks_add"
       text="Added {AMOUNT} {ITEM} to stocks." />
