@@ -23,6 +23,29 @@ namespace Retinues.Domain.Characters.Wrappers
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
+        /// Gets all WParty instances in the current campaign.
+        /// </summary>
+        public static new IEnumerable<WHero> All
+        {
+            get
+            {
+                var campaign = Campaign.Current;
+                if (campaign == null)
+                    yield break;
+
+                var heroes = campaign.AliveHeroes;
+                if (heroes == null)
+                    yield break;
+
+                foreach (var h in heroes)
+                {
+                    if (h != null)
+                        yield return Get(h);
+                }
+            }
+        }
+
+        /// <summary>
         /// Static constructor that registers the WHero resolver.
         /// </summary>
         static WHero() => RegisterResolver(ResolveHero);
