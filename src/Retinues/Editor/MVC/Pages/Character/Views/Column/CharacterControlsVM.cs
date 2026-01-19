@@ -193,7 +193,9 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Column
                 refresh: [UIEvent.Character, UIEvent.Tree],
                 label: L.S("button_remove_character", "Delete"),
                 visibilityGate: () =>
-                    State.Character.IsHero == false && State.Character.IsCaptain == false
+                    State.Character.IsHero == false
+                    && State.Character.IsCaptain == false
+                    && State.Character.IsRetinue == false
             );
     }
 }
