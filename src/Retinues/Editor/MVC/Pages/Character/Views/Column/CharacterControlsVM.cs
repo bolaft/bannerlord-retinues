@@ -184,6 +184,20 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Column
             );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Rank Up                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [DataSourceProperty]
+        public Button<WCharacter> RankUpButton { get; } =
+            new(
+                action: RetinueController.RankUp,
+                arg: () => State.Character,
+                label: L.S("button_rank_up", "Rank Up"),
+                refresh: [UIEvent.Skill, UIEvent.Doctrine],
+                visibilityGate: () => State.Mode == EditorMode.Player && State.Character.IsRetinue
+            );
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Remove                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 

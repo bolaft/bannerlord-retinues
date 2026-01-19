@@ -200,19 +200,6 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Panel
             );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Rank Up                        //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        [DataSourceProperty]
-        public Button<WCharacter> RankUpButton { get; } =
-            new(
-                action: RetinueController.RankUp,
-                arg: () => State.Character,
-                refresh: [UIEvent.Skill, UIEvent.Doctrine],
-                visibilityGate: () => State.Mode == EditorMode.Player && State.Character.IsRetinue
-            );
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Skill Grid                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 

@@ -49,7 +49,7 @@ namespace Retinues.Behaviors.Troops
                 choice2Text: ok,
                 description: desc,
                 pauseGame: true,
-                delayUntilOnWorldMap: true
+                delayUntilOnWorldMap: false
             );
         }
     }
