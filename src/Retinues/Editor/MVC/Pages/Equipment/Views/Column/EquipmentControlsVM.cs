@@ -142,7 +142,7 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.Column
         [DataSourceProperty]
         public Button<bool> CopyEquipmentButton { get; } =
             new(
-                action: EquipmentController.CopyEquipment,
+                action: ClipboardController.CopyEquipment,
                 arg: () => false,
                 refresh: [UIEvent.Equipment],
                 colorFactory: () => EnabledColor,
@@ -152,10 +152,10 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.Column
         [DataSourceProperty]
         public Button<bool> PasteEquipmentButton { get; } =
             new(
-                action: EquipmentController.PasteEquipment,
+                action: ClipboardController.PasteEquipment,
                 arg: () => false,
                 refresh: [UIEvent.Equipment, UIEvent.Item, UIEvent.Clipboard],
-                colorFactory: () => EquipmentController.HasClipboard ? EnabledColor : DisabledColor,
+                colorFactory: () => ClipboardController.HasClipboard ? EnabledColor : DisabledColor,
                 hoverColor: HoveredColor
             );
 
