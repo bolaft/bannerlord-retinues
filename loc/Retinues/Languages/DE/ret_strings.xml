@@ -113,11 +113,32 @@
       id="ret_build_hint"
       text="Statur" />
     <string
+      id="ret_button_change_formation_class_disabled_for_captains"
+      text="Hauptmänner teilen die Formationsklasse ihrer Basistruppen." />
+    <string
       id="ret_button_change_formation_class_tooltip"
       text="Wähle eine Formationsklasse." />
     <string
+      id="ret_button_disable_captain"
+      text="Hauptmann deaktivieren" />
+    <string
+      id="ret_button_enable_captain"
+      text="Hauptmann aktivieren" />
+    <string
+      id="ret_button_export"
+      text="Exportieren" />
+    <string
+      id="ret_button_export_tooltip"
+      text="Exportiere die ausgewählte Fraktion oder Truppe in die Bibliothek." />
+    <string
       id="ret_button_remove_character"
       text="Löschen" />
+    <string
+      id="ret_button_reset"
+      text="Zurücksetzen" />
+    <string
+      id="ret_button_reset_tooltip"
+      text="Auf Standardwerte zurücksetzen." />
     <string
       id="ret_button_show_battle"
       text="Kampf" />
@@ -166,6 +187,15 @@
     <string
       id="ret_cant_unequip_reason_empty"
       text="Nichts zum Ausrüsten." />
+    <string
+      id="ret_captain_mode_off_hint"
+      text="Wechsle zur Basistruppe dieses Hauptmanns." />
+    <string
+      id="ret_captain_mode_on_hint"
+      text="Wechsle zum Hauptmann dieser Truppe." />
+    <string
+      id="ret_captain_mode_toggle_tooltip"
+      text="Hauptmann-Modus." />
     <string
       id="ret_captain_suffix"
       text="Hauptmann" />

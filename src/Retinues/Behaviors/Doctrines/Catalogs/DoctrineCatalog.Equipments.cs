@@ -43,10 +43,7 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                             FeatCatalog.CP_ProudAndStrong,
                         ],
                         Overridden = () => Settings.EquipmentCostsMoney == false,
-                        OverriddenHint = L.T(
-                            "doctrine_armory_cultural_pride_overridden",
-                            "The option 'Equipment Costs Money' is disabled."
-                        ),
+                        OverriddenHint = OverriddenByOption(Settings.EquipmentCostsMoney),
                     },
                     new DoctrineData
                     {
@@ -64,10 +61,7 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                             FeatCatalog.HG_GoldenLegion,
                         ],
                         Overridden = () => Settings.EquipmentValueLimit == false,
-                        OverriddenHint = L.T(
-                            "doctrine_armory_honor_guard_overridden",
-                            "The option 'Equipment Value Limit' is disabled."
-                        ),
+                        OverriddenHint = OverriddenByOption(Settings.EquipmentValueLimit),
                     },
                     new DoctrineData
                     {
@@ -85,10 +79,7 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                             FeatCatalog.IR_TailorMade,
                         ],
                         Overridden = () => Settings.EquipmentWeightLimit == false,
-                        OverriddenHint = L.T(
-                            "doctrine_armory_ironclad_overridden",
-                            "The option 'Equipment Weight Limit' is disabled."
-                        ),
+                        OverriddenHint = OverriddenByOption(Settings.EquipmentWeightLimit),
                     },
                     new DoctrineData
                     {
@@ -106,10 +97,7 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                             FeatCatalog.RP_RoyalStewardship,
                         ],
                         Overridden = () => Settings.EquipmentCostsMoney == false,
-                        OverriddenHint = L.T(
-                            "doctrine_armory_royal_patronage_overridden",
-                            "The option 'Equipment Costs Money' is disabled."
-                        ),
+                        OverriddenHint = OverriddenByOption(Settings.EquipmentCostsMoney),
                     },
                 ],
             };

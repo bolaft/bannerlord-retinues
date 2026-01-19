@@ -113,11 +113,32 @@
       id="ret_build_hint"
       text="体格" />
     <string
+      id="ret_button_change_formation_class_disabled_for_captains"
+      text="キャプテンは基本部隊の編成クラスを共有します。" />
+    <string
       id="ret_button_change_formation_class_tooltip"
       text="編成クラスを選択します。" />
     <string
+      id="ret_button_disable_captain"
+      text="キャプテンを無効にする" />
+    <string
+      id="ret_button_enable_captain"
+      text="キャプテンを有効にする" />
+    <string
+      id="ret_button_export"
+      text="エクスポート" />
+    <string
+      id="ret_button_export_tooltip"
+      text="選択した派閥または部隊をライブラリにエクスポートします。" />
+    <string
       id="ret_button_remove_character"
       text="削除" />
+    <string
+      id="ret_button_reset"
+      text="リセット" />
+    <string
+      id="ret_button_reset_tooltip"
+      text="デフォルトにリセットします。" />
     <string
       id="ret_button_show_battle"
       text="戦闘" />
@@ -166,6 +187,15 @@
     <string
       id="ret_cant_unequip_reason_empty"
       text="解除するものがありません。" />
+    <string
+      id="ret_captain_mode_off_hint"
+      text="このキャプテンの基本部隊に切り替えます。" />
+    <string
+      id="ret_captain_mode_on_hint"
+      text="この部隊のキャプテンに切り替えます。" />
+    <string
+      id="ret_captain_mode_toggle_tooltip"
+      text="キャプテンモード。" />
     <string
       id="ret_captain_suffix"
       text="キャプテン" />

@@ -113,11 +113,32 @@
       id="ret_build_hint"
       text="Musculature" />
     <string
+      id="ret_button_change_formation_class_disabled_for_captains"
+      text="Les capitaines partagent la classe de formation de leurs troupes de base." />
+    <string
       id="ret_button_change_formation_class_tooltip"
       text="Sélectionner une formation." />
     <string
+      id="ret_button_disable_captain"
+      text="Désactiver le capitaine" />
+    <string
+      id="ret_button_enable_captain"
+      text="Activer le capitaine" />
+    <string
+      id="ret_button_export"
+      text="Exporter" />
+    <string
+      id="ret_button_export_tooltip"
+      text="Exporter la faction ou la troupe sélectionnée vers la bibliothèque." />
+    <string
       id="ret_button_remove_character"
       text="Supprimer" />
+    <string
+      id="ret_button_reset"
+      text="Réinitialiser" />
+    <string
+      id="ret_button_reset_tooltip"
+      text="Réinitialiser aux valeurs par défaut." />
     <string
       id="ret_button_show_battle"
       text="Combat" />
@@ -166,6 +187,15 @@
     <string
       id="ret_cant_unequip_reason_empty"
       text="Rien à déséquiper." />
+    <string
+      id="ret_captain_mode_off_hint"
+      text="Revenir à la troupe de base de ce capitaine." />
+    <string
+      id="ret_captain_mode_on_hint"
+      text="Passer au capitaine de cette troupe." />
+    <string
+      id="ret_captain_mode_toggle_tooltip"
+      text="Mode capitaine." />
     <string
       id="ret_captain_suffix"
       text="Capitaine" />

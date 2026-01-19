@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using Retinues.Configuration;
+using Retinues.Interface.Services;
 using TaleWorlds.Localization;
 using static Retinues.Behaviors.Doctrines.Catalogs.FeatCatalog;
 
@@ -32,6 +34,17 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
             public Func<bool> Overridden;
             public TextObject OverriddenHint;
             public List<FeatData> Feats;
+        }
+
+        /// <summary>
+        /// Generates an overridden hint based on the given option.
+        /// </summary>
+        private static TextObject OverriddenByOption(IOption option)
+        {
+            var optionName = option?.Name ?? string.Empty;
+
+            return L.T("doctrine_is_overridden", "The option '{OPTION}' is disabled.")
+                .SetTextVariable("OPTION", optionName);
         }
     }
 }

@@ -113,11 +113,32 @@
       id="ret_build_hint"
       text="體型" />
     <string
+      id="ret_button_change_formation_class_disabled_for_captains"
+      text="隊長與其基礎部隊共享編隊類別。" />
+    <string
       id="ret_button_change_formation_class_tooltip"
       text="選擇一個編隊類別。" />
     <string
+      id="ret_button_disable_captain"
+      text="禁用隊長" />
+    <string
+      id="ret_button_enable_captain"
+      text="啟用隊長" />
+    <string
+      id="ret_button_export"
+      text="導出" />
+    <string
+      id="ret_button_export_tooltip"
+      text="將所選派系或部隊導出到庫中。" />
+    <string
       id="ret_button_remove_character"
       text="刪除" />
+    <string
+      id="ret_button_reset"
+      text="重置" />
+    <string
+      id="ret_button_reset_tooltip"
+      text="重置為默認值。" />
     <string
       id="ret_button_show_battle"
       text="戰鬥" />
@@ -166,6 +187,15 @@
     <string
       id="ret_cant_unequip_reason_empty"
       text="沒有可卸下的物品。" />
+    <string
+      id="ret_captain_mode_off_hint"
+      text="切換到該隊長的基礎部隊。" />
+    <string
+      id="ret_captain_mode_on_hint"
+      text="切換到該部隊的隊長。" />
+    <string
+      id="ret_captain_mode_toggle_tooltip"
+      text="隊長模式。" />
     <string
       id="ret_captain_suffix"
       text="隊長" />

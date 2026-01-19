@@ -113,11 +113,32 @@
       id="ret_build_hint"
       text="Struttura" />
     <string
+      id="ret_button_change_formation_class_disabled_for_captains"
+      text="I capitani condividono la classe di formazione delle loro truppe base." />
+    <string
       id="ret_button_change_formation_class_tooltip"
       text="Seleziona una classe di formazione." />
     <string
+      id="ret_button_disable_captain"
+      text="Disabilita Capitano" />
+    <string
+      id="ret_button_enable_captain"
+      text="Abilita Capitano" />
+    <string
+      id="ret_button_export"
+      text="Esporta" />
+    <string
+      id="ret_button_export_tooltip"
+      text="Esporta la fazione o la truppa selezionata nella libreria." />
+    <string
       id="ret_button_remove_character"
       text="Elimina" />
+    <string
+      id="ret_button_reset"
+      text="Reimposta" />
+    <string
+      id="ret_button_reset_tooltip"
+      text="Reimposta ai valori predefiniti." />
     <string
       id="ret_button_show_battle"
       text="Battaglia" />
@@ -166,6 +187,15 @@
     <string
       id="ret_cant_unequip_reason_empty"
       text="Niente da disequipaggiare." />
+    <string
+      id="ret_captain_mode_off_hint"
+      text="Torna alla truppa base di questo capitano." />
+    <string
+      id="ret_captain_mode_on_hint"
+      text="Passa al capitano di questa truppa." />
+    <string
+      id="ret_captain_mode_toggle_tooltip"
+      text="Modalità capitano." />
     <string
       id="ret_captain_suffix"
       text="Capitano" />

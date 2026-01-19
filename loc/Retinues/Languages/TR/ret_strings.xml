@@ -113,11 +113,32 @@
       id="ret_build_hint"
       text="Yapı" />
     <string
+      id="ret_button_change_formation_class_disabled_for_captains"
+      text="Kaptanlar, temel birliklerinin düzen sınıfını paylaşır." />
+    <string
       id="ret_button_change_formation_class_tooltip"
       text="Bir düzen sınıfı seçin." />
     <string
+      id="ret_button_disable_captain"
+      text="Kaptanı Devre Dışı Bırak" />
+    <string
+      id="ret_button_enable_captain"
+      text="Kaptanı Etkinleştir" />
+    <string
+      id="ret_button_export"
+      text="Dışa Aktar" />
+    <string
+      id="ret_button_export_tooltip"
+      text="Seçilen fraksiyonu veya birliği kütüphaneye aktar." />
+    <string
       id="ret_button_remove_character"
       text="Sil" />
+    <string
+      id="ret_button_reset"
+      text="Sıfırla" />
+    <string
+      id="ret_button_reset_tooltip"
+      text="Varsayılanlara sıfırla." />
     <string
       id="ret_button_show_battle"
       text="Savaş" />
@@ -166,6 +187,15 @@
     <string
       id="ret_cant_unequip_reason_empty"
       text="Kaldırılacak bir şey yok." />
+    <string
+      id="ret_captain_mode_off_hint"
+      text="Bu kaptanın temel birimine geç." />
+    <string
+      id="ret_captain_mode_on_hint"
+      text="Bu birliğin kaptanına geç." />
+    <string
+      id="ret_captain_mode_toggle_tooltip"
+      text="Kaptan modu." />
     <string
       id="ret_captain_suffix"
       text="Kaptan" />

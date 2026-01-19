@@ -91,10 +91,7 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                             FeatCatalog.AT_UnyieldingDefense,
                         ],
                         Overridden = () => Settings.SkillPointsMustBeEarned == false,
-                        OverriddenHint = L.T(
-                            "doctrine_training_advanced_tactics_overridden",
-                            "The option 'Skill Points Must Be Earned' is disabled."
-                        ),
+                        OverriddenHint = OverriddenByOption(Settings.SkillPointsMustBeEarned),
                     },
                 ],
             };

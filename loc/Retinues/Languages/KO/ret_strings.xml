@@ -113,11 +113,32 @@
       id="ret_build_hint"
       text="체격" />
     <string
+      id="ret_button_change_formation_class_disabled_for_captains"
+      text="대장은 기본 부대의 대형 클래스를 공유합니다." />
+    <string
       id="ret_button_change_formation_class_tooltip"
       text="대형 클래스를 선택합니다." />
     <string
+      id="ret_button_disable_captain"
+      text="대장 비활성화" />
+    <string
+      id="ret_button_enable_captain"
+      text="대장 활성화" />
+    <string
+      id="ret_button_export"
+      text="내보내기" />
+    <string
+      id="ret_button_export_tooltip"
+      text="선택한 진영 또는 부대를 라이브러리로 내보냅니다." />
+    <string
       id="ret_button_remove_character"
       text="삭제" />
+    <string
+      id="ret_button_reset"
+      text="재설정" />
+    <string
+      id="ret_button_reset_tooltip"
+      text="기본값으로 재설정." />
     <string
       id="ret_button_show_battle"
       text="전투" />
@@ -166,6 +187,15 @@
     <string
       id="ret_cant_unequip_reason_empty"
       text="해제할 항목이 없습니다." />
+    <string
+      id="ret_captain_mode_off_hint"
+      text="이 대장의 기본 부대로 전환합니다." />
+    <string
+      id="ret_captain_mode_on_hint"
+      text="이 부대의 대장으로 전환합니다." />
+    <string
+      id="ret_captain_mode_toggle_tooltip"
+      text="대장 모드." />
     <string
       id="ret_captain_suffix"
       text="대장" />

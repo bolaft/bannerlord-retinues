@@ -113,11 +113,32 @@
       id="ret_build_hint"
       text="Constituição" />
     <string
+      id="ret_button_change_formation_class_disabled_for_captains"
+      text="Capitães compartilham a classe de formação de suas tropas base." />
+    <string
       id="ret_button_change_formation_class_tooltip"
       text="Selecione uma classe de formação." />
     <string
+      id="ret_button_disable_captain"
+      text="Desativar Capitão" />
+    <string
+      id="ret_button_enable_captain"
+      text="Ativar Capitão" />
+    <string
+      id="ret_button_export"
+      text="Exportar" />
+    <string
+      id="ret_button_export_tooltip"
+      text="Exporte a facção ou tropa selecionada para a biblioteca." />
+    <string
       id="ret_button_remove_character"
       text="Excluir" />
+    <string
+      id="ret_button_reset"
+      text="Redefinir" />
+    <string
+      id="ret_button_reset_tooltip"
+      text="Redefinir para os padrões." />
     <string
       id="ret_button_show_battle"
       text="Combate" />
@@ -166,6 +187,15 @@
     <string
       id="ret_cant_unequip_reason_empty"
       text="Nada para desequipar." />
+    <string
+      id="ret_captain_mode_off_hint"
+      text="Voltar para a tropa base deste capitão." />
+    <string
+      id="ret_captain_mode_on_hint"
+      text="Mudar para o capitão desta tropa." />
+    <string
+      id="ret_captain_mode_toggle_tooltip"
+      text="Modo capitão." />
     <string
       id="ret_captain_suffix"
       text="Capitão" />

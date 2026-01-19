@@ -113,11 +113,32 @@
       id="ret_build_hint"
       text="Budowa" />
     <string
+      id="ret_button_change_formation_class_disabled_for_captains"
+      text="Dowódcy dzielą klasę formacji swoich podstawowych oddziałów." />
+    <string
       id="ret_button_change_formation_class_tooltip"
       text="Wybierz klasę formacji." />
     <string
+      id="ret_button_disable_captain"
+      text="Wyłącz dowódcę" />
+    <string
+      id="ret_button_enable_captain"
+      text="Włącz dowódcę" />
+    <string
+      id="ret_button_export"
+      text="Eksportuj" />
+    <string
+      id="ret_button_export_tooltip"
+      text="Eksportuj wybraną frakcję lub oddział do biblioteki." />
+    <string
       id="ret_button_remove_character"
       text="Usuń" />
+    <string
+      id="ret_button_reset"
+      text="Resetuj" />
+    <string
+      id="ret_button_reset_tooltip"
+      text="Resetuj do domyślnych ustawień." />
     <string
       id="ret_button_show_battle"
       text="Bojowy" />
@@ -166,6 +187,15 @@
     <string
       id="ret_cant_unequip_reason_empty"
       text="Brak rzeczy do zdjęcia." />
+    <string
+      id="ret_captain_mode_off_hint"
+      text="Przełącz na podstawowy oddział tego kapitana." />
+    <string
+      id="ret_captain_mode_on_hint"
+      text="Przełącz na kapitana tego oddziału." />
+    <string
+      id="ret_captain_mode_toggle_tooltip"
+      text="Tryb kapitana." />
     <string
       id="ret_captain_suffix"
       text="Kapitan" />

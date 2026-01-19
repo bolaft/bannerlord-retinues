@@ -113,11 +113,32 @@
       id="ret_build_hint"
       text="体型" />
     <string
+      id="ret_button_change_formation_class_disabled_for_captains"
+      text="队长与其基础部队共享编队类别。" />
+    <string
       id="ret_button_change_formation_class_tooltip"
       text="选择一个编队类别。" />
     <string
+      id="ret_button_disable_captain"
+      text="禁用队长" />
+    <string
+      id="ret_button_enable_captain"
+      text="启用队长" />
+    <string
+      id="ret_button_export"
+      text="导出" />
+    <string
+      id="ret_button_export_tooltip"
+      text="将所选派系或部队导出到库中。" />
+    <string
       id="ret_button_remove_character"
       text="删除" />
+    <string
+      id="ret_button_reset"
+      text="重置" />
+    <string
+      id="ret_button_reset_tooltip"
+      text="重置为默认值。" />
     <string
       id="ret_button_show_battle"
       text="战斗" />
@@ -166,6 +187,15 @@
     <string
       id="ret_cant_unequip_reason_empty"
       text="没有可卸下的物品。" />
+    <string
+      id="ret_captain_mode_off_hint"
+      text="切换到该队长的基础部队。" />
+    <string
+      id="ret_captain_mode_on_hint"
+      text="切换到该部队的队长。" />
+    <string
+      id="ret_captain_mode_toggle_tooltip"
+      text="队长模式。" />
     <string
       id="ret_captain_suffix"
       text="队长" />

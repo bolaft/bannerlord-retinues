@@ -332,17 +332,11 @@
       id="ret_doctrine_armory_cultural_pride_desc"
       text="-20% to clan culture equipment costs." />
     <string
-      id="ret_doctrine_armory_cultural_pride_overridden"
-      text="The option &apos;Equipment Costs Money&apos; is disabled." />
-    <string
       id="ret_doctrine_armory_honor_guard"
       text="Honor Guard" />
     <string
       id="ret_doctrine_armory_honor_guard_desc"
       text="+15% to total equipment value limit." />
-    <string
-      id="ret_doctrine_armory_honor_guard_overridden"
-      text="The option &apos;Equipment Value Limit&apos; is disabled." />
     <string
       id="ret_doctrine_armory_ironclad"
       text="Ironclad" />
@@ -350,17 +344,11 @@
       id="ret_doctrine_armory_ironclad_desc"
       text="+15% to total equipment weight limit." />
     <string
-      id="ret_doctrine_armory_ironclad_overridden"
-      text="The option &apos;Equipment Weight Limit&apos; is disabled." />
-    <string
       id="ret_doctrine_armory_royal_patronage"
       text="Royal Patronage" />
     <string
       id="ret_doctrine_armory_royal_patronage_desc"
       text="-20% to kingdom culture equipment costs." />
-    <string
-      id="ret_doctrine_armory_royal_patronage_overridden"
-      text="The option &apos;Equipment Costs Money&apos; is disabled." />
     <string
       id="ret_doctrine_cat_equipments"
       text="Equipments" />
@@ -401,6 +389,9 @@
       id="ret_doctrine_feats_header"
       text="Feats" />
     <string
+      id="ret_doctrine_is_overridden"
+      text="The option &apos;{OPTION}&apos; is disabled." />
+    <string
       id="ret_doctrine_locked_hint"
       text="{DOCTRINE} must be acquired first." />
     <string
@@ -409,9 +400,6 @@
     <string
       id="ret_doctrine_loot_ancestral_heritage_desc"
       text="Unlocks all clan culture items." />
-    <string
-      id="ret_doctrine_loot_ancestral_heritage_overridden"
-      text="The option &apos;Equipment Needs Unlocking&apos; is disabled." />
     <string
       id="ret_doctrine_loot_battlefield_tithes"
       text="Battlefield Tithes" />
@@ -424,9 +412,6 @@
     <string
       id="ret_doctrine_loot_lions_share_desc"
       text="Hero kills count twice toward unlocking enemy gear." />
-    <string
-      id="ret_doctrine_loot_lions_share_overridden"
-      text="The option &apos;Unlock Items Through Kills&apos; is disabled." />
     <string
       id="ret_doctrine_loot_pragmatic_scavengers"
       text="Pragmatic Scavengers" />
@@ -467,9 +452,6 @@
       id="ret_doctrine_retinues_indomitable_desc"
       text="+10% to retinue health." />
     <string
-      id="ret_doctrine_retinues_indomitable_overridden"
-      text="The option &apos;Enable Retinues&apos; is disabled." />
-    <string
       id="ret_doctrine_retinues_vanguard"
       text="Vanguard" />
     <string
@@ -505,9 +487,6 @@
     <string
       id="ret_doctrine_training_advanced_tactics_desc"
       text="+10% skill point gain rate." />
-    <string
-      id="ret_doctrine_training_advanced_tactics_overridden"
-      text="The option &apos;Skill Points Must Be Earned&apos; is disabled." />
     <string
       id="ret_doctrine_training_iron_discipline"
       text="Iron Discipline" />

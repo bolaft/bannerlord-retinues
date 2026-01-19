@@ -113,11 +113,32 @@
       id="ret_build_hint"
       text="Телосложение" />
     <string
+      id="ret_button_change_formation_class_disabled_for_captains"
+      text="Капитаны используют класс формации своих основных войск." />
+    <string
       id="ret_button_change_formation_class_tooltip"
       text="Выберите класс формации." />
     <string
+      id="ret_button_disable_captain"
+      text="Отключить капитана" />
+    <string
+      id="ret_button_enable_captain"
+      text="Включить капитана" />
+    <string
+      id="ret_button_export"
+      text="Экспорт" />
+    <string
+      id="ret_button_export_tooltip"
+      text="Экспортировать выбранную фракцию или отряд в библиотеку." />
+    <string
       id="ret_button_remove_character"
       text="Удалить" />
+    <string
+      id="ret_button_reset"
+      text="Сброс" />
+    <string
+      id="ret_button_reset_tooltip"
+      text="Сбросить к значениям по умолчанию." />
     <string
       id="ret_button_show_battle"
       text="Боевой" />
@@ -166,6 +187,15 @@
     <string
       id="ret_cant_unequip_reason_empty"
       text="Нечего снимать." />
+    <string
+      id="ret_captain_mode_off_hint"
+      text="Переключиться на основную войсковую часть этого капитана." />
+    <string
+      id="ret_captain_mode_on_hint"
+      text="Переключиться на капитана этой войсковой части." />
+    <string
+      id="ret_captain_mode_toggle_tooltip"
+      text="Режим капитана." />
     <string
       id="ret_captain_suffix"
       text="Капитан" />
