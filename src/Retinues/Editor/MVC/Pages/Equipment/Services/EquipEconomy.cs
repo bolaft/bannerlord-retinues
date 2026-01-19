@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Retinues.Behaviors.Doctrines.Catalogs;
 using Retinues.Configuration;
+using Retinues.Domain;
 using Retinues.Domain.Equipments.Models;
 using Retinues.Domain.Equipments.Wrappers;
 
@@ -24,6 +26,27 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Services
             double raw = item.Value * multiplier;
 
             int cost = (int)Math.Round(raw, MidpointRounding.AwayFromZero);
+
+            // Apply Cultural Pride discount if applicable.
+            if (DoctrineCatalog.CulturalPride.IsAcquired)
+            {
+                if (item.Culture == Player.Clan.Culture)
+                {
+                    // 20% discount
+                    cost = (int)Math.Round(cost * 0.8, MidpointRounding.AwayFromZero);
+                }
+            }
+
+            // Apply Royal Patronage discount if applicable.
+            if (DoctrineCatalog.RoyalPatronage.IsAcquired)
+            {
+                if (Player.Kingdom != null && item.Culture == Player.Kingdom.Culture)
+                {
+                    // 20% discount
+                    cost = (int)Math.Round(cost * 0.8, MidpointRounding.AwayFromZero);
+                }
+            }
+
             return Math.Max(cost, 0);
         }
 

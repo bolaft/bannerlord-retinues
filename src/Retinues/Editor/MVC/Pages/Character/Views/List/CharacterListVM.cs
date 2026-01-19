@@ -75,7 +75,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.List
         /// <summary>
         /// On tree change, rebuild the list if in character page.
         /// </summary>
-        [EventListener(UIEvent.Tree)]
+        [EventListener(UIEvent.Tree, UIEvent.Doctrine)]
         private void OnTreeChange()
         {
             if (State.Page != Page)

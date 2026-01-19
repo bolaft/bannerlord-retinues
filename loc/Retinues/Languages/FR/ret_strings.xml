@@ -486,13 +486,13 @@
       text="Maîtres d&apos;armes" />
     <string
       id="ret_doctrine_training_masters_at_arms_desc"
-      text="Accorde +10 points de compétence aux troupes d&apos;élite." />
+      text="Accorde +20 points de compétence aux troupes d&apos;élite." />
     <string
       id="ret_doctrine_training_steadfast_soldiers"
       text="Soldats inébranlables" />
     <string
       id="ret_doctrine_training_steadfast_soldiers_desc"
-      text="Accorde +10 points de compétence aux troupes de base." />
+      text="Accorde +20 points de compétence aux troupes de base." />
     <string
       id="ret_doctrine_troops_armed_peasantry"
       text="Paysannerie armée" />

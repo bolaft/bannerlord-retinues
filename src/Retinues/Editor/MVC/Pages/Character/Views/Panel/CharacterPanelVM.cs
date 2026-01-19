@@ -155,12 +155,12 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Panel
             !State.Character.IsHero
             && (State.Mode == EditorMode.Player || Settings.EnforceSkillLimitsInUniversalMode);
 
-        [EventListener(UIEvent.Skill)]
+        [EventListener(UIEvent.Skill, UIEvent.Doctrine)]
         [DataSourceProperty]
         public string SkillTotalText =>
             $"{State.Character.SkillTotalUsed} / {State.Character.SkillTotal}";
 
-        [EventListener(UIEvent.Skill)]
+        [EventListener(UIEvent.Skill, UIEvent.Doctrine)]
         [DataSourceProperty]
         public string SkillDescriptionText =>
             State.Mode == EditorMode.Player && Settings.SkillPointsMustBeEarned
@@ -208,9 +208,13 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Panel
             new(
                 action: RetinueController.RankUp,
                 arg: () => State.Character,
-                refresh: [UIEvent.Skill],
+                refresh: [UIEvent.Skill, UIEvent.Doctrine],
                 visibilityGate: () => State.Mode == EditorMode.Player && State.Character.IsRetinue
             );
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Skill Grid                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceProperty]
         public MBBindingList<CharacterSkillVM> SkillsRow1 { get; } = [];
@@ -254,7 +258,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Panel
         [DataSourceProperty]
         public bool SkillsLayout_Small { get; private set; }
 
-        [EventListener(UIEvent.Character)]
+        [EventListener(UIEvent.Character, UIEvent.Doctrine)]
         public void RefreshSkillsGrid()
         {
             var skills = State.Character.Skills;

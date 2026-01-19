@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using HarmonyLib;
+using Retinues.Behaviors.Doctrines.Catalogs;
 using Retinues.Configuration;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Utilities;
@@ -25,6 +26,9 @@ namespace Retinues.Behaviors.Agents.Patches
         {
             try
             {
+                if (DoctrineCatalog.Captains.IsAcquired == false)
+                    return; // Feature disabled.
+
                 var mission = Mission.Current;
 
                 // Only affect combat missions.

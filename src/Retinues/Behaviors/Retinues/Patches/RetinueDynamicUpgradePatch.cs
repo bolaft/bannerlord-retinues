@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using HarmonyLib;
+using Retinues.Behaviors.Doctrines.Catalogs;
 using Retinues.Configuration;
 using Retinues.Domain;
 using Retinues.Domain.Characters.Wrappers;
@@ -71,6 +72,10 @@ namespace Retinues.Behaviors.Retinues.Patches
                 return;
 
             var cap = (int)Math.Floor(party.PartySizeLimit * Settings.MaxRetinueRatio);
+
+            // +15% retinue cap from Vanguard doctrine
+            if (DoctrineCatalog.Vanguard.IsAcquired)
+                cap = (int)Math.Floor(cap * 1.15);
 
             var totalRetinues = party
                 .MemberRoster.Elements.Where(e => e.Troop.IsRetinue == true)

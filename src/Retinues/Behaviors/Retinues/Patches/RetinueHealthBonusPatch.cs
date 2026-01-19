@@ -1,5 +1,6 @@
 using System;
 using HarmonyLib;
+using Retinues.Behaviors.Doctrines.Catalogs;
 using Retinues.Configuration;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Utilities;
@@ -32,7 +33,13 @@ namespace Retinues.Behaviors.Retinues.Patches
                 if (!__result.IsHuman)
                     return;
 
-                var bonus = Settings.RetinueHealthBonus;
+                int bonus = Settings.RetinueHealthBonus;
+
+                // +10% retinue health bonus from Indomitable doctrine
+                if (DoctrineCatalog.Indomitable.IsAcquired)
+                    bonus += (int)
+                        Math.Round(__result.BaseHealthLimit * 0.1, MidpointRounding.AwayFromZero);
+
                 if (bonus <= 0)
                     return;
 

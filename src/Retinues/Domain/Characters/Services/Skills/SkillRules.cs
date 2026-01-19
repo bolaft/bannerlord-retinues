@@ -1,7 +1,9 @@
 using System;
+using Retinues.Behaviors.Doctrines.Catalogs;
 using Retinues.Compatibility;
 using Retinues.Configuration;
 using Retinues.Domain.Characters.Wrappers;
+using Retinues.Utilities;
 
 namespace Retinues.Domain.Characters.Services.Skills
 {
@@ -63,6 +65,9 @@ namespace Retinues.Domain.Characters.Services.Skills
                 if (wc.IsCaptain && wc.IsMaxTier)
                     bonus = (int)(cap * MaxTierCaptainMultiplier);
 
+                if (DoctrineCatalog.IronDiscipline.IsAcquired)
+                    bonus += 5;
+
                 return bonus;
             }
 
@@ -109,10 +114,20 @@ namespace Retinues.Domain.Characters.Services.Skills
                 if (wc.IsCaptain && wc.IsMaxTier)
                     bonus = (int)(total * MaxTierCaptainMultiplier);
 
+                if (DoctrineCatalog.SteadfastSoldiers.IsAcquired && wc.IsBasic)
+                    bonus += 20;
+
+                if (DoctrineCatalog.MastersAtArms.IsAcquired && wc.IsElite)
+                    bonus += 20;
+
                 return bonus;
             }
 
-            return total + ComputeBonus();
+            Log.Info($"Base skill total for tier {tier} is {total}.");
+            var bonus = ComputeBonus();
+            Log.Info($"Computed bonus is {bonus}.");
+
+            return total + bonus;
         }
     }
 }

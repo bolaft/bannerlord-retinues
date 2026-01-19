@@ -486,13 +486,13 @@
       text="Waffenmeister" />
     <string
       id="ret_doctrine_training_masters_at_arms_desc"
-      text="Gewährt +10 Fertigkeitspunkte für Elite-Truppen." />
+      text="Gewährt +20 Fertigkeitspunkte für Elite-Truppen." />
     <string
       id="ret_doctrine_training_steadfast_soldiers"
       text="Unerschütterliche Soldaten" />
     <string
       id="ret_doctrine_training_steadfast_soldiers_desc"
-      text="Gewährt +10 Fertigkeitspunkte für Basistruppen." />
+      text="Gewährt +20 Fertigkeitspunkte für Basistruppen." />
     <string
       id="ret_doctrine_troops_armed_peasantry"
       text="Bewaffnete Bauern" />

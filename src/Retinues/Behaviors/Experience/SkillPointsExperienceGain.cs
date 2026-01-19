@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Retinues.Behaviors.Doctrines.Catalogs;
 using Retinues.Configuration;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Interface.Services;
@@ -42,6 +43,10 @@ namespace Retinues.Behaviors.Experience
             int xpRequired = GetXpRequiredForSkillPoint(wc.Base, party);
             if (xpRequired <= 0 || xpRequired >= VanillaInvalidXpCost)
                 return;
+
+            // Apply doctrine modifiers.
+            if (DoctrineCatalog.AdvancedTactics.IsAcquired)
+                gainedXp = (int)(gainedXp * 1.1f);
 
             // Apply gained XP to skill point experience.
             wc.SkillPointsExperience += gainedXp;

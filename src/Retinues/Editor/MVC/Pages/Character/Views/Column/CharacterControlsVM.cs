@@ -1,3 +1,4 @@
+using Retinues.Behaviors.Doctrines.Catalogs;
 using Retinues.Compatibility;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Editor.Events;
@@ -23,20 +24,21 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Column
         //                      Captain Mode                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        [EventListener(UIEvent.Character)]
+        [EventListener(UIEvent.Character, UIEvent.Doctrine)]
         [DataSourceProperty]
-        public bool ShowCaptainModeToggle => !State.Character.IsHero;
+        public bool ShowCaptainModeToggle =>
+            !State.Character.IsHero && DoctrineCatalog.Captains.IsAcquired;
 
         [DataSourceProperty]
         public Icon CaptainModeIcon { get; } =
             new(
                 tooltip: new Tooltip(L.T("captain_mode_toggle_tooltip", "Captain mode.")),
-                refresh: [UIEvent.Character],
+                refresh: [UIEvent.Character, UIEvent.Doctrine],
                 spriteFactory: () =>
                     State.Character.IsCaptain
                         ? @"Encyclopedia\star_without_glow"
                         : @"Encyclopedia\star_outline",
-                visibilityGate: () => !State.Character.IsHero
+                visibilityGate: () => !State.Character.IsHero && DoctrineCatalog.Captains.IsAcquired
             );
 
         [DataSourceProperty]
@@ -44,8 +46,8 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Column
             new(
                 action: CaptainsController.ToggleCaptainMode,
                 getSelected: () => State.Character?.IsCaptain ?? false,
-                refresh: [UIEvent.Character],
-                visibilityGate: () => !State.Character.IsHero
+                refresh: [UIEvent.Character, UIEvent.Doctrine],
+                visibilityGate: () => !State.Character.IsHero && DoctrineCatalog.Captains.IsAcquired
             );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

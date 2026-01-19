@@ -498,13 +498,13 @@
       text="Masters-at-Arms" />
     <string
       id="ret_doctrine_training_masters_at_arms_desc"
-      text="Grants +10 skill points to elite troops." />
+      text="Grants +20 skill points to elite troops." />
     <string
       id="ret_doctrine_training_steadfast_soldiers"
       text="Steadfast Soldiers" />
     <string
       id="ret_doctrine_training_steadfast_soldiers_desc"
-      text="Grants +10 skill points to basic troops." />
+      text="Grants +20 skill points to basic troops." />
     <string
       id="ret_doctrine_troops_armed_peasantry"
       text="Armed Peasantry" />
@@ -1168,6 +1168,9 @@
     <string
       id="ret_heroes_cannot_be_exported"
       text="Heroes cannot be exported." />
+    <string
+      id="ret_immortals_restored_message"
+      text="Immortals: {REVIVED} of {TOTAL} fallen {TROOP} survived grievous wounds." />
     <string
       id="ret_in_stock"
       text="In Stock ({STOCK})" />
@@ -2038,6 +2041,9 @@
     <string
       id="ret_retinue_default_name"
       text="{CLAN} House Guard" />
+    <string
+      id="ret_retinue_morale_bonus_bound_by_honor"
+      text="Bound by Honor" />
     <string
       id="ret_retinue_progress_source_allies"
       text="Won battle with allies" />

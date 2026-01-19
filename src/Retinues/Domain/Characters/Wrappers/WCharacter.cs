@@ -134,8 +134,11 @@ namespace Retinues.Domain.Characters.Wrappers
         }
 
         public bool IsRetinue => (SourceFlags & TroopSourceFlags.Retinue) != 0;
-        public bool IsElite => (SourceFlags & TroopSourceFlags.Elite) != 0;
-        public bool IsBasic => (SourceFlags & TroopSourceFlags.Basic) != 0;
+        public bool IsRegular =>
+            (SourceFlags & TroopSourceFlags.Elite) != 0
+            || (SourceFlags & TroopSourceFlags.Basic) != 0; // Regular troops are from basic or elite sources
+        public bool IsElite => (SourceFlags & TroopSourceFlags.Elite) != 0 || IsRetinue; // Retinues are always elite
+        public bool IsBasic => (SourceFlags & TroopSourceFlags.Basic) != 0 || !IsElite; // Non-elite are always basic
         public bool IsMercenary => (SourceFlags & TroopSourceFlags.Mercenary) != 0;
         public bool IsBandit => (SourceFlags & TroopSourceFlags.Bandit) != 0;
         public bool IsMilitia => (SourceFlags & TroopSourceFlags.Militia) != 0;

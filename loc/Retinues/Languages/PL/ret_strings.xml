@@ -486,13 +486,13 @@
       text="Mistrzowie broni" />
     <string
       id="ret_doctrine_training_masters_at_arms_desc"
-      text="Przyznaje +10 punktów umiejętności dla elitarnych oddziałów." />
+      text="Przyznaje +20 punktów umiejętności dla elitarnych oddziałów." />
     <string
       id="ret_doctrine_training_steadfast_soldiers"
       text="Niezłomni żołnierze" />
     <string
       id="ret_doctrine_training_steadfast_soldiers_desc"
-      text="Przyznaje +10 punktów umiejętności podstawowym oddziałom." />
+      text="Przyznaje +20 punktów umiejętności podstawowym oddziałom." />
     <string
       id="ret_doctrine_troops_armed_peasantry"
       text="Uzbrojeni chłopi" />

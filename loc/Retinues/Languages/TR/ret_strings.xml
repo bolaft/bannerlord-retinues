@@ -486,13 +486,13 @@
       text="Silah Ustaları" />
     <string
       id="ret_doctrine_training_masters_at_arms_desc"
-      text="Seçkin birliklere +10 yetenek puanı verir." />
+      text="Seçkin birliklere +20 yetenek puanı verir." />
     <string
       id="ret_doctrine_training_steadfast_soldiers"
       text="Sarsılmaz Askerler" />
     <string
       id="ret_doctrine_training_steadfast_soldiers_desc"
-      text="Temel birliklere +10 yetenek puanı verir." />
+      text="Temel birliklere +20 yetenek puanı verir." />
     <string
       id="ret_doctrine_troops_armed_peasantry"
       text="Silahlı Köylüler" />

@@ -74,7 +74,7 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
             _previousSlot = currentSlot;
         }
 
-        [EventListener(UIEvent.Crafted, UIEvent.Preview)]
+        [EventListener(UIEvent.Crafted, UIEvent.Preview, UIEvent.Doctrine)]
         private void OnModeChange()
         {
             if (State.Page != Page)

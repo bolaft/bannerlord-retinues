@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Retinues.Behaviors.Doctrines.Catalogs;
 using Retinues.Configuration;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Framework.Model.Attributes;
@@ -40,6 +41,11 @@ namespace Retinues.Domain.Equipments.Wrappers
         {
             if (!Settings.EquipmentNeedsUnlocking)
                 return UnlockThreshold; // Always unlocked.
+
+            // Special case: Ancestral Heritage doctrine.
+            if (DoctrineCatalog.AncestralHeritage.IsAcquired)
+                if (Player.Clan.Culture == Culture)
+                    return UnlockThreshold; // Always unlocked for matching culture.
 
             var map = UnlockProgressByHeroAttribute.Get() ?? [];
 

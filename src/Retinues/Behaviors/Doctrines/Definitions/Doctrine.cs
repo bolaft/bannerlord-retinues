@@ -120,7 +120,7 @@ namespace Retinues.Behaviors.Doctrines.Definitions
         /* ━━━━━━━━━ State ━━━━━━━━ */
 
         public bool IsAcquired { get; set; } = false;
-        public bool IsUnlocked => Progress >= ProgressTarget;
+        public bool IsUnlocked => GetState() == State.Unlocked || Progress >= ProgressTarget; // Check both state and progress.
         public bool IsInProgress => GetState() == State.InProgress;
         public bool IsLocked => GetState() == State.Locked;
         public bool IsOverridden => OverriddenFunc();
@@ -148,12 +148,16 @@ namespace Retinues.Behaviors.Doctrines.Definitions
                 return State.Acquired;
 
             // If progress is complete, return unlocked.
-            if (IsUnlocked)
+            if (Progress >= ProgressTarget)
                 return State.Unlocked;
 
             // If there is a previous doctrine and it is not acquired, this one is locked.
             if (Prerequisite != null && !Prerequisite.IsAcquired)
                 return State.Locked;
+
+            // Feats disabled by settings
+            if (!Settings.EnableFeatRequirements)
+                return State.Unlocked;
 
             // Otherwise, return in progress.
             return State.InProgress;

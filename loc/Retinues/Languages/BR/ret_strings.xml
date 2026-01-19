@@ -486,13 +486,13 @@
       text="Mestres de Armas" />
     <string
       id="ret_doctrine_training_masters_at_arms_desc"
-      text="Concede +10 pontos de habilidade para tropas de elite." />
+      text="Concede +20 pontos de habilidade para tropas de elite." />
     <string
       id="ret_doctrine_training_steadfast_soldiers"
       text="Soldados Fieis" />
     <string
       id="ret_doctrine_training_steadfast_soldiers_desc"
-      text="Concede +10 pontos de habilidade para tropas básicas." />
+      text="Concede +20 pontos de habilidade para tropas básicas." />
     <string
       id="ret_doctrine_troops_armed_peasantry"
       text="Camponeses Armados" />

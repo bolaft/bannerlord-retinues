@@ -486,13 +486,13 @@
       text="武艺大师" />
     <string
       id="ret_doctrine_training_masters_at_arms_desc"
-      text="精英部队获得 +10 技能点。" />
+      text="精英部队获得 +20 技能点。" />
     <string
       id="ret_doctrine_training_steadfast_soldiers"
       text="坚定的士兵" />
     <string
       id="ret_doctrine_training_steadfast_soldiers_desc"
-      text="基础部队获得 +10 技能点。" />
+      text="基础部队获得 +20 技能点。" />
     <string
       id="ret_doctrine_troops_armed_peasantry"
       text="武装农民" />

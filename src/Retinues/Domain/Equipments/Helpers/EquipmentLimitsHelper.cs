@@ -1,4 +1,5 @@
 using System;
+using Retinues.Behaviors.Doctrines.Catalogs;
 using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Framework.Runtime;
 using TaleWorlds.Core;
@@ -71,6 +72,10 @@ namespace Retinues.Domain.Equipments.Helpers
             float baseLimit = WeightLimitByTier[tier];
             float limit = baseLimit * multiplier;
 
+            // +15% weight limit from Ironclad doctrine
+            if (DoctrineCatalog.Ironclad.IsAcquired)
+                limit *= 1.15f;
+
             return Math.Max(limit, 0f);
         }
 
@@ -83,6 +88,10 @@ namespace Retinues.Domain.Equipments.Helpers
 
             int baseLimit = ValueLimitByTier[tier];
             int limit = (int)Math.Round(baseLimit * multiplier, MidpointRounding.AwayFromZero);
+
+            // +15% value limit from Honor Guard doctrine
+            if (DoctrineCatalog.HonorGuard.IsAcquired)
+                limit = (int)Math.Round(limit * 1.15, MidpointRounding.AwayFromZero);
 
             return Math.Max(limit, 0);
         }

@@ -486,13 +486,13 @@
       text="武器の達人" />
     <string
       id="ret_doctrine_training_masters_at_arms_desc"
-      text="エリート部隊に+10のスキルポイントを付与します。" />
+      text="エリート部隊に+20のスキルポイントを付与します。" />
     <string
       id="ret_doctrine_training_steadfast_soldiers"
       text="不動の兵士" />
     <string
       id="ret_doctrine_training_steadfast_soldiers_desc"
-      text="基本部隊に+10のスキルポイントを付与します。" />
+      text="基本部隊に+20のスキルポイントを付与します。" />
     <string
       id="ret_doctrine_troops_armed_peasantry"
       text="武装した農民" />

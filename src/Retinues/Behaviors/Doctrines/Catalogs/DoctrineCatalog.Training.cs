@@ -49,7 +49,7 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                         Name = L.T("doctrine_training_steadfast_soldiers", "Steadfast Soldiers"),
                         Description = L.T(
                             "doctrine_training_steadfast_soldiers_desc",
-                            "Grants +10 skill points to basic troops."
+                            "Grants +20 skill points to basic troops."
                         ),
                         Sprite = "PerkArmorUpgrade",
                         Feats =
@@ -65,7 +65,7 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                         Name = L.T("doctrine_training_masters_at_arms", "Masters-at-Arms"),
                         Description = L.T(
                             "doctrine_training_masters_at_arms_desc",
-                            "Grants +10 skill points to elite troops."
+                            "Grants +20 skill points to elite troops."
                         ),
                         Sprite = "PerkCavalrySpear",
                         Feats =

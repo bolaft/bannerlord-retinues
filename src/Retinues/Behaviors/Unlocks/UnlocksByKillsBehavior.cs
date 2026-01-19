@@ -119,16 +119,11 @@ namespace Retinues.Behaviors.Unlocks
             // Case 2: Victim is ally troop.
             if (victim.IsAllyTroop)
             {
-                // Case 2.a: Count ally casualties.
+                // Count ally casualties if Pragmatic Scavengers is acquired.
                 if (DoctrineCatalog.PragmaticScavengers.IsAcquired)
-                {
                     return 1f;
-                }
-                // Case 2.b: Don't count ally casualties.
                 else
-                {
                     return 0f;
-                }
             }
 
             // Case 3: Victim is enemy troop.
@@ -136,25 +131,24 @@ namespace Retinues.Behaviors.Unlocks
             {
                 // Case 3.a: Killer is player.
                 if (killer.IsPlayer)
-                {
                     return 1f;
-                }
                 // Case 3.b: Killer is player troop.
                 else if (killer.IsPlayerTroop)
                 {
-                    return 1f;
+                    // Double loot chance if Lions' Share is acquired.
+                    if (DoctrineCatalog.LionsShare.IsAcquired)
+                        return 2f;
+                    else
+                        return 1f;
                 }
                 // Case 3.c: Killer is ally troop.
                 else if (killer.IsAllyTroop)
                 {
+                    // Count ally kills if Battlefield Tithes is acquired.
                     if (DoctrineCatalog.BattlefieldTithes.IsAcquired)
-                    {
                         return 1f;
-                    }
                     else
-                    {
                         return 0f;
-                    }
                 }
             }
 

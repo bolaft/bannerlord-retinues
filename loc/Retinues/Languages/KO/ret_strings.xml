@@ -486,13 +486,13 @@
       text="무기 달인" />
     <string
       id="ret_doctrine_training_masters_at_arms_desc"
-      text="정예 부대에 +10 기술 포인트를 부여합니다." />
+      text="정예 부대에 +20 기술 포인트를 부여합니다." />
     <string
       id="ret_doctrine_training_steadfast_soldiers"
       text="확고한 병사" />
     <string
       id="ret_doctrine_training_steadfast_soldiers_desc"
-      text="기본 부대에 +10 기술 포인트를 부여합니다." />
+      text="기본 부대에 +20 기술 포인트를 부여합니다." />
     <string
       id="ret_doctrine_troops_armed_peasantry"
       text="무장한 농민" />

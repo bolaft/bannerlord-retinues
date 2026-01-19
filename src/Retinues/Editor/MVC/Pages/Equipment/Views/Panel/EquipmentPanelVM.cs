@@ -38,8 +38,7 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.Panel
         [DataSourceProperty]
         public bool IsValueLimitVisible => ValueLimitActive;
 
-        [EventListener(UIEvent.Item)]
-        [EventListener(UIEvent.Equipment)]
+        [EventListener(UIEvent.Item, UIEvent.Doctrine)]
         [DataSourceProperty]
         public string WeightValueText
         {
@@ -55,8 +54,7 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.Panel
             }
         }
 
-        [EventListener(UIEvent.Item)]
-        [EventListener(UIEvent.Equipment)]
+        [EventListener(UIEvent.Item, UIEvent.Doctrine)]
         [DataSourceProperty]
         public string WeightLimitText
         {
@@ -74,8 +72,7 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.Panel
             }
         }
 
-        [EventListener(UIEvent.Item)]
-        [EventListener(UIEvent.Equipment)]
+        [EventListener(UIEvent.Item, UIEvent.Doctrine)]
         [DataSourceProperty]
         public string ValueValueText
         {
@@ -91,8 +88,7 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.Panel
             }
         }
 
-        [EventListener(UIEvent.Item)]
-        [EventListener(UIEvent.Equipment)]
+        [EventListener(UIEvent.Item, UIEvent.Doctrine)]
         [DataSourceProperty]
         public string ValueLimitText
         {
@@ -110,8 +106,7 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.Panel
             }
         }
 
-        [EventListener(UIEvent.Item)]
-        [EventListener(UIEvent.Equipment)]
+        [EventListener(UIEvent.Item, UIEvent.Doctrine)]
         [DataSourceProperty]
         public Color WeightValueColor
         {
@@ -139,8 +134,7 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.Panel
             }
         }
 
-        [EventListener(UIEvent.Item)]
-        [EventListener(UIEvent.Equipment)]
+        [EventListener(UIEvent.Item, UIEvent.Doctrine)]
         [DataSourceProperty]
         public Color ValueValueColor
         {

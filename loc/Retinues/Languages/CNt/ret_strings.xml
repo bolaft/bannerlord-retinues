@@ -486,13 +486,13 @@
       text="武藝大師" />
     <string
       id="ret_doctrine_training_masters_at_arms_desc"
-      text="精英部隊獲得 +10 技能點。" />
+      text="精英部隊獲得 +20 技能點。" />
     <string
       id="ret_doctrine_training_steadfast_soldiers"
       text="堅定的士兵" />
     <string
       id="ret_doctrine_training_steadfast_soldiers_desc"
-      text="基礎部隊獲得 +10 技能點。" />
+      text="基礎部隊獲得 +20 技能點。" />
     <string
       id="ret_doctrine_troops_armed_peasantry"
       text="武裝農民" />
