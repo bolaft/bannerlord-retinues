@@ -680,11 +680,20 @@
       id="ret_export_character_no_heroes"
       text="영웅 데이터는 저장 상태에 연결되어 있습니다." />
     <string
+      id="ret_export_choose_target_body"
+      text="다음 중 무엇을 내보내시겠습니까?" />
+    <string
+      id="ret_export_choose_target_title"
+      text="내보내기" />
+    <string
       id="ret_export_done_desc"
       text="내보내기가 다음 위치에 작성됨:{newline}{PATH}" />
     <string
       id="ret_export_done_title"
       text="내보내기 완료" />
+    <string
+      id="ret_export_faction_invalid"
+      text="선택한 진영이 잘못되었습니다." />
     <string
       id="ret_export_failed_exception"
       text="파일을 쓸 수 없습니다." />
@@ -701,11 +710,20 @@
       id="ret_export_name_title"
       text="내보내기 이름" />
     <string
+      id="ret_export_none_available"
+      text="지금은 내보낼 수 있는 항목이 없습니다." />
+    <string
       id="ret_export_overwrite_desc"
       text="&apos;{NAME}&apos;라는 이름의 파일이 이미 존재합니다.{newline}{newline}덮어쓰시겠습니까?" />
     <string
       id="ret_export_overwrite_title"
       text="파일이 이미 존재합니다" />
+    <string
+      id="ret_export_target_faction_disabled"
+      text="유효한 진영이 선택되지 않았습니다." />
+    <string
+      id="ret_export_target_troop_disabled"
+      text="영웅은 내보낼 수 없습니다." />
     <string
       id="ret_faction_troops_unlocked_desc"
       text="{COUNT}명의 새로운 부대가 이제 {FACTION} {FACTION_TYPE}에서 사용할 수 있습니다." />
@@ -1106,6 +1124,12 @@
       id="ret_formation_option_auto"
       text="자동" />
     <string
+      id="ret_formation_option_auto_hint"
+      text="장비를 기반으로 게임이 자동으로 대형 클래스를 선택하도록 하십시오." />
+    <string
+      id="ret_formation_option_hint"
+      text="{CLASS} 대형을 강제하십시오." />
+    <string
       id="ret_formation_popup_desc"
       text="이 유닛이 분류되는 방식을 선택하십시오. 장비를 기반으로 분류하려면 &apos;자동&apos;으로 두십시오." />
     <string
@@ -1424,6 +1448,9 @@
       id="ret_list_header_villagers"
       text="마을 사람들" />
     <string
+      id="ret_mariner_captain_reason"
+      text="대위는 기본 부대의 선원 능력을 공유합니다." />
+    <string
       id="ret_mariner_disable_tooltip"
       text="이 유닛의 선원 능력을 비활성화합니다." />
     <string
@@ -1441,6 +1468,15 @@
     <string
       id="ret_mcm_option_allowed_recruiters"
       text="허용된 모집자" />
+    <string
+      id="ret_mcm_option_allowed_recruiters_hint"
+      text="누가 맞춤 부대를 모집할 수 있는지 결정합니다. &apos;모두&apos;: 모든 진영이 맞춤 부대를 모집할 수 있습니다(다른 모집 모드와의 호환성을 위해 권장). &apos;진영만&apos;: 진영만 맞춤 부대를 모집할 수 있습니다. &apos;플레이어만&apos;: 플레이어만 맞춤 부대를 모집할 수 있습니다." />
+    <string
+      id="ret_mcm_option_captain_spawn_rate"
+      text="대위 생성 속도" />
+    <string
+      id="ret_mcm_option_captain_spawn_rate_hint"
+      text="또 다른 대위가 생성되기 전에 얼마나 많은 정규 부대를 배치해야 하는지 결정합니다." />
     <string
       id="ret_mcm_option_clan_troops_availability"
       text="클랜 부대 가용성" />
@@ -1492,6 +1528,9 @@
     <string
       id="ret_mcm_option_editing_restriction"
       text="위치 제한" />
+    <string
+      id="ret_mcm_option_editing_restriction_hint"
+      text="진영 부대를 편집할 수 있는 위치를 제한합니다. &apos;어디서나&apos;: 제한 없음. &apos;모든 정착지&apos;: 정착지에 있어야 합니다. &apos;진영 정착지&apos;: 소유한 진영 영지에 있어야 합니다. 참고: 호위대는 이 설정의 영향을 받지 않습니다." />
     <string
       id="ret_mcm_option_editor_hotkey"
       text="편집기 단축키" />
@@ -1688,6 +1727,12 @@
       id="ret_mcm_option_retinue_unlock_speed_hint"
       text="새로운 Retinue의 잠금 해제 속도에 영향을 미치는 승수입니다." />
     <string
+      id="ret_mcm_option_same_culture_only"
+      text="동일 문화만" />
+    <string
+      id="ret_mcm_option_same_culture_only_hint"
+      text="활성화되면 맞춤형 부대는 동일한 문화의 정착지에서만 모집할 수 있습니다." />
+    <string
       id="ret_mcm_option_skill_cap"
       text="티어 {TIER}" />
     <string
@@ -1721,8 +1766,14 @@
       id="ret_mcm_option_starter_equipment"
       text="초기 장비" />
     <string
+      id="ret_mcm_option_starter_equipment_hint"
+      text="새로 잠금 해제된 부대의 초기 장비를 설정합니다. &apos;무작위&apos;: 무작위 장비 세트가 할당됩니다. &apos;한 세트 복사&apos;: 기본 부대에서 한 장비 세트가 복사됩니다. &apos;모든 세트 복사&apos;: 기본 부대에서 모든 장비 세트가 복사됩니다. &apos;비어 있음&apos;: 초기 장비가 생성되지 않습니다." />
+    <string
       id="ret_mcm_option_starter_troops"
       text="초기 부대" />
+    <string
+      id="ret_mcm_option_starter_troops_hint"
+      text="클랜 및 왕국 초기 부대를 결정합니다. &apos;루트만&apos;: 기본 부대 1개와 정예 부대 1개만 생성됩니다. &apos;린 트리&apos;: 시작 시 엄선된 부대가 생성됩니다. &apos;전체 트리&apos;: 전체 범위의 부대가 자동으로 생성됩니다." />
     <string
       id="ret_mcm_option_time_multiplier"
       text="장비 시간 배수" />
@@ -1892,6 +1943,9 @@
       id="ret_rank_up_max_tier"
       text="이 유닛은 이미 최대 등급에 도달했습니다." />
     <string
+      id="ret_rank_up_no_captains"
+      text="선장은 등급을 올릴 수 없습니다." />
+    <string
       id="ret_rank_up_not_enough_money"
       text="돈이 부족합니다({COST} 데나르 필요)." />
     <string
@@ -1915,6 +1969,39 @@
     <string
       id="ret_rename_unit"
       text="새 이름" />
+    <string
+      id="ret_reset_character_body"
+      text="{NAME}을(를) 기본값으로 재설정하시겠습니까?{newline}{newline}이 작업은 이 캐릭터에 대한 모든 편집을 취소합니다.{newline}{newline}이 작업을 적용하려면 게임을 저장하고 다시 시작하십시오." />
+    <string
+      id="ret_reset_character_title"
+      text="기본값으로 재설정" />
+    <string
+      id="ret_reset_choose_target_body"
+      text="다음 중 어느 것을 기본값으로 재설정하시겠습니까?" />
+    <string
+      id="ret_reset_choose_target_title"
+      text="기본값으로 재설정" />
+    <string
+      id="ret_reset_confirm"
+      text="재설정" />
+    <string
+      id="ret_reset_default_universal_only"
+      text="범용 편집기에서만 사용할 수 있습니다." />
+    <string
+      id="ret_reset_done_body"
+      text="이 작업을 적용하려면 게임을 저장하고 다시 시작하십시오." />
+    <string
+      id="ret_reset_done_title"
+      text="재설정 예정" />
+    <string
+      id="ret_reset_faction_body"
+      text="{FACTION}의 모든 부대를 기본값으로 재설정하시겠습니까?{newline}{newline}이 작업은 {COUNT} 부대에 대한 모든 편집을 취소합니다.{newline}{newline}이 작업을 적용하려면 게임을 저장하고 다시 시작하십시오." />
+    <string
+      id="ret_reset_faction_title"
+      text="기본값으로 재설정" />
+    <string
+      id="ret_reset_none_available"
+      text="지금은 아무 것도 재설정할 수 없습니다." />
     <string
       id="ret_retinue_culture_default_name"
       text="{CLAN} {CULTURE} 수행원" />

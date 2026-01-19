@@ -680,11 +680,20 @@
       id="ret_export_character_no_heroes"
       text="英雄數據與保存狀態相關聯。" />
     <string
+      id="ret_export_choose_target_body"
+      text="導出以下哪一項？" />
+    <string
+      id="ret_export_choose_target_title"
+      text="導出" />
+    <string
       id="ret_export_done_desc"
       text="導出寫入到：{newline}{PATH}" />
     <string
       id="ret_export_done_title"
       text="導出完成" />
+    <string
+      id="ret_export_faction_invalid"
+      text="所選陣營無效。" />
     <string
       id="ret_export_failed_exception"
       text="無法寫入文件。" />
@@ -701,11 +710,20 @@
       id="ret_export_name_title"
       text="導出名稱" />
     <string
+      id="ret_export_none_available"
+      text="現在無法導出任何內容。" />
+    <string
       id="ret_export_overwrite_desc"
       text="名為“{NAME}”的文件已存在。{newline}{newline}您想要覆蓋它嗎？" />
     <string
       id="ret_export_overwrite_title"
       text="文件已存在" />
+    <string
+      id="ret_export_target_faction_disabled"
+      text="未選擇有效的陣營。" />
+    <string
+      id="ret_export_target_troop_disabled"
+      text="英雄無法導出。" />
     <string
       id="ret_faction_troops_unlocked_desc"
       text="{COUNT} 名新兵現已可供 {FACTION} {FACTION_TYPE} 使用。" />
@@ -1106,6 +1124,12 @@
       id="ret_formation_option_auto"
       text="自動" />
     <string
+      id="ret_formation_option_auto_hint"
+      text="讓遊戲根據裝備自動選擇編隊類別。" />
+    <string
+      id="ret_formation_option_hint"
+      text="強制使用 {CLASS} 編隊。" />
+    <string
       id="ret_formation_popup_desc"
       text="選擇此單位的分類方式。保持“自動”以根據其裝備進行分類。" />
     <string
@@ -1424,6 +1448,9 @@
       id="ret_list_header_villagers"
       text="村民" />
     <string
+      id="ret_mariner_captain_reason"
+      text="船長與其基礎部隊共享水手能力。" />
+    <string
       id="ret_mariner_disable_tooltip"
       text="禁用此單位的水手能力。" />
     <string
@@ -1441,6 +1468,15 @@
     <string
       id="ret_mcm_option_allowed_recruiters"
       text="允許的招募者" />
+    <string
+      id="ret_mcm_option_allowed_recruiters_hint"
+      text="確定誰可以招募自定義部隊。&apos;所有人&apos;：所有派系都可以招募自定義部隊（推薦與其他招募模組兼容）。&apos;僅限派系&apos;：只有派系可以招募自定義部隊。&apos;僅限玩家&apos;：只有玩家可以招募自定義部隊。" />
+    <string
+      id="ret_mcm_option_captain_spawn_rate"
+      text="船長生成率" />
+    <string
+      id="ret_mcm_option_captain_spawn_rate_hint"
+      text="確定在生成另一個船長之前必須部署多少正規部隊。" />
     <string
       id="ret_mcm_option_clan_troops_availability"
       text="氏族部隊可用性" />
@@ -1492,6 +1528,9 @@
     <string
       id="ret_mcm_option_editing_restriction"
       text="位置限制" />
+    <string
+      id="ret_mcm_option_editing_restriction_hint"
+      text="限制派系部隊可以編輯的位置。&apos;任何地方&apos;：無限制。&apos;任何定居點&apos;：您必須在定居點中。&apos;派系定居點&apos;：您必須在擁有的派系封地中。注意：護衛隊不受此設置影響。" />
     <string
       id="ret_mcm_option_editor_hotkey"
       text="編輯器熱鍵" />
@@ -1688,6 +1727,12 @@
       id="ret_mcm_option_retinue_unlock_speed_hint"
       text="影響新隨從解鎖速度的乘數。" />
     <string
+      id="ret_mcm_option_same_culture_only"
+      text="僅限同文化" />
+    <string
+      id="ret_mcm_option_same_culture_only_hint"
+      text="如果啟用，自定義部隊只能在同一文化的定居點招募。" />
+    <string
       id="ret_mcm_option_skill_cap"
       text="等級 {TIER}" />
     <string
@@ -1721,8 +1766,14 @@
       id="ret_mcm_option_starter_equipment"
       text="起始裝備" />
     <string
+      id="ret_mcm_option_starter_equipment_hint"
+      text="設置新解鎖部隊的起始裝備。&apos;隨機&apos;：分配一個隨機裝備集。&apos;複製一個套裝&apos;：從基礎部隊複製一個裝備套裝。&apos;複製所有套裝&apos;：從基礎部隊複製所有裝備套裝。&apos;空&apos;：不創建起始裝備。" />
+    <string
       id="ret_mcm_option_starter_troops"
       text="起始部隊" />
+    <string
+      id="ret_mcm_option_starter_troops_hint"
+      text="確定氏族和王國的起始部隊。&apos;僅限根部&apos;：只創建一支基本部隊和一支精英部隊。&apos;精簡樹&apos;：在開始時創建一組精簡的部隊。&apos;完整樹&apos;：自動創建全系列部隊。" />
     <string
       id="ret_mcm_option_time_multiplier"
       text="裝備時間乘數" />
@@ -1892,6 +1943,9 @@
       id="ret_rank_up_max_tier"
       text="此單位已達到最高等級。" />
     <string
+      id="ret_rank_up_no_captains"
+      text="船長無法升級。" />
+    <string
       id="ret_rank_up_not_enough_money"
       text="錢不夠（需要 {COST} 戈德）。" />
     <string
@@ -1915,6 +1969,39 @@
     <string
       id="ret_rename_unit"
       text="新名稱" />
+    <string
+      id="ret_reset_character_body"
+      text="將 {NAME} 重置為默認值？{newline}{newline}這將撤銷此角色的所有編輯。{newline}{newline}保存並重新啟動遊戲以使此操作生效。" />
+    <string
+      id="ret_reset_character_title"
+      text="重置為默認值" />
+    <string
+      id="ret_reset_choose_target_body"
+      text="將以下哪個重置為默認值？" />
+    <string
+      id="ret_reset_choose_target_title"
+      text="重置為默認值" />
+    <string
+      id="ret_reset_confirm"
+      text="重置" />
+    <string
+      id="ret_reset_default_universal_only"
+      text="僅在通用編輯器中可用。" />
+    <string
+      id="ret_reset_done_body"
+      text="保存並重新啟動遊戲以使此操作生效。" />
+    <string
+      id="ret_reset_done_title"
+      text="重置已安排" />
+    <string
+      id="ret_reset_faction_body"
+      text="將 {FACTION} 中的所有部隊重置為默認值？{newline}{newline}這將撤銷 {COUNT} 個部隊的所有編輯。{newline}{newline}保存並重新啟動遊戲以使此操作生效。" />
+    <string
+      id="ret_reset_faction_title"
+      text="重置為默認值" />
+    <string
+      id="ret_reset_none_available"
+      text="現在無法重置任何內容。" />
     <string
       id="ret_retinue_culture_default_name"
       text="{CLAN} {CULTURE} 隨從" />

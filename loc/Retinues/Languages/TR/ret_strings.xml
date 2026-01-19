@@ -680,11 +680,20 @@
       id="ret_export_character_no_heroes"
       text="Kahraman verileri kaydetme durumuna bağlıdır." />
     <string
+      id="ret_export_choose_target_body"
+      text="Aşağıdakilerden hangisi dışa aktarılsın?" />
+    <string
+      id="ret_export_choose_target_title"
+      text="Dışa Aktar" />
+    <string
       id="ret_export_done_desc"
       text="Dışa aktarma yazıldı:{newline}{PATH}" />
     <string
       id="ret_export_done_title"
       text="Dışa Aktarma Tamamlandı" />
+    <string
+      id="ret_export_faction_invalid"
+      text="Seçilen fraksiyon geçersiz." />
     <string
       id="ret_export_failed_exception"
       text="Dosya yazılamadı." />
@@ -701,11 +710,20 @@
       id="ret_export_name_title"
       text="Dışa Aktarma Adı" />
     <string
+      id="ret_export_none_available"
+      text="Şu anda dışa aktarılacak bir şey yok." />
+    <string
       id="ret_export_overwrite_desc"
       text="&apos;{NAME}&apos; adlı bir dosya zaten var.{newline}{newline}Üzerine yazmak istiyor musunuz?" />
     <string
       id="ret_export_overwrite_title"
       text="Dosya Zaten Var" />
+    <string
+      id="ret_export_target_faction_disabled"
+      text="Geçerli bir fraksiyon seçilmedi." />
+    <string
+      id="ret_export_target_troop_disabled"
+      text="Kahramanlar dışa aktarılamaz." />
     <string
       id="ret_faction_troops_unlocked_desc"
       text="{COUNT} yeni asker artık {FACTION} {FACTION_TYPE} için kullanılabilir." />
@@ -1106,6 +1124,12 @@
       id="ret_formation_option_auto"
       text="Otomatik" />
     <string
+      id="ret_formation_option_auto_hint"
+      text="Oyunun ekipmana göre formasyon sınıfını otomatik olarak seçmesini sağlayın." />
+    <string
+      id="ret_formation_option_hint"
+      text="{CLASS} formasyonunu zorlayın." />
+    <string
       id="ret_formation_popup_desc"
       text="Bu birimin nasıl kategorize edileceğini seçin. Ekipmanına göre kategorize etmek için &apos;Otomatik&apos; olarak bırakın." />
     <string
@@ -1424,6 +1448,9 @@
       id="ret_list_header_villagers"
       text="Köylüler" />
     <string
+      id="ret_mariner_captain_reason"
+      text="Kaptanlar, temel birliklerinin denizci yeteneğini paylaşır." />
+    <string
       id="ret_mariner_disable_tooltip"
       text="Bu birimin denizci yeteneğini devre dışı bırakın." />
     <string
@@ -1441,6 +1468,15 @@
     <string
       id="ret_mcm_option_allowed_recruiters"
       text="İzin Verilen İşe Alımcılar" />
+    <string
+      id="ret_mcm_option_allowed_recruiters_hint"
+      text="Özel birlikleri kimin işe alabileceğini belirler. &apos;Herkes&apos;: Tüm fraksiyonlar özel birlikleri işe alabilir (diğer işe alım modlarıyla uyumluluk için önerilir). &apos;Sadece Fraksiyon&apos;: Sadece fraksiyonlar özel birlikleri işe alabilir. &apos;Sadece Oyuncu&apos;: Sadece oyuncu özel birlikleri işe alabilir." />
+    <string
+      id="ret_mcm_option_captain_spawn_rate"
+      text="Kaptan Oluşum Hızı" />
+    <string
+      id="ret_mcm_option_captain_spawn_rate_hint"
+      text="Başka bir kaptanın ortaya çıkabilmesi için kaç tane normal birliğin sahaya sürülmesi gerektiğini belirler." />
     <string
       id="ret_mcm_option_clan_troops_availability"
       text="Klan Birlikleri Kullanılabilirliği" />
@@ -1492,6 +1528,9 @@
     <string
       id="ret_mcm_option_editing_restriction"
       text="Konum Kısıtlamaları" />
+    <string
+      id="ret_mcm_option_editing_restriction_hint"
+      text="Fraksiyon birliklerinin nerede düzenlenebileceğini kısıtlar. &apos;Her yerde&apos;: Kısıtlama yok. &apos;Her Yerleşim&apos;: Bir yerleşimde olmalısınız. &apos;Fraksiyon Yerleşimi&apos;: Sahip olunan bir fraksiyon topraklarında olmalısınız. Not: Muhafız birlikleri bu ayardan etkilenmez." />
     <string
       id="ret_mcm_option_editor_hotkey"
       text="Düzenleyici Kısayolu" />
@@ -1688,6 +1727,12 @@
       id="ret_mcm_option_retinue_unlock_speed_hint"
       text="Yeni retinue&apos;ların ne kadar hızlı kilidinin açılacağını etkileyen çarpan." />
     <string
+      id="ret_mcm_option_same_culture_only"
+      text="Yalnızca Aynı Kültür" />
+    <string
+      id="ret_mcm_option_same_culture_only_hint"
+      text="Etkinleştirilirse, özel birlikler yalnızca aynı kültürün yerleşimlerinde işe alınabilir." />
+    <string
       id="ret_mcm_option_skill_cap"
       text="{TIER} Seviye" />
     <string
@@ -1721,8 +1766,14 @@
       id="ret_mcm_option_starter_equipment"
       text="Başlangıç Ekipmanı" />
     <string
+      id="ret_mcm_option_starter_equipment_hint"
+      text="Yeni kilidi açılan birlikler için başlangıç ekipmanını ayarlar. &apos;Rastgele&apos;: Rastgele bir ekipman seti atanır. &apos;Bir Seti Kopyala&apos;: Bir ekipman seti temel birlikten kopyalanır. &apos;Tüm Setleri Kopyala&apos;: Tüm ekipman setleri temel birliklerden kopyalanır. &apos;Boş&apos;: Başlangıç ekipmanı oluşturulmaz." />
+    <string
       id="ret_mcm_option_starter_troops"
       text="Başlangıç Birlikleri" />
+    <string
+      id="ret_mcm_option_starter_troops_hint"
+      text="Klan ve krallık başlangıç birliklerini belirler. &apos;Sadece Kökler&apos;: Sadece bir temel ve bir elit birlik oluşturulur. &apos;Sade Ağaçlar&apos;: Başlangıçta sade bir birlik seçkisi oluşturulur. &apos;Tam Ağaçlar&apos;: Birliklerin tam yelpazesi otomatik olarak oluşturulur." />
     <string
       id="ret_mcm_option_time_multiplier"
       text="Ekipman Zaman Çarpanı" />
@@ -1892,6 +1943,9 @@
       id="ret_rank_up_max_tier"
       text="Bu birim zaten maksimum seviyede." />
     <string
+      id="ret_rank_up_no_captains"
+      text="Kaptanlar rütbe atlayamaz." />
+    <string
       id="ret_rank_up_not_enough_money"
       text="Yeterli para yok ({COST} denar gerekli)." />
     <string
@@ -1915,6 +1969,39 @@
     <string
       id="ret_rename_unit"
       text="Yeni İsim" />
+    <string
+      id="ret_reset_character_body"
+      text="{NAME} varsayılan değerlerine sıfırlansın mı?{newline}{newline}Bu, bu karakter için yapılan tüm düzenlemeleri geri alacaktır.{newline}{newline}Bu işlemin geçerli olması için oyunu kaydedin ve yeniden başlatın." />
+    <string
+      id="ret_reset_character_title"
+      text="Varsayılanlara Sıfırla" />
+    <string
+      id="ret_reset_choose_target_body"
+      text="Aşağıdakilerden hangisi varsayılan değerlere sıfırlansın?" />
+    <string
+      id="ret_reset_choose_target_title"
+      text="Varsayılanlara Sıfırla" />
+    <string
+      id="ret_reset_confirm"
+      text="Sıfırla" />
+    <string
+      id="ret_reset_default_universal_only"
+      text="Yalnızca evrensel düzenleyicide kullanılabilir." />
+    <string
+      id="ret_reset_done_body"
+      text="Bu işlemin geçerli olması için oyunu kaydedin ve yeniden başlatın." />
+    <string
+      id="ret_reset_done_title"
+      text="Sıfırlama Planlandı" />
+    <string
+      id="ret_reset_faction_body"
+      text="{FACTION} içindeki tüm birlikler varsayılan değerlerine sıfırlansın mı?{newline}{newline}Bu, {COUNT} birlik(ler)i için yapılan tüm düzenlemeleri geri alacaktır.{newline}{newline}Bu işlemin geçerli olması için oyunu kaydedin ve yeniden başlatın." />
+    <string
+      id="ret_reset_faction_title"
+      text="Varsayılanlara Sıfırla" />
+    <string
+      id="ret_reset_none_available"
+      text="Şu anda hiçbir şey sıfırlanamaz." />
     <string
       id="ret_retinue_culture_default_name"
       text="{CLAN} {CULTURE} Retinue" />

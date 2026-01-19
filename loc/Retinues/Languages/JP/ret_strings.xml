@@ -680,11 +680,20 @@
       id="ret_export_character_no_heroes"
       text="ヒーローデータは保存状態に結び付けられています。" />
     <string
+      id="ret_export_choose_target_body"
+      text="次のうちどれをエクスポートしますか？" />
+    <string
+      id="ret_export_choose_target_title"
+      text="エクスポート" />
+    <string
       id="ret_export_done_desc"
       text="エクスポート先：{newline}{PATH}" />
     <string
       id="ret_export_done_title"
       text="エクスポート完了" />
+    <string
+      id="ret_export_faction_invalid"
+      text="選択した派閥は無効です。" />
     <string
       id="ret_export_failed_exception"
       text="ファイルを書き込めませんでした。" />
@@ -701,11 +710,20 @@
       id="ret_export_name_title"
       text="エクスポート名" />
     <string
+      id="ret_export_none_available"
+      text="現在、エクスポートできるものはありません。" />
+    <string
       id="ret_export_overwrite_desc"
       text="&apos;{NAME}&apos; という名前のファイルは既に存在します。{newline}{newline}上書きしますか？" />
     <string
       id="ret_export_overwrite_title"
       text="ファイルは既に存在します" />
+    <string
+      id="ret_export_target_faction_disabled"
+      text="有効な派閥が選択されていません。" />
+    <string
+      id="ret_export_target_troop_disabled"
+      text="ヒーローはエクスポートできません。" />
     <string
       id="ret_faction_troops_unlocked_desc"
       text="{COUNT} 人の新しい部隊が {FACTION} の {FACTION_TYPE} で利用可能になりました。" />
@@ -1106,6 +1124,12 @@
       id="ret_formation_option_auto"
       text="自動" />
     <string
+      id="ret_formation_option_auto_hint"
+      text="ゲームに装備に基づいて編成クラスを自動的に選択させます。" />
+    <string
+      id="ret_formation_option_hint"
+      text="{CLASS} 編成を強制します。" />
+    <string
       id="ret_formation_popup_desc"
       text="このユニットの分類方法を選択してください。装備に基づいて分類するには、「自動」のままにしてください。" />
     <string
@@ -1424,6 +1448,9 @@
       id="ret_list_header_villagers"
       text="村人" />
     <string
+      id="ret_mariner_captain_reason"
+      text="キャプテンは、基礎部隊の水兵能力を共有します。" />
+    <string
       id="ret_mariner_disable_tooltip"
       text="このユニットの水兵能力を無効にします。" />
     <string
@@ -1441,6 +1468,15 @@
     <string
       id="ret_mcm_option_allowed_recruiters"
       text="許可されたリクルーター" />
+    <string
+      id="ret_mcm_option_allowed_recruiters_hint"
+      text="カスタム部隊を募集できる人を決定します。&apos;全員&apos;：すべての派閥がカスタム部隊を募集できます（他の募集モッドとの互換性のために推奨されます）。&apos;派閥のみ&apos;：派閥のみがカスタム部隊を募集できます。&apos;プレイヤーのみ&apos;：プレイヤーのみがカスタム部隊を募集できます。" />
+    <string
+      id="ret_mcm_option_captain_spawn_rate"
+      text="キャプテンスポーン率" />
+    <string
+      id="ret_mcm_option_captain_spawn_rate_hint"
+      text="別のキャプテンがスポーンする前に、どれだけの通常部隊を配備する必要があるかを決定します。" />
     <string
       id="ret_mcm_option_clan_troops_availability"
       text="クラン部隊の可用性" />
@@ -1492,6 +1528,9 @@
     <string
       id="ret_mcm_option_editing_restriction"
       text="場所の制限" />
+    <string
+      id="ret_mcm_option_editing_restriction_hint"
+      text="派閥部隊が編集できる場所を制限します。&apos;どこでも&apos;：制限なし。&apos;任意の集落&apos;：集落内にいる必要があります。&apos;派閥の集落&apos;：所有する派閥の封土内にいる必要があります。注意：従者はこの設定の影響を受けません。" />
     <string
       id="ret_mcm_option_editor_hotkey"
       text="エディターホットキー" />
@@ -1688,6 +1727,12 @@
       id="ret_mcm_option_retinue_unlock_speed_hint"
       text="新しいリティニュースがどれだけ早くアンロックされるかに影響する乗数。" />
     <string
+      id="ret_mcm_option_same_culture_only"
+      text="同じ文化のみ" />
+    <string
+      id="ret_mcm_option_same_culture_only_hint"
+      text="有効にすると、カスタム部隊は同じ文化の集落でのみ採用できます。" />
+    <string
       id="ret_mcm_option_skill_cap"
       text="ティア {TIER}" />
     <string
@@ -1721,8 +1766,14 @@
       id="ret_mcm_option_starter_equipment"
       text="スターター装備" />
     <string
+      id="ret_mcm_option_starter_equipment_hint"
+      text="新たにアンロックされた部隊のスターター装備を設定します。&apos;ランダム&apos;：ランダムな装備セットが割り当てられます。&apos;1セットをコピー&apos;：基本部隊から1つの装備セットがコピーされます。&apos;すべてのセットをコピー&apos;：基本部隊からすべての装備セットがコピーされます。&apos;空&apos;：スターター装備は作成されません。" />
+    <string
       id="ret_mcm_option_starter_troops"
       text="スタータートループ" />
+    <string
+      id="ret_mcm_option_starter_troops_hint"
+      text="クランと王国のスタータートループを決定します。&apos;ルーツのみ&apos;：基本的な部隊とエリート部隊が1つずつ作成されます。&apos;リーンツリー&apos;：開始時に厳選された部隊が作成されます。&apos;フルツリー&apos;：部隊の全範囲が自動的に作成されます。" />
     <string
       id="ret_mcm_option_time_multiplier"
       text="装備時間乗数" />
@@ -1892,6 +1943,9 @@
       id="ret_rank_up_max_tier"
       text="このユニットはすでに最大階級に達しています。" />
     <string
+      id="ret_rank_up_no_captains"
+      text="キャプテンはランクアップできません。" />
+    <string
       id="ret_rank_up_not_enough_money"
       text="お金が足りません（{COST} デナリが必要です）。" />
     <string
@@ -1915,6 +1969,39 @@
     <string
       id="ret_rename_unit"
       text="新しい名前" />
+    <string
+      id="ret_reset_character_body"
+      text="{NAME} をデフォルト値にリセットしますか？{newline}{newline}これにより、このキャラクターのすべての編集が元に戻されます。{newline}{newline}この操作を有効にするには、ゲームを保存して再起動してください。" />
+    <string
+      id="ret_reset_character_title"
+      text="デフォルトにリセット" />
+    <string
+      id="ret_reset_choose_target_body"
+      text="次のうち、どれをデフォルト値にリセットしますか？" />
+    <string
+      id="ret_reset_choose_target_title"
+      text="デフォルトにリセット" />
+    <string
+      id="ret_reset_confirm"
+      text="リセット" />
+    <string
+      id="ret_reset_default_universal_only"
+      text="ユニバーサルエディターでのみ利用可能です。" />
+    <string
+      id="ret_reset_done_body"
+      text="この操作を有効にするには、ゲームを保存して再起動してください。" />
+    <string
+      id="ret_reset_done_title"
+      text="リセットが予定されています" />
+    <string
+      id="ret_reset_faction_body"
+      text="{FACTION} のすべての部隊をデフォルト値にリセットしますか？{newline}{newline}これにより、{COUNT} 部隊のすべての編集が元に戻されます。{newline}{newline}この操作を有効にするには、ゲームを保存して再起動してください。" />
+    <string
+      id="ret_reset_faction_title"
+      text="デフォルトにリセット" />
+    <string
+      id="ret_reset_none_available"
+      text="今は何もリセットできません。" />
     <string
       id="ret_retinue_culture_default_name"
       text="{CLAN} の {CULTURE} 随行員" />

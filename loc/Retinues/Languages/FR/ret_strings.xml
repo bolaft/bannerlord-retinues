@@ -680,11 +680,20 @@
       id="ret_export_character_no_heroes"
       text="Les héros sont liés à la sauvegarde." />
     <string
+      id="ret_export_choose_target_body"
+      text="Exporter lequel des choix suivants ?" />
+    <string
+      id="ret_export_choose_target_title"
+      text="Exporter" />
+    <string
       id="ret_export_done_desc"
       text="Exporté vers :{newline}{PATH}" />
     <string
       id="ret_export_done_title"
       text="Exportation terminée" />
+    <string
+      id="ret_export_faction_invalid"
+      text="La faction sélectionnée est invalide." />
     <string
       id="ret_export_failed_exception"
       text="Le fichier n&apos;a pas pu être écrit." />
@@ -701,11 +710,20 @@
       id="ret_export_name_title"
       text="Nom de l&apos;exportation" />
     <string
+      id="ret_export_none_available"
+      text="Rien ne peut être exporté pour le moment." />
+    <string
       id="ret_export_overwrite_desc"
       text="Un fichier nommé &apos;{NAME}&apos; existe déjà.{newline}{newline}Voulez-vous l&apos;écraser ?" />
     <string
       id="ret_export_overwrite_title"
       text="Le fichier existe déjà" />
+    <string
+      id="ret_export_target_faction_disabled"
+      text="Aucune faction valide sélectionnée." />
+    <string
+      id="ret_export_target_troop_disabled"
+      text="Les héros ne peuvent pas être exportés." />
     <string
       id="ret_faction_troops_unlocked_desc"
       text="{COUNT} nouvelles troupes sont désormais disponibles pour le {FACTION_TYPE} {FACTION}." />
@@ -1106,6 +1124,12 @@
       id="ret_formation_option_auto"
       text="Auto" />
     <string
+      id="ret_formation_option_auto_hint"
+      text="Laissez le jeu choisir automatiquement la classe de formation en fonction de l&apos;équipement." />
+    <string
+      id="ret_formation_option_hint"
+      text="Forcer la formation {CLASS}." />
+    <string
       id="ret_formation_popup_desc"
       text="Choisissez comment cette unité est catégorisée. Laissez sur &apos;Auto&apos; pour la catégoriser en fonction de son équipement." />
     <string
@@ -1424,6 +1448,9 @@
       id="ret_list_header_villagers"
       text="Villageois" />
     <string
+      id="ret_mariner_captain_reason"
+      text="Les capitaines partagent la capacité de marin de leurs troupes de base." />
+    <string
       id="ret_mariner_disable_tooltip"
       text="Désactive le trait &quot;marin&quot; pour cette unité." />
     <string
@@ -1441,6 +1468,15 @@
     <string
       id="ret_mcm_option_allowed_recruiters"
       text="Recruteurs autorisés" />
+    <string
+      id="ret_mcm_option_allowed_recruiters_hint"
+      text="Détermine qui peut recruter des troupes personnalisées. &apos;Tout le monde&apos; : Toutes les parties peuvent recruter des troupes personnalisées (recommandé pour la compatibilité avec d&apos;autres mods de recrutement). &apos;Faction uniquement&apos; : Seules les factions peuvent recruter des troupes personnalisées. &apos;Joueur uniquement&apos; : Seul le joueur peut recruter des troupes personnalisées." />
+    <string
+      id="ret_mcm_option_captain_spawn_rate"
+      text="Taux d&apos;apparition des capitaines" />
+    <string
+      id="ret_mcm_option_captain_spawn_rate_hint"
+      text="Détermine combien de troupes régulières doivent être déployées avant qu&apos;un autre capitaine puisse apparaître." />
     <string
       id="ret_mcm_option_clan_troops_availability"
       text="Disponibilité des troupes de clan" />
@@ -1492,6 +1528,9 @@
     <string
       id="ret_mcm_option_editing_restriction"
       text="Restrictions de Localisation" />
+    <string
+      id="ret_mcm_option_editing_restriction_hint"
+      text="Restreint les endroits où les troupes de faction peuvent être modifiées. &apos;N&apos;importe où&apos; : Aucune restriction. &apos;Toute colonie&apos; : Vous devez être dans une colonie. &apos;Colonie de faction&apos; : Vous devez être dans un fief de faction possédé. Remarque : Les Rétinues ne sont pas affectées par ce paramètre." />
     <string
       id="ret_mcm_option_editor_hotkey"
       text="Raccourci Éditeur" />
@@ -1688,6 +1727,12 @@
       id="ret_mcm_option_retinue_unlock_speed_hint"
       text="Multiplicateur affectant la rapidité avec laquelle de nouvelles rétinues sont déverrouillées." />
     <string
+      id="ret_mcm_option_same_culture_only"
+      text="Même Culture Seulement" />
+    <string
+      id="ret_mcm_option_same_culture_only_hint"
+      text="Si activé, les troupes personnalisées ne peuvent être recrutées que dans des fiefs de la même culture." />
+    <string
       id="ret_mcm_option_skill_cap"
       text="Niveau {TIER}" />
     <string
@@ -1721,8 +1766,14 @@
       id="ret_mcm_option_starter_equipment"
       text="Équipement Initial" />
     <string
+      id="ret_mcm_option_starter_equipment_hint"
+      text="Définit l&apos;équipement de départ pour les troupes nouvellement débloquées. &apos;Aléatoire&apos; : Un ensemble d&apos;équipement aléatoire est attribué. &apos;Copier un ensemble&apos; : Un ensemble d&apos;équipement est copié à partir de la troupe de base. &apos;Copier tous les ensembles&apos; : Tous les ensembles d&apos;équipement sont copiés à partir des troupes de base. &apos;Vide&apos; : Aucun équipement de départ n&apos;est créé." />
+    <string
       id="ret_mcm_option_starter_troops"
       text="Troupes Initiales" />
+    <string
+      id="ret_mcm_option_starter_troops_hint"
+      text="Détermine les troupes de départ du clan et du royaume. &apos;Racines seulement&apos; : Une seule troupe de base et une troupe d&apos;élite sont créées. &apos;Arbres de Troupes Allégés&apos; : Une sélection maigre de troupes est créée au départ. &apos;Arbres de Troupes complets&apos; : La gamme complète de troupes est automatiquement créée." />
     <string
       id="ret_mcm_option_time_multiplier"
       text="Multiplicateur de Temps d&apos;Équipement" />
@@ -1892,6 +1943,9 @@
       id="ret_rank_up_max_tier"
       text="Cette unité est déjà au niveau maximum." />
     <string
+      id="ret_rank_up_no_captains"
+      text="Les capitaines ne peuvent pas monter de niveau." />
+    <string
       id="ret_rank_up_not_enough_money"
       text="Pas assez d&apos;argent (besoin de {COST} dinars)." />
     <string
@@ -1915,6 +1969,39 @@
     <string
       id="ret_rename_unit"
       text="Nouveau nom" />
+    <string
+      id="ret_reset_character_body"
+      text="Réinitialiser {NAME} à ses valeurs par défaut ?{newline}{newline}Cela annulera toutes les modifications apportées à ce personnage.{newline}{newline}Enregistrez et redémarrez le jeu pour que cette action prenne effet." />
+    <string
+      id="ret_reset_character_title"
+      text="Réinitialiser par défaut" />
+    <string
+      id="ret_reset_choose_target_body"
+      text="Réinitialiser lequel des choix suivants aux valeurs par défaut ?" />
+    <string
+      id="ret_reset_choose_target_title"
+      text="Réinitialiser aux valeurs par défaut." />
+    <string
+      id="ret_reset_confirm"
+      text="Réinitialiser" />
+    <string
+      id="ret_reset_default_universal_only"
+      text="Disponible uniquement dans l&apos;éditeur universel." />
+    <string
+      id="ret_reset_done_body"
+      text="Enregistrez et redémarrez le jeu pour que cette action prenne effet." />
+    <string
+      id="ret_reset_done_title"
+      text="Réinitialisation programmée" />
+    <string
+      id="ret_reset_faction_body"
+      text="Réinitialiser toutes les troupes de {FACTION} à leurs valeurs par défaut ?{newline}{newline}Cela annulera toutes les modifications apportées à {COUNT} troupe(s).{newline}{newline}Enregistrez et redémarrez le jeu pour que cette action prenne effet." />
+    <string
+      id="ret_reset_faction_title"
+      text="Réinitialiser par défaut" />
+    <string
+      id="ret_reset_none_available"
+      text="Rien ne peut être réinitialisé pour le moment." />
     <string
       id="ret_retinue_culture_default_name"
       text="Rétinue {CULTURE} {CLAN}" />

@@ -680,11 +680,20 @@
       id="ret_export_character_no_heroes"
       text="Heldendaten sind an den Speicherstatus gebunden." />
     <string
+      id="ret_export_choose_target_body"
+      text="Was soll exportiert werden?" />
+    <string
+      id="ret_export_choose_target_title"
+      text="Exportieren" />
+    <string
       id="ret_export_done_desc"
       text="Export geschrieben nach:{newline}{PATH}" />
     <string
       id="ret_export_done_title"
       text="Export abgeschlossen" />
+    <string
+      id="ret_export_faction_invalid"
+      text="Die ausgewählte Fraktion ist ungültig." />
     <string
       id="ret_export_failed_exception"
       text="Die Datei konnte nicht geschrieben werden." />
@@ -701,11 +710,20 @@
       id="ret_export_name_title"
       text="Exportname" />
     <string
+      id="ret_export_none_available"
+      text="Im Moment kann nichts exportiert werden." />
+    <string
       id="ret_export_overwrite_desc"
       text="Eine Datei mit dem Namen &apos;{NAME}&apos; existiert bereits.{newline}{newline}Möchten Sie sie überschreiben?" />
     <string
       id="ret_export_overwrite_title"
       text="Datei existiert bereits" />
+    <string
+      id="ret_export_target_faction_disabled"
+      text="Keine gültige Fraktion ausgewählt." />
+    <string
+      id="ret_export_target_troop_disabled"
+      text="Helden können nicht exportiert werden." />
     <string
       id="ret_faction_troops_unlocked_desc"
       text="{COUNT} neue Truppen sind jetzt für die {FACTION_TYPE} {FACTION} verfügbar." />
@@ -1106,6 +1124,12 @@
       id="ret_formation_option_auto"
       text="Auto" />
     <string
+      id="ret_formation_option_auto_hint"
+      text="Lassen Sie das Spiel die Formationsklasse basierend auf der Ausrüstung automatisch auswählen." />
+    <string
+      id="ret_formation_option_hint"
+      text="Erzwinge die {CLASS} Formation." />
+    <string
       id="ret_formation_popup_desc"
       text="Wählen Sie aus, wie diese Einheit kategorisiert wird. Lassen Sie es auf &apos;Auto&apos;, um sie basierend auf ihrer Ausrüstung zu kategorisieren." />
     <string
@@ -1424,6 +1448,9 @@
       id="ret_list_header_villagers"
       text="Dörfler" />
     <string
+      id="ret_mariner_captain_reason"
+      text="Hauptleute teilen die Seefahrer-Fähigkeit ihrer Basistruppen." />
+    <string
       id="ret_mariner_disable_tooltip"
       text="Deaktiviere die Seefahrer-Fähigkeit dieser Einheit." />
     <string
@@ -1441,6 +1468,15 @@
     <string
       id="ret_mcm_option_allowed_recruiters"
       text="Erlaubte Rekrutierer" />
+    <string
+      id="ret_mcm_option_allowed_recruiters_hint"
+      text="Bestimmt, wer benutzerdefinierte Truppen rekrutieren kann. &apos;Jeder&apos;: Alle Parteien können benutzerdefinierte Truppen rekrutieren (empfohlen für die Kompatibilität mit anderen Rekrutierungsmods). &apos;Nur Fraktion&apos;: Nur Fraktionsparteien können benutzerdefinierte Truppen rekrutieren. &apos;Nur Spieler&apos;: Nur der Spieler kann benutzerdefinierte Truppen rekrutieren." />
+    <string
+      id="ret_mcm_option_captain_spawn_rate"
+      text="Hauptmann-Spawn-Rate" />
+    <string
+      id="ret_mcm_option_captain_spawn_rate_hint"
+      text="Bestimmt, wie viele reguläre Truppen eingesetzt werden müssen, bevor ein weiterer Hauptmann erscheinen kann." />
     <string
       id="ret_mcm_option_clan_troops_availability"
       text="Verfügbarkeit von Clan-Truppen" />
@@ -1492,6 +1528,9 @@
     <string
       id="ret_mcm_option_editing_restriction"
       text="Standortbeschränkungen" />
+    <string
+      id="ret_mcm_option_editing_restriction_hint"
+      text="Beschränkt, wo Fraktionstruppen bearbeitet werden können. &apos;Überall&apos;: Keine Einschränkungen. &apos;Jede Siedlung&apos;: Sie müssen sich in einer Siedlung befinden. &apos;Fraktionssiedlung&apos;: Sie müssen sich in einem besessenen Fraktionslehen befinden. Hinweis: Gefolgsleute sind von dieser Einstellung nicht betroffen." />
     <string
       id="ret_mcm_option_editor_hotkey"
       text="Editor-Hotkey" />
@@ -1688,6 +1727,12 @@
       id="ret_mcm_option_retinue_unlock_speed_hint"
       text="Multiplikator, der beeinflusst, wie schnell neue Retinues freigeschaltet werden." />
     <string
+      id="ret_mcm_option_same_culture_only"
+      text="Nur gleiche Kultur" />
+    <string
+      id="ret_mcm_option_same_culture_only_hint"
+      text="Wenn aktiviert, können benutzerdefinierte Truppen nur in Siedlungen derselben Kultur rekrutiert werden." />
+    <string
       id="ret_mcm_option_skill_cap"
       text="Stufe {TIER}" />
     <string
@@ -1721,8 +1766,14 @@
       id="ret_mcm_option_starter_equipment"
       text="Startausrüstung" />
     <string
+      id="ret_mcm_option_starter_equipment_hint"
+      text="Legt die Startausrüstung für neu freigeschaltete Truppen fest. &apos;Zufällig&apos;: Ein zufälliges Ausrüstungsset wird zugewiesen. &apos;Kopiere ein Set&apos;: Ein Ausrüstungsset wird von der Basistruppe kopiert. &apos;Kopiere alle Sets&apos;: Alle Ausrüstungssets werden von den Basistruppen kopiert. &apos;Leer&apos;: Es wird keine Starterausrüstung erstellt." />
+    <string
       id="ret_mcm_option_starter_troops"
       text="Starter-Truppen" />
+    <string
+      id="ret_mcm_option_starter_troops_hint"
+      text="Bestimmt die Starter-Truppen für Clan und Königreich. &apos;Nur Wurzeln&apos;: Es wird nur eine Basis- und eine Elite-Truppe erstellt. &apos;Schlanke Bäume&apos;: Eine schlanke Auswahl an Truppen wird zu Beginn erstellt. &apos;Volle Bäume&apos;: Das vollständige Spektrum an Truppen wird automatisch erstellt." />
     <string
       id="ret_mcm_option_time_multiplier"
       text="Ausrüstungszeit-Multiplikator" />
@@ -1892,6 +1943,9 @@
       id="ret_rank_up_max_tier"
       text="Diese Einheit ist bereits auf dem maximalen Rang." />
     <string
+      id="ret_rank_up_no_captains"
+      text="Hauptmänner können nicht aufsteigen." />
+    <string
       id="ret_rank_up_not_enough_money"
       text="Nicht genügend Geld (benötigt {COST} Denare)." />
     <string
@@ -1915,6 +1969,39 @@
     <string
       id="ret_rename_unit"
       text="Neuer Name" />
+    <string
+      id="ret_reset_character_body"
+      text="Setze {NAME} auf die Standardwerte zurück?{newline}{newline}Dies wird alle Änderungen für diesen Charakter rückgängig machen.{newline}{newline}Speichern Sie das Spiel und starten Sie es neu, damit diese Aktion wirksam wird." />
+    <string
+      id="ret_reset_character_title"
+      text="Auf Standard zurücksetzen" />
+    <string
+      id="ret_reset_choose_target_body"
+      text="Welches der folgenden soll auf die Standardwerte zurückgesetzt werden?" />
+    <string
+      id="ret_reset_choose_target_title"
+      text="Auf Standard zurücksetzen" />
+    <string
+      id="ret_reset_confirm"
+      text="Zurücksetzen" />
+    <string
+      id="ret_reset_default_universal_only"
+      text="Nur im Universal-Editor verfügbar." />
+    <string
+      id="ret_reset_done_body"
+      text="Speichern Sie das Spiel und starten Sie es neu, damit diese Aktion wirksam wird." />
+    <string
+      id="ret_reset_done_title"
+      text="Zurücksetzung geplant" />
+    <string
+      id="ret_reset_faction_body"
+      text="Alle Truppen in {FACTION} auf ihre Standardwerte zurücksetzen?{newline}{newline}Dies wird alle Änderungen für {COUNT} Truppe(n) rückgängig machen.{newline}{newline}Speichern Sie das Spiel und starten Sie es neu, damit diese Aktion wirksam wird." />
+    <string
+      id="ret_reset_faction_title"
+      text="Auf Standard zurücksetzen" />
+    <string
+      id="ret_reset_none_available"
+      text="Nichts kann gerade zurückgesetzt werden." />
     <string
       id="ret_retinue_culture_default_name"
       text="{CLAN} {CULTURE}-Retinue" />

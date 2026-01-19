@@ -680,11 +680,20 @@
       id="ret_export_character_no_heroes"
       text="Dane bohatera są powiązane ze stanem zapisu." />
     <string
+      id="ret_export_choose_target_body"
+      text="Co z następujących wyeksportować?" />
+    <string
+      id="ret_export_choose_target_title"
+      text="Eksportuj" />
+    <string
       id="ret_export_done_desc"
       text="Eksport zapisany do:{newline}{PATH}" />
     <string
       id="ret_export_done_title"
       text="Eksport zakończony" />
+    <string
+      id="ret_export_faction_invalid"
+      text="Wybrana frakcja jest nieprawidłowa." />
     <string
       id="ret_export_failed_exception"
       text="Nie można zapisać pliku." />
@@ -701,11 +710,20 @@
       id="ret_export_name_title"
       text="Nazwa eksportu" />
     <string
+      id="ret_export_none_available"
+      text="Teraz nic nie można wyeksportować." />
+    <string
       id="ret_export_overwrite_desc"
       text="Plik o nazwie &apos;{NAME}&apos; już istnieje.{newline}{newline}Czy chcesz go nadpisać?" />
     <string
       id="ret_export_overwrite_title"
       text="Plik już istnieje" />
+    <string
+      id="ret_export_target_faction_disabled"
+      text="Nie wybrano prawidłowej frakcji." />
+    <string
+      id="ret_export_target_troop_disabled"
+      text="Bohaterowie nie mogą być eksportowani." />
     <string
       id="ret_faction_troops_unlocked_desc"
       text="Nowe oddziały: {COUNT} są teraz dostępne dla {FACTION_TYPE} {FACTION}." />
@@ -1106,6 +1124,12 @@
       id="ret_formation_option_auto"
       text="Auto" />
     <string
+      id="ret_formation_option_auto_hint"
+      text="Pozwól grze automatycznie wybrać klasę formacji na podstawie wyposażenia." />
+    <string
+      id="ret_formation_option_hint"
+      text="Wymuś formację {CLASS}." />
+    <string
       id="ret_formation_popup_desc"
       text="Wybierz, jak ta jednostka jest kategoryzowana. Pozostaw na &apos;Auto&apos;, aby kategoryzować ją na podstawie jej wyposażenia." />
     <string
@@ -1424,6 +1448,9 @@
       id="ret_list_header_villagers"
       text="Mieszkańcy wsi" />
     <string
+      id="ret_mariner_captain_reason"
+      text="Kapitanowie dzielą zdolność marynarza swoich podstawowych oddziałów." />
+    <string
       id="ret_mariner_disable_tooltip"
       text="Wyłącz zdolność marynarza tej jednostki." />
     <string
@@ -1441,6 +1468,15 @@
     <string
       id="ret_mcm_option_allowed_recruiters"
       text="Dozwoleni rekruterzy" />
+    <string
+      id="ret_mcm_option_allowed_recruiters_hint"
+      text="Określa, kto może rekrutować niestandardowe oddziały. &apos;Wszyscy&apos;: Wszystkie frakcje mogą rekrutować niestandardowe oddziały (zalecane dla kompatybilności z innymi modami rekrutacyjnymi). &apos;Tylko frakcja&apos;: Tylko frakcje mogą rekrutować niestandardowe oddziały. &apos;Tylko gracz&apos;: Tylko gracz może rekrutować niestandardowe oddziały." />
+    <string
+      id="ret_mcm_option_captain_spawn_rate"
+      text="Częstotliwość pojawiania się kapitanów" />
+    <string
+      id="ret_mcm_option_captain_spawn_rate_hint"
+      text="Określa, ile regularnych oddziałów musi być wystawionych, zanim pojawi się kolejny kapitan." />
     <string
       id="ret_mcm_option_clan_troops_availability"
       text="Dostępność oddziałów klanowych" />
@@ -1492,6 +1528,9 @@
     <string
       id="ret_mcm_option_editing_restriction"
       text="Ograniczenia lokalizacji" />
+    <string
+      id="ret_mcm_option_editing_restriction_hint"
+      text="Ogranicza miejsca, w których można edytować oddziały frakcji. &apos;Wszędzie&apos;: Brak ograniczeń. &apos;Dowolne osiedle&apos;: Musisz być w osiedlu. &apos;Osiedle frakcji&apos;: Musisz być w posiadanym lenie frakcji. Uwaga: Oddziały towarzyszące nie są objęte tym ustawieniem." />
     <string
       id="ret_mcm_option_editor_hotkey"
       text="Klawisz skrótu edytora" />
@@ -1688,6 +1727,12 @@
       id="ret_mcm_option_retinue_unlock_speed_hint"
       text="Mnożnik wpływający na szybkość odblokowywania nowych retinue." />
     <string
+      id="ret_mcm_option_same_culture_only"
+      text="Tylko ta sama kultura" />
+    <string
+      id="ret_mcm_option_same_culture_only_hint"
+      text="Jeśli włączone, niestandardowe oddziały mogą być rekrutowane tylko w osadach tej samej kultury." />
+    <string
       id="ret_mcm_option_skill_cap"
       text="Poziom {TIER}" />
     <string
@@ -1721,8 +1766,14 @@
       id="ret_mcm_option_starter_equipment"
       text="Początkowy ekwipunek" />
     <string
+      id="ret_mcm_option_starter_equipment_hint"
+      text="Ustawia początkowy ekwipunek dla nowo odblokowanych oddziałów. &apos;Losowy&apos;: przypisywany jest losowy zestaw ekwipunku. &apos;Kopiuj jeden zestaw&apos;: jeden zestaw ekwipunku jest kopiowany z podstawowego oddziału. &apos;Kopiuj wszystkie zestawy&apos;: wszystkie zestawy ekwipunku są kopiowane z podstawowych oddziałów. &apos;Pusty&apos;: nie tworzony jest żaden początkowy ekwipunek." />
+    <string
       id="ret_mcm_option_starter_troops"
       text="Początkowe oddziały" />
+    <string
+      id="ret_mcm_option_starter_troops_hint"
+      text="Określa początkowe oddziały klanu i królestwa. &apos;Tylko korzenie&apos;: tworzony jest tylko jeden podstawowy i jeden elitarny oddział. &apos;Szczupłe drzewa&apos;: na początku tworzony jest szczupły wybór oddziałów. &apos;Pełne drzewa&apos;: pełen zakres oddziałów jest automatycznie tworzony." />
     <string
       id="ret_mcm_option_time_multiplier"
       text="Mnożnik czasu wyposażenia" />
@@ -1892,6 +1943,9 @@
       id="ret_rank_up_max_tier"
       text="Ta jednostka jest już na maksymalnym poziomie." />
     <string
+      id="ret_rank_up_no_captains"
+      text="Kapitanowie nie mogą awansować." />
+    <string
       id="ret_rank_up_not_enough_money"
       text="Brak wystarczającej ilości pieniędzy (potrzeba {COST} denarów)." />
     <string
@@ -1915,6 +1969,39 @@
     <string
       id="ret_rename_unit"
       text="Nowa nazwa" />
+    <string
+      id="ret_reset_character_body"
+      text="Zresetować {NAME} do wartości domyślnych?{newline}{newline}Spowoduje to cofnięcie wszystkich edycji tego charakteru.{newline}{newline}Zapisz i uruchom ponownie grę, aby ta akcja odniosła skutek." />
+    <string
+      id="ret_reset_character_title"
+      text="Zresetuj do domyślnych wartości" />
+    <string
+      id="ret_reset_choose_target_body"
+      text="Który z poniższych zresetować do wartości domyślnych?" />
+    <string
+      id="ret_reset_choose_target_title"
+      text="Zresetuj do domyślnych wartości" />
+    <string
+      id="ret_reset_confirm"
+      text="Zresetuj" />
+    <string
+      id="ret_reset_default_universal_only"
+      text="Dostępne tylko w edytorze uniwersalnym." />
+    <string
+      id="ret_reset_done_body"
+      text="Zapisz i uruchom ponownie grę, aby ta akcja odniosła skutek." />
+    <string
+      id="ret_reset_done_title"
+      text="Reset zaplanowany" />
+    <string
+      id="ret_reset_faction_body"
+      text="Zresetować wszystkie oddziały w {FACTION} do wartości domyślnych?{newline}{newline}Spowoduje to cofnięcie wszystkich edycji dla {COUNT} oddziału(ów).{newline}{newline}Zapisz i uruchom ponownie grę, aby ta akcja odniosła skutek." />
+    <string
+      id="ret_reset_faction_title"
+      text="Zresetuj do domyślnych wartości" />
+    <string
+      id="ret_reset_none_available"
+      text="Nic nie można teraz zresetować." />
     <string
       id="ret_retinue_culture_default_name"
       text="Retinue {CULTURE} {CLAN}" />
