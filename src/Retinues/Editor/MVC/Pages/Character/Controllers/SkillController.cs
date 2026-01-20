@@ -47,14 +47,14 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
                             || State.Character.Editable.Skills.Get(s)
                                 < SkillRules.GetSkillTotal(State.Character)
                         ),
-                    L.T("skill_increase_maxed_reason", "Skill is already at maximum level.")
+                    L.T("skill_increase_maxed_reason", "Skill cap reached")
                 )
                 .AddCondition(
                     s =>
                         !SkillLimitsActive
                         || State.Character.IsHero
                         || (State.Character.SkillTotalUsed + 1) <= State.Character.SkillTotal,
-                    L.T("skill_increase_total_reason", "Total skill limit reached.")
+                    L.T("skill_increase_total_reason", "Total skill limit reached")
                 )
                 .WhenMode(
                     EditorMode.Player,
@@ -64,7 +64,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
                                 !Settings.SkillPointsMustBeEarned
                                 || State.Character.IsHero
                                 || State.Character.SkillPoints > 0,
-                            L.T("skill_increase_no_points_reason", "Not enough skill points.")
+                            L.T("skill_increase_no_points_reason", "Not enough skill points")
                         )
                 )
                 .ExecuteWith(s => ChangeSkill(s, +1))
@@ -74,6 +74,9 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
         //                        Decrease                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        // The character that sets the current decrease floor (if any).
+        static WCharacter _sourceFloorCharacter;
+
         /// <summary>
         /// Decreases the specified skill for the current character, with upgrade-source safeguards.
         /// </summary>
@@ -81,14 +84,19 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
             Action<SkillObject>("SkillDecrease")
                 .RequireValidEditingContext()
                 .AddCondition(
-                    s => State.Character.Editable.Skills.Get(s) > 0,
-                    L.T("skill_decrease_min_reason", "Cannot decrease skill below 0.")
+                    s => State.Character.Editable.Skills.Get(s) > 0
                 )
                 .AddCondition(
                     CanDecreasePastUpgradeSourceFloor,
-                    L.T(
+                    () => 
+                    _sourceFloorCharacter != null ? L.T(
                         "skill_decrease_sources_reason",
-                        "Cannot decrease below upgrade source minimum."
+                        "Cannot decrease below {SOURCE}'s skill level"
+                    ).SetTextVariable(
+                        "SOURCE", _sourceFloorCharacter.Name
+                    ) : L.T(
+                        "skill_decrease_sources_reason_generic",
+                        "Cannot decrease below upgrade sources' skill levels"
                     )
                 )
                 .ExecuteWith(DecreaseWithWarning)
@@ -96,13 +104,15 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
 
         private static bool CanDecreasePastUpgradeSourceFloor(SkillObject skill)
         {
+            _sourceFloorCharacter = null;
+
             var c = State.Character;
             if (c == null || skill == null)
                 return true;
 
             var current = c.Editable.Skills.Get(skill);
 
-            var floor = GetUpgradeSourceSkillFloor(c, skill);
+            var floor = GetUpgradeSourceSkillFloor(c, skill, out _sourceFloorCharacter);
 
             return current > floor;
         }
@@ -110,8 +120,10 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
         /// <summary>
         /// Get the highest base skill value among all upgrade source troops for the given skill.
         /// </summary>
-        public static int GetUpgradeSourceSkillFloor(WCharacter character, SkillObject skill)
+        public static int GetUpgradeSourceSkillFloor(WCharacter character, SkillObject skill, out WCharacter source)
         {
+            source = null;
+    
             if (character == null || skill == null)
                 return 0;
 
@@ -131,7 +143,10 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
                 var v = src.Skills.GetBase(skill);
 
                 if (v > floor)
+                {
+                    source = src;
                     floor = v;
+                }
             }
 
             return floor;

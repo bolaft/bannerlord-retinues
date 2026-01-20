@@ -50,7 +50,7 @@ namespace Retinues.Editor.MVC.Shared.Views
 
         [DataSourceProperty]
         public Tooltip ClearFilterTooltip =>
-            new(L.S("clear_filter_tooltip", "Clear the current filter text."));
+            new(L.S("clear_filter_tooltip", "Clear filter"));
 
         [EventListener(UIEvent.Page)]
         [DataSourceMethod]

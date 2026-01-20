@@ -21,16 +21,16 @@
       text="プレイヤーのみ" />
     <string
       id="ret_battle_type_field_checkbox_tooltip_disable"
-      text="野戦で無効にする。" />
+      text="野戦で無効にする" />
     <string
       id="ret_battle_type_field_checkbox_tooltip_enable"
-      text="野戦で有効にする。" />
+      text="野戦で有効にする" />
     <string
       id="ret_battle_type_field_required_reason"
-      text="野戦で少なくとも1つの戦闘装備セットを有効にしておく必要があります。" />
+      text="野戦で少なくとも1つの戦闘装備セットを有効にしておく必要があります" />
     <string
       id="ret_battle_type_field_tooltip"
-      text="野戦。" />
+      text="野戦" />
     <string
       id="ret_battle_type_naval_checkbox_tooltip_disable"
       text="海戦で無効にする。" />
@@ -39,28 +39,28 @@
       text="海戦で有効にする。" />
     <string
       id="ret_battle_type_naval_required_reason"
-      text="海戦で少なくとも1つの戦闘装備セットを有効にしておく必要があります。" />
+      text="海戦で少なくとも1つの戦闘装備セットを有効にしておく必要があります" />
     <string
       id="ret_battle_type_naval_tooltip"
-      text="海戦。" />
+      text="海戦" />
     <string
       id="ret_battle_type_required_reason"
-      text="この戦闘タイプでは、少なくとも1つの戦闘装備セットを有効にしておく必要があります。" />
+      text="この戦闘タイプでは、少なくとも1つの戦闘装備セットを有効にしておく必要があります" />
     <string
       id="ret_battle_type_siege_checkbox_tooltip_disable"
-      text="攻城戦で無効にする。" />
+      text="攻城戦で無効にする" />
     <string
       id="ret_battle_type_siege_checkbox_tooltip_enable"
-      text="攻城戦で有効にする。" />
+      text="攻城戦で有効にする" />
     <string
       id="ret_battle_type_siege_required_reason"
-      text="攻城戦で少なくとも1つの戦闘装備セットを有効にしておく必要があります。" />
+      text="攻城戦で少なくとも1つの戦闘装備セットを有効にしておく必要があります" />
     <string
       id="ret_battle_type_siege_tooltip"
-      text="攻城戦。" />
+      text="攻城戦" />
     <string
       id="ret_battle_types_civilian_reason"
-      text="民間の装備セットには戦闘タイプの制限がありません。" />
+      text="民間の装備セットには戦闘タイプの制限がありません" />
     <string
       id="ret_body_age_decrease_tip"
       text="年齢を減らす" />
@@ -69,10 +69,10 @@
       text="年齢を増やす" />
     <string
       id="ret_body_age_max_reason"
-      text="年齢はすでに最大です。" />
+      text="年齢はすでに最大です" />
     <string
       id="ret_body_age_min_reason"
-      text="年齢はすでに最小です。" />
+      text="年齢はすでに最小です" />
     <string
       id="ret_body_build_decrease_tip"
       text="体格を減らす" />
@@ -81,10 +81,10 @@
       text="体格を増やす" />
     <string
       id="ret_body_build_max_reason"
-      text="体格はすでに最大です。" />
+      text="体格はすでに最大です" />
     <string
       id="ret_body_build_min_reason"
-      text="体格はすでに最小です。" />
+      text="体格はすでに最小です" />
     <string
       id="ret_body_height_decrease_tip"
       text="身長を減らす" />
@@ -93,10 +93,10 @@
       text="身長を増やす" />
     <string
       id="ret_body_height_max_reason"
-      text="身長はすでに最大です。" />
+      text="身長はすでに最大です" />
     <string
       id="ret_body_height_min_reason"
-      text="身長はすでに最小です。" />
+      text="身長はすでに最小です" />
     <string
       id="ret_body_weight_decrease_tip"
       text="体重を減らす" />
@@ -105,19 +105,19 @@
       text="体重を増やす" />
     <string
       id="ret_body_weight_max_reason"
-      text="体重はすでに最大です。" />
+      text="体重はすでに最大です" />
     <string
       id="ret_body_weight_min_reason"
-      text="体重はすでに最小です。" />
+      text="体重はすでに最小です" />
     <string
       id="ret_build_hint"
       text="体格" />
     <string
       id="ret_button_change_formation_class_disabled_for_captains"
-      text="キャプテンは基本部隊の編成クラスを共有します。" />
+      text="キャプテンは基本部隊の編成クラスを共有します" />
     <string
       id="ret_button_change_formation_class_tooltip"
-      text="編成クラスを選択します。" />
+      text="編成クラスを選択します" />
     <string
       id="ret_button_disable_captain"
       text="無効にする" />
@@ -128,9 +128,6 @@
       id="ret_button_export"
       text="エクスポート" />
     <string
-      id="ret_button_export_tooltip"
-      text="選択した派閥または部隊をライブラリにエクスポートします。" />
-    <string
       id="ret_button_rank_up"
       text="ランクアップ" />
     <string
@@ -139,9 +136,6 @@
     <string
       id="ret_button_reset"
       text="リセット" />
-    <string
-      id="ret_button_reset_tooltip"
-      text="デフォルトにリセットします。" />
     <string
       id="ret_button_show_battle"
       text="戦闘" />
@@ -156,7 +150,7 @@
       text="資金不足" />
     <string
       id="ret_cant_change_retinue_culture"
-      text="従者は文化を変更できません。" />
+      text="従者は文化を変更できません" />
     <string
       id="ret_cant_equip_reason_civilian"
       text="民間人ではない" />
@@ -189,16 +183,16 @@
       text="解除中 {PERCENT}%" />
     <string
       id="ret_cant_unequip_reason_empty"
-      text="解除するものがありません。" />
+      text="解除するものがありません" />
     <string
       id="ret_captain_mode_off_hint"
-      text="このキャプテンの基本部隊に切り替えます。" />
+      text="このキャプテンの基本部隊に切り替えます" />
     <string
       id="ret_captain_mode_on_hint"
-      text="この部隊のキャプテンに切り替えます。" />
+      text="この部隊のキャプテンに切り替えます" />
     <string
       id="ret_captain_mode_toggle_tooltip"
-      text="キャプテンモード。" />
+      text="キャプテンモード" />
     <string
       id="ret_captain_suffix"
       text="キャプテン" />
@@ -210,22 +204,28 @@
       text="このキャプテンを有効にする" />
     <string
       id="ret_captain_toggle_enabled_not_captain_reason"
-      text="このユニットはキャプテンではありません。" />
+      text="このユニットはキャプテンではありません" />
+    <string
+      id="ret_change_culture_hint"
+      text="文化を変更" />
     <string
       id="ret_change_culture_title"
       text="文化を変更" />
+    <string
+      id="ret_change_species_hint"
+      text="種族を変更" />
     <string
       id="ret_change_species_title"
       text="種族を変更" />
     <string
       id="ret_character_cannot_remove_hero"
-      text="英雄は削除できません。" />
+      text="英雄は削除できません" />
     <string
       id="ret_character_cannot_remove_root"
-      text="ルートユニットは削除できません。" />
+      text="ルートユニットは削除できません" />
     <string
       id="ret_character_cannot_remove_with_upgrades"
-      text="アップグレードがまだあるユニットは削除できません。" />
+      text="アップグレードがまだあるユニットは削除できません" />
     <string
       id="ret_character_is_null"
       text="キャラクターがnullです。" />
@@ -240,22 +240,10 @@
       text="最初の領地で解除済み" />
     <string
       id="ret_clear_filter_tooltip"
-      text="現在のフィルターテキストをクリアします。" />
+      text="フィルターをクリア" />
     <string
       id="ret_close_equipment_button_text"
       text="戻る" />
-    <string
-      id="ret_crafted_items_hide_tooltip"
-      text="作成した武器を含める。" />
-    <string
-      id="ret_crafted_items_only_tooltip"
-      text="作成した武器を表示します。" />
-    <string
-      id="ret_crafted_items_toggle_tooltip"
-      text="作成したアイテムを装備リストに含めます。" />
-    <string
-      id="ret_crafted_player_only_reason"
-      text="プレイヤーモードでのみ利用可能です。" />
     <string
       id="ret_create_unit"
       text="新しいユニット" />
@@ -300,7 +288,7 @@
       text="間違ったバージョン" />
     <string
       id="ret_doctrine_acquire_already_acquired"
-      text="この教義はすでに取得されています。" />
+      text="この教義はすでに取得されています" />
     <string
       id="ret_doctrine_acquire_button"
       text="取得" />
@@ -324,7 +312,7 @@
       text="教義を取得できません。" />
     <string
       id="ret_doctrine_acquire_unavailable"
-      text="この教義はまだロックされています。" />
+      text="この教義はまだロックされています" />
     <string
       id="ret_doctrine_acquired_msg"
       text="取得した教義: {NAME}。" />
@@ -379,15 +367,6 @@
     <string
       id="ret_doctrine_description_header"
       text="効果" />
-    <string
-      id="ret_doctrine_feat_progress_tooltip_completed"
-      text="この偉業を完了しました。" />
-    <string
-      id="ret_doctrine_feat_progress_tooltip_incomplete"
-      text="この偉業はまだ完了していません。" />
-    <string
-      id="ret_doctrine_feat_progress_tooltip_repeatable"
-      text="この偉業は繰り返し可能です。複数回完了できます。" />
     <string
       id="ret_doctrine_feats_header"
       text="偉業" />
@@ -534,7 +513,7 @@
       text="あなたの派閥の町や城のためにカスタムの民兵部隊をアンロックします。" />
     <string
       id="ret_doctrines_disabled"
-      text="教義は無効になっています。" />
+      text="教義は無効になっています" />
     <string
       id="ret_editing_restriction_in_fief"
       text="派閥の領地" />
@@ -597,7 +576,7 @@
       text="装備" />
     <string
       id="ret_equipment_cannot_delete_last_set"
-      text="少なくとも1つの装備セットを残す必要があります。" />
+      text="少なくとも1つの装備セットを残す必要があります" />
     <string
       id="ret_equipment_clipboard_source_fallback"
       text="クリップボード" />
@@ -605,17 +584,8 @@
       id="ret_equipment_copied_toast"
       text="装備がクリップボードにコピーされました。" />
     <string
-      id="ret_equipment_copy_tooltip"
-      text="装備をクリップボードにコピーします。" />
-    <string
-      id="ret_equipment_delete_breaks_battle_types_reason"
-      text="このセットは、少なくとも1つの戦闘タイプで有効になっている最後のセットであるため、削除できません。" />
-    <string
       id="ret_equipment_hero_sets_reason"
-      text="英雄は複数の装備セットを持つことはできません。" />
-    <string
-      id="ret_equipment_no_more_sets"
-      text="これ以上の装備セットはありません。" />
+      text="英雄は複数の装備セットを持つことはできません" />
     <string
       id="ret_equipment_panel_value_limit"
       text="{LIMIT} デナール" />
@@ -638,17 +608,11 @@
       id="ret_equipment_paste_confirm_title"
       text="装備をコピー" />
     <string
-      id="ret_equipment_paste_empty_clipboard_reason"
-      text="クリップボードが空です。" />
-    <string
       id="ret_equipment_paste_nothing_desc2"
       text="{SRC} からの新しいものは {DST} に装備できません。" />
     <string
       id="ret_equipment_paste_nothing_title"
       text="装備をコピー" />
-    <string
-      id="ret_equipment_paste_tooltip"
-      text="クリップボードから装備を貼り付けます。" />
     <string
       id="ret_equipment_slot_body"
       text="体" />
@@ -682,12 +646,6 @@
     <string
       id="ret_equipment_slot_weapon_3"
       text="武器 4" />
-    <string
-      id="ret_equipments_create_set"
-      text="新しい装備セットを作成します。" />
-    <string
-      id="ret_equipments_delete_set"
-      text="選択した装備セットを削除します。" />
     <string
       id="ret_escape_menu_editor_button"
       text="ユニバーサルエディター" />
@@ -724,9 +682,6 @@
     <string
       id="ret_export_name_title"
       text="エクスポート名" />
-    <string
-      id="ret_export_none_available"
-      text="現在、エクスポートできるものはありません。" />
     <string
       id="ret_export_overwrite_desc"
       text="&apos;{NAME}&apos; という名前のファイルは既に存在します。{newline}{newline}上書きしますか？" />
@@ -1133,35 +1088,20 @@
       id="ret_filter_tooltip_description_equipment"
       text="名前、カテゴリ、または階級でリストをフィルタリングするには入力してください。" />
     <string
-      id="ret_formation_class_icon_tooltip"
-      text="編成：{CLASS}。" />
-    <string
       id="ret_formation_option_auto"
       text="自動" />
     <string
       id="ret_formation_option_auto_hint"
-      text="ゲームに装備に基づいて編成クラスを自動的に選択させます。" />
+      text="ゲームに装備に基づいて編成クラスを自動的に選択させます" />
     <string
       id="ret_formation_option_hint"
-      text="{CLASS} 編成を強制します。" />
+      text="{CLASS} 編成を強制します" />
     <string
       id="ret_formation_popup_desc"
       text="このユニットの分類方法を選択してください。装備に基づいて分類するには、「自動」のままにしてください。" />
     <string
       id="ret_formation_popup_title"
       text="編成クラス" />
-    <string
-      id="ret_gender_no_culture"
-      text="文化が選択されていません。" />
-    <string
-      id="ret_gender_no_template"
-      text="この文化には、その性別/種に適した有効な体テンプレートがありません。" />
-    <string
-      id="ret_gender_not_renderable"
-      text="その性別/種の組み合わせはレンダリングできません。" />
-    <string
-      id="ret_gender_toggle_hint"
-      text="性別を変更" />
     <string
       id="ret_go_to_editor"
       text="エディターへ移動" />
@@ -1283,17 +1223,11 @@
       id="ret_library_delete_failed_exception"
       text="ファイルを削除できませんでした。" />
     <string
-      id="ret_library_delete_failed_missing_file"
-      text="エクスポートファイルが見つかりませんでした。" />
-    <string
       id="ret_library_delete_failed_title"
       text="削除に失敗しました" />
     <string
-      id="ret_library_delete_no_selection"
-      text="エクスポートが選択されていません。" />
-    <string
       id="ret_library_delete_tooltip"
-      text="このライブラリ項目と関連する XML ファイルを永久に削除します。" />
+      text="このライブラリ項目と関連する XML ファイルを永久に削除します" />
     <string
       id="ret_library_edit_button"
       text="編集" />
@@ -1313,11 +1247,8 @@
       id="ret_library_edit_failed_title"
       text="編集に失敗しました" />
     <string
-      id="ret_library_edit_no_selection"
-      text="エクスポートが選択されていません。" />
-    <string
       id="ret_library_edit_tooltip"
-      text="このエクスポートの XML ファイルの内容を直接編集します。" />
+      text="このエクスポートの XML ファイルの内容を直接編集します" />
     <string
       id="ret_library_export_file_header"
       text="ファイル" />
@@ -1332,7 +1263,7 @@
       text="スタンドアロンのモッドに変換" />
     <string
       id="ret_library_export_npc_custom_troop_unsupported"
-      text="バニラ部隊の編集のみがスタンドアロンのモッドに変換できます。" />
+      text="バニラ部隊の編集のみがスタンドアロンのモッドに変換できます" />
     <string
       id="ret_library_export_npc_failed_exception"
       text="ファイルをエクスポートできませんでした。" />
@@ -1350,16 +1281,10 @@
       text="エクスポートに失敗しました" />
     <string
       id="ret_library_export_npc_kind_unsupported"
-      text="このエクスポートタイプは変換できません。" />
-    <string
-      id="ret_library_export_npc_missing_file"
-      text="エクスポートファイルが見つかりませんでした。" />
-    <string
-      id="ret_library_export_npc_no_selection"
-      text="エクスポートが選択されていません。" />
+      text="このエクスポートタイプは変換できません" />
     <string
       id="ret_library_export_npc_tooltip"
-      text="このエクスポートをスタンドアロンのモッドに変換します。" />
+      text="このエクスポートをスタンドアロンのモッドに変換します" />
     <string
       id="ret_library_exports_empty_text"
       text="保存されたエクスポートが見つかりませんでした。" />
@@ -1381,9 +1306,6 @@
     <string
       id="ret_library_import_failed_title"
       text="インポートに失敗しました" />
-    <string
-      id="ret_library_import_missing_file"
-      text="エクスポートファイルが見つかりませんでした。" />
     <string
       id="ret_library_import_no_faction"
       text="エディタで派閥が選択されていません。" />
@@ -1413,7 +1335,7 @@
       text="部隊を置き換える" />
     <string
       id="ret_library_import_tooltip"
-      text="現在のゲームにインポートします。" />
+      text="現在のゲームにインポートします" />
     <string
       id="ret_library_kind_faction"
       text="派閥" />
@@ -1467,22 +1389,10 @@
       text="村人" />
     <string
       id="ret_mariner_captain_reason"
-      text="キャプテンは、基礎部隊の水兵能力を共有します。" />
-    <string
-      id="ret_mariner_disable_tooltip"
-      text="このユニットの水兵能力を無効にします。" />
-    <string
-      id="ret_mariner_enable_tooltip"
-      text="このユニットの水兵能力を有効にします。" />
+      text="キャプテンは、基礎部隊の水兵能力を共有します" />
     <string
       id="ret_mariner_hero_reason"
-      text="英雄は水兵になることはできません。" />
-    <string
-      id="ret_mariner_toggle_tooltip"
-      text="水兵は海戦に適していますが、スキルポイントの獲得速度がわずかに低下します。" />
-    <string
-      id="ret_mariner_toggle_tooltip_universal"
-      text="水兵は海戦に適しています。" />
+      text="英雄は水兵になることはできません" />
     <string
       id="ret_mcm_option_allowed_recruiters"
       text="許可されたリクルーター" />
@@ -1883,23 +1793,11 @@
       id="ret_mcm_section_user_interface"
       text="ユーザーインターフェース" />
     <string
-      id="ret_mixed_gender_disable_tooltip"
-      text="このユニットが男性または女性として出現することを禁止します。" />
-    <string
-      id="ret_mixed_gender_enable_tooltip"
-      text="このユニットが男性または女性として出現することを許可します。" />
-    <string
-      id="ret_mixed_gender_hero_reason"
-      text="ヒーローには利用できません。" />
-    <string
-      id="ret_mixed_gender_toggle_tooltip"
-      text="混合性別ユニット。" />
-    <string
       id="ret_name_header_text"
       text="名前" />
     <string
       id="ret_naval_dlc_not_loaded"
-      text="War Sailsがインストールされていません。" />
+      text="War Sailsがインストールされていません" />
     <string
       id="ret_no_clans_text"
       text="現在のゲームには氏族が読み込まれていません。" />
@@ -1934,23 +1832,11 @@
       id="ret_preview_mode"
       text="プレビューモード" />
     <string
-      id="ret_preview_mode_disable_tooltip"
-      text="プレビューモードを無効にします。" />
-    <string
-      id="ret_preview_mode_enable_tooltip"
-      text="プレビューモードを有効にします。" />
-    <string
-      id="ret_preview_mode_toggle_tooltip"
-      text="プレビューモードを使用して、変更を実際に適用せずに装備の外観を確認します。" />
-    <string
       id="ret_purchase_item_desc"
       text="{COST} デナリで {ITEM} を購入しますか？" />
     <string
       id="ret_purchase_item_title"
       text="アイテムを購入" />
-    <string
-      id="ret_race_cannot_change"
-      text="このユニットの種を変更することはできません。" />
     <string
       id="ret_race_incompatible_culture_gender"
       text="この種は現在の文化/性別と互換性がありません。" />
@@ -1970,32 +1856,14 @@
       id="ret_rank_up_confirm_yes"
       text="ランクアップ" />
     <string
-      id="ret_rank_up_max_tier"
-      text="このユニットはすでに最大階級に達しています。" />
-    <string
       id="ret_rank_up_no_captains"
-      text="キャプテンはランクアップできません。" />
-    <string
-      id="ret_rank_up_not_enough_money"
-      text="お金が足りません（{COST} デナリが必要です）。" />
-    <string
-      id="ret_rank_up_not_enough_sp"
-      text="スキルポイントが不足しています（{POINTS} が必要です）。" />
-    <string
-      id="ret_rank_up_player_only"
-      text="プレイヤーモードでのみ利用可能です。" />
-    <string
-      id="ret_rank_up_requires_maxed_skills"
-      text="このユニットは、その階級の総スキルを最大化している必要があります。" />
+      text="キャプテンはランクアップできません" />
     <string
       id="ret_rank_up_retinue_only"
-      text="随行員のみ利用可能です。" />
-    <string
-      id="ret_rank_up_tooltip"
-      text="このユニットのランクを上げます。" />
+      text="随行員のみ利用可能です" />
     <string
       id="ret_rename_tooltip"
-      text="名前を変更します。" />
+      text="名前を変更します" />
     <string
       id="ret_rename_unit"
       text="新しい名前" />
@@ -2015,9 +1883,6 @@
       id="ret_reset_confirm"
       text="リセット" />
     <string
-      id="ret_reset_default_universal_only"
-      text="ユニバーサルエディターでのみ利用可能です。" />
-    <string
       id="ret_reset_done_body"
       text="この操作を有効にするには、ゲームを保存して再起動してください。" />
     <string
@@ -2029,9 +1894,6 @@
     <string
       id="ret_reset_faction_title"
       text="デフォルトにリセット" />
-    <string
-      id="ret_reset_none_available"
-      text="今は何もリセットできません。" />
     <string
       id="ret_reset_target_faction_disabled"
       text="リセットするための変更されたバニラ部隊が見つかりませんでした。" />
@@ -2099,23 +1961,11 @@
       id="ret_retinues_version_update_text_no_current"
       text="このセーブファイルの Retinues モッドバージョンは、より新しいバージョン ({CURRENT_VERSION}) に更新されました。セーブデータは自動的に移行されました。{newline}{newline}安全対策として、セーブを上書きする前にすべてが正常であることを確認してください。{newline}{newline}何らかの理由で以前のバージョンに戻りたい場合は、Nexus Mods から以前使用していたバージョンをダウンロードしてください。" />
     <string
-      id="ret_scroll_to_bottom_tooltip"
-      text="リストの一番下までスクロールします。" />
-    <string
-      id="ret_scroll_to_top_tooltip"
-      text="リストの一番上までスクロールします。" />
-    <string
       id="ret_select_clan_title"
       text="クランを選択" />
     <string
       id="ret_select_culture_title"
       text="文化を選択" />
-    <string
-      id="ret_skill_decrease_min_reason"
-      text="スキルは0未満に減少できません。" />
-    <string
-      id="ret_skill_decrease_sources_reason"
-      text="アップグレードソースの最小値以下に減少することはできません。" />
     <string
       id="ret_skill_decrease_warning_text"
       text="スキルを下げるのは即座に行われますが、再訓練には時間がかかります。{newline}{newline}続行しますか？" />
@@ -2130,16 +1980,13 @@
       text="スキル上限：{SKILL_CAP} - 階層：{TIER}" />
     <string
       id="ret_skill_experience_tooltip"
-      text="次のスキルポイントまでのXP：{XP}/{XP_REQUIRED}。" />
-    <string
-      id="ret_skill_increase_maxed_reason"
-      text="スキルはすでに最大レベルです。" />
+      text="次のスキルポイントまでのXP：{XP}/{XP_REQUIRED}" />
     <string
       id="ret_skill_increase_no_points_reason"
-      text="スキルポイントが不足しています。" />
+      text="スキルポイントが不足しています" />
     <string
       id="ret_skill_increase_total_reason"
-      text="総スキル制限に達しました。" />
+      text="総スキル制限に達しました" />
     <string
       id="ret_skill_point_gained"
       text="{TROOP} はスキルポイントを獲得しました。" />
@@ -2148,7 +1995,7 @@
       text="{TROOP} は {POINTS} のスキルポイントを獲得しました。" />
     <string
       id="ret_skill_value_hint_staged"
-      text="トレーニングが完了するまでの実際のスキル値：{CURRENT}。" />
+      text="トレーニングが完了するまでの実際のスキル値：{CURRENT}" />
     <string
       id="ret_skills_header_text"
       text="スキル" />
@@ -2234,17 +2081,11 @@
       id="ret_statistics_parties_garrisons"
       text="配備回数：{TOTAL}（{PARTIES} 部隊、{GARRISONS} 駐屯地）" />
     <string
-      id="ret_statistics_player_only"
-      text="プレイヤーモードでのみ利用可能です。" />
-    <string
       id="ret_statistics_popup_title"
       text="統計" />
     <string
       id="ret_statistics_section_total"
       text="{TITLE}：{TOTAL}" />
-    <string
-      id="ret_statistics_tooltip"
-      text="ユニットの統計を表示します。" />
     <string
       id="ret_stocks_add"
       text="在庫に {AMOUNT} 個の {ITEM} を追加しました。" />
@@ -2257,15 +2098,6 @@
     <string
       id="ret_tooltip_culture_none"
       text="なし" />
-    <string
-      id="ret_trait_decrease_mined_reason"
-      text="特性はすでに最小値です。" />
-    <string
-      id="ret_trait_increase_maxed_reason"
-      text="特性はすでに最大値です。" />
-    <string
-      id="ret_trait_only_heroes_reason"
-      text="特性を持つのは英雄のみです。" />
     <string
       id="ret_traits_header_text"
       text="特性" />
@@ -2358,7 +2190,7 @@
       text="部隊 [R]" />
     <string
       id="ret_unequip_item_tooltip"
-      text="装備解除." />
+      text="装備解除" />
     <string
       id="ret_unknown_error"
       text="不明なエラー。" />
@@ -2379,22 +2211,22 @@
       text="でした" />
     <string
       id="ret_unstage_item_tooltip"
-      text="ステージ解除." />
+      text="ステージ解除" />
     <string
       id="ret_upgrade_cannot_add_hero"
-      text="英雄にはアップグレードターゲットを設定できません。" />
+      text="英雄にはアップグレードターゲットを設定できません" />
     <string
       id="ret_upgrade_cannot_add_max_targets"
-      text="最大アップグレードターゲット数に達しました。" />
+      text="最大アップグレードターゲット数に達しました" />
     <string
       id="ret_upgrade_cannot_add_max_tier"
-      text="このユニットはすでに最大階級です。" />
+      text="このユニットはすでに最大階級です" />
     <string
       id="ret_upgrade_cannot_add_not_upgradable"
       text="このユニットはアップグレードできません。" />
     <string
       id="ret_upgrade_no_captains"
-      text="隊長にはアップグレードを設定できません。" />
+      text="隊長にはアップグレードを設定できません" />
     <string
       id="ret_upgrade_sources_header_text"
       text="入手方法" />

@@ -28,21 +28,21 @@ namespace Retinues.Editor.Controllers.Library
         public static ControllerAction<ExportLibrary.Entry> Export { get; } =
             Action<ExportLibrary.Entry>("ExportNpcCharactersMod")
                 .DefaultTooltip(
-                    L.T("library_export_npc_tooltip", "Convert this export into a standalone mod.")
+                    L.T("library_export_npc_tooltip", "Convert this export into a standalone mod")
                 )
                 .AddCondition(
                     item => item != null,
-                    L.T("library_export_npc_no_selection", "No export selected.")
+                    L.T("library_no_selection", "No export selected")
                 )
                 .AddCondition(
                     HasExistingFile,
-                    _ => L.T("library_export_npc_missing_file", "Export file was not found.")
+                    _ => L.T("library_failed_missing_file", "Export file not found")
                 )
                 .AddCondition(
                     item => item.Kind == ExportKind.Character || item.Kind == ExportKind.Faction,
                     L.T(
                         "library_export_npc_kind_unsupported",
-                        "This export type cannot be converted."
+                        "This export type cannot be converted"
                     )
                 )
                 .AddCondition(
@@ -57,7 +57,7 @@ namespace Retinues.Editor.Controllers.Library
                     },
                     L.T(
                         "library_export_npc_custom_troop_unsupported",
-                        "Only vanilla troop edits can be converted to standalone mods."
+                        "Only vanilla troop edits can be converted to standalone mods"
                     )
                 )
                 .ExecuteWith(ExecuteExportNpcCharactersWithConfirm);

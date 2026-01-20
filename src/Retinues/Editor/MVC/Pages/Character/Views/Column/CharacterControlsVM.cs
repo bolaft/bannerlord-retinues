@@ -32,7 +32,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Column
         [DataSourceProperty]
         public Icon CaptainModeIcon { get; } =
             new(
-                tooltip: new Tooltip(L.T("captain_mode_toggle_tooltip", "Captain mode.")),
+                tooltip: new Tooltip(L.T("captain_mode_toggle_tooltip", "Captain Mode")),
                 refresh: [UIEvent.Character, UIEvent.Doctrine],
                 spriteFactory: () =>
                     State.Character.IsCaptain
@@ -66,13 +66,13 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Column
                         ? new Tooltip(
                             L.T(
                                 "mariner_toggle_tooltip_universal",
-                                "Mariners are better suited for naval combat."
+                                "Mariner: better suited for naval combat"
                             )
                         )
                         : new Tooltip(
                             L.T(
                                 "mariner_toggle_tooltip",
-                                "Mariners are better suited for naval combat, but earn skill points at a slightly reduced rate."
+                                "Mariner: better suited for naval combat, but earn skill points at a reduced rate"
                             )
                         ),
                 refresh: [UIEvent.Formation],
@@ -100,7 +100,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Column
         public Icon MixedGenderIcon { get; } =
             new(
                 tooltipFactory: () =>
-                    new Tooltip(L.T("mixed_gender_toggle_tooltip", "Mixed gender unit.")),
+                    new Tooltip(L.T("mixed_gender_toggle_tooltip", "Mixed Gender")),
                 refresh: [UIEvent.Character, UIEvent.Gender],
                 spriteFactory: () =>
                 {
@@ -135,20 +135,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Column
         [DataSourceProperty]
         public Icon FormationClassIcon { get; } =
             new(
-                tooltipFactory: () =>
-                {
-                    var c = State.Character;
-                    if (c == null)
-                        return null;
-
-                    return new Tooltip(
-                        L.T("formation_class_icon_tooltip", "Formation: {CLASS}.")
-                            .SetTextVariable(
-                                "CLASS",
-                                c.FormationClass.GetLocalizedName().ToString().ToLower()
-                            )
-                    );
-                },
+                tooltipFactory: () => new Tooltip(State.Character.FormationClass.GetLocalizedName()),
                 spriteFactory: () => Icons.GetFormationClassIcon(State.Character),
                 refresh: [UIEvent.Formation],
                 visibilityGate: () => State.Character != null

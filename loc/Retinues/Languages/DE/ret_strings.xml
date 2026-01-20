@@ -21,46 +21,46 @@
       text="Nur Spieler" />
     <string
       id="ret_battle_type_field_checkbox_tooltip_disable"
-      text="Deaktiviere für Feldschlachten." />
+      text="Deaktiviere für Feldschlachten" />
     <string
       id="ret_battle_type_field_checkbox_tooltip_enable"
-      text="Aktiviere für Feldschlachten." />
+      text="Aktiviere für Feldschlachten" />
     <string
       id="ret_battle_type_field_required_reason"
-      text="Mindestens ein Kampfausrüstungsset muss für Feldschlachten aktiviert bleiben." />
+      text="Mindestens ein Kampfausrüstungsset muss für Feldschlachten aktiviert bleiben" />
     <string
       id="ret_battle_type_field_tooltip"
-      text="Feldschlachten." />
+      text="Feldschlachten" />
     <string
       id="ret_battle_type_naval_checkbox_tooltip_disable"
-      text="Deaktiviere für Seeschlachten." />
+      text="Deaktiviere für Seeschlachten" />
     <string
       id="ret_battle_type_naval_checkbox_tooltip_enable"
-      text="Aktiviere für Seeschlachten." />
+      text="Aktiviere für Seeschlachten" />
     <string
       id="ret_battle_type_naval_required_reason"
-      text="Mindestens ein Kampfausrüstungsset muss für Seeschlachten aktiviert bleiben." />
+      text="Mindestens ein Kampfausrüstungsset muss für Seeschlachten aktiviert bleiben" />
     <string
       id="ret_battle_type_naval_tooltip"
-      text="Seeschlachten." />
+      text="Seeschlachten" />
     <string
       id="ret_battle_type_required_reason"
-      text="Mindestens ein Kampfausrüstungsset muss für diesen Schlachtentyp aktiviert bleiben." />
+      text="Mindestens ein Kampfausrüstungsset muss für diesen Schlachtentyp aktiviert bleiben" />
     <string
       id="ret_battle_type_siege_checkbox_tooltip_disable"
-      text="Deaktiviere für Belagerungsschlachten." />
+      text="Deaktiviere für Belagerungsschlachten" />
     <string
       id="ret_battle_type_siege_checkbox_tooltip_enable"
-      text="Aktiviere für Belagerungsschlachten." />
+      text="Aktiviere für Belagerungsschlachten" />
     <string
       id="ret_battle_type_siege_required_reason"
-      text="Mindestens ein Kampfausrüstungsset muss für Belagerungsschlachten aktiviert bleiben." />
+      text="Mindestens ein Kampfausrüstungsset muss für Belagerungsschlachten aktiviert bleiben" />
     <string
       id="ret_battle_type_siege_tooltip"
-      text="Belagerungsschlachten." />
+      text="Belagerungsschlachten" />
     <string
       id="ret_battle_types_civilian_reason"
-      text="Zivile Ausrüstungssets haben keine Beschränkungen für den Schlachtentyp." />
+      text="Zivile Ausrüstungssets haben keine Beschränkungen für den Schlachtentyp" />
     <string
       id="ret_body_age_decrease_tip"
       text="Alter verringern" />
@@ -69,10 +69,10 @@
       text="Alter erhöhen" />
     <string
       id="ret_body_age_max_reason"
-      text="Das Alter ist bereits auf dem Maximum." />
+      text="Das Alter ist bereits auf dem Maximum" />
     <string
       id="ret_body_age_min_reason"
-      text="Das Alter ist bereits auf dem Minimum." />
+      text="Das Alter ist bereits auf dem Minimum" />
     <string
       id="ret_body_build_decrease_tip"
       text="Statur verringern" />
@@ -81,10 +81,10 @@
       text="Statur erhöhen" />
     <string
       id="ret_body_build_max_reason"
-      text="Die Statur ist bereits auf dem Maximum." />
+      text="Die Statur ist bereits auf dem Maximum" />
     <string
       id="ret_body_build_min_reason"
-      text="Die Statur ist bereits auf dem Minimum." />
+      text="Die Statur ist bereits auf dem Minimum" />
     <string
       id="ret_body_height_decrease_tip"
       text="Größe verringern" />
@@ -93,10 +93,10 @@
       text="Größe erhöhen" />
     <string
       id="ret_body_height_max_reason"
-      text="Die Größe ist bereits auf dem Maximum." />
+      text="Die Größe ist bereits auf dem Maximum" />
     <string
       id="ret_body_height_min_reason"
-      text="Die Größe ist bereits auf dem Minimum." />
+      text="Die Größe ist bereits auf dem Minimum" />
     <string
       id="ret_body_weight_decrease_tip"
       text="Gewicht verringern" />
@@ -105,19 +105,19 @@
       text="Gewicht erhöhen" />
     <string
       id="ret_body_weight_max_reason"
-      text="Das Gewicht ist bereits auf dem Maximum." />
+      text="Das Gewicht ist bereits auf dem Maximum" />
     <string
       id="ret_body_weight_min_reason"
-      text="Das Gewicht ist bereits auf dem Minimum." />
+      text="Das Gewicht ist bereits auf dem Minimum" />
     <string
       id="ret_build_hint"
       text="Statur" />
     <string
       id="ret_button_change_formation_class_disabled_for_captains"
-      text="Hauptmänner teilen die Formationsklasse ihrer Basistruppen." />
+      text="Hauptmänner teilen die Formationsklasse ihrer Basistruppen" />
     <string
       id="ret_button_change_formation_class_tooltip"
-      text="Wähle eine Formationsklasse." />
+      text="Wähle eine Formationsklasse" />
     <string
       id="ret_button_disable_captain"
       text="Deaktivieren" />
@@ -128,9 +128,6 @@
       id="ret_button_export"
       text="Exportieren" />
     <string
-      id="ret_button_export_tooltip"
-      text="Exportiere die ausgewählte Fraktion oder Truppe in die Bibliothek." />
-    <string
       id="ret_button_rank_up"
       text="Rang erhöhen" />
     <string
@@ -139,9 +136,6 @@
     <string
       id="ret_button_reset"
       text="Zurücksetzen" />
-    <string
-      id="ret_button_reset_tooltip"
-      text="Auf Standardwerte zurücksetzen." />
     <string
       id="ret_button_show_battle"
       text="Kampf" />
@@ -156,7 +150,7 @@
       text="Nicht genug Geld" />
     <string
       id="ret_cant_change_retinue_culture"
-      text="Gefolgschaften können ihre Kultur nicht ändern." />
+      text="Gefolgschaften können ihre Kultur nicht ändern" />
     <string
       id="ret_cant_equip_reason_civilian"
       text="Nicht zivil" />
@@ -189,16 +183,16 @@
       text="Entsperren {PERCENT}%" />
     <string
       id="ret_cant_unequip_reason_empty"
-      text="Nichts zum Ausrüsten." />
+      text="Nichts zum Ausrüsten" />
     <string
       id="ret_captain_mode_off_hint"
-      text="Wechsle zur Basistruppe dieses Hauptmanns." />
+      text="Wechsle zur Basistruppe dieses Hauptmanns" />
     <string
       id="ret_captain_mode_on_hint"
-      text="Wechsle zum Hauptmann dieser Truppe." />
+      text="Wechsle zum Hauptmann dieser Truppe" />
     <string
       id="ret_captain_mode_toggle_tooltip"
-      text="Hauptmann-Modus." />
+      text="Hauptmann-Modus" />
     <string
       id="ret_captain_suffix"
       text="Hauptmann" />
@@ -210,22 +204,28 @@
       text="Diesen Hauptmann aktivieren" />
     <string
       id="ret_captain_toggle_enabled_not_captain_reason"
-      text="Diese Einheit ist kein Hauptmann." />
+      text="Diese Einheit ist kein Hauptmann" />
+    <string
+      id="ret_change_culture_hint"
+      text="Kultur ändern" />
     <string
       id="ret_change_culture_title"
       text="Kultur ändern" />
+    <string
+      id="ret_change_species_hint"
+      text="Spezies ändern" />
     <string
       id="ret_change_species_title"
       text="Spezies ändern" />
     <string
       id="ret_character_cannot_remove_hero"
-      text="Helden können nicht entfernt werden." />
+      text="Helden können nicht entfernt werden" />
     <string
       id="ret_character_cannot_remove_root"
-      text="Stammeinheiten können nicht entfernt werden." />
+      text="Stammeinheiten können nicht entfernt werden" />
     <string
       id="ret_character_cannot_remove_with_upgrades"
-      text="Eine Einheit, die noch Upgrades hat, kann nicht entfernt werden." />
+      text="Eine Einheit, die noch Upgrades hat, kann nicht entfernt werden" />
     <string
       id="ret_character_is_null"
       text="Charakter ist null." />
@@ -240,22 +240,10 @@
       text="Mit dem ersten Lehen entsperrt" />
     <string
       id="ret_clear_filter_tooltip"
-      text="Den aktuellen Filtertext löschen." />
+      text="Filter löschen" />
     <string
       id="ret_close_equipment_button_text"
       text="Zurück" />
-    <string
-      id="ret_crafted_items_hide_tooltip"
-      text="Handgefertigte Waffen einbeziehen." />
-    <string
-      id="ret_crafted_items_only_tooltip"
-      text="Handgefertigte Waffen anzeigen." />
-    <string
-      id="ret_crafted_items_toggle_tooltip"
-      text="Handgefertigte Gegenstände in die Ausrüstungsliste aufnehmen." />
-    <string
-      id="ret_crafted_player_only_reason"
-      text="Nur im Spielermodus verfügbar." />
     <string
       id="ret_create_unit"
       text="Neue Einheit" />
@@ -300,7 +288,7 @@
       text="Falsche Version" />
     <string
       id="ret_doctrine_acquire_already_acquired"
-      text="Diese Doktrin wurde bereits erworben." />
+      text="Diese Doktrin wurde bereits erworben" />
     <string
       id="ret_doctrine_acquire_button"
       text="Erwerben" />
@@ -324,7 +312,7 @@
       text="Doktrin kann nicht erworben werden." />
     <string
       id="ret_doctrine_acquire_unavailable"
-      text="Diese Doktrin ist noch gesperrt." />
+      text="Diese Doktrin ist noch gesperrt" />
     <string
       id="ret_doctrine_acquired_msg"
       text="Erworbene Doktrin: {NAME}." />
@@ -379,15 +367,6 @@
     <string
       id="ret_doctrine_description_header"
       text="Effekte" />
-    <string
-      id="ret_doctrine_feat_progress_tooltip_completed"
-      text="Sie haben diese Tat abgeschlossen." />
-    <string
-      id="ret_doctrine_feat_progress_tooltip_incomplete"
-      text="Sie haben diese Tat noch nicht abgeschlossen." />
-    <string
-      id="ret_doctrine_feat_progress_tooltip_repeatable"
-      text="Diese Tat ist wiederholbar. Sie können sie mehrfach abschließen." />
     <string
       id="ret_doctrine_feats_header"
       text="Taten" />
@@ -534,7 +513,7 @@
       text="Schaltet benutzerdefinierte Miliztruppen für die Städte und Burgen Ihrer Fraktion frei." />
     <string
       id="ret_doctrines_disabled"
-      text="Doktrinen sind deaktiviert." />
+      text="Doktrinen sind deaktiviert" />
     <string
       id="ret_editing_restriction_in_fief"
       text="Fraktionslehen" />
@@ -597,7 +576,7 @@
       text="Ausrüstung" />
     <string
       id="ret_equipment_cannot_delete_last_set"
-      text="Es muss mindestens ein Ausrüstungsset verbleiben." />
+      text="Es muss mindestens ein Ausrüstungsset verbleiben" />
     <string
       id="ret_equipment_clipboard_source_fallback"
       text="Zwischenablage" />
@@ -605,17 +584,8 @@
       id="ret_equipment_copied_toast"
       text="Ausrüstung in die Zwischenablage kopiert." />
     <string
-      id="ret_equipment_copy_tooltip"
-      text="Ausrüstung in die Zwischenablage kopieren." />
-    <string
-      id="ret_equipment_delete_breaks_battle_types_reason"
-      text="Dieses Set kann nicht gelöscht werden, da es das letzte für mindestens einen Kampftyp aktivierte ist." />
-    <string
       id="ret_equipment_hero_sets_reason"
-      text="Helden können nicht mehrere Ausrüstungssets haben." />
-    <string
-      id="ret_equipment_no_more_sets"
-      text="Keine weiteren Ausrüstungssets." />
+      text="Helden können nicht mehrere Ausrüstungssets haben" />
     <string
       id="ret_equipment_panel_value_limit"
       text="{LIMIT} Denare" />
@@ -638,17 +608,11 @@
       id="ret_equipment_paste_confirm_title"
       text="Ausrüstung kopieren" />
     <string
-      id="ret_equipment_paste_empty_clipboard_reason"
-      text="Die Zwischenablage ist leer." />
-    <string
       id="ret_equipment_paste_nothing_desc2"
       text="Nichts Neues von {SRC} kann auf {DST} ausgerüstet werden." />
     <string
       id="ret_equipment_paste_nothing_title"
       text="Ausrüstung kopieren" />
-    <string
-      id="ret_equipment_paste_tooltip"
-      text="Ausrüstung aus der Zwischenablage einfügen." />
     <string
       id="ret_equipment_slot_body"
       text="Körper" />
@@ -682,12 +646,6 @@
     <string
       id="ret_equipment_slot_weapon_3"
       text="Waffe 4" />
-    <string
-      id="ret_equipments_create_set"
-      text="Erstellen Sie ein neues Ausrüstungsset." />
-    <string
-      id="ret_equipments_delete_set"
-      text="Löschen Sie das ausgewählte Ausrüstungsset." />
     <string
       id="ret_escape_menu_editor_button"
       text="Universeller Editor" />
@@ -724,9 +682,6 @@
     <string
       id="ret_export_name_title"
       text="Exportname" />
-    <string
-      id="ret_export_none_available"
-      text="Im Moment kann nichts exportiert werden." />
     <string
       id="ret_export_overwrite_desc"
       text="Eine Datei mit dem Namen &apos;{NAME}&apos; existiert bereits.{newline}{newline}Möchten Sie sie überschreiben?" />
@@ -1133,35 +1088,20 @@
       id="ret_filter_tooltip_description_equipment"
       text="Geben Sie ein, um die Liste nach Name, Kategorie oder Stufe zu filtern." />
     <string
-      id="ret_formation_class_icon_tooltip"
-      text="Formation: {CLASS}." />
-    <string
       id="ret_formation_option_auto"
       text="Auto" />
     <string
       id="ret_formation_option_auto_hint"
-      text="Lassen Sie das Spiel die Formationsklasse basierend auf der Ausrüstung automatisch auswählen." />
+      text="Lassen Sie das Spiel die Formationsklasse basierend auf der Ausrüstung automatisch auswählen" />
     <string
       id="ret_formation_option_hint"
-      text="Erzwinge die {CLASS} Formation." />
+      text="Erzwinge die {CLASS} Formation" />
     <string
       id="ret_formation_popup_desc"
       text="Wählen Sie aus, wie diese Einheit kategorisiert wird. Lassen Sie es auf &apos;Auto&apos;, um sie basierend auf ihrer Ausrüstung zu kategorisieren." />
     <string
       id="ret_formation_popup_title"
       text="Formationsklasse" />
-    <string
-      id="ret_gender_no_culture"
-      text="Keine Kultur ausgewählt." />
-    <string
-      id="ret_gender_no_template"
-      text="Diese Kultur hat keine gültige Körpervorlage für dieses Geschlecht/diese Spezies." />
-    <string
-      id="ret_gender_not_renderable"
-      text="Diese Geschlechts-/Spezieskombination kann nicht gerendert werden." />
-    <string
-      id="ret_gender_toggle_hint"
-      text="Geschlecht ändern" />
     <string
       id="ret_go_to_editor"
       text="Zum Editor gehen" />
@@ -1283,17 +1223,11 @@
       id="ret_library_delete_failed_exception"
       text="Die Datei konnte nicht gelöscht werden." />
     <string
-      id="ret_library_delete_failed_missing_file"
-      text="Exportdatei wurde nicht gefunden." />
-    <string
       id="ret_library_delete_failed_title"
       text="Löschen fehlgeschlagen" />
     <string
-      id="ret_library_delete_no_selection"
-      text="Kein Export ausgewählt." />
-    <string
       id="ret_library_delete_tooltip"
-      text="Löscht dieses Bibliothekselement und die zugehörige XML-Datei dauerhaft." />
+      text="Löscht dieses Bibliothekselement und die zugehörige XML-Datei dauerhaft" />
     <string
       id="ret_library_edit_button"
       text="Bearbeiten" />
@@ -1313,11 +1247,8 @@
       id="ret_library_edit_failed_title"
       text="Bearbeitung fehlgeschlagen" />
     <string
-      id="ret_library_edit_no_selection"
-      text="Kein Export ausgewählt." />
-    <string
       id="ret_library_edit_tooltip"
-      text="Bearbeiten Sie direkt den Inhalt der XML-Datei dieses Exports." />
+      text="Bearbeiten Sie direkt den Inhalt der XML-Datei dieses Exports" />
     <string
       id="ret_library_export_file_header"
       text="Datei" />
@@ -1332,7 +1263,7 @@
       text="In eigenständigen Mod konvertieren" />
     <string
       id="ret_library_export_npc_custom_troop_unsupported"
-      text="Nur Änderungen an Standard-Truppen können in eigenständige Mods konvertiert werden." />
+      text="Nur Änderungen an Standard-Truppen können in eigenständige Mods konvertiert werden" />
     <string
       id="ret_library_export_npc_failed_exception"
       text="Die Datei konnte nicht exportiert werden." />
@@ -1350,16 +1281,10 @@
       text="Export fehlgeschlagen" />
     <string
       id="ret_library_export_npc_kind_unsupported"
-      text="Dieser Exporttyp kann nicht konvertiert werden." />
-    <string
-      id="ret_library_export_npc_missing_file"
-      text="Exportdatei wurde nicht gefunden." />
-    <string
-      id="ret_library_export_npc_no_selection"
-      text="Kein Export ausgewählt." />
+      text="Dieser Exporttyp kann nicht konvertiert werden" />
     <string
       id="ret_library_export_npc_tooltip"
-      text="Konvertieren Sie diesen Export in einen eigenständigen Mod." />
+      text="Konvertieren Sie diesen Export in einen eigenständigen Mod" />
     <string
       id="ret_library_exports_empty_text"
       text="Keine gespeicherten Exporte gefunden." />
@@ -1381,9 +1306,6 @@
     <string
       id="ret_library_import_failed_title"
       text="Import fehlgeschlagen" />
-    <string
-      id="ret_library_import_missing_file"
-      text="Exportdatei wurde nicht gefunden." />
     <string
       id="ret_library_import_no_faction"
       text="Im Editor ist keine Fraktion ausgewählt." />
@@ -1413,7 +1335,7 @@
       text="Truppe ersetzen" />
     <string
       id="ret_library_import_tooltip"
-      text="In das aktuelle Spiel importieren." />
+      text="In das aktuelle Spiel importieren" />
     <string
       id="ret_library_kind_faction"
       text="Fraktion" />
@@ -1467,22 +1389,10 @@
       text="Dörfler" />
     <string
       id="ret_mariner_captain_reason"
-      text="Hauptleute teilen die Seefahrer-Fähigkeit ihrer Basistruppen." />
-    <string
-      id="ret_mariner_disable_tooltip"
-      text="Deaktiviere die Seefahrer-Fähigkeit dieser Einheit." />
-    <string
-      id="ret_mariner_enable_tooltip"
-      text="Aktiviere die Seefahrer-Fähigkeit dieser Einheit." />
+      text="Hauptleute teilen die Seefahrer-Fähigkeit ihrer Basistruppen" />
     <string
       id="ret_mariner_hero_reason"
-      text="Helden können keine Seefahrer sein." />
-    <string
-      id="ret_mariner_toggle_tooltip"
-      text="Seefahrer sind besser für den Seekampf geeignet, verdienen jedoch Fertigkeitspunkte in einem leicht reduzierten Tempo." />
-    <string
-      id="ret_mariner_toggle_tooltip_universal"
-      text="Seefahrer sind besser für den Seekampf geeignet." />
+      text="Helden können keine Seefahrer sein" />
     <string
       id="ret_mcm_option_allowed_recruiters"
       text="Erlaubte Rekrutierer" />
@@ -1883,23 +1793,11 @@
       id="ret_mcm_section_user_interface"
       text="Benutzeroberfläche" />
     <string
-      id="ret_mixed_gender_disable_tooltip"
-      text="Verhindert, dass diese Einheit entweder als männlich oder weiblich erscheint." />
-    <string
-      id="ret_mixed_gender_enable_tooltip"
-      text="Ermöglicht es dieser Einheit, entweder als männlich oder weiblich zu erscheinen." />
-    <string
-      id="ret_mixed_gender_hero_reason"
-      text="Nicht für Helden verfügbar." />
-    <string
-      id="ret_mixed_gender_toggle_tooltip"
-      text="Einheit mit gemischtem Geschlecht." />
-    <string
       id="ret_name_header_text"
       text="Name" />
     <string
       id="ret_naval_dlc_not_loaded"
-      text="War Sails ist nicht installiert." />
+      text="War Sails ist nicht installiert" />
     <string
       id="ret_no_clans_text"
       text="In dem aktuellen Spiel sind keine Clans geladen." />
@@ -1934,23 +1832,11 @@
       id="ret_preview_mode"
       text="Vorschaumodus" />
     <string
-      id="ret_preview_mode_disable_tooltip"
-      text="Vorschaumodus deaktivieren." />
-    <string
-      id="ret_preview_mode_enable_tooltip"
-      text="Vorschaumodus aktivieren." />
-    <string
-      id="ret_preview_mode_toggle_tooltip"
-      text="Verwenden Sie den Vorschaumodus, um zu sehen, wie die Ausrüstung aussieht, ohne tatsächlich Änderungen vorzunehmen." />
-    <string
       id="ret_purchase_item_desc"
       text="Kaufen Sie {ITEM} für {COST} Denare?" />
     <string
       id="ret_purchase_item_title"
       text="Gegenstand kaufen" />
-    <string
-      id="ret_race_cannot_change"
-      text="Die Spezies dieser Einheit kann nicht geändert werden." />
     <string
       id="ret_race_incompatible_culture_gender"
       text="Diese Spezies ist mit der aktuellen Kultur/Geschlecht nicht kompatibel." />
@@ -1970,32 +1856,14 @@
       id="ret_rank_up_confirm_yes"
       text="Rang erhöhen" />
     <string
-      id="ret_rank_up_max_tier"
-      text="Diese Einheit ist bereits auf dem maximalen Rang." />
-    <string
       id="ret_rank_up_no_captains"
-      text="Hauptmänner können nicht aufsteigen." />
-    <string
-      id="ret_rank_up_not_enough_money"
-      text="Nicht genügend Geld (benötigt {COST} Denare)." />
-    <string
-      id="ret_rank_up_not_enough_sp"
-      text="Nicht genügend Fertigkeitspunkte (benötigt {POINTS})." />
-    <string
-      id="ret_rank_up_player_only"
-      text="Nur im Spielermodus verfügbar." />
-    <string
-      id="ret_rank_up_requires_maxed_skills"
-      text="Diese Einheit muss ihre Gesamtfähigkeiten für ihre Stufe maximiert haben." />
+      text="Hauptmänner können nicht aufsteigen" />
     <string
       id="ret_rank_up_retinue_only"
-      text="Nur für Retinues verfügbar." />
-    <string
-      id="ret_rank_up_tooltip"
-      text="Diese Einheit befördern." />
+      text="Nur für Retinues verfügbar" />
     <string
       id="ret_rename_tooltip"
-      text="Umbenennen." />
+      text="Umbenennen" />
     <string
       id="ret_rename_unit"
       text="Neuer Name" />
@@ -2015,9 +1883,6 @@
       id="ret_reset_confirm"
       text="Zurücksetzen" />
     <string
-      id="ret_reset_default_universal_only"
-      text="Nur im Universal-Editor verfügbar." />
-    <string
       id="ret_reset_done_body"
       text="Speichern Sie das Spiel und starten Sie es neu, damit diese Aktion wirksam wird." />
     <string
@@ -2029,9 +1894,6 @@
     <string
       id="ret_reset_faction_title"
       text="Auf Standard zurücksetzen" />
-    <string
-      id="ret_reset_none_available"
-      text="Nichts kann gerade zurückgesetzt werden." />
     <string
       id="ret_reset_target_faction_disabled"
       text="Keine modifizierten Standardtruppen zum Zurücksetzen gefunden." />
@@ -2099,23 +1961,11 @@
       id="ret_retinues_version_update_text_no_current"
       text="Die Retinues-Mod-Version in dieser Speicherdatei wurde auf eine neuere Version ({CURRENT_VERSION}) aktualisiert. Ihre gespeicherten Daten wurden automatisch migriert.{newline}{newline}Als Sicherheitsvorkehrung sollten Sie überprüfen, ob alles in Ordnung ist, bevor Sie Ihren Speicher überschreiben.{newline}{newline}Wenn Sie aus irgendeinem Grund zur vorherigen Version zurückkehren möchten, laden Sie die Version herunter, die Sie zuvor verwendet haben, von Nexus Mods." />
     <string
-      id="ret_scroll_to_bottom_tooltip"
-      text="Zum Ende der Liste scrollen." />
-    <string
-      id="ret_scroll_to_top_tooltip"
-      text="Zum Anfang der Liste scrollen." />
-    <string
       id="ret_select_clan_title"
       text="Clan auswählen" />
     <string
       id="ret_select_culture_title"
       text="Kultur auswählen" />
-    <string
-      id="ret_skill_decrease_min_reason"
-      text="Fähigkeit kann nicht unter 0 verringert werden." />
-    <string
-      id="ret_skill_decrease_sources_reason"
-      text="Kann nicht unter das Minimum der Upgrade-Quelle verringert werden." />
     <string
       id="ret_skill_decrease_warning_text"
       text="Das Verringern einer Fähigkeit ist sofortig, aber das erneute Trainieren dauert Zeit.{newline}{newline}Fortfahren?" />
@@ -2130,16 +1980,13 @@
       text="Fertigkeitslimit: {SKILL_CAP} - Stufe: {TIER}" />
     <string
       id="ret_skill_experience_tooltip"
-      text="{XP}/{XP_REQUIRED} XP bis zum nächsten Fertigkeitspunkt." />
-    <string
-      id="ret_skill_increase_maxed_reason"
-      text="Fähigkeit ist bereits auf dem maximalen Niveau." />
+      text="{XP}/{XP_REQUIRED} XP bis zum nächsten Fertigkeitspunkt" />
     <string
       id="ret_skill_increase_no_points_reason"
-      text="Nicht genug Fertigkeitspunkte." />
+      text="Nicht genug Fertigkeitspunkte" />
     <string
       id="ret_skill_increase_total_reason"
-      text="Gesamtes Fähigkeitslimit erreicht." />
+      text="Gesamtes Fähigkeitslimit erreicht" />
     <string
       id="ret_skill_point_gained"
       text="{TROOP} hat einen Fertigkeitspunkt verdient." />
@@ -2148,13 +1995,13 @@
       text="{TROOP} hat {POINTS} Fertigkeitspunkte verdient." />
     <string
       id="ret_skill_value_hint_staged"
-      text="Tatsächlicher Fähigkeitswert bis zum Abschluss des Trainings: {CURRENT}." />
+      text="Tatsächlicher Fähigkeitswert bis zum Abschluss des Trainings: {CURRENT}" />
     <string
       id="ret_skills_header_text"
       text="Fähigkeiten" />
     <string
       id="ret_slot_value_hint_staged"
-      text="Tatsächlicher Gegenstand bis zum Abschluss des Ausrüstens: {CURRENT}." />
+      text="Tatsächlicher Gegenstand bis zum Abschluss des Ausrüstens: {CURRENT}" />
     <string
       id="ret_sort_by_culture"
       text="Kultur" />
@@ -2234,17 +2081,11 @@
       id="ret_statistics_parties_garrisons"
       text="Einsätze: {TOTAL} ({PARTIES} Parteien, {GARRISONS} Garnisonen)" />
     <string
-      id="ret_statistics_player_only"
-      text="Nur im Spielermodus verfügbar." />
-    <string
       id="ret_statistics_popup_title"
       text="Statistiken" />
     <string
       id="ret_statistics_section_total"
       text="{TITLE}: {TOTAL}" />
-    <string
-      id="ret_statistics_tooltip"
-      text="Einheitsstatistiken anzeigen." />
     <string
       id="ret_stocks_add"
       text="Es wurden {AMOUNT} {ITEM} zu den Beständen hinzugefügt." />
@@ -2257,15 +2098,6 @@
     <string
       id="ret_tooltip_culture_none"
       text="Keine" />
-    <string
-      id="ret_trait_decrease_mined_reason"
-      text="Eigenschaft ist bereits auf dem Mindestwert." />
-    <string
-      id="ret_trait_increase_maxed_reason"
-      text="Eigenschaft ist bereits auf dem Höchstwert." />
-    <string
-      id="ret_trait_only_heroes_reason"
-      text="Nur Helden haben Eigenschaften." />
     <string
       id="ret_traits_header_text"
       text="Eigenschaften" />
@@ -2358,7 +2190,7 @@
       text="Truppen [R]" />
     <string
       id="ret_unequip_item_tooltip"
-      text="Ablegen." />
+      text="Ablegen" />
     <string
       id="ret_unknown_error"
       text="Unbekannter Fehler." />
@@ -2379,22 +2211,22 @@
       text="waren" />
     <string
       id="ret_unstage_item_tooltip"
-      text="Rückgängig." />
+      text="Rückgängig" />
     <string
       id="ret_upgrade_cannot_add_hero"
-      text="Helden können keine Upgrade-Ziele haben." />
+      text="Helden können keine Upgrade-Ziele haben" />
     <string
       id="ret_upgrade_cannot_add_max_targets"
-      text="Maximale Anzahl von Upgrade-Zielen erreicht." />
+      text="Maximale Anzahl von Upgrade-Zielen erreicht" />
     <string
       id="ret_upgrade_cannot_add_max_tier"
-      text="Diese Einheit ist bereits auf der höchsten Stufe." />
+      text="Diese Einheit ist bereits auf der höchsten Stufe" />
     <string
       id="ret_upgrade_cannot_add_not_upgradable"
       text="Diese Einheit ist nicht aufrüstbar." />
     <string
       id="ret_upgrade_no_captains"
-      text="Hauptmänner können keine Upgrades haben." />
+      text="Hauptmänner können keine Upgrades haben" />
     <string
       id="ret_upgrade_sources_header_text"
       text="Quellen" />

@@ -27,14 +27,14 @@ namespace Retinues.Editor.Controllers.Library
         /// </summary>
         public static ControllerAction<ExportLibrary.Entry> Import { get; } =
             Action<ExportLibrary.Entry>("ImportLibraryItem")
-                .DefaultTooltip(L.T("library_import_tooltip", "Import into the current game."))
+                .DefaultTooltip(L.T("library_import_tooltip", "Import into the current game"))
                 .AddCondition(
                     item => item != null,
-                    L.T("library_import_no_selection", "No export selected.")
+                    L.T("library_no_selection", "No export selected")
                 )
                 .AddCondition(
                     HasExistingFile,
-                    _ => L.T("library_import_missing_file", "Export file was not found.")
+                    _ => L.T("library_failed_missing_file", "Export file not found")
                 )
                 .AddCondition(CanResolveImportContext, BuildCantResolveImportContextReason)
                 .ExecuteWith(ExecuteImport);

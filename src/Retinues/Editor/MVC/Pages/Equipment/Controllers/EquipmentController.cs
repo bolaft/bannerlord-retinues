@@ -32,8 +32,7 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Controllers
                         var list = GetEquipments(civilian);
                         int i = IndexOfByBase(list, State.Equipment);
                         return i > 0;
-                    },
-                    L.T("equipment_no_more_sets", "No more equipment sets.")
+                    }
                 )
                 .ExecuteWith(civilian =>
                 {
@@ -60,8 +59,7 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Controllers
                         var list = GetEquipments(civilian);
                         int i = IndexOfByBase(list, State.Equipment);
                         return i >= 0 && i < list.Count - 1;
-                    },
-                    L.T("equipment_no_more_sets", "No more equipment sets.")
+                    }
                 )
                 .ExecuteWith(civilian =>
                 {
@@ -85,9 +83,9 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Controllers
                 .RequireValidEditingContext()
                 .AddCondition(
                     _ => State.Character.IsHero == false,
-                    L.T("equipment_hero_sets_reason", "Heroes cannot have multiple equipment sets.")
+                    L.T("equipment_hero_sets_reason", "Heroes cannot have multiple equipment sets")
                 )
-                .DefaultTooltip(L.T("equipments_create_set", "Create a new equipment set."))
+                .DefaultTooltip(L.T("equipments_create_set", "Create new equipment"))
                 .ExecuteWith(CreateSetImpl);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -102,13 +100,13 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Controllers
                 .RequireValidEditingContext()
                 .AddCondition(
                     _ => State.Character.IsHero == false,
-                    L.T("equipment_hero_sets_reason", "Heroes cannot have multiple equipment sets.")
+                    L.T("equipment_hero_sets_reason", "Heroes cannot have multiple equipment sets")
                 )
                 .AddCondition(
                     civilian => GetEquipments(civilian).Count > 1,
                     L.T(
                         "equipment_cannot_delete_last_set",
-                        "At least one equipment set must remain."
+                        "Cannot remove the last equipment set"
                     )
                 )
                 .AddCondition(
@@ -122,10 +120,10 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Controllers
                     },
                     L.T(
                         "equipment_delete_breaks_battle_types_reason",
-                        "Cannot delete this set because it is the last one enabled for at least one battle type."
+                        "Cannot remove the last equipment set enabled for a battle type."
                     )
                 )
-                .DefaultTooltip(L.T("equipments_delete_set", "Delete the selected equipment set."))
+                .DefaultTooltip(L.T("equipments_delete_set", "Delete equipment"))
                 .ExecuteWith(DeleteSetImpl);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -139,12 +137,12 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Controllers
             Action<bool>("SetShowCrafted")
                 .AddCondition(
                     _ => State.Mode == EditorMode.Player,
-                    L.T("crafted_player_only_reason", "Only available in player mode.")
+                    L.T("crafted_player_only_reason", "Not available in the Universal Editor")
                 )
                 .DefaultTooltip(value =>
                     value
-                        ? L.T("crafted_items_only_tooltip", "Show crafted weapons.")
-                        : L.T("crafted_items_hide_tooltip", "Hide crafted weapons.")
+                        ? L.T("crafted_items_only_tooltip", "Show crafted")
+                        : L.T("crafted_items_hide_tooltip", "Hide crafted")
                 )
                 .ExecuteWith(value => State.ShowCrafted = value)
                 .Fire(UIEvent.Crafted);
@@ -208,19 +206,19 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Controllers
             {
                 BattleType.Field => L.T(
                     "battle_type_field_required_reason",
-                    "At least one battle equipment set must remain enabled for field battles."
+                    "At least one battle equipment set must remain enabled for field battles"
                 ),
                 BattleType.Siege => L.T(
                     "battle_type_siege_required_reason",
-                    "At least one battle equipment set must remain enabled for siege battles."
+                    "At least one battle equipment set must remain enabled for siege battles"
                 ),
                 BattleType.Naval => L.T(
                     "battle_type_naval_required_reason",
-                    "At least one battle equipment set must remain enabled for naval battles."
+                    "At least one battle equipment set must remain enabled for naval battles"
                 ),
                 _ => L.T(
                     "battle_type_required_reason",
-                    "At least one battle equipment set must remain enabled for this battle type."
+                    "At least one battle equipment set must remain enabled for this battle type"
                 ),
             };
         }
@@ -360,7 +358,7 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Controllers
                     _ => State.Equipment != null && State.Equipment.IsCivilian == false,
                     L.T(
                         "battle_types_civilian_reason",
-                        "Civilian equipment sets do not have battle type restrictions."
+                        "Civilian equipment sets do not have battle type restrictions"
                     )
                 )
                 .AddCondition(
@@ -371,11 +369,11 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Controllers
                     value
                         ? L.T(
                             "battle_type_field_checkbox_tooltip_enable",
-                            "Enable for field battles."
+                            "Enable for field battles"
                         )
                         : L.T(
                             "battle_type_field_checkbox_tooltip_disable",
-                            "Disable for field battles."
+                            "Disable for field battles"
                         )
                 )
                 .ExecuteWith(SetFieldBattleSetImpl)
@@ -405,7 +403,7 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Controllers
                     _ => State.Equipment != null && State.Equipment.IsCivilian == false,
                     L.T(
                         "battle_types_civilian_reason",
-                        "Civilian equipment sets do not have battle type restrictions."
+                        "Civilian equipment sets do not have battle type restrictions"
                     )
                 )
                 .AddCondition(
@@ -416,11 +414,11 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Controllers
                     value
                         ? L.T(
                             "battle_type_siege_checkbox_tooltip_enable",
-                            "Enable for siege battles."
+                            "Enable for siege battles"
                         )
                         : L.T(
                             "battle_type_siege_checkbox_tooltip_disable",
-                            "Disable for siege battles."
+                            "Disable for siege battles"
                         )
                 )
                 .ExecuteWith(SetSiegeBattleSetImpl)
@@ -448,13 +446,13 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Controllers
             Action<bool>("SetNavalBattleSet")
                 .AddCondition(
                     _ => Mods.NavalDLC.IsLoaded,
-                    L.T("naval_dlc_not_loaded", "War Sails is not installed.")
+                    L.T("naval_dlc_not_loaded", "War Sails is not installed")
                 )
                 .AddCondition(
                     _ => State.Equipment != null && State.Equipment.IsCivilian == false,
                     L.T(
                         "battle_types_civilian_reason",
-                        "Civilian equipment sets do not have battle type restrictions."
+                        "Civilian equipment sets do not have battle type restrictions"
                     )
                 )
                 .AddCondition(
@@ -465,11 +463,11 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Controllers
                     value
                         ? L.T(
                             "battle_type_naval_checkbox_tooltip_enable",
-                            "Enable for naval battles."
+                            "Enable for naval battles"
                         )
                         : L.T(
                             "battle_type_naval_checkbox_tooltip_disable",
-                            "Disable for naval battles."
+                            "Disable for naval battles"
                         )
                 )
                 .ExecuteWith(SetNavalBattleSetImpl)

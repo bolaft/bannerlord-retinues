@@ -197,8 +197,8 @@ namespace Retinues.Editor.MVC.Shared.Controllers
         /// <summary>
         /// Add a condition that must pass for the action to be allowed.
         /// </summary>
-        public ControllerAction<TArg> AddCondition(Func<TArg, bool> test, TextObject reason) =>
-            AddConditionCore(null, test, _ => reason);
+        public ControllerAction<TArg> AddCondition(Func<TArg, bool> test, TextObject reason = null) =>
+            AddConditionCore(null, test, _ => reason ?? new TextObject(string.Empty));
 
         /// <summary>
         /// Add a condition that must pass for the action to be allowed.
@@ -214,8 +214,8 @@ namespace Retinues.Editor.MVC.Shared.Controllers
         public ControllerAction<TArg> AddCondition(
             Func<EditorState, bool> applies,
             Func<TArg, bool> test,
-            TextObject reason
-        ) => AddConditionCore(applies, test, _ => reason);
+            TextObject reason = null
+        ) => AddConditionCore(applies, test, _ => reason ?? new TextObject(string.Empty));
 
         /// <summary>
         /// Add a condition with a reason factory that applies only when the state predicate is true.

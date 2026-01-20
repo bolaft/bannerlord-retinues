@@ -120,7 +120,7 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.Panel
                     new(
                         L.T(
                                 "slot_value_hint_staged",
-                                "Actual item until equipping completes: {CURRENT}."
+                                "Actual item until equipping completes: {CURRENT}"
                             )
                             .SetTextVariable(
                                 "CURRENT",

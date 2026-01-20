@@ -25,18 +25,18 @@ namespace Retinues.Editor.MVC.Pages.Doctrines.Controllers
             Action<Doctrine>("Acquire")
                 .AddCondition(
                     _ => Settings.EnableDoctrines,
-                    L.T("doctrines_disabled", "Doctrines are disabled.")
+                    L.T("doctrines_disabled", "Doctrines are disabled")
                 )
                 .AddCondition(
                     doctrine => !doctrine.IsAcquired,
                     L.T(
                         "doctrine_acquire_already_acquired",
-                        "This doctrine has already been acquired."
+                        "This doctrine has already been acquired"
                     )
                 )
                 .AddCondition(
                     doctrine => doctrine.IsUnlocked,
-                    L.T("doctrine_acquire_unavailable", "This doctrine is still locked.")
+                    L.T("doctrine_acquire_unavailable", "This doctrine is still locked")
                 )
                 .ExecuteWith(doctrine =>
                 {

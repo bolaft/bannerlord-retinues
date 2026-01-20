@@ -34,8 +34,8 @@ namespace Retinues.Editor.MVC.Common.Column.Views
         public Tooltip CustomizationHint =>
             new(
                 ShowCustomization
-                    ? L.S("customization_hint_show", "Hide Customization Controls")
-                    : L.S("customization_hint_hide", "Show Customization Controls")
+                    ? L.S("customization_hint_show", "Hide customization controls")
+                    : L.S("customization_hint_hide", "Show customization controls")
             );
 
         [DataSourceMethod]

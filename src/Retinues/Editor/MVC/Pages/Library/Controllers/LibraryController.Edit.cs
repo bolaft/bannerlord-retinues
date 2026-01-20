@@ -21,15 +21,15 @@ namespace Retinues.Editor.Controllers.Library
         public static ControllerAction<ExportLibrary.Entry> Edit { get; } =
             Action<ExportLibrary.Entry>("EditLibraryItem")
                 .DefaultTooltip(
-                    L.T("library_edit_tooltip", "Directly edit this export's XML file contents.")
+                    L.T("library_edit_tooltip", "Directly edit this export's XML file contents")
                 )
                 .AddCondition(
                     item => item != null,
-                    L.T("library_edit_no_selection", "No export selected.")
+                    L.T("library_no_selection", "No export selected")
                 )
                 .AddCondition(
                     HasExistingFile,
-                    L.T("library_edit_failed_missing_file", "Export file was not found.")
+                    L.T("library_failed_missing_file", "Export file not found")
                 )
                 .ExecuteWith(ExecuteEditWithConfirm);
 

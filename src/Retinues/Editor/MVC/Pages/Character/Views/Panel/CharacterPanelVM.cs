@@ -219,7 +219,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Panel
                 tooltip: new(
                     L.T(
                             "skill_experience_tooltip",
-                            "{XP}/{XP_REQUIRED} XP towards next skill point."
+                            "{XP}/{XP_REQUIRED} XP towards next skill point"
                         )
                         .SetTextVariable("XP", State.Character.SkillPointsExperience)
                         .SetTextVariable("XP", State.Character.SkillPointsExperience)

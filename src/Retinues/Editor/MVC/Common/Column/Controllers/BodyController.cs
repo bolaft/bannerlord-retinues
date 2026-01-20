@@ -66,7 +66,7 @@ namespace Retinues.Editor.MVC.Common.Column.Controllers
             Action<WCharacter>("DecreaseAge")
                 .AddCondition(
                     c => CanStepPreset(AgePresets, c.AgeMin, c.AgeMax, -1),
-                    L.T("body_age_min_reason", "Age is already at minimum.")
+                    L.T("body_age_min_reason", "Age is already at minimum")
                 )
                 .DefaultTooltip(L.T("body_age_decrease_tip", "Decrease age"))
                 .ExecuteWith(c => StepAgePreset(c, -1))
@@ -99,7 +99,7 @@ namespace Retinues.Editor.MVC.Common.Column.Controllers
             Action<WCharacter>("IncreaseAge")
                 .AddCondition(
                     c => CanStepPreset(AgePresets, c.AgeMin, c.AgeMax, +1),
-                    L.T("body_age_max_reason", "Age is already at maximum.")
+                    L.T("body_age_max_reason", "Age is already at maximum")
                 )
                 .DefaultTooltip(L.T("body_age_increase_tip", "Increase age"))
                 .ExecuteWith(c => StepAgePreset(c, +1))
@@ -116,7 +116,7 @@ namespace Retinues.Editor.MVC.Common.Column.Controllers
             Action<WCharacter>("DecreaseHeight")
                 .AddCondition(
                     c => CanStepPreset(HeightPresets, c.HeightMin, c.HeightMax, -1),
-                    L.T("body_height_min_reason", "Height is already at minimum.")
+                    L.T("body_height_min_reason", "Height is already at minimum")
                 )
                 .DefaultTooltip(L.T("body_height_decrease_tip", "Decrease height"))
                 .ExecuteWith(c => StepHeightPreset(c, -1))
@@ -149,7 +149,7 @@ namespace Retinues.Editor.MVC.Common.Column.Controllers
             Action<WCharacter>("IncreaseHeight")
                 .AddCondition(
                     c => CanStepPreset(HeightPresets, c.HeightMin, c.HeightMax, +1),
-                    L.T("body_height_max_reason", "Height is already at maximum.")
+                    L.T("body_height_max_reason", "Height is already at maximum")
                 )
                 .DefaultTooltip(L.T("body_height_increase_tip", "Increase height"))
                 .ExecuteWith(c => StepHeightPreset(c, +1))
@@ -166,7 +166,7 @@ namespace Retinues.Editor.MVC.Common.Column.Controllers
             Action<WCharacter>("DecreaseWeight")
                 .AddCondition(
                     c => CanStepPreset(WeightPresets, c.WeightMin, c.WeightMax, -1),
-                    L.T("body_weight_min_reason", "Weight is already at minimum.")
+                    L.T("body_weight_min_reason", "Weight is already at minimum")
                 )
                 .DefaultTooltip(L.T("body_weight_decrease_tip", "Decrease weight"))
                 .ExecuteWith(c => StepWeightPreset(c, -1))
@@ -199,7 +199,7 @@ namespace Retinues.Editor.MVC.Common.Column.Controllers
             Action<WCharacter>("IncreaseWeight")
                 .AddCondition(
                     c => CanStepPreset(WeightPresets, c.WeightMin, c.WeightMax, +1),
-                    L.T("body_weight_max_reason", "Weight is already at maximum.")
+                    L.T("body_weight_max_reason", "Weight is already at maximum")
                 )
                 .DefaultTooltip(L.T("body_weight_increase_tip", "Increase weight"))
                 .ExecuteWith(c => StepWeightPreset(c, +1))
@@ -216,7 +216,7 @@ namespace Retinues.Editor.MVC.Common.Column.Controllers
             Action<WCharacter>("DecreaseBuild")
                 .AddCondition(
                     c => CanStepPreset(BuildPresets, c.BuildMin, c.BuildMax, -1),
-                    L.T("body_build_min_reason", "Build is already at minimum.")
+                    L.T("body_build_min_reason", "Build is already at minimum")
                 )
                 .DefaultTooltip(L.T("body_build_decrease_tip", "Decrease build"))
                 .ExecuteWith(c => StepBuildPreset(c, -1))
@@ -249,7 +249,7 @@ namespace Retinues.Editor.MVC.Common.Column.Controllers
             Action<WCharacter>("IncreaseBuild")
                 .AddCondition(
                     c => CanStepPreset(BuildPresets, c.BuildMin, c.BuildMax, +1),
-                    L.T("body_build_max_reason", "Build is already at maximum.")
+                    L.T("body_build_max_reason", "Build is already at maximum")
                 )
                 .DefaultTooltip(L.T("body_build_increase_tip", "Increase build"))
                 .ExecuteWith(c => StepBuildPreset(c, +1))

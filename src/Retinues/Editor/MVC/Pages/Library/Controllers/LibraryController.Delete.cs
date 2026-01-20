@@ -26,16 +26,16 @@ namespace Retinues.Editor.Controllers.Library
                 .DefaultTooltip(
                     L.T(
                         "library_delete_tooltip",
-                        "Permanently deletes this library item and associated XML file."
+                        "Permanently deletes this library item and associated XML file"
                     )
                 )
                 .AddCondition(
                     item => item != null,
-                    L.T("library_delete_no_selection", "No export selected.")
+                    L.T("library_no_selection", "No export selected")
                 )
                 .AddCondition(
                     HasExistingFile,
-                    L.T("library_delete_failed_missing_file", "Export file was not found.")
+                    L.T("library_failed_missing_file", "Export file not found")
                 )
                 .ExecuteWith(ExecuteDeleteWithConfirm);
 

@@ -1,9 +1,7 @@
 using System.Collections.Generic;
 using System.Text;
-using Retinues.Compatibility;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Parties.Wrappers;
-using Retinues.Editor.Events;
 using Retinues.Editor.MVC.Shared.Controllers;
 using Retinues.Interface.Services;
 using TaleWorlds.Localization;
@@ -26,9 +24,8 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
             Action<WCharacter>("ShowStatistics")
                 .AddCondition(
                     _ => State.Mode == EditorMode.Player,
-                    L.T("statistics_player_only", "Only available in player mode.")
+                    L.T("statistics_player_only", "Not available in the Universal Editor")
                 )
-                .DefaultTooltip(L.T("statistics_tooltip", "Show unit statistics."))
                 .ExecuteWith(ShowStatisticsImpl);
 
         /// <summary>
@@ -185,101 +182,6 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
                         .ToString()
                 );
             }
-        }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                      Mixed Gender                      //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        /// <summary>
-        /// Toggles mixed-gender spawn allowance for the current character.
-        /// </summary>
-        public static ControllerAction<bool> SetMixedGender { get; } =
-            Action<bool>("SetMixedGender")
-                .RequireValidEditingContext()
-                .AddCondition(
-                    _ => State.Character.IsHero == false,
-                    L.T("mixed_gender_hero_reason", "Not available to heroes.")
-                )
-                .DefaultTooltip(_ =>
-                    State.Character?.IsMixedGender == true
-                        ? L.T(
-                            "mixed_gender_disable_tooltip",
-                            "Disallow this unit from spawning as either male or female."
-                        )
-                        : L.T(
-                            "mixed_gender_enable_tooltip",
-                            "Allow this unit to spawn as either male or female."
-                        )
-                )
-                .ExecuteWith(SetMixedGenderImpl)
-                .Fire(UIEvent.Character);
-
-        /// <summary>
-        /// Set the mixed gender flag for the current character.
-        /// </summary>
-        private static void SetMixedGenderImpl(bool isMixedGender)
-        {
-            if (State.Character == null)
-                return;
-
-            if (State.Character.IsHero)
-                return;
-
-            State.Character.IsMixedGender = isMixedGender;
-        }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Mariner                        //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        /// <summary>
-        /// Toggles the mariner ability flag for the current character.
-        /// </summary>
-        public static ControllerAction<bool> SetMariner { get; } =
-            Action<bool>("SetMariner")
-                .RequireValidEditingContext()
-                .AddCondition(
-                    s => State.Character.IsCaptain != true,
-                    L.T(
-                        "mariner_captain_reason",
-                        "Captains share the mariner ability of their base troops."
-                    )
-                )
-                .AddCondition(
-                    _ => Mods.NavalDLC.IsLoaded,
-                    L.T("naval_dlc_not_loaded", "War Sails is not installed.")
-                )
-                .AddCondition(
-                    _ => State.Character.IsHero == false,
-                    L.T("mariner_hero_reason", "Heroes cannot be mariners.")
-                )
-                .DefaultTooltip(_ =>
-                    State.Character.IsMariner
-                        ? L.T(
-                            "mariner_disable_tooltip",
-                            "Disable the mariner ability for this unit."
-                        )
-                        : L.T("mariner_enable_tooltip", "Enable the mariner ability for this unit.")
-                )
-                .ExecuteWith(SetMarinerImpl)
-                .Fire(UIEvent.Formation);
-
-        /// <summary>
-        /// Set the mariner flag for the current character.
-        /// </summary>
-        private static void SetMarinerImpl(bool isMariner)
-        {
-            if (!Mods.NavalDLC.IsLoaded)
-                return;
-
-            if (State.Character == null)
-                return;
-
-            if (State.Character.IsHero)
-                return;
-
-            State.Character.IsMariner = isMariner;
         }
     }
 }

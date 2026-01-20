@@ -3,6 +3,7 @@ using Retinues.Editor.Events;
 using Retinues.Editor.MVC.Shared.Controllers;
 using Retinues.Interface.Services;
 using TaleWorlds.CampaignSystem.CharacterDevelopment;
+using TaleWorlds.Localization;
 
 namespace Retinues.Editor.MVC.Pages.Character.Controllers
 {
@@ -22,11 +23,13 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
             Action<TraitObject>("TraitIncrease")
                 .AddCondition(
                     _ => State.Character.Editable is WHero,
-                    L.T("trait_only_heroes_reason", "Only heroes have traits.")
+                    new TextObject(string.Empty).SetTextVariable(
+                        "REASON",
+                        L.T("trait_only_heroes_reason", "Only applicable to heroes")
+                    )
                 )
                 .AddCondition(
-                    trait => State.Character.Hero.GetTrait(trait) < trait.MaxValue,
-                    L.T("trait_increase_maxed_reason", "Trait is already at maximum value.")
+                    trait => State.Character.Hero.GetTrait(trait) < trait.MaxValue
                 )
                 .ExecuteWith(trait => ChangeTrait(trait, +1))
                 .Fire(UIEvent.Trait);
@@ -42,11 +45,10 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
             Action<TraitObject>("TraitDecrease")
                 .AddCondition(
                     _ => State.Character.Editable is WHero,
-                    L.T("trait_only_heroes_reason", "Only heroes have traits.")
+                    L.T("trait_only_heroes_reason", "Only applicable to heroes")
                 )
                 .AddCondition(
-                    trait => State.Character.Hero.GetTrait(trait) > trait.MinValue,
-                    L.T("trait_decrease_mined_reason", "Trait is already at minimum value.")
+                    trait => State.Character.Hero.GetTrait(trait) > trait.MinValue
                 )
                 .ExecuteWith(trait => ChangeTrait(trait, -1))
                 .Fire(UIEvent.Trait);

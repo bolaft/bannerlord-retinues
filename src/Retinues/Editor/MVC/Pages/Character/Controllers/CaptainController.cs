@@ -22,8 +22,8 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
             Action<bool>("ToggleCaptainMode")
                 .DefaultTooltip(value =>
                     value
-                        ? L.T("captain_mode_on_hint", "Switch to this troop's captain.")
-                        : L.T("captain_mode_off_hint", "Switch to this captain's base troop.")
+                        ? L.T("captain_mode_on_hint", "Edit captain")
+                        : L.T("captain_mode_off_hint", "Back to base troop")
                 )
                 .ExecuteWith(ToggleCaptainModeImpl)
                 .Fire(UIEvent.Character);
@@ -83,12 +83,12 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
             Action<WCharacter>("ToggleCaptainEnabled")
                 .AddCondition(
                     c => State.Character.IsCaptain,
-                    L.T("captain_toggle_enabled_not_captain_reason", "This unit is not a Captain.")
+                    L.T("captain_toggle_enabled_not_captain_reason", "Not a captain")
                 )
                 .DefaultTooltip(c =>
                     State.Character.IsCaptainEnabled
-                        ? L.T("captain_toggle_disabled_hint", "Disable this Captain")
-                        : L.T("captain_toggle_enabled_hint", "Enable this Captain")
+                        ? L.T("captain_toggle_disabled_hint", "Disable this captain")
+                        : L.T("captain_toggle_enabled_hint", "Enable this captain")
                 )
                 .ExecuteWith(c => ToggleCaptainEnabledImpl(c ?? State.Character))
                 .Fire(UIEvent.Character);

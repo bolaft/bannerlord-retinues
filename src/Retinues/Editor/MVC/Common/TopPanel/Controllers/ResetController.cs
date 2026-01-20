@@ -26,14 +26,13 @@ namespace Retinues.Editor.MVC.Common.TopPanel.Controllers
         /// </summary>
         public static ControllerAction<bool> Reset { get; } =
             Action<bool>("Reset")
-                .DefaultTooltip(L.T("button_reset_tooltip", "Reset to defaults."))
                 .AddCondition(
                     _ => State.Mode == EditorMode.Universal,
-                    L.T("reset_default_universal_only", "Only available in the universal editor.")
+                    L.T("reset_default_universal_only", "Only available in the Universal Editor")
                 )
                 .AddCondition(
                     _ => CanResetFaction() || CanResetAnyTroop(),
-                    L.T("reset_none_available", "Nothing can be reset right now.")
+                    L.T("reset_none_available", "Nothing to reset")
                 )
                 .ExecuteWith(_ => ShowResetTargetPopup())
                 .Fire(UIEvent.Faction);

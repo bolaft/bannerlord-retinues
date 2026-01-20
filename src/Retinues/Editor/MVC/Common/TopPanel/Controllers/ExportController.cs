@@ -29,15 +29,9 @@ namespace Retinues.Editor.MVC.Common.TopPanel.Controllers
         /// </summary>
         public static ControllerAction<bool> Export { get; } =
             Action<bool>("Export")
-                .DefaultTooltip(
-                    L.T(
-                        "button_export_tooltip",
-                        "Export the selected faction or troop to the library."
-                    )
-                )
                 .AddCondition(
                     _ => CanExportFaction() || CanExportAnyTroop(),
-                    L.T("export_none_available", "Nothing can be exported right now.")
+                    L.T("export_none_available", "Nothing to export")
                 )
                 .ExecuteWith(_ => ShowExportTargetPopup());
 

@@ -21,46 +21,46 @@
       text="Player Only" />
     <string
       id="ret_battle_type_field_checkbox_tooltip_disable"
-      text="Disable for field battles." />
+      text="Disable for field battles" />
     <string
       id="ret_battle_type_field_checkbox_tooltip_enable"
-      text="Enable for field battles." />
+      text="Enable for field battles" />
     <string
       id="ret_battle_type_field_required_reason"
-      text="At least one battle equipment set must remain enabled for field battles." />
+      text="At least one battle equipment set must remain enabled for field battles" />
     <string
       id="ret_battle_type_field_tooltip"
-      text="Field battles." />
+      text="Field Battles" />
     <string
       id="ret_battle_type_naval_checkbox_tooltip_disable"
-      text="Disable for naval battles." />
+      text="Disable for naval battles" />
     <string
       id="ret_battle_type_naval_checkbox_tooltip_enable"
-      text="Enable for naval battles." />
+      text="Enable for naval battles" />
     <string
       id="ret_battle_type_naval_required_reason"
-      text="At least one battle equipment set must remain enabled for naval battles." />
+      text="At least one battle equipment set must remain enabled for naval battles" />
     <string
       id="ret_battle_type_naval_tooltip"
-      text="Naval battles." />
+      text="Naval Battles" />
     <string
       id="ret_battle_type_required_reason"
-      text="At least one battle equipment set must remain enabled for this battle type." />
+      text="At least one battle equipment set must remain enabled for this battle type" />
     <string
       id="ret_battle_type_siege_checkbox_tooltip_disable"
-      text="Disable for siege battles." />
+      text="Disable for siege battles" />
     <string
       id="ret_battle_type_siege_checkbox_tooltip_enable"
-      text="Enable for siege battles." />
+      text="Enable for siege battles" />
     <string
       id="ret_battle_type_siege_required_reason"
-      text="At least one battle equipment set must remain enabled for siege battles." />
+      text="At least one battle equipment set must remain enabled for siege battles" />
     <string
       id="ret_battle_type_siege_tooltip"
-      text="Siege battles." />
+      text="Siege Battles" />
     <string
       id="ret_battle_types_civilian_reason"
-      text="Civilian equipment sets do not have battle type restrictions." />
+      text="Civilian equipment sets do not have battle type restrictions" />
     <string
       id="ret_body_age_decrease_tip"
       text="Decrease age" />
@@ -69,10 +69,10 @@
       text="Increase age" />
     <string
       id="ret_body_age_max_reason"
-      text="Age is already at maximum." />
+      text="Age is already at maximum" />
     <string
       id="ret_body_age_min_reason"
-      text="Age is already at minimum." />
+      text="Age is already at minimum" />
     <string
       id="ret_body_build_decrease_tip"
       text="Decrease build" />
@@ -81,10 +81,10 @@
       text="Increase build" />
     <string
       id="ret_body_build_max_reason"
-      text="Build is already at maximum." />
+      text="Build is already at maximum" />
     <string
       id="ret_body_build_min_reason"
-      text="Build is already at minimum." />
+      text="Build is already at minimum" />
     <string
       id="ret_body_height_decrease_tip"
       text="Decrease height" />
@@ -93,10 +93,10 @@
       text="Increase height" />
     <string
       id="ret_body_height_max_reason"
-      text="Height is already at maximum." />
+      text="Height is already at maximum" />
     <string
       id="ret_body_height_min_reason"
-      text="Height is already at minimum." />
+      text="Height is already at minimum" />
     <string
       id="ret_body_weight_decrease_tip"
       text="Decrease weight" />
@@ -105,19 +105,19 @@
       text="Increase weight" />
     <string
       id="ret_body_weight_max_reason"
-      text="Weight is already at maximum." />
+      text="Weight is already at maximum" />
     <string
       id="ret_body_weight_min_reason"
-      text="Weight is already at minimum." />
+      text="Weight is already at minimum" />
     <string
       id="ret_build_hint"
       text="Build" />
     <string
       id="ret_button_change_formation_class_disabled_for_captains"
-      text="Captains share the formation class of their base troops." />
+      text="Captains share the formation class of their base troops" />
     <string
       id="ret_button_change_formation_class_tooltip"
-      text="Select a formation class." />
+      text="Set formation class" />
     <string
       id="ret_button_disable_captain"
       text="Disable" />
@@ -128,9 +128,6 @@
       id="ret_button_export"
       text="Export" />
     <string
-      id="ret_button_export_tooltip"
-      text="Export the selected faction or troop to the library." />
-    <string
       id="ret_button_rank_up"
       text="Rank Up" />
     <string
@@ -139,9 +136,6 @@
     <string
       id="ret_button_reset"
       text="Reset" />
-    <string
-      id="ret_button_reset_tooltip"
-      text="Reset to defaults." />
     <string
       id="ret_button_show_battle"
       text="Battle" />
@@ -156,7 +150,7 @@
       text="Not Enough Money" />
     <string
       id="ret_cant_change_retinue_culture"
-      text="Retinues cannot change culture." />
+      text="Retinues cannot change culture" />
     <string
       id="ret_cant_equip_reason_civilian"
       text="Not civilian" />
@@ -189,52 +183,52 @@
       text="Unlocking {PERCENT}%" />
     <string
       id="ret_cant_unequip_reason_empty"
-      text="Nothing to unequip." />
+      text="Nothing to unequip" />
     <string
       id="ret_captain_header_text"
       text="Captain" />
     <string
       id="ret_captain_mode_off_hint"
-      text="Switch to this captain&apos;s base troop." />
+      text="Back to base troop" />
     <string
       id="ret_captain_mode_on_hint"
-      text="Switch to this troop&apos;s captain." />
+      text="Edit captain" />
     <string
       id="ret_captain_mode_toggle_tooltip"
-      text="Captain mode." />
+      text="Captain Mode" />
     <string
       id="ret_captain_suffix"
       text="Captain" />
     <string
       id="ret_captain_toggle_disabled_hint"
-      text="Disable this Captain" />
+      text="Disable this captain" />
     <string
       id="ret_captain_toggle_enabled_hint"
-      text="Enable this Captain" />
+      text="Enable this captain" />
     <string
       id="ret_captain_toggle_enabled_not_captain_reason"
-      text="This unit is not a Captain." />
+      text="Not a captain" />
     <string
       id="ret_change_culture_hint"
-      text="Change culture." />
+      text="Change culture" />
     <string
       id="ret_change_culture_title"
       text="Change Culture" />
     <string
       id="ret_change_species_hint"
-      text="Change species." />
+      text="Change species" />
     <string
       id="ret_change_species_title"
       text="Change Species" />
     <string
       id="ret_character_cannot_remove_hero"
-      text="Heroes cannot be removed." />
+      text="Heroes cannot be removed" />
     <string
       id="ret_character_cannot_remove_root"
-      text="Root units cannot be removed." />
+      text="Root units cannot be removed" />
     <string
       id="ret_character_cannot_remove_with_upgrades"
-      text="Can&apos;t remove a unit that still has upgrades." />
+      text="Cannott remove a unit that still has upgrades" />
     <string
       id="ret_character_is_null"
       text="Character is null." />
@@ -249,22 +243,22 @@
       text="Unlocked With First Fief" />
     <string
       id="ret_clear_filter_tooltip"
-      text="Clear the current filter text." />
+      text="Clear filter" />
     <string
       id="ret_close_equipment_button_text"
       text="Back" />
     <string
       id="ret_crafted_items_hide_tooltip"
-      text="Hide crafted weapons." />
+      text="Hide crafted" />
     <string
       id="ret_crafted_items_only_tooltip"
-      text="Show crafted weapons." />
+      text="Show crafted" />
     <string
       id="ret_crafted_items_toggle_tooltip"
-      text="Include crafted items in the equipment list." />
+      text="Crafted Equipment" />
     <string
       id="ret_crafted_player_only_reason"
-      text="Only available in player mode." />
+      text="Not available in the Universal Editor" />
     <string
       id="ret_create_unit"
       text="New Unit" />
@@ -288,10 +282,10 @@
       text="Culture &amp; Species" />
     <string
       id="ret_customization_hint_hide"
-      text="Show Customization Controls" />
+      text="Show customization controls" />
     <string
       id="ret_customization_hint_show"
-      text="Hide Customization Controls" />
+      text="Hide customization controls" />
     <string
       id="ret_dependencies_all_ok"
       text="All dependencies initialized correctly." />
@@ -309,7 +303,7 @@
       text="Wrong version" />
     <string
       id="ret_doctrine_acquire_already_acquired"
-      text="This doctrine has already been acquired." />
+      text="This doctrine has already been acquired" />
     <string
       id="ret_doctrine_acquire_button"
       text="Acquire" />
@@ -333,7 +327,7 @@
       text="Cannot acquire doctrine." />
     <string
       id="ret_doctrine_acquire_unavailable"
-      text="This doctrine is still locked." />
+      text="This doctrine is still locked" />
     <string
       id="ret_doctrine_acquired_msg"
       text="Acquired doctrine: {NAME}." />
@@ -390,13 +384,13 @@
       text="Effects" />
     <string
       id="ret_doctrine_feat_progress_tooltip_completed"
-      text="You have completed this feat." />
+      text="Completed" />
     <string
       id="ret_doctrine_feat_progress_tooltip_incomplete"
-      text="You have not yet completed this feat." />
+      text="In Progress" />
     <string
       id="ret_doctrine_feat_progress_tooltip_repeatable"
-      text="This feat is repeatable. You can complete it multiple times." />
+      text="Repeatable" />
     <string
       id="ret_doctrine_feats_header"
       text="Feats" />
@@ -543,7 +537,7 @@
       text="Unlocks custom militia troops for your faction&apos;s towns and castles." />
     <string
       id="ret_doctrines_disabled"
-      text="Doctrines are disabled." />
+      text="Doctrines are disabled" />
     <string
       id="ret_editing_restriction_in_fief"
       text="Faction Settlement" />
@@ -606,7 +600,7 @@
       text="Equipment" />
     <string
       id="ret_equipment_cannot_delete_last_set"
-      text="At least one equipment set must remain." />
+      text="Cannot remove the last equipment set" />
     <string
       id="ret_equipment_clipboard_source_fallback"
       text="Clipboard" />
@@ -615,16 +609,13 @@
       text="Copied equipment to clipboard." />
     <string
       id="ret_equipment_copy_tooltip"
-      text="Copy equipment to clipboard." />
+      text="Copy to clipboard" />
     <string
       id="ret_equipment_delete_breaks_battle_types_reason"
-      text="Cannot delete this set because it is the last one enabled for at least one battle type." />
+      text="Cannot remove the last equipment set enabled for a battle type." />
     <string
       id="ret_equipment_hero_sets_reason"
-      text="Heroes cannot have multiple equipment sets." />
-    <string
-      id="ret_equipment_no_more_sets"
-      text="No more equipment sets." />
+      text="Heroes cannot have multiple equipment sets" />
     <string
       id="ret_equipment_panel_value_limit"
       text="{LIMIT} denars" />
@@ -648,7 +639,7 @@
       text="Copy Equipment" />
     <string
       id="ret_equipment_paste_empty_clipboard_reason"
-      text="Clipboard is empty." />
+      text="Clipboard is empty" />
     <string
       id="ret_equipment_paste_nothing_desc2"
       text="Nothing new from {SRC} can be equipped on {DST}." />
@@ -657,7 +648,7 @@
       text="Copy Equipment" />
     <string
       id="ret_equipment_paste_tooltip"
-      text="Paste equipment from clipboard." />
+      text="Paste from clipboard" />
     <string
       id="ret_equipment_slot_body"
       text="Body" />
@@ -693,10 +684,10 @@
       text="Weapon 4" />
     <string
       id="ret_equipments_create_set"
-      text="Create a new equipment set." />
+      text="Create new equipment" />
     <string
       id="ret_equipments_delete_set"
-      text="Delete the selected equipment set." />
+      text="Delete equipment" />
     <string
       id="ret_escape_menu_editor_button"
       text="Universal Editor" />
@@ -735,7 +726,7 @@
       text="Export Name" />
     <string
       id="ret_export_none_available"
-      text="Nothing can be exported right now." />
+      text="Nothing to export" />
     <string
       id="ret_export_overwrite_desc"
       text="A file named &apos;{NAME}&apos; already exists.{newline}{newline}Do you want to overwrite it?" />
@@ -1142,17 +1133,14 @@
       id="ret_filter_tooltip_description_equipment"
       text="Type to filter the list by name, category or tier." />
     <string
-      id="ret_formation_class_icon_tooltip"
-      text="Formation: {CLASS}." />
-    <string
       id="ret_formation_option_auto"
       text="Auto" />
     <string
       id="ret_formation_option_auto_hint"
-      text="Let the game automatically choose the formation class based on equipment." />
+      text="Let the game automatically choose the formation class based on equipment" />
     <string
       id="ret_formation_option_hint"
-      text="Force the {CLASS} formation." />
+      text="Force the {CLASS} formation" />
     <string
       id="ret_formation_popup_desc"
       text="Choose how this unit is categorized. Leave on &apos;Auto&apos; to categorize it based on its equipment." />
@@ -1160,17 +1148,11 @@
       id="ret_formation_popup_title"
       text="Formation Class" />
     <string
-      id="ret_gender_no_culture"
-      text="No culture is selected." />
-    <string
       id="ret_gender_no_template"
-      text="This culture has no valid body template for that gender/species." />
-    <string
-      id="ret_gender_not_renderable"
-      text="That gender/species combination cannot be rendered." />
+      text="Invalid gender/species/culture combination" />
     <string
       id="ret_gender_toggle_hint"
-      text="Change Gender" />
+      text="Change gender" />
     <string
       id="ret_go_to_editor"
       text="Go to editor" />
@@ -1292,17 +1274,11 @@
       id="ret_library_delete_failed_exception"
       text="The file could not be deleted." />
     <string
-      id="ret_library_delete_failed_missing_file"
-      text="Export file was not found." />
-    <string
       id="ret_library_delete_failed_title"
       text="Delete Failed" />
     <string
-      id="ret_library_delete_no_selection"
-      text="No export selected." />
-    <string
       id="ret_library_delete_tooltip"
-      text="Permanently deletes this library item and associated XML file." />
+      text="Permanently deletes this library item and associated XML file" />
     <string
       id="ret_library_edit_button"
       text="Edit" />
@@ -1322,11 +1298,8 @@
       id="ret_library_edit_failed_title"
       text="Edit Failed" />
     <string
-      id="ret_library_edit_no_selection"
-      text="No export selected." />
-    <string
       id="ret_library_edit_tooltip"
-      text="Directly edit this export&apos;s XML file contents." />
+      text="Directly edit this export&apos;s XML file contents" />
     <string
       id="ret_library_export_file_header"
       text="File" />
@@ -1341,7 +1314,7 @@
       text="Convert to Standalone Mod" />
     <string
       id="ret_library_export_npc_custom_troop_unsupported"
-      text="Only vanilla troop edits can be converted to standalone mods." />
+      text="Only vanilla troop edits can be converted to standalone mods" />
     <string
       id="ret_library_export_npc_failed_exception"
       text="The file could not be exported." />
@@ -1359,22 +1332,19 @@
       text="Export Failed" />
     <string
       id="ret_library_export_npc_kind_unsupported"
-      text="This export type cannot be converted." />
-    <string
-      id="ret_library_export_npc_missing_file"
-      text="Export file was not found." />
-    <string
-      id="ret_library_export_npc_no_selection"
-      text="No export selected." />
+      text="This export type cannot be converted" />
     <string
       id="ret_library_export_npc_tooltip"
-      text="Convert this export into a standalone mod." />
+      text="Convert this export into a standalone mod" />
     <string
       id="ret_library_exports_empty_text"
       text="No saved exports found." />
     <string
       id="ret_library_exports_hint_text"
       text="Troops and factions can be exported from the editor tab." />
+    <string
+      id="ret_library_failed_missing_file"
+      text="Export file not found" />
     <string
       id="ret_library_import_button"
       text="Import" />
@@ -1390,9 +1360,6 @@
     <string
       id="ret_library_import_failed_title"
       text="Import Failed" />
-    <string
-      id="ret_library_import_missing_file"
-      text="Export file was not found." />
     <string
       id="ret_library_import_no_faction"
       text="No faction is selected in the editor." />
@@ -1422,7 +1389,7 @@
       text="Replace Troop" />
     <string
       id="ret_library_import_tooltip"
-      text="Import into the current game." />
+      text="Import into the current game" />
     <string
       id="ret_library_kind_faction"
       text="Faction" />
@@ -1438,6 +1405,9 @@
     <string
       id="ret_library_name_faction_header"
       text="Faction" />
+    <string
+      id="ret_library_no_selection"
+      text="No export selected" />
     <string
       id="ret_list_header_bandits"
       text="Bandits" />
@@ -1476,22 +1446,22 @@
       text="Villagers" />
     <string
       id="ret_mariner_captain_reason"
-      text="Captains share the mariner ability of their base troops." />
+      text="Captains share the mariner ability of their base troops" />
     <string
       id="ret_mariner_disable_tooltip"
-      text="Disable the mariner ability for this unit." />
+      text="Disable Mariner trait" />
     <string
       id="ret_mariner_enable_tooltip"
-      text="Enable the mariner ability for this unit." />
+      text="Enable Mariner trait" />
     <string
       id="ret_mariner_hero_reason"
-      text="Heroes cannot be mariners." />
+      text="Heroes cannot be mariners" />
     <string
       id="ret_mariner_toggle_tooltip"
-      text="Mariners are better suited for naval combat, but earn skill points at a slightly reduced rate." />
+      text="Mariner: better suited for naval combat, but earn skill points at a reduced rate" />
     <string
       id="ret_mariner_toggle_tooltip_universal"
-      text="Mariners are better suited for naval combat." />
+      text="Mariner: better suited for naval combat" />
     <string
       id="ret_mcm_option_allowed_recruiters"
       text="Allowed Recruiters" />
@@ -1893,28 +1863,34 @@
       text="User Interface" />
     <string
       id="ret_mixed_gender_disable_tooltip"
-      text="Disallow this unit from spawning as either male or female." />
+      text="Allow unit to spawn in either gender" />
     <string
       id="ret_mixed_gender_enable_tooltip"
-      text="Allow this unit to spawn as either male or female." />
+      text="Disallow unit to spawn in either gender" />
     <string
       id="ret_mixed_gender_hero_reason"
-      text="Not available to heroes." />
+      text="Not applicable to heroes" />
     <string
       id="ret_mixed_gender_toggle_tooltip"
-      text="Mixed gender unit." />
+      text="Mixed Gender" />
     <string
       id="ret_name_header_text"
       text="Name" />
     <string
       id="ret_naval_dlc_not_loaded"
-      text="War Sails is not installed." />
+      text="War Sails is not installed" />
     <string
       id="ret_no_clans_text"
       text="No clans are loaded in the current game." />
     <string
       id="ret_no_clans_title"
       text="No Clans Found" />
+    <string
+      id="ret_no_cultures_description"
+      text="No cultures found in the current game." />
+    <string
+      id="ret_no_cultures_hint"
+      text="No cultures found" />
     <string
       id="ret_no_cultures_text"
       text="No cultures are loaded in the current game." />
@@ -1944,13 +1920,13 @@
       text="Preview Mode" />
     <string
       id="ret_preview_mode_disable_tooltip"
-      text="Disable preview mode." />
+      text="Disable Preview Mode" />
     <string
       id="ret_preview_mode_enable_tooltip"
-      text="Enable preview mode." />
+      text="Enable Preview Mode" />
     <string
       id="ret_preview_mode_toggle_tooltip"
-      text="Use preview mode to see how equipment looks without actually applying changes." />
+      text="Preview Mode" />
     <string
       id="ret_purchase_item_desc"
       text="Buy {ITEM} for {COST} denars?" />
@@ -1959,7 +1935,7 @@
       text="Purchase Item" />
     <string
       id="ret_race_cannot_change"
-      text="Species cannot be changed for this unit." />
+      text="Cannot change species for this unit" />
     <string
       id="ret_race_incompatible_culture_gender"
       text="This species is not compatible with the current culture/gender." />
@@ -1980,31 +1956,28 @@
       text="Rank Up" />
     <string
       id="ret_rank_up_max_tier"
-      text="This unit is already at max tier." />
+      text="Already at max tier" />
     <string
       id="ret_rank_up_no_captains"
-      text="Captains cannot rank up." />
+      text="Captains cannot rank up" />
     <string
       id="ret_rank_up_not_enough_money"
-      text="Not enough money (needs {COST} denars)." />
+      text="Requires {COST} denars" />
     <string
       id="ret_rank_up_not_enough_sp"
-      text="Not enough skill points (needs {POINTS})." />
+      text="Requires {POINTS} skill points" />
     <string
       id="ret_rank_up_player_only"
-      text="Only available in player mode." />
+      text="Not available in the Universal Editor" />
     <string
       id="ret_rank_up_requires_maxed_skills"
-      text="This unit must have maxed its total skills for its tier." />
+      text="Skills must be maxed out first" />
     <string
       id="ret_rank_up_retinue_only"
-      text="Only available for retinues." />
-    <string
-      id="ret_rank_up_tooltip"
-      text="Rank up this unit." />
+      text="Only available for retinues" />
     <string
       id="ret_rename_tooltip"
-      text="Rename." />
+      text="Rename" />
     <string
       id="ret_rename_unit"
       text="New Name" />
@@ -2025,7 +1998,7 @@
       text="Reset" />
     <string
       id="ret_reset_default_universal_only"
-      text="Only available in the universal editor." />
+      text="Only available in the Universal Editor" />
     <string
       id="ret_reset_done_body"
       text="Save and restart the game for this action to take effect." />
@@ -2040,7 +2013,7 @@
       text="Reset To Default" />
     <string
       id="ret_reset_none_available"
-      text="Nothing can be reset right now." />
+      text="Nothing to reset" />
     <string
       id="ret_reset_target_faction_disabled"
       text="No modified vanilla troops found to reset." />
@@ -2109,10 +2082,10 @@
       text="The Retinues mod version in this save file has been updated to a newer version ({CURRENT_VERSION}). Your save data has been automatically migrated.{newline}{newline}As a safety precaution, check that everything is as it should before overwriting your save.{newline}{newline}If for any reason you wish to go back to the previous version, download the version you were previously using from Nexus Mods." />
     <string
       id="ret_scroll_to_bottom_tooltip"
-      text="Scroll to the bottom of the list." />
+      text="Scroll to bottom" />
     <string
       id="ret_scroll_to_top_tooltip"
-      text="Scroll to the top of the list." />
+      text="Scroll to top" />
     <string
       id="ret_select_clan_title"
       text="Select Clan" />
@@ -2120,11 +2093,11 @@
       id="ret_select_culture_title"
       text="Select Culture" />
     <string
-      id="ret_skill_decrease_min_reason"
-      text="Cannot decrease skill below 0." />
-    <string
       id="ret_skill_decrease_sources_reason"
-      text="Cannot decrease below upgrade source minimum." />
+      text="Cannot decrease below {SOURCE}&apos;s skill level" />
+    <string
+      id="ret_skill_decrease_sources_reason_generic"
+      text="Cannot decrease below upgrade sources&apos; skill levels" />
     <string
       id="ret_skill_decrease_warning_text"
       text="Decreasing a skill is instant, but retraining it will take time.{newline}{newline}Continue?" />
@@ -2139,16 +2112,16 @@
       text="Skill Cap: {SKILL_CAP} - Tier: {TIER}" />
     <string
       id="ret_skill_experience_tooltip"
-      text="{XP}/{XP_REQUIRED} XP towards next skill point." />
+      text="{XP}/{XP_REQUIRED} XP towards next skill point" />
     <string
       id="ret_skill_increase_maxed_reason"
-      text="Skill is already at maximum level." />
+      text="Skill cap reached" />
     <string
       id="ret_skill_increase_no_points_reason"
-      text="Not enough skill points." />
+      text="Not enough skill points" />
     <string
       id="ret_skill_increase_total_reason"
-      text="Total skill limit reached." />
+      text="Total skill limit reached" />
     <string
       id="ret_skill_point_gained"
       text="{TROOP} earned a skill point." />
@@ -2157,13 +2130,13 @@
       text="{TROOP} earned {POINTS} skill points." />
     <string
       id="ret_skill_value_hint_staged"
-      text="Actual skill value until training completes: {CURRENT}." />
+      text="Actual skill value until training completes: {CURRENT}" />
     <string
       id="ret_skills_header_text"
       text="Skills" />
     <string
       id="ret_slot_value_hint_staged"
-      text="Actual item until equipping completes: {CURRENT}." />
+      text="Actual item until equipping completes: {CURRENT}" />
     <string
       id="ret_sort_by_culture"
       text="Culture" />
@@ -2244,16 +2217,13 @@
       text="Deployments: {TOTAL} ({PARTIES} parties, {GARRISONS} garrisons)" />
     <string
       id="ret_statistics_player_only"
-      text="Only available in player mode." />
+      text="Not available in the Universal Editor" />
     <string
       id="ret_statistics_popup_title"
       text="Statistics" />
     <string
       id="ret_statistics_section_total"
       text="{TITLE}: {TOTAL}" />
-    <string
-      id="ret_statistics_tooltip"
-      text="Show unit statistics." />
     <string
       id="ret_status_captain_disabled"
       text="Inactive" />
@@ -2279,14 +2249,8 @@
       id="ret_tooltip_culture_none"
       text="None" />
     <string
-      id="ret_trait_decrease_mined_reason"
-      text="Trait is already at minimum value." />
-    <string
-      id="ret_trait_increase_maxed_reason"
-      text="Trait is already at maximum value." />
-    <string
       id="ret_trait_only_heroes_reason"
-      text="Only heroes have traits." />
+      text="Only applicable to heroes" />
     <string
       id="ret_traits_header_text"
       text="Traits" />
@@ -2379,7 +2343,7 @@
       text="Troops [R]" />
     <string
       id="ret_unequip_item_tooltip"
-      text="Unequip." />
+      text="Unequip" />
     <string
       id="ret_unknown_error"
       text="Unknown error." />
@@ -2400,22 +2364,22 @@
       text="were" />
     <string
       id="ret_unstage_item_tooltip"
-      text="Unstage." />
+      text="Unstage" />
     <string
       id="ret_upgrade_cannot_add_hero"
-      text="Heroes cannot have upgrade targets." />
+      text="Heroes cannot have upgrade targets" />
     <string
       id="ret_upgrade_cannot_add_max_targets"
-      text="Maximum number of upgrade targets reached." />
+      text="Maximum number of upgrade targets reached" />
     <string
       id="ret_upgrade_cannot_add_max_tier"
-      text="This unit is already at maximum tier." />
+      text="This unit is already at maximum tier" />
     <string
       id="ret_upgrade_cannot_add_not_upgradable"
-      text="This unit is not upgradable." />
+      text="This unit is not upgradable" />
     <string
       id="ret_upgrade_no_captains"
-      text="Captains cannot have upgrades." />
+      text="Captains cannot have upgrades" />
     <string
       id="ret_upgrade_sources_header_text"
       text="Sources" />

@@ -27,7 +27,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
         /// </summary>
         public static ControllerAction<WCharacter> Rename { get; } =
             Action<WCharacter>("Rename")
-                .DefaultTooltip(L.T("rename_tooltip", "Rename."))
+                .DefaultTooltip(L.T("rename_tooltip", "Rename"))
                 .ExecuteWith(RenameImpl);
 
         /// <summary>
@@ -77,13 +77,13 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
             Action<WCharacter>("SelectCulture")
                 .AddCondition(
                     _ => !State.Character.IsRetinue,
-                    L.T("cant_change_retinue_culture", "Retinues cannot change culture.")
+                    L.T("cant_change_retinue_culture", "Retinues cannot change culture")
                 )
                 .AddCondition(
                     _ => WCulture.All != null && WCulture.All.Any(),
-                    L.T("no_cultures_text", "No cultures are loaded in the current game.")
+                    L.T("no_cultures_hint", "No cultures found")
                 )
-                .DefaultTooltip(L.T("change_culture_hint", "Change culture."))
+                .DefaultTooltip(L.T("change_culture_hint", "Change culture"))
                 .ExecuteWith(SelectCultureImpl);
 
         /// <summary>
@@ -117,7 +117,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
             {
                 Inquiries.Popup(
                     L.T("no_cultures_title", "No Cultures Found"),
-                    L.T("no_cultures_text", "No cultures are loaded in the current game.")
+                    L.T("no_cultures_description", "No cultures found in the current game.")
                 );
                 return;
             }
@@ -180,9 +180,9 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
             Action<WCharacter>("SelectRace")
                 .AddCondition(
                     _ => CanChangeRace,
-                    L.T("race_cannot_change", "Species cannot be changed for this unit.")
+                    L.T("race_cannot_change", "Cannot change species for this unit")
                 )
-                .DefaultTooltip(L.T("change_species_hint", "Change species."))
+                .DefaultTooltip(L.T("change_species_hint", "Change species"))
                 .ExecuteWith(SelectRaceImpl);
 
         /// <summary>
@@ -330,17 +330,17 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
                 .RequireValidEditingContext()
                 .AddCondition(
                     _ => State.Character.IsHero == false,
-                    L.T("mixed_gender_hero_reason", "Not available to heroes.")
+                    L.T("mixed_gender_hero_reason", "Not applicable to heroes")
                 )
                 .DefaultTooltip(_ =>
                     State.Character?.IsMixedGender == true
                         ? L.T(
                             "mixed_gender_disable_tooltip",
-                            "Disallow this unit from spawning as either male or female."
+                            "Allow unit to spawn in either gender"
                         )
                         : L.T(
                             "mixed_gender_enable_tooltip",
-                            "Allow this unit to spawn as either male or female."
+                            "Disallow unit to spawn in either gender"
                         )
                 )
                 .ExecuteWith(SetMixedGenderImpl)
@@ -374,24 +374,21 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
                     s => State.Character.IsCaptain != true,
                     L.T(
                         "mariner_captain_reason",
-                        "Captains share the mariner ability of their base troops."
+                        "Captains share the mariner ability of their base troops"
                     )
                 )
                 .AddCondition(
                     _ => Mods.NavalDLC.IsLoaded,
-                    L.T("naval_dlc_not_loaded", "War Sails is not installed.")
+                    L.T("naval_dlc_not_loaded", "War Sails is not installed")
                 )
                 .AddCondition(
                     _ => State.Character.IsHero == false,
-                    L.T("mariner_hero_reason", "Heroes cannot be mariners.")
+                    L.T("mariner_hero_reason", "Heroes cannot be mariners")
                 )
                 .DefaultTooltip(_ =>
                     State.Character.IsMariner
-                        ? L.T(
-                            "mariner_disable_tooltip",
-                            "Disable the mariner ability for this unit."
-                        )
-                        : L.T("mariner_enable_tooltip", "Enable the mariner ability for this unit.")
+                        ? L.T("mariner_disable_tooltip", "Disable Mariner trait")
+                        : L.T("mariner_enable_tooltip", "Enable Mariner trait")
                 )
                 .ExecuteWith(SetMarinerImpl)
                 .Fire(UIEvent.Formation);

@@ -40,7 +40,7 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Controllers
         public static ControllerAction<bool> CopyEquipment { get; } =
             Action<bool>("CopyEquipment")
                 .RequireValidEditingContext()
-                .DefaultTooltip(L.T("equipment_copy_tooltip", "Copy equipment to clipboard."))
+                .DefaultTooltip(L.T("equipment_copy_tooltip", "Copy to clipboard"))
                 .ExecuteWith(_ => CopyEquipmentImpl());
 
         /// <summary>
@@ -51,9 +51,9 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Controllers
                 .RequireValidEditingContext()
                 .AddCondition(
                     _ => HasClipboard,
-                    L.T("equipment_paste_empty_clipboard_reason", "Clipboard is empty.")
+                    L.T("equipment_paste_empty_clipboard_reason", "Clipboard is empty")
                 )
-                .DefaultTooltip(L.T("equipment_paste_tooltip", "Paste equipment from clipboard."))
+                .DefaultTooltip(L.T("equipment_paste_tooltip", "Paste from clipboard"))
                 .ExecuteWith(_ => PasteEquipmentImpl());
 
         /// <summary>

@@ -23,40 +23,39 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
                 .RequireValidEditingContext()
                 .AddCondition(
                     _ => State.Mode == EditorMode.Player,
-                    L.T("rank_up_player_only", "Only available in player mode.")
+                    L.T("rank_up_player_only", "Not available in the Universal Editor")
                 )
                 .AddCondition(
                     s => State.Character.IsCaptain != true,
-                    L.T("rank_up_no_captains", "Captains cannot rank up.")
+                    L.T("rank_up_no_captains", "Captains cannot rank up")
                 )
                 .AddCondition(
                     c => c != null && c.IsRetinue,
-                    L.T("rank_up_retinue_only", "Only available for retinues.")
+                    L.T("rank_up_retinue_only", "Only available for retinues")
                 )
                 .AddCondition(
                     c => c != null && !c.IsMaxTier,
-                    L.T("rank_up_max_tier", "This unit is already at max tier.")
+                    L.T("rank_up_max_tier", "Already at max tier")
                 )
                 .AddCondition(
                     c => c != null && c.SkillTotalUsed >= c.SkillTotal,
                     L.T(
                         "rank_up_requires_maxed_skills",
-                        "This unit must have maxed its total skills for its tier."
+                        "Skills must be maxed out first"
                     )
                 )
                 .AddCondition(
                     c => c != null && HasEnoughRankUpSkillPoints(c),
                     () =>
-                        L.T("rank_up_not_enough_sp", "Not enough skill points (needs {POINTS}).")
+                        L.T("rank_up_not_enough_sp", "Requires {POINTS} skill points")
                             .SetTextVariable("POINTS", GetRankUpSkillPointCost(State.Character))
                 )
                 .AddCondition(
                     c => c != null && HasEnoughGoldForRankUp(c),
                     () =>
-                        L.T("rank_up_not_enough_money", "Not enough money (needs {COST} denars).")
+                        L.T("rank_up_not_enough_money", "Requires {COST} denars")
                             .SetTextVariable("COST", GetRankUpGoldCost(State.Character))
                 )
-                .DefaultTooltip(L.T("rank_up_tooltip", "Rank up this unit."))
                 .ExecuteWith(RankUpImpl)
                 .Fire(UIEvent.Character);
 

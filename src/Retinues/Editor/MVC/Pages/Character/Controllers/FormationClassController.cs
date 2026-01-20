@@ -23,13 +23,13 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
         public static ControllerAction<bool> ChangeFormationClass { get; } =
             Action<bool>("ChangeFormationClass")
                 .DefaultTooltip(
-                    L.T("button_change_formation_class_tooltip", "Select a formation class.")
+                    L.T("button_change_formation_class_tooltip", "Set formation class")
                 )
                 .AddCondition(
                     s => State.Character.IsCaptain != true,
                     L.T(
                         "button_change_formation_class_disabled_for_captains",
-                        "Captains share the formation class of their base troops."
+                        "Captains share the formation class of their base troops"
                     )
                 )
                 .ExecuteWith(_ => ShowPicker(State.Character));
@@ -70,7 +70,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
                     title: L.S("formation_option_auto", "Auto"),
                     L.S(
                         "formation_option_auto_hint",
-                        "Let the game automatically choose the formation class based on equipment."
+                        "Let the game automatically choose the formation class based on equipment"
                     )
                 ),
                 Make(FormationClass.Infantry),
@@ -95,7 +95,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
             title ??= id.GetLocalizedName().ToString();
 
             // Fallback to default hint if no custom hint provided.
-            hint ??= L.T("formation_option_hint", "Force the {CLASS} formation.")
+            hint ??= L.T("formation_option_hint", "Force the {CLASS} formation")
                 .SetTextVariable("CLASS", title.ToLower())
                 .ToString();
 

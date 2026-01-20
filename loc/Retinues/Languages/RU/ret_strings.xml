@@ -21,46 +21,46 @@
       text="Только игрок" />
     <string
       id="ret_battle_type_field_checkbox_tooltip_disable"
-      text="Отключить для полевых сражений." />
+      text="Отключить для полевых сражений" />
     <string
       id="ret_battle_type_field_checkbox_tooltip_enable"
-      text="Включить для полевых сражений." />
+      text="Включить для полевых сражений" />
     <string
       id="ret_battle_type_field_required_reason"
-      text="Для полевых сражений должен оставаться включенным как минимум один набор боевого снаряжения." />
+      text="Для полевых сражений должен оставаться включенным как минимум один набор боевого снаряжения" />
     <string
       id="ret_battle_type_field_tooltip"
-      text="Полевые сражения." />
+      text="Полевые сражения" />
     <string
       id="ret_battle_type_naval_checkbox_tooltip_disable"
-      text="Отключить для морских сражений." />
+      text="Отключить для морских сражений" />
     <string
       id="ret_battle_type_naval_checkbox_tooltip_enable"
-      text="Включить для морских сражений." />
+      text="Включить для морских сражений" />
     <string
       id="ret_battle_type_naval_required_reason"
-      text="Для морских сражений должен оставаться включенным как минимум один набор боевого снаряжения." />
+      text="Для морских сражений должен оставаться включенным как минимум один набор боевого снаряжения" />
     <string
       id="ret_battle_type_naval_tooltip"
-      text="Морские сражения." />
+      text="Морские сражения" />
     <string
       id="ret_battle_type_required_reason"
-      text="Для этого типа сражений должен оставаться включенным как минимум один набор боевого снаряжения." />
+      text="Для этого типа сражений должен оставаться включенным как минимум один набор боевого снаряжения" />
     <string
       id="ret_battle_type_siege_checkbox_tooltip_disable"
-      text="Отключить для осадных сражений." />
+      text="Отключить для осадных сражений" />
     <string
       id="ret_battle_type_siege_checkbox_tooltip_enable"
-      text="Включить для осадных сражений." />
+      text="Включить для осадных сражений" />
     <string
       id="ret_battle_type_siege_required_reason"
-      text="Для осадных сражений должен оставаться включенным как минимум один набор боевого снаряжения." />
+      text="Для осадных сражений должен оставаться включенным как минимум один набор боевого снаряжения" />
     <string
       id="ret_battle_type_siege_tooltip"
-      text="Осадные сражения." />
+      text="Осадные сражения" />
     <string
       id="ret_battle_types_civilian_reason"
-      text="Гражданские комплекты снаряжения не имеют ограничений по типу сражений." />
+      text="Гражданские комплекты снаряжения не имеют ограничений по типу сражений" />
     <string
       id="ret_body_age_decrease_tip"
       text="Уменьшить возраст" />
@@ -69,10 +69,10 @@
       text="Увеличить возраст" />
     <string
       id="ret_body_age_max_reason"
-      text="Возраст уже на максимуме." />
+      text="Возраст уже на максимуме" />
     <string
       id="ret_body_age_min_reason"
-      text="Возраст уже на минимуме." />
+      text="Возраст уже на минимуме" />
     <string
       id="ret_body_build_decrease_tip"
       text="Уменьшить телосложение" />
@@ -81,10 +81,10 @@
       text="Увеличить телосложение" />
     <string
       id="ret_body_build_max_reason"
-      text="Телосложение уже на максимуме." />
+      text="Телосложение уже на максимуме" />
     <string
       id="ret_body_build_min_reason"
-      text="Телосложение уже на минимуме." />
+      text="Телосложение уже на минимуме" />
     <string
       id="ret_body_height_decrease_tip"
       text="Уменьшить рост" />
@@ -93,10 +93,10 @@
       text="Увеличить рост" />
     <string
       id="ret_body_height_max_reason"
-      text="Рост уже на максимуме." />
+      text="Рост уже на максимуме" />
     <string
       id="ret_body_height_min_reason"
-      text="Рост уже на минимуме." />
+      text="Рост уже на минимуме" />
     <string
       id="ret_body_weight_decrease_tip"
       text="Уменьшить вес" />
@@ -105,19 +105,19 @@
       text="Увеличить вес" />
     <string
       id="ret_body_weight_max_reason"
-      text="Вес уже на максимуме." />
+      text="Вес уже на максимуме" />
     <string
       id="ret_body_weight_min_reason"
-      text="Вес уже на минимуме." />
+      text="Вес уже на минимуме" />
     <string
       id="ret_build_hint"
       text="Телосложение" />
     <string
       id="ret_button_change_formation_class_disabled_for_captains"
-      text="Капитаны используют класс формации своих основных войск." />
+      text="Капитаны используют класс формации своих основных войск" />
     <string
       id="ret_button_change_formation_class_tooltip"
-      text="Выберите класс формации." />
+      text="Выберите класс формации" />
     <string
       id="ret_button_disable_captain"
       text="Отключить" />
@@ -128,9 +128,6 @@
       id="ret_button_export"
       text="Экспорт" />
     <string
-      id="ret_button_export_tooltip"
-      text="Экспортировать выбранную фракцию или отряд в библиотеку." />
-    <string
       id="ret_button_rank_up"
       text="Повысить ранг" />
     <string
@@ -139,9 +136,6 @@
     <string
       id="ret_button_reset"
       text="Сброс" />
-    <string
-      id="ret_button_reset_tooltip"
-      text="Сбросить к значениям по умолчанию." />
     <string
       id="ret_button_show_battle"
       text="Боевой" />
@@ -156,7 +150,7 @@
       text="Недостаточно денег" />
     <string
       id="ret_cant_change_retinue_culture"
-      text="Придворные не могут менять культуру." />
+      text="Придворные не могут менять культуру" />
     <string
       id="ret_cant_equip_reason_civilian"
       text="Не гражданский" />
@@ -189,16 +183,16 @@
       text="Разблокировка {PERCENT}%" />
     <string
       id="ret_cant_unequip_reason_empty"
-      text="Нечего снимать." />
+      text="Нечего снимать" />
     <string
       id="ret_captain_mode_off_hint"
-      text="Переключиться на основную войсковую часть этого капитана." />
+      text="Переключиться на основную войсковую часть этого капитана" />
     <string
       id="ret_captain_mode_on_hint"
-      text="Переключиться на капитана этой войсковой части." />
+      text="Переключиться на капитана этой войсковой части" />
     <string
       id="ret_captain_mode_toggle_tooltip"
-      text="Режим капитана." />
+      text="Режим капитана" />
     <string
       id="ret_captain_suffix"
       text="Капитан" />
@@ -210,22 +204,28 @@
       text="Включить этого капитана" />
     <string
       id="ret_captain_toggle_enabled_not_captain_reason"
-      text="Этот юнит не является капитаном." />
+      text="Этот юнит не является капитаном" />
+    <string
+      id="ret_change_culture_hint"
+      text="Изменить культуру" />
     <string
       id="ret_change_culture_title"
       text="Изменить культуру" />
+    <string
+      id="ret_change_species_hint"
+      text="Изменить вид" />
     <string
       id="ret_change_species_title"
       text="Изменить вид" />
     <string
       id="ret_character_cannot_remove_hero"
-      text="Героев нельзя удалять." />
+      text="Героев нельзя удалять" />
     <string
       id="ret_character_cannot_remove_root"
-      text="Корневые юниты нельзя удалять." />
+      text="Корневые юниты нельзя удалять" />
     <string
       id="ret_character_cannot_remove_with_upgrades"
-      text="Невозможно удалить юнит, у которого еще есть улучшения." />
+      text="Невозможно удалить юнит, у которого еще есть улучшения" />
     <string
       id="ret_character_is_null"
       text="Персонаж равен нулю." />
@@ -240,22 +240,10 @@
       text="Разблокировано с первым фьефом" />
     <string
       id="ret_clear_filter_tooltip"
-      text="Очистить текущий текст фильтра." />
+      text="Очистить фильтр" />
     <string
       id="ret_close_equipment_button_text"
       text="Назад" />
-    <string
-      id="ret_crafted_items_hide_tooltip"
-      text="Включить изготовленное оружие." />
-    <string
-      id="ret_crafted_items_only_tooltip"
-      text="Показать изготовленное оружие." />
-    <string
-      id="ret_crafted_items_toggle_tooltip"
-      text="Включить изготовленные предметы в список снаряжения." />
-    <string
-      id="ret_crafted_player_only_reason"
-      text="Доступно только в режиме игрока." />
     <string
       id="ret_create_unit"
       text="Новая единица" />
@@ -300,7 +288,7 @@
       text="Неправильная версия" />
     <string
       id="ret_doctrine_acquire_already_acquired"
-      text="Эта доктрина уже была приобретена." />
+      text="Эта доктрина уже была приобретена" />
     <string
       id="ret_doctrine_acquire_button"
       text="Приобрести" />
@@ -324,7 +312,7 @@
       text="Невозможно приобрести доктрину." />
     <string
       id="ret_doctrine_acquire_unavailable"
-      text="Эта доктрина все еще заблокирована." />
+      text="Эта доктрина все еще заблокирована" />
     <string
       id="ret_doctrine_acquired_msg"
       text="Приобретенная доктрина: {NAME}." />
@@ -379,15 +367,6 @@
     <string
       id="ret_doctrine_description_header"
       text="Эффекты" />
-    <string
-      id="ret_doctrine_feat_progress_tooltip_completed"
-      text="Вы завершили этот подвиг." />
-    <string
-      id="ret_doctrine_feat_progress_tooltip_incomplete"
-      text="Вы еще не завершили этот подвиг." />
-    <string
-      id="ret_doctrine_feat_progress_tooltip_repeatable"
-      text="Этот подвиг можно повторять. Вы можете завершать его несколько раз." />
     <string
       id="ret_doctrine_feats_header"
       text="Подвиги" />
@@ -534,7 +513,7 @@
       text="Разблокирует пользовательские войска милиции для городов и замков вашей фракции." />
     <string
       id="ret_doctrines_disabled"
-      text="Доктрины отключены." />
+      text="Доктрины отключены" />
     <string
       id="ret_editing_restriction_in_fief"
       text="Фьеф фракции" />
@@ -597,7 +576,7 @@
       text="Снаряжение" />
     <string
       id="ret_equipment_cannot_delete_last_set"
-      text="Должен остаться как минимум один набор снаряжения." />
+      text="Должен остаться как минимум один набор снаряжения" />
     <string
       id="ret_equipment_clipboard_source_fallback"
       text="Буфер обмена" />
@@ -605,17 +584,8 @@
       id="ret_equipment_copied_toast"
       text="Снаряжение скопировано в буфер обмена." />
     <string
-      id="ret_equipment_copy_tooltip"
-      text="Скопировать снаряжение в буфер обмена." />
-    <string
-      id="ret_equipment_delete_breaks_battle_types_reason"
-      text="Невозможно удалить этот набор, так как он является последним, включенным для как минимум одного типа боя." />
-    <string
       id="ret_equipment_hero_sets_reason"
-      text="У героев не может быть несколько наборов снаряжения." />
-    <string
-      id="ret_equipment_no_more_sets"
-      text="Больше нет наборов снаряжения." />
+      text="У героев не может быть несколько наборов снаряжения" />
     <string
       id="ret_equipment_panel_value_limit"
       text="{LIMIT} денаров" />
@@ -638,17 +608,11 @@
       id="ret_equipment_paste_confirm_title"
       text="Копировать снаряжение" />
     <string
-      id="ret_equipment_paste_empty_clipboard_reason"
-      text="Буфер обмена пуст." />
-    <string
       id="ret_equipment_paste_nothing_desc2"
       text="Ничего нового из {SRC} нельзя экипировать на {DST}." />
     <string
       id="ret_equipment_paste_nothing_title"
       text="Копировать снаряжение" />
-    <string
-      id="ret_equipment_paste_tooltip"
-      text="Вставить снаряжение из буфера обмена." />
     <string
       id="ret_equipment_slot_body"
       text="Тело" />
@@ -682,12 +646,6 @@
     <string
       id="ret_equipment_slot_weapon_3"
       text="Оружие 4" />
-    <string
-      id="ret_equipments_create_set"
-      text="Создать новый набор снаряжения." />
-    <string
-      id="ret_equipments_delete_set"
-      text="Удалить выбранный набор снаряжения." />
     <string
       id="ret_escape_menu_editor_button"
       text="Универсальный редактор" />
@@ -724,9 +682,6 @@
     <string
       id="ret_export_name_title"
       text="Имя экспорта" />
-    <string
-      id="ret_export_none_available"
-      text="Сейчас ничего нельзя экспортировать." />
     <string
       id="ret_export_overwrite_desc"
       text="Файл с именем &apos;{NAME}&apos; уже существует.{newline}{newline}Вы хотите перезаписать его?" />
@@ -1133,35 +1088,20 @@
       id="ret_filter_tooltip_description_equipment"
       text="Введите текст для фильтрации списка по имени, категории или уровню." />
     <string
-      id="ret_formation_class_icon_tooltip"
-      text="Формация: {CLASS}." />
-    <string
       id="ret_formation_option_auto"
       text="Авто" />
     <string
       id="ret_formation_option_auto_hint"
-      text="Позвольте игре автоматически выбирать класс формации на основе снаряжения." />
+      text="Позвольте игре автоматически выбирать класс формации на основе снаряжения" />
     <string
       id="ret_formation_option_hint"
-      text="Принудительно использовать формацию {CLASS}." />
+      text="Принудительно использовать формацию {CLASS}" />
     <string
       id="ret_formation_popup_desc"
       text="Выберите, как эта единица классифицируется. Оставьте на &apos;Авто&apos;, чтобы классифицировать ее на основе ее снаряжения." />
     <string
       id="ret_formation_popup_title"
       text="Класс формации" />
-    <string
-      id="ret_gender_no_culture"
-      text="Культура не выбрана." />
-    <string
-      id="ret_gender_no_template"
-      text="У этой культуры нет действительного шаблона тела для этого пола/вида." />
-    <string
-      id="ret_gender_not_renderable"
-      text="Эта комбинация пола/вида не может быть отрисована." />
-    <string
-      id="ret_gender_toggle_hint"
-      text="Изменить пол" />
     <string
       id="ret_go_to_editor"
       text="Перейти в редактор" />
@@ -1283,17 +1223,11 @@
       id="ret_library_delete_failed_exception"
       text="Не удалось удалить файл." />
     <string
-      id="ret_library_delete_failed_missing_file"
-      text="Файл экспорта не найден." />
-    <string
       id="ret_library_delete_failed_title"
       text="Ошибка удаления" />
     <string
-      id="ret_library_delete_no_selection"
-      text="Экспорт не выбран." />
-    <string
       id="ret_library_delete_tooltip"
-      text="Навсегда удаляет этот элемент библиотеки и связанный с ним XML-файл." />
+      text="Навсегда удаляет этот элемент библиотеки и связанный с ним XML-файл" />
     <string
       id="ret_library_edit_button"
       text="Редактировать" />
@@ -1313,11 +1247,8 @@
       id="ret_library_edit_failed_title"
       text="Ошибка редактирования" />
     <string
-      id="ret_library_edit_no_selection"
-      text="Экспорт не выбран." />
-    <string
       id="ret_library_edit_tooltip"
-      text="Напрямую редактируйте содержимое XML-файла этого экспорта." />
+      text="Напрямую редактируйте содержимое XML-файла этого экспорта" />
     <string
       id="ret_library_export_file_header"
       text="Файл" />
@@ -1332,7 +1263,7 @@
       text="Преобразовать в автономный мод" />
     <string
       id="ret_library_export_npc_custom_troop_unsupported"
-      text="Только изменения стандартных отрядов могут быть преобразованы в автономные моды." />
+      text="Только изменения стандартных отрядов могут быть преобразованы в автономные моды" />
     <string
       id="ret_library_export_npc_failed_exception"
       text="Не удалось экспортировать файл." />
@@ -1350,16 +1281,10 @@
       text="Ошибка экспорта" />
     <string
       id="ret_library_export_npc_kind_unsupported"
-      text="Этот тип экспорта не может быть преобразован." />
-    <string
-      id="ret_library_export_npc_missing_file"
-      text="Файл экспорта не найден." />
-    <string
-      id="ret_library_export_npc_no_selection"
-      text="Экспорт не выбран." />
+      text="Этот тип экспорта не может быть преобразован" />
     <string
       id="ret_library_export_npc_tooltip"
-      text="Преобразуйте этот экспорт в автономный мод." />
+      text="Преобразуйте этот экспорт в автономный мод" />
     <string
       id="ret_library_exports_empty_text"
       text="Сохраненные экспорты не найдены." />
@@ -1381,9 +1306,6 @@
     <string
       id="ret_library_import_failed_title"
       text="Ошибка импорта" />
-    <string
-      id="ret_library_import_missing_file"
-      text="Файл экспорта не найден." />
     <string
       id="ret_library_import_no_faction"
       text="В редакторе не выбрана фракция." />
@@ -1413,7 +1335,7 @@
       text="Заменить отряд" />
     <string
       id="ret_library_import_tooltip"
-      text="Импорт в текущую игру." />
+      text="Импорт в текущую игру" />
     <string
       id="ret_library_kind_faction"
       text="Фракция" />
@@ -1467,22 +1389,10 @@
       text="Жители деревень" />
     <string
       id="ret_mariner_captain_reason"
-      text="Капитаны разделяют способность мореплавателя своих базовых войск." />
-    <string
-      id="ret_mariner_disable_tooltip"
-      text="Отключите способность мореплавателя для этого юнита." />
-    <string
-      id="ret_mariner_enable_tooltip"
-      text="Включите способность мореплавателя для этого юнита." />
+      text="Капитаны разделяют способность мореплавателя своих базовых войск" />
     <string
       id="ret_mariner_hero_reason"
-      text="Герои не могут быть мореплавателями." />
-    <string
-      id="ret_mariner_toggle_tooltip"
-      text="Мореплаватели лучше подходят для морского боя, но зарабатывают очки навыков с немного сниженной скоростью." />
-    <string
-      id="ret_mariner_toggle_tooltip_universal"
-      text="Мореплаватели лучше подходят для морского боя." />
+      text="Герои не могут быть мореплавателями" />
     <string
       id="ret_mcm_option_allowed_recruiters"
       text="Разрешенные рекрутеры" />
@@ -1883,23 +1793,11 @@
       id="ret_mcm_section_user_interface"
       text="Пользовательский интерфейс" />
     <string
-      id="ret_mixed_gender_disable_tooltip"
-      text="Запрещает этому юниту появляться как мужским, так и женским." />
-    <string
-      id="ret_mixed_gender_enable_tooltip"
-      text="Позволяет этому юниту появляться как мужским, так и женским." />
-    <string
-      id="ret_mixed_gender_hero_reason"
-      text="Недоступно для героев." />
-    <string
-      id="ret_mixed_gender_toggle_tooltip"
-      text="Юнит смешанного пола." />
-    <string
       id="ret_name_header_text"
       text="Имя" />
     <string
       id="ret_naval_dlc_not_loaded"
-      text="War Sails не установлен." />
+      text="War Sails не установлен" />
     <string
       id="ret_no_clans_text"
       text="В текущей игре не загружены кланы." />
@@ -1934,23 +1832,11 @@
       id="ret_preview_mode"
       text="Режим предварительного просмотра" />
     <string
-      id="ret_preview_mode_disable_tooltip"
-      text="Отключить режим предварительного просмотра." />
-    <string
-      id="ret_preview_mode_enable_tooltip"
-      text="Включить режим предварительного просмотра." />
-    <string
-      id="ret_preview_mode_toggle_tooltip"
-      text="Используйте режим предварительного просмотра, чтобы увидеть, как выглядит снаряжение, не применяя изменения на самом деле." />
-    <string
       id="ret_purchase_item_desc"
       text="Купить {ITEM} за {COST} денаров?" />
     <string
       id="ret_purchase_item_title"
       text="Купить предмет" />
-    <string
-      id="ret_race_cannot_change"
-      text="Вид для этого юнита изменить нельзя." />
     <string
       id="ret_race_incompatible_culture_gender"
       text="Этот вид несовместим с текущей культурой/полом." />
@@ -1970,32 +1856,14 @@
       id="ret_rank_up_confirm_yes"
       text="Повысить уровень" />
     <string
-      id="ret_rank_up_max_tier"
-      text="Этот юнит уже на максимальном уровне." />
-    <string
       id="ret_rank_up_no_captains"
-      text="Капитаны не могут повышать уровень." />
-    <string
-      id="ret_rank_up_not_enough_money"
-      text="Недостаточно денег (требуется {COST} денаров)." />
-    <string
-      id="ret_rank_up_not_enough_sp"
-      text="Недостаточно очков навыков (требуется {POINTS})." />
-    <string
-      id="ret_rank_up_player_only"
-      text="Доступно только в режиме игрока." />
-    <string
-      id="ret_rank_up_requires_maxed_skills"
-      text="Этот юнит должен иметь максимальное количество навыков для своего уровня." />
+      text="Капитаны не могут повышать уровень" />
     <string
       id="ret_rank_up_retinue_only"
-      text="Доступно только для ретинусов." />
-    <string
-      id="ret_rank_up_tooltip"
-      text="Повысить ранг этого юнита." />
+      text="Доступно только для ретинусов" />
     <string
       id="ret_rename_tooltip"
-      text="Переименовать." />
+      text="Переименовать" />
     <string
       id="ret_rename_unit"
       text="Новое имя" />
@@ -2015,9 +1883,6 @@
       id="ret_reset_confirm"
       text="Сбросить" />
     <string
-      id="ret_reset_default_universal_only"
-      text="Доступно только в универсальном редакторе." />
-    <string
       id="ret_reset_done_body"
       text="Сохраните игру и перезапустите ее, чтобы это действие вступило в силу." />
     <string
@@ -2029,9 +1894,6 @@
     <string
       id="ret_reset_faction_title"
       text="Сбросить до значений по умолчанию" />
-    <string
-      id="ret_reset_none_available"
-      text="Сейчас ничего нельзя сбросить." />
     <string
       id="ret_reset_target_faction_disabled"
       text="Не найдено измененных ванильных войск для сброса." />
@@ -2099,23 +1961,11 @@
       id="ret_retinues_version_update_text_no_current"
       text="Версия мода Retinues в этом файле сохранения была обновлена до более новой версии ({CURRENT_VERSION}). Ваши данные сохранения были автоматически перенесены.{newline}{newline}В качестве меры предосторожности проверьте, что все в порядке, прежде чем перезаписывать сохранение.{newline}{newline}Если по какой-либо причине вы хотите вернуться к предыдущей версии, скачайте версию, которую вы использовали ранее, с Nexus Mods." />
     <string
-      id="ret_scroll_to_bottom_tooltip"
-      text="Прокрутить до конца списка." />
-    <string
-      id="ret_scroll_to_top_tooltip"
-      text="Прокрутить до начала списка." />
-    <string
       id="ret_select_clan_title"
       text="Выбрать клан" />
     <string
       id="ret_select_culture_title"
       text="Выбрать культуру" />
-    <string
-      id="ret_skill_decrease_min_reason"
-      text="Невозможно уменьшить навык ниже 0." />
-    <string
-      id="ret_skill_decrease_sources_reason"
-      text="Невозможно уменьшить ниже минимального значения источника улучшения." />
     <string
       id="ret_skill_decrease_warning_text"
       text="Уменьшение навыка происходит мгновенно, но его повторная тренировка займет время.{newline}{newline}Продолжить?" />
@@ -2130,16 +1980,13 @@
       text="Лимит навыков: {SKILL_CAP} - Уровень: {TIER}" />
     <string
       id="ret_skill_experience_tooltip"
-      text="{XP}/{XP_REQUIRED} XP до следующего очка навыка." />
-    <string
-      id="ret_skill_increase_maxed_reason"
-      text="Навык уже на максимальном уровне." />
+      text="{XP}/{XP_REQUIRED} XP до следующего очка навыка" />
     <string
       id="ret_skill_increase_no_points_reason"
-      text="Недостаточно очков навыков." />
+      text="Недостаточно очков навыков" />
     <string
       id="ret_skill_increase_total_reason"
-      text="Достигнут общий лимит навыков." />
+      text="Достигнут общий лимит навыков" />
     <string
       id="ret_skill_point_gained"
       text="{TROOP} заработал очко навыков." />
@@ -2148,13 +1995,13 @@
       text="{TROOP} заработал {POINTS} очков навыков." />
     <string
       id="ret_skill_value_hint_staged"
-      text="Фактическое значение навыка до завершения тренировки: {CURRENT}." />
+      text="Фактическое значение навыка до завершения тренировки: {CURRENT}" />
     <string
       id="ret_skills_header_text"
       text="Навыки" />
     <string
       id="ret_slot_value_hint_staged"
-      text="Фактический предмет до завершения экипировки: {CURRENT}." />
+      text="Фактический предмет до завершения экипировки: {CURRENT}" />
     <string
       id="ret_sort_by_culture"
       text="Культура" />
@@ -2234,17 +2081,11 @@
       id="ret_statistics_parties_garrisons"
       text="Развертывания: {TOTAL} ({PARTIES} отрядов, {GARRISONS} гарнизонов)" />
     <string
-      id="ret_statistics_player_only"
-      text="Доступно только в режиме игрока." />
-    <string
       id="ret_statistics_popup_title"
       text="Статистика" />
     <string
       id="ret_statistics_section_total"
       text="{TITLE}: {TOTAL}" />
-    <string
-      id="ret_statistics_tooltip"
-      text="Показать статистику юнита." />
     <string
       id="ret_stocks_add"
       text="Добавлено {AMOUNT} {ITEM} в запасы." />
@@ -2257,15 +2098,6 @@
     <string
       id="ret_tooltip_culture_none"
       text="Нет" />
-    <string
-      id="ret_trait_decrease_mined_reason"
-      text="Черта уже на минимальном значении." />
-    <string
-      id="ret_trait_increase_maxed_reason"
-      text="Черта уже на максимальном значении." />
-    <string
-      id="ret_trait_only_heroes_reason"
-      text="Черты есть только у героев." />
     <string
       id="ret_traits_header_text"
       text="Черты" />
@@ -2358,7 +2190,7 @@
       text="Войска [R]" />
     <string
       id="ret_unequip_item_tooltip"
-      text="Снять." />
+      text="Снять" />
     <string
       id="ret_unknown_error"
       text="Неизвестная ошибка." />
@@ -2379,22 +2211,22 @@
       text="были" />
     <string
       id="ret_unstage_item_tooltip"
-      text="Отменить этап." />
+      text="Отменить этап" />
     <string
       id="ret_upgrade_cannot_add_hero"
-      text="У героев не может быть целей для улучшения." />
+      text="У героев не может быть целей для улучшения" />
     <string
       id="ret_upgrade_cannot_add_max_targets"
-      text="Достигнуто максимальное количество целей для улучшения." />
+      text="Достигнуто максимальное количество целей для улучшения" />
     <string
       id="ret_upgrade_cannot_add_max_tier"
-      text="Эта единица уже на максимальном уровне." />
+      text="Эта единица уже на максимальном уровне" />
     <string
       id="ret_upgrade_cannot_add_not_upgradable"
       text="Эту единицу нельзя улучшить." />
     <string
       id="ret_upgrade_no_captains"
-      text="У капитанов не может быть улучшений." />
+      text="У капитанов не может быть улучшений" />
     <string
       id="ret_upgrade_sources_header_text"
       text="Источники" />

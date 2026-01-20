@@ -21,46 +21,46 @@
       text="仅限玩家" />
     <string
       id="ret_battle_type_field_checkbox_tooltip_disable"
-      text="禁用平地战斗。" />
+      text="禁用平地战斗" />
     <string
       id="ret_battle_type_field_checkbox_tooltip_enable"
-      text="启用平地战斗。" />
+      text="启用平地战斗" />
     <string
       id="ret_battle_type_field_required_reason"
-      text="至少有一套战斗装备必须保持启用以进行平地战斗。" />
+      text="至少有一套战斗装备必须保持启用以进行平地战斗" />
     <string
       id="ret_battle_type_field_tooltip"
-      text="平地战斗。" />
+      text="平地战斗" />
     <string
       id="ret_battle_type_naval_checkbox_tooltip_disable"
-      text="禁用海战。" />
+      text="禁用海战" />
     <string
       id="ret_battle_type_naval_checkbox_tooltip_enable"
-      text="启用海战。" />
+      text="启用海战" />
     <string
       id="ret_battle_type_naval_required_reason"
-      text="至少有一套战斗装备必须保持启用以进行海战。" />
+      text="至少有一套战斗装备必须保持启用以进行海战" />
     <string
       id="ret_battle_type_naval_tooltip"
-      text="海战。" />
+      text="海战" />
     <string
       id="ret_battle_type_required_reason"
-      text="至少有一套战斗装备必须保持启用以适应此类战斗。" />
+      text="至少有一套战斗装备必须保持启用以适应此类战斗" />
     <string
       id="ret_battle_type_siege_checkbox_tooltip_disable"
-      text="禁用攻城战斗。" />
+      text="禁用攻城战斗" />
     <string
       id="ret_battle_type_siege_checkbox_tooltip_enable"
-      text="启用攻城战斗。" />
+      text="启用攻城战斗" />
     <string
       id="ret_battle_type_siege_required_reason"
-      text="至少有一套战斗装备必须保持启用以进行攻城战斗。" />
+      text="至少有一套战斗装备必须保持启用以进行攻城战斗" />
     <string
       id="ret_battle_type_siege_tooltip"
-      text="攻城战斗。" />
+      text="攻城战斗" />
     <string
       id="ret_battle_types_civilian_reason"
-      text="平民装备套装没有战斗类型限制。" />
+      text="平民装备套装没有战斗类型限制" />
     <string
       id="ret_body_age_decrease_tip"
       text="减少年龄" />
@@ -69,10 +69,10 @@
       text="增加年龄" />
     <string
       id="ret_body_age_max_reason"
-      text="年龄已达到最大值。" />
+      text="年龄已达到最大值" />
     <string
       id="ret_body_age_min_reason"
-      text="年龄已达到最小值。" />
+      text="年龄已达到最小值" />
     <string
       id="ret_body_build_decrease_tip"
       text="减少体型" />
@@ -81,10 +81,10 @@
       text="增加体型" />
     <string
       id="ret_body_build_max_reason"
-      text="体型已达到最大值。" />
+      text="体型已达到最大值" />
     <string
       id="ret_body_build_min_reason"
-      text="体型已达到最小值。" />
+      text="体型已达到最小值" />
     <string
       id="ret_body_height_decrease_tip"
       text="减少身高" />
@@ -93,10 +93,10 @@
       text="增加身高" />
     <string
       id="ret_body_height_max_reason"
-      text="身高已达到最大值。" />
+      text="身高已达到最大值" />
     <string
       id="ret_body_height_min_reason"
-      text="身高已达到最小值。" />
+      text="身高已达到最小值" />
     <string
       id="ret_body_weight_decrease_tip"
       text="减少体重" />
@@ -105,19 +105,19 @@
       text="增加体重" />
     <string
       id="ret_body_weight_max_reason"
-      text="体重已达到最大值。" />
+      text="体重已达到最大值" />
     <string
       id="ret_body_weight_min_reason"
-      text="体重已达到最小值。" />
+      text="体重已达到最小值" />
     <string
       id="ret_build_hint"
       text="体型" />
     <string
       id="ret_button_change_formation_class_disabled_for_captains"
-      text="队长与其基础部队共享编队类别。" />
+      text="队长与其基础部队共享编队类别" />
     <string
       id="ret_button_change_formation_class_tooltip"
-      text="选择一个编队类别。" />
+      text="选择一个编队类别" />
     <string
       id="ret_button_disable_captain"
       text="禁用" />
@@ -128,9 +128,6 @@
       id="ret_button_export"
       text="导出" />
     <string
-      id="ret_button_export_tooltip"
-      text="将所选派系或部队导出到库中。" />
-    <string
       id="ret_button_rank_up"
       text="提升等级" />
     <string
@@ -139,9 +136,6 @@
     <string
       id="ret_button_reset"
       text="重置" />
-    <string
-      id="ret_button_reset_tooltip"
-      text="重置为默认值。" />
     <string
       id="ret_button_show_battle"
       text="战斗" />
@@ -156,7 +150,7 @@
       text="资金不足" />
     <string
       id="ret_cant_change_retinue_culture"
-      text="随从无法更改文化。" />
+      text="随从无法更改文化" />
     <string
       id="ret_cant_equip_reason_civilian"
       text="非平民" />
@@ -189,16 +183,16 @@
       text="解锁中 {PERCENT}%" />
     <string
       id="ret_cant_unequip_reason_empty"
-      text="没有可卸下的物品。" />
+      text="没有可卸下的物品" />
     <string
       id="ret_captain_mode_off_hint"
-      text="切换到该队长的基础部队。" />
+      text="切换到该队长的基础部队" />
     <string
       id="ret_captain_mode_on_hint"
-      text="切换到该部队的队长。" />
+      text="切换到该部队的队长" />
     <string
       id="ret_captain_mode_toggle_tooltip"
-      text="队长模式。" />
+      text="队长模式" />
     <string
       id="ret_captain_suffix"
       text="队长" />
@@ -210,22 +204,28 @@
       text="启用此队长" />
     <string
       id="ret_captain_toggle_enabled_not_captain_reason"
-      text="此单位不是队长。" />
+      text="此单位不是队长" />
+    <string
+      id="ret_change_culture_hint"
+      text="更改文化" />
     <string
       id="ret_change_culture_title"
       text="更改文化" />
+    <string
+      id="ret_change_species_hint"
+      text="更改物种" />
     <string
       id="ret_change_species_title"
       text="更改物种" />
     <string
       id="ret_character_cannot_remove_hero"
-      text="英雄无法被移除。" />
+      text="英雄无法被移除" />
     <string
       id="ret_character_cannot_remove_root"
-      text="根单位无法被移除。" />
+      text="根单位无法被移除" />
     <string
       id="ret_character_cannot_remove_with_upgrades"
-      text="无法移除仍有升级的单位。" />
+      text="无法移除仍有升级的单位" />
     <string
       id="ret_character_is_null"
       text="角色为空。" />
@@ -240,22 +240,10 @@
       text="与第一个领地一起解锁" />
     <string
       id="ret_clear_filter_tooltip"
-      text="清除当前的过滤文本。" />
+      text="清除过滤器" />
     <string
       id="ret_close_equipment_button_text"
       text="返回" />
-    <string
-      id="ret_crafted_items_hide_tooltip"
-      text="包含制作的武器。" />
-    <string
-      id="ret_crafted_items_only_tooltip"
-      text="显示制作的武器。" />
-    <string
-      id="ret_crafted_items_toggle_tooltip"
-      text="将制作的物品包含在装备列表中。" />
-    <string
-      id="ret_crafted_player_only_reason"
-      text="仅在玩家模式下可用。" />
     <string
       id="ret_create_unit"
       text="新单位" />
@@ -300,7 +288,7 @@
       text="错误的版本" />
     <string
       id="ret_doctrine_acquire_already_acquired"
-      text="此学说已被采纳。" />
+      text="此学说已被采纳" />
     <string
       id="ret_doctrine_acquire_button"
       text="获取" />
@@ -324,7 +312,7 @@
       text="无法获取学说。" />
     <string
       id="ret_doctrine_acquire_unavailable"
-      text="此学说仍然被锁定。" />
+      text="此学说仍然被锁定" />
     <string
       id="ret_doctrine_acquired_msg"
       text="已获取学说：{NAME}。" />
@@ -379,15 +367,6 @@
     <string
       id="ret_doctrine_description_header"
       text="效果" />
-    <string
-      id="ret_doctrine_feat_progress_tooltip_completed"
-      text="您已完成此功绩。" />
-    <string
-      id="ret_doctrine_feat_progress_tooltip_incomplete"
-      text="您尚未完成此功绩。" />
-    <string
-      id="ret_doctrine_feat_progress_tooltip_repeatable"
-      text="此功绩是可重复的。您可以多次完成它。" />
     <string
       id="ret_doctrine_feats_header"
       text="功绩" />
@@ -534,7 +513,7 @@
       text="为您的派系的城镇和城堡解锁自定义民兵部队。" />
     <string
       id="ret_doctrines_disabled"
-      text="学说已被禁用。" />
+      text="学说已被禁用" />
     <string
       id="ret_editing_restriction_in_fief"
       text="派系封地" />
@@ -597,7 +576,7 @@
       text="装备" />
     <string
       id="ret_equipment_cannot_delete_last_set"
-      text="至少必须保留一个装备套装。" />
+      text="至少必须保留一个装备套装" />
     <string
       id="ret_equipment_clipboard_source_fallback"
       text="剪贴板" />
@@ -605,17 +584,8 @@
       id="ret_equipment_copied_toast"
       text="已将装备复制到剪贴板。" />
     <string
-      id="ret_equipment_copy_tooltip"
-      text="将装备复制到剪贴板。" />
-    <string
-      id="ret_equipment_delete_breaks_battle_types_reason"
-      text="无法删除此套装，因为它是至少一种战斗类型启用的最后一个套装。" />
-    <string
       id="ret_equipment_hero_sets_reason"
-      text="英雄不能拥有多个装备套装。" />
-    <string
-      id="ret_equipment_no_more_sets"
-      text="没有更多的装备套装。" />
+      text="英雄不能拥有多个装备套装" />
     <string
       id="ret_equipment_panel_value_limit"
       text="{LIMIT} 丹纳尔" />
@@ -638,17 +608,11 @@
       id="ret_equipment_paste_confirm_title"
       text="复制装备" />
     <string
-      id="ret_equipment_paste_empty_clipboard_reason"
-      text="剪贴板为空。" />
-    <string
       id="ret_equipment_paste_nothing_desc2"
       text="无法在 {DST} 上装备来自 {SRC} 的新物品。" />
     <string
       id="ret_equipment_paste_nothing_title"
       text="复制装备" />
-    <string
-      id="ret_equipment_paste_tooltip"
-      text="从剪贴板粘贴装备。" />
     <string
       id="ret_equipment_slot_body"
       text="身体" />
@@ -682,12 +646,6 @@
     <string
       id="ret_equipment_slot_weapon_3"
       text="武器 4" />
-    <string
-      id="ret_equipments_create_set"
-      text="创建一个新的装备套装。" />
-    <string
-      id="ret_equipments_delete_set"
-      text="删除所选的装备套装。" />
     <string
       id="ret_escape_menu_editor_button"
       text="通用编辑器" />
@@ -724,9 +682,6 @@
     <string
       id="ret_export_name_title"
       text="导出名称" />
-    <string
-      id="ret_export_none_available"
-      text="现在无法导出任何内容。" />
     <string
       id="ret_export_overwrite_desc"
       text="名为“{NAME}”的文件已存在。{newline}{newline}您想要覆盖它吗？" />
@@ -1133,35 +1088,20 @@
       id="ret_filter_tooltip_description_equipment"
       text="输入以按名称、类别或等级过滤列表。" />
     <string
-      id="ret_formation_class_icon_tooltip"
-      text="编队：{CLASS}。" />
-    <string
       id="ret_formation_option_auto"
       text="自动" />
     <string
       id="ret_formation_option_auto_hint"
-      text="让游戏根据装备自动选择编队类别。" />
+      text="让游戏根据装备自动选择编队类别" />
     <string
       id="ret_formation_option_hint"
-      text="强制使用 {CLASS} 编队。" />
+      text="强制使用 {CLASS} 编队" />
     <string
       id="ret_formation_popup_desc"
       text="选择此单位的分类方式。保持“自动”以根据其装备进行分类。" />
     <string
       id="ret_formation_popup_title"
       text="编队类别" />
-    <string
-      id="ret_gender_no_culture"
-      text="未选择任何文化。" />
-    <string
-      id="ret_gender_no_template"
-      text="该文化没有适用于该性别/物种的有效身体模板。" />
-    <string
-      id="ret_gender_not_renderable"
-      text="该性别/物种组合无法呈现。" />
-    <string
-      id="ret_gender_toggle_hint"
-      text="更改性别" />
     <string
       id="ret_go_to_editor"
       text="前往编辑器" />
@@ -1283,17 +1223,11 @@
       id="ret_library_delete_failed_exception"
       text="无法删除文件。" />
     <string
-      id="ret_library_delete_failed_missing_file"
-      text="未找到导出文件。" />
-    <string
       id="ret_library_delete_failed_title"
       text="删除失败" />
     <string
-      id="ret_library_delete_no_selection"
-      text="未选择导出。" />
-    <string
       id="ret_library_delete_tooltip"
-      text="永久删除此库项及相关的 XML 文件。" />
+      text="永久删除此库项及相关的 XML 文件" />
     <string
       id="ret_library_edit_button"
       text="编辑" />
@@ -1313,11 +1247,8 @@
       id="ret_library_edit_failed_title"
       text="编辑失败" />
     <string
-      id="ret_library_edit_no_selection"
-      text="未选择导出。" />
-    <string
       id="ret_library_edit_tooltip"
-      text="直接编辑此导出 XML 文件的内容。" />
+      text="直接编辑此导出 XML 文件的内容" />
     <string
       id="ret_library_export_file_header"
       text="文件" />
@@ -1332,7 +1263,7 @@
       text="转换为独立模组" />
     <string
       id="ret_library_export_npc_custom_troop_unsupported"
-      text="只有原版部队编辑才能转换为独立模组。" />
+      text="只有原版部队编辑才能转换为独立模组" />
     <string
       id="ret_library_export_npc_failed_exception"
       text="无法导出文件。" />
@@ -1350,16 +1281,10 @@
       text="导出失败" />
     <string
       id="ret_library_export_npc_kind_unsupported"
-      text="此导出类型无法转换。" />
-    <string
-      id="ret_library_export_npc_missing_file"
-      text="未找到导出文件。" />
-    <string
-      id="ret_library_export_npc_no_selection"
-      text="未选择导出。" />
+      text="此导出类型无法转换" />
     <string
       id="ret_library_export_npc_tooltip"
-      text="将此导出转换为独立模组。" />
+      text="将此导出转换为独立模组" />
     <string
       id="ret_library_exports_empty_text"
       text="未找到已保存的导出。" />
@@ -1381,9 +1306,6 @@
     <string
       id="ret_library_import_failed_title"
       text="导入失败" />
-    <string
-      id="ret_library_import_missing_file"
-      text="未找到导出文件。" />
     <string
       id="ret_library_import_no_faction"
       text="编辑器中未选择任何派系。" />
@@ -1413,7 +1335,7 @@
       text="替换部队" />
     <string
       id="ret_library_import_tooltip"
-      text="导入到当前游戏中。" />
+      text="导入到当前游戏中" />
     <string
       id="ret_library_kind_faction"
       text="派系" />
@@ -1467,22 +1389,10 @@
       text="村民" />
     <string
       id="ret_mariner_captain_reason"
-      text="船长与其基础部队共享水手能力。" />
-    <string
-      id="ret_mariner_disable_tooltip"
-      text="禁用此单位的水手能力。" />
-    <string
-      id="ret_mariner_enable_tooltip"
-      text="启用此单位的水手能力。" />
+      text="船长与其基础部队共享水手能力" />
     <string
       id="ret_mariner_hero_reason"
-      text="英雄不能成为水手。" />
-    <string
-      id="ret_mariner_toggle_tooltip"
-      text="水手更适合海战，但技能点的获得速度略有降低。" />
-    <string
-      id="ret_mariner_toggle_tooltip_universal"
-      text="水手更适合海战。" />
+      text="英雄不能成为水手" />
     <string
       id="ret_mcm_option_allowed_recruiters"
       text="允许的招募者" />
@@ -1883,23 +1793,11 @@
       id="ret_mcm_section_user_interface"
       text="用户界面" />
     <string
-      id="ret_mixed_gender_disable_tooltip"
-      text="不允许该单位以男性或女性身份出现。" />
-    <string
-      id="ret_mixed_gender_enable_tooltip"
-      text="允许该单位以男性或女性身份出现。" />
-    <string
-      id="ret_mixed_gender_hero_reason"
-      text="英雄不可用。" />
-    <string
-      id="ret_mixed_gender_toggle_tooltip"
-      text="混合性别单位。" />
-    <string
       id="ret_name_header_text"
       text="名称" />
     <string
       id="ret_naval_dlc_not_loaded"
-      text="未安装《战争之帆》。" />
+      text="未安装《战争之帆》" />
     <string
       id="ret_no_clans_text"
       text="当前游戏中没有加载任何氏族。" />
@@ -1934,23 +1832,11 @@
       id="ret_preview_mode"
       text="预览模式" />
     <string
-      id="ret_preview_mode_disable_tooltip"
-      text="禁用预览模式。" />
-    <string
-      id="ret_preview_mode_enable_tooltip"
-      text="启用预览模式。" />
-    <string
-      id="ret_preview_mode_toggle_tooltip"
-      text="使用预览模式查看装备的外观，而无需实际应用更改。" />
-    <string
       id="ret_purchase_item_desc"
       text="以 {COST} 戈德购买 {ITEM}？" />
     <string
       id="ret_purchase_item_title"
       text="购买物品" />
-    <string
-      id="ret_race_cannot_change"
-      text="无法更改此单位的物种。" />
     <string
       id="ret_race_incompatible_culture_gender"
       text="此物种与当前的文化/性别不兼容。" />
@@ -1970,32 +1856,14 @@
       id="ret_rank_up_confirm_yes"
       text="升级" />
     <string
-      id="ret_rank_up_max_tier"
-      text="此单位已达到最高等级。" />
-    <string
       id="ret_rank_up_no_captains"
-      text="船长无法升级。" />
-    <string
-      id="ret_rank_up_not_enough_money"
-      text="钱不够（需要 {COST} 戈德）。" />
-    <string
-      id="ret_rank_up_not_enough_sp"
-      text="技能点不足（需要 {POINTS}）。" />
-    <string
-      id="ret_rank_up_player_only"
-      text="仅在玩家模式下可用。" />
-    <string
-      id="ret_rank_up_requires_maxed_skills"
-      text="此单位必须达到其等级的技能总数上限。" />
+      text="船长无法升级" />
     <string
       id="ret_rank_up_retinue_only"
-      text="仅适用于随从。" />
-    <string
-      id="ret_rank_up_tooltip"
-      text="提升此单位的等级。" />
+      text="仅适用于随从" />
     <string
       id="ret_rename_tooltip"
-      text="重命名。" />
+      text="重命名" />
     <string
       id="ret_rename_unit"
       text="新名称" />
@@ -2015,9 +1883,6 @@
       id="ret_reset_confirm"
       text="重置" />
     <string
-      id="ret_reset_default_universal_only"
-      text="仅在通用编辑器中可用。" />
-    <string
       id="ret_reset_done_body"
       text="保存并重新启动游戏以使此操作生效。" />
     <string
@@ -2029,9 +1894,6 @@
     <string
       id="ret_reset_faction_title"
       text="重置为默认值" />
-    <string
-      id="ret_reset_none_available"
-      text="现在无法重置任何内容。" />
     <string
       id="ret_reset_target_faction_disabled"
       text="未找到可重置的已修改的原版部队。" />
@@ -2099,23 +1961,11 @@
       id="ret_retinues_version_update_text_no_current"
       text="此保存文件中的 Retinues 模组版本已更新为较新版本 ({CURRENT_VERSION})。您的保存数据已自动迁移。{newline}{newline}作为安全预防措施，在覆盖保存之前，请检查一切是否正常。{newline}{newline}如果您出于任何原因希望回到以前的版本，请从 Nexus Mods 下载您之前使用的版本。" />
     <string
-      id="ret_scroll_to_bottom_tooltip"
-      text="滚动到列表底部。" />
-    <string
-      id="ret_scroll_to_top_tooltip"
-      text="滚动到列表顶部。" />
-    <string
       id="ret_select_clan_title"
       text="选择氏族" />
     <string
       id="ret_select_culture_title"
       text="选择文化" />
-    <string
-      id="ret_skill_decrease_min_reason"
-      text="技能不能降低到0以下。" />
-    <string
-      id="ret_skill_decrease_sources_reason"
-      text="无法降低到升级来源的最低值以下。" />
     <string
       id="ret_skill_decrease_warning_text"
       text="降低技能是即时的，但重新训练需要时间。{newline}{newline}继续？" />
@@ -2130,16 +1980,13 @@
       text="技能上限：{SKILL_CAP} - 等级：{TIER}" />
     <string
       id="ret_skill_experience_tooltip"
-      text="{XP}/{XP_REQUIRED} 经验值，距离下一个技能点。" />
-    <string
-      id="ret_skill_increase_maxed_reason"
-      text="技能已达到最高水平。" />
+      text="{XP}/{XP_REQUIRED} 经验值，距离下一个技能点" />
     <string
       id="ret_skill_increase_no_points_reason"
-      text="技能点不足。" />
+      text="技能点不足" />
     <string
       id="ret_skill_increase_total_reason"
-      text="已达到总技能限制。" />
+      text="已达到总技能限制" />
     <string
       id="ret_skill_point_gained"
       text="{TROOP} 获得了一个技能点。" />
@@ -2148,7 +1995,7 @@
       text="{TROOP} 获得了 {POINTS} 个技能点。" />
     <string
       id="ret_skill_value_hint_staged"
-      text="训练完成前的实际技能值：{CURRENT}。" />
+      text="训练完成前的实际技能值：{CURRENT}" />
     <string
       id="ret_skills_header_text"
       text="技能" />
@@ -2234,17 +2081,11 @@
       id="ret_statistics_parties_garrisons"
       text="部署次数：{TOTAL}（{PARTIES} 队伍，{GARRISONS} 驻军）" />
     <string
-      id="ret_statistics_player_only"
-      text="仅在玩家模式下可用。" />
-    <string
       id="ret_statistics_popup_title"
       text="统计数据" />
     <string
       id="ret_statistics_section_total"
       text="{TITLE}：{TOTAL}" />
-    <string
-      id="ret_statistics_tooltip"
-      text="显示单位统计数据。" />
     <string
       id="ret_stocks_add"
       text="已向库存添加 {AMOUNT} 个 {ITEM}。" />
@@ -2257,15 +2098,6 @@
     <string
       id="ret_tooltip_culture_none"
       text="无" />
-    <string
-      id="ret_trait_decrease_mined_reason"
-      text="特质已达到最低值。" />
-    <string
-      id="ret_trait_increase_maxed_reason"
-      text="特质已达到最高值。" />
-    <string
-      id="ret_trait_only_heroes_reason"
-      text="只有英雄才有特质。" />
     <string
       id="ret_traits_header_text"
       text="特质" />
@@ -2358,7 +2190,7 @@
       text="部队 [R]" />
     <string
       id="ret_unequip_item_tooltip"
-      text="卸下装备." />
+      text="卸下装备" />
     <string
       id="ret_unknown_error"
       text="未知错误。" />
@@ -2379,22 +2211,22 @@
       text="是" />
     <string
       id="ret_unstage_item_tooltip"
-      text="取消分阶段." />
+      text="取消分阶段" />
     <string
       id="ret_upgrade_cannot_add_hero"
-      text="英雄不能有升级目标。" />
+      text="英雄不能有升级目标" />
     <string
       id="ret_upgrade_cannot_add_max_targets"
-      text="已达到最大升级目标数量。" />
+      text="已达到最大升级目标数量" />
     <string
       id="ret_upgrade_cannot_add_max_tier"
-      text="该单位已达到最高等级。" />
+      text="该单位已达到最高等级" />
     <string
       id="ret_upgrade_cannot_add_not_upgradable"
       text="该单位无法升级。" />
     <string
       id="ret_upgrade_no_captains"
-      text="队长不能有升级。" />
+      text="队长不能有升级" />
     <string
       id="ret_upgrade_sources_header_text"
       text="来源" />

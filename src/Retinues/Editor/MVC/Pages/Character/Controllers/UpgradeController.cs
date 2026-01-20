@@ -29,26 +29,26 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
                 .RequireValidEditingContext()
                 .AddCondition(
                     c => c != null && !c.IsHero,
-                    L.T("upgrade_cannot_add_hero", "Heroes cannot have upgrade targets.")
+                    L.T("upgrade_cannot_add_hero", "Heroes cannot have upgrade targets")
                 )
                 .AddCondition(
                     c => c != null && c.UpgradeTargets.Count < MaxUpgradeTargets,
                     L.T(
                         "upgrade_cannot_add_max_targets",
-                        "Maximum number of upgrade targets reached."
+                        "Maximum number of upgrade targets reached"
                     )
                 )
                 .AddCondition(
                     s => State.Character.IsCaptain != true,
-                    L.T("upgrade_no_captains", "Captains cannot have upgrades.")
+                    L.T("upgrade_no_captains", "Captains cannot have upgrades")
                 )
                 .AddCondition(
                     c => c != null && c.IsUpgradable,
-                    L.T("upgrade_cannot_add_not_upgradable", "This unit is not upgradable.")
+                    L.T("upgrade_cannot_add_not_upgradable", "This unit is not upgradable")
                 )
                 .AddCondition(
                     c => c != null && !c.IsMaxTier,
-                    L.T("upgrade_cannot_add_max_tier", "This unit is already at maximum tier.")
+                    L.T("upgrade_cannot_add_max_tier", "This unit is already at maximum tier")
                 )
                 .ExecuteWith(AddUpgradeTargetImpl);
 
@@ -183,18 +183,18 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
                 .RequireValidEditingContext()
                 .AddCondition(
                     c => c != null && c.IsHero == false,
-                    L.T("character_cannot_remove_hero", "Heroes cannot be removed.")
+                    L.T("character_cannot_remove_hero", "Heroes cannot be removed")
                 )
                 .AddCondition(
                     c => c != null && c.UpgradeTargets.Count == 0,
                     L.T(
                         "character_cannot_remove_with_upgrades",
-                        "Can't remove a unit that still has upgrades."
+                        "Cannott remove a unit that still has upgrades"
                     )
                 )
                 .AddCondition(
                     c => c != null && !c.IsRoot,
-                    L.T("character_cannot_remove_root", "Root units cannot be removed.")
+                    L.T("character_cannot_remove_root", "Root units cannot be removed")
                 )
                 .ExecuteWith(RemoveCharacterImpl);
 

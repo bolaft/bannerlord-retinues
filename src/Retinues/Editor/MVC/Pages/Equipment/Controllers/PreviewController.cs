@@ -55,8 +55,8 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Controllers
             Action<bool>("SetPreviewMode")
                 .DefaultTooltip(enable =>
                     enable
-                        ? L.T("preview_mode_enable_tooltip", "Enable preview mode.")
-                        : L.T("preview_mode_disable_tooltip", "Disable preview mode.")
+                        ? L.T("preview_mode_enable_tooltip", "Enable Preview Mode")
+                        : L.T("preview_mode_disable_tooltip", "Disable Preview Mode")
                 )
                 .ExecuteWith(enable =>
                 {

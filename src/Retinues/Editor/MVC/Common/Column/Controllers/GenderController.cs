@@ -24,12 +24,6 @@ namespace Retinues.Editor.MVC.Common.Column.Controllers
                 .AddCondition(
                     applies: _ =>
                         RaceHelper.HasAlternateSpecies() && State.Character?.Editable is WCharacter,
-                    test: c => c?.Culture != null,
-                    reason: L.T("gender_no_culture", "No culture is selected.")
-                )
-                .AddCondition(
-                    applies: _ =>
-                        RaceHelper.HasAlternateSpecies() && State.Character?.Editable is WCharacter,
                     test: c =>
                     {
                         if (c == null)
@@ -40,7 +34,7 @@ namespace Retinues.Editor.MVC.Common.Column.Controllers
                     },
                     reason: L.T(
                         "gender_no_template",
-                        "This culture has no valid body template for that gender/species."
+                        "Invalid gender/species/culture combination"
                     )
                 )
                 .AddCondition(
@@ -55,11 +49,11 @@ namespace Retinues.Editor.MVC.Common.Column.Controllers
                         return AppearanceGuard.CanRender(c.Culture, targetFemale, c.Race);
                     },
                     reason: L.T(
-                        "gender_not_renderable",
-                        "That gender/species combination cannot be rendered."
+                        "gender_no_template",
+                        "Invalid gender/species/culture combination"
                     )
                 )
-                .DefaultTooltip(L.T("gender_toggle_hint", "Change Gender"))
+                .DefaultTooltip(L.T("gender_toggle_hint", "Change gender"))
                 .ExecuteWith(c => ToggleGenderImpl((c ?? State.Character)?.Editable))
                 .Fire(UIEvent.Gender);
 

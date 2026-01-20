@@ -27,7 +27,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Panel
                 ? new Tooltip(
                     L.T(
                             "skill_value_hint_staged",
-                            "Actual skill value until training completes: {CURRENT}."
+                            "Actual skill value until training completes: {CURRENT}"
                         )
                         .SetTextVariable("CURRENT", State.Character.Skills.GetBase(skill))
                 )

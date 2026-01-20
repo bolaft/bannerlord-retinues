@@ -72,7 +72,7 @@ namespace Retinues.Editor.MVC.Pages.Doctrines.Views.Panel
                 return new Tooltip(
                     L.T(
                         "doctrine_feat_progress_tooltip_repeatable",
-                        "This feat is repeatable. You can complete it multiple times."
+                        "Repeatable"
                     )
                 );
             }
@@ -80,14 +80,14 @@ namespace Retinues.Editor.MVC.Pages.Doctrines.Views.Panel
             if (IsCompleted)
             {
                 return new Tooltip(
-                    L.T("doctrine_feat_progress_tooltip_completed", "You have completed this feat.")
+                    L.T("doctrine_feat_progress_tooltip_completed", "Completed")
                 );
             }
 
             return new Tooltip(
                 L.T(
                     "doctrine_feat_progress_tooltip_incomplete",
-                    "You have not yet completed this feat."
+                    "In Progress"
                 )
             );
         }
