@@ -15,7 +15,7 @@ namespace Retinues.Domain.Characters.Wrappers
     public partial class WCharacter
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                      Skills Staging                    //
+        //                     Skills Staging                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         MAttribute<Dictionary<string, int>> SkillsStagingAttribute =>

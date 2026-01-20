@@ -15,7 +15,9 @@ namespace Retinues.Framework.Model.Attributes
     /// </summary>
     internal static class AttributeSerializer
     {
-        /* ━━━━━━━ Public API ━━━━━━ */
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Public API                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
         /// Serializes a value into an XML blob. XmlBlob.ToString() returns a pretty form.
@@ -53,7 +55,9 @@ namespace Retinues.Framework.Model.Attributes
             }
         }
 
-        /* ━━━━━━━ Internals ━━━━━━ */
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Internals                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         static readonly XmlWriterSettings WriterSettings = new()
         {

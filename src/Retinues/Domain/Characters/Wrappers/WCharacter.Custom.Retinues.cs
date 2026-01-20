@@ -14,7 +14,7 @@ namespace Retinues.Domain.Characters.Wrappers
     public partial class WCharacter
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                    Conversion Sources                  //
+        //                   Conversion Sources                   //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private const string ConversionCacheGroupKey = "retinues.wcharacter.conversions";
@@ -160,7 +160,7 @@ namespace Retinues.Domain.Characters.Wrappers
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //               Player Retinue Upgrade Targets           //
+        //                 Retinue Upgrade Targets                //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>

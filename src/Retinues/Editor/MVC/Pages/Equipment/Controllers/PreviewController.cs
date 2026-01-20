@@ -16,7 +16,7 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Controllers
     public class PreviewController : BaseController
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         State                          //
+        //                          State                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private static TaleWorlds.Core.Equipment _source;

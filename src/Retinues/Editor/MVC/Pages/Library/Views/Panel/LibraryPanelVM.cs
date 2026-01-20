@@ -74,7 +74,7 @@ namespace Retinues.Editor.VM.Panel.Library
         public string ExportFileHeader => L.S("library_export_file_header", "File");
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                       Main fields                      //
+        //                          Main                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [EventListener(UIEvent.Library)]
@@ -96,7 +96,7 @@ namespace Retinues.Editor.VM.Panel.Library
         public string ExportPath => LibraryController.GetExportPath(State.LibraryItem);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Troops                          //
+        //                         Troops                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public class FactionTroopNameVM(string name) : EventListenerVM

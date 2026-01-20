@@ -28,7 +28,7 @@ namespace Retinues.Behaviors.Retinues
         private const int Progress_WonBattleWithAllies = 10;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Sync Data                      //
+        //                        Sync Data                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private const string DataStoreKey_ProgressCultureIds =

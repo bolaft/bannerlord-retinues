@@ -8,7 +8,7 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
     public static partial class FeatCatalog
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                      Indomitable                       //
+        //                       Indomitable                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public static FeatData IN_FlawlessExecution = new()

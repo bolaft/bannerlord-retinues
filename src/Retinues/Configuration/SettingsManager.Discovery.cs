@@ -8,7 +8,7 @@ namespace Retinues.Configuration
     public static partial class SettingsManager
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                      Internal wiring                   //
+        //                     Internal Wiring                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>

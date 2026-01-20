@@ -9,8 +9,18 @@ using TaleWorlds.Core;
 
 namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
 {
+    /// <summary>
+    /// Equipment list filtering logic, including the fast-path rebuild strategy.
+    /// </summary>
     public sealed partial class EquipmentListVM
     {
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Tooltip                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Returns the tooltip displayed for the filter text box.
+        /// </summary>
         protected override Tooltip GetFilterTooltip()
         {
             return new(
@@ -21,6 +31,13 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
             );
         }
 
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Filtering                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Applies filtering to the list, optionally rebuilding headers for huge lists.
+        /// </summary>
         protected override void ApplyFilter()
         {
             // With the base batching fix, the default path is now cheap.
@@ -57,6 +74,13 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
             UpdateEquipmentHeaderExpansion();
         }
 
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                   Rebuild From Items                   //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Rebuilds headers for a filtered item set while preserving grouping rules.
+        /// </summary>
         private List<ListHeaderVM> BuildHeadersFromItems(List<WItem> items)
         {
             var headers = new List<ListHeaderVM>();
@@ -113,6 +137,9 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
             return headers;
         }
 
+        /// <summary>
+        /// Filters an item list by name, category, type, or tier.
+        /// </summary>
         private static List<WItem> FilterItems(
             List<WItem> items,
             EquipmentIndex slot,

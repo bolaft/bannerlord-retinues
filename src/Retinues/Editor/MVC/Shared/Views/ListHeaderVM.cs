@@ -115,7 +115,7 @@ namespace Retinues.Editor.MVC.Shared.Views
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                   Expanded / Toggle                    //
+        //                    Expanded / Toggle                   //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private bool _isExpanded;
@@ -161,7 +161,7 @@ namespace Retinues.Editor.MVC.Shared.Views
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                     Visible / Enabled                  //
+        //                    Visible / Enabled                   //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceProperty]

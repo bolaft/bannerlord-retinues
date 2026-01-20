@@ -9,7 +9,8 @@ using TaleWorlds.Library;
 namespace Retinues.Editor.MVC.Pages.Character.Views.List
 {
     /// <summary>
-    /// Disabled row shown for cultures whose retinue is being unlocked.
+    /// Disabled informational row showing retinue unlock progress for a culture.
+    /// Used as a pinned entry at the bottom of the Retinues header.
     /// </summary>
     public sealed class RetinueUnlockProgressRowVM(
         ListHeaderVM header,
@@ -20,17 +21,36 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.List
         private readonly WCulture _culture = culture;
         private readonly int _progress = Math.Max(0, progress);
 
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Type Flags                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
         [DataSourceProperty]
         public override bool IsRetinueUnlockProgress => true;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Enabled                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceProperty]
         public override bool IsEnabled => false;
 
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Selection                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
         [DataSourceProperty]
         public override bool IsSelected => false;
 
+        /// <summary>
+        /// No-op selection handler for a disabled informational row.
+        /// </summary>
         [DataSourceMethod]
         public override void ExecuteSelect() { }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                           UI                           //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceProperty]
         public string Name => _culture?.Name ?? string.Empty;
@@ -38,6 +58,9 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.List
         [DataSourceProperty]
         public object BannerImage => _culture?.Image;
 
+        /// <summary>
+        /// Computes the culture unlock progress as a clamped percentage.
+        /// </summary>
         [DataSourceProperty]
         public int ProgressPercent
         {
@@ -56,14 +79,21 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.List
             }
         }
 
+        /// <summary>
+        /// Gets a localized "Progress: X%" text for this row.
+        /// </summary>
         [DataSourceProperty]
         public string ProgressText =>
             L.T("retinue_unlock_progress_row", "Progress: {PCT}%")
                 .SetTextVariable("PCT", ProgressPercent)
                 .ToString();
 
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Sorting                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
         /// <summary>
-        /// Tries to get the pinned sort progress for this row.
+        /// Provides a pinned sort progress value to keep rows ordered by unlock progress.
         /// </summary>
         internal override bool TryGetPinnedSortProgress(out int progress)
         {
@@ -72,7 +102,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.List
         }
 
         /// <summary>
-        /// Gets the sort value for the given sort key.
+        /// Returns the row sort value for the specified sort key.
         /// </summary>
         internal override IComparable GetSortValue(ListSortKey sortKey)
         {
@@ -88,7 +118,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.List
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
-        /// Determines whether this row matches the given filter.
+        /// Returns true when this row matches the provided filter text.
         /// </summary>
         internal override bool MatchesFilter(string filter)
         {

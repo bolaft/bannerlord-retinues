@@ -19,7 +19,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
     public class CharacterController : BaseController
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                           Name                         //
+        //                          Name                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>

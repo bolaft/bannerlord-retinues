@@ -32,7 +32,7 @@ namespace Retinues.Domain.Settlements.Models
         public bool IsCastle => Base.IsCastle;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                       Economy / Stats                  //
+        //                     Economy / Stats                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public float Prosperity => Base.Prosperity;

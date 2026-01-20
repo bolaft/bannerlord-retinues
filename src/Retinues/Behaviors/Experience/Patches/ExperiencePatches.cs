@@ -17,7 +17,7 @@ namespace Retinues.Behaviors.Experience.Patches
     internal static class SkillPointExperiencePatches
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                 Vanilla XP Gate Fixes                  //
+        //                  Vanilla XP Gate Fixes                 //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>

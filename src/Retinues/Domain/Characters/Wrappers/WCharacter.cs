@@ -24,7 +24,7 @@ namespace Retinues.Domain.Characters.Wrappers
             ICharacterData
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                           Name                         //
+        //                          Name                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         MAttribute<TextObject> NameAttribute => Attribute<TextObject>("_basicName");
@@ -75,7 +75,7 @@ namespace Retinues.Domain.Characters.Wrappers
         public bool IsMaxTier => Tier >= MaxTier;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                           Hero                         //
+        //                          Hero                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /* ━━━━━━━━━ Hero ━━━━━━━━━ */
@@ -227,7 +227,7 @@ namespace Retinues.Domain.Characters.Wrappers
 # endif
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                Encyclopedia Visibility                 //
+        //                 Encyclopedia Visibility                //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
 #if BL13

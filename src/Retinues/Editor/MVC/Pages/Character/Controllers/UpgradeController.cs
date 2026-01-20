@@ -18,7 +18,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
         const int MaxUpgradeTargets = 4;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Add Upgrade                     //
+        //                       Add Upgrade                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
@@ -172,7 +172,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                      Remove Character                  //
+        //                    Remove Character                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>

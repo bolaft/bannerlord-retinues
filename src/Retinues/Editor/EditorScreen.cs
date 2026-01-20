@@ -193,7 +193,7 @@ namespace Retinues.Editor
         void IGameStateListener.OnInitialize() => OnInitialize();
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Helpers                         //
+        //                         Helpers                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private void Close() => Game.Current?.GameStateManager?.PopState();

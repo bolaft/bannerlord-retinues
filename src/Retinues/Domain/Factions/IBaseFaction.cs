@@ -10,11 +10,11 @@ namespace Retinues.Domain.Factions
 {
     public interface IBaseFaction
     {
-        /* ━━━━━━━━━ Identity ━━━━━━━━ */
+        /* ━━━━━━━ Identity ━━━━━━━ */
 
         string StringId { get; }
 
-        // ━━━━━━━━━ XML ━━━━━━━━━━━━ //
+        /* ━━━━━━━━━━ XML ━━━━━━━━━ */
 
         string Serialize();
         string SerializeAll();

@@ -235,7 +235,7 @@ namespace Retinues.Behaviors.Troops
 
             if (mode == Settings.TroopsMode.FullTrees)
             {
-                var tree = created.Tree ?? new List<WCharacter> { created };
+                var tree = created.Tree ?? [created];
                 for (int i = 0; i < tree.Count; i++)
                 {
                     var node = tree[i];
@@ -255,7 +255,7 @@ namespace Retinues.Behaviors.Troops
 
                 Cloner.ApplyLeanFactionNames(created, factionName, nobleLine: nobleLine);
 
-                var tree = created.Tree ?? new List<WCharacter> { created };
+                var tree = created.Tree ?? [created];
                 for (int i = 0; i < tree.Count; i++)
                 {
                     var node = tree[i];

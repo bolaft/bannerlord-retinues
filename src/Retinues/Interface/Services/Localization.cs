@@ -15,7 +15,7 @@ namespace Retinues.Interface.Services
         public static Func<string> F(string id, string fallback) => () => S(id, fallback);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                    Text variables                      //
+        //                     Text variables                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>

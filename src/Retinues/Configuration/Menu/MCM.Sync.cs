@@ -204,7 +204,7 @@ namespace Retinues.Configuration.Menu
             if (string.IsNullOrWhiteSpace(key) || current == null)
                 return;
 
-            var items = TrySnapshotItems(current) ?? new List<string> { string.Empty };
+            var items = TrySnapshotItems(current) ?? [string.Empty];
             int idx = ClampIndex(current.SelectedIndex, items.Count);
 
             var clone = new Dropdown<string>(items, idx);

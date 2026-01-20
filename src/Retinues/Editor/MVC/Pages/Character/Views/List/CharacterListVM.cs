@@ -14,17 +14,20 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.List
 {
     /// <summary>
     /// Character list ViewModel.
+    /// Builds headers/rows for the active faction roster and upgrade trees.
     /// </summary>
     public sealed class CharacterListVM : BaseListVM
     {
         protected override EditorPage Page => EditorPage.Character;
+
+        /* ━━━━━━━━━ Test ━━━━━━━━━ */
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Overrides                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
-        /// Determines whether the given header is a tree sort header.
+        /// Returns true when the specified header should use tree sorting.
         /// </summary>
         protected override bool IsTreeSortHeader(string headerId)
         {
@@ -35,7 +38,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.List
         }
 
         /// <summary>
-        /// Determines whether the given header is a tree filter header.
+        /// Returns true when the specified header should use tree filtering.
         /// </summary>
         protected override bool IsTreeFilterHeader(string headerId)
         {
@@ -43,7 +46,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.List
         }
 
         /// <summary>
-        /// Gets the tooltip for the filter box.
+        /// Returns the tooltip content for the list filter box.
         /// </summary>
         protected override Tooltip GetFilterTooltip()
         {
@@ -56,13 +59,13 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.List
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Lifecycle                       //
+        //                     Selection Sync                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private string _lastSelectedRowId;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CharacterListVM"/> class.
+        /// Finds a row by id and returns its containing header.
         /// </summary>
         private bool TryFindRow(string id, out ListHeaderVM header, out BaseListRowVM row)
         {
@@ -101,10 +104,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.List
         }
 
         /// <summary>
-        /// On character change, ensure the selected row is visible:
-        /// - expand the header containing it
-        /// - expand tree parents when relevant
-        /// - then trigger list auto-scroll
+        /// Ensures the newly selected character row is visible, then triggers list auto-scroll.
         /// </summary>
         [EventListener(UIEvent.Character)]
         private void OnCharacterChange()
@@ -153,8 +153,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.List
         }
 
         /// <summary>
-        /// Expands the tree path to the selected row so it becomes visible when tree filtering is active.
-        /// Only relevant for headers that are tree headers.
+        /// Expands the tree path to the selected row when tree filtering is active.
         /// </summary>
         private void ExpandTreePathToSelected(ListHeaderVM header, WCharacter selected)
         {
@@ -172,8 +171,12 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.List
             ApplyFilter();
         }
 
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Events                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
         /// <summary>
-        /// On tree change, rebuild the list if in character page.
+        /// Rebuilds the list when the upgrade tree or doctrine state changes.
         /// </summary>
         [EventListener(UIEvent.Tree, UIEvent.Doctrine)]
         private void OnTreeChange()
@@ -189,7 +192,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.List
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
-        /// Builds the character list.
+        /// Builds headers and rows for the current faction and editor mode.
         /// </summary>
         public override void Build()
         {
@@ -199,7 +202,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.List
         }
 
         /// <summary>
-        /// Builds the sort buttons for the character list.
+        /// Builds the sort button set used by the character list.
         /// </summary>
         private void BuildSortButtons()
         {
@@ -216,7 +219,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.List
         }
 
         /// <summary>
-        /// Builds the sections for the character list.
+        /// Builds all list headers and populates them with character rows.
         /// </summary>
         private void BuildSections()
         {
@@ -331,6 +334,10 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.List
                 header.UpdateState();
             }
 
+            // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+            //                         Heroes                         //
+            // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
             // Heroes are only shown in universal mode.
             AddSection(
                 headers,
@@ -341,6 +348,10 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.List
                 condition: () =>
                     faction is WClan && EditorState.Instance.Mode == EditorMode.Universal
             );
+
+            // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+            //                        Retinues                        //
+            // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
             // Retinues: only meaningful in player mode (custom only).
             if (
@@ -392,6 +403,10 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.List
                 }
             }
 
+            // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+            //                          Trees                         //
+            // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
             // Elite tree.
             AddSection(
                 headers,
@@ -409,6 +424,10 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.List
                 L.S("list_header_regular", "Regular"),
                 faction.RootBasic?.Tree
             );
+
+            // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+            //                    Secondary Rosters                   //
+            // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
             // Militia.
             AddSection(
@@ -474,8 +493,12 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.List
             SetHeaders(headers);
         }
 
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Row Creation                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
         /// <summary>
-        /// Adds a character row to the given header.
+        /// Adds the appropriate row type for the given character into the header.
         /// </summary>
         private void AddCharacterRow(ListHeaderVM header, WCharacter character)
         {

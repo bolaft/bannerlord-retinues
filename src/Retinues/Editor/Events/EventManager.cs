@@ -22,7 +22,7 @@ namespace Retinues.Editor.Events
     public static partial class EventManager
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                      Burst Public API                  //
+        //                    Burst Public API                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>

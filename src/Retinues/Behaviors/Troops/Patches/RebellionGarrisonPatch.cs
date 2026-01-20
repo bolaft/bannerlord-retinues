@@ -17,7 +17,7 @@ namespace Retinues.Behaviors.Troops.Patches
     internal static class TroopSwapHolePatches
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                     Rebellion garrison                 //
+        //                   Rebellion Garrison                   //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [HarmonyPatch(typeof(RebellionsCampaignBehavior), "ApplyRebellionConsequencesToSettlement")]

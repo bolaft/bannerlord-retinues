@@ -138,7 +138,7 @@ namespace Retinues.Domain.Factions.Base
         public virtual WCharacter Shipwright => null;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                          Rosters                       //
+        //                         Rosters                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public virtual List<WCharacter> RosterRetinues => [];
@@ -240,7 +240,7 @@ namespace Retinues.Domain.Factions.Base
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                          Helpers                       //
+        //                         Helpers                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>

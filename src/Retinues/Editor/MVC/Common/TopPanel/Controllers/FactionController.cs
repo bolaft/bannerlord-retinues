@@ -15,7 +15,7 @@ namespace Retinues.Editor.MVC.Common.TopPanel.Controllers
     public class FactionController : BaseController
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Banners                         //
+        //                         Banners                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>

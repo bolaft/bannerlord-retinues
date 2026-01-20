@@ -62,7 +62,7 @@ namespace Retinues.Domain.Characters.Wrappers
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                     Serialization                      //
+        //                      Serialization                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         // Snapshot of the entire equipment roster.

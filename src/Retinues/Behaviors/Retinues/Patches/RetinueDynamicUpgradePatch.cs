@@ -299,7 +299,7 @@ namespace Retinues.Behaviors.Retinues.Patches
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //         Disable retinue upgrade when cap reached       //
+        //                     Disable on Cap                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [HarmonyPatch(typeof(PartyCharacterVM))]

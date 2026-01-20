@@ -9,7 +9,8 @@ using TaleWorlds.Library;
 namespace Retinues.Editor.MVC.Pages.Character.Views.List
 {
     /// <summary>
-    /// Row representing a troop character in the list.
+    /// List row ViewModel for a hero entry.
+    /// Shows hero-specific icons and disables selection for dead heroes.
     /// </summary>
     public sealed class HeroListRowVM(ListHeaderVM header, WCharacter character)
         : BaseListRowVM(header, character?.StringId ?? string.Empty)
@@ -39,10 +40,16 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.List
         //                        Selection                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Returns true when this hero is the currently selected character.
+        /// </summary>
         [EventListener(UIEvent.Character, Global = true)]
         [DataSourceProperty]
         public override bool IsSelected => State.Character == Character;
 
+        /// <summary>
+        /// Selects this hero as the active character.
+        /// </summary>
         [DataSourceMethod]
         public override void ExecuteSelect() => State.Character = Character;
 
@@ -50,6 +57,9 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.List
         //                          Name                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Gets the localized hero name.
+        /// </summary>
         [DataSourceProperty]
         [EventListener(UIEvent.Name)]
         public string Name => Hero.Name;
@@ -77,6 +87,9 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.List
         //                     Formation Class                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Gets the sprite id representing the character formation class.
+        /// </summary>
         [EventListener(UIEvent.Formation)]
         [DataSourceProperty]
         public string FormationClassIcon => Icons.GetFormationClassIcon(Character);
@@ -85,6 +98,9 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.List
         //                          Image                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Gets the portrait image for this hero row.
+        /// </summary>
         [DataSourceProperty]
         [EventListener(UIEvent.Appearance)]
         public object Image => Character?.GetImage(false);
@@ -94,7 +110,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.List
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
-        /// Returns the sort value for the given sort key.
+        /// Returns the row sort value for the specified sort key.
         /// </summary>
         internal override IComparable GetSortValue(ListSortKey sortKey)
         {
@@ -111,7 +127,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.List
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
-        /// Returns true if this row matches the given filter.
+        /// Returns true when this row matches the provided filter text.
         /// </summary>
         internal override bool MatchesFilter(string filter)
         {

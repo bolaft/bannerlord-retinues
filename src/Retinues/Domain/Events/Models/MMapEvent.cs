@@ -75,7 +75,7 @@ namespace Retinues.Domain.Events.Models
             );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Rewards                         //
+        //                         Rewards                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         bool rewardsComputed;

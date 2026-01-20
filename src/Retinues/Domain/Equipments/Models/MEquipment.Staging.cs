@@ -14,7 +14,7 @@ namespace Retinues.Domain.Equipments.Models
     public partial class MEquipment
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                       Item Staging                     //
+        //                      Item Staging                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>

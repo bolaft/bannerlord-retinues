@@ -36,7 +36,7 @@ namespace Retinues.Domain.Characters.Services.Skills
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                     Known categories                   //
+        //                    Known Categories                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         // These are "hero-only" skills.

@@ -55,7 +55,7 @@ namespace Retinues.Domain.Factions.Base
             [.. Base.Heroes.Select(h => WHero.Get(h).Character).Where(c => c.Age >= 18)];
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                     Custom Roots/Rosters               //
+        //                 Custom Roots / Rosters                 //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         static List<WCharacter> _cultureRootBasics;
@@ -93,9 +93,9 @@ namespace Retinues.Domain.Factions.Base
             _cultureRootBasics = [.. WCulture.All.Select(c => c.RootBasic).Where(r => r != null)];
             _cultureRootElites = [.. WCulture.All.Select(c => c.RootElite).Where(r => r != null)];
 
-            _cultureMilitiaIds = new HashSet<string>();
-            _cultureCaravanIds = new HashSet<string>();
-            _cultureVillagerIds = new HashSet<string>();
+            _cultureMilitiaIds = [];
+            _cultureCaravanIds = [];
+            _cultureVillagerIds = [];
 
             foreach (var culture in WCulture.All)
             {
@@ -116,7 +116,7 @@ namespace Retinues.Domain.Factions.Base
             }
         }
 
-        /* ━━━━━━━━━ Stored Attributes ━━━━━━━━━ */
+        /* ━━━ Stored Attributes ━━ */
 
         protected MAttribute<WCharacter> CustomRootBasicAttribute =>
             Attribute<WCharacter>(initialValue: null);
@@ -153,7 +153,7 @@ namespace Retinues.Domain.Factions.Base
         protected MAttribute<WCharacter> CustomMilitiaVeteranArcherAttribute =>
             Attribute<WCharacter>(initialValue: null);
 
-        /* ━━━━━━━━━ Roots ━━━━━━━━━ */
+        /* ━━━━━━━━━ Roots ━━━━━━━━ */
 
         /// <summary>
         /// Gets the custom root basic troop for this map faction, if any.
@@ -197,7 +197,7 @@ namespace Retinues.Domain.Factions.Base
             }
         }
 
-        /* ━━━━━━━━━ Retinues ━━━━━━━━━ */
+        /* ━━━━━━━ Retinues ━━━━━━━ */
 
         /// <summary>
         /// Retinue troops owned by this map faction.
@@ -291,7 +291,7 @@ namespace Retinues.Domain.Factions.Base
             return troop;
         }
 
-        /* ━━━━━━━━━ Mutators ━━━━━━━━━ */
+        /* ━━━━━━━ Mutators ━━━━━━━ */
 
         /// <summary>
         /// Sets the custom basic root for this map faction.

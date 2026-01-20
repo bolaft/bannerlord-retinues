@@ -290,7 +290,7 @@ namespace Retinues.Editor
             }
         }
 
-        /* ━━━━━━━ Library ━━━━━━━ */
+        /* ━━━━━━━━ Library ━━━━━━━ */
 
         private ExportLibrary.Entry _libraryItem;
 

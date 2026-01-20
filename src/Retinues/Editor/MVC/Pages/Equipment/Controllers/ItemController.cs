@@ -69,7 +69,7 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Controllers
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                          Limits                        //
+        //                         Limits                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         // Keep these public methods to avoid touching VMs that call ItemController.
@@ -99,7 +99,7 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Controllers
         //                        Decision                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private static readonly Dictionary<string, EquipDecision> _decisionByItemId = new();
+        private static readonly Dictionary<string, EquipDecision> _decisionByItemId = [];
 
         private static EquipmentIndex _ctxSlot = EquipmentIndex.None;
         private static EditorMode _ctxMode;
@@ -254,7 +254,7 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Controllers
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Purchasing                      //
+        //                       Purchasing                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>

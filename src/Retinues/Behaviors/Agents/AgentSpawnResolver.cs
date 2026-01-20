@@ -32,25 +32,28 @@ namespace Retinues.Behaviors.Agents
 
         public static bool IsCombatMission => ResolveIsCombat(Mission.Current);
 
+        /// <summary>
+        /// Determines if the given mission is a combat mission.
+        /// </summary>
         private static bool ResolveIsCombat(Mission mission)
         {
             if (mission == null)
                 return false;
 
-            switch (mission.Mode)
+            return mission.Mode switch
             {
-                case MissionMode.Battle:
-                case MissionMode.Deployment:
-                case MissionMode.Stealth:
-                case MissionMode.Duel:
-                case MissionMode.Tournament:
-                    return true;
-
-                default:
-                    return false;
-            }
+                MissionMode.Battle
+                or MissionMode.Deployment
+                or MissionMode.Stealth
+                or MissionMode.Duel
+                or MissionMode.Tournament => true,
+                _ => false,
+            };
         }
 
+        /// <summary>
+        /// Resolves the battle context for the given mission.
+        /// </summary>
         private static BattleContext ResolveContext(Mission mission)
         {
             var mapEvent = CombatBehavior.MapEvent;
@@ -92,7 +95,7 @@ namespace Retinues.Behaviors.Agents
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                    Spawn Overrides                     //
+        //                     Spawn Overrides                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
@@ -153,7 +156,7 @@ namespace Retinues.Behaviors.Agents
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                      Equipments                        //
+        //                       Equipments                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private static void ApplyEquipmentRules(WCharacter wc, Mission mission, AgentBuildData data)

@@ -11,7 +11,7 @@ namespace Retinues.Editor.MVC.Shared.Controllers.Helpers
     public static class InputHelper
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                      Batch Input                       //
+        //                       Batch Input                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         const int DefaultBatchSize = 1;

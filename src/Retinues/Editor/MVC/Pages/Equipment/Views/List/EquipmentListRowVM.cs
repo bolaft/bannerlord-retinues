@@ -83,6 +83,27 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
         public bool IsCivilian => _item.IsCivilian;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Tooltip                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private readonly Cache<EquipmentListRowVM, CharacterEquipmentItemVM> _cacheTooltip = new(
+            o => o._item != null ? new CharacterEquipmentItemVM(o._item.Base) : null
+        );
+
+        [DataSourceProperty]
+        public CharacterEquipmentItemVM Tooltip => _cacheTooltip.Get(this);
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Images                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [DataSourceProperty]
+        public object Image => _item.Image;
+
+        [DataSourceProperty]
+        public object CultureImage => _item.Culture?.Image;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Roster                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
@@ -192,76 +213,6 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
         public int Cost => _cacheCost.Get(this);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Tooltip                        //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        private readonly Cache<EquipmentListRowVM, CharacterEquipmentItemVM> _cacheTooltip = new(
-            o => o._item != null ? new CharacterEquipmentItemVM(o._item.Base) : null
-        );
-
-        [DataSourceProperty]
-        public CharacterEquipmentItemVM Tooltip => _cacheTooltip.Get(this);
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Images                         //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        [DataSourceProperty]
-        public object Image => _item.Image;
-
-        [DataSourceProperty]
-        public object CultureImage => _item.Culture?.Image;
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Filtering                       //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        /// <summary>
-        /// Determines whether this row matches the given filter.
-        /// </summary>
-        internal override bool MatchesFilter(string filter)
-        {
-            if (string.IsNullOrWhiteSpace(filter))
-                return true;
-
-            var f = filter.Trim();
-            var comparison = StringComparison.OrdinalIgnoreCase;
-
-            if (!string.IsNullOrEmpty(Name) && Name.IndexOf(f, comparison) >= 0)
-                return true;
-
-            var categoryText = _item.Category.ToString();
-            if (!string.IsNullOrEmpty(categoryText) && categoryText.IndexOf(f, comparison) >= 0)
-                return true;
-
-            var typeText = _item.Type.ToString();
-            if (!string.IsNullOrEmpty(typeText) && typeText.IndexOf(f, comparison) >= 0)
-                return true;
-
-            var tierText = _item.Tier.ToString();
-            if (!string.IsNullOrEmpty(tierText) && tierText.IndexOf(f, comparison) >= 0)
-                return true;
-
-            return false;
-        }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Sorting                        //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        internal override IComparable GetSortValue(ListSortKey sortKey)
-        {
-            return sortKey switch
-            {
-                ListSortKey.Name => Name,
-                ListSortKey.Tier => _item.Tier,
-                ListSortKey.Culture => _item.Culture?.Name ?? string.Empty,
-                ListSortKey.Value => _item.Value,
-                _ => Name,
-            };
-        }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                    Comparison Icons                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
@@ -340,9 +291,64 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                     Invalidation                       //
+        //                         Sorting                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Returns the sort key value used by the base list sorter.
+        /// </summary>
+        internal override IComparable GetSortValue(ListSortKey sortKey)
+        {
+            return sortKey switch
+            {
+                ListSortKey.Name => Name,
+                ListSortKey.Tier => _item.Tier,
+                ListSortKey.Culture => _item.Culture?.Name ?? string.Empty,
+                ListSortKey.Value => _item.Value,
+                _ => Name,
+            };
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Filtering                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Determines whether this row matches the given filter.
+        /// </summary>
+        internal override bool MatchesFilter(string filter)
+        {
+            if (string.IsNullOrWhiteSpace(filter))
+                return true;
+
+            var f = filter.Trim();
+            var comparison = StringComparison.OrdinalIgnoreCase;
+
+            if (!string.IsNullOrEmpty(Name) && Name.IndexOf(f, comparison) >= 0)
+                return true;
+
+            var categoryText = _item.Category.ToString();
+            if (!string.IsNullOrEmpty(categoryText) && categoryText.IndexOf(f, comparison) >= 0)
+                return true;
+
+            var typeText = _item.Type.ToString();
+            if (!string.IsNullOrEmpty(typeText) && typeText.IndexOf(f, comparison) >= 0)
+                return true;
+
+            var tierText = _item.Tier.ToString();
+            if (!string.IsNullOrEmpty(tierText) && tierText.IndexOf(f, comparison) >= 0)
+                return true;
+
+            return false;
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Invalidation                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Invalidates cached values and refreshes UI-bound properties.
+        /// </summary>
         [EventListener(
             UIEvent.Slot,
             UIEvent.Item,

@@ -53,7 +53,7 @@ namespace Retinues.Framework.Behaviors
         public override void SyncData(IDataStore dataStore) { }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                     Auto handlers                      //
+        //                      Auto Handlers                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
@@ -208,7 +208,7 @@ namespace Retinues.Framework.Behaviors
         protected virtual void RegisterCustomEvents() { }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                     Auto-register                      //
+        //                      Auto-Register                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>

@@ -17,7 +17,7 @@ namespace Retinues.Behaviors.Missions
     public sealed class BattleReportBehavior : BaseCampaignBehavior
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Pending                       //
+        //                         Pending                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private sealed class PendingMission
@@ -36,7 +36,7 @@ namespace Retinues.Behaviors.Missions
         private PendingMission _pending;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                          Buckets                       //
+        //                         Buckets                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private enum TroopBucket
@@ -79,7 +79,7 @@ namespace Retinues.Behaviors.Missions
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                     Mission  Summary                   //
+        //                    Mission  Summary                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
@@ -165,7 +165,7 @@ namespace Retinues.Behaviors.Missions
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Report                          //
+        //                         Report                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private static string BuildMergedReport(

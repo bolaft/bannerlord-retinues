@@ -14,7 +14,7 @@ namespace Retinues.Behaviors.Volunteers.Patches
     internal static class VolunteerSwapForPlayerPatches
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                   Enter Recruit Screen                 //
+        //                  Enter Recruit Screen                  //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>

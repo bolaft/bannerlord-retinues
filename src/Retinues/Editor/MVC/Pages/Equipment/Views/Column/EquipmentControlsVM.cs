@@ -132,7 +132,7 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.Column
             );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                   Copy / Paste Buttons                 //
+        //                  Copy / Paste Buttons                  //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private const string HoveredColor = "#fdae1ae8";
@@ -266,7 +266,7 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.Column
         public string PreviewModeText => L.S("preview_mode", "Preview Mode");
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                     Crafted Items                      //
+        //                      Crafted Items                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [EventListener(UIEvent.Page)]

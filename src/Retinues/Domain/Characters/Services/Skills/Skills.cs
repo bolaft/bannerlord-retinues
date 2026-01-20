@@ -34,7 +34,7 @@ namespace Retinues.Domain.Characters.Services.Skills
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Indexer                         //
+        //                         Indexer                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public int this[SkillObject skill]
@@ -79,7 +79,7 @@ namespace Retinues.Domain.Characters.Services.Skills
             WCharacter.IsSkillStagingActive(_wc) && GetStaged(skill) > 0;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                       Get / Set                        //
+        //                        Get / Set                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>

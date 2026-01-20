@@ -11,7 +11,7 @@ namespace Retinues.Domain.Characters.Wrappers
     public partial class WCharacter
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                      Battle History                    //
+        //                     Battle History                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /* ━━━━━━ Won / Lost ━━━━━━ */

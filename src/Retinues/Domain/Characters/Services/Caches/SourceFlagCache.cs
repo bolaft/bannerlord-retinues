@@ -28,7 +28,7 @@ namespace Retinues.Domain.Characters.Services.Caches
     public static class SourceFlagCache
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                  Troop Source Flag Cache               //
+        //                 Troop Source Flag Cache                //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private static readonly object Sync = new();

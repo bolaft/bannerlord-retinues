@@ -10,7 +10,7 @@ namespace Retinues.Domain.Events.Models
     public sealed class MMission(Mission @base) : MBase<Mission>(@base)
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Scene                          //
+        //                          Scene                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public string SceneName => Base.SceneName;
@@ -22,7 +22,7 @@ namespace Retinues.Domain.Events.Models
         public MissionMode Mode => Base.Mode;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Flags                          //
+        //                          Flags                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public bool IsArena => Base.CombatType == Mission.MissionCombatType.ArenaCombat;

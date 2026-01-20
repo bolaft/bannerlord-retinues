@@ -13,13 +13,14 @@ using TaleWorlds.Library;
 namespace Retinues.Editor.MVC.Pages.Character.Views.List
 {
     /// <summary>
-    /// Row representing a troop character in the list.
+    /// List row ViewModel for a troop character entry.
+    /// Supports tree relationships through upgrade sources/targets.
     /// </summary>
     public class CharacterListRowVM(ListHeaderVM header, WCharacter character)
         : BaseListRowVM(header, character?.StringId ?? string.Empty)
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                       Constructor                      //
+        //                        Internals                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         internal readonly WCharacter Character = character;
@@ -35,10 +36,16 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.List
         //                        Selection                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Returns true when this troop is the currently selected character.
+        /// </summary>
         [EventListener(UIEvent.Character, Global = true)]
         [DataSourceProperty]
         public override bool IsSelected => State.Character == Character;
 
+        /// <summary>
+        /// Selects this troop as the active character.
+        /// </summary>
         [DataSourceMethod]
         public override void ExecuteSelect()
         {
@@ -47,13 +54,30 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.List
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Image                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Gets the portrait image for this troop row.
+        /// </summary>
+        [DataSourceProperty]
+        [EventListener(UIEvent.Appearance)]
+        public object Image => Character?.GetImage(Character.IsCivilian);
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                   Name & Indentation                   //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Gets the localized troop name.
+        /// </summary>
         [DataSourceProperty]
         [EventListener(UIEvent.Name)]
         public virtual string Name => Character.Name;
 
+        /// <summary>
+        /// Returns indentation spaces based on the troop depth in the upgrade tree.
+        /// </summary>
         [DataSourceProperty]
         public virtual string Indentation
         {
@@ -73,6 +97,9 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.List
         //                          Tier                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Gets the vanilla tier icon data for this troop.
+        /// </summary>
         [DataSourceProperty]
         public StringItemWithHintVM TierIconData =>
             CampaignUIHelper.GetCharacterTierData(Character.Base, isBig: true);
@@ -81,27 +108,25 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.List
         //                     Formation Class                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Gets the sprite id representing the character formation class.
+        /// </summary>
         [EventListener(UIEvent.Formation)]
         [DataSourceProperty]
         public string FormationClassIcon => Icons.GetFormationClassIcon(Character);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                          Image                         //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        [DataSourceProperty]
-        [EventListener(UIEvent.Appearance)]
-        public object Image => Character?.GetImage(Character.IsCivilian);
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Tree                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /// <summary>
+        /// Returns true if this row participates in tree filtering/sorting.
+        /// </summary>
         internal override bool IsTreeNode =>
             Character != null && !string.IsNullOrEmpty(Character.StringId);
 
         /// <summary>
-        /// Gets the parent IDs for this row in the tree.
+        /// Returns the upgrade source ids used as tree parent ids.
         /// </summary>
         internal override IEnumerable<string> GetTreeParentIds()
         {
@@ -126,7 +151,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.List
         }
 
         /// <summary>
-        /// Gets the child IDs for this row in the tree.
+        /// Returns the upgrade target ids used as tree child ids.
         /// </summary>
         internal override IEnumerable<string> GetTreeChildIds()
         {
@@ -155,7 +180,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.List
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
-        /// Returns the sort value for the given sort key.
+        /// Returns the row sort value for the specified sort key.
         /// </summary>
         internal override IComparable GetSortValue(ListSortKey sortKey)
         {
@@ -172,7 +197,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.List
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
-        /// Returns true if this row matches the given filter.
+        /// Returns true when this row matches the provided filter text.
         /// </summary>
         internal override bool MatchesFilter(string filter)
         {

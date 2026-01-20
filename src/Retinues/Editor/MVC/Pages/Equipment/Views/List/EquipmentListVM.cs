@@ -10,9 +10,14 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
 {
     /// <summary>
     /// Equipment list ViewModel.
+    /// Builds headers/rows for the active equipment slot and mode.
     /// </summary>
     public sealed partial class EquipmentListVM : BaseListVM
     {
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          State                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
         // Header lookup for fast expansion (id -> header).
         private readonly Dictionary<string, ListHeaderVM> _headersById = new(
             StringComparer.Ordinal
@@ -24,6 +29,10 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
         protected override EditorPage Page => EditorPage.Equipment;
 
         private EquipmentIndex _previousSlot = State.Slot;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Slots                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private readonly EquipmentIndex[] WeaponSlots =
         [
@@ -42,6 +51,10 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
             EquipmentIndex.Leg,
         ];
 
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Item Cache                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
         // Cached visible items for current slot + mode toggles (crafted/player).
         private EquipmentIndex _cachedSlot;
         private bool _cachedIncludeCrafted;
@@ -54,12 +67,27 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
         // If list is "large", we can choose a filter strategy.
         private const int FastFilter_RebuildThresholdRows = 500;
 
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Lifecycle                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Runs after the list has been built on page activation.
+        /// Ensures filter and header expansion are applied once.
+        /// </summary>
         protected override void AfterBuildOnActivate()
         {
             ApplyFilter();
             UpdateEquipmentHeaderExpansion();
         }
 
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Events                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Rebuilds or updates expansion when the equipment slot changes.
+        /// </summary>
         [EventListener(UIEvent.Slot)]
         private void OnSlotChange()
         {
@@ -86,6 +114,9 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
             _previousSlot = currentSlot;
         }
 
+        /// <summary>
+        /// Rebuilds the list when preview/crafted/doctrine mode toggles change.
+        /// </summary>
         [EventListener(UIEvent.Crafted, UIEvent.Preview, UIEvent.Doctrine)]
         private void OnModeChange()
         {
@@ -101,8 +132,12 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
             UpdateEquipmentHeaderExpansion();
         }
 
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Build                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
         /// <summary>
-        /// Builds the equipment list.
+        /// Builds sort buttons, headers, and recomputes header states.
         /// </summary>
         public override void Build()
         {
@@ -111,6 +146,13 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
             RecomputeHeaderStates();
         }
 
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Cache Fill                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Populates the visible item cache for the current slot and mode.
+        /// </summary>
         private void EnsureItemCache()
         {
             var slot = State.Slot;

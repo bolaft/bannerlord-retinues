@@ -15,7 +15,7 @@ namespace Retinues.Editor.MVC.Pages.Doctrines.Controllers
     public sealed class DoctrinesController : BaseController
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Actions                         //
+        //                         Actions                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>

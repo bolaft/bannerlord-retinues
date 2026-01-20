@@ -228,7 +228,7 @@ namespace Retinues.Domain.Characters.Wrappers
         public MEquipment CivilianEquipment => new(Base.CivilianEquipment, Character);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                          Skills                        //
+        //                         Skills                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private HeroSkills _skills;
@@ -250,7 +250,7 @@ namespace Retinues.Domain.Characters.Wrappers
         public void ClearSkillsCache() => _skills = null;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                          Traits                        //
+        //                         Traits                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public static TraitObject[] PersonalityTraits =>

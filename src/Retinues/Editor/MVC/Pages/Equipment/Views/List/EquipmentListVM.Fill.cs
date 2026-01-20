@@ -10,8 +10,18 @@ using TaleWorlds.Core;
 
 namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
 {
+    /// <summary>
+    /// Equipment list build logic for headers, rows, and expansion.
+    /// </summary>
     public sealed partial class EquipmentListVM
     {
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Sort UI                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Builds the sort buttons displayed above the list.
+        /// </summary>
         private void BuildSortButtons()
         {
             SortButtons.Clear();
@@ -37,6 +47,13 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
             RecomputeSortButtonProperties();
         }
 
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Header Build                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Builds the list headers and rows for the current slot.
+        /// </summary>
         private void BuildSections()
         {
             EnsureItemCache();
@@ -142,17 +159,26 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
                 _expandedHeaderId = null;
         }
 
+        /// <summary>
+        /// Creates a category header using the category id and localized name.
+        /// </summary>
         private EquipmentListHeaderVM CreateCategoryHeader(string categoryId, List<WItem> items)
         {
             var title = GetCategoryName(categoryId);
             return CreateHeader(categoryId.ToLowerInvariant(), title, items);
         }
 
+        /// <summary>
+        /// Resolves the localized display name of an item category id.
+        /// </summary>
         private static string GetCategoryName(string categoryId)
         {
             return GameTexts.FindText("str_item_category", categoryId)?.ToString() ?? categoryId;
         }
 
+        /// <summary>
+        /// Returns the grouping key used for category-based headers for a slot.
+        /// </summary>
         private static string GetCategoryGroupId(EquipmentIndex slot, WItem item)
         {
             var rawId = item?.Category?.StringId ?? string.Empty;
@@ -168,6 +194,9 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
             };
         }
 
+        /// <summary>
+        /// Creates a header and populates it with rows, including unlocking items last.
+        /// </summary>
         private EquipmentListHeaderVM CreateHeader(
             string headerId,
             string headerText,
@@ -222,6 +251,13 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
             return header;
         }
 
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                Expansion Synchronization               //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Computes the header id that should be expanded for the selected item.
+        /// </summary>
         private string GetSelectedHeaderId()
         {
             if (Headers.Count == 0)
@@ -244,6 +280,9 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
             return slot.ToString().ToLowerInvariant();
         }
 
+        /// <summary>
+        /// Expands the header containing the selected item and collapses the previous one.
+        /// </summary>
         private void UpdateEquipmentHeaderExpansion()
         {
             if (Headers.Count == 0)
