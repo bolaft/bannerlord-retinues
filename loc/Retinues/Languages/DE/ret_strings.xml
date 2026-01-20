@@ -120,10 +120,10 @@
       text="Wähle eine Formationsklasse." />
     <string
       id="ret_button_disable_captain"
-      text="Hauptmann deaktivieren" />
+      text="Deaktivieren" />
     <string
       id="ret_button_enable_captain"
-      text="Hauptmann aktivieren" />
+      text="Aktivieren" />
     <string
       id="ret_button_export"
       text="Exportieren" />

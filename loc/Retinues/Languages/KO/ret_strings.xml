@@ -120,10 +120,10 @@
       text="대형 클래스를 선택합니다." />
     <string
       id="ret_button_disable_captain"
-      text="대장 비활성화" />
+      text="비활성화" />
     <string
       id="ret_button_enable_captain"
-      text="대장 활성화" />
+      text="활성화" />
     <string
       id="ret_button_export"
       text="내보내기" />

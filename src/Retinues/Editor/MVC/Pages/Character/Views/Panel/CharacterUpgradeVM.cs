@@ -2,6 +2,7 @@ using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Configuration;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Editor.Events;
+using Retinues.Utilities;
 using TaleWorlds.Library;
 
 namespace Retinues.Editor.MVC.Pages.Character.Views.Panel
@@ -22,7 +23,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Panel
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceProperty]
-        public string Name => _character.Name;
+        public string Name => Format.Crop(_character.Name, 50);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Selection                       //

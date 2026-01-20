@@ -139,5 +139,136 @@ namespace Retinues.Utilities
         {
             return $"{Signed(value)} {label}";
         }
+
+        /// <summary>
+        /// Wrap a text to a maximum line length by replacing whitespace with '\n' when needed.
+        /// Preserves existing line breaks. Multiple spaces/tabs are treated as a single separator.
+        /// If a single word is longer than maxLineLength, it is hard-broken.
+        /// </summary>
+        public static string WrapWhitespace(string text, int maxLineLength)
+        {
+            if (string.IsNullOrEmpty(text))
+                return text;
+
+            if (maxLineLength <= 0)
+                return text;
+
+            // Normalize line breaks.
+            text = text.Replace("\r\n", "\n").Replace('\r', '\n');
+
+            var sb = new StringBuilder(text.Length + 16);
+
+            int lineLen = 0;
+            int i = 0;
+
+            while (i < text.Length)
+            {
+                char c = text[i];
+
+                // Preserve existing newlines (paragraph boundaries).
+                if (c == '\n')
+                {
+                    sb.Append('\n');
+                    lineLen = 0;
+                    i++;
+                    continue;
+                }
+
+                // Skip leading whitespace (space/tabs/etc) but remember we saw it as a separator.
+                bool hadWhitespace = false;
+                while (i < text.Length)
+                {
+                    c = text[i];
+                    if (c == '\n' || !char.IsWhiteSpace(c))
+                        break;
+
+                    hadWhitespace = true;
+                    i++;
+                }
+
+                // If whitespace ended on a newline, let the newline handler run next loop.
+                if (i >= text.Length)
+                    break;
+
+                if (text[i] == '\n')
+                    continue;
+
+                // Read next word token.
+                int start = i;
+                while (i < text.Length)
+                {
+                    c = text[i];
+                    if (c == '\n' || char.IsWhiteSpace(c))
+                        break;
+                    i++;
+                }
+
+                int wordLen = i - start;
+                if (wordLen <= 0)
+                    continue;
+
+                // If we are not at line start, we may need a separator before the word.
+                if (lineLen > 0)
+                {
+                    // Prefer newline over space if it would overflow.
+                    if (lineLen + 1 + wordLen > maxLineLength)
+                    {
+                        sb.Append('\n');
+                        lineLen = 0;
+                    }
+                    else
+                    {
+                        // Collapse any whitespace to a single space.
+                        if (hadWhitespace)
+                        {
+                            sb.Append(' ');
+                            lineLen += 1;
+                        }
+                        else
+                        {
+                            // No whitespace in source (rare for normal prose). Keep no separator.
+                        }
+                    }
+                }
+
+                // If the word itself is too long, hard-break it.
+                if (wordLen > maxLineLength && maxLineLength > 0)
+                {
+                    int remaining = wordLen;
+                    int offset = start;
+
+                    while (remaining > 0)
+                    {
+                        int take = remaining > maxLineLength ? maxLineLength : remaining;
+
+                        // If we are mid-line and can't fit "take", start a new line.
+                        if (lineLen > 0 && lineLen + take > maxLineLength)
+                        {
+                            sb.Append('\n');
+                            lineLen = 0;
+                        }
+
+                        sb.Append(text, offset, take);
+                        lineLen += take;
+
+                        remaining -= take;
+                        offset += take;
+
+                        if (remaining > 0)
+                        {
+                            sb.Append('\n');
+                            lineLen = 0;
+                        }
+                    }
+                }
+                else
+                {
+                    sb.Append(text, start, wordLen);
+                    lineLen += wordLen;
+                }
+            }
+
+            return sb.ToString();
+        }
     }
 }

@@ -120,10 +120,10 @@
       text="Select a formation class." />
     <string
       id="ret_button_disable_captain"
-      text="Disable Captain" />
+      text="Disable" />
     <string
       id="ret_button_enable_captain"
-      text="Enable Captain" />
+      text="Enable" />
     <string
       id="ret_button_export"
       text="Export" />
@@ -190,6 +190,9 @@
     <string
       id="ret_cant_unequip_reason_empty"
       text="Nothing to unequip." />
+    <string
+      id="ret_captain_header_text"
+      text="Captain" />
     <string
       id="ret_captain_mode_off_hint"
       text="Switch to this captain&apos;s base troop." />
@@ -2245,6 +2248,18 @@
     <string
       id="ret_statistics_tooltip"
       text="Show unit statistics." />
+    <string
+      id="ret_status_captain_disabled"
+      text="Inactive" />
+    <string
+      id="ret_status_captain_enabled"
+      text="Active" />
+    <string
+      id="ret_status_captain_text_disabled"
+      text="This captain will not spawn." />
+    <string
+      id="ret_status_captain_text_enabled"
+      text="One captain will spawn for every {AMOUNT} {TROOP}." />
     <string
       id="ret_stocks_add"
       text="Added {AMOUNT} {ITEM} to stocks." />

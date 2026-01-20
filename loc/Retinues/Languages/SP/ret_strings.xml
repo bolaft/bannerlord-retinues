@@ -120,10 +120,10 @@
       text="Selecciona una clase de formación." />
     <string
       id="ret_button_disable_captain"
-      text="Desactivar capitán" />
+      text="Desactivar" />
     <string
       id="ret_button_enable_captain"
-      text="Activar capitán" />
+      text="Activar" />
     <string
       id="ret_button_export"
       text="Exportar" />

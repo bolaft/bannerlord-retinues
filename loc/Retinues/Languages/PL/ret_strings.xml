@@ -120,10 +120,10 @@
       text="Wybierz klasę formacji." />
     <string
       id="ret_button_disable_captain"
-      text="Wyłącz dowódcę" />
+      text="Wyłącz" />
     <string
       id="ret_button_enable_captain"
-      text="Włącz dowódcę" />
+      text="Włącz" />
     <string
       id="ret_button_export"
       text="Eksportuj" />

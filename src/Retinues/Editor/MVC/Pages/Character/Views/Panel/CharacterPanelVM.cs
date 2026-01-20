@@ -44,7 +44,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Panel
 
         [EventListener(UIEvent.Name)]
         [DataSourceProperty]
-        public string NameText => State.Character.Editable.Name;
+        public string NameText => Format.WrapWhitespace(State.Character.Editable.Name, 50);
 
         [DataSourceProperty]
         public Button<WCharacter> RenameButton { get; } =
@@ -140,6 +140,44 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Panel
                 arg: () => State.Character,
                 refresh: [UIEvent.Character],
                 visibilityGate: () => State.Mode == EditorMode.Player
+            );
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Captains                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [DataSourceProperty]
+        public string CaptainHeaderText => L.S("captain_header_text", "Captain");
+
+        [EventListener(UIEvent.Character)]
+        [DataSourceProperty]
+        public bool ShowCaptain => State.Character.IsCaptain;
+
+        [EventListener(UIEvent.Character)]
+        [DataSourceProperty]
+        public string CaptainEnabledText =>
+            ShowCaptain
+                ? State.Character.IsCaptainEnabled
+                    ? L.S("status_captain_enabled", "Active")
+                    : L.S("status_captain_disabled", "Inactive")
+                : string.Empty;
+
+        [EventListener(UIEvent.Character)]
+        [DataSourceProperty]
+        public string CaptainText =>
+            Format.WrapWhitespace(
+                ShowCaptain
+                    ? State.Character.IsCaptainEnabled
+                        ? L.T(
+                                "status_captain_text_enabled",
+                                "One captain will spawn for every {AMOUNT} {TROOP}."
+                            )
+                            .SetTextVariable("AMOUNT", Settings.CaptainSpawnRate)
+                            .SetTextVariable("TROOP", State.Character.CaptainBase.Name)
+                            .ToString()
+                        : L.S("status_captain_text_disabled", "This captain will not spawn.")
+                    : string.Empty,
+                80
             );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

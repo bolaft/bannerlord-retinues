@@ -120,10 +120,10 @@
       text="Выберите класс формации." />
     <string
       id="ret_button_disable_captain"
-      text="Отключить капитана" />
+      text="Отключить" />
     <string
       id="ret_button_enable_captain"
-      text="Включить капитана" />
+      text="Включить" />
     <string
       id="ret_button_export"
       text="Экспорт" />

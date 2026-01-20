@@ -1,5 +1,6 @@
 using Retinues.Behaviors.Doctrines.Catalogs;
 using Retinues.Compatibility;
+using Retinues.Configuration;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Editor.Events;
 using Retinues.Editor.MVC.Pages.Character.Controllers;
@@ -175,11 +176,13 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Column
                 arg: () => State.Character,
                 refresh: [UIEvent.Character],
                 spriteFactory: () =>
-                    State.Character?.IsCaptainEnabled == true ? "ButtonBrush3" : "ButtonBrush1",
+                    State.Character?.IsCaptainEnabled == true
+                        ? "Popup.Delete.Button"
+                        : "Popup.Done.Button",
                 labelFactory: () =>
                     State.Character?.IsCaptainEnabled == true
-                        ? L.S("button_disable_captain", "Disable Captain")
-                        : L.S("button_enable_captain", "Enable Captain"),
+                        ? L.S("button_disable_captain", "Disable")
+                        : L.S("button_enable_captain", "Enable"),
                 visibilityGate: () => State.Character?.IsCaptain == true
             );
 

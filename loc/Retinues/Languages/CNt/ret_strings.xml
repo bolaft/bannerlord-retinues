@@ -120,10 +120,10 @@
       text="選擇一個編隊類別。" />
     <string
       id="ret_button_disable_captain"
-      text="禁用隊長" />
+      text="禁用" />
     <string
       id="ret_button_enable_captain"
-      text="啟用隊長" />
+      text="啟用" />
     <string
       id="ret_button_export"
       text="導出" />

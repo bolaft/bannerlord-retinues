@@ -1,0 +1,25 @@
+{% from "_/macros.panel.j2" import panel_header, panel_label %}
+{% from "_/macros.buttons.j2" import button_sprite %}
+
+{{ panel_header("@CaptainHeaderText", "@ShowCaptain") }}
+
+<ListPanel
+    IsVisible="@ShowCaptain"
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed"
+    HorizontalAlignment="Center" VerticalAlignment="Center"
+    StackLayout.LayoutMethod="VerticalBottomToTop"
+    SuggestedHeight="40"
+    MarginBottom="12">
+    <Children>
+
+        {{ panel_label("@CaptainEnabledText") }}
+
+        <TextWidget
+            Text="@CaptainText"
+            Brush="InventoryGoldFontBrush"
+            MarginTop="6"
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            Brush.FontColor="#F4E1C4FF" />
+
+    </Children>
+</ListPanel>

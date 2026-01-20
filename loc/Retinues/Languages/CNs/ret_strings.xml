@@ -120,10 +120,10 @@
       text="选择一个编队类别。" />
     <string
       id="ret_button_disable_captain"
-      text="禁用队长" />
+      text="禁用" />
     <string
       id="ret_button_enable_captain"
-      text="启用队长" />
+      text="启用" />
     <string
       id="ret_button_export"
       text="导出" />

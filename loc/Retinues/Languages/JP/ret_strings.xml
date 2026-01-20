@@ -120,10 +120,10 @@
       text="編成クラスを選択します。" />
     <string
       id="ret_button_disable_captain"
-      text="キャプテンを無効にする" />
+      text="無効にする" />
     <string
       id="ret_button_enable_captain"
-      text="キャプテンを有効にする" />
+      text="有効にする" />
     <string
       id="ret_button_export"
       text="エクスポート" />

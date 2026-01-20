@@ -120,10 +120,10 @@
       text="Bir düzen sınıfı seçin." />
     <string
       id="ret_button_disable_captain"
-      text="Kaptanı Devre Dışı Bırak" />
+      text="Devre Dışı Bırak" />
     <string
       id="ret_button_enable_captain"
-      text="Kaptanı Etkinleştir" />
+      text="Etkinleştir" />
     <string
       id="ret_button_export"
       text="Dışa Aktar" />

@@ -74,7 +74,7 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.Panel
 
         [EventListener(UIEvent.Item)]
         [DataSourceProperty]
-        public string ItemText => Item?.Name ?? string.Empty;
+        public string ItemText => Format.WrapWhitespace(Item?.Name ?? string.Empty, 60);
 
         [EventListener(UIEvent.Item)]
         [DataSourceProperty]
