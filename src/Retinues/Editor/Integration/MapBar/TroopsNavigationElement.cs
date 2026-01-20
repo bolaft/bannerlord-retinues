@@ -4,7 +4,6 @@ using Retinues.Configuration;
 using Retinues.Domain;
 using Retinues.Interface.Services;
 using SandBox.View;
-using SandBox.View.Map;
 using SandBox.View.Map.Navigation;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Library;

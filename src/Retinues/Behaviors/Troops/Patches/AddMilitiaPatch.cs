@@ -4,6 +4,7 @@ using Retinues.Behaviors.Doctrines.Catalogs;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Factions;
 using Retinues.Domain.Settlements.Wrappers;
+using Retinues.Framework.Runtime;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Party;
@@ -15,6 +16,7 @@ namespace Retinues.Behaviors.Troops.Patches
     /// Patch Settlement.AddMilitiasToParty to use custom militia lanes instead of culture lanes
     /// when the doctrine is acquired. Falls back to vanilla on any failure.
     /// </summary>
+    [SafeClass]
     [HarmonyPatch(typeof(Settlement), "AddMilitiasToParty")]
     internal static class PlayerMilitiaSpawnPatch
     {
@@ -107,7 +109,7 @@ namespace Retinues.Behaviors.Troops.Patches
             [HarmonyArgument(1)] int militiaToAdd
         )
         {
-            if (DoctrineCatalog.StalwartMilitia.IsAcquired == false)
+            if (DoctrineCatalog.StalwartMilitia?.IsAcquired == false)
                 return true; // Use vanilla if doctrine not acquired.
 
             if (__instance == null || militaParty == null || militiaToAdd <= 0)

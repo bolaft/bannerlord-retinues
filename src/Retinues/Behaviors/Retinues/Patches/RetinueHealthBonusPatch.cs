@@ -36,7 +36,7 @@ namespace Retinues.Behaviors.Retinues.Patches
                 int bonus = Settings.RetinueHealthBonus;
 
                 // +10% retinue health bonus from Indomitable doctrine
-                if (DoctrineCatalog.Indomitable.IsAcquired)
+                if (DoctrineCatalog.Indomitable?.IsAcquired == true)
                     bonus += (int)
                         Math.Round(__result.BaseHealthLimit * 0.1, MidpointRounding.AwayFromZero);
 

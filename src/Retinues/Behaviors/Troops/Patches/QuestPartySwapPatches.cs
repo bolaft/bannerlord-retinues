@@ -3,6 +3,7 @@ using HarmonyLib;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Parties.Wrappers;
 using Retinues.Domain.Settlements.Wrappers;
+using Retinues.Framework.Runtime;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem.Issues;
 using TaleWorlds.CampaignSystem.Party;
@@ -12,6 +13,7 @@ namespace Retinues.Behaviors.Troops.Patches
     /// <summary>
     /// Patches for quest-related parties where troops need to be swapped to match player faction logic.
     /// </summary>
+    [SafeClass]
     internal static class QuestPatches
     {
         /// <summary>
@@ -28,7 +30,7 @@ namespace Retinues.Behaviors.Troops.Patches
                 if (settlement == null)
                     return false;
 
-                var faction = WSettlement.Get(settlement).GetBaseTroopsFaction();
+                var faction = WSettlement.Get(settlement)?.GetBaseTroopsFaction();
                 if (faction == null)
                     return false;
 

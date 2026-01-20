@@ -16,7 +16,7 @@ namespace Retinues.Behaviors.Doctrines.Feats
     [SafeClass(IncludeDerived = true)]
     public abstract class BaseFeatBehavior : BaseCampaignBehavior
     {
-        public override bool IsActive => Feat.IsInProgress;
+        public override bool IsActive => Feat?.IsInProgress == true;
 
         protected abstract string FeatId { get; }
         protected Feat Feat => Feat.Get(FeatId);

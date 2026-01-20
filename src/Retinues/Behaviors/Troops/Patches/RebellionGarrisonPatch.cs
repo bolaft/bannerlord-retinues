@@ -1,6 +1,7 @@
 using HarmonyLib;
 using Retinues.Domain.Parties.Wrappers;
 using Retinues.Domain.Settlements.Wrappers;
+using Retinues.Framework.Runtime;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem.CampaignBehaviors;
 using TaleWorlds.CampaignSystem.Settlements;
@@ -12,6 +13,7 @@ namespace Retinues.Behaviors.Troops.Patches
     /// are explicitly added to rosters (quests, rebellions, etc).
     /// Uses WParty.SwapTroops which relies on CharacterMatcher.FindFactionCounterpart.
     /// </summary>
+    [SafeClass]
     internal static class TroopSwapHolePatches
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -25,7 +27,7 @@ namespace Retinues.Behaviors.Troops.Patches
             {
                 try
                 {
-                    var faction = WSettlement.Get(settlement).GetBaseTroopsFaction();
+                    var faction = WSettlement.Get(settlement)?.GetBaseTroopsFaction();
                     if (faction == null)
                         return;
 

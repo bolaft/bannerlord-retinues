@@ -115,7 +115,7 @@ namespace Retinues.Domain.Parties.Wrappers
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public WClan Clan => WClan.Get(Base.ActualClan);
-        public WKingdom Kingdom => WKingdom.Get(Base.ActualClan.Kingdom);
+        public WKingdom Kingdom => WKingdom.Get(Base.ActualClan?.Kingdom);
         public WCulture Culture => HomeSettlement?.Culture ?? Clan?.Culture ?? Kingdom?.Culture;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

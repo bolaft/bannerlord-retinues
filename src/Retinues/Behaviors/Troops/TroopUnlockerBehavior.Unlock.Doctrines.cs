@@ -10,10 +10,7 @@ using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Domain.Factions;
 using Retinues.Domain.Factions.Base;
 using Retinues.Domain.Factions.Wrappers;
-using Retinues.Editor;
-using Retinues.Interface.Services;
 using TaleWorlds.CampaignSystem;
-using TaleWorlds.Core;
 using TaleWorlds.ObjectSystem;
 
 namespace Retinues.Behaviors.Troops

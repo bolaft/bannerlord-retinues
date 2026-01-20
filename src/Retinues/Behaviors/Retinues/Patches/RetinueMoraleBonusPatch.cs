@@ -2,6 +2,7 @@ using System;
 using HarmonyLib;
 using Retinues.Behaviors.Doctrines.Catalogs;
 using Retinues.Domain.Parties.Wrappers;
+using Retinues.Framework.Runtime;
 using Retinues.Interface.Services;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.GameComponents;
@@ -22,9 +23,10 @@ namespace Retinues.Behaviors.Retinues.Patches
         /// <summary>
         /// Postfix that adds retinue morale bonus.
         /// </summary>
+        [SafeMethod]
         static void Postfix(MobileParty mobileParty, ref ExplainedNumber __result)
         {
-            if (!DoctrineCatalog.BoundByHonor.IsAcquired)
+            if (DoctrineCatalog.BoundByHonor?.IsAcquired != true)
                 return; // Feature disabled.
 
             if (!mobileParty.IsMainParty)

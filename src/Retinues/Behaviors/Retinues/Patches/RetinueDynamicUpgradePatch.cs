@@ -7,6 +7,7 @@ using Retinues.Behaviors.Doctrines.Catalogs;
 using Retinues.Configuration;
 using Retinues.Domain;
 using Retinues.Domain.Characters.Wrappers;
+using Retinues.Framework.Runtime;
 using Retinues.Interface.Components;
 using Retinues.Interface.Services;
 using Retinues.Utilities;
@@ -52,6 +53,7 @@ namespace Retinues.Behaviors.Retinues.Patches
         /// <summary>
         /// Applies UI rules to disable upgrades when the player's retinue cap is reached.
         /// </summary>
+        [SafeMethod]
         private static void ApplyRetinueCapRule(PartyCharacterVM vm)
         {
             if (vm?.Character == null)
@@ -78,7 +80,7 @@ namespace Retinues.Behaviors.Retinues.Patches
             var cap = (int)Math.Floor(party.PartySizeLimit * Settings.MaxRetinueRatio);
 
             // +15% retinue cap from Vanguard doctrine
-            if (DoctrineCatalog.Vanguard.IsAcquired)
+            if (DoctrineCatalog.Vanguard?.IsAcquired == true)
                 cap = (int)Math.Floor(cap * 1.15);
 
             var totalRetinues = party

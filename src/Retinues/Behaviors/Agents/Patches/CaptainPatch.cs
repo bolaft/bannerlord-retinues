@@ -26,7 +26,7 @@ namespace Retinues.Behaviors.Agents.Patches
         {
             try
             {
-                if (DoctrineCatalog.Captains.IsAcquired == false)
+                if (DoctrineCatalog.Captains?.IsAcquired != true)
                     return; // Feature disabled.
 
                 var mission = Mission.Current;
