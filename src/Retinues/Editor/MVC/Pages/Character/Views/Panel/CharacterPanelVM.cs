@@ -131,14 +131,12 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Panel
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceProperty]
-        public string StatisticsButtonLabel => L.S("statistics_button_label", "Show Statistics");
-
-        [DataSourceProperty]
         public Button<WCharacter> ShowStatisticsButton { get; } =
             new(
                 action: StatisticsController.ShowStatistics,
                 arg: () => State.Character,
                 refresh: [UIEvent.Character],
+                label: L.S("statistics_button_label", "Show Statistics"),
                 visibilityGate: () => State.Mode == EditorMode.Player
             );
 

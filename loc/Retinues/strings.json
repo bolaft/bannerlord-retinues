@@ -1120,6 +1120,22 @@
     "TR": "Bu birim bir Kaptan değil."
   },
   {
+    "id": "ret_change_culture_hint",
+    "EN": "Change culture.",
+    "FR": null,
+    "BR": null,
+    "CNs": null,
+    "CNt": null,
+    "DE": null,
+    "IT": null,
+    "JP": null,
+    "KO": null,
+    "PL": null,
+    "RU": null,
+    "SP": null,
+    "TR": null
+  },
+  {
     "id": "ret_change_culture_title",
     "EN": "Change Culture",
     "FR": "Changer de culture",
@@ -1134,6 +1150,22 @@
     "RU": "Изменить культуру",
     "SP": "Cambiar cultura",
     "TR": "Kültürü Değiştir"
+  },
+  {
+    "id": "ret_change_species_hint",
+    "EN": "Change species.",
+    "FR": null,
+    "BR": null,
+    "CNs": null,
+    "CNt": null,
+    "DE": null,
+    "IT": null,
+    "JP": null,
+    "KO": null,
+    "PL": null,
+    "RU": null,
+    "SP": null,
+    "TR": null
   },
   {
     "id": "ret_change_species_title",
@@ -10625,19 +10657,19 @@
   },
   {
     "id": "ret_rename_tooltip",
-    "EN": "Rename",
-    "FR": "Renommer",
-    "BR": "Renomear",
-    "CNs": "重命名",
-    "CNt": "重新命名",
-    "DE": "Umbenennen",
-    "IT": "Rinomina",
-    "JP": "名前を変更",
-    "KO": "이름 바꾸기",
-    "PL": "Zmień nazwę",
-    "RU": "Переименовать",
-    "SP": "Renombrar",
-    "TR": "Yeniden Adlandır"
+    "EN": "Rename.",
+    "FR": "Renommer.",
+    "BR": "Renomear.",
+    "CNs": "重命名。",
+    "CNt": "重命名。",
+    "DE": "Umbenennen.",
+    "IT": "Rinomina.",
+    "JP": "名前を変更します。",
+    "KO": "이름 바꾸기.",
+    "PL": "Zmień nazwę.",
+    "RU": "Переименовать.",
+    "SP": "Renombrar.",
+    "TR": "Yeniden adlandır."
   },
   {
     "id": "ret_rename_unit",

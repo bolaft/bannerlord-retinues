@@ -1995,7 +1995,7 @@
       text="Повысить ранг этого юнита." />
     <string
       id="ret_rename_tooltip"
-      text="Переименовать" />
+      text="Переименовать." />
     <string
       id="ret_rename_unit"
       text="Новое имя" />

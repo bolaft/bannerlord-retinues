@@ -1995,7 +1995,7 @@
       text="이 유닛의 등급을 올리세요." />
     <string
       id="ret_rename_tooltip"
-      text="이름 바꾸기" />
+      text="이름 바꾸기." />
     <string
       id="ret_rename_unit"
       text="새 이름" />

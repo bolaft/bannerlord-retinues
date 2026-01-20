@@ -27,7 +27,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
         /// </summary>
         public static ControllerAction<WCharacter> Rename { get; } =
             Action<WCharacter>("Rename")
-                .DefaultTooltip(L.T("rename_tooltip", "Rename"))
+                .DefaultTooltip(L.T("rename_tooltip", "Rename."))
                 .ExecuteWith(RenameImpl);
 
         /// <summary>
@@ -83,7 +83,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
                     _ => WCulture.All != null && WCulture.All.Any(),
                     L.T("no_cultures_text", "No cultures are loaded in the current game.")
                 )
-                .DefaultTooltip(L.T("change_culture_title", "Change Culture"))
+                .DefaultTooltip(L.T("change_culture_hint", "Change culture."))
                 .ExecuteWith(SelectCultureImpl);
 
         /// <summary>
@@ -182,7 +182,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
                     _ => CanChangeRace,
                     L.T("race_cannot_change", "Species cannot be changed for this unit.")
                 )
-                .DefaultTooltip(L.T("change_species_title", "Change Species"))
+                .DefaultTooltip(L.T("change_species_hint", "Change species."))
                 .ExecuteWith(SelectRaceImpl);
 
         /// <summary>

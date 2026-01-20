@@ -1995,7 +1995,7 @@
       text="Awansuj tę jednostkę." />
     <string
       id="ret_rename_tooltip"
-      text="Zmień nazwę" />
+      text="Zmień nazwę." />
     <string
       id="ret_rename_unit"
       text="Nowa nazwa" />

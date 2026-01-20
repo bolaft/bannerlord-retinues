@@ -1995,7 +1995,7 @@
       text="Classificar esta unidade." />
     <string
       id="ret_rename_tooltip"
-      text="Renomear" />
+      text="Renomear." />
     <string
       id="ret_rename_unit"
       text="Novo Nome" />

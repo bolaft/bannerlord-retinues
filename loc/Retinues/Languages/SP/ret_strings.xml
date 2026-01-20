@@ -1995,7 +1995,7 @@
       text="Subir de rango a esta unidad." />
     <string
       id="ret_rename_tooltip"
-      text="Renombrar" />
+      text="Renombrar." />
     <string
       id="ret_rename_unit"
       text="Nuevo nombre" />

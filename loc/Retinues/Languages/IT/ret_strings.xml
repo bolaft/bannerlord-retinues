@@ -1995,7 +1995,7 @@
       text="Fai salire di grado questa unità." />
     <string
       id="ret_rename_tooltip"
-      text="Rinomina" />
+      text="Rinomina." />
     <string
       id="ret_rename_unit"
       text="Nuovo nome" />

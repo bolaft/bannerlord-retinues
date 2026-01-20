@@ -1995,7 +1995,7 @@
       text="提升此單位的等級。" />
     <string
       id="ret_rename_tooltip"
-      text="重新命名" />
+      text="重命名。" />
     <string
       id="ret_rename_unit"
       text="新名稱" />
