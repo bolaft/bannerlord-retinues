@@ -1,11 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Editor.Events;
 using Retinues.Editor.MVC.Shared.Views;
-using Retinues.Interface.Components;
-using Retinues.Interface.Services;
-using Retinues.Utilities;
 using TaleWorlds.Core;
 
 namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
@@ -13,22 +11,17 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
     /// <summary>
     /// Equipment list ViewModel.
     /// </summary>
-    public sealed class EquipmentListVM : BaseListVM
+    public sealed partial class EquipmentListVM : BaseListVM
     {
-        protected override EditorPage Page => EditorPage.Equipment;
+        // Header lookup for fast expansion (id -> header).
+        private readonly Dictionary<string, ListHeaderVM> _headersById = new(
+            StringComparer.Ordinal
+        );
 
-        /// <summary>
-        /// Gets the tooltip for the filter input.
-        /// </summary>
-        protected override Tooltip GetFilterTooltip()
-        {
-            return new(
-                L.S(
-                    "filter_tooltip_description_equipment",
-                    "Type to filter the list by name, category or tier."
-                )
-            );
-        }
+        // Track current expanded header id to avoid collapsing/expanding all headers each time.
+        private string _expandedHeaderId;
+
+        protected override EditorPage Page => EditorPage.Equipment;
 
         private EquipmentIndex _previousSlot = State.Slot;
 
@@ -40,12 +33,30 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
             EquipmentIndex.Weapon3,
         ];
 
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Lifecycle                       //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        private static readonly HashSet<EquipmentIndex> ArmorSlots =
+        [
+            EquipmentIndex.Head,
+            EquipmentIndex.Cape,
+            EquipmentIndex.Body,
+            EquipmentIndex.Gloves,
+            EquipmentIndex.Leg,
+        ];
+
+        // Cached visible items for current slot + mode toggles (crafted/player).
+        private EquipmentIndex _cachedSlot;
+        private bool _cachedIncludeCrafted;
+        private bool _cachedIsPlayerMode;
+        private List<WItem> _cachedVisibleItems;
+
+        // For non-weapon/non-horse slots: if true, we split into ItemCategory headers.
+        private bool _groupNonWeaponsByCategory;
+
+        // If list is "large", we can choose a filter strategy.
+        private const int FastFilter_RebuildThresholdRows = 500;
 
         protected override void AfterBuildOnActivate()
         {
+            ApplyFilter();
             UpdateEquipmentHeaderExpansion();
         }
 
@@ -61,7 +72,6 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
             AutoScrollRowsEnabled = true;
             AutoScrollVersion++;
 
-            // When switching weapon slots, we do not rebuild, but we still want auto-scroll.
             if (WeaponSlots.Contains(previousSlot) && WeaponSlots.Contains(currentSlot))
             {
                 UpdateEquipmentHeaderExpansion();
@@ -69,7 +79,9 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
                 return;
             }
 
+            InvalidateItemCache();
             Build();
+            ApplyFilter();
             UpdateEquipmentHeaderExpansion();
             _previousSlot = currentSlot;
         }
@@ -83,7 +95,9 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
             AutoScrollRowsEnabled = true;
             AutoScrollVersion++;
 
+            InvalidateItemCache();
             Build();
+            ApplyFilter();
             UpdateEquipmentHeaderExpansion();
         }
 
@@ -94,211 +108,51 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
             RecomputeHeaderStates();
         }
 
-        private void BuildSortButtons()
+        private void InvalidateItemCache()
         {
-            SortButtons.Clear();
-
-            SortButtons.Add(
-                new ListSortButtonVM(this, ListSortKey.Name, L.S("sort_by_name", "Name"), 2)
-            );
-            SortButtons.Add(
-                new ListSortButtonVM(
-                    this,
-                    ListSortKey.Culture,
-                    L.S("sort_by_culture", "Culture"),
-                    2
-                )
-            );
-            SortButtons.Add(
-                new ListSortButtonVM(this, ListSortKey.Tier, L.S("sort_by_tier", "Tier"), 1)
-            );
-            SortButtons.Add(
-                new ListSortButtonVM(this, ListSortKey.Value, L.S("sort_by_value", "Value"), 1)
-            );
-
-            RecomputeSortButtonProperties();
+            _cachedVisibleItems = null;
         }
 
-        private void BuildSections()
+        private void EnsureItemCache()
         {
-            var headers = new List<ListHeaderVM>();
             var slot = State.Slot;
+            var includeCrafted = State.ShowCrafted;
+            var isPlayerMode = State.Mode == EditorMode.Player;
 
             if (
-                slot
-                is EquipmentIndex.Weapon0
-                    or EquipmentIndex.Weapon1
-                    or EquipmentIndex.Weapon2
-                    or EquipmentIndex.Weapon3
+                _cachedVisibleItems != null
+                && slot == _cachedSlot
+                && includeCrafted == _cachedIncludeCrafted
+                && isPlayerMode == _cachedIsPlayerMode
             )
-            {
-                // Weapons are grouped by type.
-                var types = new Dictionary<ItemObject.ItemTypeEnum, List<WItem>>();
-
-                foreach (var item in WItem.GetEquipmentsForSlot(slot))
-                {
-                    var type = item.Type;
-                    if (!types.ContainsKey(type))
-                        types[type] = [];
-
-                    types[type].Add(item);
-                }
-
-                foreach (var kvp in types)
-                {
-                    headers.Add(
-                        CreateHeader(
-                            kvp.Key.ToString().ToLowerInvariant(),
-                            Format.CamelCaseToTitle(kvp.Key.ToString()),
-                            kvp.Value
-                        )
-                    );
-                }
-            }
-            else if (slot == EquipmentIndex.Horse)
-            {
-                // Horses are grouped by category.
-                var categories = new Dictionary<ItemCategory, List<WItem>>();
-
-                foreach (var item in WItem.GetEquipmentsForSlot(slot))
-                {
-                    var category = item.Category;
-                    if (!categories.ContainsKey(category))
-                        categories[category] = [];
-
-                    categories[category].Add(item);
-                }
-
-                foreach (var kvp in categories)
-                {
-                    headers.Add(
-                        CreateHeader(
-                            kvp.Key.ToString().ToLowerInvariant(),
-                            Format.CamelCaseToTitle(kvp.Key.ToString()),
-                            kvp.Value
-                        )
-                    );
-                }
-            }
-            else
-            {
-                // Armor pieces are not grouped.
-                headers.Add(
-                    CreateHeader(
-                        slot.ToString().ToLowerInvariant(),
-                        Format.CamelCaseToTitle(slot.ToString()),
-                        WItem.GetEquipmentsForSlot(slot)
-                    )
-                );
-            }
-
-            // Sort headers alphabetically.
-            headers.Sort((a, b) => a.Name.CompareTo(b.Name));
-
-            // Single binding update instead of N inserts.
-            SetHeaders(headers);
-        }
-
-        private EquipmentListHeaderVM CreateHeader(
-            string headerId,
-            string headerText,
-            List<WItem> items
-        )
-        {
-            var header = new EquipmentListHeaderVM(this, headerId, headerText);
-
-            bool isPlayerMode = State.Mode == EditorMode.Player;
-            bool includeCrafted = State.ShowCrafted;
-
-            if (items != null && items.Count > 0)
-            {
-                var normal = new List<WItem>();
-                var unlocking = new List<WItem>();
-
-                for (int i = 0; i < items.Count; i++)
-                {
-                    var item = items[i];
-                    if (item == null)
-                        continue;
-
-                    // Skip crafted items if the filter is off.
-                    if (!includeCrafted && item.IsCrafted)
-                        continue;
-
-                    // Player mode:
-                    // - Fully locked (0%) items stay hidden.
-                    // - Partially unlocked (1-99%) items are included, but should appear at the end.
-                    if (isPlayerMode && !item.IsCrafted && !item.IsUnlocked)
-                    {
-                        if (item.UnlockProgress <= 0)
-                            continue;
-
-                        unlocking.Add(item);
-                        continue;
-                    }
-
-                    normal.Add(item);
-                }
-
-                // Default view (no sort active): keep current order for normal items,
-                // and append "unlocking" items at end by progress desc (higher first).
-                unlocking.Sort(
-                    (a, b) =>
-                    {
-                        int pa = a?.UnlockProgress ?? 0;
-                        int pb = b?.UnlockProgress ?? 0;
-                        int cmp = pb.CompareTo(pa); // desc
-                        if (cmp != 0)
-                            return cmp;
-
-                        return string.Compare(
-                            a?.Name,
-                            b?.Name,
-                            System.StringComparison.OrdinalIgnoreCase
-                        );
-                    }
-                );
-
-                for (int i = 0; i < normal.Count; i++)
-                    header.AddRow(new EquipmentListRowVM(header, normal[i]));
-
-                for (int i = 0; i < unlocking.Count; i++)
-                    header.AddRow(new EquipmentListRowVM(header, unlocking[i]));
-            }
-
-            header.UpdateRowCount();
-            return header;
-        }
-
-        private void UpdateEquipmentHeaderExpansion()
-        {
-            if (Headers.Count == 0)
                 return;
 
-            ListHeaderVM selectedHeader = null;
+            _cachedSlot = slot;
+            _cachedIncludeCrafted = includeCrafted;
+            _cachedIsPlayerMode = isPlayerMode;
 
-            for (int i = 0; i < Headers.Count; i++)
-            {
-                var h = Headers[i];
-                if (h != null && h.ContainsSelectedRow())
-                {
-                    selectedHeader = h;
-                    break;
-                }
-            }
+            var raw = WItem.GetEquipmentsForSlot(slot) ?? [];
+            var list = new List<WItem>(raw.Count);
 
-            for (int i = 0; i < Headers.Count; i++)
+            for (int i = 0; i < raw.Count; i++)
             {
-                var h = Headers[i];
-                if (h == null)
+                var item = raw[i];
+                if (item == null)
                     continue;
 
-                // Keep exactly one open (the selected one).
-                if (ReferenceEquals(h, selectedHeader))
-                    h.IsExpanded = true;
-                else if (h.IsVisible)
-                    h.IsExpanded = false;
+                if (!includeCrafted && item.IsCrafted)
+                    continue;
+
+                if (isPlayerMode && !item.IsCrafted && !item.IsUnlocked)
+                {
+                    if (item.UnlockProgress <= 0)
+                        continue;
+                }
+
+                list.Add(item);
             }
+
+            _cachedVisibleItems = list;
         }
     }
 }

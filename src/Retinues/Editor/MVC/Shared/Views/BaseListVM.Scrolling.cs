@@ -38,6 +38,9 @@ namespace Retinues.Editor.MVC.Shared.Views
 
                 _autoScrollRowsEnabled = value;
                 OnPropertyChanged(nameof(AutoScrollRowsEnabled));
+
+                // Important: rows bind AutoScrollEnabled through their own property.
+                NotifyRowsAutoScrollChanged();
             }
         }
 
@@ -58,10 +61,38 @@ namespace Retinues.Editor.MVC.Shared.Views
 
                 _autoScrollVersion = value;
                 OnPropertyChanged(nameof(AutoScrollVersion));
+
+                // Important: rows bind AutoScrollVersion through their own property.
+                // We must notify AFTER updating the list value to avoid "previous item" scroll.
+                NotifyRowsAutoScrollChanged();
             }
         }
 
         [DataSourceProperty]
         public string AutoScrollScope => $"EditorList_{_autoScrollScopeId}";
+
+        /// <summary>
+        /// Notify all rows that their auto-scroll bindings should be re-evaluated.
+        /// This is intentionally list-driven to avoid row/list event ordering issues.
+        /// </summary>
+        protected void NotifyRowsAutoScrollChanged()
+        {
+            if (_headers == null || _headers.Count == 0)
+                return;
+
+            for (int i = 0; i < _headers.Count; i++)
+            {
+                var header = _headers[i];
+                if (header == null)
+                    continue;
+
+                var rows = header.Rows;
+                if (rows == null || rows.Count == 0)
+                    continue;
+
+                for (int r = 0; r < rows.Count; r++)
+                    rows[r]?.NotifyAutoScrollChanged();
+            }
+        }
     }
 }

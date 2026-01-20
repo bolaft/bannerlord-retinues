@@ -10,24 +10,12 @@ namespace Retinues.Editor.MVC.Shared.Views
     /// </summary>
     public class ListHeaderVM(BaseListVM list, string id, string name) : EventListenerVM
     {
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Internals                       //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
         internal BaseListVM List = list;
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                       Identifier                       //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private readonly string _id = id;
 
         [DataSourceProperty]
         public string Id => _id;
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                          Name                          //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private string _name = name;
 
@@ -38,9 +26,7 @@ namespace Retinues.Editor.MVC.Shared.Views
             private set
             {
                 if (value == _name)
-                {
                     return;
-                }
 
                 _name = value;
                 OnPropertyChanged(nameof(Name));
@@ -52,15 +38,53 @@ namespace Retinues.Editor.MVC.Shared.Views
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private readonly List<BaseListRowVM> _rows = [];
-
         public List<BaseListRowVM> Rows => _rows;
 
+        // We expose ExpandedRows as the ItemsSource in Gauntlet.
+        // To make expand/collapse fast, we swap the entire binding list reference:
+        // - expanded => cached populated list (built once)
+        // - collapsed => empty list
+        private readonly MBBindingList<BaseListRowVM> _expandedRowsEmpty = [];
+        private MBBindingList<BaseListRowVM> _expandedRowsBuilt;
+        private MBBindingList<BaseListRowVM> _expandedRows;
+
         [DataSourceProperty]
-        public MBBindingList<BaseListRowVM> ExpandedRows { get; set; } = [];
+        public MBBindingList<BaseListRowVM> ExpandedRows
+        {
+            get => _expandedRows;
+            private set
+            {
+                if (ReferenceEquals(value, _expandedRows))
+                    return;
+
+                _expandedRows = value;
+                OnPropertyChanged(nameof(ExpandedRows));
+            }
+        }
 
         /// <summary>
-        /// Adds a row to this header.
+        /// If true, we keep the built list when collapsed (swap to empty list only).
+        /// If false, collapsing discards the built list (frees memory).
         /// </summary>
+        protected virtual bool CacheExpandedRowsWhenCollapsed => false;
+
+        private void EnsureExpandedRowsBuilt()
+        {
+            if (_expandedRowsBuilt != null)
+                return;
+
+            var built = new MBBindingList<BaseListRowVM>();
+
+            for (int i = 0; i < _rows.Count; i++)
+            {
+                var row = _rows[i];
+                if (row != null)
+                    built.Add(row);
+            }
+
+            _expandedRowsBuilt = built;
+        }
+
         public void AddRow(BaseListRowVM row)
         {
             if (row == null)
@@ -68,14 +92,13 @@ namespace Retinues.Editor.MVC.Shared.Views
 
             _rows.Add(row);
 
-            // If already expanded, keep ExpandedRows in sync.
-            if (_isExpanded)
-                ExpandedRows.Add(row);
+            // If we already built the cached list, keep it in sync.
+            _expandedRowsBuilt?.Add(row);
+
+            // If expanded and we're showing the built list, also ensure the current ExpandedRows has it.
+            // (Usually redundant since _expandedRowsBuilt is the expanded source.)
         }
 
-        /// <summary>
-        /// Returns true if any row in this header is selected.
-        /// </summary>
         internal bool ContainsSelectedRow()
         {
             if (_rows.Count == 0)
@@ -92,10 +115,10 @@ namespace Retinues.Editor.MVC.Shared.Views
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                   Enabled / Expanded                   //
+        //                   Expanded / Toggle                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private bool _isExpanded = false;
+        private bool _isExpanded;
 
         [DataSourceProperty]
         public bool IsExpanded
@@ -110,12 +133,17 @@ namespace Retinues.Editor.MVC.Shared.Views
 
                 if (_isExpanded)
                 {
-                    ExpandedRows.Clear();
-                    foreach (var row in _rows)
-                        ExpandedRows.Add(row);
+                    EnsureExpandedRowsBuilt();
+                    ExpandedRows = _expandedRowsBuilt;
                 }
                 else
-                    ExpandedRows.Clear();
+                {
+                    // Hide rows by swapping to empty items source.
+                    ExpandedRows = _expandedRowsEmpty;
+
+                    if (!CacheExpandedRowsWhenCollapsed)
+                        _expandedRowsBuilt = null;
+                }
 
                 OnPropertyChanged(nameof(IsExpanded));
                 OnPropertyChanged(nameof(CollapseIndicatorState));
@@ -125,6 +153,16 @@ namespace Retinues.Editor.MVC.Shared.Views
 
         [DataSourceProperty]
         public string CollapseIndicatorState => _isExpanded ? "Expanded" : "Collapsed";
+
+        [DataSourceMethod]
+        public void ExecuteToggle()
+        {
+            IsExpanded = !IsExpanded;
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                     Visible / Enabled                  //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceProperty]
         public virtual bool IsVisible => true;
@@ -136,41 +174,23 @@ namespace Retinues.Editor.MVC.Shared.Views
         protected virtual bool CollapseWhenNotVisible => true;
         protected virtual bool ForceExpandedWhenNotVisible => false;
 
-        /// <summary>
-        /// Updates the state of this header based on visibility and enabled status.
-        /// </summary>
         public void UpdateState()
         {
             OnPropertyChanged(nameof(IsVisible));
             OnPropertyChanged(nameof(IsEnabled));
 
-            // Default behavior: collapse when disabled, and (optionally) when hidden.
             if ((!IsEnabled || (CollapseWhenNotVisible && !IsVisible)) && _isExpanded)
                 IsExpanded = false;
 
-            // Equipment special-case: when toggle is hidden but rows exist, keep the section open.
             if (ForceExpandedWhenNotVisible && HasVisibleRows && !IsVisible && !_isExpanded)
                 IsExpanded = true;
         }
 
-        /// <summary>
-        /// Called when one of the rows changes visibility.
-        /// </summary>
         internal void OnRowVisibilityChanged()
         {
             OnPropertyChanged(nameof(RowCountText));
-
-            // Row visibility changes affect "how many headers are full",
-            // so other headers must refresh their IsVisible too.
             List.RecomputeHeaderStates();
-
             UpdateState();
-        }
-
-        [DataSourceMethod]
-        public void ExecuteToggle()
-        {
-            IsExpanded = !IsExpanded;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -192,9 +212,7 @@ namespace Retinues.Editor.MVC.Shared.Views
             get
             {
                 if (_rows.Count == 0)
-                {
                     return 0;
-                }
 
                 var count = 0;
 
@@ -202,18 +220,13 @@ namespace Retinues.Editor.MVC.Shared.Views
                 {
                     var row = _rows[i];
                     if (row != null && row.IsVisible)
-                    {
                         count++;
-                    }
                 }
 
                 return count;
             }
         }
 
-        /// <summary>
-        /// Notifies that the row count has changed.
-        /// </summary>
         public void UpdateRowCount() => OnPropertyChanged(nameof(RowCountText));
     }
 }

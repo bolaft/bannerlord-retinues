@@ -95,16 +95,61 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Controllers
             );
         }
 
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Decision                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private static readonly Dictionary<string, EquipDecision> _decisionByItemId = new();
+
+        private static EquipmentIndex _ctxSlot = EquipmentIndex.None;
+        private static EditorMode _ctxMode;
+        private static bool _ctxPreview;
+        private static object _ctxCharacterRef;
+        private static object _ctxEquipmentRef;
+        private static int _ctxBurstId;
+
+        // Use State.Slot (avoids EditorState.Instance spam).
         private static EquipDecision DecisionForSlot(WItem item)
         {
-            var ctx = new EquipContext(
-                State.Mode,
-                PreviewController.Enabled,
-                State.Character,
-                State.Equipment
-            );
-            var slot = EditorState.Instance.Slot;
-            return EquipRules.CanSetItem(ctx, PreviewController.GetItem, slot, item);
+            if (item == null)
+                return default;
+
+            var slot = State.Slot;
+            var mode = State.Mode;
+            var preview = PreviewController.Enabled;
+            var characterRef = (object)State.Character?.Base;
+            var equipmentRef = (object)State.Equipment?.Base;
+
+            int burstId = EventManager.CurrentBurstId;
+
+            if (
+                slot != _ctxSlot
+                || mode != _ctxMode
+                || preview != _ctxPreview
+                || !ReferenceEquals(characterRef, _ctxCharacterRef)
+                || !ReferenceEquals(equipmentRef, _ctxEquipmentRef)
+                || burstId != _ctxBurstId
+            )
+            {
+                _decisionByItemId.Clear();
+
+                _ctxSlot = slot;
+                _ctxMode = mode;
+                _ctxPreview = preview;
+                _ctxCharacterRef = characterRef;
+                _ctxEquipmentRef = equipmentRef;
+                _ctxBurstId = burstId;
+            }
+
+            var id = item.StringId ?? string.Empty;
+            if (_decisionByItemId.TryGetValue(id, out var cached))
+                return cached;
+
+            var ctx = new EquipContext(mode, preview, State.Character, State.Equipment);
+            var decision = EquipRules.CanSetItem(ctx, PreviewController.GetItem, slot, item);
+
+            _decisionByItemId[id] = decision;
+            return decision;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -357,7 +402,11 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Controllers
                 State.Equipment.Set(slot, null);
 
                 if (slot == EquipmentIndex.Horse)
+                {
                     State.Equipment.Set(EquipmentIndex.HorseHarness, null);
+                    if (State.Slot == EquipmentIndex.HorseHarness)
+                        State.Slot = EquipmentIndex.Horse; // Switch away from now-invalid harness slot.
+                }
             }
 
             if (EconomyEnabled)

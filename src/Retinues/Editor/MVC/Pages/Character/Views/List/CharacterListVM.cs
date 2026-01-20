@@ -143,6 +143,50 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.List
                 return !c.IsFactionTroop;
             }
 
+            // If there are a lot of troops, start "secondary" categories collapsed to reduce clutter.
+            int CountTroops(IEnumerable<WCharacter> chars)
+            {
+                if (chars == null)
+                    return 0;
+
+                int n = 0;
+                foreach (var c in chars)
+                {
+                    if (!ShouldInclude(c))
+                        continue;
+
+                    if (c.IsHero)
+                        continue;
+
+                    n++;
+                }
+
+                return n;
+            }
+
+            int totalTroops =
+                CountTroops(faction.RosterRetinues)
+                + CountTroops(faction.RootElite?.Tree)
+                + CountTroops(faction.RootBasic?.Tree)
+                + CountTroops(faction.RosterMilitia)
+                + CountTroops(faction.RosterCaravan)
+                + CountTroops(faction.RosterVillager)
+                + CountTroops(faction.RosterMercenary)
+                + CountTroops(faction.RosterBandit)
+                + CountTroops(faction.RosterCivilian);
+
+            bool collapseSecondaryHeaders = totalTroops > 40;
+
+            bool ShouldStartExpanded(string headerId)
+            {
+                // Always keep main groups open.
+                if (headerId == "retinues" || headerId == "elite" || headerId == "regular")
+                    return true;
+
+                // Otherwise, collapse when there are many troops.
+                return !collapseSecondaryHeaders;
+            }
+
             void AddSection(
                 List<ListHeaderVM> headersList,
                 string headerId,
@@ -160,8 +204,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.List
 
                 var header = new ListHeaderVM(this, headerId, L.S(headerLocKey, headerFallback))
                 {
-                    // Character headers should always start expanded
-                    IsExpanded = true,
+                    IsExpanded = ShouldStartExpanded(headerId),
                 };
 
                 var any = false;

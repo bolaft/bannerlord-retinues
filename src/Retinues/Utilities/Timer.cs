@@ -30,6 +30,10 @@ namespace Retinues.Utilities
 
         private static bool _running;
 
+        // "Real time": time between first outer Begin() and last outer End().
+        private static TimeSpan? _firstSegmentBegin;
+        private static TimeSpan? _lastSegmentEnd;
+
         /// <summary>
         /// True if a timing session is active.
         /// </summary>
@@ -43,6 +47,10 @@ namespace Retinues.Utilities
             Total.Reset();
             Total.Start();
             Segments.Clear();
+
+            _firstSegmentBegin = null;
+            _lastSegmentEnd = null;
+
             _running = true;
 
             Log.Debug("Timer.Start");
@@ -68,6 +76,10 @@ namespace Retinues.Utilities
             segment.Depth++;
             if (segment.Depth == 1)
             {
+                // Track the earliest segment begin time within the full session.
+                if (_firstSegmentBegin == null)
+                    _firstSegmentBegin = Total.Elapsed;
+
                 segment.EnterCount++;
                 if (!segment.Stopwatch.IsRunning)
                     segment.Stopwatch.Start();
@@ -96,11 +108,15 @@ namespace Retinues.Utilities
                 segment.Depth = 0;
                 if (segment.Stopwatch.IsRunning)
                     segment.Stopwatch.Stop();
+
+                // Track the latest segment end time within the full session.
+                _lastSegmentEnd = Total.Elapsed;
             }
         }
 
         /// <summary>
         /// Ends the current session and logs total time and per-segment percentages.
+        /// Percentages are computed against the "real time" window (first Begin -> last End).
         /// </summary>
         public static void Stop()
         {
@@ -111,6 +127,7 @@ namespace Retinues.Utilities
 
             // Stop total timer and any still-running segments.
             Total.Stop();
+
             foreach (var segment in Segments.Values)
             {
                 if (segment.Stopwatch.IsRunning)
@@ -131,7 +148,20 @@ namespace Retinues.Utilities
                 totalSeconds = sum;
             }
 
-            Log.Debug($"Time: {totalSeconds:0.00000}s");
+            // If at least one segment began but none ended (or last end wasn't recorded),
+            // treat Stop() as the last boundary for "real time".
+            if (_firstSegmentBegin != null && _lastSegmentEnd == null)
+                _lastSegmentEnd = Total.Elapsed;
+
+            double realSeconds = 0.0;
+            if (_firstSegmentBegin != null && _lastSegmentEnd != null)
+            {
+                var span = _lastSegmentEnd.Value - _firstSegmentBegin.Value;
+                if (span.Ticks > 0)
+                    realSeconds = span.TotalSeconds;
+            }
+
+            Log.Debug($"Time: {totalSeconds:0.00000}s | Real: {realSeconds:0.00000}s");
 
             if (Segments.Count == 0)
                 return;
@@ -152,7 +182,7 @@ namespace Retinues.Utilities
             foreach (var segment in ordered)
             {
                 var seconds = segment.Elapsed.TotalSeconds;
-                var percent = totalSeconds > 0.0 ? (seconds / totalSeconds) * 100.0 : 0.0;
+                var percent = realSeconds > 0.0 ? (seconds / realSeconds) * 100.0 : 0.0;
 
                 Log.Debug(
                     $"{segment.Label}: {seconds:0.00000}s ({percent:0.0}%) x{segment.EnterCount}"

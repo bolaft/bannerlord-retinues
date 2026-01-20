@@ -41,13 +41,10 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
 
         private WItem CurrentItem => PreviewController.GetItem(State.Slot);
 
-        private readonly Cache<EquipmentListRowVM, bool> _cacheIsSelected = new(
-            o => o.CurrentItem == o._item,
-            CacheKey(item)
-        );
-
+        // Selection must be correct immediately on slot changes (auto-scroll),
+        // so do not cache it (caching can lag by one event depending on listener order).
         [DataSourceProperty]
-        public override bool IsSelected => _cacheIsSelected.Get(this);
+        public override bool IsSelected => CurrentItem == _item;
 
         [DataSourceMethod]
         public override void ExecuteSelect() => ItemController.Equip.Execute(_item);

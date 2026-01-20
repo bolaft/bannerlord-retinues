@@ -60,9 +60,7 @@ namespace Retinues.Editor.MVC.Shared.Views
             set
             {
                 if (value == _id)
-                {
                     return;
-                }
 
                 _id = value;
                 OnPropertyChanged(nameof(Id));
@@ -92,14 +90,14 @@ namespace Retinues.Editor.MVC.Shared.Views
             set
             {
                 if (value == _isVisible)
-                {
                     return;
-                }
 
                 _isVisible = value;
                 OnPropertyChanged(nameof(IsVisible));
 
-                _header?.OnRowVisibilityChanged();
+                // Filtering flips a lot of rows. Do not ask headers to recompute each time.
+                if (List == null || !List.IsRowVisibilityBatchActive)
+                    _header?.OnRowVisibilityChanged();
             }
         }
 
@@ -135,68 +133,35 @@ namespace Retinues.Editor.MVC.Shared.Views
         [DataSourceProperty]
         public bool AutoScrollEnabled => Header.List.AutoScrollRowsEnabled;
 
+        /// <summary>
+        /// Called by the owning list after it updates AutoScrollVersion/Enabled.
+        /// This avoids ordering issues between list and row event listeners.
+        /// </summary>
+        internal void NotifyAutoScrollChanged()
+        {
+            OnPropertyChanged(nameof(AutoScrollVersion));
+            OnPropertyChanged(nameof(AutoScrollEnabled));
+            OnPropertyChanged(nameof(AutoScrollScope));
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Sorting                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         internal abstract IComparable GetSortValue(ListSortKey sortKey);
 
-        /// <summary>
-        /// Returns true for rows that should stay pinned to the end of the header when sorting.
-        /// Used for special rows like partial unlock progress.
-        /// </summary>
         internal virtual bool TryGetPinnedSortProgress(out int progress)
         {
             progress = 0;
             return false;
         }
 
-        /// <summary>
-        /// True when this row participates in tree sorting and tree filtering (ancestor visibility).
-        /// </summary>
-        internal virtual bool IsTreeNode => false;
-
-        /// <summary>
-        /// Parent ids for this row when used as a tree node.
-        /// </summary>
-        internal virtual IEnumerable<string> GetTreeParentIds() => null;
-
-        /// <summary>
-        /// Child ids for this row when used as a tree node.
-        /// </summary>
-        internal virtual IEnumerable<string> GetTreeChildIds() => null;
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Filtering                       //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        /// <summary>
-        /// Determines if this row matches the given filter string.
-        /// </summary>
         internal virtual bool MatchesFilter(string filter) => true;
 
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                    Event Management                    //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        internal virtual bool IsTreeNode => false;
 
-        /// <summary>
-        /// Determines if property change notifications should be sent for the given event.
-        /// </summary>
-        protected override bool __ShouldNotifyProperty(
-            EventManager.Context context,
-            UIEvent e,
-            string propertyName,
-            bool globalListener
-        )
-        {
-            // For list rows, only the selected row refreshes by default.
-            // If the listener is marked Global=true, refresh even when not selected.
-            if (IsSelected)
-            {
-                return true;
-            }
+        internal virtual IEnumerable<string> GetTreeParentIds() => null;
 
-            return globalListener;
-        }
+        internal virtual IEnumerable<string> GetTreeChildIds() => null;
     }
 }
