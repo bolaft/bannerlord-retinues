@@ -1554,7 +1554,7 @@
       text="Ograniczenia lokalizacji" />
     <string
       id="ret_mcm_option_editing_restriction_hint"
-      text="Ogranicza miejsca, w których można edytować oddziały frakcji. &apos;Wszędzie&apos;: Brak ograniczeń. &apos;Dowolne osiedle&apos;: Musisz być w osiedlu. &apos;Osiedle frakcji&apos;: Musisz być w posiadanym lenie frakcji. Uwaga: Oddziały towarzyszące nie są objęte tym ustawieniem." />
+      text="Ogranicza miejsca, w których można edytować oddziały frakcji. &apos;Wszędzie&apos;: brak ograniczeń. &apos;Dowolna osada&apos;: musisz być w osadzie. &apos;Osada frakcji&apos;: musisz być w posiadanym feudzie frakcji (z wyjątkiem oddziałów retinues)." />
     <string
       id="ret_mcm_option_editor_hotkey"
       text="Klawisz skrótu edytora" />

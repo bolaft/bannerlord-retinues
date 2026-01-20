@@ -1554,7 +1554,7 @@
       text="Konum Kısıtlamaları" />
     <string
       id="ret_mcm_option_editing_restriction_hint"
-      text="Fraksiyon birliklerinin nerede düzenlenebileceğini kısıtlar. &apos;Her yerde&apos;: Kısıtlama yok. &apos;Her Yerleşim&apos;: Bir yerleşimde olmalısınız. &apos;Fraksiyon Yerleşimi&apos;: Sahip olunan bir fraksiyon topraklarında olmalısınız. Not: Muhafız birlikleri bu ayardan etkilenmez." />
+      text="Taraf birliklerinin nerede düzenlenebileceğini kısıtlar. &apos;Her Yerde&apos;: Kısıtlama yok. &apos;Herhangi Yerleşim&apos;: Bir yerleşimde olmalısınız. &apos;Taraf Yerleşimi&apos;: Sahip olunan bir taraf arazisinde olmalısınız (retinues hariç)." />
     <string
       id="ret_mcm_option_editor_hotkey"
       text="Düzenleyici Kısayolu" />

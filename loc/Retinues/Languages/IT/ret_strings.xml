@@ -1554,7 +1554,7 @@
       text="Restrizioni di posizione" />
     <string
       id="ret_mcm_option_editing_restriction_hint"
-      text="Restringe dove le truppe di fazione possono essere modificate. &apos;Ovunque&apos;: Nessuna restrizione. &apos;Qualsiasi insediamento&apos;: Devi essere in un insediamento. &apos;Insediamento di fazione&apos;: Devi essere in un feudo di fazione posseduto. Nota: Le truppe di ritenuta non sono influenzate da questa impostazione." />
+      text="Restringe dove le truppe della fazione possono essere modificate. &apos;Ovunque&apos;: nessuna restrizione. &apos;Qualsiasi insediamento&apos;: devi essere in un insediamento. &apos;Insediamento della fazione&apos;: devi essere in un feudo di fazione posseduto (esclusi i retinues)." />
     <string
       id="ret_mcm_option_editor_hotkey"
       text="Tasto di scelta rapida dell&apos;editor" />

@@ -54,9 +54,6 @@ namespace Retinues.Editor.MVC.Shared.Controllers
             if (c.IsHero)
                 return false;
 
-            if (c.IsRetinue)
-                return false;
-
             return true;
         }
 
@@ -73,28 +70,29 @@ namespace Retinues.Editor.MVC.Shared.Controllers
             if (restriction == Settings.EditingRestrictionMode.None)
                 return null;
 
-            var troopFaction = EditorState.Instance.Character?.AssignedMapFaction;
+            var character = EditorState.Instance.Character;
+            var faction = character.AssignedMapFaction;
             var settlement = Player.CurrentSettlement;
 
             if (settlement == null)
             {
-                return restriction == Settings.EditingRestrictionMode.InFief && troopFaction != null
+                return restriction == Settings.EditingRestrictionMode.InFief && faction != null
                     ? L.T(
                             "editing_restriction_need_faction_fief_reason",
                             "You can only edit this unit in a fief owned by {FACTION}."
                         )
-                        .SetTextVariable("FACTION", troopFaction.Name)
+                        .SetTextVariable("FACTION", faction.Name)
                     : L.T(
                         "editing_restriction_need_settlement_reason",
                         "You can only edit units while inside a settlement."
                     );
             }
 
-            if (restriction == Settings.EditingRestrictionMode.InSettlement)
-                return null;
+            if (restriction == Settings.EditingRestrictionMode.InSettlement || character.IsRetinue)
+                return null; // Any settlement is fine for retinues or InSettlement mode.
 
             // InFief: require a town/castle/village owned by the troop's clan/kingdom.
-            if (troopFaction == null)
+            if (faction == null)
             {
                 return L.T(
                     "editing_restriction_unknown_faction_reason",
@@ -102,14 +100,14 @@ namespace Retinues.Editor.MVC.Shared.Controllers
                 );
             }
 
-            if (IsCharacterFactionOwnedFief(settlement, troopFaction))
+            if (IsCharacterFactionOwnedFief(settlement, faction))
                 return null;
 
             return L.T(
                     "editing_restriction_need_faction_fief_reason",
                     "You can only edit this unit in a fief owned by {FACTION}."
                 )
-                .SetTextVariable("FACTION", troopFaction.Name);
+                .SetTextVariable("FACTION", faction.Name);
         }
 
         /// <summary>

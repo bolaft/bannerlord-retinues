@@ -1554,7 +1554,7 @@
       text="位置限制" />
     <string
       id="ret_mcm_option_editing_restriction_hint"
-      text="限制派系部队可以编辑的位置。&apos;任何地方&apos;：无限制。&apos;任何定居点&apos;：您必须在定居点中。&apos;派系定居点&apos;：您必须在拥有的派系封地中。注意：护卫队不受此设置影响。" />
+      text="限制派系部队可以编辑的位置。&apos;任何地方&apos;：无限制。&apos;任何定居点&apos;：您必须在定居点内。&apos;派系定居点&apos;：您必须在拥有的派系封地内（侍从除外）。" />
     <string
       id="ret_mcm_option_editor_hotkey"
       text="编辑器热键" />

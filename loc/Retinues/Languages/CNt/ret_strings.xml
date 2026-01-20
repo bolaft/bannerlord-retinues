@@ -1554,7 +1554,7 @@
       text="位置限制" />
     <string
       id="ret_mcm_option_editing_restriction_hint"
-      text="限制派系部隊可以編輯的位置。&apos;任何地方&apos;：無限制。&apos;任何定居點&apos;：您必須在定居點中。&apos;派系定居點&apos;：您必須在擁有的派系封地中。注意：護衛隊不受此設置影響。" />
+      text="限制派系部隊可以編輯的位置。&apos;任何地方&apos;：無限制。&apos;任何定居點&apos;：您必須在定居點內。&apos;派系定居點&apos;：您必須在擁有的派系封地內（侍從除外）。" />
     <string
       id="ret_mcm_option_editor_hotkey"
       text="編輯器熱鍵" />

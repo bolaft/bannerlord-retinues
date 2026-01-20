@@ -1554,7 +1554,7 @@
       text="위치 제한" />
     <string
       id="ret_mcm_option_editing_restriction_hint"
-      text="진영 부대를 편집할 수 있는 위치를 제한합니다. &apos;어디서나&apos;: 제한 없음. &apos;모든 정착지&apos;: 정착지에 있어야 합니다. &apos;진영 정착지&apos;: 소유한 진영 영지에 있어야 합니다. 참고: 호위대는 이 설정의 영향을 받지 않습니다." />
+      text="진영 부대를 편집할 수 있는 위치를 제한합니다. &apos;어디서나&apos;: 제한 없음. &apos;모든 정착지&apos;: 정착지에 있어야 합니다. &apos;진영 정착지&apos;: 소유한 진영 영지에 있어야 합니다(수행원 제외)." />
     <string
       id="ret_mcm_option_editor_hotkey"
       text="편집기 단축키" />

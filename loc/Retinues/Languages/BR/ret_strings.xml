@@ -1554,7 +1554,7 @@
       text="Restrições de Localização" />
     <string
       id="ret_mcm_option_editing_restriction_hint"
-      text="Restringe onde as tropas de facção podem ser editadas. &apos;Em qualquer lugar&apos;: Sem restrições. &apos;Qualquer assentamento&apos;: Você deve estar em um assentamento. &apos;Assentamento de facção&apos;: Você deve estar em um feudo de facção possuído. Nota: As Troupas de Retinência não são afetadas por esta configuração." />
+      text="Restringe onde as tropas da facção podem ser editadas. &apos;Em Qualquer Lugar&apos;: Sem restrições. &apos;Qualquer Assentamento&apos;: Você deve estar em um assentamento. &apos;Assentamento da Facção&apos;: Você deve estar em um feudo de facção possuído (exceto tropas de retinência)." />
     <string
       id="ret_mcm_option_editor_hotkey"
       text="Atalho do Editor" />

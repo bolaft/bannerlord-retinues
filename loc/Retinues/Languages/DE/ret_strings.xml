@@ -1554,7 +1554,7 @@
       text="Standortbeschränkungen" />
     <string
       id="ret_mcm_option_editing_restriction_hint"
-      text="Beschränkt, wo Fraktionstruppen bearbeitet werden können. &apos;Überall&apos;: Keine Einschränkungen. &apos;Jede Siedlung&apos;: Sie müssen sich in einer Siedlung befinden. &apos;Fraktionssiedlung&apos;: Sie müssen sich in einem besessenen Fraktionslehen befinden. Hinweis: Gefolgsleute sind von dieser Einstellung nicht betroffen." />
+      text="Beschränkt, wo Fraktionstruppen bearbeitet werden können. &apos;Überall&apos;: Keine Einschränkungen. &apos;Jede Siedlung&apos;: Sie müssen sich in einer Siedlung befinden. &apos;Fraktionssiedlung&apos;: Sie müssen sich in einem besessenen Fraktionslehen befinden (Retinues ausgenommen)." />
     <string
       id="ret_mcm_option_editor_hotkey"
       text="Editor-Hotkey" />

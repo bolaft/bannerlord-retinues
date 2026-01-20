@@ -1563,7 +1563,7 @@
       text="Location Restrictions" />
     <string
       id="ret_mcm_option_editing_restriction_hint"
-      text="Restricts where faction troops can be edited. &apos;Anywhere&apos;: No restrictions. &apos;Any Settlement&apos;: You must be in a settlement. &apos;Faction Settlement&apos;: You must be in an owned faction fief. Note: Retinues are not affected by this setting." />
+      text="Restricts where faction troops can be edited. &apos;Anywhere&apos;: No restrictions. &apos;Any Settlement&apos;: You must be in a settlement. &apos;Faction Settlement&apos;: You must be in an owned faction fief (retinues excepted)." />
     <string
       id="ret_mcm_option_editor_hotkey"
       text="Editor Hotkey" />

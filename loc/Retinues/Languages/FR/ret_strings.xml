@@ -1554,7 +1554,7 @@
       text="Restrictions de Localisation" />
     <string
       id="ret_mcm_option_editing_restriction_hint"
-      text="Restreint les endroits où les troupes de faction peuvent être modifiées. &apos;N&apos;importe où&apos; : Aucune restriction. &apos;Toute colonie&apos; : Vous devez être dans une colonie. &apos;Colonie de faction&apos; : Vous devez être dans un fief de faction possédé. Remarque : Les Rétinues ne sont pas affectées par ce paramètre." />
+      text="Restreint les endroits où les troupes de faction peuvent être modifiées. &apos;N&apos;importe où&apos; : aucune restriction. &apos;N&apos;importe quelle localité&apos; : vous devez être dans une localité. &apos;Localité de faction&apos; : vous devez être dans un fief de faction possédé (sauf les rétinues)." />
     <string
       id="ret_mcm_option_editor_hotkey"
       text="Raccourci Éditeur" />

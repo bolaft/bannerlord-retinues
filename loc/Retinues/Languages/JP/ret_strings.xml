@@ -1554,7 +1554,7 @@
       text="場所の制限" />
     <string
       id="ret_mcm_option_editing_restriction_hint"
-      text="派閥部隊が編集できる場所を制限します。&apos;どこでも&apos;：制限なし。&apos;任意の集落&apos;：集落内にいる必要があります。&apos;派閥の集落&apos;：所有する派閥の封土内にいる必要があります。注意：従者はこの設定の影響を受けません。" />
+      text="派閥部隊を編集できる場所を制限します。&apos;どこでも&apos;：制限なし。&apos;任意の集落&apos;：集落内にいる必要があります。&apos;派閥の集落&apos;：所有する派閥の封地内にいる必要があります（侍従を除く）。" />
     <string
       id="ret_mcm_option_editor_hotkey"
       text="エディターホットキー" />

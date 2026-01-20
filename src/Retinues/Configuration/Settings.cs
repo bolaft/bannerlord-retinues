@@ -246,7 +246,7 @@ namespace Retinues.Configuration
                 name: L.F("mcm_option_editing_restriction", "Location Restrictions"),
                 hint: L.F(
                     "mcm_option_editing_restriction_hint",
-                    "Restricts where faction troops can be edited. 'Anywhere': No restrictions. 'Any Settlement': You must be in a settlement. 'Faction Settlement': You must be in an owned faction fief. Note: Retinues are not affected by this setting."
+                    "Restricts where faction troops can be edited. 'Anywhere': No restrictions. 'Any Settlement': You must be in a settlement. 'Faction Settlement': You must be in an owned faction fief (retinues excepted)."
                 ),
                 @default: EditingRestrictionMode.None,
                 @realistic: EditingRestrictionMode.InFief,
