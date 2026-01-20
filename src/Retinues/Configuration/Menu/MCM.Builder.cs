@@ -47,6 +47,16 @@ namespace Retinues.Configuration.Menu
                 .SetFolderName(MCMFolder) // "Retinues"
                 .SetFormat(MCMFormat); // "xml"
 
+            // IMPORTANT:
+            // MCM's fluent builder creates a built-in "Default" preset by capturing
+            // the current property reference values at build time.
+            // For mutable types (notably Dropdown<T>), that captured object can later be
+            // mutated by the UI, making MCM think the current state is still "Default".
+            //
+            // Fix: remove MCM's auto-captured default preset and re-add our own "Default"
+            // preset based on the real option defaults (opt.Default).
+            builder.WithoutDefaultPreset();
+
             IReadOnlyList<IOption> all = SettingsManager.AllOptions;
 
             // Group options by Section
@@ -81,14 +91,39 @@ namespace Retinues.Configuration.Menu
                             // Multi-choice options: dropdowns
                             if (opt is IMultiChoiceOption mc)
                             {
-                                var dd = GetOrCreateDropdown(opt.Key, mc);
+                                // AddDropdown's selectedIndex is only a UI default; real default preset is handled below.
+                                int defaultIndex = 0;
+                                var choices = mc.Choices;
+
+                                if (choices != null && choices.Count > 0)
+                                {
+                                    object def = opt.Default;
+
+                                    if (def != null)
+                                    {
+                                        for (int i = 0; i < choices.Count; i++)
+                                        {
+                                            if (Equals(choices[i], def))
+                                            {
+                                                defaultIndex = i;
+                                                break;
+                                            }
+                                        }
+                                    }
+
+                                    if (defaultIndex < 0)
+                                        defaultIndex = 0;
+                                    if (defaultIndex >= choices.Count)
+                                        defaultIndex = choices.Count - 1;
+                                }
 
                                 group.AddDropdown(
                                     id,
                                     name,
-                                    selectedIndex: dd.SelectedIndex,
+                                    selectedIndex: defaultIndex,
                                     @ref: new ProxyRef<Dropdown<string>>(
-                                        () => dd,
+                                        // IMPORTANT: do not capture a local dd here
+                                        () => EnsureDropdown(opt.Key, mc),
                                         v => ApplyDropdownFromMCM(opt.Key, mc, v)
                                     ),
                                     builder: d =>
@@ -234,7 +269,7 @@ namespace Retinues.Configuration.Menu
                 {
                     var choices = mc.Choices;
                     if (choices == null || choices.Count == 0)
-                        return new Dropdown<string>([string.Empty], 0);
+                        return new Dropdown<string>(new[] { string.Empty }, 0);
 
                     int idx = 0;
 
@@ -267,12 +302,12 @@ namespace Retinues.Configuration.Menu
                 return desired;
             }
 
+            var @default = all.ToDictionary(o => o.Key, o => MakePresetValue(o, presetKey: null));
             var freeform = all.ToDictionary(o => o.Key, o => MakePresetValue(o, Presets.Freeform));
-            var realistic = all.ToDictionary(
-                o => o.Key,
-                o => MakePresetValue(o, Presets.Realistic)
-            );
+            var realistic = all.ToDictionary(o => o.Key, o => MakePresetValue(o, Presets.Realistic));
 
+            // Use MCM's built-in localization id for the Default preset label.
+            builder.CreatePreset("default", "{=BaseSettings_Default}Default", p => ApplyPreset(p, @default));
             builder.CreatePreset(Presets.Freeform, "Freeform", p => ApplyPreset(p, freeform));
             builder.CreatePreset(Presets.Realistic, "Realistic", p => ApplyPreset(p, realistic));
 

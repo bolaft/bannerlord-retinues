@@ -25,59 +25,28 @@ namespace Retinues.Configuration.Menu
         );
 
         /// <summary>
-        /// Get or create the dropdown for the given multi-choice option.
+        /// Ensure a dropdown exists for the given option and return the current instance.
+        /// The returned instance is always "owned" by us (cached) and wired for copy-on-write.
         /// </summary>
-        private static Dropdown<string> GetOrCreateDropdown(string key, IMultiChoiceOption opt)
+        private static Dropdown<string> EnsureDropdown(string key, IMultiChoiceOption opt)
         {
-            // Build labels
-            var labels = opt.Choices.Select(c => opt.ChoiceFormatter(c) ?? string.Empty).ToList();
-            if (labels.Count == 0)
-                labels.Add(string.Empty);
+            if (string.IsNullOrWhiteSpace(key) || opt == null)
+                return null;
 
-            var selected = opt.SelectedIndex;
-            if (selected < 0)
-                selected = 0;
-            if (selected >= labels.Count)
-                selected = labels.Count - 1;
+            var labels = BuildDropdownLabels(opt);
+            int idx = ClampIndex(opt.SelectedIndex, labels.Count);
 
-            if (!_dropdownsByKey.TryGetValue(key, out var dd))
-            {
-                dd = new Dropdown<string>(labels, selected);
-                _dropdownsByKey[key] = dd;
+            if (_dropdownsByKey.TryGetValue(key, out var existing) && existing != null)
+                return existing;
 
-                // When MCM UI changes SelectedIndex, update the option
-                dd.PropertyChanged += (_, e) =>
-                {
-                    if (e.PropertyName != nameof(dd.SelectedIndex))
-                        return;
-
-                    if (_isSyncingWithMCM)
-                        return;
-
-                    try
-                    {
-                        _isSyncingWithMCM = true;
-                        opt.SelectedIndex = dd.SelectedIndex;
-                    }
-                    finally
-                    {
-                        _isSyncingWithMCM = false;
-                    }
-                };
-            }
-            else
-            {
-                // Keep existing instance (important), but refresh labels/selection
-                dd.Clear();
-                dd.AddRange(labels);
-                dd.SelectedIndex = selected;
-            }
-
+            var dd = new Dropdown<string>(labels, idx);
+            InstallDropdownInstance(key, dd, wireCopyOnWrite: true);
             return dd;
         }
 
         /// <summary>
-        /// Apply incoming MCM dropdown state to the option's dropdown.
+        /// Apply incoming MCM dropdown state to the option's dropdown (used when MCM applies presets).
+        /// IMPORTANT: always install a fresh instance (copy-on-write) to avoid default snapshots sharing refs.
         /// </summary>
         private static void ApplyDropdownFromMCM(
             string key,
@@ -86,9 +55,6 @@ namespace Retinues.Configuration.Menu
         )
         {
             if (string.IsNullOrWhiteSpace(key) || opt == null)
-                return;
-
-            if (!_dropdownsByKey.TryGetValue(key, out var dd) || dd == null)
                 return;
 
             if (_isSyncingWithMCM)
@@ -100,46 +66,172 @@ namespace Retinues.Configuration.Menu
 
                 if (incoming != null)
                 {
-                    bool hasItems = false;
-                    try
-                    {
-                        hasItems = incoming.Count > 0;
-                    }
-                    catch
-                    {
-                        // ignore
-                    }
+                    // Build items from incoming (if possible), otherwise fallback to option labels
+                    var items = TrySnapshotItems(incoming) ?? BuildDropdownLabels(opt);
+                    int idx = ClampIndex(incoming.SelectedIndex, items.Count);
 
-                    // IMPORTANT: avoid wiping the dropdown when MCM gives us the same instance back.
-                    if (hasItems && !ReferenceEquals(incoming, dd))
-                    {
-                        dd.Clear();
-                        dd.AddRange(incoming);
-                    }
+                    // Install a fresh instance into our cache + MCM property, then sync option to it
+                    var dd = new Dropdown<string>(items, idx);
+                    InstallDropdownInstance(key, dd, wireCopyOnWrite: true);
 
-                    int idx = incoming.SelectedIndex;
-                    if (idx < 0)
-                        idx = 0;
-                    if (dd.Count > 0 && idx >= dd.Count)
-                        idx = dd.Count - 1;
-
-                    dd.SelectedIndex = idx;
                     opt.SelectedIndex = idx;
                 }
                 else
                 {
-                    int idx = opt.SelectedIndex;
-                    if (idx < 0)
-                        idx = 0;
-                    if (dd.Count > 0 && idx >= dd.Count)
-                        idx = dd.Count - 1;
+                    // No incoming: just reflect current option state
+                    var items = BuildDropdownLabels(opt);
+                    int idx = ClampIndex(opt.SelectedIndex, items.Count);
 
-                    dd.SelectedIndex = idx;
+                    var dd = new Dropdown<string>(items, idx);
+                    InstallDropdownInstance(key, dd, wireCopyOnWrite: true);
                 }
             }
             finally
             {
                 _isSyncingWithMCM = false;
+            }
+        }
+
+        /// <summary>
+        /// Build label list for a multi-choice option.
+        /// </summary>
+        private static List<string> BuildDropdownLabels(IMultiChoiceOption opt)
+        {
+            var labels = opt.Choices.Select(c => opt.ChoiceFormatter(c) ?? string.Empty).ToList();
+            if (labels.Count == 0)
+                labels.Add(string.Empty);
+            return labels;
+        }
+
+        /// <summary>
+        /// Clamp an index into [0..count-1] (count may be 0).
+        /// </summary>
+        private static int ClampIndex(int idx, int count)
+        {
+            if (idx < 0)
+                idx = 0;
+
+            if (count <= 0)
+                return 0;
+
+            if (idx >= count)
+                idx = count - 1;
+
+            return idx;
+        }
+
+        /// <summary>
+        /// Snapshot items from a Dropdown without assuming its enumerator behavior is perfect.
+        /// </summary>
+        private static List<string> TrySnapshotItems(Dropdown<string> dd)
+        {
+            try
+            {
+                var items = new List<string>();
+                foreach (var s in dd)
+                    items.Add(s);
+
+                if (items.Count == 0)
+                    return null;
+
+                return items;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Install the dropdown instance into:
+        /// - our cache
+        /// - the MCM settings property (reflection), when possible
+        /// and optionally wire copy-on-write so selection changes replace the instance.
+        /// </summary>
+        private static void InstallDropdownInstance(string key, Dropdown<string> dd, bool wireCopyOnWrite)
+        {
+            if (string.IsNullOrWhiteSpace(key) || dd == null)
+                return;
+
+            _dropdownsByKey[key] = dd;
+
+            // Push into MCM settings instance (so UI binds to our instance)
+            TrySetMCMProperty(key, dd);
+
+            if (!wireCopyOnWrite)
+                return;
+
+            dd.PropertyChanged += (_, e) =>
+            {
+                if (e.PropertyName != nameof(dd.SelectedIndex))
+                    return;
+
+                if (_isSyncingWithMCM)
+                    return;
+
+                if (!SettingsManager.TryGetOption(key, out var opt) || opt is not IMultiChoiceOption mc)
+                    return;
+
+                try
+                {
+                    _isSyncingWithMCM = true;
+
+                    // Update underlying option first
+                    mc.SelectedIndex = dd.SelectedIndex;
+
+                    // Copy-on-write: replace the dropdown instance (prevents preset baselines sharing refs)
+                    ReplaceDropdownInstanceFromCache(key, dd);
+                }
+                finally
+                {
+                    _isSyncingWithMCM = false;
+                }
+            };
+        }
+
+        /// <summary>
+        /// Copy-on-write replacement: clone the given dropdown and install the clone.
+        /// </summary>
+        private static void ReplaceDropdownInstanceFromCache(string key, Dropdown<string> current)
+        {
+            if (string.IsNullOrWhiteSpace(key) || current == null)
+                return;
+
+            var items = TrySnapshotItems(current) ?? new List<string> { string.Empty };
+            int idx = ClampIndex(current.SelectedIndex, items.Count);
+
+            var clone = new Dropdown<string>(items, idx);
+            InstallDropdownInstance(key, clone, wireCopyOnWrite: true);
+        }
+
+        /// <summary>
+        /// Try to set the property on MCM's settings instance, if available and assignable.
+        /// </summary>
+        private static void TrySetMCMProperty(string key, Dropdown<string> value)
+        {
+            var settings = _MCMSettingsInstance;
+            var type = _MCMSettingsType;
+            if (settings == null || type == null)
+                return;
+
+            try
+            {
+                var prop = type.GetProperty(
+                    key,
+                    BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic
+                );
+
+                if (prop == null || !prop.CanWrite)
+                    return;
+
+                if (!prop.PropertyType.IsAssignableFrom(typeof(Dropdown<string>)))
+                    return;
+
+                prop.SetValue(settings, value);
+            }
+            catch
+            {
+                // Best-effort; ignore.
             }
         }
 
@@ -165,14 +257,14 @@ namespace Retinues.Configuration.Menu
 
         /// <summary>
         /// Sync a changed option value to MCM.
+        /// For multi-choice options, we only push the selected index to the dropdown.
+        /// (The "Default" preset baseline issue is handled by removing MCM's auto-captured
+        /// default preset and providing our own real default preset in the Builder.)
         /// </summary>
         private static void SyncOptionToMCM(string key, object value)
         {
-            if (
-                SettingsManager.TryGetOption(key, out var opt)
-                && opt is IMultiChoiceOption mc
-                && _dropdownsByKey.TryGetValue(key, out var dd)
-            )
+            // Multi-choice: just push selection to the bound dropdown.
+            if (SettingsManager.TryGetOption(key, out var opt) && opt is IMultiChoiceOption mc)
             {
                 if (_isSyncingWithMCM)
                     return;
@@ -181,11 +273,9 @@ namespace Retinues.Configuration.Menu
                 {
                     _isSyncingWithMCM = true;
 
-                    int idx = mc.SelectedIndex;
-                    if (idx < 0)
-                        idx = 0;
-
-                    dd.SelectedIndex = idx;
+                    var dd = EnsureDropdown(key, mc);
+                    if (dd != null)
+                        dd.SelectedIndex = ClampIndex(mc.SelectedIndex, dd.Count);
                 }
                 finally
                 {
