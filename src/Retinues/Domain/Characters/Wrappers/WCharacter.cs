@@ -136,7 +136,7 @@ namespace Retinues.Domain.Characters.Wrappers
 
         public TroopSourceFlags SourceFlags => SourceFlagCache.Get(this);
 
-        [StaticClearAction]
+        [StaticClearAction(Refresh = true)]
         public static void InvalidateTroopSourceCaches()
         {
             FactionCache.Invalidate();

@@ -3,11 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Factions;
-using Retinues.Domain.Factions.Base;
 using Retinues.Domain.Factions.Wrappers;
-using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
-using TaleWorlds.ObjectSystem;
 
 namespace Retinues.Domain.Characters.Services.Matching
 {

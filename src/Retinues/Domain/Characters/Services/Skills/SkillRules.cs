@@ -3,7 +3,6 @@ using Retinues.Behaviors.Doctrines.Catalogs;
 using Retinues.Compatibility;
 using Retinues.Configuration;
 using Retinues.Domain.Characters.Wrappers;
-using Retinues.Utilities;
 
 namespace Retinues.Domain.Characters.Services.Skills
 {

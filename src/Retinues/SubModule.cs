@@ -31,6 +31,8 @@ namespace Retinues
         private static readonly UIExtenderExDependency _uiextender = new();
         private static readonly ButterLibDependency _butterlib = new();
 
+        private bool _campaignRefreshHooksRegistered;
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Event Hooks                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -88,6 +90,10 @@ namespace Retinues
 
             if (gameStarter is CampaignGameStarter cs)
             {
+                // Register refresh hooks once per process so refresh actions can run again
+                // after load and after character creation.
+                RegisterCampaignStaticRefreshHooks();
+
                 // Core Retinues behaviors (auto-discovered).
                 BehaviorManager.RegisterCampaignBehaviors(cs);
 
@@ -125,6 +131,64 @@ namespace Retinues
                 dependency.Shutdown();
 
             Log.Debug("SubModule unloaded.");
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                     Static Refresh                     //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Registers campaign events that should re-run [StaticClearAction(Refresh = true)] actions.
+        /// </summary>
+        private void RegisterCampaignStaticRefreshHooks()
+        {
+            if (_campaignRefreshHooksRegistered)
+                return;
+
+            _campaignRefreshHooksRegistered = true;
+
+            // Fires after a save is fully loaded.
+            CampaignEvents.OnGameLoadedEvent.AddNonSerializedListener(this, OnCampaignGameLoaded);
+
+            // Fires when character creation flow ends (new campaign).
+            CampaignEvents.OnCharacterCreationIsOverEvent.AddNonSerializedListener(
+                this,
+                OnCharacterCreationIsOver
+            );
+
+            Log.Debug("Statics: refresh hooks registered.");
+        }
+
+        /// <summary>
+        /// Runs refresh clear actions after the campaign has finished loading.
+        /// </summary>
+        private void OnCampaignGameLoaded(CampaignGameStarter _)
+        {
+            var actions = Statics.RefreshActions;
+            if (actions.Count == 0)
+                return;
+
+            foreach (var a in actions)
+                a();
+
+            Log.Debug($"Statics: ran {actions.Count} refresh clear action(s) after game loaded.");
+        }
+
+        /// <summary>
+        /// Runs refresh clear actions after character creation ends.
+        /// </summary>
+        private void OnCharacterCreationIsOver()
+        {
+            var actions = Statics.RefreshActions;
+            if (actions.Count == 0)
+                return;
+
+            foreach (var a in actions)
+                a();
+
+            Log.Debug(
+                $"Statics: ran {actions.Count} refresh clear action(s) after character creation."
+            );
         }
     }
 }

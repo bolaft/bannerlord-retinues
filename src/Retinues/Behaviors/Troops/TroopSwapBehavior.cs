@@ -2,7 +2,6 @@ using Retinues.Behaviors.Doctrines.Catalogs;
 using Retinues.Behaviors.Doctrines.Definitions;
 using Retinues.Domain.Parties.Wrappers;
 using Retinues.Framework.Behaviors;
-using Retinues.Utilities;
 
 namespace Retinues.Behaviors.Troops
 {

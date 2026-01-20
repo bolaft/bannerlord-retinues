@@ -2,7 +2,6 @@ using HarmonyLib;
 using Retinues.Behaviors.Doctrines.Catalogs;
 using Retinues.Domain.Parties.Wrappers;
 using Retinues.Framework.Runtime;
-using Retinues.Utilities;
 using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.CampaignSystem.Party.PartyComponents;
 

@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Factions.Helpers;
 using Retinues.Framework.Model;

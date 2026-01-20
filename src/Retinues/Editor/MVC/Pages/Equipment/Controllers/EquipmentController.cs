@@ -2,15 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Retinues.Compatibility;
-using Retinues.Domain;
 using Retinues.Domain.Equipments.Helpers;
 using Retinues.Domain.Equipments.Models;
-using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Editor.Events;
 using Retinues.Editor.MVC.Pages.Equipment.Services;
 using Retinues.Editor.MVC.Shared.Controllers;
 using Retinues.Interface.Services;
-using TaleWorlds.Core;
 using TaleWorlds.Localization;
 
 namespace Retinues.Editor.MVC.Pages.Equipment.Controllers

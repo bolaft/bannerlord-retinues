@@ -118,6 +118,7 @@ namespace Retinues.Domain.Characters.Wrappers
                         troop: wc,
                         troops: faction.Troops.Where(t => t.IsRegular),
                         strictTierMatch: true,
+                        strictCategoryMatch: false,
                         fallback: null,
                         requestedTier: requestedTier
                     );
@@ -142,6 +143,7 @@ namespace Retinues.Domain.Characters.Wrappers
                     troop: wc,
                     troops: culture.Troops.Where(t => t.IsRegular),
                     strictTierMatch: true,
+                    strictCategoryMatch: false,
                     fallback: null,
                     requestedTier: requestedTier
                 );

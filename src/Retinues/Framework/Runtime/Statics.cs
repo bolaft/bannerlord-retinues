@@ -9,6 +9,10 @@ namespace Retinues.Framework.Runtime
     /// <summary>
     /// Tags a static "clear" method that should run when a new game session starts/loads.
     /// Method signature must be: static void MethodName()
+    ///
+    /// If Refresh is true, the action will also run again:
+    /// - after a save is fully loaded (CampaignEvents.OnGameLoadedEvent)
+    /// - after character creation ends (CampaignEvents.OnCharacterCreationIsOverEvent)
     /// </summary>
     [AttributeUsage(AttributeTargets.Method, Inherited = false, AllowMultiple = false)]
     public sealed class StaticClearActionAttribute : Attribute
@@ -22,6 +26,12 @@ namespace Retinues.Framework.Runtime
         /// Optional friendly name for logging.
         /// </summary>
         public string Name { get; set; } = null;
+
+        /// <summary>
+        /// If true, this clear action will also run on "refresh" points such as
+        /// after game load and after character creation.
+        /// </summary>
+        public bool Refresh { get; set; } = false;
     }
 
     /// <summary>
@@ -31,6 +41,7 @@ namespace Retinues.Framework.Runtime
     {
         private static readonly object _lock = new();
         private static List<Action> _clearActions;
+        private static List<Action> _refreshActions;
         private static bool _built;
 
         /// <summary>
@@ -46,6 +57,18 @@ namespace Retinues.Framework.Runtime
         }
 
         /// <summary>
+        /// Subset of ClearActions that should also run again after game load and character creation.
+        /// </summary>
+        public static IReadOnlyList<Action> RefreshActions
+        {
+            get
+            {
+                EnsureBuilt();
+                return _refreshActions;
+            }
+        }
+
+        /// <summary>
         /// Forces rediscovery of clear actions (rarely needed; mainly for debugging).
         /// </summary>
         public static void InvalidateClearActions()
@@ -54,6 +77,7 @@ namespace Retinues.Framework.Runtime
             {
                 _built = false;
                 _clearActions = null;
+                _refreshActions = null;
             }
         }
 
@@ -74,11 +98,13 @@ namespace Retinues.Framework.Runtime
                 if (_built)
                     return;
 
-                _clearActions = BuildClearActions(Assembly.GetExecutingAssembly());
+                (_clearActions, _refreshActions) = BuildClearActions(
+                    Assembly.GetExecutingAssembly()
+                );
                 _built = true;
 
                 Log.Debug(
-                    $"Statics: discovered {_clearActions.Count} [StaticClearAction] methods."
+                    $"Statics: discovered {_clearActions.Count} [StaticClearAction] methods ({_refreshActions.Count} refresh)."
                 );
             }
         }
@@ -86,9 +112,11 @@ namespace Retinues.Framework.Runtime
         /// <summary>
         /// Builds the list of clear actions from the given assemblies.
         /// </summary>
-        private static List<Action> BuildClearActions(params Assembly[] assemblies)
+        private static (List<Action> all, List<Action> refresh) BuildClearActions(
+            params Assembly[] assemblies
+        )
         {
-            var entries = new List<(int order, string id, Action action)>();
+            var entries = new List<(int order, string id, bool refresh, Action action)>();
 
             if (assemblies == null || assemblies.Length == 0)
                 assemblies = new[] { Assembly.GetExecutingAssembly() };
@@ -158,18 +186,20 @@ namespace Retinues.Framework.Runtime
                             }
                         }
 
-                        entries.Add((attr.Order, id, action));
+                        entries.Add((attr.Order, id, attr.Refresh, action));
                     }
                 }
             }
 
-            return
-            [
-                .. entries
-                    .OrderBy(e => e.order)
-                    .ThenBy(e => e.id, StringComparer.Ordinal)
-                    .Select(e => e.action),
-            ];
+            var ordered = entries
+                .OrderBy(e => e.order)
+                .ThenBy(e => e.id, StringComparer.Ordinal)
+                .ToList();
+
+            var all = ordered.Select(e => e.action).ToList();
+            var refresh = ordered.Where(e => e.refresh).Select(e => e.action).ToList();
+
+            return (all, refresh);
         }
 
         /// <summary>

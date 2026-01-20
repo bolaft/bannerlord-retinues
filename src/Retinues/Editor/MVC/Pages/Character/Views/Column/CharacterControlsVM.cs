@@ -1,6 +1,5 @@
 using Retinues.Behaviors.Doctrines.Catalogs;
 using Retinues.Compatibility;
-using Retinues.Configuration;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Editor.Events;
 using Retinues.Editor.MVC.Pages.Character.Controllers;
