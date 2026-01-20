@@ -148,7 +148,11 @@ namespace Retinues.Configuration.Menu
         /// - the MCM settings property (reflection), when possible
         /// and optionally wire copy-on-write so selection changes replace the instance.
         /// </summary>
-        private static void InstallDropdownInstance(string key, Dropdown<string> dd, bool wireCopyOnWrite)
+        private static void InstallDropdownInstance(
+            string key,
+            Dropdown<string> dd,
+            bool wireCopyOnWrite
+        )
         {
             if (string.IsNullOrWhiteSpace(key) || dd == null)
                 return;
@@ -169,7 +173,10 @@ namespace Retinues.Configuration.Menu
                 if (_isSyncingWithMCM)
                     return;
 
-                if (!SettingsManager.TryGetOption(key, out var opt) || opt is not IMultiChoiceOption mc)
+                if (
+                    !SettingsManager.TryGetOption(key, out var opt)
+                    || opt is not IMultiChoiceOption mc
+                )
                     return;
 
                 try

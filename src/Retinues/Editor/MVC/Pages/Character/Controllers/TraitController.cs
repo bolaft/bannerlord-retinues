@@ -28,9 +28,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
                         L.T("trait_only_heroes_reason", "Only applicable to heroes")
                     )
                 )
-                .AddCondition(
-                    trait => State.Character.Hero.GetTrait(trait) < trait.MaxValue
-                )
+                .AddCondition(trait => State.Character.Hero.GetTrait(trait) < trait.MaxValue)
                 .ExecuteWith(trait => ChangeTrait(trait, +1))
                 .Fire(UIEvent.Trait);
 
@@ -47,9 +45,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
                     _ => State.Character.Editable is WHero,
                     L.T("trait_only_heroes_reason", "Only applicable to heroes")
                 )
-                .AddCondition(
-                    trait => State.Character.Hero.GetTrait(trait) > trait.MinValue
-                )
+                .AddCondition(trait => State.Character.Hero.GetTrait(trait) > trait.MinValue)
                 .ExecuteWith(trait => ChangeTrait(trait, -1))
                 .Fire(UIEvent.Trait);
 

@@ -15,12 +15,12 @@ namespace Retinues.Editor.MVC.Shared.Views
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceProperty]
-        public Tooltip ScrollToTopTooltip =>
-            new(L.S("scroll_to_top_tooltip", "Scroll to top"));
+        public Tooltip ScrollToTopTooltip => new(L.S("scroll_to_top_tooltip", "Scroll to top"));
 
         [DataSourceProperty]
         public Tooltip ScrollToBottomTooltip =>
             new(L.S("scroll_to_bottom_tooltip", "Scroll to bottom"));
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Auto Scroll                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

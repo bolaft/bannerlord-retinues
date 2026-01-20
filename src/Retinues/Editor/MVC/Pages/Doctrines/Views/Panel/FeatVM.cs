@@ -69,27 +69,15 @@ namespace Retinues.Editor.MVC.Pages.Doctrines.Views.Panel
         {
             if (feat.Repeatable)
             {
-                return new Tooltip(
-                    L.T(
-                        "doctrine_feat_progress_tooltip_repeatable",
-                        "Repeatable"
-                    )
-                );
+                return new Tooltip(L.T("doctrine_feat_progress_tooltip_repeatable", "Repeatable"));
             }
 
             if (IsCompleted)
             {
-                return new Tooltip(
-                    L.T("doctrine_feat_progress_tooltip_completed", "Completed")
-                );
+                return new Tooltip(L.T("doctrine_feat_progress_tooltip_completed", "Completed"));
             }
 
-            return new Tooltip(
-                L.T(
-                    "doctrine_feat_progress_tooltip_incomplete",
-                    "In Progress"
-                )
-            );
+            return new Tooltip(L.T("doctrine_feat_progress_tooltip_incomplete", "In Progress"));
         }
     }
 }

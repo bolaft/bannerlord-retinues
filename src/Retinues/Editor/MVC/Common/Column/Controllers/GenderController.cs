@@ -32,10 +32,7 @@ namespace Retinues.Editor.MVC.Common.Column.Controllers
                         var targetFemale = !c.IsFemale;
                         return RaceHelper.FindTemplate(c.Culture, targetFemale, c.Race) != null;
                     },
-                    reason: L.T(
-                        "gender_no_template",
-                        "Invalid gender/species/culture combination"
-                    )
+                    reason: L.T("gender_no_template", "Invalid gender/species/culture combination")
                 )
                 .AddCondition(
                     applies: _ =>
@@ -48,10 +45,7 @@ namespace Retinues.Editor.MVC.Common.Column.Controllers
                         var targetFemale = !c.IsFemale;
                         return AppearanceGuard.CanRender(c.Culture, targetFemale, c.Race);
                     },
-                    reason: L.T(
-                        "gender_no_template",
-                        "Invalid gender/species/culture combination"
-                    )
+                    reason: L.T("gender_no_template", "Invalid gender/species/culture combination")
                 )
                 .DefaultTooltip(L.T("gender_toggle_hint", "Change gender"))
                 .ExecuteWith(c => ToggleGenderImpl((c ?? State.Character)?.Editable))

@@ -83,21 +83,20 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
         public static ControllerAction<SkillObject> SkillDecrease { get; } =
             Action<SkillObject>("SkillDecrease")
                 .RequireValidEditingContext()
-                .AddCondition(
-                    s => State.Character.Editable.Skills.Get(s) > 0
-                )
+                .AddCondition(s => State.Character.Editable.Skills.Get(s) > 0)
                 .AddCondition(
                     CanDecreasePastUpgradeSourceFloor,
-                    () => 
-                    _sourceFloorCharacter != null ? L.T(
-                        "skill_decrease_sources_reason",
-                        "Cannot decrease below {SOURCE}'s skill level"
-                    ).SetTextVariable(
-                        "SOURCE", _sourceFloorCharacter.Name
-                    ) : L.T(
-                        "skill_decrease_sources_reason_generic",
-                        "Cannot decrease below upgrade sources' skill levels"
-                    )
+                    () =>
+                        _sourceFloorCharacter != null
+                            ? L.T(
+                                    "skill_decrease_sources_reason",
+                                    "Cannot decrease below {SOURCE}'s skill level"
+                                )
+                                .SetTextVariable("SOURCE", _sourceFloorCharacter.Name)
+                            : L.T(
+                                "skill_decrease_sources_reason_generic",
+                                "Cannot decrease below upgrade sources' skill levels"
+                            )
                 )
                 .ExecuteWith(DecreaseWithWarning)
                 .Fire(UIEvent.Skill);
@@ -120,10 +119,14 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
         /// <summary>
         /// Get the highest base skill value among all upgrade source troops for the given skill.
         /// </summary>
-        public static int GetUpgradeSourceSkillFloor(WCharacter character, SkillObject skill, out WCharacter source)
+        public static int GetUpgradeSourceSkillFloor(
+            WCharacter character,
+            SkillObject skill,
+            out WCharacter source
+        )
         {
             source = null;
-    
+
             if (character == null || skill == null)
                 return 0;
 

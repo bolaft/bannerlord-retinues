@@ -49,8 +49,7 @@ namespace Retinues.Editor.MVC.Shared.Views
         public Tooltip FilterTooltip => GetFilterTooltip();
 
         [DataSourceProperty]
-        public Tooltip ClearFilterTooltip =>
-            new(L.S("clear_filter_tooltip", "Clear filter"));
+        public Tooltip ClearFilterTooltip => new(L.S("clear_filter_tooltip", "Clear filter"));
 
         [EventListener(UIEvent.Page)]
         [DataSourceMethod]

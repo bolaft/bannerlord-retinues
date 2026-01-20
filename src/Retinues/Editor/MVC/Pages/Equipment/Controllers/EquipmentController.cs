@@ -26,14 +26,12 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Controllers
         /// </summary>
         public static ControllerAction<bool> SelectPrevSet { get; } =
             Action<bool>("SelectPrevSet")
-                .AddCondition(
-                    civilian =>
-                    {
-                        var list = GetEquipments(civilian);
-                        int i = IndexOfByBase(list, State.Equipment);
-                        return i > 0;
-                    }
-                )
+                .AddCondition(civilian =>
+                {
+                    var list = GetEquipments(civilian);
+                    int i = IndexOfByBase(list, State.Equipment);
+                    return i > 0;
+                })
                 .ExecuteWith(civilian =>
                 {
                     var list = GetEquipments(civilian);
@@ -53,14 +51,12 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Controllers
         /// </summary>
         public static ControllerAction<bool> SelectNextSet { get; } =
             Action<bool>("SelectNextSet")
-                .AddCondition(
-                    civilian =>
-                    {
-                        var list = GetEquipments(civilian);
-                        int i = IndexOfByBase(list, State.Equipment);
-                        return i >= 0 && i < list.Count - 1;
-                    }
-                )
+                .AddCondition(civilian =>
+                {
+                    var list = GetEquipments(civilian);
+                    int i = IndexOfByBase(list, State.Equipment);
+                    return i >= 0 && i < list.Count - 1;
+                })
                 .ExecuteWith(civilian =>
                 {
                     var list = GetEquipments(civilian);
@@ -104,10 +100,7 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Controllers
                 )
                 .AddCondition(
                     civilian => GetEquipments(civilian).Count > 1,
-                    L.T(
-                        "equipment_cannot_delete_last_set",
-                        "Cannot remove the last equipment set"
-                    )
+                    L.T("equipment_cannot_delete_last_set", "Cannot remove the last equipment set")
                 )
                 .AddCondition(
                     civilian =>

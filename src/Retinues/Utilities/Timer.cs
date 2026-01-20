@@ -136,7 +136,20 @@ namespace Retinues.Utilities
             if (Segments.Count == 0)
                 return;
 
-            foreach (var segment in Segments.Values)
+            // Order segment logs by longest time to shortest (tie-breaker: label).
+            var ordered = new List<Segment>(Segments.Values);
+            ordered.Sort(
+                (a, b) =>
+                {
+                    var c = b.Elapsed.CompareTo(a.Elapsed);
+                    if (c != 0)
+                        return c;
+
+                    return string.Compare(a.Label, b.Label, StringComparison.OrdinalIgnoreCase);
+                }
+            );
+
+            foreach (var segment in ordered)
             {
                 var seconds = segment.Elapsed.TotalSeconds;
                 var percent = totalSeconds > 0.0 ? (seconds / totalSeconds) * 100.0 : 0.0;

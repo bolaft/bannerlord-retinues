@@ -39,10 +39,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
                 )
                 .AddCondition(
                     c => c != null && c.SkillTotalUsed >= c.SkillTotal,
-                    L.T(
-                        "rank_up_requires_maxed_skills",
-                        "Skills must be maxed out first"
-                    )
+                    L.T("rank_up_requires_maxed_skills", "Skills must be maxed out first")
                 )
                 .AddCondition(
                     c => c != null && HasEnoughRankUpSkillPoints(c),

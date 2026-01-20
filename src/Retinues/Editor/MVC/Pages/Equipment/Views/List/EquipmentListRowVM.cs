@@ -6,6 +6,7 @@ using Retinues.Editor.Events;
 using Retinues.Editor.MVC.Pages.Equipment.Controllers;
 using Retinues.Editor.MVC.Shared.Views;
 using Retinues.Interface.Services;
+using Retinues.Utilities;
 using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Library;
 
@@ -14,21 +15,12 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
     /// <summary>
     /// Row representing an item in the list.
     /// </summary>
-    public sealed class EquipmentListRowVM : BaseListRowVM
+    public sealed class EquipmentListRowVM(ListHeaderVM header, WItem item)
+        : BaseListRowVM(header, item?.StringId ?? string.Empty)
     {
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                       Constructor                      //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        private readonly WItem _item;
-
-        public EquipmentListRowVM(ListHeaderVM header, WItem item)
-            : base(header, item?.StringId ?? string.Empty)
-        {
-            _item = item;
-
-            UpdateBrush();
-        }
+        // Per-row cache group key. All cached properties for this row share it.
+        private static string CacheKey(WItem item) =>
+            $"EquipmentListRowVM_{item.StringId ?? "null"}";
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Type Flags                       //
@@ -38,12 +30,24 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
         public override bool IsEquipment => true;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Constructor                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private readonly WItem _item = item;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Selection                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        [EventListener(UIEvent.Item, Global = true)]
+        private WItem CurrentItem => PreviewController.GetItem(State.Slot);
+
+        private readonly Cache<EquipmentListRowVM, bool> _cacheIsSelected = new(
+            o => o.CurrentItem == o._item,
+            CacheKey(item)
+        );
+
         [DataSourceProperty]
-        public override bool IsSelected => PreviewController.GetItem(State.Slot) == _item;
+        public override bool IsSelected => _cacheIsSelected.Get(this);
 
         [DataSourceMethod]
         public override void ExecuteSelect() => ItemController.Equip.Execute(_item);
@@ -52,17 +56,21 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
         //                         Enabled                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        [EventListener(UIEvent.Item, Global = true)]
-        private void UpdateBrush() => OnPropertyChanged(nameof(Brush));
+        private readonly Cache<EquipmentListRowVM, bool> _cacheIsEnabled = new(
+            o => ItemController.Equip.Allow(o._item),
+            CacheKey(item)
+        );
 
-        [EventListener(UIEvent.Item, Global = true)]
         [DataSourceProperty]
-        public override bool IsEnabled => ItemController.Equip.Allow(_item);
+        public override bool IsEnabled => _cacheIsEnabled.Get(this);
 
-        [EventListener(UIEvent.Item, Global = true)]
+        private readonly Cache<EquipmentListRowVM, string> _cacheDisabledReason = new(
+            o => ItemController.Equip.Reason(o._item)?.ToString() ?? string.Empty,
+            CacheKey(item)
+        );
+
         [DataSourceProperty]
-        public string DisabledReason =>
-            ItemController.Equip.Reason(_item)?.ToString() ?? string.Empty;
+        public string DisabledReason => _cacheDisabledReason.Get(this);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Main                          //
@@ -81,15 +89,30 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
         //                         Roster                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public bool AvailableInRoster => State.Equipment.IsAvailableInRoster(State.Slot, _item);
-        private bool EconomyEnabled =>
-            !PreviewController.Enabled
-            && State.Mode == EditorMode.Player
-            && Settings.EquipmentCostsMoney;
+        private readonly Cache<EquipmentListRowVM, bool> _cacheAvailableInRoster = new(
+            o => State.Equipment?.IsAvailableInRoster(State.Slot, o._item) ?? false,
+            CacheKey(item)
+        );
 
-        [EventListener(UIEvent.Item, Global = true)]
+        private bool AvailableInRoster => _cacheAvailableInRoster.Get(this);
+
+        private readonly Cache<EquipmentListRowVM, bool> _cacheEconomyEnabled = new(
+            o =>
+                !PreviewController.Enabled
+                && State.Mode == EditorMode.Player
+                && Settings.EquipmentCostsMoney,
+            CacheKey(item)
+        );
+
+        private bool EconomyEnabled => _cacheEconomyEnabled.Get(this);
+
+        private readonly Cache<EquipmentListRowVM, bool> _cacheShowEquipped = new(
+            o => o.IsEnabled && o.EconomyEnabled && o.AvailableInRoster,
+            CacheKey(item)
+        );
+
         [DataSourceProperty]
-        public bool ShowEquipped => IsEnabled && EconomyEnabled && AvailableInRoster;
+        public bool ShowEquipped => _cacheShowEquipped.Get(this);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Unlock                         //
@@ -102,64 +125,85 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
         //                          Stock                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        [EventListener(UIEvent.Item, Global = true)]
-        [DataSourceProperty]
-        public bool ShowStock =>
-            IsEnabled && EconomyEnabled && !IsSelected && !AvailableInRoster && _item.Stock > 0;
+        private readonly Cache<EquipmentListRowVM, bool> _cacheShowStock = new(
+            o =>
+                o.IsEnabled
+                && o.EconomyEnabled
+                && !o.IsSelected
+                && !o.AvailableInRoster
+                && o._item != null
+                && o._item.Stock > 0,
+            CacheKey(item)
+        );
 
-        [EventListener(UIEvent.Item, Global = true)]
         [DataSourceProperty]
-        public string StockText =>
-            L.T("in_stock", "In Stock ({STOCK})").SetTextVariable("STOCK", _item.Stock).ToString();
+        public bool ShowStock => _cacheShowStock.Get(this);
+
+        private readonly Cache<EquipmentListRowVM, string> _cacheStockText = new(
+            o =>
+            {
+                if (!o.ShowStock || o._item == null)
+                    return string.Empty;
+
+                return L.T("in_stock", "In Stock ({STOCK})")
+                    .SetTextVariable("STOCK", o._item.Stock)
+                    .ToString();
+            },
+            CacheKey(item)
+        );
+
+        [DataSourceProperty]
+        public string StockText => _cacheStockText.Get(this);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Cost                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        [EventListener(UIEvent.Item, Global = true)]
-        [DataSourceProperty]
-        public bool ShowCost =>
-            IsEnabled && EconomyEnabled && !IsSelected && !AvailableInRoster && _item.Stock <= 0;
+        private readonly Cache<EquipmentListRowVM, bool> _cacheShowCost = new(
+            o =>
+                o.IsEnabled
+                && o.EconomyEnabled
+                && !o.IsSelected
+                && !o.AvailableInRoster
+                && o._item != null
+                && o._item.Stock <= 0,
+            CacheKey(item)
+        );
 
-        [EventListener(UIEvent.Item)]
         [DataSourceProperty]
-        public string CostFontColor
-        {
-            get
+        public bool ShowCost => _cacheShowCost.Get(this);
+
+        [DataSourceProperty]
+        public string CostFontColor => "#F4E1C4FF"; // Default color
+
+        private readonly Cache<EquipmentListRowVM, int> _cacheCost = new(
+            o =>
             {
-                // if (EquipmentRebateBehavior.HasRebate(RowItem))
-                //     return "#c5eb89ff"; // Light green
-
-                return "#F4E1C4FF"; // Default color
-            }
-        }
-
-        [EventListener(UIEvent.Item, Global = true)]
-        [DataSourceProperty]
-        public int Cost
-        {
-            get
-            {
-                if (!ShowCost)
-                    return 0;
-
-                if (_item == null)
+                if (!o.ShowCost || o._item == null)
                     return 0;
 
                 double multiplier = Settings.EquipmentCostMultiplier;
-                double raw = _item.Value * multiplier;
+                double raw = o._item.Value * multiplier;
 
                 int cost = (int)Math.Round(raw, MidpointRounding.AwayFromZero);
                 return Math.Max(cost, 0);
-            }
-        }
+            },
+            CacheKey(item)
+        );
+
+        [DataSourceProperty]
+        public int Cost => _cacheCost.Get(this);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Tooltip                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        private readonly Cache<EquipmentListRowVM, CharacterEquipmentItemVM> _cacheTooltip = new(
+            o => o._item != null ? new CharacterEquipmentItemVM(o._item.Base) : null
+        );
+
         [DataSourceProperty]
-        public CharacterEquipmentItemVM Tooltip => new(_item.Base);
+        public CharacterEquipmentItemVM Tooltip => _cacheTooltip.Get(this);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Images                         //
@@ -170,22 +214,6 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
 
         [DataSourceProperty]
         public object CultureImage => _item.Culture?.Image;
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Sorting                        //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        internal override IComparable GetSortValue(ListSortKey sortKey)
-        {
-            return sortKey switch
-            {
-                ListSortKey.Name => Name,
-                ListSortKey.Tier => _item.Tier,
-                ListSortKey.Culture => _item.Culture?.Name ?? string.Empty,
-                ListSortKey.Value => _item.Value,
-                _ => Name,
-            };
-        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Filtering                       //
@@ -221,97 +249,134 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Sorting                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        internal override IComparable GetSortValue(ListSortKey sortKey)
+        {
+            return sortKey switch
+            {
+                ListSortKey.Name => Name,
+                ListSortKey.Tier => _item.Tier,
+                ListSortKey.Culture => _item.Culture?.Name ?? string.Empty,
+                ListSortKey.Value => _item.Value,
+                _ => Name,
+            };
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                    Comparison Icons                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private int _positiveChevrons;
-        private int _negativeChevrons;
-        private string _chevronsKey = string.Empty;
+        private readonly Cache<EquipmentListRowVM, (int pos, int neg)> _cacheChevrons = new(
+            o =>
+            {
+                if (!o.IsEnabled)
+                    return (0, 0);
 
-        private WItem CurrentItem => PreviewController.GetItem(State.Slot);
+                if (o._item == null)
+                    return (0, 0);
 
-        /// <summary>
-        /// Ensures that the comparison chevrons are computed.
-        /// </summary>
-        private void EnsureComparisonChevrons()
-        {
-            string currentId = CurrentItem?.StringId ?? "__NULL__";
-            string enabled = IsEnabled ? "1" : "0";
-            string key = enabled + "|" + currentId;
+                var current = o.CurrentItem;
+                if (current == null)
+                    return (0, 0);
 
-            if (string.Equals(key, _chevronsKey, StringComparison.Ordinal))
-                return;
+                o._item.GetComparisonChevrons(current, out int p, out int n);
 
-            _chevronsKey = key;
-            _positiveChevrons = 0;
-            _negativeChevrons = 0;
+                if (p > 3)
+                    p = 3;
+                if (n > 3)
+                    n = 3;
 
-            if (!IsEnabled)
-                return;
+                return (p, n);
+            },
+            CacheKey(item)
+        );
 
-            if (_item == null || CurrentItem == null)
-                return;
-
-            _item.GetComparisonChevrons(CurrentItem, out _positiveChevrons, out _negativeChevrons);
-
-            if (_positiveChevrons > 3)
-                _positiveChevrons = 3;
-
-            if (_negativeChevrons > 3)
-                _negativeChevrons = 3;
-        }
-
-        [EventListener(UIEvent.Item, Global = true)]
         [DataSourceProperty]
         public bool ShowComparisonIcon
         {
             get
             {
-                EnsureComparisonChevrons();
-                return _positiveChevrons > 0 || _negativeChevrons > 0;
+                var (p, n) = _cacheChevrons.Get(this);
+                return p > 0 || n > 0;
             }
         }
 
-        [EventListener(UIEvent.Item, Global = true)]
         [DataSourceProperty]
         public string PositiveComparisonSprite
         {
             get
             {
-                EnsureComparisonChevrons();
-                if (_positiveChevrons <= 0)
+                var (p, _) = _cacheChevrons.Get(this);
+                if (p <= 0)
                     return string.Empty;
 
-                return $"General\\TroopTierIcons\\icon_tier_{_positiveChevrons}_big";
+                return $"General\\TroopTierIcons\\icon_tier_{p}_big";
             }
         }
 
-        [EventListener(UIEvent.Item, Global = true)]
         [DataSourceProperty]
         public string NegativeComparisonSprite
         {
             get
             {
-                EnsureComparisonChevrons();
-                if (_negativeChevrons <= 0)
+                var (_, n) = _cacheChevrons.Get(this);
+                if (n <= 0)
                     return string.Empty;
 
-                return $"General\\TroopTierIcons\\icon_tier_{_negativeChevrons}_big";
+                return $"General\\TroopTierIcons\\icon_tier_{n}_big";
             }
         }
 
-        [EventListener(UIEvent.Item, Global = true)]
         [DataSourceProperty]
         public int NegativeComparisonSpriteOffset
         {
             get
             {
-                EnsureComparisonChevrons();
-                if (_negativeChevrons > 0 && _positiveChevrons > 0)
+                var (p, n) = _cacheChevrons.Get(this);
+                if (n > 0 && p > 0)
                     return 5;
 
                 return 0;
             }
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                     Invalidation                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [EventListener(
+            UIEvent.Slot,
+            UIEvent.Item,
+            UIEvent.Preview,
+            UIEvent.Crafted,
+            UIEvent.Doctrine,
+            Global = true
+        )]
+        private void InvalidateComputed()
+        {
+            // Clear all cached values for this row (group clear).
+            // Any one cache Clear() clears the whole group for CacheKey(item).
+            _cacheIsEnabled.Clear();
+
+            // Notify only the properties that actually depend on slot/item/mode.
+            OnPropertyChanged(nameof(Brush));
+
+            OnPropertyChanged(nameof(IsSelected));
+            OnPropertyChanged(nameof(IsEnabled));
+            OnPropertyChanged(nameof(DisabledReason));
+
+            OnPropertyChanged(nameof(ShowEquipped));
+            OnPropertyChanged(nameof(ShowStock));
+            OnPropertyChanged(nameof(StockText));
+            OnPropertyChanged(nameof(ShowCost));
+            OnPropertyChanged(nameof(Cost));
+
+            OnPropertyChanged(nameof(ShowComparisonIcon));
+            OnPropertyChanged(nameof(PositiveComparisonSprite));
+            OnPropertyChanged(nameof(NegativeComparisonSprite));
+            OnPropertyChanged(nameof(NegativeComparisonSpriteOffset));
         }
     }
 }

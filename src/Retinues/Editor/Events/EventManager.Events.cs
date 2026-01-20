@@ -78,8 +78,6 @@ namespace Retinues.Editor.Events
 
             [UIEvent.Equipment] = [UIEvent.Item, UIEvent.BattleType],
 
-            [UIEvent.Slot] = [UIEvent.Item],
-
             [UIEvent.Item] = [UIEvent.Appearance, UIEvent.Formation],
 
             [UIEvent.Culture] = [UIEvent.Appearance],

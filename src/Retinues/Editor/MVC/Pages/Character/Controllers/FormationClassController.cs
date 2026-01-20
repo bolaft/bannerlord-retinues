@@ -22,9 +22,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
         /// </summary>
         public static ControllerAction<bool> ChangeFormationClass { get; } =
             Action<bool>("ChangeFormationClass")
-                .DefaultTooltip(
-                    L.T("button_change_formation_class_tooltip", "Set formation class")
-                )
+                .DefaultTooltip(L.T("button_change_formation_class_tooltip", "Set formation class"))
                 .AddCondition(
                     s => State.Character.IsCaptain != true,
                     L.T(

@@ -5,10 +5,12 @@ using System.Linq;
 using MCM.Abstractions.Base.Global;
 using MCM.Abstractions.FluentBuilder;
 using MCM.Common;
+using Retinues.Framework.Runtime;
 using Retinues.Utilities;
 
 namespace Retinues.Configuration.Menu
 {
+    [SafeClass]
     public static partial class MCM
     {
         /* ━━━━━━━ Constants ━━━━━━ */
@@ -304,10 +306,17 @@ namespace Retinues.Configuration.Menu
 
             var @default = all.ToDictionary(o => o.Key, o => MakePresetValue(o, presetKey: null));
             var freeform = all.ToDictionary(o => o.Key, o => MakePresetValue(o, Presets.Freeform));
-            var realistic = all.ToDictionary(o => o.Key, o => MakePresetValue(o, Presets.Realistic));
+            var realistic = all.ToDictionary(
+                o => o.Key,
+                o => MakePresetValue(o, Presets.Realistic)
+            );
 
             // Use MCM's built-in localization id for the Default preset label.
-            builder.CreatePreset("default", "{=BaseSettings_Default}Default", p => ApplyPreset(p, @default));
+            builder.CreatePreset(
+                "default",
+                "{=BaseSettings_Default}Default",
+                p => ApplyPreset(p, @default)
+            );
             builder.CreatePreset(Presets.Freeform, "Freeform", p => ApplyPreset(p, freeform));
             builder.CreatePreset(Presets.Realistic, "Realistic", p => ApplyPreset(p, realistic));
 

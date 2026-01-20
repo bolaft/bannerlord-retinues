@@ -178,16 +178,13 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.Column
             && State.Equipment.IsCivilian == false;
 
         [DataSourceProperty]
-        public Tooltip FieldBattleTooltip =>
-            new(L.T("battle_type_field_tooltip", "Field Battles"));
+        public Tooltip FieldBattleTooltip => new(L.T("battle_type_field_tooltip", "Field Battles"));
 
         [DataSourceProperty]
-        public Tooltip SiegeBattleTooltip =>
-            new(L.T("battle_type_siege_tooltip", "Siege Battles"));
+        public Tooltip SiegeBattleTooltip => new(L.T("battle_type_siege_tooltip", "Siege Battles"));
 
         [DataSourceProperty]
-        public Tooltip NavalBattleTooltip =>
-            new(L.T("battle_type_naval_tooltip", "Naval Battles"));
+        public Tooltip NavalBattleTooltip => new(L.T("battle_type_naval_tooltip", "Naval Battles"));
 
         [DataSourceProperty]
         public Checkbox FieldBattleToggle { get; } =
@@ -238,11 +235,7 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.Column
         [DataSourceProperty]
         public Icon PreviewModeIcon { get; } =
             new(
-                tooltip: new(
-                    L.T(
-                        "preview_mode_toggle_tooltip",
-                        "Preview Mode"
-                    )),
+                tooltip: new(L.T("preview_mode_toggle_tooltip", "Preview Mode")),
                 refresh: [UIEvent.Preview, UIEvent.Page, UIEvent.Character],
                 visibilityGate: () =>
                     State.Page == EditorPage.Equipment && State.Mode == EditorMode.Player
@@ -284,13 +277,7 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.Column
         [DataSourceProperty]
         public Icon CraftedIcon { get; } =
             new(
-                tooltipFactory: () =>
-                    new(
-                        L.T(
-                            "crafted_items_toggle_tooltip",
-                            "Crafted Equipment"
-                        )
-                    ),
+                tooltipFactory: () => new(L.T("crafted_items_toggle_tooltip", "Crafted Equipment")),
                 refresh: [UIEvent.Slot, UIEvent.Crafted, UIEvent.Page],
                 visibilityGate: () =>
                     State.Page == EditorPage.Equipment && State.Mode == EditorMode.Player

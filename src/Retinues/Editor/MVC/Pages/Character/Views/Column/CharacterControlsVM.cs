@@ -135,7 +135,8 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Column
         [DataSourceProperty]
         public Icon FormationClassIcon { get; } =
             new(
-                tooltipFactory: () => new Tooltip(State.Character.FormationClass.GetLocalizedName()),
+                tooltipFactory: () =>
+                    new Tooltip(State.Character.FormationClass.GetLocalizedName()),
                 spriteFactory: () => Icons.GetFormationClassIcon(State.Character),
                 refresh: [UIEvent.Formation],
                 visibilityGate: () => State.Character != null
