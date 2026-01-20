@@ -4,7 +4,6 @@ using System.Linq;
 using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Editor.MVC.Pages.Equipment.Controllers;
 using Retinues.Editor.MVC.Shared.Views;
-using Retinues.Interface.Components;
 using Retinues.Interface.Services;
 using Retinues.Utilities;
 using TaleWorlds.Core;
@@ -13,16 +12,6 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
 {
     public sealed partial class EquipmentListVM
     {
-        protected override Tooltip GetFilterTooltip()
-        {
-            return new(
-                L.S(
-                    "filter_tooltip_description_equipment",
-                    "Type to filter the list by name, category or tier."
-                )
-            );
-        }
-
         private void BuildSortButtons()
         {
             SortButtons.Clear();

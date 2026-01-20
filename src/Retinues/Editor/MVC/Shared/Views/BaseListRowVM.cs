@@ -144,6 +144,14 @@ namespace Retinues.Editor.MVC.Shared.Views
             OnPropertyChanged(nameof(AutoScrollScope));
         }
 
+        /// <summary>
+        /// Called by the owning list after it updates selection state.
+        /// </summary>
+        internal void NotifySelectionChanged()
+        {
+            OnPropertyChanged(nameof(IsSelected));
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Sorting                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

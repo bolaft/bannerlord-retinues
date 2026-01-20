@@ -79,7 +79,7 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
                 return;
             }
 
-            InvalidateItemCache();
+            _cachedVisibleItems = null;
             Build();
             ApplyFilter();
             UpdateEquipmentHeaderExpansion();
@@ -95,22 +95,20 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
             AutoScrollRowsEnabled = true;
             AutoScrollVersion++;
 
-            InvalidateItemCache();
+            _cachedVisibleItems = null;
             Build();
             ApplyFilter();
             UpdateEquipmentHeaderExpansion();
         }
 
+        /// <summary>
+        /// Builds the equipment list.
+        /// </summary>
         public override void Build()
         {
             BuildSortButtons();
             BuildSections();
             RecomputeHeaderStates();
-        }
-
-        private void InvalidateItemCache()
-        {
-            _cachedVisibleItems = null;
         }
 
         private void EnsureItemCache()

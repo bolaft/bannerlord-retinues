@@ -3,12 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Editor.MVC.Shared.Views;
+using Retinues.Interface.Components;
+using Retinues.Interface.Services;
 using TaleWorlds.Core;
 
 namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
 {
     public sealed partial class EquipmentListVM
     {
+        protected override Tooltip GetFilterTooltip()
+        {
+            return new(
+                L.S(
+                    "filter_tooltip_description_equipment",
+                    "Type to filter the list by name, category or tier."
+                )
+            );
+        }
+
         protected override void ApplyFilter()
         {
             // With the base batching fix, the default path is now cheap.

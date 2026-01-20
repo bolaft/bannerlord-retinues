@@ -59,8 +59,52 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.List
         //                        Lifecycle                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        private string _lastSelectedRowId;
+
         /// <summary>
-        /// On character change, auto-scroll to selected row if in character page.
+        /// Initializes a new instance of the <see cref="CharacterListVM"/> class.
+        /// </summary>
+        private bool TryFindRow(string id, out ListHeaderVM header, out BaseListRowVM row)
+        {
+            header = null;
+            row = null;
+
+            if (string.IsNullOrEmpty(id))
+                return false;
+
+            for (int i = 0; i < Headers.Count; i++)
+            {
+                var h = Headers[i];
+                if (h == null)
+                    continue;
+
+                var rows = h.Rows;
+                if (rows == null || rows.Count == 0)
+                    continue;
+
+                for (int r = 0; r < rows.Count; r++)
+                {
+                    var rr = rows[r];
+                    if (rr == null)
+                        continue;
+
+                    if (rr.Id == id)
+                    {
+                        header = h;
+                        row = rr;
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// On character change, ensure the selected row is visible:
+        /// - expand the header containing it
+        /// - expand tree parents when relevant
+        /// - then trigger list auto-scroll
         /// </summary>
         [EventListener(UIEvent.Character)]
         private void OnCharacterChange()
@@ -68,8 +112,64 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.List
             if (State.Page != Page)
                 return;
 
+            var selected = State.Character;
+            if (selected == null)
+                return;
+
+            var newId = selected.StringId;
+            if (string.IsNullOrEmpty(newId))
+                return;
+
+            // 1) Find the actual row for the newly selected character and open its header first.
+            if (TryFindRow(newId, out var newHeader, out var newRow))
+            {
+                if (newHeader != null && !newHeader.IsExpanded)
+                    newHeader.IsExpanded = true;
+
+                // If you have tree filtering that can hide parents, refresh visibility (cheap now).
+                // Only do it if you know you're in a tree-filter header.
+                if (newHeader != null && IsTreeFilterHeader(newHeader.Id))
+                    ApplyFilter();
+            }
+
+            // 2) Force selection bindings to update BEFORE we bump AutoScrollVersion.
+            // This avoids "scroll to previous selection" when this listener runs before row listeners.
+            var oldId = _lastSelectedRowId;
+            _lastSelectedRowId = newId;
+
+            if (
+                !string.IsNullOrEmpty(oldId)
+                && oldId != newId
+                && TryFindRow(oldId, out _, out var oldRow)
+            )
+                oldRow?.NotifySelectionChanged();
+
+            if (newRow != null)
+                newRow.NotifySelectionChanged();
+
+            // 3) Now trigger autoscroll (list-driven, correct selection state).
             AutoScrollRowsEnabled = true;
             AutoScrollVersion++;
+        }
+
+        /// <summary>
+        /// Expands the tree path to the selected row so it becomes visible when tree filtering is active.
+        /// Only relevant for headers that are tree headers.
+        /// </summary>
+        private void ExpandTreePathToSelected(ListHeaderVM header, WCharacter selected)
+        {
+            if (header == null || selected == null)
+                return;
+
+            // We need the row for selected, then open all ancestors in that header.
+            // Note: "tree" in this list is implemented through filtering, not nested UI nodes,
+            // but we still need to ensure the rows that make the path are visible.
+            // Your existing BaseListVM tree filter logic uses parent ids; reuse that by forcing
+            // a tree filter recompute for this header only.
+
+            // The simplest robust option: re-apply the current filter (no-op when empty)
+            // which recomputes visibility of tree-related rows for this header.
+            ApplyFilter();
         }
 
         /// <summary>
@@ -83,6 +183,10 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.List
 
             Build();
         }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Building                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
         /// Builds the character list.
