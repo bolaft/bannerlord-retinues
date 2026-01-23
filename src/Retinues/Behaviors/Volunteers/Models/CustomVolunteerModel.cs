@@ -1,8 +1,8 @@
 using System;
 using System.Linq;
-using Retinues.Configuration;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Settlements.Wrappers;
+using Retinues.Settings;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.ComponentInterfaces;
@@ -108,7 +108,7 @@ namespace Retinues.Behaviors.Volunteers.Models
                 if (rootBase == null)
                     return inner;
 
-                if (Settings.SameCultureOnly)
+                if (Configuration.SameCultureOnly)
                 {
                     var settlementCulture = settlement.Culture;
                     var rootCulture = rootBase.Culture;

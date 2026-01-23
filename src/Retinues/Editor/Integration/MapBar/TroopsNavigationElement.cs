@@ -1,6 +1,6 @@
 #if BL13
 using System.Linq;
-using Retinues.Configuration;
+using Retinues.Settings;
 using Retinues.Domain;
 using Retinues.Interface.Services;
 using SandBox.View;
@@ -61,7 +61,7 @@ namespace Retinues.Editor.Integration.MapBar
         /// Gets the tooltip text for the troops navigation button.
         /// </summary>
         protected override TextObject GetTooltip() =>
-            Settings.EditorHotkey
+            Configuration.EditorHotkey
                 ? L.T("troops_navigation_tooltip_hotkey", "Troops [R]")
                 : L.T("troops_navigation_tooltip", "Troops");
 

@@ -1397,9 +1397,6 @@
       id="ret_mcm_option_allowed_recruiters"
       text="Recrutadores Permitidos" />
     <string
-      id="ret_mcm_option_allowed_recruiters_hint"
-      text="Determina quem pode recrutar tropas personalizadas. &apos;Todos&apos;: Todas as partes podem recrutar tropas personalizadas (recomendado para compatibilidade com outros mods de recrutamento). &apos;Apenas facção&apos;: Apenas as facções podem recrutar tropas personalizadas. &apos;Apenas jogador&apos;: Apenas o jogador pode recrutar tropas personalizadas." />
-    <string
       id="ret_mcm_option_captain_spawn_rate"
       text="Taxa de Surgimento de Capitães" />
     <string
@@ -1409,14 +1406,8 @@
       id="ret_mcm_option_clan_troops_availability"
       text="Disponibilidade de Tropas de Clã" />
     <string
-      id="ret_mcm_option_clan_troops_availability_hint"
-      text="Determina de onde as tropas de clã podem ser recrutadas. &apos;Em Todos os Lugares&apos;: tropas de clã podem ser recrutadas de qualquer assentamento. &apos;Feudos do Clã&apos;: tropas de clã só podem ser recrutadas em feudos pertencentes ao seu clã. &apos;Feudos do Clã ou do Reino&apos;: tropas de clã podem ser recrutadas em feudos pertencentes ao clã ou ao reino. &apos;Em Lugar Nenhum&apos;: tropas de clã não podem ser recrutadas." />
-    <string
       id="ret_mcm_option_clan_troops_unlock"
       text="Tropas de Clã" />
-    <string
-      id="ret_mcm_option_clan_troops_unlock_hint"
-      text="Determina quando as tropas de clã ficam disponíveis. &apos;Sempre Desbloqueadas&apos;: disponíveis desde o início. &apos;Desbloqueadas com o Primeiro Feudo&apos;: desbloqueiam quando o clã adquire seu primeiro feudo. &apos;Desativado&apos;: nunca são desbloqueadas." />
     <string
       id="ret_mcm_option_debug_mode"
       text="Modo de Depuração" />
@@ -1462,9 +1453,6 @@
     <string
       id="ret_mcm_option_editing_restriction"
       text="Restrições de Localização" />
-    <string
-      id="ret_mcm_option_editing_restriction_hint"
-      text="Restringe onde as tropas da facção podem ser editadas. &apos;Em Qualquer Lugar&apos;: Sem restrições. &apos;Qualquer Assentamento&apos;: Você deve estar em um assentamento. &apos;Assentamento da Facção&apos;: Você deve estar em um feudo de facção possuído (exceto tropas de retinência)." />
     <string
       id="ret_mcm_option_editor_hotkey"
       text="Atalho do Editor" />
@@ -1562,26 +1550,14 @@
       id="ret_mcm_option_feat_complete_notification"
       text="Notificação de Conclusão de Feito" />
     <string
-      id="ret_mcm_option_feat_complete_notification_hint"
-      text="Determina o estilo de notificação quando feitos são concluídos." />
-    <string
       id="ret_mcm_option_item_unlock_notification"
       text="Notificação de Desbloqueio de Item" />
-    <string
-      id="ret_mcm_option_item_unlock_notification_hint"
-      text="Determina o estilo de notificação quando novos itens são desbloqueados." />
     <string
       id="ret_mcm_option_kingdom_troops_availability"
       text="Disponibilidade de Tropas do Reino" />
     <string
-      id="ret_mcm_option_kingdom_troops_availability_hint"
-      text="Determina onde as tropas do reino podem ser recrutadas. &apos;Em qualquer lugar&apos;: As tropas do reino podem ser recrutadas de qualquer assentamento. &apos;Feudos do Reino&apos;: As tropas do reino só podem ser recrutadas em feudos pertencentes ao seu reino. &apos;Feudos de Clã ou Reino&apos;: As tropas do reino podem ser recrutadas em feudos de clã ou reino possuídos. &apos;Em nenhum lugar&apos;: As tropas do reino não podem ser recrutadas." />
-    <string
       id="ret_mcm_option_kingdom_troops_unlock"
       text="Tropas do Reino" />
-    <string
-      id="ret_mcm_option_kingdom_troops_unlock_hint"
-      text="Determina quando as tropas do reino ficam disponíveis. &apos;Sempre Desbloqueadas&apos;: disponíveis desde o início. &apos;Desbloqueadas ao fundar um reino&apos;: as tropas do reino são desbloqueadas quando o jogador funda um reino. &apos;Desativado&apos;: nunca são desbloqueadas." />
     <string
       id="ret_mcm_option_max_retinue_ratio"
       text="Razão Máxima de Retinues" />
@@ -1706,14 +1682,8 @@
       id="ret_mcm_option_starter_equipment"
       text="Equipamento Inicial" />
     <string
-      id="ret_mcm_option_starter_equipment_hint"
-      text="Define o equipamento inicial para tropas recém-desbloqueadas. &apos;Aleatório&apos;: Um conjunto de equipamentos aleatório é atribuído. &apos;Copiar um conjunto&apos;: Um conjunto de equipamentos é copiado da tropa base. &apos;Copiar todos os conjuntos&apos;: Todos os conjuntos de equipamentos são copiados das tropas base. &apos;Vazio&apos;: Nenhum equipamento inicial é criado." />
-    <string
       id="ret_mcm_option_starter_troops"
       text="Tropas Iniciais" />
-    <string
-      id="ret_mcm_option_starter_troops_hint"
-      text="Determina as tropas iniciais do clã e do reino. &apos;Apenas Raízes&apos;: Apenas uma tropa básica e uma tropa de elite são criadas. &apos;Árvores Magras&apos;: Uma seleção enxuta de tropas é criada no início. &apos;Árvores Completas&apos;: A gama completa de tropas é criada automaticamente." />
     <string
       id="ret_mcm_option_time_multiplier"
       text="Multiplicador de Tempo de Equipamento" />

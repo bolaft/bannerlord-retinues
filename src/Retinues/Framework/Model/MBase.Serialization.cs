@@ -228,15 +228,15 @@ namespace Retinues.Framework.Model
 
             entries.Sort((a, b) => b.Priority.CompareTo(a.Priority));
 
-            foreach (var entry in entries)
+            foreach (var (Name, AttrObj, Priority, Mi, El) in entries)
             {
                 try
                 {
-                    entry.Mi.Invoke(entry.AttrObj, new object[] { entry.El });
+                    Mi.Invoke(AttrObj, [El]);
                 }
                 catch (Exception e)
                 {
-                    Log.Exception(e, $"Failed to deserialize MAttribute '{entry.Name}'.");
+                    Log.Exception(e, $"Failed to deserialize MAttribute '{Name}'.");
                 }
             }
         }

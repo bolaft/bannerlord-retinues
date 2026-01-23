@@ -1397,9 +1397,6 @@
       id="ret_mcm_option_allowed_recruiters"
       text="Erlaubte Rekrutierer" />
     <string
-      id="ret_mcm_option_allowed_recruiters_hint"
-      text="Bestimmt, wer benutzerdefinierte Truppen rekrutieren kann. &apos;Jeder&apos;: Alle Parteien können benutzerdefinierte Truppen rekrutieren (empfohlen für die Kompatibilität mit anderen Rekrutierungsmods). &apos;Nur Fraktion&apos;: Nur Fraktionsparteien können benutzerdefinierte Truppen rekrutieren. &apos;Nur Spieler&apos;: Nur der Spieler kann benutzerdefinierte Truppen rekrutieren." />
-    <string
       id="ret_mcm_option_captain_spawn_rate"
       text="Hauptmann-Spawn-Rate" />
     <string
@@ -1409,14 +1406,8 @@
       id="ret_mcm_option_clan_troops_availability"
       text="Verfügbarkeit von Clan-Truppen" />
     <string
-      id="ret_mcm_option_clan_troops_availability_hint"
-      text="Legt fest, wo Clan-Truppen rekrutiert werden können. &apos;Überall&apos;: Clan-Truppen können in jeder Siedlung rekrutiert werden. &apos;Clan-Lehen&apos;: Clan-Truppen können nur in Lehen rekrutiert werden, die ihrem Clan gehören. &apos;Clan- oder Königreichs-Lehen&apos;: Clan-Truppen können in Lehen rekrutiert werden, die dem Clan oder dem Königreich gehören. &apos;Nirgendwo&apos;: Clan-Truppen können nicht rekrutiert werden." />
-    <string
       id="ret_mcm_option_clan_troops_unlock"
       text="Clan-Truppen" />
-    <string
-      id="ret_mcm_option_clan_troops_unlock_hint"
-      text="Bestimmt, wann Clan-Truppen verfügbar werden. &apos;Immer freigeschaltet&apos;: Clan-Truppen sind von Anfang an verfügbar. &apos;Mit dem ersten Lehen freigeschaltet&apos;: Clan-Truppen werden freigeschaltet, wenn der Clan sein erstes Lehen erwirbt. &apos;Deaktiviert&apos;: Clan-Truppen werden nie freigeschaltet." />
     <string
       id="ret_mcm_option_debug_mode"
       text="Debug-Modus" />
@@ -1462,9 +1453,6 @@
     <string
       id="ret_mcm_option_editing_restriction"
       text="Standortbeschränkungen" />
-    <string
-      id="ret_mcm_option_editing_restriction_hint"
-      text="Beschränkt, wo Fraktionstruppen bearbeitet werden können. &apos;Überall&apos;: Keine Einschränkungen. &apos;Jede Siedlung&apos;: Sie müssen sich in einer Siedlung befinden. &apos;Fraktionssiedlung&apos;: Sie müssen sich in einem besessenen Fraktionslehen befinden (Retinues ausgenommen)." />
     <string
       id="ret_mcm_option_editor_hotkey"
       text="Editor-Hotkey" />
@@ -1562,26 +1550,14 @@
       id="ret_mcm_option_feat_complete_notification"
       text="Benachrichtigung über abgeschlossene Leistung" />
     <string
-      id="ret_mcm_option_feat_complete_notification_hint"
-      text="Bestimmt den Benachrichtigungsstil, wenn Leistungen abgeschlossen sind." />
-    <string
       id="ret_mcm_option_item_unlock_notification"
       text="Gegenstandsfreischaltungsbenachrichtigung" />
-    <string
-      id="ret_mcm_option_item_unlock_notification_hint"
-      text="Bestimmt den Benachrichtigungsstil, wenn neue Gegenstände freigeschaltet werden." />
     <string
       id="ret_mcm_option_kingdom_troops_availability"
       text="Verfügbarkeit von Königreichstruppen" />
     <string
-      id="ret_mcm_option_kingdom_troops_availability_hint"
-      text="Bestimmt, wo Königreichstruppen rekrutiert werden können. &apos;Überall&apos;: Königreichstruppen können aus jeder Siedlung rekrutiert werden. &apos;Königreichslehen&apos;: Königreichstruppen können nur aus Lehen rekrutiert werden, die ihrem Königreich gehören. &apos;Clan- oder Königreichslehen&apos;: Königreichstruppen können aus besessenen Clan- oder Königreichslehen rekrutiert werden. &apos;Nirgendwo&apos;: Königreichstruppen können nicht rekrutiert werden." />
-    <string
       id="ret_mcm_option_kingdom_troops_unlock"
       text="Königreichstruppen" />
-    <string
-      id="ret_mcm_option_kingdom_troops_unlock_hint"
-      text="Bestimmt, wann Königreichstruppen verfügbar werden. &apos;Immer freigeschaltet&apos;: Königreichstruppen sind von Anfang an verfügbar. &apos;Freigeschaltet beim Werden des Herrschers&apos;: Königreichstruppen werden freigeschaltet, wenn der Spieler ein Königreich gründet. &apos;Deaktiviert&apos;: Königreichstruppen werden nie freigeschaltet." />
     <string
       id="ret_mcm_option_max_retinue_ratio"
       text="Maximales Retinue-Verhältnis" />
@@ -1706,14 +1682,8 @@
       id="ret_mcm_option_starter_equipment"
       text="Startausrüstung" />
     <string
-      id="ret_mcm_option_starter_equipment_hint"
-      text="Legt die Startausrüstung für neu freigeschaltete Truppen fest. &apos;Zufällig&apos;: Ein zufälliges Ausrüstungsset wird zugewiesen. &apos;Kopiere ein Set&apos;: Ein Ausrüstungsset wird von der Basistruppe kopiert. &apos;Kopiere alle Sets&apos;: Alle Ausrüstungssets werden von den Basistruppen kopiert. &apos;Leer&apos;: Es wird keine Starterausrüstung erstellt." />
-    <string
       id="ret_mcm_option_starter_troops"
       text="Starter-Truppen" />
-    <string
-      id="ret_mcm_option_starter_troops_hint"
-      text="Bestimmt die Starter-Truppen für Clan und Königreich. &apos;Nur Wurzeln&apos;: Es wird nur eine Basis- und eine Elite-Truppe erstellt. &apos;Schlanke Bäume&apos;: Eine schlanke Auswahl an Truppen wird zu Beginn erstellt. &apos;Volle Bäume&apos;: Das vollständige Spektrum an Truppen wird automatisch erstellt." />
     <string
       id="ret_mcm_option_time_multiplier"
       text="Ausrüstungszeit-Multiplikator" />

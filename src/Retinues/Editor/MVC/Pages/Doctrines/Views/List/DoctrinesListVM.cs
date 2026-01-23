@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using Retinues.Behaviors.Doctrines;
-using Retinues.Configuration;
 using Retinues.Editor.MVC.Shared.Views;
 using Retinues.Interface.Services;
+using Retinues.Settings;
 
 namespace Retinues.Editor.MVC.Pages.Doctrines.Views.List
 {
@@ -44,7 +44,7 @@ namespace Retinues.Editor.MVC.Pages.Doctrines.Views.List
         {
             var headers = new List<ListHeaderVM>();
 
-            if (!Settings.EnableDoctrines)
+            if (!Configuration.EnableDoctrines)
             {
                 SetHeaders(headers);
                 return;

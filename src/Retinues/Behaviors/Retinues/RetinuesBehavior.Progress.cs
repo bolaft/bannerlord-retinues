@@ -1,8 +1,8 @@
-using Retinues.Configuration;
 using Retinues.Domain;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Factions.Wrappers;
 using Retinues.Interface.Services;
+using Retinues.Settings;
 using Retinues.Utilities;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
@@ -25,7 +25,7 @@ namespace Retinues.Behaviors.Retinues
         /// </summary>
         private void EnsureDefaultRetinueForPlayer()
         {
-            if (!Settings.EnableRetinues)
+            if (!Configuration.EnableRetinues)
                 return;
 
             var clan = Player.Clan;
@@ -69,7 +69,7 @@ namespace Retinues.Behaviors.Retinues
                 return;
 
             // Apply global multiplier.
-            amount = (int)(amount * Settings.RetinueUnlockSpeed);
+            amount = (int)(amount * Configuration.RetinueUnlockSpeed);
             if (amount <= 0)
                 return;
 

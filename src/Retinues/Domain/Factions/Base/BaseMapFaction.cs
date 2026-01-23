@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Retinues.Configuration;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Factions.Wrappers;
 using Retinues.Domain.Parties.Wrappers;
@@ -9,6 +8,7 @@ using Retinues.Domain.Settlements.Models;
 using Retinues.Domain.Settlements.Wrappers;
 using Retinues.Framework.Model.Attributes;
 using Retinues.Framework.Runtime;
+using Retinues.Settings;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.ObjectSystem;
@@ -207,7 +207,7 @@ namespace Retinues.Domain.Factions.Base
         {
             get
             {
-                if (Settings.EnableRetinues == false)
+                if (Configuration.EnableRetinues == false)
                     return [];
 
                 var src = RetinueTroopsAttribute.Get();

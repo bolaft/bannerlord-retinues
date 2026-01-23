@@ -1,11 +1,11 @@
 using System;
 using Bannerlord.UIExtenderEx.Attributes;
-using Retinues.Configuration;
 using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Editor.Events;
 using Retinues.Editor.MVC.Pages.Equipment.Controllers;
 using Retinues.Editor.MVC.Shared.Views;
 using Retinues.Interface.Services;
+using Retinues.Settings;
 using Retinues.Utilities;
 using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Library;
@@ -118,7 +118,7 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
             o =>
                 !PreviewController.Enabled
                 && State.Mode == EditorMode.Player
-                && Settings.EquipmentCostsMoney,
+                && Configuration.EquipmentCostsMoney,
             CacheKey(item)
         );
 
@@ -200,7 +200,7 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
                 if (!o.ShowCost || o._item == null)
                     return 0;
 
-                double multiplier = Settings.EquipmentCostMultiplier;
+                double multiplier = Configuration.EquipmentCostMultiplier;
                 double raw = o._item.Value * multiplier;
 
                 int cost = (int)Math.Round(raw, MidpointRounding.AwayFromZero);

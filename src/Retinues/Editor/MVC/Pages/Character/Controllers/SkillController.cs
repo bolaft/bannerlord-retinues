@@ -1,5 +1,4 @@
 using System;
-using Retinues.Configuration;
 using Retinues.Domain.Characters.Services.Skills;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Editor.Events;
@@ -7,6 +6,7 @@ using Retinues.Editor.MVC.Shared.Controllers;
 using Retinues.Editor.MVC.Shared.Controllers.Helpers;
 using Retinues.Framework.Runtime;
 using Retinues.Interface.Services;
+using Retinues.Settings;
 using TaleWorlds.Core;
 
 namespace Retinues.Editor.MVC.Pages.Character.Controllers
@@ -27,7 +27,10 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
 
         private static bool SkillLimitsActive =>
             State.Mode == EditorMode.Player
-            || (State.Mode == EditorMode.Universal && Settings.EnforceSkillLimitsInUniversalMode);
+            || (
+                State.Mode == EditorMode.Universal
+                && Configuration.EnforceSkillLimitsInUniversalMode
+            );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Increase                        //
@@ -61,7 +64,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
                     m =>
                         m.AddCondition(
                             s =>
-                                !Settings.SkillPointsMustBeEarned
+                                !Configuration.SkillPointsMustBeEarned
                                 || State.Character.IsHero
                                 || State.Character.SkillPoints > 0,
                             L.T("skill_increase_no_points_reason", "Not enough skill points")
@@ -195,7 +198,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
         /// </summary>
         private static bool ShouldShowDecreaseWarning(SkillObject skill)
         {
-            if (!Settings.TrainingTakesTime)
+            if (!Configuration.TrainingTakesTime)
                 return false;
 
             if (State.Mode != EditorMode.Player)

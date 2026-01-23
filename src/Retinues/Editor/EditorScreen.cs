@@ -1,7 +1,7 @@
-using Retinues.Configuration;
 using Retinues.Editor.Integration.Barber;
 using Retinues.Framework.Runtime;
 using Retinues.Interface.Services;
+using Retinues.Settings;
 using TaleWorlds.Core;
 using TaleWorlds.Engine.GauntletUI;
 using TaleWorlds.InputSystem;
@@ -87,7 +87,7 @@ namespace Retinues.Editor
             }
 
             // Tick for the settings manager to buffer events.
-            SettingsManager.Tick();
+            ConfigurationManager.Tick();
         }
 
         /// <summary>

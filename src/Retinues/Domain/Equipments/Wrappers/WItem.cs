@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
-using Retinues.Configuration;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Equipments.Helpers;
 using Retinues.Domain.Factions.Wrappers;
 using Retinues.Framework.Model;
 using Retinues.Framework.Runtime;
+using Retinues.Settings;
 using TaleWorlds.Core;
 #if BL13
 using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
@@ -283,15 +283,18 @@ namespace Retinues.Domain.Equipments.Wrappers
         /// </summary>
         public bool IsEquippableByCharacterOfTier(int tier)
         {
-            if (IsHorse && tier < Settings.MinTierForMounts)
+            if (IsHorse && tier < Configuration.MinTierForMounts)
                 return false;
 
-            if (Category == DefaultItemCategories.WarHorse && tier < Settings.MinTierForWarMounts)
+            if (
+                Category == DefaultItemCategories.WarHorse
+                && tier < Configuration.MinTierForWarMounts
+            )
                 return false;
 
             if (
                 Category == DefaultItemCategories.NobleHorse
-                && tier < Settings.MinTierForNobleMounts
+                && tier < Configuration.MinTierForNobleMounts
             )
                 return false;
 

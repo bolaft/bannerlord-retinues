@@ -1,10 +1,10 @@
 using Retinues.Behaviors.Doctrines.Definitions;
-using Retinues.Configuration;
 using Retinues.Domain;
 using Retinues.Editor.Events;
 using Retinues.Editor.MVC.Shared.Controllers;
 using Retinues.Framework.Behaviors;
 using Retinues.Interface.Services;
+using Retinues.Settings;
 using TaleWorlds.Localization;
 
 namespace Retinues.Editor.MVC.Pages.Doctrines.Controllers
@@ -24,7 +24,7 @@ namespace Retinues.Editor.MVC.Pages.Doctrines.Controllers
         public static ControllerAction<Doctrine> Acquire { get; } =
             Action<Doctrine>("Acquire")
                 .AddCondition(
-                    _ => Settings.EnableDoctrines,
+                    _ => Configuration.EnableDoctrines,
                     L.T("doctrines_disabled", "Doctrines are disabled")
                 )
                 .AddCondition(

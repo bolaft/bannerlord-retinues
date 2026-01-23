@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Retinues.Configuration;
+using Retinues.Settings;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
 
@@ -61,7 +61,7 @@ namespace Retinues.Behaviors.Doctrines.Definitions
         /* ━━━━━━━━━ Costs ━━━━━━━━ */
 
         public int MoneyCost =>
-            !Settings.DoctrinesCostMoney
+            !Configuration.DoctrinesCostMoney
                 ? 0
                 : (int)(
                     Index switch
@@ -71,11 +71,11 @@ namespace Retinues.Behaviors.Doctrines.Definitions
                         2 => 25000,
                         3 => 100000,
                         _ => 100000,
-                    } * Settings.DoctrineMoneyCostMultiplier
+                    } * Configuration.DoctrineMoneyCostMultiplier
                 );
 
         public int InfluenceCost =>
-            !Settings.DoctrinesCostInfluence
+            !Configuration.DoctrinesCostInfluence
                 ? 0
                 : (int)(
                     Index switch
@@ -85,7 +85,7 @@ namespace Retinues.Behaviors.Doctrines.Definitions
                         2 => 200,
                         3 => 500,
                         _ => 500,
-                    } * Settings.DoctrineInfluenceCostMultiplier
+                    } * Configuration.DoctrineInfluenceCostMultiplier
                 );
 
         /* ━━━━━━━ Progress ━━━━━━━ */
@@ -156,7 +156,7 @@ namespace Retinues.Behaviors.Doctrines.Definitions
                 return State.Locked;
 
             // Feats disabled by settings
-            if (!Settings.EnableFeatRequirements)
+            if (!Configuration.EnableFeatRequirements)
                 return State.Unlocked;
 
             // Otherwise, return in progress.

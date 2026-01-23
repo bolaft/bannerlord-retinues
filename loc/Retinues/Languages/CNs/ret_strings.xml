@@ -1397,9 +1397,6 @@
       id="ret_mcm_option_allowed_recruiters"
       text="允许的招募者" />
     <string
-      id="ret_mcm_option_allowed_recruiters_hint"
-      text="确定谁可以招募自定义部队。&apos;所有人&apos;：所有派系都可以招募自定义部队（推荐与其他招募模组兼容）。&apos;仅限派系&apos;：只有派系可以招募自定义部队。&apos;仅限玩家&apos;：只有玩家可以招募自定义部队。" />
-    <string
       id="ret_mcm_option_captain_spawn_rate"
       text="船长生成率" />
     <string
@@ -1409,14 +1406,8 @@
       id="ret_mcm_option_clan_troops_availability"
       text="氏族部队可用性" />
     <string
-      id="ret_mcm_option_clan_troops_availability_hint"
-      text="决定氏族部队可以从何处招募。&apos;所有地点&apos;：氏族部队可以从任何定居点招募。&apos;氏族封地&apos;：氏族部队只能从其氏族拥有的封地招募。&apos;氏族或王国封地&apos;：氏族部队可以从氏族或王国拥有的封地招募。&apos;无处&apos;：无法招募氏族部队。" />
-    <string
       id="ret_mcm_option_clan_troops_unlock"
       text="氏族部队" />
-    <string
-      id="ret_mcm_option_clan_troops_unlock_hint"
-      text="决定氏族部队何时可用。&apos;始终解锁&apos;：氏族部队从一开始就可用。&apos;在获得第一个封地时解锁&apos;：当氏族获得第一个封地时，氏族部队解锁。&apos;禁用&apos;：氏族部队永远不会解锁。" />
     <string
       id="ret_mcm_option_debug_mode"
       text="调试模式" />
@@ -1462,9 +1453,6 @@
     <string
       id="ret_mcm_option_editing_restriction"
       text="位置限制" />
-    <string
-      id="ret_mcm_option_editing_restriction_hint"
-      text="限制派系部队可以编辑的位置。&apos;任何地方&apos;：无限制。&apos;任何定居点&apos;：您必须在定居点内。&apos;派系定居点&apos;：您必须在拥有的派系封地内（侍从除外）。" />
     <string
       id="ret_mcm_option_editor_hotkey"
       text="编辑器热键" />
@@ -1562,26 +1550,14 @@
       id="ret_mcm_option_feat_complete_notification"
       text="壮举完成通知" />
     <string
-      id="ret_mcm_option_feat_complete_notification_hint"
-      text="确定完成壮举时的通知样式。" />
-    <string
       id="ret_mcm_option_item_unlock_notification"
       text="物品解锁通知" />
-    <string
-      id="ret_mcm_option_item_unlock_notification_hint"
-      text="确定解锁新物品时的通知样式。" />
     <string
       id="ret_mcm_option_kingdom_troops_availability"
       text="王国部队可用性" />
     <string
-      id="ret_mcm_option_kingdom_troops_availability_hint"
-      text="确定王国部队可以从哪里招募。&apos;任何地方&apos;：王国部队可以从任何定居点招募。&apos;王国封地&apos;：王国部队只能从其王国拥有的封地招募。&apos;氏族或王国封地&apos;：王国部队可以从拥有的氏族或王国封地招募。&apos;无处&apos;：无法招募王国部队。" />
-    <string
       id="ret_mcm_option_kingdom_troops_unlock"
       text="王国部队" />
-    <string
-      id="ret_mcm_option_kingdom_troops_unlock_hint"
-      text="决定王国部队何时可用。&apos;始终解锁&apos;：王国部队从一开始就可用。&apos;成为统治者时解锁&apos;：当玩家建立王国时，王国部队解锁。&apos;禁用&apos;：王国部队永远不会解锁。" />
     <string
       id="ret_mcm_option_max_retinue_ratio"
       text="最大随从比例" />
@@ -1706,14 +1682,8 @@
       id="ret_mcm_option_starter_equipment"
       text="起始装备" />
     <string
-      id="ret_mcm_option_starter_equipment_hint"
-      text="设置新解锁部队的起始装备。&apos;随机&apos;：分配一个随机装备集。&apos;复制一个套装&apos;：从基础部队复制一个装备套装。&apos;复制所有套装&apos;：从基础部队复制所有装备套装。&apos;空&apos;：不创建起始装备。" />
-    <string
       id="ret_mcm_option_starter_troops"
       text="起始部队" />
-    <string
-      id="ret_mcm_option_starter_troops_hint"
-      text="确定氏族和王国的起始部队。&apos;仅限根部&apos;：只创建一支基本部队和一支精英部队。&apos;精简树&apos;：在开始时创建一组精简的部队。&apos;完整树&apos;：自动创建全系列部队。" />
     <string
       id="ret_mcm_option_time_multiplier"
       text="装备时间乘数" />

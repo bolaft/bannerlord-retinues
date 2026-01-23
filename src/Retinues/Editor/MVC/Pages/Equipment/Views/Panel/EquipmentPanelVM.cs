@@ -1,8 +1,8 @@
-using Retinues.Configuration;
 using Retinues.Editor.Events;
 using Retinues.Editor.MVC.Pages.Equipment.Controllers;
 using Retinues.Editor.MVC.Shared.Views;
 using Retinues.Interface.Services;
+using Retinues.Settings;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 
@@ -25,8 +25,8 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.Panel
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private static bool IsPlayerMode => State.Mode == EditorMode.Player;
-        private static bool WeightLimitActive => IsPlayerMode && Settings.EquipmentWeightLimit;
-        private static bool ValueLimitActive => IsPlayerMode && Settings.EquipmentValueLimit;
+        private static bool WeightLimitActive => IsPlayerMode && Configuration.EquipmentWeightLimit;
+        private static bool ValueLimitActive => IsPlayerMode && Configuration.EquipmentValueLimit;
 
         [EventListener(UIEvent.Item)]
         [EventListener(UIEvent.Equipment)]

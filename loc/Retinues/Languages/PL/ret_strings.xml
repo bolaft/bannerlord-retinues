@@ -1397,9 +1397,6 @@
       id="ret_mcm_option_allowed_recruiters"
       text="Dozwoleni rekruterzy" />
     <string
-      id="ret_mcm_option_allowed_recruiters_hint"
-      text="Określa, kto może rekrutować niestandardowe oddziały. &apos;Wszyscy&apos;: Wszystkie frakcje mogą rekrutować niestandardowe oddziały (zalecane dla kompatybilności z innymi modami rekrutacyjnymi). &apos;Tylko frakcja&apos;: Tylko frakcje mogą rekrutować niestandardowe oddziały. &apos;Tylko gracz&apos;: Tylko gracz może rekrutować niestandardowe oddziały." />
-    <string
       id="ret_mcm_option_captain_spawn_rate"
       text="Częstotliwość pojawiania się kapitanów" />
     <string
@@ -1409,14 +1406,8 @@
       id="ret_mcm_option_clan_troops_availability"
       text="Dostępność oddziałów klanowych" />
     <string
-      id="ret_mcm_option_clan_troops_availability_hint"
-      text="Określa, skąd można rekrutować oddziały klanowe. &apos;Wszędzie&apos;: oddziały klanowe można rekrutować w dowolnej osadzie. &apos;Feudy klanu&apos;: oddziały klanowe można rekrutować tylko z feudów należących do ich klanu. &apos;Feudy klanu lub królestwa&apos;: oddziały klanowe można rekrutować z feudów należących do klanu lub królestwa. &apos;Nigdzie&apos;: oddziały klanowe nie mogą być rekrutowane." />
-    <string
       id="ret_mcm_option_clan_troops_unlock"
       text="Oddziały klanowe" />
-    <string
-      id="ret_mcm_option_clan_troops_unlock_hint"
-      text="Określa, kiedy oddziały klanowe stają się dostępne. &apos;Zawsze odblokowane&apos;: oddziały klanowe są dostępne od początku. &apos;Odblokowane po zdobyciu pierwszego feudu&apos;: oddziały klanowe odblokowują się, gdy klan zdobędzie swój pierwszy feud. &apos;Wyłączone&apos;: oddziały klanowe nigdy nie są odblokowywane." />
     <string
       id="ret_mcm_option_debug_mode"
       text="Tryb debugowania" />
@@ -1462,9 +1453,6 @@
     <string
       id="ret_mcm_option_editing_restriction"
       text="Ograniczenia lokalizacji" />
-    <string
-      id="ret_mcm_option_editing_restriction_hint"
-      text="Ogranicza miejsca, w których można edytować oddziały frakcji. &apos;Wszędzie&apos;: brak ograniczeń. &apos;Dowolna osada&apos;: musisz być w osadzie. &apos;Osada frakcji&apos;: musisz być w posiadanym feudzie frakcji (z wyjątkiem oddziałów retinues)." />
     <string
       id="ret_mcm_option_editor_hotkey"
       text="Klawisz skrótu edytora" />
@@ -1562,26 +1550,14 @@
       id="ret_mcm_option_feat_complete_notification"
       text="Powiadomienie o ukończeniu wyczynu" />
     <string
-      id="ret_mcm_option_feat_complete_notification_hint"
-      text="Określa styl powiadomienia, gdy wyczyny zostaną ukończone." />
-    <string
       id="ret_mcm_option_item_unlock_notification"
       text="Powiadomienie o odblokowaniu przedmiotu" />
-    <string
-      id="ret_mcm_option_item_unlock_notification_hint"
-      text="Określa styl powiadomienia, gdy odblokowywane są nowe przedmioty." />
     <string
       id="ret_mcm_option_kingdom_troops_availability"
       text="Dostępność oddziałów królestwa" />
     <string
-      id="ret_mcm_option_kingdom_troops_availability_hint"
-      text="Określa, skąd można rekrutować oddziały królestwa. &apos;Wszędzie&apos;: Oddziały królestwa można rekrutować z dowolnej osady. &apos;Lenna Królestwa&apos;: Oddziały królestwa można rekrutować tylko z lenn należących do ich królestwa. &apos;Lenna Klanu lub Królestwa&apos;: Oddziały królestwa można rekrutować z posiadanych lenn klanu lub królestwa. &apos;Nigdzie&apos;: Oddziały królestwa nie mogą być rekrutowane." />
-    <string
       id="ret_mcm_option_kingdom_troops_unlock"
       text="Oddziały Królestwa" />
-    <string
-      id="ret_mcm_option_kingdom_troops_unlock_hint"
-      text="Określa, kiedy oddziały królestwa stają się dostępne. &apos;Zawsze odblokowane&apos;: oddziały królestwa są dostępne od początku. &apos;Odblokowane po założeniu królestwa&apos;: oddziały królestwa odblokowują się, gdy gracz założy królestwo. &apos;Wyłączone&apos;: oddziały królestwa nigdy nie są odblokowywane." />
     <string
       id="ret_mcm_option_max_retinue_ratio"
       text="Maksymalny stosunek Retinue" />
@@ -1706,14 +1682,8 @@
       id="ret_mcm_option_starter_equipment"
       text="Początkowy ekwipunek" />
     <string
-      id="ret_mcm_option_starter_equipment_hint"
-      text="Ustawia początkowy ekwipunek dla nowo odblokowanych oddziałów. &apos;Losowy&apos;: przypisywany jest losowy zestaw ekwipunku. &apos;Kopiuj jeden zestaw&apos;: jeden zestaw ekwipunku jest kopiowany z podstawowego oddziału. &apos;Kopiuj wszystkie zestawy&apos;: wszystkie zestawy ekwipunku są kopiowane z podstawowych oddziałów. &apos;Pusty&apos;: nie tworzony jest żaden początkowy ekwipunek." />
-    <string
       id="ret_mcm_option_starter_troops"
       text="Początkowe oddziały" />
-    <string
-      id="ret_mcm_option_starter_troops_hint"
-      text="Określa początkowe oddziały klanu i królestwa. &apos;Tylko korzenie&apos;: tworzony jest tylko jeden podstawowy i jeden elitarny oddział. &apos;Szczupłe drzewa&apos;: na początku tworzony jest szczupły wybór oddziałów. &apos;Pełne drzewa&apos;: pełen zakres oddziałów jest automatycznie tworzony." />
     <string
       id="ret_mcm_option_time_multiplier"
       text="Mnożnik czasu wyposażenia" />

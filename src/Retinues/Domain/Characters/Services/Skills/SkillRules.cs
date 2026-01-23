@@ -1,8 +1,8 @@
 using System;
 using Retinues.Behaviors.Doctrines.Catalogs;
 using Retinues.Compatibility;
-using Retinues.Configuration;
 using Retinues.Domain.Characters.Wrappers;
+using Retinues.Settings;
 
 namespace Retinues.Domain.Characters.Services.Skills
 {
@@ -38,15 +38,15 @@ namespace Retinues.Domain.Characters.Services.Skills
             var tier = ClampTier(wc.Tier);
             var cap = tier switch
             {
-                0 => Settings.SkillCapT0,
-                1 => Settings.SkillCapT1,
-                2 => Settings.SkillCapT2,
-                3 => Settings.SkillCapT3,
-                4 => Settings.SkillCapT4,
-                5 => Settings.SkillCapT5,
-                6 => Settings.SkillCapT6,
-                7 => Settings.SkillCapT7,
-                _ => Settings.SkillCapT7,
+                0 => Configuration.SkillCapT0,
+                1 => Configuration.SkillCapT1,
+                2 => Configuration.SkillCapT2,
+                3 => Configuration.SkillCapT3,
+                4 => Configuration.SkillCapT4,
+                5 => Configuration.SkillCapT5,
+                6 => Configuration.SkillCapT6,
+                7 => Configuration.SkillCapT7,
+                _ => Configuration.SkillCapT7,
             };
 
             /// <summary>
@@ -59,7 +59,7 @@ namespace Retinues.Domain.Characters.Services.Skills
                 int bonus = 0;
 
                 if (wc.IsRetinue)
-                    bonus += Settings.RetinueSkillCapBonus;
+                    bonus += Configuration.RetinueSkillCapBonus;
 
                 if (wc.IsCaptain && wc.IsMaxTier)
                     bonus = (int)(cap * MaxTierCaptainMultiplier);
@@ -87,15 +87,15 @@ namespace Retinues.Domain.Characters.Services.Skills
             var tier = ClampTier(wc.Tier);
             var total = tier switch
             {
-                0 => Settings.SkillTotalT0,
-                1 => Settings.SkillTotalT1,
-                2 => Settings.SkillTotalT2,
-                3 => Settings.SkillTotalT3,
-                4 => Settings.SkillTotalT4,
-                5 => Settings.SkillTotalT5,
-                6 => Settings.SkillTotalT6,
-                7 => Settings.SkillTotalT7,
-                _ => Settings.SkillTotalT7,
+                0 => Configuration.SkillTotalT0,
+                1 => Configuration.SkillTotalT1,
+                2 => Configuration.SkillTotalT2,
+                3 => Configuration.SkillTotalT3,
+                4 => Configuration.SkillTotalT4,
+                5 => Configuration.SkillTotalT5,
+                6 => Configuration.SkillTotalT6,
+                7 => Configuration.SkillTotalT7,
+                _ => Configuration.SkillTotalT7,
             };
 
             /// <summary>
@@ -108,7 +108,7 @@ namespace Retinues.Domain.Characters.Services.Skills
                 int bonus = 0;
 
                 if (wc.IsRetinue)
-                    bonus += Settings.RetinueSkillTotalBonus;
+                    bonus += Configuration.RetinueSkillTotalBonus;
 
                 if (wc.IsCaptain && wc.IsMaxTier)
                     bonus = (int)(total * MaxTierCaptainMultiplier);

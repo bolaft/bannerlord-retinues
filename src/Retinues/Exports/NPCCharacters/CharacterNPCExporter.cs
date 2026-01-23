@@ -405,7 +405,7 @@ namespace Retinues.Exports.NPCCharacters
                     return false;
 
                 var g = mi.MakeGenericMethod(t);
-                var obj = g.Invoke(MBObjectManager.Instance, new object[] { rosterId });
+                var obj = g.Invoke(MBObjectManager.Instance, [rosterId]);
 
                 return obj != null;
             }

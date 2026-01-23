@@ -1,7 +1,7 @@
 using System;
 using Bannerlord.UIExtenderEx.Attributes;
-using Retinues.Configuration;
 using Retinues.Domain.Characters.Wrappers;
+using Retinues.Settings;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.ViewModelCollection.Encyclopedia.Pages;
@@ -18,7 +18,7 @@ namespace Retinues.Editor.Integration.Encyclopedia.Mixins
         {
             get
             {
-                if (!Settings.EnableUniversalEditor)
+                if (!Configuration.EnableUniversalEditor)
                     return false;
 
                 if (ViewModel.Obj is not Hero hero)

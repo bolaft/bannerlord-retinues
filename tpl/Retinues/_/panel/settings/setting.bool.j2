@@ -1,0 +1,22 @@
+{# Bool option editor (checkbox) #}
+
+<!-- Bool (checkbox) -->
+<ButtonWidget
+    IsVisible="@IsBoolOption"
+    IsEnabled="@IsEnabled"
+    WidthSizePolicy="Fixed"
+    HeightSizePolicy="Fixed"
+    SuggestedWidth="32"
+    SuggestedHeight="32"
+    VerticalAlignment="Top"
+    Brush="SPOptions.Checkbox.Empty.Button"
+    Command.Click="ExecuteToggle">
+    <Children>
+        <ImageWidget
+            IsVisible="@BoolValue"
+            WidthSizePolicy="StretchToParent"
+            HeightSizePolicy="StretchToParent"
+            Brush="SPOptions.Checkbox.Full.Button"
+            DoNotAcceptEvents="true" />
+    </Children>
+</ButtonWidget>

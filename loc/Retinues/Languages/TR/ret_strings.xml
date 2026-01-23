@@ -1397,9 +1397,6 @@
       id="ret_mcm_option_allowed_recruiters"
       text="İzin Verilen İşe Alımcılar" />
     <string
-      id="ret_mcm_option_allowed_recruiters_hint"
-      text="Özel birlikleri kimin işe alabileceğini belirler. &apos;Herkes&apos;: Tüm fraksiyonlar özel birlikleri işe alabilir (diğer işe alım modlarıyla uyumluluk için önerilir). &apos;Sadece Fraksiyon&apos;: Sadece fraksiyonlar özel birlikleri işe alabilir. &apos;Sadece Oyuncu&apos;: Sadece oyuncu özel birlikleri işe alabilir." />
-    <string
       id="ret_mcm_option_captain_spawn_rate"
       text="Kaptan Oluşum Hızı" />
     <string
@@ -1409,14 +1406,8 @@
       id="ret_mcm_option_clan_troops_availability"
       text="Klan Birlikleri Kullanılabilirliği" />
     <string
-      id="ret_mcm_option_clan_troops_availability_hint"
-      text="Klan birliklerinin nereden işe alınabileceğini belirler. &apos;Her Yerde&apos;: Klan birlikleri herhangi bir yerleşimden işe alınabilir. &apos;Klan Arazileri&apos;: Klan birlikleri yalnızca klanın sahip olduğu arazilerden işe alınabilir. &apos;Klan veya Krallık Arazileri&apos;: Klan birlikleri klan veya krallığa ait arazilerden işe alınabilir. &apos;Hiçbir Yerde&apos;: Klan birlikleri işe alınamaz." />
-    <string
       id="ret_mcm_option_clan_troops_unlock"
       text="Klan Birlikleri" />
-    <string
-      id="ret_mcm_option_clan_troops_unlock_hint"
-      text="Klan birliklerinin ne zaman kullanılabilir hale geleceğini belirler. &apos;Her Zaman Açık&apos;: Klan birlikleri başlangıçtan itibaren kullanılabilir. &apos;İlk Araziyle Açılır&apos;: Klan ilk arazisini edindiğinde birlikler açılır. &apos;Devre Dışı&apos;: Klan birlikleri asla açılmaz." />
     <string
       id="ret_mcm_option_debug_mode"
       text="Hata Ayıklama Modu" />
@@ -1462,9 +1453,6 @@
     <string
       id="ret_mcm_option_editing_restriction"
       text="Konum Kısıtlamaları" />
-    <string
-      id="ret_mcm_option_editing_restriction_hint"
-      text="Taraf birliklerinin nerede düzenlenebileceğini kısıtlar. &apos;Her Yerde&apos;: Kısıtlama yok. &apos;Herhangi Yerleşim&apos;: Bir yerleşimde olmalısınız. &apos;Taraf Yerleşimi&apos;: Sahip olunan bir taraf arazisinde olmalısınız (retinues hariç)." />
     <string
       id="ret_mcm_option_editor_hotkey"
       text="Düzenleyici Kısayolu" />
@@ -1562,26 +1550,14 @@
       id="ret_mcm_option_feat_complete_notification"
       text="Başarı Tamamlama Bildirimi" />
     <string
-      id="ret_mcm_option_feat_complete_notification_hint"
-      text="Başarılar tamamlandığında bildirim stilini belirler." />
-    <string
       id="ret_mcm_option_item_unlock_notification"
       text="Öğe Kilidi Açma Bildirimi" />
-    <string
-      id="ret_mcm_option_item_unlock_notification_hint"
-      text="Yeni öğelerin kilidi açıldığında bildirim stilini belirler." />
     <string
       id="ret_mcm_option_kingdom_troops_availability"
       text="Krallık Birlikleri Kullanılabilirliği" />
     <string
-      id="ret_mcm_option_kingdom_troops_availability_hint"
-      text="Krallık birliklerinin nereden işe alınabileceğini belirler. &apos;Her Yerde&apos;: Krallık birlikleri herhangi bir yerleşim yerinden işe alınabilir. &apos;Krallık Arazileri&apos;: Krallık birlikleri sadece kendi krallıklarına ait arazilerden işe alınabilir. &apos;Klan veya Krallık Arazileri&apos;: Krallık birlikleri sahip olunan klan veya krallık arazilerinden işe alınabilir. &apos;Hiçbir Yerde&apos;: Krallık birlikleri işe alınamaz." />
-    <string
       id="ret_mcm_option_kingdom_troops_unlock"
       text="Krallık Birlikleri" />
-    <string
-      id="ret_mcm_option_kingdom_troops_unlock_hint"
-      text="Krallık birliklerinin ne zaman kullanılabilir hale geleceğini belirler. &apos;Her Zaman Açık&apos;: Krallık birlikleri başlangıçtan itibaren kullanılabilir. &apos;Hükümdar Olunca Açılır (Krallık Kurulduğunda)&apos;: oyuncu bir krallık kurduğunda birlikler açılır. &apos;Devre Dışı&apos;: Krallık birlikleri asla açılmaz." />
     <string
       id="ret_mcm_option_max_retinue_ratio"
       text="Maksimum Retinue Oranı" />
@@ -1706,14 +1682,8 @@
       id="ret_mcm_option_starter_equipment"
       text="Başlangıç Ekipmanı" />
     <string
-      id="ret_mcm_option_starter_equipment_hint"
-      text="Yeni kilidi açılan birlikler için başlangıç ekipmanını ayarlar. &apos;Rastgele&apos;: Rastgele bir ekipman seti atanır. &apos;Bir Seti Kopyala&apos;: Bir ekipman seti temel birlikten kopyalanır. &apos;Tüm Setleri Kopyala&apos;: Tüm ekipman setleri temel birliklerden kopyalanır. &apos;Boş&apos;: Başlangıç ekipmanı oluşturulmaz." />
-    <string
       id="ret_mcm_option_starter_troops"
       text="Başlangıç Birlikleri" />
-    <string
-      id="ret_mcm_option_starter_troops_hint"
-      text="Klan ve krallık başlangıç birliklerini belirler. &apos;Sadece Kökler&apos;: Sadece bir temel ve bir elit birlik oluşturulur. &apos;Sade Ağaçlar&apos;: Başlangıçta sade bir birlik seçkisi oluşturulur. &apos;Tam Ağaçlar&apos;: Birliklerin tam yelpazesi otomatik olarak oluşturulur." />
     <string
       id="ret_mcm_option_time_multiplier"
       text="Ekipman Zaman Çarpanı" />

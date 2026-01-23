@@ -1,10 +1,10 @@
 using System.Linq;
 using Retinues.Behaviors.Troops;
-using Retinues.Configuration;
 using Retinues.Domain;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Factions.Wrappers;
 using Retinues.Interface.Services;
+using Retinues.Settings;
 using TaleWorlds.Core;
 
 namespace Retinues.Behaviors.Retinues
@@ -16,7 +16,7 @@ namespace Retinues.Behaviors.Retinues
         /// </summary>
         public WCharacter EnsureDefaultRetinue(WClan clan, string name, bool notifyUnlocks = true)
         {
-            if (!Settings.EnableRetinues)
+            if (!Configuration.EnableRetinues)
                 return null;
 
             if (clan?.Base == null)
@@ -67,7 +67,7 @@ namespace Retinues.Behaviors.Retinues
         /// </summary>
         public WCharacter CreateRetinue(WCulture culture, string name, bool notifyUnlocks = true)
         {
-            if (!Settings.EnableRetinues)
+            if (!Configuration.EnableRetinues)
                 return null;
 
             var template = culture?.RootElite ?? culture?.RootBasic;

@@ -1,8 +1,8 @@
 using System;
 using HarmonyLib;
 using Retinues.Behaviors.Doctrines.Catalogs;
-using Retinues.Configuration;
 using Retinues.Domain.Characters.Wrappers;
+using Retinues.Settings;
 using Retinues.Utilities;
 using TaleWorlds.MountAndBlade;
 
@@ -33,7 +33,7 @@ namespace Retinues.Behaviors.Retinues.Patches
                 if (!__result.IsHuman)
                     return;
 
-                int bonus = Settings.RetinueHealthBonus;
+                int bonus = Configuration.RetinueHealthBonus;
 
                 // +10% retinue health bonus from Indomitable doctrine
                 if (DoctrineCatalog.Indomitable?.IsAcquired == true)

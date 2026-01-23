@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using Retinues.Configuration;
 using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Framework.Behaviors;
+using Retinues.Settings;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem.Roster;
 
@@ -13,7 +13,7 @@ namespace Retinues.Behaviors.Unlocks
     /// </summary>
     public sealed class UnlocksByDiscardsBehavior : BaseCampaignBehavior
     {
-        public override bool IsActive => Settings.UnlockItemsThroughDiscards;
+        public override bool IsActive => Configuration.UnlockItemsThroughDiscards;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Events                         //
@@ -27,7 +27,7 @@ namespace Retinues.Behaviors.Unlocks
             if (roster == null || roster.Count == 0)
                 return;
 
-            var required = (int)Settings.RequiredDiscardsToUnlock;
+            var required = (int)Configuration.RequiredDiscardsToUnlock;
             if (required <= 0)
                 return;
 
@@ -71,7 +71,7 @@ namespace Retinues.Behaviors.Unlocks
                     unlocked
                 );
 
-            if (Settings.DebugMode && itemsTouched > 0)
+            if (Configuration.DebugMode && itemsTouched > 0)
             {
                 Log.Debug(
                     $"[Unlocks] Discard progress applied: items={itemsTouched}, newlyUnlocked={unlocked.Count}, totalAdded={totalAdded}."

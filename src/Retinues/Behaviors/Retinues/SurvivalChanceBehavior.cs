@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 using Retinues.Behaviors.Doctrines.Catalogs;
 using Retinues.Behaviors.Missions;
-using Retinues.Configuration;
 using Retinues.Domain;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Events.Models;
 using Retinues.Framework.Behaviors;
 using Retinues.Framework.Runtime;
 using Retinues.Interface.Services;
+using Retinues.Settings;
 using TaleWorlds.Core;
 
 namespace Retinues.Behaviors.Retinues
@@ -17,7 +17,7 @@ namespace Retinues.Behaviors.Retinues
     {
         const float ImmortalsSurvivalChance = 0.2f;
 
-        public override bool IsActive => Settings.EnableRetinues;
+        public override bool IsActive => Configuration.EnableRetinues;
 
         /// <summary>
         /// Restores a chance of fallen retinues as wounded after mission ends.

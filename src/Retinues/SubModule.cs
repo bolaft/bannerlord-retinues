@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using Retinues.Behaviors.Volunteers.Models;
 using Retinues.Compatibility.Interops;
-using Retinues.Configuration;
 using Retinues.Framework.Behaviors;
 using Retinues.Framework.Modules;
 using Retinues.Framework.Modules.Dependencies;
 using Retinues.Framework.Modules.Dependencies.Core;
 using Retinues.Framework.Runtime;
+using Retinues.Settings;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
@@ -23,30 +23,16 @@ namespace Retinues
         //                      Dependencies                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public static List<BaseDependency> Dependencies =>
-            [_harmony, _mcm, _uiextender, _butterlib];
+        public static List<BaseDependency> Dependencies => [_harmony, _uiextender];
 
         private static readonly HarmonyDependency _harmony = new();
-        private static readonly MCMDependency _mcm = new();
         private static readonly UIExtenderExDependency _uiextender = new();
-        private static readonly ButterLibDependency _butterlib = new();
 
         private bool _campaignRefreshHooksRegistered;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Event Hooks                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        /// <summary>
-        /// Called before the initial module screen is set as root.
-        /// </summary>
-        protected override void OnBeforeInitialModuleScreenSetAsRoot()
-        {
-            base.OnBeforeInitialModuleScreenSetAsRoot();
-
-            // Keep trying to register MCM until successful or max retries reached.
-            _mcm.TryRegister();
-        }
 
         /// <summary>
         /// Called when the module DLL is loaded by the game.
@@ -72,7 +58,7 @@ namespace Retinues
             InteropsManager.DisplayWarnings();
 
             // Log configuration
-            SettingsManager.LogSettings();
+            ConfigurationManager.LogSettings();
 
             Log.Debug("SubModule loaded.");
         }

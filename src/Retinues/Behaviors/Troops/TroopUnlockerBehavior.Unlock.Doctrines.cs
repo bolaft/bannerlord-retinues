@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using Retinues.Behaviors.Doctrines.Catalogs;
 using Retinues.Behaviors.Doctrines.Definitions;
 using Retinues.Behaviors.Unlocks;
-using Retinues.Configuration;
 using Retinues.Domain;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Domain.Factions;
 using Retinues.Domain.Factions.Base;
 using Retinues.Domain.Factions.Wrappers;
+using Retinues.Settings;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.ObjectSystem;
 
@@ -32,7 +32,7 @@ namespace Retinues.Behaviors.Troops
         /// </summary>
         private static void TryUnlockDoctrineTroopsForPlayerFactions(bool fromBootstrap)
         {
-            if (!Settings.EnableDoctrines)
+            if (!Configuration.EnableDoctrines)
                 return;
 
             if (!HasAnyDoctrineTroopUnlocks())
@@ -246,18 +246,15 @@ namespace Retinues.Behaviors.Troops
         /// <summary>
         /// Clone specification used to eliminate repetitive clone+set boilerplate.
         /// </summary>
-        private readonly struct CloneSpec
+        private readonly struct CloneSpec(
+            WCharacter current,
+            WCharacter template,
+            Action<WCharacter> setter
+        )
         {
-            public readonly WCharacter Current;
-            public readonly WCharacter Template;
-            public readonly Action<WCharacter> Setter;
-
-            public CloneSpec(WCharacter current, WCharacter template, Action<WCharacter> setter)
-            {
-                Current = current;
-                Template = template;
-                Setter = setter;
-            }
+            public readonly WCharacter Current = current;
+            public readonly WCharacter Template = template;
+            public readonly Action<WCharacter> Setter = setter;
         }
 
         /// <summary>

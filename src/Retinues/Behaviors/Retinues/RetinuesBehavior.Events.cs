@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using Retinues.Configuration;
 using Retinues.Domain;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Equipments.Wrappers;
@@ -8,6 +7,7 @@ using Retinues.Domain.Events.Models;
 using Retinues.Domain.Factions.Wrappers;
 using Retinues.Domain.Parties.Wrappers;
 using Retinues.Domain.Settlements.Wrappers;
+using Retinues.Settings;
 using TaleWorlds.CampaignSystem;
 
 namespace Retinues.Behaviors.Retinues
@@ -43,7 +43,7 @@ namespace Retinues.Behaviors.Retinues
             WItem prize
         )
         {
-            if (!Settings.EnableRetinues)
+            if (!Configuration.EnableRetinues)
                 return;
 
             if (winner?.Base == null || Hero.MainHero == null)
@@ -69,7 +69,7 @@ namespace Retinues.Behaviors.Retinues
         /// </summary>
         protected override void OnQuestCompleted(QuestBase quest, WHero giver, bool success)
         {
-            if (!Settings.EnableRetinues)
+            if (!Configuration.EnableRetinues)
                 return;
 
             if (!success)
@@ -92,7 +92,7 @@ namespace Retinues.Behaviors.Retinues
         /// </summary>
         protected override void OnMapEventEnded(MMapEvent mapEvent)
         {
-            if (!Settings.EnableRetinues)
+            if (!Configuration.EnableRetinues)
                 return;
 
             TryAddBattleAlliesProgress(mapEvent);
@@ -141,7 +141,7 @@ namespace Retinues.Behaviors.Retinues
         /// </summary>
         private void AddDailyOwnedFiefsProgress()
         {
-            if (!Settings.EnableRetinues)
+            if (!Configuration.EnableRetinues)
                 return;
 
             var byCulture = new Dictionary<string, int>();
@@ -173,7 +173,7 @@ namespace Retinues.Behaviors.Retinues
         /// </summary>
         private void AddDailyOwnedWorkshopsProgress()
         {
-            if (!Settings.EnableRetinues)
+            if (!Configuration.EnableRetinues)
                 return;
 
             var byCulture = new Dictionary<string, int>();

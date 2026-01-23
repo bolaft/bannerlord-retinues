@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using Retinues.Behaviors.Missions;
-using Retinues.Configuration;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Equipments.Models;
+using Retinues.Settings;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
@@ -145,7 +145,7 @@ namespace Retinues.Behaviors.Agents
             if (data.GenderOverriden)
                 return;
 
-            float ratio = Settings.MixedGenderRatio;
+            float ratio = Configuration.MixedGenderRatio;
             if (ratio <= 0f)
                 return;
 

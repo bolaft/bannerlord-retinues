@@ -1,13 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Retinues.Configuration;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Equipments.Helpers;
 using Retinues.Domain.Equipments.Models;
 using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Domain.Factions.Wrappers;
 using Retinues.Framework.Runtime;
+using Retinues.Settings;
 using TaleWorlds.Core;
 
 namespace Retinues.Domain.Equipments.Services.Random
@@ -101,20 +101,20 @@ namespace Retinues.Domain.Equipments.Services.Random
                     cultureIds = [.. list];
             }
 
-            bool weightLimitActive = enforceLimits && Settings.EquipmentWeightLimit;
-            bool valueLimitActive = enforceLimits && Settings.EquipmentValueLimit;
+            bool weightLimitActive = enforceLimits && Configuration.EquipmentWeightLimit;
+            bool valueLimitActive = enforceLimits && Configuration.EquipmentValueLimit;
 
             float weightLimit = weightLimitActive
                 ? EquipmentLimitsHelper.GetWeightLimit(
                     owner.Tier,
-                    Settings.EquipmentWeightLimitMultiplier
+                    Configuration.EquipmentWeightLimitMultiplier
                 )
                 : 0f;
 
             int valueLimit = valueLimitActive
                 ? EquipmentLimitsHelper.GetValueLimit(
                     owner.Tier,
-                    Settings.EquipmentValueLimitMultiplier
+                    Configuration.EquipmentValueLimitMultiplier
                 )
                 : 0;
 

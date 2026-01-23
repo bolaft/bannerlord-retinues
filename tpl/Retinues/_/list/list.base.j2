@@ -2,24 +2,31 @@
 {# List panel                                     #}
 {# ---------------------------------------------- #}
 
-<BrushListPanel
-    DataSource="{List}"
+<Widget
+    IsVisible="@IsListVisible"
     WidthSizePolicy="CoverChildren" HeightSizePolicy="StretchToParent"
     VerticalAlignment="Bottom"
-    MarginLeft="16"
-    Brush="Frame1Brush"
-    StackLayout.LayoutMethod="VerticalBottomToTop">
+    MarginLeft="16">
     <Children>
+        <BrushListPanel
+            DataSource="{List}"
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="StretchToParent"
+            VerticalAlignment="Bottom"
+            Brush="Frame1Brush"
+            StackLayout.LayoutMethod="VerticalBottomToTop">
+            <Children>
 
-        {# ------------------------------------------ #}
-        {# Header                                     #}
-        {# ------------------------------------------ #}
-        {% include "_/list/list.header.j2" %}
+                {# ------------------------------------------ #}
+                {# Header                                     #}
+                {# ------------------------------------------ #}
+                {% include "_/list/list.header.j2" %}
 
-        {# ------------------------------------------ #}
-        {# Main list                                  #}
-        {# ------------------------------------------ #}
-        {% include "_/list/list.main.base.j2" %}
+                {# ------------------------------------------ #}
+                {# Main list                                  #}
+                {# ------------------------------------------ #}
+                {% include "_/list/list.main.base.j2" %}
 
+            </Children>
+        </BrushListPanel>
     </Children>
-</BrushListPanel>
+</Widget>

@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using Retinues.Configuration;
 using Retinues.Domain.Characters.Services.Skills;
 using Retinues.Editor;
 using Retinues.Framework.Model.Attributes;
+using Retinues.Settings;
 using TaleWorlds.Core;
 using TaleWorlds.ObjectSystem;
 
@@ -83,7 +83,7 @@ namespace Retinues.Domain.Characters.Wrappers
             if (wc == null || wc.IsHero)
                 return false;
 
-            if (!Settings.TrainingTakesTime)
+            if (!Configuration.TrainingTakesTime)
                 return false;
 
             return EditorState.Instance.Mode == EditorMode.Player;

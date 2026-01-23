@@ -1,13 +1,13 @@
 using System.Linq;
-using Retinues.Editor.Controllers.Library;
 using Retinues.Editor.Events;
+using Retinues.Editor.MVC.Pages.Library.Controllers;
 using Retinues.Editor.MVC.Pages.Library.Services;
 using Retinues.Editor.MVC.Shared.Views;
 using Retinues.Interface.Components;
 using Retinues.Interface.Services;
 using TaleWorlds.Library;
 
-namespace Retinues.Editor.VM.Panel.Library
+namespace Retinues.Editor.MVC.Pages.Library.Views.Panel
 {
     /// <summary>
     /// Library panel.

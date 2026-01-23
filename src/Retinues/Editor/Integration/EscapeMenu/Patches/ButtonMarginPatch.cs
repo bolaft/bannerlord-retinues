@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Bannerlord.UIExtenderEx.Attributes;
 using Bannerlord.UIExtenderEx.Prefabs2;
-using Retinues.Configuration;
+using Retinues.Settings;
 
 namespace Retinues.Editor.Integration.EscapeMenu.Patches
 {
@@ -20,7 +20,7 @@ namespace Retinues.Editor.Integration.EscapeMenu.Patches
             get
             {
                 // If Universal Editor is disabled, don't touch margins at all.
-                if (Settings.EnableUniversalEditor != true)
+                if (Configuration.EnableUniversalEditor != true)
                     return [];
 
                 return [new Attribute("MarginBottom", "22")];

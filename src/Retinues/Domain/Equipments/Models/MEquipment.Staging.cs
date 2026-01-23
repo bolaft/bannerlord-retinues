@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
-using Retinues.Configuration;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Editor;
 using Retinues.Framework.Model.Attributes;
+using Retinues.Settings;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 using TaleWorlds.ObjectSystem;
@@ -65,7 +65,7 @@ namespace Retinues.Domain.Equipments.Models
             if (wc == null || wc.IsHero)
                 return false;
 
-            if (!Settings.EquippingTakesTime)
+            if (!Configuration.EquippingTakesTime)
                 return false;
 
             return EditorState.Instance.Mode == EditorMode.Player;

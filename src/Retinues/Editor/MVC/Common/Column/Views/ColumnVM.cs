@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.Tracing;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Domain;
 using Retinues.Domain.Characters.Wrappers;
@@ -19,6 +20,14 @@ namespace Retinues.Editor.MVC.Common.Column.Views
     /// </summary>
     public class ColumnVM : EventListenerVM
     {
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Visibility                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [EventListener(UIEvent.Page)]
+        [DataSourceProperty]
+        public bool IsVisible => State.Page != EditorPage.Settings;
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Controls                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

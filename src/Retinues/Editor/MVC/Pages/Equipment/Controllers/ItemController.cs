@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Retinues.Configuration;
 using Retinues.Domain;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Equipments.Helpers;
@@ -9,6 +8,7 @@ using Retinues.Editor.Events;
 using Retinues.Editor.MVC.Pages.Equipment.Services;
 using Retinues.Editor.MVC.Shared.Controllers;
 using Retinues.Interface.Services;
+using Retinues.Settings;
 using TaleWorlds.Core;
 
 namespace Retinues.Editor.MVC.Pages.Equipment.Controllers
@@ -22,7 +22,7 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Controllers
         private static bool EconomyEnabled =>
             !PreviewController.Enabled
             && State.Mode == EditorMode.Player
-            && Settings.EquipmentCostsMoney;
+            && Configuration.EquipmentCostsMoney;
 
         /// <summary>
         /// Indicates whether the editor economy is currently active.
@@ -80,7 +80,7 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Controllers
         {
             return EquipmentLimitsHelper.GetWeightLimit(
                 tier,
-                Settings.EquipmentWeightLimitMultiplier
+                Configuration.EquipmentWeightLimitMultiplier
             );
         }
 
@@ -91,7 +91,7 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Controllers
         {
             return EquipmentLimitsHelper.GetValueLimit(
                 tier,
-                Settings.EquipmentValueLimitMultiplier
+                Configuration.EquipmentValueLimitMultiplier
             );
         }
 

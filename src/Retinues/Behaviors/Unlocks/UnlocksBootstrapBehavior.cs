@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Retinues.Configuration;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Equipments.Services.Random;
 using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Domain.Factions.Wrappers;
 using Retinues.Framework.Behaviors;
+using Retinues.Settings;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
@@ -102,8 +102,8 @@ namespace Retinues.Behaviors.Unlocks
             if (culture?.Base == null)
                 return;
 
-            int targetPerSlot = Math.Max(0, Settings.DefaultUnlockedAmountPerSlot);
-            int maxTier = Math.Max(0, Math.Min(6, Settings.DefaultUnlockedItemMaxTier));
+            int targetPerSlot = Math.Max(0, Configuration.DefaultUnlockedAmountPerSlot);
+            int maxTier = Math.Max(0, Math.Min(6, Configuration.DefaultUnlockedItemMaxTier));
 
             if (targetPerSlot <= 0)
                 return;

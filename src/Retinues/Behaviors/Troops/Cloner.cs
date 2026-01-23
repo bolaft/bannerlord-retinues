@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
-using Retinues.Configuration;
 using Retinues.Domain.Characters.Services.Cloning;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Equipments.Services.Random;
 using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Domain.Factions.Wrappers;
 using Retinues.Framework.Runtime;
+using Retinues.Settings;
 using Retinues.Utilities;
 
 namespace Retinues.Behaviors.Troops
@@ -115,7 +115,10 @@ namespace Retinues.Behaviors.Troops
             var map = new Dictionary<string, WCharacter>(templates.Count);
 
             RandomEquipmentReuseContext reuseContext = null;
-            if (equipments && Settings.StarterEquipment.Value == Settings.EquipmentMode.RandomSet)
+            if (
+                equipments
+                && Configuration.StarterEquipment.Value == Configuration.EquipmentMode.RandomSet
+            )
                 reuseContext = new RandomEquipmentReuseContext();
 
             try

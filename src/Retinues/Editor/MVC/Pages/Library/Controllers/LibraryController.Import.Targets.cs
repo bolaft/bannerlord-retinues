@@ -13,7 +13,7 @@ using TaleWorlds.Localization;
 using TaleWorlds.Core.ImageIdentifiers;
 #endif
 
-namespace Retinues.Editor.Controllers.Library
+namespace Retinues.Editor.MVC.Pages.Library.Controllers
 {
     /// <summary>
     /// Partial class for library controller import actions.

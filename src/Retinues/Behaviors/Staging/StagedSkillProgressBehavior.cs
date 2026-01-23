@@ -1,8 +1,8 @@
-using Retinues.Configuration;
 using Retinues.Domain;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Framework.Behaviors;
 using Retinues.Interface.Services;
+using Retinues.Settings;
 using Retinues.Utilities;
 using TaleWorlds.Library;
 
@@ -16,17 +16,20 @@ namespace Retinues.Behaviors.Staging
         /// <summary>
         /// Returns true when staged training is enabled via settings.
         /// </summary>
-        public override bool IsActive => Settings.TrainingTakesTime;
+        public override bool IsActive => Configuration.TrainingTakesTime;
 
         /// <summary>
         /// Hourly tick handler that progresses staged skill points and finalizes them when thresholds are met.
         /// </summary>
         protected override void OnHourlyTick()
         {
-            if (!Settings.TrainingProgressesWhileTravelling && Player.CurrentSettlement == null)
+            if (
+                !Configuration.TrainingProgressesWhileTravelling
+                && Player.CurrentSettlement == null
+            )
                 return;
 
-            float pointsPerDay = Settings.SkillProgressPerDay;
+            float pointsPerDay = Configuration.SkillProgressPerDay;
             if (pointsPerDay <= 0.01f)
                 pointsPerDay = 0.01f;
 

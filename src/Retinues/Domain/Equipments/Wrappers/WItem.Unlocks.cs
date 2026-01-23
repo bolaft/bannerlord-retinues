@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using Retinues.Behaviors.Doctrines.Catalogs;
-using Retinues.Configuration;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Framework.Model.Attributes;
+using Retinues.Settings;
 using TaleWorlds.Core;
 
 namespace Retinues.Domain.Equipments.Wrappers
@@ -39,7 +39,7 @@ namespace Retinues.Domain.Equipments.Wrappers
         /// </summary>
         public int GetUnlockProgress(WHero hero)
         {
-            if (!Settings.EquipmentNeedsUnlocking)
+            if (!Configuration.EquipmentNeedsUnlocking)
                 return UnlockThreshold; // Always unlocked.
 
             // Special case: Ancestral Heritage doctrine.

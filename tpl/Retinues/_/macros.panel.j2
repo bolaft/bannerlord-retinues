@@ -21,3 +21,13 @@
         MarginLeft="4" MarginRight="4" MarginBottom="{{ margin_bottom }}"
         HorizontalAlignment="Center" VerticalAlignment="Center" />
 {% endmacro %}
+
+{% macro divider() %}
+    <Widget
+        WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+        SuggestedWidth="600" SuggestedHeight="4"
+        Sprite="Clan\divider_mid"
+    HorizontalAlignment="Center"
+        MarginTop="16"
+        MarginBottom="8" />
+{% endmacro %}

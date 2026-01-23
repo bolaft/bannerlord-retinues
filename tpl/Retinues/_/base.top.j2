@@ -203,7 +203,7 @@
                         {{ tab_button("Header.Tab.Center", "ExecuteSelectLibraryTab", "@IsLibraryTabSelected", "@LibraryTabText", pos_yoff="6") }}
 
                         {# Settings tab #}
-                        {{ tab_button("Header.Tab.Right", "ExecuteSelectSettingsTab", "", "@SettingsTabText", sug_w="!Header.Tab.Right.Width.Scaled", sug_h="!Header.Tab.Right.Height.Scaled", text_xoff="-10", text_mt="3") }}
+                        {{ tab_button("Header.Tab.Right", "ExecuteSelectSettingsTab", "@IsSettingsTabSelected", "@SettingsTabText", sug_w="!Header.Tab.Right.Width.Scaled", sug_h="!Header.Tab.Right.Height.Scaled", text_xoff="-10", text_mt="3") }}
 
                     </Children>
                 </ListPanel>

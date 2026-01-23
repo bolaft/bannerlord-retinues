@@ -10,8 +10,9 @@ using Retinues.Editor.MVC.Pages.Doctrines.Views.Panel;
 using Retinues.Editor.MVC.Pages.Equipment.Views.List;
 using Retinues.Editor.MVC.Pages.Equipment.Views.Panel;
 using Retinues.Editor.MVC.Pages.Library.Views.List;
+using Retinues.Editor.MVC.Pages.Library.Views.Panel;
+using Retinues.Editor.MVC.Pages.Settings.Views.Panel;
 using Retinues.Editor.MVC.Shared.Views;
-using Retinues.Editor.VM.Panel.Library;
 using Retinues.Interface.Services;
 using TaleWorlds.Library;
 
@@ -105,12 +106,17 @@ namespace Retinues.Editor
             }
         }
 
+        [EventListener(UIEvent.Page)]
+        [DataSourceProperty]
+        public bool IsListVisible => State.Page != EditorPage.Settings;
+
         /* ━━━━━━━━━ Panel ━━━━━━━━ */
 
         private readonly CharacterPanelVM _characterPanel = new();
         private readonly EquipmentPanelVM _equipmentPanel = new();
         private readonly DoctrinesPanelVM _doctrinesPanel = new();
         private readonly LibraryPanelVM _libraryPanel = new();
+        private readonly SettingsPanelVM _settingsPanel = new();
 
         private BasePanelVM _panel;
 
@@ -148,6 +154,7 @@ namespace Retinues.Editor
                 EditorPage.Equipment => _equipmentPanel,
                 EditorPage.Doctrines => _doctrinesPanel,
                 EditorPage.Library => _libraryPanel,
+                EditorPage.Settings => _settingsPanel,
                 _ => null,
             };
         }

@@ -1,8 +1,8 @@
-using Retinues.Configuration;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Equipments.Models;
 using Retinues.Domain.Equipments.Services.Random;
 using Retinues.Domain.Factions.Wrappers;
+using Retinues.Settings;
 
 namespace Retinues.Behaviors.Troops
 {
@@ -29,24 +29,24 @@ namespace Retinues.Behaviors.Troops
             if (template == null || clone == null)
                 return;
 
-            switch (Settings.StarterEquipment.Value)
+            switch (Configuration.StarterEquipment.Value)
             {
-                case Settings.EquipmentMode.AllSets:
+                case Configuration.EquipmentMode.AllSets:
                     clone.EquipmentRoster.Copy(template.EquipmentRoster, EquipmentCopyMode.All);
                     return;
 
-                case Settings.EquipmentMode.SingleSet:
+                case Configuration.EquipmentMode.SingleSet:
                     clone.EquipmentRoster.Copy(
                         template.EquipmentRoster,
                         EquipmentCopyMode.FirstOfEach
                     );
                     return;
 
-                case Settings.EquipmentMode.EmptySet:
+                case Configuration.EquipmentMode.EmptySet:
                     clone.EquipmentRoster.Copy(template.EquipmentRoster, EquipmentCopyMode.Reset);
                     return;
 
-                case Settings.EquipmentMode.RandomSet:
+                case Configuration.EquipmentMode.RandomSet:
                 default:
                     break;
             }

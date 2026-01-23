@@ -1,6 +1,6 @@
 using Retinues.Behaviors.Doctrines.Definitions;
-using Retinues.Configuration;
 using Retinues.Interface.Services;
+using Retinues.Settings;
 
 namespace Retinues.Behaviors.Doctrines.Catalogs
 {
@@ -42,8 +42,8 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                             FeatCatalog.LS_BloodPrice,
                             FeatCatalog.LS_HighValueTargets,
                         ],
-                        Overridden = () => Settings.UnlockItemsThroughKills == false,
-                        OverriddenHint = OverriddenByOption(Settings.UnlockItemsThroughKills),
+                        Overridden = () => Configuration.UnlockItemsThroughKills == false,
+                        OverriddenHint = OverriddenByOption(Configuration.UnlockItemsThroughKills),
                     },
                     new DoctrineData
                     {
@@ -60,8 +60,8 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                             FeatCatalog.BT_SecondInCommand,
                             FeatCatalog.BT_AlliesFavor,
                         ],
-                        Overridden = () => Settings.UnlockItemsThroughKills == false,
-                        OverriddenHint = OverriddenByOption(Settings.UnlockItemsThroughKills),
+                        Overridden = () => Configuration.UnlockItemsThroughKills == false,
+                        OverriddenHint = OverriddenByOption(Configuration.UnlockItemsThroughKills),
                     },
                     new DoctrineData
                     {
@@ -78,8 +78,8 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                             FeatCatalog.PR_RescueMission,
                             FeatCatalog.PR_MarchTogether,
                         ],
-                        Overridden = () => Settings.UnlockItemsThroughKills == false,
-                        OverriddenHint = OverriddenByOption(Settings.UnlockItemsThroughKills),
+                        Overridden = () => Configuration.UnlockItemsThroughKills == false,
+                        OverriddenHint = OverriddenByOption(Configuration.UnlockItemsThroughKills),
                     },
                     new DoctrineData
                     {
@@ -96,8 +96,8 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                             FeatCatalog.AN_Homecoming,
                             FeatCatalog.AN_AncestralDuty,
                         ],
-                        Overridden = () => Settings.EquipmentNeedsUnlocking == false,
-                        OverriddenHint = OverriddenByOption(Settings.EquipmentNeedsUnlocking),
+                        Overridden = () => Configuration.EquipmentNeedsUnlocking == false,
+                        OverriddenHint = OverriddenByOption(Configuration.EquipmentNeedsUnlocking),
                     },
                 ],
             };

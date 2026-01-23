@@ -1397,9 +1397,6 @@
       id="ret_mcm_option_allowed_recruiters"
       text="허용된 모집자" />
     <string
-      id="ret_mcm_option_allowed_recruiters_hint"
-      text="누가 맞춤 부대를 모집할 수 있는지 결정합니다. &apos;모두&apos;: 모든 진영이 맞춤 부대를 모집할 수 있습니다(다른 모집 모드와의 호환성을 위해 권장). &apos;진영만&apos;: 진영만 맞춤 부대를 모집할 수 있습니다. &apos;플레이어만&apos;: 플레이어만 맞춤 부대를 모집할 수 있습니다." />
-    <string
       id="ret_mcm_option_captain_spawn_rate"
       text="대위 생성 속도" />
     <string
@@ -1409,14 +1406,8 @@
       id="ret_mcm_option_clan_troops_availability"
       text="클랜 부대 가용성" />
     <string
-      id="ret_mcm_option_clan_troops_availability_hint"
-      text="클랜 부대를 어디서 모집할 수 있는지 결정합니다. &apos;모든 곳&apos;: 클랜 부대는 모든 정착지에서 모집할 수 있습니다. &apos;클랜 영지&apos;: 클랜 부대는 클랜이 소유한 영지에서만 모집할 수 있습니다. &apos;클랜 또는 왕국 영지&apos;: 클랜 또는 왕국이 소유한 영지에서 모집할 수 있습니다. &apos;어디서도&apos;: 클랜 부대를 모집할 수 없습니다." />
-    <string
       id="ret_mcm_option_clan_troops_unlock"
       text="클랜 부대" />
-    <string
-      id="ret_mcm_option_clan_troops_unlock_hint"
-      text="클랜 부대가 언제 이용 가능해지는지 결정합니다. &apos;항상 잠금 해제&apos;: 시작부터 이용 가능합니다. &apos;첫 영지 획득 시 잠금 해제&apos;: 클랜이 첫 영지를 획득하면 잠금 해제됩니다. &apos;비활성화&apos;: 클랜 부대는 절대 잠금 해제되지 않습니다." />
     <string
       id="ret_mcm_option_debug_mode"
       text="디버그 모드" />
@@ -1462,9 +1453,6 @@
     <string
       id="ret_mcm_option_editing_restriction"
       text="위치 제한" />
-    <string
-      id="ret_mcm_option_editing_restriction_hint"
-      text="진영 부대를 편집할 수 있는 위치를 제한합니다. &apos;어디서나&apos;: 제한 없음. &apos;모든 정착지&apos;: 정착지에 있어야 합니다. &apos;진영 정착지&apos;: 소유한 진영 영지에 있어야 합니다(수행원 제외)." />
     <string
       id="ret_mcm_option_editor_hotkey"
       text="편집기 단축키" />
@@ -1562,26 +1550,14 @@
       id="ret_mcm_option_feat_complete_notification"
       text="위업 완료 알림" />
     <string
-      id="ret_mcm_option_feat_complete_notification_hint"
-      text="위업이 완료될 때 알림 스타일을 결정합니다." />
-    <string
       id="ret_mcm_option_item_unlock_notification"
       text="아이템 잠금 해제 알림" />
-    <string
-      id="ret_mcm_option_item_unlock_notification_hint"
-      text="새 항목이 잠금 해제될 때 알림 스타일을 결정합니다." />
     <string
       id="ret_mcm_option_kingdom_troops_availability"
       text="왕국 군대 가용성" />
     <string
-      id="ret_mcm_option_kingdom_troops_availability_hint"
-      text="왕국 군대를 어디에서 모집할 수 있는지 결정합니다. &apos;어디서나&apos;: 왕국 군대는 모든 정착지에서 모집할 수 있습니다. &apos;왕국 영지&apos;: 왕국 군대는 자신의 왕국이 소유한 영지에서만 모집할 수 있습니다. &apos;씨족 또는 왕국 영지&apos;: 왕국 군대는 소유한 씨족 또는 왕국 영지에서 모집할 수 있습니다. &apos;어디에도 없음&apos;: 왕국 군대를 모집할 수 없습니다." />
-    <string
       id="ret_mcm_option_kingdom_troops_unlock"
       text="왕국 군대" />
-    <string
-      id="ret_mcm_option_kingdom_troops_unlock_hint"
-      text="왕국 부대가 언제 이용 가능해지는지 결정합니다. &apos;항상 잠금 해제&apos;: 시작부터 이용 가능합니다. &apos;통치자가 되었을 때 잠금 해제&apos;: 플레이어가 왕국을 건국하면 왕국 부대가 잠금 해제됩니다. &apos;비활성화&apos;: 왕국 부대는 절대 잠금 해제되지 않습니다." />
     <string
       id="ret_mcm_option_max_retinue_ratio"
       text="최대 Retinue 비율" />
@@ -1706,14 +1682,8 @@
       id="ret_mcm_option_starter_equipment"
       text="초기 장비" />
     <string
-      id="ret_mcm_option_starter_equipment_hint"
-      text="새로 잠금 해제된 부대의 초기 장비를 설정합니다. &apos;무작위&apos;: 무작위 장비 세트가 할당됩니다. &apos;한 세트 복사&apos;: 기본 부대에서 한 장비 세트가 복사됩니다. &apos;모든 세트 복사&apos;: 기본 부대에서 모든 장비 세트가 복사됩니다. &apos;비어 있음&apos;: 초기 장비가 생성되지 않습니다." />
-    <string
       id="ret_mcm_option_starter_troops"
       text="초기 부대" />
-    <string
-      id="ret_mcm_option_starter_troops_hint"
-      text="클랜 및 왕국 초기 부대를 결정합니다. &apos;루트만&apos;: 기본 부대 1개와 정예 부대 1개만 생성됩니다. &apos;린 트리&apos;: 시작 시 엄선된 부대가 생성됩니다. &apos;전체 트리&apos;: 전체 범위의 부대가 자동으로 생성됩니다." />
     <string
       id="ret_mcm_option_time_multiplier"
       text="장비 시간 배수" />

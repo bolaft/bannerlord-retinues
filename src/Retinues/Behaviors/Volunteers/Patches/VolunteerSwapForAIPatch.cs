@@ -1,10 +1,10 @@
 using System;
 using HarmonyLib;
-using Retinues.Configuration;
 using Retinues.Domain.Characters.Services.Matching;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Parties.Wrappers;
 using Retinues.Domain.Settlements.Wrappers;
+using Retinues.Settings;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.CampaignBehaviors;
@@ -60,7 +60,7 @@ namespace Retinues.Behaviors.Volunteers.Patches
                 if (!IsFactionCustomTroop(wc))
                     return;
 
-                if (Settings.SameCultureOnly)
+                if (Configuration.SameCultureOnly)
                 {
                     var troopCulture = troop.Culture;
                     var settlementCulture = settlement.Culture;

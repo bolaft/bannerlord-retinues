@@ -1,0 +1,260 @@
+{# ---------------------------------------------- #}
+{# Settings panel                                 #}
+{# ---------------------------------------------- #}
+
+{% from "_/macros.panel.j2" import divider %}
+
+<ListPanel
+    IsVisible="@OnSettingsPage"
+    WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+    HorizontalAlignment="Center" VerticalAlignment="Top"
+    StackLayout.LayoutMethod="VerticalBottomToTop"
+    MarginBottom="16">
+    <Children>
+
+        <BrushListPanel
+            Brush="Frame1Brush"
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="StretchToParent"
+            VerticalAlignment="Bottom"
+            StackLayout.LayoutMethod="VerticalBottomToTop">
+            <Children>
+
+                <ListPanel
+                    WidthSizePolicy="StretchToParent"
+                    HeightSizePolicy="StretchToParent">
+                    <Children>
+                        <ScrollablePanel
+                            Id="SettingsScrollablePanel"
+                            WidthSizePolicy="StretchToParent"
+                            HeightSizePolicy="StretchToParent"
+                            MinWidth="!Clan.Management.Collapser.Width"
+                            AutoHideScrollBars="true"
+                            ClipRect="SettingsRect"
+                            InnerPanel="SettingsRect\SettingsListPanel"
+                            MouseScrollAxis="Vertical"
+                            MarginLeft="3"
+                            MarginBottom="3"
+                            VerticalScrollbar="..\SettingsScrollbar\Scrollbar">
+                            <Children>
+
+                                <NavigationScopeTargeter
+                                    ScopeID="SettingsScope"
+                                    ScopeParent=".\SettingsRect"
+                                    ScopeMovements="Vertical"
+                                    IsDefaultNavigationScope="true"
+                                    DoNotAutoNavigateAfterSort="true" />
+
+                                <Widget
+                                    Id="SettingsRect"
+                                    WidthSizePolicy="CoverChildren"
+                                    HeightSizePolicy="StretchToParent"
+                                    ClipContents="true">
+                                    <Children>
+
+                                        <NavigatableListPanel
+                                            Id="SettingsListPanel"
+                                            DataSource="{Sections}"
+                                            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                                            StackLayout.LayoutMethod="VerticalBottomToTop"
+                                            UseSelfIndexForMinimum="true">
+                                                <ItemTemplate>
+                                                    <ListPanel
+                                                        WidthSizePolicy="StretchToParent"
+                                                        HeightSizePolicy="CoverChildren"
+                                                        StackLayout.LayoutMethod="VerticalBottomToTop"
+                                                        MarginTop="8">
+                                                        <Children>
+
+                                                            {{ divider() }}
+
+                                                            <TextWidget
+                                                                Text="@Name"
+                                                                WidthSizePolicy="CoverChildren"
+                                                                HeightSizePolicy="CoverChildren"
+                                                                HorizontalAlignment="Center"
+                                                                VerticalAlignment="Center"
+                                                                Brush="Clan.RightPanel.Name.Text"
+                                                                Brush.FontSize="48"
+                                                                Brush.FontColor="#eec485ff"
+                                                                TextAlignment="Center"
+                                                                MarginTop="8"
+                                                                MarginBottom="8" />
+
+                                                            <TextWidget
+                                                                IsVisible="@HasDescription"
+                                                                Text="@Description"
+                                                                WidthSizePolicy="CoverChildren"
+                                                                HeightSizePolicy="CoverChildren"
+                                                                HorizontalAlignment="Center"
+                                                                VerticalAlignment="Center"
+                                                                Brush="InventoryGoldFontBrush"
+                                                                Brush.FontColor="#f7ecddff"
+                                                                Brush.FontSize="22"
+                                                                TextAlignment="Center"
+                                                                MaxWidth="1100"
+                                                                MarginBottom="12" />
+
+                                                            {{ divider() }}
+
+                                                            <ListPanel
+                                                                DataSource="{Options}"
+                                                                WidthSizePolicy="StretchToParent"
+                                                                HeightSizePolicy="CoverChildren"
+                                                                MarginTop="4"
+                                                                StackLayout.LayoutMethod="VerticalBottomToTop">
+                                                                <ItemTemplate>
+
+                                                                    <Widget
+                                                                        IsVisible="@IsVisible"
+                                                                        WidthSizePolicy="StretchToParent"
+                                                                        HeightSizePolicy="CoverChildren"
+                                                                        MarginTop="8"
+                                                                        MarginBottom="8"
+                                                                        UpdateChildrenStates="true">
+                                                                        <Children>
+
+                                                                            <ListPanel
+                                                                                WidthSizePolicy="StretchToParent"
+                                                                                HeightSizePolicy="CoverChildren"
+                                                                                StackLayout.LayoutMethod="VerticalBottomToTop"
+                                                                                VerticalAlignment="Top"
+                                                                                MarginLeft="8"
+                                                                                MarginRight="8"
+                                                                                UpdateChildrenStates="true">
+                                                                                <Children>
+
+                                                                                    {# Row 1 (top): Name (left) + control (right) #}
+                                                                                    <ListPanel
+                                                                                        WidthSizePolicy="StretchToParent"
+                                                                                        HeightSizePolicy="CoverChildren"
+                                                                                        StackLayout.LayoutMethod="HorizontalLeftToRight"
+                                                                                        VerticalAlignment="Center"
+                                                                                        UpdateChildrenStates="true">
+                                                                                        <Children>
+
+                                                                                            <Widget
+                                                                                                WidthSizePolicy="Fixed"
+                                                                                                SuggestedWidth="820"
+                                                                                                HeightSizePolicy="CoverChildren"
+                                                                                                HorizontalAlignment="Right"
+                                                                                                VerticalAlignment="Center">
+                                                                                                <Children>
+                                                                                                    <TextWidget
+                                                                                                        Text="@Name"
+                                                                                                        WidthSizePolicy="CoverChildren"
+                                                                                                        HeightSizePolicy="Fixed"
+                                                                                                        HorizontalAlignment="Right"
+                                                                                                        VerticalAlignment="Center"
+                                                                                                        MaxWidth="820"
+                                                                                                        Brush="Clan.RightPanel.Name.Text"
+                                                                                                        Brush.FontSize="28"
+                                                                                                        MarginRight="16"
+                                                                                                        TextAlignment="Right" />
+                                                                                                </Children>
+                                                                                            </Widget>
+
+                                                                                            <Widget
+                                                                                                WidthSizePolicy="Fixed"
+                                                                                                SuggestedWidth="420"
+                                                                                                HeightSizePolicy="CoverChildren"
+                                                                                                HorizontalAlignment="Left"
+                                                                                                VerticalAlignment="Center"
+                                                                                                MarginLeft="16"
+                                                                                                UpdateChildrenStates="true">
+                                                                                                <Children>
+                                                                                                    {% include "_/panel/settings/setting.bool.j2" %}
+                                                                                                    {% include "_/panel/settings/setting.int-slider.j2" %}
+                                                                                                    {% include "_/panel/settings/setting.float-slider.j2" %}
+                                                                                                    {% include "_/panel/settings/setting.enum.j2" %}
+                                                                                                </Children>
+                                                                                            </Widget>
+
+                                                                                        </Children>
+                                                                                    </ListPanel>
+
+                                                                                    {# Row 2 (bottom): Description (left) + empty (right) #}
+                                                                                    <ListPanel
+                                                                                        IsVisible="@HasDescription"
+                                                                                        WidthSizePolicy="StretchToParent"
+                                                                                        HeightSizePolicy="CoverChildren"
+                                                                                        StackLayout.LayoutMethod="HorizontalLeftToRight"
+                                                                                        VerticalAlignment="Center">
+                                                                                        <Children>
+
+                                                                                            <Widget
+                                                                                                WidthSizePolicy="Fixed"
+                                                                                                SuggestedWidth="820"
+                                                                                                HeightSizePolicy="CoverChildren"
+                                                                                                HorizontalAlignment="Right"
+                                                                                                VerticalAlignment="Top">
+                                                                                                <Children>
+                                                                                                    <ListPanel
+                                                                                                        DataSource="{DescriptionLines}"
+                                                                                                        WidthSizePolicy="StretchToParent"
+                                                                                                        HeightSizePolicy="CoverChildren"
+                                                                                                        StackLayout.LayoutMethod="VerticalBottomToTop"
+                                                                                                        HorizontalAlignment="Right"
+                                                                                                        VerticalAlignment="Top">
+                                                                                                        <ItemTemplate>
+                                                                                                            <TextWidget
+                                                                                                                Text="@Text"
+                                                                                                                WidthSizePolicy="CoverChildren"
+                                                                                                                HeightSizePolicy="CoverChildren"
+                                                                                                                HorizontalAlignment="Right"
+                                                                                                                VerticalAlignment="Top"
+                                                                                                                MaxWidth="820"
+                                                                                                                Brush="InventoryGoldFontBrush"
+                                                                                                                Brush.FontColor="#f7ecddff"
+                                                                                                                Brush.FontSize="24"
+                                                                                                                MarginRight="16"
+                                                                                                                TextAlignment="Right" />
+                                                                                                        </ItemTemplate>
+                                                                                                    </ListPanel>
+                                                                                                </Children>
+                                                                                            </Widget>
+
+                                                                                            <Widget
+                                                                                                WidthSizePolicy="Fixed"
+                                                                                                SuggestedWidth="420"
+                                                                                                HeightSizePolicy="CoverChildren"
+                                                                                                HorizontalAlignment="Left"
+                                                                                                VerticalAlignment="Center"
+                                                                                                MarginLeft="16" />
+
+                                                                                        </Children>
+                                                                                    </ListPanel>
+
+                                                                                </Children>
+                                                                            </ListPanel>
+
+                                                                        </Children>
+                                                                    </Widget>
+
+                                                                </ItemTemplate>
+                                                            </ListPanel>
+                                                        </Children>
+                                                    </ListPanel>
+                                                </ItemTemplate>
+
+                                        </NavigatableListPanel>
+
+                                    </Children>
+                                </Widget>
+
+                            </Children>
+                        </ScrollablePanel>
+
+                        <Standard.VerticalScrollbar
+                            Id="SettingsScrollbar"
+                            HeightSizePolicy="StretchToParent"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Bottom"
+                            MarginLeft="2"
+                            MarginRight="2"
+                            MarginBottom="3" />
+                    </Children>
+                </ListPanel>
+            </Children>
+        </BrushListPanel>
+    </Children>
+</ListPanel>

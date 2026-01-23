@@ -1397,9 +1397,6 @@
       id="ret_mcm_option_allowed_recruiters"
       text="Reclutatori consentiti" />
     <string
-      id="ret_mcm_option_allowed_recruiters_hint"
-      text="Determina chi può reclutare truppe personalizzate. &apos;Tutti&apos;: Tutte le fazioni possono reclutare truppe personalizzate (consigliato per la compatibilità con altre mod di reclutamento). &apos;Solo fazione&apos;: Solo le fazioni possono reclutare truppe personalizzate. &apos;Solo giocatore&apos;: Solo il giocatore può reclutare truppe personalizzate." />
-    <string
       id="ret_mcm_option_captain_spawn_rate"
       text="Tasso di generazione dei capitani" />
     <string
@@ -1409,14 +1406,8 @@
       id="ret_mcm_option_clan_troops_availability"
       text="Disponibilità delle truppe del clan" />
     <string
-      id="ret_mcm_option_clan_troops_availability_hint"
-      text="Determina da dove si possono reclutare le truppe del clan. &apos;Ovunque&apos;: le truppe del clan possono essere reclutate in qualsiasi insediamento. &apos;Feudi del clan&apos;: le truppe del clan possono essere reclutate solo nei feudi posseduti dal loro clan. &apos;Feudi del clan o del regno&apos;: le truppe del clan possono essere reclutate nei feudi posseduti dal clan o dal regno. &apos;Da nessuna parte&apos;: le truppe del clan non possono essere reclutate." />
-    <string
       id="ret_mcm_option_clan_troops_unlock"
       text="Truppe del clan" />
-    <string
-      id="ret_mcm_option_clan_troops_unlock_hint"
-      text="Determina quando le truppe del clan diventano disponibili. &apos;Sempre sbloccate&apos;: disponibili dall&apos;inizio. &apos;Sbloccate con il primo feudo&apos;: si sbloccano quando il clan acquisisce il suo primo feudo. &apos;Disabilitate&apos;: le truppe del clan non vengono mai sbloccate." />
     <string
       id="ret_mcm_option_debug_mode"
       text="Modalità di debug" />
@@ -1462,9 +1453,6 @@
     <string
       id="ret_mcm_option_editing_restriction"
       text="Restrizioni di posizione" />
-    <string
-      id="ret_mcm_option_editing_restriction_hint"
-      text="Restringe dove le truppe della fazione possono essere modificate. &apos;Ovunque&apos;: nessuna restrizione. &apos;Qualsiasi insediamento&apos;: devi essere in un insediamento. &apos;Insediamento della fazione&apos;: devi essere in un feudo di fazione posseduto (esclusi i retinues)." />
     <string
       id="ret_mcm_option_editor_hotkey"
       text="Tasto di scelta rapida dell&apos;editor" />
@@ -1562,26 +1550,14 @@
       id="ret_mcm_option_feat_complete_notification"
       text="Notifica di completamento dell&apos;impresa" />
     <string
-      id="ret_mcm_option_feat_complete_notification_hint"
-      text="Determina lo stile di notifica quando le imprese sono completate." />
-    <string
       id="ret_mcm_option_item_unlock_notification"
       text="Notifica di sblocco dell&apos;oggetto" />
-    <string
-      id="ret_mcm_option_item_unlock_notification_hint"
-      text="Determina lo stile di notifica quando vengono sbloccati nuovi oggetti." />
     <string
       id="ret_mcm_option_kingdom_troops_availability"
       text="Disponibilità delle Truppe del Regno" />
     <string
-      id="ret_mcm_option_kingdom_troops_availability_hint"
-      text="Determina da dove possono essere reclutate le truppe del regno. &apos;Ovunque&apos;: Le truppe del regno possono essere reclutate da qualsiasi insediamento. &apos;Feudi del Regno&apos;: Le truppe del regno possono essere reclutate solo dai feudi posseduti dal loro regno. &apos;Feudi di Clan o del Regno&apos;: Le truppe del regno possono essere reclutate dai feudi di clan o del regno posseduti. &apos;Da nessuna parte&apos;: Le truppe del regno non possono essere reclutate." />
-    <string
       id="ret_mcm_option_kingdom_troops_unlock"
       text="Truppe del Regno" />
-    <string
-      id="ret_mcm_option_kingdom_troops_unlock_hint"
-      text="Determina quando le truppe del regno diventano disponibili. &apos;Sempre sbloccate&apos;: disponibili dall&apos;inizio. &apos;Sbloccate al fondare un regno&apos;: le truppe del regno si sbloccano quando il giocatore fonda un regno. &apos;Disabilitate&apos;: le truppe del regno non vengono mai sbloccate." />
     <string
       id="ret_mcm_option_max_retinue_ratio"
       text="Rapporto massimo di Retinues" />
@@ -1706,14 +1682,8 @@
       id="ret_mcm_option_starter_equipment"
       text="Equipaggiamento iniziale" />
     <string
-      id="ret_mcm_option_starter_equipment_hint"
-      text="Imposta l&apos;equipaggiamento iniziale per le truppe appena sbloccate. &apos;Casuale&apos;: viene assegnato un set di equipaggiamento casuale. &apos;Copia un set&apos;: viene copiato un set di equipaggiamento dalla truppa di base. &apos;Copia tutti i set&apos;: tutti i set di equipaggiamento vengono copiati dalle truppe di base. &apos;Vuoto&apos;: non viene creato alcun equipaggiamento iniziale." />
-    <string
       id="ret_mcm_option_starter_troops"
       text="Truppe iniziali" />
-    <string
-      id="ret_mcm_option_starter_troops_hint"
-      text="Determina le truppe iniziali del clan e del regno. &apos;Solo radici&apos;: viene creata solo una truppa di base e una truppa d&apos;élite. &apos;Alberi snelli&apos;: all&apos;inizio viene creata una selezione snella di truppe. &apos;Alberi completi&apos;: l&apos;intera gamma di truppe viene creata automaticamente." />
     <string
       id="ret_mcm_option_time_multiplier"
       text="Moltiplicatore del tempo di equipaggiamento" />

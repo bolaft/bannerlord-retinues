@@ -1,0 +1,61 @@
+{# Enum option editor (prev / label / next) #}
+
+<!-- Enum selector (prev / label / next) -->
+<ListPanel
+    IsVisible="@IsEnumOption"
+    WidthSizePolicy="CoverChildren"
+    HeightSizePolicy="CoverChildren"
+    StackLayout.LayoutMethod="HorizontalLeftToRight"
+    VerticalAlignment="Top"
+    UpdateChildrenStates="true">
+    <Children>
+
+        <ButtonWidget
+            WidthSizePolicy="Fixed"
+            HeightSizePolicy="Fixed"
+            SuggestedWidth="40"
+            SuggestedHeight="43"
+            VerticalAlignment="Top"
+            Brush="SPOptions.Dropdown.Left.Button"
+            IsEnabled="@IsEnabled"
+            Command.Click="ExecuteSelectPrevious" />
+
+        <ButtonWidget
+            WidthSizePolicy="Fixed"
+            HeightSizePolicy="Fixed"
+            SuggestedWidth="260"
+            SuggestedHeight="43"
+            VerticalAlignment="Top"
+            Brush="SPOptions.Dropdown.Center"
+            IsEnabled="@IsEnabled"
+            DoNotPassEventsToChildren="true"
+            Command.Click="ExecuteOpenChoicePopup">
+            <Children>
+                <HintWidget
+                    DataSource="{Tooltip}"
+                    Command.HoverBegin="ExecuteBeginHint"
+                    Command.HoverEnd="ExecuteEndHint" />
+                <TextWidget
+                    WidthSizePolicy="StretchToParent"
+                    HeightSizePolicy="StretchToParent"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    MarginLeft="7"
+                    MarginRight="7"
+                    Brush="SPOptions.Dropdown.Center.Text"
+                    Text="@SelectedLabel" />
+            </Children>
+        </ButtonWidget>
+
+        <ButtonWidget
+            WidthSizePolicy="Fixed"
+            HeightSizePolicy="Fixed"
+            SuggestedWidth="40"
+            SuggestedHeight="43"
+            VerticalAlignment="Top"
+            Brush="SPOptions.Dropdown.Right.Button"
+            IsEnabled="@IsEnabled"
+            Command.Click="ExecuteSelectNext" />
+
+    </Children>
+</ListPanel>

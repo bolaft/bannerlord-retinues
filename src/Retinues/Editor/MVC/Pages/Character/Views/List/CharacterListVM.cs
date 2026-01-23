@@ -2,13 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Retinues.Behaviors.Retinues;
-using Retinues.Configuration;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Factions.Wrappers;
 using Retinues.Editor.Events;
 using Retinues.Editor.MVC.Shared.Views;
 using Retinues.Interface.Components;
 using Retinues.Interface.Services;
+using Retinues.Settings;
 
 namespace Retinues.Editor.MVC.Pages.Character.Views.List
 {
@@ -357,7 +357,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.List
             if (
                 EditorState.Instance.Mode == EditorMode.Player
                 && faction is WClan
-                && Settings.EnableRetinues
+                && Configuration.EnableRetinues
             )
             {
                 var header = new ListHeaderVM(

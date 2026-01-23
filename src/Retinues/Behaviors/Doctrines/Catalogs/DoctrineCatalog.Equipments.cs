@@ -1,6 +1,6 @@
 using Retinues.Behaviors.Doctrines.Definitions;
-using Retinues.Configuration;
 using Retinues.Interface.Services;
+using Retinues.Settings;
 
 namespace Retinues.Behaviors.Doctrines.Catalogs
 {
@@ -42,8 +42,8 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                             FeatCatalog.CP_HometownTournament,
                             FeatCatalog.CP_ProudAndStrong,
                         ],
-                        Overridden = () => Settings.EquipmentCostsMoney == false,
-                        OverriddenHint = OverriddenByOption(Settings.EquipmentCostsMoney),
+                        Overridden = () => Configuration.EquipmentCostsMoney == false,
+                        OverriddenHint = OverriddenByOption(Configuration.EquipmentCostsMoney),
                     },
                     new DoctrineData
                     {
@@ -60,8 +60,8 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                             FeatCatalog.HG_PaidInFull,
                             FeatCatalog.HG_GoldenLegion,
                         ],
-                        Overridden = () => Settings.EquipmentValueLimit == false,
-                        OverriddenHint = OverriddenByOption(Settings.EquipmentValueLimit),
+                        Overridden = () => Configuration.EquipmentValueLimit == false,
+                        OverriddenHint = OverriddenByOption(Configuration.EquipmentValueLimit),
                     },
                     new DoctrineData
                     {
@@ -78,8 +78,8 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                             FeatCatalog.IR_Ironmen,
                             FeatCatalog.IR_TailorMade,
                         ],
-                        Overridden = () => Settings.EquipmentWeightLimit == false,
-                        OverriddenHint = OverriddenByOption(Settings.EquipmentWeightLimit),
+                        Overridden = () => Configuration.EquipmentWeightLimit == false,
+                        OverriddenHint = OverriddenByOption(Configuration.EquipmentWeightLimit),
                     },
                     new DoctrineData
                     {
@@ -96,8 +96,8 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                             FeatCatalog.RP_RoyalLevy,
                             FeatCatalog.RP_RoyalStewardship,
                         ],
-                        Overridden = () => Settings.EquipmentCostsMoney == false,
-                        OverriddenHint = OverriddenByOption(Settings.EquipmentCostsMoney),
+                        Overridden = () => Configuration.EquipmentCostsMoney == false,
+                        OverriddenHint = OverriddenByOption(Configuration.EquipmentCostsMoney),
                     },
                 ],
             };

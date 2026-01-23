@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
-using Retinues.Configuration;
 using Retinues.Domain;
 using Retinues.Domain.Characters.Services.Matching;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Settlements.Wrappers;
+using Retinues.Settings;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 
@@ -219,7 +219,7 @@ namespace Retinues.Behaviors.Volunteers
                     if (replacementBase == current)
                         continue;
 
-                    if (Settings.SameCultureOnly)
+                    if (Configuration.SameCultureOnly)
                     {
                         var replacementCulture = replacementBase.Culture;
 

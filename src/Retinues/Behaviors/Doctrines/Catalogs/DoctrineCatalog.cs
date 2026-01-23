@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using Retinues.Configuration;
 using Retinues.Interface.Services;
+using Retinues.Settings;
 using TaleWorlds.Localization;
 using static Retinues.Behaviors.Doctrines.Catalogs.FeatCatalog;
 

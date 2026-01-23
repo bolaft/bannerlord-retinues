@@ -4,12 +4,12 @@ using System.Linq;
 using System.Reflection;
 using HarmonyLib;
 using Retinues.Behaviors.Doctrines.Catalogs;
-using Retinues.Configuration;
 using Retinues.Domain;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Framework.Runtime;
 using Retinues.Interface.Components;
 using Retinues.Interface.Services;
+using Retinues.Settings;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Party;
@@ -77,7 +77,7 @@ namespace Retinues.Behaviors.Retinues.Patches
             if (party == null)
                 return;
 
-            var cap = (int)Math.Floor(party.PartySizeLimit * Settings.MaxRetinueRatio);
+            var cap = (int)Math.Floor(party.PartySizeLimit * Configuration.MaxRetinueRatio);
 
             // +15% retinue cap from Vanguard doctrine
             if (DoctrineCatalog.Vanguard?.IsAcquired == true)

@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using Retinues.Configuration;
 using Retinues.Domain;
 using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Framework.Behaviors;
+using Retinues.Settings;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Settlements.Workshops;
@@ -16,7 +16,7 @@ namespace Retinues.Behaviors.Unlocks
     /// </summary>
     public sealed class UnlocksByWorkshopsBehavior : BaseCampaignBehavior
     {
-        public override bool IsActive => Settings.UnlockItemsThroughWorkshops;
+        public override bool IsActive => Configuration.UnlockItemsThroughWorkshops;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Persistence                      //
@@ -100,7 +100,7 @@ namespace Retinues.Behaviors.Unlocks
             if (workshops == null || workshops.Count == 0)
                 return;
 
-            var requiredDays = Math.Max(1, (int)Settings.RequiredDaysToUnlock);
+            var requiredDays = Math.Max(1, (int)Configuration.RequiredDaysToUnlock);
             var perDay = Math.Max(
                 1,
                 (int)Math.Ceiling(WItem.UnlockThreshold / (double)requiredDays)
@@ -236,7 +236,7 @@ namespace Retinues.Behaviors.Unlocks
                     _targetByWorkshopKey.Remove(workshopKey);
             }
 
-            if (Settings.DebugMode && itemsTouched > 0)
+            if (Configuration.DebugMode && itemsTouched > 0)
             {
                 Log.Debug(
                     $"[Unlocks] Workshop progress: day={dayIndex}, workshops={workshops.Count}, items={itemsTouched}, newlyUnlocked={unlocked.Count}, totalAdded={totalAdded}."

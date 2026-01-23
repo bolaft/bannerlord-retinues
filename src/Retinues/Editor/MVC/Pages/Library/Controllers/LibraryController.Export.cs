@@ -11,7 +11,7 @@ using Retinues.Interface.Services;
 using Retinues.Utilities;
 using TaleWorlds.Localization;
 
-namespace Retinues.Editor.Controllers.Library
+namespace Retinues.Editor.MVC.Pages.Library.Controllers
 {
     /// <summary>
     /// Partial class for library controller export actions.

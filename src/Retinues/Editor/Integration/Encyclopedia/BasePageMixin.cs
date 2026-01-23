@@ -1,9 +1,9 @@
 using System;
 using Bannerlord.UIExtenderEx.Attributes;
 using Bannerlord.UIExtenderEx.ViewModels;
-using Retinues.Configuration;
 using Retinues.Interface.Components;
 using Retinues.Interface.Services;
+using Retinues.Settings;
 using Retinues.Utilities;
 using TaleWorlds.Library;
 
@@ -34,7 +34,10 @@ namespace Retinues.Editor.Integration.Encyclopedia
         {
             get
             {
-                if (!Settings.EnableUniversalEditor && DesiredEditorMode == EditorMode.Universal)
+                if (
+                    !Configuration.EnableUniversalEditor
+                    && DesiredEditorMode == EditorMode.Universal
+                )
                     return false;
 
                 return true;

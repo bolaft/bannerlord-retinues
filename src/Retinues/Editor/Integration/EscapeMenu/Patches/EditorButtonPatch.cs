@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using HarmonyLib;
-using Retinues.Configuration;
 using Retinues.Interface.Services;
+using Retinues.Settings;
 using Retinues.Utilities;
 using TaleWorlds.Localization;
 using TaleWorlds.MountAndBlade.ViewModelCollection.EscapeMenu;
@@ -25,7 +25,7 @@ namespace Retinues.Editor.Integration.EscapeMenu.Patches
         {
             try
             {
-                if (Settings.EnableUniversalEditor != true)
+                if (Configuration.EnableUniversalEditor != true)
                     return; // Feature disabled
 
                 var title = L.T("escape_menu_editor_button", "Universal Editor");

@@ -1,13 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Retinues.Configuration;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Equipments.Helpers;
 using Retinues.Domain.Equipments.Models;
 using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Domain.Factions.Wrappers;
 using Retinues.Framework.Runtime;
+using Retinues.Settings;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 
@@ -513,7 +513,7 @@ namespace Retinues.Domain.Equipments.Services.Random
             desiredTier = Math.Min(desiredTier, ownerTierCap);
 
             // Ensure we don't pick above max configured tier.
-            desiredTier = Math.Min(desiredTier, Settings.RandomItemMaxTier);
+            desiredTier = Math.Min(desiredTier, Configuration.RandomItemMaxTier);
 
             return desiredTier;
         }

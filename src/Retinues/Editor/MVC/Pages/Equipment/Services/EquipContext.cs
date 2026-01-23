@@ -1,6 +1,6 @@
-using Retinues.Configuration;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Equipments.Models;
+using Retinues.Settings;
 
 namespace Retinues.Editor.MVC.Pages.Equipment.Services
 {
@@ -21,13 +21,15 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Services
         public MEquipment Equipment { get; } = equipment;
 
         public bool EconomyEnabled =>
-            !PreviewEnabled && Mode == EditorMode.Player && Settings.EquipmentCostsMoney;
+            !PreviewEnabled && Mode == EditorMode.Player && Configuration.EquipmentCostsMoney;
 
         public bool LimitsEnabled =>
             Mode == EditorMode.Player
-            || (Mode == EditorMode.Universal && Settings.EnforceEquipmentLimitsInUniversalMode);
+            || (
+                Mode == EditorMode.Universal && Configuration.EnforceEquipmentLimitsInUniversalMode
+            );
 
-        public bool WeightLimitActive => LimitsEnabled && Settings.EquipmentWeightLimit;
-        public bool ValueLimitActive => LimitsEnabled && Settings.EquipmentValueLimit;
+        public bool WeightLimitActive => LimitsEnabled && Configuration.EquipmentWeightLimit;
+        public bool ValueLimitActive => LimitsEnabled && Configuration.EquipmentValueLimit;
     }
 }

@@ -119,7 +119,7 @@ namespace Retinues.Framework.Runtime
             var entries = new List<(int order, string id, bool refresh, Action action)>();
 
             if (assemblies == null || assemblies.Length == 0)
-                assemblies = new[] { Assembly.GetExecutingAssembly() };
+                assemblies = [Assembly.GetExecutingAssembly()];
 
             foreach (var asm in assemblies.Where(a => a != null).Distinct())
             {

@@ -1,0 +1,107 @@
+{# Int slider option editor #}
+
+<!-- Int slider -->
+<ListPanel
+    IsVisible="@IsIntSliderOption"
+    WidthSizePolicy="CoverChildren"
+    HeightSizePolicy="CoverChildren"
+    StackLayout.LayoutMethod="HorizontalLeftToRight"
+    VerticalAlignment="Top">
+    <Children>
+
+        <SliderWidget
+            WidthSizePolicy="Fixed"
+            HeightSizePolicy="Fixed"
+            SuggestedWidth="338"
+            SuggestedHeight="65"
+            VerticalAlignment="Top"
+            Filler="FillerInt"
+            Handle="SliderHandleInt"
+            IsDiscrete="true"
+            MinValueInt="@IntMin"
+            MaxValueInt="@IntMax"
+            ValueInt="@IntValue"
+            DoNotUpdateHandleSize="true"
+            IsDisabled="@IsDisabled">
+            <Children>
+                <Widget
+                    WidthSizePolicy="Fixed"
+                    HeightSizePolicy="Fixed"
+                    SuggestedWidth="362"
+                    SuggestedHeight="38"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Sprite="SPGeneral\SPOptions\standart_slider_canvas"
+                    IsEnabled="false" />
+                <Widget
+                    Id="FillerInt"
+                    WidthSizePolicy="Fixed"
+                    HeightSizePolicy="Fixed"
+                    SuggestedWidth="345"
+                    SuggestedHeight="35"
+                    VerticalAlignment="Center"
+                    Sprite="SPGeneral\SPOptions\standart_slider_fill"
+                    ClipContents="true">
+                    <Children>
+                        <Widget
+                            WidthSizePolicy="Fixed"
+                            HeightSizePolicy="Fixed"
+                            SuggestedWidth="345"
+                            SuggestedHeight="35"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Sprite="SPGeneral\SPOptions\standart_slider_fill" />
+                    </Children>
+                </Widget>
+                <Widget
+                    WidthSizePolicy="Fixed"
+                    HeightSizePolicy="Fixed"
+                    SuggestedWidth="400"
+                    SuggestedHeight="65"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Sprite="SPGeneral\SPOptions\standart_slider_frame"
+                    IsEnabled="false" />
+                <ImageWidget
+                    Id="SliderHandleInt"
+                    WidthSizePolicy="Fixed"
+                    HeightSizePolicy="Fixed"
+                    SuggestedWidth="14"
+                    SuggestedHeight="38"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Brush="SPOptions.Slider.Handle"
+                    DoNotAcceptEvents="true" />
+            </Children>
+        </SliderWidget>
+
+
+        <Widget
+            WidthSizePolicy="Fixed"
+            HeightSizePolicy="Fixed"
+            SuggestedWidth="85"
+            SuggestedHeight="30"
+            VerticalAlignment="Center"
+            MarginLeft="40">
+            <Children>
+                <BrushWidget 
+                    WidthSizePolicy="StretchToParent"
+                    HeightSizePolicy="StretchToParent"
+                    Brush="Barter.AmountInput.Input"
+                    ClipContents="false" />
+
+                <TextWidget
+                    WidthSizePolicy="StretchToParent"
+                    HeightSizePolicy="StretchToParent"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Brush="Barter.AmountInput.Text"
+                    Brush.FontSize="20"
+                    Text="@ValueText"
+                    ClipContents="false"
+                    DoNotAcceptEvents="true" />
+            </Children>
+        </Widget>
+
+    </Children>
+</ListPanel>

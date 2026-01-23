@@ -1,6 +1,6 @@
 using Retinues.Behaviors.Doctrines.Definitions;
-using Retinues.Configuration;
 using Retinues.Interface.Services;
+using Retinues.Settings;
 
 namespace Retinues.Behaviors.Doctrines.Catalogs
 {
@@ -90,8 +90,8 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                             FeatCatalog.AT_LethalVersatility,
                             FeatCatalog.AT_UnyieldingDefense,
                         ],
-                        Overridden = () => Settings.SkillPointsMustBeEarned == false,
-                        OverriddenHint = OverriddenByOption(Settings.SkillPointsMustBeEarned),
+                        Overridden = () => Configuration.SkillPointsMustBeEarned == false,
+                        OverriddenHint = OverriddenByOption(Configuration.SkillPointsMustBeEarned),
                     },
                 ],
             };

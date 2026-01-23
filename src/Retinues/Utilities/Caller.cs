@@ -30,7 +30,7 @@ namespace Retinues.Utilities
 
         // Default filters to skip noise
         private static readonly string[] _skipNamespaces =
-        {
+        [
             "System.",
             "Microsoft.",
             "HarmonyLib.",
@@ -38,7 +38,7 @@ namespace Retinues.Utilities
             "TaleWorlds.Library",
             "TaleWorlds.DotNet",
             "Retinues.Utilities",
-        };
+        ];
 
         private static readonly HashSet<string> _skipTypes = new(StringComparer.Ordinal)
         {

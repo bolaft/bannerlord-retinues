@@ -137,10 +137,5 @@
       <HintPath>$(ReferenceRoot)/0Harmony.dll</HintPath>
       <Private>false</Private>
     </Reference>
-    <!-- MCM -->
-    <Reference Include="MCM">
-      <HintPath>$(ReferenceRoot)/MCMv5.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
   </ItemGroup>
 </Project>

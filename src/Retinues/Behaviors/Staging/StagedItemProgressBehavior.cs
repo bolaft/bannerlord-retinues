@@ -1,9 +1,9 @@
-using Retinues.Configuration;
 using Retinues.Domain;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Equipments.Models;
 using Retinues.Framework.Behaviors;
 using Retinues.Interface.Services;
+using Retinues.Settings;
 using Retinues.Utilities;
 using TaleWorlds.Library;
 
@@ -14,17 +14,20 @@ namespace Retinues.Behaviors.Staging
     /// </summary>
     public sealed class StagedItemProgressBehavior : BaseCampaignBehavior
     {
-        public override bool IsActive => Settings.EquippingTakesTime;
+        public override bool IsActive => Configuration.EquippingTakesTime;
 
         /// <summary>
         /// Hourly tick handler that progresses staged equipment and finalizes equips when thresholds are met.
         /// </summary>
         protected override void OnHourlyTick()
         {
-            if (!Settings.EquippingProgressesWhileTravelling && Player.CurrentSettlement == null)
+            if (
+                !Configuration.EquippingProgressesWhileTravelling
+                && Player.CurrentSettlement == null
+            )
                 return;
 
-            float timeMult = Settings.EquipTimeMultiplier;
+            float timeMult = Configuration.EquipTimeMultiplier;
             if (timeMult <= 0.01f)
                 timeMult = 0.01f;
 

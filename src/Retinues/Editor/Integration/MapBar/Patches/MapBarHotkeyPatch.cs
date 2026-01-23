@@ -1,5 +1,5 @@
 using HarmonyLib;
-using Retinues.Configuration;
+using Retinues.Settings;
 using Retinues.Utilities;
 using SandBox.GauntletUI.Map;
 using TaleWorlds.InputSystem;
@@ -38,7 +38,7 @@ namespace Retinues.Editor.Integration.MapBar.Patches
             if (__result)
                 return;
 
-            if (!Settings.EditorHotkey)
+            if (!Configuration.EditorHotkey)
                 return;
 
             // Runs under vanilla mapbar gating (focused layer + not focused on input),

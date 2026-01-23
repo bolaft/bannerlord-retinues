@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using HarmonyLib;
 using Retinues.Behaviors.Doctrines.Catalogs;
-using Retinues.Configuration;
 using Retinues.Domain.Characters.Wrappers;
+using Retinues.Settings;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.TroopSuppliers;
@@ -68,7 +68,7 @@ namespace Retinues.Behaviors.Agents.Patches
                 count++;
                 _spawnCounts[id] = count;
 
-                int spawnRate = Settings.CaptainSpawnRate;
+                int spawnRate = Configuration.CaptainSpawnRate;
 
                 if (spawnRate <= 0 || (count % spawnRate) != 0)
                     return;

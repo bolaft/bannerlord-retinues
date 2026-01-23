@@ -6,9 +6,9 @@
     DataSource="{Panel}"
     VisualDefinition="RightPanel"
     WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent"
-    SuggestedWidth="820"
+    SuggestedWidth="1600"
     MarginRight="16" MarginTop="16"
-    HorizontalAlignment="Right">
+    HorizontalAlignment="@HorizontalAlignment">
     <Children>
 
         {# ------------------------------------------ #}
@@ -30,6 +30,11 @@
         {# Doctrines panel                            #}
         {# ------------------------------------------ #}
         {% include "_/panel/doctrines/doctrines.base.j2" %}
+
+        {# ------------------------------------------ #}
+        {# Settings panel                            #}
+        {# ------------------------------------------ #}
+        {% include "_/panel/settings/settings.base.j2" %}
 
     </Children>
 </Widget>

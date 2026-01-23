@@ -1,10 +1,10 @@
-using Retinues.Configuration;
 using Retinues.Domain;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Equipments.Models;
 using Retinues.Domain.Factions;
 using Retinues.Domain.Factions.Wrappers;
 using Retinues.Editor.Events;
+using Retinues.Settings;
 using TaleWorlds.Core;
 
 namespace Retinues.Editor
@@ -75,7 +75,7 @@ namespace Retinues.Editor
         {
             Mode = args?.Mode ?? EditorMode.Universal;
 
-            if (!Settings.EnableUniversalEditor && Mode == EditorMode.Universal)
+            if (!Configuration.EnableUniversalEditor && Mode == EditorMode.Universal)
                 Mode = EditorMode.Player;
 
             var resolved = ResolveLaunch(args);

@@ -491,7 +491,7 @@ namespace Retinues.Framework.Model.Attributes
                             {
                                 try
                                 {
-                                    itemObj = wrapperGet.Invoke(null, new object[] { v });
+                                    itemObj = wrapperGet.Invoke(null, [v]);
                                 }
                                 catch
                                 {
@@ -584,7 +584,7 @@ namespace Retinues.Framework.Model.Attributes
                     if (bb != null && add != null)
                     {
                         for (int i = 0; i < tmp.Count; i++)
-                            add.Invoke(bb, new[] { tmp[i] });
+                            add.Invoke(bb, [tmp[i]]);
                         return bb;
                     }
                 }

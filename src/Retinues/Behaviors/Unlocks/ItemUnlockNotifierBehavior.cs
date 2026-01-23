@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 using Retinues.Behaviors.Troops;
-using Retinues.Configuration;
 using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Framework.Behaviors;
 using Retinues.Framework.Runtime;
 using Retinues.Interface.Services;
+using Retinues.Settings;
 using TaleWorlds.Localization;
 
 namespace Retinues.Behaviors.Unlocks
@@ -13,7 +13,7 @@ namespace Retinues.Behaviors.Unlocks
     [SafeClass]
     public sealed class ItemUnlockNotifierBehavior : BaseCampaignBehavior
     {
-        public override bool IsActive => Settings.EquipmentNeedsUnlocking;
+        public override bool IsActive => Configuration.EquipmentNeedsUnlocking;
 
         /// <summary>
         /// Pending notification data.
@@ -124,9 +124,9 @@ namespace Retinues.Behaviors.Unlocks
         /// </summary>
         private static void Show(TextObject title, TextObject description)
         {
-            switch (Settings.ItemUnlockNotification.Value)
+            switch (Configuration.ItemUnlockNotification.Value)
             {
-                case Settings.NotificationStyle.Message:
+                case Configuration.NotificationStyle.Message:
                     Notifications.Message($"{title}\n{description}");
                     break;
 

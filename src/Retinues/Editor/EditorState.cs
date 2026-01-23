@@ -7,6 +7,7 @@ using Retinues.Domain.Factions;
 using Retinues.Editor.Events;
 using Retinues.Editor.MVC.Pages.Library.Services;
 using Retinues.Framework.Runtime;
+using Retinues.Settings;
 using Retinues.Utilities;
 using TaleWorlds.Core;
 
@@ -30,6 +31,7 @@ namespace Retinues.Editor
         Equipment = 1,
         Doctrines = 2,
         Library = 3,
+        Settings = 4,
     }
 
     /// <summary>

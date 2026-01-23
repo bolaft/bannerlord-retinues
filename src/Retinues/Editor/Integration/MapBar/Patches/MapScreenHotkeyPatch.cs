@@ -1,7 +1,7 @@
 using System.Linq;
 using HarmonyLib;
-using Retinues.Configuration;
 using Retinues.Domain;
+using Retinues.Settings;
 using Retinues.Utilities;
 using SandBox.View.Map;
 using TaleWorlds.InputSystem;
@@ -29,7 +29,7 @@ namespace Retinues.Editor.Integration.MapBar.Patches
             if (__result)
                 return;
 
-            if (!Settings.EditorHotkey)
+            if (!Configuration.EditorHotkey)
                 return;
 
             var sceneLayer = __instance.SceneLayer;

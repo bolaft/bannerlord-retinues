@@ -1,7 +1,7 @@
 using Retinues.Editor.MVC.Pages.Library.Services;
 using Retinues.Editor.MVC.Shared.Controllers;
 
-namespace Retinues.Editor.Controllers.Library
+namespace Retinues.Editor.MVC.Pages.Library.Controllers
 {
     /// <summary>
     /// Library screen operations (import/export/delete/edit).

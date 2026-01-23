@@ -2,6 +2,7 @@ using System;
 using Retinues.Domain.Equipments.Helpers;
 using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Interface.Services;
+using Retinues.Settings;
 using TaleWorlds.Core;
 using TaleWorlds.Localization;
 
@@ -124,12 +125,12 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Services
 
                 float weightLimit = EquipmentLimitsHelper.GetWeightLimit(
                     t,
-                    Configuration.Settings.EquipmentWeightLimitMultiplier
+                    Configuration.EquipmentWeightLimitMultiplier
                 );
 
                 int valueLimit = EquipmentLimitsHelper.GetValueLimit(
                     t,
-                    Configuration.Settings.EquipmentValueLimitMultiplier
+                    Configuration.EquipmentValueLimitMultiplier
                 );
 
                 var current = EquipmentLimitsHelper.GetTotals(getPlanned);

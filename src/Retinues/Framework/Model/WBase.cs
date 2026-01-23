@@ -151,16 +151,14 @@ namespace Retinues.Framework.Model
 
             var id = baseInstance.StringId;
             if (string.IsNullOrEmpty(id))
-                return (TWrapper)
-                    Activator.CreateInstance(typeof(TWrapper), new object[] { baseInstance });
+                return (TWrapper)Activator.CreateInstance(typeof(TWrapper), [baseInstance]);
 
             lock (CacheSync)
             {
                 if (Cache.TryGetValue(id, out var existing))
                     return existing;
 
-                var created = (TWrapper)
-                    Activator.CreateInstance(typeof(TWrapper), new object[] { baseInstance });
+                var created = (TWrapper)Activator.CreateInstance(typeof(TWrapper), [baseInstance]);
 
                 Cache[id] = created;
                 return created;

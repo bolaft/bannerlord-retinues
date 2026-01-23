@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using HarmonyLib;
-using Retinues.Configuration;
 using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Framework.Runtime;
 using Retinues.Interface.Services;
+using Retinues.Settings;
 using Retinues.Utilities;
 using SandBox.ViewModelCollection;
 using TaleWorlds.Core.ViewModelCollection;
@@ -33,7 +33,9 @@ namespace Retinues.Behaviors.Unlocks.Patches
                 if (!playerVictory)
                     return;
 
-                if (!Settings.EquipmentNeedsUnlocking || !Settings.UnlockItemsThroughKills)
+                if (
+                    !Configuration.EquipmentNeedsUnlocking || !Configuration.UnlockItemsThroughKills
+                )
                     return;
 
                 var mission = Mission.Current;

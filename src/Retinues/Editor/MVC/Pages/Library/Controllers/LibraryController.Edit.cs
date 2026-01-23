@@ -4,7 +4,7 @@ using Retinues.Editor.MVC.Shared.Controllers;
 using Retinues.Interface.Services;
 using Retinues.Utilities;
 
-namespace Retinues.Editor.Controllers.Library
+namespace Retinues.Editor.MVC.Pages.Library.Controllers
 {
     /// <summary>
     /// Partial class for library controller edit actions.

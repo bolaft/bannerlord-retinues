@@ -2,11 +2,11 @@ using System;
 using System.Collections.Generic;
 using Retinues.Behaviors.Doctrines.Catalogs;
 using Retinues.Behaviors.Missions;
-using Retinues.Configuration;
 using Retinues.Domain.Equipments.Models;
 using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Domain.Events.Models;
 using Retinues.Framework.Behaviors;
+using Retinues.Settings;
 using Retinues.Utilities;
 using TaleWorlds.MountAndBlade;
 
@@ -19,7 +19,7 @@ namespace Retinues.Behaviors.Unlocks
     {
         static Mission _lastAppliedMission;
 
-        public override bool IsActive => Settings.UnlockItemsThroughKills;
+        public override bool IsActive => Configuration.UnlockItemsThroughKills;
 
         /// <summary>
         /// Called when a mission ends.
@@ -54,7 +54,7 @@ namespace Retinues.Behaviors.Unlocks
             if (kills == null || kills.Count == 0)
                 return [];
 
-            var required = (int)Settings.RequiredKillsToUnlock;
+            var required = (int)Configuration.RequiredKillsToUnlock;
             if (required <= 0)
                 return [];
 

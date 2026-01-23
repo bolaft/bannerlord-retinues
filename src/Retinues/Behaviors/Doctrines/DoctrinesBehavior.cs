@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using Retinues.Behaviors.Doctrines.Definitions;
-using Retinues.Configuration;
 using Retinues.Framework.Behaviors;
 using Retinues.Framework.Runtime;
 using Retinues.Interface.Services;
+using Retinues.Settings;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Localization;
 
@@ -15,7 +15,7 @@ namespace Retinues.Behaviors.Doctrines
     /// </summary>
     public sealed class DoctrinesBehavior : BaseCampaignBehavior<DoctrinesBehavior>
     {
-        public override bool IsActive => Settings.EnableDoctrines;
+        public override bool IsActive => Configuration.EnableDoctrines;
 
         private const int DoctrineUnlockTarget = Doctrine.ProgressTarget;
 
@@ -186,9 +186,9 @@ namespace Retinues.Behaviors.Doctrines
         /// </summary>
         private static void ShowFeatNotification(TextObject title, TextObject description)
         {
-            switch (Settings.FeatCompleteNotification.Value)
+            switch (Configuration.FeatCompleteNotification.Value)
             {
-                case Settings.NotificationStyle.Message:
+                case Configuration.NotificationStyle.Message:
                     // Body only: description, no extra text.
                     Notifications.Message(description?.ToString() ?? string.Empty);
                     break;

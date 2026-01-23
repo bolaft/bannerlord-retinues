@@ -117,7 +117,7 @@ namespace Retinues.Framework.Diagnostics.SaveSystem.Patches
     [HarmonyPatch(
         typeof(SaveManager),
         nameof(SaveManager.Load),
-        new[] { typeof(string), typeof(ISaveDriver), typeof(bool) }
+        [typeof(string), typeof(ISaveDriver), typeof(bool)]
     )]
     internal static class Patch_SaveManager_Load
     {

@@ -1,5 +1,4 @@
 using Bannerlord.UIExtenderEx.Attributes;
-using Retinues.Configuration;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Factions;
 using Retinues.Domain.Factions.Helpers;
@@ -8,6 +7,7 @@ using Retinues.Editor.Events;
 using Retinues.Editor.MVC.Common.TopPanel.Controllers;
 using Retinues.Interface.Components;
 using Retinues.Interface.Services;
+using Retinues.Settings;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Library;
@@ -60,8 +60,13 @@ namespace Retinues.Editor.MVC.Common.TopPanel.View
         [DataSourceProperty]
         public bool IsLibraryTabSelected => State.Page == EditorPage.Library;
 
+        [EventListener(UIEvent.Page)]
         [DataSourceProperty]
-        public bool IsDoctrinesTabVisible => IsPlayerMode && Settings.EnableDoctrines;
+        public bool IsSettingsTabSelected => State.Page == EditorPage.Settings;
+
+        [EventListener(UIEvent.Mode)]
+        [DataSourceProperty]
+        public bool IsDoctrinesTabVisible => IsPlayerMode && Configuration.EnableDoctrines;
 
         [DataSourceMethod]
         public void ExecuteSelectEditorTab() => State.SetPage();
@@ -73,13 +78,7 @@ namespace Retinues.Editor.MVC.Common.TopPanel.View
         public void ExecuteSelectLibraryTab() => State.SetPage(EditorPage.Library);
 
         [DataSourceMethod]
-        public void ExecuteSelectSettingsTab()
-        {
-            Log.Debug("Settings tab clicked. Opening MCM settings: Retinues.Settings");
-
-            if (!Configuration.Menu.MCM.TryOpenSettings("Retinues.Settings"))
-                Log.Warning("Failed to open MCM settings screen.");
-        }
+        public void ExecuteSelectSettingsTab() => State.SetPage(EditorPage.Settings);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Faction                        //

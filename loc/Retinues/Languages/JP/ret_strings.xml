@@ -1397,9 +1397,6 @@
       id="ret_mcm_option_allowed_recruiters"
       text="許可されたリクルーター" />
     <string
-      id="ret_mcm_option_allowed_recruiters_hint"
-      text="カスタム部隊を募集できる人を決定します。&apos;全員&apos;：すべての派閥がカスタム部隊を募集できます（他の募集モッドとの互換性のために推奨されます）。&apos;派閥のみ&apos;：派閥のみがカスタム部隊を募集できます。&apos;プレイヤーのみ&apos;：プレイヤーのみがカスタム部隊を募集できます。" />
-    <string
       id="ret_mcm_option_captain_spawn_rate"
       text="キャプテンスポーン率" />
     <string
@@ -1409,14 +1406,8 @@
       id="ret_mcm_option_clan_troops_availability"
       text="クラン部隊の可用性" />
     <string
-      id="ret_mcm_option_clan_troops_availability_hint"
-      text="氏族部隊をどこで募集できるかを決定します。&apos;どこでも&apos;：氏族部隊はどの集落でも募集できます。&apos;氏族の領地&apos;：氏族部隊は氏族が所有する領地からのみ募集できます。&apos;氏族または王国の領地&apos;：氏族または王国が所有する領地から募集できます。&apos;どこでも募集できない&apos;：氏族部隊は募集できません。" />
-    <string
       id="ret_mcm_option_clan_troops_unlock"
       text="クラン部隊" />
-    <string
-      id="ret_mcm_option_clan_troops_unlock_hint"
-      text="氏族部隊がいつ利用可能になるかを決定します。&apos;常に解除&apos;：氏族部隊は最初から利用可能です。&apos;最初の領地で解除&apos;：氏族が最初の領地を獲得したときに氏族部隊が解除されます。&apos;無効&apos;：氏族部隊は決して解除されません。" />
     <string
       id="ret_mcm_option_debug_mode"
       text="デバッグモード" />
@@ -1462,9 +1453,6 @@
     <string
       id="ret_mcm_option_editing_restriction"
       text="場所の制限" />
-    <string
-      id="ret_mcm_option_editing_restriction_hint"
-      text="派閥部隊を編集できる場所を制限します。&apos;どこでも&apos;：制限なし。&apos;任意の集落&apos;：集落内にいる必要があります。&apos;派閥の集落&apos;：所有する派閥の封地内にいる必要があります（侍従を除く）。" />
     <string
       id="ret_mcm_option_editor_hotkey"
       text="エディターホットキー" />
@@ -1562,26 +1550,14 @@
       id="ret_mcm_option_feat_complete_notification"
       text="偉業完了通知" />
     <string
-      id="ret_mcm_option_feat_complete_notification_hint"
-      text="偉業が完了したときの通知スタイルを決定します。" />
-    <string
       id="ret_mcm_option_item_unlock_notification"
       text="アイテムアンロック通知" />
-    <string
-      id="ret_mcm_option_item_unlock_notification_hint"
-      text="新しいアイテムがアンロックされたときの通知スタイルを決定します。" />
     <string
       id="ret_mcm_option_kingdom_troops_availability"
       text="王国の部隊の可用性" />
     <string
-      id="ret_mcm_option_kingdom_troops_availability_hint"
-      text="王国の部隊がどこから募集できるかを決定します。&apos;どこでも&apos;：王国の部隊はどの集落からでも募集できます。&apos;王国の領地&apos;：王国の部隊は自分の王国が所有する領地からのみ募集できます。&apos;氏族または王国の領地&apos;：王国の部隊は所有する氏族または王国の領地から募集できます。&apos;どこにもない&apos;：王国の部隊は募集できません。" />
-    <string
       id="ret_mcm_option_kingdom_troops_unlock"
       text="王国の部隊" />
-    <string
-      id="ret_mcm_option_kingdom_troops_unlock_hint"
-      text="王国の部隊がいつ利用可能になるかを決定します。&apos;常に解除&apos;：王国の部隊は最初から利用可能です。&apos;統治者になったときに解除&apos;：プレイヤーが王国を建国したときに王国の部隊が解除されます。&apos;無効&apos;：王国の部隊は決して解除されません。" />
     <string
       id="ret_mcm_option_max_retinue_ratio"
       text="最大リティニュース比率" />
@@ -1706,14 +1682,8 @@
       id="ret_mcm_option_starter_equipment"
       text="スターター装備" />
     <string
-      id="ret_mcm_option_starter_equipment_hint"
-      text="新たにアンロックされた部隊のスターター装備を設定します。&apos;ランダム&apos;：ランダムな装備セットが割り当てられます。&apos;1セットをコピー&apos;：基本部隊から1つの装備セットがコピーされます。&apos;すべてのセットをコピー&apos;：基本部隊からすべての装備セットがコピーされます。&apos;空&apos;：スターター装備は作成されません。" />
-    <string
       id="ret_mcm_option_starter_troops"
       text="スタータートループ" />
-    <string
-      id="ret_mcm_option_starter_troops_hint"
-      text="クランと王国のスタータートループを決定します。&apos;ルーツのみ&apos;：基本的な部隊とエリート部隊が1つずつ作成されます。&apos;リーンツリー&apos;：開始時に厳選された部隊が作成されます。&apos;フルツリー&apos;：部隊の全範囲が自動的に作成されます。" />
     <string
       id="ret_mcm_option_time_multiplier"
       text="装備時間乗数" />

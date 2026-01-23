@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using Retinues.Configuration;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Factions;
 using Retinues.Domain.Factions.Wrappers;
 using Retinues.Domain.Parties.Wrappers;
+using Retinues.Settings;
 using Retinues.Utilities;
 
 namespace Retinues.Domain.Settlements.Wrappers
@@ -67,13 +67,13 @@ namespace Retinues.Domain.Settlements.Wrappers
             if (Player.Clan?.RootBasic == null && Player.Clan?.RootElite == null)
                 return false;
 
-            return Settings.ClanTroopsAvailability.Value switch
+            return Configuration.ClanTroopsAvailability.Value switch
             {
-                Settings.RecruitmentMode.Everywhere => true,
-                Settings.RecruitmentMode.FactionFiefs => Clan == Player.Clan,
-                Settings.RecruitmentMode.ClanOrKingdomFiefs => Clan == Player.Clan
+                Configuration.RecruitmentMode.Everywhere => true,
+                Configuration.RecruitmentMode.FactionFiefs => Clan == Player.Clan,
+                Configuration.RecruitmentMode.ClanOrKingdomFiefs => Clan == Player.Clan
                     || Kingdom == Player.Kingdom,
-                Settings.RecruitmentMode.Nowhere => false,
+                Configuration.RecruitmentMode.Nowhere => false,
                 _ => false,
             };
         }
@@ -86,13 +86,13 @@ namespace Retinues.Domain.Settlements.Wrappers
             if (Player.Kingdom?.RootBasic == null && Player.Kingdom?.RootElite == null)
                 return false;
 
-            return Settings.KingdomTroopsAvailability.Value switch
+            return Configuration.KingdomTroopsAvailability.Value switch
             {
-                Settings.RecruitmentMode.Everywhere => true,
-                Settings.RecruitmentMode.FactionFiefs => Kingdom == Player.Kingdom,
-                Settings.RecruitmentMode.ClanOrKingdomFiefs => Clan == Player.Clan
+                Configuration.RecruitmentMode.Everywhere => true,
+                Configuration.RecruitmentMode.FactionFiefs => Kingdom == Player.Kingdom,
+                Configuration.RecruitmentMode.ClanOrKingdomFiefs => Clan == Player.Clan
                     || Kingdom == Player.Kingdom,
-                Settings.RecruitmentMode.Nowhere => false,
+                Configuration.RecruitmentMode.Nowhere => false,
                 _ => false,
             };
         }
@@ -127,7 +127,7 @@ namespace Retinues.Domain.Settlements.Wrappers
             // Player only sees vanilla when:
             // - no custom roots are eligible, OR
             // - MixWithVanillaTroops is enabled (additive).
-            if (roots.Count == 0 || Settings.MixWithVanillaTroops.Value)
+            if (roots.Count == 0 || Configuration.MixWithVanillaTroops.Value)
                 TryAddRootUnique(roots, GetVanillaRoot(elite));
 
             return roots;
@@ -155,14 +155,14 @@ namespace Retinues.Domain.Settlements.Wrappers
             if (baseFaction == null)
                 return true;
 
-            return Settings.AllowedRecruiters.Value switch
+            return Configuration.AllowedRecruiters.Value switch
             {
-                Settings.AllowedRecruitersMode.Everyone => true,
+                Configuration.AllowedRecruitersMode.Everyone => true,
 
-                Settings.AllowedRecruitersMode.PlayerOnly => recruiter != null
+                Configuration.AllowedRecruitersMode.PlayerOnly => recruiter != null
                     && recruiter.IsMainParty,
 
-                Settings.AllowedRecruitersMode.FactionOnly => IsRecruiterMatchingBaseFaction(
+                Configuration.AllowedRecruitersMode.FactionOnly => IsRecruiterMatchingBaseFaction(
                     recruiter,
                     baseFaction
                 ),

@@ -1397,9 +1397,6 @@
       id="ret_mcm_option_allowed_recruiters"
       text="Recruteurs autorisés" />
     <string
-      id="ret_mcm_option_allowed_recruiters_hint"
-      text="Détermine qui peut recruter des troupes personnalisées. &apos;Tout le monde&apos; : Toutes les parties peuvent recruter des troupes personnalisées (recommandé pour la compatibilité avec d&apos;autres mods de recrutement). &apos;Faction uniquement&apos; : Seules les factions peuvent recruter des troupes personnalisées. &apos;Joueur uniquement&apos; : Seul le joueur peut recruter des troupes personnalisées." />
-    <string
       id="ret_mcm_option_captain_spawn_rate"
       text="Taux d&apos;apparition des capitaines" />
     <string
@@ -1409,14 +1406,8 @@
       id="ret_mcm_option_clan_troops_availability"
       text="Disponibilité des troupes de clan" />
     <string
-      id="ret_mcm_option_clan_troops_availability_hint"
-      text="Détermine d&apos;où les troupes de clan peuvent être recrutées. &apos;Partout&apos; : les troupes de clan peuvent être recrutées dans n&apos;importe quelle localité. &apos;Fiefs du clan&apos; : les troupes de clan ne peuvent être recrutées que dans les fiefs possédés par leur clan. &apos;Fiefs du clan ou du royaume&apos; : les troupes de clan peuvent être recrutées dans les fiefs possédés par le clan ou le royaume. &apos;Nulle part&apos; : les troupes de clan ne peuvent pas être recrutées." />
-    <string
       id="ret_mcm_option_clan_troops_unlock"
       text="Troupes de clan" />
-    <string
-      id="ret_mcm_option_clan_troops_unlock_hint"
-      text="Détermine quand les troupes de clan deviennent disponibles. &apos;Toujours déverrouillées&apos; : les troupes de clan sont disponibles dès le début. &apos;Déverrouillées avec le premier fief&apos; : les troupes de clan se déverrouillent lorsque le clan acquiert son premier fief. &apos;Désactivé&apos; : les troupes de clan ne sont jamais déverrouillées." />
     <string
       id="ret_mcm_option_debug_mode"
       text="Mode Débogage" />
@@ -1462,9 +1453,6 @@
     <string
       id="ret_mcm_option_editing_restriction"
       text="Restrictions de Localisation" />
-    <string
-      id="ret_mcm_option_editing_restriction_hint"
-      text="Restreint les endroits où les troupes de faction peuvent être modifiées. &apos;N&apos;importe où&apos; : aucune restriction. &apos;N&apos;importe quelle localité&apos; : vous devez être dans une localité. &apos;Localité de faction&apos; : vous devez être dans un fief de faction possédé (sauf les rétinues)." />
     <string
       id="ret_mcm_option_editor_hotkey"
       text="Raccourci Éditeur" />
@@ -1562,26 +1550,14 @@
       id="ret_mcm_option_feat_complete_notification"
       text="Notification d&apos;Accomplissement d&apos;Exploit" />
     <string
-      id="ret_mcm_option_feat_complete_notification_hint"
-      text="Détermine le style de notification lorsque des exploits sont accomplis." />
-    <string
       id="ret_mcm_option_item_unlock_notification"
       text="Notification de Déverrouillage d&apos;Objet" />
-    <string
-      id="ret_mcm_option_item_unlock_notification_hint"
-      text="Détermine le style de notification lorsque de nouveaux objets sont déverrouillés." />
     <string
       id="ret_mcm_option_kingdom_troops_availability"
       text="Disponibilité des Troupes Royales" />
     <string
-      id="ret_mcm_option_kingdom_troops_availability_hint"
-      text="Détermine où les troupes royales peuvent être recrutées. &apos;Partout&apos;: Les troupes royales peuvent être recrutées dans n&apos;importe quel fief. &apos;Fiefs du Royaume&apos;: Les troupes royales ne peuvent être recrutées que dans les fiefs appartenant à leur royaume. &apos;Fiefs de Clan ou de Royaume&apos;: Les troupes royales peuvent être recrutées dans les fiefs de clan ou de royaume possédés. &apos;Nulle part&apos;: Les troupes royales ne peuvent pas être recrutées." />
-    <string
       id="ret_mcm_option_kingdom_troops_unlock"
       text="Troupes royales" />
-    <string
-      id="ret_mcm_option_kingdom_troops_unlock_hint"
-      text="Détermine quand les troupes du royaume deviennent disponibles. &apos;Toujours déverrouillées&apos; : les troupes du royaume sont disponibles dès le début. &apos;Déverrouillées lors de la fondation d&apos;un royaume&apos; : les troupes du royaume se déverrouillent lorsque le joueur fonde un royaume. &apos;Désactivé&apos; : les troupes du royaume ne sont jamais déverrouillées." />
     <string
       id="ret_mcm_option_max_retinue_ratio"
       text="Ratio Maximum de Rétinues" />
@@ -1706,14 +1682,8 @@
       id="ret_mcm_option_starter_equipment"
       text="Équipement Initial" />
     <string
-      id="ret_mcm_option_starter_equipment_hint"
-      text="Définit l&apos;équipement de départ pour les troupes nouvellement débloquées. &apos;Aléatoire&apos; : Un ensemble d&apos;équipement aléatoire est attribué. &apos;Copier un ensemble&apos; : Un ensemble d&apos;équipement est copié à partir de la troupe de base. &apos;Copier tous les ensembles&apos; : Tous les ensembles d&apos;équipement sont copiés à partir des troupes de base. &apos;Vide&apos; : Aucun équipement de départ n&apos;est créé." />
-    <string
       id="ret_mcm_option_starter_troops"
       text="Troupes Initiales" />
-    <string
-      id="ret_mcm_option_starter_troops_hint"
-      text="Détermine les troupes de départ du clan et du royaume. &apos;Racines seulement&apos; : Une seule troupe de base et une troupe d&apos;élite sont créées. &apos;Arbres de Troupes Allégés&apos; : Une sélection maigre de troupes est créée au départ. &apos;Arbres de Troupes complets&apos; : La gamme complète de troupes est automatiquement créée." />
     <string
       id="ret_mcm_option_time_multiplier"
       text="Multiplicateur de Temps d&apos;Équipement" />

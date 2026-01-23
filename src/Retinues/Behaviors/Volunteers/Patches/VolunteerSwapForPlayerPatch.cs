@@ -32,7 +32,7 @@ namespace Retinues.Behaviors.Volunteers.Patches
                 var a = AccessTools.Method(
                     typeof(PlayerTownVisitCampaignBehavior),
                     "game_menu_recruit_volunteers_on_consequence",
-                    new[] { typeof(MenuCallbackArgs) }
+                    [typeof(MenuCallbackArgs)]
                 );
                 if (a != null)
                     yield return a;
@@ -40,7 +40,7 @@ namespace Retinues.Behaviors.Volunteers.Patches
                 var b = AccessTools.Method(
                     typeof(PlayerTownVisitCampaignBehavior),
                     "game_menu_ui_recruit_volunteers_on_consequence",
-                    new[] { typeof(MenuCallbackArgs) }
+                    [typeof(MenuCallbackArgs)]
                 );
                 if (b != null)
                     yield return b;
@@ -55,7 +55,7 @@ namespace Retinues.Behaviors.Volunteers.Patches
                     var c = AccessTools.Method(
                         handlerType,
                         "game_menu_recruit_volunteers_on_consequence",
-                        new[] { typeof(MenuCallbackArgs) }
+                        [typeof(MenuCallbackArgs)]
                     );
                     if (c != null)
                         yield return c;
@@ -63,7 +63,7 @@ namespace Retinues.Behaviors.Volunteers.Patches
                     var d = AccessTools.Method(
                         handlerType,
                         "game_menu_ui_recruit_volunteers_on_consequence",
-                        new[] { typeof(MenuCallbackArgs) }
+                        [typeof(MenuCallbackArgs)]
                     );
                     if (d != null)
                         yield return d;

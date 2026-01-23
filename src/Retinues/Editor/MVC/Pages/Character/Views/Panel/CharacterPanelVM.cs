@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using Retinues.Behaviors.Experience;
-using Retinues.Configuration;
 using Retinues.Domain.Characters.Services.Skills;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Editor.Events;
@@ -9,6 +8,7 @@ using Retinues.Editor.MVC.Pages.Character.Controllers;
 using Retinues.Editor.MVC.Shared.Views;
 using Retinues.Interface.Components;
 using Retinues.Interface.Services;
+using Retinues.Settings;
 using Retinues.Utilities;
 using TaleWorlds.Library;
 
@@ -170,7 +170,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Panel
                                 "status_captain_text_enabled",
                                 "One captain will spawn for every {AMOUNT} {TROOP}."
                             )
-                            .SetTextVariable("AMOUNT", Settings.CaptainSpawnRate)
+                            .SetTextVariable("AMOUNT", Configuration.CaptainSpawnRate)
                             .SetTextVariable("TROOP", State.Character.CaptainBase.Name)
                             .ToString()
                         : L.S("status_captain_text_disabled", "This captain will not spawn.")
@@ -189,7 +189,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Panel
         [DataSourceProperty]
         public bool ShowSkillDetails =>
             !State.Character.IsHero
-            && (State.Mode == EditorMode.Player || Settings.EnforceSkillLimitsInUniversalMode);
+            && (State.Mode == EditorMode.Player || Configuration.EnforceSkillLimitsInUniversalMode);
 
         [EventListener(UIEvent.Skill, UIEvent.Doctrine)]
         [DataSourceProperty]
@@ -199,7 +199,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Panel
         [EventListener(UIEvent.Skill, UIEvent.Doctrine)]
         [DataSourceProperty]
         public string SkillDescriptionText =>
-            State.Mode == EditorMode.Player && Settings.SkillPointsMustBeEarned
+            State.Mode == EditorMode.Player && Configuration.SkillPointsMustBeEarned
                 ? L.T(
                         "skill_description_text",
                         "Skill Points: {SKILL_POINTS} - Skill Cap: {SKILL_CAP} - Tier: {TIER}"
@@ -232,7 +232,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Panel
                 ),
                 refresh: [UIEvent.Character],
                 visibilityGate: () =>
-                    Settings.SkillPointsMustBeEarned && State.Mode == EditorMode.Player
+                    Configuration.SkillPointsMustBeEarned && State.Mode == EditorMode.Player
             );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

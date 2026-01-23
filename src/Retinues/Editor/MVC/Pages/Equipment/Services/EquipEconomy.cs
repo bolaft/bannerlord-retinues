@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Retinues.Behaviors.Doctrines.Catalogs;
-using Retinues.Configuration;
 using Retinues.Domain;
 using Retinues.Domain.Equipments.Models;
 using Retinues.Domain.Equipments.Wrappers;
+using Retinues.Settings;
 
 namespace Retinues.Editor.MVC.Pages.Equipment.Services
 {
@@ -22,7 +22,7 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Services
             if (item == null)
                 return 0;
 
-            double multiplier = Settings.EquipmentCostMultiplier.Value;
+            double multiplier = Configuration.EquipmentCostMultiplier.Value;
             double raw = item.Value * multiplier;
 
             int cost = (int)Math.Round(raw, MidpointRounding.AwayFromZero);

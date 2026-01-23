@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using Retinues.Configuration;
 using Retinues.Framework.Behaviors;
+using Retinues.Settings;
 using TaleWorlds.CampaignSystem;
 
 namespace Retinues.Behaviors.Retinues
@@ -12,7 +12,7 @@ namespace Retinues.Behaviors.Retinues
     /// </summary>
     public partial class RetinuesBehavior : BaseCampaignBehavior<RetinuesBehavior>
     {
-        public override bool IsActive => Settings.EnableRetinues;
+        public override bool IsActive => Configuration.EnableRetinues;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Constants                       //

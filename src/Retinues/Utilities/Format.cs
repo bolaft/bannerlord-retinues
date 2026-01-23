@@ -62,10 +62,10 @@ namespace Retinues.Utilities
                 return value.ToString();
 
             // Ordered from largest to smallest, including subtractive forms.
-            int[] values = { 1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1 };
+            int[] values = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1];
 
             string[] symbols =
-            {
+            [
                 "M",
                 "CM",
                 "D",
@@ -79,7 +79,7 @@ namespace Retinues.Utilities
                 "V",
                 "IV",
                 "I",
-            };
+            ];
 
             var sb = new StringBuilder(16);
 

@@ -1,6 +1,6 @@
 using Retinues.Behaviors.Doctrines.Definitions;
-using Retinues.Configuration;
 using Retinues.Interface.Services;
+using Retinues.Settings;
 
 namespace Retinues.Behaviors.Doctrines.Catalogs
 {
@@ -42,8 +42,8 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                             FeatCatalog.IN_AgainstAllOdds,
                             FeatCatalog.IN_HoldTheLine,
                         ],
-                        Overridden = () => Settings.EnableRetinues == false,
-                        OverriddenHint = OverriddenByOption(Settings.EnableRetinues),
+                        Overridden = () => Configuration.EnableRetinues == false,
+                        OverriddenHint = OverriddenByOption(Configuration.EnableRetinues),
                     },
                     new DoctrineData
                     {
@@ -60,8 +60,8 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                             FeatCatalog.BH_BountyHunters,
                             FeatCatalog.BH_SafeTravels,
                         ],
-                        Overridden = () => Settings.EnableRetinues == false,
-                        OverriddenHint = OverriddenByOption(Settings.EnableRetinues),
+                        Overridden = () => Configuration.EnableRetinues == false,
+                        OverriddenHint = OverriddenByOption(Configuration.EnableRetinues),
                     },
                     new DoctrineData
                     {
@@ -78,8 +78,8 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                             FeatCatalog.VA_ShockAssault,
                             FeatCatalog.VA_RaiseTheVanguard,
                         ],
-                        Overridden = () => Settings.EnableRetinues == false,
-                        OverriddenHint = OverriddenByOption(Settings.EnableRetinues),
+                        Overridden = () => Configuration.EnableRetinues == false,
+                        OverriddenHint = OverriddenByOption(Configuration.EnableRetinues),
                     },
                     new DoctrineData
                     {
@@ -96,8 +96,8 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                             FeatCatalog.IM_DefyTheTide,
                             FeatCatalog.IM_StillStanding,
                         ],
-                        Overridden = () => Settings.EnableRetinues == false,
-                        OverriddenHint = OverriddenByOption(Settings.EnableRetinues),
+                        Overridden = () => Configuration.EnableRetinues == false,
+                        OverriddenHint = OverriddenByOption(Configuration.EnableRetinues),
                     },
                 ],
             };

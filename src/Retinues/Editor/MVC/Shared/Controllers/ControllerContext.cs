@@ -1,10 +1,10 @@
-using Retinues.Configuration;
 using Retinues.Domain;
 using Retinues.Domain.Factions;
 using Retinues.Domain.Factions.Wrappers;
 using Retinues.Domain.Settlements.Wrappers;
 using Retinues.Framework.Runtime;
 using Retinues.Interface.Services;
+using Retinues.Settings;
 using TaleWorlds.Localization;
 
 namespace Retinues.Editor.MVC.Shared.Controllers
@@ -66,8 +66,8 @@ namespace Retinues.Editor.MVC.Shared.Controllers
             if (!AppliesToCurrentSelection())
                 return null;
 
-            var restriction = Settings.EditingRestriction;
-            if (restriction == Settings.EditingRestrictionMode.None)
+            var restriction = Configuration.EditingRestriction;
+            if (restriction == Configuration.EditingRestrictionMode.None)
                 return null;
 
             var character = EditorState.Instance.Character;
@@ -76,7 +76,7 @@ namespace Retinues.Editor.MVC.Shared.Controllers
 
             if (settlement == null)
             {
-                return restriction == Settings.EditingRestrictionMode.InFief && faction != null
+                return restriction == Configuration.EditingRestrictionMode.InFief && faction != null
                     ? L.T(
                             "editing_restriction_need_faction_fief_reason",
                             "You can only edit this unit in a fief owned by {FACTION}."
@@ -88,7 +88,10 @@ namespace Retinues.Editor.MVC.Shared.Controllers
                     );
             }
 
-            if (restriction == Settings.EditingRestrictionMode.InSettlement || character.IsRetinue)
+            if (
+                restriction == Configuration.EditingRestrictionMode.InSettlement
+                || character.IsRetinue
+            )
                 return null; // Any settlement is fine for retinues or InSettlement mode.
 
             // InFief: require a town/castle/village owned by the troop's clan/kingdom.

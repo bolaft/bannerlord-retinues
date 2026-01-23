@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using Retinues.Behaviors.Unlocks;
-using Retinues.Configuration;
 using Retinues.Domain;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Domain.Factions.Base;
 using Retinues.Domain.Factions.Wrappers;
+using Retinues.Settings;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.ObjectSystem;
@@ -20,21 +20,21 @@ namespace Retinues.Behaviors.Troops
         /// <summary>
         /// Determines whether to unlock clan troops and performs unlock according to settings.
         /// </summary>
-        private static void TryUnlockClanTroops(WClan clan, bool fromBootstrap)
+        public static void TryUnlockClanTroops(WClan clan, bool fromBootstrap)
         {
             if (clan?.Base == null)
                 return;
 
-            switch (Settings.ClanTroopsUnlock.Value)
+            switch (Configuration.ClanTroopsUnlock.Value)
             {
-                case Settings.ClanTroopsUnlockMode.Disabled:
+                case Configuration.TroopsUnlockMode.Disabled:
                     return;
 
-                case Settings.ClanTroopsUnlockMode.AlwaysUnlocked:
+                case Configuration.TroopsUnlockMode.AlwaysUnlocked:
                     UnlockFactionTroops(clan, label: "clan", fromBootstrap: fromBootstrap);
                     return;
 
-                case Settings.ClanTroopsUnlockMode.UnlockedWithFirstFief:
+                case Configuration.TroopsUnlockMode.UnlockedWithFirstFief:
                     if (clan.HasFiefs)
                         UnlockFactionTroops(clan, label: "clan", fromBootstrap: fromBootstrap);
                     return;
@@ -47,21 +47,17 @@ namespace Retinues.Behaviors.Troops
         /// <summary>
         /// Determines whether to unlock kingdom troops and performs unlock according to settings.
         /// </summary>
-        private static void TryUnlockKingdomTroops(WKingdom kingdom, bool fromBootstrap)
+        public static void TryUnlockKingdomTroops(WKingdom kingdom, bool fromBootstrap)
         {
             if (kingdom?.Base == null)
                 return;
 
-            switch (Settings.KingdomTroopsUnlock.Value)
+            switch (Configuration.KingdomTroopsUnlock.Value)
             {
-                case Settings.KingdomTroopsUnlockMode.Disabled:
+                case Configuration.TroopsUnlockMode.Disabled:
                     return;
 
-                case Settings.KingdomTroopsUnlockMode.AlwaysUnlocked:
-                    UnlockFactionTroops(kingdom, label: "kingdom", fromBootstrap: fromBootstrap);
-                    return;
-
-                case Settings.KingdomTroopsUnlockMode.UnlockedUponBecomingRuler:
+                case Configuration.TroopsUnlockMode.UnlockedUponBecomingRuler:
                     if (Player.IsRuler)
                         UnlockFactionTroops(
                             kingdom,
@@ -199,9 +195,9 @@ namespace Retinues.Behaviors.Troops
 
             WCharacter created;
 
-            var mode = Settings.StarterTroops.Value;
+            var mode = Configuration.StarterTroops.Value;
 
-            if (mode == Settings.TroopsMode.RootsOnly)
+            if (mode == Configuration.TroopsMode.RootsOnly)
             {
                 created = Cloner.CloneTroop(
                     template,
@@ -215,7 +211,7 @@ namespace Retinues.Behaviors.Troops
             }
             else
             {
-                bool lean = mode == Settings.TroopsMode.LeanTrees;
+                bool lean = mode == Configuration.TroopsMode.LeanTrees;
 
                 created = Cloner.CloneTreeFromRoot(
                     template,
@@ -233,7 +229,7 @@ namespace Retinues.Behaviors.Troops
             if (created?.Base == null)
                 return null;
 
-            if (mode == Settings.TroopsMode.FullTrees)
+            if (mode == Configuration.TroopsMode.FullTrees)
             {
                 var tree = created.Tree ?? [created];
                 for (int i = 0; i < tree.Count; i++)
@@ -246,7 +242,7 @@ namespace Retinues.Behaviors.Troops
                     node.HiddenInEncyclopedia = false;
                 }
             }
-            else if (mode == Settings.TroopsMode.LeanTrees)
+            else if (mode == Configuration.TroopsMode.LeanTrees)
             {
                 var nobleLine =
                     culture?.RootElite?.Base != null

@@ -1,8 +1,8 @@
 using System.Linq;
-using Retinues.Configuration;
 using Retinues.Domain;
 using Retinues.Domain.Factions;
 using Retinues.Domain.Factions.Wrappers;
+using Retinues.Settings;
 using Retinues.Utilities;
 using TaleWorlds.Core;
 
@@ -43,7 +43,7 @@ namespace Retinues.Editor
 
             var mode = args?.Mode ?? EditorMode.Universal;
 
-            if (!Settings.EnableUniversalEditor && mode == EditorMode.Universal)
+            if (!Configuration.EnableUniversalEditor && mode == EditorMode.Universal)
             {
                 var downgraded = TryDowngradeUniversalToPlayer(args);
                 if (downgraded == null)

@@ -1,7 +1,7 @@
 using Bannerlord.UIExtenderEx.Attributes;
-using Retinues.Configuration;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Editor.Events;
+using Retinues.Settings;
 using Retinues.Utilities;
 using TaleWorlds.Library;
 
@@ -30,7 +30,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Panel
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceProperty]
-        public bool IsEnabled => _character.IsFactionTroop || Settings.EnableUniversalEditor;
+        public bool IsEnabled => _character.IsFactionTroop || Configuration.EnableUniversalEditor;
 
         [DataSourceMethod]
         public void ExecuteSelect()

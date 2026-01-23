@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using Retinues.Behaviors.Doctrines.Catalogs;
-using Retinues.Configuration;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Interface.Services;
+using Retinues.Settings;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.Library;
@@ -17,7 +17,7 @@ namespace Retinues.Behaviors.Experience
         private const int RequiredXpMultiplier = 20;
         private const int VanillaInvalidXpCost = 100000000;
 
-        public static bool IsEnabled => Settings.SkillPointsMustBeEarned;
+        public static bool IsEnabled => Configuration.SkillPointsMustBeEarned;
 
         /// <summary>
         /// Applies gained XP to skill point progress for the given wrapped character.
@@ -80,7 +80,7 @@ namespace Retinues.Behaviors.Experience
             return (int)(
                 GetXpRequiredToUpgradeThisUnit(troop, party)
                 * RequiredXpMultiplier
-                / Settings.SkillPointsGainRate
+                / Configuration.SkillPointsGainRate
             );
         }
 
