@@ -9,12 +9,15 @@ namespace Retinues.Editor.MVC.Pages.Settings.Views.Panel
     /// </summary>
     public sealed class SectionVM : EventListenerVM
     {
+        private readonly SettingsPanelVM _panel;
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Constructor                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public SectionVM(Section section)
+        public SectionVM(SettingsPanelVM panel, Section section)
         {
+            _panel = panel;
             Name = section.Name;
             Description = section.Description;
             Options = [];
@@ -27,6 +30,34 @@ namespace Retinues.Editor.MVC.Pages.Settings.Views.Panel
                 Options.Add(OptionVM.Create(option));
 
             OnPropertyChanged(nameof(Options));
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                     Section Scrolling                  //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [DataSourceProperty]
+        public bool IsScrollTarget =>
+            _panel != null
+            && !string.IsNullOrWhiteSpace(_panel.SectionScrollTarget)
+            && string.Equals(_panel.SectionScrollTarget, Name, System.StringComparison.Ordinal);
+
+        [DataSourceProperty]
+        public int AutoScrollVersion => _panel?.SectionScrollVersion ?? 0;
+
+        [DataSourceProperty]
+        public string AutoScrollScope => _panel?.SectionScrollScope ?? "SettingsSections";
+
+        public void ExecuteScrollToSection()
+        {
+            _panel?.ScrollToSection(Name);
+        }
+
+        internal void RefreshScrollBindings()
+        {
+            OnPropertyChanged(nameof(IsScrollTarget));
+            OnPropertyChanged(nameof(AutoScrollVersion));
+            OnPropertyChanged(nameof(AutoScrollScope));
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

@@ -12,6 +12,54 @@
     MarginBottom="16">
     <Children>
 
+        {# ------------------------------------------ #}
+        {# Section quick-nav (top buttons)            #}
+        {# ------------------------------------------ #}
+
+        <Widget
+            WidthSizePolicy="StretchToParent"
+            HeightSizePolicy="CoverChildren"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top"
+            MarginTop="10"
+            MarginBottom="8">
+            <Children>
+                <ListPanel
+                    DataSource="{Sections}"
+                    WidthSizePolicy="CoverChildren"
+                    HeightSizePolicy="CoverChildren"
+                    StackLayout.LayoutMethod="HorizontalLeftToRight"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+                    <ItemTemplate>
+                        <ButtonWidget
+                            IsEnabled="true"
+                            DoNotPassEventsToChildren="true"
+                            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                            HorizontalAlignment="Center" VerticalAlignment="Center"
+                            IsSelected="@IsScrollTarget"
+                            Command.Click="ExecuteScrollToSection"
+                            UpdateChildrenStates="true">
+                            <Children>
+                                <TextWidget
+                                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                                    Brush="Kingdom.NameTitle.Text"
+                                    Brush.FontSize="24"
+                                    Brush.FontColor="#ac8856ff"
+                                    Text="@Name"
+                                    MarginLeft="10"
+                                    MarginRight="10"
+                                    MarginTop="6"
+                                    MarginBottom="6"
+                                    TextAlignment="Center" />
+                            </Children>
+                        </ButtonWidget>
+                    </ItemTemplate>
+                </ListPanel>
+            </Children>
+        </Widget>
+
         <BrushListPanel
             Brush="Frame1Brush"
             WidthSizePolicy="CoverChildren" HeightSizePolicy="StretchToParent"
@@ -64,6 +112,24 @@
                                                         StackLayout.LayoutMethod="VerticalBottomToTop"
                                                         MarginTop="8">
                                                         <Children>
+
+                                                            {# Auto-scroll anchor for this section #}
+                                                            <AutoScrollButtonWidget
+                                                                IsSelected="@IsScrollTarget"
+                                                                IsEnabled="true"
+                                                                IsVisible="true"
+                                                                DoNotPassEventsToChildren="true"
+                                                                WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                                                                SuggestedWidth="1"
+                                                                SuggestedHeight="1"
+                                                                UpdateChildrenStates="false"
+                                                                AutoScrollEnabled="true"
+                                                                AutoScrollVersion="@AutoScrollVersion"
+                                                                AutoScrollScope="@AutoScrollScope"
+                                                                AutoScrollTopOffset="10"
+                                                                AutoScrollBottomOffset="10"
+                                                                AutoScrollVerticalTarget="0"
+                                                                AutoScrollInterpolationTime="0.25" />
 
                                                             {{ divider() }}
 
