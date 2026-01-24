@@ -43,7 +43,7 @@ namespace Retinues.Editor.MVC.Pages.Settings.Views.Panel
         public string Name => Option.Name;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                      Description                       //
+        //                       Description                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceProperty]
@@ -56,7 +56,7 @@ namespace Retinues.Editor.MVC.Pages.Settings.Views.Panel
         public bool HasDescription => _descriptionLines.Count > 0;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Status                          //
+        //                         Status                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceProperty]
@@ -139,7 +139,7 @@ namespace Retinues.Editor.MVC.Pages.Settings.Views.Panel
         public virtual void ExecuteOpenChoicePopup() { }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                      Type Flags                       //
+        //                       Type Flags                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceProperty]
@@ -155,7 +155,7 @@ namespace Retinues.Editor.MVC.Pages.Settings.Views.Panel
         public virtual bool IsFloatSliderOption => false;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Factory                         //
+        //                         Factory                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>

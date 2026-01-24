@@ -35,7 +35,7 @@ namespace Retinues.Editor.MVC.Pages.Settings.Views.Panel
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                     Section Scrolling                  //
+        //                    Section Scrolling                   //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceProperty]
@@ -76,7 +76,7 @@ namespace Retinues.Editor.MVC.Pages.Settings.Views.Panel
         public string Name { get; private set; }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                      Description                       //
+        //                       Description                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceProperty]

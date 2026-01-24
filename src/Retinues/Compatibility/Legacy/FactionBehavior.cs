@@ -175,7 +175,7 @@ namespace Retinues.Compatibility.Legacy
         }
 
         /// <summary>
-        /// Parses a stored module version string into an <see cref="ApplicationVersion"/>.
+        /// Parses a stored module version string into an ApplicationVersion.
         /// Accepts both "vX.Y.Z" and bare "X.Y.Z" styles.
         /// </summary>
         private static bool TryParseAppVersion(string versionString, out ApplicationVersion version)
@@ -329,7 +329,7 @@ namespace Retinues.Compatibility.Legacy
 
         /// <summary>
         /// Applies the legacy troop's core scalar data (name/level/culture/skills/equipment/body/etc.)
-        /// into the current <see cref="WCharacter"/> instance.
+        /// into the current instance.
         /// </summary>
         /// <returns>True if the troop was found and updated; otherwise false.</returns>
         private static bool ApplyTroopCore(TroopSaveData data)
