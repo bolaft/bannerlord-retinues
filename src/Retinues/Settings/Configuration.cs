@@ -938,11 +938,11 @@ namespace Retinues.Settings
         );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                    Equipment Unlocks                   //
+        //                         Unlocks                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public static readonly Section EquipmentUnlocks = CreateSection(
-            name: L.F("mcm_section_equipment_unlocks", "Equipment Unlocks"),
+            name: L.F("mcm_section_equipment_unlocks", "Unlocks"),
             description: L.F(
                 "mcm_section_equipment_unlocks_desc",
                 "How equipment items are unlocked over time."

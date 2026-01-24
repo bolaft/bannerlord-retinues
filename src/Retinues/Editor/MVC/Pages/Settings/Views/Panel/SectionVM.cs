@@ -10,6 +10,7 @@ namespace Retinues.Editor.MVC.Pages.Settings.Views.Panel
     public sealed class SectionVM : EventListenerVM
     {
         private readonly SettingsPanelVM _panel;
+        private readonly Section _section;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Constructor                      //
@@ -18,6 +19,7 @@ namespace Retinues.Editor.MVC.Pages.Settings.Views.Panel
         public SectionVM(SettingsPanelVM panel, Section section)
         {
             _panel = panel;
+            _section = section;
             Name = section.Name;
             Description = section.Description;
             Options = [];
@@ -52,6 +54,12 @@ namespace Retinues.Editor.MVC.Pages.Settings.Views.Panel
         {
             _panel?.ScrollToSection(Name);
         }
+
+        [DataSourceProperty]
+        public bool ShowInQuickNav =>
+            _section != null
+            && !ReferenceEquals(_section, Configuration.SkillCaps)
+            && !ReferenceEquals(_section, Configuration.SkillTotals);
 
         internal void RefreshScrollBindings()
         {

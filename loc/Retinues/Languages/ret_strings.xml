@@ -1866,7 +1866,7 @@
       text="Equipment costs, limits, and timing." />
     <string
       id="ret_mcm_section_equipment_unlocks"
-      text="Equipment Unlocks" />
+      text="Unlocks" />
     <string
       id="ret_mcm_section_equipment_unlocks_desc"
       text="How equipment items are unlocked over time." />

@@ -76,7 +76,7 @@ namespace Retinues.Editor.MVC.Pages.Settings.Views.Panel
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceProperty]
-        public override int Width => 1600;
+        public override int Width => 1200;
 
         [DataSourceProperty]
         public override HorizontalAlignment HorizontalAlignment => HorizontalAlignment.Center;

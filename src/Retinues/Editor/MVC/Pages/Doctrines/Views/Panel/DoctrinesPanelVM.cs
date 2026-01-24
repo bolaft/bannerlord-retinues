@@ -14,6 +14,8 @@ namespace Retinues.Editor.MVC.Pages.Doctrines.Views.Panel
     /// </summary>
     public sealed class DoctrinesPanelVM : BasePanelVM
     {
+        private static Doctrine CurrentDoctrine => State?.Doctrine;
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Constructor                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -33,7 +35,8 @@ namespace Retinues.Editor.MVC.Pages.Doctrines.Views.Panel
 
         [EventListener(UIEvent.Doctrine)]
         [DataSourceProperty]
-        public string Sprite => $"General\\Perks\\{State.Doctrine.Sprite}";
+        public string Sprite =>
+            CurrentDoctrine != null ? $"General\\Perks\\{CurrentDoctrine.Sprite}" : string.Empty;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Texts                         //
@@ -41,14 +44,14 @@ namespace Retinues.Editor.MVC.Pages.Doctrines.Views.Panel
 
         [EventListener(UIEvent.Doctrine)]
         [DataSourceProperty]
-        public string NameText => State.Doctrine.Name.ToString();
+        public string NameText => CurrentDoctrine?.Name?.ToString() ?? string.Empty;
 
         [DataSourceProperty]
         public string DescriptionHeaderText => L.S("doctrine_description_header", "Effects");
 
         [EventListener(UIEvent.Doctrine)]
         [DataSourceProperty]
-        public string DescriptionText => State.Doctrine.Description.ToString();
+        public string DescriptionText => CurrentDoctrine?.Description?.ToString() ?? string.Empty;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Progress                        //
@@ -57,47 +60,55 @@ namespace Retinues.Editor.MVC.Pages.Doctrines.Views.Panel
         [EventListener(UIEvent.Doctrine)]
         [DataSourceProperty]
         public string ProgressText =>
-            L.T("doctrine_progress_text", "Progress: {PROGRESS}%")
-                .SetTextVariable("PROGRESS", State.Doctrine.Progress)
-                .ToString();
+            CurrentDoctrine != null
+                ? L.T("doctrine_progress_text", "Progress: {PROGRESS}%")
+                    .SetTextVariable("PROGRESS", CurrentDoctrine.Progress)
+                    .ToString()
+                : string.Empty;
 
         [EventListener(UIEvent.Doctrine)]
         public string ProgressTextColor =>
-            State.Doctrine.GetState() switch
-            {
-                Doctrine.State.Acquired => "#ebaa49ff",
-                Doctrine.State.Unlocked => "#ebaa49ff",
-                _ => "#eec485ff",
-            };
+            CurrentDoctrine == null
+                ? "#eec485ff"
+                : CurrentDoctrine.GetState() switch
+                {
+                    Doctrine.State.Acquired => "#ebaa49ff",
+                    Doctrine.State.Unlocked => "#ebaa49ff",
+                    _ => "#eec485ff",
+                };
 
         [EventListener(UIEvent.Doctrine)]
         [DataSourceProperty]
         public string StatusText =>
-            State.Doctrine.GetState() switch
-            {
-                Doctrine.State.Acquired => L.S("doctrine_status_acquired", "ACQUIRED"),
-                Doctrine.State.Locked => L.S("doctrine_status_locked", "LOCKED"),
-                Doctrine.State.Overridden => L.S("doctrine_status_overridden", "OVERRIDDEN"),
-                _ => string.Empty,
-            };
+            CurrentDoctrine == null
+                ? string.Empty
+                : CurrentDoctrine.GetState() switch
+                {
+                    Doctrine.State.Acquired => L.S("doctrine_status_acquired", "ACQUIRED"),
+                    Doctrine.State.Locked => L.S("doctrine_status_locked", "LOCKED"),
+                    Doctrine.State.Overridden => L.S("doctrine_status_overridden", "OVERRIDDEN"),
+                    _ => string.Empty,
+                };
 
         [EventListener(UIEvent.Doctrine)]
         [DataSourceProperty]
-        public bool IsLocked => State.Doctrine.IsLocked;
+        public bool IsLocked => CurrentDoctrine?.IsLocked ?? false;
 
         [EventListener(UIEvent.Doctrine)]
         [DataSourceProperty]
         public string StatusHint =>
-            State.Doctrine.GetState() switch
-            {
-                Doctrine.State.Locked => State.Doctrine.Prerequisite != null
-                    ? L.T("doctrine_locked_hint", "{DOCTRINE} must be acquired first.")
-                        .SetTextVariable("DOCTRINE", State.Doctrine.Prerequisite.Name)
-                        .ToString()
-                    : string.Empty,
-                Doctrine.State.Overridden => State.Doctrine.OverriddenHint.ToString(),
-                _ => string.Empty,
-            };
+            CurrentDoctrine == null
+                ? string.Empty
+                : CurrentDoctrine.GetState() switch
+                {
+                    Doctrine.State.Locked => CurrentDoctrine.Prerequisite != null
+                        ? L.T("doctrine_locked_hint", "{DOCTRINE} must be acquired first.")
+                            .SetTextVariable("DOCTRINE", CurrentDoctrine.Prerequisite.Name)
+                            .ToString()
+                        : string.Empty,
+                    Doctrine.State.Overridden => CurrentDoctrine.OverriddenHint.ToString(),
+                    _ => string.Empty,
+                };
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Costs                         //
@@ -150,7 +161,7 @@ namespace Retinues.Editor.MVC.Pages.Doctrines.Views.Panel
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceProperty]
-        public bool ShowFeats => _feats.Count > 0 && State.Doctrine.IsInProgress;
+        public bool ShowFeats => _feats.Count > 0 && (CurrentDoctrine?.IsInProgress ?? false);
 
         [DataSourceProperty]
         public string FeatsHeaderText => L.S("doctrine_feats_header", "Feats");
@@ -165,7 +176,15 @@ namespace Retinues.Editor.MVC.Pages.Doctrines.Views.Panel
         {
             _feats.Clear();
 
-            foreach (var feat in State.Doctrine.Feats)
+            var doctrine = CurrentDoctrine;
+            if (doctrine?.Feats == null)
+            {
+                OnPropertyChanged(nameof(ShowFeats));
+                OnPropertyChanged(nameof(Feats));
+                return;
+            }
+
+            foreach (var feat in doctrine.Feats)
                 _feats.Add(new FeatVM(feat));
 
             OnPropertyChanged(nameof(ShowFeats));
@@ -177,8 +196,9 @@ namespace Retinues.Editor.MVC.Pages.Doctrines.Views.Panel
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         static bool ShowButton =>
-            (State.Doctrine.IsInProgress || State.Doctrine.IsUnlocked)
-            && !State.Doctrine.IsAcquired;
+            CurrentDoctrine != null
+            && (CurrentDoctrine.IsInProgress || CurrentDoctrine.IsUnlocked)
+            && !CurrentDoctrine.IsAcquired;
 
         [DataSourceProperty]
         public Button<Doctrine> AcquireButton { get; } =
