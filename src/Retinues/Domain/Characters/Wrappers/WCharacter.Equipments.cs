@@ -42,7 +42,16 @@ namespace Retinues.Domain.Characters.Wrappers
         //                       Convenience                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public List<MEquipment> Equipments => EquipmentRoster.Equipments;
+        public virtual List<MEquipment> Equipments
+        {
+            get
+            {
+                if (IsHero && Hero != null)
+                    return Hero.Equipments;
+
+                return EquipmentRoster.Equipments;
+            }
+        }
 
         public MEquipment FirstBattleEquipment => GetFirstEquipment(civilian: false);
         public MEquipment FirstCivilianEquipment => GetFirstEquipment(civilian: true);

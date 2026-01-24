@@ -9,13 +9,15 @@ using TaleWorlds.Core;
 namespace Retinues.Domain.Characters.Services.Skills
 {
     [SafeClass]
-    public sealed class Skills : ICharacterSkills, IEnumerable<(SkillObject Skill, int Value)>
+    public class Skills : IEnumerable<(SkillObject Skill, int Value)>
     {
         readonly WCharacter _wc;
 
         readonly List<SkillObject> _validSkills;
 
         readonly Dictionary<SkillObject, MAttribute<int>> _attributes = [];
+
+        protected Skills() { }
 
         public Skills(WCharacter wc)
         {
@@ -33,27 +35,13 @@ namespace Retinues.Domain.Characters.Services.Skills
             }
         }
 
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Indexer                        //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        public int this[SkillObject skill]
-        {
-            get => Get(skill);
-            set => Set(skill, value);
-        }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Helpers                        //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        /// <summary>
-        /// Get the base skill value, without any staging applied.
-        /// </summary>
-        public int GetBase(SkillObject skill)
+        public virtual int GetBase(SkillObject skill)
         {
             if (skill == null)
                 return 0;
+
+            if (_wc == null)
+                return Get(skill);
 
             if (_attributes.TryGetValue(skill, out var attribute))
                 return attribute.Get();
@@ -61,46 +49,38 @@ namespace Retinues.Domain.Characters.Services.Skills
             return _wc.Base.GetSkillValue(skill);
         }
 
-        /// <summary>
-        /// Get the staged skill delta for the given skill.
-        /// </summary>
-        public int GetStaged(SkillObject skill)
+        public virtual int GetStaged(SkillObject skill)
         {
+            if (_wc == null)
+                return 0;
+
             if (skill == null || string.IsNullOrEmpty(skill.StringId))
                 return 0;
 
             return _wc.GetStagedSkillDelta(skill.StringId);
         }
 
-        /// <summary>
-        /// Determines whether the given skill has any staged increases.
-        /// </summary>
-        public bool IsStaged(SkillObject skill) =>
-            WCharacter.IsSkillStagingActive(_wc) && GetStaged(skill) > 0;
+        public virtual bool IsStaged(SkillObject skill)
+        {
+            if (_wc == null)
+                return false;
 
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Get / Set                       //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+            return WCharacter.IsSkillStagingActive(_wc) && GetStaged(skill) > 0;
+        }
 
-        /// <summary>
-        /// Get the effective skill value, including any staged increases.
-        /// </summary>
-        public int Get(SkillObject skill)
+        public virtual int Get(SkillObject skill)
         {
             var baseValue = GetBase(skill);
 
-            if (!WCharacter.IsSkillStagingActive(_wc))
+            if (_wc == null || !WCharacter.IsSkillStagingActive(_wc))
                 return baseValue;
 
             return baseValue + GetStaged(skill);
         }
 
-        /// <summary>
-        /// Set the base skill value, removing any staged increases.
-        /// </summary>
-        public void Set(SkillObject skill, int value)
+        public virtual void Set(SkillObject skill, int value)
         {
-            if (skill == null)
+            if (_wc == null || skill == null)
                 return;
 
             if (!_attributes.TryGetValue(skill, out var attribute))
@@ -117,13 +97,16 @@ namespace Retinues.Domain.Characters.Services.Skills
             _wc.ConversionCache.Clear();
         }
 
-        /// <summary>
-        /// Modify the skill by the given amount, applying or consuming staged increases as needed.
-        /// </summary>
-        public void Modify(SkillObject skill, int amount)
+        public virtual void Modify(SkillObject skill, int amount)
         {
             if (skill == null || amount == 0)
                 return;
+
+            if (_wc == null)
+            {
+                Set(skill, Get(skill) + amount);
+                return;
+            }
 
             if (!WCharacter.IsSkillStagingActive(_wc))
             {
@@ -160,15 +143,104 @@ namespace Retinues.Domain.Characters.Services.Skills
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                       Enumeration                      //
+        //                         Indexer                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+        public int this[SkillObject skill]
+        {
+            get => Get(skill);
+            set => Set(skill, value);
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Enumeration                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
         /// Enumerates all valid skills and their effective values.
         /// </summary>
-        public IEnumerator<(SkillObject Skill, int Value)> GetEnumerator()
+        public virtual IEnumerator<(SkillObject Skill, int Value)> GetEnumerator()
+        {
+            if (_validSkills == null)
+                yield break;
+
+            for (int i = 0; i < _validSkills.Count; i++)
+            {
+                var s = _validSkills[i];
+                if (s == null)
+                    continue;
+
+                yield return (s, Get(s));
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+    }
+
+    /// <summary>
+    /// Provides skill access and manipulation for a hero.
+    /// </summary>
+    [SafeClass]
+    public sealed class HeroSkills : Skills
+    {
+        readonly WHero _hero;
+
+        readonly List<SkillObject> _validSkills;
+
+        /// <summary>
+        /// Creates a HeroSkills wrapper for the given hero and caches valid skills.
+        /// </summary>
+        public HeroSkills(WHero hero)
+        {
+            _hero = hero;
+            _validSkills = SkillCatalog.GetSkills(_hero) ?? [];
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Get / Set                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Gets the specified skill value for the hero.
+        /// </summary>
+        public override int Get(SkillObject skill)
+        {
+            if (skill == null)
+                return 0;
+
+            return _hero.Base.GetSkillValue(skill);
+        }
+
+        /// <summary>
+        /// Sets the specified skill value for the hero.
+        /// </summary>
+        public override void Set(SkillObject skill, int value)
+        {
+            if (skill == null)
+                return;
+
+            _hero.Base.SetSkillValue(skill, value);
+        }
+
+        /// <summary>
+        /// Adjusts the specified skill by the given amount.
+        /// </summary>
+        public override void Modify(SkillObject skill, int amount)
+        {
+            if (skill == null || amount == 0)
+                return;
+
+            Set(skill, Get(skill) + amount);
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Enumeration                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Enumerates valid skills and their current values for this hero.
+        /// </summary>
+        public override IEnumerator<(SkillObject Skill, int Value)> GetEnumerator()
         {
             for (int i = 0; i < _validSkills.Count; i++)
             {

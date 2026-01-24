@@ -57,6 +57,8 @@ namespace Retinues.Framework.Model
 
         static readonly Dictionary<Type, Func<string, MBObjectBase>> Resolvers = [];
 
+        static Func<TBase, TWrapper> WrapperFactory;
+
         /// <summary>
         /// Registers a custom resolver for the underlying MBObjectBase type.
         /// </summary>
@@ -64,6 +66,15 @@ namespace Retinues.Framework.Model
             where T : MBObjectBase
         {
             Resolvers[typeof(T)] = id => resolver(id);
+        }
+
+        /// <summary>
+        /// Registers a factory used to construct wrapper instances for this wrapper/base pairing.
+        /// This enables polymorphic wrappers (e.g., returning a derived wrapper type).
+        /// </summary>
+        public static void RegisterFactory(Func<TBase, TWrapper> factory)
+        {
+            WrapperFactory = factory;
         }
 
         /// <summary>
@@ -151,14 +162,22 @@ namespace Retinues.Framework.Model
 
             var id = baseInstance.StringId;
             if (string.IsNullOrEmpty(id))
-                return (TWrapper)Activator.CreateInstance(typeof(TWrapper), [baseInstance]);
+                return WrapperFactory != null
+                    ? WrapperFactory(baseInstance)
+                    : (TWrapper)Activator.CreateInstance(typeof(TWrapper), [baseInstance]);
 
             lock (CacheSync)
             {
                 if (Cache.TryGetValue(id, out var existing))
                     return existing;
 
-                var created = (TWrapper)Activator.CreateInstance(typeof(TWrapper), [baseInstance]);
+                var created =
+                    WrapperFactory != null
+                        ? WrapperFactory(baseInstance)
+                        : (TWrapper)Activator.CreateInstance(typeof(TWrapper), [baseInstance]);
+
+                if (created == null)
+                    return null;
 
                 Cache[id] = created;
                 return created;

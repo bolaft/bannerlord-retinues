@@ -39,10 +39,6 @@ namespace Retinues.Domain.Characters.Wrappers
         //                         Skills                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        /* ━━━━━━ Interfacing ━━━━━ */
-
-        ICharacterSkills ICharacterData.Skills => Skills;
-
         /* ━━━ Skills Container ━━━ */
 
         private Skills _skills;
@@ -50,10 +46,13 @@ namespace Retinues.Domain.Characters.Wrappers
         /// <summary>
         /// Container exposing runtime skill values for this character.
         /// </summary>
-        public Skills Skills
+        public virtual Skills Skills
         {
             get
             {
+                if (IsHero)
+                    return Hero.Skills;
+
                 _skills ??= new Skills(this);
                 return _skills;
             }
@@ -62,7 +61,13 @@ namespace Retinues.Domain.Characters.Wrappers
         /// <summary>
         /// Clears the cached Skills container so it will be rebuilt.
         /// </summary>
-        public void ClearSkillsCache() => _skills = null;
+        public void ClearSkillsCache()
+        {
+            if (IsHero)
+                Hero.ClearSkillsCache();
+
+            _skills = null;
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Skill Rules                      //

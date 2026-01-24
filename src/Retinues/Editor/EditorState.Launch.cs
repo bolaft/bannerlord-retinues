@@ -281,7 +281,7 @@ namespace Retinues.Editor
         /// </summary>
         private static MEquipment PickFirstEquipment(WCharacter character)
         {
-            var equipments = character?.Editable?.Equipments;
+            var equipments = character?.Equipments;
 
             if (equipments == null || equipments.Count == 0)
                 return null;

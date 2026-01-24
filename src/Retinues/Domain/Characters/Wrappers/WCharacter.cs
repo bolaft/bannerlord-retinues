@@ -20,19 +20,38 @@ using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
 namespace Retinues.Domain.Characters.Wrappers
 {
     public partial class WCharacter(CharacterObject @base)
-        : WBase<WCharacter, CharacterObject>(@base),
-            ICharacterData
+        : WBase<WCharacter, CharacterObject>(@base)
     {
+        static WCharacter()
+        {
+            RegisterFactory(co => new WCharacter(co));
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Name                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         MAttribute<TextObject> NameAttribute => Attribute<TextObject>("_basicName");
 
-        public string Name
+        public virtual string Name
         {
-            get => NameAttribute.Get().ToString();
-            set => NameAttribute.Set(new TextObject(value));
+            get
+            {
+                if (IsHero)
+                    return Hero.Name;
+
+                return NameAttribute.Get().ToString();
+            }
+            set
+            {
+                if (IsHero)
+                {
+                    Hero.Name = value;
+                    return;
+                }
+
+                NameAttribute.Set(new TextObject(value));
+            }
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -43,12 +62,25 @@ namespace Retinues.Domain.Characters.Wrappers
 
         MAttribute<int> LevelAttribute => Attribute<int>(nameof(CharacterObject.Level));
 
-        public int Level
+        public virtual int Level
         {
-            get => LevelAttribute.Get();
+            get
+            {
+                if (IsHero)
+                    return Hero.Level;
+
+                return LevelAttribute.Get();
+            }
             set
             {
-                LevelAttribute.Set(value);
+                if (IsHero)
+                {
+                    Hero.Level = value;
+                }
+                else
+                {
+                    LevelAttribute.Set(value);
+                }
 
                 // Invalidate conversion sources cache for retinues.
                 ConversionCache.Clear();
@@ -82,10 +114,6 @@ namespace Retinues.Domain.Characters.Wrappers
 
         public WHero Hero => WHero.Get(Base.HeroObject);
 
-        /* ━━━━━━━━━ Unit ━━━━━━━━━ */
-
-        public ICharacterData Editable => IsHero ? Hero : this;
-
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Flags                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -93,7 +121,7 @@ namespace Retinues.Domain.Characters.Wrappers
         /* ━━━━━━━━ General ━━━━━━━ */
 
         public bool IsPlayer => Base.IsPlayerCharacter;
-        public bool IsHero => Base.IsHero;
+        public bool IsHero => Base.IsHero && Hero != null;
         public bool IsCustom => StringId.StartsWith(CustomTroopPrefix);
         public bool IsVanilla => !IsCustom;
         public bool IsEdited => IsDirty;
@@ -181,7 +209,7 @@ namespace Retinues.Domain.Characters.Wrappers
         MAttribute<CultureObject> CultureAttribute =>
             Attribute(c => c.Culture, priority: AttributePriority.High);
 
-        public WCulture Culture
+        public virtual WCulture Culture
         {
             get => WCulture.Get(CultureAttribute.Get());
             set

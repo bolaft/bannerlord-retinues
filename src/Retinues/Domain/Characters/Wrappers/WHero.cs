@@ -16,7 +16,7 @@ namespace Retinues.Domain.Characters.Wrappers
     /// <summary>
     /// Wrapper for Hero providing convenience accessors and helpers.
     /// </summary>
-    public class WHero(Hero @base) : WBase<WHero, Hero>(@base), ICharacterData
+    public class WHero(Hero @base) : WBase<WHero, Hero>(@base)
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Resolver                        //
@@ -241,8 +241,6 @@ namespace Retinues.Domain.Characters.Wrappers
                 return _skills;
             }
         }
-
-        ICharacterSkills ICharacterData.Skills => Skills;
 
         /// <summary>
         /// Clears the cached skills wrapper so it will be rebuilt.

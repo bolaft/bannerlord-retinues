@@ -14,10 +14,25 @@ namespace Retinues.Domain.Characters.Wrappers
 
         MAttribute<bool> IsFemaleAttribute => Attribute<bool>(nameof(CharacterObject.IsFemale));
 
-        public bool IsFemale
+        public virtual bool IsFemale
         {
-            get => IsFemaleAttribute.Get();
-            set => IsFemaleAttribute.Set(value);
+            get
+            {
+                if (IsHero && Hero != null)
+                    return Hero.IsFemale;
+
+                return IsFemaleAttribute.Get();
+            }
+            set
+            {
+                if (IsHero && Hero != null)
+                {
+                    Hero.IsFemale = value;
+                    return;
+                }
+
+                IsFemaleAttribute.Set(value);
+            }
         }
 
         /* ━━━━━━━━━ Race ━━━━━━━━━ */

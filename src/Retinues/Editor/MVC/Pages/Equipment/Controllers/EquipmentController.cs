@@ -472,7 +472,7 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Controllers
         /// </summary>
         public static List<MEquipment> GetEquipments(bool civilian)
         {
-            var all = State.Character?.Editable?.Equipments;
+            var all = State.Character?.Equipments;
             if (all == null || all.Count == 0)
                 return [];
 

@@ -22,7 +22,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
         public static ControllerAction<TraitObject> TraitIncrease { get; } =
             Action<TraitObject>("TraitIncrease")
                 .AddCondition(
-                    _ => State.Character.Editable is WHero,
+                    _ => State.Character != null && State.Character.IsHero,
                     new TextObject(string.Empty).SetTextVariable(
                         "REASON",
                         L.T("trait_only_heroes_reason", "Only applicable to heroes")
@@ -42,7 +42,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
         public static ControllerAction<TraitObject> TraitDecrease { get; } =
             Action<TraitObject>("TraitDecrease")
                 .AddCondition(
-                    _ => State.Character.Editable is WHero,
+                    _ => State.Character != null && State.Character.IsHero,
                     L.T("trait_only_heroes_reason", "Only applicable to heroes")
                 )
                 .AddCondition(trait => State.Character.Hero.GetTrait(trait) > trait.MinValue)
@@ -58,7 +58,8 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
         /// </summary>
         private static void ChangeTrait(TraitObject trait, int delta)
         {
-            if (State.Character.Editable is not WHero hero)
+            var hero = State.Character?.Hero;
+            if (hero == null)
                 return;
 
             int current = hero.GetTrait(trait);

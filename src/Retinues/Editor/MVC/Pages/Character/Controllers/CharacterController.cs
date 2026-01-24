@@ -38,7 +38,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
             if (c == null)
                 return;
 
-            static void Apply(Domain.Characters.ICharacterData target, string newName)
+            static void Apply(WCharacter target, string newName)
             {
                 if (string.IsNullOrWhiteSpace(newName))
                 {
@@ -60,8 +60,8 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
 
             Inquiries.TextInputPopup(
                 title: L.T("rename_unit", "New Name"),
-                defaultInput: c.Editable.Name,
-                onConfirm: input => Apply(c.Editable, input),
+                defaultInput: c.Name,
+                onConfirm: input => Apply(c, input),
                 description: L.T("enter_new_name", "Enter a new name:")
             );
         }
@@ -130,7 +130,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
                     if (element?.Identifier is not WCulture newCulture)
                         return;
 
-                    if (ApplyCulture(c.Editable, newCulture))
+                    if (ApplyCulture(c, newCulture))
                         EventManager.Fire(UIEvent.Culture);
                 }
             );
@@ -139,10 +139,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
         /// <summary>
         /// Apply the selected culture to the character.
         /// </summary>
-        private static bool ApplyCulture(
-            Domain.Characters.ICharacterData character,
-            WCulture newCulture
-        )
+        private static bool ApplyCulture(WCharacter character, WCulture newCulture)
         {
             if (character == null)
                 return false;
@@ -161,7 +158,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
 
                         return true;
                     },
-                    character as WCharacter
+                    character
                 )
             )
                 return false;
@@ -305,14 +302,15 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
         /// Check if the race can be changed for the current character.
         /// </summary>
         public static bool CanChangeRace =>
-            RaceHelper.HasAlternateSpecies() && State.Character?.Editable is WCharacter;
+            RaceHelper.HasAlternateSpecies() && State.Character != null && !State.Character.IsHero;
 
         /// <summary>
         /// Get the display text for the current character's race.
         /// </summary>
         public static string GetRaceText()
         {
-            if (State.Character?.Editable is not WCharacter wc)
+            var wc = State.Character;
+            if (wc == null || wc.IsHero)
                 return null;
 
             return RaceHelper.GetRaceName(wc);

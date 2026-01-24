@@ -44,7 +44,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Panel
 
         [EventListener(UIEvent.Name)]
         [DataSourceProperty]
-        public string NameText => Format.WrapWhitespace(State.Character.Editable.Name, 50);
+        public string NameText => Format.WrapWhitespace(State.Character.Name, 50);
 
         [DataSourceProperty]
         public Button<WCharacter> RenameButton { get; } =
@@ -73,7 +73,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Panel
 
         [EventListener(UIEvent.Culture)]
         [DataSourceProperty]
-        public string CultureText => State.Character.Editable.Culture?.Name;
+        public string CultureText => State.Character.Culture?.Name;
 
         [DataSourceProperty]
         public Button<WCharacter> ChangeCultureButton { get; } =
@@ -90,7 +90,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Panel
         public Button<WCharacter> ChangeRaceButton { get; } =
             new(
                 action: CharacterController.SelectRace,
-                arg: () => State.Character.Editable as WCharacter,
+                arg: () => State.Character,
                 refresh: [UIEvent.Character, UIEvent.Culture],
                 sprite: "SPClan.Parties.ChangePartyLeaderIcon",
                 color: "f8eed1ff",

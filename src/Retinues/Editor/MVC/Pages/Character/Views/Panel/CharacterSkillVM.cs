@@ -35,12 +35,11 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Panel
 
         [EventListener(UIEvent.Skill)]
         [DataSourceProperty]
-        public int Value => State.Character.Editable.Skills.Get(skill);
+        public int Value => State.Character.Skills.Get(skill);
 
         [EventListener(UIEvent.Skill)]
         [DataSourceProperty]
-        public bool IsStaged =>
-            State.Character?.Editable is WCharacter wc && wc.Skills.IsStaged(skill);
+        public bool IsStaged => State.Character?.Skills.IsStaged(skill) ?? false;
 
         [EventListener(UIEvent.Skill)]
         [DataSourceProperty]

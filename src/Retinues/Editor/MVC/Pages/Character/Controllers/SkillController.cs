@@ -44,10 +44,10 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
                 .RequireValidEditingContext()
                 .AddCondition(
                     s =>
-                        State.Character.Editable.Skills.Get(s) < SkillRules.MaxSkillLevel
+                        State.Character.Skills.Get(s) < SkillRules.MaxSkillLevel
                         == (
                             !SkillLimitsActive
-                            || State.Character.Editable.Skills.Get(s)
+                            || State.Character.Skills.Get(s)
                                 < SkillRules.GetSkillTotal(State.Character)
                         ),
                     L.T("skill_increase_maxed_reason", "Skill cap reached")
@@ -86,7 +86,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
         public static ControllerAction<SkillObject> SkillDecrease { get; } =
             Action<SkillObject>("SkillDecrease")
                 .RequireValidEditingContext()
-                .AddCondition(s => State.Character.Editable.Skills.Get(s) > 0)
+                .AddCondition(s => State.Character.Skills.Get(s) > 0)
                 .AddCondition(
                     CanDecreasePastUpgradeSourceFloor,
                     () =>
@@ -112,7 +112,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
             if (c == null || skill == null)
                 return true;
 
-            var current = c.Editable.Skills.Get(skill);
+            var current = c.Skills.Get(skill);
 
             var floor = GetUpgradeSourceSkillFloor(c, skill, out _sourceFloorCharacter);
 
@@ -224,7 +224,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
         {
             int amount = InputHelper.BatchInput(MaxBatch);
             var c = State.Character;
-            var skills = c.Editable.Skills;
+            var skills = c.Skills;
 
             Func<SkillObject, bool> allow = delta > 0 ? SkillIncrease.Allow : SkillDecrease.Allow;
 
