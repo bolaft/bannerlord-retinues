@@ -1649,9 +1649,6 @@
       id="ret_mcm_option_same_culture_only_hint"
       text="Если включено, пользовательские войска могут быть набраны только в поселениях одной культуры." />
     <string
-      id="ret_mcm_option_skill_cap"
-      text="Уровень {TIER}" />
-    <string
       id="ret_mcm_option_skill_cap_hint"
       text="Максимальный уровень навыков для войск уровня {TIER}." />
     <string
@@ -1672,9 +1669,6 @@
     <string
       id="ret_mcm_option_skill_progress_per_day_hint"
       text="Определяет скорость обучения в очках в день." />
-    <string
-      id="ret_mcm_option_skill_total"
-      text="Уровень {TIER}" />
     <string
       id="ret_mcm_option_skill_total_hint"
       text="Максимальное общее количество очков навыков для войск уровня {TIER}." />

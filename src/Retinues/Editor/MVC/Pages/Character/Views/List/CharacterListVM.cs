@@ -233,6 +233,9 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.List
                 return;
             }
 
+            bool isUniversal = EditorState.Instance.Mode == EditorMode.Universal;
+            bool isClan = faction is WClan;
+
             bool ShouldInclude(WCharacter c)
             {
                 if (c == null)
@@ -246,7 +249,12 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.List
                     return c.IsFactionTroop;
                 }
 
-                // Universal: no custom.
+                // Universal:
+                // - Culture selection: show culture troops (non map-faction troops).
+                // - Clan selection: show clan heroes.
+                if (isClan)
+                    return c.IsHero;
+
                 return !c.IsFactionTroop;
             }
 

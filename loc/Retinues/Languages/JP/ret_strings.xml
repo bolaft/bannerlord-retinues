@@ -1649,9 +1649,6 @@
       id="ret_mcm_option_same_culture_only_hint"
       text="有効にすると、カスタム部隊は同じ文化の集落でのみ採用できます。" />
     <string
-      id="ret_mcm_option_skill_cap"
-      text="ティア {TIER}" />
-    <string
       id="ret_mcm_option_skill_cap_hint"
       text="ティア {TIER} 部隊の最大スキルレベル。" />
     <string
@@ -1672,9 +1669,6 @@
     <string
       id="ret_mcm_option_skill_progress_per_day_hint"
       text="1日あたりのポイントでトレーニング速度を決定します。" />
-    <string
-      id="ret_mcm_option_skill_total"
-      text="ティア {TIER}" />
     <string
       id="ret_mcm_option_skill_total_hint"
       text="ティア {TIER} 部隊の最大総スキルポイント。" />

@@ -1649,9 +1649,6 @@
       id="ret_mcm_option_same_culture_only_hint"
       text="如果启用，自定义部队只能在同一文化的定居点招募。" />
     <string
-      id="ret_mcm_option_skill_cap"
-      text="等级 {TIER}" />
-    <string
       id="ret_mcm_option_skill_cap_hint"
       text="等级 {TIER} 部队的最高技能水平。" />
     <string
@@ -1672,9 +1669,6 @@
     <string
       id="ret_mcm_option_skill_progress_per_day_hint"
       text="确定每天的训练速度（点数）。" />
-    <string
-      id="ret_mcm_option_skill_total"
-      text="等级 {TIER}" />
     <string
       id="ret_mcm_option_skill_total_hint"
       text="等级 {TIER} 部队的最高总技能点数。" />

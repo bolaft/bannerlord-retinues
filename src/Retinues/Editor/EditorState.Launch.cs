@@ -235,6 +235,8 @@ namespace Retinues.Editor
             if (faction?.Troops == null)
                 return null;
 
+            bool isClan = faction is WClan;
+
             foreach (var troop in faction.Troops)
             {
                 if (troop == null)
@@ -253,9 +255,19 @@ namespace Retinues.Editor
                 }
                 else
                 {
-                    // Universal: no custom.
-                    if (troop.IsFactionTroop)
-                        continue;
+                    // Universal:
+                    // - Clan selection: allow heroes (they are map-faction troops).
+                    // - Otherwise (culture): exclude map-faction troops.
+                    if (isClan)
+                    {
+                        if (!troop.IsHero)
+                            continue;
+                    }
+                    else
+                    {
+                        if (troop.IsFactionTroop)
+                            continue;
+                    }
                 }
 
                 return troop;

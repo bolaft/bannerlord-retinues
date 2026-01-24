@@ -1649,9 +1649,6 @@
       id="ret_mcm_option_same_culture_only_hint"
       text="Si está habilitado, las tropas personalizadas solo se pueden reclutar en asentamientos de la misma cultura." />
     <string
-      id="ret_mcm_option_skill_cap"
-      text="Nivel {TIER}" />
-    <string
       id="ret_mcm_option_skill_cap_hint"
       text="Nivel máximo de habilidad para las tropas de nivel {TIER}." />
     <string
@@ -1672,9 +1669,6 @@
     <string
       id="ret_mcm_option_skill_progress_per_day_hint"
       text="Determina la velocidad de entrenamiento en puntos por día." />
-    <string
-      id="ret_mcm_option_skill_total"
-      text="Nivel {TIER}" />
     <string
       id="ret_mcm_option_skill_total_hint"
       text="Puntos totales máximos de habilidad para las tropas de nivel {TIER}." />

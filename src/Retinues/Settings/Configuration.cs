@@ -1154,7 +1154,7 @@ namespace Retinues.Settings
 
         public static readonly Option<int> SkillCapT0 = CreateOption(
             section: SkillCaps,
-            name: L.F("mcm_option_skill_cap", "Tier {TIER}", ("TIER", 0)),
+            name: L.F("mcm_option_skill_cap", "Tier {TIER} Skill Cap", ("TIER", 0)),
             minValue: 20,
             maxValue: 360,
             @default: 20,
@@ -1163,7 +1163,7 @@ namespace Retinues.Settings
 
         public static readonly Option<int> SkillCapT1 = CreateOption(
             section: SkillCaps,
-            name: L.F("mcm_option_skill_cap", "Tier {TIER}", ("TIER", 1)),
+            name: L.F("mcm_option_skill_cap", "Tier {TIER} Skill Cap", ("TIER", 1)),
             minValue: 20,
             maxValue: 360,
             @default: 20,
@@ -1172,7 +1172,7 @@ namespace Retinues.Settings
 
         public static readonly Option<int> SkillCapT2 = CreateOption(
             section: SkillCaps,
-            name: L.F("mcm_option_skill_cap", "Tier {TIER}", ("TIER", 2)),
+            name: L.F("mcm_option_skill_cap", "Tier {TIER} Skill Cap", ("TIER", 2)),
             minValue: 20,
             maxValue: 360,
             @default: 60,
@@ -1181,7 +1181,7 @@ namespace Retinues.Settings
 
         public static readonly Option<int> SkillCapT3 = CreateOption(
             section: SkillCaps,
-            name: L.F("mcm_option_skill_cap", "Tier {TIER}", ("TIER", 3)),
+            name: L.F("mcm_option_skill_cap", "Tier {TIER} Skill Cap", ("TIER", 3)),
             minValue: 20,
             maxValue: 360,
             @default: 80,
@@ -1190,7 +1190,7 @@ namespace Retinues.Settings
 
         public static readonly Option<int> SkillCapT4 = CreateOption(
             section: SkillCaps,
-            name: L.F("mcm_option_skill_cap", "Tier {TIER}", ("TIER", 4)),
+            name: L.F("mcm_option_skill_cap", "Tier {TIER} Skill Cap", ("TIER", 4)),
             minValue: 20,
             maxValue: 360,
             @default: 120,
@@ -1199,7 +1199,7 @@ namespace Retinues.Settings
 
         public static readonly Option<int> SkillCapT5 = CreateOption(
             section: SkillCaps,
-            name: L.F("mcm_option_skill_cap", "Tier {TIER}", ("TIER", 5)),
+            name: L.F("mcm_option_skill_cap", "Tier {TIER} Skill Cap", ("TIER", 5)),
             minValue: 20,
             maxValue: 360,
             @default: 160,
@@ -1208,7 +1208,7 @@ namespace Retinues.Settings
 
         public static readonly Option<int> SkillCapT6 = CreateOption(
             section: SkillCaps,
-            name: L.F("mcm_option_skill_cap", "Tier {TIER}", ("TIER", 6)),
+            name: L.F("mcm_option_skill_cap", "Tier {TIER} Skill Cap", ("TIER", 6)),
             minValue: 20,
             maxValue: 360,
             @default: 260,
@@ -1217,7 +1217,7 @@ namespace Retinues.Settings
 
         public static readonly Option<int> SkillCapT7 = CreateOption(
             section: SkillCaps,
-            name: L.F("mcm_option_skill_cap", "Tier {TIER}", ("TIER", 7)),
+            name: L.F("mcm_option_skill_cap", "Tier {TIER} Skill Cap", ("TIER", 7)),
             minValue: 20,
             maxValue: 360,
             @default: 360,
@@ -1241,7 +1241,7 @@ namespace Retinues.Settings
 
         public static readonly Option<int> SkillTotalT0 = CreateOption(
             section: SkillTotals,
-            name: L.F("mcm_option_skill_total", "Tier {TIER}", ("TIER", 0)),
+            name: L.F("mcm_option_skill_total", "Tier {TIER} Skill Total", ("TIER", 0)),
             minValue: 90,
             maxValue: 1600,
             @default: 90,
@@ -1250,7 +1250,7 @@ namespace Retinues.Settings
 
         public static readonly Option<int> SkillTotalT1 = CreateOption(
             section: SkillTotals,
-            name: L.F("mcm_option_skill_total", "Tier {TIER}", ("TIER", 1)),
+            name: L.F("mcm_option_skill_total", "Tier {TIER} Skill Total", ("TIER", 1)),
             minValue: 90,
             maxValue: 1600,
             @default: 90,
@@ -1259,7 +1259,7 @@ namespace Retinues.Settings
 
         public static readonly Option<int> SkillTotalT2 = CreateOption(
             section: SkillTotals,
-            name: L.F("mcm_option_skill_total", "Tier {TIER}", ("TIER", 2)),
+            name: L.F("mcm_option_skill_total", "Tier {TIER} Skill Total", ("TIER", 2)),
             minValue: 90,
             maxValue: 1600,
             @default: 210,
@@ -1268,7 +1268,7 @@ namespace Retinues.Settings
 
         public static readonly Option<int> SkillTotalT3 = CreateOption(
             section: SkillTotals,
-            name: L.F("mcm_option_skill_total", "Tier {TIER}", ("TIER", 3)),
+            name: L.F("mcm_option_skill_total", "Tier {TIER} Skill Total", ("TIER", 3)),
             minValue: 90,
             maxValue: 1600,
             @default: 380,
@@ -1277,7 +1277,7 @@ namespace Retinues.Settings
 
         public static readonly Option<int> SkillTotalT4 = CreateOption(
             section: SkillTotals,
-            name: L.F("mcm_option_skill_total", "Tier {TIER}", ("TIER", 4)),
+            name: L.F("mcm_option_skill_total", "Tier {TIER} Skill Total", ("TIER", 4)),
             minValue: 90,
             maxValue: 1600,
             @default: 560,
@@ -1286,7 +1286,7 @@ namespace Retinues.Settings
 
         public static readonly Option<int> SkillTotalT5 = CreateOption(
             section: SkillTotals,
-            name: L.F("mcm_option_skill_total", "Tier {TIER}", ("TIER", 5)),
+            name: L.F("mcm_option_skill_total", "Tier {TIER} Skill Total", ("TIER", 5)),
             minValue: 90,
             maxValue: 1600,
             @default: 780,
@@ -1295,7 +1295,7 @@ namespace Retinues.Settings
 
         public static readonly Option<int> SkillTotalT6 = CreateOption(
             section: SkillTotals,
-            name: L.F("mcm_option_skill_total", "Tier {TIER}", ("TIER", 6)),
+            name: L.F("mcm_option_skill_total", "Tier {TIER} Skill Total", ("TIER", 6)),
             minValue: 90,
             maxValue: 1600,
             @default: 1020,
@@ -1304,7 +1304,7 @@ namespace Retinues.Settings
 
         public static readonly Option<int> SkillTotalT7 = CreateOption(
             section: SkillTotals,
-            name: L.F("mcm_option_skill_total", "Tier {TIER}", ("TIER", 7)),
+            name: L.F("mcm_option_skill_total", "Tier {TIER} Skill Total", ("TIER", 7)),
             minValue: 90,
             maxValue: 1600,
             @default: 1600,

@@ -1649,9 +1649,6 @@
       id="ret_mcm_option_same_culture_only_hint"
       text="Se abilitato, le truppe personalizzate possono essere reclutate solo negli insediamenti della stessa cultura." />
     <string
-      id="ret_mcm_option_skill_cap"
-      text="Livello {TIER}" />
-    <string
       id="ret_mcm_option_skill_cap_hint"
       text="Livello massimo di abilità per le truppe del livello {TIER}." />
     <string
@@ -1672,9 +1669,6 @@
     <string
       id="ret_mcm_option_skill_progress_per_day_hint"
       text="Determina la velocità di allenamento in punti al giorno." />
-    <string
-      id="ret_mcm_option_skill_total"
-      text="Livello {TIER}" />
     <string
       id="ret_mcm_option_skill_total_hint"
       text="Punti totali massimi di abilità per le truppe del livello {TIER}." />

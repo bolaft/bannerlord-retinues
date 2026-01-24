@@ -1649,9 +1649,6 @@
       id="ret_mcm_option_same_culture_only_hint"
       text="Etkinleştirilirse, özel birlikler yalnızca aynı kültürün yerleşimlerinde işe alınabilir." />
     <string
-      id="ret_mcm_option_skill_cap"
-      text="{TIER} Seviye" />
-    <string
       id="ret_mcm_option_skill_cap_hint"
       text="{TIER} seviye birlikler için maksimum yetenek seviyesi." />
     <string
@@ -1672,9 +1669,6 @@
     <string
       id="ret_mcm_option_skill_progress_per_day_hint"
       text="Günde puan başına eğitim hızını belirler." />
-    <string
-      id="ret_mcm_option_skill_total"
-      text="{TIER} Seviye" />
     <string
       id="ret_mcm_option_skill_total_hint"
       text="{TIER} seviye birlikler için maksimum toplam yetenek puanları." />

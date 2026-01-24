@@ -1649,9 +1649,6 @@
       id="ret_mcm_option_same_culture_only_hint"
       text="Si activé, les troupes personnalisées ne peuvent être recrutées que dans des fiefs de la même culture." />
     <string
-      id="ret_mcm_option_skill_cap"
-      text="Niveau {TIER}" />
-    <string
       id="ret_mcm_option_skill_cap_hint"
       text="Niveau de compétence maximum pour les troupes de niveau {TIER}." />
     <string
@@ -1672,9 +1669,6 @@
     <string
       id="ret_mcm_option_skill_progress_per_day_hint"
       text="Détermine la vitesse d&apos;entraînement en points par jour." />
-    <string
-      id="ret_mcm_option_skill_total"
-      text="Niveau {TIER}" />
     <string
       id="ret_mcm_option_skill_total_hint"
       text="Nombre total maximum de points de compétence pour les troupes de niveau {TIER}." />

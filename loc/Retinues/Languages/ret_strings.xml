@@ -1773,7 +1773,7 @@
       text="If enabled, custom troops can only be recruited in settlements of the same culture." />
     <string
       id="ret_mcm_option_skill_cap"
-      text="Tier {TIER}" />
+      text="Tier {TIER} Skill Cap" />
     <string
       id="ret_mcm_option_skill_points_gain_rate"
       text="Gain Rate" />
@@ -1794,7 +1794,7 @@
       text="Determines training speed in points per day." />
     <string
       id="ret_mcm_option_skill_total"
-      text="Tier {TIER}" />
+      text="Tier {TIER} Skill Total" />
     <string
       id="ret_mcm_option_starter_equipment"
       text="Starter Equipment" />

@@ -1649,9 +1649,6 @@
       id="ret_mcm_option_same_culture_only_hint"
       text="활성화되면 맞춤형 부대는 동일한 문화의 정착지에서만 모집할 수 있습니다." />
     <string
-      id="ret_mcm_option_skill_cap"
-      text="티어 {TIER}" />
-    <string
       id="ret_mcm_option_skill_cap_hint"
       text="티어 {TIER} 부대의 최대 기술 수준입니다." />
     <string
@@ -1672,9 +1669,6 @@
     <string
       id="ret_mcm_option_skill_progress_per_day_hint"
       text="하루 포인트로 훈련 속도를 결정합니다." />
-    <string
-      id="ret_mcm_option_skill_total"
-      text="티어 {TIER}" />
     <string
       id="ret_mcm_option_skill_total_hint"
       text="티어 {TIER} 부대의 최대 총 기술 포인트입니다." />

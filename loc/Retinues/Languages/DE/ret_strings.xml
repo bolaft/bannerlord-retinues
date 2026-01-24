@@ -1649,9 +1649,6 @@
       id="ret_mcm_option_same_culture_only_hint"
       text="Wenn aktiviert, können benutzerdefinierte Truppen nur in Siedlungen derselben Kultur rekrutiert werden." />
     <string
-      id="ret_mcm_option_skill_cap"
-      text="Stufe {TIER}" />
-    <string
       id="ret_mcm_option_skill_cap_hint"
       text="Maximales Fähigkeitsniveau für Truppen der Stufe {TIER}." />
     <string
@@ -1672,9 +1669,6 @@
     <string
       id="ret_mcm_option_skill_progress_per_day_hint"
       text="Bestimmt die Trainingsgeschwindigkeit in Punkten pro Tag." />
-    <string
-      id="ret_mcm_option_skill_total"
-      text="Stufe {TIER}" />
     <string
       id="ret_mcm_option_skill_total_hint"
       text="Maximale Gesamtfertigkeitspunkte für Truppen der Stufe {TIER}." />
