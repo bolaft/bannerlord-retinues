@@ -137,6 +137,7 @@ namespace Retinues.Settings
             IReadOnlyList<(T value, string label, string hint)> choices = null,
             IOption dependsOn = null,
             object dependsOnValue = null,
+            object dependsOnDisabledOverride = null,
             UIEvent[] fires = null,
             Action<object, object> onChange = null,
             bool requiresRestart = false
@@ -187,6 +188,7 @@ namespace Retinues.Settings
                 choices: choices,
                 dependsOn: dependsOn,
                 dependsOnValue: dependsOnValue,
+                dependsOnDisabledOverride: dependsOnDisabledOverride,
                 fires: fires,
                 onChanged: OnChangedWrapper
             );

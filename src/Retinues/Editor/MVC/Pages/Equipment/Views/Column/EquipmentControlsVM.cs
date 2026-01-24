@@ -3,6 +3,8 @@ using Retinues.Compatibility;
 using Retinues.Domain.Equipments.Models;
 using Retinues.Editor.Events;
 using Retinues.Editor.MVC.Pages.Equipment.Controllers;
+using Retinues.Editor.MVC.Pages.Equipment.Views.List;
+using Retinues.Editor.MVC.Shared.Controllers;
 using Retinues.Interface.Components;
 using Retinues.Interface.Services;
 using TaleWorlds.Library;
@@ -14,6 +16,40 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.Column
     /// </summary>
     public class EquipmentControlsVM : EventListenerVM
     {
+        private readonly EquipmentListVM _equipmentList;
+        private readonly ControllerAction<bool> _setShowCrafted;
+
+        public EquipmentControlsVM(EquipmentListVM equipmentList)
+        {
+            _equipmentList = equipmentList;
+
+            // View-only toggle: lives in the VM (not EditorState).
+            _setShowCrafted = new ControllerAction<bool>("SetShowCrafted")
+                .AddCondition(
+                    _ => State.Mode == EditorMode.Player,
+                    L.T("crafted_player_only_reason", "Not available in the Universal Editor")
+                )
+                .DefaultTooltip(value =>
+                    value
+                        ? L.T("crafted_items_only_tooltip", "Show crafted")
+                        : L.T("crafted_items_hide_tooltip", "Hide crafted")
+                )
+                .ExecuteWith(value =>
+                {
+                    if (_equipmentList != null)
+                        _equipmentList.ShowCrafted = value;
+                })
+                .Fire(UIEvent.Crafted);
+
+            CraftedToggle = new Checkbox(
+                action: _setShowCrafted,
+                getSelected: () => _equipmentList?.ShowCrafted ?? false,
+                refresh: [UIEvent.Slot, UIEvent.Crafted, UIEvent.Page],
+                visibilityGate: () =>
+                    State.Page == EditorPage.Equipment && State.Mode == EditorMode.Player
+            );
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Visibility                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -54,15 +90,7 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.Column
 
                 void Apply(MEquipment e)
                 {
-                    EventManager.FireBatch(() =>
-                    {
-                        _civilian = value;
-
-                        if (State.Equipment != e)
-                            State.Equipment = e; // fires UIEvent.Equipment
-                        else
-                            EventManager.Fire(UIEvent.Equipment);
-                    });
+                    State.Equipment = e;
                 }
 
                 EquipmentController.SelectFirstOrPromptCreate(
@@ -284,13 +312,6 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.Column
             );
 
         [DataSourceProperty]
-        public Checkbox CraftedToggle { get; } =
-            new(
-                action: EquipmentController.SetShowCrafted,
-                getSelected: () => State.ShowCrafted,
-                refresh: [UIEvent.Slot, UIEvent.Crafted, UIEvent.Page],
-                visibilityGate: () =>
-                    State.Page == EditorPage.Equipment && State.Mode == EditorMode.Player
-            );
+        public Checkbox CraftedToggle { get; }
     }
 }

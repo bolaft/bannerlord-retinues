@@ -84,8 +84,8 @@ namespace Retinues.Editor.MVC.Pages.Settings.Views.Panel
         }
 
         /// <summary>
-        /// Snaps a value to a multiple of <paramref name="step"/> within a min/max range.
-        /// If <paramref name="min"/> is not itself a multiple, <paramref name="min"/> is treated as a special-case floor.
+        /// Snaps a value to a multiple of step within a min/max range.
+        /// If min is not itself a multiple, min is treated as a special-case floor.
         /// Example: min=0.01, step=0.05 => 0.01, 0.05, 0.10, 0.15...
         /// </summary>
         private static float SnapToStepMultipleInRange(

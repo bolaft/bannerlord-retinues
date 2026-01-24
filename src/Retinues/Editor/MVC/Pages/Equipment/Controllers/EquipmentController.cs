@@ -120,27 +120,6 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Controllers
                 .ExecuteWith(DeleteSetImpl);
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                      Crafted Items                     //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        /// <summary>
-        /// Toggle whether crafted items are shown in the equipment picker (player mode only).
-        /// </summary>
-        public static ControllerAction<bool> SetShowCrafted { get; } =
-            Action<bool>("SetShowCrafted")
-                .AddCondition(
-                    _ => State.Mode == EditorMode.Player,
-                    L.T("crafted_player_only_reason", "Not available in the Universal Editor")
-                )
-                .DefaultTooltip(value =>
-                    value
-                        ? L.T("crafted_items_only_tooltip", "Show crafted")
-                        : L.T("crafted_items_hide_tooltip", "Hide crafted")
-                )
-                .ExecuteWith(value => State.ShowCrafted = value)
-                .Fire(UIEvent.Crafted);
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Battle Types                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 

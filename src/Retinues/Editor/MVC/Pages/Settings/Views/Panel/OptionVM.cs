@@ -222,19 +222,31 @@ namespace Retinues.Editor.MVC.Pages.Settings.Views.Panel
 
             try
             {
-                // Update our own value bindings.
-                if (string.Equals(Option.Key, key, StringComparison.OrdinalIgnoreCase))
-                    OnOptionValueChanged(newValue);
+                var isSelf = string.Equals(Option.Key, key, StringComparison.OrdinalIgnoreCase);
 
-                // Update our disabled/enabled state when either our value or our dependency changes.
-                if (!string.Equals(Option.Key, key, StringComparison.OrdinalIgnoreCase))
+                var isDependencyOrAncestor = IsAffectedByDependencyChange(key);
+
+                // Ignore unrelated option changes.
+                if (!isSelf && !isDependencyOrAncestor)
+                    return;
+
+                // Update our own value bindings.
+                // Important: when our dependency changes, our *effective* value can change
+                // (e.g. dependsOnDisabledOverride), so we must refresh the value bindings too.
+                if (isSelf)
                 {
-                    var dependsKey = Option.DependsOn?.Key;
-                    if (
-                        string.IsNullOrWhiteSpace(dependsKey)
-                        || !string.Equals(dependsKey, key, StringComparison.OrdinalIgnoreCase)
-                    )
-                        return;
+                    OnOptionValueChanged(newValue);
+                }
+                else if (isDependencyOrAncestor)
+                {
+                    try
+                    {
+                        OnOptionValueChanged(Option.GetObject());
+                    }
+                    catch
+                    {
+                        // Edge-safe.
+                    }
                 }
 
                 OnPropertyChanged(nameof(IsDisabled));
@@ -245,6 +257,30 @@ namespace Retinues.Editor.MVC.Pages.Settings.Views.Panel
             {
                 // Edge-safe.
             }
+        }
+
+        /// <summary>
+        /// Returns true if <paramref name="key"/> matches this option's dependency key
+        /// or any ancestor dependency key.
+        /// </summary>
+        private bool IsAffectedByDependencyChange(string key)
+        {
+            if (string.IsNullOrWhiteSpace(key) || Option == null)
+                return false;
+
+            // Walk DependsOn chain: A depends on B depends on C...
+            // If any of B/C/... changed, A's effective value / visibility can change.
+            var current = Option.DependsOn;
+            int safety = 0;
+            while (current != null && safety++ < 32)
+            {
+                if (string.Equals(current.Key, key, StringComparison.OrdinalIgnoreCase))
+                    return true;
+
+                current = current.DependsOn;
+            }
+
+            return false;
         }
 
         /// <summary>

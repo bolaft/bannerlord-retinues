@@ -60,6 +60,12 @@ namespace Retinues.Settings
         IOption DependsOn { get; }
         object DependsOnValue { get; }
 
+        /// <summary>
+        /// Optional override value returned by GetObject()/Value when DependsOn is not satisfied.
+        /// If null, the option keeps returning its stored value even while disabled by DependsOn.
+        /// </summary>
+        object DependsOnDisabledOverrideBoxed { get; }
+
         UIEvent[] Fires { get; }
 
         /// <summary>
@@ -94,6 +100,9 @@ namespace Retinues.Settings
 
         private readonly List<(T value, string label, string hint)> _choices;
 
+        private readonly bool _hasDependsOnDisabledOverride;
+        private readonly T _dependsOnDisabledOverride;
+
         private T _value;
 
         /// <summary>
@@ -112,6 +121,7 @@ namespace Retinues.Settings
             IReadOnlyList<(T value, string label, string hint)> choices,
             IOption dependsOn,
             object dependsOnValue,
+            object dependsOnDisabledOverride,
             UIEvent[] fires,
             Action<IOption, object, object> onChanged
         )
@@ -132,6 +142,11 @@ namespace Retinues.Settings
 
             DependsOn = dependsOn;
             DependsOnValue = dependsOnValue;
+
+            _hasDependsOnDisabledOverride = dependsOnDisabledOverride != null;
+            _dependsOnDisabledOverride = _hasDependsOnDisabledOverride
+                ? (T)CoerceToType(dependsOnDisabledOverride, typeof(T))
+                : default;
 
             Fires = fires;
 
@@ -173,6 +188,9 @@ namespace Retinues.Settings
         public IOption DependsOn { get; set; }
         public object DependsOnValue { get; set; }
 
+        public object DependsOnDisabledOverrideBoxed =>
+            _hasDependsOnDisabledOverride ? _dependsOnDisabledOverride : null;
+
         public UIEvent[] Fires { get; set; }
 
         private Action<IOption, object, object> OnChanged { get; }
@@ -187,6 +205,9 @@ namespace Retinues.Settings
             {
                 if (IsDisabled)
                     return DisabledOverride;
+
+                if (!IsDependencySatisfied() && _hasDependsOnDisabledOverride)
+                    return _dependsOnDisabledOverride;
 
                 return _value;
             }
@@ -210,6 +231,50 @@ namespace Retinues.Settings
                     // Edge-safe: settings should never crash callers.
                 }
             }
+        }
+
+        /// <summary>
+        /// Evaluates whether this option's dependency condition is currently satisfied.
+        /// Mirrors Settings UI behavior.
+        /// </summary>
+        private bool IsDependencySatisfied()
+        {
+            var dependsOn = DependsOn;
+            if (dependsOn == null)
+                return true;
+
+            object current;
+            try
+            {
+                current = dependsOn.GetObject();
+            }
+            catch
+            {
+                return true;
+            }
+
+            object expected = DependsOnValue;
+
+            // Common case: depends on a bool "enabled" toggle.
+            if (expected == null && dependsOn.Type == typeof(bool))
+                expected = true;
+
+            if (expected == null)
+                return true;
+
+            // Support sets of acceptable values (e.g. new[] { Mode.A, Mode.B }).
+            if (expected is System.Collections.IEnumerable enumerable && expected is not string)
+            {
+                foreach (var allowed in enumerable)
+                {
+                    if (Equals(current, allowed))
+                        return true;
+                }
+
+                return false;
+            }
+
+            return Equals(current, expected);
         }
 
         /// <summary>

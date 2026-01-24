@@ -34,6 +34,10 @@ namespace Retinues.Editor
             // Set close action.
             _close = close;
 
+            // Equipment list owns view-only options (e.g., crafted filter).
+            _equipmentList = new EquipmentListVM();
+            _column = new ColumnVM(_equipmentList);
+
             // Start each editor session from a clean shared state.
             EditorState.Reset(args);
 
@@ -78,7 +82,7 @@ namespace Retinues.Editor
 
         /* ━━━━━━━━ Column ━━━━━━━━ */
 
-        private readonly ColumnVM _column = new();
+        private readonly ColumnVM _column;
 
         [DataSourceProperty]
         public ColumnVM Column => _column;
@@ -86,7 +90,7 @@ namespace Retinues.Editor
         /* ━━━━━━━━━ List ━━━━━━━━━ */
 
         private readonly CharacterListVM _characterList = new();
-        private readonly EquipmentListVM _equipmentList = new();
+        private readonly EquipmentListVM _equipmentList;
         private readonly DoctrinesListVM _doctrinesList = new();
         private readonly LibraryListVM _libraryList = new();
 

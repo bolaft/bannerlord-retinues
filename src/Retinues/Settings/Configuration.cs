@@ -970,7 +970,8 @@ namespace Retinues.Settings
                 "Whether items are unlocked by defeating enemies in battles."
             ),
             @default: true,
-            dependsOn: EquipmentNeedsUnlocking
+            dependsOn: EquipmentNeedsUnlocking,
+            dependsOnDisabledOverride: false
         );
 
         public static readonly Option<int> RequiredKillsToUnlock = CreateOption(
@@ -997,7 +998,8 @@ namespace Retinues.Settings
                 "Whether owning workshops unlocks items over time. Items are selected based on workshop type and settlement culture."
             ),
             @default: true,
-            dependsOn: EquipmentNeedsUnlocking
+            dependsOn: EquipmentNeedsUnlocking,
+            dependsOnDisabledOverride: false
         );
 
         public static readonly Option<int> RequiredDaysToUnlock = CreateOption(
@@ -1021,7 +1023,8 @@ namespace Retinues.Settings
                 "Whether items are unlocked by discarding items."
             ),
             @default: false,
-            dependsOn: EquipmentNeedsUnlocking
+            dependsOn: EquipmentNeedsUnlocking,
+            dependsOnDisabledOverride: false
         );
 
         public static readonly Option<int> RequiredDiscardsToUnlock = CreateOption(

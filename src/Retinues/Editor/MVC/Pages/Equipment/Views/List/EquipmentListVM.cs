@@ -14,6 +14,23 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
     /// </summary>
     public sealed partial class EquipmentListVM : BaseListVM
     {
+        private bool _showCrafted;
+
+        /// <summary>
+        /// View-only toggle: whether crafted items should be included in the equipment list.
+        /// </summary>
+        public bool ShowCrafted
+        {
+            get => _showCrafted;
+            set
+            {
+                if (value == _showCrafted)
+                    return;
+
+                _showCrafted = value;
+            }
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          State                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -156,8 +173,8 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
         private void EnsureItemCache()
         {
             var slot = State.Slot;
-            var includeCrafted = State.ShowCrafted;
             var isPlayerMode = State.Mode == EditorMode.Player;
+            var includeCrafted = isPlayerMode && ShowCrafted;
 
             if (
                 _cachedVisibleItems != null

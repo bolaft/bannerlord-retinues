@@ -331,25 +331,5 @@ namespace Retinues.Editor
                 Fire(UIEvent.Doctrine);
             }
         }
-
-        /* ━━━━━━━━ Crafted ━━━━━━━ */
-
-        private bool _showCrafted;
-
-        /// <summary>
-        /// Whether to show crafted items in the equipment list.
-        /// </summary>
-        public bool ShowCrafted
-        {
-            get => _showCrafted;
-            set
-            {
-                if (value == _showCrafted)
-                    return;
-
-                _showCrafted = value;
-                Fire(UIEvent.Crafted);
-            }
-        }
     }
 }

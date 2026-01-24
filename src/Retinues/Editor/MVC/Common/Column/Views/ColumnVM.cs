@@ -7,6 +7,7 @@ using Retinues.Editor.Events;
 using Retinues.Editor.MVC.Pages.Character.Views.Column;
 using Retinues.Editor.MVC.Pages.Equipment.Controllers;
 using Retinues.Editor.MVC.Pages.Equipment.Views.Column;
+using Retinues.Editor.MVC.Pages.Equipment.Views.List;
 using Retinues.Editor.MVC.Pages.Library.Services;
 using Retinues.Interface.Services;
 using Retinues.Utilities;
@@ -20,6 +21,11 @@ namespace Retinues.Editor.MVC.Common.Column.Views
     /// </summary>
     public class ColumnVM : EventListenerVM
     {
+        public ColumnVM(EquipmentListVM equipmentList)
+        {
+            _equipmentControls = new EquipmentControlsVM(equipmentList);
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Visibility                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -37,7 +43,7 @@ namespace Retinues.Editor.MVC.Common.Column.Views
         [DataSourceProperty]
         public CustomizationControlsVM CustomizationControls => _customizationControls;
 
-        private readonly EquipmentControlsVM _equipmentControls = new();
+        private readonly EquipmentControlsVM _equipmentControls;
 
         [DataSourceProperty]
         public EquipmentControlsVM EquipmentControls => _equipmentControls;
