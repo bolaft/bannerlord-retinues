@@ -1,6 +1,9 @@
 using System.Threading;
 using Retinues.Editor.Events;
+using Retinues.Editor.MVC.Pages.Settings.Controllers;
 using Retinues.Editor.MVC.Shared.Views;
+using Retinues.Interface.Components;
+using Retinues.Interface.Services;
 using TaleWorlds.GauntletUI;
 using TaleWorlds.Library;
 
@@ -76,10 +79,27 @@ namespace Retinues.Editor.MVC.Pages.Settings.Views.Panel
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceProperty]
-        public override int Width => 1200;
+        public override int Width => 1600;
 
         [DataSourceProperty]
         public override HorizontalAlignment HorizontalAlignment => HorizontalAlignment.Center;
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Purge                          //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [DataSourceProperty]
+        public string PurgeAllHeader => L.S("purge_all_header", "Uninstall");
+
+        [DataSourceProperty]
+        public Button<object> PurgeAllButton { get; } =
+            new(
+                action: PurgeController.PurgeAll,
+                arg: () => null,
+                refresh: [UIEvent.Page],
+                labelFactory: () => L.S("purge_all_button", "Purge"),
+                visibilityGate: () => State.Page == EditorPage.Settings
+            );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Sections                        //

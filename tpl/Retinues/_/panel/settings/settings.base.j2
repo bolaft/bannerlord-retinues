@@ -3,13 +3,14 @@
 {# ---------------------------------------------- #}
 
 {% from "_/macros.panel.j2" import divider %}
+{% from "_/macros.buttons.j2" import button_text %}
 
 <ListPanel
     IsVisible="@OnSettingsPage"
     WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
     HorizontalAlignment="Center" VerticalAlignment="Top"
-    StackLayout.LayoutMethod="VerticalBottomToTop"
-    MarginBottom="32">
+    StackLayout.LayoutMethod="HorizontalLeftToRight"
+    MarginBottom="16">
     <Children>
 
         {# ------------------------------------------ #}
@@ -17,17 +18,17 @@
         {# ------------------------------------------ #}
 
         <Widget
-            WidthSizePolicy="StretchToParent"
+            WidthSizePolicy="Fixed"
             HeightSizePolicy="CoverChildren"
+            SuggestedWidth="300"
             HorizontalAlignment="Center"
-            VerticalAlignment="Top"
-            MarginBottom="32">
+            VerticalAlignment="Center">
             <Children>
                 <ListPanel
                     DataSource="{Sections}"
                     WidthSizePolicy="CoverChildren"
                     HeightSizePolicy="CoverChildren"
-                    StackLayout.LayoutMethod="HorizontalLeftToRight"
+                    StackLayout.LayoutMethod="VerticalBottomToTop"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center">
                     <ItemTemplate>
@@ -39,6 +40,7 @@
                             HorizontalAlignment="Center" VerticalAlignment="Center"
                             IsSelected="@IsScrollTarget"
                             Command.Click="ExecuteScrollToSection"
+                            MarginBottom="24"
                             UpdateChildrenStates="true">
                             <Children>
                                 <TextWidget
@@ -50,8 +52,6 @@
                                     Text="@Name"
                                     MarginLeft="10"
                                     MarginRight="10"
-                                    MarginTop="6"
-                                    MarginBottom="6"
                                     TextAlignment="Center" />
                             </Children>
                         </ButtonWidget>
@@ -60,30 +60,46 @@
             </Children>
         </Widget>
 
-        <BrushListPanel
-            Brush="Frame1Brush"
-            WidthSizePolicy="CoverChildren" HeightSizePolicy="StretchToParent"
+        <ListPanel
+            WidthSizePolicy="CoverChildren"
+            HeightSizePolicy="StretchToParent"
+            HorizontalAlignment="Center"
             VerticalAlignment="Bottom"
-            StackLayout.LayoutMethod="VerticalBottomToTop">
+            StackLayout.LayoutMethod="HorizontalLeftToRight">
             <Children>
 
-                <ListPanel
-                    WidthSizePolicy="StretchToParent"
-                    HeightSizePolicy="StretchToParent">
+                <Widget
+                    WidthSizePolicy="Fixed"
+                    SuggestedWidth="1000"
+                    HeightSizePolicy="StretchToParent"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom">
                     <Children>
-                        <ScrollablePanel
-                            Id="SettingsScrollablePanel"
+
+                <BrushListPanel
+                    Brush="Frame1Brush"
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                    VerticalAlignment="Bottom"
+                    StackLayout.LayoutMethod="VerticalBottomToTop">
+                    <Children>
+
+                        <ListPanel
                             WidthSizePolicy="StretchToParent"
-                            HeightSizePolicy="StretchToParent"
-                            MinWidth="!Clan.Management.Collapser.Width"
-                            AutoHideScrollBars="true"
-                            ClipRect="SettingsRect"
-                            InnerPanel="SettingsRect\SettingsListPanel"
-                            MouseScrollAxis="Vertical"
-                            MarginLeft="3"
-                            MarginBottom="3"
-                            VerticalScrollbar="..\SettingsScrollbar\Scrollbar">
+                            HeightSizePolicy="StretchToParent">
                             <Children>
+                                <ScrollablePanel
+                                    Id="SettingsScrollablePanel"
+                                    WidthSizePolicy="StretchToParent"
+                                    HeightSizePolicy="StretchToParent"
+                                    MinWidth="!Clan.Management.Collapser.Width"
+                                    AutoHideScrollBars="true"
+                                    ClipRect="SettingsRect"
+                                    InnerPanel="SettingsRect\SettingsListPanel"
+                                    MouseScrollAxis="Vertical"
+                                    MarginLeft="3"
+                                    MarginBottom="3"
+                                    VerticalScrollbar="..\SettingsScrollbar\Scrollbar">
+                                    <Children>
 
                                 <NavigationScopeTargeter
                                     ScopeID="SettingsScope"
@@ -276,20 +292,60 @@
                                     </Children>
                                 </Widget>
 
-                            </Children>
-                        </ScrollablePanel>
+                                    </Children>
+                                </ScrollablePanel>
 
-                        <Standard.VerticalScrollbar
-                            Id="SettingsScrollbar"
-                            HeightSizePolicy="StretchToParent"
-                            HorizontalAlignment="Right"
+                                <Standard.VerticalScrollbar
+                                    Id="SettingsScrollbar"
+                                    HeightSizePolicy="StretchToParent"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Bottom"
+                                    MarginLeft="2"
+                                    MarginRight="2"
+                                    MarginBottom="3" />
+                            </Children>
+                        </ListPanel>
+                    </Children>
+
+                        </BrushListPanel>
+
+                    </Children>
+                </Widget>
+
+                {# Purge button #}
+                <ListPanel
+                    WidthSizePolicy="Fixed"
+                    SuggestedWidth="400"
+                    HeightSizePolicy="StretchToParent"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom">
+                    <Children>
+                        <ListPanel
+                            WidthSizePolicy="StretchToParent"
+                            HeightSizePolicy="CoverChildren"
+                            HorizontalAlignment="Center"
                             VerticalAlignment="Bottom"
-                            MarginLeft="2"
-                            MarginRight="2"
-                            MarginBottom="3" />
+                            StackLayout.LayoutMethod="VerticalBottomToTop">
+                            <Children>
+                                <TextWidget
+                                    WidthSizePolicy="CoverChildren"
+                                    HeightSizePolicy="CoverChildren"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Brush="Clan.RightPanel.Name.Text"
+                                    Brush.FontSize="28"
+                                    TextAlignment="Center"
+                                    Text="@PurgeAllHeader"
+                                    MarginBottom="12" />
+
+                                {{ button_text("{PurgeAllButton}", "Popup.Delete.Button", "200", "60", horizontal_alignment="Center", vertical_alignment="Center") }}
+                            </Children>
+                        </ListPanel>
                     </Children>
                 </ListPanel>
+
             </Children>
-        </BrushListPanel>
+        </ListPanel>
+
     </Children>
 </ListPanel>

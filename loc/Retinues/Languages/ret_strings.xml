@@ -2003,6 +2003,57 @@
       id="ret_purchase_item_title"
       text="Purchase Item" />
     <string
+      id="ret_purge_all_button"
+      text="Purge" />
+    <string
+      id="ret_purge_all_header"
+      text="Uninstall" />
+    <string
+      id="ret_purge_all_tooltip"
+      text="Purge all custom troop data from the game" />
+    <string
+      id="ret_purge_confirm_body"
+      text="This action is meant to help you uninstall Retinues safely.{newline}{newline}It will scan every party roster in the current campaign and remove or replace ALL custom troops created by Retinues.{newline}{newline}This action is irreversible. Make a backup save first. Continue?" />
+    <string
+      id="ret_purge_confirm_title"
+      text="Purge Custom Troops" />
+    <string
+      id="ret_purge_continue"
+      text="Continue" />
+    <string
+      id="ret_purge_done_title"
+      text="Purge Complete" />
+    <string
+      id="ret_purge_failed_body"
+      text="Something went wrong while purging. Your save may be partially modified. Do not save, reload your game and try again, or report the issue." />
+    <string
+      id="ret_purge_failed_title"
+      text="Purge Failed" />
+    <string
+      id="ret_purge_mode_body"
+      text="Do you want to simply remove custom troops from rosters, or try to replace them with their closest vanilla equivalents when possible?" />
+    <string
+      id="ret_purge_mode_remove"
+      text="Remove" />
+    <string
+      id="ret_purge_mode_replace"
+      text="Replace" />
+    <string
+      id="ret_purge_mode_title"
+      text="Purge Mode" />
+    <string
+      id="ret_purge_need_campaign_reason"
+      text="No running campaign. Load a save first." />
+    <string
+      id="ret_purge_result_advice_ok"
+      text="Purge complete. Save the game into a new file and you will be able to remove Retinues safely from your game." />
+    <string
+      id="ret_purge_result_advice_partial"
+      text="Purge finished but some troops could not be replaced ({MISSES}) and were removed instead.{newline}{newline}Consider running again in Remove mode, or report this issue." />
+    <string
+      id="ret_purge_title"
+      text="Purge Custom Troops" />
+    <string
       id="ret_race_cannot_change"
       text="Cannot change species for this unit" />
     <string

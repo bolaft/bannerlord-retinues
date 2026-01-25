@@ -61,8 +61,8 @@
 {% endmacro %}
 
 {# Text content button (text inside the button) #}
-{% macro button_text(datasource, brush, width, height, font_size=24, margin_left="0", margin_right="0", margin_top="0", margin_bottom="0") %}
-    {% call button_base(datasource, width, height, button_brush=brush, margin_left=margin_left, margin_right=margin_right, margin_top=margin_top, margin_bottom=margin_bottom) %}
+{% macro button_text(datasource, brush, width, height, font_size=24, horizontal_alignment="Center", vertical_alignment="Center", margin_left="0", margin_right="0", margin_top="0", margin_bottom="0") %}
+    {% call button_base(datasource, width, height, button_brush=brush, horizontal_alignment=horizontal_alignment, vertical_alignment=vertical_alignment, margin_left=margin_left, margin_right=margin_right, margin_top=margin_top, margin_bottom=margin_bottom) %}
         <TextWidget
             WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
             HorizontalAlignment="Center" VerticalAlignment="Center"
