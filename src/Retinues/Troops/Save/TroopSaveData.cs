@@ -341,7 +341,7 @@ namespace Retinues.Troops.Save
             // Set dynamic properties (already handles nulls)
             body.SetDynamicEnd(true, AgeMin, WeightMin, BuildMin);
             body.SetDynamicEnd(false, AgeMax, WeightMax, BuildMax);
-            body.Age = body.AgeMin + body.AgeMax / 2;
+            body.Age = (body.AgeMin + body.AgeMax) / 2;
 
             // Set height properties
             if (HeightMin > 0 && HeightMax > 0)
