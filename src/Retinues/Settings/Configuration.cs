@@ -377,6 +377,18 @@ namespace Retinues.Settings
             dependsOn: EnableRetinues
         );
 
+        public static readonly Option<bool> BuffRetinueHealth = CreateOption(
+            section: Retinues,
+            name: L.F("mcm_option_buff_retinue_health", "Buff Retinue Health"),
+            description: L.F(
+                "mcm_option_buff_retinue_health_hint",
+                "If enabled, retinue troops will receive a health bonus."
+            ),
+            @default: false,
+            dependsOn: EnableRetinues,
+            fires: [UIEvent.Page]
+        );
+
         public static readonly Option<int> RetinueHealthBonus = CreateOption(
             section: Retinues,
             name: L.F("mcm_option_retinue_health_bonus", "Retinue Health Bonus"),
@@ -387,7 +399,19 @@ namespace Retinues.Settings
             minValue: 0,
             maxValue: 100,
             @default: 20,
-            dependsOn: EnableRetinues
+            dependsOn: BuffRetinueHealth
+        );
+
+        public static readonly Option<bool> BuffRetinueSkillCap = CreateOption(
+            section: Retinues,
+            name: L.F("mcm_option_buff_retinue_skill_cap", "Buff Retinue Skill Cap"),
+            description: L.F(
+                "mcm_option_buff_retinue_skill_cap_hint",
+                "If enabled, retinue troops will receive a skill cap bonus."
+            ),
+            @default: false,
+            dependsOn: EnableRetinues,
+            fires: [UIEvent.Page]
         );
 
         public static readonly Option<int> RetinueSkillCapBonus = CreateOption(
@@ -400,8 +424,20 @@ namespace Retinues.Settings
             minValue: 0,
             maxValue: 50,
             @default: 5,
-            dependsOn: EnableRetinues,
+            dependsOn: BuffRetinueSkillCap,
             fires: [UIEvent.Skill]
+        );
+
+        public static readonly Option<bool> BuffRetinueSkillTotal = CreateOption(
+            section: Retinues,
+            name: L.F("mcm_option_buff_retinue_skill_total", "Buff Retinue Skill Total"),
+            description: L.F(
+                "mcm_option_buff_retinue_skill_total_hint",
+                "If enabled, retinue troops will receive a skill total bonus."
+            ),
+            @default: false,
+            dependsOn: EnableRetinues,
+            fires: [UIEvent.Page]
         );
 
         public static readonly Option<int> RetinueSkillTotalBonus = CreateOption(
@@ -414,7 +450,7 @@ namespace Retinues.Settings
             minValue: 0,
             maxValue: 200,
             @default: 20,
-            dependsOn: EnableRetinues,
+            dependsOn: BuffRetinueSkillTotal,
             fires: [UIEvent.Skill]
         );
 
@@ -1310,27 +1346,6 @@ namespace Retinues.Settings
             @default: 1600,
             disabled: !Mods.T7TroopUnlocker.IsLoaded,
             fires: [UIEvent.Skill]
-        );
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                          Debug                         //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        public static readonly Section Debug = CreateSection(
-            name: L.F("mcm_section_debug", "Debug"),
-            description: L.F("mcm_section_debug_desc", "Debug logging and diagnostics.")
-        );
-
-        /* ━━━━━━━━ Options ━━━━━━━ */
-
-        public static readonly Option<bool> DebugMode = CreateOption(
-            section: Debug,
-            name: L.F("mcm_option_debug_mode", "Debug Mode"),
-            description: L.F(
-                "mcm_option_debug_mode_hint",
-                "Enables debug logging and additional checks."
-            ),
-            @default: false
         );
     }
 }

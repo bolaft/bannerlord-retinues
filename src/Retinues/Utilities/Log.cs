@@ -40,12 +40,10 @@ namespace Retinues.Utilities
         private static readonly object _fileLock = new();
         private static readonly string LogFile;
 
-        private static bool DebugMode => Configuration.DebugMode;
-
         /// <summary>
         /// Lowest level written to file.
         /// </summary>
-        public static LogLevel MinFileLevel => DebugMode ? LogLevel.Trace : LogLevel.Debug;
+        public static LogLevel MinFileLevel => LogLevel.Debug;
 
         /// <summary>
         /// Lowest level shown in-game (InformationManager).
@@ -53,7 +51,7 @@ namespace Retinues.Utilities
 #if DEBUG
         public static LogLevel MinInGameLevel => LogLevel.Error;
 #else
-        public static LogLevel MinInGameLevel => DebugMode ? LogLevel.Info : LogLevel.Critical;
+        public static LogLevel MinInGameLevel => LogLevel.Critical;
 #endif
 
         static Log()

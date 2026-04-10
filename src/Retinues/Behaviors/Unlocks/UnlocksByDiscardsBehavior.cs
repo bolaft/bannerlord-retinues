@@ -71,7 +71,7 @@ namespace Retinues.Behaviors.Unlocks
                     unlocked
                 );
 
-            if (Configuration.DebugMode && itemsTouched > 0)
+            if (itemsTouched > 0)
             {
                 Log.Debug(
                     $"[Unlocks] Discard progress applied: items={itemsTouched}, newlyUnlocked={unlocked.Count}, totalAdded={totalAdded}."
