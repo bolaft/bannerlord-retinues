@@ -1199,9 +1199,6 @@
       id="ret_item_unlock_title"
       text="Freigeschaltete Gegenstände" />
     <string
-      id="ret_kingdom_troops_unlock_always_unlocked"
-      text="Immer freigeschaltet" />
-    <string
       id="ret_kingdom_troops_unlock_disabled"
       text="Deaktiviert" />
     <string
@@ -1408,12 +1405,6 @@
     <string
       id="ret_mcm_option_clan_troops_unlock"
       text="Clan-Truppen" />
-    <string
-      id="ret_mcm_option_debug_mode"
-      text="Debug-Modus" />
-    <string
-      id="ret_mcm_option_debug_mode_hint"
-      text="Aktiviert Debug-Protokollierung und zusätzliche Überprüfungen." />
     <string
       id="ret_mcm_option_default_unlocked_amount_per_slot"
       text="Vorab entsperrte Menge pro Steckplatz" />
@@ -1649,9 +1640,6 @@
       id="ret_mcm_option_same_culture_only_hint"
       text="Wenn aktiviert, können benutzerdefinierte Truppen nur in Siedlungen derselben Kultur rekrutiert werden." />
     <string
-      id="ret_mcm_option_skill_cap_hint"
-      text="Maximales Fähigkeitsniveau für Truppen der Stufe {TIER}." />
-    <string
       id="ret_mcm_option_skill_points_gain_rate"
       text="Gewinnrate" />
     <string
@@ -1669,9 +1657,6 @@
     <string
       id="ret_mcm_option_skill_progress_per_day_hint"
       text="Bestimmt die Trainingsgeschwindigkeit in Punkten pro Tag." />
-    <string
-      id="ret_mcm_option_skill_total_hint"
-      text="Maximale Gesamtfertigkeitspunkte für Truppen der Stufe {TIER}." />
     <string
       id="ret_mcm_option_starter_equipment"
       text="Startausrüstung" />
@@ -1718,9 +1703,6 @@
       id="ret_mcm_option_weight_limit_hint"
       text="Ob das Gesamtgewicht der Ausrüstung begrenzt werden soll (Grenzen basieren auf Stufen)." />
     <string
-      id="ret_mcm_section_debug"
-      text="Debug" />
-    <string
       id="ret_mcm_section_doctrines"
       text="Doktrinen" />
     <string
@@ -1739,20 +1721,38 @@
       id="ret_mcm_section_retinues"
       text="Retinues" />
     <string
+      id="ret_mcm_section_retinues_desc"
+      text="Kernfunktion der Retinues, Freischaltung und Boni." />
+    <string
       id="ret_mcm_section_skill_caps"
       text="Fähigkeitsgrenzen" />
+    <string
+      id="ret_mcm_section_skill_caps_desc"
+      text="Maximales Fähigkeitsniveau pro Truppenstufe." />
     <string
       id="ret_mcm_section_skill_totals"
       text="Gesamtfähigkeiten" />
     <string
+      id="ret_mcm_section_skill_totals_desc"
+      text="Maximale Gesamtfähigkeiten pro Truppenstufe." />
+    <string
       id="ret_mcm_section_skills"
       text="Fähigkeiten" />
+    <string
+      id="ret_mcm_section_skills_desc"
+      text="Regeln für Fähigkeitsgewinn und Trainingsverhalten." />
     <string
       id="ret_mcm_section_troops"
       text="Truppen" />
     <string
+      id="ret_mcm_section_troops_desc"
+      text="Verfügbarkeit von Truppen und Optionen für die Starter-Generierung." />
+    <string
       id="ret_mcm_section_universal_editor"
       text="Universeller Editor" />
+    <string
+      id="ret_mcm_section_universal_editor_desc"
+      text="Einstellungen zum Bearbeiten von Vanilla-Truppen und Helden." />
     <string
       id="ret_mcm_section_user_interface"
       text="Benutzeroberfläche" />

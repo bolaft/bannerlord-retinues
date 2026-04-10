@@ -299,6 +299,9 @@
       id="ret_culture_header_text_with_race"
       text="Culture &amp; Species" />
     <string
+      id="ret_customization_hint_hero"
+      text="Edit character appearance" />
+    <string
       id="ret_customization_hint_hide"
       text="Show customization controls" />
     <string
@@ -1499,6 +1502,24 @@
       id="ret_mcm_option_allowed_recruiters_hint"
       text="Determines who can recruit custom troops." />
     <string
+      id="ret_mcm_option_buff_retinue_health"
+      text="Buff Retinue Health" />
+    <string
+      id="ret_mcm_option_buff_retinue_health_hint"
+      text="If enabled, retinue troops will receive a health bonus." />
+    <string
+      id="ret_mcm_option_buff_retinue_skill_cap"
+      text="Buff Retinue Skill Cap" />
+    <string
+      id="ret_mcm_option_buff_retinue_skill_cap_hint"
+      text="If enabled, retinue troops will receive a skill cap bonus." />
+    <string
+      id="ret_mcm_option_buff_retinue_skill_total"
+      text="Buff Retinue Skill Total" />
+    <string
+      id="ret_mcm_option_buff_retinue_skill_total_hint"
+      text="If enabled, retinue troops will receive a skill total bonus." />
+    <string
       id="ret_mcm_option_captain_spawn_rate"
       text="Captain Spawn Rate" />
     <string
@@ -1516,12 +1537,6 @@
     <string
       id="ret_mcm_option_clan_troops_unlock_hint"
       text="Determines when clan troops become available." />
-    <string
-      id="ret_mcm_option_debug_mode"
-      text="Debug Mode" />
-    <string
-      id="ret_mcm_option_debug_mode_hint"
-      text="Enables debug logging and additional checks." />
     <string
       id="ret_mcm_option_default_unlocked_amount_per_slot"
       text="Pre-Unlocked Amount Per Slot" />
@@ -1847,12 +1862,6 @@
       id="ret_mcm_option_weight_limit_hint"
       text="Whether to limit the total equipment weight (limits are tier-based)." />
     <string
-      id="ret_mcm_section_debug"
-      text="Debug" />
-    <string
-      id="ret_mcm_section_debug_desc"
-      text="Debug logging and diagnostics." />
-    <string
       id="ret_mcm_section_doctrines"
       text="Doctrines" />
     <string
@@ -1935,7 +1944,7 @@
       text="Not applicable to heroes" />
     <string
       id="ret_mixed_gender_toggle_tooltip"
-      text="Mixed Gender" />
+      text="Mixed Gender: {PERCENT}% will spawn as the opposite gender (change ratio in settings)" />
     <string
       id="ret_name_header_text"
       text="Name" />
@@ -2119,6 +2128,24 @@
     <string
       id="ret_reset_default_universal_only"
       text="Only available in the Universal Editor" />
+    <string
+      id="ret_reset_defaults_button"
+      text="Reset to Defaults" />
+    <string
+      id="ret_reset_defaults_confirm"
+      text="Reset" />
+    <string
+      id="ret_reset_defaults_confirm_body"
+      text="This will reset all settings to their default values. Continue?" />
+    <string
+      id="ret_reset_defaults_confirm_title"
+      text="Reset to Defaults" />
+    <string
+      id="ret_reset_defaults_header"
+      text="Reset" />
+    <string
+      id="ret_reset_defaults_tooltip"
+      text="Reset all settings to their default values" />
     <string
       id="ret_reset_done_body"
       text="Save and restart the game for this action to take effect." />

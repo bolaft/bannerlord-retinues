@@ -1199,9 +1199,6 @@
       id="ret_item_unlock_title"
       text="アンロックされたアイテム" />
     <string
-      id="ret_kingdom_troops_unlock_always_unlocked"
-      text="常にアンロック" />
-    <string
       id="ret_kingdom_troops_unlock_disabled"
       text="無効" />
     <string
@@ -1408,12 +1405,6 @@
     <string
       id="ret_mcm_option_clan_troops_unlock"
       text="クラン部隊" />
-    <string
-      id="ret_mcm_option_debug_mode"
-      text="デバッグモード" />
-    <string
-      id="ret_mcm_option_debug_mode_hint"
-      text="デバッグログと追加のチェックを有効にします。" />
     <string
       id="ret_mcm_option_default_unlocked_amount_per_slot"
       text="スロットごとの事前アンロック数" />
@@ -1649,9 +1640,6 @@
       id="ret_mcm_option_same_culture_only_hint"
       text="有効にすると、カスタム部隊は同じ文化の集落でのみ採用できます。" />
     <string
-      id="ret_mcm_option_skill_cap_hint"
-      text="ティア {TIER} 部隊の最大スキルレベル。" />
-    <string
       id="ret_mcm_option_skill_points_gain_rate"
       text="獲得率" />
     <string
@@ -1669,9 +1657,6 @@
     <string
       id="ret_mcm_option_skill_progress_per_day_hint"
       text="1日あたりのポイントでトレーニング速度を決定します。" />
-    <string
-      id="ret_mcm_option_skill_total_hint"
-      text="ティア {TIER} 部隊の最大総スキルポイント。" />
     <string
       id="ret_mcm_option_starter_equipment"
       text="スターター装備" />
@@ -1718,9 +1703,6 @@
       id="ret_mcm_option_weight_limit_hint"
       text="総装備重量を制限するかどうか（制限はティアベースです）。" />
     <string
-      id="ret_mcm_section_debug"
-      text="デバッグ" />
-    <string
       id="ret_mcm_section_doctrines"
       text="ドクトリン" />
     <string
@@ -1739,20 +1721,38 @@
       id="ret_mcm_section_retinues"
       text="リティニュース" />
     <string
+      id="ret_mcm_section_retinues_desc"
+      text="コアリティニュース機能、アンロック、およびボーナス。" />
+    <string
       id="ret_mcm_section_skill_caps"
       text="スキルキャップ" />
+    <string
+      id="ret_mcm_section_skill_caps_desc"
+      text="部隊の階級ごとの最大スキルレベル。" />
     <string
       id="ret_mcm_section_skill_totals"
       text="スキル合計" />
     <string
+      id="ret_mcm_section_skill_totals_desc"
+      text="部隊の階級ごとの最大総スキルポイント。" />
+    <string
       id="ret_mcm_section_skills"
       text="スキル" />
+    <string
+      id="ret_mcm_section_skills_desc"
+      text="スキル獲得ルールとトレーニングの挙動。" />
     <string
       id="ret_mcm_section_troops"
       text="部隊" />
     <string
+      id="ret_mcm_section_troops_desc"
+      text="部隊の利用可能性とスターター生成オプション。" />
+    <string
       id="ret_mcm_section_universal_editor"
       text="ユニバーサルエディター" />
+    <string
+      id="ret_mcm_section_universal_editor_desc"
+      text="バニラの部隊と英雄を編集するための設定。" />
     <string
       id="ret_mcm_section_user_interface"
       text="ユーザーインターフェース" />

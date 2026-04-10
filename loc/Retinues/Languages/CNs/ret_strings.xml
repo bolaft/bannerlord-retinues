@@ -1199,9 +1199,6 @@
       id="ret_item_unlock_title"
       text="解锁的物品" />
     <string
-      id="ret_kingdom_troops_unlock_always_unlocked"
-      text="始终解锁" />
-    <string
       id="ret_kingdom_troops_unlock_disabled"
       text="已禁用" />
     <string
@@ -1408,12 +1405,6 @@
     <string
       id="ret_mcm_option_clan_troops_unlock"
       text="氏族部队" />
-    <string
-      id="ret_mcm_option_debug_mode"
-      text="调试模式" />
-    <string
-      id="ret_mcm_option_debug_mode_hint"
-      text="启用调试日志记录和其他检查。" />
     <string
       id="ret_mcm_option_default_unlocked_amount_per_slot"
       text="每个槽的预解锁数量" />
@@ -1649,9 +1640,6 @@
       id="ret_mcm_option_same_culture_only_hint"
       text="如果启用，自定义部队只能在同一文化的定居点招募。" />
     <string
-      id="ret_mcm_option_skill_cap_hint"
-      text="等级 {TIER} 部队的最高技能水平。" />
-    <string
       id="ret_mcm_option_skill_points_gain_rate"
       text="获得速率" />
     <string
@@ -1669,9 +1657,6 @@
     <string
       id="ret_mcm_option_skill_progress_per_day_hint"
       text="确定每天的训练速度（点数）。" />
-    <string
-      id="ret_mcm_option_skill_total_hint"
-      text="等级 {TIER} 部队的最高总技能点数。" />
     <string
       id="ret_mcm_option_starter_equipment"
       text="起始装备" />
@@ -1718,9 +1703,6 @@
       id="ret_mcm_option_weight_limit_hint"
       text="是否限制总装备重量（限制基于等级）。" />
     <string
-      id="ret_mcm_section_debug"
-      text="调试" />
-    <string
       id="ret_mcm_section_doctrines"
       text="学说" />
     <string
@@ -1739,20 +1721,38 @@
       id="ret_mcm_section_retinues"
       text="随从" />
     <string
+      id="ret_mcm_section_retinues_desc"
+      text="核心随从功能、解锁和奖励。" />
+    <string
       id="ret_mcm_section_skill_caps"
       text="技能上限" />
+    <string
+      id="ret_mcm_section_skill_caps_desc"
+      text="每个部队等级的最大技能等级。" />
     <string
       id="ret_mcm_section_skill_totals"
       text="技能总数" />
     <string
+      id="ret_mcm_section_skill_totals_desc"
+      text="每个部队等级的最大总技能点数。" />
+    <string
       id="ret_mcm_section_skills"
       text="技能" />
+    <string
+      id="ret_mcm_section_skills_desc"
+      text="技能获得规则和训练行为。" />
     <string
       id="ret_mcm_section_troops"
       text="部队" />
     <string
+      id="ret_mcm_section_troops_desc"
+      text="部队可用性和初始生成选项。" />
+    <string
       id="ret_mcm_section_universal_editor"
       text="通用编辑器" />
+    <string
+      id="ret_mcm_section_universal_editor_desc"
+      text="编辑原版部队和英雄的设置。" />
     <string
       id="ret_mcm_section_user_interface"
       text="用户界面" />

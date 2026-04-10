@@ -1199,9 +1199,6 @@
       id="ret_item_unlock_title"
       text="Kilit Açılan Öğeler" />
     <string
-      id="ret_kingdom_troops_unlock_always_unlocked"
-      text="Her Zaman Kilidi Açık" />
-    <string
       id="ret_kingdom_troops_unlock_disabled"
       text="Devre Dışı" />
     <string
@@ -1408,12 +1405,6 @@
     <string
       id="ret_mcm_option_clan_troops_unlock"
       text="Klan Birlikleri" />
-    <string
-      id="ret_mcm_option_debug_mode"
-      text="Hata Ayıklama Modu" />
-    <string
-      id="ret_mcm_option_debug_mode_hint"
-      text="Hata ayıklama günlük kaydını ve ek kontrolleri etkinleştirir." />
     <string
       id="ret_mcm_option_default_unlocked_amount_per_slot"
       text="Slot Başına Önceden Kilidi Açılmış Miktar" />
@@ -1649,9 +1640,6 @@
       id="ret_mcm_option_same_culture_only_hint"
       text="Etkinleştirilirse, özel birlikler yalnızca aynı kültürün yerleşimlerinde işe alınabilir." />
     <string
-      id="ret_mcm_option_skill_cap_hint"
-      text="{TIER} seviye birlikler için maksimum yetenek seviyesi." />
-    <string
       id="ret_mcm_option_skill_points_gain_rate"
       text="Kazanma Hızı" />
     <string
@@ -1669,9 +1657,6 @@
     <string
       id="ret_mcm_option_skill_progress_per_day_hint"
       text="Günde puan başına eğitim hızını belirler." />
-    <string
-      id="ret_mcm_option_skill_total_hint"
-      text="{TIER} seviye birlikler için maksimum toplam yetenek puanları." />
     <string
       id="ret_mcm_option_starter_equipment"
       text="Başlangıç Ekipmanı" />
@@ -1718,9 +1703,6 @@
       id="ret_mcm_option_weight_limit_hint"
       text="Toplam ekipman ağırlığını sınırlayıp sınırlamayacağı (sınırlamalar seviye tabanlıdır)." />
     <string
-      id="ret_mcm_section_debug"
-      text="Hata Ayıklama" />
-    <string
       id="ret_mcm_section_doctrines"
       text="Doktrinler" />
     <string
@@ -1739,20 +1721,38 @@
       id="ret_mcm_section_retinues"
       text="Retinues" />
     <string
+      id="ret_mcm_section_retinues_desc"
+      text="Retinues&apos;un temel özellikleri, kilidini açma ve bonuslar." />
+    <string
       id="ret_mcm_section_skill_caps"
       text="Yetenek Sınırları" />
+    <string
+      id="ret_mcm_section_skill_caps_desc"
+      text="Birlik seviyesine göre maksimum yetenek seviyesi." />
     <string
       id="ret_mcm_section_skill_totals"
       text="Yetenek Toplamları" />
     <string
+      id="ret_mcm_section_skill_totals_desc"
+      text="Birlik seviyesine göre maksimum toplam yetenek puanı." />
+    <string
       id="ret_mcm_section_skills"
       text="Yetenekler" />
+    <string
+      id="ret_mcm_section_skills_desc"
+      text="Yetenek kazanma kuralları ve eğitim davranışı." />
     <string
       id="ret_mcm_section_troops"
       text="Birlikler" />
     <string
+      id="ret_mcm_section_troops_desc"
+      text="Birlik kullanılabilirliği ve başlangıç ​​oluşturma seçenekleri." />
+    <string
       id="ret_mcm_section_universal_editor"
       text="Evrensel Düzenleyici" />
+    <string
+      id="ret_mcm_section_universal_editor_desc"
+      text="Vanilla birlikleri ve kahramanları düzenlemek için ayarlar." />
     <string
       id="ret_mcm_section_user_interface"
       text="Kullanıcı Arayüzü" />

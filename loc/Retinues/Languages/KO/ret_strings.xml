@@ -1199,9 +1199,6 @@
       id="ret_item_unlock_title"
       text="잠금 해제된 항목" />
     <string
-      id="ret_kingdom_troops_unlock_always_unlocked"
-      text="항상 잠금 해제" />
-    <string
       id="ret_kingdom_troops_unlock_disabled"
       text="비활성화됨" />
     <string
@@ -1408,12 +1405,6 @@
     <string
       id="ret_mcm_option_clan_troops_unlock"
       text="클랜 부대" />
-    <string
-      id="ret_mcm_option_debug_mode"
-      text="디버그 모드" />
-    <string
-      id="ret_mcm_option_debug_mode_hint"
-      text="디버그 로깅 및 추가 검사를 활성화합니다." />
     <string
       id="ret_mcm_option_default_unlocked_amount_per_slot"
       text="슬롯당 사전 잠금 해제 수량" />
@@ -1649,9 +1640,6 @@
       id="ret_mcm_option_same_culture_only_hint"
       text="활성화되면 맞춤형 부대는 동일한 문화의 정착지에서만 모집할 수 있습니다." />
     <string
-      id="ret_mcm_option_skill_cap_hint"
-      text="티어 {TIER} 부대의 최대 기술 수준입니다." />
-    <string
       id="ret_mcm_option_skill_points_gain_rate"
       text="획득 속도" />
     <string
@@ -1669,9 +1657,6 @@
     <string
       id="ret_mcm_option_skill_progress_per_day_hint"
       text="하루 포인트로 훈련 속도를 결정합니다." />
-    <string
-      id="ret_mcm_option_skill_total_hint"
-      text="티어 {TIER} 부대의 최대 총 기술 포인트입니다." />
     <string
       id="ret_mcm_option_starter_equipment"
       text="초기 장비" />
@@ -1718,9 +1703,6 @@
       id="ret_mcm_option_weight_limit_hint"
       text="총 장비 무게를 제한할지 여부(제한은 티어 기반임)." />
     <string
-      id="ret_mcm_section_debug"
-      text="디버그" />
-    <string
       id="ret_mcm_section_doctrines"
       text="교리" />
     <string
@@ -1739,20 +1721,38 @@
       id="ret_mcm_section_retinues"
       text="Retinues" />
     <string
+      id="ret_mcm_section_retinues_desc"
+      text="Retinues의 핵심 기능, 잠금 해제 및 보너스." />
+    <string
       id="ret_mcm_section_skill_caps"
       text="기술 한도" />
+    <string
+      id="ret_mcm_section_skill_caps_desc"
+      text="부대 등급별 최대 기술 레벨." />
     <string
       id="ret_mcm_section_skill_totals"
       text="기술 총합" />
     <string
+      id="ret_mcm_section_skill_totals_desc"
+      text="부대 등급별 최대 총 기술 포인트." />
+    <string
       id="ret_mcm_section_skills"
       text="기술" />
+    <string
+      id="ret_mcm_section_skills_desc"
+      text="기술 획득 규칙 및 훈련 행동." />
     <string
       id="ret_mcm_section_troops"
       text="부대" />
     <string
+      id="ret_mcm_section_troops_desc"
+      text="부대 가용성 및 스타터 생성 옵션." />
+    <string
       id="ret_mcm_section_universal_editor"
       text="범용 편집기" />
+    <string
+      id="ret_mcm_section_universal_editor_desc"
+      text="바닐라 부대와 영웅을 편집하기 위한 설정입니다." />
     <string
       id="ret_mcm_section_user_interface"
       text="사용자 인터페이스" />

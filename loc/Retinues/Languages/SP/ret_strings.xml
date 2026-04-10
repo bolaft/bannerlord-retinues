@@ -1199,9 +1199,6 @@
       id="ret_item_unlock_title"
       text="Objetos desbloqueados" />
     <string
-      id="ret_kingdom_troops_unlock_always_unlocked"
-      text="Siempre desbloqueados" />
-    <string
       id="ret_kingdom_troops_unlock_disabled"
       text="Desactivados" />
     <string
@@ -1408,12 +1405,6 @@
     <string
       id="ret_mcm_option_clan_troops_unlock"
       text="Tropas de clan" />
-    <string
-      id="ret_mcm_option_debug_mode"
-      text="Modo de depuración" />
-    <string
-      id="ret_mcm_option_debug_mode_hint"
-      text="Activa el registro de depuración y comprobaciones adicionales." />
     <string
       id="ret_mcm_option_default_unlocked_amount_per_slot"
       text="Cantidad predesbloqueada por ranura" />
@@ -1649,9 +1640,6 @@
       id="ret_mcm_option_same_culture_only_hint"
       text="Si está habilitado, las tropas personalizadas solo se pueden reclutar en asentamientos de la misma cultura." />
     <string
-      id="ret_mcm_option_skill_cap_hint"
-      text="Nivel máximo de habilidad para las tropas de nivel {TIER}." />
-    <string
       id="ret_mcm_option_skill_points_gain_rate"
       text="Tasa de ganancia" />
     <string
@@ -1669,9 +1657,6 @@
     <string
       id="ret_mcm_option_skill_progress_per_day_hint"
       text="Determina la velocidad de entrenamiento en puntos por día." />
-    <string
-      id="ret_mcm_option_skill_total_hint"
-      text="Puntos totales máximos de habilidad para las tropas de nivel {TIER}." />
     <string
       id="ret_mcm_option_starter_equipment"
       text="Equipo inicial" />
@@ -1718,9 +1703,6 @@
       id="ret_mcm_option_weight_limit_hint"
       text="Si se debe limitar el peso total del equipo (los límites se basan en niveles)." />
     <string
-      id="ret_mcm_section_debug"
-      text="Depuración" />
-    <string
       id="ret_mcm_section_doctrines"
       text="Doctrinas" />
     <string
@@ -1739,20 +1721,38 @@
       id="ret_mcm_section_retinues"
       text="Retinues" />
     <string
+      id="ret_mcm_section_retinues_desc"
+      text="Función principal de retinues, desbloqueo y bonificaciones." />
+    <string
       id="ret_mcm_section_skill_caps"
       text="Límites de habilidades" />
+    <string
+      id="ret_mcm_section_skill_caps_desc"
+      text="Nivel máximo de habilidad por nivel de tropa." />
     <string
       id="ret_mcm_section_skill_totals"
       text="Totales de habilidades" />
     <string
+      id="ret_mcm_section_skill_totals_desc"
+      text="Número máximo de puntos de habilidad total por nivel de tropa." />
+    <string
       id="ret_mcm_section_skills"
       text="Habilidades" />
+    <string
+      id="ret_mcm_section_skills_desc"
+      text="Reglas de ganancia de habilidades y comportamiento de entrenamiento." />
     <string
       id="ret_mcm_section_troops"
       text="Tropas" />
     <string
+      id="ret_mcm_section_troops_desc"
+      text="Disponibilidad de tropas y opciones de generación inicial." />
+    <string
       id="ret_mcm_section_universal_editor"
       text="Editor Universal" />
+    <string
+      id="ret_mcm_section_universal_editor_desc"
+      text="Configuraciones para editar tropas y héroes estándar." />
     <string
       id="ret_mcm_section_user_interface"
       text="Interfaz de usuario" />

@@ -1199,9 +1199,6 @@
       id="ret_item_unlock_title"
       text="Odblokowane przedmioty" />
     <string
-      id="ret_kingdom_troops_unlock_always_unlocked"
-      text="Zawsze odblokowane" />
-    <string
       id="ret_kingdom_troops_unlock_disabled"
       text="Wyłączone" />
     <string
@@ -1408,12 +1405,6 @@
     <string
       id="ret_mcm_option_clan_troops_unlock"
       text="Oddziały klanowe" />
-    <string
-      id="ret_mcm_option_debug_mode"
-      text="Tryb debugowania" />
-    <string
-      id="ret_mcm_option_debug_mode_hint"
-      text="Włącza debugowanie i dodatkowe kontrole." />
     <string
       id="ret_mcm_option_default_unlocked_amount_per_slot"
       text="Wstępnie odblokowana ilość na slot" />
@@ -1649,9 +1640,6 @@
       id="ret_mcm_option_same_culture_only_hint"
       text="Jeśli włączone, niestandardowe oddziały mogą być rekrutowane tylko w osadach tej samej kultury." />
     <string
-      id="ret_mcm_option_skill_cap_hint"
-      text="Maksymalny poziom umiejętności dla oddziałów poziomu {TIER}." />
-    <string
       id="ret_mcm_option_skill_points_gain_rate"
       text="Tempo zdobywania" />
     <string
@@ -1669,9 +1657,6 @@
     <string
       id="ret_mcm_option_skill_progress_per_day_hint"
       text="Określa szybkość treningu w punktach na dzień." />
-    <string
-      id="ret_mcm_option_skill_total_hint"
-      text="Maksymalna łączna liczba punktów umiejętności dla oddziałów poziomu {TIER}." />
     <string
       id="ret_mcm_option_starter_equipment"
       text="Początkowy ekwipunek" />
@@ -1718,9 +1703,6 @@
       id="ret_mcm_option_weight_limit_hint"
       text="Czy ograniczyć całkowitą wagę ekwipunku (limity są oparte na poziomach)." />
     <string
-      id="ret_mcm_section_debug"
-      text="Debugowanie" />
-    <string
       id="ret_mcm_section_doctrines"
       text="Doktryny" />
     <string
@@ -1739,20 +1721,38 @@
       id="ret_mcm_section_retinues"
       text="Retinues" />
     <string
+      id="ret_mcm_section_retinues_desc"
+      text="Podstawowa funkcja retinues, odblokowywanie i bonusy." />
+    <string
       id="ret_mcm_section_skill_caps"
       text="Limity umiejętności" />
+    <string
+      id="ret_mcm_section_skill_caps_desc"
+      text="Maksymalny poziom umiejętności na poziom oddziału." />
     <string
       id="ret_mcm_section_skill_totals"
       text="Łączna liczba umiejętności" />
     <string
+      id="ret_mcm_section_skill_totals_desc"
+      text="Maksymalna łączna liczba punktów umiejętności na poziom oddziału." />
+    <string
       id="ret_mcm_section_skills"
       text="Umiejętności" />
+    <string
+      id="ret_mcm_section_skills_desc"
+      text="Zasady zdobywania umiejętności i zachowanie treningu." />
     <string
       id="ret_mcm_section_troops"
       text="Oddziały" />
     <string
+      id="ret_mcm_section_troops_desc"
+      text="Dostępność oddziałów i opcje generowania startowego." />
+    <string
       id="ret_mcm_section_universal_editor"
       text="Uniwersalny edytor" />
+    <string
+      id="ret_mcm_section_universal_editor_desc"
+      text="Ustawienia edycji standardowych oddziałów i bohaterów." />
     <string
       id="ret_mcm_section_user_interface"
       text="Interfejs użytkownika" />

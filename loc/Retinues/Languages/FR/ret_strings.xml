@@ -1199,9 +1199,6 @@
       id="ret_item_unlock_title"
       text="Équipements déverrouillés" />
     <string
-      id="ret_kingdom_troops_unlock_always_unlocked"
-      text="Toujours déverrouillées" />
-    <string
       id="ret_kingdom_troops_unlock_disabled"
       text="Désactivées" />
     <string
@@ -1408,12 +1405,6 @@
     <string
       id="ret_mcm_option_clan_troops_unlock"
       text="Troupes de clan" />
-    <string
-      id="ret_mcm_option_debug_mode"
-      text="Mode Débogage" />
-    <string
-      id="ret_mcm_option_debug_mode_hint"
-      text="Active les logs de debug et des vérifications supplémentaires." />
     <string
       id="ret_mcm_option_default_unlocked_amount_per_slot"
       text="Quantité pré-déverrouillée par catégorie" />
@@ -1649,9 +1640,6 @@
       id="ret_mcm_option_same_culture_only_hint"
       text="Si activé, les troupes personnalisées ne peuvent être recrutées que dans des fiefs de la même culture." />
     <string
-      id="ret_mcm_option_skill_cap_hint"
-      text="Niveau de compétence maximum pour les troupes de niveau {TIER}." />
-    <string
       id="ret_mcm_option_skill_points_gain_rate"
       text="Taux de Gain" />
     <string
@@ -1669,9 +1657,6 @@
     <string
       id="ret_mcm_option_skill_progress_per_day_hint"
       text="Détermine la vitesse d&apos;entraînement en points par jour." />
-    <string
-      id="ret_mcm_option_skill_total_hint"
-      text="Nombre total maximum de points de compétence pour les troupes de niveau {TIER}." />
     <string
       id="ret_mcm_option_starter_equipment"
       text="Équipement Initial" />
@@ -1718,9 +1703,6 @@
       id="ret_mcm_option_weight_limit_hint"
       text="Limiter le poids total de l&apos;équipement (les limites sont basées sur le niveau)." />
     <string
-      id="ret_mcm_section_debug"
-      text="Debug" />
-    <string
       id="ret_mcm_section_doctrines"
       text="Doctrines" />
     <string
@@ -1739,20 +1721,38 @@
       id="ret_mcm_section_retinues"
       text="Rétinues" />
     <string
+      id="ret_mcm_section_retinues_desc"
+      text="Fonctionnalité de base des rétinues, déverrouillage et bonus." />
+    <string
       id="ret_mcm_section_skill_caps"
       text="Limites de Compétences" />
+    <string
+      id="ret_mcm_section_skill_caps_desc"
+      text="Nombre maximum de points de compétence par niveau de troupe." />
     <string
       id="ret_mcm_section_skill_totals"
       text="Totaux de Compétences" />
     <string
+      id="ret_mcm_section_skill_totals_desc"
+      text="Nombre maximum de points de compétence total par niveau de troupe." />
+    <string
       id="ret_mcm_section_skills"
       text="Compétences" />
+    <string
+      id="ret_mcm_section_skills_desc"
+      text="Règles de gain de compétences et comportement d&apos;entraînement." />
     <string
       id="ret_mcm_section_troops"
       text="Troupes" />
     <string
+      id="ret_mcm_section_troops_desc"
+      text="Disponibilité des troupes et options de génération de départ." />
+    <string
       id="ret_mcm_section_universal_editor"
       text="Éditeur Universel" />
+    <string
+      id="ret_mcm_section_universal_editor_desc"
+      text="Paramètres pour éditer les troupes et héros de base." />
     <string
       id="ret_mcm_section_user_interface"
       text="Interface Utilisateur" />
