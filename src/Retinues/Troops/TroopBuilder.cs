@@ -44,10 +44,11 @@ namespace Retinues.Troops
             // Update all existing parties for this faction
             WParty.SwapAll(
                 members: true,
-                prisoners: true,
+                prisoners: false,
                 skipMainParty: true,
                 skipLordParties: true,
-                skipCustomParties: true
+                skipCustomParties: true,
+                skipGarrisons: true
             );
 
             // Safety: Ensure main party leader is valid
