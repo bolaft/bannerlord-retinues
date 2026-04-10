@@ -1422,7 +1422,6 @@ namespace Retinues.GUI.Editor.VM.Equipment
             if (created == null)
                 return;
 
-            CombatAgentBehavior.DisableAll(troop, created.Index);
             State.FixCombatPolicies(troop);
             State.UpdateEquipment(created);
         }
@@ -1446,7 +1445,6 @@ namespace Retinues.GUI.Editor.VM.Equipment
 
             CopyItemsInto(created, plan);
 
-            CombatAgentBehavior.DisableAll(troop, created.Index);
             State.FixCombatPolicies(troop);
             State.UpdateEquipment(created);
         }
