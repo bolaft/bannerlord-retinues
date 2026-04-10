@@ -66,7 +66,7 @@ namespace Retinues.Editor.MVC.Pages.Settings.Views.Panel
         public bool IsEnabled => !IsDisabled;
 
         [DataSourceProperty]
-        public virtual bool IsVisible => IsDependencySatisfied();
+        public virtual bool IsVisible => !(Option?.IsDisabled ?? true) && IsDependencySatisfied();
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Typed Value API                    //
