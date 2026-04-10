@@ -102,6 +102,23 @@ namespace Retinues.Editor.MVC.Pages.Settings.Views.Panel
             );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                    Reset To Defaults                   //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [DataSourceProperty]
+        public string ResetToDefaultsHeader => L.S("reset_defaults_header", "Reset");
+
+        [DataSourceProperty]
+        public Button<object> ResetToDefaultsButton { get; } =
+            new(
+                action: SettingsController.ResetToDefaults,
+                arg: () => null,
+                refresh: [UIEvent.Page],
+                labelFactory: () => L.S("reset_defaults_button", "Reset to Defaults"),
+                visibilityGate: () => State.Page == EditorPage.Settings
+            );
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Sections                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
