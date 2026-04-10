@@ -249,12 +249,12 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.List
                     return c.IsFactionTroop;
                 }
 
-                // Universal:
-                // - Culture selection: show culture troops (non map-faction troops).
-                // - Clan selection: show clan heroes.
+                // Universal mode — clan selection: heroes and vanilla (non-mod-created) troops.
+                // Custom mod-created troops belong in Player mode, not Universal.
                 if (isClan)
-                    return c.IsHero;
+                    return c.IsHero || c.IsVanilla;
 
+                // Universal mode — culture / kingdom selection: exclude mod-faction troops.
                 return !c.IsFactionTroop;
             }
 
@@ -279,10 +279,12 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.List
                 return n;
             }
 
+            var wClanUniversal = isClan && isUniversal ? faction as WClan : null;
+
             int totalTroops =
                 CountTroops(faction.RosterRetinues)
                 + CountTroops(faction.RootElite?.Tree)
-                + CountTroops(faction.RootBasic?.Tree)
+                + CountTroops(faction.RootBasic?.Tree ?? wClanUniversal?.VanillaRootBasic?.Tree)
                 + CountTroops(faction.RosterMilitia)
                 + CountTroops(faction.RosterCaravan)
                 + CountTroops(faction.RosterVillager)
@@ -424,13 +426,13 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.List
                 faction.RootElite?.Tree
             );
 
-            // Regular tree.
+            // Regular tree (for clans in universal mode, fall back to vanilla clan root).
             AddSection(
                 headers,
                 "regular",
                 "list_header_regular",
                 L.S("list_header_regular", "Regular"),
-                faction.RootBasic?.Tree
+                faction.RootBasic?.Tree ?? wClanUniversal?.VanillaRootBasic?.Tree
             );
 
             // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
