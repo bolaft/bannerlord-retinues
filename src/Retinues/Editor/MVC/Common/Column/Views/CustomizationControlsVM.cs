@@ -33,9 +33,11 @@ namespace Retinues.Editor.MVC.Common.Column.Views
         [DataSourceProperty]
         public Tooltip CustomizationHint =>
             new(
-                ShowCustomization
-                    ? L.S("customization_hint_show", "Hide customization controls")
-                    : L.S("customization_hint_hide", "Show customization controls")
+                State.Character.Hero is WHero
+                    ? L.S("customization_hint_hero", "Edit character appearance")
+                    : ShowCustomization
+                        ? L.S("customization_hint_show", "Hide customization controls")
+                        : L.S("customization_hint_hide", "Show customization controls")
             );
 
         [DataSourceMethod]
