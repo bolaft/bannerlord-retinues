@@ -325,7 +325,6 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
         /// </summary>
         public static ControllerAction<bool> SetMixedGender { get; } =
             Action<bool>("SetMixedGender")
-                .RequireValidEditingContext()
                 .AddCondition(
                     _ => State.Character.IsHero == false,
                     L.T("mixed_gender_hero_reason", "Not applicable to heroes")
