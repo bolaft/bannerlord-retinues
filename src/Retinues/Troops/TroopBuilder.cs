@@ -113,8 +113,8 @@ namespace Retinues.Troops
         /// </summary>
         private static bool EnsureRegularTroops(WFaction faction)
         {
-            var hasBasic = faction.BasicTroops.Count > 0;
-            var hasElite = faction.EliteTroops.Count > 0;
+            var hasBasic = faction.RootBasic != null;
+            var hasElite = faction.RootElite != null;
 
             Log.Debug($"Custom troop presence: Basic={hasBasic}, Elite={hasElite}.");
 
