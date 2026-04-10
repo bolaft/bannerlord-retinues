@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using Retinues.Domain.Factions.Base;
 using Retinues.Domain.Characters.Wrappers;
+using Retinues.Domain.Factions.Base;
 using TaleWorlds.CampaignSystem;
 
 namespace Retinues.Domain.Factions.Wrappers

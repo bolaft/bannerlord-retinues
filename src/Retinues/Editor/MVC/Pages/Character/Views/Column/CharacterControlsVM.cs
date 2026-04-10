@@ -5,6 +5,7 @@ using Retinues.Editor.Events;
 using Retinues.Editor.MVC.Pages.Character.Controllers;
 using Retinues.Interface.Components;
 using Retinues.Interface.Services;
+using Retinues.Settings;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 
@@ -100,7 +101,16 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Column
         public Icon MixedGenderIcon { get; } =
             new(
                 tooltipFactory: () =>
-                    new Tooltip(L.T("mixed_gender_toggle_tooltip", "Mixed Gender")),
+                    new Tooltip(
+                        L.T(
+                                "mixed_gender_toggle_tooltip",
+                                "Mixed Gender: {PERCENT}% will spawn as the opposite gender (change ratio in settings)"
+                            )
+                            .SetTextVariable(
+                                "PERCENT",
+                                (Configuration.MixedGenderRatio * 100).ToString("0")
+                            )
+                    ),
                 refresh: [UIEvent.Character, UIEvent.Gender],
                 spriteFactory: () =>
                 {

@@ -1,7 +1,7 @@
 using Retinues.Editor.MVC.Shared.Controllers;
 using Retinues.Interface.Services;
-using TaleWorlds.Localization;
 using TaleWorlds.Core;
+using TaleWorlds.Localization;
 
 namespace Retinues.Editor.MVC.Pages.Settings.Controllers
 {
