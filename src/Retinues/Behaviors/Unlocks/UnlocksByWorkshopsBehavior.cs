@@ -236,7 +236,7 @@ namespace Retinues.Behaviors.Unlocks
                     _targetByWorkshopKey.Remove(workshopKey);
             }
 
-            if (Configuration.DebugMode && itemsTouched > 0)
+            if (itemsTouched > 0)
             {
                 Log.Debug(
                     $"[Unlocks] Workshop progress: day={dayIndex}, workshops={workshops.Count}, items={itemsTouched}, newlyUnlocked={unlocked.Count}, totalAdded={totalAdded}."
