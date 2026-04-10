@@ -74,7 +74,7 @@ namespace Retinues.Editor.MVC.Pages.Settings.Views.Panel
 
         [DataSourceProperty]
         public override string ValueText =>
-            FloatValue.ToString("0.00", CultureInfo.InvariantCulture);
+            (FloatValue * 100f).ToString("0", CultureInfo.InvariantCulture) + "%";
 
         private enum SnapMode
         {
