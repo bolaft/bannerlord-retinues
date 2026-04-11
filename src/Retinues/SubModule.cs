@@ -482,6 +482,9 @@ namespace Retinues
             // Clear naval trait helper cache
             WCharacter.NavalTraitHelper.Reset();
 
+            // Clear skill caches so they are rebuilt from the current MBObjectManager on next access
+            WCharacter.ClearSkillCaches();
+
             // Clear faction troop map
             BaseFaction.TroopFactionMap.Clear();
             BaseFaction.TroopFactionMapVersion = 0;

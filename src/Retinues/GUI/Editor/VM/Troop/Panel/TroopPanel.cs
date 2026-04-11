@@ -337,7 +337,8 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
 
         [DataSourceProperty]
         public int SkillPointsUsed =>
-            SkillsRow1.Concat(SkillsRow2).Concat(SkillsRow3).Sum(s => s.Value);
+            State.SkillData?.Sum(kv => kv.Value.Value + (kv.Value.Train?.PointsRemaining ?? 0))
+            ?? 0;
 
         /* ━━━━━━━ Training ━━━━━━━ */
 

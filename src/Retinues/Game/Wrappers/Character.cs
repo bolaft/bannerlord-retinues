@@ -785,6 +785,16 @@ namespace Retinues.Game.Wrappers
 
         // Skills added by mods (non-vanilla ids)
         // This is static, but lazily initialized after MBObjectManager has skills.
+        /// <summary>
+        /// Clears the per-session skill caches so they are rebuilt from the current MBObjectManager
+        /// on next access. Call this whenever the game session is reset (e.g. on load).
+        /// </summary>
+        public static void ClearSkillCaches()
+        {
+            _moddedSkills = null;
+            _navalDlcSkills = null;
+        }
+
         private static List<SkillObject> _moddedSkills;
         public static List<SkillObject> ModdedSkills
         {
@@ -1172,7 +1182,7 @@ namespace Retinues.Game.Wrappers
 
             // Skills
             if (keepSkills)
-                Skills = TroopSkills.ToDictionary(skill => skill, src.GetSkill);
+                Skills = AllSkills.ToDictionary(skill => skill, src.GetSkill);
             else
                 Skills = [];
 
