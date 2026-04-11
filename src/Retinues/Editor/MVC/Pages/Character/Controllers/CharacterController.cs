@@ -154,7 +154,11 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
                         character.Culture = newCulture;
 
                         if (character is WCharacter wc)
+                        {
+                            var savedAge = wc.Age;
                             wc.ApplyCultureBodyProperties();
+                            wc.Age = savedAge;
+                        }
 
                         return true;
                     },
