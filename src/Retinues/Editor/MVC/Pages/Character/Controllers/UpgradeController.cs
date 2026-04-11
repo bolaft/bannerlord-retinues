@@ -78,7 +78,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
                 {
                     var cloneU = CharacterCloner.Clone(character, equipments: true);
                     cloneU.Name = name;
-                    cloneU.Level = character.Level + 5;
+                    cloneU.Level = character.Tier * 5 + 8; // mid-range of next tier
                     cloneU.HiddenInEncyclopedia = false;
 
                     character.AddUpgradeTarget(cloneU);
@@ -115,7 +115,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
         {
             var clone = CharacterCloner.Clone(parent, equipments: false);
             clone.Name = name;
-            clone.Level = parent.Level + 5;
+            clone.Level = parent.Tier * 5 + 8; // mid-range of next tier
             clone.HiddenInEncyclopedia = false;
 
             parent.AddUpgradeTarget(clone);
@@ -130,7 +130,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
             // Create the troop with no copied equipments first.
             var clone = CharacterCloner.Clone(parent, equipments: false);
             clone.Name = name;
-            clone.Level = parent.Level + 5;
+            clone.Level = parent.Tier * 5 + 8; // mid-range of next tier
             clone.HiddenInEncyclopedia = false;
 
             // Build two sets: battle + civilian, best-from-stock.

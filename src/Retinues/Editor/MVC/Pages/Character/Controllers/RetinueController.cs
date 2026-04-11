@@ -147,7 +147,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
                     hero.ChangeHeroGold(-goldCost);
                     c.SkillPoints -= spCost;
 
-                    c.Level += 5;
+                    c.Level = (c.Tier + 1) * 5 + 5;
 
                     EventManager.Fire(UIEvent.Character);
                     EventManager.Fire(UIEvent.Skill);
