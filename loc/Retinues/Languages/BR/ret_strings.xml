@@ -1208,6 +1208,15 @@
       id="ret_mcm_option_vassal_lords_recruit_custom_troops_hint"
       text="Senhores do clã ou reino do jogador podem recrutar tropas personalizadas em seus feudos." />
     <string
+      id="ret_mcm_purge_done_body"
+      text="Todos os dados de tropas personalizadas foram removidos.{newline}{newline}Salve seu jogo, saia, remova o mod e recarregue.{newline}{newline}Se seu save ainda travar depois de fazer isso, baixe o arquivo &apos;Retinues - Disabled&apos; da página do mod no Nexus como último recurso." />
+    <string
+      id="ret_mcm_purge_done_open_nexus"
+      text="Abrir Página do Nexus" />
+    <string
+      id="ret_mcm_purge_done_title"
+      text="Limpeza Completa" />
+    <string
       id="ret_mcm_section_debug"
       text="Depuração" />
     <string
@@ -1729,6 +1738,9 @@
     <string
       id="ret_steadfast_soldiers_troops_maxed_skills"
       text="Maximiza as habilidades de 15 tropas personalizadas." />
+    <string
+      id="ret_str_ok"
+      text="OK" />
     <string
       id="ret_switch_to_clan_troops"
       text="Tropas do Clã" />

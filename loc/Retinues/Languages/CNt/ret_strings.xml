@@ -1208,6 +1208,15 @@
       id="ret_mcm_option_vassal_lords_recruit_custom_troops_hint"
       text="玩家家族或王國的領主可在自身領地招募自訂兵種。" />
     <string
+      id="ret_mcm_purge_done_body"
+      text="所有自訂兵種數據已被移除。{newline}{newline}保存遊戲，退出，移除模組，然後重新加載。{newline}{newline}如果在執行此操作後您的存檔仍然崩潰，請作為最後手段從Nexus模組頁面下載“Retinues - Disabled”文件。" />
+    <string
+      id="ret_mcm_purge_done_open_nexus"
+      text="打開Nexus頁面" />
+    <string
+      id="ret_mcm_purge_done_title"
+      text="清除完成" />
+    <string
       id="ret_mcm_section_debug"
       text="除錯" />
     <string
@@ -1729,6 +1738,9 @@
     <string
       id="ret_steadfast_soldiers_troops_maxed_skills"
       text="將15名自訂兵種的技能全部點滿。" />
+    <string
+      id="ret_str_ok"
+      text="確定" />
     <string
       id="ret_switch_to_clan_troops"
       text="家族兵種" />

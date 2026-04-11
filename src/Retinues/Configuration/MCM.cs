@@ -556,8 +556,33 @@ namespace Retinues.Configuration
                                                         SanitizerBehavior.Sanitize(
                                                             replaceAllCustom: true
                                                         );
-                                                        Log.Message(
-                                                            "All custom troop data has been removed. Save & exit before uninstalling the mod."
+
+                                                        const string disabledFileUrl =
+                                                            "https://www.nexusmods.com/mountandblade2bannerlord/mods/8847?tab=files";
+
+                                                        InformationManager.ShowInquiry(
+                                                            new InquiryData(
+                                                                L.S(
+                                                                    "mcm_purge_done_title",
+                                                                    "Purge Complete"
+                                                                ),
+                                                                L.S(
+                                                                    "mcm_purge_done_body",
+                                                                    "All custom troop data has been removed.\n\nSave your game, quit, remove the mod, then reload.\n\nIf your save still crashes after doing this, download the 'Retinues - Disabled' file from the Nexus mod page as a last resort."
+                                                                ),
+                                                                isAffirmativeOptionShown: true,
+                                                                isNegativeOptionShown: true,
+                                                                affirmativeText: L.S(
+                                                                    "mcm_purge_done_open_nexus",
+                                                                    "Open Nexus Page"
+                                                                ),
+                                                                negativeText: L.S("str_ok", "OK"),
+                                                                affirmativeAction: () =>
+                                                                    URL.OpenInBrowser(
+                                                                        disabledFileUrl
+                                                                    ),
+                                                                negativeAction: () => { }
+                                                            )
                                                         );
                                                     }
                                                     catch (Exception e)

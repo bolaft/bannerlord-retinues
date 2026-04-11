@@ -1208,6 +1208,15 @@
       id="ret_mcm_option_vassal_lords_recruit_custom_troops_hint"
       text="Lords of the player&apos;s clan or kingdom can recruit custom troops in their fiefs." />
     <string
+      id="ret_mcm_purge_done_body"
+      text="All custom troop data has been removed.{newline}{newline}Save your game, quit, remove the mod, then reload.{newline}{newline}If your save still crashes after doing this, download the &apos;Retinues - Disabled&apos; file from the Nexus mod page as a last resort." />
+    <string
+      id="ret_mcm_purge_done_open_nexus"
+      text="Open Nexus Page" />
+    <string
+      id="ret_mcm_purge_done_title"
+      text="Purge Complete" />
+    <string
       id="ret_mcm_section_debug"
       text="Debug" />
     <string
@@ -1729,6 +1738,9 @@
     <string
       id="ret_steadfast_soldiers_troops_maxed_skills"
       text="Max out the skills of 15 custom troops." />
+    <string
+      id="ret_str_ok"
+      text="OK" />
     <string
       id="ret_switch_to_clan_troops"
       text="Clan Troops" />

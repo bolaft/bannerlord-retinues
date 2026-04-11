@@ -1208,6 +1208,15 @@
       id="ret_mcm_option_vassal_lords_recruit_custom_troops_hint"
       text="Lordowie klanu lub królestwa gracza mogą rekrutować niestandardowe oddziały w swoich lenna." />
     <string
+      id="ret_mcm_purge_done_body"
+      text="Wszystkie dane niestandardowych oddziałów zostały usunięte.{newline}{newline}Zapisz swoją grę, wyjdź, usuń mod, a następnie ponownie załaduj.{newline}{newline}Jeśli Twój zapis nadal się zawiesza po wykonaniu tych czynności, pobierz plik &apos;Retinues - Disabled&apos; ze strony moda Nexus jako ostateczność." />
+    <string
+      id="ret_mcm_purge_done_open_nexus"
+      text="Otwórz Stronę Nexus" />
+    <string
+      id="ret_mcm_purge_done_title"
+      text="Oczyszczanie Zakończone" />
+    <string
       id="ret_mcm_section_debug"
       text="Debugowanie" />
     <string
@@ -1729,6 +1738,9 @@
     <string
       id="ret_steadfast_soldiers_troops_maxed_skills"
       text="Maksymalizuj umiejętności 15 własnych jednostek." />
+    <string
+      id="ret_str_ok"
+      text="OK" />
     <string
       id="ret_switch_to_clan_troops"
       text="Wojska Klanu" />

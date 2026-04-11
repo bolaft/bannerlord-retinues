@@ -1208,6 +1208,15 @@
       id="ret_mcm_option_vassal_lords_recruit_custom_troops_hint"
       text="플레이어의 가문 또는 왕국의 영주는 자신의 영지에서 커스텀 병력을 모집할 수 있습니다." />
     <string
+      id="ret_mcm_purge_done_body"
+      text="모든 커스텀 병력 데이터가 제거되었습니다.{newline}{newline}게임을 저장하고 종료한 다음 모드를 제거하고 다시 로드하세요.{newline}{newline}이 작업을 수행한 후에도 저장이 계속 충돌하는 경우, 최후의 수단으로 Nexus 모드 페이지에서 &apos;Retinues - Disabled&apos; 파일을 다운로드하세요." />
+    <string
+      id="ret_mcm_purge_done_open_nexus"
+      text="Nexus 페이지 열기" />
+    <string
+      id="ret_mcm_purge_done_title"
+      text="정화 완료" />
+    <string
       id="ret_mcm_section_debug"
       text="디버그" />
     <string
@@ -1729,6 +1738,9 @@
     <string
       id="ret_steadfast_soldiers_troops_maxed_skills"
       text="커스텀 병력 15명의 기술을 최고치까지 올리십시오." />
+    <string
+      id="ret_str_ok"
+      text="확인" />
     <string
       id="ret_switch_to_clan_troops"
       text="가문 병력" />
