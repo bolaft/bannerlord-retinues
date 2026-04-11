@@ -149,9 +149,7 @@ namespace Retinues.GUI.Editor.VM.Troop.List
 
                 var baseName = RowTroop?.Name;
                 var surname = (RowTroop as WHero)?.Surname;
-                var fullName = string.IsNullOrEmpty(surname)
-                    ? baseName
-                    : $"{baseName} {surname}";
+                var fullName = string.IsNullOrEmpty(surname) ? baseName : $"{baseName} {surname}";
 
                 if (RowTroop?.Parent == null && RowTroop?.IsMercenary == false)
                     return fullName;

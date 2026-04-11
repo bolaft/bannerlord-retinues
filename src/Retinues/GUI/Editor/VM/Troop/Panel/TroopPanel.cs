@@ -250,8 +250,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
         public string Name => Format.Crop(State.Troop?.Name, 35);
 
         [DataSourceProperty]
-        public string Surname =>
-            State.Troop is WHero hero ? hero.Surname : string.Empty;
+        public string Surname => State.Troop is WHero hero ? hero.Surname : string.Empty;
 
         [DataSourceProperty]
         public string SurnameDisplay =>
@@ -541,7 +540,10 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
             InformationManager.ShowTextInquiry(
                 new TextInquiryData(
                     titleText: L.S("rename_hero_surname", "Change Surname / Title"),
-                    text: L.S("enter_new_surname", "Enter a surname or title (leave blank to remove):"),
+                    text: L.S(
+                        "enter_new_surname",
+                        "Enter a surname or title (leave blank to remove):"
+                    ),
                     isAffirmativeOptionShown: true,
                     isNegativeOptionShown: true,
                     affirmativeText: L.S("confirm", "Confirm"),
