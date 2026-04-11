@@ -583,9 +583,19 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                                     // Apply via wrapper (uses reflection under the hood).
                                     State.Troop.Culture = new WCulture(culture);
 
+                                    // Preserve age before applying culture defaults.
+                                    var ageMin = State.Troop.Body.AgeMin;
+                                    var ageMax = State.Troop.Body.AgeMax;
+                                    var age = State.Troop.Body.Age;
+
                                     // Important: we let BodyHelper pick the default race for this culture.
                                     // This means changing culture also changes species to the culture's default.
                                     BodyHelper.ApplyPropertiesFromCulture(State.Troop, culture);
+
+                                    // Restore age — culture change should not affect age.
+                                    State.Troop.Body.AgeMin = ageMin;
+                                    State.Troop.Body.AgeMax = ageMax;
+                                    State.Troop.Body.Age = age;
                                     return true;
                                 },
                                 onSuccess: () => State.UpdateTroop(State.Troop)
