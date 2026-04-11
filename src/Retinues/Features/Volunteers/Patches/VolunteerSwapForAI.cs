@@ -50,8 +50,6 @@ namespace Retinues.Features.Volunteers.Patches
             var playerSphereFaction = wSettlement.PlayerFaction; // clan or kingdom
             bool isPlayerSphereSettlement = playerSphereFaction != null;
 
-            bool isRetinue = wTroop.IsRetinue;
-
             // Decide if this recruiter can get CUSTOM troops here and which faction's custom tree to use.
 
             WFaction customFaction = null;
@@ -93,7 +91,7 @@ namespace Retinues.Features.Volunteers.Patches
             {
                 // We only need "swap back" behaviour when the settlement is in the player sphere;
                 // outside of it, volunteers are native and there's nothing to revert.
-                if (!isPlayerSphereSettlement || !isRetinue)
+                if (!isPlayerSphereSettlement || !wTroop.IsCustom)
                     return;
 
                 // Unauthorized lord in PLAYER fief: swap custom back to native via settlement culture.
