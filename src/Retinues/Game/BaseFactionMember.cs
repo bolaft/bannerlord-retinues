@@ -25,7 +25,10 @@ namespace Retinues.Game
                 var kingdom = Kingdom?.IsPlayerKingdom == true ? Player.Kingdom : null;
 
                 if (Config.DisableKingdomTroops)
-                    return clan;
+                    // If the settlement is in the player's kingdom but belongs to another clan,
+                    // still return Player.Clan so volunteers are treated as player-sphere and
+                    // swapped to clan troops (not left as vanilla kingdom/culture troops).
+                    return clan ?? (kingdom != null ? Player.Clan : null);
 
                 return clan ?? kingdom;
             }
