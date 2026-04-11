@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.Reflection;
 using Retinues.Game.Wrappers;
 using Retinues.Utils;
@@ -55,6 +57,17 @@ namespace Retinues.Safety.Sanitizer
 
         public static void Sanitize(bool replaceAllCustom = false)
         {
+            if (replaceAllCustom)
+            {
+                // Detach all root custom troop definitions from their factions before
+                // sanitizing rosters. Without this, the mod's daily-tick behaviors
+                // (PartySwapBehavior, VolunteerSwapOnUpdate) will immediately
+                // re-populate custom troops into rosters and volunteer slots after
+                // the sanitizer clears them, causing the save to still contain custom
+                // troop IDs when the user saves and then uninstalls the mod.
+                PurgeCustomTroopDefinitions();
+            }
+
             foreach (var mp in MobileParty.All)
                 PartySanitizer.SanitizeParty(mp, replaceAllCustom);
 
@@ -67,6 +80,42 @@ namespace Retinues.Safety.Sanitizer
                 );
 
                 VolunteerSanitizer.SanitizeSettlement(s, replaceAllCustom);
+            }
+        }
+
+        /// <summary>
+        /// Calls <see cref="WCharacter.Remove"/> on every root custom troop in the game,
+        /// detaching them from their faction objects and removing them from
+        /// <see cref="WCharacter.ActiveStubIds"/>. This prevents the mod's party-swap and
+        /// volunteer-swap behaviors from re-introducing custom troops after a purge.
+        /// </summary>
+        private static void PurgeCustomTroopDefinitions()
+        {
+            try
+            {
+                // Snapshot before mutation — Remove() modifies ActiveStubIds recursively.
+                var snapshot = new List<string>(WCharacter.ActiveStubIds);
+
+                foreach (var id in snapshot)
+                {
+                    // May already have been removed by a recursive Remove() call.
+                    if (!WCharacter.ActiveStubIds.Contains(id))
+                        continue;
+
+                    var troop = WCharacter.FromStringId(id);
+                    if (troop?.IsCustom != true)
+                        continue;
+
+                    // Only remove root troops here; Remove() recurses into upgrade targets.
+                    if (troop.Parent != null)
+                        continue;
+
+                    troop.Remove();
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Exception(e, "PurgeCustomTroopDefinitions failed.");
             }
         }
 
