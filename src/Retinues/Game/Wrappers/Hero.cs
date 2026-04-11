@@ -281,5 +281,45 @@ namespace Retinues.Game.Wrappers
                 NeedsPersistence = true;
             }
         }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Surname                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// The suffix part of the hero's name (e.g. "the Golden" from "Phil the Golden").
+        /// Returns an empty string when the hero has no surname/title.
+        /// Setting it to null or whitespace removes the suffix entirely.
+        /// </summary>
+        public string Surname
+        {
+            get
+            {
+                var firstName = _hero.FirstName?.ToString();
+                var fullName = _hero.Name?.ToString();
+
+                if (string.IsNullOrEmpty(fullName))
+                    return string.Empty;
+
+                if (!string.IsNullOrEmpty(firstName) && fullName.StartsWith(firstName))
+                    return fullName.Substring(firstName.Length).TrimStart();
+
+                return string.Empty;
+            }
+            set
+            {
+                var firstName = _hero.FirstName?.ToString() ?? string.Empty;
+                var first = new TextObject(firstName);
+
+                TextObject full;
+                if (string.IsNullOrWhiteSpace(value))
+                    full = new TextObject(firstName);
+                else
+                    full = new TextObject($"{firstName} {value.Trim()}");
+
+                _hero.SetName(full, first);
+                NeedsPersistence = true;
+            }
+        }
     }
 }

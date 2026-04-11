@@ -419,6 +419,9 @@
       id="ret_enter_new_name"
       text="Insira um novo nome:" />
     <string
+      id="ret_enter_new_surname"
+      text="Insira um sobrenome ou título (deixe em branco para remover):" />
+    <string
       id="ret_enter_new_troop_name"
       text="Insira o nome da nova tropa:" />
     <string
@@ -1504,6 +1507,9 @@
     <string
       id="ret_remove_troop_text"
       text="Tem certeza de que deseja remover permanentemente {TROOP_NAME}?{newline}{newline}O equipamento deles será guardado para uso posterior, e as tropas existentes serão convertidas para sua contraparte {CULTURE}." />
+    <string
+      id="ret_rename_hero_surname"
+      text="Alterar Sobrenome / Título" />
     <string
       id="ret_rename_troop"
       text="Renomear Tropa" />

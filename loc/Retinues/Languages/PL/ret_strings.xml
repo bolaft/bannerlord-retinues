@@ -419,6 +419,9 @@
       id="ret_enter_new_name"
       text="Wpisz nową nazwę:" />
     <string
+      id="ret_enter_new_surname"
+      text="Wpisz nazwisko lub tytuł (pozostaw puste, aby usunąć):" />
+    <string
       id="ret_enter_new_troop_name"
       text="Wpisz nazwę nowej jednostki:" />
     <string
@@ -1504,6 +1507,9 @@
     <string
       id="ret_remove_troop_text"
       text="Czy na pewno chcesz trwale usunąć {TROOP_NAME}?{newline}{newline}Ich ekwipunek zostanie zmagazynowany do późniejszego użytku, a istniejące oddziały zostaną przekształcone w ich odpowiedniki {CULTURE}." />
+    <string
+      id="ret_rename_hero_surname"
+      text="Zmień Nazwisko / Tytuł" />
     <string
       id="ret_rename_troop"
       text="Zmień Nazwę Jednostki" />

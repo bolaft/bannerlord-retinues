@@ -15,12 +15,24 @@
         <!-- Troop Name -->
         {{ text.base(text="@Name", brush="Clan.RightPanel.Name.Text") }}
 
-        <!-- Rename Button -->
+        <!-- Rename Button (first name / troop name) -->
         {{ button.brush(
             command="ExecuteRename",
             brush="SPClan.NameChange.Icon",
             height="32", width="32",
             margin_left="8"
+        ) }}
+
+        <!-- Surname / Title text — heroes only -->
+        {{ text.base(text="@SurnameDisplay", brush="Clan.RightPanel.Name.Text", is_visible="@IsHero", margin_left="8") }}
+
+        <!-- Change Surname / Title Button — heroes only -->
+        {{ button.brush(
+            command="ExecuteRenameSurname",
+            brush="SPClan.NameChange.Icon",
+            height="32", width="32",
+            margin_left="4",
+            is_visible="@IsHero"
         ) }}
     </Children>
 </ListPanel>

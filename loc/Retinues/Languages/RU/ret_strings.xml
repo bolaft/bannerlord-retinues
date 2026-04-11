@@ -419,6 +419,9 @@
       id="ret_enter_new_name"
       text="Введите новое имя:" />
     <string
+      id="ret_enter_new_surname"
+      text="Введите фамилию или титул (оставьте пустым, чтобы удалить):" />
+    <string
       id="ret_enter_new_troop_name"
       text="Введите имя нового войска:" />
     <string
@@ -1504,6 +1507,9 @@
     <string
       id="ret_remove_troop_text"
       text="Вы уверены, что хотите навсегда удалить {TROOP_NAME}?{newline}{newline}Их снаряжение будет сохранено для последующего использования, а существующие войска будут преобразованы в их {CULTURE} аналоги." />
+    <string
+      id="ret_rename_hero_surname"
+      text="Изменить Фамилию / Титул" />
     <string
       id="ret_rename_troop"
       text="Переименовать Войска" />

@@ -419,6 +419,9 @@
       id="ret_enter_new_name"
       text="새 이름 입력:" />
     <string
+      id="ret_enter_new_surname"
+      text="성 또는 칭호를 입력하세요(제거하려면 비워 두세요):" />
+    <string
       id="ret_enter_new_troop_name"
       text="새 병력의 이름을 입력:" />
     <string
@@ -1504,6 +1507,9 @@
     <string
       id="ret_remove_troop_text"
       text="{TROOP_NAME} 을(를) 영구적으로 제거하시겠습니까?{newline}{newline}그들의 장비는 나중에 사용할 수 있도록 보관되며, 기존 병력은 그들의 {CULTURE} 대응 병력으로 전환됩니다." />
+    <string
+      id="ret_rename_hero_surname"
+      text="성/칭호 변경" />
     <string
       id="ret_rename_troop"
       text="병력 이름 변경" />

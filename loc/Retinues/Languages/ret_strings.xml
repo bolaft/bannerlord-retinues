@@ -419,6 +419,9 @@
       id="ret_enter_new_name"
       text="Enter a new name:" />
     <string
+      id="ret_enter_new_surname"
+      text="Enter a surname or title (leave blank to remove):" />
+    <string
       id="ret_enter_new_troop_name"
       text="Enter the name of the new troop:" />
     <string
@@ -1504,6 +1507,9 @@
     <string
       id="ret_remove_troop_text"
       text="Are you sure you want to permanently remove {TROOP_NAME}?{newline}{newline}Their equipment will be stocked for later use, and existing troops will be converted to their {CULTURE} counterpart." />
+    <string
+      id="ret_rename_hero_surname"
+      text="Change Surname / Title" />
     <string
       id="ret_rename_troop"
       text="Rename Troop" />

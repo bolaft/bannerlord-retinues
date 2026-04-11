@@ -2208,6 +2208,22 @@
     "TR": "Yeni bir ad gir:"
   },
   {
+    "id": "ret_enter_new_surname",
+    "EN": "Enter a surname or title (leave blank to remove):",
+    "BR": "Insira um sobrenome ou título (deixe em branco para remover):",
+    "CNs": "输入姓氏或头衔（留空以移除）：",
+    "CNt": "輸入姓氏或頭銜（留空以移除）：",
+    "DE": "Gib einen Nachnamen oder Titel ein (leer lassen, um zu entfernen):",
+    "FR": "Entrez un nom de famille ou un titre (laissez vide pour supprimer) :",
+    "IT": "Inserisci un cognome o titolo (lascia vuoto per rimuovere):",
+    "JP": "姓または称号を入力してください（削除するには空白のままにしてください）：",
+    "KO": "성 또는 칭호를 입력하세요(제거하려면 비워 두세요):",
+    "PL": "Wpisz nazwisko lub tytuł (pozostaw puste, aby usunąć):",
+    "RU": "Введите фамилию или титул (оставьте пустым, чтобы удалить):",
+    "SP": "Introduce un apellido o título (deja en blanco para eliminar):",
+    "TR": "Bir soyadı veya unvan girin (kaldırmak için boş bırakın):"
+  },
+  {
     "id": "ret_enter_new_troop_name",
     "EN": "Enter the name of the new troop:",
     "BR": "Insira o nome da nova tropa:",
@@ -7998,6 +8014,22 @@
     "RU": "Вы уверены, что хотите навсегда удалить {TROOP_NAME}?\\n\\nИх снаряжение будет сохранено для последующего использования, а существующие войска будут преобразованы в их {CULTURE} аналоги.",
     "SP": "¿Estás seguro de que quieres eliminar permanentemente a {TROOP_NAME}?\\n\\nSu equipo se almacenará para su uso posterior, y las tropas existentes se convertirán en su contraparte {CULTURE}.",
     "TR": "{TROOP_NAME} öğesini kalıcı olarak kaldırmak istediğinizden emin misiniz?\\n\\nEkipmanları daha sonra kullanmak üzere stoklanacak ve mevcut birlikler {CULTURE} karşılıklarına dönüştürülecektir."
+  },
+  {
+    "id": "ret_rename_hero_surname",
+    "EN": "Change Surname / Title",
+    "BR": "Alterar Sobrenome / Título",
+    "CNs": "更改姓氏/称号",
+    "CNt": "更改姓氏/稱號",
+    "DE": "Nachname / Titel ändern",
+    "FR": "Changer le nom de famille / titre",
+    "IT": "Cambia Cognome / Titolo",
+    "JP": "姓/称号を変更",
+    "KO": "성/칭호 변경",
+    "PL": "Zmień Nazwisko / Tytuł",
+    "RU": "Изменить Фамилию / Титул",
+    "SP": "Cambiar Apellido / Título",
+    "TR": "Soyadı / Unvan Değiştir"
   },
   {
     "id": "ret_rename_troop",

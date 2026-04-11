@@ -419,6 +419,9 @@
       id="ret_enter_new_name"
       text="新しい名前を入力：" />
     <string
+      id="ret_enter_new_surname"
+      text="姓または称号を入力してください（削除するには空白のままにしてください）：" />
+    <string
       id="ret_enter_new_troop_name"
       text="新しい兵の名前を入力：" />
     <string
@@ -1504,6 +1507,9 @@
     <string
       id="ret_remove_troop_text"
       text="{TROOP_NAME} を永久に削除してもよろしいですか？{newline}{newline}彼らの装備は後で使用するために保管され、既存の部隊は彼らの {CULTURE} 対応部隊に変換されます。" />
+    <string
+      id="ret_rename_hero_surname"
+      text="姓/称号を変更" />
     <string
       id="ret_rename_troop"
       text="兵を改名" />

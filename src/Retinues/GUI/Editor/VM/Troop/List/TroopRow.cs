@@ -147,14 +147,20 @@ namespace Retinues.GUI.Editor.VM.Troop.List
                     return PlaceholderText
                         ?? L.T("troop_list.placeholder", "No Troops Available").ToString();
 
+                var baseName = RowTroop?.Name;
+                var surname = (RowTroop as WHero)?.Surname;
+                var fullName = string.IsNullOrEmpty(surname)
+                    ? baseName
+                    : $"{baseName} {surname}";
+
                 if (RowTroop?.Parent == null && RowTroop?.IsMercenary == false)
-                    return RowTroop?.Name;
+                    return fullName;
 
                 // Indent troops by tier
                 int n = Math.Max(0, RowTroop?.Tier - 1 ?? 0);
                 var indent = new string(' ', n * 4);
 
-                return $"{indent}{RowTroop?.Name}";
+                return $"{indent}{fullName}";
             }
         }
 

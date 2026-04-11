@@ -81,6 +81,8 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                     nameof(FormationClassIcon),
                     nameof(FormationClassText),
                     nameof(IsHero),
+                    nameof(Surname),
+                    nameof(SurnameDisplay),
                     nameof(Traits),
                     nameof(IsCaptain),
                     nameof(CaptainIsEnabled),
@@ -246,6 +248,16 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
 
         [DataSourceProperty]
         public string Name => Format.Crop(State.Troop?.Name, 35);
+
+        [DataSourceProperty]
+        public string Surname =>
+            State.Troop is WHero hero ? hero.Surname : string.Empty;
+
+        [DataSourceProperty]
+        public string SurnameDisplay =>
+            State.Troop is WHero h
+                ? (string.IsNullOrEmpty(h.Surname) ? "..." : h.Surname)
+                : string.Empty;
 
         [DataSourceProperty]
         public string GenderText =>
@@ -484,6 +496,7 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
 
         /// <summary>
         /// Prompt to rename the selected troop.
+        /// For heroes, changes only the first name and preserves the surname/title.
         /// </summary>
         [DataSourceMethod]
         public void ExecuteRename()
@@ -511,6 +524,35 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
                     },
                     negativeAction: () => { },
                     defaultInputText: oldName
+                )
+            );
+        }
+
+        /// <summary>
+        /// Prompt to change only the surname/title of a hero (e.g. "the Golden").
+        /// Leave blank to remove it entirely.
+        /// </summary>
+        [DataSourceMethod]
+        public void ExecuteRenameSurname()
+        {
+            if (State.Troop is not WHero hero)
+                return;
+
+            InformationManager.ShowTextInquiry(
+                new TextInquiryData(
+                    titleText: L.S("rename_hero_surname", "Change Surname / Title"),
+                    text: L.S("enter_new_surname", "Enter a surname or title (leave blank to remove):"),
+                    isAffirmativeOptionShown: true,
+                    isNegativeOptionShown: true,
+                    affirmativeText: L.S("confirm", "Confirm"),
+                    negativeText: L.S("cancel", "Cancel"),
+                    affirmativeAction: surname =>
+                    {
+                        hero.Surname = surname?.Trim() ?? string.Empty;
+                        State.UpdateTroop(State.Troop);
+                    },
+                    negativeAction: () => { },
+                    defaultInputText: hero.Surname
                 )
             );
         }

@@ -419,6 +419,9 @@
       id="ret_enter_new_name"
       text="Yeni bir ad gir:" />
     <string
+      id="ret_enter_new_surname"
+      text="Bir soyadı veya unvan girin (kaldırmak için boş bırakın):" />
+    <string
       id="ret_enter_new_troop_name"
       text="Yeni askerin adını gir:" />
     <string
@@ -1504,6 +1507,9 @@
     <string
       id="ret_remove_troop_text"
       text="{TROOP_NAME} öğesini kalıcı olarak kaldırmak istediğinizden emin misiniz?{newline}{newline}Ekipmanları daha sonra kullanmak üzere stoklanacak ve mevcut birlikler {CULTURE} karşılıklarına dönüştürülecektir." />
+    <string
+      id="ret_rename_hero_surname"
+      text="Soyadı / Unvan Değiştir" />
     <string
       id="ret_rename_troop"
       text="Askerin Adını Değiştir" />

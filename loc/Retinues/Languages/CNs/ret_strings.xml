@@ -419,6 +419,9 @@
       id="ret_enter_new_name"
       text="输入新名称：" />
     <string
+      id="ret_enter_new_surname"
+      text="输入姓氏或头衔（留空以移除）：" />
+    <string
       id="ret_enter_new_troop_name"
       text="输入新兵种名称：" />
     <string
@@ -1504,6 +1507,9 @@
     <string
       id="ret_remove_troop_text"
       text="确定要永久移除{TROOP_NAME}吗？{newline}{newline}其装备将入库备用，现有士兵将转换为对应的{CULTURE}兵种。" />
+    <string
+      id="ret_rename_hero_surname"
+      text="更改姓氏/称号" />
     <string
       id="ret_rename_troop"
       text="重新命名兵种" />
