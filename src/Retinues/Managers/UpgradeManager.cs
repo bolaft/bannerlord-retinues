@@ -35,7 +35,7 @@ namespace Retinues.Managers
 
             // Customize child properties
             child.Name = targetName.Trim();
-            child.Level = troop.Level + 5;
+            child.Level = troop.Tier * 5 + 8; // mid-range of next tier
 
             return child;
         }

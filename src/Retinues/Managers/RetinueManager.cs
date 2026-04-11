@@ -199,7 +199,7 @@ namespace Retinues.Managers
                 return;
 
             Player.ChangeGold(-cost);
-            retinue.Level += 5;
+            retinue.Level = (retinue.Tier + 1) * 5 + 5;
         }
     }
 }
