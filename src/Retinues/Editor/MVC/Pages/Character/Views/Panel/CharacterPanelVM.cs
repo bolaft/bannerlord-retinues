@@ -46,12 +46,36 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Panel
         [DataSourceProperty]
         public string NameText => Format.WrapWhitespace(State.Character.Name, 50);
 
+        [EventListener(UIEvent.Name, UIEvent.Character)]
+        [DataSourceProperty]
+        public bool IsHero => State.Character.IsHero;
+
+        [EventListener(UIEvent.Name, UIEvent.Character)]
+        [DataSourceProperty]
+        public string SurnameText =>
+            State.Character.IsHero
+                ? (
+                    string.IsNullOrEmpty(State.Character.Hero.Surname)
+                        ? "..."
+                        : State.Character.Hero.Surname
+                )
+                : string.Empty;
+
         [DataSourceProperty]
         public Button<WCharacter> RenameButton { get; } =
             new(
                 action: CharacterController.Rename,
                 arg: () => State.Character,
                 refresh: UIEvent.Name
+            );
+
+        [DataSourceProperty]
+        public Button<WCharacter> RenameSurnameButton { get; } =
+            new(
+                action: CharacterController.RenameSurname,
+                arg: () => State.Character,
+                refresh: [UIEvent.Name],
+                visibilityGate: () => State.Character.IsHero
             );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

@@ -58,11 +58,19 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.List
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
-        /// Gets the localized hero name.
+        /// Gets the localized hero name, including surname/title when present.
         /// </summary>
         [DataSourceProperty]
         [EventListener(UIEvent.Name)]
-        public string Name => Hero.Name;
+        public string Name
+        {
+            get
+            {
+                var first = Hero.Name;
+                var surname = Hero.Surname;
+                return string.IsNullOrEmpty(surname) ? first : $"{first} {surname}";
+            }
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Hero Icons                       //

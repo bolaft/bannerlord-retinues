@@ -626,6 +626,9 @@
       id="ret_enter_new_name"
       text="Enter a new name:" />
     <string
+      id="ret_enter_new_surname"
+      text="Enter a surname or title (leave blank to remove):" />
+    <string
       id="ret_equipment_button_text"
       text="Equipment" />
     <string
@@ -2104,6 +2107,15 @@
     <string
       id="ret_rank_up_retinue_only"
       text="Only available for retinues" />
+    <string
+      id="ret_rename_surname_hero_only"
+      text="Only heroes have a surname" />
+    <string
+      id="ret_rename_surname_tooltip"
+      text="Change Surname / Title" />
+    <string
+      id="ret_rename_surname_unit"
+      text="Change Surname / Title" />
     <string
       id="ret_rename_tooltip"
       text="Rename" />

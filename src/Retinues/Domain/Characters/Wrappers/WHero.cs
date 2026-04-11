@@ -301,6 +301,37 @@ namespace Retinues.Domain.Characters.Wrappers
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Surname                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// The suffix/title portion of the hero's full name (e.g. "the Golden").
+        /// Empty string when no surname is set.
+        /// </summary>
+        public string Surname
+        {
+            get
+            {
+                var firstName = Base.FirstName?.ToString();
+                var fullName = Base.Name?.ToString();
+                if (string.IsNullOrEmpty(fullName))
+                    return string.Empty;
+                if (!string.IsNullOrEmpty(firstName) && fullName.StartsWith(firstName))
+                    return fullName.Substring(firstName.Length).TrimStart();
+                return string.Empty;
+            }
+            set
+            {
+                var firstName = Base.FirstName?.ToString() ?? string.Empty;
+                var first = new TextObject(firstName);
+                TextObject full = string.IsNullOrWhiteSpace(value)
+                    ? new TextObject(firstName)
+                    : new TextObject($"{firstName} {value.Trim()}");
+                Base.SetName(full, first);
+            }
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Volunteers                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 

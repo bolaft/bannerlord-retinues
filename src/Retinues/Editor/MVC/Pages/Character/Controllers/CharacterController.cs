@@ -67,6 +67,48 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Surname                          //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Prompt for a new surname/title and apply it to the selected hero.
+        /// Leave blank to remove the surname entirely.
+        /// </summary>
+        public static ControllerAction<WCharacter> RenameSurname { get; } =
+            Action<WCharacter>("RenameSurname")
+                .AddCondition(
+                    c => c?.IsHero == true,
+                    L.T("rename_surname_hero_only", "Only heroes have a surname")
+                )
+                .DefaultTooltip(L.T("rename_surname_tooltip", "Change Surname / Title"))
+                .ExecuteWith(RenameSurnameImpl);
+
+        /// <summary>
+        /// Change the surname/title of the given hero character.
+        /// </summary>
+        private static void RenameSurnameImpl(WCharacter c)
+        {
+            if (c?.IsHero != true)
+                return;
+
+            var hero = c.Hero;
+
+            Inquiries.TextInputPopup(
+                title: L.T("rename_surname_unit", "Change Surname / Title"),
+                defaultInput: hero.Surname,
+                onConfirm: input =>
+                {
+                    hero.Surname = input?.Trim() ?? string.Empty;
+                    EventManager.Fire(UIEvent.Name);
+                },
+                description: L.T(
+                    "enter_new_surname",
+                    "Enter a surname or title (leave blank to remove):"
+                )
+            );
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Culture                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
