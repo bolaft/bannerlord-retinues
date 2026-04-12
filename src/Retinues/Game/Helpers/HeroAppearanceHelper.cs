@@ -105,24 +105,27 @@ namespace Retinues.Game.Helpers
             {
                 _currentTarget = hero;
                 _onClosed = onClosed;
-
-                // Save main hero body + gender
-                _savedMainBody = Hero.MainHero.BodyProperties;
-                _hasSavedMainBody = true;
-
-                _savedMainIsFemale = GetHeroIsFemale(Hero.MainHero);
-                _hasSavedMainGender = true;
-
                 _needsPrime = true;
                 _hasPrimed = false;
 
-                // Apply target gender to MainHero so FaceGen uses correct mesh
-                var targetIsFemale = GetHeroIsFemale(hero);
-                SetHeroIsFemale(Hero.MainHero, targetIsFemale);
+                // When the target IS the main hero there is nothing to swap — the barber
+                // already edits MainHero directly, so we must not save/restore the body
+                // (restoring would undo the player's own edit).
+                if (hero != Hero.MainHero)
+                {
+                    // Save main hero body + gender so we can restore them on close.
+                    _savedMainBody = Hero.MainHero.BodyProperties;
+                    _hasSavedMainBody = true;
 
-                // Copy target hero's body onto MainHero so the barber shows the correct face
-                var targetBody = hero.BodyProperties;
-                ApplyBodyPropertiesToHero(Hero.MainHero, targetBody);
+                    _savedMainIsFemale = GetHeroIsFemale(Hero.MainHero);
+                    _hasSavedMainGender = true;
+
+                    // Apply target gender to MainHero so FaceGen uses correct mesh.
+                    SetHeroIsFemale(Hero.MainHero, GetHeroIsFemale(hero));
+
+                    // Copy target hero's body onto MainHero so the barber shows the correct face.
+                    ApplyBodyPropertiesToHero(Hero.MainHero, hero.BodyProperties);
+                }
 
                 Log.Debug(
                     $"[HeroAppearanceHelper] Session started for hero '{hero.Name?.ToString() ?? hero.StringId}'."
