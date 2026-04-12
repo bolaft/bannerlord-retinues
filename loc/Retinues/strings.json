@@ -3040,6 +3040,22 @@
     "TR": "Bu birimi yalnızca {FACTION} ait bir arazide düzenleyebilirsiniz."
   },
   {
+    "id": "ret_editing_restriction_need_faction_fief_reason_short",
+    "EN": "Not in fief",
+    "FR": null,
+    "BR": null,
+    "CNs": null,
+    "CNt": null,
+    "DE": null,
+    "IT": null,
+    "JP": null,
+    "KO": null,
+    "PL": null,
+    "RU": null,
+    "SP": null,
+    "TR": null
+  },
+  {
     "id": "ret_editing_restriction_need_settlement_reason",
     "EN": "You can only edit units while inside a settlement.",
     "FR": "Vous ne pouvez modifier les unités que lorsque vous êtes à l'intérieur d'un fief.",
@@ -3054,6 +3070,22 @@
     "RU": "Вы можете редактировать юниты только находясь внутри поселения.",
     "SP": "Solo puedes editar unidades mientras estés dentro de un asentamiento.",
     "TR": "Bir yerleşim yerindeyken birimleri yalnızca düzenleyebilirsiniz."
+  },
+  {
+    "id": "ret_editing_restriction_need_settlement_reason_short",
+    "EN": "Not in settlement",
+    "FR": null,
+    "BR": null,
+    "CNs": null,
+    "CNt": null,
+    "DE": null,
+    "IT": null,
+    "JP": null,
+    "KO": null,
+    "PL": null,
+    "RU": null,
+    "SP": null,
+    "TR": null
   },
   {
     "id": "ret_editing_restriction_none",
@@ -3102,6 +3134,22 @@
     "RU": "Невозможно определить фракцию этой единицы для ограничений редактирования.",
     "SP": "No se puede determinar la facción de esta unidad para las restricciones de edición.",
     "TR": "Düzenleme kısıtlamaları için bu birimin fraksiyonunu belirleyemiyor."
+  },
+  {
+    "id": "ret_editing_restriction_unknown_faction_reason_short",
+    "EN": "Unknown faction",
+    "FR": null,
+    "BR": null,
+    "CNs": null,
+    "CNt": null,
+    "DE": null,
+    "IT": null,
+    "JP": null,
+    "KO": null,
+    "PL": null,
+    "RU": null,
+    "SP": null,
+    "TR": null
   },
   {
     "id": "ret_editor_clan_select",

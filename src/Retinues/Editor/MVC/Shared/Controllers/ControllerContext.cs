@@ -58,6 +58,39 @@ namespace Retinues.Editor.MVC.Shared.Controllers
         }
 
         /// <summary>
+        /// Gets a compact reason for row-level display (e.g. equipment list rows), or null if editing is allowed.
+        /// </summary>
+        public static TextObject GetCharacterEditingBlockReasonShort()
+        {
+            if (!AppliesToCurrentSelection())
+                return null;
+
+            var restriction = Configuration.EditingRestriction;
+            if (restriction == Configuration.EditingRestrictionMode.None)
+                return null;
+
+            var settlement = Player.CurrentSettlement;
+            if (settlement == null)
+                return L.T("editing_restriction_need_settlement_reason_short", "Not in settlement");
+
+            var character = EditorState.Instance.Character;
+            if (
+                restriction == Configuration.EditingRestrictionMode.InSettlement
+                || character.IsRetinue
+            )
+                return null;
+
+            var faction = character.AssignedMapFaction;
+            if (faction == null)
+                return L.T("editing_restriction_unknown_faction_reason_short", "Unknown faction");
+
+            if (IsCharacterFactionOwnedFief(settlement, faction))
+                return null;
+
+            return L.T("editing_restriction_need_faction_fief_reason_short", "Not in fief");
+        }
+
+        /// <summary>
         /// Gets the reason why the current character cannot be edited under the configured restrictions, or null
         /// if editing is allowed.
         /// </summary>

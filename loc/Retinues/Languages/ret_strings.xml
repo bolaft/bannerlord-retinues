@@ -575,8 +575,14 @@
       id="ret_editing_restriction_need_faction_fief_reason"
       text="You can only edit this unit in a fief owned by {FACTION}." />
     <string
+      id="ret_editing_restriction_need_faction_fief_reason_short"
+      text="Not in fief" />
+    <string
       id="ret_editing_restriction_need_settlement_reason"
       text="You can only edit units while inside a settlement." />
+    <string
+      id="ret_editing_restriction_need_settlement_reason_short"
+      text="Not in settlement" />
     <string
       id="ret_editing_restriction_none"
       text="Anywhere" />
@@ -586,6 +592,9 @@
     <string
       id="ret_editing_restriction_unknown_faction_reason"
       text="Cannot determine this unit&apos;s faction for editing restrictions." />
+    <string
+      id="ret_editing_restriction_unknown_faction_reason_short"
+      text="Unknown faction" />
     <string
       id="ret_editor_clan_select"
       text="Select a Clan" />

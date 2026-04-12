@@ -3,6 +3,7 @@ using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Editor.Events;
 using Retinues.Editor.MVC.Pages.Equipment.Controllers;
+using Retinues.Editor.MVC.Shared.Controllers;
 using Retinues.Editor.MVC.Shared.Views;
 using Retinues.Interface.Services;
 using Retinues.Settings;
@@ -62,7 +63,16 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
         public override bool IsEnabled => _cacheIsEnabled.Get(this);
 
         private readonly Cache<EquipmentListRowVM, string> _cacheDisabledReason = new(
-            o => ItemController.Equip.Reason(o._item)?.ToString() ?? string.Empty,
+            o =>
+            {
+                // Use a compact message when the block is a context restriction —
+                // the full sentence is too long for an item row.
+                var contextReason = ContextRestrictionService.GetCharacterEditingBlockReasonShort();
+                if (contextReason != null)
+                    return contextReason.ToString();
+
+                return ItemController.Equip.Reason(o._item)?.ToString() ?? string.Empty;
+            },
             CacheKey(item)
         );
 
