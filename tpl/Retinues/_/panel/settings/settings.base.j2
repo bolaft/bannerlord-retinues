@@ -38,21 +38,43 @@
                             DoNotPassEventsToChildren="true"
                             WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                             HorizontalAlignment="Center" VerticalAlignment="Center"
-                            IsSelected="@IsScrollTarget"
                             Command.Click="ExecuteScrollToSection"
                             MarginBottom="24"
                             UpdateChildrenStates="true">
                             <Children>
-                                <TextWidget
-                                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-                                    HorizontalAlignment="Center" VerticalAlignment="Center"
-                                    Brush="Kingdom.NameTitle.Text"
-                                    Brush.FontSize="24"
-                                    Brush.FontColor="#ac8856ff"
-                                    Text="@Name"
-                                    MarginLeft="10"
-                                    MarginRight="10"
-                                    TextAlignment="Center" />
+                                {# Overlay container: both TextWidgets share the same space.
+                                   TW1 (dim gold) is always visible and drives the layout size.
+                                   TW2 (bright gold) overlays TW1 only when this section is active. #}
+                                <Widget
+                                    WidthSizePolicy="CoverChildren"
+                                    HeightSizePolicy="CoverChildren"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    UpdateChildrenStates="true">
+                                    <Children>
+                                        <TextWidget
+                                            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                                            HorizontalAlignment="Center" VerticalAlignment="Center"
+                                            Brush="Kingdom.NameTitle.Text"
+                                            Brush.FontSize="24"
+                                            Brush.FontColor="#ac8856ff"
+                                            Text="@Name"
+                                            MarginLeft="10" MarginRight="10"
+                                            TextAlignment="Center" />
+
+                                        <TextWidget
+                                            IsVisible="@IsActiveSection"
+                                            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                                            HorizontalAlignment="Center" VerticalAlignment="Center"
+                                            Brush="Kingdom.NameTitle.Text"
+                                            Brush.FontSize="24"
+                                            Brush.FontColor="#fffdb0ff"
+                                            Brush.TextGlowRadius="10"
+                                            Text="@Name"
+                                            MarginLeft="10" MarginRight="10"
+                                            TextAlignment="Center" />
+                                    </Children>
+                                </Widget>
                             </Children>
                         </ButtonWidget>
                     </ItemTemplate>
@@ -146,6 +168,14 @@
                                                                 AutoScrollBottomOffset="10"
                                                                 AutoScrollVerticalTarget="0"
                                                                 AutoScrollInterpolationTime="0.25" />
+
+                                                            {# Scroll-spy anchor for this section #}
+                                                            <ScrollSpyAnchorWidget
+                                                                SpyScope="@AutoScrollScope"
+                                                                SectionName="@Name"
+                                                                WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                                                                SuggestedWidth="1"
+                                                                SuggestedHeight="1" />
 
                                                             {{ divider() }}
 

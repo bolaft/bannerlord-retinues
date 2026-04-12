@@ -45,6 +45,12 @@ namespace Retinues.Editor.MVC.Pages.Settings.Views.Panel
             && string.Equals(_panel.SectionScrollTarget, Name, System.StringComparison.Ordinal);
 
         [DataSourceProperty]
+        public bool IsActiveSection =>
+            _panel != null
+            && !string.IsNullOrWhiteSpace(_panel.ActiveSection)
+            && string.Equals(_panel.ActiveSection, Name, System.StringComparison.Ordinal);
+
+        [DataSourceProperty]
         public int AutoScrollVersion => _panel?.SectionScrollVersion ?? 0;
 
         [DataSourceProperty]
@@ -66,6 +72,11 @@ namespace Retinues.Editor.MVC.Pages.Settings.Views.Panel
             OnPropertyChanged(nameof(IsScrollTarget));
             OnPropertyChanged(nameof(AutoScrollVersion));
             OnPropertyChanged(nameof(AutoScrollScope));
+        }
+
+        internal void RefreshActiveSection()
+        {
+            OnPropertyChanged(nameof(IsActiveSection));
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
