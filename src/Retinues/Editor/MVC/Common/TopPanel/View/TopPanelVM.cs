@@ -205,7 +205,22 @@ namespace Retinues.Editor.MVC.Common.TopPanel.View
                     UIEvent.Item,
                     UIEvent.Mode,
                 ],
-                label: L.S("button_reset", "Reset")
+                label: L.S("button_reset", "Reset"),
+                visibilityGate: () => EditorState.Instance?.Mode != EditorMode.Player
+            );
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                  Delete Clan Troops                    //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        [DataSourceProperty]
+        public Button<bool> DeleteClanTroopsButton { get; } =
+            new(
+                action: FactionController.DeleteClanTroopsAction,
+                arg: () => true,
+                refresh: [UIEvent.Faction, UIEvent.Mode],
+                label: L.S("button_delete_clan_troops", "Clear"),
+                visibilityGate: () => EditorState.Instance?.Mode == EditorMode.Player
             );
     }
 }

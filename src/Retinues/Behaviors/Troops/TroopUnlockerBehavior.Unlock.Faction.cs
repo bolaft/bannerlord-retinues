@@ -73,6 +73,23 @@ namespace Retinues.Behaviors.Troops
         }
 
         /// <summary>
+        /// Removes custom troops from a clan by clearing its root troop references.
+        /// The clan will revert to using kingdom or culture troops as fallback.
+        /// </summary>
+        public static void DeleteClanTroops(WClan clan)
+        {
+            if (clan?.Base == null)
+                return;
+
+            clan.SetRootBasic(null);
+            clan.SetRootElite(null);
+
+            WCharacter.RefreshRetinueConversions(clan);
+
+            Log.Info($"Deleted custom troops for clan '{clan.Name}'.");
+        }
+
+        /// <summary>
         /// Initializes custom troops for a clan by cloning from culture roots (the standard path).
         /// Suppresses the unlock popup since this is triggered on demand from the editor.
         /// </summary>
@@ -155,7 +172,8 @@ namespace Retinues.Behaviors.Troops
                     template: basicTemplate,
                     factionName: faction.Name,
                     culture: culture,
-                    unlockSink: unlockSink
+                    unlockSink: unlockSink,
+                    isEliteLine: false
                 );
 
                 if (createdBasic?.Base != null)
@@ -179,7 +197,8 @@ namespace Retinues.Behaviors.Troops
                     template: eliteTemplate,
                     factionName: faction.Name,
                     culture: culture,
-                    unlockSink: unlockSink
+                    unlockSink: unlockSink,
+                    isEliteLine: true
                 );
 
                 if (createdElite?.Base != null)
@@ -233,7 +252,8 @@ namespace Retinues.Behaviors.Troops
             WCharacter template,
             string factionName,
             WCulture culture,
-            List<WItem> unlockSink
+            List<WItem> unlockSink,
+            bool isEliteLine = false
         )
         {
             if (template?.Base == null)
@@ -291,9 +311,12 @@ namespace Retinues.Behaviors.Troops
             else if (mode == Configuration.TroopsMode.LeanTrees)
             {
                 var nobleLine =
-                    culture?.RootElite?.Base != null
-                    && template?.Base != null
-                    && template.StringId == culture.RootElite.StringId;
+                    isEliteLine
+                    || (
+                        culture?.RootElite?.Base != null
+                        && template?.Base != null
+                        && template.StringId == culture.RootElite.StringId
+                    );
 
                 Cloner.ApplyLeanFactionNames(created, factionName, nobleLine: nobleLine);
 

@@ -128,6 +128,9 @@
       id="ret_button_change_formation_class_tooltip"
       text="Set formation class" />
     <string
+      id="ret_button_delete_clan_troops"
+      text="Clear" />
+    <string
       id="ret_button_disable_captain"
       text="Disable" />
     <string
@@ -307,6 +310,24 @@
     <string
       id="ret_customization_hint_show"
       text="Hide customization controls" />
+    <string
+      id="ret_delete_clan_troops_confirm"
+      text="Delete" />
+    <string
+      id="ret_delete_clan_troops_kingdom"
+      text="Kingdom troops cannot be deleted." />
+    <string
+      id="ret_delete_clan_troops_no_troops"
+      text="This clan has no custom troops." />
+    <string
+      id="ret_delete_clan_troops_player_clan"
+      text="The player clan&apos;s troops cannot be deleted." />
+    <string
+      id="ret_delete_clan_troops_player_only"
+      text="Only available in Player mode." />
+    <string
+      id="ret_delete_clan_troops_title"
+      text="Clear Custom Troops" />
     <string
       id="ret_dependencies_all_ok"
       text="All dependencies initialized correctly." />

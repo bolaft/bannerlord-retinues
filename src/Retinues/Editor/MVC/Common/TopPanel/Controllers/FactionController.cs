@@ -256,12 +256,6 @@ namespace Retinues.Editor.MVC.Common.TopPanel.Controllers
                 return;
             }
 
-            if (elements.Count == 1)
-            {
-                ApplyClanPlayer(elements[0].Identifier as WClan, Player.Hero, Player.Kingdom);
-                return;
-            }
-
             Inquiries.SelectPopup(
                 title: L.T("select_clan_title", "Select Clan"),
                 elements: elements,
@@ -387,6 +381,92 @@ namespace Retinues.Editor.MVC.Common.TopPanel.Controllers
             State.Faction = kingdom;
 
             EventManager.Fire(UIEvent.Faction);
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //             Delete Clan Troops (Player Mode)            //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Deletes custom troops for the current non-player clan (Player mode only).
+        /// </summary>
+        public static ControllerAction<bool> DeleteClanTroopsAction { get; } =
+            Action<bool>("DeleteClanTroopsAction")
+                .AddCondition(
+                    _ => State.Mode == EditorMode.Player,
+                    L.T("delete_clan_troops_player_only", "Only available in Player mode.")
+                )
+                .AddCondition(
+                    _ => State.Faction is not WKingdom,
+                    L.T("delete_clan_troops_kingdom", "Kingdom troops cannot be deleted.")
+                )
+                .AddCondition(
+                    _ =>
+                        !(
+                            State.Faction is WClan fc
+                            && Player.Clan != null
+                            && ReferenceEquals(fc.Base, Player.Clan.Base)
+                        ),
+                    L.T(
+                        "delete_clan_troops_player_clan",
+                        "The player clan's troops cannot be deleted."
+                    )
+                )
+                .AddCondition(
+                    _ => State.Faction is WClan c && (c.RootBasic != null || c.RootElite != null),
+                    L.T("delete_clan_troops_no_troops", "This clan has no custom troops.")
+                )
+                .ExecuteWith(_ => ShowDeleteClanTroopsPopup());
+
+        /// <summary>
+        /// Shows a confirmation popup before deleting the clan's custom troops.
+        /// </summary>
+        private static void ShowDeleteClanTroopsPopup()
+        {
+            var clan = State.Faction as WClan;
+            if (clan == null)
+                return;
+
+            bool kingdomTroopsEnabled =
+                Configuration.KingdomTroopsUnlock.Value != Configuration.TroopsUnlockMode.Disabled;
+            var kingdom = Player.Kingdom;
+            bool kingdomHasTroops =
+                kingdomTroopsEnabled && (kingdom?.RootBasic != null || kingdom?.RootElite != null);
+
+            var fallbackName = kingdomHasTroops ? kingdom.Name : Player.Clan?.Name ?? string.Empty;
+
+            var descKey = kingdomHasTroops
+                ? "delete_clan_troops_body_kingdom"
+                : "delete_clan_troops_body_clan";
+            var descFallback = kingdomHasTroops
+                ? "Delete the custom troops for {CLAN}?\n\nThe clan will revert to using the {FALLBACK} kingdom troops.\n\nThis cannot be undone."
+                : "Delete the custom troops for {CLAN}?\n\nThe clan will revert to using the {FALLBACK} clan troops.\n\nThis cannot be undone.";
+
+            var description = L.T(descKey, descFallback)
+                .SetTextVariable("CLAN", clan.Name)
+                .SetTextVariable("FALLBACK", fallbackName);
+
+            Inquiries.Popup(
+                title: L.T("delete_clan_troops_title", "Clear Custom Troops"),
+                description: description,
+                confirmText: L.T("delete_clan_troops_confirm", "Delete"),
+                cancelText: GameTexts.FindText("str_cancel"),
+                onConfirm: () => ExecuteDeleteClanTroops(clan)
+            );
+        }
+
+        /// <summary>
+        /// Performs the deletion and switches the editor back to the player clan.
+        /// </summary>
+        private static void ExecuteDeleteClanTroops(WClan clan)
+        {
+            TroopUnlockerBehavior.DeleteClanTroops(clan);
+
+            // Switch back to player clan after deletion.
+            var playerClan = Player.Clan;
+            var kingdom = Player.Kingdom;
+            if (playerClan != null)
+                ApplyClanPlayerDirect(playerClan, kingdom);
         }
     }
 }

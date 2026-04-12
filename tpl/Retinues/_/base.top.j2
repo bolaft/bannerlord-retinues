@@ -159,7 +159,7 @@
                     </Children>
                 </Widget>
 
-                {# Reset button #}
+                {# Reset button (Universal mode) / Delete Clan Troops button (Player mode) #}
                 <Widget
                     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                     HorizontalAlignment="Left" VerticalAlignment="Top"
@@ -167,6 +167,7 @@
                     <Children>
 
                         {{ button_text("{ResetButton}", "Popup.Delete.Button", "200", "60") }}
+                        {{ button_text("{DeleteClanTroopsButton}", "Popup.Delete.Button", "200", "60") }}
 
                     </Children>
                 </Widget>
