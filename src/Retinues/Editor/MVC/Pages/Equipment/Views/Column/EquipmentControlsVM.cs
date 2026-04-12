@@ -64,7 +64,7 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.Column
 
         private static bool _civilian = false;
 
-        [EventListener(UIEvent.Character)]
+        [EventListener(UIEvent.Character, UIEvent.Equipment)]
         private void ResetShowCivilian()
         {
             _civilian = State.Equipment != null && State.Equipment.IsCivilian;
