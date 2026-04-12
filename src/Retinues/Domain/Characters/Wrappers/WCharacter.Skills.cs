@@ -99,11 +99,14 @@ namespace Retinues.Domain.Characters.Wrappers
 
         /// <summary>
         /// Creates a persistent per-skill attribute wired to the underlying CharacterObject skills.
+        /// Skills use Lowest priority so they are always applied last during deserialization,
+        /// after Level and other attributes that may cause CharacterObject skill recalculation.
         /// </summary>
         public MAttribute<int> MakeSkillAttribute(SkillObject skill) =>
             Attribute(
                 getter: _ => Base.GetSkillValue(skill),
                 setter: (_, value) => SetBaseSkillValue(skill, value),
+                priority: AttributePriority.Lowest,
                 name: $"Skill_{skill.StringId}"
             );
 

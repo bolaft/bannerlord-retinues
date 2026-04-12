@@ -167,6 +167,13 @@ namespace Retinues.Domain.Characters.Wrappers
         [StaticClearAction(Refresh = true)]
         public static void InvalidateTroopSourceCaches()
         {
+            // CharacterTreeCache must be refreshed first: FactionCache.RosterBasic/Elite
+            // are derived from RootBasic.Tree / RootElite.Tree which read from the tree cache.
+            // The tree cache can be built before persistence loads UpgradeTargets (early access
+            // during behavior registration), so it must be invalidated here so it rebuilds from
+            // the now-populated UpgradeTargets when FactionCache next asks for troop trees.
+            CharacterTreeCache.MarkDirty();
+
             FactionCache.Invalidate();
             SourceFlagCache.Invalidate();
             TreeFlagCache.Invalidate();

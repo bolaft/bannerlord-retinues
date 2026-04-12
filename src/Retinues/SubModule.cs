@@ -76,8 +76,10 @@ namespace Retinues
 
             if (gameStarter is CampaignGameStarter cs)
             {
-                // Register refresh hooks once per process so refresh actions can run again
-                // after load and after character creation.
+                // Reset the flag so that on in-session reloads the listeners are re-added
+                // to the new campaign's events (CampaignEvents is per-session; non-serialized
+                // listeners from the previous session are gone when OnGameStart fires again).
+                _campaignRefreshHooksRegistered = false;
                 RegisterCampaignStaticRefreshHooks();
 
                 // Core Retinues behaviors (auto-discovered).

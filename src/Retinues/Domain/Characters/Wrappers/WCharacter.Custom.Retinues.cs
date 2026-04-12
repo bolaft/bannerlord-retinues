@@ -68,7 +68,9 @@ namespace Retinues.Domain.Characters.Wrappers
         }
 
         /// <summary>
-        /// Builds conversion sources and targets for the given retinue and updates requirements.
+        /// Builds conversion sources for the given retinue and updates requirements.
+        /// The custom upgrade tree (UpgradeTargets) is user-managed and must not be
+        /// overwritten here — doing so corrupts persistence and breaks the editor tree.
         /// </summary>
         private static List<WCharacter> BuildConversionLinks(WCharacter wc)
         {
@@ -76,15 +78,12 @@ namespace Retinues.Domain.Characters.Wrappers
                 return [];
 
             var belowTier = wc.Tier - 1;
-            var aboveTier = wc.Tier + 1;
 
             var sources = belowTier >= 1 ? BuildConversionMatches(wc, belowTier) : [];
-            var targets = aboveTier >= 1 ? BuildConversionMatches(wc, aboveTier) : [];
 
-            // Apply targets retinue for real.
-            wc.UpgradeTargets = targets;
-
-            // Update item requirements as needed.
+            // Update item requirements based on conversion sources.
+            // UpgradeTargets are traversed recursively by UpdateItemRequirementsFromSources,
+            // so the custom tree (T1→T2→T3) is correctly maintained.
             wc.UpdateItemRequirementsFromSources(sources, updateTargets: true);
 
             return sources;
