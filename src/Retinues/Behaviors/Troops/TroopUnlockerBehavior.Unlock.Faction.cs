@@ -100,7 +100,7 @@ namespace Retinues.Behaviors.Troops
 
             UnlockFactionTroops(
                 clan,
-                label: "companion clan",
+                label: "kingdom clan",
                 fromBootstrap: false,
                 suppressPopup: true
             );
@@ -121,7 +121,7 @@ namespace Retinues.Behaviors.Troops
 
             UnlockFactionTroops(
                 clan,
-                label: "companion clan",
+                label: "clan",
                 fromBootstrap: false,
                 basicOverride: basicOverride,
                 eliteOverride: eliteOverride,
