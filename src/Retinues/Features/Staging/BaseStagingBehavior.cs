@@ -8,7 +8,7 @@ using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.GameMenus;
 using TaleWorlds.CampaignSystem.Settlements;
 using TaleWorlds.Core;
-#if BL13
+#if BL13 || BL14
 using TaleWorlds.Core.ImageIdentifiers;
 # endif
 

@@ -5,10 +5,10 @@ BASE="$(cd -- "$(dirname -- "$0")" && pwd -P)"
 SRC_BASE="$BASE/dll"
 OUT_BASE="$BASE/src/TaleWorlds"
 
-# Auto-detect versions under ./dll (dirs named with digits), or hardcode: VERSIONS=(12 13)
+# Auto-detect versions under ./dll (dirs named with digits), or hardcode: VERSIONS=(12 13 14)
 mapfile -t VERSIONS < <(find "$SRC_BASE" -maxdepth 1 -mindepth 1 -type d -printf '%f\n' | grep -E '^[0-9]+' | sort)
 # Fallback if none found:
-[[ ${#VERSIONS[@]} -eq 0 ]] && VERSIONS=(12 13)
+[[ ${#VERSIONS[@]} -eq 0 ]] && VERSIONS=(12 13 14)
 
 EXCLUDE_REGEX='^(System(\..*)?|Microsoft(\..*)?|mscorlib|netstandard|WindowsBase|PresentationFramework|PresentationCore)$'
 # To include everything, set: EXCLUDE_REGEX=''

@@ -3,7 +3,7 @@ using Retinues.Game.Wrappers;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Party;
-#if BL13
+#if BL13 || BL14
 using Helpers;
 #endif
 
@@ -15,7 +15,7 @@ namespace Retinues.Features.Transfer.Patches
         public static bool IsCreateClanPartyScreenActive;
     }
 
-#if BL13
+#if BL13 || BL14
     [HarmonyPatch(typeof(PartyScreenHelper))]
     internal static class PartyScreenHelper_CreateClanParty_ContextPatch
     {

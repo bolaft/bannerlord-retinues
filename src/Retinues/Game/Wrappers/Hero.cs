@@ -252,7 +252,7 @@ namespace Retinues.Game.Wrappers
             {
                 if (_hero != null)
                 {
-#if BL13
+#if BL13 || BL14
                     _hero.IsFemale = value;
 #else
                     // BL12: IsFemale has a private setter; use reflection/backing field.

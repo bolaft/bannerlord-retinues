@@ -337,7 +337,7 @@ namespace Retinues.Features.Staging
                     // Keep staged; just continue the batch so others can run
                     onAfterCompleted?.Invoke();
                 },
-# if BL13
+# if BL13 || BL14
                 overlay: GameMenu.MenuOverlayType.SettlementWithBoth,
 # else
                 overlay: GameOverlays.MenuOverlayType.SettlementWithBoth,

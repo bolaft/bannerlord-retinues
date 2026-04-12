@@ -278,7 +278,7 @@ namespace Retinues.Game.Helpers
                 var dyn = body.DynamicProperties;
                 var stat = body.StaticProperties;
 
-#if BL13
+#if BL13 || BL14
                 hero.StaticBodyProperties = stat;
 #else
                 Reflector.SetPropertyValue(hero, "StaticBodyProperties", stat);
@@ -300,7 +300,7 @@ namespace Retinues.Game.Helpers
             if (hero == null)
                 return;
 
-#if BL13
+#if BL13 || BL14
             hero.IsFemale = value;
 #else
             // BL12: IsFemale has private setter; use reflection.

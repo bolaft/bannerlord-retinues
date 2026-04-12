@@ -240,7 +240,7 @@ namespace Retinues.Game.Helpers
                     var newBody = new BodyProperties(dyn, stat);
 
                     // 4) Apply to the hero
-#if BL13
+#if BL13 || BL14
                     hero.StaticBodyProperties = newBody.StaticProperties;
 #else
                     Reflector.SetPropertyValue(
@@ -306,7 +306,7 @@ namespace Retinues.Game.Helpers
 
         public static void ApplyTagsFromCulture(WCharacter troop)
         {
-#if BL13
+#if BL13 || BL14
             try
             {
                 var character = troop?.Base;

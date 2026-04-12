@@ -2,7 +2,7 @@ using System.Reflection;
 using HarmonyLib;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.CharacterDevelopment;
-#if BL13
+#if BL13 || BL14
 using TaleWorlds.Core;
 using System;
 using System.Collections.Generic;
@@ -24,7 +24,7 @@ namespace Retinues.Game.Helpers
         /// </summary>
         public static CharacterObject CopyInto(CharacterObject src, CharacterObject tgt)
         {
-#if BL13
+#if BL13 || BL14
             if (src == null || tgt == null)
                 return tgt;
 
@@ -68,7 +68,7 @@ namespace Retinues.Game.Helpers
 #endif
         }
 
-#if BL13
+#if BL13 || BL14
 
         /// <summary>
         /// Installs a fresh equipment roster on tgt, deep-cloned from src's battle sets.
@@ -171,7 +171,7 @@ namespace Retinues.Game.Helpers
             "FillFrom",
             [typeof(CharacterObject)]
         );
-#if BL13
+#if BL13 || BL14
         protected static readonly FieldInfo F_equipmentRoster = AccessTools.Field(
             typeof(BasicCharacterObject),
             "_equipmentRoster"

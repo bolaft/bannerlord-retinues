@@ -12,7 +12,7 @@ using Retinues.Managers;
 using Retinues.Utils;
 using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Library;
-# if BL13
+# if BL13 || BL14
 using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
 # endif
 
@@ -362,7 +362,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.List
         [DataSourceProperty]
         public string BannerAdditionalArgs => RowItem?.Culture?.Image?.AdditionalArgs;
 
-#if BL13
+#if BL13 || BL14
         [DataSourceProperty]
         public string ImageTextureProviderName => RowItem?.Image?.TextureProviderName;
 

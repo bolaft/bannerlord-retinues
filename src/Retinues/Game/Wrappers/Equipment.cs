@@ -72,7 +72,7 @@ namespace Retinues.Game.Wrappers
         /// </summary>
         public void SetCivilian(bool makeCivilian)
         {
-#if BL13
+#if BL13 || BL14
             try
             {
                 var want = makeCivilian
@@ -114,7 +114,7 @@ namespace Retinues.Game.Wrappers
 
             if (code is null)
             {
-#if BL13
+#if BL13 || BL14
                 obj = new Equipment(Equipment.EquipmentType.Battle);
 #else
                 obj = new Equipment(false);

@@ -4,7 +4,7 @@ using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.Core;
-#if BL13
+#if BL13 || BL14
 using TaleWorlds.Core.ImageIdentifiers;
 #endif
 
@@ -38,7 +38,7 @@ namespace Retinues.Game.Wrappers
 
         public override Banner BaseBanner => Base?.Banner;
 
-#if BL13
+#if BL13 || BL14
         public BannerImageIdentifier Image =>
             Base.Banner != null ? new BannerImageIdentifier(Base.Banner) : null;
         public ImageIdentifier ImageIdentifier =>

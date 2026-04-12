@@ -198,7 +198,7 @@ namespace Retinues.Game.Wrappers
                 );
 
                 var newBp = new BodyProperties(newDyn, bp.StaticProperties);
-#if BL13
+#if BL13 || BL14
                 Hero.StaticBodyProperties = newBp.StaticProperties;
 #else
                 Reflector.SetPropertyValue(Hero, "StaticBodyProperties", newBp.StaticProperties);
@@ -305,7 +305,7 @@ namespace Retinues.Game.Wrappers
         {
             if (IsHero)
             {
-#if BL13
+#if BL13 || BL14
                 var sp = Hero.StaticBodyProperties;
 #else
                 var sp = Reflector.GetPropertyValue<StaticBodyProperties>(
@@ -339,7 +339,7 @@ namespace Retinues.Game.Wrappers
                     float v = Math.Max(0f, Math.Min(1f, value01));
                     int raw = (int)Math.Round(v * ((1 << HEIGHT_BITS) - 1));
 
-#if BL13
+#if BL13 || BL14
                     var sp = Hero.StaticBodyProperties;
 #else
                     var sp = Reflector.GetPropertyValue<StaticBodyProperties>(
@@ -350,7 +350,7 @@ namespace Retinues.Game.Wrappers
                     ulong part = GetKeyPart(sp, HEIGHT_PART);
                     part = SetBits(part, HEIGHT_START, HEIGHT_BITS, raw);
                     var newSp = SetKeyPart(sp, HEIGHT_PART, part);
-#if BL13
+#if BL13 || BL14
                     Hero.StaticBodyProperties = newSp;
 #else
                     Reflector.SetPropertyValue(Hero, "StaticBodyProperties", newSp);

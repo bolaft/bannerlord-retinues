@@ -45,7 +45,7 @@ namespace Retinues.Game.Menu
             float durationHours,
             Action onCompleted,
             Action onAborted,
-# if BL13
+# if BL13 || BL14
             GameMenu.MenuOverlayType overlay = GameMenu.MenuOverlayType.None,
 # else
             GameOverlays.MenuOverlayType overlay = GameOverlays.MenuOverlayType.None,
@@ -85,7 +85,7 @@ namespace Retinues.Game.Menu
         private static void AddOrReplaceWaitMenu(
             CampaignGameStarter starter,
             string title,
-# if BL13
+# if BL13 || BL14
             GameMenu.MenuOverlayType overlay
 # else
             GameOverlays.MenuOverlayType overlay

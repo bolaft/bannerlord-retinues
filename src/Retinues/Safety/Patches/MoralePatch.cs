@@ -64,7 +64,7 @@ namespace Retinues.Safety.Patches
                 {
                     try
                     {
-#if BL13
+#if BL13 || BL14
                         SkillHelper.AddSkillBonusForCharacter(
                             DefaultSkillEffects.LeadershipMoraleBonus,
                             leader,

@@ -1,6 +1,6 @@
 using Retinues.Utils;
 using TaleWorlds.Core;
-# if BL13
+# if BL13 || BL14
 using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
 # endif
 
@@ -33,7 +33,7 @@ namespace Retinues.Game
             }
         }
 
-#if BL13
+#if BL13 || BL14
         /// <summary>
         /// Gets a banner image identifier VM for this faction's banner, scaled by the given factor.
         /// </summary>
@@ -136,7 +136,7 @@ namespace Retinues.Game
                 {
                     foreach (var troop in root.Tree)
                     {
-#if BL13
+#if BL13 || BL14
                         var troopBanner = troop?.Culture?.Base?.Banner;
                         if (!IsEmptyBanner(troopBanner))
                         {

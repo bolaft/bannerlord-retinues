@@ -10,7 +10,7 @@ namespace Retinues.GUI
         {
             var spriteData = UIResourceManager.SpriteData;
             var ctx = UIResourceManager.ResourceContext;
-#if BL13
+#if BL13 || BL14
             var depot = UIResourceManager.ResourceDepot;
 #else
             var depot = UIResourceManager.UIResourceDepot;
@@ -32,7 +32,7 @@ namespace Retinues.GUI
         {
             var spriteData = UIResourceManager.SpriteData;
             var ctx = UIResourceManager.ResourceContext;
-#if BL13
+#if BL13 || BL14
             var depot = UIResourceManager.ResourceDepot;
 #else
             var depot = UIResourceManager.UIResourceDepot;

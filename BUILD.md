@@ -32,8 +32,9 @@
 ```
 dll/12/**   # BL 1.2 DLL set
 dll/13/**   # BL 1.3 DLL set
+dll/14/**   # BL 1.4 DLL set
 ```
-The build picks the correct set based on `--version 12|13` (defaults to 13).
+The build picks the correct set based on `--version 12|13|14` (defaults to 13).
 
 4) Download Harmony, UIExtenderEx and MCM and extract them in the game's Modules folder.
 ---
@@ -86,7 +87,7 @@ src/Retinues/UIExtenderDebug.xml       # Copied only in non‑Release builds
 # Set the last number in <Version value="vX.Y.Z.N" /> to 8 and build Release
 ./build.sh -r 8
 ```
-- Updates `src/Retinues/SubModule.BL12.xml`, `src/Retinues/SubModule.BL13.xml`, and/or `src/Retinues/SubModule.xml` if present.
+- Updates `src/Retinues/SubModule.BL12.xml`, `src/Retinues/SubModule.BL13.xml`, `src/Retinues/SubModule.BL14.xml`, and/or `src/Retinues/SubModule.xml` if present.
 - Builds **Release** (no `UIExtenderDebug.xml`).
 - Deploys to the game folder.
 
@@ -97,4 +98,7 @@ src/Retinues/UIExtenderDebug.xml       # Copied only in non‑Release builds
 
 # BL 1.2
 ./build.sh -v 12
+
+# BL 1.4
+./build.sh -v 14
 ```

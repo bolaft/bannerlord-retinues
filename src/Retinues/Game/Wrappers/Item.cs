@@ -8,7 +8,7 @@ using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.ObjectSystem;
-#if BL13
+#if BL13 || BL14
 using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
 #endif
 
@@ -36,7 +36,7 @@ namespace Retinues.Game.Wrappers
         //                      VM properties                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-#if BL13
+#if BL13 || BL14
         public ItemImageIdentifierVM Image => new(Base);
 #else
         public ImageIdentifierVM Image => new(_itemObject);
@@ -124,7 +124,7 @@ namespace Retinues.Game.Wrappers
                     case ItemObject.ItemTypeEnum.Pistol:
                     case ItemObject.ItemTypeEnum.Musket:
                     case ItemObject.ItemTypeEnum.Bullets:
-#if BL13
+#if BL13 || BL14
                     case ItemObject.ItemTypeEnum.Sling:
                     case ItemObject.ItemTypeEnum.SlingStones:
 #endif

@@ -4,7 +4,7 @@ using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.ObjectSystem;
-# if BL13
+# if BL13 || BL14
 using TaleWorlds.Core.ImageIdentifiers;
 # endif
 
@@ -61,7 +61,7 @@ namespace Retinues.Game.Wrappers
                 if (Base == null)
                     return null;
 
-#if BL13
+#if BL13 || BL14
                 return Base.Banner;
 #else
                 var bannerKey = Base.BannerKey;
@@ -73,7 +73,7 @@ namespace Retinues.Game.Wrappers
             }
         }
 
-#if BL13
+#if BL13 || BL14
         public BannerImageIdentifier Image =>
             Base.Banner != null ? new BannerImageIdentifier(Base.Banner) : null;
         public ImageIdentifier ImageIdentifier =>

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Retinues.Features.Staging;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
-#if BL13
+#if BL13 || BL14
 using TaleWorlds.Core.ImageIdentifiers;
 # endif
 

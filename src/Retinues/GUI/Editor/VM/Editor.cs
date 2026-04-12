@@ -19,7 +19,7 @@ using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Core.ViewModelCollection.Information;
 using TaleWorlds.Library;
-# if BL13
+# if BL13 || BL14
 using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
 # endif
 
@@ -199,7 +199,7 @@ namespace Retinues.GUI.Editor.VM
                     L.S("disabled_in_hero_editor", "Heroes are tied to the saved world state.")
                 );
 
-#if BL13
+#if BL13 || BL14
         [DataSourceProperty]
         public BannerImageIdentifierVM CultureBanner => State.Culture?.GetBannerImage();
 

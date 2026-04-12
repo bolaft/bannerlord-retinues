@@ -47,7 +47,7 @@ namespace Retinues.GUI.Editor.VM.Troop.List
                 [
                     nameof(ImageId),
                     nameof(ImageAdditionalArgs),
-#if BL13
+#if BL13 || BL14
                     nameof(ImageTextureProviderName),
 #else
                     nameof(ImageTypeCode),
@@ -68,7 +68,7 @@ namespace Retinues.GUI.Editor.VM.Troop.List
         [DataSourceProperty]
         public string ImageAdditionalArgs => RowTroop?.Image.AdditionalArgs;
 
-#if BL13
+#if BL13 || BL14
         [DataSourceProperty]
         public string ImageTextureProviderName => RowTroop?.Image.TextureProviderName;
 #else

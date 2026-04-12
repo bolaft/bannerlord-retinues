@@ -37,7 +37,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.Panel
                     nameof(IsStaged),
                     nameof(ImageId),
                     nameof(ImageAdditionalArgs),
-#if BL13
+#if BL13 || BL14
                     nameof(ImageTextureProviderName),
 #else
                     nameof(ImageTypeCode),
@@ -53,7 +53,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.Panel
                     nameof(IsStaged),
                     nameof(ImageId),
                     nameof(ImageAdditionalArgs),
-#if BL13
+#if BL13 || BL14
                     nameof(ImageTextureProviderName),
 #else
                     nameof(ImageTypeCode),
@@ -127,7 +127,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.Panel
         [DataSourceProperty]
         public string ImageAdditionalArgs => Item?.Image?.AdditionalArgs;
 
-#if BL13
+#if BL13 || BL14
         [DataSourceProperty]
         public string ImageTextureProviderName => Item?.Image?.TextureProviderName;
 #else
@@ -215,7 +215,7 @@ namespace Retinues.GUI.Editor.VM.Equipment.Panel
             OnPropertyChanged(nameof(IsStaged));
             OnPropertyChanged(nameof(ImageId));
             OnPropertyChanged(nameof(ImageAdditionalArgs));
-#if BL13
+#if BL13 || BL14
             OnPropertyChanged(nameof(ImageTextureProviderName));
 #else
             OnPropertyChanged(nameof(ImageTypeCode));
