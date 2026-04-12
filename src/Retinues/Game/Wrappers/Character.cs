@@ -16,7 +16,7 @@ using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Localization;
 using TaleWorlds.ObjectSystem;
-# if BL13
+# if BL13 || BL14
 using TaleWorlds.Core.ImageIdentifiers;
 using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
 # endif
@@ -730,7 +730,7 @@ namespace Retinues.Game.Wrappers
 
         public bool HiddenInEncyclopedia
         {
-#if BL13
+#if BL13 || BL14
             // NOTE: fixed typo in 1.3.0
             get => Reflector.GetPropertyValue<bool>(Base, "HiddenInEncyclopedia");
             set => Reflector.SetPropertyValue(Base, "HiddenInEncyclopedia", value);
@@ -1067,7 +1067,7 @@ namespace Retinues.Game.Wrappers
 
         public CharacterCode CharacterCode => CharacterCode.CreateFrom(Base);
 
-#if BL13
+#if BL13 || BL14
         public CharacterImageIdentifierVM Image => new(CharacterCode);
         public ImageIdentifier ImageIdentifier => new CharacterImageIdentifier(CharacterCode);
 #else
@@ -1238,55 +1238,32 @@ namespace Retinues.Game.Wrappers
         public static class NavalTraitHelper
         {
             private static TraitObject _navalSoldierTrait;
-            private static bool _navalTraitMissing;
+
+            // Cached reflection handles for non-hero trait mutation.
+            private static FieldInfo _characterTraitsField;
+            private static MethodInfo _setPropertyValueMethod;
 
             // ── Trait lookup ──────────────────────────────────────
 
             private static TraitObject TryGetNavalSoldierTrait()
             {
-                if (_navalTraitMissing)
-                    return null;
-
                 if (_navalSoldierTrait != null)
                     return _navalSoldierTrait;
 
+                // Use MBObjectManager directly — no Campaign.Current dependency.
+                // Returns null transiently if the object manager isn't ready yet or
+                // if the "NavalSoldier" trait hasn't been registered yet.
                 try
                 {
-                    var defaultTraitsType = Type.GetType(
-                        "TaleWorlds.CampaignSystem.CharacterDevelopment.DefaultTraits, TaleWorlds.CampaignSystem",
-                        throwOnError: false
-                    );
-
-                    if (defaultTraitsType == null)
-                    {
-                        // If the type really doesn't exist (no Naval DLC), mark as missing.
-                        _navalTraitMissing = true;
+                    var trait = MBObjectManager.Instance?.GetObject<TraitObject>("NavalSoldier");
+                    if (trait == null)
                         return null;
-                    }
 
-                    var prop = defaultTraitsType.GetProperty(
-                        "NavalSoldier",
-                        BindingFlags.Public | BindingFlags.Static
-                    );
-
-                    if (prop == null)
-                    {
-                        _navalTraitMissing = true;
-                        return null;
-                    }
-
-                    if (prop.GetValue(null) is not TraitObject value)
-                    {
-                        // Traits not registered yet; don't permanently mark as missing.
-                        return null;
-                    }
-
-                    _navalSoldierTrait = value;
+                    _navalSoldierTrait = trait;
                     return _navalSoldierTrait;
                 }
                 catch
                 {
-                    _navalTraitMissing = true;
                     return null;
                 }
             }
@@ -1295,7 +1272,8 @@ namespace Retinues.Game.Wrappers
             public static void Reset()
             {
                 _navalSoldierTrait = null;
-                _navalTraitMissing = false;
+                _characterTraitsField = null;
+                _setPropertyValueMethod = null;
             }
 
             // ── Public API used by WCharacter ─────────────────────
@@ -1339,26 +1317,25 @@ namespace Retinues.Game.Wrappers
                         return;
                     }
 
-                    // No static FieldInfo/MethodInfo; resolve fresh each time.
-                    var coType = typeof(CharacterObject);
-                    var traitsField = coType.GetField(
+                    // Resolve and cache _characterTraits FieldInfo once.
+                    _characterTraitsField ??= typeof(CharacterObject).GetField(
                         "_characterTraits",
                         BindingFlags.Instance | BindingFlags.NonPublic
                     );
 
-                    if (traitsField == null)
+                    if (_characterTraitsField == null)
                         return;
 
-                    var owner = traitsField.GetValue(co);
+                    var owner = _characterTraitsField.GetValue(co);
                     if (owner == null)
                     {
                         // Ensure a PropertyOwner<TraitObject> exists.
-                        var ownerType = traitsField.FieldType;
-                        owner = Activator.CreateInstance(ownerType);
-                        traitsField.SetValue(co, owner);
+                        owner = Activator.CreateInstance(_characterTraitsField.FieldType);
+                        _characterTraitsField.SetValue(co, owner);
                     }
 
-                    var setMethod = owner
+                    // Resolve and cache SetPropertyValue(TraitObject, int) MethodInfo once.
+                    _setPropertyValueMethod ??= owner
                         .GetType()
                         .GetMethod(
                             "SetPropertyValue",
@@ -1368,7 +1345,7 @@ namespace Retinues.Game.Wrappers
                             modifiers: null
                         );
 
-                    setMethod?.Invoke(owner, [navalTrait, level]);
+                    _setPropertyValueMethod?.Invoke(owner, [navalTrait, level]);
                 }
                 catch
                 {
