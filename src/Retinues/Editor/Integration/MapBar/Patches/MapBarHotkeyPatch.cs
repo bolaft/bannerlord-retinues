@@ -3,7 +3,7 @@ using Retinues.Settings;
 using Retinues.Utilities;
 using SandBox.GauntletUI.Map;
 using TaleWorlds.InputSystem;
-#if BL13
+#if BL13 || BL14
 using SandBox.View.Map.Navigation;
 #else
 using SandBox.View;
@@ -20,14 +20,14 @@ namespace Retinues.Editor.Integration.MapBar.Patches
     /// <summary>
     /// Enables opening the troop editor via the R hotkey on the map bar.
     /// </summary>
-#if BL13
+#if BL13 || BL14
     [HarmonyPatch(typeof(GauntletMapBarGlobalLayer), "HandlePanelSwitchingInput")]
 #else
     [HarmonyPatch(typeof(GauntletMapBarGlobalLayer), "HandlePanelSwitching")]
 #endif
     internal static class MapBarHotkeyPatch
     {
-#if BL13
+#if BL13 || BL14
         [HarmonyPostfix]
         private static void Postfix(
             GauntletMapBarGlobalLayer __instance,

@@ -43,7 +43,7 @@ namespace Retinues.Behaviors.Troops.Patches
         }
 #endif
 
-#if BL13
+#if BL13 || BL14
         /// <summary>
         /// Reverse-patched helper for BL13 signature.
         /// </summary>

@@ -67,7 +67,7 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Controllers
             if (!PreviewController.Enabled)
                 return source.Code;
 
-#if BL13
+#if BL13 || BL14
             var e = new TaleWorlds.Core.Equipment(TaleWorlds.Core.Equipment.EquipmentType.Battle);
 #else
             var e = new TaleWorlds.Core.Equipment(false);

@@ -167,7 +167,7 @@ namespace Retinues.Domain.Characters.Helpers
             if (wc == null || template == null)
                 return;
 
-#if BL13
+#if BL13 || BL14
             var templateRange = template.Base.BodyPropertyRange;
             var range = wc.Base.BodyPropertyRange;
 
@@ -417,7 +417,7 @@ namespace Retinues.Domain.Characters.Helpers
         /// </summary>
         public static void SetHairTags(WCharacter wc, string value)
         {
-#if BL13
+#if BL13 || BL14
             if (wc == null)
                 return;
 
@@ -432,7 +432,7 @@ namespace Retinues.Domain.Characters.Helpers
         /// </summary>
         public static void SetBeardTags(WCharacter wc, string value)
         {
-#if BL13
+#if BL13 || BL14
             if (wc == null)
                 return;
 
@@ -447,7 +447,7 @@ namespace Retinues.Domain.Characters.Helpers
         /// </summary>
         public static void SetTattooTags(WCharacter wc, string value)
         {
-#if BL13
+#if BL13 || BL14
             if (wc == null)
                 return;
 
@@ -517,7 +517,7 @@ namespace Retinues.Domain.Characters.Helpers
             if (!BodyProperties.FromString(parts[1], out var max))
                 return;
 
-#if BL13
+#if BL13 || BL14
             // Capture tag pools from the CURRENT range (whatever persistence already applied).
             var current = GetBodyRangeOrNull(wc);
             string hair = current?.HairTags ?? string.Empty;
@@ -528,7 +528,7 @@ namespace Retinues.Domain.Characters.Helpers
             var range = EnsureOwnBodyRange(wc);
             range?.Init(min, max);
 
-#if BL13
+#if BL13 || BL14
             // Restore tag pools directly onto the range we just re-initialized.
             if (range != null)
             {

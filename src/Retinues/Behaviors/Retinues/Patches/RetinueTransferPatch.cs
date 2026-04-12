@@ -3,7 +3,7 @@ using Retinues.Domain.Characters.Wrappers;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Party;
-#if BL13
+#if BL13 || BL14
 using Helpers;
 #endif
 
@@ -18,7 +18,7 @@ namespace Retinues.Behaviors.Retinues.Patches
         public static bool IsCreateClanPartyScreenActive;
     }
 
-#if BL13
+#if BL13 || BL14
     /// <summary>
     /// Sets/clears the create-clan-party context flag for BL1.3 party screens.
     /// </summary>

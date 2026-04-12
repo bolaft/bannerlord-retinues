@@ -216,7 +216,7 @@ namespace Retinues.Editor.Integration.Barber
                 var dyn = body.DynamicProperties;
                 var stat = body.StaticProperties;
 
-#if BL13
+#if BL13 || BL14
                 hero.StaticBodyProperties = stat;
 #else
                 Reflection.SetPropertyValue(hero, "StaticBodyProperties", stat);

@@ -160,7 +160,7 @@ namespace Retinues.Behaviors.Experience.Patches
         }
 #endif
 
-#if BL13
+#if BL13 || BL14
         /// <summary>
         /// Prefix to clamp XP for faction troops when upgrade targets are absent (BL1.3).
         /// </summary>

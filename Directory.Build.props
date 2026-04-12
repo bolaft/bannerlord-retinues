@@ -10,14 +10,14 @@
     <!-- Repo root (absolute) -->
     <RepoRoot>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)'))</RepoRoot>
   
-    <!-- Bannerlord version selector (12 or 13) -->
+    <!-- Bannerlord version selector (12, 13, or 14) -->
     <BL Condition="'$(BL)' == ''">13</BL>
 
-    <!-- Append a preprocessor symbol BL12 or BL13 -->
+    <!-- Append a preprocessor symbol BL12, BL13, or BL14 -->
     <DefineConstants Condition="'$(DefineConstants)' != ''">$(DefineConstants);BL$(BL)</DefineConstants>
     <DefineConstants Condition="'$(DefineConstants)' == ''">BL$(BL)</DefineConstants>
   
-    <!-- Where references come from: ./dll/12 or ./dll/13 -->
+    <!-- Where references come from: ./dll/12, ./dll/13, or ./dll/14 -->
     <ReferenceRoot>$(RepoRoot)dll\$(BL)</ReferenceRoot>
 
     <!-- out/obj/<ProjectName>/ -->

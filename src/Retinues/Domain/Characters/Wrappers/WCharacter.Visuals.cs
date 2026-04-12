@@ -202,7 +202,7 @@ namespace Retinues.Domain.Characters.Wrappers
         //                          Tags                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-#if BL13
+#if BL13 || BL14
         /* ━━━━━━━ Hair Tags ━━━━━━ */
 
         MAttribute<string> HairTagsAttribute =>

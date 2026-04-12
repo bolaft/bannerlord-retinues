@@ -6,7 +6,7 @@ using Retinues.Utilities;
 using SandBox.View.Map;
 using TaleWorlds.InputSystem;
 using TaleWorlds.ScreenSystem;
-#if BL13
+#if BL13 || BL14
 using SandBox.View.Map.Navigation;
 #else
 using TaleWorlds.CampaignSystem.Encounters;
@@ -50,7 +50,7 @@ namespace Retinues.Editor.Integration.MapBar.Patches
             if (Player.Clan.Troops.Count() == 0)
                 return;
 
-#if BL13
+#if BL13 || BL14
             var handler = Reflection.GetFieldValue<MapNavigationHandler>(
                 __instance,
                 "_navigationHandler"

@@ -1,7 +1,7 @@
 using Retinues.Domain.Characters.Wrappers;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
-#if BL13
+#if BL13 || BL14
 using TaleWorlds.Core.ImageIdentifiers;
 using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
 #endif
@@ -18,7 +18,7 @@ namespace Retinues.Domain.Factions.Helpers
 
         public static object EmptyVm => _emptyVm ??= SolidColorVm(0xFFFFFFFFu);
 
-#if BL13
+#if BL13 || BL14
         public static BannerImageIdentifierVM EmptyImage => (BannerImageIdentifierVM)EmptyVm;
 #else
         public static ImageIdentifierVM EmptyImage => (ImageIdentifierVM)EmptyVm;
@@ -90,7 +90,7 @@ namespace Retinues.Domain.Factions.Helpers
                         if (cultureBase == null)
                             continue;
 
-#if BL13
+#if BL13 || BL14
                         var raw = cultureBase.Banner;
 #else
                         Banner raw = null;
@@ -182,7 +182,7 @@ namespace Retinues.Domain.Factions.Helpers
             if (culture == null)
                 return null;
 
-#if BL13
+#if BL13 || BL14
             try
             {
                 return culture.Banner;
@@ -296,7 +296,7 @@ namespace Retinues.Domain.Factions.Helpers
         //               Image / Identifier Helpers               //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-#if BL13
+#if BL13 || BL14
         /// <summary>
         /// Returns a banner image view model for the given banner.
         /// </summary>

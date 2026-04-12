@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Retinues.Domain.Characters.Wrappers;
 using TaleWorlds.Core;
-#if BL13
+#if BL13 || BL14
 using TaleWorlds.Core.ImageIdentifiers;
 using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
 # endif
@@ -30,7 +30,7 @@ namespace Retinues.Domain.Factions
 
         /* ━━━━━━━━━ Image ━━━━━━━━ */
 
-# if BL13
+# if BL13 || BL14
         public BannerImageIdentifierVM Image { get; }
 #else
         public ImageIdentifierVM Image { get; }

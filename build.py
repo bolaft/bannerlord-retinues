@@ -281,7 +281,7 @@ def main() -> int:
     )
     parser.add_argument(
         "--only",
-        choices=["12", "13"],
+        choices=["12", "13", "14"],
         help="If set, use only this BL version key.",
     )
     parser.add_argument(
@@ -322,7 +322,7 @@ def main() -> int:
         if len(versions) == 1:
             target_ver_key = next(iter(versions.keys()))
         else:
-            print("ERROR: multiple versions in config; please specify --only 12 or --only 13")
+            print("ERROR: multiple versions in config; please specify --only 12, --only 13, or --only 14")
             return 1
 
     if target_ver_key not in versions:

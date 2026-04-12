@@ -399,7 +399,7 @@ namespace Retinues.Behaviors.Troops
                 if (hasCrossbow)
                     return L.S("troop_formation_crossbowman", "Crossbowman");
 
-#if BL13
+#if BL13 || BL14
                 if (hasSling)
                     return L.S("troop_formation_slinger", "Slinger");
 #endif
@@ -483,7 +483,7 @@ namespace Retinues.Behaviors.Troops
                         continue;
                     }
 
-#if BL13
+#if BL13 || BL14
                     if (type == ItemObject.ItemTypeEnum.Sling)
                     {
                         hasSling = true;

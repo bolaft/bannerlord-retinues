@@ -32,7 +32,7 @@ Options:
       --no-prefabs      Skip prefabs generation
       --strings         Only run strings.py
       --no-strings      Skip strings.py
-  -v, --version         Bannerlord version: 12 or 13 (default: 13)
+  -v, --version         Bannerlord version: 12, 13, or 14 (default: 13)
   -r, --release <N>     Build Release and set <Version value="vX.Y.Z.N" /> to N
   -h, --help            Show help
 USAGE

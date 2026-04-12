@@ -24,7 +24,7 @@ namespace Retinues.Editor
         private GauntletLayer _gauntletLayer;
         private EditorVM _dataSource;
 
-#if BL13
+#if BL13 || BL14
         private GauntletMovieIdentifier _movie;
 #else
         private IGauntletMovie _movie;
@@ -108,7 +108,7 @@ namespace Retinues.Editor
 
             Sprites.Load(SpriteSheetsToLoad);
 
-#if BL13
+#if BL13 || BL14
             _gauntletLayer = new GauntletLayer("GauntletLayer", 1, shouldClear: true);
 #else
             _gauntletLayer = new GauntletLayer(1, "GauntletLayer", shouldClear: true);

@@ -370,7 +370,7 @@ namespace Retinues.Behaviors.Unlocks
 
                 case ItemObject.ItemTypeEnum.Arrows:
                 case ItemObject.ItemTypeEnum.Bolts:
-#if BL13
+#if BL13 || BL14
                 case ItemObject.ItemTypeEnum.SlingStones:
 #endif
                     mats |= Mat.Wood | Mat.Metal;

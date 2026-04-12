@@ -32,7 +32,7 @@ namespace Retinues.Behaviors.Volunteers.Models
             int useValueAsRelation = -101
         ) => _inner.MaximumIndexHeroCanRecruitFromHero(buyerHero, sellerHero, useValueAsRelation);
 
-#if BL13
+#if BL13 || BL14
         /// <summary>
         /// Delegates maximum index the garrison can recruit from a hero to the inner model.
         /// </summary>

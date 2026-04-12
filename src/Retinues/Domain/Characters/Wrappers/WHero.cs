@@ -201,7 +201,7 @@ namespace Retinues.Domain.Characters.Wrappers
             if (hero == null)
                 return;
 
-#if BL13
+#if BL13 || BL14
             hero.IsFemale = value;
 #else
             Reflection.SetPropertyValue(hero, "IsFemale", value);

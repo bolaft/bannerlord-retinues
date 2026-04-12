@@ -21,7 +21,7 @@ namespace Retinues.Interface.Services
             var data = UIResourceManager.SpriteData;
             var context = UIResourceManager.ResourceContext;
 
-#if BL13
+#if BL13 || BL14
             var depot = UIResourceManager.ResourceDepot;
 #else
             var depot = UIResourceManager.UIResourceDepot;

@@ -12,7 +12,7 @@ using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.Localization;
-#if BL13
+#if BL13 || BL14
 using TaleWorlds.Core.ImageIdentifiers;
 using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
 # endif
@@ -228,7 +228,7 @@ namespace Retinues.Domain.Characters.Wrappers
 
         public CharacterCode GetCharacterCode(bool civilian = false) =>
             CharacterCode.CreateFrom(
-# if BL13
+# if BL13 || BL14
                 Base,
                 civilian ? Base.FirstCivilianEquipment : Base.FirstBattleEquipment
 # else
@@ -238,7 +238,7 @@ namespace Retinues.Domain.Characters.Wrappers
 
         /* ━━━━━━━━━ Image ━━━━━━━━ */
 
-# if BL13
+# if BL13 || BL14
         public CharacterImageIdentifierVM GetImage(bool civilian = false) =>
 #else
         public ImageIdentifierVM GetImage(bool civilian = false) =>
@@ -248,7 +248,7 @@ namespace Retinues.Domain.Characters.Wrappers
         /* ━━━ Image Identifier ━━━ */
 
         public ImageIdentifier GetImageIdentifier(bool civilian = false) =>
-# if BL13
+# if BL13 || BL14
             new CharacterImageIdentifier(GetCharacterCode(civilian));
 #else
             new(GetCharacterCode(civilian));
@@ -258,7 +258,7 @@ namespace Retinues.Domain.Characters.Wrappers
         //                 Encyclopedia Visibility                //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-#if BL13
+#if BL13 || BL14
         MAttribute<bool> HiddenInEncyclopediaAttribute =>
             Attribute<bool>(nameof(CharacterObject.HiddenInEncyclopedia));
 #else

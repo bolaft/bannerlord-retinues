@@ -448,7 +448,7 @@ namespace Retinues.Domain.Equipments.Services.Random
                 case ItemObject.ItemTypeEnum.Pistol:
                 case ItemObject.ItemTypeEnum.Musket:
                     return ItemObject.ItemTypeEnum.Bullets;
-#if BL13
+#if BL13 || BL14
                 case ItemObject.ItemTypeEnum.Sling:
                     return ItemObject.ItemTypeEnum.SlingStones;
 #endif

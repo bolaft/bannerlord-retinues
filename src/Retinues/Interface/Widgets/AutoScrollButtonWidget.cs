@@ -239,7 +239,7 @@ namespace Retinues.Interface.Widgets
             if (IsHidden || !IsVisible)
                 return;
 
-#if BL13
+#if BL13 || BL14
             // BL13 supports per-side offsets via AutoScrollParameters.
             var p = new ScrollablePanel.AutoScrollParameters(
                 topOffset: AutoScrollTopOffset,

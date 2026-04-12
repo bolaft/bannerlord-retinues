@@ -9,7 +9,7 @@ using Retinues.Editor.MVC.Pages.Library.Services;
 using Retinues.Interface.Services;
 using TaleWorlds.Core;
 using TaleWorlds.Localization;
-#if BL13
+#if BL13 || BL14
 using TaleWorlds.Core.ImageIdentifiers;
 #endif
 

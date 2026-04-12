@@ -1,6 +1,6 @@
 using Retinues.Framework.Runtime;
 using TaleWorlds.Localization;
-#if BL13
+#if BL13 || BL14
 using System.Collections.Generic;
 using TaleWorlds.Core.ViewModelCollection.Information;
 using TooltipBase = TaleWorlds.Core.ViewModelCollection.Information.BasicTooltipViewModel;
@@ -20,7 +20,7 @@ namespace Retinues.Interface.Components
         /// Creates a tooltip with an optional title and message.
         /// </summary>
         public Tooltip(string title, string message)
-#if BL13
+#if BL13 || BL14
             : base(() => BuildProperties(title, message))
 #else
             : base(BuildHint(title, message))
@@ -70,7 +70,7 @@ namespace Retinues.Interface.Components
             return $"{title}\n{message}";
         }
 
-#if BL13
+#if BL13 || BL14
         /// <summary>
         /// BL13: builds the tooltip property list (title row + message row).
         /// </summary>

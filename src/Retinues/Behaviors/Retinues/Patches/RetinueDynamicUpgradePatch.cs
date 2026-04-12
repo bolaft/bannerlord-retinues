@@ -14,7 +14,7 @@ using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.CampaignSystem.ViewModelCollection.Party;
-#if BL13
+#if BL13 || BL14
 using UpgradeHintVM = TaleWorlds.Core.ViewModelCollection.Information.BasicTooltipViewModel;
 #else
 using UpgradeHintVM = TaleWorlds.Core.ViewModelCollection.Information.HintViewModel;

@@ -7,7 +7,7 @@ using Retinues.Framework.Model;
 using Retinues.Framework.Runtime;
 using Retinues.Settings;
 using TaleWorlds.Core;
-#if BL13
+#if BL13 || BL14
 using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
 #endif
 
@@ -53,7 +53,7 @@ namespace Retinues.Domain.Equipments.Wrappers
         //                          Image                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-#if BL13
+#if BL13 || BL14
         public ItemImageIdentifierVM Image => new(Base);
 #else
         public ImageIdentifierVM Image => new(Base);
@@ -163,7 +163,7 @@ namespace Retinues.Domain.Equipments.Wrappers
                     if (wc == WeaponClass.Boulder || wc == WeaponClass.Banner)
                         return false;
 
-#if BL13
+#if BL13 || BL14
                     if (wc == WeaponClass.BallistaBoulder || wc == WeaponClass.BallistaStone)
                         return false;
 #endif
@@ -239,7 +239,7 @@ namespace Retinues.Domain.Equipments.Wrappers
                     case ItemObject.ItemTypeEnum.Pistol:
                     case ItemObject.ItemTypeEnum.Musket:
                     case ItemObject.ItemTypeEnum.Bullets:
-#if BL13
+#if BL13 || BL14
                     case ItemObject.ItemTypeEnum.Sling:
                     case ItemObject.ItemTypeEnum.SlingStones:
 #endif

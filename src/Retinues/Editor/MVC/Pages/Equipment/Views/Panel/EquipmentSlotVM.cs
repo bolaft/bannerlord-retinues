@@ -91,7 +91,7 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.Panel
 
         [EventListener(UIEvent.Item)]
         [DataSourceProperty]
-# if BL13
+# if BL13 || BL14
         public object ImageTextureProviderName => Item?.Image.TextureProviderName;
 # else
         public object ImageTypeCode => Item?.Image.ImageTypeCode;

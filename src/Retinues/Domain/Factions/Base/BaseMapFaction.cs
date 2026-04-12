@@ -466,7 +466,7 @@ namespace Retinues.Domain.Factions.Base
         public bool IsMinorFaction => Base.IsMinorFaction;
         public bool IsKingdomFaction => Base.IsKingdomFaction;
         public float TotalStrength =>
-#if BL13
+#if BL13 || BL14
             Base.CurrentTotalStrength;
 #else
             Base.TotalStrength;

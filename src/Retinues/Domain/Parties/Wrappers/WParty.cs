@@ -175,7 +175,7 @@ namespace Retinues.Domain.Parties.Wrappers
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         public float Morale => Base.Morale;
-#if BL13
+#if BL13 || BL14
         public float Strength => Base.Party?.EstimatedStrength ?? 0f;
 #else
         public float Strength => Base.Party?.TotalStrength ?? 0f;

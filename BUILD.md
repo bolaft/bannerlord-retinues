@@ -9,7 +9,7 @@
 - Read access to your Bannerlord installation directory (e.g.  
   `C:\Program Files (x86)\Steam\steamapps\common\Mount & Blade II Bannerlord`).
 
-> Game assemblies target **.NET Framework 4.7.2**. You do not need to install that runtime; the project references the game's DLLs from `dll/12` or `dll/13`.
+> Game assemblies target **.NET Framework 4.7.2**. You do not need to install that runtime; the project references the game's DLLs from `dll/12`, `dll/13`, or `dll/14`.
 
 ---
 
@@ -51,10 +51,11 @@ Example `Retinues.Local.props` (optional; read by `build.sh` to determine game d
 ```
 dll/12/**   # BL 1.2 DLL set
 dll/13/**   # BL 1.3 DLL set
+dll/14/**   # BL 1.4 DLL set
 ```
 The build selects the appropriate set with `-v`/`--version` (default is 13).
 
-4) Place required third‑party DLLs into both `dll/12` and `dll/13` as needed by the module:
+4) Place required third‑party DLLs into `dll/12`, `dll/13`, and `dll/14` as needed by the module:
 - `0Harmony.dll`
 - `Bannerlord.UIExtenderEx.dll`
 
@@ -94,7 +95,7 @@ out/                                    # Build outputs (see notes below)
 The provided `build.sh` is a convenience wrapper that runs prefab generation, string compilation, `dotnet build`, deploy, and (optionally) release packaging via `build.py`.
 
 Common flags recognized by `build.sh`:
-- `-v, --version <12|13>` : Bannerlord version key (default: 13)
+- `-v, --version <12|13|14>` : Bannerlord version key (default: 13)
 - `-r, --release <N>`     : Build Release and override the last version segment with `<N>` (triggers packaging steps)
 - `--prefabs`             : Run only prefabs generation
 - `--no-prefabs`          : Skip prefabs generation

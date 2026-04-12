@@ -4,7 +4,7 @@ using Retinues.Domain.Factions.Helpers;
 using Retinues.Framework.Model;
 using TaleWorlds.Core;
 using TaleWorlds.ObjectSystem;
-#if BL13
+#if BL13 || BL14
 using TaleWorlds.Core.ImageIdentifiers;
 using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
 # endif
@@ -35,7 +35,7 @@ namespace Retinues.Domain.Factions.Base
         //                          Image                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-# if BL13
+# if BL13 || BL14
         public BannerImageIdentifierVM Image => BannerHelper.GetBannerImage(Banner);
         public ImageIdentifier ImageIdentifier => BannerHelper.GetImageIdentifier(Banner);
 #else

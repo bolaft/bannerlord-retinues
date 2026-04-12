@@ -151,7 +151,7 @@ namespace Retinues.Domain.Equipments.Models
         {
             Equipments = [];
 
-#if BL13
+#if BL13 || BL14
             Add(new MEquipment(new Equipment(Equipment.EquipmentType.Battle), owner));
             Add(new MEquipment(new Equipment(Equipment.EquipmentType.Civilian), owner));
 #else

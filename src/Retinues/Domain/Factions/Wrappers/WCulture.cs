@@ -19,7 +19,7 @@ namespace Retinues.Domain.Factions.Wrappers
         public override uint Color2 => Base.Color2;
 
         public override WHero Leader => null; // Cultures do not have leaders.
-#if BL13
+#if BL13 || BL14
         public override Banner Banner =>
             BannerHelper.GetOrFallbackBanner(Base.Banner, Troops.FirstOrDefault());
 #else
@@ -139,7 +139,7 @@ namespace Retinues.Domain.Factions.Wrappers
         public override WCharacter FemaleBeggar => WCharacter.Get(Base.FemaleBeggar);
         public override WCharacter FemaleDancer => WCharacter.Get(Base.FemaleDancer);
 
-#if BL13
+#if BL13 || BL14
         public override WCharacter Shipwright => WCharacter.Get(Base.Shipwright);
 #else
         public override WCharacter Shipwright => null;
