@@ -930,7 +930,7 @@ namespace Retinues.Settings
                 "mcm_option_weight_limit_hint",
                 "Whether to limit the total equipment weight (limits are tier-based)."
             ),
-            @default: true,
+            @default: false,
             fires: [UIEvent.Equipment]
         );
 
@@ -955,7 +955,7 @@ namespace Retinues.Settings
                 "mcm_option_equipment_value_limit_hint",
                 "Whether to limit the total equipment value (limits are tier-based)."
             ),
-            @default: true,
+            @default: false,
             fires: [UIEvent.Equipment]
         );
 
