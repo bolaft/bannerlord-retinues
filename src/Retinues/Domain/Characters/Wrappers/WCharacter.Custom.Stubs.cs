@@ -10,7 +10,7 @@ namespace Retinues.Domain.Characters.Wrappers
 
         public const string CustomTroopPrefix = "retinues_custom_";
 
-        MAttribute<bool> IsActiveStubAttribute => Attribute(false);
+        MAttribute<bool> IsActiveStubAttribute => Attribute(false, name: "IsActiveStubAttribute");
 
         /// <summary>
         /// Whether this WCharacter is currently allocated as an active stub for custom troop creation.

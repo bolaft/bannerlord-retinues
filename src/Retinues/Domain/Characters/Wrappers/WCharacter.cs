@@ -31,7 +31,8 @@ namespace Retinues.Domain.Characters.Wrappers
         //                          Name                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        MAttribute<TextObject> NameAttribute => Attribute<TextObject>("_basicName");
+        MAttribute<TextObject> NameAttribute =>
+            Attribute<TextObject>("_basicName", name: "NameAttribute");
 
         public virtual string Name
         {
@@ -60,7 +61,8 @@ namespace Retinues.Domain.Characters.Wrappers
 
         /* ━━━━━━━━━ Level ━━━━━━━━ */
 
-        MAttribute<int> LevelAttribute => Attribute<int>(nameof(CharacterObject.Level));
+        MAttribute<int> LevelAttribute =>
+            Attribute<int>(nameof(CharacterObject.Level), name: "LevelAttribute");
 
         public virtual int Level
         {
@@ -164,6 +166,24 @@ namespace Retinues.Domain.Characters.Wrappers
 
         public TroopSourceFlags SourceFlags => SourceFlagCache.Get(this);
 
+        /// <summary>
+        /// Invalidates all lazy caches derived from persisted troop-tree and faction data.
+        /// Must be called with Refresh = true so it also runs after MPersistenceBehavior.SyncData
+        /// restores upgrade-target and faction-root attributes.
+        ///
+        /// ORDERING CONTRACT - must be called in this order:
+        ///   1. CharacterTreeCache.MarkDirty()   - the tree is rebuilt from UpgradeTargets; the
+        ///      tree cache may have been built before persistence ran (early access during behavior
+        ///      registration), so it must be cleared here so that FactionCache.BuildLocked() obtains
+        ///      a fresh tree from the now-loaded UpgradeTargets.
+        ///   2. FactionCache.Invalidate()        - reads RosterBasic/Elite → RootBasic.Tree which
+        ///      queries CharacterTreeCache (must be dirty first).
+        ///   3. SourceFlagCache / TreeFlagCache  - derived from FactionCache output.
+        ///   4. ConversionCache                  - derived from SourceFlagCache.
+        ///
+        /// If any cache in step 2+ is invalidated BEFORE step 1, it will immediately rebuild
+        /// against the stale tree and bake the wrong troop set into its entries.
+        /// </summary>
         [StaticClearAction(Refresh = true)]
         public static void InvalidateTroopSourceCaches()
         {
@@ -214,7 +234,7 @@ namespace Retinues.Domain.Characters.Wrappers
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         MAttribute<CultureObject> CultureAttribute =>
-            Attribute(c => c.Culture, priority: AttributePriority.High);
+            Attribute(c => c.Culture, priority: AttributePriority.High, name: "CultureAttribute");
 
         public virtual WCulture Culture
         {
@@ -267,10 +287,16 @@ namespace Retinues.Domain.Characters.Wrappers
 
 #if BL13 || BL14
         MAttribute<bool> HiddenInEncyclopediaAttribute =>
-            Attribute<bool>(nameof(CharacterObject.HiddenInEncyclopedia));
+            Attribute<bool>(
+                nameof(CharacterObject.HiddenInEncyclopedia),
+                name: "HiddenInEncyclopediaAttribute"
+            );
 #else
         MAttribute<bool> HiddenInEncyclopediaAttribute =>
-            Attribute<bool>(nameof(CharacterObject.HiddenInEncylopedia)); // Typo in BL12
+            Attribute<bool>(
+                nameof(CharacterObject.HiddenInEncylopedia),
+                name: "HiddenInEncyclopediaAttribute"
+            ); // Typo in BL12
 #endif
 
         public bool HiddenInEncyclopedia
@@ -286,7 +312,8 @@ namespace Retinues.Domain.Characters.Wrappers
         MAttribute<bool> IsMarinerAttribute =>
             Attribute(
                 getter: _ => NavalTraitHelper.GetMarinerLevel(Base) > 0,
-                setter: (_, value) => NavalTraitHelper.SetMarinerLevel(Base, value ? 1 : 0)
+                setter: (_, value) => NavalTraitHelper.SetMarinerLevel(Base, value ? 1 : 0),
+                name: "IsMarinerAttribute"
             );
 
         public bool IsMariner
@@ -299,7 +326,7 @@ namespace Retinues.Domain.Characters.Wrappers
         //                    Mixed Gender Flag                   //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        MAttribute<bool> IsMixedGenderAttribute => Attribute(false);
+        MAttribute<bool> IsMixedGenderAttribute => Attribute(false, name: "IsMixedGenderAttribute");
 
         public bool IsMixedGender
         {

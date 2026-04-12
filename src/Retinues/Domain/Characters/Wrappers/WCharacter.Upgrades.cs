@@ -60,7 +60,8 @@ namespace Retinues.Domain.Characters.Wrappers
                     TryApplyUpgradeTargetIds();
 
                     CharacterTreeCache.MarkDirty();
-                }
+                },
+                name: "UpgradeTargetsAttribute"
             );
 
         /// <summary>

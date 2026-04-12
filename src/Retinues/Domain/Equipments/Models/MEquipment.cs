@@ -130,7 +130,8 @@ namespace Retinues.Domain.Equipments.Models
                     }
 
                     owner.OnEquipmentChange();
-                }
+                },
+                name: "CodeAttribute"
             );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -156,7 +157,8 @@ namespace Retinues.Domain.Equipments.Models
                 setter: (_, isCivilian) =>
                     EquipmentType = isCivilian
                         ? Equipment.EquipmentType.Civilian
-                        : Equipment.EquipmentType.Battle
+                        : Equipment.EquipmentType.Battle,
+                name: "IsCivilianAttribute"
             );
 
         public bool IsCivilian
@@ -169,7 +171,8 @@ namespace Retinues.Domain.Equipments.Models
         //                      Battle Types                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        MAttribute<bool> FieldBattleSetAttribute => Attribute(initialValue: true);
+        MAttribute<bool> FieldBattleSetAttribute =>
+            Attribute(initialValue: true, name: "FieldBattleSetAttribute");
 
         public bool FieldBattleSet
         {
@@ -183,7 +186,8 @@ namespace Retinues.Domain.Equipments.Models
             }
         }
 
-        MAttribute<bool> SiegeBattleSetAttribute => Attribute(initialValue: true);
+        MAttribute<bool> SiegeBattleSetAttribute =>
+            Attribute(initialValue: true, name: "SiegeBattleSetAttribute");
 
         public bool SiegeBattleSet
         {
@@ -197,7 +201,8 @@ namespace Retinues.Domain.Equipments.Models
             }
         }
 
-        MAttribute<bool> NavalBattleSetAttribute => Attribute(initialValue: true);
+        MAttribute<bool> NavalBattleSetAttribute =>
+            Attribute(initialValue: true, name: "NavalBattleSetAttribute");
 
         public bool NavalBattleSet
         {

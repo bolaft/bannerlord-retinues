@@ -70,7 +70,7 @@ namespace Retinues.Domain.Characters.Wrappers
         /// <summary>
         /// Builds conversion sources for the given retinue and updates requirements.
         /// The custom upgrade tree (UpgradeTargets) is user-managed and must not be
-        /// overwritten here — doing so corrupts persistence and breaks the editor tree.
+        /// overwritten here - doing so corrupts persistence and breaks the editor tree.
         /// </summary>
         private static List<WCharacter> BuildConversionLinks(WCharacter wc)
         {

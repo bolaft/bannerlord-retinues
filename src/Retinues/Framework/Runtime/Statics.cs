@@ -13,6 +13,17 @@ namespace Retinues.Framework.Runtime
     /// If Refresh is true, the action will also run again:
     /// - after a save is fully loaded (CampaignEvents.OnGameLoadedEvent)
     /// - after character creation ends (CampaignEvents.OnCharacterCreationIsOverEvent)
+    ///
+    /// CONTRACT FOR Refresh = true methods:
+    /// - They run AFTER MPersistenceBehavior.SyncData has applied all saved attribute data.
+    /// - They must invalidate every lazy cache whose value depends on persisted wrapper attributes.
+    /// - Cache invalidation order matters: lower-level caches (e.g. CharacterTreeCache) must be
+    ///   invalidated before higher-level caches that read from them (e.g. FactionCache → RosterBasic
+    ///   → CharacterTreeCache). Failure to invalidate in dependency order causes stale data to be
+    ///   re-baked into higher-level caches before the underlying data is refreshed.
+    /// - The SubModule must reset _campaignRefreshHooksRegistered = false at the start of every
+    ///   OnGameStart so that the CampaignEvents listener is re-registered for each new session.
+    ///   CampaignEvents is per-session; listeners registered in a previous session are gone.
     /// </summary>
     [AttributeUsage(AttributeTargets.Method, Inherited = false, AllowMultiple = false)]
     public sealed class StaticClearActionAttribute : Attribute
@@ -28,8 +39,13 @@ namespace Retinues.Framework.Runtime
         public string Name { get; set; } = null;
 
         /// <summary>
-        /// If true, this clear action will also run on "refresh" points such as
-        /// after game load and after character creation.
+        /// If true, this clear action will also run on "refresh" points (after game load and
+        /// after character creation), in addition to the initial session-start clear.
+        ///
+        /// Use Refresh = true for any cache that depends on persisted wrapper attributes, so that
+        /// the cache is rebuilt after MPersistenceBehavior finishes restoring attribute values.
+        /// The listener is registered via SubModule.RegisterCampaignStaticRefreshHooks() —
+        /// see that method and the OnGameStart hook for the full lifecycle.
         /// </summary>
         public bool Refresh { get; set; } = false;
     }

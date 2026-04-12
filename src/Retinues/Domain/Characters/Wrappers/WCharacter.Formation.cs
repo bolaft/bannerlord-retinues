@@ -15,7 +15,7 @@ namespace Retinues.Domain.Characters.Wrappers
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         MAttribute<FormationClass> FormationClassOverrideAttribute =>
-            Attribute(initialValue: FormationClass.Unset);
+            Attribute(initialValue: FormationClass.Unset, name: "FormationClassOverrideAttribute");
 
         /// <summary>
         /// Optional override for the formation class; setting it updates derived flags.
@@ -31,7 +31,10 @@ namespace Retinues.Domain.Characters.Wrappers
         }
 
         MAttribute<FormationClass> FormationClassAttribute =>
-            Attribute<FormationClass>(nameof(CharacterObject.DefaultFormationClass));
+            Attribute<FormationClass>(
+                nameof(CharacterObject.DefaultFormationClass),
+                name: "FormationClassAttribute"
+            );
 
         /// <summary>
         /// The character's effective formation class (Infantry/Ranged/Cavalry/etc.).
@@ -43,7 +46,10 @@ namespace Retinues.Domain.Characters.Wrappers
         }
 
         MAttribute<int> FormationGroupAttribute =>
-            Attribute<int>(nameof(CharacterObject.DefaultFormationGroup));
+            Attribute<int>(
+                nameof(CharacterObject.DefaultFormationGroup),
+                name: "FormationGroupAttribute"
+            );
 
         /// <summary>
         /// The formation group index used for formation placement.
@@ -54,7 +60,8 @@ namespace Retinues.Domain.Characters.Wrappers
             set => NonVariantBase().FormationGroupAttribute.Set(value);
         }
 
-        MAttribute<bool> IsRangedAttribute => Attribute<bool>(nameof(CharacterObject.IsRanged));
+        MAttribute<bool> IsRangedAttribute =>
+            Attribute<bool>(nameof(CharacterObject.IsRanged), name: "IsRangedAttribute");
 
         /// <summary>
         /// True if the character is considered ranged for queries and behavior.
@@ -65,7 +72,8 @@ namespace Retinues.Domain.Characters.Wrappers
             set => NonVariantBase().IsRangedAttribute.Set(value);
         }
 
-        MAttribute<bool> IsMountedAttribute => Attribute<bool>(nameof(CharacterObject.IsMounted));
+        MAttribute<bool> IsMountedAttribute =>
+            Attribute<bool>(nameof(CharacterObject.IsMounted), name: "IsMountedAttribute");
 
         /// <summary>
         /// True if the character is considered mounted for queries and behavior.

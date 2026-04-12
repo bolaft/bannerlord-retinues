@@ -12,7 +12,7 @@ namespace Retinues.Domain.Equipments.Wrappers
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         MAttribute<Dictionary<string, int>> StockByHeroAttribute =>
-            Attribute<Dictionary<string, int>>(initialValue: []);
+            Attribute<Dictionary<string, int>>(initialValue: [], name: "StockByHeroAttribute");
 
         public int Stock
         {

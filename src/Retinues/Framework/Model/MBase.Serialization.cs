@@ -228,6 +228,10 @@ namespace Retinues.Framework.Model
 
             entries.Sort((a, b) => b.Priority.CompareTo(a.Priority));
 
+#if DEBUG
+            ValidatePriorityOrdering(entries);
+#endif
+
             foreach (var (Name, AttrObj, Priority, Mi, El) in entries)
             {
                 try
@@ -240,6 +244,61 @@ namespace Retinues.Framework.Model
                 }
             }
         }
+
+#if DEBUG
+        /// <summary>
+        /// Checks for attributes that share a priority but depend on each other,
+        /// which would mean deserialization order is undefined between them.
+        /// </summary>
+        static void ValidatePriorityOrdering(
+            List<(string Name, object AttrObj, int Priority, MethodInfo Mi, XElement El)> entries
+        )
+        {
+            for (int i = 0; i < entries.Count; i++)
+            {
+                for (int j = i + 1; j < entries.Count; j++)
+                {
+                    if (entries[i].Priority != entries[j].Priority)
+                        break; // Sorted descending; no more same-priority pairs from this i
+
+                    bool iDependsOnJ = IsDirectDependent(entries[j].AttrObj, entries[i].AttrObj);
+                    bool jDependsOnI = IsDirectDependent(entries[i].AttrObj, entries[j].AttrObj);
+
+                    if (iDependsOnJ || jDependsOnI)
+                    {
+                        Log.Warning(
+                            $"[PriorityAudit] Attributes '{entries[i].Name}' and '{entries[j].Name}' "
+                                + $"share priority {entries[i].Priority} but have a dependency relationship. "
+                                + "Set different AttributePriority values to guarantee deserialization ordering."
+                        );
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Returns true if <paramref name="target"/> has <paramref name="candidate"/> in its _dependents list,
+        /// meaning candidate was declared with dependsOn referencing target.
+        /// </summary>
+        static bool IsDirectDependent(object target, object candidate)
+        {
+            if (target == null || candidate == null)
+                return false;
+
+            var field = target
+                .GetType()
+                .GetField("_dependents", BindingFlags.NonPublic | BindingFlags.Instance);
+
+            if (field?.GetValue(target) is not System.Collections.IEnumerable deps)
+                return false;
+
+            foreach (var dep in deps)
+                if (ReferenceEquals(dep, candidate))
+                    return true;
+
+            return false;
+        }
+#endif
 
         /// <summary>
         /// Gets the priority of the given attribute object.

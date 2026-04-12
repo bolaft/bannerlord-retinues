@@ -16,22 +16,26 @@ namespace Retinues.Domain.Characters.Wrappers
 
         /* ━━━━━━ Won / Lost ━━━━━━ */
 
-        MAttribute<int> HistoryBattlesWon => Attribute(initialValue: 0);
-        MAttribute<int> HistoryBattlesLost => Attribute(initialValue: 0);
+        MAttribute<int> HistoryBattlesWon => Attribute(initialValue: 0, name: "HistoryBattlesWon");
+        MAttribute<int> HistoryBattlesLost =>
+            Attribute(initialValue: 0, name: "HistoryBattlesLost");
 
         /* ━━━━━ Battle Types ━━━━━ */
 
-        MAttribute<int> HistoryFieldBattles => Attribute(initialValue: 0);
-        MAttribute<int> HistorySiegeBattles => Attribute(initialValue: 0);
-        MAttribute<int> HistoryNavalBattles => Attribute(initialValue: 0);
-        MAttribute<int> HistoryRaids => Attribute(initialValue: 0);
+        MAttribute<int> HistoryFieldBattles =>
+            Attribute(initialValue: 0, name: "HistoryFieldBattles");
+        MAttribute<int> HistorySiegeBattles =>
+            Attribute(initialValue: 0, name: "HistorySiegeBattles");
+        MAttribute<int> HistoryNavalBattles =>
+            Attribute(initialValue: 0, name: "HistoryNavalBattles");
+        MAttribute<int> HistoryRaids => Attribute(initialValue: 0, name: "HistoryRaids");
 
         /* ━━━━ Kills / Deaths ━━━━ */
 
         MAttribute<Dictionary<string, int>> HistoryKills =>
-            Attribute(initialValue: new Dictionary<string, int>());
+            Attribute(initialValue: new Dictionary<string, int>(), name: "HistoryKills");
         MAttribute<Dictionary<string, int>> HistoryCasualties =>
-            Attribute(initialValue: new Dictionary<string, int>());
+            Attribute(initialValue: new Dictionary<string, int>(), name: "HistoryCasualties");
 
         /// <summary>
         /// Gets the battle history for this character.

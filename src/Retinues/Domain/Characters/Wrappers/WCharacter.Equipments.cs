@@ -82,7 +82,8 @@ namespace Retinues.Domain.Characters.Wrappers
             Attribute(
                 getter: _ => SerializeEquipments(),
                 setter: (_, data) => ApplySerializedEquipments(data),
-                priority: AttributePriority.Low
+                priority: AttributePriority.Low,
+                name: "EquipmentsSerializedAttribute"
             );
 
         private UpgradeItemRequirementKey _lastFirstBattleMountKey;

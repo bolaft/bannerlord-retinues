@@ -12,7 +12,8 @@ namespace Retinues.Domain.Characters.Wrappers
 
         /* ━━━━━━━━ Gender ━━━━━━━━ */
 
-        MAttribute<bool> IsFemaleAttribute => Attribute<bool>(nameof(CharacterObject.IsFemale));
+        MAttribute<bool> IsFemaleAttribute =>
+            Attribute<bool>(nameof(CharacterObject.IsFemale), name: "IsFemaleAttribute");
 
         public virtual bool IsFemale
         {
@@ -37,7 +38,8 @@ namespace Retinues.Domain.Characters.Wrappers
 
         /* ━━━━━━━━━ Race ━━━━━━━━━ */
 
-        MAttribute<int> RaceAttribute => Attribute<int>(nameof(CharacterObject.Race));
+        MAttribute<int> RaceAttribute =>
+            Attribute<int>(nameof(CharacterObject.Race), name: "RaceAttribute");
 
         public int Race
         {
@@ -47,7 +49,8 @@ namespace Retinues.Domain.Characters.Wrappers
 
         /* ━━━━━━━━━━ Age ━━━━━━━━━ */
 
-        MAttribute<float> AgeAttribute => Attribute<float>(nameof(CharacterObject.Age));
+        MAttribute<float> AgeAttribute =>
+            Attribute<float>(nameof(CharacterObject.Age), name: "AgeAttribute");
 
         public float Age
         {
@@ -208,7 +211,8 @@ namespace Retinues.Domain.Characters.Wrappers
         MAttribute<string> HairTagsAttribute =>
             Attribute(
                 getter: _ => Base.BodyPropertyRange.HairTags,
-                setter: (_, value) => BodyHelper.SetHairTags(this, value)
+                setter: (_, value) => BodyHelper.SetHairTags(this, value),
+                name: "HairTagsAttribute"
             );
 
         public string HairTags
@@ -222,7 +226,8 @@ namespace Retinues.Domain.Characters.Wrappers
         MAttribute<string> BeardTagsAttribute =>
             Attribute(
                 getter: (_) => Base.BodyPropertyRange.BeardTags,
-                setter: (_, value) => BodyHelper.SetBeardTags(this, value)
+                setter: (_, value) => BodyHelper.SetBeardTags(this, value),
+                name: "BeardTagsAttribute"
             );
 
         public string BeardTags
@@ -236,7 +241,8 @@ namespace Retinues.Domain.Characters.Wrappers
         MAttribute<string> TattooTagsAttribute =>
             Attribute(
                 getter: _ => Base.BodyPropertyRange.TattooTags,
-                setter: (_, value) => BodyHelper.SetTattooTags(this, value)
+                setter: (_, value) => BodyHelper.SetTattooTags(this, value),
+                name: "TattooTagsAttribute"
             );
 
         public string TattooTags
@@ -287,7 +293,8 @@ namespace Retinues.Domain.Characters.Wrappers
                     nameof(IsFemaleAttribute),
                     nameof(RaceAttribute),
                     nameof(AgeAttribute),
-                ]
+                ],
+                name: "BodySerializedAttribute"
             );
 
         /// <summary>

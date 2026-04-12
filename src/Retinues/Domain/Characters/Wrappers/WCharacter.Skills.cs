@@ -16,7 +16,8 @@ namespace Retinues.Domain.Characters.Wrappers
         //                      Skill Points                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        MAttribute<int> SkillPointsAttribute => Attribute(initialValue: 0);
+        MAttribute<int> SkillPointsAttribute =>
+            Attribute(initialValue: 0, name: "SkillPointsAttribute");
 
         public int SkillPoints
         {
@@ -24,7 +25,8 @@ namespace Retinues.Domain.Characters.Wrappers
             set => NonVariantBase().SkillPointsAttribute.Set(value);
         }
 
-        MAttribute<int> SkillPointsExperienceAttribute => Attribute(initialValue: 0);
+        MAttribute<int> SkillPointsExperienceAttribute =>
+            Attribute(initialValue: 0, name: "SkillPointsExperienceAttribute");
 
         /// <summary>
         /// Experience accumulated toward the next skill point for this unit.

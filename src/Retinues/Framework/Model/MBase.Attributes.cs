@@ -129,6 +129,11 @@ namespace Retinues.Framework.Model
         /// <summary>
         /// Gets or creates an attribute that targets a field/property on the underlying base instance.
         /// </summary>
+        /// <param name="name">
+        /// Persistence key for this attribute. Defaults to the declaring property name via
+        /// [CallerMemberName]. ALWAYS provide an explicit string literal to prevent save-file
+        /// corruption if the property is renamed in a future refactor.
+        /// </param>
         protected MAttribute<T> Attribute<T>(
             string targetName,
             bool persistent = true,
@@ -152,6 +157,11 @@ namespace Retinues.Framework.Model
         /// Gets or creates an attribute that gets/sets the value of a field or property
         /// on the underlying base instance, using the given expression to identify the member.
         /// </summary>
+        /// <param name="name">
+        /// Persistence key for this attribute. Defaults to the declaring property name via
+        /// [CallerMemberName]. ALWAYS provide an explicit string literal to prevent save-file
+        /// corruption if the property is renamed in a future refactor.
+        /// </param>
         protected MAttribute<TProp> Attribute<TProp>(
             Expression<Func<TBase, TProp>> expr,
             bool persistent = true,
@@ -212,6 +222,11 @@ namespace Retinues.Framework.Model
         /// Gets or creates an attribute that gets/sets the value of a field or property
         /// on the underlying base instance, using the given delegates.
         /// </summary>
+        /// <param name="name">
+        /// Persistence key for this attribute. Defaults to the declaring property name via
+        /// [CallerMemberName]. ALWAYS provide an explicit string literal to prevent save-file
+        /// corruption if the property is renamed in a future refactor.
+        /// </param>
         protected MAttribute<T> Attribute<T>(
             Func<object, T> getter,
             Action<object, T> setter,
@@ -235,6 +250,11 @@ namespace Retinues.Framework.Model
         /// <summary>
         /// Creates a stored attribute that lives inside the wrapper.
         /// </summary>
+        /// <param name="name">
+        /// Persistence key for this attribute. Defaults to the declaring property name via
+        /// [CallerMemberName]. ALWAYS provide an explicit string literal to prevent save-file
+        /// corruption if the property is renamed in a future refactor.
+        /// </param>
         protected MAttribute<T> Attribute<T>(
             T initialValue = default,
             bool persistent = true,

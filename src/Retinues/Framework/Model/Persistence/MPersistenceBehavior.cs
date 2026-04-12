@@ -307,12 +307,8 @@ namespace Retinues.Framework.Model.Persistence
                 }
             }
 
-            var asm = typeof(MPersistenceBehavior).Assembly;
-            foreach (var t in asm.GetTypes())
+            foreach (var t in WrapperByBaseFullName.Values)
             {
-                if (!WrapperReflection.IsConcreteWrapperType(t))
-                    continue;
-
                 foreach (var inst in EnumerateInstances(t))
                 {
                     var uid = WrapperReflection.TryGetUniqueId(inst);

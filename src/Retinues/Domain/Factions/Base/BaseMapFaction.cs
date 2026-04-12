@@ -119,39 +119,48 @@ namespace Retinues.Domain.Factions.Base
         /* ━━━ Stored Attributes ━━ */
 
         protected MAttribute<WCharacter> CustomRootBasicAttribute =>
-            Attribute<WCharacter>(initialValue: null);
+            Attribute<WCharacter>(initialValue: null, name: "CustomRootBasicAttribute");
         protected MAttribute<WCharacter> CustomRootEliteAttribute =>
-            Attribute<WCharacter>(initialValue: null);
+            Attribute<WCharacter>(initialValue: null, name: "CustomRootEliteAttribute");
         protected MAttribute<List<WCharacter>> RetinueTroopsAttribute =>
-            Attribute<List<WCharacter>>([]);
+            Attribute<List<WCharacter>>([], name: "RetinueTroopsAttribute");
 
         protected MAttribute<WCharacter> CustomVillagerAttribute =>
-            Attribute<WCharacter>(initialValue: null);
+            Attribute<WCharacter>(initialValue: null, name: "CustomVillagerAttribute");
 
         protected MAttribute<WCharacter> CustomCaravanMasterAttribute =>
-            Attribute<WCharacter>(initialValue: null);
+            Attribute<WCharacter>(initialValue: null, name: "CustomCaravanMasterAttribute");
         protected MAttribute<WCharacter> CustomCaravanGuardAttribute =>
-            Attribute<WCharacter>(initialValue: null);
+            Attribute<WCharacter>(initialValue: null, name: "CustomCaravanGuardAttribute");
         protected MAttribute<WCharacter> CustomArmedTraderAttribute =>
-            Attribute<WCharacter>(initialValue: null);
+            Attribute<WCharacter>(initialValue: null, name: "CustomArmedTraderAttribute");
 
         protected MAttribute<WCharacter> CustomMeleeMilitiaTroopAttribute =>
-            Attribute<WCharacter>(initialValue: null);
+            Attribute<WCharacter>(initialValue: null, name: "CustomMeleeMilitiaTroopAttribute");
         protected MAttribute<WCharacter> CustomMeleeEliteMilitiaTroopAttribute =>
-            Attribute<WCharacter>(initialValue: null);
+            Attribute<WCharacter>(
+                initialValue: null,
+                name: "CustomMeleeEliteMilitiaTroopAttribute"
+            );
         protected MAttribute<WCharacter> CustomRangedMilitiaTroopAttribute =>
-            Attribute<WCharacter>(initialValue: null);
+            Attribute<WCharacter>(initialValue: null, name: "CustomRangedMilitiaTroopAttribute");
         protected MAttribute<WCharacter> CustomRangedEliteMilitiaTroopAttribute =>
-            Attribute<WCharacter>(initialValue: null);
+            Attribute<WCharacter>(
+                initialValue: null,
+                name: "CustomRangedEliteMilitiaTroopAttribute"
+            );
 
         protected MAttribute<WCharacter> CustomMilitiaArcherAttribute =>
-            Attribute<WCharacter>(initialValue: null);
+            Attribute<WCharacter>(initialValue: null, name: "CustomMilitiaArcherAttribute");
         protected MAttribute<WCharacter> CustomMilitiaSpearmanAttribute =>
-            Attribute<WCharacter>(initialValue: null);
+            Attribute<WCharacter>(initialValue: null, name: "CustomMilitiaSpearmanAttribute");
         protected MAttribute<WCharacter> CustomMilitiaVeteranSpearmanAttribute =>
-            Attribute<WCharacter>(initialValue: null);
+            Attribute<WCharacter>(
+                initialValue: null,
+                name: "CustomMilitiaVeteranSpearmanAttribute"
+            );
         protected MAttribute<WCharacter> CustomMilitiaVeteranArcherAttribute =>
-            Attribute<WCharacter>(initialValue: null);
+            Attribute<WCharacter>(initialValue: null, name: "CustomMilitiaVeteranArcherAttribute");
 
         /* ━━━━━━━━━ Roots ━━━━━━━━ */
 

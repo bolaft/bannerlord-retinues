@@ -14,7 +14,8 @@ namespace Retinues.Domain.Characters.Wrappers
         //                         Captain                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        MAttribute<bool> IsCaptainAttribute => Attribute(initialValue: false);
+        MAttribute<bool> IsCaptainAttribute =>
+            Attribute(initialValue: false, name: "IsCaptainAttribute");
 
         /// <summary>
         /// True if this character is a captain variant.
@@ -25,7 +26,8 @@ namespace Retinues.Domain.Characters.Wrappers
             set => IsCaptainAttribute.Set(value);
         }
 
-        MAttribute<bool> IsCaptainEnabledAttribute => Attribute(initialValue: false);
+        MAttribute<bool> IsCaptainEnabledAttribute =>
+            Attribute(initialValue: false, name: "IsCaptainEnabledAttribute");
 
         /// <summary>
         /// Whether the captain variant is enabled for recruitment/conversion.
@@ -36,7 +38,8 @@ namespace Retinues.Domain.Characters.Wrappers
             set => IsCaptainEnabledAttribute.Set(value);
         }
 
-        MAttribute<string> CaptainIdAttribute => Attribute<string>(initialValue: null);
+        MAttribute<string> CaptainIdAttribute =>
+            Attribute<string>(initialValue: null, name: "CaptainIdAttribute");
 
         /// <summary>
         /// The captain variant of this unit, if one exists.
@@ -56,7 +59,8 @@ namespace Retinues.Domain.Characters.Wrappers
         /// </summary>
         public bool HasCaptain => Captain != null;
 
-        MAttribute<string> CaptainBaseIdAttribute => Attribute<string>(initialValue: null);
+        MAttribute<string> CaptainBaseIdAttribute =>
+            Attribute<string>(initialValue: null, name: "CaptainBaseIdAttribute");
 
         /// <summary>
         /// For captain variants, the base unit they were cloned from.

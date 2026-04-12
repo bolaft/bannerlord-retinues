@@ -25,7 +25,7 @@ namespace Retinues.Domain.Equipments.Models
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         MAttribute<MBList<Equipment>> EquipmentsAttribute =>
-            Attribute<MBList<Equipment>>("_equipments");
+            Attribute<MBList<Equipment>>("_equipments", name: "EquipmentsAttribute");
 
         private List<MEquipment> _equipmentsCache;
 

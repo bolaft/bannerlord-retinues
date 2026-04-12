@@ -19,7 +19,10 @@ namespace Retinues.Domain.Equipments.Wrappers
         public const int UnlockThreshold = 1000;
 
         MAttribute<Dictionary<string, int>> UnlockProgressByHeroAttribute =>
-            Attribute<Dictionary<string, int>>(initialValue: []);
+            Attribute<Dictionary<string, int>>(
+                initialValue: [],
+                name: "UnlockProgressByHeroAttribute"
+            );
 
         public bool IsUnlocked => IsUnlockedFor(Player.Hero);
 
