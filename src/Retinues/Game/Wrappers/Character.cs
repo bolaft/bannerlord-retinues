@@ -1243,6 +1243,11 @@ namespace Retinues.Game.Wrappers
             private static FieldInfo _characterTraitsField;
             private static MethodInfo _setPropertyValueMethod;
 
+            // CharacterObject.IsMariner is a separate auto-property used by the
+            // encyclopedia / UI (CampaignUIHelper.GetCharacterTypeData reads it).
+            // It only gets synced during Deserialize, so we must update it manually.
+            private static PropertyInfo _isMarinerProperty;
+
             // ── Trait lookup ──────────────────────────────────────
 
             private static TraitObject TryGetNavalSoldierTrait()
@@ -1274,6 +1279,7 @@ namespace Retinues.Game.Wrappers
                 _navalSoldierTrait = null;
                 _characterTraitsField = null;
                 _setPropertyValueMethod = null;
+                _isMarinerProperty = null;
             }
 
             // ── Public API used by WCharacter ─────────────────────
@@ -1346,6 +1352,15 @@ namespace Retinues.Game.Wrappers
                         );
 
                     _setPropertyValueMethod?.Invoke(owner, [navalTrait, level]);
+
+                    // Also update the IsMariner auto-property so the encyclopedia
+                    // and other UI that read character.IsMariner directly see the
+                    // correct value (CampaignUIHelper.GetCharacterTypeData does this).
+                    _isMarinerProperty ??= typeof(CharacterObject).GetProperty(
+                        "IsMariner",
+                        BindingFlags.Instance | BindingFlags.Public
+                    );
+                    _isMarinerProperty?.SetValue(co, level > 0);
                 }
                 catch
                 {
