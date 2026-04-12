@@ -3,6 +3,7 @@ using Retinues.Behaviors.Unlocks;
 using Retinues.Domain;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Equipments.Wrappers;
+using Retinues.Domain.Factions;
 using Retinues.Domain.Factions.Base;
 using Retinues.Domain.Factions.Wrappers;
 using Retinues.Settings;
@@ -72,12 +73,55 @@ namespace Retinues.Behaviors.Troops
         }
 
         /// <summary>
+        /// Initializes custom troops for a clan by cloning from culture roots (the standard path).
+        /// Suppresses the unlock popup since this is triggered on demand from the editor.
+        /// </summary>
+        public static void InitializeClanTroopsFromCultureRoots(WClan clan)
+        {
+            if (clan?.Base == null)
+                return;
+
+            UnlockFactionTroops(
+                clan,
+                label: "companion clan",
+                fromBootstrap: false,
+                suppressPopup: true
+            );
+        }
+
+        /// <summary>
+        /// Initializes custom troops for a clan by cloning from an existing faction's roots.
+        /// Falls back to culture roots if the source has no custom troops.
+        /// Suppresses the unlock popup since this is triggered on demand from the editor.
+        /// </summary>
+        public static void InitializeClanTroopsFromSource(WClan clan, IBaseFaction source)
+        {
+            if (clan?.Base == null)
+                return;
+
+            var basicOverride = source?.RootBasic;
+            var eliteOverride = source?.RootElite;
+
+            UnlockFactionTroops(
+                clan,
+                label: "companion clan",
+                fromBootstrap: false,
+                basicOverride: basicOverride,
+                eliteOverride: eliteOverride,
+                suppressPopup: true
+            );
+        }
+
+        /// <summary>
         /// Performs the actual unlocking and registration of faction troop roots, showing popups as needed.
         /// </summary>
         private static void UnlockFactionTroops<TWrapper, TFaction>(
             BaseMapFaction<TWrapper, TFaction> faction,
             string label,
-            bool fromBootstrap
+            bool fromBootstrap,
+            WCharacter basicOverride = null,
+            WCharacter eliteOverride = null,
+            bool suppressPopup = false
         )
             where TWrapper : BaseMapFaction<TWrapper, TFaction>
             where TFaction : MBObjectBase, IFaction
@@ -99,15 +143,16 @@ namespace Retinues.Behaviors.Troops
 
             if (faction.RootBasic == null)
             {
+                var basicTemplate = basicOverride ?? culture.RootBasic;
                 Log.Info(
                     $"Creating faction basic troops for '{faction.Name}' from culture '{culture.Name}'."
                 );
                 Log.Info(
-                    $"Template basic troop: '{culture.RootBasic?.Name ?? "null"}' ({culture.RootBasic?.StringId ?? "null"})"
+                    $"Template basic troop: '{basicTemplate?.Name ?? "null"}' ({basicTemplate?.StringId ?? "null"})"
                 );
 
                 createdBasic = CreateFromCultureRoot(
-                    template: culture.RootBasic,
+                    template: basicTemplate,
                     factionName: faction.Name,
                     culture: culture,
                     unlockSink: unlockSink
@@ -122,15 +167,16 @@ namespace Retinues.Behaviors.Troops
 
             if (faction.RootElite == null)
             {
+                var eliteTemplate = eliteOverride ?? culture.RootElite;
                 Log.Info(
                     $"Creating faction elite troops for '{faction.Name}' from culture '{culture.Name}'."
                 );
                 Log.Info(
-                    $"Template elite troop: '{culture.RootElite?.Name ?? "null"}' ({culture.RootElite?.StringId ?? "null"})"
+                    $"Template elite troop: '{eliteTemplate?.Name ?? "null"}' ({eliteTemplate?.StringId ?? "null"})"
                 );
 
                 createdElite = CreateFromCultureRoot(
-                    template: culture.RootElite,
+                    template: eliteTemplate,
                     factionName: faction.Name,
                     culture: culture,
                     unlockSink: unlockSink
@@ -160,8 +206,8 @@ namespace Retinues.Behaviors.Troops
                 );
             }
 
-            // Popup only for event-driven unlocks (not bootstrap).
-            if (fromBootstrap)
+            // Popup only for event-driven unlocks (not bootstrap or editor-initiated).
+            if (fromBootstrap || suppressPopup)
                 return;
 
             // Show representative troop in popup.

@@ -214,9 +214,37 @@ namespace Retinues.Editor.MVC.Common.Column.Views
                 var faction = State.Faction;
                 if (faction != null)
                 {
-                    // Armor colors
-                    vm.ArmorColor1 = faction.Color;
-                    vm.ArmorColor2 = faction.Color2;
+                    // Armor colors — fall back to culture colors when the clan has none
+                    // (e.g. companion clans created by vanilla which leave Color/Color2 at 0).
+                    var color1 = faction.Color;
+                    var color2 = faction.Color2;
+
+                    if (
+                        (color1 == 0 || color2 == 0)
+                        && faction is Retinues.Domain.Factions.Wrappers.WClan wClan
+                    )
+                    {
+                        var kingdomBase = wClan.Kingdom?.Base;
+                        var cultureBase = wClan.Culture?.Base;
+
+                        if (color1 == 0)
+                            color1 =
+                                (
+                                    kingdomBase?.Color is uint kc1 && kc1 != 0
+                                        ? kc1
+                                        : cultureBase?.Color
+                                ) ?? 0;
+                        if (color2 == 0)
+                            color2 =
+                                (
+                                    kingdomBase?.Color2 is uint kc2 && kc2 != 0
+                                        ? kc2
+                                        : cultureBase?.Color2
+                                ) ?? 0;
+                    }
+
+                    vm.ArmorColor1 = color1;
+                    vm.ArmorColor2 = color2;
 
                     // Heraldic items
                     vm.BannerCodeText = faction.Banner.Serialize();

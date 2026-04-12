@@ -1,10 +1,13 @@
 using System.Collections.Generic;
+using Retinues.Behaviors.Troops;
 using Retinues.Domain;
 using Retinues.Domain.Characters.Wrappers;
+using Retinues.Domain.Factions;
 using Retinues.Domain.Factions.Wrappers;
 using Retinues.Editor.Events;
 using Retinues.Editor.MVC.Shared.Controllers;
 using Retinues.Interface.Services;
+using Retinues.Settings;
 using TaleWorlds.Core;
 
 namespace Retinues.Editor.MVC.Common.TopPanel.Controllers
@@ -253,6 +256,12 @@ namespace Retinues.Editor.MVC.Common.TopPanel.Controllers
                 return;
             }
 
+            if (elements.Count == 1)
+            {
+                ApplyClanPlayer(elements[0].Identifier as WClan, Player.Hero, Player.Kingdom);
+                return;
+            }
+
             Inquiries.SelectPopup(
                 title: L.T("select_clan_title", "Select Clan"),
                 elements: elements,
@@ -263,6 +272,7 @@ namespace Retinues.Editor.MVC.Common.TopPanel.Controllers
 
         /// <summary>
         /// Apply the selected clan for the player, clamped to the provided kingdom if necessary.
+        /// If the clan has no custom troops, prompts the player to initialize them first.
         /// </summary>
         private static void ApplyClanPlayer(WClan clan, WHero hero, WKingdom kingdom)
         {
@@ -273,6 +283,91 @@ namespace Retinues.Editor.MVC.Common.TopPanel.Controllers
             if (clan.Base.Kingdom != kingdom.Base)
                 clan = hero.Clan;
 
+            if (clan.RootBasic == null && clan.RootElite == null)
+            {
+                PromptInitializeClanTroops(clan, hero, kingdom);
+                return;
+            }
+
+            ApplyClanPlayerDirect(clan, kingdom);
+        }
+
+        /// <summary>
+        /// First popup: informs the player the clan has no specific troops and what it currently
+        /// falls back to. Cancel exits; Create proceeds to the second prompt.
+        /// </summary>
+        private static void PromptInitializeClanTroops(WClan clan, WHero hero, WKingdom kingdom)
+        {
+            // Kingdom troops are considered available when the feature is enabled AND roots exist.
+            bool kingdomTroopsEnabled =
+                Configuration.KingdomTroopsUnlock.Value != Configuration.TroopsUnlockMode.Disabled;
+            bool kingdomHasTroops =
+                kingdomTroopsEnabled && (kingdom?.RootBasic != null || kingdom?.RootElite != null);
+
+            var fallbackName = kingdomHasTroops ? kingdom.Name : Player.Clan?.Name ?? string.Empty;
+
+            var descKey = kingdomHasTroops
+                ? "init_clan_troops_no_troops_kingdom"
+                : "init_clan_troops_no_troops_clan";
+            var descFallback = kingdomHasTroops
+                ? "{CLAN} has no specific custom troops. It currently uses the {FALLBACK} kingdom troops.\n\nDo you wish to create specific troop trees for the {CLAN} clan?"
+                : "{CLAN} has no specific custom troops. It currently uses the {FALLBACK} clan troops.\n\nDo you wish to create specific troop trees for the {CLAN} clan?";
+
+            var description = L.T(descKey, descFallback)
+                .SetTextVariable("CLAN", clan.Name)
+                .SetTextVariable("FALLBACK", fallbackName);
+
+            Inquiries.Popup(
+                title: L.T("init_clan_troops_title", "No Custom Troops"),
+                description: description,
+                choice1Text: L.T("init_clan_troops_create", "Create"),
+                choice2Text: GameTexts.FindText("str_cancel"),
+                onChoice1: () => PromptInitializeClanTroopsMethod(clan, kingdom, kingdomHasTroops),
+                onChoice2: () => { }
+            );
+        }
+
+        /// <summary>
+        /// Second popup: asks whether to copy kingdom/clan troops or start from scratch.
+        /// </summary>
+        private static void PromptInitializeClanTroopsMethod(
+            WClan clan,
+            WKingdom kingdom,
+            bool kingdomHasTroops
+        )
+        {
+            // Source for the "copy" option: kingdom troops if available, otherwise player clan.
+            IBaseFaction source = kingdomHasTroops ? kingdom : (IBaseFaction)Player.Clan;
+            var sourceName = source?.Name ?? string.Empty;
+
+            Inquiries.Popup(
+                title: L.T("init_clan_troops_method_title", "Initialize Troops"),
+                description: L.T(
+                        "init_clan_troops_method_text",
+                        "How do you want to create the troops for {CLAN}?"
+                    )
+                    .SetTextVariable("CLAN", clan.Name),
+                choice1Text: L.T("init_clan_troops_copy_source", "Copy {SOURCE} troops")
+                    .SetTextVariable("SOURCE", sourceName),
+                choice2Text: L.T("init_clan_troops_from_scratch", "From scratch"),
+                onChoice1: () =>
+                {
+                    TroopUnlockerBehavior.InitializeClanTroopsFromSource(clan, source);
+                    ApplyClanPlayerDirect(clan, kingdom);
+                },
+                onChoice2: () =>
+                {
+                    TroopUnlockerBehavior.InitializeClanTroopsFromCultureRoots(clan);
+                    ApplyClanPlayerDirect(clan, kingdom);
+                }
+            );
+        }
+
+        /// <summary>
+        /// Applies clan faction state directly without any troop checks.
+        /// </summary>
+        private static void ApplyClanPlayerDirect(WClan clan, WKingdom kingdom)
+        {
             State.LeftBannerFaction = clan;
             State.RightBannerFaction = kingdom;
             State.Faction = clan;

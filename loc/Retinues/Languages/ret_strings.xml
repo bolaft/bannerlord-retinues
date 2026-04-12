@@ -1211,6 +1211,24 @@
       id="ret_in_stock"
       text="In Stock ({STOCK})" />
     <string
+      id="ret_init_clan_troops_copy_source"
+      text="Copy {SOURCE} troops" />
+    <string
+      id="ret_init_clan_troops_create"
+      text="Create" />
+    <string
+      id="ret_init_clan_troops_from_scratch"
+      text="From scratch" />
+    <string
+      id="ret_init_clan_troops_method_text"
+      text="How do you want to create the troops for {CLAN}?" />
+    <string
+      id="ret_init_clan_troops_method_title"
+      text="Initialize Troops" />
+    <string
+      id="ret_init_clan_troops_title"
+      text="No Custom Troops" />
+    <string
       id="ret_init_error_body_detailed"
       text="Retinues mod dependencies failed to initialize properly:{newline}{newline}{DETAILS}{newline}{newline}The mod may not function correctly until the dependencies are fixed." />
     <string
