@@ -140,7 +140,9 @@ namespace Retinues.Settings
             object dependsOnDisabledOverride = null,
             UIEvent[] fires = null,
             Action<object, object> onChange = null,
-            bool requiresRestart = false
+            bool requiresRestart = false,
+            object presetFreeform = null,
+            object presetRealistic = null
         )
         {
             Func<string> sectionFunc = null;
@@ -189,9 +191,103 @@ namespace Retinues.Settings
                 dependsOn: dependsOn,
                 dependsOnValue: dependsOnValue,
                 dependsOnDisabledOverride: dependsOnDisabledOverride,
+                presetFreeform: presetFreeform,
+                presetRealistic: presetRealistic,
                 fires: fires,
                 onChanged: OnChangedWrapper
             );
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                         Presets                        //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Applies the given preset to all options, then saves.
+        /// </summary>
+        public static void ApplyPreset(SettingsPreset preset)
+        {
+            DiscoverOptions();
+
+            try
+            {
+                _loadingConfig = true;
+
+                for (int i = 0; i < _options.Count; i++)
+                {
+                    var opt = _options[i];
+                    if (opt == null)
+                        continue;
+
+                    object value = preset switch
+                    {
+                        SettingsPreset.Freeform => opt.FreeformValue,
+                        SettingsPreset.Realistic => opt.RealisticValue,
+                        _ => opt.Default,
+                    };
+
+                    opt.SetObject(value);
+                }
+            }
+            finally
+            {
+                _loadingConfig = false;
+            }
+
+            ConfigurationPersistence.SaveOnChange(_sections, _options);
+
+            // Notify OptionVMs of every changed value so they refresh immediately.
+            for (int i = 0; i < _options.Count; i++)
+            {
+                var opt = _options[i];
+                if (opt?.Key == null)
+                    continue;
+
+                try
+                {
+                    OptionChanged?.Invoke(opt.Key, opt.GetObject());
+                }
+                catch { }
+            }
+
+            // Also fire the broad UI events each option declares.
+            if (EditorScreen.IsOpen)
+            {
+                for (int i = 0; i < _options.Count; i++)
+                {
+                    var opt = _options[i];
+                    if (opt?.Key != null)
+                        FireUIEventsIfNeeded(opt.Key);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Counts how many options would change from their current value if the preset were applied.
+        /// </summary>
+        public static int GetPresetChangeCount(SettingsPreset preset)
+        {
+            DiscoverOptions();
+
+            int count = 0;
+            for (int i = 0; i < _options.Count; i++)
+            {
+                var opt = _options[i];
+                if (opt == null)
+                    continue;
+
+                object presetValue = preset switch
+                {
+                    SettingsPreset.Freeform => opt.FreeformValue,
+                    SettingsPreset.Realistic => opt.RealisticValue,
+                    _ => opt.Default,
+                };
+
+                if (!Equals(opt.GetObject(), presetValue))
+                    count++;
+            }
+
+            return count;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

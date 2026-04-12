@@ -170,15 +170,35 @@ namespace Retinues.Editor.MVC.Pages.Settings.Views.Panel
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceProperty]
-        public string ResetToDefaultsHeader => L.S("reset_defaults_header", "Reset");
+        public string ResetToDefaultsHeader => L.S("presets_header", "Presets");
 
         [DataSourceProperty]
         public Button<object> ResetToDefaultsButton { get; } =
             new(
-                action: SettingsController.ResetToDefaults,
+                action: SettingsController.ApplyDefaultPreset,
                 arg: () => null,
                 refresh: [UIEvent.Page],
-                labelFactory: () => L.S("reset_defaults_button", "Reset to Defaults"),
+                labelFactory: () => L.S("preset_default_button", "Default"),
+                visibilityGate: () => State.Page == EditorPage.Settings
+            );
+
+        [DataSourceProperty]
+        public Button<object> FreeformPresetButton { get; } =
+            new(
+                action: SettingsController.ApplyFreeformPreset,
+                arg: () => null,
+                refresh: [UIEvent.Page],
+                labelFactory: () => L.S("preset_freeform_button", "Freeform"),
+                visibilityGate: () => State.Page == EditorPage.Settings
+            );
+
+        [DataSourceProperty]
+        public Button<object> RealisticPresetButton { get; } =
+            new(
+                action: SettingsController.ApplyRealisticPreset,
+                arg: () => null,
+                refresh: [UIEvent.Page],
+                labelFactory: () => L.S("preset_realistic_button", "Realistic"),
                 visibilityGate: () => State.Page == EditorPage.Settings
             );
 

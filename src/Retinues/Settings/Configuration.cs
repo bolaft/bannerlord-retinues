@@ -127,7 +127,8 @@ namespace Retinues.Settings
             ),
             @default: false,
             fires: [UIEvent.Character, UIEvent.Page],
-            dependsOn: EnableUniversalEditor
+            dependsOn: EnableUniversalEditor,
+            presetRealistic: true
         );
 
         public static readonly Option<bool> EnforceEquipmentLimitsInUniversalMode = CreateOption(
@@ -139,7 +140,8 @@ namespace Retinues.Settings
             ),
             @default: false,
             fires: [UIEvent.Equipment],
-            dependsOn: EnableUniversalEditor
+            dependsOn: EnableUniversalEditor,
+            presetRealistic: true
         );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -188,7 +190,8 @@ namespace Retinues.Settings
             ),
             @default: true,
             dependsOn: EnableDoctrines,
-            fires: [UIEvent.Doctrine]
+            fires: [UIEvent.Doctrine],
+            presetFreeform: false
         );
 
         public static readonly Option<float> DoctrineMoneyCostMultiplier = CreateOption(
@@ -217,7 +220,8 @@ namespace Retinues.Settings
             ),
             @default: true,
             dependsOn: EnableDoctrines,
-            fires: [UIEvent.Doctrine]
+            fires: [UIEvent.Doctrine],
+            presetFreeform: false
         );
 
         public static readonly Option<float> DoctrineInfluenceCostMultiplier = CreateOption(
@@ -287,7 +291,8 @@ namespace Retinues.Settings
                     )
                 ),
             ],
-            fires: [UIEvent.Character]
+            fires: [UIEvent.Character],
+            presetRealistic: EditingRestrictionMode.InFief
         );
 
         public static readonly Option<int> MinTierForMounts = CreateOption(
@@ -323,7 +328,7 @@ namespace Retinues.Settings
             ),
             minValue: 0,
             maxValue: 6,
-            @default: 5
+            @default: 4
         );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -384,7 +389,8 @@ namespace Retinues.Settings
                 "mcm_option_buff_retinue_health_hint",
                 "If enabled, retinue troops will receive a health bonus."
             ),
-            @default: false,
+            @default: true,
+            presetRealistic: false,
             dependsOn: EnableRetinues,
             fires: [UIEvent.Page]
         );
@@ -409,7 +415,8 @@ namespace Retinues.Settings
                 "mcm_option_buff_retinue_skill_cap_hint",
                 "If enabled, retinue troops will receive a skill cap bonus."
             ),
-            @default: false,
+            @default: true,
+            presetRealistic: false,
             dependsOn: EnableRetinues,
             fires: [UIEvent.Page]
         );
@@ -435,7 +442,8 @@ namespace Retinues.Settings
                 "mcm_option_buff_retinue_skill_total_hint",
                 "If enabled, retinue troops will receive a skill total bonus."
             ),
-            @default: false,
+            @default: true,
+            presetRealistic: false,
             dependsOn: EnableRetinues,
             fires: [UIEvent.Page]
         );
@@ -484,6 +492,7 @@ namespace Retinues.Settings
                 "Determines when clan troops become available."
             ),
             @default: TroopsUnlockMode.UnlockedWithFirstFief,
+            presetFreeform: TroopsUnlockMode.AlwaysUnlocked,
             choices:
             [
                 (
@@ -556,6 +565,7 @@ namespace Retinues.Settings
                 "Determines clan and kingdom starter troops."
             ),
             @default: TroopsMode.LeanTrees,
+            presetRealistic: TroopsMode.RootsOnly,
             choices:
             [
                 (
@@ -737,7 +747,8 @@ namespace Retinues.Settings
             {
                 TroopsUnlockMode.AlwaysUnlocked,
                 TroopsUnlockMode.UnlockedWithFirstFief,
-            }
+            },
+            presetFreeform: RecruitmentMode.Everywhere
         );
 
         public static readonly Option<RecruitmentMode> KingdomTroopsAvailability = CreateOption(
@@ -784,7 +795,8 @@ namespace Retinues.Settings
                 ),
             ],
             dependsOn: KingdomTroopsUnlock,
-            dependsOnValue: TroopsUnlockMode.UnlockedUponBecomingRuler
+            dependsOnValue: TroopsUnlockMode.UnlockedUponBecomingRuler,
+            presetFreeform: RecruitmentMode.Everywhere
         );
 
         public static readonly Option<bool> SameCultureOnly = CreateOption(
@@ -794,7 +806,8 @@ namespace Retinues.Settings
                 "mcm_option_same_culture_only_hint",
                 "If enabled, custom troops can only be recruited in settlements of the same culture."
             ),
-            @default: false
+            @default: false,
+            presetRealistic: true
         );
 
         public static readonly Option<bool> MixWithVanillaTroops = CreateOption(
@@ -870,7 +883,8 @@ namespace Retinues.Settings
                 "If enabled, equipping troops will cost money. Also enables the stocks system."
             ),
             @default: true,
-            fires: [UIEvent.Page]
+            fires: [UIEvent.Page],
+            presetFreeform: false
         );
 
         public static readonly Option<float> EquipmentCostMultiplier = CreateOption(
@@ -895,7 +909,8 @@ namespace Retinues.Settings
                 "If enabled, equipping troops will not be instant and will take time to be completed."
             ),
             @default: false,
-            fires: [UIEvent.Equipment]
+            fires: [UIEvent.Equipment],
+            presetRealistic: true
         );
 
         public static readonly Option<float> EquipTimeMultiplier = CreateOption(
@@ -931,7 +946,8 @@ namespace Retinues.Settings
                 "Whether to limit the total equipment weight (limits are tier-based)."
             ),
             @default: false,
-            fires: [UIEvent.Equipment]
+            fires: [UIEvent.Equipment],
+            presetRealistic: true
         );
 
         public static readonly Option<float> EquipmentWeightLimitMultiplier = CreateOption(
@@ -956,7 +972,8 @@ namespace Retinues.Settings
                 "Whether to limit the total equipment value (limits are tier-based)."
             ),
             @default: false,
-            fires: [UIEvent.Equipment]
+            fires: [UIEvent.Equipment],
+            presetRealistic: true
         );
 
         public static readonly Option<float> EquipmentValueLimitMultiplier = CreateOption(
@@ -995,7 +1012,8 @@ namespace Retinues.Settings
                 "If enabled, troops will need to unlock equipment items before being able to equip them."
             ),
             @default: true,
-            fires: [UIEvent.Page]
+            fires: [UIEvent.Page],
+            presetFreeform: false
         );
 
         public static readonly Option<bool> UnlockItemsThroughKills = CreateOption(
@@ -1124,7 +1142,8 @@ namespace Retinues.Settings
                 "If enabled, troops will need to earn skill points in battle before leveling up skills."
             ),
             @default: true,
-            fires: [UIEvent.Page]
+            fires: [UIEvent.Page],
+            presetFreeform: false
         );
 
         public static readonly Option<float> SkillPointsGainRate = CreateOption(
@@ -1149,7 +1168,8 @@ namespace Retinues.Settings
                 "If enabled, increasing skills will not be instant and will take time to be improved."
             ),
             @default: false,
-            fires: [UIEvent.Skill]
+            fires: [UIEvent.Skill],
+            presetRealistic: true
         );
 
         public static readonly Option<float> SkillProgressPerDay = CreateOption(

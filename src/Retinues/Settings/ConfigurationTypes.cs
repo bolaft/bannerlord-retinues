@@ -36,6 +36,16 @@ namespace Retinues.Settings
     }
 
     /// <summary>
+    /// Built-in configuration presets.
+    /// </summary>
+    public enum SettingsPreset
+    {
+        Default,
+        Freeform,
+        Realistic,
+    }
+
+    /// <summary>
     /// Represents metadata and runtime accessors for a configuration option.
     /// </summary>
     public interface IOption
@@ -53,6 +63,12 @@ namespace Retinues.Settings
         double MaxValue { get; }
 
         object Default { get; }
+
+        /// <summary>Preset value for the Freeform preset. Falls back to Default if not explicitly set.</summary>
+        object FreeformValue { get; }
+
+        /// <summary>Preset value for the Realistic preset. Falls back to Default if not explicitly set.</summary>
+        object RealisticValue { get; }
 
         bool IsDisabled { get; }
         object DisabledOverrideBoxed { get; }
@@ -103,6 +119,11 @@ namespace Retinues.Settings
         private readonly bool _hasDependsOnDisabledOverride;
         private readonly T _dependsOnDisabledOverride;
 
+        private readonly bool _hasFreeformPreset;
+        private readonly T _freeformPreset;
+        private readonly bool _hasRealisticPreset;
+        private readonly T _realisticPreset;
+
         private T _value;
 
         /// <summary>
@@ -122,6 +143,8 @@ namespace Retinues.Settings
             IOption dependsOn,
             object dependsOnValue,
             object dependsOnDisabledOverride,
+            object presetFreeform,
+            object presetRealistic,
             UIEvent[] fires,
             Action<IOption, object, object> onChanged
         )
@@ -146,6 +169,16 @@ namespace Retinues.Settings
             _hasDependsOnDisabledOverride = dependsOnDisabledOverride != null;
             _dependsOnDisabledOverride = _hasDependsOnDisabledOverride
                 ? (T)CoerceToType(dependsOnDisabledOverride, typeof(T))
+                : default;
+
+            _hasFreeformPreset = presetFreeform != null;
+            _freeformPreset = _hasFreeformPreset
+                ? (T)CoerceToType(presetFreeform, typeof(T))
+                : default;
+
+            _hasRealisticPreset = presetRealistic != null;
+            _realisticPreset = _hasRealisticPreset
+                ? (T)CoerceToType(presetRealistic, typeof(T))
                 : default;
 
             Fires = fires;
@@ -180,6 +213,9 @@ namespace Retinues.Settings
 
         public T DefaultTyped { get; }
         public object Default => DefaultTyped;
+
+        public object FreeformValue => _hasFreeformPreset ? (object)_freeformPreset : Default;
+        public object RealisticValue => _hasRealisticPreset ? (object)_realisticPreset : Default;
 
         public bool IsDisabled { get; set; }
         public T DisabledOverride { get; set; }

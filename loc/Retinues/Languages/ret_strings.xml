@@ -2006,6 +2006,27 @@
       id="ret_overwrite_confirm"
       text="Overwrite" />
     <string
+      id="ret_preset_default_button"
+      text="Default" />
+    <string
+      id="ret_preset_default_tooltip"
+      text="Apply the Default preset: a balanced experience designed for a first playthrough" />
+    <string
+      id="ret_preset_freeform_button"
+      text="Freeform" />
+    <string
+      id="ret_preset_freeform_tooltip"
+      text="Apply the Freeform preset: removes costs, requirements, and restrictions" />
+    <string
+      id="ret_preset_realistic_button"
+      text="Realistic" />
+    <string
+      id="ret_preset_realistic_tooltip"
+      text="Apply the Realistic preset: enables time mechanics, location limits, and faction filters" />
+    <string
+      id="ret_presets_header"
+      text="Presets" />
+    <string
       id="ret_preview_mode"
       text="Preview Mode" />
     <string
@@ -2149,24 +2170,6 @@
     <string
       id="ret_reset_default_universal_only"
       text="Only available in the Universal Editor" />
-    <string
-      id="ret_reset_defaults_button"
-      text="Reset to Defaults" />
-    <string
-      id="ret_reset_defaults_confirm"
-      text="Reset" />
-    <string
-      id="ret_reset_defaults_confirm_body"
-      text="This will reset all settings to their default values. Continue?" />
-    <string
-      id="ret_reset_defaults_confirm_title"
-      text="Reset to Defaults" />
-    <string
-      id="ret_reset_defaults_header"
-      text="Reset" />
-    <string
-      id="ret_reset_defaults_tooltip"
-      text="Reset all settings to their default values" />
     <string
       id="ret_reset_done_body"
       text="Save and restart the game for this action to take effect." />

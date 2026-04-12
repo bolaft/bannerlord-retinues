@@ -1,5 +1,6 @@
 using Retinues.Editor.MVC.Shared.Controllers;
 using Retinues.Interface.Services;
+using Retinues.Settings;
 using TaleWorlds.Core;
 using TaleWorlds.Localization;
 
@@ -11,43 +12,92 @@ namespace Retinues.Editor.MVC.Pages.Settings.Controllers
     public sealed class SettingsController : BaseController
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                    Reset To Defaults                   //
+        //                        Presets                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
-        /// Resets all configuration options to their default values after confirmation.
+        /// Applies the Default preset after confirmation.
         /// </summary>
-        public static ControllerAction<object> ResetToDefaults { get; } =
-            Action<object>("ResetToDefaults")
+        public static ControllerAction<object> ApplyDefaultPreset { get; } =
+            Action<object>("ApplyDefaultPreset")
                 .DefaultTooltip(
-                    L.T("reset_defaults_tooltip", "Reset all settings to their default values")
+                    L.T(
+                        "preset_default_tooltip",
+                        "Apply the Default preset: a balanced experience designed for a first playthrough"
+                    )
                 )
-                .ExecuteWith(_ => ResetToDefaultsImpl());
+                .ExecuteWith(_ => ShowPresetConfirmation(SettingsPreset.Default));
 
-        private static void ResetToDefaultsImpl()
+        /// <summary>
+        /// Applies the Freeform preset after confirmation.
+        /// </summary>
+        public static ControllerAction<object> ApplyFreeformPreset { get; } =
+            Action<object>("ApplyFreeformPreset")
+                .DefaultTooltip(
+                    L.T(
+                        "preset_freeform_tooltip",
+                        "Apply the Freeform preset: removes costs, requirements, and restrictions"
+                    )
+                )
+                .ExecuteWith(_ => ShowPresetConfirmation(SettingsPreset.Freeform));
+
+        /// <summary>
+        /// Applies the Realistic preset after confirmation.
+        /// </summary>
+        public static ControllerAction<object> ApplyRealisticPreset { get; } =
+            Action<object>("ApplyRealisticPreset")
+                .DefaultTooltip(
+                    L.T(
+                        "preset_realistic_tooltip",
+                        "Apply the Realistic preset: enables time mechanics, location limits, and faction filters"
+                    )
+                )
+                .ExecuteWith(_ => ShowPresetConfirmation(SettingsPreset.Realistic));
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Internals                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private static void ShowPresetConfirmation(SettingsPreset preset)
         {
+            string title = preset switch
+            {
+                SettingsPreset.Freeform => "Apply Freeform Preset",
+                SettingsPreset.Realistic => "Apply Realistic Preset",
+                _ => "Reset to Defaults",
+            };
+
+            string description = BuildPresetDescription(preset);
+
+            string confirmLabel = preset switch
+            {
+                SettingsPreset.Default => "Reset",
+                _ => "Apply",
+            };
+
             Inquiries.Popup(
-                title: L.T("reset_defaults_confirm_title", "Reset to Defaults"),
-                onConfirm: () => ApplyDefaults(),
-                description: L.T(
-                    "reset_defaults_confirm_body",
-                    "This will reset all settings to their default values. Continue?"
-                ),
-                confirmText: L.T("reset_defaults_confirm", "Reset"),
+                title: new TextObject(title),
+                onConfirm: () => ConfigurationManager.ApplyPreset(preset),
+                description: new TextObject(description),
+                confirmText: new TextObject(confirmLabel),
                 cancelText: GameTexts.FindText("str_cancel"),
                 pauseGame: true
             );
         }
 
-        private static void ApplyDefaults()
+        private static string BuildPresetDescription(SettingsPreset preset)
         {
-            var options = Retinues.Settings.ConfigurationManager.Options;
-            for (int i = 0; i < options.Count; i++)
+            string intro = preset switch
             {
-                var opt = options[i];
-                if (opt != null)
-                    opt.SetObject(opt.Default);
-            }
+                SettingsPreset.Freeform =>
+                    "Removes costs, requirements, unlock systems, and availability restrictions for a relaxed, unrestricted experience.",
+                SettingsPreset.Realistic =>
+                    "Enables location restrictions, time-based mechanics, equipment weight and value limits, and faction-based recruitment filters for a more grounded experience.",
+                _ =>
+                    "A balanced experience designed for a first playthrough. Resets all settings to their original default values.",
+            };
+
+            return intro;
         }
     }
 }

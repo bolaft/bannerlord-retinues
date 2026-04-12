@@ -342,21 +342,29 @@
                     </Children>
                 </Widget>
 
-                {# Reset / Purge buttons #}
-                <ListPanel
+                {# Presets / Purge buttons #}
+                <Widget
                     WidthSizePolicy="Fixed"
                     SuggestedWidth="400"
                     HeightSizePolicy="StretchToParent"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Bottom">
                     <Children>
+
+                        {# Presets — anchored to the top #}
                         <ListPanel
                             WidthSizePolicy="StretchToParent"
                             HeightSizePolicy="CoverChildren"
                             HorizontalAlignment="Center"
-                            VerticalAlignment="Bottom"
-                            StackLayout.LayoutMethod="VerticalBottomToTop">
+                            VerticalAlignment="Top"
+                            StackLayout.LayoutMethod="VerticalTopToBottom">
                             <Children>
+                                {{ button_text("{RealisticPresetButton}", "ButtonBrush3", "260", "52", horizontal_alignment="Center", vertical_alignment="Center") }}
+
+                                {{ button_text("{FreeformPresetButton}", "ButtonBrush3", "260", "52", horizontal_alignment="Center", vertical_alignment="Center") }}
+
+                                {{ button_text("{ResetToDefaultsButton}", "ButtonBrush3", "260", "52", horizontal_alignment="Center", vertical_alignment="Center") }}
+
                                 <TextWidget
                                     WidthSizePolicy="CoverChildren"
                                     HeightSizePolicy="CoverChildren"
@@ -368,8 +376,18 @@
                                     Text="@ResetToDefaultsHeader"
                                     MarginBottom="12"
                                     MarginTop="24" />
+                            </Children>
+                        </ListPanel>
 
-                                {{ button_text("{ResetToDefaultsButton}", "Popup.Delete.Button", "260", "60", horizontal_alignment="Center", vertical_alignment="Center") }}
+                        {# Purge — anchored to the bottom #}
+                        <ListPanel
+                            WidthSizePolicy="StretchToParent"
+                            HeightSizePolicy="CoverChildren"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Bottom"
+                            StackLayout.LayoutMethod="VerticalTopToBottom">
+                            <Children>
+                                {{ button_text("{PurgeAllButton}", "Popup.Delete.Button", "200", "60", horizontal_alignment="Center", vertical_alignment="Center") }}
 
                                 <TextWidget
                                     WidthSizePolicy="CoverChildren"
@@ -382,12 +400,11 @@
                                     Text="@PurgeAllHeader"
                                     MarginBottom="12"
                                     MarginTop="24" />
-
-                                {{ button_text("{PurgeAllButton}", "Popup.Delete.Button", "200", "60", horizontal_alignment="Center", vertical_alignment="Center") }}
                             </Children>
                         </ListPanel>
+
                     </Children>
-                </ListPanel>
+                </Widget>
 
             </Children>
         </ListPanel>
