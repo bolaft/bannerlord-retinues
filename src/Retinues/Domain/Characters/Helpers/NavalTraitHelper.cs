@@ -4,6 +4,7 @@ using Retinues.Framework.Runtime;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.CharacterDevelopment;
+using TaleWorlds.ObjectSystem;
 
 namespace Retinues.Domain.Characters.Helpers
 {
@@ -13,53 +14,30 @@ namespace Retinues.Domain.Characters.Helpers
     public static class NavalTraitHelper
     {
         private static TraitObject _navalSoldierTrait;
-        private static bool _navalTraitMissing;
 
         [StaticClearAction]
         /// <summary>
-        /// Clears the cached naval soldier trait and missing trait flag.
+        /// Clears the cached naval soldier trait.
         /// </summary>
         public static void ClearCache()
         {
             _navalSoldierTrait = null;
-            _navalTraitMissing = false;
         }
 
         private static TraitObject TryGetNavalSoldierTrait()
         {
-            if (_navalTraitMissing)
-                return null;
-
             if (_navalSoldierTrait != null)
                 return _navalSoldierTrait;
 
+            // Use MBObjectManager directly — no Campaign.Current dependency.
+            // Returns null transiently if not ready yet; caller retries next time.
             try
             {
-                // Resolve DefaultTraits by string so we don't rely on compile-time members.
-                var defaultTraitsType = Type.GetType(
-                    "TaleWorlds.CampaignSystem.CharacterDevelopment.DefaultTraits, TaleWorlds.CampaignSystem",
-                    throwOnError: false
-                );
-
-                if (defaultTraitsType == null)
-                {
-                    _navalTraitMissing = true;
+                var trait = MBObjectManager.Instance?.GetObject<TraitObject>("NavalSoldier");
+                if (trait == null)
                     return null;
-                }
 
-                // Look for the static property "NavalSoldier" if it exists.
-                var prop = defaultTraitsType.GetProperty("NavalSoldier", Reflection.Flags);
-                if (prop == null)
-                {
-                    _navalTraitMissing = true;
-                    return null;
-                }
-
-                var value = prop.GetValue(null) as TraitObject;
-                if (value == null)
-                    return null; // probably Campaign not ready yet; try again later
-
-                _navalSoldierTrait = value;
+                _navalSoldierTrait = trait;
                 return _navalSoldierTrait;
             }
             catch
@@ -157,6 +135,11 @@ namespace Retinues.Domain.Characters.Helpers
                     navalTrait,
                     level
                 );
+
+                // Also update the IsMariner auto-property so the encyclopedia
+                // and other UI that read character.IsMariner directly see the
+                // correct value (CampaignUIHelper.GetCharacterTypeData reads it).
+                Reflection.SetPropertyValue(co, "IsMariner", level > 0);
             }
             catch { }
         }
