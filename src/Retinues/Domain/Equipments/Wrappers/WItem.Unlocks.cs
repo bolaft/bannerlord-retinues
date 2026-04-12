@@ -18,109 +18,62 @@ namespace Retinues.Domain.Equipments.Wrappers
         /// </summary>
         public const int UnlockThreshold = 1000;
 
-        MAttribute<Dictionary<string, int>> UnlockProgressByHeroAttribute =>
-            Attribute<Dictionary<string, int>>(
-                initialValue: [],
-                name: "UnlockProgressByHeroAttribute"
-            );
+        MAttribute<int> UnlockProgressAttribute =>
+            Attribute<int>(initialValue: 0, name: "UnlockProgressAttribute");
 
-        public bool IsUnlocked => IsUnlockedFor(Player.Hero);
-
-        /// <summary>
-        /// Indicates whether this item is unlocked for the given hero.
-        /// </summary>
-        public bool IsUnlockedFor(WHero hero) => GetUnlockProgress(hero) >= UnlockThreshold;
+        public bool IsUnlocked => UnlockProgress >= UnlockThreshold;
 
         public int UnlockProgress
         {
-            get => GetUnlockProgress(Player.Hero);
-            set => SetUnlockProgress(Player.Hero, value);
+            get
+            {
+                if (!Configuration.EquipmentNeedsUnlocking)
+                    return UnlockThreshold; // Always unlocked.
+
+                // Special case: Ancestral Heritage doctrine.
+                if (DoctrineCatalog.AncestralHeritage.IsAcquired)
+                    if (Player.Clan.Culture == Culture)
+                        return UnlockThreshold; // Always unlocked for matching culture.
+
+                return UnlockProgressAttribute.Get();
+            }
+            set
+            {
+                value = System.Math.Max(value, 0);
+                value = System.Math.Min(value, UnlockThreshold);
+                UnlockProgressAttribute.Set(value);
+            }
         }
 
         /// <summary>
-        /// Gets the unlock progress for the given hero.
-        /// </summary>
-        public int GetUnlockProgress(WHero hero)
-        {
-            if (!Configuration.EquipmentNeedsUnlocking)
-                return UnlockThreshold; // Always unlocked.
-
-            // Special case: Ancestral Heritage doctrine.
-            if (DoctrineCatalog.AncestralHeritage.IsAcquired)
-                if (Player.Clan.Culture == Culture)
-                    return UnlockThreshold; // Always unlocked for matching culture.
-
-            var map = UnlockProgressByHeroAttribute.Get() ?? [];
-
-            if (map.TryGetValue(hero.StringId, out var value))
-                return value;
-
-            return 0;
-        }
-
-        /// <summary>
-        /// Sets the unlock progress to the given value for the given hero.
-        /// </summary>
-        public void SetUnlockProgress(WHero hero, int value)
-        {
-            value = System.Math.Max(value, 0);
-            value = System.Math.Min(value, UnlockThreshold);
-
-            var current = UnlockProgressByHeroAttribute.Get() ?? [];
-            var map = new Dictionary<string, int>(current) { [hero.StringId] = value };
-            UnlockProgressByHeroAttribute.Set(map);
-        }
-
-        /// <summary>
-        /// Increases the unlock progress by the given amount for the player,
+        /// Increases the unlock progress by the given amount,
         /// capping it at the unlock threshold.
         /// </summary>
-        public bool IncreaseUnlockProgress(int amount) =>
-            IncreaseUnlockProgress(Player.Hero, amount);
-
-        /// <summary>
-        /// Increases the unlock progress by the given amount for the given hero,
-        /// capping it at the unlock threshold.
-        public bool IncreaseUnlockProgress(WHero hero, int amount)
+        public bool IncreaseUnlockProgress(int amount)
         {
             if (amount <= 0)
-                return IsUnlockedFor(hero);
+                return IsUnlocked;
 
-            if (IsUnlockedFor(hero))
+            if (IsUnlocked)
                 return true;
 
-            SetUnlockProgress(
-                hero,
-                System.Math.Min(GetUnlockProgress(hero) + amount, UnlockThreshold)
-            );
-
-            return IsUnlockedFor(hero);
+            UnlockProgress = System.Math.Min(UnlockProgress + amount, UnlockThreshold);
+            return IsUnlocked;
         }
 
         /// <summary>
         /// Immediately unlocks this item for the player.
         /// </summary>
-        public void Unlock() => Unlock(Player.Hero);
-
-        /// <summary>
-        /// Immediately unlocks this item for the given hero.
-        /// </summary>
-        public void Unlock(WHero hero)
-        {
-            SetUnlockProgress(hero, UnlockThreshold);
-        }
+        public void Unlock() => UnlockProgress = UnlockThreshold;
 
         /// <summary>
         /// Gets all unlocked items that can be equipped in the given slot.
         /// </summary>
-        public static IEnumerable<WItem> GetUnlockedItems(EquipmentIndex slot) =>
-            GetUnlockedItems(slot, Player.Hero);
-
-        public static IEnumerable<WItem> GetUnlockedItems(EquipmentIndex slot, WHero hero)
+        public static IEnumerable<WItem> GetUnlockedItems(EquipmentIndex slot)
         {
             foreach (var item in GetEquipmentsForSlot(slot))
             {
-                if (item.IsUnlockedFor(hero))
+                if (item.IsUnlocked)
                     yield return item;
             }
         }

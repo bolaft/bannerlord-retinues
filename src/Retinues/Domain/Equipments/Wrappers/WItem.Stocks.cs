@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using Retinues.Domain.Characters.Wrappers;
 using Retinues.Framework.Model.Attributes;
 using Retinues.Interface.Services;
 
@@ -11,54 +9,23 @@ namespace Retinues.Domain.Equipments.Wrappers
         //                         Stocks                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        MAttribute<Dictionary<string, int>> StockByHeroAttribute =>
-            Attribute<Dictionary<string, int>>(initialValue: [], name: "StockByHeroAttribute");
+        MAttribute<int> StockAttribute => Attribute<int>(initialValue: 0, name: "StockAttribute");
 
         public int Stock
         {
-            get => GetStock(Player.Hero);
-            set => SetStock(Player.Hero, value);
+            get => StockAttribute.Get();
+            set => StockAttribute.Set(System.Math.Max(value, 0));
         }
 
         /// <summary>
         /// Gets the stock for the player.
         /// </summary>
-        public int GetStock() => GetStock(Player.Hero);
+        public int GetStock() => Stock;
 
         /// <summary>
-        /// Gets the stock for the given hero.
+        /// Increases the stock by the given amount.
         /// </summary>
-        public int GetStock(WHero hero)
-        {
-            var map = StockByHeroAttribute.Get() ?? [];
-
-            if (map.TryGetValue(hero.StringId, out var value))
-                return value;
-
-            return 0;
-        }
-
-        /// <summary>
-        /// Sets the stock to the given value.
-        /// </summary>
-        private void SetStock(WHero hero, int value)
-        {
-            value = System.Math.Max(value, 0);
-
-            var current = StockByHeroAttribute.Get() ?? [];
-            var map = new Dictionary<string, int>(current) { [hero.StringId] = value };
-            StockByHeroAttribute.Set(map);
-        }
-
-        /// <summary>
-        /// Increases the stock by the given amount for the player.
-        /// </summary>
-        public void IncreaseStock(int amount = 1) => IncreaseStock(Player.Hero, amount);
-
-        /// <summary>
-        /// Increases the stock by the given amount for the given hero.
-        /// </summary>
-        public void IncreaseStock(WHero hero, int amount = 1)
+        public void IncreaseStock(int amount = 1)
         {
             if (amount <= 0)
                 return;
@@ -69,18 +36,13 @@ namespace Retinues.Domain.Equipments.Wrappers
                     .SetTextVariable("ITEM", Name)
             );
 
-            SetStock(hero, GetStock(hero) + amount);
+            Stock += amount;
         }
 
         /// <summary>
-        /// Decreases the stock by the given amount for the player.
+        /// Decreases the stock by the given amount.
         /// </summary>
-        public void DecreaseStock(int amount = 1) => DecreaseStock(Player.Hero, amount);
-
-        /// <summary>
-        /// Decreases the stock by the given amount for the given hero.
-        /// </summary>
-        public void DecreaseStock(WHero hero, int amount = 1)
+        public void DecreaseStock(int amount = 1)
         {
             if (amount <= 0)
                 return;
@@ -91,7 +53,7 @@ namespace Retinues.Domain.Equipments.Wrappers
                     .SetTextVariable("ITEM", Name)
             );
 
-            SetStock(hero, System.Math.Max(GetStock(hero) - amount, 0));
+            Stock = System.Math.Max(Stock - amount, 0);
         }
     }
 }
