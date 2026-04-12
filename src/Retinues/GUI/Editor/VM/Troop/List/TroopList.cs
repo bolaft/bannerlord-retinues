@@ -86,8 +86,8 @@ namespace Retinues.GUI.Editor.VM.Troop.List
                     new TroopRowVM(
                         null,
                         placeholderText: L.S(
-                            "road_warrdens_to_unlock",
-                            "Unlock with the Road Warrdens doctrine."
+                            "road_wardens_to_unlock",
+                            "Unlock with the Road Wardens doctrine."
                         )
                     )
                 ); // placeholder
