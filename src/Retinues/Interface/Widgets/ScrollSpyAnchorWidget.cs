@@ -117,7 +117,11 @@ namespace Retinues.Interface.Widgets
             float myY = GlobalPosition.Y;
 
             // "Past" = this section's header has scrolled to or above the viewport top.
-            bool isPast = myY <= viewportTopY;
+            // The tolerance covers the inter-section gap (divider ~28 px + margins) so
+            // that after a click-to-scroll the target section's anchor — which may land
+            // a few pixels below the viewport top — still beats the previous section.
+            const float SpyPastTolerance = 60f;
+            bool isPast = myY <= viewportTopY + SpyPastTolerance;
 
             var key = SpyScope;
             bool isBetter;
