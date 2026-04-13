@@ -26,7 +26,7 @@ namespace Retinues.Domain.Settlements.Wrappers
         //                          Town                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public MTown Town => new(Base.Town);
+        public MTown Town => Base.Town != null ? new(Base.Town) : null;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Heroes                         //
