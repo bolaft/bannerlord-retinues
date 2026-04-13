@@ -19,7 +19,8 @@ namespace Retinues.Behaviors.Retinues
     /// Manages retinue creation, daily recruitment, tier-change eligibility checks,
     /// and encyclopedia visibility for all non-player (AI) clans.
     /// </summary>
-    public sealed class AIClanRetinuesBehavior : BaseCampaignBehavior<AIClanRetinuesBehavior>
+    public sealed partial class AIClanRetinuesBehavior
+        : BaseCampaignBehavior<AIClanRetinuesBehavior>
     {
         private static readonly Random _rng = new();
 
@@ -94,19 +95,22 @@ namespace Retinues.Behaviors.Retinues
         }
 
         /// <summary>
-        /// Flushes the previous day's recruitment activity as a single debug summary line.
+        /// Flushes the previous day's recruitment activity as a single debug summary line,
+        /// then runs the daily equipment upgrade pass for all AI retinues.
         /// </summary>
         protected override void OnDailyTick()
         {
-            if (_pendingRecruitLog.Count == 0)
-                return;
+            if (_pendingRecruitLog.Count > 0)
+            {
+                var sb = new StringBuilder("[AIClanRetinue] Daily promotions:");
+                foreach (var kv in _pendingRecruitLog.Values)
+                    sb.Append($" {kv.Name}×{kv.Count}");
 
-            var sb = new StringBuilder("[AIClanRetinue] Daily promotions:");
-            foreach (var kv in _pendingRecruitLog.Values)
-                sb.Append($" {kv.Name}×{kv.Count}");
+                Log.Debug(sb.ToString());
+                _pendingRecruitLog.Clear();
+            }
 
-            Log.Debug(sb.ToString());
-            _pendingRecruitLog.Clear();
+            TryDailyEquipmentUpgradesForAllAIRetinues();
         }
 
         /// <summary>
