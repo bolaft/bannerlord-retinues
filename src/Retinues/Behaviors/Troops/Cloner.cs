@@ -289,6 +289,13 @@ namespace Retinues.Behaviors.Troops
             /// Set to targetTier when creating AI retinues so they receive gear matching their tier.
             /// </summary>
             public int MinRandomItemTierOverride { get; set; } = -1;
+
+            /// <summary>
+            /// When true, skills are scaled UP proportionally to fill the tier's full skill budget.
+            /// Use for AI retinues so each tier has an appropriate total. Default false preserves
+            /// existing skill values (only caps them) for player-converted retinues.
+            /// </summary>
+            public bool FillSkillsToTotal { get; set; } = false;
         }
 
         /// <summary>
@@ -319,7 +326,7 @@ namespace Retinues.Behaviors.Troops
                 troop.Level = req.TargetLevel;
 
             if (req.CopySkills)
-                EnforceSkillLimits(troop);
+                EnforceSkillLimits(troop, req.FillSkillsToTotal);
 
             ApplyStarterEquipments(
                 template: template,

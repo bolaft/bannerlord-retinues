@@ -29,7 +29,7 @@ namespace Retinues.Behaviors.Troops
         /// <summary>
         /// Enforces per-skill caps and total skill point limits on a cloned character.
         /// </summary>
-        private static void EnforceSkillLimits(WCharacter wc)
+        private static void EnforceSkillLimits(WCharacter wc, bool fillToTotal = false)
         {
             if (wc == null || wc.Base == null)
                 return;
@@ -63,10 +63,14 @@ namespace Retinues.Behaviors.Troops
 
             if (total <= totalMax)
             {
-                for (int i = 0; i < values.Count; i++)
-                    wc.Skills.Set(values[i].skill, values[i].value);
+                if (!fillToTotal || total == 0)
+                {
+                    for (int i = 0; i < values.Count; i++)
+                        wc.Skills.Set(values[i].skill, values[i].value);
 
-                return;
+                    return;
+                }
+                // Fall through to scale up proportionally to fill the tier budget.
             }
 
             float factor = totalMax / (float)total;

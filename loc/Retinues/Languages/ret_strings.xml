@@ -2276,6 +2276,12 @@
       id="ret_retinue_ai_clan_house_guard"
       text="{CLAN} House Guard" />
     <string
+      id="ret_retinue_clan_default_name_female"
+      text="{CLAN} Queen&apos;s Guard" />
+    <string
+      id="ret_retinue_clan_default_name_male"
+      text="{CLAN} King&apos;s Guard" />
+    <string
       id="ret_retinue_culture_default_name"
       text="{CLAN} {CULTURE} Retinue" />
     <string

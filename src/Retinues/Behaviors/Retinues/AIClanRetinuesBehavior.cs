@@ -384,7 +384,7 @@ namespace Retinues.Behaviors.Retinues
             if (!Configuration.EnableRetinues || !Configuration.EnableAIClanRetinues)
                 return null;
 
-            var template = culture?.RootElite ?? culture?.RootBasic;
+            var template = FindTemplateForTier(culture, targetTier);
             if (template?.Base == null)
                 return null;
 
@@ -407,6 +407,34 @@ namespace Retinues.Behaviors.Retinues
                     MinRandomItemTierOverride = targetTier,
                 }
             );
+        }
+
+        /// <summary>
+        /// Finds the troop in the culture's troop tree whose tier best matches <paramref name="targetTier"/>.
+        /// Prefers the elite tree (retinues are elite-track), falls back to basic.
+        /// Returns the closest-tier non-retinue troop, preferring exact matches and higher tiers on ties.
+        /// </summary>
+        private static WCharacter FindTemplateForTier(WCulture culture, int targetTier)
+        {
+            if (culture == null)
+                return null;
+
+            static WCharacter BestFromTree(WCharacter root, int tier)
+            {
+                var tree = root?.Tree;
+                if (tree == null || tree.Count == 0)
+                    return null;
+
+                return tree.Where(t => t?.Base != null && !t.IsRetinue)
+                    .OrderBy(t => Math.Abs(t.Tier - tier))
+                    .ThenByDescending(t => t.Tier)
+                    .FirstOrDefault();
+            }
+
+            return BestFromTree(culture.RootElite, targetTier)
+                ?? BestFromTree(culture.RootBasic, targetTier)
+                ?? culture.RootElite
+                ?? culture.RootBasic;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
