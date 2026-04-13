@@ -23,7 +23,7 @@ namespace Retinues.Behaviors.Retinues
         /// <summary>
         /// Ensures the player has a default retinue and unlocks their culture's retinue.
         /// </summary>
-        private void EnsureDefaultRetinueForPlayer()
+        private void EnsureDefaultRetinueForPlayerClan()
         {
             if (!Configuration.EnableRetinues)
                 return;

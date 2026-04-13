@@ -63,6 +63,61 @@ namespace Retinues.Behaviors.Retinues
         }
 
         /// <summary>
+        /// Ensures the given kingdom has a default retinue; creates one if none exist.
+        /// </summary>
+        public WCharacter EnsureDefaultRetinue(
+            WKingdom kingdom,
+            string name,
+            bool notifyUnlocks = true
+        )
+        {
+            if (!Configuration.EnableRetinues)
+                return null;
+
+            if (kingdom?.Base == null)
+                return null;
+
+            if (!kingdom.RosterRetinues.IsEmpty())
+                return null;
+
+            var retinue = CreateRetinue(kingdom.Culture, name, notifyUnlocks);
+            if (retinue?.Base == null)
+                return null;
+
+            kingdom.AddRetinue(retinue);
+            return retinue;
+        }
+
+        /// <summary>
+        /// Ensures the player's kingdom has a default retinue when the player is a ruler.
+        /// </summary>
+        private void EnsureDefaultRetinueForPlayerKingdom()
+        {
+            if (!Configuration.EnableRetinues)
+                return;
+
+            if (!Player.IsRuler)
+                return;
+
+            var kingdom = Player.Kingdom;
+            if (kingdom?.Base == null)
+                return;
+
+            if (!kingdom.RosterRetinues.IsEmpty())
+                return;
+
+            var name = Player.IsFemale
+                ? L.T("retinue_kingdom_default_name_female", "{KINGDOM} Queen's Guard")
+                    .SetTextVariable("KINGDOM", kingdom.Name)
+                    .ToString()
+                : L.T("retinue_kingdom_default_name_male", "{KINGDOM} King's Guard")
+                    .SetTextVariable("KINGDOM", kingdom.Name)
+                    .ToString();
+
+            EnsureDefaultRetinue(kingdom, name, notifyUnlocks: false);
+        }
+
+        /// <summary>
         /// Creates a new retinue character based on the given culture.
         /// </summary>
         public WCharacter CreateRetinue(WCulture culture, string name, bool notifyUnlocks = true)

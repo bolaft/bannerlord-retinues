@@ -17,12 +17,28 @@ namespace Retinues.Behaviors.Retinues
         /// <summary>
         /// Ensures the player has a default retinue and unlocks their culture's retinue on game start.
         /// </summary>
-        protected override void OnGameLoadFinished() => EnsureDefaultRetinueForPlayer();
+        protected override void OnGameLoadFinished()
+        {
+            EnsureDefaultRetinueForPlayerClan();
+            EnsureDefaultRetinueForPlayerKingdom();
+        }
 
         /// <summary>
         /// Ensures the player has a default retinue and unlocks their culture's retinue after character creation.
         /// </summary>
-        protected override void OnCharacterCreationIsOver() => EnsureDefaultRetinueForPlayer();
+        protected override void OnCharacterCreationIsOver()
+        {
+            EnsureDefaultRetinueForPlayerClan();
+            EnsureDefaultRetinueForPlayerKingdom();
+        }
+
+        /// <summary>
+        /// Ensures the player's kingdom gets a default retinue if the player just became a ruler.
+        /// </summary>
+        protected override void OnKingdomCreated(Kingdom kingdom)
+        {
+            EnsureDefaultRetinueForPlayerKingdom();
+        }
 
         /// <summary>
         /// Adds daily progress for owned fiefs and workshops toward retinue unlocks.
