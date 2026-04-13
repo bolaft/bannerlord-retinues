@@ -18,7 +18,7 @@
       text="And {COUNT} more pieces of gear were taken." />
     <string
       id="ret_ai_retinue_loot_title"
-      text="Enemy Retinues Looted Your Fallen" />
+      text="Enemy Looted Your Fallen" />
     <string
       id="ret_allowed_recruiters_everyone"
       text="Everyone" />

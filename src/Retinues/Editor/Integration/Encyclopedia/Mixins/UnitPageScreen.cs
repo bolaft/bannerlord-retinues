@@ -1,5 +1,6 @@
 using System;
 using Bannerlord.UIExtenderEx.Attributes;
+using Retinues.Domain;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
@@ -42,10 +43,27 @@ namespace Retinues.Editor.Integration.Encyclopedia.Mixins
 
                 if (character.IsFactionTroop)
                 {
-                    // Player-mode editor, preselect the assigned map-faction (clan/kingdom).
                     var faction = character.AssignedMapFaction;
+
+                    // Player mode only for the player's own clan/kingdom.
+                    bool isPlayerFaction =
+                        faction != null
+                        && (
+                            ReferenceEquals(faction, Player.Clan)
+                            || ReferenceEquals(faction, Player.Kingdom)
+                        );
+
+                    if (isPlayerFaction)
+                    {
+                        EditorLauncher.Launch(
+                            EditorLaunchArgs.Player(faction: faction, character: character)
+                        );
+                        return;
+                    }
+
+                    // AI clan retinue: universal mode scoped to their clan.
                     EditorLauncher.Launch(
-                        EditorLaunchArgs.Player(faction: faction, character: character)
+                        EditorLaunchArgs.Universal(faction: faction, character: character)
                     );
                     return;
                 }

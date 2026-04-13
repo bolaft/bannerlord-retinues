@@ -24,26 +24,88 @@ namespace Retinues.Behaviors.Retinues
         protected override void OnMissionEnded(MMission mission)
         {
             if (!Configuration.EnableAIClanRetinues)
+            {
+                Log.Debug("[AIClanRetinue.Loot] Skipped: EnableAIClanRetinues is false.");
                 return;
+            }
 
-            // Only loot on player loss/retreat.
-            if (CombatBehavior.MapEvent?.IsLost != true)
+            var mapEvent = CombatBehavior.MapEvent;
+            Log.Debug(
+                $"[AIClanRetinue.Loot] MapEvent={mapEvent != null} IsLost={mapEvent?.IsLost} IsWon={mapEvent?.IsWon} HasWinner={mapEvent?.HasWinner} IsPlayerInvolved={mapEvent?.IsPlayerInvolved}"
+            );
+
+            // Only loot when the player did not win (includes defeats and retreats).
+            if (mapEvent?.IsWon == true)
+            {
+                Log.Debug("[AIClanRetinue.Loot] Skipped: battle was won.");
                 return;
+            }
 
             var kills = CombatBehavior.GetKills();
+            Log.Debug($"[AIClanRetinue.Loot] Total kills captured: {kills?.Count ?? 0}");
+
             if (kills == null || kills.Count == 0)
                 return;
 
+            // Collect AI clan retinues from enemy side parties.
+            var snapshot = CombatBehavior.Snapshot;
+            if (snapshot == null)
+            {
+                Log.Debug("[AIClanRetinue.Loot] Skipped: CombatBehavior.Snapshot is null.");
+                return;
+            }
+
+            var enemySide = snapshot.EnemySide;
+            if (enemySide == null)
+            {
+                Log.Debug("[AIClanRetinue.Loot] Skipped: enemy side snapshot is null.");
+                return;
+            }
+
+            // Build a set of player-side party IDs from the start snapshot so kill resolution
+            // doesn't depend on IsPlayerTroop (which can be false when PlayerSideEnum is None
+            // at agent-removal time during a retreat).
+            var playerPartyIds = new HashSet<string>(StringComparer.Ordinal);
+            if (snapshot.PlayerSide?.PartyData != null)
+            {
+                foreach (var pd in snapshot.PlayerSide.PartyData)
+                {
+                    if (!string.IsNullOrEmpty(pd?.PartyId))
+                        playerPartyIds.Add(pd.PartyId);
+                }
+            }
+
+            Log.Debug(
+                $"[AIClanRetinue.Loot] Player party IDs in snapshot: [{string.Join(", ", playerPartyIds)}]"
+            );
+
             // Build loot pool: all items worn by player custom troop casualties.
             var lootPool = new List<WItem>();
+            int playerTroopKills = 0;
+            int customCharKills = 0;
             foreach (var kill in kills)
             {
-                if (!kill.Victim.IsPlayerTroop)
+                var victimPartyId = kill.Victim.PartyId;
+                bool isPlayerSideCasualty =
+                    kill.Victim.IsPlayerTroop
+                    || kill.Victim.IsAllyTroop
+                    || (
+                        !string.IsNullOrEmpty(victimPartyId)
+                        && playerPartyIds.Contains(victimPartyId)
+                    );
+
+                Log.Debug(
+                    $"[AIClanRetinue.Loot] Kill victim={kill.Victim.CharacterId} party={victimPartyId} IsPlayerTroop={kill.Victim.IsPlayerTroop} IsAllyTroop={kill.Victim.IsAllyTroop} isPlayerSideCasualty={isPlayerSideCasualty}"
+                );
+
+                if (!isPlayerSideCasualty)
                     continue;
+                playerTroopKills++;
 
                 var victimChar = kill.Victim.Character;
                 if (victimChar == null || !victimChar.IsCustom)
                     continue;
+                customCharKills++;
 
                 var eq = kill.VictimEquipment;
                 if (eq == null)
@@ -56,17 +118,19 @@ namespace Retinues.Behaviors.Retinues
                 }
             }
 
+            Log.Debug(
+                $"[AIClanRetinue.Loot] Player troop kills: {playerTroopKills}, custom char kills: {customCharKills}, loot pool size: {lootPool.Count}"
+            );
+
             if (lootPool.Count == 0)
+            {
+                Log.Debug("[AIClanRetinue.Loot] Skipped: loot pool is empty.");
                 return;
+            }
 
-            // Collect AI clan retinues from enemy side parties.
-            var snapshot = CombatBehavior.Snapshot;
-            if (snapshot == null)
-                return;
-
-            var enemySide = snapshot.EnemySide;
-            if (enemySide == null)
-                return;
+            Log.Debug(
+                $"[AIClanRetinue.Loot] Enemy side parties: {enemySide.PartyData?.Count ?? 0}"
+            );
 
             var retinuesToLoot = new List<WCharacter>();
             var seenClanIds = new HashSet<string>(StringComparer.Ordinal);
@@ -88,12 +152,19 @@ namespace Retinues.Behaviors.Retinues
                 if (!seenClanIds.Add(clan.StringId))
                     continue;
 
-                foreach (var retinue in clan.GetRawRetinues())
+                var rawRetinues = clan.GetRawRetinues();
+                Log.Debug(
+                    $"[AIClanRetinue.Loot] Clan '{clan.Name}' has {rawRetinues.Count} retinues."
+                );
+
+                foreach (var retinue in rawRetinues)
                 {
                     if (retinue?.Base != null)
                         retinuesToLoot.Add(retinue);
                 }
             }
+
+            Log.Debug($"[AIClanRetinue.Loot] Retinues eligible to loot: {retinuesToLoot.Count}");
 
             if (retinuesToLoot.Count == 0)
                 return;
@@ -102,6 +173,8 @@ namespace Retinues.Behaviors.Retinues
             var lootResults = new List<(string RetinueName, string ItemName)>();
             foreach (var retinue in retinuesToLoot)
                 TryLootItemForRetinue(retinue, lootPool, lootResults);
+
+            Log.Debug($"[AIClanRetinue.Loot] Items looted: {lootResults.Count}");
 
             NotifyPlayerOfLooting(lootResults);
         }
@@ -116,7 +189,7 @@ namespace Retinues.Behaviors.Retinues
             if (results == null || results.Count == 0)
                 return;
 
-            var title = L.T("ai_retinue_loot_title", "Enemy Retinues Looted Your Fallen");
+            var title = L.T("ai_retinue_loot_title", "Enemy Looted Your Fallen");
 
             const int maxLines = 5;
             var take = Math.Min(maxLines, results.Count);

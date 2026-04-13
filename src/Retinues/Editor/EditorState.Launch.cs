@@ -260,7 +260,8 @@ namespace Retinues.Editor
                     // - Otherwise (culture): exclude map-faction troops.
                     if (isClan)
                     {
-                        if (!troop.IsHero)
+                        // Show heroes and retinues for clan selection.
+                        if (!troop.IsHero && !troop.IsRetinue)
                             continue;
                     }
                     else

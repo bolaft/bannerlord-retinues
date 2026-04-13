@@ -249,10 +249,10 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.List
                     return c.IsFactionTroop;
                 }
 
-                // Universal mode — clan selection: heroes and vanilla (non-mod-created) troops.
+                // Universal mode — clan selection: heroes, vanilla troops, and retinues.
                 // Custom mod-created troops belong in Player mode, not Universal.
                 if (isClan)
-                    return c.IsHero || c.IsVanilla;
+                    return c.IsHero || c.IsVanilla || c.IsRetinue;
 
                 // Universal mode — culture / kingdom selection: exclude mod-faction troops.
                 return !c.IsFactionTroop;
