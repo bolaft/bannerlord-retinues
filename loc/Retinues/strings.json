@@ -10609,7 +10609,7 @@
   },
   {
     "id": "ret_mixed_gender_toggle_tooltip",
-    "EN": "Mixed Gender: {PERCENT}% will spawn as the opposite gender (change ratio in settings)",
+    "EN": "Mixed Gender: {PERCENT}% will spawn as the opposite gender",
     "FR": null,
     "BR": null,
     "CNs": null,

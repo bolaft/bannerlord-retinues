@@ -104,7 +104,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Column
                     new Tooltip(
                         L.T(
                                 "mixed_gender_toggle_tooltip",
-                                "Mixed Gender: {PERCENT}% will spawn as the opposite gender (change ratio in settings)"
+                                "Mixed Gender: {PERCENT}% will spawn as the opposite gender"
                             )
                             .SetTextVariable(
                                 "PERCENT",
