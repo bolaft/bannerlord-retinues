@@ -176,19 +176,21 @@ namespace Retinues.Behaviors.Retinues
             if (!Configuration.EnableRetinues)
                 return;
 
+            var workshops = Player.Hero?.Base?.OwnedWorkshops;
+            if (workshops == null || workshops.Count == 0)
+                return;
+
             var byCulture = new Dictionary<string, int>();
 
-            foreach (var fief in Player.Clan.Settlements)
+            foreach (var workshop in workshops)
             {
-                var culture = fief.Culture;
+                var culture = workshop.Settlement?.Culture;
                 if (culture == null)
                     continue;
 
-                int workshopCount = fief.Town?.Workshops.Count() ?? 0;
-
-                byCulture.TryGetValue(culture.StringId, out var cur);
-                byCulture[culture.StringId] =
-                    cur + (Progress_DailyPerOwnedWorkshop * workshopCount);
+                var cultureId = culture.StringId;
+                byCulture.TryGetValue(cultureId, out var cur);
+                byCulture[cultureId] = cur + Progress_DailyPerOwnedWorkshop;
             }
 
             foreach (var kv in byCulture)
