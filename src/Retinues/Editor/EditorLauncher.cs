@@ -56,17 +56,6 @@ namespace Retinues.Editor
                 mode = args.Mode;
             }
 
-            if (mode == EditorMode.Player)
-            {
-                var gateFaction = ResolveGateFaction(args);
-
-                if (gateFaction.Troops.Count() == 0)
-                {
-                    Log.Debug("Troops editor blocked: selected map-faction has no custom troops.");
-                    return;
-                }
-            }
-
             ClosePreviousEditorInstances(gsm);
 
             var state = gsm.CreateState<EditorGameState>();

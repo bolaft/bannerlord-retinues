@@ -1,4 +1,6 @@
+using System.Linq;
 using Bannerlord.UIExtenderEx.Attributes;
+using Retinues.Domain;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Factions;
 using Retinues.Domain.Factions.Helpers;
@@ -67,6 +69,23 @@ namespace Retinues.Editor.MVC.Common.TopPanel.View
         [EventListener(UIEvent.Mode)]
         [DataSourceProperty]
         public bool IsDoctrinesTabVisible => IsPlayerMode && Configuration.EnableDoctrines;
+
+        [EventListener(UIEvent.Mode)]
+        [EventListener(UIEvent.Faction)]
+        [DataSourceProperty]
+        public bool IsEditorTabEnabled =>
+            State.Mode != EditorMode.Player
+            || Configuration.EnableRetinues
+            || Player.Clan?.Troops.Any(t => t != null && !t.IsHero && t.IsFactionTroop) == true
+            || Player.Kingdom?.Troops.Any(t => t != null && !t.IsHero && t.IsFactionTroop) == true;
+
+        [EventListener(UIEvent.Mode)]
+        [EventListener(UIEvent.Faction)]
+        [DataSourceProperty]
+        public Tooltip EditorTabDisabledHint =>
+            !IsEditorTabEnabled
+                ? new Tooltip(L.T("troops_editor_no_custom", "No troops are available."))
+                : null;
 
         [DataSourceMethod]
         public void ExecuteSelectEditorTab() => State.SetPage();

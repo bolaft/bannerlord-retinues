@@ -35,7 +35,7 @@ namespace Retinues.Settings
         private static bool _discovered;
         private static bool _loadingConfig;
 
-        private static readonly HashSet<string> _restartWarningShownForKey = new(
+        private static readonly Dictionary<string, object> _restartWarnedValueByKey = new(
             StringComparer.OrdinalIgnoreCase
         );
 
@@ -482,9 +482,15 @@ namespace Retinues.Settings
 
                 try
                 {
-                    if (opt.RequiresRestart && !_restartWarningShownForKey.Contains(key))
+                    if (
+                        opt.RequiresRestart
+                        && (
+                            !_restartWarnedValueByKey.TryGetValue(key, out var warnedVal)
+                            || !Equals(warnedVal, newValue)
+                        )
+                    )
                     {
-                        _restartWarningShownForKey.Add(key);
+                        _restartWarnedValueByKey[key] = newValue;
 
                         Inquiries.Popup(
                             title: new TextObject("Restart may be required"),

@@ -48,12 +48,12 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Panel
 
         [EventListener(UIEvent.Name, UIEvent.Character)]
         [DataSourceProperty]
-        public bool IsHero => State.Character.IsHero;
+        public bool IsHero => State.Character?.IsHero == true;
 
         [EventListener(UIEvent.Name, UIEvent.Character)]
         [DataSourceProperty]
         public string SurnameText =>
-            State.Character.IsHero
+            State.Character?.IsHero == true
                 ? (
                     string.IsNullOrEmpty(State.Character.Hero.Surname)
                         ? "..."
@@ -75,7 +75,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Panel
                 action: CharacterController.RenameSurname,
                 arg: () => State.Character,
                 refresh: [UIEvent.Name],
-                visibilityGate: () => State.Character.IsHero
+                visibilityGate: () => State.Character?.IsHero == true
             );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -105,7 +105,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Panel
                 action: CharacterController.SelectCulture,
                 arg: () => State.Character,
                 refresh: [UIEvent.Character, UIEvent.Culture],
-                visibilityGate: () => !State.Character.IsRetinue,
+                visibilityGate: () => State.Character?.IsRetinue != true,
                 sprite: "SPClan.Parties.ChangePartyLeaderIcon",
                 color: "f8eed1ff"
             );
@@ -130,7 +130,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Panel
 
         [EventListener(UIEvent.Character)]
         [DataSourceProperty]
-        public bool ShowTraits => State.Character.IsHero;
+        public bool ShowTraits => State.Character?.IsHero == true;
 
         private MBBindingList<CharacterTraitVM> _traits;
 
@@ -173,7 +173,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Panel
 
         [EventListener(UIEvent.Character)]
         [DataSourceProperty]
-        public bool ShowCaptain => State.Character.IsCaptain;
+        public bool ShowCaptain => State.Character?.IsCaptain == true;
 
         [EventListener(UIEvent.Character)]
         [DataSourceProperty]
@@ -212,7 +212,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Panel
         [EventListener(UIEvent.Character)]
         [DataSourceProperty]
         public bool ShowSkillDetails =>
-            !State.Character.IsHero
+            State.Character?.IsHero != true
             && (State.Mode == EditorMode.Player || Configuration.EnforceSkillLimitsInUniversalMode);
 
         [EventListener(UIEvent.Skill, UIEvent.Doctrine)]
@@ -308,6 +308,9 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Panel
         [EventListener(UIEvent.Character, UIEvent.Doctrine)]
         public void RefreshSkillsGrid()
         {
+            if (State.Character == null)
+                return;
+
             var skills = State.Character.Skills;
             SkillsCount = skills.Count();
 

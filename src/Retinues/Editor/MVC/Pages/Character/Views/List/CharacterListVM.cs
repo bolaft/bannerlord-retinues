@@ -413,6 +413,78 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.List
                 }
             }
 
+            // Retinues: player kingdom in player mode.
+            if (
+                EditorState.Instance.Mode == EditorMode.Player
+                && faction is WKingdom
+                && Configuration.EnableRetinues
+                && faction.RosterRetinues.Count > 0
+            )
+            {
+                var header = new ListHeaderVM(
+                    this,
+                    "retinues",
+                    L.S("list_header_retinues", "Retinues")
+                )
+                {
+                    IsExpanded = true,
+                };
+
+                var any = false;
+
+                foreach (var character in faction.RosterRetinues)
+                {
+                    if (!ShouldInclude(character))
+                        continue;
+
+                    any = true;
+                    AddCharacterRow(header, character);
+                }
+
+                if (any)
+                {
+                    headers.Add(header);
+                    header.UpdateRowCount();
+                    header.UpdateState();
+                }
+            }
+
+            // Retinues: any clan or kingdom in universal mode, only when AI retinues are enabled.
+            if (
+                EditorState.Instance.Mode == EditorMode.Universal
+                && (faction is WClan || faction is WKingdom)
+                && Configuration.EnableAIClanRetinues
+                && faction.RosterRetinues.Count > 0
+            )
+            {
+                var header = new ListHeaderVM(
+                    this,
+                    "retinues",
+                    L.S("list_header_retinues", "Retinues")
+                )
+                {
+                    IsExpanded = true,
+                };
+
+                var any = false;
+
+                foreach (var character in faction.RosterRetinues)
+                {
+                    if (!ShouldInclude(character))
+                        continue;
+
+                    any = true;
+                    AddCharacterRow(header, character);
+                }
+
+                if (any)
+                {
+                    headers.Add(header);
+                    header.UpdateRowCount();
+                    header.UpdateState();
+                }
+            }
+
             // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
             //                          Trees                         //
             // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

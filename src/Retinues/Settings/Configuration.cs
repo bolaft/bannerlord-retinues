@@ -353,7 +353,8 @@ namespace Retinues.Settings
                 "Toggles the Retinues feature on or off."
             ),
             @default: true,
-            fires: [UIEvent.Faction]
+            fires: [UIEvent.Faction],
+            requiresRestart: true
         );
 
         public static readonly Option<float> MaxRetinueRatio = CreateOption(
@@ -460,6 +461,61 @@ namespace Retinues.Settings
             @default: 20,
             dependsOn: BuffRetinueSkillTotal,
             fires: [UIEvent.Skill]
+        );
+
+        public static readonly Option<bool> EnableAIClanRetinues = CreateOption(
+            section: Retinues,
+            name: L.F("mcm_option_enable_ai_clan_retinues", "Enable AI Clan Retinues"),
+            description: L.F(
+                "mcm_option_enable_ai_clan_retinues_hint",
+                "If enabled, non-player clans meeting the minimum tier will have their own retinues."
+            ),
+            @default: true,
+            dependsOn: EnableRetinues,
+            requiresRestart: true
+        );
+
+        public static readonly Option<int> AIClanRetinueMinTier = CreateOption(
+            section: Retinues,
+            name: L.F("mcm_option_ai_clan_retinue_min_tier", "AI Clan Retinue Min Tier"),
+            description: L.F(
+                "mcm_option_ai_clan_retinue_min_tier_hint",
+                "Minimum clan tier (1-6) required for a non-player clan to have their own retinues."
+            ),
+            minValue: 1,
+            maxValue: 6,
+            @default: 4,
+            dependsOn: EnableAIClanRetinues,
+            requiresRestart: true
+        );
+
+        public static readonly Option<int> AIClanRetinueCapPercent = CreateOption(
+            section: Retinues,
+            name: L.F("mcm_option_ai_clan_retinue_cap_percent", "AI Retinue Cap (% of Party)"),
+            description: L.F(
+                "mcm_option_ai_clan_retinue_cap_percent_hint",
+                "Maximum percentage of a lord party's size that retinue troops can occupy (1-50)."
+            ),
+            minValue: 1,
+            maxValue: 50,
+            @default: 10,
+            dependsOn: EnableAIClanRetinues
+        );
+
+        public static readonly Option<int> AIClanRetinueConvertChance = CreateOption(
+            section: Retinues,
+            name: L.F(
+                "mcm_option_ai_clan_retinue_convert_chance",
+                "AI Retinue Daily Promote Chance (%)"
+            ),
+            description: L.F(
+                "mcm_option_ai_clan_retinue_convert_chance_hint",
+                "Chance per day that an eligible lord party converts one matching-tier troop into a retinue (1-100)."
+            ),
+            minValue: 1,
+            maxValue: 100,
+            @default: 25,
+            dependsOn: EnableAIClanRetinues
         );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

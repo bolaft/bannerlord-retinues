@@ -23,32 +23,40 @@ namespace Retinues.Behaviors.Troops
             WCharacter clone,
             WCulture cultureContext,
             bool createCivilianSet,
-            RandomEquipmentReuseContext reuseContext = null
+            RandomEquipmentReuseContext reuseContext = null,
+            bool forceRandom = false,
+            int maxItemTierOverride = -1
         )
         {
             if (template == null || clone == null)
                 return;
 
-            switch (Configuration.StarterEquipment.Value)
+            if (!forceRandom)
             {
-                case Configuration.EquipmentMode.AllSets:
-                    clone.EquipmentRoster.Copy(template.EquipmentRoster, EquipmentCopyMode.All);
-                    return;
+                switch (Configuration.StarterEquipment.Value)
+                {
+                    case Configuration.EquipmentMode.AllSets:
+                        clone.EquipmentRoster.Copy(template.EquipmentRoster, EquipmentCopyMode.All);
+                        return;
 
-                case Configuration.EquipmentMode.SingleSet:
-                    clone.EquipmentRoster.Copy(
-                        template.EquipmentRoster,
-                        EquipmentCopyMode.FirstOfEach
-                    );
-                    return;
+                    case Configuration.EquipmentMode.SingleSet:
+                        clone.EquipmentRoster.Copy(
+                            template.EquipmentRoster,
+                            EquipmentCopyMode.FirstOfEach
+                        );
+                        return;
 
-                case Configuration.EquipmentMode.EmptySet:
-                    clone.EquipmentRoster.Copy(template.EquipmentRoster, EquipmentCopyMode.Reset);
-                    return;
+                    case Configuration.EquipmentMode.EmptySet:
+                        clone.EquipmentRoster.Copy(
+                            template.EquipmentRoster,
+                            EquipmentCopyMode.Reset
+                        );
+                        return;
 
-                case Configuration.EquipmentMode.RandomSet:
-                default:
-                    break;
+                    case Configuration.EquipmentMode.RandomSet:
+                    default:
+                        break;
+                }
             }
 
             var culture = cultureContext ?? template.Culture;
@@ -105,7 +113,8 @@ namespace Retinues.Behaviors.Troops
                 pickBest: false,
                 enforceLimits: true,
                 reuseContext: reuseContext,
-                preferUnlocked: true
+                preferUnlocked: true,
+                maxItemTierOverride: maxItemTierOverride
             );
 
             MEquipment civil = null;
@@ -124,7 +133,8 @@ namespace Retinues.Behaviors.Troops
                     pickBest: false,
                     enforceLimits: true,
                     reuseContext: reuseContext,
-                    preferUnlocked: true
+                    preferUnlocked: true,
+                    maxItemTierOverride: maxItemTierOverride
                 );
             }
 

@@ -284,46 +284,68 @@ namespace Retinues.Editor.MVC.Pages.Settings.Views.Panel
         }
 
         /// <summary>
-        /// Evaluates whether this option's dependency condition is currently satisfied.
+        /// Evaluates whether this option's full dependency chain is currently satisfied.
+        /// Every ancestor in the chain (A depends on B depends on C...) must be satisfied.
         /// </summary>
         private bool IsDependencySatisfied()
         {
-            var dependsOn = Option?.DependsOn;
-            if (dependsOn == null)
-                return true;
-
-            object current;
-            try
+            // Walk from this option up through the dependency chain.
+            // At each step, "opt" is the child and "opt.DependsOn" is the parent being checked.
+            var opt = Option;
+            int safety = 0;
+            while (opt?.DependsOn != null && safety++ < 32)
             {
-                current = dependsOn.GetObject();
-            }
-            catch
-            {
-                return true;
-            }
+                var parent = opt.DependsOn;
 
-            object expected = Option.DependsOnValue;
-
-            // Common case: depends on a bool "enabled" toggle.
-            if (expected == null && dependsOn.Type == typeof(bool))
-                expected = true;
-
-            // If no expected value is provided for non-bool dependencies, treat it as always satisfied.
-            if (expected == null)
-                return true;
-
-            // Support sets of acceptable values (e.g. new[] { Mode.A, Mode.B }).
-            if (expected is IEnumerable enumerable && expected is not string)
-            {
-                foreach (var allowed in enumerable)
+                object current;
+                try
                 {
-                    if (Equals(current, allowed))
-                        return true;
+                    current = parent.GetObject();
                 }
-                return false;
+                catch
+                {
+                    // Can't evaluate — assume satisfied and continue walking.
+                    opt = parent;
+                    continue;
+                }
+
+                object expected = opt.DependsOnValue;
+
+                // Common case: depends on a bool "enabled" toggle.
+                if (expected == null && parent.Type == typeof(bool))
+                    expected = true;
+
+                // If no expected value is provided for non-bool dependencies, treat as satisfied.
+                if (expected == null)
+                {
+                    opt = parent;
+                    continue;
+                }
+
+                // Support sets of acceptable values (e.g. new[] { Mode.A, Mode.B }).
+                if (expected is IEnumerable enumerable && expected is not string)
+                {
+                    bool found = false;
+                    foreach (var allowed in enumerable)
+                    {
+                        if (Equals(current, allowed))
+                        {
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (!found)
+                        return false;
+                }
+                else if (!Equals(current, expected))
+                {
+                    return false;
+                }
+
+                opt = parent;
             }
 
-            return Equals(current, expected);
+            return true;
         }
     }
 }

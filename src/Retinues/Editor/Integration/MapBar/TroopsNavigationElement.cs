@@ -2,6 +2,8 @@
 using System.Linq;
 using Retinues.Settings;
 using Retinues.Domain;
+using Retinues.Domain.Factions;
+using Retinues.Domain.Characters.Wrappers;
 using Retinues.Interface.Services;
 using SandBox.View;
 using SandBox.View.Map.Navigation;
@@ -43,8 +45,11 @@ namespace Retinues.Editor.Integration.MapBar
             if (!MapNavigationHelper.IsNavigationBarEnabled(_handler))
                 return new NavigationPermissionItem(isAuthorized: false, reasonString: null);
 
-            // Player mode requires at least one custom-tree troop to exist.
-            if (Player.Clan.Troops.Count() == 0)
+            // Player mode requires at least one editable (non-hero faction) troop to exist.
+            static bool HasEditableTroops(IBaseFaction faction) =>
+                faction?.Troops.Any(t => t != null && !t.IsHero && t.IsFactionTroop) == true;
+
+            if (!HasEditableTroops(Player.Clan) && !HasEditableTroops(Player.Kingdom))
                 return new NavigationPermissionItem(
                     isAuthorized: false,
                     L.T("troops_editor_no_custom", "No troops are available.")

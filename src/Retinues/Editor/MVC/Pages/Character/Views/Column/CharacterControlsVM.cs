@@ -28,7 +28,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Column
         [EventListener(UIEvent.Character, UIEvent.Doctrine)]
         [DataSourceProperty]
         public bool ShowCaptainModeToggle =>
-            !State.Character.IsHero && DoctrineCatalog.Captains.IsAcquired;
+            State.Character?.IsHero != true && DoctrineCatalog.Captains.IsAcquired;
 
         [DataSourceProperty]
         public Icon CaptainModeIcon { get; } =
@@ -36,10 +36,11 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Column
                 tooltip: new Tooltip(L.T("captain_mode_toggle_tooltip", "Captain Mode")),
                 refresh: [UIEvent.Character, UIEvent.Doctrine],
                 spriteFactory: () =>
-                    State.Character.IsCaptain
+                    State.Character?.IsCaptain == true
                         ? @"Encyclopedia\star_without_glow"
                         : @"Encyclopedia\star_outline",
-                visibilityGate: () => !State.Character.IsHero && DoctrineCatalog.Captains.IsAcquired
+                visibilityGate: () =>
+                    State.Character?.IsHero != true && DoctrineCatalog.Captains.IsAcquired
             );
 
         [DataSourceProperty]
@@ -48,7 +49,8 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Column
                 action: CaptainsController.ToggleCaptainMode,
                 getSelected: () => State.Character?.IsCaptain ?? false,
                 refresh: [UIEvent.Character, UIEvent.Doctrine],
-                visibilityGate: () => !State.Character.IsHero && DoctrineCatalog.Captains.IsAcquired
+                visibilityGate: () =>
+                    State.Character?.IsHero != true && DoctrineCatalog.Captains.IsAcquired
             );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -57,7 +59,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Column
 
         [EventListener(UIEvent.Character)]
         [DataSourceProperty]
-        public bool ShowMarinerToggle => Mods.NavalDLC.IsLoaded && !State.Character.IsHero;
+        public bool ShowMarinerToggle => Mods.NavalDLC.IsLoaded && State.Character?.IsHero != true;
 
         [DataSourceProperty]
         public Icon MarinerIcon { get; } =
@@ -77,7 +79,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Column
                             )
                         ),
                 refresh: [UIEvent.Formation],
-                visibilityGate: () => Mods.NavalDLC.IsLoaded && !State.Character.IsHero
+                visibilityGate: () => Mods.NavalDLC.IsLoaded && State.Character?.IsHero != true
             );
 
         [DataSourceProperty]
@@ -86,7 +88,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Column
                 action: CharacterController.SetMariner,
                 getSelected: () => State.Character?.IsMariner ?? false,
                 refresh: [UIEvent.Formation],
-                visibilityGate: () => Mods.NavalDLC.IsLoaded && !State.Character.IsHero
+                visibilityGate: () => Mods.NavalDLC.IsLoaded && State.Character?.IsHero != true
             );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -95,7 +97,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Column
 
         [EventListener(UIEvent.Character)]
         [DataSourceProperty]
-        public bool ShowMixedGenderToggle => !State.Character.IsHero;
+        public bool ShowMixedGenderToggle => State.Character?.IsHero != true;
 
         [DataSourceProperty]
         public Icon MixedGenderIcon { get; } =
@@ -122,7 +124,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Column
                         ? "SPGeneral\\GeneralFlagIcons\\male_only"
                         : "SPGeneral\\GeneralFlagIcons\\female_only";
                 },
-                visibilityGate: () => !State.Character.IsHero
+                visibilityGate: () => State.Character?.IsHero != true
             );
 
         [DataSourceProperty]
@@ -131,7 +133,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Column
                 action: CharacterController.SetMixedGender,
                 getSelected: () => State.Character?.IsMixedGender ?? false,
                 refresh: [UIEvent.Character],
-                visibilityGate: () => !State.Character.IsHero
+                visibilityGate: () => State.Character?.IsHero != true
             );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -194,7 +196,8 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Column
                 arg: () => State.Character,
                 label: L.S("button_rank_up", "Rank Up"),
                 refresh: [UIEvent.Skill, UIEvent.Doctrine],
-                visibilityGate: () => State.Mode == EditorMode.Player && State.Character.IsRetinue
+                visibilityGate: () =>
+                    State.Mode == EditorMode.Player && State.Character?.IsRetinue == true
             );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -209,7 +212,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Column
                 refresh: [UIEvent.Character, UIEvent.Tree],
                 label: L.S("button_remove_character", "Delete"),
                 visibilityGate: () =>
-                    State.Character.IsHero == false
+                    State.Character?.IsHero == false
                     && State.Character.IsCaptain == false
                     && State.Character.IsRetinue == false
             );

@@ -72,7 +72,47 @@
                 {% endmacro %}
 
                 {# Tab control button (ClanScreen style) #}
-                {% macro tab_button(brush, cmd, selected, text, visible="true", sug_w="!Header.Tab.Center.Width.Scaled", sug_h="!Header.Tab.Center.Height.Scaled", pos_xoff="0", pos_yoff="0", text_xoff="0", text_mt="0") %}
+                {% macro tab_button(brush, cmd, selected, text, visible="true", is_enabled="true", hint=None, sug_w="!Header.Tab.Center.Width.Scaled", sug_h="!Header.Tab.Center.Height.Scaled", pos_xoff="0", pos_yoff="0", text_xoff="0", text_mt="0") %}
+                    {% if hint %}
+                    <Widget
+                        WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                        SuggestedWidth="{{ sug_w }}"
+                        SuggestedHeight="{{ sug_h }}"
+                        PositionXOffset="{{ pos_xoff }}"
+                        PositionYOffset="{{ pos_yoff }}"
+                        IsVisible="{{ visible }}">
+                        <Children>
+
+                            <ButtonWidget
+                                DoNotPassEventsToChildren="true"
+                                WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+                                Brush="{{ brush }}"
+                                Command.Click="{{ cmd }}"
+                                IsSelected="{{ selected }}"
+                                IsEnabled="{{ is_enabled }}"
+                                UpdateChildrenStates="true">
+                                <Children>
+
+                                    <TextWidget
+                                        WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+                                        Brush="Clan.TabControl.Text"
+                                        PositionXOffset="{{ text_xoff }}"
+                                        MarginTop="{{ text_mt }}"
+                                        Text="{{ text }}" />
+
+                                </Children>
+                            </ButtonWidget>
+
+                            <HintWidget
+                                DataSource="{{ hint }}"
+                                WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+                                Command.HoverBegin="ExecuteBeginHint"
+                                Command.HoverEnd="ExecuteEndHint"
+                                DoNotAcceptEvents="true" />
+
+                        </Children>
+                    </Widget>
+                    {% else %}
                     <ButtonWidget
                         DoNotPassEventsToChildren="true"
                         WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
@@ -83,6 +123,7 @@
                         Brush="{{ brush }}"
                         Command.Click="{{ cmd }}"
                         IsSelected="{{ selected }}"
+                        IsEnabled="{{ is_enabled }}"
                         IsVisible="{{ visible }}"
                         UpdateChildrenStates="true">
                         <Children>
@@ -96,6 +137,7 @@
 
                         </Children>
                     </ButtonWidget>
+                    {% endif %}
                 {% endmacro %}
 
                 {# ------------------------------------------ #}
@@ -195,7 +237,7 @@
                     <Children>
 
                         {# Editor tab #}
-                        {{ tab_button("Header.Tab.Left", "ExecuteSelectEditorTab", "@IsEditorTabSelected", "@EditorTabText", sug_w="!Header.Tab.Left.Width.Scaled", sug_h="!Header.Tab.Left.Height.Scaled", text_xoff="10", text_mt="3") }}
+                        {{ tab_button("Header.Tab.Left", "ExecuteSelectEditorTab", "@IsEditorTabSelected", "@EditorTabText", is_enabled="@IsEditorTabEnabled", hint="{EditorTabDisabledHint}", sug_w="!Header.Tab.Left.Width.Scaled", sug_h="!Header.Tab.Left.Height.Scaled", text_xoff="10", text_mt="3") }}
 
                         {# Doctrines tab #}
                         {{ tab_button("Header.Tab.Center", "ExecuteSelectDoctrinesTab", "@IsDoctrinesTabSelected", "@DoctrinesTabText", visible="@IsDoctrinesTabVisible", pos_yoff="6") }}

@@ -219,29 +219,38 @@ namespace Retinues.Domain.Factions.Base
                 if (Configuration.EnableRetinues == false)
                     return [];
 
-                var src = RetinueTroopsAttribute.Get();
-                if (src == null || src.Count == 0)
-                    return [];
-
-                var list = new List<WCharacter>(src.Count);
-                var seen = new HashSet<string>();
-
-                for (int i = 0; i < src.Count; i++)
-                {
-                    var c = src[i];
-                    if (!IsValid(c))
-                        continue;
-
-                    var id = c.StringId;
-                    if (string.IsNullOrEmpty(id))
-                        continue;
-
-                    if (seen.Add(id))
-                        list.Add(c);
-                }
-
-                return list;
+                return GetRawRetinues();
             }
+        }
+
+        /// <summary>
+        /// Returns all stored retinues regardless of the EnableRetinues feature toggle.
+        /// Intended for encyclopedia visibility sync, which must run even when the feature is off.
+        /// </summary>
+        internal List<WCharacter> GetRawRetinues()
+        {
+            var src = RetinueTroopsAttribute.Get();
+            if (src == null || src.Count == 0)
+                return [];
+
+            var list = new List<WCharacter>(src.Count);
+            var seen = new HashSet<string>();
+
+            for (int i = 0; i < src.Count; i++)
+            {
+                var c = src[i];
+                if (!IsValid(c))
+                    continue;
+
+                var id = c.StringId;
+                if (string.IsNullOrEmpty(id))
+                    continue;
+
+                if (seen.Add(id))
+                    list.Add(c);
+            }
+
+            return list;
         }
 
         /* ━━━━━━━ Villager ━━━━━━━ */

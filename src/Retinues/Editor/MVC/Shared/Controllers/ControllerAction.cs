@@ -352,6 +352,12 @@ namespace Retinues.Editor.MVC.Shared.Controllers
         /// </summary>
         private TextObject ComputeReason(TArg arg)
         {
+            // When there is no character selected, skip condition evaluation entirely.
+            // All character-dependent buttons are hidden via their visibilityGate in this
+            // state, so conditions do not need to (and must not) run against a null character.
+            if (BaseController.State.Character == null)
+                return null;
+
             // 1) Baseline conditions
             var reason = Evaluate(_baseConditions, arg);
             if (reason != null)
@@ -457,6 +463,11 @@ namespace Retinues.Editor.MVC.Shared.Controllers
         /// </summary>
         private static TextObject Evaluate(List<Condition> conditions, TArg arg)
         {
+            // If the arg itself is null (e.g. State.Character not yet set), no condition can
+            // be safely evaluated against it.
+            if (arg is null)
+                return null;
+
             for (int i = 0; i < conditions.Count; i++)
             {
                 var c = conditions[i];

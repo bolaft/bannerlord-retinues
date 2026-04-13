@@ -1547,6 +1547,24 @@
       id="ret_mariner_toggle_tooltip_universal"
       text="Mariner: better suited for naval combat" />
     <string
+      id="ret_mcm_option_ai_clan_retinue_cap_percent"
+      text="AI Retinue Cap (% of Party)" />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_cap_percent_hint"
+      text="Maximum percentage of a lord party&apos;s size that retinue troops can occupy (1-50)." />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_convert_chance"
+      text="AI Retinue Daily Promote Chance (%)" />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_convert_chance_hint"
+      text="Chance per day that an eligible lord party converts one matching-tier troop into a retinue (1-100)." />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_min_tier"
+      text="AI Clan Retinue Min Tier" />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_min_tier_hint"
+      text="Minimum clan tier (1-6) required for a non-player clan to have their own retinues." />
+    <string
       id="ret_mcm_option_allowed_recruiters"
       text="Allowed Recruiters" />
     <string
@@ -1636,6 +1654,12 @@
     <string
       id="ret_mcm_option_editor_hotkey_hint"
       text="Enables the [R] hotkey to open the editor." />
+    <string
+      id="ret_mcm_option_enable_ai_clan_retinues"
+      text="Enable AI Clan Retinues" />
+    <string
+      id="ret_mcm_option_enable_ai_clan_retinues_hint"
+      text="If enabled, non-player clans meeting the minimum tier will have their own retinues." />
     <string
       id="ret_mcm_option_enable_doctrines"
       text="Enable Doctrines" />
@@ -2231,11 +2255,23 @@
       id="ret_reset_target_troop_disabled"
       text="Only modified, non-hero vanilla troops can be reset." />
     <string
+      id="ret_retinue_ai_clan_house_champion"
+      text="{CLAN} House Champion" />
+    <string
+      id="ret_retinue_ai_clan_house_guard"
+      text="{CLAN} House Guard" />
+    <string
       id="ret_retinue_culture_default_name"
       text="{CLAN} {CULTURE} Retinue" />
     <string
       id="ret_retinue_default_name"
       text="{CLAN} House Guard" />
+    <string
+      id="ret_retinue_kingdom_default_name_female"
+      text="{KINGDOM} Queen&apos;s Guard" />
+    <string
+      id="ret_retinue_kingdom_default_name_male"
+      text="{KINGDOM} King&apos;s Guard" />
     <string
       id="ret_retinue_morale_bonus_bound_by_honor"
       text="Bound by Honor" />

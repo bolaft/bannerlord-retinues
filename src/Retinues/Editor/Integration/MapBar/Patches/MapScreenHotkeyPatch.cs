@@ -47,7 +47,11 @@ namespace Retinues.Editor.Integration.MapBar.Patches
             if (!sceneLayer.Input.IsKeyPressed(InputKey.R))
                 return;
 
-            if (Player.Clan.Troops.Count() == 0)
+            if (
+                Player.Clan?.Troops.Any(t => t != null && !t.IsHero && t.IsFactionTroop) != true
+                && Player.Kingdom?.Troops.Any(t => t != null && !t.IsHero && t.IsFactionTroop)
+                    != true
+            )
                 return;
 
 #if BL13 || BL14

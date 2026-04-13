@@ -268,6 +268,21 @@ namespace Retinues.Behaviors.Troops
             public bool NotifyUnlocks { get; set; } = true;
 
             public bool UnhideInEncyclopedia { get; set; } = true;
+
+            /// <summary>
+            /// When > 0, sets the troop level before generating equipment, overriding the template level.
+            /// </summary>
+            public int TargetLevel { get; set; } = 0;
+
+            /// <summary>
+            /// When true, always use random equipment regardless of the StarterEquipment config.
+            /// </summary>
+            public bool ForceRandomEquipment { get; set; } = false;
+
+            /// <summary>
+            /// Override cap for random item tier selection. -1 means use Configuration.RandomItemMaxTier.
+            /// </summary>
+            public int MaxRandomItemTierOverride { get; set; } = -1;
         }
 
         /// <summary>
@@ -297,11 +312,16 @@ namespace Retinues.Behaviors.Troops
             if (req.CopySkills)
                 EnforceSkillLimits(troop);
 
+            if (req.TargetLevel > 0)
+                troop.Level = req.TargetLevel;
+
             ApplyStarterEquipments(
                 template: template,
                 clone: troop,
                 cultureContext: req.CultureContext ?? template.Culture,
-                createCivilianSet: req.CreateCivilianSet
+                createCivilianSet: req.CreateCivilianSet,
+                forceRandom: req.ForceRandomEquipment,
+                maxItemTierOverride: req.MaxRandomItemTierOverride
             );
 
             if (req.UnlockItems)
