@@ -188,6 +188,8 @@ namespace Retinues.Behaviors.Missions
         {
             return victim != null
                 && killer != null
+                && victim.Character != null
+                && killer.Character != null
                 && !string.IsNullOrEmpty(victim.Character.StringId)
                 && !string.IsNullOrEmpty(killer.Character.StringId)
                 && (state == AgentState.Killed || state == AgentState.Unconscious);

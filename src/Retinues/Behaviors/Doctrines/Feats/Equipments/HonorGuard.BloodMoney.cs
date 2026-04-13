@@ -17,7 +17,7 @@ namespace Retinues.Behaviors.Doctrines.Feats.Equipments
             MMapEvent end
         )
         {
-            if (end.IsLost)
+            if (!end.IsWon)
                 return; // Player lost the battle.
 
             Feat.Add(end.GoldReward); // Progress by the amount of gold looted.

@@ -17,7 +17,7 @@ namespace Retinues.Behaviors.Doctrines.Feats.Troops
             MMapEvent end
         )
         {
-            if (end.IsLost)
+            if (!end.IsWon)
                 return; // Player lost the battle.
 
             if (!start.IsRaid)

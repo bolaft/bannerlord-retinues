@@ -17,7 +17,7 @@ namespace Retinues.Behaviors.Doctrines.Feats.Training
             MMapEvent end
         )
         {
-            if (end.IsLost)
+            if (!end.IsWon)
             {
                 // Player lost the battle, reset progress.
                 Feat.Reset();

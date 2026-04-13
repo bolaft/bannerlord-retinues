@@ -17,7 +17,7 @@ namespace Retinues.Behaviors.Doctrines.Feats.Retinues
             MMapEvent end
         )
         {
-            if (end.IsLost)
+            if (!end.IsWon)
                 return;
 
             foreach (var party in start.PlayerSide.Parties)

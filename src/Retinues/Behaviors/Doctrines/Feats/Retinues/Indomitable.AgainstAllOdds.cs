@@ -26,7 +26,7 @@ namespace Retinues.Behaviors.Doctrines.Feats.Retinues
             MMapEvent end
         )
         {
-            if (end.IsLost)
+            if (!end.IsWon)
                 return; // Player lost the battle.
 
             if (!IsRetinueOnly)

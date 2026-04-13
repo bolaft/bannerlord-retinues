@@ -434,7 +434,7 @@ namespace Retinues.Behaviors.Missions
                 return "<none>";
 
             if (!end.HasWinner)
-                return "Draw";
+                return "Retreat";
 
             return end.WinningSide == end.PlayerSideEnum ? "Victory" : "Defeat";
         }

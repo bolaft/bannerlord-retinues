@@ -18,7 +18,7 @@ namespace Retinues.Behaviors.Doctrines.Feats.Loot
             MMapEvent end
         )
         {
-            if (end.IsLost)
+            if (!end.IsWon)
                 return; // Player lost the battle.
 
             int count = kills.Count(k =>
