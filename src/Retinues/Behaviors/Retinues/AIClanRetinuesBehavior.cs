@@ -44,6 +44,17 @@ namespace Retinues.Behaviors.Retinues
                 (clan, _) => OnClanTierIncreased(clan)
             );
 
+            CampaignEvents.OnClanLeaderChangedEvent.AddNonSerializedListener(
+                this,
+                (oldLeader, newLeader) => OnClanLeaderChanged(oldLeader, newLeader)
+            );
+
+            CampaignEvents.OnClanChangedKingdomEvent.AddNonSerializedListener(
+                this,
+                (clan, oldKingdom, newKingdom, detail, show) =>
+                    OnClanChangedKingdom(clan, newKingdom)
+            );
+
             // Sync encyclopedia visibility on every load regardless of IsActive, so
             // AI clan retinues are correctly hidden when the feature is disabled after a restart.
             CampaignEvents.OnGameLoadedEvent.AddNonSerializedListener(
@@ -62,6 +73,102 @@ namespace Retinues.Behaviors.Retinues
             {
                 EnsureRetinuesForAllAIClans();
             }
+        }
+
+        private void OnClanLeaderChanged(Hero oldLeader, Hero newLeader)
+        {
+            if (!Configuration.EnableRetinues || !Configuration.EnableAIClanRetinues)
+                return;
+
+            var clan = newLeader?.Clan;
+            if (clan == null || clan == Clan.PlayerClan)
+                return;
+
+            // Only refresh the guard when this clan is still a ruling clan.
+            if (!newLeader.IsKingdomLeader)
+                return;
+
+            var wClan = WClan.Get(clan.StringId);
+            if (wClan?.Base == null)
+                return;
+
+            // The leader's gender may have changed; update King's/Queen's Guard accordingly.
+            RefreshKingsGuardForClan(wClan, newLeader);
+        }
+
+        private void OnClanChangedKingdom(Clan clan, Kingdom newKingdom)
+        {
+            if (!Configuration.EnableRetinues || !Configuration.EnableAIClanRetinues)
+                return;
+
+            if (newKingdom == null || clan == Clan.PlayerClan)
+                return;
+
+            // Only act if this clan is now the ruling clan of its new kingdom.
+            if (newKingdom.RulingClan != clan)
+                return;
+
+            var wClan = WClan.Get(clan.StringId);
+            if (wClan?.Base == null)
+                return;
+
+            RefreshKingsGuardForClan(wClan, clan.Leader);
+        }
+
+        /// <summary>
+        /// Removes any existing King's/Queen's Guard retinue from the clan and creates a fresh one
+        /// keyed to the current leader's gender. No-op if the leader is not a kingdom leader.
+        /// </summary>
+        private void RefreshKingsGuardForClan(WClan clan, Hero leader)
+        {
+            if (clan?.Base == null)
+                return;
+
+            if (clan.Base.Tier < Configuration.AIClanRetinueMinTier)
+                return;
+
+            // Remove the existing guard (if any).
+            var rawRetinues = clan.GetRawRetinues();
+            var existing = rawRetinues.Find(IsKingsGuardRetinue);
+            if (existing != null)
+            {
+                rawRetinues.Remove(existing);
+                clan.SetRetinues(rawRetinues);
+                try
+                {
+                    existing.Remove();
+                }
+                catch { }
+                Log.Debug(
+                    $"[AIClanRetinue] Removed stale king's guard '{existing.Name}' from {clan.Name}."
+                );
+            }
+
+            // Only create a new guard when this clan is still a ruling clan.
+            if (leader?.IsKingdomLeader != true)
+                return;
+
+            var guardName = leader.IsFemale
+                ? L.T("retinue_clan_default_name_female", "{CLAN} Queen's Guard")
+                    .SetTextVariable("CLAN", clan.Name)
+                    .ToString()
+                : L.T("retinue_clan_default_name_male", "{CLAN} King's Guard")
+                    .SetTextVariable("CLAN", clan.Name)
+                    .ToString();
+
+            var guard = CreateAIClanRetinue(clan.Culture, guardName, 6);
+            if (guard?.Base != null)
+            {
+                clan.AddRetinue(guard);
+                Log.Debug($"[AIClanRetinue] Created king's guard '{guard.Name}' for {clan.Name}.");
+            }
+        }
+
+        private static bool IsKingsGuardRetinue(WCharacter retinue)
+        {
+            var name = retinue?.Name ?? string.Empty;
+            return name.EndsWith("King's Guard", StringComparison.OrdinalIgnoreCase)
+                || name.EndsWith("Queen's Guard", StringComparison.OrdinalIgnoreCase);
         }
 
         private void OnClanTierIncreased(Clan clan)
@@ -145,6 +252,9 @@ namespace Retinues.Behaviors.Retinues
             if (rawClan.Tier < Configuration.AIClanRetinueMinTier)
                 return;
 
+            if (Configuration.AIClanRetinueLeaderOnly && party.Base.LeaderHero != rawClan.Leader)
+                return;
+
             var retinues = clan.RosterRetinues;
             if (retinues == null || retinues.Count == 0)
                 return;
@@ -164,34 +274,6 @@ namespace Retinues.Behaviors.Retinues
                 return;
 
             var retinue = retinues[_rng.Next(retinues.Count)];
-            int retinueTier = retinue.Tier <= 0 ? 1 : retinue.Tier;
-
-            var candidates = roster
-                .Elements.Where(e =>
-                    e.Number > 0
-                    && !e.Troop.IsHero
-                    && !e.Troop.IsRetinue
-                    && e.Troop.Tier == retinueTier
-                )
-                .ToList();
-
-            if (candidates.Count == 0)
-            {
-                candidates = roster
-                    .Elements.Where(e =>
-                        e.Number > 0
-                        && !e.Troop.IsHero
-                        && !e.Troop.IsRetinue
-                        && Math.Abs(e.Troop.Tier - retinueTier) == 1
-                    )
-                    .ToList();
-            }
-
-            if (candidates.Count == 0)
-                return;
-
-            var source = candidates[_rng.Next(candidates.Count)];
-            roster.RemoveTroop(source.Troop, 1);
             roster.AddTroop(retinue, 1);
 
             var sid = clan.Base.StringId;
@@ -244,21 +326,21 @@ namespace Retinues.Behaviors.Retinues
                 return;
 
             int clanTier = clan.Base.Tier;
-            int targetLevel = clanTier * 5;
+            int guardTier = Math.Min(3, clanTier);
 
             var houseGuardName = L.T("retinue_ai_clan_house_guard", "{CLAN} House Guard")
                 .SetTextVariable("CLAN", clan.Name)
                 .ToString();
-            var houseGuard = CreateAIClanRetinue(clan.Culture, houseGuardName, targetLevel);
+            var houseGuard = CreateAIClanRetinue(clan.Culture, houseGuardName, guardTier);
             if (houseGuard?.Base != null)
             {
                 clan.AddRetinue(houseGuard);
                 Log.Debug(
-                    $"[AIClanRetinue] Created '{houseGuard.Name}' for {clan.Name} (tier {clanTier})."
+                    $"[AIClanRetinue] Created '{houseGuard.Name}' for {clan.Name} (guard tier {guardTier})."
                 );
             }
 
-            if (clanTier >= 5)
+            if (clanTier >= 4)
             {
                 var houseChampionName = L.T(
                         "retinue_ai_clan_house_champion",
@@ -266,16 +348,12 @@ namespace Retinues.Behaviors.Retinues
                     )
                     .SetTextVariable("CLAN", clan.Name)
                     .ToString();
-                var houseChampion = CreateAIClanRetinue(
-                    clan.Culture,
-                    houseChampionName,
-                    targetLevel
-                );
+                var houseChampion = CreateAIClanRetinue(clan.Culture, houseChampionName, clanTier);
                 if (houseChampion?.Base != null)
                 {
                     clan.AddRetinue(houseChampion);
                     Log.Debug(
-                        $"[AIClanRetinue] Created '{houseChampion.Name}' for {clan.Name} (tier {clanTier})."
+                        $"[AIClanRetinue] Created '{houseChampion.Name}' for {clan.Name} (champion tier {clanTier})."
                     );
                 }
             }
@@ -283,33 +361,25 @@ namespace Retinues.Behaviors.Retinues
             var clanLeader = clan.Base.Leader;
             if (clanLeader?.IsKingdomLeader == true)
             {
-                var kingdom = WKingdom.Get(clan.Base.Kingdom);
-                if (kingdom?.Base != null)
+                var guardName = clanLeader.IsFemale
+                    ? L.T("retinue_clan_default_name_female", "{CLAN} Queen's Guard")
+                        .SetTextVariable("CLAN", clan.Name)
+                        .ToString()
+                    : L.T("retinue_clan_default_name_male", "{CLAN} King's Guard")
+                        .SetTextVariable("CLAN", clan.Name)
+                        .ToString();
+                var guard = CreateAIClanRetinue(clan.Culture, guardName, 6);
+                if (guard?.Base != null)
                 {
-                    var guardName = clanLeader.IsFemale
-                        ? L.T("retinue_kingdom_default_name_female", "{KINGDOM} Queen's Guard")
-                            .SetTextVariable("KINGDOM", kingdom.Name)
-                            .ToString()
-                        : L.T("retinue_kingdom_default_name_male", "{KINGDOM} King's Guard")
-                            .SetTextVariable("KINGDOM", kingdom.Name)
-                            .ToString();
-                    var guard = CreateAIClanRetinue(clan.Culture, guardName, targetLevel);
-                    if (guard?.Base != null)
-                    {
-                        clan.AddRetinue(guard);
-                        Log.Debug(
-                            $"[AIClanRetinue] Created '{guard.Name}' for {clan.Name} ruling lord (tier {clanTier})."
-                        );
-                    }
+                    clan.AddRetinue(guard);
+                    Log.Debug(
+                        $"[AIClanRetinue] Created '{guard.Name}' for {clan.Name} ruling lord (tier 6)."
+                    );
                 }
             }
         }
 
-        private static WCharacter CreateAIClanRetinue(
-            WCulture culture,
-            string name,
-            int targetLevel
-        )
+        private static WCharacter CreateAIClanRetinue(WCulture culture, string name, int targetTier)
         {
             if (!Configuration.EnableRetinues || !Configuration.EnableAIClanRetinues)
                 return null;
@@ -328,10 +398,13 @@ namespace Retinues.Behaviors.Retinues
                     CreateCivilianSet = true,
                     UnlockItems = false,
                     NotifyUnlocks = false,
-                    TargetLevel = targetLevel,
+                    TargetLevel = targetTier * 5 + 1,
                     ForceRandomEquipment = true,
-                    // 6 means the only cap is the troop's own tier (owner.Tier in ItemRandomizer).
+                    // MaxRandomItemTierOverride = 6: no config cap, only owner tier cap.
                     MaxRandomItemTierOverride = 6,
+                    // MinRandomItemTierOverride: floor item selection at the retinue's own tier
+                    // so T6 kingsguard always gets T6 gear rather than template-tier items.
+                    MinRandomItemTierOverride = targetTier,
                 }
             );
         }

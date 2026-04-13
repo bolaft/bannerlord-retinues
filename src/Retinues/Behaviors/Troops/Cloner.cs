@@ -283,6 +283,12 @@ namespace Retinues.Behaviors.Troops
             /// Override cap for random item tier selection. -1 means use Configuration.RandomItemMaxTier.
             /// </summary>
             public int MaxRandomItemTierOverride { get; set; } = -1;
+
+            /// <summary>
+            /// Minimum tier floor for random item selection. -1 means no floor (use source item tier).
+            /// Set to targetTier when creating AI retinues so they receive gear matching their tier.
+            /// </summary>
+            public int MinRandomItemTierOverride { get; set; } = -1;
         }
 
         /// <summary>
@@ -309,11 +315,11 @@ namespace Retinues.Behaviors.Troops
 
             troop.Name = req.Name ?? string.Empty;
 
-            if (req.CopySkills)
-                EnforceSkillLimits(troop);
-
             if (req.TargetLevel > 0)
                 troop.Level = req.TargetLevel;
+
+            if (req.CopySkills)
+                EnforceSkillLimits(troop);
 
             ApplyStarterEquipments(
                 template: template,
@@ -321,7 +327,8 @@ namespace Retinues.Behaviors.Troops
                 cultureContext: req.CultureContext ?? template.Culture,
                 createCivilianSet: req.CreateCivilianSet,
                 forceRandom: req.ForceRandomEquipment,
-                maxItemTierOverride: req.MaxRandomItemTierOverride
+                maxItemTierOverride: req.MaxRandomItemTierOverride,
+                minItemTierOverride: req.MinRandomItemTierOverride
             );
 
             if (req.UnlockItems)

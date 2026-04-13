@@ -521,11 +521,14 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Panel
 
             if (c != null)
             {
-                // Use conversion sources for retinues, upgrade sources for regular troops.
-                var sources = c.IsRetinue ? c.ConversionSources : c.UpgradeSources;
-
-                foreach (var source in sources)
-                    _upgradeSources.Add(new CharacterUpgradeVM(source));
+                // Sources: player retinues (Player mode only) show conversion sources.
+                // AI clan retinues accessed in Universal mode have no source-troop concept.
+                if (!c.IsRetinue || State.Mode == EditorMode.Player)
+                {
+                    var sources = c.IsRetinue ? c.ConversionSources : c.UpgradeSources;
+                    foreach (var source in sources)
+                        _upgradeSources.Add(new CharacterUpgradeVM(source));
+                }
 
                 var targets = c.UpgradeTargets.ToList();
 

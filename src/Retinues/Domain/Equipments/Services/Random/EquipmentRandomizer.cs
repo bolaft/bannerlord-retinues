@@ -77,7 +77,8 @@ namespace Retinues.Domain.Equipments.Services.Random
             bool enforceLimits = false,
             RandomEquipmentReuseContext reuseContext = null,
             bool preferUnlocked = true,
-            int maxItemTierOverride = -1
+            int maxItemTierOverride = -1,
+            int minItemTierOverride = -1
         )
         {
             if (owner?.Base == null)
@@ -171,7 +172,8 @@ namespace Retinues.Domain.Equipments.Services.Random
                         reuseContext,
                         preferUnlocked,
                         extraPredicate: it => it.IsArmor,
-                        maxItemTierOverride: maxItemTierOverride
+                        maxItemTierOverride: maxItemTierOverride,
+                        minItemTierOverride: minItemTierOverride
                     )
                 );
             }
@@ -242,7 +244,8 @@ namespace Retinues.Domain.Equipments.Services.Random
                     reuseContext,
                     preferUnlocked,
                     extraPredicate: predicate,
-                    maxItemTierOverride: maxItemTierOverride
+                    maxItemTierOverride: maxItemTierOverride,
+                    minItemTierOverride: minItemTierOverride
                 );
 
                 // If uniqueness made us fail, retry once without uniqueness (but KEEP family constraint).
@@ -266,7 +269,8 @@ namespace Retinues.Domain.Equipments.Services.Random
                         reuseContext,
                         preferUnlocked,
                         extraPredicate: forceFamily,
-                        maxItemTierOverride: maxItemTierOverride
+                        maxItemTierOverride: maxItemTierOverride,
+                        minItemTierOverride: minItemTierOverride
                     );
                 }
 
@@ -315,7 +319,8 @@ namespace Retinues.Domain.Equipments.Services.Random
                     reuseContext,
                     preferUnlocked,
                     requiredAmmoType,
-                    maxItemTierOverride
+                    maxItemTierOverride,
+                    minItemTierOverride
                 );
 
                 me.Set(slot, ammo);
@@ -355,7 +360,8 @@ namespace Retinues.Domain.Equipments.Services.Random
                 reuseContext,
                 preferUnlocked,
                 extraPredicate: it => it.IsHorse,
-                maxItemTierOverride: maxItemTierOverride
+                maxItemTierOverride: maxItemTierOverride,
+                minItemTierOverride: minItemTierOverride
             );
 
             if (horse == null)
@@ -392,7 +398,8 @@ namespace Retinues.Domain.Equipments.Services.Random
                 reuseContext,
                 preferUnlocked,
                 extraPredicate: it => it.IsHorseHarness && it.IsCompatibleWith(horse),
-                maxItemTierOverride: maxItemTierOverride
+                maxItemTierOverride: maxItemTierOverride,
+                minItemTierOverride: minItemTierOverride
             );
 
             me.Set(EquipmentIndex.HorseHarness, harness);

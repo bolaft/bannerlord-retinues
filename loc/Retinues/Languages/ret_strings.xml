@@ -18,7 +18,7 @@
       text="And {COUNT} more pieces of gear were taken." />
     <string
       id="ret_ai_retinue_loot_title"
-      text="Enemy Looted Your Fallen" />
+      text="{CLAN} Looted Your Fallen" />
     <string
       id="ret_allowed_recruiters_everyone"
       text="Everyone" />
@@ -1567,6 +1567,12 @@
     <string
       id="ret_mcm_option_ai_clan_retinue_convert_chance_hint"
       text="Chance per day that an eligible lord party converts one matching-tier troop into a retinue (1-100)." />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_leader_only"
+      text="Only Clan Leaders Have Retinues" />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_leader_only_hint"
+      text="If enabled, only the clan leader&apos;s party will gain and use retinues. If disabled, all lord parties in the clan are eligible." />
     <string
       id="ret_mcm_option_ai_clan_retinue_min_tier"
       text="AI Clan Retinue Min Tier" />

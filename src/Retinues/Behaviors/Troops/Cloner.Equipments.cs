@@ -25,7 +25,8 @@ namespace Retinues.Behaviors.Troops
             bool createCivilianSet,
             RandomEquipmentReuseContext reuseContext = null,
             bool forceRandom = false,
-            int maxItemTierOverride = -1
+            int maxItemTierOverride = -1,
+            int minItemTierOverride = -1
         )
         {
             if (template == null || clone == null)
@@ -114,7 +115,8 @@ namespace Retinues.Behaviors.Troops
                 enforceLimits: true,
                 reuseContext: reuseContext,
                 preferUnlocked: true,
-                maxItemTierOverride: maxItemTierOverride
+                maxItemTierOverride: maxItemTierOverride,
+                minItemTierOverride: minItemTierOverride
             );
 
             MEquipment civil = null;
@@ -134,7 +136,8 @@ namespace Retinues.Behaviors.Troops
                     enforceLimits: true,
                     reuseContext: reuseContext,
                     preferUnlocked: true,
-                    maxItemTierOverride: maxItemTierOverride
+                    maxItemTierOverride: maxItemTierOverride,
+                    minItemTierOverride: minItemTierOverride
                 );
             }
 

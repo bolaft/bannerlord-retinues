@@ -134,6 +134,7 @@ namespace Retinues.Behaviors.Retinues
 
             var retinuesToLoot = new List<WCharacter>();
             var seenClanIds = new HashSet<string>(StringComparer.Ordinal);
+            string lootingClanName = null;
 
             foreach (var partyData in enemySide.PartyData)
             {
@@ -157,6 +158,9 @@ namespace Retinues.Behaviors.Retinues
                     $"[AIClanRetinue.Loot] Clan '{clan.Name}' has {rawRetinues.Count} retinues."
                 );
 
+                if (rawRetinues.Count > 0)
+                    lootingClanName ??= clan.Name;
+
                 foreach (var retinue in rawRetinues)
                 {
                     if (retinue?.Base != null)
@@ -176,20 +180,22 @@ namespace Retinues.Behaviors.Retinues
 
             Log.Debug($"[AIClanRetinue.Loot] Items looted: {lootResults.Count}");
 
-            NotifyPlayerOfLooting(lootResults);
+            NotifyPlayerOfLooting(lootResults, lootingClanName);
         }
 
         /// <summary>
         /// Fires a post-battle popup listing every item the enemy retinues copied from player casualties.
         /// </summary>
         private static void NotifyPlayerOfLooting(
-            List<(string RetinueName, string ItemName)> results
+            List<(string RetinueName, string ItemName)> results,
+            string clanName
         )
         {
             if (results == null || results.Count == 0)
                 return;
 
-            var title = L.T("ai_retinue_loot_title", "Enemy Looted Your Fallen");
+            var title = L.T("ai_retinue_loot_title", "{CLAN} Looted Your Fallen")
+                .SetTextVariable("CLAN", clanName ?? "Enemy");
 
             const int maxLines = 5;
             var take = Math.Min(maxLines, results.Count);

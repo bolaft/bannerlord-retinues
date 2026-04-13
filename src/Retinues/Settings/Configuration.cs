@@ -484,7 +484,7 @@ namespace Retinues.Settings
             ),
             minValue: 1,
             maxValue: 6,
-            @default: 4,
+            @default: 3,
             dependsOn: EnableAIClanRetinues,
             requiresRestart: true
         );
@@ -515,6 +515,17 @@ namespace Retinues.Settings
             minValue: 1,
             maxValue: 100,
             @default: 25,
+            dependsOn: EnableAIClanRetinues
+        );
+
+        public static readonly Option<bool> AIClanRetinueLeaderOnly = CreateOption(
+            section: Retinues,
+            name: L.F("mcm_option_ai_clan_retinue_leader_only", "Only Clan Leaders Have Retinues"),
+            description: L.F(
+                "mcm_option_ai_clan_retinue_leader_only_hint",
+                "If enabled, only the clan leader's party will gain and use retinues. If disabled, all lord parties in the clan are eligible."
+            ),
+            @default: true,
             dependsOn: EnableAIClanRetinues
         );
 

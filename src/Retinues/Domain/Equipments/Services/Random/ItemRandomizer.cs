@@ -67,13 +67,19 @@ namespace Retinues.Domain.Equipments.Services.Random
             RandomEquipmentReuseContext reuseContext,
             bool preferUnlocked,
             Func<WItem, bool> extraPredicate = null,
-            int maxItemTierOverride = -1
+            int maxItemTierOverride = -1,
+            int minItemTierOverride = -1
         )
         {
             if (sourceItem?.Base == null)
                 return null;
 
-            int desiredTier = GetDesiredTier(sourceItem, owner, maxItemTierOverride);
+            int desiredTier = GetDesiredTier(
+                sourceItem,
+                owner,
+                maxItemTierOverride,
+                minItemTierOverride
+            );
 
             var desiredCategoryId = sourceItem.Category?.StringId;
             var desiredType = sourceItem.Type;
@@ -398,13 +404,19 @@ namespace Retinues.Domain.Equipments.Services.Random
             RandomEquipmentReuseContext reuseContext,
             bool preferUnlocked,
             ItemObject.ItemTypeEnum requiredAmmoType,
-            int maxItemTierOverride = -1
+            int maxItemTierOverride = -1,
+            int minItemTierOverride = -1
         )
         {
             if (sourceAmmo?.Base == null)
                 return null;
 
-            int desiredTier = GetDesiredTier(sourceAmmo, owner, maxItemTierOverride);
+            int desiredTier = GetDesiredTier(
+                sourceAmmo,
+                owner,
+                maxItemTierOverride,
+                minItemTierOverride
+            );
 
             var picked = TryPickBySpec(
                 owner,
@@ -509,7 +521,8 @@ namespace Retinues.Domain.Equipments.Services.Random
         private static int GetDesiredTier(
             WItem item,
             WCharacter owner,
-            int maxItemTierOverride = -1
+            int maxItemTierOverride = -1,
+            int minItemTierOverride = -1
         )
         {
             int desiredTier = MBMath.ClampInt(item.Tier, 1, 6);
@@ -517,6 +530,10 @@ namespace Retinues.Domain.Equipments.Services.Random
 
             // Ensure we don't pick items above owner's tier.
             desiredTier = Math.Min(desiredTier, ownerTierCap);
+
+            // Apply floor: raise desired tier to at least the specified minimum (capped at owner tier).
+            if (minItemTierOverride >= 1)
+                desiredTier = Math.Max(desiredTier, Math.Min(minItemTierOverride, ownerTierCap));
 
             // Ensure we don't pick above max tier (override or configured cap).
             int configuredCap =
