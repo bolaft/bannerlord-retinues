@@ -93,10 +93,10 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
                         "create_unit_mode_desc",
                         "How should the new unit's equipment be initialized?"
                     ),
-                    onChoice1: () => CreateUpgrade_Player_Empty(character, name),
-                    onChoice2: () => CreateUpgrade_Player_BestFromStocks(character, name),
-                    choice1Text: L.T("create_unit_mode_empty", "No Equipment"),
-                    choice2Text: L.T("create_unit_mode_best_stock", "From Stocks")
+                    onChoice1: () => CreateUpgrade_Player_BestFromStocks(character, name),
+                    onChoice2: () => CreateUpgrade_Player_Empty(character, name),
+                    choice1Text: L.T("create_unit_mode_best_stock", "From Stocks"),
+                    choice2Text: L.T("create_unit_mode_empty", "No Equipment")
                 );
             }
 
