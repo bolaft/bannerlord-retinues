@@ -242,7 +242,7 @@ namespace Retinues.Behaviors.Troops
             if (createdBasic != null)
                 count += createdBasic.Tree.Count;
 
-            ShowUnlockPopup(faction, select, count);
+            ShowUnlockPopup(faction, select, count, addBannerHint: faction is WKingdom);
         }
 
         /// <summary>

@@ -638,6 +638,9 @@
       id="ret_editor_kingdom_none"
       text="No Kingdom" />
     <string
+      id="ret_editor_kingdom_select"
+      text="Select {KINGDOM}" />
+    <string
       id="ret_editor_left_banner_unavailable"
       text="This selection is not available." />
     <string
@@ -811,6 +814,9 @@
     <string
       id="ret_export_target_troop_disabled"
       text="Heroes cannot be exported." />
+    <string
+      id="ret_faction_troops_unlocked_banner_hint"
+      text="{newline}{newline}Use the banner icons at the top of the Troops screen to select which troop trees to edit." />
     <string
       id="ret_faction_troops_unlocked_desc"
       text="{COUNT} new troops are now available for the {FACTION} {FACTION_TYPE}." />

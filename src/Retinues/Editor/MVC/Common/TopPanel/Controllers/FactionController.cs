@@ -343,7 +343,7 @@ namespace Retinues.Editor.MVC.Common.TopPanel.Controllers
                     .SetTextVariable("CLAN", clan.Name),
                 choice1Text: L.T("init_clan_troops_copy_source", "Copy {SOURCE} troops")
                     .SetTextVariable("SOURCE", sourceName),
-                choice2Text: L.T("init_clan_troops_from_scratch", "From scratch"),
+                choice2Text: L.T("init_clan_troops_new", "Create new troops"),
                 onChoice1: () =>
                 {
                     TroopUnlockerBehavior.InitializeClanTroopsFromSource(clan, source);

@@ -4,6 +4,7 @@ using Retinues.Domain.Factions.Wrappers;
 using Retinues.Editor;
 using Retinues.Interface.Services;
 using TaleWorlds.Core;
+using TaleWorlds.Localization;
 
 namespace Retinues.Behaviors.Troops
 {
@@ -15,7 +16,12 @@ namespace Retinues.Behaviors.Troops
         /// <summary>
         /// Shows a UI popup announcing unlocked faction troops and offers to open the editor.
         /// </summary>
-        private static void ShowUnlockPopup(IBaseFaction faction, WCharacter select, int count)
+        private static void ShowUnlockPopup(
+            IBaseFaction faction,
+            WCharacter select,
+            int count,
+            bool addBannerHint = false
+        )
         {
             var factionType = L.T("faction_type_faction", "faction");
 
@@ -34,6 +40,15 @@ namespace Retinues.Behaviors.Troops
                 .SetTextVariable("COUNT", count)
                 .SetTextVariable("FACTION", faction.Name)
                 .SetTextVariable("FACTION_TYPE", factionType);
+
+            if (addBannerHint)
+            {
+                var hint = L.S(
+                    "faction_troops_unlocked_banner_hint",
+                    "\n\nUse the banner icons at the top of the Troops screen to select which troop trees to edit."
+                );
+                desc = new TextObject(desc.ToString() + hint);
+            }
 
             var go = L.T("go_to_editor", "Go to editor");
             var ok = GameTexts.FindText("str_ok");

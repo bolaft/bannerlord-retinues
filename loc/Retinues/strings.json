@@ -3376,6 +3376,22 @@
     "TR": "Krallık Yok"
   },
   {
+    "id": "ret_editor_kingdom_select",
+    "EN": "Select {KINGDOM}",
+    "FR": null,
+    "BR": null,
+    "CNs": null,
+    "CNt": null,
+    "DE": null,
+    "IT": null,
+    "JP": null,
+    "KO": null,
+    "PL": null,
+    "RU": null,
+    "SP": null,
+    "TR": null
+  },
+  {
     "id": "ret_editor_left_banner_unavailable",
     "EN": "This selection is not available.",
     "FR": "Cette sélection n'est pas disponible.",
@@ -4302,6 +4318,22 @@
     "RU": "Героев нельзя экспортировать.",
     "SP": "Los héroes no se pueden exportar.",
     "TR": "Kahramanlar dışa aktarılamaz."
+  },
+  {
+    "id": "ret_faction_troops_unlocked_banner_hint",
+    "EN": "\\n\\nUse the banner icons at the top of the Troops screen to select which troop trees to edit.",
+    "FR": null,
+    "BR": null,
+    "CNs": null,
+    "CNt": null,
+    "DE": null,
+    "IT": null,
+    "JP": null,
+    "KO": null,
+    "PL": null,
+    "RU": null,
+    "SP": null,
+    "TR": null
   },
   {
     "id": "ret_faction_troops_unlocked_desc",

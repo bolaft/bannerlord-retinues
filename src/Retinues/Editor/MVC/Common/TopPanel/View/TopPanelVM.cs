@@ -126,10 +126,8 @@ namespace Retinues.Editor.MVC.Common.TopPanel.View
         [DataSourceProperty]
         public string LeftBannerName =>
             State.Mode == EditorMode.Universal
-                ? (State.LeftBannerFaction as WCulture)?.Name?.ToString()
-                    ?? L.S("editor_culture_select", "Select a Culture")
-                : (State.LeftBannerFaction as WClan)?.Name?.ToString()
-                    ?? L.S("editor_clan_select", "Select a Clan");
+                ? L.S("editor_culture_select", "Select Culture")
+                : L.S("editor_clan_edit", "Edit Clan");
 
         [EventListener(UIEvent.Faction)]
         [DataSourceProperty]
@@ -147,19 +145,22 @@ namespace Retinues.Editor.MVC.Common.TopPanel.View
         public void ExecuteSelectLeftBanner() =>
             FactionController.SelectLeftBannerPopup.Execute(true);
 
+        [EventListener(UIEvent.Faction)]
         [DataSourceProperty]
-        public bool IsLeftBannerVisible => true;
+        public bool IsLeftBannerVisible =>
+            State.Mode == EditorMode.Universal || IsPlayerKingdomRuler();
 
         /* ━━━━━ Right Banner ━━━━━ */
 
         [EventListener(UIEvent.Faction)]
         [DataSourceProperty]
         public string RightBannerName =>
-            State.Mode == EditorMode.Universal
-                ? (State.RightBannerFaction as WClan)?.Name?.ToString()
-                    ?? L.S("editor_clan_select", "Select a Clan")
-                : (State.RightBannerFaction as WKingdom)?.Name?.ToString()
-                    ?? L.S("editor_kingdom_none", "No Kingdom");
+            State.Mode == EditorMode.Universal ? L.S("editor_clan_select", "Select a Clan")
+            : Player.Kingdom != null
+                ? L.T("editor_kingdom_edit", "Edit {KINGDOM}")
+                    .SetTextVariable("KINGDOM", Player.Kingdom.Name)
+                    .ToString()
+            : L.S("editor_kingdom_none", "No Kingdom");
 
         [EventListener(UIEvent.Faction)]
         [DataSourceProperty]
