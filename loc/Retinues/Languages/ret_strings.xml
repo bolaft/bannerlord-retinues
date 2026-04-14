@@ -2099,6 +2099,9 @@
       id="ret_preset_confirmation_realistic_title"
       text="Apply Realistic Preset" />
     <string
+      id="ret_preset_custom_button"
+      text="Custom" />
+    <string
       id="ret_preset_default_button"
       text="Default" />
     <string

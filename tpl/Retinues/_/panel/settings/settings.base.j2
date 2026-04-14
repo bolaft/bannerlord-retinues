@@ -359,11 +359,13 @@
                             VerticalAlignment="Top"
                             StackLayout.LayoutMethod="VerticalTopToBottom">
                             <Children>
-                                {{ button_text("{RealisticPresetButton}", "ButtonBrush3", "260", "52", horizontal_alignment="Center", vertical_alignment="Center") }}
+                                {{ button_text("{RealisticPresetButton}", "@Brush", "260", "52", horizontal_alignment="Center", vertical_alignment="Center") }}
 
-                                {{ button_text("{FreeformPresetButton}", "ButtonBrush3", "260", "52", horizontal_alignment="Center", vertical_alignment="Center") }}
+                                {{ button_text("{FreeformPresetButton}", "@Brush", "260", "52", horizontal_alignment="Center", vertical_alignment="Center") }}
 
-                                {{ button_text("{ResetToDefaultsButton}", "ButtonBrush3", "260", "52", horizontal_alignment="Center", vertical_alignment="Center") }}
+                                {{ button_text("{ResetToDefaultsButton}", "@Brush", "260", "52", horizontal_alignment="Center", vertical_alignment="Center") }}
+
+                                {{ button_text("{CustomPresetButton}", "@Brush", "260", "52", horizontal_alignment="Center", vertical_alignment="Center") }}
 
                                 <TextWidget
                                     WidthSizePolicy="CoverChildren"

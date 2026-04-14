@@ -11168,6 +11168,22 @@
     "TR": null
   },
   {
+    "id": "ret_preset_custom_button",
+    "EN": "Custom",
+    "FR": null,
+    "BR": null,
+    "CNs": null,
+    "CNt": null,
+    "DE": null,
+    "IT": null,
+    "JP": null,
+    "KO": null,
+    "PL": null,
+    "RU": null,
+    "SP": null,
+    "TR": null
+  },
+  {
     "id": "ret_preset_default_button",
     "EN": "Default",
     "FR": null,
