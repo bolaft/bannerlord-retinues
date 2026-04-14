@@ -280,6 +280,10 @@ namespace Retinues.Settings
                 if (opt == null)
                     continue;
 
+                // Disabled options can't be changed by the user; skip them.
+                if (opt.IsDisabled)
+                    continue;
+
                 object presetValue = preset switch
                 {
                     SettingsPreset.Freeform => opt.FreeformValue,
