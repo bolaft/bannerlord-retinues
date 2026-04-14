@@ -54,6 +54,12 @@ namespace Retinues.Editor.MVC.Pages.Settings.Controllers
                 )
                 .ExecuteWith(_ => ShowPresetConfirmation(SettingsPreset.Realistic));
 
+        /// <summary>
+        /// Represents a custom (non-matching) settings state. Clicking this does nothing.
+        /// </summary>
+        public static ControllerAction<object> CustomPreset { get; } =
+            Action<object>("CustomPreset").ExecuteWith(_ => { });
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Internals                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

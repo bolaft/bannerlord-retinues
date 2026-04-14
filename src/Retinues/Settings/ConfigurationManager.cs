@@ -259,11 +259,15 @@ namespace Retinues.Settings
                     if (opt?.Key != null)
                         FireUIEventsIfNeeded(opt.Key);
                 }
+
+                EventManager.Fire(UIEvent.Settings);
             }
         }
 
         /// <summary>
         /// Counts how many options would change from their current value if the preset were applied.
+        /// Uses the raw stored value (bypassing dependency overrides) so that dependency-blocked
+        /// child options don't cause false mismatches when their parent is toggled off by the preset.
         /// </summary>
         public static int GetPresetChangeCount(SettingsPreset preset)
         {
@@ -283,8 +287,17 @@ namespace Retinues.Settings
                     _ => opt.Default,
                 };
 
-                if (!Equals(opt.GetObject(), presetValue))
+                object storedValue = opt.GetStoredObject();
+
+                if (!Equals(storedValue, presetValue))
+                {
                     count++;
+                    Log.Debug(
+                        $"[PresetMatch] {preset}: '{opt.Key}' mismatch "
+                            + $"stored={storedValue} ({storedValue?.GetType().Name}) "
+                            + $"preset={presetValue} ({presetValue?.GetType().Name})"
+                    );
+                }
             }
 
             return count;
@@ -479,6 +492,13 @@ namespace Retinues.Settings
                 {
                     Log.Exception(e, "Option fires handler failed.");
                 }
+
+                try
+                {
+                    if (EditorScreen.IsOpen)
+                        EventManager.Fire(UIEvent.Settings);
+                }
+                catch { }
 
                 try
                 {

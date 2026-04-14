@@ -29,6 +29,8 @@ namespace Retinues.Interface.Components
 
         private readonly string _hoverColor;
 
+        private readonly Func<string> _brushFactory;
+
         private readonly Func<bool> _allowGate;
         private readonly Tooltip _allowGateTooltip;
 
@@ -43,6 +45,7 @@ namespace Retinues.Interface.Components
         private string _resolvedLabel;
         private string _resolvedSprite;
         private string _resolvedColor;
+        private string _resolvedBrush;
         private string _baseColorResolved;
 
         private bool _isHovered;
@@ -94,7 +97,8 @@ namespace Retinues.Interface.Components
             Func<bool> allowGate = null,
             Tooltip allowGateTooltip = null,
             Func<bool> visibilityGate = null,
-            Func<bool> shouldRefresh = null
+            Func<bool> shouldRefresh = null,
+            Func<string> brushFactory = null
         )
         {
             _action = action;
@@ -120,6 +124,8 @@ namespace Retinues.Interface.Components
 
             _shouldRefresh = shouldRefresh;
 
+            _brushFactory = brushFactory;
+
             Recompute();
         }
 
@@ -141,6 +147,9 @@ namespace Retinues.Interface.Components
 
         [DataSourceProperty]
         public string Color => _resolvedColor;
+
+        [DataSourceProperty]
+        public string Brush => _resolvedBrush;
 
         [DataSourceProperty]
         public Tooltip Tooltip => _tooltip;
@@ -229,6 +238,11 @@ namespace Retinues.Interface.Components
                 context.RequestNotify(this, nameof(Sprite));
             }
 
+            if (_brushFactory != null)
+            {
+                context.RequestNotify(this, nameof(Brush));
+            }
+
             if (
                 _colorFactory != null
                 || !string.IsNullOrEmpty(_color)
@@ -270,6 +284,7 @@ namespace Retinues.Interface.Components
             _resolvedSprite = _spriteFactory != null ? _spriteFactory() : _sprite;
             _baseColorResolved = _colorFactory != null ? _colorFactory() : _color;
             _resolvedColor = _baseColorResolved;
+            _resolvedBrush = _brushFactory?.Invoke() ?? string.Empty;
 
             if (!_isVisible)
             {

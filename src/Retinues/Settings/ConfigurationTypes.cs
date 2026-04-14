@@ -100,6 +100,13 @@ namespace Retinues.Settings
         object GetObject();
 
         /// <summary>
+        /// Get the raw stored value, bypassing disabled/dependency overrides.
+        /// Used for preset matching so dependency-blocked child options don't
+        /// cause false mismatches when their parent is toggled off by the preset.
+        /// </summary>
+        object GetStoredObject();
+
+        /// <summary>
         /// Set the option value from an object, converting as necessary.
         /// </summary>
         void SetObject(object value);
@@ -361,6 +368,11 @@ namespace Retinues.Settings
         /// Get the current option value as an object.
         /// </summary>
         public object GetObject() => Value;
+
+        /// <summary>
+        /// Get the raw stored value, bypassing disabled/dependency overrides.
+        /// </summary>
+        public object GetStoredObject() => _value;
 
         /// <summary>
         /// Set the current option value from an object, coercing as needed.

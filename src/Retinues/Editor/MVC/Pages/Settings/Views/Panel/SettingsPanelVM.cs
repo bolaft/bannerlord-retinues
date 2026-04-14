@@ -172,14 +172,38 @@ namespace Retinues.Editor.MVC.Pages.Settings.Views.Panel
         [DataSourceProperty]
         public string ResetToDefaultsHeader => L.S("presets_header", "Presets");
 
+        private static SettingsPreset? GetActivePreset()
+        {
+            if (
+                Retinues.Settings.ConfigurationManager.GetPresetChangeCount(SettingsPreset.Default)
+                == 0
+            )
+                return SettingsPreset.Default;
+            if (
+                Retinues.Settings.ConfigurationManager.GetPresetChangeCount(SettingsPreset.Freeform)
+                == 0
+            )
+                return SettingsPreset.Freeform;
+            if (
+                Retinues.Settings.ConfigurationManager.GetPresetChangeCount(
+                    SettingsPreset.Realistic
+                ) == 0
+            )
+                return SettingsPreset.Realistic;
+            return null;
+        }
+
         [DataSourceProperty]
         public Button<object> ResetToDefaultsButton { get; } =
             new(
                 action: SettingsController.ApplyDefaultPreset,
                 arg: () => null,
-                refresh: [UIEvent.Page],
+                refresh: [UIEvent.Page, UIEvent.Settings],
                 labelFactory: () => L.S("preset_default_button", "Default"),
-                visibilityGate: () => State.Page == EditorPage.Settings
+                visibilityGate: () => State.Page == EditorPage.Settings,
+                allowGate: () => GetActivePreset() != SettingsPreset.Default,
+                brushFactory: () =>
+                    GetActivePreset() == SettingsPreset.Default ? "ButtonBrush1" : "ButtonBrush3"
             );
 
         [DataSourceProperty]
@@ -187,9 +211,12 @@ namespace Retinues.Editor.MVC.Pages.Settings.Views.Panel
             new(
                 action: SettingsController.ApplyFreeformPreset,
                 arg: () => null,
-                refresh: [UIEvent.Page],
+                refresh: [UIEvent.Page, UIEvent.Settings],
                 labelFactory: () => L.S("preset_freeform_button", "Freeform"),
-                visibilityGate: () => State.Page == EditorPage.Settings
+                visibilityGate: () => State.Page == EditorPage.Settings,
+                allowGate: () => GetActivePreset() != SettingsPreset.Freeform,
+                brushFactory: () =>
+                    GetActivePreset() == SettingsPreset.Freeform ? "ButtonBrush1" : "ButtonBrush3"
             );
 
         [DataSourceProperty]
@@ -197,9 +224,24 @@ namespace Retinues.Editor.MVC.Pages.Settings.Views.Panel
             new(
                 action: SettingsController.ApplyRealisticPreset,
                 arg: () => null,
-                refresh: [UIEvent.Page],
+                refresh: [UIEvent.Page, UIEvent.Settings],
                 labelFactory: () => L.S("preset_realistic_button", "Realistic"),
-                visibilityGate: () => State.Page == EditorPage.Settings
+                visibilityGate: () => State.Page == EditorPage.Settings,
+                allowGate: () => GetActivePreset() != SettingsPreset.Realistic,
+                brushFactory: () =>
+                    GetActivePreset() == SettingsPreset.Realistic ? "ButtonBrush1" : "ButtonBrush3"
+            );
+
+        [DataSourceProperty]
+        public Button<object> CustomPresetButton { get; } =
+            new(
+                action: SettingsController.CustomPreset,
+                arg: () => null,
+                refresh: [UIEvent.Page, UIEvent.Settings],
+                labelFactory: () => L.S("preset_custom_button", "Custom"),
+                visibilityGate: () => State.Page == EditorPage.Settings,
+                allowGate: () => false,
+                brushFactory: () => GetActivePreset() == null ? "ButtonBrush1" : "ButtonBrush3"
             );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

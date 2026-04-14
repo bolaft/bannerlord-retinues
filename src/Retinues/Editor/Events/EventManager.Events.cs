@@ -46,6 +46,10 @@ namespace Retinues.Editor.Events
         /* ━━━━━━━━ Library ━━━━━━━ */
 
         Library,
+
+        /* ━━━━━━━ Settings ━━━━━━━ */
+
+        Settings,
     }
 
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
