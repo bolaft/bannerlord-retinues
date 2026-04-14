@@ -82,6 +82,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
                     cloneU.HiddenInEncyclopedia = false;
 
                     character.AddUpgradeTarget(cloneU);
+                    State.Character = cloneU;
                     EventManager.Fire(UIEvent.Tree);
                     return;
                 }
@@ -119,6 +120,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
             clone.HiddenInEncyclopedia = false;
 
             parent.AddUpgradeTarget(clone);
+            State.Character = clone;
             EventManager.Fire(UIEvent.Tree);
         }
 
@@ -166,6 +168,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
                 StocksHelper.ConsumeStock(roster.ItemCountsById);
 
             parent.AddUpgradeTarget(clone);
+            State.Character = clone;
 
             EventManager.Fire(UIEvent.Tree);
             EventManager.Fire(UIEvent.Item);
@@ -218,7 +221,9 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
                     if (ItemController.EconomyActive)
                         ItemController.StockCharacterRoster(character);
 
-                    State.Character = State.Faction.Troops.FirstOrDefault(c => c != character);
+                    State.Character = State.Mode == EditorMode.Player
+                        ? State.Faction.Troops.FirstOrDefault(c => c != character && !c.IsHero)
+                        : State.Faction.Troops.FirstOrDefault(c => c != character);
                     character.Remove();
                     EventManager.Fire(UIEvent.Tree);
                 }
