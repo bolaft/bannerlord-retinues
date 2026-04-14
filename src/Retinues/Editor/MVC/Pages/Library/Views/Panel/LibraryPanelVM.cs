@@ -84,7 +84,7 @@ namespace Retinues.Editor.MVC.Pages.Library.Views.Panel
         [EventListener(UIEvent.Library)]
         [DataSourceProperty]
         public string TypeText =>
-            State.LibraryItem.Kind switch
+            State.LibraryItem?.Kind switch
             {
                 ExportKind.Character => L.T("library_kind_troop", "Troop").ToString(),
                 ExportKind.Faction => L.T("library_kind_faction", "Faction").ToString(),
