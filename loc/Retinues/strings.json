@@ -32,6 +32,22 @@
     "TR": "Yaş"
   },
   {
+    "id": "ret_ai_retinue_equipment_upgrade",
+    "EN": "{RETINUE} acquired {ITEM}.",
+    "FR": null,
+    "BR": null,
+    "CNs": null,
+    "CNt": null,
+    "DE": null,
+    "IT": null,
+    "JP": null,
+    "KO": null,
+    "PL": null,
+    "RU": null,
+    "SP": null,
+    "TR": null
+  },
+  {
     "id": "ret_ai_retinue_loot_line",
     "EN": "{RETINUE} looted and equipped {ITEM} from your casualties.",
     "FR": "{RETINUE} a pillé et équipé {ITEM} sur vos pertes.",
@@ -3329,7 +3345,7 @@
   },
   {
     "id": "ret_editor_clan_select",
-    "EN": "Select a Clan",
+    "EN": "Select Clan",
     "FR": "Sélectionner un clan",
     "BR": "Selecione um clã",
     "CNs": "选择一个氏族",

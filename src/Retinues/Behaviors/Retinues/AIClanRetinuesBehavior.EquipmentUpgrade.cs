@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Equipments.Services.Random;
 using Retinues.Domain.Factions.Wrappers;
+using Retinues.Interface.Services;
 using Retinues.Settings;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
@@ -117,6 +118,11 @@ namespace Retinues.Behaviors.Retinues
                 battleSet.Set(slot, picked);
                 Log.Debug(
                     $"[AIClanRetinue] '{retinue.Name}' upgraded {slot}: {currentItem?.Name ?? "empty"} → {picked.Name} (T{picked.Tier})"
+                );
+                Notifications.Message(
+                    L.T("ai_retinue_equipment_upgrade", "{RETINUE} acquired {ITEM}.")
+                        .SetTextVariable("RETINUE", retinue.Name)
+                        .SetTextVariable("ITEM", picked.Name)
                 );
                 return;
             }

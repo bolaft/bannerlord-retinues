@@ -11,6 +11,9 @@
       id="ret_age_hint"
       text="Age" />
     <string
+      id="ret_ai_retinue_equipment_upgrade"
+      text="{RETINUE} acquired {ITEM}." />
+    <string
       id="ret_ai_retinue_loot_line"
       text="{RETINUE} looted and equipped {ITEM} from your casualties." />
     <string
@@ -630,7 +633,7 @@
       text="Edit Clan" />
     <string
       id="ret_editor_clan_select"
-      text="Select a Clan" />
+      text="Select Clan" />
     <string
       id="ret_editor_culture_select"
       text="Select Culture" />

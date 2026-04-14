@@ -155,7 +155,7 @@ namespace Retinues.Editor.MVC.Common.TopPanel.View
         [EventListener(UIEvent.Faction)]
         [DataSourceProperty]
         public string RightBannerName =>
-            State.Mode == EditorMode.Universal ? L.S("editor_clan_select", "Select a Clan")
+            State.Mode == EditorMode.Universal ? L.S("editor_clan_select", "Select Clan")
             : Player.Kingdom != null
                 ? L.T("editor_kingdom_edit", "Edit {KINGDOM}")
                     .SetTextVariable("KINGDOM", Player.Kingdom.Name)
