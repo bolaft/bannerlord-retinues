@@ -378,12 +378,12 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
                 .DefaultTooltip(_ =>
                     State.Character?.IsMixedGender == true
                         ? L.T(
-                            "mixed_gender_disable_tooltip",
-                            "Allow unit to spawn in either gender"
-                        )
-                        : L.T(
                             "mixed_gender_enable_tooltip",
                             "Disallow unit to spawn in either gender"
+                        )
+                        : L.T(
+                            "mixed_gender_disable_tooltip",
+                            "Allow unit to spawn in either gender"
                         )
                 )
                 .ExecuteWith(SetMixedGenderImpl)
