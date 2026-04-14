@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Retinues.Framework.Runtime;
+using Retinues.Interface.Services.Popups;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.GameState;
@@ -408,6 +409,37 @@ namespace Retinues.Interface.Services
                     }
                 }
             );
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                   Multi-Choice Popup                   //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Shows a custom Gauntlet popup with 3 or more labeled buttons.
+        /// Each choice is a (localized label, callback) pair.
+        /// Clicking any button dismisses the popup and invokes that choice's callback.
+        /// </summary>
+        public static void MultiChoicePopup(
+            TextObject title,
+            IReadOnlyList<(TextObject Label, Action Callback)> choices,
+            TextObject description = null
+        )
+        {
+            try
+            {
+                var vm = new MultiChoicePopupVM(
+                    title,
+                    description,
+                    choices,
+                    MultiChoicePopupLayer.Close
+                );
+                MultiChoicePopupLayer.Show(vm);
+            }
+            catch (Exception e)
+            {
+                Log.Exception(e, "Inquiries.MultiChoicePopup failed.");
+            }
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

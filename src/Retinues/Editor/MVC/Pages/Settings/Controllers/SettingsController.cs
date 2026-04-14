@@ -62,8 +62,14 @@ namespace Retinues.Editor.MVC.Pages.Settings.Controllers
         {
             TextObject title = preset switch
             {
-                SettingsPreset.Freeform => L.T("preset_confirmation_freeform_title", "Apply Freeform Preset"),
-                SettingsPreset.Realistic => L.T("preset_confirmation_realistic_title", "Apply Realistic Preset"),
+                SettingsPreset.Freeform => L.T(
+                    "preset_confirmation_freeform_title",
+                    "Apply Freeform Preset"
+                ),
+                SettingsPreset.Realistic => L.T(
+                    "preset_confirmation_realistic_title",
+                    "Apply Realistic Preset"
+                ),
                 _ => L.T("preset_confirmation_default_title", "Reset to Defaults"),
             };
 

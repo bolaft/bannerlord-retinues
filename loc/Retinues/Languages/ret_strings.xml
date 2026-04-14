@@ -2084,11 +2084,35 @@
       id="ret_overwrite_confirm"
       text="Overwrite" />
     <string
+      id="ret_preset_confirm_apply"
+      text="Apply" />
+    <string
+      id="ret_preset_confirm_reset"
+      text="Reset" />
+    <string
+      id="ret_preset_confirmation_default_title"
+      text="Reset to Defaults" />
+    <string
+      id="ret_preset_confirmation_freeform_title"
+      text="Apply Freeform Preset" />
+    <string
+      id="ret_preset_confirmation_realistic_title"
+      text="Apply Realistic Preset" />
+    <string
       id="ret_preset_default_button"
       text="Default" />
     <string
       id="ret_preset_default_tooltip"
       text="Apply the Default preset: a balanced experience designed for a first playthrough" />
+    <string
+      id="ret_preset_description_default"
+      text="The default configuration, balanced for a first playthrough. Troop stat buffs are active, clan troops unlock with your first fief, equipment has a cost but no unlock restrictions, and skill points must be earned in battle. Resets all settings to their original default values." />
+    <string
+      id="ret_preset_description_freeform"
+      text="Removes all costs and unlock requirements. Doctrine acquisition is free. Equipment costs and unlock progression are disabled. Clan and kingdom troops are available from the start and can be recruited anywhere. Skill points can be assigned freely without being earned in battle." />
+    <string
+      id="ret_preset_description_realistic"
+      text="Enforces skill and equipment limits in the Universal Editor. Troop editing is restricted to owned fiefs. Retinue stat buffs are disabled. Only root troops are generated at game start. Troops can only be recruited in same-culture settlements. Equipping and training take time. Equipment is subject to tier-based weight and value limits." />
     <string
       id="ret_preset_freeform_button"
       text="Freeform" />
@@ -2101,6 +2125,21 @@
     <string
       id="ret_preset_realistic_tooltip"
       text="Apply the Realistic preset: enables time mechanics, location limits, and faction filters" />
+    <string
+      id="ret_preset_selection_default"
+      text="Default" />
+    <string
+      id="ret_preset_selection_description"
+      text="Please select the settings that best match your playstyle.{newline}{newline}DEFAULT: A balanced first-playthrough experience. A full tree of clan troops are unlocked with your first fief, equipment has a cost, and skill points must be bought with experience earned in battle.{newline}{newline}FREEFORM: An unrestricted sandbox editor. No costs or unlock systems. Custom clan troops are available right from the start and can be recruited anywhere.{newline}{newline}REALISTIC: A grounded experience with harsher constraints. Troop editing is restricted to owned fiefs, equipments are limited in weight and value, equipping items and training skills take time, and troop trees must be built from scratch.{newline}{newline}You can fine-tune any individual setting at any time from the Settings tab in the Troops screen." />
+    <string
+      id="ret_preset_selection_freeform"
+      text="Freeform" />
+    <string
+      id="ret_preset_selection_realistic"
+      text="Realistic" />
+    <string
+      id="ret_preset_selection_title"
+      text="Welcome to Retinues" />
     <string
       id="ret_presets_header"
       text="Presets" />
