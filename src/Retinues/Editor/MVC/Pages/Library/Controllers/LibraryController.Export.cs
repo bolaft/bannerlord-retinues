@@ -106,15 +106,16 @@ namespace Retinues.Editor.MVC.Pages.Library.Controllers
             var fallbackRoot = FileSystem.GetPathInRetinuesDocuments("GeneratedMods", moduleId);
             var overwriting = Directory.Exists(moduleRoot);
 
-            var shown = payloads
+            var nonBlankIds = payloads
                 .Select(p => p.ModelStringId)
                 .Where(s => !string.IsNullOrWhiteSpace(s))
-                .Take(5)
                 .ToList();
 
+            var shown = nonBlankIds.Take(5).ToList();
+
             var suffix =
-                payloads.Count > shown.Count
-                    ? $" (+{payloads.Count - shown.Count} more)"
+                nonBlankIds.Count > shown.Count
+                    ? $" (+{nonBlankIds.Count - shown.Count} more)"
                     : string.Empty;
 
             var list =
@@ -351,7 +352,7 @@ namespace Retinues.Editor.MVC.Pages.Library.Controllers
                 raw = item?.DisplayName;
 
             if (string.IsNullOrWhiteSpace(raw))
-                raw = item?.SourceId;
+                raw = System.IO.Path.GetFileNameWithoutExtension(item?.FileName);
 
             if (string.IsNullOrWhiteSpace(raw))
                 raw = "Export";
