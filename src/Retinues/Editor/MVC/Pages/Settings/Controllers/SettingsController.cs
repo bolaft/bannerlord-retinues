@@ -90,11 +90,11 @@ namespace Retinues.Editor.MVC.Pages.Settings.Controllers
             string intro = preset switch
             {
                 SettingsPreset.Freeform =>
-                    "Removes costs, requirements, unlock systems, and availability restrictions for a relaxed, unrestricted experience.",
+                    "Removes all costs and unlock requirements. Doctrine acquisition is free. Equipment costs and unlock progression are disabled. Clan and kingdom troops are available from the start and can be recruited anywhere. Skill points can be assigned freely without being earned in battle.",
                 SettingsPreset.Realistic =>
-                    "Enables location restrictions, time-based mechanics, equipment weight and value limits, and faction-based recruitment filters for a more grounded experience.",
+                    "Enforces skill and equipment limits in the Universal Editor. Troop editing is restricted to owned fiefs. Retinue stat buffs are disabled. Only root troops are generated at game start. Troops can only be recruited in same-culture settlements. Equipping and training take time. Equipment is subject to tier-based weight and value limits.",
                 _ =>
-                    "A balanced experience designed for a first playthrough. Resets all settings to their original default values.",
+                    "The default configuration, balanced for a first playthrough. Troop stat buffs are active, clan troops unlock with your first fief, equipment has a cost but no unlock restrictions, and skill points must be earned in battle. Resets all settings to their original default values.",
             };
 
             return intro;
