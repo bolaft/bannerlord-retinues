@@ -11,14 +11,32 @@
       id="ret_age_hint"
       text="年龄" />
     <string
+      id="ret_ai_retinue_loot_line"
+      text="{RETINUE} 从你的伤亡者身上掠夺并装备了 {ITEM}。" />
+    <string
+      id="ret_ai_retinue_loot_more"
+      text="另有 {COUNT} 件装备被带走。" />
+    <string
+      id="ret_ai_retinue_loot_title"
+      text="{CLAN} 掠夺了你的阵亡者" />
+    <string
       id="ret_allowed_recruiters_everyone"
       text="所有人" />
+    <string
+      id="ret_allowed_recruiters_everyone_hint"
+      text="所有队伍均可招募自定义部队（推荐用于与其他招募模组的兼容性）" />
     <string
       id="ret_allowed_recruiters_faction_only"
       text="仅限派系" />
     <string
+      id="ret_allowed_recruiters_faction_only_hint"
+      text="只有派系队伍可以招募自定义部队" />
+    <string
       id="ret_allowed_recruiters_player_only"
       text="仅限玩家" />
+    <string
+      id="ret_allowed_recruiters_player_only_hint"
+      text="只有玩家可以招募自定义部队" />
     <string
       id="ret_battle_type_field_checkbox_tooltip_disable"
       text="禁用平地战斗" />
@@ -119,6 +137,9 @@
       id="ret_button_change_formation_class_tooltip"
       text="选择一个编队类别" />
     <string
+      id="ret_button_delete_clan_troops"
+      text="清除" />
+    <string
       id="ret_button_disable_captain"
       text="禁用" />
     <string
@@ -185,6 +206,9 @@
       id="ret_cant_unequip_reason_empty"
       text="没有可卸下的物品" />
     <string
+      id="ret_captain_header_text"
+      text="队长" />
+    <string
       id="ret_captain_mode_off_hint"
       text="切换到该队长的基础部队" />
     <string
@@ -233,17 +257,38 @@
       id="ret_clan_troops_unlock_always_unlocked"
       text="始终解锁" />
     <string
+      id="ret_clan_troops_unlock_always_unlocked_hint"
+      text="随从从一开始就可用" />
+    <string
       id="ret_clan_troops_unlock_disabled"
       text="已禁用" />
     <string
+      id="ret_clan_troops_unlock_disabled_hint"
+      text="随从永远不会解锁" />
+    <string
       id="ret_clan_troops_unlock_with_first_fief"
       text="与第一个领地一起解锁" />
+    <string
+      id="ret_clan_troops_unlock_with_first_fief_hint"
+      text="当氏族获得第一个领地时解锁" />
     <string
       id="ret_clear_filter_tooltip"
       text="清除过滤器" />
     <string
       id="ret_close_equipment_button_text"
       text="返回" />
+    <string
+      id="ret_crafted_items_hide_tooltip"
+      text="隐藏制作的物品" />
+    <string
+      id="ret_crafted_items_only_tooltip"
+      text="显示锻造" />
+    <string
+      id="ret_crafted_items_toggle_tooltip"
+      text="锻造装备" />
+    <string
+      id="ret_crafted_player_only_reason"
+      text="在通用编辑器中不可用" />
     <string
       id="ret_create_unit"
       text="新单位" />
@@ -521,17 +566,35 @@
       id="ret_editing_restriction_in_settlement"
       text="任何封地" />
     <string
+      id="ret_editing_restriction_in_settlement_hint"
+      text="您必须在任何封地中" />
+    <string
       id="ret_editing_restriction_need_faction_fief_reason"
       text="您只能在属于 {FACTION} 的封地中编辑此单位。" />
+    <string
+      id="ret_editing_restriction_need_faction_fief_reason_short"
+      text="不在封地内" />
     <string
       id="ret_editing_restriction_need_settlement_reason"
       text="只有在定居点内时，您才能编辑单位。" />
     <string
+      id="ret_editing_restriction_need_settlement_reason_short"
+      text="不在定居点内" />
+    <string
       id="ret_editing_restriction_none"
       text="任何地方" />
     <string
+      id="ret_editing_restriction_none_hint"
+      text="没有位置限制" />
+    <string
       id="ret_editing_restriction_unknown_faction_reason"
       text="无法确定此单位的派系以进行编辑限制。" />
+    <string
+      id="ret_editing_restriction_unknown_faction_reason_short"
+      text="未知派系" />
+    <string
+      id="ret_editor_clan_edit"
+      text="编辑氏族" />
     <string
       id="ret_editor_clan_select"
       text="选择一个氏族" />
@@ -1118,6 +1181,24 @@
       id="ret_in_stock"
       text="有库存 ({STOCK})" />
     <string
+      id="ret_init_clan_troops_copy_source"
+      text="复制 {SOURCE} 部队" />
+    <string
+      id="ret_init_clan_troops_create"
+      text="创建" />
+    <string
+      id="ret_init_clan_troops_method_text"
+      text="您想如何为 {CLAN} 创建部队？" />
+    <string
+      id="ret_init_clan_troops_method_title"
+      text="初始化部队" />
+    <string
+      id="ret_init_clan_troops_new"
+      text="创建新部队" />
+    <string
+      id="ret_init_clan_troops_title"
+      text="无自定义部队" />
+    <string
       id="ret_init_error_body_detailed"
       text="Retinues 模组的依赖项未能正确初始化：{newline}{newline}{DETAILS}{newline}{newline}在修复依赖项之前，模组可能无法正常运行。" />
     <string
@@ -1202,8 +1283,14 @@
       id="ret_kingdom_troops_unlock_disabled"
       text="已禁用" />
     <string
+      id="ret_kingdom_troops_unlock_disabled_hint"
+      text="王国部队永远不会解锁" />
+    <string
       id="ret_kingdom_troops_unlock_upon_becoming_ruler"
       text="成为统治者时解锁" />
+    <string
+      id="ret_kingdom_troops_unlock_upon_becoming_ruler_hint"
+      text="当玩家建立王国时解锁" />
     <string
       id="ret_library_contents_header"
       text="内容" />
@@ -1289,6 +1376,9 @@
       id="ret_library_exports_hint_text"
       text="部队和派系可以从编辑器选项卡中导出。" />
     <string
+      id="ret_library_failed_missing_file"
+      text="未找到导出文件" />
+    <string
       id="ret_library_import_button"
       text="导入" />
     <string
@@ -1349,6 +1439,9 @@
       id="ret_library_name_faction_header"
       text="派系" />
     <string
+      id="ret_library_no_selection"
+      text="未选择导出" />
+    <string
       id="ret_list_header_bandits"
       text="强盗" />
     <string
@@ -1388,8 +1481,44 @@
       id="ret_mariner_captain_reason"
       text="船长与其基础部队共享水手能力" />
     <string
+      id="ret_mariner_disable_tooltip"
+      text="禁用水手特质" />
+    <string
+      id="ret_mariner_enable_tooltip"
+      text="启用水手特质" />
+    <string
       id="ret_mariner_hero_reason"
       text="英雄不能成为水手" />
+    <string
+      id="ret_mariner_toggle_tooltip"
+      text="水手：更适合海战，不过技能点获取速率降低" />
+    <string
+      id="ret_mariner_toggle_tooltip_universal"
+      text="水手：更适合海战" />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_cap_percent"
+      text="AI从际上限（队伍%）" />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_cap_percent_hint"
+      text="容许从际部队占据颂主队伍规模的最大百分比（1-50）。" />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_convert_chance"
+      text="AI从际每日晋升概率（%）" />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_convert_chance_hint"
+      text="每天符合条件的颂主队伍将一名同级型土兵转化为从际的概率（1-100）。" />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_leader_only"
+      text="只有族长拥有从际" />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_leader_only_hint"
+      text="如果启用，只有族长的队伍才能获得和使用从际。如果禁用，族中所有颂主队伍均符合条件。" />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_min_tier"
+      text="AI族从际最低等级" />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_min_tier_hint"
+      text="非玩家族拥有自身从际所需的最低族等级（1-6）。" />
     <string
       id="ret_mcm_option_allowed_recruiters"
       text="允许的招募者" />

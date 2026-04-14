@@ -205,7 +205,7 @@ namespace Retinues.Behaviors.Retinues
             {
                 var (retinueName, itemName) = results[i];
                 lines.Add(
-                    L.T("ai_retinue_loot_line", "{RETINUE} equipped {ITEM} from your casualties.")
+                    L.T("ai_retinue_loot_line", "{RETINUE} looted and equipped {ITEM} from your casualties.")
                         .SetTextVariable("RETINUE", retinueName)
                         .SetTextVariable("ITEM", itemName)
                         .ToString()

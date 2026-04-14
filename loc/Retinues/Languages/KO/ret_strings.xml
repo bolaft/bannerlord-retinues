@@ -11,14 +11,32 @@
       id="ret_age_hint"
       text="나이" />
     <string
+      id="ret_ai_retinue_loot_line"
+      text="{RETINUE}이(가) 전사자에게서 {ITEM}을(를) 약탈해 장착했습니다." />
+    <string
+      id="ret_ai_retinue_loot_more"
+      text="{COUNT}개의 장비가 더 가져갔습니다." />
+    <string
+      id="ret_ai_retinue_loot_title"
+      text="{CLAN}이(가) 전사자를 약탈했습니다" />
+    <string
       id="ret_allowed_recruiters_everyone"
       text="모두" />
+    <string
+      id="ret_allowed_recruiters_everyone_hint"
+      text="모든 부대가 커스텀 병사를 모집할 수 있습니다 (다른 모집 모드와의 호환성을 위해 권장)" />
     <string
       id="ret_allowed_recruiters_faction_only"
       text="파벌 전용" />
     <string
+      id="ret_allowed_recruiters_faction_only_hint"
+      text="파벌 부대만 커스텀 병사를 모집할 수 있습니다" />
+    <string
       id="ret_allowed_recruiters_player_only"
       text="플레이어 전용" />
+    <string
+      id="ret_allowed_recruiters_player_only_hint"
+      text="플레이어만 커스텀 병사를 모집할 수 있습니다" />
     <string
       id="ret_battle_type_field_checkbox_tooltip_disable"
       text="야전 전투에서 비활성화" />
@@ -119,6 +137,9 @@
       id="ret_button_change_formation_class_tooltip"
       text="대형 클래스를 선택합니다" />
     <string
+      id="ret_button_delete_clan_troops"
+      text="지우기" />
+    <string
       id="ret_button_disable_captain"
       text="비활성화" />
     <string
@@ -185,6 +206,9 @@
       id="ret_cant_unequip_reason_empty"
       text="해제할 항목이 없습니다" />
     <string
+      id="ret_captain_header_text"
+      text="대장" />
+    <string
       id="ret_captain_mode_off_hint"
       text="이 대장의 기본 부대로 전환합니다" />
     <string
@@ -233,17 +257,38 @@
       id="ret_clan_troops_unlock_always_unlocked"
       text="항상 잠금 해제" />
     <string
+      id="ret_clan_troops_unlock_always_unlocked_hint"
+      text="클랜 부대는 처음부터 사용할 수 있습니다" />
+    <string
       id="ret_clan_troops_unlock_disabled"
       text="비활성화됨" />
     <string
+      id="ret_clan_troops_unlock_disabled_hint"
+      text="클랜 부대는 절대 잠금 해제되지 않습니다" />
+    <string
       id="ret_clan_troops_unlock_with_first_fief"
       text="첫 번째 영지와 함께 잠금 해제" />
+    <string
+      id="ret_clan_troops_unlock_with_first_fief_hint"
+      text="클랜이 첫 번째 영지를 획득하면 잠금 해제됩니다" />
     <string
       id="ret_clear_filter_tooltip"
       text="필터 지우기" />
     <string
       id="ret_close_equipment_button_text"
       text="뒤로" />
+    <string
+      id="ret_crafted_items_hide_tooltip"
+      text="제작된 아이템 숨기기" />
+    <string
+      id="ret_crafted_items_only_tooltip"
+      text="제작품 표시" />
+    <string
+      id="ret_crafted_items_toggle_tooltip"
+      text="제작 장비" />
+    <string
+      id="ret_crafted_player_only_reason"
+      text="범용 에디터에서는 사용할 수 없습니다" />
     <string
       id="ret_create_unit"
       text="새 유닛" />
@@ -521,17 +566,35 @@
       id="ret_editing_restriction_in_settlement"
       text="모든 정착지" />
     <string
+      id="ret_editing_restriction_in_settlement_hint"
+      text="어떤 영지에 있어야 합니다" />
+    <string
       id="ret_editing_restriction_need_faction_fief_reason"
       text="이 유닛은 {FACTION} 소유의 영지에서만 편집할 수 있습니다." />
+    <string
+      id="ret_editing_restriction_need_faction_fief_reason_short"
+      text="영지에 없음" />
     <string
       id="ret_editing_restriction_need_settlement_reason"
       text="정착지 내에 있을 때만 유닛을 편집할 수 있습니다." />
     <string
+      id="ret_editing_restriction_need_settlement_reason_short"
+      text="정착지에 없음" />
+    <string
       id="ret_editing_restriction_none"
       text="어디서나" />
     <string
+      id="ret_editing_restriction_none_hint"
+      text="위치 제한 없음" />
+    <string
       id="ret_editing_restriction_unknown_faction_reason"
       text="편집 제한을 위해 이 유닛의 진영을 결정할 수 없습니다." />
+    <string
+      id="ret_editing_restriction_unknown_faction_reason_short"
+      text="알 수 없는 진영" />
+    <string
+      id="ret_editor_clan_edit"
+      text="클랜 편집" />
     <string
       id="ret_editor_clan_select"
       text="클랜 선택" />
@@ -1118,6 +1181,24 @@
       id="ret_in_stock"
       text="재고 있음 ({STOCK})" />
     <string
+      id="ret_init_clan_troops_copy_source"
+      text="{SOURCE} 병사 복사" />
+    <string
+      id="ret_init_clan_troops_create"
+      text="생성" />
+    <string
+      id="ret_init_clan_troops_method_text"
+      text="{CLAN}의 병사를 어떻게 만들겠습니까?" />
+    <string
+      id="ret_init_clan_troops_method_title"
+      text="병사 초기화" />
+    <string
+      id="ret_init_clan_troops_new"
+      text="새 병사 만들기" />
+    <string
+      id="ret_init_clan_troops_title"
+      text="커스텀 병사 없음" />
+    <string
       id="ret_init_error_body_detailed"
       text="Retinues 모드 종속 항목을 제대로 초기화하지 못했습니다:{newline}{newline}{DETAILS}{newline}{newline}종속 항목이 수정될 때까지 모드가 제대로 작동하지 않을 수 있습니다." />
     <string
@@ -1202,8 +1283,14 @@
       id="ret_kingdom_troops_unlock_disabled"
       text="비활성화됨" />
     <string
+      id="ret_kingdom_troops_unlock_disabled_hint"
+      text="왕국 부대는 절대 잠금 해제되지 않습니다" />
+    <string
       id="ret_kingdom_troops_unlock_upon_becoming_ruler"
       text="통치자가 되면 잠금 해제" />
+    <string
+      id="ret_kingdom_troops_unlock_upon_becoming_ruler_hint"
+      text="플레이어가 왕국을 세우면 잠금 해제" />
     <string
       id="ret_library_contents_header"
       text="내용" />
@@ -1289,6 +1376,9 @@
       id="ret_library_exports_hint_text"
       text="부대와 진영은 편집기 탭에서 내보낼 수 있습니다." />
     <string
+      id="ret_library_failed_missing_file"
+      text="내보내기 파일을 찾을 수 없습니다" />
+    <string
       id="ret_library_import_button"
       text="가져오기" />
     <string
@@ -1349,6 +1439,9 @@
       id="ret_library_name_faction_header"
       text="진영" />
     <string
+      id="ret_library_no_selection"
+      text="선택된 내보내기가 없습니다" />
+    <string
       id="ret_list_header_bandits"
       text="산적" />
     <string
@@ -1388,8 +1481,44 @@
       id="ret_mariner_captain_reason"
       text="대위는 기본 부대의 선원 능력을 공유합니다" />
     <string
+      id="ret_mariner_disable_tooltip"
+      text="선원 특성 비활성화" />
+    <string
+      id="ret_mariner_enable_tooltip"
+      text="선원 특성 활성화" />
+    <string
       id="ret_mariner_hero_reason"
       text="영웅은 선원이 될 수 없습니다" />
+    <string
+      id="ret_mariner_toggle_tooltip"
+      text="항해사: 해상 전투에 더 적합하지만 스킬 포인트 획득 속도가 감소함" />
+    <string
+      id="ret_mariner_toggle_tooltip_universal"
+      text="항해사: 해상 전투에 더 적합함" />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_cap_percent"
+      text="AI 수행원 제한 (대원의 %)" />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_cap_percent_hint"
+      text="수행원 부대가 점유할 수 있는 군주 대원의 최대 비율 (1-50)." />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_convert_chance"
+      text="AI 수행원 일일 승급 확률 (%)" />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_convert_chance_hint"
+      text="자격이 되는 군주 대원이 하루에 동등급 병사 한 명을 수행원으로 전환할 확률 (1-100)." />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_leader_only"
+      text="클랜 리더만 수행원을 보유함" />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_leader_only_hint"
+      text="활성화되면 클랜 리더의 대원만 수행원을 얻고 사용합니다. 비활성화되면 클랜의 모든 군주 대원이 대상입니다." />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_min_tier"
+      text="AI 클랜 수행원 최소 등급" />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_min_tier_hint"
+      text="비플레이어 클랜이 자체 수행원을 보유하는 데 필요한 최소 클랜 등급 (1-6)." />
     <string
       id="ret_mcm_option_allowed_recruiters"
       text="허용된 모집자" />

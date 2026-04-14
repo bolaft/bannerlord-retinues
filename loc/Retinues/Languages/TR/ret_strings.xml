@@ -11,14 +11,32 @@
       id="ret_age_hint"
       text="Yaş" />
     <string
+      id="ret_ai_retinue_loot_line"
+      text="{RETINUE}, kayıplarından {ITEM} yağmaladı ve kuşandı." />
+    <string
+      id="ret_ai_retinue_loot_more"
+      text="Ve {COUNT} parça ekipman daha alındı." />
+    <string
+      id="ret_ai_retinue_loot_title"
+      text="{CLAN} Düşenlerinizi Yağmaladı" />
+    <string
       id="ret_allowed_recruiters_everyone"
       text="Herkes" />
+    <string
+      id="ret_allowed_recruiters_everyone_hint"
+      text="Tüm gruplar özel asker toplayabilir (diğer işe alım modlarıyla uyumluluk için önerilir)" />
     <string
       id="ret_allowed_recruiters_faction_only"
       text="Sadece Faksiyon" />
     <string
+      id="ret_allowed_recruiters_faction_only_hint"
+      text="Yalnızca fraksiyon grupları özel asker toplayabilir" />
+    <string
       id="ret_allowed_recruiters_player_only"
       text="Sadece Oyuncu" />
+    <string
+      id="ret_allowed_recruiters_player_only_hint"
+      text="Yalnızca oyuncu özel asker toplayabilir" />
     <string
       id="ret_battle_type_field_checkbox_tooltip_disable"
       text="Saha savaşları için devre dışı bırak" />
@@ -119,6 +137,9 @@
       id="ret_button_change_formation_class_tooltip"
       text="Bir düzen sınıfı seçin" />
     <string
+      id="ret_button_delete_clan_troops"
+      text="Temizle" />
+    <string
       id="ret_button_disable_captain"
       text="Devre Dışı Bırak" />
     <string
@@ -185,6 +206,9 @@
       id="ret_cant_unequip_reason_empty"
       text="Kaldırılacak bir şey yok" />
     <string
+      id="ret_captain_header_text"
+      text="Kaptan" />
+    <string
       id="ret_captain_mode_off_hint"
       text="Bu kaptanın temel birimine geç" />
     <string
@@ -233,17 +257,38 @@
       id="ret_clan_troops_unlock_always_unlocked"
       text="Her Zaman Kilit Açıldı" />
     <string
+      id="ret_clan_troops_unlock_always_unlocked_hint"
+      text="Klan birlikleri baştan itibaren kullanılabilir" />
+    <string
       id="ret_clan_troops_unlock_disabled"
       text="Devre Dışı" />
     <string
+      id="ret_clan_troops_unlock_disabled_hint"
+      text="Klan birlikleri asla kilitlenmez" />
+    <string
       id="ret_clan_troops_unlock_with_first_fief"
       text="İlk Arazisiyle Kilit Açıldı" />
+    <string
+      id="ret_clan_troops_unlock_with_first_fief_hint"
+      text="Klan ilk arazisini aldığında kilit açılır" />
     <string
       id="ret_clear_filter_tooltip"
       text="Filtreyi temizle" />
     <string
       id="ret_close_equipment_button_text"
       text="Geri" />
+    <string
+      id="ret_crafted_items_hide_tooltip"
+      text="Üretilen öğeleri gizle" />
+    <string
+      id="ret_crafted_items_only_tooltip"
+      text="Dövülenleri göster" />
+    <string
+      id="ret_crafted_items_toggle_tooltip"
+      text="Dövme Ekipman" />
+    <string
+      id="ret_crafted_player_only_reason"
+      text="Evrensel Editörde mevcut değil" />
     <string
       id="ret_create_unit"
       text="Yeni Birim" />
@@ -521,17 +566,35 @@
       id="ret_editing_restriction_in_settlement"
       text="Herhangi Bir Arazi" />
     <string
+      id="ret_editing_restriction_in_settlement_hint"
+      text="Herhangi bir arazide olmalısınız" />
+    <string
       id="ret_editing_restriction_need_faction_fief_reason"
       text="Bu birimi yalnızca {FACTION} ait bir arazide düzenleyebilirsiniz." />
+    <string
+      id="ret_editing_restriction_need_faction_fief_reason_short"
+      text="Feud içinde değil" />
     <string
       id="ret_editing_restriction_need_settlement_reason"
       text="Bir yerleşim yerindeyken birimleri yalnızca düzenleyebilirsiniz." />
     <string
+      id="ret_editing_restriction_need_settlement_reason_short"
+      text="Yerleşimde değil" />
+    <string
       id="ret_editing_restriction_none"
       text="Her Yerde" />
     <string
+      id="ret_editing_restriction_none_hint"
+      text="Konum kısıtlaması yok" />
+    <string
       id="ret_editing_restriction_unknown_faction_reason"
       text="Düzenleme kısıtlamaları için bu birimin fraksiyonunu belirleyemiyor." />
+    <string
+      id="ret_editing_restriction_unknown_faction_reason_short"
+      text="Bilinmeyen fraksiyon" />
+    <string
+      id="ret_editor_clan_edit"
+      text="Klanı Düzenle" />
     <string
       id="ret_editor_clan_select"
       text="Bir Klan Seçin" />
@@ -1118,6 +1181,24 @@
       id="ret_in_stock"
       text="Stokta ({STOCK})" />
     <string
+      id="ret_init_clan_troops_copy_source"
+      text="{SOURCE} birliklerini kopyala" />
+    <string
+      id="ret_init_clan_troops_create"
+      text="Oluştur" />
+    <string
+      id="ret_init_clan_troops_method_text"
+      text="{CLAN} için birlikleri nasıl oluşturmak istersiniz?" />
+    <string
+      id="ret_init_clan_troops_method_title"
+      text="Birlikleri Başlat" />
+    <string
+      id="ret_init_clan_troops_new"
+      text="Yeni birlikler oluştur" />
+    <string
+      id="ret_init_clan_troops_title"
+      text="Özel Birlik Yok" />
+    <string
       id="ret_init_error_body_detailed"
       text="Retinues mod bağımlılıkları düzgün şekilde başlatılamadı:{newline}{newline}{DETAILS}{newline}{newline}Bağımlılıklar düzeltilene kadar mod düzgün çalışmayabilir." />
     <string
@@ -1202,8 +1283,14 @@
       id="ret_kingdom_troops_unlock_disabled"
       text="Devre Dışı" />
     <string
+      id="ret_kingdom_troops_unlock_disabled_hint"
+      text="Krallık birliklerinin kilidi asla açılmaz" />
+    <string
       id="ret_kingdom_troops_unlock_upon_becoming_ruler"
       text="Hükümdar Olunca Kilidi Açılır" />
+    <string
+      id="ret_kingdom_troops_unlock_upon_becoming_ruler_hint"
+      text="Oyuncu bir krallık kurduğunda kilidi açılır" />
     <string
       id="ret_library_contents_header"
       text="İçerik" />
@@ -1289,6 +1376,9 @@
       id="ret_library_exports_hint_text"
       text="Birlikler ve fraksiyonlar düzenleyici sekmesinden dışa aktarılabilir." />
     <string
+      id="ret_library_failed_missing_file"
+      text="İhracat dosyası bulunamadı" />
+    <string
       id="ret_library_import_button"
       text="İçe Aktar" />
     <string
@@ -1349,6 +1439,9 @@
       id="ret_library_name_faction_header"
       text="Fraksiyon" />
     <string
+      id="ret_library_no_selection"
+      text="Hiçbir ihracat seçilmedi" />
+    <string
       id="ret_list_header_bandits"
       text="Haydutlar" />
     <string
@@ -1388,8 +1481,44 @@
       id="ret_mariner_captain_reason"
       text="Kaptanlar, temel birliklerinin denizci yeteneğini paylaşır" />
     <string
+      id="ret_mariner_disable_tooltip"
+      text="Denizci özelliğini devre dışı bırak" />
+    <string
+      id="ret_mariner_enable_tooltip"
+      text="Denizci özelliğini etkinleştir" />
+    <string
       id="ret_mariner_hero_reason"
       text="Kahramanlar denizci olamaz" />
+    <string
+      id="ret_mariner_toggle_tooltip"
+      text="Denizci: deniz muharebesine daha uygun, ancak beceri puanlarını düşük oranda kazanır" />
+    <string
+      id="ret_mariner_toggle_tooltip_universal"
+      text="Denizci: deniz muharebesine daha uygun" />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_cap_percent"
+      text="YZ Maiyet Sınırı (Grup %&apos;si)" />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_cap_percent_hint"
+      text="Maiyet birliklerinin bir lord grubunun boyutunun işgal edebileceği maksimum yüzde (1-50)." />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_convert_chance"
+      text="YZ Maiyet Günlük Terfi Şansı (%)" />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_convert_chance_hint"
+      text="Uygun bir lord grubunun eşleşen kademedeki bir birliği günde maiyet olarak dönüştürme şansı (1-100)." />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_leader_only"
+      text="Yalnızca Klan Liderlerinin Maiyeti Vardır" />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_leader_only_hint"
+      text="Etkinleştirilirse, yalnızca klan liderinin grubu maiyet kazanacak ve kullanacaktır. Devre dışı bırakılırsa, klondaki tüm lord grupları uygundur." />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_min_tier"
+      text="YZ Klan Maiyet Min. Kademesi" />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_min_tier_hint"
+      text="Oyuncu olmayan bir klanın kendi maiyetine sahip olması için gereken minimum klan kademesi (1-6)." />
     <string
       id="ret_mcm_option_allowed_recruiters"
       text="İzin Verilen İşe Alımcılar" />

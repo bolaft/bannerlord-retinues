@@ -11,14 +11,32 @@
       id="ret_age_hint"
       text="Alter" />
     <string
+      id="ret_ai_retinue_loot_line"
+      text="{RETINUE} hat {ITEM} von deinen Gefallenen geplündert und ausgerüstet." />
+    <string
+      id="ret_ai_retinue_loot_more"
+      text="Und {COUNT} weitere Ausrüstungsgegenstände wurden genommen." />
+    <string
+      id="ret_ai_retinue_loot_title"
+      text="{CLAN} hat deine Gefallenen geplündert" />
+    <string
       id="ret_allowed_recruiters_everyone"
       text="Jeder" />
+    <string
+      id="ret_allowed_recruiters_everyone_hint"
+      text="Alle Gruppen können benutzerdefinierte Truppen rekrutieren (empfohlen für die Kompatibilität mit anderen Rekrutierungs-Mods)" />
     <string
       id="ret_allowed_recruiters_faction_only"
       text="Nur Fraktion" />
     <string
+      id="ret_allowed_recruiters_faction_only_hint"
+      text="Nur Fraktionsgruppen können benutzerdefinierte Truppen rekrutieren" />
+    <string
       id="ret_allowed_recruiters_player_only"
       text="Nur Spieler" />
+    <string
+      id="ret_allowed_recruiters_player_only_hint"
+      text="Nur der Spieler kann benutzerdefinierte Truppen rekrutieren" />
     <string
       id="ret_battle_type_field_checkbox_tooltip_disable"
       text="Deaktiviere für Feldschlachten" />
@@ -119,6 +137,9 @@
       id="ret_button_change_formation_class_tooltip"
       text="Wähle eine Formationsklasse" />
     <string
+      id="ret_button_delete_clan_troops"
+      text="Löschen" />
+    <string
       id="ret_button_disable_captain"
       text="Deaktivieren" />
     <string
@@ -185,6 +206,9 @@
       id="ret_cant_unequip_reason_empty"
       text="Nichts zum Ausrüsten" />
     <string
+      id="ret_captain_header_text"
+      text="Hauptmann" />
+    <string
       id="ret_captain_mode_off_hint"
       text="Wechsle zur Basistruppe dieses Hauptmanns" />
     <string
@@ -233,17 +257,38 @@
       id="ret_clan_troops_unlock_always_unlocked"
       text="Immer entsperrt" />
     <string
+      id="ret_clan_troops_unlock_always_unlocked_hint"
+      text="Clantruppen sind von Anfang an verfügbar" />
+    <string
       id="ret_clan_troops_unlock_disabled"
       text="Deaktiviert" />
     <string
+      id="ret_clan_troops_unlock_disabled_hint"
+      text="Clantruppen werden nie freigeschaltet" />
+    <string
       id="ret_clan_troops_unlock_with_first_fief"
       text="Mit dem ersten Lehen entsperrt" />
+    <string
+      id="ret_clan_troops_unlock_with_first_fief_hint"
+      text="Wird freigeschaltet, wenn der Clan sein erstes Lehen erhält" />
     <string
       id="ret_clear_filter_tooltip"
       text="Filter löschen" />
     <string
       id="ret_close_equipment_button_text"
       text="Zurück" />
+    <string
+      id="ret_crafted_items_hide_tooltip"
+      text="Hergestellte Gegenstände ausblenden" />
+    <string
+      id="ret_crafted_items_only_tooltip"
+      text="Gefertigte anzeigen" />
+    <string
+      id="ret_crafted_items_toggle_tooltip"
+      text="Gefertigte Ausrüstung" />
+    <string
+      id="ret_crafted_player_only_reason"
+      text="Im Universal-Editor nicht verfügbar" />
     <string
       id="ret_create_unit"
       text="Neue Einheit" />
@@ -521,17 +566,35 @@
       id="ret_editing_restriction_in_settlement"
       text="Jedes Lehen" />
     <string
+      id="ret_editing_restriction_in_settlement_hint"
+      text="Sie müssen sich in einem beliebigen Lehen befinden" />
+    <string
       id="ret_editing_restriction_need_faction_fief_reason"
       text="Sie können diese Einheit nur in einem Lehen bearbeiten, das {FACTION} gehört." />
+    <string
+      id="ret_editing_restriction_need_faction_fief_reason_short"
+      text="Nicht in einem Lehen" />
     <string
       id="ret_editing_restriction_need_settlement_reason"
       text="Sie können Einheiten nur bearbeiten, wenn Sie sich in einer Siedlung befinden." />
     <string
+      id="ret_editing_restriction_need_settlement_reason_short"
+      text="Nicht in einer Siedlung" />
+    <string
       id="ret_editing_restriction_none"
       text="Überall" />
     <string
+      id="ret_editing_restriction_none_hint"
+      text="Keine Standortbeschränkungen" />
+    <string
       id="ret_editing_restriction_unknown_faction_reason"
       text="Die Fraktion dieser Einheit kann für Bearbeitungseinschränkungen nicht bestimmt werden." />
+    <string
+      id="ret_editing_restriction_unknown_faction_reason_short"
+      text="Unbekannte Fraktion" />
+    <string
+      id="ret_editor_clan_edit"
+      text="Clan bearbeiten" />
     <string
       id="ret_editor_clan_select"
       text="Wählen Sie einen Clan" />
@@ -1118,6 +1181,24 @@
       id="ret_in_stock"
       text="Auf Lager ({STOCK})" />
     <string
+      id="ret_init_clan_troops_copy_source"
+      text="{SOURCE}-Truppen kopieren" />
+    <string
+      id="ret_init_clan_troops_create"
+      text="Erstellen" />
+    <string
+      id="ret_init_clan_troops_method_text"
+      text="Wie möchten Sie die Truppen für {CLAN} erstellen?" />
+    <string
+      id="ret_init_clan_troops_method_title"
+      text="Truppen initialisieren" />
+    <string
+      id="ret_init_clan_troops_new"
+      text="Neue Truppen erstellen" />
+    <string
+      id="ret_init_clan_troops_title"
+      text="Keine benutzerdefinierten Truppen" />
+    <string
       id="ret_init_error_body_detailed"
       text="Die Abhängigkeiten des Retinues-Mods konnten nicht ordnungsgemäß initialisiert werden:{newline}{newline}{DETAILS}{newline}{newline}Der Mod funktioniert möglicherweise nicht richtig, bis die Abhängigkeiten behoben sind." />
     <string
@@ -1202,8 +1283,14 @@
       id="ret_kingdom_troops_unlock_disabled"
       text="Deaktiviert" />
     <string
+      id="ret_kingdom_troops_unlock_disabled_hint"
+      text="Die Truppen des Königreichs werden nie freigeschaltet" />
+    <string
       id="ret_kingdom_troops_unlock_upon_becoming_ruler"
       text="Freigeschaltet beim Herrscherwerden" />
+    <string
+      id="ret_kingdom_troops_unlock_upon_becoming_ruler_hint"
+      text="Freigeschaltet, wenn der Spieler ein Königreich gründet" />
     <string
       id="ret_library_contents_header"
       text="Inhalt" />
@@ -1289,6 +1376,9 @@
       id="ret_library_exports_hint_text"
       text="Truppen und Fraktionen können aus dem Editor-Tab exportiert werden." />
     <string
+      id="ret_library_failed_missing_file"
+      text="Exportdatei nicht gefunden" />
+    <string
       id="ret_library_import_button"
       text="Importieren" />
     <string
@@ -1349,6 +1439,9 @@
       id="ret_library_name_faction_header"
       text="Fraktion" />
     <string
+      id="ret_library_no_selection"
+      text="Kein Export ausgewählt" />
+    <string
       id="ret_list_header_bandits"
       text="Banditen" />
     <string
@@ -1388,8 +1481,44 @@
       id="ret_mariner_captain_reason"
       text="Hauptleute teilen die Seefahrer-Fähigkeit ihrer Basistruppen" />
     <string
+      id="ret_mariner_disable_tooltip"
+      text="Mariner-Attribut deaktivieren" />
+    <string
+      id="ret_mariner_enable_tooltip"
+      text="Mariner-Attribut aktivieren" />
+    <string
       id="ret_mariner_hero_reason"
       text="Helden können keine Seefahrer sein" />
+    <string
+      id="ret_mariner_toggle_tooltip"
+      text="Mariner: besser für den Seekampf geeignet, verdient aber Fertigkeitspunkte mit reduzierter Rate" />
+    <string
+      id="ret_mariner_toggle_tooltip_universal"
+      text="Mariner: besser für den Seekampf geeignet" />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_cap_percent"
+      text="KI-Gefolge-Obergrenze (% der Partei)" />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_cap_percent_hint"
+      text="Maximaler Prozentsatz der Parteigröße eines Lords, den Gefolgschaftstruppen einnehmen können (1-50)." />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_convert_chance"
+      text="Tägliche Beförderungswahrscheinlichkeit der KI-Gefolgschaft (%)" />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_convert_chance_hint"
+      text="Wahrscheinlichkeit pro Tag, dass eine geeignete Lordgruppe eine Truppe passender Stufe in ein Gefolge umwandelt (1-100)." />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_leader_only"
+      text="Nur Clanführer haben Gefolge" />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_leader_only_hint"
+      text="Wenn aktiviert, erhält und nutzt nur die Gruppe des Clanführers Gefolge. Wenn deaktiviert, sind alle Lordgruppen im Clan berechtigt." />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_min_tier"
+      text="KI-Clan-Gefolge Mindeststufe" />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_min_tier_hint"
+      text="Mindest-Clanrang (1-6), damit ein Nicht-Spieler-Clan ein eigenes Gefolge haben kann." />
     <string
       id="ret_mcm_option_allowed_recruiters"
       text="Erlaubte Rekrutierer" />

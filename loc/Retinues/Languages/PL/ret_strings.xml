@@ -11,14 +11,32 @@
       id="ret_age_hint"
       text="Wiek" />
     <string
+      id="ret_ai_retinue_loot_line"
+      text="{RETINUE} splądrował i wyposażył się w {ITEM} spośród twoich ofiar." />
+    <string
+      id="ret_ai_retinue_loot_more"
+      text="I {COUNT} dodatkowych przedmiotów wyposażenia zostało zabranych." />
+    <string
+      id="ret_ai_retinue_loot_title"
+      text="{CLAN} splądrowało twoich poległych" />
+    <string
       id="ret_allowed_recruiters_everyone"
       text="Wszyscy" />
+    <string
+      id="ret_allowed_recruiters_everyone_hint"
+      text="Wszystkie grupy mogą werbować niestandardowe oddziały (zalecane dla zgodności z innymi modami rekrutacji)" />
     <string
       id="ret_allowed_recruiters_faction_only"
       text="Tylko frakcja" />
     <string
+      id="ret_allowed_recruiters_faction_only_hint"
+      text="Tylko grupy frakcji mogą werbować niestandardowe oddziały" />
+    <string
       id="ret_allowed_recruiters_player_only"
       text="Tylko gracz" />
+    <string
+      id="ret_allowed_recruiters_player_only_hint"
+      text="Tylko gracz może werbować niestandardowe oddziały" />
     <string
       id="ret_battle_type_field_checkbox_tooltip_disable"
       text="Wyłącz dla bitew polowych" />
@@ -119,6 +137,9 @@
       id="ret_button_change_formation_class_tooltip"
       text="Wybierz klasę formacji" />
     <string
+      id="ret_button_delete_clan_troops"
+      text="Wyczyść" />
+    <string
       id="ret_button_disable_captain"
       text="Wyłącz" />
     <string
@@ -185,6 +206,9 @@
       id="ret_cant_unequip_reason_empty"
       text="Brak rzeczy do zdjęcia" />
     <string
+      id="ret_captain_header_text"
+      text="Kapitan" />
+    <string
       id="ret_captain_mode_off_hint"
       text="Przełącz na podstawowy oddział tego kapitana" />
     <string
@@ -233,17 +257,38 @@
       id="ret_clan_troops_unlock_always_unlocked"
       text="Zawsze odblokowane" />
     <string
+      id="ret_clan_troops_unlock_always_unlocked_hint"
+      text="Oddziały klanu są dostępne od początku" />
+    <string
       id="ret_clan_troops_unlock_disabled"
       text="Wyłączone" />
     <string
+      id="ret_clan_troops_unlock_disabled_hint"
+      text="Oddziały klanu nigdy nie są odblokowywane" />
+    <string
       id="ret_clan_troops_unlock_with_first_fief"
       text="Odblokowane z pierwszym lenno" />
+    <string
+      id="ret_clan_troops_unlock_with_first_fief_hint"
+      text="Odblokowuje się, gdy klan zdobędzie swoje pierwsze lenno" />
     <string
       id="ret_clear_filter_tooltip"
       text="Wyczyść filtr" />
     <string
       id="ret_close_equipment_button_text"
       text="Wstecz" />
+    <string
+      id="ret_crafted_items_hide_tooltip"
+      text="Ukryj wykonane przedmioty" />
+    <string
+      id="ret_crafted_items_only_tooltip"
+      text="Pokaż wykute" />
+    <string
+      id="ret_crafted_items_toggle_tooltip"
+      text="Wykute wyposażenie" />
+    <string
+      id="ret_crafted_player_only_reason"
+      text="Niedostępne w edytorze uniwersalnym" />
     <string
       id="ret_create_unit"
       text="Nowa jednostka" />
@@ -521,17 +566,35 @@
       id="ret_editing_restriction_in_settlement"
       text="Dowolne lenno" />
     <string
+      id="ret_editing_restriction_in_settlement_hint"
+      text="Musisz być w dowolnym lenno" />
+    <string
       id="ret_editing_restriction_need_faction_fief_reason"
       text="Możesz edytować tę jednostkę tylko w lenno należącym do {FACTION}." />
+    <string
+      id="ret_editing_restriction_need_faction_fief_reason_short"
+      text="Nie w lenno" />
     <string
       id="ret_editing_restriction_need_settlement_reason"
       text="Możesz edytować jednostki tylko będąc wewnątrz osiedla." />
     <string
+      id="ret_editing_restriction_need_settlement_reason_short"
+      text="Nie w osiedlu" />
+    <string
       id="ret_editing_restriction_none"
       text="W dowolnym miejscu" />
     <string
+      id="ret_editing_restriction_none_hint"
+      text="Brak ograniczeń lokalizacji" />
+    <string
       id="ret_editing_restriction_unknown_faction_reason"
       text="Nie można określić frakcji tej jednostki dla ograniczeń edycji." />
+    <string
+      id="ret_editing_restriction_unknown_faction_reason_short"
+      text="Nieznana frakcja" />
+    <string
+      id="ret_editor_clan_edit"
+      text="Edytuj klan" />
     <string
       id="ret_editor_clan_select"
       text="Wybierz klan" />
@@ -1118,6 +1181,24 @@
       id="ret_in_stock"
       text="Na stanie ({STOCK})" />
     <string
+      id="ret_init_clan_troops_copy_source"
+      text="Skopiuj oddziały {SOURCE}" />
+    <string
+      id="ret_init_clan_troops_create"
+      text="Utwórz" />
+    <string
+      id="ret_init_clan_troops_method_text"
+      text="Jak chcesz stworzyć oddziały dla {CLAN}?" />
+    <string
+      id="ret_init_clan_troops_method_title"
+      text="Zainicjuj oddziały" />
+    <string
+      id="ret_init_clan_troops_new"
+      text="Utwórz nowe oddziały" />
+    <string
+      id="ret_init_clan_troops_title"
+      text="Brak niestandardowych oddziałów" />
+    <string
       id="ret_init_error_body_detailed"
       text="Nie udało się poprawnie zainicjować zależności moda Retinues:{newline}{newline}{DETAILS}{newline}{newline}Mod może nie działać poprawnie, dopóki zależności nie zostaną naprawione." />
     <string
@@ -1202,8 +1283,14 @@
       id="ret_kingdom_troops_unlock_disabled"
       text="Wyłączone" />
     <string
+      id="ret_kingdom_troops_unlock_disabled_hint"
+      text="Oddziały królestwa nigdy nie są odblokowywane" />
+    <string
       id="ret_kingdom_troops_unlock_upon_becoming_ruler"
       text="Odblokowane po zostaniu władcą" />
+    <string
+      id="ret_kingdom_troops_unlock_upon_becoming_ruler_hint"
+      text="Odblokowuje się, gdy gracz zakłada królestwo" />
     <string
       id="ret_library_contents_header"
       text="Zawartość" />
@@ -1289,6 +1376,9 @@
       id="ret_library_exports_hint_text"
       text="Oddziały i frakcje można eksportować z zakładki edytora." />
     <string
+      id="ret_library_failed_missing_file"
+      text="Nie znaleziono pliku eksportu" />
+    <string
       id="ret_library_import_button"
       text="Importuj" />
     <string
@@ -1349,6 +1439,9 @@
       id="ret_library_name_faction_header"
       text="Frakcja" />
     <string
+      id="ret_library_no_selection"
+      text="Nie wybrano eksportu" />
+    <string
       id="ret_list_header_bandits"
       text="Bandyci" />
     <string
@@ -1388,8 +1481,44 @@
       id="ret_mariner_captain_reason"
       text="Kapitanowie dzielą zdolność marynarza swoich podstawowych oddziałów" />
     <string
+      id="ret_mariner_disable_tooltip"
+      text="Wyłącz cechę marynarza" />
+    <string
+      id="ret_mariner_enable_tooltip"
+      text="Włącz cechę marynarza" />
+    <string
       id="ret_mariner_hero_reason"
       text="Bohaterowie nie mogą być marynarzami" />
+    <string
+      id="ret_mariner_toggle_tooltip"
+      text="Marynarz: lepiej przystosowany do walki morskiej, ale zdobywa punkty umiejętności w zmniejszonym tempie" />
+    <string
+      id="ret_mariner_toggle_tooltip_universal"
+      text="Marynarz: lepiej przystosowany do walki morskiej" />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_cap_percent"
+      text="Limit świty AI (% oddziału)" />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_cap_percent_hint"
+      text="Maksymalny procent wielkości oddziału lorda, który mogą zajmować trupy świty (1-50)." />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_convert_chance"
+      text="Dzienna szansa awansu świty AI (%)" />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_convert_chance_hint"
+      text="Szansa na dzień, że uprawniony oddział lorda przekształci jednego żołnierza odpowiedniego poziomu w świtę (1-100)." />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_leader_only"
+      text="Tylko przywódcy klanów mają świtę" />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_leader_only_hint"
+      text="Jeśli włączone, tylko oddział lidera klanu będzie zyskiwać i używać świty. Jeśli wyłączone, wszystkie oddziały lordów w klanie są uprawnione." />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_min_tier"
+      text="Minimalny poziom świty klanu AI" />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_min_tier_hint"
+      text="Minimalny poziom klanu (1-6) wymagany, aby klan niebędący graczem miał własną świtę." />
     <string
       id="ret_mcm_option_allowed_recruiters"
       text="Dozwoleni rekruterzy" />

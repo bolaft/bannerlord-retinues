@@ -11,14 +11,32 @@
       id="ret_age_hint"
       text="Возраст" />
     <string
+      id="ret_ai_retinue_loot_line"
+      text="{RETINUE} мародёрствовал и надел {ITEM} с ваших потерь." />
+    <string
+      id="ret_ai_retinue_loot_more"
+      text="И ещё {COUNT} предметов снаряжения были взяты." />
+    <string
+      id="ret_ai_retinue_loot_title"
+      text="{CLAN} разграбил ваших павших" />
+    <string
       id="ret_allowed_recruiters_everyone"
       text="Все" />
+    <string
+      id="ret_allowed_recruiters_everyone_hint"
+      text="Все отряды могут вербовать нестандартных воинов (рекомендуется для совместимости с другими модами на вербовку)" />
     <string
       id="ret_allowed_recruiters_faction_only"
       text="Только фракция" />
     <string
+      id="ret_allowed_recruiters_faction_only_hint"
+      text="Только отряды фракции могут вербовать нестандартные войска" />
+    <string
       id="ret_allowed_recruiters_player_only"
       text="Только игрок" />
+    <string
+      id="ret_allowed_recruiters_player_only_hint"
+      text="Только игрок может вербовать нестандартные войска" />
     <string
       id="ret_battle_type_field_checkbox_tooltip_disable"
       text="Отключить для полевых сражений" />
@@ -119,6 +137,9 @@
       id="ret_button_change_formation_class_tooltip"
       text="Выберите класс формации" />
     <string
+      id="ret_button_delete_clan_troops"
+      text="Очистить" />
+    <string
       id="ret_button_disable_captain"
       text="Отключить" />
     <string
@@ -185,6 +206,9 @@
       id="ret_cant_unequip_reason_empty"
       text="Нечего снимать" />
     <string
+      id="ret_captain_header_text"
+      text="Капитан" />
+    <string
       id="ret_captain_mode_off_hint"
       text="Переключиться на основную войсковую часть этого капитана" />
     <string
@@ -233,17 +257,38 @@
       id="ret_clan_troops_unlock_always_unlocked"
       text="Всегда разблокировано" />
     <string
+      id="ret_clan_troops_unlock_always_unlocked_hint"
+      text="Войска клана доступны с самого начала" />
+    <string
       id="ret_clan_troops_unlock_disabled"
       text="Отключены" />
     <string
+      id="ret_clan_troops_unlock_disabled_hint"
+      text="Войска клана никогда не разблокируются" />
+    <string
       id="ret_clan_troops_unlock_with_first_fief"
       text="Разблокировано с первым фьефом" />
+    <string
+      id="ret_clan_troops_unlock_with_first_fief_hint"
+      text="Разблокируется, когда клан получает свой первый фьеф" />
     <string
       id="ret_clear_filter_tooltip"
       text="Очистить фильтр" />
     <string
       id="ret_close_equipment_button_text"
       text="Назад" />
+    <string
+      id="ret_crafted_items_hide_tooltip"
+      text="Скрыть созданные предметы" />
+    <string
+      id="ret_crafted_items_only_tooltip"
+      text="Показать кованые" />
+    <string
+      id="ret_crafted_items_toggle_tooltip"
+      text="Кованое снаряжение" />
+    <string
+      id="ret_crafted_player_only_reason"
+      text="Недоступно в универсальном редакторе" />
     <string
       id="ret_create_unit"
       text="Новая единица" />
@@ -521,17 +566,35 @@
       id="ret_editing_restriction_in_settlement"
       text="Любое поселение" />
     <string
+      id="ret_editing_restriction_in_settlement_hint"
+      text="Вы должны находиться в любом поселении" />
+    <string
       id="ret_editing_restriction_need_faction_fief_reason"
       text="Вы можете редактировать эту единицу только в фьефе, принадлежащем {FACTION}." />
+    <string
+      id="ret_editing_restriction_need_faction_fief_reason_short"
+      text="Не в фьефе" />
     <string
       id="ret_editing_restriction_need_settlement_reason"
       text="Вы можете редактировать юниты только находясь внутри поселения." />
     <string
+      id="ret_editing_restriction_need_settlement_reason_short"
+      text="Не в поселении" />
+    <string
       id="ret_editing_restriction_none"
       text="Везде" />
     <string
+      id="ret_editing_restriction_none_hint"
+      text="Нет ограничений по местоположению" />
+    <string
       id="ret_editing_restriction_unknown_faction_reason"
       text="Невозможно определить фракцию этой единицы для ограничений редактирования." />
+    <string
+      id="ret_editing_restriction_unknown_faction_reason_short"
+      text="Неизвестная фракция" />
+    <string
+      id="ret_editor_clan_edit"
+      text="Редактировать клан" />
     <string
       id="ret_editor_clan_select"
       text="Выберите клан" />
@@ -1118,6 +1181,24 @@
       id="ret_in_stock"
       text="В наличии ({STOCK})" />
     <string
+      id="ret_init_clan_troops_copy_source"
+      text="Скопировать войска {SOURCE}" />
+    <string
+      id="ret_init_clan_troops_create"
+      text="Создать" />
+    <string
+      id="ret_init_clan_troops_method_text"
+      text="Как вы хотите создать войска для {CLAN}?" />
+    <string
+      id="ret_init_clan_troops_method_title"
+      text="Инициализировать войска" />
+    <string
+      id="ret_init_clan_troops_new"
+      text="Создать новые войска" />
+    <string
+      id="ret_init_clan_troops_title"
+      text="Нет настраиваемых войск" />
+    <string
       id="ret_init_error_body_detailed"
       text="Не удалось правильно инициализировать зависимости мода Retinues:{newline}{newline}{DETAILS}{newline}{newline}Мод может работать некорректно, пока зависимости не будут исправлены." />
     <string
@@ -1202,8 +1283,14 @@
       id="ret_kingdom_troops_unlock_disabled"
       text="Отключены" />
     <string
+      id="ret_kingdom_troops_unlock_disabled_hint"
+      text="Войска королевства никогда не разблокируются" />
+    <string
       id="ret_kingdom_troops_unlock_upon_becoming_ruler"
       text="Разблокируются при становлении правителем" />
+    <string
+      id="ret_kingdom_troops_unlock_upon_becoming_ruler_hint"
+      text="Разблокируется, когда игрок основывает королевство" />
     <string
       id="ret_library_contents_header"
       text="Содержимое" />
@@ -1289,6 +1376,9 @@
       id="ret_library_exports_hint_text"
       text="Отряды и фракции можно экспортировать из вкладки редактора." />
     <string
+      id="ret_library_failed_missing_file"
+      text="Файл экспорта не найден" />
+    <string
       id="ret_library_import_button"
       text="Импорт" />
     <string
@@ -1349,6 +1439,9 @@
       id="ret_library_name_faction_header"
       text="Фракция" />
     <string
+      id="ret_library_no_selection"
+      text="Экспорт не выбран" />
+    <string
       id="ret_list_header_bandits"
       text="Бандиты" />
     <string
@@ -1388,8 +1481,44 @@
       id="ret_mariner_captain_reason"
       text="Капитаны разделяют способность мореплавателя своих базовых войск" />
     <string
+      id="ret_mariner_disable_tooltip"
+      text="Отключить черту мореплавателя" />
+    <string
+      id="ret_mariner_enable_tooltip"
+      text="Включить черту мореплавателя" />
+    <string
       id="ret_mariner_hero_reason"
       text="Герои не могут быть мореплавателями" />
+    <string
+      id="ret_mariner_toggle_tooltip"
+      text="Моряк: лучше подходит для морского боя, но получает очки навыков с пониженной скоростью" />
+    <string
+      id="ret_mariner_toggle_tooltip_universal"
+      text="Моряк: лучше подходит для морского боя" />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_cap_percent"
+      text="Лимит свиты ИИ (% отряда)" />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_cap_percent_hint"
+      text="Максимальный процент отряда лорда, который может занимать свита (1-50)." />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_convert_chance"
+      text="Ежедневный шанс повышения свиты ИИ (%)" />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_convert_chance_hint"
+      text="Шанс в день, что подходящий отряд лорда превратит одного воина соответствующего уровня в свиту (1-100)." />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_leader_only"
+      text="Только лидеры кланов имеют свиту" />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_leader_only_hint"
+      text="Если включено, только отряд лидера клана будет получать и использовать свиту. Если отключено, все отряды лордов клана имеют доступ." />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_min_tier"
+      text="Минимальный уровень свиты клана ИИ" />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_min_tier_hint"
+      text="Минимальный уровень клана (1-6), необходимый для наличия собственной свиты у клана неигрока." />
     <string
       id="ret_mcm_option_allowed_recruiters"
       text="Разрешенные рекрутеры" />

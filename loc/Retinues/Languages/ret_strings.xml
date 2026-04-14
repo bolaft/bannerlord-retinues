@@ -12,7 +12,7 @@
       text="Age" />
     <string
       id="ret_ai_retinue_loot_line"
-      text="{RETINUE} equipped {ITEM} from your casualties." />
+      text="{RETINUE} looted and equipped {ITEM} from your casualties." />
     <string
       id="ret_ai_retinue_loot_more"
       text="And {COUNT} more pieces of gear were taken." />
@@ -626,20 +626,23 @@
       id="ret_editing_restriction_unknown_faction_reason_short"
       text="Unknown faction" />
     <string
+      id="ret_editor_clan_edit"
+      text="Edit Clan" />
+    <string
       id="ret_editor_clan_select"
       text="Select a Clan" />
     <string
       id="ret_editor_culture_select"
-      text="Select a Culture" />
+      text="Select Culture" />
     <string
       id="ret_editor_done_button"
       text="Done" />
     <string
+      id="ret_editor_kingdom_edit"
+      text="Edit {KINGDOM}" />
+    <string
       id="ret_editor_kingdom_none"
       text="No Kingdom" />
-    <string
-      id="ret_editor_kingdom_select"
-      text="Select {KINGDOM}" />
     <string
       id="ret_editor_left_banner_unavailable"
       text="This selection is not available." />
@@ -1253,14 +1256,14 @@
       id="ret_init_clan_troops_create"
       text="Create" />
     <string
-      id="ret_init_clan_troops_from_scratch"
-      text="From scratch" />
-    <string
       id="ret_init_clan_troops_method_text"
       text="How do you want to create the troops for {CLAN}?" />
     <string
       id="ret_init_clan_troops_method_title"
       text="Initialize Troops" />
+    <string
+      id="ret_init_clan_troops_new"
+      text="Create new troops" />
     <string
       id="ret_init_clan_troops_title"
       text="No Custom Troops" />

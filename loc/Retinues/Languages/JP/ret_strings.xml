@@ -11,14 +11,32 @@
       id="ret_age_hint"
       text="年齢" />
     <string
+      id="ret_ai_retinue_loot_line"
+      text="{RETINUE} はあなたの戦死者から {ITEM} を略奪して装備しました。" />
+    <string
+      id="ret_ai_retinue_loot_more"
+      text="さらに {COUNT} 個の装備品が持ち去られました。" />
+    <string
+      id="ret_ai_retinue_loot_title"
+      text="{CLAN} があなたの戦死者を略奪しました" />
+    <string
       id="ret_allowed_recruiters_everyone"
       text="全員" />
+    <string
+      id="ret_allowed_recruiters_everyone_hint"
+      text="すべてのパーティがカスタム兵を募集できます（他の徴兵Modとの互換性のために推奨）" />
     <string
       id="ret_allowed_recruiters_faction_only"
       text="派閥のみ" />
     <string
+      id="ret_allowed_recruiters_faction_only_hint"
+      text="派閥のパーティのみカスタム兵を募集できます" />
+    <string
       id="ret_allowed_recruiters_player_only"
       text="プレイヤーのみ" />
+    <string
+      id="ret_allowed_recruiters_player_only_hint"
+      text="プレイヤーのみカスタム兵を募集できます" />
     <string
       id="ret_battle_type_field_checkbox_tooltip_disable"
       text="野戦で無効にする" />
@@ -119,6 +137,9 @@
       id="ret_button_change_formation_class_tooltip"
       text="編成クラスを選択します" />
     <string
+      id="ret_button_delete_clan_troops"
+      text="クリア" />
+    <string
       id="ret_button_disable_captain"
       text="無効にする" />
     <string
@@ -185,6 +206,9 @@
       id="ret_cant_unequip_reason_empty"
       text="解除するものがありません" />
     <string
+      id="ret_captain_header_text"
+      text="キャプテン" />
+    <string
       id="ret_captain_mode_off_hint"
       text="このキャプテンの基本部隊に切り替えます" />
     <string
@@ -233,17 +257,38 @@
       id="ret_clan_troops_unlock_always_unlocked"
       text="常に解除済み" />
     <string
+      id="ret_clan_troops_unlock_always_unlocked_hint"
+      text="クランの部隊は最初から利用可能です" />
+    <string
       id="ret_clan_troops_unlock_disabled"
       text="無効" />
     <string
+      id="ret_clan_troops_unlock_disabled_hint"
+      text="クランの部隊は決して解除されません" />
+    <string
       id="ret_clan_troops_unlock_with_first_fief"
       text="最初の領地で解除済み" />
+    <string
+      id="ret_clan_troops_unlock_with_first_fief_hint"
+      text="クランが最初の領地を取得すると解除されます" />
     <string
       id="ret_clear_filter_tooltip"
       text="フィルターをクリア" />
     <string
       id="ret_close_equipment_button_text"
       text="戻る" />
+    <string
+      id="ret_crafted_items_hide_tooltip"
+      text="作成したアイテムを非表示" />
+    <string
+      id="ret_crafted_items_only_tooltip"
+      text="鍛造品を表示" />
+    <string
+      id="ret_crafted_items_toggle_tooltip"
+      text="鍛造装備" />
+    <string
+      id="ret_crafted_player_only_reason"
+      text="ユニバーサルエディターでは使用できません" />
     <string
       id="ret_create_unit"
       text="新しいユニット" />
@@ -521,17 +566,35 @@
       id="ret_editing_restriction_in_settlement"
       text="任意の領地" />
     <string
+      id="ret_editing_restriction_in_settlement_hint"
+      text="任意の領地にいる必要があります" />
+    <string
       id="ret_editing_restriction_need_faction_fief_reason"
       text="このユニットは、{FACTION} が所有する領地内でのみ編集できます。" />
+    <string
+      id="ret_editing_restriction_need_faction_fief_reason_short"
+      text="領地内にいない" />
     <string
       id="ret_editing_restriction_need_settlement_reason"
       text="集落内にいる間のみ、ユニットを編集できます。" />
     <string
+      id="ret_editing_restriction_need_settlement_reason_short"
+      text="集落内にいない" />
+    <string
       id="ret_editing_restriction_none"
       text="どこでも" />
     <string
+      id="ret_editing_restriction_none_hint"
+      text="位置制限なし" />
+    <string
       id="ret_editing_restriction_unknown_faction_reason"
       text="このユニットの派閥を編集制限のために特定できません。" />
+    <string
+      id="ret_editing_restriction_unknown_faction_reason_short"
+      text="不明な派閥" />
+    <string
+      id="ret_editor_clan_edit"
+      text="クランを編集" />
     <string
       id="ret_editor_clan_select"
       text="クランを選択" />
@@ -1118,6 +1181,24 @@
       id="ret_in_stock"
       text="在庫あり ({STOCK})" />
     <string
+      id="ret_init_clan_troops_copy_source"
+      text="{SOURCE} の兵をコピー" />
+    <string
+      id="ret_init_clan_troops_create"
+      text="作成" />
+    <string
+      id="ret_init_clan_troops_method_text"
+      text="{CLAN} の兵をどのように作成しますか？" />
+    <string
+      id="ret_init_clan_troops_method_title"
+      text="兵を初期化" />
+    <string
+      id="ret_init_clan_troops_new"
+      text="新しい兵を作成" />
+    <string
+      id="ret_init_clan_troops_title"
+      text="カスタム兵なし" />
+    <string
       id="ret_init_error_body_detailed"
       text="Retinues モッドの依存関係が正しく初期化されませんでした:{newline}{newline}{DETAILS}{newline}{newline}依存関係が修正されるまで、モッドは正しく機能しない可能性があります。" />
     <string
@@ -1202,8 +1283,14 @@
       id="ret_kingdom_troops_unlock_disabled"
       text="無効" />
     <string
+      id="ret_kingdom_troops_unlock_disabled_hint"
+      text="王国の部隊は決してアンロックされません" />
+    <string
       id="ret_kingdom_troops_unlock_upon_becoming_ruler"
       text="支配者になるとアンロック" />
+    <string
+      id="ret_kingdom_troops_unlock_upon_becoming_ruler_hint"
+      text="プレイヤーが王国を建国するとアンロック" />
     <string
       id="ret_library_contents_header"
       text="内容" />
@@ -1289,6 +1376,9 @@
       id="ret_library_exports_hint_text"
       text="部隊と派閥は、エディタタブからエクスポートできます。" />
     <string
+      id="ret_library_failed_missing_file"
+      text="エクスポートファイルが見つかりません" />
+    <string
       id="ret_library_import_button"
       text="インポート" />
     <string
@@ -1349,6 +1439,9 @@
       id="ret_library_name_faction_header"
       text="派閥" />
     <string
+      id="ret_library_no_selection"
+      text="エクスポートが選択されていません" />
+    <string
       id="ret_list_header_bandits"
       text="山賊" />
     <string
@@ -1388,8 +1481,44 @@
       id="ret_mariner_captain_reason"
       text="キャプテンは、基礎部隊の水兵能力を共有します" />
     <string
+      id="ret_mariner_disable_tooltip"
+      text="水兵特性を無効にする" />
+    <string
+      id="ret_mariner_enable_tooltip"
+      text="水兵特性を有効にする" />
+    <string
       id="ret_mariner_hero_reason"
       text="英雄は水兵になることはできません" />
+    <string
+      id="ret_mariner_toggle_tooltip"
+      text="水手：海戰に適しているが、スキルポイントの獲得速度が下がる" />
+    <string
+      id="ret_mariner_toggle_tooltip_universal"
+      text="水手：海戰に適している" />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_cap_percent"
+      text="AI徨側の上限（パーティの%）" />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_cap_percent_hint"
+      text="徨側部隊が占めることのできる領主パーティ規模の最大割合（1～50）。" />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_convert_chance"
+      text="AI徨側の日常昇進確率（%）" />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_convert_chance_hint"
+      text="資格のある領主パーティが1日に同ブランクの兵を徨側に転化する確率（1～100）。" />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_leader_only"
+      text="氏族の長のみ徨側を持つ" />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_leader_only_hint"
+      text="有効の場合、氏族長のパーティのみ徨側を獲得・使用できます。無効の場合、氏族内のすべての領主パーティが対象です。" />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_min_tier"
+      text="AI氏族徨側最低ランク" />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_min_tier_hint"
+      text="非プレイヤー氏族が徨側を持つために必要な最低氏族ランク（1～6）。" />
     <string
       id="ret_mcm_option_allowed_recruiters"
       text="許可されたリクルーター" />

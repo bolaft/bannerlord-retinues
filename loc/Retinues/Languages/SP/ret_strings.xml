@@ -11,14 +11,32 @@
       id="ret_age_hint"
       text="Edad" />
     <string
+      id="ret_ai_retinue_loot_line"
+      text="{RETINUE} saqueó y equipó {ITEM} de tus bajas." />
+    <string
+      id="ret_ai_retinue_loot_more"
+      text="Y {COUNT} piezas de equipo más fueron tomadas." />
+    <string
+      id="ret_ai_retinue_loot_title"
+      text="{CLAN} Saqueó a Tus Caídos" />
+    <string
       id="ret_allowed_recruiters_everyone"
       text="Todos" />
+    <string
+      id="ret_allowed_recruiters_everyone_hint"
+      text="Todos los grupos pueden reclutar tropas personalizadas (recomendado para compatibilidad con otros mods de reclutamiento)" />
     <string
       id="ret_allowed_recruiters_faction_only"
       text="Solo facción" />
     <string
+      id="ret_allowed_recruiters_faction_only_hint"
+      text="Solo los grupos de facción pueden reclutar tropas personalizadas" />
+    <string
       id="ret_allowed_recruiters_player_only"
       text="Solo jugador" />
+    <string
+      id="ret_allowed_recruiters_player_only_hint"
+      text="Solo el jugador puede reclutar tropas personalizadas" />
     <string
       id="ret_battle_type_field_checkbox_tooltip_disable"
       text="Desactivar para batallas campales" />
@@ -119,6 +137,9 @@
       id="ret_button_change_formation_class_tooltip"
       text="Selecciona una clase de formación" />
     <string
+      id="ret_button_delete_clan_troops"
+      text="Borrar" />
+    <string
       id="ret_button_disable_captain"
       text="Desactivar" />
     <string
@@ -185,6 +206,9 @@
       id="ret_cant_unequip_reason_empty"
       text="Nada que desequipar" />
     <string
+      id="ret_captain_header_text"
+      text="Capitán" />
+    <string
       id="ret_captain_mode_off_hint"
       text="Volver a la tropa base de este capitán" />
     <string
@@ -233,17 +257,38 @@
       id="ret_clan_troops_unlock_always_unlocked"
       text="Siempre desbloqueado" />
     <string
+      id="ret_clan_troops_unlock_always_unlocked_hint"
+      text="Las tropas de clan están disponibles desde el principio" />
+    <string
       id="ret_clan_troops_unlock_disabled"
       text="Desactivados" />
     <string
+      id="ret_clan_troops_unlock_disabled_hint"
+      text="Las tropas de clan nunca se desbloquean" />
+    <string
       id="ret_clan_troops_unlock_with_first_fief"
       text="Desbloqueado con el primer feudo" />
+    <string
+      id="ret_clan_troops_unlock_with_first_fief_hint"
+      text="Se desbloquea cuando el clan adquiere su primer feudo" />
     <string
       id="ret_clear_filter_tooltip"
       text="Borrar filtro" />
     <string
       id="ret_close_equipment_button_text"
       text="Atrás" />
+    <string
+      id="ret_crafted_items_hide_tooltip"
+      text="Ocultar objetos creados" />
+    <string
+      id="ret_crafted_items_only_tooltip"
+      text="Mostrar forjados" />
+    <string
+      id="ret_crafted_items_toggle_tooltip"
+      text="Equipo forjado" />
+    <string
+      id="ret_crafted_player_only_reason"
+      text="No disponible en el Editor Universal" />
     <string
       id="ret_create_unit"
       text="Nueva unidad" />
@@ -521,17 +566,35 @@
       id="ret_editing_restriction_in_settlement"
       text="Cualquier feudo" />
     <string
+      id="ret_editing_restriction_in_settlement_hint"
+      text="Debes estar en cualquier feudo" />
+    <string
       id="ret_editing_restriction_need_faction_fief_reason"
       text="Solo puedes editar esta unidad en un feudo propiedad de {FACTION}." />
+    <string
+      id="ret_editing_restriction_need_faction_fief_reason_short"
+      text="No en un feudo" />
     <string
       id="ret_editing_restriction_need_settlement_reason"
       text="Solo puedes editar unidades mientras estés dentro de un asentamiento." />
     <string
+      id="ret_editing_restriction_need_settlement_reason_short"
+      text="No en un asentamiento" />
+    <string
       id="ret_editing_restriction_none"
       text="En cualquier lugar" />
     <string
+      id="ret_editing_restriction_none_hint"
+      text="Sin restricciones de ubicación" />
+    <string
       id="ret_editing_restriction_unknown_faction_reason"
       text="No se puede determinar la facción de esta unidad para las restricciones de edición." />
+    <string
+      id="ret_editing_restriction_unknown_faction_reason_short"
+      text="Facción desconocida" />
+    <string
+      id="ret_editor_clan_edit"
+      text="Editar clan" />
     <string
       id="ret_editor_clan_select"
       text="Selecciona un clan" />
@@ -1118,6 +1181,24 @@
       id="ret_in_stock"
       text="En stock ({STOCK})" />
     <string
+      id="ret_init_clan_troops_copy_source"
+      text="Copiar tropas de {SOURCE}" />
+    <string
+      id="ret_init_clan_troops_create"
+      text="Crear" />
+    <string
+      id="ret_init_clan_troops_method_text"
+      text="¿Cómo quieres crear las tropas para {CLAN}?" />
+    <string
+      id="ret_init_clan_troops_method_title"
+      text="Inicializar tropas" />
+    <string
+      id="ret_init_clan_troops_new"
+      text="Crear nuevas tropas" />
+    <string
+      id="ret_init_clan_troops_title"
+      text="Sin tropas personalizadas" />
+    <string
       id="ret_init_error_body_detailed"
       text="No se pudieron inicializar correctamente las dependencias del mod Retinues:{newline}{newline}{DETAILS}{newline}{newline}El mod puede no funcionar correctamente hasta que se solucionen las dependencias." />
     <string
@@ -1202,8 +1283,14 @@
       id="ret_kingdom_troops_unlock_disabled"
       text="Desactivados" />
     <string
+      id="ret_kingdom_troops_unlock_disabled_hint"
+      text="Las tropas del reino nunca se desbloquean" />
+    <string
       id="ret_kingdom_troops_unlock_upon_becoming_ruler"
       text="Desbloqueados al convertirse en gobernante" />
+    <string
+      id="ret_kingdom_troops_unlock_upon_becoming_ruler_hint"
+      text="Se desbloquea cuando el jugador funda un reino" />
     <string
       id="ret_library_contents_header"
       text="Contenido" />
@@ -1289,6 +1376,9 @@
       id="ret_library_exports_hint_text"
       text="Las tropas y facciones se pueden exportar desde la pestaña del editor." />
     <string
+      id="ret_library_failed_missing_file"
+      text="Archivo de exportación no encontrado" />
+    <string
       id="ret_library_import_button"
       text="Importar" />
     <string
@@ -1349,6 +1439,9 @@
       id="ret_library_name_faction_header"
       text="Facción" />
     <string
+      id="ret_library_no_selection"
+      text="No se ha seleccionado ninguna exportación" />
+    <string
       id="ret_list_header_bandits"
       text="Bandidos" />
     <string
@@ -1388,8 +1481,44 @@
       id="ret_mariner_captain_reason"
       text="Los capitanes comparten la habilidad de marinero de sus tropas base" />
     <string
+      id="ret_mariner_disable_tooltip"
+      text="Desactivar el rasgo de marinero" />
+    <string
+      id="ret_mariner_enable_tooltip"
+      text="Activar el rasgo de marinero" />
+    <string
       id="ret_mariner_hero_reason"
       text="Los héroes no pueden ser marineros" />
+    <string
+      id="ret_mariner_toggle_tooltip"
+      text="Marinero: más apto para el combate naval, pero gana puntos de habilidad a un ritmo reducido" />
+    <string
+      id="ret_mariner_toggle_tooltip_universal"
+      text="Marinero: más apto para el combate naval" />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_cap_percent"
+      text="Límite de séquito IA (% del grupo)" />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_cap_percent_hint"
+      text="Porcentaje máximo del tamaño del grupo de un señor que las tropas de séquito pueden ocupar (1-50)." />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_convert_chance"
+      text="Probabilidad diaria de ascenso del séquito IA (%)" />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_convert_chance_hint"
+      text="Probabilidad por día de que un grupo de señor elegible convierta una tropa de nivel correspondiente en séquito (1-100)." />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_leader_only"
+      text="Solo los líderes del clan tienen séquito" />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_leader_only_hint"
+      text="Si está habilitado, solo el grupo del líder del clan ganará y usará séquitos. Si está deshabilitado, todos los grupos de señores del clan son elegibles." />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_min_tier"
+      text="Nivel mínimo de séquito del clan IA" />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_min_tier_hint"
+      text="Nivel mínimo del clan (1-6) requerido para que un clan no jugador tenga su propio séquito." />
     <string
       id="ret_mcm_option_allowed_recruiters"
       text="Reclutadores permitidos" />
