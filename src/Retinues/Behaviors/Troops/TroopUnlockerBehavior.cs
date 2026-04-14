@@ -1,5 +1,6 @@
 using Retinues.Domain;
 using Retinues.Framework.Behaviors;
+using Retinues.Settings;
 
 namespace Retinues.Behaviors.Troops
 {
@@ -8,6 +9,23 @@ namespace Retinues.Behaviors.Troops
     /// </summary>
     public sealed partial class TroopUnlockerBehavior : BaseCampaignBehavior<TroopUnlockerBehavior>
     {
+        protected override void RegisterCustomEvents()
+        {
+            ConfigurationManager.OptionChanged -= OnOptionChanged;
+            ConfigurationManager.OptionChanged += OnOptionChanged;
+        }
+
+        private void OnOptionChanged(string key, object value)
+        {
+            if (
+                key == nameof(Configuration.ClanTroopsUnlock)
+                || key == nameof(Configuration.KingdomTroopsUnlock)
+            )
+            {
+                TryUnlockFromCurrentState(fromBootstrap: false);
+            }
+        }
+
         /// <summary>
         /// Public API to attempt unlocking faction troops immediately.
         /// </summary>

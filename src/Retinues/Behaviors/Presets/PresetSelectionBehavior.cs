@@ -23,11 +23,18 @@ namespace Retinues.Behaviors.Presets
         private bool _presetSelected;
 
         /// <summary>
+        /// True once the player has chosen a preset for this campaign.
+        /// Used by other behaviors to defer work until the preset is known.
+        /// </summary>
+        public static bool IsPresetSelected { get; private set; }
+
+        /// <summary>
         /// Persists whether the player has already been shown the preset prompt.
         /// </summary>
         public override void SyncData(IDataStore dataStore)
         {
             dataStore.SyncData(DataStoreKey, ref _presetSelected);
+            IsPresetSelected = _presetSelected;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -90,6 +97,7 @@ namespace Retinues.Behaviors.Presets
             {
                 ConfigurationManager.ApplyPreset(preset);
                 _presetSelected = true;
+                IsPresetSelected = true;
                 Log.Info($"PresetSelectionBehavior: applied preset '{preset}'.");
             }
             catch (Exception e)

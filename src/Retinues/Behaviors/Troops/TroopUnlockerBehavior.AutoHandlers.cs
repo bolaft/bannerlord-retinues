@@ -1,4 +1,5 @@
 using System;
+using Retinues.Behaviors.Presets;
 using Retinues.Domain;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Settlements.Wrappers;
@@ -12,15 +13,28 @@ namespace Retinues.Behaviors.Troops
     {
         /// <summary>
         /// Called after character creation completes; triggers bootstrap unlock checks.
+        /// Skipped if the preset hasn't been chosen yet - OptionChanged will run the unlock
+        /// once the player picks a preset from the welcome prompt.
         /// </summary>
-        protected override void OnCharacterCreationIsOver() =>
+        protected override void OnCharacterCreationIsOver()
+        {
+            if (!PresetSelectionBehavior.IsPresetSelected)
+                return;
+
             TryUnlockFromCurrentState(fromBootstrap: true);
+        }
 
         /// <summary>
         /// Called when game load is finished; triggers bootstrap unlock checks.
+        /// Skipped if the preset hasn't been chosen yet (first-time load of an existing save).
         /// </summary>
-        protected override void OnGameLoadFinished() =>
+        protected override void OnGameLoadFinished()
+        {
+            if (!PresetSelectionBehavior.IsPresetSelected)
+                return;
+
             TryUnlockFromCurrentState(fromBootstrap: true);
+        }
 
         /// <summary>
         /// Handles settlement owner changes to trigger clan troop unlocks when player gains a fief.
