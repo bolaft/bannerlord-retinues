@@ -33,7 +33,7 @@ namespace Retinues.Editor.Integration.MapBar.Patches
             if (elements.Any(e => e?.StringId == TroopsNavigationElement.TroopsId))
                 return;
 
-            var idx = 2; // after "character"
+            var idx = Compatibility.Mods.NavalDLC.IsLoaded ? 4 : 3; // before "party" (NavalDLC adds one extra element)
             elements.Insert(idx, new TroopsNavigationElement(handler));
 
             // IMPORTANT: update the private backing field so the handler "owns" it.
