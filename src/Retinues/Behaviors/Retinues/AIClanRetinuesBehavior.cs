@@ -273,12 +273,13 @@ namespace Retinues.Behaviors.Retinues
             if (_rng.NextDouble() >= Configuration.AIClanRetinueConvertChance / 100.0)
                 return;
 
+            int toAdd = Math.Min(_rng.Next(1, 4), cap - currentRetinueCount);
             var retinue = retinues[_rng.Next(retinues.Count)];
-            roster.AddTroop(retinue, 1);
+            roster.AddTroop(retinue, toAdd);
 
             var sid = clan.Base.StringId;
             _pendingRecruitLog.TryGetValue(sid, out var entry);
-            _pendingRecruitLog[sid] = (clan.Name, entry.Count + 1);
+            _pendingRecruitLog[sid] = (clan.Name, entry.Count + toAdd);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
