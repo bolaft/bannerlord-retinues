@@ -311,11 +311,32 @@
       id="ret_culture_header_text_with_race"
       text="Kültür ve Tür" />
     <string
+      id="ret_customization_hint_hero"
+      text="Karakter görünümünü düzenle" />
+    <string
       id="ret_customization_hint_hide"
       text="Özelleştirme Kontrollerini Göster" />
     <string
       id="ret_customization_hint_show"
       text="Özelleştirme Kontrollerini Gizle" />
+    <string
+      id="ret_delete_clan_troops_confirm"
+      text="Sil" />
+    <string
+      id="ret_delete_clan_troops_kingdom"
+      text="Krallık birlikleri silinemez." />
+    <string
+      id="ret_delete_clan_troops_no_troops"
+      text="Bu klanın özel birlikleri yok." />
+    <string
+      id="ret_delete_clan_troops_player_clan"
+      text="Oyuncu klanının birlikleri silinemez." />
+    <string
+      id="ret_delete_clan_troops_player_only"
+      text="Sadece Oyuncu modunda kullanılabilir." />
+    <string
+      id="ret_delete_clan_troops_title"
+      text="Özel Birlikleri Temizle" />
     <string
       id="ret_dependencies_all_ok"
       text="Tüm bağımlılıklar doğru şekilde başlatıldı." />
@@ -412,6 +433,15 @@
     <string
       id="ret_doctrine_description_header"
       text="Etkiler" />
+    <string
+      id="ret_doctrine_feat_progress_tooltip_completed"
+      text="Tamamlandı" />
+    <string
+      id="ret_doctrine_feat_progress_tooltip_incomplete"
+      text="Devam Ediyor" />
+    <string
+      id="ret_doctrine_feat_progress_tooltip_repeatable"
+      text="Tekrarlanabilir" />
     <string
       id="ret_doctrine_feats_header"
       text="Başarılar" />
@@ -563,6 +593,9 @@
       id="ret_editing_restriction_in_fief"
       text="Fraksiyon Arazisi" />
     <string
+      id="ret_editing_restriction_in_fief_hint"
+      text="Fraksiyonunuza ait bir arazide olmalısınız (koruma birlikleri hariç)" />
+    <string
       id="ret_editing_restriction_in_settlement"
       text="Herhangi Bir Arazi" />
     <string
@@ -605,6 +638,9 @@
       id="ret_editor_done_button"
       text="Tamamlandı" />
     <string
+      id="ret_editor_kingdom_edit"
+      text="{KINGDOM} Düzenle" />
+    <string
       id="ret_editor_kingdom_none"
       text="Krallık Yok" />
     <string
@@ -635,6 +671,9 @@
       id="ret_enter_new_name"
       text="Yeni bir isim girin:" />
     <string
+      id="ret_enter_new_surname"
+      text="Bir soyadı veya unvan girin (kaldırmak için boş bırakın):" />
+    <string
       id="ret_equipment_button_text"
       text="Ekipman" />
     <string
@@ -646,6 +685,12 @@
     <string
       id="ret_equipment_copied_toast"
       text="Ekipman panoya kopyalandı." />
+    <string
+      id="ret_equipment_copy_tooltip"
+      text="Panoya kopyala" />
+    <string
+      id="ret_equipment_delete_breaks_battle_types_reason"
+      text="Bu savaş türü için en az bir ekipman seti etkin kalmalıdır" />
     <string
       id="ret_equipment_hero_sets_reason"
       text="Kahramanların birden fazla ekipman seti olamaz" />
@@ -671,11 +716,17 @@
       id="ret_equipment_paste_confirm_title"
       text="Ekipmanı Kopyala" />
     <string
+      id="ret_equipment_paste_empty_clipboard_reason"
+      text="Pano boş" />
+    <string
       id="ret_equipment_paste_nothing_desc2"
       text="{DST} öğesine {SRC} öğesinden yeni bir şey takılamaz." />
     <string
       id="ret_equipment_paste_nothing_title"
       text="Ekipmanı Kopyala" />
+    <string
+      id="ret_equipment_paste_tooltip"
+      text="Panodan yapıştır" />
     <string
       id="ret_equipment_slot_body"
       text="Gövde" />
@@ -709,6 +760,12 @@
     <string
       id="ret_equipment_slot_weapon_3"
       text="Silah 4" />
+    <string
+      id="ret_equipments_create_set"
+      text="Yeni ekipman oluştur" />
+    <string
+      id="ret_equipments_delete_set"
+      text="Ekipmanı sil" />
     <string
       id="ret_escape_menu_editor_button"
       text="Evrensel Düzenleyici" />
@@ -746,6 +803,9 @@
       id="ret_export_name_title"
       text="Dışa Aktarma Adı" />
     <string
+      id="ret_export_none_available"
+      text="Dışa aktarılacak bir şey yok" />
+    <string
       id="ret_export_overwrite_desc"
       text="&apos;{NAME}&apos; adlı bir dosya zaten var.{newline}{newline}Üzerine yazmak istiyor musunuz?" />
     <string
@@ -757,6 +817,9 @@
     <string
       id="ret_export_target_troop_disabled"
       text="Kahramanlar dışa aktarılamaz." />
+    <string
+      id="ret_faction_troops_unlocked_banner_hint"
+      text="{newline}{newline}Birlik ekranının üst kısmındaki bayrak simgelerini kullanarak hangi birlik ağaçlarının düzenleneceğini seçin." />
     <string
       id="ret_faction_troops_unlocked_desc"
       text="{COUNT} yeni asker artık {FACTION} {FACTION_TYPE} için kullanılabilir." />
@@ -1166,6 +1229,12 @@
       id="ret_formation_popup_title"
       text="Formasyon Sınıfı" />
     <string
+      id="ret_gender_no_template"
+      text="Geçersiz cinsiyet/tür/kültür kombinasyonu" />
+    <string
+      id="ret_gender_toggle_hint"
+      text="Cinsiyeti değiştir" />
+    <string
       id="ret_go_to_editor"
       text="Düzenleyiciye git" />
     <string
@@ -1523,6 +1592,27 @@
       id="ret_mcm_option_allowed_recruiters"
       text="İzin Verilen İşe Alımcılar" />
     <string
+      id="ret_mcm_option_allowed_recruiters_hint"
+      text="Özel birlik toplayabilecekleri belirler." />
+    <string
+      id="ret_mcm_option_buff_retinue_health"
+      text="Maiyet Sağlığını Güçlendir" />
+    <string
+      id="ret_mcm_option_buff_retinue_health_hint"
+      text="Etkinleştirilirse, maiyet birlikleri sağlık bonusu alır." />
+    <string
+      id="ret_mcm_option_buff_retinue_skill_cap"
+      text="Maiyet Beceri Sınırını Güçlendir" />
+    <string
+      id="ret_mcm_option_buff_retinue_skill_cap_hint"
+      text="Etkinleştirilirse, maiyet birlikleri beceri sınır bonusu alır." />
+    <string
+      id="ret_mcm_option_buff_retinue_skill_total"
+      text="Maiyet Beceri Toplamını Güçlendir" />
+    <string
+      id="ret_mcm_option_buff_retinue_skill_total_hint"
+      text="Etkinleştirilirse, maiyet birlikleri beceri toplam bonusu alır." />
+    <string
       id="ret_mcm_option_captain_spawn_rate"
       text="Kaptan Oluşum Hızı" />
     <string
@@ -1532,8 +1622,14 @@
       id="ret_mcm_option_clan_troops_availability"
       text="Klan Birlikleri Kullanılabilirliği" />
     <string
+      id="ret_mcm_option_clan_troops_availability_hint"
+      text="Klan birliklerinin nereden toplanabileceğini belirler." />
+    <string
       id="ret_mcm_option_clan_troops_unlock"
       text="Klan Birlikleri" />
+    <string
+      id="ret_mcm_option_clan_troops_unlock_hint"
+      text="Klan birliklerinin ne zaman kullanılabilir hale geleceğini belirler." />
     <string
       id="ret_mcm_option_default_unlocked_amount_per_slot"
       text="Slot Başına Önceden Kilidi Açılmış Miktar" />
@@ -1574,11 +1670,20 @@
       id="ret_mcm_option_editing_restriction"
       text="Konum Kısıtlamaları" />
     <string
+      id="ret_mcm_option_editing_restriction_hint"
+      text="Fraksiyon birliklerinin düzenlenebileceği yerleri kısıtlar." />
+    <string
       id="ret_mcm_option_editor_hotkey"
       text="Düzenleyici Kısayolu" />
     <string
       id="ret_mcm_option_editor_hotkey_hint"
       text="Düzenleyiciyi açmak için [R] kısayolunu etkinleştirir." />
+    <string
+      id="ret_mcm_option_enable_ai_clan_retinues"
+      text="AI Klan Retinues&apos;i Etkinleştir" />
+    <string
+      id="ret_mcm_option_enable_ai_clan_retinues_hint"
+      text="Etkinleştirilirse, minimum seviyeye ulaşan oyuncu olmayan klanlar kendi retinuelerine sahip olacak." />
     <string
       id="ret_mcm_option_enable_doctrines"
       text="Doktrinleri Etkinleştir" />
@@ -1670,14 +1775,26 @@
       id="ret_mcm_option_feat_complete_notification"
       text="Başarı Tamamlama Bildirimi" />
     <string
+      id="ret_mcm_option_feat_complete_notification_hint"
+      text="Başarı tamamlama bildirimlerinin nasıl gösterileceğini belirler." />
+    <string
       id="ret_mcm_option_item_unlock_notification"
       text="Öğe Kilidi Açma Bildirimi" />
+    <string
+      id="ret_mcm_option_item_unlock_notification_hint"
+      text="Öğe kilidi açma bildirimlerinin nasıl gösterileceğini belirler." />
     <string
       id="ret_mcm_option_kingdom_troops_availability"
       text="Krallık Birlikleri Kullanılabilirliği" />
     <string
+      id="ret_mcm_option_kingdom_troops_availability_hint"
+      text="Krallık birliklerinin nereden alınabileceğini belirler." />
+    <string
       id="ret_mcm_option_kingdom_troops_unlock"
       text="Krallık Birlikleri" />
+    <string
+      id="ret_mcm_option_kingdom_troops_unlock_hint"
+      text="Krallık birliklerinin ne zaman kullanılabilir hale geleceğini belirler." />
     <string
       id="ret_mcm_option_max_retinue_ratio"
       text="Maksimum Retinue Oranı" />
@@ -1769,6 +1886,9 @@
       id="ret_mcm_option_same_culture_only_hint"
       text="Etkinleştirilirse, özel birlikler yalnızca aynı kültürün yerleşimlerinde işe alınabilir." />
     <string
+      id="ret_mcm_option_skill_cap"
+      text="Seviye {TIER} Yetenek Sınırı" />
+    <string
       id="ret_mcm_option_skill_points_gain_rate"
       text="Kazanma Hızı" />
     <string
@@ -1787,11 +1907,20 @@
       id="ret_mcm_option_skill_progress_per_day_hint"
       text="Günde puan başına eğitim hızını belirler." />
     <string
+      id="ret_mcm_option_skill_total"
+      text="Seviye {TIER} Yetenek Toplamı" />
+    <string
       id="ret_mcm_option_starter_equipment"
       text="Başlangıç Ekipmanı" />
     <string
+      id="ret_mcm_option_starter_equipment_hint"
+      text="Yeni açılan birlikler için başlangıç ekipmanını ayarlar." />
+    <string
       id="ret_mcm_option_starter_troops"
       text="Başlangıç Birlikleri" />
+    <string
+      id="ret_mcm_option_starter_troops_hint"
+      text="Klan ve krallık başlangıç birliklerini belirler." />
     <string
       id="ret_mcm_option_time_multiplier"
       text="Ekipman Zaman Çarpanı" />
@@ -1835,17 +1964,32 @@
       id="ret_mcm_section_doctrines"
       text="Doktrinler" />
     <string
+      id="ret_mcm_section_doctrines_desc"
+      text="Doktrinleri etkinleştir ve edinim maliyetlerini yapılandır." />
+    <string
       id="ret_mcm_section_equipment"
       text="Ekipman" />
+    <string
+      id="ret_mcm_section_equipment_desc"
+      text="Ekipman maliyetleri, sınırları ve zamanlaması." />
     <string
       id="ret_mcm_section_equipment_unlocks"
       text="Ekipman Kilidi Açma" />
     <string
+      id="ret_mcm_section_equipment_unlocks_desc"
+      text="Ekipman öğelerinin zamanla nasıl kilidinin açıldığını." />
+    <string
       id="ret_mcm_section_recruitment"
       text="Asker Toplama" />
     <string
+      id="ret_mcm_section_recruitment_desc"
+      text="Özel birlikleri nerede ve kimler işe alabilir." />
+    <string
       id="ret_mcm_section_restrictions"
       text="Kısıtlamalar" />
+    <string
+      id="ret_mcm_section_restrictions_desc"
+      text="Düzenlemenin izin verildiği yerler ve diğer sınırlar." />
     <string
       id="ret_mcm_section_retinues"
       text="Retinues" />
@@ -1886,6 +2030,21 @@
       id="ret_mcm_section_user_interface"
       text="Kullanıcı Arayüzü" />
     <string
+      id="ret_mcm_section_user_interface_desc"
+      text="Editör erişimi ve oyun içi bildirimler." />
+    <string
+      id="ret_mixed_gender_disable_tooltip"
+      text="Birimlerin her iki cinsiyette de ortaya çıkmasına izin ver" />
+    <string
+      id="ret_mixed_gender_enable_tooltip"
+      text="Birimlerin her iki cinsiyette de ortaya çıkmasını yasakla" />
+    <string
+      id="ret_mixed_gender_hero_reason"
+      text="Kahramanlar için geçerli değil" />
+    <string
+      id="ret_mixed_gender_toggle_tooltip"
+      text="Karışık Cinsiyet: {PERCENT}% zıt cinsiyette doğacak" />
+    <string
       id="ret_name_header_text"
       text="İsim" />
     <string
@@ -1897,6 +2056,12 @@
     <string
       id="ret_no_clans_title"
       text="Klan Bulunamadı" />
+    <string
+      id="ret_no_cultures_description"
+      text="Mevcut oyunda kültür bulunamadı." />
+    <string
+      id="ret_no_cultures_hint"
+      text="Kültür Bulunamadı" />
     <string
       id="ret_no_cultures_text"
       text="Mevcut oyunda yüklenen kültür yok." />
@@ -1916,13 +2081,91 @@
       id="ret_notification_message"
       text="Günlük Mesajı" />
     <string
+      id="ret_notification_message_hint"
+      text="Oyun içi mesaj günlüğüne bir mesaj yazar" />
+    <string
       id="ret_notification_popup"
       text="Açılır Pencere" />
+    <string
+      id="ret_notification_popup_hint"
+      text="Açılır bildirim gösterir" />
     <string
       id="ret_overwrite_confirm"
       text="Üzerine Yaz" />
     <string
+      id="ret_preset_confirm_apply"
+      text="Uygula" />
+    <string
+      id="ret_preset_confirm_reset"
+      text="Sıfırla" />
+    <string
+      id="ret_preset_confirmation_default_title"
+      text="Varsayılana Sıfırla" />
+    <string
+      id="ret_preset_confirmation_freeform_title"
+      text="Serbest Biçim Ön Ayarını Uygula" />
+    <string
+      id="ret_preset_confirmation_realistic_title"
+      text="Gerçekçi Ön Ayarını Uygula" />
+    <string
+      id="ret_preset_custom_button"
+      text="Özel" />
+    <string
+      id="ret_preset_default_button"
+      text="Varsayılan" />
+    <string
+      id="ret_preset_default_tooltip"
+      text="Varsayılan ön ayarı uygula: ilk oynayış için tasarlanmış dengeli bir deneyim" />
+    <string
+      id="ret_preset_description_default"
+      text="İlk oynayış için dengelenmiş varsayılan yapılandırma. Birinci dereceden birlikler aktiftir, klan birlikleri ilk mülkünüzle açılır, ekipman maliyetlidir ancak açma kısıtlaması yoktur ve yetenek puanları savaşta kazanılmalıdır. Tüm ayarları orijinal varsayılan değerlerine sıfırlar." />
+    <string
+      id="ret_preset_description_freeform"
+      text="Tüm maliyetleri ve kilit açma gereksinimlerini kaldırır. Doktrin edinimi ücretsizdir. Ekipman maliyetleri ve kilit açma ilerlemesi devre dışıdır. Klan ve krallık birlikleri baştan itibaren mevcuttur ve her yerde toplanabilir. Beceri puanları savaşta kazanılmadan serbestçe dağıtılabilir." />
+    <string
+      id="ret_preset_description_realistic"
+      text="Evrensel Editörde beceri ve ekipman sınırlarını uygular. Birlik düzenleme sahip olunan feodallere kısıtlanır. Maiyet stat buffları devre dışıdır. Oyun başında yalnızca kök birlikler oluşturulur. Birlikler yalnızca aynı kültürdeki yerleşimlerde toplanabilir. Donatmak ve eğitmek zaman alır. Ekipman, kademeye dayalı ağırlık ve değer sınırlarına tabidir." />
+    <string
+      id="ret_preset_freeform_button"
+      text="Serbest" />
+    <string
+      id="ret_preset_freeform_tooltip"
+      text="Serbest ön ayarını uygula: maliyetleri, gereksinimleri ve kısıtlamaları kaldırır" />
+    <string
+      id="ret_preset_realistic_button"
+      text="Gerçekçi" />
+    <string
+      id="ret_preset_realistic_tooltip"
+      text="Gerçekçi ön ayarını uygula: zaman mekaniklerini, konum sınırlarını ve fraksiyon filtrelerini etkinleştirir" />
+    <string
+      id="ret_preset_selection_default"
+      text="Varsayılan" />
+    <string
+      id="ret_preset_selection_description"
+      text="Oyun tarzınıza en uygun ayarları seçin.{newline}{newline}VARSAYILAN: Dengeli bir ilk oynanış deneyimi. İlk feodalinizle tam bir klan birlik ağacı açılır, ekipmanın maliyeti vardır ve beceri puanları savaşta kazanılan deneyimle satın alınmalıdır.{newline}{newline}SERBEST: Kısıtlamasız bir sandbox editörü. Maliyet veya kilit açma sistemi yoktur. Özel klan birlikleri baştan itibaren mevcuttur ve her yerde toplanabilir.{newline}{newline}GERÇEKÇİ: Daha sert kısıtlamalarla gerçekçi bir deneyim. Birlik düzenleme sahip olunan feodallere kısıtlanır, ekipman ağırlık ve değer bakımından sınırlıdır, donatmak ve eğitmek zaman alır, birlik ağaçları sıfırdan inşa edilmelidir.{newline}{newline}Birlik ekranındaki Ayarlar sekmesinden istediğiniz zaman tek tek ayarları ince ayarlayabilirsiniz." />
+    <string
+      id="ret_preset_selection_freeform"
+      text="Serbest" />
+    <string
+      id="ret_preset_selection_realistic"
+      text="Gerçekçi" />
+    <string
+      id="ret_preset_selection_title"
+      text="Retinues&apos;a Hoş Geldiniz" />
+    <string
+      id="ret_presets_header"
+      text="Ön Ayarlar" />
+    <string
       id="ret_preview_mode"
+      text="Önizleme Modu" />
+    <string
+      id="ret_preview_mode_disable_tooltip"
+      text="Önizleme Modunu Devre Dışı Bırak" />
+    <string
+      id="ret_preview_mode_enable_tooltip"
+      text="Önizleme Modunu Etkinleştir" />
+    <string
+      id="ret_preview_mode_toggle_tooltip"
       text="Önizleme Modu" />
     <string
       id="ret_purchase_item_desc"
@@ -1930,6 +2173,60 @@
     <string
       id="ret_purchase_item_title"
       text="Öğe Satın Al" />
+    <string
+      id="ret_purge_all_button"
+      text="Arındır" />
+    <string
+      id="ret_purge_all_header"
+      text="Kaldır" />
+    <string
+      id="ret_purge_all_tooltip"
+      text="Oyundaki tüm özel birlik verilerini temizle" />
+    <string
+      id="ret_purge_confirm_body"
+      text="Bu eylem, Retinues&apos;u güvenli bir şekilde kaldırmanıza yardımcı olmak içindir.{newline}{newline}Mevcut kampanyadaki her parti listesi taranacak ve Retinues tarafından oluşturulan TÜM özel birlikler kaldırılacak veya mümkün olduğunda en yakın vanilya eşdeğerleriyle değiştirilecektir.{newline}{newline}Bu işlem geri alınamaz. Önce bir yedekleme yapın. Devam etmek istiyor musunuz?" />
+    <string
+      id="ret_purge_confirm_title"
+      text="Özel Birlikleri Arındır" />
+    <string
+      id="ret_purge_continue"
+      text="Devam Et" />
+    <string
+      id="ret_purge_done_title"
+      text="Arındırma Tamamlandı" />
+    <string
+      id="ret_purge_failed_body"
+      text="Arındırma sırasında bir şeyler ters gitti. Kaydınız kısmen değiştirilmiş olabilir. Kaydetmeyin, oyununuzu yeniden yükleyin ve tekrar deneyin veya sorunu bildirin." />
+    <string
+      id="ret_purge_failed_title"
+      text="Temizleme Başarısız" />
+    <string
+      id="ret_purge_mode_body"
+      text="Özel birlikleri listelerden sadece kaldırmak mı istiyorsunuz, yoksa mümkün olduğunda en yakın vanilla eşdeğleriyle mi değiştirmek istiyorsunuz?" />
+    <string
+      id="ret_purge_mode_remove"
+      text="Kaldır" />
+    <string
+      id="ret_purge_mode_replace"
+      text="Değiştir" />
+    <string
+      id="ret_purge_mode_title"
+      text="Temizleme Modu" />
+    <string
+      id="ret_purge_need_campaign_reason"
+      text="Devam eden kampanya yok. Önce bir kayıt dosyası yükleyin." />
+    <string
+      id="ret_purge_result_advice_ok"
+      text="Temizleme tamamlandı. Oyunu yeni bir dosyaya kaydedin ve Retinues&apos;u oyununuzdan güvenle kaldırabilirsiniz." />
+    <string
+      id="ret_purge_result_advice_partial"
+      text="Temizleme tamamlandı ancak bazı birlikler değiştirilemedi ({MISSES}) ve bunun yerine kaldırıldı.{newline}{newline}Kaldırma modunda tekrar çalıştırmayı deneyin veya bu sorunu bildirin." />
+    <string
+      id="ret_purge_title"
+      text="Özel Birlikleri Temizle" />
+    <string
+      id="ret_race_cannot_change"
+      text="Bu birim için tür değiştirilemiyor" />
     <string
       id="ret_race_incompatible_culture_gender"
       text="Bu tür, mevcut kültür/cinsiyet ile uyumlu değil." />
@@ -1949,11 +2246,35 @@
       id="ret_rank_up_confirm_yes"
       text="Rütbe Atla" />
     <string
+      id="ret_rank_up_max_tier"
+      text="Zaten maksimum seviyede" />
+    <string
       id="ret_rank_up_no_captains"
       text="Kaptanlar rütbe atlayamaz" />
     <string
+      id="ret_rank_up_not_enough_money"
+      text="{COST} denar gerektirir" />
+    <string
+      id="ret_rank_up_not_enough_sp"
+      text="{POINTS} yetenek puanı gerektirir" />
+    <string
+      id="ret_rank_up_player_only"
+      text="Evrensel Düzenleyicide kullanılamaz" />
+    <string
+      id="ret_rank_up_requires_maxed_skills"
+      text="Beceriler önce maksimum seviyeye çıkarılmalıdır" />
+    <string
       id="ret_rank_up_retinue_only"
       text="Yalnızca retinues için kullanılabilir" />
+    <string
+      id="ret_rename_surname_hero_only"
+      text="Sadece kahramanların soyadı vardır" />
+    <string
+      id="ret_rename_surname_tooltip"
+      text="Soyadı / Unvanı Değiştir" />
+    <string
+      id="ret_rename_surname_unit"
+      text="Soyadı / Unvanı Değiştir" />
     <string
       id="ret_rename_tooltip"
       text="Yeniden adlandır" />
@@ -1976,6 +2297,9 @@
       id="ret_reset_confirm"
       text="Sıfırla" />
     <string
+      id="ret_reset_default_universal_only"
+      text="Sadece Evrensel Düzenleyicide mevcut" />
+    <string
       id="ret_reset_done_body"
       text="Bu işlemin geçerli olması için oyunu kaydedin ve yeniden başlatın." />
     <string
@@ -1988,17 +2312,38 @@
       id="ret_reset_faction_title"
       text="Varsayılanlara Sıfırla" />
     <string
+      id="ret_reset_none_available"
+      text="Sıfırlanacak bir şey yok" />
+    <string
       id="ret_reset_target_faction_disabled"
       text="Sıfırlanacak değiştirilmiş vanilya birlikleri bulunamadı." />
     <string
       id="ret_reset_target_troop_disabled"
       text="Yalnızca değiştirilmiş, kahraman olmayan vanilya birlikleri sıfırlanabilir." />
     <string
+      id="ret_retinue_ai_clan_house_champion"
+      text="{CLAN} Ev Şampiyonu" />
+    <string
+      id="ret_retinue_ai_clan_house_guard"
+      text="{CLAN} Ev Muhafızı" />
+    <string
+      id="ret_retinue_clan_default_name_female"
+      text="{CLAN} Kraliçe Muhafızı" />
+    <string
+      id="ret_retinue_clan_default_name_male"
+      text="{CLAN} Kral Muhafızı" />
+    <string
       id="ret_retinue_culture_default_name"
       text="{CLAN} {CULTURE} Retinue" />
     <string
       id="ret_retinue_default_name"
       text="{CLAN} Ev Muhafızı" />
+    <string
+      id="ret_retinue_kingdom_default_name_female"
+      text="{KINGDOM} Kraliçe Muhafızı" />
+    <string
+      id="ret_retinue_kingdom_default_name_male"
+      text="{KINGDOM} Kral Muhafızı" />
     <string
       id="ret_retinue_morale_bonus_bound_by_honor"
       text="Onurla Bağlı" />
@@ -2054,11 +2399,23 @@
       id="ret_retinues_version_update_text_no_current"
       text="Bu kayıt dosyasındaki Retinues mod sürümü, daha yeni bir sürüme ({CURRENT_VERSION}) güncellendi. Kayıt verileriniz otomatik olarak taşındı.{newline}{newline}Bir güvenlik önlemi olarak, kaydınızı üzerine yazmadan önce her şeyin olması gerektiği gibi olduğundan emin olun.{newline}{newline}Herhangi bir nedenle önceki sürüme dönmek isterseniz, daha önce kullandığınız sürümü Nexus Mods&apos;tan indirin." />
     <string
+      id="ret_scroll_to_bottom_tooltip"
+      text="En alta kaydır" />
+    <string
+      id="ret_scroll_to_top_tooltip"
+      text="En alta kaydır" />
+    <string
       id="ret_select_clan_title"
       text="Klan Seç" />
     <string
       id="ret_select_culture_title"
       text="Kültür Seç" />
+    <string
+      id="ret_skill_decrease_sources_reason"
+      text="{SOURCE}&apos;nin yetenek seviyesinin altına düşürülemez" />
+    <string
+      id="ret_skill_decrease_sources_reason_generic"
+      text="Yükseltme kaynaklarının yetenek seviyelerinin altına düşürülemez" />
     <string
       id="ret_skill_decrease_warning_text"
       text="Bir yeteneği düşürmek anında gerçekleşir, ancak yeniden eğitilmesi zaman alır.{newline}{newline}Devam edilsin mi?" />
@@ -2074,6 +2431,9 @@
     <string
       id="ret_skill_experience_tooltip"
       text="Sonraki yetenek puanı için {XP}/{XP_REQUIRED} XP" />
+    <string
+      id="ret_skill_increase_maxed_reason"
+      text="Yetenek limiti aşıldı" />
     <string
       id="ret_skill_increase_no_points_reason"
       text="Yeterli yetenek puanı yok" />
@@ -2120,23 +2480,44 @@
       id="ret_starter_equipment_all_sets"
       text="Tüm Setleri Kopyala" />
     <string
+      id="ret_starter_equipment_all_sets_hint"
+      text="Tüm ekipman setleri temel birlikten kopyalanır" />
+    <string
       id="ret_starter_equipment_empty_set"
       text="Boş" />
+    <string
+      id="ret_starter_equipment_empty_set_hint"
+      text="Başlangıç ekipmanı oluşturulmaz" />
     <string
       id="ret_starter_equipment_random_set"
       text="Rastgele" />
     <string
+      id="ret_starter_equipment_random_set_hint"
+      text="Rastgele bir ekipman seti atanir" />
+    <string
       id="ret_starter_equipment_single_set"
       text="Bir Seti Kopyala" />
+    <string
+      id="ret_starter_equipment_single_set_hint"
+      text="Temel birlikten bir ekipman seti kopyalanır" />
     <string
       id="ret_starter_troops_clone_culture_full_trees"
       text="Tam Birlik Ağaçları" />
     <string
+      id="ret_starter_troops_clone_culture_full_trees_hint"
+      text="Tüm birlik yelpazesi otomatik olarak oluşturulur" />
+    <string
       id="ret_starter_troops_clone_culture_lean_trees"
       text="Sade Birlik Ağaçları" />
     <string
+      id="ret_starter_troops_clone_culture_lean_trees_hint"
+      text="Oyun başında az sayıda birlik oluşturulur" />
+    <string
       id="ret_starter_troops_clone_culture_roots"
       text="Yalnızca Kök Birlikler" />
+    <string
+      id="ret_starter_troops_clone_culture_roots_hint"
+      text="Yalnızca bir temel birlik ve bir elit birlik oluşturulur" />
     <string
       id="ret_statistics_battles_field"
       text="Saha Savaşları" />
@@ -2174,11 +2555,26 @@
       id="ret_statistics_parties_garrisons"
       text="Dağıtımlar: {TOTAL} ({PARTIES} birlik, {GARRISONS} garnizon)" />
     <string
+      id="ret_statistics_player_only"
+      text="Evrensel Editörde mevcut değil" />
+    <string
       id="ret_statistics_popup_title"
       text="İstatistikler" />
     <string
       id="ret_statistics_section_total"
       text="{TITLE}: {TOTAL}" />
+    <string
+      id="ret_status_captain_disabled"
+      text="Pasif" />
+    <string
+      id="ret_status_captain_enabled"
+      text="Aktif" />
+    <string
+      id="ret_status_captain_text_disabled"
+      text="Bu kaptan doğmayacak." />
+    <string
+      id="ret_status_captain_text_enabled"
+      text="Her {AMOUNT} {TROOP} için bir kaptan doğacak." />
     <string
       id="ret_stocks_add"
       text="Stoklara {AMOUNT} {ITEM} eklendi." />
@@ -2191,6 +2587,9 @@
     <string
       id="ret_tooltip_culture_none"
       text="Yok" />
+    <string
+      id="ret_trait_only_heroes_reason"
+      text="Yalnızca kahramanlara uygulanabilir" />
     <string
       id="ret_traits_header_text"
       text="Özellikler" />
@@ -2258,17 +2657,41 @@
       id="ret_troops_availability_clan_fiefs"
       text="Klan Arazileri" />
     <string
+      id="ret_troops_availability_clan_fiefs_hint"
+      text="Klan birlikleri yalnızca klanlarına ait feodalardan toplanabilir" />
+    <string
       id="ret_troops_availability_clan_or_kingdom_fiefs"
       text="Klan veya Krallık Arazileri" />
+    <string
+      id="ret_troops_availability_clan_or_kingdom_fiefs_hint"
+      text="Klan birlikleri sahip olunan klan veya krallık feodalarından toplanabilir" />
+    <string
+      id="ret_troops_availability_clan_or_kingdom_fiefs_kingdom_hint"
+      text="Krallık birlikleri sahip olunan klan veya krallık feodalarından toplanabilir" />
     <string
       id="ret_troops_availability_everywhere"
       text="Her Yerde" />
     <string
+      id="ret_troops_availability_everywhere_hint"
+      text="Klan birlikleri herhangi bir yerleşimden toplanabilir" />
+    <string
+      id="ret_troops_availability_everywhere_kingdom_hint"
+      text="Krallık birlikleri herhangi bir yerleşimden toplanabilir" />
+    <string
       id="ret_troops_availability_kingdom_fiefs"
       text="Krallık Arazileri" />
     <string
+      id="ret_troops_availability_kingdom_fiefs_hint"
+      text="Krallık birlikleri yalnızca krallıklarına ait feodalardan toplanabilir" />
+    <string
       id="ret_troops_availability_nowhere"
       text="Hiçbir Yerde" />
+    <string
+      id="ret_troops_availability_nowhere_hint"
+      text="Klan birlikleri toplanamaz" />
+    <string
+      id="ret_troops_availability_nowhere_kingdom_hint"
+      text="Krallık birlikleri toplanamaz" />
     <string
       id="ret_troops_editor_locked"
       text="Birlik düzenleyicisi kullanılamıyor." />
@@ -2326,6 +2749,18 @@
     <string
       id="ret_upgrade_targets_header_text"
       text="Yükseltmeler" />
+    <string
+      id="ret_vassal_secrets_option"
+      text="En değerli eserlerinin sırlarını açıkla ve seni serbest bırakayım." />
+    <string
+      id="ret_vassal_secrets_ruler_answer"
+      text="Pekala... Ozgürlügümü satın alıyorsa bu emanetlerin bilgisini paylasacagım." />
+    <string
+      id="ret_vassal_secrets_title"
+      text="Sırlar Açıklandı" />
+    <string
+      id="ret_vassal_secrets_unlocked_body"
+      text="{ITEMS} sırlarını çözdunüz." />
     <string
       id="ret_version_expected"
       text="{CURRENT} (beklenen &gt;= {EXPECTED})" />

@@ -311,11 +311,32 @@
       id="ret_culture_header_text_with_race"
       text="文化与物种" />
     <string
+      id="ret_customization_hint_hero"
+      text="编辑角色外观" />
+    <string
       id="ret_customization_hint_hide"
       text="显示自定义控件" />
     <string
       id="ret_customization_hint_show"
       text="隐藏自定义控件" />
+    <string
+      id="ret_delete_clan_troops_confirm"
+      text="删除" />
+    <string
+      id="ret_delete_clan_troops_kingdom"
+      text="王国部队无法被删除。" />
+    <string
+      id="ret_delete_clan_troops_no_troops"
+      text="该氏族没有自定义部队。" />
+    <string
+      id="ret_delete_clan_troops_player_clan"
+      text="玩家氏族的部队无法被删除。" />
+    <string
+      id="ret_delete_clan_troops_player_only"
+      text="仅在玩家模式下可用。" />
+    <string
+      id="ret_delete_clan_troops_title"
+      text="清除自定义部队" />
     <string
       id="ret_dependencies_all_ok"
       text="所有依赖项均已正确初始化。" />
@@ -412,6 +433,15 @@
     <string
       id="ret_doctrine_description_header"
       text="效果" />
+    <string
+      id="ret_doctrine_feat_progress_tooltip_completed"
+      text="已完成" />
+    <string
+      id="ret_doctrine_feat_progress_tooltip_incomplete"
+      text="进行中" />
+    <string
+      id="ret_doctrine_feat_progress_tooltip_repeatable"
+      text="可重复" />
     <string
       id="ret_doctrine_feats_header"
       text="功绩" />
@@ -563,6 +593,9 @@
       id="ret_editing_restriction_in_fief"
       text="派系封地" />
     <string
+      id="ret_editing_restriction_in_fief_hint"
+      text="您必须在属于您的派系的封地中（护卫部队除外）" />
+    <string
       id="ret_editing_restriction_in_settlement"
       text="任何封地" />
     <string
@@ -605,6 +638,9 @@
       id="ret_editor_done_button"
       text="完成" />
     <string
+      id="ret_editor_kingdom_edit"
+      text="编辑 {KINGDOM}" />
+    <string
       id="ret_editor_kingdom_none"
       text="无王国" />
     <string
@@ -635,6 +671,9 @@
       id="ret_enter_new_name"
       text="输入新名称：" />
     <string
+      id="ret_enter_new_surname"
+      text="输入姓氏或称号（留空以删除）：" />
+    <string
       id="ret_equipment_button_text"
       text="装备" />
     <string
@@ -646,6 +685,12 @@
     <string
       id="ret_equipment_copied_toast"
       text="已将装备复制到剪贴板。" />
+    <string
+      id="ret_equipment_copy_tooltip"
+      text="复制到剪贴板" />
+    <string
+      id="ret_equipment_delete_breaks_battle_types_reason"
+      text="至少必须保留一个装备套装启用用于此战斗类型。" />
     <string
       id="ret_equipment_hero_sets_reason"
       text="英雄不能拥有多个装备套装" />
@@ -671,11 +716,17 @@
       id="ret_equipment_paste_confirm_title"
       text="复制装备" />
     <string
+      id="ret_equipment_paste_empty_clipboard_reason"
+      text="剪贴板为空" />
+    <string
       id="ret_equipment_paste_nothing_desc2"
       text="无法在 {DST} 上装备来自 {SRC} 的新物品。" />
     <string
       id="ret_equipment_paste_nothing_title"
       text="复制装备" />
+    <string
+      id="ret_equipment_paste_tooltip"
+      text="从剪贴板粘贴" />
     <string
       id="ret_equipment_slot_body"
       text="身体" />
@@ -709,6 +760,12 @@
     <string
       id="ret_equipment_slot_weapon_3"
       text="武器 4" />
+    <string
+      id="ret_equipments_create_set"
+      text="创建新装备" />
+    <string
+      id="ret_equipments_delete_set"
+      text="删除装备" />
     <string
       id="ret_escape_menu_editor_button"
       text="通用编辑器" />
@@ -746,6 +803,9 @@
       id="ret_export_name_title"
       text="导出名称" />
     <string
+      id="ret_export_none_available"
+      text="没有可导出的内容" />
+    <string
       id="ret_export_overwrite_desc"
       text="名为“{NAME}”的文件已存在。{newline}{newline}您想要覆盖它吗？" />
     <string
@@ -757,6 +817,9 @@
     <string
       id="ret_export_target_troop_disabled"
       text="英雄无法导出。" />
+    <string
+      id="ret_faction_troops_unlocked_banner_hint"
+      text="{newline}{newline}使用部队屏幕顶部的旗帜图标选择要编辑的部队树。" />
     <string
       id="ret_faction_troops_unlocked_desc"
       text="{COUNT} 名新兵现已可供 {FACTION} {FACTION_TYPE} 使用。" />
@@ -1166,6 +1229,12 @@
       id="ret_formation_popup_title"
       text="编队类别" />
     <string
+      id="ret_gender_no_template"
+      text="无效的性别/物种/文化组合" />
+    <string
+      id="ret_gender_toggle_hint"
+      text="更改性别" />
+    <string
       id="ret_go_to_editor"
       text="前往编辑器" />
     <string
@@ -1523,6 +1592,27 @@
       id="ret_mcm_option_allowed_recruiters"
       text="允许的招募者" />
     <string
+      id="ret_mcm_option_allowed_recruiters_hint"
+      text="决定谁可以招募自定义部队。" />
+    <string
+      id="ret_mcm_option_buff_retinue_health"
+      text="增强从际生命值" />
+    <string
+      id="ret_mcm_option_buff_retinue_health_hint"
+      text="如果启用，从际部队将获得生命加成。" />
+    <string
+      id="ret_mcm_option_buff_retinue_skill_cap"
+      text="增强从际技能上限" />
+    <string
+      id="ret_mcm_option_buff_retinue_skill_cap_hint"
+      text="如果启用，从际部队将获得技能上限加成。" />
+    <string
+      id="ret_mcm_option_buff_retinue_skill_total"
+      text="增强从际技能总量" />
+    <string
+      id="ret_mcm_option_buff_retinue_skill_total_hint"
+      text="如果启用，从际部队将获得技能总量加成。" />
+    <string
       id="ret_mcm_option_captain_spawn_rate"
       text="船长生成率" />
     <string
@@ -1532,8 +1622,14 @@
       id="ret_mcm_option_clan_troops_availability"
       text="氏族部队可用性" />
     <string
+      id="ret_mcm_option_clan_troops_availability_hint"
+      text="决定氏族部队可以从哪里招募。" />
+    <string
       id="ret_mcm_option_clan_troops_unlock"
       text="氏族部队" />
+    <string
+      id="ret_mcm_option_clan_troops_unlock_hint"
+      text="确定氏族部队何时可用。" />
     <string
       id="ret_mcm_option_default_unlocked_amount_per_slot"
       text="每个槽的预解锁数量" />
@@ -1574,11 +1670,20 @@
       id="ret_mcm_option_editing_restriction"
       text="位置限制" />
     <string
+      id="ret_mcm_option_editing_restriction_hint"
+      text="限制可以编辑派系部队的位置。" />
+    <string
       id="ret_mcm_option_editor_hotkey"
       text="编辑器热键" />
     <string
       id="ret_mcm_option_editor_hotkey_hint"
       text="启用[R]热键以打开编辑器。" />
+    <string
+      id="ret_mcm_option_enable_ai_clan_retinues"
+      text="启用AI氏族从际" />
+    <string
+      id="ret_mcm_option_enable_ai_clan_retinues_hint"
+      text="如果启用，达到最低等级的非玩家氏族将拥有自己的从际。" />
     <string
       id="ret_mcm_option_enable_doctrines"
       text="启用学说" />
@@ -1670,14 +1775,26 @@
       id="ret_mcm_option_feat_complete_notification"
       text="壮举完成通知" />
     <string
+      id="ret_mcm_option_feat_complete_notification_hint"
+      text="确定壮举完成通知的显示方式。" />
+    <string
       id="ret_mcm_option_item_unlock_notification"
       text="物品解锁通知" />
+    <string
+      id="ret_mcm_option_item_unlock_notification_hint"
+      text="确定物品解锁通知的显示方式。" />
     <string
       id="ret_mcm_option_kingdom_troops_availability"
       text="王国部队可用性" />
     <string
+      id="ret_mcm_option_kingdom_troops_availability_hint"
+      text="确定王国部队可以从哪里招募。" />
+    <string
       id="ret_mcm_option_kingdom_troops_unlock"
       text="王国部队" />
+    <string
+      id="ret_mcm_option_kingdom_troops_unlock_hint"
+      text="确定王国部队何时可用。" />
     <string
       id="ret_mcm_option_max_retinue_ratio"
       text="最大随从比例" />
@@ -1769,6 +1886,9 @@
       id="ret_mcm_option_same_culture_only_hint"
       text="如果启用，自定义部队只能在同一文化的定居点招募。" />
     <string
+      id="ret_mcm_option_skill_cap"
+      text="等级 {TIER} 技能上限" />
+    <string
       id="ret_mcm_option_skill_points_gain_rate"
       text="获得速率" />
     <string
@@ -1787,11 +1907,20 @@
       id="ret_mcm_option_skill_progress_per_day_hint"
       text="确定每天的训练速度（点数）。" />
     <string
+      id="ret_mcm_option_skill_total"
+      text="等级 {TIER} 技能总数" />
+    <string
       id="ret_mcm_option_starter_equipment"
       text="起始装备" />
     <string
+      id="ret_mcm_option_starter_equipment_hint"
+      text="为新解锁的部队设置起始装备。" />
+    <string
       id="ret_mcm_option_starter_troops"
       text="起始部队" />
+    <string
+      id="ret_mcm_option_starter_troops_hint"
+      text="确定氏族和王国的起始部队。" />
     <string
       id="ret_mcm_option_time_multiplier"
       text="装备时间乘数" />
@@ -1835,17 +1964,32 @@
       id="ret_mcm_section_doctrines"
       text="学说" />
     <string
+      id="ret_mcm_section_doctrines_desc"
+      text="启用学说并配置获取成本。" />
+    <string
       id="ret_mcm_section_equipment"
       text="装备" />
+    <string
+      id="ret_mcm_section_equipment_desc"
+      text="装备的成本、限制和时间。" />
     <string
       id="ret_mcm_section_equipment_unlocks"
       text="装备解锁" />
     <string
+      id="ret_mcm_section_equipment_unlocks_desc"
+      text="装备物品随时间解锁的方式。" />
+    <string
       id="ret_mcm_section_recruitment"
       text="招募" />
     <string
+      id="ret_mcm_section_recruitment_desc"
+      text="在哪里以及谁可以招募自定义部队。" />
+    <string
       id="ret_mcm_section_restrictions"
       text="限制" />
+    <string
+      id="ret_mcm_section_restrictions_desc"
+      text="允许编辑的位置和其他限制。" />
     <string
       id="ret_mcm_section_retinues"
       text="随从" />
@@ -1886,6 +2030,21 @@
       id="ret_mcm_section_user_interface"
       text="用户界面" />
     <string
+      id="ret_mcm_section_user_interface_desc"
+      text="编辑器访问和游戏内通知。" />
+    <string
+      id="ret_mixed_gender_disable_tooltip"
+      text="允许单位以任意性别生成" />
+    <string
+      id="ret_mixed_gender_enable_tooltip"
+      text="不允许单位以任意性别生成" />
+    <string
+      id="ret_mixed_gender_hero_reason"
+      text="不适用于英雄" />
+    <string
+      id="ret_mixed_gender_toggle_tooltip"
+      text="混合性别：{PERCENT}% 将以相反性别生成" />
+    <string
       id="ret_name_header_text"
       text="名称" />
     <string
@@ -1897,6 +2056,12 @@
     <string
       id="ret_no_clans_title"
       text="未找到氏族" />
+    <string
+      id="ret_no_cultures_description"
+      text="当前游戏中未找到任何文化。" />
+    <string
+      id="ret_no_cultures_hint"
+      text="未找到文化" />
     <string
       id="ret_no_cultures_text"
       text="当前游戏中没有加载任何文化。" />
@@ -1916,13 +2081,91 @@
       id="ret_notification_message"
       text="日志消息" />
     <string
+      id="ret_notification_message_hint"
+      text="将消息写入游戏内消息日志" />
+    <string
       id="ret_notification_popup"
       text="弹出窗口" />
+    <string
+      id="ret_notification_popup_hint"
+      text="显示弹出通知" />
     <string
       id="ret_overwrite_confirm"
       text="覆盖" />
     <string
+      id="ret_preset_confirm_apply"
+      text="应用" />
+    <string
+      id="ret_preset_confirm_reset"
+      text="重置" />
+    <string
+      id="ret_preset_confirmation_default_title"
+      text="重置为默认值" />
+    <string
+      id="ret_preset_confirmation_freeform_title"
+      text="应用自由预设" />
+    <string
+      id="ret_preset_confirmation_realistic_title"
+      text="应用现实预设" />
+    <string
+      id="ret_preset_custom_button"
+      text="自定义" />
+    <string
+      id="ret_preset_default_button"
+      text="默认" />
+    <string
+      id="ret_preset_default_tooltip"
+      text="应用默认预设：为首次游戏设计的平衡体验" />
+    <string
+      id="ret_preset_description_default"
+      text="默认配置，适合首次游戏。部队属性加成已激活，氏族部队在获得第一个封地时解锁，装备有成本但没有解锁限制，技能点必须在战斗中获得。将所有设置重置为原始默认值。" />
+    <string
+      id="ret_preset_description_freeform"
+      text="移除所有费用和解锁要求。教义获取免费。装备费用和解锁进度被禁用。族群和王国部队从一开始就可用，并可在任何地方招募。技能点可自由分配，无需在战斗中获得。" />
+    <string
+      id="ret_preset_description_realistic"
+      text="在通用编辑器中强制执行技能和装备限制。部队编辑仅限于已拥有的封地。从属属性增益被禁用。游戏开始时只生成根部队。部队只能在同文化定居点招募。装备和训练需要时间。装备受到基于等级的重量和价值限制。" />
+    <string
+      id="ret_preset_freeform_button"
+      text="自由模式" />
+    <string
+      id="ret_preset_freeform_tooltip"
+      text="应用自由模式预设：移除费用、要求和限制" />
+    <string
+      id="ret_preset_realistic_button"
+      text="写实模式" />
+    <string
+      id="ret_preset_realistic_tooltip"
+      text="应用写实模式预设：启用时间机制、地点限制和派系过滤器" />
+    <string
+      id="ret_preset_selection_default"
+      text="默认" />
+    <string
+      id="ret_preset_selection_description"
+      text="请选择最符合您游戏风格的设置。{newline}{newline}默认：平衡的初次游玩体验。随着您的第一个封地解锁完整的族群部队树，装备有费用，技能点必须用战斗中获得的经验购买。{newline}{newline}自由模式：无限制的沙盒编辑器。无费用或解锁系统。自定义族群部队从一开始就可用，并可在任何地方招募。{newline}{newline}写实模式：具有更严格限制的真实体验。部队编辑仅限于已拥有的封地，装备在重量和价值上有限制，装备物品和训练技能需要时间，部队树必须从头构建。{newline}{newline}您可以随时从部队界面的设置选项卡中微调任何单个设置。" />
+    <string
+      id="ret_preset_selection_freeform"
+      text="自由模式" />
+    <string
+      id="ret_preset_selection_realistic"
+      text="写实模式" />
+    <string
+      id="ret_preset_selection_title"
+      text="欢迎来到 Retinues" />
+    <string
+      id="ret_presets_header"
+      text="预设" />
+    <string
       id="ret_preview_mode"
+      text="预览模式" />
+    <string
+      id="ret_preview_mode_disable_tooltip"
+      text="禁用预览模式" />
+    <string
+      id="ret_preview_mode_enable_tooltip"
+      text="启用预览模式" />
+    <string
+      id="ret_preview_mode_toggle_tooltip"
       text="预览模式" />
     <string
       id="ret_purchase_item_desc"
@@ -1930,6 +2173,60 @@
     <string
       id="ret_purchase_item_title"
       text="购买物品" />
+    <string
+      id="ret_purge_all_button"
+      text="清除" />
+    <string
+      id="ret_purge_all_header"
+      text="卸载" />
+    <string
+      id="ret_purge_all_tooltip"
+      text="清除游戏中的所有自定义部队数据" />
+    <string
+      id="ret_purge_confirm_body"
+      text="此操作旨在帮助您安全地卸载 Retinues。{newline}{newline}它将扫描当前战役中的每个队伍名单，并删除或替换 Retinues 创建的所有自定义部队。{newline}{newline}此操作不可逆。请先备份存档。继续吗？" />
+    <string
+      id="ret_purge_confirm_title"
+      text="清除自定义部队" />
+    <string
+      id="ret_purge_continue"
+      text="继续" />
+    <string
+      id="ret_purge_done_title"
+      text="清除完成" />
+    <string
+      id="ret_purge_failed_body"
+      text="清除过程中发生了错误。您的存档可能已被部分修改。请不要保存，重新加载游戏并重试，或者报告此问题。" />
+    <string
+      id="ret_purge_failed_title"
+      text="清除失败" />
+    <string
+      id="ret_purge_mode_body"
+      text="您是希望直接从名单中删除自定义部队，还是尽可能用最接近的原版等效替代品进行替换？" />
+    <string
+      id="ret_purge_mode_remove"
+      text="删除" />
+    <string
+      id="ret_purge_mode_replace"
+      text="替换" />
+    <string
+      id="ret_purge_mode_title"
+      text="清除模式" />
+    <string
+      id="ret_purge_need_campaign_reason"
+      text="没有进行中的战役。请先载入存档。" />
+    <string
+      id="ret_purge_result_advice_ok"
+      text="清除完成。将游戏保存到新文件中，即可安全地删除游戏中的 Retinues。" />
+    <string
+      id="ret_purge_result_advice_partial"
+      text="清除完成，但部分部队无法替换（{MISSES}），已将其删除。{newline}{newline}请考虑在删除模式下再次运行，或报告此问题。" />
+    <string
+      id="ret_purge_title"
+      text="清除自定义部队" />
+    <string
+      id="ret_race_cannot_change"
+      text="无法更改此单位的种族" />
     <string
       id="ret_race_incompatible_culture_gender"
       text="此物种与当前的文化/性别不兼容。" />
@@ -1949,11 +2246,35 @@
       id="ret_rank_up_confirm_yes"
       text="升级" />
     <string
+      id="ret_rank_up_max_tier"
+      text="已达到最高等级" />
+    <string
       id="ret_rank_up_no_captains"
       text="船长无法升级" />
     <string
+      id="ret_rank_up_not_enough_money"
+      text="需要 {COST} 丹纳尔" />
+    <string
+      id="ret_rank_up_not_enough_sp"
+      text="需要 {POINTS} 技能点" />
+    <string
+      id="ret_rank_up_player_only"
+      text="在通用编辑器中不可用" />
+    <string
+      id="ret_rank_up_requires_maxed_skills"
+      text="技能必须先达到最大值" />
+    <string
       id="ret_rank_up_retinue_only"
       text="仅适用于随从" />
+    <string
+      id="ret_rename_surname_hero_only"
+      text="只有英雄有姓氏" />
+    <string
+      id="ret_rename_surname_tooltip"
+      text="更改姓氏/称号" />
+    <string
+      id="ret_rename_surname_unit"
+      text="更改姓氏/称号" />
     <string
       id="ret_rename_tooltip"
       text="重命名" />
@@ -1976,6 +2297,9 @@
       id="ret_reset_confirm"
       text="重置" />
     <string
+      id="ret_reset_default_universal_only"
+      text="仅在通用编辑器中可用" />
+    <string
       id="ret_reset_done_body"
       text="保存并重新启动游戏以使此操作生效。" />
     <string
@@ -1988,17 +2312,38 @@
       id="ret_reset_faction_title"
       text="重置为默认值" />
     <string
+      id="ret_reset_none_available"
+      text="没有可重置的内容" />
+    <string
       id="ret_reset_target_faction_disabled"
       text="未找到可重置的已修改的原版部队。" />
     <string
       id="ret_reset_target_troop_disabled"
       text="只能重置已修改的非英雄原版部队。" />
     <string
+      id="ret_retinue_ai_clan_house_champion"
+      text="{CLAN} 守护冠军" />
+    <string
+      id="ret_retinue_ai_clan_house_guard"
+      text="{CLAN} 守卫队" />
+    <string
+      id="ret_retinue_clan_default_name_female"
+      text="{CLAN} 女王守卫" />
+    <string
+      id="ret_retinue_clan_default_name_male"
+      text="{CLAN} 国王守卫" />
+    <string
       id="ret_retinue_culture_default_name"
       text="{CLAN} {CULTURE} 随从" />
     <string
       id="ret_retinue_default_name"
       text="{CLAN} 守卫队" />
+    <string
+      id="ret_retinue_kingdom_default_name_female"
+      text="{KINGDOM} 女王守卫" />
+    <string
+      id="ret_retinue_kingdom_default_name_male"
+      text="{KINGDOM} 国王守卫" />
     <string
       id="ret_retinue_morale_bonus_bound_by_honor"
       text="以荣誉为约束" />
@@ -2054,11 +2399,23 @@
       id="ret_retinues_version_update_text_no_current"
       text="此保存文件中的 Retinues 模组版本已更新为较新版本 ({CURRENT_VERSION})。您的保存数据已自动迁移。{newline}{newline}作为安全预防措施，在覆盖保存之前，请检查一切是否正常。{newline}{newline}如果您出于任何原因希望回到以前的版本，请从 Nexus Mods 下载您之前使用的版本。" />
     <string
+      id="ret_scroll_to_bottom_tooltip"
+      text="滚动到底部" />
+    <string
+      id="ret_scroll_to_top_tooltip"
+      text="滚动到顶部" />
+    <string
       id="ret_select_clan_title"
       text="选择氏族" />
     <string
       id="ret_select_culture_title"
       text="选择文化" />
+    <string
+      id="ret_skill_decrease_sources_reason"
+      text="无法降低到低于 {SOURCE} 的技能等级" />
+    <string
+      id="ret_skill_decrease_sources_reason_generic"
+      text="无法降低到低于升级来源的技能等级" />
     <string
       id="ret_skill_decrease_warning_text"
       text="降低技能是即时的，但重新训练需要时间。{newline}{newline}继续？" />
@@ -2074,6 +2431,9 @@
     <string
       id="ret_skill_experience_tooltip"
       text="{XP}/{XP_REQUIRED} 经验值，距离下一个技能点" />
+    <string
+      id="ret_skill_increase_maxed_reason"
+      text="已达到技能上限" />
     <string
       id="ret_skill_increase_no_points_reason"
       text="技能点不足" />
@@ -2120,23 +2480,44 @@
       id="ret_starter_equipment_all_sets"
       text="复制所有套装" />
     <string
+      id="ret_starter_equipment_all_sets_hint"
+      text="所有装备套装都从基础部队复制" />
+    <string
       id="ret_starter_equipment_empty_set"
       text="空" />
+    <string
+      id="ret_starter_equipment_empty_set_hint"
+      text="不创建初始装备" />
     <string
       id="ret_starter_equipment_random_set"
       text="随机" />
     <string
+      id="ret_starter_equipment_random_set_hint"
+      text="分配一套随机装备" />
+    <string
       id="ret_starter_equipment_single_set"
       text="复制一个套装" />
+    <string
+      id="ret_starter_equipment_single_set_hint"
+      text="从基础部队复制一套装备" />
     <string
       id="ret_starter_troops_clone_culture_full_trees"
       text="完整部队树" />
     <string
+      id="ret_starter_troops_clone_culture_full_trees_hint"
+      text="自动创建全系列部队" />
+    <string
       id="ret_starter_troops_clone_culture_lean_trees"
       text="精简部队树" />
     <string
+      id="ret_starter_troops_clone_culture_lean_trees_hint"
+      text="游戏开始时创建一小批精选部队" />
+    <string
       id="ret_starter_troops_clone_culture_roots"
       text="仅根部部队" />
+    <string
+      id="ret_starter_troops_clone_culture_roots_hint"
+      text="仅创建一支基础部队和一支精英部队" />
     <string
       id="ret_statistics_battles_field"
       text="野战" />
@@ -2174,11 +2555,26 @@
       id="ret_statistics_parties_garrisons"
       text="部署次数：{TOTAL}（{PARTIES} 队伍，{GARRISONS} 驻军）" />
     <string
+      id="ret_statistics_player_only"
+      text="在通用编辑器中不可用" />
+    <string
       id="ret_statistics_popup_title"
       text="统计数据" />
     <string
       id="ret_statistics_section_total"
       text="{TITLE}：{TOTAL}" />
+    <string
+      id="ret_status_captain_disabled"
+      text="未激活" />
+    <string
+      id="ret_status_captain_enabled"
+      text="已激活" />
+    <string
+      id="ret_status_captain_text_disabled"
+      text="此隊长不会出现。" />
+    <string
+      id="ret_status_captain_text_enabled"
+      text="每 {AMOUNT} 名 {TROOP} 找一名隊长。" />
     <string
       id="ret_stocks_add"
       text="已向库存添加 {AMOUNT} 个 {ITEM}。" />
@@ -2191,6 +2587,9 @@
     <string
       id="ret_tooltip_culture_none"
       text="无" />
+    <string
+      id="ret_trait_only_heroes_reason"
+      text="仅适用于英雄" />
     <string
       id="ret_traits_header_text"
       text="特质" />
@@ -2258,17 +2657,41 @@
       id="ret_troops_availability_clan_fiefs"
       text="氏族封地" />
     <string
+      id="ret_troops_availability_clan_fiefs_hint"
+      text="族群部队只能在属于其族群的封地招募" />
+    <string
       id="ret_troops_availability_clan_or_kingdom_fiefs"
       text="氏族或王国封地" />
+    <string
+      id="ret_troops_availability_clan_or_kingdom_fiefs_hint"
+      text="族群部队可从已拥有的族群或王国封地招募" />
+    <string
+      id="ret_troops_availability_clan_or_kingdom_fiefs_kingdom_hint"
+      text="王国部队可从已拥有的族群或王国封地招募" />
     <string
       id="ret_troops_availability_everywhere"
       text="到处" />
     <string
+      id="ret_troops_availability_everywhere_hint"
+      text="族群部队可在任何定居点招募" />
+    <string
+      id="ret_troops_availability_everywhere_kingdom_hint"
+      text="王国部队可在任何定居点招募" />
+    <string
       id="ret_troops_availability_kingdom_fiefs"
       text="王国封地" />
     <string
+      id="ret_troops_availability_kingdom_fiefs_hint"
+      text="王国部队只能在属于其王国的封地招募" />
+    <string
       id="ret_troops_availability_nowhere"
       text="无处" />
+    <string
+      id="ret_troops_availability_nowhere_hint"
+      text="族群部队无法招募" />
+    <string
+      id="ret_troops_availability_nowhere_kingdom_hint"
+      text="王国部队无法招募" />
     <string
       id="ret_troops_editor_locked"
       text="部队编辑器不可用。" />
@@ -2326,6 +2749,18 @@
     <string
       id="ret_upgrade_targets_header_text"
       text="升级" />
+    <string
+      id="ret_vassal_secrets_option"
+      text="说出你最珍贵宝物的秘密，我就放你离开。" />
+    <string
+      id="ret_vassal_secrets_ruler_answer"
+      text="好吧……如果能买回我的自由，我就分享这些圣物的知识。" />
+    <string
+      id="ret_vassal_secrets_title"
+      text="秘密已解锁" />
+    <string
+      id="ret_vassal_secrets_unlocked_body"
+      text="您已解锁：{ITEMS} 的秘密。" />
     <string
       id="ret_version_expected"
       text="{CURRENT}（预期 &gt;= {EXPECTED}）" />

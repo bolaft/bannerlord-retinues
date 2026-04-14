@@ -311,11 +311,32 @@
       id="ret_culture_header_text_with_race"
       text="Kultura i Gatunek" />
     <string
+      id="ret_customization_hint_hero"
+      text="Edytuj wygląd postaci" />
+    <string
       id="ret_customization_hint_hide"
       text="Pokaż kontrolki dostosowywania" />
     <string
       id="ret_customization_hint_show"
       text="Ukryj kontrolki dostosowywania" />
+    <string
+      id="ret_delete_clan_troops_confirm"
+      text="Usuń" />
+    <string
+      id="ret_delete_clan_troops_kingdom"
+      text="Oddziały królestwa nie mogą zostać usunięte." />
+    <string
+      id="ret_delete_clan_troops_no_troops"
+      text="Ten klan nie ma własnych oddziałów." />
+    <string
+      id="ret_delete_clan_troops_player_clan"
+      text="Oddziały klanu gracza nie mogą zostać usunięte." />
+    <string
+      id="ret_delete_clan_troops_player_only"
+      text="Dostępne tylko w trybie gracza." />
+    <string
+      id="ret_delete_clan_troops_title"
+      text="Wyczyść własne oddziały" />
     <string
       id="ret_dependencies_all_ok"
       text="Wszystkie zależności zostały poprawnie zainicjowane." />
@@ -412,6 +433,15 @@
     <string
       id="ret_doctrine_description_header"
       text="Efekty" />
+    <string
+      id="ret_doctrine_feat_progress_tooltip_completed"
+      text="Zakończono" />
+    <string
+      id="ret_doctrine_feat_progress_tooltip_incomplete"
+      text="W trakcie" />
+    <string
+      id="ret_doctrine_feat_progress_tooltip_repeatable"
+      text="Powtarzalne" />
     <string
       id="ret_doctrine_feats_header"
       text="Wyczyny" />
@@ -563,6 +593,9 @@
       id="ret_editing_restriction_in_fief"
       text="Lenno frakcji" />
     <string
+      id="ret_editing_restriction_in_fief_hint"
+      text="Musisz być w lenno należącym do twojej frakcji (z wyjątkiem oddziałów eskorty)" />
+    <string
       id="ret_editing_restriction_in_settlement"
       text="Dowolne lenno" />
     <string
@@ -605,6 +638,9 @@
       id="ret_editor_done_button"
       text="Gotowe" />
     <string
+      id="ret_editor_kingdom_edit"
+      text="Edytuj {KINGDOM}" />
+    <string
       id="ret_editor_kingdom_none"
       text="Brak królestwa" />
     <string
@@ -635,6 +671,9 @@
       id="ret_enter_new_name"
       text="Wprowadź nową nazwę:" />
     <string
+      id="ret_enter_new_surname"
+      text="Wprowadź nazwisko lub tytuł (pozostaw puste, aby usunąć):" />
+    <string
       id="ret_equipment_button_text"
       text="Ekwipunek" />
     <string
@@ -646,6 +685,12 @@
     <string
       id="ret_equipment_copied_toast"
       text="Ekwipunek skopiowany do schowka." />
+    <string
+      id="ret_equipment_copy_tooltip"
+      text="Kopiuj do schowka" />
+    <string
+      id="ret_equipment_delete_breaks_battle_types_reason"
+      text="Co najmniej jeden zestaw ekwipunku musi pozostać aktywowany dla tego typu bitwy." />
     <string
       id="ret_equipment_hero_sets_reason"
       text="Bohaterowie nie mogą mieć wielu zestawów ekwipunku" />
@@ -671,11 +716,17 @@
       id="ret_equipment_paste_confirm_title"
       text="Kopiuj ekwipunek" />
     <string
+      id="ret_equipment_paste_empty_clipboard_reason"
+      text="Schowek jest pusty" />
+    <string
       id="ret_equipment_paste_nothing_desc2"
       text="Nic nowego z {SRC} nie może być wyposażone na {DST}." />
     <string
       id="ret_equipment_paste_nothing_title"
       text="Kopiuj ekwipunek" />
+    <string
+      id="ret_equipment_paste_tooltip"
+      text="Wklej ze schowka" />
     <string
       id="ret_equipment_slot_body"
       text="Ciało" />
@@ -709,6 +760,12 @@
     <string
       id="ret_equipment_slot_weapon_3"
       text="Broń 4" />
+    <string
+      id="ret_equipments_create_set"
+      text="Utwórz nowy ekwipunek" />
+    <string
+      id="ret_equipments_delete_set"
+      text="Usuń ekwipunek" />
     <string
       id="ret_escape_menu_editor_button"
       text="Uniwersalny edytor" />
@@ -746,6 +803,9 @@
       id="ret_export_name_title"
       text="Nazwa eksportu" />
     <string
+      id="ret_export_none_available"
+      text="Brak danych do eksportu" />
+    <string
       id="ret_export_overwrite_desc"
       text="Plik o nazwie &apos;{NAME}&apos; już istnieje.{newline}{newline}Czy chcesz go nadpisać?" />
     <string
@@ -757,6 +817,9 @@
     <string
       id="ret_export_target_troop_disabled"
       text="Bohaterowie nie mogą być eksportowani." />
+    <string
+      id="ret_faction_troops_unlocked_banner_hint"
+      text="{newline}{newline}Użyj ikon banerów u góry ekranu Oddziały, aby wybrać, które drzewa oddziałów edytować." />
     <string
       id="ret_faction_troops_unlocked_desc"
       text="Nowe oddziały: {COUNT} są teraz dostępne dla {FACTION_TYPE} {FACTION}." />
@@ -1166,6 +1229,12 @@
       id="ret_formation_popup_title"
       text="Klasa formacji" />
     <string
+      id="ret_gender_no_template"
+      text="Nieprawidłowa kombinacja płci/gatunku/kultury" />
+    <string
+      id="ret_gender_toggle_hint"
+      text="Zmień płeć" />
+    <string
       id="ret_go_to_editor"
       text="Przejdź do edytora" />
     <string
@@ -1523,6 +1592,27 @@
       id="ret_mcm_option_allowed_recruiters"
       text="Dozwoleni rekruterzy" />
     <string
+      id="ret_mcm_option_allowed_recruiters_hint"
+      text="Określa, kto może werbować niestandardowe oddziały." />
+    <string
+      id="ret_mcm_option_buff_retinue_health"
+      text="Wzmocnij zdrowie świty" />
+    <string
+      id="ret_mcm_option_buff_retinue_health_hint"
+      text="Jeśli włączone, trupy świty otrzymają premię do zdrowia." />
+    <string
+      id="ret_mcm_option_buff_retinue_skill_cap"
+      text="Wzmocnij limit umiejętności świty" />
+    <string
+      id="ret_mcm_option_buff_retinue_skill_cap_hint"
+      text="Jeśli włączone, trupy świty otrzymają premię do limitu umiejętności." />
+    <string
+      id="ret_mcm_option_buff_retinue_skill_total"
+      text="Wzmocnij łączne umiejętności świty" />
+    <string
+      id="ret_mcm_option_buff_retinue_skill_total_hint"
+      text="Jeśli włączone, trupy świty otrzymają premię do łącznych umiejętności." />
+    <string
       id="ret_mcm_option_captain_spawn_rate"
       text="Częstotliwość pojawiania się kapitanów" />
     <string
@@ -1532,8 +1622,14 @@
       id="ret_mcm_option_clan_troops_availability"
       text="Dostępność oddziałów klanowych" />
     <string
+      id="ret_mcm_option_clan_troops_availability_hint"
+      text="Określa, skąd można rekrutować oddziały klanowe." />
+    <string
       id="ret_mcm_option_clan_troops_unlock"
       text="Oddziały klanowe" />
+    <string
+      id="ret_mcm_option_clan_troops_unlock_hint"
+      text="Określa, kiedy oddziały klanowe stają się dostępne." />
     <string
       id="ret_mcm_option_default_unlocked_amount_per_slot"
       text="Wstępnie odblokowana ilość na slot" />
@@ -1574,11 +1670,20 @@
       id="ret_mcm_option_editing_restriction"
       text="Ograniczenia lokalizacji" />
     <string
+      id="ret_mcm_option_editing_restriction_hint"
+      text="Ogranicza miejsca, w których można edytować oddziały frakcji." />
+    <string
       id="ret_mcm_option_editor_hotkey"
       text="Klawisz skrótu edytora" />
     <string
       id="ret_mcm_option_editor_hotkey_hint"
       text="Włącza klawisz skrótu [R] do otwarcia edytora." />
+    <string
+      id="ret_mcm_option_enable_ai_clan_retinues"
+      text="Włącz retinues klanu AI" />
+    <string
+      id="ret_mcm_option_enable_ai_clan_retinues_hint"
+      text="Jeśli włączone, klany niebędące graczami, które osiągną minimalny poziom, będą miały własne retinues." />
     <string
       id="ret_mcm_option_enable_doctrines"
       text="Włącz doktryny" />
@@ -1670,14 +1775,26 @@
       id="ret_mcm_option_feat_complete_notification"
       text="Powiadomienie o ukończeniu wyczynu" />
     <string
+      id="ret_mcm_option_feat_complete_notification_hint"
+      text="Określa, jak wyświetlane są powiadomienia o ukończeniu wyczynu." />
+    <string
       id="ret_mcm_option_item_unlock_notification"
       text="Powiadomienie o odblokowaniu przedmiotu" />
+    <string
+      id="ret_mcm_option_item_unlock_notification_hint"
+      text="Określa, jak wyświetlane są powiadomienia o odblokowaniu przedmiotu." />
     <string
       id="ret_mcm_option_kingdom_troops_availability"
       text="Dostępność oddziałów królestwa" />
     <string
+      id="ret_mcm_option_kingdom_troops_availability_hint"
+      text="Określa, skąd można rekrutować oddziały królestwa." />
+    <string
       id="ret_mcm_option_kingdom_troops_unlock"
       text="Oddziały Królestwa" />
+    <string
+      id="ret_mcm_option_kingdom_troops_unlock_hint"
+      text="Określa, kiedy oddziały królestwa stają się dostępne." />
     <string
       id="ret_mcm_option_max_retinue_ratio"
       text="Maksymalny stosunek Retinue" />
@@ -1769,6 +1886,9 @@
       id="ret_mcm_option_same_culture_only_hint"
       text="Jeśli włączone, niestandardowe oddziały mogą być rekrutowane tylko w osadach tej samej kultury." />
     <string
+      id="ret_mcm_option_skill_cap"
+      text="Limit Umiejętności Poziomu {TIER}" />
+    <string
       id="ret_mcm_option_skill_points_gain_rate"
       text="Tempo zdobywania" />
     <string
@@ -1787,11 +1907,20 @@
       id="ret_mcm_option_skill_progress_per_day_hint"
       text="Określa szybkość treningu w punktach na dzień." />
     <string
+      id="ret_mcm_option_skill_total"
+      text="Łączna liczba umiejętności Poziomu {TIER}" />
+    <string
       id="ret_mcm_option_starter_equipment"
       text="Początkowy ekwipunek" />
     <string
+      id="ret_mcm_option_starter_equipment_hint"
+      text="Ustawia początkowy ekwipunek dla nowo odblokowanych oddziałów." />
+    <string
       id="ret_mcm_option_starter_troops"
       text="Początkowe oddziały" />
+    <string
+      id="ret_mcm_option_starter_troops_hint"
+      text="Określa początkowe oddziały klanu i królestwa." />
     <string
       id="ret_mcm_option_time_multiplier"
       text="Mnożnik czasu wyposażenia" />
@@ -1835,17 +1964,32 @@
       id="ret_mcm_section_doctrines"
       text="Doktryny" />
     <string
+      id="ret_mcm_section_doctrines_desc"
+      text="Włącz doktryny i skonfiguruj koszty nabycia." />
+    <string
       id="ret_mcm_section_equipment"
       text="Ekwipunek" />
+    <string
+      id="ret_mcm_section_equipment_desc"
+      text="Koszty, limity i czas ekwipunku." />
     <string
       id="ret_mcm_section_equipment_unlocks"
       text="Odblokowania ekwipunku" />
     <string
+      id="ret_mcm_section_equipment_unlocks_desc"
+      text="Jak przedmioty wyposażenia są odblokowywane w czasie." />
+    <string
       id="ret_mcm_section_recruitment"
       text="Rekrutacja" />
     <string
+      id="ret_mcm_section_recruitment_desc"
+      text="Gdzie i kto może rekrutować niestandardowe oddziały." />
+    <string
       id="ret_mcm_section_restrictions"
       text="Ograniczenia" />
+    <string
+      id="ret_mcm_section_restrictions_desc"
+      text="Gdzie edycja jest dozwolona i inne ograniczenia." />
     <string
       id="ret_mcm_section_retinues"
       text="Retinues" />
@@ -1886,6 +2030,21 @@
       id="ret_mcm_section_user_interface"
       text="Interfejs użytkownika" />
     <string
+      id="ret_mcm_section_user_interface_desc"
+      text="Dostęp do edytora i powiadomienia w grze." />
+    <string
+      id="ret_mixed_gender_disable_tooltip"
+      text="Pozwól jednostce pojawić się w obu płciach" />
+    <string
+      id="ret_mixed_gender_enable_tooltip"
+      text="Zabroń jednostce pojawiania się w obu płciach" />
+    <string
+      id="ret_mixed_gender_hero_reason"
+      text="Nie dotyczy bohaterów" />
+    <string
+      id="ret_mixed_gender_toggle_tooltip"
+      text="Mieszane płcie: {PERCENT}% pojawi się jako przeciwna płeć" />
+    <string
       id="ret_name_header_text"
       text="Nazwa" />
     <string
@@ -1897,6 +2056,12 @@
     <string
       id="ret_no_clans_title"
       text="Nie znaleziono klanów" />
+    <string
+      id="ret_no_cultures_description"
+      text="W bieżącej grze nie znaleziono żadnych kultur." />
+    <string
+      id="ret_no_cultures_hint"
+      text="Nie znaleziono kultur" />
     <string
       id="ret_no_cultures_text"
       text="W bieżącej grze nie załadowano żadnych kultur." />
@@ -1916,13 +2081,91 @@
       id="ret_notification_message"
       text="Komunikat dziennika" />
     <string
+      id="ret_notification_message_hint"
+      text="Zapisuje wiadomość w dzienniku wiadomości w grze" />
+    <string
       id="ret_notification_popup"
       text="Popup" />
+    <string
+      id="ret_notification_popup_hint"
+      text="Wyświetla powiadomienie w wyskakującym okienku" />
     <string
       id="ret_overwrite_confirm"
       text="Nadpisz" />
     <string
+      id="ret_preset_confirm_apply"
+      text="Zastosuj" />
+    <string
+      id="ret_preset_confirm_reset"
+      text="Resetuj" />
+    <string
+      id="ret_preset_confirmation_default_title"
+      text="Resetuj do domyślnych" />
+    <string
+      id="ret_preset_confirmation_freeform_title"
+      text="Zastosuj predefiniowany swobodny kształt" />
+    <string
+      id="ret_preset_confirmation_realistic_title"
+      text="Zastosuj realistyczny predefiniowany kształt" />
+    <string
+      id="ret_preset_custom_button"
+      text="Niestandardowy" />
+    <string
+      id="ret_preset_default_button"
+      text="Domyślny" />
+    <string
+      id="ret_preset_default_tooltip"
+      text="Zastosuj domyślny predefiniowany kształt: zrównoważone doświadczenie zaprojektowane na pierwsze przejście" />
+    <string
+      id="ret_preset_description_default"
+      text="Domyślna konfiguracja, zrównoważona dla pierwszego przejścia. Bonusy do statystyk oddziałów są aktywne, oddziały klanu odblokowują się wraz z pierwszym lenno, wyposażenie ma koszt, ale nie ma ograniczeń odblokowania, a punkty umiejętności muszą być zdobywane w walce. Resetuje wszystkie ustawienia do ich oryginalnych wartości domyślnych." />
+    <string
+      id="ret_preset_description_freeform"
+      text="Usuwa wszystkie koszty i wymagania odblokowania. Nabywanie doktryn jest bezpłatne. Koszty wyposażenia i postęp odblokowania są wyłączone. Oddziały klanu i królestwa są dostępne od samego początku i mogą być werbowane wszędzie. Punkty umiejętności można przydzielać swobodnie bez zdobywania ich w walce." />
+    <string
+      id="ret_preset_description_realistic"
+      text="Wymusza ograniczenia umiejętności i wyposażenia w edytorze uniwersalnym. Edycja wojsk jest ograniczona do posiadanych lenn. Wzmocnienia statystyk świty są wyłączone. Przy starcie gry generowane są tylko podstawowe oddziały. Oddziały można werbować tylko w osadach tej samej kultury. Wyposażanie i szkolenie zajmują czas. Wyposażenie podlega limitom wagi i wartości opartym na poziomie." />
+    <string
+      id="ret_preset_freeform_button"
+      text="Swobodny" />
+    <string
+      id="ret_preset_freeform_tooltip"
+      text="Zastosuj ustawienie Swobodny: usuwa koszty, wymagania i ograniczenia" />
+    <string
+      id="ret_preset_realistic_button"
+      text="Realistyczny" />
+    <string
+      id="ret_preset_realistic_tooltip"
+      text="Zastosuj ustawienie Realistyczny: włącza mechaniki czasu, limity lokalizacji i filtry frakcji" />
+    <string
+      id="ret_preset_selection_default"
+      text="Domyślny" />
+    <string
+      id="ret_preset_selection_description"
+      text="Wybierz ustawienia najlepiej pasujące do Twojego stylu gry.{newline}{newline}DOMYŚLNY: Zrównoważone doświadczenie pierwszego przejścia. Pełne drzewo oddziałów klanu jest odblokowywane z pierwszym lennem, wyposażenie ma koszt, a punkty umiejętności muszą być kupowane za doświadczenie zdobyte w walce.{newline}{newline}SWOBODNY: Nieograniczony edytor sandbox. Bez kosztów ani systemów odblokowywania. Niestandardowe oddziały klanu są dostępne od samego początku i mogą być werbowane wszędzie.{newline}{newline}REALISTYCZNY: Osadzone doświadczenie z surowszymi ograniczeniami. Edycja wojsk jest ograniczona do posiadanych lenn, wyposażenie jest ograniczone wagą i wartością, wyposażanie i szkolenie zajmują czas, a drzewa wojsk muszą być budowane od zera.{newline}{newline}Możesz dostosować każde ustawienie indywidualnie w dowolnym momencie z zakładki Ustawienia na ekranie Oddziałów." />
+    <string
+      id="ret_preset_selection_freeform"
+      text="Swobodny" />
+    <string
+      id="ret_preset_selection_realistic"
+      text="Realistyczny" />
+    <string
+      id="ret_preset_selection_title"
+      text="Witaj w Retinues" />
+    <string
+      id="ret_presets_header"
+      text="Ustawienia wstępne" />
+    <string
       id="ret_preview_mode"
+      text="Tryb podglądu" />
+    <string
+      id="ret_preview_mode_disable_tooltip"
+      text="Wyłącz tryb podglądu" />
+    <string
+      id="ret_preview_mode_enable_tooltip"
+      text="Włącz tryb podglądu" />
+    <string
+      id="ret_preview_mode_toggle_tooltip"
       text="Tryb podglądu" />
     <string
       id="ret_purchase_item_desc"
@@ -1930,6 +2173,60 @@
     <string
       id="ret_purchase_item_title"
       text="Zakup przedmiotu" />
+    <string
+      id="ret_purge_all_button"
+      text="Oczyścić" />
+    <string
+      id="ret_purge_all_header"
+      text="Odinstaluj" />
+    <string
+      id="ret_purge_all_tooltip"
+      text="Usuń wszystkie dane niestandardowych oddziałów z gry" />
+    <string
+      id="ret_purge_confirm_body"
+      text="Ta akcja ma pomóc Ci bezpiecznie odinstalować Retinues.{newline}{newline}Zeskanuje każdą listę drużyny w bieżącej kampanii i usunie lub zastąpi WSZYSTKIE niestandardowe oddziały stworzone przez Retinues.{newline}{newline}Ta akcja jest nieodwracalna. Najpierw zrób kopię zapasową. Kontynuować?" />
+    <string
+      id="ret_purge_confirm_title"
+      text="Oczyść niestandardowe oddziały" />
+    <string
+      id="ret_purge_continue"
+      text="Kontynuuj" />
+    <string
+      id="ret_purge_done_title"
+      text="Czyszczenie zakończone" />
+    <string
+      id="ret_purge_failed_body"
+      text="Coś poszło nie tak podczas czyszczenia. Twój zapis może być częściowo zmodyfikowany. Nie zapisuj, przeładuj grę i spróbuj ponownie, lub zgłoś problem." />
+    <string
+      id="ret_purge_failed_title"
+      text="Czyszczenie nieudane" />
+    <string
+      id="ret_purge_mode_body"
+      text="Czy chcesz po prostu usunąć niestandardowe oddziały z list, czy spróbować zastąpić je ich najbliższymi odpowiednikami vanilla, gdy jest to możliwe?" />
+    <string
+      id="ret_purge_mode_remove"
+      text="Usuń" />
+    <string
+      id="ret_purge_mode_replace"
+      text="Zastąp" />
+    <string
+      id="ret_purge_mode_title"
+      text="Tryb czyszczenia" />
+    <string
+      id="ret_purge_need_campaign_reason"
+      text="Brak aktywnej kampanii. Najpierw wczytaj zapis." />
+    <string
+      id="ret_purge_result_advice_ok"
+      text="Czyszczenie zakończone. Zapisz grę do nowego pliku, a będziesz mógł bezpiecznie usunąć Retinues z gry." />
+    <string
+      id="ret_purge_result_advice_partial"
+      text="Czyszczenie zakończone, ale niektórych oddziałów nie można było zastąpić ({MISSES}) i zamiast tego zostały usunięte.{newline}{newline}Rozważ ponowne uruchomienie w trybie Usuń lub zgłoś ten problem." />
+    <string
+      id="ret_purge_title"
+      text="Wyczyść niestandardowe oddziały" />
+    <string
+      id="ret_race_cannot_change"
+      text="Nie można zmienić gatunku dla tej jednostki" />
     <string
       id="ret_race_incompatible_culture_gender"
       text="Ten gatunek nie jest kompatybilny z obecną kulturą/płcią." />
@@ -1949,11 +2246,35 @@
       id="ret_rank_up_confirm_yes"
       text="Awansuj" />
     <string
+      id="ret_rank_up_max_tier"
+      text="Już na maksymalnym poziomie" />
+    <string
       id="ret_rank_up_no_captains"
       text="Kapitanowie nie mogą awansować" />
     <string
+      id="ret_rank_up_not_enough_money"
+      text="Wymaga {COST} denarów" />
+    <string
+      id="ret_rank_up_not_enough_sp"
+      text="Wymaga {POINTS} punktów umiejętności" />
+    <string
+      id="ret_rank_up_player_only"
+      text="Niedostępne w Edytorze Uniwersalnym" />
+    <string
+      id="ret_rank_up_requires_maxed_skills"
+      text="Umiejętności muszą być najpierw maksymalizowane" />
+    <string
       id="ret_rank_up_retinue_only"
       text="Dostępne tylko dla retinues" />
+    <string
+      id="ret_rename_surname_hero_only"
+      text="Tylko bohaterowie mają nazwisko" />
+    <string
+      id="ret_rename_surname_tooltip"
+      text="Zmień nazwisko / tytuł" />
+    <string
+      id="ret_rename_surname_unit"
+      text="Zmień nazwisko / tytuł" />
     <string
       id="ret_rename_tooltip"
       text="Zmień nazwę" />
@@ -1976,6 +2297,9 @@
       id="ret_reset_confirm"
       text="Zresetuj" />
     <string
+      id="ret_reset_default_universal_only"
+      text="Dostępne tylko w Edytorze Uniwersalnym" />
+    <string
       id="ret_reset_done_body"
       text="Zapisz i uruchom ponownie grę, aby ta akcja odniosła skutek." />
     <string
@@ -1988,17 +2312,38 @@
       id="ret_reset_faction_title"
       text="Zresetuj do domyślnych wartości" />
     <string
+      id="ret_reset_none_available"
+      text="Brak elementów do zresetowania" />
+    <string
       id="ret_reset_target_faction_disabled"
       text="Nie znaleziono zmodyfikowanych oddziałów vanilla do zresetowania." />
     <string
       id="ret_reset_target_troop_disabled"
       text="Można zresetować tylko zmodyfikowane, niebohaterskie oddziały vanilla." />
     <string
+      id="ret_retinue_ai_clan_house_champion"
+      text="{CLAN} Mistrz Domu" />
+    <string
+      id="ret_retinue_ai_clan_house_guard"
+      text="{CLAN} Straż Domowa" />
+    <string
+      id="ret_retinue_clan_default_name_female"
+      text="{CLAN} Straż Królowej" />
+    <string
+      id="ret_retinue_clan_default_name_male"
+      text="{CLAN} Straż Króla" />
+    <string
       id="ret_retinue_culture_default_name"
       text="Retinue {CULTURE} {CLAN}" />
     <string
       id="ret_retinue_default_name"
       text="Straż Domowa {CLAN}" />
+    <string
+      id="ret_retinue_kingdom_default_name_female"
+      text="{KINGDOM} Straż Królowej" />
+    <string
+      id="ret_retinue_kingdom_default_name_male"
+      text="{KINGDOM} Straż Króla" />
     <string
       id="ret_retinue_morale_bonus_bound_by_honor"
       text="Związani honorem" />
@@ -2054,11 +2399,23 @@
       id="ret_retinues_version_update_text_no_current"
       text="Wersja moda Retinues w tym pliku zapisu została zaktualizowana do nowszej wersji ({CURRENT_VERSION}). Twoje dane zapisu zostały automatycznie przeniesione.{newline}{newline}Jako środek ostrożności sprawdź, czy wszystko jest w porządku przed nadpisaniem zapisu.{newline}{newline}Jeśli z jakiego powodu chcesz wrócić do poprzedniej wersji, pobierz wersję, której wcześniej używałeś, z Nexus Mods." />
     <string
+      id="ret_scroll_to_bottom_tooltip"
+      text="Przewiń na dół" />
+    <string
+      id="ret_scroll_to_top_tooltip"
+      text="Przewiń na górę" />
+    <string
       id="ret_select_clan_title"
       text="Wybierz klan" />
     <string
       id="ret_select_culture_title"
       text="Wybierz kulturę" />
+    <string
+      id="ret_skill_decrease_sources_reason"
+      text="Nie można zmniejszyć poniżej poziomu umiejętności {SOURCE}" />
+    <string
+      id="ret_skill_decrease_sources_reason_generic"
+      text="Nie można zmniejszyć poniżej poziomów umiejętności źródeł ulepszeń" />
     <string
       id="ret_skill_decrease_warning_text"
       text="Zmniejszenie umiejętności jest natychmiastowe, ale ponowne jej wytrenowanie zajmie trochę czasu.{newline}{newline}Kontynuować?" />
@@ -2074,6 +2431,9 @@
     <string
       id="ret_skill_experience_tooltip"
       text="{XP}/{XP_REQUIRED} XP do następnego punktu umiejętności" />
+    <string
+      id="ret_skill_increase_maxed_reason"
+      text="Osiągnięto limit umiejętności" />
     <string
       id="ret_skill_increase_no_points_reason"
       text="Brak wystarczającej liczby punktów umiejętności" />
@@ -2120,23 +2480,44 @@
       id="ret_starter_equipment_all_sets"
       text="Kopiuj wszystkie zestawy" />
     <string
+      id="ret_starter_equipment_all_sets_hint"
+      text="Wszystkie zestawy wyposażenia są kopiowane z podstawowej jednostki" />
+    <string
       id="ret_starter_equipment_empty_set"
       text="Pusty" />
+    <string
+      id="ret_starter_equipment_empty_set_hint"
+      text="Nie jest tworzone żadne wyposażenie startowe" />
     <string
       id="ret_starter_equipment_random_set"
       text="Losowy" />
     <string
+      id="ret_starter_equipment_random_set_hint"
+      text="Przypisywany jest losowy zestaw wyposażenia" />
+    <string
       id="ret_starter_equipment_single_set"
       text="Kopiuj jeden zestaw" />
+    <string
+      id="ret_starter_equipment_single_set_hint"
+      text="Jeden zestaw wyposażenia jest kopiowany z podstawowej jednostki" />
     <string
       id="ret_starter_troops_clone_culture_full_trees"
       text="Pełne drzewa jednostek" />
     <string
+      id="ret_starter_troops_clone_culture_full_trees_hint"
+      text="Pełny zakres oddziałów jest tworzony automatycznie" />
+    <string
       id="ret_starter_troops_clone_culture_lean_trees"
       text="Szczupłe drzewa jednostek" />
     <string
+      id="ret_starter_troops_clone_culture_lean_trees_hint"
+      text="Na początku gry tworzona jest ograniczona selekcja oddziałów" />
+    <string
       id="ret_starter_troops_clone_culture_roots"
       text="Tylko jednostki bazowe" />
+    <string
+      id="ret_starter_troops_clone_culture_roots_hint"
+      text="Tworzona jest tylko jedna podstawowa jednostka i jedna elitarna jednostka" />
     <string
       id="ret_statistics_battles_field"
       text="Bitwy polowe" />
@@ -2174,11 +2555,26 @@
       id="ret_statistics_parties_garrisons"
       text="Rozmieszczenia: {TOTAL} ({PARTIES} oddziały, {GARRISONS} garnizony)" />
     <string
+      id="ret_statistics_player_only"
+      text="Niedostępne w edytorze uniwersalnym" />
+    <string
       id="ret_statistics_popup_title"
       text="Statystyki" />
     <string
       id="ret_statistics_section_total"
       text="{TITLE}: {TOTAL}" />
+    <string
+      id="ret_status_captain_disabled"
+      text="Nieaktywny" />
+    <string
+      id="ret_status_captain_enabled"
+      text="Aktywny" />
+    <string
+      id="ret_status_captain_text_disabled"
+      text="Ten kapitan nie pojawi się." />
+    <string
+      id="ret_status_captain_text_enabled"
+      text="Jeden kapitan pojawi się na każde {AMOUNT} {TROOP}." />
     <string
       id="ret_stocks_add"
       text="Dodano {AMOUNT} {ITEM} do zapasów." />
@@ -2191,6 +2587,9 @@
     <string
       id="ret_tooltip_culture_none"
       text="Brak" />
+    <string
+      id="ret_trait_only_heroes_reason"
+      text="Dotyczy tylko bohaterów" />
     <string
       id="ret_traits_header_text"
       text="Cechy" />
@@ -2258,17 +2657,41 @@
       id="ret_troops_availability_clan_fiefs"
       text="Lenna klanowe" />
     <string
+      id="ret_troops_availability_clan_fiefs_hint"
+      text="Oddziały klanu mogą być werbowane tylko z lenn należących do ich klanu" />
+    <string
       id="ret_troops_availability_clan_or_kingdom_fiefs"
       text="Lenna klanowe lub królewskie" />
+    <string
+      id="ret_troops_availability_clan_or_kingdom_fiefs_hint"
+      text="Oddziały klanu mogą być werbowane z posiadanych lenn klanowych lub królewskich" />
+    <string
+      id="ret_troops_availability_clan_or_kingdom_fiefs_kingdom_hint"
+      text="Oddziały królestwa mogą być werbowane z posiadanych lenn klanowych lub królewskich" />
     <string
       id="ret_troops_availability_everywhere"
       text="Wszędzie" />
     <string
+      id="ret_troops_availability_everywhere_hint"
+      text="Oddziały klanu mogą być werbowane z dowolnej osady" />
+    <string
+      id="ret_troops_availability_everywhere_kingdom_hint"
+      text="Oddziały królestwa mogą być werbowane z dowolnej osady" />
+    <string
       id="ret_troops_availability_kingdom_fiefs"
       text="Lenna królewskie" />
     <string
+      id="ret_troops_availability_kingdom_fiefs_hint"
+      text="Oddziały królestwa mogą być werbowane tylko z lenn należących do ich królestwa" />
+    <string
       id="ret_troops_availability_nowhere"
       text="Nigdzie" />
+    <string
+      id="ret_troops_availability_nowhere_hint"
+      text="Oddziały klanu nie mogą być werbowane" />
+    <string
+      id="ret_troops_availability_nowhere_kingdom_hint"
+      text="Oddziały królestwa nie mogą być werbowane" />
     <string
       id="ret_troops_editor_locked"
       text="Edytor oddziałów nie jest dostępny." />
@@ -2326,6 +2749,18 @@
     <string
       id="ret_upgrade_targets_header_text"
       text="Ulepszenia" />
+    <string
+      id="ret_vassal_secrets_option"
+      text="Wyjaw tajemnice swoich najcenniejszych artefaktów, a puszczę cię wolno." />
+    <string
+      id="ret_vassal_secrets_ruler_answer"
+      text="Dobrze... Podzielę się wiedzą o tych relikwiach, jeśli to kupi mi wolność." />
+    <string
+      id="ret_vassal_secrets_title"
+      text="Tajemnice odkryte" />
+    <string
+      id="ret_vassal_secrets_unlocked_body"
+      text="Odkryłeś tajemnice: {ITEMS}." />
     <string
       id="ret_version_expected"
       text="{CURRENT} (oczekiwano &gt;= {EXPECTED})" />

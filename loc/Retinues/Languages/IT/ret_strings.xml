@@ -311,11 +311,32 @@
       id="ret_culture_header_text_with_race"
       text="Cultura e Specie" />
     <string
+      id="ret_customization_hint_hero"
+      text="Modifica l&apos;aspetto del personaggio" />
+    <string
       id="ret_customization_hint_hide"
       text="Mostra i controlli di personalizzazione" />
     <string
       id="ret_customization_hint_show"
       text="Nascondi i controlli di personalizzazione" />
+    <string
+      id="ret_delete_clan_troops_confirm"
+      text="Elimina" />
+    <string
+      id="ret_delete_clan_troops_kingdom"
+      text="Le truppe del regno non possono essere eliminate." />
+    <string
+      id="ret_delete_clan_troops_no_troops"
+      text="Questo clan non ha truppe personalizzate." />
+    <string
+      id="ret_delete_clan_troops_player_clan"
+      text="Le truppe del clan del giocatore non possono essere eliminate." />
+    <string
+      id="ret_delete_clan_troops_player_only"
+      text="Disponibile solo in modalità Giocatore." />
+    <string
+      id="ret_delete_clan_troops_title"
+      text="Cancella truppe personalizzate" />
     <string
       id="ret_dependencies_all_ok"
       text="Tutte le dipendenze sono state inizializzate correttamente." />
@@ -412,6 +433,15 @@
     <string
       id="ret_doctrine_description_header"
       text="Effetti" />
+    <string
+      id="ret_doctrine_feat_progress_tooltip_completed"
+      text="Completato" />
+    <string
+      id="ret_doctrine_feat_progress_tooltip_incomplete"
+      text="In corso" />
+    <string
+      id="ret_doctrine_feat_progress_tooltip_repeatable"
+      text="Ripetibile" />
     <string
       id="ret_doctrine_feats_header"
       text="Imprese" />
@@ -563,6 +593,9 @@
       id="ret_editing_restriction_in_fief"
       text="Feudo di fazione" />
     <string
+      id="ret_editing_restriction_in_fief_hint"
+      text="Devi essere in un feudo di proprietà della tua fazione (escluse le truppe di scorta)" />
+    <string
       id="ret_editing_restriction_in_settlement"
       text="Qualsiasi feudo" />
     <string
@@ -605,6 +638,9 @@
       id="ret_editor_done_button"
       text="Fatto" />
     <string
+      id="ret_editor_kingdom_edit"
+      text="Modifica {KINGDOM}" />
+    <string
       id="ret_editor_kingdom_none"
       text="Nessun regno" />
     <string
@@ -635,6 +671,9 @@
       id="ret_enter_new_name"
       text="Inserisci un nuovo nome:" />
     <string
+      id="ret_enter_new_surname"
+      text="Inserisci un cognome o un titolo (lascia vuoto per rimuovere):" />
+    <string
       id="ret_equipment_button_text"
       text="Equipaggiamento" />
     <string
@@ -646,6 +685,12 @@
     <string
       id="ret_equipment_copied_toast"
       text="Equipaggiamento copiato negli appunti." />
+    <string
+      id="ret_equipment_copy_tooltip"
+      text="Copia negli appunti" />
+    <string
+      id="ret_equipment_delete_breaks_battle_types_reason"
+      text="Deve rimanere almeno un set di equipaggiamento abilitato per questo tipo di battaglia." />
     <string
       id="ret_equipment_hero_sets_reason"
       text="Gli eroi non possono avere più set di equipaggiamento" />
@@ -671,11 +716,17 @@
       id="ret_equipment_paste_confirm_title"
       text="Copia l&apos;equipaggiamento" />
     <string
+      id="ret_equipment_paste_empty_clipboard_reason"
+      text="Gli appunti sono vuoti" />
+    <string
       id="ret_equipment_paste_nothing_desc2"
       text="Niente di nuovo da {SRC} può essere equipaggiato su {DST}." />
     <string
       id="ret_equipment_paste_nothing_title"
       text="Copia l&apos;equipaggiamento" />
+    <string
+      id="ret_equipment_paste_tooltip"
+      text="Incolla dagli appunti" />
     <string
       id="ret_equipment_slot_body"
       text="Corpo" />
@@ -709,6 +760,12 @@
     <string
       id="ret_equipment_slot_weapon_3"
       text="Arma 4" />
+    <string
+      id="ret_equipments_create_set"
+      text="Crea nuovo equipaggiamento" />
+    <string
+      id="ret_equipments_delete_set"
+      text="Elimina equipaggiamento" />
     <string
       id="ret_escape_menu_editor_button"
       text="Editor Universale" />
@@ -746,6 +803,9 @@
       id="ret_export_name_title"
       text="Nome esportazione" />
     <string
+      id="ret_export_none_available"
+      text="Niente da esportare" />
+    <string
       id="ret_export_overwrite_desc"
       text="Un file chiamato &apos;{NAME}&apos; esiste già.{newline}{newline}Vuoi sovrascriverlo?" />
     <string
@@ -757,6 +817,9 @@
     <string
       id="ret_export_target_troop_disabled"
       text="Gli eroi non possono essere esportati." />
+    <string
+      id="ret_faction_troops_unlocked_banner_hint"
+      text="{newline}{newline}Usa le icone del banner nella parte superiore dello schermo delle truppe per selezionare quali alberi di truppe modificare." />
     <string
       id="ret_faction_troops_unlocked_desc"
       text="{COUNT} nuove truppe sono ora disponibili per la {FACTION_TYPE} {FACTION}." />
@@ -1166,6 +1229,12 @@
       id="ret_formation_popup_title"
       text="Classe di Formazione" />
     <string
+      id="ret_gender_no_template"
+      text="Combinazione di genere/specie/cultura non valida" />
+    <string
+      id="ret_gender_toggle_hint"
+      text="Cambia genere" />
+    <string
       id="ret_go_to_editor"
       text="Vai all&apos;Editor" />
     <string
@@ -1523,6 +1592,27 @@
       id="ret_mcm_option_allowed_recruiters"
       text="Reclutatori consentiti" />
     <string
+      id="ret_mcm_option_allowed_recruiters_hint"
+      text="Determina chi può reclutare truppe personalizzate." />
+    <string
+      id="ret_mcm_option_buff_retinue_health"
+      text="Potenzia la salute del seguito" />
+    <string
+      id="ret_mcm_option_buff_retinue_health_hint"
+      text="Se abilitato, le truppe del seguito riceveranno un bonus alla salute." />
+    <string
+      id="ret_mcm_option_buff_retinue_skill_cap"
+      text="Potenzia il limite abilità del seguito" />
+    <string
+      id="ret_mcm_option_buff_retinue_skill_cap_hint"
+      text="Se abilitato, le truppe del seguito riceveranno un bonus al limite abilità." />
+    <string
+      id="ret_mcm_option_buff_retinue_skill_total"
+      text="Potenzia il totale abilità del seguito" />
+    <string
+      id="ret_mcm_option_buff_retinue_skill_total_hint"
+      text="Se abilitato, le truppe del seguito riceveranno un bonus al totale abilità." />
+    <string
       id="ret_mcm_option_captain_spawn_rate"
       text="Tasso di generazione dei capitani" />
     <string
@@ -1532,8 +1622,14 @@
       id="ret_mcm_option_clan_troops_availability"
       text="Disponibilità delle truppe del clan" />
     <string
+      id="ret_mcm_option_clan_troops_availability_hint"
+      text="Determina da dove possono essere reclutate le truppe del clan." />
+    <string
       id="ret_mcm_option_clan_troops_unlock"
       text="Truppe del clan" />
+    <string
+      id="ret_mcm_option_clan_troops_unlock_hint"
+      text="Determina quando le truppe del clan diventano disponibili." />
     <string
       id="ret_mcm_option_default_unlocked_amount_per_slot"
       text="Quantità pre-sbloccata per slot" />
@@ -1574,11 +1670,20 @@
       id="ret_mcm_option_editing_restriction"
       text="Restrizioni di posizione" />
     <string
+      id="ret_mcm_option_editing_restriction_hint"
+      text="Limita dove le truppe della fazione possono essere modificate." />
+    <string
       id="ret_mcm_option_editor_hotkey"
       text="Tasto di scelta rapida dell&apos;editor" />
     <string
       id="ret_mcm_option_editor_hotkey_hint"
       text="Abilita il tasto di scelta rapida [R] per aprire l&apos;editor." />
+    <string
+      id="ret_mcm_option_enable_ai_clan_retinues"
+      text="Abilita Retinues del Clan IA" />
+    <string
+      id="ret_mcm_option_enable_ai_clan_retinues_hint"
+      text="Se abilitato, i clan non giocanti che raggiungono il livello minimo avranno i propri retinues." />
     <string
       id="ret_mcm_option_enable_doctrines"
       text="Abilita Dottrine" />
@@ -1670,14 +1775,26 @@
       id="ret_mcm_option_feat_complete_notification"
       text="Notifica di completamento dell&apos;impresa" />
     <string
+      id="ret_mcm_option_feat_complete_notification_hint"
+      text="Determina come vengono visualizzate le notifiche di completamento dell&apos;impresa." />
+    <string
       id="ret_mcm_option_item_unlock_notification"
       text="Notifica di sblocco dell&apos;oggetto" />
+    <string
+      id="ret_mcm_option_item_unlock_notification_hint"
+      text="Determina come vengono visualizzate le notifiche di sblocco dell&apos;oggetto." />
     <string
       id="ret_mcm_option_kingdom_troops_availability"
       text="Disponibilità delle Truppe del Regno" />
     <string
+      id="ret_mcm_option_kingdom_troops_availability_hint"
+      text="Determina da dove possono essere reclutate le truppe del regno." />
+    <string
       id="ret_mcm_option_kingdom_troops_unlock"
       text="Truppe del Regno" />
+    <string
+      id="ret_mcm_option_kingdom_troops_unlock_hint"
+      text="Determina quando le truppe del regno diventano disponibili." />
     <string
       id="ret_mcm_option_max_retinue_ratio"
       text="Rapporto massimo di Retinues" />
@@ -1769,6 +1886,9 @@
       id="ret_mcm_option_same_culture_only_hint"
       text="Se abilitato, le truppe personalizzate possono essere reclutate solo negli insediamenti della stessa cultura." />
     <string
+      id="ret_mcm_option_skill_cap"
+      text="Limite di Abilità del Livello {TIER}" />
+    <string
       id="ret_mcm_option_skill_points_gain_rate"
       text="Tasso di guadagno" />
     <string
@@ -1787,11 +1907,20 @@
       id="ret_mcm_option_skill_progress_per_day_hint"
       text="Determina la velocità di allenamento in punti al giorno." />
     <string
+      id="ret_mcm_option_skill_total"
+      text="Totale Abilità del Livello {TIER}" />
+    <string
       id="ret_mcm_option_starter_equipment"
       text="Equipaggiamento iniziale" />
     <string
+      id="ret_mcm_option_starter_equipment_hint"
+      text="Imposta l&apos;equipaggiamento iniziale per le truppe appena sbloccate." />
+    <string
       id="ret_mcm_option_starter_troops"
       text="Truppe iniziali" />
+    <string
+      id="ret_mcm_option_starter_troops_hint"
+      text="Determina le truppe iniziali del clan e del regno." />
     <string
       id="ret_mcm_option_time_multiplier"
       text="Moltiplicatore del tempo di equipaggiamento" />
@@ -1835,17 +1964,32 @@
       id="ret_mcm_section_doctrines"
       text="Dottrine" />
     <string
+      id="ret_mcm_section_doctrines_desc"
+      text="Abilita le dottrine e configura i costi di acquisizione." />
+    <string
       id="ret_mcm_section_equipment"
       text="Equipaggiamento" />
+    <string
+      id="ret_mcm_section_equipment_desc"
+      text="Costi, limiti e tempi dell&apos;equipaggiamento." />
     <string
       id="ret_mcm_section_equipment_unlocks"
       text="Sblocchi dell&apos;equipaggiamento" />
     <string
+      id="ret_mcm_section_equipment_unlocks_desc"
+      text="Come gli oggetti dell&apos;equipaggiamento vengono sbloccati nel tempo." />
+    <string
       id="ret_mcm_section_recruitment"
       text="Reclutamento" />
     <string
+      id="ret_mcm_section_recruitment_desc"
+      text="Dove e chi può reclutare truppe personalizzate." />
+    <string
       id="ret_mcm_section_restrictions"
       text="Restrizioni" />
+    <string
+      id="ret_mcm_section_restrictions_desc"
+      text="Dove è consentita la modifica e altri limiti." />
     <string
       id="ret_mcm_section_retinues"
       text="Retinues" />
@@ -1886,6 +2030,21 @@
       id="ret_mcm_section_user_interface"
       text="Interfaccia utente" />
     <string
+      id="ret_mcm_section_user_interface_desc"
+      text="Accesso all&apos;editor e notifiche in gioco." />
+    <string
+      id="ret_mixed_gender_disable_tooltip"
+      text="Consenti all&apos;unità di apparire in entrambi i sessi" />
+    <string
+      id="ret_mixed_gender_enable_tooltip"
+      text="Impedisci all&apos;unità di apparire in entrambi i sessi" />
+    <string
+      id="ret_mixed_gender_hero_reason"
+      text="Non applicabile agli eroi" />
+    <string
+      id="ret_mixed_gender_toggle_tooltip"
+      text="Genere misto: {PERCENT}% appariranno come sesso opposto" />
+    <string
       id="ret_name_header_text"
       text="Nome" />
     <string
@@ -1897,6 +2056,12 @@
     <string
       id="ret_no_clans_title"
       text="Nessun clan trovato" />
+    <string
+      id="ret_no_cultures_description"
+      text="Nessuna cultura trovata nel gioco corrente." />
+    <string
+      id="ret_no_cultures_hint"
+      text="Nessuna cultura trovata" />
     <string
       id="ret_no_cultures_text"
       text="Nessuna cultura è caricata nel gioco corrente." />
@@ -1916,13 +2081,91 @@
       id="ret_notification_message"
       text="Messaggio di registro" />
     <string
+      id="ret_notification_message_hint"
+      text="Scrive un messaggio nel registro dei messaggi di gioco" />
+    <string
       id="ret_notification_popup"
       text="Popup" />
+    <string
+      id="ret_notification_popup_hint"
+      text="Mostra una notifica popup" />
     <string
       id="ret_overwrite_confirm"
       text="Sovrascrivi" />
     <string
+      id="ret_preset_confirm_apply"
+      text="Applica" />
+    <string
+      id="ret_preset_confirm_reset"
+      text="Reimposta" />
+    <string
+      id="ret_preset_confirmation_default_title"
+      text="Ripristina valori predefiniti" />
+    <string
+      id="ret_preset_confirmation_freeform_title"
+      text="Applica predefinito libero" />
+    <string
+      id="ret_preset_confirmation_realistic_title"
+      text="Applica predefinito realistico" />
+    <string
+      id="ret_preset_custom_button"
+      text="Personalizzato" />
+    <string
+      id="ret_preset_default_button"
+      text="Predefinito" />
+    <string
+      id="ret_preset_default_tooltip"
+      text="Applica il predefinito: un&apos;esperienza bilanciata progettata per un primo playthrough" />
+    <string
+      id="ret_preset_description_default"
+      text="La configurazione predefinita, bilanciata per un primo playthrough. I bonus alle statistiche delle truppe sono attivi, le truppe del clan si sbloccano con il tuo primo feudo, l&apos;equipaggiamento ha un costo ma nessuna restrizione di sblocco e i punti abilità devono essere guadagnati in battaglia. Reimposta tutte le impostazioni ai valori predefiniti originali." />
+    <string
+      id="ret_preset_description_freeform"
+      text="Rimuove tutti i costi e i requisiti di sblocco. L&apos;acquisizione di dottrine è gratuita. I costi delle attrezzature e la progressione dello sblocco sono disabilitati. Le truppe del clan e del regno sono disponibili fin dall&apos;inizio e possono essere reclutate ovunque. I punti abilità possono essere assegnati liberamente senza doverli guadagnare in battaglia." />
+    <string
+      id="ret_preset_description_realistic"
+      text="Applica limiti di abilità e attrezzatura nell&apos;Editor Universale. La modifica delle truppe è limitata ai feudi posseduti. I buff alle statistiche del seguito sono disabilitati. Solo le truppe radice vengono generate all&apos;avvio. Le truppe possono essere reclutate solo in insediamenti della stessa cultura. Equipaggiare e addestrare richiedono tempo. L&apos;equipaggiamento è soggetto a limiti di peso e valore basati sul livello." />
+    <string
+      id="ret_preset_freeform_button"
+      text="Libero" />
+    <string
+      id="ret_preset_freeform_tooltip"
+      text="Applica il preset Libero: rimuove costi, requisiti e restrizioni" />
+    <string
+      id="ret_preset_realistic_button"
+      text="Realistico" />
+    <string
+      id="ret_preset_realistic_tooltip"
+      text="Applica il preset Realistico: abilita meccaniche temporali, limiti di posizione e filtri fazione" />
+    <string
+      id="ret_preset_selection_default"
+      text="Predefinito" />
+    <string
+      id="ret_preset_selection_description"
+      text="Seleziona le impostazioni che meglio si adattano al tuo stile di gioco.{newline}{newline}PREDEFINITO: Un&apos;esperienza equilibrata per il primo playthrough. Un albero completo di truppe del clan viene sbloccato con il primo feudo, l&apos;equipaggiamento ha un costo, e i punti abilità devono essere acquistati con l&apos;esperienza guadagnata in battaglia.{newline}{newline}LIBERO: Un editor sandbox senza restrizioni. Nessun costo o sistema di sblocco. Le truppe del clan personalizzate sono disponibili fin dall&apos;inizio e possono essere reclutate ovunque.{newline}{newline}REALISTICO: Un&apos;esperienza concreta con vincoli più severi. La modifica delle truppe è limitata ai feudi posseduti, le attrezzature sono limitate in peso e valore, equipaggiare e addestrare richiedono tempo, e gli alberi delle truppe devono essere costruiti da zero.{newline}{newline}Puoi regolare qualsiasi impostazione individuale in qualsiasi momento dalla scheda Impostazioni nella schermata Truppe." />
+    <string
+      id="ret_preset_selection_freeform"
+      text="Libero" />
+    <string
+      id="ret_preset_selection_realistic"
+      text="Realistico" />
+    <string
+      id="ret_preset_selection_title"
+      text="Benvenuto in Retinues" />
+    <string
+      id="ret_presets_header"
+      text="Preset" />
+    <string
       id="ret_preview_mode"
+      text="Modalità di anteprima" />
+    <string
+      id="ret_preview_mode_disable_tooltip"
+      text="Disattiva modalità di anteprima" />
+    <string
+      id="ret_preview_mode_enable_tooltip"
+      text="Attiva modalità di anteprima" />
+    <string
+      id="ret_preview_mode_toggle_tooltip"
       text="Modalità di anteprima" />
     <string
       id="ret_purchase_item_desc"
@@ -1930,6 +2173,60 @@
     <string
       id="ret_purchase_item_title"
       text="Acquista oggetto" />
+    <string
+      id="ret_purge_all_button"
+      text="Purgare" />
+    <string
+      id="ret_purge_all_header"
+      text="Disinstallare" />
+    <string
+      id="ret_purge_all_tooltip"
+      text="Elimina tutti i dati delle truppe personalizzate dal gioco" />
+    <string
+      id="ret_purge_confirm_body"
+      text="Questa azione è pensata per aiutarti a disinstallare Retinues in modo sicuro.{newline}{newline}Scansionerà ogni lista di gruppo nella campagna attuale e rimuoverà o sostituirà TUTTE le truppe personalizzate create da Retinues.{newline}{newline}Questa azione è irreversibile. Fai prima un backup. Continuare?" />
+    <string
+      id="ret_purge_confirm_title"
+      text="Purgare truppe personalizzate" />
+    <string
+      id="ret_purge_continue"
+      text="Continua" />
+    <string
+      id="ret_purge_done_title"
+      text="Purge completato" />
+    <string
+      id="ret_purge_failed_body"
+      text="Qualcosa è andato storto durante la purga. Il tuo salvataggio potrebbe essere parzialmente modificato. Non salvare, ricarica il gioco e riprova, o segnala il problema." />
+    <string
+      id="ret_purge_failed_title"
+      text="Epurazione fallita" />
+    <string
+      id="ret_purge_mode_body"
+      text="Vuoi semplicemente rimuovere le truppe personalizzate dai roster, o cercare di sostituirle con i loro equivalenti vanilla più vicini quando possibile?" />
+    <string
+      id="ret_purge_mode_remove"
+      text="Rimuovi" />
+    <string
+      id="ret_purge_mode_replace"
+      text="Sostituisci" />
+    <string
+      id="ret_purge_mode_title"
+      text="Modalità epurazione" />
+    <string
+      id="ret_purge_need_campaign_reason"
+      text="Nessuna campagna in corso. Carica prima un salvataggio." />
+    <string
+      id="ret_purge_result_advice_ok"
+      text="Epurazione completata. Salva il gioco in un nuovo file e potrai rimuovere Retinues in sicurezza dal tuo gioco." />
+    <string
+      id="ret_purge_result_advice_partial"
+      text="Epurazione terminata ma alcune truppe non hanno potuto essere sostituite ({MISSES}) e sono state rimosse.{newline}{newline}Considerate di eseguire di nuovo in modalità Rimuovi, o segnalate il problema." />
+    <string
+      id="ret_purge_title"
+      text="Epura truppe personalizzate" />
+    <string
+      id="ret_race_cannot_change"
+      text="Impossibile cambiare la specie per questa unità" />
     <string
       id="ret_race_incompatible_culture_gender"
       text="Questa specie non è compatibile con la cultura/genere attuale." />
@@ -1949,11 +2246,35 @@
       id="ret_rank_up_confirm_yes"
       text="Salire di livello" />
     <string
+      id="ret_rank_up_max_tier"
+      text="Già al livello massimo" />
+    <string
       id="ret_rank_up_no_captains"
       text="I capitani non possono salire di livello" />
     <string
+      id="ret_rank_up_not_enough_money"
+      text="Richiede {COST} denari" />
+    <string
+      id="ret_rank_up_not_enough_sp"
+      text="Richiede {POINTS} punti abilità" />
+    <string
+      id="ret_rank_up_player_only"
+      text="Non disponibile nell&apos;Editor Universale" />
+    <string
+      id="ret_rank_up_requires_maxed_skills"
+      text="Le abilità devono essere massimizzate prima" />
+    <string
       id="ret_rank_up_retinue_only"
       text="Disponibile solo per le retinues" />
+    <string
+      id="ret_rename_surname_hero_only"
+      text="Solo gli eroi hanno un cognome" />
+    <string
+      id="ret_rename_surname_tooltip"
+      text="Cambia cognome / titolo" />
+    <string
+      id="ret_rename_surname_unit"
+      text="Cambia cognome / titolo" />
     <string
       id="ret_rename_tooltip"
       text="Rinomina" />
@@ -1976,6 +2297,9 @@
       id="ret_reset_confirm"
       text="Reimposta" />
     <string
+      id="ret_reset_default_universal_only"
+      text="Disponibile solo nell&apos;Editor Universale" />
+    <string
       id="ret_reset_done_body"
       text="Salva e riavvia il gioco affinché questa azione abbia effetto." />
     <string
@@ -1988,17 +2312,38 @@
       id="ret_reset_faction_title"
       text="Reimposta ai valori predefiniti" />
     <string
+      id="ret_reset_none_available"
+      text="Niente da reimpostare" />
+    <string
       id="ret_reset_target_faction_disabled"
       text="Nessuna truppa vanilla modificata trovata da reimpostare." />
     <string
       id="ret_reset_target_troop_disabled"
       text="Solo le truppe vanilla modificate e non eroiche possono essere reimpostate." />
     <string
+      id="ret_retinue_ai_clan_house_champion"
+      text="{CLAN} Campione di Casa" />
+    <string
+      id="ret_retinue_ai_clan_house_guard"
+      text="{CLAN} Guardia di Casa" />
+    <string
+      id="ret_retinue_clan_default_name_female"
+      text="{CLAN} Guardia della Regina" />
+    <string
+      id="ret_retinue_clan_default_name_male"
+      text="{CLAN} Guardia del Re" />
+    <string
       id="ret_retinue_culture_default_name"
       text="Retinue {CULTURE} {CLAN}" />
     <string
       id="ret_retinue_default_name"
       text="Guardia di Casa {CLAN}" />
+    <string
+      id="ret_retinue_kingdom_default_name_female"
+      text="Guardia della Regina {KINGDOM}" />
+    <string
+      id="ret_retinue_kingdom_default_name_male"
+      text="Guardia del Re {KINGDOM}" />
     <string
       id="ret_retinue_morale_bonus_bound_by_honor"
       text="Vincolati dall&apos;onore" />
@@ -2054,11 +2399,23 @@
       id="ret_retinues_version_update_text_no_current"
       text="La versione del mod Retinues in questo file di salvataggio è stata aggiornata a una versione più recente ({CURRENT_VERSION}). I tuoi dati di salvataggio sono stati automaticamente migrati.{newline}{newline}Come precauzione di sicurezza, verifica che tutto sia a posto prima di sovrascrivere il tuo salvataggio.{newline}{newline}Se per qualche motivo desideri tornare alla versione precedente, scarica la versione che stavi usando in precedenza da Nexus Mods." />
     <string
+      id="ret_scroll_to_bottom_tooltip"
+      text="Scorri fino in fondo" />
+    <string
+      id="ret_scroll_to_top_tooltip"
+      text="Scorri fino in alto" />
+    <string
       id="ret_select_clan_title"
       text="Seleziona clan" />
     <string
       id="ret_select_culture_title"
       text="Seleziona cultura" />
+    <string
+      id="ret_skill_decrease_sources_reason"
+      text="Impossibile diminuire al di sotto del livello di abilità di {SOURCE}" />
+    <string
+      id="ret_skill_decrease_sources_reason_generic"
+      text="Impossibile diminuire al di sotto dei livelli di abilità delle fonti di aggiornamento" />
     <string
       id="ret_skill_decrease_warning_text"
       text="Diminuire un&apos;abilità è istantaneo, ma riaddestrarla richiederà tempo.{newline}{newline}Continuare?" />
@@ -2074,6 +2431,9 @@
     <string
       id="ret_skill_experience_tooltip"
       text="{XP}/{XP_REQUIRED} XP verso il prossimo punto abilità" />
+    <string
+      id="ret_skill_increase_maxed_reason"
+      text="Limite di abilità raggiunto" />
     <string
       id="ret_skill_increase_no_points_reason"
       text="Non ci sono abbastanza punti abilità" />
@@ -2120,23 +2480,44 @@
       id="ret_starter_equipment_all_sets"
       text="Copia tutti i set" />
     <string
+      id="ret_starter_equipment_all_sets_hint"
+      text="Tutti i set di equipaggiamento vengono copiati dalla truppa di base" />
+    <string
       id="ret_starter_equipment_empty_set"
       text="Vuoto" />
+    <string
+      id="ret_starter_equipment_empty_set_hint"
+      text="Nessun equipaggiamento iniziale viene creato" />
     <string
       id="ret_starter_equipment_random_set"
       text="Casuale" />
     <string
+      id="ret_starter_equipment_random_set_hint"
+      text="Viene assegnato un set casuale di equipaggiamento" />
+    <string
       id="ret_starter_equipment_single_set"
       text="Copia un set" />
+    <string
+      id="ret_starter_equipment_single_set_hint"
+      text="Un set di equipaggiamento viene copiato dalla truppa base" />
     <string
       id="ret_starter_troops_clone_culture_full_trees"
       text="Alberi delle truppe completi" />
     <string
+      id="ret_starter_troops_clone_culture_full_trees_hint"
+      text="L&apos;intera gamma di truppe viene creata automaticamente" />
+    <string
       id="ret_starter_troops_clone_culture_lean_trees"
       text="Alberi delle truppe snelli" />
     <string
+      id="ret_starter_troops_clone_culture_lean_trees_hint"
+      text="Una selezione ridotta di truppe viene creata all&apos;avvio del gioco" />
+    <string
       id="ret_starter_troops_clone_culture_roots"
       text="Solo truppe di base" />
+    <string
+      id="ret_starter_troops_clone_culture_roots_hint"
+      text="Vengono create solo una truppa base e una truppa d&apos;élite" />
     <string
       id="ret_statistics_battles_field"
       text="Battaglie campali" />
@@ -2174,11 +2555,26 @@
       id="ret_statistics_parties_garrisons"
       text="Schieramenti: {TOTAL} ({PARTIES} gruppi, {GARRISONS} guarnigioni)" />
     <string
+      id="ret_statistics_player_only"
+      text="Non disponibile nell&apos;Editor Universale" />
+    <string
       id="ret_statistics_popup_title"
       text="Statistiche" />
     <string
       id="ret_statistics_section_total"
       text="{TITLE}: {TOTAL}" />
+    <string
+      id="ret_status_captain_disabled"
+      text="Inattivo" />
+    <string
+      id="ret_status_captain_enabled"
+      text="Attivo" />
+    <string
+      id="ret_status_captain_text_disabled"
+      text="Questo capitano non apparerà." />
+    <string
+      id="ret_status_captain_text_enabled"
+      text="Un capitano apparirà per ogni {AMOUNT} {TROOP}." />
     <string
       id="ret_stocks_add"
       text="Aggiunti {AMOUNT} {ITEM} alle scorte." />
@@ -2191,6 +2587,9 @@
     <string
       id="ret_tooltip_culture_none"
       text="Nessuno" />
+    <string
+      id="ret_trait_only_heroes_reason"
+      text="Applicabile solo agli eroi" />
     <string
       id="ret_traits_header_text"
       text="Tratti" />
@@ -2258,17 +2657,41 @@
       id="ret_troops_availability_clan_fiefs"
       text="Feudi del clan" />
     <string
+      id="ret_troops_availability_clan_fiefs_hint"
+      text="Le truppe del clan possono essere reclutate solo dai feudi posseduti dal loro clan" />
+    <string
       id="ret_troops_availability_clan_or_kingdom_fiefs"
       text="Feudi del clan o del regno" />
+    <string
+      id="ret_troops_availability_clan_or_kingdom_fiefs_hint"
+      text="Le truppe del clan possono essere reclutate dai feudi del clan o del regno posseduti" />
+    <string
+      id="ret_troops_availability_clan_or_kingdom_fiefs_kingdom_hint"
+      text="Le truppe del regno possono essere reclutate dai feudi del clan o del regno posseduti" />
     <string
       id="ret_troops_availability_everywhere"
       text="Ovunque" />
     <string
+      id="ret_troops_availability_everywhere_hint"
+      text="Le truppe del clan possono essere reclutate da qualsiasi insediamento" />
+    <string
+      id="ret_troops_availability_everywhere_kingdom_hint"
+      text="Le truppe del regno possono essere reclutate da qualsiasi insediamento" />
+    <string
       id="ret_troops_availability_kingdom_fiefs"
       text="Feudi del regno" />
     <string
+      id="ret_troops_availability_kingdom_fiefs_hint"
+      text="Le truppe del regno possono essere reclutate solo dai feudi posseduti dal loro regno" />
+    <string
       id="ret_troops_availability_nowhere"
       text="Da nessuna parte" />
+    <string
+      id="ret_troops_availability_nowhere_hint"
+      text="Le truppe del clan non possono essere reclutate" />
+    <string
+      id="ret_troops_availability_nowhere_kingdom_hint"
+      text="Le truppe del regno non possono essere reclutate" />
     <string
       id="ret_troops_editor_locked"
       text="L&apos;editor delle truppe non è disponibile." />
@@ -2326,6 +2749,18 @@
     <string
       id="ret_upgrade_targets_header_text"
       text="Miglioramenti" />
+    <string
+      id="ret_vassal_secrets_option"
+      text="Rivela i segreti dei tuoi artefatti più preziosi e ti lascerò andare." />
+    <string
+      id="ret_vassal_secrets_ruler_answer"
+      text="Molto bene... Condividerò la conoscenza di queste reliquie, se ciò mi compra la libertà." />
+    <string
+      id="ret_vassal_secrets_title"
+      text="Segreti svelati" />
+    <string
+      id="ret_vassal_secrets_unlocked_body"
+      text="Hai svelato i segreti di: {ITEMS}." />
     <string
       id="ret_version_expected"
       text="{CURRENT} (previsto &gt;= {EXPECTED})" />
