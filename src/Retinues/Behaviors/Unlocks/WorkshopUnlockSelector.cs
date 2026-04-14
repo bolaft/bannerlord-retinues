@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Retinues.Domain.Equipments.Wrappers;
+using Retinues.Framework.Runtime;
 using TaleWorlds.CampaignSystem.Settlements.Workshops;
 using TaleWorlds.Core;
 
@@ -28,9 +29,10 @@ namespace Retinues.Behaviors.Unlocks
         }
 
         // Cache candidates per (culture|workshopTypeId). Candidates include score and are sorted.
-        private static readonly Dictionary<string, List<Candidate>> _cache = new(
-            StringComparer.Ordinal
-        );
+        private static Dictionary<string, List<Candidate>> _cache = new(StringComparer.Ordinal);
+
+        [StaticClearAction]
+        public static void ClearCache() => _cache = new(StringComparer.Ordinal);
 
         /// <summary>
         /// Determines whether the given workshop can unlock equipment.
