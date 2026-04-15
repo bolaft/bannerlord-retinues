@@ -5,7 +5,9 @@ using Retinues.Domain.Characters.Services.Skills;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Editor.Events;
 using Retinues.Editor.MVC.Pages.Character.Controllers;
+using Retinues.Editor.MVC.Shared.Controllers;
 using Retinues.Editor.MVC.Shared.Views;
+using Retinues.Encyclopedia.Manual;
 using Retinues.Interface.Components;
 using Retinues.Interface.Services;
 using Retinues.Settings;
@@ -153,6 +155,19 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Panel
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Statistics                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private static readonly ControllerAction<WCharacter> _openManualAction =
+            new ControllerAction<WCharacter>("OpenManual")
+                .ExecuteWith(_ => ManualLink.Open());
+
+        [DataSourceProperty]
+        public Button<WCharacter> ShowManualButton { get; } =
+            new(
+                action: _openManualAction,
+                arg: () => State.Character,
+                refresh: [],
+                label: L.S("manual_button_label", "Open Manual")
+            );
 
         [DataSourceProperty]
         public Button<WCharacter> ShowStatisticsButton { get; } =

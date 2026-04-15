@@ -1,7 +1,7 @@
 {% from "_/macros.buttons.j2" import button_sprite %}
 
 {# ---------------------------------------------- #}
-{# Statistics                                     #}
+{# Manual & Statistics                            #}
 {# ---------------------------------------------- #}
 
 <ListPanel
@@ -12,10 +12,32 @@
     MarginRight="6">
     <Children>
 
+        {# Manual button #}
+        <ListPanel
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            HorizontalAlignment="Right" VerticalAlignment="Center"
+            StackLayout.LayoutMethod="HorizontalLeftToRight">
+            <Children>
+
+                <TextWidget
+                    DataSource="{ShowManualButton}"
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                    HorizontalAlignment="Right" VerticalAlignment="Center"
+                    Brush="Popup.Button.Text"
+                    Brush.FontSize="20"
+                    MarginRight="8"
+                    Text="@Label" />
+
+                {{ button_sprite("{ShowManualButton}", "32", "32", button_brush="DescriptionButtonToggleBrush") }}
+            
+            </Children>
+        </ListPanel>
+
         {# History button #}
         <ListPanel
             WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
             HorizontalAlignment="Right" VerticalAlignment="Center"
+            MarginTop="8"
             StackLayout.LayoutMethod="HorizontalLeftToRight">
             <Children>
 
@@ -29,7 +51,7 @@
                     MarginRight="8"
                     Text="@Label" />
 
-                {{ button_sprite("{ShowStatisticsButton}", "32", "32", button_brush="DescriptionButtonToggleBrush") }}
+                {{ button_sprite("{ShowStatisticsButton}", "32", "32", button_brush="HowToLearnButtonToggleBrush") }}
             
             </Children>
         </ListPanel>

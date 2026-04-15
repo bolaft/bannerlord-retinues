@@ -1550,6 +1550,93 @@
       id="ret_list_header_villagers"
       text="Villagers" />
     <string
+      id="ret_man_equipment_advanced_text"
+      text="Three optional systems add further constraints to equipment changes: a staging delay before items take effect, weight and value budgets per tier, and an unlock gate on individual items.{newline}{newline}Staging: When Equipping Takes Time is enabled, equipping an item does not take effect immediately. Instead the new item is placed into a staging queue and applied gradually as in-game time passes. Staged slots are displayed in a different color and show the currently equipped item in the tooltip. You can unstage an item at any time. Progress accumulates hour by hour and also while travelling if Equip While Travelling is enabled. Hero troops are never subject to staging; their equipment changes are always instant.{newline}{newline}Weight and Value Limits: The Limit By Weight and Limit By Value settings impose a budget on the total weight and total value of a troop&apos;s battle equipment. Both are off by default. When active, each troop tier has a corresponding budget shown in the editor. The Armory doctrines can raise these limits when they are active.{newline}{newline}Item Availability and Unlocks: When Equipment Needs Unlocking is enabled, each item requires 1000 points of unlock progress before it can be equipped. Items begin locked and hidden; once they have some progress they appear at the bottom of the list, sorted by completion. A configurable number of items per slot are pre-unlocked automatically on a new game up to a configurable tier ceiling. This system only applies in the Troops screen; in the Universal Editor all items are freely available." />
+    <string
+      id="ret_man_equipment_advanced_title"
+      text="Retinues 5.3 - Staging &amp; Limits" />
+    <string
+      id="ret_man_equipment_economy_text"
+      text="The equipment economy tracks how many copies of each item your forces own and optionally charges gold when you equip gear that is not already in stock.{newline}{newline}Shared Items: When a troop has multiple sets, items are shared intelligently between them. If a piece of equipment is already present in another set belonging to the same troop, equipping it in a second set does not incur an additional stock cost or purchase. A troop with two sets wearing the same sword in both only requires one copy of that sword.{newline}{newline}Stocks: Each item has a stock count representing how many copies your forces have stockpiled. When economy is active, equipping an item draws one copy from its stock; unequipping returns it. Stock accumulates from battles, discards, and other sources. This system only applies in the Troops screen; in the Universal Editor stocks play no role.{newline}{newline}Costs and Purchases: When Equipment Costs Money is active, equipping an item that is not in stock and not covered by another set requires spending coin at the item&apos;s value scaled by the Cost Multiplier setting. Two doctrines reduce costs: Cultural Pride grants a 20% discount on items matching your clan&apos;s culture, and Royal Patronage grants a 20% discount on items matching your kingdom&apos;s culture. Both discounts can apply to the same item." />
+    <string
+      id="ret_man_equipment_economy_title"
+      text="Retinues 5.2 - Equipment Economy" />
+    <string
+      id="ret_man_equipment_text"
+      text="Each troop has two categories of equipment: battle sets and civilian sets. Battle sets are worn in combat; civilian sets at all other times. You switch between them using the button above the character model.{newline}{newline}Battle Set Types: Each battle set can be marked as applying to field battles, siege battles, or naval battles. A set can cover any combination of those types. At least one set must remain enabled for each battle type at all times.{newline}{newline}Managing Sets: Use the add button to create a copy of the current set or an empty one. Use the remove button to delete the current set; you cannot delete a set if it is the only one in its category, or if doing so would leave any battle type without coverage. When economy is active and a set is deleted, its items are returned to stock automatically.{newline}{newline}Slots: Each set has four weapon slots, Head, Cape, Body, Gloves, Leg, Horse, and Horse Harness. The Horse Harness slot is only active when a horse is equipped. If a new horse is equipped and the current harness is not compatible, the harness is cleared automatically." />
+    <string
+      id="ret_man_equipment_title"
+      text="Retinues 5.1 - Equipment" />
+    <string
+      id="ret_man_overview_text"
+      text="Retinues adds a suite of systems for building, training, and equipping your own personal forces throughout a campaign.{newline}{newline}At its core is the retinue: a household troop tied to your clan that follows you exclusively and can be developed into an elite unit over time.{newline}{newline}Beyond retinues, you can build full custom troop trees for your clan and kingdom. These troops appear as volunteers and fill your faction&apos;s armies. A doctrine system provides a progression layer, unlocking new troop types, equipment perks, and other bonuses as you accomplish gameplay objectives.{newline}{newline}All of this is managed through the editor, opened from the Troops button on the campaign map or by pressing [R]." />
+    <string
+      id="ret_man_overview_title"
+      text="Retinues 1.0 - Overview" />
+    <string
+      id="ret_man_retinues_ai_text"
+      text="Non-player clans can also have their own retinues. This feature is enabled by default and applies to clans that meet a minimum tier threshold (tier 3 by default). Each day there is a 25% chance by default that an eligible party promotes one matching-tier troop into a retinue, up to a cap of 10% of the party&apos;s size. Kingdom rulers get a King&apos;s Guard or Queen&apos;s Guard in addition to their clan retinues.{newline}{newline}By default only the clan leader&apos;s party builds retinues. The Only Clan Leaders Have Retinues setting can be turned off to allow all lord parties in a clan to have their own.{newline}{newline}AI retinues improve over time as their clan earns experience. If you lose a battle against a clan that has retinues, their retinues can acquire equipment from your casualties, gradually upgrading their gear." />
+    <string
+      id="ret_man_retinues_ai_title"
+      text="Retinues 2.4 - AI Clan Retinues" />
+    <string
+      id="ret_man_retinues_management_text"
+      text="This section covers the party size limits on retinues, how to recruit them through the party upgrade system, the passive buffs they receive, and how to rank them up.{newline}{newline}Party Limits: The number of retinues you can field is capped at a ratio of your party size limit. The default is 15%, adjustable in settings. Doctrine bonuses can raise this cap further. Retinues cannot be placed in garrisons or transferred to companion parties; they follow you exclusively.{newline}{newline}Recruitment: Retinues do not appear in settlement volunteer lists. Instead they surface as upgrade options on existing troops in your party. When you open the party screen, each retinue is matched to the best fitting troop at one tier below it, and the retinue appears as an additional upgrade target on that troop. Upgrading a troop into a retinue converts one unit of the source troop into the retinue type without consuming the retinue slot. The source troop is chosen from your faction&apos;s custom tree first, falling back to your culture&apos;s tree if no match is found.{newline}{newline}Buffs: Retinues receive a set of passive bonuses on top of their normal stats. By default these are +20 hit points, +5 to all skill caps, and +20 to total skill points. Each bonus can be toggled and adjusted individually in settings. The Realistic preset disables all three.{newline}{newline}Ranking Up: When a retinue has its skills fully maxed out, it becomes eligible to rank up. Ranking up costs gold: (current tier + 1) x 1000 denars. It also costs skill points: 5 x current tier. The effect raises the retinue&apos;s level by 5 and unlocks higher skill caps. The rank up action is shown in the editor once all conditions are met." />
+    <string
+      id="ret_man_retinues_management_title"
+      text="Retinues 2.3 - Party &amp; Recruitment" />
+    <string
+      id="ret_man_retinues_text"
+      text="Retinues are special household guard troops tied to your clan. Unlike regular faction troops they are personal to the player: they cannot be garrisoned or transferred to another party, and they stay with you at all times. They start at a low tier but can be trained, equipped, and ranked up over the course of a campaign.{newline}{newline}Starting Retinue: One retinue is created automatically when you start a new campaign or when you load an existing save for the first time. It is named after your clan and matches your clan&apos;s culture. If you are already a ruler at that point, a King&apos;s Guard or Queen&apos;s Guard is also created for your kingdom." />
+    <string
+      id="ret_man_retinues_title"
+      text="Retinues 2.1 - Retinues" />
+    <string
+      id="ret_man_retinues_unlock_text"
+      text="You can unlock one additional retinue per culture. Your own clan&apos;s culture is unlocked from the start. For every other culture, you accumulate unlock progress through gameplay activities tied to that culture.{newline}{newline}Winning a tournament awards +50 points for the tournament settlement&apos;s culture. Completing a quest successfully awards +25 points for the quest giver&apos;s culture. Owning a fief awards +5 points per day per fief for each fief&apos;s culture. Owning a workshop awards +2 points per day per workshop for the workshop settlement&apos;s culture. Winning a battle alongside allied parties awards +10 points per allied party for each ally&apos;s culture.{newline}{newline}Each culture requires 1000 points to unlock. The overall speed can be adjusted with the Retinue Unlock Speed setting. When a culture is unlocked, a new retinue is created automatically and a popup appears to let you jump directly to the editor." />
+    <string
+      id="ret_man_retinues_unlock_title"
+      text="Retinues 2.2 - Unlocking Retinues" />
+    <string
+      id="ret_man_skills_budget_text"
+      text="This section covers the optional shared skill point pool, how spending and refunds work, and the per-tier caps and totals that bound the total skills of any troop.{newline}{newline}Shared Skill Points Pool: When the Shared Skill Points Pool setting is enabled, all custom troops contribute their battle XP to a single campaign-wide pool instead of per-troop pools. Skill points from the pool can be spent on any custom troop, making it easier to develop specialists without spreading battles evenly across your roster. The pool balance is shown in the skill panel header. Switching off the setting mid-campaign does not clear either the per-troop points or the shared pool. The setting requires Skill Points Must Be Earned to be active.{newline}{newline}Spending: Each skill increase costs one skill point; decreasing a skill refunds it immediately. When Training Takes Time is enabled, decreasing a skill that is already committed prompts a confirmation.{newline}{newline}Skill Caps and Totals: Two limits apply in the Troops screen. The skill cap is the maximum level any single skill can reach for that tier; defaults range from 20 at tier 0 to 360 at tier 7. The skill total is the sum of all skills a troop of that tier may have; defaults range from 90 at tier 0 to 1600 at tier 7. Retinues receive bonuses on top of both limits. Max-tier Captains receive a 20% bonus. The Iron Discipline doctrine adds +5 to the cap for all troops. Steadfast Soldiers and Masters at Arms each add +20 to the total for the basic and elite lines respectively." />
+    <string
+      id="ret_man_skills_budget_title"
+      text="Retinues 4.2 - Skill Budget" />
+    <string
+      id="ret_man_skills_text"
+      text="Your custom troops have a skill sheet you can edit from the Troops screen, subject to per-skill caps and a total skill budget. This system does not apply to troops edited through the Universal Editor, where skills can be freely adjusted at any time.{newline}{newline}XP Sources: Custom troops accumulate skill point XP from played battles, autoresolved battles, daily party training, and other activities. When Skill Points Must Be Earned is active (on by default), all of that XP feeds into the skill point progress counter for the troop type. Higher-tier troops require proportionally more XP. The overall rate is adjustable with the Skill Points Gain Rate setting.{newline}{newline}Freeform Mode: When Skill Points Must Be Earned is disabled, skill points are not gated behind battle performance. Skills can be freely allocated in the editor at any time without earning anything first." />
+    <string
+      id="ret_man_skills_title"
+      text="Retinues 4.1 - Skills &amp; Experience" />
+    <string
+      id="ret_man_skills_training_text"
+      text="Three settings add further structure to skill editing: optional time-gating on training, a floor derived from parent troops, and location-based restrictions on when the editor can be used.{newline}{newline}Training Takes Time: When this setting is enabled, raising a skill in the editor does not apply instantly. The increase is stored as pending and applied gradually at the rate set by Trained Points Per Day (default: 1 per day). Pending increases are shown in a different color. Training progress continues while travelling by default; the Train While Travelling setting can restrict it to when the party is stationary.{newline}{newline}Skill Floor: A troop&apos;s skills cannot be lowered below the highest value held by any of its upgrade sources. For example, if a tier-2 source troop has 80 in One Handed, the tier-3 upgrade&apos;s One Handed cannot be set below 80. The editor shows which source troop is setting the floor when a decrease is blocked.{newline}{newline}Context Restrictions: The Editing Restriction setting can limit when skills and equipment can be changed. None (default in Freeform) places no restrictions. In Settlement requires you to be inside any settlement. In Fief requires you to be inside a settlement owned by your clan or kingdom. Retinues are exempt from the fief requirement and can be edited in any settlement." />
+    <string
+      id="ret_man_skills_training_title"
+      text="Retinues 4.3 - Training &amp; Restrictions" />
+    <string
+      id="ret_man_troops_setup_text"
+      text="When a custom troop tree is first created, two settings determine the shape of its starting roster, and several more control where those troops appear as volunteers.{newline}{newline}Starter Troops: The initial state of the tree depends on the Starter Troops setting. Roots Only creates only the two root troops, leaving the rest empty to build manually. Lean Trees (default) copies a streamlined version of your culture&apos;s tree: one representative troop per formation type per tier, with faction-based names like Clan Recruit. Full Trees clones the entire culture tree verbatim, replacing the culture prefix with your clan or kingdom name.{newline}{newline}Starter Equipment: Equipment is set separately by the Starter Equipment setting. Random Set (default) generates a random loadout from items appropriate for each troop&apos;s tier and culture. Single Set copies the first equipment set from the culture template. All Sets copies every equipment set from the template. Empty Set creates troops with no items at all.{newline}{newline}Recruitment: Where your custom troops appear as volunteers depends on the Clan Troops Availability and Kingdom Troops Availability settings. Clan troops default to clan fiefs and kingdom troops to kingdom fiefs. Both can be opened to any settlement or restricted further. The Same Culture Only setting prevents custom troops from appearing in settlements of a different culture. The Allowed Recruiters setting controls whether AI lords can also recruit your troops. By default custom troops replace standard culture volunteers entirely in eligible settlements; Mix With Vanilla Troops lets them appear alongside standard troops instead." />
+    <string
+      id="ret_man_troops_setup_title"
+      text="Retinues 3.2 - Setup &amp; Recruitment" />
+    <string
+      id="ret_man_troops_text"
+      text="Beyond your retinues, you can build and customize full troop trees for your clan and your kingdom. These troops appear in volunteer pools, garrisons, and parties across the world and are edited from the same Troops screen as retinues. Each faction gets two root lines: a basic tree and an elite noble tree. From those roots you can branch upgrade paths up to a maximum of 4 upgrade targets per troop.{newline}{newline}Unlocking: Clan troops unlock when you acquire your first fief by default. They can also be set to unlock from the start or disabled entirely. Kingdom troops unlock when you found a kingdom by default, and can also be disabled. When troops are unlocked a popup appears to let you jump straight to the new tree." />
+    <string
+      id="ret_man_troops_title"
+      text="Retinues 3.1 - Clan &amp; Kingdom Troops" />
+    <string
+      id="ret_man_troops_types_text"
+      text="Several doctrines unlock additional troop types beyond the main tree, and the editor provides tools for managing the tree structure and overseeing other clans in your kingdom.{newline}{newline}Militias and Special Troops: Three doctrines unlock additional custom troop types. Stalwart Militia unlocks custom militia troops that replace the default cultural militia in your faction&apos;s towns and castles on a daily cycle. Road Wardens unlocks custom caravan troops used by your faction&apos;s caravans. Armed Peasantry unlocks custom villager troops used by your faction&apos;s village parties.{newline}{newline}Captains: The Captains doctrine unlocks Captain variants for all regular troops. A Captain is a stronger version that spawns periodically in its place. The spawn rate is configurable through the Captain Spawn Rate setting (default: 1 per 15 regular troops). Captains cannot have upgrade targets of their own and cannot be ranked up. Their equipment is edited separately but they share equipment costs with their base troop.{newline}{newline}Upgrades and Removal: You can add an upgrade target to any non-hero custom troop that is not at max tier and has fewer than 4 upgrade targets. The new troop is created one tier above its parent and inherits skills from it. To remove a troop you must first remove all of its upgrade targets. Root troops cannot be removed. When a troop is removed, any units of that type in the world are converted to their culture counterpart.{newline}{newline}Other Clans: When you are a ruler, the editor lets you manage the custom troop trees of other clans in your kingdom. Click the left banner to select a different clan. If the selected clan has no custom troops yet, you are prompted to initialize them by copying the kingdom&apos;s existing tree or starting from culture roots." />
+    <string
+      id="ret_man_troops_types_title"
+      text="Retinues 3.3 - Special Troops &amp; Tree" />
+    <string
+      id="ret_manual_button_label"
+      text="Open Manual" />
+    <string
       id="ret_mariner_captain_reason"
       text="Captains share the mariner ability of their base troops" />
     <string
@@ -1888,6 +1975,12 @@
     <string
       id="ret_mcm_option_same_culture_only_hint"
       text="If enabled, custom troops can only be recruited in settlements of the same culture." />
+    <string
+      id="ret_mcm_option_shared_skill_points_pool"
+      text="Shared Skill Points Pool" />
+    <string
+      id="ret_mcm_option_shared_skill_points_pool_hint"
+      text="If enabled, all custom troops draw skill points from a single shared pool instead of each troop having its own." />
     <string
       id="ret_mcm_option_skill_cap"
       text="Tier {TIER} Skill Cap" />
@@ -2414,6 +2507,15 @@
       id="ret_select_culture_title"
       text="Select Culture" />
     <string
+      id="ret_shared_skill_experience_tooltip"
+      text="{XP} XP in shared pool (next point at {XP_REQUIRED})" />
+    <string
+      id="ret_shared_skill_point_gained"
+      text="Your troops earned a skill point." />
+    <string
+      id="ret_shared_skill_points_gained"
+      text="Your troops earned {POINTS} skill points." />
+    <string
       id="ret_skill_decrease_sources_reason"
       text="Cannot decrease below {SOURCE}&apos;s skill level" />
     <string
@@ -2428,6 +2530,9 @@
     <string
       id="ret_skill_description_text"
       text="Skill Points: {SKILL_POINTS} - Skill Cap: {SKILL_CAP} - Tier: {TIER}" />
+    <string
+      id="ret_skill_description_text_shared"
+      text="Pool: {SKILL_POINTS} pts - Skill Cap: {SKILL_CAP} - Tier: {TIER}" />
     <string
       id="ret_skill_description_text_short"
       text="Skill Cap: {SKILL_CAP} - Tier: {TIER}" />
@@ -2545,6 +2650,9 @@
     <string
       id="ret_statistics_entry"
       text="- {NAME}: {COUNT}" />
+    <string
+      id="ret_statistics_in_service"
+      text="In service for {YEARS} years, {SEASONS} seasons, {DAYS} days" />
     <string
       id="ret_statistics_kills_title"
       text="Kills" />

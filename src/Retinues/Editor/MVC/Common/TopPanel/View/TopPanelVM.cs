@@ -7,7 +7,6 @@ using Retinues.Domain.Factions.Helpers;
 using Retinues.Domain.Factions.Wrappers;
 using Retinues.Editor.Events;
 using Retinues.Editor.MVC.Common.TopPanel.Controllers;
-using Retinues.Encyclopedia.Manual;
 using Retinues.Interface.Components;
 using Retinues.Interface.Services;
 using Retinues.Settings;
@@ -244,14 +243,5 @@ namespace Retinues.Editor.MVC.Common.TopPanel.View
                 visibilityGate: () => EditorState.Instance?.Mode == EditorMode.Player
             );
 
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                         Manual                         //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        [DataSourceProperty]
-        public string ManualButtonText => L.S("button_manual", "Manual");
-
-        [DataSourceMethod]
-        public void ExecuteOpenManual() => ManualLink.Open();
     }
 }
