@@ -221,9 +221,10 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
                     if (ItemController.EconomyActive)
                         ItemController.StockCharacterRoster(character);
 
-                    State.Character = State.Mode == EditorMode.Player
-                        ? State.Faction.Troops.FirstOrDefault(c => c != character && !c.IsHero)
-                        : State.Faction.Troops.FirstOrDefault(c => c != character);
+                    State.Character =
+                        State.Mode == EditorMode.Player
+                            ? State.Faction.Troops.FirstOrDefault(c => c != character && !c.IsHero)
+                            : State.Faction.Troops.FirstOrDefault(c => c != character);
                     character.Remove();
                     EventManager.Fire(UIEvent.Tree);
                 }

@@ -1,4 +1,5 @@
 using System;
+using Retinues.Behaviors.Experience;
 using Retinues.Domain.Characters.Services.Skills;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Editor.Events;
@@ -66,7 +67,11 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
                             s =>
                                 !Configuration.SkillPointsMustBeEarned
                                 || State.Character.IsHero
-                                || State.Character.SkillPoints > 0,
+                                || (
+                                    Configuration.SharedSkillPointsPool
+                                        ? SharedSkillPoolBehavior.SharedSkillPoints > 0
+                                        : State.Character.SkillPoints > 0
+                                ),
                             L.T("skill_increase_no_points_reason", "Not enough skill points")
                         )
                 )
@@ -234,10 +239,23 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
 
                 if (!c.IsHero && State.Mode == EditorMode.Player)
                 {
-                    if (delta > 0)
-                        c.SkillPoints = Math.Max(0, c.SkillPoints - 1);
-                    else if (delta < 0)
-                        c.SkillPoints += 1;
+                    if (Configuration.SharedSkillPointsPool)
+                    {
+                        if (delta > 0)
+                            SharedSkillPoolBehavior.SharedSkillPoints = Math.Max(
+                                0,
+                                SharedSkillPoolBehavior.SharedSkillPoints - 1
+                            );
+                        else if (delta < 0)
+                            SharedSkillPoolBehavior.SharedSkillPoints += 1;
+                    }
+                    else
+                    {
+                        if (delta > 0)
+                            c.SkillPoints = Math.Max(0, c.SkillPoints - 1);
+                        else if (delta < 0)
+                            c.SkillPoints += 1;
+                    }
                 }
 
                 amount--;

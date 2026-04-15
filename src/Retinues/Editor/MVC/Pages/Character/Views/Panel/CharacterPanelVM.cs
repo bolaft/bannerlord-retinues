@@ -220,18 +220,27 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Panel
         public string SkillTotalText =>
             $"{State.Character.SkillTotalUsed} / {State.Character.SkillTotal}";
 
-        [EventListener(UIEvent.Skill, UIEvent.Doctrine)]
+        [EventListener(UIEvent.Skill, UIEvent.Doctrine, UIEvent.Character)]
         [DataSourceProperty]
         public string SkillDescriptionText =>
             State.Mode == EditorMode.Player && Configuration.SkillPointsMustBeEarned
-                ? L.T(
-                        "skill_description_text",
-                        "Skill Points: {SKILL_POINTS} - Skill Cap: {SKILL_CAP} - Tier: {TIER}"
-                    )
-                    .SetTextVariable("SKILL_POINTS", State.Character.SkillPoints)
-                    .SetTextVariable("SKILL_CAP", SkillRules.GetSkillCap(State.Character))
-                    .SetTextVariable("TIER", Format.ToRoman(State.Character.Tier))
-                    .ToString()
+                ? Configuration.SharedSkillPointsPool
+                    ? L.T(
+                            "skill_description_text_shared",
+                            "Pool: {SKILL_POINTS} pts - Skill Cap: {SKILL_CAP} - Tier: {TIER}"
+                        )
+                        .SetTextVariable("SKILL_POINTS", SharedSkillPoolBehavior.SharedSkillPoints)
+                        .SetTextVariable("SKILL_CAP", SkillRules.GetSkillCap(State.Character))
+                        .SetTextVariable("TIER", Format.ToRoman(State.Character.Tier))
+                        .ToString()
+                    : L.T(
+                            "skill_description_text",
+                            "Skill Points: {SKILL_POINTS} - Skill Cap: {SKILL_CAP} - Tier: {TIER}"
+                        )
+                        .SetTextVariable("SKILL_POINTS", State.Character.SkillPoints)
+                        .SetTextVariable("SKILL_CAP", SkillRules.GetSkillCap(State.Character))
+                        .SetTextVariable("TIER", Format.ToRoman(State.Character.Tier))
+                        .ToString()
                 : L.T("skill_description_text_short", "Skill Cap: {SKILL_CAP} - Tier: {TIER}")
                     .SetTextVariable("SKILL_CAP", SkillRules.GetSkillCap(State.Character))
                     .SetTextVariable("TIER", Format.ToRoman(State.Character.Tier))
@@ -241,18 +250,32 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Panel
         public Icon ExperienceIcon =>
             new(
                 tooltip: new(
-                    L.T(
-                            "skill_experience_tooltip",
-                            "{XP}/{XP_REQUIRED} XP towards next skill point"
-                        )
-                        .SetTextVariable("XP", State.Character.SkillPointsExperience)
-                        .SetTextVariable("XP", State.Character.SkillPointsExperience)
-                        .SetTextVariable(
-                            "XP_REQUIRED",
-                            SkillPointExperienceGain.GetXpRequiredForSkillPoint(
-                                State.Character.Base
+                    Configuration.SharedSkillPointsPool
+                        ? L.T(
+                                "shared_skill_experience_tooltip",
+                                "{XP} XP in shared pool (next point at {XP_REQUIRED})"
                             )
-                        )
+                            .SetTextVariable(
+                                "XP",
+                                SharedSkillPoolBehavior.SharedSkillPointsExperience
+                            )
+                            .SetTextVariable(
+                                "XP_REQUIRED",
+                                SkillPointExperienceGain.GetXpRequiredForSkillPoint(
+                                    State.Character.Base
+                                )
+                            )
+                        : L.T(
+                                "skill_experience_tooltip",
+                                "{XP}/{XP_REQUIRED} XP towards next skill point"
+                            )
+                            .SetTextVariable("XP", State.Character.SkillPointsExperience)
+                            .SetTextVariable(
+                                "XP_REQUIRED",
+                                SkillPointExperienceGain.GetXpRequiredForSkillPoint(
+                                    State.Character.Base
+                                )
+                            )
                 ),
                 refresh: [UIEvent.Character],
                 visibilityGate: () =>

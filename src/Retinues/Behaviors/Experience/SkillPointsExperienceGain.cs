@@ -48,7 +48,35 @@ namespace Retinues.Behaviors.Experience
             if (DoctrineCatalog.AdvancedTactics.IsAcquired)
                 gainedXp = (int)(gainedXp * 1.1f);
 
-            // Apply gained XP to skill point experience.
+            if (Configuration.SharedSkillPointsPool)
+            {
+                // Shared pool: all custom troops contribute to and draw from a single pool.
+                SharedSkillPoolBehavior.SharedSkillPointsExperience += gainedXp;
+
+                if (SharedSkillPoolBehavior.SharedSkillPointsExperience >= xpRequired)
+                {
+                    int chunks = SharedSkillPoolBehavior.SharedSkillPointsExperience / xpRequired;
+                    SharedSkillPoolBehavior.SharedSkillPoints += chunks;
+                    SharedSkillPoolBehavior.SharedSkillPointsExperience -= chunks * xpRequired;
+
+                    if (chunks > 1)
+                        Notifications.Message(
+                            L.T(
+                                    "shared_skill_points_gained",
+                                    "Your troops earned {POINTS} skill points."
+                                )
+                                .SetTextVariable("POINTS", chunks)
+                        );
+                    else
+                        Notifications.Message(
+                            L.T("shared_skill_point_gained", "Your troops earned a skill point.")
+                        );
+                }
+
+                return;
+            }
+
+            // Per-troop pool: apply gained XP to this troop's skill point experience.
             wc.SkillPointsExperience += gainedXp;
 
             // Convert full XP chunks to skill points.

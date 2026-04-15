@@ -1213,6 +1213,18 @@ namespace Retinues.Settings
             presetFreeform: false
         );
 
+        public static readonly Option<bool> SharedSkillPointsPool = CreateOption(
+            section: Skills,
+            name: L.F("mcm_option_shared_skill_points_pool", "Shared Skill Points Pool"),
+            description: L.F(
+                "mcm_option_shared_skill_points_pool_hint",
+                "If enabled, all custom troops draw skill points from a single shared pool instead of each troop having its own."
+            ),
+            @default: false,
+            dependsOn: SkillPointsMustBeEarned,
+            fires: [UIEvent.Character]
+        );
+
         public static readonly Option<float> SkillPointsGainRate = CreateOption(
             section: Skills,
             name: L.F("mcm_option_skill_points_gain_rate", "Gain Rate"),
