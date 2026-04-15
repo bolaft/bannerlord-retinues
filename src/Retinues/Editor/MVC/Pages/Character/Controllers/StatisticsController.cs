@@ -78,26 +78,34 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
             var totalBattles = won + lost;
 
             sb.AppendLine(
-                    L.T(
-                            "statistics_battles_fought",
-                            "Battles fought: {TOTAL} (won {WON}, lost {LOST})"
-                        )
-                        .SetTextVariable("TOTAL", totalBattles)
-                        .SetTextVariable("WON", won)
-                        .SetTextVariable("LOST", lost)
-                        .ToString()
-                )
-                .AppendLine();
+                L.T("statistics_battles_fought", "Battles fought: {TOTAL} (won {WON}, lost {LOST})")
+                    .SetTextVariable("TOTAL", totalBattles)
+                    .SetTextVariable("WON", won)
+                    .SetTextVariable("LOST", lost)
+                    .ToString()
+            );
 
             // Battle type lines (only if > 0)
-            if (field > 0)
-                sb.AppendLine(FormatEntry(L.T("statistics_battles_field", "Field Battles"), field));
-            if (siege > 0)
-                sb.AppendLine(FormatEntry(L.T("statistics_battles_siege", "Siege Battles"), siege));
-            if (naval > 0)
-                sb.AppendLine(FormatEntry(L.T("statistics_battles_naval", "Naval Battles"), naval));
-            if (raids > 0)
-                sb.AppendLine(FormatEntry(L.T("statistics_battles_raids", "Raids"), raids));
+            bool hasBattleTypeLines = field > 0 || siege > 0 || naval > 0 || raids > 0;
+
+            if (hasBattleTypeLines)
+            {
+                sb.AppendLine();
+                if (field > 0)
+                    sb.AppendLine(
+                        FormatEntry(L.T("statistics_battles_field", "Field Battles"), field)
+                    );
+                if (siege > 0)
+                    sb.AppendLine(
+                        FormatEntry(L.T("statistics_battles_siege", "Siege Battles"), siege)
+                    );
+                if (naval > 0)
+                    sb.AppendLine(
+                        FormatEntry(L.T("statistics_battles_naval", "Naval Battles"), naval)
+                    );
+                if (raids > 0)
+                    sb.AppendLine(FormatEntry(L.T("statistics_battles_raids", "Raids"), raids));
+            }
 
             sb.AppendLine();
 
