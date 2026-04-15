@@ -320,8 +320,6 @@ Several doctrines modify how kills are counted. The Lions Share doctrine doubles
 
 When Unlock Items Through Discards is enabled, discarding items from your inventory contributes progress toward unlocking them. Each discard of a given item adds progress according to the Required Discards To Unlock setting. By default, discarding an item 10 times fully unlocks it.
 
-This source can be useful for items you find frequently in loot but have not yet encountered in combat.
-
 #### Unlocks From Workshops
 
 When Unlock Items Through Workshops is enabled, each workshop you own works to unlock one item at a time. The workshop selects an item based on its type and the culture of its host settlement, and spends the configured number of days unlocking it. Once that item is fully unlocked, the workshop picks a new target automatically.
