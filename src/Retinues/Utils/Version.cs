@@ -32,5 +32,15 @@ namespace Retinues.Utils
         {
             return Version.Major == 1 && Version.Minor == 3;
         }
+
+        /// <summary>
+        /// Returns true if running on Bannerlord 1.4.x or later.
+        /// BL14 fixed the StackLayout vertical direction bug that was present in BL13 and earlier,
+        /// so UI prefabs need different LayoutMethod values starting from this version.
+        /// </summary>
+        public static bool IsAtLeast14()
+        {
+            return Version.Major > 1 || (Version.Major == 1 && Version.Minor >= 4);
+        }
     }
 }

@@ -50,12 +50,12 @@
 <ListPanel
     IsVisible="@IsVisible"
     WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
-    StackLayout.LayoutMethod="VerticalBottomToTop">
+    StackLayout.LayoutMethod="{{ vttb }}">
     <Children>
         <ListPanel
             WidthSizePolicy="CoverChildren" HeightSizePolicy="StretchToParent"
             HorizontalAlignment="Center"
-            StackLayout.LayoutMethod="VerticalBottomToTop"
+            StackLayout.LayoutMethod="{{ vttb }}"
             UpdateChildrenStates="true"
             MarginBottom="24" MarginLeft="160">
             <Children>

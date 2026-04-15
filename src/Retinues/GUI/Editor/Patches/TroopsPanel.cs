@@ -1,5 +1,6 @@
 using Bannerlord.UIExtenderEx.Attributes;
 using Bannerlord.UIExtenderEx.Prefabs2;
+using Retinues.Utils;
 
 [PrefabExtension(
     "ClanScreen",
@@ -8,7 +9,9 @@ using Bannerlord.UIExtenderEx.Prefabs2;
 internal class ClanScreen_TroopsPanel : PrefabExtensionInsertPatch
 {
     [PrefabExtensionFileName]
-    public string FileName => "ClanScreen_TroopsPanel";
+    public string FileName => BannerlordVersion.IsAtLeast14()
+        ? "ClanScreen_TroopsPanel_BL14"
+        : "ClanScreen_TroopsPanel";
 
     public override InsertType Type => InsertType.Child;
 

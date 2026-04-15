@@ -13,7 +13,7 @@
     VerticalAlignment="Bottom"
     MarginTop="6" MarginBottom="9" MarginLeft="27"
     Brush="Frame1Brush"
-    StackLayout.LayoutMethod="VerticalBottomToTop">
+    StackLayout.LayoutMethod="{{ vttb }}">
     <Children>
 
         <!-- Navigation Scope -->
@@ -72,7 +72,7 @@
                         <NavigatableListPanel 
                             Id="{{ identifier }}ListPanel" 
                             WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" 
-                            StackLayout.LayoutMethod="VerticalBottomToTop" >
+                            StackLayout.LayoutMethod="{{ vttb }}" >
                             <Children>
                             
                                 {{ caller() }}
@@ -112,7 +112,7 @@
     Id="{{ type }}List" 
     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren" 
     HorizontalAlignment="Right" 
-    StackLayout.LayoutMethod="VerticalBottomToTop" 
+    StackLayout.LayoutMethod="{{ vttb }}" 
     UseSelfIndexForMinimum="true">
     <ItemTemplate>
         <ButtonWidget 

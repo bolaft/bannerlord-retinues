@@ -4,7 +4,7 @@
 
 <ListPanel
     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-    StackLayout.LayoutMethod="VerticalBottomToTop">
+    StackLayout.LayoutMethod="{{ vttb }}">
     <Children>
 
         <!-- Popup Button -->
@@ -20,7 +20,7 @@
         <!-- Description -->
         <ListPanel
             DataSource="{DescriptionLines}"
-            StackLayout.LayoutMethod="VerticalBottomToTop" HorizontalAlignment="Center"
+            StackLayout.LayoutMethod="{{ vttb }}" HorizontalAlignment="Center"
             WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="400">
             <ItemTemplate>
                 {{ text.base(
