@@ -37,7 +37,7 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                             "+10% to retinue health."
                         ),
                         Sprite = "PerkDieHard",
-                        PreviewCharacterId = DoctrinePreviewHelper.PlayerRetinue,
+                        PreviewCharacterId = DoctrinePreviewHelper.ClanTree(f => f.RosterRetinues),
                         Feats =
                         [
                             FeatCatalog.IN_FlawlessExecution,
@@ -56,7 +56,7 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                             "+20% to retinue morale."
                         ),
                         Sprite = "PerkGeneral",
-                        PreviewCharacterId = DoctrinePreviewHelper.PlayerRetinue,
+                        PreviewCharacterId = DoctrinePreviewHelper.ClanTree(f => f.RosterRetinues),
                         Feats =
                         [
                             FeatCatalog.BH_HighSpirits,
@@ -75,7 +75,7 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                             "+15% to max retinue number."
                         ),
                         Sprite = "PerkSpearhead",
-                        PreviewCharacterId = DoctrinePreviewHelper.PlayerRetinue,
+                        PreviewCharacterId = DoctrinePreviewHelper.ClanTree(f => f.RosterRetinues),
                         Feats =
                         [
                             FeatCatalog.VA_FirstThroughTheBreach,
@@ -94,7 +94,7 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                             "+20% to retinue survival chance."
                         ),
                         Sprite = "PerkToughness",
-                        PreviewCharacterId = DoctrinePreviewHelper.PlayerRetinue,
+                        PreviewCharacterId = DoctrinePreviewHelper.ClanTree(f => f.RosterRetinues),
                         Feats =
                         [
                             FeatCatalog.IM_PerfectVictory,

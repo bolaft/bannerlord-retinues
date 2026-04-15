@@ -161,7 +161,11 @@ namespace Retinues.Editor.MVC.Common.Column.Views
                         var previewVM = new CharacterViewModel(CharacterViewModel.StanceTypes.None);
                         previewVM.FillFrom(previewChar.Base, seed: -1);
 
-                        var previewEq = previewChar.FirstBattleEquipment?.Base;
+                        var previewEq = (
+                            State.Doctrine.PreviewCivilian
+                                ? previewChar.FirstCivilianEquipment
+                                : previewChar.FirstBattleEquipment
+                        )?.Base;
                         if (previewEq != null)
                             previewVM.SetEquipment(previewEq);
 

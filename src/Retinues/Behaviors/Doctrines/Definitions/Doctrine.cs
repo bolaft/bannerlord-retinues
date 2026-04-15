@@ -14,7 +14,8 @@ namespace Retinues.Behaviors.Doctrines.Definitions
         string sprite,
         Func<bool> overridden = null,
         TextObject overriddenHint = null,
-        Func<string> previewCharacterId = null
+        Func<string> previewCharacterId = null,
+        bool previewCivilian = false
     )
     {
         /// <summary>
@@ -45,6 +46,7 @@ namespace Retinues.Behaviors.Doctrines.Definitions
         /// or when the character cannot be resolved.
         /// </summary>
         public Func<string> PreviewCharacterId { get; } = previewCharacterId;
+        public bool PreviewCivilian { get; } = previewCivilian;
 
         /* ━━━━━━━ Category ━━━━━━━ */
 

@@ -1,4 +1,5 @@
 using Retinues.Behaviors.Doctrines.Definitions;
+using Retinues.Domain;
 using Retinues.Domain.Characters.Helpers;
 using Retinues.Interface.Services;
 using Retinues.Settings;
@@ -37,7 +38,7 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                             "-20% to clan culture equipment costs."
                         ),
                         Sprite = "PerkHardened",
-                        PreviewCharacterId = DoctrinePreviewHelper.PlayerClanElite,
+                        PreviewCharacterId = DoctrinePreviewHelper.ClanTree(f => f.RosterElite),
                         Feats =
                         [
                             FeatCatalog.CP_KingSlayer,
@@ -56,7 +57,7 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                             "+15% to total equipment value limit."
                         ),
                         Sprite = "PerkFullBarding",
-                        PreviewCharacterId = DoctrinePreviewHelper.PlayerClanElite,
+                        PreviewCharacterId = DoctrinePreviewHelper.ClanTree(f => f.RosterElite),
                         Feats =
                         [
                             FeatCatalog.HG_BloodMoney,
@@ -75,7 +76,8 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                             "+15% to total equipment weight limit."
                         ),
                         Sprite = "PerkArmorPadding",
-                        PreviewCharacterId = DoctrinePreviewHelper.PlayerClanElite,
+                        PreviewCharacterId = () => Player.Culture?.Armorer?.StringId,
+                        PreviewCivilian = true,
                         Feats =
                         [
                             FeatCatalog.IR_HeavyKit,
@@ -94,7 +96,7 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                             "-20% to kingdom culture equipment costs."
                         ),
                         Sprite = "PerkGold",
-                        PreviewCharacterId = DoctrinePreviewHelper.PlayerKingdomElite,
+                        PreviewCharacterId = DoctrinePreviewHelper.KingdomTree(f => f.RosterElite),
                         Feats =
                         [
                             FeatCatalog.RP_RoyalHost,

@@ -1,66 +1,74 @@
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using Retinues.Domain;
 using Retinues.Domain.Characters.Wrappers;
+using Retinues.Domain.Factions;
 
 namespace Retinues.Domain.Characters.Helpers
 {
     /// <summary>
-    /// Helpers for selecting a representative WCharacter string ID to use as the 3D model
-    /// preview on the doctrine selection screen.
+    /// Factory helpers for building <see cref="Func{String}"/> delegates used as
+    /// <c>PreviewCharacterId</c> on doctrine definitions.
     ///
-    /// Preference order for all methods:
-    ///   highest-tier troop in the relevant tree > first troop > null (falls back to player hero)
+    /// Fallback order for all methods:
+    ///   player faction (clan or kingdom) → player culture → null (falls back to player hero)
     /// </summary>
     public static class DoctrinePreviewHelper
     {
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                       Public API                       //
+        //                    Tree-based (roster)                  //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
-        /// Highest-tier troop in the player clan's retinue trees.
-        /// Falls back to <see cref="PlayerClanElite"/> if no retinues exist.
+        /// Returns a delegate that resolves the highest-tier character in a roster.
+        /// Tries player clan, then player culture.
         /// </summary>
-        public static string PlayerRetinue() =>
-            HighestTier(Player.Clan?.RosterRetinues) ?? PlayerClanElite();
+        public static Func<string> ClanTree(Func<IBaseFaction, List<WCharacter>> roster) =>
+            () => HighestTier(roster(Player.Clan)) ?? HighestTier(roster(Player.Culture));
 
         /// <summary>
-        /// Highest-tier troop in the player clan's basic (non-elite) tree.
-        /// Falls back to <see cref="PlayerClanElite"/> if the tree is empty.
+        /// Returns a delegate that resolves the highest-tier character in a roster
+        /// directly from the player's culture (for rosters that only exist on cultures,
+        /// e.g. bandit troops).
         /// </summary>
-        public static string PlayerClanBasic() =>
-            HighestTier(Player.Clan?.RosterBasic) ?? PlayerClanElite();
+        public static Func<string> CultureTree(Func<IBaseFaction, List<WCharacter>> roster) =>
+            () => HighestTier(roster(Player.Culture));
 
         /// <summary>
-        /// Highest-tier troop in the player clan's elite tree.
-        /// Falls back to <see cref="PlayerClanBasic"/> if the tree is empty.
+        /// Returns a delegate that resolves the highest-tier character in a roster.
+        /// Tries player kingdom, then player clan, then player culture.
         /// </summary>
-        public static string PlayerClanElite() =>
-            HighestTier(Player.Clan?.RosterElite) ?? HighestTier(Player.Clan?.RosterBasic);
+        public static Func<string> KingdomTree(Func<IBaseFaction, List<WCharacter>> roster) =>
+            () =>
+                (Player.Kingdom != null ? HighestTier(roster(Player.Kingdom)) : null)
+                ?? HighestTier(roster(Player.Clan))
+                ?? HighestTier(roster(Player.Culture));
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                  Single-character slot                  //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
-        /// Highest-tier troop in the player kingdom's basic tree (kingdom culture root).
-        /// Falls back to <see cref="PlayerClanElite"/> if no kingdom or tree is empty.
+        /// Returns a delegate that resolves a single-character faction slot.
+        /// Tries player clan, then player culture.
         /// </summary>
-        public static string PlayerKingdomBasic() =>
-            HighestTier(Player.Kingdom?.RosterBasic) ?? PlayerClanBasic();
+        public static Func<string> FromClan(Func<IBaseFaction, WCharacter> get) =>
+            () => get(Player.Clan)?.StringId ?? get(Player.Culture)?.StringId;
 
         /// <summary>
-        /// Highest-tier troop in the player kingdom's elite tree (kingdom culture root).
-        /// Falls back to <see cref="PlayerKingdomBasic"/> if no kingdom or tree is empty.
+        /// Returns a delegate that resolves a single-character faction slot.
+        /// Tries player kingdom, then player clan, then player culture.
         /// </summary>
-        public static string PlayerKingdomElite() =>
-            HighestTier(Player.Kingdom?.RosterElite) ?? PlayerKingdomBasic();
+        public static Func<string> FromKingdom(Func<IBaseFaction, WCharacter> get) =>
+            () =>
+                (Player.Kingdom != null ? get(Player.Kingdom)?.StringId : null)
+                ?? get(Player.Clan)?.StringId
+                ?? get(Player.Culture)?.StringId;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                      Implementation                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        /// <summary>
-        /// Returns the string ID of the highest-tier (by <see cref="WCharacter.Tier"/>) troop
-        /// in the given list, or null if the list is null or empty.
-        /// </summary>
         private static string HighestTier(IEnumerable<WCharacter> roster)
         {
             if (roster == null)

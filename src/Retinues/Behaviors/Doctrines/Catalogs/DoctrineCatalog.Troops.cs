@@ -36,7 +36,9 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                             "Unlocks custom militia troops for your faction's towns and castles."
                         ),
                         Sprite = "PerkVillageMilitia",
-                        PreviewCharacterId = DoctrinePreviewHelper.PlayerClanBasic,
+                        PreviewCharacterId = DoctrinePreviewHelper.FromClan(f =>
+                            f.RangedMilitiaTroop
+                        ),
                         Feats =
                         [
                             FeatCatalog.SM_TheyShallNotPass,
@@ -53,7 +55,7 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                             "Unlocks custom caravan troop guards."
                         ),
                         Sprite = "PerkLineBreaker",
-                        PreviewCharacterId = DoctrinePreviewHelper.PlayerClanBasic,
+                        PreviewCharacterId = DoctrinePreviewHelper.FromClan(f => f.CaravanMaster),
                         Feats =
                         [
                             FeatCatalog.RW_TradeNetwork,
@@ -70,7 +72,7 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                             "Unlocks custom villager troops for village parties."
                         ),
                         Sprite = "PerkFarmer",
-                        PreviewCharacterId = DoctrinePreviewHelper.PlayerClanBasic,
+                        PreviewCharacterId = DoctrinePreviewHelper.FromClan(f => f.Villager),
                         Feats =
                         [
                             FeatCatalog.AP_ShieldOfThePeople,
@@ -87,7 +89,7 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                             "Unlocks Captain variants for all regular troops."
                         ),
                         Sprite = "PerkVeteran",
-                        PreviewCharacterId = DoctrinePreviewHelper.PlayerClanElite,
+                        PreviewCharacterId = DoctrinePreviewHelper.ClanTree(f => f.RosterElite),
                         Feats =
                         [
                             FeatCatalog.CA_WarriorClass,

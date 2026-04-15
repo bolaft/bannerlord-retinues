@@ -157,8 +157,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Panel
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private static readonly ControllerAction<WCharacter> _openManualAction =
-            new ControllerAction<WCharacter>("OpenManual")
-                .ExecuteWith(_ => ManualLink.Open());
+            new ControllerAction<WCharacter>("OpenManual").ExecuteWith(_ => ManualLink.Open());
 
         [DataSourceProperty]
         public Button<WCharacter> ShowManualButton { get; } =

@@ -37,7 +37,7 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                             "Increases skill caps by +5 for all troops."
                         ),
                         Sprite = "PerkExtraTroop",
-                        PreviewCharacterId = DoctrinePreviewHelper.PlayerClanElite,
+                        PreviewCharacterId = DoctrinePreviewHelper.ClanTree(f => f.RosterElite),
                         Feats =
                         [
                             FeatCatalog.ID_General,
@@ -54,7 +54,7 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                             "Grants +20 skill points to basic troops."
                         ),
                         Sprite = "PerkArmorUpgrade",
-                        PreviewCharacterId = DoctrinePreviewHelper.PlayerClanBasic,
+                        PreviewCharacterId = DoctrinePreviewHelper.ClanTree(f => f.RosterBasic),
                         Feats =
                         [
                             FeatCatalog.SS_PeakPerformance,
@@ -71,7 +71,7 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                             "Grants +20 skill points to elite troops."
                         ),
                         Sprite = "PerkCavalrySpear",
-                        PreviewCharacterId = DoctrinePreviewHelper.PlayerClanElite,
+                        PreviewCharacterId = DoctrinePreviewHelper.ClanTree(f => f.RosterElite),
                         Feats =
                         [
                             FeatCatalog.MA_Brawler,
@@ -88,7 +88,7 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                             "+10% skill point gain rate."
                         ),
                         Sprite = "PerkShieldWall",
-                        PreviewCharacterId = DoctrinePreviewHelper.PlayerClanElite,
+                        PreviewCharacterId = DoctrinePreviewHelper.ClanTree(f => f.RosterElite),
                         Feats =
                         [
                             FeatCatalog.AT_CombinedArms,

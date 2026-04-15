@@ -41,6 +41,11 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
             /// Falls back to the player hero when null or when the resolved character is unavailable.
             /// </summary>
             public Func<string> PreviewCharacterId;
+
+            /// <summary>
+            /// When true, the preview renders the character in civilian equipment instead of battle equipment.
+            /// </summary>
+            public bool PreviewCivilian;
         }
 
         /// <summary>

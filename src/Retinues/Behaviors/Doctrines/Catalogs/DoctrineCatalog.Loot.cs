@@ -57,7 +57,9 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                             "Allies contribute to equipment unlock progress."
                         ),
                         Sprite = "PerkBrawny",
-                        PreviewCharacterId = DoctrinePreviewHelper.PlayerClanBasic,
+                        PreviewCharacterId = DoctrinePreviewHelper.CultureTree(f =>
+                            f.RosterMercenary
+                        ),
                         Feats =
                         [
                             FeatCatalog.BT_TurnTheTide,
@@ -76,7 +78,7 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                             "Gear can be unlocked from allied casualties."
                         ),
                         Sprite = "PerkTribesmen",
-                        PreviewCharacterId = DoctrinePreviewHelper.PlayerClanBasic,
+                        PreviewCharacterId = () => Player.Culture?.GangleaderBodyguard?.StringId,
                         Feats =
                         [
                             FeatCatalog.PR_CostlyVictory,
@@ -95,7 +97,7 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                             "Unlocks all clan culture items."
                         ),
                         Sprite = "PerkHoldTheLine",
-                        PreviewCharacterId = DoctrinePreviewHelper.PlayerClanElite,
+                        PreviewCharacterId = DoctrinePreviewHelper.ClanTree(f => f.RosterElite),
                         Feats =
                         [
                             FeatCatalog.AN_CulturalTriumph,

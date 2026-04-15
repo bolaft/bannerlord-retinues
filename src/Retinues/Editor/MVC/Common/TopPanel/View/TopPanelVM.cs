@@ -242,6 +242,5 @@ namespace Retinues.Editor.MVC.Common.TopPanel.View
                 label: L.S("button_delete_clan_troops", "Clear"),
                 visibilityGate: () => EditorState.Instance?.Mode == EditorMode.Player
             );
-
     }
 }
