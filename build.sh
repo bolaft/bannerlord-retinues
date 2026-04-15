@@ -126,7 +126,11 @@ fi
 # 1) Prefabs
 if [[ "$RUN_PREFABS" == "true" ]]; then
   print_header "=   Rendering Prefabs   ="
+  # Primary pass: render with the target BL version (no suffix).
   python tpl/prefabs.py --version "$BL"
+  # BL14 pass: always render a _BL14 variant so a single build works on both BL13 and BL14.
+  # EditorScreen selects the correct movie name at runtime via GameVersion.IsAtLeast14().
+  python tpl/prefabs.py --version 14 --suffix _BL14
 fi
 
 # 1.b) Deploy prefabs-only (if requested)

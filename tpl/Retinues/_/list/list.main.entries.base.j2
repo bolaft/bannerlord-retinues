@@ -5,7 +5,7 @@
 <ListPanel
     WidthSizePolicy="CoverChildren"
     HeightSizePolicy="CoverChildren"
-    StackLayout.LayoutMethod="VerticalTopToBottom">
+    StackLayout.LayoutMethod="{{ vbtt }}">
     <Children>
 
         {# ------------------------------------------ #}
@@ -18,7 +18,7 @@
             WidthSizePolicy="CoverChildren"
             HeightSizePolicy="CoverChildren"
             IsVisible="@IsExpanded"
-            StackLayout.LayoutMethod="VerticalBottomToTop">
+            StackLayout.LayoutMethod="{{ vttb }}">
             <ItemTemplate>
 
                 <AutoScrollButtonWidget

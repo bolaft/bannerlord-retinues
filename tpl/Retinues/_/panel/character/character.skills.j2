@@ -59,7 +59,7 @@
 
         <ListPanel WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
             SuggestedWidth="{{ icon }}" SuggestedHeight="{{ height }}"
-            StackLayout.LayoutMethod="VerticalBottomToTop"
+            StackLayout.LayoutMethod="{{ vttb }}"
             HorizontalAlignment="Center"
             MarginRight="{{ big }}" MarginLeft="{{ big }}" MarginBottom="{{ small }}">
             <Children>
@@ -115,7 +115,7 @@
 <!-- 2x4 -->
 <ListPanel IsVisible="@SkillsLayout_2x4"
     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-    StackLayout.LayoutMethod="VerticalTopToBottom"
+    StackLayout.LayoutMethod="{{ vbtt }}"
     HorizontalAlignment="Center">
     <Children>
         <ListPanel DataSource="{SkillsRow1}"
@@ -142,7 +142,7 @@
 <!-- 3x4 -->
 <ListPanel IsVisible="@SkillsLayout_3x4"
     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-    StackLayout.LayoutMethod="VerticalTopToBottom"
+    StackLayout.LayoutMethod="{{ vbtt }}"
     HorizontalAlignment="Center">
     <Children>
         <ListPanel DataSource="{SkillsRow1}"
@@ -169,7 +169,7 @@
 <!-- 3x6 -->
 <ListPanel IsVisible="@SkillsLayout_3x6"
     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-    StackLayout.LayoutMethod="VerticalTopToBottom"
+    StackLayout.LayoutMethod="{{ vbtt }}"
     HorizontalAlignment="Center">
     <Children>
         <ListPanel DataSource="{SkillsRow1}"
@@ -196,7 +196,7 @@
 <!-- 4x6 -->
 <ListPanel IsVisible="@SkillsLayout_4x6"
     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-    StackLayout.LayoutMethod="VerticalTopToBottom"
+    StackLayout.LayoutMethod="{{ vbtt }}"
     HorizontalAlignment="Center">
     <Children>
         <ListPanel DataSource="{SkillsRow1}"
@@ -229,7 +229,7 @@
 <!-- >24 fallback -->
 <ListPanel IsVisible="@SkillsLayout_Small"
     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-    StackLayout.LayoutMethod="VerticalTopToBottom"
+    StackLayout.LayoutMethod="{{ vbtt }}"
     HorizontalAlignment="Center">
     <Children>
         <ListPanel DataSource="{SkillsRow1}"

@@ -28,7 +28,7 @@
 <ListPanel
     DataSource="{UpgradeSources}"
     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-    StackLayout.LayoutMethod="VerticalBottomToTop"
+    StackLayout.LayoutMethod="{{ vttb }}"
     HorizontalAlignment="Center">
     <ItemTemplate>
         {{ upgrade_text(text="@Name") }}
@@ -43,7 +43,7 @@
 <ListPanel
     DataSource="{UpgradeTargets}"
     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-    StackLayout.LayoutMethod="VerticalBottomToTop"
+    StackLayout.LayoutMethod="{{ vttb }}"
     MarginBottom="6"
     HorizontalAlignment="Center">
     <ItemTemplate>

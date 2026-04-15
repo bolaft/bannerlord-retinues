@@ -51,6 +51,19 @@ def build_env(loader_path: Path, bl_version: str | None = None) -> Environment:
 
     env.globals["version"] = str(bl_version)
 
+    # StackLayout vertical direction fix:
+    # In BL13 and earlier, VerticalTopToBottom and VerticalBottomToTop were swapped
+    # (bug in the engine). BL14 fixes this, so the values must be swapped in templates
+    # to maintain the same visual result across versions.
+    # vttb = value to write when you want children to stack visually top-to-bottom
+    # vbtt = value to write when you want children to stack visually bottom-to-top
+    if int(bl_version) >= 14:
+        env.globals["vttb"] = "VerticalTopToBottom"
+        env.globals["vbtt"] = "VerticalBottomToTop"
+    else:
+        env.globals["vttb"] = "VerticalBottomToTop"
+        env.globals["vbtt"] = "VerticalTopToBottom"
+
     return env
 
 
@@ -71,10 +84,13 @@ def render_template(module_dir: Path, template_rel_path: Path, context: dict | N
     return tpl.render(render_ctx)
 
 
-def process_module(module_dir: Path, bl_version: str | None = None) -> None:
+def process_module(module_dir: Path, bl_version: str | None = None, suffix: str = "") -> None:
     """
     Find all .j2 files under module_dir, render them and write to gui output.
-    Output root: ../gui/{ModuleName}/PrefabExtensions/<same relative path>.xml
+    Output root: ../gui/{ModuleName}/<same relative path>.xml
+
+    suffix: optional string appended to each output filename stem (e.g. "_BL14").
+    Use this to generate alternate-version variants alongside the base files.
     """
     module_name = module_dir.name
     out_base = OUTPUT_BASE / module_name
@@ -90,6 +106,8 @@ def process_module(module_dir: Path, bl_version: str | None = None) -> None:
         if any(part.startswith((".", "_")) for part in rel.parts):
             continue
         out_rel = rel.with_suffix(".xml")
+        if suffix:
+            out_rel = out_rel.with_stem(out_rel.stem + suffix)
         out_path = out_base / out_rel
         out_path.parent.mkdir(parents=True, exist_ok=True)
 
@@ -101,7 +119,7 @@ def process_module(module_dir: Path, bl_version: str | None = None) -> None:
             continue
 
         out_path.write_text(rendered, encoding="utf-8")
-        print(f"→ {module_dir.name}/{j2_file.name}")
+        print(f"→ {module_dir.name}/{j2_file.stem}{suffix}.xml")
 
 
 def main() -> int:
@@ -111,6 +129,7 @@ def main() -> int:
 
     parser = argparse.ArgumentParser(description="Render Jinja .j2 prefabs to XML")
     parser.add_argument("-v", "--version", help="version string to pass into Jinja (available as 'version' in templates)")
+    parser.add_argument("--suffix", default="", help="suffix appended to each output filename stem (e.g. '_BL14')")
     args = parser.parse_args()
 
     for entry in sorted(SCRIPT_DIR.iterdir()):
@@ -120,7 +139,7 @@ def main() -> int:
         if entry.name.startswith((".", "_")) or entry.name == "__pycache__":
             continue
 
-        process_module(entry, bl_version=args.version)
+        process_module(entry, bl_version=args.version, suffix=args.suffix)
 
     return 0
 

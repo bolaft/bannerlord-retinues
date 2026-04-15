@@ -28,7 +28,7 @@
                     DataSource="{Sections}"
                     WidthSizePolicy="CoverChildren"
                     HeightSizePolicy="CoverChildren"
-                    StackLayout.LayoutMethod="VerticalBottomToTop"
+                    StackLayout.LayoutMethod="{{ vttb }}"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center">
                     <ItemTemplate>
@@ -102,7 +102,7 @@
                     Brush="Frame1Brush"
                     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                     VerticalAlignment="Bottom"
-                    StackLayout.LayoutMethod="VerticalBottomToTop">
+                    StackLayout.LayoutMethod="{{ vttb }}">
                     <Children>
 
                         <ListPanel
@@ -141,13 +141,13 @@
                                             Id="SettingsListPanel"
                                             DataSource="{Sections}"
                                             WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-                                            StackLayout.LayoutMethod="VerticalBottomToTop"
+                                            StackLayout.LayoutMethod="{{ vttb }}"
                                             UseSelfIndexForMinimum="true">
                                                 <ItemTemplate>
                                                     <ListPanel
                                                         WidthSizePolicy="StretchToParent"
                                                         HeightSizePolicy="CoverChildren"
-                                                        StackLayout.LayoutMethod="VerticalBottomToTop"
+                                                        StackLayout.LayoutMethod="{{ vttb }}"
                                                         MarginTop="8">
                                                         <Children>
 
@@ -213,7 +213,7 @@
                                                                 WidthSizePolicy="StretchToParent"
                                                                 HeightSizePolicy="CoverChildren"
                                                                 MarginTop="4"
-                                                                StackLayout.LayoutMethod="VerticalBottomToTop">
+                                                                StackLayout.LayoutMethod="{{ vttb }}">
                                                                 <ItemTemplate>
 
                                                                     <Widget
@@ -228,7 +228,7 @@
                                                                             <ListPanel
                                                                                 WidthSizePolicy="StretchToParent"
                                                                                 HeightSizePolicy="CoverChildren"
-                                                                                StackLayout.LayoutMethod="VerticalBottomToTop"
+                                                                                StackLayout.LayoutMethod="{{ vttb }}"
                                                                                 VerticalAlignment="Top"
                                                                                 MarginLeft="8"
                                                                                 MarginRight="8"
@@ -285,7 +285,7 @@
                                                                                                 DataSource="{DescriptionLines}"
                                                                                                 WidthSizePolicy="StretchToParent"
                                                                                                 HeightSizePolicy="CoverChildren"
-                                                                                                StackLayout.LayoutMethod="VerticalBottomToTop"
+                                                                                                StackLayout.LayoutMethod="{{ vttb }}"
                                                                                                 HorizontalAlignment="Center"
                                                                                                 VerticalAlignment="Top">
                                                                                                 <ItemTemplate>
@@ -357,7 +357,7 @@
                             HeightSizePolicy="CoverChildren"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Top"
-                            StackLayout.LayoutMethod="VerticalTopToBottom">
+                            StackLayout.LayoutMethod="{{ vbtt }}">
                             <Children>
                                 {{ button_text("{RealisticPresetButton}", "@Brush", "260", "52", horizontal_alignment="Center", vertical_alignment="Center") }}
 
@@ -387,7 +387,7 @@
                             HeightSizePolicy="CoverChildren"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Bottom"
-                            StackLayout.LayoutMethod="VerticalTopToBottom">
+                            StackLayout.LayoutMethod="{{ vbtt }}">
                             <Children>
                                 {{ button_text("{PurgeAllButton}", "Popup.Delete.Button", "200", "60", horizontal_alignment="Center", vertical_alignment="Center") }}
 

@@ -1,4 +1,5 @@
 using Retinues.Editor.Integration.Barber;
+using Retinues.Framework.Modules.Versions;
 using Retinues.Framework.Runtime;
 using Retinues.Interface.Services;
 using Retinues.Settings;
@@ -129,7 +130,8 @@ namespace Retinues.Editor
             var args = (_state as EditorGameState)?.LaunchArgs;
 
             _dataSource = new EditorVM(Close, args) { IsVisible = true };
-            _movie = _gauntletLayer.LoadMovie("EditorScreen", _dataSource);
+            var movieName = GameVersion.IsAtLeast14() ? "EditorScreen_BL14" : "EditorScreen";
+            _movie = _gauntletLayer.LoadMovie(movieName, _dataSource);
         }
 
         /// <summary>

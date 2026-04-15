@@ -26,13 +26,13 @@
     MarginRight="160"
     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
     HorizontalAlignment="Center" VerticalAlignment="Center"
-    StackLayout.LayoutMethod="VerticalBottomToTop">
+    StackLayout.LayoutMethod="{{ vttb }}">
     <Children>
 
         <ListPanel
             WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
             HorizontalAlignment="Center" VerticalAlignment="Center"
-            StackLayout.LayoutMethod="VerticalBottomToTop">
+            StackLayout.LayoutMethod="{{ vttb }}">
             <Children>
 
                 <TextWidget
@@ -71,7 +71,7 @@
         WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
         HorizontalAlignment="Center" VerticalAlignment="Center"
         IsVisible="@HasSelection"
-        StackLayout.LayoutMethod="VerticalBottomToTop">
+        StackLayout.LayoutMethod="{{ vttb }}">
         <Children>
 
             {# ------------------------------------------ #}
@@ -116,7 +116,7 @@
                 IsVisible="@IsFaction"
                 DataSource="{TroopNames}"
                 WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-                StackLayout.LayoutMethod="VerticalBottomToTop"
+                StackLayout.LayoutMethod="{{ vttb }}"
                 HorizontalAlignment="Center"
                 MarginBottom="12">
                 <ItemTemplate>
@@ -146,7 +146,7 @@
         WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
         HorizontalAlignment="Center" VerticalAlignment="Center"
         IsVisible="@HasSelection"
-        StackLayout.LayoutMethod="VerticalBottomToTop">
+        StackLayout.LayoutMethod="{{ vttb }}">
         <Children>
 
             {{ button_text("{ImportButton}", "Popup.Done.Button", 240, 60) }}

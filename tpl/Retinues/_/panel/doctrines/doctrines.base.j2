@@ -16,7 +16,7 @@
         <ListPanel
             WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
             HorizontalAlignment="Center" VerticalAlignment="Center"
-            StackLayout.LayoutMethod="VerticalBottomToTop">
+            StackLayout.LayoutMethod="{{ vttb }}">
             <Children>
 
                 {# Name #}
@@ -73,7 +73,7 @@
                     IsHidden="@ShowFeats"
                     WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed"
                     HorizontalAlignment="Center"
-                    StackLayout.LayoutMethod="VerticalBottomToTop">
+                    StackLayout.LayoutMethod="{{ vttb }}">
                     <Children>
 
                         <TextWidget
@@ -108,12 +108,12 @@
                         <ListPanel
                             DataSource="{Feats}"
                             WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-                            StackLayout.LayoutMethod="VerticalBottomToTop"
+                            StackLayout.LayoutMethod="{{ vttb }}"
                             HorizontalAlignment="Center">
                             <ItemTemplate>
                                 <ListPanel
                                     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-                                    StackLayout.LayoutMethod="VerticalBottomToTop"
+                                    StackLayout.LayoutMethod="{{ vttb }}"
                                     MarginBottom="16"
                                     HorizontalAlignment="Center">
                                     <Children>

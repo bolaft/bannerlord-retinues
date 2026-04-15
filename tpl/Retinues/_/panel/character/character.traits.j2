@@ -4,7 +4,7 @@
 
 <ListPanel
     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
-    StackLayout.LayoutMethod="VerticalBottomToTop"
+    StackLayout.LayoutMethod="{{ vttb }}"
     HorizontalAlignment="Center">
     <Children>
         <TextWidget
@@ -37,7 +37,7 @@
                 <ListPanel
                     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                     HorizontalAlignment="Right" VerticalAlignment="Center"
-                    StackLayout.LayoutMethod="VerticalBottomToTop">
+                    StackLayout.LayoutMethod="{{ vttb }}">
                     <Children>
 
                         {{ button_arrow_up("{IncrementButton}", 20, 20) }}
@@ -63,7 +63,7 @@
     IsVisible="@ShowTraits"
     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
     HorizontalAlignment="Center"
-    StackLayout.LayoutMethod="VerticalBottomToTop"
+    StackLayout.LayoutMethod="{{ vttb }}"
     UpdateChildrenStates="true">
     <Children>
         <ListPanel
