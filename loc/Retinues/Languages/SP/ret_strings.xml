@@ -2096,9 +2096,6 @@
       id="ret_preset_confirm_apply"
       text="Aplicar" />
     <string
-      id="ret_preset_confirm_reset"
-      text="Restablecer" />
-    <string
       id="ret_preset_confirmation_default_title"
       text="Restablecer a los valores predeterminados" />
     <string
@@ -2116,15 +2113,6 @@
     <string
       id="ret_preset_default_tooltip"
       text="Aplicar el preajuste predeterminado: una experiencia equilibrada diseñada para una primera partida" />
-    <string
-      id="ret_preset_description_default"
-      text="La configuración predeterminada, equilibrada para una primera partida. Los bonos de estadísticas de las tropas están activos, las tropas del clan se desbloquean con tu primer feudo, el equipo tiene un costo pero no hay restricciones de desbloqueo, y los puntos de habilidad deben ganarse en batalla. Restablece todas las configuraciones a sus valores predeterminados originales." />
-    <string
-      id="ret_preset_description_freeform"
-      text="Elimina todos los costos y requisitos de desbloqueo. La adquisición de doctrinas es gratuita. Los costos de equipo y la progresión de desbloqueo están desactivados. Las tropas del clan y del reino están disponibles desde el principio y pueden reclutarse en cualquier lugar. Los puntos de habilidad se pueden asignar libremente sin ganarlos en batalla." />
-    <string
-      id="ret_preset_description_realistic"
-      text="Aplica límites de habilidad y equipo en el Editor Universal. La edición de tropas se limita a los feudos poseídos. Los buffs de estadísticas del séquito están desactivados. Solo se generan tropas raíz al inicio del juego. Las tropas solo pueden reclutarse en asentamientos de la misma cultura. Equipar y entrenar llevan tiempo. El equipo está sujeto a límites de peso y valor basados en el nivel." />
     <string
       id="ret_preset_freeform_button"
       text="Libre" />

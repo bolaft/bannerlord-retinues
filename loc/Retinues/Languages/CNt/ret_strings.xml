@@ -2096,9 +2096,6 @@
       id="ret_preset_confirm_apply"
       text="應用" />
     <string
-      id="ret_preset_confirm_reset"
-      text="重置" />
-    <string
       id="ret_preset_confirmation_default_title"
       text="重置為預設值" />
     <string
@@ -2116,15 +2113,6 @@
     <string
       id="ret_preset_default_tooltip"
       text="應用默認預設：為首次遊戲設計的平衡體驗" />
-    <string
-      id="ret_preset_description_default"
-      text="默認配置，適合首次遊戲。部隊屬性加成已激活，氏族部隊在獲得第一個封地時解鎖，裝備有成本但沒有解鎖限制，技能點必須在戰鬥中獲得。將所有設置重置為原始默認值。" />
-    <string
-      id="ret_preset_description_freeform"
-      text="移除所有費用和解鎖要求。教義獲取免費。裝備費用和解鎖進度被禁用。族群和王國部隊從一開始就可用，並可在任何地方招募。技能點可自由分配，無需在戰鬥中獲得。" />
-    <string
-      id="ret_preset_description_realistic"
-      text="在通用編輯器中強制執行技能和裝備限制。部隊編輯僅限於已擁有的封地。隨從屬性增益被禁用。遊戲開始時只生成根部隊。部隊只能在同文化定居點招募。裝備和訓練需要時間。裝備受到基於等級的重量和價值限制。" />
     <string
       id="ret_preset_freeform_button"
       text="自由模式" />

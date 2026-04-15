@@ -2096,9 +2096,6 @@
       id="ret_preset_confirm_apply"
       text="Zastosuj" />
     <string
-      id="ret_preset_confirm_reset"
-      text="Resetuj" />
-    <string
       id="ret_preset_confirmation_default_title"
       text="Resetuj do domyślnych" />
     <string
@@ -2116,15 +2113,6 @@
     <string
       id="ret_preset_default_tooltip"
       text="Zastosuj domyślny predefiniowany kształt: zrównoważone doświadczenie zaprojektowane na pierwsze przejście" />
-    <string
-      id="ret_preset_description_default"
-      text="Domyślna konfiguracja, zrównoważona dla pierwszego przejścia. Bonusy do statystyk oddziałów są aktywne, oddziały klanu odblokowują się wraz z pierwszym lenno, wyposażenie ma koszt, ale nie ma ograniczeń odblokowania, a punkty umiejętności muszą być zdobywane w walce. Resetuje wszystkie ustawienia do ich oryginalnych wartości domyślnych." />
-    <string
-      id="ret_preset_description_freeform"
-      text="Usuwa wszystkie koszty i wymagania odblokowania. Nabywanie doktryn jest bezpłatne. Koszty wyposażenia i postęp odblokowania są wyłączone. Oddziały klanu i królestwa są dostępne od samego początku i mogą być werbowane wszędzie. Punkty umiejętności można przydzielać swobodnie bez zdobywania ich w walce." />
-    <string
-      id="ret_preset_description_realistic"
-      text="Wymusza ograniczenia umiejętności i wyposażenia w edytorze uniwersalnym. Edycja wojsk jest ograniczona do posiadanych lenn. Wzmocnienia statystyk świty są wyłączone. Przy starcie gry generowane są tylko podstawowe oddziały. Oddziały można werbować tylko w osadach tej samej kultury. Wyposażanie i szkolenie zajmują czas. Wyposażenie podlega limitom wagi i wartości opartym na poziomie." />
     <string
       id="ret_preset_freeform_button"
       text="Swobodny" />

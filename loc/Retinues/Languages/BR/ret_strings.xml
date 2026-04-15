@@ -2096,9 +2096,6 @@
       id="ret_preset_confirm_apply"
       text="Aplicar" />
     <string
-      id="ret_preset_confirm_reset"
-      text="Redefinir" />
-    <string
       id="ret_preset_confirmation_default_title"
       text="Redefinir para Padrões" />
     <string
@@ -2116,15 +2113,6 @@
     <string
       id="ret_preset_default_tooltip"
       text="Aplicar o predefinido padrão: uma experiência equilibrada projetada para uma primeira jogada" />
-    <string
-      id="ret_preset_description_default"
-      text="A configuração padrão, equilibrada para uma primeira jogada. Os bônus de estatísticas das tropas estão ativos, as tropas do clã são desbloqueadas com seu primeiro feudo, o equipamento tem um custo, mas sem restrições de desbloqueio, e os pontos de habilidade devem ser ganhos em batalha. Redefine todas as configurações para seus valores padrão originais." />
-    <string
-      id="ret_preset_description_freeform"
-      text="Remove todos os custos e requisitos de desbloqueio. A aquisição de doutrinas é gratuita. Custos de equipamento e progressão de desbloqueio são desativados. Tropas de clã e reino estão disponíveis desde o início e podem ser recrutadas em qualquer lugar. Pontos de habilidade podem ser atribuídos livremente sem serem ganhos em batalha." />
-    <string
-      id="ret_preset_description_realistic"
-      text="Aplica limites de habilidade e equipamento no Editor Universal. A edição de tropas é restrita a feudos possuídos. Os bônus de atributos do séquito são desativados. Apenas tropas raiz são geradas no início do jogo. Tropas só podem ser recrutadas em assentamentos da mesma cultura. Equipar e treinar levam tempo. O equipamento está sujeito a limites de peso e valor baseados em nível." />
     <string
       id="ret_preset_freeform_button"
       text="Forma livre" />

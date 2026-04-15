@@ -2096,9 +2096,6 @@
       id="ret_preset_confirm_apply"
       text="应用" />
     <string
-      id="ret_preset_confirm_reset"
-      text="重置" />
-    <string
       id="ret_preset_confirmation_default_title"
       text="重置为默认值" />
     <string
@@ -2116,15 +2113,6 @@
     <string
       id="ret_preset_default_tooltip"
       text="应用默认预设：为首次游戏设计的平衡体验" />
-    <string
-      id="ret_preset_description_default"
-      text="默认配置，适合首次游戏。部队属性加成已激活，氏族部队在获得第一个封地时解锁，装备有成本但没有解锁限制，技能点必须在战斗中获得。将所有设置重置为原始默认值。" />
-    <string
-      id="ret_preset_description_freeform"
-      text="移除所有费用和解锁要求。教义获取免费。装备费用和解锁进度被禁用。族群和王国部队从一开始就可用，并可在任何地方招募。技能点可自由分配，无需在战斗中获得。" />
-    <string
-      id="ret_preset_description_realistic"
-      text="在通用编辑器中强制执行技能和装备限制。部队编辑仅限于已拥有的封地。从属属性增益被禁用。游戏开始时只生成根部队。部队只能在同文化定居点招募。装备和训练需要时间。装备受到基于等级的重量和价值限制。" />
     <string
       id="ret_preset_freeform_button"
       text="自由模式" />

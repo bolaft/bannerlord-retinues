@@ -2096,9 +2096,6 @@
       id="ret_preset_confirm_apply"
       text="Applica" />
     <string
-      id="ret_preset_confirm_reset"
-      text="Reimposta" />
-    <string
       id="ret_preset_confirmation_default_title"
       text="Ripristina valori predefiniti" />
     <string
@@ -2116,15 +2113,6 @@
     <string
       id="ret_preset_default_tooltip"
       text="Applica il predefinito: un&apos;esperienza bilanciata progettata per un primo playthrough" />
-    <string
-      id="ret_preset_description_default"
-      text="La configurazione predefinita, bilanciata per un primo playthrough. I bonus alle statistiche delle truppe sono attivi, le truppe del clan si sbloccano con il tuo primo feudo, l&apos;equipaggiamento ha un costo ma nessuna restrizione di sblocco e i punti abilità devono essere guadagnati in battaglia. Reimposta tutte le impostazioni ai valori predefiniti originali." />
-    <string
-      id="ret_preset_description_freeform"
-      text="Rimuove tutti i costi e i requisiti di sblocco. L&apos;acquisizione di dottrine è gratuita. I costi delle attrezzature e la progressione dello sblocco sono disabilitati. Le truppe del clan e del regno sono disponibili fin dall&apos;inizio e possono essere reclutate ovunque. I punti abilità possono essere assegnati liberamente senza doverli guadagnare in battaglia." />
-    <string
-      id="ret_preset_description_realistic"
-      text="Applica limiti di abilità e attrezzatura nell&apos;Editor Universale. La modifica delle truppe è limitata ai feudi posseduti. I buff alle statistiche del seguito sono disabilitati. Solo le truppe radice vengono generate all&apos;avvio. Le truppe possono essere reclutate solo in insediamenti della stessa cultura. Equipaggiare e addestrare richiedono tempo. L&apos;equipaggiamento è soggetto a limiti di peso e valore basati sul livello." />
     <string
       id="ret_preset_freeform_button"
       text="Libero" />

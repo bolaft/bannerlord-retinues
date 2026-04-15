@@ -2096,9 +2096,6 @@
       id="ret_preset_confirm_apply"
       text="Anwenden" />
     <string
-      id="ret_preset_confirm_reset"
-      text="Zurücksetzen" />
-    <string
       id="ret_preset_confirmation_default_title"
       text="Auf Standard zurücksetzen" />
     <string
@@ -2116,15 +2113,6 @@
     <string
       id="ret_preset_default_tooltip"
       text="Standardvoreinstellung anwenden: ein ausgewogenes Erlebnis für den ersten Durchgang" />
-    <string
-      id="ret_preset_description_default"
-      text="Die Standardkonfiguration, ausgewogen für einen ersten Durchgang. Truppenstatistik-Boni sind aktiv, Clan-Truppen werden mit Ihrem ersten Lehen freigeschaltet, Ausrüstung hat Kosten, aber keine Freischaltbeschränkungen, und Fertigkeitspunkte müssen im Kampf verdient werden. Setzt alle Einstellungen auf ihre ursprünglichen Standardwerte zurück." />
-    <string
-      id="ret_preset_description_freeform"
-      text="Entfernt alle Kosten und Freischaltanforderungen. Die Doktrinenakquise ist kostenlos. Ausrüstungskosten und Freischaltfortschritt sind deaktiviert. Clan- und Königreichstruppen sind von Anfang an verfügbar und können überall rekrutiert werden. Fertigkeitspunkte können frei vergeben werden, ohne sie im Kampf verdient zu haben." />
-    <string
-      id="ret_preset_description_realistic"
-      text="Erzwingt Fähigkeits- und Ausrüstungsgrenzen im universellen Editor. Die Truppeneditierung ist auf besessene Lehen beschränkt. Gefolgschafts-Statbuffs sind deaktiviert. Beim Spielstart werden nur Basistruppentypen erzeugt. Truppen können nur in Siedlungen derselben Kultur rekrutiert werden. Ausrüsten und Training brauchen Zeit. Ausrüstung unterliegt stufenbasierten Gewichts- und Wertgrenzen." />
     <string
       id="ret_preset_freeform_button"
       text="Freiform" />

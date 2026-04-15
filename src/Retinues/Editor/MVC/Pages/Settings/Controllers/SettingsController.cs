@@ -79,11 +79,7 @@ namespace Retinues.Editor.MVC.Pages.Settings.Controllers
                 _ => L.T("preset_confirmation_default_title", "Reset to Defaults"),
             };
 
-            TextObject confirmLabel = preset switch
-            {
-                SettingsPreset.Default => L.T("preset_confirm_reset", "Reset"),
-                _ => L.T("preset_confirm_apply", "Apply"),
-            };
+            TextObject confirmLabel = L.T("preset_confirm_apply", "Apply");
 
             Inquiries.Popup(
                 title: title,
@@ -100,15 +96,15 @@ namespace Retinues.Editor.MVC.Pages.Settings.Controllers
             {
                 SettingsPreset.Freeform => L.T(
                     "preset_description_freeform",
-                    "Removes all costs and unlock requirements. Doctrine acquisition is free. Equipment costs and unlock progression are disabled. Clan and kingdom troops are available from the start and can be recruited anywhere. Skill points can be assigned freely without being earned in battle."
+                    "A creative sandbox: no costs, no requirements, no restrictions.\n\nDoctrine acquisition is free. Equipment is free and all items are immediately available. Skill points can be assigned freely with no experience requirement. Clan troops are available from the start and can be recruited anywhere."
                 ),
                 SettingsPreset.Realistic => L.T(
                     "preset_description_realistic",
-                    "Enforces skill and equipment limits in the Universal Editor. Troop editing is restricted to owned fiefs. Retinue stat buffs are disabled. Only root troops are generated at game start. Troops can only be recruited in same-culture settlements. Equipping and training take time. Equipment is subject to tier-based weight and value limits."
+                    "A stricter experience that emphasises earned progression and faction identity.\n\nSkill and equipment limits are enforced in the Universal Editor. Troops can only be modified while in an owned fief. Retinue buffs are disabled. Equipping and training take time. Equipment is subject to tier-based weight and value limits. Troops can only be recruited in same-culture settlements, and only culture roots are generated at game start."
                 ),
                 _ => L.T(
                     "preset_description_default",
-                    "The default configuration, balanced for a first playthrough. Troop stat buffs are active, clan troops unlock with your first fief, equipment has a cost but no unlock restrictions, and skill points must be earned in battle. Resets all settings to their original default values."
+                    "The default configuration, balanced for a first playthrough.\n\nRetinue buffs are active, clan troops unlock with your first fief, equipment has a cost, and items must be unlocked through kills and workshops before they can be equipped. Skill points must be earned in battle."
                 ),
             };
     }

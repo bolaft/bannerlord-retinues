@@ -2096,9 +2096,6 @@
       id="ret_preset_confirm_apply"
       text="Uygula" />
     <string
-      id="ret_preset_confirm_reset"
-      text="Sıfırla" />
-    <string
       id="ret_preset_confirmation_default_title"
       text="Varsayılana Sıfırla" />
     <string
@@ -2116,15 +2113,6 @@
     <string
       id="ret_preset_default_tooltip"
       text="Varsayılan ön ayarı uygula: ilk oynayış için tasarlanmış dengeli bir deneyim" />
-    <string
-      id="ret_preset_description_default"
-      text="İlk oynayış için dengelenmiş varsayılan yapılandırma. Birinci dereceden birlikler aktiftir, klan birlikleri ilk mülkünüzle açılır, ekipman maliyetlidir ancak açma kısıtlaması yoktur ve yetenek puanları savaşta kazanılmalıdır. Tüm ayarları orijinal varsayılan değerlerine sıfırlar." />
-    <string
-      id="ret_preset_description_freeform"
-      text="Tüm maliyetleri ve kilit açma gereksinimlerini kaldırır. Doktrin edinimi ücretsizdir. Ekipman maliyetleri ve kilit açma ilerlemesi devre dışıdır. Klan ve krallık birlikleri baştan itibaren mevcuttur ve her yerde toplanabilir. Beceri puanları savaşta kazanılmadan serbestçe dağıtılabilir." />
-    <string
-      id="ret_preset_description_realistic"
-      text="Evrensel Editörde beceri ve ekipman sınırlarını uygular. Birlik düzenleme sahip olunan feodallere kısıtlanır. Maiyet stat buffları devre dışıdır. Oyun başında yalnızca kök birlikler oluşturulur. Birlikler yalnızca aynı kültürdeki yerleşimlerde toplanabilir. Donatmak ve eğitmek zaman alır. Ekipman, kademeye dayalı ağırlık ve değer sınırlarına tabidir." />
     <string
       id="ret_preset_freeform_button"
       text="Serbest" />

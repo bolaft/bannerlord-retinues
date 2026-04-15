@@ -2096,9 +2096,6 @@
       id="ret_preset_confirm_apply"
       text="適用" />
     <string
-      id="ret_preset_confirm_reset"
-      text="リセット" />
-    <string
       id="ret_preset_confirmation_default_title"
       text="デフォルトにリセット" />
     <string
@@ -2116,15 +2113,6 @@
     <string
       id="ret_preset_default_tooltip"
       text="デフォルトプリセットを適用：初回プレイ向けに設計されたバランスの取れた体験" />
-    <string
-      id="ret_preset_description_default"
-      text="最初のプレイにバランスの取れたデフォルト構成。部隊のステータスバフが有効で、氏族部隊は最初の領地でアンロックされ、装備にはコストがありますがアンロック制限はなく、スキルポイントは戦闘で獲得する必要があります。すべての設定を元のデフォルト値にリセットします。" />
-    <string
-      id="ret_preset_description_freeform"
-      text="すべてのコストとアンロック要件を削除します。教義の習得は無料です。装備コストとアンロック進行は無効になります。氏族および王国の兵は最初から利用可能で、どこでも募集できます。スキルポイントは戦闘で獲得せずに自由に割り振れます。" />
-    <string
-      id="ret_preset_description_realistic"
-      text="ユニバーサルエディターでスキルと装備の制限を適用します。部隊編集は所有する領地に制限されます。従者のステータスバフは無効です。ゲーム開始時にはルート部隊のみ生成されます。部隊は同じ文化の集落でのみ募集できます。装備と訓練には時間がかかります。装備はランクに基づく重量と価値の制限を受けます。" />
     <string
       id="ret_preset_freeform_button"
       text="フリーフォーム" />

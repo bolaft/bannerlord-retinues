@@ -2096,9 +2096,6 @@
       id="ret_preset_confirm_apply"
       text="적용" />
     <string
-      id="ret_preset_confirm_reset"
-      text="재설정" />
-    <string
       id="ret_preset_confirmation_default_title"
       text="기본값으로 재설정" />
     <string
@@ -2116,15 +2113,6 @@
     <string
       id="ret_preset_default_tooltip"
       text="기본 프리셋 적용: 첫 번째 플레이를 위해 설계된 균형 잡힌 경험" />
-    <string
-      id="ret_preset_description_default"
-      text="첫 번째 플레이에 적합한 균형 잡힌 기본 구성입니다. 부대 통계 버프가 활성화되고, 클랜 부대는 첫 번째 영지에서 잠금 해제되며, 장비에는 비용이 있지만 잠금 해제 제한이 없으며, 스킬 포인트는 전투에서 획득해야 합니다. 모든 설정을 원래 기본값으로 재설정합니다." />
-    <string
-      id="ret_preset_description_freeform"
-      text="모든 비용과 해금 요건을 제거합니다. 교리 습득이 무료입니다. 장비 비용과 해금 진행이 비활성화됩니다. 클랜 및 왕국 병사는 처음부터 사용 가능하며 어디서든 모집할 수 있습니다. 스킬 포인트는 전투 없이 자유롭게 배분할 수 있습니다." />
-    <string
-      id="ret_preset_description_realistic"
-      text="범용 편집기에서 스킬 및 장비 제한을 적용합니다. 부대 편집은 소유한 봉지로 제한됩니다. 수행원 능력치 버프가 비활성화됩니다. 게임 시작 시 루트 부대만 생성됩니다. 부대는 같은 문화의 정착지에서만 모집할 수 있습니다. 장착과 훈련에 시간이 걸립니다. 장비는 등급 기반 무게 및 가치 제한을 받습니다." />
     <string
       id="ret_preset_freeform_button"
       text="자유형" />

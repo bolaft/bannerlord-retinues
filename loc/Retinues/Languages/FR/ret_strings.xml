@@ -2096,9 +2096,6 @@
       id="ret_preset_confirm_apply"
       text="Appliquer" />
     <string
-      id="ret_preset_confirm_reset"
-      text="Réinitialiser" />
-    <string
       id="ret_preset_confirmation_default_title"
       text="Réinitialiser par défaut" />
     <string
@@ -2116,15 +2113,6 @@
     <string
       id="ret_preset_default_tooltip"
       text="Appliquer le préréglage par défaut : une expérience équilibrée conçue pour une première partie" />
-    <string
-      id="ret_preset_description_default"
-      text="La configuration par défaut, équilibrée pour une première partie. Les bonus de statistiques des troupes sont actifs, les troupes du clan se débloquent avec votre premier fief, l&apos;équipement a un coût mais aucune restriction de déblocage, et les points de compétence doivent être gagnés au combat. Réinitialise tous les paramètres à leurs valeurs par défaut d&apos;origine." />
-    <string
-      id="ret_preset_description_freeform"
-      text="Supprime tous les coûts et conditions de déverrouillage. L&apos;acquisition de doctrines est gratuite. Les coûts d&apos;équipement et la progression de déverrouillage sont désactivés. Les troupes de clan et de royaume sont disponibles dès le début et peuvent être recrutées n&apos;importe où. Les points de compétence peuvent être attribués librement sans être gagnés au combat." />
-    <string
-      id="ret_preset_description_realistic"
-      text="Applique des limites de compétences et d&apos;équipement dans l&apos;éditeur universel. La modification des troupes est limitée aux fiefs possédés. Les bonus de statistiques de suite sont désactivés. Seules les troupes racines sont générées au démarrage. Les troupes ne peuvent être recrutées que dans des colonies de même culture. L&apos;équipement et l&apos;entraînement prennent du temps. L&apos;équipement est soumis à des limites de poids et de valeur basées sur le rang." />
     <string
       id="ret_preset_freeform_button"
       text="Forme libre" />
