@@ -29,7 +29,8 @@ namespace Retinues.Behaviors.Doctrines.Definitions
             TextObject description,
             string sprite,
             Func<bool> overridden,
-            TextObject overriddenHint
+            TextObject overriddenHint,
+            Func<string> previewCharacterId = null
         )
         {
             var doctrine = new Doctrine(
@@ -39,7 +40,8 @@ namespace Retinues.Behaviors.Doctrines.Definitions
                 description: description,
                 sprite: sprite,
                 overridden: overridden,
-                overriddenHint: overriddenHint
+                overriddenHint: overriddenHint,
+                previewCharacterId: previewCharacterId
             );
 
             Doctrines.Add(doctrine);

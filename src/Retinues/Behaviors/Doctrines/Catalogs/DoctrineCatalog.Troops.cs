@@ -1,4 +1,5 @@
 using Retinues.Behaviors.Doctrines.Definitions;
+using Retinues.Domain.Characters.Helpers;
 using Retinues.Interface.Services;
 
 namespace Retinues.Behaviors.Doctrines.Catalogs
@@ -35,6 +36,7 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                             "Unlocks custom militia troops for your faction's towns and castles."
                         ),
                         Sprite = "PerkVillageMilitia",
+                        PreviewCharacterId = DoctrinePreviewHelper.PlayerClanBasic,
                         Feats =
                         [
                             FeatCatalog.SM_TheyShallNotPass,
@@ -51,6 +53,7 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                             "Unlocks custom caravan troop guards."
                         ),
                         Sprite = "PerkLineBreaker",
+                        PreviewCharacterId = DoctrinePreviewHelper.PlayerClanBasic,
                         Feats =
                         [
                             FeatCatalog.RW_TradeNetwork,
@@ -67,6 +70,7 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                             "Unlocks custom villager troops for village parties."
                         ),
                         Sprite = "PerkFarmer",
+                        PreviewCharacterId = DoctrinePreviewHelper.PlayerClanBasic,
                         Feats =
                         [
                             FeatCatalog.AP_ShieldOfThePeople,
@@ -83,6 +87,7 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                             "Unlocks Captain variants for all regular troops."
                         ),
                         Sprite = "PerkVeteran",
+                        PreviewCharacterId = DoctrinePreviewHelper.PlayerClanElite,
                         Feats =
                         [
                             FeatCatalog.CA_WarriorClass,

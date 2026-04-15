@@ -81,7 +81,8 @@ namespace Retinues.Behaviors.Doctrines
                             description: doctrineData.Description,
                             sprite: doctrineData.Sprite,
                             overridden: doctrineData.Overridden,
-                            overriddenHint: doctrineData.OverriddenHint
+                            overriddenHint: doctrineData.OverriddenHint,
+                            previewCharacterId: doctrineData.PreviewCharacterId
                         );
 
                         _doctrines[doctrine.Id] = doctrine;

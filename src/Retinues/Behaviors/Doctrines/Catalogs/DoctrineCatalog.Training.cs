@@ -1,4 +1,5 @@
 using Retinues.Behaviors.Doctrines.Definitions;
+using Retinues.Domain.Characters.Helpers;
 using Retinues.Interface.Services;
 using Retinues.Settings;
 
@@ -36,6 +37,7 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                             "Increases skill caps by +5 for all troops."
                         ),
                         Sprite = "PerkExtraTroop",
+                        PreviewCharacterId = DoctrinePreviewHelper.PlayerClanElite,
                         Feats =
                         [
                             FeatCatalog.ID_General,
@@ -52,6 +54,7 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                             "Grants +20 skill points to basic troops."
                         ),
                         Sprite = "PerkArmorUpgrade",
+                        PreviewCharacterId = DoctrinePreviewHelper.PlayerClanBasic,
                         Feats =
                         [
                             FeatCatalog.SS_PeakPerformance,
@@ -68,6 +71,7 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                             "Grants +20 skill points to elite troops."
                         ),
                         Sprite = "PerkCavalrySpear",
+                        PreviewCharacterId = DoctrinePreviewHelper.PlayerClanElite,
                         Feats =
                         [
                             FeatCatalog.MA_Brawler,
@@ -84,6 +88,7 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                             "+10% skill point gain rate."
                         ),
                         Sprite = "PerkShieldWall",
+                        PreviewCharacterId = DoctrinePreviewHelper.PlayerClanElite,
                         Feats =
                         [
                             FeatCatalog.AT_CombinedArms,

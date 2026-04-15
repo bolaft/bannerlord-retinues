@@ -1,4 +1,5 @@
 using Retinues.Behaviors.Doctrines.Definitions;
+using Retinues.Domain.Characters.Helpers;
 using Retinues.Interface.Services;
 using Retinues.Settings;
 
@@ -36,6 +37,7 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                             "+10% to retinue health."
                         ),
                         Sprite = "PerkDieHard",
+                        PreviewCharacterId = DoctrinePreviewHelper.PlayerRetinue,
                         Feats =
                         [
                             FeatCatalog.IN_FlawlessExecution,
@@ -54,6 +56,7 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                             "+20% to retinue morale."
                         ),
                         Sprite = "PerkGeneral",
+                        PreviewCharacterId = DoctrinePreviewHelper.PlayerRetinue,
                         Feats =
                         [
                             FeatCatalog.BH_HighSpirits,
@@ -72,6 +75,7 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                             "+15% to max retinue number."
                         ),
                         Sprite = "PerkSpearhead",
+                        PreviewCharacterId = DoctrinePreviewHelper.PlayerRetinue,
                         Feats =
                         [
                             FeatCatalog.VA_FirstThroughTheBreach,
@@ -90,6 +94,7 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                             "+20% to retinue survival chance."
                         ),
                         Sprite = "PerkToughness",
+                        PreviewCharacterId = DoctrinePreviewHelper.PlayerRetinue,
                         Feats =
                         [
                             FeatCatalog.IM_PerfectVictory,

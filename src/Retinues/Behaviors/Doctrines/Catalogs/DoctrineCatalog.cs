@@ -34,6 +34,13 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
             public Func<bool> Overridden;
             public TextObject OverriddenHint;
             public List<FeatData> Feats;
+
+            /// <summary>
+            /// Optional factory returning the string ID of the character to display
+            /// on the 3D model preview when this doctrine is selected.
+            /// Falls back to the player hero when null or when the resolved character is unavailable.
+            /// </summary>
+            public Func<string> PreviewCharacterId;
         }
 
         /// <summary>

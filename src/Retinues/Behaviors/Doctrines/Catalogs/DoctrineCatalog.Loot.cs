@@ -1,4 +1,6 @@
 using Retinues.Behaviors.Doctrines.Definitions;
+using Retinues.Domain;
+using Retinues.Domain.Characters.Helpers;
 using Retinues.Interface.Services;
 using Retinues.Settings;
 
@@ -36,6 +38,7 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                             "Hero kills count twice toward unlocking enemy gear."
                         ),
                         Sprite = "PerkFightingMadness",
+                        PreviewCharacterId = () => Player.Hero?.Character?.StringId,
                         Feats =
                         [
                             FeatCatalog.LS_CutTheHead,
@@ -54,6 +57,7 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                             "Allies contribute to equipment unlock progress."
                         ),
                         Sprite = "PerkBrawny",
+                        PreviewCharacterId = DoctrinePreviewHelper.PlayerClanBasic,
                         Feats =
                         [
                             FeatCatalog.BT_TurnTheTide,
@@ -72,6 +76,7 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                             "Gear can be unlocked from allied casualties."
                         ),
                         Sprite = "PerkTribesmen",
+                        PreviewCharacterId = DoctrinePreviewHelper.PlayerClanBasic,
                         Feats =
                         [
                             FeatCatalog.PR_CostlyVictory,
@@ -90,6 +95,7 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                             "Unlocks all clan culture items."
                         ),
                         Sprite = "PerkHoldTheLine",
+                        PreviewCharacterId = DoctrinePreviewHelper.PlayerClanElite,
                         Feats =
                         [
                             FeatCatalog.AN_CulturalTriumph,

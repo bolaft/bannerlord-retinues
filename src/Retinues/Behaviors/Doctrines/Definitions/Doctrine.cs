@@ -13,7 +13,8 @@ namespace Retinues.Behaviors.Doctrines.Definitions
         TextObject description,
         string sprite,
         Func<bool> overridden = null,
-        TextObject overriddenHint = null
+        TextObject overriddenHint = null,
+        Func<string> previewCharacterId = null
     )
     {
         /// <summary>
@@ -35,6 +36,15 @@ namespace Retinues.Behaviors.Doctrines.Definitions
         /* ━━━━━━━━━ Image ━━━━━━━━ */
 
         public string Sprite { get; } = sprite;
+
+        /* ━━━━ Preview Character ━━━━ */
+
+        /// <summary>
+        /// Optional factory returning the string ID of the character shown in the 3D model
+        /// preview while this doctrine is selected. Falls back to the player hero when null
+        /// or when the character cannot be resolved.
+        /// </summary>
+        public Func<string> PreviewCharacterId { get; } = previewCharacterId;
 
         /* ━━━━━━━ Category ━━━━━━━ */
 

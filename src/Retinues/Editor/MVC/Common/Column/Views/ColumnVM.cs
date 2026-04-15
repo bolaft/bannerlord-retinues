@@ -103,7 +103,7 @@ namespace Retinues.Editor.MVC.Common.Column.Views
             }
         }
 
-        [EventListener(UIEvent.Appearance, UIEvent.Page, UIEvent.Library)]
+        [EventListener(UIEvent.Appearance, UIEvent.Page, UIEvent.Library, UIEvent.Doctrine)]
         private void RebuildModel()
         {
             CharacterPreviewLease.Lease lease = null;
@@ -150,11 +150,28 @@ namespace Retinues.Editor.MVC.Common.Column.Views
                 }
                 else if (State.Page == EditorPage.Doctrines)
                 {
-                    // Use player character for doctrines preview.
+                    // Try doctrine-specific preview character first.
+                    var previewId = State.Doctrine?.PreviewCharacterId?.Invoke();
+                    var previewChar = !string.IsNullOrEmpty(previewId)
+                        ? WCharacter.Get(previewId)
+                        : null;
+
+                    if (previewChar?.Base != null)
+                    {
+                        var previewVM = new CharacterViewModel(CharacterViewModel.StanceTypes.None);
+                        previewVM.FillFrom(previewChar.Base, seed: -1);
+
+                        var previewEq = previewChar.FirstBattleEquipment?.Base;
+                        if (previewEq != null)
+                            previewVM.SetEquipment(previewEq);
+
+                        Model = previewVM;
+                        return;
+                    }
+
+                    // Fall back to the player hero with civilian equipment.
                     var playerVM = new CharacterViewModel(CharacterViewModel.StanceTypes.None);
                     playerVM.FillFrom(Player.Hero.Character.Base, seed: -1);
-
-                    // Use civilian equipment explicitly
                     playerVM.SetEquipment(Player.Hero.CivilianEquipment.Base);
 
                     Model = playerVM;

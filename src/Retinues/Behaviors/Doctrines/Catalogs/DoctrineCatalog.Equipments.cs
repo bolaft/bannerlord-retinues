@@ -1,4 +1,5 @@
 using Retinues.Behaviors.Doctrines.Definitions;
+using Retinues.Domain.Characters.Helpers;
 using Retinues.Interface.Services;
 using Retinues.Settings;
 
@@ -36,6 +37,7 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                             "-20% to clan culture equipment costs."
                         ),
                         Sprite = "PerkHardened",
+                        PreviewCharacterId = DoctrinePreviewHelper.PlayerClanElite,
                         Feats =
                         [
                             FeatCatalog.CP_KingSlayer,
@@ -54,6 +56,7 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                             "+15% to total equipment value limit."
                         ),
                         Sprite = "PerkFullBarding",
+                        PreviewCharacterId = DoctrinePreviewHelper.PlayerClanElite,
                         Feats =
                         [
                             FeatCatalog.HG_BloodMoney,
@@ -72,6 +75,7 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                             "+15% to total equipment weight limit."
                         ),
                         Sprite = "PerkArmorPadding",
+                        PreviewCharacterId = DoctrinePreviewHelper.PlayerClanElite,
                         Feats =
                         [
                             FeatCatalog.IR_HeavyKit,
@@ -90,6 +94,7 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                             "-20% to kingdom culture equipment costs."
                         ),
                         Sprite = "PerkGold",
+                        PreviewCharacterId = DoctrinePreviewHelper.PlayerKingdomElite,
                         Feats =
                         [
                             FeatCatalog.RP_RoyalHost,
