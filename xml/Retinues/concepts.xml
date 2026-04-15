@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Concepts>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       Overview
+  ═══════════════════════════════════════════════════════════════ -->
+  <Concept
+    id="ret_man_overview"
+    title="Retinues — Overview"
+    text="Retinues adds a suite of systems for building, training, and equipping your own personal forces throughout a campaign.\n\nAt its core is the retinue: a household troop tied to your clan that follows you exclusively and can be developed into an elite unit over time.\n\nBeyond retinues, you can build and maintain full custom troop trees for your clan and kingdom. These troops appear as volunteers and fill your faction's armies. A doctrine system provides a progression layer, unlocking new troop types, equipment perks, and other bonuses as you accomplish gameplay objectives.\n\nAll of this is managed through the editor, opened from the Troops button on the campaign map or by pressing [R].\n\nSee {ret_man_link_retinues} for the retinue system. See {ret_man_link_troops} for clan and kingdom troops. See {ret_man_link_skills} for the skills and experience system. See {ret_man_link_equipment} for the equipment system."
+    group="Retinues"
+    link_id="ret_man_link_overview"
+  />
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       Retinues
+  ═══════════════════════════════════════════════════════════════ -->
+  <Concept
+    id="ret_man_retinues"
+    title="Retinues — Retinues"
+    text="Retinues are special household guard troops tied to your clan. They cannot be garrisoned or transferred to another party and stay with you at all times. They start at a low tier but can be trained, equipped, and ranked up over the course of a campaign.\n\nStarting Retinue: One retinue is created automatically when you start a new campaign or load an existing save for the first time. It is named after your clan and matches your clan's culture. If you are already a ruler, a King's Guard or Queen's Guard is also created.\n\nUnlocking More Retinues: You can unlock one additional retinue per culture. Your own culture is unlocked from the start. For other cultures you accumulate unlock points by winning tournaments (+50), completing quests (+25), owning fiefs (+5/day/fief), owning workshops (+2/day/workshop), and winning battles alongside allied parties (+10/ally). Each culture requires 1000 points.\n\nParty Limits: The number of retinues you can field is capped at a ratio of your party size limit (15% by default). Doctrine bonuses can raise this cap.\n\nRecruitment: Retinues do not appear in settlement volunteer lists. They surface as upgrade options on existing troops in your party. When the party screen opens, each retinue is matched to the best fitting troop one tier below it and appears as an additional upgrade target.\n\nBuffs: Retinues receive passive bonuses on top of their normal stats. By default: +20 hit points, +5 to all skill caps, +20 to total skill points. Each bonus can be toggled in settings.\n\nRanking Up: When a retinue has all skills maxed out, it can rank up to the next tier. Cost: (current tier + 1) x 1000 gold plus 5 x current tier skill points. The effect is a tier increase, raising the level by 5 and unlocking higher skill caps.\n\nAI Clan Retinues: Non-player clans can also have retinues (enabled by default for tier 3+ clans). Each day there is a 25% chance an eligible party promotes a troop into a retinue, up to 10% of the party's size. AI retinues improve over time and can acquire equipment from your casualties if you lose a battle against them.\n\nSee {ret_man_link_overview} to return to the overview."
+    group="Retinues"
+    link_id="ret_man_link_retinues"
+  />
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       Clan & Kingdom Troops
+  ═══════════════════════════════════════════════════════════════ -->
+  <Concept
+    id="ret_man_troops"
+    title="Retinues — Clan &amp; Kingdom Troops"
+    text="Beyond retinues, you can build full custom troop trees for your clan and kingdom. These troops appear in volunteer pools, garrisons, and parties. Each faction gets two root lines: a basic tree and an elite tree, with up to 4 upgrade targets per troop.\n\nUnlocking: Clan troops unlock when you acquire your first fief (default). Kingdom troops unlock when you found a kingdom. Both can be configured in settings.\n\nStarter Troops: When troops unlock you can choose from Roots Only (just the root troops), Lean Trees (one representative per formation type per tier — default), or Full Trees (the entire culture tree cloned verbatim).\n\nStarter Equipment: Equipment can start as Random Set (default), Single Set, All Sets, or Empty Set.\n\nRecruitment: Custom troops appear as volunteers based on the Clan Troops Availability and Kingdom Troops Availability settings (clan fiefs and kingdom fiefs by default). By default they replace standard culture volunteers entirely.\n\nMilitias and Special Troops: Three doctrines from the Troops column unlock additional types. Stalwart Militia unlocks custom militia troops that replace cultural militia in your faction's towns and castles. Road Wardens unlocks custom caravan troops. Armed Peasantry unlocks custom villager troops.\n\nCaptains: The Captains doctrine unlocks Captain variants for all regular troops. A Captain is a stronger version that spawns periodically in its place (1 per 15 troops by default). Captains cannot have upgrade targets or be ranked up. Equipment costs are shared with the base troop.\n\nUpgrades and Removal: You can add upgrade targets to any non-hero custom troop not at max tier with fewer than 4 targets. To remove a troop you must first remove all its upgrade targets; root troops cannot be removed. Removed troops convert to their culture counterpart in the world.\n\nOther Clans: When you are a ruler, you can also manage the troop trees of other clans in your kingdom from the editor. Click the left banner to select a clan.\n\nSee {ret_man_link_overview} to return to the overview."
+    group="Retinues"
+    link_id="ret_man_link_troops"
+  />
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       Skills & Experience
+  ═══════════════════════════════════════════════════════════════ -->
+  <Concept
+    id="ret_man_skills"
+    title="Retinues — Skills &amp; Experience"
+    text="Custom troops (clan, kingdom, and retinues) have a skill sheet you can edit from the editor, subject to per-skill caps and a total skill budget. This system does not apply to troops edited in the Universal Editor.\n\nXP Sources: Troops accumulate skill point XP from played battles, autoresolved battles, daily training, and other activities. When Skill Points Must Be Earned is active (default), XP feeds into the skill point counter. The exact threshold depends on the troop's tier and upgrade cost. Higher-tier troops require proportionally more XP.\n\nFreeform Mode: When Skill Points Must Be Earned is disabled, skills can be freely allocated at any time.\n\nShared Skill Points Pool: When enabled, all custom troops contribute XP to a single campaign-wide pool that can be spent on any custom troop. The pool balance replaces the per-troop count in the skills panel header. Requires Skill Points Must Be Earned to be active.\n\nSpending: Each skill increase costs one skill point; decreasing a skill refunds it immediately. If training has been committed (Training Takes Time), decreasing a committed skill prompts a confirmation.\n\nSkill Caps and Totals: Two limits apply — a per-skill cap (the maximum any single skill can reach for that tier) and a total budget (the sum of all skills). Defaults range from 20/90 at tier 0 to 360/1600 at tier 7. Retinues receive bonuses on top of both; Captains get a 20% bonus. The Iron Discipline doctrine adds +5 to caps; Steadfast Soldiers and Masters at Arms add +20 to totals.\n\nTraining Takes Time: When enabled, skill increases are stored as pending and applied gradually at the rate of Trained Points Per Day (1 per day by default). Pending values are shown in a different color. Training continues while travelling by default.\n\nSkill Floor: A troop's skills cannot be lowered below the highest value held by any of its upgrade sources.\n\nContext Restrictions: The Editing Restriction setting can limit editing to In Settlement or In Fief. Retinues are exempt from the fief requirement.\n\nSee {ret_man_link_overview} to return to the overview."
+    group="Retinues"
+    link_id="ret_man_link_skills"
+  />
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       Equipment
+  ═══════════════════════════════════════════════════════════════ -->
+  <Concept
+    id="ret_man_equipment"
+    title="Retinues — Equipment"
+    text="Each troop has two categories of equipment: battle sets and civilian sets. Battle sets are worn in combat; civilian sets at all other times. You switch between them with the button above the character model.\n\nBattle Set Types: Each battle set can be marked for field battles, siege battles, and/or naval battles. At least one set must remain enabled per battle type at all times.\n\nCreating Sets: Use the add button to create a copy of the current set or a fresh empty one. Use the remove button to delete a set (cannot delete the only set in a category, or a battle set if it is the last covering a battle type).\n\nSlots: Each set has four weapon slots, Head, Cape, Body, Gloves, Leg, Horse, and Horse Harness. The Horse Harness slot is only active when a horse is equipped.\n\nShared Items: Items are shared intelligently between sets. Equipping an item already used in another set for the same troop does not incur an additional stock cost.\n\nStocks (Own Supply): When economy is active, equipping an item draws one copy from stock. Unequipping returns it. Stock accumulates from battles, discards, and other sources. Stocks are only tracked in the Troops screen, not in the Universal Editor.\n\nCosts and Purchases: When Equipment Costs Money is active, equipping an unstocked item costs coin at the item's value scaled by the Cost Multiplier setting.\n\nSee {ret_man_link_overview} to return to the overview."
+    group="Retinues"
+    link_id="ret_man_link_equipment"
+  />
+
+</Concepts>

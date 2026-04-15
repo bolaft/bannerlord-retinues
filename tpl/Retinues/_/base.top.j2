@@ -226,6 +226,36 @@
                     </Children>
                 </Widget>
 
+                {# Manual button #}
+                <Widget
+                    WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren"
+                    HorizontalAlignment="Right" VerticalAlignment="Top"
+                    MarginRight="590">
+                    <Children>
+
+                        <ButtonWidget
+                            DoNotPassEventsToChildren="true"
+                            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                            SuggestedWidth="200" SuggestedHeight="60"
+                            HorizontalAlignment="Center" VerticalAlignment="Center"
+                            Brush="Popup.Done.Button"
+                            Command.Click="ExecuteOpenManual"
+                            UpdateChildrenStates="true">
+                            <Children>
+
+                                <TextWidget
+                                    WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+                                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                                    Brush="Popup.Button.Text" Brush.FontSize="24"
+                                    Text="@ManualButtonText"
+                                    TextAlignment="Center" />
+
+                            </Children>
+                        </ButtonWidget>
+
+                    </Children>
+                </Widget>
+
                 {# ------------------------------------------ #}
                 {# Tab control (ClanScreen style)             #}
                 {# ------------------------------------------ #}

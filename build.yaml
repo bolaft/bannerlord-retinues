@@ -26,6 +26,11 @@ xmls:
       - CustomGame
       - EditorGame
       - ShokuhoCampaign
+  - id: Concepts
+    path: concepts
+    gameTypes:
+      - Campaign
+      - CampaignStoryMode
 
 versions:
   "12":
