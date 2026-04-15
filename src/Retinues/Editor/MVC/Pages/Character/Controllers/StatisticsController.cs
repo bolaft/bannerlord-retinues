@@ -50,6 +50,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
 
             var sb = new StringBuilder(2048);
 
+            // ── In service ──
             if (c.IsCustom && c.CreationDay > 0)
             {
                 double elapsedDays = CampaignTime.Now.ToDays - c.CreationDay;
@@ -59,25 +60,31 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
                 int days = remainingDays % CampaignTime.DaysInSeason;
 
                 sb.AppendLine(
-                        L.T(
-                                "statistics_in_service",
-                                "In service for {YEARS} years, {SEASONS} seasons, {DAYS} days"
-                            )
-                            .SetTextVariable("YEARS", years)
-                            .SetTextVariable("SEASONS", seasons)
-                            .SetTextVariable("DAYS", days)
-                            .ToString()
-                    )
-                    .AppendLine();
+                    L.T(
+                            "statistics_in_service",
+                            "{NAME} has been in service for {YEARS} years, {SEASONS} seasons, {DAYS} days."
+                        )
+                        .SetTextVariable("NAME", c.Name)
+                        .SetTextVariable("YEARS", years)
+                        .SetTextVariable("SEASONS", seasons)
+                        .SetTextVariable("DAYS", days)
+                        .ToString()
+                );
+                sb.AppendLine();
             }
 
+            // ── Deployments ──
             int parties = 0;
             int garrisons = 0;
+            int totalTroops = 0;
 
             foreach (var party in WParty.All)
             {
-                if (party.MemberRoster.CountOf(c) == 0)
+                int count = party.MemberRoster.CountOf(c);
+                if (count == 0)
                     continue;
+
+                totalTroops += count;
 
                 if (party.IsGarrison)
                     garrisons++;
@@ -85,133 +92,224 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
                     parties++;
             }
 
-            sb.AppendLine(
+            if (totalTroops > 0)
+            {
+                sb.AppendLine(
                     L.T(
-                            "statistics_parties_garrisons",
-                            "Deployments: {TOTAL} ({PARTIES} parties, {GARRISONS} garrisons)"
+                            "statistics_deployments",
+                            "{TOTAL} troops deployed across {PARTIES} parties and {GARRISONS} garrisons."
                         )
-                        .SetTextVariable("TOTAL", parties + garrisons)
+                        .SetTextVariable("TOTAL", totalTroops)
                         .SetTextVariable("PARTIES", parties)
                         .SetTextVariable("GARRISONS", garrisons)
                         .ToString()
-                )
-                .AppendLine();
-
-            var totalBattles = won + lost;
-
-            sb.AppendLine(
-                L.T("statistics_battles_fought", "Battles fought: {TOTAL} (won {WON}, lost {LOST})")
-                    .SetTextVariable("TOTAL", totalBattles)
-                    .SetTextVariable("WON", won)
-                    .SetTextVariable("LOST", lost)
-                    .ToString()
-            );
-
-            // Battle type lines (only if > 0)
-            bool hasBattleTypeLines = field > 0 || siege > 0 || naval > 0 || raids > 0;
-
-            if (hasBattleTypeLines)
-            {
+                );
                 sb.AppendLine();
-                if (field > 0)
-                    sb.AppendLine(
-                        FormatEntry(L.T("statistics_battles_field", "Field Battles"), field)
-                    );
-                if (siege > 0)
-                    sb.AppendLine(
-                        FormatEntry(L.T("statistics_battles_siege", "Siege Battles"), siege)
-                    );
-                if (naval > 0)
-                    sb.AppendLine(
-                        FormatEntry(L.T("statistics_battles_naval", "Naval Battles"), naval)
-                    );
-                if (raids > 0)
-                    sb.AppendLine(FormatEntry(L.T("statistics_battles_raids", "Raids"), raids));
             }
 
-            sb.AppendLine();
+            // ── Battle types ──
+            var battleParts = new List<string>();
+            if (field > 0)
+                battleParts.Add(
+                    L.T("statistics_field_entry", "{COUNT} field battles")
+                        .SetTextVariable("COUNT", field)
+                        .ToString()
+                );
+            if (siege > 0)
+                battleParts.Add(
+                    L.T("statistics_siege_entry", "{COUNT} sieges")
+                        .SetTextVariable("COUNT", siege)
+                        .ToString()
+                );
+            if (naval > 0)
+                battleParts.Add(
+                    L.T("statistics_naval_entry", "{COUNT} naval battles")
+                        .SetTextVariable("COUNT", naval)
+                        .ToString()
+                );
+            if (raids > 0)
+                battleParts.Add(
+                    L.T("statistics_raid_entry", "{COUNT} raids")
+                        .SetTextVariable("COUNT", raids)
+                        .ToString()
+                );
 
-            AppendTopInlineTotal(sb, L.T("statistics_kills_title", "Kills"), kills);
+            if (battleParts.Count > 0)
+            {
+                sb.AppendLine(
+                    L.T("statistics_fought_in", "Fought in {LIST}.")
+                        .SetTextVariable("LIST", FormatList(battleParts))
+                        .ToString()
+                );
+                sb.AppendLine();
+            }
 
-            sb.AppendLine();
+            // ── Victories / defeats ──
+            int totalBattles = won + lost;
+            if (totalBattles > 0)
+            {
+                sb.AppendLine(
+                    L.T(
+                            "statistics_victories_defeats",
+                            "Achieved {WON} victories, suffered {LOST} defeats."
+                        )
+                        .SetTextVariable("WON", won)
+                        .SetTextVariable("LOST", lost)
+                        .ToString()
+                );
+                sb.AppendLine();
+            }
 
-            AppendTopInlineTotal(sb, L.T("statistics_casualties_title", "Casualties"), casualties);
+            // ── Kills ──
+            int totalKills = SumValues(kills);
+            if (totalKills > 0)
+            {
+                sb.AppendLine(
+                    L.T("statistics_kills_sentence", "Killed {TOTAL} enemies: {BREAKDOWN}.")
+                        .SetTextVariable("TOTAL", totalKills)
+                        .SetTextVariable("BREAKDOWN", BuildCultureBreakdown(kills))
+                        .ToString()
+                );
+                sb.AppendLine();
+            }
+
+            // ── Casualties ──
+            int totalCasualties = SumValues(casualties);
+            if (totalCasualties > 0)
+            {
+                sb.AppendLine(
+                    L.T(
+                            "statistics_casualties_sentence",
+                            "Suffered {TOTAL} casualties: {BREAKDOWN}."
+                        )
+                        .SetTextVariable("TOTAL", totalCasualties)
+                        .SetTextVariable("BREAKDOWN", BuildCultureBreakdown(casualties))
+                        .ToString()
+                );
+                sb.AppendLine();
+            }
+
+            // ── Most slain / most feared ──
+            var topKill = GetTopTroop(kills);
+            var topCasualty = GetTopTroop(casualties);
+
+            if (topKill != null || topCasualty != null)
+            {
+                var mostParts = new List<string>();
+
+                if (topKill != null)
+                    mostParts.Add(
+                        L.T("statistics_most_slain", "Most slain enemy: {NAME}.")
+                            .SetTextVariable("NAME", topKill.Name)
+                            .ToString()
+                    );
+                if (topCasualty != null)
+                    mostParts.Add(
+                        L.T("statistics_most_feared", "Most feared adversary: {NAME}.")
+                            .SetTextVariable("NAME", topCasualty.Name)
+                            .ToString()
+                    );
+
+                sb.AppendLine(string.Join(" ", mostParts));
+            }
+
             Inquiries.Popup(
                 title: L.T("statistics_popup_title", "Statistics"),
                 description: new TextObject(sb.ToString())
             );
         }
 
-        private static string FormatEntry(TextObject label, int count)
+        private static int SumValues(Dictionary<WCharacter, int> dict)
         {
-            return L.T("statistics_line_entry", "- {LABEL}: {COUNT}")
-                .SetTextVariable("LABEL", label.ToString())
-                .SetTextVariable("COUNT", count)
-                .ToString();
+            if (dict == null)
+                return 0;
+
+            int total = 0;
+            foreach (var kv in dict)
+                total += kv.Value;
+            return total;
         }
 
-        /// <summary>
-        /// Appends a section in the format:
-        /// Kills: 4
-        /// - Looter: 4
-        /// </summary>
-        private static void AppendTopInlineTotal(
-            StringBuilder sb,
-            TextObject title,
+        private static string BuildCultureBreakdown(
             Dictionary<WCharacter, int> dict,
-            int maxRows = 10
+            int maxCultures = 5
         )
         {
-            int total = 0;
-
-            if (dict != null && dict.Count > 0)
-            {
-                foreach (var kv in dict)
-                    total += kv.Value;
-            }
-
-            sb.AppendLine(
-                L.T("statistics_section_total", "{TITLE}: {TOTAL}")
-                    .SetTextVariable("TITLE", title.ToString())
-                    .SetTextVariable("TOTAL", total)
-                    .ToString()
-            );
-
-            if (total <= 0 || dict == null || dict.Count == 0)
-                return;
-
-            sb.AppendLine();
-
-            // Build list + sort desc
-            var list = new List<KeyValuePair<WCharacter, int>>(dict.Count);
+            var byCulture = new Dictionary<string, int>();
             foreach (var kv in dict)
-                list.Add(kv);
-
-            list.Sort((a, b) => b.Value.CompareTo(a.Value));
-
-            var rows = System.Math.Min(maxRows, list.Count);
-
-            for (int i = 0; i < rows; i++)
             {
-                var target = list[i].Key;
-                var count = list[i].Value;
-
-                sb.AppendLine(
-                    L.T("statistics_entry", "- {NAME}: {COUNT}")
-                        .SetTextVariable("NAME", target.Name)
-                        .SetTextVariable("COUNT", count)
-                        .ToString()
-                );
+                var cultureName = kv.Key?.Culture?.Name ?? "Unknown";
+                if (byCulture.TryGetValue(cultureName, out int existing))
+                    byCulture[cultureName] = existing + kv.Value;
+                else
+                    byCulture[cultureName] = kv.Value;
             }
 
-            if (list.Count > rows)
-            {
-                sb.AppendLine(
-                    L.T("statistics_more", "({COUNT} more...)")
-                        .SetTextVariable("COUNT", list.Count - rows)
+            var sorted = new List<KeyValuePair<string, int>>(byCulture);
+            sorted.Sort((a, b) => b.Value.CompareTo(a.Value));
+
+            var parts = new List<string>();
+            int shown = System.Math.Min(maxCultures, sorted.Count);
+            int remaining = sorted.Count - shown;
+
+            for (int i = 0; i < shown; i++)
+                parts.Add(
+                    L.T("statistics_culture_entry", "{COUNT} against {CULTURE}")
+                        .SetTextVariable("COUNT", sorted[i].Value)
+                        .SetTextVariable("CULTURE", sorted[i].Key)
                         .ToString()
                 );
+
+            if (remaining > 0)
+                parts.Add(
+                    L.T("statistics_culture_more", "{COUNT} more")
+                        .SetTextVariable("COUNT", remaining)
+                        .ToString()
+                );
+
+            return FormatList(parts);
+        }
+
+        private static WCharacter GetTopTroop(Dictionary<WCharacter, int> dict)
+        {
+            if (dict == null || dict.Count == 0)
+                return null;
+
+            WCharacter top = null;
+            int topCount = 0;
+
+            foreach (var kv in dict)
+            {
+                if (top == null || kv.Value > topCount)
+                {
+                    top = kv.Key;
+                    topCount = kv.Value;
+                }
             }
+
+            return top;
+        }
+
+        private static string FormatList(List<string> items)
+        {
+            if (items == null || items.Count == 0)
+                return string.Empty;
+
+            if (items.Count == 1)
+                return items[0];
+
+            if (items.Count == 2)
+                return items[0] + " and " + items[1];
+
+            var sb = new StringBuilder();
+            for (int i = 0; i < items.Count - 1; i++)
+            {
+                sb.Append(items[i]);
+                sb.Append(", ");
+            }
+            sb.Append("and ");
+            sb.Append(items[items.Count - 1]);
+            return sb.ToString();
         }
     }
 }
