@@ -4,6 +4,7 @@ using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Parties.Wrappers;
 using Retinues.Editor.MVC.Shared.Controllers;
 using Retinues.Interface.Services;
+using TaleWorlds.CampaignSystem;
 using TaleWorlds.Localization;
 
 namespace Retinues.Editor.MVC.Pages.Character.Controllers
@@ -48,6 +49,27 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
             );
 
             var sb = new StringBuilder(2048);
+
+            if (c.IsCustom && c.CreationDay > 0)
+            {
+                double elapsedDays = CampaignTime.Now.ToDays - c.CreationDay;
+                int years = (int)(elapsedDays / CampaignTime.DaysInYear);
+                int remainingDays = (int)(elapsedDays % CampaignTime.DaysInYear);
+                int seasons = remainingDays / CampaignTime.DaysInSeason;
+                int days = remainingDays % CampaignTime.DaysInSeason;
+
+                sb.AppendLine(
+                        L.T(
+                                "statistics_in_service",
+                                "In service for {YEARS} years, {SEASONS} seasons, {DAYS} days"
+                            )
+                            .SetTextVariable("YEARS", years)
+                            .SetTextVariable("SEASONS", seasons)
+                            .SetTextVariable("DAYS", days)
+                            .ToString()
+                    )
+                    .AppendLine();
+            }
 
             int parties = 0;
             int garrisons = 0;

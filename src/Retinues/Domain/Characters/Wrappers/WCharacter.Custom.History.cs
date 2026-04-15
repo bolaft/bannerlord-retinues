@@ -14,6 +14,21 @@ namespace Retinues.Domain.Characters.Wrappers
         //                     Battle History                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        /* ━━━━ Creation Date ━━━━ */
+
+        MAttribute<double> HistoryCreationDay =>
+            Attribute(initialValue: 0.0, name: "HistoryCreationDay");
+
+        /// <summary>
+        /// Campaign day (CampaignTime.Now.ToDays) at which this stub was activated.
+        /// 0 means not yet set. Cleared when the troop is removed.
+        /// </summary>
+        public double CreationDay
+        {
+            get => HistoryCreationDay.Get();
+            set => HistoryCreationDay.Set(value);
+        }
+
         /* ━━━━━━ Won / Lost ━━━━━━ */
 
         MAttribute<int> HistoryBattlesWon => Attribute(initialValue: 0, name: "HistoryBattlesWon");

@@ -1,4 +1,5 @@
 using Retinues.Framework.Model.Attributes;
+using TaleWorlds.CampaignSystem;
 
 namespace Retinues.Domain.Characters.Wrappers
 {
@@ -36,6 +37,9 @@ namespace Retinues.Domain.Characters.Wrappers
 
                 // Mark as active.
                 wc.IsActiveStub = true;
+
+                // Record the campaign day so the statistics popup can show service time.
+                wc.CreationDay = Campaign.Current != null ? CampaignTime.Now.ToDays : 0.0;
 
                 // Found a free stub.
                 return wc;

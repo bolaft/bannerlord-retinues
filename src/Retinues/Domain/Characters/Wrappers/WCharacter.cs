@@ -362,6 +362,9 @@ namespace Retinues.Domain.Characters.Wrappers
             if (IsCustom)
                 IsActiveStub = false;
 
+            // Reset creation timestamp so the stub starts fresh if reused.
+            CreationDay = 0;
+
             // Hide from encyclopedia.
             HiddenInEncyclopedia = true;
 
