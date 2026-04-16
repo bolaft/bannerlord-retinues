@@ -342,7 +342,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Panel
         [DataSourceProperty]
         public bool SkillsLayout_Small { get; private set; }
 
-        [EventListener(UIEvent.Character, UIEvent.Doctrine)]
+        [EventListener(UIEvent.Character, UIEvent.Doctrine, UIEvent.Skill)]
         public void RefreshSkillsGrid()
         {
             if (State.Character == null)

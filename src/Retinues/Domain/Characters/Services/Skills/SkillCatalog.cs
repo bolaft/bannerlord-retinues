@@ -3,6 +3,7 @@ using System.Linq;
 using System.Reflection;
 using Retinues.Compatibility;
 using Retinues.Domain.Characters.Wrappers;
+using Retinues.Framework.Modules.Versions;
 using Retinues.Framework.Runtime;
 using TaleWorlds.Core;
 using TaleWorlds.ObjectSystem;
@@ -21,12 +22,19 @@ namespace Retinues.Domain.Characters.Services.Skills
         public readonly struct SkillListOptions(
             bool includeHeroOnly,
             bool includeDlc,
-            bool includeModded
+            bool includeModded,
+            bool includeMarinerForTroop = false
         )
         {
             public readonly bool IncludeHeroOnly = includeHeroOnly;
             public readonly bool IncludeDlc = includeDlc;
             public readonly bool IncludeModded = includeModded;
+
+            /// <summary>
+            /// When true, the "Mariner" skill is included even for non-hero troops
+            /// (requires DLC loaded + BL 1.4+ + troop's IsMariner flag).
+            /// </summary>
+            public readonly bool IncludeMarinerForTroop = includeMarinerForTroop;
 
             public static SkillListOptions ForCharacter() =>
                 new(includeHeroOnly: false, includeDlc: false, includeModded: true);
@@ -68,6 +76,13 @@ namespace Retinues.Domain.Characters.Services.Skills
 
         static bool IsDlcId(string id) =>
             !string.IsNullOrEmpty(id) && NavalDLCSkillIds.Contains(id);
+
+        // The Mariner skill applies to troops (not just heroes) starting with BL 1.4.
+        // "Boatswain" and "Shipmaster" remain hero-only.
+        public const string MarinerSkillId = "Mariner";
+
+        static bool IsMarinerTroopSkillEligible =>
+            Mods.NavalDLC.IsLoaded && GameVersion.IsAtLeast14();
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Discovery                       //
@@ -122,15 +137,43 @@ namespace Retinues.Domain.Characters.Services.Skills
             // Hero-only gating
             if (!options.IncludeHeroOnly)
             {
-                filteredKnown = filteredKnown.Where(s => !IsHeroOnlyId(s.StringId));
-                filteredModded = filteredModded.Where(s => !IsHeroOnlyId(s.StringId));
+                filteredKnown = filteredKnown.Where(s =>
+                    !IsHeroOnlyId(s.StringId)
+                    || (
+                        options.IncludeMarinerForTroop
+                        && s.StringId == MarinerSkillId
+                        && IsMarinerTroopSkillEligible
+                    )
+                );
+                filteredModded = filteredModded.Where(s =>
+                    !IsHeroOnlyId(s.StringId)
+                    || (
+                        options.IncludeMarinerForTroop
+                        && s.StringId == MarinerSkillId
+                        && IsMarinerTroopSkillEligible
+                    )
+                );
             }
 
             // DLC gating
             if (!options.IncludeDlc || !navalLoaded)
             {
-                filteredKnown = filteredKnown.Where(s => !IsDlcId(s.StringId));
-                filteredModded = filteredModded.Where(s => !IsDlcId(s.StringId));
+                filteredKnown = filteredKnown.Where(s =>
+                    !IsDlcId(s.StringId)
+                    || (
+                        options.IncludeMarinerForTroop
+                        && s.StringId == MarinerSkillId
+                        && IsMarinerTroopSkillEligible
+                    )
+                );
+                filteredModded = filteredModded.Where(s =>
+                    !IsDlcId(s.StringId)
+                    || (
+                        options.IncludeMarinerForTroop
+                        && s.StringId == MarinerSkillId
+                        && IsMarinerTroopSkillEligible
+                    )
+                );
             }
 
             var list = new List<SkillObject>();
@@ -159,7 +202,14 @@ namespace Retinues.Domain.Characters.Services.Skills
         public static List<SkillObject> GetSkills(WCharacter character) =>
             character != null && character.IsHero
                 ? GetSkillList(SkillListOptions.ForHero())
-                : GetSkillList(SkillListOptions.ForCharacter());
+                : GetSkillList(
+                    new SkillListOptions(
+                        includeHeroOnly: false,
+                        includeDlc: false,
+                        includeModded: true,
+                        includeMarinerForTroop: character?.IsMariner == true
+                    )
+                );
 
         /// <summary>
         /// Gets the valid skills for the given hero.

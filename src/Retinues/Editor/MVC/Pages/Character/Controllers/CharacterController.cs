@@ -2,11 +2,13 @@ using System.Collections.Generic;
 using System.Linq;
 using Retinues.Compatibility;
 using Retinues.Domain.Characters.Helpers;
+using Retinues.Domain.Characters.Services.Skills;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Factions.Wrappers;
 using Retinues.Editor.Events;
 using Retinues.Editor.MVC.Shared.Controllers;
 using Retinues.Editor.MVC.Shared.Services.Appearance;
+using Retinues.Framework.Modules.Versions;
 using Retinues.Interface.Services;
 using TaleWorlds.Core;
 using TaleWorlds.Localization;
@@ -433,8 +435,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
                         ? L.T("mariner_disable_tooltip", "Disable Mariner trait")
                         : L.T("mariner_enable_tooltip", "Enable Mariner trait")
                 )
-                .ExecuteWith(SetMarinerImpl)
-                .Fire(UIEvent.Formation);
+                .ExecuteWith(SetMarinerImpl);
 
         /// <summary>
         /// Set the mariner flag for the current character.
@@ -450,7 +451,87 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
             if (State.Character.IsHero)
                 return;
 
-            State.Character.IsMariner = isMariner;
+            if (isMariner)
+            {
+                // Enabling: set Mariner skill to 0, then show the trait.
+                // The skill itself only applies in BL 1.4+.
+                if (GameVersion.IsAtLeast14())
+                    ZeroMarinerSkill(State.Character);
+                State.Character.IsMariner = true;
+                State.Character.ClearSkillsCache();
+                EventManager.Fire(UIEvent.Formation);
+                EventManager.Fire(UIEvent.Skill);
+            }
+            else
+            {
+                // Disabling: warn if the troop has invested skill points (BL 1.4+ only).
+                var marinerValue = GameVersion.IsAtLeast14()
+                    ? GetMarinerSkillValue(State.Character)
+                    : 0;
+                if (marinerValue > 0)
+                {
+                    var character = State.Character;
+                    Inquiries.Popup(
+                        title: L.T("mariner_disable_confirm_title", "Disable Mariner Ability"),
+                        onConfirm: () =>
+                        {
+                            ZeroMarinerSkill(character);
+                            character.IsMariner = false;
+                            character.ClearSkillsCache();
+                            EventManager.Fire(UIEvent.Formation);
+                            EventManager.Fire(UIEvent.Skill);
+                        },
+                        description: L.T(
+                                "mariner_disable_confirm_description",
+                                "This troop has {POINTS} point(s) invested in the Mariner skill. Disabling the Mariner ability will reset it to 0."
+                            )
+                            .SetTextVariable("POINTS", marinerValue)
+                    );
+                }
+                else
+                {
+                    State.Character.IsMariner = false;
+                    State.Character.ClearSkillsCache();
+                    EventManager.Fire(UIEvent.Formation);
+                    EventManager.Fire(UIEvent.Skill);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Returns the current Mariner skill value for the character, or 0 if unavailable.
+        /// </summary>
+        private static int GetMarinerSkillValue(WCharacter wc)
+        {
+            if (wc == null)
+                return 0;
+
+            var skill =
+                TaleWorlds.ObjectSystem.MBObjectManager.Instance?.GetObject<TaleWorlds.Core.SkillObject>(
+                    SkillCatalog.MarinerSkillId
+                );
+            if (skill == null)
+                return 0;
+
+            return wc.Base.GetSkillValue(skill);
+        }
+
+        /// <summary>
+        /// Zeros the Mariner skill on the character directly.
+        /// </summary>
+        private static void ZeroMarinerSkill(WCharacter wc)
+        {
+            if (wc == null)
+                return;
+
+            var skill =
+                TaleWorlds.ObjectSystem.MBObjectManager.Instance?.GetObject<TaleWorlds.Core.SkillObject>(
+                    SkillCatalog.MarinerSkillId
+                );
+            if (skill == null)
+                return;
+
+            wc.MakeSkillAttribute(skill).Set(0);
         }
     }
 }
