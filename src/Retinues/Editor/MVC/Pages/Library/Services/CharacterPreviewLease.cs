@@ -41,6 +41,13 @@ namespace Retinues.Editor.MVC.Pages.Library.Services
                     if (!string.IsNullOrWhiteSpace(_snapshot))
                         Character.Deserialize(_snapshot);
 
+                    // The snapshot was taken before DetachEquipmentRoster replaced
+                    // Base._equipmentRoster, so Deserialize above leaves _equipmentRosterCache
+                    // pointing at the orphaned old roster.  Clear it so the next
+                    // EquipmentRoster access re-creates the wrapper around the current
+                    // Base._equipmentRoster and the stub is fully clean for reuse.
+                    Character.InvalidateEquipmentRosterCache();
+
                     Character.IsActiveStub = false;
                     Character.MarkAllAttributesClean();
                 }

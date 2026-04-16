@@ -243,6 +243,13 @@ namespace Retinues.Domain.Characters.Services.Cloning
                 // FillFrom assigns _equipmentRoster by reference, so we must break it.
                 var fresh = new MBEquipmentRoster();
                 Reflection.SetFieldValue(wc.Base, "_equipmentRoster", fresh);
+
+                // The WCharacter wrapper caches an MEquipmentRoster that wraps the OLD
+                // _equipmentRoster.  After replacing the underlying field we must clear
+                // that cache so the next EquipmentRoster access wraps the NEW roster.
+                // Without this, equipment writes go to the orphaned old roster while
+                // Base.FirstBattleEquipment reads from the new empty one → naked miniature.
+                wc.InvalidateEquipmentRosterCache();
             }
             catch (Exception ex)
             {

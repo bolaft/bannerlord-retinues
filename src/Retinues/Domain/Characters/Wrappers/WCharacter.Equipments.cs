@@ -38,6 +38,13 @@ namespace Retinues.Domain.Characters.Wrappers
             }
         }
 
+        /// <summary>
+        /// Clears the cached MEquipmentRoster wrapper so the next access re-creates it
+        /// from the current Base._equipmentRoster field.
+        /// Must be called after DetachEquipmentRoster replaces that field.
+        /// </summary>
+        public void InvalidateEquipmentRosterCache() => _equipmentRosterCache = null;
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Convenience                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

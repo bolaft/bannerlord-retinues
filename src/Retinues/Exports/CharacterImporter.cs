@@ -82,6 +82,32 @@ namespace Retinues.Exports
                     up?.Remove();
                 }
 
+                // Strip internal lifecycle/metadata attributes that must never be overwritten
+                // by an import.  IsActiveStubAttribute is critical: if a vanilla troop export
+                // (which serialises IsActiveStub=false) is applied to a retinue, it silently
+                // sets IsActiveStub=false, causing GetFreeStub() to treat the live retinue as
+                // a free slot and overwrite it the next time troops are cloned (e.g. fief gain).
+                // History attributes are stripped for the same reason: importing e.g. a shop
+                // worker must not zero-out the retinue's battle history.
+                var toStrip = new[]
+                {
+                    "IsActiveStubAttribute",
+                    "HistoryCreationDay",
+                    "HistoryBattlesWon",
+                    "HistoryBattlesLost",
+                    "HistoryFieldBattles",
+                    "HistorySiegeBattles",
+                    "HistoryNavalBattles",
+                    "HistoryRaids",
+                    "HistoryKills",
+                    "HistoryCasualties",
+                };
+
+                foreach (var name in toStrip)
+                {
+                    el.Elements().FirstOrDefault(x => x.Name.LocalName == name)?.Remove();
+                }
+
                 return el.ToString(SaveOptions.DisableFormatting);
             }
             catch
