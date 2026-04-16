@@ -126,6 +126,8 @@ fi
 # 1) Prefabs
 if [[ "$RUN_PREFABS" == "true" ]]; then
   print_header "=   Rendering Prefabs   ="
+  # Clean the generated gui dir first so stale files from other branches don't survive.
+  rm -rf "$ROOT_DIR/gui/$MODULE/"
   # Primary pass: render with the target BL version (no suffix).
   python tpl/prefabs.py --version "$BL"
   # BL14 pass: always render a _BL14 variant so a single build works on both BL13 and BL14.
