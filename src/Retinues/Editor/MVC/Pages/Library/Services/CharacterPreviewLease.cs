@@ -85,9 +85,18 @@ namespace Retinues.Editor.MVC.Pages.Library.Services
                 {
                     var src = WCharacter.Get(modelStringId);
 
-                    if (src != null && src.IsVanilla)
+                    if (src != null && !src.IsHero)
+                        // Clone the live object into the stub, regardless of whether it is a
+                        // vanilla troop or a custom one (retinues_custom_XXXX).
+                        // This populates engine-layer fields (_occupation, _persona, body
+                        // properties template, etc.) that are not serialised in MAttribute
+                        // format and cannot be recovered from the payload alone.
+                        // The Deserialize call below then overlays all mod-layer attributes
+                        // (equipment, skills, name, upgrade targets, etc.) on top.
                         CharacterCloner.Clone(src, stub: stub);
                     else
+                        // Truly unresolvable id: the troop no longer exists in this game session.
+                        // Warn the caller so the user knows the export may be a bare delta.
                         missingVanillaBaseId = modelStringId;
                 }
 

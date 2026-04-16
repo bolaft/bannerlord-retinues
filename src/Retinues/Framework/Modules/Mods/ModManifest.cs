@@ -63,12 +63,19 @@ namespace Retinues.Framework.Modules.Mods
     {
         public string XmlNameId { get; }
         public string Path { get; }
+        public string XslPath { get; }
         public List<string> IncludedGameTypes { get; } = [];
 
-        public ModeXmlNode(string xmlNameId, string path, IEnumerable<string> includedGameTypes)
+        public ModeXmlNode(
+            string xmlNameId,
+            string path,
+            IEnumerable<string> includedGameTypes,
+            string xslPath = null
+        )
         {
             XmlNameId = xmlNameId ?? string.Empty;
             Path = path ?? string.Empty;
+            XslPath = xslPath;
 
             if (includedGameTypes != null)
                 IncludedGameTypes.AddRange(
@@ -78,14 +85,16 @@ namespace Retinues.Framework.Modules.Mods
 
         public XElement ToXElement()
         {
-            var node = new XElement(
-                "XmlNode",
-                new XElement(
-                    "XmlName",
-                    new XAttribute("id", XmlNameId),
-                    new XAttribute("path", Path)
-                )
+            var xmlName = new XElement(
+                "XmlName",
+                new XAttribute("id", XmlNameId),
+                new XAttribute("path", Path)
             );
+
+            if (!string.IsNullOrWhiteSpace(XslPath))
+                xmlName.Add(new XAttribute("xsl_path", XslPath));
+
+            var node = new XElement("XmlNode", xmlName);
 
             if (IncludedGameTypes.Count > 0)
             {

@@ -30,8 +30,9 @@ namespace Retinues.Exports.NPCCharacters
             manifest.XmlNodes.Add(
                 new ModeXmlNode(
                     xmlNameId: "NPCCharacters",
-                    path: "ModuleData/spnpccharacters.xml",
-                    includedGameTypes: ["Campaign", "CampaignStoryMode", "CustomGame"]
+                    path: "spnpccharacters",
+                    includedGameTypes: ["Campaign", "CampaignStoryMode", "CustomGame"],
+                    xslPath: "ModuleData/spnpccharacters.xslt"
                 )
             );
 
