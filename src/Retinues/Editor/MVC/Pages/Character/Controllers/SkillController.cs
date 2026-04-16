@@ -49,7 +49,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
                         == (
                             !SkillLimitsActive
                             || State.Character.Skills.Get(s)
-                                < SkillRules.GetSkillTotal(State.Character)
+                                < SkillRules.GetSkillCap(State.Character)
                         ),
                     L.T("skill_increase_maxed_reason", "Skill cap reached")
                 )
