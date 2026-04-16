@@ -2507,50 +2507,14 @@
       id="ret_starter_troops_clone_culture_roots_hint"
       text="Es wird nur eine Basistruppeneinheit und eine Elitetruppeneinheit erstellt" />
     <string
-      id="ret_statistics_battles_field"
-      text="Feldschlachten" />
-    <string
-      id="ret_statistics_battles_fought"
-      text="Geführte Schlachten: {TOTAL} (gewonnen {WON}, verloren {LOST})" />
-    <string
-      id="ret_statistics_battles_naval"
-      text="Seeschlachten" />
-    <string
-      id="ret_statistics_battles_raids"
-      text="Überfälle" />
-    <string
-      id="ret_statistics_battles_siege"
-      text="Belagerungsschlachten" />
-    <string
       id="ret_statistics_button_label"
       text="Statistiken anzeigen" />
-    <string
-      id="ret_statistics_casualties_title"
-      text="Verluste" />
-    <string
-      id="ret_statistics_entry"
-      text="- {NAME}: {COUNT}" />
-    <string
-      id="ret_statistics_kills_title"
-      text="Tötungen" />
-    <string
-      id="ret_statistics_line_entry"
-      text="- {LABEL}: {COUNT}" />
-    <string
-      id="ret_statistics_more"
-      text="({COUNT} weitere...)" />
-    <string
-      id="ret_statistics_parties_garrisons"
-      text="Einsätze: {TOTAL} ({PARTIES} Parteien, {GARRISONS} Garnisonen)" />
     <string
       id="ret_statistics_player_only"
       text="Im Universal-Editor nicht verfügbar" />
     <string
       id="ret_statistics_popup_title"
       text="Statistiken" />
-    <string
-      id="ret_statistics_section_total"
-      text="{TITLE}: {TOTAL}" />
     <string
       id="ret_status_captain_disabled"
       text="Inaktiv" />

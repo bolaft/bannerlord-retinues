@@ -2507,50 +2507,14 @@
       id="ret_starter_troops_clone_culture_roots_hint"
       text="Tworzona jest tylko jedna podstawowa jednostka i jedna elitarna jednostka" />
     <string
-      id="ret_statistics_battles_field"
-      text="Bitwy polowe" />
-    <string
-      id="ret_statistics_battles_fought"
-      text="Stoczonych bitew: {TOTAL} (wygrane {WON}, przegrane {LOST})" />
-    <string
-      id="ret_statistics_battles_naval"
-      text="Bitwy morskie" />
-    <string
-      id="ret_statistics_battles_raids"
-      text="Najazdy" />
-    <string
-      id="ret_statistics_battles_siege"
-      text="Bitwy oblężnicze" />
-    <string
       id="ret_statistics_button_label"
       text="Pokaż statystyki" />
-    <string
-      id="ret_statistics_casualties_title"
-      text="Straty" />
-    <string
-      id="ret_statistics_entry"
-      text="- {NAME}: {COUNT}" />
-    <string
-      id="ret_statistics_kills_title"
-      text="Zabójstwa" />
-    <string
-      id="ret_statistics_line_entry"
-      text="- {LABEL}: {COUNT}" />
-    <string
-      id="ret_statistics_more"
-      text="({COUNT} więcej...)" />
-    <string
-      id="ret_statistics_parties_garrisons"
-      text="Rozmieszczenia: {TOTAL} ({PARTIES} oddziały, {GARRISONS} garnizony)" />
     <string
       id="ret_statistics_player_only"
       text="Niedostępne w edytorze uniwersalnym" />
     <string
       id="ret_statistics_popup_title"
       text="Statystyki" />
-    <string
-      id="ret_statistics_section_total"
-      text="{TITLE}: {TOTAL}" />
     <string
       id="ret_status_captain_disabled"
       text="Nieaktywny" />

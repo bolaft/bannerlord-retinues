@@ -2507,50 +2507,14 @@
       id="ret_starter_troops_clone_culture_roots_hint"
       text="Создаются только один базовый и один элитный воин" />
     <string
-      id="ret_statistics_battles_field"
-      text="Полевые сражения" />
-    <string
-      id="ret_statistics_battles_fought"
-      text="Проведено боев: {TOTAL} (победы {WON}, поражения {LOST})" />
-    <string
-      id="ret_statistics_battles_naval"
-      text="Морские сражения" />
-    <string
-      id="ret_statistics_battles_raids"
-      text="Налеты" />
-    <string
-      id="ret_statistics_battles_siege"
-      text="Осады" />
-    <string
       id="ret_statistics_button_label"
       text="Показать статистику" />
-    <string
-      id="ret_statistics_casualties_title"
-      text="Потери" />
-    <string
-      id="ret_statistics_entry"
-      text="- {NAME}: {COUNT}" />
-    <string
-      id="ret_statistics_kills_title"
-      text="Убийства" />
-    <string
-      id="ret_statistics_line_entry"
-      text="- {LABEL}: {COUNT}" />
-    <string
-      id="ret_statistics_more"
-      text="({COUNT} еще...)" />
-    <string
-      id="ret_statistics_parties_garrisons"
-      text="Развертывания: {TOTAL} ({PARTIES} отрядов, {GARRISONS} гарнизонов)" />
     <string
       id="ret_statistics_player_only"
       text="Недоступно в универсальном редакторе" />
     <string
       id="ret_statistics_popup_title"
       text="Статистика" />
-    <string
-      id="ret_statistics_section_total"
-      text="{TITLE}: {TOTAL}" />
     <string
       id="ret_status_captain_disabled"
       text="Неактивен" />

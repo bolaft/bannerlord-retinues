@@ -2507,50 +2507,14 @@
       id="ret_starter_troops_clone_culture_roots_hint"
       text="Yalnızca bir temel birlik ve bir elit birlik oluşturulur" />
     <string
-      id="ret_statistics_battles_field"
-      text="Saha Savaşları" />
-    <string
-      id="ret_statistics_battles_fought"
-      text="Savaşlar yapıldı: {TOTAL} (kazandı {WON}, kaybetti {LOST})" />
-    <string
-      id="ret_statistics_battles_naval"
-      text="Deniz Savaşları" />
-    <string
-      id="ret_statistics_battles_raids"
-      text="Baskınlar" />
-    <string
-      id="ret_statistics_battles_siege"
-      text="Kuşatma Savaşları" />
-    <string
       id="ret_statistics_button_label"
       text="İstatistikleri Göster" />
-    <string
-      id="ret_statistics_casualties_title"
-      text="Kayıplar" />
-    <string
-      id="ret_statistics_entry"
-      text="- {NAME}: {COUNT}" />
-    <string
-      id="ret_statistics_kills_title"
-      text="Ölümler" />
-    <string
-      id="ret_statistics_line_entry"
-      text="- {LABEL}: {COUNT}" />
-    <string
-      id="ret_statistics_more"
-      text="({COUNT} daha...)" />
-    <string
-      id="ret_statistics_parties_garrisons"
-      text="Dağıtımlar: {TOTAL} ({PARTIES} birlik, {GARRISONS} garnizon)" />
     <string
       id="ret_statistics_player_only"
       text="Evrensel Editörde mevcut değil" />
     <string
       id="ret_statistics_popup_title"
       text="İstatistikler" />
-    <string
-      id="ret_statistics_section_total"
-      text="{TITLE}: {TOTAL}" />
     <string
       id="ret_status_captain_disabled"
       text="Pasif" />

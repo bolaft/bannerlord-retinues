@@ -2507,50 +2507,14 @@
       id="ret_starter_troops_clone_culture_roots_hint"
       text="基本部隊で1つとエリート部隊で1つのみ作成されます" />
     <string
-      id="ret_statistics_battles_field"
-      text="野戦" />
-    <string
-      id="ret_statistics_battles_fought"
-      text="戦闘回数：{TOTAL}（勝利 {WON}、敗北 {LOST}）" />
-    <string
-      id="ret_statistics_battles_naval"
-      text="海戦" />
-    <string
-      id="ret_statistics_battles_raids"
-      text="襲撃" />
-    <string
-      id="ret_statistics_battles_siege"
-      text="包囲戦" />
-    <string
       id="ret_statistics_button_label"
       text="統計を表示" />
-    <string
-      id="ret_statistics_casualties_title"
-      text="戦死者" />
-    <string
-      id="ret_statistics_entry"
-      text="- {NAME}：{COUNT}" />
-    <string
-      id="ret_statistics_kills_title"
-      text="キル数" />
-    <string
-      id="ret_statistics_line_entry"
-      text="- {LABEL}：{COUNT}" />
-    <string
-      id="ret_statistics_more"
-      text="（さらに {COUNT} 件...）" />
-    <string
-      id="ret_statistics_parties_garrisons"
-      text="配備回数：{TOTAL}（{PARTIES} 部隊、{GARRISONS} 駐屯地）" />
     <string
       id="ret_statistics_player_only"
       text="ユニバーサルエディターでは使用できません" />
     <string
       id="ret_statistics_popup_title"
       text="統計" />
-    <string
-      id="ret_statistics_section_total"
-      text="{TITLE}：{TOTAL}" />
     <string
       id="ret_status_captain_disabled"
       text="非アクティブ" />

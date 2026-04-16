@@ -2507,50 +2507,14 @@
       id="ret_starter_troops_clone_culture_roots_hint"
       text="기본 부대 하나와 엘리트 부대 하나만 생성됩니다" />
     <string
-      id="ret_statistics_battles_field"
-      text="야전 전투" />
-    <string
-      id="ret_statistics_battles_fought"
-      text="전투 횟수: {TOTAL} (승리 {WON}, 패배 {LOST})" />
-    <string
-      id="ret_statistics_battles_naval"
-      text="해상 전투" />
-    <string
-      id="ret_statistics_battles_raids"
-      text="습격" />
-    <string
-      id="ret_statistics_battles_siege"
-      text="공성전" />
-    <string
       id="ret_statistics_button_label"
       text="통계 표시" />
-    <string
-      id="ret_statistics_casualties_title"
-      text="사상자" />
-    <string
-      id="ret_statistics_entry"
-      text="- {NAME}: {COUNT}" />
-    <string
-      id="ret_statistics_kills_title"
-      text="킬" />
-    <string
-      id="ret_statistics_line_entry"
-      text="- {LABEL}: {COUNT}" />
-    <string
-      id="ret_statistics_more"
-      text="({COUNT} 더...)" />
-    <string
-      id="ret_statistics_parties_garrisons"
-      text="배치: {TOTAL} ({PARTIES} 부대, {GARRISONS} 주둔지)" />
     <string
       id="ret_statistics_player_only"
       text="범용 엘디터에서는 사용할 수 없습니다" />
     <string
       id="ret_statistics_popup_title"
       text="통계" />
-    <string
-      id="ret_statistics_section_total"
-      text="{TITLE}: {TOTAL}" />
     <string
       id="ret_status_captain_disabled"
       text="비활성" />

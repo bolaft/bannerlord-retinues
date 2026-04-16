@@ -2507,50 +2507,14 @@
       id="ret_starter_troops_clone_culture_roots_hint"
       text="仅创建一支基础部队和一支精英部队" />
     <string
-      id="ret_statistics_battles_field"
-      text="野战" />
-    <string
-      id="ret_statistics_battles_fought"
-      text="战斗次数：{TOTAL}（胜利 {WON}，失败 {LOST}）" />
-    <string
-      id="ret_statistics_battles_naval"
-      text="海战" />
-    <string
-      id="ret_statistics_battles_raids"
-      text="突袭" />
-    <string
-      id="ret_statistics_battles_siege"
-      text="围城战" />
-    <string
       id="ret_statistics_button_label"
       text="显示统计数据" />
-    <string
-      id="ret_statistics_casualties_title"
-      text="伤亡" />
-    <string
-      id="ret_statistics_entry"
-      text="- {NAME}：{COUNT}" />
-    <string
-      id="ret_statistics_kills_title"
-      text="击杀" />
-    <string
-      id="ret_statistics_line_entry"
-      text="- {LABEL}：{COUNT}" />
-    <string
-      id="ret_statistics_more"
-      text="（还有 {COUNT} 个...）" />
-    <string
-      id="ret_statistics_parties_garrisons"
-      text="部署次数：{TOTAL}（{PARTIES} 队伍，{GARRISONS} 驻军）" />
     <string
       id="ret_statistics_player_only"
       text="在通用编辑器中不可用" />
     <string
       id="ret_statistics_popup_title"
       text="统计数据" />
-    <string
-      id="ret_statistics_section_total"
-      text="{TITLE}：{TOTAL}" />
     <string
       id="ret_status_captain_disabled"
       text="未激活" />
