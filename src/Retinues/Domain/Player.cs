@@ -36,7 +36,8 @@ namespace Retinues.Domain
         public static WClan Clan => WClan.Get(MainHero.Clan);
         public static WKingdom Kingdom => WKingdom.Get(MainHero.Clan?.Kingdom);
         public static WHero Hero => WHero.Get(MainHero);
-        public static WParty Party => new(MobileParty.MainParty);
+        public static WParty Party =>
+            MobileParty.MainParty != null ? new(MobileParty.MainParty) : null;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Location                        //
