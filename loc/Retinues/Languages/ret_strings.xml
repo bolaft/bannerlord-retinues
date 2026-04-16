@@ -1640,6 +1640,12 @@
       id="ret_mariner_captain_reason"
       text="Captains share the mariner ability of their base troops" />
     <string
+      id="ret_mariner_disable_confirm_description"
+      text="This troop has {POINTS} point(s) invested in the Mariner skill. Disabling the Mariner ability will reset it to 0." />
+    <string
+      id="ret_mariner_disable_confirm_title"
+      text="Disable Mariner Ability" />
+    <string
       id="ret_mariner_disable_tooltip"
       text="Disable Mariner trait" />
     <string
@@ -2824,6 +2830,21 @@
     <string
       id="ret_unlock_and"
       text="and" />
+    <string
+      id="ret_unlock_hint_acquire_fief"
+      text="Acquire a fief to unlock elite troops." />
+    <string
+      id="ret_unlock_hint_acquire_fief_regular"
+      text="Acquire a fief to unlock regular troops." />
+    <string
+      id="ret_unlock_hint_armed_peasantry"
+      text="Unlock with the Armed Peasantry doctrine." />
+    <string
+      id="ret_unlock_hint_road_wardens"
+      text="Unlock with the Road Wardens doctrine." />
+    <string
+      id="ret_unlock_hint_stalwart_militia"
+      text="Unlock with the Stalwart Militia doctrine." />
     <string
       id="ret_unlock_more"
       text="{COUNT} more" />

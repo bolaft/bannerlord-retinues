@@ -47,6 +47,9 @@ namespace Retinues.Editor.MVC.Shared.Views
         [DataSourceProperty]
         public virtual bool IsRetinueUnlockProgress => false;
 
+        [DataSourceProperty]
+        public virtual bool IsUnlockHint => false;
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Identifier                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

@@ -1,0 +1,14 @@
+{% from "_/macros.rows.j2" import row_wrapper %}
+
+{% call row_wrapper("@IsUnlockHint") %}
+
+    <TextWidget
+        WidthSizePolicy="StretchToParent"
+        HeightSizePolicy="StretchToParent"
+        VerticalAlignment="Center"
+        HorizontalAlignment="Left"
+        MarginLeft="16"
+        Brush="Clan.Tuple.Name.Text"
+        Text="@Name" />
+
+{% endcall %}

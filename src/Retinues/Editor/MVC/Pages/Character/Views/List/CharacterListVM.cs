@@ -234,6 +234,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.List
             }
 
             bool isUniversal = EditorState.Instance.Mode == EditorMode.Universal;
+            bool isPlayerMode = !isUniversal;
             bool isClan = faction is WClan;
 
             bool ShouldInclude(WCharacter c)
@@ -310,13 +311,13 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.List
                 string headerLocKey,
                 string headerFallback,
                 IEnumerable<WCharacter> characters,
-                Func<bool> condition = null
+                Func<bool> condition = null,
+                string unlockHint = null
             )
             {
-                if (condition != null && !condition())
-                    return;
-
-                if (characters == null)
+                // When an unlock hint is provided, bypass the condition so the hint can be shown
+                // even when the condition would normally hide the section (e.g. empty player roster).
+                if (unlockHint == null && condition != null && !condition())
                     return;
 
                 var header = new ListHeaderVM(this, headerId, L.S(headerLocKey, headerFallback))
@@ -326,17 +327,31 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.List
 
                 var any = false;
 
-                foreach (var character in characters)
+                if (characters != null)
                 {
-                    if (!ShouldInclude(character))
-                        continue;
+                    foreach (var character in characters)
+                    {
+                        if (!ShouldInclude(character))
+                            continue;
 
-                    any = true;
-                    AddCharacterRow(header, character);
+                        any = true;
+                        AddCharacterRow(header, character);
+                    }
                 }
 
                 if (!any)
+                {
+                    if (unlockHint != null)
+                    {
+                        // Placeholder: collapsed by default, shows a single disabled hint row.
+                        header.IsExpanded = false;
+                        header.AddRow(new SectionUnlockHintRowVM(header, unlockHint));
+                        headersList.Add(header);
+                        header.UpdateRowCount();
+                        header.UpdateState();
+                    }
                     return;
+                }
 
                 headersList.Add(header);
 
@@ -495,7 +510,10 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.List
                 "elite",
                 "list_header_elite",
                 L.S("list_header_elite", "Elite"),
-                faction.RootElite?.Tree
+                faction.RootElite?.Tree,
+                unlockHint: isPlayerMode
+                    ? L.S("unlock_hint_acquire_fief", "Acquire a fief to unlock elite troops.")
+                    : null
             );
 
             // Regular tree (for clans in universal mode, fall back to vanilla clan root).
@@ -504,7 +522,13 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.List
                 "regular",
                 "list_header_regular",
                 L.S("list_header_regular", "Regular"),
-                faction.RootBasic?.Tree ?? wClanUniversal?.VanillaRootBasic?.Tree
+                faction.RootBasic?.Tree ?? wClanUniversal?.VanillaRootBasic?.Tree,
+                unlockHint: isPlayerMode
+                    ? L.S(
+                        "unlock_hint_acquire_fief_regular",
+                        "Acquire a fief to unlock regular troops."
+                    )
+                    : null
             );
 
             // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -518,7 +542,13 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.List
                 "list_header_militia",
                 L.S("list_header_militia", "Militia"),
                 faction.RosterMilitia,
-                condition: () => faction is WCulture || faction.RosterMilitia.Count > 0
+                condition: () => faction is WCulture || faction.RosterMilitia.Count > 0,
+                unlockHint: isPlayerMode
+                    ? L.S(
+                        "unlock_hint_stalwart_militia",
+                        "Unlock with the Stalwart Militia doctrine."
+                    )
+                    : null
             );
 
             // Caravan.
@@ -528,7 +558,10 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.List
                 "list_header_caravan",
                 L.S("list_header_caravan", "Caravan"),
                 faction.RosterCaravan,
-                condition: () => faction is WCulture || faction.RosterCaravan.Count > 0
+                condition: () => faction is WCulture || faction.RosterCaravan.Count > 0,
+                unlockHint: isPlayerMode
+                    ? L.S("unlock_hint_road_wardens", "Unlock with the Road Wardens doctrine.")
+                    : null
             );
 
             // Villagers.
@@ -538,7 +571,13 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.List
                 "list_header_villagers",
                 L.S("list_header_villagers", "Villagers"),
                 faction.RosterVillager,
-                condition: () => faction is WCulture || faction.RosterVillager.Count > 0
+                condition: () => faction is WCulture || faction.RosterVillager.Count > 0,
+                unlockHint: isPlayerMode
+                    ? L.S(
+                        "unlock_hint_armed_peasantry",
+                        "Unlock with the Armed Peasantry doctrine."
+                    )
+                    : null
             );
 
             // Mercenaries.
