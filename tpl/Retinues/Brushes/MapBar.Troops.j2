@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Brushes>
+{% if version != "12" %}<Brushes>
 
   <Brush Name="MapBar.Left.Button.Backgrounds">
     <Layers>
@@ -34,3 +34,6 @@
   </Brush>
 
 </Brushes>
+{% else %}
+<Brushes/>
+{% endif %}

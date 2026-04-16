@@ -92,10 +92,10 @@ namespace Retinues.Domain.Events.Models
 
         bool rewardsComputed;
 
-        float _renownReward;
-        float _influenceReward;
-        float _moraleReward;
-        float _goldReward;
+        float _renownReward = 0f;
+        float _influenceReward = 0f;
+        float _moraleReward = 0f;
+        float _goldReward = 0f;
 
         public int RenownReward
         {
@@ -218,13 +218,14 @@ namespace Retinues.Domain.Events.Models
                             contributionToBattle: p?.ContributionToBattle ?? 0,
                             gainedRenown: p?.GainedRenown ?? 0f,
                             gainedInfluence: p?.GainedInfluence ?? 0f,
-#if BL13 || BL14
-                            moraleChange: _moraleChangeProperty != null
-                                ? (_moraleChangeProperty.GetValue(p) as float? ?? 0f)
-                                : 0f,
-#endif
                             plunderedGold: p?.PlunderedGold ?? 0,
                             goldLost: p?.GoldLost ?? 0
+#if BL13 || BL14
+                            ,
+                            moraleChange: _moraleChangeProperty != null
+                                ? (_moraleChangeProperty.GetValue(p) as float? ?? 0f)
+                                : 0f
+#endif
                         )
                     );
                 }
@@ -298,9 +299,9 @@ namespace Retinues.Domain.Events.Models
             int contributionToBattle,
             float gainedRenown,
             float gainedInfluence,
-            float moraleChange,
             int plunderedGold,
-            int goldLost
+            int goldLost,
+            float moraleChange = 0f
         )
         {
             public string PartyId { get; } = partyId;

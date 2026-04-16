@@ -32,15 +32,15 @@ namespace Retinues.Behaviors.Volunteers.Patches
         /// Postfix that re-wraps VolunteerModel instances with CustomVolunteerModel.
         /// </summary>
         [HarmonyPostfix]
-        private static void Postfix(CampaignGameStarter __instance, GameModel gameModel)
+        private static void Postfix(CampaignGameStarter __instance, GameModel __0)
         {
             try
             {
-                if (__instance == null || gameModel == null)
+                if (__instance == null || __0 == null)
                     return;
 
                 // Only react to VolunteerModel registrations.
-                if (gameModel is not VolunteerModel vm)
+                if (__0 is not VolunteerModel vm)
                     return;
 
                 // Prevent recursion / double-wrapping.

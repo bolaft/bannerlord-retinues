@@ -5,14 +5,6 @@ using SandBox.GauntletUI.Map;
 using TaleWorlds.InputSystem;
 #if BL13 || BL14
 using SandBox.View.Map.Navigation;
-#else
-using SandBox.View;
-using SandBox.View.Map;
-using TaleWorlds.CampaignSystem.Encounters;
-using TaleWorlds.Core;
-using TaleWorlds.Engine.GauntletUI;
-using TaleWorlds.Library;
-using TaleWorlds.ScreenSystem;
 #endif
 
 namespace Retinues.Editor.Integration.MapBar.Patches
@@ -22,12 +14,8 @@ namespace Retinues.Editor.Integration.MapBar.Patches
     /// </summary>
 #if BL13 || BL14
     [HarmonyPatch(typeof(GauntletMapBarGlobalLayer), "HandlePanelSwitchingInput")]
-#else
-    [HarmonyPatch(typeof(GauntletMapBarGlobalLayer), "HandlePanelSwitching")]
-#endif
     internal static class MapBarHotkeyPatch
     {
-#if BL13 || BL14
         [HarmonyPostfix]
         private static void Postfix(
             GauntletMapBarGlobalLayer __instance,
@@ -61,139 +49,8 @@ namespace Retinues.Editor.Integration.MapBar.Patches
             el.OpenView();
             __result = true;
         }
-#else
-        [HarmonyPostfix]
-        private static void Postfix(GauntletMapBarGlobalLayer __instance)
-        {
-            if (!Settings.EditorHotkey)
-                return;
-
-            // Mirror vanilla gating in HandlePanelSwitching: only when the top GauntletLayer exists and isn't focused on input.
-            var top = ScreenManager.TopScreen;
-            var gauntletLayer = top?.FindLayer<GauntletLayer>();
-            if (gauntletLayer?.Input == null)
-                return;
-
-            if (gauntletLayer.IsFocusedOnInput())
-                return;
-
-            var inputContext = gauntletLayer.Input;
-            if (!inputContext.IsKeyReleased(InputKey.R))
-                return;
-
-            // BL12: there is no Navigation elements API. Just apply vanilla-like gating and open the editor.
-            var handler = Reflection.GetFieldValue<MapNavigationHandler>(
-                __instance,
-                "_mapNavigationHandler"
-            );
-            if (handler == null)
-                return;
-
-            if (handler.IsNavigationLocked || handler.EscapeMenuActive)
-                return;
-
-            // Mirror key vanilla lock cases.
-            if (PlayerEncounter.CurrentBattleSimulation != null)
-                return;
-
-            if (top is MapScreen mapScreen)
-            {
-                if (
-                    mapScreen.IsInArmyManagement
-                    || mapScreen.IsMarriageOfferPopupActive
-                    || mapScreen.IsMapCheatsActive
-                )
-                    return;
-
-                if (
-                    mapScreen.EncyclopediaScreenManager != null
-                    && mapScreen.EncyclopediaScreenManager.IsEncyclopediaOpen
-                )
-                    return;
-            }
-
-            static void OpenEditor() => EditorLauncher.Launch(EditorMode.Player);
-
-            // Match vanilla: warn about unsaved changes on the currently open panel.
-            if (top is IChangeableScreen changeable && changeable.AnyUnsavedChanges())
-            {
-                InformationManager.ShowInquiry(
-                    changeable.CanChangesBeApplied()
-                        ? GetUnsavedChangedInquiry(OpenEditor)
-                        : GetUnapplicableChangedInquiry()
-                );
-            }
-            else
-            {
-                SwitchToANewScreen(OpenEditor);
-            }
-        }
-
-        /// <summary>
-        /// Builds the vanilla-style "unsaved changes" inquiry (BL12 labels).
-        /// </summary>
-        private static InquiryData GetUnsavedChangedInquiry(System.Action openNewScreenAction)
-        {
-            return new InquiryData(
-                string.Empty,
-                GameTexts.FindText("str_unsaved_changes").ToString(),
-                isAffirmativeOptionShown: true,
-                isNegativeOptionShown: true,
-                affirmativeText: GameTexts.FindText("str_apply").ToString(),
-                negativeText: GameTexts.FindText("str_cancel").ToString(),
-                affirmativeAction: () =>
-                {
-                    ApplyCurrentChanges();
-                    SwitchToANewScreen(openNewScreenAction);
-                },
-                negativeAction: () => SwitchToANewScreen(openNewScreenAction)
-            );
-        }
-
-        /// <summary>
-        /// Builds the vanilla-style "unapplicable changes" inquiry (BL12 labels).
-        /// </summary>
-        private static InquiryData GetUnapplicableChangedInquiry()
-        {
-            return new InquiryData(
-                string.Empty,
-                GameTexts.FindText("str_unapplicable_changes").ToString(),
-                isAffirmativeOptionShown: true,
-                isNegativeOptionShown: true,
-                affirmativeText: GameTexts.FindText("str_apply").ToString(),
-                negativeText: GameTexts.FindText("str_cancel").ToString(),
-                affirmativeAction: null,
-                negativeAction: null
-            );
-        }
-
-        /// <summary>
-        /// Applies or resets changes on the current screen using the IChangeableScreen contract.
-        /// </summary>
-        private static void ApplyCurrentChanges()
-        {
-            if (
-                ScreenManager.TopScreen is IChangeableScreen changeable
-                && changeable.AnyUnsavedChanges()
-            )
-            {
-                if (changeable.CanChangesBeApplied())
-                    changeable.ApplyChanges();
-                else
-                    changeable.ResetChanges();
-            }
-        }
-
-        /// <summary>
-        /// Closes the current panel if needed, then opens the requested screen/state.
-        /// </summary>
-        private static void SwitchToANewScreen(System.Action openNewScreenAction)
-        {
-            if (!(ScreenManager.TopScreen is MapScreen))
-                Game.Current?.GameStateManager?.PopState();
-
-            openNewScreenAction?.Invoke();
-        }
-#endif
     }
+#else
+    internal static class MapBarHotkeyPatch { }
+#endif
 }

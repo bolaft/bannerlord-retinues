@@ -112,7 +112,11 @@ namespace Retinues.Interface.Widgets
             if (_parentPanel == null)
                 return;
 
+#if BL13 || BL14
             ulong frame = EventManager.LocalFrameNumber;
+#else
+            ulong frame = unchecked((ulong)Environment.TickCount);
+#endif
             float viewportTopY = _parentPanel.GlobalPosition.Y;
             float myY = GlobalPosition.Y;
 

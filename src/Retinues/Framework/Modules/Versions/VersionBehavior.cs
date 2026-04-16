@@ -83,7 +83,7 @@ namespace Retinues.Framework.Modules.Versions
                 )
                 {
                     var backupName = TryCreateFilesystemBackup(
-                        MBSaveLoad.ActiveSaveSlotName,
+                        GetActiveSaveSlotName(),
                         previousVersion: null
                     );
                     if (backupName != null)
@@ -114,7 +114,7 @@ namespace Retinues.Framework.Modules.Versions
 
                 // Version changed: back up the save file on disk before showing any popup.
                 var versionBackupName = TryCreateFilesystemBackup(
-                    MBSaveLoad.ActiveSaveSlotName,
+                    GetActiveSaveSlotName(),
                     previousVersion: saveVersionString
                 );
                 if (versionBackupName != null)
@@ -214,6 +214,26 @@ namespace Retinues.Framework.Modules.Versions
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Helpers                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Returns the active save slot name.
+        /// In BL13+, MBSaveLoad.ActiveSaveSlotName is public.
+        /// In BL12, the field is private and requires reflection.
+        /// </summary>
+        private static string GetActiveSaveSlotName()
+        {
+#if BL13 || BL14
+            return MBSaveLoad.ActiveSaveSlotName;
+#else
+            return typeof(MBSaveLoad)
+                    .GetField(
+                        "ActiveSaveSlotName",
+                        System.Reflection.BindingFlags.NonPublic
+                            | System.Reflection.BindingFlags.Static
+                    )
+                    ?.GetValue(null) as string;
+#endif
+        }
 
         /// <summary>
         /// Parses a stored Retinues version string into an ApplicationVersion.

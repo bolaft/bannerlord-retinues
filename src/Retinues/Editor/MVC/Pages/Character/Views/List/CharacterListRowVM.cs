@@ -115,6 +115,14 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.List
         [DataSourceProperty]
         public string FormationClassIcon => Icons.GetFormationClassIcon(Character);
 
+        /// <summary>
+        /// True when the formation class icon should be shown (i.e. not a civilian troop).
+        /// BL12 does not support !@ negated bindings in XML, so we expose this positive
+        /// variant instead of using IsVisible="!@IsCivilian" in the template.
+        /// </summary>
+        [DataSourceProperty]
+        public bool ShowFormationClassIcon => !Character.IsCivilian;
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Tree                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
