@@ -1,8 +1,11 @@
 using System;
+using System.IO;
+using System.Text;
 using Retinues.Framework.Behaviors;
 using Retinues.Interface.Services;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.Core;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
 
@@ -52,7 +55,8 @@ namespace Retinues.Framework.Modules.Versions
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
-        /// Called when game load finishes to compare saved vs current version.
+        /// Called when game load finishes to compare saved vs current version and
+        /// create a filesystem backup when the version has changed.
         /// </summary>
         protected override void OnGameLoadFinished()
         {
@@ -72,12 +76,22 @@ namespace Retinues.Framework.Modules.Versions
                 Log.Debug($"Retinues version (current): {currentVersionString}");
                 Log.Debug($"Retinues version (in save): {_savedVersion}");
 
-                // Old saves or missing data: treat as "no stored version yet".
+                // Retinues was absent from this save: first-time installation.
                 if (
                     string.IsNullOrWhiteSpace(_savedVersion)
                     || _savedVersion == ModuleManager.UnknownVersionString
                 )
                 {
+                    var backupName = TryCreateFilesystemBackup(
+                        MBSaveLoad.ActiveSaveSlotName,
+                        previousVersion: null
+                    );
+                    if (backupName != null)
+                        Notifications.Message(
+                            $"[Retinues] Backup saved as '{backupName}' before first activation.",
+                            "#a0c4ffff"
+                        );
+
                     _savedVersion = currentVersionString;
                     Log.Debug(
                         $"No Retinues version stored in save; assuming current version {_savedVersion}."
@@ -98,6 +112,17 @@ namespace Retinues.Framework.Modules.Versions
                     return;
                 }
 
+                // Version changed: back up the save file on disk before showing any popup.
+                var versionBackupName = TryCreateFilesystemBackup(
+                    MBSaveLoad.ActiveSaveSlotName,
+                    previousVersion: saveVersionString
+                );
+                if (versionBackupName != null)
+                    Notifications.Message(
+                        $"[Retinues] Backup saved as '{versionBackupName}' before update.",
+                        "#a0c4ffff"
+                    );
+
                 // Try to parse both versions into ApplicationVersion.
                 if (
                     !TryParseAppVersion(saveVersionString, out var saveAppVersion)
@@ -111,13 +136,9 @@ namespace Retinues.Framework.Modules.Versions
 
                 // Decide whether this is a direct upgrade or a discrepancy.
                 if (IsDirectUpgrade(saveAppVersion, currentAppVersion))
-                {
                     ShowUpgradePopup(currentVersionString, saveVersionString);
-                }
                 else
-                {
                     ShowDiscrepancyPopup(currentVersionString, saveVersionString);
-                }
             }
             catch (Exception e)
             {
@@ -252,6 +273,104 @@ namespace Retinues.Framework.Modules.Versions
             bool isMajorStep = curMajor == saveMajor + 1 && curMinor == 0;
 
             return isMinorStep || isMajorStep;
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                    Filesystem Backup                   //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Copies the loaded save file to a backup path inside the same Game Saves folder.
+        /// Returns the backup slot name on success, or <c>null</c> if no copy was made
+        /// (file not found, backup already exists, or an error occurred).
+        /// </summary>
+        private static string TryCreateFilesystemBackup(string slotName, string previousVersion)
+        {
+            if (string.IsNullOrWhiteSpace(slotName))
+            {
+                Log.Warning("VersionBehavior: Cannot create backup — active save slot is null.");
+                return null;
+            }
+
+            // Never back up a file that is itself already a backup.
+            if (slotName.Contains("_backup"))
+            {
+                Log.Info($"VersionBehavior: Skipping backup of '{slotName}' — already a backup.");
+                return null;
+            }
+
+            var saveDir = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                "Mount and Blade II Bannerlord",
+                "Game Saves"
+            );
+
+            var sourcePath = Path.Combine(saveDir, slotName + ".sav");
+            if (!File.Exists(sourcePath))
+            {
+                Log.Warning(
+                    $"VersionBehavior: Cannot create backup — source not found: {sourcePath}"
+                );
+                return null;
+            }
+
+            var backupSlot = BuildBackupSlotName(slotName, previousVersion);
+            var backupPath = Path.Combine(saveDir, backupSlot + ".sav");
+
+            if (File.Exists(backupPath))
+            {
+                Log.Info($"VersionBehavior: Backup already exists at '{backupPath}', skipping.");
+                return null;
+            }
+
+            try
+            {
+                File.Copy(sourcePath, backupPath);
+                Log.Info($"VersionBehavior: Created backup '{backupPath}'.");
+                return backupSlot;
+            }
+            catch (Exception e)
+            {
+                Log.Exception(e, $"VersionBehavior: Failed to copy save to '{backupPath}'.");
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Builds the backup slot name from the original slot name and the previous Retinues version.
+        /// Format: <c>{slot}_backup_vX.Y.Z</c> when a previous version is known,
+        ///         <c>{slot}_backup</c> when Retinues was not present before.
+        /// </summary>
+        private static string BuildBackupSlotName(string slotName, string previousVersion)
+        {
+            if (
+                string.IsNullOrWhiteSpace(previousVersion)
+                || previousVersion == ModuleManager.UnknownVersionString
+            )
+                return slotName + "_backup";
+
+            var v = previousVersion.TrimStart('v', 'V');
+            return slotName + "_backup_v" + SanitizeVersionForFilename(v);
+        }
+
+        /// <summary>
+        /// Strips characters that are invalid in Windows filenames from a version string.
+        /// Keeps letters, digits, dots, hyphens and underscores; replaces everything else with '_'.
+        /// </summary>
+        private static string SanitizeVersionForFilename(string version)
+        {
+            if (string.IsNullOrEmpty(version))
+                return version;
+
+            var sb = new StringBuilder(version.Length);
+            foreach (var c in version)
+            {
+                if (char.IsLetterOrDigit(c) || c == '.' || c == '-' || c == '_')
+                    sb.Append(c);
+                else
+                    sb.Append('_');
+            }
+            return sb.ToString();
         }
     }
 }

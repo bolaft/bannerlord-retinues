@@ -22,11 +22,6 @@ namespace Retinues.Framework.Model.Persistence
         const string RootVersion = "1";
 
         /// <summary>
-        /// Set to true during SyncData when a save is loaded that contains no Retinues data.
-        /// </summary>
-        public static bool WasAbsentFromSave { get; private set; }
-
-        /// <summary>
         /// Synchronizes persistent data to/from the save.
         /// </summary>
         public override void SyncData(IDataStore dataStore)
@@ -70,7 +65,6 @@ namespace Retinues.Framework.Model.Persistence
 
                 // Loading
                 var v2Count = 0;
-                WasAbsentFromSave = false;
                 dataStore.SyncData(V2CountKey, ref v2Count);
 
                 string xmlBlob = null;
@@ -96,7 +90,6 @@ namespace Retinues.Framework.Model.Persistence
                 else
                 {
                     Log.Info("MPersistenceBehavior.SyncData: No v2 chunks found.");
-                    WasAbsentFromSave = true;
                     return;
                 }
 
