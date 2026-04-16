@@ -28,7 +28,7 @@
                             SuggestedWidth="105" SuggestedHeight="126"
                             HorizontalAlignment="Left" VerticalAlignment="Center"
                             Brush="Clan.TornBanner"
-                        {% if version == "13" %}
+                        {% if version | int >= 13 %}
                             AdditionalArgs="@AdditionalArgs" ImageId="@Id" TextureProviderName="@TextureProviderName"/>
                         {% else %}
                             AdditionalArgs="@AdditionalArgs" ImageId="@Id" ImageTypeCode="@ImageTypeCode"/>
@@ -64,7 +64,7 @@
                             SuggestedWidth="105" SuggestedHeight="126"
                             HorizontalAlignment="Right" VerticalAlignment="Center"
                             Brush="Clan.TornBanner"
-                        {% if version == "13" %}
+                        {% if version | int >= 13 %}
                             AdditionalArgs="@AdditionalArgs" ImageId="@Id" TextureProviderName="@TextureProviderName"/>
                         {% else %}
                             AdditionalArgs="@AdditionalArgs" ImageId="@Id" ImageTypeCode="@ImageTypeCode"/>

@@ -32,8 +32,8 @@
             <BrushWidget
                 WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
                 Brush="{{ brush }}"/>
-            {# BL13 uses TextureProviderName; BL12 uses ImageTypeCode #}
-            {% if version == "13" %}
+            {# BL13+ uses TextureProviderName; BL12 uses ImageTypeCode #}
+            {% if version | int >= 13 %}
                 <ImageIdentifierWidget
                     AdditionalArgs="{{ args_var }}" ImageId="{{ id_var }}" TextureProviderName="{{ provider_var }}"
                     WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
