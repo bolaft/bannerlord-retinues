@@ -11,6 +11,9 @@
       id="ret_age_hint"
       text="Âge" />
     <string
+      id="ret_ai_retinue_equipment_upgrade"
+      text="{RETINUE} a acquis {ITEM}." />
+    <string
       id="ret_ai_retinue_loot_line"
       text="{RETINUE} a pillé et équipé {ITEM} sur vos pertes." />
     <string
@@ -1547,6 +1550,93 @@
       id="ret_list_header_villagers"
       text="Villageois" />
     <string
+      id="ret_man_equipment_advanced_text"
+      text="Trois systèmes optionnels ajoutent des contraintes supplémentaires aux changements d&apos;équipement : un délai de mise en attente avant l&apos;entrée en vigueur des objets, des budgets de poids et de valeur par rang, et un verrou de déverrouillage sur les objets individuels.{newline}{newline}Mise en attente : Lorsque l&apos;option Équiper prend du temps est activée, équiper un objet n&apos;a pas d&apos;effet immédiat. Le nouvel objet est placé dans une file d&apos;attente et appliqué progressivement au fil du temps en jeu. Les emplacements en attente sont affichés dans une couleur différente et montrent l&apos;objet actuellement équipé dans l&apos;info-bulle. Vous pouvez annuler la mise en attente à tout moment. La progression s&apos;accumule heure par heure et aussi en voyage si Équiper en voyage est activé. Les troupes héroïques ne sont jamais soumises à la mise en attente ; leurs changements d&apos;équipement sont toujours instantanés.{newline}{newline}Limites de poids et de valeur : Les paramètres Limiter par le poids et Limiter par la valeur imposent un budget sur le poids total et la valeur totale de l&apos;équipement de combat d&apos;une troupe. Les deux sont désactivés par défaut. Lorsqu&apos;ils sont actifs, chaque rang de troupe a un budget correspondant affiché dans l&apos;éditeur. Les doctrines de l&apos;Armurerie peuvent relever ces limites lorsqu&apos;elles sont actives.{newline}{newline}Disponibilité et déverrouillages : Lorsque L&apos;équipement nécessite un déverrouillage est activé, chaque objet nécessite 1000 points de progression de déverrouillage avant de pouvoir être équipé. Les objets commencent verrouillés et cachés ; dès qu&apos;ils ont une certaine progression, ils apparaissent en bas de la liste, triés par complétion. Un nombre configurable d&apos;objets par emplacement est pré-déverrouillé automatiquement dans une nouvelle partie jusqu&apos;à un plafond de rang configurable. Ce système s&apos;applique uniquement à l&apos;écran Troupes ; dans l&apos;Éditeur universel, tous les objets sont librement disponibles." />
+    <string
+      id="ret_man_equipment_advanced_title"
+      text="Retinues 5.3 - Mise en attente et limites" />
+    <string
+      id="ret_man_equipment_economy_text"
+      text="L&apos;économie d&apos;équipement suit le nombre d&apos;exemplaires de chaque objet que possèdent vos forces et facture optionnellement de l&apos;or lorsque vous équipez du matériel qui n&apos;est pas en stock.{newline}{newline}Objets partagés : Lorsqu&apos;une troupe a plusieurs ensembles, les objets sont partagés intelligemment entre eux. Si un équipement est déjà présent dans un autre ensemble appartenant à la même troupe, l&apos;équiper dans un second ensemble n&apos;entraîne pas de coût de stock supplémentaire ou d&apos;achat. Une troupe avec deux ensembles portant la même épée dans les deux n&apos;a besoin que d&apos;un seul exemplaire de cette épée.{newline}{newline}Stocks : Chaque objet a un compteur de stock représentant le nombre d&apos;exemplaires stockés par vos forces. Lorsque l&apos;économie est active, équiper un objet prend un exemplaire de son stock ; le déséquiper le retourne. Le stock s&apos;accumule lors des batailles, des abandons et d&apos;autres sources. Ce système s&apos;applique uniquement à l&apos;écran Troupes ; dans l&apos;Éditeur universel, les stocks ne jouent aucun rôle.{newline}{newline}Coûts et achats : Lorsque L&apos;équipement coûte de l&apos;argent est actif, équiper un objet qui n&apos;est pas en stock et non couvert par un autre ensemble nécessite de dépenser des pièces à la valeur de l&apos;objet multipliée par le paramètre Multiplicateur de coût. Deux doctrines réduisent les coûts : Fierté culturelle accorde une réduction de 20% sur les objets correspondant à la culture de votre clan, et Patronage royal accorde une réduction de 20% sur les objets correspondant à la culture de votre royaume. Les deux réductions peuvent s&apos;appliquer au même objet." />
+    <string
+      id="ret_man_equipment_economy_title"
+      text="Retinues 5.2 - Économie d&apos;équipement" />
+    <string
+      id="ret_man_equipment_text"
+      text="Chaque troupe a deux catégories d&apos;équipement : les ensembles de combat et les ensembles civils. Les ensembles de combat sont portés au combat ; les ensembles civils en toutes autres circonstances. Vous basculez entre eux à l&apos;aide du bouton au-dessus du modèle de personnage.{newline}{newline}Types d&apos;ensembles de combat : Chaque ensemble de combat peut être marqué comme s&apos;appliquant aux batailles de campagne, aux batailles de siège ou aux batailles navales. Un ensemble peut couvrir n&apos;importe quelle combinaison de ces types. Au moins un ensemble doit rester activé pour chaque type de bataille en tout temps.{newline}{newline}Gestion des ensembles : Utilisez le bouton d&apos;ajout pour créer une copie de l&apos;ensemble actuel ou un ensemble vide. Utilisez le bouton de suppression pour supprimer l&apos;ensemble actuel ; vous ne pouvez pas supprimer un ensemble s&apos;il est le seul dans sa catégorie, ou si cela laissait un type de bataille sans couverture. Lorsque l&apos;économie est active et qu&apos;un ensemble est supprimé, ses objets sont automatiquement retournés en stock.{newline}{newline}Emplacements : Chaque ensemble a quatre emplacements d&apos;armes, Tête, Cape, Corps, Gants, Jambe, Cheval et Harnais de cheval. L&apos;emplacement Harnais de cheval n&apos;est actif que lorsqu&apos;un cheval est équipé. Si un nouveau cheval est équipé et que le harnais actuel n&apos;est pas compatible, le harnais est automatiquement effacé." />
+    <string
+      id="ret_man_equipment_title"
+      text="Retinues 5.1 - Équipement" />
+    <string
+      id="ret_man_overview_text"
+      text="Retinues ajoute un ensemble de systèmes pour recruter, entraîner et équiper vos propres forces personnelles tout au long d&apos;une campagne.{newline}{newline}À son cœur se trouve la suite : une troupe de maisonnée liée à votre clan qui vous suit exclusivement et peut être développée en unité d&apos;élite au fil du temps.{newline}{newline}Au-delà des suites, vous pouvez construire des arbres de troupes entièrement personnalisés pour votre clan et votre royaume. Ces troupes apparaissent comme volontaires et renforcent les armées de votre faction. Un système de doctrines offre une couche de progression, débloquant de nouveaux types de troupes, des avantages d&apos;équipement et d&apos;autres bonus à mesure que vous accomplissez des objectifs de jeu.{newline}{newline}Tout cela est géré via l&apos;éditeur, accessible depuis le bouton Troupes sur la carte de campagne ou en appuyant sur [R]." />
+    <string
+      id="ret_man_overview_title"
+      text="Retinues 1.0 - Vue d&apos;ensemble" />
+    <string
+      id="ret_man_retinues_ai_text"
+      text="Les clans non joueurs peuvent aussi avoir leurs propres suites. Cette fonctionnalité est activée par défaut et s&apos;applique aux clans qui atteignent un seuil de rang minimum (rang 3 par défaut). Chaque jour, il y a par défaut 25% de chances qu&apos;un groupe éligible promeuve une troupe d&apos;un rang correspondant en suite, jusqu&apos;à un plafond de 10% de la taille du groupe. Les souverains de royaume obtiennent une Garde du roi ou une Garde de la reine en plus des suites de leur clan.{newline}{newline}Par défaut, seul le groupe du chef de clan crée des suites. Le paramètre Seuls les chefs de clan ont des suites peut être désactivé pour permettre à tous les groupes de seigneurs d&apos;un clan d&apos;avoir les leurs.{newline}{newline}Les suites de l&apos;IA s&apos;améliorent avec le temps à mesure que leur clan gagne de l&apos;expérience. Si vous perdez une bataille contre un clan qui a des suites, leurs suites peuvent récupérer de l&apos;équipement sur vos pertes, améliorant progressivement leur équipement." />
+    <string
+      id="ret_man_retinues_ai_title"
+      text="Retinues 2.4 - Rétinues des clans IA" />
+    <string
+      id="ret_man_retinues_management_text"
+      text="Cette section couvre les limites de taille de groupe pour les suites, comment les recruter via le système d&apos;amélioration du groupe, les bonus passifs qu&apos;elles reçoivent et comment les faire monter en rang.{newline}{newline}Limites du groupe : Le nombre de suites que vous pouvez déployer est plafonné à un ratio de votre limite de taille de groupe. Par défaut : 15%, ajustable dans les paramètres. Les bonus de doctrines peuvent augmenter ce plafond. Les suites ne peuvent pas être placées en garnison ni transférées à des groupes de compagnons ; elles vous suivent exclusivement.{newline}{newline}Recrutement : Les suites n&apos;apparaissent pas dans les listes de volontaires des colonies. Elles apparaissent plutôt comme options d&apos;amélioration sur les troupes existantes de votre groupe. Quand vous ouvrez l&apos;écran du groupe, chaque suite est associée à la troupe la plus adaptée un rang en dessous, et la suite apparaît comme une cible d&apos;amélioration supplémentaire sur cette troupe. Améliorer une troupe en suite convertit une unité de la troupe source en type de suite sans consommer l&apos;emplacement de suite. La troupe source est choisie d&apos;abord dans l&apos;arbre personnalisé de votre faction, puis dans l&apos;arbre de votre culture si aucune correspondance n&apos;est trouvée.{newline}{newline}Bonus : Les suites reçoivent un ensemble de bonus passifs en plus de leurs stats normales. Par défaut : +20 points de vie, +5 à tous les plafonds de compétences et +20 au total de points de compétence. Chaque bonus peut être activé/désactivé et ajusté individuellement dans les paramètres. Le préréglage Réaliste désactive les trois.{newline}{newline}Montée en rang : Quand une suite a toutes ses compétences entièrement maximisées, elle devient éligible à une montée en rang. Monter en rang coûte de l&apos;or : (rang actuel + 1) x 1000 denars. Cela coûte aussi des points de compétence : 5 x rang actuel. L&apos;effet augmente le niveau de la suite de 5 et débloque des plafonds de compétences plus élevés. L&apos;action de montée en rang s&apos;affiche dans l&apos;éditeur une fois toutes les conditions remplies." />
+    <string
+      id="ret_man_retinues_management_title"
+      text="Retinues 2.3 - Groupe et recrutement" />
+    <string
+      id="ret_man_retinues_text"
+      text="Les suites sont des troupes spéciales de garde de maisonnée liées à votre clan. Contrairement aux troupes de faction ordinaires, elles sont personnelles au joueur : elles ne peuvent pas être mises en garnison ni transférées à un autre groupe, et elles restent avec vous en permanence. Elles commencent à un rang faible mais peuvent être entraînées, équipées et monter en rang au cours d&apos;une campagne.{newline}{newline}Suite de départ : Une suite est créée automatiquement lorsque vous démarrez une nouvelle campagne ou lorsque vous chargez une sauvegarde existante pour la première fois. Elle porte le nom de votre clan et correspond à la culture de votre clan. Si vous êtes déjà souverain à ce moment-là, une Garde du roi ou une Garde de la reine est également créée pour votre royaume." />
+    <string
+      id="ret_man_retinues_title"
+      text="Retinues 2.1 - Suites" />
+    <string
+      id="ret_man_retinues_unlock_text"
+      text="Vous pouvez débloquer une suite supplémentaire par culture. La culture de votre clan est débloquée dès le départ. Pour chaque autre culture, vous accumulez des progrès de déblocage grâce à des activités de jeu liées à cette culture.{newline}{newline}Remporter un tournoi accorde +50 points pour la culture de la ville où se déroule le tournoi. Réussir une quête accorde +25 points pour la culture du donneur de quête. Posséder un fief accorde +5 points par jour et par fief, pour la culture propre à chaque fief. Posséder un atelier accorde +2 points par jour et par atelier, pour la culture de la ville où se trouve l’atelier. Gagner une bataille aux côtés de partis alliés accorde +10 points par parti allié, pour la culture de chaque allié.{newline}{newline}Chaque culture nécessite 1000 points pour être débloquée. La vitesse globale peut être ajustée avec le paramètre Vitesse de déblocage des suites. Lorsqu’une culture est débloquée, une nouvelle suite est créée automatiquement et une fenêtre apparaît pour vous permettre d’aller directement à l’éditeur." />
+    <string
+      id="ret_man_retinues_unlock_title"
+      text="Retinues 2.2 - Débloquer les suites" />
+    <string
+      id="ret_man_skills_budget_text"
+      text="Cette section couvre le pool partagé optionnel de points de compétence, le fonctionnement des dépenses et des remboursements, ainsi que les plafonds et totaux par rang qui bornent les compétences d&apos;une troupe.{newline}{newline}Pool partagé de points de compétence : Lorsque le paramètre Pool partagé de points de compétence est activé, toutes les troupes personnalisées versent leur XP de combat dans un seul pool pour toute la campagne, au lieu de pools par type de troupe. Les points du pool peuvent être dépensés sur n&apos;importe quelle troupe personnalisée, ce qui facilite le développement de spécialistes sans devoir répartir les combats sur tout votre effectif. Le solde du pool est affiché dans l&apos;en-tête du panneau de compétences. Désactiver ce paramètre en cours de campagne n&apos;efface ni les points par troupe, ni le pool partagé. Ce paramètre nécessite que Points de compétence à gagner soit actif.{newline}{newline}Dépenses : Chaque augmentation de compétence coûte un point ; diminuer une compétence le rembourse immédiatement. Lorsque Entraînement prend du temps est activé, diminuer une compétence déjà engagée demande une confirmation.{newline}{newline}Plafonds et totaux : Deux limites s&apos;appliquent dans l&apos;écran Troupes. Le plafond est le niveau maximum qu&apos;une compétence peut atteindre pour ce rang ; par défaut, il va de 20 au rang 0 à 360 au rang 7. Le total est la somme de toutes les compétences qu&apos;une troupe de ce rang peut avoir ; par défaut, il va de 90 au rang 0 à 1600 au rang 7. Les suites reçoivent des bonus au-delà des deux limites. Les capitaines au rang max reçoivent un bonus de 20%. La doctrine Discipline de fer ajoute +5 au plafond pour toutes les troupes. Soldats inébranlables et Maîtres d&apos;armes ajoutent chacun +20 au total pour les lignes basique et élite respectivement." />
+    <string
+      id="ret_man_skills_budget_title"
+      text="Retinues 4.2 - Budget de compétences" />
+    <string
+      id="ret_man_skills_text"
+      text="Vos troupes personnalisées disposent d&apos;une fiche de compétences que vous pouvez modifier depuis l&apos;écran Troupes, sous réserve de plafonds par compétence et d&apos;un budget total de compétences. Ce système ne s&apos;applique pas aux troupes modifiées via l&apos;Éditeur universel, où les compétences peuvent être ajustées librement à tout moment.{newline}{newline}Sources d&apos;XP : Les troupes personnalisées accumulent de l&apos;XP de points de compétence via les batailles jouées, les batailles auto-résolues, l&apos;entraînement quotidien du groupe et d&apos;autres activités. Lorsque Points de compétence à gagner est actif (activé par défaut), toute cette XP alimente le compteur de progression de points de compétence pour ce type de troupe. Les troupes de rang supérieur nécessitent proportionnellement plus d&apos;XP. Le taux global est ajustable via le paramètre Taux de gain de points de compétence.{newline}{newline}Mode libre : Lorsque Points de compétence à gagner est désactivé, les points de compétence ne sont plus conditionnés par les performances en bataille. Les compétences peuvent être allouées librement dans l&apos;éditeur à tout moment, sans rien gagner au préalable." />
+    <string
+      id="ret_man_skills_title"
+      text="Retinues 4.1 - Compétences et expérience" />
+    <string
+      id="ret_man_skills_training_text"
+      text="Trois paramètres structurent davantage l&apos;édition des compétences : un verrouillage temporel optionnel sur l&apos;entraînement, un plancher dérivé des troupes parentes, et des restrictions contextuelles basées sur l&apos;emplacement d&apos;utilisation de l&apos;éditeur.{newline}{newline}Entraînement prend du temps : Lorsque ce paramètre est activé, augmenter une compétence dans l&apos;éditeur ne s&apos;applique pas instantanément. L&apos;augmentation est stockée comme en attente et appliquée progressivement au taux défini par Points entraînés par jour (par défaut : 1 par jour). Les augmentations en attente sont affichées dans une couleur différente. La progression d&apos;entraînement continue en voyage par défaut ; le paramètre Entraîner en voyage peut la restreindre aux moments où le groupe est immobile.{newline}{newline}Plancher de compétence : Les compétences d&apos;une troupe ne peuvent pas être abaissées en dessous de la valeur la plus élevée détenue par l&apos;une de ses sources d&apos;amélioration. Par exemple, si une troupe source de rang 2 a 80 en Arme à une main, l&apos;amélioration de rang 3 ne peut pas être réglée en dessous de 80 en Arme à une main. L&apos;éditeur indique quelle troupe source fixe le plancher lorsque la diminution est bloquée.{newline}{newline}Restrictions de contexte : Le paramètre Restriction d&apos;édition peut limiter quand les compétences et l&apos;équipement peuvent être modifiés. Aucune (par défaut en mode libre) n&apos;impose aucune restriction. En colonie exige d&apos;être dans n&apos;importe quelle colonie. En fief exige d&apos;être dans une colonie appartenant à votre clan ou à votre royaume. Les suites sont exemptées de l&apos;exigence de fief et peuvent être éditées dans n&apos;importe quelle colonie." />
+    <string
+      id="ret_man_skills_training_title"
+      text="Retinues 4.3 - Entraînement et restrictions" />
+    <string
+      id="ret_man_troops_setup_text"
+      text="Lorsqu&apos;un arbre de troupes personnalisées est créé pour la première fois, deux paramètres déterminent la forme de sa liste de départ, et plusieurs autres contrôlent où ces troupes apparaissent comme volontaires.{newline}{newline}Troupes de départ : L&apos;état initial de l&apos;arbre dépend du paramètre Troupes de départ. Racines uniquement ne crée que les deux troupes racines, laissant le reste vide à construire manuellement. Arbres allégés (par défaut) copie une version épurée de l&apos;arbre de votre culture : une troupe représentative par type de formation et par rang, avec des noms basés sur la faction comme Recrue du clan. Arbres complets clone l&apos;intégralité de l&apos;arbre culturel à l&apos;identique, en remplaçant le préfixe culturel par le nom de votre clan ou de votre royaume.{newline}{newline}Équipement de départ : L&apos;équipement est défini séparément via le paramètre Équipement de départ. Ensemble aléatoire (par défaut) génère un équipement aléatoire à partir d&apos;objets adaptés au rang et à la culture de chaque troupe. Ensemble unique copie le premier ensemble d&apos;équipement du modèle culturel. Tous les ensembles copie chaque ensemble d&apos;équipement du modèle. Ensemble vide crée des troupes sans aucun objet.{newline}{newline}Recrutement : L&apos;endroit où vos troupes personnalisées apparaissent comme volontaires dépend des paramètres Disponibilité des troupes de clan et Disponibilité des troupes de royaume. Par défaut, les troupes de clan apparaissent dans les fiefs du clan et les troupes de royaume dans les fiefs du royaume. Les deux peuvent être ouverts à toute colonie ou restreints davantage. Le paramètre Même culture uniquement empêche les troupes personnalisées d&apos;apparaître dans des colonies d&apos;une autre culture. Le paramètre Recruteurs autorisés contrôle si les seigneurs IA peuvent aussi recruter vos troupes. Par défaut, les troupes personnalisées remplacent entièrement les volontaires culturels standards dans les colonies éligibles ; Mélanger avec les troupes vanilla les fait apparaître aux côtés des troupes standards à la place." />
+    <string
+      id="ret_man_troops_setup_title"
+      text="Retinues 3.2 - Configuration et recrutement" />
+    <string
+      id="ret_man_troops_text"
+      text="Au-delà de vos suites, vous pouvez créer et personnaliser des arbres de troupes complets pour votre clan et votre royaume. Ces troupes apparaissent dans les pools de volontaires, les garnisons et les groupes à travers le monde et se modifient depuis le même écran Troupes que les suites. Chaque faction obtient deux lignes racines : un arbre basique et un arbre noble d&apos;élite. À partir de ces racines, vous pouvez créer des branches d&apos;amélioration jusqu&apos;à un maximum de 4 cibles d&apos;amélioration par troupe.{newline}{newline}Déverrouillage : Par défaut, les troupes de clan se déverrouillent lorsque vous obtenez votre premier fief. Elles peuvent aussi être réglées pour se déverrouiller dès le départ ou être désactivées entièrement. Les troupes de royaume se déverrouillent par défaut lorsque vous fondez un royaume, et peuvent aussi être désactivées. Quand les troupes se déverrouillent, une fenêtre apparaît pour vous permettre d&apos;aller directement au nouvel arbre." />
+    <string
+      id="ret_man_troops_title"
+      text="Retinues 3.1 - Troupes de clan et de royaume" />
+    <string
+      id="ret_man_troops_types_text"
+      text="Plusieurs doctrines débloquent des types de troupes supplémentaires au-delà de l&apos;arbre principal, et l&apos;éditeur fournit des outils pour gérer la structure de l&apos;arbre et superviser les autres clans de votre royaume.{newline}{newline}Milices et troupes spéciales : Trois doctrines débloquent des types de troupes personnalisées supplémentaires. Milice indéfectible débloque des milices personnalisées qui remplacent la milice culturelle par défaut dans les villes et châteaux de votre faction selon un cycle quotidien. Gardiens des routes débloque des troupes de caravane personnalisées utilisées par les caravanes de votre faction. Paysannerie armée débloque des troupes villageoises personnalisées utilisées par les groupes villageois de votre faction.{newline}{newline}Capitaines : La doctrine Capitaines débloque des variantes Capitaine pour toutes les troupes régulières. Un Capitaine est une version plus puissante qui apparaît périodiquement à leur place. Le taux d&apos;apparition est configurable via le paramètre Taux d&apos;apparition des capitaines (par défaut : 1 pour 15 troupes régulières). Les capitaines ne peuvent pas avoir leurs propres cibles d&apos;amélioration et ne peuvent pas être montés en rang. Leur équipement est modifié séparément mais ils partagent les coûts d&apos;équipement avec leur troupe de base.{newline}{newline}Améliorations et suppression : Vous pouvez ajouter une cible d&apos;amélioration à toute troupe personnalisée non héroïque qui n&apos;est pas au rang maximum et qui a moins de 4 cibles d&apos;amélioration. La nouvelle troupe est créée un rang au-dessus de son parent et hérite de ses compétences. Pour supprimer une troupe, vous devez d&apos;abord supprimer toutes ses cibles d&apos;amélioration. Les troupes racines ne peuvent pas être supprimées. Lorsqu&apos;une troupe est supprimée, toutes les unités de ce type dans le monde sont converties en leur équivalent culturel.{newline}{newline}Autres clans : Lorsque vous êtes souverain, l&apos;éditeur vous permet de gérer les arbres de troupes personnalisées des autres clans de votre royaume. Cliquez sur la bannière de gauche pour sélectionner un autre clan. Si le clan sélectionné n&apos;a pas encore de troupes personnalisées, il vous est proposé de les initialiser en copiant l&apos;arbre existant du royaume ou en partant des racines culturelles." />
+    <string
+      id="ret_man_troops_types_title"
+      text="Retinues 3.3 - Troupes spéciales et arbre" />
+    <string
+      id="ret_manual_button_label"
+      text="Ouvrir le manuel" />
+    <string
       id="ret_mariner_captain_reason"
       text="Les capitaines partagent la capacité de marin de leurs troupes de base" />
     <string
@@ -1886,6 +1976,12 @@
       id="ret_mcm_option_same_culture_only_hint"
       text="Si activé, les troupes personnalisées ne peuvent être recrutées que dans des fiefs de la même culture." />
     <string
+      id="ret_mcm_option_shared_skill_points_pool"
+      text="Réserve de Points de Compétence Partagée" />
+    <string
+      id="ret_mcm_option_shared_skill_points_pool_hint"
+      text="Si activé, toutes les troupes personnalisées tirent des points de compétence d&apos;une seule réserve partagée au lieu que chaque troupe ait le sien." />
+    <string
       id="ret_mcm_option_skill_cap"
       text="Plafond de Compétence du Niveau {TIER}" />
     <string
@@ -2113,6 +2209,15 @@
     <string
       id="ret_preset_default_tooltip"
       text="Appliquer le préréglage par défaut : une expérience équilibrée conçue pour une première partie" />
+    <string
+      id="ret_preset_description_default"
+      text="La configuration par défaut, équilibrée pour une première partie.{newline}{newline}Les bonus de suites sont actifs, les troupes de clan se débloquent avec votre premier fief, l&apos;équipement a un coût, et les objets doivent être débloqués via les éliminations et les ateliers avant de pouvoir être équipés. Les points de compétence doivent être gagnés au combat." />
+    <string
+      id="ret_preset_description_freeform"
+      text="Un bac à sable créatif : aucun coût, aucune condition, aucune restriction.{newline}{newline}L&apos;acquisition des doctrines est gratuite. L&apos;équipement est gratuit et tous les objets sont disponibles immédiatement. Les points de compétence peuvent être attribués librement sans exigence d&apos;expérience. Les troupes de clan sont disponibles dès le début et peuvent être recrutées partout." />
+    <string
+      id="ret_preset_description_realistic"
+      text="Une expérience plus stricte qui met l&apos;accent sur une progression méritée et l&apos;identité de faction.{newline}{newline}Les limites de compétences et d&apos;équipement sont appliquées dans l&apos;Éditeur universel. Les troupes ne peuvent être modifiées que lorsque vous êtes dans un fief possédé. Les bonus de suites sont désactivés. Équiper et s&apos;entraîner prend du temps. L&apos;équipement est soumis à des limites de poids et de valeur selon le rang. Les troupes ne peuvent être recrutées que dans des colonies de même culture, et seules les racines culturelles sont générées au début de la partie." />
     <string
       id="ret_preset_freeform_button"
       text="Forme libre" />
@@ -2399,6 +2504,15 @@
       id="ret_select_culture_title"
       text="Sélectionner une culture" />
     <string
+      id="ret_shared_skill_experience_tooltip"
+      text="{XP} XP dans le pool partagé (prochain point à {XP_REQUIRED})" />
+    <string
+      id="ret_shared_skill_point_gained"
+      text="Vos troupes ont gagné un point de compétence." />
+    <string
+      id="ret_shared_skill_points_gained"
+      text="Vos troupes ont gagné {POINTS} points de compétence." />
+    <string
       id="ret_skill_decrease_sources_reason"
       text="Impossible de descendre en dessous du niveau de compétence de {SOURCE}" />
     <string
@@ -2413,6 +2527,9 @@
     <string
       id="ret_skill_description_text"
       text="Points de compétence : {SKILL_POINTS} - Plafond de compétence : {SKILL_CAP} - Niveau : {TIER}" />
+    <string
+      id="ret_skill_description_text_shared"
+      text="Pool : {SKILL_POINTS} pts - Plafond : {SKILL_CAP} - Niveau : {TIER}" />
     <string
       id="ret_skill_description_text_short"
       text="Plafond de compétence : {SKILL_CAP} - Niveau : {TIER}" />
@@ -2510,11 +2627,53 @@
       id="ret_statistics_button_label"
       text="Afficher les statistiques" />
     <string
+      id="ret_statistics_casualties_sentence"
+      text="Subi {TOTAL} pertes : {BREAKDOWN}." />
+    <string
+      id="ret_statistics_culture_entry"
+      text="{COUNT} contre {CULTURE}" />
+    <string
+      id="ret_statistics_culture_more"
+      text="{COUNT} de plus" />
+    <string
+      id="ret_statistics_deployments"
+      text="{TOTAL} soldats déployés dans {PARTIES} groupes et {GARRISONS} garnisons." />
+    <string
+      id="ret_statistics_field_entry"
+      text="{COUNT} batailles campales" />
+    <string
+      id="ret_statistics_fought_in"
+      text="Combattu dans {LIST}." />
+    <string
+      id="ret_statistics_in_service"
+      text="{NAME} est en service depuis {YEARS} ans, {SEASONS} saisons et {DAYS} jours." />
+    <string
+      id="ret_statistics_kills_sentence"
+      text="Tué {TOTAL} ennemis : {BREAKDOWN}." />
+    <string
+      id="ret_statistics_most_feared"
+      text="Adversaire le plus redouté : {NAME}." />
+    <string
+      id="ret_statistics_most_slain"
+      text="Ennemi le plus tué : {NAME}." />
+    <string
+      id="ret_statistics_naval_entry"
+      text="{COUNT} batailles navales" />
+    <string
       id="ret_statistics_player_only"
       text="Non disponible dans l&apos;éditeur universel" />
     <string
       id="ret_statistics_popup_title"
       text="Statistiques" />
+    <string
+      id="ret_statistics_raid_entry"
+      text="{COUNT} raids" />
+    <string
+      id="ret_statistics_siege_entry"
+      text="{COUNT} sièges" />
+    <string
+      id="ret_statistics_victories_defeats"
+      text="Remporté {WON} victoires, subi {LOST} défaites." />
     <string
       id="ret_status_captain_disabled"
       text="Inactif" />

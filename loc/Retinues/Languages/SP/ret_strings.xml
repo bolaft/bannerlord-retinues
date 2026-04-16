@@ -11,6 +11,9 @@
       id="ret_age_hint"
       text="Edad" />
     <string
+      id="ret_ai_retinue_equipment_upgrade"
+      text="{RETINUE} adquirió {ITEM}." />
+    <string
       id="ret_ai_retinue_loot_line"
       text="{RETINUE} saqueó y equipó {ITEM} de tus bajas." />
     <string
@@ -1547,6 +1550,93 @@
       id="ret_list_header_villagers"
       text="Aldeanos" />
     <string
+      id="ret_man_equipment_advanced_text"
+      text="Tres sistemas opcionales añaden restricciones adicionales a los cambios de equipamiento: un retraso de preparación antes de que los objetos entren en vigor, presupuestos de peso y valor por rango, y una puerta de desbloqueo en objetos individuales.{newline}{newline}Preparación: Cuando Equipar lleva tiempo está activado, equipar un objeto no tiene efecto inmediato. El nuevo objeto se coloca en una cola de preparación y se aplica gradualmente a medida que pasa el tiempo en el juego. Los huecos en preparación se muestran en un color diferente y muestran el objeto equipado actualmente en el tooltip. Puedes retirar un objeto de la preparación en cualquier momento. El progreso se acumula hora a hora y también durante los viajes si Equipar durante el viaje está activado. Las tropas héroe nunca están sujetas a preparación; sus cambios de equipamiento son siempre instantáneos.{newline}{newline}Límites de peso y valor: Las configuraciones Limitar por peso y Limitar por valor imponen un presupuesto sobre el peso total y el valor total del equipamiento de combate de una tropa. Ambas están desactivadas por defecto. Cuando están activas, cada rango de tropa tiene un presupuesto correspondiente mostrado en el editor. Las doctrinas de la Armería pueden elevar estos límites cuando están activas.{newline}{newline}Disponibilidad y desbloqueos: Cuando Equipamiento necesita desbloqueo está activado, cada objeto requiere 1000 puntos de progreso de desbloqueo antes de poder equiparse. Los objetos comienzan bloqueados y ocultos; una vez que tienen algo de progreso aparecen al final de la lista, ordenados por finalización. Un número configurable de objetos por hueco se desbloquean previamente de forma automática en una nueva partida hasta un límite de rango configurable. Este sistema solo se aplica en la pantalla Tropas; en el Editor Universal todos los objetos están disponibles libremente." />
+    <string
+      id="ret_man_equipment_advanced_title"
+      text="Retinues 5.3 - Preparación y Límites" />
+    <string
+      id="ret_man_equipment_economy_text"
+      text="La economía de equipamiento rastrea cuántas copias de cada objeto poseen sus fuerzas y cobra opcionalmente oro cuando equipas un objeto que no está en stock.{newline}{newline}Objetos compartidos: Cuando una tropa tiene múltiples conjuntos, los objetos se comparten inteligentemente entre ellos. Si un equipamiento ya está presente en otro conjunto perteneciente a la misma tropa, equiparlo en un segundo conjunto no conlleva un coste de stock adicional o compra. Una tropa con dos conjuntos usando la misma espada en ambos solo necesita una copia de esa espada.{newline}{newline}Stocks: Cada objeto tiene un contador de stock que representa cuántas copias han acumulado tus fuerzas. Cuando la economía está activa, equipar un objeto extrae una copia de su stock; desequiparlo la devuelve. El stock se acumula de batallas, descartes y otras fuentes. Este sistema solo se aplica en la pantalla Tropas; en el Editor Universal los stocks no tienen ningún papel.{newline}{newline}Costes y compras: Cuando Equipamiento cuesta dinero está activo, equipar un objeto que no está en stock y no cubierto por otro conjunto requiere gastar monedas al valor del objeto escalado por la configuración Multiplicador de coste. Dos doctrinas reducen los costes: Orgullo cultural otorga un descuento del 20% en objetos que coinciden con la cultura de tu clan, y Patrocinio real otorga un descuento del 20% en objetos que coinciden con la cultura de tu reino. Ambos descuentos pueden aplicarse al mismo objeto." />
+    <string
+      id="ret_man_equipment_economy_title"
+      text="Retinues 5.2 - Economía de Equipamiento" />
+    <string
+      id="ret_man_equipment_text"
+      text="Cada tropa tiene dos categorías de equipamiento: conjuntos de batalla y conjuntos civiles. Los conjuntos de batalla se usan en combate; los civiles en cualquier otro momento. Cambias entre ellos usando el botón sobre el modelo del personaje.{newline}{newline}Tipos de conjuntos de batalla: Cada conjunto de batalla puede marcarse como aplicable a batallas de campo, batallas de asedio o batallas navales. Un conjunto puede cubrir cualquier combinación de esos tipos. Al menos un conjunto debe permanecer habilitado para cada tipo de batalla en todo momento.{newline}{newline}Gestión de conjuntos: Usa el botón de añadir para crear una copia del conjunto actual o uno vacío. Usa el botón de eliminar para borrar el conjunto actual; no puedes borrar un conjunto si es el único en su categoría, o si hacerlo dejaría algún tipo de batalla sin cobertura. Cuando la economía está activa y se elimina un conjunto, sus objetos se devuelven al stock automáticamente.{newline}{newline}Huecos: Cada conjunto tiene cuatro huecos para armas, además de Cabeza, Capa, Cuerpo, Guantes, Pierna, Caballo y Arnés de caballo. El hueco Arnés de caballo solo está activo cuando hay un caballo equipado. Si se equipa un nuevo caballo y el arnés actual no es compatible, el arnés se borra automáticamente." />
+    <string
+      id="ret_man_equipment_title"
+      text="Retinues 5.1 - Equipamiento" />
+    <string
+      id="ret_man_overview_text"
+      text="Retinues añade una serie de sistemas para construir, entrenar y equipar sus propias fuerzas personales a lo largo de una campaña.{newline}{newline}En su núcleo está la mesnada: una tropa doméstica vinculada a tu clan que te sigue exclusivamente y puede desarrollarse en una unidad de élite con el tiempo.{newline}{newline}Más allá de las mesnadas, puedes construir árboles de tropas completamente personalizados para tu clan y reino. Estas tropas aparecen como voluntarios y llenan los ejércitos de tu facción. Un sistema de doctrinas proporciona una capa de progresión, desbloqueando nuevos tipos de tropas, ventajas de equipamiento y otros bonos a medida que cumples objetivos de juego.{newline}{newline}Todo esto se gestiona a través del editor, abierto desde el botón Tropas en el mapa de campaña o pulsando [R]." />
+    <string
+      id="ret_man_overview_title"
+      text="Retinues 1.0 - Descripción general" />
+    <string
+      id="ret_man_retinues_ai_text"
+      text="Los clanes que no controla el jugador también pueden tener sus propias mesnadas. Esta función está habilitada por defecto y se aplica a clanes que alcanzan un umbral mínimo de nivel (nivel 3 por defecto). Cada día, por defecto, hay un 25% de probabilidad de que un grupo elegible promocione a un soldado de nivel correspondiente a una mesnada, hasta un límite del 10% del tamaño del grupo. Los gobernantes de reinos obtienen una Guardia del Rey o Guardia de la Reina además de las mesnadas de su clan.{newline}{newline}Por defecto, solo el grupo del líder del clan crea mesnadas. La opción Solo los líderes de clan tienen mesnadas puede desactivarse para permitir que todos los grupos de señores de un clan tengan las suyas.{newline}{newline}Las mesnadas de la IA mejoran con el tiempo a medida que su clan obtiene experiencia. Si pierdes una batalla contra un clan que tiene mesnadas, sus mesnadas pueden adquirir equipamiento de tus bajas, mejorando gradualmente su equipo." />
+    <string
+      id="ret_man_retinues_ai_title"
+      text="Retinues 2.4 - Mesnadas de clanes IA" />
+    <string
+      id="ret_man_retinues_management_text"
+      text="Esta sección cubre los límites de tamaño de grupo para las mesnadas, cómo reclutarlas mediante el sistema de mejoras del grupo, los beneficios pasivos que reciben y cómo subirlas de rango.{newline}{newline}Límites del grupo: La cantidad de mesnadas que puedes desplegar está limitada por una proporción de tu límite de tamaño del grupo. El valor por defecto es 15%, ajustable en la configuración. Los bonos de doctrinas pueden aumentar este tope. Las mesnadas no pueden ponerse en guarniciones ni transferirse a grupos de compañeros; te siguen exclusivamente.{newline}{newline}Reclutamiento: Las mesnadas no aparecen en las listas de voluntarios de los asentamientos. En su lugar, aparecen como opciones de mejora en tropas existentes de tu grupo. Cuando abres la pantalla del grupo, cada mesnada se empareja con la tropa que mejor encaje un nivel por debajo, y la mesnada aparece como un objetivo adicional de mejora en esa tropa. Mejorar una tropa a mesnada convierte una unidad de la tropa de origen en el tipo de mesnada sin consumir el hueco de mesnada. La tropa de origen se elige primero del árbol personalizado de tu facción y, si no hay coincidencia, recurre al árbol de tu cultura.{newline}{newline}Beneficios: Las mesnadas reciben un conjunto de bonos pasivos además de sus estadísticas normales. Por defecto son +20 puntos de vida, +5 a todos los topes de habilidad y +20 al total de puntos de habilidad. Cada bono puede activarse/desactivarse y ajustarse individualmente en la configuración. El preset Realista desactiva los tres.{newline}{newline}Subir de rango: Cuando una mesnada tiene todas sus habilidades completamente al máximo, pasa a ser elegible para subir de rango. Subir de rango cuesta oro: (nivel actual + 1) x 1000 denares. También cuesta puntos de habilidad: 5 x nivel actual. El efecto aumenta el nivel de la mesnada en 5 y desbloquea topes de habilidad más altos. La acción de subida de rango se muestra en el editor cuando se cumplen todas las condiciones." />
+    <string
+      id="ret_man_retinues_management_title"
+      text="Retinues 2.3 - Grupo y Reclutamiento" />
+    <string
+      id="ret_man_retinues_text"
+      text="Las mesnadas son tropas especiales de guardia doméstica vinculadas a tu clan. A diferencia de las tropas regulares de facción, son personales del jugador: no pueden ponerse en guarniciones ni transferirse a otro grupo, y permanecen contigo en todo momento. Empiezan en un nivel bajo, pero pueden entrenarse, equiparse y subir de rango a lo largo de una campaña.{newline}{newline}Mesnada inicial: Se crea automáticamente una mesnada cuando inicias una nueva campaña o cuando cargas por primera vez una partida guardada existente. Lleva el nombre de tu clan y coincide con la cultura de tu clan. Si en ese momento ya eres un gobernante, también se crea una Guardia del Rey o Guardia de la Reina para tu reino." />
+    <string
+      id="ret_man_retinues_title"
+      text="Retinues 2.1 - Mesnadas" />
+    <string
+      id="ret_man_retinues_unlock_text"
+      text="Puedes desbloquear una mesnada adicional por cultura. La cultura de tu propio clan está desbloqueada desde el inicio. Para cualquier otra cultura, acumulas progreso de desbloqueo mediante actividades de juego vinculadas a esa cultura.{newline}{newline}Ganar un torneo otorga +50 puntos para la cultura del asentamiento del torneo. Completar una misión con éxito otorga +25 puntos para la cultura del dador de la misión. Poseer un feudo otorga +5 puntos por día y por feudo para la cultura de cada feudo. Poseer un taller otorga +2 puntos por día y por taller para la cultura del asentamiento donde esté el taller. Ganar una batalla junto a partidas aliadas otorga +10 puntos por cada partida aliada para la cultura de cada aliado.{newline}{newline}Cada cultura requiere 1000 puntos para desbloquearse. La velocidad general puede ajustarse con la configuración Velocidad de desbloqueo de mesnadas. Cuando una cultura se desbloquea, se crea automáticamente una nueva mesnada y aparece un mensaje emergente que te permite ir directamente al editor." />
+    <string
+      id="ret_man_retinues_unlock_title"
+      text="Retinues 2.2 - Desbloquear Mesnadas" />
+    <string
+      id="ret_man_skills_budget_text"
+      text="Esta sección cubre la reserva compartida opcional de puntos de habilidad, cómo funcionan el gasto y los reembolsos, y los topes y totales por nivel que limitan las habilidades totales de cualquier tropa.{newline}{newline}Reserva compartida de puntos de habilidad: Cuando la opción Reserva compartida de puntos de habilidad está activada, todas las tropas personalizadas aportan su XP de batalla a una única reserva para toda la campaña en lugar de reservas por tropa. Los puntos de la reserva pueden gastarse en cualquier tropa personalizada, lo que facilita desarrollar especialistas sin repartir las batallas uniformemente por toda la plantilla. El saldo de la reserva se muestra en el encabezado del panel de habilidades. Desactivar la opción a mitad de campaña no borra ni los puntos por tropa ni la reserva compartida. La opción requiere que Los puntos de habilidad deben ganarse esté activa.{newline}{newline}Gasto: Cada aumento de habilidad cuesta un punto de habilidad; disminuir una habilidad lo reembolsa de inmediato. Cuando Entrenamiento lleva tiempo está activado, disminuir una habilidad ya comprometida pide confirmación.{newline}{newline}Topes y totales: En la pantalla Tropas se aplican dos límites. El tope de habilidad es el nivel máximo al que puede llegar una habilidad individual para ese nivel; los valores por defecto van de 20 en el nivel 0 a 360 en el nivel 7. El total de habilidad es la suma de todas las habilidades que una tropa de ese nivel puede tener; los valores por defecto van de 90 en el nivel 0 a 1600 en el nivel 7. Las mesnadas reciben bonificaciones por encima de ambos límites. Los capitanes de nivel máximo reciben una bonificación del 20%. La doctrina Disciplina de hierro añade +5 al tope para todas las tropas. Soldados firmes y Maestros de armas añaden +20 al total para las líneas básica y élite respectivamente." />
+    <string
+      id="ret_man_skills_budget_title"
+      text="Retinues 4.2 - Presupuesto de habilidades" />
+    <string
+      id="ret_man_skills_text"
+      text="Tus tropas personalizadas tienen una hoja de habilidades que puedes editar desde la pantalla Tropas, sujeta a topes por habilidad y a un presupuesto total de habilidades. Este sistema no se aplica a las tropas editadas mediante el Editor Universal, donde las habilidades pueden ajustarse libremente en cualquier momento.{newline}{newline}Fuentes de XP: Las tropas personalizadas acumulan XP de puntos de habilidad a partir de batallas jugadas, batallas auto-resueltas, entrenamiento diario del grupo y otras actividades. Cuando Los puntos de habilidad deben ganarse está activo (activado por defecto), toda esa XP alimenta el contador de progreso de puntos de habilidad del tipo de tropa. Las tropas de mayor nivel requieren proporcionalmente más XP. La tasa general se ajusta con la opción Tasa de ganancia de puntos de habilidad.{newline}{newline}Modo libre: Cuando Los puntos de habilidad deben ganarse está desactivado, los puntos de habilidad no están condicionados por el rendimiento en batalla. Las habilidades pueden asignarse libremente en el editor en cualquier momento, sin ganar nada primero." />
+    <string
+      id="ret_man_skills_title"
+      text="Retinues 4.1 - Habilidades y Experiencia" />
+    <string
+      id="ret_man_skills_training_text"
+      text="Tres opciones añaden más estructura a la edición de habilidades: un bloqueo temporal opcional del entrenamiento, un suelo derivado de las tropas padre y restricciones basadas en la ubicación sobre cuándo se puede usar el editor.{newline}{newline}Entrenamiento lleva tiempo: Cuando esta opción está activada, subir una habilidad en el editor no se aplica al instante. El aumento se guarda como pendiente y se aplica gradualmente a la tasa establecida por Puntos entrenados por día (por defecto: 1 por día). Los aumentos pendientes se muestran en un color diferente. El progreso de entrenamiento continúa durante los viajes por defecto; la opción Entrenar durante el viaje puede restringirlo a cuando el grupo esté quieto.{newline}{newline}Suelo de habilidad: Las habilidades de una tropa no pueden bajarse por debajo del valor más alto que tenga cualquiera de sus fuentes de mejora. Por ejemplo, si una tropa fuente de nivel 2 tiene 80 en Una mano, el ascenso a nivel 3 no puede establecer Una mano por debajo de 80. El editor muestra qué tropa fuente está fijando el suelo cuando se bloquea una reducción.{newline}{newline}Restricciones de contexto: La opción Restricción de edición puede limitar cuándo se pueden cambiar habilidades y equipamiento. Ninguna (por defecto en modo libre) no impone restricciones. En asentamiento requiere que estés dentro de cualquier asentamiento. En feudo requiere que estés dentro de un asentamiento propiedad de tu clan o reino. Las mesnadas están exentas del requisito de feudo y pueden editarse en cualquier asentamiento." />
+    <string
+      id="ret_man_skills_training_title"
+      text="Retinues 4.3 - Entrenamiento y Restricciones" />
+    <string
+      id="ret_man_troops_setup_text"
+      text="Cuando se crea por primera vez un árbol de tropas personalizado, dos opciones determinan la forma de su plantilla inicial y varias más controlan dónde aparecen esas tropas como voluntarios.{newline}{newline}Tropas iniciales: El estado inicial del árbol depende de la opción Tropas iniciales. Solo raíces crea solo las dos tropas raíz, dejando el resto vacío para construirlo manualmente. Árboles ligeros (por defecto) copia una versión simplificada del árbol de tu cultura: una tropa representativa por tipo de formación y por nivel, con nombres basados en la facción como Recluta del clan. Árboles completos clona todo el árbol cultural literalmente, sustituyendo el prefijo cultural por el nombre de tu clan o reino.{newline}{newline}Equipamiento inicial: El equipamiento se establece por separado con la opción Equipamiento inicial. Conjunto aleatorio (por defecto) genera un equipamiento aleatorio a partir de objetos apropiados para el nivel y la cultura de cada tropa. Conjunto único copia el primer conjunto de equipamiento del modelo cultural. Todos los conjuntos copia todos los conjuntos de equipamiento del modelo. Conjunto vacío crea tropas sin objetos.{newline}{newline}Reclutamiento: Dónde aparecen tus tropas personalizadas como voluntarios depende de las opciones Disponibilidad de tropas del clan y Disponibilidad de tropas del reino. Las tropas del clan van por defecto a feudos del clan y las del reino a feudos del reino. Ambas pueden abrirse a cualquier asentamiento o restringirse más. La opción Solo misma cultura evita que las tropas personalizadas aparezcan en asentamientos de otra cultura. La opción Reclutadores permitidos controla si los señores de la IA también pueden reclutar tus tropas. Por defecto, las tropas personalizadas sustituyen por completo a los voluntarios culturales estándar en los asentamientos elegibles; Mezclar con tropas vanilla permite que aparezcan junto a las tropas estándar en su lugar." />
+    <string
+      id="ret_man_troops_setup_title"
+      text="Retinues 3.2 - Configuración y Reclutamiento" />
+    <string
+      id="ret_man_troops_text"
+      text="Además de tus mesnadas, puedes construir y personalizar árboles completos de tropas para tu clan y tu reino. Estas tropas aparecen en reservas de voluntarios, guarniciones y grupos por todo el mundo y se editan desde la misma pantalla Tropas que las mesnadas. Cada facción obtiene dos líneas raíz: un árbol básico y un árbol noble de élite. Desde esas raíces puedes ramificar rutas de ascenso hasta un máximo de 4 objetivos de ascenso por tropa.{newline}{newline}Desbloqueo: Las tropas del clan se desbloquean por defecto cuando consigues tu primer feudo. También pueden configurarse para desbloquearse desde el inicio o desactivarse por completo. Las tropas del reino se desbloquean por defecto cuando fundas un reino, y también pueden desactivarse. Cuando se desbloquean las tropas aparece un popup que te permite saltar directamente al nuevo árbol." />
+    <string
+      id="ret_man_troops_title"
+      text="Retinues 3.1 - Tropas de clan y reino" />
+    <string
+      id="ret_man_troops_types_text"
+      text="Varias doctrinas desbloquean tipos de tropas adicionales más allá del árbol principal, y el editor ofrece herramientas para gestionar la estructura del árbol y supervisar a otros clanes de tu reino.{newline}{newline}Milicias y tropas especiales: Tres doctrinas desbloquean tipos adicionales de tropas personalizadas. Milicia férrea desbloquea milicias personalizadas que sustituyen a la milicia cultural por defecto en las ciudades y castillos de tu facción en un ciclo diario. Guardianes del camino desbloquea tropas de caravana personalizadas usadas por las caravanas de tu facción. Campesinado armado desbloquea tropas aldeanas personalizadas usadas por los grupos de aldeas de tu facción.{newline}{newline}Capitanes: La doctrina Capitanes desbloquea variantes de Capitán para todas las tropas regulares. Un Capitán es una versión más fuerte que aparece periódicamente en su lugar. La tasa de aparición se puede configurar con la opción Tasa de aparición de capitanes (por defecto: 1 por cada 15 tropas regulares). Los Capitanes no pueden tener objetivos de ascenso propios y no pueden subir de rango. Su equipamiento se edita por separado, pero comparten los costes de equipamiento con su tropa base.{newline}{newline}Ascensos y eliminación: Puedes añadir un objetivo de ascenso a cualquier tropa personalizada no heroica que no esté en el nivel máximo y tenga menos de 4 objetivos de ascenso. La nueva tropa se crea un nivel por encima de su padre y hereda sus habilidades. Para eliminar una tropa primero debes eliminar todos sus objetivos de ascenso. Las tropas raíz no se pueden eliminar. Cuando se elimina una tropa, cualquier unidad de ese tipo en el mundo se convierte a su equivalente cultural.{newline}{newline}Otros clanes: Cuando eres un gobernante, el editor te permite gestionar los árboles de tropas personalizadas de otros clanes de tu reino. Haz clic en el estandarte izquierdo para seleccionar un clan diferente. Si el clan seleccionado aún no tiene tropas personalizadas, se te pedirá que las inicialices copiando el árbol existente del reino o empezando desde las raíces culturales." />
+    <string
+      id="ret_man_troops_types_title"
+      text="Retinues 3.3 - Tropas especiales y árbol" />
+    <string
+      id="ret_manual_button_label"
+      text="Abrir manual" />
+    <string
       id="ret_mariner_captain_reason"
       text="Los capitanes comparten la habilidad de marinero de sus tropas base" />
     <string
@@ -1886,6 +1976,12 @@
       id="ret_mcm_option_same_culture_only_hint"
       text="Si está habilitado, las tropas personalizadas solo se pueden reclutar en asentamientos de la misma cultura." />
     <string
+      id="ret_mcm_option_shared_skill_points_pool"
+      text="Pool de puntos de habilidad compartidos" />
+    <string
+      id="ret_mcm_option_shared_skill_points_pool_hint"
+      text="Si está habilitado, todas las tropas personalizadas obtienen puntos de habilidad de un único pool compartido en lugar de que cada tropa tenga el suyo propio." />
+    <string
       id="ret_mcm_option_skill_cap"
       text="Límite de Habilidad del Nivel {TIER}" />
     <string
@@ -2113,6 +2209,15 @@
     <string
       id="ret_preset_default_tooltip"
       text="Aplicar el preajuste predeterminado: una experiencia equilibrada diseñada para una primera partida" />
+    <string
+      id="ret_preset_description_default"
+      text="La configuración predeterminada, equilibrada para una primera partida.{newline}{newline}Las bonificaciones de mesnadas están activas, las tropas del clan se desbloquean con tu primer feudo, el equipamiento tiene un coste y los objetos deben desbloquearse mediante muertes y talleres antes de poder equiparse. Los puntos de habilidad deben ganarse en batalla." />
+    <string
+      id="ret_preset_description_freeform"
+      text="Un sandbox creativo: sin costes, sin requisitos, sin restricciones.{newline}{newline}Adquirir doctrinas es gratis. El equipamiento es gratuito y todos los objetos están disponibles de inmediato. Los puntos de habilidad pueden asignarse libremente sin requisito de experiencia. Las tropas del clan están disponibles desde el inicio y se pueden reclutar en cualquier lugar." />
+    <string
+      id="ret_preset_description_realistic"
+      text="Una experiencia más estricta que enfatiza la progresión ganada y la identidad de la facción.{newline}{newline}Los límites de habilidades y equipamiento se aplican en el Editor Universal. Las tropas solo pueden modificarse mientras estés en un feudo propio. Las bonificaciones de mesnadas están desactivadas. Equipar y entrenar lleva tiempo. El equipamiento está sujeto a límites de peso y valor por nivel. Las tropas solo pueden reclutarse en asentamientos de la misma cultura, y al inicio de la partida solo se generan las raíces culturales." />
     <string
       id="ret_preset_freeform_button"
       text="Libre" />
@@ -2399,6 +2504,15 @@
       id="ret_select_culture_title"
       text="Seleccionar cultura" />
     <string
+      id="ret_shared_skill_experience_tooltip"
+      text="{XP} XP en la reserva compartida (siguiente punto en {XP_REQUIRED})" />
+    <string
+      id="ret_shared_skill_point_gained"
+      text="Tus tropas han ganado 1 punto de habilidad." />
+    <string
+      id="ret_shared_skill_points_gained"
+      text="Tus tropas han ganado {POINTS} puntos de habilidad." />
+    <string
       id="ret_skill_decrease_sources_reason"
       text="No se puede disminuir por debajo del nivel de habilidad de {SOURCE}" />
     <string
@@ -2413,6 +2527,9 @@
     <string
       id="ret_skill_description_text"
       text="Puntos de habilidad: {SKILL_POINTS} - Límite de habilidad: {SKILL_CAP} - Nivel: {TIER}" />
+    <string
+      id="ret_skill_description_text_shared"
+      text="Reserva: {SKILL_POINTS} pts - Límite: {SKILL_CAP} - Nivel: {TIER}" />
     <string
       id="ret_skill_description_text_short"
       text="Límite de habilidad: {SKILL_CAP} - Nivel: {TIER}" />
@@ -2510,11 +2627,53 @@
       id="ret_statistics_button_label"
       text="Mostrar estadísticas" />
     <string
+      id="ret_statistics_casualties_sentence"
+      text="Sufridas {TOTAL} bajas: {BREAKDOWN}." />
+    <string
+      id="ret_statistics_culture_entry"
+      text="{COUNT} contra {CULTURE}" />
+    <string
+      id="ret_statistics_culture_more"
+      text="{COUNT} más" />
+    <string
+      id="ret_statistics_deployments"
+      text="{TOTAL} tropas desplegadas en {PARTIES} grupos y {GARRISONS} guarniciones." />
+    <string
+      id="ret_statistics_field_entry"
+      text="{COUNT} batallas campales" />
+    <string
+      id="ret_statistics_fought_in"
+      text="Combatido en {LIST}." />
+    <string
+      id="ret_statistics_in_service"
+      text="{NAME} lleva en servicio {YEARS} años, {SEASONS} estaciones y {DAYS} días." />
+    <string
+      id="ret_statistics_kills_sentence"
+      text="Eliminados {TOTAL} enemigos: {BREAKDOWN}." />
+    <string
+      id="ret_statistics_most_feared"
+      text="Adversario más temido: {NAME}." />
+    <string
+      id="ret_statistics_most_slain"
+      text="Enemigo más derrotado: {NAME}." />
+    <string
+      id="ret_statistics_naval_entry"
+      text="{COUNT} batallas navales" />
+    <string
       id="ret_statistics_player_only"
       text="No disponible en el Editor Universal" />
     <string
       id="ret_statistics_popup_title"
       text="Estadísticas" />
+    <string
+      id="ret_statistics_raid_entry"
+      text="{COUNT} saqueos" />
+    <string
+      id="ret_statistics_siege_entry"
+      text="{COUNT} asedios" />
+    <string
+      id="ret_statistics_victories_defeats"
+      text="Logradas {WON} victorias, sufridas {LOST} derrotas." />
     <string
       id="ret_status_captain_disabled"
       text="Inactivo" />

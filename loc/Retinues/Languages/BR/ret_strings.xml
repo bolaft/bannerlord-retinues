@@ -11,6 +11,9 @@
       id="ret_age_hint"
       text="Idade" />
     <string
+      id="ret_ai_retinue_equipment_upgrade"
+      text="{RETINUE} adquiriu {ITEM}." />
+    <string
       id="ret_ai_retinue_loot_line"
       text="{RETINUE} saqueou e equipou {ITEM} das suas baixas." />
     <string
@@ -1547,6 +1550,93 @@
       id="ret_list_header_villagers"
       text="Vilaões" />
     <string
+      id="ret_man_equipment_advanced_text"
+      text="Três sistemas opcionais adicionam restrições adicionais às mudanças de equipamento: um atraso de preparação antes dos itens entrarem em vigor, orçamentos de peso e valor por nível, e uma trava de desbloqueio em itens individuais.{newline}{newline}Preparação: Quando Equipar leva tempo está ativado, equipar um item não tem efeito imediato. O novo item é colocado em uma fila de preparação e aplicado gradualmente conforme o tempo no jogo passa. Slots em preparação são exibidos em uma cor diferente e mostram o item atualmente equipado na dica. Você pode remover um item da preparação a qualquer momento. O progresso acumula hora a hora e também durante viagens se Equipar enquanto viaja estiver ativado. Tropas heróicas nunca estão sujeitas à preparação; suas mudanças de equipamento são sempre instantâneas.{newline}{newline}Limites de peso e valor: As configurações Limitar por peso e Limitar por valor impõem um orçamento sobre o peso total e o valor total do equipamento de batalha de uma tropa. Ambas estão desativadas por padrão. Quando ativas, cada nível de tropa tem um orçamento correspondente mostrado no editor. As doutrinas da Armaria podem elevar esses limites quando estão ativas.{newline}{newline}Disponibilidade e desbloqueios: Quando Equipamento precisa de desbloqueio está ativado, cada item requer 1000 pontos de progresso de desbloqueio antes de poder ser equipado. Os itens começam bloqueados e ocultos; uma vez que tenham algum progresso, aparecem na parte inferior da lista, ordenados por conclusão. Um número configurável de itens por slot é pré-desbloqueado automaticamente em um novo jogo até um teto de nível configurável. Este sistema só se aplica na tela Tropas; no Editor Universal todos os itens estão disponíveis livremente." />
+    <string
+      id="ret_man_equipment_advanced_title"
+      text="Retinues 5.3 - Preparação e Limites" />
+    <string
+      id="ret_man_equipment_economy_text"
+      text="A economia de equipamento rastreia quantas cópias de cada item suas forças possuem e opcionalmente cobra ouro quando você equipa um equipamento que não está em estoque.{newline}{newline}Itens compartilhados: Quando uma tropa tem múltiplos conjuntos, os itens são compartilhados inteligentemente entre eles. Se um equipamento já está presente em outro conjunto pertencente à mesma tropa, equipá-lo em um segundo conjunto não incorre em custo de estoque adicional ou compra. Uma tropa com dois conjuntos usando a mesma espada em ambos requer apenas uma cópia dessa espada.{newline}{newline}Estoques: Cada item tem uma contagem de estoque representando quantas cópias suas forças acumularam. Quando a economia está ativa, equipar um item retira uma cópia do estoque; desequipá-lo retorna. O estoque acumula de batalhas, descartes e outras fontes. Este sistema só se aplica na tela Tropas; no Editor Universal os estoques não têm papel.{newline}{newline}Custos e compras: Quando Equipamento custa dinheiro está ativo, equipar um item que não está em estoque e não coberto por outro conjunto requer gastar moedas no valor do item escalado pela configuração de Multiplicador de custo. Duas doutrinas reduzem custos: Orgulho Cultural concede 20% de desconto em itens correspondentes à cultura do seu clã, e Patrocínio Real concede 20% de desconto em itens correspondentes à cultura do seu reino. Ambos os descontos podem se aplicar ao mesmo item." />
+    <string
+      id="ret_man_equipment_economy_title"
+      text="Retinues 5.2 - Economia de Equipamento" />
+    <string
+      id="ret_man_equipment_text"
+      text="Cada tropa tem duas categorias de equipamento: conjuntos de batalha e conjuntos civis. Conjuntos de batalha são usados em combate; conjuntos civis em todos os outros momentos. Você alterna entre eles usando o botão acima do modelo de personagem.{newline}{newline}Tipos de conjuntos de batalha: Cada conjunto de batalha pode ser marcado como aplicável a batalhas de campo, batalhas de cerco ou batalhas navais. Um conjunto pode cobrir qualquer combinação desses tipos. Pelo menos um conjunto deve permanecer ativado para cada tipo de batalha em todos os momentos.{newline}{newline}Gerenciamento de conjuntos: Use o botão de adicionar para criar uma cópia do conjunto atual ou um conjunto vazio. Use o botão de remover para deletar o conjunto atual; você não pode deletar um conjunto se é o único em sua categoria, ou se isso deixaria algum tipo de batalha sem cobertura. Quando a economia está ativa e um conjunto é deletado, seus itens são retornados ao estoque automaticamente.{newline}{newline}Slots: Cada conjunto tem quatro slots de arma, Cabeça, Capa, Corpo, Luvas, Perna, Cavalo e Arreios de Cavalo. O slot de Arreios de Cavalo só está ativo quando um cavalo está equipado. Se um novo cavalo for equipado e os arreios atuais não forem compatíveis, os arreios são limpos automaticamente." />
+    <string
+      id="ret_man_equipment_title"
+      text="Retinues 5.1 - Equipamento" />
+    <string
+      id="ret_man_overview_text"
+      text="Retinues adiciona um conjunto de sistemas para recrutar, treinar e equipar suas próprias forças pessoais ao longo de uma campanha.{newline}{newline}No centro está o séquito: uma tropa doméstica vinculada ao seu clã que o segue exclusivamente e pode ser desenvolvida em uma unidade de elite com o tempo.{newline}{newline}Além dos séquitos, você pode criar árvores de tropas totalmente personalizadas para seu clã e reino. Essas tropas aparecem como voluntários e preenchem os exércitos da sua facção. Um sistema de doutrinas fornece uma camada de progressão, desbloqueando novos tipos de tropas, vantagens de equipamento e outros bônus conforme você cumpre objetivos do jogo.{newline}{newline}Tudo isso é gerenciado pelo editor, aberto pelo botão Tropas no mapa de campanha ou pressionando [R]." />
+    <string
+      id="ret_man_overview_title"
+      text="Retinues 1.0 - Visão Geral" />
+    <string
+      id="ret_man_retinues_ai_text"
+      text="Clãs não controlados pelo jogador também podem ter seus próprios séquitos. Este recurso é ativado por padrão e se aplica a clãs que atendem a um limite mínimo de nível (nível 3 por padrão). A cada dia há, por padrão, 25% de chance de que um grupo elegível promova uma tropa de nível correspondente para um séquito, até o limite de 10% do tamanho do grupo. Governantes de reinos recebem uma Guarda do Rei ou Guarda da Rainha além dos séquitos do seu clã.{newline}{newline}Por padrão, apenas o grupo do líder do clã cria séquitos. A configuração Apenas líderes de clã têm séquitos pode ser desativada para permitir que todos os grupos de lordes de um clã tenham os seus.{newline}{newline}Os séquitos da IA melhoram com o tempo conforme seu clã ganha experiência. Se você perder uma batalha contra um clã que tem séquitos, seus séquitos podem obter equipamento das suas baixas, aprimorando gradualmente seus equipamentos." />
+    <string
+      id="ret_man_retinues_ai_title"
+      text="Retinues 2.4 - Séquitos de Clãs de IA" />
+    <string
+      id="ret_man_retinues_management_text"
+      text="Esta seção aborda os limites de tamanho do grupo para séquitos, como recrutá-los pelo sistema de upgrade do grupo, os bônus passivos que recebem e como promovê-los.{newline}{newline}Limites do grupo: O número de séquitos que você pode levar é limitado por uma proporção do seu limite de tamanho do grupo. O padrão é 15%, ajustável nas configurações. Bônus de doutrinas podem aumentar esse limite. Séquitos não podem ser colocados em guarnições nem transferidos para grupos de companheiros; eles seguem você exclusivamente.{newline}{newline}Recrutamento: Séquitos não aparecem nas listas de voluntários de assentamentos. Em vez disso, surgem como opções de upgrade em tropas existentes do seu grupo. Ao abrir a tela do grupo, cada séquito é associado à tropa mais adequada um nível abaixo, e o séquito aparece como um alvo adicional de upgrade nessa tropa. Transformar uma tropa em séquito converte uma unidade da tropa de origem no tipo de séquito sem consumir o slot de séquito. A tropa de origem é escolhida primeiro da árvore personalizada da sua facção, voltando para a árvore da sua cultura se nenhuma correspondência for encontrada.{newline}{newline}Bônus: Séquitos recebem um conjunto de bônus passivos além de seus atributos normais. Por padrão são +20 pontos de vida, +5 em todos os limites de habilidade e +20 no total de pontos de habilidade. Cada bônus pode ser ativado/desativado e ajustado individualmente nas configurações. O preset Realista desativa os três.{newline}{newline}Promoção: Quando um séquito tem todas as habilidades totalmente no máximo, ele se torna elegível para ser promovido. Promover custa ouro: (nível atual + 1) x 1000 denares. Também custa pontos de habilidade: 5 x nível atual. O efeito aumenta o nível do séquito em 5 e libera limites de habilidade mais altos. A ação de promoção é exibida no editor quando todas as condições são atendidas." />
+    <string
+      id="ret_man_retinues_management_title"
+      text="Retinues 2.3 - Grupo e Recrutamento" />
+    <string
+      id="ret_man_retinues_text"
+      text="Séquitos são tropas especiais de guarda doméstica vinculadas ao seu clã. Diferente das tropas regulares de facção, eles são pessoais ao jogador: não podem ser colocados em guarnições nem transferidos para outro grupo, e ficam com você o tempo todo. Eles começam em um nível baixo, mas podem ser treinados, equipados e promovidos ao longo de uma campanha.{newline}{newline}Séquito inicial: Um séquito é criado automaticamente quando você inicia uma nova campanha ou quando carrega um save existente pela primeira vez. Ele recebe o nome do seu clã e corresponde à cultura do seu clã. Se você já for um governante nesse momento, uma Guarda do Rei ou Guarda da Rainha também é criada para o seu reino." />
+    <string
+      id="ret_man_retinues_title"
+      text="Retinues 2.1 - Séquitos" />
+    <string
+      id="ret_man_retinues_unlock_text"
+      text="Você pode desbloquear um séquito adicional por cultura. A cultura do seu próprio clã já começa desbloqueada. Para qualquer outra cultura, você acumula progresso de desbloqueio por meio de atividades de jogo ligadas a essa cultura.{newline}{newline}Vencer um torneio concede +50 pontos para a cultura da localidade do torneio. Concluir uma missão com sucesso concede +25 pontos para a cultura do emissor da missão. Possuir um feudo concede +5 pontos por dia por feudo, para a cultura de cada feudo. Possuir uma oficina concede +2 pontos por dia por oficina, para a cultura da localidade onde fica a oficina. Vencer uma batalha ao lado de grupos aliados concede +10 pontos por grupo aliado, para a cultura de cada aliado.{newline}{newline}Cada cultura exige 1000 pontos para ser desbloqueada. A velocidade geral pode ser ajustada na configuração Velocidade de Desbloqueio de Séquitos. Quando uma cultura é desbloqueada, um novo séquito é criado automaticamente e um pop-up aparece para permitir que você vá direto ao editor." />
+    <string
+      id="ret_man_retinues_unlock_title"
+      text="Retinues 2.2 - Desbloqueando Séquitos" />
+    <string
+      id="ret_man_skills_budget_text"
+      text="Esta seção cobre o pool compartilhado opcional de pontos de habilidade, como funcionam gastos e reembolsos, e os limites e totais por nível que restringem as habilidades totais de qualquer tropa.{newline}{newline}Pool compartilhado de pontos de habilidade: Quando a configuração Pool compartilhado de pontos de habilidade está ativada, todas as tropas personalizadas contribuem sua XP de batalha para um único pool de toda a campanha, em vez de pools por tropa. Os pontos do pool podem ser gastos em qualquer tropa personalizada, facilitando desenvolver especialistas sem distribuir batalhas igualmente por toda a sua lista. O saldo do pool é mostrado no cabeçalho do painel de habilidades. Desativar a configuração no meio da campanha não limpa nem os pontos por tropa nem o pool compartilhado. A configuração exige que Pontos de habilidade devem ser ganhos esteja ativa.{newline}{newline}Gasto: Cada aumento de habilidade custa um ponto; reduzir uma habilidade reembolsa imediatamente. Quando Treinamento leva tempo está ativado, reduzir uma habilidade já comprometida solicita confirmação.{newline}{newline}Limites e totais: Dois limites se aplicam na tela Tropas. O limite por habilidade é o nível máximo que qualquer habilidade pode alcançar naquele nível; os padrões vão de 20 no nível 0 a 360 no nível 7. O total de habilidades é a soma de todas as habilidades que uma tropa daquele nível pode ter; os padrões vão de 90 no nível 0 a 1600 no nível 7. Séquitos recebem bônus acima de ambos os limites. Capitães no nível máximo recebem um bônus de 20%. A doutrina Disciplina de Ferro adiciona +5 ao limite para todas as tropas. Soldados Inabaláveis e Mestres de Armas adicionam +20 ao total para as linhas básica e elite, respectivamente." />
+    <string
+      id="ret_man_skills_budget_title"
+      text="Retinues 4.2 - Orçamento de Habilidades" />
+    <string
+      id="ret_man_skills_text"
+      text="Suas tropas personalizadas têm uma folha de habilidades que você pode editar na tela Tropas, sujeita a limites por habilidade e a um orçamento total de habilidades. Este sistema não se aplica a tropas editadas pelo Editor Universal, onde as habilidades podem ser ajustadas livremente a qualquer momento.{newline}{newline}Fontes de XP: Tropas personalizadas acumulam XP de pontos de habilidade a partir de batalhas jogadas, batalhas auto-resolvidas, treinamento diário do grupo e outras atividades. Quando Pontos de habilidade devem ser ganhos está ativo (ligado por padrão), toda essa XP alimenta o contador de progresso de pontos de habilidade para o tipo de tropa. Tropas de níveis mais altos exigem proporcionalmente mais XP. A taxa geral é ajustável pela configuração Taxa de ganho de pontos de habilidade.{newline}{newline}Modo livre: Quando Pontos de habilidade devem ser ganhos está desativado, os pontos de habilidade não ficam presos ao desempenho em batalha. As habilidades podem ser alocadas livremente no editor a qualquer momento, sem precisar ganhar nada antes." />
+    <string
+      id="ret_man_skills_title"
+      text="Retinues 4.1 - Habilidades e Experiência" />
+    <string
+      id="ret_man_skills_training_text"
+      text="Três configurações adicionam mais estrutura à edição de habilidades: um bloqueio de tempo opcional no treinamento, um piso derivado das tropas parentais e restrições baseadas no local sobre quando o editor pode ser usado.{newline}{newline}Treinamento leva tempo: Quando esta configuração está ativada, aumentar uma habilidade no editor não se aplica instantaneamente. O aumento é armazenado como pendente e aplicado gradualmente na taxa definida por Pontos treinados por dia (padrão: 1 por dia). Aumentos pendentes são mostrados em uma cor diferente. O progresso do treinamento continua durante viagens por padrão; a configuração Treinar enquanto viaja pode restringi-lo a quando o grupo está parado.{newline}{newline}Piso de habilidade: As habilidades de uma tropa não podem ser reduzidas abaixo do maior valor mantido por qualquer uma de suas fontes de upgrade. Por exemplo, se uma tropa fonte de nível 2 tem 80 em Uma Mão, o upgrade de nível 3 não pode ser definido abaixo de 80 em Uma Mão. O editor mostra qual tropa fonte está definindo o piso quando uma redução é bloqueada.{newline}{newline}Restrições de contexto: A configuração Restrição de edição pode limitar quando habilidades e equipamento podem ser alterados. Nenhuma (padrão no modo livre) não impõe restrições. Em assentamento exige que você esteja dentro de qualquer assentamento. Em feudo exige que você esteja dentro de um assentamento pertencente ao seu clã ou reino. Séquitos são isentos da exigência de feudo e podem ser editados em qualquer assentamento." />
+    <string
+      id="ret_man_skills_training_title"
+      text="Retinues 4.3 - Treinamento e Restrições" />
+    <string
+      id="ret_man_troops_setup_text"
+      text="Quando uma árvore de tropas personalizadas é criada pela primeira vez, duas configurações determinam a forma do elenco inicial, e várias outras controlam onde essas tropas aparecem como voluntários.{newline}{newline}Tropas iniciais: O estado inicial da árvore depende da configuração Tropas iniciais. Somente raízes cria apenas as duas tropas raiz, deixando o restante vazio para construir manualmente. Árvores enxutas (padrão) copia uma versão simplificada da árvore da sua cultura: um representante por tipo de formação por nível, com nomes baseados na facção como Recruta do Clã. Árvores completas clona toda a árvore cultural literalmente, substituindo o prefixo cultural pelo nome do seu clã ou reino.{newline}{newline}Equipamento inicial: O equipamento é definido separadamente pela configuração Equipamento inicial. Conjunto aleatório (padrão) gera um equipamento aleatório a partir de itens apropriados para o nível e a cultura de cada tropa. Conjunto único copia o primeiro conjunto de equipamento do modelo cultural. Todos os conjuntos copia todos os conjuntos de equipamento do modelo. Conjunto vazio cria tropas sem itens.{newline}{newline}Recrutamento: Onde suas tropas personalizadas aparecem como voluntários depende das configurações Disponibilidade de tropas do clã e Disponibilidade de tropas do reino. Tropas do clã, por padrão, vão para feudos do clã e tropas do reino para feudos do reino. Ambas podem ser abertas para qualquer assentamento ou restringidas ainda mais. A configuração Somente mesma cultura impede que tropas personalizadas apareçam em assentamentos de cultura diferente. A configuração Recrutadores permitidos controla se lordes da IA também podem recrutar suas tropas. Por padrão, tropas personalizadas substituem totalmente os voluntários culturais padrão em assentamentos elegíveis; Misturar com tropas vanilla permite que apareçam ao lado das tropas padrão em vez disso." />
+    <string
+      id="ret_man_troops_setup_title"
+      text="Retinues 3.2 - Configuração e Recrutamento" />
+    <string
+      id="ret_man_troops_text"
+      text="Além dos seus séquitos, você pode construir e personalizar árvores completas de tropas para o seu clã e o seu reino. Essas tropas aparecem em pools de voluntários, guarnições e grupos pelo mundo e são editadas na mesma tela Tropas que os séquitos. Cada facção recebe duas linhas raiz: uma árvore básica e uma árvore nobre de elite. A partir dessas raízes você pode ramificar caminhos de upgrade com no máximo 4 alvos de upgrade por tropa.{newline}{newline}Desbloqueio: Tropas do clã são desbloqueadas por padrão quando você adquire seu primeiro feudo. Também podem ser configuradas para desbloquear desde o início ou serem desativadas completamente. Tropas do reino são desbloqueadas por padrão quando você funda um reino e também podem ser desativadas. Quando as tropas são desbloqueadas, um popup aparece para permitir que você vá direto para a nova árvore." />
+    <string
+      id="ret_man_troops_title"
+      text="Retinues 3.1 - Tropas de Clã e Reino" />
+    <string
+      id="ret_man_troops_types_text"
+      text="Várias doutrinas desbloqueiam tipos adicionais de tropas além da árvore principal, e o editor fornece ferramentas para gerenciar a estrutura da árvore e supervisionar outros clãs no seu reino.{newline}{newline}Milícias e tropas especiais: Três doutrinas desbloqueiam tipos adicionais de tropas personalizadas. Milícia Firme desbloqueia tropas de milícia personalizadas que substituem a milícia cultural padrão nas cidades e castelos da sua facção em um ciclo diário. Guardiões da Estrada desbloqueia tropas de caravana personalizadas usadas pelas caravanas da sua facção. Camponeses Armados desbloqueia tropas de aldeões personalizadas usadas pelos grupos de aldeia da sua facção.{newline}{newline}Capitães: A doutrina Capitães desbloqueia variantes de Capitão para todas as tropas regulares. Um Capitão é uma versão mais forte que aparece periodicamente no lugar dela. A taxa de aparecimento é configurável pela configuração Taxa de aparecimento de Capitães (padrão: 1 a cada 15 tropas regulares). Capitães não podem ter seus próprios alvos de upgrade e não podem subir de nível. Seu equipamento é editado separadamente, mas eles compartilham os custos de equipamento com a tropa base.{newline}{newline}Upgrades e remoção: Você pode adicionar um alvo de upgrade a qualquer tropa personalizada não-herói que não esteja no nível máximo e tenha menos de 4 alvos de upgrade. A nova tropa é criada um nível acima do seu pai e herda habilidades dele. Para remover uma tropa, você deve primeiro remover todos os seus alvos de upgrade. Tropas raiz não podem ser removidas. Quando uma tropa é removida, quaisquer unidades desse tipo no mundo são convertidas para o equivalente de sua cultura.{newline}{newline}Outros clãs: Quando você é um governante, o editor permite gerenciar as árvores de tropas personalizadas de outros clãs no seu reino. Clique no estandarte da esquerda para selecionar um clã diferente. Se o clã selecionado ainda não tiver tropas personalizadas, você será solicitado a inicializá-las copiando a árvore existente do reino ou começando das raízes culturais." />
+    <string
+      id="ret_man_troops_types_title"
+      text="Retinues 3.3 - Tropas Especiais e Árvore" />
+    <string
+      id="ret_manual_button_label"
+      text="Abrir Manual" />
+    <string
       id="ret_mariner_captain_reason"
       text="Capitães compartilham a habilidade de marinheiro de suas tropas base" />
     <string
@@ -1886,6 +1976,12 @@
       id="ret_mcm_option_same_culture_only_hint"
       text="Se ativado, tropas personalizadas só podem ser recrutadas em assentamentos da mesma cultura." />
     <string
+      id="ret_mcm_option_shared_skill_points_pool"
+      text="Pool de Pontos de Habilidade Compartilhados" />
+    <string
+      id="ret_mcm_option_shared_skill_points_pool_hint"
+      text="Se ativado, todas as tropas personalizadas retiram pontos de habilidade de um único pool compartilhado em vez de cada tropa ter o seu próprio." />
+    <string
       id="ret_mcm_option_skill_cap"
       text="Limite de Habilidade do Nível {TIER}" />
     <string
@@ -2113,6 +2209,15 @@
     <string
       id="ret_preset_default_tooltip"
       text="Aplicar o predefinido padrão: uma experiência equilibrada projetada para uma primeira jogada" />
+    <string
+      id="ret_preset_description_default"
+      text="A configuração padrão, equilibrada para uma primeira jogada.{newline}{newline}Bônus de séquito estão ativos, tropas do clã desbloqueiam com seu primeiro feudo, o equipamento tem custo e os itens precisam ser desbloqueados por abates e oficinas antes de poderem ser equipados. Pontos de habilidade devem ser ganhos em batalha." />
+    <string
+      id="ret_preset_description_freeform"
+      text="Um sandbox criativo: sem custos, sem requisitos, sem restrições.{newline}{newline}Adquirir doutrinas é grátis. O equipamento é gratuito e todos os itens estão disponíveis imediatamente. Pontos de habilidade podem ser atribuídos livremente sem requisito de experiência. Tropas do clã estão disponíveis desde o início e podem ser recrutadas em qualquer lugar." />
+    <string
+      id="ret_preset_description_realistic"
+      text="Uma experiência mais rigorosa que enfatiza progressão conquistada e identidade de facção.{newline}{newline}Limites de habilidade e equipamento são aplicados no Editor Universal. Tropas só podem ser modificadas enquanto estiver em um feudo próprio. Bônus de séquito são desativados. Equipar e treinar levam tempo. O equipamento está sujeito a limites de peso e valor por nível. Tropas só podem ser recrutadas em assentamentos da mesma cultura, e no início do jogo apenas as raízes culturais são geradas." />
     <string
       id="ret_preset_freeform_button"
       text="Forma livre" />
@@ -2399,6 +2504,15 @@
       id="ret_select_culture_title"
       text="Selecionar Cultura" />
     <string
+      id="ret_shared_skill_experience_tooltip"
+      text="{XP} XP no pool compartilhado (próximo ponto em {XP_REQUIRED})" />
+    <string
+      id="ret_shared_skill_point_gained"
+      text="Suas tropas ganharam um ponto de habilidade." />
+    <string
+      id="ret_shared_skill_points_gained"
+      text="Suas tropas ganharam {POINTS} pontos de habilidade." />
+    <string
       id="ret_skill_decrease_sources_reason"
       text="Não é possível diminuir abaixo do nível de habilidade de {SOURCE}" />
     <string
@@ -2413,6 +2527,9 @@
     <string
       id="ret_skill_description_text"
       text="Pontos de Habilidade: {SKILL_POINTS} - Limite de Habilidade: {SKILL_CAP} - Nível: {TIER}" />
+    <string
+      id="ret_skill_description_text_shared"
+      text="Pool: {SKILL_POINTS} pts - Limite: {SKILL_CAP} - Nível: {TIER}" />
     <string
       id="ret_skill_description_text_short"
       text="Limite de Habilidade: {SKILL_CAP} - Nível: {TIER}" />
@@ -2510,11 +2627,53 @@
       id="ret_statistics_button_label"
       text="Mostrar Estatísticas" />
     <string
+      id="ret_statistics_casualties_sentence"
+      text="Sofreu {TOTAL} baixas: {BREAKDOWN}." />
+    <string
+      id="ret_statistics_culture_entry"
+      text="{COUNT} contra {CULTURE}" />
+    <string
+      id="ret_statistics_culture_more"
+      text="{COUNT} a mais" />
+    <string
+      id="ret_statistics_deployments"
+      text="{TOTAL} tropas implantadas em {PARTIES} grupos e {GARRISONS} guarnições." />
+    <string
+      id="ret_statistics_field_entry"
+      text="{COUNT} batalhas campais" />
+    <string
+      id="ret_statistics_fought_in"
+      text="Combateu em {LIST}." />
+    <string
+      id="ret_statistics_in_service"
+      text="{NAME} serve há {YEARS} anos, {SEASONS} estações e {DAYS} dias." />
+    <string
+      id="ret_statistics_kills_sentence"
+      text="Eliminou {TOTAL} inimigos: {BREAKDOWN}." />
+    <string
+      id="ret_statistics_most_feared"
+      text="Adversário mais temido: {NAME}." />
+    <string
+      id="ret_statistics_most_slain"
+      text="Inimigo mais abatido: {NAME}." />
+    <string
+      id="ret_statistics_naval_entry"
+      text="{COUNT} batalhas navais" />
+    <string
       id="ret_statistics_player_only"
       text="Não disponível no Editor Universal" />
     <string
       id="ret_statistics_popup_title"
       text="Estatísticas" />
+    <string
+      id="ret_statistics_raid_entry"
+      text="{COUNT} saques" />
+    <string
+      id="ret_statistics_siege_entry"
+      text="{COUNT} cercos" />
+    <string
+      id="ret_statistics_victories_defeats"
+      text="Conquistou {WON} vitórias, sofreu {LOST} derrotas." />
     <string
       id="ret_status_captain_disabled"
       text="Inativo" />

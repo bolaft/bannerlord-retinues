@@ -11,6 +11,9 @@
       id="ret_age_hint"
       text="年齡" />
     <string
+      id="ret_ai_retinue_equipment_upgrade"
+      text="{RETINUE} 獲得了 {ITEM}。" />
+    <string
       id="ret_ai_retinue_loot_line"
       text="{RETINUE} 從你的傷亡者身上掠奪並裝備了 {ITEM}。" />
     <string
@@ -1547,6 +1550,93 @@
       id="ret_list_header_villagers"
       text="村民" />
     <string
+      id="ret_man_equipment_advanced_text"
+      text="三個可選系統為裝備更改添加了進一步限制：物品生效前的暫存延遲、每個等級的重量和價值預算，以及單個物品的解鎖門檻。{newline}{newline}暫存：啟用「裝備需要時間」後，裝備物品不會立即生效。新物品會進入暫存佇列，並隨遊戲內時間推移逐步套用。暫存槽位會以不同顏色顯示，並在提示中顯示目前裝備的物品。你可以隨時取消暫存。進度按小時累積；若啟用「旅行時裝備」，旅行時也會累積。英雄部隊不受暫存影響；他們的裝備變更始終即時。{newline}{newline}重量與價值限制：「按重量限制」和「按價值限制」會對部隊戰鬥裝備的總重量與總價值設定預算。兩者預設關閉。啟用後，每個部隊等級在編輯器中都會顯示對應預算。兵器庫教義啟用時可提高這些限制。{newline}{newline}物品可用性與解鎖：啟用「裝備需要解鎖」後，每件物品需要1000點解鎖進度才能裝備。物品起初為鎖定並隱藏；一旦有了進度，就會按完成度排序顯示在清單底部。新遊戲中，每個槽位可設定數量的物品會自動預先解鎖，直到可設定的等級上限。此系統僅適用於部隊畫面；在通用編輯器中，所有物品都可自由使用。" />
+    <string
+      id="ret_man_equipment_advanced_title"
+      text="Retinues 5.3 - 暫存與限制" />
+    <string
+      id="ret_man_equipment_economy_text"
+      text="裝備經濟系統會追蹤你的部隊擁有每件物品的副本數量，並在你裝備庫存中沒有的裝備時（可選）收取金幣。{newline}{newline}共享物品：當一支部隊有多套裝備時，物品會在套裝之間智能共享。如果某件裝備已經存在於同一部隊的另一套裝備中，那麼在第二套中裝備它不會產生額外的庫存消耗或購買。一支在兩套裝備中都使用同一把劍的部隊只需要那把劍的一個副本。{newline}{newline}庫存：每件物品都有一個庫存數量，表示你的部隊儲備了多少副本。經濟模式啟用時，裝備一件物品會從庫存中取走一個副本；卸下則會歸還。庫存會從戰鬥、丟棄和其他來源累積。此系統僅適用於部隊畫面；在通用編輯器中，庫存不起作用。{newline}{newline}費用與購買：當「裝備花費金錢」啟用時，裝備一件不在庫存中且未被另一套套裝涵蓋的物品，需要按物品價值乘以「費用倍增器」設定來支付金幣。兩個教義可降低費用：文化自豪感對符合你氏族文化的物品給予20%折扣，皇家贊助對符合你王國文化的物品給予20%折扣。兩種折扣可同時套用於同一物品。" />
+    <string
+      id="ret_man_equipment_economy_title"
+      text="Retinues 5.2 - 裝備經濟" />
+    <string
+      id="ret_man_equipment_text"
+      text="每支部隊有兩類裝備：戰鬥套裝與平民套裝。戰鬥套裝在戰鬥中穿戴；平民套裝在其他所有時候穿戴。你可以使用角色模型上方的按鈕在它們之間切換。{newline}{newline}戰鬥套裝類型：每套戰鬥套裝都可以標記為適用於野戰、攻城戰或海戰。套裝可以涵蓋這些類型的任意組合。對每種戰鬥類型而言，必須始終至少保持一套套裝啟用。{newline}{newline}管理套裝：使用新增按鈕建立目前套裝的副本或空套裝。使用移除按鈕刪除目前套裝；如果套裝是其類別中的唯一一套，或刪除後會導致某種戰鬥類型沒有覆蓋，則無法刪除。當經濟模式啟用且套裝被刪除時，其物品會自動返回庫存。{newline}{newline}槽位：每套套裝有四個武器槽位，以及頭部、披風、身體、手套、腿部、馬匹與馬具。馬具槽位僅在裝備馬匹時啟用。如果裝備新馬且目前馬具不相容，馬具會自動清除。" />
+    <string
+      id="ret_man_equipment_title"
+      text="Retinues 5.1 - 裝備" />
+    <string
+      id="ret_man_overview_text"
+      text="Retinues 新增了一套系統，用於在整個戰役中建立、訓練和裝備您自己的私人軍隊。{newline}{newline}核心是扈從：一支與您的氏族綁定的家族部隊，專屬跟隨您，並可隨時間發展為精英單位。{newline}{newline}除扈從外，您還可以為您的氏族和王國建立完整的自訂部隊樹。這些部隊以志願者身分出現並填充您派系的軍隊。教義系統提供了一個進階層，隨著您完成遊戲目標，解鎖新的部隊類型、裝備特權和其他獎勵。{newline}{newline}所有這些都透過編輯器管理，可從戰役地圖上的部隊按鈕或按下 [R] 打開。" />
+    <string
+      id="ret_man_overview_title"
+      text="Retinues 1.0 - 概述" />
+    <string
+      id="ret_man_retinues_ai_text"
+      text="非玩家氏族也可以擁有自己的扈從。此功能預設啟用，適用於達到最低氏族等級門檻的氏族（預設為第3級）。預設情況下，每天有25%的機率，符合條件的隊伍會將一名同等級的士兵晉升為扈從，最多不超過隊伍規模的10%。王國統治者除了其氏族扈從外，還會額外獲得國王衛隊或女王衛隊。{newline}{newline}預設只有氏族領袖的隊伍會建立扈從。可關閉「僅氏族領袖擁有扈從」設定，以允許氏族中的所有領主隊伍都擁有自己的扈從。{newline}{newline}AI扈從會隨著氏族獲得經驗而逐漸變強。如果你輸給了擁有扈從的氏族，他們的扈從可能從你的陣亡者身上獲得裝備，並逐步升級其裝備。" />
+    <string
+      id="ret_man_retinues_ai_title"
+      text="Retinues 2.4 - AI氏族扈從" />
+    <string
+      id="ret_man_retinues_management_text"
+      text="本節介紹扈從的隊伍規模上限、如何透過隊伍升級系統招募扈從、扈從獲得的被動增益，以及如何為扈從升階。{newline}{newline}隊伍上限：你可編入的扈從數量上限為隊伍規模上限的一定比例。預設值為15%，可在設定中調整。教義獎勵可進一步提高該上限。扈從不能駐紮在城堡/城鎮，也不能轉移到同伴隊伍；他們只會專屬跟隨你。{newline}{newline}招募：扈從不會出現在聚落志願者清單中。相反，它們會作為你隊伍現有士兵的升級選項出現。打開隊伍介面時，每個扈從都會匹配到其低一階中最合適的士兵，並作為該士兵的額外升級目標顯示。將士兵升級為扈從會把來源士兵中的一個單位轉換為扈從類型，且不會消耗扈從槽位。來源士兵會先從你派系的自訂部隊樹中選擇；若找不到匹配，則回退到你文化的部隊樹。{newline}{newline}增益：扈從在正常屬性之外還會獲得一組被動加成。預設分別為：+20生命值、所有技能上限+5、技能點總量+20。每項加成都可在設定中單獨開關並調整。「寫實」預設會關閉這三項。{newline}{newline}升階：當扈從的技能全部練滿後，就具備升階資格。升階需要金幣：(目前階級 + 1) x 1000第納爾；也需要技能點：5 x 目前階級。效果會使扈從等級提高5級並解鎖更高的技能上限。滿足所有條件後，編輯器中會顯示升階操作。" />
+    <string
+      id="ret_man_retinues_management_title"
+      text="Retinues 2.3 - 隊伍與招募" />
+    <string
+      id="ret_man_retinues_text"
+      text="扈從是與您的氏族綁定的特殊家族護衛部隊。與一般派系部隊不同，它們是玩家專屬的：不能駐紮、不能轉移到其他隊伍，並且始終跟隨你。它們起始階級較低，但可以在戰役過程中被訓練、裝備並升階。{newline}{newline}初始扈從：當你開始新戰役，或首次載入一份已有存檔時，會自動建立一支扈從。其名稱以你的氏族命名，並與氏族文化相匹配。如果此時你已經是統治者，還會為你的王國額外建立一支國王衛隊或女王衛隊。" />
+    <string
+      id="ret_man_retinues_title"
+      text="Retinues 2.1 - 扈從" />
+    <string
+      id="ret_man_retinues_unlock_text"
+      text="你可以為每種文化解鎖一個額外的扈從。你自己氏族的文化從一開始就已解鎖。對於其他文化，你需要透過與該文化相關的遊戲活動來累積解鎖進度。{newline}{newline}贏得一次錦標賽會為錦標賽舉辦城鎮的文化提供+50點。成功完成一次任務會為任務發布者的文化提供+25點。擁有一塊封地會為該封地的文化提供每天每塊封地+5點。擁有一間工坊會為工坊所在城鎮的文化提供每天每間工坊+2點。與盟友部隊並肩贏得一場戰鬥，會為每個盟友的文化按每支盟友部隊+10點計入。{newline}{newline}每種文化需要1000點才能解鎖。總體速度可透過「扈從解鎖速度」設定進行調整。文化解鎖後，會自動建立一支新的扈從，並彈出視窗讓你直接跳轉到編輯器。" />
+    <string
+      id="ret_man_retinues_unlock_title"
+      text="Retinues 2.2 - 解鎖扈從" />
+    <string
+      id="ret_man_skills_budget_text"
+      text="本節介紹可選的共享技能點池、消耗與返還的規則，以及按等級限制每支部隊總技能的上限與總量。{newline}{newline}共享技能點池：啟用「共享技能點池」設定後，所有自訂部隊會將其戰鬥經驗貢獻到一個全戰役共享的池中，而不是各自獨立的池。池中的技能點可用於任意自訂部隊，從而更容易培養專精兵種，而不必把戰鬥平均分配到整個編制。池餘額會顯示在技能面板標題列中。戰役中途關閉該設定不會清空部隊各自的點數，也不會清空共享池。此設定需要「技能點必須賺取」處於啟用狀態。{newline}{newline}消耗：每提升一次技能消耗1點技能點；降低技能會立即返還1點。啟用「訓練需要時間」時，降低已提交的技能會提示確認。{newline}{newline}技能上限與總量：在部隊畫面有兩個限制。技能上限是該等級下單項技能可達到的最高等級；預設從0級的20到7級的360。技能總量是該等級部隊可擁有的所有技能之和；預設從0級的90到7級的1600。扈從在這兩項限制之上還會獲得加成。最高等級的隊長獲得20%加成。「鐵之紀律」教義為所有部隊的上限+5。「堅定士兵」與「武器大師」分別為基礎線與精英線的總量+20。" />
+    <string
+      id="ret_man_skills_budget_title"
+      text="Retinues 4.2 - 技能預算" />
+    <string
+      id="ret_man_skills_text"
+      text="你的自訂部隊擁有一張技能表，可在部隊畫面編輯，但會受到單項技能上限與總技能預算的限制。此系統不適用於透過通用編輯器編輯的部隊，在那裡技能可隨時自由調整。{newline}{newline}經驗來源：自訂部隊會從參與戰鬥、自動結算戰鬥、隊伍每日訓練以及其他活動中獲得技能點經驗。啟用「技能點必須賺取」（預設開啟）後，這些經驗都會計入該兵種的技能點進度計數器。更高等級的部隊需要按比例更多的經驗。總體獲取速率可透過「技能點獲取速率」設定調整。{newline}{newline}自由分配模式：當「技能點必須賺取」被停用時，技能點不再受戰鬥表現限制。你可以在編輯器中隨時自由分配技能，無需先賺取任何點數。" />
+    <string
+      id="ret_man_skills_title"
+      text="Retinues 4.1 - 技能與經驗" />
+    <string
+      id="ret_man_skills_training_text"
+      text="三項設定為技能編輯提供了進一步的結構：訓練的可選時間門檻、從父系部隊繼承的技能下限，以及基於地點的編輯限制。{newline}{newline}訓練需要時間：啟用此設定後，在編輯器中提高技能不會立刻生效。提升會以「待訓練」的形式保存，並按「每日訓練點數」（預設：每天1點）所設定的速率逐步套用。待訓練的提升會以不同顏色顯示。預設情況下旅行時訓練進度也會繼續；「旅行時訓練」設定可將其限制為隊伍靜止時才推進。{newline}{newline}技能下限：一支部隊的技能不能被降低到低於其任一升級來源所擁有的最高值。例如，如果某個2級來源部隊的單手武器為80，那麼3級升級部隊的單手武器不能設定低於80。當降低被阻止時，編輯器會顯示是哪一個來源部隊在設定下限。{newline}{newline}情境限制：「編輯限制」設定可以限制何時能更改技能與裝備。無（自由分配預設）不施加任何限制。在聚落內要求你身處任意聚落。在封地內要求你身處你氏族或王國擁有的聚落。扈從不受封地要求影響，可在任意聚落中編輯。" />
+    <string
+      id="ret_man_skills_training_title"
+      text="Retinues 4.3 - 訓練與限制" />
+    <string
+      id="ret_man_troops_setup_text"
+      text="當首次建立自訂部隊樹時，有兩項設定決定初始名冊的形狀，另有若干設定控制這些部隊會在哪裡作為志願者出現。{newline}{newline}初始部隊：部隊樹的初始狀態取決於「初始部隊」設定。「僅根部」只建立兩名根部部隊，其餘留空以便手動構建。「精簡樹」（預設）會複製你文化部隊樹的簡化版本：每個等級、每種陣型類型各保留一個代表部隊，並使用如「氏族新兵」之類的派系風格名稱。「完整樹」會原樣複製整個文化部隊樹，並將文化前綴替換為你的氏族或王國名稱。{newline}{newline}初始裝備：裝備由「初始裝備」設定單獨決定。「隨機套裝」（預設）會從適合該部隊等級與文化的物品中生成隨機配裝。「單套裝」會複製文化模板中的第一套裝備。「所有套裝」會複製模板中的每一套裝備。「空套裝」會建立完全沒有物品的部隊。{newline}{newline}招募：你的自訂部隊作為志願者出現的位置取決於「氏族部隊可用性」和「王國部隊可用性」設定。預設情況下，氏族部隊出現在氏族封地，王國部隊出現在王國封地。兩者都可以開放到任意聚落，或進一步限制。「僅同文化」設定會阻止自訂部隊出現在不同文化的聚落中。「允許的招募者」設定控制AI領主是否也能招募你的部隊。預設情況下，自訂部隊會在符合條件的聚落中完全取代原版文化志願者；「與原版部隊混合」則會讓它們與原版部隊並列出現。" />
+    <string
+      id="ret_man_troops_setup_title"
+      text="Retinues 3.2 - 設置與招募" />
+    <string
+      id="ret_man_troops_text"
+      text="除了你的扈從之外，你還可以為氏族與王國建立並自訂完整的部隊樹。這些部隊會在全世界的志願者池、駐軍和隊伍中出現，並與扈從一樣在同一個「部隊」畫面中編輯。每個勢力都有兩條根線：基礎樹與精英貴族樹。從這些根部開始，你可以分支升級路徑，每個部隊最多擁有4個升級目標。{newline}{newline}解鎖：預設情況下，氏族部隊會在你獲得第一個封地時解鎖；也可以設定為開局解鎖或完全停用。王國部隊預設會在你建立王國時解鎖，也可以停用。部隊解鎖時會彈出提示，讓你可以直接跳轉到新的部隊樹。" />
+    <string
+      id="ret_man_troops_title"
+      text="Retinues 3.1 - 氏族與王國部隊" />
+    <string
+      id="ret_man_troops_types_text"
+      text="一些教義會在主部隊樹之外解鎖額外的部隊類型，編輯器也提供了管理部隊樹結構以及監管你王國內其他氏族的工具。{newline}{newline}民兵與特殊部隊：三項教義會解鎖額外的自訂部隊類型。「堅毅民兵」解鎖自訂民兵，它們會按每日週期在你勢力的城鎮與城堡中取代預設的文化民兵。「道路守衛」解鎖供你勢力商隊使用的自訂商隊部隊。「武裝農民」解鎖供你勢力村莊隊伍使用的自訂村民部隊。{newline}{newline}隊長：「隊長」教義會為所有常規部隊解鎖隊長變體。隊長是更強的版本，會週期性地以其身分生成。生成率可透過「隊長生成率」設定配置（預設：每15名常規部隊中1名）。隊長不能擁有自己的升級目標，也不能繼續升階。他們的裝備單獨編輯，但裝備花費與其基礎部隊共享。{newline}{newline}升級與移除：你可以為任意非英雄的自訂部隊添加升級目標，前提是它未達到最高等級且升級目標少於4個。新部隊會在其父部隊之上提升一級建立，並繼承其技能。要移除一支部隊，你必須先移除它的所有升級目標。根部部隊無法移除。當部隊被移除時，世界中該類型的所有單位都會被轉換為其文化對應單位。{newline}{newline}其他氏族：當你是統治者時，編輯器允許你管理王國內其他氏族的自訂部隊樹。點擊左側旗幟以選擇不同氏族。如果所選氏族尚無自訂部隊，會提示你透過複製王國現有部隊樹或從文化根部開始來初始化它們。" />
+    <string
+      id="ret_man_troops_types_title"
+      text="Retinues 3.3 - 特殊部隊與部隊樹" />
+    <string
+      id="ret_manual_button_label"
+      text="開啟手冊" />
+    <string
       id="ret_mariner_captain_reason"
       text="船長與其基礎部隊共享水手能力" />
     <string
@@ -1886,6 +1976,12 @@
       id="ret_mcm_option_same_culture_only_hint"
       text="如果啟用，自定義部隊只能在同一文化的定居點招募。" />
     <string
+      id="ret_mcm_option_shared_skill_points_pool"
+      text="共享技能点池" />
+    <string
+      id="ret_mcm_option_shared_skill_points_pool_hint"
+      text="如果啟用，所有自定義部隊將從單個共享池中獲取技能點，而不是每個部隊都有自己的技能點。" />
+    <string
       id="ret_mcm_option_skill_cap"
       text="等級 {TIER} 技能上限" />
     <string
@@ -2113,6 +2209,15 @@
     <string
       id="ret_preset_default_tooltip"
       text="應用默認預設：為首次遊戲設計的平衡體驗" />
+    <string
+      id="ret_preset_description_default"
+      text="默認配置，為首次遊玩提供平衡體驗。{newline}{newline}扈從增益啟用；氏族部隊會在你獲得第一個封地時解鎖；裝備需要花費；物品必須透過擊殺與工坊解鎖後才能裝備。技能點必須在戰鬥中賺取。" />
+    <string
+      id="ret_preset_description_freeform"
+      text="創意沙盒：無費用、無要求、無限制。{newline}{newline}取得教義免費。裝備免費且所有物品立即可用。技能點可自由分配，無需經驗。氏族部隊從開局即可使用，並可在任何地方招募。" />
+    <string
+      id="ret_preset_description_realistic"
+      text="更嚴格的體驗，強調透過努力獲得的成長與陣營身分。{newline}{newline}通用編輯器中會強制執行技能與裝備限制。只有在你擁有的封地內才能修改部隊。扈從增益被停用。裝備與訓練需要時間。裝備受按等級劃分的重量與價值限制。部隊只能在同文化聚落中招募，且開局只會生成文化根部。" />
     <string
       id="ret_preset_freeform_button"
       text="自由模式" />
@@ -2399,6 +2504,15 @@
       id="ret_select_culture_title"
       text="選擇文化" />
     <string
+      id="ret_shared_skill_experience_tooltip"
+      text="共享池中有 {XP} 經驗（下一個點數需要 {XP_REQUIRED}）" />
+    <string
+      id="ret_shared_skill_point_gained"
+      text="你的部隊獲得了1點技能點。" />
+    <string
+      id="ret_shared_skill_points_gained"
+      text="你的部隊獲得了 {POINTS} 點技能點。" />
+    <string
       id="ret_skill_decrease_sources_reason"
       text="無法降低到低於 {SOURCE} 的技能等級" />
     <string
@@ -2413,6 +2527,9 @@
     <string
       id="ret_skill_description_text"
       text="技能點：{SKILL_POINTS} - 技能上限：{SKILL_CAP} - 等級：{TIER}" />
+    <string
+      id="ret_skill_description_text_shared"
+      text="池：{SKILL_POINTS} 點 - 技能上限：{SKILL_CAP} - 等級：{TIER}" />
     <string
       id="ret_skill_description_text_short"
       text="技能上限：{SKILL_CAP} - 等級：{TIER}" />
@@ -2510,11 +2627,53 @@
       id="ret_statistics_button_label"
       text="顯示統計數據" />
     <string
+      id="ret_statistics_casualties_sentence"
+      text="遭受了 {TOTAL} 名傷亡：{BREAKDOWN}。" />
+    <string
+      id="ret_statistics_culture_entry"
+      text="{COUNT} 對陣 {CULTURE}" />
+    <string
+      id="ret_statistics_culture_more"
+      text="還有 {COUNT} 個" />
+    <string
+      id="ret_statistics_deployments"
+      text="{TOTAL} 名士兵分布於 {PARTIES} 支隊伍和 {GARRISONS} 座駐守。" />
+    <string
+      id="ret_statistics_field_entry"
+      text="{COUNT} 場野戰" />
+    <string
+      id="ret_statistics_fought_in"
+      text="參與了 {LIST}。" />
+    <string
+      id="ret_statistics_in_service"
+      text="{NAME} 已服役 {YEARS} 年 {SEASONS} 季 {DAYS} 天。" />
+    <string
+      id="ret_statistics_kills_sentence"
+      text="消滅了 {TOTAL} 名敵人：{BREAKDOWN}。" />
+    <string
+      id="ret_statistics_most_feared"
+      text="最可怕的對手：{NAME}。" />
+    <string
+      id="ret_statistics_most_slain"
+      text="消滅最多的敵人：{NAME}。" />
+    <string
+      id="ret_statistics_naval_entry"
+      text="{COUNT} 場海戰" />
+    <string
       id="ret_statistics_player_only"
       text="在通用編輯器中不可用" />
     <string
       id="ret_statistics_popup_title"
       text="統計數據" />
+    <string
+      id="ret_statistics_raid_entry"
+      text="{COUNT} 次掠奪" />
+    <string
+      id="ret_statistics_siege_entry"
+      text="{COUNT} 場攻城戰" />
+    <string
+      id="ret_statistics_victories_defeats"
+      text="取得了 {WON} 場勝利，遭受了 {LOST} 場失敗。" />
     <string
       id="ret_status_captain_disabled"
       text="未激活" />

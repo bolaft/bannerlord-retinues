@@ -11,6 +11,9 @@
       id="ret_age_hint"
       text="Età" />
     <string
+      id="ret_ai_retinue_equipment_upgrade"
+      text="{RETINUE} ha acquisito {ITEM}." />
+    <string
       id="ret_ai_retinue_loot_line"
       text="{RETINUE} ha saccheggiato e indossato {ITEM} dalle tue perdite." />
     <string
@@ -1547,6 +1550,93 @@
       id="ret_list_header_villagers"
       text="Contadini" />
     <string
+      id="ret_man_equipment_advanced_text"
+      text="Tre sistemi opzionali aggiungono ulteriori vincoli alle modifiche dell&apos;equipaggiamento: un ritardo di staging prima che gli oggetti abbiano effetto, budget di peso e valore per livello, e un gate di sblocco sui singoli oggetti.{newline}{newline}Staging: Quando Equipaggiare richiede tempo è abilitato, equipaggiare un oggetto non ha effetto immediato. Il nuovo oggetto viene invece messo in una coda di staging e applicato gradualmente al passare del tempo nel gioco. Gli slot in staging sono visualizzati in un colore diverso e mostrano l&apos;oggetto attualmente equipaggiato nel tooltip. Puoi rimuovere un oggetto dallo staging in qualsiasi momento. Il progresso si accumula ora dopo ora e anche durante i viaggi se Equipaggiare durante i viaggi è abilitato. Le truppe eroe non sono mai soggette allo staging; le loro modifiche all&apos;equipaggiamento sono sempre istantanee.{newline}{newline}Limiti di peso e valore: Le impostazioni Limita per peso e Limita per valore impongono un budget sul peso totale e sul valore totale dell&apos;equipaggiamento da battaglia di una truppa. Entrambe sono disattivate per impostazione predefinita. Quando attive, ogni livello di truppa ha un budget corrispondente mostrato nell&apos;editor. Le dottrine dell&apos;Armeria possono aumentare questi limiti quando sono attive.{newline}{newline}Disponibilità e sblocchi: Quando Equipaggiamento richiede sblocco è abilitato, ogni oggetto richiede 1000 punti di progresso di sblocco prima di poter essere equipaggiato. Gli oggetti iniziano bloccati e nascosti; una volta che hanno qualche progresso appaiono in fondo alla lista, ordinati per completamento. Un numero configurabile di oggetti per slot viene pre-sbloccato automaticamente in una nuova partita fino a un livello massimo configurabile. Questo sistema si applica solo alla schermata Truppe; nell&apos;Editor universale tutti gli oggetti sono liberamente disponibili." />
+    <string
+      id="ret_man_equipment_advanced_title"
+      text="Retinues 5.3 - Staging e Limiti" />
+    <string
+      id="ret_man_equipment_economy_text"
+      text="L&apos;economia dell&apos;equipaggiamento tiene traccia di quante copie di ogni oggetto posseggono le tue forze e addebita opzionalmente oro quando equipaggi oggetti non già in magazzino.{newline}{newline}Oggetti condivisi: Quando una truppa ha più set, gli oggetti vengono condivisi intelligentemente tra di essi. Se un equipaggiamento è già presente in un altro set appartenente alla stessa truppa, equipaggiarlo in un secondo set non comporta un costo di magazzino aggiuntivo o un acquisto. Una truppa con due set che indossa la stessa spada in entrambi richiede solo una copia di quella spada.{newline}{newline}Magazzini: Ogni oggetto ha un conto di magazzino che rappresenta quante copie hanno accumulato le tue forze. Quando l&apos;economia è attiva, equipaggiare un oggetto preleva una copia dal suo magazzino; toglierlo la restituisce. Il magazzino si accumula dalle battaglie, dagli scarti e da altre fonti. Questo sistema si applica solo alla schermata Truppe; nell&apos;Editor universale i magazzini non hanno alcun ruolo.{newline}{newline}Costi e acquisti: Quando Equipaggiamento costa denaro è attivo, equipaggiare un oggetto non in magazzino e non coperto da un altro set richiede di spendere monete al valore dell&apos;oggetto scalato dall&apos;impostazione Moltiplicatore di costo. Due dottrine riducono i costi: Orgoglio culturale concede uno sconto del 20% sugli oggetti corrispondenti alla cultura del tuo clan, e Patronato reale concede uno sconto del 20% sugli oggetti corrispondenti alla cultura del tuo regno. Entrambi gli sconti possono applicarsi allo stesso oggetto." />
+    <string
+      id="ret_man_equipment_economy_title"
+      text="Retinues 5.2 - Economia dell&apos;Equipaggiamento" />
+    <string
+      id="ret_man_equipment_text"
+      text="Ogni truppa ha due categorie di equipaggiamento: set da battaglia e set civili. I set da battaglia vengono indossati in combattimento; i set civili in tutti gli altri momenti. Si passa da uno all&apos;altro usando il pulsante sopra il modello del personaggio.{newline}{newline}Tipi di set da battaglia: Ogni set da battaglia può essere contrassegnato come applicabile a battaglie campali, battaglie d&apos;assedio o battaglie navali. Un set può coprire qualsiasi combinazione di questi tipi. Almeno un set deve rimanere abilitato per ogni tipo di battaglia in ogni momento.{newline}{newline}Gestione dei set: Usa il pulsante aggiungi per creare una copia del set attuale o uno vuoto. Usa il pulsante rimuovi per eliminare il set attuale; non puoi eliminare un set se è l&apos;unico nella sua categoria, o se ciò lascerebbe qualche tipo di battaglia senza copertura. Quando l&apos;economia è attiva e un set viene eliminato, i suoi oggetti vengono automaticamente restituiti al magazzino.{newline}{newline}Slot: Ogni set ha quattro slot per armi, Testa, Mantello, Corpo, Guanti, Gambe, Cavallo e Finimenti del cavallo. Lo slot Finimenti del cavallo è attivo solo quando è equipaggiato un cavallo. Se viene equipaggiato un nuovo cavallo e i finimenti attuali non sono compatibili, i finimenti vengono rimossi automaticamente." />
+    <string
+      id="ret_man_equipment_title"
+      text="Retinues 5.1 - Equipaggiamento" />
+    <string
+      id="ret_man_overview_text"
+      text="Retinues aggiunge una serie di sistemi per reclutare, addestrare e equipaggiare le proprie forze personali nel corso di una campagna.{newline}{newline}Al centro c&apos;è il seguito: una truppa di famiglia legata al tuo clan che ti segue esclusivamente e può essere sviluppata in un&apos;unità d&apos;élite nel tempo.{newline}{newline}Oltre ai seguiti, puoi costruire alberi di truppe completamente personalizzati per il tuo clan e regno. Queste truppe appaiono come volontari e riempiono gli eserciti della tua fazione. Un sistema di dottrine fornisce uno strato di progressione, sbloccando nuovi tipi di truppe, vantaggi dell&apos;equipaggiamento e altri bonus man mano che si raggiungono gli obiettivi di gioco.{newline}{newline}Tutto questo è gestito tramite l&apos;editor, aperto dal pulsante Truppe sulla mappa della campagna o premendo [R]." />
+    <string
+      id="ret_man_overview_title"
+      text="Retinues 1.0 - Panoramica" />
+    <string
+      id="ret_man_retinues_ai_text"
+      text="Anche i clan non giocanti possono avere i propri seguiti. Questa funzione è abilitata di default e si applica ai clan che raggiungono una soglia minima di livello (livello 3 di default). Ogni giorno c&apos;è di default il 25% di probabilità che un gruppo idoneo promuova una truppa di livello corrispondente in un seguito, fino a un massimo del 10% della dimensione del gruppo. I sovrani dei regni ottengono una Guardia del Re o della Regina oltre ai seguiti del loro clan.{newline}{newline}Di default solo il gruppo del capo clan crea seguiti. L&apos;impostazione Solo i capi clan hanno seguiti può essere disattivata per permettere a tutti i gruppi dei lord di un clan di averne uno proprio.{newline}{newline}I seguiti dell&apos;IA migliorano nel tempo man mano che il clan guadagna esperienza. Se perdi una battaglia contro un clan che ha seguiti, i loro seguiti possono acquisire equipaggiamento dalle tue perdite, migliorando gradualmente il loro equipaggiamento." />
+    <string
+      id="ret_man_retinues_ai_title"
+      text="Retinues 2.4 - Seguiti dei clan IA" />
+    <string
+      id="ret_man_retinues_management_text"
+      text="Questa sezione copre i limiti di dimensione del gruppo per i seguiti, come reclutarli tramite il sistema di potenziamento del gruppo, i bonus passivi che ricevono e come farli salire di rango.{newline}{newline}Limiti del gruppo: Il numero di seguiti che puoi schierare è limitato da un rapporto rispetto al tuo limite di dimensione del gruppo. Il valore predefinito è 15%, regolabile nelle impostazioni. I bonus delle dottrine possono aumentare ulteriormente questo limite. I seguiti non possono essere messi in guarnigione né trasferiti a gruppi di compagni; ti seguono esclusivamente.{newline}{newline}Reclutamento: I seguiti non compaiono nelle liste di volontari degli insediamenti. Invece appaiono come opzioni di potenziamento sulle truppe già presenti nel tuo gruppo. Quando apri la schermata del gruppo, ogni seguito viene abbinato alla truppa più adatta di un livello inferiore e il seguito appare come bersaglio aggiuntivo di potenziamento su quella truppa. Potenziare una truppa in seguito converte una unità della truppa sorgente nel tipo di seguito senza consumare lo slot del seguito. La truppa sorgente è scelta prima dall&apos;albero personalizzato della tua fazione, con fallback sull&apos;albero della tua cultura se non viene trovata corrispondenza.{newline}{newline}Bonus: I seguiti ricevono un insieme di bonus passivi oltre alle loro statistiche normali. Di default sono +20 punti vita, +5 a tutti i tetti abilità e +20 al totale dei punti abilità. Ogni bonus può essere attivato/disattivato e regolato individualmente nelle impostazioni. Il preset Realistico disattiva tutti e tre.{newline}{newline}Salire di rango: Quando un seguito ha tutte le abilità completamente al massimo, diventa idoneo a salire di rango. Salire di rango costa oro: (livello attuale + 1) x 1000 denari. Costa anche punti abilità: 5 x livello attuale. L&apos;effetto aumenta il livello del seguito di 5 e sblocca tetti abilità più alti. L&apos;azione di salita di rango è mostrata nell&apos;editor una volta soddisfatte tutte le condizioni." />
+    <string
+      id="ret_man_retinues_management_title"
+      text="Retinues 2.3 - Gruppo e Reclutamento" />
+    <string
+      id="ret_man_retinues_text"
+      text="I seguiti sono truppe speciali di guardia domestica legate al tuo clan. A differenza delle normali truppe di fazione, sono personali per il giocatore: non possono essere messe in guarnigione né trasferite a un altro gruppo e rimangono con te in ogni momento. Iniziano a un livello basso ma possono essere addestrati, equipaggiati e promossi di rango nel corso di una campagna.{newline}{newline}Seguito iniziale: Un seguito viene creato automaticamente quando inizi una nuova campagna o quando carichi un salvataggio esistente per la prima volta. Prende il nome del tuo clan e corrisponde alla cultura del tuo clan. Se a quel punto sei già un sovrano, viene creata anche una Guardia del Re o della Regina per il tuo regno." />
+    <string
+      id="ret_man_retinues_title"
+      text="Retinues 2.1 - Seguiti" />
+    <string
+      id="ret_man_retinues_unlock_text"
+      text="Puoi sbloccare una compagnia aggiuntiva per cultura. La cultura del tuo clan è sbloccata fin dall&apos;inizio. Per ogni altra cultura, accumuli progresso di sblocco tramite attività di gioco legate a quella cultura.{newline}{newline}Vincere un torneo assegna +50 punti per la cultura dell&apos;insediamento che ospita il torneo. Completare con successo una missione assegna +25 punti per la cultura del committente. Possedere un feudo assegna +5 punti al giorno per feudo, per la cultura di ciascun feudo. Possedere un&apos;officina assegna +2 punti al giorno per officina, per la cultura dell&apos;insediamento in cui si trova l&apos;officina. Vincere una battaglia al fianco di gruppi alleati assegna +10 punti per ciascun gruppo alleato, per la cultura di ogni alleato.{newline}{newline}Ogni cultura richiede 1000 punti per essere sbloccata. La velocità complessiva può essere regolata con l&apos;impostazione Velocità di sblocco delle compagnie. Quando una cultura viene sbloccata, una nuova compagnia viene creata automaticamente e compare un popup che ti consente di saltare direttamente all&apos;editor." />
+    <string
+      id="ret_man_retinues_unlock_title"
+      text="Retinues 2.2 - Sbloccare i seguiti" />
+    <string
+      id="ret_man_skills_budget_text"
+      text="Questa sezione tratta il pool condiviso opzionale di punti abilità, come funzionano spesa e rimborsi, e i limiti e totali per livello che vincolano le abilità complessive di qualsiasi truppa.{newline}{newline}Pool condiviso di punti abilità: Quando l&apos;impostazione Pool condiviso di punti abilità è abilitata, tutte le truppe personalizzate contribuiscono la loro XP da battaglia a un unico pool per tutta la campagna invece di pool per truppa. I punti abilità del pool possono essere spesi su qualsiasi truppa personalizzata, rendendo più facile sviluppare specialisti senza dover distribuire le battaglie in modo uniforme su tutto il roster. Il saldo del pool è mostrato nell&apos;intestazione del pannello abilità. Disattivare l&apos;impostazione a campagna in corso non azzera né i punti per truppa né il pool condiviso. L&apos;impostazione richiede che I punti abilità devono essere guadagnati sia attiva.{newline}{newline}Spesa: Ogni aumento di abilità costa un punto; diminuire un&apos;abilità lo rimborsa immediatamente. Quando Addestramento richiede tempo è abilitato, diminuire un&apos;abilità già impegnata richiede conferma.{newline}{newline}Limiti e totali: Nella schermata Truppe si applicano due limiti. Il limite per abilità è il livello massimo che una singola abilità può raggiungere per quel livello; i valori predefiniti vanno da 20 al livello 0 a 360 al livello 7. Il totale abilità è la somma di tutte le abilità che una truppa di quel livello può avere; i valori predefiniti vanno da 90 al livello 0 a 1600 al livello 7. I seguiti ricevono bonus oltre entrambi i limiti. I Capitani al livello massimo ricevono un bonus del 20%. La dottrina Disciplina di Ferro aggiunge +5 al limite per tutte le truppe. Soldati Tenaci e Maestri d&apos;Armi aggiungono ciascuno +20 al totale per le linee base ed élite rispettivamente." />
+    <string
+      id="ret_man_skills_budget_title"
+      text="Retinues 4.2 - Budget Abilità" />
+    <string
+      id="ret_man_skills_text"
+      text="Le tue truppe personalizzate hanno una scheda abilità che puoi modificare dalla schermata Truppe, soggetta a limiti per abilità e a un budget totale di abilità. Questo sistema non si applica alle truppe modificate tramite l&apos;Editor universale, dove le abilità possono essere regolate liberamente in qualsiasi momento.{newline}{newline}Fonti di XP: Le truppe personalizzate accumulano XP dei punti abilità da battaglie giocate, battaglie auto-risolte, addestramento quotidiano del gruppo e altre attività. Quando I punti abilità devono essere guadagnati è attivo (attivo di default), tutta questa XP alimenta il contatore di progresso dei punti abilità per quel tipo di truppa. Le truppe di livello più alto richiedono proporzionalmente più XP. La velocità complessiva è regolabile con l&apos;impostazione Tasso di guadagno dei punti abilità.{newline}{newline}Modalità libera: Quando I punti abilità devono essere guadagnati è disabilitato, i punti abilità non sono più vincolati alle prestazioni in battaglia. Le abilità possono essere assegnate liberamente nell&apos;editor in qualsiasi momento senza dover prima guadagnare nulla." />
+    <string
+      id="ret_man_skills_title"
+      text="Retinues 4.1 - Abilità ed Esperienza" />
+    <string
+      id="ret_man_skills_training_text"
+      text="Tre impostazioni aggiungono ulteriore struttura alla modifica delle abilità: un vincolo temporale opzionale sull&apos;addestramento, un minimo derivato dalle truppe genitrici e restrizioni basate sul luogo su quando l&apos;editor può essere usato.{newline}{newline}Addestramento richiede tempo: Quando questa impostazione è abilitata, aumentare un&apos;abilità nell&apos;editor non si applica istantaneamente. L&apos;aumento viene memorizzato come in sospeso e applicato gradualmente alla velocità impostata da Punti addestrati al giorno (predefinito: 1 al giorno). Gli aumenti in sospeso sono mostrati con un colore diverso. Il progresso dell&apos;addestramento continua durante i viaggi per impostazione predefinita; l&apos;impostazione Addestra durante i viaggi può limitarlo ai momenti in cui il gruppo è fermo.{newline}{newline}Minimo abilità: Le abilità di una truppa non possono essere abbassate sotto il valore più alto posseduto da una qualsiasi delle sue fonti di upgrade. Per esempio, se una truppa fonte di livello 2 ha 80 in Una Mano, l&apos;upgrade di livello 3 non può essere impostato sotto 80 in Una Mano. L&apos;editor mostra quale truppa fonte sta fissando il minimo quando una diminuzione è bloccata.{newline}{newline}Restrizioni di contesto: L&apos;impostazione Restrizione di modifica può limitare quando abilità ed equipaggiamento possono essere cambiati. Nessuna (predefinita in modalità libera) non impone restrizioni. In insediamento richiede di essere dentro qualsiasi insediamento. In feudo richiede di essere dentro un insediamento posseduto dal tuo clan o regno. I seguiti sono esenti dal requisito del feudo e possono essere modificati in qualsiasi insediamento." />
+    <string
+      id="ret_man_skills_training_title"
+      text="Retinues 4.3 - Addestramento e Restrizioni" />
+    <string
+      id="ret_man_troops_setup_text"
+      text="Quando un albero di truppe personalizzate viene creato per la prima volta, due impostazioni determinano la forma del roster iniziale e altre controllano dove quelle truppe compaiono come volontari.{newline}{newline}Truppe iniziali: Lo stato iniziale dell&apos;albero dipende dall&apos;impostazione Truppe iniziali. Solo radici crea solo le due truppe radice, lasciando il resto vuoto da costruire manualmente. Alberi snelli (predefinito) copia una versione semplificata dell&apos;albero della tua cultura: una truppa rappresentativa per tipo di formazione per livello, con nomi basati sulla fazione come Recluta del clan. Alberi completi clona l&apos;intero albero culturale alla lettera, sostituendo il prefisso culturale con il nome del tuo clan o regno.{newline}{newline}Equipaggiamento iniziale: L&apos;equipaggiamento è impostato separatamente dall&apos;impostazione Equipaggiamento iniziale. Set casuale (predefinito) genera un equipaggiamento casuale da oggetti adatti al livello e alla cultura di ogni truppa. Set singolo copia il primo set di equipaggiamento dal modello culturale. Tutti i set copia ogni set di equipaggiamento dal modello. Set vuoto crea truppe senza alcun oggetto.{newline}{newline}Reclutamento: Dove le tue truppe personalizzate compaiono come volontari dipende dalle impostazioni Disponibilità truppe del clan e Disponibilità truppe del regno. Le truppe del clan per default vanno nei feudi del clan e quelle del regno nei feudi del regno. Entrambe possono essere aperte a qualsiasi insediamento o ristrette ulteriormente. L&apos;impostazione Solo stessa cultura impedisce alle truppe personalizzate di comparire in insediamenti di cultura diversa. L&apos;impostazione Reclutatori consentiti controlla se anche i lord IA possono reclutare le tue truppe. Per default le truppe personalizzate sostituiscono completamente i volontari culturali standard negli insediamenti idonei; Mescola con truppe vanilla permette invece di farle comparire accanto alle truppe standard." />
+    <string
+      id="ret_man_troops_setup_title"
+      text="Retinues 3.2 - Configurazione e Reclutamento" />
+    <string
+      id="ret_man_troops_text"
+      text="Oltre ai tuoi seguiti, puoi costruire e personalizzare alberi completi di truppe per il tuo clan e il tuo regno. Queste truppe compaiono in pool di volontari, guarnigioni e gruppi in tutto il mondo e vengono modificate dalla stessa schermata Truppe dei seguiti. Ogni fazione ottiene due linee radice: un albero base e un albero nobile d&apos;élite. Da queste radici puoi diramare percorsi di upgrade fino a un massimo di 4 obiettivi di upgrade per truppa.{newline}{newline}Sblocco: Le truppe del clan si sbloccano di default quando acquisisci il tuo primo feudo. Possono anche essere impostate per sbloccarsi dall&apos;inizio o essere disabilitate completamente. Le truppe del regno si sbloccano di default quando fondi un regno e possono anche essere disabilitate. Quando le truppe vengono sbloccate appare un popup che ti permette di saltare direttamente al nuovo albero." />
+    <string
+      id="ret_man_troops_title"
+      text="Retinues 3.1 - Truppe di clan e regno" />
+    <string
+      id="ret_man_troops_types_text"
+      text="Diverse dottrine sbloccano tipi di truppe aggiuntivi oltre l&apos;albero principale e l&apos;editor fornisce strumenti per gestire la struttura dell&apos;albero e supervisionare gli altri clan nel tuo regno.{newline}{newline}Milizie e truppe speciali: Tre dottrine sbloccano tipi aggiuntivi di truppe personalizzate. Milizia Fedele sblocca truppe di milizia personalizzate che sostituiscono la milizia culturale predefinita nelle città e nei castelli della tua fazione con un ciclo giornaliero. Guardiani delle Strade sblocca truppe carovaniere personalizzate usate dalle carovane della tua fazione. Contadini Armati sblocca truppe di villaggio personalizzate usate dai gruppi di villaggio della tua fazione.{newline}{newline}Capitani: La dottrina Capitani sblocca varianti Capitano per tutte le truppe regolari. Un Capitano è una versione più forte che compare periodicamente al loro posto. Il tasso di comparsa è configurabile tramite l&apos;impostazione Tasso di comparsa dei Capitani (predefinito: 1 ogni 15 truppe regolari). I Capitani non possono avere obiettivi di upgrade propri e non possono aumentare di livello. Il loro equipaggiamento è modificato separatamente ma condividono i costi dell&apos;equipaggiamento con la truppa base.{newline}{newline}Upgrade e rimozione: Puoi aggiungere un obiettivo di upgrade a qualsiasi truppa personalizzata non eroica che non sia al livello massimo e abbia meno di 4 obiettivi di upgrade. La nuova truppa viene creata un livello sopra il suo genitore ed eredita le sue abilità. Per rimuovere una truppa devi prima rimuovere tutti i suoi obiettivi di upgrade. Le truppe radice non possono essere rimosse. Quando una truppa viene rimossa, tutte le unità di quel tipo nel mondo vengono convertite nella loro controparte culturale.{newline}{newline}Altri clan: Quando sei un sovrano, l&apos;editor ti permette di gestire gli alberi di truppe personalizzate degli altri clan nel tuo regno. Clicca sul banner sinistro per selezionare un clan diverso. Se il clan selezionato non ha ancora truppe personalizzate, ti verrà chiesto di inizializzarle copiando l&apos;albero esistente del regno o partendo dalle radici culturali." />
+    <string
+      id="ret_man_troops_types_title"
+      text="Retinues 3.3 - Truppe speciali e albero" />
+    <string
+      id="ret_manual_button_label"
+      text="Apri il manuale" />
+    <string
       id="ret_mariner_captain_reason"
       text="I capitani condividono l&apos;abilità marinaia delle loro truppe di base" />
     <string
@@ -1886,6 +1976,12 @@
       id="ret_mcm_option_same_culture_only_hint"
       text="Se abilitato, le truppe personalizzate possono essere reclutate solo negli insediamenti della stessa cultura." />
     <string
+      id="ret_mcm_option_shared_skill_points_pool"
+      text="Pool di Punti Abilità Condivisi" />
+    <string
+      id="ret_mcm_option_shared_skill_points_pool_hint"
+      text="Se abilitato, tutte le truppe personalizzate attingono punti abilità da un unico pool condiviso invece di avere ciascuna il proprio." />
+    <string
       id="ret_mcm_option_skill_cap"
       text="Limite di Abilità del Livello {TIER}" />
     <string
@@ -2113,6 +2209,15 @@
     <string
       id="ret_preset_default_tooltip"
       text="Applica il predefinito: un&apos;esperienza bilanciata progettata per un primo playthrough" />
+    <string
+      id="ret_preset_description_default"
+      text="La configurazione predefinita, bilanciata per una prima partita.{newline}{newline}I bonus dei seguiti sono attivi, le truppe del clan si sbloccano con il tuo primo feudo, l&apos;equipaggiamento ha un costo e gli oggetti devono essere sbloccati tramite uccisioni e officine prima di poter essere equipaggiati. I punti abilità devono essere guadagnati in battaglia." />
+    <string
+      id="ret_preset_description_freeform"
+      text="Una sandbox creativa: nessun costo, nessun requisito, nessuna restrizione.{newline}{newline}Acquisire dottrine è gratuito. L&apos;equipaggiamento è gratuito e tutti gli oggetti sono disponibili immediatamente. I punti abilità possono essere assegnati liberamente senza requisiti di esperienza. Le truppe del clan sono disponibili fin dall&apos;inizio e possono essere reclutate ovunque." />
+    <string
+      id="ret_preset_description_realistic"
+      text="Un&apos;esperienza più rigorosa che enfatizza la progressione guadagnata e l&apos;identità di fazione.{newline}{newline}I limiti di abilità ed equipaggiamento sono applicati nell&apos;Editor universale. Le truppe possono essere modificate solo quando ti trovi in un feudo posseduto. I bonus dei seguiti sono disabilitati. Equipaggiarsi e addestrarsi richiede tempo. L&apos;equipaggiamento è soggetto a limiti di peso e valore basati sul livello. Le truppe possono essere reclutate solo in insediamenti della stessa cultura e all&apos;inizio della partita vengono generate solo le radici culturali." />
     <string
       id="ret_preset_freeform_button"
       text="Libero" />
@@ -2399,6 +2504,15 @@
       id="ret_select_culture_title"
       text="Seleziona cultura" />
     <string
+      id="ret_shared_skill_experience_tooltip"
+      text="{XP} XP nel pool condiviso (prossimo punto a {XP_REQUIRED})" />
+    <string
+      id="ret_shared_skill_point_gained"
+      text="Le tue truppe hanno guadagnato un punto abilità." />
+    <string
+      id="ret_shared_skill_points_gained"
+      text="Le tue truppe hanno guadagnato {POINTS} punti abilità." />
+    <string
       id="ret_skill_decrease_sources_reason"
       text="Impossibile diminuire al di sotto del livello di abilità di {SOURCE}" />
     <string
@@ -2413,6 +2527,9 @@
     <string
       id="ret_skill_description_text"
       text="Punti Abilità: {SKILL_POINTS} - Limite Abilità: {SKILL_CAP} - Livello: {TIER}" />
+    <string
+      id="ret_skill_description_text_shared"
+      text="Pool: {SKILL_POINTS} pt - Limite abilità: {SKILL_CAP} - Livello: {TIER}" />
     <string
       id="ret_skill_description_text_short"
       text="Limite Abilità: {SKILL_CAP} - Livello: {TIER}" />
@@ -2510,11 +2627,53 @@
       id="ret_statistics_button_label"
       text="Mostra statistiche" />
     <string
+      id="ret_statistics_casualties_sentence"
+      text="Subite {TOTAL} perdite: {BREAKDOWN}." />
+    <string
+      id="ret_statistics_culture_entry"
+      text="{COUNT} contro {CULTURE}" />
+    <string
+      id="ret_statistics_culture_more"
+      text="{COUNT} altri" />
+    <string
+      id="ret_statistics_deployments"
+      text="{TOTAL} truppe schierate in {PARTIES} gruppi e {GARRISONS} guarnigioni." />
+    <string
+      id="ret_statistics_field_entry"
+      text="{COUNT} battaglie in campo aperto" />
+    <string
+      id="ret_statistics_fought_in"
+      text="Combattuto in {LIST}." />
+    <string
+      id="ret_statistics_in_service"
+      text="{NAME} è in servizio da {YEARS} anni, {SEASONS} stagioni e {DAYS} giorni." />
+    <string
+      id="ret_statistics_kills_sentence"
+      text="Uccisi {TOTAL} nemici: {BREAKDOWN}." />
+    <string
+      id="ret_statistics_most_feared"
+      text="Avversario più temuto: {NAME}." />
+    <string
+      id="ret_statistics_most_slain"
+      text="Nemico più ucciso: {NAME}." />
+    <string
+      id="ret_statistics_naval_entry"
+      text="{COUNT} battaglie navali" />
+    <string
       id="ret_statistics_player_only"
       text="Non disponibile nell&apos;Editor Universale" />
     <string
       id="ret_statistics_popup_title"
       text="Statistiche" />
+    <string
+      id="ret_statistics_raid_entry"
+      text="{COUNT} razzie" />
+    <string
+      id="ret_statistics_siege_entry"
+      text="{COUNT} assedi" />
+    <string
+      id="ret_statistics_victories_defeats"
+      text="Ottenute {WON} vittorie, subite {LOST} sconfitte." />
     <string
       id="ret_status_captain_disabled"
       text="Inattivo" />

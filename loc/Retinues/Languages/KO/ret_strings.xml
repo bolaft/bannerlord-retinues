@@ -11,6 +11,9 @@
       id="ret_age_hint"
       text="나이" />
     <string
+      id="ret_ai_retinue_equipment_upgrade"
+      text="{RETINUE}이(가) {ITEM}을(를) 획득했습니다." />
+    <string
       id="ret_ai_retinue_loot_line"
       text="{RETINUE}이(가) 전사자에게서 {ITEM}을(를) 약탈해 장착했습니다." />
     <string
@@ -1547,6 +1550,93 @@
       id="ret_list_header_villagers"
       text="마을 사람들" />
     <string
+      id="ret_man_equipment_advanced_text"
+      text="세 가지 선택 시스템이 장비 변경에 추가 제약을 부여합니다: 아이템이 적용되기 전의 스테이징 지연, 등급별 무게 및 가치 예산, 개별 아이템의 잠금 해제 게이트.{newline}{newline}스테이징: &apos;장비하는 데 시간이 걸림&apos;이 활성화되면 아이템을 장비해도 즉시 효과가 나타나지 않습니다. 새 아이템은 스테이징 대기열에 배치되어 게임 내 시간이 지남에 따라 점진적으로 적용됩니다. 스테이징 중인 슬롯은 다른 색으로 표시되며 툴팁에 현재 장비된 아이템이 표시됩니다. 언제든지 스테이징을 취소할 수 있습니다. 진행도는 시간당 누적되며 &apos;여행 중 장비&apos;가 활성화된 경우 이동 중에도 누적됩니다. 영웅 병력은 스테이징 대상이 아니며 장비 변경이 항상 즉시 적용됩니다.{newline}{newline}무게 및 가치 제한: &apos;무게로 제한&apos; 및 &apos;가치로 제한&apos; 설정은 병력의 전투 장비 총 무게와 총 가치에 예산을 부과합니다. 둘 다 기본적으로 꺼져 있습니다. 활성화되면 각 병력 등급에는 편집기에 표시되는 해당 예산이 있습니다. 무기고 교리는 활성화될 때 이 제한을 높일 수 있습니다.{newline}{newline}아이템 가용성 및 잠금 해제: &apos;장비에 잠금 해제 필요&apos;가 활성화되면 각 아이템을 장비하기 전에 1000포인트의 잠금 해제 진행도가 필요합니다. 아이템은 잠겨 숨겨진 상태로 시작하며 일부 진행도가 생기면 완성도 순으로 정렬되어 목록 하단에 표시됩니다. 슬롯당 설정 가능한 수의 아이템이 설정 가능한 등급 상한까지 새 게임에서 자동으로 사전 잠금 해제됩니다. 이 시스템은 병력 화면에만 적용됩니다. 범용 편집기에서는 모든 아이템을 자유롭게 사용할 수 있습니다." />
+    <string
+      id="ret_man_equipment_advanced_title"
+      text="Retinues 5.3 - 스테이징 및 제한" />
+    <string
+      id="ret_man_equipment_economy_text"
+      text="장비 경제는 부대가 각 아이템의 복사본을 몇 개 소유하고 있는지 추적하고, 재고에 없는 장비를 착용할 때(선택적으로) 금화를 청구합니다.{newline}{newline}공유 아이템: 병력이 여러 세트를 가질 때 아이템은 세트 간에 지능적으로 공유됩니다. 동일한 병력의 다른 세트에 이미 장비가 있는 경우, 두 번째 세트에 장비해도 추가 재고 비용이나 구매가 발생하지 않습니다. 두 세트 모두에서 같은 검을 착용한 병력은 그 검의 복사본이 하나만 필요합니다.{newline}{newline}재고: 각 아이템에는 부대가 비축한 복사본 수를 나타내는 재고 수가 있습니다. 경제가 활성화되면 아이템을 장비하면 재고에서 복사본 하나가 빠져나가고, 해제하면 반환됩니다. 재고는 전투, 폐기 및 기타 출처에서 누적됩니다. 이 시스템은 병력 화면에만 적용됩니다. 범용 편집기에서 재고는 역할이 없습니다.{newline}{newline}비용 및 구매: &apos;장비에 돈이 듦&apos;이 활성화되면, 재고에 없고 다른 세트에 포함되지 않은 아이템을 장비하려면 비용 배수 설정으로 스케일된 아이템 가치에 따라 코인을 소비해야 합니다. 두 가지 교리가 비용을 줄입니다: 문화적 자부심은 클랜 문화에 맞는 아이템에 20% 할인을 부여하고, 왕실 후원은 왕국 문화에 맞는 아이템에 20% 할인을 부여합니다. 두 할인 모두 동일한 아이템에 적용될 수 있습니다." />
+    <string
+      id="ret_man_equipment_economy_title"
+      text="Retinues 5.2 - 장비 경제" />
+    <string
+      id="ret_man_equipment_text"
+      text="각 병력에는 두 가지 장비 범주가 있습니다: 전투 세트와 민간 세트. 전투 세트는 전투 중에 착용하며 민간 세트는 다른 모든 시간에 착용합니다. 캐릭터 모델 위의 버튼을 사용하여 전환합니다.{newline}{newline}전투 세트 유형: 각 전투 세트는 야전, 공성전 또는 해전에 적용되는 것으로 표시할 수 있습니다. 하나의 세트로 이러한 유형의 임의 조합을 커버할 수 있습니다. 각 전투 유형에 대해 항상 최소 하나의 세트가 활성화되어 있어야 합니다.{newline}{newline}세트 관리: 추가 버튼을 사용하여 현재 세트의 복사본이나 빈 세트를 만듭니다. 제거 버튼을 사용하여 현재 세트를 삭제합니다. 세트가 해당 카테고리에서 유일한 세트이거나 삭제 시 전투 유형 중 하나가 커버되지 않게 되면 삭제할 수 없습니다. 경제가 활성화되고 세트가 삭제되면 해당 아이템은 자동으로 재고로 반환됩니다.{newline}{newline}슬롯: 각 세트에는 무기 슬롯 4개와 머리, 망토, 몸통, 장갑, 다리, 말, 말 마구 슬롯이 있습니다. 말 마구 슬롯은 말이 장비되었을 때만 활성화됩니다. 새 말이 장비되고 현재 마구가 호환되지 않으면 마구는 자동으로 지워집니다." />
+    <string
+      id="ret_man_equipment_title"
+      text="Retinues 5.1 - 장비" />
+    <string
+      id="ret_man_overview_text"
+      text="Retinues는 캠페인 전반에 걸쳐 자신만의 개인 병력을 구성, 훈련 및 장비하기 위한 일련의 시스템을 추가합니다.{newline}{newline}핵심은 수행단입니다: 당신의 씨족에 묶인 가신 부대로, 당신만을 전용으로 따르며 시간이 지남에 따라 엘리트 유닛으로 발전시킬 수 있습니다.{newline}{newline}수행단 외에도 씨족과 왕국을 위한 완전한 맞춤형 병력 트리를 구축할 수 있습니다. 이 병사들은 자원병으로 나타나 당신의 세력 군대를 채웁니다. 교리 시스템은 게임 목표를 달성함에 따라 새로운 병력 유형, 장비 특전 및 기타 보너스를 잠금 해제하는 진행 레이어를 제공합니다.{newline}{newline}이 모든 것은 캠페인 지도에서 병력 버튼을 누르거나 [R]을 눌러 여는 편집기를 통해 관리됩니다." />
+    <string
+      id="ret_man_overview_title"
+      text="Retinues 1.0 - 개요" />
+    <string
+      id="ret_man_retinues_ai_text"
+      text="플레이어가 아닌 씨족도 자체 수행단을 가질 수 있습니다. 이 기능은 기본적으로 활성화되어 있으며 최소 등급 임계치(기본: 3등급)를 충족하는 씨족에 적용됩니다. 기본적으로 매일 25% 확률로, 자격을 갖춘 파티가 같은 등급의 병력을 1명 수행단으로 승격시키며, 최대 한도는 파티 규모의 10%입니다. 왕국의 통치자는 씨족 수행단 외에 왕의 근위대 또는 여왕의 근위대를 추가로 얻습니다.{newline}{newline}기본적으로 씨족 지도자의 파티만 수행단을 만듭니다. &apos;씨족 지도자만 수행단 보유&apos; 설정을 끄면 씨족 내 모든 영주 파티가 각자 수행단을 가질 수 있습니다.{newline}{newline}AI 수행단은 씨족이 경험을 획득함에 따라 시간이 지날수록 강화됩니다. 수행단이 있는 씨족과의 전투에서 패배하면, 그들의 수행단이 당신의 전사자에게서 장비를 획득해 점차 장비를 업그레이드할 수 있습니다." />
+    <string
+      id="ret_man_retinues_ai_title"
+      text="Retinues 2.4 - AI 씨족 수행단" />
+    <string
+      id="ret_man_retinues_management_text"
+      text="이 섹션에서는 수행단의 파티 규모 제한, 파티 업그레이드 시스템을 통한 모집 방법, 받는 패시브 버프, 그리고 등급 상승 방법을 다룹니다.{newline}{newline}파티 제한: 편성할 수 있는 수행단 수는 파티 규모 제한의 비율로 상한이 정해집니다. 기본값은 15%이며 설정에서 조정할 수 있습니다. 교리 보너스로 이 상한을 더 올릴 수 있습니다. 수행단은 주둔지에 배치하거나 동료 파티로 옮길 수 없으며, 오직 당신만을 따라다닙니다.{newline}{newline}모집: 수행단은 정착지 자원병 목록에 나타나지 않습니다. 대신 파티에 있는 기존 병력의 업그레이드 옵션으로 표시됩니다. 파티 화면을 열면 각 수행단은 한 등급 아래에서 가장 적합한 병력과 매칭되고, 그 병력의 추가 업그레이드 대상으로 나타납니다. 병력을 수행단으로 업그레이드하면 원본 병력 1명이 수행단 유형으로 변환되지만 수행단 슬롯을 소비하지 않습니다. 원본 병력은 우선 세력의 커스텀 트리에서 선택되며, 매칭이 없으면 문화 트리로 대체됩니다.{newline}{newline}버프: 수행단은 일반 능력치에 더해 패시브 보너스 세트를 받습니다. 기본값은 생명력 +20, 모든 스킬 상한 +5, 총 스킬 포인트 +20입니다. 각 보너스는 설정에서 개별적으로 켜고 끄며 조정할 수 있습니다. &apos;현실적&apos; 프리셋은 세 가지를 모두 비활성화합니다.{newline}{newline}등급 상승: 수행단의 스킬이 모두 완전히 최대치에 도달하면 등급 상승이 가능합니다. 등급 상승에는 금화가 필요합니다: (현재 등급 + 1) x 1000 데나르. 또한 스킬 포인트도 필요합니다: 5 x 현재 등급. 효과는 수행단 레벨을 5 올리고 더 높은 스킬 상한을 잠금 해제합니다. 모든 조건이 충족되면 편집기에 등급 상승 행동이 표시됩니다." />
+    <string
+      id="ret_man_retinues_management_title"
+      text="Retinues 2.3 - 파티 및 징병" />
+    <string
+      id="ret_man_retinues_text"
+      text="수행단은 당신의 씨족에 묶인 특수 가신 호위 병력입니다. 일반 세력 병력과 달리 플레이어 전용이며, 주둔지에 배치하거나 다른 파티로 옮길 수 없고 항상 당신과 함께합니다. 낮은 등급에서 시작하지만 캠페인 동안 훈련하고 장비하며 등급을 올릴 수 있습니다.{newline}{newline}시작 수행단: 새 캠페인을 시작하거나 기존 저장을 처음 불러올 때 수행단 1개가 자동으로 생성됩니다. 이름은 당신의 씨족 이름을 따르며 씨족 문화와 일치합니다. 그 시점에 이미 통치자라면, 왕국을 위해 왕의 근위대 또는 여왕의 근위대도 추가로 생성됩니다." />
+    <string
+      id="ret_man_retinues_title"
+      text="Retinues 2.1 - 수행단" />
+    <string
+      id="ret_man_retinues_unlock_text"
+      text="문화마다 추가로 수행단 하나를 잠금 해제할 수 있습니다. 자신의 클랜 문화는 처음부터 잠금 해제되어 있습니다. 다른 문화는 해당 문화와 연관된 게임 내 활동을 통해 잠금 해제 진행도를 누적합니다.{newline}{newline}토너먼트에서 우승하면 토너먼트가 열린 정착지 문화에 +50점을 획득합니다. 퀘스트를 성공적으로 완료하면 의뢰인의 문화에 +25점을 획득합니다. 영지를 소유하면 각 영지의 문화에 대해 영지당 하루 +5점을 획득합니다. 작업장을 소유하면 작업장이 있는 정착지 문화에 대해 작업장당 하루 +2점을 획득합니다. 아군 부대와 함께 전투에서 승리하면 각 동맹의 문화에 대해 동맹 부대당 +10점을 획득합니다.{newline}{newline}각 문화는 잠금 해제에 1000점이 필요합니다. 전체 속도는 수행단 잠금 해제 속도 설정으로 조정할 수 있습니다. 문화가 잠금 해제되면 새로운 수행단이 자동으로 생성되고, 편집기로 바로 이동할 수 있는 팝업이 표시됩니다." />
+    <string
+      id="ret_man_retinues_unlock_title"
+      text="Retinues 2.2 - 수행단 잠금 해제" />
+    <string
+      id="ret_man_skills_budget_text"
+      text="이 섹션은 선택적 공유 스킬 포인트 풀, 지출과 환불이 어떻게 작동하는지, 그리고 모든 병력의 총 스킬을 제한하는 등급별 상한과 총합을 다룹니다.{newline}{newline}공유 스킬 포인트 풀: &apos;공유 스킬 포인트 풀&apos; 설정이 활성화되면, 모든 커스텀 병력은 병력별 풀이 아니라 캠페인 전체에서 공유되는 하나의 풀에 전투 XP를 기여합니다. 풀의 스킬 포인트는 어떤 커스텀 병력에도 사용할 수 있어, 전투를 명단 전체에 고르게 배분하지 않고도 전문 병력을 육성하기 쉬워집니다. 풀 잔액은 스킬 패널 헤더에 표시됩니다. 캠페인 중간에 설정을 꺼도 병력별 포인트와 공유 풀은 모두 초기화되지 않습니다. 이 설정은 &apos;스킬 포인트는 획득해야 함&apos;이 활성화되어 있어야 합니다.{newline}{newline}지출: 스킬을 1 올릴 때마다 스킬 포인트 1이 소모되며, 스킬을 내리면 즉시 환불됩니다. &apos;훈련에 시간이 걸림&apos;이 활성화되어 있을 때 이미 확정된 스킬을 내리면 확인이 표시됩니다.{newline}{newline}스킬 상한과 총합: 병력 화면에는 두 가지 제한이 적용됩니다. 스킬 상한은 해당 등급에서 단일 스킬이 도달할 수 있는 최대치이며, 기본값은 0등급 20에서 7등급 360까지입니다. 스킬 총합은 해당 등급 병력이 가질 수 있는 모든 스킬의 합이며, 기본값은 0등급 90에서 7등급 1600까지입니다. 수행단은 두 제한 모두에 추가 보너스를 받습니다. 최대 등급 대위는 20% 보너스를 받습니다. &apos;철의 규율&apos; 교리는 모든 병력의 상한에 +5를 더합니다. &apos;굳건한 병사&apos;와 &apos;무기 달인&apos;은 각각 기본 라인과 정예 라인의 총합에 +20을 더합니다." />
+    <string
+      id="ret_man_skills_budget_title"
+      text="Retinues 4.2 - 스킬 예산" />
+    <string
+      id="ret_man_skills_text"
+      text="커스텀 병력은 병력 화면에서 편집할 수 있는 스킬 시트를 가지며, 스킬별 상한과 총 스킬 예산의 제한을 받습니다. 이 시스템은 범용 편집기로 편집된 병력에는 적용되지 않으며, 그곳에서는 언제든지 스킬을 자유롭게 조정할 수 있습니다.{newline}{newline}XP 출처: 커스텀 병력은 실제 전투, 자동 해결 전투, 파티 일일 훈련 및 기타 활동으로부터 스킬 포인트 XP를 누적합니다. &apos;스킬 포인트는 획득해야 함&apos;(기본적으로 켜짐)이 활성화되어 있으면, 그 XP는 모두 해당 병종의 스킬 포인트 진행 카운터로 들어갑니다. 더 높은 등급의 병력은 비례해서 더 많은 XP가 필요합니다. 전체 획득 속도는 &apos;스킬 포인트 획득 속도&apos; 설정으로 조정할 수 있습니다.{newline}{newline}자유 모드: &apos;스킬 포인트는 획득해야 함&apos;이 비활성화되면 스킬 포인트는 전투 성과에 의해 제한되지 않습니다. 아무것도 먼저 획득하지 않아도 언제든지 편집기에서 스킬을 자유롭게 배분할 수 있습니다." />
+    <string
+      id="ret_man_skills_title"
+      text="Retinues 4.1 - 스킬 및 경험" />
+    <string
+      id="ret_man_skills_training_text"
+      text="세 가지 설정이 스킬 편집에 더 많은 구조를 추가합니다: 훈련에 대한 선택적 시간 게이트, 상위(부모) 병력에서 파생되는 하한, 그리고 편집기를 사용할 수 있는 시점을 제한하는 위치 기반 제한입니다.{newline}{newline}훈련에 시간이 걸림: 이 설정이 활성화되면 편집기에서 스킬을 올려도 즉시 적용되지 않습니다. 증가분은 &apos;보류&apos;로 저장되며 &apos;하루당 훈련된 포인트&apos;(기본값: 하루 1)로 설정된 속도로 점진적으로 적용됩니다. 보류 증가분은 다른 색으로 표시됩니다. 훈련 진행도는 기본적으로 이동 중에도 계속되며, &apos;여행 중 훈련&apos; 설정으로 파티가 정지해 있을 때만 진행되도록 제한할 수 있습니다.{newline}{newline}스킬 하한: 병력의 스킬은 업그레이드 원천(부모) 중 어느 하나가 가진 최고 값보다 낮게 내릴 수 없습니다. 예를 들어, 2등급 원천 병력이 한손 무기에 80이 있다면, 3등급 업그레이드의 한손 무기는 80 아래로 설정할 수 없습니다. 감소가 차단되면 편집기는 어떤 원천 병력이 하한을 설정하는지 표시합니다.{newline}{newline}상황 제한: &apos;편집 제한&apos; 설정은 스킬과 장비를 언제 변경할 수 있는지 제한할 수 있습니다. 없음(자유 모드 기본)은 제한이 없습니다. 정착지 내는 어떤 정착지든 내부에 있어야 합니다. 봉토 내는 당신의 씨족이나 왕국이 소유한 정착지 내부에 있어야 합니다. 수행단은 봉토 요구 조건에서 면제되어 어떤 정착지에서도 편집할 수 있습니다." />
+    <string
+      id="ret_man_skills_training_title"
+      text="Retinues 4.3 - 훈련 및 제한" />
+    <string
+      id="ret_man_troops_setup_text"
+      text="커스텀 병력 트리가 처음 생성될 때, 두 가지 설정이 시작 명단의 형태를 결정하고, 몇 가지 추가 설정이 그 병력이 어디에서 지원병으로 등장하는지 제어합니다.{newline}{newline}시작 병력: 트리의 초기 상태는 &apos;시작 병력&apos; 설정에 따라 달라집니다. &apos;루트만&apos;은 두 개의 루트 병력만 만들고 나머지는 수동으로 구성할 수 있도록 비워 둡니다. &apos;간소한 트리&apos;(기본값)는 문화 트리의 간소화된 버전을 복사합니다: 등급과 편성 유형당 대표 병력 1명씩, &apos;씨족 신병&apos;과 같은 세력 기반 이름을 사용합니다. &apos;전체 트리&apos;는 문화 트리 전체를 그대로 복제하되, 문화 접두어를 당신의 씨족 또는 왕국 이름으로 교체합니다.{newline}{newline}시작 장비: 장비는 &apos;시작 장비&apos; 설정으로 별도로 정해집니다. &apos;무작위 세트&apos;(기본값)는 각 병력의 등급과 문화에 적합한 아이템으로 무작위 장비 구성을 생성합니다. &apos;단일 세트&apos;는 문화 템플릿의 첫 번째 장비 세트를 복사합니다. &apos;모든 세트&apos;는 템플릿의 모든 장비 세트를 복사합니다. &apos;빈 세트&apos;는 아이템이 전혀 없는 병력을 생성합니다.{newline}{newline}징병: 커스텀 병력이 지원병으로 등장하는 위치는 &apos;씨족 병력 가용성&apos;과 &apos;왕국 병력 가용성&apos; 설정에 따라 달라집니다. 씨족 병력은 기본적으로 씨족 봉토에, 왕국 병력은 왕국 봉토에 나타납니다. 둘 다 모든 정착지로 개방하거나 더 제한할 수 있습니다. &apos;같은 문화만&apos; 설정은 다른 문화의 정착지에 커스텀 병력이 등장하는 것을 막습니다. &apos;허용된 모집자&apos; 설정은 AI 영주가 당신의 병력을 모집할 수 있는지도 제어합니다. 기본적으로 커스텀 병력은 조건을 충족하는 정착지에서 표준 문화 지원병을 완전히 대체합니다. &apos;바닐라 병력과 혼합&apos;은 대신 표준 병력과 함께 등장하게 합니다." />
+    <string
+      id="ret_man_troops_setup_title"
+      text="Retinues 3.2 - 설정 및 징병" />
+    <string
+      id="ret_man_troops_text"
+      text="수행단 외에도, 씨족과 왕국을 위한 전체 병력 트리를 만들고 커스터마이즈할 수 있습니다. 이 병력들은 전 세계의 지원병 풀, 주둔군, 파티에 등장하며 수행단과 동일한 병력 화면에서 편집됩니다. 각 세력은 두 개의 루트 라인을 가집니다: 기본 트리와 정예 귀족 트리입니다. 이 루트에서 병력당 최대 4개의 업그레이드 대상까지 승급 경로를 분기할 수 있습니다.{newline}{newline}잠금 해제: 씨족 병력은 기본적으로 첫 봉토를 획득하면 잠금 해제됩니다. 시작부터 잠금 해제되도록 설정하거나 완전히 비활성화할 수도 있습니다. 왕국 병력은 기본적으로 왕국을 세우면 잠금 해제되며, 역시 비활성화할 수 있습니다. 병력이 잠금 해제되면 새 트리로 바로 이동할 수 있는 팝업이 표시됩니다." />
+    <string
+      id="ret_man_troops_title"
+      text="Retinues 3.1 - 씨족 및 왕국 병력" />
+    <string
+      id="ret_man_troops_types_text"
+      text="여러 교리가 메인 트리 외의 추가 병력 유형을 잠금 해제하며, 편집기는 트리 구조를 관리하고 왕국 내 다른 씨족을 감독하기 위한 도구를 제공합니다.{newline}{newline}민병대 및 특수 병력: 세 가지 교리가 추가 커스텀 병력 유형을 잠금 해제합니다. &apos;굳센 민병대&apos;는 세력의 도시와 성에서 기본 문화 민병대를 일일 주기로 대체하는 커스텀 민병대를 잠금 해제합니다. &apos;길의 수호자&apos;는 세력의 상단이 사용하는 커스텀 카라반 병력을 잠금 해제합니다. &apos;무장한 농민&apos;은 세력의 마을 파티가 사용하는 커스텀 마을 주민 병력을 잠금 해제합니다.{newline}{newline}대위: &apos;대위&apos; 교리는 모든 일반 병력에 대해 대위 변형을 잠금 해제합니다. 대위는 더 강한 버전으로, 일정 주기로 해당 병력 대신 생성됩니다. 생성률은 &apos;대위 생성률&apos; 설정으로 조정할 수 있습니다(기본값: 일반 병력 15명당 1명). 대위는 자체 승급 대상을 가질 수 없고 등급을 올릴 수도 없습니다. 장비는 별도로 편집하지만, 장비 비용은 기본 병력과 공유합니다.{newline}{newline}승급과 제거: 최대 등급이 아니고 승급 대상이 4개 미만인 비영웅 커스텀 병력에는 승급 대상을 추가할 수 있습니다. 새 병력은 부모보다 한 등급 위로 생성되며 스킬을 상속합니다. 병력을 제거하려면 먼저 모든 승급 대상을 제거해야 합니다. 루트 병력은 제거할 수 없습니다. 병력이 제거되면, 세계에 존재하는 해당 유형의 모든 유닛은 문화 대응 유닛으로 변환됩니다.{newline}{newline}다른 씨족: 당신이 통치자일 때, 편집기는 왕국 내 다른 씨족의 커스텀 병력 트리를 관리할 수 있게 해줍니다. 왼쪽 배너를 클릭하여 다른 씨족을 선택하세요. 선택한 씨족에 아직 커스텀 병력이 없다면, 왕국의 기존 트리를 복사하거나 문화 루트에서 시작하여 초기화하라는 안내가 표시됩니다." />
+    <string
+      id="ret_man_troops_types_title"
+      text="Retinues 3.3 - 특수 병력 및 트리" />
+    <string
+      id="ret_manual_button_label"
+      text="매뉴얼 열기" />
+    <string
       id="ret_mariner_captain_reason"
       text="대위는 기본 부대의 선원 능력을 공유합니다" />
     <string
@@ -1886,6 +1976,12 @@
       id="ret_mcm_option_same_culture_only_hint"
       text="활성화되면 맞춤형 부대는 동일한 문화의 정착지에서만 모집할 수 있습니다." />
     <string
+      id="ret_mcm_option_shared_skill_points_pool"
+      text="공유 기술 포인트 풀" />
+    <string
+      id="ret_mcm_option_shared_skill_points_pool_hint"
+      text="활성화되면 모든 맞춤형 부대는 각 부대가 자체 스킬 포인트를 가지는 대신 단일 공유 풀에서 스킬 포인트를 가져옵니다." />
+    <string
       id="ret_mcm_option_skill_cap"
       text="티어 {TIER} 스킬 한도" />
     <string
@@ -2113,6 +2209,15 @@
     <string
       id="ret_preset_default_tooltip"
       text="기본 프리셋 적용: 첫 번째 플레이를 위해 설계된 균형 잡힌 경험" />
+    <string
+      id="ret_preset_description_default"
+      text="첫 플레이를 위해 균형 있게 맞춘 기본 구성입니다.{newline}{newline}수행단 버프가 활성화되고, 씨족 병력은 첫 봉토 획득 시 잠금 해제됩니다. 장비에는 비용이 있으며, 아이템은 처치와 작업장을 통해 잠금 해제해야 장착할 수 있습니다. 스킬 포인트는 전투에서 획득해야 합니다." />
+    <string
+      id="ret_preset_description_freeform"
+      text="창작용 샌드박스: 비용 없음, 요구 사항 없음, 제한 없음.{newline}{newline}교리 획득이 무료입니다. 장비는 무료이며 모든 아이템이 즉시 사용 가능합니다. 스킬 포인트는 경험 요구 없이 자유롭게 배정할 수 있습니다. 씨족 병력은 시작부터 이용 가능하며 어디서든 모집할 수 있습니다." />
+    <string
+      id="ret_preset_description_realistic"
+      text="획득한 성장과 세력 정체성을 강조하는 더 엄격한 경험입니다.{newline}{newline}범용 편집기에서 스킬 및 장비 제한이 적용됩니다. 병력은 소유한 봉토 내에 있을 때만 수정할 수 있습니다. 수행단 버프는 비활성화됩니다. 장착과 훈련에는 시간이 걸립니다. 장비는 등급 기반 무게 및 가치 제한을 받습니다. 병력은 같은 문화의 정착지에서만 모집할 수 있으며, 게임 시작 시에는 문화 루트만 생성됩니다." />
     <string
       id="ret_preset_freeform_button"
       text="자유형" />
@@ -2399,6 +2504,15 @@
       id="ret_select_culture_title"
       text="문화 선택" />
     <string
+      id="ret_shared_skill_experience_tooltip"
+      text="공유 풀 XP: {XP} (다음 포인트: {XP_REQUIRED})" />
+    <string
+      id="ret_shared_skill_point_gained"
+      text="병력이 스킬 포인트 1점을 획득했습니다." />
+    <string
+      id="ret_shared_skill_points_gained"
+      text="병력이 스킬 포인트 {POINTS}점을 획득했습니다." />
+    <string
       id="ret_skill_decrease_sources_reason"
       text="{SOURCE}의 기술 수준 이하로는 감소시킬 수 없습니다" />
     <string
@@ -2413,6 +2527,9 @@
     <string
       id="ret_skill_description_text"
       text="기술 포인트: {SKILL_POINTS} - 기술 한도: {SKILL_CAP} - 등급: {TIER}" />
+    <string
+      id="ret_skill_description_text_shared"
+      text="풀: {SKILL_POINTS}점 - 기술 한도: {SKILL_CAP} - 등급: {TIER}" />
     <string
       id="ret_skill_description_text_short"
       text="기술 한도: {SKILL_CAP} - 등급: {TIER}" />
@@ -2510,11 +2627,53 @@
       id="ret_statistics_button_label"
       text="통계 표시" />
     <string
+      id="ret_statistics_casualties_sentence"
+      text="{TOTAL}명의 사상자 발생: {BREAKDOWN}." />
+    <string
+      id="ret_statistics_culture_entry"
+      text="{CULTURE}에 대해 {COUNT}명" />
+    <string
+      id="ret_statistics_culture_more"
+      text="{COUNT}개 더" />
+    <string
+      id="ret_statistics_deployments"
+      text="{PARTIES}개 파티와 {GARRISONS}개 주둔지에 {TOTAL}명 배치됨." />
+    <string
+      id="ret_statistics_field_entry"
+      text="{COUNT}번의 야전" />
+    <string
+      id="ret_statistics_fought_in"
+      text="{LIST}에서 싸움." />
+    <string
+      id="ret_statistics_in_service"
+      text="{NAME}은(는) {YEARS}년 {SEASONS}계절 {DAYS}일 동안 복무 중입니다." />
+    <string
+      id="ret_statistics_kills_sentence"
+      text="{TOTAL}명의 적을 처치했습니다: {BREAKDOWN}." />
+    <string
+      id="ret_statistics_most_feared"
+      text="가장 두려운 적: {NAME}." />
+    <string
+      id="ret_statistics_most_slain"
+      text="가장 많이 처치한 적: {NAME}." />
+    <string
+      id="ret_statistics_naval_entry"
+      text="{COUNT}번의 해전" />
+    <string
       id="ret_statistics_player_only"
       text="범용 엘디터에서는 사용할 수 없습니다" />
     <string
       id="ret_statistics_popup_title"
       text="통계" />
+    <string
+      id="ret_statistics_raid_entry"
+      text="{COUNT}번의 약탈" />
+    <string
+      id="ret_statistics_siege_entry"
+      text="{COUNT}번의 공성전" />
+    <string
+      id="ret_statistics_victories_defeats"
+      text="{WON}번 승리, {LOST}번 패배." />
     <string
       id="ret_status_captain_disabled"
       text="비활성" />

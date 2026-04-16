@@ -11,6 +11,9 @@
       id="ret_age_hint"
       text="Yaş" />
     <string
+      id="ret_ai_retinue_equipment_upgrade"
+      text="{RETINUE}, {ITEM} edindi." />
+    <string
       id="ret_ai_retinue_loot_line"
       text="{RETINUE}, kayıplarından {ITEM} yağmaladı ve kuşandı." />
     <string
@@ -1547,6 +1550,93 @@
       id="ret_list_header_villagers"
       text="Köylüler" />
     <string
+      id="ret_man_equipment_advanced_text"
+      text="Üç isteğe bağlı sistem, ekipman değişikliklerine ek kısıtlamalar ekler: eşyaların etkili olmadan önce hazırlık gecikmesi, kademe başına ağırlık ve değer bütçeleri ve bireysel eşyalar için kilit açma kapısı.{newline}{newline}Hazırlık: Ekipman Zaman Alır etkinleştirildiğinde, bir eşyayı donatmak hemen etkili olmaz. Bunun yerine yeni eşya bir hazırlık kuyruğuna alınır ve oyun içi zaman geçtikçe kademeli olarak uygulanır. Hazırlık aşamasındaki slotlar farklı bir renkte gösterilir ve araç ipucunda mevcut donanımlı eşyayı gösterir. Bir eşyayı istediğiniz zaman hazırlıktan çıkarabilirsiniz. İlerleme saat saat birikir ve Seyahat Ederken Donat etkinse seyahat sırasında da birikir. Kahraman birlikleri hiçbir zaman hazırlığa tabi değildir; ekipman değişiklikleri her zaman anlıktır.{newline}{newline}Ağırlık ve Değer Sınırları: Ağırlığa Göre Sınırla ve Değere Göre Sınırla ayarları, bir birliğin savaş ekipmanının toplam ağırlığı ve toplam değeri üzerinde bir bütçe uygular. Her ikisi de varsayılan olarak kapalıdır. Etkinleştirildiğinde, her birlik kademesinin editörde gösterilen karşılık gelen bir bütçesi vardır. Silahane doktrinleri etkin olduklarında bu sınırları yükseltebilir.{newline}{newline}Eşya Kullanılabilirliği ve Kilit Açma: Ekipman Kilit Açma Gerektiriyor etkinleştirildiğinde, her eşyanın donatılabilmesi için 1000 puanlık kilit açma ilerlemesi gerekir. Eşyalar kilitli ve gizli olarak başlar; biraz ilerleme kazandıktan sonra listenin altında, tamamlanma düzeyine göre sıralanmış şekilde görünürler. Yuva başına yapılandırılabilir sayıda eşya, yapılandırılabilir bir kademe tavanına kadar yeni oyunda otomatik olarak önceden kilidi açılır. Bu sistem yalnızca Birlikler ekranında geçerlidir; Evrensel Editörde tüm eşyalar serbestçe mevcuttur." />
+    <string
+      id="ret_man_equipment_advanced_title"
+      text="Retinues 5.3 - Hazırlık ve Sınırlar" />
+    <string
+      id="ret_man_equipment_economy_text"
+      text="Ekipman ekonomisi, kuvvetlerinizin her eşyadan kaç kopyasına sahip olduğunu takip eder ve stokta olmayan bir donanım kuşandığınızda isteğe bağlı olarak altın ücretlendirir.{newline}{newline}Paylaşılan Eşyalar: Bir birliğin birden fazla seti olduğunda, eşyalar setler arasında akıllıca paylaşılır. Bir ekipman parçası zaten aynı birliğe ait başka bir sette mevcutsa, onu ikinci bir sette kuşanmak ek stok maliyeti veya satın alma gerektirmez. Her iki sette de aynı kılıcı takan iki sete sahip bir birlik o kılıcın yalnızca bir kopyasına ihtiyaç duyar.{newline}{newline}Stoklar: Her eşyanın kuvvetlerinizin ne kadar stokladığını temsil eden bir stok sayısı vardır. Ekonomi aktifken bir eşyayı kuşanmak stoktan bir kopya alır; çıkarmak onu geri verir. Stok savaşlardan, atıklardan ve diğer kaynaklardan birikir. Bu sistem yalnızca Birlikler ekranında geçerlidir; Evrensel Editörde stoklar hiçbir rol oynamaz.{newline}{newline}Maliyetler ve Satın Almalar: Ekipman Para Gerektirir aktifken, stokta olmayan ve başka bir setle kapsanmayan bir eşyayı kuşanmak Maliyet Çarpan ayarıyla ölçeklendirilmiş eşyanın değeri kadar madeni para harcamayı gerektirir. İki doktrin maliyetleri düşürür: Kültürel Gurur klanınızın kültürüyle eşleşen eşyalara %20 indirim sağlar ve Kraliyet Hamiliği krallığınızın kültürüyle eşleşen eşyalara %20 indirim sağlar. Her iki indirim de aynı eşyaya uygulanabilir." />
+    <string
+      id="ret_man_equipment_economy_title"
+      text="Retinues 5.2 - Ekipman Ekonomisi" />
+    <string
+      id="ret_man_equipment_text"
+      text="Her birliğin iki ekipman kategorisi vardır: muharebe setleri ve sivil setler. Muharebe setleri savaşta giyilir; sivil setler diğer tüm zamanlarda. Karakter modeli üzerindeki düğmeyi kullanarak aralarında geçiş yapabilirsiniz.{newline}{newline}Muharebe Seti Türleri: Her muharebe seti alan muharebeleri, kuşatma muharebeleri veya deniz muharebeleri için uygulanacak şekilde işaretlenebilir. Bir set bu türlerin herhangi bir kombinasyonunu kapsayabilir. Her muharebe türü için her zaman en az bir set etkin kalmalıdır.{newline}{newline}Set Yönetimi: Mevcut setin bir kopyasını veya boş bir tane oluşturmak için ekle düğmesini kullanın. Mevcut seti silmek için kaldır düğmesini kullanın; eğer set kendi kategorisinde tek şeyse veya bunu yapmak herhangi bir muharebe türünü kapsamsız bırakacaksa seti silemezsiniz. Ekonomi aktifken bir set silindiğinde, eşyaları otomatik olarak stoka iade edilir.{newline}{newline}Slotlar: Her sette dört silah slotu ve ayrıca Kafa, Pelerin, Gövde, Eldivenler, Bacak, At ve At Koşumu bulunur. At Koşumu slotu yalnızca bir at kuşanıldığında aktiftir. Yeni bir at kuşanılır ve mevcut koşum uyumlu değilse koşum otomatik olarak temizlenir." />
+    <string
+      id="ret_man_equipment_title"
+      text="Retinues 5.1 - Ekipman" />
+    <string
+      id="ret_man_overview_text"
+      text="Retinues, bir sefer boyunca kendi kişisel kuvvetlerinizi inşa etmek, eğitmek ve donatmak için bir dizi sistem ekler.{newline}{newline}Özünde maiyet yer alır: klanınıza bağlı, yalnızca sizi izleyen ve zamanla elit bir birliğe dönüştürülebilen bir hane askeri.{newline}{newline}Maiyetlerin ötesinde, klanınız ve krallığınız için tam özel asker ağaçları oluşturabilirsiniz. Bu askerler gönüllü olarak görünür ve fraksiyonunuzun ordularını doldurur. Doktrin sistemi, oyun hedeflerini gerçekleştirdikçe yeni asker türlerinin, ekipman ayrıcalıklarının ve diğer bonusların kilidini açan bir ilerleme katmanı sağlar.{newline}{newline}Bunların hepsi, sefer haritasındaki Birlikler düğmesinden veya [R] tuşuna basarak açılan editör üzerinden yönetilir." />
+    <string
+      id="ret_man_overview_title"
+      text="Retinues 1.0 - Genel Bakış" />
+    <string
+      id="ret_man_retinues_ai_text"
+      text="Oyuncu olmayan klanların da kendi maiyetleri olabilir. Bu özellik varsayılan olarak etkindir ve asgari kademe eşiğini karşılayan klanlara uygulanır (varsayılan: kademe 3). Varsayılan olarak her gün %25 ihtimalle, uygun bir grup aynı kademedeki bir askeri maiyete terfi ettirir; üst sınır grubun boyutunun %10&apos;udur. Krallık hükümdarları, klan maiyetlerine ek olarak bir Kral Muhafızı veya Kraliçe Muhafızı alır.{newline}{newline}Varsayılan olarak yalnızca klan liderinin grubu maiyet oluşturur. Yalnızca Klan Liderlerinin Maiyeti Var ayarı kapatılarak bir klan içindeki tüm lord gruplarının kendi maiyetlerine sahip olması sağlanabilir.{newline}{newline}YZ maiyetleri, klanları deneyim kazandıkça zamanla gelişir. Maiyeti olan bir klana karşı bir savaşı kaybederseniz, onların maiyetleri sizin kayıplarınızdan ekipman alarak teçhizatlarını kademeli olarak yükseltebilir." />
+    <string
+      id="ret_man_retinues_ai_title"
+      text="Retinues 2.4 - YZ Klan Maiyetleri" />
+    <string
+      id="ret_man_retinues_management_text"
+      text="Bu bölüm, maiyetlerin grup boyutu sınırlarını, grup yükseltme sistemi üzerinden nasıl alınacaklarını, aldıkları pasif güçlendirmeleri ve nasıl rütbe atlatılacaklarını açıklar.{newline}{newline}Grup Sınırları: Sahaya sürebileceğiniz maiyet sayısı, grup boyutu sınırınızın bir oranı ile sınırlıdır. Varsayılan %15&apos;tir ve ayarlardan değiştirilebilir. Doktrin bonusları bu üst sınırı daha da artırabilir. Maiyetler garnizonlara yerleştirilemez veya yoldaş gruplarına aktarılamaz; yalnızca sizi takip ederler.{newline}{newline}Askere Alma: Maiyetler yerleşim gönüllü listelerinde görünmez. Bunun yerine, grubunuzdaki mevcut askerler üzerinde yükseltme seçenekleri olarak ortaya çıkarlar. Grup ekranını açtığınızda, her maiyet kendisinden bir kademe düşük en uygun askerle eşleştirilir ve o asker üzerinde ek bir yükseltme hedefi olarak görünür. Bir askeri maiyete yükseltmek, kaynak askerden bir birimi maiyet türüne dönüştürür ve maiyet slotunu tüketmez. Kaynak asker önce fraksiyonunuzun özel ağacından seçilir; eşleşme bulunamazsa kültür ağacına geri dönülür.{newline}{newline}Güçlendirmeler: Maiyetler normal istatistiklerinin üzerine bir dizi pasif bonus alır. Varsayılan olarak bunlar +20 can puanı, tüm beceri tavanlarına +5 ve toplam beceri puanına +20&apos;dir. Her bonus ayarlardan ayrı ayrı açılıp kapatılabilir ve ayarlanabilir. Gerçekçi hazır ayarı üçünü de devre dışı bırakır.{newline}{newline}Rütbe Atlama: Bir maiyet tüm becerilerini tamamen maksadığında rütbe atlamaya uygun hale gelir. Rütbe atlamak altın gerektirir: (mevcut kademe + 1) x 1000 denar. Ayrıca beceri puanı da gerektirir: 5 x mevcut kademe. Etki maiyetin seviyesini 5 artırır ve daha yüksek beceri tavanlarının kilidini açar. Tüm koşullar karşılandığında editörde rütbe atlama eylemi görünür." />
+    <string
+      id="ret_man_retinues_management_title"
+      text="Retinues 2.3 - Grup ve Askere Alma" />
+    <string
+      id="ret_man_retinues_text"
+      text="Maiyetler, klanınıza bağlı özel hane muhafız birlikleridir. Normal fraksiyon askerlerinden farklı olarak oyuncuya özeldirler: garnizona konulamazlar, başka bir gruba aktarılamazlar ve her zaman sizinle kalırlar. Düşük bir kademede başlarlar, ancak bir sefer boyunca eğitilebilir, donatılabilir ve rütbe atlatılabilirler.{newline}{newline}Başlangıç Maiyeti: Yeni bir sefer başlattığınızda veya mevcut bir kaydı ilk kez yüklediğinizde bir maiyet otomatik olarak oluşturulur. Klanınızın adını taşır ve klanınızın kültürüyle eşleşir. Bu noktada zaten bir hükümdarsanız, krallığınız için ayrıca bir Kral Muhafızı veya Kraliçe Muhafızı da oluşturulur." />
+    <string
+      id="ret_man_retinues_title"
+      text="Retinues 2.1 - Maiyetler" />
+    <string
+      id="ret_man_retinues_unlock_text"
+      text="Her kültür için bir adet ek maiyetin kilidini açabilirsiniz. Kendi klanınızın kültürü en baştan açıktır. Diğer tüm kültürler için, o kültüre bağlı oynanış etkinlikleriyle kilit açma ilerlemesi biriktirirsiniz.{newline}{newline}Bir turnuva kazanmak, turnuvanın yapıldığı yerleşimin kültürü için +50 puan verir. Bir görevi başarıyla tamamlamak, görevi verenin kültürü için +25 puan verir. Bir tımar sahibi olmak, her tımarın kendi kültürü için tımar başına günlük +5 puan verir. Bir atölye sahibi olmak, atölyenin bulunduğu yerleşimin kültürü için atölye başına günlük +2 puan verir. Müttefik gruplarla birlikte bir savaş kazanmak, her müttefikin kültürü için müttefik grup başına +10 puan verir.{newline}{newline}Her kültürü açmak için 1000 puan gerekir. Genel hız, Maiyet Kilidi Açma Hızı ayarıyla değiştirilebilir. Bir kültürün kilidi açıldığında yeni bir maiyet otomatik olarak oluşturulur ve doğrudan düzenleyiciye atlamanıza izin veren bir açılır pencere görünür." />
+    <string
+      id="ret_man_retinues_unlock_title"
+      text="Retinues 2.2 - Maiyetlerin Kilidi Açma" />
+    <string
+      id="ret_man_skills_budget_text"
+      text="Bu bölüm, isteğe bağlı paylaşılan beceri puanı havuzunu, harcama ve iade işlemlerinin nasıl çalıştığını ve herhangi bir birliğin toplam becerilerini sınırlayan kademe başına üst sınırları ve toplamları açıklar.{newline}{newline}Paylaşılan Beceri Puanı Havuzu: Paylaşılan Beceri Puanı Havuzu ayarı etkinleştirildiğinde, tüm özel birlikler savaş XP&apos;lerini birlik başına havuzlar yerine kampanya genelinde tek bir havuza aktarır. Havuzdaki beceri puanları herhangi bir özel birliğe harcanabilir; bu da muharebeleri tüm kadroya eşit yaymadan uzman birlikler geliştirmeyi kolaylaştırır. Havuz bakiyesi beceri paneli başlığında gösterilir. Ayarı kampanya ortasında kapatmak ne birlik başına puanları ne de paylaşılan havuzu temizler. Bu ayarın etkin olabilmesi için Beceri Puanları Kazanılmalı ayarının etkin olması gerekir.{newline}{newline}Harcama: Her beceri artışı bir beceri puanına mal olur; bir beceriyi düşürmek puanı anında iade eder. Eğitim Zaman Alır etkinse, zaten taahhüt edilmiş bir beceriyi düşürmek onay ister.{newline}{newline}Beceri Üst Sınırları ve Toplamlar: Birlikler ekranında iki sınır uygulanır. Beceri üst sınırı, o kademe için tek bir becerinin ulaşabileceği azami seviyedir; varsayılanlar kademe 0&apos;da 20&apos;den kademe 7&apos;de 360&apos;a uzanır. Beceri toplamı, o kademedeki bir birliğin sahip olabileceği tüm becerilerin toplamıdır; varsayılanlar kademe 0&apos;da 90&apos;dan kademe 7&apos;de 1600&apos;e uzanır. Maiyetler her iki sınırın üstünde bonus alır. Azami kademe kaptanlar %20 bonus alır. Demir Disiplin doktrini tüm birlikler için üst sınıra +5 ekler. Sarsılmaz Askerler ve Silah Ustaları doktrinleri sırasıyla temel ve elit hatlar için toplama +20 ekler." />
+    <string
+      id="ret_man_skills_budget_title"
+      text="Retinues 4.2 - Beceri Bütçesi" />
+    <string
+      id="ret_man_skills_text"
+      text="Özel birliklerinizin Birlikler ekranından düzenleyebileceğiniz bir beceri sayfası vardır; beceri başına üst sınırlar ve toplam beceri bütçesi ile sınırlıdır. Bu sistem Evrensel Editör üzerinden düzenlenen birlikler için geçerli değildir; orada beceriler herhangi bir zamanda serbestçe ayarlanabilir.{newline}{newline}XP Kaynakları: Özel birlikler, oynanan muharebelerden, otomatik çözümlenen muharebelerden, günlük grup eğitiminden ve diğer faaliyetlerden beceri puanı XP&apos;si biriktirir. Beceri Puanları Kazanılmalı etkin olduğunda (varsayılan olarak açık), bu XP&apos;nin tamamı birlik türünün beceri puanı ilerleme sayacına gider. Daha yüksek kademedeki birlikler orantılı olarak daha fazla XP gerektirir. Genel oran Beceri Puanı Kazanma Oranı ayarıyla ayarlanabilir.{newline}{newline}Serbest Mod: Beceri Puanları Kazanılmalı devre dışı bırakıldığında, beceri puanları muharebe performansına bağlı değildir. Önceden hiçbir şey kazanmadan, beceriler editörde herhangi bir zamanda serbestçe dağıtılabilir." />
+    <string
+      id="ret_man_skills_title"
+      text="Retinues 4.1 - Beceriler ve Deneyim" />
+    <string
+      id="ret_man_skills_training_text"
+      text="Üç ayar, beceri düzenlemeye daha fazla yapı ekler: eğitim için isteğe bağlı zaman kilidi, ebeveyn birliklerden türetilen bir taban değer ve editörün ne zaman kullanılabileceğine dair konum tabanlı kısıtlamalar.{newline}{newline}Eğitim Zaman Alır: Bu ayar etkinleştirildiğinde, editörde bir beceriyi artırmak anında uygulanmaz. Artış beklemede olarak saklanır ve Gün Başına Eğitilen Puan (varsayılan: günde 1) ayarıyla belirlenen hızda kademeli olarak uygulanır. Beklemedeki artışlar farklı bir renkte gösterilir. Eğitim ilerlemesi varsayılan olarak seyahat sırasında da devam eder; Seyahat Ederken Eğit ayarı bunu grubun durduğu zamanlarla sınırlayabilir.{newline}{newline}Beceri Tabanı: Bir birliğin becerileri, yükseltme kaynaklarından herhangi birinin sahip olduğu en yüksek değerin altına indirilemez. Örneğin, kademe 2 kaynak birliğin Tek Elli 80&apos;i varsa, kademe 3 yükseltmesinin Tek Elli becerisi 80&apos;in altına ayarlanamaz. Bir düşürme engellendiğinde, editör tabanı hangi kaynak birliğin belirlediğini gösterir.{newline}{newline}Bağlam Kısıtlamaları: Düzenleme Kısıtlaması ayarı, beceri ve ekipmanın ne zaman değiştirilebileceğini sınırlayabilir. Yok (Serbest modda varsayılan) kısıtlama getirmez. Yerleşimde herhangi bir yerleşimin içinde olmanızı gerektirir. Tımar içinde, klanınızın veya krallığınızın sahip olduğu bir yerleşimin içinde olmanızı gerektirir. Maiyetler tımar şartından muaftır ve herhangi bir yerleşimde düzenlenebilir." />
+    <string
+      id="ret_man_skills_training_title"
+      text="Retinues 4.3 - Eğitim ve Kısıtlamalar" />
+    <string
+      id="ret_man_troops_setup_text"
+      text="Özel bir asker ağacı ilk kez oluşturulduğunda, iki ayar başlangıç kadrosunun şeklini belirler ve birkaç ayar daha bu askerlerin nerede gönüllü olarak görüneceğini kontrol eder.{newline}{newline}Başlangıç Askerleri: Ağacın ilk durumu Başlangıç Askerleri ayarına bağlıdır. Yalnızca Kökler yalnızca iki kök askeri oluşturur; geri kalanını elle kurmak için boş bırakır. Yalın Ağaçlar (varsayılan) kültür ağacınızın sadeleştirilmiş bir sürümünü kopyalar: kademe başına, her formasyon türü için bir temsilci asker; Klan Acemisi gibi fraksiyon tabanlı adlarla. Tam Ağaçlar tüm kültür ağacını bire bir klonlar ve kültür önekini klanınızın veya krallığınızın adıyla değiştirir.{newline}{newline}Başlangıç Ekipmanı: Ekipman, Başlangıç Ekipmanı ayarıyla ayrı olarak belirlenir. Rastgele Set (varsayılan) her askerin kademesine ve kültürüne uygun eşyalardan rastgele bir donanım oluşturur. Tek Set kültür şablonundaki ilk ekipman setini kopyalar. Tüm Setler şablondaki her ekipman setini kopyalar. Boş Set hiç eşya olmayan askerler oluşturur.{newline}{newline}Askere Alma: Özel askerlerinizin nerede gönüllü olarak görüneceği Klan Askerleri Kullanılabilirliği ve Krallık Askerleri Kullanılabilirliği ayarlarına bağlıdır. Klan askerleri varsayılan olarak klan tımarlarında, krallık askerleri krallık tımarlarında görünür. Her ikisi de herhangi bir yerleşime açılabilir veya daha da kısıtlanabilir. Yalnızca Aynı Kültür ayarı, özel askerlerin farklı kültürdeki yerleşimlerde görünmesini engeller. İzinli Toplayıcılar ayarı, YZ lordlarının da askerlerinizi askere alıp alamayacağını kontrol eder. Varsayılan olarak özel askerler, uygun yerleşimlerde standart kültür gönüllülerinin yerini tamamen alır; Vanilla Askerlerle Karıştır ayarı ise onların standart askerlerle birlikte görünmesini sağlar." />
+    <string
+      id="ret_man_troops_setup_title"
+      text="Retinues 3.2 - Kurulum ve Askere Alma" />
+    <string
+      id="ret_man_troops_text"
+      text="Maiyetlerinizin ötesinde, klanınız ve krallığınız için tam asker ağaçları kurup özelleştirebilirsiniz. Bu askerler dünyanın dört bir yanında gönüllü havuzlarında, garnizonlarda ve gruplarda görünür ve maiyetlerle aynı Birlikler ekranından düzenlenir. Her fraksiyon iki kök hatta sahip olur: temel bir ağaç ve elit soylu ağaç. Bu köklerden, asker başına azami 4 yükseltme hedefine kadar yükseltme yolları dallandırabilirsiniz.{newline}{newline}Kilidi Açma: Klan askerleri varsayılan olarak ilk tımarınızı aldığınızda açılır. Başlangıçtan itibaren açık olacak şekilde ayarlanabilir veya tamamen devre dışı bırakılabilir. Krallık askerleri varsayılan olarak bir krallık kurduğunuzda açılır ve ayrıca devre dışı bırakılabilir. Askerler açıldığında, sizi doğrudan yeni ağaca götürmenizi sağlayan bir açılır pencere görünür." />
+    <string
+      id="ret_man_troops_title"
+      text="Retinues 3.1 - Klan ve Krallık Askerleri" />
+    <string
+      id="ret_man_troops_types_text"
+      text="Birkaç doktrin ana ağacın ötesinde ek asker türlerinin kilidini açar ve editör, ağaç yapısını yönetmek ve krallığınızdaki diğer klanları gözetmek için araçlar sunar.{newline}{newline}Milisler ve Özel Askerler: Üç doktrin ek özel asker türlerinin kilidini açar. Sarsılmaz Milis, fraksiyonunuzun kasaba ve kalelerinde varsayılan kültür milisini günlük bir döngüyle değiştiren özel milis askerlerini açar. Yol Muhafızları, fraksiyonunuzun kervanlarının kullandığı özel kervan askerlerini açar. Silahlı Köylüler, fraksiyonunuzun köy gruplarının kullandığı özel köylü askerlerini açar.{newline}{newline}Kaptanlar: Kaptanlar doktrini tüm normal askerler için Kaptan varyantlarını açar. Kaptan, belirli aralıklarla onun yerine doğan daha güçlü bir sürümdür. Doğma oranı Kaptan Doğma Oranı ayarıyla yapılandırılabilir (varsayılan: 15 normal askerde 1). Kaptanların kendi yükseltme hedefleri olamaz ve kademe atlayamazlar. Ekipmanları ayrı düzenlenir, ancak temel askerleriyle ekipman maliyetlerini paylaşırlar.{newline}{newline}Yükseltmeler ve Kaldırma: Azami kademede olmayan ve 4&apos;ten az yükseltme hedefi bulunan herhangi bir kahraman olmayan özel askere bir yükseltme hedefi ekleyebilirsiniz. Yeni asker, ebeveyninin bir kademe üstünde oluşturulur ve onun becerilerini miras alır. Bir askeri kaldırmak için önce tüm yükseltme hedeflerini kaldırmalısınız. Kök askerler kaldırılamaz. Bir asker kaldırıldığında, dünyadaki o türdeki tüm birimler kültür karşılıklarına dönüştürülür.{newline}{newline}Diğer Klanlar: Bir hükümdar olduğunuzda, editör krallığınızdaki diğer klanların özel asker ağaçlarını yönetmenizi sağlar. Farklı bir klan seçmek için soldaki sancağa tıklayın. Seçilen klanın henüz özel askeri yoksa, krallığın mevcut ağacını kopyalayarak veya kültür köklerinden başlayarak onları başlatmanız istenir." />
+    <string
+      id="ret_man_troops_types_title"
+      text="Retinues 3.3 - Özel Askerler ve Ağaç" />
+    <string
+      id="ret_manual_button_label"
+      text="El kitabını aç" />
+    <string
       id="ret_mariner_captain_reason"
       text="Kaptanlar, temel birliklerinin denizci yeteneğini paylaşır" />
     <string
@@ -1886,6 +1976,12 @@
       id="ret_mcm_option_same_culture_only_hint"
       text="Etkinleştirilirse, özel birlikler yalnızca aynı kültürün yerleşimlerinde işe alınabilir." />
     <string
+      id="ret_mcm_option_shared_skill_points_pool"
+      text="Paylaşılan Yetenek Puanları Havuzu" />
+    <string
+      id="ret_mcm_option_shared_skill_points_pool_hint"
+      text="Etkinleştirilirse, tüm özel birlikler kendi puanlarına sahip olmak yerine tek bir paylaşılan havuzdan yetenek puanları alır." />
+    <string
       id="ret_mcm_option_skill_cap"
       text="Seviye {TIER} Yetenek Sınırı" />
     <string
@@ -2113,6 +2209,15 @@
     <string
       id="ret_preset_default_tooltip"
       text="Varsayılan ön ayarı uygula: ilk oynayış için tasarlanmış dengeli bir deneyim" />
+    <string
+      id="ret_preset_description_default"
+      text="İlk oynayış için dengelenmiş varsayılan yapılandırma.{newline}{newline}Maiyet güçlendirmeleri etkindir, klan askerleri ilk tımarınızla açılır, ekipmanın bir maliyeti vardır ve eşyalar kuşanılmadan önce öldürmeler ve atölyeler üzerinden kilitlerinin açılması gerekir. Beceri puanları muharebede kazanılmalıdır." />
+    <string
+      id="ret_preset_description_freeform"
+      text="Yaratıcı bir sandbox: maliyet yok, gereksinim yok, kısıtlama yok.{newline}{newline}Doktrin edinimi ücretsizdir. Ekipman ücretsizdir ve tüm eşyalar anında kullanılabilir. Beceri puanları deneyim gereksinimi olmadan serbestçe dağıtılabilir. Klan askerleri başlangıçtan itibaren mevcuttur ve her yerde askere alınabilir." />
+    <string
+      id="ret_preset_description_realistic"
+      text="Kazanılmış ilerlemeyi ve fraksiyon kimliğini vurgulayan daha katı bir deneyim.{newline}{newline}Evrensel Editörde beceri ve ekipman sınırları uygulanır. Birlikler yalnızca sahip olduğunuz bir tımar içindeyken değiştirilebilir. Maiyet güçlendirmeleri devre dışıdır. Kuşanma ve eğitim zaman alır. Ekipman, kademe bazlı ağırlık ve değer sınırlarına tabidir. Birlikler yalnızca aynı kültürdeki yerleşimlerde askere alınabilir ve oyun başlangıcında yalnızca kültür kökleri oluşturulur." />
     <string
       id="ret_preset_freeform_button"
       text="Serbest" />
@@ -2399,6 +2504,15 @@
       id="ret_select_culture_title"
       text="Kültür Seç" />
     <string
+      id="ret_shared_skill_experience_tooltip"
+      text="Paylaşılan havuzda {XP} XP (sonraki puan: {XP_REQUIRED})" />
+    <string
+      id="ret_shared_skill_point_gained"
+      text="Birlikleriniz 1 beceri puanı kazandı." />
+    <string
+      id="ret_shared_skill_points_gained"
+      text="Birlikleriniz {POINTS} beceri puanı kazandı." />
+    <string
       id="ret_skill_decrease_sources_reason"
       text="{SOURCE}&apos;nin yetenek seviyesinin altına düşürülemez" />
     <string
@@ -2413,6 +2527,9 @@
     <string
       id="ret_skill_description_text"
       text="Yetenek Puanları: {SKILL_POINTS} - Yetenek Limiti: {SKILL_CAP} - Seviye: {TIER}" />
+    <string
+      id="ret_skill_description_text_shared"
+      text="Havuz: {SKILL_POINTS} puan - Yetenek Limiti: {SKILL_CAP} - Seviye: {TIER}" />
     <string
       id="ret_skill_description_text_short"
       text="Yetenek Limiti: {SKILL_CAP} - Seviye: {TIER}" />
@@ -2510,11 +2627,53 @@
       id="ret_statistics_button_label"
       text="İstatistikleri Göster" />
     <string
+      id="ret_statistics_casualties_sentence"
+      text="{TOTAL} kayıp yaşandı: {BREAKDOWN}." />
+    <string
+      id="ret_statistics_culture_entry"
+      text="{CULTURE} karşısında {COUNT}" />
+    <string
+      id="ret_statistics_culture_more"
+      text="{COUNT} daha" />
+    <string
+      id="ret_statistics_deployments"
+      text="{TOTAL} asker {PARTIES} birlik ve {GARRISONS} garnizona konuşlandırıldı." />
+    <string
+      id="ret_statistics_field_entry"
+      text="{COUNT} kır muharebesi" />
+    <string
+      id="ret_statistics_fought_in"
+      text="{LIST} muharebesine katıldı." />
+    <string
+      id="ret_statistics_in_service"
+      text="{NAME}, {YEARS} yıl, {SEASONS} mevsim ve {DAYS} gündür hizmet veriyor." />
+    <string
+      id="ret_statistics_kills_sentence"
+      text="{TOTAL} düşman öldürüldü: {BREAKDOWN}." />
+    <string
+      id="ret_statistics_most_feared"
+      text="En çok korkulan hasım: {NAME}." />
+    <string
+      id="ret_statistics_most_slain"
+      text="En çok öldürülen düşman: {NAME}." />
+    <string
+      id="ret_statistics_naval_entry"
+      text="{COUNT} deniz muharebesi" />
+    <string
       id="ret_statistics_player_only"
       text="Evrensel Editörde mevcut değil" />
     <string
       id="ret_statistics_popup_title"
       text="İstatistikler" />
+    <string
+      id="ret_statistics_raid_entry"
+      text="{COUNT} baskın" />
+    <string
+      id="ret_statistics_siege_entry"
+      text="{COUNT} kuşatma" />
+    <string
+      id="ret_statistics_victories_defeats"
+      text="{WON} zafer kazanıldı, {LOST} yenilgi yaşandı." />
     <string
       id="ret_status_captain_disabled"
       text="Pasif" />

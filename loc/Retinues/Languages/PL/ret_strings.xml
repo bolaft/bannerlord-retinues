@@ -11,6 +11,9 @@
       id="ret_age_hint"
       text="Wiek" />
     <string
+      id="ret_ai_retinue_equipment_upgrade"
+      text="{RETINUE} zdobył {ITEM}." />
+    <string
       id="ret_ai_retinue_loot_line"
       text="{RETINUE} splądrował i wyposażył się w {ITEM} spośród twoich ofiar." />
     <string
@@ -1547,6 +1550,93 @@
       id="ret_list_header_villagers"
       text="Mieszkańcy wsi" />
     <string
+      id="ret_man_equipment_advanced_text"
+      text="Trzy opcjonalne systemy dodają dalsze ograniczenia do zmian wyposażenia: opóźnienie przygotowania przed wejściem przedmiotów w życie, budżety wagi i wartości na rangę oraz bramka odblokowania dla poszczególnych przedmiotów.{newline}{newline}Przygotowanie: Gdy Wyposażanie zajmuje czas jest włączone, wyposażenie przedmiotu nie ma natychmiastowego efektu. Nowy przedmiot jest umieszczany w kolejce przygotowania i stosowany stopniowo w miarę upływu czasu w grze. Przygotowane sloty są wyświetlane innym kolorem i pokazują aktualnie wyposażony przedmiot w podpowiedzi. Możesz anulować przygotowanie w dowolnym momencie. Postęp gromadzi się godzina po godzinie i podczas podróży, jeśli włączone jest Wyposażanie podczas podróży. Oddziały bohaterów nigdy nie podlegają przygotowaniu; ich zmiany wyposażenia są zawsze natychmiastowe.{newline}{newline}Limity wagi i wartości: Ustawienia Ogranicz według wagi i Ogranicz według wartości narzucają budżet na łączną wagę i łączną wartość wyposażenia bojowego oddziału. Oba są domyślnie wyłączone. Gdy są aktywne, każda ranga oddziału ma odpowiedni budżet wyświetlany w edytorze. Doktryny Zbrojowni mogą podnieść te limity, gdy są aktywne.{newline}{newline}Dostępność i odblokowania: Gdy Wyposażenie wymaga odblokowania jest włączone, każdy przedmiot wymaga 1000 punktów postępu odblokowania przed wyposażeniem. Przedmioty zaczynają zablokowane i ukryte; gdy mają jakiś postęp, pojawiają się na dole listy, posortowane według ukończenia. Konfigurowalna liczba przedmiotów na slot jest automatycznie wstępnie odblokowana w nowej grze do konfigurowalnego pułapu rangi. System ten dotyczy tylko ekranu Oddziałów; w Edytorze Uniwersalnym wszystkie przedmioty są swobodnie dostępne." />
+    <string
+      id="ret_man_equipment_advanced_title"
+      text="Retinues 5.3 - Przygotowanie i Limity" />
+    <string
+      id="ret_man_equipment_economy_text"
+      text="Ekonomia wyposażenia śledzi, ile egzemplarzy każdego przedmiotu posiadają twoje siły i opcjonalnie pobiera złoto, gdy wyposażasz sprzęt, którego nie ma w magazynie.{newline}{newline}Współdzielone przedmioty: Gdy oddział ma wiele zestawów, przedmioty są inteligentnie dzielone między nimi. Jeśli element wyposażenia jest już obecny w innym zestawie należącym do tego samego oddziału, wyposażenie go w drugim zestawie nie wiąże się z dodatkowym kosztem magazynowym ani zakupem. Oddział z dwoma zestawami noszący ten sam miecz w obu potrzebuje tylko jednej kopii tego miecza.{newline}{newline}Zapasy: Każdy przedmiot ma licznik zapasów reprezentujący, ile egzemplarzy zgromadziły twoje siły. Gdy ekonomia jest aktywna, wyposażenie przedmiotu pobiera jeden egzemplarz z zapasu; zdejmowanie go zwraca go. Zapasy gromadzą się z bitew, odrzuceń i innych źródeł. Ten system dotyczy tylko ekranu Oddziałów; w Edytorze Uniwersalnym zapasy nie odgrywają żadnej roli.{newline}{newline}Koszty i zakupy: Gdy Wyposażenie kosztuje pieniądze jest aktywne, wyposażenie przedmiotu, który nie jest w magazynie i nie jest objęty innym zestawem, wymaga wydania monet według wartości przedmiotu skalowanej przez ustawienie Mnożnik kosztów. Dwie doktryny obniżają koszty: Duma kulturowa przyznaje 20% rabatu na przedmioty pasujące do kultury twojego klanu, a Królewskie mecenat przyznaje 20% rabatu na przedmioty pasujące do kultury twojego królestwa. Oba rabaty mogą dotyczyć tego samego przedmiotu." />
+    <string
+      id="ret_man_equipment_economy_title"
+      text="Retinues 5.2 - Ekonomia Wyposażenia" />
+    <string
+      id="ret_man_equipment_text"
+      text="Każdy oddział ma dwie kategorie wyposażenia: zestawy bojowe i zestawy cywilne. Zestawy bojowe są noszone w walce; zestawy cywilne przez cały pozostały czas. Przełączasz się między nimi za pomocą przycisku nad modelem postaci.{newline}{newline}Typy zestawów bojowych: Każdy zestaw bojowy może być oznaczony jako stosowany w bitwach polowych, bitwach oblężniczych lub bitwach morskich. Zestaw może pokrywać dowolną kombinację tych typów. Co najmniej jeden zestaw musi pozostać włączony dla każdego typu bitwy przez cały czas.{newline}{newline}Zarządzanie zestawami: Użyj przycisku dodawania, aby utworzyć kopię bieżącego zestawu lub pusty. Użyj przycisku usuwania, aby usunąć bieżący zestaw; nie możesz usunąć zestawu, jeśli jest jedynym w swojej kategorii lub jeśli spowodowałoby to brak pokrycia dla jakiegoś typu bitwy. Gdy ekonomia jest aktywna i zestaw jest usuwany, jego przedmioty są automatycznie zwracane do zapasu.{newline}{newline}Sloty: Każdy zestaw ma cztery sloty na broń oraz sloty Głowa, Peleryna, Ciało, Rękawice, Nogi, Koń i Uprząż konia. Slot Uprząż konia jest aktywny tylko wtedy, gdy koń jest wyposażony. Jeśli nowy koń zostanie wyposażony, a obecna uprząż nie jest kompatybilna, uprząż jest automatycznie czyszczona." />
+    <string
+      id="ret_man_equipment_title"
+      text="Retinues 5.1 - Wyposażenie" />
+    <string
+      id="ret_man_overview_text"
+      text="Retinues dodaje zestaw systemów do budowania, szkolenia i wyposażania własnych sił osobistych przez całą kampanię.{newline}{newline}Jej sercem jest świta: oddziały domowe związane z twoim klanem, które wyłącznie ci towarzyszą i mogą być rozwijane w elitarne jednostki z biegiem czasu.{newline}{newline}Poza świtami możesz budować pełne niestandardowe drzewka oddziałów dla swojego klanu i królestwa. Oddziały te pojawiają się jako ochotnicy i wypełniają armie twojej frakcji. System doktryn zapewnia warstwę postępu, odblokowując nowe typy oddziałów, zalety wyposażenia i inne bonusy w miarę osiągania celów gry.{newline}{newline}Wszystkim tym zarządza się przez edytor, otwierany przyciskiem Oddziały na mapie kampanii lub przez naciśnięcie [R]." />
+    <string
+      id="ret_man_overview_title"
+      text="Retinues 1.0 - Przegląd" />
+    <string
+      id="ret_man_retinues_ai_text"
+      text="Klany sterowane przez SI również mogą mieć własne świty. Ta funkcja jest domyślnie włączona i dotyczy klanów, które spełniają minimalny próg poziomu (domyślnie poziom 3). Każdego dnia domyślnie istnieje 25% szans, że kwalifikująca się drużyna awansuje jednego żołnierza o pasującym poziomie do świty, do limitu 10% wielkości drużyny. Władcy królestw otrzymują Gwardię Króla lub Gwardię Królowej oprócz świt klanowych.{newline}{newline}Domyślnie tylko drużyna przywódcy klanu tworzy świty. Ustawienie Tylko przywódcy klanu mają świty można wyłączyć, aby pozwolić wszystkim drużynom lordów w klanie mieć własne.{newline}{newline}Świty SI z czasem się ulepszają, gdy ich klan zdobywa doświadczenie. Jeśli przegrasz bitwę z klanem, który ma świty, ich świty mogą zdobywać wyposażenie z twoich poległych, stopniowo ulepszając swój ekwipunek." />
+    <string
+      id="ret_man_retinues_ai_title"
+      text="Retinues 2.4 - Świty klanów SI" />
+    <string
+      id="ret_man_retinues_management_text"
+      text="Ta sekcja opisuje limity liczebności świt w drużynie, sposób ich rekrutacji przez system ulepszeń drużyny, pasywne wzmocnienia, które otrzymują, oraz sposób awansowania ich rang.{newline}{newline}Limity drużyny: Liczba świt, które możesz wystawić, jest ograniczona proporcją twojego limitu wielkości drużyny. Domyślnie jest to 15% i można to zmienić w ustawieniach. Bonusy doktryn mogą dodatkowo podnieść ten limit. Świty nie mogą być umieszczane w garnizonach ani przenoszone do drużyn towarzyszy; podążają wyłącznie za tobą.{newline}{newline}Rekrutacja: Świty nie pojawiają się na listach ochotników w osadach. Zamiast tego pojawiają się jako opcje ulepszeń dla istniejących oddziałów w twojej drużynie. Gdy otworzysz ekran drużyny, każda świta jest dopasowywana do najlepiej pasującego oddziału o jeden poziom niżej, a świta pojawia się jako dodatkowy cel ulepszenia dla tego oddziału. Ulepszenie oddziału do świty zamienia jedną jednostkę oddziału źródłowego w typ świty bez zużywania slotu świty. Oddział źródłowy jest wybierany najpierw z niestandardowego drzewa twojej frakcji, a jeśli nie ma dopasowania, z drzewa twojej kultury.{newline}{newline}Wzmocnienia: Świty otrzymują zestaw pasywnych bonusów ponad swoje normalne statystyki. Domyślnie są to: +20 punktów życia, +5 do wszystkich limitów umiejętności i +20 do łącznej liczby punktów umiejętności. Każdy bonus można osobno włączać/wyłączać i regulować w ustawieniach. Preset Realistyczny wyłącza wszystkie trzy.{newline}{newline}Awans rangi: Gdy świta ma wszystkie umiejętności w pełni zmaksowane, może awansować rangę. Awans kosztuje złoto: (aktualny poziom + 1) x 1000 denarów. Kosztuje też punkty umiejętności: 5 x aktualny poziom. Efekt podnosi poziom świty o 5 i odblokowuje wyższe limity umiejętności. Akcja awansu jest widoczna w edytorze, gdy spełnione są wszystkie warunki." />
+    <string
+      id="ret_man_retinues_management_title"
+      text="Retinues 2.3 - Drużyna i Rekrutacja" />
+    <string
+      id="ret_man_retinues_text"
+      text="Świty to specjalne domowe oddziały straży związane z twoim klanem. W przeciwieństwie do zwykłych wojsk frakcyjnych są osobiste dla gracza: nie można ich umieszczać w garnizonach ani przenosić do innych drużyn i zawsze pozostają przy tobie. Zaczynają na niskim poziomie, ale w trakcie kampanii można je szkolić, wyposażać i awansować rangę.{newline}{newline}Świta początkowa: Jedna świta jest tworzona automatycznie, gdy rozpoczynasz nową kampanię lub gdy po raz pierwszy wczytujesz istniejący zapis. Jest nazwana nazwą twojego klanu i odpowiada kulturze twojego klanu. Jeśli w tym momencie jesteś już władcą, dla twojego królestwa tworzona jest także Gwardia Króla lub Gwardia Królowej." />
+    <string
+      id="ret_man_retinues_title"
+      text="Retinues 2.1 - Świty" />
+    <string
+      id="ret_man_retinues_unlock_text"
+      text="Możesz odblokować dodatkową świtę dla każdej kultury. Kultura twojego klanu jest odblokowana od początku. Dla wszystkich pozostałych kultur gromadzisz postęp odblokowania poprzez aktywności w grze powiązane z daną kulturą.{newline}{newline}Wygranie turnieju przyznaje +50 punktów dla kultury osady, w której odbywa się turniej. Pomyślne ukończenie zadania przyznaje +25 punktów dla kultury zleceniodawcy. Posiadanie lenna przyznaje +5 punktów dziennie za każde lenno, dla kultury każdego lenna. Posiadanie warsztatu przyznaje +2 punkty dziennie za każdy warsztat, dla kultury osady, w której znajduje się warsztat. Wygranie bitwy u boku sojuszniczych oddziałów przyznaje +10 punktów za każdy sojuszniczy oddział, dla kultury każdego sojusznika.{newline}{newline}Każda kultura wymaga 1000 punktów do odblokowania. Ogólną szybkość można dostosować ustawieniem Szybkość odblokowywania świt. Gdy kultura zostanie odblokowana, automatycznie tworzona jest nowa świta i pojawia się okno pozwalające przejść bezpośrednio do edytora." />
+    <string
+      id="ret_man_retinues_unlock_title"
+      text="Retinues 2.2 - Odblokowywanie Świt" />
+    <string
+      id="ret_man_skills_budget_text"
+      text="Ta sekcja opisuje opcjonalną wspólną pulę punktów umiejętności, sposób działania wydawania i zwrotów oraz limity i sumy na rangę, które ograniczają łączną liczbę umiejętności dowolnego oddziału.{newline}{newline}Wspólna pula punktów umiejętności: Gdy ustawienie Wspólna pula punktów umiejętności jest włączone, wszystkie oddziały niestandardowe przekazują swoje bojowe PD do jednej puli obejmującej całą kampanię zamiast pul przypisanych do oddziałów. Punkty umiejętności z puli można wydawać na dowolny oddział niestandardowy, co ułatwia rozwijanie specjalistów bez równomiernego rozkładania bitew na cały roster. Saldo puli jest pokazywane w nagłówku panelu umiejętności. Wyłączenie ustawienia w trakcie kampanii nie czyści ani punktów oddziałów, ani wspólnej puli. Ustawienie wymaga, aby Punkty umiejętności muszą być zdobywane było aktywne.{newline}{newline}Wydawanie: Każde zwiększenie umiejętności kosztuje jeden punkt; zmniejszenie umiejętności zwraca go natychmiast. Gdy Szkolenie zajmuje czas jest włączone, zmniejszenie już zatwierdzonej umiejętności wymaga potwierdzenia.{newline}{newline}Limity i sumy: Na ekranie Oddziałów obowiązują dwa limity. Limit umiejętności to maksymalny poziom, jaki może osiągnąć pojedyncza umiejętność dla danej rangi; domyślne wartości wahają się od 20 na randze 0 do 360 na randze 7. Suma umiejętności to łączna wartość wszystkich umiejętności, jakie może mieć oddział tej rangi; domyślne wartości wahają się od 90 na randze 0 do 1600 na randze 7. Świty otrzymują premie ponad oba limity. Kapitanowie najwyższej rangi otrzymują premię 20%. Doktryna Żelazna dyscyplina dodaje +5 do limitu dla wszystkich oddziałów. Niezłomni żołnierze i Mistrzowie broni dodają po +20 do sumy odpowiednio dla linii podstawowej i elitarnej." />
+    <string
+      id="ret_man_skills_budget_title"
+      text="Retinues 4.2 - Budżet umiejętności" />
+    <string
+      id="ret_man_skills_text"
+      text="Twoje oddziały niestandardowe mają arkusz umiejętności, który możesz edytować na ekranie Oddziałów, z ograniczeniami limitów na umiejętność i łącznego budżetu umiejętności. Ten system nie dotyczy oddziałów edytowanych w Edytorze Uniwersalnym, gdzie umiejętności można dowolnie zmieniać w dowolnym momencie.{newline}{newline}Źródła PD: Oddziały niestandardowe gromadzą PD punktów umiejętności z rozegranych bitew, bitew rozstrzygniętych automatycznie, codziennego szkolenia drużyny i innych aktywności. Gdy Punkty umiejętności muszą być zdobywane jest aktywne (domyślnie włączone), całe to PD zasila licznik postępu punktów umiejętności dla danego typu oddziału. Oddziały wyższych rang wymagają proporcjonalnie więcej PD. Ogólne tempo można regulować ustawieniem Tempo zdobywania punktów umiejętności.{newline}{newline}Tryb swobodny: Gdy Punkty umiejętności muszą być zdobywane jest wyłączone, punkty umiejętności nie są blokowane wynikiem bitew. Umiejętności można swobodnie przydzielać w edytorze w dowolnym momencie bez wcześniejszego zdobywania czegokolwiek." />
+    <string
+      id="ret_man_skills_title"
+      text="Retinues 4.1 - Umiejętności i Doświadczenie" />
+    <string
+      id="ret_man_skills_training_text"
+      text="Trzy ustawienia dodają więcej struktury do edycji umiejętności: opcjonalne ograniczenie czasowe treningu, dolny próg wyprowadzony z oddziałów nadrzędnych oraz ograniczenia zależne od miejsca, kiedy edytora można użyć.{newline}{newline}Szkolenie zajmuje czas: Gdy to ustawienie jest włączone, podnoszenie umiejętności w edytorze nie jest stosowane natychmiast. Zwiększenie jest przechowywane jako oczekujące i stosowane stopniowo w tempie ustawionym przez Wytrenowane punkty na dzień (domyślnie: 1 na dzień). Oczekujące zwiększenia są pokazane innym kolorem. Postęp szkolenia domyślnie trwa podczas podróży; ustawienie Szkolenie podczas podróży może ograniczyć go do czasu, gdy drużyna stoi w miejscu.{newline}{newline}Dolny próg umiejętności: Umiejętności oddziału nie mogą zostać obniżone poniżej najwyższej wartości posiadanej przez któreś ze źródeł ulepszeń. Na przykład, jeśli oddział źródłowy rangi 2 ma 80 w Jednoręcznej, to Jednoręczna w ulepszeniu rangi 3 nie może być ustawiona poniżej 80. Edytor pokazuje, który oddział źródłowy ustala próg, gdy obniżenie jest blokowane.{newline}{newline}Ograniczenia kontekstu: Ustawienie Ograniczenie edycji może ograniczyć, kiedy można zmieniać umiejętności i wyposażenie. Brak (domyślne w trybie swobodnym) nie nakłada ograniczeń. W osadzie wymaga przebywania w dowolnej osadzie. W lenni wymaga przebywania w osadzie należącej do twojego klanu lub królestwa. Świty są zwolnione z wymogu lenna i mogą być edytowane w dowolnej osadzie." />
+    <string
+      id="ret_man_skills_training_title"
+      text="Retinues 4.3 - Szkolenie i Ograniczenia" />
+    <string
+      id="ret_man_troops_setup_text"
+      text="Gdy niestandardowe drzewo oddziałów jest tworzone po raz pierwszy, dwa ustawienia określają kształt początkowego rosteru, a kilka kolejnych kontroluje, gdzie te oddziały pojawiają się jako ochotnicy.{newline}{newline}Oddziały startowe: Początkowy stan drzewa zależy od ustawienia Oddziały startowe. Tylko korzenie tworzy tylko dwa oddziały korzeniowe, pozostawiając resztę pustą do ręcznego zbudowania. Smukłe drzewa (domyślne) kopiuje uproszczoną wersję drzewa twojej kultury: jeden reprezentatywny oddział na typ formacji na rangę, z nazwami opartymi o frakcję, jak Rekrut klanu. Pełne drzewa klonuje całe drzewo kultury dosłownie, zastępując prefiks kultury nazwą twojego klanu lub królestwa.{newline}{newline}Wyposażenie startowe: Wyposażenie jest ustawiane osobno przez ustawienie Wyposażenie startowe. Losowy zestaw (domyślne) generuje losowy ekwipunek z przedmiotów odpowiednich dla rangi i kultury oddziału. Pojedynczy zestaw kopiuje pierwszy zestaw wyposażenia z szablonu kultury. Wszystkie zestawy kopiuje każdy zestaw wyposażenia z szablonu. Pusty zestaw tworzy oddziały bez żadnych przedmiotów.{newline}{newline}Rekrutacja: To, gdzie twoje niestandardowe oddziały pojawiają się jako ochotnicy, zależy od ustawień Dostępność oddziałów klanu i Dostępność oddziałów królestwa. Oddziały klanu domyślnie pojawiają się w lennach klanu, a oddziały królestwa w lennach królestwa. Oba można otworzyć na dowolną osadę lub dalej ograniczyć. Ustawienie Tylko ta sama kultura zapobiega pojawianiu się niestandardowych oddziałów w osadach innej kultury. Ustawienie Dozwoleni rekruterzy kontroluje, czy lordowie SI mogą również rekrutować twoje oddziały. Domyślnie oddziały niestandardowe całkowicie zastępują standardowych ochotników kulturowych w kwalifikujących się osadach; Mieszaj z oddziałami vanilla pozwala im pojawiać się obok standardowych oddziałów." />
+    <string
+      id="ret_man_troops_setup_title"
+      text="Retinues 3.2 - Konfiguracja i Rekrutacja" />
+    <string
+      id="ret_man_troops_text"
+      text="Poza twoimi świtami możesz budować i dostosowywać pełne drzewa oddziałów dla swojego klanu i królestwa. Te oddziały pojawiają się w pulach ochotników, garnizonach i drużynach na całym świecie i są edytowane z tego samego ekranu Oddziałów co świty. Każda frakcja otrzymuje dwie linie korzeniowe: podstawowe drzewo i elitarne drzewo szlacheckie. Z tych korzeni możesz rozgałęziać ścieżki ulepszeń do maksymalnie 4 celów ulepszeń na oddział.{newline}{newline}Odblokowanie: Oddziały klanu odblokowują się domyślnie, gdy zdobędziesz swoje pierwsze lenno. Można je też ustawić jako odblokowane od początku lub całkowicie wyłączyć. Oddziały królestwa odblokowują się domyślnie, gdy założysz królestwo, i również mogą zostać wyłączone. Gdy oddziały zostaną odblokowane, pojawia się okienko umożliwiające przejście bezpośrednio do nowego drzewa." />
+    <string
+      id="ret_man_troops_title"
+      text="Retinues 3.1 - Żołnierze klanu i królestwa" />
+    <string
+      id="ret_man_troops_types_text"
+      text="Kilka doktryn odblokowuje dodatkowe typy oddziałów poza głównym drzewem, a edytor udostępnia narzędzia do zarządzania strukturą drzewa i nadzorowania innych klanów w twoim królestwie.{newline}{newline}Milicje i oddziały specjalne: Trzy doktryny odblokowują dodatkowe typy oddziałów niestandardowych. Niezłomna Milicja odblokowuje niestandardową milicję, która w miastach i zamkach twojej frakcji w cyklu dziennym zastępuje domyślną milicję kulturową. Strażnicy dróg odblokowują niestandardowe oddziały karawan używane przez karawany twojej frakcji. Uzbrojone chłopstwo odblokowuje niestandardowe oddziały wieśniaków używane przez drużyny wiosek twojej frakcji.{newline}{newline}Kapitanowie: Doktryna Kapitanowie odblokowuje warianty Kapitana dla wszystkich regularnych oddziałów. Kapitan to silniejsza wersja, która okresowo pojawia się w ich miejsce. Częstotliwość pojawiania się można skonfigurować ustawieniem Tempo pojawiania się kapitanów (domyślnie: 1 na 15 regularnych oddziałów). Kapitanowie nie mogą mieć własnych celów ulepszeń i nie mogą awansować na rangę. Ich wyposażenie edytuje się osobno, ale dzielą koszty wyposażenia z oddziałem bazowym.{newline}{newline}Ulepszenia i usuwanie: Możesz dodać cel ulepszenia do dowolnego niestandardowego oddziału niebędącego bohaterem, który nie jest na maksymalnej randze i ma mniej niż 4 cele ulepszeń. Nowy oddział jest tworzony o jedną rangę wyżej niż jego rodzic i dziedziczy po nim umiejętności. Aby usunąć oddział, musisz najpierw usunąć wszystkie jego cele ulepszeń. Oddziałów korzeniowych nie można usuwać. Gdy oddział zostanie usunięty, wszystkie jednostki tego typu na świecie zostaną zamienione na ich odpowiednik kulturowy.{newline}{newline}Inne klany: Gdy jesteś władcą, edytor pozwala zarządzać niestandardowymi drzewami oddziałów innych klanów w twoim królestwie. Kliknij lewy sztandar, aby wybrać inny klan. Jeśli wybrany klan nie ma jeszcze niestandardowych oddziałów, pojawi się prośba o ich zainicjalizowanie poprzez skopiowanie istniejącego drzewa królestwa lub rozpoczęcie od korzeni kultury." />
+    <string
+      id="ret_man_troops_types_title"
+      text="Retinues 3.3 - Specjalne oddziały i drzewo" />
+    <string
+      id="ret_manual_button_label"
+      text="Otwórz podręcznik" />
+    <string
       id="ret_mariner_captain_reason"
       text="Kapitanowie dzielą zdolność marynarza swoich podstawowych oddziałów" />
     <string
@@ -1886,6 +1976,12 @@
       id="ret_mcm_option_same_culture_only_hint"
       text="Jeśli włączone, niestandardowe oddziały mogą być rekrutowane tylko w osadach tej samej kultury." />
     <string
+      id="ret_mcm_option_shared_skill_points_pool"
+      text="Wspólny pul punktów umiejętności" />
+    <string
+      id="ret_mcm_option_shared_skill_points_pool_hint"
+      text="Jeśli włączone, wszystkie niestandardowe oddziały pobierają punkty umiejętności z jednego wspólnego puli zamiast każda jednostka miała własną." />
+    <string
       id="ret_mcm_option_skill_cap"
       text="Limit Umiejętności Poziomu {TIER}" />
     <string
@@ -2113,6 +2209,15 @@
     <string
       id="ret_preset_default_tooltip"
       text="Zastosuj domyślny predefiniowany kształt: zrównoważone doświadczenie zaprojektowane na pierwsze przejście" />
+    <string
+      id="ret_preset_description_default"
+      text="Domyślna konfiguracja, zrównoważona na pierwsze przejście.{newline}{newline}Premie świt są aktywne, oddziały klanu odblokowują się wraz z pierwszym lennem, wyposażenie kosztuje, a przedmioty muszą zostać odblokowane poprzez zabójstwa i warsztaty, zanim będzie można je wyposażyć. Punkty umiejętności trzeba zdobywać w bitwach." />
+    <string
+      id="ret_preset_description_freeform"
+      text="Kreatywny sandbox: brak kosztów, brak wymagań, brak ograniczeń.{newline}{newline}Pozyskiwanie doktryn jest darmowe. Wyposażenie jest darmowe, a wszystkie przedmioty są dostępne od razu. Punkty umiejętności można przydzielać swobodnie bez wymogu doświadczenia. Oddziały klanu są dostępne od początku i można je rekrutować wszędzie." />
+    <string
+      id="ret_preset_description_realistic"
+      text="Bardziej surowe doświadczenie, które podkreśla zasłużony rozwój i tożsamość frakcji.{newline}{newline}Limity umiejętności i wyposażenia są egzekwowane w Edytorze Uniwersalnym. Oddziały można modyfikować tylko w posiadanym lennie. Premie świt są wyłączone. Wyposażanie i szkolenie zajmuje czas. Wyposażenie podlega limitom wagi i wartości zależnym od rangi. Oddziały można rekrutować tylko w osadach tej samej kultury, a na początku gry generowane są wyłącznie korzenie kultury." />
     <string
       id="ret_preset_freeform_button"
       text="Swobodny" />
@@ -2399,6 +2504,15 @@
       id="ret_select_culture_title"
       text="Wybierz kulturę" />
     <string
+      id="ret_shared_skill_experience_tooltip"
+      text="{XP} PD we wspólnej puli (następny punkt przy {XP_REQUIRED})" />
+    <string
+      id="ret_shared_skill_point_gained"
+      text="Twoje oddziały zdobyły 1 punkt umiejętności." />
+    <string
+      id="ret_shared_skill_points_gained"
+      text="Twoje oddziały zdobyły {POINTS} punktów umiejętności." />
+    <string
       id="ret_skill_decrease_sources_reason"
       text="Nie można zmniejszyć poniżej poziomu umiejętności {SOURCE}" />
     <string
@@ -2413,6 +2527,9 @@
     <string
       id="ret_skill_description_text"
       text="Punkty umiejętności: {SKILL_POINTS} - Limit umiejętności: {SKILL_CAP} - Poziom: {TIER}" />
+    <string
+      id="ret_skill_description_text_shared"
+      text="Pula: {SKILL_POINTS} pkt - Limit: {SKILL_CAP} - Poziom: {TIER}" />
     <string
       id="ret_skill_description_text_short"
       text="Limit umiejętności: {SKILL_CAP} - Poziom: {TIER}" />
@@ -2510,11 +2627,53 @@
       id="ret_statistics_button_label"
       text="Pokaż statystyki" />
     <string
+      id="ret_statistics_casualties_sentence"
+      text="Poniesiono {TOTAL} strat: {BREAKDOWN}." />
+    <string
+      id="ret_statistics_culture_entry"
+      text="{COUNT} przeciwko {CULTURE}" />
+    <string
+      id="ret_statistics_culture_more"
+      text="{COUNT} więcej" />
+    <string
+      id="ret_statistics_deployments"
+      text="{TOTAL} żołnierzy w {PARTIES} oddziałach i {GARRISONS} garnizonach." />
+    <string
+      id="ret_statistics_field_entry"
+      text="{COUNT} bitew polowych" />
+    <string
+      id="ret_statistics_fought_in"
+      text="Walczono w {LIST}." />
+    <string
+      id="ret_statistics_in_service"
+      text="{NAME} służy od {YEARS} lat, {SEASONS} pór roku i {DAYS} dni." />
+    <string
+      id="ret_statistics_kills_sentence"
+      text="Zabito {TOTAL} wrogów: {BREAKDOWN}." />
+    <string
+      id="ret_statistics_most_feared"
+      text="Najbardziej obawiano się: {NAME}." />
+    <string
+      id="ret_statistics_most_slain"
+      text="Najczęściej pokonany wróg: {NAME}." />
+    <string
+      id="ret_statistics_naval_entry"
+      text="{COUNT} bitew morskich" />
+    <string
       id="ret_statistics_player_only"
       text="Niedostępne w edytorze uniwersalnym" />
     <string
       id="ret_statistics_popup_title"
       text="Statystyki" />
+    <string
+      id="ret_statistics_raid_entry"
+      text="{COUNT} rajdów" />
+    <string
+      id="ret_statistics_siege_entry"
+      text="{COUNT} oblężeń" />
+    <string
+      id="ret_statistics_victories_defeats"
+      text="Odniesiono {WON} zwycięstw, poniesiono {LOST} porażek." />
     <string
       id="ret_status_captain_disabled"
       text="Nieaktywny" />

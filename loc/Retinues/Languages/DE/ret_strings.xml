@@ -11,6 +11,9 @@
       id="ret_age_hint"
       text="Alter" />
     <string
+      id="ret_ai_retinue_equipment_upgrade"
+      text="{RETINUE} hat {ITEM} erworben." />
+    <string
       id="ret_ai_retinue_loot_line"
       text="{RETINUE} hat {ITEM} von deinen Gefallenen geplündert und ausgerüstet." />
     <string
@@ -1547,6 +1550,93 @@
       id="ret_list_header_villagers"
       text="Dörfler" />
     <string
+      id="ret_man_equipment_advanced_text"
+      text="Drei optionale Systeme fügen weitere Einschränkungen bei Ausrüstungsänderungen hinzu: eine Staging-Verzögerung, bevor Gegenstände wirksam werden, Gewichts- und Wertbudgets pro Rang und eine Freischaltschranke für einzelne Gegenstände.{newline}{newline}Staging: Wenn Ausrüsten braucht Zeit aktiviert ist, hat das Ausrüsten eines Gegenstands keinen sofortigen Effekt. Der neue Gegenstand wird stattdessen in eine Staging-Warteschlange eingestellt und im Laufe der Spielzeit schrittweise angewendet. Gestagete Slots werden in einer anderen Farbe angezeigt und zeigen den aktuell ausgerüsteten Gegenstand im Tooltip. Sie können ein Staging jederzeit rückgängig machen. Der Fortschritt akkumuliert sich stündlich und auch beim Reisen, wenn Ausrüsten während des Reisens aktiviert ist. Heldentruppen sind nie dem Staging unterworfen; ihre Ausrüstungsänderungen sind immer sofort.{newline}{newline}Gewichts- und Wertlimits: Die Einstellungen Limit nach Gewicht und Limit nach Wert legen ein Budget für das Gesamtgewicht und den Gesamtwert der Kampfausrüstung einer Truppe fest. Beide sind standardmäßig deaktiviert. Wenn aktiv, hat jeder Truppenrang ein entsprechendes Budget im Editor. Die Waffenkammer-Doktrinen können diese Limits erhöhen, wenn sie aktiv sind.{newline}{newline}Gegenstandsverfügbarkeit und Freischaltungen: Wenn Ausrüstung muss freigeschaltet werden aktiviert ist, benötigt jeder Gegenstand 1000 Punkte Freischaltfortschritt, bevor er ausgerüstet werden kann. Gegenstände beginnen gesperrt und versteckt; sobald sie etwas Fortschritt haben, erscheinen sie unten in der Liste, sortiert nach Abschluss. Eine konfigurierbare Anzahl von Gegenständen pro Slot wird in einem neuen Spiel automatisch bis zu einer konfigurierbaren Ranggrenze freigeschaltet. Dieses System gilt nur für den Truppenbildschirm; im Universellen Editor sind alle Gegenstände frei verfügbar." />
+    <string
+      id="ret_man_equipment_advanced_title"
+      text="Retinues 5.3 - Staging &amp; Limits" />
+    <string
+      id="ret_man_equipment_economy_text"
+      text="Die Ausrüstungswirtschaft verfolgt, wie viele Exemplare jedes Gegenstands Ihre Truppen besitzen, und erhebt optional Gold, wenn Sie Ausrüstung anlegen, die nicht auf Lager ist.{newline}{newline}Geteilte Gegenstände: Wenn eine Truppe mehrere Sets hat, werden Gegenstände intelligent zwischen ihnen geteilt. Wenn ein Ausrüstungsstück bereits in einem anderen Set derselben Truppe vorhanden ist, entstehen durch seine Ausrüstung in einem zweiten Set keine zusätzlichen Lagerkosten oder Käufe. Eine Truppe mit zwei Sets, die in beiden dasselbe Schwert trägt, benötigt nur ein Exemplar dieses Schwertes.{newline}{newline}Lagerbestände: Jeder Gegenstand hat einen Lagerbestand, der angibt, wie viele Exemplare Ihre Truppen gelagert haben. Wenn die Wirtschaft aktiv ist, zieht das Ausrüsten eines Gegenstands ein Exemplar aus seinem Lagerbestand; das Ausziehen gibt es zurück. Lagerbestände akkumulieren sich aus Schlachten, Entsorgungen und anderen Quellen. Dieses System gilt nur für den Truppenbildschirm; im Universellen Editor spielen Lagerbestände keine Rolle.{newline}{newline}Kosten und Käufe: Wenn Ausrüstung kostet Geld aktiv ist, erfordert das Ausrüsten eines Gegenstands, der nicht auf Lager und nicht durch ein anderes Set abgedeckt ist, das Ausgeben von Münzen zum Wert des Gegenstands, skaliert durch die Einstellung Kostenmultiplikator. Zwei Doktrinen senken die Kosten: Kultureller Stolz gewährt einen Rabatt von 20% auf Gegenstände, die der Kultur Ihres Clans entsprechen, und Königliche Schirmherrschaft gewährt einen Rabatt von 20% auf Gegenstände, die der Kultur Ihres Königreichs entsprechen. Beide Rabatte können für denselben Gegenstand gelten." />
+    <string
+      id="ret_man_equipment_economy_title"
+      text="Retinues 5.2 - Ausrüstungswirtschaft" />
+    <string
+      id="ret_man_equipment_text"
+      text="Jede Truppe hat zwei Kategorien von Ausrüstung: Kampfsets und zivile Sets. Kampfsets werden im Kampf getragen; zivile Sets zu allen anderen Zeiten. Sie wechseln zwischen ihnen mit der Schaltfläche über dem Charaktermodell.{newline}{newline}Kampfset-Typen: Jedes Kampfset kann als für Feldschlachten, Belagerungsschlachten oder Seeschlachten geltend markiert werden. Ein Set kann jede Kombination dieser Typen abdecken. Mindestens ein Set muss für jeden Schlachttyp jederzeit aktiviert bleiben.{newline}{newline}Sets verwalten: Verwenden Sie die Hinzufügen-Schaltfläche, um eine Kopie des aktuellen Sets oder ein leeres Set zu erstellen. Verwenden Sie die Entfernen-Schaltfläche, um das aktuelle Set zu löschen; Sie können ein Set nicht löschen, wenn es das einzige in seiner Kategorie ist, oder wenn dadurch ein Schlachttyp ohne Abdeckung bliebe. Wenn die Wirtschaft aktiv ist und ein Set gelöscht wird, werden seine Gegenstände automatisch in den Lagerbestand zurückgelegt.{newline}{newline}Slots: Jedes Set hat vier Waffenslots, Kopf, Cape, Körper, Handschuhe, Bein, Pferd und Pferdegeschirr. Der Pferdegeschirr-Slot ist nur aktiv, wenn ein Pferd ausgerüstet ist. Wenn ein neues Pferd ausgerüstet wird und das aktuelle Geschirr nicht kompatibel ist, wird das Geschirr automatisch entfernt." />
+    <string
+      id="ret_man_equipment_title"
+      text="Retinues 5.1 - Ausrüstung" />
+    <string
+      id="ret_man_overview_text"
+      text="Retinues fügt eine Reihe von Systemen hinzu, um im Verlauf einer Kampagne eigene persönliche Streitkräfte aufzubauen, zu trainieren und auszurüsten.{newline}{newline}Im Kern steht das Gefolge: eine Haushaltstruppe, die an Ihren Clan gebunden ist, Ihnen ausschließlich folgt und im Laufe der Zeit zu einer Eliteeinheit entwickelt werden kann.{newline}{newline}Jenseits der Gefolge können Sie vollständig individuelle Truppenbäume für Ihren Clan und Ihr Königreich aufbauen. Diese Truppen erscheinen als Freiwillige und füllen die Armeen Ihrer Fraktion. Ein Doktrinensystem bietet eine Fortschrittsebene, die neue Truppentypen, Ausrüstungsvorteile und andere Boni freischaltet, wenn Sie Spielziele erfüllen.{newline}{newline}Alles wird über den Editor verwaltet, der über die Schaltfläche Truppen auf der Kampagnenkarte oder durch Drücken von [R] geöffnet wird." />
+    <string
+      id="ret_man_overview_title"
+      text="Retinues 1.0 - Übersicht" />
+    <string
+      id="ret_man_retinues_ai_text"
+      text="Auch nicht vom Spieler geführte Clans können eigene Gefolge haben. Diese Funktion ist standardmäßig aktiviert und gilt für Clans, die eine Mindeststufe erreichen (standardmäßig Stufe 3). Jeden Tag besteht standardmäßig eine Chance von 25%, dass eine berechtigte Gruppe eine passende Truppe in ein Gefolge befördert, bis zu einer Obergrenze von 10% der Gruppengröße. Herrscher eines Königreichs erhalten zusätzlich zu ihrem Clan-Gefolge eine Königsgarde oder Königinnengarde.{newline}{newline}Standardmäßig baut nur die Gruppe des Clan-Anführers Gefolge auf. Die Einstellung Nur Clan-Anführer haben Gefolge kann deaktiviert werden, damit alle Lord-Gruppen eines Clans ihr eigenes haben können.{newline}{newline}KI-Gefolge verbessert sich mit der Zeit, während der Clan Erfahrung sammelt. Wenn Sie eine Schlacht gegen einen Clan verlieren, der Gefolge hat, kann dessen Gefolge Ausrüstung von Ihren Gefallenen erbeuten und seine Ausrüstung schrittweise aufwerten." />
+    <string
+      id="ret_man_retinues_ai_title"
+      text="Retinues 2.4 - KI-Clan-Gefolge" />
+    <string
+      id="ret_man_retinues_management_text"
+      text="Dieser Abschnitt behandelt die Gruppengrößenlimits für Gefolge, wie man es über das Upgrade-System der Gruppe rekrutiert, welche passiven Boni es erhält und wie man es im Rang erhöht.{newline}{newline}Gruppenlimits: Die Anzahl an Gefolge, die Sie führen können, ist auf ein Verhältnis Ihres Gruppengrößenlimits begrenzt. Standard: 15%, in den Einstellungen anpassbar. Doktrinboni können dieses Limit weiter erhöhen. Gefolge kann weder in Garnisonen stationiert noch an Gefährten-Gruppen übertragen werden; es folgt ausschließlich Ihnen.{newline}{newline}Rekrutierung: Gefolge erscheint nicht in den Freiwilligenlisten von Siedlungen. Stattdessen taucht es als Upgrade-Option auf bestehenden Truppen in Ihrer Gruppe auf. Wenn Sie den Gruppenbildschirm öffnen, wird jedes Gefolge der am besten passenden Truppe eine Stufe darunter zugeordnet, und das Gefolge erscheint als zusätzliches Upgrade-Ziel auf dieser Truppe. Eine Truppe zu Gefolge aufzuwerten, wandelt eine Einheit der Ursprungstruppe in den Gefolge-Typ um, ohne den Gefolge-Slot zu verbrauchen. Die Ursprungstruppe wird zuerst aus dem benutzerdefinierten Baum Ihrer Fraktion gewählt; wenn keine Übereinstimmung gefunden wird, wird auf den Baum Ihrer Kultur zurückgegriffen.{newline}{newline}Boni: Gefolge erhält eine Reihe passiver Boni zusätzlich zu seinen normalen Werten. Standardmäßig sind dies +20 Trefferpunkte, +5 auf alle Fertigkeitsobergrenzen und +20 auf die Gesamtzahl an Fertigkeitspunkten. Jeder Bonus kann in den Einstellungen einzeln ein- und ausgeschaltet sowie angepasst werden. Die Voreinstellung Realistisch deaktiviert alle drei.{newline}{newline}Rang erhöhen: Wenn ein Gefolge alle seine Fertigkeiten vollständig maximiert hat, kann es im Rang erhöht werden. Das kostet Gold: (aktuelle Stufe + 1) x 1000 Denare. Außerdem kostet es Fertigkeitspunkte: 5 x aktuelle Stufe. Der Effekt erhöht das Level des Gefolges um 5 und schaltet höhere Fertigkeitsobergrenzen frei. Die Rang-erhöhen-Aktion wird im Editor angezeigt, sobald alle Bedingungen erfüllt sind." />
+    <string
+      id="ret_man_retinues_management_title"
+      text="Retinues 2.3 - Gruppe &amp; Rekrutierung" />
+    <string
+      id="ret_man_retinues_text"
+      text="Gefolge sind besondere Haushalt-Wachtruppen, die an Ihren Clan gebunden sind. Im Gegensatz zu normalen Fraktionstruppen sind sie persönlich für den Spieler: Sie können nicht in Garnisonen stationiert oder an eine andere Gruppe übertragen werden und bleiben jederzeit bei Ihnen. Sie beginnen auf einer niedrigen Stufe, können aber im Verlauf einer Kampagne trainiert, ausgerüstet und im Rang erhöht werden.{newline}{newline}Start-Gefolge: Ein Gefolge wird automatisch erstellt, wenn Sie eine neue Kampagne beginnen oder einen bestehenden Spielstand zum ersten Mal laden. Es ist nach Ihrem Clan benannt und entspricht der Kultur Ihres Clans. Wenn Sie zu diesem Zeitpunkt bereits Herrscher sind, wird außerdem eine Königsgarde oder Königinnengarde für Ihr Königreich erstellt." />
+    <string
+      id="ret_man_retinues_title"
+      text="Retinues 2.1 - Gefolge" />
+    <string
+      id="ret_man_retinues_unlock_text"
+      text="Du kannst pro Kultur ein zusätzliches Gefolge freischalten. Die Kultur deines eigenen Clans ist von Anfang an freigeschaltet. Für jede andere Kultur sammelst du Freischaltfortschritt durch Spielaktivitäten, die mit dieser Kultur verbunden sind.{newline}{newline}Einen Turniergewinn gibt +50 Punkte für die Kultur der Turniersiedlung. Das erfolgreiche Abschließen einer Aufgabe gibt +25 Punkte für die Kultur des Auftraggebers. Der Besitz eines Lehens gibt +5 Punkte pro Tag und pro Lehen für die Kultur des jeweiligen Lehens. Der Besitz einer Werkstatt gibt +2 Punkte pro Tag und pro Werkstatt für die Kultur der Siedlung, in der sich die Werkstatt befindet. Der Sieg in einer Schlacht an der Seite verbündeter Trupps gibt +10 Punkte pro verbündetem Trupp für die Kultur jedes Verbündeten.{newline}{newline}Jede Kultur benötigt 1000 Punkte zum Freischalten. Die Gesamtgeschwindigkeit kann mit der Einstellung Gefolge-Freischaltgeschwindigkeit angepasst werden. Wenn eine Kultur freigeschaltet wird, wird automatisch ein neues Gefolge erstellt und ein Popup erscheint, mit dem du direkt zum Editor springen kannst." />
+    <string
+      id="ret_man_retinues_unlock_title"
+      text="Retinues 2.2 - Gefolge freischalten" />
+    <string
+      id="ret_man_skills_budget_text"
+      text="Dieser Abschnitt behandelt den optionalen gemeinsamen Fertigkeitspunkte-Pool, wie Ausgeben und Rückerstattungen funktionieren, sowie die Rangobergrenzen und Gesamtbudgets, die die Gesamtfertigkeiten jeder Truppe begrenzen.{newline}{newline}Gemeinsamer Fertigkeitspunkte-Pool: Wenn die Einstellung Gemeinsamer Fertigkeitspunkte-Pool aktiviert ist, tragen alle benutzerdefinierten Truppen ihre Kampf-XP in einen einzigen kampagnenweiten Pool ein statt in Pools pro Truppentyp. Fertigkeitspunkte aus dem Pool können für jede benutzerdefinierte Truppe ausgegeben werden, was es erleichtert, Spezialisten zu entwickeln, ohne Kämpfe gleichmäßig über Ihren Kader zu verteilen. Der Poolstand wird in der Kopfzeile des Fertigkeiten-Panels angezeigt. Das Abschalten der Einstellung mitten in der Kampagne löscht weder die Punkte pro Truppe noch den gemeinsamen Pool. Die Einstellung erfordert, dass Fertigkeitspunkte müssen verdient werden aktiv ist.{newline}{newline}Ausgeben: Jede Erhöhung einer Fertigkeit kostet einen Punkt; das Senken einer Fertigkeit erstattet ihn sofort. Wenn Training braucht Zeit aktiviert ist, wird beim Senken einer bereits fest zugesagten Fertigkeit eine Bestätigung angefordert.{newline}{newline}Obergrenzen und Gesamtwerte: Im Truppenbildschirm gelten zwei Grenzen. Die Fertigkeitsobergrenze ist das maximale Level, das eine einzelne Fertigkeit für diesen Rang erreichen kann; Standardwerte reichen von 20 auf Rang 0 bis 360 auf Rang 7. Der Fertigkeitstotal ist die Summe aller Fertigkeiten, die eine Truppe dieses Ranges haben darf; Standardwerte reichen von 90 auf Rang 0 bis 1600 auf Rang 7. Gefolge erhalten Boni zusätzlich zu beiden Limits. Kapitäne auf Max-Rang erhalten einen Bonus von 20%. Die Doktrin Eisendisziplin fügt +5 zur Obergrenze für alle Truppen hinzu. Standhafte Soldaten und Waffenmeister fügen jeweils +20 zum Total für die Basis- bzw. Elitelinie hinzu." />
+    <string
+      id="ret_man_skills_budget_title"
+      text="Retinues 4.2 - Fertigkeitenbudget" />
+    <string
+      id="ret_man_skills_text"
+      text="Ihre benutzerdefinierten Truppen haben ein Fertigkeitenblatt, das Sie im Truppenbildschirm bearbeiten können, begrenzt durch Obergrenzen pro Fertigkeit und ein Gesamt-Fertigkeitenbudget. Dieses System gilt nicht für Truppen, die über den Universellen Editor bearbeitet werden, wo Fertigkeiten jederzeit frei angepasst werden können.{newline}{newline}XP-Quellen: Benutzerdefinierte Truppen sammeln Fertigkeitspunkte-XP aus gespielten Schlachten, automatisch aufgelösten Schlachten, täglichem Gruppentraining und anderen Aktivitäten. Wenn Fertigkeitspunkte müssen verdient werden aktiv ist (standardmäßig an), fließt all diese XP in den Fortschrittszähler der Fertigkeitspunkte für den Truppentyp. Höhere Ränge benötigen proportional mehr XP. Die Gesamtrate kann über die Einstellung Fertigkeitspunkte-Gewinnrate angepasst werden.{newline}{newline}Freiform-Modus: Wenn Fertigkeitspunkte müssen verdient werden deaktiviert ist, sind Fertigkeitspunkte nicht mehr an die Kampfleistung gebunden. Fertigkeiten können jederzeit frei im Editor verteilt werden, ohne vorher etwas verdienen zu müssen." />
+    <string
+      id="ret_man_skills_title"
+      text="Retinues 4.1 - Fertigkeiten &amp; Erfahrung" />
+    <string
+      id="ret_man_skills_training_text"
+      text="Drei Einstellungen geben der Fertigkeitenbearbeitung zusätzliche Struktur: eine optionale Zeitbegrenzung fürs Training, eine Untergrenze, die sich aus Elterntuppen ableitet, sowie ortsbasierte Einschränkungen, wann der Editor genutzt werden kann.{newline}{newline}Training braucht Zeit: Wenn diese Einstellung aktiviert ist, wird das Erhöhen einer Fertigkeit im Editor nicht sofort angewendet. Die Erhöhung wird als ausstehend gespeichert und schrittweise mit der Rate angewendet, die durch Trainierte Punkte pro Tag festgelegt ist (Standard: 1 pro Tag). Ausstehende Erhöhungen werden in einer anderen Farbe angezeigt. Der Trainingsfortschritt läuft standardmäßig auch während des Reisens weiter; die Einstellung Trainieren während des Reisens kann ihn auf Zeiten beschränken, in denen die Gruppe steht.{newline}{newline}Fertigkeits-Untergrenze: Die Fertigkeiten einer Truppe können nicht unter den höchsten Wert gesenkt werden, den eine ihrer Aufrüstquellen besitzt. Wenn zum Beispiel eine Quellen-Truppe auf Rang 2 in Einhändig 80 hat, kann Einhändig beim Rang-3-Upgrade nicht unter 80 gesetzt werden. Der Editor zeigt an, welche Quellen-Truppe die Untergrenze setzt, wenn eine Senkung blockiert wird.{newline}{newline}Kontextbeschränkungen: Die Einstellung Bearbeitungsbeschränkung kann einschränken, wann Fertigkeiten und Ausrüstung geändert werden dürfen. Keine (Standard im Freiform-Modus) setzt keine Einschränkungen. In Siedlung erfordert, dass Sie sich in irgendeiner Siedlung befinden. In Lehen erfordert, dass Sie sich in einer Siedlung befinden, die Ihrem Clan oder Königreich gehört. Gefolge sind von der Lehen-Anforderung ausgenommen und können in jeder Siedlung bearbeitet werden." />
+    <string
+      id="ret_man_skills_training_title"
+      text="Retinues 4.3 - Training &amp; Einschränkungen" />
+    <string
+      id="ret_man_troops_setup_text"
+      text="Wenn ein benutzerdefinierter Truppenbaum erstmals erstellt wird, bestimmen zwei Einstellungen die Form seines Startkaders, und mehrere weitere steuern, wo diese Truppen als Freiwillige erscheinen.{newline}{newline}Starttruppen: Der Anfangszustand des Baums hängt von der Einstellung Starttruppen ab. Nur Wurzeln erstellt nur die beiden Wurzeltruppen und lässt den Rest leer, um ihn manuell aufzubauen. Schlanke Bäume (Standard) kopiert eine gestraffte Version des Kulturbaums: eine repräsentative Truppe pro Formationstyp und Rang, mit fraktionsbasierten Namen wie Clan-Rekrut. Volle Bäume klont den gesamten Kulturbaum wortgetreu und ersetzt das Kulturpräfix durch den Namen Ihres Clans oder Königreichs.{newline}{newline}Startausrüstung: Die Ausrüstung wird separat über die Einstellung Startausrüstung festgelegt. Zufallsset (Standard) erzeugt ein zufälliges Loadout aus Gegenständen, die zum Rang und zur Kultur der Truppe passen. Einzelset kopiert das erste Ausrüstungsset aus der Kulturvorlage. Alle Sets kopiert jedes Ausrüstungsset aus der Vorlage. Leeres Set erstellt Truppen ohne Gegenstände.{newline}{newline}Rekrutierung: Wo Ihre benutzerdefinierten Truppen als Freiwillige erscheinen, hängt von den Einstellungen Verfügbarkeit Clantruppen und Verfügbarkeit Königreichstruppen ab. Clantruppen erscheinen standardmäßig in Clanlehen und Königreichstruppen in Königreichslehen. Beide können für jede Siedlung geöffnet oder weiter eingeschränkt werden. Die Einstellung Nur gleiche Kultur verhindert, dass benutzerdefinierte Truppen in Siedlungen einer anderen Kultur erscheinen. Die Einstellung Erlaubte Rekrutierer steuert, ob KI-Lords Ihre Truppen ebenfalls rekrutieren können. Standardmäßig ersetzen benutzerdefinierte Truppen in berechtigten Siedlungen die Standard-Kulturfreiwilligen vollständig; Mit Vanilla-Truppen mischen lässt sie stattdessen neben den Standardtruppen erscheinen." />
+    <string
+      id="ret_man_troops_setup_title"
+      text="Retinues 3.2 - Aufstellung &amp; Rekrutierung" />
+    <string
+      id="ret_man_troops_text"
+      text="Neben Ihrem Gefolge können Sie vollständige Truppenbäume für Ihren Clan und Ihr Königreich erstellen und anpassen. Diese Truppen erscheinen weltweit in Freiwilligenpools, Garnisonen und Gruppen und werden im selben Truppenbildschirm wie das Gefolge bearbeitet. Jede Fraktion erhält zwei Wurzellinien: einen Basisbaum und einen elitär-adligen Baum. Von diesen Wurzeln aus können Sie Aufrüstpfade verzweigen, mit maximal 4 Aufrüstzielen pro Truppe.{newline}{newline}Freischaltung: Clantruppen werden standardmäßig freigeschaltet, wenn Sie Ihr erstes Lehen erhalten. Sie können auch so eingestellt werden, dass sie von Beginn an freigeschaltet sind oder vollständig deaktiviert werden. Königreichstruppen werden standardmäßig freigeschaltet, wenn Sie ein Königreich gründen, und können ebenfalls deaktiviert werden. Wenn Truppen freigeschaltet werden, erscheint ein Popup, mit dem Sie direkt zum neuen Baum springen können." />
+    <string
+      id="ret_man_troops_title"
+      text="Retinues 3.1 - Clan- und Königreichstruppen" />
+    <string
+      id="ret_man_troops_types_text"
+      text="Mehrere Doktrinen schalten zusätzliche Truppentypen außerhalb des Hauptbaums frei, und der Editor bietet Werkzeuge zum Verwalten der Baumstruktur sowie zur Übersicht über andere Clans in Ihrem Königreich.{newline}{newline}Milizen und Spezialtruppen: Drei Doktrinen schalten zusätzliche benutzerdefinierte Truppentypen frei. Unerschütterliche Miliz schaltet benutzerdefinierte Miliztruppen frei, die die standardmäßige Kulturmiliz in den Städten und Burgen Ihrer Fraktion in einem täglichen Zyklus ersetzen. Straßenwächter schaltet benutzerdefinierte Karawanentruppen frei, die von den Karawanen Ihrer Fraktion genutzt werden. Bewaffnete Bauernschaft schaltet benutzerdefinierte Dorfbewohnertruppen frei, die von den Dorfgruppen Ihrer Fraktion verwendet werden.{newline}{newline}Kapitäne: Die Doktrin Kapitäne schaltet Kapitän-Varianten für alle regulären Truppen frei. Ein Kapitän ist eine stärkere Version, die periodisch an ihrer Stelle erscheint. Die Spawnrate ist über die Einstellung Kapitän-Spawnrate konfigurierbar (Standard: 1 pro 15 reguläre Truppen). Kapitäne können keine eigenen Aufrüstziele haben und können nicht im Rang steigen. Ihre Ausrüstung wird separat bearbeitet, aber sie teilen sich die Ausrüstungskosten mit ihrer Basistruppe.{newline}{newline}Aufrüstungen und Entfernen: Sie können jeder nicht-heroischen benutzerdefinierten Truppe ein Aufrüstziel hinzufügen, die nicht auf Max-Rang ist und weniger als 4 Aufrüstziele hat. Die neue Truppe wird einen Rang über ihrem Elternteil erstellt und erbt dessen Fertigkeiten. Um eine Truppe zu entfernen, müssen Sie zuerst alle ihre Aufrüstziele entfernen. Wurzeltruppen können nicht entfernt werden. Wenn eine Truppe entfernt wird, werden alle Einheiten dieses Typs in der Welt in ihr Kultur-Gegenstück umgewandelt.{newline}{newline}Andere Clans: Wenn Sie Herrscher sind, lässt Sie der Editor die benutzerdefinierten Truppenbäume anderer Clans in Ihrem Königreich verwalten. Klicken Sie auf das linke Banner, um einen anderen Clan auszuwählen. Wenn der ausgewählte Clan noch keine benutzerdefinierten Truppen hat, werden Sie aufgefordert, sie zu initialisieren, indem Sie den bestehenden Baum des Königreichs kopieren oder von Kulturwurzeln aus beginnen." />
+    <string
+      id="ret_man_troops_types_title"
+      text="Retinues 3.3 - Spezialtruppen &amp; Baum" />
+    <string
+      id="ret_manual_button_label"
+      text="Handbuch öffnen" />
+    <string
       id="ret_mariner_captain_reason"
       text="Hauptleute teilen die Seefahrer-Fähigkeit ihrer Basistruppen" />
     <string
@@ -1886,6 +1976,12 @@
       id="ret_mcm_option_same_culture_only_hint"
       text="Wenn aktiviert, können benutzerdefinierte Truppen nur in Siedlungen derselben Kultur rekrutiert werden." />
     <string
+      id="ret_mcm_option_shared_skill_points_pool"
+      text="Geteilter Fertigkeitspunkte-Pool" />
+    <string
+      id="ret_mcm_option_shared_skill_points_pool_hint"
+      text="Wenn aktiviert, ziehen alle benutzerdefinierten Truppen Fertigkeitspunkte aus einem einzigen gemeinsamen Pool, anstatt dass jede Truppe ihren eigenen hat." />
+    <string
       id="ret_mcm_option_skill_cap"
       text="Fähigkeitsgrenze Stufe {TIER}" />
     <string
@@ -2113,6 +2209,15 @@
     <string
       id="ret_preset_default_tooltip"
       text="Standardvoreinstellung anwenden: ein ausgewogenes Erlebnis für den ersten Durchgang" />
+    <string
+      id="ret_preset_description_default"
+      text="Die Standardkonfiguration, ausgewogen für den ersten Durchlauf.{newline}{newline}Gefolge-Boni sind aktiv, Clantruppen werden mit Ihrem ersten Lehen freigeschaltet, Ausrüstung kostet Geld und Gegenstände müssen durch Kills und Werkstätten freigeschaltet werden, bevor sie ausgerüstet werden können. Fertigkeitspunkte müssen im Kampf verdient werden." />
+    <string
+      id="ret_preset_description_freeform"
+      text="Eine kreative Sandbox: keine Kosten, keine Anforderungen, keine Einschränkungen.{newline}{newline}Doktrinen sind kostenlos zu erwerben. Ausrüstung ist kostenlos und alle Gegenstände sind sofort verfügbar. Fertigkeitspunkte können frei zugewiesen werden, ohne Erfahrungsanforderung. Clantruppen sind von Anfang an verfügbar und können überall rekrutiert werden." />
+    <string
+      id="ret_preset_description_realistic"
+      text="Ein strengeres Erlebnis, das verdienten Fortschritt und Fraktionsidentität betont.{newline}{newline}Fertigkeits- und Ausrüstungsgrenzen werden im Universellen Editor durchgesetzt. Truppen können nur in einem eigenen Lehen verändert werden. Gefolge-Boni sind deaktiviert. Ausrüsten und Training brauchen Zeit. Ausrüstung unterliegt rangbasierten Gewichts- und Wertlimits. Truppen können nur in Siedlungen derselben Kultur rekrutiert werden, und zu Spielbeginn werden nur Kulturwurzeln erzeugt." />
     <string
       id="ret_preset_freeform_button"
       text="Freiform" />
@@ -2399,6 +2504,15 @@
       id="ret_select_culture_title"
       text="Kultur auswählen" />
     <string
+      id="ret_shared_skill_experience_tooltip"
+      text="{XP} XP im gemeinsamen Pool (nächster Punkt bei {XP_REQUIRED})" />
+    <string
+      id="ret_shared_skill_point_gained"
+      text="Ihre Truppen haben einen Fertigkeitspunkt verdient." />
+    <string
+      id="ret_shared_skill_points_gained"
+      text="Ihre Truppen haben {POINTS} Fertigkeitspunkte verdient." />
+    <string
       id="ret_skill_decrease_sources_reason"
       text="Kann nicht unter das Fähigkeitsniveau von {SOURCE} gesenkt werden" />
     <string
@@ -2413,6 +2527,9 @@
     <string
       id="ret_skill_description_text"
       text="Fertigkeitspunkte: {SKILL_POINTS} - Fertigkeitslimit: {SKILL_CAP} - Stufe: {TIER}" />
+    <string
+      id="ret_skill_description_text_shared"
+      text="Pool: {SKILL_POINTS} Pkt - Fertigkeitslimit: {SKILL_CAP} - Stufe: {TIER}" />
     <string
       id="ret_skill_description_text_short"
       text="Fertigkeitslimit: {SKILL_CAP} - Stufe: {TIER}" />
@@ -2510,11 +2627,53 @@
       id="ret_statistics_button_label"
       text="Statistiken anzeigen" />
     <string
+      id="ret_statistics_casualties_sentence"
+      text="{TOTAL} Verluste erlitten: {BREAKDOWN}." />
+    <string
+      id="ret_statistics_culture_entry"
+      text="{COUNT} gegen {CULTURE}" />
+    <string
+      id="ret_statistics_culture_more"
+      text="{COUNT} weitere" />
+    <string
+      id="ret_statistics_deployments"
+      text="{TOTAL} Truppen in {PARTIES} Gruppen und {GARRISONS} Garnisonen stationiert." />
+    <string
+      id="ret_statistics_field_entry"
+      text="{COUNT} Feldschlachten" />
+    <string
+      id="ret_statistics_fought_in"
+      text="Gekämpft in {LIST}." />
+    <string
+      id="ret_statistics_in_service"
+      text="{NAME} ist seit {YEARS} Jahren, {SEASONS} Jahreszeiten und {DAYS} Tagen im Dienst." />
+    <string
+      id="ret_statistics_kills_sentence"
+      text="{TOTAL} Feinde getötet: {BREAKDOWN}." />
+    <string
+      id="ret_statistics_most_feared"
+      text="Gefürchtetster Gegner: {NAME}." />
+    <string
+      id="ret_statistics_most_slain"
+      text="Am häufigsten besiegter Feind: {NAME}." />
+    <string
+      id="ret_statistics_naval_entry"
+      text="{COUNT} Seeschlachten" />
+    <string
       id="ret_statistics_player_only"
       text="Im Universal-Editor nicht verfügbar" />
     <string
       id="ret_statistics_popup_title"
       text="Statistiken" />
+    <string
+      id="ret_statistics_raid_entry"
+      text="{COUNT} Überfälle" />
+    <string
+      id="ret_statistics_siege_entry"
+      text="{COUNT} Belagerungen" />
+    <string
+      id="ret_statistics_victories_defeats"
+      text="{WON} Siege errungen, {LOST} Niederlagen erlitten." />
     <string
       id="ret_status_captain_disabled"
       text="Inaktiv" />
