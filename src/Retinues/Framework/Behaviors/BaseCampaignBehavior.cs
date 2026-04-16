@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Reflection.Emit;
 using Retinues.Behaviors.Doctrines.Definitions;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Equipments.Wrappers;
@@ -363,18 +364,10 @@ namespace Retinues.Framework.Behaviors
                         )
                 );
 
+#if BL13 || BL14
             if (IsOverridden(nameof(OnHideoutBattleCompleted)))
-                CampaignEvents.OnHideoutBattleCompletedEvent.AddNonSerializedListener(
-                    this,
-                    (winnerSide, hideoutEventComponent) =>
-                        SafeInvoke(() =>
-                            OnHideoutBattleCompleted(
-                                winnerSide,
-                                WrapMapEvent(hideoutEventComponent.MapEvent),
-                                hideoutEventComponent
-                            )
-                        )
-                );
+                SubscribeHideoutBattleCompleted();
+#endif
 
             if (IsOverridden(nameof(OnTroopRecruited)))
                 CampaignEvents.OnTroopRecruitedEvent.AddNonSerializedListener(
@@ -404,6 +397,79 @@ namespace Retinues.Framework.Behaviors
                         )
                 );
         }
+
+#if BL13 || BL14
+        private void SubscribeHideoutBattleCompleted()
+        {
+            // Access the property itself via reflection so the compiled binary is not
+            // bound to a specific MbEvent<2> or MbEvent<3> return type at the call-site.
+            var evProp = typeof(CampaignEvents).GetProperty(
+                "OnHideoutBattleCompletedEvent",
+                BindingFlags.Public | BindingFlags.Static
+            );
+            if (evProp == null)
+                return;
+
+            var ev = evProp.GetValue(null);
+            if (ev == null)
+                return;
+
+            var evType = ev.GetType();
+            var addMethod = evType.GetMethod(
+                "AddNonSerializedListener",
+                BindingFlags.Public | BindingFlags.Instance
+            );
+            if (addMethod == null)
+                return;
+
+            var delegateType = addMethod.GetParameters()[1].ParameterType;
+            var genericArgs = delegateType.GetGenericArguments();
+
+            Action<BattleSideEnum, HideoutEventComponent> handler = (winnerSide, comp) =>
+                SafeInvoke(() =>
+                    OnHideoutBattleCompleted(winnerSide, WrapMapEvent(comp.MapEvent), comp)
+                );
+
+            // BL13: 2-arg delegate; BL14+: 3-arg — build an adapter that discards extra args.
+            Delegate del =
+                genericArgs.Length == 2
+                    ? (Delegate)handler
+                    : CreateHideoutAdapter(delegateType, genericArgs, handler);
+
+            addMethod.Invoke(ev, new object[] { this, del });
+        }
+
+        private static Delegate CreateHideoutAdapter(
+            Type delegateType,
+            Type[] genericArgs,
+            Action<BattleSideEnum, HideoutEventComponent> inner
+        )
+        {
+            // DynamicMethod: arg_0 is the bound target (inner Action); args 1..n are the event parameters.
+            var dmParams = new Type[genericArgs.Length + 1];
+            dmParams[0] = inner.GetType();
+            for (int i = 0; i < genericArgs.Length; i++)
+                dmParams[i + 1] = genericArgs[i];
+
+            var dm = new DynamicMethod(
+                "HideoutBattleCompletedAdapter",
+                returnType: null,
+                parameterTypes: dmParams,
+                m: typeof(BaseCampaignBehavior).Module,
+                skipVisibility: true
+            );
+
+            var il = dm.GetILGenerator();
+            il.Emit(OpCodes.Ldarg_0); // bound inner Action
+            il.Emit(OpCodes.Ldarg_1); // BattleSideEnum
+            il.Emit(OpCodes.Ldarg_2); // HideoutEventComponent
+            // extra args (Ldarg_3, …) are intentionally ignored
+            il.Emit(OpCodes.Callvirt, inner.GetType().GetMethod("Invoke")!);
+            il.Emit(OpCodes.Ret);
+
+            return dm.CreateDelegate(delegateType, inner);
+        }
+#endif
 
         /// <summary>
         /// Automatically register overridden custom event handlers.

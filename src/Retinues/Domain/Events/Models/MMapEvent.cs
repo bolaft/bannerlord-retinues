@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Reflection;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Events.Helpers;
 using Retinues.Domain.Parties.Wrappers;
@@ -15,6 +16,17 @@ namespace Retinues.Domain.Events.Models
     /// </summary>
     public sealed class MMapEvent(MapEvent @base) : MBase<MapEvent>(@base)
     {
+        // Reflected BL13-only members (null on BL14+ at runtime).
+        private static readonly MethodInfo _getBattleRewardsMethod = typeof(MapEvent).GetMethod(
+            "GetBattleRewards",
+            BindingFlags.Public | BindingFlags.Instance
+        );
+        private static readonly PropertyInfo _moraleChangeProperty =
+            typeof(MapEventParty).GetProperty(
+                "MoraleChange",
+                BindingFlags.Public | BindingFlags.Instance
+            );
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Settlement                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -133,14 +145,17 @@ namespace Retinues.Domain.Events.Models
 
             try
             {
-                Base.GetBattleRewards(
-                    Player.Party.PartyBase,
-                    out _renownReward,
-                    out _influenceReward,
-                    out _moraleReward,
-                    out _goldReward,
-                    out _
-                );
+#if BL13 || BL14
+                if (_getBattleRewardsMethod != null)
+                {
+                    var args = new object[] { Player.Party.PartyBase, 0f, 0f, 0f, 0f, null };
+                    _getBattleRewardsMethod.Invoke(Base, args);
+                    _renownReward = (float)args[1];
+                    _influenceReward = (float)args[2];
+                    _moraleReward = (float)args[3];
+                    _goldReward = (float)args[4];
+                }
+#endif
             }
             catch
             {
@@ -203,7 +218,11 @@ namespace Retinues.Domain.Events.Models
                             contributionToBattle: p?.ContributionToBattle ?? 0,
                             gainedRenown: p?.GainedRenown ?? 0f,
                             gainedInfluence: p?.GainedInfluence ?? 0f,
-                            moraleChange: p?.MoraleChange ?? 0f,
+#if BL13 || BL14
+                            moraleChange: _moraleChangeProperty != null
+                                ? (_moraleChangeProperty.GetValue(p) as float? ?? 0f)
+                                : 0f,
+#endif
                             plunderedGold: p?.PlunderedGold ?? 0,
                             goldLost: p?.GoldLost ?? 0
                         )
