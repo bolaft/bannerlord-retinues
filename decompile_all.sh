@@ -5,10 +5,24 @@ BASE="$(cd -- "$(dirname -- "$0")" && pwd -P)"
 SRC_BASE="$BASE/dll"
 OUT_BASE="$BASE/src/TaleWorlds"
 
+# Parse args
+FILTER_VERSION=""
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    -v) FILTER_VERSION="$2"; shift 2 ;;
+    *) echo "[ERROR] Unknown argument: $1"; exit 1 ;;
+  esac
+done
+
 # Auto-detect versions under ./dll (dirs named with digits), or hardcode: VERSIONS=(12 13 14)
 mapfile -t VERSIONS < <(find "$SRC_BASE" -maxdepth 1 -mindepth 1 -type d -printf '%f\n' | grep -E '^[0-9]+' | sort)
 # Fallback if none found:
 [[ ${#VERSIONS[@]} -eq 0 ]] && VERSIONS=(12 13 14)
+
+# Filter to requested version if -v was given
+if [[ -n "$FILTER_VERSION" ]]; then
+  VERSIONS=("$FILTER_VERSION")
+fi
 
 EXCLUDE_REGEX='^(System(\..*)?|Microsoft(\..*)?|mscorlib|netstandard|WindowsBase|PresentationFramework|PresentationCore)$'
 # To include everything, set: EXCLUDE_REGEX=''
