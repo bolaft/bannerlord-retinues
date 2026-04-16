@@ -71,7 +71,7 @@
                                 SuggestedWidth="72" SuggestedHeight="36"
                                 HorizontalAlignment="Center" VerticalAlignment="Center"
                                 ImageId="@ImageId"
-                            {% if version == "13" %}
+                            {% if version | int >= 13 %}
                                 TextureProviderName="@ImageTextureProviderName"
                             {% else %}
                                 ImageTypeCode="@ImageTypeCode"

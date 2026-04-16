@@ -57,7 +57,7 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 ImageId="{{ id_expr }}"
-{% if version == "13" %}
+{% if version | int >= 13 %}
                 TextureProviderName="{{ texture_provider }}"
 {% else %}
                 ImageTypeCode="{{ image_type }}"
