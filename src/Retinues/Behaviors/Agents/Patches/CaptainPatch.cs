@@ -22,7 +22,11 @@ namespace Retinues.Behaviors.Agents.Patches
         private static Mission _lastMission;
         private static readonly Dictionary<string, int> _spawnCounts = [];
 
-        static void Postfix(UniqueTroopDescriptor troopDescriptor, ref CharacterObject __result)
+        [HarmonyPostfix]
+        private static void Postfix(
+            UniqueTroopDescriptor troopDescriptor,
+            ref CharacterObject __result
+        )
         {
             try
             {
@@ -43,7 +47,7 @@ namespace Retinues.Behaviors.Agents.Patches
                     return;
 
                 // Normalize: count by BASE troop id (captain spawns should still count towards the base pool).
-                var baseWc = wc.IsCaptain ? (wc.CaptainBase ?? wc) : wc;
+                var baseWc = wc.NonVariantBase();
                 if (baseWc == null || baseWc.Base == null || baseWc.IsHero)
                     return;
 

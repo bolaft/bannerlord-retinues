@@ -69,6 +69,9 @@ namespace Retinues.Behaviors.Agents.Patches
                 )
                     fc = fc.DismountedClass();
 
+                if ((int)fc >= 8)
+                    fc = fc.DefaultClass();
+
                 __result = fc;
                 return false;
             }
@@ -84,7 +87,7 @@ namespace Retinues.Behaviors.Agents.Patches
         typeof(SandboxBattleSpawnModel),
         nameof(SandboxBattleSpawnModel.GetInitialSpawnAssignments)
     )]
-    public static class Patch_SandboxBattleSpawnModel_GetInitialSpawnAssignments
+    internal static class Patch_SandboxBattleSpawnModel_GetInitialSpawnAssignments
     {
         /// <summary>
         /// Postfix that adjusts initial spawn assignments to honor edited formation classes.

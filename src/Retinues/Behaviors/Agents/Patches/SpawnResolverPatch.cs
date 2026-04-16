@@ -9,7 +9,7 @@ namespace Retinues.Behaviors.Agents.Patches
     /// Applies spawn-time overrides (equipment context rules + mixed gender) to agent spawning.
     /// </summary>
     [HarmonyPatch(typeof(Mission), "SpawnAgent")]
-    internal static class AgentSpawnPatches
+    internal static class SpawnResolverPatch
     {
         /// <summary>
         /// Prefix patch that applies spawn resolution to the agent build data before spawning.
