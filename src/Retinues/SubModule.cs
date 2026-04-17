@@ -6,6 +6,7 @@ using Retinues.Framework.Modules;
 using Retinues.Framework.Modules.Dependencies;
 using Retinues.Framework.Modules.Dependencies.Core;
 using Retinues.Framework.Runtime;
+using Retinues.Migration;
 using Retinues.Settings;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
@@ -81,6 +82,10 @@ namespace Retinues
                 // listeners from the previous session are gone when OnGameStart fires again).
                 _campaignRefreshHooksRegistered = false;
                 RegisterCampaignStaticRefreshHooks();
+
+                // Legacy save migration shims (must be registered before
+                // BehaviorManager so SyncData is populated in time).
+                LegacyMigrationRegistrar.Register(cs);
 
                 // Core Retinues behaviors (auto-discovered).
                 BehaviorManager.RegisterCampaignBehaviors(cs);

@@ -3,6 +3,7 @@ using System.IO;
 using System.Text;
 using Retinues.Framework.Behaviors;
 using Retinues.Interface.Services;
+using Retinues.Migration;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
@@ -72,6 +73,17 @@ namespace Retinues.Framework.Modules.Versions
                 var currentVersionString =
                     currentModule.Version ?? ModuleManager.UnknownVersionString;
                 var currentAppVersion = currentModule.AppVersion;
+
+                // v1 → v2 legacy migration: coordinator fires first and sets this static.
+                // Show the migration-specific popup and skip the generic version-change popup.
+                if (!string.IsNullOrEmpty(LegacyMigrationCoordinator.DetectedLegacySaveVersion))
+                {
+                    ShowMigrationPopup(
+                        currentVersionString,
+                        LegacyMigrationCoordinator.DetectedLegacySaveVersion
+                    );
+                    return;
+                }
 
                 Log.Debug($"Retinues version (current): {currentVersionString}");
                 Log.Debug($"Retinues version (in save): {_savedVersion}");
@@ -149,6 +161,31 @@ namespace Retinues.Framework.Modules.Versions
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Popups                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Shows the migration popup when a v1 → v2 legacy save is detected.
+        /// </summary>
+        private static void ShowMigrationPopup(
+            string currentVersionString,
+            string saveVersionString
+        )
+        {
+            var title = L.T("migration_popup_title", "Retinues \u2013 Legacy Save Migrated");
+
+            var body = L.TV(
+                "migration_popup_body",
+                "Your save data from Retinues {SAVE_VERSION} has been "
+                    + "migrated to the current version ({CURRENT_VERSION}) on a best-effort basis. "
+                    + "Some data (partial doctrine unlock progress and auto-join configuration) could not be transferred.\n\n"
+                    + "It is recommended to start a new save for the best experience.\n\n"
+                    + "If you wish to continue on your old save with the previous version instead, "
+                    + "do not save and download the {SAVE_VERSION} file from Nexus Mods.",
+                ("SAVE_VERSION", saveVersionString),
+                ("CURRENT_VERSION", currentVersionString)
+            );
+
+            Inquiries.Popup(title, body, delayUntilOnWorldMap: true);
+        }
 
         /// <summary>
         /// Shows the "version upgraded" popup.
