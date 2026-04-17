@@ -164,6 +164,10 @@ namespace Retinues.Behaviors.Agents
             if (wc == null || mission == null || data == null)
                 return;
 
+            // Skip vanilla troops that haven't been touched by the mod at all.
+            if (wc.IsVanilla && !wc.IsEdited)
+                return;
+
             // Respect other systems that already forced equipment.
             if (data.AgentFixedEquipment)
                 return;
@@ -230,10 +234,13 @@ namespace Retinues.Behaviors.Agents
                 return;
             }
 
-            // Always force a single full equipment set when multiple are eligible.
-            // This prevents per-slot mixing when more than one set is enabled for the context.
-            var chosenEq =
-                eligible.Count == 1 ? eligible[0] : eligible[MBRandom.RandomInt(eligible.Count)];
+            // Only intervene when there are multiple eligible sets.
+            // With a single set the engine's GetRandomEquipmentElements produces the same result
+            // without the overhead, and we avoid changing vanilla troop behavior unnecessarily.
+            if (eligible.Count == 1)
+                return;
+
+            var chosenEq = eligible[MBRandom.RandomInt(eligible.Count)];
 
             if (chosenEq?.Base == null)
                 return;
