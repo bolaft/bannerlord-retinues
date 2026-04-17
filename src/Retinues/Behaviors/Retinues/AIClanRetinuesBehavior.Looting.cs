@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Retinues.Behaviors.Missions;
+using Retinues.Domain;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Domain.Events.Models;
@@ -16,6 +17,183 @@ namespace Retinues.Behaviors.Retinues
 {
     public sealed partial class AIClanRetinuesBehavior
     {
+        // ── Autoresolve looting state ─────────────────────────────────────────────
+        // Captured at OnMapEventStarted; consumed by OnMapEventEnded or cleared by OnMissionEnded.
+        private MMapEvent.Snapshot _preBattleSnapshot;
+        private List<(WCharacter Troop, int Count, List<WItem> Items)> _preBattleTroopData;
+        private bool _lootHandledByMission;
+
+        // ─────────────────────────────────────────────────────────────────────────
+
+        protected override void OnMapEventStarted(MMapEvent mapEvent)
+        {
+            _preBattleSnapshot = null;
+            _preBattleTroopData = null;
+            _lootHandledByMission = false;
+
+            if (!Configuration.EnableAIClanRetinues)
+                return;
+
+            if (!mapEvent.IsPlayerInvolved)
+                return;
+
+            _preBattleSnapshot = mapEvent.TakeSnapshot();
+
+            var roster = Player.Party?.MemberRoster;
+            if (roster == null)
+                return;
+
+            _preBattleTroopData = [];
+
+            foreach (var element in roster.Elements)
+            {
+                var troop = element.Troop;
+                if (troop == null || !troop.IsCustom)
+                    continue;
+
+                var count = element.Number;
+                if (count <= 0)
+                    continue;
+
+                var eq = troop.FirstBattleEquipment;
+                if (eq == null)
+                    continue;
+
+                var items = new List<WItem>();
+                foreach (var item in eq.Items)
+                {
+                    if (item?.Base != null)
+                        items.Add(item);
+                }
+
+                if (items.Count > 0)
+                    _preBattleTroopData.Add((troop, count, items));
+            }
+
+            Log.Debug(
+                $"[AIClanRetinue.Loot] Pre-battle snapshot: {_preBattleTroopData.Count} custom troop types."
+            );
+        }
+
+        protected override void OnMapEventEnded(MMapEvent mapEvent)
+        {
+            var snapshot = _preBattleSnapshot;
+            var troopData = _preBattleTroopData;
+            _preBattleSnapshot = null;
+            _preBattleTroopData = null;
+
+            if (_lootHandledByMission)
+            {
+                _lootHandledByMission = false;
+                Log.Debug("[AIClanRetinue.Loot] Autoresolve skipped: already handled by mission.");
+                return;
+            }
+
+            _lootHandledByMission = false;
+
+            if (!Configuration.EnableAIClanRetinues)
+                return;
+
+            if (snapshot == null || troopData == null || troopData.Count == 0)
+                return;
+
+            if (!snapshot.IsPlayerInvolved || snapshot.IsWon)
+            {
+                Log.Debug("[AIClanRetinue.Loot] Autoresolve: skipped (not lost or not involved).");
+                return;
+            }
+
+            var lootPool = BuildAutoresolveLootPool(troopData);
+            Log.Debug($"[AIClanRetinue.Loot] Autoresolve loot pool size: {lootPool.Count}");
+
+            if (lootPool.Count == 0)
+                return;
+
+            var enemySide = snapshot.EnemySide;
+            if (enemySide == null)
+            {
+                Log.Debug("[AIClanRetinue.Loot] Autoresolve: skipped (no enemy side).");
+                return;
+            }
+
+            var retinuesToLoot = new List<WCharacter>();
+            var seenClanIds = new HashSet<string>(StringComparer.Ordinal);
+            string lootingClanName = null;
+
+            foreach (var partyData in enemySide.PartyData)
+            {
+                var party = partyData?.Party;
+                if (party?.Base == null)
+                    continue;
+
+                var rawClan = party.Base.ActualClan ?? party.Base.LeaderHero?.Clan;
+                if (rawClan == null || rawClan == Clan.PlayerClan)
+                    continue;
+
+                var clan = WClan.Get(rawClan.StringId);
+                if (clan?.Base == null || clan.IsEliminated || clan.IsBanditFaction)
+                    continue;
+
+                if (!seenClanIds.Add(clan.StringId))
+                    continue;
+
+                var rawRetinues = clan.GetRawRetinues();
+                Log.Debug(
+                    $"[AIClanRetinue.Loot] Autoresolve clan '{clan.Name}' has {rawRetinues.Count} retinues."
+                );
+
+                if (rawRetinues.Count > 0)
+                    lootingClanName ??= clan.Name;
+
+                foreach (var retinue in rawRetinues)
+                {
+                    if (retinue?.Base != null)
+                        retinuesToLoot.Add(retinue);
+                }
+            }
+
+            Log.Debug(
+                $"[AIClanRetinue.Loot] Autoresolve retinues eligible: {retinuesToLoot.Count}"
+            );
+
+            if (retinuesToLoot.Count == 0)
+                return;
+
+            var lootResults = new List<(string RetinueName, string ItemName)>();
+            foreach (var retinue in retinuesToLoot)
+                TryLootItemForRetinue(retinue, lootPool, lootResults);
+
+            Log.Debug($"[AIClanRetinue.Loot] Autoresolve items looted: {lootResults.Count}");
+
+            NotifyPlayerOfLooting(lootResults, lootingClanName);
+        }
+
+        private List<WItem> BuildAutoresolveLootPool(
+            List<(WCharacter Troop, int Count, List<WItem> Items)> troopData
+        )
+        {
+            var pool = new List<WItem>();
+            var currentRoster = Player.Party?.MemberRoster;
+
+            foreach (var (troop, preBattleCount, items) in troopData)
+            {
+                int postBattleCount = currentRoster?.CountOf(troop) ?? 0;
+                int casualties = Math.Max(0, preBattleCount - postBattleCount);
+
+                Log.Debug(
+                    $"[AIClanRetinue.Loot] Autoresolve: '{troop.Name}' {preBattleCount} → {postBattleCount} ({casualties} casualties)"
+                );
+
+                for (int i = 0; i < casualties; i++)
+                    foreach (var item in items)
+                        pool.Add(item);
+            }
+
+            return pool;
+        }
+
+        // ─────────────────────────────────────────────────────────────────────────
+
         /// <summary>
         /// When the player loses or retreats from a battle against AI clans that have retinues,
         /// each of those retinues may loot one item from player custom troop casualties —
@@ -23,6 +201,9 @@ namespace Retinues.Behaviors.Retinues
         /// </summary>
         protected override void OnMissionEnded(MMission mission)
         {
+            // Mark as handled so the OnMapEventEnded autoresolve path is skipped.
+            _lootHandledByMission = true;
+
             if (!Configuration.EnableAIClanRetinues)
             {
                 Log.Debug("[AIClanRetinue.Loot] Skipped: EnableAIClanRetinues is false.");
