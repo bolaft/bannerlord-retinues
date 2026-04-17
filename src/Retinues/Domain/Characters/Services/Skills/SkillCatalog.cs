@@ -187,7 +187,11 @@ namespace Retinues.Domain.Characters.Services.Skills
                 .. list.Where(s => s != null && !string.IsNullOrEmpty(s.StringId))
                     .GroupBy(s => s.StringId)
                     .Select(g => g.First())
-                    .OrderBy(s => DefaultSkillIds.Contains(s.StringId) ? 0 : 1)
+                    .OrderBy(s =>
+                        !DefaultSkillIds.Contains(s.StringId) ? 2 // modded  – last
+                        : IsDlcId(s.StringId) ? 1 // DLC     – middle
+                        : 0 // vanilla – first
+                    )
                     .ThenBy(s => s.StringId),
             ];
         }
