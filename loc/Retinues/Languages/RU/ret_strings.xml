@@ -1643,6 +1643,12 @@
       id="ret_mariner_captain_reason"
       text="Капитаны разделяют способность мореплавателя своих базовых войск" />
     <string
+      id="ret_mariner_disable_confirm_description"
+      text="У этой войсковой части вложено {POINTS} очков в навык Мореплавателя. Отключение способности Мореплавателя сбросит его до 0." />
+    <string
+      id="ret_mariner_disable_confirm_title"
+      text="Отключить способность Мореплавателя" />
+    <string
       id="ret_mariner_disable_tooltip"
       text="Отключить черту мореплавателя" />
     <string
@@ -2131,6 +2137,12 @@
     <string
       id="ret_mcm_section_user_interface_desc"
       text="Доступ к редактору и уведомления в игре." />
+    <string
+      id="ret_migration_popup_body"
+      text="Данные сохранения из Retinues {SAVE_VERSION} были перенесены в текущую версию ({CURRENT_VERSION}) по мере возможности. Рекомендуется начать новое сохранение для наилучшего опыта.{newline}{newline}Если вы хотите продолжить со старым сохранением на предыдущей версии, не сохраняйте и загрузите файл {SAVE_VERSION} с Nexus Mods." />
+    <string
+      id="ret_migration_popup_title"
+      text="Обновление Retinues v2" />
     <string
       id="ret_mixed_gender_disable_tooltip"
       text="Разрешить юниту появляться в обоих полах" />
@@ -2824,6 +2836,21 @@
     <string
       id="ret_unlock_and"
       text="и" />
+    <string
+      id="ret_unlock_hint_acquire_fief"
+      text="Приобретите фьеф, чтобы разблокировать элитные войска." />
+    <string
+      id="ret_unlock_hint_acquire_fief_regular"
+      text="Приобретите фьеф, чтобы разблокировать обычные войска." />
+    <string
+      id="ret_unlock_hint_armed_peasantry"
+      text="Разблокируйте с помощью доктрины Вооруженного Крестьянства." />
+    <string
+      id="ret_unlock_hint_road_wardens"
+      text="Разблокируйте с помощью доктрины Стражей Дорог." />
+    <string
+      id="ret_unlock_hint_stalwart_militia"
+      text="Разблокируйте с помощью доктрины Стойкой Милиции." />
     <string
       id="ret_unlock_more"
       text="еще {COUNT}" />

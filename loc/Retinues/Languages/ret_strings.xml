@@ -2138,6 +2138,12 @@
       id="ret_mcm_section_user_interface_desc"
       text="Editor access and in-game notifications." />
     <string
+      id="ret_migration_popup_body"
+      text="Your save data from Retinues {SAVE_VERSION} has been migrated to the current version ({CURRENT_VERSION}) on a best-effort basis. It is recommended to start a new save for the best experience.{newline}{newline}If you wish to continue on your old save with the previous version instead, do not save and download the {SAVE_VERSION} file from Nexus Mods." />
+    <string
+      id="ret_migration_popup_title"
+      text="Retinues v2 Update" />
+    <string
       id="ret_mixed_gender_disable_tooltip"
       text="Allow unit to spawn in either gender" />
     <string

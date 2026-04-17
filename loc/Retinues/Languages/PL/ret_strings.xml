@@ -1643,6 +1643,12 @@
       id="ret_mariner_captain_reason"
       text="Kapitanowie dzielą zdolność marynarza swoich podstawowych oddziałów" />
     <string
+      id="ret_mariner_disable_confirm_description"
+      text="Ta jednostka ma zainwestowane {POINTS} punktów w umiejętność Marynarza. Wyłączenie zdolności Marynarza zresetuje ją do 0." />
+    <string
+      id="ret_mariner_disable_confirm_title"
+      text="Wyłącz zdolność Marynarza" />
+    <string
       id="ret_mariner_disable_tooltip"
       text="Wyłącz cechę marynarza" />
     <string
@@ -2131,6 +2137,12 @@
     <string
       id="ret_mcm_section_user_interface_desc"
       text="Dostęp do edytora i powiadomienia w grze." />
+    <string
+      id="ret_migration_popup_body"
+      text="Dane zapisu z Retinues {SAVE_VERSION} zostały przeniesione do bieżącej wersji ({CURRENT_VERSION}) w najlepszy możliwy sposób. Zaleca się rozpoczęcie nowej gry dla najlepszych wrażeń.{newline}{newline}Jeśli chcesz kontynuować ze starym zapisem na poprzedniej wersji, nie zapisuj gry i pobierz plik {SAVE_VERSION} z Nexus Mods." />
+    <string
+      id="ret_migration_popup_title"
+      text="Aktualizacja Retinues v2" />
     <string
       id="ret_mixed_gender_disable_tooltip"
       text="Pozwól jednostce pojawić się w obu płciach" />
@@ -2824,6 +2836,21 @@
     <string
       id="ret_unlock_and"
       text="i" />
+    <string
+      id="ret_unlock_hint_acquire_fief"
+      text="Zdobyj lenno, aby odblokować oddziały elity." />
+    <string
+      id="ret_unlock_hint_acquire_fief_regular"
+      text="Zdobyj lenno, aby odblokować oddziały regularne." />
+    <string
+      id="ret_unlock_hint_armed_peasantry"
+      text="Odblokuj za pomocą doktryny Uzbrojonego Chłopstwa." />
+    <string
+      id="ret_unlock_hint_road_wardens"
+      text="Odblokuj za pomocą doktryny Strażników Dróg." />
+    <string
+      id="ret_unlock_hint_stalwart_militia"
+      text="Odblokuj za pomocą doktryny Niezłomnej Milicji." />
     <string
       id="ret_unlock_more"
       text="jeszcze {COUNT}" />

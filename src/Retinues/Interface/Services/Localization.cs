@@ -21,7 +21,7 @@ namespace Retinues.Interface.Services
         /// <summary>
         /// Returns a TextObject with text variables applied.
         /// </summary>
-        public static TextObject TV(
+        private static TextObject TV(
             string id,
             string fallback,
             params (string Key, object Value)[] vars

@@ -1643,6 +1643,12 @@
       id="ret_mariner_captain_reason"
       text="Capitães compartilham a habilidade de marinheiro de suas tropas base" />
     <string
+      id="ret_mariner_disable_confirm_description"
+      text="Esta tropa tem {POINTS} ponto(s) investido(s) na habilidade de Marinheiro. Desativar a habilidade de marinheiro irá resetar para 0." />
+    <string
+      id="ret_mariner_disable_confirm_title"
+      text="Desativar habilidade de marinheiro" />
+    <string
       id="ret_mariner_disable_tooltip"
       text="Desativar traço de marinheiro" />
     <string
@@ -2131,6 +2137,12 @@
     <string
       id="ret_mcm_section_user_interface_desc"
       text="Acesso ao editor e notificações no jogo." />
+    <string
+      id="ret_migration_popup_body"
+      text="Seus dados de salvamento do Retinues {SAVE_VERSION} foram migrados para a versão atual ({CURRENT_VERSION}) com base no melhor esforço. Recomenda-se iniciar um novo jogo para a melhor experiência.{newline}{newline}Se preferir continuar na sua antiga save com a versão anterior, não salve e baixe o arquivo {SAVE_VERSION} no Nexus Mods." />
+    <string
+      id="ret_migration_popup_title"
+      text="Atualização do Retinues v2" />
     <string
       id="ret_mixed_gender_disable_tooltip"
       text="Permitir que a unidade apareça em qualquer gênero" />
@@ -2824,6 +2836,21 @@
     <string
       id="ret_unlock_and"
       text="e" />
+    <string
+      id="ret_unlock_hint_acquire_fief"
+      text="Adquira um feudo para desbloquear tropas de elite." />
+    <string
+      id="ret_unlock_hint_acquire_fief_regular"
+      text="Adquira um feudo para desbloquear tropas regulares." />
+    <string
+      id="ret_unlock_hint_armed_peasantry"
+      text="Desbloqueie com a doutrina dos Camponeses Armados." />
+    <string
+      id="ret_unlock_hint_road_wardens"
+      text="Desbloqueie com a doutrina dos Guardiões da Estrada." />
+    <string
+      id="ret_unlock_hint_stalwart_militia"
+      text="Desbloqueie com a doutrina da Milícia Firme." />
     <string
       id="ret_unlock_more"
       text="{COUNT} mais" />

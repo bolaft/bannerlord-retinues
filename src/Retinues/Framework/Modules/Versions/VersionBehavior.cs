@@ -170,19 +170,14 @@ namespace Retinues.Framework.Modules.Versions
             string saveVersionString
         )
         {
-            var title = L.T("migration_popup_title", "Retinues \u2013 Legacy Save Migrated");
+            var title = L.T("migration_popup_title", "Retinues v2 Update");
 
-            var body = L.TV(
-                "migration_popup_body",
-                "Your save data from Retinues {SAVE_VERSION} has been "
-                    + "migrated to the current version ({CURRENT_VERSION}) on a best-effort basis. "
-                    + "Some data (partial doctrine unlock progress and auto-join configuration) could not be transferred.\n\n"
-                    + "It is recommended to start a new save for the best experience.\n\n"
-                    + "If you wish to continue on your old save with the previous version instead, "
-                    + "do not save and download the {SAVE_VERSION} file from Nexus Mods.",
-                ("SAVE_VERSION", saveVersionString),
-                ("CURRENT_VERSION", currentVersionString)
-            );
+            var body = L.T(
+                    "migration_popup_body",
+                    "Your save data from Retinues {SAVE_VERSION} has been migrated to the current version ({CURRENT_VERSION}) on a best-effort basis. It is recommended to start a new save for the best experience.\n\nIf you wish to continue on your old save with the previous version instead, do not save and download the {SAVE_VERSION} file from Nexus Mods."
+                )
+                .SetTextVariable("SAVE_VERSION", saveVersionString)
+                .SetTextVariable("CURRENT_VERSION", currentVersionString);
 
             Inquiries.Popup(title, body, delayUntilOnWorldMap: true);
         }

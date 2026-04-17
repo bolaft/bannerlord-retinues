@@ -1643,6 +1643,12 @@
       id="ret_mariner_captain_reason"
       text="Les capitaines partagent la capacité de marin de leurs troupes de base" />
     <string
+      id="ret_mariner_disable_confirm_description"
+      text="Cette troupe a {POINTS} point(s) investis dans la compétence Marin. Désactiver la capacité de marin réinitialisera ce nombre à 0." />
+    <string
+      id="ret_mariner_disable_confirm_title"
+      text="Désactiver le trait marin" />
+    <string
       id="ret_mariner_disable_tooltip"
       text="Désactiver le trait &apos;marin&apos;" />
     <string
@@ -2131,6 +2137,12 @@
     <string
       id="ret_mcm_section_user_interface_desc"
       text="Accès à l&apos;éditeur et notifications en jeu." />
+    <string
+      id="ret_migration_popup_body"
+      text="Vos données de sauvegarde de Retinues {SAVE_VERSION} ont été migrées vers la version actuelle ({CURRENT_VERSION}) au mieux. Il est recommandé de commencer une nouvelle partie pour une expérience optimale.{newline}{newline}Si vous souhaitez continuer sur votre ancienne sauvegarde avec la version précédente, ne sauvegardez pas et téléchargez le fichier {SAVE_VERSION} sur Nexus Mods." />
+    <string
+      id="ret_migration_popup_title"
+      text="Mise à jour de Retinues v2" />
     <string
       id="ret_mixed_gender_disable_tooltip"
       text="Permettre à l&apos;unité d&apos;être déployée en tant qu&apos;homme ou femme" />
@@ -2824,6 +2836,21 @@
     <string
       id="ret_unlock_and"
       text="et" />
+    <string
+      id="ret_unlock_hint_acquire_fief"
+      text="Acquérir un fief pour débloquer les troupes d&apos;élite." />
+    <string
+      id="ret_unlock_hint_acquire_fief_regular"
+      text="Acquérir un fief pour débloquer les troupes régulières." />
+    <string
+      id="ret_unlock_hint_armed_peasantry"
+      text="Débloqué avec la doctrine Paysannerie Armée." />
+    <string
+      id="ret_unlock_hint_road_wardens"
+      text="Débloqué avec la doctrine Gardiens de la Route." />
+    <string
+      id="ret_unlock_hint_stalwart_militia"
+      text="Débloqué avec la doctrine Milice Inébranlable." />
     <string
       id="ret_unlock_more"
       text="{COUNT} de plus" />

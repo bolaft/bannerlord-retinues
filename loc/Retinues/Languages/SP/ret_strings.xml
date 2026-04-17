@@ -1643,6 +1643,12 @@
       id="ret_mariner_captain_reason"
       text="Los capitanes comparten la habilidad de marinero de sus tropas base" />
     <string
+      id="ret_mariner_disable_confirm_description"
+      text="Esta tropa tiene {POINTS} punto(s) invertido(s) en la habilidad de marinero. Desactivar la habilidad de marinero lo restablecerá a 0." />
+    <string
+      id="ret_mariner_disable_confirm_title"
+      text="Desactivar la habilidad de marinero" />
+    <string
       id="ret_mariner_disable_tooltip"
       text="Desactivar el rasgo de marinero" />
     <string
@@ -2131,6 +2137,12 @@
     <string
       id="ret_mcm_section_user_interface_desc"
       text="Acceso al editor y notificaciones en el juego." />
+    <string
+      id="ret_migration_popup_body"
+      text="Los datos de guardado de Retinues {SAVE_VERSION} han sido migrados a la versión actual ({CURRENT_VERSION}) en la medida de lo posible. Se recomienda iniciar una nueva partida para la mejor experiencia.{newline}{newline}Si desea continuar con la partida anterior usando la versión anterior, no guarde y descargue el archivo {SAVE_VERSION} de Nexus Mods." />
+    <string
+      id="ret_migration_popup_title"
+      text="Actualización de Retinues v2" />
     <string
       id="ret_mixed_gender_disable_tooltip"
       text="Permitir que la unidad aparezca en ambos géneros" />
@@ -2824,6 +2836,21 @@
     <string
       id="ret_unlock_and"
       text="y" />
+    <string
+      id="ret_unlock_hint_acquire_fief"
+      text="Adquiere un feudo para desbloquear tropas de élite." />
+    <string
+      id="ret_unlock_hint_acquire_fief_regular"
+      text="Adquiere un feudo para desbloquear tropas regulares." />
+    <string
+      id="ret_unlock_hint_armed_peasantry"
+      text="Desbloquea con la doctrina de los Campesinos Armados." />
+    <string
+      id="ret_unlock_hint_road_wardens"
+      text="Desbloquea con la doctrina de los Guardianes del Camino." />
+    <string
+      id="ret_unlock_hint_stalwart_militia"
+      text="Desbloquea con la doctrina de la Milicia Firme." />
     <string
       id="ret_unlock_more"
       text="{COUNT} más" />

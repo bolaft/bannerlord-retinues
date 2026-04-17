@@ -1643,6 +1643,12 @@
       id="ret_mariner_captain_reason"
       text="Kaptanlar, temel birliklerinin denizci yeteneğini paylaşır" />
     <string
+      id="ret_mariner_disable_confirm_description"
+      text="Bu birlik, Denizci becerisine {POINTS} puan yatırdı. Denizci yeteneğini devre dışı bırakmak, onu 0&apos;a sıfırlayacaktır." />
+    <string
+      id="ret_mariner_disable_confirm_title"
+      text="Denizci yeteneğini devre dışı bırak" />
+    <string
       id="ret_mariner_disable_tooltip"
       text="Denizci özelliğini devre dışı bırak" />
     <string
@@ -2131,6 +2137,12 @@
     <string
       id="ret_mcm_section_user_interface_desc"
       text="Editör erişimi ve oyun içi bildirimler." />
+    <string
+      id="ret_migration_popup_body"
+      text="Retinues {SAVE_VERSION} kayıt verileriniz mevcut sürüme ({CURRENT_VERSION}) mümkün olan en iyi şekilde taşındı. En iyi deneyim için yeni bir oyun başlatmanız önerilir.{newline}{newline}Eski kayıtla önceki sürüme devam etmek istiyorsanız kaydetmeyin ve {SAVE_VERSION} dosyasını Nexus Mods&apos;tan indirin." />
+    <string
+      id="ret_migration_popup_title"
+      text="Retinues v2 Güncellemesi" />
     <string
       id="ret_mixed_gender_disable_tooltip"
       text="Birimlerin her iki cinsiyette de ortaya çıkmasına izin ver" />
@@ -2824,6 +2836,21 @@
     <string
       id="ret_unlock_and"
       text="ve" />
+    <string
+      id="ret_unlock_hint_acquire_fief"
+      text="Elit birliklerin kilidini açmak için bir feodal edin." />
+    <string
+      id="ret_unlock_hint_acquire_fief_regular"
+      text="Normal birliklerin kilidini açmak için bir feodal edin." />
+    <string
+      id="ret_unlock_hint_armed_peasantry"
+      text="Silahlı Köylüler doktrini ile kilidi açın." />
+    <string
+      id="ret_unlock_hint_road_wardens"
+      text="Yol Bekçileri doktrini ile kilidi açın." />
+    <string
+      id="ret_unlock_hint_stalwart_militia"
+      text="Sarsılmaz Milis doktrini ile kilidi açın." />
     <string
       id="ret_unlock_more"
       text="daha {COUNT}" />

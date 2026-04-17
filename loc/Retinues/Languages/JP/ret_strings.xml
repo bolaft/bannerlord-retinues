@@ -1643,6 +1643,12 @@
       id="ret_mariner_captain_reason"
       text="キャプテンは、基礎部隊の水兵能力を共有します" />
     <string
+      id="ret_mariner_disable_confirm_description"
+      text="この部隊は水兵スキルに{POINTS}ポイント投資しています。水兵能力を無効にすると、0にリセットされます。" />
+    <string
+      id="ret_mariner_disable_confirm_title"
+      text="水兵能力を無効にする" />
+    <string
       id="ret_mariner_disable_tooltip"
       text="水兵特性を無効にする" />
     <string
@@ -2131,6 +2137,12 @@
     <string
       id="ret_mcm_section_user_interface_desc"
       text="エディターアクセスとゲーム内通知。" />
+    <string
+      id="ret_migration_popup_body"
+      text="Retinues {SAVE_VERSION} のセーブデータは、現在のバージョン（{CURRENT_VERSION}）にベストエフォートで移行されました。最良のプレイ体験のため、新しいセーブを開始することをお勧めします。{newline}{newline}以前のバージョンで古いセーブを継続したい場合は、保存せずに Nexus Mods から {SAVE_VERSION} ファイルをダウンロードしてください。" />
+    <string
+      id="ret_migration_popup_title"
+      text="Retinues v2 アップデート" />
     <string
       id="ret_mixed_gender_disable_tooltip"
       text="ユニットが両方の性別でスポーンできるようにする" />
@@ -2824,6 +2836,21 @@
     <string
       id="ret_unlock_and"
       text="と" />
+    <string
+      id="ret_unlock_hint_acquire_fief"
+      text="封地を獲得してエリート部隊をアンロックします。" />
+    <string
+      id="ret_unlock_hint_acquire_fief_regular"
+      text="封地を獲得して通常部隊をアンロックします。" />
+    <string
+      id="ret_unlock_hint_armed_peasantry"
+      text="武装農民の教義でアンロックします。" />
+    <string
+      id="ret_unlock_hint_road_wardens"
+      text="道路守護者の教義でアンロックします。" />
+    <string
+      id="ret_unlock_hint_stalwart_militia"
+      text="堅固な民兵の教義でアンロックします。" />
     <string
       id="ret_unlock_more"
       text="さらに {COUNT}" />

@@ -1643,6 +1643,12 @@
       id="ret_mariner_captain_reason"
       text="Hauptleute teilen die Seefahrer-Fähigkeit ihrer Basistruppen" />
     <string
+      id="ret_mariner_disable_confirm_description"
+      text="Diese Truppe hat {POINTS} Punkt(e) in die Seefahrer-Fähigkeit investiert. Das Deaktivieren der Seefahrer-Fähigkeit setzt sie auf 0 zurück." />
+    <string
+      id="ret_mariner_disable_confirm_title"
+      text="Seefahrer-Fähigkeit deaktivieren" />
+    <string
       id="ret_mariner_disable_tooltip"
       text="Mariner-Attribut deaktivieren" />
     <string
@@ -2131,6 +2137,12 @@
     <string
       id="ret_mcm_section_user_interface_desc"
       text="Editor-Zugriff und In-Game-Benachrichtigungen." />
+    <string
+      id="ret_migration_popup_body"
+      text="Ihre Speicherdaten von Retinues {SAVE_VERSION} wurden bestmöglich auf die aktuelle Version ({CURRENT_VERSION}) migriert. Es wird empfohlen, einen neuen Spielstand zu beginnen, um das beste Erlebnis zu haben.{newline}{newline}Wenn Sie mit dem alten Spielstand und der vorherigen Version weiterspielen möchten, speichern Sie nicht und laden Sie die Datei {SAVE_VERSION} von Nexus Mods herunter." />
+    <string
+      id="ret_migration_popup_title"
+      text="Retinues v2 Update" />
     <string
       id="ret_mixed_gender_disable_tooltip"
       text="Erlaube der Einheit, in beiden Geschlechtern zu erscheinen" />
@@ -2824,6 +2836,21 @@
     <string
       id="ret_unlock_and"
       text="und" />
+    <string
+      id="ret_unlock_hint_acquire_fief"
+      text="Erwerben Sie ein Lehen, um Elite-Truppen freizuschalten." />
+    <string
+      id="ret_unlock_hint_acquire_fief_regular"
+      text="Erwerben Sie ein Lehen, um reguläre Truppen freizuschalten." />
+    <string
+      id="ret_unlock_hint_armed_peasantry"
+      text="Mit der Doktrin der Bewaffneten Bauern freischalten." />
+    <string
+      id="ret_unlock_hint_road_wardens"
+      text="Mit der Doktrin der Straßenwächter freischalten." />
+    <string
+      id="ret_unlock_hint_stalwart_militia"
+      text="Mit der Doktrin der Standhaften Miliz freischalten." />
     <string
       id="ret_unlock_more"
       text="{COUNT} weitere" />

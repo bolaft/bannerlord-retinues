@@ -1643,6 +1643,12 @@
       id="ret_mariner_captain_reason"
       text="船长与其基础部队共享水手能力" />
     <string
+      id="ret_mariner_disable_confirm_description"
+      text="这支部队在水手技能上投资了{POINTS}点。禁用水手能力将重置为0。" />
+    <string
+      id="ret_mariner_disable_confirm_title"
+      text="禁用水手能力" />
+    <string
       id="ret_mariner_disable_tooltip"
       text="禁用水手特质" />
     <string
@@ -2131,6 +2137,12 @@
     <string
       id="ret_mcm_section_user_interface_desc"
       text="编辑器访问和游戏内通知。" />
+    <string
+      id="ret_migration_popup_body"
+      text="您的 Retinues {SAVE_VERSION} 存档数据已尽力迁移至当前版本（{CURRENT_VERSION}）。建议开启新存档以获得最佳体验。{newline}{newline}如果您希望继续使用旧存档并回退至之前的版本，请勿保存，并从 Nexus Mods 下载 {SAVE_VERSION} 文件。" />
+    <string
+      id="ret_migration_popup_title"
+      text="Retinues v2 更新" />
     <string
       id="ret_mixed_gender_disable_tooltip"
       text="允许单位以任意性别生成" />
@@ -2824,6 +2836,21 @@
     <string
       id="ret_unlock_and"
       text="和" />
+    <string
+      id="ret_unlock_hint_acquire_fief"
+      text="获得一个封地以解锁精英部队。" />
+    <string
+      id="ret_unlock_hint_acquire_fief_regular"
+      text="获得一个封地以解锁常规部队。" />
+    <string
+      id="ret_unlock_hint_armed_peasantry"
+      text="通过武装农民学说解锁。" />
+    <string
+      id="ret_unlock_hint_road_wardens"
+      text="通过道路守卫学说解锁。" />
+    <string
+      id="ret_unlock_hint_stalwart_militia"
+      text="通过坚定民兵学说解锁。" />
     <string
       id="ret_unlock_more"
       text="另外 {COUNT}" />

@@ -1643,6 +1643,12 @@
       id="ret_mariner_captain_reason"
       text="I capitani condividono l&apos;abilità marinaia delle loro truppe di base" />
     <string
+      id="ret_mariner_disable_confirm_description"
+      text="Questa truppa ha {POINTS} punto(i) investiti nell&apos;abilità Marinaio. Disabilitare l&apos;abilità di marinaio la reimposterà a 0." />
+    <string
+      id="ret_mariner_disable_confirm_title"
+      text="Disabilita abilità Marinaio" />
+    <string
       id="ret_mariner_disable_tooltip"
       text="Disabilita tratto marinaio" />
     <string
@@ -2131,6 +2137,12 @@
     <string
       id="ret_mcm_section_user_interface_desc"
       text="Accesso all&apos;editor e notifiche in gioco." />
+    <string
+      id="ret_migration_popup_body"
+      text="I dati di salvataggio di Retinues {SAVE_VERSION} sono stati migrati alla versione corrente ({CURRENT_VERSION}) nel miglior modo possibile. Si consiglia di iniziare un nuovo salvataggio per la migliore esperienza.{newline}{newline}Se si desidera continuare sul vecchio salvataggio con la versione precedente, non salvare e scaricare il file {SAVE_VERSION} da Nexus Mods." />
+    <string
+      id="ret_migration_popup_title"
+      text="Aggiornamento Retinues v2" />
     <string
       id="ret_mixed_gender_disable_tooltip"
       text="Consenti all&apos;unità di apparire in entrambi i sessi" />
@@ -2824,6 +2836,21 @@
     <string
       id="ret_unlock_and"
       text="e" />
+    <string
+      id="ret_unlock_hint_acquire_fief"
+      text="Acquisisci un feudo per sbloccare le truppe d&apos;élite." />
+    <string
+      id="ret_unlock_hint_acquire_fief_regular"
+      text="Acquisisci un feudo per sbloccare le truppe regolari." />
+    <string
+      id="ret_unlock_hint_armed_peasantry"
+      text="Sblocca con la dottrina dei Contadini Armati." />
+    <string
+      id="ret_unlock_hint_road_wardens"
+      text="Sblocca con la dottrina dei Guardiani della Strada." />
+    <string
+      id="ret_unlock_hint_stalwart_militia"
+      text="Sblocca con la dottrina della Milizia Fedele." />
     <string
       id="ret_unlock_more"
       text="altri {COUNT}" />

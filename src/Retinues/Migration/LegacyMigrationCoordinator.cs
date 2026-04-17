@@ -109,6 +109,8 @@ namespace Retinues.Migration
         private void MigrateCharacterData()
         {
             var seen = new HashSet<string>(StringComparer.Ordinal);
+            int migrated = 0,
+                skipped = 0;
 
             foreach (var troop in FlattenAllTroops())
             {
@@ -120,7 +122,11 @@ namespace Retinues.Migration
 
                 var wc = WCharacter.Get(troop.StringId);
                 if (wc == null)
+                {
+                    Log.Debug($"[Migration] Troop '{troop.StringId}' not found in v2 – skipping.");
+                    skipped++;
                     continue; // troop does not exist in v2 – skip
+                }
 
                 wc.FormationClassOverride = troop.FormationClassOverride;
                 wc.IsMariner = troop.IsMariner;
@@ -144,6 +150,9 @@ namespace Retinues.Migration
                     // v1 XP is unspent raw experience. Convert to skill points
                     // using the v1 default cost formula: cost(n) = 100 + 1 * n.
                     wc.SkillPoints = XpToSkillPoints(rawXp);
+                    Log.Debug(
+                        $"[Migration] {troop.StringId}: {rawXp} XP → {wc.SkillPoints} skill points."
+                    );
                 }
 
                 // Combat history
@@ -158,13 +167,23 @@ namespace Retinues.Migration
                         s.DeathsByTroopId
                     );
                 }
+
+                migrated++;
             }
+
+            Log.Info(
+                $"[Migration] Characters: {migrated} migrated, {skipped} skipped (not in v2)."
+            );
         }
 
         // ─── Item data ─────────────────────────────────────────────────────
 
         private void MigrateItemData()
         {
+            int unlocked = 0,
+                partial = 0,
+                stocks = 0;
+
             // Migrate fully-unlocked items first (sets progress to threshold)
             if (_unlocks.UnlockedItemIds != null)
             {
@@ -174,8 +193,14 @@ namespace Retinues.Migration
                         continue;
                     var wi = WItem.Get(itemId);
                     if (wi == null)
+                    {
+                        Log.Debug(
+                            $"[Migration] Item '{itemId}' not found in v2 – skipping unlock."
+                        );
                         continue;
+                    }
                     wi.UnlockProgress = WItem.UnlockThreshold;
+                    unlocked++;
                 }
             }
 
@@ -192,6 +217,7 @@ namespace Retinues.Migration
                     if (wi.IsUnlocked)
                         continue; // already handled above
                     wi.UnlockProgress = kvp.Value;
+                    partial++;
                 }
             }
 
@@ -206,8 +232,13 @@ namespace Retinues.Migration
                     if (wi == null)
                         continue;
                     wi.Stock = kvp.Value;
+                    stocks++;
                 }
             }
+
+            Log.Info(
+                $"[Migration] Items: {unlocked} unlocked, {partial} partial, {stocks} stocks."
+            );
         }
 
         // ─── Doctrines ─────────────────────────────────────────────────────
@@ -215,9 +246,13 @@ namespace Retinues.Migration
         private void MigrateDoctrines()
         {
             if (_doctrines.UnlockedDoctrines == null)
+            {
+                Log.Debug("[Migration] No unlocked doctrines in save – skipping.");
                 return;
+            }
 
             DoctrinesRegistry.EnsureRegistered();
+            int migrated = 0;
 
             foreach (var v1Key in _doctrines.UnlockedDoctrines)
             {
@@ -239,15 +274,26 @@ namespace Retinues.Migration
 
                 doctrine.ForceSet(Doctrine.ProgressTarget);
                 doctrine.IsAcquired = true;
+                Log.Debug($"[Migration] Doctrine '{v1Key}' → '{v2Id}' acquired.");
+                migrated++;
             }
+
+            Log.Info(
+                $"[Migration] Doctrines: {migrated}/{_doctrines.UnlockedDoctrines.Count} migrated."
+            );
         }
 
         private void MigrateFeatProgress()
         {
             if (_doctrines.FeatProgress == null || _doctrines.FeatProgress.Count == 0)
+            {
+                Log.Debug("[Migration] No feat progress in save – skipping.");
                 return;
+            }
 
             DoctrinesRegistry.EnsureRegistered();
+            int migrated = 0,
+                noMapping = 0;
 
             // Build reverse map: v2 feat ID → owning doctrine (to skip acquired ones).
             var featToDoctrine = new Dictionary<string, Doctrine>(StringComparer.Ordinal);
@@ -262,7 +308,11 @@ namespace Retinues.Migration
 
                 var mappings = FeatKeyMap.GetMappings(kvp.Key);
                 if (mappings == null)
+                {
+                    Log.Debug($"[Migration] No v2 feat mapping for '{kvp.Key}' – skipping.");
+                    noMapping++;
                     continue;
+                }
 
                 foreach (var m in mappings)
                 {
@@ -286,10 +336,15 @@ namespace Retinues.Migration
                         continue;
 
                     feat.ForceSet(v2Progress);
+                    Log.Debug(
+                        $"[Migration] Feat '{kvp.Key}' → '{m.V2FeatId}': {kvp.Value}/{m.V1Target} → {v2Progress}/{m.V2Target}."
+                    );
+                    migrated++;
                 }
             }
 
             // Recompute doctrine-level progress from newly set feat completions.
+            int doctrinesGainedProgress = 0;
             foreach (var doctrine in DoctrinesRegistry.GetDoctrines())
             {
                 if (doctrine.IsAcquired)
@@ -301,8 +356,18 @@ namespace Retinues.Migration
                         earned += feat.Worth;
 
                 if (earned > 0)
+                {
                     doctrine.ForceSet(Math.Min(earned, Doctrine.ProgressTarget));
+                    Log.Debug(
+                        $"[Migration] Doctrine '{doctrine.Id}' progress set to {doctrine.Progress}/{Doctrine.ProgressTarget} from feat completions."
+                    );
+                    doctrinesGainedProgress++;
+                }
             }
+
+            Log.Info(
+                $"[Migration] Feats: {migrated} migrated, {noMapping} without v2 mapping; {doctrinesGainedProgress} doctrine(s) gained partial progress."
+            );
         }
 
         // ─── Helpers ───────────────────────────────────────────────────────
