@@ -211,7 +211,8 @@ namespace Retinues.Game.Wrappers
 
         public bool IsRetinue => Faction != null && Faction.IsRetinue(this);
         public bool IsRegular => Faction != null && Faction.IsRegular(this);
-        public bool IsElite => Faction != null && Faction.IsElite(this);
+        public bool IsElite =>
+            IsCaptain ? (BaseTroop?.IsElite ?? false) : Faction != null && Faction.IsElite(this);
         public bool IsCaptain = false;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
