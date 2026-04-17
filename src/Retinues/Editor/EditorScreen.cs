@@ -130,7 +130,7 @@ namespace Retinues.Editor
             var args = (_state as EditorGameState)?.LaunchArgs;
 
             _dataSource = new EditorVM(Close, args) { IsVisible = true };
-            var movieName = GameVersion.IsAtLeast14() ? "EditorScreen_BL14" : "EditorScreen";
+            var movieName = GameVersion.IsAtLeast14() ? "EditorScreen" : "EditorScreen_BL13";
             _movie = _gauntletLayer.LoadMovie(movieName, _dataSource);
         }
 
