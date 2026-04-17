@@ -138,6 +138,9 @@ namespace Retinues.Editor.MVC.Pages.Settings.Views.Panel
         [EventListener(UIEvent.Page)]
         public bool OnSettingsPage => State.Page == EditorPage.Settings;
 
+        [DataSourceProperty]
+        public override bool ShowPanelInfo => false;
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Layout                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

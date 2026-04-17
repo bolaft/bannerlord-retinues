@@ -5,6 +5,7 @@
 {# ---------------------------------------------- #}
 
 <ListPanel
+    IsVisible="@ShowPanelInfo"
     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
     HorizontalAlignment="Right" VerticalAlignment="Top"
     StackLayout.LayoutMethod="{{ vttb }}"
@@ -61,32 +62,40 @@
             IsVisible="@OnEquipmentPage"
             WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
             HorizontalAlignment="Right" VerticalAlignment="Center"
-            StackLayout.LayoutMethod="HorizontalRightToLeft">
+            MarginTop="8"
+            StackLayout.LayoutMethod="HorizontalLeftToRight">
             <Children>
 
                 <TextWidget
                     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                     HorizontalAlignment="Right" VerticalAlignment="Center"
-                    IsVisible="@IsValueLimitVisible"
                     Brush="Popup.Button.Text"
-                    Brush.FontSize="18"
-                    Text="@ValueLimitText" />
+                    Brush.FontSize="20"
+                    Brush.FontColor="@ValueValueColor"
+                    Text="@ValueValueText" />
 
                 <TextWidget
                     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                     HorizontalAlignment="Right" VerticalAlignment="Center"
                     IsVisible="@IsValueLimitVisible"
                     Brush="Popup.Button.Text"
-                    Brush.FontSize="18"
+                    Brush.FontSize="20"
                     Text=" / " />
 
                 <TextWidget
                     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                     HorizontalAlignment="Right" VerticalAlignment="Center"
+                    IsVisible="@IsValueLimitVisible"
                     Brush="Popup.Button.Text"
-                    Brush.FontSize="18"
-                    Brush.FontColor="@ValueValueColor"
-                    Text="@ValueValueText" />
+                    Brush.FontSize="20"
+                    Text="@ValueLimitText" />
+
+                <SpriteWidget
+                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                    SuggestedWidth="32" SuggestedHeight="32"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    MarginLeft="8"
+                    Sprite="Inventory\icon_gold" />
 
             </Children>
         </ListPanel>
@@ -96,32 +105,40 @@
             IsVisible="@OnEquipmentPage"
             WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
             HorizontalAlignment="Right" VerticalAlignment="Center"
-            StackLayout.LayoutMethod="HorizontalRightToLeft">
+            MarginTop="8"
+            StackLayout.LayoutMethod="HorizontalLeftToRight">
             <Children>
 
                 <TextWidget
                     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                     HorizontalAlignment="Right" VerticalAlignment="Center"
-                    IsVisible="@IsWeightLimitVisible"
                     Brush="Popup.Button.Text"
-                    Brush.FontSize="18"
-                    Text="@WeightLimitText" />
+                    Brush.FontSize="20"
+                    Brush.FontColor="@WeightValueColor"
+                    Text="@WeightValueText" />
 
                 <TextWidget
                     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                     HorizontalAlignment="Right" VerticalAlignment="Center"
                     IsVisible="@IsWeightLimitVisible"
                     Brush="Popup.Button.Text"
-                    Brush.FontSize="18"
+                    Brush.FontSize="20"
                     Text=" / " />
 
                 <TextWidget
                     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
                     HorizontalAlignment="Right" VerticalAlignment="Center"
+                    IsVisible="@IsWeightLimitVisible"
                     Brush="Popup.Button.Text"
-                    Brush.FontSize="18"
-                    Brush.FontColor="@WeightValueColor"
-                    Text="@WeightValueText" />
+                    Brush.FontSize="20"
+                    Text="@WeightLimitText" />
+
+                <SpriteWidget
+                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                    SuggestedWidth="28" SuggestedHeight="28"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    MarginLeft="12"
+                    Sprite="SPGeneral\MountFlagIcons\weight_carrying_mount" />
 
             </Children>
         </ListPanel>

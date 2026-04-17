@@ -26,6 +26,16 @@ namespace Retinues.Editor.MVC.Shared.Views
         private static readonly ControllerAction<bool> _openManualAction =
             new ControllerAction<bool>("OpenManual").ExecuteWith(_ => ManualLink.Open());
 
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Visibility                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Hides the shared panel info widget (manual/statistics) on pages that don't need it.
+        /// </summary>
+        [DataSourceProperty]
+        public virtual bool ShowPanelInfo => true;
+
         [DataSourceProperty]
         public Button<bool> ShowManualButton { get; } =
             new(
