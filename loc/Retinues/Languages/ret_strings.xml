@@ -353,6 +353,9 @@
       id="ret_disable_captain_mode_tooltip_text"
       text="Disable Captain Mode for this troop." />
     <string
+      id="ret_disable_mariner_resets_skill"
+      text="Disabling the Mariner trait will reset this troop&apos;s Mariner skill to 0. Continue?" />
+    <string
       id="ret_disabled_in_hero_editor"
       text="Heroes are tied to the saved world state." />
     <string

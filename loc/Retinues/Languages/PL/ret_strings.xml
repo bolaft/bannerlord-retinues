@@ -353,6 +353,9 @@
       id="ret_disable_captain_mode_tooltip_text"
       text="Wyłącz tryb kapitana dla tego oddziału." />
     <string
+      id="ret_disable_mariner_resets_skill"
+      text="Wyłączenie cechy Marynarza zresetuje umiejętność Marynarza tej jednostki do 0. Kontynuować?" />
+    <string
       id="ret_disabled_in_hero_editor"
       text="Bohaterowie są powiązani z zapisanym stanem świata." />
     <string

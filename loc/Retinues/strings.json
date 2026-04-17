@@ -1856,6 +1856,22 @@
     "TR": "Bu asker için Kaptan Modunu devre dışı bırak."
   },
   {
+    "id": "ret_disable_mariner_resets_skill",
+    "EN": "Disabling the Mariner trait will reset this troop's Mariner skill to 0. Continue?",
+    "BR": "Desativar a característica Marinheiro redefinirá a habilidade Marinheiro desta tropa para 0. Continuar?",
+    "CNs": "禁用水手特质将重置该部队的水手技能为0。是否继续？",
+    "CNt": "禁用水手特質將重置該部隊的水手技能為0。是否繼續？",
+    "DE": "Das Deaktivieren des Mariner-Merkmals setzt die Mariner-Fähigkeit dieser Truppe auf 0 zurück. Fortfahren?",
+    "FR": "Désactiver le trait Marin réinitialisera la compétence Marin de cette troupe à 0. Continuer ?",
+    "IT": "Disabilitare il tratto Marinaio reimposterà l'abilità Marinaio di questa truppa a 0. Continuare?",
+    "JP": "マリナー特性を無効にすると、この部隊のマリナースキルが0にリセットされます。続行しますか？",
+    "KO": "마리너 특성을 비활성화하면 이 부대의 마리너 기술이 0으로 재설정됩니다. 계속하시겠습니까?",
+    "PL": "Wyłączenie cechy Marynarza zresetuje umiejętność Marynarza tej jednostki do 0. Kontynuować?",
+    "RU": "Отключение черты Моряк сбросит навык Моряк этой войсковой единицы до 0. Продолжить?",
+    "SP": "Desactivar el rasgo Marinero restablecerá la habilidad Marinero de esta tropa a 0. ¿Continuar?",
+    "TR": "Denizci özelliğini devre dışı bırakmak, bu birliğin Denizci becerisini 0'a sıfırlayacaktır. Devam etmek istiyor musunuz?"
+  },
+  {
     "id": "ret_disabled_in_hero_editor",
     "EN": "Heroes are tied to the saved world state.",
     "BR": "Heróis estão vinculados ao estado salvo do mundo.",

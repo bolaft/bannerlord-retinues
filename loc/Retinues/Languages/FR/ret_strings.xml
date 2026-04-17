@@ -353,6 +353,9 @@
       id="ret_disable_captain_mode_tooltip_text"
       text="Désactive le mode Capitaine pour cette troupe." />
     <string
+      id="ret_disable_mariner_resets_skill"
+      text="Désactiver le trait Marin réinitialisera la compétence Marin de cette troupe à 0. Continuer ?" />
+    <string
       id="ret_disabled_in_hero_editor"
       text="Les héros sont liés à l’état du monde sauvegardé." />
     <string

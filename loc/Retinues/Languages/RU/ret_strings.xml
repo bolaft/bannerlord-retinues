@@ -353,6 +353,9 @@
       id="ret_disable_captain_mode_tooltip_text"
       text="Отключить режим капитана для этой войсковой единицы." />
     <string
+      id="ret_disable_mariner_resets_skill"
+      text="Отключение черты Моряк сбросит навык Моряк этой войсковой единицы до 0. Продолжить?" />
+    <string
       id="ret_disabled_in_hero_editor"
       text="Герои привязаны к сохранённому состоянию мира." />
     <string

@@ -353,6 +353,9 @@
       id="ret_disable_captain_mode_tooltip_text"
       text="この部隊のキャプテンモードを無効にします。" />
     <string
+      id="ret_disable_mariner_resets_skill"
+      text="マリナー特性を無効にすると、この部隊のマリナースキルが0にリセットされます。続行しますか？" />
+    <string
       id="ret_disabled_in_hero_editor"
       text="英雄は保存された世界の状態に結び付けられています。" />
     <string

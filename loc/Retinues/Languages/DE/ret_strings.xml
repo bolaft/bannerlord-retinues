@@ -353,6 +353,9 @@
       id="ret_disable_captain_mode_tooltip_text"
       text="Deaktiviere den Hauptmann-Modus für diese Truppe." />
     <string
+      id="ret_disable_mariner_resets_skill"
+      text="Das Deaktivieren des Mariner-Merkmals setzt die Mariner-Fähigkeit dieser Truppe auf 0 zurück. Fortfahren?" />
+    <string
       id="ret_disabled_in_hero_editor"
       text="Helden sind an den gespeicherten Weltzustand gebunden." />
     <string

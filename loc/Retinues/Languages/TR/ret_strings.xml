@@ -353,6 +353,9 @@
       id="ret_disable_captain_mode_tooltip_text"
       text="Bu asker için Kaptan Modunu devre dışı bırak." />
     <string
+      id="ret_disable_mariner_resets_skill"
+      text="Denizci özelliğini devre dışı bırakmak, bu birliğin Denizci becerisini 0&apos;a sıfırlayacaktır. Devam etmek istiyor musunuz?" />
+    <string
       id="ret_disabled_in_hero_editor"
       text="Kahramanlar kaydedilmiş dünya durumuna bağlıdır." />
     <string

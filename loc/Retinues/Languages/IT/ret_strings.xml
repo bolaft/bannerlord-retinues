@@ -353,6 +353,9 @@
       id="ret_disable_captain_mode_tooltip_text"
       text="Disabilita la Modalità Capitano per questa truppa." />
     <string
+      id="ret_disable_mariner_resets_skill"
+      text="Disabilitare il tratto Marinaio reimposterà l&apos;abilità Marinaio di questa truppa a 0. Continuare?" />
+    <string
       id="ret_disabled_in_hero_editor"
       text="Gli eroi sono legati allo stato salvato del mondo." />
     <string

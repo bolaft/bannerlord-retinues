@@ -353,6 +353,9 @@
       id="ret_disable_captain_mode_tooltip_text"
       text="為此兵種禁用隊長模式。" />
     <string
+      id="ret_disable_mariner_resets_skill"
+      text="禁用水手特質將重置該部隊的水手技能為0。是否繼續？" />
+    <string
       id="ret_disabled_in_hero_editor"
       text="英雄與已儲存的世界狀態綁定。" />
     <string

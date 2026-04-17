@@ -353,6 +353,9 @@
       id="ret_disable_captain_mode_tooltip_text"
       text="이 부대에 대한 대장 모드를 비활성화합니다." />
     <string
+      id="ret_disable_mariner_resets_skill"
+      text="마리너 특성을 비활성화하면 이 부대의 마리너 기술이 0으로 재설정됩니다. 계속하시겠습니까?" />
+    <string
       id="ret_disabled_in_hero_editor"
       text="영웅은 저장된 세계 상태에 연결되어 있습니다." />
     <string

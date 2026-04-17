@@ -353,6 +353,9 @@
       id="ret_disable_captain_mode_tooltip_text"
       text="Deshabilitar el Modo Capitán para esta tropa." />
     <string
+      id="ret_disable_mariner_resets_skill"
+      text="Desactivar el rasgo Marinero restablecerá la habilidad Marinero de esta tropa a 0. ¿Continuar?" />
+    <string
       id="ret_disabled_in_hero_editor"
       text="Los héroes están vinculados al estado guardado del mundo." />
     <string
