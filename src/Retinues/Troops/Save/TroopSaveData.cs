@@ -198,6 +198,7 @@ namespace Retinues.Troops.Save
 
             // Set equipment
             troop.Loadout.SetEquipments(EquipmentData.Deserialize(troop));
+            troop.Loadout.Normalize(); // Ensure battle set is at index 0 (fixes stale saves)
 
             // Restore upgrade targets
             foreach (var child in UpgradeTargets ?? [])
