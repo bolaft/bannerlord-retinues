@@ -219,7 +219,7 @@ namespace Retinues.Editor.MVC.Shared.Views
                 for (int i = 0; i < _rows.Count; i++)
                 {
                     var row = _rows[i];
-                    if (row != null && row.IsVisible)
+                    if (row != null && row.IsVisible && !row.IsUnlockHint)
                         count++;
                 }
 
