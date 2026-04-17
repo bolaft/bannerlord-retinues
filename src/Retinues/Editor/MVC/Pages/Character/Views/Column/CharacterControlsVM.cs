@@ -3,6 +3,7 @@ using Retinues.Compatibility;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Editor.Events;
 using Retinues.Editor.MVC.Pages.Character.Controllers;
+using Retinues.Editor.MVC.Pages.Character.Helpers;
 using Retinues.Interface.Components;
 using Retinues.Interface.Services;
 using Retinues.Settings;

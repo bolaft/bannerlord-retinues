@@ -3,13 +3,13 @@ using HarmonyLib;
 using Retinues.Domain;
 using Retinues.Settings;
 using Retinues.Utilities;
-using SandBox.GauntletUI.Map;
 using SandBox.View.Map;
-using TaleWorlds.CampaignSystem.GameState;
-using TaleWorlds.Core;
 using TaleWorlds.InputSystem;
 using TaleWorlds.ScreenSystem;
 #if BL12
+using SandBox.GauntletUI.Map;
+using TaleWorlds.CampaignSystem.GameState;
+using TaleWorlds.Core;
 using Retinues.Editor;
 #elif BL13 || BL14
 using SandBox.View.Map.Navigation;

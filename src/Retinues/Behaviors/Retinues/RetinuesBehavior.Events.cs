@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using Retinues.Domain;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Equipments.Wrappers;

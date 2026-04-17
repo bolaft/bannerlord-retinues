@@ -5,7 +5,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
-using Retinues.Settings;
 using TaleWorlds.Library;
 
 namespace Retinues.Utilities

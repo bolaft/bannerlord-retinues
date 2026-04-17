@@ -10,7 +10,6 @@ using Retinues.Editor.MVC.Common.TopPanel.Controllers;
 using Retinues.Interface.Components;
 using Retinues.Interface.Services;
 using Retinues.Settings;
-using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Library;
 

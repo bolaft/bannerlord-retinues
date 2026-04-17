@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Retinues.Settings;
 using TaleWorlds.GauntletUI;
 using TaleWorlds.GauntletUI.BaseTypes;
 

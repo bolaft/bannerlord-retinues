@@ -3,7 +3,7 @@ using Retinues.Domain.Characters.Wrappers;
 using Retinues.Framework.Runtime;
 using TaleWorlds.Core;
 
-namespace Retinues.Interface.Services
+namespace Retinues.Editor.MVC.Pages.Character.Helpers
 {
     [SafeClass]
     public static class Icons

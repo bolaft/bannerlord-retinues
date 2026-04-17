@@ -8,7 +8,6 @@ using Retinues.Interface.Services;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
-using TaleWorlds.Localization;
 
 namespace Retinues.Editor.MVC.Pages.Settings.Controllers
 {

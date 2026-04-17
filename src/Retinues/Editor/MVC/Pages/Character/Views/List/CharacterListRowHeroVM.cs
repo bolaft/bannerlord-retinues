@@ -2,8 +2,8 @@ using System;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Editor.Events;
+using Retinues.Editor.MVC.Pages.Character.Helpers;
 using Retinues.Editor.MVC.Shared.Views;
-using Retinues.Interface.Services;
 using TaleWorlds.Library;
 
 namespace Retinues.Editor.MVC.Pages.Character.Views.List

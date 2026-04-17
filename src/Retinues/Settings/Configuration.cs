@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
-using Retinues.Behaviors.Troops;
 using Retinues.Compatibility;
-using Retinues.Domain;
 using Retinues.Editor.Events;
 using Retinues.Framework.Runtime;
 using Retinues.Interface.Services;

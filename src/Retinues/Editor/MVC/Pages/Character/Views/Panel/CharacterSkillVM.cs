@@ -1,4 +1,3 @@
-using Retinues.Domain.Characters.Wrappers;
 using Retinues.Editor.Events;
 using Retinues.Editor.MVC.Pages.Character.Controllers;
 using Retinues.Interface.Components;

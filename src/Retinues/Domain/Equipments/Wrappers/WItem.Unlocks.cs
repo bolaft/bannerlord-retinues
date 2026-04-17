@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Retinues.Behaviors.Doctrines.Catalogs;
-using Retinues.Domain.Characters.Wrappers;
 using Retinues.Framework.Model.Attributes;
 using Retinues.Settings;
 using TaleWorlds.Core;

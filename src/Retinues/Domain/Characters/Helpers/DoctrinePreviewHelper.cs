@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Retinues.Domain;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Factions;
 

@@ -5,7 +5,6 @@ using HarmonyLib;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
-using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 
 namespace Retinues.Behaviors.Agents.Patches

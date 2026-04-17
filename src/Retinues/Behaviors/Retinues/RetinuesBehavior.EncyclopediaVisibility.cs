@@ -1,5 +1,4 @@
 using Retinues.Domain;
-using Retinues.Domain.Characters.Wrappers;
 using Retinues.Settings;
 using TaleWorlds.CampaignSystem;
 

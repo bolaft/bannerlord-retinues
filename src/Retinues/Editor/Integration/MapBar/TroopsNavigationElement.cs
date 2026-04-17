@@ -3,7 +3,6 @@ using System.Linq;
 using Retinues.Settings;
 using Retinues.Domain;
 using Retinues.Domain.Factions;
-using Retinues.Domain.Characters.Wrappers;
 using Retinues.Interface.Services;
 using SandBox.View;
 using SandBox.View.Map.Navigation;

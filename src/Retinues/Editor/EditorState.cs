@@ -7,7 +7,6 @@ using Retinues.Domain.Factions;
 using Retinues.Editor.Events;
 using Retinues.Editor.MVC.Pages.Library.Services;
 using Retinues.Framework.Runtime;
-using Retinues.Settings;
 using Retinues.Utilities;
 using TaleWorlds.Core;
 

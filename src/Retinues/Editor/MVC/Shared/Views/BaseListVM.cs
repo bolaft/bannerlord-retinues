@@ -1,7 +1,6 @@
 using Retinues.Editor.Events;
 using Retinues.Interface.Components;
 using Retinues.Interface.Services;
-using TaleWorlds.Library;
 
 namespace Retinues.Editor.MVC.Shared.Views
 {
