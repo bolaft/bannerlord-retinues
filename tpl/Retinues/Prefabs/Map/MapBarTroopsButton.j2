@@ -1,0 +1,41 @@
+{# ---------------------------------------------- #}
+{# Troops map-bar button (BL12, injected by       #}
+{# MapBarTroopsButtonPatch at ListPanel index 4)  #}
+{# ---------------------------------------------- #}
+
+<Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+        SuggestedWidth="!LeftBar.Button2.Width" SuggestedHeight="!LeftBar.Button2.Height"
+        HorizontalAlignment="Right" VerticalAlignment="Bottom"
+        MarginRight="!MapBar.Buttons.HorizonalSpacing" UpdateChildrenStates="true">
+  <Children>
+    <IconOffsetButtonWidget Id="TroopsButton" DoNotPassEventsToChildren="true"
+                            WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+                            Brush="MapBar.Left.Troops.Button"
+                            ButtonIcon="TroopsIcon"
+                            Command.Click="ExecuteOpenTroops"
+                            IsEnabled="@IsTroopsEnabled"
+                            IsSelected="@IsTroopsActive"
+                            PressedXOffset="!MapBar.ButtonIcon.XOffset"
+                            PressedYOffset="!MapBar.ButtonIcon.YOffset"
+                            UpdateChildrenStates="true"
+                            GamepadNavigationIndex="7">
+      <Children>
+        <BrushWidget Id="TroopsIcon"
+                     WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                     SuggestedWidth="!LeftBar.Icon2.Width" SuggestedHeight="!LeftBar.Icon2.Height"
+                     HorizontalAlignment="Center" VerticalAlignment="Center"
+                     Brush="MapBar.Left.Troops.Icon"/>
+        <HintWidget DataSource="{TroopsHint}"
+                    WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+                    Command.HoverBegin="ExecuteBeginHint"
+                    Command.HoverEnd="ExecuteEndHint"
+                    IsDisabled="true"/>
+      </Children>
+    </IconOffsetButtonWidget>
+    <HintWidget DataSource="{TroopsHint}"
+                WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+                Command.HoverBegin="ExecuteBeginHint"
+                Command.HoverEnd="ExecuteEndHint"
+                IsDisabled="true"/>
+  </Children>
+</Widget>

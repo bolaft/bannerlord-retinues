@@ -1,5 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-{% if version != "12" %}<Brushes>
+{% if version == "12" %}<Brushes>
+
+  <!--
+    BL12 map-bar uses individual named brushes (MapBar.Left.Button1..7 etc.)
+    We add two extra brushes for the Troops navigation button, both inheriting
+    from the existing generic base brushes that are always present in ui_mapbar.
+  -->
+
+  <Brush Name="MapBar.Left.Troops.Button" BaseBrush="MapBar.Left.Generic.Button.Base">
+    <Layers>
+      <!-- Reuse the character-button background sprite (not flipped — baked shadows look wrong flipped) -->
+      <BrushLayer Name="Default" Sprite="MapBar\bottom_left_button2_character" />
+    </Layers>
+  </Brush>
+
+  <Brush Name="MapBar.Left.Troops.Icon" BaseBrush="MapBar.Left.Generic.Icon.Base">
+    <Layers>
+      <!-- Reuse icon2 (character icon) flipped horizontally to distinguish from the Character button -->
+      <BrushLayer Name="Default" Sprite="MapBar\mapbar_icon2" HorizontalFlip="true" />
+    </Layers>
+  </Brush>
+
+</Brushes>
+{% else %}<Brushes>
 
   <Brush Name="MapBar.Left.Button.Backgrounds">
     <Layers>
@@ -34,6 +57,4 @@
   </Brush>
 
 </Brushes>
-{% else %}
-<Brushes/>
 {% endif %}

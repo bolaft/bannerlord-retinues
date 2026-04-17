@@ -3,7 +3,14 @@ using Retinues.Settings;
 using Retinues.Utilities;
 using SandBox.GauntletUI.Map;
 using TaleWorlds.InputSystem;
-#if BL13 || BL14
+using TaleWorlds.ScreenSystem;
+#if BL12
+using System.Linq;
+using Retinues.Domain;
+using Retinues.Editor;
+using SandBox.View.Map;
+using TaleWorlds.Engine.GauntletUI;
+#elif BL13 || BL14
 using SandBox.View.Map.Navigation;
 #endif
 
@@ -12,7 +19,49 @@ namespace Retinues.Editor.Integration.MapBar.Patches
     /// <summary>
     /// Enables opening the troop editor via the R hotkey on the map bar.
     /// </summary>
-#if BL13 || BL14
+#if BL12
+    /// <remarks>
+    /// BL12: Fires when a panel screen is open (HandlePanelSwitching only runs then).
+    /// The map-screen idle case is handled by <see cref="MapScreenTroopsHotkeyPatch"/>.
+    /// </remarks>
+    [HarmonyPatch(typeof(GauntletMapBarGlobalLayer), "HandlePanelSwitching")]
+    internal static class MapBarHotkeyPatch
+    {
+        [HarmonyPostfix]
+        private static void Postfix(GauntletMapBarGlobalLayer __instance)
+        {
+            if (!Configuration.EditorHotkey)
+                return;
+
+            var gauntletLayer = ScreenManager.TopScreen?.FindLayer<GauntletLayer>();
+            if (gauntletLayer?.Input == null || gauntletLayer.IsFocusedOnInput())
+                return;
+
+            if (!gauntletLayer.Input.IsKeyReleased(InputKey.R))
+                return;
+
+            TryOpenEditor(__instance);
+        }
+
+        internal static void TryOpenEditor(GauntletMapBarGlobalLayer instance)
+        {
+            if (ScreenManager.TopScreen is EditorScreen)
+                return;
+
+            var handler = Reflection.GetFieldValue<MapNavigationHandler>(
+                instance,
+                "_mapNavigationHandler"
+            );
+            if (handler?.IsNavigationLocked == true)
+                return;
+
+            if (!MapNavigationVMMixin.HasEditableTroops())
+                return;
+
+            EditorLauncher.Launch(EditorMode.Player);
+        }
+    }
+#elif BL13 || BL14
     [HarmonyPatch(typeof(GauntletMapBarGlobalLayer), "HandlePanelSwitchingInput")]
     internal static class MapBarHotkeyPatch
     {
