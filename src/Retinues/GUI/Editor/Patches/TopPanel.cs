@@ -6,9 +6,8 @@ using Retinues.Utils;
 internal sealed class ClanScreen_TopPanel_Insert : PrefabExtensionInsertPatch
 {
     [PrefabExtensionFileName]
-    public string FileName => BannerlordVersion.IsAtLeast14()
-        ? "ClanScreen_TopPanel_BL14"
-        : "ClanScreen_TopPanel";
+    public string FileName =>
+        BannerlordVersion.IsAtLeast14() ? "ClanScreen_TopPanel_BL14" : "ClanScreen_TopPanel";
 
     public override InsertType Type => InsertType.Child;
 

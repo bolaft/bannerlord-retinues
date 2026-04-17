@@ -841,8 +841,25 @@ namespace Retinues.Game.Wrappers
             }
         }
 
-        public List<SkillObject> ExtraSkills =>
-            IsHero ? [.. NavalDLCSkills, .. ModdedSkills] : ModdedSkills;
+        public List<SkillObject> ExtraSkills
+        {
+            get
+            {
+                if (IsHero)
+                    return [.. NavalDLCSkills, .. ModdedSkills];
+
+                // In BL1.4+ with Naval DLC, troops can also use the Mariner skill
+                // when the mariner trait is enabled.
+                if (BannerlordVersion.IsAtLeast14() && ModCompatibility.HasNavalDLC && IsMariner)
+                {
+                    var marinerSkill = NavalDLCSkills.FirstOrDefault(s => s.StringId == "Mariner");
+                    if (marinerSkill != null)
+                        return [marinerSkill, .. ModdedSkills];
+                }
+
+                return ModdedSkills;
+            }
+        }
 
         public List<SkillObject> TroopSkills =>
             IsHero ? [.. CombatSkills, .. HeroSkills] : CombatSkills;

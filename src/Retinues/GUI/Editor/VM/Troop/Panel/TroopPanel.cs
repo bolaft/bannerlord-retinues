@@ -5,6 +5,7 @@ using System.Linq;
 using Bannerlord.UIExtenderEx.Attributes;
 using Retinues.Configuration;
 using Retinues.Features.Experience;
+using Retinues.Features.Staging;
 using Retinues.Game;
 using Retinues.Game.Helpers;
 using Retinues.Game.Wrappers;
@@ -1049,8 +1050,61 @@ namespace Retinues.GUI.Editor.VM.Troop.Panel
             if (State.Troop == null || !ShowMariner)
                 return;
 
-            State.Troop.IsMariner = !State.Troop.IsMariner;
-            State.UpdateTroop(State.Troop);
+            bool marinerIsEnabled = State.Troop.IsMariner;
+
+            // In BL1.4+ with Naval DLC, the Mariner skill is usable by troops.
+            // When toggling the trait, reset any Mariner skill points to 0.
+            SkillObject marinerSkill = null;
+            int marinerSkillValue = 0;
+            if (BannerlordVersion.IsAtLeast14() && ModCompatibility.HasNavalDLC)
+            {
+                marinerSkill = WCharacter.NavalDLCSkills.FirstOrDefault(s =>
+                    s.StringId == "Mariner"
+                );
+                if (marinerSkill != null)
+                    marinerSkillValue =
+                        State.Troop.GetSkill(marinerSkill)
+                        + (
+                            TrainStagingBehavior.Get(State.Troop, marinerSkill)?.PointsRemaining
+                            ?? 0
+                        );
+            }
+
+            void DoToggle()
+            {
+                if (marinerSkill != null && marinerSkillValue > 0)
+                {
+                    State.Troop.SetSkill(marinerSkill, 0);
+                    TrainStagingBehavior.Unstage(State.Troop, marinerSkill);
+                }
+                State.Troop.IsMariner = !marinerIsEnabled;
+                State.UpdateTroop(State.Troop);
+                BuildSkillRows(force: true);
+            }
+
+            // Warn before disabling the trait when there are points in the Mariner skill
+            if (marinerIsEnabled && marinerSkillValue > 0)
+            {
+                InformationManager.ShowInquiry(
+                    new InquiryData(
+                        titleText: L.S("warning", "Warning"),
+                        text: L.S(
+                            "disable_mariner_resets_skill",
+                            "Disabling the Mariner trait will reset this troop's Mariner skill to 0. Continue?"
+                        ),
+                        isAffirmativeOptionShown: true,
+                        isNegativeOptionShown: true,
+                        affirmativeText: L.S("continue", "Continue"),
+                        negativeText: L.S("cancel", "Cancel"),
+                        affirmativeAction: DoToggle,
+                        negativeAction: () => OnPropertyChanged(nameof(IsMariner))
+                    )
+                );
+            }
+            else
+            {
+                DoToggle();
+            }
         }
 
         /* ━━━━━━━━ Helpers ━━━━━━━ */

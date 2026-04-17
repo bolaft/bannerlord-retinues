@@ -9,9 +9,8 @@ using Retinues.Utils;
 internal class ClanScreen_TroopsPanel : PrefabExtensionInsertPatch
 {
     [PrefabExtensionFileName]
-    public string FileName => BannerlordVersion.IsAtLeast14()
-        ? "ClanScreen_TroopsPanel_BL14"
-        : "ClanScreen_TroopsPanel";
+    public string FileName =>
+        BannerlordVersion.IsAtLeast14() ? "ClanScreen_TroopsPanel_BL14" : "ClanScreen_TroopsPanel";
 
     public override InsertType Type => InsertType.Child;
 
