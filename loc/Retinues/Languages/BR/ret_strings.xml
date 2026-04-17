@@ -1232,6 +1232,9 @@
       id="ret_formation_popup_title"
       text="Classe de Formação" />
     <string
+      id="ret_gender_cycle_hint"
+      text="Ciclo de gênero: masculino, feminino, misto" />
+    <string
       id="ret_gender_no_template"
       text="Combinação inválida de gênero/espécie/cultura" />
     <string
@@ -2137,9 +2140,6 @@
     <string
       id="ret_mixed_gender_hero_reason"
       text="Não aplicável a heróis" />
-    <string
-      id="ret_mixed_gender_toggle_tooltip"
-      text="Gênero misto: {PERCENT}% aparecerão como o sexo oposto" />
     <string
       id="ret_name_header_text"
       text="Nome" />

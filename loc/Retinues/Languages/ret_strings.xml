@@ -1232,6 +1232,9 @@
       id="ret_formation_popup_title"
       text="Formation Class" />
     <string
+      id="ret_gender_cycle_hint"
+      text="Cycle gender: male, female, mixed" />
+    <string
       id="ret_gender_no_template"
       text="Invalid gender/species/culture combination" />
     <string
@@ -2143,9 +2146,6 @@
     <string
       id="ret_mixed_gender_hero_reason"
       text="Not applicable to heroes" />
-    <string
-      id="ret_mixed_gender_toggle_tooltip"
-      text="Mixed Gender: {PERCENT}% will spawn as the opposite gender" />
     <string
       id="ret_name_header_text"
       text="Name" />

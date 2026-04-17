@@ -6,7 +6,6 @@ using Retinues.Editor.MVC.Pages.Character.Controllers;
 using Retinues.Editor.MVC.Pages.Character.Helpers;
 using Retinues.Interface.Components;
 using Retinues.Interface.Services;
-using Retinues.Settings;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 
@@ -90,51 +89,6 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Column
                 getSelected: () => State.Character?.IsMariner ?? false,
                 refresh: [UIEvent.Formation],
                 visibilityGate: () => Mods.NavalDLC.IsLoaded && State.Character?.IsHero != true
-            );
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                      Mixed Gender                      //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        [EventListener(UIEvent.Character)]
-        [DataSourceProperty]
-        public bool ShowMixedGenderToggle => State.Character?.IsHero != true;
-
-        [DataSourceProperty]
-        public Icon MixedGenderIcon { get; } =
-            new(
-                tooltipFactory: () =>
-                    new Tooltip(
-                        L.T(
-                                "mixed_gender_toggle_tooltip",
-                                "Mixed Gender: {PERCENT}% will spawn as the opposite gender"
-                            )
-                            .SetTextVariable(
-                                "PERCENT",
-                                (Configuration.MixedGenderRatio * 100).ToString("0")
-                            )
-                    ),
-                refresh: [UIEvent.Character, UIEvent.Gender],
-                spriteFactory: () =>
-                {
-                    var c = State.Character;
-                    if (c == null)
-                        return null;
-
-                    return c.IsFemale
-                        ? "SPGeneral\\GeneralFlagIcons\\male_only"
-                        : "SPGeneral\\GeneralFlagIcons\\female_only";
-                },
-                visibilityGate: () => State.Character?.IsHero != true
-            );
-
-        [DataSourceProperty]
-        public Checkbox MixedGenderToggle { get; } =
-            new(
-                action: CharacterController.SetMixedGender,
-                getSelected: () => State.Character?.IsMixedGender ?? false,
-                refresh: [UIEvent.Character],
-                visibilityGate: () => State.Character?.IsHero != true
             );
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

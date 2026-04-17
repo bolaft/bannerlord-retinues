@@ -1232,6 +1232,9 @@
       id="ret_formation_popup_title"
       text="Formationsklasse" />
     <string
+      id="ret_gender_cycle_hint"
+      text="Geschlecht wechseln: männlich, weiblich, gemischt" />
+    <string
       id="ret_gender_no_template"
       text="Ungültige Geschlechts-/Spezies-/Kulturkombination" />
     <string
@@ -2137,9 +2140,6 @@
     <string
       id="ret_mixed_gender_hero_reason"
       text="Nicht auf Helden anwendbar" />
-    <string
-      id="ret_mixed_gender_toggle_tooltip"
-      text="Gemischtes Geschlecht: {PERCENT}% werden als das andere Geschlecht erscheinen" />
     <string
       id="ret_name_header_text"
       text="Name" />

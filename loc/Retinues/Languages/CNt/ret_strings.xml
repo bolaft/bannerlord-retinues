@@ -1232,6 +1232,9 @@
       id="ret_formation_popup_title"
       text="編隊類別" />
     <string
+      id="ret_gender_cycle_hint"
+      text="循環性別：男性，女性，混合" />
+    <string
       id="ret_gender_no_template"
       text="無效的性別/物種/文化組合" />
     <string
@@ -2137,9 +2140,6 @@
     <string
       id="ret_mixed_gender_hero_reason"
       text="不適用於英雄" />
-    <string
-      id="ret_mixed_gender_toggle_tooltip"
-      text="混合性別：{PERCENT}% 將以相反性別生成" />
     <string
       id="ret_name_header_text"
       text="名稱" />

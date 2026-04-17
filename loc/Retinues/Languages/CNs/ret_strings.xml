@@ -1232,6 +1232,9 @@
       id="ret_formation_popup_title"
       text="编队类别" />
     <string
+      id="ret_gender_cycle_hint"
+      text="循环性别：男性，女性，混合" />
+    <string
       id="ret_gender_no_template"
       text="无效的性别/物种/文化组合" />
     <string
@@ -2137,9 +2140,6 @@
     <string
       id="ret_mixed_gender_hero_reason"
       text="不适用于英雄" />
-    <string
-      id="ret_mixed_gender_toggle_tooltip"
-      text="混合性别：{PERCENT}% 将以相反性别生成" />
     <string
       id="ret_name_header_text"
       text="名称" />

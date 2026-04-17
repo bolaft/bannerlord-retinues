@@ -17,6 +17,78 @@ namespace Retinues.Editor.MVC.Common.Column.Controllers
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
+        /// Cycles the selected character's gender through:
+        /// male → female → male+mixed → female+mixed → male
+        /// </summary>
+        public static ControllerAction<WCharacter> CycleGender { get; } =
+            Action<WCharacter>("CycleGender")
+                .AddCondition(
+                    c => c?.IsHero != true,
+                    L.T("mixed_gender_hero_reason", "Not applicable to heroes")
+                )
+                .AddCondition(
+                    applies: _ =>
+                        RaceHelper.HasAlternateSpecies()
+                        && State.Character != null
+                        && !State.Character.IsHero,
+                    test: c =>
+                    {
+                        if (c == null)
+                            return true;
+
+                        // Every transition toggles IsFemale; target is always !IsFemale.
+                        return RaceHelper.FindTemplate(c.Culture, !c.IsFemale, c.Race) != null;
+                    },
+                    reason: L.T("gender_no_template", "Invalid gender/species/culture combination")
+                )
+                .AddCondition(
+                    applies: _ =>
+                        RaceHelper.HasAlternateSpecies()
+                        && State.Character != null
+                        && !State.Character.IsHero,
+                    test: c =>
+                    {
+                        if (c == null)
+                            return true;
+
+                        return AppearanceGuard.CanRender(c.Culture, !c.IsFemale, c.Race);
+                    },
+                    reason: L.T("gender_no_template", "Invalid gender/species/culture combination")
+                )
+                .DefaultTooltip(L.T("gender_cycle_hint", "Cycle gender: male, female, mixed"))
+                .ExecuteWith(CycleGenderImpl)
+                .Fire(UIEvent.Gender);
+
+        private static void CycleGenderImpl(WCharacter c)
+        {
+            if (c == null)
+                return;
+
+            if (!c.IsFemale && !c.IsMixedGender)
+            {
+                // male → female
+                ToggleGenderImpl(c);
+            }
+            else if (c.IsFemale && !c.IsMixedGender)
+            {
+                // female → male+mixed
+                c.IsMixedGender = true;
+                ToggleGenderImpl(c);
+            }
+            else if (!c.IsFemale && c.IsMixedGender)
+            {
+                // male+mixed → female+mixed
+                ToggleGenderImpl(c);
+            }
+            else
+            {
+                // female+mixed → male: clear mixed, toggle to male
+                c.IsMixedGender = false;
+                ToggleGenderImpl(c);
+            }
+        }
+
+        /// <summary>
         /// Toggles the selected character's gender/species when valid and fires a gender update event.
         /// </summary>
         public static ControllerAction<WCharacter> ToggleGender { get; } =

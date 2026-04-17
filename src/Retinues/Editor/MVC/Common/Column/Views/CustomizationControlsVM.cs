@@ -60,18 +60,41 @@ namespace Retinues.Editor.MVC.Common.Column.Views
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         [DataSourceProperty]
-        public Button<WCharacter> GenderToggleButton { get; } =
+        public Button<WCharacter> GenderCycleButton { get; } =
             new(
-                action: GenderController.ToggleGender,
+                action: GenderController.CycleGender,
                 arg: () => State.Character,
-                refresh: [UIEvent.Gender, UIEvent.Culture],
+                refresh: [UIEvent.Gender, UIEvent.Character, UIEvent.Culture],
                 spriteFactory: () =>
-                    State.Character.IsFemale == true
+                    State.Character?.IsFemale == true
                         ? "SPGeneral\\GeneralFlagIcons\\female_only"
                         : "SPGeneral\\GeneralFlagIcons\\male_only",
                 colorFactory: () =>
-                    GenderController.ToggleGender.Allow(State.Character) ? "#c7ac85ff" : "#808080ff"
+                    GenderController.CycleGender.Allow(State.Character) ? "#c7ac85ff" : "#808080ff"
             );
+
+        [EventListener(UIEvent.Gender, UIEvent.Character)]
+        [DataSourceProperty]
+        public bool IsGenderMixed => State.Character?.IsMixedGender ?? false;
+
+        [EventListener(UIEvent.Gender, UIEvent.Character)]
+        [DataSourceProperty]
+        public bool IsGenderSingle => !(State.Character?.IsMixedGender ?? false);
+
+        [EventListener(UIEvent.Gender, UIEvent.Character, UIEvent.Culture)]
+        [DataSourceProperty]
+        public string GenderCycleSprite => GenderCycleButton.Sprite;
+
+        [EventListener(UIEvent.Gender, UIEvent.Character, UIEvent.Culture)]
+        [DataSourceProperty]
+        public string GenderCycleColor => GenderCycleButton.Color;
+
+        [EventListener(UIEvent.Gender, UIEvent.Character)]
+        [DataSourceProperty]
+        public string GenderMixedOverlaySprite =>
+            State.Character?.IsFemale == true
+                ? "SPGeneral\\GeneralFlagIcons\\male_only"
+                : "SPGeneral\\GeneralFlagIcons\\female_only";
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Presets                        //

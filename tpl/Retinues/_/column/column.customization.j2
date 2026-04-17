@@ -63,7 +63,70 @@
     HorizontalAlignment="Left" VerticalAlignment="Bottom">
     <Children>
 
-        {{ button_sprite("{GenderToggleButton}", "40", "40") }}
+        {# Gender Cycle Button (3-state: male / female / mixed) #}
+        <Widget
+            DataSource="{GenderCycleButton}"
+            IsVisible="@IsVisible"
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Children>
+
+                <HintWidget
+                    DataSource="{Tooltip}"
+                    Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
+
+                <ButtonWidget
+                    IsEnabled="@IsEnabled"
+                    DoNotPassEventsToChildren="true"
+                    UpdateChildrenStates="true"
+                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                    SuggestedWidth="40" SuggestedHeight="40"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Command.Click="Execute"
+                    Command.HoverBegin="ExecuteHoverBegin"
+                    Command.HoverEnd="ExecuteHoverEnd">
+                    <Children>
+
+                        <HintWidget
+                            DataSource="{Tooltip}"
+                            Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
+
+                        {# Base gender icon (male or female) #}
+                        {# Single gender: one big centered icon #}
+                        <SpriteWidget
+                            DataSource="{..}"
+                            IsVisible="@IsGenderSingle"
+                            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                            SuggestedWidth="40" SuggestedHeight="40"
+                            HorizontalAlignment="Center" VerticalAlignment="Center"
+                            Color="@GenderCycleColor"
+                            Sprite="@GenderCycleSprite"/>
+
+                        {# Mixed gender: primary (top-left) + secondary (bottom-right), both 32px #}
+                        {# DataSource="{..}" lifts context to CustomizationControlsVM for mixed/sprite/color props #}
+                        <SpriteWidget
+                            DataSource="{..}"
+                            IsVisible="@IsGenderMixed"
+                            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                            SuggestedWidth="32" SuggestedHeight="32"
+                            HorizontalAlignment="Left" VerticalAlignment="Top"
+                            Color="@GenderCycleColor"
+                            Sprite="@GenderCycleSprite"/>
+
+                        <SpriteWidget
+                            DataSource="{..}"
+                            IsVisible="@IsGenderMixed"
+                            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                            SuggestedWidth="32" SuggestedHeight="32"
+                            HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                            Color="#c7ac8565"
+                            Sprite="@GenderMixedOverlaySprite"/>
+
+                    </Children>
+                </ButtonWidget>
+
+            </Children>
+        </Widget>
 
         {{ control_row("SPPerks\\TradeRapidDevelopment", "{AgeHint}", "{AgePrevButton}", "{AgeNextButton}") }}
         {{ control_row("SPPerks\\AthleticsDurable", "{HeightHint}", "{HeightPrevButton}", "{HeightNextButton}") }}

@@ -1232,6 +1232,9 @@
       id="ret_formation_popup_title"
       text="Formation" />
     <string
+      id="ret_gender_cycle_hint"
+      text="Changer de genre : masculin, féminin, mixte" />
+    <string
       id="ret_gender_no_template"
       text="Combinaison de genre/espèce/culture invalide" />
     <string
@@ -2137,9 +2140,6 @@
     <string
       id="ret_mixed_gender_hero_reason"
       text="Non applicable aux héros" />
-    <string
-      id="ret_mixed_gender_toggle_tooltip"
-      text="Genre mixte : {PERCENT}% apparaîtront en tant que sexe opposé" />
     <string
       id="ret_name_header_text"
       text="Nom" />

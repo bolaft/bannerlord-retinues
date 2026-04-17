@@ -1232,6 +1232,9 @@
       id="ret_formation_popup_title"
       text="Класс формации" />
     <string
+      id="ret_gender_cycle_hint"
+      text="Смена пола: мужской, женский, смешанный" />
+    <string
       id="ret_gender_no_template"
       text="Недопустимая комбинация пола/вида/культуры" />
     <string
@@ -2137,9 +2140,6 @@
     <string
       id="ret_mixed_gender_hero_reason"
       text="Не применяется к героям" />
-    <string
-      id="ret_mixed_gender_toggle_tooltip"
-      text="Смешанный пол: {PERCENT}% появятся в противоположном поле" />
     <string
       id="ret_name_header_text"
       text="Имя" />
