@@ -168,9 +168,23 @@ namespace Retinues.Editor.MVC.Shared.Views
         public virtual bool IsVisible => true;
 
         [DataSourceProperty]
-        public virtual bool IsEnabled => VisibleRowCount > 0;
+        public virtual bool IsEnabled => HasAnyVisibleRows;
 
         internal bool HasVisibleRows => VisibleRowCount > 0;
+
+        private bool HasAnyVisibleRows
+        {
+            get
+            {
+                for (int i = 0; i < _rows.Count; i++)
+                {
+                    var row = _rows[i];
+                    if (row != null && row.IsVisible)
+                        return true;
+                }
+                return false;
+            }
+        }
         protected virtual bool CollapseWhenNotVisible => true;
         protected virtual bool ForceExpandedWhenNotVisible => false;
 
