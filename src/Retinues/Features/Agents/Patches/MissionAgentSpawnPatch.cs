@@ -26,8 +26,13 @@ namespace Retinues.Features.Agents.Patches
                 if (troop.IsHero)
                     return; // Don't affect heroes
 
-                if (!troop.IsCustom)
-                    return; // Feature disabled for vanilla troops
+                // Skip vanilla troops that haven't been edited through the mod.
+                // Edited vanilla troops (tracked in EditedVanillaRootIds via NeedsPersistence)
+                // must go through the same coherent set-selection as custom troops – otherwise
+                // GetRandomEquipmentElements mixes items slot-by-slot from different sets,
+                // creating "ghost" equipment combinations the user never created.
+                if (!troop.IsCustom && !troop.NeedsPersistence)
+                    return;
 
                 if (!MissionHelper.IsCombatMission())
                     return; // Combat only
