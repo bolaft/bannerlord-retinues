@@ -156,18 +156,6 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Panel
         //                       Statistics                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private static readonly ControllerAction<WCharacter> _openManualAction =
-            new ControllerAction<WCharacter>("OpenManual").ExecuteWith(_ => ManualLink.Open());
-
-        [DataSourceProperty]
-        public Button<WCharacter> ShowManualButton { get; } =
-            new(
-                action: _openManualAction,
-                arg: () => State.Character,
-                refresh: [],
-                label: L.S("manual_button_label", "Open Manual")
-            );
-
         [DataSourceProperty]
         public Button<WCharacter> ShowStatisticsButton { get; } =
             new(

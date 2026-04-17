@@ -1,17 +1,64 @@
+{% from "_/macros.buttons.j2" import button_sprite %}
+
 {# ---------------------------------------------- #}
-{# Equipment info                                 #}
+{# Panel info (top right, all panels)             #}
 {# ---------------------------------------------- #}
 
 <ListPanel
-    IsVisible="@OnEquipmentPage"
     WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
     HorizontalAlignment="Right" VerticalAlignment="Top"
     StackLayout.LayoutMethod="{{ vttb }}"
-    MarginTop="-20" MarginRight="6">
+    MarginRight="6">
     <Children>
 
-        {# Value row #}
+        {# Manual button - always visible #}
         <ListPanel
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            HorizontalAlignment="Right" VerticalAlignment="Center"
+            StackLayout.LayoutMethod="HorizontalLeftToRight">
+            <Children>
+
+                <TextWidget
+                    DataSource="{ShowManualButton}"
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                    HorizontalAlignment="Right" VerticalAlignment="Center"
+                    Brush="Popup.Button.Text"
+                    Brush.FontSize="20"
+                    MarginRight="8"
+                    Text="@Label" />
+
+                {{ button_sprite("{ShowManualButton}", "32", "32", button_brush="DescriptionButtonToggleBrush") }}
+
+            </Children>
+        </ListPanel>
+
+        {# Statistics button - character panel, Player mode only #}
+        <ListPanel
+            IsVisible="@OnCharacterPage"
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+            HorizontalAlignment="Right" VerticalAlignment="Center"
+            MarginTop="8"
+            StackLayout.LayoutMethod="HorizontalLeftToRight">
+            <Children>
+
+                <TextWidget
+                    DataSource="{ShowStatisticsButton}"
+                    IsVisible="@IsVisible"
+                    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+                    HorizontalAlignment="Right" VerticalAlignment="Center"
+                    Brush="Popup.Button.Text"
+                    Brush.FontSize="20"
+                    MarginRight="8"
+                    Text="@Label" />
+
+                {{ button_sprite("{ShowStatisticsButton}", "32", "32", button_brush="HowToLearnButtonToggleBrush") }}
+
+            </Children>
+        </ListPanel>
+
+        {# Value row - equipment panel only #}
+        <ListPanel
+            IsVisible="@OnEquipmentPage"
             WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
             HorizontalAlignment="Right" VerticalAlignment="Center"
             StackLayout.LayoutMethod="HorizontalRightToLeft">
@@ -44,8 +91,9 @@
             </Children>
         </ListPanel>
 
-        {# Weight row #}
+        {# Weight row - equipment panel only #}
         <ListPanel
+            IsVisible="@OnEquipmentPage"
             WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
             HorizontalAlignment="Right" VerticalAlignment="Center"
             StackLayout.LayoutMethod="HorizontalRightToLeft">
