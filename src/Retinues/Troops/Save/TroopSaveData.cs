@@ -194,6 +194,7 @@ namespace Retinues.Troops.Save
             troop.Name = Name;
             troop.Level = Level;
             troop.IsFemale = IsFemale;
+            troop.IsMariner = IsMariner; // Must be set before Skills so ExtraSkills includes the Mariner skill
             troop.Skills = SkillData.Deserialize();
 
             // Set equipment
@@ -295,9 +296,6 @@ namespace Retinues.Troops.Save
             {
                 Log.Exception(e);
             }
-
-            // Mariner status
-            troop.IsMariner = IsMariner;
 
             // Return the created troop
             return troop;
