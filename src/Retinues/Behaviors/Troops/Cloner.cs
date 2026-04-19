@@ -57,7 +57,7 @@ namespace Retinues.Behaviors.Troops
             CharacterCloner.SetBaseUpgradeTargets(clone, []);
 
             if (skills)
-                EnforceSkillLimits(clone);
+                EnforceSkillLimits(clone, template: template);
 
             if (!equipments)
             {
@@ -326,7 +326,7 @@ namespace Retinues.Behaviors.Troops
                 troop.Level = req.TargetLevel;
 
             if (req.CopySkills)
-                EnforceSkillLimits(troop, req.FillSkillsToTotal);
+                EnforceSkillLimits(troop, req.FillSkillsToTotal, template: template);
 
             ApplyStarterEquipments(
                 template: template,

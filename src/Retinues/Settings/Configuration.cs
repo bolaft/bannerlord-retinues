@@ -719,6 +719,47 @@ namespace Retinues.Settings
             dependsOnValue: new[] { EquipmentMode.RandomSet }
         );
 
+        public enum SkillMode
+        {
+            High,
+            Low,
+            Minimal,
+        }
+
+        public static readonly Option<SkillMode> StarterSkills = CreateOption(
+            section: Troops,
+            name: L.F("mcm_option_starter_skills", "Starter Skills"),
+            description: L.F(
+                "mcm_option_starter_skills_hint",
+                "Sets the starting skill levels for newly unlocked troops."
+            ),
+            @default: SkillMode.Low,
+            choices:
+            [
+                (
+                    SkillMode.High,
+                    L.S("starter_skills_high", "High"),
+                    L.S(
+                        "starter_skills_high_hint",
+                        "Troops start with a fully developed skill set."
+                    )
+                ),
+                (
+                    SkillMode.Low,
+                    L.S("starter_skills_low", "Low"),
+                    L.S("starter_skills_low_hint", "Troops start with only basic skills.")
+                ),
+                (
+                    SkillMode.Minimal,
+                    L.S("starter_skills_minimal", "Minimal"),
+                    L.S(
+                        "starter_skills_minimal_hint",
+                        "Troops start with the minimal required skills for the equipment they carry."
+                    )
+                ),
+            ]
+        );
+
         public static readonly Option<int> CaptainSpawnRate = CreateOption(
             section: Troops,
             name: L.F("mcm_option_captain_spawn_rate", "Captain Spawn Rate"),
