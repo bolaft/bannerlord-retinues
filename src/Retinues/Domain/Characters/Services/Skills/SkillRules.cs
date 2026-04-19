@@ -61,7 +61,7 @@ namespace Retinues.Domain.Characters.Services.Skills
                 if (wc.IsRetinue)
                     bonus += Configuration.RetinueSkillCapBonus;
 
-                if (wc.IsCaptain && wc.IsMaxTier)
+                if (wc.IsCaptain && wc.IsElite && wc.IsMaxTier)
                     bonus = (int)(cap * MaxTierCaptainMultiplier);
 
                 if (DoctrineCatalog.IronDiscipline.IsAcquired)
@@ -110,7 +110,7 @@ namespace Retinues.Domain.Characters.Services.Skills
                 if (wc.IsRetinue)
                     bonus += Configuration.RetinueSkillTotalBonus;
 
-                if (wc.IsCaptain && wc.IsMaxTier)
+                if (wc.IsCaptain && wc.IsElite && wc.IsMaxTier)
                     bonus = (int)(total * MaxTierCaptainMultiplier);
 
                 if (DoctrineCatalog.SteadfastSoldiers.IsAcquired && wc.IsBasic)

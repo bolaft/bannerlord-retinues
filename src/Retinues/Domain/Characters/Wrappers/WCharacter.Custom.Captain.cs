@@ -94,8 +94,10 @@ namespace Retinues.Domain.Characters.Wrappers
             captain.IsCaptainEnabled = false;
             captain.CaptainBase = this;
 
-            // Increase level to give captains a boost.
-            captain.Level += 5;
+            // Non-max-tier base troops get a one-tier bump; max-tier base troops
+            // stay at the same tier (their bonus comes from SkillRules instead).
+            // Use absolute assignment to avoid residual level state from the clone.
+            captain.Level = IsMaxTier ? Level : Level + 5;
 
             // Ensure captains are not shown visible.
             captain.HiddenInEncyclopedia = true;
