@@ -314,8 +314,11 @@ namespace Retinues.Game.Wrappers
                     CreateBattleSet();
                 if (!CivilianSets.Any())
                     CreateCivilianSet();
+            }
 
-                // Ensure first set is battle
+            // Ensure first set is battle for any edited troop (custom or edited vanilla)
+            if (Troop.NeedsPersistence)
+            {
                 var list = Equipments;
                 int firstBattle = list.FindIndex(e => !e.IsCivilian);
                 if (firstBattle > 0)
