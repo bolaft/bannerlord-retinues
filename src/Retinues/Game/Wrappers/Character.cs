@@ -433,9 +433,11 @@ namespace Retinues.Game.Wrappers
 
             RegisterCaptainPair(StringId, captain);
 
-            // Rank up if possible
-            if (!IsMaxTier)
-                captain.Level += 5;
+            // Set captain's level explicitly relative to base troop's level,
+            // avoiding any residual state in the reused stub.
+            // Non-max-tier base troops get a one-tier bump; max-tier troops stay
+            // at the same tier but receive a stat bonus in SkillManager instead.
+            captain.Level = IsMaxTier ? Level : Level + 5;
 
             // Rename
             captain.Name = L.T("captain_name", "{NAME} Captain")

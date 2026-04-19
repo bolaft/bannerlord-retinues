@@ -50,7 +50,13 @@ namespace Retinues.Managers
             if (DoctrineAPI.IsDoctrineUnlocked<IronDiscipline>())
                 cap += 5;
 
-            if (troop.IsMaxTier && troop.IsCaptain)
+            // The captain bonus applies only when the base troop is the elite
+            // max-tier troop (i.e. it cannot be ranked up further). For all other
+            // captains the +1 tier bump in CreateCaptain provides the benefit.
+            if (
+                troop.IsCaptain
+                && (troop.BaseTroop?.IsMaxTier == true && troop.BaseTroop?.IsElite == true)
+            )
                 cap += 25;
 
             return cap;
@@ -81,7 +87,10 @@ namespace Retinues.Managers
             if (DoctrineAPI.IsDoctrineUnlocked<SteadfastSoldiers>())
                 total += 10;
 
-            if (troop.IsMaxTier && troop.IsCaptain)
+            if (
+                troop.IsCaptain
+                && (troop.BaseTroop?.IsMaxTier == true && troop.BaseTroop?.IsElite == true)
+            )
                 total += 50;
 
             return total;
