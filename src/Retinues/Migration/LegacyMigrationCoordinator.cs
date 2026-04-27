@@ -1,13 +1,18 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Retinues.Behaviors.Doctrines;
 using Retinues.Behaviors.Doctrines.Definitions;
 using Retinues.Domain.Characters.Wrappers;
+using Retinues.Domain.Equipments.Models;
 using Retinues.Domain.Equipments.Wrappers;
+using Retinues.Domain.Factions.Wrappers;
 using Retinues.Migration.Legacy;
 using Retinues.Migration.Shims;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.Core;
+using TaleWorlds.ObjectSystem;
 
 namespace Retinues.Migration
 {
@@ -82,6 +87,7 @@ namespace Retinues.Migration
             try
             {
                 MigrateCharacterData();
+                MigrateFactionRoots();
                 MigrateItemData();
                 MigrateDoctrines();
                 MigrateFeatProgress();
@@ -109,6 +115,7 @@ namespace Retinues.Migration
         private void MigrateCharacterData()
         {
             var seen = new HashSet<string>(StringComparer.Ordinal);
+            var troopByStringId = new Dictionary<string, TroopSaveData>(StringComparer.Ordinal);
             int migrated = 0,
                 skipped = 0;
 
@@ -128,6 +135,27 @@ namespace Retinues.Migration
                     continue; // troop does not exist in v2 – skip
                 }
 
+                troopByStringId[troop.StringId] = troop;
+
+                // Mark stub as active so it isn't reclaimed by GetFreeStub().
+                if (wc.IsCustom)
+                    wc.IsActiveStub = true;
+
+                // ── Core identity ─────────────────────────────────────────
+                if (!string.IsNullOrEmpty(troop.Name))
+                    wc.Name = troop.Name;
+                wc.Level = troop.Level;
+                wc.IsFemale = troop.IsFemale;
+                if (troop.Race >= 0)
+                    wc.Race = troop.Race;
+                if (!string.IsNullOrEmpty(troop.CultureId))
+                {
+                    var co = MBObjectManager.Instance.GetObject<CultureObject>(troop.CultureId);
+                    if (co != null)
+                        wc.Culture = WCulture.Get(co);
+                }
+
+                // ── Formation / captain flags ─────────────────────────────
                 wc.FormationClassOverride = troop.FormationClassOverride;
                 wc.IsMariner = troop.IsMariner;
                 wc.IsCaptain = troop.IsCaptain;
@@ -140,7 +168,68 @@ namespace Retinues.Migration
                         wc.Captain = captainWc;
                 }
 
-                // Skill points
+                // ── Skills ────────────────────────────────────────────────
+                if (!string.IsNullOrWhiteSpace(troop.SkillData?.Code))
+                {
+                    foreach (var part in troop.SkillData.Code.Split(';'))
+                    {
+                        var kv = part.Split(':');
+                        if (kv.Length != 2)
+                            continue;
+                        var skill = MBObjectManager.Instance.GetObject<SkillObject>(kv[0].Trim());
+                        if (skill == null)
+                            continue;
+                        if (!int.TryParse(kv[1].Trim(), out var sv) || sv <= 0)
+                            continue;
+                        wc.Skills.Set(skill, sv);
+                    }
+                }
+
+                // ── Equipment ─────────────────────────────────────────────
+                if (troop.EquipmentData?.Codes?.Count > 0)
+                {
+                    bool hasCivilianFlags =
+                        troop.EquipmentData.Civilians?.Count == troop.EquipmentData.Codes.Count;
+                    var roster = new List<MEquipment>();
+                    for (int i = 0; i < troop.EquipmentData.Codes.Count; i++)
+                    {
+                        var code = troop.EquipmentData.Codes[i];
+                        if (string.IsNullOrEmpty(code))
+                            continue;
+                        var me = MEquipment.FromCode(wc, code);
+                        if (me == null)
+                            continue;
+                        me.IsCivilian = hasCivilianFlags
+                            ? troop.EquipmentData.Civilians[i]
+                            : (i == 1);
+                        roster.Add(me);
+                    }
+                    if (roster.Count > 0)
+                        wc.EquipmentRoster.Equipments = roster;
+                }
+
+                // ── Body ──────────────────────────────────────────────────
+                if (troop.BodyData != null)
+                {
+                    if (troop.BodyData.AgeMin > 0)
+                        wc.AgeMin = troop.BodyData.AgeMin;
+                    if (troop.BodyData.AgeMax > 0)
+                        wc.AgeMax = troop.BodyData.AgeMax;
+                    if (troop.BodyData.WeightMin > 0)
+                        wc.WeightMin = troop.BodyData.WeightMin;
+                    if (troop.BodyData.WeightMax > 0)
+                        wc.WeightMax = troop.BodyData.WeightMax;
+                    if (troop.BodyData.BuildMin > 0)
+                        wc.BuildMin = troop.BodyData.BuildMin;
+                    if (troop.BodyData.BuildMax > 0)
+                        wc.BuildMax = troop.BodyData.BuildMax;
+                    if (troop.BodyData.HeightMin > 0)
+                        wc.HeightMin = troop.BodyData.HeightMin;
+                    if (troop.BodyData.HeightMax > 0)
+                        wc.HeightMax = troop.BodyData.HeightMax;
+                }
+
+                // ── Skill points (from legacy XP pool) ───────────────────
                 if (
                     _xp.XpPools != null
                     && _xp.XpPools.TryGetValue(troop.StringId, out var rawXp)
@@ -155,7 +244,7 @@ namespace Retinues.Migration
                     );
                 }
 
-                // Combat history
+                // ── Combat history ────────────────────────────────────────
                 if (_stats.Stats != null && _stats.Stats.TryGetValue(troop.StringId, out var s))
                 {
                     wc.ImportLegacyHistory(
@@ -171,8 +260,35 @@ namespace Retinues.Migration
                 migrated++;
             }
 
+            // ── Second pass: wire upgrade trees ───────────────────────────
+            // All definitions are applied above; now link each troop to its upgrade targets.
+            int treeWired = 0;
+            foreach (var kvp in troopByStringId)
+            {
+                var id = kvp.Key;
+                var troop = kvp.Value;
+                if (troop.UpgradeTargets == null || troop.UpgradeTargets.Count == 0)
+                    continue;
+
+                var wc = WCharacter.Get(id);
+                if (wc == null)
+                    continue;
+
+                var targets = troop
+                    .UpgradeTargets.Where(t => !string.IsNullOrEmpty(t?.StringId))
+                    .Select(t => WCharacter.Get(t.StringId))
+                    .Where(w => w != null)
+                    .ToList();
+
+                if (targets.Count > 0)
+                {
+                    wc.UpgradeTargets = targets;
+                    treeWired++;
+                }
+            }
+
             Log.Info(
-                $"[Migration] Characters: {migrated} migrated, {skipped} skipped (not in v2)."
+                $"[Migration] Characters: {migrated} migrated, {skipped} skipped (not in v2); {treeWired} upgrade trees wired."
             );
         }
 
@@ -369,6 +485,103 @@ namespace Retinues.Migration
                 $"[Migration] Feats: {migrated} migrated, {noMapping} without v2 mapping; {doctrinesGainedProgress} doctrine(s) gained partial progress."
             );
         }
+
+        // ─── Faction roots (clan / kingdom) ───────────────────────────────────
+
+        /// <summary>
+        /// Re-wires clan and kingdom faction root assignments that were stored
+        /// only in-memory in v1 (not in BL native saves) and are therefore absent
+        /// when loading a legacy save in v2.
+        /// <para/>
+        /// WCulture and minor-clan roots are read from BL-native CultureObject
+        /// properties which ARE persisted by BL – no re-wiring needed for those.
+        /// </summary>
+        private void MigrateFactionRoots()
+        {
+            if (_faction.ClanTroops != null && Clan.PlayerClan != null)
+            {
+                var wClan = WClan.Get(Clan.PlayerClan.StringId);
+                if (wClan != null)
+                {
+                    ApplyRoot(wClan.SetRootBasic, _faction.ClanTroops.RootBasic);
+                    ApplyRoot(wClan.SetRootElite, _faction.ClanTroops.RootElite);
+
+                    var clanRetinues = new List<WCharacter>();
+                    var re = ResolveCharacter(_faction.ClanTroops.RetinueElite);
+                    var rb = ResolveCharacter(_faction.ClanTroops.RetinueBasic);
+                    if (re != null)
+                        clanRetinues.Add(re);
+                    if (rb != null)
+                        clanRetinues.Add(rb);
+                    if (clanRetinues.Count > 0)
+                        wClan.SetRetinues(clanRetinues);
+
+                    ApplyRoot(wClan.SetMeleeMilitiaTroop, _faction.ClanTroops.MilitiaMelee);
+                    ApplyRoot(
+                        wClan.SetMeleeEliteMilitiaTroop,
+                        _faction.ClanTroops.MilitiaMeleeElite
+                    );
+                    ApplyRoot(wClan.SetRangedMilitiaTroop, _faction.ClanTroops.MilitiaRanged);
+                    ApplyRoot(
+                        wClan.SetRangedEliteMilitiaTroop,
+                        _faction.ClanTroops.MilitiaRangedElite
+                    );
+                    ApplyRoot(wClan.SetCaravanGuard, _faction.ClanTroops.CaravanGuard);
+                    ApplyRoot(wClan.SetCaravanMaster, _faction.ClanTroops.CaravanMaster);
+                    ApplyRoot(wClan.SetVillager, _faction.ClanTroops.Villager);
+
+                    Log.Info($"[Migration] Clan roots wired for '{Clan.PlayerClan.Name}'.");
+                }
+            }
+
+            if (_faction.KingdomTroops != null && Clan.PlayerClan?.Kingdom != null)
+            {
+                var wKingdom = WKingdom.Get(Clan.PlayerClan.Kingdom.StringId);
+                if (wKingdom != null)
+                {
+                    ApplyRoot(wKingdom.SetRootBasic, _faction.KingdomTroops.RootBasic);
+                    ApplyRoot(wKingdom.SetRootElite, _faction.KingdomTroops.RootElite);
+
+                    var kgRetinues = new List<WCharacter>();
+                    var re = ResolveCharacter(_faction.KingdomTroops.RetinueElite);
+                    var rb = ResolveCharacter(_faction.KingdomTroops.RetinueBasic);
+                    if (re != null)
+                        kgRetinues.Add(re);
+                    if (rb != null)
+                        kgRetinues.Add(rb);
+                    if (kgRetinues.Count > 0)
+                        wKingdom.SetRetinues(kgRetinues);
+
+                    ApplyRoot(wKingdom.SetMeleeMilitiaTroop, _faction.KingdomTroops.MilitiaMelee);
+                    ApplyRoot(
+                        wKingdom.SetMeleeEliteMilitiaTroop,
+                        _faction.KingdomTroops.MilitiaMeleeElite
+                    );
+                    ApplyRoot(wKingdom.SetRangedMilitiaTroop, _faction.KingdomTroops.MilitiaRanged);
+                    ApplyRoot(
+                        wKingdom.SetRangedEliteMilitiaTroop,
+                        _faction.KingdomTroops.MilitiaRangedElite
+                    );
+                    ApplyRoot(wKingdom.SetCaravanGuard, _faction.KingdomTroops.CaravanGuard);
+                    ApplyRoot(wKingdom.SetCaravanMaster, _faction.KingdomTroops.CaravanMaster);
+                    ApplyRoot(wKingdom.SetVillager, _faction.KingdomTroops.Villager);
+
+                    Log.Info(
+                        $"[Migration] Kingdom roots wired for '{Clan.PlayerClan.Kingdom.Name}'."
+                    );
+                }
+            }
+        }
+
+        private static void ApplyRoot(Action<WCharacter> setter, TroopSaveData troop)
+        {
+            var wc = ResolveCharacter(troop);
+            if (wc != null)
+                setter(wc);
+        }
+
+        private static WCharacter ResolveCharacter(TroopSaveData troop) =>
+            string.IsNullOrEmpty(troop?.StringId) ? null : WCharacter.Get(troop.StringId);
 
         // ─── Helpers ───────────────────────────────────────────────────────
 
