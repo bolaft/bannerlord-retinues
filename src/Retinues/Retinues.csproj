@@ -122,4 +122,9 @@
       <Private>false</Private>
     </Reference>
   </ItemGroup>
+
+  <!-- In-game test suite: compiled into dev (Debug) builds only, never shipped in Release. -->
+  <ItemGroup Condition="'$(Configuration)' != 'Debug'">
+    <Compile Remove="Tests/**/*.cs" />
+  </ItemGroup>
 </Project>

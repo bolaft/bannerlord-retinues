@@ -5,10 +5,11 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
+using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Library;
 
-namespace Retinues.Utils
+namespace Retinues.Tests
 {
     /// <summary>
     /// Marks a static method as an in-game test case that can be discovered and run by the Tests framework.
@@ -264,6 +265,16 @@ namespace Retinues.Utils
                 {
                     msg = aex.Message;
                     ex = aex;
+                }
+                catch (TargetInvocationException tie) when (tie.InnerException != null)
+                {
+                    // Unwrap reflection-invoke wrapper so assertion messages surface cleanly.
+                    var inner = tie.InnerException;
+                    msg =
+                        inner is GameTestAssertionException
+                            ? inner.Message
+                            : "Unexpected exception: " + inner.Message;
+                    ex = inner;
                 }
                 catch (Exception e)
                 {
