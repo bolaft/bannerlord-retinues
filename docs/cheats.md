@@ -114,3 +114,13 @@ Browse, advance, or complete feats that gate certain doctrine bonuses.
   ```
   For players using the **Bandit Militias** mod. Scans all Bandit Militias parties and rosters and removes Retinues **custom troops** from them, replacing them with safe vanilla equivalents.  
   Use this if Bandit Militias ends up fielding Retinues troops and starts causing crashes or other issues.
+
+- **Scrub a corrupted save**
+  ```text
+  retinues.scrub_save
+  ```
+  Repairs saves corrupted by leftover troop data from a faction you no longer control (e.g. a **rebel kingdom** you led during a revolt that was later absorbed). It:
+  - Discards stale kingdom troop data that no longer applies.
+  - Releases **orphaned custom troop stubs** that aren't part of your current clan or kingdom troop trees, replacing any lingering world instances with their culture equivalents.
+
+  Run it if your edited troops keep reverting to unedited versions after reloading. It reports how much was cleaned; **save the game afterwards** to persist the fix. Troops still present in your live clan/kingdom trees (including captains) are never touched.

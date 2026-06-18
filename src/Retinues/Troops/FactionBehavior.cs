@@ -159,6 +159,27 @@ namespace Retinues.Troops
             }
         }
 
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Maintenance                      //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Drops saved kingdom troop data when the player no longer leads a kingdom (e.g. a
+        /// rebel kingdom that was absorbed). Returns true if stale data was discarded.
+        /// Used by the scrub cheat to clean a corrupted save without waiting for a reload.
+        /// </summary>
+        public bool ClearStaleKingdomData()
+        {
+            if (Player.Kingdom is null && _kingdomTroops is not null)
+            {
+                _kingdomTroops = null;
+                Log.Info("Scrub: discarded stale kingdom troop data.");
+                return true;
+            }
+
+            return false;
+        }
+
         /* ━━━━━ Fief Acquired ━━━━ */
 
         void ClanUnlock(
