@@ -986,6 +986,12 @@ namespace Retinues.Game.Wrappers
                 $"Removing troop {Name} from parent {Parent?.Name ?? "null"} and faction {Faction?.Name ?? "null"}"
             );
 
+            // Detach from every parent that lists this troop as an upgrade target. The single
+            // UpgradeMap parent only tracks one, but reworked trees (e.g. RBM) can give a troop
+            // multiple upgrade paths / parents. Stripping all references prevents undeletable
+            // "ghost" duplicates that linger in the other parents and waste upgrade slots.
+            DetachFromAllParents();
+
             // Detach from parent
             Parent = null;
 
@@ -1026,6 +1032,28 @@ namespace Retinues.Game.Wrappers
                         sameCategoryOnly: false
                     )
             );
+        }
+
+        /// <summary>
+        /// Strips this troop from every other custom troop's upgrade-target list. Used by Remove
+        /// to fully detach a troop that may have multiple parents (DAG-shaped trees from reworks
+        /// like RBM), which the single-parent UpgradeMap cannot represent.
+        /// </summary>
+        private void DetachFromAllParents()
+        {
+            foreach (var id in ActiveStubIds.ToArray())
+            {
+                if (id == StringId)
+                    continue;
+
+                var other = FromStringId(id);
+                if (other?.IsCustom != true)
+                    continue;
+
+                var targets = other.UpgradeTargets;
+                if (targets.Any(t => t != null && t.StringId == StringId))
+                    other.UpgradeTargets = [.. targets.Where(t => t != null && t.StringId != StringId)];
+            }
         }
 
         /// <summary>

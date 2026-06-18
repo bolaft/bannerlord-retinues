@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Retinues.Configuration;
 using Retinues.Doctrines;
 using Retinues.Doctrines.Catalog;
@@ -154,6 +155,59 @@ namespace Retinues.Tests.Cases
             var grandchild = UpgradeManager.AddUpgradeTarget(child, "Test Grandleaf");
             Tests.AssertFalse(child.IsDeletable, "A child with its own upgrade is not deletable.");
             Tests.AssertTrue(grandchild.IsDeletable, "The grandchild leaf is deletable.");
+        }
+
+        /// <summary>
+        /// Removing a troop that is referenced by multiple parents (a DAG-shaped tree, as produced
+        /// by reworks like RBM) strips it from every parent — no undeletable "ghost" is left.
+        /// </summary>
+        [GameTest(
+            "RemoveDetachesAllParents",
+            "troops",
+            "Removing a multi-parent troop strips it from every parent's upgrade targets"
+        )]
+        public static void RemoveDetachesAllParents(GameTestContext ctx)
+        {
+            ctx.EnsureCampaign();
+            using var sandbox = new TestSandbox();
+
+            var faction = sandbox.NewFaction();
+            Tests.AssertNotNull(faction, "A non-player faction with troop roots is available.");
+            TroopBuilder.CreateTroops(faction, isElite: false, copyWholeTree: false);
+            var root = faction.RootBasic;
+            Tests.AssertNotNull(root, "Basic root exists.");
+
+            // Two parents, plus a child whose tracked (UpgradeMap) parent is p1.
+            var p1 = UpgradeManager.AddUpgradeTarget(root, "Parent One");
+            var p2 = UpgradeManager.AddUpgradeTarget(root, "Parent Two");
+            var child = UpgradeManager.AddUpgradeTarget(p1, "Shared Child");
+
+            // Simulate a DAG: list the same child under a second parent (what RBM-style trees do).
+            p2.UpgradeTargets = [.. p2.UpgradeTargets, child];
+
+            Tests.AssertTrue(
+                p1.UpgradeTargets.Any(t => t.StringId == child.StringId),
+                "Child is under the first parent."
+            );
+            Tests.AssertTrue(
+                p2.UpgradeTargets.Any(t => t.StringId == child.StringId),
+                "Child is under the second parent."
+            );
+
+            child.Remove();
+
+            Tests.AssertFalse(
+                p1.UpgradeTargets.Any(t => t.StringId == child.StringId),
+                "Child was stripped from the first parent."
+            );
+            Tests.AssertFalse(
+                p2.UpgradeTargets.Any(t => t.StringId == child.StringId),
+                "Child was stripped from the second parent (no ghost left)."
+            );
+            Tests.AssertFalse(
+                WCharacter.ActiveStubIds.Contains(child.StringId),
+                "The child's stub was freed."
+            );
         }
     }
 }
