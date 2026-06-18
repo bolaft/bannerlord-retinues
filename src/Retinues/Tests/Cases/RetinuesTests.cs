@@ -1,3 +1,4 @@
+using System;
 using Retinues.Configuration;
 using Retinues.Doctrines;
 using Retinues.Doctrines.Catalog;
@@ -162,6 +163,118 @@ namespace Retinues.Tests.Cases
                 0,
                 RetinueManager.RenownRequiredPerUnit(troop),
                 "Non-retinue has no renown requirement."
+            );
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                       Conversion                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Converting a retinue back to a non-retinue swaps troops with no currency cost.
+        /// Mutates the live party; runs inside a TestPartyScope that restores it.
+        /// </summary>
+        [GameTest(
+            "RetinueConvertReverse",
+            "retinues",
+            "Converting a retinue to a non-retinue swaps troops with no currency cost"
+        )]
+        public static void RetinueConvertReverse(GameTestContext ctx)
+        {
+            ctx.EnsureCampaign();
+
+            var retinue = Player.Clan?.RetinueElite;
+            if (retinue == null)
+                return; // no retinue in this save; skip
+            var vanilla = Player.Clan?.Culture?.RootBasic;
+            if (vanilla == null)
+                return;
+
+            using var party = new TestPartyScope();
+            Player.Party.MemberRoster.AddTroop(retinue, 3);
+
+            int rBefore = Player.Party.MemberRoster.CountOf(retinue);
+            int vBefore = Player.Party.MemberRoster.CountOf(vanilla);
+            Tests.AssertTrue(rBefore >= 3, "At least three retinues are present.");
+
+            RetinueManager.Convert(retinue, vanilla, 3);
+
+            Tests.AssertEqual(
+                rBefore - 3,
+                Player.Party.MemberRoster.CountOf(retinue),
+                "Three retinues were removed."
+            );
+            Tests.AssertEqual(
+                vBefore + 3,
+                Player.Party.MemberRoster.CountOf(vanilla),
+                "Three non-retinue troops were added."
+            );
+        }
+
+        /// <summary>
+        /// Converting to a retinue respects the cap and spends gold + influence.
+        /// Mutates the live party; runs inside a TestPartyScope that restores it.
+        /// </summary>
+        [GameTest(
+            "RetinueConvertCostsCurrency",
+            "retinues",
+            "Converting to a retinue respects the cap and spends gold and influence"
+        )]
+        public static void RetinueConvertCostsCurrency(GameTestContext ctx)
+        {
+            ctx.EnsureCampaign();
+
+            var retinue = Player.Clan?.RetinueElite;
+            if (retinue == null)
+                return;
+            var vanilla = Player.Clan?.Culture?.RootBasic;
+            if (vanilla == null)
+                return;
+
+            using var party = new TestPartyScope();
+            Player.Party.MemberRoster.AddTroop(vanilla, 5);
+            Player.ChangeGold(100000);
+            Player.ChangeInfluence(1000);
+
+            int cap = RetinueManager.RetinueCapFor(retinue);
+            int curRet = Player.Party.MemberRoster.CountOf(retinue);
+            int room = Math.Max(0, cap - curRet);
+            int curVanilla = Player.Party.MemberRoster.CountOf(vanilla);
+
+            int max = RetinueManager.GetMaxConvertible(vanilla, retinue);
+            Tests.AssertEqual(
+                Math.Min(curVanilla, room),
+                max,
+                "Max convertible respects party count and retinue cap."
+            );
+
+            if (max < 1)
+                return; // retinue cap is full in this save; nothing to convert
+
+            int goldBefore = Player.Gold;
+            int infBefore = Player.Influence;
+            int costGold = RetinueManager.ConversionGoldCostPerUnit(retinue);
+            int costInf = RetinueManager.ConversionInfluenceCostPerUnit(retinue);
+            int vBefore = Player.Party.MemberRoster.CountOf(vanilla);
+            int rBefore = Player.Party.MemberRoster.CountOf(retinue);
+
+            RetinueManager.Convert(vanilla, retinue, 1);
+
+            Tests.AssertEqual(
+                vBefore - 1,
+                Player.Party.MemberRoster.CountOf(vanilla),
+                "One source troop was consumed."
+            );
+            Tests.AssertEqual(
+                rBefore + 1,
+                Player.Party.MemberRoster.CountOf(retinue),
+                "One retinue was gained."
+            );
+            Tests.AssertEqual(goldBefore - costGold, Player.Gold, "Gold was spent on conversion.");
+            Tests.AssertEqual(
+                infBefore - costInf,
+                Player.Influence,
+                "Influence was spent on conversion."
             );
         }
     }

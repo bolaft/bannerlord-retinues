@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Retinues.Doctrines;
+using Retinues.Features.Experience;
 using Retinues.Features.Stocks;
 using Retinues.Features.Unlocks;
 using Retinues.Game;
@@ -36,6 +37,10 @@ namespace Retinues.Tests
         private readonly List<string> _doctrineUnlockedSnapshot;
         private readonly Dictionary<string, int> _featProgressRef;
         private readonly Dictionary<string, int> _featProgressSnapshot;
+
+        // XP pools (private field on TroopXpBehavior, captured by reference).
+        private readonly Dictionary<string, int> _xpPoolsRef;
+        private readonly Dictionary<string, int> _xpPoolsSnapshot;
 
         public TestSandbox()
         {
@@ -73,6 +78,14 @@ namespace Retinues.Tests
                     _featProgressRef != null
                         ? new Dictionary<string, int>(_featProgressRef)
                         : null;
+            }
+
+            var xp = TroopXpBehavior.Instance;
+            if (xp != null)
+            {
+                _xpPoolsRef = Reflector.GetFieldValue<Dictionary<string, int>>(xp, "_xpPools");
+                _xpPoolsSnapshot =
+                    _xpPoolsRef != null ? new Dictionary<string, int>(_xpPoolsRef) : null;
             }
         }
 
@@ -141,6 +154,9 @@ namespace Retinues.Tests
                 }
                 if (_featProgressRef != null && _featProgressSnapshot != null)
                     RestoreDict(_featProgressRef, _featProgressSnapshot);
+
+                if (_xpPoolsRef != null && _xpPoolsSnapshot != null)
+                    RestoreDict(_xpPoolsRef, _xpPoolsSnapshot);
 
                 // Invalidate cached faction lookups and captain caches so nothing keeps a
                 // reference to a sandbox troop after restore.

@@ -188,5 +188,52 @@ namespace Retinues.Tests.Cases
                 "Root id removed from the edited-vanilla set."
             );
         }
+
+        /// <summary>
+        /// Exporting player troops writes a file that is recognized as a valid unified export.
+        /// Export is non-mutating (it reads the player factions); the temp file is cleaned up.
+        /// </summary>
+        [GameTest(
+            "ExportProducesValidUnifiedFile",
+            "save",
+            "Exporting player troops writes a file recognized as a valid unified export"
+        )]
+        public static void ExportProducesValidUnifiedFile(GameTestContext ctx)
+        {
+            ctx.EnsureCampaign();
+
+            string path = null;
+            try
+            {
+                path = TroopImportExport.ExportUnified(
+                    "retinues_test_export",
+                    includeCustom: true,
+                    includeCultures: false
+                );
+                Tests.AssertNotNull(path, "Export returned a path.");
+                Tests.AssertTrue(System.IO.File.Exists(path), "Export file was created.");
+
+                var files = TroopImportExport.ListValidUnifiedFilesNewestFirst();
+                bool recognized = files.Any(f =>
+                    f.IndexOf("retinues_test_export", System.StringComparison.OrdinalIgnoreCase) >= 0
+                );
+                Tests.AssertTrue(
+                    recognized,
+                    "The exported file is recognized as a valid unified export."
+                );
+            }
+            finally
+            {
+                try
+                {
+                    if (path != null && System.IO.File.Exists(path))
+                        System.IO.File.Delete(path);
+                }
+                catch
+                {
+                    // best-effort cleanup
+                }
+            }
+        }
     }
 }

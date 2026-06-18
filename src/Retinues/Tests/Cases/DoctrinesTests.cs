@@ -162,6 +162,49 @@ namespace Retinues.Tests.Cases
             Tests.AssertEqual(baseCap + 5, boostedCap, "Iron Discipline raises the skill cap by 5.");
         }
 
+        /// <summary>
+        /// Unlocking Steadfast Soldiers raises a regular troop's skill point total by exactly 10.
+        /// </summary>
+        [GameTest(
+            "SteadfastSoldiersRaisesSkillTotal",
+            "doctrines",
+            "Steadfast Soldiers raises a regular troop's skill total by 10"
+        )]
+        public static void SteadfastSoldiersRaisesSkillTotal(GameTestContext ctx)
+        {
+            ctx.EnsureCampaign();
+
+            if (DoctrineAPI.AllDoctrines().Count == 0)
+                return; // doctrines disabled; skip
+            if (DoctrineAPI.IsDoctrineUnlocked<SteadfastSoldiers>())
+                return; // already unlocked; can't measure a clean delta
+
+            using var sandbox = new TestSandbox();
+
+            var faction = sandbox.NewFaction();
+            Tests.AssertNotNull(faction, "A non-player faction with troop roots is available.");
+            TroopBuilder.CreateTroops(faction, isElite: false, copyWholeTree: false);
+
+            var troop = faction.RootBasic;
+            Tests.AssertNotNull(troop, "Basic root exists.");
+            Tests.AssertFalse(troop.IsRetinue, "Troop is a regular (not a retinue).");
+
+            int baseTotal = SkillManager.SkillTotalByTier(troop);
+
+            TestDoctrines.Unlock<SteadfastSoldiers>();
+            Tests.AssertTrue(
+                DoctrineAPI.IsDoctrineUnlocked<SteadfastSoldiers>(),
+                "Steadfast Soldiers is unlocked."
+            );
+
+            int boostedTotal = SkillManager.SkillTotalByTier(troop);
+            Tests.AssertEqual(
+                baseTotal + 10,
+                boostedTotal,
+                "Steadfast Soldiers raises the skill total by 10."
+            );
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Helpers                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
