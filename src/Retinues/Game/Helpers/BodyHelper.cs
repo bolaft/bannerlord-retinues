@@ -214,7 +214,11 @@ namespace Retinues.Game.Helpers
             if (troop == null || culture == null)
                 return;
 
-            var template = culture.BasicTroop ?? culture.EliteBasicTroop;
+            // Most main cultures expose BasicTroop/EliteBasicTroop; minor/ancestral cultures (e.g.
+            // Nord, Vakken) define neither. Fall back through the culture's other troops, then to
+            // the troop's vanilla base, so the switch resets appearance deterministically instead
+            // of silently leaving the previous culture's body in place.
+            var template = GetCultureTemplate(culture) ?? ResolveVanillaBaseTemplate(troop);
             if (template == null)
                 return;
 
@@ -301,6 +305,70 @@ namespace Retinues.Game.Helpers
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                  Template Resolution                   //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Picks a representative troop to copy body properties / tags from for a culture. Prefers
+        /// the culture's basic troop, then falls back through its other troop types and finally any
+        /// troop of that culture. Returns null only when the culture has no troops at all (e.g. a
+        /// minor/ancestral culture like Nord or Vakken).
+        /// </summary>
+        internal static CharacterObject GetCultureTemplate(CultureObject culture)
+        {
+            if (culture == null)
+                return null;
+
+            return culture.BasicTroop
+                ?? culture.EliteBasicTroop
+                ?? culture.MeleeMilitiaTroop
+                ?? culture.MeleeEliteMilitiaTroop
+                ?? culture.RangedMilitiaTroop
+                ?? culture.Villager
+                ?? culture.VillageWoman
+                ?? culture.CaravanGuard
+                ?? FindAnyTroopOfCulture(culture);
+        }
+
+        /// <summary>
+        /// Scans the object manager for any non-hero troop belonging to the culture that has a body
+        /// range to copy. Last-resort fallback for cultures with no standard troop slots filled.
+        /// </summary>
+        private static CharacterObject FindAnyTroopOfCulture(CultureObject culture)
+        {
+            try
+            {
+                foreach (var co in MBObjectManager.Instance.GetObjectTypeList<CharacterObject>())
+                    if (
+                        co != null
+                        && !co.IsHero
+                        && co.Culture == culture
+                        && co.BodyPropertyRange != null
+                    )
+                        return co;
+            }
+            catch (Exception ex)
+            {
+                Log.Exception(ex);
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Resolves the troop's vanilla-base CharacterObject (the unit it was cloned from). Used as
+        /// a neutral appearance source when the selected culture defines no troops of its own, so
+        /// the switch produces a deterministic look instead of inheriting the previous culture.
+        /// </summary>
+        private static CharacterObject ResolveVanillaBaseTemplate(WCharacter troop)
+        {
+            var vid = troop?.VanillaStringId;
+            if (string.IsNullOrEmpty(vid) || vid == troop.StringId)
+                return null;
+            return MBObjectManager.Instance.GetObject<CharacterObject>(vid);
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                   Tags Normalization                   //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
@@ -323,19 +391,21 @@ namespace Retinues.Game.Helpers
                 if (basic.IsHero)
                     return;
 
-                // Pick a culture template to pull tags from.
+                // Pick a culture template to pull tags from. Prefer a gender-appropriate template,
+                // then the culture's troop fallback chain, then the troop's vanilla base — so even
+                // minor/ancestral cultures (e.g. Nord, Vakken) reset tags deterministically.
                 CharacterObject template = null;
 
                 if (troop.IsFemale)
                     template = culture.VillageWoman;
 
-                if (template == null) // not female or no VillageWoman defined
-                    template = culture.BasicTroop ?? culture.EliteBasicTroop;
+                template ??= GetCultureTemplate(culture);
+                template ??= ResolveVanillaBaseTemplate(troop);
 
                 if (template == null)
                 {
                     Log.Warn(
-                        $"[BodyHelper] No BasicTroop/EliteBasicTroop for culture '{culture.StringId}', aborting."
+                        $"[BodyHelper] No usable troop template for culture '{culture.StringId}', aborting."
                     );
                     return;
                 }
@@ -350,59 +420,41 @@ namespace Retinues.Game.Helpers
                     );
                     return;
                 }
-                // Use the template's tag pools as "valid" tags for this culture.
+                // Use the template's tag pools as the valid tags for this culture. An empty value
+                // means the culture defines none for that category — we still apply it (clearing
+                // the target) so switching to a culture with fewer tag categories than the previous
+                // one does not leave stale hair/beard/tattoo tags behind.
                 var hairTags = templateRange.HairTags ?? string.Empty;
                 var beardTags = templateRange.BeardTags ?? string.Empty;
                 var tattooTags = templateRange.TattooTags ?? string.Empty;
 
-                bool hasHair = !string.IsNullOrEmpty(hairTags);
-                bool hasBeard = !string.IsNullOrEmpty(beardTags);
-                bool hasTattoo = !string.IsNullOrEmpty(tattooTags);
-
-                // Nothing to apply, bail out.
-                if (!hasHair && !hasBeard && !hasTattoo)
-                {
-                    Log.Info("[BodyHelper] Template has no tags, nothing to apply.");
-                    return;
-                }
-
-                // Check if we actually need to change anything.
+                // Only rewrite the range when at least one category actually differs.
                 bool different =
-                    (
-                        hasHair
-                        && !string.Equals(targetRange.HairTags, hairTags, StringComparison.Ordinal)
+                    !string.Equals(
+                        targetRange.HairTags ?? string.Empty,
+                        hairTags,
+                        StringComparison.Ordinal
                     )
-                    || (
-                        hasBeard
-                        && !string.Equals(
-                            targetRange.BeardTags,
-                            beardTags,
-                            StringComparison.Ordinal
-                        )
+                    || !string.Equals(
+                        targetRange.BeardTags ?? string.Empty,
+                        beardTags,
+                        StringComparison.Ordinal
                     )
-                    || (
-                        hasTattoo
-                        && !string.Equals(
-                            targetRange.TattooTags,
-                            tattooTags,
-                            StringComparison.Ordinal
-                        )
+                    || !string.Equals(
+                        targetRange.TattooTags ?? string.Empty,
+                        tattooTags,
+                        StringComparison.Ordinal
                     );
 
                 if (!different)
                     return;
 
-                // Follow vanilla pattern and clone the MBBodyProperty.
+                // Follow vanilla pattern and clone the MBBodyProperty, then overwrite every tag
+                // category (including clearing to empty when the culture defines none).
                 var clonedRange = MBBodyProperty.CreateFrom(targetRange);
-
-                if (hasHair)
-                    clonedRange.HairTags = hairTags;
-
-                if (hasBeard)
-                    clonedRange.BeardTags = beardTags;
-
-                if (hasTattoo)
-                    clonedRange.TattooTags = tattooTags;
+                clonedRange.HairTags = hairTags;
+                clonedRange.BeardTags = beardTags;
+                clonedRange.TattooTags = tattooTags;
 
                 // Assign back via reflection because BodyPropertyRange setter is protected.
                 Reflector.SetPropertyValue(basic, "BodyPropertyRange", clonedRange);
