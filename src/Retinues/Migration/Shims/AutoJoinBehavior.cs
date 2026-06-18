@@ -26,6 +26,11 @@ namespace Retinues.Migration.Shims
 
         public override void SyncData(IDataStore dataStore)
         {
+            // Read-only shim: never write legacy data back, so a migrated save drops these
+            // partitions on its next save and migration does not re-fire on later loads.
+            if (dataStore.IsSaving)
+                return;
+
             dataStore.SyncData("Retinues_RetinueHire_Caps", ref HireCaps);
             dataStore.SyncData("Retinues_RetinueHire_RenownReserve", ref RenownReserve);
             dataStore.SyncData("Retinues_RetinueHire_LastRenown", ref LastRenown);

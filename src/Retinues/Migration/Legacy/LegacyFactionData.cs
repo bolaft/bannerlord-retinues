@@ -62,6 +62,9 @@ namespace Retinues.Migration.Legacy
 
         [SaveableField(16)]
         public bool IsMariner;
+
+        [SaveableField(17)]
+        public int SkillBaseline; // v1 skill-budget floor; 0 on saves predating the field
     }
 
     public sealed class TroopBodySaveData

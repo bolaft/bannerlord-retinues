@@ -17,36 +17,36 @@ namespace Retinues.Migration
         private static readonly Dictionary<string, string> s_map = new()
         {
             // ── Loot doctrines ───────────────────────────────────────────────
-            ["RetinuesLegacy.Doctrines.Catalog.LionsShare"] = "doc_loot_lions_share",
-            ["RetinuesLegacy.Doctrines.Catalog.BattlefieldTithes"] = "doc_loot_battlefield_tithes",
-            ["RetinuesLegacy.Doctrines.Catalog.PragmaticScavengers"] =
+            ["Retinues.Doctrines.Catalog.LionsShare"] = "doc_loot_lions_share",
+            ["Retinues.Doctrines.Catalog.BattlefieldTithes"] = "doc_loot_battlefield_tithes",
+            ["Retinues.Doctrines.Catalog.PragmaticScavengers"] =
                 "doc_loot_pragmatic_scavengers",
-            ["RetinuesLegacy.Doctrines.Catalog.AncestralHeritage"] = "doc_loot_ancestral_heritage",
+            ["Retinues.Doctrines.Catalog.AncestralHeritage"] = "doc_loot_ancestral_heritage",
 
             // ── Armory doctrines ─────────────────────────────────────────────
-            ["RetinuesLegacy.Doctrines.Catalog.CulturalPride"] = "doc_armory_cultural_pride",
-            ["RetinuesLegacy.Doctrines.Catalog.ClanicTraditions"] = "doc_armory_honor_guard",
-            ["RetinuesLegacy.Doctrines.Catalog.RoyalPatronage"] = "doc_armory_royal_patronage",
-            ["RetinuesLegacy.Doctrines.Catalog.Ironclad"] = "doc_armory_ironclad",
+            ["Retinues.Doctrines.Catalog.CulturalPride"] = "doc_armory_cultural_pride",
+            ["Retinues.Doctrines.Catalog.ClanicTraditions"] = "doc_armory_honor_guard",
+            ["Retinues.Doctrines.Catalog.RoyalPatronage"] = "doc_armory_royal_patronage",
+            ["Retinues.Doctrines.Catalog.Ironclad"] = "doc_armory_ironclad",
 
             // ── Troops doctrines ─────────────────────────────────────────────
-            ["RetinuesLegacy.Doctrines.Catalog.StalwartMilitia"] = "doc_troops_stalwart_militia",
-            ["RetinuesLegacy.Doctrines.Catalog.RoadWardens"] = "doc_troops_road_wardens",
-            ["RetinuesLegacy.Doctrines.Catalog.ArmedPeasantry"] = "doc_troops_armed_peasantry",
-            ["RetinuesLegacy.Doctrines.Catalog.Captains"] = "doc_troops_captains",
+            ["Retinues.Doctrines.Catalog.StalwartMilitia"] = "doc_troops_stalwart_militia",
+            ["Retinues.Doctrines.Catalog.RoadWardens"] = "doc_troops_road_wardens",
+            ["Retinues.Doctrines.Catalog.ArmedPeasantry"] = "doc_troops_armed_peasantry",
+            ["Retinues.Doctrines.Catalog.Captains"] = "doc_troops_captains",
 
             // ── Training doctrines ───────────────────────────────────────────
-            ["RetinuesLegacy.Doctrines.Catalog.IronDiscipline"] = "doc_training_iron_discipline",
-            ["RetinuesLegacy.Doctrines.Catalog.SteadfastSoldiers"] =
+            ["Retinues.Doctrines.Catalog.IronDiscipline"] = "doc_training_iron_discipline",
+            ["Retinues.Doctrines.Catalog.SteadfastSoldiers"] =
                 "doc_training_steadfast_soldiers",
-            ["RetinuesLegacy.Doctrines.Catalog.MastersAtArms"] = "doc_training_masters_at_arms",
-            ["RetinuesLegacy.Doctrines.Catalog.AdaptiveTraining"] = "doc_training_advanced_tactics",
+            ["Retinues.Doctrines.Catalog.MastersAtArms"] = "doc_training_masters_at_arms",
+            ["Retinues.Doctrines.Catalog.AdaptiveTraining"] = "doc_training_advanced_tactics",
 
             // ── Retinues doctrines ───────────────────────────────────────────
-            ["RetinuesLegacy.Doctrines.Catalog.Indomitable"] = "doc_retinues_indomitable",
-            ["RetinuesLegacy.Doctrines.Catalog.BoundByHonor"] = "doc_retinues_bound_by_honor",
-            ["RetinuesLegacy.Doctrines.Catalog.Vanguard"] = "doc_retinues_vanguard",
-            ["RetinuesLegacy.Doctrines.Catalog.Immortals"] = "doc_retinues_immortals",
+            ["Retinues.Doctrines.Catalog.Indomitable"] = "doc_retinues_indomitable",
+            ["Retinues.Doctrines.Catalog.BoundByHonor"] = "doc_retinues_bound_by_honor",
+            ["Retinues.Doctrines.Catalog.Vanguard"] = "doc_retinues_vanguard",
+            ["Retinues.Doctrines.Catalog.Immortals"] = "doc_retinues_immortals",
         };
     }
 }

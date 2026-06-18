@@ -21,6 +21,7 @@ namespace Retinues.Migration
             var unlocks = new UnlocksBehavior();
             var doctrines = new DoctrineServiceBehavior();
             var autoJoin = new AutoJoinBehavior();
+            var combatAgent = new CombatAgentBehavior();
             var version = new VersionBehavior();
 
             var coordinator = new LegacyMigrationCoordinator(
@@ -31,6 +32,7 @@ namespace Retinues.Migration
                 unlocks,
                 doctrines,
                 autoJoin,
+                combatAgent,
                 version
             );
 
@@ -42,6 +44,7 @@ namespace Retinues.Migration
             starter.AddBehavior(unlocks);
             starter.AddBehavior(doctrines);
             starter.AddBehavior(autoJoin);
+            starter.AddBehavior(combatAgent);
             starter.AddBehavior(version);
             starter.AddBehavior(coordinator);
         }

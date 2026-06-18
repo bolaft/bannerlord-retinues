@@ -122,7 +122,10 @@ namespace Retinues.Domain.Characters.Services.Skills
                 return bonus;
             }
 
-            return total + ComputeBonus();
+            // Never below the troop's seeded baseline: troops cloned or migrated from high-skill
+            // templates (e.g. The Old Realms units) would otherwise be born over budget and locked
+            // to decrement-only. SkillBaseline is 0 for normal troops, so the floor is inert there.
+            return Math.Max(total + ComputeBonus(), wc.SkillBaseline);
         }
     }
 }

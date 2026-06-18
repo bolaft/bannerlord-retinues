@@ -39,6 +39,7 @@ namespace Retinues.Migration
         private readonly UnlocksBehavior _unlocks;
         private readonly DoctrineServiceBehavior _doctrines;
         private readonly AutoJoinBehavior _autoJoin;
+        private readonly CombatAgentBehavior _combatAgent;
 
         internal LegacyMigrationCoordinator(
             FactionBehavior faction,
@@ -48,6 +49,7 @@ namespace Retinues.Migration
             UnlocksBehavior unlocks,
             DoctrineServiceBehavior doctrines,
             AutoJoinBehavior autoJoin,
+            CombatAgentBehavior combatAgent,
             VersionBehavior versionShim
         )
         {
@@ -59,6 +61,7 @@ namespace Retinues.Migration
             _unlocks = unlocks;
             _doctrines = doctrines;
             _autoJoin = autoJoin;
+            _combatAgent = combatAgent;
         }
 
         public override void RegisterEvents()
@@ -84,17 +87,25 @@ namespace Retinues.Migration
             DetectedLegacySaveVersion = _versionShim.SavedVersion ?? "unknown";
             Log.Info("[Migration] Legacy save detected – applying v1 → v2 migration.");
 
+            // Each phase is isolated: a failure in one (e.g. a malformed doctrine record) must
+            // not abort the others. The legacy partitions are dropped on the next save (shims
+            // skip writing), so the migration does not re-run on subsequent loads.
+            RunPhase("characters", MigrateCharacterData);
+            RunPhase("faction roots", MigrateFactionRoots);
+            RunPhase("items", MigrateItemData);
+            RunPhase("doctrines", MigrateDoctrines);
+            RunPhase("feats", MigrateFeatProgress);
+        }
+
+        private static void RunPhase(string name, Action phase)
+        {
             try
             {
-                MigrateCharacterData();
-                MigrateFactionRoots();
-                MigrateItemData();
-                MigrateDoctrines();
-                MigrateFeatProgress();
+                phase();
             }
             catch (Exception ex)
             {
-                Log.Error($"[Migration] Error during legacy migration: {ex}");
+                Log.Error($"[Migration] Phase '{name}' failed: {ex}");
             }
         }
 
@@ -127,137 +138,156 @@ namespace Retinues.Migration
                 if (!seen.Add(troop.StringId))
                     continue;
 
-                var wc = WCharacter.Get(troop.StringId);
-                if (wc == null)
+                // Isolate per-troop failures: one malformed record must not abort the rest.
+                try
                 {
-                    Log.Debug($"[Migration] Troop '{troop.StringId}' not found in v2 – skipping.");
+                    var wc = WCharacter.Get(troop.StringId);
+                    if (wc == null)
+                    {
+                        Log.Debug(
+                            $"[Migration] Troop '{troop.StringId}' not found in v2 – skipping."
+                        );
+                        skipped++;
+                        continue; // troop does not exist in v2 – skip
+                    }
+
+                    troopByStringId[troop.StringId] = troop;
+
+                    // Mark stub as active so it isn't reclaimed by GetFreeStub().
+                    if (wc.IsCustom)
+                        wc.IsActiveStub = true;
+
+                    // ── Core identity ─────────────────────────────────────────
+                    if (!string.IsNullOrEmpty(troop.Name))
+                        wc.Name = troop.Name;
+                    wc.Level = troop.Level;
+                    wc.IsFemale = troop.IsFemale;
+                    if (troop.Race >= 0)
+                        wc.Race = troop.Race;
+                    if (!string.IsNullOrEmpty(troop.CultureId))
+                    {
+                        var co = MBObjectManager.Instance.GetObject<CultureObject>(troop.CultureId);
+                        if (co != null)
+                            wc.Culture = WCulture.Get(co);
+                    }
+
+                    // ── Formation / captain flags ─────────────────────────────
+                    wc.FormationClassOverride = troop.FormationClassOverride;
+                    wc.IsMariner = troop.IsMariner;
+                    wc.IsCaptain = troop.IsCaptain;
+                    wc.IsCaptainEnabled = troop.CaptainEnabled;
+
+                    if (troop.Captain?.StringId != null)
+                    {
+                        var captainWc = WCharacter.Get(troop.Captain.StringId);
+                        if (captainWc != null)
+                            wc.Captain = captainWc;
+                    }
+
+                    // ── Skills ────────────────────────────────────────────────
+                    if (!string.IsNullOrWhiteSpace(troop.SkillData?.Code))
+                    {
+                        foreach (var part in troop.SkillData.Code.Split(';'))
+                        {
+                            var kv = part.Split(':');
+                            if (kv.Length != 2)
+                                continue;
+                            var skill = MBObjectManager.Instance.GetObject<SkillObject>(kv[0].Trim());
+                            if (skill == null)
+                                continue;
+                            if (!int.TryParse(kv[1].Trim(), out var sv) || sv <= 0)
+                                continue;
+                            wc.Skills.Set(skill, sv);
+                        }
+                    }
+
+                    // ── Skill budget baseline (floor) ─────────────────────────
+                    // Keep migrated troops editable even if their v1 skills exceed the v2 tier
+                    // budget. Pre-field-17 saves store 0, so backfill from the migrated skill sum.
+                    wc.SkillBaseline = troop.SkillBaseline > 0 ? troop.SkillBaseline : wc.SkillTotalUsed;
+
+                    // ── Equipment ─────────────────────────────────────────────
+                    if (troop.EquipmentData?.Codes?.Count > 0)
+                    {
+                        bool hasCivilianFlags =
+                            troop.EquipmentData.Civilians?.Count == troop.EquipmentData.Codes.Count;
+                        var roster = new List<MEquipment>();
+                        for (int i = 0; i < troop.EquipmentData.Codes.Count; i++)
+                        {
+                            var code = troop.EquipmentData.Codes[i];
+                            if (string.IsNullOrEmpty(code))
+                                continue;
+                            var me = MEquipment.FromCode(wc, code);
+                            if (me == null)
+                                continue;
+                            me.IsCivilian = hasCivilianFlags
+                                ? troop.EquipmentData.Civilians[i]
+                                : (i == 1);
+                            roster.Add(me);
+                        }
+                        if (roster.Count > 0)
+                            wc.EquipmentRoster.Equipments = roster;
+                    }
+
+                    // ── Equipment usage policy (field / siege / naval) ────────
+                    ApplyEquipmentPolicy(wc, troop.StringId);
+
+                    // ── Body ──────────────────────────────────────────────────
+                    if (troop.BodyData != null)
+                    {
+                        if (troop.BodyData.AgeMin > 0)
+                            wc.AgeMin = troop.BodyData.AgeMin;
+                        if (troop.BodyData.AgeMax > 0)
+                            wc.AgeMax = troop.BodyData.AgeMax;
+                        if (troop.BodyData.WeightMin > 0)
+                            wc.WeightMin = troop.BodyData.WeightMin;
+                        if (troop.BodyData.WeightMax > 0)
+                            wc.WeightMax = troop.BodyData.WeightMax;
+                        if (troop.BodyData.BuildMin > 0)
+                            wc.BuildMin = troop.BodyData.BuildMin;
+                        if (troop.BodyData.BuildMax > 0)
+                            wc.BuildMax = troop.BodyData.BuildMax;
+                        if (troop.BodyData.HeightMin > 0)
+                            wc.HeightMin = troop.BodyData.HeightMin;
+                        if (troop.BodyData.HeightMax > 0)
+                            wc.HeightMax = troop.BodyData.HeightMax;
+                    }
+
+                    // ── Skill points (from legacy XP pool) ───────────────────
+                    if (
+                        _xp.XpPools != null
+                        && _xp.XpPools.TryGetValue(troop.StringId, out var rawXp)
+                        && rawXp > 0
+                    )
+                    {
+                        // v1 XP is unspent raw experience. Convert to skill points
+                        // using the v1 default cost formula: cost(n) = 100 + 1 * n.
+                        wc.SkillPoints = XpToSkillPoints(rawXp);
+                        Log.Debug(
+                            $"[Migration] {troop.StringId}: {rawXp} XP → {wc.SkillPoints} skill points."
+                        );
+                    }
+
+                    // ── Combat history ────────────────────────────────────────
+                    if (_stats.Stats != null && _stats.Stats.TryGetValue(troop.StringId, out var s))
+                    {
+                        wc.ImportLegacyHistory(
+                            s.BattlesWon,
+                            s.BattlesLost,
+                            s.FieldBattles,
+                            s.SiegeBattles,
+                            s.KillsByTroopId,
+                            s.DeathsByTroopId
+                        );
+                    }
+
+                    migrated++;
+                }
+                catch (Exception ex)
+                {
+                    Log.Error($"[Migration] Failed to migrate troop '{troop.StringId}': {ex}");
                     skipped++;
-                    continue; // troop does not exist in v2 – skip
                 }
-
-                troopByStringId[troop.StringId] = troop;
-
-                // Mark stub as active so it isn't reclaimed by GetFreeStub().
-                if (wc.IsCustom)
-                    wc.IsActiveStub = true;
-
-                // ── Core identity ─────────────────────────────────────────
-                if (!string.IsNullOrEmpty(troop.Name))
-                    wc.Name = troop.Name;
-                wc.Level = troop.Level;
-                wc.IsFemale = troop.IsFemale;
-                if (troop.Race >= 0)
-                    wc.Race = troop.Race;
-                if (!string.IsNullOrEmpty(troop.CultureId))
-                {
-                    var co = MBObjectManager.Instance.GetObject<CultureObject>(troop.CultureId);
-                    if (co != null)
-                        wc.Culture = WCulture.Get(co);
-                }
-
-                // ── Formation / captain flags ─────────────────────────────
-                wc.FormationClassOverride = troop.FormationClassOverride;
-                wc.IsMariner = troop.IsMariner;
-                wc.IsCaptain = troop.IsCaptain;
-                wc.IsCaptainEnabled = troop.CaptainEnabled;
-
-                if (troop.Captain?.StringId != null)
-                {
-                    var captainWc = WCharacter.Get(troop.Captain.StringId);
-                    if (captainWc != null)
-                        wc.Captain = captainWc;
-                }
-
-                // ── Skills ────────────────────────────────────────────────
-                if (!string.IsNullOrWhiteSpace(troop.SkillData?.Code))
-                {
-                    foreach (var part in troop.SkillData.Code.Split(';'))
-                    {
-                        var kv = part.Split(':');
-                        if (kv.Length != 2)
-                            continue;
-                        var skill = MBObjectManager.Instance.GetObject<SkillObject>(kv[0].Trim());
-                        if (skill == null)
-                            continue;
-                        if (!int.TryParse(kv[1].Trim(), out var sv) || sv <= 0)
-                            continue;
-                        wc.Skills.Set(skill, sv);
-                    }
-                }
-
-                // ── Equipment ─────────────────────────────────────────────
-                if (troop.EquipmentData?.Codes?.Count > 0)
-                {
-                    bool hasCivilianFlags =
-                        troop.EquipmentData.Civilians?.Count == troop.EquipmentData.Codes.Count;
-                    var roster = new List<MEquipment>();
-                    for (int i = 0; i < troop.EquipmentData.Codes.Count; i++)
-                    {
-                        var code = troop.EquipmentData.Codes[i];
-                        if (string.IsNullOrEmpty(code))
-                            continue;
-                        var me = MEquipment.FromCode(wc, code);
-                        if (me == null)
-                            continue;
-                        me.IsCivilian = hasCivilianFlags
-                            ? troop.EquipmentData.Civilians[i]
-                            : (i == 1);
-                        roster.Add(me);
-                    }
-                    if (roster.Count > 0)
-                        wc.EquipmentRoster.Equipments = roster;
-                }
-
-                // ── Body ──────────────────────────────────────────────────
-                if (troop.BodyData != null)
-                {
-                    if (troop.BodyData.AgeMin > 0)
-                        wc.AgeMin = troop.BodyData.AgeMin;
-                    if (troop.BodyData.AgeMax > 0)
-                        wc.AgeMax = troop.BodyData.AgeMax;
-                    if (troop.BodyData.WeightMin > 0)
-                        wc.WeightMin = troop.BodyData.WeightMin;
-                    if (troop.BodyData.WeightMax > 0)
-                        wc.WeightMax = troop.BodyData.WeightMax;
-                    if (troop.BodyData.BuildMin > 0)
-                        wc.BuildMin = troop.BodyData.BuildMin;
-                    if (troop.BodyData.BuildMax > 0)
-                        wc.BuildMax = troop.BodyData.BuildMax;
-                    if (troop.BodyData.HeightMin > 0)
-                        wc.HeightMin = troop.BodyData.HeightMin;
-                    if (troop.BodyData.HeightMax > 0)
-                        wc.HeightMax = troop.BodyData.HeightMax;
-                }
-
-                // ── Skill points (from legacy XP pool) ───────────────────
-                if (
-                    _xp.XpPools != null
-                    && _xp.XpPools.TryGetValue(troop.StringId, out var rawXp)
-                    && rawXp > 0
-                )
-                {
-                    // v1 XP is unspent raw experience. Convert to skill points
-                    // using the v1 default cost formula: cost(n) = 100 + 1 * n.
-                    wc.SkillPoints = XpToSkillPoints(rawXp);
-                    Log.Debug(
-                        $"[Migration] {troop.StringId}: {rawXp} XP → {wc.SkillPoints} skill points."
-                    );
-                }
-
-                // ── Combat history ────────────────────────────────────────
-                if (_stats.Stats != null && _stats.Stats.TryGetValue(troop.StringId, out var s))
-                {
-                    wc.ImportLegacyHistory(
-                        s.BattlesWon,
-                        s.BattlesLost,
-                        s.FieldBattles,
-                        s.SiegeBattles,
-                        s.KillsByTroopId,
-                        s.DeathsByTroopId
-                    );
-                }
-
-                migrated++;
             }
 
             // ── Second pass: wire upgrade trees ───────────────────────────
@@ -290,6 +320,39 @@ namespace Retinues.Migration
             Log.Info(
                 $"[Migration] Characters: {migrated} migrated, {skipped} skipped (not in v2); {treeWired} upgrade trees wired."
             );
+        }
+
+        /// <summary>
+        /// Applies the v1 per-equipment-set usage policy (field / siege / naval) onto the troop's
+        /// v2 equipment sets. v2 merged v1's SiegeDefense + SiegeAssault into a single
+        /// SiegeBattleSet, and dropped the per-set gender override (gender is character-level in v2).
+        /// </summary>
+        private void ApplyEquipmentPolicy(WCharacter wc, string troopId)
+        {
+            if (_combatAgent.ByTroop == null)
+                return;
+            if (!_combatAgent.ByTroop.TryGetValue(troopId, out var perSet) || perSet == null)
+                return;
+
+            var sets = wc.EquipmentRoster?.Equipments;
+            if (sets == null)
+                return;
+
+            foreach (var kv in perSet)
+            {
+                int idx = kv.Key;
+                var policy = kv.Value;
+                if (policy == null || idx < 0 || idx >= sets.Count)
+                    continue;
+
+                var set = sets[idx];
+                if (set == null)
+                    continue;
+
+                set.FieldBattleSet = policy.FieldBattle;
+                set.SiegeBattleSet = policy.SiegeDefense || policy.SiegeAssault;
+                set.NavalBattleSet = policy.NavalBattle;
+            }
         }
 
         // ─── Item data ─────────────────────────────────────────────────────

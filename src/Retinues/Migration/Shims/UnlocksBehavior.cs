@@ -18,6 +18,11 @@ namespace Retinues.Migration.Shims
 
         public override void SyncData(IDataStore dataStore)
         {
+            // Read-only shim: never write legacy data back, so a migrated save drops these
+            // partitions on its next save and migration does not re-fire on later loads.
+            if (dataStore.IsSaving)
+                return;
+
             dataStore.SyncData("Retinues_Unlocks_Unlocked", ref UnlockedItemIds);
             dataStore.SyncData("Retinues_Unlocks_Progress", ref ProgressByItemId);
         }

@@ -37,6 +37,21 @@ namespace Retinues.Domain.Characters.Wrappers
             set => NonVariantBase().SkillPointsExperienceAttribute.Set(value);
         }
 
+        MAttribute<int> SkillBaselineAttribute =>
+            Attribute(initialValue: 0, name: "SkillBaselineAttribute");
+
+        /// <summary>
+        /// Seeded skill-point sum recorded at creation/migration. Acts as a floor on the per-tier
+        /// skill total (see <c>SkillRules.GetSkillTotal</c>) so a troop cloned or migrated from a
+        /// high-skill template is never born over its budget and locked to decrement-only.
+        /// 0 means "unset" and the floor is inert. Not updated on edits.
+        /// </summary>
+        public int SkillBaseline
+        {
+            get => NonVariantBase().SkillBaselineAttribute.Get();
+            set => NonVariantBase().SkillBaselineAttribute.Set(value);
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Skills                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
