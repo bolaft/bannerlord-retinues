@@ -1,4 +1,5 @@
 using HarmonyLib;
+using Retinues.Configuration;
 using Retinues.Game.Wrappers;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
@@ -29,6 +30,9 @@ namespace Retinues.Features.Tournaments.Patches
             [SafeMethod]
             private static bool Prefix(CharacterObject character, ref bool __result)
             {
+                if (!Config.ExcludeCustomTroopsFromTournaments)
+                    return true; // feature disabled; run the original
+
                 if (character != null && !character.IsHero && new WCharacter(character).IsCustom)
                 {
                     __result = false;
@@ -49,6 +53,9 @@ namespace Retinues.Features.Tournaments.Patches
             [SafeMethod]
             private static void Postfix(MBList<CharacterObject> __result)
             {
+                if (!Config.ExcludeCustomTroopsFromTournaments)
+                    return; // feature disabled
+
                 if (__result == null || __result.Count == 0)
                     return;
 

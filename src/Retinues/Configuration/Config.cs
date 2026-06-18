@@ -394,6 +394,22 @@ namespace Retinues.Configuration
             @default: true
         );
 
+        public static readonly Option<bool> ExcludeCustomTroopsFromTournaments = CreateOption(
+            section: () => L.S("mcm_section_restrictions", "Restrictions"),
+            name: () =>
+                L.S(
+                    "mcm_option_exclude_custom_troops_from_tournaments",
+                    "Keep Custom Troops Out of Tournaments"
+                ),
+            key: "ExcludeCustomTroopsFromTournaments",
+            hint: () =>
+                L.S(
+                    "mcm_option_exclude_custom_troops_from_tournaments_hint",
+                    "When enabled, your custom troops won't be picked as tournament participants (they otherwise flood brackets from garrisons). Disable to let them compete."
+                ),
+            @default: true
+        );
+
         // ─────────────────────────────────────────────────────
         // Global Troop Editor
         // ─────────────────────────────────────────────────────
