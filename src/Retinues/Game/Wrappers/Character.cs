@@ -193,6 +193,32 @@ namespace Retinues.Game.Wrappers
         public string VanillaStringId =>
             VanillaStringIdMap.TryGetValue(StringId, out var vid) ? vid : StringId;
 
+        /* ━━━━━ Skill Baseline ━━━━ */
+
+        // Seeded skill-point sum recorded when a troop is created or loaded. Used as a floor on
+        // the per-tier skill-total budget (see SkillManager.SkillTotalByTier) so troops cloned
+        // from high-skill templates — e.g. modded units that carry more skill points than vanilla
+        // troops of the same tier — are never born over budget and locked to decrement-only.
+        // Set once at creation/load; not updated on edits. Keyed by StringId.
+        public static readonly Dictionary<string, int> SkillBaselineMap = [];
+
+        /// <summary>
+        /// Records this troop's skill baseline (the seeded skill-point sum). Persisted via
+        /// TroopSaveData so the budget floor survives save/load.
+        /// </summary>
+        public void SetSkillBaseline(int sum)
+        {
+            SkillBaselineMap[StringId] = sum < 0 ? 0 : sum;
+        }
+
+        /// <summary>
+        /// The troop's skill-budget baseline. Falls back to the current skill-point sum when no
+        /// explicit baseline was recorded, which keeps the budget from ever sitting below the
+        /// troop's current skills.
+        /// </summary>
+        public int SkillBaseline =>
+            SkillBaselineMap.TryGetValue(StringId, out var b) ? b : Skills.Values.Sum();
+
         /* ━━━━━━━━━ Type ━━━━━━━━━ */
 
         private readonly bool _isLegacyCustom = characterObject.StringId.StartsWith(

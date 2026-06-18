@@ -27,6 +27,7 @@ namespace Retinues.Tests
         private readonly Dictionary<string, BaseFaction> _factionMap;
         private readonly Dictionary<string, string> _vanillaIdMap;
         private readonly Dictionary<string, WCharacter> _upgradeMap;
+        private readonly Dictionary<string, int> _skillBaseline;
         private readonly HashSet<string> _editedVanilla;
         private readonly List<string> _unlocked;
         private readonly Dictionary<string, int> _unlockProgress;
@@ -48,6 +49,7 @@ namespace Retinues.Tests
             _factionMap = new Dictionary<string, BaseFaction>(BaseFaction.TroopFactionMap);
             _vanillaIdMap = new Dictionary<string, string>(WCharacter.VanillaStringIdMap);
             _upgradeMap = new Dictionary<string, WCharacter>(WCharacter.UpgradeMap);
+            _skillBaseline = new Dictionary<string, int>(WCharacter.SkillBaselineMap);
             _editedVanilla = new HashSet<string>(
                 WCharacter.EditedVanillaRootIds,
                 StringComparer.Ordinal
@@ -133,6 +135,7 @@ namespace Retinues.Tests
                 RestoreDict(BaseFaction.TroopFactionMap, _factionMap);
                 RestoreDict(WCharacter.VanillaStringIdMap, _vanillaIdMap);
                 RestoreDict(WCharacter.UpgradeMap, _upgradeMap);
+                RestoreDict(WCharacter.SkillBaselineMap, _skillBaseline);
 
                 WCharacter.EditedVanillaRootIds.Clear();
                 WCharacter.EditedVanillaRootIds.UnionWith(_editedVanilla);

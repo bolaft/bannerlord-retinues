@@ -579,6 +579,12 @@ namespace Retinues.Troops
             // Recompute derived properties
             troop.ComputeDerivedProperties();
 
+            // Record the seeded skill-point sum as the troop's budget baseline (the floor for its
+            // per-tier skill total). Captured here, after FillFrom has copied the template's
+            // skills, so troops cloned from high-skill templates are never born over budget and
+            // stay rebalanceable.
+            troop.SetSkillBaseline(troop.Skills.Values.Sum());
+
             // Unlock all items in loadout
             foreach (var equipment in troop.Loadout.Equipments)
             foreach (var item in equipment.Items)

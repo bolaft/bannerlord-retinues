@@ -70,6 +70,11 @@ namespace Retinues.Troops.Save
         [SaveableField(16)]
         public bool IsMariner = false;
 
+        // Seeded skill-point sum (budget floor). 0 on saves from before this field existed, which
+        // the deserializer treats as "absent" and backfills from the loaded skill sum.
+        [SaveableField(17)]
+        public int SkillBaseline = 0;
+
         public TroopSaveData()
         {
             // Default constructor for deserialization
@@ -95,6 +100,7 @@ namespace Retinues.Troops.Save
             IsCaptain = troop.IsCaptain;
             CaptainEnabled = troop.CaptainEnabled;
             IsMariner = troop.IsMariner;
+            SkillBaseline = troop.SkillBaseline;
 
             // For captains, Captain will stay null to avoid recursion.
             // We only serialize a captain if an instance already exists.
@@ -203,6 +209,12 @@ namespace Retinues.Troops.Save
             troop.IsFemale = IsFemale;
             troop.IsMariner = IsMariner; // Must be set before Skills so ExtraSkills includes the Mariner skill
             troop.Skills = SkillData.Deserialize();
+
+            // Restore the skill-budget baseline (floor for the per-tier skill total). Retro-compat:
+            // saves from before this field deserialize SkillBaseline as 0, so seed the baseline from
+            // the loaded skill sum instead — this makes existing over-budget troops (e.g. cloned
+            // from high-skill mods) editable again rather than staying locked to decrement-only.
+            troop.SetSkillBaseline(SkillBaseline > 0 ? SkillBaseline : troop.Skills.Values.Sum());
 
             // Set equipment
             troop.Loadout.SetEquipments(EquipmentData.Deserialize(troop));

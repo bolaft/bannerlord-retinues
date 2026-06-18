@@ -470,6 +470,9 @@ namespace Retinues
             // Clear vanilla id map
             WCharacter.VanillaStringIdMap.Clear();
 
+            // Clear skill baseline map
+            WCharacter.SkillBaselineMap.Clear();
+
             // Clear upgrade map
             WCharacter.UpgradeMap.Clear();
 

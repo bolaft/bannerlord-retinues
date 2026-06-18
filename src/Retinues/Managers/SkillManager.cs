@@ -93,7 +93,11 @@ namespace Retinues.Managers
             )
                 total += 50;
 
-            return total;
+            // Strict generalization: the budget is never below the troop's seeded skill baseline.
+            // Troops cloned from high-skill templates (modded units that carry more skill points
+            // than vanilla troops of the same tier) would otherwise be born over budget and locked
+            // to decrement-only; the floor lets them be rebalanced freely.
+            return System.Math.Max(total, troop.SkillBaseline);
         }
 
         /// <summary>
