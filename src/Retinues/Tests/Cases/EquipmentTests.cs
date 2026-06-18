@@ -261,6 +261,58 @@ namespace Retinues.Tests.Cases
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                   Formation override                   //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// A formation override survives an equipment change. Equipping a bow/crossbow must not
+        /// reclassify a unit that has been forced to Infantry (the hybrid-crossbow case).
+        /// </summary>
+        [GameTest(
+            "FormationOverrideSurvivesEquip",
+            "equipment",
+            "An equip change does not clobber a troop's formation override"
+        )]
+        public static void FormationOverrideSurvivesEquip(GameTestContext ctx)
+        {
+            ctx.EnsureCampaign();
+            using var sandbox = new TestSandbox();
+            using var _fo = TestConfig.Set(Config.AllowFormationOverrides, true);
+
+            var vanilla = sandbox.NewFaction()?.Culture?.RootBasic;
+            Tests.AssertNotNull(vanilla, "A vanilla template troop is available.");
+
+            var troop = sandbox.NewStub();
+            troop.FillFrom(vanilla, keepUpgrades: false, keepEquipment: false, keepSkills: false);
+            troop.Loadout.Clear();
+
+            // Force Infantry, then equip a bow/crossbow (which would otherwise classify Ranged).
+            troop.FormationClassOverride = FormationClass.Infantry;
+            Tests.AssertEqual(
+                FormationClass.Infantry,
+                troop.FormationClassOverride,
+                "The override was applied."
+            );
+
+            var ranged = FirstItem(i =>
+                i.IsRangedWeapon
+                && i.Slots.Contains(EquipmentIndex.Weapon0)
+                && !i.IsCrafted
+                && i.Class != null
+                && i.Class.IndexOf("bow", StringComparison.OrdinalIgnoreCase) >= 0
+            );
+            Tests.AssertNotNull(ranged, "A bow/crossbow item is available.");
+
+            troop.Loadout.Apply(0, EquipmentIndex.Weapon0, ranged);
+
+            Tests.AssertEqual(
+                FormationClass.Infantry,
+                troop.FormationClass,
+                "Formation override survives equipping a ranged weapon (not reclassified to Ranged)."
+            );
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Helpers                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 

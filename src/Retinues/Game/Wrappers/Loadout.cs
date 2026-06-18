@@ -350,8 +350,11 @@ namespace Retinues.Game.Wrappers
                 eq.SetItem(slot, newItem);
 
             // Update formation for battle sets; upgrade requirement for all sets.
+            // Use the troop's override-aware computation, not the equipment-only one, so a
+            // formation override (e.g. forcing a hybrid crossbow unit to Infantry) is not
+            // clobbered back to the equipment-derived class on every equip change.
             if (GetCategory(setIndex) == EquipmentCategory.Battle)
-                Troop.FormationClass = eq.ComputeFormationClass();
+                Troop.FormationClass = Troop.ComputeFormationClass();
 
             Troop.UpgradeItemRequirement = ComputeUpgradeItemRequirement();
 
