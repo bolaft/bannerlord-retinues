@@ -14,6 +14,10 @@ namespace Retinues.Tests.Cases
     /// </summary>
     public static class AppearanceTests
     {
+        // Tag pools (HairTags/BeardTags/TattooTags) live on MBBodyProperty only in BL13+; in BL12
+        // they sit on the character directly, so the tag-clearing path — and this test — are
+        // BL13/14-only, matching the #if guard on BodyHelper.ApplyTagsFromCulture.
+#if BL13 || BL14
         /// <summary>
         /// ApplyTagsFromCulture overwrites every tag category with the template's value — including
         /// clearing a stale category the new culture does not define — rather than leaving it.
@@ -60,6 +64,7 @@ namespace Retinues.Tests.Cases
                 "Stale tattoo tag is overwritten with the culture template's value (cleared if empty)."
             );
         }
+#endif
 
         /// <summary>
         /// GetCultureTemplate prefers the culture's BasicTroop, and for a troop-less culture (no
