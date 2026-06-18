@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Retinues.Features.Stocks;
 using Retinues.Features.Unlocks;
 using Retinues.Game;
 using Retinues.Game.Wrappers;
@@ -27,6 +28,7 @@ namespace Retinues.Tests
         private readonly HashSet<string> _editedVanilla;
         private readonly List<string> _unlocked;
         private readonly Dictionary<string, int> _unlockProgress;
+        private readonly Dictionary<string, int> _stocks;
 
         public TestSandbox()
         {
@@ -43,6 +45,9 @@ namespace Retinues.Tests
             _unlocked = unlocks != null ? new List<string>(unlocks.UnlockedItemIds) : null;
             _unlockProgress =
                 unlocks != null ? new Dictionary<string, int>(unlocks.ProgressByItemId) : null;
+
+            var stocks = StocksBehavior.Instance;
+            _stocks = stocks != null ? new Dictionary<string, int>(stocks.StocksByItemId) : null;
         }
 
         /// <summary>
@@ -98,6 +103,10 @@ namespace Retinues.Tests
                     RestoreList(unlocks.UnlockedItemIds, _unlocked);
                 if (unlocks != null && _unlockProgress != null)
                     RestoreDict(unlocks.ProgressByItemId, _unlockProgress);
+
+                var stocks = StocksBehavior.Instance;
+                if (stocks != null && _stocks != null)
+                    RestoreDict(stocks.StocksByItemId, _stocks);
 
                 // Invalidate cached faction lookups and captain caches so nothing keeps a
                 // reference to a sandbox troop after restore.
