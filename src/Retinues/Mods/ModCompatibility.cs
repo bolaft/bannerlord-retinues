@@ -26,6 +26,7 @@ namespace Retinues.Mods
         // Mod flags
         public static bool HasBanditMilitias => IsLoaded("BanditMilitias");
         public static bool HasShokuho => IsLoaded("Shokuho");
+        public static bool HasOldRealms => IsLoaded("TOR_Core");
         public static bool HasImprovedGarrisons => IsLoaded("ImprovedGarrisons");
         public static bool HasTier7Unlocker => IsLoaded("T7TroopUnlocker");
 
@@ -38,7 +39,9 @@ namespace Retinues.Mods
         /// </summary>
         public static void AddBehaviors(CampaignGameStarter cs)
         {
-            // Add mod specific behaviors here
+            // The Old Realms: keep custom troops' TOR extended attributes in sync.
+            if (HasOldRealms)
+                cs.AddBehavior(new OldRealms.OldRealmsBehavior());
         }
 
         /// <summary>
