@@ -59,16 +59,18 @@ namespace Retinues.Tests
 
         /// <summary>
         /// Returns a throwaway faction (a non-player clan whose culture has troop roots) for
-        /// building custom troop trees without touching the player's real factions. Returns
-        /// null if no suitable clan exists in the current campaign.
+        /// building custom troop trees without touching the player's real factions. Pass an
+        /// <paramref name="exclude"/> faction to get a second, distinct one. Returns null if no
+        /// suitable clan exists in the current campaign.
         /// </summary>
-        public WFaction NewFaction()
+        public WFaction NewFaction(WFaction exclude = null)
         {
             var playerClan = Hero.MainHero?.Clan;
+            var excludeBase = exclude?.Base;
 
             foreach (var clan in Clan.All)
             {
-                if (clan == null || clan == playerClan || clan.Culture == null)
+                if (clan == null || clan == playerClan || clan == excludeBase || clan.Culture == null)
                     continue;
 
                 var faction = new WFaction(clan);

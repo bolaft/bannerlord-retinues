@@ -1,6 +1,7 @@
 using System.Linq;
 using Retinues.Game;
 using Retinues.Game.Wrappers;
+using Retinues.Troops;
 using Retinues.Troops.Save;
 
 namespace Retinues.Tests.Cases
@@ -75,6 +76,116 @@ namespace Retinues.Tests.Cases
             Tests.AssertTrue(
                 WCharacter.ActiveStubIds.Contains(stubId),
                 "Deserialize registered the stub as active (stub-recycling guard)."
+            );
+        }
+
+        /// <summary>
+        /// Build a whole faction tree, serialize it to FactionSaveData, then Apply it to a fresh
+        /// faction and assert the trees are reconstructed faithfully (ids, names, tree sizes).
+        /// This is the exact serialize/deserialize path the campaign save relies on.
+        /// </summary>
+        [GameTest(
+            "FactionSaveDataRoundTrip",
+            "save",
+            "FactionSaveData serialize -> Apply rebuilds the faction's troop trees faithfully"
+        )]
+        public static void FactionSaveDataRoundTrip(GameTestContext ctx)
+        {
+            ctx.EnsureCampaign();
+            using var sandbox = new TestSandbox();
+
+            var source = sandbox.NewFaction();
+            Tests.AssertNotNull(source, "A non-player faction with troop roots is available.");
+            var target = sandbox.NewFaction(source);
+            Tests.AssertNotNull(target, "A second, distinct non-player faction is available.");
+
+            TroopBuilder.CreateTroops(source, isElite: true, copyWholeTree: true);
+            TroopBuilder.CreateTroops(source, isElite: false, copyWholeTree: false);
+
+            var eliteId = source.RootElite?.StringId;
+            var eliteName = source.RootElite?.Name;
+            var eliteCount = source.RootElite?.Tree.Count() ?? 0;
+            var basicId = source.RootBasic?.StringId;
+
+            Tests.AssertNotNull(eliteId, "Source elite root exists.");
+            Tests.AssertNotNull(basicId, "Source basic root exists.");
+            Tests.AssertTrue(eliteCount > 1, "Source elite tree has multiple troops.");
+
+            var data = new FactionSaveData(source);
+
+            data.Apply(target);
+
+            Tests.AssertNotNull(target.RootElite, "Elite root rebuilt on the target faction.");
+            Tests.AssertNotNull(target.RootBasic, "Basic root rebuilt on the target faction.");
+            Tests.AssertEqual(eliteId, target.RootElite.StringId, "Elite root id preserved.");
+            Tests.AssertEqual(eliteName, target.RootElite.Name, "Elite root name preserved.");
+            Tests.AssertEqual(
+                eliteCount,
+                target.RootElite.Tree.Count(),
+                "Elite tree size preserved."
+            );
+            Tests.AssertEqual(basicId, target.RootBasic.StringId, "Basic root id preserved.");
+        }
+
+        /// <summary>
+        /// Gender (a CharacterObject-backed field) survives a TroopSaveData round-trip.
+        /// </summary>
+        [GameTest(
+            "TroopGenderRoundTrip",
+            "save",
+            "Gender (IsFemale) survives a TroopSaveData round-trip"
+        )]
+        public static void TroopGenderRoundTrip(GameTestContext ctx)
+        {
+            ctx.EnsureCampaign();
+            using var sandbox = new TestSandbox();
+
+            var vanilla = sandbox.NewFaction()?.Culture?.RootBasic;
+            Tests.AssertNotNull(vanilla, "A vanilla template troop is available.");
+
+            var troop = sandbox.NewStub();
+            troop.FillFrom(vanilla, keepUpgrades: false, keepEquipment: false, keepSkills: false);
+            troop.IsFemale = true;
+
+            var data = new TroopSaveData(troop);
+            troop.IsFemale = false; // mutate live
+
+            data.Deserialize();
+            Tests.AssertTrue(troop.IsFemale, "Gender restored from save data.");
+        }
+
+        /// <summary>
+        /// Toggling NeedsPersistence on a vanilla troop updates the EditedVanillaRootIds set
+        /// (how the mod decides which vanilla troops to keep persisting).
+        /// </summary>
+        [GameTest(
+            "EditedVanillaNeedsPersistence",
+            "save",
+            "NeedsPersistence on a vanilla troop tracks EditedVanillaRootIds"
+        )]
+        public static void EditedVanillaNeedsPersistence(GameTestContext ctx)
+        {
+            ctx.EnsureCampaign();
+            using var sandbox = new TestSandbox();
+
+            var vanilla = sandbox.NewFaction()?.Culture?.RootBasic;
+            Tests.AssertNotNull(vanilla, "A vanilla template troop is available.");
+            Tests.AssertTrue(vanilla.IsVanilla, "Template troop is vanilla.");
+
+            var rootId = vanilla.Root.StringId;
+
+            vanilla.NeedsPersistence = true;
+            Tests.AssertTrue(vanilla.NeedsPersistence, "Vanilla troop is marked needs-persistence.");
+            Tests.AssertTrue(
+                WCharacter.EditedVanillaRootIds.Contains(rootId),
+                "Root id added to the edited-vanilla set."
+            );
+
+            vanilla.NeedsPersistence = false;
+            Tests.AssertFalse(vanilla.NeedsPersistence, "Vanilla troop is unmarked.");
+            Tests.AssertFalse(
+                WCharacter.EditedVanillaRootIds.Contains(rootId),
+                "Root id removed from the edited-vanilla set."
             );
         }
     }

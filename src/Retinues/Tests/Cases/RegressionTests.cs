@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Retinues.Game;
 using Retinues.Game.Wrappers;
 using Retinues.Troops;
+using Retinues.Troops.Save;
 using TaleWorlds.CampaignSystem;
 
 namespace Retinues.Tests.Cases
@@ -89,6 +90,53 @@ namespace Retinues.Tests.Cases
                     "Must not clear kingdom troop data while the player leads a kingdom."
                 );
             }
+        }
+
+        /// <summary>
+        /// The exact fix-3 invariant: a stub that has been deserialized onto via the faction-less
+        /// path must be re-registered as active so AllocateStub can never recycle it (which is how
+        /// edited troops were silently overwritten).
+        /// </summary>
+        [GameTest(
+            "StubRegisteredAfterFactionlessDeserialize",
+            "regression",
+            "Faction-less deserialize re-claims its stub so AllocateStub cannot recycle it"
+        )]
+        public static void StubRegisteredAfterFactionlessDeserialize(GameTestContext ctx)
+        {
+            ctx.EnsureCampaign();
+            using var sandbox = new TestSandbox();
+
+            var vanilla = sandbox.NewFaction()?.Culture?.RootBasic;
+            Tests.AssertNotNull(vanilla, "A vanilla template troop is available.");
+
+            // Build a troop on a stub and capture its save data.
+            var troop = sandbox.NewStub();
+            troop.FillFrom(vanilla, keepUpgrades: false, keepEquipment: false, keepSkills: false);
+            troop.Name = "Recycle Guard Troop";
+            var id = troop.StringId;
+            var data = new TroopSaveData(troop);
+
+            // Simulate the orphan state: the stub holds data but is no longer registered active.
+            WCharacter.ActiveStubIds.Remove(id);
+            Tests.AssertFalse(
+                WCharacter.ActiveStubIds.Contains(id),
+                "Stub is free before deserialize."
+            );
+
+            // Faction-less deserialize must re-claim the stub.
+            data.Deserialize();
+            Tests.AssertTrue(
+                WCharacter.ActiveStubIds.Contains(id),
+                "Deserialize re-registered the stub."
+            );
+
+            // And AllocateStub must not hand it back out.
+            var next = WCharacter.AllocateStub();
+            Tests.AssertTrue(
+                next.StringId != id,
+                "AllocateStub did not recycle the re-registered stub."
+            );
         }
     }
 }
