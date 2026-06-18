@@ -79,7 +79,10 @@ namespace Retinues.Managers
                 4 => Config.SkillTotalTier4,
                 5 => Config.SkillTotalTier5,
                 6 => Config.SkillTotalTier6,
-                _ => Config.SkillTotalTier7Plus,
+                7 => Config.SkillTotalTier7Plus,
+                8 => Config.SkillTotalTier8,
+                9 => Config.SkillTotalTier9,
+                _ => Config.SkillTotalTier10,
             };
 
             if (troop.IsRetinue)

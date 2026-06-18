@@ -813,6 +813,23 @@ namespace Retinues.Configuration
         // Skills (training)
         // ─────────────────────────────────────────────────────
 
+        public static readonly Option<int> MaxTroopTier = CreateOption(
+            section: () => L.S("mcm_section_skills", "Skills"),
+            key: "MaxTroopTier",
+            name: () => L.S("mcm_option_max_troop_tier", "Maximum Troop Tier"),
+            hint: () =>
+                L.S(
+                    "mcm_option_max_troop_tier_hint",
+                    "Highest tier a custom elite troop can reach (basic troops cap one tier lower). "
+                        + "Raises the game's tier cap on its own — no other mod required. If another "
+                        + "tier-unlocker mod sets a higher cap, that higher cap is kept. Tiers above 7 "
+                        + "use the Tier 8/9/10 skill totals."
+                ),
+            @default: 6,
+            minValue: 6,
+            maxValue: 10
+        );
+
         public static readonly Option<bool> TrainingTroopsTakesTime = CreateOption(
             section: () => L.S("mcm_section_skills", "Skills"),
             name: () => L.S("mcm_option_training_troops_takes_time", "Training Troops Takes Time"),
@@ -1477,6 +1494,66 @@ namespace Retinues.Configuration
             minValue: 90,
             maxValue: 1600,
             presets: new Dictionary<string, object> { [Presets.Freeform] = 1600 }
+        );
+
+        public static readonly Option<int> SkillTotalTier8 = CreateOption(
+            section: () => L.S("mcm_section_skill_totals", "Skill Totals"),
+            key: "SkillTotalTier8",
+            name: () =>
+                L.T("mcm_option_skill_total", "Tier {TIER} Skill Total")
+                    .SetTextVariable("TIER", "8")
+                    .ToString(),
+            hint: () =>
+                L.T(
+                        "mcm_option_skill_total_hint",
+                        "The total available skill points for tier {TIER} troops."
+                    )
+                    .SetTextVariable("TIER", "8")
+                    .ToString(),
+            @default: 1850,
+            minValue: 90,
+            maxValue: 2880,
+            presets: new Dictionary<string, object> { [Presets.Freeform] = 2880 }
+        );
+
+        public static readonly Option<int> SkillTotalTier9 = CreateOption(
+            section: () => L.S("mcm_section_skill_totals", "Skill Totals"),
+            key: "SkillTotalTier9",
+            name: () =>
+                L.T("mcm_option_skill_total", "Tier {TIER} Skill Total")
+                    .SetTextVariable("TIER", "9")
+                    .ToString(),
+            hint: () =>
+                L.T(
+                        "mcm_option_skill_total_hint",
+                        "The total available skill points for tier {TIER} troops."
+                    )
+                    .SetTextVariable("TIER", "9")
+                    .ToString(),
+            @default: 2100,
+            minValue: 90,
+            maxValue: 2880,
+            presets: new Dictionary<string, object> { [Presets.Freeform] = 2880 }
+        );
+
+        public static readonly Option<int> SkillTotalTier10 = CreateOption(
+            section: () => L.S("mcm_section_skill_totals", "Skill Totals"),
+            key: "SkillTotalTier10",
+            name: () =>
+                L.T("mcm_option_skill_total", "Tier {TIER} Skill Total")
+                    .SetTextVariable("TIER", "10")
+                    .ToString(),
+            hint: () =>
+                L.T(
+                        "mcm_option_skill_total_hint",
+                        "The total available skill points for tier {TIER} troops."
+                    )
+                    .SetTextVariable("TIER", "10")
+                    .ToString(),
+            @default: 2350,
+            minValue: 90,
+            maxValue: 2880,
+            presets: new Dictionary<string, object> { [Presets.Freeform] = 2880 }
         );
     }
 }
