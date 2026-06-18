@@ -175,6 +175,13 @@ namespace Retinues.Troops.Save
             if (troop == null)
                 return null; // Null troop, nothing to do
 
+            // Defense in depth: ensure any custom stub we deserialize onto is marked active.
+            // The faction-less deserialize path (culture / global-editor troops) does not run
+            // the stub-registering constructor, so without this its stub could be handed out
+            // again by AllocateStub and then silently overwritten on the next load.
+            if (troop.IsCustom && !WCharacter.ActiveStubIds.Contains(troop.StringId))
+                WCharacter.ActiveStubIds.Add(troop.StringId);
+
             // If this is a vanilla troop, keep it marked as edited so it continues to be saved
             if (troop.IsVanilla)
                 troop.NeedsPersistence = true; // Loaded from save, must be persisted again

@@ -82,9 +82,14 @@ namespace Retinues.Troops
             if (Player.Clan is not null)
                 _clanTroops = new FactionSaveData(Player.Clan);
 
-            // Collect kingdom troops
+            // Collect kingdom troops. Clear stale data when the player no longer leads a
+            // kingdom (e.g. a rebel kingdom that was absorbed back into another faction);
+            // otherwise the defunct faction's troops linger in the save and get re-applied
+            // on every load, corrupting clan troops that reuse their stub ids.
             if (Player.Kingdom is not null)
                 _kingdomTroops = new FactionSaveData(Player.Kingdom);
+            else
+                _kingdomTroops = null;
 
             if (ResetCultureTroops)
             {
@@ -130,8 +135,15 @@ namespace Retinues.Troops
             // Rebuild clan troops
             _clanTroops?.Apply(Player.Clan);
 
-            // Rebuild kingdom troops
-            _kingdomTroops?.Apply(Player.Kingdom);
+            // Rebuild kingdom troops only when the player actually leads a kingdom.
+            // Applying with a null faction would fall into the faction-less culture path,
+            // which writes stale troop data onto free stubs (without claiming them) and
+            // corrupts clan troops that later reuse those stub ids. Drop the data so it is
+            // not re-saved either.
+            if (Player.Kingdom is not null)
+                _kingdomTroops?.Apply(Player.Kingdom);
+            else
+                _kingdomTroops = null;
 
             if (Config.EnableGlobalEditor == true)
             {
