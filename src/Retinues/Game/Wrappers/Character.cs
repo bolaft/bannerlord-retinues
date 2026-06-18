@@ -732,13 +732,12 @@ namespace Retinues.Game.Wrappers
         public bool IsClanLeader => Base.HeroObject?.IsClanLeader ?? false;
 
         /// <summary>
-        /// Highest tier the elite troop line may reach: the configured maximum, never below the
-        /// engine default (6) plus the legacy T7-unlocker bump. Drives both rank-up gating
-        /// (<see cref="MaxTier"/>) and the MaxCharacterTier engine patch that lets the game
-        /// actually recognise tiers above 6.
+        /// Highest tier the elite troop line may reach: the configured maximum (minimum 6). Drives
+        /// both rank-up gating (<see cref="MaxTier"/>) and the MaxCharacterTier engine patch that
+        /// lets the game actually recognise tiers above 6, so no external tier-unlocker mod is
+        /// needed. Other tier mods still compose: the engine patch keeps whichever cap is higher.
         /// </summary>
-        public static int EliteMaxTier =>
-            System.Math.Max(Config.MaxTroopTier, 6 + (ModCompatibility.HasTier7Unlocker ? 1 : 0));
+        public static int EliteMaxTier => Config.MaxTroopTier;
 
         public int MaxTier => IsElite ? EliteMaxTier : EliteMaxTier - 1;
 

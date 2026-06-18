@@ -28,7 +28,6 @@ namespace Retinues.Mods
         public static bool HasShokuho => IsLoaded("Shokuho");
         public static bool HasOldRealms => IsLoaded("TOR_Core");
         public static bool HasImprovedGarrisons => IsLoaded("ImprovedGarrisons");
-        public static bool HasTier7Unlocker => IsLoaded("T7TroopUnlocker");
 
         // Ruleset flags
         public static bool ForceClanTabsReset => IsLoaded("BannerKings");

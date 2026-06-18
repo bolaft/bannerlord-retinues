@@ -1,5 +1,4 @@
 using Retinues.Mods;
-using Retinues.Troops;
 using Retinues.Utils;
 
 namespace Retinues.Tests.Cases
@@ -43,47 +42,6 @@ namespace Retinues.Tests.Cases
                 ModCompatibility.HasShokuho,
                 ModCompatibility.HasShokuho,
                 "HasShokuho is stable."
-            );
-            Tests.AssertEqual(
-                ModCompatibility.HasTier7Unlocker,
-                ModCompatibility.HasTier7Unlocker,
-                "HasTier7Unlocker is stable."
-            );
-        }
-
-        /// <summary>
-        /// A troop's max tier reflects the Tier 7 Troop Unlocker flag (+1 when present).
-        /// </summary>
-        [GameTest(
-            "Tier7UnlockerControlsMaxTier",
-            "compat",
-            "Max tier reflects the Tier 7 Troop Unlocker flag"
-        )]
-        public static void Tier7UnlockerControlsMaxTier(GameTestContext ctx)
-        {
-            ctx.EnsureCampaign();
-            using var sandbox = new TestSandbox();
-
-            var faction = sandbox.NewFaction();
-            Tests.AssertNotNull(faction, "A non-player faction with troop roots is available.");
-            TroopBuilder.CreateTroops(faction, isElite: true, copyWholeTree: false);
-            TroopBuilder.CreateTroops(faction, isElite: false, copyWholeTree: false);
-
-            var elite = faction.RootElite;
-            var basic = faction.RootBasic;
-            Tests.AssertNotNull(elite, "Elite root exists.");
-            Tests.AssertNotNull(basic, "Basic root exists.");
-
-            int bonus = ModCompatibility.HasTier7Unlocker ? 1 : 0;
-            Tests.AssertEqual(
-                5 + bonus,
-                basic.MaxTier,
-                "Basic max tier reflects the Tier 7 unlocker flag."
-            );
-            Tests.AssertEqual(
-                6 + bonus,
-                elite.MaxTier,
-                "Elite max tier reflects the Tier 7 unlocker flag."
             );
         }
     }
