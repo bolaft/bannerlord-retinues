@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Retinues.Doctrines;
 using Retinues.Features.Stocks;
 using Retinues.Features.Unlocks;
 using Retinues.Game;
@@ -30,6 +31,12 @@ namespace Retinues.Tests
         private readonly Dictionary<string, int> _unlockProgress;
         private readonly Dictionary<string, int> _stocks;
 
+        // Doctrine state (private fields on DoctrineServiceBehavior, captured by reference).
+        private readonly HashSet<string> _doctrineUnlockedRef;
+        private readonly List<string> _doctrineUnlockedSnapshot;
+        private readonly Dictionary<string, int> _featProgressRef;
+        private readonly Dictionary<string, int> _featProgressSnapshot;
+
         public TestSandbox()
         {
             _activeStubs = new List<string>(WCharacter.ActiveStubIds);
@@ -48,6 +55,25 @@ namespace Retinues.Tests
 
             var stocks = StocksBehavior.Instance;
             _stocks = stocks != null ? new Dictionary<string, int>(stocks.StocksByItemId) : null;
+
+            // Doctrine state lives in private fields; capture the live collections by reference so
+            // we can restore their contents on dispose (covers reflective unlocks and feat edits).
+            var svc = Campaign.Current?.GetCampaignBehavior<DoctrineServiceBehavior>();
+            if (svc != null)
+            {
+                _doctrineUnlockedRef = Reflector.GetFieldValue<HashSet<string>>(svc, "_unlocked");
+                _doctrineUnlockedSnapshot =
+                    _doctrineUnlockedRef != null ? new List<string>(_doctrineUnlockedRef) : null;
+
+                _featProgressRef = Reflector.GetFieldValue<Dictionary<string, int>>(
+                    svc,
+                    "_featProgress"
+                );
+                _featProgressSnapshot =
+                    _featProgressRef != null
+                        ? new Dictionary<string, int>(_featProgressRef)
+                        : null;
+            }
         }
 
         /// <summary>
@@ -107,6 +133,14 @@ namespace Retinues.Tests
                 var stocks = StocksBehavior.Instance;
                 if (stocks != null && _stocks != null)
                     RestoreDict(stocks.StocksByItemId, _stocks);
+
+                if (_doctrineUnlockedRef != null && _doctrineUnlockedSnapshot != null)
+                {
+                    _doctrineUnlockedRef.Clear();
+                    _doctrineUnlockedRef.UnionWith(_doctrineUnlockedSnapshot);
+                }
+                if (_featProgressRef != null && _featProgressSnapshot != null)
+                    RestoreDict(_featProgressRef, _featProgressSnapshot);
 
                 // Invalidate cached faction lookups and captain caches so nothing keeps a
                 // reference to a sandbox troop after restore.
