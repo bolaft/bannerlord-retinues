@@ -55,6 +55,9 @@ namespace Retinues
             // Apply safety patches.
             SafeMethodPatcher.ApplyAll(_harmony.Harmony);
 
+            // Apply mod-compatibility Harmony patches (Shokuho, Bandit Militias, ...).
+            InteropsManager.ApplyPatches(_harmony.Harmony);
+
             // Check for incompatible or legacy mods.
             InteropsManager.DisplayWarnings();
 
