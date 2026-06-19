@@ -87,9 +87,17 @@ namespace Retinues.Migration
             DetectedLegacySaveVersion = _versionShim.SavedVersion ?? "unknown";
             Log.Info("[Migration] Legacy save detected – applying v1 → v2 migration.");
 
-            // Each phase is isolated: a failure in one (e.g. a malformed doctrine record) must
-            // not abort the others. The legacy partitions are dropped on the next save (shims
-            // skip writing), so the migration does not re-run on subsequent loads.
+            RunMigration();
+        }
+
+        /// <summary>
+        /// Runs the migration phases. Each phase is isolated: a failure in one (e.g. a malformed
+        /// doctrine record) must not abort the others. The legacy partitions are dropped on the
+        /// next save (shims skip writing), so the migration does not re-run on later loads.
+        /// Exposed for tests to drive directly without an OnGameLoadFinished event.
+        /// </summary>
+        internal void RunMigration()
+        {
             RunPhase("characters", MigrateCharacterData);
             RunPhase("faction roots", MigrateFactionRoots);
             RunPhase("items", MigrateItemData);
