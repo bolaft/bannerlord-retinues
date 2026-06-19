@@ -171,6 +171,15 @@ namespace Retinues.Migration
                             wc.Culture = WCulture.Get(co);
                     }
 
+                    // ── Source origin (for TOR and other id-keyed mod data) ───
+                    // Carry the v1 template id so the source-keyed compat sync (e.g. The Old
+                    // Realms) keeps migrated custom troops' special attributes immediately.
+                    if (
+                        !string.IsNullOrEmpty(troop.VanillaStringId)
+                        && troop.VanillaStringId != troop.StringId
+                    )
+                        wc.SourceStringId = troop.VanillaStringId;
+
                     // ── Formation / captain flags ─────────────────────────────
                     wc.FormationClassOverride = troop.FormationClassOverride;
                     wc.IsMariner = troop.IsMariner;
