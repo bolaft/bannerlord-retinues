@@ -39,12 +39,30 @@ namespace Retinues.Features.Unlocks
         private List<string> _unlockedItemIds;
         public List<string> UnlockedItemIds => _unlockedItemIds ??= [];
 
+        // O(1) membership mirror of UnlockedItemIds. The list stays the persisted form
+        // (so saves are unchanged); this set is rebuilt lazily and kept in sync on every
+        // mutation. IsUnlocked is called once per game item while building the editor's
+        // equipment list, so a linear List.Contains here is quadratic when many items are
+        // unlocked (gear mods + auto-unlock).
+        private HashSet<string> _unlockedSet;
+        private HashSet<string> UnlockedSet =>
+            _unlockedSet ??= new HashSet<string>(UnlockedItemIds, StringComparer.Ordinal);
+
+        /// <summary>
+        /// Drops the cached unlocked-id lookup so it rebuilds from the list on next use.
+        /// Call after mutating <see cref="UnlockedItemIds"/> directly (e.g. test restore).
+        /// </summary>
+        internal void InvalidateUnlockedLookup() => _unlockedSet = null;
+
         public override void SyncData(IDataStore ds)
         {
             // Unlocked item IDs
             ds.SyncData("Retinues_Unlocks_Unlocked", ref _unlockedItemIds);
             // Defeats by item ID
             ds.SyncData("Retinues_Unlocks_Progress", ref _progressByItemId);
+
+            // Loaded list replaced the backing field; rebuild the lookup lazily.
+            _unlockedSet = null;
 
             Log.Info(
                 $"{ProgressByItemId.Count} item defeat counts, {UnlockedItemIds.Count} unlocked."
@@ -223,7 +241,7 @@ namespace Retinues.Features.Unlocks
         /// Returns true if the item is unlocked.
         /// </summary>
         public static bool IsUnlocked(string itemId) =>
-            Instance != null && itemId != null && Instance.UnlockedItemIds.Contains(itemId);
+            Instance != null && itemId != null && Instance.UnlockedSet.Contains(itemId);
 
         /// <summary>
         /// Unlocks the item if not already unlocked.
@@ -233,10 +251,11 @@ namespace Retinues.Features.Unlocks
             if (Instance == null || item == null)
                 return;
 
-            if (Instance.UnlockedItemIds.Contains(item.StringId))
+            if (Instance.UnlockedSet.Contains(item.StringId))
                 return;
 
             Instance.UnlockedItemIds.Add(item.StringId);
+            Instance.UnlockedSet.Add(item.StringId);
         }
 
         /// <summary>
@@ -247,10 +266,11 @@ namespace Retinues.Features.Unlocks
             if (Instance == null || item == null)
                 return;
 
-            if (!Instance.UnlockedItemIds.Contains(item.StringId))
+            if (!Instance.UnlockedSet.Contains(item.StringId))
                 return;
 
             Instance.UnlockedItemIds.Remove(item.StringId);
+            Instance.UnlockedSet.Remove(item.StringId);
         }
 
         /// <summary>
@@ -259,6 +279,7 @@ namespace Retinues.Features.Unlocks
         public void Reset()
         {
             UnlockedItemIds.Clear();
+            _unlockedSet?.Clear();
             ProgressByItemId.Clear();
             Log.Info("All unlocks and progress have been reset.");
         }
@@ -412,9 +433,10 @@ namespace Retinues.Features.Unlocks
 
                     if (prev < threshold && now >= threshold)
                     {
-                        if (!UnlockedItemIds.Contains(id))
+                        if (!UnlockedSet.Contains(id))
                         {
                             UnlockedItemIds.Add(id);
+                            UnlockedSet.Add(id);
                             _newlyUnlocked.Add(item);
                         }
                     }

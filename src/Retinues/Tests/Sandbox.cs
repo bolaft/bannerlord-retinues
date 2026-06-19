@@ -142,7 +142,10 @@ namespace Retinues.Tests
 
                 var unlocks = UnlocksBehavior.Instance;
                 if (unlocks != null && _unlocked != null)
+                {
                     RestoreList(unlocks.UnlockedItemIds, _unlocked);
+                    unlocks.InvalidateUnlockedLookup();
+                }
                 if (unlocks != null && _unlockProgress != null)
                     RestoreDict(unlocks.ProgressByItemId, _unlockProgress);
 

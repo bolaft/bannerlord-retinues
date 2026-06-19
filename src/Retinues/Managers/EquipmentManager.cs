@@ -187,17 +187,21 @@ namespace Retinues.Managers
                             continue;
                     }
 
+                    // Slot fit is the cheapest strong filter and most items in the game
+                    // cannot go in the active slot, so skip them before evaluating any
+                    // unlock / culture / kill-progress rules. (Computed once per item.)
+                    if (!item.Slots.Contains(slot))
+                        continue;
+
                     if (Config.AllEquipmentUnlocked || ClanScreen.IsStudioMode)
                     {
-                        if (item.Slots.Contains(slot))
-                            list.Add((item, true, 0));
+                        list.Add((item, true, 0));
                         continue;
                     }
 
                     if (item.IsUnlocked)
                     {
-                        if (item.Slots.Contains(slot))
-                            list.Add((item, true, 0));
+                        list.Add((item, true, 0));
                         continue;
                     }
 
@@ -205,8 +209,7 @@ namespace Retinues.Managers
 
                     if (Config.AllCultureEquipmentUnlocked && itemCultureId == factionCultureId)
                     {
-                        if (item.Slots.Contains(slot))
-                            list.Add((item, true, 0));
+                        list.Add((item, true, 0));
                         continue;
                     }
 
@@ -215,8 +218,7 @@ namespace Retinues.Managers
                         && (itemCultureId == clanCultureId || itemCultureId == kingdomCultureId)
                     )
                     {
-                        if (item.Slots.Contains(slot))
-                            list.Add((item, true, 0));
+                        list.Add((item, true, 0));
                         continue;
                     }
 
@@ -231,13 +233,11 @@ namespace Retinues.Managers
                         if (prog >= Config.RequiredKillsPerItem)
                         {
                             item.Unlock();
-                            if (item.Slots.Contains(slot))
-                                list.Add((item, true, 0));
+                            list.Add((item, true, 0));
                         }
                         else
                         {
-                            if (item.Slots.Contains(slot))
-                                list.Add((item, false, prog));
+                            list.Add((item, false, prog));
                         }
                     }
                 }
