@@ -8,6 +8,7 @@ using Retinues.Domain.Factions.Wrappers;
 using Retinues.Framework.Model;
 using Retinues.Framework.Model.Attributes;
 using Retinues.Framework.Runtime;
+using Retinues.Settings;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
@@ -93,18 +94,14 @@ namespace Retinues.Domain.Characters.Wrappers
 
         public int Tier => Base.Tier;
 
-        public int MaxTier
-        {
-            get
-            {
-                int maxTier = IsElite ? 6 : 5;
+        /// <summary>
+        /// Highest tier the elite troop line may reach: the configured maximum (minimum 6). Drives
+        /// rank-up gating and the MaxCharacterTier engine patch that lets the game recognise tiers
+        /// above 6, so no external tier-unlocker mod is required.
+        /// </summary>
+        public static int EliteMaxTier => Configuration.MaxTroopTier;
 
-                if (Mods.T7TroopUnlocker.IsLoaded)
-                    maxTier += 1;
-
-                return maxTier;
-            }
-        }
+        public int MaxTier => IsElite ? EliteMaxTier : EliteMaxTier - 1;
 
         public bool IsMaxTier => Tier >= MaxTier;
 

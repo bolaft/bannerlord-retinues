@@ -1407,7 +1407,6 @@ namespace Retinues.Settings
             minValue: 20,
             maxValue: 360,
             @default: 360,
-            disabled: !Mods.T7TroopUnlocker.IsLoaded,
             fires: [UIEvent.Skill]
         );
 
@@ -1424,6 +1423,21 @@ namespace Retinues.Settings
         );
 
         /* ━━━━━━━━ Options ━━━━━━━ */
+
+        public static readonly Option<int> MaxTroopTier = CreateOption(
+            section: SkillTotals,
+            name: L.F("mcm_option_max_troop_tier", "Maximum Troop Tier"),
+            description: L.F(
+                "mcm_option_max_troop_tier_hint",
+                "Highest tier a custom elite troop can reach (basic troops cap one tier lower). "
+                    + "Raises the game's tier cap on its own — no other mod required. If another "
+                    + "tier-unlocker mod sets a higher cap, that higher cap is kept."
+            ),
+            minValue: 6,
+            maxValue: 10,
+            @default: 6,
+            fires: [UIEvent.Skill]
+        );
 
         public static readonly Option<int> SkillTotalT0 = CreateOption(
             section: SkillTotals,
@@ -1494,7 +1508,33 @@ namespace Retinues.Settings
             minValue: 90,
             maxValue: 1600,
             @default: 1600,
-            disabled: !Mods.T7TroopUnlocker.IsLoaded,
+            fires: [UIEvent.Skill]
+        );
+
+        public static readonly Option<int> SkillTotalT8 = CreateOption(
+            section: SkillTotals,
+            name: L.F("mcm_option_skill_total", "Tier {TIER} Skill Total", ("TIER", 8)),
+            minValue: 90,
+            maxValue: 2880,
+            @default: 1850,
+            fires: [UIEvent.Skill]
+        );
+
+        public static readonly Option<int> SkillTotalT9 = CreateOption(
+            section: SkillTotals,
+            name: L.F("mcm_option_skill_total", "Tier {TIER} Skill Total", ("TIER", 9)),
+            minValue: 90,
+            maxValue: 2880,
+            @default: 2100,
+            fires: [UIEvent.Skill]
+        );
+
+        public static readonly Option<int> SkillTotalT10 = CreateOption(
+            section: SkillTotals,
+            name: L.F("mcm_option_skill_total", "Tier {TIER} Skill Total", ("TIER", 10)),
+            minValue: 90,
+            maxValue: 2880,
+            @default: 2350,
             fires: [UIEvent.Skill]
         );
     }

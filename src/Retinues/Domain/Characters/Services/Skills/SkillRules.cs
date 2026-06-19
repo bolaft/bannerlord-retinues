@@ -21,8 +21,7 @@ namespace Retinues.Domain.Characters.Services.Skills
         /// <summary>
         /// Clamps the given tier to valid range.
         /// </summary>
-        static int ClampTier(int tier) =>
-            Math.Max(0, Math.Min(Mods.T7TroopUnlocker.IsLoaded ? 7 : 6, tier));
+        static int ClampTier(int tier) => Math.Max(0, Math.Min(WCharacter.EliteMaxTier, tier));
 
         /// <summary>
         /// Gets the skill cap for the given wrapped character.
@@ -95,7 +94,9 @@ namespace Retinues.Domain.Characters.Services.Skills
                 5 => Configuration.SkillTotalT5,
                 6 => Configuration.SkillTotalT6,
                 7 => Configuration.SkillTotalT7,
-                _ => Configuration.SkillTotalT7,
+                8 => Configuration.SkillTotalT8,
+                9 => Configuration.SkillTotalT9,
+                _ => Configuration.SkillTotalT10,
             };
 
             /// <summary>
