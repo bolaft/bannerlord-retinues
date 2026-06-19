@@ -59,6 +59,11 @@ namespace Retinues.Domain.Characters.Services.Cloning
             stub.Age = source.Age;
             stub.IsMariner = source.IsMariner;
 
+            // Record the ultimate vanilla/source origin (transitive through clone chains) so
+            // mod-compat layers (e.g. The Old Realms) can copy per-troop data keyed by the
+            // original troop id onto this stub.
+            stub.SourceStringId = source.IsCustom ? source.SourceStringId : source.StringId;
+
             // Skill points are not cloned
             stub.SkillPoints = 0;
 

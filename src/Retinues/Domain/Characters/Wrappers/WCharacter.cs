@@ -105,6 +105,22 @@ namespace Retinues.Domain.Characters.Wrappers
 
         public bool IsMaxTier => Tier >= MaxTier;
 
+        /* ━━━━━ Source Origin ━━━━ */
+
+        MAttribute<string> SourceStringIdAttribute =>
+            Attribute<string>(initialValue: null, name: "SourceStringIdAttribute");
+
+        /// <summary>
+        /// StringId of the vanilla/source troop this custom troop was ultimately cloned from
+        /// (transitive through upgrades). Lets mod-compat layers (e.g. The Old Realms) copy
+        /// per-troop data keyed by the original troop id onto the custom stub. Null for non-clones.
+        /// </summary>
+        public string SourceStringId
+        {
+            get => NonVariantBase().SourceStringIdAttribute.Get();
+            set => NonVariantBase().SourceStringIdAttribute.Set(value);
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Hero                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

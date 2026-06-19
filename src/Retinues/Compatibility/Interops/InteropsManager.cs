@@ -21,7 +21,10 @@ namespace Retinues.Compatibility.Interops
         /// </summary>
         public static void RegisterBehaviors(CampaignGameStarter cs)
         {
-            // Currently no compatibility behaviors to register.
+            // The Old Realms: sync custom troops into TOR's extended-info registry so they keep
+            // their special attributes (resistances, Unbreakable, ...) in battle.
+            if (Mods.OldRealms.IsLoaded)
+                cs.AddBehavior(new OldRealms.OldRealmsBehavior());
         }
 
         /// <summary>

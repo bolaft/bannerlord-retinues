@@ -15,5 +15,8 @@ namespace Retinues.Compatibility
         public static ModuleManager.ModuleInfo Shokuho => ModuleManager.GetModule("Shokuho");
 
         public static ModuleManager.ModuleInfo BanditMilitias =>
-            ModuleManager.GetModule("BanditMilitias");    }
+            ModuleManager.GetModule("BanditMilitias");
+
+        public static ModuleManager.ModuleInfo OldRealms => ModuleManager.GetModule("TOR_Core");
+    }
 }
