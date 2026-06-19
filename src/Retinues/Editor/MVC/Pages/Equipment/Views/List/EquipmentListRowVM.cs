@@ -19,10 +19,6 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
     public sealed class EquipmentListRowVM(ListHeaderVM header, WItem item)
         : BaseListRowVM(header, item?.StringId ?? string.Empty)
     {
-        // Per-row cache group key. All cached properties for this row share it.
-        private static string CacheKey(WItem item) =>
-            $"EquipmentListRowVM_{item.StringId ?? "null"}";
-
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Type Flags                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -55,8 +51,7 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private readonly Cache<EquipmentListRowVM, bool> _cacheIsEnabled = new(
-            o => ItemController.Equip.Allow(o._item),
-            CacheKey(item)
+            o => ItemController.Equip.Allow(o._item)
         );
 
         [DataSourceProperty]
@@ -72,8 +67,7 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
                     return contextReason.ToString();
 
                 return ItemController.Equip.Reason(o._item)?.ToString() ?? string.Empty;
-            },
-            CacheKey(item)
+            }
         );
 
         [DataSourceProperty]
@@ -118,8 +112,7 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         private readonly Cache<EquipmentListRowVM, bool> _cacheAvailableInRoster = new(
-            o => State.Equipment?.IsAvailableInRoster(State.Slot, o._item) ?? false,
-            CacheKey(item)
+            o => State.Equipment?.IsAvailableInRoster(State.Slot, o._item) ?? false
         );
 
         private bool AvailableInRoster => _cacheAvailableInRoster.Get(this);
@@ -128,15 +121,13 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
             o =>
                 !PreviewController.Enabled
                 && State.Mode == EditorMode.Player
-                && Configuration.EquipmentCostsMoney,
-            CacheKey(item)
+                && Configuration.EquipmentCostsMoney
         );
 
         private bool EconomyEnabled => _cacheEconomyEnabled.Get(this);
 
         private readonly Cache<EquipmentListRowVM, bool> _cacheShowEquipped = new(
-            o => o.IsEnabled && o.EconomyEnabled && o.AvailableInRoster,
-            CacheKey(item)
+            o => o.IsEnabled && o.EconomyEnabled && o.AvailableInRoster
         );
 
         [DataSourceProperty]
@@ -160,8 +151,7 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
                 && !o.IsSelected
                 && !o.AvailableInRoster
                 && o._item != null
-                && o._item.Stock > 0,
-            CacheKey(item)
+                && o._item.Stock > 0
         );
 
         [DataSourceProperty]
@@ -176,8 +166,7 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
                 return L.T("in_stock", "In Stock ({STOCK})")
                     .SetTextVariable("STOCK", o._item.Stock)
                     .ToString();
-            },
-            CacheKey(item)
+            }
         );
 
         [DataSourceProperty]
@@ -194,8 +183,7 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
                 && !o.IsSelected
                 && !o.AvailableInRoster
                 && o._item != null
-                && o._item.Stock <= 0,
-            CacheKey(item)
+                && o._item.Stock <= 0
         );
 
         [DataSourceProperty]
@@ -215,8 +203,7 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
 
                 int cost = (int)Math.Round(raw, MidpointRounding.AwayFromZero);
                 return Math.Max(cost, 0);
-            },
-            CacheKey(item)
+            }
         );
 
         [DataSourceProperty]
@@ -247,8 +234,7 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
                     n = 3;
 
                 return (p, n);
-            },
-            CacheKey(item)
+            }
         );
 
         [DataSourceProperty]
@@ -369,9 +355,19 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
         )]
         private void InvalidateComputed()
         {
-            // Clear all cached values for this row (group clear).
-            // Any one cache Clear() clears the whole group for CacheKey(item).
+            // Clear every cached value that depends on slot/item/mode. These caches are
+            // keyless (per-row, local clear only) so this is lock-free — important because
+            // this runs on every row on each equip/slot/mode event.
             _cacheIsEnabled.Clear();
+            _cacheDisabledReason.Clear();
+            _cacheAvailableInRoster.Clear();
+            _cacheEconomyEnabled.Clear();
+            _cacheShowEquipped.Clear();
+            _cacheShowStock.Clear();
+            _cacheStockText.Clear();
+            _cacheShowCost.Clear();
+            _cacheCost.Clear();
+            _cacheChevrons.Clear();
 
             // Notify only the properties that actually depend on slot/item/mode.
             OnPropertyChanged(nameof(Brush));
