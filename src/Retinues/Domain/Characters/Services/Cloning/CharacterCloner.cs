@@ -89,6 +89,11 @@ namespace Retinues.Domain.Characters.Services.Cloning
                 foreach (var (skill, value) in source.Skills)
                     stub.Skills.Set(skill, value);
 
+            // Record the seeded skill sum as the budget baseline, so a troop cloned from a
+            // high-skill template (e.g. The Old Realms units) is never born over its per-tier
+            // budget and locked to decrement-only. Inert for normal troops (sum <= budget).
+            stub.SkillBaseline = stub.SkillTotalUsed;
+
             // Equipment: coarse toggle only (policy handled by callers)
             if (equipments)
                 stub.EquipmentRoster.Copy(source.EquipmentRoster, EquipmentCopyMode.All);
