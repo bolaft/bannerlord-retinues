@@ -327,6 +327,20 @@ namespace Retinues.Settings
             @default: 4
         );
 
+        public static readonly Option<bool> ExcludeCustomTroopsFromTournaments = CreateOption(
+            section: Restrictions,
+            name: L.F(
+                "mcm_option_exclude_custom_tournaments",
+                "Keep Custom Troops Out of Tournaments"
+            ),
+            description: L.F(
+                "mcm_option_exclude_custom_tournaments_hint",
+                "Excludes custom troops from tournament participant selection, so brackets fill "
+                    + "with vanilla troops and lords instead of garrisoned custom troops."
+            ),
+            @default: true
+        );
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Retinues                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
