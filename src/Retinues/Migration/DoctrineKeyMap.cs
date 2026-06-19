@@ -14,6 +14,9 @@ namespace Retinues.Migration
         internal static string ToV2Id(string v1Key) =>
             s_map.TryGetValue(v1Key, out var id) ? id : null;
 
+        /// <summary>Every mapped v2 doctrine id (for completeness tests).</summary>
+        internal static IReadOnlyCollection<string> AllV2Ids => s_map.Values;
+
         private static readonly Dictionary<string, string> s_map = new()
         {
             // ── Loot doctrines ───────────────────────────────────────────────

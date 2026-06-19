@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Retinues.Migration
 {
@@ -36,6 +37,10 @@ namespace Retinues.Migration
         /// </summary>
         internal static Mapping[] GetMappings(string v1Key) =>
             _map.TryGetValue(v1Key, out var m) ? m : null;
+
+        /// <summary>Every mapped v2 feat id (for completeness tests).</summary>
+        internal static IEnumerable<string> AllV2FeatIds =>
+            _map.Values.SelectMany(m => m).Select(m => m.V2FeatId);
 
         // ─── helpers ──────────────────────────────────────────────────────────
 
