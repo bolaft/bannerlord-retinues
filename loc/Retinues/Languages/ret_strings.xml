@@ -971,6 +971,12 @@
       id="ret_mcm_option_equipping_troops_takes_time_hint"
       text="To apply item changes, troops must spend time upgrading equipment in a fief." />
     <string
+      id="ret_mcm_option_exclude_custom_troops_from_tournaments"
+      text="Keep Custom Troops Out of Tournaments" />
+    <string
+      id="ret_mcm_option_exclude_custom_troops_from_tournaments_hint"
+      text="When enabled, your custom troops won&apos;t be picked as tournament participants (they otherwise flood brackets from garrisons). Disable to let them compete." />
+    <string
       id="ret_mcm_option_force_main_battle_set_in_combat"
       text="Force Main Battle Set In Combat" />
     <string
@@ -1036,6 +1042,9 @@
     <string
       id="ret_mcm_option_max_equipment_rows_per_page_hint"
       text="Maximum number of equipment rows to show per page in the troop editor. Smaller values improve UI reactivity." />
+    <string
+      id="ret_mcm_option_max_troop_tier"
+      text="Maximum Troop Tier" />
     <string
       id="ret_mcm_option_no_civilian_set_upgrade_requirements"
       text="No Civilian Set Upgrade Requirements" />

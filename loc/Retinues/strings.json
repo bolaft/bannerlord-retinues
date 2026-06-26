@@ -5152,6 +5152,38 @@
     "TR": "Öğe değişikliklerini uygulamak için askerler bir toprakta ekipmanı yükseltmek için zaman harcamalıdır."
   },
   {
+    "id": "ret_mcm_option_exclude_custom_troops_from_tournaments",
+    "EN": "Keep Custom Troops Out of Tournaments",
+    "BR": null,
+    "CNs": null,
+    "CNt": null,
+    "DE": null,
+    "FR": null,
+    "IT": null,
+    "JP": null,
+    "KO": null,
+    "PL": null,
+    "RU": null,
+    "SP": null,
+    "TR": null
+  },
+  {
+    "id": "ret_mcm_option_exclude_custom_troops_from_tournaments_hint",
+    "EN": "When enabled, your custom troops won't be picked as tournament participants (they otherwise flood brackets from garrisons). Disable to let them compete.",
+    "BR": null,
+    "CNs": null,
+    "CNt": null,
+    "DE": null,
+    "FR": null,
+    "IT": null,
+    "JP": null,
+    "KO": null,
+    "PL": null,
+    "RU": null,
+    "SP": null,
+    "TR": null
+  },
+  {
     "id": "ret_mcm_option_force_main_battle_set_in_combat",
     "EN": "Force Main Battle Set In Combat",
     "BR": "Forçar Conjunto de Batalha Principal em Combate",
@@ -5502,6 +5534,22 @@
     "RU": "Максимальное количество строк снаряжения для отображения на странице в редакторе войск. Меньшие значения улучшают отзывчивость интерфейса.",
     "SP": "Número máximo de filas de equipo para mostrar por página en el editor de tropas. Los valores más pequeños mejoran la capacidad de respuesta de la interfaz de usuario.",
     "TR": "Birlik düzenleyicisinde sayfa başına gösterilecek maksimum ekipman satırı sayısı. Daha küçük değerler kullanıcı arayüzü tepkiselliğini artırır."
+  },
+  {
+    "id": "ret_mcm_option_max_troop_tier",
+    "EN": "Maximum Troop Tier",
+    "BR": null,
+    "CNs": null,
+    "CNt": null,
+    "DE": null,
+    "FR": null,
+    "IT": null,
+    "JP": null,
+    "KO": null,
+    "PL": null,
+    "RU": null,
+    "SP": null,
+    "TR": null
   },
   {
     "id": "ret_mcm_option_no_civilian_set_upgrade_requirements",
