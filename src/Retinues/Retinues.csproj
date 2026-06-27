@@ -143,4 +143,12 @@
   <ItemGroup Condition="'$(Configuration)' != 'Debug'">
     <Compile Remove="Tests/**/*.cs" />
   </ItemGroup>
+
+  <!-- Custom map-bar Troops icon, loaded as a runtime texture from this embedded PNG. -->
+  <ItemGroup>
+    <None Remove="Editor/Integration/MapBar/troops_icon.png" />
+    <EmbeddedResource Include="Editor/Integration/MapBar/troops_icon.png">
+      <LogicalName>Retinues.troops_icon.png</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
 </Project>

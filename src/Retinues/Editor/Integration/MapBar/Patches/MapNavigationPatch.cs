@@ -38,6 +38,11 @@ namespace Retinues.Editor.Integration.MapBar.Patches
 
             // IMPORTANT: update the private backing field so the handler "owns" it.
             Reflection.SetFieldValue(handler, "_elements", elements.ToArray());
+
+            // Install our custom icon sprite on the map-bar brush now, before the navigation
+            // widgets are built — the icon widget caches the sprite from the brush at creation,
+            // so applying it only per-frame afterwards is too late.
+            TroopsIcon.EnsureApplied();
         }
     }
 }

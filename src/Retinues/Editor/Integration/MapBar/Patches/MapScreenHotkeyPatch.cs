@@ -35,6 +35,9 @@ namespace Retinues.Editor.Integration.MapBar.Patches
             // Keep the troops button enabled/active state in sync every frame.
             MapNavigationVMMixin.Current?.Refresh();
 
+            // Apply the custom map-bar icon once brushes are available (idempotent).
+            TroopsIcon.EnsureApplied();
+
             if (!Configuration.EditorHotkey)
                 return;
 
@@ -82,6 +85,9 @@ namespace Retinues.Editor.Integration.MapBar.Patches
         [HarmonyPostfix]
         private static void Postfix(MapScreen __instance, ref bool __result)
         {
+            // Apply the custom map-bar icon once brushes are available (idempotent).
+            TroopsIcon.EnsureApplied();
+
             if (__result)
                 return;
 
