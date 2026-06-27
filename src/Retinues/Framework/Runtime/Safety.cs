@@ -355,6 +355,13 @@ namespace Retinues.Framework.Runtime
         /// </summary>
         private static void PatchOne(Harmony harmony, MethodBase method, Behavior behavior)
         {
+            // Never wrap Harmony patch methods (Prefix/Postfix/Finalizer/Transpiler). They use
+            // reserved injection parameters (__result, __instance, ...) and live in [HarmonyPatch]
+            // classes; wrapping them with our finalizer confuses Harmony's patch validation and
+            // throws "Cannot assign return type ... to __result type" when UnpatchAll runs at exit.
+            if (IsHarmonyPatchMethod(method))
+                return;
+
             // already-patched guard
             var info = Harmony.GetPatchInfo(method);
             if (
@@ -788,6 +795,28 @@ namespace Retinues.Framework.Runtime
             {
                 return rtle.Types.Where(t => t != null)!;
             }
+        }
+
+        /// <summary>
+        /// True if the method is a Harmony patch method and must not be safe-wrapped: it either
+        /// lives in a [HarmonyPatch] class, carries a Harmony patch attribute, or declares a
+        /// reserved injection parameter (a name starting with "__", e.g. __result / __instance).
+        /// </summary>
+        private static bool IsHarmonyPatchMethod(MethodBase method)
+        {
+            foreach (var p in method.GetParameters())
+                if (p.Name != null && p.Name.StartsWith("__", StringComparison.Ordinal))
+                    return true;
+
+            var dt = method.DeclaringType;
+            if (dt != null && dt.GetCustomAttribute<HarmonyPatch>() != null)
+                return true;
+
+            return method.GetCustomAttribute<HarmonyPatch>() != null
+                || method.GetCustomAttribute<HarmonyPrefix>() != null
+                || method.GetCustomAttribute<HarmonyPostfix>() != null
+                || method.GetCustomAttribute<HarmonyFinalizer>() != null
+                || method.GetCustomAttribute<HarmonyTranspiler>() != null;
         }
 
         /// <summary>
