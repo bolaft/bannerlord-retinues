@@ -128,6 +128,7 @@ namespace Retinues.Domain.Equipments.Wrappers
                     || IsHorseHarness
                     || IsMeleeWeapon
                     || IsRangedWeapon
+                    || IsThrownWeapon
                     || IsAmmo
                     || IsShield
                 )

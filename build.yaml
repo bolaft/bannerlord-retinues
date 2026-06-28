@@ -35,7 +35,7 @@ xmls:
 
 versions:
   "12":
-    version: v2.0.0.0
+    version: v2.0.0.1
     dependencies:
       - id: Bannerlord.Harmony
         version: v2.3.6

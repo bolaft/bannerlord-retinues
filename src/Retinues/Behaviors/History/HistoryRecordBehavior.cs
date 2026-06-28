@@ -27,24 +27,60 @@ namespace Retinues.Behaviors.History
         // Indicates we are waiting for a map event end to apply RecordBattleResult(...).
         bool _awaitingMapEventEnd;
 
+        // True once a mission ran for the current map event (manual battle); stays false for
+        // auto-resolved (simulated) battles, where no mission fires.
+        bool _missionHappened;
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Mission                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Called when a map event starts. Fires for both manual and auto-resolved battles, so it
+        /// is the snapshot/reset point that covers simulated battles (which never run a mission).
+        /// </summary>
+        protected override void OnMapEventStarted(MMapEvent mapEvent)
+        {
+            _rosterAtStart.Clear();
+            _killsApplied = false;
+            _awaitingMapEventEnd = false;
+            _missionHappened = false;
+
+            if (mapEvent == null || !mapEvent.IsPlayerInvolved)
+                return;
+
+            // Only battles carry a result worth recording.
+            if (!mapEvent.IsFieldBattle && !mapEvent.IsSiegeBattle && !mapEvent.IsNavalBattle)
+                return;
+
+            SnapshotPlayerRoster();
+        }
 
         /// <summary>
         /// Called when a mission starts.
         /// </summary>
         protected override void OnMissionStarted(MMission mission)
         {
-            _rosterAtStart.Clear();
             _killsApplied = false;
             _awaitingMapEventEnd = false;
+            _missionHappened = true;
+
+            _rosterAtStart.Clear();
 
             // Only track roster for combat missions.
             if (mission == null || !mission.IsBattle)
                 return;
 
-            // Snapshot player party roster at start.
+            // Re-snapshot here as well: OnMapEventStarted normally fires first, but this is robust
+            // to event ordering and to missions that lack a preceding player map event.
+            SnapshotPlayerRoster();
+        }
+
+        /// <summary>
+        /// Snapshots the player party's faction troops present at battle start.
+        /// </summary>
+        void SnapshotPlayerRoster()
+        {
             var roster = Player.Party?.MemberRoster;
             if (roster == null)
                 return;
@@ -63,7 +99,6 @@ namespace Retinues.Behaviors.History
                     continue; // Ignore everything else.
 
                 // Record once per troop type, not per stack count.
-                // If you want per-stack participation, add e.Number logic in your wrapper instead.
                 _rosterAtStart.Add(troop);
             }
         }
@@ -98,12 +133,13 @@ namespace Retinues.Behaviors.History
         /// </summary>
         protected override void OnMapEventEnded(MMapEvent end)
         {
-            if (!_awaitingMapEventEnd)
-                return;
-
+            // Record the result for manual battles (we were awaiting this) and for auto-resolved
+            // battles (no mission ran). Manual kills are applied separately in OnMissionEnded;
+            // auto-resolve cannot attribute individual kills, so it records the result only.
+            bool shouldRecord = _awaitingMapEventEnd || !_missionHappened;
             _awaitingMapEventEnd = false;
 
-            if (end == null || !end.IsPlayerInvolved)
+            if (!shouldRecord || end == null || !end.IsPlayerInvolved)
             {
                 _rosterAtStart.Clear();
                 return;
