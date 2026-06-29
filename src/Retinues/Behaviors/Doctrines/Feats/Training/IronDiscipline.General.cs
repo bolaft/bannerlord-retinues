@@ -11,7 +11,7 @@ namespace Retinues.Behaviors.Doctrines.Feats.Training
 
         protected override void OnDailyTick()
         {
-            if (!Player.Party.IsArmyLeader)
+            if (Player.Party.IsArmyLeader)
                 Feat.Add(); // Progress for the day as army leader.
             else
                 Feat.Reset(); // Reset progress if not army leader.
