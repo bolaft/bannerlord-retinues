@@ -97,7 +97,9 @@ namespace Retinues.Behaviors.Retinues
             if (snapshot == null || troopData == null || troopData.Count == 0)
                 return;
 
-            if (!snapshot.IsPlayerInvolved || snapshot.IsWon)
+            // Use the LIVE map event for the outcome: snapshot.IsWon was captured at battle start,
+            // where it is always false, so it would loot regardless of who actually won.
+            if (!snapshot.IsPlayerInvolved || mapEvent == null || mapEvent.IsWon)
             {
                 Log.Debug("[AIClanRetinue.Loot] Autoresolve: skipped (not lost or not involved).");
                 return;

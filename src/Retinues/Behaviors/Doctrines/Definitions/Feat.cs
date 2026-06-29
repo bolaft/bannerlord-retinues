@@ -44,7 +44,14 @@ namespace Retinues.Behaviors.Doctrines.Definitions
             get => _progress;
             set
             {
-                if (!IsInProgress)
+                // Only accept progress while the doctrine is actively being worked toward.
+                if (!Doctrine.IsInProgress)
+                    return;
+
+                // Non-repeatable feats stop once completed. Repeatable feats keep cycling — this also
+                // lets a feat that an older build parked at >= Target (without crediting worth) recover
+                // on its next completion instead of being permanently stuck as "Completed".
+                if (!Repeatable && _progress >= Target)
                     return;
 
                 if (value < 0)
@@ -57,7 +64,10 @@ namespace Retinues.Behaviors.Doctrines.Definitions
                     int completions = 0;
                     if (Repeatable)
                     {
-                        while (_progress > Target)
+                        // ">=" so reaching exactly Target counts as one completion. With ">" a
+                        // Target=1 repeatable feat would reach 1 but never count (1 > 1 is false),
+                        // awarding 0 doctrine progress.
+                        while (_progress >= Target)
                         {
                             _progress -= Target;
                             completions++;
