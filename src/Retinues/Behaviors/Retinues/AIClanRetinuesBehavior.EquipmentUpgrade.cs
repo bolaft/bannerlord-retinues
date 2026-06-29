@@ -116,13 +116,11 @@ namespace Retinues.Behaviors.Retinues
                     continue;
 
                 battleSet.Set(slot, picked);
+                // No player notification: this is an AI clan's retinue improving its own gear, which
+                // the player should not be told about. (Enemy retinues looting the player's own
+                // casualties are announced separately in AIClanRetinuesBehavior.Looting.)
                 Log.Debug(
                     $"[AIClanRetinue] '{retinue.Name}' upgraded {slot}: {currentItem?.Name ?? "empty"} → {picked.Name} (T{picked.Tier})"
-                );
-                Notifications.Message(
-                    L.T("ai_retinue_equipment_upgrade", "{RETINUE} acquired {ITEM}.")
-                        .SetTextVariable("RETINUE", retinue.Name)
-                        .SetTextVariable("ITEM", picked.Name)
                 );
                 return;
             }

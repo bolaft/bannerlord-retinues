@@ -61,7 +61,7 @@ namespace Retinues.Behaviors.Experience
                         continue;
 
                     playerTotalCount += e.Number;
-                    if (troop.IsCustom)
+                    if (troop.IsPlayerFactionTroop)
                         customElements.Add((troop.StringId, e.Number));
                 }
             }

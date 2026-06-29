@@ -173,6 +173,37 @@ namespace Retinues.Domain.Characters.Wrappers
             }
         }
 
+        /// <summary>
+        /// True if this troop belongs to the player's own clan, or to the kingdom the player rules.
+        /// Distinguishes the player's custom troops from those of AI clans/kingdoms (e.g. AI clan
+        /// retinues), which must not feed the player's skill-point progress, pool, or notifications.
+        /// </summary>
+        public bool IsPlayerFactionTroop
+        {
+            get
+            {
+                var list = Factions;
+                if (list == null || list.Count == 0)
+                    return false;
+
+                var clanId = Player.Clan?.StringId;
+                var kingdomId = Player.IsRuler ? Player.Kingdom?.StringId : null;
+                if (clanId == null && kingdomId == null)
+                    return false;
+
+                for (int i = 0; i < list.Count; i++)
+                {
+                    var id = list[i]?.StringId;
+                    if (id == null)
+                        continue;
+                    if (id == clanId || (kingdomId != null && id == kingdomId))
+                        return true;
+                }
+
+                return false;
+            }
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Troop Type                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

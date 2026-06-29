@@ -33,7 +33,9 @@ namespace Retinues.Behaviors.Experience
             if (wc.IsHero)
                 return;
 
-            if (!wc.IsFactionTroop)
+            // Only the player's own troops earn skill points / feed the shared pool and notifications.
+            // AI clans' custom troops (e.g. AI clan retinues) are faction troops too, but theirs.
+            if (!wc.IsPlayerFactionTroop)
                 return;
 
             if (wc.IsVanilla)
