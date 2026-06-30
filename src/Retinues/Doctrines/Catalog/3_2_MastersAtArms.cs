@@ -41,7 +41,10 @@ namespace Retinues.Doctrines.Catalog
             {
                 if (!upgradeToTroop.IsElite)
                     return;
-                if (!upgradeToTroop.IsMaxTier)
+                // Count when the elite is at the top of its own upgrade line, rather than a fixed
+                // tier number — "max tier" scales with the Maximum Troop Tier setting / tier-unlocker
+                // mods, so a numeric check stops crediting once the cap is raised above 6.
+                if (upgradeToTroop.UpgradeTargets.Length > 0)
                     return;
 
                 AdvanceProgress(number);
