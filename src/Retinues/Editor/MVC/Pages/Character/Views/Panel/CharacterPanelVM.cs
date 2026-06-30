@@ -222,6 +222,24 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Panel
         public string SkillTotalText =>
             $"{State.Character.SkillTotalUsed} / {State.Character.SkillTotal}";
 
+        // Shown (button + balancing left spacer) only when there is something to reset, so the
+        // button disappears entirely instead of sitting there disabled/black, and the SkillTotalText
+        // stays centered on its "/".
+        [EventListener(UIEvent.Skill, UIEvent.Character)]
+        [DataSourceProperty]
+        public bool ShowResetSkills =>
+            State.Character?.IsHero == false && State.Character?.SkillTotalUsed > 0;
+
+        [DataSourceProperty]
+        public Button<WCharacter> ResetSkillsButton { get; } =
+            new(
+                action: SkillController.ResetSkills,
+                arg: () => State.Character,
+                refresh: [UIEvent.Skill, UIEvent.Character],
+                visibilityGate: () =>
+                    State.Character?.IsHero == false && State.Character?.SkillTotalUsed > 0
+            );
+
         [EventListener(UIEvent.Skill, UIEvent.Doctrine, UIEvent.Character)]
         [DataSourceProperty]
         public string SkillDescriptionText =>

@@ -15,8 +15,8 @@ namespace Retinues.Behaviors.Doctrines.Feats.Troops
             if (!success)
                 return; // Quest failed.
 
-            if (!giver.Base.IsRuralNotable && !giver.Base.IsHeadman)
-                return; // Giver is not a landowner.
+            if (!giver.Base.IsRuralNotable)
+                return; // Giver is not a landowner (headman quests are HeadmansHelp's domain).
 
             Feat.Add();
         }

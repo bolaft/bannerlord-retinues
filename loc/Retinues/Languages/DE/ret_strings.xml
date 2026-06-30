@@ -197,6 +197,9 @@
       id="ret_cant_equip_reason_skill"
       text="{SKILL} {VALUE}" />
     <string
+      id="ret_cant_equip_reason_tier_too_high"
+      text="Stufe zu hoch" />
+    <string
       id="ret_cant_equip_reason_too_heavy"
       text="Zu schwer" />
     <string
@@ -1817,6 +1820,12 @@
       id="ret_mcm_option_enforce_equipment_limits_hint"
       text="Wenn aktiviert, wird der Universelle Editor normale Ausrüstungsgrenzen beim Bearbeiten von Standardtruppen durchsetzen." />
     <string
+      id="ret_mcm_option_enforce_equipment_tier_limit"
+      text="Ausrüstungsstufe begrenzen" />
+    <string
+      id="ret_mcm_option_enforce_equipment_tier_limit_hint"
+      text="Verhindert, dass Truppen Ausrüstung tragen, die zu weit über ihrer eigenen Stufe liegt." />
+    <string
       id="ret_mcm_option_enforce_skill_limits"
       text="Fertigkeitsgrenzen durchsetzen" />
     <string
@@ -1831,6 +1840,12 @@
     <string
       id="ret_mcm_option_equipment_cost_multiplier_hint"
       text="Bestimmt die Kosten für die Ausrüstung eines neuen Ausrüstungsgegenstands." />
+    <string
+      id="ret_mcm_option_equipment_max_tier_difference"
+      text="Maximale Stufendifferenz" />
+    <string
+      id="ret_mcm_option_equipment_max_tier_difference_hint"
+      text="Um wie viele Stufen die Ausrüstung einer Truppe über ihrer eigenen liegen darf (0 = Ausrüstung darf die Stufe der Truppe nicht überschreiten)." />
     <string
       id="ret_mcm_option_equipment_needs_unlocking"
       text="Ausrüstung muss freigeschaltet werden" />
@@ -1871,6 +1886,9 @@
       id="ret_mcm_option_equipping_takes_time_hint"
       text="Wenn aktiviert, wird das Ausrüsten von Truppen nicht sofort erfolgen und es wird Zeit in Anspruch nehmen, bis es abgeschlossen ist." />
     <string
+      id="ret_mcm_option_exclude_custom_tournaments"
+      text="Eigene Truppen aus Turnieren heraushalten" />
+    <string
       id="ret_mcm_option_feat_complete_notification"
       text="Benachrichtigung über abgeschlossene Leistung" />
     <string
@@ -1900,6 +1918,9 @@
     <string
       id="ret_mcm_option_max_retinue_ratio_hint"
       text="Die maximale Anzahl von Retinues als Verhältnis zur Partikelgrößenbegrenzung." />
+    <string
+      id="ret_mcm_option_max_troop_tier"
+      text="Maximale Truppenstufe" />
     <string
       id="ret_mcm_option_min_tier_for_mounts"
       text="Mindeststufe für Reittiere" />
@@ -1961,6 +1982,18 @@
       id="ret_mcm_option_retinue_health_bonus_hint"
       text="Der Betrag, der der Gesundheit der Retinue-Truppen hinzugefügt wird, wenn Buff Retinue Health aktiviert ist." />
     <string
+      id="ret_mcm_option_retinue_rank_up_gold_cost"
+      text="Goldkosten für Beförderung" />
+    <string
+      id="ret_mcm_option_retinue_rank_up_gold_cost_hint"
+      text="Multiplikator für die Goldkosten zum Befördern einer Retinue (Basis: 1000 × nächste Stufe). Auf 0 setzen für keine Goldkosten." />
+    <string
+      id="ret_mcm_option_retinue_rank_up_sp_cost"
+      text="Fertigkeitspunktkosten für Beförderung" />
+    <string
+      id="ret_mcm_option_retinue_rank_up_sp_cost_hint"
+      text="Multiplikator für die Fertigkeitspunktkosten zum Befördern einer Retinue (Basis: 5 × aktuelle Stufe). Auf 0 setzen für keine Fertigkeitspunktkosten." />
+    <string
       id="ret_mcm_option_retinue_skill_cap_bonus"
       text="Retinue-Fähigkeitsgrenzenbonus" />
     <string
@@ -2020,6 +2053,12 @@
     <string
       id="ret_mcm_option_starter_equipment_hint"
       text="Legt die Startausrüstung für neu freigeschaltete Truppen fest." />
+    <string
+      id="ret_mcm_option_starter_skills"
+      text="Anfangsfähigkeiten" />
+    <string
+      id="ret_mcm_option_starter_skills_hint"
+      text="Legt die anfänglichen Fähigkeitsstufen für neu freigeschaltete Truppen fest." />
     <string
       id="ret_mcm_option_starter_troops"
       text="Starter-Truppen" />
@@ -2342,6 +2381,9 @@
       id="ret_rank_up_confirm_body"
       text="Rangaufstieg {NAME}?{newline}{newline}Kosten:{newline}- {SP_COST} Fertigkeitspunkte{newline}- {GOLD_COST} Gold{newline}{newline}Effekt:{newline}- +5 Stufen (Rangaufstieg)" />
     <string
+      id="ret_rank_up_confirm_body_no_sp"
+      text="Rangaufstieg {NAME}?{newline}{newline}Kosten:{newline}- {GOLD_COST} Gold{newline}{newline}Effekt:{newline}- +5 Stufen (Rangaufstieg)" />
+    <string
       id="ret_rank_up_confirm_no"
       text="Abbrechen" />
     <string
@@ -2419,6 +2461,27 @@
     <string
       id="ret_reset_none_available"
       text="Nichts zum Zurücksetzen" />
+    <string
+      id="ret_reset_skills_confirm_body"
+      text="Alle Fertigkeiten von {NAME} zurücksetzen? Alle ausgegebenen Fertigkeitspunkte werden erstattet." />
+    <string
+      id="ret_reset_skills_confirm_no"
+      text="Abbrechen" />
+    <string
+      id="ret_reset_skills_confirm_title"
+      text="Fertigkeiten zurücksetzen" />
+    <string
+      id="ret_reset_skills_confirm_yes"
+      text="Zurücksetzen" />
+    <string
+      id="ret_reset_skills_nothing"
+      text="Keine Fertigkeiten zum Zurücksetzen" />
+    <string
+      id="ret_reset_skills_tooltip"
+      text="Alle Fertigkeiten zurücksetzen" />
+    <string
+      id="ret_reset_skills_troops_only"
+      text="Nur für Truppen verfügbar" />
     <string
       id="ret_reset_target_faction_disabled"
       text="Keine modifizierten Standardtruppen zum Zurücksetzen gefunden." />
@@ -2617,6 +2680,24 @@
     <string
       id="ret_starter_equipment_single_set_hint"
       text="Ein Ausrüstungsset wird von der Basistruppeneinheit kopiert" />
+    <string
+      id="ret_starter_skills_high"
+      text="Hoch" />
+    <string
+      id="ret_starter_skills_high_hint"
+      text="Truppen starten mit einem voll entwickelten Fähigkeitssatz." />
+    <string
+      id="ret_starter_skills_low"
+      text="Niedrig" />
+    <string
+      id="ret_starter_skills_low_hint"
+      text="Truppen starten nur mit grundlegenden Fähigkeiten." />
+    <string
+      id="ret_starter_skills_minimal"
+      text="Minimal" />
+    <string
+      id="ret_starter_skills_minimal_hint"
+      text="Truppen starten mit den Mindestfähigkeiten, die für ihre Ausrüstung erforderlich sind." />
     <string
       id="ret_starter_troops_clone_culture_full_trees"
       text="Vollständige Truppenbäume" />

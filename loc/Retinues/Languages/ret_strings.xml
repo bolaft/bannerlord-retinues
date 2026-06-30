@@ -194,6 +194,9 @@
       id="ret_cant_equip_reason_skill"
       text="{SKILL} {VALUE}" />
     <string
+      id="ret_cant_equip_reason_tier_too_high"
+      text="Tier too high" />
+    <string
       id="ret_cant_equip_reason_too_heavy"
       text="Too heavy" />
     <string
@@ -1814,6 +1817,12 @@
       id="ret_mcm_option_enforce_equipment_limits_hint"
       text="If enabled, the Universal Editor will enforce normal equipment limits when editing vanilla troops." />
     <string
+      id="ret_mcm_option_enforce_equipment_tier_limit"
+      text="Limit Equipment Tier" />
+    <string
+      id="ret_mcm_option_enforce_equipment_tier_limit_hint"
+      text="Whether to stop troops from wearing gear too far above their own tier." />
+    <string
       id="ret_mcm_option_enforce_skill_limits"
       text="Enforce Skill Limits" />
     <string
@@ -1828,6 +1837,12 @@
     <string
       id="ret_mcm_option_equipment_cost_multiplier_hint"
       text="Determines the cost to equip a new piece of equipment." />
+    <string
+      id="ret_mcm_option_equipment_max_tier_difference"
+      text="Max Tier Difference" />
+    <string
+      id="ret_mcm_option_equipment_max_tier_difference_hint"
+      text="How many tiers above its own a troop&apos;s gear may be (0 means gear cannot exceed the troop&apos;s own tier)." />
     <string
       id="ret_mcm_option_equipment_needs_unlocking"
       text="Equipment Needs Unlocking" />
@@ -1963,6 +1978,18 @@
     <string
       id="ret_mcm_option_retinue_health_bonus_hint"
       text="The amount added to retinue troop health when Buff Retinue Health is enabled." />
+    <string
+      id="ret_mcm_option_retinue_rank_up_gold_cost"
+      text="Rank-Up Gold Cost" />
+    <string
+      id="ret_mcm_option_retinue_rank_up_gold_cost_hint"
+      text="Multiplier on the gold cost to rank up a retinue (base is 1000 x next tier). Set to 0 for no gold cost." />
+    <string
+      id="ret_mcm_option_retinue_rank_up_sp_cost"
+      text="Rank-Up Skill Point Cost" />
+    <string
+      id="ret_mcm_option_retinue_rank_up_sp_cost_hint"
+      text="Multiplier on the skill point cost to rank up a retinue (base is 5 x current tier). Set to 0 for no skill point cost." />
     <string
       id="ret_mcm_option_retinue_skill_cap_bonus"
       text="Retinue Skill Cap Bonus" />
@@ -2351,6 +2378,9 @@
       id="ret_rank_up_confirm_body"
       text="Rank up {NAME}?{newline}{newline}Costs:{newline}- {SP_COST} skill points{newline}- {GOLD_COST} gold{newline}{newline}Effect:{newline}- +5 levels (tier up)" />
     <string
+      id="ret_rank_up_confirm_body_no_sp"
+      text="Rank up {NAME}?{newline}{newline}Costs:{newline}- {GOLD_COST} gold{newline}{newline}Effect:{newline}- +5 levels (tier up)" />
+    <string
       id="ret_rank_up_confirm_no"
       text="Cancel" />
     <string
@@ -2428,6 +2458,27 @@
     <string
       id="ret_reset_none_available"
       text="Nothing to reset" />
+    <string
+      id="ret_reset_skills_confirm_body"
+      text="Reset all of {NAME}&apos;s skills? Every spent skill point will be refunded." />
+    <string
+      id="ret_reset_skills_confirm_no"
+      text="Cancel" />
+    <string
+      id="ret_reset_skills_confirm_title"
+      text="Reset Skills" />
+    <string
+      id="ret_reset_skills_confirm_yes"
+      text="Reset" />
+    <string
+      id="ret_reset_skills_nothing"
+      text="No skills to reset" />
+    <string
+      id="ret_reset_skills_tooltip"
+      text="Reset all skills" />
+    <string
+      id="ret_reset_skills_troops_only"
+      text="Only available for troops" />
     <string
       id="ret_reset_target_faction_disabled"
       text="No modified vanilla troops found to reset." />

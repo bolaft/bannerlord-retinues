@@ -197,6 +197,9 @@
       id="ret_cant_equip_reason_skill"
       text="{SKILL} {VALUE}" />
     <string
+      id="ret_cant_equip_reason_tier_too_high"
+      text="등급이 너무 높음" />
+    <string
       id="ret_cant_equip_reason_too_heavy"
       text="너무 무거움" />
     <string
@@ -1817,6 +1820,12 @@
       id="ret_mcm_option_enforce_equipment_limits_hint"
       text="활성화되면 범용 편집기는 바닐라 부대를 편집할 때 정상적인 장비 제한을 적용합니다." />
     <string
+      id="ret_mcm_option_enforce_equipment_tier_limit"
+      text="장비 등급 제한" />
+    <string
+      id="ret_mcm_option_enforce_equipment_tier_limit_hint"
+      text="병사가 자신의 등급보다 너무 높은 장비를 착용하지 못하게 합니다." />
+    <string
       id="ret_mcm_option_enforce_skill_limits"
       text="기술 제한 적용" />
     <string
@@ -1831,6 +1840,12 @@
     <string
       id="ret_mcm_option_equipment_cost_multiplier_hint"
       text="새 장비를 장착하는 비용을 결정합니다." />
+    <string
+      id="ret_mcm_option_equipment_max_tier_difference"
+      text="최대 등급 차이" />
+    <string
+      id="ret_mcm_option_equipment_max_tier_difference_hint"
+      text="병사의 장비가 자신의 등급보다 몇 등급 높을 수 있는지 (0이면 장비가 병사 자신의 등급을 넘을 수 없음)." />
     <string
       id="ret_mcm_option_equipment_needs_unlocking"
       text="장비는 잠금 해제가 필요합니다" />
@@ -1871,6 +1886,9 @@
       id="ret_mcm_option_equipping_takes_time_hint"
       text="활성화되면 부대를 장비하는 것이 즉각적이지 않으며 완료하는 데 시간이 걸립니다." />
     <string
+      id="ret_mcm_option_exclude_custom_tournaments"
+      text="커스텀 병사를 토너먼트에서 제외" />
+    <string
       id="ret_mcm_option_feat_complete_notification"
       text="위업 완료 알림" />
     <string
@@ -1900,6 +1918,9 @@
     <string
       id="ret_mcm_option_max_retinue_ratio_hint"
       text="파티 크기 제한의 비율로서 최대 Retinues 수입니다." />
+    <string
+      id="ret_mcm_option_max_troop_tier"
+      text="병사 최대 등급" />
     <string
       id="ret_mcm_option_min_tier_for_mounts"
       text="탑승을 위한 최소 등급" />
@@ -1961,6 +1982,18 @@
       id="ret_mcm_option_retinue_health_bonus_hint"
       text="Buff Retinue Health가 활성화되면 Retinue 부대 건강에 추가되는 양입니다." />
     <string
+      id="ret_mcm_option_retinue_rank_up_gold_cost"
+      text="등급 상승 골드 비용" />
+    <string
+      id="ret_mcm_option_retinue_rank_up_gold_cost_hint"
+      text="Retinue를 등급 상승시키는 골드 비용의 배수입니다 (기본값은 1000 × 다음 등급). 0으로 설정하면 골드 비용이 없습니다." />
+    <string
+      id="ret_mcm_option_retinue_rank_up_sp_cost"
+      text="등급 상승 기술 포인트 비용" />
+    <string
+      id="ret_mcm_option_retinue_rank_up_sp_cost_hint"
+      text="Retinue를 등급 상승시키는 기술 포인트 비용의 배수입니다 (기본값은 5 × 현재 등급). 0으로 설정하면 기술 포인트 비용이 없습니다." />
+    <string
       id="ret_mcm_option_retinue_skill_cap_bonus"
       text="Retinue 기술 한도 보너스" />
     <string
@@ -2020,6 +2053,12 @@
     <string
       id="ret_mcm_option_starter_equipment_hint"
       text="새로 잠금 해제된 부대의 시작 장비를 설정합니다." />
+    <string
+      id="ret_mcm_option_starter_skills"
+      text="초기 기술" />
+    <string
+      id="ret_mcm_option_starter_skills_hint"
+      text="새로 잠금 해제된 병사의 초기 기술 레벨을 설정합니다." />
     <string
       id="ret_mcm_option_starter_troops"
       text="초기 부대" />
@@ -2342,6 +2381,9 @@
       id="ret_rank_up_confirm_body"
       text="{NAME} 등급 올리기?{newline}{newline}비용:{newline}- {SP_COST} 기술 포인트{newline}- {GOLD_COST} 골드{newline}{newline}효과:{newline}- +5 레벨 (등급 상승)" />
     <string
+      id="ret_rank_up_confirm_body_no_sp"
+      text="{NAME} 등급 올리기?{newline}{newline}비용:{newline}- {GOLD_COST} 골드{newline}{newline}효과:{newline}- +5 레벨 (등급 상승)" />
+    <string
       id="ret_rank_up_confirm_no"
       text="취소" />
     <string
@@ -2419,6 +2461,27 @@
     <string
       id="ret_reset_none_available"
       text="재설정할 항목이 없습니다" />
+    <string
+      id="ret_reset_skills_confirm_body"
+      text="{NAME}의 모든 기술을 초기화하시겠습니까? 사용한 기술 포인트는 모두 환급됩니다." />
+    <string
+      id="ret_reset_skills_confirm_no"
+      text="취소" />
+    <string
+      id="ret_reset_skills_confirm_title"
+      text="기술 초기화" />
+    <string
+      id="ret_reset_skills_confirm_yes"
+      text="초기화" />
+    <string
+      id="ret_reset_skills_nothing"
+      text="초기화할 기술이 없습니다" />
+    <string
+      id="ret_reset_skills_tooltip"
+      text="모든 기술 초기화" />
+    <string
+      id="ret_reset_skills_troops_only"
+      text="병사에게만 사용 가능" />
     <string
       id="ret_reset_target_faction_disabled"
       text="재설정할 수정된 기본 부대를 찾을 수 없습니다." />
@@ -2617,6 +2680,24 @@
     <string
       id="ret_starter_equipment_single_set_hint"
       text="기본 부대에서 장비 세트 하나가 복사됩니다" />
+    <string
+      id="ret_starter_skills_high"
+      text="높음" />
+    <string
+      id="ret_starter_skills_high_hint"
+      text="병사가 완전히 발달한 기술 세트로 시작합니다." />
+    <string
+      id="ret_starter_skills_low"
+      text="낮음" />
+    <string
+      id="ret_starter_skills_low_hint"
+      text="병사가 기본 기술만 가지고 시작합니다." />
+    <string
+      id="ret_starter_skills_minimal"
+      text="최소" />
+    <string
+      id="ret_starter_skills_minimal_hint"
+      text="병사가 장착한 장비에 필요한 최소 기술만 가지고 시작합니다." />
     <string
       id="ret_starter_troops_clone_culture_full_trees"
       text="전체 부대 트리" />

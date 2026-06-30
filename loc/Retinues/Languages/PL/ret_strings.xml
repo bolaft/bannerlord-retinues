@@ -197,6 +197,9 @@
       id="ret_cant_equip_reason_skill"
       text="{SKILL} {VALUE}" />
     <string
+      id="ret_cant_equip_reason_tier_too_high"
+      text="Poziom za wysoki" />
+    <string
       id="ret_cant_equip_reason_too_heavy"
       text="Zbyt ciężki" />
     <string
@@ -1817,6 +1820,12 @@
       id="ret_mcm_option_enforce_equipment_limits_hint"
       text="Jeśli włączone, Uniwersalny Edytor będzie wymuszał normalne limity ekwipunku podczas edytowania standardowych oddziałów." />
     <string
+      id="ret_mcm_option_enforce_equipment_tier_limit"
+      text="Ogranicz poziom ekwipunku" />
+    <string
+      id="ret_mcm_option_enforce_equipment_tier_limit_hint"
+      text="Uniemożliwia jednostkom noszenie ekwipunku o poziomie zbyt wysokim względem własnego." />
+    <string
       id="ret_mcm_option_enforce_skill_limits"
       text="Wymuś limity umiejętności" />
     <string
@@ -1831,6 +1840,12 @@
     <string
       id="ret_mcm_option_equipment_cost_multiplier_hint"
       text="Określa koszt wyposażenia nowego elementu ekwipunku." />
+    <string
+      id="ret_mcm_option_equipment_max_tier_difference"
+      text="Maksymalna różnica poziomów" />
+    <string
+      id="ret_mcm_option_equipment_max_tier_difference_hint"
+      text="O ile poziomów ekwipunek jednostki może przewyższać jej własny (0 = ekwipunek nie może przekroczyć poziomu jednostki)." />
     <string
       id="ret_mcm_option_equipment_needs_unlocking"
       text="Ekwipunek wymaga odblokowania" />
@@ -1871,6 +1886,9 @@
       id="ret_mcm_option_equipping_takes_time_hint"
       text="Jeśli włączone, wyposażenie oddziałów nie będzie natychmiastowe i zajmie trochę czasu, aby zostało ukończone." />
     <string
+      id="ret_mcm_option_exclude_custom_tournaments"
+      text="Wyklucz własne jednostki z turniejów" />
+    <string
       id="ret_mcm_option_feat_complete_notification"
       text="Powiadomienie o ukończeniu wyczynu" />
     <string
@@ -1900,6 +1918,9 @@
     <string
       id="ret_mcm_option_max_retinue_ratio_hint"
       text="Maksymalna liczba retinue jako stosunek do limitu wielkości drużyny." />
+    <string
+      id="ret_mcm_option_max_troop_tier"
+      text="Maksymalny poziom jednostki" />
     <string
       id="ret_mcm_option_min_tier_for_mounts"
       text="Minimalny poziom dla wierzchowców" />
@@ -1961,6 +1982,18 @@
       id="ret_mcm_option_retinue_health_bonus_hint"
       text="Ilość dodana do zdrowia oddziałów retinue, gdy Buff Retinue Health jest włączony." />
     <string
+      id="ret_mcm_option_retinue_rank_up_gold_cost"
+      text="Koszt awansu w złocie" />
+    <string
+      id="ret_mcm_option_retinue_rank_up_gold_cost_hint"
+      text="Mnożnik kosztu awansu Retinue w złocie (podstawa: 1000 × następny poziom). Ustaw 0, aby zrezygnować z kosztu w złocie." />
+    <string
+      id="ret_mcm_option_retinue_rank_up_sp_cost"
+      text="Koszt awansu w punktach umiejętności" />
+    <string
+      id="ret_mcm_option_retinue_rank_up_sp_cost_hint"
+      text="Mnożnik kosztu awansu Retinue w punktach umiejętności (podstawa: 5 × obecny poziom). Ustaw 0, aby zrezygnować z kosztu w punktach umiejętności." />
+    <string
       id="ret_mcm_option_retinue_skill_cap_bonus"
       text="Bonus do limitu umiejętności Retinue" />
     <string
@@ -2020,6 +2053,12 @@
     <string
       id="ret_mcm_option_starter_equipment_hint"
       text="Ustawia początkowy ekwipunek dla nowo odblokowanych oddziałów." />
+    <string
+      id="ret_mcm_option_starter_skills"
+      text="Początkowe umiejętności" />
+    <string
+      id="ret_mcm_option_starter_skills_hint"
+      text="Ustawia początkowe poziomy umiejętności nowo odblokowanych jednostek." />
     <string
       id="ret_mcm_option_starter_troops"
       text="Początkowe oddziały" />
@@ -2342,6 +2381,9 @@
       id="ret_rank_up_confirm_body"
       text="Awansować {NAME}?{newline}{newline}Koszty:{newline}- {SP_COST} punktów umiejętności{newline}- {GOLD_COST} złota{newline}{newline}Efekt:{newline}- +5 poziomów (awans)" />
     <string
+      id="ret_rank_up_confirm_body_no_sp"
+      text="Awansować {NAME}?{newline}{newline}Koszty:{newline}- {GOLD_COST} złota{newline}{newline}Efekt:{newline}- +5 poziomów (awans)" />
+    <string
       id="ret_rank_up_confirm_no"
       text="Anuluj" />
     <string
@@ -2419,6 +2461,27 @@
     <string
       id="ret_reset_none_available"
       text="Brak elementów do zresetowania" />
+    <string
+      id="ret_reset_skills_confirm_body"
+      text="Zresetować wszystkie umiejętności {NAME}? Wszystkie wydane punkty umiejętności zostaną zwrócone." />
+    <string
+      id="ret_reset_skills_confirm_no"
+      text="Anuluj" />
+    <string
+      id="ret_reset_skills_confirm_title"
+      text="Resetuj umiejętności" />
+    <string
+      id="ret_reset_skills_confirm_yes"
+      text="Resetuj" />
+    <string
+      id="ret_reset_skills_nothing"
+      text="Brak umiejętności do zresetowania" />
+    <string
+      id="ret_reset_skills_tooltip"
+      text="Zresetuj wszystkie umiejętności" />
+    <string
+      id="ret_reset_skills_troops_only"
+      text="Dostępne tylko dla jednostek" />
     <string
       id="ret_reset_target_faction_disabled"
       text="Nie znaleziono zmodyfikowanych oddziałów vanilla do zresetowania." />
@@ -2617,6 +2680,24 @@
     <string
       id="ret_starter_equipment_single_set_hint"
       text="Jeden zestaw wyposażenia jest kopiowany z podstawowej jednostki" />
+    <string
+      id="ret_starter_skills_high"
+      text="Wysokie" />
+    <string
+      id="ret_starter_skills_high_hint"
+      text="Jednostki rozpoczynają z w pełni rozwiniętym zestawem umiejętności." />
+    <string
+      id="ret_starter_skills_low"
+      text="Niskie" />
+    <string
+      id="ret_starter_skills_low_hint"
+      text="Jednostki rozpoczynają tylko z podstawowymi umiejętnościami." />
+    <string
+      id="ret_starter_skills_minimal"
+      text="Minimalne" />
+    <string
+      id="ret_starter_skills_minimal_hint"
+      text="Jednostki rozpoczynają z minimalnymi umiejętnościami wymaganymi dla noszonego ekwipunku." />
     <string
       id="ret_starter_troops_clone_culture_full_trees"
       text="Pełne drzewa jednostek" />

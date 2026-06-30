@@ -140,7 +140,9 @@ namespace Retinues.Editor.MVC.Common.Column.Controllers
                 {
                     character.IsFemale = !character.IsFemale;
 
-                    character.ApplyCultureBodyProperties();
+                    // Preserve the troop's race: with a cross-culture template fallback the body
+                    // envelope may come from another culture, but the race must stay put.
+                    character.ApplyCultureBodyPropertiesForRace(character.Race);
 
                     return true;
                 },

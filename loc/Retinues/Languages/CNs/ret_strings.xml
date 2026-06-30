@@ -197,6 +197,9 @@
       id="ret_cant_equip_reason_skill"
       text="{SKILL} {VALUE}" />
     <string
+      id="ret_cant_equip_reason_tier_too_high"
+      text="等级过高" />
+    <string
       id="ret_cant_equip_reason_too_heavy"
       text="过重" />
     <string
@@ -1817,6 +1820,12 @@
       id="ret_mcm_option_enforce_equipment_limits_hint"
       text="如果启用，通用编辑器在编辑原版部队时将强制执行正常的装备限制。" />
     <string
+      id="ret_mcm_option_enforce_equipment_tier_limit"
+      text="限制装备等级" />
+    <string
+      id="ret_mcm_option_enforce_equipment_tier_limit_hint"
+      text="阻止兵种穿戴远高于自身等级的装备。" />
+    <string
       id="ret_mcm_option_enforce_skill_limits"
       text="强制执行技能限制" />
     <string
@@ -1831,6 +1840,12 @@
     <string
       id="ret_mcm_option_equipment_cost_multiplier_hint"
       text="决定装备新装备的成本。" />
+    <string
+      id="ret_mcm_option_equipment_max_tier_difference"
+      text="最大等级差" />
+    <string
+      id="ret_mcm_option_equipment_max_tier_difference_hint"
+      text="兵种装备可比自身高出多少等级（0 表示装备不得超过兵种自身等级）。" />
     <string
       id="ret_mcm_option_equipment_needs_unlocking"
       text="装备需要解锁" />
@@ -1871,6 +1886,9 @@
       id="ret_mcm_option_equipping_takes_time_hint"
       text="如果启用，装备部队将不是即时完成的，需要时间来完成。" />
     <string
+      id="ret_mcm_option_exclude_custom_tournaments"
+      text="禁止自定义兵种参加比武大会" />
+    <string
       id="ret_mcm_option_feat_complete_notification"
       text="壮举完成通知" />
     <string
@@ -1900,6 +1918,9 @@
     <string
       id="ret_mcm_option_max_retinue_ratio_hint"
       text="随从的最大数量与队伍规模限制的比例。" />
+    <string
+      id="ret_mcm_option_max_troop_tier"
+      text="兵种最高等级" />
     <string
       id="ret_mcm_option_min_tier_for_mounts"
       text="坐骑的最低等级" />
@@ -1961,6 +1982,18 @@
       id="ret_mcm_option_retinue_health_bonus_hint"
       text="启用随从健康增益时添加到随从部队健康的数量。" />
     <string
+      id="ret_mcm_option_retinue_rank_up_gold_cost"
+      text="晋升金币花费" />
+    <string
+      id="ret_mcm_option_retinue_rank_up_gold_cost_hint"
+      text="晋升随从所需金币花费的乘数（基础为 1000 × 下一等级）。设为 0 则无需金币。" />
+    <string
+      id="ret_mcm_option_retinue_rank_up_sp_cost"
+      text="晋升技能点花费" />
+    <string
+      id="ret_mcm_option_retinue_rank_up_sp_cost_hint"
+      text="晋升随从所需技能点花费的乘数（基础为 5 × 当前等级）。设为 0 则无需技能点。" />
+    <string
       id="ret_mcm_option_retinue_skill_cap_bonus"
       text="随从技能上限加成" />
     <string
@@ -2020,6 +2053,12 @@
     <string
       id="ret_mcm_option_starter_equipment_hint"
       text="为新解锁的部队设置起始装备。" />
+    <string
+      id="ret_mcm_option_starter_skills"
+      text="初始技能" />
+    <string
+      id="ret_mcm_option_starter_skills_hint"
+      text="设置新解锁兵种的初始技能等级。" />
     <string
       id="ret_mcm_option_starter_troops"
       text="起始部队" />
@@ -2342,6 +2381,9 @@
       id="ret_rank_up_confirm_body"
       text="升级 {NAME}？{newline}{newline}费用：{newline}- {SP_COST} 技能点{newline}- {GOLD_COST} 金币{newline}{newline}效果：{newline}- +5 级（升级）" />
     <string
+      id="ret_rank_up_confirm_body_no_sp"
+      text="升级 {NAME}？{newline}{newline}费用：{newline}- {GOLD_COST} 金币{newline}{newline}效果：{newline}- +5 级（升级）" />
+    <string
       id="ret_rank_up_confirm_no"
       text="取消" />
     <string
@@ -2419,6 +2461,27 @@
     <string
       id="ret_reset_none_available"
       text="没有可重置的内容" />
+    <string
+      id="ret_reset_skills_confirm_body"
+      text="重置 {NAME} 的所有技能吗？已花费的技能点将全部返还。" />
+    <string
+      id="ret_reset_skills_confirm_no"
+      text="取消" />
+    <string
+      id="ret_reset_skills_confirm_title"
+      text="重置技能" />
+    <string
+      id="ret_reset_skills_confirm_yes"
+      text="重置" />
+    <string
+      id="ret_reset_skills_nothing"
+      text="没有可重置的技能" />
+    <string
+      id="ret_reset_skills_tooltip"
+      text="重置所有技能" />
+    <string
+      id="ret_reset_skills_troops_only"
+      text="仅适用于兵种" />
     <string
       id="ret_reset_target_faction_disabled"
       text="未找到可重置的已修改的原版部队。" />
@@ -2617,6 +2680,24 @@
     <string
       id="ret_starter_equipment_single_set_hint"
       text="从基础部队复制一套装备" />
+    <string
+      id="ret_starter_skills_high"
+      text="高" />
+    <string
+      id="ret_starter_skills_high_hint"
+      text="兵种以完全成型的技能开局。" />
+    <string
+      id="ret_starter_skills_low"
+      text="低" />
+    <string
+      id="ret_starter_skills_low_hint"
+      text="兵种仅以基础技能开局。" />
+    <string
+      id="ret_starter_skills_minimal"
+      text="最低" />
+    <string
+      id="ret_starter_skills_minimal_hint"
+      text="兵种仅以使用其装备所需的最低技能开局。" />
     <string
       id="ret_starter_troops_clone_culture_full_trees"
       text="完整部队树" />

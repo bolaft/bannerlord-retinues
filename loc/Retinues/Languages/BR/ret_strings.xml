@@ -197,6 +197,9 @@
       id="ret_cant_equip_reason_skill"
       text="{SKILL} {VALUE}" />
     <string
+      id="ret_cant_equip_reason_tier_too_high"
+      text="Nível muito alto" />
+    <string
       id="ret_cant_equip_reason_too_heavy"
       text="Muito pesado" />
     <string
@@ -1817,6 +1820,12 @@
       id="ret_mcm_option_enforce_equipment_limits_hint"
       text="Se ativado, o Editor Universal aplicará os limites normais de equipamento ao editar tropas padrão." />
     <string
+      id="ret_mcm_option_enforce_equipment_tier_limit"
+      text="Limitar nível do equipamento" />
+    <string
+      id="ret_mcm_option_enforce_equipment_tier_limit_hint"
+      text="Impede que as tropas usem equipamento de nível muito acima do seu." />
+    <string
       id="ret_mcm_option_enforce_skill_limits"
       text="Aplicar Limites de Habilidade" />
     <string
@@ -1831,6 +1840,12 @@
     <string
       id="ret_mcm_option_equipment_cost_multiplier_hint"
       text="Determina o custo para equipar uma nova peça de equipamento." />
+    <string
+      id="ret_mcm_option_equipment_max_tier_difference"
+      text="Diferença máxima de nível" />
+    <string
+      id="ret_mcm_option_equipment_max_tier_difference_hint"
+      text="Quantos níveis acima do seu o equipamento de uma tropa pode ter (0 = o equipamento não pode exceder o nível da tropa)." />
     <string
       id="ret_mcm_option_equipment_needs_unlocking"
       text="Equipamento Precisa Ser Desbloqueado" />
@@ -1871,6 +1886,9 @@
       id="ret_mcm_option_equipping_takes_time_hint"
       text="Se ativado, equipar tropas não será instantâneo e levará tempo para ser concluído." />
     <string
+      id="ret_mcm_option_exclude_custom_tournaments"
+      text="Manter tropas personalizadas fora dos torneios" />
+    <string
       id="ret_mcm_option_feat_complete_notification"
       text="Notificação de Conclusão de Feito" />
     <string
@@ -1900,6 +1918,9 @@
     <string
       id="ret_mcm_option_max_retinue_ratio_hint"
       text="O número máximo de retinues como uma proporção do limite de tamanho do grupo." />
+    <string
+      id="ret_mcm_option_max_troop_tier"
+      text="Nível máximo de tropa" />
     <string
       id="ret_mcm_option_min_tier_for_mounts"
       text="Nível Mínimo Para Montarias" />
@@ -1961,6 +1982,18 @@
       id="ret_mcm_option_retinue_health_bonus_hint"
       text="A quantidade adicionada à saúde das tropas de retinues quando o Buff Retinue Health está ativado." />
     <string
+      id="ret_mcm_option_retinue_rank_up_gold_cost"
+      text="Custo de ouro para promoção" />
+    <string
+      id="ret_mcm_option_retinue_rank_up_gold_cost_hint"
+      text="Multiplicador do custo de ouro para promover uma Retinue (base: 1000 × próximo nível). Defina 0 para nenhum custo de ouro." />
+    <string
+      id="ret_mcm_option_retinue_rank_up_sp_cost"
+      text="Custo de pontos de habilidade para promoção" />
+    <string
+      id="ret_mcm_option_retinue_rank_up_sp_cost_hint"
+      text="Multiplicador do custo de pontos de habilidade para promover uma Retinue (base: 5 × nível atual). Defina 0 para nenhum custo de pontos de habilidade." />
+    <string
       id="ret_mcm_option_retinue_skill_cap_bonus"
       text="Bônus de Limite de Habilidade de Retinues" />
     <string
@@ -2020,6 +2053,12 @@
     <string
       id="ret_mcm_option_starter_equipment_hint"
       text="Define o equipamento inicial para tropas recém-desbloqueadas." />
+    <string
+      id="ret_mcm_option_starter_skills"
+      text="Habilidades iniciais" />
+    <string
+      id="ret_mcm_option_starter_skills_hint"
+      text="Define os níveis de habilidade iniciais das tropas recém-desbloqueadas." />
     <string
       id="ret_mcm_option_starter_troops"
       text="Tropas Iniciais" />
@@ -2342,6 +2381,9 @@
       id="ret_rank_up_confirm_body"
       text="Subir de nível {NAME}?{newline}{newline}Custos:{newline}- {SP_COST} pontos de habilidade{newline}- {GOLD_COST} ouro{newline}{newline}Efeito:{newline}- +5 níveis (subida de nível)" />
     <string
+      id="ret_rank_up_confirm_body_no_sp"
+      text="Subir de nível {NAME}?{newline}{newline}Custos:{newline}- {GOLD_COST} ouro{newline}{newline}Efeito:{newline}- +5 níveis (subida de nível)" />
+    <string
       id="ret_rank_up_confirm_no"
       text="Cancelar" />
     <string
@@ -2419,6 +2461,27 @@
     <string
       id="ret_reset_none_available"
       text="Nada para redefinir" />
+    <string
+      id="ret_reset_skills_confirm_body"
+      text="Redefinir todas as habilidades de {NAME}? Todos os pontos de habilidade gastos serão reembolsados." />
+    <string
+      id="ret_reset_skills_confirm_no"
+      text="Cancelar" />
+    <string
+      id="ret_reset_skills_confirm_title"
+      text="Redefinir habilidades" />
+    <string
+      id="ret_reset_skills_confirm_yes"
+      text="Redefinir" />
+    <string
+      id="ret_reset_skills_nothing"
+      text="Nenhuma habilidade para redefinir" />
+    <string
+      id="ret_reset_skills_tooltip"
+      text="Redefinir todas as habilidades" />
+    <string
+      id="ret_reset_skills_troops_only"
+      text="Disponível apenas para tropas" />
     <string
       id="ret_reset_target_faction_disabled"
       text="Nenhuma tropa padrão modificada encontrada para redefinir." />
@@ -2617,6 +2680,24 @@
     <string
       id="ret_starter_equipment_single_set_hint"
       text="Um conjunto de equipamento é copiado da tropa base" />
+    <string
+      id="ret_starter_skills_high"
+      text="Alto" />
+    <string
+      id="ret_starter_skills_high_hint"
+      text="As tropas começam com um conjunto de habilidades totalmente desenvolvido." />
+    <string
+      id="ret_starter_skills_low"
+      text="Baixo" />
+    <string
+      id="ret_starter_skills_low_hint"
+      text="As tropas começam apenas com habilidades básicas." />
+    <string
+      id="ret_starter_skills_minimal"
+      text="Mínimo" />
+    <string
+      id="ret_starter_skills_minimal_hint"
+      text="As tropas começam com as habilidades mínimas necessárias para o equipamento que carregam." />
     <string
       id="ret_starter_troops_clone_culture_full_trees"
       text="Árvores de Tropas Completas" />

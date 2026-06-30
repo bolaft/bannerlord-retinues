@@ -3,6 +3,7 @@ using Retinues.Behaviors.Missions;
 using Retinues.Domain;
 using Retinues.Domain.Equipments.Models;
 using Retinues.Domain.Events.Models;
+using TaleWorlds.Core;
 
 namespace Retinues.Behaviors.Doctrines.Feats.Equipments
 {
@@ -84,16 +85,15 @@ namespace Retinues.Behaviors.Doctrines.Feats.Equipments
                 if (armor == null)
                     continue;
 
-                var materialObj = armor.MaterialType;
-                var material = materialObj.ToString() ?? string.Empty;
+                // "Full metal" = no soft armour pieces. The material enum is
+                // None/Cloth/Leather/Chainmail/Plate, so a Cloth or Leather piece disqualifies.
+                var material = armor.MaterialType;
 
-                string[] validMaterials = ["steel", "iron", "metal"];
-
-                foreach (var valid in validMaterials)
-                {
-                    if (material.IndexOf(valid, System.StringComparison.OrdinalIgnoreCase) == 0)
-                        return false;
-                }
+                if (
+                    material == ArmorComponent.ArmorMaterialTypes.Cloth
+                    || material == ArmorComponent.ArmorMaterialTypes.Leather
+                )
+                    return false; // A cloth/leather armour piece — not full metal.
             }
 
             return true;

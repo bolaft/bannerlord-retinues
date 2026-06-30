@@ -25,9 +25,15 @@ namespace Retinues.Domain.Characters.Services.Skills
 
             _validSkills = SkillCatalog.GetSkills(_wc) ?? [];
 
-            for (int i = 0; i < _validSkills.Count; i++)
+            // Register a persistence attribute for every skill that must round-trip. This is a
+            // superset of the displayed list (it always includes Mariner for eligible troops), so a
+            // saved Mariner value is never dropped on load when IsMariner is restored after this
+            // container is built. Enumeration/display still uses the gated _validSkills below.
+            var persisted = SkillCatalog.GetPersistedSkills(_wc) ?? _validSkills;
+
+            for (int i = 0; i < persisted.Count; i++)
             {
-                var skill = _validSkills[i];
+                var skill = persisted[i];
                 if (skill == null)
                     continue;
 

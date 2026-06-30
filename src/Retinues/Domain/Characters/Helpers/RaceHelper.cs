@@ -146,9 +146,38 @@ namespace Retinues.Domain.Characters.Helpers
         }
 
         /// <summary>
-        /// Finds a template troop for the given culture, gender, and race.
+        /// Finds a template troop for the given culture, gender, and race. Falls back to any other
+        /// culture when the given one has no matching troop — without this, TOR cultures (e.g.
+        /// Bretonnia, which has no female troops) would report every gender toggle as an "invalid
+        /// gender/species/culture combination". The borrowed template only supplies the body
+        /// envelope/tags for that gender+race; the edited troop keeps its own race and culture.
         /// </summary>
         public static WCharacter FindTemplate(WCulture culture, bool isFemale, int race)
+        {
+            if (culture == null)
+                return null;
+
+            var own = FindTemplateInCulture(culture, isFemale, race);
+            if (own != null)
+                return own;
+
+            foreach (var other in WCulture.All)
+            {
+                if (other == null || other == culture)
+                    continue;
+
+                var match = FindTemplateInCulture(other, isFemale, race);
+                if (match != null)
+                    return match;
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Finds a gender+race template troop within a single culture (roots, villagers, then roster).
+        /// </summary>
+        private static WCharacter FindTemplateInCulture(WCulture culture, bool isFemale, int race)
         {
             if (culture == null)
                 return null;

@@ -219,6 +219,88 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                          Reset                         //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// Resets every skill on the current troop down to its minimum — its upgrade-source floor,
+        /// which is 0 for troops without sources — refunding one skill point per level removed,
+        /// exactly as repeatedly clicking the decrease chevron would.
+        /// </summary>
+        public static ControllerAction<WCharacter> ResetSkills { get; } =
+            Action<WCharacter>("ResetSkills")
+                .RequireValidEditingContext()
+                .DefaultTooltip(L.T("reset_skills_tooltip", "Reset all skills"))
+                .AddCondition(
+                    c => c != null && !c.IsHero,
+                    L.T("reset_skills_troops_only", "Only available for troops")
+                )
+                .AddCondition(
+                    c => c != null && c.SkillTotalUsed > 0,
+                    L.T("reset_skills_nothing", "No skills to reset")
+                )
+                .ExecuteWith(ResetSkillsImpl)
+                .Fire(UIEvent.Skill);
+
+        private static void ResetSkillsImpl(WCharacter c)
+        {
+            if (c == null || c.IsHero)
+                return;
+
+            Inquiries.Popup(
+                title: L.T("reset_skills_confirm_title", "Reset Skills"),
+                description: L.T(
+                        "reset_skills_confirm_body",
+                        "Reset all of {NAME}'s skills? Every spent skill point will be refunded."
+                    )
+                    .SetTextVariable("NAME", c.Name),
+                confirmText: L.T("reset_skills_confirm_yes", "Reset"),
+                cancelText: L.T("reset_skills_confirm_no", "Cancel"),
+                onConfirm: () =>
+                {
+                    ResetAllSkills(c);
+                    EventManager.Fire(UIEvent.Skill);
+                }
+            );
+        }
+
+        /// <summary>
+        /// Decreases every skill to its floor, mirroring the per-level point refund of a manual
+        /// decrease (player mode only; the Universal Editor has no point economy).
+        /// </summary>
+        private static void ResetAllSkills(WCharacter c)
+        {
+            if (c == null || c.IsHero)
+                return;
+
+            var skills = c.Skills;
+            bool refundPoints = State.Mode == EditorMode.Player;
+
+            foreach (var skill in SkillCatalog.GetSkills(c))
+            {
+                if (skill == null)
+                    continue;
+
+                int floor = Math.Max(0, GetUpgradeSourceSkillFloor(c, skill, out _));
+
+                // Guard against any pathological non-decreasing case.
+                int guard = 10000;
+                while (skills.Get(skill) > floor && guard-- > 0)
+                {
+                    skills.Modify(skill, -1);
+
+                    if (refundPoints)
+                    {
+                        if (Configuration.SharedSkillPointsPool)
+                            SharedSkillPoolBehavior.SharedSkillPoints += 1;
+                        else
+                            c.SkillPoints += 1;
+                    }
+                }
+            }
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Helpers                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 

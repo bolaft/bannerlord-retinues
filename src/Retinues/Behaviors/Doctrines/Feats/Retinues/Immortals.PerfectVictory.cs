@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Retinues.Behaviors.Missions;
 using Retinues.Domain.Events.Models;
+using TaleWorlds.Core;
 
 namespace Retinues.Behaviors.Doctrines.Feats.Retinues
 {
@@ -28,8 +29,8 @@ namespace Retinues.Behaviors.Doctrines.Feats.Retinues
                 if (!party.IsMainParty)
                     return; // Not winning by yourself.
 
-            if (kills.Count(k => k.Victim.IsPlayerTroop) > 0)
-                return; // Any player troop deaths.
+            if (kills.Count(k => k.Victim.IsPlayerTroop && k.State == AgentState.Killed) > 0)
+                return; // A player troop actually died (knocked-out survivors don't count).
 
             Feat.Add();
         }

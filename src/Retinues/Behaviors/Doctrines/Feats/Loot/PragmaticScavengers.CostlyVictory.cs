@@ -25,7 +25,10 @@ namespace Retinues.Behaviors.Doctrines.Feats.Loot
                 k.Victim.IsAllyTroop // Victim is an allied troop
             );
 
-            Feat.Set(count, bestOnly: true);
+            if (count <= 100)
+                return; // Allies did not suffer over 100 casualties.
+
+            Feat.Add();
         }
     }
 }

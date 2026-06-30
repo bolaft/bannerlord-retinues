@@ -197,6 +197,9 @@
       id="ret_cant_equip_reason_skill"
       text="{SKILL} {VALUE}" />
     <string
+      id="ret_cant_equip_reason_tier_too_high"
+      text="Livello troppo alto" />
+    <string
       id="ret_cant_equip_reason_too_heavy"
       text="Troppo pesante" />
     <string
@@ -1817,6 +1820,12 @@
       id="ret_mcm_option_enforce_equipment_limits_hint"
       text="Se abilitato, l&apos;Editor Universale applicherà i limiti di equipaggiamento normali durante la modifica delle truppe vanilla." />
     <string
+      id="ret_mcm_option_enforce_equipment_tier_limit"
+      text="Limita il livello dell&apos;equipaggiamento" />
+    <string
+      id="ret_mcm_option_enforce_equipment_tier_limit_hint"
+      text="Impedisce alle truppe di indossare equipaggiamento di livello troppo superiore al proprio." />
+    <string
       id="ret_mcm_option_enforce_skill_limits"
       text="Applica i limiti di abilità" />
     <string
@@ -1831,6 +1840,12 @@
     <string
       id="ret_mcm_option_equipment_cost_multiplier_hint"
       text="Determina il costo per equipaggiare un nuovo pezzo di equipaggiamento." />
+    <string
+      id="ret_mcm_option_equipment_max_tier_difference"
+      text="Differenza di livello massima" />
+    <string
+      id="ret_mcm_option_equipment_max_tier_difference_hint"
+      text="Di quanti livelli l&apos;equipaggiamento di una truppa può superare il proprio (0 = l&apos;equipaggiamento non può superare il livello della truppa)." />
     <string
       id="ret_mcm_option_equipment_needs_unlocking"
       text="L&apos;equipaggiamento deve essere sbloccato" />
@@ -1871,6 +1886,9 @@
       id="ret_mcm_option_equipping_takes_time_hint"
       text="Se abilitato, equipaggiare le truppe non sarà istantaneo e richiederà del tempo per essere completato." />
     <string
+      id="ret_mcm_option_exclude_custom_tournaments"
+      text="Escludi le truppe personalizzate dai tornei" />
+    <string
       id="ret_mcm_option_feat_complete_notification"
       text="Notifica di completamento dell&apos;impresa" />
     <string
@@ -1900,6 +1918,9 @@
     <string
       id="ret_mcm_option_max_retinue_ratio_hint"
       text="Il numero massimo di Retinues in rapporto al limite di dimensione del gruppo." />
+    <string
+      id="ret_mcm_option_max_troop_tier"
+      text="Livello massimo delle truppe" />
     <string
       id="ret_mcm_option_min_tier_for_mounts"
       text="Livello minimo per le cavalcature" />
@@ -1961,6 +1982,18 @@
       id="ret_mcm_option_retinue_health_bonus_hint"
       text="La quantità aggiunta alla salute delle truppe Retinues quando Buff Retinue Health è abilitato." />
     <string
+      id="ret_mcm_option_retinue_rank_up_gold_cost"
+      text="Costo in oro per l&apos;avanzamento" />
+    <string
+      id="ret_mcm_option_retinue_rank_up_gold_cost_hint"
+      text="Moltiplicatore del costo in oro per far avanzare una Retinue (base: 1000 × livello successivo). Imposta a 0 per nessun costo in oro." />
+    <string
+      id="ret_mcm_option_retinue_rank_up_sp_cost"
+      text="Costo in punti abilità per l&apos;avanzamento" />
+    <string
+      id="ret_mcm_option_retinue_rank_up_sp_cost_hint"
+      text="Moltiplicatore del costo in punti abilità per far avanzare una Retinue (base: 5 × livello attuale). Imposta a 0 per nessun costo in punti abilità." />
+    <string
       id="ret_mcm_option_retinue_skill_cap_bonus"
       text="Bonus al Cap di Abilità Retinues" />
     <string
@@ -2020,6 +2053,12 @@
     <string
       id="ret_mcm_option_starter_equipment_hint"
       text="Imposta l&apos;equipaggiamento iniziale per le truppe appena sbloccate." />
+    <string
+      id="ret_mcm_option_starter_skills"
+      text="Abilità iniziali" />
+    <string
+      id="ret_mcm_option_starter_skills_hint"
+      text="Imposta i livelli di abilità iniziali per le truppe appena sbloccate." />
     <string
       id="ret_mcm_option_starter_troops"
       text="Truppe iniziali" />
@@ -2342,6 +2381,9 @@
       id="ret_rank_up_confirm_body"
       text="Salire di livello {NAME}?{newline}{newline}Costi:{newline}- {SP_COST} punti abilità{newline}- {GOLD_COST} oro{newline}{newline}Effetto:{newline}- +5 livelli (salita di livello)" />
     <string
+      id="ret_rank_up_confirm_body_no_sp"
+      text="Salire di livello {NAME}?{newline}{newline}Costi:{newline}- {GOLD_COST} oro{newline}{newline}Effetto:{newline}- +5 livelli (salita di livello)" />
+    <string
       id="ret_rank_up_confirm_no"
       text="Annulla" />
     <string
@@ -2419,6 +2461,27 @@
     <string
       id="ret_reset_none_available"
       text="Niente da reimpostare" />
+    <string
+      id="ret_reset_skills_confirm_body"
+      text="Reimpostare tutte le abilità di {NAME}? Tutti i punti abilità spesi verranno rimborsati." />
+    <string
+      id="ret_reset_skills_confirm_no"
+      text="Annulla" />
+    <string
+      id="ret_reset_skills_confirm_title"
+      text="Reimposta abilità" />
+    <string
+      id="ret_reset_skills_confirm_yes"
+      text="Reimposta" />
+    <string
+      id="ret_reset_skills_nothing"
+      text="Nessuna abilità da reimpostare" />
+    <string
+      id="ret_reset_skills_tooltip"
+      text="Reimposta tutte le abilità" />
+    <string
+      id="ret_reset_skills_troops_only"
+      text="Disponibile solo per le truppe" />
     <string
       id="ret_reset_target_faction_disabled"
       text="Nessuna truppa vanilla modificata trovata da reimpostare." />
@@ -2617,6 +2680,24 @@
     <string
       id="ret_starter_equipment_single_set_hint"
       text="Un set di equipaggiamento viene copiato dalla truppa base" />
+    <string
+      id="ret_starter_skills_high"
+      text="Alto" />
+    <string
+      id="ret_starter_skills_high_hint"
+      text="Le truppe iniziano con un set di abilità completamente sviluppato." />
+    <string
+      id="ret_starter_skills_low"
+      text="Basso" />
+    <string
+      id="ret_starter_skills_low_hint"
+      text="Le truppe iniziano solo con abilità di base." />
+    <string
+      id="ret_starter_skills_minimal"
+      text="Minimo" />
+    <string
+      id="ret_starter_skills_minimal_hint"
+      text="Le truppe iniziano con le abilità minime richieste per l&apos;equipaggiamento che portano." />
     <string
       id="ret_starter_troops_clone_culture_full_trees"
       text="Alberi delle truppe completi" />

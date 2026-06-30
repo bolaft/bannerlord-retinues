@@ -197,6 +197,9 @@
       id="ret_cant_equip_reason_skill"
       text="{SKILL} {VALUE}" />
     <string
+      id="ret_cant_equip_reason_tier_too_high"
+      text="Kademe çok yüksek" />
+    <string
       id="ret_cant_equip_reason_too_heavy"
       text="Çok ağır" />
     <string
@@ -1817,6 +1820,12 @@
       id="ret_mcm_option_enforce_equipment_limits_hint"
       text="Etkinleştirilirse, Evrensel Düzenleyici vanilya birliklerini düzenlerken normal ekipman sınırlarını uygulayacaktır." />
     <string
+      id="ret_mcm_option_enforce_equipment_tier_limit"
+      text="Teçhizat kademesini sınırla" />
+    <string
+      id="ret_mcm_option_enforce_equipment_tier_limit_hint"
+      text="Birliklerin kendi kademelerinin çok üzerindeki teçhizatı kuşanmasını engeller." />
+    <string
       id="ret_mcm_option_enforce_skill_limits"
       text="Yetenek Sınırlarını Uygula" />
     <string
@@ -1831,6 +1840,12 @@
     <string
       id="ret_mcm_option_equipment_cost_multiplier_hint"
       text="Yeni bir ekipman parçası donatmanın maliyetini belirler." />
+    <string
+      id="ret_mcm_option_equipment_max_tier_difference"
+      text="Maksimum kademe farkı" />
+    <string
+      id="ret_mcm_option_equipment_max_tier_difference_hint"
+      text="Bir birliğin teçhizatı kendi kademesinin kaç kademe üzerinde olabilir (0 = teçhizat, birliğin kendi kademesini aşamaz)." />
     <string
       id="ret_mcm_option_equipment_needs_unlocking"
       text="Ekipmanın Kilidi Açılmalı" />
@@ -1871,6 +1886,9 @@
       id="ret_mcm_option_equipping_takes_time_hint"
       text="Etkinleştirilirse, birliklerin donatılması anında olmayacak ve tamamlanması zaman alacaktır." />
     <string
+      id="ret_mcm_option_exclude_custom_tournaments"
+      text="Özel birlikleri turnuvalardan uzak tut" />
+    <string
       id="ret_mcm_option_feat_complete_notification"
       text="Başarı Tamamlama Bildirimi" />
     <string
@@ -1900,6 +1918,9 @@
     <string
       id="ret_mcm_option_max_retinue_ratio_hint"
       text="Grup boyutu sınırının bir oranı olarak maksimum retinue sayısı." />
+    <string
+      id="ret_mcm_option_max_troop_tier"
+      text="Maksimum Birlik Kademesi" />
     <string
       id="ret_mcm_option_min_tier_for_mounts"
       text="Binekler İçin Minimum Seviye" />
@@ -1961,6 +1982,18 @@
       id="ret_mcm_option_retinue_health_bonus_hint"
       text="Buff Retinue Health etkinleştirildiğinde retinue birlik sağlığına eklenen miktar." />
     <string
+      id="ret_mcm_option_retinue_rank_up_gold_cost"
+      text="Rütbe Atlama Altın Maliyeti" />
+    <string
+      id="ret_mcm_option_retinue_rank_up_gold_cost_hint"
+      text="Bir Retinue&apos;yu rütbe atlatmanın altın maliyeti çarpanı (temel: 1000 × sonraki kademe). Altın maliyeti olmaması için 0 yapın." />
+    <string
+      id="ret_mcm_option_retinue_rank_up_sp_cost"
+      text="Rütbe Atlama Yetenek Puanı Maliyeti" />
+    <string
+      id="ret_mcm_option_retinue_rank_up_sp_cost_hint"
+      text="Bir Retinue&apos;yu rütbe atlatmanın yetenek puanı maliyeti çarpanı (temel: 5 × mevcut kademe). Yetenek puanı maliyeti olmaması için 0 yapın." />
+    <string
       id="ret_mcm_option_retinue_skill_cap_bonus"
       text="Retinue Yetenek Sınırı Bonusu" />
     <string
@@ -2020,6 +2053,12 @@
     <string
       id="ret_mcm_option_starter_equipment_hint"
       text="Yeni açılan birlikler için başlangıç ekipmanını ayarlar." />
+    <string
+      id="ret_mcm_option_starter_skills"
+      text="Başlangıç Yetenekleri" />
+    <string
+      id="ret_mcm_option_starter_skills_hint"
+      text="Yeni açılan birliklerin başlangıç yetenek seviyelerini belirler." />
     <string
       id="ret_mcm_option_starter_troops"
       text="Başlangıç Birlikleri" />
@@ -2342,6 +2381,9 @@
       id="ret_rank_up_confirm_body"
       text="{NAME} rütbesi atlansın mı?{newline}{newline}Maliyetler:{newline}- {SP_COST} yetenek puanı{newline}- {GOLD_COST} altın{newline}{newline}Etkisi:{newline}- +5 seviye (rütbe atlama)" />
     <string
+      id="ret_rank_up_confirm_body_no_sp"
+      text="{NAME} rütbesi atlansın mı?{newline}{newline}Maliyetler:{newline}- {GOLD_COST} altın{newline}{newline}Etkisi:{newline}- +5 seviye (rütbe atlama)" />
+    <string
       id="ret_rank_up_confirm_no"
       text="İptal" />
     <string
@@ -2419,6 +2461,27 @@
     <string
       id="ret_reset_none_available"
       text="Sıfırlanacak bir şey yok" />
+    <string
+      id="ret_reset_skills_confirm_body"
+      text="{NAME} adlı birimin tüm yetenekleri sıfırlansın mı? Harcanan tüm yetenek puanları iade edilecek." />
+    <string
+      id="ret_reset_skills_confirm_no"
+      text="İptal" />
+    <string
+      id="ret_reset_skills_confirm_title"
+      text="Yetenekleri Sıfırla" />
+    <string
+      id="ret_reset_skills_confirm_yes"
+      text="Sıfırla" />
+    <string
+      id="ret_reset_skills_nothing"
+      text="Sıfırlanacak yetenek yok" />
+    <string
+      id="ret_reset_skills_tooltip"
+      text="Tüm yetenekleri sıfırla" />
+    <string
+      id="ret_reset_skills_troops_only"
+      text="Yalnızca birlikler için kullanılabilir" />
     <string
       id="ret_reset_target_faction_disabled"
       text="Sıfırlanacak değiştirilmiş vanilya birlikleri bulunamadı." />
@@ -2617,6 +2680,24 @@
     <string
       id="ret_starter_equipment_single_set_hint"
       text="Temel birlikten bir ekipman seti kopyalanır" />
+    <string
+      id="ret_starter_skills_high"
+      text="Yüksek" />
+    <string
+      id="ret_starter_skills_high_hint"
+      text="Birlikler tam gelişmiş bir yetenek setiyle başlar." />
+    <string
+      id="ret_starter_skills_low"
+      text="Düşük" />
+    <string
+      id="ret_starter_skills_low_hint"
+      text="Birlikler yalnızca temel yeteneklerle başlar." />
+    <string
+      id="ret_starter_skills_minimal"
+      text="Asgari" />
+    <string
+      id="ret_starter_skills_minimal_hint"
+      text="Birlikler taşıdıkları teçhizatları için gereken asgari yeteneklerle başlar." />
     <string
       id="ret_starter_troops_clone_culture_full_trees"
       text="Tam Birlik Ağaçları" />

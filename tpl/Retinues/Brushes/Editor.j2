@@ -47,4 +47,31 @@
         </Styles>
     </Brush>
 
+    <!-- ============================================== -->
+    <!-- Reset skills (toggle-switch sprite)            -->
+    <!-- ============================================== -->
+
+    <Brush Name="Retinues.ResetSkills">
+        <Layers>
+            <BrushLayer Name="Default" Sprite="StdAssets\switch_default" IsHidden="true" />
+            <BrushLayer Name="Hovered" Sprite="StdAssets\switch_hovered" IsHidden="true" />
+            <BrushLayer Name="Pressed" Sprite="StdAssets\switch_pressed" IsHidden="true" />
+        </Layers>
+
+        <Styles>
+            <Style Name="Default">
+                <BrushLayer Name="Default" ColorFactor="1" IsHidden="false" />
+            </Style>
+            <Style Name="Hovered">
+                <BrushLayer Name="Hovered" ColorFactor="1" IsHidden="false" />
+            </Style>
+            <Style Name="Pressed">
+                <BrushLayer Name="Pressed" ColorFactor="1" IsHidden="false" />
+            </Style>
+            <Style Name="Disabled">
+                <BrushLayer Name="Pressed" ColorFactor="0" IsHidden="false" />
+            </Style>
+        </Styles>
+    </Brush>
+
 </Brushes>

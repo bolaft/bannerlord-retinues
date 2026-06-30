@@ -473,6 +473,34 @@ namespace Retinues.Settings
             fires: [UIEvent.Skill]
         );
 
+        public static readonly Option<float> RetinueRankUpSkillPointCostMultiplier = CreateOption(
+            section: Retinues,
+            name: L.F("mcm_option_retinue_rank_up_sp_cost", "Rank-Up Skill Point Cost"),
+            description: L.F(
+                "mcm_option_retinue_rank_up_sp_cost_hint",
+                "Multiplier on the skill point cost to rank up a retinue (base is 5 x current tier). Set to 0 for no skill point cost."
+            ),
+            minValue: 0f,
+            maxValue: 5f,
+            @default: 1f,
+            dependsOn: EnableRetinues,
+            fires: [UIEvent.Character]
+        );
+
+        public static readonly Option<float> RetinueRankUpGoldCostMultiplier = CreateOption(
+            section: Retinues,
+            name: L.F("mcm_option_retinue_rank_up_gold_cost", "Rank-Up Gold Cost"),
+            description: L.F(
+                "mcm_option_retinue_rank_up_gold_cost_hint",
+                "Multiplier on the gold cost to rank up a retinue (base is 1000 x next tier). Set to 0 for no gold cost."
+            ),
+            minValue: 0f,
+            maxValue: 5f,
+            @default: 1f,
+            dependsOn: EnableRetinues,
+            fires: [UIEvent.Character]
+        );
+
         public static readonly Option<bool> EnableAIClanRetinues = CreateOption(
             section: Retinues,
             name: L.F("mcm_option_enable_ai_clan_retinues", "Enable AI Clan Retinues"),
@@ -1105,6 +1133,33 @@ namespace Retinues.Settings
             maxValue: 2f,
             @default: 1f,
             dependsOn: EquipmentValueLimit,
+            fires: [UIEvent.Equipment]
+        );
+
+        public static readonly Option<bool> EnforceEquipmentTierLimit = CreateOption(
+            section: Equipment,
+            name: L.F("mcm_option_enforce_equipment_tier_limit", "Limit Equipment Tier"),
+            description: L.F(
+                "mcm_option_enforce_equipment_tier_limit_hint",
+                "Whether to stop troops from wearing gear too far above their own tier."
+            ),
+            @default: false,
+            fires: [UIEvent.Equipment],
+            presetRealistic: true
+        );
+
+        public static readonly Option<int> EquipmentMaxTierDifference = CreateOption(
+            section: Equipment,
+            name: L.F("mcm_option_equipment_max_tier_difference", "Max Tier Difference"),
+            description: L.F(
+                "mcm_option_equipment_max_tier_difference_hint",
+                "How many tiers above its own a troop's gear may be (0 means gear cannot exceed the troop's own tier)."
+            ),
+            minValue: 0,
+            maxValue: 3,
+            @default: 1,
+            dependsOn: EnforceEquipmentTierLimit,
+            presetRealistic: 1,
             fires: [UIEvent.Equipment]
         );
 

@@ -1,4 +1,4 @@
-{% from "_/macros.buttons.j2" import button_brush, button_chevron_left, button_chevron_right %}
+{% from "_/macros.buttons.j2" import button_brush, button_brush_icon, button_chevron_left, button_chevron_right %}
 {% from "_/macros.panel.j2" import panel_header %}
 {% from "_/macros.icons.j2" import icon_sprite %}
 
@@ -12,12 +12,22 @@
     StackLayout.LayoutMethod="HorizontalLeftToRight"
     UpdateChildrenStates="true">
     <Children>
+        {# Left spacer mirrors the button (26) + text margin (8) so the text stays centered on its
+           "/". Collapses together with the button when there is nothing to reset. #}
+        <Widget
+            IsVisible="@ShowResetSkills"
+            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+            SuggestedWidth="34" SuggestedHeight="2" />
+
         <TextWidget
             Text="@SkillTotalText"
             Brush="Clan.RightPanel.Name.Text"
             WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
             HorizontalAlignment="Center" VerticalAlignment="Center"
             MarginRight="8" />
+
+        {# Reset-all-skills button (toggle-switch sprite, native 51x54 ≈ 17:18) #}
+        {{ button_brush_icon("{ResetSkillsButton}", "Retinues.ResetSkills", "26", "28") }}
     </Children>
 </ListPanel>
 

@@ -20,6 +20,8 @@ namespace Retinues.Behaviors.Doctrines.Feats.Training
 
                 count++; // Count maxed out troop.
             }
+
+            Feat.Set(count); // Snapshot of how many faction troops are fully maxed.
         }
     }
 }

@@ -64,39 +64,16 @@ namespace Retinues.Domain.Characters.Helpers
         }
 
         /// <summary>
-        /// Finds a template troop for the given culture, gender, and race.
+        /// Finds a template troop for the given character's culture/gender and the given race.
+        /// Delegates to <see cref="RaceHelper.FindTemplate"/> so it shares the same cross-culture
+        /// fallback (needed for TOR cultures that lack female troops of a race).
         /// </summary>
         public static WCharacter FindTemplateForRace(WCharacter wc, int race)
         {
             if (wc == null)
                 return null;
 
-            // Prefer the same sources as ApplyCultureBodyProperties, but filtered by race.
-            var culture = wc.Culture;
-            if (culture == null)
-                return null;
-
-            // 1) Roots
-            var root = culture.RootBasic ?? culture.RootElite;
-            if (root != null && root.IsFemale == wc.IsFemale && root.Race == race)
-                return root;
-
-            // 2) Villagers
-            var villager = wc.IsFemale ? culture.VillageWoman : culture.Villager;
-            if (villager != null && villager.IsFemale == wc.IsFemale && villager.Race == race)
-                return villager;
-
-            // 3) Any troop in roster matching gender+race
-            foreach (var troop in culture.Troops)
-            {
-                if (troop == null)
-                    continue;
-
-                if (troop.IsFemale == wc.IsFemale && troop.Race == race)
-                    return troop;
-            }
-
-            return null;
+            return RaceHelper.FindTemplate(wc.Culture, wc.IsFemale, race);
         }
 
         /// <summary>

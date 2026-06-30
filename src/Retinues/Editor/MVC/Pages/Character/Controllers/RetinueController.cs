@@ -1,7 +1,9 @@
+using Retinues.Behaviors.Experience;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Editor.Events;
 using Retinues.Editor.MVC.Shared.Controllers;
 using Retinues.Interface.Services;
+using Retinues.Settings;
 using TaleWorlds.CampaignSystem;
 
 namespace Retinues.Editor.MVC.Pages.Character.Controllers
@@ -64,7 +66,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
             if (c == null)
                 return 0;
 
-            return (c.Tier + 1) * 1000;
+            return (int)((c.Tier + 1) * 1000 * Configuration.RetinueRankUpGoldCostMultiplier);
         }
 
         /// <summary>
@@ -76,15 +78,32 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
         /// </summary>
         private static int GetRankUpSkillPointCost(WCharacter c)
         {
-            if (c == null)
+            // No skill-point economy (e.g. Freeform) → ranking up costs no skill points, otherwise
+            // retinues could never rank up since no points are ever earned.
+            if (c == null || !Configuration.SkillPointsMustBeEarned)
                 return 0;
 
             // targetTier = c.Tier + 1 -> cost = 5 * (targetTier - 1) = 5 * c.Tier
-            return 5 * c.Tier;
+            return (int)(5 * c.Tier * Configuration.RetinueRankUpSkillPointCostMultiplier);
         }
 
         /// <summary>
-        /// Returns true if the character has enough skill points to pay the rank-up cost.
+        /// Skill points currently available to pay a rank-up: the shared pool when enabled, otherwise
+        /// the troop's own points.
+        /// </summary>
+        private static int AvailableRankUpSkillPoints(WCharacter c)
+        {
+            if (c == null)
+                return 0;
+
+            return Configuration.SharedSkillPointsPool
+                ? SharedSkillPoolBehavior.SharedSkillPoints
+                : c.SkillPoints;
+        }
+
+        /// <summary>
+        /// Returns true if there are enough skill points to pay the rank-up cost (always true when
+        /// there is no skill-point cost).
         /// </summary>
         private static bool HasEnoughRankUpSkillPoints(WCharacter c)
         {
@@ -92,7 +111,10 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
                 return false;
 
             var cost = GetRankUpSkillPointCost(c);
-            return c.SkillPoints >= cost;
+            if (cost <= 0)
+                return true;
+
+            return AvailableRankUpSkillPoints(c) >= cost;
         }
 
         /// <summary>
@@ -126,13 +148,22 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
             var goldCost = GetRankUpGoldCost(c);
             var spCost = GetRankUpSkillPointCost(c);
 
-            var body = L.T(
-                    "rank_up_confirm_body",
-                    "Rank up {NAME}?\n\nCosts:\n- {SP_COST} skill points\n- {GOLD_COST} gold\n\nEffect:\n- +5 levels (tier up)"
-                )
-                .SetTextVariable("NAME", c.Name)
-                .SetTextVariable("SP_COST", spCost)
-                .SetTextVariable("GOLD_COST", goldCost);
+            // Omit the skill-point line entirely when ranking up has no skill-point cost.
+            var body =
+                spCost > 0
+                    ? L.T(
+                            "rank_up_confirm_body",
+                            "Rank up {NAME}?\n\nCosts:\n- {SP_COST} skill points\n- {GOLD_COST} gold\n\nEffect:\n- +5 levels (tier up)"
+                        )
+                        .SetTextVariable("NAME", c.Name)
+                        .SetTextVariable("SP_COST", spCost)
+                        .SetTextVariable("GOLD_COST", goldCost)
+                    : L.T(
+                            "rank_up_confirm_body_no_sp",
+                            "Rank up {NAME}?\n\nCosts:\n- {GOLD_COST} gold\n\nEffect:\n- +5 levels (tier up)"
+                        )
+                        .SetTextVariable("NAME", c.Name)
+                        .SetTextVariable("GOLD_COST", goldCost);
 
             Inquiries.Popup(
                 title: L.T("rank_up_confirm_title", "Confirm Rank Up"),
@@ -145,7 +176,14 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
                         return;
 
                     hero.ChangeHeroGold(-goldCost);
-                    c.SkillPoints -= spCost;
+
+                    if (spCost > 0)
+                    {
+                        if (Configuration.SharedSkillPointsPool)
+                            SharedSkillPoolBehavior.SharedSkillPoints -= spCost;
+                        else
+                            c.SkillPoints -= spCost;
+                    }
 
                     c.Level = (c.Tier + 1) * 5 + 5;
 

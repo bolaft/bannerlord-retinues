@@ -85,7 +85,7 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
                 "feat_trp_merchants_favor_desc",
                 "Complete a quest for a town merchant notable."
             ),
-            Target = 10,
+            Target = 1,
             Worth = 10,
             Repeatable = true,
         };

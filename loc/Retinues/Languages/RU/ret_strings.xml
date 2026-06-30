@@ -197,6 +197,9 @@
       id="ret_cant_equip_reason_skill"
       text="{SKILL} {VALUE}" />
     <string
+      id="ret_cant_equip_reason_tier_too_high"
+      text="Слишком высокий уровень" />
+    <string
       id="ret_cant_equip_reason_too_heavy"
       text="Слишком тяжелый" />
     <string
@@ -1817,6 +1820,12 @@
       id="ret_mcm_option_enforce_equipment_limits_hint"
       text="Если включено, универсальный редактор будет применять нормальные ограничения на экипировку при редактировании стандартных войск." />
     <string
+      id="ret_mcm_option_enforce_equipment_tier_limit"
+      text="Ограничить уровень снаряжения" />
+    <string
+      id="ret_mcm_option_enforce_equipment_tier_limit_hint"
+      text="Не позволяет войскам носить снаряжение слишком высокого уровня относительно их собственного." />
+    <string
       id="ret_mcm_option_enforce_skill_limits"
       text="Применять ограничения навыков" />
     <string
@@ -1831,6 +1840,12 @@
     <string
       id="ret_mcm_option_equipment_cost_multiplier_hint"
       text="Определяет стоимость экипировки нового предмета." />
+    <string
+      id="ret_mcm_option_equipment_max_tier_difference"
+      text="Максимальная разница уровней" />
+    <string
+      id="ret_mcm_option_equipment_max_tier_difference_hint"
+      text="На сколько уровней снаряжение войска может превышать его собственный (0 — снаряжение не может превышать уровень войска)." />
     <string
       id="ret_mcm_option_equipment_needs_unlocking"
       text="Экипировка требует разблокировки" />
@@ -1871,6 +1886,9 @@
       id="ret_mcm_option_equipping_takes_time_hint"
       text="Если включено, экипировка войск не будет мгновенной и займет время для завершения." />
     <string
+      id="ret_mcm_option_exclude_custom_tournaments"
+      text="Не допускать пользовательские войска на турниры" />
+    <string
       id="ret_mcm_option_feat_complete_notification"
       text="Уведомление о завершении подвига" />
     <string
@@ -1900,6 +1918,9 @@
     <string
       id="ret_mcm_option_max_retinue_ratio_hint"
       text="Максимальное количество retinues в зависимости от ограничения размера партии." />
+    <string
+      id="ret_mcm_option_max_troop_tier"
+      text="Максимальный уровень войск" />
     <string
       id="ret_mcm_option_min_tier_for_mounts"
       text="Минимальный уровень для ездовых животных" />
@@ -1961,6 +1982,18 @@
       id="ret_mcm_option_retinue_health_bonus_hint"
       text="Количество, добавляемое к здоровью войск retinue при включении Buff Retinue Health." />
     <string
+      id="ret_mcm_option_retinue_rank_up_gold_cost"
+      text="Стоимость повышения (золото)" />
+    <string
+      id="ret_mcm_option_retinue_rank_up_gold_cost_hint"
+      text="Множитель стоимости повышения свиты в золоте (база — 1000 × следующий уровень). Установите 0, чтобы убрать стоимость в золоте." />
+    <string
+      id="ret_mcm_option_retinue_rank_up_sp_cost"
+      text="Стоимость повышения (очки навыков)" />
+    <string
+      id="ret_mcm_option_retinue_rank_up_sp_cost_hint"
+      text="Множитель стоимости повышения свиты в очках навыков (база — 5 × текущий уровень). Установите 0, чтобы убрать стоимость в очках навыков." />
+    <string
       id="ret_mcm_option_retinue_skill_cap_bonus"
       text="Бонус к максимальному уровню навыков Retinue" />
     <string
@@ -2020,6 +2053,12 @@
     <string
       id="ret_mcm_option_starter_equipment_hint"
       text="Устанавливает начальное снаряжение для недавно разблокированных войск." />
+    <string
+      id="ret_mcm_option_starter_skills"
+      text="Начальные навыки" />
+    <string
+      id="ret_mcm_option_starter_skills_hint"
+      text="Задаёт начальные уровни навыков для новых разблокированных войск." />
     <string
       id="ret_mcm_option_starter_troops"
       text="Начальные войска" />
@@ -2342,6 +2381,9 @@
       id="ret_rank_up_confirm_body"
       text="Повысить уровень {NAME}?{newline}{newline}Стоимость:{newline}- {SP_COST} очков навыков{newline}- {GOLD_COST} золота{newline}{newline}Эффект:{newline}- +5 уровней (повышение уровня)" />
     <string
+      id="ret_rank_up_confirm_body_no_sp"
+      text="Повысить уровень {NAME}?{newline}{newline}Стоимость:{newline}- {GOLD_COST} золота{newline}{newline}Эффект:{newline}- +5 уровней (повышение уровня)" />
+    <string
       id="ret_rank_up_confirm_no"
       text="Отмена" />
     <string
@@ -2419,6 +2461,27 @@
     <string
       id="ret_reset_none_available"
       text="Нечего сбрасывать" />
+    <string
+      id="ret_reset_skills_confirm_body"
+      text="Сбросить все навыки {NAME}? Все потраченные очки навыков будут возвращены." />
+    <string
+      id="ret_reset_skills_confirm_no"
+      text="Отмена" />
+    <string
+      id="ret_reset_skills_confirm_title"
+      text="Сброс навыков" />
+    <string
+      id="ret_reset_skills_confirm_yes"
+      text="Сбросить" />
+    <string
+      id="ret_reset_skills_nothing"
+      text="Нет навыков для сброса" />
+    <string
+      id="ret_reset_skills_tooltip"
+      text="Сбросить все навыки" />
+    <string
+      id="ret_reset_skills_troops_only"
+      text="Доступно только для войск" />
     <string
       id="ret_reset_target_faction_disabled"
       text="Не найдено измененных ванильных войск для сброса." />
@@ -2617,6 +2680,24 @@
     <string
       id="ret_starter_equipment_single_set_hint"
       text="Один набор снаряжения копируется с базового воина" />
+    <string
+      id="ret_starter_skills_high"
+      text="Высокий" />
+    <string
+      id="ret_starter_skills_high_hint"
+      text="Войска начинают с полностью развитым набором навыков." />
+    <string
+      id="ret_starter_skills_low"
+      text="Низкий" />
+    <string
+      id="ret_starter_skills_low_hint"
+      text="Войска начинают только с базовыми навыками." />
+    <string
+      id="ret_starter_skills_minimal"
+      text="Минимальный" />
+    <string
+      id="ret_starter_skills_minimal_hint"
+      text="Войска начинают с минимальными навыками, необходимыми для их снаряжения." />
     <string
       id="ret_starter_troops_clone_culture_full_trees"
       text="Полные деревья войск" />

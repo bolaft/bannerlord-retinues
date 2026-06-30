@@ -29,8 +29,8 @@ namespace Retinues.Behaviors.Doctrines.Feats.Loot
                     return; // Must be the main party only.
 
             var culture = start.EnemySide.LeaderParty.Leader.Culture;
-            if (culture != Player.Clan.Culture)
-                return; // Different culture.
+            if (culture == Player.Clan.Culture)
+                return; // Same culture — the feat requires a different-culture enemy.
 
             Feat.Add();
         }

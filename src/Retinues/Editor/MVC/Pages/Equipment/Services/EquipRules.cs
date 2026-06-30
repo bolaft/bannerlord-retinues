@@ -92,6 +92,19 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Services
                     L.T("cant_equip_reason_mount_disallowed", "Too low tier")
                 );
 
+            // Max tier difference: gear may not sit more than N tiers above the troop's own tier.
+            // Heroes are exempt (they wear anything), matching the other tier-based limits.
+            if (
+                ctx.LimitsEnabled
+                && Configuration.EnforceEquipmentTierLimit
+                && ctx.Character?.IsHero == false
+                && item.Tier - tier > Configuration.EquipmentMaxTierDifference
+            )
+                return EquipDecision.Skip(
+                    EquipSkipReason.Tier,
+                    L.T("cant_equip_reason_tier_too_high", "Tier too high")
+                );
+
             if (!item.IsEquippableByCharacter(ctx.Character))
             {
                 return EquipDecision.Skip(

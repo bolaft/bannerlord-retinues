@@ -216,6 +216,31 @@ namespace Retinues.Domain.Characters.Services.Skills
                 );
 
         /// <summary>
+        /// Skills whose values must round-trip through save/load for the given troop. Superset of
+        /// <see cref="GetSkills(WCharacter)"/>: it always includes Mariner when the skill is
+        /// troop-eligible (Naval DLC + BL 1.4+), even when the troop's IsMariner flag is currently
+        /// false. Persistence must not depend on that flag — on load IsMariner can be restored
+        /// *after* the skill list is built (its trait object may not be ready yet), which would
+        /// otherwise drop a saved Mariner value and waste the skill points spent on it.
+        /// </summary>
+        public static List<SkillObject> GetPersistedSkills(WCharacter character)
+        {
+            var list = GetSkills(character);
+
+            if (character == null || character.IsHero || !IsMarinerTroopSkillEligible)
+                return list;
+
+            if (list.Any(s => s != null && s.StringId == MarinerSkillId))
+                return list;
+
+            var mariner = AllSkills.FirstOrDefault(s => s != null && s.StringId == MarinerSkillId);
+            if (mariner != null)
+                list.Add(mariner);
+
+            return list;
+        }
+
+        /// <summary>
         /// Gets the valid skills for the given hero.
         /// </summary>
         public static List<SkillObject> GetSkills(WHero _) =>
