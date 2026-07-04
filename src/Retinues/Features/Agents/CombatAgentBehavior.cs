@@ -67,9 +67,18 @@ namespace Retinues.Features.Agents
 
         private Dictionary<string, Dictionary<int, EquipmentPolicy>> _byTroop = [];
 
+        // One-time cleanup guard. Early versions of the per-set gender override could leave stray
+        // GenderOverride flags on equipment sets. Once the spawn patch was expanded to run for
+        // edited vanilla troops too, those stray flags started silently flipping troop genders in
+        // battle. On the first load of an existing save we reset every stored GenderOverride so no
+        // save keeps flipping troops the player never intentionally configured; the toggle stays
+        // available and any deliberate use after this runs is preserved as normal.
+        private bool _genderOverrideResetDone = false;
+
         public override void SyncData(IDataStore dataStore)
         {
             dataStore.SyncData("Retinues_EquipmentUsePolicy", ref _byTroop);
+            dataStore.SyncData("Retinues_GenderOverrideResetDone", ref _genderOverrideResetDone);
 
             if (dataStore.IsLoading)
             {
@@ -88,6 +97,25 @@ namespace Retinues.Features.Agents
                             }
                         }
                     }
+                }
+
+                if (!_genderOverrideResetDone)
+                {
+                    if (_byTroop != null)
+                    {
+                        foreach (var perTroop in _byTroop.Values)
+                        {
+                            if (perTroop == null)
+                                continue;
+                            foreach (var p in perTroop.Values)
+                            {
+                                if (p != null)
+                                    p.GenderOverride = false;
+                            }
+                        }
+                    }
+
+                    _genderOverrideResetDone = true;
                 }
             }
         }
@@ -238,8 +266,12 @@ namespace Retinues.Features.Agents
                     ?? true,
                 PolicyToggleType.SiegeAssault => Inst?.IsEnabled_SiegeAssault(troop, altIndex)
                     ?? true,
+                // NOTE: unlike the battle-context toggles (which safely default to "eligible"),
+                // GenderOverride must default to FALSE. Defaulting to true means "spawn this set as
+                // the opposite gender", which would silently flip agents whenever the behavior
+                // instance is momentarily unavailable at spawn time.
                 PolicyToggleType.GenderOverride => Inst?.IsEnabled_GenderOverride(troop, altIndex)
-                    ?? true,
+                    ?? false,
                 _ => true,
             };
 
