@@ -1548,7 +1548,7 @@ namespace Retinues.Settings
             section: SkillTotals,
             name: L.F("mcm_option_skill_total", "Tier {TIER} Skill Total", ("TIER", 0)),
             minValue: 90,
-            maxValue: 1600,
+            maxValue: 2880,
             @default: 90,
             fires: [UIEvent.Skill]
         );
@@ -1557,7 +1557,7 @@ namespace Retinues.Settings
             section: SkillTotals,
             name: L.F("mcm_option_skill_total", "Tier {TIER} Skill Total", ("TIER", 1)),
             minValue: 90,
-            maxValue: 1600,
+            maxValue: 2880,
             @default: 90,
             fires: [UIEvent.Skill]
         );
@@ -1566,7 +1566,7 @@ namespace Retinues.Settings
             section: SkillTotals,
             name: L.F("mcm_option_skill_total", "Tier {TIER} Skill Total", ("TIER", 2)),
             minValue: 90,
-            maxValue: 1600,
+            maxValue: 2880,
             @default: 210,
             fires: [UIEvent.Skill]
         );
@@ -1575,7 +1575,7 @@ namespace Retinues.Settings
             section: SkillTotals,
             name: L.F("mcm_option_skill_total", "Tier {TIER} Skill Total", ("TIER", 3)),
             minValue: 90,
-            maxValue: 1600,
+            maxValue: 2880,
             @default: 380,
             fires: [UIEvent.Skill]
         );
@@ -1584,7 +1584,7 @@ namespace Retinues.Settings
             section: SkillTotals,
             name: L.F("mcm_option_skill_total", "Tier {TIER} Skill Total", ("TIER", 4)),
             minValue: 90,
-            maxValue: 1600,
+            maxValue: 2880,
             @default: 560,
             fires: [UIEvent.Skill]
         );
@@ -1593,7 +1593,7 @@ namespace Retinues.Settings
             section: SkillTotals,
             name: L.F("mcm_option_skill_total", "Tier {TIER} Skill Total", ("TIER", 5)),
             minValue: 90,
-            maxValue: 1600,
+            maxValue: 2880,
             @default: 780,
             fires: [UIEvent.Skill]
         );
@@ -1602,7 +1602,7 @@ namespace Retinues.Settings
             section: SkillTotals,
             name: L.F("mcm_option_skill_total", "Tier {TIER} Skill Total", ("TIER", 6)),
             minValue: 90,
-            maxValue: 1600,
+            maxValue: 2880,
             @default: 1020,
             fires: [UIEvent.Skill]
         );
@@ -1611,7 +1611,7 @@ namespace Retinues.Settings
             section: SkillTotals,
             name: L.F("mcm_option_skill_total", "Tier {TIER} Skill Total", ("TIER", 7)),
             minValue: 90,
-            maxValue: 1600,
+            maxValue: 2880,
             @default: 1600,
             fires: [UIEvent.Skill]
         );
