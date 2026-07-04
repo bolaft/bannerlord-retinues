@@ -2324,6 +2324,9 @@
       id="ret_preset_selection_freeform"
       text="Freeform" />
     <string
+      id="ret_preset_selection_keep"
+      text="Keep Current Settings" />
+    <string
       id="ret_preset_selection_realistic"
       text="Realistic" />
     <string

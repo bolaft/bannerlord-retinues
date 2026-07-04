@@ -1,9 +1,11 @@
 using System;
+using System.Collections.Generic;
 using Retinues.Framework.Behaviors;
 using Retinues.Interface.Services;
 using Retinues.Settings;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.Localization;
 
 namespace Retinues.Behaviors.Presets
 {
@@ -62,27 +64,39 @@ namespace Retinues.Behaviors.Presets
 
             try
             {
+                var choices = new List<(TextObject, Action)>
+                {
+                    (L.T("preset_selection_default", "Default"), () => Apply(SettingsPreset.Default)),
+                    (
+                        L.T("preset_selection_freeform", "Freeform"),
+                        () => Apply(SettingsPreset.Freeform)
+                    ),
+                    (
+                        L.T("preset_selection_realistic", "Realistic"),
+                        () => Apply(SettingsPreset.Realistic)
+                    ),
+                };
+
+                // Settings persist globally across campaigns. If the player has already configured
+                // Retinues, offer a way to keep their current settings instead of forcing a preset
+                // that would overwrite them.
+                if (ConfigurationManager.HasConfiguredBefore)
+                {
+                    choices.Add(
+                        (
+                            L.T("preset_selection_keep", "Keep Current Settings"),
+                            KeepCurrentSettings
+                        )
+                    );
+                }
+
                 Inquiries.MultiChoicePopup(
                     title: L.T("preset_selection_title", "Welcome to Retinues"),
                     description: L.T(
                         "preset_selection_description",
                         "Please select the settings that best match your playstyle.\n\nDEFAULT: A balanced first-playthrough experience. A full tree of clan troops are unlocked with your first fief, equipment has a cost, and skill points must be bought with experience earned in battle.\n\nFREEFORM: An unrestricted sandbox editor. No costs or unlock systems. Custom clan troops are available right from the start and can be recruited anywhere.\n\nREALISTIC: A grounded experience with harsher constraints. Troop editing is restricted to owned fiefs, equipments are limited in weight and value, equipping items and training skills take time, and troop trees must be built from scratch.\n\nYou can fine-tune any individual setting at any time from the Settings tab in the Troops screen."
                     ),
-                    choices:
-                    [
-                        (
-                            L.T("preset_selection_default", "Default"),
-                            () => Apply(SettingsPreset.Default)
-                        ),
-                        (
-                            L.T("preset_selection_freeform", "Freeform"),
-                            () => Apply(SettingsPreset.Freeform)
-                        ),
-                        (
-                            L.T("preset_selection_realistic", "Realistic"),
-                            () => Apply(SettingsPreset.Realistic)
-                        ),
-                    ]
+                    choices: choices
                 );
             }
             catch (Exception e)
@@ -104,6 +118,16 @@ namespace Retinues.Behaviors.Presets
             {
                 Log.Exception(e, "PresetSelectionBehavior.Apply failed.");
             }
+        }
+
+        /// <summary>
+        /// Dismisses the prompt for this campaign without touching the (globally persisted) settings.
+        /// </summary>
+        private void KeepCurrentSettings()
+        {
+            _presetSelected = true;
+            IsPresetSelected = true;
+            Log.Info("PresetSelectionBehavior: kept current settings.");
         }
     }
 }

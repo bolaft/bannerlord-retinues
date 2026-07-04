@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using Retinues.Editor;
@@ -236,6 +237,11 @@ namespace Retinues.Settings
 
             ConfigurationPersistence.SaveOnChange(_sections, _options);
 
+            // Record that Retinues has been configured at least once (global, across campaigns), so
+            // the new-campaign preset prompt can offer a "keep current settings" option instead of
+            // always overwriting settings the player has already customized.
+            MarkConfigured();
+
             // Notify OptionVMs of every changed value so they refresh immediately.
             for (int i = 0; i < _options.Count; i++)
             {
@@ -261,6 +267,52 @@ namespace Retinues.Settings
                 }
 
                 EventManager.Fire(UIEvent.Settings);
+            }
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                    Configured Marker                   //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        private const string ConfiguredMarkerFile = "configured.marker";
+
+        private static string ConfiguredMarkerPath =>
+            FileSystem.GetPathInRetinuesDocuments(ConfiguredMarkerFile);
+
+        /// <summary>
+        /// True once the player has applied a preset at least once, across all campaigns. Settings
+        /// persist globally, so this lets the new-campaign preset prompt offer "keep current
+        /// settings" instead of forcing a preset that would wipe prior customizations.
+        /// </summary>
+        public static bool HasConfiguredBefore
+        {
+            get
+            {
+                try
+                {
+                    return File.Exists(ConfiguredMarkerPath);
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Writes the "configured" marker (best-effort; never throws).
+        /// </summary>
+        private static void MarkConfigured()
+        {
+            try
+            {
+                var path = ConfiguredMarkerPath;
+                if (!File.Exists(path))
+                    File.WriteAllText(path, "1");
+            }
+            catch
+            {
+                // Never crash the game on config IO.
             }
         }
 
