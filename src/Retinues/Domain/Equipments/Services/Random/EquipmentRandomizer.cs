@@ -342,6 +342,12 @@ namespace Retinues.Domain.Equipments.Services.Random
                 return me;
             }
 
+            // Constrain the randomized mount to the SAME mount family as the source troop's mount,
+            // so a horse can only be replaced by a horse, a camel by a camel, etc. Without this,
+            // any rideable mount added by another mod (e.g. Realm of Thrones dragons) is a valid
+            // IsHorse candidate and could replace a regular horse for troops of any culture.
+            var srcHorseFamily = srcHorse.HorseComponent?.Monster?.FamilyType;
+
             var horse = ItemRandomizer.PickLikeSource(
                 owner,
                 me,
@@ -359,7 +365,12 @@ namespace Retinues.Domain.Equipments.Services.Random
                 valueLimit,
                 reuseContext,
                 preferUnlocked,
-                extraPredicate: it => it.IsHorse,
+                extraPredicate: it =>
+                    it.IsHorse
+                    && (
+                        srcHorseFamily == null
+                        || it.HorseComponent?.Monster?.FamilyType == srcHorseFamily
+                    ),
                 maxItemTierOverride: maxItemTierOverride,
                 minItemTierOverride: minItemTierOverride
             );
