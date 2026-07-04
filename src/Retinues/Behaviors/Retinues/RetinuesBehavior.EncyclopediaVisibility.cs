@@ -16,13 +16,28 @@ namespace Retinues.Behaviors.Retinues
             // EnableRetinues is off or ClanTroopsUnlock / KingdomTroopsUnlock is Disabled.
             CampaignEvents.OnGameLoadedEvent.AddNonSerializedListener(
                 this,
-                _ =>
-                {
-                    SyncPlayerRetinueEncyclopediaVisibility();
-                    SyncClanTroopsEncyclopediaVisibility();
-                    SyncKingdomTroopsEncyclopediaVisibility();
-                }
+                _ => SyncAllEncyclopediaVisibility()
             );
+
+            // Re-assert on session launch as well. Custom troops default to hidden in the stub XML,
+            // so their visibility relies entirely on this sync. Under some load orders (notably total
+            // conversions like The Old Realms) the clan/kingdom troop trees are not fully wired yet
+            // at OnGameLoaded, so the earlier pass iterates before the custom troops are in the
+            // rosters and they stay hidden. OnSessionLaunched runs once everything is set up.
+            CampaignEvents.OnSessionLaunchedEvent.AddNonSerializedListener(
+                this,
+                _ => SyncAllEncyclopediaVisibility()
+            );
+        }
+
+        /// <summary>
+        /// Re-applies encyclopedia visibility for all player-owned retinues and custom troop trees.
+        /// </summary>
+        private void SyncAllEncyclopediaVisibility()
+        {
+            SyncPlayerRetinueEncyclopediaVisibility();
+            SyncClanTroopsEncyclopediaVisibility();
+            SyncKingdomTroopsEncyclopediaVisibility();
         }
 
         /// <summary>
