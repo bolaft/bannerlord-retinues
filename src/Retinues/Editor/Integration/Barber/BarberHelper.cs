@@ -111,8 +111,13 @@ namespace Retinues.Editor.Integration.Barber
 
             try
             {
-                // This is the "fake first click" that forces the model to spawn.
-                handler.DefaultFace();
+                // Force the model to spawn. Use RefreshCharacterEntity (rebuilds from the loaded
+                // BodyProperties) rather than DefaultFace: DefaultFace runs
+                // TransformFaceKeysToDefaultFace, which wipes the loaded face and replaces it with
+                // the generic default. Since companion edits are redirected through the main hero,
+                // that default is identical for every companion — so every edited companion ended up
+                // with the same "default" face. RefreshCharacterEntity preserves the real face.
+                handler.RefreshCharacterEntity();
                 handler.ChangeToFaceCamera();
 
                 _hasPrimed = true;
