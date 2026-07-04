@@ -25,5 +25,9 @@ namespace Retinues.Encyclopedia.Manual
         public const string Equipment = "ret_man_equipment";
         public const string EquipmentEconomy = "ret_man_equipment_economy";
         public const string EquipmentAdvanced = "ret_man_equipment_advanced";
+
+        // ── Doctrines ──────────────────────────────────────────
+        public const string Doctrines = "ret_man_doctrines";
+        public const string DoctrinesCategories = "ret_man_doctrines_categories";
     }
 }
