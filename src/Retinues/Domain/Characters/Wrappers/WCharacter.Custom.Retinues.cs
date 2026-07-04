@@ -226,6 +226,42 @@ namespace Retinues.Domain.Characters.Wrappers
             if (Player.IsRuler)
                 AddFromFaction(Player.Kingdom);
 
+            // Fallback for troops that live outside a culture's canonical basic/elite tree — e.g.
+            // standalone lines added by other mods (Warlords Battlefield, ...). Those never carry
+            // source flags, so they are never in a retinue's precomputed ConversionSources. Match
+            // them directly by culture and one-below tier. Regular tree troops (IsRegular) already
+            // went through the precomputed path above and are untouched, so vanilla is unaffected.
+            if (results.Count == 0 && !source.IsHero && !source.IsRetinue && !source.IsRegular)
+            {
+                void AddDirect(IBaseFaction faction)
+                {
+                    var roster = faction?.RosterRetinues;
+                    if (roster == null || roster.Count == 0)
+                        return;
+
+                    for (int i = 0; i < roster.Count; i++)
+                    {
+                        var retinue = roster[i];
+                        if (retinue?.Base == null || !retinue.IsRetinue)
+                            continue;
+                        if (retinue.Tier - 1 != source.Tier)
+                            continue;
+
+                        var rc = retinue.Culture;
+                        if (rc == null || rc != source.Culture)
+                            continue;
+
+                        var rid = retinue.StringId;
+                        if (!string.IsNullOrEmpty(rid) && seen.Add(rid))
+                            results.Add(retinue);
+                    }
+                }
+
+                AddDirect(Player.Clan);
+                if (Player.IsRuler)
+                    AddDirect(Player.Kingdom);
+            }
+
             return results;
         }
     }
