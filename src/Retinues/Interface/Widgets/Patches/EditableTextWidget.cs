@@ -63,6 +63,9 @@ namespace Retinues.Interface.Widgets.Patches
 
     /// <summary>
     /// Harmony patches for Input to block specific keys when text input is focused.
+    /// IMPORTANT: these must only fire while a text box is focused (HotkeyBlocker.BlockHotkeys).
+    /// Blocking L unconditionally suppresses the key game-wide and breaks other mods that bind it
+    /// (e.g. RTS Camera), including the ability to rebind their own hotkey away from L.
     /// </summary>
     [HarmonyPatch(typeof(Input))]
     static class Input_LKey_Blockers
@@ -71,7 +74,7 @@ namespace Retinues.Interface.Widgets.Patches
         [HarmonyPatch(nameof(Input.IsKeyDown), typeof(InputKey))]
         static void IsKeyDown_Postfix(InputKey key, ref bool __result)
         {
-            if (__result && key == InputKey.L)
+            if (__result && HotkeyBlocker.BlockHotkeys && key == InputKey.L)
                 __result = false; // treat L as not held
         }
 
@@ -79,7 +82,7 @@ namespace Retinues.Interface.Widgets.Patches
         [HarmonyPatch(nameof(Input.IsKeyPressed), typeof(InputKey))]
         static void IsKeyPressed_Postfix(InputKey key, ref bool __result)
         {
-            if (__result && key == InputKey.L)
+            if (__result && HotkeyBlocker.BlockHotkeys && key == InputKey.L)
                 __result = false; // block the "just pressed" tick
         }
 
@@ -87,7 +90,7 @@ namespace Retinues.Interface.Widgets.Patches
         [HarmonyPatch(nameof(Input.IsKeyReleased), typeof(InputKey))]
         static void IsKeyReleased_Postfix(InputKey key, ref bool __result)
         {
-            if (__result && key == InputKey.L)
+            if (__result && HotkeyBlocker.BlockHotkeys && key == InputKey.L)
                 __result = false; // block the "just released" tick
         }
     }
