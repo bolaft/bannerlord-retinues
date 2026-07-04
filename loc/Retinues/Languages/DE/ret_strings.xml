@@ -23,6 +23,24 @@
       id="ret_ai_retinue_loot_title"
       text="{CLAN} hat deine Gefallenen geplündert" />
     <string
+      id="ret_ai_troops_everywhere"
+      text="Überall" />
+    <string
+      id="ret_ai_troops_everywhere_hint"
+      text="Jeder Klan mit einem eigenen Baum setzt ihn in allen seinen Trupps ein, egal wo er rekrutiert hat (Rekruten werden täglich umgewandelt)." />
+    <string
+      id="ret_ai_troops_off"
+      text="Aus" />
+    <string
+      id="ret_ai_troops_off_hint"
+      text="Andere Klane rekrutieren immer gewöhnliche Kulturtruppen, selbst wenn du ihnen einen eigenen Baum gegeben hast." />
+    <string
+      id="ret_ai_troops_their_fiefs"
+      text="Ihre Lehen" />
+    <string
+      id="ret_ai_troops_their_fiefs_hint"
+      text="Die Lehen eines Klans bieten die eigenen Truppen dieses Klans an. Jeder Lord, der dort rekrutiert, erhält sie; anderswo erhält er die Truppen jenes Lehens oder Kulturtruppen." />
+    <string
       id="ret_allowed_recruiters_everyone"
       text="Jeder" />
     <string
@@ -1691,6 +1709,12 @@
       id="ret_mcm_option_ai_clan_retinue_min_tier_hint"
       text="Mindest-Clanrang (1-6), damit ein Nicht-Spieler-Clan ein eigenes Gefolge haben kann." />
     <string
+      id="ret_mcm_option_ai_clan_troops_availability"
+      text="Eigene Truppen von KI-Klanen" />
+    <string
+      id="ret_mcm_option_ai_clan_troops_availability_hint"
+      text="Wie ANDERE Klane mit eigenen Truppen (z. B. von dir eingerichtete Klane in deinem Königreich) diese einsetzen. Deine eigene Rekrutierung nutzt die zwei Einstellungen oben." />
+    <string
       id="ret_mcm_option_allowed_recruiters"
       text="Erlaubte Rekrutierer" />
     <string
@@ -1722,10 +1746,10 @@
       text="Bestimmt, wie viele reguläre Truppen eingesetzt werden müssen, bevor ein weiterer Hauptmann erscheinen kann." />
     <string
       id="ret_mcm_option_clan_troops_availability"
-      text="Verfügbarkeit von Clan-Truppen" />
+      text="Deine Klantruppen" />
     <string
       id="ret_mcm_option_clan_troops_availability_hint"
-      text="Legt fest, wo Clan-Truppen rekrutiert werden können." />
+      text="Wo DU die eigenen Klantruppen rekrutieren kannst. Andere Klane werden über die Einstellung „Eigene Truppen von KI-Klanen“ unten gesteuert." />
     <string
       id="ret_mcm_option_clan_troops_unlock"
       text="Clan-Truppen" />
@@ -1902,10 +1926,10 @@
       text="Bestimmt, wie Benachrichtigungen über das Freischalten von Gegenständen angezeigt werden." />
     <string
       id="ret_mcm_option_kingdom_troops_availability"
-      text="Verfügbarkeit von Königreichstruppen" />
+      text="Deine Königreichstruppen" />
     <string
       id="ret_mcm_option_kingdom_troops_availability_hint"
-      text="Bestimmt, wo Königreichstruppen rekrutiert werden können." />
+      text="Wo DU als Herrscher die Königreichstruppen rekrutieren kannst. Andere Klane werden über die Einstellung „Eigene Truppen von KI-Klanen“ unten gesteuert." />
     <string
       id="ret_mcm_option_kingdom_troops_unlock"
       text="Königreichstruppen" />

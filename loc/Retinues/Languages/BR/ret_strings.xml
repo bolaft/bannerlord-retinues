@@ -23,6 +23,24 @@
       id="ret_ai_retinue_loot_title"
       text="{CLAN} Saqueou Seus Caídos" />
     <string
+      id="ret_ai_troops_everywhere"
+      text="Em todos os lugares" />
+    <string
+      id="ret_ai_troops_everywhere_hint"
+      text="Qualquer clã com uma árvore personalizada a utiliza em todos os seus grupos, onde quer que tenha recrutado (os recrutas são convertidos diariamente)." />
+    <string
+      id="ret_ai_troops_off"
+      text="Desativado" />
+    <string
+      id="ret_ai_troops_off_hint"
+      text="Outros clãs sempre recrutam tropas de cultura comuns, mesmo aqueles a quem você deu uma árvore personalizada." />
+    <string
+      id="ret_ai_troops_their_fiefs"
+      text="Seus feudos" />
+    <string
+      id="ret_ai_troops_their_fiefs_hint"
+      text="Os feudos de um clã oferecem as tropas personalizadas desse clã. Qualquer senhor que recrute ali as obtém; recrutar em outro lugar dá as tropas daquele feudo ou tropas de cultura." />
+    <string
       id="ret_allowed_recruiters_everyone"
       text="Todos" />
     <string
@@ -1691,6 +1709,12 @@
       id="ret_mcm_option_ai_clan_retinue_min_tier_hint"
       text="Nível mínimo de clã (1-6) necessário para que um clã não jogador tenha seu próprio séquito." />
     <string
+      id="ret_mcm_option_ai_clan_troops_availability"
+      text="Tropas personalizadas dos clãs de IA" />
+    <string
+      id="ret_mcm_option_ai_clan_troops_availability_hint"
+      text="Como OUTROS clãs que têm tropas personalizadas (por ex. clãs do seu reino que você configurou) as utilizam. O seu próprio recrutamento usa as duas opções acima." />
+    <string
       id="ret_mcm_option_allowed_recruiters"
       text="Recrutadores Permitidos" />
     <string
@@ -1722,10 +1746,10 @@
       text="Determina quantas tropas regulares devem ser implantadas antes que outro capitão possa surgir." />
     <string
       id="ret_mcm_option_clan_troops_availability"
-      text="Disponibilidade de Tropas de Clã" />
+      text="Suas tropas de clã" />
     <string
       id="ret_mcm_option_clan_troops_availability_hint"
-      text="Determina de onde as tropas de clã podem ser recrutadas." />
+      text="Onde VOCÊ pode recrutar as tropas personalizadas do seu próprio clã. Outros clãs são controlados pela opção &quot;Tropas personalizadas dos clãs de IA&quot; abaixo." />
     <string
       id="ret_mcm_option_clan_troops_unlock"
       text="Tropas de Clã" />
@@ -1902,10 +1926,10 @@
       text="Determina como as notificações de desbloqueio de item são exibidas." />
     <string
       id="ret_mcm_option_kingdom_troops_availability"
-      text="Disponibilidade de Tropas do Reino" />
+      text="Suas tropas do reino" />
     <string
       id="ret_mcm_option_kingdom_troops_availability_hint"
-      text="Determina de onde as tropas do reino podem ser recrutadas." />
+      text="Onde VOCÊ pode recrutar as tropas personalizadas do seu reino (como governante). Outros clãs são controlados pela opção &quot;Tropas personalizadas dos clãs de IA&quot; abaixo." />
     <string
       id="ret_mcm_option_kingdom_troops_unlock"
       text="Tropas do Reino" />

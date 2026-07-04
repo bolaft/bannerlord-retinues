@@ -23,6 +23,24 @@
       id="ret_ai_retinue_loot_title"
       text="{CLAN} ha saccheggiato i tuoi caduti" />
     <string
+      id="ret_ai_troops_everywhere"
+      text="Ovunque" />
+    <string
+      id="ret_ai_troops_everywhere_hint"
+      text="Ogni clan con un albero personalizzato lo schiera in tutte le sue compagnie, ovunque abbia reclutato (le reclute vengono convertite ogni giorno)." />
+    <string
+      id="ret_ai_troops_off"
+      text="Disattivato" />
+    <string
+      id="ret_ai_troops_off_hint"
+      text="Gli altri clan reclutano sempre truppe di cultura ordinarie, anche quelli a cui hai dato un albero personalizzato." />
+    <string
+      id="ret_ai_troops_their_fiefs"
+      text="I loro feudi" />
+    <string
+      id="ret_ai_troops_their_fiefs_hint"
+      text="I feudi di un clan offrono le truppe personalizzate di quel clan. Ogni signore che vi recluta le ottiene; reclutare altrove dà le truppe di quel feudo o truppe di cultura." />
+    <string
       id="ret_allowed_recruiters_everyone"
       text="Tutti" />
     <string
@@ -1691,6 +1709,12 @@
       id="ret_mcm_option_ai_clan_retinue_min_tier_hint"
       text="Livello minimo del clan (1-6) richiesto affinché un clan non giocante abbia il proprio seguito." />
     <string
+      id="ret_mcm_option_ai_clan_troops_availability"
+      text="Truppe personalizzate dei clan IA" />
+    <string
+      id="ret_mcm_option_ai_clan_troops_availability_hint"
+      text="Come gli ALTRI clan che hanno truppe personalizzate (es. clan del tuo regno che hai configurato) le schierano. Il tuo reclutamento usa le due opzioni sopra." />
+    <string
       id="ret_mcm_option_allowed_recruiters"
       text="Reclutatori consentiti" />
     <string
@@ -1722,10 +1746,10 @@
       text="Determina quante truppe regolari devono essere schierate prima che un altro capitano possa generarsi." />
     <string
       id="ret_mcm_option_clan_troops_availability"
-      text="Disponibilità delle truppe del clan" />
+      text="Le tue truppe di clan" />
     <string
       id="ret_mcm_option_clan_troops_availability_hint"
-      text="Determina da dove possono essere reclutate le truppe del clan." />
+      text="Dove TU puoi reclutare le truppe personalizzate del tuo clan. Gli altri clan sono gestiti dall&apos;opzione &quot;Truppe personalizzate dei clan IA&quot; qui sotto." />
     <string
       id="ret_mcm_option_clan_troops_unlock"
       text="Truppe del clan" />
@@ -1902,10 +1926,10 @@
       text="Determina come vengono visualizzate le notifiche di sblocco dell&apos;oggetto." />
     <string
       id="ret_mcm_option_kingdom_troops_availability"
-      text="Disponibilità delle Truppe del Regno" />
+      text="Le tue truppe del regno" />
     <string
       id="ret_mcm_option_kingdom_troops_availability_hint"
-      text="Determina da dove possono essere reclutate le truppe del regno." />
+      text="Dove TU puoi reclutare le truppe personalizzate del tuo regno (come sovrano). Gli altri clan sono gestiti dall&apos;opzione &quot;Truppe personalizzate dei clan IA&quot; qui sotto." />
     <string
       id="ret_mcm_option_kingdom_troops_unlock"
       text="Truppe del Regno" />

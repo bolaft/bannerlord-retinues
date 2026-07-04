@@ -23,6 +23,24 @@
       id="ret_ai_retinue_loot_title"
       text="{CLAN}이(가) 전사자를 약탈했습니다" />
     <string
+      id="ret_ai_troops_everywhere"
+      text="어디서나" />
+    <string
+      id="ret_ai_troops_everywhere_hint"
+      text="커스텀 트리를 가진 클랜은 어디서 모집했든 모든 부대에 이를 편성합니다(신병은 매일 변환됨)." />
+    <string
+      id="ret_ai_troops_off"
+      text="끄기" />
+    <string
+      id="ret_ai_troops_off_hint"
+      text="다른 클랜은 당신이 커스텀 트리를 지정했더라도 항상 일반 문화 병력을 모집합니다." />
+    <string
+      id="ret_ai_troops_their_fiefs"
+      text="자기 영지" />
+    <string
+      id="ret_ai_troops_their_fiefs_hint"
+      text="한 클랜의 영지에서는 그 클랜의 커스텀 병력을 제공합니다. 그곳에서 모집하는 영주는 누구나 얻게 되며, 다른 곳에서 모집하면 그 영지의 병력이나 문화 병력을 얻습니다." />
+    <string
       id="ret_allowed_recruiters_everyone"
       text="모두" />
     <string
@@ -1691,6 +1709,12 @@
       id="ret_mcm_option_ai_clan_retinue_min_tier_hint"
       text="비플레이어 클랜이 자체 수행원을 보유하는 데 필요한 최소 클랜 등급 (1-6)." />
     <string
+      id="ret_mcm_option_ai_clan_troops_availability"
+      text="AI 클랜 커스텀 병력" />
+    <string
+      id="ret_mcm_option_ai_clan_troops_availability_hint"
+      text="커스텀 병력을 가진 다른 클랜(예: 당신이 설정한 왕국 내 클랜)이 이를 어떻게 운용하는지. 당신의 모집은 위의 두 설정을 사용합니다." />
+    <string
       id="ret_mcm_option_allowed_recruiters"
       text="허용된 모집자" />
     <string
@@ -1722,10 +1746,10 @@
       text="또 다른 대위가 생성되기 전에 얼마나 많은 정규 부대를 배치해야 하는지 결정합니다." />
     <string
       id="ret_mcm_option_clan_troops_availability"
-      text="클랜 부대 가용성" />
+      text="내 클랜 병력" />
     <string
       id="ret_mcm_option_clan_troops_availability_hint"
-      text="클랜 부대를 어디에서 모집할 수 있는지 결정합니다." />
+      text="내 클랜의 커스텀 병력을 어디서 모집할 수 있는지. 다른 클랜은 아래의 &apos;AI 클랜 커스텀 병력&apos; 설정으로 제어됩니다." />
     <string
       id="ret_mcm_option_clan_troops_unlock"
       text="클랜 부대" />
@@ -1902,10 +1926,10 @@
       text="아이템 잠금 해제 알림이 표시되는 방식을 결정합니다." />
     <string
       id="ret_mcm_option_kingdom_troops_availability"
-      text="왕국 군대 가용성" />
+      text="내 왕국 병력" />
     <string
       id="ret_mcm_option_kingdom_troops_availability_hint"
-      text="왕국 군대를 어디에서 모집할 수 있는지 결정합니다." />
+      text="통치자로서 왕국의 커스텀 병력을 어디서 모집할 수 있는지. 다른 클랜은 아래의 &apos;AI 클랜 커스텀 병력&apos; 설정으로 제어됩니다." />
     <string
       id="ret_mcm_option_kingdom_troops_unlock"
       text="왕국 군대" />

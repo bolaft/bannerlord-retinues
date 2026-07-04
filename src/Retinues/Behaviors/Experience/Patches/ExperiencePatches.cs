@@ -1,9 +1,12 @@
 using System;
 using HarmonyLib;
 using Helpers;
+using Retinues.Domain;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.ComponentInterfaces;
+using TaleWorlds.CampaignSystem.GameComponents;
 using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.CampaignSystem.Roster;
 using TaleWorlds.Library;
@@ -122,41 +125,19 @@ namespace Retinues.Behaviors.Experience.Patches
         }
 
         /// <summary>
-        /// Postfix that applies gained XP to skill point progress (BL1.2).
+        /// Captures vanilla per-hit combat XP for player-side custom troops (BL1.2 signature: XP is
+        /// an out-param). The clamp/gate patches above remain so roster XP isn't force-clamped to 0.
         /// </summary>
-        [HarmonyPatch(typeof(TroopRoster), nameof(TroopRoster.AddXpToTroopAtIndex))]
+        [HarmonyPatch(typeof(DefaultCombatXpModel), nameof(CombatXpModel.GetXpFromHit))]
         [HarmonyPostfix]
-        private static void Postfix_AddXpToTroopAtIndex_BL12(
-            TroopRoster __instance,
-            int xpAmount,
-            int index,
-            ref int __result
+        private static void Postfix_GetXpFromHit_BL12(
+            CharacterObject attackerTroop,
+            PartyBase party,
+            CombatXpModel.MissionTypeEnum missionType,
+            ref int xpAmount
         )
         {
-            try
-            {
-                int gained = __result;
-                if (gained <= 0)
-                    return;
-
-                if (__instance == null || __instance.IsPrisonRoster)
-                    return;
-
-                var data = Reflection.GetFieldValue<TroopRosterElement[]>(__instance, "data");
-                if (data == null || index < 0 || index >= data.Length)
-                    return;
-
-                var troop = data[index].Character;
-                if (!TryGetEligibleFactionTroop(troop, out var wc))
-                    return;
-
-                var ownerParty = GetOwnerParty(__instance);
-                ApplyXpToSkillPointProgress(wc, ownerParty, gained);
-            }
-            catch (Exception ex)
-            {
-                Log.Exception(ex, "AddXpToTroopAtIndex (BL12) patch failed.");
-            }
+            CaptureCombatHitXp(attackerTroop, party, missionType, xpAmount);
         }
 #endif
 
@@ -213,70 +194,25 @@ namespace Retinues.Behaviors.Experience.Patches
         }
 
         /// <summary>
-        /// Prefix that records pre-XP state to compute gained XP (BL1.3).
+        /// Captures vanilla per-hit combat XP for player-side custom troops (BL1.3+ signature: XP is
+        /// the ExplainedNumber return). The OnXpChanged clamp above remains so roster XP isn't
+        /// force-clamped to 0.
         /// </summary>
-        [HarmonyPatch(typeof(TroopRoster), nameof(TroopRoster.AddXpToTroopAtIndex))]
-        [HarmonyPrefix]
-        private static void Prefix_AddXpToTroopAtIndex_BL13(
-            TroopRoster __instance,
-            int index,
-            ref int __state
-        )
-        {
-            __state = 0;
-
-            try
-            {
-                if (__instance == null || index < 0 || index >= __instance.Count)
-                    return;
-
-                __state = __instance.GetElementXp(index);
-            }
-            catch
-            {
-                __state = 0;
-            }
-        }
-
-        /// <summary>
-        /// Postfix that applies computed gained XP to skill point progress (BL1.3).
-        /// </summary>
-        [HarmonyPatch(typeof(TroopRoster), nameof(TroopRoster.AddXpToTroopAtIndex))]
+        [HarmonyPatch(typeof(DefaultCombatXpModel), nameof(CombatXpModel.GetXpFromHit))]
         [HarmonyPostfix]
-        private static void Postfix_AddXpToTroopAtIndex_BL13(
-            TroopRoster __instance,
-            int index,
-            int __state
+        private static void Postfix_GetXpFromHit(
+            CharacterObject attackerTroop,
+            PartyBase attackerParty,
+            CombatXpModel.MissionTypeEnum missionType,
+            ExplainedNumber __result
         )
         {
-            try
-            {
-                if (__instance == null || index < 0 || index >= __instance.Count)
-                    return;
-
-                // Skip prison roster: in 1.3 we can identify it through OwnerParty.PrisonRoster.
-                var ownerParty = GetOwnerParty(__instance);
-                if (ownerParty != null && Equals(__instance, ownerParty.PrisonRoster))
-                    return;
-
-                var troop = __instance.GetCharacterAtIndex(index);
-                if (troop == null || troop.IsHero)
-                    return;
-
-                int after = __instance.GetElementXp(index);
-                int gained = after - __state;
-                if (gained <= 0)
-                    return;
-
-                if (!TryGetEligibleFactionTroop(troop, out var wc))
-                    return;
-
-                ApplyXpToSkillPointProgress(wc, ownerParty, gained);
-            }
-            catch (Exception ex)
-            {
-                Log.Exception(ex, "AddXpToTroopAtIndex (BL13) patch failed.");
-            }
+            CaptureCombatHitXp(
+                attackerTroop,
+                attackerParty,
+                missionType,
+                (int)Math.Round(__result.ResultNumber)
+            );
         }
 #endif
 
@@ -359,6 +295,41 @@ namespace Retinues.Behaviors.Experience.Patches
         public static void ApplyXpToSkillPointProgress(WCharacter wc, PartyBase party, int gainedXp)
         {
             SkillPointExperienceGain.ApplyXpToSkillPointProgress(wc, party, gainedXp);
+        }
+
+        /// <summary>
+        /// Routes a captured per-hit combat XP amount to a player-side custom troop's skill-point
+        /// progress. Because this runs off GetXpFromHit — before the party-shared distribution and
+        /// the no-upgrade-target clamp — a retinue, an at-cap troop and a not-at-cap troop all get
+        /// the identical XP for the same hit. Auto-resolve (SimulationBattle) is excluded; that is
+        /// handled by BattleSimulationXpBehavior, so capturing it here would double-count.
+        /// </summary>
+        private static void CaptureCombatHitXp(
+            CharacterObject attackerTroop,
+            PartyBase party,
+            CombatXpModel.MissionTypeEnum missionType,
+            int xp
+        )
+        {
+            try
+            {
+                if (missionType != CombatXpModel.MissionTypeEnum.Battle)
+                    return;
+
+                if (xp <= 0 || attackerTroop == null || attackerTroop.IsHero)
+                    return;
+
+                if (!TryGetEligibleFactionTroop(attackerTroop, out var wc))
+                    return;
+
+                // ApplyXpToSkillPointProgress self-gates on IsPlayerFactionTroop / vanilla /
+                // SkillPointsMustBeEarned, so enemy or AI-clan custom troops are filtered there.
+                ApplyXpToSkillPointProgress(wc, party ?? Player.Party?.PartyBase, xp);
+            }
+            catch (Exception ex)
+            {
+                Log.Exception(ex, "GetXpFromHit XP capture failed.");
+            }
         }
     }
 }

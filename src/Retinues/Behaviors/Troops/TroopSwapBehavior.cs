@@ -2,6 +2,7 @@ using Retinues.Behaviors.Doctrines.Catalogs;
 using Retinues.Behaviors.Doctrines.Definitions;
 using Retinues.Domain.Parties.Wrappers;
 using Retinues.Framework.Behaviors;
+using Retinues.Settings;
 
 namespace Retinues.Behaviors.Troops
 {
@@ -43,6 +44,16 @@ namespace Retinues.Behaviors.Troops
         {
             if (party == null)
                 return;
+
+            // AI "Everywhere": convert a non-player clan's lord-party recruits into that clan's own
+            // custom troops, wherever they were recruited. SwapTroops() resolves the party's own clan
+            // via GetSwapTargetFaction and no-ops for clans that have no custom troops.
+            if (
+                party.IsLordParty
+                && !party.IsMainParty
+                && Configuration.AIClanTroopsAvailability.Value == Configuration.AITroopsMode.Everywhere
+            )
+                party.SwapTroops();
 
             // Stalwart militia affects militia parties
             if (party.IsMilitia && DoctrineCatalog.StalwartMilitia.IsAcquired)

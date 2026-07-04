@@ -848,12 +848,23 @@ namespace Retinues.Settings
             Nowhere,
         }
 
+        /// <summary>
+        /// Governs whether/where NON-player clans that have custom troops field them. The player's own
+        /// recruitment is governed separately by ClanTroopsAvailability / KingdomTroopsAvailability.
+        /// </summary>
+        public enum AITroopsMode
+        {
+            Off,
+            TheirFiefs,
+            Everywhere,
+        }
+
         public static readonly Option<RecruitmentMode> ClanTroopsAvailability = CreateOption(
             section: Recruitment,
-            name: L.F("mcm_option_clan_troops_availability", "Clan Troops Availability"),
+            name: L.F("mcm_option_clan_troops_availability", "Your Clan Troops"),
             description: L.F(
                 "mcm_option_clan_troops_availability_hint",
-                "Determines where clan troops can be recruited from."
+                "Where YOU can recruit your own clan's custom troops. Other clans are controlled by the 'AI Clans' Custom Troops' setting below."
             ),
             @default: RecruitmentMode.FactionFiefs,
             choices:
@@ -899,10 +910,10 @@ namespace Retinues.Settings
 
         public static readonly Option<RecruitmentMode> KingdomTroopsAvailability = CreateOption(
             section: Recruitment,
-            name: L.F("mcm_option_kingdom_troops_availability", "Kingdom Troops Availability"),
+            name: L.F("mcm_option_kingdom_troops_availability", "Your Kingdom Troops"),
             description: L.F(
                 "mcm_option_kingdom_troops_availability_hint",
-                "Determines where kingdom troops can be recruited from."
+                "Where YOU can recruit your kingdom's custom troops (as its ruler). Other clans are controlled by the 'AI Clans' Custom Troops' setting below."
             ),
             @default: RecruitmentMode.FactionFiefs,
             choices:
@@ -943,6 +954,45 @@ namespace Retinues.Settings
             dependsOn: KingdomTroopsUnlock,
             dependsOnValue: TroopsUnlockMode.UnlockedUponBecomingRuler,
             presetFreeform: RecruitmentMode.Everywhere
+        );
+
+        public static readonly Option<AITroopsMode> AIClanTroopsAvailability = CreateOption(
+            section: Recruitment,
+            name: L.F("mcm_option_ai_clan_troops_availability", "AI Clans' Custom Troops"),
+            description: L.F(
+                "mcm_option_ai_clan_troops_availability_hint",
+                "How OTHER clans that have custom troops (e.g. clans in your kingdom you've set up) field them. Your own recruitment uses the two settings above."
+            ),
+            @default: AITroopsMode.TheirFiefs,
+            choices:
+            [
+                (
+                    AITroopsMode.Off,
+                    L.S("ai_troops_off", "Off"),
+                    L.S(
+                        "ai_troops_off_hint",
+                        "Other clans always recruit ordinary culture troops, even ones you've given a custom tree."
+                    )
+                ),
+                (
+                    AITroopsMode.TheirFiefs,
+                    L.S("ai_troops_their_fiefs", "Their Fiefs"),
+                    L.S(
+                        "ai_troops_their_fiefs_hint",
+                        "A clan's settlements offer that clan's custom troops. Any lord recruiting there gets them; recruiting elsewhere gives that settlement's troops or culture troops."
+                    )
+                ),
+                (
+                    AITroopsMode.Everywhere,
+                    L.S("ai_troops_everywhere", "Everywhere"),
+                    L.S(
+                        "ai_troops_everywhere_hint",
+                        "Any clan with a custom tree fields it in all of its parties, wherever it recruited (recruits are converted daily)."
+                    )
+                ),
+            ],
+            presetRealistic: AITroopsMode.TheirFiefs,
+            presetFreeform: AITroopsMode.Everywhere
         );
 
         public static readonly Option<bool> SameCultureOnly = CreateOption(

@@ -20,6 +20,24 @@
       id="ret_ai_retinue_loot_title"
       text="{CLAN} Looted Your Fallen" />
     <string
+      id="ret_ai_troops_everywhere"
+      text="Everywhere" />
+    <string
+      id="ret_ai_troops_everywhere_hint"
+      text="Any clan with a custom tree fields it in all of its parties, wherever it recruited (recruits are converted daily)." />
+    <string
+      id="ret_ai_troops_off"
+      text="Off" />
+    <string
+      id="ret_ai_troops_off_hint"
+      text="Other clans always recruit ordinary culture troops, even ones you&apos;ve given a custom tree." />
+    <string
+      id="ret_ai_troops_their_fiefs"
+      text="Their Fiefs" />
+    <string
+      id="ret_ai_troops_their_fiefs_hint"
+      text="A clan&apos;s settlements offer that clan&apos;s custom troops. Any lord recruiting there gets them; recruiting elsewhere gives that settlement&apos;s troops or culture troops." />
+    <string
       id="ret_allowed_recruiters_everyone"
       text="Everyone" />
     <string
@@ -1688,6 +1706,12 @@
       id="ret_mcm_option_ai_clan_retinue_min_tier_hint"
       text="Minimum clan tier (1-6) required for a non-player clan to have their own retinues." />
     <string
+      id="ret_mcm_option_ai_clan_troops_availability"
+      text="AI Clans&apos; Custom Troops" />
+    <string
+      id="ret_mcm_option_ai_clan_troops_availability_hint"
+      text="How OTHER clans that have custom troops (e.g. clans in your kingdom you&apos;ve set up) field them. Your own recruitment uses the two settings above." />
+    <string
       id="ret_mcm_option_allowed_recruiters"
       text="Allowed Recruiters" />
     <string
@@ -1719,10 +1743,10 @@
       text="Determines how many regular troops must be fielded before another captain can spawn." />
     <string
       id="ret_mcm_option_clan_troops_availability"
-      text="Clan Troops Availability" />
+      text="Your Clan Troops" />
     <string
       id="ret_mcm_option_clan_troops_availability_hint"
-      text="Determines where clan troops can be recruited from." />
+      text="Where YOU can recruit your own clan&apos;s custom troops. Other clans are controlled by the &apos;AI Clans&apos; Custom Troops&apos; setting below." />
     <string
       id="ret_mcm_option_clan_troops_unlock"
       text="Clan Troops" />
@@ -1899,10 +1923,10 @@
       text="Determines how item unlock notifications are shown." />
     <string
       id="ret_mcm_option_kingdom_troops_availability"
-      text="Kingdom Troops Availability" />
+      text="Your Kingdom Troops" />
     <string
       id="ret_mcm_option_kingdom_troops_availability_hint"
-      text="Determines where kingdom troops can be recruited from." />
+      text="Where YOU can recruit your kingdom&apos;s custom troops (as its ruler). Other clans are controlled by the &apos;AI Clans&apos; Custom Troops&apos; setting below." />
     <string
       id="ret_mcm_option_kingdom_troops_unlock"
       text="Kingdom Troops" />

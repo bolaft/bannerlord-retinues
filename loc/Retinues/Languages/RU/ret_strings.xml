@@ -23,6 +23,24 @@
       id="ret_ai_retinue_loot_title"
       text="{CLAN} разграбил ваших павших" />
     <string
+      id="ret_ai_troops_everywhere"
+      text="Везде" />
+    <string
+      id="ret_ai_troops_everywhere_hint"
+      text="Любой клан со своим древом использует его во всех своих отрядах, где бы он ни нанимал (новобранцы преобразуются ежедневно)." />
+    <string
+      id="ret_ai_troops_off"
+      text="Выкл." />
+    <string
+      id="ret_ai_troops_off_hint"
+      text="Другие кланы всегда нанимают обычные культурные войска, даже те, которым вы задали своё древо." />
+    <string
+      id="ret_ai_troops_their_fiefs"
+      text="Их владения" />
+    <string
+      id="ret_ai_troops_their_fiefs_hint"
+      text="Владения клана предлагают пользовательские войска этого клана. Любой лорд, нанимающий там, получает их; наём в других местах даёт войска того владения или культурные войска." />
+    <string
       id="ret_allowed_recruiters_everyone"
       text="Все" />
     <string
@@ -1691,6 +1709,12 @@
       id="ret_mcm_option_ai_clan_retinue_min_tier_hint"
       text="Минимальный уровень клана (1-6), необходимый для наличия собственной свиты у клана неигрока." />
     <string
+      id="ret_mcm_option_ai_clan_troops_availability"
+      text="Пользовательские войска ИИ-кланов" />
+    <string
+      id="ret_mcm_option_ai_clan_troops_availability_hint"
+      text="Как ДРУГИЕ кланы с пользовательскими войсками (например, настроенные вами кланы вашего королевства) их используют. Ваш собственный наём использует две настройки выше." />
+    <string
       id="ret_mcm_option_allowed_recruiters"
       text="Разрешенные рекрутеры" />
     <string
@@ -1722,10 +1746,10 @@
       text="Определяет, сколько обычных войск должно быть выставлено, прежде чем появится еще один капитан." />
     <string
       id="ret_mcm_option_clan_troops_availability"
-      text="Доступность отрядов клана" />
+      text="Ваши войска клана" />
     <string
       id="ret_mcm_option_clan_troops_availability_hint"
-      text="Определяет, откуда можно вербовать отряды клана." />
+      text="Где ВЫ можете нанимать пользовательские войска своего клана. Другие кланы управляются настройкой «Пользовательские войска ИИ-кланов» ниже." />
     <string
       id="ret_mcm_option_clan_troops_unlock"
       text="Отряды клана" />
@@ -1902,10 +1926,10 @@
       text="Определяет, как отображаются уведомления о разблокировке предмета." />
     <string
       id="ret_mcm_option_kingdom_troops_availability"
-      text="Доступность королевских войск" />
+      text="Ваши войска королевства" />
     <string
       id="ret_mcm_option_kingdom_troops_availability_hint"
-      text="Определяет, откуда можно набирать королевские войска." />
+      text="Где ВЫ (как правитель) можете нанимать пользовательские войска своего королевства. Другие кланы управляются настройкой «Пользовательские войска ИИ-кланов» ниже." />
     <string
       id="ret_mcm_option_kingdom_troops_unlock"
       text="Королевские войска" />

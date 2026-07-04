@@ -23,6 +23,24 @@
       id="ret_ai_retinue_loot_title"
       text="{CLAN} splądrowało twoich poległych" />
     <string
+      id="ret_ai_troops_everywhere"
+      text="Wszędzie" />
+    <string
+      id="ret_ai_troops_everywhere_hint"
+      text="Każdy klan z własnym drzewkiem wystawia je we wszystkich swoich oddziałach, niezależnie od miejsca rekrutacji (rekruci są przekształcani codziennie)." />
+    <string
+      id="ret_ai_troops_off"
+      text="Wyłączone" />
+    <string
+      id="ret_ai_troops_off_hint"
+      text="Inne klany zawsze rekrutują zwykłe jednostki kulturowe, nawet te, którym nadałeś własne drzewko." />
+    <string
+      id="ret_ai_troops_their_fiefs"
+      text="Ich lenna" />
+    <string
+      id="ret_ai_troops_their_fiefs_hint"
+      text="Lenna klanu oferują własne jednostki tego klanu. Każdy lord rekrutujący tam je otrzyma; rekrutacja gdzie indziej daje jednostki tego lenna lub jednostki kulturowe." />
+    <string
       id="ret_allowed_recruiters_everyone"
       text="Wszyscy" />
     <string
@@ -1691,6 +1709,12 @@
       id="ret_mcm_option_ai_clan_retinue_min_tier_hint"
       text="Minimalny poziom klanu (1-6) wymagany, aby klan niebędący graczem miał własną świtę." />
     <string
+      id="ret_mcm_option_ai_clan_troops_availability"
+      text="Własne jednostki klanów SI" />
+    <string
+      id="ret_mcm_option_ai_clan_troops_availability_hint"
+      text="Jak INNE klany mające własne jednostki (np. skonfigurowane przez ciebie klany w twoim królestwie) je wystawiają. Twoja własna rekrutacja korzysta z dwóch ustawień powyżej." />
+    <string
       id="ret_mcm_option_allowed_recruiters"
       text="Dozwoleni rekruterzy" />
     <string
@@ -1722,10 +1746,10 @@
       text="Określa, ile regularnych oddziałów musi być wystawionych, zanim pojawi się kolejny kapitan." />
     <string
       id="ret_mcm_option_clan_troops_availability"
-      text="Dostępność oddziałów klanowych" />
+      text="Twoje jednostki klanu" />
     <string
       id="ret_mcm_option_clan_troops_availability_hint"
-      text="Określa, skąd można rekrutować oddziały klanowe." />
+      text="Gdzie TY możesz rekrutować własne jednostki klanu. Inne klany kontroluje ustawienie „Własne jednostki klanów SI” poniżej." />
     <string
       id="ret_mcm_option_clan_troops_unlock"
       text="Oddziały klanowe" />
@@ -1902,10 +1926,10 @@
       text="Określa, jak wyświetlane są powiadomienia o odblokowaniu przedmiotu." />
     <string
       id="ret_mcm_option_kingdom_troops_availability"
-      text="Dostępność oddziałów królestwa" />
+      text="Twoje jednostki królestwa" />
     <string
       id="ret_mcm_option_kingdom_troops_availability_hint"
-      text="Określa, skąd można rekrutować oddziały królestwa." />
+      text="Gdzie TY (jako władca) możesz rekrutować jednostki swojego królestwa. Inne klany kontroluje ustawienie „Własne jednostki klanów SI” poniżej." />
     <string
       id="ret_mcm_option_kingdom_troops_unlock"
       text="Oddziały Królestwa" />

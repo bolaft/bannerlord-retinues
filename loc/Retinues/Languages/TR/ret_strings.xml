@@ -23,6 +23,24 @@
       id="ret_ai_retinue_loot_title"
       text="{CLAN} Düşenlerinizi Yağmaladı" />
     <string
+      id="ret_ai_troops_everywhere"
+      text="Her yerde" />
+    <string
+      id="ret_ai_troops_everywhere_hint"
+      text="Özel ağacı olan her klan, nerede asker almış olursa olsun, bunu tüm müfrezelerinde kullanır (yeni askerler her gün dönüştürülür)." />
+    <string
+      id="ret_ai_troops_off"
+      text="Kapalı" />
+    <string
+      id="ret_ai_troops_off_hint"
+      text="Diğer klanlar, özel bir ağaç verdikleriniz dahil, her zaman sıradan kültür birlikleri alır." />
+    <string
+      id="ret_ai_troops_their_fiefs"
+      text="Kendi Tımarları" />
+    <string
+      id="ret_ai_troops_their_fiefs_hint"
+      text="Bir klanın tımarları o klanın özel birliklerini sunar. Orada asker alan her lort bunları alır; başka yerde asker almak o tımarın birliklerini veya kültür birliklerini verir." />
+    <string
       id="ret_allowed_recruiters_everyone"
       text="Herkes" />
     <string
@@ -1691,6 +1709,12 @@
       id="ret_mcm_option_ai_clan_retinue_min_tier_hint"
       text="Oyuncu olmayan bir klanın kendi maiyetine sahip olması için gereken minimum klan kademesi (1-6)." />
     <string
+      id="ret_mcm_option_ai_clan_troops_availability"
+      text="YZ Klanlarının Özel Birlikleri" />
+    <string
+      id="ret_mcm_option_ai_clan_troops_availability_hint"
+      text="Özel birlikleri olan DİĞER klanların (örn. krallığınızda kendi ayarladığınız klanlar) bunları nasıl kullandığı. Kendi askere almanız yukarıdaki iki ayarı kullanır." />
+    <string
       id="ret_mcm_option_allowed_recruiters"
       text="İzin Verilen İşe Alımcılar" />
     <string
@@ -1722,10 +1746,10 @@
       text="Başka bir kaptanın ortaya çıkabilmesi için kaç tane normal birliğin sahaya sürülmesi gerektiğini belirler." />
     <string
       id="ret_mcm_option_clan_troops_availability"
-      text="Klan Birlikleri Kullanılabilirliği" />
+      text="Kendi Klan Birlikleriniz" />
     <string
       id="ret_mcm_option_clan_troops_availability_hint"
-      text="Klan birliklerinin nereden toplanabileceğini belirler." />
+      text="KENDİ klanınızın özel birliklerini nerede askere alabileceğiniz. Diğer klanlar aşağıdaki &quot;YZ Klanlarının Özel Birlikleri&quot; ayarıyla kontrol edilir." />
     <string
       id="ret_mcm_option_clan_troops_unlock"
       text="Klan Birlikleri" />
@@ -1902,10 +1926,10 @@
       text="Öğe kilidi açma bildirimlerinin nasıl gösterileceğini belirler." />
     <string
       id="ret_mcm_option_kingdom_troops_availability"
-      text="Krallık Birlikleri Kullanılabilirliği" />
+      text="Kendi Krallık Birlikleriniz" />
     <string
       id="ret_mcm_option_kingdom_troops_availability_hint"
-      text="Krallık birliklerinin nereden alınabileceğini belirler." />
+      text="Hükümdar olarak krallığınızın özel birliklerini nerede askere alabileceğiniz. Diğer klanlar aşağıdaki &quot;YZ Klanlarının Özel Birlikleri&quot; ayarıyla kontrol edilir." />
     <string
       id="ret_mcm_option_kingdom_troops_unlock"
       text="Krallık Birlikleri" />

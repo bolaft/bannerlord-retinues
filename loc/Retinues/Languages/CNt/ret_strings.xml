@@ -23,6 +23,24 @@
       id="ret_ai_retinue_loot_title"
       text="{CLAN} 掠奪了你的陣亡者" />
     <string
+      id="ret_ai_troops_everywhere"
+      text="任何地方" />
+    <string
+      id="ret_ai_troops_everywhere_hint"
+      text="任何擁有自訂兵種樹的氏族都會在其所有隊伍中使用它，無論在何處招募（新兵每日轉換）。" />
+    <string
+      id="ret_ai_troops_off"
+      text="關閉" />
+    <string
+      id="ret_ai_troops_off_hint"
+      text="其他氏族始終招募普通的文化部隊，即使你為其設定了自訂兵種樹。" />
+    <string
+      id="ret_ai_troops_their_fiefs"
+      text="其領地" />
+    <string
+      id="ret_ai_troops_their_fiefs_hint"
+      text="一個氏族的領地會提供該氏族的自訂部隊。任何在此招募的領主都能獲得；在別處招募則獲得該地的部隊或文化部隊。" />
+    <string
       id="ret_allowed_recruiters_everyone"
       text="所有人" />
     <string
@@ -1691,6 +1709,12 @@
       id="ret_mcm_option_ai_clan_retinue_min_tier_hint"
       text="非玩家族擁有自身隠從所需的最低族階級（1-6）。" />
     <string
+      id="ret_mcm_option_ai_clan_troops_availability"
+      text="AI 氏族的自訂部隊" />
+    <string
+      id="ret_mcm_option_ai_clan_troops_availability_hint"
+      text="擁有自訂部隊的其他氏族（例如你在王國中設定過的氏族）如何使用它們。你自己的招募由上方兩個設定控制。" />
+    <string
       id="ret_mcm_option_allowed_recruiters"
       text="允許的招募者" />
     <string
@@ -1722,10 +1746,10 @@
       text="確定在生成另一個船長之前必須部署多少正規部隊。" />
     <string
       id="ret_mcm_option_clan_troops_availability"
-      text="氏族部隊可用性" />
+      text="你的氏族部隊" />
     <string
       id="ret_mcm_option_clan_troops_availability_hint"
-      text="決定氏族部隊可以從哪裡招募。" />
+      text="你可以在何處招募自己氏族的自訂部隊。其他氏族由下方的「AI 氏族自訂部隊」設定控制。" />
     <string
       id="ret_mcm_option_clan_troops_unlock"
       text="氏族部隊" />
@@ -1902,10 +1926,10 @@
       text="確定物品解鎖通知的顯示方式。" />
     <string
       id="ret_mcm_option_kingdom_troops_availability"
-      text="王國部隊可用性" />
+      text="你的王國部隊" />
     <string
       id="ret_mcm_option_kingdom_troops_availability_hint"
-      text="確定王國部隊可以從哪裡招募。" />
+      text="作為統治者，你可以在何處招募王國的自訂部隊。其他氏族由下方的「AI 氏族自訂部隊」設定控制。" />
     <string
       id="ret_mcm_option_kingdom_troops_unlock"
       text="王國部隊" />

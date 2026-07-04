@@ -82,6 +82,12 @@ namespace Retinues.Behaviors.Volunteers.Models
                 if (ws.GetBaseTroopsFaction() == null)
                     return inner;
 
+                // This base pool is what NON-player recruiters draw from (the player's own recruit
+                // menu is overridden separately by PlayerVolunteerSwapState). Honor the AI setting:
+                // 'Off' means AI clans never field custom troops.
+                if (Configuration.AIClanTroopsAvailability.Value == Configuration.AITroopsMode.Off)
+                    return inner;
+
                 // Decide whether we want elite-root pool or basic-root pool.
                 // Use the inner result to infer elite vs basic when possible.
                 bool wantElite = false;

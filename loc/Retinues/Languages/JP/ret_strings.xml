@@ -23,6 +23,24 @@
       id="ret_ai_retinue_loot_title"
       text="{CLAN} があなたの戦死者を略奪しました" />
     <string
+      id="ret_ai_troops_everywhere"
+      text="どこでも" />
+    <string
+      id="ret_ai_troops_everywhere_hint"
+      text="カスタムツリーを持つ氏族は、どこで徴兵したかに関わらず、すべての部隊でそれを運用します（新兵は毎日変換されます）。" />
+    <string
+      id="ret_ai_troops_off"
+      text="オフ" />
+    <string
+      id="ret_ai_troops_off_hint"
+      text="他の氏族は、あなたがカスタムツリーを設定した場合でも、常に通常の文化兵を徴兵します。" />
+    <string
+      id="ret_ai_troops_their_fiefs"
+      text="自領地" />
+    <string
+      id="ret_ai_troops_their_fiefs_hint"
+      text="氏族の領地では、その氏族のカスタム兵が提供されます。そこで徴兵する領主は誰でもそれを得られます。他所で徴兵するとその領地の兵か文化兵になります。" />
+    <string
       id="ret_allowed_recruiters_everyone"
       text="全員" />
     <string
@@ -1691,6 +1709,12 @@
       id="ret_mcm_option_ai_clan_retinue_min_tier_hint"
       text="非プレイヤー氏族が徨側を持つために必要な最低氏族ランク（1～6）。" />
     <string
+      id="ret_mcm_option_ai_clan_troops_availability"
+      text="AI氏族のカスタム兵" />
+    <string
+      id="ret_mcm_option_ai_clan_troops_availability_hint"
+      text="カスタム兵を持つ他の氏族（例：あなたが設定した王国内の氏族）がそれをどう運用するか。あなた自身の徴兵は上の2つの設定を使用します。" />
+    <string
       id="ret_mcm_option_allowed_recruiters"
       text="許可されたリクルーター" />
     <string
@@ -1722,10 +1746,10 @@
       text="別のキャプテンがスポーンする前に、どれだけの通常部隊を配備する必要があるかを決定します。" />
     <string
       id="ret_mcm_option_clan_troops_availability"
-      text="クラン部隊の可用性" />
+      text="あなたの氏族兵" />
     <string
       id="ret_mcm_option_clan_troops_availability_hint"
-      text="クラン部隊をどこから募集できるかを決定します。" />
+      text="あなた自身の氏族のカスタム兵をどこで徴兵できるか。他の氏族は下の「AI氏族のカスタム兵」設定で制御されます。" />
     <string
       id="ret_mcm_option_clan_troops_unlock"
       text="クラン部隊" />
@@ -1902,10 +1926,10 @@
       text="アイテムアンロック通知の表示方法を決定します。" />
     <string
       id="ret_mcm_option_kingdom_troops_availability"
-      text="王国の部隊の可用性" />
+      text="あなたの王国兵" />
     <string
       id="ret_mcm_option_kingdom_troops_availability_hint"
-      text="王国の部隊をどこから募集できるかを決定します。" />
+      text="統治者として、王国のカスタム兵をどこで徴兵できるか。他の氏族は下の「AI氏族のカスタム兵」設定で制御されます。" />
     <string
       id="ret_mcm_option_kingdom_troops_unlock"
       text="王国の部隊" />
