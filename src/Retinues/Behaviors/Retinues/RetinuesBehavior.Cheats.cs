@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Retinues.Domain;
 using Retinues.Domain.Factions.Wrappers;
+using Retinues.Settings;
 using TaleWorlds.Library;
 
 namespace Retinues.Behaviors.Retinues
@@ -27,6 +28,33 @@ namespace Retinues.Behaviors.Retinues
             Player.Clan.AddRetinue(created);
 
             return $"Created new retinue '{retinueName}' for player clan based on culture '{culture.Name}'.";
+        }
+
+        [CommandLineFunctionality.CommandLineArgumentFunction("unlock_retinue", "retinues")]
+        public static string UnlockRetinueCommand(List<string> args)
+        {
+            if (args.Count < 1)
+                return "Usage: unlock_retinue <culture_stringid>";
+
+            var cultureId = args[0];
+
+            var culture = WCulture.Get(cultureId);
+            if (culture == null)
+                return $"Error: Culture with stringid '{cultureId}' not found.";
+
+            if (!Configuration.EnableRetinues)
+                return "Error: retinues are disabled (EnableRetinues is off).";
+
+            if (!TryGetInstance(out var behavior))
+                return "Error: RetinuesBehavior is not registered in the current campaign.";
+
+            // Idempotent: returns the existing retinue of this culture if the player clan already
+            // has one, otherwise creates a default-named one and adds it to the clan.
+            var retinue = behavior.EnsureRetinueExistsForCulture(culture);
+            if (retinue?.Base == null)
+                return $"Error: could not unlock a retinue for culture '{culture.Name}'.";
+
+            return $"Unlocked retinue '{retinue.Name}' for player clan (culture '{culture.Name}').";
         }
     }
 }
