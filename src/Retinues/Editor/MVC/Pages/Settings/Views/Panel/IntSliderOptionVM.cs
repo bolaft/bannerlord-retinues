@@ -72,11 +72,53 @@ namespace Retinues.Editor.MVC.Pages.Settings.Views.Panel
                 Option.SetObject(snapped);
                 OnPropertyChanged(nameof(IntValue));
                 OnPropertyChanged(nameof(ValueText));
+                OnPropertyChanged(nameof(ValueInput));
             }
         }
 
         [DataSourceProperty]
         public override string ValueText => IntValue.ToString(CultureInfo.InvariantCulture);
+
+        [DataSourceProperty]
+        public override string ValueInput
+        {
+            get => ValueText;
+            set
+            {
+                if (Option == null || IsDisabled)
+                    return;
+
+                // Ignore partial/invalid input (empty, "-", mid-typing) so the user can keep typing.
+                if (
+                    !int.TryParse(
+                        (value ?? string.Empty).Trim(),
+                        NumberStyles.Integer | NumberStyles.AllowLeadingSign,
+                        CultureInfo.InvariantCulture,
+                        out int parsed
+                    )
+                )
+                    return;
+
+                int min = IntMin;
+                int max = IntMax;
+                int step = GetStepForRange(max);
+
+                if (parsed < min)
+                    parsed = min;
+                else if (parsed > max)
+                    parsed = max;
+
+                int snapped = SnapToStepMultipleInRange(parsed, min, max, step, SnapMode.Nearest);
+                if (snapped == IntValue)
+                    return;
+
+                Option.SetObject(snapped);
+                // Move the slider to match, but do NOT raise ValueInput here: that would overwrite
+                // the text the user is actively typing.
+                OnPropertyChanged(nameof(IntValue));
+                OnPropertyChanged(nameof(ValueText));
+            }
+        }
 
         private static int GetStepForRange(int max) =>
             max >= LargeStepThresholdMax ? LargeStep : SmallStep;
@@ -152,6 +194,7 @@ namespace Retinues.Editor.MVC.Pages.Settings.Views.Panel
         {
             OnPropertyChanged(nameof(IntValue));
             OnPropertyChanged(nameof(ValueText));
+            OnPropertyChanged(nameof(ValueInput));
         }
     }
 }

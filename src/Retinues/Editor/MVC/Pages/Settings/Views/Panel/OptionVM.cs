@@ -112,6 +112,18 @@ namespace Retinues.Editor.MVC.Pages.Settings.Views.Panel
         [DataSourceProperty]
         public virtual string ValueText => string.Empty;
 
+        /// <summary>
+        /// Editable value text for numeric sliders. The slider VMs override the setter to parse and
+        /// apply typed input; other option types leave it read-only. Lets the user type an exact
+        /// value instead of relying on a pixel-perfect slider drag.
+        /// </summary>
+        [DataSourceProperty]
+        public virtual string ValueInput
+        {
+            get => ValueText;
+            set { }
+        }
+
         [DataSourceProperty]
         public virtual string SelectedLabel => string.Empty;
 

@@ -69,12 +69,54 @@ namespace Retinues.Editor.MVC.Pages.Settings.Views.Panel
                 Option.SetObject(snapped);
                 OnPropertyChanged(nameof(FloatValue));
                 OnPropertyChanged(nameof(ValueText));
+                OnPropertyChanged(nameof(ValueInput));
             }
         }
 
         [DataSourceProperty]
         public override string ValueText =>
             (FloatValue * 100f).ToString("0", CultureInfo.InvariantCulture) + "%";
+
+        [DataSourceProperty]
+        public override string ValueInput
+        {
+            get => ValueText;
+            set
+            {
+                if (Option == null || IsDisabled)
+                    return;
+
+                // Displayed as a percentage; accept the input the same way (a trailing % is fine).
+                var text = (value ?? string.Empty).Trim().TrimEnd('%').Trim();
+                if (
+                    !float.TryParse(
+                        text,
+                        NumberStyles.Float,
+                        CultureInfo.InvariantCulture,
+                        out float pct
+                    )
+                )
+                    return;
+
+                float parsed = pct / 100f;
+                float min = FloatMin;
+                float max = FloatMax;
+
+                if (parsed < min)
+                    parsed = min;
+                else if (parsed > max)
+                    parsed = max;
+
+                float snapped = SnapToStepMultipleInRange(parsed, min, max, Step, SnapMode.Nearest);
+                if (Math.Abs(snapped - FloatValue) <= float.Epsilon)
+                    return;
+
+                Option.SetObject(snapped);
+                // Move the slider to match, but do NOT raise ValueInput here (keep the typed text).
+                OnPropertyChanged(nameof(FloatValue));
+                OnPropertyChanged(nameof(ValueText));
+            }
+        }
 
         private enum SnapMode
         {
@@ -157,6 +199,7 @@ namespace Retinues.Editor.MVC.Pages.Settings.Views.Panel
         {
             OnPropertyChanged(nameof(FloatValue));
             OnPropertyChanged(nameof(ValueText));
+            OnPropertyChanged(nameof(ValueInput));
         }
     }
 }

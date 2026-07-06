@@ -84,22 +84,25 @@
             VerticalAlignment="Center"
             MarginLeft="40">
             <Children>
-                <BrushWidget 
+                <BrushWidget
                     WidthSizePolicy="StretchToParent"
                     HeightSizePolicy="StretchToParent"
+                    DoNotAcceptEvents="false"
                     Brush="Barter.AmountInput.Input"
-                    ClipContents="false" />
-
-                <TextWidget
-                    WidthSizePolicy="StretchToParent"
-                    HeightSizePolicy="StretchToParent"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Brush="Barter.AmountInput.Text"
-                    Brush.FontSize="20"
-                    Text="@ValueText"
-                    ClipContents="false"
-                    DoNotAcceptEvents="true" />
+                    ClipContents="false">
+                    <Children>
+                        <EditableTextWidget
+                            WidthSizePolicy="StretchToParent"
+                            HeightSizePolicy="StretchToParent"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Brush="Barter.AmountInput.Text"
+                            Brush.FontSize="20"
+                            Text="@ValueInput"
+                            ClipContents="false"
+                            UpdateChildrenStates="true" />
+                    </Children>
+                </BrushWidget>
             </Children>
         </Widget>
 
