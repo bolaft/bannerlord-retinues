@@ -71,11 +71,16 @@ namespace Retinues.Domain.Characters.Services.Cloning
             stub.UpgradeTargets = [];
             SetBaseUpgradeTargets(stub, []);
 
-            // Body: serialize from source, apply to stub (also breaks shared refs)
+            // Body: serialize from source, apply to stub (also breaks shared refs).
+            // Go through the attribute's Set (not the raw ApplySerializedBodyEnvelope helper) so the
+            // body attribute is created AND marked dirty here. Otherwise the body is only persisted
+            // if the clone's dirty Culture/Race/Age happen to propagate to it lazily — a fragile
+            // chain that, if it misses, drops the body from the save so the troop reloads with a
+            // zeroed body (age 0 → "children") and no face/hair tags.
             try
             {
                 var body = source.SerializeBodyEnvelope();
-                stub.ApplySerializedBodyEnvelope(body);
+                stub.BodySerializedAttribute.Set(body);
             }
             catch (Exception ex)
             {
