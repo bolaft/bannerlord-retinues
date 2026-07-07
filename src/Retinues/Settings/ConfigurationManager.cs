@@ -495,6 +495,10 @@ namespace Retinues.Settings
             StringComparer.OrdinalIgnoreCase
         );
 
+        // Throttled settings-panel refresh (UIEvent.Settings) for slider drags.
+        private static bool _pendingSettingsRefresh;
+        private static double _lastSettingsFireTime;
+
         /// <summary>
         /// Handles option value changes by persisting and notifying listeners.
         /// </summary>
@@ -552,7 +556,14 @@ namespace Retinues.Settings
                 try
                 {
                     if (EditorScreen.IsOpen)
-                        EventManager.Fire(UIEvent.Settings);
+                    {
+                        // Sliders fire many changes while dragging; throttle the settings-panel
+                        // refresh (flushed in Tick) instead of rebuilding it on every tick.
+                        if (IsSliderType(opt.Type))
+                            _pendingSettingsRefresh = true;
+                        else
+                            EventManager.Fire(UIEvent.Settings);
+                    }
                 }
                 catch { }
 
@@ -613,7 +624,11 @@ namespace Retinues.Settings
             if (opt.Fires == null || opt.Fires.Length == 0)
                 return;
 
-            if (opt.Type != typeof(float) && opt.Type != typeof(double))
+            // Non-slider options (bool/enum) are discrete single actions: fire immediately.
+            // Slider options (int/float/double) can fire hundreds of changes while dragging, so
+            // they must be throttled — previously only float/double were, leaving int sliders
+            // (e.g. skill total / skill cap) firing UIEvent.Skill unthrottled on every tick.
+            if (!IsSliderType(opt.Type))
             {
                 _lastUiEventFireTime[key] = NowSeconds();
                 FireUIEventsIfNeeded(key);
@@ -650,6 +665,25 @@ namespace Retinues.Settings
             catch
             {
                 // ignore
+            }
+
+            // Flush the throttled settings-panel refresh queued by slider drags.
+            if (_pendingSettingsRefresh)
+            {
+                double nowSettings = NowSeconds();
+                if (nowSettings - _lastSettingsFireTime >= EventThrottleSeconds)
+                {
+                    _pendingSettingsRefresh = false;
+                    _lastSettingsFireTime = nowSettings;
+                    try
+                    {
+                        EventManager.Fire(UIEvent.Settings);
+                    }
+                    catch
+                    {
+                        // ignore
+                    }
+                }
             }
 
             if (_pendingUiEventKeys.Count == 0)

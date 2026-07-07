@@ -82,7 +82,12 @@ namespace Retinues.Editor.Events
 
             [UIEvent.Equipment] = [UIEvent.Item, UIEvent.BattleType],
 
-            [UIEvent.Item] = [UIEvent.Appearance, UIEvent.Formation],
+            // Item changes only need the light equipment refresh on the preview model
+            // (ColumnVM.RefreshEquipmentOnModel listens to UIEvent.Item and calls SetEquipment).
+            // They must NOT cascade to Appearance: that triggers a full CharacterViewModel.FillFrom
+            // rebuild on every single item transfer, which is what caused the ~1s lag per click.
+            // Character/Culture/Gender changes still reach Appearance through their own cascades.
+            [UIEvent.Item] = [UIEvent.Formation],
 
             [UIEvent.Culture] = [UIEvent.Appearance],
 
