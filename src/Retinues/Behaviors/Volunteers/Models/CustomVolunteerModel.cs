@@ -172,5 +172,41 @@ namespace Retinues.Behaviors.Volunteers.Models
                 Log.Exception(ex, "Recruitement: failed to install VolunteerModel wrapper.");
             }
         }
+
+        /// <summary>
+        /// Ensures the campaign's active VolunteerModel is wrapped by CustomVolunteerModel.
+        /// Call this once the campaign is running (all models registered). Some mods register their
+        /// VolunteerModel via the generic AddModel&lt;T&gt; overload, which our AddModel(GameModel)
+        /// patch never sees, so their model can end up as the active one — this re-wraps it. Done by
+        /// swapping the cached Campaign.Current.Models.VolunteerModel (the instance the game actually
+        /// uses) rather than Harmony-patching a generic method, which cannot be patched safely.
+        /// </summary>
+        public static void EnsureWrapsActiveModel()
+        {
+            try
+            {
+                var models = Campaign.Current?.Models;
+                if (models == null)
+                    return;
+
+                var current = models.VolunteerModel;
+                if (current == null || current is CustomVolunteerModel)
+                    return;
+
+                Reflection.SetPropertyValue(
+                    models,
+                    nameof(models.VolunteerModel),
+                    new CustomVolunteerModel(current)
+                );
+
+                Log.Info(
+                    $"Recruitement: wrapped active VolunteerModel (inner={current.GetType().Name})."
+                );
+            }
+            catch (Exception ex)
+            {
+                Log.Exception(ex, "Recruitement: EnsureWrapsActiveModel failed.");
+            }
+        }
     }
 }

@@ -1,6 +1,8 @@
+using Retinues.Behaviors.Volunteers.Models;
 using Retinues.Domain.Parties.Wrappers;
 using Retinues.Domain.Settlements.Wrappers;
 using Retinues.Framework.Behaviors;
+using TaleWorlds.CampaignSystem;
 
 namespace Retinues.Behaviors.Volunteers
 {
@@ -9,6 +11,16 @@ namespace Retinues.Behaviors.Volunteers
     /// </summary>
     internal sealed class PlayerVolunteersBehavior : BaseCampaignBehavior
     {
+        /// <summary>
+        /// Once the campaign is running (all mods' models registered), make sure the active
+        /// VolunteerModel is wrapped by ours — catches models registered via the generic AddModel
+        /// overload (e.g. Adonnay's Troop Changer) that our AddModel(GameModel) patch can't see.
+        /// </summary>
+        protected override void OnSessionLaunched(CampaignGameStarter starter)
+        {
+            CustomVolunteerModel.EnsureWrapsActiveModel();
+        }
+
         /// <summary>
         /// Restores player volunteer snapshot when the main party leaves a settlement.
         /// </summary>
