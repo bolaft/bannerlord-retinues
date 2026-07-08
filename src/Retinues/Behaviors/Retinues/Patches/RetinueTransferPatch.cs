@@ -128,6 +128,8 @@ namespace Retinues.Behaviors.Retinues.Patches
                 bool otherIsReal = otherOwner != null;
                 bool currentIsMainParty =
                     currentOwner != null && currentOwner.MobileParty == MobileParty.MainParty;
+                bool otherIsMainParty =
+                    otherOwner != null && otherOwner.MobileParty == MobileParty.MainParty;
 
                 // Special case: creating a clan party for a hero.
                 if (
@@ -141,24 +143,23 @@ namespace Retinues.Behaviors.Retinues.Patches
                     return;
                 }
 
-                // Case A: both sides are real parties (garrison, donate, create party, clan party, etc.)
-                // → never allow retinues to transfer in such screens.
+                // Case A: both sides are real parties (garrison, donate, create party, clan party, etc.).
                 if (currentIsReal && otherIsReal)
                 {
-                    if (currentIsMainParty || !currentIsMainParty)
-                    {
-                        __result = false;
-                        return;
-                    }
-                }
+                    // Always allow pulling a retinue OUT of a non-main party back into the main party.
+                    // This covers foreign retinues that end up in a garrison the player captured (the
+                    // troop type stays flagged as a retinue), so they can be extracted and dismissed.
+                    if (otherIsMainParty && !currentIsMainParty)
+                        return; // leave __result = true
 
-                // Case B: retinue belongs to a non-main party (should not normally happen).
-                // As a safety net, prevent further transfers so they don't spread.
-                if (currentIsReal && !currentIsMainParty)
-                {
+                    // Otherwise never let retinues move between real parties (no donating into a
+                    // garrison, no garrison → garrison, etc.).
                     __result = false;
                     return;
                 }
+
+                // Case B: retinue sits on a non-main real party with a dummy roster on the other side
+                // (e.g. a garrison-only manage screen). Leave __result as-is so it can still be removed.
 
                 // Case C: only one real party + one dummy roster.
                 // - Default main-party manage/dismiss screen: RightOwnerParty = MainParty, LeftOwnerParty = null
