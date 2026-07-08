@@ -395,6 +395,11 @@ namespace Retinues.Behaviors.Retinues
                     Name = name,
                     CultureContext = culture,
                     CopySkills = true,
+                    // Scale skills to the tier's full budget instead of running them through the
+                    // player-facing StarterSkills mode. Without this, an AI retinue inherits the
+                    // player's "Low"/"Minimal" starter-skill setting and ends up with barely-there
+                    // skills (only enough to wield its gear) regardless of its tier.
+                    FillSkillsToTotal = true,
                     CreateCivilianSet = true,
                     UnlockItems = false,
                     NotifyUnlocks = false,

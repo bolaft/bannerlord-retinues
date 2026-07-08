@@ -224,7 +224,17 @@ namespace Retinues.Domain.Equipments.Services.Random
                     };
                 }
 
-                var predicate = ItemRandomizer.And(forceFamily, noDup);
+                // A troop never benefits from a second shield. If one is already placed in an earlier
+                // weapon slot, exclude shields from this slot — leaving it empty (or a real weapon) is
+                // better than the "two shields" loadout that mirroring a two-shield source produces.
+                Func<WItem, bool> noSecondShield = HasShieldInWeaponSlots(me)
+                    ? it => it != null && !it.IsShield
+                    : null;
+
+                var predicate = ItemRandomizer.And(
+                    ItemRandomizer.And(forceFamily, noDup),
+                    noSecondShield
+                );
 
                 var picked = ItemRandomizer.PickLikeSource(
                     owner,
@@ -248,7 +258,8 @@ namespace Retinues.Domain.Equipments.Services.Random
                     minItemTierOverride: minItemTierOverride
                 );
 
-                // If uniqueness made us fail, retry once without uniqueness (but KEEP family constraint).
+                // If uniqueness made us fail, retry once without uniqueness (but KEEP the family and
+                // no-second-shield constraints, so the relaxed retry can't reintroduce a duplicate shield).
                 if (picked == null && noDup != null)
                 {
                     picked = ItemRandomizer.PickLikeSource(
@@ -268,7 +279,7 @@ namespace Retinues.Domain.Equipments.Services.Random
                         valueLimit,
                         reuseContext,
                         preferUnlocked,
-                        extraPredicate: forceFamily,
+                        extraPredicate: ItemRandomizer.And(forceFamily, noSecondShield),
                         maxItemTierOverride: maxItemTierOverride,
                         minItemTierOverride: minItemTierOverride
                     );
@@ -391,27 +402,39 @@ namespace Retinues.Domain.Equipments.Services.Random
                 return me;
             }
 
-            var harness = ItemRandomizer.PickLikeSource(
-                owner,
-                me,
-                EquipmentIndex.HorseHarness,
-                false,
-                srcHarness,
-                cultureIds,
-                acceptNeutralCulture,
-                requireSkillForItem,
-                finalFilter,
-                pickBest,
-                weightLimitActive,
-                weightLimit,
-                valueLimitActive,
-                valueLimit,
-                reuseContext,
-                preferUnlocked,
-                extraPredicate: it => it.IsHorseHarness && it.IsCompatibleWith(horse),
-                maxItemTierOverride: maxItemTierOverride,
-                minItemTierOverride: minItemTierOverride
-            );
+            // Require a POSITIVE mount-family match between harness and horse. WItem.IsCompatibleWith
+            // is deliberately permissive (returns true when either family is unreadable), which lets a
+            // camel harness slip onto a horse. Here we would rather leave the mount unbarded than show
+            // a mismatched harness, so an unreadable family fails the predicate instead of passing it.
+            var horseFamily = horse.HorseComponent?.Monster?.FamilyType;
+
+            var harness =
+                horseFamily == null
+                    ? null
+                    : ItemRandomizer.PickLikeSource(
+                        owner,
+                        me,
+                        EquipmentIndex.HorseHarness,
+                        false,
+                        srcHarness,
+                        cultureIds,
+                        acceptNeutralCulture,
+                        requireSkillForItem,
+                        finalFilter,
+                        pickBest,
+                        weightLimitActive,
+                        weightLimit,
+                        valueLimitActive,
+                        valueLimit,
+                        reuseContext,
+                        preferUnlocked,
+                        extraPredicate: it =>
+                            it.IsHorseHarness
+                            && it.ArmorComponent != null
+                            && it.ArmorComponent.FamilyType == horseFamily.Value,
+                        maxItemTierOverride: maxItemTierOverride,
+                        minItemTierOverride: minItemTierOverride
+                    );
 
             me.Set(EquipmentIndex.HorseHarness, harness);
             return me;
@@ -447,6 +470,21 @@ namespace Retinues.Domain.Equipments.Services.Random
             {
                 var w = me.Get(WeaponSlots[i]);
                 if (w != null && w.StringId == itemId)
+                    return true;
+            }
+
+            return false;
+        }
+
+        private static bool HasShieldInWeaponSlots(MEquipment me)
+        {
+            if (me == null)
+                return false;
+
+            for (int i = 0; i < WeaponSlots.Length; i++)
+            {
+                var w = me.Get(WeaponSlots[i]);
+                if (w != null && w.IsShield)
                     return true;
             }
 
