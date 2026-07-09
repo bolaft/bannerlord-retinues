@@ -486,15 +486,16 @@ namespace Retinues.Framework.Model.Persistence
                 if (mi == null)
                     return;
 
-                // 🔒 This is a persistence restore, not a generic import
-                MBase<IModel>.IsRestoringFromPersistence = true;
+                // Mark a restore in progress so attributes stay dirty and are re-saved. (Imports get
+                // the same treatment via MBase.Deserialize entering the scope itself.)
+                MRestoreScope.Enter();
                 try
                 {
                     mi.Invoke(wrapperInstance, [data]);
                 }
                 finally
                 {
-                    MBase<IModel>.IsRestoringFromPersistence = false;
+                    MRestoreScope.Exit();
                 }
             }
 

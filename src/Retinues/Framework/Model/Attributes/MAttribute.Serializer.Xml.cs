@@ -222,7 +222,7 @@ namespace Retinues.Framework.Model.Attributes
             var raw = (string)el.Attribute("v") ?? el.Value;
             raw = (raw ?? string.Empty).Trim();
 
-            bool restoring = MBase<IModel>.IsRestoringFromPersistence;
+            bool restoring = MRestoreScope.IsActive;
 
             /// <summary>
             /// Marks the attribute as clean if not restoring.

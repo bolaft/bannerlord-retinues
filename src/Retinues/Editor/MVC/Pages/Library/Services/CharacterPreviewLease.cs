@@ -103,6 +103,12 @@ namespace Retinues.Editor.MVC.Pages.Library.Services
                 stub.Deserialize(payload);
                 stub.HiddenInEncyclopedia = true;
 
+                // Preview only: the payload values are applied for rendering, but this stub must
+                // never be written to the save. Deserialize keeps attributes dirty (so real imports
+                // persist), so clear the dirty flags here — the values remain, they just won't be
+                // saved if an autosave fires while the preview lease is held.
+                stub.MarkAllAttributesClean();
+
                 return new Lease(stub, snapshot);
             }
             catch

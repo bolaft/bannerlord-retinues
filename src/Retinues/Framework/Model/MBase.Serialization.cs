@@ -11,27 +11,11 @@ namespace Retinues.Framework.Model
     {
         const string ModelXmlVersion = "1.0";
 
-        // Depth counter, NOT a bool: Deserialize can nest (a troop's EquipmentsSerialized setter
-        // deserializes each MEquipment). With a bool, the inner deserialize's finally would reset
-        // the flag to false mid-restore, so every attribute the outer object applies afterward gets
-        // wrongly marked "clean" and is then dropped from the next save — reverting name/body/skills
-        // to defaults ("baby troops"). A counter keeps the flag true until the outermost restore ends.
-        [ThreadStatic]
-        private static int _restoreDepth;
-
-        // Setting true enters a restore scope, false exits it; nesting is tracked by the counter so
-        // an inner Deserialize (e.g. equipment sets) exiting does not clear an outer restore scope.
-        public static bool IsRestoringFromPersistence
-        {
-            get => _restoreDepth > 0;
-            set
-            {
-                if (value)
-                    _restoreDepth++;
-                else if (_restoreDepth > 0)
-                    _restoreDepth--;
-            }
-        }
+        // Whether a persistence restore OR an import is currently applying attributes. Backed by the
+        // NON-generic MRestoreScope so every MBase<T> and MAttribute share one counter (see that
+        // class for why a per-generic static silently broke imports). Kept as a thin shim for
+        // readers; writers should use MRestoreScope.Enter/Exit directly.
+        public static bool IsRestoringFromPersistence => MRestoreScope.IsActive;
 
         static readonly object CacheLock = new();
         static readonly Dictionary<Type, PropertyInfo[]> AttributePropertyCache = [];
@@ -114,15 +98,14 @@ namespace Retinues.Framework.Model
                 if (root == null || (string)root.Attribute("v") != ModelXmlVersion)
                     return data;
 
-                _restoreDepth++;
+                MRestoreScope.Enter();
                 try
                 {
                     ApplyXml(root);
                 }
                 finally
                 {
-                    if (_restoreDepth > 0)
-                        _restoreDepth--;
+                    MRestoreScope.Exit();
                 }
 
                 return data;
