@@ -1721,6 +1721,12 @@
       id="ret_mcm_option_allowed_recruiters_hint"
       text="Özel birlik toplayabilecekleri belirler." />
     <string
+      id="ret_mcm_option_body_mod_compatibility"
+      text="Vücut Modu Uyumluluğu" />
+    <string
+      id="ret_mcm_option_body_mod_compatibility_hint"
+      text="Bir vücut modu kullanırken özel birlikler bozuk görünüyorsa etkinleştirin. Bu durumda birlik başına vücut düzenlemeleri yok sayılır." />
+    <string
       id="ret_mcm_option_buff_retinue_health"
       text="Maiyet Sağlığını Güçlendir" />
     <string
@@ -1946,6 +1952,9 @@
       id="ret_mcm_option_max_troop_tier"
       text="Maksimum Birlik Kademesi" />
     <string
+      id="ret_mcm_option_max_troop_tier_hint"
+      text="Özel bir birliğin ulaşabileceği en yüksek kademe." />
+    <string
       id="ret_mcm_option_min_tier_for_mounts"
       text="Binekler İçin Minimum Seviye" />
     <string
@@ -2128,6 +2137,12 @@
     <string
       id="ret_mcm_option_weight_limit_hint"
       text="Toplam ekipman ağırlığını sınırlayıp sınırlamayacağı (sınırlamalar seviye tabanlıdır)." />
+    <string
+      id="ret_mcm_section_compatibility"
+      text="Uyumluluk" />
+    <string
+      id="ret_mcm_section_compatibility_desc"
+      text="Diğer modlarla uyumluluk seçenekleri." />
     <string
       id="ret_mcm_section_doctrines"
       text="Doktrinler" />

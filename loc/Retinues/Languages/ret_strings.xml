@@ -1733,6 +1733,9 @@
       id="ret_mcm_option_body_mod_compatibility"
       text="Body Mod Compatibility" />
     <string
+      id="ret_mcm_option_body_mod_compatibility_hint"
+      text="Enable if custom troops look broken while using a body mod. Per-troop body edits are then ignored." />
+    <string
       id="ret_mcm_option_buff_retinue_health"
       text="Buff Retinue Health" />
     <string
@@ -1959,7 +1962,7 @@
       text="Max Troop Tier" />
     <string
       id="ret_mcm_option_max_troop_tier_hint"
-      text="Highest tier a custom elite troop can reach (basic troops cap one lower)." />
+      text="Highest tier a custom troop can reach." />
     <string
       id="ret_mcm_option_min_tier_for_mounts"
       text="Minimum Tier For Mounts" />

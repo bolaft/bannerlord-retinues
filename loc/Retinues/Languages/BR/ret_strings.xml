@@ -1721,6 +1721,12 @@
       id="ret_mcm_option_allowed_recruiters_hint"
       text="Determina quem pode recrutar tropas personalizadas." />
     <string
+      id="ret_mcm_option_body_mod_compatibility"
+      text="Compatibilidade com Mods de Corpo" />
+    <string
+      id="ret_mcm_option_body_mod_compatibility_hint"
+      text="Ative se suas tropas personalizadas aparecerem quebradas ao usar um mod de corpo. As edições de corpo por tropa são então ignoradas." />
+    <string
       id="ret_mcm_option_buff_retinue_health"
       text="Aumentar saúde do séquito" />
     <string
@@ -1946,6 +1952,9 @@
       id="ret_mcm_option_max_troop_tier"
       text="Nível máximo de tropa" />
     <string
+      id="ret_mcm_option_max_troop_tier_hint"
+      text="O nível máximo que uma tropa personalizada pode alcançar." />
+    <string
       id="ret_mcm_option_min_tier_for_mounts"
       text="Nível Mínimo Para Montarias" />
     <string
@@ -2128,6 +2137,12 @@
     <string
       id="ret_mcm_option_weight_limit_hint"
       text="Se deve limitar o peso total do equipamento (os limites são baseados em níveis)." />
+    <string
+      id="ret_mcm_section_compatibility"
+      text="Compatibilidade" />
+    <string
+      id="ret_mcm_section_compatibility_desc"
+      text="Opções de interoperabilidade com outros mods." />
     <string
       id="ret_mcm_section_doctrines"
       text="Doutrinas" />

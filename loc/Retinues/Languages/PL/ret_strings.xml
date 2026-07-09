@@ -1721,6 +1721,12 @@
       id="ret_mcm_option_allowed_recruiters_hint"
       text="Określa, kto może werbować niestandardowe oddziały." />
     <string
+      id="ret_mcm_option_body_mod_compatibility"
+      text="Zgodność z modami ciała" />
+    <string
+      id="ret_mcm_option_body_mod_compatibility_hint"
+      text="Włącz, jeśli własne jednostki wyświetlają się nieprawidłowo przy modzie ciała. Edycje ciała poszczególnych jednostek są wtedy ignorowane." />
+    <string
       id="ret_mcm_option_buff_retinue_health"
       text="Wzmocnij zdrowie świty" />
     <string
@@ -1946,6 +1952,9 @@
       id="ret_mcm_option_max_troop_tier"
       text="Maksymalny poziom jednostki" />
     <string
+      id="ret_mcm_option_max_troop_tier_hint"
+      text="Najwyższy poziom, jaki może osiągnąć własna jednostka." />
+    <string
       id="ret_mcm_option_min_tier_for_mounts"
       text="Minimalny poziom dla wierzchowców" />
     <string
@@ -2128,6 +2137,12 @@
     <string
       id="ret_mcm_option_weight_limit_hint"
       text="Czy ograniczyć całkowitą wagę ekwipunku (limity są oparte na poziomach)." />
+    <string
+      id="ret_mcm_section_compatibility"
+      text="Zgodność" />
+    <string
+      id="ret_mcm_section_compatibility_desc"
+      text="Opcje współpracy z innymi modami." />
     <string
       id="ret_mcm_section_doctrines"
       text="Doktryny" />

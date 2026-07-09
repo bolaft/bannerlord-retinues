@@ -1721,6 +1721,12 @@
       id="ret_mcm_option_allowed_recruiters_hint"
       text="Determina chi può reclutare truppe personalizzate." />
     <string
+      id="ret_mcm_option_body_mod_compatibility"
+      text="Compatibilità con le mod del corpo" />
+    <string
+      id="ret_mcm_option_body_mod_compatibility_hint"
+      text="Attiva se le truppe personalizzate appaiono difettose usando una mod del corpo. Le modifiche al corpo per singola truppa vengono quindi ignorate." />
+    <string
       id="ret_mcm_option_buff_retinue_health"
       text="Potenzia la salute del seguito" />
     <string
@@ -1946,6 +1952,9 @@
       id="ret_mcm_option_max_troop_tier"
       text="Livello massimo delle truppe" />
     <string
+      id="ret_mcm_option_max_troop_tier_hint"
+      text="Il livello massimo che una truppa personalizzata può raggiungere." />
+    <string
       id="ret_mcm_option_min_tier_for_mounts"
       text="Livello minimo per le cavalcature" />
     <string
@@ -2128,6 +2137,12 @@
     <string
       id="ret_mcm_option_weight_limit_hint"
       text="Se limitare il peso totale dell&apos;equipaggiamento (i limiti sono basati sui livelli)." />
+    <string
+      id="ret_mcm_section_compatibility"
+      text="Compatibilità" />
+    <string
+      id="ret_mcm_section_compatibility_desc"
+      text="Opzioni per l&apos;interoperabilità con altre mod." />
     <string
       id="ret_mcm_section_doctrines"
       text="Dottrine" />

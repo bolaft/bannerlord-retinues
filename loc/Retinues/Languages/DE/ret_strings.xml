@@ -1721,6 +1721,12 @@
       id="ret_mcm_option_allowed_recruiters_hint"
       text="Legt fest, wer benutzerdefinierte Truppen rekrutieren kann." />
     <string
+      id="ret_mcm_option_body_mod_compatibility"
+      text="Body-Mod-Kompatibilität" />
+    <string
+      id="ret_mcm_option_body_mod_compatibility_hint"
+      text="Aktivieren, wenn benutzerdefinierte Truppen mit einem Body-Mod fehlerhaft aussehen. Körperanpassungen pro Truppe werden dann ignoriert." />
+    <string
       id="ret_mcm_option_buff_retinue_health"
       text="Gefolge-Gesundheit stärken" />
     <string
@@ -1946,6 +1952,9 @@
       id="ret_mcm_option_max_troop_tier"
       text="Maximale Truppenstufe" />
     <string
+      id="ret_mcm_option_max_troop_tier_hint"
+      text="Die höchste Stufe, die eine benutzerdefinierte Truppe erreichen kann." />
+    <string
       id="ret_mcm_option_min_tier_for_mounts"
       text="Mindeststufe für Reittiere" />
     <string
@@ -2128,6 +2137,12 @@
     <string
       id="ret_mcm_option_weight_limit_hint"
       text="Ob das Gesamtgewicht der Ausrüstung begrenzt werden soll (Grenzen basieren auf Stufen)." />
+    <string
+      id="ret_mcm_section_compatibility"
+      text="Kompatibilität" />
+    <string
+      id="ret_mcm_section_compatibility_desc"
+      text="Optionen für die Zusammenarbeit mit anderen Mods." />
     <string
       id="ret_mcm_section_doctrines"
       text="Doktrinen" />

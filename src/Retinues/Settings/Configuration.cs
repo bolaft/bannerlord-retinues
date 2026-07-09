@@ -1660,8 +1660,7 @@ namespace Retinues.Settings
             name: L.F("mcm_option_body_mod_compatibility", "Body Mod Compatibility"),
             description: L.F(
                 "mcm_option_body_mod_compatibility_hint",
-                "Enable if custom troops look broken while using a body mod. Per-troop body edits "
-                    + "are then ignored."
+                "Enable if custom troops look broken while using a body mod. Per-troop body edits are then ignored."
             ),
             @default: false
         );

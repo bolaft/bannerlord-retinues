@@ -1721,6 +1721,12 @@
       id="ret_mcm_option_allowed_recruiters_hint"
       text="カスタム兵を募集できる人を決めます。" />
     <string
+      id="ret_mcm_option_body_mod_compatibility"
+      text="ボディModの互換性" />
+    <string
+      id="ret_mcm_option_body_mod_compatibility_hint"
+      text="ボディModの使用中にカスタム兵が正しく表示されない場合に有効化してください。有効化すると兵ごとのボディ編集は無視されます。" />
+    <string
       id="ret_mcm_option_buff_retinue_health"
       text="徨側の体力を強化" />
     <string
@@ -1946,6 +1952,9 @@
       id="ret_mcm_option_max_troop_tier"
       text="兵の最大ランク" />
     <string
+      id="ret_mcm_option_max_troop_tier_hint"
+      text="カスタム兵が到達できる最大ランク。" />
+    <string
       id="ret_mcm_option_min_tier_for_mounts"
       text="マウントの最低ティア" />
     <string
@@ -2128,6 +2137,12 @@
     <string
       id="ret_mcm_option_weight_limit_hint"
       text="総装備重量を制限するかどうか（制限はティアベースです）。" />
+    <string
+      id="ret_mcm_section_compatibility"
+      text="互換性" />
+    <string
+      id="ret_mcm_section_compatibility_desc"
+      text="他のModとの互換性に関する設定。" />
     <string
       id="ret_mcm_section_doctrines"
       text="ドクトリン" />

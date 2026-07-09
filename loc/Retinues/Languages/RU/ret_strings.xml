@@ -1721,6 +1721,12 @@
       id="ret_mcm_option_allowed_recruiters_hint"
       text="Определяет, кто может вербовать нестандартных воинов." />
     <string
+      id="ret_mcm_option_body_mod_compatibility"
+      text="Совместимость с модами тела" />
+    <string
+      id="ret_mcm_option_body_mod_compatibility_hint"
+      text="Включите, если пользовательские войска отображаются некорректно с модом тела. Индивидуальные изменения тела при этом игнорируются." />
+    <string
       id="ret_mcm_option_buff_retinue_health"
       text="Усилить здоровье свиты" />
     <string
@@ -1946,6 +1952,9 @@
       id="ret_mcm_option_max_troop_tier"
       text="Максимальный уровень войск" />
     <string
+      id="ret_mcm_option_max_troop_tier_hint"
+      text="Максимальный уровень, которого может достичь пользовательское войско." />
+    <string
       id="ret_mcm_option_min_tier_for_mounts"
       text="Минимальный уровень для ездовых животных" />
     <string
@@ -2128,6 +2137,12 @@
     <string
       id="ret_mcm_option_weight_limit_hint"
       text="Ограничивать ли общий вес снаряжения (ограничения основаны на уровнях)." />
+    <string
+      id="ret_mcm_section_compatibility"
+      text="Совместимость" />
+    <string
+      id="ret_mcm_section_compatibility_desc"
+      text="Параметры совместимости с другими модами." />
     <string
       id="ret_mcm_section_doctrines"
       text="Доктрины" />

@@ -1721,6 +1721,12 @@
       id="ret_mcm_option_allowed_recruiters_hint"
       text="커스텀 병사를 모집할 수 있는 사람을 결정합니다." />
     <string
+      id="ret_mcm_option_body_mod_compatibility"
+      text="신체 모드 호환성" />
+    <string
+      id="ret_mcm_option_body_mod_compatibility_hint"
+      text="신체 모드 사용 시 커스텀 병사가 깨져 보이면 활성화하세요. 활성화하면 병사별 신체 편집은 무시됩니다." />
+    <string
       id="ret_mcm_option_buff_retinue_health"
       text="수행원 체력 강화" />
     <string
@@ -1946,6 +1952,9 @@
       id="ret_mcm_option_max_troop_tier"
       text="병사 최대 등급" />
     <string
+      id="ret_mcm_option_max_troop_tier_hint"
+      text="커스텀 병사가 도달할 수 있는 최대 등급." />
+    <string
       id="ret_mcm_option_min_tier_for_mounts"
       text="탑승을 위한 최소 등급" />
     <string
@@ -2128,6 +2137,12 @@
     <string
       id="ret_mcm_option_weight_limit_hint"
       text="총 장비 무게를 제한할지 여부(제한은 티어 기반임)." />
+    <string
+      id="ret_mcm_section_compatibility"
+      text="호환성" />
+    <string
+      id="ret_mcm_section_compatibility_desc"
+      text="다른 모드와의 호환성 옵션입니다." />
     <string
       id="ret_mcm_section_doctrines"
       text="교리" />

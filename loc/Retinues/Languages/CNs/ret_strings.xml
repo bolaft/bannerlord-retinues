@@ -1721,6 +1721,12 @@
       id="ret_mcm_option_allowed_recruiters_hint"
       text="决定谁可以招募自定义部队。" />
     <string
+      id="ret_mcm_option_body_mod_compatibility"
+      text="身形模组兼容性" />
+    <string
+      id="ret_mcm_option_body_mod_compatibility_hint"
+      text="使用身形模组时若自定义兵种显示异常，请启用此选项。启用后将忽略各兵种的身形编辑。" />
+    <string
       id="ret_mcm_option_buff_retinue_health"
       text="增强从际生命值" />
     <string
@@ -1946,6 +1952,9 @@
       id="ret_mcm_option_max_troop_tier"
       text="兵种最高等级" />
     <string
+      id="ret_mcm_option_max_troop_tier_hint"
+      text="自定义兵种可达到的最高等级。" />
+    <string
       id="ret_mcm_option_min_tier_for_mounts"
       text="坐骑的最低等级" />
     <string
@@ -2128,6 +2137,12 @@
     <string
       id="ret_mcm_option_weight_limit_hint"
       text="是否限制总装备重量（限制基于等级）。" />
+    <string
+      id="ret_mcm_section_compatibility"
+      text="兼容性" />
+    <string
+      id="ret_mcm_section_compatibility_desc"
+      text="与其他模组的兼容性选项。" />
     <string
       id="ret_mcm_section_doctrines"
       text="学说" />
