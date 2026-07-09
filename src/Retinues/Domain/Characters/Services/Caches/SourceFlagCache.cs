@@ -98,11 +98,17 @@ namespace Retinues.Domain.Characters.Services.Caches
                     MarkMany(culture.RosterCivilian, TroopSourceFlags.Civilian);
                 }
 
-                // Same for clan rosters.
+                // Same for clan rosters. Include the non-tree custom rosters (militia/caravan/
+                // villager): a clan can own custom militia etc. via CustomMeleeMilitiaTroopAttribute
+                // and friends. Marking them here is what lets stub allocation see them as in-use
+                // even if their IsActiveStub flag was lost, so an import never reuses one.
                 foreach (var clan in WClan.All)
                 {
                     MarkMany(clan.RosterBasic, TroopSourceFlags.Basic);
                     MarkMany(clan.RosterElite, TroopSourceFlags.Elite);
+                    MarkMany(clan.RosterMilitia, TroopSourceFlags.Militia);
+                    MarkMany(clan.RosterCaravan, TroopSourceFlags.Caravan);
+                    MarkMany(clan.RosterVillager, TroopSourceFlags.Villager);
                 }
 
                 // Same for kingdom rosters.
@@ -110,6 +116,9 @@ namespace Retinues.Domain.Characters.Services.Caches
                 {
                     MarkMany(kingdom.RosterBasic, TroopSourceFlags.Basic);
                     MarkMany(kingdom.RosterElite, TroopSourceFlags.Elite);
+                    MarkMany(kingdom.RosterMilitia, TroopSourceFlags.Militia);
+                    MarkMany(kingdom.RosterCaravan, TroopSourceFlags.Caravan);
+                    MarkMany(kingdom.RosterVillager, TroopSourceFlags.Villager);
                 }
 
                 // Retinues live on map-factions (clans/kingdoms).

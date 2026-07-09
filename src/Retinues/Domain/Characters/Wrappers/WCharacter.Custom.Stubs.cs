@@ -1,3 +1,4 @@
+using Retinues.Domain.Characters.Services.Caches;
 using Retinues.Framework.Model.Attributes;
 using TaleWorlds.CampaignSystem;
 
@@ -34,6 +35,16 @@ namespace Retinues.Domain.Characters.Wrappers
 
                 if (wc.IsActiveStub)
                     continue;
+
+                // Guard against a lost IsActiveStub flag: if the stub is still referenced by a
+                // faction roster (a tree node, militia, caravan, villager, retinue, ...), it is NOT
+                // free — handing it out would cross-link it into a second tree (e.g. an imported
+                // elite tree reusing a militia troop). Re-mark it active to repair the flag and skip.
+                if (wc.SourceFlags != TroopSourceFlags.None)
+                {
+                    wc.IsActiveStub = true;
+                    continue;
+                }
 
                 // Mark as active.
                 wc.IsActiveStub = true;
