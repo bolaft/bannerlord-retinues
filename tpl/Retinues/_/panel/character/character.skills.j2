@@ -74,17 +74,45 @@
             MarginRight="{{ big }}" MarginLeft="{{ big }}" MarginBottom="{{ small }}">
             <Children>
 
-                <SkillIconVisualWidget
-                    SkillId="@Id"
-                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
                     SuggestedWidth="{{ icon }}" SuggestedHeight="{{ icon }}"
-                    DoNotPassEventsToChildren="false"
                     MarginBottom="{{ margin }}">
                     <Children>
+
+                        {# Real icon (vanilla / DLC / mods that ship a skill icon). #}
+                        <SkillIconVisualWidget
+                            IsVisible="@HasIcon"
+                            SkillId="@Id"
+                            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                            SuggestedWidth="{{ icon }}" SuggestedHeight="{{ icon }}"
+                            DoNotPassEventsToChildren="false" />
+
+                        {# Fallback for skills with no icon (e.g. skills added by other mods): a
+                           framed square showing the skill's name. #}
+                        <Widget
+                            IsVisible="@ShowFallback"
+                            WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                            SuggestedWidth="{{ icon }}" SuggestedHeight="{{ icon }}"
+                            Sprite="frame_9">
+                            <Children>
+                                <TextWidget
+                                    Text="@FallbackLabel"
+                                    Brush="Encyclopedia.Skill.Text"
+                                    Brush.FontSize="16"
+                                    WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                                    SuggestedWidth="{{ textw }}" SuggestedHeight="{{ icon }}"
+                                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                                    ClipContents="true" />
+                            </Children>
+                        </Widget>
+
+                        {# Tooltip covers the whole square, whichever branch is shown. #}
                         <HintWidget DataSource="{Tooltip}"
+                            WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
                             Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
+
                     </Children>
-                </SkillIconVisualWidget>
+                </Widget>
 
                 <ListPanel WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren"
                     StackLayout.LayoutMethod="HorizontalLeftToRight"

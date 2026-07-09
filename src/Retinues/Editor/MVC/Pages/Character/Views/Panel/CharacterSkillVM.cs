@@ -19,6 +19,18 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.Panel
         [DataSourceProperty]
         public Tooltip Tooltip => new(skill.Name.ToString());
 
+        // True when the game has a real icon sprite for this skill. Modded skills that ship no icon
+        // are false, so the grid shows a labelled square instead of an empty cell.
+        [DataSourceProperty]
+        public bool HasIcon => Sprites.HasSkillIcon(skill?.StringId);
+
+        [DataSourceProperty]
+        public bool ShowFallback => !HasIcon;
+
+        // Skill name shown in the fallback square when there is no icon.
+        [DataSourceProperty]
+        public string FallbackLabel => skill?.Name?.ToString() ?? string.Empty;
+
         [EventListener(UIEvent.Skill)]
         [DataSourceProperty]
         public Tooltip StagingTooltip =>

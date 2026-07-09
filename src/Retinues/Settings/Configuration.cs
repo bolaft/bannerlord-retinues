@@ -1531,12 +1531,10 @@ namespace Retinues.Settings
 
         public static readonly Option<int> MaxTroopTier = CreateOption(
             section: SkillTotals,
-            name: L.F("mcm_option_max_troop_tier", "Maximum Troop Tier"),
+            name: L.F("mcm_option_max_troop_tier", "Max Troop Tier"),
             description: L.F(
                 "mcm_option_max_troop_tier_hint",
-                "Highest tier a custom elite troop can reach (basic troops cap one tier lower). "
-                    + "Raises the game's tier cap on its own — no other mod required. If another "
-                    + "tier-unlocker mod sets a higher cap, that higher cap is kept."
+                "Highest tier a custom troop can reach."
             ),
             minValue: 6,
             maxValue: 10,
@@ -1641,6 +1639,31 @@ namespace Retinues.Settings
             maxValue: 2880,
             @default: 2350,
             fires: [UIEvent.Skill]
+        );
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                      Compatibility                     //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public static readonly Section Compatibility = CreateSection(
+            name: L.F("mcm_section_compatibility", "Compatibility"),
+            description: L.F(
+                "mcm_section_compatibility_desc",
+                "Options for interoperability with other mods."
+            )
+        );
+
+        /* ━━━━━━━━ Options ━━━━━━━ */
+
+        public static readonly Option<bool> BodyModCompatibility = CreateOption(
+            section: Compatibility,
+            name: L.F("mcm_option_body_mod_compatibility", "Body Mod Compatibility"),
+            description: L.F(
+                "mcm_option_body_mod_compatibility_hint",
+                "Enable if custom troops look broken while using a body mod. Per-troop body edits "
+                    + "are then ignored."
+            ),
+            @default: false
         );
     }
 }

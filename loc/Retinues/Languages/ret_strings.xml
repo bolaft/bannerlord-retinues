@@ -1730,6 +1730,9 @@
       id="ret_mcm_option_allowed_recruiters_hint"
       text="Determines who can recruit custom troops." />
     <string
+      id="ret_mcm_option_body_mod_compatibility"
+      text="Body Mod Compatibility" />
+    <string
       id="ret_mcm_option_buff_retinue_health"
       text="Buff Retinue Health" />
     <string
@@ -1953,7 +1956,10 @@
       text="The maximum number of retinues as a ratio of the party size limit." />
     <string
       id="ret_mcm_option_max_troop_tier"
-      text="Maximum Troop Tier" />
+      text="Max Troop Tier" />
+    <string
+      id="ret_mcm_option_max_troop_tier_hint"
+      text="Highest tier a custom elite troop can reach (basic troops cap one lower)." />
     <string
       id="ret_mcm_option_min_tier_for_mounts"
       text="Minimum Tier For Mounts" />
@@ -2137,6 +2143,12 @@
     <string
       id="ret_mcm_option_weight_limit_hint"
       text="Whether to limit the total equipment weight (limits are tier-based)." />
+    <string
+      id="ret_mcm_section_compatibility"
+      text="Compatibility" />
+    <string
+      id="ret_mcm_section_compatibility_desc"
+      text="Options for interoperability with other mods." />
     <string
       id="ret_mcm_section_doctrines"
       text="Doctrines" />

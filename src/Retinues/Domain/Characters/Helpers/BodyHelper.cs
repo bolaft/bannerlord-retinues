@@ -1,5 +1,8 @@
 using System;
+using System.Collections.Generic;
 using Retinues.Domain.Characters.Wrappers;
+using Retinues.Framework.Runtime;
+using Retinues.Settings;
 using Retinues.Utilities;
 using TaleWorlds.Core;
 
@@ -7,6 +10,17 @@ namespace Retinues.Domain.Characters.Helpers
 {
     public static class BodyHelper
     {
+        // Transient (non-persisted) cache of each troop's real stored body while Body Mod
+        // Compatibility is on. The live body is swapped for the culture template for rendering, but
+        // we keep serializing the troop's own body so toggling the option never destroys custom
+        // appearances. Keyed by StringId; repopulated from the save on every load.
+        private static readonly Dictionary<string, string> _compatBodyCache = new(
+            StringComparer.Ordinal
+        );
+
+        [StaticClearAction]
+        public static void ClearCompatBodyCache() => _compatBodyCache.Clear();
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Culture                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -448,6 +462,19 @@ namespace Retinues.Domain.Characters.Helpers
 
             // Prefer the live MBBodyProperty if present; otherwise fall back to
             // CharacterObject's min/max helpers.
+            // Body Mod Compatibility: the live body was replaced with the culture template, but we
+            // persist the troop's real stored body (cached) so the option stays non-destructive.
+            if (Configuration.BodyModCompatibility)
+            {
+                var id = wc.Base?.StringId;
+                if (
+                    !string.IsNullOrEmpty(id)
+                    && _compatBodyCache.TryGetValue(id, out var cached)
+                    && !string.IsNullOrEmpty(cached)
+                )
+                    return cached;
+            }
+
             var range = GetBodyRangeOrNull(wc);
 
             BodyProperties min;
@@ -474,6 +501,27 @@ namespace Retinues.Domain.Characters.Helpers
         {
             if (wc == null)
                 return;
+
+            // Body-mod compatibility: a body-replacement mod (e.g. MC Amazon Body) swaps the body
+            // mesh, and our stored per-troop body envelope can render folded/broken on it. When the
+            // option is on, ignore the stored envelope and drive the body from the culture template
+            // instead (the body such mods are built for), keeping the troop's own race/gender/age.
+            if (Configuration.BodyModCompatibility)
+            {
+                // Remember the troop's real body so it is still what gets persisted (see
+                // SerializeBodyEnvelope), then render with the culture template instead.
+                var id = wc.Base?.StringId;
+                if (!string.IsNullOrEmpty(id))
+                {
+                    if (!string.IsNullOrEmpty(value))
+                        _compatBodyCache[id] = value;
+                    else
+                        _compatBodyCache.Remove(id);
+                }
+
+                ApplyTemplateBodyEnvelope(wc);
+                return;
+            }
 
             if (string.IsNullOrEmpty(value))
                 return;
@@ -514,6 +562,37 @@ namespace Retinues.Domain.Characters.Helpers
                 range.TattooTags = tattoo;
             }
 #endif
+        }
+
+        /// <summary>
+        /// Applies the culture template's body envelope (min/max) to the character, matching its
+        /// current gender/race, without altering its stored Race/Age attributes. Used by the
+        /// body-mod compatibility option so custom troops render with the standard culture body a
+        /// body-replacement mod expects instead of a stored per-troop body that renders broken.
+        /// </summary>
+        public static void ApplyTemplateBodyEnvelope(WCharacter wc)
+        {
+            if (wc == null)
+                return;
+
+            var culture = wc.Culture;
+
+            var template =
+                RaceHelper.FindTemplate(culture, wc.IsFemale, wc.Race)
+                ?? (wc.IsFemale ? culture?.VillageWoman : culture?.Villager)
+                ?? culture?.RootBasic
+                ?? culture?.RootElite;
+
+            if (template?.Base == null)
+                return;
+
+            var range = EnsureOwnBodyRange(wc);
+            range?.Init(
+                template.Base.GetBodyPropertiesMin(),
+                template.Base.GetBodyPropertiesMax()
+            );
+
+            ApplyTagsFromCulture(wc, template);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
