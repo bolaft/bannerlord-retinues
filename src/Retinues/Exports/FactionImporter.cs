@@ -248,12 +248,21 @@ namespace Retinues.Exports
             MirrorNode(srcRoot, dstRoot, srcById, childrenById, visited, ref imported);
 
             // Anything we could not place (extra roots, over-the-cap children, exhausted stub pool).
+            var unplaced = new List<string>();
             foreach (var e in src)
             {
                 var id = e?.SourceId;
                 if (!string.IsNullOrWhiteSpace(id) && !visited.Contains(id))
+                {
                     skippedTroops++;
+                    unplaced.Add(id);
+                }
             }
+
+            Log.Debug(
+                $"Faction import roster '{rosterKey}': imported={imported}/{src.Count}, "
+                    + $"unplaced=[{string.Join(",", unplaced)}]."
+            );
 
             return imported;
         }
