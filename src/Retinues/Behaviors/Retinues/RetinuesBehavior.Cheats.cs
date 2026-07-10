@@ -48,8 +48,11 @@ namespace Retinues.Behaviors.Retinues
             if (!TryGetInstance(out var behavior))
                 return "Error: RetinuesBehavior is not registered in the current campaign.";
 
-            // Idempotent: returns the existing retinue of this culture if the player clan already
-            // has one, otherwise creates a default-named one and adds it to the clan.
+            // Flag the culture as unlocked so its unlock progress stops accruing (otherwise
+            // workshops/fiefs in that culture keep counting toward a duplicate retinue), then
+            // ensure the retinue exists (idempotent: returns the existing one if present).
+            behavior.UnlockCulture(culture, showPopup: false);
+
             var retinue = behavior.EnsureRetinueExistsForCulture(culture);
             if (retinue?.Base == null)
                 return $"Error: could not unlock a retinue for culture '{culture.Name}'.";

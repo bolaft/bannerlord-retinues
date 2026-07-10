@@ -1,4 +1,5 @@
 using Retinues.Domain.Characters.Services.Cloning;
+using Retinues.Domain.Characters.Services.Skills;
 using Retinues.Domain.Characters.Wrappers;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
@@ -9,6 +10,42 @@ namespace Retinues.Tests.Cases
     /// <summary>Tests for skill persistence and clone isolation.</summary>
     public static class SkillTests
     {
+        [GameTest(
+            "MarinerSkillRoundTrips",
+            "persistence",
+            "A troop's Mariner skill value survives serialize -> rebuild -> deserialize (Naval DLC)"
+        )]
+        public static void MarinerSkillRoundTrips(GameTestContext ctx)
+        {
+            ctx.EnsureCampaign();
+
+            var mariner = MBObjectManager.Instance?.GetObject<SkillObject>(
+                SkillCatalog.MarinerSkillId
+            );
+            if (mariner == null)
+                return; // Naval DLC not loaded in this game; the Mariner skill doesn't exist.
+
+            using var sandbox = new TestSandbox();
+
+            var wc = sandbox.NewStub();
+            wc.IsMariner = true;
+            wc.Skills[mariner] = 66;
+
+            var saved = wc.Serialize();
+
+            // Wipe the value and force the skills container to rebuild from GetPersistedSkills, as it
+            // does on load. If Mariner isn't in that list, the saved value is dropped on deserialize.
+            wc.Skills[mariner] = 0;
+            wc.ClearSkillsCache();
+            wc.Deserialize(saved);
+
+            Tests.AssertEqual(
+                66,
+                wc.Skills[mariner],
+                "Mariner skill value round-trips even after the skills container is rebuilt."
+            );
+        }
+
         [GameTest(
             "SkillValueRoundTrips",
             "persistence",

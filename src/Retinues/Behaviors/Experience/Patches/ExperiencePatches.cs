@@ -8,6 +8,7 @@ using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.CampaignSystem.Roster;
 using TaleWorlds.Library;
+using TaleWorlds.MountAndBlade;
 
 namespace Retinues.Behaviors.Experience.Patches
 {
@@ -179,13 +180,17 @@ namespace Retinues.Behaviors.Experience.Patches
 #endif
 
         /// <summary>
-        /// Captures the XP the game grants to a troop stack and routes it to skill-point progress.
-        /// We read the requested <paramref name="xpAmount"/> (not the accepted delta) so at-cap
-        /// troops and top-of-tree retinues — whose roster XP the game would clamp to 0 — still earn.
-        /// This mirrors the pre-1.5 behavior of feeding skill points from all XP sources (combat in
-        /// any battle type, plus passive/training XP), which the per-hit GetXpFromHit hook missed.
-        /// Auto-resolve does not route troop XP through here (it goes through OnSimulationCombatKill,
-        /// handled by BattleSimulationXpBehavior), so there is no double-counting.
+        /// Captures the XP the game grants to a troop stack during a manual battle and routes it to
+        /// skill-point progress. We read the requested <paramref name="xpAmount"/> (not the accepted
+        /// delta) so at-cap troops and top-of-tree retinues — whose roster XP the game would clamp
+        /// to 0 — still earn.
+        ///
+        /// Gated on an active mission: manual combat routes troop XP through AddXpToTroopAtIndex
+        /// while a mission is running, whereas passive/garrison daily training routes through the
+        /// same method on the campaign map (no mission). Without this gate, troops earned skill
+        /// points while simply waiting in a town — and a large garrison's training grant produced
+        /// huge one-off skill-point jumps. Auto-resolve has no mission and is handled separately by
+        /// BattleSimulationXpBehavior, so there is no double-counting.
         /// </summary>
         [HarmonyPatch(typeof(TroopRoster), nameof(TroopRoster.AddXpToTroopAtIndex))]
         [HarmonyPostfix]
@@ -198,6 +203,10 @@ namespace Retinues.Behaviors.Experience.Patches
             try
             {
                 if (xpAmount <= 0 || __instance == null)
+                    return;
+
+                // Only count XP earned in an actual battle mission, not campaign-map training.
+                if (Mission.Current == null)
                     return;
 
                 if (index < 0 || index >= __instance.Count)

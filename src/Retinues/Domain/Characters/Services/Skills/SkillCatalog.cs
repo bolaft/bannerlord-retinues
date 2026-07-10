@@ -3,7 +3,6 @@ using System.Linq;
 using System.Reflection;
 using Retinues.Compatibility;
 using Retinues.Domain.Characters.Wrappers;
-using Retinues.Framework.Modules.Versions;
 using Retinues.Framework.Runtime;
 using TaleWorlds.Core;
 using TaleWorlds.ObjectSystem;
@@ -81,8 +80,12 @@ namespace Retinues.Domain.Characters.Services.Skills
         // "Boatswain" and "Shipmaster" remain hero-only.
         public const string MarinerSkillId = "Mariner";
 
+        // Eligible iff the Mariner troop skill actually exists in this game (added by the Naval DLC /
+        // War Sails on BL 1.4+). A direct object-manager lookup, NOT the module-list + game-version
+        // caches: those could read false during an early load and then silently drop a troop's saved
+        // Mariner value (the skill vanishes and the invested points are lost, while the flag stays).
         static bool IsMarinerTroopSkillEligible =>
-            Mods.NavalDLC.IsLoaded && GameVersion.IsAtLeast14();
+            MBObjectManager.Instance?.GetObject<SkillObject>(MarinerSkillId) != null;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Discovery                       //
@@ -227,13 +230,16 @@ namespace Retinues.Domain.Characters.Services.Skills
         {
             var list = GetSkills(character);
 
-            if (character == null || character.IsHero || !IsMarinerTroopSkillEligible)
+            if (character == null || character.IsHero)
                 return list;
 
             if (list.Any(s => s != null && s.StringId == MarinerSkillId))
                 return list;
 
-            var mariner = AllSkills.FirstOrDefault(s => s != null && s.StringId == MarinerSkillId);
+            // Always register the Mariner attribute when the skill exists, using a direct lookup
+            // rather than the cached AllSkills / eligibility flag. This guarantees a saved Mariner
+            // value round-trips even if the display-eligibility check reads false at load time.
+            var mariner = MBObjectManager.Instance?.GetObject<SkillObject>(MarinerSkillId);
             if (mariner != null)
                 list.Add(mariner);
 

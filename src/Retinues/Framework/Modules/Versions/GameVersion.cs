@@ -9,8 +9,20 @@ namespace Retinues.Framework.Modules.Versions
     {
         private static ApplicationVersion? _cached;
 
-        private static ApplicationVersion Current =>
-            _cached ??= ApplicationVersion.FromParametersFile();
+        // Resolve the engine version, but NEVER cache an Empty result: FromParametersFile can return
+        // Empty if called before the parameters file is ready during an early load, and caching that
+        // would leave IsAtLeast14() stuck false for the whole session (which, among other things,
+        // dropped troops' Mariner skill). Retry until we get a real version.
+        private static ApplicationVersion Current
+        {
+            get
+            {
+                if (_cached == null || _cached.Value == ApplicationVersion.Empty)
+                    _cached = ApplicationVersion.FromParametersFile();
+
+                return _cached.Value;
+            }
+        }
 
         /// <summary>
         /// Returns true if running on Bannerlord 1.4.x or later.

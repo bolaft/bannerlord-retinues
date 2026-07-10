@@ -68,6 +68,16 @@ namespace Retinues.Behaviors.Retinues
             if (IsUnlocked(id))
                 return;
 
+            // Self-heal: a retinue of this culture already exists (e.g. created via the console
+            // commands, which don't flag the culture) but it was never marked unlocked, so progress
+            // kept accruing toward a duplicate. Flag it unlocked and stop.
+            if (PlayerHasRetinueOfCulture(id))
+            {
+                _unlockedCultureIds.Add(id);
+                SetProgress(id, UnlockProgressTarget);
+                return;
+            }
+
             // Apply global multiplier.
             amount = (int)(amount * Configuration.RetinueUnlockSpeed);
             if (amount <= 0)
@@ -119,6 +129,33 @@ namespace Retinues.Behaviors.Retinues
 
             if (showPopup && created?.Base != null)
                 NotifyUnlockedPopup(created);
+        }
+
+        /// <summary>
+        /// Returns true if the player's clan (or ruled kingdom) already has a retinue of the given
+        /// culture. Used to stop unlock progress toward a culture the player already fields.
+        /// </summary>
+        private bool PlayerHasRetinueOfCulture(string cultureId)
+        {
+            if (string.IsNullOrEmpty(cultureId))
+                return false;
+
+            var clan = Player.Clan;
+            if (clan?.Base != null)
+                foreach (var r in clan.RosterRetinues)
+                    if (r?.Culture?.Base?.StringId == cultureId)
+                        return true;
+
+            if (Player.IsRuler)
+            {
+                var kingdom = Player.Kingdom;
+                if (kingdom?.Base != null)
+                    foreach (var r in kingdom.RosterRetinues)
+                        if (r?.Culture?.Base?.StringId == cultureId)
+                            return true;
+            }
+
+            return false;
         }
 
         /// <summary>
