@@ -84,6 +84,11 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
         // If list is "large", we can choose a filter strategy.
         private const int FastFilter_RebuildThresholdRows = 500;
 
+        // True while the headers hold only a filtered subset (rebuilt by the fast filter path).
+        // While set, filter changes must rebuild from the full item cache rather than the surviving
+        // rows, so clearing/broadening the filter restores the full list.
+        private bool _headersAreFilteredSubset;
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Lifecycle                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -161,6 +166,10 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
             BuildSortButtons();
             BuildSections();
             RecomputeHeaderStates();
+
+            // A full rebuild replaces the headers with the complete list, so we're no longer
+            // showing a filtered subset.
+            _headersAreFilteredSubset = false;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

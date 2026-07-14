@@ -2138,6 +2138,24 @@
       id="ret_mcm_option_weight_limit_hint"
       text="Se limitare il peso totale dell&apos;equipaggiamento (i limiti sono basati sui livelli)." />
     <string
+      id="ret_mcm_option_xp_from_auto_resolve"
+      text="Guadagna nella risoluzione automatica" />
+    <string
+      id="ret_mcm_option_xp_from_auto_resolve_hint"
+      text="Le truppe personalizzate guadagnano punti abilità dalle battaglie risolte automaticamente." />
+    <string
+      id="ret_mcm_option_xp_from_manual_battles"
+      text="Guadagna nelle battaglie manuali" />
+    <string
+      id="ret_mcm_option_xp_from_manual_battles_hint"
+      text="Le truppe personalizzate guadagnano punti abilità dalle battaglie che combatti di persona." />
+    <string
+      id="ret_mcm_option_xp_from_training"
+      text="Guadagna dall&apos;addestramento" />
+    <string
+      id="ret_mcm_option_xp_from_training_hint"
+      text="Solo le truppe personalizzate del tuo gruppo principale guadagnano punti abilità dall&apos;addestramento quotidiano. Disattivato per impostazione predefinita." />
+    <string
       id="ret_mcm_section_compatibility"
       text="Compatibilità" />
     <string

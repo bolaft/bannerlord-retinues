@@ -2138,6 +2138,24 @@
       id="ret_mcm_option_weight_limit_hint"
       text="Czy ograniczyć całkowitą wagę ekwipunku (limity są oparte na poziomach)." />
     <string
+      id="ret_mcm_option_xp_from_auto_resolve"
+      text="Zdobywaj w auto-rozstrzyganiu" />
+    <string
+      id="ret_mcm_option_xp_from_auto_resolve_hint"
+      text="Niestandardowe oddziały zdobywają punkty umiejętności w bitwach rozstrzyganych automatycznie." />
+    <string
+      id="ret_mcm_option_xp_from_manual_battles"
+      text="Zdobywaj w bitwach ręcznych" />
+    <string
+      id="ret_mcm_option_xp_from_manual_battles_hint"
+      text="Niestandardowe oddziały zdobywają punkty umiejętności w bitwach, które toczysz osobiście." />
+    <string
+      id="ret_mcm_option_xp_from_training"
+      text="Zdobywaj ze szkolenia" />
+    <string
+      id="ret_mcm_option_xp_from_training_hint"
+      text="Tylko niestandardowe oddziały w twojej głównej drużynie zdobywają punkty umiejętności z codziennego szkolenia. Domyślnie wyłączone." />
+    <string
       id="ret_mcm_section_compatibility"
       text="Zgodność" />
     <string

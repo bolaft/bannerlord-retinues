@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Retinues.Behaviors.Experience;
 using Retinues.Compatibility;
 using Retinues.Domain.Characters.Helpers;
 using Retinues.Domain.Characters.Services.Skills;
@@ -10,6 +11,7 @@ using Retinues.Editor.MVC.Shared.Controllers;
 using Retinues.Editor.MVC.Shared.Services.Appearance;
 using Retinues.Framework.Modules.Versions;
 using Retinues.Interface.Services;
+using Retinues.Settings;
 using TaleWorlds.Core;
 using TaleWorlds.Localization;
 
@@ -531,7 +533,18 @@ namespace Retinues.Editor.MVC.Pages.Character.Controllers
             if (skill == null)
                 return;
 
+            int current = wc.Base.GetSkillValue(skill);
             wc.MakeSkillAttribute(skill).Set(0);
+
+            // Refund the removed points to the pool, mirroring the manual skill reset, so disabling
+            // Mariner returns the invested points instead of silently burning them.
+            if (current > 0 && State.Mode == EditorMode.Player)
+            {
+                if (Configuration.SharedSkillPointsPool)
+                    SharedSkillPoolBehavior.SharedSkillPoints += current;
+                else
+                    wc.SkillPoints += current;
+            }
         }
     }
 }

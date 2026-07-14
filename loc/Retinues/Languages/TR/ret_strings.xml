@@ -2138,6 +2138,24 @@
       id="ret_mcm_option_weight_limit_hint"
       text="Toplam ekipman ağırlığını sınırlayıp sınırlamayacağı (sınırlamalar seviye tabanlıdır)." />
     <string
+      id="ret_mcm_option_xp_from_auto_resolve"
+      text="Otomatik çözümde kazan" />
+    <string
+      id="ret_mcm_option_xp_from_auto_resolve_hint"
+      text="Özel birlikler otomatik çözülen muharebelerden beceri puanı kazanır." />
+    <string
+      id="ret_mcm_option_xp_from_manual_battles"
+      text="Manuel savaşlarda kazan" />
+    <string
+      id="ret_mcm_option_xp_from_manual_battles_hint"
+      text="Özel birlikler bizzat savaştığınız muharebelerden beceri puanı kazanır." />
+    <string
+      id="ret_mcm_option_xp_from_training"
+      text="Eğitimden kazan" />
+    <string
+      id="ret_mcm_option_xp_from_training_hint"
+      text="Yalnızca ana müfrezenizdeki özel birlikler günlük eğitimden beceri puanı kazanır. Varsayılan olarak kapalı." />
+    <string
       id="ret_mcm_section_compatibility"
       text="Uyumluluk" />
     <string

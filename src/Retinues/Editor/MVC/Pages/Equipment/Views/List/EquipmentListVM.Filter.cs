@@ -54,7 +54,20 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
                 totalRows += Headers[i]?.Rows?.Count ?? 0;
 
             var filter = (FilterText ?? string.Empty).Trim();
-            if (string.IsNullOrWhiteSpace(filter) || totalRows < FastFilter_RebuildThresholdRows)
+
+            // Rebuild from the full item cache when the list is large and being filtered, OR whenever
+            // the headers currently hold a filtered subset. The latter is essential: once the fast
+            // path has rebuilt the headers down to the matches, an empty or broader filter must
+            // rebuild from the cache — ApplyFilter_Default would only un-hide the surviving rows, so
+            // clearing the filter would leave the list stuck on the previous matches.
+            var useRebuild =
+                _headersAreFilteredSubset
+                || (
+                    !string.IsNullOrWhiteSpace(filter)
+                    && totalRows >= FastFilter_RebuildThresholdRows
+                );
+
+            if (!useRebuild)
             {
                 ApplyFilter_Default();
                 return;
@@ -72,6 +85,10 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
 
             RecomputeHeaderStates();
             UpdateEquipmentHeaderExpansion();
+
+            // An empty filter rebuilt the full list; a non-empty one left a subset that later
+            // filter changes must keep rebuilding from the cache.
+            _headersAreFilteredSubset = !string.IsNullOrWhiteSpace(filter);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

@@ -2138,6 +2138,24 @@
       id="ret_mcm_option_weight_limit_hint"
       text="総装備重量を制限するかどうか（制限はティアベースです）。" />
     <string
+      id="ret_mcm_option_xp_from_auto_resolve"
+      text="自動解決で獲得" />
+    <string
+      id="ret_mcm_option_xp_from_auto_resolve_hint"
+      text="カスタム兵は自動解決の戦闘からスキルポイントを獲得します。" />
+    <string
+      id="ret_mcm_option_xp_from_manual_battles"
+      text="手動戦闘で獲得" />
+    <string
+      id="ret_mcm_option_xp_from_manual_battles_hint"
+      text="カスタム兵は自分で戦った戦闘からスキルポイントを獲得します。" />
+    <string
+      id="ret_mcm_option_xp_from_training"
+      text="訓練で獲得" />
+    <string
+      id="ret_mcm_option_xp_from_training_hint"
+      text="あなたの主部隊のカスタム兵のみが日々の訓練からスキルポイントを獲得します。既定ではオフです。" />
+    <string
       id="ret_mcm_section_compatibility"
       text="互換性" />
     <string

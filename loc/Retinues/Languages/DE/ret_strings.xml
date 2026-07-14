@@ -2138,6 +2138,24 @@
       id="ret_mcm_option_weight_limit_hint"
       text="Ob das Gesamtgewicht der Ausrüstung begrenzt werden soll (Grenzen basieren auf Stufen)." />
     <string
+      id="ret_mcm_option_xp_from_auto_resolve"
+      text="Bei automatischer Auflösung verdienen" />
+    <string
+      id="ret_mcm_option_xp_from_auto_resolve_hint"
+      text="Benutzerdefinierte Truppen erhalten Fertigkeitspunkte aus automatisch aufgelösten Schlachten." />
+    <string
+      id="ret_mcm_option_xp_from_manual_battles"
+      text="In manuellen Schlachten verdienen" />
+    <string
+      id="ret_mcm_option_xp_from_manual_battles_hint"
+      text="Benutzerdefinierte Truppen erhalten Fertigkeitspunkte aus Schlachten, die du selbst schlägst." />
+    <string
+      id="ret_mcm_option_xp_from_training"
+      text="Durch Training verdienen" />
+    <string
+      id="ret_mcm_option_xp_from_training_hint"
+      text="Nur die benutzerdefinierten Truppen deiner Hauptgruppe erhalten Fertigkeitspunkte durch das tägliche Training. Standardmäßig deaktiviert." />
+    <string
       id="ret_mcm_section_compatibility"
       text="Kompatibilität" />
     <string

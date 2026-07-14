@@ -62,6 +62,11 @@ namespace Retinues.Behaviors.Doctrines
 
             if (dataStore.IsLoading)
             {
+                // Clear any state carried over from a previously-played campaign in this session
+                // before applying this save's values, so the result reflects only this save (older
+                // saves may not contain every doctrine/feat key).
+                DoctrinesRegistry.ResetRuntimeState();
+
                 // Apply progress first.
                 foreach (var kvp in _doctrineProgress)
                 {
@@ -100,6 +105,16 @@ namespace Retinues.Behaviors.Doctrines
         protected override void OnSessionLaunched(CampaignGameStarter starter)
         {
             DoctrinesRegistry.EnsureRegistered();
+        }
+
+        /// <summary>
+        /// A brand-new campaign never runs SyncData(load), so the process-global doctrine/feat
+        /// singletons would otherwise keep the previous character's unlocked doctrines and feat
+        /// progress. Character creation only happens for new games (never on load), so reset here.
+        /// </summary>
+        protected override void OnCharacterCreationIsOver()
+        {
+            DoctrinesRegistry.ResetRuntimeState();
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

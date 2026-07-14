@@ -2138,6 +2138,24 @@
       id="ret_mcm_option_weight_limit_hint"
       text="Ограничивать ли общий вес снаряжения (ограничения основаны на уровнях)." />
     <string
+      id="ret_mcm_option_xp_from_auto_resolve"
+      text="Начислять при авторасчёте" />
+    <string
+      id="ret_mcm_option_xp_from_auto_resolve_hint"
+      text="Пользовательские войска получают очки навыков в боях, рассчитанных автоматически." />
+    <string
+      id="ret_mcm_option_xp_from_manual_battles"
+      text="Начислять в ручных боях" />
+    <string
+      id="ret_mcm_option_xp_from_manual_battles_hint"
+      text="Пользовательские войска получают очки навыков в боях, которые вы ведёте лично." />
+    <string
+      id="ret_mcm_option_xp_from_training"
+      text="Начислять за обучение" />
+    <string
+      id="ret_mcm_option_xp_from_training_hint"
+      text="Очки навыков за ежедневное обучение получают только пользовательские войска в вашем главном отряде. По умолчанию отключено." />
+    <string
       id="ret_mcm_section_compatibility"
       text="Совместимость" />
     <string

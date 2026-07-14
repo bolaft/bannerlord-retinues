@@ -2138,6 +2138,24 @@
       id="ret_mcm_option_weight_limit_hint"
       text="총 장비 무게를 제한할지 여부(제한은 티어 기반임)." />
     <string
+      id="ret_mcm_option_xp_from_auto_resolve"
+      text="자동 전투에서 획득" />
+    <string
+      id="ret_mcm_option_xp_from_auto_resolve_hint"
+      text="맞춤 병사는 자동 전투에서 기술 점수를 얻습니다." />
+    <string
+      id="ret_mcm_option_xp_from_manual_battles"
+      text="직접 전투에서 획득" />
+    <string
+      id="ret_mcm_option_xp_from_manual_battles_hint"
+      text="맞춤 병사는 직접 치른 전투에서 기술 점수를 얻습니다." />
+    <string
+      id="ret_mcm_option_xp_from_training"
+      text="훈련에서 획득" />
+    <string
+      id="ret_mcm_option_xp_from_training_hint"
+      text="당신의 주력 부대에 속한 맞춤 병사만 매일 훈련에서 기술 점수를 얻습니다. 기본값은 꺼짐입니다." />
+    <string
       id="ret_mcm_section_compatibility"
       text="호환성" />
     <string

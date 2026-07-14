@@ -2138,6 +2138,24 @@
       id="ret_mcm_option_weight_limit_hint"
       text="Se deve limitar o peso total do equipamento (os limites são baseados em níveis)." />
     <string
+      id="ret_mcm_option_xp_from_auto_resolve"
+      text="Ganhar em resolução automática" />
+    <string
+      id="ret_mcm_option_xp_from_auto_resolve_hint"
+      text="Tropas personalizadas ganham pontos de habilidade em batalhas resolvidas automaticamente." />
+    <string
+      id="ret_mcm_option_xp_from_manual_battles"
+      text="Ganhar em batalhas manuais" />
+    <string
+      id="ret_mcm_option_xp_from_manual_battles_hint"
+      text="Tropas personalizadas ganham pontos de habilidade nas batalhas que você mesmo luta." />
+    <string
+      id="ret_mcm_option_xp_from_training"
+      text="Ganhar com treinamento" />
+    <string
+      id="ret_mcm_option_xp_from_training_hint"
+      text="Apenas as tropas personalizadas do seu grupo principal ganham pontos de habilidade com o treinamento diário. Desativado por padrão." />
+    <string
       id="ret_mcm_section_compatibility"
       text="Compatibilidade" />
     <string

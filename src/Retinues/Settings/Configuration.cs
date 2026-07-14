@@ -1395,6 +1395,42 @@ namespace Retinues.Settings
             fires: [UIEvent.Character]
         );
 
+        public static readonly Option<bool> XpFromManualBattles = CreateOption(
+            section: Skills,
+            name: L.F("mcm_option_xp_from_manual_battles", "Earn in Manual Battles"),
+            description: L.F(
+                "mcm_option_xp_from_manual_battles_hint",
+                "Custom troops gain skill points from battles you fight yourself."
+            ),
+            @default: true,
+            dependsOn: SkillPointsMustBeEarned,
+            fires: [UIEvent.Character]
+        );
+
+        public static readonly Option<bool> XpFromAutoResolve = CreateOption(
+            section: Skills,
+            name: L.F("mcm_option_xp_from_auto_resolve", "Earn in Auto-Resolve"),
+            description: L.F(
+                "mcm_option_xp_from_auto_resolve_hint",
+                "Custom troops gain skill points from auto-resolved battles."
+            ),
+            @default: true,
+            dependsOn: SkillPointsMustBeEarned,
+            fires: [UIEvent.Character]
+        );
+
+        public static readonly Option<bool> XpFromTraining = CreateOption(
+            section: Skills,
+            name: L.F("mcm_option_xp_from_training", "Earn from Training"),
+            description: L.F(
+                "mcm_option_xp_from_training_hint",
+                "Only your main party's custom troops gain skill points from daily training. Off by default."
+            ),
+            @default: false,
+            dependsOn: SkillPointsMustBeEarned,
+            fires: [UIEvent.Character]
+        );
+
         public static readonly Option<bool> TrainingTakesTime = CreateOption(
             section: Skills,
             name: L.F("mcm_option_training_takes_time", "Training Takes Time"),

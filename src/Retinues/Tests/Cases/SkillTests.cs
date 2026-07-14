@@ -1,3 +1,4 @@
+using System.Linq;
 using Retinues.Domain.Characters.Services.Cloning;
 using Retinues.Domain.Characters.Services.Skills;
 using Retinues.Domain.Characters.Wrappers;
@@ -10,6 +11,37 @@ namespace Retinues.Tests.Cases
     /// <summary>Tests for skill persistence and clone isolation.</summary>
     public static class SkillTests
     {
+        [GameTest(
+            "MarinerShownWhenFlagSet",
+            "skills",
+            "Toggling the mariner flag rebuilds the displayed skill list so Mariner appears/disappears"
+        )]
+        public static void MarinerShownWhenFlagSet(GameTestContext ctx)
+        {
+            ctx.EnsureCampaign();
+
+            var mariner = MBObjectManager.Instance?.GetObject<SkillObject>(
+                SkillCatalog.MarinerSkillId
+            );
+            if (mariner == null)
+                return; // Naval DLC not loaded.
+
+            using var sandbox = new TestSandbox();
+            var wc = sandbox.NewStub();
+
+            // Build the displayed list while NOT a mariner: Mariner is excluded.
+            wc.IsMariner = false;
+            bool before = wc.Skills.Any(s => s.Skill?.StringId == SkillCatalog.MarinerSkillId);
+
+            // Setting the flag must rebuild the cache (this is what a save-load restore does),
+            // otherwise Mariner stays missing from the grid and the totals.
+            wc.IsMariner = true;
+            bool after = wc.Skills.Any(s => s.Skill?.StringId == SkillCatalog.MarinerSkillId);
+
+            Tests.AssertFalse(before, "Mariner is not shown for a non-mariner troop.");
+            Tests.AssertTrue(after, "Mariner appears in the displayed skills once the flag is set.");
+        }
+
         [GameTest(
             "MarinerSkillRoundTrips",
             "persistence",

@@ -359,7 +359,16 @@ namespace Retinues.Domain.Characters.Wrappers
         MAttribute<bool> IsMarinerAttribute =>
             Attribute(
                 getter: _ => NavalTraitHelper.GetMarinerLevel(Base) > 0,
-                setter: (_, value) => NavalTraitHelper.SetMarinerLevel(Base, value ? 1 : 0),
+                setter: (_, value) =>
+                {
+                    NavalTraitHelper.SetMarinerLevel(Base, value ? 1 : 0);
+
+                    // The displayed skill list gates Mariner on IsMariner. On load this flag is
+                    // restored AFTER the Skills container is built, so rebuild it here — otherwise
+                    // Mariner is missing from the grid and the skill totals even though its value
+                    // persisted correctly.
+                    ClearSkillsCache();
+                },
                 name: "IsMarinerAttribute"
             );
 

@@ -2147,6 +2147,24 @@
       id="ret_mcm_option_weight_limit_hint"
       text="Whether to limit the total equipment weight (limits are tier-based)." />
     <string
+      id="ret_mcm_option_xp_from_auto_resolve"
+      text="Earn in Auto-Resolve" />
+    <string
+      id="ret_mcm_option_xp_from_auto_resolve_hint"
+      text="Custom troops gain skill points from auto-resolved battles." />
+    <string
+      id="ret_mcm_option_xp_from_manual_battles"
+      text="Earn in Manual Battles" />
+    <string
+      id="ret_mcm_option_xp_from_manual_battles_hint"
+      text="Custom troops gain skill points from battles you fight yourself." />
+    <string
+      id="ret_mcm_option_xp_from_training"
+      text="Earn from Training" />
+    <string
+      id="ret_mcm_option_xp_from_training_hint"
+      text="Only your main party&apos;s custom troops gain skill points from daily training. Off by default." />
+    <string
       id="ret_mcm_section_compatibility"
       text="Compatibility" />
     <string

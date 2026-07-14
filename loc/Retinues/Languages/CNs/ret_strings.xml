@@ -2138,6 +2138,24 @@
       id="ret_mcm_option_weight_limit_hint"
       text="是否限制总装备重量（限制基于等级）。" />
     <string
+      id="ret_mcm_option_xp_from_auto_resolve"
+      text="在自动战斗中获得" />
+    <string
+      id="ret_mcm_option_xp_from_auto_resolve_hint"
+      text="自定义部队从自动战斗中获得技能点。" />
+    <string
+      id="ret_mcm_option_xp_from_manual_battles"
+      text="在手动战斗中获得" />
+    <string
+      id="ret_mcm_option_xp_from_manual_battles_hint"
+      text="自定义部队从你亲自参与的战斗中获得技能点。" />
+    <string
+      id="ret_mcm_option_xp_from_training"
+      text="从训练中获得" />
+    <string
+      id="ret_mcm_option_xp_from_training_hint"
+      text="只有你主队伍中的自定义部队才能从每日训练中获得技能点。默认关闭。" />
+    <string
       id="ret_mcm_section_compatibility"
       text="兼容性" />
     <string

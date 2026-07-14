@@ -5,10 +5,11 @@ using Retinues.Domain;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.GameState;
 using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.CampaignSystem.Roster;
+using TaleWorlds.Core;
 using TaleWorlds.Library;
-using TaleWorlds.MountAndBlade;
 
 namespace Retinues.Behaviors.Experience.Patches
 {
@@ -42,7 +43,7 @@ namespace Retinues.Behaviors.Experience.Patches
                 if (owner == null || character == null || character.IsHero)
                     return;
 
-                if (!TryGetEligibleFactionTroop(character, out _))
+                if (!TryGetEligibleFactionTroop(character, out var wc))
                     return;
 
                 int index = owner.MemberRoster.FindIndexOfTroop(character);
@@ -53,11 +54,29 @@ namespace Retinues.Behaviors.Experience.Patches
                 if (number <= 0)
                     return;
 
-                int currentXp = owner.MemberRoster.GetElementXp(index);
-
                 int xpRequired = GetXpRequired(character, owner);
                 int max = ComputeMaxXp(number, xpRequired);
 
+                // Keep headroom fully open for the player's own custom troops, and for any max-rank
+                // (no-upgrade-target) faction troop.
+                //
+                // Why the player-faction case matters for consistency: the game clamps the combat XP
+                // it applies to a troop to CanTroopGainXp's gainableMaxXp (CommitXpGain does
+                // Min(gainableMaxXp, earnedXp); the overflow goes to the leader's skill, not the
+                // troop). If we only opened headroom for no-target troops, a mid-tier custom troop
+                // pinned at its roster cap would get gainableMaxXp = 0 and earn ZERO skill-point XP
+                // for the same kills that a max-rank retinue banks in full. Opening headroom for all
+                // player custom troops makes skill-point gain track actual combat XP identically
+                // regardless of tier or roster-XP state (the stored roster XP still caps via the
+                // XP-change patches, so upgrade readiness is unchanged).
+                if (wc.IsPlayerFactionTroop || HasNoUpgradeTargets(character))
+                {
+                    __result = true;
+                    gainableMaxXp = max > 0 ? max : 1;
+                    return;
+                }
+
+                int currentXp = owner.MemberRoster.GetElementXp(index);
                 if (currentXp < max)
                 {
                     __result = true;
@@ -180,17 +199,15 @@ namespace Retinues.Behaviors.Experience.Patches
 #endif
 
         /// <summary>
-        /// Captures the XP the game grants to a troop stack during a manual battle and routes it to
-        /// skill-point progress. We read the requested <paramref name="xpAmount"/> (not the accepted
-        /// delta) so at-cap troops and top-of-tree retinues — whose roster XP the game would clamp
-        /// to 0 — still earn.
+        /// Captures the XP the game grants to a troop stack and routes it to skill-point progress.
+        /// We read the requested <paramref name="xpAmount"/> (not the accepted delta) so at-cap
+        /// troops and top-of-tree retinues — whose roster XP the game would clamp to 0 — still earn.
         ///
-        /// Gated on an active mission: manual combat routes troop XP through AddXpToTroopAtIndex
-        /// while a mission is running, whereas passive/garrison daily training routes through the
-        /// same method on the campaign map (no mission). Without this gate, troops earned skill
-        /// points while simply waiting in a town — and a large garrison's training grant produced
-        /// huge one-off skill-point jumps. Auto-resolve has no mission and is handled separately by
-        /// BattleSimulationXpBehavior, so there is no double-counting.
+        /// The XP source is classified by the battle window (<see cref="BattleXpWindow"/>): inside a
+        /// player-involved map event it's battle XP (mission ticks plus aftermath), otherwise it's
+        /// campaign-map daily party/garrison training. Each source is individually toggleable, so
+        /// the actual credit decision (including double-count safety vs auto-resolve) is made in
+        /// <see cref="SkillPointExperienceGain.ApplyXpToSkillPointProgress"/>.
         /// </summary>
         [HarmonyPatch(typeof(TroopRoster), nameof(TroopRoster.AddXpToTroopAtIndex))]
         [HarmonyPostfix]
@@ -205,8 +222,13 @@ namespace Retinues.Behaviors.Experience.Patches
                 if (xpAmount <= 0 || __instance == null)
                     return;
 
-                // Only count XP earned in an actual battle mission, not campaign-map training.
-                if (Mission.Current == null)
+                // Skip party-screen transfers and donations. Moving a stack relocates its
+                // accumulated roster XP — added as a positive amount on the destination roster via
+                // AddXpToTroop — which is not earned XP. Without this, transferring troops to a
+                // companion or garrison mints skill points (a stack of high-XP retinues is worth
+                // many points per soldier). Combat runs in a mission and training on the map tick,
+                // never while a party screen is open, so no legitimate XP is lost here.
+                if (IsPartyScreenOpen())
                     return;
 
                 if (index < 0 || index >= __instance.Count)
@@ -225,9 +247,27 @@ namespace Retinues.Behaviors.Experience.Patches
                 if (!TryGetEligibleFactionTroop(troop, out var wc))
                     return;
 
-                // ApplyXpToSkillPointProgress self-gates on IsPlayerFactionTroop / vanilla /
-                // SkillPointsMustBeEarned, so enemy or AI-clan custom troops are filtered there.
-                ApplyXpToSkillPointProgress(wc, ownerParty ?? Player.Party?.PartyBase, xpAmount);
+                // Battle window open => battle XP; closed => campaign-map training XP.
+                var source = BattleXpWindow.IsOpen
+                    ? SkillXpSource.ManualBattle
+                    : SkillXpSource.Training;
+
+                // Training XP counts only for the player's own main party — not garrisons, AI
+                // parties, or companion parties, whose bulk daily training would otherwise mint
+                // skill points. Battle XP stays unrestricted so custom troops fighting in allied
+                // parties still earn from combat.
+                if (source == SkillXpSource.Training && ownerParty != PartyBase.MainParty)
+                    return;
+
+                // ApplyXpToSkillPointProgress self-gates on the source toggle, IsPlayerFactionTroop,
+                // vanilla, and SkillPointsMustBeEarned, so enemy / AI-clan / disabled-source XP is
+                // filtered there.
+                ApplyXpToSkillPointProgress(
+                    wc,
+                    ownerParty ?? Player.Party?.PartyBase,
+                    xpAmount,
+                    source
+                );
             }
             catch (Exception ex)
             {
@@ -260,6 +300,22 @@ namespace Retinues.Behaviors.Experience.Patches
         {
             var targets = troop?.UpgradeTargets;
             return targets == null || targets.Length == 0;
+        }
+
+        /// <summary>
+        /// True while a party management screen (troop transfer / donation) is open. XP applied in
+        /// that state is a roster relocation, not earned XP, and must not feed skill-point progress.
+        /// </summary>
+        private static bool IsPartyScreenOpen()
+        {
+            try
+            {
+                return Game.Current?.GameStateManager?.ActiveState is PartyState;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         /// <summary>
@@ -311,9 +367,14 @@ namespace Retinues.Behaviors.Experience.Patches
         /// <summary>
         /// Applies gained XP to skill point progress, respecting feature settings.
         /// </summary>
-        public static void ApplyXpToSkillPointProgress(WCharacter wc, PartyBase party, int gainedXp)
+        public static void ApplyXpToSkillPointProgress(
+            WCharacter wc,
+            PartyBase party,
+            int gainedXp,
+            SkillXpSource source
+        )
         {
-            SkillPointExperienceGain.ApplyXpToSkillPointProgress(wc, party, gainedXp);
+            SkillPointExperienceGain.ApplyXpToSkillPointProgress(wc, party, gainedXp, source);
         }
     }
 }

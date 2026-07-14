@@ -2138,6 +2138,24 @@
       id="ret_mcm_option_weight_limit_hint"
       text="Limiter le poids total de l&apos;équipement (les limites sont basées sur le niveau)." />
     <string
+      id="ret_mcm_option_xp_from_auto_resolve"
+      text="Gagner en résolution automatique" />
+    <string
+      id="ret_mcm_option_xp_from_auto_resolve_hint"
+      text="Les troupes personnalisées gagnent des points de compétence dans les batailles résolues automatiquement." />
+    <string
+      id="ret_mcm_option_xp_from_manual_battles"
+      text="Gagner en batailles manuelles" />
+    <string
+      id="ret_mcm_option_xp_from_manual_battles_hint"
+      text="Les troupes personnalisées gagnent des points de compétence dans les batailles que vous menez vous-même." />
+    <string
+      id="ret_mcm_option_xp_from_training"
+      text="Gagner par l&apos;entraînement" />
+    <string
+      id="ret_mcm_option_xp_from_training_hint"
+      text="Seules les troupes personnalisées de votre groupe principal gagnent des points de compétence grâce à l&apos;entraînement quotidien. Désactivé par défaut." />
+    <string
       id="ret_mcm_section_compatibility"
       text="Compatibilité" />
     <string

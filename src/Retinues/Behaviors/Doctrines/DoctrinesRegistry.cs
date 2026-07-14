@@ -112,6 +112,35 @@ namespace Retinues.Behaviors.Doctrines
             RegistrationComplete = true;
         }
 
+        /// <summary>
+        /// Resets the mutable runtime state (acquired flags + progress) of every registered doctrine
+        /// and feat back to defaults.
+        ///
+        /// Doctrine and feat definitions are process-global singletons that hold their own acquired
+        /// and progress state. That state is loaded from and saved to the campaign, but nothing
+        /// clears it when a new campaign begins in the same session — so a previous character's
+        /// unlocked doctrines (and, because feats only advance while their doctrine is in progress,
+        /// their in-progress feats) leak into the next character. Restarting the game hid the bug by
+        /// recreating the singletons from scratch. Call this on new-game start and before applying a
+        /// loaded campaign's data so each character sees only its own doctrine state.
+        /// </summary>
+        public static void ResetRuntimeState()
+        {
+            EnsureRegistered();
+
+            foreach (var doctrine in _doctrines.Values)
+            {
+                if (doctrine == null)
+                    continue;
+
+                doctrine.IsAcquired = false;
+                doctrine.ForceSet(0);
+            }
+
+            foreach (var feat in _feats.Values)
+                feat?.ForceSet(0);
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                         Cheats                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

@@ -26,6 +26,13 @@ namespace Retinues.Behaviors.Experience
         private readonly Dictionary<MapEvent, Snapshot> _snapshots = [];
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                        Lifecycle                       //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        // Drop any stale battle window from a save taken mid-encounter.
+        protected override void OnGameLoadFinished() => BattleXpWindow.Reset();
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Start                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
@@ -34,6 +41,10 @@ namespace Retinues.Behaviors.Experience
             var me = mapEvent?.Base;
             if (me == null || !mapEvent.IsPlayerInvolved)
                 return;
+
+            // Open the battle window for the whole event (mission ticks + aftermath) so the
+            // manual-combat XP hook can distinguish battle XP from campaign-map training XP.
+            BattleXpWindow.Open(me);
 
             var playerSide = mapEvent.PlayerSide;
             var enemySide = mapEvent.EnemySide;
@@ -109,6 +120,9 @@ namespace Retinues.Behaviors.Experience
             if (me == null)
                 return;
 
+            // Close the battle window first, whether or not this event was snapshotted.
+            BattleXpWindow.Close(me);
+
             if (!_snapshots.TryGetValue(me, out var snap))
                 return;
             _snapshots.Remove(me);
@@ -134,8 +148,14 @@ namespace Retinues.Behaviors.Experience
                 if (wc == null)
                     continue;
 
-                // Feeds the same skill-point conversion the manual-combat XP hook uses.
-                SkillPointExperienceGain.ApplyXpToSkillPointProgress(wc, party, share);
+                // Feeds the same skill-point conversion the manual-combat XP hook uses; tagged as
+                // auto-resolve so its own settings toggle governs it.
+                SkillPointExperienceGain.ApplyXpToSkillPointProgress(
+                    wc,
+                    party,
+                    share,
+                    SkillXpSource.AutoResolve
+                );
             }
         }
 

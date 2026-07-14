@@ -10,6 +10,22 @@ using TaleWorlds.Library;
 namespace Retinues.Behaviors.Experience
 {
     /// <summary>
+    /// Where a chunk of skill-point XP came from. Each source is individually toggleable in settings
+    /// so players can choose what counts (e.g. manual battles only, or opt into passive training).
+    /// </summary>
+    public enum SkillXpSource
+    {
+        /// <summary>A battle the player fought in person (mission), including its aftermath.</summary>
+        ManualBattle,
+
+        /// <summary>An auto-resolved (simulated) battle.</summary>
+        AutoResolve,
+
+        /// <summary>Daily party/garrison training on the campaign map (no battle).</summary>
+        Training,
+    }
+
+    /// <summary>
     /// XP to skill point progress conversion utilities for custom-tree troops.
     /// </summary>
     internal static class SkillPointExperienceGain
@@ -20,14 +36,36 @@ namespace Retinues.Behaviors.Experience
         public static bool IsEnabled => Configuration.SkillPointsMustBeEarned;
 
         /// <summary>
-        /// Applies gained XP to skill point progress for the given wrapped character.
+        /// Whether the given XP source is currently allowed to feed skill points, per settings.
         /// </summary>
-        public static void ApplyXpToSkillPointProgress(WCharacter wc, PartyBase party, int gainedXp)
+        public static bool IsSourceEnabled(SkillXpSource source) =>
+            source switch
+            {
+                SkillXpSource.ManualBattle => Configuration.XpFromManualBattles,
+                SkillXpSource.AutoResolve => Configuration.XpFromAutoResolve,
+                SkillXpSource.Training => Configuration.XpFromTraining,
+                _ => false,
+            };
+
+        /// <summary>
+        /// Applies gained XP to skill point progress for the given wrapped character, if the XP
+        /// source is enabled in settings.
+        /// </summary>
+        public static void ApplyXpToSkillPointProgress(
+            WCharacter wc,
+            PartyBase party,
+            int gainedXp,
+            SkillXpSource source
+        )
         {
             if (wc == null || gainedXp <= 0)
                 return;
 
             if (!IsEnabled)
+                return;
+
+            // Player-configurable: which battle/training sources feed skill points.
+            if (!IsSourceEnabled(source))
                 return;
 
             if (wc.IsHero)
