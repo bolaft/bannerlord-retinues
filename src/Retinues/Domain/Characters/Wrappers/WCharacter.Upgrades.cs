@@ -59,7 +59,15 @@ namespace Retinues.Domain.Characters.Wrappers
 
                     TryApplyUpgradeTargetIds();
 
-                    CharacterTreeCache.MarkDirty();
+                    // Editing the tree changes which troops count as regular/basic/elite:
+                    // IsUpgradable reads SourceFlagCache, which is derived from the culture roster
+                    // (RootBasic/RootElite.Tree). Invalidate the whole dependent chain (tree ->
+                    // faction -> source/tree flags), not just the tree cache, so a freshly-added
+                    // branch troop is classified immediately. Marking only the tree dirty left the
+                    // source-flag cache stale, so a new unit read as "not upgradable" and the
+                    // "Add Upgrade" button stayed hidden until a save/reload rebuilt every cache —
+                    // hence the "one upgrade per reload" workaround.
+                    InvalidateTroopSourceCaches();
                 },
                 name: "UpgradeTargetsAttribute"
             );
