@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Retinues.Configuration;
@@ -174,6 +175,122 @@ namespace Retinues.Troops.Save
         }
 
         /// <summary>
+        /// True when this record already matches the live troop, meaning applying it would be a
+        /// no-op and the record can safely be dropped.
+        ///
+        /// The live side is captured through this very class, so both sides are produced by the
+        /// same serialization code and cannot disagree on formatting. Anything that cannot be
+        /// compared is treated as a difference, so the worst case is keeping a redundant record
+        /// (the current behaviour) rather than discarding a real edit.
+        /// </summary>
+        internal bool MatchesLiveTroop(WCharacter troop)
+        {
+            try
+            {
+                return Equivalent(this, new TroopSaveData(troop));
+            }
+            catch (Exception e)
+            {
+                Log.Exception(e, "Vanilla troop comparison failed; treating it as edited.");
+                return false; // Never drop data because of a comparison error.
+            }
+        }
+
+        /// <summary>
+        /// Compares two records field by field, including the whole upgrade subtree.
+        /// SkillBaseline is deliberately excluded: it is bookkeeping derived from the skills, and
+        /// a loaded troop always carries a seeded value that a pristine one does not.
+        /// </summary>
+        private static bool Equivalent(TroopSaveData a, TroopSaveData b)
+        {
+            if (a is null || b is null)
+                return a is null && b is null;
+
+            if (!string.Equals(a.StringId, b.StringId, StringComparison.Ordinal))
+                return false;
+            if (!string.Equals(a.Name, b.Name, StringComparison.Ordinal))
+                return false;
+            if (!string.Equals(a.CultureId, b.CultureId, StringComparison.Ordinal))
+                return false;
+            if (a.Level != b.Level)
+                return false;
+            if (a.IsFemale != b.IsFemale)
+                return false;
+            if (a.Race != b.Race)
+                return false;
+            if (a.FormationClassOverride != b.FormationClassOverride)
+                return false;
+            if (a.IsCaptain != b.IsCaptain || a.CaptainEnabled != b.CaptainEnabled)
+                return false;
+            if (a.IsMariner != b.IsMariner)
+                return false;
+
+            if (!string.Equals(a.SkillData?.Code, b.SkillData?.Code, StringComparison.Ordinal))
+                return false;
+
+            if (!Equivalent(a.EquipmentData, b.EquipmentData))
+                return false;
+
+            if (!Equivalent(a.BodyData, b.BodyData))
+                return false;
+
+            if (!Equivalent(a.Captain, b.Captain))
+                return false;
+
+            var childrenA = a.UpgradeTargets ?? [];
+            var childrenB = b.UpgradeTargets ?? [];
+            if (childrenA.Count != childrenB.Count)
+                return false;
+
+            for (int i = 0; i < childrenA.Count; i++)
+                if (!Equivalent(childrenA[i], childrenB[i]))
+                    return false;
+
+            return true;
+        }
+
+        private static bool Equivalent(TroopEquipmentData a, TroopEquipmentData b)
+        {
+            if (a is null || b is null)
+                return a is null && b is null;
+
+            var codesA = a.Codes ?? [];
+            var codesB = b.Codes ?? [];
+            if (codesA.Count != codesB.Count)
+                return false;
+
+            for (int i = 0; i < codesA.Count; i++)
+                if (!string.Equals(codesA[i], codesB[i], StringComparison.Ordinal))
+                    return false;
+
+            var civA = a.Civilians ?? [];
+            var civB = b.Civilians ?? [];
+            if (civA.Count != civB.Count)
+                return false;
+
+            for (int i = 0; i < civA.Count; i++)
+                if (civA[i] != civB[i])
+                    return false;
+
+            return true;
+        }
+
+        private static bool Equivalent(TroopBodySaveData a, TroopBodySaveData b)
+        {
+            if (a is null || b is null)
+                return a is null && b is null;
+
+            return a.AgeMin == b.AgeMin
+                && a.AgeMax == b.AgeMax
+                && a.WeightMin == b.WeightMin
+                && a.WeightMax == b.WeightMax
+                && a.BuildMin == b.BuildMin
+                && a.BuildMax == b.BuildMax
+                && a.HeightMin == b.HeightMin
+                && a.HeightMax == b.HeightMax;
+        }
+
+        /// <summary>
         /// Deserializes the troop save data into a WCharacter instance.
         /// </summary>
         public WCharacter DeserializeInternal(WCharacter troop)
@@ -188,41 +305,103 @@ namespace Retinues.Troops.Save
             if (troop.IsCustom && !WCharacter.ActiveStubIds.Contains(troop.StringId))
                 WCharacter.ActiveStubIds.Add(troop.StringId);
 
-            // If this is a vanilla troop, keep it marked as edited so it continues to be saved
+            // A vanilla troop can only ever be rebuilt from its own definition: every other
+            // FillFrom in the mod targets a custom troop, so nothing legitimately rebases a
+            // vanilla troop onto another. A record whose base id differs is corrupt (e.g. from
+            // the old stub-reuse bug) — applying it would write another culture's data onto this
+            // tree AND re-write the vanilla-id map, which the next save re-captures, making the
+            // corruption self-perpetuating (Aserai gear on Sturgian troops, forever). Drop the
+            // record and leave the troop unmarked so the tree rebuilds clean from the game files.
+            if (
+                troop.IsVanilla
+                && !string.IsNullOrEmpty(VanillaStringId)
+                && !string.Equals(VanillaStringId, troop.StringId, StringComparison.Ordinal)
+            )
+            {
+                Log.Warn(
+                    $"Dropping corrupt save record for vanilla troop '{troop.StringId}' "
+                        + $"(recorded base '{VanillaStringId}'). The troop resets to its game definition."
+                );
+                return troop;
+            }
+
+            // A vanilla tree that is byte-for-byte identical to the game's own definition carries
+            // no edits: applying it would change nothing. Skip it and leave it unmarked so it
+            // drops out of the next save instead of being re-marked forever. Without this, a tree
+            // that was flagged once (even accidentally) stayed in every future save, which is why
+            // hand-repairing vanilla troops never survived a reload.
+            if (troop.IsVanilla && MatchesLiveTroop(troop))
+                return troop;
+
+            // If this is a vanilla troop, keep it marked as edited so it continues to be saved.
+            // EditedVanillaRootIds is not persisted, so this re-mark is what preserves genuine
+            // edits across sessions: without it the tree would be dropped on the next save.
             if (troop.IsVanilla)
                 troop.NeedsPersistence = true; // Loaded from save, must be persisted again
 
             // Get vanilla base
             var vanilla = new WCharacter(VanillaStringId);
 
-            // Fill it
-            troop.FillFrom(
-                vanilla,
-                keepUpgrades: troop.IsVanilla,
-                keepEquipment: false,
-                keepSkills: false
-            );
+            // Apply this node's own data in isolation: a throw here (e.g. a DLC trait or modded
+            // item that no longer resolves) must not prevent the upgrade-target loop below from
+            // running, or every descendant of this troop is silently dropped on load.
+            try
+            {
+                // Fill it
+                troop.FillFrom(
+                    vanilla,
+                    keepUpgrades: troop.IsVanilla,
+                    keepEquipment: false,
+                    keepSkills: false
+                );
 
-            // Set properties
-            troop.Name = Name;
-            troop.Level = Level;
-            troop.IsFemale = IsFemale;
-            troop.IsMariner = IsMariner; // Must be set before Skills so ExtraSkills includes the Mariner skill
-            troop.Skills = SkillData.Deserialize();
+                // Set properties
+                troop.Name = Name;
+                troop.Level = Level;
+                troop.IsFemale = IsFemale;
+                troop.IsMariner = IsMariner; // Must be set before Skills so ExtraSkills includes the Mariner skill
+                troop.Skills = SkillData.Deserialize();
 
-            // Restore the skill-budget baseline (floor for the per-tier skill total). Retro-compat:
-            // saves from before this field deserialize SkillBaseline as 0, so seed the baseline from
-            // the loaded skill sum instead — this makes existing over-budget troops (e.g. cloned
-            // from high-skill mods) editable again rather than staying locked to decrement-only.
-            troop.SetSkillBaseline(SkillBaseline > 0 ? SkillBaseline : troop.Skills.Values.Sum());
+                // Restore the skill-budget baseline (floor for the per-tier skill total). Retro-compat:
+                // saves from before this field deserialize SkillBaseline as 0, so seed the baseline from
+                // the loaded skill sum instead — this makes existing over-budget troops (e.g. cloned
+                // from high-skill mods) editable again rather than staying locked to decrement-only.
+                troop.SetSkillBaseline(
+                    SkillBaseline > 0 ? SkillBaseline : troop.Skills.Values.Sum()
+                );
 
-            // Set equipment
-            troop.Loadout.SetEquipments(EquipmentData.Deserialize(troop));
-            troop.Loadout.Normalize(); // Ensure battle set is at index 0 (fixes stale saves)
+                // Set equipment
+                troop.Loadout.SetEquipments(EquipmentData.Deserialize(troop));
+                troop.Loadout.Normalize(); // Ensure battle set is at index 0 (fixes stale saves)
+            }
+            catch (Exception e)
+            {
+                Log.Exception(
+                    e,
+                    $"Failed to fully restore troop '{StringId}' — its upgrade tree is still applied."
+                );
+            }
 
-            // Restore upgrade targets
+            // Restore upgrade targets. Each child is isolated: if one node's restore throws
+            // (a mod/DLC item or trait that no longer resolves, etc.), its siblings must still
+            // be applied and registered. Without this, one bad node silently dropped the whole
+            // rest of the tree — the troops then failed the sanitizer's IsValid check on load
+            // and their roster stacks were replaced with culture fallbacks ("turned into levies").
             foreach (var child in UpgradeTargets ?? [])
-                child.Deserialize(troop); // Custom path (Parent)
+            {
+                try
+                {
+                    child.Deserialize(troop); // Custom path (Parent)
+                }
+                catch (Exception e)
+                {
+                    Log.Exception(
+                        e,
+                        $"Failed to restore upgrade target '{child?.StringId ?? "?"}' of "
+                            + $"'{StringId}' — continuing with its siblings."
+                    );
+                }
+            }
 
             // Set culture visuals if different from vanilla
             if (CultureId != vanilla.Culture.StringId)

@@ -61,12 +61,34 @@ namespace Retinues.Game.Events
                 var mission = Mission.Current;
                 Team playerTeam = mission?.PlayerTeam ?? mission?.MainAgent?.Team; // spectating tournaments often have no PlayerTeam
 
+                // Player-vs-ally cannot be told apart by mission team: campaign battles usually
+                // spawn allied parties onto the PLAYER's team, so team checks classified ally
+                // troops as player troops and ally counts stayed near zero (broke ally-casualty
+                // feats like Pragmatic Scavengers). Classify by the agent's ORIGIN PARTY instead
+                // (main party = player troop, any other same-side party = ally), and fall back to
+                // the team check when there is no campaign origin (tournaments, custom battles).
+                // Team.IsPlayerAlly means "same battle side as the player", player team included.
+                var mainParty = PartyBase.MainParty; // null outside campaign
+                var killerParty = killer?.Origin?.BattleCombatant as PartyBase;
+                var victimParty = victim?.Origin?.BattleCombatant as PartyBase;
+
+                bool killerOnPlayerSide = killer?.Team?.IsPlayerAlly == true;
+                bool victimOnPlayerSide = victim?.Team?.IsPlayerAlly == true;
+
+                bool killerFromMainParty =
+                    killerParty != null && mainParty != null
+                        ? killerParty == mainParty
+                        : killer?.Team?.IsPlayerTeam == true;
+                bool victimFromMainParty =
+                    victimParty != null && mainParty != null
+                        ? victimParty == mainParty
+                        : victim?.Team?.IsPlayerTeam == true;
+
                 // Inline simple checks to avoid delegate/virtual overhead
                 KillerIsPlayer = killer?.IsPlayerControlled == true;
                 KillerIsPlayerTroop =
-                    killer?.IsAIControlled == true && killer?.Team?.IsPlayerTeam == true;
-                KillerIsAllyTroop =
-                    killer?.Team?.IsPlayerAlly == true && !KillerIsPlayer && !KillerIsPlayerTroop;
+                    killer?.IsAIControlled == true && killerOnPlayerSide && killerFromMainParty;
+                KillerIsAllyTroop = killerOnPlayerSide && !KillerIsPlayer && !KillerIsPlayerTroop;
 
                 // Only call IsEnemyOf if playerTeam is known
                 KillerIsEnemyTroop =
@@ -74,9 +96,8 @@ namespace Retinues.Game.Events
 
                 VictimIsPlayer = victim?.IsPlayerControlled == true;
                 VictimIsPlayerTroop =
-                    victim?.IsAIControlled == true && victim?.Team?.IsPlayerTeam == true;
-                VictimIsAllyTroop =
-                    victim?.Team?.IsPlayerAlly == true && !VictimIsPlayer && !VictimIsPlayerTroop;
+                    victim?.IsAIControlled == true && victimOnPlayerSide && victimFromMainParty;
+                VictimIsAllyTroop = victimOnPlayerSide && !VictimIsPlayer && !VictimIsPlayerTroop;
                 VictimIsEnemyTroop =
                     playerTeam != null && victim?.Team?.IsEnemyOf(playerTeam) == true;
 

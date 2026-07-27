@@ -902,10 +902,43 @@ namespace Retinues.Game.Wrappers
 
         public List<SkillObject> AllSkills => [.. TroopSkills, .. ExtraSkills];
 
-        // Skill dictionary for easy get/set (vanilla troop skills only)
+        /// <summary>
+        /// Reads a troop skill's stored base value, bypassing Harmony patches on
+        /// CharacterObject.GetSkillValue. Mods like Better Bandits multiply skill READS for bandit
+        /// troops; capturing through the patched read and writing back raw (SetSkill) would bake
+        /// the multiplier into the base, compounding it on every save/load round-trip. Everything
+        /// that round-trips values back into SetSkill must read through this instead.
+        /// </summary>
+        public int GetSkillRaw(SkillObject skill)
+        {
+            if (IsHero)
+                return GetSkill(skill); // heroes use HeroDeveloper, not the troop container
+
+            try
+            {
+                var skills = Reflector.GetFieldValue<MBCharacterSkills>(
+                    Base,
+                    "DefaultCharacterSkills"
+                );
+                if (skills != null)
+                    return ((PropertyOwner<SkillObject>)(object)skills.Skills).GetPropertyValue(
+                        skill
+                    );
+            }
+            catch
+            {
+                // fall through to the patched read
+            }
+
+            return GetSkill(skill);
+        }
+
+        // Skill dictionary for easy get/set (vanilla troop skills only). Symmetric with its setter:
+        // the setter writes raw base values via SetSkill, so the getter must read raw base values —
+        // otherwise read-modifying mods (e.g. Better Bandits' bandit skill multiplier) get baked in.
         public virtual Dictionary<SkillObject, int> Skills
         {
-            get { return AllSkills.ToDictionary(skill => skill, GetSkill); }
+            get { return AllSkills.ToDictionary(skill => skill, GetSkillRaw); }
             set
             {
                 foreach (var skill in AllSkills)
@@ -1262,9 +1295,10 @@ namespace Retinues.Game.Wrappers
                 Activator.CreateInstance(typeof(MBCharacterSkills), nonPublic: true);
             Reflector.SetFieldValue(_co, "DefaultCharacterSkills", freshSkills);
 
-            // Skills
+            // Skills — raw reads: these values are written back as base values, so reading through
+            // patched (multiplier) getters would inflate clones of bandit templates.
             if (keepSkills)
-                Skills = AllSkills.ToDictionary(skill => skill, src.GetSkill);
+                Skills = AllSkills.ToDictionary(skill => skill, src.GetSkillRaw);
             else
                 Skills = [];
 

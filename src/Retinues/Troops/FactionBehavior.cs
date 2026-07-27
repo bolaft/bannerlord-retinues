@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Retinues.Configuration;
@@ -96,6 +97,17 @@ namespace Retinues.Troops
                 ResetCultureTroops = false;
                 _cultureTroops = null;
                 _minorClanTroops = null;
+
+                // Dropping the saved data is not enough on its own: the culture trees are still
+                // flagged as edited in memory, so the very next save re-captured them and the
+                // reset appeared to do nothing. Clear those marks too, but keep the ones that
+                // belong to the player's own clan/kingdom roots so their troops are never
+                // dropped (the dialog promises they are left untouched).
+                var keep = new HashSet<string>(StringComparer.Ordinal);
+                CollectVanillaRootIds(Player.Clan, keep);
+                CollectVanillaRootIds(Player.Kingdom, keep);
+
+                WCharacter.EditedVanillaRootIds.RemoveWhere(id => !keep.Contains(id));
                 return;
             }
 
@@ -132,6 +144,15 @@ namespace Retinues.Troops
             // Restore culture reset flag
             ResetCultureTroops = false;
 
+            // NOTE: do NOT pre-register the save data's custom ids in ActiveStubIds here.
+            // It looks like a safe defense (so a failed restore can't leave troops unregistered
+            // for the sanitizer to eat), but the allocating WCharacter constructors go through
+            // AllocateStub, which only honors a requested id when it is NOT yet active — a
+            // pre-registered id would make every root and upgrade child reallocate onto a
+            // different free stub, scrambling the whole tree. Per-node registration during
+            // Apply plus the per-child/per-node exception isolation in TroopSaveData is the
+            // correct protection.
+
             // Rebuild clan troops
             _clanTroops?.Apply(Player.Clan);
 
@@ -157,6 +178,38 @@ namespace Retinues.Troops
                     foreach (FactionSaveData data in _minorClanTroops)
                         data.Apply();
             }
+        }
+
+        /// <summary>
+        /// Collects the root ids of a faction's vanilla troops, so a culture-wide reset can spare
+        /// the marks that belong to the player's own factions.
+        /// </summary>
+        private static void CollectVanillaRootIds(WFaction faction, HashSet<string> into)
+        {
+            if (faction is null || into is null)
+                return;
+
+            void Add(WCharacter troop)
+            {
+                if (troop is null || !troop.IsVanilla)
+                    return; // Custom troops are always persisted, marks do not apply to them.
+
+                var id = troop.Root?.StringId;
+                if (!string.IsNullOrEmpty(id))
+                    into.Add(id);
+            }
+
+            Add(faction.RetinueElite);
+            Add(faction.RetinueBasic);
+            Add(faction.RootElite);
+            Add(faction.RootBasic);
+            Add(faction.MilitiaMelee);
+            Add(faction.MilitiaMeleeElite);
+            Add(faction.MilitiaRanged);
+            Add(faction.MilitiaRangedElite);
+            Add(faction.CaravanGuard);
+            Add(faction.CaravanMaster);
+            Add(faction.Villager);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

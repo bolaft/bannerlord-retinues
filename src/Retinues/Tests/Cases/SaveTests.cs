@@ -235,5 +235,59 @@ namespace Retinues.Tests.Cases
                 }
             }
         }
+
+        /// <summary>
+        /// A save record captured from an untouched vanilla troop must be recognised as redundant,
+        /// so it is not re-applied and not re-marked as edited. This is what lets a vanilla tree
+        /// that was flagged once drain back out of the save instead of sticking forever. A record
+        /// that differs in any persisted field must still be treated as a real edit.
+        /// </summary>
+        [GameTest(
+            "UneditedVanillaRecordIsRedundant",
+            "save",
+            "An unchanged vanilla troop record is detected as redundant, a changed one is not"
+        )]
+        public static void UneditedVanillaRecordIsRedundant(GameTestContext ctx)
+        {
+            ctx.EnsureCampaign();
+            using var sandbox = new TestSandbox();
+
+            var vanilla = sandbox.NewFaction()?.Culture?.RootBasic;
+            Tests.AssertNotNull(vanilla, "A vanilla template troop is available.");
+            Tests.AssertTrue(vanilla.IsVanilla, "Template troop is vanilla.");
+
+            // Captured straight from the live troop: nothing was edited.
+            var pristine = new TroopSaveData(vanilla);
+            Tests.AssertTrue(
+                pristine.MatchesLiveTroop(vanilla),
+                "A record captured from an untouched troop matches the live troop."
+            );
+
+            // Any difference in a persisted field must count as an edit, so real edits survive.
+            var edited = new TroopSaveData(vanilla) { Name = vanilla.Name + " (edited)" };
+            Tests.AssertFalse(
+                edited.MatchesLiveTroop(vanilla),
+                "A record with a changed name is not treated as redundant."
+            );
+
+            var levelled = new TroopSaveData(vanilla) { Level = vanilla.Level + 1 };
+            Tests.AssertFalse(
+                levelled.MatchesLiveTroop(vanilla),
+                "A record with a changed level is not treated as redundant."
+            );
+
+            // A difference anywhere in the subtree must also count: the whole tree is persisted
+            // from its root, so a deep edit has to keep the root marked.
+            var child = new TroopSaveData(vanilla).UpgradeTargets.FirstOrDefault();
+            if (child != null)
+            {
+                var deep = new TroopSaveData(vanilla);
+                deep.UpgradeTargets[0].Name = child.Name + " (edited)";
+                Tests.AssertFalse(
+                    deep.MatchesLiveTroop(vanilla),
+                    "A record with an edited upgrade target is not treated as redundant."
+                );
+            }
+        }
     }
 }
