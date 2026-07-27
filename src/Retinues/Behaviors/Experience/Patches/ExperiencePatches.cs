@@ -43,7 +43,18 @@ namespace Retinues.Behaviors.Experience.Patches
                 if (owner == null || character == null || character.IsHero)
                     return;
 
-                if (!TryGetEligibleFactionTroop(character, out var wc))
+                // Custom faction troops are always handled. Beyond them, an end-of-tree VANILLA
+                // troop that can convert into a player retinue must also gain XP: vanilla gives a
+                // troop with no upgrade targets none at all, so the conversion (whose target is
+                // only injected inside the party screen) could never be afforded — e.g. DRM's
+                // Sturgian Footman sat at 0 XP forever and could never be promoted to a retinue.
+                // Scoped to the player's own party: conversion happens only from the player's
+                // roster, so AI parties' end-of-tree troops keep pure vanilla XP behavior.
+                bool isFactionTroop = TryGetEligibleFactionTroop(character, out var wc);
+                if (
+                    !isFactionTroop
+                    && (owner != PartyBase.MainParty || GetRetinueConversionXpCost(character) <= 0)
+                )
                     return;
 
                 int index = owner.MemberRoster.FindIndexOfTroop(character);
@@ -69,7 +80,7 @@ namespace Retinues.Behaviors.Experience.Patches
                 // player custom troops makes skill-point gain track actual combat XP identically
                 // regardless of tier or roster-XP state (the stored roster XP still caps via the
                 // XP-change patches, so upgrade readiness is unchanged).
-                if (wc.IsPlayerFactionTroop || HasNoUpgradeTargets(character))
+                if (wc?.IsPlayerFactionTroop == true || HasNoUpgradeTargets(character))
                 {
                     __result = true;
                     gainableMaxXp = max > 0 ? max : 1;
@@ -117,7 +128,16 @@ namespace Retinues.Behaviors.Experience.Patches
                 if (!HasNoUpgradeTargets(troop))
                     return true;
 
-                if (!TryGetEligibleFactionTroop(troop, out _))
+                // Faction troops, plus the main party's vanilla end-of-tree troops that can
+                // convert into a player retinue — vanilla would clamp their banked conversion XP
+                // straight back to 0. AI parties keep pure vanilla behavior.
+                if (
+                    !TryGetEligibleFactionTroop(troop, out _)
+                    && (
+                        GetOwnerParty(__instance) != PartyBase.MainParty
+                        || GetRetinueConversionXpCost(troop) <= 0
+                    )
+                )
                     return true;
 
                 int number = data[index].Number;
@@ -180,7 +200,16 @@ namespace Retinues.Behaviors.Experience.Patches
                 if (!HasNoUpgradeTargets(troop))
                     return true;
 
-                if (!TryGetEligibleFactionTroop(troop, out _))
+                // Faction troops, plus the main party's vanilla end-of-tree troops that can
+                // convert into a player retinue — vanilla would clamp their banked conversion XP
+                // straight back to 0. AI parties keep pure vanilla behavior.
+                if (
+                    !TryGetEligibleFactionTroop(troop, out _)
+                    && (
+                        __instance != PartyBase.MainParty
+                        || GetRetinueConversionXpCost(troop) <= 0
+                    )
+                )
                     return true;
 
                 int xpRequired = GetXpRequired(troop, __instance);
@@ -337,7 +366,84 @@ namespace Retinues.Behaviors.Experience.Patches
             if (xpRequired <= 0)
                 xpRequired = 100;
 
+            // A troop at the end of its tree can still convert into a player retinue, but that
+            // conversion is only wired into UpgradeTargets while the party screen is open. Outside
+            // it the troop looks target-less, so the value above is a single-tier estimate — while
+            // the game charges the SUM of every tier between the troop and the retinue. If the
+            // retinue sits more than one tier above, that ceiling is lower than the price, so the
+            // roster XP is clamped below the threshold and the conversion can never be afforded.
+            int conversionCost = GetRetinueConversionXpCost(troop);
+            if (conversionCost > xpRequired)
+                xpRequired = conversionCost;
+
             return xpRequired;
+        }
+
+        /// <summary>
+        /// Highest upgrade XP cost among the player retinues this troop can convert into, or 0 when
+        /// there is none. Mirrors DefaultPartyTroopUpgradeModel's per-tier sum: the vanilla model
+        /// cannot be used here because it returns its "invalid" sentinel unless the target is
+        /// already in UpgradeTargets, which only holds while the party screen is open.
+        /// </summary>
+        private static int GetRetinueConversionXpCost(CharacterObject troop)
+        {
+            // Only relevant while the troop looks target-less; otherwise vanilla prices its real
+            // targets and this would be redundant work on a hot path.
+            if (troop == null || !HasNoUpgradeTargets(troop))
+                return 0;
+
+            var wc = WCharacter.Get(troop);
+            if (wc == null || wc.IsRetinue)
+                return 0;
+
+            var retinues = WCharacter.GetPlayerRetinuesForSource(wc);
+            if (retinues == null || retinues.Count == 0)
+                return 0;
+
+            int best = 0;
+
+            for (int i = 0; i < retinues.Count; i++)
+            {
+                var target = retinues[i];
+                if (target?.Base == null)
+                    continue;
+
+                int cost = SumTierUpgradeCost(troop.Tier, target.Base);
+                if (cost > best)
+                    best = cost;
+            }
+
+            return best;
+        }
+
+        /// <summary>
+        /// Sums the per-tier upgrade costs from just above <paramref name="fromTier"/> up to the
+        /// target's tier, matching the vanilla upgrade model's schedule.
+        /// </summary>
+        private static int SumTierUpgradeCost(int fromTier, CharacterObject target)
+        {
+            if (target == null)
+                return 0;
+
+            int total = 0;
+
+            for (int tier = fromTier + 1; tier <= target.Tier; tier++)
+            {
+                total += tier switch
+                {
+                    <= 1 => 100,
+                    2 => 300,
+                    3 => 550,
+                    4 => 900,
+                    5 => 1300,
+                    6 => 1700,
+                    7 => 2100,
+                    // Vanilla's fallback for tiers beyond its table.
+                    _ => (int)(1.333f * (target.Level + 4) * (target.Level + 4)),
+                };
+            }
+
+            return total;
         }
 
         /// <summary>

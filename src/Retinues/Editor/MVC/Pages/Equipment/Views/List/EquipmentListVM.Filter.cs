@@ -121,7 +121,7 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
                     headers.Add(
                         CreateHeader(
                             kvp.Key.ToString().ToLowerInvariant(),
-                            kvp.Key.ToString(),
+                            GetItemTypeName(kvp.Key),
                             kvp.Value
                         )
                     );
@@ -146,7 +146,7 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
             else
             {
                 headers.Add(
-                    CreateHeader(slot.ToString().ToLowerInvariant(), slot.ToString(), items)
+                    CreateHeader(slot.ToString().ToLowerInvariant(), GetSlotName(slot), items)
                 );
             }
 

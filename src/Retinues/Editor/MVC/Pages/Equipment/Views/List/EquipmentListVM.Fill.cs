@@ -81,7 +81,7 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
                     headers.Add(
                         CreateHeader(
                             kvp.Key.ToString().ToLowerInvariant(),
-                            Format.CamelCaseToTitle(kvp.Key.ToString()),
+                            GetItemTypeName(kvp.Key),
                             kvp.Value
                         )
                     );
@@ -130,7 +130,7 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
                     headers.Add(
                         CreateHeader(
                             slot.ToString().ToLowerInvariant(),
-                            Format.CamelCaseToTitle(slot.ToString()),
+                            GetSlotName(slot),
                             _cachedVisibleItems
                         )
                     );
@@ -174,6 +174,66 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
         private static string GetCategoryName(string categoryId)
         {
             return GameTexts.FindText("str_item_category", categoryId)?.ToString() ?? categoryId;
+        }
+
+        /// <summary>
+        /// Resolves the localized display name of a weapon-slot item type.
+        ///
+        /// ItemTypeEnum is a plain engine enum with no localized name, so formatting it directly
+        /// left these headers ("Bow", "Crossbow", ...) in English for every language. Unmapped
+        /// values (modded item types) still fall back to the formatted enum name.
+        /// </summary>
+        internal static string GetItemTypeName(ItemObject.ItemTypeEnum type)
+        {
+            return type switch
+            {
+                ItemObject.ItemTypeEnum.OneHandedWeapon => L.S(
+                    "item_type_one_handed_weapon",
+                    "One Handed Weapon"
+                ),
+                ItemObject.ItemTypeEnum.TwoHandedWeapon => L.S(
+                    "item_type_two_handed_weapon",
+                    "Two Handed Weapon"
+                ),
+                ItemObject.ItemTypeEnum.Polearm => L.S("item_type_polearm", "Polearm"),
+                ItemObject.ItemTypeEnum.Bow => L.S("item_type_bow", "Bow"),
+                ItemObject.ItemTypeEnum.Crossbow => L.S("item_type_crossbow", "Crossbow"),
+#if BL13 || BL14
+                // Sling / SlingStones do not exist in the BL1.2 enum.
+                ItemObject.ItemTypeEnum.Sling => L.S("item_type_sling", "Sling"),
+#endif
+                ItemObject.ItemTypeEnum.Thrown => L.S("item_type_thrown", "Thrown"),
+                ItemObject.ItemTypeEnum.Shield => L.S("item_type_shield", "Shield"),
+                ItemObject.ItemTypeEnum.Arrows => L.S("item_type_arrows", "Arrows"),
+                ItemObject.ItemTypeEnum.Bolts => L.S("item_type_bolts", "Bolts"),
+#if BL13 || BL14
+                ItemObject.ItemTypeEnum.SlingStones => L.S("item_type_sling_stones", "Sling Stones"),
+#endif
+                ItemObject.ItemTypeEnum.Bullets => L.S("item_type_bullets", "Bullets"),
+                ItemObject.ItemTypeEnum.Pistol => L.S("item_type_pistol", "Pistol"),
+                ItemObject.ItemTypeEnum.Musket => L.S("item_type_musket", "Musket"),
+                ItemObject.ItemTypeEnum.Banner => L.S("item_type_banner", "Banner"),
+                _ => Format.CamelCaseToTitle(type.ToString()),
+            };
+        }
+
+        /// <summary>
+        /// Resolves the localized display name of an equipment slot, reusing the same strings as the
+        /// equipment panel. Unmapped values fall back to the formatted enum name.
+        /// </summary>
+        internal static string GetSlotName(EquipmentIndex slot)
+        {
+            return slot switch
+            {
+                EquipmentIndex.Head => L.S("equipment_slot_head", "Head"),
+                EquipmentIndex.Cape => L.S("equipment_slot_cape", "Cape"),
+                EquipmentIndex.Body => L.S("equipment_slot_body", "Body"),
+                EquipmentIndex.Gloves => L.S("equipment_slot_gloves", "Gloves"),
+                EquipmentIndex.Leg => L.S("equipment_slot_leg", "Legs"),
+                EquipmentIndex.Horse => L.S("equipment_slot_horse", "Horse"),
+                EquipmentIndex.HorseHarness => L.S("equipment_slot_horse_harness", "Harness"),
+                _ => Format.CamelCaseToTitle(slot.ToString()),
+            };
         }
 
         /// <summary>

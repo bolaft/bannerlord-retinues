@@ -1349,6 +1349,51 @@
       id="ret_invalid_name_title"
       text="Nieprawidłowa nazwa" />
     <string
+      id="ret_item_type_arrows"
+      text="Strzały" />
+    <string
+      id="ret_item_type_banner"
+      text="Sztandar" />
+    <string
+      id="ret_item_type_bolts"
+      text="Bełty" />
+    <string
+      id="ret_item_type_bow"
+      text="Łuk" />
+    <string
+      id="ret_item_type_bullets"
+      text="Kule" />
+    <string
+      id="ret_item_type_crossbow"
+      text="Kusza" />
+    <string
+      id="ret_item_type_musket"
+      text="Muszkiet" />
+    <string
+      id="ret_item_type_one_handed_weapon"
+      text="Broń jednoręczna" />
+    <string
+      id="ret_item_type_pistol"
+      text="Pistolet" />
+    <string
+      id="ret_item_type_polearm"
+      text="Broń drzewcowa" />
+    <string
+      id="ret_item_type_shield"
+      text="Tarcza" />
+    <string
+      id="ret_item_type_sling"
+      text="Proca" />
+    <string
+      id="ret_item_type_sling_stones"
+      text="Kamienie do procy" />
+    <string
+      id="ret_item_type_thrown"
+      text="Broń miotana" />
+    <string
+      id="ret_item_type_two_handed_weapon"
+      text="Broń dwuręczna" />
+    <string
       id="ret_item_unlock_scoreboard_line"
       text="Przedmiot odblokowany: {ITEM}." />
     <string

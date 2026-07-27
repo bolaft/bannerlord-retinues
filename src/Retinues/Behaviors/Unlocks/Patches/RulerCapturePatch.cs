@@ -3,6 +3,7 @@ using System.Linq;
 using HarmonyLib;
 using Retinues.Behaviors.Missions;
 using Retinues.Domain.Equipments.Wrappers;
+using Retinues.Domain.Events.Models;
 using Retinues.Interface.Services;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
@@ -11,7 +12,7 @@ using TaleWorlds.CampaignSystem.CampaignBehaviors;
 using TaleWorlds.CampaignSystem.Conversation;
 using TaleWorlds.CampaignSystem.Party;
 
-namespace OldRetinues.Features.Unlocks.Patches
+namespace Retinues.Behaviors.Unlocks.Patches
 {
     /// <summary>
     /// Adds a special capture option for kingdom rulers:
@@ -95,8 +96,20 @@ namespace OldRetinues.Features.Unlocks.Patches
             )
                 return false;
 
-            if (CombatBehavior.MapEvent.PlayerSide.Parties.Count(p => !p.IsMainParty) > 0)
-                return false; // Must have won the battle by themselves.
+            // "Won by themselves" gate: no allied (non-main) parties on the player's side.
+            //
+            // This runs during the post-battle capture conversation, on the map, after the mission
+            // has ended — so the mission-scoped CombatBehavior.MapEvent is already null and reading
+            // it here threw a NullReferenceException on every ruler capture. Fall back to the player
+            // party's live map event and null-guard the whole chain; if no side is available, don't
+            // block (better to offer the option than to crash the conversation).
+            var rawMapEvent = CombatBehavior.MapEvent?.Base ?? PartyBase.MainParty?.MapEvent;
+            if (rawMapEvent != null)
+            {
+                var playerSide = new MMapEvent(rawMapEvent).PlayerSide;
+                if (playerSide?.Parties != null && playerSide.Parties.Count(p => !p.IsMainParty) > 0)
+                    return false;
+            }
 
             // Only offer if at least one reward item exists that is not yet unlocked.
             bool anyLocked = culture

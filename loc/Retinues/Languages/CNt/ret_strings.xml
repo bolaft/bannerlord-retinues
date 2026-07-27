@@ -1349,6 +1349,51 @@
       id="ret_invalid_name_title"
       text="無效名稱" />
     <string
+      id="ret_item_type_arrows"
+      text="箭" />
+    <string
+      id="ret_item_type_banner"
+      text="旗幟" />
+    <string
+      id="ret_item_type_bolts"
+      text="弩矢" />
+    <string
+      id="ret_item_type_bow"
+      text="弓" />
+    <string
+      id="ret_item_type_bullets"
+      text="彈丸" />
+    <string
+      id="ret_item_type_crossbow"
+      text="弩" />
+    <string
+      id="ret_item_type_musket"
+      text="火槍" />
+    <string
+      id="ret_item_type_one_handed_weapon"
+      text="單手武器" />
+    <string
+      id="ret_item_type_pistol"
+      text="手槍" />
+    <string
+      id="ret_item_type_polearm"
+      text="長桿武器" />
+    <string
+      id="ret_item_type_shield"
+      text="盾牌" />
+    <string
+      id="ret_item_type_sling"
+      text="投石索" />
+    <string
+      id="ret_item_type_sling_stones"
+      text="投石彈" />
+    <string
+      id="ret_item_type_thrown"
+      text="投擲武器" />
+    <string
+      id="ret_item_type_two_handed_weapon"
+      text="雙手武器" />
+    <string
       id="ret_item_unlock_scoreboard_line"
       text="解鎖物品：{ITEM}。" />
     <string

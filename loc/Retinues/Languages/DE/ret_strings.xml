@@ -1349,6 +1349,51 @@
       id="ret_invalid_name_title"
       text="Ungültiger Name" />
     <string
+      id="ret_item_type_arrows"
+      text="Pfeile" />
+    <string
+      id="ret_item_type_banner"
+      text="Banner" />
+    <string
+      id="ret_item_type_bolts"
+      text="Bolzen" />
+    <string
+      id="ret_item_type_bow"
+      text="Bogen" />
+    <string
+      id="ret_item_type_bullets"
+      text="Kugeln" />
+    <string
+      id="ret_item_type_crossbow"
+      text="Armbrust" />
+    <string
+      id="ret_item_type_musket"
+      text="Muskete" />
+    <string
+      id="ret_item_type_one_handed_weapon"
+      text="Einhandwaffe" />
+    <string
+      id="ret_item_type_pistol"
+      text="Pistole" />
+    <string
+      id="ret_item_type_polearm"
+      text="Stangenwaffe" />
+    <string
+      id="ret_item_type_shield"
+      text="Schild" />
+    <string
+      id="ret_item_type_sling"
+      text="Schleuder" />
+    <string
+      id="ret_item_type_sling_stones"
+      text="Schleudersteine" />
+    <string
+      id="ret_item_type_thrown"
+      text="Wurfwaffe" />
+    <string
+      id="ret_item_type_two_handed_weapon"
+      text="Zweihandwaffe" />
+    <string
       id="ret_item_unlock_scoreboard_line"
       text="Gegenstand freigeschaltet: {ITEM}." />
     <string

@@ -1349,6 +1349,51 @@
       id="ret_invalid_name_title"
       text="Geçersiz İsim" />
     <string
+      id="ret_item_type_arrows"
+      text="Oklar" />
+    <string
+      id="ret_item_type_banner"
+      text="Sancak" />
+    <string
+      id="ret_item_type_bolts"
+      text="Arbalet oku" />
+    <string
+      id="ret_item_type_bow"
+      text="Yay" />
+    <string
+      id="ret_item_type_bullets"
+      text="Mermiler" />
+    <string
+      id="ret_item_type_crossbow"
+      text="Arbalet" />
+    <string
+      id="ret_item_type_musket"
+      text="Tüfek" />
+    <string
+      id="ret_item_type_one_handed_weapon"
+      text="Tek elli silah" />
+    <string
+      id="ret_item_type_pistol"
+      text="Tabanca" />
+    <string
+      id="ret_item_type_polearm"
+      text="Kargı" />
+    <string
+      id="ret_item_type_shield"
+      text="Kalkan" />
+    <string
+      id="ret_item_type_sling"
+      text="Sapan" />
+    <string
+      id="ret_item_type_sling_stones"
+      text="Sapan taşları" />
+    <string
+      id="ret_item_type_thrown"
+      text="Fırlatma silahı" />
+    <string
+      id="ret_item_type_two_handed_weapon"
+      text="Çift elli silah" />
+    <string
       id="ret_item_unlock_scoreboard_line"
       text="Öğe kilidi açıldı: {ITEM}." />
     <string

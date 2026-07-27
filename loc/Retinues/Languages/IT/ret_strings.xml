@@ -1349,6 +1349,51 @@
       id="ret_invalid_name_title"
       text="Nome non valido" />
     <string
+      id="ret_item_type_arrows"
+      text="Frecce" />
+    <string
+      id="ret_item_type_banner"
+      text="Stendardo" />
+    <string
+      id="ret_item_type_bolts"
+      text="Quadrelli" />
+    <string
+      id="ret_item_type_bow"
+      text="Arco" />
+    <string
+      id="ret_item_type_bullets"
+      text="Proiettili" />
+    <string
+      id="ret_item_type_crossbow"
+      text="Balestra" />
+    <string
+      id="ret_item_type_musket"
+      text="Moschetto" />
+    <string
+      id="ret_item_type_one_handed_weapon"
+      text="Arma a una mano" />
+    <string
+      id="ret_item_type_pistol"
+      text="Pistola" />
+    <string
+      id="ret_item_type_polearm"
+      text="Arma inastata" />
+    <string
+      id="ret_item_type_shield"
+      text="Scudo" />
+    <string
+      id="ret_item_type_sling"
+      text="Fionda" />
+    <string
+      id="ret_item_type_sling_stones"
+      text="Pietre da fionda" />
+    <string
+      id="ret_item_type_thrown"
+      text="Arma da lancio" />
+    <string
+      id="ret_item_type_two_handed_weapon"
+      text="Arma a due mani" />
+    <string
       id="ret_item_unlock_scoreboard_line"
       text="Oggetto sbloccato: {ITEM}." />
     <string

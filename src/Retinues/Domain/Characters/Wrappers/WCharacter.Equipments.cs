@@ -181,6 +181,31 @@ namespace Retinues.Domain.Characters.Wrappers
                 return;
             }
 
+            // Self-heal: a troop must always have at least one battle-typed set. Equipment codes
+            // carry items only — the battle/civilian type is restored solely from each blob's
+            // IsCivilianAttribute — so a malformed blob can leave every set typed civilian. The
+            // engine then has no FirstBattleEquipment and silently renders/spawns the first set
+            // (civilian clothes) instead. Re-type the first set as battle and log it, so the
+            // troop stays functional and the bad data is visible in the log.
+            bool anyBattle = false;
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (list[i] != null && !list[i].IsCivilian)
+                {
+                    anyBattle = true;
+                    break;
+                }
+            }
+
+            if (!anyBattle)
+            {
+                Log.Warning(
+                    $"Equipment restore for '{StringId}' produced no battle set "
+                        + $"({list.Count} set(s), all civilian) — re-typing the first set as battle."
+                );
+                list[0].IsCivilian = false;
+            }
+
             roster.Equipments = list;
         }
     }

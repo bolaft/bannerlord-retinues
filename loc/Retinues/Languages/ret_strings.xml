@@ -1346,6 +1346,51 @@
       id="ret_invalid_name_title"
       text="Invalid Name" />
     <string
+      id="ret_item_type_arrows"
+      text="Arrows" />
+    <string
+      id="ret_item_type_banner"
+      text="Banner" />
+    <string
+      id="ret_item_type_bolts"
+      text="Bolts" />
+    <string
+      id="ret_item_type_bow"
+      text="Bow" />
+    <string
+      id="ret_item_type_bullets"
+      text="Bullets" />
+    <string
+      id="ret_item_type_crossbow"
+      text="Crossbow" />
+    <string
+      id="ret_item_type_musket"
+      text="Musket" />
+    <string
+      id="ret_item_type_one_handed_weapon"
+      text="One Handed Weapon" />
+    <string
+      id="ret_item_type_pistol"
+      text="Pistol" />
+    <string
+      id="ret_item_type_polearm"
+      text="Polearm" />
+    <string
+      id="ret_item_type_shield"
+      text="Shield" />
+    <string
+      id="ret_item_type_sling"
+      text="Sling" />
+    <string
+      id="ret_item_type_sling_stones"
+      text="Sling Stones" />
+    <string
+      id="ret_item_type_thrown"
+      text="Thrown" />
+    <string
+      id="ret_item_type_two_handed_weapon"
+      text="Two Handed Weapon" />
+    <string
       id="ret_item_unlock_scoreboard_line"
       text="Item unlocked: {ITEM}." />
     <string

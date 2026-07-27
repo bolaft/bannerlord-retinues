@@ -1349,6 +1349,51 @@
       id="ret_invalid_name_title"
       text="Недопустимое имя" />
     <string
+      id="ret_item_type_arrows"
+      text="Стрелы" />
+    <string
+      id="ret_item_type_banner"
+      text="Знамя" />
+    <string
+      id="ret_item_type_bolts"
+      text="Болты" />
+    <string
+      id="ret_item_type_bow"
+      text="Лук" />
+    <string
+      id="ret_item_type_bullets"
+      text="Пули" />
+    <string
+      id="ret_item_type_crossbow"
+      text="Арбалет" />
+    <string
+      id="ret_item_type_musket"
+      text="Мушкет" />
+    <string
+      id="ret_item_type_one_handed_weapon"
+      text="Одноручное оружие" />
+    <string
+      id="ret_item_type_pistol"
+      text="Пистолет" />
+    <string
+      id="ret_item_type_polearm"
+      text="Древковое оружие" />
+    <string
+      id="ret_item_type_shield"
+      text="Щит" />
+    <string
+      id="ret_item_type_sling"
+      text="Праща" />
+    <string
+      id="ret_item_type_sling_stones"
+      text="Камни для пращи" />
+    <string
+      id="ret_item_type_thrown"
+      text="Метательное оружие" />
+    <string
+      id="ret_item_type_two_handed_weapon"
+      text="Двуручное оружие" />
+    <string
       id="ret_item_unlock_scoreboard_line"
       text="Предмет разблокирован: {ITEM}." />
     <string

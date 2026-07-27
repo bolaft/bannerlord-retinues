@@ -138,8 +138,34 @@ namespace Retinues.Behaviors.Retinues
                     CopySkills = true,
                     CreateCivilianSet = true,
                     NotifyUnlocks = notifyUnlocks,
+                    TargetLevel = GetRetinueLevelOverride(template),
                 }
             );
+        }
+
+        // A retinue must be at least this tier. Conversion matches a source exactly one tier below,
+        // so a tier 0 retinue looks for tier -1 and can never be recruited.
+        private const int MinRetinueTier = 1;
+
+        /// <summary>
+        /// Returns a level override that keeps a new retinue at or above <see cref="MinRetinueTier"/>,
+        /// or 0 to keep the template's own level.
+        ///
+        /// Retinues inherit the level of the culture's elite root, which troop overhauls are free to
+        /// redefine. Some use a very low-level unit there (Warlords Battlefield's Vlandian noble is
+        /// level 3), which produced a tier 0 retinue that no troop could ever convert into. Only the
+        /// degenerate case is corrected; any template at tier 1 or above is still inherited as-is.
+        /// </summary>
+        private static int GetRetinueLevelOverride(WCharacter template)
+        {
+            if (template?.Base == null)
+                return 0;
+
+            if (template.Tier >= MinRetinueTier)
+                return 0; // Inherit the template level.
+
+            // Mid-range level of the target tier, matching the editor's "tier * 5 + 8" convention.
+            return (MinRetinueTier - 1) * 5 + 8;
         }
     }
 }

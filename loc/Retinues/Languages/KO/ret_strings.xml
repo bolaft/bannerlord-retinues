@@ -1349,6 +1349,51 @@
       id="ret_invalid_name_title"
       text="잘못된 이름" />
     <string
+      id="ret_item_type_arrows"
+      text="화살" />
+    <string
+      id="ret_item_type_banner"
+      text="깃발" />
+    <string
+      id="ret_item_type_bolts"
+      text="볼트" />
+    <string
+      id="ret_item_type_bow"
+      text="활" />
+    <string
+      id="ret_item_type_bullets"
+      text="탄환" />
+    <string
+      id="ret_item_type_crossbow"
+      text="석궁" />
+    <string
+      id="ret_item_type_musket"
+      text="머스킷" />
+    <string
+      id="ret_item_type_one_handed_weapon"
+      text="한손 무기" />
+    <string
+      id="ret_item_type_pistol"
+      text="권총" />
+    <string
+      id="ret_item_type_polearm"
+      text="장병기" />
+    <string
+      id="ret_item_type_shield"
+      text="방패" />
+    <string
+      id="ret_item_type_sling"
+      text="투석구" />
+    <string
+      id="ret_item_type_sling_stones"
+      text="투석구 돌" />
+    <string
+      id="ret_item_type_thrown"
+      text="투척 무기" />
+    <string
+      id="ret_item_type_two_handed_weapon"
+      text="양손 무기" />
+    <string
       id="ret_item_unlock_scoreboard_line"
       text="아이템 잠금 해제: {ITEM}." />
     <string

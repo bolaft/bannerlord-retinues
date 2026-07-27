@@ -1349,6 +1349,51 @@
       id="ret_invalid_name_title"
       text="無効な名前" />
     <string
+      id="ret_item_type_arrows"
+      text="矢" />
+    <string
+      id="ret_item_type_banner"
+      text="旗" />
+    <string
+      id="ret_item_type_bolts"
+      text="ボルト" />
+    <string
+      id="ret_item_type_bow"
+      text="弓" />
+    <string
+      id="ret_item_type_bullets"
+      text="弾丸" />
+    <string
+      id="ret_item_type_crossbow"
+      text="クロスボウ" />
+    <string
+      id="ret_item_type_musket"
+      text="マスケット銃" />
+    <string
+      id="ret_item_type_one_handed_weapon"
+      text="片手武器" />
+    <string
+      id="ret_item_type_pistol"
+      text="ピストル" />
+    <string
+      id="ret_item_type_polearm"
+      text="長柄武器" />
+    <string
+      id="ret_item_type_shield"
+      text="盾" />
+    <string
+      id="ret_item_type_sling"
+      text="スリング" />
+    <string
+      id="ret_item_type_sling_stones"
+      text="投石弾" />
+    <string
+      id="ret_item_type_thrown"
+      text="投擲武器" />
+    <string
+      id="ret_item_type_two_handed_weapon"
+      text="両手武器" />
+    <string
       id="ret_item_unlock_scoreboard_line"
       text="アイテムがアンロックされました: {ITEM}。" />
     <string
