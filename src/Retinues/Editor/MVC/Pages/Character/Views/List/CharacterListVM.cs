@@ -34,7 +34,8 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.List
             return headerId == "elite"
                 || headerId == "regular"
                 || headerId == "mercenaries"
-                || headerId == "bandits";
+                || headerId == "bandits"
+                || headerId == "extra";
         }
 
         /// <summary>
@@ -609,6 +610,43 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.List
                 faction.RosterCivilian,
                 condition: () => faction is WCulture
             );
+
+            // Extra trees: soldier trees of this culture that no canonical roster references
+            // (e.g. Realm of Thrones' Household Troops). Discovered by ExtraRootsCache and shown
+            // flattened as a forest; the "extra" header uses tree sorting like mercenaries.
+            if (faction is WCulture cultureWithExtras)
+            {
+                var extraRoots = cultureWithExtras.ExtraRoots;
+                if (extraRoots != null && extraRoots.Count > 0)
+                {
+                    var seenExtra = new HashSet<string>(StringComparer.Ordinal);
+                    var extraTroops = new List<WCharacter>();
+
+                    foreach (var root in extraRoots)
+                    {
+                        var tree = root?.Tree;
+                        if (tree == null)
+                            continue;
+
+                        foreach (var troop in tree)
+                        {
+                            var id = troop?.StringId;
+                            if (string.IsNullOrEmpty(id) || !seenExtra.Add(id))
+                                continue;
+
+                            extraTroops.Add(troop);
+                        }
+                    }
+
+                    AddSection(
+                        headers,
+                        "extra",
+                        "list_header_extra",
+                        L.S("list_header_extra", "Other"),
+                        extraTroops
+                    );
+                }
+            }
 
             // Apply headers in one operation.
             SetHeaders(headers);

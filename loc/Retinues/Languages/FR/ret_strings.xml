@@ -938,6 +938,9 @@
       id="ret_feat_notification_body"
       text="{NAME} :{newline}{newline}{DESC}" />
     <string
+      id="ret_feat_notification_repeatable"
+      text="{BODY}{newline}{newline}Cet exploit est répétable : sa progression se réinitialise et il peut être accompli à nouveau pour plus de progression de doctrine." />
+    <string
       id="ret_feat_ret_against_all_odds_desc"
       text="En infériorité numérique d&apos;au moins 2 contre 1, gagnez une bataille en déployant uniquement des rétinues." />
     <string
@@ -1161,7 +1164,7 @@
       text="Fléau des bandits" />
     <string
       id="ret_feat_trp_defender_of_the_city_desc"
-      text="Défendez une ville contre une armée assiégeante." />
+      text="Défendez une colonie contre une armée assiégeante." />
     <string
       id="ret_feat_trp_defender_of_the_city_name"
       text="Défenseur de la cité" />
@@ -1601,6 +1604,9 @@
       id="ret_list_header_exports_factions"
       text="Factions" />
     <string
+      id="ret_list_header_extra"
+      text="Autres" />
+    <string
       id="ret_list_header_heroes"
       text="Héros" />
     <string
@@ -1741,6 +1747,12 @@
     <string
       id="ret_mcm_option_ai_clan_retinue_convert_chance_hint"
       text="Probabilité par jour qu&apos;un groupe de seigneur éligible convertisse une troupe de niveau correspondant en suite (1-100)." />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_equipment_upgrades"
+      text="Amélioration d&apos;équipement des retenues IA" />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_equipment_upgrades_hint"
+      text="Les retenues des clans IA ont chaque jour une petite chance d&apos;améliorer une pièce de leur équipement." />
     <string
       id="ret_mcm_option_ai_clan_retinue_leader_only"
       text="Seuls les chefs de clan ont une suite" />

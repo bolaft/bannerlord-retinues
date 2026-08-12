@@ -938,6 +938,9 @@
       id="ret_feat_notification_body"
       text="{NAME}:{newline}{newline}{DESC}" />
     <string
+      id="ret_feat_notification_repeatable"
+      text="{BODY}{newline}{newline}该成就可重复完成：进度会重置，再次完成可获得更多教义进度。" />
+    <string
       id="ret_feat_ret_against_all_odds_desc"
       text="在至少2比1的劣势下，仅使用随从获胜一场战斗。" />
     <string
@@ -1161,7 +1164,7 @@
       text="强盗祸害" />
     <string
       id="ret_feat_trp_defender_of_the_city_desc"
-      text="保卫一座城市免受围攻军队的攻击。" />
+      text="保卫一处定居点免受围攻军队的攻击。" />
     <string
       id="ret_feat_trp_defender_of_the_city_name"
       text="城市守护者" />
@@ -1601,6 +1604,9 @@
       id="ret_list_header_exports_factions"
       text="派系" />
     <string
+      id="ret_list_header_extra"
+      text="其他" />
+    <string
       id="ret_list_header_heroes"
       text="英雄" />
     <string
@@ -1741,6 +1747,12 @@
     <string
       id="ret_mcm_option_ai_clan_retinue_convert_chance_hint"
       text="每天符合条件的颂主队伍将一名同级型土兵转化为从际的概率（1-100）。" />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_equipment_upgrades"
+      text="AI扈从装备升级" />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_equipment_upgrades_hint"
+      text="AI家族的扈从每天有小概率升级一件装备。" />
     <string
       id="ret_mcm_option_ai_clan_retinue_leader_only"
       text="只有族长拥有从际" />

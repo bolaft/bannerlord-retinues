@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Retinues.Behaviors.Doctrines;
+using Retinues.Behaviors.Doctrines.Catalogs;
 using Retinues.Behaviors.Doctrines.Definitions;
 
 namespace Retinues.Tests.Cases
@@ -51,6 +52,70 @@ namespace Retinues.Tests.Cases
                 );
                 Tests.AssertEqual(0, doctrine.Progress, "Doctrine progress is cleared on reset.");
                 Tests.AssertEqual(0, feat.Progress, "Feat progress is cleared on reset.");
+            }
+            finally
+            {
+                RestoreDoctrineState(doctrineSnapshot, featSnapshot);
+            }
+        }
+
+        [GameTest(
+            "RepeatableFeatWrapsAndCreditsWorth",
+            "doctrines",
+            "A repeatable feat credits its worth and wraps back to 0 so it can be completed again"
+        )]
+        public static void RepeatableFeatWrapsAndCreditsWorth(GameTestContext ctx)
+        {
+            DoctrinesRegistry.EnsureRegistered();
+
+            // Defender of the City is the reported case: target 1, repeatable. Before the
+            // repeatable-feat fix it completed without crediting worth and stuck at 1/1; after it,
+            // each completion credits the worth and the progress wraps to 0 (which is why the
+            // tracker legitimately shows 0/1 right after the completion popup).
+            var feat = Feat.Get(FeatCatalog.SM_DefenderOfTheCity.Id);
+            Tests.AssertNotNull(feat, "Defender of the City is registered.");
+            Tests.AssertTrue(feat.Repeatable, "Defender of the City is repeatable.");
+
+            var doctrine = feat.Doctrine;
+            Tests.AssertNotNull(doctrine, "The feat belongs to a doctrine.");
+
+            // Snapshot ALL doctrine/feat state (prerequisites get mutated too) and restore after.
+            var doctrineSnapshot = DoctrinesRegistry
+                .GetDoctrines()
+                .ToDictionary(d => d.Id, d => (d.IsAcquired, d.Progress));
+            var featSnapshot = DoctrinesRegistry.GetFeats().ToDictionary(f => f.Id, f => f.Progress);
+
+            try
+            {
+                // Put the doctrine in progress: clear it and acquire its prerequisite chain.
+                doctrine.IsAcquired = false;
+                doctrine.ForceSet(0);
+                feat.ForceSet(0);
+
+                for (var p = doctrine.Prerequisite; p != null; p = p.Prerequisite)
+                    p.IsAcquired = true;
+
+                if (!doctrine.IsInProgress)
+                    return; // Feat requirements disabled or doctrine overridden; nothing to verify.
+
+                feat.Add();
+                Tests.AssertEqual(
+                    0,
+                    feat.Progress,
+                    "Progress wraps to 0 after completing, ready to be earned again."
+                );
+                Tests.AssertEqual(
+                    feat.Worth,
+                    doctrine.Progress,
+                    "The completion credited the feat's worth to the doctrine."
+                );
+
+                feat.Add();
+                Tests.AssertEqual(
+                    feat.Worth * 2,
+                    doctrine.Progress,
+                    "A second completion credits the worth again."
+                );
             }
             finally
             {

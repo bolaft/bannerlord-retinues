@@ -203,11 +203,10 @@ namespace Retinues.Behaviors.Retinues
         /// </summary>
         protected override void OnMissionEnded(MMission mission)
         {
-            // Mark as handled so the OnMapEventEnded autoresolve path is skipped.
-            _lootHandledByMission = true;
-
             if (!Configuration.EnableAIClanRetinues)
             {
+                // Mark as handled so the OnMapEventEnded autoresolve path is skipped too.
+                _lootHandledByMission = true;
                 Log.Debug("[AIClanRetinue.Loot] Skipped: EnableAIClanRetinues is false.");
                 return;
             }
@@ -217,8 +216,23 @@ namespace Retinues.Behaviors.Retinues
                 $"[AIClanRetinue.Loot] MapEvent={mapEvent != null} IsLost={mapEvent?.IsLost} IsWon={mapEvent?.IsWon} HasWinner={mapEvent?.HasWinner} IsPlayerInvolved={mapEvent?.IsPlayerInvolved}"
             );
 
+            // Loot only on a DECIDED outcome. In large multi-round battles a mission ends while
+            // the map event is still undecided (reinforcement waves, further rounds) — at that
+            // moment IsWon is false even for the eventual winner, and treating "not won yet" as
+            // "not won" looted players who went on to win. When the outcome is undecided (or the
+            // mission tracker is already gone), leave _lootHandledByMission unset so
+            // OnMapEventEnded settles it from the battle's FINAL outcome instead.
+            if (mapEvent == null || !mapEvent.HasWinner)
+            {
+                Log.Debug("[AIClanRetinue.Loot] Deferred: outcome not decided at mission end.");
+                return;
+            }
+
+            // Decided here: claim the battle so the map-event path does not double-process it.
+            _lootHandledByMission = true;
+
             // Only loot when the player did not win (includes defeats and retreats).
-            if (mapEvent?.IsWon == true)
+            if (mapEvent.IsWon)
             {
                 Log.Debug("[AIClanRetinue.Loot] Skipped: battle was won.");
                 return;

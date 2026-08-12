@@ -12,7 +12,7 @@ namespace Retinues.Domain.Characters.Services.Skills
         //                         Consts                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        public const int MaxSkillLevel = 360;
+        public const int MaxSkillLevel = 999;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Caps                          //

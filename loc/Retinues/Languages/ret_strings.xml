@@ -935,6 +935,9 @@
       id="ret_feat_notification_body"
       text="{NAME}:{newline}{newline}{DESC}" />
     <string
+      id="ret_feat_notification_repeatable"
+      text="{BODY}{newline}{newline}This feat is repeatable: its progress resets and it can be completed again for more doctrine progress." />
+    <string
       id="ret_feat_ret_against_all_odds_desc"
       text="Outnumbered at least 2 to 1, win a battle while fielding only retinues." />
     <string
@@ -1158,7 +1161,7 @@
       text="Bandit Scourge" />
     <string
       id="ret_feat_trp_defender_of_the_city_desc"
-      text="Defend a city against a besieging army." />
+      text="Defend a settlement against a besieging army." />
     <string
       id="ret_feat_trp_defender_of_the_city_name"
       text="Defender of the City" />
@@ -1598,6 +1601,9 @@
       id="ret_list_header_exports_factions"
       text="Factions" />
     <string
+      id="ret_list_header_extra"
+      text="Other" />
+    <string
       id="ret_list_header_heroes"
       text="Heroes" />
     <string
@@ -1750,6 +1756,12 @@
     <string
       id="ret_mcm_option_ai_clan_retinue_convert_chance_hint"
       text="Chance per day that an eligible lord party converts one matching-tier troop into a retinue (1-100)." />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_equipment_upgrades"
+      text="AI Retinue Gear Upgrades" />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_equipment_upgrades_hint"
+      text="AI clan retinues have a small daily chance to upgrade a piece of their gear." />
     <string
       id="ret_mcm_option_ai_clan_retinue_leader_only"
       text="Only Clan Leaders Have Retinues" />

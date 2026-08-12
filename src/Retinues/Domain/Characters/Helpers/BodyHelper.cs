@@ -369,23 +369,21 @@ namespace Retinues.Domain.Characters.Helpers
                 return fresh;
             }
 
-            // Try to use Clone to break sharing.
-            try
+#if BL13 || BL14
+            // Full copy (body ranges + hair/beard/tattoo tags) to break sharing. This used to
+            // attempt a reflection call to MBBodyProperty.Clone, which does not exist on any
+            // supported game version — every call threw a logged MissingMethodException (nearly
+            // two hundred per campaign load) before falling into a tag-dropping manual copy.
+            var clone = MBBodyProperty.CreateFrom(current);
+            if (clone != null)
             {
-                if (
-                    Reflection.InvokeMethod(current, "Clone", Type.EmptyTypes)
-                    is MBBodyProperty clone
-                )
-                {
-                    Reflection.SetPropertyValue(wc.Base, "BodyPropertyRange", clone);
-                    return clone;
-                }
+                Reflection.SetPropertyValue(wc.Base, "BodyPropertyRange", clone);
+                return clone;
             }
-            catch
-            {
-                // Ignore and fall through to manual clone.
-            }
+#endif
 
+            // BL12 (no CreateFrom): rebuild from the min/max ranges. BL12 has no tag support in
+            // this codebase, so nothing is lost.
             var min1 = wc.Base.GetBodyPropertiesMin();
             var max1 = wc.Base.GetBodyPropertiesMax();
 

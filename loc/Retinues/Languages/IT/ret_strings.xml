@@ -938,6 +938,9 @@
       id="ret_feat_notification_body"
       text="{NAME}:{newline}{newline}{DESC}" />
     <string
+      id="ret_feat_notification_repeatable"
+      text="{BODY}{newline}{newline}Questa impresa è ripetibile: il suo progresso si azzera e può essere completata di nuovo per ottenere altro progresso della dottrina." />
+    <string
       id="ret_feat_ret_against_all_odds_desc"
       text="In inferiorità numerica di almeno 2 a 1, vinci una battaglia schierando solo retinues." />
     <string
@@ -1161,7 +1164,7 @@
       text="Flagello dei banditi" />
     <string
       id="ret_feat_trp_defender_of_the_city_desc"
-      text="Difendi una città contro un esercito assediante." />
+      text="Difendi un insediamento contro un esercito assediante." />
     <string
       id="ret_feat_trp_defender_of_the_city_name"
       text="Difensore della città" />
@@ -1601,6 +1604,9 @@
       id="ret_list_header_exports_factions"
       text="Fazioni" />
     <string
+      id="ret_list_header_extra"
+      text="Altri" />
+    <string
       id="ret_list_header_heroes"
       text="Eroi" />
     <string
@@ -1741,6 +1747,12 @@
     <string
       id="ret_mcm_option_ai_clan_retinue_convert_chance_hint"
       text="Probabilità al giorno che un gruppo di lord idoneo converta una truppa di livello corrispondente in un seguito (1-100)." />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_equipment_upgrades"
+      text="Miglioramenti equipaggiamento seguiti IA" />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_equipment_upgrades_hint"
+      text="I seguiti dei clan IA hanno ogni giorno una piccola probabilità di migliorare un pezzo del loro equipaggiamento." />
     <string
       id="ret_mcm_option_ai_clan_retinue_leader_only"
       text="Solo i capi clan hanno un seguito" />

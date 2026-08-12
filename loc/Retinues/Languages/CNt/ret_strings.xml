@@ -938,6 +938,9 @@
       id="ret_feat_notification_body"
       text="{NAME}:{newline}{newline}{DESC}" />
     <string
+      id="ret_feat_notification_repeatable"
+      text="{BODY}{newline}{newline}該成就可重複完成：進度會重置，再次完成可獲得更多教義進度。" />
+    <string
       id="ret_feat_ret_against_all_odds_desc"
       text="在至少2比1的劣勢下，僅使用隨從獲勝一場戰鬥。" />
     <string
@@ -1161,7 +1164,7 @@
       text="強盜禍害" />
     <string
       id="ret_feat_trp_defender_of_the_city_desc"
-      text="保衛一座城市免受圍攻軍隊的攻擊。" />
+      text="保衛一處定居點免受圍攻軍隊的攻擊。" />
     <string
       id="ret_feat_trp_defender_of_the_city_name"
       text="城市守護者" />
@@ -1601,6 +1604,9 @@
       id="ret_list_header_exports_factions"
       text="派系" />
     <string
+      id="ret_list_header_extra"
+      text="其他" />
+    <string
       id="ret_list_header_heroes"
       text="英雄" />
     <string
@@ -1741,6 +1747,12 @@
     <string
       id="ret_mcm_option_ai_clan_retinue_convert_chance_hint"
       text="每天符合條件的邘主隊伍將一名同階車兵轉化為隨從的機率（1-100）。" />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_equipment_upgrades"
+      text="AI扈從裝備升級" />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_equipment_upgrades_hint"
+      text="AI家族的扈從每天有小概率升級一件裝備。" />
     <string
       id="ret_mcm_option_ai_clan_retinue_leader_only"
       text="只有族長擁有隨從" />

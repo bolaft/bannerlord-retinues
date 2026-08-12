@@ -938,6 +938,9 @@
       id="ret_feat_notification_body"
       text="{NAME}:{newline}{newline}{DESC}" />
     <string
+      id="ret_feat_notification_repeatable"
+      text="{BODY}{newline}{newline}Bu başarı tekrarlanabilir: ilerlemesi sıfırlanır ve daha fazla doktrin ilerlemesi için yeniden tamamlanabilir." />
+    <string
       id="ret_feat_ret_against_all_odds_desc"
       text="En az 2&apos;ye 1 sayısal dezavantajla, sadece retinüler kullanarak bir savaşı kazanın." />
     <string
@@ -1161,7 +1164,7 @@
       text="Haydut Vebası" />
     <string
       id="ret_feat_trp_defender_of_the_city_desc"
-      text="Kuşatıcı bir orduya karşı bir şehri savunun." />
+      text="Kuşatıcı bir orduya karşı bir yerleşimi savunun." />
     <string
       id="ret_feat_trp_defender_of_the_city_name"
       text="Şehrin Savunucusu" />
@@ -1601,6 +1604,9 @@
       id="ret_list_header_exports_factions"
       text="Fraksiyonlar" />
     <string
+      id="ret_list_header_extra"
+      text="Diğer" />
+    <string
       id="ret_list_header_heroes"
       text="Kahramanlar" />
     <string
@@ -1741,6 +1747,12 @@
     <string
       id="ret_mcm_option_ai_clan_retinue_convert_chance_hint"
       text="Uygun bir lord grubunun eşleşen kademedeki bir birliği günde maiyet olarak dönüştürme şansı (1-100)." />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_equipment_upgrades"
+      text="YZ maiyet teçhizat geliştirmeleri" />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_equipment_upgrades_hint"
+      text="YZ klan maiyetlerinin her gün teçhizatlarından bir parçayı geliştirme şansı vardır." />
     <string
       id="ret_mcm_option_ai_clan_retinue_leader_only"
       text="Yalnızca Klan Liderlerinin Maiyeti Vardır" />

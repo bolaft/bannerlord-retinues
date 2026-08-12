@@ -241,6 +241,7 @@ namespace Retinues.Domain.Characters.Wrappers
             FactionCache.Invalidate();
             SourceFlagCache.Invalidate();
             TreeFlagCache.Invalidate();
+            ExtraRootsCache.Invalidate(); // derived from SourceFlagCache; must follow it
 
             // Also invalidate retinue conversion sources/targets caches.
             CacheRegistry.ClearGroup(ConversionCacheGroupKey);

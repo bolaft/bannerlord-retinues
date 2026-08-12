@@ -938,6 +938,9 @@
       id="ret_feat_notification_body"
       text="{NAME}:{newline}{newline}{DESC}" />
     <string
+      id="ret_feat_notification_repeatable"
+      text="{BODY}{newline}{newline}Diese Leistung ist wiederholbar: Ihr Fortschritt wird zurückgesetzt und sie kann für weiteren Doktrin-Fortschritt erneut abgeschlossen werden." />
+    <string
       id="ret_feat_ret_against_all_odds_desc"
       text="Bei einer Unterzahl von mindestens 2 zu 1 gewinne eine Schlacht, indem du nur Gefolgsleute einsetzt." />
     <string
@@ -1161,7 +1164,7 @@
       text="Banditenplage" />
     <string
       id="ret_feat_trp_defender_of_the_city_desc"
-      text="Verteidige eine Stadt gegen eine belagernde Armee." />
+      text="Verteidige eine Siedlung gegen eine belagernde Armee." />
     <string
       id="ret_feat_trp_defender_of_the_city_name"
       text="Verteidiger der Stadt" />
@@ -1601,6 +1604,9 @@
       id="ret_list_header_exports_factions"
       text="Fraktionen" />
     <string
+      id="ret_list_header_extra"
+      text="Sonstige" />
+    <string
       id="ret_list_header_heroes"
       text="Helden" />
     <string
@@ -1741,6 +1747,12 @@
     <string
       id="ret_mcm_option_ai_clan_retinue_convert_chance_hint"
       text="Wahrscheinlichkeit pro Tag, dass eine geeignete Lordgruppe eine Truppe passender Stufe in ein Gefolge umwandelt (1-100)." />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_equipment_upgrades"
+      text="KI-Gefolge-Ausrüstungsverbesserungen" />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_equipment_upgrades_hint"
+      text="KI-Clan-Gefolge haben täglich eine kleine Chance, ein Ausrüstungsteil zu verbessern." />
     <string
       id="ret_mcm_option_ai_clan_retinue_leader_only"
       text="Nur Clanführer haben Gefolge" />

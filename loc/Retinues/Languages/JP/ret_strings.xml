@@ -938,6 +938,9 @@
       id="ret_feat_notification_body"
       text="{NAME}:{newline}{newline}{DESC}" />
     <string
+      id="ret_feat_notification_repeatable"
+      text="{BODY}{newline}{newline}この偉業は繰り返し達成できます。進捗はリセットされ、再度達成することで教義の進捗をさらに獲得できます。" />
+    <string
       id="ret_feat_ret_against_all_odds_desc"
       text="少なくとも2対1の数的不利な状況で、随行部隊のみを配備して戦闘に勝利します。" />
     <string
@@ -1161,7 +1164,7 @@
       text="山賊の災い" />
     <string
       id="ret_feat_trp_defender_of_the_city_desc"
-      text="包囲する軍隊から都市を防衛します。" />
+      text="包囲する軍隊から拠点を防衛します。" />
     <string
       id="ret_feat_trp_defender_of_the_city_name"
       text="都市の守護者" />
@@ -1601,6 +1604,9 @@
       id="ret_list_header_exports_factions"
       text="派閥" />
     <string
+      id="ret_list_header_extra"
+      text="その他" />
+    <string
       id="ret_list_header_heroes"
       text="英雄" />
     <string
@@ -1741,6 +1747,12 @@
     <string
       id="ret_mcm_option_ai_clan_retinue_convert_chance_hint"
       text="資格のある領主パーティが1日に同ブランクの兵を徨側に転化する確率（1～100）。" />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_equipment_upgrades"
+      text="AI従士の装備強化" />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_equipment_upgrades_hint"
+      text="AIクランの従士は毎日わずかな確率で装備を1つ強化します。" />
     <string
       id="ret_mcm_option_ai_clan_retinue_leader_only"
       text="氏族の長のみ徨側を持つ" />

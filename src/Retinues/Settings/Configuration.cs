@@ -556,6 +556,20 @@ namespace Retinues.Settings
             dependsOn: EnableAIClanRetinues
         );
 
+        public static readonly Option<bool> AIClanRetinueEquipmentUpgrades = CreateOption(
+            section: Retinues,
+            name: L.F(
+                "mcm_option_ai_clan_retinue_equipment_upgrades",
+                "AI Retinue Gear Upgrades"
+            ),
+            description: L.F(
+                "mcm_option_ai_clan_retinue_equipment_upgrades_hint",
+                "AI clan retinues have a small daily chance to upgrade a piece of their gear."
+            ),
+            @default: true,
+            dependsOn: EnableAIClanRetinues
+        );
+
         public static readonly Option<bool> AIClanRetinueLeaderOnly = CreateOption(
             section: Retinues,
             name: L.F("mcm_option_ai_clan_retinue_leader_only", "Only Clan Leaders Have Retinues"),
@@ -1483,7 +1497,7 @@ namespace Retinues.Settings
             section: SkillCaps,
             name: L.F("mcm_option_skill_cap", "Tier {TIER} Skill Cap", ("TIER", 0)),
             minValue: 20,
-            maxValue: 360,
+            maxValue: 999,
             @default: 20,
             fires: [UIEvent.Skill]
         );
@@ -1492,7 +1506,7 @@ namespace Retinues.Settings
             section: SkillCaps,
             name: L.F("mcm_option_skill_cap", "Tier {TIER} Skill Cap", ("TIER", 1)),
             minValue: 20,
-            maxValue: 360,
+            maxValue: 999,
             @default: 20,
             fires: [UIEvent.Skill]
         );
@@ -1501,7 +1515,7 @@ namespace Retinues.Settings
             section: SkillCaps,
             name: L.F("mcm_option_skill_cap", "Tier {TIER} Skill Cap", ("TIER", 2)),
             minValue: 20,
-            maxValue: 360,
+            maxValue: 999,
             @default: 60,
             fires: [UIEvent.Skill]
         );
@@ -1510,7 +1524,7 @@ namespace Retinues.Settings
             section: SkillCaps,
             name: L.F("mcm_option_skill_cap", "Tier {TIER} Skill Cap", ("TIER", 3)),
             minValue: 20,
-            maxValue: 360,
+            maxValue: 999,
             @default: 80,
             fires: [UIEvent.Skill]
         );
@@ -1519,7 +1533,7 @@ namespace Retinues.Settings
             section: SkillCaps,
             name: L.F("mcm_option_skill_cap", "Tier {TIER} Skill Cap", ("TIER", 4)),
             minValue: 20,
-            maxValue: 360,
+            maxValue: 999,
             @default: 120,
             fires: [UIEvent.Skill]
         );
@@ -1528,7 +1542,7 @@ namespace Retinues.Settings
             section: SkillCaps,
             name: L.F("mcm_option_skill_cap", "Tier {TIER} Skill Cap", ("TIER", 5)),
             minValue: 20,
-            maxValue: 360,
+            maxValue: 999,
             @default: 160,
             fires: [UIEvent.Skill]
         );
@@ -1537,7 +1551,7 @@ namespace Retinues.Settings
             section: SkillCaps,
             name: L.F("mcm_option_skill_cap", "Tier {TIER} Skill Cap", ("TIER", 6)),
             minValue: 20,
-            maxValue: 360,
+            maxValue: 999,
             @default: 260,
             fires: [UIEvent.Skill]
         );
@@ -1546,7 +1560,7 @@ namespace Retinues.Settings
             section: SkillCaps,
             name: L.F("mcm_option_skill_cap", "Tier {TIER} Skill Cap", ("TIER", 7)),
             minValue: 20,
-            maxValue: 360,
+            maxValue: 999,
             @default: 360,
             fires: [UIEvent.Skill]
         );

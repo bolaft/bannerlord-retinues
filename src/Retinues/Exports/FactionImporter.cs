@@ -243,9 +243,8 @@ namespace Retinues.Exports
                 $"Faction import roster '{rosterKey}': srcNodes={src.Count}, dstRoot='{dstRoot.StringId}', srcRoot='{srcRoot?.SourceId}'."
             );
 
-            int imported = 0;
             var visited = new HashSet<string>(StringComparer.Ordinal);
-            MirrorNode(srcRoot, dstRoot, srcById, childrenById, visited, ref imported);
+            int imported = MirrorTree(srcRoot, dstRoot, srcById, childrenById, visited);
 
             // Anything we could not place (extra roots, over-the-cap children, exhausted stub pool).
             var unplaced = new List<string>();
@@ -268,6 +267,42 @@ namespace Retinues.Exports
         }
 
         /// <summary>
+        /// Seeds the placement maps and walks the source structure from its root.
+        /// Internal so the regression test can drive a mirror onto a sandbox root.
+        /// </summary>
+        internal static int MirrorTree(
+            CharacterExportEntry srcRoot,
+            WCharacter dstRoot,
+            Dictionary<string, CharacterExportEntry> srcById,
+            Dictionary<string, List<string>> childrenById,
+            HashSet<string> visited
+        )
+        {
+            int imported = 0;
+            var placedBySrcId = new Dictionary<string, WCharacter>(StringComparer.Ordinal);
+            var claimedDstIds = new HashSet<string>(StringComparer.Ordinal);
+
+            if (!string.IsNullOrWhiteSpace(srcRoot?.SourceId) && dstRoot?.Base != null)
+            {
+                placedBySrcId[srcRoot.SourceId] = dstRoot;
+                claimedDstIds.Add(dstRoot.StringId);
+            }
+
+            MirrorNode(
+                srcRoot,
+                dstRoot,
+                srcById,
+                childrenById,
+                placedBySrcId,
+                claimedDstIds,
+                visited,
+                ref imported
+            );
+
+            return imported;
+        }
+
+        /// <summary>
         /// Recursively re-skins <paramref name="dstNode"/> from the source entry and reproduces its
         /// children, cloning new destination troops where the destination is missing nodes.
         /// </summary>
@@ -276,6 +311,8 @@ namespace Retinues.Exports
             WCharacter dstNode,
             Dictionary<string, CharacterExportEntry> srcById,
             Dictionary<string, List<string>> childrenById,
+            Dictionary<string, WCharacter> placedBySrcId,
+            HashSet<string> claimedDstIds,
             HashSet<string> visited,
             ref int imported
         )
@@ -304,17 +341,40 @@ namespace Retinues.Exports
                 if (!srcById.TryGetValue(childIds[c], out var srcChild) || srcChild == null)
                     continue;
 
+                // The source structure is a DAG, not a tree: a troop can be the upgrade target
+                // of several parents (e.g. the War Sails marines are reachable from both the
+                // previous marine and a same-tier land troop). If this child was already
+                // materialized via another parent, link to that node instead of cloning a new
+                // one — the old code cloned a second child here, and the visited guard above
+                // then returned before re-skinning it, leaving a bare copy of the parent
+                // where the shared troop belonged.
+                if (
+                    placedBySrcId.TryGetValue(childIds[c], out var alreadyPlaced)
+                    && alreadyPlaced?.Base != null
+                )
+                {
+                    dstNode.AddUpgradeTarget(alreadyPlaced);
+                    continue;
+                }
+
                 // Re-read existing children each iteration (AddUpgradeTarget mutates the list).
                 var existing = dstNode.UpgradeTargets;
-                WCharacter dstChild;
+                WCharacter dstChild = null;
 
-                if (existing != null && c < existing.Count && existing[c]?.Base != null)
+                if (
+                    existing != null
+                    && c < existing.Count
+                    && existing[c]?.Base != null
+                    && !claimedDstIds.Contains(existing[c].StringId)
+                )
                 {
                     dstChild = existing[c];
                 }
                 else
                 {
-                    var clone = CharacterCloner.Clone(dstNode, equipments: false);
+                    // Copy the parent's equipment so that even a child whose payload carries no
+                    // equipment data ends up dressed like the troop it upgrades from, never bare.
+                    var clone = CharacterCloner.Clone(dstNode, equipments: true);
                     if (clone == null)
                         continue; // stub pool exhausted -> leave the rest to the skipped tally
 
@@ -323,7 +383,19 @@ namespace Retinues.Exports
                     dstChild = clone;
                 }
 
-                MirrorNode(srcChild, dstChild, srcById, childrenById, visited, ref imported);
+                placedBySrcId[childIds[c]] = dstChild;
+                claimedDstIds.Add(dstChild.StringId);
+
+                MirrorNode(
+                    srcChild,
+                    dstChild,
+                    srcById,
+                    childrenById,
+                    placedBySrcId,
+                    claimedDstIds,
+                    visited,
+                    ref imported
+                );
             }
         }
 

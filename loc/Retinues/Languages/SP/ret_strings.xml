@@ -938,6 +938,9 @@
       id="ret_feat_notification_body"
       text="{NAME}:{newline}{newline}{DESC}" />
     <string
+      id="ret_feat_notification_repeatable"
+      text="{BODY}{newline}{newline}Esta hazaña es repetible: su progreso se reinicia y puede completarse de nuevo para obtener más progreso de doctrina." />
+    <string
       id="ret_feat_ret_against_all_odds_desc"
       text="Con una desventaja numérica de al menos 2 a 1, gana una batalla usando solo invitados." />
     <string
@@ -1161,7 +1164,7 @@
       text="Azote de bandidos" />
     <string
       id="ret_feat_trp_defender_of_the_city_desc"
-      text="Defiende una ciudad contra un ejército sitiador." />
+      text="Defiende un asentamiento contra un ejército sitiador." />
     <string
       id="ret_feat_trp_defender_of_the_city_name"
       text="Defensor de la ciudad" />
@@ -1601,6 +1604,9 @@
       id="ret_list_header_exports_factions"
       text="Facciones" />
     <string
+      id="ret_list_header_extra"
+      text="Otros" />
+    <string
       id="ret_list_header_heroes"
       text="Héroes" />
     <string
@@ -1741,6 +1747,12 @@
     <string
       id="ret_mcm_option_ai_clan_retinue_convert_chance_hint"
       text="Probabilidad por día de que un grupo de señor elegible convierta una tropa de nivel correspondiente en séquito (1-100)." />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_equipment_upgrades"
+      text="Mejoras de equipo de séquitos de IA" />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_equipment_upgrades_hint"
+      text="Los séquitos de los clanes de IA tienen una pequeña probabilidad diaria de mejorar una pieza de su equipo." />
     <string
       id="ret_mcm_option_ai_clan_retinue_leader_only"
       text="Solo los líderes del clan tienen séquito" />

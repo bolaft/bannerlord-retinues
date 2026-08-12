@@ -1,3 +1,4 @@
+using Retinues.Domain.Characters.Services.Caches;
 using System.Collections.Generic;
 using System.Linq;
 using Retinues.Domain.Characters.Wrappers;
@@ -35,6 +36,14 @@ namespace Retinues.Domain.Factions.Wrappers
 
         public override WCharacter RootElite => WCharacter.Get(Base.EliteBasicTroop);
         public override WCharacter RootBasic => WCharacter.Get(Base.BasicTroop);
+
+        /* ━━━━━━ Extra Trees ━━━━━ */
+
+        /// <summary>
+        /// Roots of soldier trees that belong to this culture but are not referenced by any of its
+        /// canonical rosters — e.g. Realm of Thrones' Household Troops. Discovered, not declared.
+        /// </summary>
+        public List<WCharacter> ExtraRoots => ExtraRootsCache.Get(StringId);
 
         /* ━━━━━━ Mercenaries ━━━━━ */
 

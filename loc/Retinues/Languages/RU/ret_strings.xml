@@ -938,6 +938,9 @@
       id="ret_feat_notification_body"
       text="{NAME}:{newline}{newline}{DESC}" />
     <string
+      id="ret_feat_notification_repeatable"
+      text="{BODY}{newline}{newline}Это достижение можно повторять: его прогресс сбрасывается, и его можно выполнить снова, чтобы получить больше прогресса доктрины." />
+    <string
       id="ret_feat_ret_against_all_odds_desc"
       text="При численном превосходстве не менее 2 к 1 выиграйте битву, выставив только свиту." />
     <string
@@ -1161,7 +1164,7 @@
       text="Бандитское бедствие" />
     <string
       id="ret_feat_trp_defender_of_the_city_desc"
-      text="Защитите город от осаждающей армии." />
+      text="Защитите поселение от осаждающей армии." />
     <string
       id="ret_feat_trp_defender_of_the_city_name"
       text="Защитник города" />
@@ -1601,6 +1604,9 @@
       id="ret_list_header_exports_factions"
       text="Фракции" />
     <string
+      id="ret_list_header_extra"
+      text="Прочие" />
+    <string
       id="ret_list_header_heroes"
       text="Герои" />
     <string
@@ -1741,6 +1747,12 @@
     <string
       id="ret_mcm_option_ai_clan_retinue_convert_chance_hint"
       text="Шанс в день, что подходящий отряд лорда превратит одного воина соответствующего уровня в свиту (1-100)." />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_equipment_upgrades"
+      text="Улучшение снаряжения свит ИИ" />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_equipment_upgrades_hint"
+      text="Свиты кланов ИИ имеют небольшой ежедневный шанс улучшить один предмет снаряжения." />
     <string
       id="ret_mcm_option_ai_clan_retinue_leader_only"
       text="Только лидеры кланов имеют свиту" />

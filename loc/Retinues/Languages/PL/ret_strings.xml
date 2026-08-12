@@ -938,6 +938,9 @@
       id="ret_feat_notification_body"
       text="{NAME}:{newline}{newline}{DESC}" />
     <string
+      id="ret_feat_notification_repeatable"
+      text="{BODY}{newline}{newline}To osiągnięcie można powtarzać: jego postęp się resetuje i można je ukończyć ponownie, aby zdobyć więcej postępu doktryny." />
+    <string
       id="ret_feat_ret_against_all_odds_desc"
       text="Przy liczebnej przewadze co najmniej 2 do 1, wygraj bitwę, wystawiając tylko drużyny retinue." />
     <string
@@ -1161,7 +1164,7 @@
       text="Plaga bandytów" />
     <string
       id="ret_feat_trp_defender_of_the_city_desc"
-      text="Obroń miasto przed armią oblegającą." />
+      text="Obroń osadę przed armią oblegającą." />
     <string
       id="ret_feat_trp_defender_of_the_city_name"
       text="Obrońca miasta" />
@@ -1601,6 +1604,9 @@
       id="ret_list_header_exports_factions"
       text="Frakcje" />
     <string
+      id="ret_list_header_extra"
+      text="Inne" />
+    <string
       id="ret_list_header_heroes"
       text="Bohaterowie" />
     <string
@@ -1741,6 +1747,12 @@
     <string
       id="ret_mcm_option_ai_clan_retinue_convert_chance_hint"
       text="Szansa na dzień, że uprawniony oddział lorda przekształci jednego żołnierza odpowiedniego poziomu w świtę (1-100)." />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_equipment_upgrades"
+      text="Ulepszenia ekwipunku świty SI" />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_equipment_upgrades_hint"
+      text="Świty klanów SI mają codziennie małą szansę na ulepszenie jednej części ekwipunku." />
     <string
       id="ret_mcm_option_ai_clan_retinue_leader_only"
       text="Tylko przywódcy klanów mają świtę" />

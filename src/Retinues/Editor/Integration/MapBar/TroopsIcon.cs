@@ -4,6 +4,7 @@ using System;
 using System.IO;
 using Retinues.Utilities;
 using TaleWorlds.Engine.GauntletUI;
+using TaleWorlds.GauntletUI;
 using TaleWorlds.Library;
 using TwoD = TaleWorlds.TwoDimension;
 #endif
@@ -54,9 +55,14 @@ namespace Retinues.Editor.Integration.MapBar
         private const int IconWidth = 60;
         private const int IconHeight = 40;
 
-        // BL13/BL14 share one icon brush keyed by navigation id; we add a "troops" layer.
-        private const string BrushName = "MapBar.Left.Icons";
+        // BL13/BL14 share map-bar brushes keyed by navigation id; we add a "troops" layer to each.
+        private const string IconsBrushName = "MapBar.Left.Icons";
+        private const string BackgroundsBrushName = "MapBar.Left.Button.Backgrounds";
         private const string LayerName = "troops";
+
+        // Vanilla layer cloned for its sizing/fit settings (ImageFit Contain etc.); its sprites
+        // also serve as the fallback art until the custom icon is applied.
+        private const string TemplateLayerName = "character_developer";
 
         private static TwoD.Sprite _sprite;
         private static bool _loadFailed;
@@ -103,28 +109,62 @@ namespace Retinues.Editor.Integration.MapBar
         }
 
         /// <summary>
-        /// Assigns the custom icon to the map-bar brush layer. Cheap and idempotent: safe to call
-        /// every frame on the map. Re-applies automatically if a brush reload reverts the sprite.
+        /// Adds the "troops" layers to the shared map-bar brushes and assigns the custom icon
+        /// sprite. Cheap and idempotent: safe to call every frame on the map, and re-applies if a
+        /// brush reload reverts the sprite.
         /// </summary>
+        /// <remarks>
+        /// The layers are created here at runtime instead of redefining the brushes in XML: a
+        /// redefinition erased any layer another mod had added to those shared brushes (load-order
+        /// dependent), and BL12's brush loader has no override mechanism to merge with. Re-adding
+        /// per call also survives another mod fully redefining the brushes over ours.
+        /// </remarks>
         internal static void EnsureApplied()
         {
-            if (_loadFailed)
+            var factory = UIResourceManager.BrushFactory;
+            if (factory == null)
+                return; // Brushes not loaded yet (e.g. before first map screen); retry next frame.
+
+            EnsureLayer(factory.GetBrush(BackgroundsBrushName));
+            var layer = EnsureLayer(factory.GetBrush(IconsBrushName));
+            if (layer == null)
                 return;
+
+            if (_loadFailed)
+                return; // Keep the cloned vanilla placeholder icon.
 
             var sprite = GetSprite();
             if (sprite == null)
                 return;
 
-            var layer = UIResourceManager.BrushFactory?.GetBrush(BrushName)?.GetLayer(LayerName);
-            if (layer == null)
-                return; // Brushes not loaded yet (e.g. before first map screen); retry next frame.
-
             if (ReferenceEquals(layer.Sprite, sprite))
                 return;
 
             layer.Sprite = sprite;
-            // The placeholder mirrored a borrowed vanilla icon; our own art must not be flipped.
+            // The placeholder is a borrowed vanilla icon; our own art must not be flipped.
             layer.HorizontalFlip = false;
+        }
+
+        /// <summary>
+        /// Returns the brush's "troops" layer, creating it from the vanilla template layer when
+        /// missing. Returns null when the brush is unavailable or has no template layer (e.g. the
+        /// factory's default-brush fallback for an unknown name).
+        /// </summary>
+        private static BrushLayer EnsureLayer(Brush brush)
+        {
+            var layer = brush?.GetLayer(LayerName);
+            if (layer != null)
+                return layer;
+
+            var template = brush?.GetLayer(TemplateLayerName);
+            if (template == null)
+                return null;
+
+            layer = new BrushLayer();
+            layer.FillFrom(template);
+            layer.Name = LayerName;
+            brush.AddLayer(layer);
+            return layer;
         }
 #else
         /// <summary>No-op on BL12 (keeps the borrowed placeholder icon).</summary>

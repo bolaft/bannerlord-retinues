@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Retinues.Behaviors.Troops;
+using Retinues.Domain;
 using Retinues.Domain.Characters.Wrappers;
+using Retinues.Domain.Equipments.Services.Random;
 using Retinues.Domain.Factions.Wrappers;
 using Retinues.Domain.Parties.Wrappers;
 using Retinues.Framework.Behaviors;
@@ -11,6 +13,7 @@ using Retinues.Interface.Services;
 using Retinues.Settings;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.Core;
 
 namespace Retinues.Behaviors.Retinues
 {
@@ -293,10 +296,50 @@ namespace Retinues.Behaviors.Retinues
         {
             if (Configuration.EnableRetinues && Configuration.EnableAIClanRetinues)
             {
+                // Self-heal: older builds could cross-link a PLAYER retinue into an AI clan's
+                // retinue list (stub reuse before the in-use guards existed). The daily promote
+                // then converted that AI lord's troops into the player's retinue, up to the party
+                // cap — lords marching around with 90% "your" retinues. Ownership is exclusive:
+                // anything in the player's clan/kingdom retinue rosters is stripped from AI lists.
+                var playerRetinueIds = new HashSet<string>(StringComparer.Ordinal);
+
+                void CollectPlayerIds(List<WCharacter> roster)
+                {
+                    if (roster == null)
+                        return;
+
+                    foreach (var r in roster)
+                        if (!string.IsNullOrEmpty(r?.StringId))
+                            playerRetinueIds.Add(r.StringId);
+                }
+
+                CollectPlayerIds(Player.Clan?.RosterRetinues);
+                CollectPlayerIds(Player.Kingdom?.RosterRetinues);
+
                 foreach (var clan in WClan.All)
                 {
                     if (clan?.Base == null)
                         continue;
+
+                    if (clan.Base != Clan.PlayerClan && playerRetinueIds.Count > 0)
+                    {
+                        var raw = clan.GetRawRetinues();
+                        if (raw != null && raw.Count > 0)
+                        {
+                            var kept = raw.FindAll(r =>
+                                r?.StringId == null || !playerRetinueIds.Contains(r.StringId)
+                            );
+
+                            if (kept.Count != raw.Count)
+                            {
+                                Log.Warning(
+                                    $"[AIClanRetinue] Removed {raw.Count - kept.Count} player "
+                                        + $"retinue(s) cross-linked into '{clan.Name}'."
+                                );
+                                clan.SetRetinues(kept);
+                            }
+                        }
+                    }
 
                     EnsureRetinuesForAIClan(clan);
                 }
@@ -388,7 +431,7 @@ namespace Retinues.Behaviors.Retinues
             if (template?.Base == null)
                 return null;
 
-            return Cloner.BuildFromTemplate(
+            var built = Cloner.BuildFromTemplate(
                 template,
                 new Cloner.TroopBuildRequest
                 {
@@ -412,6 +455,68 @@ namespace Retinues.Behaviors.Retinues
                     MinRandomItemTierOverride = targetTier,
                 }
             );
+
+            // The tier floor above demands targetTier+ items in EVERY slot, but most cultures
+            // have no high-tier items for some armor slots (gloves, legs, capes often stop at
+            // T4-T5), so those slots came out empty and AI retinues fought half-naked. Fill any
+            // empty armor slot with the best available fallback: relaxed tier, any culture.
+            if (built?.Base != null)
+                FillEmptyArmorSlots(built, culture);
+
+            return built;
+        }
+
+        private static readonly EquipmentIndex[] ArmorFillSlots =
+        [
+            EquipmentIndex.Head,
+            EquipmentIndex.Cape,
+            EquipmentIndex.Body,
+            EquipmentIndex.Gloves,
+            EquipmentIndex.Leg,
+        ];
+
+        /// <summary>
+        /// Fills empty armor slots of a freshly created AI retinue: first culture-matched with a
+        /// relaxed tier floor, then any culture.
+        /// </summary>
+        private static void FillEmptyArmorSlots(WCharacter retinue, WCulture culture)
+        {
+            var battleSet = retinue.FirstBattleEquipment;
+            if (battleSet == null)
+                return;
+
+            WCulture[] cultures = culture != null ? [culture] : null;
+
+            foreach (var slot in ArmorFillSlots)
+            {
+                if (battleSet.GetBase(slot) != null)
+                    continue;
+
+                var picked =
+                    ItemRandomizer.GetRandomItemForSlot(
+                        retinue,
+                        slot,
+                        civilian: false,
+                        minTier: 1,
+                        maxTier: 6,
+                        acceptableCultures: cultures,
+                        acceptNeutralCulture: true,
+                        requireSkillForItem: false
+                    )
+                    ?? ItemRandomizer.GetRandomItemForSlot(
+                        retinue,
+                        slot,
+                        civilian: false,
+                        minTier: 1,
+                        maxTier: 6,
+                        acceptableCultures: null,
+                        acceptNeutralCulture: true,
+                        requireSkillForItem: false
+                    );
+
+                if (picked != null)
+                    battleSet.Set(slot, picked);
+            }
         }
 
         /// <summary>

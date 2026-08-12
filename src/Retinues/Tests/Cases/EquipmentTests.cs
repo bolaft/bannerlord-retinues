@@ -102,5 +102,33 @@ namespace Retinues.Tests.Cases
                 $"A troop is never given more than one shield (got {shieldCount})."
             );
         }
+    
+        [GameTest(
+            "ItemListIncludesNotMerchandiseGear",
+            "equipment",
+            "Noble swords and other not-merchandise gear appear in the item list; siege junk does not"
+        )]
+        public static void ItemListIncludesNotMerchandiseGear(GameTestContext ctx)
+        {
+            ctx.EnsureCampaign();
+
+            WItem.ClearStaticCaches();
+            var weapons = WItem.GetEquipmentsForSlot(EquipmentIndex.Weapon0) ?? [];
+
+            bool Has(string id) => weapons.Any(i => i?.StringId == id);
+
+            // Flagged is_merchandise="false" in the game files, yet legitimate gear the editor
+            // must offer (the stable branch always did). Only assert when the item exists in
+            // this load order.
+            foreach (var id in new[] { "vlandia_noble_sword_1_t5", "tyrhung_sword_t3" })
+                if (MBObjectManager.Instance.GetObject<ItemObject>(id) != null)
+                    Tests.AssertTrue(Has(id), $"Not-merchandise gear '{id}' is listed.");
+
+            // Siege/pickup junk stays out.
+            foreach (var id in new[] { "boulder", "throwing_stone", "grapeshot_stack", "pot" })
+                if (MBObjectManager.Instance.GetObject<ItemObject>(id) != null)
+                    Tests.AssertFalse(Has(id), $"Siege junk '{id}' is not listed.");
+        }
+
     }
 }

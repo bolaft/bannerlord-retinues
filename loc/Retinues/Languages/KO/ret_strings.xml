@@ -938,6 +938,9 @@
       id="ret_feat_notification_body"
       text="{NAME}:{newline}{newline}{DESC}" />
     <string
+      id="ret_feat_notification_repeatable"
+      text="{BODY}{newline}{newline}이 업적은 반복할 수 있습니다. 진행도가 초기화되며 다시 완료하면 교리 진행도를 더 얻을 수 있습니다." />
+    <string
       id="ret_feat_ret_against_all_odds_desc"
       text="최소 2대 1의 수적 열세에서 수행원만 배치하여 전투에서 승리하십시오." />
     <string
@@ -1161,7 +1164,7 @@
       text="산적 재앙" />
     <string
       id="ret_feat_trp_defender_of_the_city_desc"
-      text="포위하는 군대로부터 도시를 방어하십시오." />
+      text="포위하는 군대로부터 정착지를 방어하십시오." />
     <string
       id="ret_feat_trp_defender_of_the_city_name"
       text="도시의 수호자" />
@@ -1601,6 +1604,9 @@
       id="ret_list_header_exports_factions"
       text="진영" />
     <string
+      id="ret_list_header_extra"
+      text="기타" />
+    <string
       id="ret_list_header_heroes"
       text="영웅" />
     <string
@@ -1741,6 +1747,12 @@
     <string
       id="ret_mcm_option_ai_clan_retinue_convert_chance_hint"
       text="자격이 되는 군주 대원이 하루에 동등급 병사 한 명을 수행원으로 전환할 확률 (1-100)." />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_equipment_upgrades"
+      text="AI 수행단 장비 강화" />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_equipment_upgrades_hint"
+      text="AI 클랜 수행단은 매일 낮은 확률로 장비 하나를 강화합니다." />
     <string
       id="ret_mcm_option_ai_clan_retinue_leader_only"
       text="클랜 리더만 수행원을 보유함" />

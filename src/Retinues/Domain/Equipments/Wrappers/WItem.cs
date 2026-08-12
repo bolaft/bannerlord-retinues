@@ -156,27 +156,28 @@ namespace Retinues.Domain.Equipments.Wrappers
                 if (Type == ItemObject.ItemTypeEnum.Banner)
                     return false;
 
-                // Filter obvious siege/pickup weapon classes.
+                // Filter obvious siege/pickup weapon classes. This is the ONLY junk filter for
+                // weapons: siege projectiles (boulders, pots, grapeshot) are all class Boulder,
+                // loose throwing rocks are class Stone. Do NOT filter on NotMerchandise — the
+                // game flags legitimate gear that way too (all *_noble_sword_t5, the unique named
+                // weapons, tournament kit, NavalDLC swords), and mods routinely flag boss/faction
+                // gear not-merchandise so shops won't sell it. A NotMerchandise exclusion here
+                // silently hid all of those from the editor (while the stable branch showed them).
                 if (PrimaryWeapon != null)
                 {
                     var wc = PrimaryWeapon.WeaponClass;
 
-                    if (wc == WeaponClass.Boulder || wc == WeaponClass.Banner)
+                    if (
+                        wc == WeaponClass.Boulder
+                        || wc == WeaponClass.Stone
+                        || wc == WeaponClass.Banner
+                    )
                         return false;
 
 #if BL13 || BL14
                     if (wc == WeaponClass.BallistaBoulder || wc == WeaponClass.BallistaStone)
                         return false;
 #endif
-                }
-
-                // Heuristic: most mission-only ammo/pickups are not merchandise.
-                // Keep crafted + vassal rewards even if not merchandise.
-                if (Base.NotMerchandise && !IsCrafted && !IsVassalReward)
-                {
-                    // This targets things like grapeshot / special ammo and floor-pickups.
-                    if (IsWeapon || IsAmmo || IsShield)
-                        return false;
                 }
 
                 return true;

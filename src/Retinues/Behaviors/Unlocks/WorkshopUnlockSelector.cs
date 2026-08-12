@@ -80,12 +80,17 @@ namespace Retinues.Behaviors.Unlocks
             if (bestScore == int.MinValue)
                 return null;
 
-            // Collect all locked items with that best score.
+            // Collect all locked items within a band below the best score, not just the exact
+            // best. A strict best-score pick let one item family monopolize a workshop for the
+            // whole campaign (e.g. metal armor starving out weapons on a smithy); the band keeps
+            // the choice thematic while rotating between families of similar suitability.
+            const int ScoreBand = 20;
+
             var best = new List<WItem>();
             for (var i = 0; i < candidates.Count; i++)
             {
                 var c = candidates[i];
-                if (c.Score != bestScore)
+                if (c.Score < bestScore - ScoreBand)
                     break;
 
                 if (c.Item == null || !c.Item.IsValidEquipment || c.Item.IsUnlocked)
@@ -262,17 +267,23 @@ namespace Retinues.Behaviors.Unlocks
                 }
                 else
                 {
-                    // Fallback: if it's not clearly "metal-only", penalize a bit.
-                    // This keeps smithies from selecting wood/leather/cloth-heavy items when any metal-heavy item exists.
+                    // Fallback for items without an ArmorComponent.
                     var hasMetal = (itemMats & Mat.Metal) != 0;
                     var hasOther = (itemMats & (Mat.Leather | Mat.Cloth | Mat.Wood)) != 0;
 
-                    if (hasMetal && !hasOther)
+                    if (hasMetal && (item.IsWeapon || item.IsShield || item.IsAmmo))
+                        // Weapons, shields and ammo are the archetypal forge products; the wood in
+                        // a grip or shaft must not count against a smithy. Without this, metal
+                        // armor's +20 bonus outscored every weapon and — because the picker takes
+                        // the best score — a smithy NEVER selected a weapon while any metal armor
+                        // piece remained locked ("a quadrillion helmets, not a single weapon").
+                        score += 15;
+                    else if (hasMetal && !hasOther)
                         score += 15; // "full metal" per our heuristic
                     else if (!hasMetal)
                         score -= 40; // no metal at all => very unlikely for smithy
                     else
-                        score -= 10; // mixed => mild penalty (still possible for crossbows/shields etc)
+                        score -= 10; // mixed non-equipment => mild penalty
                 }
             }
 

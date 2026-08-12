@@ -7,6 +7,7 @@ using Retinues.Domain.Factions.Wrappers;
 using Retinues.Domain.Parties.Wrappers;
 using Retinues.Domain.Settlements.Wrappers;
 using Retinues.Settings;
+using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 
 namespace Retinues.Behaviors.Retinues
@@ -20,6 +21,38 @@ namespace Retinues.Behaviors.Retinues
         {
             EnsureDefaultRetinueForPlayerClan();
             EnsureDefaultRetinueForPlayerKingdom();
+            ScrubRetinueUpgradeTargets();
+        }
+
+        /// <summary>
+        /// Drops retinue-typed upgrade targets that leaked into persisted troop data. Retinues
+        /// are convertible only through the player's party screen (targets are injected for the
+        /// screen session and restored on close), so a retinue must never survive as a permanent
+        /// upgrade target — the vanilla AI upgrader would convert AI lords' troops into the
+        /// player's retinues.
+        /// </summary>
+        internal static void ScrubRetinueUpgradeTargets()
+        {
+            foreach (var troop in WCharacter.All)
+            {
+                if (troop?.Base == null || troop.IsHero || troop.IsRetinue)
+                    continue;
+
+                var targets = troop.UpgradeTargets;
+                if (targets == null || targets.Count == 0)
+                    continue;
+
+                foreach (var target in targets)
+                {
+                    if (target?.IsRetinue != true)
+                        continue;
+
+                    troop.RemoveUpgradeTarget(target);
+                    Log.Warning(
+                        $"Scrubbed retinue '{target.StringId}' from '{troop.StringId}' upgrade targets (stale data from an older version)."
+                    );
+                }
+            }
         }
 
         /// <summary>

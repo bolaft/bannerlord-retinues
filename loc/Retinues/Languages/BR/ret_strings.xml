@@ -938,6 +938,9 @@
       id="ret_feat_notification_body"
       text="{NAME}:{newline}{newline}{DESC}" />
     <string
+      id="ret_feat_notification_repeatable"
+      text="{BODY}{newline}{newline}Este feito é repetível: seu progresso é reiniciado e ele pode ser concluído novamente para mais progresso de doutrina." />
+    <string
       id="ret_feat_ret_against_all_odds_desc"
       text="Com uma desvantagem numérica de pelo menos 2 para 1, vença uma batalha usando apenas convidados." />
     <string
@@ -1161,7 +1164,7 @@
       text="Flagelo dos Bandidos" />
     <string
       id="ret_feat_trp_defender_of_the_city_desc"
-      text="Defenda uma cidade contra um exército sitiante." />
+      text="Defenda um assentamento contra um exército sitiante." />
     <string
       id="ret_feat_trp_defender_of_the_city_name"
       text="Defensor da Cidade" />
@@ -1601,6 +1604,9 @@
       id="ret_list_header_exports_factions"
       text="Facções" />
     <string
+      id="ret_list_header_extra"
+      text="Outros" />
+    <string
       id="ret_list_header_heroes"
       text="Heróis" />
     <string
@@ -1741,6 +1747,12 @@
     <string
       id="ret_mcm_option_ai_clan_retinue_convert_chance_hint"
       text="Chance por dia de que um grupo de senhor elegível converta uma tropa de nível correspondente em séquito (1-100)." />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_equipment_upgrades"
+      text="Melhorias de equipamento das comitivas da IA" />
+    <string
+      id="ret_mcm_option_ai_clan_retinue_equipment_upgrades_hint"
+      text="As comitivas dos clãs da IA têm uma pequena chance diária de melhorar uma peça de seu equipamento." />
     <string
       id="ret_mcm_option_ai_clan_retinue_leader_only"
       text="Apenas líderes de clã têm séquito" />

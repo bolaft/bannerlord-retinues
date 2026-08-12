@@ -43,7 +43,7 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
             Name = L.T("feat_trp_defender_of_the_city_name", "Defender of the City"),
             Description = L.T(
                 "feat_trp_defender_of_the_city_desc",
-                "Defend a city against a besieging army."
+                "Defend a settlement against a besieging army."
             ),
             Target = 1,
             Worth = 15,

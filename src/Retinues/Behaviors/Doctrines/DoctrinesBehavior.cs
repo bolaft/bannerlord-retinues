@@ -192,6 +192,16 @@ namespace Retinues.Behaviors.Doctrines
                     .SetTextVariable("NAME", feat.Name)
                     .SetTextVariable("DESC", feat.Description);
 
+                // A repeatable feat resets to 0 after crediting its worth, so right after this
+                // popup the tracker shows 0/{TARGET} again — without an explanation that reads
+                // as the completion not having counted.
+                if (feat.Repeatable)
+                    body = L.T(
+                            "feat_notification_repeatable",
+                            "{BODY}\n\nThis feat is repeatable: its progress resets and it can be completed again for more doctrine progress."
+                        )
+                        .SetTextVariable("BODY", body);
+
                 ShowFeatNotification(title, body);
             }
         }

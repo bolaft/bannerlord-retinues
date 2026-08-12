@@ -42,6 +42,14 @@ namespace Retinues.Behaviors.Experience
             if (me == null || !mapEvent.IsPlayerInvolved)
                 return;
 
+            // Raids are not battles. Their periodic simulation rounds commit troop XP through the
+            // same roster hook as combat, so with the battle window open every raid tick minted
+            // skill points (hundreds per razed village). Skipping here keeps the window closed
+            // (raid XP classifies as Training, off by default) and pays no auto-resolve budget
+            // for razing a village.
+            if (mapEvent.IsRaid)
+                return;
+
             // Open the battle window for the whole event (mission ticks + aftermath) so the
             // manual-combat XP hook can distinguish battle XP from campaign-map training XP.
             BattleXpWindow.Open(me);

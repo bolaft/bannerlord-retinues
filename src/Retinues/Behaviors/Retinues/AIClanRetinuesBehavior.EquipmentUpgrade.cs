@@ -37,6 +37,9 @@ namespace Retinues.Behaviors.Retinues
             if (!Configuration.EnableRetinues || !Configuration.EnableAIClanRetinues)
                 return;
 
+            if (!Configuration.AIClanRetinueEquipmentUpgrades)
+                return; // Player opted out of AI retinues improving their own gear.
+
             foreach (var clan in WClan.All)
             {
                 if (clan?.Base == null || clan.IsEliminated || clan.IsBanditFaction)
