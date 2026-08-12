@@ -734,6 +734,9 @@
       id="ret_list_toggle_elite"
       text="Seçkin" />
     <string
+      id="ret_list_toggle_extra"
+      text="Diğer" />
+    <string
       id="ret_list_toggle_hero"
       text="Kahramanlar" />
     <string

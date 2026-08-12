@@ -38,6 +38,7 @@ namespace Retinues.GUI.Editor.VM.Troop.List
             MercenaryTroops = [.. State.Faction.MercenaryTroops.Select(t => new TroopRowVM(t))];
             BanditTroops = [.. State.Faction.BanditTroops.Select(t => new TroopRowVM(t))];
             CivilianTroops = [.. State.Faction.CivilianTroops.Select(t => new TroopRowVM(t))];
+            ExtraTroops = [.. State.Faction.ExtraTroops.Select(t => new TroopRowVM(t))];
             Heroes = [.. State.Faction.Heroes.Select(t => new TroopRowVM(t))];
 
             // Mark civilian troops as such
@@ -116,6 +117,7 @@ namespace Retinues.GUI.Editor.VM.Troop.List
             OnPropertyChanged(nameof(MercenaryTroops));
             OnPropertyChanged(nameof(BanditTroops));
             OnPropertyChanged(nameof(CivilianTroops));
+            OnPropertyChanged(nameof(ExtraTroops));
             OnPropertyChanged(nameof(Heroes));
 
             // Needed for editor mode changes
@@ -127,6 +129,7 @@ namespace Retinues.GUI.Editor.VM.Troop.List
             OnPropertyChanged(nameof(ShowVillagerList));
             OnPropertyChanged(nameof(ShowMercenaryList));
             OnPropertyChanged(nameof(ShowBanditList));
+            OnPropertyChanged(nameof(ShowExtraList));
             OnPropertyChanged(nameof(ShowCivilianList));
             OnPropertyChanged(nameof(ShowHeroesList));
 
@@ -165,6 +168,9 @@ namespace Retinues.GUI.Editor.VM.Troop.List
         public MBBindingList<TroopRowVM> CivilianTroops { get; set; } = [];
 
         [DataSourceProperty]
+        public MBBindingList<TroopRowVM> ExtraTroops { get; set; } = [];
+
+        [DataSourceProperty]
         public MBBindingList<TroopRowVM> Heroes { get; set; } = [];
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -195,6 +201,9 @@ namespace Retinues.GUI.Editor.VM.Troop.List
 
         [DataSourceProperty]
         public string MilitiaToggleText => L.S("list_toggle_militia", "Militia");
+
+        [DataSourceProperty]
+        public string ExtraToggleText => L.S("list_toggle_extra", "Other");
 
         [DataSourceProperty]
         public string CaravanToggleText => L.S("list_toggle_caravan", "Caravans");
@@ -245,6 +254,10 @@ namespace Retinues.GUI.Editor.VM.Troop.List
             BanditTroops.Count > 0 && ClanScreen.EditorMode == EditorMode.Culture;
 
         [DataSourceProperty]
+        public bool ShowExtraList =>
+            ExtraTroops.Count > 0 && ClanScreen.EditorMode == EditorMode.Culture;
+
+        [DataSourceProperty]
         public bool ShowCivilianList =>
             CivilianTroops.Count > 0 && ClanScreen.EditorMode == EditorMode.Culture;
 
@@ -267,6 +280,7 @@ namespace Retinues.GUI.Editor.VM.Troop.List
                 .. MercenaryTroops,
                 .. BanditTroops,
                 .. CivilianTroops,
+                .. ExtraTroops,
                 .. Heroes,
             ];
 

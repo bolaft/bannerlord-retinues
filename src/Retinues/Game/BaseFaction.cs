@@ -212,6 +212,17 @@ namespace Retinues.Game
         public virtual List<WCharacter> BanditTroops => [];
         public virtual List<WCharacter> CivilianTroops => [];
 
+        /// <summary>
+        /// Roots of troop trees that belong to this faction's culture but are referenced by none
+        /// of its canonical groups (e.g. Realm of Thrones' Household Troops). Cultures only.
+        /// </summary>
+        public virtual List<WCharacter> ExtraRoots => [];
+
+        /// <summary>
+        /// Every troop of the extra trees, flattened. Cultures only.
+        /// </summary>
+        public virtual List<WCharacter> ExtraTroops => [];
+
         /* ━━━━━━━━━ NPCs ━━━━━━━━━ */
 
         public virtual List<WHero> Heroes => [];

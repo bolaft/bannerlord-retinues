@@ -3888,6 +3888,22 @@
     "TR": "Seçkin"
   },
   {
+    "id": "ret_list_toggle_extra",
+    "EN": "Other",
+    "BR": "Outros",
+    "CNs": "其他",
+    "CNt": "其他",
+    "DE": "Sonstige",
+    "FR": "Autres",
+    "IT": "Altri",
+    "JP": "その他",
+    "KO": "기타",
+    "PL": "Inne",
+    "RU": "Прочие",
+    "SP": "Otros",
+    "TR": "Diğer"
+  },
+  {
     "id": "ret_list_toggle_hero",
     "EN": "Heroes",
     "BR": "Heróis",

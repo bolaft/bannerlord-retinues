@@ -58,6 +58,11 @@ namespace Retinues.Troops.Save
         [SaveableField(13)]
         public List<TroopSaveData> Civilians;
 
+        // Extra trees outside the canonical rosters (e.g. Realm of Thrones' Household Troops),
+        // captured per edited tree root; TroopSaveData recursion covers the children.
+        [SaveableField(17)]
+        public List<TroopSaveData> Extras;
+
         [SaveableField(15)]
         public List<TroopSaveData> Heroes;
 
@@ -107,6 +112,18 @@ namespace Retinues.Troops.Save
                 .ToList();
 
             Civilians = (civilians != null && civilians.Count > 0) ? civilians : null;
+
+            // Extra trees: captured when ANY troop in the tree was edited. The per-root
+            // NeedsPersistence gate used elsewhere is not enough here, because these are plain
+            // vanilla trees whose root may be untouched while a child was edited.
+            var extras = faction
+                .ExtraRoots?.Where(r =>
+                    r != null && Game.Helpers.ExtraTroopHelper.TreeNeedsPersistence(r)
+                )
+                .Select(r => new TroopSaveData(r))
+                .ToList();
+
+            Extras = (extras != null && extras.Count > 0) ? extras : null;
         }
 
         /// <summary>
@@ -140,6 +157,10 @@ namespace Retinues.Troops.Save
 
                 if (Civilians != null)
                     foreach (var troopData in Civilians)
+                        troopData.Deserialize(); // No assignments
+
+                if (Extras != null)
+                    foreach (var troopData in Extras)
                         troopData.Deserialize(); // No assignments
             }
             else

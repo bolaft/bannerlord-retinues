@@ -424,6 +424,8 @@ namespace Retinues.Configuration
                     "Enables the global troop editor to modify any troop in the game. Disable if you encounter issues with non-player troops or other mods."
                 ),
             @default: true,
+            // Deliberate: the entry points read the value live, but culture edits are only
+            // applied/reverted on load, so the toggle's full effect needs a restart.
             requiresRestart: true
         );
 
@@ -1178,8 +1180,8 @@ namespace Retinues.Configuration
                     .ToString(),
             @default: 20,
             minValue: 20,
-            maxValue: 360,
-            presets: new Dictionary<string, object> { [Presets.Freeform] = 360 }
+            maxValue: 999,
+            presets: new Dictionary<string, object> { [Presets.Freeform] = 999 }
         );
 
         public static readonly Option<int> SkillCapTier1 = CreateOption(
@@ -1195,8 +1197,8 @@ namespace Retinues.Configuration
                     .ToString(),
             @default: 20,
             minValue: 20,
-            maxValue: 360,
-            presets: new Dictionary<string, object> { [Presets.Freeform] = 360 }
+            maxValue: 999,
+            presets: new Dictionary<string, object> { [Presets.Freeform] = 999 }
         );
 
         public static readonly Option<int> SkillCapTier2 = CreateOption(
@@ -1212,8 +1214,8 @@ namespace Retinues.Configuration
                     .ToString(),
             @default: 50,
             minValue: 20,
-            maxValue: 360,
-            presets: new Dictionary<string, object> { [Presets.Freeform] = 360 }
+            maxValue: 999,
+            presets: new Dictionary<string, object> { [Presets.Freeform] = 999 }
         );
 
         public static readonly Option<int> SkillCapTier3 = CreateOption(
@@ -1229,8 +1231,8 @@ namespace Retinues.Configuration
                     .ToString(),
             @default: 80,
             minValue: 20,
-            maxValue: 360,
-            presets: new Dictionary<string, object> { [Presets.Freeform] = 360 }
+            maxValue: 999,
+            presets: new Dictionary<string, object> { [Presets.Freeform] = 999 }
         );
 
         public static readonly Option<int> SkillCapTier4 = CreateOption(
@@ -1246,8 +1248,8 @@ namespace Retinues.Configuration
                     .ToString(),
             @default: 120,
             minValue: 20,
-            maxValue: 360,
-            presets: new Dictionary<string, object> { [Presets.Freeform] = 360 }
+            maxValue: 999,
+            presets: new Dictionary<string, object> { [Presets.Freeform] = 999 }
         );
 
         public static readonly Option<int> SkillCapTier5 = CreateOption(
@@ -1263,8 +1265,8 @@ namespace Retinues.Configuration
                     .ToString(),
             @default: 160,
             minValue: 20,
-            maxValue: 360,
-            presets: new Dictionary<string, object> { [Presets.Freeform] = 360 }
+            maxValue: 999,
+            presets: new Dictionary<string, object> { [Presets.Freeform] = 999 }
         );
 
         public static readonly Option<int> SkillCapTier6 = CreateOption(
@@ -1280,8 +1282,8 @@ namespace Retinues.Configuration
                     .ToString(),
             @default: 260,
             minValue: 20,
-            maxValue: 360,
-            presets: new Dictionary<string, object> { [Presets.Freeform] = 360 }
+            maxValue: 999,
+            presets: new Dictionary<string, object> { [Presets.Freeform] = 999 }
         );
 
         public static readonly Option<int> SkillCapTier7Plus = CreateOption(
@@ -1297,8 +1299,8 @@ namespace Retinues.Configuration
                     .ToString(),
             @default: 360,
             minValue: 20,
-            maxValue: 360,
-            presets: new Dictionary<string, object> { [Presets.Freeform] = 360 }
+            maxValue: 999,
+            presets: new Dictionary<string, object> { [Presets.Freeform] = 999 }
         );
 
         public static readonly Option<int> SkillCapHeroes = CreateOption(

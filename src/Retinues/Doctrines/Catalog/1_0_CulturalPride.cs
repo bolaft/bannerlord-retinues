@@ -167,7 +167,9 @@ namespace Retinues.Doctrines.Catalog
                     if (!(leader?.IsRuler ?? false))
                         continue; // Not a ruler
 
-                    if (leader?.Culture == Player.Culture)
+                    // Compare by id: both sides are freshly built wrappers, so reference
+                    // equality never matched and same-culture rulers wrongly counted.
+                    if (leader?.Culture?.StringId == Player.Culture?.StringId)
                         continue; // Same culture
 
                     AdvanceProgress(1);

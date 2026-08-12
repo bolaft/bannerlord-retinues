@@ -138,5 +138,6 @@ namespace Retinues.Tests.Cases
                 "AllocateStub did not recycle the re-registered stub."
             );
         }
+
     }
 }

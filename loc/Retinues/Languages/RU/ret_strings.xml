@@ -734,6 +734,9 @@
       id="ret_list_toggle_elite"
       text="Элитные" />
     <string
+      id="ret_list_toggle_extra"
+      text="Прочие" />
+    <string
       id="ret_list_toggle_hero"
       text="Герои" />
     <string

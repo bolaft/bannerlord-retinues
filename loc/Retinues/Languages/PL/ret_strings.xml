@@ -734,6 +734,9 @@
       id="ret_list_toggle_elite"
       text="Elita" />
     <string
+      id="ret_list_toggle_extra"
+      text="Inne" />
+    <string
       id="ret_list_toggle_hero"
       text="Bohaterowie" />
     <string

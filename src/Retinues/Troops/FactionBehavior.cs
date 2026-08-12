@@ -141,6 +141,11 @@ namespace Retinues.Troops
         /// </summary>
         private void OnGameLoaded(CampaignGameStarter _)
         {
+            // Support diagnostic: the effective value decides whether culture troop data is
+            // captured/applied at all, and reports of "the switch does nothing" are resolved by
+            // reading this line from the log.
+            Log.Info($"Global editor enabled: {(bool)Config.EnableGlobalEditor}");
+
             // Restore culture reset flag
             ResetCultureTroops = false;
 

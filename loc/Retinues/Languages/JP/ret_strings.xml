@@ -734,6 +734,9 @@
       id="ret_list_toggle_elite"
       text="精鋭" />
     <string
+      id="ret_list_toggle_extra"
+      text="その他" />
+    <string
       id="ret_list_toggle_hero"
       text="英雄" />
     <string

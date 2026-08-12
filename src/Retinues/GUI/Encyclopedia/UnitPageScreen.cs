@@ -1,6 +1,7 @@
 using System;
 using Bannerlord.UIExtenderEx.Attributes;
 using Bannerlord.UIExtenderEx.ViewModels;
+using Retinues.Configuration;
 using Retinues.Game.Wrappers;
 using Retinues.GUI.Editor;
 using Retinues.GUI.Helpers;
@@ -28,6 +29,11 @@ namespace Retinues.GUI.Encyclopedia
             }
         }
 
+        // Evaluated each time the page VM binds, so toggling the MCM option applies the next
+        // time an encyclopedia page opens — no restart needed.
+        [DataSourceProperty]
+        public bool IsEditorButtonVisible => Config.EnableGlobalEditor == true;
+
         [DataSourceProperty]
         public BasicTooltipViewModel EditorHint =>
             Tooltip.MakeTooltip(
@@ -40,6 +46,9 @@ namespace Retinues.GUI.Encyclopedia
         {
             try
             {
+                if (Config.EnableGlobalEditor != true)
+                    return; // Feature disabled; the button should not be visible anyway.
+
                 if (ViewModel.Obj is CharacterObject character)
                 {
                     var troop = new WCharacter(character);

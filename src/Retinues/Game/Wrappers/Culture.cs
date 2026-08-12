@@ -115,6 +115,12 @@ namespace Retinues.Game.Wrappers
         //                       Troop Lists                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        public override List<WCharacter> ExtraRoots =>
+            Helpers.ExtraTroopHelper.GetRoots(StringId);
+
+        public override List<WCharacter> ExtraTroops =>
+            Helpers.ExtraTroopHelper.GetTroops(StringId);
+
         public override List<WCharacter> MercenaryTroops
         {
             get

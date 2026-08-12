@@ -734,6 +734,9 @@
       id="ret_list_toggle_elite"
       text="Élite" />
     <string
+      id="ret_list_toggle_extra"
+      text="Altri" />
+    <string
       id="ret_list_toggle_hero"
       text="Eroi" />
     <string

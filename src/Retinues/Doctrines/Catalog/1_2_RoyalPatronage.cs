@@ -37,7 +37,14 @@ namespace Retinues.Doctrines.Catalog
 
             public override void OnTroopRecruited(WCharacter troop, int amount)
             {
-                if (troop.IsCustom && troop.Faction == Player.Kingdom)
+                // Compare by id: wrapper instances are created fresh per access, so reference
+                // equality between Faction and Player.Kingdom was always false and this feat
+                // never progressed.
+                var kingdomId = Player.Kingdom?.StringId;
+                if (kingdomId == null)
+                    return;
+
+                if (troop.IsCustom && troop.Faction?.StringId == kingdomId)
                     AdvanceProgress(amount);
             }
         }
@@ -58,9 +65,15 @@ namespace Retinues.Doctrines.Catalog
                 if (Player.Kingdom == null)
                     return;
 
+                // Compare by id: Settlement.Culture and Hero.Culture build fresh wrapper
+                // instances, so reference equality never matched and this feat sat at 0/30.
+                var kingdomCultureId = Player.Kingdom?.Culture?.StringId;
+                if (kingdomCultureId == null)
+                    return;
+
                 foreach (var s in Player.Clan?.Settlements)
                 {
-                    if (s.Governor?.Culture == Player.Kingdom?.Culture)
+                    if (s.Governor?.Culture?.StringId == kingdomCultureId)
                     {
                         AdvanceProgress(1);
                         return;
@@ -85,8 +98,12 @@ namespace Retinues.Doctrines.Catalog
                 if (Player.Kingdom == null)
                     return;
 
+                // Compare by id (see above: wrapper reference equality never matched).
+                var kingdomId = Player.Kingdom.StringId;
                 int kingdomTroopKills = battle.Kills.Count(k =>
-                    k.KillerIsPlayerTroop && !k.KillerIsPlayer && k.Killer.Faction == Player.Kingdom
+                    k.KillerIsPlayerTroop
+                    && !k.KillerIsPlayer
+                    && k.Killer.Faction?.StringId == kingdomId
                 );
 
                 AdvanceProgress(kingdomTroopKills);

@@ -467,6 +467,9 @@ namespace Retinues
             // Clear active troops
             WCharacter.ActiveStubIds.Clear();
 
+            // Clear extra-tree discovery cache
+            Game.Helpers.ExtraTroopHelper.Clear();
+
             // Clear vanilla id map
             WCharacter.VanillaStringIdMap.Clear();
 
