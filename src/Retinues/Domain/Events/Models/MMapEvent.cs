@@ -239,7 +239,9 @@ namespace Retinues.Domain.Events.Models
                 menInvolved: men,
                 healthyTroops: side.GetTotalHealthyTroopCountOfSide(),
                 healthyHeroes: side.GetTotalHealthyHeroCountOfSide(),
-                strength: side.StrengthRatio,
+                // StrengthRatio is opposing strength divided by this sides strength (with a +10 constant that also pulls value toward 1), means a higher value for weaker sides
+                // therefore storing it as actual strength reverses checks that expect a proportional strength ratio
+                strength: side.RecalculateStrengthOfSide(),
                 parties: parties
             );
         }
