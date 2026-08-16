@@ -123,6 +123,11 @@ namespace Retinues.Framework.Behaviors
         protected virtual void OnMapEventStarted(MMapEvent mapEvent) { }
 
         /// <summary>
+        /// Called when a party is added to a map event.
+        /// </summary>
+        protected virtual void OnPartyAddedToMapEvent(WParty party) { }
+
+        /// <summary>
         /// Called when a map event ends.
         /// </summary>
         protected virtual void OnMapEventEnded(MMapEvent mapEvent) { }
@@ -286,6 +291,12 @@ namespace Retinues.Framework.Behaviors
                     this,
                     (mapEvent, atk, def) =>
                         SafeInvoke(() => OnMapEventStarted(WrapMapEvent(mapEvent)))
+                );
+
+            if (IsOverridden(nameof(OnPartyAddedToMapEvent)))
+                CampaignEvents.OnPartyAddedToMapEventEvent.AddNonSerializedListener(
+                    this,
+                    party => SafeInvoke(() => OnPartyAddedToMapEvent(WParty.Get(party.MobileParty)))
                 );
 
             if (IsOverridden(nameof(OnMapEventEnded)))
