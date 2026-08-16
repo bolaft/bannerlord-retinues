@@ -36,12 +36,12 @@ namespace Retinues.Behaviors.Staging
 
             bool changed = false;
 
+            // opening the universal editor while having pending queues for player retinues will prevent any queue from processing
+            // queues now progress independently of the editor mode. if the initial thought was to make
+            // universal editor changes without queue it is handled by the staging check in MEquipment.Set.
             foreach (var wc in WCharacter.All)
             {
                 if (wc == null || wc.IsHero)
-                    continue;
-
-                if (!MEquipment.IsItemStagingActive(wc))
                     continue;
 
                 var list = wc.Equipments;
