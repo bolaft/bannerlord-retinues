@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Retinues.Behaviors.Missions;
 using Retinues.Domain;
 using Retinues.Domain.Events.Models;
@@ -28,8 +29,13 @@ namespace Retinues.Behaviors.Doctrines.Feats.Loot
                 if (party != Player.Party)
                     return; // Must be the main party only.
 
-            var culture = start.EnemySide.LeaderParty.Leader.Culture;
-            if (culture == Player.Clan.Culture)
+            // the check below is not protected from post battle party changes (the defeated LeaderHero being deattached from its individual MobileParty
+            // during result processing), while PartyData preserves the LeaderId captured before MapEvent result processing
+            var leader = start.EnemySide.PartyData
+                .First(p => p.PartyId == start.EnemySide.LeaderPartyId)
+                .Hero;
+
+            if (leader.Culture == Player.Clan.Culture)
                 return; // Same culture — the feat requires a different-culture enemy.
 
             Feat.Add();
