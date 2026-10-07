@@ -31,7 +31,7 @@ namespace Retinues.Tests.Cases
             ctx.EnsureCampaign();
 
             if (DoctrineAPI.IsDoctrineUnlocked<Vanguard>())
-                return; // the cap base includes Vanguard's bonus; skip the plain-ratio check
+                Tests.Skip("the cap base includes Vanguard's bonus; skip the plain-ratio check");
 
             int partySize = Player.Party?.PartySizeLimit ?? 0;
             Tests.AssertTrue(partySize > 0, "Party size limit is available.");
@@ -61,9 +61,9 @@ namespace Retinues.Tests.Cases
             ctx.EnsureCampaign();
 
             if (DoctrineAPI.AllDoctrines().Count == 0)
-                return; // doctrines disabled; skip
+                Tests.Skip("doctrines disabled; skip");
             if (DoctrineAPI.IsDoctrineUnlocked<Vanguard>())
-                return; // already unlocked; can't measure a clean delta
+                Tests.Skip("already unlocked; can't measure a clean delta");
 
             using var sandbox = new TestSandbox();
 
@@ -101,7 +101,7 @@ namespace Retinues.Tests.Cases
 
             var retinue = Player.Clan?.RetinueElite;
             if (retinue == null)
-                return; // no retinue in this save; skip
+                Tests.Skip("no retinue in this save; skip");
             Tests.AssertTrue(retinue.IsRetinue, "The elite retinue is a retinue.");
 
             int tier = retinue.Tier <= 0 ? 1 : retinue.Tier;
@@ -185,10 +185,10 @@ namespace Retinues.Tests.Cases
 
             var retinue = Player.Clan?.RetinueElite;
             if (retinue == null)
-                return; // no retinue in this save; skip
+                Tests.Skip("no retinue in this save; skip");
             var vanilla = Player.Clan?.Culture?.RootBasic;
             if (vanilla == null)
-                return;
+                Tests.Skip("Unavailable test fixture: if (vanilla == null)");
 
             using var party = new TestPartyScope();
             Player.Party.MemberRoster.AddTroop(retinue, 3);
@@ -226,10 +226,10 @@ namespace Retinues.Tests.Cases
 
             var retinue = Player.Clan?.RetinueElite;
             if (retinue == null)
-                return;
+                Tests.Skip("Unavailable test fixture: if (retinue == null)");
             var vanilla = Player.Clan?.Culture?.RootBasic;
             if (vanilla == null)
-                return;
+                Tests.Skip("Unavailable test fixture: if (vanilla == null)");
 
             using var party = new TestPartyScope();
             Player.Party.MemberRoster.AddTroop(vanilla, 5);
@@ -249,7 +249,7 @@ namespace Retinues.Tests.Cases
             );
 
             if (max < 1)
-                return; // retinue cap is full in this save; nothing to convert
+                Tests.Skip("retinue cap is full in this save; nothing to convert");
 
             int goldBefore = Player.Gold;
             int infBefore = Player.Influence;

@@ -1440,7 +1440,7 @@
       text="Pragmatische Plünderer" />
     <string
       id="ret_pragmatic_scavengers_army_win_allies_50"
-      text="Gewinne drei Schlachten in Folge als Teil der Armee eines verbündeten Lords." />
+      text="Gewinne zwei Schlachten in Folge als Teil der Armee eines verbündeten Lords." />
     <string
       id="ret_pragmatic_scavengers_defense_allies_100"
       text="Gewinne eine Schlacht, in der Verbündete über 100 Verluste erleiden." />

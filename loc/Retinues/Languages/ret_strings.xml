@@ -1449,7 +1449,7 @@
       text="Pragmatic Scavengers" />
     <string
       id="ret_pragmatic_scavengers_army_win_allies_50"
-      text="Win three battles in a row while part of an allied lord&apos;s army." />
+      text="Win two battles in a row while part of an allied lord&apos;s army." />
     <string
       id="ret_pragmatic_scavengers_defense_allies_100"
       text="Win a battle in which allies suffer over 100 casualties." />

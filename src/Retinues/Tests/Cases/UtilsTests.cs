@@ -17,7 +17,7 @@ namespace Retinues.Tests.Cases
         /// <summary>
         /// Jaccard similarity over string sets.
         /// </summary>
-        [GameTest("JaccardSimilarity", "utils", "Jaccard similarity over string sets")]
+        [GameTest("JaccardSimilarity", "utils", "Jaccard similarity over string sets", RequiresCampaign = false)]
         public static void JaccardSimilarity()
         {
             Tests.AssertTrue(Eq(1.0, Similarity.Jaccard(Set(), Set())), "empty vs empty is 1.");
@@ -42,7 +42,7 @@ namespace Retinues.Tests.Cases
         /// <summary>
         /// Cosine similarity over string→int vectors.
         /// </summary>
-        [GameTest("CosineSimilarity", "utils", "Cosine similarity over string->int vectors")]
+        [GameTest("CosineSimilarity", "utils", "Cosine similarity over string->int vectors", RequiresCampaign = false)]
         public static void CosineSimilarity()
         {
             Tests.AssertTrue(Eq(1.0, Similarity.Cosine(Vec(), Vec())), "empty vs empty is 1.");
@@ -71,7 +71,7 @@ namespace Retinues.Tests.Cases
         /// <summary>
         /// Format helpers: thousands separator, cropping, and camelCase-to-title.
         /// </summary>
-        [GameTest("FormatHelpers", "utils", "Number grouping, cropping, and camelCase titling")]
+        [GameTest("FormatHelpers", "utils", "Number grouping, cropping, and camelCase titling", RequiresCampaign = false)]
         public static void FormatHelpers()
         {
             Tests.AssertEqual("1 234 567", Format.Number(1234567), "thousands grouped with spaces.");

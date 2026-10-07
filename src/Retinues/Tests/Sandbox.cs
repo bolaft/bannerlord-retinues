@@ -172,6 +172,7 @@ namespace Retinues.Tests
             catch (Exception e)
             {
                 Log.Exception(e, "TestSandbox: failed to restore global state.");
+                throw new GameTestCleanupException("Test sandbox failed to restore global state.", e);
             }
         }
 

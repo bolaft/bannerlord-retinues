@@ -1440,7 +1440,7 @@
       text="Carroñeros Pragmáticos" />
     <string
       id="ret_pragmatic_scavengers_army_win_allies_50"
-      text="Gana tres batallas seguidas como parte del ejército de un señor aliado." />
+      text="Gana dos batallas seguidas como parte del ejército de un señor aliado." />
     <string
       id="ret_pragmatic_scavengers_defense_allies_100"
       text="Gana una batalla en la que los aliados sufran más de 100 bajas." />

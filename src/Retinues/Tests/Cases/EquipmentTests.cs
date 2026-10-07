@@ -227,7 +227,7 @@ namespace Retinues.Tests.Cases
         {
             ctx.EnsureCampaign();
             if (ClanScreen.IsStudioMode)
-                return; // cost is always zero in studio mode; nothing to assert
+                Tests.Skip("cost is always zero in studio mode; nothing to assert");
 
             using var sandbox = new TestSandbox();
 

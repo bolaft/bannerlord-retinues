@@ -11,418 +11,249 @@ using TaleWorlds.Library;
 
 namespace Retinues.Tests
 {
-    /// <summary>
-    /// Marks a static method as an in-game test case that can be discovered and run by the Tests framework.
-    /// Methods must be static, return void, and accept either no parameters or a single GameTestContext.
-    /// </summary>
-    [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
-    public sealed class GameTestAttribute(
-        string name,
-        string group = "default",
-        string description = null
-    ) : Attribute
-    {
-        public string Name { get; } = name;
-        public string Group { get; } = group;
-        public string Description { get; } = description;
-    }
-
-    /// <summary>
-    /// Assertion failure used by the in-game test framework.
-    /// </summary>
-    public sealed class GameTestAssertionException : Exception
-    {
-        public GameTestAssertionException(string message)
-            : base(message) { }
-
-        public GameTestAssertionException(string message, Exception inner)
-            : base(message, inner) { }
-    }
-
-    /// <summary>
-    /// Context object passed to tests, exposing convenient accessors for campaign state and wrappers.
-    /// </summary>
-    public sealed class GameTestContext
-    {
-        /// <summary>
-        /// Convenience helper to ensure we are in a running campaign.
-        /// Throws if not.
-        /// </summary>
-        public void EnsureCampaign()
-        {
-            if (Campaign.Current == null)
-                throw new GameTestAssertionException(
-                    "No active campaign. Load a test save before running tests."
-                );
-        }
-    }
-
-    /// <summary>
-    /// Lightweight result of a single test execution.
-    /// </summary>
-    public sealed class GameTestResult(
-        string name,
-        string group,
-        string description,
-        bool passed,
-        string message,
-        Exception exception,
-        TimeSpan duration
-    )
-    {
-        public string Name { get; } = name;
-        public string Group { get; } = group;
-        public string Description { get; } = description;
-        public bool Passed { get; } = passed;
-        public string Message { get; } = message;
-        public Exception Exception { get; } = exception;
-        public TimeSpan Duration { get; } = duration;
-    }
-
-    /// <summary>
-    /// In-game unit test framework. Discovers [GameTest] methods in the Retinues assembly,
-    /// executes them, and produces a human-readable summary for the cheat console and debug log.
-    /// </summary>
-    [SafeClass]
+    // Never add SafeClass/SafeMethod here: a swallowed assertion becomes a false pass.
     public static class Tests
     {
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                       Internals                        //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        [ThreadStatic]
+        private static GameTestContext _current;
 
-        private sealed class RegisteredTest
+        public static GameTestRun LastRun { get; private set; }
+
+        public static List<GameTestCase> Discover()
         {
-            public string Name { get; }
-            public string Group { get; }
-            public string Description { get; }
-            public Action<GameTestContext> Action { get; }
-
-            public RegisteredTest(
-                string name,
-                string group,
-                string description,
-                Action<GameTestContext> action
-            )
+            var cases = new List<GameTestCase>();
+            var ids = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            foreach (var type in typeof(Tests).Assembly.GetTypes())
+            foreach (var method in type.GetMethods(
+                BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.Instance | BindingFlags.DeclaredOnly))
             {
-                Name = name;
-                Group = group;
-                Description = description;
-                Action = action;
+                var attribute = method.GetCustomAttribute<GameTestAttribute>();
+                if (attribute == null)
+                    continue;
+                var parameters = method.GetParameters();
+                if (!method.IsStatic || method.ReturnType != typeof(void) || method.ContainsGenericParameters
+                    || parameters.Length > 1
+                    || (parameters.Length == 1 && parameters[0].ParameterType != typeof(GameTestContext)))
+                    throw new InvalidOperationException("Invalid test signature: " + method);
+                if (string.IsNullOrWhiteSpace(attribute.Name) || string.IsNullOrWhiteSpace(attribute.Group))
+                    throw new InvalidOperationException("A test needs a nonempty name and group: " + method);
+                var id = attribute.Group + "." + attribute.Name;
+                if (!ids.Add(id))
+                    throw new InvalidOperationException("Duplicate test ID: " + id);
+                cases.Add(new GameTestCase(attribute.Name, attribute.Group, attribute.Description,
+                    attribute.RequiresCampaign, context => method.Invoke(null,
+                        parameters.Length == 0 ? null : new object[] { context })));
             }
+            return cases.OrderBy(t => t.Group, StringComparer.Ordinal)
+                .ThenBy(t => t.Name, StringComparer.Ordinal).ToList();
         }
 
-        private static readonly List<RegisteredTest> _tests = [];
-        private static bool _discovered;
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Discovery                        //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        /// <summary>
-        /// Ensure tests are discovered exactly once by scanning the Retinues assembly for [GameTest] methods.
-        /// </summary>
-        private static void EnsureDiscovered()
+        public static GameTestRun RunSuite(
+            string groupFilter = null, string nameFilter = null, bool headlessOnly = false,
+            int seed = 12345, int repeat = 1, bool stopOnFirstFailure = false)
         {
-            if (_discovered)
-                return;
+            if (repeat < 1 || repeat > 100)
+                throw new ArgumentOutOfRangeException(nameof(repeat), "Repeat must be between 1 and 100.");
 
-            _discovered = true;
-
+            var run = new GameTestRun(seed, repeat);
+            LastRun = run;
+            List<GameTestCase> selected;
             try
             {
-                var asm = typeof(Tests).Assembly;
-                var bindingFlags =
-                    BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic;
+                selected = Discover().Where(t =>
+                    (!headlessOnly || !t.RequiresCampaign)
+                    && (string.IsNullOrEmpty(groupFilter) || t.Group.Equals(groupFilter, StringComparison.OrdinalIgnoreCase))
+                    && (string.IsNullOrEmpty(nameFilter) || t.Name.IndexOf(nameFilter, StringComparison.OrdinalIgnoreCase) >= 0))
+                    .ToList();
+                if (selected.Count == 0)
+                    throw new InvalidOperationException("No tests matched the requested filters.");
+            }
+            catch (Exception e)
+            {
+                run.Results.Add(new GameTestResult("Discovery", "framework", TestOutcome.Failed, e.ToString(), TimeSpan.Zero, seed, 0, 0));
+                run.Planned = 1;
+                return run;
+            }
 
-                foreach (var type in asm.GetTypes())
-                {
-                    foreach (var method in type.GetMethods(bindingFlags))
+            run.Planned = selected.Count * repeat;
+            bool stopped = false;
+            for (int iteration = 0; iteration < repeat; iteration++)
+            {
+                var ordered = selected.ToList();
+                var orderRandom = new Random(unchecked(seed + iteration));
+                // Repeat runs deliberately change order to reveal shared-state dependencies.
+                if (repeat > 1)
+                    for (int i = ordered.Count - 1; i > 0; i--)
                     {
-                        var attr = method.GetCustomAttribute<GameTestAttribute>();
-                        if (attr == null)
-                            continue;
+                        int j = orderRandom.Next(i + 1);
+                        var temp = ordered[i];
+                        ordered[i] = ordered[j];
+                        ordered[j] = temp;
+                    }
+                foreach (var test in ordered)
+                {
+                    int caseSeed = CaseSeed(seed, test.Group + "." + test.Name, iteration);
+                    var result = stopped
+                        ? new GameTestResult(test.Name, test.Group, TestOutcome.Skipped,
+                            "Not run after an earlier failure or state leak.", TimeSpan.Zero, caseSeed, iteration, 0)
+                        : ExecuteCase(test, caseSeed, iteration);
+                    run.Results.Add(result);
+                    if (result.StateLeaked || (stopOnFirstFailure && result.Outcome == TestOutcome.Failed))
+                        stopped = true;
+                }
+            }
+            return run;
+        }
 
-                        var parameters = method.GetParameters();
+        public static string RunAllTests(string groupFilter = null, string nameFilter = null, bool stopOnFirstFailure = false)
+            => FormatSummary(RunSuite(groupFilter, nameFilter, stopOnFirstFailure: stopOnFirstFailure));
 
-                        // Valid signatures:
-                        //  - void Test()
-                        //  - void Test(GameTestContext ctx)
-                        if (method.ReturnType != typeof(void))
-                            continue;
-
-                        if (parameters.Length > 1)
-                            continue;
-
-                        bool acceptsContext =
-                            parameters.Length == 1
-                            && parameters[0].ParameterType == typeof(GameTestContext);
-
-                        Action<GameTestContext> action = ctx =>
+        // Exposed to verify the runner itself without registering deliberate failing tests.
+        public static GameTestResult ExecuteCase(GameTestCase test, int seed, int iteration = 0)
+        {
+            var previous = _current;
+            var context = new GameTestContext(seed);
+            _current = context;
+            var watch = Stopwatch.StartNew();
+            var outcome = TestOutcome.Passed;
+            string message = "OK";
+            string before = null;
+            bool leaked = false;
+            try
+            {
+                if (test.RequiresCampaign)
+                {
+                    context.EnsureCampaign();
+                    before = CampaignSafetySnapshot.Capture();
+                }
+                test.Action(context);
+                if (context.Assertions == 0)
+                    throw new GameTestAssertionException("Test returned without an assertion. Use Tests.Skip with a reason for missing fixtures.");
+            }
+            catch (Exception e)
+            {
+                e = Unwrap(e);
+                leaked = e is GameTestCleanupException;
+                outcome = e is GameTestSkipException ? TestOutcome.Skipped : TestOutcome.Failed;
+                message = e is GameTestAssertionException || e is GameTestSkipException ? e.Message : e.ToString();
+            }
+            finally
+            {
+                foreach (var cleanupError in context.Cleanup())
+                {
+                    outcome = TestOutcome.Failed;
+                    leaked = true;
+                    message += "\nCleanup failed: " + cleanupError;
+                }
+                if (before != null)
+                {
+                    try
+                    {
+                        if (before != CampaignSafetySnapshot.Capture())
                         {
-                            object[] args = acceptsContext ? new object[] { ctx } : null;
-
-                            method.Invoke(null, args);
-                        };
-
-                        RegisterInternal(
-                            attr.Name ?? method.Name,
-                            attr.Group ?? "default",
-                            attr.Description,
-                            action
-                        );
+                            leaked = true;
+                            outcome = TestOutcome.Failed;
+                            message += "\nCampaign state changed: party rosters, player resources, or active custom troops were not restored.";
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        leaked = true;
+                        outcome = TestOutcome.Failed;
+                        message += "\nCould not verify campaign state restoration: " + e;
                     }
                 }
-
-                Log.Info(
-                    $"[Tests] Discovered {_tests.Count} in-game tests in assembly {typeof(Tests).Assembly.GetName().Name}."
-                );
+                _current = previous;
             }
-            catch (Exception ex)
+            watch.Stop();
+            return new GameTestResult(test.Name, test.Group, outcome, message, watch.Elapsed,
+                seed, iteration, context.Assertions) { StateLeaked = leaked };
+        }
+
+        internal static Exception Unwrap(Exception e)
+        {
+            while (e is TargetInvocationException invocation && invocation.InnerException != null)
+                e = invocation.InnerException;
+            return e;
+        }
+
+        private static int CaseSeed(int seed, string id, int iteration)
+        {
+            unchecked
             {
-                Log.Error($"[Tests] Failed to discover in-game tests: {ex}");
+                int hash = seed;
+                foreach (char c in id)
+                    hash = hash * 31 + c;
+                return hash * 31 + iteration;
             }
         }
 
-        private static void RegisterInternal(
-            string name,
-            string group,
-            string description,
-            Action<GameTestContext> action
-        )
+        public static void Skip(string reason) => throw new GameTestSkipException(reason);
+
+        public static void AssertTrue(bool condition, string message = null, [CallerMemberName] string member = null)
         {
-            if (string.IsNullOrWhiteSpace(name))
-                name = "UnnamedTest";
-
-            var existing = _tests.FirstOrDefault(t =>
-                string.Equals(t.Name, name, StringComparison.OrdinalIgnoreCase)
-                && string.Equals(t.Group, group, StringComparison.OrdinalIgnoreCase)
-            );
-            if (existing != null)
-            {
-                Log.Warn($"[Tests] Duplicate test registration ignored for {group}.{name}.");
-                return;
-            }
-
-            _tests.Add(new RegisteredTest(name, group, description, action));
-        }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        API (Run)                      //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        /// <summary>
-        /// Runs all discovered tests. Optionally filters by group or name and stops on first failure.
-        /// Returns a formatted summary suitable for the cheat console.
-        /// </summary>
-        public static string RunAllTests(
-            string groupFilter = null,
-            string nameFilter = null,
-            bool stopOnFirstFailure = false
-        )
-        {
-            EnsureDiscovered();
-
-            var ctx = new GameTestContext();
-            ctx.EnsureCampaign();
-
-            var filtered = _tests
-                .Where(t =>
-                    (
-                        string.IsNullOrEmpty(groupFilter)
-                        || t.Group.Equals(groupFilter, StringComparison.OrdinalIgnoreCase)
-                    )
-                    && (
-                        string.IsNullOrEmpty(nameFilter)
-                        || t.Name.IndexOf(nameFilter, StringComparison.OrdinalIgnoreCase) >= 0
-                    )
-                )
-                .ToList();
-
-            if (filtered.Count == 0)
-                return "[Tests] No tests matched the specified filters.";
-
-            var results = new List<GameTestResult>(filtered.Count);
-            var swTotal = Stopwatch.StartNew();
-
-            Log.Info(
-                $"[Tests] Starting in-game test run. Count={filtered.Count}, GroupFilter={groupFilter ?? "*"}, NameFilter={nameFilter ?? "*"}."
-            );
-
-            foreach (var test in filtered)
-            {
-                var sw = Stopwatch.StartNew();
-                bool passed = false;
-                string msg;
-                Exception ex = null;
-
-                try
-                {
-                    test.Action(ctx);
-                    passed = true;
-                    msg = "OK";
-                }
-                catch (GameTestAssertionException aex)
-                {
-                    msg = aex.Message;
-                    ex = aex;
-                }
-                catch (TargetInvocationException tie) when (tie.InnerException != null)
-                {
-                    // Unwrap reflection-invoke wrapper so assertion messages surface cleanly.
-                    var inner = tie.InnerException;
-                    msg =
-                        inner is GameTestAssertionException
-                            ? inner.Message
-                            : "Unexpected exception: " + inner.Message;
-                    ex = inner;
-                }
-                catch (Exception e)
-                {
-                    msg = "Unexpected exception: " + e.Message;
-                    ex = e;
-                }
-
-                sw.Stop();
-
-                var result = new GameTestResult(
-                    test.Name,
-                    test.Group,
-                    test.Description,
-                    passed,
-                    msg,
-                    ex,
-                    sw.Elapsed
-                );
-                results.Add(result);
-
-                if (passed)
-                {
-                    Log.Debug(
-                        $"[Tests] PASS: {test.Group}.{test.Name} in {sw.ElapsedMilliseconds} ms. {test.Description}"
-                    );
-                }
-                else
-                {
-                    Log.Error(
-                        $"[Tests] FAIL: {test.Group}.{test.Name} in {sw.ElapsedMilliseconds} ms. {msg}\n{ex}"
-                    );
-                    if (stopOnFirstFailure)
-                        break;
-                }
-            }
-
-            swTotal.Stop();
-            return FormatSummary(results, swTotal.Elapsed);
-        }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                     Assertions API                     //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        public static void AssertTrue(
-            bool condition,
-            string message = null,
-            [CallerMemberName] string member = null
-        )
-        {
-            if (condition)
-                return;
-
-            var msg = message ?? "Expected condition to be true.";
-            throw new GameTestAssertionException($"[{member}] {msg}");
-        }
-
-        public static void AssertFalse(
-            bool condition,
-            string message = null,
-            [CallerMemberName] string member = null
-        )
-        {
+            _current?.CountAssertion();
             if (!condition)
-                return;
-
-            var msg = message ?? "Expected condition to be false.";
-            throw new GameTestAssertionException($"[{member}] {msg}");
+                throw new GameTestAssertionException($"[{member}] {message ?? "Expected true."}");
         }
 
-        public static void AssertEqual<T>(
-            T expected,
-            T actual,
-            string message = null,
-            [CallerMemberName] string member = null
-        )
+        public static void AssertFalse(bool condition, string message = null, [CallerMemberName] string member = null)
+            => AssertTrue(!condition, message ?? "Expected false.", member);
+
+        public static void AssertEqual<T>(T expected, T actual, string message = null, [CallerMemberName] string member = null)
+            => AssertTrue(EqualityComparer<T>.Default.Equals(expected, actual),
+                $"{message ?? "Values not equal."} Expected={expected}, Actual={actual}", member);
+
+        public static void AssertNotNull(object value, string message = null, [CallerMemberName] string member = null)
+            => AssertTrue(value != null, message ?? "Value was null.", member);
+
+        public static void AssertThrows<T>(Action action, string message = null) where T : Exception
         {
-            if (EqualityComparer<T>.Default.Equals(expected, actual))
-                return;
-
-            var msg = message ?? "Values are not equal.";
-            throw new GameTestAssertionException(
-                $"[{member}] {msg} Expected={expected}, Actual={actual}"
-            );
+            _current?.CountAssertion();
+            try { action(); }
+            catch (T) { return; }
+            throw new GameTestAssertionException(message ?? $"Expected {typeof(T).Name}.");
         }
 
-        public static void AssertNotNull(
-            object value,
-            string message = null,
-            [CallerMemberName] string member = null
-        )
+        public static string FormatSummary(GameTestRun run)
         {
-            if (value != null)
-                return;
-
-            var msg = message ?? "Value was null.";
-            throw new GameTestAssertionException($"[{member}] {msg}");
+            var text = new StringBuilder();
+            text.AppendLine($"[Tests] Planned={run.Planned}, Passed={run.Passed}, Failed={run.Failed}, Skipped={run.Skipped}, Seed={run.Seed}, Repeat={run.Repeat}.");
+            foreach (var result in run.Results)
+                text.AppendLine($" - [{result.Outcome}] {result.Group}.{result.Name} repeat={result.Iteration + 1} seed={result.Seed} assertions={result.Assertions}: {result.Message}");
+            return text.ToString();
         }
 
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                     Summary formatting                 //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
-        private static string FormatSummary(
-            IReadOnlyCollection<GameTestResult> results,
-            TimeSpan totalDuration
-        )
-        {
-            int total = results.Count;
-            int passed = results.Count(r => r.Passed);
-            int failed = total - passed;
-
-            var sb = new StringBuilder();
-            sb.AppendLine(
-                $"[Tests] Run complete. Total={total}, Passed={passed}, Failed={failed}, Duration={totalDuration.TotalMilliseconds:F0} ms."
-            );
-
-            foreach (var r in results.OrderBy(r => r.Group).ThenBy(r => r.Name))
-            {
-                var status = r.Passed ? "PASS" : "FAIL";
-                sb.AppendLine(
-                    $" - [{status}] {r.Group}.{r.Name} ({r.Duration.TotalMilliseconds:F0} ms) : {r.Message}"
-                );
-            }
-
-            return sb.ToString();
-        }
-
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-        //                        Commands                        //
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
-
+        // retinues.run_tests [group] [name] [--headless] [--seed=12345] [--repeat=3] [--stop] [--junit=path]
         [CommandLineFunctionality.CommandLineArgumentFunction("run_tests", "retinues")]
         public static string RunTests(List<string> args)
         {
-            // Example: retinues.run_tests [group] [name-substring] [--stop]
-            string group = null;
-            string name = null;
-            bool stopOnFirstFailure = false;
-
-            if (args.Count > 0)
-                group = args[0] == "-" ? null : args[0];
-            if (args.Count > 1)
-                name = args[1] == "-" ? null : args[1];
-            if (args.Count > 2 && args[2] == "--stop")
-                stopOnFirstFailure = true;
-
-            return RunAllTests(group, name, stopOnFirstFailure);
+            try
+            {
+                var positional = args.Where(a => !a.StartsWith("--", StringComparison.Ordinal)).ToList();
+                int seed = 12345, repeat = 1;
+                bool headless = false, stop = false;
+                string report = null;
+                foreach (var arg in args.Where(a => a.StartsWith("--", StringComparison.Ordinal)))
+                {
+                    if (arg == "--headless") headless = true;
+                    else if (arg == "--stop") stop = true;
+                    else if (arg.StartsWith("--seed=", StringComparison.Ordinal)) seed = int.Parse(arg.Substring(7));
+                    else if (arg.StartsWith("--repeat=", StringComparison.Ordinal)) repeat = int.Parse(arg.Substring(9));
+                    else if (arg.StartsWith("--junit=", StringComparison.Ordinal)) report = arg.Substring(8);
+                    else throw new ArgumentException("Unknown test option: " + arg);
+                }
+                if (positional.Count > 2)
+                    throw new ArgumentException("Expected at most a group and name filter.");
+                string Filter(int index) => positional.Count > index && positional[index] != "-" ? positional[index] : null;
+                var run = RunSuite(Filter(0), Filter(1), headless, seed, repeat, stop);
+                if (report != null)
+                    run.WriteJUnit(report);
+                string summary = FormatSummary(run);
+                Log.Info(summary);
+                return summary;
+            }
+            catch (Exception e) { return "[Tests] Runner failed: " + e; }
         }
     }
 }

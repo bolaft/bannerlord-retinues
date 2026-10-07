@@ -1354,7 +1354,7 @@ namespace Retinues.Configuration
                     .ToString(),
             @default: 90,
             minValue: 90,
-            maxValue: 1600,
+            maxValue: 9999,
             presets: new Dictionary<string, object> { [Presets.Freeform] = 1600 }
         );
 
@@ -1374,7 +1374,7 @@ namespace Retinues.Configuration
                     .ToString(),
             @default: 90,
             minValue: 90,
-            maxValue: 1600,
+            maxValue: 9999,
             presets: new Dictionary<string, object> { [Presets.Freeform] = 1600 }
         );
 
@@ -1394,7 +1394,7 @@ namespace Retinues.Configuration
                     .ToString(),
             @default: 210,
             minValue: 90,
-            maxValue: 1600,
+            maxValue: 9999,
             presets: new Dictionary<string, object> { [Presets.Freeform] = 1600 }
         );
 
@@ -1414,7 +1414,7 @@ namespace Retinues.Configuration
                     .ToString(),
             @default: 360,
             minValue: 90,
-            maxValue: 1600,
+            maxValue: 9999,
             presets: new Dictionary<string, object> { [Presets.Freeform] = 1600 }
         );
 
@@ -1434,7 +1434,7 @@ namespace Retinues.Configuration
                     .ToString(),
             @default: 555,
             minValue: 90,
-            maxValue: 1600,
+            maxValue: 9999,
             presets: new Dictionary<string, object> { [Presets.Freeform] = 1600 }
         );
 
@@ -1454,7 +1454,7 @@ namespace Retinues.Configuration
                     .ToString(),
             @default: 780,
             minValue: 90,
-            maxValue: 1600,
+            maxValue: 9999,
             presets: new Dictionary<string, object> { [Presets.Freeform] = 1600 }
         );
 
@@ -1474,7 +1474,7 @@ namespace Retinues.Configuration
                     .ToString(),
             @default: 1015,
             minValue: 90,
-            maxValue: 1600,
+            maxValue: 9999,
             presets: new Dictionary<string, object> { [Presets.Freeform] = 1600 }
         );
 
@@ -1494,7 +1494,7 @@ namespace Retinues.Configuration
                     .ToString(),
             @default: 1600,
             minValue: 90,
-            maxValue: 1600,
+            maxValue: 9999,
             presets: new Dictionary<string, object> { [Presets.Freeform] = 1600 }
         );
 
@@ -1514,7 +1514,7 @@ namespace Retinues.Configuration
                     .ToString(),
             @default: 1850,
             minValue: 90,
-            maxValue: 2880,
+            maxValue: 9999,
             presets: new Dictionary<string, object> { [Presets.Freeform] = 2880 }
         );
 
@@ -1534,7 +1534,7 @@ namespace Retinues.Configuration
                     .ToString(),
             @default: 2100,
             minValue: 90,
-            maxValue: 2880,
+            maxValue: 9999,
             presets: new Dictionary<string, object> { [Presets.Freeform] = 2880 }
         );
 
@@ -1554,7 +1554,7 @@ namespace Retinues.Configuration
                     .ToString(),
             @default: 2350,
             minValue: 90,
-            maxValue: 2880,
+            maxValue: 9999,
             presets: new Dictionary<string, object> { [Presets.Freeform] = 2880 }
         );
     }

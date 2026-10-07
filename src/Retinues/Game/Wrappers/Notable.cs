@@ -70,10 +70,14 @@ namespace Retinues.Game.Wrappers
                     continue;
                 }
 
-                // Already in one of our custom factions, skip.
+                // Already one of our custom troops, skip. A vanilla troop's Faction is its
+                // culture, so it must always stay eligible for replacement.
                 if (
-                    troop.Faction == primaryFaction
-                    || (hasSecondary && troop.Faction == secondaryFaction)
+                    troop.IsCustom
+                    && (
+                        troop.Faction == primaryFaction
+                        || (hasSecondary && troop.Faction == secondaryFaction)
+                    )
                 )
                     continue;
 

@@ -82,7 +82,24 @@ namespace Retinues.Troops
 
             sb.AppendLine($"Released {released} orphaned troop(s).");
 
-            if (clearedKingdom || released > 0)
+            // 3) Roster entries pointing at duplicate custom troop instances (unloadable-save
+            // corruption; repaired in place, counts preserved).
+            int healed = Safety.StubIntegrityBehavior.CanonicalizeAllRosters("scrub");
+            sb.AppendLine(
+                healed > 0
+                    ? $"Repaired {healed} roster entr{(healed == 1 ? "y" : "ies")} referencing a duplicate custom troop."
+                    : "No duplicate custom troop instances found."
+            );
+
+            // 4) Retinues linked into upgrade trees (made them recruitable as volunteers).
+            int links = Safety.StubIntegrityBehavior.ScrubRetinueUpgradeTargets();
+            sb.AppendLine(
+                links > 0
+                    ? $"Removed {links} retinue upgrade link(s) from troop trees."
+                    : "No retinue upgrade links found."
+            );
+
+            if (clearedKingdom || released > 0 || healed > 0 || links > 0)
                 sb.AppendLine("Save the game to persist the cleanup.");
 
             Log.Info($"Scrub: cleared kingdom={clearedKingdom}, released {released} orphan(s).");

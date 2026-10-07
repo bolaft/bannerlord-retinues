@@ -166,11 +166,15 @@ namespace Retinues.Game.Helpers
             "_battleEquipmentTemplate"
         );
 
-        protected static readonly MethodInfo M_fillFrom = AccessTools.Method(
-            typeof(CharacterObject),
-            "FillFrom",
-            [typeof(CharacterObject)]
-        );
+        // Game 1.4 removed CharacterObject.FillFrom(CharacterObject); the surviving overload is
+        // BasicCharacterObject.FillFrom(BasicCharacterObject), so probe both signatures.
+        protected static readonly MethodInfo M_fillFrom =
+            AccessTools.Method(typeof(CharacterObject), "FillFrom", [typeof(CharacterObject)])
+            ?? AccessTools.Method(
+                typeof(CharacterObject),
+                "FillFrom",
+                [typeof(TaleWorlds.Core.BasicCharacterObject)]
+            );
 #if BL13 || BL14
         protected static readonly FieldInfo F_equipmentRoster = AccessTools.Field(
             typeof(BasicCharacterObject),

@@ -267,6 +267,9 @@ namespace Retinues.Doctrines
         /// Refreshes the list of active feats based on doctrine status and feat completion.
         /// </summary>
         private void RefreshActiveFeats()
+            => RefreshActiveFeats(Campaign.Current?.GetCampaignBehavior<DoctrineServiceBehavior>());
+
+        internal void RefreshActiveFeats(DoctrineServiceBehavior service)
         {
             _activeFeats.Clear();
 
@@ -274,13 +277,18 @@ namespace Retinues.Doctrines
                 return;
 
             // Ask the service for the discovered doctrine defs; filter by status.
-            var svcDoctrines = DoctrineAPI.AllDoctrines();
+            var svcDoctrines = service?.AllDoctrines()?.ToList();
             if (svcDoctrines == null || svcDoctrines.Count == 0)
                 return;
 
             foreach (var def in svcDoctrines)
             {
-                var status = DoctrineAPI.GetDoctrineStatus(def.Key);
+                // Disabled doctrines may still have incomplete feats and satisfied prerequisites.
+                // Do not dispatch their event handlers (including blocked-culture notifications).
+                if (service.IsDoctrineDisabled(def.Key))
+                    continue;
+
+                var status = service.GetDoctrineStatus(def.Key);
                 // Track feats if the doctrine is not unlocked and not locked by prereq.
                 if (status == DoctrineStatus.Unlocked || status == DoctrineStatus.Locked)
                     continue;
@@ -288,7 +296,7 @@ namespace Retinues.Doctrines
                 // For each feat that isn't complete, instantiate and keep it live.
                 foreach (var f in def.Feats)
                 {
-                    if (DoctrineAPI.IsFeatComplete(f.Key))
+                    if (service.IsFeatComplete(f.Key))
                         continue;
 
                     var featType = GetTypeByFullName(f.Key);

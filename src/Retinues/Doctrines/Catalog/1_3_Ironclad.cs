@@ -1,6 +1,7 @@
 using Retinues.Doctrines.Model;
 using Retinues.Game;
 using Retinues.Game.Events;
+using Retinues.Game.Wrappers;
 using Retinues.Utils;
 using TaleWorlds.Core;
 using TaleWorlds.Localization;
@@ -38,26 +39,40 @@ namespace Retinues.Doctrines.Catalog
                     if (!troop.IsCustom)
                         continue; // Only consider custom troops
 
-                    var hasFullSet = true;
-
-                    foreach (var equipment in troop.Loadout.Equipments)
-                    {
-                        if (equipment.Get(EquipmentIndex.Head).Tier < 6)
-                        {
-                            hasFullSet = false; // Helmet does not meet tier requirement
-                            break;
-                        }
-
-                        if (equipment.Get(EquipmentIndex.Body).Tier < 6)
-                        {
-                            hasFullSet = false; // Body armor does not meet tier requirement
-                            break;
-                        }
-                    }
-
-                    if (hasFullSet)
+                    if (WearsTier6Armor(troop))
                         AdvanceProgress(1);
                 }
+            }
+
+            /// <summary>
+            /// True when every battle set of the troop has a tier 6 helmet and body armor.
+            /// Civilian sets are ignored: they never carry tier 6 armor and usually have no
+            /// helmet at all — reading the tier of that empty slot threw, which silently aborted
+            /// the check and made the feat impossible to progress.
+            /// </summary>
+            internal static bool WearsTier6Armor(WCharacter troop)
+            {
+                var sets = troop?.Loadout?.Equipments;
+                if (sets == null)
+                    return false;
+
+                int battleSets = 0;
+
+                foreach (var equipment in sets)
+                {
+                    if (equipment == null || equipment.IsCivilian)
+                        continue;
+
+                    battleSets++;
+
+                    if (
+                        (equipment.Get(EquipmentIndex.Head)?.Tier ?? 0) < 6
+                        || (equipment.Get(EquipmentIndex.Body)?.Tier ?? 0) < 6
+                    )
+                        return false; // Helmet or body armor below tier 6
+                }
+
+                return battleSets > 0;
             }
         }
 

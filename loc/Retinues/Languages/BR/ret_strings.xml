@@ -1440,7 +1440,7 @@
       text="Catadores Pragmáticos" />
     <string
       id="ret_pragmatic_scavengers_army_win_allies_50"
-      text="Vença três batalhas seguidas enquanto fizer parte do exército de um lorde aliado." />
+      text="Vença duas batalhas seguidas enquanto fizer parte do exército de um lorde aliado." />
     <string
       id="ret_pragmatic_scavengers_defense_allies_100"
       text="Vença uma batalha na qual os aliados sofram mais de 100 baixas." />

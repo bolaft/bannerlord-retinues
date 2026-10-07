@@ -1359,10 +1359,14 @@ namespace Retinues.Game.Wrappers
             private static FieldInfo _characterTraitsField;
             private static MethodInfo _setPropertyValueMethod;
 
-            // CharacterObject.IsMariner is a separate auto-property used by the
-            // encyclopedia / UI (CampaignUIHelper.GetCharacterTypeData reads it).
-            // It only gets synced during Deserialize, so we must update it manually.
+            // CharacterObject.IsMariner is read directly by the party screen and the
+            // encyclopedia (CampaignUIHelper.GetCharacterTypeData). The engine only syncs it
+            // from the trait during Deserialize, so we must update it ourselves. Its shape
+            // differs by game version: 1.3 has a private setter, 1.4 is a getter-only property
+            // over a private "_isMariner" field with no setter at all.
             private static PropertyInfo _isMarinerProperty;
+            private static FieldInfo _isMarinerField;
+            private static bool _isMarinerResolved;
 
             // ── Trait lookup ──────────────────────────────────────
 
@@ -1396,6 +1400,50 @@ namespace Retinues.Game.Wrappers
                 _characterTraitsField = null;
                 _setPropertyValueMethod = null;
                 _isMarinerProperty = null;
+                _isMarinerField = null;
+                _isMarinerResolved = false;
+            }
+
+            /// <summary>
+            /// Writes CharacterObject.IsMariner through its setter when one exists (1.3), else
+            /// through the private backing field (1.4, where the property is getter-only).
+            /// PropertyInfo.SetValue threw on 1.4 and the exception was swallowed, so cloned
+            /// naval troops kept the trait (visible in the editor) but never the flag the game
+            /// UI reads: the Mariner icon vanished from the party screen and the encyclopedia.
+            /// </summary>
+            private static void SetIsMarinerFlag(CharacterObject co, bool value)
+            {
+                if (!_isMarinerResolved)
+                {
+                    _isMarinerResolved = true;
+
+                    var property = typeof(CharacterObject).GetProperty(
+                        "IsMariner",
+                        BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic
+                    );
+                    _isMarinerProperty =
+                        property?.GetSetMethod(nonPublic: true) != null ? property : null;
+
+                    _isMarinerField =
+                        typeof(CharacterObject).GetField(
+                            "_isMariner",
+                            BindingFlags.Instance | BindingFlags.NonPublic
+                        )
+                        ?? typeof(CharacterObject).GetField(
+                            "<IsMariner>k__BackingField",
+                            BindingFlags.Instance | BindingFlags.NonPublic
+                        );
+
+                    if (_isMarinerProperty == null && _isMarinerField == null)
+                        Log.Warn(
+                            "CharacterObject.IsMariner has neither a setter nor a known backing field; the Mariner flag cannot be applied to custom troops."
+                        );
+                }
+
+                if (_isMarinerProperty != null)
+                    _isMarinerProperty.SetValue(co, value);
+                else
+                    _isMarinerField?.SetValue(co, value);
             }
 
             // ── Public API used by WCharacter ─────────────────────
@@ -1469,14 +1517,9 @@ namespace Retinues.Game.Wrappers
 
                     _setPropertyValueMethod?.Invoke(owner, [navalTrait, level]);
 
-                    // Also update the IsMariner auto-property so the encyclopedia
-                    // and other UI that read character.IsMariner directly see the
-                    // correct value (CampaignUIHelper.GetCharacterTypeData does this).
-                    _isMarinerProperty ??= typeof(CharacterObject).GetProperty(
-                        "IsMariner",
-                        BindingFlags.Instance | BindingFlags.Public
-                    );
-                    _isMarinerProperty?.SetValue(co, level > 0);
+                    // Also update CharacterObject.IsMariner, which the party screen and the
+                    // encyclopedia read directly.
+                    SetIsMarinerFlag(co, level > 0);
                 }
                 catch
                 {

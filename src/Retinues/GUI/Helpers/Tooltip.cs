@@ -20,7 +20,7 @@ namespace Retinues.GUI.Helpers
                 var props = new List<TooltipProperty>();
                 if (!string.IsNullOrEmpty(title))
                     props.Add(
-                        new TooltipProperty(
+                        TooltipPropertyCompat.Create(
                             "",
                             title,
                             0,
@@ -30,7 +30,7 @@ namespace Retinues.GUI.Helpers
                     );
                 if (!string.IsNullOrEmpty(description))
                     props.Add(
-                        new TooltipProperty(
+                        TooltipPropertyCompat.Create(
                             "",
                             description,
                             0,

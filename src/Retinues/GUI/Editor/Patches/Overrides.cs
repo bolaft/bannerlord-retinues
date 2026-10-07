@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Xml;
 using Bannerlord.UIExtenderEx.Attributes;
 using Bannerlord.UIExtenderEx.Prefabs2;
 using Retinues.Configuration;
@@ -34,11 +35,18 @@ internal class ClanScreen_TopPanel_Visible : PrefabExtensionSetAttributePatch
         [new Attribute("IsVisible", "@IsTopPanelVisible")];
 }
 
-[PrefabExtension("ClanScreen", "descendant::Widget[@Id='FinancePanelWidget']")]
-internal class ClanScreen_FinancePanel_Visible : PrefabExtensionSetAttributePatch
+[PrefabExtension("ClanScreen", null)]
+internal class ClanScreen_FinancePanel_Visible : Bannerlord.UIExtenderEx.Prefabs.CustomPatch<XmlDocument>
 {
-    public override List<Attribute> Attributes =>
-        [new Attribute("IsVisible", "@IsFinancePanelVisible")];
+    public override string Id => nameof(ClanScreen_FinancePanel_Visible);
+
+    public override void Apply(XmlDocument document)
+    {
+        // Newer game layouts omit this panel. Patch the document so UIExtenderEx
+        // does not report a missing XPath target before we can check for it.
+        var panel = document.SelectSingleNode("descendant::Widget[@Id='FinancePanelWidget']") as XmlElement;
+        panel?.SetAttribute("IsVisible", "@IsFinancePanelVisible");
+    }
 }
 
 [PrefabExtension(

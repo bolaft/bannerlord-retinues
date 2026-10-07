@@ -17,7 +17,8 @@ namespace Retinues.Features.Swaps.Patches
     [HarmonyPatch(typeof(Settlement), "AddMilitiasToParty")]
     internal static class PlayerMilitiaSpawnPatch
     {
-        private static readonly MethodInfo Helper_RefInt = typeof(Settlement)
+        // BL12 consumes a shared remaining count; BL13+ rolls each lane independently.
+        internal static readonly MethodInfo Helper_AddTroop = typeof(Settlement)
             .GetMethods(BindingFlags.Instance | BindingFlags.NonPublic)
             .FirstOrDefault(m =>
             {
@@ -29,9 +30,12 @@ namespace Retinues.Features.Swaps.Patches
                     && p[1].ParameterType == typeof(CharacterObject)
                     && p[2].ParameterType == typeof(CharacterObject)
                     && p[3].ParameterType == typeof(float)
-                    && p[4].ParameterType.IsByRef
-                    && p[4].ParameterType.GetElementType() == typeof(int);
+                    && (p[4].ParameterType == typeof(int)
+                        || p[4].ParameterType == typeof(int).MakeByRefType());
             });
+
+        private static readonly bool UsesRemainingCount =
+            Helper_AddTroop?.GetParameters()[4].ParameterType.IsByRef == true;
 
         private static bool IsValidChar(CharacterObject co) =>
             co != null && !co.IsHero && co.IsReady && co.IsInitialized;
@@ -40,7 +44,8 @@ namespace Retinues.Features.Swaps.Patches
             w != null && w.IsActive && !w.IsHero && w.Base != null && IsValidChar(w.Base);
 
         /// <summary>
-        /// Adds a militia lane safely using reflection, updating remaining count.
+        /// Adds one militia lane through the vanilla helper (which applies the ratio and the
+        /// veteran chance internally, mirroring Settlement.AddMilitiasToParty).
         /// </summary>
         private static void AddLaneSafe(
             Settlement s,
@@ -48,12 +53,10 @@ namespace Retinues.Features.Swaps.Patches
             CharacterObject basic,
             CharacterObject elite,
             float ratio,
-            ref int remaining
+            ref int militiaToAdd
         )
         {
-            if (Helper_RefInt == null)
-                return;
-            if (remaining <= 0)
+            if (Helper_AddTroop == null || militiaToAdd <= 0)
                 return;
 
             // If both basic & elite are invalid, skip
@@ -62,9 +65,10 @@ namespace Retinues.Features.Swaps.Patches
 
             try
             {
-                object[] args = [party, basic, elite, ratio, remaining];
-                Helper_RefInt.Invoke(s, args);
-                remaining = (int)args[4];
+                object[] args = [party, basic, elite, ratio, militiaToAdd];
+                Helper_AddTroop.Invoke(s, args);
+                if (UsesRemainingCount)
+                    militiaToAdd = (int)args[4];
             }
             catch (Exception ex)
             {
@@ -85,7 +89,7 @@ namespace Retinues.Features.Swaps.Patches
                 __instance == null
                 || militaParty == null
                 || militiaToAdd <= 0
-                || Helper_RefInt == null
+                || Helper_AddTroop == null
             )
                 return true;
 
@@ -116,11 +120,12 @@ namespace Retinues.Features.Swaps.Patches
                 Campaign.Current.Models.SettlementMilitiaModel.CalculateMilitiaSpawnRate(
                     __instance,
                     out float meleeRatio,
-                    out _
+                    out float rangedRatio
                 );
 
+                // BL12 fills the ranged lane from what the melee lane leaves; later games
+                // apply both ratios to the original requested count.
                 int remaining = militiaToAdd;
-
                 AddLaneSafe(
                     __instance,
                     militaParty,
@@ -134,11 +139,11 @@ namespace Retinues.Features.Swaps.Patches
                     militaParty,
                     ranged.Base,
                     rangedElite.Base,
-                    1f,
+                    UsesRemainingCount ? 1f : rangedRatio,
                     ref remaining
                 );
 
-                Log.Debug($"{ws.Name}: custom militia used (add={militiaToAdd}, rem={remaining}).");
+                Log.Debug($"{ws.Name}: custom militia used (add={militiaToAdd}).");
 
                 // skip original
                 return false;

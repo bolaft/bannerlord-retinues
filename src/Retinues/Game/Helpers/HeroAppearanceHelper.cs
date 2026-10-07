@@ -164,14 +164,14 @@ namespace Retinues.Game.Helpers
 
             try
             {
-                // This is the "fake first click" that forces the model to spawn.
-                handler.DefaultFace();
+                // Rebuild the model from the loaded body properties without resetting the face.
+                handler.RefreshCharacterEntity();
                 handler.ChangeToFaceCamera();
 
                 _hasPrimed = true;
                 _needsPrime = false;
 
-                Log.Debug("[HeroAppearanceHelper] PrimeFaceGen: DefaultFace + camera/dress.");
+                Log.Debug("[HeroAppearanceHelper] PrimeFaceGen: refreshed character + face camera.");
             }
             catch (Exception ex)
             {

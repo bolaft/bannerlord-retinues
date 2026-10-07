@@ -1,8 +1,13 @@
+using System.Linq;
 using Retinues.Configuration;
 using Retinues.Doctrines;
 using Retinues.Doctrines.Catalog;
+using Retinues.Game;
+using Retinues.Game.Wrappers;
 using Retinues.Managers;
 using Retinues.Troops;
+using TaleWorlds.Core;
+using TaleWorlds.ObjectSystem;
 
 namespace Retinues.Tests.Cases
 {
@@ -30,7 +35,7 @@ namespace Retinues.Tests.Cases
 
             var docs = DoctrineAPI.AllDoctrines();
             if (docs.Count == 0)
-                return; // doctrines disabled in this save; nothing to assert
+                Tests.Skip("doctrines disabled in this save; nothing to assert");
 
             Tests.AssertTrue(docs.Count >= 16, $"Catalog has many doctrines (got {docs.Count}).");
             Tests.AssertNotNull(
@@ -67,7 +72,7 @@ namespace Retinues.Tests.Cases
 
             var featKey = FirstFeatWithTarget(out int target);
             if (featKey == null)
-                return; // doctrines disabled; skip
+                Tests.Skip("doctrines disabled; skip");
 
             DoctrineAPI.SetFeatProgress(featKey, 0);
             Tests.AssertEqual(0, DoctrineAPI.GetFeatProgress(featKey), "Progress set to zero.");
@@ -103,7 +108,7 @@ namespace Retinues.Tests.Cases
                 featKey = FirstFeatWithTarget(out _);
             }
             if (featKey == null)
-                return; // doctrines disabled; skip
+                Tests.Skip("doctrines disabled; skip");
 
             using (TestConfig.Set(Config.EnableFeatRequirements, false))
             {
@@ -136,9 +141,9 @@ namespace Retinues.Tests.Cases
             ctx.EnsureCampaign();
 
             if (DoctrineAPI.AllDoctrines().Count == 0)
-                return; // doctrines disabled; skip
+                Tests.Skip("doctrines disabled; skip");
             if (DoctrineAPI.IsDoctrineUnlocked<IronDiscipline>())
-                return; // already unlocked; can't measure a clean delta
+                Tests.Skip("already unlocked; can't measure a clean delta");
 
             using var sandbox = new TestSandbox();
 
@@ -175,9 +180,9 @@ namespace Retinues.Tests.Cases
             ctx.EnsureCampaign();
 
             if (DoctrineAPI.AllDoctrines().Count == 0)
-                return; // doctrines disabled; skip
+                Tests.Skip("doctrines disabled; skip");
             if (DoctrineAPI.IsDoctrineUnlocked<SteadfastSoldiers>())
-                return; // already unlocked; can't measure a clean delta
+                Tests.Skip("already unlocked; can't measure a clean delta");
 
             using var sandbox = new TestSandbox();
 
@@ -230,6 +235,60 @@ namespace Retinues.Tests.Cases
                 }
             }
             return null;
+        }
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+        //                    Ironclad armor check                //
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        /// <summary>
+        /// The tier 6 armor check must judge battle sets only: the civilian outfit never carries
+        /// tier 6 armor and usually has no helmet, which made the feat impossible to progress.
+        /// </summary>
+        [GameTest(
+            "IroncladArmorCheckIgnoresCivilianSet",
+            "doctrines",
+            "The Ironclad tier 6 armor check judges battle sets only and tolerates empty civilian slots"
+        )]
+        public static void IroncladArmorCheckIgnoresCivilianSet(GameTestContext ctx)
+        {
+            ctx.EnsureCampaign();
+
+            WItem FindArmor(ItemObject.ItemTypeEnum type, int tier)
+            {
+                var item = MBObjectManager
+                    .Instance.GetObjectTypeList<ItemObject>()
+                    .FirstOrDefault(i => i != null && i.ItemType == type && new WItem(i).Tier == tier);
+                return item == null ? null : new WItem(item);
+            }
+
+            var helmet = FindArmor(ItemObject.ItemTypeEnum.HeadArmor, 6);
+            var body = FindArmor(ItemObject.ItemTypeEnum.BodyArmor, 6);
+            var lowHelmet = FindArmor(ItemObject.ItemTypeEnum.HeadArmor, 5);
+            var vanilla = Player.Clan?.Culture?.RootBasic;
+            if (helmet == null || body == null || lowHelmet == null || vanilla == null)
+                Tests.Skip("Item tiers or culture roots unavailable in this load order.");
+
+            using var sandbox = new TestSandbox();
+            var troop = sandbox.NewStub();
+            troop.FillFrom(vanilla, keepUpgrades: false, keepEquipment: true, keepSkills: false);
+
+            var battle = troop.Loadout.Battle;
+            Tests.AssertNotNull(battle, "The copied troop has a battle set.");
+
+            battle.SetItem(EquipmentIndex.Head, helmet);
+            battle.SetItem(EquipmentIndex.Body, body);
+
+            // The civilian set is left as copied (no tier 6 armor, typically no helmet).
+            Tests.AssertTrue(
+                Ironclad.IC_FullSetT6100Kills.WearsTier6Armor(troop),
+                "Tier 6 helmet and body armor in the battle set qualify despite the civilian set."
+            );
+
+            battle.SetItem(EquipmentIndex.Head, lowHelmet);
+            Tests.AssertFalse(
+                Ironclad.IC_FullSetT6100Kills.WearsTier6Armor(troop),
+                "A tier 5 helmet in the battle set disqualifies the troop."
+            );
         }
     }
 }

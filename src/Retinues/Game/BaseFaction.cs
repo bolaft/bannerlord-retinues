@@ -34,6 +34,21 @@ namespace Retinues.Game
             TroopFactionMapVersion++;
         }
 
+        /// <summary>
+        /// Cultures and factions share one id namespace: vanilla kingdoms reuse their culture's
+        /// id (kingdom "vlandia", culture "vlandia"). Plain id equality therefore made a vanilla
+        /// troop's culture read as the player's kingdom whenever the player rules a vanilla
+        /// kingdom (e.g. after inheriting the throne), so its volunteers were mistaken for custom
+        /// troops and never swapped. Two faction wrappers are only equal when they are the same
+        /// kind of faction.
+        /// </summary>
+        public override bool Equals(StringIdentifier other) =>
+            other is BaseFaction faction
+            && (faction is WCulture) == (this is WCulture)
+            && base.Equals(other);
+
+        public override int GetHashCode() => base.GetHashCode();
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Properties                       //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

@@ -173,7 +173,26 @@ namespace Retinues.Game.Wrappers
 
         public bool IsVassalRewardItem => VassalRewardItemIds.Contains(StringId);
 
-        public bool IsCrafted => _itemObject.IsCraftedByPlayer && Base.WeaponDesign != null;
+        /// <summary>
+        /// Id prefix the game gives every weapon smithed during a campaign. Unlike the
+        /// IsCraftedByPlayer flag it is part of the item and survives a save/load.
+        /// </summary>
+        private const string CraftedIdPrefix = "crafted_item_";
+
+        /// <summary>
+        /// A weapon the player smithed. IsCraftedByPlayer alone is not enough: it is a runtime
+        /// flag the game only restores for weapons in its own crafting record, so weapons made
+        /// through third-party smithing mods lost it on every restart and disappeared from the
+        /// equipment list until they were crafted again. The crafted-item id is checked as well,
+        /// since it persists. Vanilla's XML pre-crafted weapons also carry a WeaponDesign but
+        /// never use that id scheme, so they stay out of the crafted list.
+        /// </summary>
+        public bool IsCrafted =>
+            Base?.WeaponDesign != null
+            && (
+                _itemObject.IsCraftedByPlayer
+                || StringId?.StartsWith(CraftedIdPrefix, StringComparison.Ordinal) == true
+            );
 
         public string CraftedCode
         {

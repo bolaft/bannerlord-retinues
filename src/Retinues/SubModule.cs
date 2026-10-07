@@ -157,7 +157,27 @@ namespace Retinues
             try
             {
                 _harmony = new Harmony("Retinues");
-                _harmony.PatchAll(Assembly.GetExecutingAssembly());
+
+                // Patch per class instead of one PatchAll: a single unresolvable target (for
+                // example after a game update renames a method) then disables that one patch
+                // class with a logged error, instead of aborting every remaining patch in the
+                // assembly.
+                int failedPatchClasses = 0;
+                foreach (var type in AccessTools.GetTypesFromAssembly(Assembly.GetExecutingAssembly()))
+                {
+                    try
+                    {
+                        _harmony.CreateClassProcessor(type).Patch();
+                    }
+                    catch (Exception e)
+                    {
+                        failedPatchClasses++;
+                        Log.Error($"Harmony patching failed for {type.FullName}: {e.Message}");
+                    }
+                }
+
+                if (failedPatchClasses > 0)
+                    Log.Error($"{failedPatchClasses} Harmony patch class(es) failed to apply.");
 
                 // Apply safe method patcher
                 SafeMethodPatcher.ApplyAll(_harmony, Assembly.GetExecutingAssembly());
@@ -321,6 +341,9 @@ namespace Retinues
             // Legacy staging behaviors
             AddBehavior<Safety.Legacy.TroopEquipBehavior>(cs);
             AddBehavior<Safety.Legacy.TroopTrainBehavior>(cs);
+
+            // Save integrity: duplicate-instance roster repair + retinue upgrade-link scrub.
+            AddBehavior<Safety.StubIntegrityBehavior>(cs);
 
             // Legacy behaviors
             AddBehavior<Safety.Legacy.TroopBehavior>(cs);

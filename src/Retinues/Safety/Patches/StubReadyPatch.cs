@@ -1,0 +1,76 @@
+using System;
+using HarmonyLib;
+using Retinues.Game.Wrappers;
+using Retinues.Utils;
+using TaleWorlds.CampaignSystem;
+using TaleWorlds.ObjectSystem;
+
+namespace Retinues.Safety.Patches
+{
+    /// <summary>
+    /// Protects the custom troop stubs from the engine's load-time non-ready sweep.
+    ///
+    /// During campaign load the engine calls MBObjectManager.UnregisterNonReadyObjects, which
+    /// unregisters every object whose IsReady flag is false. A stub instance materialized from
+    /// save data self-registers before the module XMLs run, and if its XML initialization does
+    /// not complete that session it is still referenced by live rosters when the sweep
+    /// unregisters it. The next save then writes it by value with IsRegistered=false, and the
+    /// save after that materializes a floating null-name twin that crashes wage/food/morale
+    /// calculations — an unloadable save. The stubs are a fixed XML-backed pool that always
+    /// exists, so they are never legitimate sweep targets: mark them ready before the sweep.
+    /// </summary>
+    [HarmonyPatch(typeof(MBObjectManager), nameof(MBObjectManager.UnregisterNonReadyObjects))]
+    internal static class StubReadyPatch
+    {
+        [HarmonyPrefix]
+        private static void Prefix()
+        {
+            try
+            {
+                var manager = MBObjectManager.Instance;
+                if (manager == null)
+                    return;
+
+                var characters = manager.GetObjectTypeList<CharacterObject>();
+                if (characters == null)
+                    return;
+
+                int protectedCount = 0;
+
+                for (int i = 0; i < characters.Count; i++)
+                {
+                    var co = characters[i];
+                    if (co == null || co.IsReady)
+                        continue;
+
+                    var id = co.StringId;
+                    if (
+                        string.IsNullOrEmpty(id)
+                        || !(
+                            id.StartsWith(WCharacter.CustomIdPrefix, StringComparison.Ordinal)
+                            || id.StartsWith(
+                                WCharacter.LegacyCustomIdPrefix,
+                                StringComparison.Ordinal
+                            )
+                        )
+                    )
+                        continue;
+
+                    co.IsReady = true;
+                    protectedCount++;
+                }
+
+                if (protectedCount > 0)
+                    Log.Warn(
+                        $"Marked {protectedCount} custom troop stub(s) ready before the "
+                            + "non-ready sweep; they would otherwise have been unregistered "
+                            + "while still referenced by rosters."
+                    );
+            }
+            catch (Exception e)
+            {
+                Log.Exception(e, "StubReadyPatch failed.");
+            }
+        }
+    }
+}

@@ -250,7 +250,22 @@ namespace Retinues.Game.Wrappers
 
                 try
                 {
-                    var clone = Reflector.InvokeMethod(current, "Clone", Type.EmptyTypes) as object;
+                    // Game 1.4 replaced MBBodyProperty.Clone() with static CreateFrom(); probe
+                    // the modern method first, then the legacy one.
+                    object clone = null;
+                    var createFrom = current
+                        .GetType()
+                        .GetMethod(
+                            "CreateFrom",
+                            System.Reflection.BindingFlags.Public
+                                | System.Reflection.BindingFlags.Static
+                        );
+
+                    if (createFrom != null)
+                        clone = createFrom.Invoke(null, [current]);
+                    else
+                        clone = Reflector.InvokeMethod(current, "Clone", Type.EmptyTypes);
+
                     if (clone != null)
                     {
                         Reflector.SetPropertyValue(Base, "BodyPropertyRange", clone);

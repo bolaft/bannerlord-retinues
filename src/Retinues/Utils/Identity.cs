@@ -16,7 +16,8 @@ namespace Retinues.Utils
         /// </summary>
         public abstract string StringId { get; }
 
-        public bool Equals(StringIdentifier other) =>
+        // Virtual so wrapper families sharing an id namespace can refine it (see BaseFaction).
+        public virtual bool Equals(StringIdentifier other) =>
             other is not null && StringId == other?.StringId;
 
         public override bool Equals(object obj) => obj is StringIdentifier other && Equals(other);

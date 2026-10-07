@@ -43,7 +43,7 @@ namespace Retinues.Mods.Shokuho
 
                 var prefix = new HarmonyMethod(
                     typeof(ShokuhoEquipmentPatcher).GetMethod(
-                        nameof(Prefix),
+                        nameof(BeforeAgentBuild),
                         BindingFlags.Static | BindingFlags.NonPublic
                     )
                 );
@@ -60,7 +60,9 @@ namespace Retinues.Mods.Shokuho
         }
 
         // If this returns false, Shokuho's OnAgentBuild is skipped.
-        private static bool Prefix(Agent agent, Banner banner)
+        // Avoid Harmony's conventional "Prefix" name: this optional patch is
+        // registered explicitly in TryPatch, only when Shokuho is loaded.
+        private static bool BeforeAgentBuild(Agent agent, Banner banner)
         {
             try
             {

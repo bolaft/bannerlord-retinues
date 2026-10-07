@@ -56,14 +56,15 @@ namespace Retinues.Doctrines.Catalog
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        // Class name kept as-is (it is the feat's persisted key); the requirement is now two wins.
         public sealed class PS_AllyArmyWin3 : Feat
         {
             public override TextObject Description =>
                 L.T(
                     "pragmatic_scavengers_army_win_allies_50",
-                    "Win three battles in a row while part of an allied lord's army."
+                    "Win two battles in a row while part of an allied lord's army."
                 );
-            public override int Target => 3;
+            public override int Target => 2;
 
             public override void OnBattleEnd(Battle battle)
             {

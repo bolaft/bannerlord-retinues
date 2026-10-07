@@ -1440,7 +1440,7 @@
       text="Прагматичные Собиратели" />
     <string
       id="ret_pragmatic_scavengers_army_win_allies_50"
-      text="Выиграйте три боя подряд в армии союзного лорда." />
+      text="Выиграйте два боя подряд в армии союзного лорда." />
     <string
       id="ret_pragmatic_scavengers_defense_allies_100"
       text="Выиграйте бой, в котором союзники понесли более 100 потерь." />
