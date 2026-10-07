@@ -300,9 +300,13 @@ namespace Retinues.Framework.Behaviors
                 );
 
             if (IsOverridden(nameof(OnPartyAddedToMapEvent)))
+#if BL12
+                LegacyMapEventEvents.PartyAdded.AddNonSerializedListener(
+#else
                 CampaignEvents.OnPartyAddedToMapEventEvent.AddNonSerializedListener(
+#endif
                     this,
-                    party => SafeInvoke(() => OnPartyAddedToMapEvent(WParty.Get(party.MobileParty)))
+                    party => SafeInvoke(() => OnPartyAddedToMapEvent(WParty.Get(party?.MobileParty)))
                 );
 
             if (IsOverridden(nameof(OnMapEventEnded)))

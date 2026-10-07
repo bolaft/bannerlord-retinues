@@ -1,4 +1,11 @@
-## 2.0.0.13 (unreleased)
+## 2.0.0.14 (unreleased)
+
+- Fixed feat progress when joining an ongoing battle, including on Bannerlord 1.2, and prevented auto-resolved battles from reusing results from a previous battle.
+- Rescue Mission now checks for captive allied lords before they are freed, and Combined Arms checks troop composition before casualties.
+- Fixed Royal Host counting ineligible kills and Turn the Tide checking relative army strength incorrectly.
+- Fixed Cultural Triumph failing after a defeated army leader leaves their party. Missing leader or culture information is now handled safely.
+
+## 2.0.0.13
 
 - Updated compatibility with Bannerlord 1.4.8 and the 1.5 beta, including character creation, bodyguard formations and War Sails battles.
 - Fixed editor and unlocked-item tooltips on Bannerlord 1.5.4.

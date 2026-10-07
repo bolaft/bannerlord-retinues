@@ -3,6 +3,7 @@ using System.Linq;
 using Retinues.Behaviors.Missions;
 using Retinues.Domain;
 using Retinues.Domain.Events.Models;
+using Retinues.Domain.Factions.Wrappers;
 
 namespace Retinues.Behaviors.Doctrines.Feats.Loot
 {
@@ -29,16 +30,28 @@ namespace Retinues.Behaviors.Doctrines.Feats.Loot
                 if (party != Player.Party)
                     return; // Must be the main party only.
 
-            // the check below is not protected from post battle party changes (the defeated LeaderHero being deattached from its individual MobileParty
-            // during result processing), while PartyData preserves the LeaderId captured before MapEvent result processing
-            var leader = start.EnemySide.PartyData
-                .First(p => p.PartyId == start.EnemySide.LeaderPartyId)
-                .Hero;
-
-            if (leader.Culture == Player.Clan.Culture)
-                return; // Same culture — the feat requires a different-culture enemy.
+            if (!HasDifferentLeaderCulture(start.EnemySide, Player.Clan?.Culture))
+                return;
 
             Feat.Add();
+        }
+
+        internal static bool HasDifferentLeaderCulture(
+            MMapEvent.SideData enemySide,
+            WCulture playerCulture
+        )
+        {
+            if (enemySide == null || string.IsNullOrEmpty(enemySide.LeaderPartyId) || playerCulture == null)
+                return false;
+
+            // Resolve the captured leader: battle results can detach the hero from the live party.
+            var leader = enemySide.PartyData
+                .FirstOrDefault(p => p != null && p.PartyId == enemySide.LeaderPartyId)
+                ?.Hero;
+            var enemyCulture = leader?.Culture;
+
+            // Missing information cannot establish a victory over a different culture.
+            return enemyCulture != null && enemyCulture != playerCulture;
         }
     }
 }

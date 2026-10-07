@@ -1,5 +1,27 @@
 # Validation evidence — 2026-09-09
 
+## V2 merged-PR follow-up — 2026-10-07
+
+Validated v2.0.0.14 after merging PRs #25, #26, #27, #29 and #30. The follow-up adds
+missing-leader/culture checks for Cultural Triumph and a Bannerlord 1.2 adapter for the
+party-added event introduced in later game versions. Regression tests cover missing and
+detached leaders, same/different/unknown cultures, the legacy Harmony binding, event
+dispatch, and listener reset between campaigns. The AI equipment fixtures now also supply
+the tier and random inputs that Bannerlord 1.2 normally obtains from a running game.
+
+```powershell
+./tests/Run-Validation.ps1 -V2Only -NoRestore -Repeat 3 -OutputDirectory out/validation/v2-2.0.0.14-verified-20261007
+```
+
+- All 26 build/test processes passed: Debug and Release against BL12, BL13, BL14 and
+  beta references, plus the BL14 Debug binary running against beta assemblies.
+- 780 headless case executions passed, with zero failures or skips, plus 15 supplemental
+  engine integration checks. Repetitions/version combinations are not distinct features.
+- Eight prior-save contract checks passed against stable and V2 baselines. No save
+  fields, type IDs or serialized layouts were changed by this follow-up.
+- Release binaries exclude tests and fixtures. Live battle/feat acceptance remains pending;
+  these checks do not replace in-game testing of the merged changes.
+
 ## Known live-validation issues — 2026-09-18
 
 Moved here from the player-facing changelog; these findings remain unresolved.

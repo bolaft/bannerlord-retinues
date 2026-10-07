@@ -35,7 +35,7 @@ xmls:
 
 versions:
   "12":
-    version: v2.0.0.13
+    version: v2.0.0.14
     dependencies:
       - id: Bannerlord.Harmony
         version: v2.3.6
@@ -49,7 +49,7 @@ versions:
         version: v1.2.12
 
   "13":
-    version: v2.0.0.13
+    version: v2.0.0.14
     dependencies:
       - id: Bannerlord.Harmony
         version: v2.4.2
@@ -64,7 +64,7 @@ versions:
 
   "14":
     # Official target is the live game; the same build also supports the beta.
-    version: v2.0.0.13
+    version: v2.0.0.14
     dependencies:
       - id: Bannerlord.Harmony
         version: v2.4.2
