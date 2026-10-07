@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net472</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <IsGameModule>false</IsGameModule>
+    <CecilPath Condition="'$(CecilPath)' == ''">$(UserProfile)/.nuget/packages/mono.cecil/0.11.4/lib/net40/Mono.Cecil.dll</CecilPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Mono.Cecil">
+      <HintPath>$(CecilPath)</HintPath>
+      <Private>true</Private>
+    </Reference>
+  </ItemGroup>
+</Project>

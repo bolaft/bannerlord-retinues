@@ -26,7 +26,12 @@ namespace Retinues.Interface.Services
         private static readonly List<Action> Pending = new(16);
 
         [StaticClearAction]
-        public static void ClearPending() => Pending.Clear();
+        public static void ClearPending()
+        {
+            Pending.Clear();
+            // CampaignEvents belongs to the new campaign after an in-session restart.
+            _hooked = false;
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Popup                         //
@@ -423,23 +428,27 @@ namespace Retinues.Interface.Services
         public static void MultiChoicePopup(
             TextObject title,
             IReadOnlyList<(TextObject Label, Action Callback)> choices,
-            TextObject description = null
+            TextObject description = null,
+            bool delayUntilOnWorldMap = false
         )
         {
-            try
+            ShowOrDelay(delayUntilOnWorldMap, () =>
             {
-                var vm = new MultiChoicePopupVM(
-                    title,
-                    description,
-                    choices,
-                    MultiChoicePopupLayer.Close
-                );
-                MultiChoicePopupLayer.Show(vm);
-            }
-            catch (Exception e)
-            {
-                Log.Exception(e, "Inquiries.MultiChoicePopup failed.");
-            }
+                try
+                {
+                    var vm = new MultiChoicePopupVM(
+                        title,
+                        description,
+                        choices,
+                        MultiChoicePopupLayer.Close
+                    );
+                    MultiChoicePopupLayer.Show(vm);
+                }
+                catch (Exception e)
+                {
+                    Log.Exception(e, "Inquiries.MultiChoicePopup failed.");
+                }
+            });
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

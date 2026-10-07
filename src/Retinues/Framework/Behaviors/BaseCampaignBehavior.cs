@@ -195,6 +195,12 @@ namespace Retinues.Framework.Behaviors
         ) { }
 
         /// <summary>
+        /// Called when the player recruits troops. The recruitment screen uses
+        /// OnUnitRecruitedEvent, independently of the AI's OnTroopRecruitedEvent.
+        /// </summary>
+        protected virtual void OnPlayerRecruitedTroops(WCharacter troop, int amount) { }
+
+        /// <summary>
         /// Called when the player upgrades troops.
         /// </summary>
         protected virtual void OnPlayerUpgradedTroops(
@@ -224,7 +230,7 @@ namespace Retinues.Framework.Behaviors
                 );
 
             if (IsOverridden(nameof(OnCharacterCreationIsOver)))
-                CampaignEvents.OnCharacterCreationIsOverEvent.AddNonSerializedListener(
+                CampaignEventsCompat.SubscribeCharacterCreationIsOver(
                     this,
                     () => SafeInvoke(OnCharacterCreationIsOver)
                 );
@@ -384,6 +390,9 @@ namespace Retinues.Framework.Behaviors
                         )
                 );
 
+            if (IsOverridden(nameof(OnPlayerRecruitedTroops)))
+                RegisterPlayerRecruitmentListener(CampaignEvents.OnUnitRecruitedEvent);
+
             if (IsOverridden(nameof(OnPlayerUpgradedTroops)))
                 CampaignEvents.PlayerUpgradedTroopsEvent.AddNonSerializedListener(
                     this,
@@ -396,6 +405,15 @@ namespace Retinues.Framework.Behaviors
                             )
                         )
                 );
+        }
+
+        internal void RegisterPlayerRecruitmentListener(IMbEvent<CharacterObject, int> recruited)
+        {
+            recruited.AddNonSerializedListener(this, (troop, amount) =>
+            {
+                if (troop != null && amount > 0)
+                    SafeInvoke(() => OnPlayerRecruitedTroops(WCharacter.Get(troop), amount));
+            });
         }
 
 #if BL13 || BL14

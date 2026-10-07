@@ -24,7 +24,7 @@ namespace Retinues.Tests.Cases
                 SkillCatalog.MarinerSkillId
             );
             if (mariner == null)
-                return; // Naval DLC not loaded.
+                Tests.Skip("Naval DLC not loaded.");
 
             using var sandbox = new TestSandbox();
             var wc = sandbox.NewStub();
@@ -55,7 +55,7 @@ namespace Retinues.Tests.Cases
                 SkillCatalog.MarinerSkillId
             );
             if (mariner == null)
-                return; // Naval DLC not loaded in this game; the Mariner skill doesn't exist.
+                Tests.Skip("Naval DLC not loaded in this game; the Mariner skill doesn't exist.");
 
             using var sandbox = new TestSandbox();
 

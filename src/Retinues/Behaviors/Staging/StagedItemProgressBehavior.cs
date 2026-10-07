@@ -1,6 +1,8 @@
+using System;
 using Retinues.Domain;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Equipments.Models;
+using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Framework.Behaviors;
 using Retinues.Interface.Services;
 using Retinues.Settings;
@@ -41,9 +43,6 @@ namespace Retinues.Behaviors.Staging
                 if (wc == null || wc.IsHero)
                     continue;
 
-                if (!MEquipment.IsItemStagingActive(wc))
-                    continue;
-
                 var list = wc.Equipments;
                 if (list == null || list.Count == 0)
                     continue;
@@ -57,58 +56,55 @@ namespace Retinues.Behaviors.Staging
                     if (!me.HasAnyStagedItems())
                         continue;
 
-                    me.ItemStagingProgress = MathF.Max(0f, me.ItemStagingProgress + progressDelta);
-
-                    int safety = 0;
-
-                    while (me.HasAnyStagedItems() && safety < 128)
+                    changed |= AdvanceEquipment(me, progressDelta, timeMult, item =>
                     {
-                        float requiredHours = me.GetNextStagedHours(timeMult);
-
-                        if (
-                            requiredHours > 0.001f
-                            && me.ItemStagingProgress + 0.0001f < requiredHours
-                        )
-                            break;
-
-                        if (!me.TryApplyNextStagedItem(out var slot, out var item, out var unequip))
-                            break;
-
-                        if (requiredHours > 0.001f)
-                            me.ItemStagingProgress = MathF.Max(
-                                0f,
-                                me.ItemStagingProgress - requiredHours
-                            );
-
-                        changed = true;
-                        safety++;
-
-                        var troopName = wc.Name?.ToString() ?? wc.StringId;
-                        var slotName = slot.ToString();
-
-                        if (unequip || item == null)
+                        if (item != null)
                         {
-                            // Should not happen.
-                        }
-                        else
-                        {
-                            var itemName = item.Name?.ToString() ?? item.StringId;
-
                             Notifications.Message(
                                 L.T("staged_item_equipped", "{TROOP} finished equipping {ITEM}.")
-                                    .SetTextVariable("TROOP", troopName)
-                                    .SetTextVariable("ITEM", itemName)
+                                    .SetTextVariable("TROOP", wc.Name?.ToString() ?? wc.StringId)
+                                    .SetTextVariable("ITEM", item.Name ?? item.StringId)
                             );
                         }
-                    }
-
-                    if (!me.HasAnyStagedItems())
-                        me.ItemStagingProgress = 0f;
+                    });
                 }
             }
 
             if (changed)
                 Log.Debug("Applied staged equipment changes.");
+        }
+
+        internal static bool AdvanceEquipment(
+            MEquipment equipment, float hours, float timeMultiplier, Action<WItem> onEquipped = null
+        )
+        {
+            if (equipment == null || !equipment.HasAnyStagedItems())
+                return false;
+
+            // The editor mode controls new edits, never work already queued in the campaign.
+            bool changed = equipment.ScrubInvalidItems() > 0;
+            if (float.IsPositiveInfinity(equipment.GetNextStagedHours(timeMultiplier)))
+                return changed; // Keep unresolved saved work and its progress until it is available.
+            equipment.ItemStagingProgress = MathF.Max(0f, equipment.ItemStagingProgress + hours);
+            int safety = 0;
+            while (equipment.HasAnyStagedItems() && safety++ < 128)
+            {
+                float required = equipment.GetNextStagedHours(timeMultiplier);
+                if (required > 0.001f && equipment.ItemStagingProgress + 0.0001f < required)
+                    break;
+
+                if (!equipment.TryApplyNextStagedItem(out _, out var item, out _))
+                    continue;
+
+                if (required > 0.001f)
+                    equipment.ItemStagingProgress = MathF.Max(0f, equipment.ItemStagingProgress - required);
+                changed = true;
+                onEquipped?.Invoke(item);
+            }
+
+            if (!equipment.HasAnyStagedItems())
+                equipment.ItemStagingProgress = 0f;
+            return changed;
         }
     }
 }

@@ -21,12 +21,15 @@ namespace Retinues.Domain.Events.Helpers
             if (TryGetBool(mapEvent, "IsNavalBattle", out var b1))
                 return b1;
 
-            // 2) Alternative names (defensive).
-            if (TryGetBool(mapEvent, "IsNaval", out var b2))
+            // 2) Alternative names (defensive; "IsNavalMapEvent" is the War Sails 1.5 name).
+            if (TryGetBool(mapEvent, "IsNavalMapEvent", out var b2))
                 return b2;
 
-            if (TryGetBool(mapEvent, "NavalBattle", out var b3))
+            if (TryGetBool(mapEvent, "IsNaval", out var b3))
                 return b3;
+
+            if (TryGetBool(mapEvent, "NavalBattle", out var b4))
+                return b4;
 
             // 3) Heuristic fallback: any involved party looks naval.
             try
@@ -95,6 +98,10 @@ namespace Retinues.Domain.Events.Helpers
                     return true;
 
                 if (TryGetBool(mp, "IsNavalParty", out var b2) && b2)
+                    return true;
+
+                // War Sails 1.5 name for a party on water.
+                if (TryGetBool(mp, "IsCurrentlyAtSea", out var b3) && b3)
                     return true;
             }
 

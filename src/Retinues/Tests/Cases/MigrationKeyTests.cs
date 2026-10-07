@@ -13,8 +13,7 @@ namespace Retinues.Tests.Cases
         [GameTest(
             "DoctrineKeysUseRetinuesPrefix",
             "migration",
-            "v1 doctrine keys (Retinues.* namespace) resolve to their v2 ids"
-        )]
+            "v1 doctrine keys (Retinues.* namespace) resolve to their v2 ids", RequiresCampaign = false)]
         public static void DoctrineKeysUseRetinuesPrefix()
         {
             Tests.AssertEqual(
@@ -44,8 +43,7 @@ namespace Retinues.Tests.Cases
         [GameTest(
             "FeatKeysUseRetinuesPrefix",
             "migration",
-            "v1 feat keys (Retinues.*+Nested namespace) resolve to their v2 feat ids"
-        )]
+            "v1 feat keys (Retinues.*+Nested namespace) resolve to their v2 feat ids", RequiresCampaign = false)]
         public static void FeatKeysUseRetinuesPrefix()
         {
             var mappings = FeatKeyMap.GetMappings(

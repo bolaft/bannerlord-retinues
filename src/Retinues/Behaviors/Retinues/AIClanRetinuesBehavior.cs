@@ -583,7 +583,7 @@ namespace Retinues.Behaviors.Retinues
 
             foreach (var retinue in clan.GetRawRetinues())
             {
-                if (retinue?.Base == null)
+                if (!IsEditableRetinue(retinue))
                     continue;
 
                 retinue.HiddenInEncyclopedia = !shouldShow;

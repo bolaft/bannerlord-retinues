@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using HarmonyLib;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Utilities;
@@ -15,14 +16,38 @@ namespace Retinues.Behaviors.Agents.Patches
     /// Player-clan retinues are intentionally excluded so that the player retains manual
     /// control over their formation placement.
     /// </summary>
-    [HarmonyPatch(
-        typeof(GeneralsAndCaptainsAssignmentLogic),
-        nameof(GeneralsAndCaptainsAssignmentLogic.OnTeamDeployed)
-    )]
+    [HarmonyPatch]
     internal static class BodyguardFormationPatch
     {
+        /// <summary>
+        /// Game 1.5 renamed the deployment hook (OnTeamDeployed(Team) became
+        /// OnBattleSideSpawned(BattleSideEnum)), so the target is resolved by trying both
+        /// names and the postfix binds no target parameters — one binary runs on both game
+        /// versions, walking the mission's teams instead of receiving one.
+        /// </summary>
+        private static MethodBase TargetMethod() =>
+            AccessTools.Method(typeof(GeneralsAndCaptainsAssignmentLogic), "OnTeamDeployed")
+            ?? AccessTools.Method(typeof(GeneralsAndCaptainsAssignmentLogic), "OnBattleSideSpawned");
+
         [HarmonyPostfix]
-        private static void Postfix(Team team)
+        private static void Postfix()
+        {
+            try
+            {
+                var teams = Mission.Current?.Teams;
+                if (teams == null)
+                    return;
+
+                foreach (var team in teams.ToList())
+                    ProcessTeam(team);
+            }
+            catch (Exception ex)
+            {
+                Log.Exception(ex, "BodyguardFormationPatch.Postfix failed.");
+            }
+        }
+
+        private static void ProcessTeam(Team team)
         {
             try
             {
@@ -87,7 +112,7 @@ namespace Retinues.Behaviors.Agents.Patches
             }
             catch (Exception ex)
             {
-                Log.Exception(ex, "BodyguardFormationPatch.Postfix failed.");
+                Log.Exception(ex, "BodyguardFormationPatch.ProcessTeam failed.");
             }
         }
     }

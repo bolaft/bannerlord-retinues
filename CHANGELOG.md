@@ -1,0 +1,24 @@
+## 2.0.0.13 (unreleased)
+
+- Updated compatibility with Bannerlord 1.4.8 and the 1.5 beta, including character creation, bodyguard formations and War Sails battles.
+- Fixed editor and unlocked-item tooltips on Bannerlord 1.5.4.
+- Fixed the welcome settings screen opening repeatedly and refusing to close on the 1.5 beta. All four choices now fit inside the panel, and keeping existing settings correctly initializes troops in a new campaign.
+- Fixed a tournament crash when "Keep Custom Troops Out of Tournaments" is enabled, including when using arena overhaul mods.
+- Fixed missing battle rewards and related feat progress on Bannerlord 1.2 and 1.4+.
+- Fixed recruitment progress for Royal Levy and Raise the Vanguard, and governor progress for Royal Stewardship. Converting regular troops into retinues now also counts toward Raise the Vanguard.
+- Fixed repeatable feats getting stuck after loading an older save.
+- Doctrine loot bonuses, such as Lions' Share, now correctly increase kill-based item unlock progress.
+- Shared skill points are now awarded consistently, regardless of which troop receives XP last. Existing points are preserved, and leftover XP from older saves is carried over.
+- Retinue upgrades now respect the remaining capacity, including bulk upgrades, without charging for troops that cannot be upgraded.
+- Fixed edited extra troop trees and their captains being lost when upgrading a stable save to V2.
+- Improved duplicate-troop repairs while preserving troop numbers, wounded troops and saved XP.
+- Fixed incomplete troop copies on Bannerlord 1.4+.
+- Crafted weapons now appear in the equipment list immediately and remain available after reloading, including weapons made with smithing mods.
+- The "Show crafted" filter now groups unused copies of the same weapon design while keeping stocked and equipped weapons available.
+- AI retinues no longer select the player's crafted weapons or carry duplicate weapons. Their equipment updates also leave ordinary troops from other mods untouched.
+- AI equipment upgrades now preserve weapon and ammunition types, preventing arrows from being replaced with shields or other incompatible gear.
+- Fixed queued equipment upgrades stopping after a reload or after using the Universal Editor. Hidden gear is no longer removed, and queued items keep their progress if temporarily unavailable.
+- Siege and practice ammunition can no longer be unlocked or equipped by troops. Cleanup preserves legitimate ammunition, including throwing stones.
+- Raised the maximum configurable skill total per tier to 9999. Default values are unchanged.
+- Added `retinues.reset_doctrines` to reset all doctrine and feat progress in the current campaign.
+- Added `retinues.scrub_save` to repair broken duplicate troops and invalid retinue upgrade links without reloading.

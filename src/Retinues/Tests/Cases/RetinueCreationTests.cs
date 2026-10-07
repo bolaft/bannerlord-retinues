@@ -27,7 +27,7 @@ namespace Retinues.Tests.Cases
             ctx.EnsureCampaign();
 
             if (!Configuration.EnableRetinues)
-                return; // Feature disabled; creation always returns null.
+                Tests.Skip("Feature disabled; creation always returns null.");
 
             var behavior = RetinuesBehavior.Instance;
             Tests.AssertNotNull(behavior, "The retinues behavior is registered.");
@@ -61,7 +61,7 @@ namespace Retinues.Tests.Cases
             ctx.EnsureCampaign();
 
             if (!Configuration.EnableRetinues)
-                return;
+                Tests.Skip("Unavailable test fixture: if (!Configuration.EnableRetinues)");
 
             var behavior = RetinuesBehavior.Instance;
             Tests.AssertNotNull(behavior, "The retinues behavior is registered.");

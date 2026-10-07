@@ -436,6 +436,9 @@ namespace Retinues.Behaviors.Retinues
             List<(string RetinueName, string ItemName)> results
         )
         {
+            if (!IsEditableRetinue(retinue))
+                return;
+
             var battleSet = retinue.FirstBattleEquipment;
             if (battleSet == null)
                 return;

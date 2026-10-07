@@ -210,14 +210,28 @@ namespace Retinues.Domain.Characters.Services.Cloning
                 Log.Warning("Copy character traits failed");
             }
 
-            // Invoke FillFrom to copy the rest
+            // Invoke FillFrom to copy the rest. Game 1.4 removed the CharacterObject overload;
+            // the surviving method is BasicCharacterObject.FillFrom(BasicCharacterObject), so
+            // probe both signatures.
             try
             {
                 Reflection.InvokeMethod(tgt, "FillFrom", [typeof(CharacterObject)], src);
             }
             catch
             {
-                Log.Warning("FillFrom invocation failed");
+                try
+                {
+                    Reflection.InvokeMethod(
+                        tgt,
+                        "FillFrom",
+                        [typeof(TaleWorlds.Core.BasicCharacterObject)],
+                        src
+                    );
+                }
+                catch
+                {
+                    Log.Warning("FillFrom invocation failed");
+                }
             }
         }
 

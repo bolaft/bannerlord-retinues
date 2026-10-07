@@ -90,15 +90,9 @@ namespace Retinues.Behaviors.Experience
 
             if (Configuration.SharedSkillPointsPool)
             {
-                // Shared pool: all custom troops contribute to and draw from a single pool.
-                SharedSkillPoolBehavior.SharedSkillPointsExperience += gainedXp;
-
-                if (SharedSkillPoolBehavior.SharedSkillPointsExperience >= xpRequired)
+                int chunks = SharedSkillPoolBehavior.AddExperience(gainedXp, xpRequired);
+                if (chunks > 0)
                 {
-                    int chunks = SharedSkillPoolBehavior.SharedSkillPointsExperience / xpRequired;
-                    SharedSkillPoolBehavior.SharedSkillPoints += chunks;
-                    SharedSkillPoolBehavior.SharedSkillPointsExperience -= chunks * xpRequired;
-
                     if (chunks > 1)
                         Notifications.Message(
                             L.T(

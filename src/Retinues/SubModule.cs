@@ -146,11 +146,9 @@ namespace Retinues
             // Fires after a save is fully loaded.
             CampaignEvents.OnGameLoadedEvent.AddNonSerializedListener(this, OnCampaignGameLoaded);
 
-            // Fires when character creation flow ends (new campaign).
-            CampaignEvents.OnCharacterCreationIsOverEvent.AddNonSerializedListener(
-                this,
-                OnCharacterCreationIsOver
-            );
+            // Fires when character creation flow ends (new campaign). Subscribed through the
+            // compat helper because the event's signature differs between game 1.4 and 1.5.
+            CampaignEventsCompat.SubscribeCharacterCreationIsOver(this, OnCharacterCreationIsOver);
 
             Log.Debug("Statics: refresh hooks registered.");
         }

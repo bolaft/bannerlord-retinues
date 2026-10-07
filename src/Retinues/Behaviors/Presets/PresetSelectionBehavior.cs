@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using Retinues.Framework.Behaviors;
+using Retinues.Framework.Runtime;
+using Retinues.Behaviors.Troops;
 using Retinues.Interface.Services;
 using Retinues.Settings;
 using Retinues.Utilities;
@@ -23,12 +25,16 @@ namespace Retinues.Behaviors.Presets
         private const string DataStoreKey = "Retinues_PresetSelected";
 
         private bool _presetSelected;
+        private bool _promptRequested;
 
         /// <summary>
         /// True once the player has chosen a preset for this campaign.
         /// Used by other behaviors to defer work until the preset is known.
         /// </summary>
         public static bool IsPresetSelected { get; private set; }
+
+        [StaticClearAction]
+        internal static void ResetSelection() => IsPresetSelected = false;
 
         /// <summary>
         /// Persists whether the player has already been shown the preset prompt.
@@ -59,7 +65,7 @@ namespace Retinues.Behaviors.Presets
 
         private void TryShowPrompt()
         {
-            if (_presetSelected)
+            if (_presetSelected || _promptRequested)
                 return;
 
             try
@@ -90,17 +96,20 @@ namespace Retinues.Behaviors.Presets
                     );
                 }
 
+                _promptRequested = true;
                 Inquiries.MultiChoicePopup(
                     title: L.T("preset_selection_title", "Welcome to Retinues"),
                     description: L.T(
                         "preset_selection_description",
                         "Please select the settings that best match your playstyle.\n\nDEFAULT: A balanced first-playthrough experience. A full tree of clan troops are unlocked with your first fief, equipment has a cost, and skill points must be bought with experience earned in battle.\n\nFREEFORM: An unrestricted sandbox editor. No costs or unlock systems. Custom clan troops are available right from the start and can be recruited anywhere.\n\nREALISTIC: A grounded experience with harsher constraints. Troop editing is restricted to owned fiefs, equipments are limited in weight and value, equipping items and training skills take time, and troop trees must be built from scratch.\n\nYou can fine-tune any individual setting at any time from the Settings tab in the Troops screen."
                     ),
-                    choices: choices
+                    choices: choices,
+                    delayUntilOnWorldMap: true
                 );
             }
             catch (Exception e)
             {
+                _promptRequested = false;
                 Log.Exception(e, "PresetSelectionBehavior.TryShowPrompt failed.");
             }
         }
@@ -127,6 +136,7 @@ namespace Retinues.Behaviors.Presets
         {
             _presetSelected = true;
             IsPresetSelected = true;
+            TroopUnlockerBehavior.TryUnlockNow(fromBootstrap: true);
             Log.Info("PresetSelectionBehavior: kept current settings.");
         }
     }

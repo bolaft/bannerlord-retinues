@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using Retinues.Domain;
-using Retinues.Domain.Characters.Wrappers;
+using Retinues.Domain.Factions.Wrappers;
+using Retinues.Domain.Settlements.Wrappers;
 
 namespace Retinues.Behaviors.Doctrines.Feats.Equipments
 {
@@ -16,30 +18,35 @@ namespace Retinues.Behaviors.Doctrines.Feats.Equipments
             if (kingdom == null)
                 return; // Player has no kingdom.
 
-            // Find a companion governor of the same culture as the kingdom.
-            WHero match = null;
+            if (HasMatchingGovernor(Player.Clan?.Settlements, kingdom.Culture))
+                Feat.Add();
+        }
 
-            foreach (var s in Player.Clan.Settlements)
+        internal static bool HasMatchingGovernor(
+            IEnumerable<WSettlement> settlements,
+            WCulture kingdomCulture
+        )
+        {
+            if (settlements == null || kingdomCulture == null)
+                return false;
+
+            foreach (var s in settlements)
             {
-                var governor = s.Town.Governor;
+                // Clan settlements include bound villages, which have no Town component.
+                var governor = s?.Town?.Governor;
                 if (governor == null)
                     continue; // No governor.
 
                 if (!governor.IsCompanion)
                     continue; // Not a companion.
 
-                if (governor.Culture != Player.Kingdom.Culture)
+                if (governor.Culture != kingdomCulture)
                     continue;
 
-                // Found a match.
-                match = governor;
-                break;
+                return true;
             }
 
-            if (match == null)
-                return; // No matching governor.
-
-            Feat.Add();
+            return false;
         }
     }
 }

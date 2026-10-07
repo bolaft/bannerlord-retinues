@@ -142,6 +142,11 @@ Examples
 
 ## Packaging and release notes
 
+- BL14 officially targets the live Bannerlord 1.4.8 release. Use the same manifest for the
+  supported 1.5 beta; a launcher version-mismatch warning on beta is expected. Legacy BL12
+  and BL13 builds keep their own game targets.
+- Steam Workshop releases currently come from the stable checkout only. The Workshop
+  configuration inherited by this V2 checkout is not a separate V2 listing.
 - `build.py` reads `build.yaml` and can either write `SubModule.xml` (`--out <module_dir>`) or prepare a release package and Workshop XMLs (`--package-release --module-dir <game_module_dir>`).
 - `build.py` will try to find `7z` (first on PATH, then common Windows install paths). If `7z` isn't found, packaging will skip archive creation but will still produce the Workshop XMLs and copy the `Releases/<BL>/<ModuleName>/` folder.
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Retinues.Domain.Characters.Wrappers;
@@ -145,44 +146,34 @@ namespace Retinues.Domain.Equipments.Wrappers
         /// Indicates whether this item is valid to show in the equipment editor list
         /// (filters out mission-only / siege pickup items like boulders, ballista ammo, etc).
         /// </summary>
-        public bool IsValidEquipment
+        public bool IsValidEquipment =>
+            IsEquipment && Type != ItemObject.ItemTypeEnum.Banner
+            && PrimaryWeapon?.WeaponClass != WeaponClass.Banner && !IsUnsafeForTroopEquipment;
+
+        // Automatic cleanup must not reuse editor visibility rules. Banners, pack animals,
+        // and gear supplied by other mods can be legitimate saved equipment even when they
+        // are not offered for new edits. Remove only positively identified unsafe items.
+        internal bool IsUnsafeForTroopEquipment
         {
             get
             {
-                if (!IsEquipment)
-                    return false;
-
-                // No banners.
-                if (Type == ItemObject.ItemTypeEnum.Banner)
-                    return false;
-
-                // Filter obvious siege/pickup weapon classes. This is the ONLY junk filter for
-                // weapons: siege projectiles (boulders, pots, grapeshot) are all class Boulder,
-                // loose throwing rocks are class Stone. Do NOT filter on NotMerchandise — the
-                // game flags legitimate gear that way too (all *_noble_sword_t5, the unique named
-                // weapons, tournament kit, NavalDLC swords), and mods routinely flag boss/faction
-                // gear not-merchandise so shops won't sell it. A NotMerchandise exclusion here
-                // silently hid all of those from the editor (while the stable branch showed them).
-                if (PrimaryWeapon != null)
-                {
-                    var wc = PrimaryWeapon.WeaponClass;
-
-                    if (
-                        wc == WeaponClass.Boulder
-                        || wc == WeaponClass.Stone
-                        || wc == WeaponClass.Banner
-                    )
-                        return false;
-
+                var weaponClass = PrimaryWeapon?.WeaponClass;
+                if (weaponClass == WeaponClass.Boulder)
+                    return true;
 #if BL13 || BL14
-                    if (wc == WeaponClass.BallistaBoulder || wc == WeaponClass.BallistaStone)
-                        return false;
+                if (weaponClass == WeaponClass.BallistaBoulder || weaponClass == WeaponClass.BallistaStone)
+                    return true;
 #endif
-                }
-
-                return true;
+                return IsAmmo && Base.NotMerchandise && MissionOnlyAmmoIds.Contains(StringId);
             }
         }
+
+        private static readonly HashSet<string> MissionOnlyAmmoIds = new(StringComparer.Ordinal)
+        {
+            "ballista_projectile", "ballista_projectile_burning",
+            "ballista_c_projectile", "ballista_c_projectile_burning",
+            "burning_bolts", "tournament_arrows", "tournament_bolts",
+        };
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Slots                         //
@@ -337,9 +328,25 @@ namespace Retinues.Domain.Equipments.Wrappers
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
         /// <summary>
-        /// Indicates whether this item is a crafted weapon.
+        /// Id prefix the game gives every weapon smithed during a campaign. Unlike the
+        /// IsCraftedByPlayer flag it is part of the item and survives a save/load.
         /// </summary>
-        public bool IsCrafted => Base.IsCraftedByPlayer && Base.WeaponDesign != null;
+        private const string CraftedIdPrefix = "crafted_item_";
+
+        /// <summary>
+        /// Indicates whether this item is a weapon the player smithed. IsCraftedByPlayer alone is
+        /// not enough: it is a runtime flag the game only restores for weapons in its own crafting
+        /// record, so weapons made through third-party smithing mods lost it on every restart and
+        /// disappeared from the equipment list until they were crafted again. The crafted-item id
+        /// is checked as well, since it persists. Vanilla's XML pre-crafted weapons also carry a
+        /// WeaponDesign but never use that id scheme, so they stay out of the crafted list.
+        /// </summary>
+        public bool IsCrafted =>
+            Base?.WeaponDesign != null
+            && (
+                Base.IsCraftedByPlayer
+                || StringId?.StartsWith(CraftedIdPrefix, StringComparison.Ordinal) == true
+            );
 
         /// <summary>
         /// Gets the design code for this item, if it is a crafted weapon.

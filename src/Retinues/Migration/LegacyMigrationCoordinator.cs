@@ -756,6 +756,11 @@ namespace Retinues.Migration
                 foreach (var troop in f.Mercenaries)
                 foreach (var t in FlattenTroop(troop))
                     yield return t;
+
+            if (f.Extras != null)
+                foreach (var troop in f.Extras)
+                foreach (var t in FlattenTroop(troop))
+                    yield return t;
         }
 
         /// <summary>

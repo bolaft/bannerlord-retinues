@@ -96,7 +96,7 @@ namespace Retinues.Tests.Cases
                     p.IsAcquired = true;
 
                 if (!doctrine.IsInProgress)
-                    return; // Feat requirements disabled or doctrine overridden; nothing to verify.
+                    Tests.Skip("Feat requirements disabled or doctrine overridden; nothing to verify.");
 
                 feat.Add();
                 Tests.AssertEqual(

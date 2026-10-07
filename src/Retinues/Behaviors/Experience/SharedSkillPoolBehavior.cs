@@ -1,4 +1,5 @@
 using System;
+using Retinues.Domain.Characters.Wrappers;
 using Retinues.Framework.Behaviors;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
@@ -16,6 +17,7 @@ namespace Retinues.Behaviors.Experience
 
         private int _sharedSkillPoints;
         private int _sharedSkillPointsExperience;
+        private double _sharedSkillPointProgress;
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Static Access                      //
@@ -35,7 +37,7 @@ namespace Retinues.Behaviors.Experience
         }
 
         /// <summary>
-        /// Accumulated XP toward the next skill point in the shared pool.
+        /// Legacy raw XP, retained only for migrating old saves.
         /// </summary>
         public static int SharedSkillPointsExperience
         {
@@ -56,6 +58,51 @@ namespace Retinues.Behaviors.Experience
             _instance = this;
         }
 
+        internal static int AddExperience(int experience, int requiredExperience)
+        {
+            if (_instance == null)
+                return 0;
+
+            _instance.MigrateLegacyExperience();
+            int points = SkillPointProgress.Add(
+                ref _instance._sharedSkillPointProgress,
+                experience,
+                requiredExperience
+            );
+            _instance._sharedSkillPoints += points;
+            return points;
+        }
+
+        protected override void OnGameLoadFinished() => MigrateLegacyExperience();
+
+        private void MigrateLegacyExperience()
+        {
+            if (_sharedSkillPointsExperience <= 0)
+                return;
+
+            // Old saves did not record which troop earned the remainder. Preserve its best
+            // attainable value using the cheapest eligible troop, independent of XP event order.
+            // If no eligible troop exists yet, keep the old XP until one becomes available.
+            int cheapest = int.MaxValue;
+            foreach (var troop in WCharacter.All)
+            {
+                if (troop == null || troop.IsHero || troop.IsVanilla || !troop.IsPlayerFactionTroop)
+                    continue;
+                int cost = SkillPointExperienceGain.GetXpRequiredForSkillPoint(troop.Base);
+                if (cost > 0 && cost < 100000000)
+                    cheapest = Math.Min(cheapest, cost);
+            }
+
+            if (cheapest == int.MaxValue)
+                return;
+
+            _sharedSkillPoints += SkillPointProgress.MigrateLegacy(
+                ref _sharedSkillPointProgress,
+                ref _sharedSkillPointsExperience,
+                cheapest
+            );
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Sync Data                        //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -73,6 +120,7 @@ namespace Retinues.Behaviors.Experience
                     SharedSkillPointsExperienceKey,
                     ref _sharedSkillPointsExperience
                 );
+                dataStore.SyncData("Retinues_SharedSkillPointProgress", ref _sharedSkillPointProgress);
             }
             catch (Exception e)
             {

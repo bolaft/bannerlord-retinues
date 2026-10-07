@@ -252,6 +252,12 @@ namespace Retinues.Domain.Equipments.Services.Random
                 if (it?.Base == null)
                     continue;
 
+                // Player-crafted weapons are never random picks: they are the player's own
+                // artifacts. AI retinues were filling every weapon slot with smithy weapons,
+                // because hundreds of identical crafted copies swamped the candidate pool.
+                if (it.IsCrafted)
+                    continue;
+
                 if (
                     !owner.IsFemale
                     && InvalidTokensForMale.Any(token => it.StringId.ToLower().Contains(token))

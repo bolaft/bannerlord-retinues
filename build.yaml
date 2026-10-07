@@ -35,7 +35,7 @@ xmls:
 
 versions:
   "12":
-    version: v2.0.0.1
+    version: v2.0.0.13
     dependencies:
       - id: Bannerlord.Harmony
         version: v2.3.6
@@ -49,7 +49,7 @@ versions:
         version: v1.2.12
 
   "13":
-    version: v2.0.0.0
+    version: v2.0.0.13
     dependencies:
       - id: Bannerlord.Harmony
         version: v2.4.2
@@ -63,18 +63,19 @@ versions:
         version: v1.3.9
 
   "14":
-    version: v2.0.0.0
+    # Official target is the live game; the same build also supports the beta.
+    version: v2.0.0.13
     dependencies:
       - id: Bannerlord.Harmony
         version: v2.4.2
       - id: Bannerlord.UIExtenderEx
         version: v2.13.2
       - id: Native
-        version: v1.3.9
+        version: v1.4.8
       - id: SandBoxCore
-        version: v1.3.9
+        version: v1.4.8
       - id: Sandbox
-        version: v1.3.9
+        version: v1.4.8
 
 paths:
   releasesRoot: "Releases"
@@ -90,8 +91,8 @@ workshop:
     createVersionTag: "v1.3.15"
   "14":
     itemId: "3599557394"
-    updateVersionTag: "v1.4.0"
-    createVersionTag: "v1.4.0"
+    updateVersionTag: "v1.4.8"
+    createVersionTag: "v1.4.8"
   common:
     description: "Customize your troops: unlock gear through battle, outfit and promote retinues, design your clan and kingdom troop trees, and boost them with unique doctrine perks."
     imageFile: "retinues_logo.png"

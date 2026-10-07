@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<saveContract moduleVersion="0.0.0.0">
+  <class id="160788" name="PendingTrainData">
+    <field id="1" name="TroopId" type="System.String" />
+    <field id="2" name="Remaining" type="System.Int32" />
+    <field id="3" name="Carry" type="System.Single" />
+    <field id="4" name="SkillId" type="System.String" />
+    <field id="5" name="PointsRemaining" type="System.Int32" />
+    <field id="6" name="PointsPerHour" type="System.Single" />
+  </class>
+  <class id="160789" name="PendingEquipData">
+    <field id="1" name="TroopId" type="System.String" />
+    <field id="2" name="Remaining" type="System.Int32" />
+    <field id="3" name="Carry" type="System.Single" />
+    <field id="4" name="ItemId" type="System.String" />
+    <field id="5" name="SlotValue" type="System.Int32" />
+    <field id="6" name="CategoryValue" type="System.Int32" />
+    <field id="7" name="EquipmentIndex" type="System.Int32" />
+  </class>
+  <class id="161697" name="TroopSaveData">
+    <field id="1" name="StringId" type="System.String" />
+    <field id="2" name="VanillaStringId" type="System.String" />
+    <field id="3" name="Name" type="System.String" />
+    <field id="4" name="Level" type="System.Int32" />
+    <field id="5" name="IsFemale" type="System.Boolean" />
+    <field id="6" name="CultureId" type="System.String" />
+    <field id="7" name="UpgradeTargets" type="System.Collections.Generic.List`1[class:161697]" />
+    <field id="8" name="EquipmentData" type="class:161699" />
+    <field id="9" name="SkillData" type="class:161700" />
+    <field id="10" name="BodyData" type="class:161698" />
+    <field id="11" name="Race" type="System.Int32" />
+    <field id="12" name="FormationClassOverride" type="TaleWorlds.Core.FormationClass" />
+    <field id="13" name="Captain" type="class:161697" />
+    <field id="14" name="IsCaptain" type="System.Boolean" />
+    <field id="15" name="CaptainEnabled" type="System.Boolean" />
+    <field id="16" name="IsMariner" type="System.Boolean" />
+    <field id="17" name="SkillBaseline" type="System.Int32" />
+  </class>
+  <class id="161698" name="TroopBodySaveData">
+    <field id="1" name="AgeMin" type="System.Single" />
+    <field id="2" name="AgeMax" type="System.Single" />
+    <field id="3" name="WeightMin" type="System.Single" />
+    <field id="4" name="WeightMax" type="System.Single" />
+    <field id="5" name="BuildMin" type="System.Single" />
+    <field id="6" name="BuildMax" type="System.Single" />
+    <field id="7" name="HeightMin" type="System.Single" />
+    <field id="8" name="HeightMax" type="System.Single" />
+  </class>
+  <class id="161699" name="TroopEquipmentData">
+    <field id="1" name="Codes" type="System.Collections.Generic.List`1[System.String]" />
+    <field id="2" name="Civilians" type="System.Collections.Generic.List`1[System.Boolean]" />
+  </class>
+  <class id="161700" name="TroopSkillData">
+    <field id="1" name="Code" type="System.String" />
+  </class>
+  <class id="161707" name="FactionSaveData">
+    <field id="1" name="RetinueElite" type="class:161697" />
+    <field id="2" name="RetinueBasic" type="class:161697" />
+    <field id="3" name="RootElite" type="class:161697" />
+    <field id="4" name="RootBasic" type="class:161697" />
+    <field id="5" name="MilitiaMelee" type="class:161697" />
+    <field id="6" name="MilitiaMeleeElite" type="class:161697" />
+    <field id="7" name="MilitiaRanged" type="class:161697" />
+    <field id="8" name="MilitiaRangedElite" type="class:161697" />
+    <field id="9" name="CaravanGuard" type="class:161697" />
+    <field id="10" name="CaravanMaster" type="class:161697" />
+    <field id="11" name="Villager" type="class:161697" />
+    <field id="12" name="PrisonGuard" type="class:161697" />
+    <field id="16" name="Mercenaries" type="System.Collections.Generic.List`1[class:161697]" />
+    <field id="14" name="Bandits" type="System.Collections.Generic.List`1[class:161697]" />
+    <field id="13" name="Civilians" type="System.Collections.Generic.List`1[class:161697]" />
+    <field id="17" name="Extras" type="System.Collections.Generic.List`1[class:161697]" />
+    <field id="15" name="Heroes" type="System.Collections.Generic.List`1[class:161697]" />
+  </class>
+  <class id="161717" name="TroopCombatStats">
+    <field id="1" name="TroopId" type="System.String" />
+    <field id="2" name="TotalBattles" type="System.Int32" />
+    <field id="3" name="BattlesWon" type="System.Int32" />
+    <field id="4" name="BattlesLost" type="System.Int32" />
+    <field id="5" name="FieldBattles" type="System.Int32" />
+    <field id="6" name="SiegeBattles" type="System.Int32" />
+    <field id="7" name="HideoutBattles" type="System.Int32" />
+    <field id="8" name="VillageRaidBattles" type="System.Int32" />
+    <field id="9" name="OtherBattles" type="System.Int32" />
+    <field id="10" name="TotalKills" type="System.Int32" />
+    <field id="11" name="TotalDeaths" type="System.Int32" />
+    <field id="12" name="KillsByTroopId" type="System.Collections.Generic.Dictionary`2[System.String,System.Int32]" />
+    <field id="13" name="DeathsByTroopId" type="System.Collections.Generic.Dictionary`2[System.String,System.Int32]" />
+    <field id="14" name="FactionsFought" type="System.Collections.Generic.Dictionary`2[System.String,System.Int32]" />
+  </class>
+  <class id="161779" name="LegacyTroopSaveData">
+    <field id="1" name="StringId" type="System.String" />
+    <field id="2" name="VanillaStringId" type="System.String" />
+    <field id="3" name="Name" type="System.String" />
+    <field id="4" name="Level" type="System.Int32" />
+    <field id="5" name="IsFemale" type="System.Boolean" />
+    <field id="6" name="SkillCode" type="System.String" />
+    <field id="7" name="EquipmentCode" type="System.String" />
+    <field id="8" name="UpgradeTargets" type="System.Collections.Generic.List`1[class:161779]" />
+    <field id="9" name="XpPool" type="System.Int32" />
+    <field id="10" name="EquipmentCodes" type="System.Collections.Generic.List`1[System.String]" />
+    <field id="11" name="CultureId" type="System.String" />
+    <field id="12" name="AgeMin" type="System.Single" />
+    <field id="13" name="AgeMax" type="System.Single" />
+    <field id="14" name="WeightMin" type="System.Single" />
+    <field id="15" name="WeightMax" type="System.Single" />
+    <field id="16" name="BuildMin" type="System.Single" />
+    <field id="17" name="BuildMax" type="System.Single" />
+    <field id="18" name="HeightMin" type="System.Single" />
+    <field id="19" name="HeightMax" type="System.Single" />
+    <field id="20" name="Race" type="System.Int32" />
+  </class>
+  <class id="291688" name="EquipmentPolicy">
+    <field id="1" name="FieldBattle" type="System.Boolean" />
+    <field id="5" name="NavalBattle" type="System.Boolean" />
+    <field id="2" name="SiegeDefense" type="System.Boolean" />
+    <field id="3" name="SiegeAssault" type="System.Boolean" />
+    <field id="4" name="GenderOverride" type="System.Boolean" />
+  </class>
+  <container id="C(2)-(30021,160788)" type="System.Collections.Generic.Dictionary`2[System.String,class:160788]" />
+  <container id="C(2)-(30021,160789)" type="System.Collections.Generic.Dictionary`2[System.String,class:160789]" />
+  <container id="C(2)-(30021,C(2)-(30021,160788))" type="System.Collections.Generic.Dictionary`2[System.String,System.Collections.Generic.Dictionary`2[System.String,class:160788]]" />
+  <container id="C(2)-(30021,C(2)-(30021,160789))" type="System.Collections.Generic.Dictionary`2[System.String,System.Collections.Generic.Dictionary`2[System.String,class:160789]]" />
+  <container id="C(1)-(161697)" type="System.Collections.Generic.List`1[class:161697]" />
+  <container id="C(5)-(161697)" type="TaleWorlds.Library.MBList`1[class:161697]" />
+  <container id="C(6)-(161697)" type="TaleWorlds.Library.MBReadOnlyList`1[class:161697]" />
+  <container id="C(1)-(30021)" type="System.Collections.Generic.List`1[System.String]" />
+  <container id="C(5)-(30021)" type="TaleWorlds.Library.MBList`1[System.String]" />
+  <container id="C(6)-(30021)" type="TaleWorlds.Library.MBReadOnlyList`1[System.String]" />
+  <container id="C(1)-(161707)" type="System.Collections.Generic.List`1[class:161707]" />
+  <container id="C(5)-(161707)" type="TaleWorlds.Library.MBList`1[class:161707]" />
+  <container id="C(6)-(161707)" type="TaleWorlds.Library.MBReadOnlyList`1[class:161707]" />
+  <container id="C(2)-(30021,161717)" type="System.Collections.Generic.Dictionary`2[System.String,class:161717]" />
+  <container id="C(2)-(30001,30005)" type="System.Collections.Generic.Dictionary`2[System.Int32,System.Byte]" />
+  <container id="C(2)-(30021,C(2)-(30001,30005))" type="System.Collections.Generic.Dictionary`2[System.String,System.Collections.Generic.Dictionary`2[System.Int32,System.Byte]]" />
+  <container id="C(2)-(30001,291688)" type="System.Collections.Generic.Dictionary`2[System.Int32,class:291688]" />
+  <container id="C(2)-(30021,C(2)-(30001,291688))" type="System.Collections.Generic.Dictionary`2[System.String,System.Collections.Generic.Dictionary`2[System.Int32,class:291688]]" />
+  <container id="C(2)-(30021,30001)" type="System.Collections.Generic.Dictionary`2[System.String,System.Int32]" />
+  <container id="C(1)-(161779)" type="System.Collections.Generic.List`1[class:161779]" />
+  <container id="C(5)-(161779)" type="TaleWorlds.Library.MBList`1[class:161779]" />
+  <container id="C(6)-(161779)" type="TaleWorlds.Library.MBReadOnlyList`1[class:161779]" />
+</saveContract>

@@ -60,7 +60,7 @@ namespace Retinues.Behaviors.Unlocks
 
             var perKill = Math.Max(1, WItem.UnlockThreshold / required);
 
-            var counts = new Dictionary<string, int>(StringComparer.Ordinal);
+            var counts = new Dictionary<string, float>(StringComparer.Ordinal);
 
             foreach (var k in kills)
             {
@@ -72,7 +72,8 @@ namespace Retinues.Behaviors.Unlocks
                 if (multiplier <= 0f)
                     continue; // No progress for this kill.
 
-                AccumulateFromEquipment(k.VictimEquipment, counts);
+                // Weight each counted item by the kill's multiplier (e.g. Lions' Share ×2).
+                AccumulateFromEquipment(k.VictimEquipment, counts, multiplier);
             }
 
             if (counts.Count == 0)
@@ -88,7 +89,7 @@ namespace Retinues.Behaviors.Unlocks
                 if (wItem == null || !wItem.IsValidEquipment)
                     continue;
 
-                var add = perKill * kvp.Value;
+                var add = (int)Math.Round(perKill * kvp.Value);
                 if (add <= 0)
                     continue;
 
@@ -158,7 +159,11 @@ namespace Retinues.Behaviors.Unlocks
         /// <summary>
         /// Accumulate kill counts from the given equipment.
         /// </summary>
-        private static void AccumulateFromEquipment(MEquipment eq, Dictionary<string, int> counts)
+        internal static void AccumulateFromEquipment(
+            MEquipment eq,
+            Dictionary<string, float> counts,
+            float weight
+        )
         {
             if (eq == null)
                 return;
@@ -173,9 +178,9 @@ namespace Retinues.Behaviors.Unlocks
                     continue;
 
                 if (counts.TryGetValue(id, out var c))
-                    counts[id] = c + 1;
+                    counts[id] = c + weight;
                 else
-                    counts[id] = 1;
+                    counts[id] = weight;
             }
         }
     }

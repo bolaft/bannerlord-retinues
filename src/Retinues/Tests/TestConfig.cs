@@ -35,6 +35,7 @@ namespace Retinues.Tests
                 catch (Exception e)
                 {
                     Log.Exception(e, "TestConfig: failed to restore option.");
+                    throw new GameTestCleanupException("Failed to restore a test configuration option.", e);
                 }
             }
         }

@@ -62,7 +62,7 @@ namespace Retinues.Tests.Cases
                 .ToList();
 
             if (shields == null || shields.Count < 2)
-                return; // This load order has too few shields to exercise the case; nothing to assert.
+                Tests.Skip("This load order has too few shields to exercise the case; nothing to assert.");
 
             var owner = sandbox.NewStub();
             owner.Level = 20; // high tier so the randomizer can actually pick the shields
@@ -124,8 +124,21 @@ namespace Retinues.Tests.Cases
                 if (MBObjectManager.Instance.GetObject<ItemObject>(id) != null)
                     Tests.AssertTrue(Has(id), $"Not-merchandise gear '{id}' is listed.");
 
-            // Siege/pickup junk stays out.
-            foreach (var id in new[] { "boulder", "throwing_stone", "grapeshot_stack", "pot" })
+            // Siege/pickup junk stays out — including siege ammunition that is typed as plain
+            // arrows/bolts (ballista bolts: class Arrow, not-merchandise, ~2200 pierce damage).
+            foreach (
+                var id in new[]
+                {
+                    "boulder",
+                    "throwing_stone",
+                    "grapeshot_stack",
+                    "pot",
+                    "ballista_projectile",
+                    "ballista_projectile_burning",
+                    "burning_bolts",
+                    "tournament_arrows",
+                }
+            )
                 if (MBObjectManager.Instance.GetObject<ItemObject>(id) != null)
                     Tests.AssertFalse(Has(id), $"Siege junk '{id}' is not listed.");
         }

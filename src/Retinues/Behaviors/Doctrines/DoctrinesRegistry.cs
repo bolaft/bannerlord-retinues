@@ -187,5 +187,16 @@ namespace Retinues.Behaviors.Doctrines
 
             return string.Join("\n", lines);
         }
+
+        /// <summary>
+        /// Resets all doctrine and feat progress for the current campaign, including acquired
+        /// doctrines. Usage: retinues.reset_doctrines
+        /// </summary>
+        [CommandLineFunctionality.CommandLineArgumentFunction("reset_doctrines", "retinues")]
+        public static string ResetDoctrines(List<string> args)
+        {
+            ResetRuntimeState();
+            return "All doctrine and feat progress has been reset. Save the game to persist it.";
+        }
     }
 }

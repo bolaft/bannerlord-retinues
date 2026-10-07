@@ -123,7 +123,7 @@ namespace Retinues.Tests.Cases
             );
 
             if (candidate == null)
-                return; // No hidden qualifying troop in this load order; nothing to assert.
+                Tests.Skip("No hidden qualifying troop in this load order; nothing to assert.");
 
             var cultureId = candidate.Culture.StringId;
 

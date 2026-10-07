@@ -13,6 +13,7 @@ using Retinues.Settings;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Party;
+using TaleWorlds.CampaignSystem.Roster;
 using TaleWorlds.CampaignSystem.ViewModelCollection.Party;
 #if BL13 || BL14
 using UpgradeHintVM = TaleWorlds.Core.ViewModelCollection.Information.BasicTooltipViewModel;
@@ -23,7 +24,7 @@ using UpgradeHintVM = TaleWorlds.Core.ViewModelCollection.Information.HintViewMo
 namespace Retinues.Behaviors.Retinues.Patches
 {
     /// <summary>
-    /// Handles injection of retinue upgrade targets and enforces retinue upgrade cap UI rules.
+    /// Injects retinue upgrade targets and enforces capacity in both the UI and upgrade commands.
     /// </summary>
     internal static class RetinueDynamicUpgradePatch
     {
@@ -50,12 +51,96 @@ namespace Retinues.Behaviors.Retinues.Patches
 
         private static readonly Dictionary<object, SavedUpgradeState> SavedUpgradeByVM = [];
 
+        private static void RestoreUpgradeState(PartyCharacterVM vm)
+        {
+            if (vm?.Upgrades == null)
+                return;
+            foreach (var upgrade in vm.Upgrades)
+                if (SavedUpgradeByVM.TryGetValue(upgrade, out var saved))
+                {
+                    upgrade.AvailableUpgrades = saved.AvailableUpgrades;
+                    upgrade.IsAvailable = saved.IsAvailable;
+                    upgrade.IsInsufficient = saved.IsInsufficient;
+                    upgrade.Hint = saved.Hint;
+                    SavedUpgradeByVM.Remove(upgrade);
+                }
+        }
+
+        private static int GetCap()
+        {
+            var party = Player.Party;
+            if (party == null)
+                return int.MaxValue;
+            int cap = (int)Math.Floor(party.PartySizeLimit * Configuration.MaxRetinueRatio);
+            if (DoctrineCatalog.Vanguard?.IsAcquired == true)
+                cap = (int)Math.Floor(cap * 1.15);
+            return Math.Max(0, cap);
+        }
+
+        internal static int GetRemainingCapacity(int cap, TroopRoster roster, CharacterObject source)
+        {
+            // An upgrade between two retinues does not increase the retinue count.
+            if (WCharacter.Get(source)?.IsRetinue == true)
+                return int.MaxValue;
+
+            if (roster == null)
+                return 0;
+            int count = 0;
+            foreach (var element in roster.GetTroopRoster())
+                if (WCharacter.Get(element.Character)?.IsRetinue == true)
+                    count += element.Number;
+            return Math.Max(0, cap - count);
+        }
+
+        [HarmonyPatch(typeof(PartyScreenLogic), "UpgradeTroop")]
+        internal static class PartyScreenLogic_UpgradeTroop_RetinueCap_Patch
+        {
+            [HarmonyPrefix]
+            internal static bool Prefix(PartyScreenLogic __instance, PartyScreenLogic.PartyCommand command)
+            {
+                if (
+                    command?.Character == null
+                    || command.RosterSide != PartyScreenLogic.PartyRosterSide.Right
+                    || command.Type != PartyScreenLogic.TroopType.Member
+                    || __instance.RightOwnerParty != PartyBase.MainParty
+                )
+                    return true;
+
+                var targets = command.Character.UpgradeTargets;
+                if (targets == null || command.UpgradeTarget < 0 || command.UpgradeTarget >= targets.Length)
+                    return true;
+                if (WCharacter.Get(targets[command.UpgradeTarget])?.IsRetinue != true)
+                    return true;
+
+                int available = GetRemainingCapacity(
+                    GetCap(),
+                    __instance.MemberRosters[(int)PartyScreenLogic.PartyRosterSide.Right],
+                    command.Character
+                );
+                return ClampUpgradeCommand(command, available);
+            }
+        }
+
+        internal static bool ClampUpgradeCommand(PartyScreenLogic.PartyCommand command, int available)
+        {
+            int number = Math.Min(command.TotalNumber, available);
+            if (number <= 0)
+                return false;
+            if (number != command.TotalNumber)
+                command.FillForUpgradeTroop(
+                    command.RosterSide, command.Type, command.Character,
+                    number, command.UpgradeTarget, command.Index
+                );
+            return true;
+        }
+
         /// <summary>
         /// Applies UI rules to disable upgrades when the player's retinue cap is reached.
         /// </summary>
         [SafeMethod]
-        private static void ApplyRetinueCapRule(PartyCharacterVM vm)
+        private static void ApplyRetinueCapRule(PartyCharacterVM vm, PartyScreenLogic logic)
         {
+            RestoreUpgradeState(vm);
             if (vm?.Character == null)
                 return;
 
@@ -73,21 +158,13 @@ namespace Retinues.Behaviors.Retinues.Patches
             if (upgrades == null || targets == null || upgrades.Count == 0 || targets.Length == 0)
                 return;
 
-            var party = Player.Party;
-            if (party == null)
+            if (logic == null || logic.RightOwnerParty != PartyBase.MainParty)
                 return;
 
-            var cap = (int)Math.Floor(party.PartySizeLimit * Configuration.MaxRetinueRatio);
-
-            // +15% retinue cap from Vanguard doctrine
-            if (DoctrineCatalog.Vanguard?.IsAcquired == true)
-                cap = (int)Math.Floor(cap * 1.15);
-
-            var totalRetinues = party
-                .MemberRoster.Elements.Where(e => e.Troop.IsRetinue == true)
-                .Sum(e => e.Number);
-
-            var atCap = totalRetinues >= cap;
+            int cap = GetCap();
+            int remaining = GetRemainingCapacity(
+                cap, logic.MemberRosters[(int)PartyScreenLogic.PartyRosterSide.Right], vm.Character
+            );
 
             var n = Math.Min(upgrades.Count, targets.Length);
 
@@ -105,32 +182,15 @@ namespace Retinues.Behaviors.Retinues.Patches
                 if (u == null)
                     continue;
 
-                // Restore path
-                if (!atCap)
-                {
-                    if (SavedUpgradeByVM.TryGetValue(u, out var saved))
-                    {
-                        u.Hint = saved.Hint;
-                        u.AvailableUpgrades = saved.AvailableUpgrades;
-                        u.IsAvailable = saved.IsAvailable;
-                        u.IsInsufficient = saved.IsInsufficient;
-
-                        SavedUpgradeByVM.Remove(u);
-                    }
-
+                if (remaining > 0 && u.AvailableUpgrades <= remaining)
                     continue;
-                }
 
-                // Disable path (save once, then override)
-                if (!SavedUpgradeByVM.ContainsKey(u))
-                {
-                    SavedUpgradeByVM[u] = new SavedUpgradeState(
-                        u.AvailableUpgrades,
-                        u.IsAvailable,
-                        u.IsInsufficient,
-                        u.Hint
-                    );
-                }
+                SavedUpgradeByVM[u] = new SavedUpgradeState(
+                    u.AvailableUpgrades, u.IsAvailable, u.IsInsufficient, u.Hint
+                );
+                u.AvailableUpgrades = Math.Min(u.AvailableUpgrades, remaining);
+                if (remaining > 0)
+                    continue;
 
                 var capLine = L.T(
                         "retinue_upgrade_cap_reached_hint",
@@ -147,10 +207,10 @@ namespace Retinues.Behaviors.Retinues.Patches
                 // Grey out: Unavailable brush
                 u.IsAvailable = false;
                 u.IsInsufficient = false;
-
-                // IMPORTANT: do NOT zero this, otherwise you have nothing to restore.
-                // u.AvailableUpgrades stays whatever vanilla computed.
             }
+
+            vm.NumOfUpgradeableTroops = upgrades.Max(u => u.AvailableUpgrades);
+            vm.IsTroopUpgradable = vm.NumOfUpgradeableTroops > 0 && !logic.IsTroopUpgradesDisabled;
         }
 
         /// <summary>
@@ -305,16 +365,20 @@ namespace Retinues.Behaviors.Retinues.Patches
         [HarmonyPatch(typeof(PartyCharacterVM))]
         internal static class PartyCharacterVM_InitializeUpgrades_RetinueCap_Patch
         {
+            [HarmonyPrefix]
+            [HarmonyPatch(nameof(PartyCharacterVM.InitializeUpgrades))]
+            private static void Prefix(PartyCharacterVM __instance) => RestoreUpgradeState(__instance);
+
             /// <summary>
             /// Postfix that applies the retinue cap rule after upgrades are initialized.
             /// </summary>
             [HarmonyPostfix]
             [HarmonyPatch(nameof(PartyCharacterVM.InitializeUpgrades))]
-            private static void Postfix(PartyCharacterVM __instance)
+            private static void Postfix(PartyCharacterVM __instance, PartyScreenLogic ____partyScreenLogic)
             {
                 try
                 {
-                    ApplyRetinueCapRule(__instance);
+                    ApplyRetinueCapRule(__instance, ____partyScreenLogic);
                 }
                 catch (Exception ex)
                 {
@@ -331,11 +395,11 @@ namespace Retinues.Behaviors.Retinues.Patches
             /// </summary>
             [HarmonyPostfix]
             [HarmonyPatch(nameof(PartyCharacterVM.RefreshValues))]
-            private static void Postfix(PartyCharacterVM __instance)
+            private static void Postfix(PartyCharacterVM __instance, PartyScreenLogic ____partyScreenLogic)
             {
                 try
                 {
-                    ApplyRetinueCapRule(__instance);
+                    ApplyRetinueCapRule(__instance, ____partyScreenLogic);
                 }
                 catch (Exception ex)
                 {

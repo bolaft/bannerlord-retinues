@@ -8,6 +8,8 @@ namespace Retinues.Interface.Services.Popups
 {
     internal sealed class MultiChoicePopupVM : ViewModel
     {
+        private bool _choiceMade;
+
         public MultiChoicePopupVM(
             TextObject title,
             TextObject description,
@@ -27,9 +29,12 @@ namespace Retinues.Interface.Services.Popups
                         label?.ToString() ?? string.Empty,
                         () =>
                         {
-                            close?.Invoke();
+                            if (_choiceMade)
+                                return;
+                            _choiceMade = true;
                             try
                             {
+                                close?.Invoke();
                                 captured?.Invoke();
                             }
                             catch (Exception e)

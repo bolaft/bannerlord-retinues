@@ -62,17 +62,17 @@
                                 <Widget WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed"
                                         SuggestedHeight="23" Sprite="StdAssets\Popup\divider"/>
 
-                                <!-- Dynamic button row, one item per choice -->
+                                <!-- Stack choices inside the panel, including long translated labels. -->
                                 <ListPanel DataSource="{Buttons}"
-                                           WidthSizePolicy="CoverChildren" SuggestedHeight="80"
+                                           WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren"
                                            HorizontalAlignment="Center"
-                                           MarginTop="10" MarginBottom="10"
-                                           StackLayout.LayoutMethod="HorizontalLeftToRight">
+                                           MarginLeft="30" MarginRight="30" MarginTop="6" MarginBottom="12"
+                                           StackLayout.LayoutMethod="{{ vttb }}">
                                     <ItemTemplate>
-                                        <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                                                SuggestedWidth="180" SuggestedHeight="64"
+                                        <Widget WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed"
+                                                SuggestedHeight="48"
                                                 HorizontalAlignment="Center" VerticalAlignment="Center"
-                                                MarginLeft="8" MarginRight="8">
+                                                MarginTop="2" MarginBottom="2">
                                             <Children>
                                                 <ButtonWidget
                                                     DoNotPassEventsToChildren="true"

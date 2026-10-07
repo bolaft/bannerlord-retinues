@@ -121,8 +121,9 @@ namespace Retinues.Behaviors.Doctrines.Definitions
         /// </summary>
         public State GetState()
         {
-            // If progress meets or exceeds target, return completed.
-            if (Progress >= Target)
+            // Older saves can park repeatable feats at the target. Keep their handlers
+            // active so the next event can credit and wrap that saved completion.
+            if ((!Repeatable || Target <= 0) && Progress >= Target)
                 return State.Completed;
 
             // If the doctrine is in progress, return in progress.

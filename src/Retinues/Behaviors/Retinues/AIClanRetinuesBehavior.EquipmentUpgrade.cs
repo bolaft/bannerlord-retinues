@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Equipments.Services.Random;
+using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Domain.Factions.Wrappers;
-using Retinues.Interface.Services;
 using Retinues.Settings;
 using Retinues.Utilities;
 using TaleWorlds.CampaignSystem;
@@ -28,9 +28,17 @@ namespace Retinues.Behaviors.Retinues
 
         private const double EquipmentUpgradeChance = 0.01;
 
+        // A persisted retinue list is not sufficient proof that its entries are editable.
+        // Stale/external links must never authorize changes to ordinary troops or heroes.
+        internal static bool IsEditableRetinue(WCharacter troop) =>
+            troop?.Base != null
+            && !string.IsNullOrEmpty(troop.StringId)
+            && troop.IsCustom
+            && !troop.Base.IsHero;
+
         /// <summary>
         /// Iterates all AI clan retinues and gives each a 1% daily chance to upgrade one
-        /// piece of gear by one tier.
+        /// piece of gear to a higher tier.
         /// </summary>
         private void TryDailyEquipmentUpgradesForAllAIRetinues()
         {
@@ -50,7 +58,7 @@ namespace Retinues.Behaviors.Retinues
 
                 foreach (var retinue in clan.GetRawRetinues())
                 {
-                    if (retinue?.Base == null)
+                    if (!IsEditableRetinue(retinue))
                         continue;
 
                     if (_rng.NextDouble() < EquipmentUpgradeChance)
@@ -62,11 +70,14 @@ namespace Retinues.Behaviors.Retinues
         /// <summary>
         /// Attempts to upgrade one item slot in the retinue's battle equipment set.
         /// Shuffles all armor and weapon slots, then for each slot tries to find an item
-        /// one tier higher. Prefers culture-matched and neutral-culture items; falls back
+        /// at a higher tier without changing its item type. Prefers culture-matched and neutral-culture items; falls back
         /// to any culture when no match is found. Stops at the first successful upgrade.
         /// </summary>
         private void TryUpgradeRetinueEquipment(WCharacter retinue)
         {
+            if (!IsEditableRetinue(retinue))
+                return;
+
             var battleSet = retinue.FirstBattleEquipment;
             if (battleSet == null)
                 return;
@@ -85,35 +96,20 @@ namespace Retinues.Behaviors.Retinues
             foreach (var slot in slots)
             {
                 var currentItem = battleSet.GetBase(slot);
-                int currentTier = currentItem?.Tier ?? 0;
 
-                if (currentTier >= 6)
-                    continue;
+                // Avoid duplicate weapons; multiple quivers and throwing stacks are valid.
+                var carried = new HashSet<string>(StringComparer.Ordinal);
+                foreach (var other in UpgradeSlots)
+                {
+                    if (other == slot)
+                        continue;
 
-                int targetTier = Math.Max(1, currentTier + 1);
+                    var carriedId = battleSet.GetBase(other)?.StringId;
+                    if (!string.IsNullOrEmpty(carriedId))
+                        carried.Add(carriedId);
+                }
 
-                // Prefer culture + neutral; fall back to any culture.
-                var picked =
-                    ItemRandomizer.GetRandomItemForSlot(
-                        retinue,
-                        slot,
-                        civilian: false,
-                        minTier: targetTier,
-                        maxTier: 6,
-                        acceptableCultures: cultures,
-                        acceptNeutralCulture: true,
-                        requireSkillForItem: false
-                    )
-                    ?? ItemRandomizer.GetRandomItemForSlot(
-                        retinue,
-                        slot,
-                        civilian: false,
-                        minTier: targetTier,
-                        maxTier: 6,
-                        acceptableCultures: null,
-                        acceptNeutralCulture: true,
-                        requireSkillForItem: false
-                    );
+                var picked = PickEquipmentUpgrade(retinue, slot, currentItem, carried, cultures);
 
                 if (picked == null || picked == currentItem)
                     continue;
@@ -128,5 +124,59 @@ namespace Retinues.Behaviors.Retinues
                 return;
             }
         }
+
+        internal static WItem PickEquipmentUpgrade(
+            WCharacter retinue,
+            EquipmentIndex slot,
+            WItem currentItem,
+            ISet<string> carried,
+            WCulture[] cultures
+        )
+        {
+            // Empty weapon slots are part of the loadout, not invitations to add a
+            // random bow, shield or ammunition. Empty armor slots may still improve.
+            if (IsWeaponSlot(slot) && currentItem == null)
+                return null;
+
+            int currentTier = currentItem?.Tier ?? 0;
+            if (currentTier >= 6)
+                return null;
+
+            int targetTier = Math.Max(1, currentTier + 1);
+            bool Accept(WItem item) => IsCompatibleEquipmentUpgrade(slot, currentItem, item, carried);
+
+            // The culture fallback must enforce the same loadout constraints.
+            return ItemRandomizer.GetRandomItemForSlot(
+                retinue, slot, civilian: false, minTier: targetTier, maxTier: 6,
+                acceptableCultures: cultures, acceptNeutralCulture: true,
+                requireSkillForItem: false, itemFilter: Accept
+            ) ?? ItemRandomizer.GetRandomItemForSlot(
+                retinue, slot, civilian: false, minTier: targetTier, maxTier: 6,
+                acceptableCultures: null, acceptNeutralCulture: true,
+                requireSkillForItem: false, itemFilter: Accept
+            );
+        }
+
+        internal static bool IsCompatibleEquipmentUpgrade(
+            EquipmentIndex slot, WItem currentItem, WItem candidate, ISet<string> carried
+        )
+        {
+            if (candidate?.Base == null || !candidate.IsValidEquipment || candidate.IsCrafted
+                || !candidate.IsEquippableInSlot(slot))
+                return false;
+
+            if (currentItem == null)
+                return !IsWeaponSlot(slot);
+
+            // Weapon slots accept every weapon type. An "upgrade" must not turn
+            // arrows into a shield, a bow into a crossbow, or a sword into ammunition.
+            if (candidate.Type != currentItem.Type)
+                return false;
+
+            return candidate.IsAmmo || candidate.IsThrownWeapon || !carried.Contains(candidate.StringId);
+        }
+
+        private static bool IsWeaponSlot(EquipmentIndex slot) =>
+            slot >= EquipmentIndex.Weapon0 && slot <= EquipmentIndex.Weapon3;
     }
 }

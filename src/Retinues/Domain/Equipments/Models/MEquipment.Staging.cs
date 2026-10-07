@@ -58,6 +58,54 @@ namespace Retinues.Domain.Equipments.Models
         }
 
         /// <summary>
+        /// Repairs real and pending gear without going through the editor's staging semantics.
+        /// Valid replacements survive removal of invalid gear from the same slot.
+        /// </summary>
+        internal int ScrubInvalidItems() => ScrubInvalidItems(WItem.Get);
+
+        internal int ScrubInvalidItems(Func<string, WItem> resolve)
+        {
+            int removed = 0;
+            for (int i = 0; i < SlotCount; i++)
+            {
+                var slot = (EquipmentIndex)i;
+                var item = GetBase(slot);
+                if (item?.IsUnsafeForTroopEquipment != true)
+                    continue;
+
+                Base[slot] = EquipmentElement.Invalid;
+                removed++;
+            }
+
+            var current = ItemsStagingAttribute.Get() ?? [];
+            var next = new List<string>(current.Count);
+            bool removedHead = false;
+            for (int i = 0; i < current.Count; i++)
+            {
+                bool valid = TryDecodeStage(current[i], out _, out var id)
+                    && (string.IsNullOrEmpty(id) || resolve(id)?.IsUnsafeForTroopEquipment != true);
+                if (valid)
+                    next.Add(current[i]);
+                else
+                {
+                    removed++;
+                    removedHead |= i == 0;
+                }
+            }
+
+            if (removed == 0)
+                return 0;
+
+            ItemsStagingAttribute.Set(next);
+            if (removedHead || next.Count == 0)
+                ItemStagingProgressAttribute.Set(0f);
+            _formationDirty = true;
+            ItemsChanged?.Invoke(this);
+            owner.OnEquipmentChange();
+            return removed;
+        }
+
+        /// <summary>
         /// Returns true if item staging is active for the given character.
         /// </summary>
         internal static bool IsItemStagingActive(WCharacter wc)
@@ -194,7 +242,7 @@ namespace Retinues.Domain.Equipments.Models
         /// </summary>
         internal void Stage(EquipmentIndex slot, WItem item)
         {
-            if (item == null)
+            if (item == null || !item.IsValidEquipment)
                 return;
 
             if (!IsValidSlot(slot))
@@ -264,7 +312,10 @@ namespace Retinues.Domain.Equipments.Models
 
             var manager = MBObjectManager.Instance;
             var obj = manager?.GetObject<ItemObject>(itemId);
+            // Another mod may restore this item later. Leave its saved queue/progress intact.
             if (obj == null)
+                return float.PositiveInfinity;
+            if (WItem.Get(obj)?.IsUnsafeForTroopEquipment == true)
                 return 0f;
 
             // 1 day per 1000 value, then multiplied by setting multiplier.
@@ -316,8 +367,11 @@ namespace Retinues.Domain.Equipments.Models
                 var obj = manager?.GetObject<ItemObject>(itemId);
 
                 if (obj == null)
+                    return false;
+
+                if (WItem.Get(obj)?.IsUnsafeForTroopEquipment == true)
                 {
-                    // Mod removed etc: drop this staged entry
+                    // Drop only positively identified unsafe equipment.
                     var nextMissing = new List<string>(current);
                     nextMissing.RemoveAt(0);
 

@@ -1,4 +1,5 @@
 using Retinues.Framework.Runtime;
+using Retinues.Utilities;
 using TaleWorlds.Localization;
 #if BL13 || BL14
 using System.Collections.Generic;
@@ -81,7 +82,7 @@ namespace Retinues.Interface.Components
             if (!string.IsNullOrEmpty(title))
             {
                 props.Add(
-                    new TooltipProperty(
+                    TooltipPropertyCompat.Create(
                         "",
                         title,
                         0,
@@ -94,7 +95,7 @@ namespace Retinues.Interface.Components
             if (!string.IsNullOrEmpty(message))
             {
                 props.Add(
-                    new TooltipProperty(
+                    TooltipPropertyCompat.Create(
                         "",
                         message,
                         0,

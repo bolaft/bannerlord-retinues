@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using HarmonyLib;
 using Retinues.Utilities;
 
@@ -47,7 +48,29 @@ namespace Retinues.Framework.Modules.Dependencies.Core
                 var asm = typeof(HarmonyDependency).Assembly;
 
                 _harmony = new Harmony(HarmonyInstanceId);
-                _harmony.PatchAll(asm);
+
+                // Patch per class instead of one PatchAll: a single unresolvable target (for
+                // example after a game update renames a method) then disables that one patch
+                // class with a logged error, instead of aborting every remaining patch in the
+                // assembly — which once turned a lone renamed hook into a total mod failure.
+                int failed = 0;
+                foreach (var type in AccessTools.GetTypesFromAssembly(asm))
+                {
+                    if (!IsPatchContainer(type))
+                        continue;
+                    try
+                    {
+                        _harmony.CreateClassProcessor(type).Patch();
+                    }
+                    catch (Exception e)
+                    {
+                        failed++;
+                        Log.Error($"[Harmony] Patching failed for {type.FullName}: {e.Message}");
+                    }
+                }
+
+                if (failed > 0)
+                    Log.Error($"[Harmony] {failed} patch class(es) failed to apply.");
 
                 MarkInitialized();
                 Log.Debug("[Harmony] Harmony patches applied.");
@@ -58,6 +81,14 @@ namespace Retinues.Framework.Modules.Dependencies.Core
                 Log.Exception(e, "[Harmony] Error while applying Harmony patches.");
             }
         }
+
+        // ClassProcessor also recognizes conventional names such as Cleanup and Prefix.
+        // Only opt explicitly annotated containers into automatic discovery; interop
+        // helpers that install their own patches must not be processed a second time.
+        internal static bool IsPatchContainer(Type type) =>
+            type.IsDefined(typeof(HarmonyPatch), false)
+            || AccessTools.GetDeclaredMethods(type).Any(method =>
+                method.IsDefined(typeof(HarmonyPatch), false));
 
         /// <summary>
         /// Removes Harmony patches.

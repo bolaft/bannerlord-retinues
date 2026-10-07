@@ -20,12 +20,12 @@ namespace Retinues.Tests.Cases
         {
             var factory = UIResourceManager.BrushFactory;
             if (factory == null)
-                return; // No UI context in this session; nothing to verify.
+                Tests.Skip("No UI context in this session; nothing to verify.");
 
             var icons = factory.GetBrush("MapBar.Left.Icons");
             var backgrounds = factory.GetBrush("MapBar.Left.Button.Backgrounds");
             if (icons == null || backgrounds == null)
-                return; // Map-bar brushes not loaded in this session; nothing to verify.
+                Tests.Skip("Map-bar brushes not loaded in this session; nothing to verify.");
 
             TroopsIcon.EnsureApplied();
             TroopsIcon.EnsureApplied(); // Idempotent: a second call must not duplicate or throw.

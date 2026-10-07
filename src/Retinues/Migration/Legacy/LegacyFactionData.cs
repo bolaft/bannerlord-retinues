@@ -163,5 +163,9 @@ namespace Retinues.Migration.Legacy
 
         [SaveableField(16)]
         public List<TroopSaveData> Mercenaries;
+
+        // Stable saves also persist edited trees outside the canonical faction rosters.
+        [SaveableField(17)]
+        public List<TroopSaveData> Extras;
     }
 }

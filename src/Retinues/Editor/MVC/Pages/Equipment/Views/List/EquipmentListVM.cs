@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Editor.Events;
+using Retinues.Editor.MVC.Pages.Equipment.Services;
 using Retinues.Editor.MVC.Shared.Views;
 using TaleWorlds.Core;
 
@@ -77,6 +78,7 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
         private bool _cachedIncludeCrafted;
         private bool _cachedIsPlayerMode;
         private List<WItem> _cachedVisibleItems;
+        private List<WItem> _cachedCandidates;
 
         // For non-weapon/non-horse slots: if true, we split into ItemCategory headers.
         private bool _groupNonWeaponsByCategory;
@@ -154,6 +156,17 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
             UpdateEquipmentHeaderExpansion();
         }
 
+        [EventListener(UIEvent.Character, UIEvent.Item)]
+        private void OnCraftedOwnershipChange()
+        {
+            if (State.Page != Page || !ShowCrafted)
+                return;
+
+            Build();
+            ApplyFilter();
+            UpdateEquipmentHeaderExpansion();
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Build                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -191,7 +204,10 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
                 && includeCrafted == _cachedIncludeCrafted
                 && isPlayerMode == _cachedIsPlayerMode
             )
+            {
+                RefreshCraftedSelection();
                 return;
+            }
 
             _cachedSlot = slot;
             _cachedIncludeCrafted = includeCrafted;
@@ -206,7 +222,7 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
                 if (item == null)
                     continue;
 
-                if (!includeCrafted && item.IsCrafted)
+                if (item.IsCrafted && !includeCrafted)
                     continue;
 
                 if (isPlayerMode && !item.IsCrafted && !item.IsUnlocked)
@@ -218,7 +234,38 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
                 list.Add(item);
             }
 
-            _cachedVisibleItems = list;
+            _cachedCandidates = list;
+            RefreshCraftedSelection();
+        }
+
+        private void RefreshCraftedSelection()
+        {
+            if (!_cachedIncludeCrafted)
+            {
+                _cachedVisibleItems = _cachedCandidates;
+                return;
+            }
+
+            var usedIds = new HashSet<string>(StringComparer.Ordinal);
+            var sets = State.Character?.Equipments;
+            if (sets != null)
+                foreach (var set in sets)
+                    for (int i = 0; i < (int)EquipmentIndex.NumEquipmentSetSlots; i++)
+                    {
+                        var slot = (EquipmentIndex)i;
+                        var real = set.GetBase(slot);
+                        var staged = set.GetStaged(slot);
+                        if (real != null)
+                            usedIds.Add(real.StringId);
+                        if (staged != null)
+                            usedIds.Add(staged.StringId);
+                    }
+
+            _cachedVisibleItems = CraftedItemSelection.Select(
+                _cachedCandidates,
+                item => item.IsCrafted ? item.DesignCode : null,
+                item => item.Stock > 0 || usedIds.Contains(item.StringId)
+            );
         }
     }
 }

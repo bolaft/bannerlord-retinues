@@ -129,7 +129,7 @@ namespace Retinues.Behaviors.Unlocks.Patches
                 return props;
 
             props.Add(
-                new TooltipProperty(
+                TooltipPropertyCompat.Create(
                     "",
                     L.T("item_unlock_scoreboard_tooltip_title", "Unlocked items").ToString(),
                     0,
@@ -149,7 +149,7 @@ namespace Retinues.Behaviors.Unlocks.Patches
                     continue;
 
                 props.Add(
-                    new TooltipProperty(
+                    TooltipPropertyCompat.Create(
                         "",
                         name,
                         0,
@@ -162,7 +162,7 @@ namespace Retinues.Behaviors.Unlocks.Patches
             if (unlocked.Count > take)
             {
                 props.Add(
-                    new TooltipProperty(
+                    TooltipPropertyCompat.Create(
                         "",
                         "...",
                         0,

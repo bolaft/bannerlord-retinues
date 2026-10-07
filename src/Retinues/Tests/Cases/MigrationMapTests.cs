@@ -20,7 +20,7 @@ namespace Retinues.Tests.Cases
             ctx.EnsureCampaign();
             DoctrinesRegistry.EnsureRegistered();
             if (DoctrinesRegistry.GetDoctrines().Count == 0)
-                return; // doctrines disabled in config; nothing to validate
+                Tests.Skip("doctrines disabled in config; nothing to validate");
 
             foreach (var id in DoctrineKeyMap.AllV2Ids)
                 Tests.AssertNotNull(
@@ -39,7 +39,7 @@ namespace Retinues.Tests.Cases
             ctx.EnsureCampaign();
             DoctrinesRegistry.EnsureRegistered();
             if (DoctrinesRegistry.GetFeats().Count == 0)
-                return; // doctrines disabled in config; nothing to validate
+                Tests.Skip("doctrines disabled in config; nothing to validate");
 
             foreach (var id in FeatKeyMap.AllV2FeatIds)
                 Tests.AssertNotNull(

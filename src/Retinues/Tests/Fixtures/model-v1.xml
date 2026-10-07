@@ -1,0 +1,8 @@
+<PersistenceContractModel v="1.0" type="Retinues.Tests.Cases.PersistenceContractModel">
+  <Count t="int">17</Count>
+  <Name t="string">Garde &amp; &lt;Élite&gt; 日本</Name>
+  <Ratio t="float">1.25</Ratio>
+  <Enabled t="bool">true</Enabled>
+  <Queue t="list"><Item>0|crafted_a</Item><Item>1|bow_b</Item></Queue>
+  <Stocks t="map"><E k="crafted_a" v="3"/><E k="bow_b" v="2"/></Stocks>
+</PersistenceContractModel>

@@ -32,17 +32,23 @@ namespace Retinues.Tests
 
         public void Dispose()
         {
+            var errors = new List<Exception>();
             foreach (var wc in _allocated)
             {
                 try
                 {
                     wc.Remove();
+                    if (wc.IsActiveStub)
+                        errors.Add(new InvalidOperationException("Test stub remained active: " + wc.StringId));
                 }
                 catch (Exception ex)
                 {
                     Log.Exception(ex, "TestSandbox: failed to release stub.");
+                    errors.Add(ex);
                 }
             }
+            if (errors.Count > 0)
+                throw new GameTestCleanupException("Test sandbox cleanup failed.", new AggregateException(errors));
         }
     }
 }

@@ -6,6 +6,7 @@ using Retinues.Domain.Parties.Wrappers;
 using Retinues.Domain.Settlements.Wrappers;
 using Retinues.Framework.Model;
 using TaleWorlds.CampaignSystem.MapEvents;
+using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 
@@ -16,7 +17,7 @@ namespace Retinues.Domain.Events.Models
     /// </summary>
     public sealed class MMapEvent(MapEvent @base) : MBase<MapEvent>(@base)
     {
-        // Reflected BL13-only members (null on BL14+ at runtime).
+        // Legacy BL12/BL13 members (null on BL14+ at runtime).
         private static readonly MethodInfo _getBattleRewardsMethod = typeof(MapEvent).GetMethod(
             "GetBattleRewards",
             BindingFlags.Public | BindingFlags.Instance
@@ -138,22 +139,52 @@ namespace Retinues.Domain.Events.Models
             if (rewardsComputed)
                 return;
 
-            rewardsComputed = true;
-
             if (Base == null || !IsPlayerInvolved)
+            {
+                rewardsComputed = true;
+                return;
+            }
+
+            ComputeRewards(PartyBase.MainParty);
+        }
+
+        /// <summary>Reads a party's battle rewards using the API available in the running game.</summary>
+        internal void ComputeRewards(PartyBase party)
+        {
+            rewardsComputed = true;
+            if (party == null)
                 return;
 
             try
             {
-#if BL13 || BL14
                 if (_getBattleRewardsMethod != null)
                 {
-                    var args = new object[] { Player.Party.PartyBase, 0f, 0f, 0f, 0f, null };
+                    var args = new object[] { party, 0f, 0f, 0f, 0f, null };
                     _getBattleRewardsMethod.Invoke(Base, args);
                     _renownReward = (float)args[1];
                     _influenceReward = (float)args[2];
                     _moraleReward = (float)args[3];
                     _goldReward = (float)args[4];
+                    return;
+                }
+#if BL14
+                // Game 1.4 removed MapEvent.GetBattleRewards; the same numbers now live on the
+                // player's MapEventParty (identical API on 1.4.8 and 1.5.2, so the one BL14
+                // binary works on both). Gold mirrors the old formula: plundered minus lost.
+                var parties = Base.PartiesOnSide(party.Side);
+                if (parties != null)
+                {
+                    foreach (var p in parties)
+                    {
+                        if (p == null || p.Party != party)
+                            continue;
+
+                        _renownReward = p.GainedRenown;
+                        _influenceReward = p.GainedInfluence;
+                        _moraleReward = p.GainedMorale;
+                        _goldReward = p.PlunderedGold - p.GoldLost;
+                        break;
+                    }
                 }
 #endif
             }
