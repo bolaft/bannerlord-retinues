@@ -3,9 +3,11 @@ using Retinues.Behaviors.Doctrines.Definitions;
 using Retinues.Behaviors.Missions;
 using Retinues.Domain.Equipments.Models;
 using Retinues.Domain.Events.Models;
+using Retinues.Domain.Parties.Wrappers;
 using Retinues.Framework.Behaviors;
 using Retinues.Framework.Runtime;
 using Retinues.Utilities;
+using TaleWorlds.CampaignSystem.MapEvents;
 
 namespace Retinues.Behaviors.Doctrines.Feats
 {
@@ -42,6 +44,17 @@ namespace Retinues.Behaviors.Doctrines.Feats
             OnBattleStart(mapEvent);
         }
 
+        protected override void OnPartyAddedToMapEvent(WParty party)
+        {
+            var mapEvent = party?.Base.MapEvent;
+            if (mapEvent?.State != MapEventState.Wait || !mapEvent.IsPlayerMapEvent)
+                return;
+
+            // path for joining an existing ai battle does not include MapEventStarted. this will leave feats relying on OnBattleStart in a state from before the player joined.
+            // run the start checks again as parties are attached, allowing the feat progress to reflect the current player battle
+            OnBattleStart(new MMapEvent(mapEvent));
+        }
+
         /// <summary>
         /// Custom hook fired when a player-involved map battle ends and both MMission.Current and
         /// MMapEvent.Current are available.
@@ -57,17 +70,21 @@ namespace Retinues.Behaviors.Doctrines.Feats
             if (mapEvent?.IsPlayerInvolved != true)
                 return;
 
-            var start = CombatBehavior.Snapshot;
-            var end = mapEvent;
+            // CombatBehavior retains the previous player battle information after mission end and this isn't replaced for simulated battles
+            // without matching the map event every next autoresolve battle will count the previous battle progress again for feat progress until a new mission is opened.
+            // if autoresolve is meant to contribute to feats, add MMapEvent snapshot for a MapEvent and feats progress by kills can use SkillLevelingManager.OnSimulationCombatKill
+            if (CombatBehavior.MapEvent != mapEvent)
+                return;
 
-            if (start == null || end == null)
+            var start = CombatBehavior.Snapshot;
+            if (start == null)
             {
                 Log.Warning("Skipping OnBattleOver: missing battle snapshots.");
                 return;
             }
 
-            var kills = CombatBehavior.GetKills();
-            OnBattleOver(kills, start, end);
+            var kills = CombatBehavior.GetKills() ?? [];
+            OnBattleOver(kills, start, mapEvent);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
