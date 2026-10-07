@@ -23,14 +23,13 @@ namespace Retinues.Behaviors.Doctrines.Feats.Equipments
             if (kingdom == null)
                 return; // Player has no kingdom.
 
-            int count = kills
-                .Select(k =>
-                    k.Killer.IsPlayerTroop // Player troop
-                    && k.Killer.Character.IsFactionTroop // In custom troop tree
-                    && k.Killer.Character.BelongsTo(kingdom) // Belongs to player's kingdom
-                    && k.Victim.IsEnemyTroop // Enemy victim
-                )
-                .Count();
+            // select turns each kill into a bool before counting, causing every recorded kill to contribute regardless of the following conditions.
+            int count = kills.Count(k =>
+                k.Killer.IsPlayerTroop // Player troop
+                && k.Killer.Character.IsFactionTroop // In custom troop tree
+                && k.Killer.Character.BelongsTo(kingdom) // Belongs to player's kingdom
+                && k.Victim.IsEnemyTroop // Enemy victim
+            );
 
             Feat.Add(count);
         }

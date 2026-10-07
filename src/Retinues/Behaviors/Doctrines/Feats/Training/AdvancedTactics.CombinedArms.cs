@@ -13,6 +13,30 @@ namespace Retinues.Behaviors.Doctrines.Feats.Training
     {
         protected override string FeatId => Catalogs.FeatCatalog.AT_CombinedArms.Id;
 
+        static bool HasCombinedArms;
+
+        protected override void OnBattleStart(MMapEvent battle)
+        {
+            var party = Player.Party;
+
+            bool HasValidRatio(List<FormationClass> formations)
+            {
+                float ratio = 0f;
+
+                foreach (var formation in formations)
+                    ratio += party.ComputeMemberRatio(t => t.FormationClass == formation);
+
+                return ratio >= 0.25f;
+            }
+
+            // Player.Party is live by OnBattleOver and casualties have already changed MemberRoster, which no longer reflects the original party composition.
+            // formation ratios from OnBattleStart should be kept to prevent casualties altering the feat result
+            HasCombinedArms =
+                HasValidRatio([FormationClass.Infantry])
+                && HasValidRatio([FormationClass.Cavalry, FormationClass.HorseArcher])
+                && HasValidRatio([FormationClass.Ranged]);
+        }
+
         protected override void OnBattleOver(
             IReadOnlyList<CombatBehavior.Kill> kills,
             MMapEvent.Snapshot start,
@@ -25,29 +49,8 @@ namespace Retinues.Behaviors.Doctrines.Feats.Training
             if (start.EnemySide.HealthyTroops <= 100)
                 return; // Not enough enemies.
 
-            var party = Player.Party;
-
-            /// <summary>
-            /// Check if the party has at least 25% of its members in the specified formations.
-            /// </summary>
-            bool HasValidRatio(List<FormationClass> formations)
-            {
-                float ratio = 0f;
-
-                foreach (var formation in formations)
-                    ratio += party.ComputeMemberRatio(t => t.FormationClass == formation);
-
-                return ratio >= 0.25f;
-            }
-
-            if (!HasValidRatio([FormationClass.Infantry]))
-                return; // Not enough infantry.
-
-            if (!HasValidRatio([FormationClass.Cavalry, FormationClass.HorseArcher]))
-                return; // Not enough cavalry.
-
-            if (!HasValidRatio([FormationClass.Ranged]))
-                return; // Not enough ranged troops.
+            if (!HasCombinedArms)
+                return; // Formation ratios were not valid at battle start.
 
             Feat.Add();
         }
