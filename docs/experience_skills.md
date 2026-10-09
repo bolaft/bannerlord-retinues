@@ -64,7 +64,7 @@ Two limits gate training:
 2. **Total points**  
    A pool of points spread across all eight skills.
 
-Both scale with the troop's **tier**.
+Both scale with the troop's **tier**. In the current V1 release, MCM lets you raise troop tier caps to **999** and tier totals to **9999**. These are configurable limits; default troop stats have not been raised. See [Configuration](configuration.md#skill-caps) for the default values and presets.
 
 Retinues adds extra bonuses:
 

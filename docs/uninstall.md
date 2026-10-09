@@ -5,6 +5,8 @@ nav_order: 13
 
 # Uninstall
 
+> The MCM instructions below are for **Retinues V1**. In the **V2 beta**, use **Troops → Settings → Uninstall → Purge** instead, then save to a new slot and exit before removing the mod.
+
 Removing Retinues safely requires one in-game step first. This prevents broken saves caused by leftover references to custom troops.
 
 ---
@@ -29,8 +31,9 @@ The **Purge Custom Troop Data** button in MCM replaces all custom troops with sa
        `<Bannerlord>\Modules\Retinues`
    - **Steam Workshop:**
      - In Steam, **Unsubscribe** from *Retinues*.
-     - Optional: ensure the folder is gone:  
-       `C:\Program Files (x86)\Steam\steamapps\workshop\content\261550\3592533567`
+     - Optional: check the corresponding folder under `<Steam library>\steamapps\workshop\content\261550\`:
+       - **Bannerlord 1.4 / 1.5 beta release:** `3599557394`
+       - **Older Bannerlord 1.2.12 release:** `3592533567`
 
 You can now continue that save without the mod.
 

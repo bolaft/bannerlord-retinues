@@ -54,7 +54,7 @@ Change cost and options when equipping your troops.
 | Doctrine | Effect |
 | --- | --- |
 | **Cultural Pride** | **20% rebate** when equipping gear from **your clan culture**. |
-| **Clanic Traditions** | Troops can equip **smithed (crafted) weapons** in the equipment editor. |
+| **Clan Traditions** | Troops can equip **smithed (crafted) weapons** in the equipment editor. |
 | **Royal Patronage** | **20% rebate** when equipping gear from your **kingdom culture**. |
 | **Ironclad** | Removes **tier restrictions** for arms and armor when equipping troops. |
 

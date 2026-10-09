@@ -5,6 +5,8 @@ nav_order: 9
 
 # Mod Configuration
 
+> This page describes **Retinues V1**. In the V2 beta, open **Troops → Settings** instead of MCM; its options and presets differ.
+
 You can tune Retinues from the **Mod Configuration Menu (MCM)**. Options are grouped like the in-game sections below. Three global presets exist:
 
 - **Default:** balanced first playthrough.
@@ -178,7 +180,7 @@ Per-tier maximum value per skill. Retinues get an extra flat bonus on top. Doctr
 - **Retinue Skill Cap Bonus:** +5 (Freeform: +50, Realistic: +0).  
 - **Tier caps (defaults):**  
   - **T0** 20, **T1** 20, **T2** 50, **T3** 80, **T4** 120, **T5** 160, **T6** 260, **T7+** 360.  
-  - All caps can be raised up to 360. Freeform sets all to 360.
+  - Each troop tier cap can be raised to **999**. **Freeform** sets these caps to **999**; the default values above are unchanged.
 - **Hero Skill Cap:** 420 (Freeform: 420). Maximum per-skill cap for heroes.
 
 **What it means:** a T3 troop with cap 80 cannot take a skill to 100 even if you have the XP; the cap must be raised (by tiering up, retinue bonus, doctrines, or preset).
@@ -191,8 +193,8 @@ Per-tier total points you may distribute across all eight combat skills. Retinue
 
 - **Retinue Skill Total Bonus:** **+10** (Freeform: +100, Realistic: +0).  
 - **Tier totals (defaults):**  
-  - **T0** 90, **T1** 90, **T2** 210, **T3** 360, **T4** 555, **T5** 780, **T6** 1015, **T7+** 1600.  
-  - **Freeform** sets every tier to **1600**.
+  - **T0** 90, **T1** 90, **T2** 210, **T3** 360, **T4** 555, **T5** 780, **T6** 1015, **T7** 1600, **T8** 1850, **T9** 2100, **T10** 2350.
+  - Each tier total can be raised to **9999**. **Freeform** sets T0–T7 to **1600** and T8–T10 to **2880**; the default values above are unchanged.
 
 **What it means:** totals are a **budget** that caps how many points a troop can spend overall, even if individual skill caps would allow more.
 

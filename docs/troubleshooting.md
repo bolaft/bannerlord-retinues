@@ -5,6 +5,8 @@ nav_order: 11
 
 # Troubleshooting
 
+> This page covers **Retinues V1**. The V2 beta uses **Troops → Settings** and has different configuration options.
+
 Many problems can be solved by toggling options in the **Mod Configuration Menu (MCM)** or by using a few **cheats** to repair state.
 
 > If you still need help after trying these, please see [Bug Reports](bugs.md) to submit a report.
@@ -20,7 +22,7 @@ Many problems can be solved by toggling options in the **Mod Configuration Menu 
 **A:** You have to unlock the *Clan Traditions* doctrine perk first.
 
 **Q: Why do some of my troops spawn naked?**  
-**A:** You probably enabled an alternate equipment set and left it empty. If it is not the case, try enabling the *Force Main Battle Set* mod option.
+**A:** Check that every enabled battle equipment set contains the intended gear. If troops were created, converted, or imported on Bannerlord 1.4+ before the v1.4.14.32 fix, update Retinues and **reapply their equipment in the editor or import them again**. Updating alone does not repair those existing loadouts. If alternate sets still cause problems, try **Force Main Battle Set In Combat** in MCM.
 
 **Q: I should have unlocked this feat but it's not progressing.**  
 **A:** You may have a mod conflict; you can unlock the feat using the cheat console (see below).
@@ -43,18 +45,18 @@ Many problems can be solved by toggling options in the **Mod Configuration Menu 
 
 1. **Check required mod versions**
 
-   Make sure the core libraries Retinues depends on match one of the supported version sets:
+   Use **Bannerlord 1.4.8 or the 1.5.4 beta** with the current V1 release. For Bannerlord 1.2.12, use the separate older build. Check that the required libraries meet these minimum versions:
 
    - **Harmony**  
-     - `2.4.2.0` for the **v1.3+** version of Retinues  
-     - or `2.3.6.0` if you are using the **v1.2** version of Retinues
-   - **ButterLib** – `2.10.2.0`
-   - **UIExtenderEx** – `2.13.2.0`
-   - **Mod Configuration Menu v5** – `5.11.3.0`
+     - **2.4.2 or later** for the current **Bannerlord 1.4 / 1.5 beta** build
+     - or **2.3.6 or later** for the older **Bannerlord 1.2.12** build
+   - **ButterLib** – **2.10.2 or later**
+   - **UIExtenderEx** – **2.13.2 or later**
+   - **Mod Configuration Menu v5** – **5.11.3 or later**
 
    Check these in your launcher (Mods list → click each dependency).
 
-   - If a version is older/newer than listed, update/downgrade it to the matching version.
+   - Update dependencies below these minimums and choose releases compatible with your Bannerlord version. A higher version number alone is not a reason to downgrade.
    - For **Steam Workshop users**:
      - Unsubscribe from **Retinues** and all its dependencies (Harmony, ButterLib, UIExtenderEx, Mod Configuration Menu v5).
      - Then subscribe again from the **Retinues** Workshop page and accept the *"Additional Required Items"* popup so Steam pulls the correct dependency versions.

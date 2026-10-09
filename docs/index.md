@@ -3,9 +3,11 @@ title: Home
 nav_order: 1
 ---
 
-# Retinues Player Manual
+# Retinues V1 Player Manual
 
-This manual will help you use, configure, and troubleshoot the **Retinues** mod for Mount & Blade II Bannerlord.
+This manual covers the **stable V1 release of Retinues** for Mount & Blade II Bannerlord. The current release supports **Bannerlord 1.4.8 and the 1.5.4 beta**. Older V1 builds for Bannerlord 1.2.12 remain available, but some options and fixes described here require the current release.
+
+> **Using the Retinues V2 beta from Nexus?** Its configuration is in **Troops → Settings**, and it does not require MCM or ButterLib. The option tables and feature instructions in this manual describe V1.
 
 > Use the search bar at the top to jump straight to any option or command.
 
@@ -14,8 +16,8 @@ This manual will help you use, configure, and troubleshoot the **Retinues** mod 
 ## Quick Start
 
 1. Install/enable the mod and dependencies (Harmony, MCM, Butterlib and UIExtenderEx).
-3. Open **Clan → Troops** to edit troops, equipment, and skills.
-4. If any issues arise, see [Troubleshooting](./troubleshooting.md).
+2. Open **Clan → Troops** to edit troops, equipment, and skills.
+3. If any issues arise, see [Troubleshooting](./troubleshooting.md).
 
 > 🐞 Did you encounter a **bug**? If so please checkout the [Reporting a Bug](./bugs.md) section so it can be fixed quickly.
 
