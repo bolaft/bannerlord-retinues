@@ -69,7 +69,7 @@ Faction troops join your army the vanilla way:
 - Unlock the **Road Wardens** and **Armed Peasantry** doctrines to gain access to custom Caravan Guards, Caravan Masters, and Villagers.
 - When unlocked for a faction:
   - Retinues creates custom versions of:
-    - **Caravan Guard**
+    - **Caravan Guard** and **Veteran Caravan Guard**
     - **Caravan Master**
     - **Villager**
   - These custom troops replace the vanilla culture ones for:

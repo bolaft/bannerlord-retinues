@@ -179,8 +179,9 @@ Per-tier maximum value per skill. Retinues get an extra flat bonus on top. Doctr
 
 - **Retinue Skill Cap Bonus:** +5 (Freeform: +50, Realistic: +0).  
 - **Tier caps (defaults):**  
-  - **T0** 20, **T1** 20, **T2** 50, **T3** 80, **T4** 120, **T5** 160, **T6** 260, **T7+** 360.  
+  - **T0** 20, **T1** 20, **T2** 50, **T3** 80, **T4** 120, **T5** 160, **T6** 260, **T7** 360, **T8** 360, **T9** 360, **T10** 360.
   - Each troop tier cap can be raised to **999**. **Freeform** sets these caps to **999**; the default values above are unchanged.
+- **T8–T10 have independent caps** for use when Maximum Troop Tier is raised. On first loading older settings, these caps inherit the previous T7+ value; changing T7 afterward no longer changes them.
 - **Hero Skill Cap:** 420 (Freeform: 420). Maximum per-skill cap for heroes.
 
 **What it means:** a T3 troop with cap 80 cannot take a skill to 100 even if you have the XP; the cap must be raised (by tiering up, retinue bonus, doctrines, or preset).

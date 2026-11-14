@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using HarmonyLib;
 using Retinues.Doctrines;
 using Retinues.Features.Experience;
 using Retinues.Features.Stocks;
@@ -8,6 +9,7 @@ using Retinues.Game;
 using Retinues.Game.Wrappers;
 using Retinues.Utils;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.Core;
 
 namespace Retinues.Tests
 {
@@ -28,6 +30,8 @@ namespace Retinues.Tests
         private readonly Dictionary<string, string> _vanillaIdMap;
         private readonly Dictionary<string, WCharacter> _upgradeMap;
         private readonly Dictionary<string, int> _skillBaseline;
+        private readonly Dictionary<string, FormationClass> _formationOverridesRef;
+        private readonly Dictionary<string, FormationClass> _formationOverrides;
         private readonly HashSet<string> _editedVanilla;
         private readonly List<string> _unlocked;
         private readonly Dictionary<string, int> _unlockProgress;
@@ -50,6 +54,9 @@ namespace Retinues.Tests
             _vanillaIdMap = new Dictionary<string, string>(WCharacter.VanillaStringIdMap);
             _upgradeMap = new Dictionary<string, WCharacter>(WCharacter.UpgradeMap);
             _skillBaseline = new Dictionary<string, int>(WCharacter.SkillBaselineMap);
+            _formationOverridesRef = (Dictionary<string, FormationClass>)AccessTools.Field(
+                typeof(WCharacter), "FormationOverrides").GetValue(null);
+            _formationOverrides = new Dictionary<string, FormationClass>(_formationOverridesRef);
             _editedVanilla = new HashSet<string>(
                 WCharacter.EditedVanillaRootIds,
                 StringComparer.Ordinal
@@ -139,6 +146,7 @@ namespace Retinues.Tests
 
                 WCharacter.EditedVanillaRootIds.Clear();
                 WCharacter.EditedVanillaRootIds.UnionWith(_editedVanilla);
+                RestoreDict(_formationOverridesRef, _formationOverrides);
 
                 var unlocks = UnlocksBehavior.Instance;
                 if (unlocks != null && _unlocked != null)

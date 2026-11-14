@@ -35,6 +35,7 @@ namespace Retinues.GUI.Editor
         /// </summary>
         public static void LaunchEditor(EditorMode mode = EditorMode.Culture)
         {
+            if (Safety.Uninstall.UninstallBehavior.IsPrepared) return;
             try
             {
                 EditorMode = mode;

@@ -27,6 +27,7 @@ namespace Retinues.Configuration
         private static object _mcmSettingsInstance;
         private static Type _mcmSettingsType;
         private static bool _isSyncingWithMcm;
+        private static HashSet<string> _loadingOptionKeys;
 
         // Runtime registry built via reflection from the static Option<T> fields
         private static readonly List<IOption> _all = [];
@@ -68,6 +69,7 @@ namespace Retinues.Configuration
         /// </summary>
         internal static void SetRawValue(string key, object value)
         {
+            _loadingOptionKeys?.Add(key);
             _values[key] = value;
             RaiseOptionChanged(key, value);
         }
@@ -545,20 +547,15 @@ namespace Retinues.Configuration
                                                     "Remove all custom troop data?"
                                                 ),
                                                 L.S(
-                                                    "mcm_debug_remove_all_confirm_body",
-                                                    $"This will permanently purge all Retinues custom troops from the current world so you can safely uninstall the mod.\n\nThis operation is IRREVERSIBLE. Backup your save before proceeding."
+                                                    "mcm_debug_remove_all_verified_confirm_body",
+                                                    $"This replaces Retinues custom troops throughout the campaign and disables troop generation for this save. To play with your custom troops again you will need your original save.\n\nMake a backup before proceeding."
                                                 ),
                                                 () =>
                                                 {
                                                     try
                                                     {
-                                                        // Hard sanitize everything
-                                                        SanitizerBehavior.Sanitize(
-                                                            replaceAllCustom: true
-                                                        );
-
-                                                        const string disabledFileUrl =
-                                                            "https://www.nexusmods.com/mountandblade2bannerlord/mods/8847?tab=files";
+                                                        // Verify campaign references before declaring the save ready.
+                                                        Safety.Uninstall.UninstallCleanup.Run(removeOnly: false);
 
                                                         InformationManager.ShowInquiry(
                                                             new InquiryData(
@@ -567,28 +564,22 @@ namespace Retinues.Configuration
                                                                     "Purge Complete"
                                                                 ),
                                                                 L.S(
-                                                                    "mcm_purge_done_body",
-                                                                    "All custom troop data has been removed.\n\nSave your game, quit, remove the mod, then reload.\n\nIf your save still crashes after doing this, download the 'Retinues - Disabled' file from the Nexus mod page as a last resort."
+                                                                    "mcm_purge_verified_body",
+                                                                    "Custom troop references have been cleaned and checked, including village recruits and settlement rosters. Retinues troop generation is now disabled for this save.\n\nSave to a NEW slot, exit to desktop, then remove Retinues. Keep your original backup."
                                                                 ),
                                                                 isAffirmativeOptionShown: true,
-                                                                isNegativeOptionShown: true,
-                                                                affirmativeText: L.S(
-                                                                    "mcm_purge_done_open_nexus",
-                                                                    "Open Nexus Page"
-                                                                ),
-                                                                negativeText: L.S("str_ok", "OK"),
-                                                                affirmativeAction: () =>
-                                                                    URL.OpenInBrowser(
-                                                                        disabledFileUrl
-                                                                    ),
-                                                                negativeAction: () => { }
+                                                                isNegativeOptionShown: false,
+                                                                affirmativeText: L.S("str_ok", "OK"),
+                                                                negativeText: null,
+                                                                affirmativeAction: () => { },
+                                                                negativeAction: null
                                                             )
                                                         );
                                                     }
                                                     catch (Exception e)
                                                     {
                                                         Log.Message(
-                                                            "Sanitization failed, see log for details."
+                                                            "Cleanup could not be verified. Do not save or remove Retinues. Reload your pre-uninstall backup and report debug.log."
                                                         );
                                                         Log.Exception(e);
                                                     }
@@ -647,9 +638,36 @@ namespace Retinues.Configuration
                 return false;
 
             HookMcmSettings(_mcmSettings);
-            _mcmSettings.Register();
+            // MCM loads stored settings synchronously during registration. Only keys
+            // present in the file reach SetRawValue, so old files can inherit their
+            // former shared T7+ cap without overwriting explicit T8-T10 settings.
+            var loadedKeys = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            _loadingOptionKeys = loadedKeys;
+            try
+            {
+                _mcmSettings.Register();
+            }
+            finally
+            {
+                _loadingOptionKeys = null;
+            }
+            if (InitializeMissingHighTierSkillCaps(loadedKeys))
+                SaveSettings();
 
             return true;
+        }
+
+        internal static bool InitializeMissingHighTierSkillCaps(ISet<string> loadedKeys)
+        {
+            bool changed = false;
+            foreach (var option in new[] { SkillCapTier8, SkillCapTier9, SkillCapTier10 })
+            {
+                if (loadedKeys.Contains(option.Key))
+                    continue;
+                option.Value = SkillCapTier7Plus.Value;
+                changed = true;
+            }
+            return changed;
         }
 
         // Import/Export support (self-contained)

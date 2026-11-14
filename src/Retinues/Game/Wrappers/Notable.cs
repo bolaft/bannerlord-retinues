@@ -1,4 +1,5 @@
 using System;
+using Retinues.Compatibility;
 using Retinues.Configuration;
 using Retinues.Troops;
 using Retinues.Utils;
@@ -70,10 +71,17 @@ namespace Retinues.Game.Wrappers
                     continue;
                 }
 
+                var atcSource = ATCRecruitment.GetSource(troop, Settlement?.Base, Hero, out var atcRole);
+                if (atcRole == ATCRecruitRole.Ambiguous)
+                    continue;
+                var recruitSource = Europe1700Recruitment.GetAffectedSource(troop, out bool eliteRecruit);
+
                 // Already one of our custom troops, skip. A vanilla troop's Faction is its
                 // culture, so it must always stay eligible for replacement.
                 if (
                     troop.IsCustom
+                    && recruitSource == null
+                    && atcRole == ATCRecruitRole.None
                     && (
                         troop.Faction == primaryFaction
                         || (hasSecondary && troop.Faction == secondaryFaction)
@@ -89,14 +97,19 @@ namespace Retinues.Game.Wrappers
                 if (targetFaction == null)
                     continue;
 
-                var replacement = TroopMatcher.PickBestFromFaction(
-                    targetFaction,
-                    troop,
-                    sameTierOnly: false
-                );
+                var replacement = atcRole != ATCRecruitRole.None
+                    ? ATCRecruitment.MatchVolunteer(targetFaction, atcSource, atcRole)
+                    : recruitSource != null
+                    ? Europe1700Recruitment.MatchVolunteer(targetFaction, recruitSource, eliteRecruit)
+                    : TroopMatcher.PickBestFromFaction(targetFaction, troop, sameTierOnly: false);
 
                 if (replacement != null)
                 {
+                    if (recruitSource != null && troop.IsCustom && replacement != troop)
+                        Log.Info($"1700 recruitment: replaced leftover militia '{troop.StringId}' "
+                            + $"with '{replacement.StringId}' at '{Settlement?.StringId}'.");
+                    if (atcRole != ATCRecruitRole.None && troop.IsCustom && replacement != troop)
+                        Log.Info($"[ATC] Replaced leftover militia recruit '{troop.StringId}' with '{replacement.StringId}' at '{Settlement?.StringId}'.");
                     arr[i] = replacement.Base;
                     replaced++;
                 }

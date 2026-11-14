@@ -57,6 +57,8 @@ namespace Retinues.Game.Wrappers
         /// </summary>
         public static CharacterObject AllocateStub(string stringId = null)
         {
+            if (Safety.Uninstall.UninstallBehavior.IsPrepared)
+                throw new InvalidOperationException("This save is prepared for uninstall.");
             // Try to find by id first
             if (!string.IsNullOrWhiteSpace(stringId))
             {
@@ -113,6 +115,9 @@ namespace Retinues.Game.Wrappers
         /// </summary>
         private void Initialize(BaseFaction faction)
         {
+            // A recycled stub starts with automatic formation selection.
+            FormationOverrides.Remove(StringId);
+
             // Register as active stub
             ActiveStubIds.Add(StringId);
 
@@ -664,16 +669,25 @@ namespace Retinues.Game.Wrappers
         //                     Formation Class                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
-        private FormationClass _formationClassOverride = FormationClass.Unset;
+        // Wrappers are short-lived (including those created by save-tree traversal). Keep the
+        // choice with the troop identity so every wrapper saves and applies the same override.
+        // TroopSaveData field 12 remains the persisted representation.
+        private static readonly Dictionary<string, FormationClass> FormationOverrides =
+            new(StringComparer.Ordinal);
+
+        internal static void ClearFormationOverrides() => FormationOverrides.Clear();
+
         public FormationClass FormationClassOverride
         {
-            get => Config.AllowFormationOverrides ? _formationClassOverride : FormationClass.Unset;
+            get => FormationOverrides.TryGetValue(StringId, out var value) ? value : FormationClass.Unset;
             set
             {
-                if (Config.AllowFormationOverrides == false)
-                    return;
-
-                _formationClassOverride = value;
+                // Preserve saved choices while the setting is disabled; only their application
+                // is gated. This also allows restoration before campaign settings are ready.
+                if (value == FormationClass.Unset)
+                    FormationOverrides.Remove(StringId);
+                else
+                    FormationOverrides[StringId] = value;
                 NeedsPersistence = true;
             }
         }
@@ -710,7 +724,7 @@ namespace Retinues.Game.Wrappers
         public FormationClass ComputeFormationClass()
         {
             // If no override, derive from battle equipment
-            if (FormationClassOverride == FormationClass.Unset)
+            if (!Config.AllowFormationOverrides || FormationClassOverride == FormationClass.Unset)
                 return Loadout.Battle.ComputeFormationClass();
 
             // Else return override
@@ -1099,6 +1113,8 @@ namespace Retinues.Game.Wrappers
                         sameCategoryOnly: false
                     )
             );
+
+            FormationOverrides.Remove(StringId);
         }
 
         /// <summary>

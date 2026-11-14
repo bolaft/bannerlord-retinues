@@ -673,8 +673,12 @@ namespace Retinues.Troops
                 AddRoot(f.MilitiaRanged);
                 AddRoot(f.MilitiaRangedElite);
                 AddRoot(f.CaravanGuard);
+                AddRoot(f.VeteranCaravanGuard);
                 AddRoot(f.CaravanMaster);
                 AddRoot(f.Villager);
+                if (f.Extras != null)
+                    foreach (var extra in f.Extras)
+                        AddRoot(extra);
             }
 
             var missing = editedRoots.Where(id => !fileRoots.Contains(id)).ToList();

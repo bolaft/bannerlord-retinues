@@ -103,7 +103,7 @@
 {#           Rows           #}
 {# ━━━━━━━━━━━━━━━━━━━━━━━━ #}
 
-{% macro rows(data_source, type) -%}
+{% macro rows(data_source, type, hint="{Hint}") -%}
 
 <NavigationAutoScrollWidget TrackedWidget=".\{{ type }}List"/>
 
@@ -124,12 +124,14 @@
             Command.Click="ExecuteSelect" 
             UpdateChildrenStates="true">
             <Children>
+                {% if hint %}
                 <!-- Row  Hint -->
                 <HintWidget
-                    DataSource="{Hint}"
+                    DataSource="{{ hint }}"
                     WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
                     HorizontalAlignment="Center" VerticalAlignment="Center"
                     Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint"/>
+                {% endif %}
 
                 <ListPanel 
                     WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" 

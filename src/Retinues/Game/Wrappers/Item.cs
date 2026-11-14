@@ -61,6 +61,8 @@ namespace Retinues.Game.Wrappers
 
         public bool IsCivilian => _itemObject.IsCivilian;
 
+        public bool IsDismembermentVisual => Compatibility.EquipmentCompatibility.IsDismembermentVisual(Base);
+
         public int Value => _itemObject.Value;
 
         public ItemCategory Category => _itemObject.ItemCategory;

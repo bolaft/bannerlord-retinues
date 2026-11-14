@@ -139,6 +139,7 @@ namespace Retinues.Features.Unlocks
             if (!Config.UnlockItemsFromDiscards || Config.AllEquipmentUnlocked)
                 return;
 
+            roster = CheatDiscardFilter.ForUnlocks(roster);
             if (roster == null || roster.Count == 0)
                 return;
 
@@ -338,6 +339,7 @@ namespace Retinues.Features.Unlocks
                 && (int)i.Tier == tier
                 && i.Culture == culture
                 && i.ItemType != ItemObject.ItemTypeEnum.Invalid
+                && !Compatibility.EquipmentCompatibility.IsDismembermentVisual(i)
             );
 
             // Pick random
@@ -408,6 +410,9 @@ namespace Retinues.Features.Unlocks
                     var inc = kvp.Value;
 
                     if (item == null)
+                        continue;
+
+                    if (Compatibility.EquipmentCompatibility.IsDismembermentVisual(item))
                         continue;
 
                     if (item.IsCraftedByPlayer == true)

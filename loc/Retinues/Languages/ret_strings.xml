@@ -4,6 +4,7 @@
     <tag language="English" />
   </tags>
   <strings>
+    <string id="ret_list_toggle_convoy" text="Convoys" />
     <string
       id="ret_acquire_fief_to_unlock"
       text="Acquire a fief to unlock clan troops." />
@@ -1223,14 +1224,11 @@
       id="ret_mcm_option_vassal_lords_recruit_custom_troops_hint"
       text="Lords of the player&apos;s clan or kingdom can recruit custom troops in their fiefs." />
     <string
-      id="ret_mcm_purge_done_body"
-      text="All custom troop data has been removed.{newline}{newline}Save your game, quit, remove the mod, then reload.{newline}{newline}If your save still crashes after doing this, download the &apos;Retinues - Disabled&apos; file from the Nexus mod page as a last resort." />
-    <string
-      id="ret_mcm_purge_done_open_nexus"
-      text="Open Nexus Page" />
-    <string
       id="ret_mcm_purge_done_title"
       text="Purge Complete" />
+    <string
+      id="ret_mcm_purge_verified_body"
+      text="Custom troop references have been cleaned and checked, including village recruits and settlement rosters. Retinues troop generation is now disabled for this save.{newline}{newline}Save to a NEW slot, exit to desktop, then remove Retinues. Keep your original backup." />
     <string
       id="ret_mcm_section_debug"
       text="Debug" />

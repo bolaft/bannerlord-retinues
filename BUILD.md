@@ -31,10 +31,9 @@
 3) Copy the game's DLLs to the local cache:
 ```
 dll/12/**   # BL 1.2 DLL set
-dll/13/**   # BL 1.3 DLL set
-dll/14/**   # BL 1.4 DLL set
+dll/15/**   # BL 1.5.7 DLL set
 ```
-The build picks the correct set based on `--version 12|13|14` (defaults to 13).
+The build picks the correct set based on `--version 12|15` (defaults to 15).
 
 4) Download Harmony, UIExtenderEx and MCM and extract them in the game's Modules folder.
 ---
@@ -69,7 +68,7 @@ src/Retinues/UIExtenderDebug.xml       # Copied only in non‑Release builds
 
 ### Dev (Debug), deploy to game
 ```bash
-./build.sh -v 12
+./build.sh -v 15
 ```
 - Copies **UIExtenderDebug.xml** to the module root.
 - Generates GUI prefabs and deploys `GUI/**`.
@@ -87,18 +86,20 @@ src/Retinues/UIExtenderDebug.xml       # Copied only in non‑Release builds
 # Set the last number in <Version value="vX.Y.Z.N" /> to 8 and build Release
 ./build.sh -r 8
 ```
-- Updates `src/Retinues/SubModule.BL12.xml`, `src/Retinues/SubModule.BL13.xml`, `src/Retinues/SubModule.BL14.xml`, and/or `src/Retinues/SubModule.xml` if present.
+- Updates `src/Retinues/SubModule.BL12.xml`, `src/Retinues/SubModule.BL15.xml`, and/or `src/Retinues/SubModule.xml` if present.
 - Builds **Release** (no `UIExtenderDebug.xml`).
 - Deploys to the game folder.
 
 ### Target a specific Bannerlord version
 ```bash
-# BL 1.3 (default)
-./build.sh -v 13
+# BL 1.5.7 (default)
+./build.sh -v 15
 
 # BL 1.2
 ./build.sh -v 12
 
-# BL 1.4
-./build.sh -v 14
 ```
+
+BL15 targets Bannerlord 1.5.7 using `dll/15`. It also enables the BL14 symbol
+for the compatible API paths. BL12 retains its 1.2.12 manifest. Workshop update
+files are in `workshop/`; change notes are left empty for editing in Steam.

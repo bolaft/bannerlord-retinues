@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # Defaults (overridden by Local.props and flags)
-BL="13"
+BL="15"
 DEPLOY="true"
 RUN_MAIN="true"
 RUN_PREFABS="true"
@@ -33,7 +33,7 @@ Options:
       --no-prefabs      Skip prefabs generation
       --strings         Only run strings.py
       --no-strings      Skip strings.py
-  -v, --version         Bannerlord version: 12, 13, or 14 (default: 13)
+  -v, --version         Bannerlord target: 12 or 15 (default: 15 / 1.5.7)
   -r, --release <N>     Build Release and set <Version value="vX.Y.Z.N" /> to N
   -h, --help            Show help
 USAGE
@@ -62,6 +62,11 @@ while [[ $# -gt 0 ]]; do
       ;;
   esac
 done
+
+case "$BL" in
+  12|15) ;;
+  *) echo "ERROR: supported release targets are 12 and 15, got: $BL"; exit 2;;
+esac
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
 MAIN_PROJ="$ROOT_DIR/src/${MODULE}/${MODULE}.csproj"
@@ -94,8 +99,7 @@ bump_submodule_version() {
 
   local files=(
     "$core_dir/SubModule.BL12.xml"
-    "$core_dir/SubModule.BL13.xml"
-    "$core_dir/SubModule.BL14.xml"
+    "$core_dir/SubModule.BL15.xml"
     "$core_dir/SubModule.xml"
   )
 
@@ -139,9 +143,9 @@ if [[ "$RUN_PREFABS" == "true" ]]; then
   rm -rf "$ROOT_DIR/gui/$MODULE/"
   # Primary pass: render with the target BL version (no suffix, used at runtime for that version).
   python tpl/render_prefabs.py --version "$BL"
-  # BL14 pass: always render a _BL14 variant so a single build works on both BL13 and BL14.
+  # Keep the _BL14 layout-family suffix selected by the runtime on BL1.4 and later.
   # The C# patches select the correct file at runtime via BannerlordVersion.IsAtLeast14().
-  python tpl/render_prefabs.py --version 14 --suffix _BL14
+  python tpl/render_prefabs.py --version 15 --suffix _BL14
 fi
 
 # 1.b) Deploy prefabs-only (if requested)

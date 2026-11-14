@@ -1291,11 +1291,62 @@ namespace Retinues.Configuration
             key: "SkillCapTier7Plus",
             name: () =>
                 L.T("mcm_option_skill_cap", "Tier {TIER} Cap")
-                    .SetTextVariable("TIER", "7+")
+                    .SetTextVariable("TIER", "7")
                     .ToString(),
             hint: () =>
                 L.T("mcm_option_skill_cap_hint", "The maximum skill level for tier {TIER} troops.")
-                    .SetTextVariable("TIER", "7+")
+                    .SetTextVariable("TIER", "7")
+                    .ToString(),
+            @default: 360,
+            minValue: 20,
+            maxValue: 999,
+            presets: new Dictionary<string, object> { [Presets.Freeform] = 999 }
+        );
+
+        public static readonly Option<int> SkillCapTier8 = CreateOption(
+            section: () => L.S("mcm_section_skill_caps", "Skill Caps"),
+            key: "SkillCapTier8",
+            name: () =>
+                L.T("mcm_option_skill_cap", "Tier {TIER} Cap")
+                    .SetTextVariable("TIER", "8")
+                    .ToString(),
+            hint: () =>
+                L.T("mcm_option_skill_cap_hint", "The maximum skill level for tier {TIER} troops.")
+                    .SetTextVariable("TIER", "8")
+                    .ToString(),
+            @default: 360,
+            minValue: 20,
+            maxValue: 999,
+            presets: new Dictionary<string, object> { [Presets.Freeform] = 999 }
+        );
+
+        public static readonly Option<int> SkillCapTier9 = CreateOption(
+            section: () => L.S("mcm_section_skill_caps", "Skill Caps"),
+            key: "SkillCapTier9",
+            name: () =>
+                L.T("mcm_option_skill_cap", "Tier {TIER} Cap")
+                    .SetTextVariable("TIER", "9")
+                    .ToString(),
+            hint: () =>
+                L.T("mcm_option_skill_cap_hint", "The maximum skill level for tier {TIER} troops.")
+                    .SetTextVariable("TIER", "9")
+                    .ToString(),
+            @default: 360,
+            minValue: 20,
+            maxValue: 999,
+            presets: new Dictionary<string, object> { [Presets.Freeform] = 999 }
+        );
+
+        public static readonly Option<int> SkillCapTier10 = CreateOption(
+            section: () => L.S("mcm_section_skill_caps", "Skill Caps"),
+            key: "SkillCapTier10",
+            name: () =>
+                L.T("mcm_option_skill_cap", "Tier {TIER} Cap")
+                    .SetTextVariable("TIER", "10")
+                    .ToString(),
+            hint: () =>
+                L.T("mcm_option_skill_cap_hint", "The maximum skill level for tier {TIER} troops.")
+                    .SetTextVariable("TIER", "10")
                     .ToString(),
             @default: 360,
             minValue: 20,
@@ -1483,14 +1534,14 @@ namespace Retinues.Configuration
             key: "SkillTotalTier7Plus",
             name: () =>
                 L.T("mcm_option_skill_total", "Tier {TIER} Skill Total")
-                    .SetTextVariable("TIER", "7+")
+                    .SetTextVariable("TIER", "7")
                     .ToString(),
             hint: () =>
                 L.T(
                         "mcm_option_skill_total_hint",
                         "The total available skill points for tier {TIER} troops."
                     )
-                    .SetTextVariable("TIER", "7+")
+                    .SetTextVariable("TIER", "7")
                     .ToString(),
             @default: 1600,
             minValue: 90,

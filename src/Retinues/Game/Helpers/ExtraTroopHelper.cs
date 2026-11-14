@@ -161,6 +161,8 @@ namespace Retinues.Game.Helpers
                         Claim(t);
                     foreach (var t in culture.CaravanTroops)
                         Claim(t);
+                    foreach (var t in culture.ConvoyTroops)
+                        Claim(t);
                     foreach (var t in culture.VillagerTroops)
                         Claim(t);
                     foreach (var t in culture.MercenaryTroops)

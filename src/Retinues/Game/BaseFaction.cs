@@ -20,6 +20,7 @@ namespace Retinues.Game
         CaravanMaster,
         Villager,
         Other,
+        VeteranCaravanGuard, // Append only: existing category values must stay unchanged.
     }
 
     public abstract class BaseFaction : StringIdentifier
@@ -92,6 +93,7 @@ namespace Retinues.Game
                 RootCategory.MilitiaRanged => MilitiaRanged,
                 RootCategory.MilitiaRangedElite => MilitiaRangedElite,
                 RootCategory.CaravanGuard => CaravanGuard,
+                RootCategory.VeteranCaravanGuard => VeteranCaravanGuard,
                 RootCategory.CaravanMaster => CaravanMaster,
                 RootCategory.Villager => Villager,
                 _ => null,
@@ -129,6 +131,9 @@ namespace Retinues.Game
                 case RootCategory.CaravanGuard:
                     CaravanGuard = troop;
                     break;
+                case RootCategory.VeteranCaravanGuard:
+                    VeteranCaravanGuard = troop;
+                    break;
                 case RootCategory.CaravanMaster:
                     CaravanMaster = troop;
                     break;
@@ -159,6 +164,7 @@ namespace Retinues.Game
         public virtual WCharacter MilitiaRanged { get; set; }
         public virtual WCharacter MilitiaRangedElite { get; set; }
         public virtual WCharacter CaravanGuard { get; set; }
+        public virtual WCharacter VeteranCaravanGuard { get; set; }
         public virtual WCharacter CaravanMaster { get; set; }
         public virtual WCharacter Villager { get; set; }
 
@@ -179,6 +185,8 @@ namespace Retinues.Game
                 foreach (var troop in MilitiaTroops)
                     yield return troop;
                 foreach (var troop in CaravanTroops)
+                    yield return troop;
+                foreach (var troop in ConvoyTroops)
                     yield return troop;
                 foreach (var troop in VillagerTroops)
                     yield return troop;
@@ -218,7 +226,8 @@ namespace Retinues.Game
 
         public List<WCharacter> MilitiaTroops =>
             GetActiveList([MilitiaMelee, MilitiaMeleeElite, MilitiaRanged, MilitiaRangedElite]);
-        public List<WCharacter> CaravanTroops => GetActiveList([CaravanGuard, CaravanMaster]);
+        public List<WCharacter> CaravanTroops => GetActiveList([CaravanGuard, VeteranCaravanGuard, CaravanMaster]);
+        public virtual List<WCharacter> ConvoyTroops => [];
         public List<WCharacter> VillagerTroops => GetActiveList([Villager]);
 
         /* ━━━━━━━ Rootless ━━━━━━━ */
@@ -307,6 +316,8 @@ namespace Retinues.Game
             // Caravan master is also elite
             if (CaravanMaster != null && CaravanMaster.IsActive)
                 _eliteIds.Add(CaravanMaster.StringId);
+            if (VeteranCaravanGuard?.IsActive == true)
+                _eliteIds.Add(VeteranCaravanGuard.StringId);
         }
 
         public bool IsRetinueId(string troopId)

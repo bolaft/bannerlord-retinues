@@ -110,10 +110,15 @@ namespace Retinues.Game.Wrappers
         public override WCharacter Villager => TryGet(Base.Villager);
         public override WCharacter CaravanMaster => TryGet(Base.CaravanMaster);
         public override WCharacter CaravanGuard => TryGet(Base.CaravanGuard);
+        public override WCharacter VeteranCaravanGuard =>
+            TryGet(Compatibility.CaravanTroopResolver.FindVeteran(Base));
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                       Troop Lists                      //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
+
+        public override List<WCharacter> ConvoyTroops =>
+            GetActiveList(Compatibility.ConvoyTroopResolver.Find(Base));
 
         public override List<WCharacter> ExtraRoots =>
             Helpers.ExtraTroopHelper.GetRoots(StringId);

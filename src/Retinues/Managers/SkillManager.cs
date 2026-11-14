@@ -22,6 +22,21 @@ namespace Retinues.Managers
         //                      Caps & Totals                     //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
 
+        internal static int BaseSkillCapByTier(int tier) => tier switch
+        {
+            0 => Config.SkillCapTier0,
+            1 => Config.SkillCapTier1,
+            2 => Config.SkillCapTier2,
+            3 => Config.SkillCapTier3,
+            4 => Config.SkillCapTier4,
+            5 => Config.SkillCapTier5,
+            6 => Config.SkillCapTier6,
+            7 => Config.SkillCapTier7Plus,
+            8 => Config.SkillCapTier8,
+            9 => Config.SkillCapTier9,
+            _ => Config.SkillCapTier10,
+        };
+
         /// <summary>
         /// Returns the skill cap for a troop.
         /// </summary>
@@ -33,17 +48,7 @@ namespace Retinues.Managers
             if (troop.IsHero)
                 return Config.SkillCapHeroes;
 
-            int cap = troop.Tier switch
-            {
-                0 => Config.SkillCapTier0,
-                1 => Config.SkillCapTier1,
-                2 => Config.SkillCapTier2,
-                3 => Config.SkillCapTier3,
-                4 => Config.SkillCapTier4,
-                5 => Config.SkillCapTier5,
-                6 => Config.SkillCapTier6,
-                _ => Config.SkillCapTier7Plus,
-            };
+            int cap = BaseSkillCapByTier(troop.Tier);
 
             if (troop.IsRetinue)
                 cap += Config.RetinueSkillCapBonus;

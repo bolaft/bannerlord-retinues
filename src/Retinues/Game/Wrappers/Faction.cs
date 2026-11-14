@@ -95,7 +95,7 @@ namespace Retinues.Game.Wrappers
         private WCharacter _retinueElite;
         public override WCharacter RetinueElite
         {
-            get => _retinueElite?.IsValid == true ? _retinueElite : null;
+            get => Safety.Uninstall.UninstallBehavior.IsPrepared ? null : (_retinueElite?.IsValid == true ? _retinueElite : null);
             set
             {
                 Replace(_retinueElite, value);
@@ -107,7 +107,7 @@ namespace Retinues.Game.Wrappers
         private WCharacter _retinueBasic;
         public override WCharacter RetinueBasic
         {
-            get => _retinueBasic?.IsValid == true ? _retinueBasic : null;
+            get => Safety.Uninstall.UninstallBehavior.IsPrepared ? null : (_retinueBasic?.IsValid == true ? _retinueBasic : null);
             set
             {
                 Replace(_retinueBasic, value);
@@ -121,7 +121,7 @@ namespace Retinues.Game.Wrappers
         private WCharacter _rootElite;
         public override WCharacter RootElite
         {
-            get => _rootElite?.IsValid == true ? _rootElite : null;
+            get => Safety.Uninstall.UninstallBehavior.IsPrepared ? null : (_rootElite?.IsValid == true ? _rootElite : null);
             set
             {
                 Replace(_rootElite, value);
@@ -133,7 +133,7 @@ namespace Retinues.Game.Wrappers
         private WCharacter _rootBasic;
         public override WCharacter RootBasic
         {
-            get => _rootBasic?.IsValid == true ? _rootBasic : null;
+            get => Safety.Uninstall.UninstallBehavior.IsPrepared ? null : (_rootBasic?.IsValid == true ? _rootBasic : null);
             set
             {
                 Replace(_rootBasic, value);
@@ -147,7 +147,7 @@ namespace Retinues.Game.Wrappers
         private WCharacter _militiaMelee;
         public override WCharacter MilitiaMelee
         {
-            get => _militiaMelee?.IsValid == true ? _militiaMelee : null;
+            get => Safety.Uninstall.UninstallBehavior.IsPrepared ? null : (_militiaMelee?.IsValid == true ? _militiaMelee : null);
             set
             {
                 Replace(_militiaMelee, value);
@@ -159,7 +159,7 @@ namespace Retinues.Game.Wrappers
         private WCharacter _militiaMeleeElite;
         public override WCharacter MilitiaMeleeElite
         {
-            get => _militiaMeleeElite?.IsValid == true ? _militiaMeleeElite : null;
+            get => Safety.Uninstall.UninstallBehavior.IsPrepared ? null : (_militiaMeleeElite?.IsValid == true ? _militiaMeleeElite : null);
             set
             {
                 Replace(_militiaMeleeElite, value);
@@ -171,7 +171,7 @@ namespace Retinues.Game.Wrappers
         private WCharacter _militiaRanged;
         public override WCharacter MilitiaRanged
         {
-            get => _militiaRanged?.IsValid == true ? _militiaRanged : null;
+            get => Safety.Uninstall.UninstallBehavior.IsPrepared ? null : (_militiaRanged?.IsValid == true ? _militiaRanged : null);
             set
             {
                 Replace(_militiaRanged, value);
@@ -183,7 +183,7 @@ namespace Retinues.Game.Wrappers
         private WCharacter _militiaRangedElite;
         public override WCharacter MilitiaRangedElite
         {
-            get => _militiaRangedElite?.IsValid == true ? _militiaRangedElite : null;
+            get => Safety.Uninstall.UninstallBehavior.IsPrepared ? null : (_militiaRangedElite?.IsValid == true ? _militiaRangedElite : null);
             set
             {
                 Replace(_militiaRangedElite, value);
@@ -195,7 +195,7 @@ namespace Retinues.Game.Wrappers
         private WCharacter _caravanGuard;
         public override WCharacter CaravanGuard
         {
-            get => _caravanGuard?.IsValid == true ? _caravanGuard : null;
+            get => Safety.Uninstall.UninstallBehavior.IsPrepared ? null : (_caravanGuard?.IsValid == true ? _caravanGuard : null);
             set
             {
                 Replace(_caravanGuard, value);
@@ -204,10 +204,22 @@ namespace Retinues.Game.Wrappers
             }
         }
 
+        private WCharacter _veteranCaravanGuard;
+        public override WCharacter VeteranCaravanGuard
+        {
+            get => Safety.Uninstall.UninstallBehavior.IsPrepared ? null : (_veteranCaravanGuard?.IsValid == true ? _veteranCaravanGuard : null);
+            set
+            {
+                Replace(_veteranCaravanGuard, value);
+                _veteranCaravanGuard = value;
+                InvalidateCategoryCache();
+            }
+        }
+
         private WCharacter _caravanMaster;
         public override WCharacter CaravanMaster
         {
-            get => _caravanMaster?.IsValid == true ? _caravanMaster : null;
+            get => Safety.Uninstall.UninstallBehavior.IsPrepared ? null : (_caravanMaster?.IsValid == true ? _caravanMaster : null);
             set
             {
                 Replace(_caravanMaster, value);
@@ -219,7 +231,7 @@ namespace Retinues.Game.Wrappers
         private WCharacter _villager;
         public override WCharacter Villager
         {
-            get => _villager?.IsValid == true ? _villager : null;
+            get => Safety.Uninstall.UninstallBehavior.IsPrepared ? null : (_villager?.IsValid == true ? _villager : null);
             set
             {
                 Replace(_villager, value);

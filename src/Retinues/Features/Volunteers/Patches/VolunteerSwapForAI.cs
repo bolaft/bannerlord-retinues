@@ -1,4 +1,5 @@
 using HarmonyLib;
+using Retinues.Compatibility;
 using Retinues.Configuration;
 using Retinues.Game;
 using Retinues.Game.Wrappers;
@@ -44,6 +45,9 @@ namespace Retinues.Features.Volunteers.Patches
             if (!wTroop.IsValid)
                 return;
 
+            var atcRole = ATCRecruitment.GetRole(troop, settlement, recruitmentSource, party);
+            if (atcRole == ATCRecruitRole.Ambiguous)
+                return;
             var wHero = new WHero(recruiter);
             bool isPlayerVassal = wHero.PlayerFaction != null;
 
@@ -125,7 +129,8 @@ namespace Retinues.Features.Volunteers.Patches
             // Authorized path: normalize to the custom tree
             // (works both in player fiefs AND "anywhere" for vassals).
 
-            var root = wTroop.IsElite ? customFaction.RootElite : customFaction.RootBasic;
+            bool elite = atcRole == ATCRecruitRole.Elite || atcRole == ATCRecruitRole.None && wTroop.IsElite;
+            var root = elite ? customFaction.RootElite : customFaction.RootBasic;
             if (root == null)
                 return;
 

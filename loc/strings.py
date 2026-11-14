@@ -10,6 +10,7 @@ import sys
 import re
 import json
 import argparse
+import xml.etree.ElementTree as ET
 
 from pathlib import Path
 
@@ -182,6 +183,11 @@ def write_locale_xml(locale_dir: Path, locale_code: str, json_list: list[dict]):
     """
     locale_dir.mkdir(parents=True, exist_ok=True)
     out_path = locale_dir / "ret_strings.xml"
+    # Bannerlord uses the language ID (e.g. Italiano), not the folder code (IT).
+    language_data = locale_dir / "language_data.xml"
+    language_id = locale_code
+    if language_data.exists():
+        language_id = ET.parse(language_data).getroot().get("id") or locale_code
     strings = [
         (d["id"], d.get(locale_code))
         for d in json_list
@@ -196,7 +202,7 @@ def write_locale_xml(locale_dir: Path, locale_code: str, json_list: list[dict]):
             '<base xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" type="string">\n'
         )
         f.write("  <tags>\n")
-        f.write(f'    <tag language="{xml_escape(locale_code)}" />\n')
+        f.write(f'    <tag language="{xml_escape(language_id)}" />\n')
         f.write("  </tags>\n")
         f.write("  <strings>\n")
         for sid, txt in strings:

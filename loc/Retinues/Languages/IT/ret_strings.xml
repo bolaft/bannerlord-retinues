@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <base xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" type="string">
   <tags>
-    <tag language="IT" />
+    <tag language="Italiano" />
   </tags>
   <strings>
     <string
@@ -21,82 +21,82 @@
       text="rimuovere" />
     <string
       id="ret_adaptive_training"
-      text="Addestramento Adattivo" />
+      text="Addestramento adattivo" />
     <string
       id="ret_adaptive_training_150_in_each_skill"
-      text="Per ogni abilità, possiedi almeno una truppa personalizzata con livello 150 o superiore." />
+      text="Per ciascuna abilità, disponi di almeno una truppa personalizzata con un punteggio di abilità pari o superiore a 150." />
     <string
       id="ret_adaptive_training_5_weapons"
-      text="In una singola battaglia, ottieni un’uccisione usando cinque diverse classi di armi." />
+      text="In una singola battaglia, ottieni almeno un&apos;uccisione con ciascuna di cinque diverse classi di armi." />
     <string
       id="ret_adaptive_training_description"
-      text="Consenti i rimborsi PE." />
+      text="Consenti il rimborso dei punti esperienza." />
     <string
       id="ret_adaptive_training_disabled_message_cost"
-      text="Disabilitato: nessun costo PE impostato dalla configurazione." />
+      text="Disattivato: nessun costo in esperienza impostato nella configurazione." />
     <string
       id="ret_adaptive_training_disabled_message_refund"
-      text="Disabilitato: i rimborsi PE sono già abilitati dalla configurazione." />
+      text="Disattivato: rimborso dell&apos;esperienza già abilitato nella configurazione." />
     <string
       id="ret_adaptive_training_win_with_even_split"
-      text="Vinci una battaglia contro oltre 100 nemici con un gruppo diviso equamente tra fanteria, cavalleria e truppe del clan a distanza." />
+      text="Vinci una battaglia contro più di 100 nemici con una compagnia divisa in parti uguali tra truppe del clan di fanteria, cavalleria e a distanza." />
     <string
       id="ret_add_upgrade"
-      text="Aggiungi Potenziamento" />
+      text="Aggiungi potenziamento" />
     <string
       id="ret_add_upgrade_button_text"
-      text="Aggiungi Potenziamento" />
+      text="Aggiungi potenziamento" />
     <string
       id="ret_age_hint"
       text="Età" />
     <string
       id="ret_ancestral_heritage"
-      text="Eredità Ancestrale" />
+      text="Eredità ancestrale" />
     <string
       id="ret_ancestral_heritage_150_outnumbered_own_culture"
-      text="Vinci una battaglia da 150+ nemici, in inferiorità numerica, usando solo truppe personalizzate della tua stessa cultura." />
+      text="Vinci una battaglia con almeno 150 combattenti in totale, in inferiorità numerica e schierando solo truppe personalizzate della tua cultura." />
     <string
       id="ret_ancestral_heritage_capture_own_culture_fief"
       text="Conquista un feudo della tua cultura da un regno nemico." />
     <string
       id="ret_ancestral_heritage_description"
-      text="Sblocca tutti gli oggetti della propria cultura." />
+      text="Sblocca tutti gli oggetti della tua cultura." />
     <string
       id="ret_ancestral_heritage_disabled_message_all_equipment"
-      text="Disabilitato: tutta l’attrezzatura già sbloccata dalla configurazione." />
+      text="Disattivato: tutto l&apos;equipaggiamento è già sbloccato nella configurazione." />
     <string
       id="ret_ancestral_heritage_disabled_message_culture_items"
-      text="Disabilitato: gli oggetti culturali già sbloccati dalla configurazione." />
+      text="Disattivato: gli oggetti della cultura sono già sbloccati nella configurazione." />
     <string
       id="ret_ancestral_heritage_tournament_own_culture_town"
       text="Vinci un torneo in una città della tua cultura." />
     <string
       id="ret_appearance_error_body"
-      text="Si è verificato un errore durante l’aggiornamento dell’aspetto di questa truppa. Il precedente aspetto è stato ripristinato. Consulta il registro per i dettagli." />
+      text="Si è verificato un errore durante l&apos;aggiornamento dell&apos;aspetto di questa truppa. L&apos;aspetto precedente è stato ripristinato. Consulta il log per maggiori dettagli." />
     <string
       id="ret_appearance_error_title"
-      text="Errore di Aspetto" />
+      text="Errore di aspetto" />
     <string
       id="ret_apply_conversions_button_text"
       text="Converti" />
     <string
       id="ret_armed_peasantry"
-      text="Contadini Armati" />
+      text="Contadini armati" />
     <string
       id="ret_armed_peasantry_description"
-      text="Sblocca le truppe di villaggio." />
+      text="Sblocca le truppe dei villaggi." />
     <string
       id="ret_armed_peasantry_disabled_message"
-      text="Disabilitato: le truppe speciali già sbloccate dalla configurazione." />
+      text="Disattivato: le truppe speciali sono già sbloccate nella configurazione." />
     <string
       id="ret_armed_peasantry_headman_quests"
-      text="Completa 3 missioni per il capo di uno dei tuoi villaggi." />
+      text="Completa 3 missioni per il capovillaggio di uno dei tuoi villaggi." />
     <string
       id="ret_armed_peasantry_landowner_quests"
       text="Completa 3 missioni per un proprietario terriero di uno dei tuoi villaggi." />
     <string
       id="ret_armed_peasantry_to_unlock"
-      text="Sblocca con la dottrina dei Contadini Armati." />
+      text="Sblocca con la dottrina &apos;Contadini armati&apos;." />
     <string
       id="ret_battle_record_battle_types"
       text="Tipi di battaglia:" />
@@ -111,7 +111,7 @@
       text="  • Nascondigli: {BATTLES}" />
     <string
       id="ret_battle_record_no_data"
-      text="Nessun dato di battaglia disponibile per questa truppa." />
+      text="Nessun dato di battaglia ancora disponibile per questa truppa." />
     <string
       id="ret_battle_record_other_line"
       text="  • Altro: {BATTLES}" />
@@ -120,10 +120,10 @@
       text="  • Assedi: {BATTLES}" />
     <string
       id="ret_battle_record_title"
-      text="Registro di Battaglia" />
+      text="Storico battaglie" />
     <string
       id="ret_battle_record_village_raid_line"
-      text="  • Raid ai villaggi: {BATTLES}" />
+      text="  • Saccheggi di villaggi: {BATTLES}" />
     <string
       id="ret_battlefield_tithes"
       text="Decime di Battaglia" />
@@ -132,58 +132,58 @@
       text="Sblocca oggetti dalle uccisioni degli alleati." />
     <string
       id="ret_battlefield_tithes_disabled_message_all_equipment"
-      text="Disabilitato: tutta l’attrezzatura già sbloccata dalla configurazione." />
+      text="Disattivato: tutto l&apos;equipaggiamento è già sbloccato nella configurazione." />
     <string
       id="ret_battlefield_tithes_disabled_message_unlocks_from_kills"
-      text="Disabilitato: gli sblocchi dalle uccisioni sono disabilitati dalla configurazione." />
+      text="Disattivato: sblocchi tramite uccisioni disattivati nella configurazione." />
     <string
       id="ret_battlefield_tithes_lead_army_victory"
-      text="Guida un esercito composto principalmente da alleati alla vittoria contro un esercito nemico." />
+      text="Guida un esercito composto prevalentemente da truppe alleate alla vittoria contro un esercito nemico." />
     <string
       id="ret_battlefield_tithes_quest_for_allied_lord"
-      text="Completa 5 missioni per signori alleati." />
+      text="Completa 5 missioni per i signori alleati." />
     <string
       id="ret_battlefield_tithes_turn_tide_allied_army_battle"
-      text="Ribalta le sorti di una battaglia che coinvolge un esercito alleato." />
+      text="Capovolgi le sorti di una battaglia che coinvolge un esercito alleato." />
     <string
       id="ret_body_slot_text"
       text="Corpo" />
     <string
       id="ret_bound_by_honor"
-      text="Vincolati dall’Onore" />
+      text="Vincoli d&apos;onore" />
     <string
       id="ret_bound_by_honor_defeat_10_bandits"
       text="Elimina 10 gruppi di banditi." />
     <string
       id="ret_bound_by_honor_description"
-      text="+20% morale del seguito." />
+      text="+20% al morale del seguito." />
     <string
       id="ret_bound_by_honor_protect_villagers_or_caravans"
-      text="Salva 3 carovane o gruppi di villani da attacchi nemici." />
+      text="Salva 3 carovane o gruppi di contadini dagli attacchi nemici." />
     <string
       id="ret_bound_by_honor_retinue_only_morale_90_for_15_days"
       text="Mantieni il morale di un gruppo composto solo dal seguito sopra 90 per 15 giorni." />
     <string
       id="ret_build_hint"
-      text="Struttura" />
+      text="Corporatura" />
     <string
       id="ret_buy_item"
-      text="Compra Oggetto" />
+      text="Acquista oggetto" />
     <string
       id="ret_buy_item_text"
-      text="Sei sicuro di voler comprare {NAME} per {COST} oro?" />
+      text="Sei sicuro di voler acquistare {NAME} per {COST} monete d&apos;oro?" />
     <string
       id="ret_cancel"
       text="Annulla" />
     <string
       id="ret_cannot_exceed_child_skill"
-      text="Non può superare il livello di abilità del potenziamento {CHILD}." />
+      text="Non è possibile superare il livello di abilità del miglioramento {CHILD}." />
     <string
       id="ret_cant_remove_root_troop"
-      text="Le truppe radice non possono essere rimosse." />
+      text="Le truppe base non possono essere rimosse." />
     <string
       id="ret_cant_remove_troop_with_targets"
-      text="Le truppe che hanno obiettivi di potenziamento non possono essere rimosse." />
+      text="Le truppe che hanno rami di miglioramento non possono essere rimosse." />
     <string
       id="ret_cape_slot_text"
       text="Mantello" />
@@ -201,34 +201,34 @@
       text="Capitano di {TROOP}." />
     <string
       id="ret_captain_text_2_disabled"
-      text="Disabilitato: non appariranno capitani per questa truppa." />
+      text="Disattivato: non apparirà alcun capitano per questa truppa." />
     <string
       id="ret_captain_text_2_enabled"
-      text="Abilitato: su quindici truppe, una sarà un capitano." />
+      text="Attivato: su quindici truppe, una sarà un capitano." />
     <string
       id="ret_captains"
       text="Capitani" />
     <string
       id="ret_captains_description"
-      text="Sblocca i Capitani." />
+      text="Sblocca i capitani." />
     <string
       id="ret_captains_earn_200_influence_in_a_day"
-      text="Guadagna 200 di influenza in un solo giorno." />
+      text="Ottieni 200 punti influenza in un singolo giorno." />
     <string
       id="ret_captains_have_4000_renown"
-      text="Possiedi 4.000 di fama." />
+      text="Raggiungi 4000 punti prestigio." />
     <string
       id="ret_captains_max_out_elite_basic"
-      text="Massimizza le abilità di una truppa d’élite T6 e di una truppa base T5." />
+      text="Porta al massimo le abilità di una truppa d&apos;élite T6 e di una truppa base T5." />
     <string
       id="ret_change_culture_title"
-      text="Cambia Cultura" />
+      text="Cambia cultura" />
     <string
       id="ret_change_formation_class_title"
       text="Cambia Classe di Formazione" />
     <string
       id="ret_change_race_title"
-      text="Cambia Razza" />
+      text="Cambia razza" />
     <string
       id="ret_civilian_set_disabled_hint"
       text="Seleziona questa casella per passare ai set civili." />
@@ -237,25 +237,25 @@
       text="Deseleziona questa casella per passare ai set da battaglia." />
     <string
       id="ret_clan_select"
-      text="Seleziona Clan" />
+      text="Seleziona clan" />
     <string
       id="ret_clan_traditions"
-      text="Tradizioni Claniche" />
+      text="Tradizioni del clan" />
     <string
       id="ret_clan_traditions_acquire_new_fief"
       text="Acquisisci un nuovo feudo per il tuo clan." />
     <string
       id="ret_clan_traditions_companions_50_kills"
-      text="Vinci una battaglia in cui tu e i tuoi compagni ottenete 50 o più uccisioni." />
+      text="Vinci una battaglia in cui tu e i tuoi compagni totalizzate 50 o più uccisioni." />
     <string
       id="ret_clan_traditions_description"
-      text="Le truppe possono equipaggiare oggetti creati." />
+      text="Le truppe possono equipaggiare armi forgiate." />
     <string
       id="ret_clan_traditions_own_smithy_30_days"
       text="Possiedi una fucina in una città della cultura del tuo clan per 30 giorni." />
     <string
       id="ret_clear_conversions_button_text"
-      text="Cancella" />
+      text="Azzera" />
     <string
       id="ret_close_doctrines_button_text"
       text="Indietro" />
@@ -270,25 +270,25 @@
       text="Questo sostituirà le definizioni delle truppe esistenti." />
     <string
       id="ret_confirm_import_title"
-      text="Applicare l’importazione?" />
+      text="Applicare l&apos;importazione?" />
     <string
       id="ret_continue"
       text="Continua" />
     <string
       id="ret_convert_not_enough_gold_text"
-      text="Non hai abbastanza oro per assumere questi seguiti." />
+      text="Non hai abbastanza oro per reclutare questi seguiti." />
     <string
       id="ret_convert_not_enough_gold_title"
       text="Oro insufficiente" />
     <string
       id="ret_convert_not_enough_influence_text"
-      text="Non hai abbastanza influenza per assumere questi seguiti." />
+      text="Non hai abbastanza influenza per reclutare questi seguiti." />
     <string
       id="ret_convert_not_enough_influence_title"
       text="Influenza insufficiente" />
     <string
       id="ret_copy_current"
-      text="Copia Attuale" />
+      text="Copia configurazione attuale" />
     <string
       id="ret_copy_equipment_disabled"
       text="Nessun set di equipaggiamento selezionato." />
@@ -297,79 +297,79 @@
       text="Copia questo set di equipaggiamento negli appunti." />
     <string
       id="ret_create_from_culture"
-      text="Copia le truppe di {CULTURE}" />
+      text="Copia truppe della cultura {CULTURE}" />
     <string
       id="ret_create_from_scratch"
       text="Inizia da Zero" />
     <string
       id="ret_create_set_hero_hint"
-      text="Non è possibile creare set di equipaggiamento per gli eroi." />
+      text="Impossibile creare set di equipaggiamento per gli eroi." />
     <string
       id="ret_create_set_hint"
-      text="Disabilitato a causa di mod in conflitto (Shokuho)." />
+      text="Disattivato a causa di mod incompatibili (Shokuho)." />
     <string
       id="ret_create_set_text"
       text="Vuoi copiare il set attuale o creare un set vuoto?" />
     <string
       id="ret_create_set_title"
-      text="Crea Set di Equipaggiamento" />
+      text="Crea set di equipaggiamento" />
     <string
       id="ret_cultural_pride"
-      text="Orgoglio Culturale" />
+      text="Fierezza culturale" />
     <string
       id="ret_cultural_pride_defeat_foreign_ruler"
-      text="Sconfiggi in battaglia un sovrano di una cultura diversa." />
+      text="Sconfiggi un sovrano di una cultura diversa in battaglia." />
     <string
       id="ret_cultural_pride_description"
-      text="Sconto del 20% sull’equipaggiamento della cultura del clan." />
+      text="Sconto del 20% sull&apos;equipaggiamento della cultura del clan." />
     <string
       id="ret_cultural_pride_disabled_message"
-      text="Disabilitato: i costi dell’equipaggiamento sono disabilitati nella configurazione." />
+      text="Disattivato: i costi dell&apos;equipaggiamento sono disattivati nelle impostazioni." />
     <string
       id="ret_cultural_pride_full_set_100_kills"
-      text="Ottieni 100 uccisioni in battaglia con truppe senza equipaggiamento straniero." />
+      text="Ottieni 100 uccisioni in battaglia con truppe che non indossano equipaggiamento straniero." />
     <string
       id="ret_cultural_pride_tournament_own_culture_gear"
       text="Vinci un torneo indossando solo armature della tua cultura." />
     <string
       id="ret_culture_and_race_header_text"
-      text="Cultura e Razza" />
+      text="Cultura e razza" />
     <string
       id="ret_culture_header_text"
       text="Cultura" />
     <string
       id="ret_current"
-      text="attuale" />
+      text="Attuale" />
     <string
       id="ret_custom_troops_inquiry_body"
-      text="Le truppe personalizzate della tua {FACTION} sono ora sbloccate.{newline}{newline}Vuoi clonare l’intero albero delle truppe di {CULTURE}, o preferisci costruirle da zero?{newline}{newline}Copiare le truppe della tua cultura ti fornirà un buon equipaggiamento e buone truppe. Iniziare da zero è la scelta più difficile.{newline}{newline}Questa decisione è irreversibile." />
+      text="Le truppe personalizzate della fazione {FACTION} sono ora sbloccate.{newline}{newline}Vuoi clonare l&apos;intero albero delle truppe della cultura {CULTURE} o preferisci crearle da zero?{newline}{newline}Copiare le truppe della tua cultura ti fornirà un buon equipaggiamento e buone truppe. Iniziare da zero è la scelta più difficile.{newline}{newline}Questa decisione è irreversibile." />
     <string
       id="ret_custom_troops_inquiry_title"
-      text="Truppe Personalizzate Sbloccate" />
+      text="Truppe personalizzate sbloccate" />
     <string
       id="ret_disable_captain_button_text"
-      text="Disabilita Capitano" />
+      text="Disattiva capitano" />
     <string
       id="ret_disable_captain_mode_tooltip_text"
-      text="Disabilita la Modalità Capitano per questa truppa." />
+      text="Disattiva la modalità Capitano per questa truppa." />
     <string
       id="ret_disable_mariner_resets_skill"
-      text="Disabilitare il tratto Marinaio reimposterà l&apos;abilità Marinaio di questa truppa a 0. Continuare?" />
+      text="Disattivare il tratto Marinaio azzererà l&apos;abilità Marinaio di questa truppa. Continuare?" />
     <string
       id="ret_disabled_in_hero_editor"
-      text="Gli eroi sono legati allo stato salvato del mondo." />
+      text="Gli eroi sono legati allo stato di salvataggio della campagna in corso." />
     <string
       id="ret_docs_body"
-      text="Questo aprirà la documentazione dei Seguaci nel tuo browser web predefinito.{newline}{newline}Continuare?" />
+      text="Questa azione aprirà la documentazione di Retinues nel tuo browser web predefinito.{newline}{newline}Continuare?" />
     <string
       id="ret_docs_title"
-      text="Apri Documentazione" />
+      text="Apri la documentazione" />
     <string
       id="ret_doctrine_costs_gold"
-      text="{GOLD} Oro" />
+      text="{GOLD} oro" />
     <string
       id="ret_doctrine_costs_influence"
-      text="{INFLUENCE} Influenza" />
+      text="{INFLUENCE} influenza" />
     <string
       id="ret_doctrine_costs_label"
       text="Costo:" />
@@ -393,13 +393,13 @@
       text="Addestramento" />
     <string
       id="ret_doctrines_col_4"
-      text="Seguaci" />
+      text="Seguito" />
     <string
       id="ret_editor_help_text"
-      text="Aiuto" />
+      text="Guida" />
     <string
       id="ret_editor_help_tooltip_text"
-      text="Apri la documentazione online dei Seguiti." />
+      text="Apri la documentazione online di Retinues." />
     <string
       id="ret_empty_item"
       text="Vuoto" />
@@ -408,13 +408,13 @@
       text="Vuoto" />
     <string
       id="ret_enable_captain_button_text"
-      text="Abilita Capitano" />
+      text="Abilita capitano" />
     <string
       id="ret_enable_captain_mode_tooltip_text"
-      text="Abilita la Modalità Capitano per questa truppa." />
+      text="Abilita la modalità capitano per questa truppa." />
     <string
       id="ret_encyclopedia_retinues_link_hint"
-      text="Apri nell’editor globale." />
+      text="Apri nell&apos;editor globale." />
     <string
       id="ret_enter_file_name"
       text="Inserisci un nome file:" />
@@ -429,10 +429,10 @@
       text="Inserisci il nome della nuova truppa:" />
     <string
       id="ret_equip_change_tooltip_body"
-      text="Questa è una modifica dell’oggetto in sospeso.{newline}{newline}Per applicare la modifica, seleziona &apos;Equipaggia truppe&apos; dal menu della città di un feudo." />
+      text="Questa è una modifica all&apos;equipaggiamento in sospeso.{newline}{newline}Per applicarla, seleziona &apos;Equipaggia truppe&apos; dal menu della città di un feudo." />
     <string
       id="ret_equip_complete"
-      text="Equipaggiamento Aggiornato" />
+      text="Equipaggiamento aggiornato" />
     <string
       id="ret_equip_complete_summary"
       text="Le seguenti truppe hanno equipaggiato nuovi oggetti:{newline}{newline}{SUMMARY}" />
@@ -441,7 +441,7 @@
       text="{TROOP}: {SKILLS}" />
     <string
       id="ret_equip_complete_text"
-      text="{TROOP} ha equipaggiato ({ITEM})." />
+      text="{TROOP} ha equipaggiato {ITEM}." />
     <string
       id="ret_equipment_button_text"
       text="Equipaggiamento" />
@@ -450,31 +450,31 @@
       text="Set di equipaggiamento copiato negli appunti." />
     <string
       id="ret_equipment_requirement"
-      text="È necessaria una competenza per gli oggetti equipaggiati." />
+      text="Requisito di abilità necessario per gli oggetti equipaggiati." />
     <string
       id="ret_exp_culture_troops"
-      text="Truppe della Cultura" />
+      text="Truppe della cultura" />
     <string
       id="ret_exp_player_troops"
-      text="Truppe del Giocatore" />
+      text="Truppe del giocatore" />
     <string
       id="ret_export_done_body"
       text="Esportato in: {PATH}." />
     <string
       id="ret_export_done_title"
-      text="Esportazione Completata" />
+      text="Esportazione completata" />
     <string
       id="ret_export_fail_title"
-      text="Esportazione Fallita" />
+      text="Esportazione fallita" />
     <string
       id="ret_export_which_body"
       text="Seleziona uno o entrambi." />
     <string
       id="ret_export_which_title"
-      text="Esporta Selezione" />
+      text="Selezione esportazione" />
     <string
       id="ret_feat_completed_title"
-      text="Impresa Completata" />
+      text="Impresa completata" />
     <string
       id="ret_feats_no_reqs"
       text="Nessun requisito." />
@@ -486,28 +486,28 @@
       text="Femminile" />
     <string
       id="ret_formation_auto"
-      text="Auto" />
+      text="Automatico" />
     <string
       id="ret_formation_class_header_text"
-      text="Classe di Formazione" />
+      text="Classe di formazione" />
     <string
       id="ret_formation_class_hint"
-      text="Cambia Classe di Formazione" />
+      text="Modifica classe di formazione" />
     <string
       id="ret_gender_hint"
       text="Genere" />
     <string
       id="ret_gender_override_hint"
-      text="Se abilitato, le truppe che spawnano con questo set di equipaggiamento saranno del genere opposto." />
+      text="Se abilitato, le truppe generate con questo set di equipaggiamento saranno del genere opposto." />
     <string
       id="ret_gender_toggle_hint"
-      text="Cambia Genere" />
+      text="Inverti genere" />
     <string
       id="ret_global_editor_link_text"
-      text="Editor Globale" />
+      text="Editor globale" />
     <string
       id="ret_global_editor_tooltip_text"
-      text="Apri l’editor globale per tutte le fazioni." />
+      text="Apri l&apos;editor globale per tutte le fazioni." />
     <string
       id="ret_gloves_slot_text"
       text="Guanti" />
@@ -522,34 +522,34 @@
       text="Aspetto" />
     <string
       id="ret_hero_appearance_hint"
-      text="Apri l’editor di aspetto completo per questo eroe." />
+      text="Apri l&apos;editor completo dell&apos;aspetto per questo eroe." />
     <string
       id="ret_hero_no_upgrade"
       text="Gli eroi non possono essere potenziati." />
     <string
       id="ret_hide_crafted_hint"
-      text="Nascondi gli oggetti creati." />
+      text="Nascondi oggetti forgiati." />
     <string
       id="ret_hint_assault_ok"
-      text="Abilita per l’assalto di assedio." />
+      text="Abilita per l&apos;assalto d&apos;assedio." />
     <string
       id="ret_hint_def_ok"
-      text="Abilita per la difesa di assedio." />
+      text="Abilita per la difesa d&apos;assedio." />
     <string
       id="ret_hint_field_ok"
       text="Abilita per le battaglie campali." />
     <string
       id="ret_hint_last_enabled"
-      text="Almeno un set di battaglia deve rimanere abilitato per ogni tipo di battaglia." />
+      text="Almeno un set da battaglia deve rimanere abilitato per ciascun tipo di battaglia." />
     <string
       id="ret_hint_naval_ok"
       text="Abilita per le battaglie navali." />
     <string
       id="ret_hint_set_disabled"
-      text="Impossibile abilitare per set civili." />
+      text="Impossibile abilitare per i set civili." />
     <string
       id="ret_hint_siege_ok"
-      text="Abilita per le battaglie di assedio." />
+      text="Abilita per le battaglie d&apos;assedio." />
     <string
       id="ret_horse_harness_slot_text"
       text="Bardatura" />
@@ -561,31 +561,31 @@
       text="Immortali" />
     <string
       id="ret_immortals_100_retinue_survive_struck_down"
-      text="Fai sopravvivere 100 truppe del seguito dopo essere state abbattute in battaglia." />
+      text="Fai in modo che 100 truppe del seguito sopravvivano all&apos;essere state abbattute in battaglia." />
     <string
       id="ret_immortals_description"
-      text="+20% probabilità di sopravvivenza del seguito." />
+      text="+20% di probabilità di sopravvivenza del seguito." />
     <string
       id="ret_immortals_retinue_200_enemies"
-      text="Fai sconfiggere 200 nemici al tuo seguito in una sola battaglia." />
+      text="Fai in modo che il tuo seguito sconfigga 200 nemici in una singola battaglia." />
     <string
       id="ret_immortals_win_100_no_deaths"
-      text="Vinci da solo contro 100+ nemici senza alcuna perdita dalla tua parte." />
+      text="Vinci contro almeno 100 nemici senza aiuti da gruppi alleati e senza subire morti tra le tue truppe." />
     <string
       id="ret_imp_culture_troops"
-      text="Truppe della Cultura" />
+      text="Truppe della cultura" />
     <string
       id="ret_imp_player_troops"
-      text="Truppe del Giocatore" />
+      text="Truppe del giocatore" />
     <string
       id="ret_import"
       text="Importa" />
     <string
       id="ret_import_culture_mismatch_body"
-      text="Alcuni alberi delle truppe culturali in questa campagna sono stati modificati dopo la creazione di questa esportazione.{newline}{newline}Per ripristinare lo stato del mondo com’era quando questo file è stato esportato, usa prima &apos;Reimposta tutto&apos; nell’editor globale, riavvia il gioco, quindi importa di nuovo." />
+      text="Alcuni alberi delle truppe delle culture in questa campagna sono stati modificati dopo la creazione di questa esportazione.{newline}{newline}Per ripristinare lo stato del mondo com&apos;era al momento dell&apos;esportazione di questo file, usa prima &apos;Ripristina tutti i dati delle truppe&apos; nell&apos;editor globale, riavvia il gioco, quindi importa di nuovo." />
     <string
       id="ret_import_culture_mismatch_title"
-      text="Reimpostazione Richiesta Prima dell’Importazione" />
+      text="Ripristino richiesto prima dell&apos;importazione" />
     <string
       id="ret_import_done_body"
       text="File {FILE} importato con successo." />
@@ -594,43 +594,43 @@
       text="Importazione Completata" />
     <string
       id="ret_import_empty_body"
-      text="Il file non contiene truppe." />
+      text="Il file non contiene alcuna truppa." />
     <string
       id="ret_import_empty_title"
-      text="Niente da Importare" />
+      text="Niente da importare" />
     <string
       id="ret_import_fail_title"
-      text="Importazione Fallita" />
+      text="Importazione fallita" />
     <string
       id="ret_import_pick_body"
       text="Seleziona un file esportato da importare." />
     <string
       id="ret_import_pick_title"
-      text="Importa Truppe" />
+      text="Importa truppe" />
     <string
       id="ret_import_which_body"
       text="Seleziona uno o entrambi." />
     <string
       id="ret_import_which_title"
-      text="Importa Selezione" />
+      text="Selezione di importazione" />
     <string
       id="ret_in_stock"
-      text="In Magazzino ({STOCK})" />
+      text="Disponibile ({STOCK})" />
     <string
       id="ret_increase_troop_tier"
-      text="Aumentare il rango di {TROOP_NAME}?{newline}{newline}{text}" />
+      text="Aumentare il grado di {TROOP_NAME}?{newline}{newline}{text}" />
     <string
       id="ret_indomitable"
-      text="Indomito" />
+      text="Indomabili" />
     <string
       id="ret_indomitable_25_equiv_no_casualty"
-      text="Fai sconfiggere 25 truppe nemiche di rango equivalente dal tuo seguito senza alcuna perdita." />
+      text="Fai sconfiggere dal tuo seguito 25 truppe nemiche di grado equivalente senza subire alcuna perdita." />
     <string
       id="ret_indomitable_description"
-      text="+5 PV al seguito." />
+      text="+5 PS al seguito." />
     <string
       id="ret_indomitable_join_siege_defender_full_strength"
-      text="Combatti e vinci una battaglia d’assedio come difensore con almeno 20 truppe del seguito." />
+      text="Combatti una battaglia d&apos;assedio come difensore con almeno 20 truppe del seguito e vinci." />
     <string
       id="ret_indomitable_win_3_defensive_battles"
       text="Vinci 3 battaglie difensive di fila con un gruppo composto solo dal seguito." />
@@ -639,34 +639,34 @@
       text="Argomenti non validi." />
     <string
       id="ret_iron_discipline"
-      text="Disciplina di Ferro" />
+      text="Disciplina di ferro" />
     <string
       id="ret_iron_discipline_defeat_twice_size_only_custom"
-      text="Sconfiggi un gruppo grande il doppio usando solo truppe personalizzate." />
+      text="Sconfiggi un gruppo grande il doppio del tuo usando solo truppe personalizzate." />
     <string
       id="ret_iron_discipline_description"
       text="+5 ai limiti delle abilità." />
     <string
       id="ret_iron_discipline_lead_army_10_days"
-      text="Guida un esercito per 10 giorni consecutivi." />
+      text="Guida un esercito per 10 giorni di fila." />
     <string
       id="ret_iron_discipline_upgrade_100_basic_to_max"
-      text="Potenziamento massimo per 100 truppe personalizzate di base." />
+      text="Migliora 100 truppe personalizzate di base fino al grado massimo." />
     <string
       id="ret_ironclad"
-      text="Corazzato" />
+      text="Infrangibili" />
     <string
       id="ret_ironclad_100_battle_outnumbered_low_tier"
-      text="Vinci una battaglia 100+, in inferiorità numerica, usando solo truppe personalizzate di livello 1, 2 o 3." />
+      text="Vinci una battaglia con almeno 100 combattenti in totale, in inferiorità numerica e schierando solo truppe personalizzate di grado 1, 2 o 3." />
     <string
       id="ret_ironclad_12_troops_athletics_90"
       text="Fai raggiungere 90 in Atletica a 12 truppe personalizzate." />
     <string
       id="ret_ironclad_description"
-      text="Nessuna restrizione di livello per armi e armature." />
+      text="Nessuna restrizione di grado per armi e armature." />
     <string
       id="ret_ironclad_full_set_t6_100_kills"
-      text="Ottieni 100 uccisioni in battaglia con truppe che indossano armatura e elmo di livello 6." />
+      text="Ottieni 100 uccisioni in battaglia con truppe che indossano un&apos;armatura e un elmo di grado 6." />
     <string
       id="ret_item_equipment_type_blocked_text"
       text="Non civile" />
@@ -675,25 +675,25 @@
       text="Filtro:" />
     <string
       id="ret_item_tier_blocked_text"
-      text="Livello troppo alto" />
+      text="Grado troppo alto" />
     <string
       id="ret_item_unavailable_no_settlement"
       text="Non in città" />
     <string
       id="ret_item_unavailable_text"
-      text="Non venduto a {SETTLEMENT}" />
+      text="Non in vendita a {SETTLEMENT}" />
     <string
       id="ret_items_unlocked_log"
       text="Nuovo equipaggiamento sbloccato: {ITEMS}." />
     <string
       id="ret_items_unlocked_log_more"
-      text="Nuovo equipaggiamento sbloccato: {ITEMS}, e altri {MORE} oggetti." />
+      text="Nuovo equipaggiamento sbloccato: {ITEMS} e altri {MORE} oggetti." />
     <string
       id="ret_items_unlocked_more_popup"
       text="... e altri {MORE} oggetti." />
     <string
       id="ret_items_unlocked_title"
-      text="Nuovo Equipaggiamento Sbloccato" />
+      text="Nuovo equipaggiamento sbloccato" />
     <string
       id="ret_king_guard"
       text="Guardia del Re" />
@@ -702,22 +702,22 @@
       text="Gambe" />
     <string
       id="ret_lions_share"
-      text="Quota del Leone" />
+      text="La parte del leone" />
     <string
       id="ret_lions_share_25_personal_kills"
-      text="Sconfiggi personalmente 25 nemici in una battaglia." />
+      text="Sconfiggi personalmente 25 nemici in una singola battaglia." />
     <string
       id="ret_lions_share_5_tier_5_plus"
-      text="Sconfiggi personalmente 5 truppe di livello 5+ in una battaglia." />
+      text="Sconfiggi personalmente 5 truppe di grado 5 o superiore in una singola battaglia." />
     <string
       id="ret_lions_share_description"
-      text="Le uccisioni dell’eroe valgono doppio per gli sblocchi." />
+      text="Le uccisioni compiute personalmente dal giocatore valgono doppio per gli sblocchi." />
     <string
       id="ret_lions_share_disabled_message_all_equipment"
-      text="Disabilitato: tutto l’equipaggiamento è già sbloccato dalla configurazione." />
+      text="Disabilitato: tutto l&apos;equipaggiamento è già sbloccato nella configurazione." />
     <string
       id="ret_lions_share_disabled_message_unlocks_from_kills"
-      text="Disabilitato: gli sblocchi dalle uccisioni sono disabilitati dalla configurazione." />
+      text="Disabilitato: gli sblocchi tramite uccisioni sono disabilitati nella configurazione." />
     <string
       id="ret_lions_share_kill_enemy_lord"
       text="Sconfiggi personalmente un signore nemico in battaglia." />
@@ -735,7 +735,7 @@
       text="Élite" />
     <string
       id="ret_list_toggle_extra"
-      text="Altri" />
+      text="Altro" />
     <string
       id="ret_list_toggle_hero"
       text="Eroi" />
@@ -750,13 +750,13 @@
       text="Regolari" />
     <string
       id="ret_list_toggle_villager"
-      text="Paesani" />
+      text="Popolani" />
     <string
       id="ret_loc_smoke_test"
       text="Test di localizzazione: IT." />
     <string
       id="ret_lower_skill_no_refund"
-      text="Abbassare l’abilità di questa truppa non rimborserà punti esperienza. Continuare comunque?" />
+      text="Ridurre questa abilità della truppa non restituirà i punti esperienza spesi. Continuare comunque?" />
     <string
       id="ret_male"
       text="Maschile" />
@@ -765,31 +765,31 @@
       text="Marinaio" />
     <string
       id="ret_mariner_toggle_hint"
-      text="Le truppe marine sono più adatte al combattimento navale, ma guadagnano XP a un tasso leggermente ridotto." />
+      text="Le truppe marittime sono più adatte al combattimento navale, ma guadagnano PE a un ritmo leggermente ridotto." />
     <string
       id="ret_mariner_toggle_studio_hint"
-      text="Le truppe marine sono più adatte al combattimento navale." />
+      text="Le truppe marittime sono più adatte al combattimento navale." />
     <string
       id="ret_masters_at_arms"
-      text="Maestri d’Armi" />
+      text="Maestri d&apos;Armi" />
     <string
       id="ret_masters_at_arms_1000_elite_kills"
-      text="Ottieni 1000 uccisioni con truppe d’élite." />
+      text="Ottieni 1000 uccisioni con truppe d&apos;élite." />
     <string
       id="ret_masters_at_arms_description"
-      text="+1 ramo di potenziamento per le truppe d’élite." />
+      text="+1 ramo di potenziamento per le truppe d&apos;élite." />
     <string
       id="ret_masters_at_arms_disabled_message"
-      text="Disabilitato: i potenziamenti d’élite sono già al massimo nella configurazione." />
+      text="Disabilitato: potenziamenti d&apos;élite già al massimo nella configurazione." />
     <string
       id="ret_masters_at_arms_ko_50_opponents"
       text="Metti K.O. 50 avversari nell’arena." />
     <string
       id="ret_masters_at_arms_upgrade_100_elite_to_max"
-      text="Porta 100 truppe d’élite al rango massimo." />
+      text="Potenzia 100 truppe d&apos;élite al grado massimo." />
     <string
       id="ret_max_tier"
-      text="La truppa è al livello massimo." />
+      text="La truppa è al grado massimo." />
     <string
       id="ret_max_upgrades_reached"
       text="La truppa ha raggiunto il numero massimo di potenziamenti." />
@@ -801,7 +801,7 @@
       text="Rimuovere tutti i dati delle truppe personalizzate?" />
     <string
       id="ret_mcm_debug_remove_all_hint"
-      text="Purgerà il salvataggio corrente di tutti i dati delle truppe personalizzate di Retinues in modo che la mod possa essere disinstallata in sicurezza. Avviso: questa azione è irreversibile." />
+      text="Rimuoverà tutti i dati delle truppe personalizzate di Retinues dal salvataggio corrente per consentire la disinstallazione sicura della mod. Attenzione: questa azione è irreversibile." />
     <string
       id="ret_mcm_debug_remove_all_title"
       text="Pulisci Dati delle Truppe Personalizzate" />
@@ -810,7 +810,7 @@
       text="Esporta" />
     <string
       id="ret_mcm_ie_export_btn_hint"
-      text="Esporta le definizioni delle truppe in XML." />
+      text="Esporta le definizioni delle truppe in formato XML." />
     <string
       id="ret_mcm_ie_export_btn_text"
       text="Esporta truppe in XML" />
@@ -825,403 +825,412 @@
       text="Importa truppe da XML" />
     <string
       id="ret_mcm_option_additional_formation_overrides"
-      text="Sostituzioni di Formazione Aggiuntive" />
+      text="Classi di formazione aggiuntive" />
     <string
       id="ret_mcm_option_additional_formation_overrides_hint"
-      text="Aggiunge classi di formazione speciali (schermitore, guardia del corpo, ecc.) all’elenco delle sostituzioni di formazione selezionabili. Richiede che &apos;Consenti Sostituzioni di Formazione&apos; sia abilitato per avere effetto." />
+      text="Aggiunge classi di formazione speciali (schermagliatori, guardie del corpo, ecc.) all&apos;elenco delle formazioni selezionabili. Richiede l&apos;attivazione di &apos;Consenti modifiche alla formazione&apos; per avere effetto." />
     <string
       id="ret_mcm_option_all_culture_equipment_unlocked"
-      text="Tutto l’Equipaggiamento Culturale Sbloccato" />
+      text="Tutti gli equipaggiamenti culturali sbloccati" />
     <string
       id="ret_mcm_option_all_culture_equipment_unlocked_hint"
-      text="Gli oggetti culturali del clan e del regno del giocatore sono sempre disponibili." />
+      text="Gli oggetti della cultura del clan del giocatore e del regno sono sempre disponibili." />
     <string
       id="ret_mcm_option_all_equipment_unlocked"
-      text="Tutto l’Equipaggiamento Sbloccato" />
+      text="Tutti gli equipaggiamenti sbloccati" />
     <string
       id="ret_mcm_option_all_equipment_unlocked_hint"
-      text="Tutto l’equipaggiamento è sbloccato all’avvio del gioco." />
+      text="Tutti gli oggetti sono sempre disponibili." />
     <string
       id="ret_mcm_option_all_lords_recruit_custom_troops"
-      text="Tutti i Signori Reclutano Truppe Personalizzate" />
+      text="Tutti i signori reclutano truppe personalizzate" />
     <string
       id="ret_mcm_option_all_lords_recruit_custom_troops_hint"
       text="Qualsiasi signore può reclutare truppe personalizzate nei feudi del giocatore." />
     <string
       id="ret_mcm_option_allow_formation_overrides"
-      text="Consenti Sostituzioni di Formazione" />
+      text="Consenti modifiche alla formazione" />
     <string
       id="ret_mcm_option_allow_formation_overrides_hint"
-      text="Consenti la sovrascrittura manuale della classe di formazione delle truppe. Se abilitato, potrebbe causare un comportamento imbarazzante dell’IA e rallentare lo schermo di formazione pre-battaglia." />
+      text="Consenti la sovrascrittura manuale della classe di formazione delle truppe. Se abilitata, potrebbe causare comportamenti anomali dell&apos;IA e rallentare la schermata di formazione pre-battaglia." />
     <string
       id="ret_mcm_option_allowed_tier_difference"
-      text="Differenza di Livello Consentita" />
+      text="Differenza di grado consentita" />
     <string
       id="ret_mcm_option_allowed_tier_difference_hint"
-      text="Differenza massima di livello consentita tra truppe ed equipaggiamento." />
+      text="Differenza massima consentita tra il grado della truppa e il grado dell&apos;oggetto." />
     <string
       id="ret_mcm_option_cannot_raise_skill_above_upgrade_level"
-      text="Impossibile aumentare l’abilità oltre il livello dell’aggiornamento" />
+      text="Impossibile aumentare l&apos;abilità oltre il livello di potenziamento" />
     <string
       id="ret_mcm_option_cannot_raise_skill_above_upgrade_level_hint"
-      text="Le abilità delle truppe non possono essere aumentate oltre il livello di abilità di un obiettivo di aggiornamento." />
+      text="Le abilità di una truppa non possono superare quelle delle truppe in cui può essere potenziata." />
     <string
       id="ret_mcm_option_clan_volunteers_in_kingdom_fiefs_proportion"
-      text="Proporzione di Volontari del Clan nei Feudi del Regno" />
+      text="Proporzione reclute del clan nei feudi del regno" />
     <string
       id="ret_mcm_option_clan_volunteers_in_kingdom_fiefs_proportion_hint"
-      text="Probabilità che ogni volontario nei feudi del regno del giocatore sia una truppa del clan (0 = mai, 1 = sempre). Imposta un valore più alto se vuoi mescolare le truppe del clan con le truppe del regno." />
+      text="Probabilità che ciascuna recluta nei feudi del regno del giocatore sia una truppa del clan (0 = mai, 1 = sempre). Imposta un valore più alto se desideri mescolare le truppe del clan con quelle del regno." />
     <string
       id="ret_mcm_option_copy_all_sets_on_unlock"
-      text="Copia Tutti i Set al Sblocco" />
+      text="Copia tutti i set allo sblocco" />
     <string
       id="ret_mcm_option_copy_all_sets_on_unlock_hint"
-      text="Quando si sblocca una nuova truppa, copia tutti i set di equipaggiamento dalla truppa originale invece dei soli set da battaglia principali e civili." />
+      text="Quando si sblocca una nuova truppa, copia tutti i set di equipaggiamento dalla truppa originale, invece di copiare solo il set da battaglia principale e quello civile." />
     <string
       id="ret_mcm_option_custom_volunteer_proportion"
-      text="Proporzione di Volontari Personalizzati" />
+      text="Proporzione reclute personalizzate" />
     <string
       id="ret_mcm_option_custom_volunteer_proportion_hint"
-      text="Probabilità che ogni volontario vanilla venga sostituito da una truppa personalizzata (0 = mai, 1 = sempre)." />
+      text="Probabilità che ciascuna recluta base venga sostituita da una truppa personalizzata (0 = mai, 1 = sempre). Imposta un valore più basso se desideri mantenere alcune reclute base nei tuoi insediamenti." />
     <string
       id="ret_mcm_option_debug_mode"
-      text="Modalità Debug" />
+      text="Modalità debug" />
     <string
       id="ret_mcm_option_debug_mode_hint"
-      text="Genera molti più log (può influire sulle prestazioni)." />
+      text="Mostra i log di debug in gioco." />
     <string
       id="ret_mcm_option_disable_kingdom_troops"
-      text="Disabilita le Truppe del Regno" />
+      text="Disabilita truppe del regno" />
     <string
       id="ret_mcm_option_disable_kingdom_troops_hint"
-      text="L’albero delle truppe personalizzate del regno sarà disabilitato e verranno utilizzate le truppe del clan." />
+      text="L&apos;albero delle truppe personalizzato del regno verrà disabilitato e verranno utilizzate invece le truppe del clan." />
     <string
       id="ret_mcm_option_disallow_mounts_for_t1_troops"
-      text="Vietare le cavalcature per le truppe di livello 1" />
+      text="Disabilita cavalcature per le truppe di grado 1" />
     <string
       id="ret_mcm_option_disallow_mounts_for_t1_troops_hint"
-      text="Le truppe di livello 1 non possono avere cavalcature." />
+      text="Le truppe di grado 1 non possono avere cavalcature." />
     <string
       id="ret_mcm_option_doctrine_gold_cost_multiplier"
-      text="Moltiplicatore del Costo in Oro delle Dottrine" />
+      text="Moltiplicatore costo in oro delle dottrine" />
     <string
       id="ret_mcm_option_doctrine_gold_cost_multiplier_hint"
       text="Moltiplicatore per i costi in oro delle dottrine." />
     <string
       id="ret_mcm_option_doctrine_influence_cost_multiplier"
-      text="Moltiplicatore del Costo in Influenza delle Dottrine" />
+      text="Moltiplicatore costo in influenza delle dottrine" />
     <string
       id="ret_mcm_option_doctrine_influence_cost_multiplier_hint"
       text="Moltiplicatore per i costi in influenza delle dottrine." />
     <string
       id="ret_mcm_option_enable_doctrines"
-      text="Abilita Dottrine" />
+      text="Abilita dottrine" />
     <string
       id="ret_mcm_option_enable_doctrines_hint"
-      text="Abilita il sistema delle dottrine e le sue funzionalità (avviso: salvare con le dottrine disabilitate cancellerà tutti i dati delle dottrine)." />
+      text="Abilita il sistema delle dottrine e i relativi bonus. Attenzione: salvando con le dottrine disabilitate verranno cancellati tutti i dati delle dottrine nel salvataggio." />
     <string
       id="ret_mcm_option_enable_editor_hotkey"
-      text="Abilita Scorciatoia Editor (Shift + R)" />
+      text="Abilita scorciatoia da tastiera dell&apos;editor (Maiusc + R)" />
     <string
       id="ret_mcm_option_enable_editor_hotkey_hint"
-      text="Abilita la scorciatoia per aprire l’editor di scorta dalla mappa della campagna." />
+      text="Abilita la scorciatoia da tastiera (Maiusc + R) per aprire l&apos;editor dalla mappa della campagna." />
     <string
       id="ret_mcm_option_enable_feat_requirements"
-      text="Abilita Requisiti di Impresa" />
+      text="Abilita requisiti delle imprese" />
     <string
       id="ret_mcm_option_enable_feat_requirements_hint"
-      text="Abilita i requisiti di impresa per sbloccare le dottrine (avviso: salvare con le imprese disabilitate cancellerà tutti i dati delle imprese)." />
+      text="Abilita i requisiti delle imprese per sbloccare le dottrine. Attenzione: salvando con le imprese disabilitate verranno cancellati tutti i dati delle imprese nel salvataggio." />
     <string
       id="ret_mcm_option_enable_item_comparison_icons"
-      text="Abilita Icone di Confronto Oggetti" />
+      text="Abilita icone di confronto oggetti" />
     <string
       id="ret_mcm_option_enable_item_comparison_icons_hint"
-      text="Aggiunge icone di confronto alla lista dell’equipaggiamento per mostrare se un oggetto è migliore o peggiore di quello equipaggiato durante la navigazione nell’equipaggiamento delle truppe." />
+      text="Aggiunge icone di confronto all&apos;elenco dell&apos;equipaggiamento per mostrare se un oggetto è migliore o peggiore di quello equipaggiato durante la consultazione dell&apos;equipaggiamento delle truppe." />
     <string
       id="ret_mcm_option_enable_troop_customization"
-      text="Sperimentale: Abilita Controlli Aspetto" />
+      text="Abilita controlli sull&apos;aspetto" />
     <string
       id="ret_mcm_option_enable_troop_customization_hint"
-      text="Aggiunge controlli di personalizzazione dell’aspetto (età, altezza, peso, corporatura)." />
+      text="Aggiunge all&apos;editor i controlli per la personalizzazione dell&apos;aspetto (età, altezza, peso, corporatura). Puro effetto estetico; nessun impatto sul gioco." />
     <string
       id="ret_mcm_option_equipment_cost_multiplier"
-      text="Moltiplicatore del Costo dell’Equipaggiamento" />
+      text="Moltiplicatore costo dell&apos;equipaggiamento" />
     <string
       id="ret_mcm_option_equipment_cost_multiplier_hint"
-      text="Moltiplicatore per i prezzi dell’equipaggiamento rispetto ai prezzi del gioco base." />
+      text="Moltiplicatore per i prezzi dell&apos;equipaggiamento rispetto a quelli del gioco base." />
     <string
       id="ret_mcm_option_equipment_cost_reduction_per_purchase"
-      text="Riduzione del Costo dell’Equipaggiamento per Acquisto" />
+      text="Riduzione costo dell&apos;equipaggiamento per acquisto" />
     <string
       id="ret_mcm_option_equipment_cost_reduction_per_purchase_hint"
       text="Ogni volta che una truppa acquista un oggetto, il costo per gli acquisti futuri di quell’oggetto viene ridotto di questa proporzione (0 = nessuna riduzione, 1 = gratuito dopo il primo acquisto)." />
     <string
       id="ret_mcm_option_equipment_time_multiplier"
-      text="Moltiplicatore del Tempo di Equipaggiamento" />
+      text="Moltiplicatore tempo dell&apos;equipaggiamento" />
     <string
       id="ret_mcm_option_equipment_time_multiplier_hint"
-      text="Moltiplicatore per il tempo di cambio dell’equipaggiamento." />
+      text="Moltiplicatore per il tempo di modifica dell&apos;equipaggiamento." />
     <string
       id="ret_mcm_option_equipping_troops_costs_gold"
-      text="Equipaggiare le Truppe Costa Oro" />
+      text="Equipaggiare le truppe costa oro" />
     <string
       id="ret_mcm_option_equipping_troops_costs_gold_hint"
-      text="L’aggiornamento dell’equipaggiamento delle truppe costa denaro." />
+      text="Migliorare l&apos;equipaggiamento delle truppe costa oro." />
     <string
       id="ret_mcm_option_equipping_troops_takes_time"
-      text="Equipaggiare le Truppe Richiede Tempo" />
+      text="Equipaggiare le truppe richiede tempo" />
     <string
       id="ret_mcm_option_equipping_troops_takes_time_hint"
-      text="Per applicare le modifiche agli oggetti, le truppe devono trascorrere del tempo ad aggiornare l’equipaggiamento in un feudo." />
+      text="Per applicare le modifiche agli oggetti, le truppe devono trascorrere del tempo a migliorare l&apos;equipaggiamento in un feudo." />
+    <string
+      id="ret_mcm_option_exclude_custom_troops_from_tournaments"
+      text="Escludi le truppe personalizzate dai tornei" />
+    <string
+      id="ret_mcm_option_exclude_custom_troops_from_tournaments_hint"
+      text="Se abilitato, esclude le tue truppe personalizzate dai partecipanti ai tornei, evitando che le truppe delle guarnigioni occupino troppi posti. Disabilitalo per consentire loro di partecipare." />
     <string
       id="ret_mcm_option_force_main_battle_set_in_combat"
-      text="Forza il Set di Battaglia Principale in Combattimento" />
+      text="Forza il set di combattimento principale in battaglia" />
     <string
       id="ret_mcm_option_force_main_battle_set_in_combat_hint"
-      text="Le truppe usano sempre il loro equipaggiamento di battaglia principale in combattimento, ignorando gli equipaggiamenti alternativi. Usa questa impostazione se riscontri problemi con le truppe che utilizzano equipaggiamenti errati in battaglia." />
+      text="In battaglia le truppe utilizzano sempre il set di equipaggiamento da combattimento principale, ignorando i set alternativi. Usa questa impostazione se riscontri problemi con le truppe che utilizzano set di equipaggiamento errati in battaglia." />
     <string
       id="ret_mcm_option_force_xp_refunds"
-      text="Forza Rimborsi PE" />
+      text="Forza il rimborso dei punti esperienza" />
     <string
       id="ret_mcm_option_force_xp_refunds_hint"
-      text="Quando si abbassa l’abilità di una truppa, rimborsa sempre i PE precedentemente spesi per quei punti." />
+      text="Quando si riduce l&apos;abilità di una truppa, rimborsa sempre i punti esperienza precedentemente spesi per quei punti." />
     <string
       id="ret_mcm_option_global_editor_enabled"
-      text="Abilita Editor Globale delle Truppe" />
+      text="Abilita l&apos;editor globale delle truppe" />
     <string
       id="ret_mcm_option_global_editor_enabled_hint"
-      text="Abilita l’editor globale delle truppe per modificare qualsiasi truppa nel gioco. Disabilitalo se riscontri problemi con le truppe non controllate dal giocatore." />
+      text="Abilita l&apos;editor globale delle truppe per modificare qualsiasi truppa nel gioco. Disabilita se riscontri problemi con truppe non appartenenti al giocatore o con altre mod." />
     <string
       id="ret_mcm_option_gold_conversion_cost_per_tier"
-      text="Costo di Conversione in Oro (Per Livello)" />
+      text="Costo di conversione in oro (per grado)" />
     <string
       id="ret_mcm_option_gold_conversion_cost_per_tier_hint"
-      text="Costo in oro per convertire una truppa in un seguito, per livello della truppa del seguito di destinazione." />
+      text="Costo in oro per convertire una truppa nel seguito, per ogni grado della truppa del seguito di destinazione." />
     <string
       id="ret_mcm_option_influence_conversion_cost_per_tier"
-      text="Costo di Conversione in Influenza (Per Livello)" />
+      text="Costo di conversione in influenza (per grado)" />
     <string
       id="ret_mcm_option_influence_conversion_cost_per_tier_hint"
-      text="Costo in influenza per convertire una truppa in un seguito, per livello della truppa del seguito di destinazione." />
+      text="Costo in influenza per convertire una truppa nel seguito, per ogni grado della truppa del seguito di destinazione." />
     <string
       id="ret_mcm_option_kingdom_volunteers_in_clan_fiefs_proportion"
-      text="Proporzione di Volontari del Regno nei Feudi del Clan" />
+      text="Proporzione di reclute del regno nei feudi del clan" />
     <string
       id="ret_mcm_option_kingdom_volunteers_in_clan_fiefs_proportion_hint"
-      text="Probabilità che ogni volontario nei feudi del clan del giocatore sia una truppa del regno (0 = mai, 1 = sempre). Imposta un valore più alto se vuoi mescolare truppe del regno con truppe del clan." />
+      text="Probabilità che ciascuna recluta nei feudi del clan del giocatore sia una truppa del regno (0 = mai, 1 = sempre). Imposta un valore più alto se desideri mescolare le truppe del regno con le truppe del clan." />
     <string
       id="ret_mcm_option_max_basic_retinue_ratio"
-      text="Rapporto Massimo Seguito Base" />
+      text="Proporzione massima di truppe del seguito di base" />
     <string
       id="ret_mcm_option_max_basic_retinue_ratio_hint"
-      text="Proporzione massima di truppe del seguito base nel gruppo del giocatore." />
+      text="Proporzione massima di truppe del seguito di base nel gruppo del giocatore." />
     <string
       id="ret_mcm_option_max_basic_upgrades"
-      text="Massimo Numero di Obiettivi di Upgrade Base" />
+      text="Numero massimo di rami di potenziamento di base" />
     <string
       id="ret_mcm_option_max_basic_upgrades_hint"
-      text="Numero massimo di obiettivi di upgrade per le truppe base." />
+      text="Numero massimo di percorsi di potenziamento per ciascuna truppa di base." />
     <string
       id="ret_mcm_option_max_elite_retinue_ratio"
-      text="Rapporto Massimo Seguito Élite" />
+      text="Rapporto massimo di truppe d&apos;élite del seguito" />
     <string
       id="ret_mcm_option_max_elite_retinue_ratio_hint"
-      text="Proporzione massima di truppe del seguito élite nel gruppo del giocatore." />
+      text="Proporzione massima di truppe d&apos;élite del seguito nel gruppo del giocatore." />
     <string
       id="ret_mcm_option_max_elite_upgrades"
-      text="Massimo Numero di Obiettivi di Upgrade Élite" />
+      text="Numero massimo di rami di potenziamento d&apos;élite" />
     <string
       id="ret_mcm_option_max_elite_upgrades_hint"
-      text="Numero massimo di obiettivi di upgrade per le truppe élite." />
+      text="Numero massimo di percorsi di potenziamento per ciascuna truppa d&apos;élite." />
     <string
       id="ret_mcm_option_max_equipment_rows_per_page"
-      text="Massimo Numero di Righe di Equipaggiamento per Pagina" />
+      text="Numero massimo di righe di equipaggiamento per pagina" />
     <string
       id="ret_mcm_option_max_equipment_rows_per_page_hint"
-      text="Numero massimo di righe di equipaggiamento da mostrare per pagina nell’editor delle truppe. Valori più piccoli migliorano la reattività dell’interfaccia utente." />
+      text="Numero massimo di righe di equipaggiamento da mostrare per pagina nell&apos;editor delle truppe. Valori inferiori migliorano la reattività dell&apos;interfaccia." />
+    <string
+      id="ret_mcm_option_max_troop_tier"
+      text="Grado massimo della truppa" />
     <string
       id="ret_mcm_option_no_civilian_set_upgrade_requirements"
-      text="Nessun Requisito di Upgrade per Set Civili" />
+      text="Nessun requisito di potenziamento per i set civili" />
     <string
       id="ret_mcm_option_no_civilian_set_upgrade_requirements_hint"
-      text="Quando si verificano i requisiti di montatura per gli upgrade, ignorare qualsiasi cavallo nei set civili." />
+      text="Quando verifichi i requisiti di cavalcatura per i potenziamenti, ignora qualsiasi cavallo presente nei set civili." />
     <string
       id="ret_mcm_option_no_doctrine_requirements"
-      text="Nessun Requisito di Dottrina" />
+      text="Nessun requisito per le dottrine" />
     <string
       id="ret_mcm_option_no_doctrine_requirements_hint"
-      text="Le truppe speciali (milizie, villaggi, guardie delle carovane) possono essere acquisite senza le dottrine appropriate." />
+      text="Le truppe speciali (milizia, popolani, guardie delle carovane) possono essere ottenute senza le dottrine appropriate." />
     <string
       id="ret_mcm_option_no_fief_requirements"
-      text="Nessun Requisito di Feudo" />
+      text="Nessun requisito di feudo" />
     <string
       id="ret_mcm_option_no_fief_requirements_hint"
       text="Le truppe possono essere sbloccate senza dover possedere un feudo." />
     <string
       id="ret_mcm_option_no_noble_horse_upgrade_requirements"
-      text="Nessun Requisito di Upgrade di Cavallo Nobile" />
+      text="Potenziamenti senza cavalli nobili" />
     <string
       id="ret_mcm_option_no_noble_horse_upgrade_requirements_hint"
-      text="Le truppe non richiedono mai cavalli nobili per gli upgrade, un cavallo da guerra è sempre sufficiente." />
+      text="Le truppe non richiedono mai cavalcature nobili per i potenziamenti; è sempre sufficiente un cavallo da guerra." />
     <string
       id="ret_mcm_option_player_culture_unlock_bonus"
-      text="Bonus di Sblocco della Cultura del Giocatore" />
+      text="Bonus allo sblocco per la cultura del giocatore" />
     <string
       id="ret_mcm_option_player_culture_unlock_bonus_hint"
-      text="Se la progressione di sblocco degli oggetti aggiunge anche progressi agli oggetti casuali della cultura del giocatore." />
+      text="Determina se la progressione dello sblocco degli oggetti aggiunge progressi anche agli oggetti casuali della cultura del giocatore." />
     <string
       id="ret_mcm_option_rank_up_cost_per_tier"
-      text="Costo di Avanzamento di Grado (Per Livello)" />
+      text="Costo per la promozione (per grado)" />
     <string
       id="ret_mcm_option_rank_up_cost_per_tier_hint"
-      text="Costo di avanzamento di grado per le truppe del seguito per livello." />
+      text="Costo della promozione delle truppe del seguito per grado." />
     <string
       id="ret_mcm_option_renown_required_per_tier"
-      text="Fama Necessaria (Per Livello)" />
+      text="Prestigio richiesto (per grado)" />
     <string
       id="ret_mcm_option_renown_required_per_tier_hint"
-      text="Fama necessaria affinché un seguito si unisca automaticamente, per livello della truppa del seguito." />
+      text="Prestigio richiesto affinché un seguito si unisca automaticamente, per grado della truppa del seguito." />
     <string
       id="ret_mcm_option_required_discards_per_item"
-      text="Scarti Necessari Per Oggetto" />
+      text="Scarti richiesti per oggetto" />
     <string
       id="ret_mcm_option_required_discards_per_item_hint"
-      text="Quante volte un oggetto deve essere scartato per sbloccarlo." />
+      text="Numero di volte in cui un oggetto deve essere scartato per sbloccarlo." />
     <string
       id="ret_mcm_option_required_kills_per_item"
-      text="Uccisioni Necessarie Per Oggetto" />
+      text="Uccisioni richieste per oggetto" />
     <string
       id="ret_mcm_option_required_kills_per_item_hint"
       text="Quanti nemici che indossano un oggetto devono essere sconfitti per sbloccarlo." />
     <string
       id="ret_mcm_option_restrict_editing_to_fiefs"
-      text="Restringi la Modifica ai Feudi" />
+      text="Limita la modifica ai feudi" />
     <string
       id="ret_mcm_option_restrict_editing_to_fiefs_hint"
-      text="Il giocatore può modificare le truppe solo in un feudo posseduto dal suo clan o regno (le truppe del seguito possono essere modificate in qualsiasi insediamento)." />
+      text="Il giocatore può modificare le truppe solo quando si trova in un feudo posseduto dal proprio clan o regno (i seguiti possono essere modificati in qualsiasi insediamento)." />
     <string
       id="ret_mcm_option_restrict_items_to_town_inventory"
-      text="Restringi gli oggetti all&apos;inventario della città" />
+      text="Limita gli oggetti all&apos;inventario delle città" />
     <string
       id="ret_mcm_option_restrict_items_to_town_inventory_hint"
       text="L&apos;equipaggiamento delle truppe può essere acquistato solo se disponibile nell&apos;inventario della città attuale." />
     <string
       id="ret_mcm_option_restrict_to_owned_settlements"
-      text="Restringi agli insediamenti posseduti" />
+      text="Limita agli insediamenti posseduti" />
     <string
       id="ret_mcm_option_restrict_to_owned_settlements_hint"
       text="Le truppe personalizzate possono essere reclutate solo negli insediamenti posseduti dal clan o dal regno del giocatore." />
     <string
       id="ret_mcm_option_restrict_to_same_culture_settlements"
-      text="Restringi agli insediamenti della stessa cultura" />
+      text="Limita agli insediamenti della stessa cultura" />
     <string
       id="ret_mcm_option_restrict_to_same_culture_settlements_hint"
-      text="I volontari negli insediamenti di una cultura diversa non saranno sostituiti da truppe personalizzate." />
+      text="I volontari negli insediamenti di una cultura diversa non verranno sostituiti da truppe personalizzate." />
     <string
       id="ret_mcm_option_retinue_skill_cap_bonus"
-      text="Bonus al Limite di Abilità del Seguito" />
+      text="Bonus al limite delle abilità del seguito" />
     <string
       id="ret_mcm_option_retinue_skill_cap_bonus_hint"
-      text="Limite di abilità aggiuntivo per le truppe del seguito." />
+      text="Limite aggiuntivo alle abilità delle truppe del seguito." />
     <string
       id="ret_mcm_option_retinue_skill_total_bonus"
-      text="Bonus al Totale Abilità del Seguito" />
+      text="Bonus al totale delle abilità del seguito" />
     <string
       id="ret_mcm_option_retinue_skill_total_bonus_hint"
-      text="Totale abilità aggiuntivo per le truppe del seguito." />
+      text="Totale aggiuntivo delle abilità delle truppe del seguito." />
     <string
       id="ret_mcm_option_shared_xp_pool"
-      text="Pool di XP Condiviso" />
+      text="Esperienza condivisa" />
     <string
       id="ret_mcm_option_shared_xp_pool_hint"
-      text="Tutte le truppe condividono lo stesso pool di XP." />
+      text="Tutte le truppe modificate condividono un&apos;unica riserva di esperienza anziché avere esperienza individuale." />
     <string
       id="ret_mcm_option_skill_cap"
-      text="Limite di Livello {TIER}" />
+      text="Limite abilità per il grado {TIER}" />
     <string
       id="ret_mcm_option_skill_cap_heroes"
-      text="Limite di Abilità degli Eroi" />
+      text="Limite delle abilità dell&apos;eroe" />
     <string
       id="ret_mcm_option_skill_cap_heroes_hint"
-      text="Il livello massimo di abilità per le truppe eroe." />
+      text="Il livello massimo delle abilità per le truppe eroe." />
     <string
       id="ret_mcm_option_skill_cap_hint"
-      text="Il livello massimo di abilità per le truppe di livello {TIER}." />
+      text="Il livello massimo delle abilità per le truppe di grado {TIER}." />
     <string
       id="ret_mcm_option_skill_total"
-      text="Totale Abilità per il Livello {TIER}" />
+      text="Totale delle abilità del grado {TIER}" />
     <string
       id="ret_mcm_option_skill_total_hint"
-      text="Il totale dei punti abilità disponibili per le truppe di livello {TIER}." />
+      text="Il totale dei punti abilità disponibili per le truppe di grado {TIER}." />
     <string
       id="ret_mcm_option_skill_xp_cost_base"
-      text="Costo XP Abilità (Base)" />
+      text="Costo in PE delle abilità (base)" />
     <string
       id="ret_mcm_option_skill_xp_cost_base_hint"
-      text="Costo base di XP per aumentare un&apos;abilità." />
+      text="Costo base in esperienza per aumentare un&apos;abilità." />
     <string
       id="ret_mcm_option_skill_xp_cost_per_point"
-      text="Costo XP Abilità (Per Punto)" />
+      text="Costo in PE delle abilità (per punto)" />
     <string
       id="ret_mcm_option_skill_xp_cost_per_point_hint"
-      text="Costo XP scalabile per ogni punto abilità aggiuntivo." />
+      text="Costo scalabile in esperienza per ogni punto abilità aggiuntivo." />
     <string
       id="ret_mcm_option_training_time_multiplier"
-      text="Moltiplicatore del Tempo di Addestramento" />
+      text="Moltiplicatore del tempo di addestramento" />
     <string
       id="ret_mcm_option_training_time_multiplier_hint"
-      text="Moltiplicatore per il tempo di addestramento delle truppe." />
+      text="Moltiplicatore del tempo di addestramento delle truppe." />
     <string
       id="ret_mcm_option_training_troops_takes_time"
-      text="L&apos;Addestramento delle Truppe Richiede Tempo" />
+      text="L&apos;addestramento delle truppe richiede tempo" />
     <string
       id="ret_mcm_option_training_troops_takes_time_hint"
-      text="Per applicare gli aumenti di abilità, le truppe devono trascorrere del tempo ad addestrarsi in un feudo." />
+      text="Per applicare gli aumenti delle abilità, le truppe devono trascorrere del tempo ad addestrarsi in un feudo." />
     <string
       id="ret_mcm_option_unlock_items_from_discards"
-      text="Sblocca gli Oggetti Scartandoli" />
+      text="Sblocca gli oggetti tramite scarti" />
     <string
       id="ret_mcm_option_unlock_items_from_discards_hint"
       text="Sblocca l&apos;equipaggiamento scartandolo." />
     <string
       id="ret_mcm_option_unlock_items_from_kills"
-      text="Sblocca gli Oggetti Uccidendo" />
+      text="Sblocca gli oggetti tramite uccisioni" />
     <string
       id="ret_mcm_option_unlock_items_from_kills_hint"
       text="Sblocca l&apos;equipaggiamento sconfiggendo i nemici che lo indossano." />
     <string
       id="ret_mcm_option_unlock_popup"
-      text="Popup di Sblocco" />
+      text="Mostra finestra di sblocco" />
     <string
       id="ret_mcm_option_unlock_popup_hint"
-      text="Visualizza una notifica popup quando gli oggetti vengono sbloccati. Se disabilitato, gli sblocchi vengono mostrati solo nel registro." />
+      text="Mostra una notifica a comparsa quando gli oggetti vengono sbloccati. Se disattivata, gli sblocchi vengono mostrati solo nel registro." />
     <string
       id="ret_mcm_option_vanilla_upgrade_requirements"
-      text="Requisiti di Upgrade Vanilla" />
+      text="Requisiti di potenziamento del gioco base" />
     <string
       id="ret_mcm_option_vanilla_upgrade_requirements_hint"
-      text="Le truppe vanilla mantengono i loro requisiti originali per gli oggetti di upgrade quando vengono modificate." />
+      text="Le truppe del gioco base mantengono i requisiti originali degli oggetti per il potenziamento quando vengono modificate." />
     <string
       id="ret_mcm_option_vassal_lords_recruit_custom_troops"
-      text="I Signori Vassalli Reclutano Truppe Personalizzate" />
+      text="I signori vassalli reclutano truppe personalizzate" />
     <string
       id="ret_mcm_option_vassal_lords_recruit_custom_troops_anywhere"
-      text="I Signori Vassalli Reclutano Truppe Personalizzate Ovunque" />
+      text="I signori vassalli reclutano truppe personalizzate ovunque" />
     <string
       id="ret_mcm_option_vassal_lords_recruit_custom_troops_anywhere_hint"
       text="I signori del clan o del regno del giocatore possono reclutare truppe personalizzate in qualsiasi insediamento." />
     <string
       id="ret_mcm_option_vassal_lords_recruit_custom_troops_hint"
-      text="I signori del clan o del regno del giocatore possono reclutare truppe personalizzate nei loro feudi." />
+      text="I signori del clan o del regno del giocatore possono reclutare truppe personalizzate nei propri feudi." />
     <string
       id="ret_mcm_purge_done_body"
-      text="Tutti i dati delle truppe personalizzate sono stati rimossi.{newline}{newline}Salva il tuo gioco, esci, rimuovi la mod, quindi ricarica.{newline}{newline}Se il tuo salvataggio continua a bloccarsi dopo aver fatto questo, scarica il file &apos;Retinues - Disabled&apos; dalla pagina del mod Nexus come ultima risorsa." />
+      text="Tutti i dati delle truppe personalizzate sono stati rimossi.{newline}{newline}Salva la partita, esci, rimuovi la mod e quindi ricarica il salvataggio.{newline}{newline}Se il salvataggio continua a bloccarsi dopo aver eseguito questa procedura, scarica il file Retinues - Disabled dalla pagina della mod su Nexus come ultima risorsa." />
     <string
       id="ret_mcm_purge_done_open_nexus"
-      text="Apri la Pagina Nexus" />
+      text="Apri la pagina su Nexus" />
     <string
       id="ret_mcm_purge_done_title"
-      text="Purge Completa" />
+      text="Pulizia completata" />
     <string
       id="ret_mcm_section_debug"
       text="Debug" />
@@ -1239,10 +1248,10 @@
       text="Generale" />
     <string
       id="ret_mcm_section_global_editor"
-      text="Editor Globale" />
+      text="Editor globale" />
     <string
       id="ret_mcm_section_import_export"
-      text="Importa &amp; Esporta" />
+      text="Importa ed esporta" />
     <string
       id="ret_mcm_section_recruitment"
       text="Reclutamento" />
@@ -1254,7 +1263,7 @@
       text="Seguiti" />
     <string
       id="ret_mcm_section_skill_caps"
-      text="Limiti di Abilità" />
+      text="Limiti abilità" />
     <string
       id="ret_mcm_section_skill_totals"
       text="Totali Abilità" />
@@ -1266,7 +1275,7 @@
       text="Sblocchi delle Truppe" />
     <string
       id="ret_mcm_section_ui"
-      text="Interfaccia Utente" />
+      text="Interfaccia utente" />
     <string
       id="ret_name_header_text"
       text="Nome" />
@@ -1287,34 +1296,34 @@
       text="Nessuna Cultura Trovata" />
     <string
       id="ret_no_exports_body"
-      text="Nessun file di esportazione valido è stato trovato nella cartella Exports." />
+      text="Nessun file di esportazione valido trovato nella cartella &apos;Exports&apos;." />
     <string
       id="ret_no_exports_title"
-      text="Nessuna Esportazione Trovata" />
+      text="Nessuna esportazione trovata" />
     <string
       id="ret_no_races_text"
-      text="Non sono disponibili razze alternative." />
+      text="Nessuna razza alternativa disponibile." />
     <string
       id="ret_no_races_title"
-      text="Nessuna Razza Trovata" />
+      text="Nessuna razza trovata" />
     <string
       id="ret_no_selection_body"
-      text="Nessun file è stato selezionato." />
+      text="Nessun file selezionato." />
     <string
       id="ret_no_selection_title"
-      text="Nessuna Selezione" />
+      text="Nessuna selezione" />
     <string
       id="ret_no_skill_points_left"
-      text="Non ci sono più punti abilità per questa truppa." />
+      text="Nessun punto abilità rimasto per questa truppa." />
     <string
       id="ret_no_training_required"
       text="Nessun addestramento richiesto" />
     <string
       id="ret_no_valid_model_body"
-      text="Questa combinazione di genere e cultura non ha un modello valido.{newline}{newline}L’aspetto precedente è stato ripristinato." />
+      text="Questa combinazione di genere e cultura non dispone di un modello valido.{newline}{newline}È stato ripristinato l&apos;aspetto precedente." />
     <string
       id="ret_no_valid_model_body_species"
-      text="Questa combinazione di genere, cultura e specie non ha un modello valido.{newline}{newline}L’aspetto precedente è stato ripristinato." />
+      text="Questa combinazione di genere, cultura e specie non dispone di un modello valido.{newline}{newline}È stato ripristinato l&apos;aspetto precedente." />
     <string
       id="ret_no_valid_model_title"
       text="Modello Non Valido" />
@@ -1329,52 +1338,52 @@
       text="Non hai abbastanza oro per acquistare questo oggetto." />
     <string
       id="ret_not_enough_gold_title"
-      text="Oro Insufficiente" />
+      text="Oro insufficiente" />
     <string
       id="ret_not_enough_xp"
-      text="Non abbastanza XP per il prossimo punto abilità." />
+      text="PE insufficienti per il prossimo punto abilità." />
     <string
       id="ret_not_in_clan_fief"
-      text="Non in Feudo del Clan" />
+      text="Fuori dal feudo del clan" />
     <string
       id="ret_not_in_clan_fief_text"
-      text="Devi essere in uno dei feudi del tuo clan per {ACTION} questa truppa." />
+      text="Devi trovarti in uno dei feudi del tuo clan per {ACTION} questa truppa." />
     <string
       id="ret_not_in_kingdom_fief"
-      text="Non in feudo del regno" />
+      text="Fuori dal feudo del regno" />
     <string
       id="ret_not_in_kingdom_fief_text"
-      text="Devi essere in uno dei feudi del tuo regno per {ACTION} questa truppa." />
+      text="Devi trovarti in uno dei feudi del tuo regno per {ACTION} questa truppa." />
     <string
       id="ret_not_in_running_campaign"
-      text="Non in una campagna in corso. Carica prima un salvataggio." />
+      text="Nessuna campagna in corso. Carica prima un salvataggio." />
     <string
       id="ret_not_in_settlement"
-      text="Non in insediamento" />
+      text="Fuori dall&apos;insediamento" />
     <string
       id="ret_not_in_settlement_text"
-      text="Devi essere in un insediamento per {ACTION} questa truppa." />
+      text="Devi trovarti in un insediamento per {ACTION} questa truppa." />
     <string
       id="ret_not_regular_no_upgrade"
-      text="Solo le truppe regolari possono essere aggiornate." />
+      text="Solo le truppe regolari possono essere potenziate." />
     <string
       id="ret_open_browser_fail"
       text="Impossibile aprire il browser. URL: {URL}" />
     <string
       id="ret_parent_skill"
-      text="Non può scendere al di sotto del livello di abilità del genitore {PARENT}." />
+      text="Impossibile scendere sotto il livello abilità del genitore {PARENT}." />
     <string
       id="ret_paste_equip_all_locked_text"
       text="Nessun oggetto di questo set di equipaggiamento è attualmente sbloccato per questa truppa." />
     <string
       id="ret_paste_equip_all_locked_title"
-      text="Niente Sbloccato" />
+      text="Nessun elemento sbloccato" />
     <string
       id="ret_paste_equip_cannot_afford_text"
       text="Hai bisogno di {GOLD} oro per incollare questo equipaggiamento, ma ne hai solo {CURRENT}." />
     <string
       id="ret_paste_equip_cannot_afford_title"
-      text="Non può permetterselo" />
+      text="Oro insufficiente" />
     <string
       id="ret_paste_equip_confirm_text_cost"
       text="Incollare l’equipaggiamento n°{INDEX} di {TROOP} costerà {GOLD} oro. Continuare?" />
@@ -1383,22 +1392,22 @@
       text="Incollare l’equipaggiamento n°{INDEX} di {TROOP} nel set corrente?" />
     <string
       id="ret_paste_equip_confirm_title"
-      text="Conferma copia dell’equipaggiamento" />
+      text="Conferma copia equipaggiamento" />
     <string
       id="ret_paste_equip_failed_title"
       text="Copia non riuscita" />
     <string
       id="ret_paste_equip_locked_confirm_text_cost"
-      text="Alcuni oggetti nell’equipaggiamento n°{INDEX} di {TROOP} sono ancora bloccati e verranno saltati. Incollare gli oggetti sbloccati costerà {GOLD} oro. Continuare?" />
+      text="Alcuni oggetti dell&apos;equipaggiamento n°{INDEX} di {TROOP} sono ancora bloccati e verranno ignorati. Incollare gli oggetti sbloccati costerà {GOLD} oro. Continuare?" />
     <string
       id="ret_paste_equip_locked_confirm_text_free"
-      text="Alcuni oggetti nell’equipaggiamento n°{INDEX} di {TROOP} sono ancora bloccati e verranno saltati. Incollare gli oggetti sbloccati nel set corrente?" />
+      text="Alcuni oggetti dell&apos;equipaggiamento n°{INDEX} di {TROOP} sono ancora bloccati e verranno ignorati. Incollare gli oggetti sbloccati sul set attuale?" />
     <string
       id="ret_paste_equip_locked_confirm_title"
-      text="Conferma copia parziale dell’equipaggiamento" />
+      text="Conferma copia parziale equipaggiamento" />
     <string
       id="ret_paste_equipment_empty"
-      text="Gli appunti sono vuoti. Copia prima un set di equipaggiamento." />
+      text="Appunti vuoti. Copia prima un set di equipaggiamento." />
     <string
       id="ret_paste_equipment_hint"
       text="Incolla l’equipaggiamento copiato in questo set." />
@@ -1419,49 +1428,49 @@
       text="Non hai abbastanza oro." />
     <string
       id="ret_paste_failed_not_enough_stock"
-      text="Ti mancano abbastanza copie degli oggetti richiesti." />
+      text="Non hai abbastanza copie degli oggetti richiesti." />
     <string
       id="ret_paste_failed_reason_mount_t1"
-      text="Le truppe di livello 1 non sono autorizzate ad avere una cavalcatura." />
+      text="Le truppe di grado 1 non possono avere una cavalcatura." />
     <string
       id="ret_paste_failed_reason_skill"
       text="Questa truppa non soddisfa i requisiti di abilità per alcuni oggetti." />
     <string
       id="ret_paste_failed_reason_tier_diff"
-      text="Alcuni oggetti sono al di sopra della differenza di livello consentita per questa truppa." />
+      text="Alcuni oggetti superano la differenza di grado consentita per questa truppa." />
     <string
       id="ret_personal_editor_link_text"
-      text="Editor Personale" />
+      text="Editor personale" />
     <string
       id="ret_personal_editor_tooltip_text"
-      text="Apri l’editor per le truppe del tuo clan e del tuo regno." />
+      text="Apri l&apos;editor per le truppe del tuo clan e del tuo regno." />
     <string
       id="ret_pragmatic_scavengers"
-      text="Spazzini Pragmatici" />
+      text="Spazzini pragmatici" />
     <string
       id="ret_pragmatic_scavengers_army_win_allies_50"
       text="Vinci due battaglie di fila come parte dell’esercito di un signore alleato." />
     <string
       id="ret_pragmatic_scavengers_defense_allies_100"
-      text="Vinci una battaglia in cui gli alleati subiscono oltre 100 perdite." />
+      text="Vinci una battaglia in cui gli alleati subiscono più di 100 perdite." />
     <string
       id="ret_pragmatic_scavengers_description"
       text="Sblocca oggetti dalle perdite degli alleati." />
     <string
       id="ret_pragmatic_scavengers_disabled_message_all_equipment"
-      text="Disabilitato: tutto l’equipaggiamento è già sbloccato dalla configurazione." />
+      text="Disabilitato: tutto l&apos;equipaggiamento è già sbloccato dalla configurazione." />
     <string
       id="ret_pragmatic_scavengers_disabled_message_unlocks_from_kills"
-      text="Disabilitato: gli sblocchi dalle uccisioni sono disabilitati dalla configurazione." />
+      text="Disabilitato: sblocchi dalle uccisioni disabilitati dalla configurazione." />
     <string
       id="ret_pragmatic_scavengers_rescue_lord"
-      text="Salva un signore sconfitto da un convoglio di prigionieri nemico." />
+      text="Salva un signore sconfitto dal convoglio di prigionieri di un gruppo nemico." />
     <string
       id="ret_preview_mode_disable_hint"
-      text="Disabilita la Modalità Anteprima." />
+      text="Disabilita modalità anteprima." />
     <string
       id="ret_preview_mode_enable_hint"
-      text="Modalità Anteprima: vedi come appare l’equipaggiamento sulla truppa senza applicare le modifiche." />
+      text="Modalità anteprima: guarda come appare l&apos;equipaggiamento sulla truppa senza applicare le modifiche." />
     <string
       id="ret_preview_mode_text"
       text="Modalità Anteprima" />
@@ -1470,13 +1479,13 @@
       text="Guardia della Regina" />
     <string
       id="ret_rank_up"
-      text="Avanzamento" />
+      text="Aumenta di grado" />
     <string
       id="ret_rank_up_cant_outrank_elite_text"
-      text="{TROOP_NAME} non può superare {ELITE_RETINUE}." />
+      text="{TROOP_NAME} non può superare di grado {ELITE_RETINUE}." />
     <string
       id="ret_rank_up_cant_outrank_elite_title"
-      text="Impossibile superare l’élite" />
+      text="Impossibile superare il grado d&apos;élite" />
     <string
       id="ret_rank_up_costs_text"
       text="Ti costerà {COST_GOLD} oro e {COST_XP} PE." />
@@ -1494,121 +1503,121 @@
       text="Non hai abbastanza PE per promuovere {TROOP_NAME}.{newline}{newline}Costo: {COST} PE." />
     <string
       id="ret_rank_up_not_enough_xp_title"
-      text="PE insufficiente" />
+      text="PE insufficienti" />
     <string
       id="ret_rank_up_not_maxed_out"
-      text="Non al Massimo" />
+      text="Non al livello massimo" />
     <string
       id="ret_rank_up_not_maxed_out_text"
-      text="Massimizza le abilità di questo seguito prima di poterlo promuovere." />
+      text="Migliora al massimo le abilità di questo seguito prima di poter aumentare di grado." />
     <string
       id="ret_remove_button_text"
       text="Rimuovi" />
     <string
       id="ret_remove_set_hero_hint"
-      text="Non è possibile rimuovere i set di equipaggiamento per gli eroi." />
+      text="Impossibile rimuovere i set di equipaggiamento degli eroi." />
     <string
       id="ret_remove_set_hint"
-      text="Almeno un set di questo tipo deve rimanere." />
+      text="Deve rimanere almeno un set di questo tipo." />
     <string
       id="ret_remove_set_text"
-      text="Rimuovere il set n°{SET} per {TROOP_NAME}?{newline}Tutte le modifiche in corso saranno annullate e gli oggetti verranno disequipaggiati e immagazzinati." />
+      text="Rimuovere il set n° {EQUIPMENT} per {TROOP}?" />
     <string
       id="ret_remove_set_title"
-      text="Rimuovi Set" />
+      text="Rimuovi set" />
     <string
       id="ret_remove_troop"
-      text="Rimuovi Truppa" />
+      text="Rimuovi truppa" />
     <string
       id="ret_remove_troop_text"
-      text="Sei sicuro di voler rimuovere permanentemente {TROOP_NAME}?{newline}{newline}Il loro equipaggiamento sarà immagazzinato per un uso successivo, e le truppe esistenti saranno convertite nella loro controparte {CULTURE}." />
+      text="Sei sicuro di voler rimuovere permanentemente {TROOP_NAME}?{newline}{newline}Il loro equipaggiamento verrà conservato per un uso futuro e le truppe esistenti verranno convertite nella loro controparte della cultura {CULTURE}." />
     <string
       id="ret_rename_hero_surname"
       text="Cambia Cognome / Titolo" />
     <string
       id="ret_rename_troop"
-      text="Rinomina Truppa" />
+      text="Rinomina truppa" />
     <string
       id="ret_reset_all"
-      text="Reimpostare tutti i dati delle truppe" />
+      text="Ripristina tutti i dati delle truppe" />
     <string
       id="ret_reset_all_body"
-      text="Questo reimposterà tutti i dati delle truppe culturali ai loro valori predefiniti. Le truppe del clan e del regno del giocatore non saranno interessate.{newline}{newline}Continuare?" />
+      text="Questa azione ripristinerà tutti i dati delle truppe delle culture ai valori predefiniti. Le truppe del clan e del regno del giocatore non subiranno modifiche.{newline}{newline}Continuare?" />
     <string
       id="ret_reset_culture_troops_text"
-      text="Tutte le truppe culturali verranno ripristinate al salvataggio e al ricaricamento del gioco." />
+      text="Tutti i dati delle truppe della cultura verranno ripristinati al salvataggio e al ricaricamento del gioco." />
     <string
       id="ret_reset_culture_troops_title"
-      text="Reimpostazione delle truppe culturali" />
+      text="Ripristino truppe della cultura" />
     <string
       id="ret_retinue"
       text="Seguito" />
     <string
       id="ret_retinue_cap_text"
-      text="Limite di Assunzione" />
+      text="Limite di reclutamento" />
     <string
       id="ret_retinue_cap_tooltip_body"
-      text="I seguaci si uniranno a te gratuitamente nel tempo, purché tu continui a guadagnare fama.{newline}{newline}Puoi impostare un limite di assunzione per controllare quanti seguaci possono unirsi al tuo gruppo." />
+      text="I seguiti si uniranno a te gratuitamente nel tempo finché continuerai a guadagnare prestigio.{newline}{newline}Puoi impostare un limite di reclutamento per controllare quanti seguiti possono unirsi alla tua compagnia." />
     <string
       id="ret_retinue_female_kingdom"
-      text="{FACTION} Campione della Regina" />
+      text="Campione della Regina {FACTION}" />
     <string
       id="ret_retinue_hire_inquiry_body"
-      text="I seguenti seguaci si sono uniti al tuo gruppo: {JOINED}." />
+      text="I seguenti seguiti si sono uniti alla tua compagnia: {JOINED}." />
     <string
       id="ret_retinue_house_champion"
-      text="{FACTION} Campione della Casa" />
+      text="Campione della Casata {FACTION}" />
     <string
       id="ret_retinue_house_guard"
-      text="{FACTION} Guardia della Casa" />
+      text="Guardia della Casata {FACTION}" />
     <string
       id="ret_retinue_join_text"
-      text="Un nuovo seguito per ogni {COST} di fama guadagnata." />
+      text="Un nuovo seguito per ogni {COST} punti prestigio guadagnati." />
     <string
       id="ret_retinue_join_text_full"
-      text="È stato raggiunto il limite di assunzione." />
+      text="Il limite di reclutamento è stato raggiunto." />
     <string
       id="ret_retinue_join_text_none"
       text="Nessun nuovo seguito si unirà." />
     <string
       id="ret_retinue_male_kingdom"
-      text="{FACTION} Campione del Re" />
+      text="Campione del Re {FACTION}" />
     <string
       id="ret_retinue_morale_bonus_bound_by_honor"
-      text="Seguito (Vincolati dall’Onore)" />
+      text="Seguito (Vincoli d&apos;onore)" />
     <string
       id="ret_retinue_royal_guard"
-      text="{FACTION} Guardia Reale" />
+      text="Guardia Reale {FACTION}" />
     <string
       id="ret_retinues_init_error_body_detailed"
-      text="Le dipendenze della mod Retinues non sono state inizializzate correttamente:{newline}{newline}{DETAILS}.{newline}{newline}La mod non funzionerà correttamente finché le dipendenze non saranno corrette." />
+      text="Impossibile inizializzare correttamente le dipendenze della mod Retinues:{newline}{newline}{DETAILS}.{newline}{newline}La mod non funzionerà correttamente finché le dipendenze non saranno corrette." />
     <string
       id="ret_retinues_init_error_title"
-      text="Errore di Dipendenza di Retinues" />
+      text="Errore dipendenze Retinues" />
     <string
       id="ret_retinues_update_title"
-      text="Aggiornamento di Retinues" />
+      text="Aggiornamento Retinues" />
     <string
       id="ret_retinues_version_change_text"
-      text="La versione della mod Retinues in questo file di salvataggio non corrisponde alla versione attuale della mod ({CURRENT_VERSION}).{newline}{newline}Come precauzione di sicurezza, verifica che tutto sia come dovrebbe prima di sovrascrivere il tuo salvataggio.{newline}{newline}Se noti dei problemi e desideri tornare alla versione precedente, non salvare e scarica il file {SAVE_VERSION} da Nexus Mods." />
+      text="La versione della mod Retinues presente in questo salvataggio non corrisponde alla versione attuale della mod ({CURRENT_VERSION}).{newline}{newline}A scopo cautelativo, verifica che tutto sia corretto prima di sovrascrivere il salvataggio.{newline}{newline}Se noti problemi e desideri tornare alla versione precedente, non salvare e scarica il file della versione {SAVE_VERSION} da Nexus Mods." />
     <string
       id="ret_retinues_version_change_text_no_current"
-      text="La versione della mod Retinues in questo file di salvataggio non corrisponde alla versione attuale della mod ({CURRENT_VERSION}).{newline}{newline}Come precauzione di sicurezza, verifica che tutto sia come dovrebbe prima di sovrascrivere il tuo salvataggio.{newline}{newline}Se noti dei problemi e desideri tornare alla versione precedente, non salvare e scarica la versione che stavi usando in precedenza da Nexus Mods." />
+      text="La versione della mod Retinues presente in questo salvataggio non corrisponde alla versione attuale della mod ({CURRENT_VERSION}).{newline}{newline}A scopo cautelativo, verifica che tutto sia corretto prima di sovrascrivere il salvataggio.{newline}{newline}Se noti problemi e desideri tornare alla versione precedente, non salvare e scarica la versione precedentemente utilizzata da Nexus Mods." />
     <string
       id="ret_retinues_version_change_title"
-      text="Cambio di versione di Retinues" />
+      text="Cambio versione Retinues" />
     <string
       id="ret_retinues_version_update_text"
-      text="La versione della mod Retinues in questo file di salvataggio è stata aggiornata alla versione successiva ({CURRENT_VERSION}). I tuoi dati di salvataggio sono stati automaticamente migrati alla nuova versione.{newline}{newline}Come precauzione di sicurezza, verifica che tutto sia come dovrebbe prima di sovrascrivere il tuo salvataggio.{newline}{newline}Se noti dei problemi e desideri tornare alla versione precedente, non salvare e scarica il file {SAVE_VERSION} da Nexus Mods." />
+      text="La versione della mod Retinues presente in questo salvataggio è stata aggiornata alla versione successiva ({CURRENT_VERSION}). I dati di salvataggio sono stati migrati automaticamente alla nuova versione.{newline}{newline}A scopo cautelativo, verifica che tutto sia corretto prima di sovrascrivere il salvataggio.{newline}{newline}Se noti problemi e desideri tornare alla versione precedente, non salvare e scarica il file della versione {SAVE_VERSION} da Nexus Mods." />
     <string
       id="ret_retinues_version_update_text_no_current"
-      text="La versione della mod Retinues in questo file di salvataggio è stata aggiornata alla versione successiva ({CURRENT_VERSION}). I tuoi dati di salvataggio sono stati automaticamente migrati alla nuova versione.{newline}{newline}Come precauzione di sicurezza, verifica che tutto sia come dovrebbe prima di sovrascrivere il tuo salvataggio.{newline}{newline}Se noti dei problemi e desideri tornare alla versione precedente, non salvare e scarica la versione che stavi usando in precedenza da Nexus Mods." />
+      text="La versione della mod Retinues presente in questo salvataggio è stata aggiornata alla versione successiva ({CURRENT_VERSION}). I dati di salvataggio sono stati migrati automaticamente alla nuova versione.{newline}{newline}A scopo cautelativo, verifica che tutto sia corretto prima di sovrascrivere il salvataggio.{newline}{newline}Se noti problemi e desideri tornare alla versione precedente, non salvare e scarica la versione precedentemente utilizzata da Nexus Mods." />
     <string
       id="ret_road_wardens"
       text="Guardiani della Strada" />
     <string
       id="ret_road_wardens_clear_hideout"
-      text="Pulisci un nascondiglio di banditi." />
+      text="Elimina un covo di banditi." />
     <string
       id="ret_road_wardens_description"
       text="Sblocca le truppe delle carovane." />
@@ -1617,7 +1626,7 @@
       text="Disabilitato: truppe speciali sbloccate dalla configurazione." />
     <string
       id="ret_road_wardens_merchant_town_quests"
-      text="Completa 3 missioni per un mercante di una delle tue città." />
+      text="Completa 3 missioni per conto di un mercante di una delle tue città." />
     <string
       id="ret_road_wardens_three_caravans"
       text="Possiedi tre carovane contemporaneamente." />
@@ -1644,7 +1653,7 @@
       text="Seleziona un clan." />
     <string
       id="ret_select_clan_title"
-      text="Seleziona un clan" />
+      text="Seleziona Clan" />
     <string
       id="ret_select_culture_hint"
       text="Seleziona una cultura." />
@@ -1653,22 +1662,22 @@
       text="Seleziona Cultura" />
     <string
       id="ret_show_crafted_disabled_hint"
-      text="Sblocca la dottrina &apos;Tradizioni del Clan&apos; per mostrare gli oggetti artigianali." />
+      text="Sblocca la dottrina &apos;Tradizioni del clan&apos; per mostrare gli oggetti forgiati." />
     <string
       id="ret_show_crafted_hint"
-      text="Mostra gli oggetti artigianali." />
+      text="Mostra oggetti forgiati." />
     <string
       id="ret_show_crafted_weapon_hint"
-      text="Solo gli slot delle armi possono avere oggetti artigianali." />
+      text="Solo gli slot per le armi possono contenere oggetti forgiati." />
     <string
       id="ret_show_extra_skills_label"
-      text="Mostra più abilità" />
+      text="Mostra altre abilità" />
     <string
       id="ret_skill_at_cap"
-      text="L&apos;abilità ha raggiunto il limite per questa truppa." />
+      text="L&apos;abilità ha raggiunto il limite massimo per questa truppa." />
     <string
       id="ret_skill_cap_text"
-      text="Limite abilità {CAP}" />
+      text="Limite massimo abilità: {CAP}" />
     <string
       id="ret_skill_requirement_text"
       text="Richiede {SKILL}: {LEVEL}" />
@@ -1677,7 +1686,7 @@
       text="L&apos;abilità non può scendere sotto lo zero." />
     <string
       id="ret_skills_header_text"
-      text="Abilità" />
+      text="Abilità e formazione" />
     <string
       id="ret_skills_header_text_no_formation"
       text="Abilità" />
@@ -1689,7 +1698,7 @@
       text="Nome" />
     <string
       id="ret_sort_tier"
-      text="Livello" />
+      text="Grado" />
     <string
       id="ret_sort_value"
       text="Valore" />
@@ -1698,7 +1707,7 @@
       text="Milizia Risoluta" />
     <string
       id="ret_stalwart_militia_defend_city_from_siege"
-      text="Difendi una città contro un esercito nemico assediante." />
+      text="Difendi una città dall&apos;assedio di un esercito nemico." />
     <string
       id="ret_stalwart_militia_description"
       text="Sblocca le truppe di milizia." />
@@ -1707,7 +1716,7 @@
       text="Disabilitato: truppe speciali sbloccate dalla configurazione." />
     <string
       id="ret_stalwart_militia_player_kill_50_siegers"
-      text="Uccidi personalmente 50 assalitori durante una difesa d&apos;assedio." />
+      text="Elimina personalmente 50 assalitori durante la difesa di un assedio." />
     <string
       id="ret_stalwart_militia_raise_militia_400"
       text="Aumenta il valore della milizia di un feudo a 400." />
@@ -1719,7 +1728,7 @@
       text="Ha ucciso {KILLS} nemici e subito {DEATHS} perdite." />
     <string
       id="ret_stats_most_battled_faction"
-      text="Più combattuta: {FACTION} ({COUNT} incontri)" />
+      text="Fazione più affrontata: {FACTION} ({COUNT} scontri)" />
     <string
       id="ret_stats_most_feared_enemy"
       text="Più temuto: {ENEMY} ({COUNT} perdite)" />
@@ -1728,43 +1737,43 @@
       text="Più ucciso: {ENEMY} ({COUNT} uccisi)" />
     <string
       id="ret_steadfast_soldiers"
-      text="Soldati Saldi" />
+      text="Soldati risoluti" />
     <string
       id="ret_steadfast_soldiers_defend_village_only_custom"
-      text="Difendi un villaggio da un’incursione usando solo truppe personalizzate." />
+      text="Difendi un villaggio da un saccheggio usando solo truppe personalizzate." />
     <string
       id="ret_steadfast_soldiers_description"
       text="+10 punti abilità." />
     <string
       id="ret_steadfast_soldiers_raise_security_60"
-      text="Aumenta il valore di sicurezza di un feudo a 60." />
+      text="Aumenta il valore di sicurezza di un feudo fino a 60." />
     <string
       id="ret_steadfast_soldiers_siege_defense_only_custom"
-      text="Vinci una difesa d’assedio usando solo truppe personalizzate." />
+      text="Vinci la difesa di un assedio usando solo truppe personalizzate." />
     <string
       id="ret_steadfast_soldiers_troops_maxed_skills"
-      text="Massimizza le abilità di 15 truppe personalizzate." />
+      text="Porta al massimo le abilità di 15 truppe personalizzate." />
     <string
       id="ret_str_ok"
       text="OK" />
     <string
       id="ret_switch_to_clan_troops"
-      text="Truppe del Clan" />
+      text="Truppe del clan" />
     <string
       id="ret_switch_to_kingdom_troops"
-      text="Truppe del Regno" />
+      text="Truppe del regno" />
     <string
       id="ret_tier"
-      text="Livello" />
+      text="Grado" />
     <string
       id="ret_train_complete"
-      text="Addestramento Completo" />
+      text="Addestramento completato" />
     <string
       id="ret_train_complete_summary"
-      text="Le seguenti truppe hanno completato il loro addestramento:{newline}{newline}{SUMMARY}" />
+      text="Le seguenti truppe hanno completato l&apos;addestramento:{newline}{newline}{SUMMARY}" />
     <string
       id="ret_training_complete"
-      text="Addestramento Completo" />
+      text="Addestramento completato" />
     <string
       id="ret_training_complete_text"
       text="{TROOP} ha completato l’addestramento in {SKILL}." />
@@ -1773,10 +1782,10 @@
       text="Sono necessarie {HOURS} ore di addestramento" />
     <string
       id="ret_training_required_tooltip_body"
-      text="Prima che i punti abilità vengano applicati, le truppe devono sottoporsi a un addestramento.{newline}{newline}Questo si fa selezionando &apos;Addestra truppe&apos; dal menu della città di un feudo." />
+      text="Prima di poter applicare l&apos;incremento dei punti abilità, le truppe devono essere sottoposte ad addestramento.{newline}{newline}Per farlo, seleziona &apos;Addestra truppe&apos; dal menu della città di un feudo." />
     <string
       id="ret_traits_header_text"
-      text="Tratti della Personalità" />
+      text="Tratti Caratteriali" />
     <string
       id="ret_transfer_header_text"
       text="Trasferisci" />
@@ -1785,19 +1794,19 @@
       text="truppa" />
     <string
       id="ret_troop_editor_button"
-      text="Editor Truppe" />
+      text="Editor truppe" />
     <string
       id="ret_troop_editor_title"
-      text="Editor Truppe" />
+      text="Editor truppe" />
     <string
       id="ret_troop_editor_title_culture"
-      text="Editor Cultura" />
+      text="Editor cultura" />
     <string
       id="ret_troop_editor_title_heroes"
-      text="Editor Eroi" />
+      text="Editor eroi" />
     <string
       id="ret_troop_list.placeholder"
-      text="Nessuna Truppa Disponibile" />
+      text="Nessuna truppa disponibile" />
     <string
       id="ret_troop_stats_text"
       text="Statistiche" />
@@ -1806,28 +1815,28 @@
       text="Visualizza le statistiche di battaglia per questa truppa." />
     <string
       id="ret_troop_xp"
-      text="{XP} xp" />
+      text="{XP} esperienza" />
     <string
       id="ret_troops_tab_text"
       text="Truppe" />
     <string
       id="ret_unequip_all"
-      text="Rimuovi Tutto" />
+      text="Rimuovi tutto" />
     <string
       id="ret_unequip_all_button_text"
-      text="Rimuovi Tutto" />
+      text="Rimuovi tutto" />
     <string
       id="ret_unequip_all_text"
-      text="Rimuovere tutti gli oggetti indossati da {TROOP_NAME}?{newline}{newline}Saranno immagazzinati." />
+      text="Rimuovere tutto l&apos;equipaggiamento di {TROOP_NAME}?" />
     <string
       id="ret_unequip_warn_title"
-      text="Rimuovi Oggetto" />
+      text="Rimuovi equipaggiamento" />
     <string
       id="ret_unequip_warning_text"
-      text="Rimuovere è istantaneo, ma equipaggiare un oggetto diverso in seguito potrebbe richiedere tempo.{newline}{newline}Confermi?" />
+      text="La rimozione dell&apos;equipaggiamento è immediata, ma equipaggiare un oggetto diverso in seguito potrebbe richiedere del tempo.{newline}{newline}Confermare?" />
     <string
       id="ret_unknown"
-      text="Sconosciuto" />
+      text="Ignoto" />
     <string
       id="ret_unlock_btn"
       text="Sblocca" />
@@ -1836,52 +1845,52 @@
       text="Impossibile sbloccare." />
     <string
       id="ret_unlock_progress_text"
-      text="Sbloccando ({PROGRESS}%)" />
+      text="Sblocco in corso ({PROGRESS}%)" />
     <string
       id="ret_unstage_all"
-      text="Annulla Tutto" />
+      text="Annulla modifiche" />
     <string
       id="ret_unstage_all_button_text"
-      text="Reimposta Modifiche" />
+      text="Annulla modifiche" />
     <string
       id="ret_unstage_all_text"
-      text="Annulla tutte le modifiche di equipaggiamento preparate per {TROOP_NAME}?" />
+      text="Annullare tutte le modifiche all&apos;equipaggiamento pianificate per {TROOP_NAME}?" />
     <string
       id="ret_upgrade_equip_begin"
-      text="Inizia a potenziare l’equipaggiamento" />
+      text="Inizia miglioramento equipaggiamento" />
     <string
       id="ret_upgrade_equip_choose_troop"
-      text="Scegli una o più truppe per iniziare a equipaggiare ora." />
+      text="Seleziona una o più truppe per iniziare a equipaggiarle ora." />
     <string
       id="ret_upgrade_equip_pending_btn"
-      text="Equipa le truppe" />
+      text="Equipaggia truppe" />
     <string
       id="ret_upgrade_equip_progress"
-      text="Equipaggiamento di {NAME}..." />
+      text="Equipaggiamento di {NAME} in corso..." />
     <string
       id="ret_upgrade_equip_select_troop"
       text="Seleziona le truppe da equipaggiare" />
     <string
       id="ret_upgrade_equip_unequip"
-      text="Rimuovi" />
+      text="Rimuovi equipaggiamento" />
     <string
       id="ret_upgrade_train_begin"
-      text="Inizia l’addestramento" />
+      text="Inizia addestramento" />
     <string
       id="ret_upgrade_train_choose_troop"
-      text="Scegli una o più truppe per iniziare l’addestramento ora." />
+      text="Seleziona una o più truppe per iniziare l&apos;addestramento ora." />
     <string
       id="ret_upgrade_train_pending_btn"
-      text="Addestra le truppe" />
+      text="Addestra truppe" />
     <string
       id="ret_upgrade_train_progress"
-      text="Addestramento di {NAME}..." />
+      text="Addestramento di {NAME} in corso..." />
     <string
       id="ret_upgrade_train_select_troop"
       text="Seleziona le truppe da addestrare" />
     <string
       id="ret_upgrades_header_text"
-      text="Potenziamenti" />
+      text="Miglioramenti" />
     <string
       id="ret_vanguard"
       text="Avanguardia" />
@@ -1890,7 +1899,7 @@
       text="Ripulisci un covo usando solo il tuo seguito." />
     <string
       id="ret_vanguard_description"
-      text="+15% limite seguito." />
+      text="+15% al limite delle truppe del seguito." />
     <string
       id="ret_vanguard_disabled_message"
       text="Disabilitato: il limite del seguito è già al massimo nella configurazione." />
@@ -1899,7 +1908,7 @@
       text="Fai ottenere al tuo seguito la prima uccisione corpo a corpo in un assalto d’assedio." />
     <string
       id="ret_vanguard_win_100_retinue_only"
-      text="Vinci una battaglia 100+ usando solo il tuo seguito." />
+      text="Vinci una battaglia con almeno 100 combattenti in totale usando solo il tuo seguito." />
     <string
       id="ret_vassal_secrets_option"
       text="Rivela i segreti dei tuoi artefatti più preziosi e ti lascerò andare." />
@@ -1908,10 +1917,10 @@
       text="Molto bene... Condividerò la conoscenza di queste reliquie, se mi garantirà la libertà." />
     <string
       id="ret_vassal_secrets_title"
-      text="Segreti Sbloccati" />
+      text="Segreti svelati" />
     <string
       id="ret_vassal_secrets_unlocked_body"
-      text="Hai sbloccato i segreti di: {ITEMS}." />
+      text="Segreti scoperti: {ITEMS}." />
     <string
       id="ret_warning"
       text="Avviso" />

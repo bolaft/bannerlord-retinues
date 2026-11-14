@@ -96,7 +96,7 @@
                       Overwrite="true"
                       Encoding="UTF-8" />
     
-    <!-- 5) Copy the right SubModule.*.xml based on BL (12 or 13) -->
+    <!-- 5) Copy the right SubModule.*.xml based on BL (12 or 15) -->
     <ItemGroup>
       <_SubModuleFile Include="$(ModuleProjectDir)\SubModule.BL$(BL).xml" />
     </ItemGroup>

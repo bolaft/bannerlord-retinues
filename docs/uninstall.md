@@ -5,37 +5,24 @@ nav_order: 13
 
 # Uninstall
 
-> The MCM instructions below are for **Retinues V1**. In the **V2 beta**, use **Troops → Settings → Uninstall → Purge** instead, then save to a new slot and exit before removing the mod.
+The improved cleanup is included in **V1 1.4.14.33** and **V2 2.0.0.14**. If using an older release, update within your current branch before uninstalling. Switching from V2 to V1 is not an uninstall procedure.
 
-Removing Retinues safely requires one in-game step first. This prevents broken saves caused by leftover references to custom troops.
-
----
-
-## Why the "Purge" step is necessary
-
-Retinues adds custom troop definitions to your save. Other parties, garrisons, and rosters may reference them. If you uninstall without cleanup, the game can try to load troops that no longer exist and crash.
-
-The **Purge Custom Troop Data** button in MCM replaces all custom troops with safe culture counterparts and clears related state so your save no longer depends on the mod.
-
----
+Retinues troops can be referenced by parties, prisoners, village recruits, quests and other campaign records. Removing the module while those references remain can cause crashes on recruitment, daily updates or save loading.
 
 ## Safe uninstall
 
-1. **Load your save** (the one you want to keep playing).
-2. Open **MCM → Retinues → Debug** and click **Purge Custom Troop Data**.  
-   - Confirm the warning. Wait until you see the success message.
-3. **Save** your game under a **new slot** (e.g., "pre-uninstall") and **exit to desktop**.
-4. **Remove the mod files** according to your install method:
-   - **Nexus (zip/manual):**
-     - Delete the folder:  
-       `<Bannerlord>\Modules\Retinues`
-   - **Steam Workshop:**
-     - In Steam, **Unsubscribe** from *Retinues*.
-     - Optional: check the corresponding folder under `<Steam library>\steamapps\workshop\content\261550\`:
-       - **Bannerlord 1.4 / 1.5 beta release:** `3599557394`
-       - **Older Bannerlord 1.2.12 release:** `3592533567`
+1. **Back up your campaign**, then load it with Retinues enabled.
+2. Open the cleanup tool for your version:
+   - **V1:** MCM → Retinues → Debug → Purge Custom Troop Data.
+   - **V2:** Troops → Settings → Uninstall → Purge. Choose **Replace** to keep troop numbers, or **Remove** to remove custom troops from army and prisoner rosters. Recruitment slots and other campaign references are replaced in either mode.
+3. Wait for the verified success message. **If cleanup is incomplete, reload your backup and report `Documents/Retinues/Logs/debug.log`. Do not remove Retinues or overwrite your backup.**
+4. **Save to a new slot**, wait for saving to finish, then **exit to desktop**.
+5. Remove Retinues through your mod manager or delete `<Bannerlord>/Modules/Retinues` for a manual install. Workshop users should unsubscribe from the installed item (`3599557394` for Bannerlord 1.4 / 1.5 beta; `3592533567` for the older 1.2.12 release). Check for duplicate manual/Workshop installations.
+6. Load the new save, recruit in a village, let a day pass, then save and reload again. Keep the original backup until these checks succeed.
 
-You can now continue that save without the mod.
+The cleanup replaces custom troops with similar non-Retinues troops, including troops from other installed mods. It checks the result and omits Retinues-specific saved data. If you reopen the prepared save with Retinues still enabled, troop generation stays disabled. To continue with your custom troops, return to your original backup.
+
+Cleanup is **per campaign**. Repeat it for other saves you want to continue without Retinues. It cannot repair every save already damaged by a failed uninstall or guarantee compatibility with every other mod.
 
 ---
 
@@ -64,9 +51,9 @@ How to use it:
 
 If you removed Retinues without purging first and the save now crashes:
 
-1. Reinstall/Resubscribe **Retinues**.
-2. Load the affected save, perform the **Purge** (MCM → Retinues → Debug).
-3. Save, exit, and uninstall again using the steps above.
+1. Reinstall **the same Retinues branch** the campaign used, updated to a version with the improved cleanup. Do not downgrade a V2 campaign to V1.
+2. Load your **pre-uninstall backup**, then use the cleanup tool for that branch.
+3. Follow the new-save, exit and removal steps above. If you no longer have a backup, retain the affected save and report it with the log and load order; recovery is not guaranteed.
 
 If you are on Nexus and the game refuses to load even with Retinues reinstalled, you can try the **Retinues.Disabled** fallback described in the previous section.
 

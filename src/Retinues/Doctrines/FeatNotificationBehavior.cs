@@ -135,7 +135,8 @@ namespace Retinues.Doctrines
                     // On OK: try to show next one (if any) immediately
                     affirmativeAction: () => TryFlush(),
                     negativeAction: null
-                )
+                ),
+                pauseGameActiveState: true
             );
         }
 

@@ -154,7 +154,8 @@ namespace Retinues.Troops
                     negativeText: L.S("create_from_scratch", "Start from Scratch"),
                     affirmativeAction: () => CreateAllTroops(copyWholeTree: true),
                     negativeAction: () => CreateAllTroops(copyWholeTree: false)
-                )
+                ),
+                pauseGameActiveState: true
             );
 
             // Regular troops are created asynchronously via the inquiry callbacks,
@@ -228,6 +229,13 @@ namespace Retinues.Troops
                 {
                     Log.Info("Creating Caravan Guard troop for faction.");
                     CreateSpecialTroop(culture.CaravanGuard, faction, RootCategory.CaravanGuard);
+                    created = true;
+                }
+
+                if (faction.VeteranCaravanGuard is null && culture?.VeteranCaravanGuard != null)
+                {
+                    Log.Info("Creating Veteran Caravan Guard troop for faction.");
+                    CreateSpecialTroop(culture.VeteranCaravanGuard, faction, RootCategory.VeteranCaravanGuard);
                     created = true;
                 }
 

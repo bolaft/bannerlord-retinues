@@ -34,6 +34,8 @@ namespace Retinues.GUI.Editor.VM.Troop.List
             BasicTroops = [.. State.Faction.BasicTroops.Select(t => new TroopRowVM(t))];
             MilitiaTroops = [.. State.Faction.MilitiaTroops.Select(t => new TroopRowVM(t))];
             CaravanTroops = [.. State.Faction.CaravanTroops.Select(t => new TroopRowVM(t))];
+            Log.Debug($"Caravan editor list for faction '{State.Faction.StringId}': {string.Join(", ", CaravanTroops.Select(row => row.RowTroop.StringId))}.");
+            ConvoyTroops = [.. State.Faction.ConvoyTroops.Select(t => new TroopRowVM(t))];
             VillagerTroops = [.. State.Faction.VillagerTroops.Select(t => new TroopRowVM(t))];
             MercenaryTroops = [.. State.Faction.MercenaryTroops.Select(t => new TroopRowVM(t))];
             BanditTroops = [.. State.Faction.BanditTroops.Select(t => new TroopRowVM(t))];
@@ -113,6 +115,7 @@ namespace Retinues.GUI.Editor.VM.Troop.List
             OnPropertyChanged(nameof(BasicTroops));
             OnPropertyChanged(nameof(MilitiaTroops));
             OnPropertyChanged(nameof(CaravanTroops));
+            OnPropertyChanged(nameof(ConvoyTroops));
             OnPropertyChanged(nameof(VillagerTroops));
             OnPropertyChanged(nameof(MercenaryTroops));
             OnPropertyChanged(nameof(BanditTroops));
@@ -126,6 +129,7 @@ namespace Retinues.GUI.Editor.VM.Troop.List
             OnPropertyChanged(nameof(ShowBasicList));
             OnPropertyChanged(nameof(ShowMilitiaList));
             OnPropertyChanged(nameof(ShowCaravanList));
+            OnPropertyChanged(nameof(ShowConvoyList));
             OnPropertyChanged(nameof(ShowVillagerList));
             OnPropertyChanged(nameof(ShowMercenaryList));
             OnPropertyChanged(nameof(ShowBanditList));
@@ -154,6 +158,9 @@ namespace Retinues.GUI.Editor.VM.Troop.List
 
         [DataSourceProperty]
         public MBBindingList<TroopRowVM> CaravanTroops { get; set; } = [];
+
+        [DataSourceProperty]
+        public MBBindingList<TroopRowVM> ConvoyTroops { get; set; } = [];
 
         [DataSourceProperty]
         public MBBindingList<TroopRowVM> VillagerTroops { get; set; } = [];
@@ -209,6 +216,9 @@ namespace Retinues.GUI.Editor.VM.Troop.List
         public string CaravanToggleText => L.S("list_toggle_caravan", "Caravans");
 
         [DataSourceProperty]
+        public string ConvoyToggleText => L.S("list_toggle_convoy", "Convoys");
+
+        [DataSourceProperty]
         public string VillagerToggleText => L.S("list_toggle_villager", "Villagers");
 
         [DataSourceProperty]
@@ -241,6 +251,9 @@ namespace Retinues.GUI.Editor.VM.Troop.List
 
         [DataSourceProperty]
         public bool ShowCaravanList => CaravanTroops.Count > 0 || !ClanScreen.IsStudioMode;
+
+        [DataSourceProperty]
+        public bool ShowConvoyList => ConvoyTroops.Count > 0 && ClanScreen.EditorMode == EditorMode.Culture;
 
         [DataSourceProperty]
         public bool ShowVillagerList => VillagerTroops.Count > 0 || !ClanScreen.IsStudioMode;
@@ -276,6 +289,7 @@ namespace Retinues.GUI.Editor.VM.Troop.List
                 .. BasicTroops,
                 .. MilitiaTroops,
                 .. CaravanTroops,
+                .. ConvoyTroops,
                 .. VillagerTroops,
                 .. MercenaryTroops,
                 .. BanditTroops,

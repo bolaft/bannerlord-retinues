@@ -1,5 +1,6 @@
 using System;
 using System.Reflection;
+using System.Linq;
 using Bannerlord.UIExtenderEx;
 using HarmonyLib;
 using Retinues.Configuration;
@@ -165,6 +166,8 @@ namespace Retinues
                 int failedPatchClasses = 0;
                 foreach (var type in AccessTools.GetTypesFromAssembly(Assembly.GetExecutingAssembly()))
                 {
+                    if (!IsPatchContainer(type))
+                        continue;
                     try
                     {
                         _harmony.CreateClassProcessor(type).Patch();
@@ -193,6 +196,13 @@ namespace Retinues
                 Log.Exception(e, "Error while applying Harmony patches.");
             }
         }
+
+        // Harmony also recognizes names such as Prepare and Cleanup on ordinary classes.
+        // Only annotated containers belong in automatic patch discovery.
+        internal static bool IsPatchContainer(Type type) =>
+            type.IsDefined(typeof(HarmonyPatch), false)
+            || AccessTools.GetDeclaredMethods(type).Any(method =>
+                method.IsDefined(typeof(HarmonyPatch), false));
 
         private void RemoveHarmonyPatches()
         {
@@ -329,6 +339,8 @@ namespace Retinues
         private void AddBehaviors(CampaignGameStarter cs)
         {
             Log.Info("Registering behaviors...");
+
+            AddBehavior<Safety.Uninstall.UninstallBehavior>(cs);
 
             // XP behaviors
             AddBehavior<Features.Experience.TroopXpBehavior>(cs);
@@ -498,6 +510,9 @@ namespace Retinues
 
             // Clear skill baseline map
             WCharacter.SkillBaselineMap.Clear();
+
+            // Formation choices are restored from each campaign's troop records.
+            WCharacter.ClearFormationOverrides();
 
             // Clear upgrade map
             WCharacter.UpgradeMap.Clear();

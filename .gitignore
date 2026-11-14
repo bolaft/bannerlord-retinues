@@ -9,6 +9,7 @@
 /**/bin/
 /**/obj/
 /**/out/
+__pycache__/
 
 # DLLs & NuGet packages
 dll/*

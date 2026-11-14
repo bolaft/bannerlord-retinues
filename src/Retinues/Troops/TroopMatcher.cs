@@ -43,6 +43,7 @@ namespace Retinues.Troops
                 var _ when troop == troop.Faction.MilitiaRanged => faction.MilitiaRanged,
                 var _ when troop == troop.Faction.MilitiaRangedElite => faction.MilitiaRangedElite,
                 var _ when troop == troop.Faction.CaravanGuard => faction.CaravanGuard,
+                var _ when troop == troop.Faction.VeteranCaravanGuard => faction.VeteranCaravanGuard,
                 var _ when troop == troop.Faction.CaravanMaster => faction.CaravanMaster,
                 var _ when troop == troop.Faction.Villager => faction.Villager,
                 _ => null,
@@ -73,6 +74,7 @@ namespace Retinues.Troops
             bool isSlot =
                 troop == srcFaction.Villager
                 || troop == srcFaction.CaravanGuard
+                || troop == srcFaction.VeteranCaravanGuard
                 || troop == srcFaction.CaravanMaster
                 || troop == srcFaction.MilitiaMelee
                 || troop == srcFaction.MilitiaMeleeElite

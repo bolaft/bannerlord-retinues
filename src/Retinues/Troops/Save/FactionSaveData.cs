@@ -40,6 +40,9 @@ namespace Retinues.Troops.Save
         [SaveableField(9)]
         public TroopSaveData CaravanGuard;
 
+        [SaveableField(18)]
+        public TroopSaveData VeteranCaravanGuard;
+
         [SaveableField(10)]
         public TroopSaveData CaravanMaster;
 
@@ -86,6 +89,7 @@ namespace Retinues.Troops.Save
             MilitiaRanged = CreateIfNeeded(faction.MilitiaRanged);
             MilitiaRangedElite = CreateIfNeeded(faction.MilitiaRangedElite);
             CaravanGuard = CreateIfNeeded(faction.CaravanGuard);
+            VeteranCaravanGuard = CreateIfNeeded(faction.VeteranCaravanGuard);
             CaravanMaster = CreateIfNeeded(faction.CaravanMaster);
             Villager = CreateIfNeeded(faction.Villager);
 
@@ -123,6 +127,18 @@ namespace Retinues.Troops.Save
                 .Select(r => new TroopSaveData(r))
                 .ToList();
 
+            // Convoys are existing native characters, so the established extra-troop
+            // records can preserve their edits without adding fields to old saves.
+            foreach (var convoy in faction.ConvoyTroops)
+            {
+                var data = CreateIfNeeded(convoy);
+                if (data == null)
+                    continue;
+                extras ??= [];
+                if (!extras.Any(e => e.StringId == data.StringId))
+                    extras.Add(data);
+            }
+
             Extras = (extras != null && extras.Count > 0) ? extras : null;
         }
 
@@ -144,6 +160,7 @@ namespace Retinues.Troops.Save
                 MilitiaRanged?.Deserialize();
                 MilitiaRangedElite?.Deserialize();
                 CaravanGuard?.Deserialize();
+                VeteranCaravanGuard?.Deserialize();
                 CaravanMaster?.Deserialize();
                 Villager?.Deserialize();
 
@@ -177,6 +194,7 @@ namespace Retinues.Troops.Save
                 MilitiaRanged?.Deserialize(faction, RootCategory.MilitiaRanged);
                 MilitiaRangedElite?.Deserialize(faction, RootCategory.MilitiaRangedElite);
                 CaravanGuard?.Deserialize(faction, RootCategory.CaravanGuard);
+                VeteranCaravanGuard?.Deserialize(faction, RootCategory.VeteranCaravanGuard);
                 CaravanMaster?.Deserialize(faction, RootCategory.CaravanMaster);
                 Villager?.Deserialize(faction, RootCategory.Villager);
             }

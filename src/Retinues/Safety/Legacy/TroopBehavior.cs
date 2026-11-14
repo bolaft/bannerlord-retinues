@@ -19,6 +19,7 @@ namespace Retinues.Safety.Legacy
 
         public override void SyncData(IDataStore ds)
         {
+            if (Uninstall.UninstallBehavior.IsPrepared) return;
             if (ds.IsSaving)
                 return; // No migration needed when saving
 

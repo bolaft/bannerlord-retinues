@@ -2,37 +2,34 @@
 <!--       Name Block      -->
 <!-- ━━━━━━━━━━━━━━━━━━━━━ -->
 
-<!-- Name Header -->
 {{ text.header("@NameHeaderText") }}
 
-<!-- Name Block -->
+{# Center the text and pencil together. Cap the text itself so the pencil stays
+   reachable: 560 + 8 + 32 for troops, 2 * (252 + 8 + 32) + 16 for heroes. #}
+{% for hero in [false, true] %}
 <ListPanel
-    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    {% if hero %}IsVisible="@IsHero"{% else %}IsHidden="@IsHero"{% endif %}
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed"
+    SuggestedHeight="40"
     HorizontalAlignment="Center"
     StackLayout.LayoutMethod="HorizontalLeftToRight"
     UpdateChildrenStates="true">
     <Children>
-        <!-- Troop Name -->
-        {{ text.base(text="@Name", brush="Clan.RightPanel.Name.Text") }}
-
-        <!-- Rename Button (first name / troop name) -->
+        {% set fields = [("@Name", "ExecuteRename")] %}
+        {% if hero %}{% set fields = fields + [("@SurnameDisplay", "ExecuteRenameSurname")] %}{% endif %}
+        {% for name, command in fields %}
+        <TextWidget
+            Text="{{ name }}" Brush="Clan.RightPanel.Name.Text"
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="StretchToParent"
+            MaxWidth="{{ 252 if hero else 560 }}"
+            MarginLeft="{{ 16 if not loop.first else 0 }}" MarginRight="8"
+            Brush.TextHorizontalAlignment="Left" ClipContents="true" DoNotAcceptEvents="true" />
         {{ button.brush(
-            command="ExecuteRename",
+            command=command,
             brush="SPClan.NameChange.Icon",
-            height="32", width="32",
-            margin_left="8"
+            height="32", width="32"
         ) }}
-
-        <!-- Surname / Title text — heroes only -->
-        {{ text.base(text="@SurnameDisplay", brush="Clan.RightPanel.Name.Text", is_visible="@IsHero", margin_left="8") }}
-
-        <!-- Change Surname / Title Button — heroes only -->
-        {{ button.brush(
-            command="ExecuteRenameSurname",
-            brush="SPClan.NameChange.Icon",
-            height="32", width="32",
-            margin_left="4",
-            is_visible="@IsHero"
-        ) }}
+        {% endfor %}
     </Children>
 </ListPanel>
+{% endfor %}

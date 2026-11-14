@@ -10,14 +10,15 @@
     <!-- Repo root (absolute) -->
     <RepoRoot>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)'))</RepoRoot>
   
-    <!-- Bannerlord version selector (12, 13, or 14) -->
-    <BL Condition="'$(BL)' == ''">13</BL>
+    <!-- Current release target: BL15 (1.5.7); BL12 remains the legacy target. -->
+    <BL Condition="'$(BL)' == ''">15</BL>
 
-    <!-- Append a preprocessor symbol BL12, BL13, or BL14 -->
+    <!-- Append the selected target symbol. BL15 uses the BL14-compatible API paths. -->
     <DefineConstants Condition="'$(DefineConstants)' != ''">$(DefineConstants);BL$(BL)</DefineConstants>
     <DefineConstants Condition="'$(DefineConstants)' == ''">BL$(BL)</DefineConstants>
+    <DefineConstants Condition="'$(BL)' == '15'">$(DefineConstants);BL14</DefineConstants>
   
-    <!-- Where references come from: ./dll/12, ./dll/13, or ./dll/14 -->
+    <!-- Select the corresponding local game reference snapshot. -->
     <ReferenceRoot>$(RepoRoot)dll\$(BL)</ReferenceRoot>
 
     <!-- out/obj/<ProjectName>/ -->

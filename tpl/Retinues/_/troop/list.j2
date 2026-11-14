@@ -22,7 +22,7 @@
         {{ list.header_toggle("TroopList", "Hero", "@HeroToggleText", is_visible="@ShowHeroesList") }}
 
         <!-- Hero List -->
-        {% call list.rows("{Heroes}", "Hero") %}
+        {% call list.rows("{Heroes}", "Hero", hint=None) %}
             {% include "_/troop/row.j2" %}
         {% endcall %}
 
@@ -30,7 +30,7 @@
         {{ list.header_toggle("TroopList", "Retinue", "@RetinueToggleText", is_visible="@ShowRetinueList") }}
 
         <!-- Retinue List -->
-        {% call list.rows("{RetinueTroops}", "Retinue") %}
+        {% call list.rows("{RetinueTroops}", "Retinue", hint=None) %}
             {% include "_/troop/row.j2" %}
         {% endcall %}
 
@@ -38,7 +38,7 @@
         {{ list.header_toggle("TroopList", "Elite", "@EliteToggleText", is_visible="@ShowEliteList") }}
 
         <!-- Elite List -->
-        {% call list.rows("{EliteTroops}", "Elite") %}
+        {% call list.rows("{EliteTroops}", "Elite", hint=None) %}
             {% include "_/troop/row.j2" %}
         {% endcall %}
 
@@ -46,7 +46,7 @@
         {{ list.header_toggle("TroopList", "Regular", "@RegularToggleText", is_visible="@ShowBasicList") }}
 
         <!-- Regular List -->
-        {% call list.rows("{BasicTroops}", "Regular") %}
+        {% call list.rows("{BasicTroops}", "Regular", hint=None) %}
             {% include "_/troop/row.j2" %}
         {% endcall %}
 
@@ -54,7 +54,7 @@
         {{ list.header_toggle("TroopList", "Militia", "@MilitiaToggleText", is_visible="@ShowMilitiaList") }}
 
         <!-- Militia List -->
-        {% call list.rows("{MilitiaTroops}", "Militia") %}
+        {% call list.rows("{MilitiaTroops}", "Militia", hint=None) %}
             {% include "_/troop/row.j2" %}
         {% endcall %}
 
@@ -62,7 +62,15 @@
         {{ list.header_toggle("TroopList", "Caravan", "@CaravanToggleText", is_visible="@ShowCaravanList") }}
 
         <!-- Caravan List -->
-        {% call list.rows("{CaravanTroops}", "Caravan") %}
+        {% call list.rows("{CaravanTroops}", "Caravan", hint=None) %}
+            {% include "_/troop/row.j2" %}
+        {% endcall %}
+
+        <!-- Convoy Header -->
+        {{ list.header_toggle("TroopList", "Convoy", "@ConvoyToggleText", is_visible="@ShowConvoyList") }}
+
+        <!-- Convoy List -->
+        {% call list.rows("{ConvoyTroops}", "Convoy", hint=None) %}
             {% include "_/troop/row.j2" %}
         {% endcall %}
 
@@ -70,7 +78,7 @@
         {{ list.header_toggle("TroopList", "Villager", "@VillagerToggleText", is_visible="@ShowVillagerList") }}
 
         <!-- Villager List -->
-        {% call list.rows("{VillagerTroops}", "Villager") %}
+        {% call list.rows("{VillagerTroops}", "Villager", hint=None) %}
             {% include "_/troop/row.j2" %}
         {% endcall %}
 
@@ -78,7 +86,7 @@
         {{ list.header_toggle("TroopList", "Mercenary", "@MercenaryToggleText", is_visible="@ShowMercenaryList") }}
 
         <!-- Mercenary List -->
-        {% call list.rows("{MercenaryTroops}", "Mercenary") %}
+        {% call list.rows("{MercenaryTroops}", "Mercenary", hint=None) %}
             {% include "_/troop/row.j2" %}
         {% endcall %}
 
@@ -86,7 +94,7 @@
         {{ list.header_toggle("TroopList", "Bandit", "@BanditToggleText", is_visible="@ShowBanditList") }}
 
         <!-- Bandit List -->
-        {% call list.rows("{BanditTroops}", "Bandit") %}
+        {% call list.rows("{BanditTroops}", "Bandit", hint=None) %}
             {% include "_/troop/row.j2" %}
         {% endcall %}
 
@@ -94,7 +102,7 @@
         {{ list.header_toggle("TroopList", "Civilian", "@CivilianToggleText", is_visible="@ShowCivilianList") }}
 
         <!-- Civilian List -->
-        {% call list.rows("{CivilianTroops}", "Civilian") %}
+        {% call list.rows("{CivilianTroops}", "Civilian", hint=None) %}
             {% include "_/troop/row.j2" %}
         {% endcall %}
 
