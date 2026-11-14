@@ -6,6 +6,7 @@ using System.Xml.Linq;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Factions;
 using Retinues.Domain.Factions.Wrappers;
+using Retinues.Exports;
 using Retinues.Utilities;
 
 namespace Retinues.Editor.MVC.Pages.Library.Services
@@ -70,10 +71,19 @@ namespace Retinues.Editor.MVC.Pages.Library.Services
                 var fileName = Path.GetFileName(path) ?? string.Empty;
                 var fileTimeUtc = File.GetLastWriteTimeUtc(path);
 
-                var doc = XDocument.Load(path, LoadOptions.None);
+                var doc = StableExportParser.LoadDocument(path);
                 var root = doc.Root;
                 if (root == null)
                     return false;
+
+                if (root.Name == "RetinuesTroops")
+                {
+                    var sections = StableExportParser.Read(root);
+                    item = new Entry(path, fileName, ExportKind.Faction, string.Empty, fileTimeUtc,
+                        sections.Count, sections.Sum(s => s.Troops.Count),
+                        Path.GetFileNameWithoutExtension(fileName), isStableExport: true);
+                    return true;
+                }
 
                 // Current export format root.
                 if (root.Name.LocalName != "Retinues")

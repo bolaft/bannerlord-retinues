@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <base xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" type="string">
   <tags>
-    <tag language="KO" />
+    <tag language="한국어" />
   </tags>
   <strings>
     <string
@@ -1068,7 +1068,7 @@
       text="함께 행진하다" />
     <string
       id="ret_feat_sp_rescue_mission_desc"
-      text="적 파티에서 포로로 잡힌 영주를 구출하십시오." />
+      text="전투에서 승리하거나(자동 전투 포함) 탈옥을 성공시켜 아군 영주를 구출하십시오. 몸값 지불은 포함되지 않습니다." />
     <string
       id="ret_feat_sp_rescue_mission_name"
       text="구출 임무" />

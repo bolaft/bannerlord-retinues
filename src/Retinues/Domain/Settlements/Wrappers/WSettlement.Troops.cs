@@ -4,7 +4,6 @@ using Retinues.Domain.Factions;
 using Retinues.Domain.Factions.Wrappers;
 using Retinues.Domain.Parties.Wrappers;
 using Retinues.Settings;
-using Retinues.Utilities;
 
 namespace Retinues.Domain.Settlements.Wrappers
 {
@@ -115,8 +114,6 @@ namespace Retinues.Domain.Settlements.Wrappers
         public List<WCharacter> GetPlayerRoots(bool elite)
         {
             var roots = new List<WCharacter>();
-
-            Log.Info("Recruitement: determining player eligible roots.");
 
             if (CanPlayerRecruitClanTroops())
                 TryAddRootUnique(roots, GetFactionRoot(Player.Clan, elite));

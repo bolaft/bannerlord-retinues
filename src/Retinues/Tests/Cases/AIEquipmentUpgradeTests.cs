@@ -18,7 +18,7 @@ namespace Retinues.Tests.Cases
         private static WItem Weapon(string id, ItemObject.ItemTypeEnum type, WeaponClass weaponClass, int tier = 4)
         {
             var item = (ItemObject)FormatterServices.GetUninitializedObject(typeof(ItemObject));
-            item.StringId = id;
+            item.StringId = id + "__retinues_test";
             item.Type = type;
             var flags = type switch
             {
@@ -29,6 +29,7 @@ namespace Retinues.Tests.Cases
                 _ => WeaponFlags.MeleeWeapon,
             };
             item.AddWeapon(new WeaponComponentData(item, weaponClass, flags), null);
+            AccessTools.PropertySetter(typeof(ItemObject), "ItemHolsters").Invoke(item, new object[] { new string[0] });
             ItemTiers.Set(item, tier);
             var result = new WItem(item);
             Tests.AssertEqual(tier, result.Tier, "Fixture uses the real engine tier calculation.");
@@ -39,7 +40,7 @@ namespace Retinues.Tests.Cases
         private static WItem Armor(string id, ItemObject.ItemTypeEnum type)
         {
             var item = (ItemObject)FormatterServices.GetUninitializedObject(typeof(ItemObject));
-            item.StringId = id;
+            item.StringId = id + "__retinues_test";
             item.Type = type;
             AccessTools.PropertySetter(typeof(ItemObject), "ItemComponent").Invoke(item,
                 new[] { FormatterServices.GetUninitializedObject(typeof(ArmorComponent)) });
@@ -105,6 +106,23 @@ namespace Retinues.Tests.Cases
                 null, NothingCarried, null) == null, "Empty weapon slots remain empty.");
             Tests.AssertTrue(AIClanRetinuesBehavior.PickEquipmentUpgrade(owner, EquipmentIndex.Weapon1,
                 betterArrows, NothingCarried, null) == null, "Same-tier gear is not an upgrade.");
+        }
+
+        [GameTest("AIDailyPickerRevalidatesCachedWeaponHolsters", "equipment", RequiresCampaign = false)]
+        public static void AIDailyPickerRevalidatesCachedWeaponHolsters()
+        {
+            using var tiers = new ItemTiers();
+            var sword = Weapon("sword", ItemObject.ItemTypeEnum.OneHandedWeapon, WeaponClass.OneHandedSword);
+            var upgrade = Weapon("sword_upgrade", ItemObject.ItemTypeEnum.OneHandedWeapon, WeaponClass.OneHandedSword, 5);
+            using var items = new ItemPool(EquipmentIndex.Weapon0, new List<WItem> { upgrade });
+            var setter = AccessTools.PropertySetter(typeof(ItemObject), "ItemHolsters");
+            setter.Invoke(upgrade.Base, new object[] { new string[4] });
+            Tests.AssertTrue(AIClanRetinuesBehavior.PickEquipmentUpgrade(Owner(), EquipmentIndex.Weapon0,
+                sword, NothingCarried, null) == null, "A stale cached candidate must be revalidated.");
+            setter.Invoke(upgrade.Base, new object[] { new string[0] });
+            Tests.AssertTrue(ReferenceEquals(upgrade,
+                AIClanRetinuesBehavior.PickEquipmentUpgrade(Owner(), EquipmentIndex.Weapon0, sword, NothingCarried, null)),
+                "A corrected candidate becomes eligible again.");
         }
 
         [GameTest("AIEquipmentUpgradePreservesSpareAmmunition", "equipment", RequiresCampaign = false)]

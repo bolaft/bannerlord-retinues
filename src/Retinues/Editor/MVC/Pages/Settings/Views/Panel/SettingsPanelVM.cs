@@ -159,6 +159,19 @@ namespace Retinues.Editor.MVC.Pages.Settings.Views.Panel
         public string PurgeAllHeader => L.S("purge_all_header", "Uninstall");
 
         [DataSourceProperty]
+        public string SupportHeader => L.S("support_header", "Support");
+
+        [DataSourceProperty]
+        public Button<object> BugReportButton { get; } =
+            new(
+                action: BugReportController.CreateReport,
+                arg: () => null,
+                refresh: [UIEvent.Page],
+                labelFactory: () => L.S("bug_report_button", "Bug Report"),
+                visibilityGate: () => State.Page == EditorPage.Settings
+            );
+
+        [DataSourceProperty]
         public Button<object> PurgeAllButton { get; } =
             new(
                 action: PurgeController.PurgeAll,

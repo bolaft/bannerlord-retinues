@@ -305,7 +305,7 @@ namespace Retinues.Behaviors.Retinues.Patches
         /// <summary>
         /// Restores all modified upgrade targets and clears saved UI state.
         /// </summary>
-        private static void RestoreAll()
+        internal static void RestoreAll()
         {
             lock (Sync)
             {

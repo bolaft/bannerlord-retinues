@@ -84,6 +84,11 @@ namespace Retinues.Domain.Factions.Wrappers
 
         public override WCharacter CaravanMaster => WCharacter.Get(Base.CaravanMaster);
         public override WCharacter CaravanGuard => WCharacter.Get(Base.CaravanGuard);
+        public override WCharacter VeteranCaravanGuard =>
+            WCharacter.Get(Compatibility.CaravanTroopResolver.FindVeteran(Base));
+
+        public override List<WCharacter> RosterConvoy =>
+            Collect(Compatibility.ConvoyTroopResolver.Find(Base).Select(WCharacter.Get).ToArray());
 
 #if BL12
         public override WCharacter ArmedTrader => WCharacter.Get(Base.ArmedTrader);

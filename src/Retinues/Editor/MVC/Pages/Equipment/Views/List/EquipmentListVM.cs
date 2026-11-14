@@ -219,7 +219,7 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.List
             for (int i = 0; i < raw.Count; i++)
             {
                 var item = raw[i];
-                if (item == null)
+                if (item == null || !item.IsValidEquipment)
                     continue;
 
                 if (item.IsCrafted && !includeCrafted)

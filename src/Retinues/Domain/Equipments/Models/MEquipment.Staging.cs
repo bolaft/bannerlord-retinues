@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Retinues.Domain.Characters.Wrappers;
+using Retinues.Domain.Equipments.Helpers;
 using Retinues.Domain.Equipments.Wrappers;
 using Retinues.Editor;
 using Retinues.Framework.Model.Attributes;
@@ -317,6 +318,11 @@ namespace Retinues.Domain.Equipments.Models
                 return float.PositiveInfinity;
             if (WItem.Get(obj)?.IsUnsafeForTroopEquipment == true)
                 return 0f;
+            if (WItem.Get(obj)?.HasValidWeaponHolsters == false)
+            {
+                ItemHolsterSafety.Report(obj, "Paused queued equip of malformed weapon");
+                return float.PositiveInfinity;
+            }
 
             // 1 day per 1000 value, then multiplied by setting multiplier.
             float days = obj.Value / 1000f * MathF.Max(0.01f, timeMultiplier);
@@ -385,11 +391,17 @@ namespace Retinues.Domain.Equipments.Models
                 }
 
                 item = WItem.Get(obj);
+                if (item?.HasValidWeaponHolsters == false)
+                {
+                    ItemHolsterSafety.Report(item.Base, "Paused queued equip of malformed weapon");
+                    return false;
+                }
                 unequip = false;
             }
 
             // Apply to real equipment
-            SetBase(slot, item);
+            if (!SetBase(slot, item))
+                return false;
 
             // Remove the staged entry (SetReal removed staged slot too, but keep queue FIFO correct)
             var next = ItemsStagingAttribute.Get() ?? [];

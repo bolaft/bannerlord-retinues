@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 using Retinues.Utilities;
+using Retinues.Exports;
 using TaleWorlds.Localization;
 
 namespace Retinues.Editor.MVC.Pages.Library.Services
@@ -36,6 +37,15 @@ namespace Retinues.Editor.MVC.Pages.Library.Services
 
                 if (string.IsNullOrWhiteSpace(entry.FilePath) || !File.Exists(entry.FilePath))
                     return false;
+
+                if (entry.IsStableExport)
+                {
+                    if (!StableExportParser.TryRead(entry.FilePath, out var sections, out _))
+                        return false;
+                    troopNames = sections.SelectMany(s => s.Troops.Values)
+                        .Select(t => ResolveTextObjectString(t.Name ?? t.StringId)).ToList();
+                    return troopNames.Count > 0;
+                }
 
                 if (!TryLoadRoot(entry.FilePath, out var root))
                     return false;

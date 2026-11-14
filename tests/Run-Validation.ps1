@@ -7,6 +7,7 @@ param(
     [ValidateRange(1, 100)][int]$Repeat = 3,
     [ValidateRange(1, 3600)][int]$TimeoutSeconds = 180,
     [string]$OutputDirectory,
+    [string]$GameDirectory,
     [switch]$NoRestore,
     [switch]$V2Only
 )
@@ -30,6 +31,9 @@ function Invoke-Check([string]$Name, [string]$Executable, [string[]]$Arguments, 
     $info.CreateNoWindow = $true
     $info.RedirectStandardOutput = $true
     $info.RedirectStandardError = $true
+    # Keep filesystem regression fixtures in the writable validation output. Some
+    # sandbox temporary directories allow creation but prohibit atomic renames.
+    $info.Environment['RETINUES_TEST_DIRECTORY'] = Join-Path $OutputDirectory 'file-fixtures'
     foreach ($argument in $Arguments) { $info.ArgumentList.Add($argument) }
     $process = [Diagnostics.Process]::new()
     $process.StartInfo = $info
@@ -61,10 +65,10 @@ $runnerOutput = Join-Path $OutputDirectory 'runner'
 $runnerProject = Join-Path $PSScriptRoot 'HeadlessAudit/HeadlessAudit.csproj'
 $runnerReady = $true
 if (!$NoRestore) { $runnerReady = Invoke-Check 'runner-restore' $dotnet @('restore', $runnerProject, '--ignore-failed-sources', '-p:NuGetAudit=false', '-v:q') $v2Root }
-if ($runnerReady) { $runnerReady = Invoke-Check 'runner-build' $dotnet @('build', $runnerProject, '--no-restore', '-t:Rebuild', '-c', 'Debug', '-p:BL=14', "-p:OutputPath=$runnerOutput", '-v:q') $v2Root }
+if ($runnerReady) { $runnerReady = Invoke-Check 'runner-build' $dotnet @('build', $runnerProject, '--no-restore', '-t:Rebuild', '-c', 'Debug', '-p:BL=15', "-p:OutputPath=$runnerOutput", '-v:q') $v2Root }
 $runner = Join-Path $runnerOutput 'HeadlessAudit.exe'
-$branches = @([pscustomobject]@{ Name='v2'; Root=$v2Root; Versions=@('12','13','14','15') })
-if (!$V2Only) { $branches += [pscustomobject]@{ Name='stable'; Root=$StableRoot; Versions=@('12','13','14') } }
+$branches = @([pscustomobject]@{ Name='v2'; Root=$v2Root; Versions=@('12','15') })
+if (!$V2Only) { $branches += [pscustomobject]@{ Name='stable'; Root=$StableRoot; Versions=@('12','15') } }
 
 foreach ($branch in $branches) {
     $project = Join-Path $branch.Root 'src/Retinues/Retinues.csproj'
@@ -73,11 +77,13 @@ foreach ($branch in $branches) {
     if (!$ready) { continue }
     foreach ($version in $branch.Versions) {
         $references = Join-Path $branch.Root "dll/$version"
-        $symbol = if ($version -eq '15') { '14' } else { $version }
         foreach ($configuration in @('Debug','Release')) {
             $label = "$($branch.Name)-$version-$configuration"
             $binaryDirectory = Join-Path $OutputDirectory "binaries/$label"
-            $built = Invoke-Check "$label-build" $dotnet @('build', $project, '--no-restore', '-t:Rebuild', '-c', $configuration, "-p:BL=$symbol", "-p:ReferenceRoot=$references", "-p:OutputPath=$binaryDirectory", '-p:DeployToGame=false', '-v:q') $branch.Root
+            $buildArguments = @('build', $project, '--no-restore', '-t:Rebuild', '-c', $configuration, "-p:BL=$version", "-p:ReferenceRoot=$references", "-p:OutputPath=$binaryDirectory", '-p:DeployToGame=false', '-v:q')
+            # Optional dependency layout for installations using Workshop-managed libraries.
+            if ($GameDirectory) { $buildArguments += "-p:BannerlordGameDir=$GameDirectory" }
+            $built = Invoke-Check "$label-build" $dotnet $buildArguments $branch.Root
             # Never execute stale artifacts after a failed build.
             if (!$built -or !$runnerReady) { continue }
             $binary = Join-Path $binaryDirectory 'Retinues.dll'
@@ -93,12 +99,13 @@ foreach ($branch in $branches) {
                     [void](Invoke-Check "$label-from-$baselineName" $runner @($binary, $references, $branch.Name, $HarmonyRoot, "--save-contract=$contract", "--baseline=$baseline") $branch.Root)
                 }
             }
-            if ($branch.Name -eq 'v2' -and $version -eq '14' -and $configuration -eq 'Debug') {
-                # A shipped 1.4 binary must also load against the 1.5 engine assemblies.
-                $arguments[1] = Join-Path $branch.Root 'dll/15'
+            if ($version -eq '15' -and $configuration -eq 'Debug') {
+                # The current release should retain compatibility with the previous 1.4 runtime.
+                $arguments[1] = Join-Path $branch.Root 'dll/14'
                 $arguments = $arguments | Where-Object { !($_.StartsWith('--junit=') -or $_.StartsWith('--inventory=')) }
-                $arguments += "--junit=$(Join-Path $OutputDirectory 'v2-14-on-15.xml')"
-                [void](Invoke-Check 'v2-14-on-15-tests' $runner $arguments $branch.Root)
+                $compatibilityLabel = "$($branch.Name)-15-on-14"
+                $arguments += "--junit=$(Join-Path $OutputDirectory "$compatibilityLabel.xml")"
+                [void](Invoke-Check "$compatibilityLabel-tests" $runner $arguments $branch.Root)
             }
         }
     }

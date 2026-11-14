@@ -80,6 +80,8 @@ namespace Retinues
 
             if (gameStarter is CampaignGameStarter cs)
             {
+                Compatibility.Interops.ImprovedGarrisons.ImprovedGarrisonsPatcher.TryPatch();
+                cs.AddBehavior(new Safety.Uninstall.UninstallBehavior());
                 // Reset the flag so that on in-session reloads the listeners are re-added
                 // to the new campaign's events (CampaignEvents is per-session; non-serialized
                 // listeners from the previous session are gone when OnGameStart fires again).
@@ -127,6 +129,13 @@ namespace Retinues
                 dependency.Shutdown();
 
             Log.Debug("SubModule unloaded.");
+        }
+
+        protected override void OnApplicationTick(float dt)
+        {
+            base.OnApplicationTick(dt);
+            Interface.Services.Popups.BugReportPopupLayer.Tick();
+            Diagnostics.BugReports.BugReportService.Tick();
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

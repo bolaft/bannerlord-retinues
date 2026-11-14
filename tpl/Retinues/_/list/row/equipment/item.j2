@@ -6,7 +6,7 @@
 
     {{ image_cell("{Image}", sug_w=96, sug_h=48, margin_right=12) }}
 
-    <SpriteWidget
+    <Widget
         IsVisible="@ShowComparisonIcon"
         WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
         SuggestedWidth="20" SuggestedHeight="20"
@@ -15,7 +15,7 @@
         MarginRight="10"
         HorizontalAlignment="Left" VerticalAlignment="Center" >
         <Children>
-            <SpriteWidget
+            <Widget
                 WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
                 SuggestedWidth="20" SuggestedHeight="20"
                 Sprite="@NegativeComparisonSprite"
@@ -23,7 +23,7 @@
                 PositionYOffset="@NegativeComparisonSpriteOffset"
                 VerticalFlip="true"/>
         </Children>
-    </SpriteWidget>
+    </Widget>
 
     <TextWidget
         WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
@@ -61,14 +61,14 @@
         HorizontalAlignment="Right" VerticalAlignment="Center"
         ClipContents="false" />
 
-    <SpriteWidget
+    <Widget
         IsVisible="@ShowCost"
         WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
         SuggestedWidth="20" SuggestedHeight="20"
         Sprite="General\Icons\Coin@2x"
         HorizontalAlignment="Right" VerticalAlignment="Center" />
 
-    <SpriteWidget
+    <Widget
         IsVisible="@ShowEquipped"
         WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
         SuggestedWidth="40" SuggestedHeight="40"

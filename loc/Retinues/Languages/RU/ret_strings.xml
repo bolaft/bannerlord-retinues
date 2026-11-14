@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <base xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" type="string">
   <tags>
-    <tag language="RU" />
+    <tag language="Русский" />
   </tags>
   <strings>
     <string
@@ -1068,7 +1068,7 @@
       text="Марш вместе" />
     <string
       id="ret_feat_sp_rescue_mission_desc"
-      text="Спасите пленного лорда из вражеской партии." />
+      text="Спасите союзного лорда, победив в битве (в том числе в автоматическом бою) или успешно устроив побег из тюрьмы. Выкуп не учитывается." />
     <string
       id="ret_feat_sp_rescue_mission_name"
       text="Спасательная миссия" />

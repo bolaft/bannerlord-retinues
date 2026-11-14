@@ -33,18 +33,11 @@ namespace Retinues.Behaviors.Retinues.Patches
                 if (!__result.IsHuman)
                     return;
 
-                int bonus = Configuration.RetinueHealthBonus;
-
-                // +10% retinue health bonus from Indomitable doctrine
-                if (DoctrineCatalog.Indomitable?.IsAcquired == true)
-                    bonus += (int)
-                        Math.Round(__result.BaseHealthLimit * 0.1, MidpointRounding.AwayFromZero);
+                var wc = WCharacter.Get(__result.Character.StringId);
+                int bonus = GetHealthBonus(wc, __result.BaseHealthLimit,
+                    __result.Team, __instance?.PlayerTeam);
 
                 if (bonus <= 0)
-                    return;
-
-                var wc = WCharacter.Get(__result.Character.StringId);
-                if (wc == null || !wc.IsRetinue)
                     return;
 
                 __result.BaseHealthLimit += bonus;
@@ -55,6 +48,22 @@ namespace Retinues.Behaviors.Retinues.Patches
             {
                 Log.Exception(ex, "Retinue health buff failed.");
             }
+        }
+
+        internal static int GetHealthBonus(WCharacter troop, float baseHealth, Team team, Team playerTeam)
+        {
+            if (troop?.IsRetinue != true)
+                return 0;
+
+            int bonus = Configuration.RetinueHealthBonus;
+            // The configured bonus applies to every retinue; the player's doctrine
+            // applies only to the player's team. Troop identity alone is insufficient
+            // because enemies can field captured or shared retinue troop types.
+            // Mission.PlayerTeam also works before the main agent has spawned.
+            if (DoctrineCatalog.Indomitable?.IsAcquired == true
+                && playerTeam != null && team == playerTeam)
+                bonus += (int)Math.Round(baseHealth * 0.1, MidpointRounding.AwayFromZero);
+            return bonus;
         }
     }
 }

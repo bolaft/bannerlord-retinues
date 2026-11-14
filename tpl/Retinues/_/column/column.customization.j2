@@ -18,7 +18,7 @@
             {# Icon frame                             #}
             {# -------------------------------------- #}
 
-            <SpriteWidget
+            <Widget
                 WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
                 SuggestedWidth="30" SuggestedHeight="30"
                 Sprite="Clan\clan_portrait_shadow"
@@ -26,7 +26,7 @@
                 HorizontalAlignment="Center" VerticalAlignment="Top">
                 <Children>
 
-                    <SpriteWidget
+                    <Widget
                         WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
                         SuggestedWidth="30" SuggestedHeight="30"
                         Color="#c7c3c3ff"
@@ -41,10 +41,10 @@
                                 Command.HoverEnd="ExecuteEndHint" />
 
                         </Children>
-                    </SpriteWidget>
+                    </Widget>
 
                 </Children>
-            </SpriteWidget>
+            </Widget>
 
             {{ button_chevron_right(next_ds, 20, 20) }}
 
@@ -93,7 +93,7 @@
 
                         {# Base gender icon (male or female) #}
                         {# Single gender: one big centered icon #}
-                        <SpriteWidget
+                        <Widget
                             DataSource="{..}"
                             IsVisible="@IsGenderSingle"
                             WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
@@ -104,7 +104,7 @@
 
                         {# Mixed gender: primary (top-left) + secondary (bottom-right), both 32px #}
                         {# DataSource="{..}" lifts context to CustomizationControlsVM for mixed/sprite/color props #}
-                        <SpriteWidget
+                        <Widget
                             DataSource="{..}"
                             IsVisible="@IsGenderMixed"
                             WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
@@ -113,7 +113,7 @@
                             Color="@GenderCycleColor"
                             Sprite="@GenderCycleSprite"/>
 
-                        <SpriteWidget
+                        <Widget
                             DataSource="{..}"
                             IsVisible="@IsGenderMixed"
                             WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"

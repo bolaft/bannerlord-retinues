@@ -9,6 +9,7 @@
 /**/bin/
 /**/obj/
 /**/out/
+__pycache__/
 
 # DLLs & NuGet packages
 dll/*
@@ -29,6 +30,7 @@ dll/*
 TODO.md
 REFACTOR.md
 NOTES*.md
+CHANGELOG.md
 
 ########################################
 # Decompiled outputs

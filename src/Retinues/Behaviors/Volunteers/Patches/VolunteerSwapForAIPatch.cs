@@ -1,5 +1,6 @@
 using System;
 using HarmonyLib;
+using Retinues.Compatibility;
 using Retinues.Domain.Characters.Services.Matching;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Parties.Wrappers;
@@ -57,6 +58,32 @@ namespace Retinues.Behaviors.Volunteers.Patches
                     return;
 
                 var wc = WCharacter.Get(troop);
+                // ATC chooses a fresh troop immediately before ApplyInternal. Resolve
+                // that offer here, before the engine computes price and consumes stock.
+                if (!IsFactionCustomTroop(wc) && side1Party != null && !side1Party.IsMainParty
+                    && individual?.VolunteerTypes != null && bitCode >= 0
+                    && bitCode < individual.VolunteerTypes.Length && individual.VolunteerTypes[bitCode] == troop)
+                {
+                    var role = ATCRecruitment.GetRole(troop, settlement, individual, side1Party);
+                    if ((role == ATCRecruitRole.Basic || role == ATCRecruitRole.Elite)
+                        && Configuration.AIClanTroopsAvailability.Value != Configuration.AITroopsMode.Off
+                        && !ws.ShouldForceVanillaForRecruiter(WParty.Get(side1Party)))
+                    {
+                        var faction = ws.GetBaseTroopsFaction();
+                        var root = role == ATCRecruitRole.Elite ? faction?.RootElite : faction?.RootBasic;
+                        if (root != null && (!Configuration.SameCultureOnly
+                            || settlement.Culture == null || root.Base.Culture == null
+                            || root.Base.Culture == settlement.Culture))
+                        {
+                            var replacement = ATCRecruitment.MatchVolunteer(wc, root.Tree, role);
+                            if (replacement != null)
+                            {
+                                troop = replacement.Base;
+                                wc = replacement;
+                            }
+                        }
+                    }
+                }
                 if (!IsFactionCustomTroop(wc))
                     return;
 
@@ -78,6 +105,10 @@ namespace Retinues.Behaviors.Volunteers.Patches
 
                 // Player gets a separate view override when opening the recruit menu.
                 if (side1Party != null && side1Party.IsMainParty)
+                    return;
+
+                if (Compatibility.Interops.ImprovedGarrisons.ImprovedGarrisonsPatcher.IsApprovedOffer(
+                    side1Party, individual, bitCode, troop))
                     return;
 
                 // If settlement has no base custom troops, do not interfere at all.
@@ -116,7 +147,7 @@ namespace Retinues.Behaviors.Volunteers.Patches
             if (root == null)
                 return;
 
-            var replacement = CharacterMatcher.FindBest(wc, root.Tree);
+            var replacement = CharacterMatcher.FindBestVolunteer(wc, root.Tree);
             var replacementBase = replacement?.Base;
             if (replacementBase == null)
                 return;

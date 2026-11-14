@@ -249,7 +249,7 @@ namespace Retinues.Domain.Equipments.Services.Random
             for (int i = 0; i < items.Count; i++)
             {
                 var it = items[i];
-                if (it?.Base == null)
+                if (it?.Base == null || !it.IsValidEquipment)
                     continue;
 
                 // Player-crafted weapons are never random picks: they are the player's own
@@ -581,7 +581,7 @@ namespace Retinues.Domain.Equipments.Services.Random
             for (int i = 0; i < items.Count; i++)
             {
                 var it = items[i];
-                if (it?.Base == null)
+                if (it?.Base == null || !it.IsValidEquipment)
                     continue;
 
                 if (!it.IsEquippableInSlot(slot))

@@ -20,6 +20,7 @@ namespace Retinues.Exports
         public string SourceFactionId { get; set; }
         public string FactionPayloadXml { get; set; }
         public List<CharacterExportEntry> Troops { get; set; } = [];
+        internal StableExportSection StableSection { get; set; }
     }
 
     /// <summary>

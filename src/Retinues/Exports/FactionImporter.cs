@@ -23,6 +23,7 @@ namespace Retinues.Exports
         internal const string RMercenary = "mercenary";
         internal const string RMilitia = "militia";
         internal const string RCaravan = "caravan";
+        internal const string RConvoy = "convoy";
         internal const string RVillager = "villager";
         internal const string RBandit = "bandit";
         internal const string RCivilian = "civilian";
@@ -51,6 +52,9 @@ namespace Retinues.Exports
                     error = "export data is null.";
                     return false;
                 }
+
+                if (data.StableSection != null)
+                    return StableFactionImporter.TryApply(target, data.StableSection, out report, out error);
 
                 // Do NOT apply faction payload here (prevents wiping target-only rosters).
                 var groups = data
@@ -116,6 +120,15 @@ namespace Retinues.Exports
                     groups,
                     RCaravan,
                     f => f.RosterCaravan,
+                    ref skippedTroops,
+                    ref skippedRosters
+                );
+
+                imported += ApplyRosterListPreserveLinks(
+                    target,
+                    groups,
+                    RConvoy,
+                    f => f.RosterConvoy,
                     ref skippedTroops,
                     ref skippedRosters
                 );

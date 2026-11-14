@@ -33,3 +33,13 @@ Omit `--baseline` to export a contract from a deliberately selected older binary
 fixtures came from rebuilt prior commits; do not overwrite them with current output to clear
 a compatibility failure. The matrix checks prior stable -> stable, prior V2 -> V2, and stable
 -> V2. These managed fixtures are not full Bannerlord saves.
+
+Optional ATC integration (both branches): supply a locally downloaded, compatible ATC DLL
+using `--atc=<path-to-AdonnaysTroopChanger.dll>` instead of the suite arguments. Use a Debug
+Retinues build. The probe loads real ATC configuration and patches its AI recruitment entry
+point along with Retinues' downstream hook. It checks player pools, normal/elite roles,
+overlapping militia, restrictions, consumed stock and stable's repair of proven leftover
+militia offers. ATC's MCM provider, elite random choice, campaign singletons and final native
+payment/roster operation are fixtures; this is not a running-game or full-overhaul test.
+The DLL is not checked in or shipped. The ordinary suite covers config precedence,
+ambiguous roles, upgrade cycles, restricted ATC entries and missing target trees without ATC.

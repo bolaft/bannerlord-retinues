@@ -19,6 +19,7 @@ namespace Retinues.Domain.Characters.Services.Caches
         Caravan = 1 << 6,
         Villager = 1 << 7,
         Civilian = 1 << 8,
+        Convoy = 1 << 9,
     }
 
     /// <summary>
@@ -94,6 +95,7 @@ namespace Retinues.Domain.Characters.Services.Caches
                     MarkMany(culture.RosterBandit, TroopSourceFlags.Bandit);
                     MarkMany(culture.RosterMilitia, TroopSourceFlags.Militia);
                     MarkMany(culture.RosterCaravan, TroopSourceFlags.Caravan);
+                    MarkMany(culture.RosterConvoy, TroopSourceFlags.Convoy);
                     MarkMany(culture.RosterVillager, TroopSourceFlags.Villager);
                     MarkMany(culture.RosterCivilian, TroopSourceFlags.Civilian);
                 }

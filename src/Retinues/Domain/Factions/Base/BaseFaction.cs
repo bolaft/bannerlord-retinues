@@ -74,6 +74,7 @@ namespace Retinues.Domain.Factions.Base
 
         public virtual WCharacter CaravanMaster => null;
         public virtual WCharacter CaravanGuard => null;
+        public virtual WCharacter VeteranCaravanGuard => null;
         public virtual WCharacter ArmedTrader => null;
 
         /* ━━━━━━━ Villagers ━━━━━━ */
@@ -154,7 +155,9 @@ namespace Retinues.Domain.Factions.Base
         public virtual List<WCharacter> RosterMercenary => CollectTrees(MercenaryRoots);
 
         public virtual List<WCharacter> RosterCaravan =>
-            Collect(CaravanMaster, CaravanGuard, ArmedTrader);
+            Collect(CaravanMaster, CaravanGuard, VeteranCaravanGuard, ArmedTrader);
+
+        public virtual List<WCharacter> RosterConvoy => [];
 
         public virtual List<WCharacter> RosterVillager => Collect(Villager);
 
@@ -226,6 +229,9 @@ namespace Retinues.Domain.Factions.Base
                     yield return troop;
 
                 foreach (var troop in RosterCaravan)
+                    yield return troop;
+
+                foreach (var troop in RosterConvoy)
                     yield return troop;
 
                 foreach (var troop in RosterVillager)

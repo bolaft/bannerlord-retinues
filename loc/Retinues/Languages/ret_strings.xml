@@ -146,6 +146,48 @@
       id="ret_body_weight_min_reason"
       text="Weight is already at minimum" />
     <string
+      id="ret_bug_report_busy"
+      text="A bug report is already being created." />
+    <string
+      id="ret_bug_report_button"
+      text="Bug Report" />
+    <string
+      id="ret_bug_report_character_count"
+      text="{COUNT} / {LIMIT} characters" />
+    <string
+      id="ret_bug_report_complete"
+      text="Your bug report ZIP is ready:{newline}{PATH}{newline}{newline}Review it, then submit a report in the Bugs tab on the Retinues Nexus Mods page, including this ZIP or a download link. Nothing has been uploaded. Collection details are in report.txt." />
+    <string
+      id="ret_bug_report_console_queued"
+      text="Report queued. Close the console: the game screenshot will be taken in 3 seconds. Logs, settings, the mod list and the active campaign&apos;s last saved file will be copied into a local ZIP; nothing is uploaded." />
+    <string
+      id="ret_bug_report_create"
+      text="Create ZIP" />
+    <string
+      id="ret_bug_report_description"
+      text="Create a ZIP with logs, settings, your mod list, a screenshot and a copy of this campaign&apos;s last save (no unsaved progress). Review it, then submit a report in the Bugs tab on the Retinues Nexus Mods page, including the ZIP or a download link. Nothing is uploaded automatically.{newline}{newline}Describe the problem (optional):" />
+    <string
+      id="ret_bug_report_failed"
+      text="Could not create the bug report. Check the Retinues log and available disk space." />
+    <string
+      id="ret_bug_report_no_save"
+      text="No save could be included. Attach the relevant save yourself if needed." />
+    <string
+      id="ret_bug_report_no_screenshot"
+      text="No screenshot could be captured. Attach one yourself if it helps explain the problem." />
+    <string
+      id="ret_bug_report_partial"
+      text="Some files were unavailable; see report.txt for details." />
+    <string
+      id="ret_bug_report_saving"
+      text="Please wait for the current save to finish, then create the report again." />
+    <string
+      id="ret_bug_report_title"
+      text="Bug Report" />
+    <string
+      id="ret_bug_report_tooltip"
+      text="Collect logs, a save copy and a screenshot into a ZIP to share with a bug report." />
+    <string
       id="ret_build_hint"
       text="Build" />
     <string
@@ -193,6 +235,9 @@
     <string
       id="ret_cant_equip_reason_civilian"
       text="Not civilian" />
+    <string
+      id="ret_cant_equip_reason_invalid_weapon"
+      text="This weapon has invalid equipment data." />
     <string
       id="ret_cant_equip_reason_locked"
       text="Locked" />
@@ -1065,7 +1110,7 @@
       text="March Together" />
     <string
       id="ret_feat_sp_rescue_mission_desc"
-      text="Rescue a captive lord from an enemy party." />
+      text="Rescue an allied lord by winning a battle (including auto-resolve) or completing a prison break. Ransoms do not count." />
     <string
       id="ret_feat_sp_rescue_mission_name"
       text="Rescue Mission" />
@@ -1568,6 +1613,9 @@
       id="ret_library_kind_faction"
       text="Faction" />
     <string
+      id="ret_library_kind_stable"
+      text="Stable export" />
+    <string
       id="ret_library_kind_troop"
       text="Troop" />
     <string
@@ -1583,6 +1631,30 @@
       id="ret_library_no_selection"
       text="No export selected" />
     <string
+      id="ret_library_stable_clan"
+      text="Clan troops" />
+    <string
+      id="ret_library_stable_convert_first"
+      text="Import this file into V2, then export it again before converting it to a standalone mod." />
+    <string
+      id="ret_library_stable_culture"
+      text="Culture / minor clan {NUMBER}" />
+    <string
+      id="ret_library_stable_import_error"
+      text="The stable export could not be fully imported.{newline}{newline}{DETAIL}" />
+    <string
+      id="ret_library_stable_import_partial"
+      text="Imported {IMPORTED} troops. Skipped {SKIPPED} troops with no available destination. Check the faction&apos;s troop settings or import the section into its matching culture in the Global Editor. Details are in the log." />
+    <string
+      id="ret_library_stable_kingdom"
+      text="Kingdom troops" />
+    <string
+      id="ret_library_stable_section_desc"
+      text="This stable export contains several groups of troops. Choose one, then choose its destination. You can import the other groups separately." />
+    <string
+      id="ret_library_stable_section_title"
+      text="Choose Troops to Import" />
+    <string
       id="ret_list_header_bandits"
       text="Bandits" />
     <string
@@ -1591,6 +1663,9 @@
     <string
       id="ret_list_header_civilians"
       text="Civilians" />
+    <string
+      id="ret_list_header_convoys"
+      text="Convoys" />
     <string
       id="ret_list_header_elite"
       text="Elite" />
@@ -2453,26 +2528,20 @@
       id="ret_purge_all_tooltip"
       text="Purge all custom troop data from the game" />
     <string
-      id="ret_purge_confirm_body"
-      text="This action is meant to help you uninstall Retinues safely.{newline}{newline}It will scan every party roster in the current campaign and remove or replace ALL custom troops created by Retinues.{newline}{newline}This action is irreversible. Make a backup save first. Continue?" />
-    <string
       id="ret_purge_confirm_title"
       text="Purge Custom Troops" />
+    <string
+      id="ret_purge_confirm_verified_body"
+      text="This prepares this campaign for removing Retinues. It cleans custom troop references, including parties, prisoners, village recruits and quests, and disables Retinues troop generation for this save.{newline}{newline}To play with Retinues again you will need your original save. Make a backup first. Continue?" />
     <string
       id="ret_purge_continue"
       text="Continue" />
     <string
-      id="ret_purge_done_title"
-      text="Purge Complete" />
+      id="ret_purge_incomplete_body"
+      text="The cleanup could not be verified. Do not remove Retinues or overwrite your backup. Reload your pre-uninstall save and report the debug.log.{newline}{newline}{ERROR}" />
     <string
-      id="ret_purge_failed_body"
-      text="Something went wrong while purging. Your save may be partially modified. Do not save, reload your game and try again, or report the issue." />
-    <string
-      id="ret_purge_failed_title"
-      text="Purge Failed" />
-    <string
-      id="ret_purge_mode_body"
-      text="Do you want to simply remove custom troops from rosters, or try to replace them with their closest vanilla equivalents when possible?" />
+      id="ret_purge_incomplete_title"
+      text="Cleanup Incomplete" />
     <string
       id="ret_purge_mode_remove"
       text="Remove" />
@@ -2483,17 +2552,20 @@
       id="ret_purge_mode_title"
       text="Purge Mode" />
     <string
+      id="ret_purge_mode_verified_body"
+      text="Remove custom troops from army and prisoner rosters, or replace them with similar non-Retinues troops? Recruitment slots and other campaign references will be replaced in either mode. Troops from other installed mods are kept." />
+    <string
       id="ret_purge_need_campaign_reason"
       text="No running campaign. Load a save first." />
     <string
-      id="ret_purge_result_advice_ok"
-      text="Purge complete. Save the game into a new file and you will be able to remove Retinues safely from your game." />
-    <string
-      id="ret_purge_result_advice_partial"
-      text="Purge finished but some troops could not be replaced ({MISSES}) and were removed instead.{newline}{newline}Consider running again in Remove mode, or report this issue." />
-    <string
       id="ret_purge_title"
       text="Purge Custom Troops" />
+    <string
+      id="ret_purge_verified_body"
+      text="Custom troop references have been cleaned and checked, including village recruits and settlement rosters. Retinues troop generation is now disabled for this save.{newline}{newline}Save to a NEW slot, exit to desktop, then remove Retinues. Keep your original backup." />
+    <string
+      id="ret_purge_verified_title"
+      text="Ready to Uninstall" />
     <string
       id="ret_race_cannot_change"
       text="Cannot change species for this unit" />
@@ -2911,6 +2983,9 @@
     <string
       id="ret_stocks_remove"
       text="Removed {AMOUNT} {ITEM} from stocks." />
+    <string
+      id="ret_support_header"
+      text="Support" />
     <string
       id="ret_tooltip_culture"
       text="Culture" />

@@ -143,6 +143,9 @@ namespace Retinues.Migration.Legacy
         [SaveableField(9)]
         public TroopSaveData CaravanGuard;
 
+        [SaveableField(18)]
+        public TroopSaveData VeteranCaravanGuard;
+
         [SaveableField(10)]
         public TroopSaveData CaravanMaster;
 

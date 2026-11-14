@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Xml.Linq;
 using Retinues.Domain.Characters.Wrappers;
@@ -50,6 +51,23 @@ namespace Retinues.Exports.NPCCharacters
             npc.SetAttributeValue("level", character.Level);
             npc.SetAttributeValue("is_hidden_encyclopedia", "false");
             npc.SetAttributeValue("name", character.Name ?? finalId);
+            // NPC XML accepts an integer here; the exact age range is stored in <face>.
+            npc.SetAttributeValue("age", Convert.ToInt32(character.Age));
+
+            if (c.Race != 0)
+            {
+                var races = FaceGen.GetRaceNames();
+                if (
+                    races == null
+                    || c.Race < 0
+                    || c.Race >= races.Length
+                    || string.IsNullOrWhiteSpace(races[c.Race])
+                )
+                    throw new InvalidOperationException(
+                        $"Cannot export '{finalId}': race {c.Race} has no XML identifier."
+                    );
+                npc.SetAttributeValue("race", races[c.Race]);
+            }
 
             var occ = Reflection.GetPropertyValue<object>(c, "Occupation");
             if (occ != null)
@@ -69,9 +87,7 @@ namespace Retinues.Exports.NPCCharacters
             if (!string.IsNullOrWhiteSpace(reqId))
                 npc.SetAttributeValue("upgrade_requires", "ItemCategory." + reqId);
 
-            var face = BuildFaceElement(character, c, finalId);
-            if (face != null)
-                npc.Add(face);
+            npc.Add(BuildFaceElement(character));
 
             npc.Add(BuildSkillsElement(character));
             npc.Add(BuildUpgradeTargetsElement(c));
@@ -81,106 +97,83 @@ namespace Retinues.Exports.NPCCharacters
         }
 
         /// <summary>
-        /// Builds a face element using a template when appropriate or an exact sampled face.
+        /// Embeds the troop's own appearance range, including copies created at runtime.
+        /// A generated module must load without the exporting campaign's object registry.
         /// </summary>
-        private static XElement BuildFaceElement(
-            WCharacter character,
-            CharacterObject c,
-            string finalId
-        )
+        private static XElement BuildFaceElement(WCharacter character)
         {
-            try
-            {
-                if (!string.IsNullOrWhiteSpace(finalId))
-                {
-                    var existing = MBObjectManager.Instance.GetObject<CharacterObject>(finalId);
-                    if (existing != null)
-                        return BuildFaceTemplateElement(character);
-                }
+            if (character.Base.BodyPropertyRange == null)
+                throw new InvalidOperationException(
+                    $"Cannot export '{character.StringId}': missing body properties."
+                );
 
-                return BuildExactFaceElement(c);
-            }
-            catch
-            {
-                return null;
-            }
-        }
+            // Use the same source appearance as regular exports, even when body-mod
+            // compatibility temporarily substitutes a culture template for rendering.
+            var parts = character
+                .SerializeBodyEnvelope()
+                .Split([WCharacter.BodySerializedSeparator], StringSplitOptions.None);
+            if (parts.Length != 2)
+                throw new InvalidOperationException(
+                    $"Cannot export '{character.StringId}': invalid body properties."
+                );
 
-        /// <summary>
-        /// Builds a face element that references a BodyProperty template from a culture exemplar.
-        /// </summary>
-        private static XElement BuildFaceTemplateElement(WCharacter character)
-        {
-            var culture = character.Culture;
-            if (culture == null)
-                return null;
-
-            WCharacter template = culture.RootBasic ?? culture.RootElite;
-
-            if (template == null || template.IsFemale != character.IsFemale)
-                template = character.IsFemale ? culture.VillageWoman : culture.Villager;
-
-            if (template == null)
-            {
-                foreach (var t in culture.Troops)
-                {
-                    if (t == null)
-                        continue;
-
-                    template = t;
-                    if (t.IsFemale == character.IsFemale)
-                        break;
-                }
-            }
-
-            if (template?.Base == null)
-                return null;
-
-            var rangeObj = Reflection.GetPropertyValue<object>(template.Base, "BodyPropertyRange");
-            var rangeId = GetStringId(rangeObj);
-            if (string.IsNullOrWhiteSpace(rangeId))
-                return null;
-
-            var face = new XElement("face");
-            face.Add(
-                new XElement(
-                    "face_key_template",
-                    new XAttribute("value", "BodyProperty." + rangeId)
-                )
-            );
-
-            return face;
-        }
-
-        /// <summary>
-        /// Builds an exact face element by deterministically sampling body properties.
-        /// </summary>
-        private static XElement BuildExactFaceElement(CharacterObject c)
-        {
-            var seed = c.GetDefaultFaceSeed(0);
-
-            Equipment eq;
-            try
-            {
-                eq = Reflection.GetPropertyValue<Equipment>(c, "FirstBattleEquipment");
-            }
-            catch
-            {
-                eq = default;
-            }
-
-            var props = c.GetBodyProperties(eq, seed);
-
-            var face = new XElement("face");
-
-            var minEl = XElement.Parse(props.ToString());
-            var maxEl = XElement.Parse(props.ToString());
+            var minEl = ParseBodyElement(parts[0], character.StringId);
+            var maxEl = ParseBodyElement(parts[1], character.StringId);
             maxEl.Name = "BodyPropertiesMax";
 
-            face.Add(minEl);
-            face.Add(maxEl);
-
+            var face = new XElement("face", minEl, maxEl);
+#if BL13 || BL14
+            var tags = character.Base.BodyPropertyRange;
+#else
+            var tags = character.Base;
+#endif
+            AddFaceTags(face, "hair", tags.HairTags);
+            AddFaceTags(face, "beard", tags.BeardTags);
+            AddFaceTags(face, "tattoo", tags.TattooTags);
             return face;
+        }
+
+        private static XElement ParseBodyElement(string xml, string characterId)
+        {
+            var element = XElement.Parse(xml);
+            if (element.Name != "BodyProperties")
+                throw new InvalidOperationException(
+                    $"Cannot export '{characterId}': invalid body properties."
+                );
+
+            // The game's BodyProperties.ToString uses the current decimal separator.
+            // Module XML must use invariant numbers, including cached source appearances.
+            foreach (var name in new[] { "age", "weight", "build" })
+            {
+                var text = (string)element.Attribute(name);
+                if (
+                    !float.TryParse(text, NumberStyles.Float, CultureInfo.InvariantCulture, out var value)
+                    && !float.TryParse(text, NumberStyles.Float, CultureInfo.CurrentCulture, out value)
+                    || float.IsNaN(value)
+                    || float.IsInfinity(value)
+                )
+                    throw new InvalidOperationException(
+                        $"Cannot export '{characterId}': invalid body {name}."
+                    );
+                element.SetAttributeValue(name, value);
+            }
+            return element;
+        }
+
+        private static void AddFaceTags(XElement face, string kind, string tags)
+        {
+            var names = (tags ?? string.Empty)
+                .Split(',')
+                .Select(tag => tag.Trim())
+                .Where(tag => tag.Length > 0)
+                .ToArray();
+            if (names.Length > 0)
+                face.Add(
+                    new XElement(
+                        kind + "_tags",
+                        names.Select(name => new XElement(kind, new XAttribute("name", name)))
+                    )
+                );
         }
 
         /// <summary>

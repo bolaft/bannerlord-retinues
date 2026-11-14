@@ -78,11 +78,11 @@ namespace Retinues.Editor
             if (_gauntletLayer == null)
                 return;
 
-            if (
+            if (!Interface.Services.Popups.BugReportPopupLayer.SuppressEditorShortcuts && (
                 Input.IsKeyReleased(InputKey.Escape)
                 || _gauntletLayer.Input.IsHotKeyReleased("Exit")
                 || _gauntletLayer.Input.IsGameKeyPressed(41)
-            )
+            ))
             {
                 Close();
             }
@@ -130,7 +130,12 @@ namespace Retinues.Editor
             var args = (_state as EditorGameState)?.LaunchArgs;
 
             _dataSource = new EditorVM(Close, args) { IsVisible = true };
+#if BL12
+            // The 1.2 build ships its own image bindings and brushes in the base prefab.
+            const string movieName = "EditorScreen";
+#else
             var movieName = GameVersion.IsAtLeast14() ? "EditorScreen" : "EditorScreen_BL13";
+#endif
             _movie = _gauntletLayer.LoadMovie(movieName, _dataSource);
         }
 

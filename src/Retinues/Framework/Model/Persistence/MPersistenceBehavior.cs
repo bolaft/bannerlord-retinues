@@ -26,6 +26,9 @@ namespace Retinues.Framework.Model.Persistence
         /// </summary>
         public override void SyncData(IDataStore dataStore)
         {
+            // A prepared save must never restore faction assignments or custom troop definitions.
+            if (Safety.Uninstall.UninstallBehavior.IsPrepared)
+                return;
             Log.Info("MPersistenceBehavior.SyncData called.");
             if (dataStore == null)
                 return;

@@ -113,15 +113,24 @@ namespace Retinues.Behaviors.Experience.Patches
                 if (__instance == null)
                     return true;
 
-                if (__instance.IsPrisonRoster)
-                    return true;
-
                 var data = Reflection.GetFieldValue<TroopRosterElement[]>(__instance, "data");
-                if (data == null || index < 0 || index >= data.Length)
+                if (data == null || index < 0 || index >= __instance.Count || index >= data.Length)
                     return true;
 
                 var troop = data[index].Character;
                 if (troop == null || troop.IsHero)
+                    return true;
+
+                // Daily training also visits depleted rows, including obsolete troop objects
+                // left by a save/load. Their zero XP cap does not require any troop metadata.
+                int number = data[index].Number;
+                if (number == 0)
+                {
+                    data[index].Xp = 0;
+                    return false;
+                }
+
+                if (__instance.IsPrisonRoster)
                     return true;
 
                 // If the troop has targets, vanilla works.
@@ -139,13 +148,6 @@ namespace Retinues.Behaviors.Experience.Patches
                     )
                 )
                     return true;
-
-                int number = data[index].Number;
-                if (number <= 0)
-                {
-                    data[index].Xp = 0;
-                    return false;
-                }
 
                 var ownerParty = GetOwnerParty(__instance);
                 int xpRequired = GetXpRequired(troop, ownerParty);
@@ -189,6 +191,15 @@ namespace Retinues.Behaviors.Experience.Patches
                     return false;
                 }
 
+                // No soldiers means a zero XP cap, for members and prisoners alike. Do this
+                // before looking up upgrades/conformity on a possibly obsolete troop object.
+                // Do not remove rows here: callers may be iterating the roster by index.
+                if (element.Number == 0)
+                {
+                    element.Xp = 0;
+                    return false;
+                }
+
                 if (__instance == null || roster == null)
                     return true;
 
@@ -228,8 +239,21 @@ namespace Retinues.Behaviors.Experience.Patches
 #endif
 
         /// <summary>
+        /// Snapshots the requested grant before the game adds the stack's existing XP to its
+        /// xpAmount argument. Reading that argument in a postfix would repeatedly award old XP.
+        /// Run after ordinary multiplier prefixes so their adjusted grant is preserved.
+        /// </summary>
+        [HarmonyPatch(typeof(TroopRoster), nameof(TroopRoster.AddXpToTroopAtIndex))]
+        [HarmonyPrefix]
+        [HarmonyPriority(Priority.Last)]
+        private static void Prefix_AddXpToTroopAtIndex(int xpAmount, out int __state)
+        {
+            __state = xpAmount;
+        }
+
+        /// <summary>
         /// Captures the XP the game grants to a troop stack and routes it to skill-point progress.
-        /// We read the requested <paramref name="xpAmount"/> (not the accepted delta) so at-cap
+        /// We read the requested grant (not the accepted delta) so at-cap
         /// troops and top-of-tree retinues — whose roster XP the game would clamp to 0 — still earn.
         ///
         /// The XP source is classified by the battle window (<see cref="BattleXpWindow"/>): inside a
@@ -242,12 +266,13 @@ namespace Retinues.Behaviors.Experience.Patches
         [HarmonyPostfix]
         private static void Postfix_AddXpToTroopAtIndex(
             TroopRoster __instance,
-            int xpAmount,
+            int __state,
             int index
         )
         {
             try
             {
+                int xpAmount = __state;
                 if (xpAmount <= 0 || __instance == null)
                     return;
 
@@ -263,6 +288,9 @@ namespace Retinues.Behaviors.Experience.Patches
                 if (index < 0 || index >= __instance.Count)
                     return;
 
+                if (__instance.GetElementNumber(index) == 0)
+                    return;
+
                 var troop = __instance.GetCharacterAtIndex(index);
                 if (troop == null || troop.IsHero)
                     return;
@@ -274,6 +302,12 @@ namespace Retinues.Behaviors.Experience.Patches
                     return;
 
                 if (!TryGetEligibleFactionTroop(troop, out var wc))
+                    return;
+
+                xpAmount = HideoutSharedXpPatch.GetSkillPointXp(
+                    ownerParty, troop, xpAmount, __instance.GetElementNumber(index)
+                );
+                if (xpAmount <= 0)
                     return;
 
                 // Battle window open => battle XP; closed => campaign-map training XP.

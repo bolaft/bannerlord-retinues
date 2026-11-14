@@ -28,12 +28,14 @@ namespace Retinues.Editor.MVC.Pages.Library.Services
             DateTime createdUtc,
             int entryCount,
             int troopCount,
-            string displayName
+            string displayName,
+            bool isStableExport = false
         )
         {
             public string FilePath { get; } = filePath ?? string.Empty;
             public string FileName { get; } = fileName ?? string.Empty;
             public ExportKind Kind { get; } = kind;
+            public bool IsStableExport { get; } = isStableExport;
             public string SourceId { get; } = sourceId ?? string.Empty;
             public DateTime CreatedUtc { get; } = createdUtc;
 

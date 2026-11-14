@@ -567,6 +567,8 @@ namespace Retinues.Framework.Behaviors
         /// </summary>
         private void SafeInvoke(Action action)
         {
+            if (Safety.Uninstall.UninstallBehavior.IsPrepared)
+                return;
             if (!IsEnabled)
                 return;
 

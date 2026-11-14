@@ -6,6 +6,26 @@
     <IsGameModule>false</IsGameModule>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="TaleWorlds.Localization">
+      <HintPath>$(ReferenceRoot)/TaleWorlds.Localization.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="0Harmony">
+      <HintPath>$(ReferenceRoot)/0Harmony.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="TaleWorlds.ObjectSystem">
+      <HintPath>$(ReferenceRoot)/TaleWorlds.ObjectSystem.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="TaleWorlds.Core">
+      <HintPath>$(ReferenceRoot)/TaleWorlds.Core.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="TaleWorlds.Library">
+      <HintPath>$(ReferenceRoot)/TaleWorlds.Library.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
     <Reference Include="TaleWorlds.CampaignSystem">
       <HintPath>$(ReferenceRoot)/TaleWorlds.CampaignSystem.dll</HintPath>
       <Private>false</Private>

@@ -66,6 +66,25 @@ namespace Retinues.Domain.Equipments.Wrappers
         public void Unlock() => UnlockProgress = UnlockThreshold;
 
         /// <summary>
+        /// Clears earned unlocks and partial progress without changing stocks or access overrides.
+        /// </summary>
+        internal static int ResetUnlockProgress(IEnumerable<WItem> items)
+        {
+            int count = 0;
+            foreach (var item in items)
+            {
+                // The public getter includes settings/doctrine overrides; reset the saved value.
+                var progress = item.UnlockProgressAttribute;
+                if (progress.Get() == 0)
+                    continue;
+
+                progress.Set(0); // Mark dirty so the cleared progress survives the next save.
+                count++;
+            }
+            return count;
+        }
+
+        /// <summary>
         /// Gets all unlocked items that can be equipped in the given slot.
         /// </summary>
         public static IEnumerable<WItem> GetUnlockedItems(EquipmentIndex slot)

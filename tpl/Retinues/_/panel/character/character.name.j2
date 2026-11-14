@@ -1,22 +1,30 @@
-{% from "_/macros.panel.j2" import panel_header, panel_label %}
+{% from "_/macros.panel.j2" import panel_header %}
 {% from "_/macros.buttons.j2" import button_sprite %}
 
 {{ panel_header("@NameHeaderText") }}
 
+{# Center the text and pencil together. Cap the text itself so the pencil stays
+   reachable: 560 + 8 + 32 for troops, 2 * (252 + 8 + 32) + 16 for heroes. #}
+{% for hero in [false, true] %}
 <ListPanel
-    WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren"
+    {% if hero %}IsVisible="@IsHero"{% else %}IsHidden="@IsHero"{% endif %}
+    WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed"
+    SuggestedHeight="40"
     HorizontalAlignment="Center" VerticalAlignment="Center"
     StackLayout.LayoutMethod="HorizontalLeftToRight"
     MarginBottom="12">
     <Children>
-
-        {{ panel_label("@NameText") }}
-
-        {{ button_sprite("{RenameButton}", "32", "32", button_brush="SPClan.NameChange.Icon", margin_left="4") }}
-
-        {{ panel_label("@SurnameText", is_visible="@IsHero") }}
-
-        {{ button_sprite("{RenameSurnameButton}", "32", "32", button_brush="SPClan.NameChange.Icon", margin_left="4") }}
-
+        {% set fields = [("@NameText", "{RenameButton}")] %}
+        {% if hero %}{% set fields = fields + [("@SurnameText", "{RenameSurnameButton}")] %}{% endif %}
+        {% for name, rename in fields %}
+        <TextWidget
+            Text="{{ name }}" Brush="Clan.RightPanel.Name.Text"
+            WidthSizePolicy="CoverChildren" HeightSizePolicy="StretchToParent"
+            MaxWidth="{{ 252 if hero else 560 }}"
+            MarginLeft="{{ 16 if not loop.first else 0 }}" MarginRight="8"
+            Brush.TextHorizontalAlignment="Left" ClipContents="true" DoNotAcceptEvents="true" />
+        {{ button_sprite(rename, "32", "32", button_brush="SPClan.NameChange.Icon") }}
+        {% endfor %}
     </Children>
 </ListPanel>
+{% endfor %}

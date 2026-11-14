@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <base xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" type="string">
   <tags>
-    <tag language="JP" />
+    <tag language="日本語" />
   </tags>
   <strings>
     <string
@@ -1068,7 +1068,7 @@
       text="一緒に行進する" />
     <string
       id="ret_feat_sp_rescue_mission_desc"
-      text="敵のパーティーから捕らわれた領主を救出します。" />
+      text="戦闘に勝利するか（自動戦闘を含む）、脱獄を成功させて味方の領主を救出する。身代金による解放は対象外。" />
     <string
       id="ret_feat_sp_rescue_mission_name"
       text="救出ミッション" />

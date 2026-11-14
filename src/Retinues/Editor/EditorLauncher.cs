@@ -37,6 +37,8 @@ namespace Retinues.Editor
         /// </summary>
         private static void LaunchInternal(EditorLaunchArgs args)
         {
+            if (Safety.Uninstall.UninstallBehavior.IsPrepared)
+                return;
             var gsm = Game.Current?.GameStateManager;
             if (gsm == null)
                 return;

@@ -32,6 +32,8 @@ namespace Retinues.Compatibility.Interops
         /// </summary>
         public static void ApplyPatches(Harmony harmony)
         {
+            ImprovedGarrisons.ImprovedGarrisonsPatcher.TryPatch();
+
             if (Mods.Shokuho.IsLoaded)
                 Shokuho.ShokuhoEquipmentPatcher.TryPatch(harmony);
 

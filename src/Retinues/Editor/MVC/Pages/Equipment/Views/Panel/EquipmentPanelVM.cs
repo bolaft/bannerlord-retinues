@@ -20,6 +20,9 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Views.Panel
         [DataSourceProperty]
         public bool OnEquipmentPage => true;
 
+        [DataSourceProperty]
+        public override bool KeepWithPreview => true;
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                          Infos                         //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

@@ -17,7 +17,7 @@ internal static class Program
     {
         if (args.Length < 3 || (args[2] != "stable" && args[2] != "v2"))
         {
-            Console.Error.WriteLine("Usage: HeadlessAudit.exe <Retinues.dll> <game-dll-directory> <stable|v2> [Harmony-directory] [--seed=N] [--repeat=N] [--junit=path] [--inventory=path] [--release-check] [--patch-check] [--save-contract=path --baseline=path]");
+            Console.Error.WriteLine("Usage: HeadlessAudit.exe <Retinues.dll> <game-dll-directory> <stable|v2> [Harmony-directory] [--seed=N] [--repeat=N] [--junit=path] [--inventory=path] [--release-check] [--patch-check] [--save-contract=path --baseline=path] [--improved-garrisons=ImprovedGarrisons.dll] [--atc=AdonnaysTroopChanger.dll]");
             return 2;
         }
 
@@ -41,7 +41,7 @@ internal static class Program
         try
         {
             int seed = 12345, repeat = 1;
-            string inventory = null, contract = null, baseline = null;
+            string inventory = null, contract = null, baseline = null, improvedGarrisons = null, atc = null;
             bool release = false, patchCheck = false;
             foreach (string option in args.Skip(hasHarmonyArgument ? 4 : 3))
             {
@@ -53,9 +53,21 @@ internal static class Program
                 else if (option == "--patch-check") patchCheck = true;
                 else if (option.StartsWith("--save-contract=")) contract = option.Substring(16);
                 else if (option.StartsWith("--baseline=")) baseline = option.Substring(11);
+                else if (option.StartsWith("--improved-garrisons=")) improvedGarrisons = option.Substring("--improved-garrisons=".Length);
+                else if (option.StartsWith("--atc=")) atc = option.Substring("--atc=".Length);
                 else throw new ArgumentException("Unknown option: " + option);
             }
             var module = Assembly.LoadFrom(modulePath);
+            if (atc != null)
+            {
+                ATCRecruitmentProbe.Run(module, Path.GetFullPath(atc), args[2]);
+                return 0;
+            }
+            if (improvedGarrisons != null)
+            {
+                ImprovedGarrisonsProbe.Run(module, Path.GetFullPath(improvedGarrisons));
+                return 0;
+            }
             if (patchCheck)
                 return CheckAllHarmonyBindings(module, report) ? 0 : 1;
             if (contract != null)
@@ -95,10 +107,15 @@ internal static class Program
                 success &= Supplement(supplemental, "SharedSaveRoundTripAndContinuation", () => CheckSharedSave(module));
                 success &= Supplement(supplemental, "PartyBindingsAndHarmonyInstallation", () => CheckPartyPatchBindings(module));
                 success &= Supplement(supplemental, "XpDiagnosticsPreserveEngineFailure", () => CheckXpDiagnostics(module));
+                success &= Supplement(supplemental, "EmptyTroopTrainingPreservesPopulatedStacks", () => CheckEmptyTroopTraining(module));
+                success &= Supplement(supplemental, "ItemReplacementQueueAndHolsterSpawnSafety", () => EquipmentSafetyProbe.Run(module));
+                success &= Supplement(supplemental, "NpcModuleAppearanceSurvivesFreshLoad", () => NpcModuleExportProbe.Run(module));
+                success &= Supplement(supplemental, "RescueMissionBattlesAndPrisonBreaks", () => RescueMissionProbe.Run(module));
             }
             else
                 success &= Supplement(supplemental, "MilitiaHarmonyPatchInstalls", () =>
                     InstallPatch(module.GetType("Retinues.Features.Swaps.Patches.PlayerMilitiaSpawnPatch", true)));
+            success &= Supplement(supplemental, "CheatInventoryCaptureAndUnlockProgress", () => DiscardUnlockProbe.Run(module, args[2]));
             supplemental.SetAttributeValue("tests", supplemental.Elements("testcase").Count());
             supplemental.SetAttributeValue("failures", supplemental.Descendants("failure").Count());
             supplemental.SetAttributeValue("errors", 0);
@@ -221,11 +238,12 @@ internal static class Program
         // A headless process otherwise reports a false missing target for the party screen.
         Assembly.Load("SandBox.GauntletUI");
         var harmonyType = Assembly.Load("0Harmony").GetType("HarmonyLib.Harmony", true);
-        bool Annotated(MemberInfo member) => member.GetCustomAttributesData().Any(a =>
-            a.AttributeType.FullName == "HarmonyLib.HarmonyPatch");
-        var flags = BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly;
+        var discoveryType = module.GetType("Retinues.Framework.Modules.Dependencies.Core.HarmonyDependency")
+            ?? module.GetType("Retinues.SubModule", true);
+        var discovery = discoveryType.GetMethod("IsPatchContainer", BindingFlags.Static | BindingFlags.NonPublic);
+        Require(discovery != null, "Production patch-discovery method is missing.");
         var suite = new XElement("testsuite", new XAttribute("name", "Harmony installation against selected game assemblies"));
-        foreach (var type in module.GetTypes().Where(t => Annotated(t) || t.GetMethods(flags).Any(Annotated)).OrderBy(t => t.FullName))
+        foreach (var type in module.GetTypes().Where(t => (bool)discovery.Invoke(null, new object[] { t })).OrderBy(t => t.FullName))
         {
             Supplement(suite, type.FullName, () =>
             {
@@ -294,6 +312,60 @@ internal static class Program
         Require((int)reported.GetType().GetProperty("Count").GetValue(reported) == 1,
             "The installed finalizer must capture the failed element, not silently skip its diagnostics.");
         patch.GetMethod("Reset").Invoke(null, null);
+    }
+
+    private static void CheckEmptyTroopTraining(Assembly module)
+    {
+        var rosterType = typeof(TaleWorlds.CampaignSystem.Roster.TroopRoster);
+        var partyType = typeof(TaleWorlds.CampaignSystem.Party.PartyBase);
+        var ghost = (CharacterObject)System.Runtime.Serialization.FormatterServices.GetUninitializedObject(typeof(CharacterObject));
+        ghost.StringId = "aserai_mameluke_axeman";
+        var valid = (CharacterObject)System.Runtime.Serialization.FormatterServices.GetUninitializedObject(typeof(CharacterObject));
+        valid.StringId = ghost.StringId;
+        var addXp = rosterType.GetMethod("AddXpToTroopAtIndex");
+        bool legacy = rosterType.GetMethod("ClampXp", PrivateInstance) != null;
+        var rows = new[] {
+            new TaleWorlds.CampaignSystem.Roster.TroopRosterElement(ghost),
+            new TaleWorlds.CampaignSystem.Roster.TroopRosterElement(valid) { Number = 2, WoundedNumber = 1, Xp = 132 }
+        };
+        var roster = TaleWorlds.CampaignSystem.Roster.TroopRoster.CreateDummyTroopRoster();
+        rosterType.GetField("data", PrivateInstance).SetValue(roster, rows);
+        rosterType.GetField("_count", PrivateInstance).SetValue(roster, rows.Length);
+        var party = System.Runtime.Serialization.FormatterServices.GetUninitializedObject(partyType);
+        rosterType.GetProperty("OwnerParty", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic).SetValue(roster, party);
+        partyType.GetProperty("MemberRoster").SetValue(party, roster);
+        object[] Arguments(int xp) => addXp.GetParameters().Select(p => (object)(p.Name == "index" ? 0 : xp)).ToArray();
+
+        // First reproduce the reported zero-soldier/zero-XP crash in the unpatched engine.
+        bool reproduced = false;
+        try { addXp.Invoke(roster, Arguments(0)); }
+        catch (TargetInvocationException e) when (e.InnerException is NullReferenceException) { reproduced = true; }
+        Require(reproduced, "The fixture must reach the original daily-training failure before installing the fix.");
+        InstallPatch(module.GetType("Retinues.Behaviors.Experience.Patches.SkillPointExperiencePatches", true));
+
+        // 1.2 prisoner conformity has a separate engine path; 1.3+ shares OnXpChanged.
+        foreach (bool prisoners in legacy ? new[] { false } : new[] { false, true })
+        {
+            partyType.GetProperty("PrisonRoster").SetValue(party, prisoners ? roster : null);
+            foreach (int xp in new[] { 0, 100, -100 })
+            {
+                addXp.Invoke(roster, Arguments(xp));
+                Require(rows[0].Xp == 0, "Empty entries have a zero XP cap without reading missing troop metadata.");
+                Require(roster.Count == 2 && ReferenceEquals(rows[0].Character, ghost),
+                    "The XP callback must not remove rows while the caller is iterating.");
+                Require(ReferenceEquals(rows[1].Character, valid) && rows[1].Number == 2
+                    && rows[1].WoundedNumber == 1 && rows[1].Xp == 132,
+                    "A populated stack with the same troop ID retains its identity, soldiers, wounds and XP.");
+            }
+        }
+
+        // A populated broken troop remains an error; this is not blanket exception suppression.
+        partyType.GetProperty("PrisonRoster").SetValue(party, null);
+        rows[0].Number = 1;
+        bool stillFails = false;
+        try { addXp.Invoke(roster, Arguments(0)); }
+        catch (TargetInvocationException e) when (e.InnerException is NullReferenceException) { stillFails = true; }
+        Require(stillFails, "The guard must not suppress unrelated failures on populated troops.");
     }
 
     private static void Require(bool condition, string message)

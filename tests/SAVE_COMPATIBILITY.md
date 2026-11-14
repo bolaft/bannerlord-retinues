@@ -1,5 +1,83 @@
 # Prior-version save compatibility audit
 
+## Release ZIP preservation audit — 2026-11-02
+
+Reviewed the actual three test packages prepared on November 1: stable BL1.2
+`v1.2.14.34`, stable BL1.4/1.5 `v1.4.14.34`, and V2 `v2.0.0.15`.
+The original published `.34` and `.15` archives were retained before those test
+packages replaced them. The October 16 source snapshots match the DLL hashes in
+those original archives, so the source review covers changes since the shipped
+versions, rather than treating all uncommitted work as unreleased.
+
+### Regression found and fixed
+
+The shared stable-character converter linked a captain back to its base troop
+before finishing the remaining definitions. V2 redirects several captain
+properties to that base. As a result, converting the captain could overwrite the
+base troop's skill baseline; an already-linked import could also overwrite its
+formation and original source identity. Migrating a separate captain XP entry
+could overwrite the base troop's converted XP pool.
+
+Conversion now detaches the destination's back-link, restores each definition and
+its progression independently, and links captains in a second pass. Both the save
+migration coordinator and stable XML importer use this order. The importer restores
+the links in a `finally` block if a record fails. This changes no saved field, type
+ID, key, model format, stub ID or ordinary V2 save-loading behavior.
+
+The regression reproduced a saved baseline of **111 becoming 999** before the
+fix. New tests cover parent-first/captain-first order, fresh/existing links, the
+actual save coordinator with distinct XP entries, the actual stable importer,
+and serialize/reload with shared captain XP. The live-campaign import case also
+checks formation, source identity and preservation of existing unspent points.
+
+### Evidence
+
+- **40 forward compatibility comparisons** against actual older packaged DLLs:
+  18 for the stable builds and 22 for V2. Baselines cover stable releases `.30`
+  through `.34`, the BL1.2 `.34` build, and V2 `.11` through `.15`. All pass.
+  These check real SaveSystem registrations, field IDs/types and containers;
+  prior V2 model payloads also pass current-reader loads and four resaves across
+  three cultures, including pending shared XP. Cross-game comparisons here
+  concern Retinues data contracts, not native Bannerlord save downgrades.
+- **17 same-branch package comparisons** preserve every prior top-level XML
+  object definition. The stable packages retain all 1,200 troop definitions,
+  including the 200 classic placeholders; V2 retains its 1,000 troop stubs.
+- The initial final matrix passed all **41 processes / 2,251 test executions**
+  across Debug/Release BL12/13/14/15 where supported. After adding the direct
+  importer regression, the focused final pass passed **38 processes / 1,932 test
+  executions**, with different randomized seeds, including both BL14 builds
+  running on BL15. Counts include repetitions; none failed or skipped.
+- Actual ATC 1.12.0 and Improved Garrisons DLL integration probes pass on BL14
+  and BL15. Reviewed recruitment hooks do not add save partitions or redefine
+  existing troops. Offer discovery leaves world stock intact; temporary transfer
+  substitutions restore unconsumed slots. Old T7+ cap settings seed missing T8–T10
+  settings without overwriting explicit values. Rescue Mission retains its feat ID.
+- The corrected V2 Release ZIP passes patch binding and game-API reference checks
+  on BL14 and BL15, excludes test code, and passes all 22 older-release comparisons.
+  Its only changed archive entry relative to the November 1 ZIP is `Retinues.dll`.
+  It replaced the V2 ZIP in `Modules`; the stable ZIPs were not changed by this fix.
+
+Evidence is under `out/save-audit-20261102/`: `inventory.json`,
+`contract-results.json`, `package-preservation.json`, `final-matrix/summary.json`,
+`post-fix/summary.json`, and `updated-package.json`. The corrected package and its
+file hashes are in `out/releases-20261102/`. V2 ZIP SHA-256:
+`be0910d84d04aba55fd364ead93b843ab0af231636cae6cfa8c2e4a4b7c5965b`.
+
+### Limits and older migration boundary
+
+This is a managed-code and package audit, not a complete native `.sav` load in the
+game. It cannot prove compatibility with every other mod or an already-damaged
+campaign. Existing heavily modded saves still need a real load, play, save and
+reload before release. No player save was edited during this audit.
+
+V2 already omitted the 200 **classic `ret_` troop definitions** carried by stable
+for very old saves; this patch does not introduce that omission. A save that still
+uses those old IDs needs the stable migration bridge before moving to V2. Stable's
+`TroopSaveData.Deserialize` reallocates these IDs and transfers roster references,
+XP and queued changes. Passing the legacy type-contract comparison alone does
+not prove that a direct jump from those ancient saves into V2 is safe. Neither
+V2-to-stable downgrade nor a Bannerlord-version downgrade is certified here.
+
 ## Second preservation pass — 2026-09-18
 
 Reviewed the current changes in both checkouts against stable `ff69d116` and V2 `96a9dc90`,

@@ -24,6 +24,7 @@ namespace Retinues.Behaviors.Unlocks
         /// </summary>
         protected override void OnItemsDiscardedByPlayer(ItemRoster roster)
         {
+            roster = CheatDiscardFilter.ForUnlocks(roster);
             if (roster == null || roster.Count == 0)
                 return;
 

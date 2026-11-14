@@ -1493,6 +1493,19 @@ namespace Retinues.Settings
 
         /* ━━━━━━━━ Options ━━━━━━━ */
 
+        public static readonly Option<int> MaxTroopTier = CreateOption(
+            section: SkillCaps,
+            name: L.F("mcm_option_max_troop_tier", "Max Troop Tier"),
+            description: L.F(
+                "mcm_option_max_troop_tier_hint",
+                "Highest tier a custom troop can reach."
+            ),
+            minValue: 6,
+            maxValue: 10,
+            @default: 6,
+            fires: [UIEvent.Skill]
+        );
+
         public static readonly Option<int> SkillCapT0 = CreateOption(
             section: SkillCaps,
             name: L.F("mcm_option_skill_cap", "Tier {TIER} Skill Cap", ("TIER", 0)),
@@ -1562,6 +1575,41 @@ namespace Retinues.Settings
             minValue: 20,
             maxValue: 999,
             @default: 360,
+            dependsOn: MaxTroopTier,
+            dependsOnValue: new[] { 7, 8, 9, 10 },
+            fires: [UIEvent.Skill]
+        );
+
+        public static readonly Option<int> SkillCapT8 = CreateOption(
+            section: SkillCaps,
+            name: L.F("mcm_option_skill_cap", "Tier {TIER} Skill Cap", ("TIER", 8)),
+            minValue: 20,
+            maxValue: 999,
+            @default: 360,
+            dependsOn: MaxTroopTier,
+            dependsOnValue: new[] { 8, 9, 10 },
+            fires: [UIEvent.Skill]
+        );
+
+        public static readonly Option<int> SkillCapT9 = CreateOption(
+            section: SkillCaps,
+            name: L.F("mcm_option_skill_cap", "Tier {TIER} Skill Cap", ("TIER", 9)),
+            minValue: 20,
+            maxValue: 999,
+            @default: 360,
+            dependsOn: MaxTroopTier,
+            dependsOnValue: new[] { 9, 10 },
+            fires: [UIEvent.Skill]
+        );
+
+        public static readonly Option<int> SkillCapT10 = CreateOption(
+            section: SkillCaps,
+            name: L.F("mcm_option_skill_cap", "Tier {TIER} Skill Cap", ("TIER", 10)),
+            minValue: 20,
+            maxValue: 999,
+            @default: 360,
+            dependsOn: MaxTroopTier,
+            dependsOnValue: new[] { 10 },
             fires: [UIEvent.Skill]
         );
 
@@ -1578,19 +1626,6 @@ namespace Retinues.Settings
         );
 
         /* ━━━━━━━━ Options ━━━━━━━ */
-
-        public static readonly Option<int> MaxTroopTier = CreateOption(
-            section: SkillTotals,
-            name: L.F("mcm_option_max_troop_tier", "Max Troop Tier"),
-            description: L.F(
-                "mcm_option_max_troop_tier_hint",
-                "Highest tier a custom troop can reach."
-            ),
-            minValue: 6,
-            maxValue: 10,
-            @default: 6,
-            fires: [UIEvent.Skill]
-        );
 
         public static readonly Option<int> SkillTotalT0 = CreateOption(
             section: SkillTotals,
@@ -1661,6 +1696,8 @@ namespace Retinues.Settings
             minValue: 90,
             maxValue: 9999,
             @default: 1600,
+            dependsOn: MaxTroopTier,
+            dependsOnValue: new[] { 7, 8, 9, 10 },
             fires: [UIEvent.Skill]
         );
 
@@ -1670,6 +1707,8 @@ namespace Retinues.Settings
             minValue: 90,
             maxValue: 9999,
             @default: 1850,
+            dependsOn: MaxTroopTier,
+            dependsOnValue: new[] { 8, 9, 10 },
             fires: [UIEvent.Skill]
         );
 
@@ -1679,6 +1718,8 @@ namespace Retinues.Settings
             minValue: 90,
             maxValue: 9999,
             @default: 2100,
+            dependsOn: MaxTroopTier,
+            dependsOnValue: new[] { 9, 10 },
             fires: [UIEvent.Skill]
         );
 
@@ -1688,6 +1729,8 @@ namespace Retinues.Settings
             minValue: 90,
             maxValue: 9999,
             @default: 2350,
+            dependsOn: MaxTroopTier,
+            dependsOnValue: new[] { 10 },
             fires: [UIEvent.Skill]
         );
 

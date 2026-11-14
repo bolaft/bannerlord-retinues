@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Retinues.Compatibility;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Factions;
 using Retinues.Domain.Factions.Wrappers;
@@ -24,6 +25,20 @@ namespace Retinues.Domain.Characters.Services.Matching
             bool strictCategoryMatch = true,
             WCharacter fallback = null,
             int? requestedTier = null
+        ) => FindBestCore(troop, troops, strictTierMatch, strictCategoryMatch, fallback, requestedTier, false);
+
+        /// <summary>Recruitment context only; preserves the public general-purpose matching API.</summary>
+        internal static WCharacter FindBestVolunteer(WCharacter troop, IEnumerable<WCharacter> troops) =>
+            FindBestCore(troop, troops, true, true, null, null, true);
+
+        private static WCharacter FindBestCore(
+            WCharacter troop,
+            IEnumerable<WCharacter> troops,
+            bool strictTierMatch,
+            bool strictCategoryMatch,
+            WCharacter fallback,
+            int? requestedTier,
+            bool forVolunteers
         )
         {
             if (troop == null || troops == null)
@@ -36,17 +51,25 @@ namespace Retinues.Domain.Characters.Services.Matching
             // Initial filtering by category.
             if (strictCategoryMatch)
             {
+                bool sharedMilitiaRoles = forVolunteers && Europe1700Recruitment.IsActive;
                 troops = troops.Where(t =>
-                    t.IsRegular == troop.IsRegular
-                    && t.IsElite == troop.IsElite
-                    && t.IsBasic == troop.IsBasic
-                    && t.IsMercenary == troop.IsMercenary
-                    && t.IsBandit == troop.IsBandit
-                    && t.IsMilitia == troop.IsMilitia
-                    && t.IsCaravan == troop.IsCaravan
-                    && t.IsVillager == troop.IsVillager
-                    && t.IsCivilian == troop.IsCivilian
-                );
+                {
+                    // Only the recruitment context in 1700 may ignore an extra militia
+                    // role. Keep all other category, tier, and equipment rules intact.
+                    bool regularMilitia = sharedMilitiaRoles && t.IsRegular && troop.IsRegular
+                        && (Europe1700Recruitment.TryGetTreeKind(troop.Base, out _)
+                            || Europe1700Recruitment.TryGetTreeKind(t.Base, out _));
+                    return t.IsRegular == troop.IsRegular
+                        && t.IsElite == troop.IsElite
+                        && (t.IsBasic == troop.IsBasic || (regularMilitia && t.IsElite && troop.IsElite))
+                        && t.IsMercenary == troop.IsMercenary
+                        && t.IsBandit == troop.IsBandit
+                        && (t.IsMilitia == troop.IsMilitia || regularMilitia)
+                        && t.IsCaravan == troop.IsCaravan
+                        && t.IsConvoy == troop.IsConvoy
+                        && t.IsVillager == troop.IsVillager
+                        && t.IsCivilian == troop.IsCivilian;
+                });
             }
 
             // Materialize candidates once and drop nulls.
@@ -184,6 +207,13 @@ namespace Retinues.Domain.Characters.Services.Matching
                     && faction.CaravanGuard != troop
                 )
                     return faction.CaravanGuard;
+
+                if (
+                    troop == f.VeteranCaravanGuard
+                    && faction.VeteranCaravanGuard != null
+                    && faction.VeteranCaravanGuard != troop
+                )
+                    return faction.VeteranCaravanGuard;
 
                 if (
                     troop == f.CaravanMaster

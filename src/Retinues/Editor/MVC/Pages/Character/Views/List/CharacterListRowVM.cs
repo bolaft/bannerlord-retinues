@@ -100,6 +100,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.List
         /// <summary>
         /// Gets the vanilla tier icon data for this troop.
         /// </summary>
+        [EventListener(UIEvent.Character)]
         [DataSourceProperty]
         public StringItemWithHintVM TierIconData =>
             CampaignUIHelper.GetCharacterTierData(Character.Base, isBig: true);

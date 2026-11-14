@@ -330,10 +330,16 @@ namespace Retinues.Domain.Equipments.Models
         /// <summary>
         /// Sets the base (real) item for the specified equipment slot.
         /// </summary>
-        private void SetBase(EquipmentIndex index, WItem item)
+        private bool SetBase(EquipmentIndex index, WItem item)
         {
             if (!IsValidSlot(index))
-                return;
+                return false;
+
+            if (item?.HasValidWeaponHolsters == false)
+            {
+                ItemHolsterSafety.Report(item.Base, "Blocked equipping malformed weapon");
+                return false;
+            }
 
             var element = item == null ? EquipmentElement.Invalid : new EquipmentElement(item.Base);
             Base[index] = element;
@@ -345,6 +351,7 @@ namespace Retinues.Domain.Equipments.Models
             ItemsChanged?.Invoke(this);
 
             owner.OnEquipmentChange();
+            return true;
         }
 
         /// <summary>

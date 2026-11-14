@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Retinues.Compatibility;
 using Retinues.Domain.Characters.Wrappers;
 using Retinues.Domain.Settlements.Wrappers;
 using Retinues.Settings;
@@ -64,6 +65,9 @@ namespace Retinues.Behaviors.Volunteers.Models
             // Always let the active model/mod compute its default first.
             var inner = _inner.GetBasicVolunteer(sellerHero);
 
+            if (Safety.Uninstall.UninstallBehavior.IsPrepared)
+                return inner;
+
             try
             {
                 if (sellerHero == null || !sellerHero.IsAlive)
@@ -90,15 +94,18 @@ namespace Retinues.Behaviors.Volunteers.Models
 
                 // Decide whether we want elite-root pool or basic-root pool.
                 // Use the inner result to infer elite vs basic when possible.
-                bool wantElite = false;
+                var atcRole = ATCRecruitment.GetRole(inner, settlement, sellerHero);
+                if (atcRole == ATCRecruitRole.Ambiguous)
+                    return inner;
+                bool wantElite = atcRole == ATCRecruitRole.Elite;
 
-                if (inner != null)
+                if (inner != null && atcRole == ATCRecruitRole.None)
                 {
                     var wc = WCharacter.Get(inner);
                     if (wc != null)
                         wantElite = wc.IsElite;
                 }
-                else
+                else if (inner == null)
                 {
                     // Vanilla special case: rural notable in a castle-bound village uses an elite-ish basic troop.
                     if (
@@ -109,7 +116,9 @@ namespace Retinues.Behaviors.Volunteers.Models
                         wantElite = true;
                 }
 
-                var root = wantElite ? ws.GetBaseEliteRoot() : ws.GetBaseBasicRoot();
+                var root = atcRole == ATCRecruitRole.None
+                    ? (wantElite ? ws.GetBaseEliteRoot() : ws.GetBaseBasicRoot())
+                    : (wantElite ? ws.GetBaseTroopsFaction()?.RootElite : ws.GetBaseTroopsFaction()?.RootBasic);
                 var rootBase = root?.Base;
                 if (rootBase == null)
                     return inner;
@@ -127,7 +136,8 @@ namespace Retinues.Behaviors.Volunteers.Models
                         return inner;
                 }
 
-                return rootBase;
+                return atcRole == ATCRecruitRole.None ? rootBase
+                    : ATCRecruitment.MatchVolunteer(WCharacter.Get(inner), root.Tree, atcRole)?.Base ?? inner;
             }
             catch (Exception ex)
             {

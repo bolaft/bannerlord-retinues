@@ -19,6 +19,9 @@ namespace Retinues.Editor.MVC.Shared.Views
         [DataSourceProperty]
         public virtual HorizontalAlignment HorizontalAlignment => HorizontalAlignment.Right;
 
+        [DataSourceProperty]
+        public virtual bool KeepWithPreview => false;
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                        Manual                          //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

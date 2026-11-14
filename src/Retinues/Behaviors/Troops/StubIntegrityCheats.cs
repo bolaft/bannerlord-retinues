@@ -23,8 +23,8 @@ namespace Retinues.Behaviors.Troops
     {
         /// <summary>
         /// Repairs a save without reloading: re-points roster entries that reference a
-        /// duplicate instance of a custom troop at the registered troop, and strips retinue
-        /// units out of upgrade trees. Also lists roster entries whose troop cannot be
+        /// duplicate instance of a custom troop at the registered troop, removes empty obsolete
+        /// ordinary troop entries, and strips retinue units out of upgrade trees. Also lists roster entries whose troop cannot be
         /// repaired (no registered troop exists for the id — typically a removed mod), so the
         /// player knows what to remove by hand.
         /// Usage: retinues.scrub_save
@@ -37,12 +37,12 @@ namespace Retinues.Behaviors.Troops
 
             var sb = new StringBuilder();
 
-            // 1) Duplicate custom troop instances in rosters (the unloadable-save corruption).
+            // 1) Duplicate custom troops and empty obsolete ordinary troops in rosters.
             int healed = StubIntegrityBehavior.CanonicalizeAllRosters("scrub");
             sb.AppendLine(
                 healed > 0
-                    ? $"Repaired {healed} roster entr{(healed == 1 ? "y" : "ies")} referencing a duplicate custom troop."
-                    : "No duplicate custom troop instances found in rosters."
+                    ? $"Repaired or removed {healed} obsolete roster entr{(healed == 1 ? "y" : "ies")} (details in the log)."
+                    : "No duplicate custom troops or empty obsolete troop entries needed repair."
             );
 
             // 2) Retinues leaked into upgrade trees (AI lords upgrading into player retinues).

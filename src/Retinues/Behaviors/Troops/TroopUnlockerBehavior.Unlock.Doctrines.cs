@@ -187,10 +187,15 @@ namespace Retinues.Behaviors.Troops
             if (culture?.Base == null)
                 return false;
 
-            var specs = new List<CloneSpec>(3)
+            var specs = new List<CloneSpec>(4)
             {
                 new(faction.CaravanMaster, culture.CaravanMaster, faction.SetCaravanMaster),
                 new(faction.CaravanGuard, culture.CaravanGuard, faction.SetCaravanGuard),
+                new(
+                    faction.VeteranCaravanGuard,
+                    culture.VeteranCaravanGuard,
+                    faction.SetVeteranCaravanGuard
+                ),
                 new(faction.ArmedTrader, culture.ArmedTrader, faction.SetArmedTrader),
             };
 

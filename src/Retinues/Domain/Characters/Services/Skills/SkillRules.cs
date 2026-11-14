@@ -23,6 +23,21 @@ namespace Retinues.Domain.Characters.Services.Skills
         /// </summary>
         static int ClampTier(int tier) => Math.Max(0, Math.Min(WCharacter.EliteMaxTier, tier));
 
+        internal static int GetBaseSkillCap(int tier) => ClampTier(tier) switch
+        {
+            0 => Configuration.SkillCapT0,
+            1 => Configuration.SkillCapT1,
+            2 => Configuration.SkillCapT2,
+            3 => Configuration.SkillCapT3,
+            4 => Configuration.SkillCapT4,
+            5 => Configuration.SkillCapT5,
+            6 => Configuration.SkillCapT6,
+            7 => Configuration.SkillCapT7,
+            8 => Configuration.SkillCapT8,
+            9 => Configuration.SkillCapT9,
+            _ => Configuration.SkillCapT10,
+        };
+
         /// <summary>
         /// Gets the skill cap for the given wrapped character.
         /// </summary>
@@ -34,19 +49,7 @@ namespace Retinues.Domain.Characters.Services.Skills
             if (wc.IsHero)
                 return MaxSkillLevel;
 
-            var tier = ClampTier(wc.Tier);
-            var cap = tier switch
-            {
-                0 => Configuration.SkillCapT0,
-                1 => Configuration.SkillCapT1,
-                2 => Configuration.SkillCapT2,
-                3 => Configuration.SkillCapT3,
-                4 => Configuration.SkillCapT4,
-                5 => Configuration.SkillCapT5,
-                6 => Configuration.SkillCapT6,
-                7 => Configuration.SkillCapT7,
-                _ => Configuration.SkillCapT7,
-            };
+            var cap = GetBaseSkillCap(wc.Tier);
 
             /// <summary>
             /// Computes any bonus to be added to the base total.

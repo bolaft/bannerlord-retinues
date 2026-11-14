@@ -26,6 +26,9 @@ namespace Retinues.Domain.Characters.Services.Cloning
             WCharacter stub = null
         )
         {
+            if (Safety.Uninstall.UninstallBehavior.IsPrepared)
+                return null;
+
             if (source?.Base == null)
                 return null;
 

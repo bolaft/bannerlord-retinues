@@ -9,7 +9,7 @@
 - Read access to your Bannerlord installation directory (e.g.  
   `C:\Program Files (x86)\Steam\steamapps\common\Mount & Blade II Bannerlord`).
 
-> Game assemblies target **.NET Framework 4.7.2**. You do not need to install that runtime; the project references the game's DLLs from `dll/12`, `dll/13`, or `dll/14`.
+> Game assemblies target **.NET Framework 4.7.2**. You do not need to install that runtime; the project references the game's DLLs from `dll/12` or `dll/15`.
 
 ---
 
@@ -50,12 +50,11 @@ Example `Retinues.Local.props` (optional; read by `build.sh` to determine game d
 
 ```
 dll/12/**   # BL 1.2 DLL set
-dll/13/**   # BL 1.3 DLL set
-dll/14/**   # BL 1.4 DLL set
+dll/15/**   # BL 1.5.7 DLL set
 ```
-The build selects the appropriate set with `-v`/`--version` (default is 13).
+The build selects the appropriate set with `-v`/`--version` (default is 15).
 
-4) Place required third‑party DLLs into `dll/12`, `dll/13`, and `dll/14` as needed by the module:
+4) Place required third‑party DLLs into `dll/12` and `dll/15` as needed by the module:
 - `0Harmony.dll`
 - `Bannerlord.UIExtenderEx.dll`
 
@@ -95,7 +94,7 @@ out/                                    # Build outputs (see notes below)
 The provided `build.sh` is a convenience wrapper that runs prefab generation, string compilation, `dotnet build`, deploy, and (optionally) release packaging via `build.py`.
 
 Common flags recognized by `build.sh`:
-- `-v, --version <12|13|14>` : Bannerlord version key (default: 13)
+- `-v, --version <12|15>` : Bannerlord version key (default: 15)
 - `-r, --release <N>`     : Build Release and override the last version segment with `<N>` (triggers packaging steps)
 - `--prefabs`             : Run only prefabs generation
 - `--no-prefabs`          : Skip prefabs generation
@@ -107,7 +106,7 @@ Examples
 
 ### Development build (Debug) and deploy to game (default behavior)
 ```bash
-./build.sh -v 12
+./build.sh -v 15
 ```
 - Runs prefab generation, string compilation, `dotnet build` (Debug), and deploys outputs and generated `SubModule.xml` into your game Modules folder.
 - Copies `UIExtenderDebug.xml` to the deployed module root when building Debug.
@@ -142,9 +141,9 @@ Examples
 
 ## Packaging and release notes
 
-- BL14 officially targets the live Bannerlord 1.4.8 release. Use the same manifest for the
-  supported 1.5 beta; a launcher version-mismatch warning on beta is expected. Legacy BL12
-  and BL13 builds keep their own game targets.
+- BL15 officially targets Bannerlord 1.5.7. BL12 retains its 1.2.12 target.
+  The BL15 build uses the refreshed `dll/15` references and enables the existing
+  BL14-compatible code paths alongside the BL15 symbol.
 - Steam Workshop releases currently come from the stable checkout only. The Workshop
   configuration inherited by this V2 checkout is not a separate V2 listing.
 - `build.py` reads `build.yaml` and can either write `SubModule.xml` (`--out <module_dir>`) or prepare a release package and Workshop XMLs (`--package-release --module-dir <game_module_dir>`).

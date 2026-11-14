@@ -15,7 +15,8 @@ namespace Retinues.Behaviors.Troops
 {
     /// <summary>
     /// Repairs troop rosters that reference a non-canonical CharacterObject instance for a custom
-    /// troop id, and prevents such references from being written into saves.
+    /// troop id, and prevents such references from being written into saves. Also removes empty
+    /// obsolete ordinary/overhaul troop rows when a registered, initialized replacement exists.
     ///
     /// How the corruption happens: the save system stores CharacterObject records by value with
     /// only StringId/Id/IsRegistered (name, level, equipment are XML-domain and not saveable). If
@@ -29,6 +30,9 @@ namespace Retinues.Behaviors.Troops
     [SafeClass]
     public sealed class StubIntegrityBehavior : BaseCampaignBehavior
     {
+        private static readonly PropertyInfo IsRegisteredProperty = typeof(MBObjectBase).GetProperty(
+            "IsRegistered", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+
         // Heal rosters right after load (fixes saves that already carry a skeleton twin)...
         protected override void OnGameLoadFinished()
         {
@@ -81,27 +85,40 @@ namespace Retinues.Behaviors.Troops
         internal static int CanonicalizeAllRosters(string phase)
         {
             int healed = 0;
+            int removedTotal = 0;
+            var manager = MBObjectManager.Instance;
+            if (manager == null)
+                return 0;
+
+            void Repair(TroopRoster roster, string owner, string kind)
+            {
+                healed += CanonicalizeRoster(roster, manager.GetObject<CharacterObject>, out int removed);
+                removedTotal += removed;
+                if (removed > 0)
+                    Log.Warning($"Roster cleanup ({phase}): party={owner}; roster={kind}; "
+                        + $"removed {removed} empty obsolete troop entr(y/ies).");
+            }
 
             var parties = MobileParty.All;
             if (parties != null)
                 foreach (var party in parties)
                 {
-                    healed += CanonicalizeRoster(party?.Party?.MemberRoster);
-                    healed += CanonicalizeRoster(party?.Party?.PrisonRoster);
+                    Repair(party?.Party?.MemberRoster, party?.StringId, "members");
+                    Repair(party?.Party?.PrisonRoster, party?.StringId, "prisoners");
                 }
 
             var settlements = Settlement.All;
             if (settlements != null)
                 foreach (var settlement in settlements)
                 {
-                    healed += CanonicalizeRoster(settlement?.Party?.MemberRoster);
-                    healed += CanonicalizeRoster(settlement?.Party?.PrisonRoster);
+                    Repair(settlement?.Party?.MemberRoster, settlement?.StringId, "members");
+                    Repair(settlement?.Party?.PrisonRoster, settlement?.StringId, "prisoners");
                 }
 
             if (healed > 0)
                 Log.Warning(
-                    $"Stub integrity ({phase}): repaired {healed} roster entr(y/ies) referencing "
-                        + "a duplicate custom troop instance."
+                    $"Roster integrity ({phase}): repaired {healed - removedTotal} custom troop "
+                        + $"reference(s); removed {removedTotal} empty obsolete troop entr(y/ies)."
                 );
 
             return healed;
@@ -110,7 +127,8 @@ namespace Retinues.Behaviors.Troops
         /// <summary>
         /// Replaces roster entries whose Character is a custom-troop instance different from the
         /// object manager's registered instance for the same id, preserving count, wounded and
-        /// xp. Returns the number of repaired entries. Internal for the test suite.
+        /// xp. Empty unregistered skeletons of ordinary troops are removed, but their populated
+        /// or initialized variants are left alone. Returns the number of repaired entries.
         /// </summary>
         internal static int CanonicalizeRoster(TroopRoster roster)
         {
@@ -125,7 +143,12 @@ namespace Retinues.Behaviors.Troops
         }
 
         internal static int CanonicalizeRoster(TroopRoster roster, Func<string, CharacterObject> resolve)
+            => CanonicalizeRoster(roster, resolve, out _);
+
+        internal static int CanonicalizeRoster(TroopRoster roster, Func<string, CharacterObject> resolve,
+            out int removed)
         {
+            removed = 0;
             if (roster == null || resolve == null)
                 return 0;
 
@@ -143,6 +166,7 @@ namespace Retinues.Behaviors.Troops
                 return 0;
             var repaired = (TroopRosterElement[])original.Clone();
             int healed = 0;
+            int plannedRemovals = 0;
 
             for (int i = count - 1; i >= 0; i--)
             {
@@ -150,16 +174,33 @@ namespace Retinues.Behaviors.Troops
                 var character = element.Character;
                 var id = character?.StringId;
 
-                if (
-                    string.IsNullOrEmpty(id)
-                    || !id.StartsWith(WCharacter.CustomTroopPrefix, StringComparison.Ordinal)
-                )
+                if (string.IsNullOrEmpty(id))
+                    continue;
+
+                bool custom = id.StartsWith(WCharacter.CustomTroopPrefix, StringComparison.Ordinal);
+                // Ordinary/overhaul troops may have intentional runtime variants. Only discard
+                // completely empty, unregistered load-time skeletons, never populated variants
+                // or rows carrying wounded soldiers/XP. Missing reflection data fails closed.
+                if (!custom && (character.IsHero || element.Number != 0
+                    || element.WoundedNumber != 0 || element.Xp != 0 || character.IsInitialized
+                    || !(IsRegisteredProperty?.GetValue(character) is false)))
                     continue;
 
                 var canonical = resolve(id);
                 if (canonical == null || ReferenceEquals(canonical, character)
                     || canonical.StringId != id || canonical.IsHero || character.IsHero)
                     continue;
+
+                if (!custom)
+                {
+                    if (!canonical.IsInitialized || !(IsRegisteredProperty?.GetValue(canonical) is true))
+                        continue;
+                    Array.Copy(repaired, i + 1, repaired, i, count - i - 1);
+                    repaired[--count] = default;
+                    plannedRemovals++;
+                    healed++;
+                    continue;
+                }
 
                 int target = -1;
                 for (int j = 0; j < count; j++)
@@ -185,6 +226,7 @@ namespace Retinues.Behaviors.Troops
             // Only non-hero references/rows changed: total men and wounded stay unchanged.
             // Invalidate the engine's cached row list without running recruitment callbacks.
             roster.UpdateVersion();
+            removed = plannedRemovals;
             return healed;
         }
     }

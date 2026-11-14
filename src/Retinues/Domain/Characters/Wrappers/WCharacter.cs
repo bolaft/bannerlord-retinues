@@ -260,6 +260,7 @@ namespace Retinues.Domain.Characters.Wrappers
         public bool IsBandit => (SourceFlags & TroopSourceFlags.Bandit) != 0;
         public bool IsMilitia => (SourceFlags & TroopSourceFlags.Militia) != 0;
         public bool IsCaravan => (SourceFlags & TroopSourceFlags.Caravan) != 0;
+        public bool IsConvoy => (SourceFlags & TroopSourceFlags.Convoy) != 0;
         public bool IsVillager => (SourceFlags & TroopSourceFlags.Villager) != 0;
         public bool IsCivilian => (SourceFlags & TroopSourceFlags.Civilian) != 0;
 

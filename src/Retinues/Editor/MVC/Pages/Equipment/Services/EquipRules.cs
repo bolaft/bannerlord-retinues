@@ -81,6 +81,14 @@ namespace Retinues.Editor.MVC.Pages.Equipment.Services
             if (item == null)
                 return EquipDecision.Ok();
 
+            if (item.IsDismembermentVisual)
+                return EquipDecision.Skip(EquipSkipReason.Incompatible,
+                    L.T("cant_equip_reason_other", "Cannot equip"));
+
+            if (!item.HasValidWeaponHolsters)
+                return EquipDecision.Skip(EquipSkipReason.Incompatible,
+                    L.T("cant_equip_reason_invalid_weapon", "This weapon has invalid equipment data."));
+
             if (!UnlockAllowed(ctx, item))
                 return EquipDecision.Skip(EquipSkipReason.Locked, UnlockTooltip(item));
 

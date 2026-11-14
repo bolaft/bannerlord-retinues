@@ -271,7 +271,15 @@ namespace Retinues.Settings
                     continue;
 
                 if (!valuesByKey.TryGetValue(opt.Key, out var raw))
-                    continue;
+                {
+                    // Before separate T8–T10 caps, these tiers used the configured T7 cap.
+                    // Seed only absent keys, preserving both old tuning and explicit new values.
+                    if ((opt.Key != nameof(Configuration.SkillCapT8)
+                        && opt.Key != nameof(Configuration.SkillCapT9)
+                        && opt.Key != nameof(Configuration.SkillCapT10))
+                        || !valuesByKey.TryGetValue(nameof(Configuration.SkillCapT7), out raw))
+                        continue;
+                }
 
                 if (TryParseValue(raw, opt.Type, out var parsed))
                 {

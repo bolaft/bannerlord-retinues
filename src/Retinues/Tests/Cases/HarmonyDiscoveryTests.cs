@@ -14,6 +14,8 @@ namespace Retinues.Tests.Cases
                 "Class-level Harmony annotations remain discoverable.");
             Tests.AssertTrue(HarmonyDependency.IsPatchContainer(typeof(VolunteerSwapForPlayerPatches)),
                 "Method-level Harmony annotations remain discoverable.");
+            Tests.AssertFalse(HarmonyDependency.IsPatchContainer(typeof(Retinues.Safety.Uninstall.UninstallBehavior)),
+                "Uninstall preparation must never run as a Harmony Prepare hook at startup.");
             Tests.AssertTrue(!HarmonyDependency.IsPatchContainer(typeof(GameTestContext)),
                 "A test cleanup method is not a Harmony cleanup callback.");
             Tests.AssertTrue(!HarmonyDependency.IsPatchContainer(typeof(ShokuhoEquipmentPatcher)),

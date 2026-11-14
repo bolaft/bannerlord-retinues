@@ -132,6 +132,8 @@ namespace Retinues.Domain.Factions.Base
             Attribute<WCharacter>(initialValue: null, name: "CustomCaravanMasterAttribute");
         protected MAttribute<WCharacter> CustomCaravanGuardAttribute =>
             Attribute<WCharacter>(initialValue: null, name: "CustomCaravanGuardAttribute");
+        protected MAttribute<WCharacter> CustomVeteranCaravanGuardAttribute =>
+            Attribute<WCharacter>(initialValue: null, name: "CustomVeteranCaravanGuardAttribute");
         protected MAttribute<WCharacter> CustomArmedTraderAttribute =>
             Attribute<WCharacter>(initialValue: null, name: "CustomArmedTraderAttribute");
 
@@ -173,6 +175,7 @@ namespace Retinues.Domain.Factions.Base
             get
             {
                 var root = CustomRootBasicAttribute.Get();
+                if (Safety.Uninstall.UninstallBehavior.IsPrepared) return null;
                 if (root == null)
                     return null;
 
@@ -194,6 +197,7 @@ namespace Retinues.Domain.Factions.Base
             get
             {
                 var root = CustomRootEliteAttribute.Get();
+                if (Safety.Uninstall.UninstallBehavior.IsPrepared) return null;
                 if (root == null)
                     return null;
 
@@ -229,6 +233,7 @@ namespace Retinues.Domain.Factions.Base
         /// </summary>
         internal List<WCharacter> GetRawRetinues()
         {
+            if (Safety.Uninstall.UninstallBehavior.IsPrepared) return [];
             var src = RetinueTroopsAttribute.Get();
             if (src == null || src.Count == 0)
                 return [];
@@ -260,6 +265,7 @@ namespace Retinues.Domain.Factions.Base
             get
             {
                 var troop = CustomVillagerAttribute.Get();
+                if (Safety.Uninstall.UninstallBehavior.IsPrepared) return null;
                 if (troop == null)
                     return null;
 
@@ -280,6 +286,8 @@ namespace Retinues.Domain.Factions.Base
             GetCustomOrNull(CustomCaravanMasterAttribute, _cultureCaravanIds);
         public override WCharacter CaravanGuard =>
             GetCustomOrNull(CustomCaravanGuardAttribute, _cultureCaravanIds);
+        public override WCharacter VeteranCaravanGuard =>
+            GetCustomOrNull(CustomVeteranCaravanGuardAttribute, _cultureCaravanIds);
         public override WCharacter ArmedTrader =>
             GetCustomOrNull(CustomArmedTraderAttribute, _cultureCaravanIds);
 
@@ -296,6 +304,7 @@ namespace Retinues.Domain.Factions.Base
 
         WCharacter GetCustomOrNull(MAttribute<WCharacter> attr, HashSet<string> cultureSet)
         {
+            if (Safety.Uninstall.UninstallBehavior.IsPrepared) return null;
             var troop = attr.Get();
             if (troop == null)
                 return null;
@@ -375,6 +384,12 @@ namespace Retinues.Domain.Factions.Base
         public void SetCaravanGuard(WCharacter troop)
         {
             CustomCaravanGuardAttribute.Set(troop);
+            WCharacter.InvalidateTroopSourceCaches();
+        }
+
+        public void SetVeteranCaravanGuard(WCharacter troop)
+        {
+            CustomVeteranCaravanGuardAttribute.Set(troop);
             WCharacter.InvalidateTroopSourceCaches();
         }
 

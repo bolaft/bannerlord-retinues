@@ -27,7 +27,7 @@ namespace Retinues.Framework.Model
         /// </summary>
         object IModel.Base => Base;
 
-        public TBase Base { get; } =
+        public virtual TBase Base { get; } =
             baseInstance ?? throw new ArgumentNullException(nameof(baseInstance));
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //

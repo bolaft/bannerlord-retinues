@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <base xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" type="string">
   <tags>
-    <tag language="CNs" />
+    <tag language="简体中文" />
   </tags>
   <strings>
     <string
@@ -1068,7 +1068,7 @@
       text="一起前进" />
     <string
       id="ret_feat_sp_rescue_mission_desc"
-      text="从敌方队伍中解救一位被俘的领主。" />
+      text="通过赢得战斗（包括自动战斗）或成功劫狱来解救一位友方领主。支付赎金不计入。" />
     <string
       id="ret_feat_sp_rescue_mission_name"
       text="救援任务" />

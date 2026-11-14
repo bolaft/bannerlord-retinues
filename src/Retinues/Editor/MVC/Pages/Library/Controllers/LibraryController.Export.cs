@@ -39,6 +39,10 @@ namespace Retinues.Editor.MVC.Pages.Library.Controllers
                     _ => L.T("library_failed_missing_file", "Export file not found")
                 )
                 .AddCondition(
+                    item => !item.IsStableExport,
+                    L.T("library_stable_convert_first", "Import this file into V2, then export it again before converting it to a standalone mod.")
+                )
+                .AddCondition(
                     item => item.Kind == ExportKind.Character || item.Kind == ExportKind.Faction,
                     L.T(
                         "library_export_npc_kind_unsupported",

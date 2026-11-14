@@ -2,8 +2,9 @@
 {# Right panel                                    #}
 {# ---------------------------------------------- #}
 
-<Widget
+<RetinuesEditorPanelWidget
     DataSource="{Panel}"
+    KeepWithPreview="@KeepWithPreview"
     VisualDefinition="RightPanel"
     WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent"
     SuggestedWidth="@Width"
@@ -42,4 +43,4 @@
         {% include "_/panel/panel.info.j2" %}
 
     </Children>
-</Widget>
+</RetinuesEditorPanelWidget>

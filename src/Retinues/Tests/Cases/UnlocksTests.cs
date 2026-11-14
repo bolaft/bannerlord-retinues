@@ -1,6 +1,15 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.Serialization;
+using System.Xml.Linq;
+using Retinues.Behaviors.Unlocks;
 using Retinues.Domain.Equipments.Wrappers;
+using Retinues.Framework.Model.Attributes;
 using Retinues.Settings;
+using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 
 namespace Retinues.Tests.Cases
@@ -11,6 +20,58 @@ namespace Retinues.Tests.Cases
     /// </summary>
     public static class UnlocksTests
     {
+        private static WItem IsolatedItem(GameTestContext ctx, int progress, int stock)
+        {
+            var item = (ItemObject)FormatterServices.GetUninitializedObject(typeof(ItemObject));
+            item.StringId = "reset_unlocks_test_" + Guid.NewGuid().ToString("N");
+            // WItem attributes share storage by ID, even for unregistered fixtures.
+            // Remove only these test keys; never clear the campaign's attribute store.
+            ctx.Defer(() =>
+            {
+                var values = (IDictionary)typeof(MAttribute<int>.Store)
+                    .GetField("Values", BindingFlags.Static | BindingFlags.NonPublic).GetValue(null);
+                values.Remove($"{typeof(WItem).FullName}:{item.StringId}:UnlockProgressAttribute");
+                values.Remove($"{typeof(WItem).FullName}:{item.StringId}:StockAttribute");
+            });
+            return new WItem(item) { UnlockProgress = progress, Stock = stock };
+        }
+
+        [GameTest("ResetUnlockProgressSurvivesReloadWithAccessOverride", "unlocks", RequiresCampaign = false)]
+        public static void ResetUnlockProgressSurvivesReloadWithAccessOverride(GameTestContext ctx)
+        {
+            using var _need = TestConfig.Set(Configuration.EquipmentNeedsUnlocking, false);
+            var items = new[] { IsolatedItem(ctx, WItem.UnlockThreshold, 7), IsolatedItem(ctx, 250, 3), IsolatedItem(ctx, 0, 1) };
+
+            Tests.AssertEqual(2, WItem.ResetUnlockProgress(items), "Both full unlocks and partial progress are reset.");
+            Tests.AssertFalse(Configuration.EquipmentNeedsUnlocking.Value, "The command does not change the player's settings.");
+            Tests.AssertEqual(0, WItem.ResetUnlockProgress(items), "Repeating the reset makes no further changes.");
+
+            foreach (var original in items)
+            {
+                Tests.AssertTrue(original.IsUnlocked, "The setting still grants access after earned progress is cleared.");
+                var item = original;
+                for (int load = 0; load < 3; load++)
+                {
+                    string saved = item.Serialize();
+                    Tests.AssertTrue(!string.IsNullOrEmpty(saved), "The reset remains eligible for saving.");
+                    Tests.AssertEqual("0", XDocument.Parse(saved).Root.Element("UnlockProgressAttribute")?.Value,
+                        "An explicit zero is saved despite the access override.");
+                    item = IsolatedItem(ctx, WItem.UnlockThreshold, 99);
+                    item.Deserialize(saved);
+                    Tests.AssertEqual(original.Stock, item.Stock, "Stocks survive reset and reload unchanged.");
+                }
+                Tests.AssertEqual(0, WItem.ResetUnlockProgress(new[] { item }), "Reloaded earned progress is still zero.");
+            }
+        }
+
+        [GameTest("ResetUnlocksCommandRejectsArgumentsAndMissingCampaign", "unlocks", RequiresCampaign = false)]
+        public static void ResetUnlocksCommandRejectsArgumentsAndMissingCampaign()
+        {
+            Tests.AssertEqual("Usage: retinues.reset_unlocks", Cheats.ResetUnlocks(new List<string> { "unexpected" }));
+            if (Campaign.Current == null)
+                Tests.AssertEqual("No campaign loaded.", Cheats.ResetUnlocks(new List<string>()));
+        }
+
         [GameTest(
             "UnlockProgressRoundTripsAndClamps",
             "unlocks",

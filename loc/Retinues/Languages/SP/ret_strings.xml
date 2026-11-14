@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <base xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" type="string">
   <tags>
-    <tag language="SP" />
+    <tag language="Español (LA)" />
   </tags>
   <strings>
     <string
@@ -1068,7 +1068,7 @@
       text="Marcha Juntos" />
     <string
       id="ret_feat_sp_rescue_mission_desc"
-      text="Rescata a un señor cautivo de un grupo enemigo." />
+      text="Rescata a un señor aliado ganando una batalla (incluida la resolución automática) o completando una fuga de prisión. Los rescates pagados no cuentan." />
     <string
       id="ret_feat_sp_rescue_mission_name"
       text="Misión de Rescate" />

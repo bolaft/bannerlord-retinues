@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <base xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" type="string">
   <tags>
-    <tag language="DE" />
+    <tag language="Deutsch" />
   </tags>
   <strings>
     <string
@@ -1068,7 +1068,7 @@
       text="Gemeinsam marschieren" />
     <string
       id="ret_feat_sp_rescue_mission_desc"
-      text="Rette einen gefangenen Lord aus einer feindlichen Gruppe." />
+      text="Befreie einen verbündeten Lord durch einen gewonnenen Kampf (auch automatisch berechnet) oder einen erfolgreichen Gefängnisausbruch. Lösegeldzahlungen zählen nicht." />
     <string
       id="ret_feat_sp_rescue_mission_name"
       text="Rettungsmission" />

@@ -64,6 +64,7 @@ namespace Retinues.Domain.Factions
         /* ━━━━━━━━ Caravan ━━━━━━━ */
 
         WCharacter CaravanGuard { get; }
+        WCharacter VeteranCaravanGuard { get; }
         WCharacter CaravanMaster { get; }
         WCharacter ArmedTrader { get; }
 
@@ -73,6 +74,7 @@ namespace Retinues.Domain.Factions
         List<WCharacter> RosterMercenary { get; }
         List<WCharacter> RosterMilitia { get; }
         List<WCharacter> RosterCaravan { get; }
+        List<WCharacter> RosterConvoy { get; }
         List<WCharacter> RosterVillager { get; }
         List<WCharacter> RosterBandit { get; }
         List<WCharacter> RosterCivilian { get; }

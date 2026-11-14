@@ -17,6 +17,7 @@ namespace Retinues.Exports
         public const string RMercenary = "mercenary";
         public const string RMilitia = "militia";
         public const string RCaravan = "caravan";
+        public const string RConvoy = "convoy";
         public const string RVillager = "villager";
         public const string RBandit = "bandit";
         public const string RCivilian = "civilian";
@@ -77,6 +78,7 @@ namespace Retinues.Exports
             AddMany(ordered, f.RosterMercenary, RMercenary);
             AddMany(ordered, f.RosterMilitia, RMilitia);
             AddMany(ordered, f.RosterCaravan, RCaravan);
+            AddMany(ordered, f.RosterConvoy, RConvoy);
             AddMany(ordered, f.RosterVillager, RVillager);
             AddMany(ordered, f.RosterBandit, RBandit);
             AddMany(ordered, f.RosterCivilian, RCivilian);

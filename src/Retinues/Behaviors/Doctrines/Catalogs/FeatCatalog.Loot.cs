@@ -113,7 +113,7 @@ namespace Retinues.Behaviors.Doctrines.Catalogs
             Name = L.T("feat_sp_rescue_mission_name", "Rescue Mission"),
             Description = L.T(
                 "feat_sp_rescue_mission_desc",
-                "Rescue a captive lord from an enemy party."
+                "Rescue an allied lord by winning a battle (including auto-resolve) or completing a prison break. Ransoms do not count."
             ),
             Target = 1,
             Worth = 40,

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <base xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" type="string">
   <tags>
-    <tag language="FR" />
+    <tag language="Français" />
   </tags>
   <strings>
     <string
@@ -15,43 +15,43 @@
       text="{RETINUE} a acquis {ITEM}." />
     <string
       id="ret_ai_retinue_loot_line"
-      text="{RETINUE} a pillé et équipé {ITEM} sur vos pertes." />
+      text="{RETINUE} a récupéré {ITEM} sur vos soldats mis hors de combat et s’en est équipé." />
     <string
       id="ret_ai_retinue_loot_more"
       text="Et {COUNT} pièces d&apos;équipement supplémentaires ont été prises." />
     <string
       id="ret_ai_retinue_loot_title"
-      text="{CLAN} a pillé vos tombés" />
+      text="{CLAN} a récupéré de l’équipement sur vos troupes" />
     <string
       id="ret_ai_troops_everywhere"
       text="Partout" />
     <string
       id="ret_ai_troops_everywhere_hint"
-      text="Tout clan disposant d&apos;un arbre personnalisé le déploie dans toutes ses armées, où qu&apos;il ait recruté (les recrues sont converties chaque jour)." />
+      text="Les clans disposant d’un arbre personnalisé l’utilisent dans tous leurs groupes, quel que soit le lieu de recrutement. Les recrues sont converties chaque jour." />
     <string
       id="ret_ai_troops_off"
       text="Désactivé" />
     <string
       id="ret_ai_troops_off_hint"
-      text="Les autres clans recrutent toujours des troupes de culture ordinaires, même ceux à qui vous avez donné un arbre personnalisé." />
+      text="Les autres clans recrutent toujours les troupes ordinaires de leur culture, même si vous leur avez créé un arbre personnalisé." />
     <string
       id="ret_ai_troops_their_fiefs"
       text="Leurs fiefs" />
     <string
       id="ret_ai_troops_their_fiefs_hint"
-      text="Les fiefs d&apos;un clan proposent les troupes personnalisées de ce clan. Tout seigneur qui y recrute les obtient ; recruter ailleurs donne les troupes de ce fief ou des troupes de culture." />
+      text="Les localités d’un clan proposent ses troupes personnalisées à tous les seigneurs qui y recrutent. Ailleurs, ils obtiennent les troupes de la localité ou de sa culture." />
     <string
       id="ret_allowed_recruiters_everyone"
       text="Tous" />
     <string
       id="ret_allowed_recruiters_everyone_hint"
-      text="Toutes les parties peuvent recruter des troupes personnalisées (recommandé pour la compatibilité avec d&apos;autres mods de recrutement)" />
+      text="Tous les groupes peuvent recruter des troupes personnalisées (recommandé pour la compatibilité avec les autres mods de recrutement)." />
     <string
       id="ret_allowed_recruiters_faction_only"
       text="Faction uniquement" />
     <string
       id="ret_allowed_recruiters_faction_only_hint"
-      text="Seules les parties de faction peuvent recruter des troupes personnalisées" />
+      text="Seuls les groupes de la faction concernée peuvent recruter ses troupes personnalisées." />
     <string
       id="ret_allowed_recruiters_player_only"
       text="Joueur uniquement" />
@@ -60,16 +60,16 @@
       text="Seul le joueur peut recruter des troupes personnalisées" />
     <string
       id="ret_battle_type_field_checkbox_tooltip_disable"
-      text="Désactiver pour les batailles rangées" />
+      text="Désactiver pour les batailles campales" />
     <string
       id="ret_battle_type_field_checkbox_tooltip_enable"
-      text="Activer pour les batailles rangées" />
+      text="Activer pour les batailles campales" />
     <string
       id="ret_battle_type_field_required_reason"
-      text="Au moins un équipement doit rester activé pour les batailles rangées" />
+      text="Au moins un équipement de combat doit rester activé pour les batailles campales." />
     <string
       id="ret_battle_type_field_tooltip"
-      text="Batailles rangées" />
+      text="Batailles campales" />
     <string
       id="ret_battle_type_naval_checkbox_tooltip_disable"
       text="Désactiver pour les batailles navales" />
@@ -78,13 +78,13 @@
       text="Activer pour les batailles navales" />
     <string
       id="ret_battle_type_naval_required_reason"
-      text="Au moins un équipement doit rester activé pour les batailles navales" />
+      text="Au moins un équipement de combat doit rester activé pour les batailles navales." />
     <string
       id="ret_battle_type_naval_tooltip"
       text="Batailles navales" />
     <string
       id="ret_battle_type_required_reason"
-      text="Au moins un équipement doit rester activé pour ce type de bataille" />
+      text="Au moins un équipement de combat doit rester activé pour ce type de bataille." />
     <string
       id="ret_battle_type_siege_checkbox_tooltip_disable"
       text="Désactiver pour les sièges" />
@@ -93,13 +93,13 @@
       text="Activer pour les sièges" />
     <string
       id="ret_battle_type_siege_required_reason"
-      text="Au moins un équipement doit rester activé pour les sièges" />
+      text="Au moins un équipement de combat doit rester activé pour les sièges." />
     <string
       id="ret_battle_type_siege_tooltip"
       text="Sièges" />
     <string
       id="ret_battle_types_civilian_reason"
-      text="Les équipements civils n&apos;ont pas de restrictions de type de bataille" />
+      text="Les équipements civils ne sont pas soumis aux restrictions de type de bataille." />
     <string
       id="ret_body_age_decrease_tip"
       text="Diminuer l&apos;âge" />
@@ -114,16 +114,16 @@
       text="L&apos;âge est déjà au minimum" />
     <string
       id="ret_body_build_decrease_tip"
-      text="Diminuer la musculature" />
+      text="Réduire la carrure" />
     <string
       id="ret_body_build_increase_tip"
-      text="Augmenter la musculature" />
+      text="Augmenter la carrure" />
     <string
       id="ret_body_build_max_reason"
-      text="La musculature est déjà au maximum" />
+      text="La carrure est déjà au maximum" />
     <string
       id="ret_body_build_min_reason"
-      text="La musculature est déjà au minimum" />
+      text="La carrure est déjà au minimum" />
     <string
       id="ret_body_height_decrease_tip"
       text="Diminuer la taille" />
@@ -149,17 +149,59 @@
       id="ret_body_weight_min_reason"
       text="Le poids est déjà au minimum" />
     <string
+      id="ret_bug_report_busy"
+      text="Un rapport de bug est déjà en cours de création." />
+    <string
+      id="ret_bug_report_button"
+      text="Rapport de bug" />
+    <string
+      id="ret_bug_report_character_count"
+      text="{COUNT} / {LIMIT} caractères" />
+    <string
+      id="ret_bug_report_complete"
+      text="Votre archive de rapport de bug est prête :{newline}{PATH}{newline}{newline}Vérifiez son contenu, puis signalez le bug dans l’onglet Bugs de Retinues sur Nexus Mods, avec ce ZIP ou un lien de téléchargement. Aucun fichier n’a été envoyé. Le fichier report.txt décrit les données recueillies." />
+    <string
+      id="ret_bug_report_console_queued"
+      text="Rapport en attente. Fermez la console : la capture d’écran sera prise dans 3 secondes. Les journaux, les paramètres, la liste des mods et la dernière sauvegarde de la campagne seront copiés dans une archive ZIP sur votre ordinateur. Aucun fichier ne sera envoyé." />
+    <string
+      id="ret_bug_report_create"
+      text="Créer l’archive ZIP" />
+    <string
+      id="ret_bug_report_description"
+      text="Créez un ZIP avec les journaux, paramètres, la liste des mods, une capture d’écran et une copie de la dernière sauvegarde (sans les progrès non sauvegardés). Vérifiez-le, puis signalez le bug dans l’onglet Bugs de Retinues sur Nexus Mods, avec le ZIP ou son lien. Aucun envoi automatique.{newline}{newline}Décrivez le problème (facultatif) :" />
+    <string
+      id="ret_bug_report_failed"
+      text="Impossible de créer le rapport de bug. Consultez le journal de Retinues et vérifiez l’espace disque disponible." />
+    <string
+      id="ret_bug_report_no_save"
+      text="Aucune sauvegarde n’a pu être incluse. Joignez vous-même celle qui concerne le problème si nécessaire." />
+    <string
+      id="ret_bug_report_no_screenshot"
+      text="Aucune capture d’écran n’a pu être prise. Joignez-en une si elle permet de comprendre le problème." />
+    <string
+      id="ret_bug_report_partial"
+      text="Certains fichiers étaient indisponibles. Consultez report.txt pour les détails." />
+    <string
+      id="ret_bug_report_saving"
+      text="Attendez la fin de la sauvegarde en cours, puis relancez la création du rapport." />
+    <string
+      id="ret_bug_report_title"
+      text="Rapport de bug" />
+    <string
+      id="ret_bug_report_tooltip"
+      text="Créer une archive ZIP contenant les journaux, une copie de sauvegarde et une capture d’écran à joindre à un signalement." />
+    <string
       id="ret_build_hint"
-      text="Musculature" />
+      text="Carrure" />
     <string
       id="ret_button_change_formation_class_disabled_for_captains"
-      text="Les capitaines partagent la classe de formation de leurs troupes de base" />
+      text="Les capitaines utilisent le même type de formation que leur troupe d’origine." />
     <string
       id="ret_button_change_formation_class_tooltip"
-      text="Sélectionner une formation" />
+      text="Choisir le type de formation" />
     <string
       id="ret_button_delete_clan_troops"
-      text="Effacer" />
+      text="Supprimer l’arbre" />
     <string
       id="ret_button_disable_captain"
       text="Désactiver" />
@@ -171,7 +213,7 @@
       text="Exporter" />
     <string
       id="ret_button_rank_up"
-      text="Monter en grade" />
+      text="Monter en rang" />
     <string
       id="ret_button_remove_character"
       text="Supprimer" />
@@ -186,16 +228,19 @@
       text="Civil" />
     <string
       id="ret_cant_afford_desc"
-      text="Vous avez besoin de {COST} dinars pour acheter {ITEM}, mais vous n&apos;avez que {GOLD}." />
+      text="Vous avez besoin de {COST} deniers pour acheter {ITEM}, mais vous n&apos;avez que {GOLD}." />
     <string
       id="ret_cant_afford_title"
-      text="Argent Insuffisant" />
+      text="Deniers insuffisants" />
     <string
       id="ret_cant_change_retinue_culture"
-      text="Les rétinues ne peuvent pas changer de culture" />
+      text="Les gardes ne peuvent pas changer de culture" />
     <string
       id="ret_cant_equip_reason_civilian"
-      text="Non civil" />
+      text="Incompatible avec une tenue civile" />
+    <string
+      id="ret_cant_equip_reason_invalid_weapon"
+      text="Les données d’équipement de cette arme sont invalides." />
     <string
       id="ret_cant_equip_reason_locked"
       text="Verrouillé" />
@@ -204,7 +249,7 @@
       text="Incompatible" />
     <string
       id="ret_cant_equip_reason_mount_disallowed"
-      text="Niveau trop bas" />
+      text="Rang insuffisant" />
     <string
       id="ret_cant_equip_reason_null"
       text="Objet invalide" />
@@ -216,19 +261,19 @@
       text="{SKILL} {VALUE}" />
     <string
       id="ret_cant_equip_reason_tier_too_high"
-      text="Niveau trop élevé" />
+      text="Rang trop élevé" />
     <string
       id="ret_cant_equip_reason_too_heavy"
       text="Trop lourd" />
     <string
       id="ret_cant_equip_reason_too_valuable"
-      text="Trop précieux" />
+      text="Trop coûteux" />
     <string
       id="ret_cant_equip_reason_unlocking"
-      text="Acquisition {PERCENT}%" />
+      text="Déblocage : {PERCENT} %" />
     <string
       id="ret_cant_unequip_reason_empty"
-      text="Rien à déséquiper" />
+      text="Emplacement vide" />
     <string
       id="ret_captain_header_text"
       text="Capitaine" />
@@ -240,7 +285,7 @@
       text="Passer au capitaine de cette troupe" />
     <string
       id="ret_captain_mode_toggle_tooltip"
-      text="Mode Capitaine" />
+      text="Mode capitaine" />
     <string
       id="ret_captain_suffix"
       text="Capitaine" />
@@ -270,31 +315,31 @@
       text="Les héros ne peuvent pas être supprimés" />
     <string
       id="ret_character_cannot_remove_root"
-      text="Les unités racines ne peuvent pas être supprimées" />
+      text="La troupe à l’origine d’un arbre ne peut pas être supprimée." />
     <string
       id="ret_character_cannot_remove_with_upgrades"
-      text="Impossible de supprimer une unité qui a encore des améliorations" />
+      text="Supprimez d’abord les branches de promotion de cette troupe." />
     <string
       id="ret_character_is_null"
-      text="Pas de personnage." />
+      text="Personnage indisponible." />
     <string
       id="ret_clan_troops_unlock_always_unlocked"
-      text="Toujours déverrouillées" />
+      text="Toujours débloquées" />
     <string
       id="ret_clan_troops_unlock_always_unlocked_hint"
-      text="Les troupes de clan sont disponibles dès le début" />
+      text="Les troupes du clan sont disponibles dès le début" />
     <string
       id="ret_clan_troops_unlock_disabled"
       text="Désactivées" />
     <string
       id="ret_clan_troops_unlock_disabled_hint"
-      text="Les troupes de clan ne sont jamais débloquées" />
+      text="Les troupes du clan ne sont jamais débloquées" />
     <string
       id="ret_clan_troops_unlock_with_first_fief"
-      text="Déverrouillé avec le premier fief" />
+      text="Débloquées au premier fief" />
     <string
       id="ret_clan_troops_unlock_with_first_fief_hint"
-      text="Se déverrouille lorsque le clan acquiert son premier fief" />
+      text="Disponibles dès que le clan acquiert son premier fief." />
     <string
       id="ret_clear_filter_tooltip"
       text="Effacer le filtre" />
@@ -303,10 +348,10 @@
       text="Retour" />
     <string
       id="ret_crafted_items_hide_tooltip"
-      text="Masquer les objets fabriqués" />
+      text="Masquer les objets forgés" />
     <string
       id="ret_crafted_items_only_tooltip"
-      text="Afficher les forgés" />
+      text="Afficher les objets forgés" />
     <string
       id="ret_crafted_items_toggle_tooltip"
       text="Équipement forgé" />
@@ -315,34 +360,34 @@
       text="Non disponible dans l&apos;éditeur universel" />
     <string
       id="ret_create_unit"
-      text="Nouvelle unité" />
+      text="Nouvelle troupe" />
     <string
       id="ret_create_unit_mode_best_stock"
-      text="Depuis les stocks" />
+      text="Utiliser les stocks" />
     <string
       id="ret_create_unit_mode_desc"
-      text="Comment l&apos;équipement de la nouvelle unité doit-il être initialisé ?" />
+      text="Quel équipement donner à la nouvelle troupe ?" />
     <string
       id="ret_create_unit_mode_empty"
       text="Aucun équipement" />
     <string
       id="ret_create_unit_mode_title"
-      text="Créer une unité" />
+      text="Créer une troupe" />
     <string
       id="ret_culture_header_text"
       text="Culture" />
     <string
       id="ret_culture_header_text_with_race"
-      text="Culture &amp; Espèce" />
+      text="Culture et espèce" />
     <string
       id="ret_customization_hint_hero"
       text="Modifier l&apos;apparence du personnage" />
     <string
       id="ret_customization_hint_hide"
-      text="Afficher les contrôles de personnalisation" />
+      text="Afficher les réglages d’apparence" />
     <string
       id="ret_customization_hint_show"
-      text="Masquer les contrôles de personnalisation" />
+      text="Masquer les réglages d’apparence" />
     <string
       id="ret_delete_clan_troops_confirm"
       text="Supprimer" />
@@ -360,7 +405,7 @@
       text="Disponible uniquement en mode Joueur." />
     <string
       id="ret_delete_clan_troops_title"
-      text="Effacer les troupes personnalisées" />
+      text="Supprimer l’arbre personnalisé" />
     <string
       id="ret_dependencies_all_ok"
       text="Toutes les dépendances ont été initialisées correctement." />
@@ -384,16 +429,16 @@
       text="Acquérir" />
     <string
       id="ret_doctrine_acquire_confirm_desc_both"
-      text="Acquérir {NAME} pour {GOLD} dinars et {INF} d&apos;influence ?" />
+      text="Acquérir {NAME} pour {GOLD} deniers et {INF} points d’influence ?" />
     <string
       id="ret_doctrine_acquire_confirm_desc_free"
       text="Acquérir {NAME} ?" />
     <string
       id="ret_doctrine_acquire_confirm_desc_gold"
-      text="Acquérir {NAME} pour {GOLD} dinars ?" />
+      text="Acquérir {NAME} pour {GOLD} deniers ?" />
     <string
       id="ret_doctrine_acquire_confirm_desc_influence"
-      text="Acquérir {NAME} pour {INF} d&apos;influence ?" />
+      text="Acquérir {NAME} pour {INF} points d’influence ?" />
     <string
       id="ret_doctrine_acquire_confirm_title"
       text="Acquérir la doctrine" />
@@ -423,22 +468,22 @@
       text="Cuirassés" />
     <string
       id="ret_doctrine_armory_ironclad_desc"
-      text="+15 % à la limite de poids totale de l&apos;équipement." />
+      text="+15 % à la limite de poids total de l’équipement." />
     <string
       id="ret_doctrine_armory_royal_patronage"
-      text="Patronage royal" />
+      text="Faveur royale" />
     <string
       id="ret_doctrine_armory_royal_patronage_desc"
       text="-20 % sur les coûts des équipements de la culture du royaume." />
     <string
       id="ret_doctrine_cat_equipments"
-      text="Équipements" />
+      text="Équipement" />
     <string
       id="ret_doctrine_cat_loot"
       text="Butin" />
     <string
       id="ret_doctrine_cat_retinues"
-      text="Rétinues" />
+      text="Garde personnelle" />
     <string
       id="ret_doctrine_cat_training"
       text="Entraînement" />
@@ -447,13 +492,13 @@
       text="Troupes" />
     <string
       id="ret_doctrine_cost_text_both"
-      text="Coûte {GOLD} dinars, {INFLUENCE} influence" />
+      text="Coûte {GOLD} deniers et {INFLUENCE} points d’influence" />
     <string
       id="ret_doctrine_cost_text_gold"
-      text="Coûte {GOLD} dinars" />
+      text="Coûte {GOLD} deniers" />
     <string
       id="ret_doctrine_cost_text_influence"
-      text="Coûte {INFLUENCE} influence" />
+      text="Coûte {INFLUENCE} points d’influence" />
     <string
       id="ret_doctrine_description_header"
       text="Effets" />
@@ -468,7 +513,7 @@
       text="Répétable" />
     <string
       id="ret_doctrine_feats_header"
-      text="Exploits" />
+      text="Hauts faits" />
     <string
       id="ret_doctrine_is_overridden"
       text="L&apos;option &apos;{OPTION}&apos; est désactivée." />
@@ -480,94 +525,94 @@
       text="Héritage ancestral" />
     <string
       id="ret_doctrine_loot_ancestral_heritage_desc"
-      text="Déverouille tous les objets de la culture du clan." />
+      text="Débloque tous les objets de la culture de votre clan." />
     <string
       id="ret_doctrine_loot_battlefield_tithes"
-      text="Dîmes de Guerre" />
+      text="Dîme de guerre" />
     <string
       id="ret_doctrine_loot_battlefield_tithes_desc"
-      text="Les alliés contribuent à la progression du déverrouillage de l&apos;équipement." />
+      text="Les ennemis vaincus par vos alliés contribuent au déblocage de leur équipement." />
     <string
       id="ret_doctrine_loot_lions_share"
       text="Part du lion" />
     <string
       id="ret_doctrine_loot_lions_share_desc"
-      text="Les éliminations de héros comptent double pour le déverrouillage de l&apos;équipement ennemi." />
+      text="Les ennemis vaincus par les soldats de votre groupe comptent double pour débloquer leur équipement." />
     <string
       id="ret_doctrine_loot_pragmatic_scavengers"
-      text="Charognards Pragmatiques" />
+      text="Charognards pragmatiques" />
     <string
       id="ret_doctrine_loot_pragmatic_scavengers_desc"
-      text="L&apos;équipement peut être débloqué à partir des pertes alliées." />
+      text="Permet de débloquer l’équipement porté par les soldats alliés mis hors de combat." />
     <string
       id="ret_doctrine_not_enough_gold_desc"
-      text="Vous avez besoin de {COST} dinars pour débloquer cette doctrine." />
+      text="Vous avez besoin de {COST} deniers pour débloquer cette doctrine." />
     <string
       id="ret_doctrine_not_enough_gold_title"
-      text="Pas assez d&apos;argent" />
+      text="Deniers insuffisants" />
     <string
       id="ret_doctrine_not_enough_influence_desc"
-      text="Vous avez besoin de {COST} influence pour débloquer cette doctrine." />
+      text="Il vous faut {COST} points d’influence pour acquérir cette doctrine." />
     <string
       id="ret_doctrine_not_enough_influence_title"
       text="Pas assez d&apos;influence" />
     <string
       id="ret_doctrine_progress_text"
-      text="Progrès : {PROGRESS}%" />
+      text="Progression : {PROGRESS} %" />
     <string
       id="ret_doctrine_retinues_bound_by_honor"
       text="Liés par l&apos;honneur" />
     <string
       id="ret_doctrine_retinues_bound_by_honor_desc"
-      text="+20 % au moral des rétinues." />
+      text="+20 % au moral de la garde personnelle." />
     <string
       id="ret_doctrine_retinues_immortals"
       text="Immortels" />
     <string
       id="ret_doctrine_retinues_immortals_desc"
-      text="+20 % de chance de survie des rétinues." />
+      text="+20 % aux chances de survie des gardes." />
     <string
       id="ret_doctrine_retinues_indomitable"
       text="Indomptable" />
     <string
       id="ret_doctrine_retinues_indomitable_desc"
-      text="+10 % à la santé des rétinues." />
+      text="+10 % aux points de vie des gardes." />
     <string
       id="ret_doctrine_retinues_vanguard"
       text="Avant-garde" />
     <string
       id="ret_doctrine_retinues_vanguard_desc"
-      text="+15 % au nombre maximum de rétinues." />
+      text="+15 % au nombre maximal de gardes." />
     <string
       id="ret_doctrine_state_acquired"
-      text="Acquis" />
+      text="Acquise" />
     <string
       id="ret_doctrine_state_in_progress"
-      text="En cours ({PROGRESS}%)" />
+      text="En cours ({PROGRESS} %)" />
     <string
       id="ret_doctrine_state_locked"
-      text="Verrouillé" />
+      text="Verrouillée" />
     <string
       id="ret_doctrine_state_overridden"
-      text="Ignoré" />
+      text="Désactivée" />
     <string
       id="ret_doctrine_state_unlocked"
-      text="Déverrouillé" />
+      text="Débloquée" />
     <string
       id="ret_doctrine_status_acquired"
-      text="ACQUIS" />
+      text="ACQUISE" />
     <string
       id="ret_doctrine_status_locked"
-      text="VERROUILLÉ" />
+      text="VERROUILLÉE" />
     <string
       id="ret_doctrine_status_overridden"
-      text="IGNORÉ" />
+      text="DÉSACTIVÉE" />
     <string
       id="ret_doctrine_training_advanced_tactics"
       text="Tactiques avancées" />
     <string
       id="ret_doctrine_training_advanced_tactics_desc"
-      text="+10 % au taux de gain de points de compétence." />
+      text="+10 % aux gains de points de compétence." />
     <string
       id="ret_doctrine_training_iron_discipline"
       text="Discipline de fer" />
@@ -579,19 +624,19 @@
       text="Maîtres d&apos;armes" />
     <string
       id="ret_doctrine_training_masters_at_arms_desc"
-      text="Accorde +20 points de compétence aux troupes d&apos;élite." />
+      text="+20 au total maximal de points de compétence des troupes d’élite." />
     <string
       id="ret_doctrine_training_steadfast_soldiers"
       text="Soldats inébranlables" />
     <string
       id="ret_doctrine_training_steadfast_soldiers_desc"
-      text="Accorde +20 points de compétence aux troupes de base." />
+      text="+20 au total maximal de points de compétence des troupes régulières." />
     <string
       id="ret_doctrine_troops_armed_peasantry"
       text="Paysannerie armée" />
     <string
       id="ret_doctrine_troops_armed_peasantry_desc"
-      text="Débloque des troupes de villageois personnalisées pour les groupes de village." />
+      text="Débloque des troupes personnalisées pour les groupes de villageois." />
     <string
       id="ret_doctrine_troops_captains"
       text="Capitaines" />
@@ -603,7 +648,7 @@
       text="Gardiens de la route" />
     <string
       id="ret_doctrine_troops_road_wardens_desc"
-      text="Débloque des gardes de troupe de caravane personnalisés." />
+      text="Débloque des gardes de caravane personnalisés." />
     <string
       id="ret_doctrine_troops_stalwart_militia"
       text="Milice inébranlable" />
@@ -615,34 +660,34 @@
       text="Les doctrines sont désactivées" />
     <string
       id="ret_editing_restriction_in_fief"
-      text="Fief de faction" />
+      text="Fief de votre faction" />
     <string
       id="ret_editing_restriction_in_fief_hint"
-      text="Vous devez être dans un fief appartenant à votre faction (rétinues exceptées)" />
+      text="Vous devez être dans un fief de votre faction, sauf pour modifier la garde personnelle." />
     <string
       id="ret_editing_restriction_in_settlement"
-      text="N&apos;importe quel fief" />
+      text="Une localité" />
     <string
       id="ret_editing_restriction_in_settlement_hint"
-      text="Vous devez être dans n&apos;importe quel fief" />
+      text="Vous devez être dans une ville, un château ou un village." />
     <string
       id="ret_editing_restriction_need_faction_fief_reason"
       text="Vous ne pouvez modifier cette unité que dans un fief appartenant à {FACTION}." />
     <string
       id="ret_editing_restriction_need_faction_fief_reason_short"
-      text="Pas dans un fief" />
+      text="Fief de la faction requis" />
     <string
       id="ret_editing_restriction_need_settlement_reason"
-      text="Vous ne pouvez modifier les unités que lorsque vous êtes à l&apos;intérieur d&apos;un fief." />
+      text="Vous ne pouvez modifier les troupes que dans une ville, un château ou un village." />
     <string
       id="ret_editing_restriction_need_settlement_reason_short"
-      text="Pas dans un fief" />
+      text="Localité requise" />
     <string
       id="ret_editing_restriction_none"
       text="N&apos;importe où" />
     <string
       id="ret_editing_restriction_none_hint"
-      text="Aucune restriction de localisation" />
+      text="Aucune restriction de lieu" />
     <string
       id="ret_editing_restriction_unknown_faction_reason"
       text="Impossible de déterminer la faction de cette unité pour les restrictions d&apos;édition." />
@@ -702,7 +747,7 @@
       text="Équipement" />
     <string
       id="ret_equipment_cannot_delete_last_set"
-      text="Il doit rester au moins un équipement" />
+      text="Au moins un équipement doit rester." />
     <string
       id="ret_equipment_clipboard_source_fallback"
       text="Presse-papiers" />
@@ -714,16 +759,16 @@
       text="Copier dans le presse-papiers" />
     <string
       id="ret_equipment_delete_breaks_battle_types_reason"
-      text="Il doit rester au moins un équipement activé pour ce type de bataille." />
+      text="Impossible de supprimer le dernier équipement activé pour un type de bataille." />
     <string
       id="ret_equipment_hero_sets_reason"
-      text="Les héros ne peuvent pas avoir plusieurs ensembles d&apos;équipement" />
+      text="Les héros ne peuvent pas avoir plusieurs équipements" />
     <string
       id="ret_equipment_panel_value_limit"
-      text="{LIMIT} dinars" />
+      text="{LIMIT} deniers" />
     <string
       id="ret_equipment_panel_value_value"
-      text="{VALUE} dinars" />
+      text="{VALUE} deniers" />
     <string
       id="ret_equipment_panel_weight_limit"
       text="{LIMIT} kg" />
@@ -732,7 +777,7 @@
       text="{WEIGHT} kg" />
     <string
       id="ret_equipment_paste_cant_afford_desc"
-      text="Copier l&apos;équipement de {SRC} à {DST} nécessite {COST} dinars, mais vous n&apos;en avez que {GOLD}." />
+      text="Copier l&apos;équipement de {SRC} à {DST} nécessite {COST} deniers, mais vous n&apos;en avez que {GOLD}." />
     <string
       id="ret_equipment_paste_confirm_question"
       text="Copier l&apos;équipement de {SRC} à {DST} ?" />
@@ -744,7 +789,7 @@
       text="Le presse-papiers est vide" />
     <string
       id="ret_equipment_paste_nothing_desc2"
-      text="Rien de nouveau de {SRC} ne peut être équipé sur {DST}." />
+      text="Aucun nouvel objet de l’équipement de {SRC} ne peut être porté par {DST}." />
     <string
       id="ret_equipment_paste_nothing_title"
       text="Copier l&apos;équipement" />
@@ -786,10 +831,10 @@
       text="Arme 4" />
     <string
       id="ret_equipments_create_set"
-      text="Créer un nouvel équipement" />
+      text="Créer un équipement" />
     <string
       id="ret_equipments_delete_set"
-      text="Supprimer l&apos;équipement" />
+      text="Supprimer l’équipement" />
     <string
       id="ret_escape_menu_editor_button"
       text="Éditeur universel" />
@@ -798,7 +843,7 @@
       text="Les héros sont liés à la sauvegarde." />
     <string
       id="ret_export_choose_target_body"
-      text="Exporter lequel des choix suivants ?" />
+      text="Que souhaitez-vous exporter ?" />
     <string
       id="ret_export_choose_target_title"
       text="Exporter" />
@@ -846,7 +891,7 @@
       text="{newline}{newline}Utilisez les icônes de bannière en haut de l&apos;écran des troupes pour sélectionner les arbres de troupes à modifier." />
     <string
       id="ret_faction_troops_unlocked_desc"
-      text="{COUNT} nouvelles troupes sont désormais disponibles pour le {FACTION_TYPE} {FACTION}." />
+      text="{COUNT} nouvelles troupes sont disponibles pour votre {FACTION_TYPE} : {FACTION}." />
     <string
       id="ret_faction_troops_unlocked_title"
       text="Troupes de {FACTION}" />
@@ -861,76 +906,76 @@
       text="royaume" />
     <string
       id="ret_feat_complete_title"
-      text="Exploit accompli" />
+      text="Haut fait accompli" />
     <string
       id="ret_feat_eq_blood_money_desc"
-      text="Pillez {TARGET} dinars sur le champ de bataille." />
+      text="Récupérer {TARGET} deniers sur le champ de bataille." />
     <string
       id="ret_feat_eq_blood_money_name"
       text="Prix du sang" />
     <string
       id="ret_feat_eq_golden_legion_desc"
-      text="Déployez une unité portant un équipement d&apos;une valeur de plus de 100 000 dinars." />
+      text="Déployer une troupe dont l’équipement vaut plus de 100 000 deniers." />
     <string
       id="ret_feat_eq_golden_legion_name"
       text="Légion dorée" />
     <string
       id="ret_feat_eq_heavy_kit_desc"
-      text="Déployez une unité portant un équipement pesant plus de 60 kg." />
+      text="Déployer une troupe dont l’équipement pèse plus de 60 kg." />
     <string
       id="ret_feat_eq_heavy_kit_name"
       text="Équipement lourd" />
     <string
       id="ret_feat_eq_hometown_tournament_desc"
-      text="Gagnez un tournoi dans une ville de la culture de votre clan." />
+      text="Remporter un tournoi dans une ville de la culture de votre clan." />
     <string
       id="ret_feat_eq_hometown_tournament_name"
-      text="Tournoi à Domicile" />
+      text="Tournoi à domicile" />
     <string
       id="ret_feat_eq_ironmen_desc"
-      text="Gagnez une bataille en déployant uniquement des troupes portant une armure métallique complète." />
+      text="Remporter une bataille avec uniquement des troupes portant une armure entièrement métallique." />
     <string
       id="ret_feat_eq_ironmen_name"
       text="Hommes de fer" />
     <string
       id="ret_feat_eq_kingslayer_desc"
-      text="Vaincre un dirigeant d&apos;une culture différente au combat." />
+      text="Vaincre au combat un souverain d’une autre culture." />
     <string
       id="ret_feat_eq_kingslayer_name"
       text="Régicide" />
     <string
       id="ret_feat_eq_paid_in_full_desc"
-      text="Payez {TARGET} dinars en salaires de troupes." />
+      text="Verser {TARGET} deniers en soldes à vos troupes." />
     <string
       id="ret_feat_eq_paid_in_full_name"
-      text="Bon Comptes" />
+      text="Comptes réglés" />
     <string
       id="ret_feat_eq_proud_and_strong_desc"
-      text="Obtenez {TARGET} éliminations au combat avec des troupes ne portant aucun équipement étranger." />
+      text="Vaincre {TARGET} ennemis avec des troupes ne portant aucun équipement étranger." />
     <string
       id="ret_feat_eq_proud_and_strong_name"
-      text="Fier et Fort" />
+      text="Fiers et forts" />
     <string
       id="ret_feat_eq_royal_host_desc"
-      text="Éliminez {TARGET} ennemis avec des troupes royales." />
+      text="Vaincre {TARGET} ennemis avec les troupes personnalisées du royaume." />
     <string
       id="ret_feat_eq_royal_host_name"
       text="Armée royale" />
     <string
       id="ret_feat_eq_royal_levy_desc"
-      text="Recrutez {TARGET} troupes royales personnalisées." />
+      text="Recruter {TARGET} soldats parmi les troupes personnalisées du royaume." />
     <string
       id="ret_feat_eq_royal_levy_name"
-      text="Lévy royal" />
+      text="Levée royale" />
     <string
       id="ret_feat_eq_royal_stewardship_desc"
-      text="Ayez un compagnon de la même culture que votre royaume gouverner un fief du royaume pendant {TARGET} jours." />
+      text="Faire gouverner un fief de votre clan par un compagnon de la culture de votre royaume pendant {TARGET} jours." />
     <string
       id="ret_feat_eq_royal_stewardship_name"
       text="Intendance royale" />
     <string
       id="ret_feat_eq_tailor_made_desc"
-      text="Possédez une forge pendant {TARGET} jours." />
+      text="Posséder une forge pendant {TARGET} jours." />
     <string
       id="ret_feat_eq_tailor_made_name"
       text="Sur mesure" />
@@ -939,88 +984,88 @@
       text="{NAME} :{newline}{newline}{DESC}" />
     <string
       id="ret_feat_notification_repeatable"
-      text="{BODY}{newline}{newline}Cet exploit est répétable : sa progression se réinitialise et il peut être accompli à nouveau pour plus de progression de doctrine." />
+      text="{BODY}{newline}{newline}Ce haut fait peut être accompli plusieurs fois. Après chaque réussite, sa progression repart de zéro et il contribue à nouveau au déblocage de la doctrine." />
     <string
       id="ret_feat_ret_against_all_odds_desc"
-      text="En infériorité numérique d&apos;au moins 2 contre 1, gagnez une bataille en déployant uniquement des rétinues." />
+      text="Remporter une bataille à un contre deux ou moins avec uniquement des gardes." />
     <string
       id="ret_feat_ret_against_all_odds_name"
       text="Contre toute attente" />
     <string
       id="ret_feat_ret_bounty_hunters_desc"
-      text="Éliminez {TARGET} groupes de bandits." />
+      text="Éliminer {TARGET} groupes de bandits." />
     <string
       id="ret_feat_ret_bounty_hunters_name"
       text="Chasseurs de primes" />
     <string
       id="ret_feat_ret_defy_the_tide_desc"
-      text="Gagnez une bataille contre des forces écrasantes en déployant principalement des rétinues." />
+      text="Remporter une bataille contre des forces nettement supérieures avec un groupe composé en majorité de gardes." />
     <string
       id="ret_feat_ret_defy_the_tide_name"
-      text="Défier la marée" />
+      text="Contre vents et marées" />
     <string
       id="ret_feat_ret_first_through_the_breach_desc"
-      text="Faites en sorte qu&apos;une rétinue obtienne la première élimination au corps à corps lors d&apos;un assaut de siège." />
+      text="Faire en sorte qu’un garde soit le premier à tuer un ennemi au corps à corps lors d’un assaut de siège." />
     <string
       id="ret_feat_ret_first_through_the_breach_name"
-      text="Premier à travers la brèche" />
+      text="Premier dans la brèche" />
     <string
       id="ret_feat_ret_flawless_execution_desc"
-      text="Faites en sorte que vos rétinues battent {TARGET} troupes ennemies de niveau équivalent sans subir une seule perte." />
+      text="Faire vaincre {TARGET} ennemis de rang équivalent par vos gardes sans subir aucune perte." />
     <string
       id="ret_feat_ret_flawless_execution_name"
       text="Exécution sans faille" />
     <string
       id="ret_feat_ret_high_spirits_desc"
-      text="Maintenez le moral d&apos;un groupe composé uniquement de rétinues au-dessus de 90 pendant {TARGET} jours." />
+      text="Maintenir le moral d’un groupe composé uniquement de gardes au-dessus de 90 pendant {TARGET} jours." />
     <string
       id="ret_feat_ret_high_spirits_name"
       text="Mental de fer" />
     <string
       id="ret_feat_ret_hold_the_line_desc"
-      text="Gagnez une bataille défensive avec un groupe composé uniquement de rétinues." />
+      text="Remporter une bataille défensive avec un groupe composé uniquement de gardes." />
     <string
       id="ret_feat_ret_hold_the_line_name"
-      text="Tenir les Rangs" />
+      text="Tenir les rangs" />
     <string
       id="ret_feat_ret_perfect_victory_desc"
-      text="Gagnez seul contre 100 ennemis ou plus sans subir une seule perte de votre côté." />
+      text="Vaincre au moins 100 ennemis sans groupe allié et sans aucun mort dans vos rangs." />
     <string
       id="ret_feat_ret_perfect_victory_name"
       text="Victoire parfaite" />
     <string
       id="ret_feat_ret_raise_the_vanguard_desc"
-      text="Engagez {TARGET} rétinues." />
+      text="Recruter {TARGET} gardes." />
     <string
       id="ret_feat_ret_raise_the_vanguard_name"
-      text="Levez l&apos;avant-garde" />
+      text="Lever l’avant-garde" />
     <string
       id="ret_feat_ret_safe_travels_desc"
-      text="Sauvez une caravane ou un groupe de villageois d&apos;une attaque ennemie." />
+      text="Sauver une caravane ou un groupe de villageois d’une attaque ennemie." />
     <string
       id="ret_feat_ret_safe_travels_name"
-      text="Voyage en toute sécurité" />
+      text="Routes sûres" />
     <string
       id="ret_feat_ret_shock_assault_desc"
-      text="Gagnez une bataille de 100 combattants ou plus en utilisant uniquement vos rétinues." />
+      text="Remporter une bataille réunissant au moins 100 combattants avec uniquement vos gardes." />
     <string
       id="ret_feat_ret_shock_assault_name"
       text="Assaut de choc" />
     <string
       id="ret_feat_ret_still_standing_desc"
-      text="Faites en sorte que {TARGET} rétinues survivent après avoir été abattues au combat." />
+      text="Faire survivre {TARGET} gardes après leur mise hors de combat." />
     <string
       id="ret_feat_ret_still_standing_name"
       text="Même pas mal" />
     <string
       id="ret_feat_sp_allies_favor_desc"
-      text="Complétez une quête pour un seigneur allié." />
+      text="Accomplir une quête pour un seigneur allié." />
     <string
       id="ret_feat_sp_allies_favor_name"
       text="Faveur amicale" />
     <string
       id="ret_feat_sp_ancestral_duty_desc"
-      text="Complétez une quête pour un seigneur de la culture de votre clan." />
+      text="Accomplir une quête pour un seigneur de la culture de votre clan." />
     <string
       id="ret_feat_sp_ancestral_duty_name"
       text="Devoir ancestral" />
@@ -1032,13 +1077,13 @@
       text="Prix du sang" />
     <string
       id="ret_feat_sp_costly_victory_desc"
-      text="Gagnez une bataille dans laquelle les alliés subissent plus de 100 pertes." />
+      text="Remporter une bataille où vos alliés subissent plus de 100 pertes." />
     <string
       id="ret_feat_sp_costly_victory_name"
       text="Victoire coûteuse" />
     <string
       id="ret_feat_sp_cultural_triumph_desc"
-      text="Gagnez seul une bataille contre une armée ennemie d&apos;une culture différente." />
+      text="Vaincre une armée ennemie d’une autre culture sans l’aide d’un groupe allié." />
     <string
       id="ret_feat_sp_cultural_triumph_name"
       text="Triomphe culturel" />
@@ -1050,181 +1095,181 @@
       text="Couper la tête" />
     <string
       id="ret_feat_sp_high_value_targets_desc"
-      text="Vaincre personnellement 5 troupes de niveau 5+ en une seule bataille." />
+      text="Vaincre personnellement 5 ennemis de rang 5 ou plus au cours d’une même bataille." />
     <string
       id="ret_feat_sp_high_value_targets_name"
       text="Belles prises" />
     <string
       id="ret_feat_sp_homecoming_desc"
-      text="Capturez un fief de votre propre culture à un royaume ennemi." />
+      text="Conquérir un fief de votre culture détenu par un royaume ennemi." />
     <string
       id="ret_feat_sp_homecoming_name"
       text="Retour au pays" />
     <string
       id="ret_feat_sp_march_together_desc"
-      text="Gagnez une bataille en faisant partie de l&apos;armée d&apos;un seigneur allié." />
+      text="Remporter une bataille au sein de l’armée d’un seigneur allié." />
     <string
       id="ret_feat_sp_march_together_name"
-      text="Marche jointe" />
+      text="Marche commune" />
     <string
       id="ret_feat_sp_rescue_mission_desc"
-      text="Sauvez un seigneur captif d&apos;un groupe ennemi." />
+      text="Libérer un seigneur allié en remportant une bataille (y compris en résolution automatique) ou en réussissant une évasion de prison. Les rançons ne comptent pas." />
     <string
       id="ret_feat_sp_rescue_mission_name"
       text="Mission de sauvetage" />
     <string
       id="ret_feat_sp_second_in_command_desc"
-      text="Gagnez une bataille où vous n&apos;êtes pas le commandant principal." />
+      text="Remporter une bataille sans en être le commandant principal." />
     <string
       id="ret_feat_sp_second_in_command_name"
       text="Second au commandement" />
     <string
       id="ret_feat_sp_turn_the_tide_desc"
-      text="Changez le cours d&apos;une bataille impliquant une armée alliée." />
+      text="Renverser le cours d’une bataille à laquelle participe une armée alliée." />
     <string
       id="ret_feat_sp_turn_the_tide_name"
-      text="Renverser la tendance" />
+      text="Renverser le cours de la bataille" />
     <string
       id="ret_feat_tr_battle_hardened_desc"
-      text="Obtenez {TARGET} éliminations avec des troupes d&apos;élite de faction." />
+      text="Vaincre {TARGET} ennemis avec les troupes d’élite de votre faction." />
     <string
       id="ret_feat_tr_battle_hardened_name"
       text="Aguerris" />
     <string
       id="ret_feat_tr_brawler_desc"
-      text="Mettez K.O. {TARGET} adversaires dans l&apos;arène." />
+      text="Mettre hors de combat {TARGET} adversaires dans l’arène." />
     <string
       id="ret_feat_tr_brawler_name"
       text="Bagarreur" />
     <string
       id="ret_feat_tr_combined_arms_desc"
-      text="Gagnez une bataille contre plus de 100 ennemis en utilisant des troupes de clan réparties équitablement entre infanterie, cavalerie et archers." />
+      text="Remporter une bataille contre plus de 100 ennemis avec un groupe composé à parts égales de fantassins, de cavaliers et de tireurs du clan." />
     <string
       id="ret_feat_tr_combined_arms_name"
-      text="Armes combinées" />
+      text="Combat interarmes" />
     <string
       id="ret_feat_tr_disciplined_victory_desc"
-      text="Vaincre un groupe deux fois plus grand que le vôtre en n&apos;utilisant que des troupes de faction." />
+      text="Vaincre un groupe deux fois plus nombreux que le vôtre avec uniquement des troupes de votre faction." />
     <string
       id="ret_feat_tr_disciplined_victory_name"
       text="Victoire disciplinée" />
     <string
       id="ret_feat_tr_distinguished_service_desc"
-      text="Améliorez {TARGET} troupes d&apos;élite de faction au niveau supérieur." />
+      text="Promouvoir {TARGET} soldats d’élite de votre faction au rang suivant." />
     <string
       id="ret_feat_tr_distinguished_service_name"
       text="Service distingué" />
     <string
       id="ret_feat_tr_forged_in_battle_desc"
-      text="Améliorez {TARGET} troupes de faction au niveau supérieur." />
+      text="Promouvoir {TARGET} soldats de votre faction au rang suivant." />
     <string
       id="ret_feat_tr_forged_in_battle_name"
       text="Forgé au combat" />
     <string
       id="ret_feat_tr_general_desc"
-      text="Dirigez une armée pendant {TARGET} jours d&apos;affilée." />
+      text="Commander une armée pendant {TARGET} jours consécutifs." />
     <string
       id="ret_feat_tr_general_name"
       text="Général" />
     <string
       id="ret_feat_tr_hold_the_walls_desc"
-      text="Gagnez une défense de siège en ne déployant que des troupes de faction." />
+      text="Remporter une défense de siège avec uniquement des troupes de votre faction." />
     <string
       id="ret_feat_tr_hold_the_walls_name"
       text="Rempart" />
     <string
       id="ret_feat_tr_lethal_versatility_desc"
-      text="Lors d&apos;une seule bataille, obtenez une élimination en utilisant cinq classes d&apos;armes différentes." />
+      text="Au cours d’une même bataille, vaincre au moins un ennemi avec chacune de cinq classes d’armes différentes." />
     <string
       id="ret_feat_tr_lethal_versatility_name"
       text="Polyvalence mortelle" />
     <string
       id="ret_feat_tr_peak_performance_desc"
-      text="Maximisez les compétences de {TARGET} troupes de faction." />
+      text="Atteindre le maximum de compétences pour {TARGET} types de troupes de votre faction." />
     <string
       id="ret_feat_tr_peak_performance_name"
       text="Excellence maximale" />
     <string
       id="ret_feat_tr_public_safety_desc"
-      text="Augmentez la valeur de sécurité d&apos;un fief à {TARGET}." />
+      text="Porter la sécurité d’un fief à {TARGET}." />
     <string
       id="ret_feat_tr_public_safety_name"
       text="Sécurité publique" />
     <string
       id="ret_feat_tr_unyielding_defense_desc"
-      text="Gagnez {TARGET} batailles défensives d&apos;affilée." />
+      text="Remporter {TARGET} batailles défensives consécutives." />
     <string
       id="ret_feat_tr_unyielding_defense_name"
       text="Défense inflexible" />
     <string
       id="ret_feat_trp_bandit_scourge_desc"
-      text="Nettoyez une tanière de bandits." />
+      text="Éliminer un repaire de bandits." />
     <string
       id="ret_feat_trp_bandit_scourge_name"
       text="Fléau des bandits" />
     <string
       id="ret_feat_trp_defender_of_the_city_desc"
-      text="Défendez une colonie contre une armée assiégeante." />
+      text="Défendre une localité contre une armée assiégeante." />
     <string
       id="ret_feat_trp_defender_of_the_city_name"
       text="Défenseur de la cité" />
     <string
       id="ret_feat_trp_headmans_help_desc"
-      text="Accomplissez une quête pour un chef de village." />
+      text="Accomplir une quête pour un chef de village." />
     <string
       id="ret_feat_trp_headmans_help_name"
-      text="Aide du chef" />
+      text="Au service du village" />
     <string
       id="ret_feat_trp_landowners_request_desc"
-      text="Accomplissez une quête pour un propriétaire terrien de village." />
+      text="Accomplir une quête pour un propriétaire terrien d’un village." />
     <string
       id="ret_feat_trp_landowners_request_name"
       text="Demande du propriétaire" />
     <string
       id="ret_feat_trp_merchants_favor_desc"
-      text="Accomplissez une quête pour un marchand notable de la ville." />
+      text="Accomplir une quête pour un marchand notable d’une ville." />
     <string
       id="ret_feat_trp_merchants_favor_name"
       text="Faveur du marchand" />
     <string
       id="ret_feat_trp_meritorious_service_desc"
-      text="Promouvoir {TARGET} troupes de faction." />
+      text="Promouvoir {TARGET} soldats de votre faction." />
     <string
       id="ret_feat_trp_meritorious_service_name"
       text="Service méritoire" />
     <string
       id="ret_feat_trp_shield_of_the_people_desc"
-      text="Défendez un village contre un raid ennemi." />
+      text="Défendre un village contre un pillage ennemi." />
     <string
       id="ret_feat_trp_shield_of_the_people_name"
       text="Bouclier du peuple" />
     <string
       id="ret_feat_trp_they_shall_not_pass_desc"
-      text="Tuez personnellement {TARGET} assaillants lors d&apos;une défense de siège." />
+      text="Tuer personnellement {TARGET} assaillants lors d’une défense de siège." />
     <string
       id="ret_feat_trp_they_shall_not_pass_name"
       text="Ils ne passeront pas" />
     <string
       id="ret_feat_trp_trade_network_desc"
-      text="Possédez {TARGET} caravanes en même temps." />
+      text="Posséder {TARGET} caravanes simultanément." />
     <string
       id="ret_feat_trp_trade_network_name"
       text="Réseau commercial" />
     <string
       id="ret_feat_trp_veterans_desc"
-      text="Maximisez les compétences d&apos;une troupe de base de niveau 5." />
+      text="Atteindre le maximum de compétences pour une troupe régulière de rang 5." />
     <string
       id="ret_feat_trp_veterans_name"
       text="Vétérans" />
     <string
       id="ret_feat_trp_warrior_class_desc"
-      text="Maximisez les compétences d&apos;une troupe d&apos;élite de niveau 6." />
+      text="Atteindre le maximum de compétences pour une troupe d’élite de rang 6." />
     <string
       id="ret_feat_trp_warrior_class_name"
       text="Caste guerrière" />
     <string
       id="ret_feat_trp_watchers_on_the_walls_desc"
-      text="Augmentez la valeur de la milice d&apos;un fief à {TARGET}." />
+      text="Porter l’effectif de la milice d’un fief à {TARGET}." />
     <string
       id="ret_feat_trp_watchers_on_the_walls_name"
       text="Veilleurs sur les murs" />
@@ -1236,25 +1281,25 @@
       text="Entrez du texte pour filtrer la liste." />
     <string
       id="ret_filter_tooltip_description_character"
-      text="Entrez du texte pour filtrer la liste par nom, culture ou niveau." />
+      text="Filtrer la liste par nom, culture ou rang." />
     <string
       id="ret_filter_tooltip_description_equipment"
-      text="Entrez du texte pour filtrer la liste par nom, catégorie ou niveau." />
+      text="Filtrer la liste par nom, catégorie ou rang." />
     <string
       id="ret_formation_option_auto"
       text="Auto" />
     <string
       id="ret_formation_option_auto_hint"
-      text="Laissez le jeu choisir automatiquement la classe de formation en fonction de l&apos;équipement" />
+      text="Choisir automatiquement le type de formation selon l’équipement." />
     <string
       id="ret_formation_option_hint"
       text="Forcer la formation {CLASS}" />
     <string
       id="ret_formation_popup_desc"
-      text="Choisissez comment cette unité est catégorisée. Laissez sur &apos;Auto&apos; pour la catégoriser en fonction de son équipement." />
+      text="Choisissez le type de formation de cette troupe. « Auto » le détermine à partir de son équipement." />
     <string
       id="ret_formation_popup_title"
-      text="Formation" />
+      text="Type de formation" />
     <string
       id="ret_gender_cycle_hint"
       text="Changer de genre : masculin, féminin, mixte" />
@@ -1281,7 +1326,7 @@
       text="En stock ({STOCK})" />
     <string
       id="ret_init_clan_troops_copy_source"
-      text="Copier les troupes {SOURCE}" />
+      text="Copier les troupes de {SOURCE}" />
     <string
       id="ret_init_clan_troops_create"
       text="Créer" />
@@ -1290,7 +1335,7 @@
       text="Comment souhaitez-vous créer les troupes pour {CLAN} ?" />
     <string
       id="ret_init_clan_troops_method_title"
-      text="Initialiser les troupes" />
+      text="Créer l’arbre de troupes" />
     <string
       id="ret_init_clan_troops_new"
       text="Créer de nouvelles troupes" />
@@ -1305,16 +1350,16 @@
       text="Erreur de dépendance Retinues" />
     <string
       id="ret_inquiry_confirm_create_equipment_set_text"
-      text="Copier l&apos;équipement actuel ou en créer un vide ?" />
+      text="Copier l’équipement actuel ou créer un équipement vide ?" />
     <string
       id="ret_inquiry_confirm_create_equipment_set_title"
       text="Créer un équipement" />
     <string
       id="ret_inquiry_confirm_delete_equipment_set_text"
-      text="Êtes-vous sûr de vouloir supprimer l&apos;équipement actuel ? Cette action est irréversible." />
+      text="Supprimer l’équipement actuel ? Cette action est irréversible." />
     <string
       id="ret_inquiry_confirm_delete_equipment_set_title"
-      text="Supprimer l&apos;équipement" />
+      text="Supprimer l’équipement" />
     <string
       id="ret_inquiry_confirm_remove_character_text"
       text="Êtes-vous sûr de vouloir supprimer {UNIT_NAME} ? Cette action est irréversible." />
@@ -1347,7 +1392,7 @@
       text="Le nom ne peut pas être vide." />
     <string
       id="ret_invalid_name_sanitize"
-      text="Ce nom ne contient aucun caractère de fichier valide." />
+      text="Ce nom ne contient aucun caractère utilisable dans un nom de fichier." />
     <string
       id="ret_invalid_name_title"
       text="Nom invalide" />
@@ -1398,43 +1443,43 @@
       text="Arme à deux mains" />
     <string
       id="ret_item_unlock_scoreboard_line"
-      text="Objet déverrouillé : {ITEM}." />
+      text="Objet débloqué : {ITEM}." />
     <string
       id="ret_item_unlock_scoreboard_many"
-      text="Vous avez déverrouillé {COUNT} nouveaux objets." />
+      text="Vous avez débloqué {COUNT} nouveaux objets." />
     <string
       id="ret_item_unlock_scoreboard_tooltip_title"
-      text="Objets déverrouillés" />
+      text="Objets débloqués" />
     <string
       id="ret_item_unlock_sentence_battle"
-      text="{ITEMS} {VERB} déverrouillés au combat." />
+      text="Le déblocage de {ITEMS} {VERB} effectué au combat." />
     <string
       id="ret_item_unlock_sentence_donations"
-      text="{ITEMS} {VERB} déverrouillés grâce à des dons directs." />
+      text="Le déblocage de {ITEMS} {VERB} effectué grâce à vos dons d’équipement." />
     <string
       id="ret_item_unlock_sentence_generic"
-      text="{ITEMS} {VERB} déverrouillés." />
+      text="Le déblocage de {ITEMS} {VERB} effectué." />
     <string
       id="ret_item_unlock_sentence_troops"
-      text="{ITEMS} {VERB} déverrouillés lors de la création de troupes." />
+      text="Le déblocage de {ITEMS} {VERB} effectué lors de la création des troupes." />
     <string
       id="ret_item_unlock_sentence_workshops"
-      text="{ITEMS} {VERB} déverrouillés grâce aux ateliers." />
+      text="Le déblocage de {ITEMS} {VERB} effectué grâce aux ateliers." />
     <string
       id="ret_item_unlock_title"
-      text="Équipements déverrouillés" />
+      text="Équipements débloqués" />
     <string
       id="ret_kingdom_troops_unlock_disabled"
       text="Désactivées" />
     <string
       id="ret_kingdom_troops_unlock_disabled_hint"
-      text="Les troupes du royaume ne sont jamais déverrouillées" />
+      text="Les troupes du royaume ne sont jamais débloquées" />
     <string
       id="ret_kingdom_troops_unlock_upon_becoming_ruler"
-      text="Déverrouillées en devenant souverain" />
+      text="Débloquées en devenant souverain" />
     <string
       id="ret_kingdom_troops_unlock_upon_becoming_ruler_hint"
-      text="Déverrouillé lorsque le joueur fonde un royaume" />
+      text="Disponibles lorsque vous devenez souverain d’un royaume." />
     <string
       id="ret_library_contents_header"
       text="Contenu" />
@@ -1491,7 +1536,7 @@
       text="Convertir en mod autonome" />
     <string
       id="ret_library_export_npc_custom_troop_unsupported"
-      text="Seules les modifications des troupes natives peuvent être converties en mods autonomes" />
+      text="Seules les modifications de troupes du jeu de base peuvent être converties en mods autonomes." />
     <string
       id="ret_library_export_npc_failed_exception"
       text="Le fichier n&apos;a pas pu être exporté." />
@@ -1515,7 +1560,7 @@
       text="Convertir cet export en un mod autonome" />
     <string
       id="ret_library_exports_empty_text"
-      text="Aucun fichier n&apos;a été exporté." />
+      text="Aucune exportation enregistrée." />
     <string
       id="ret_library_exports_hint_text"
       text="Les unités et les factions peuvent être exportées depuis l&apos;onglet éditeur." />
@@ -1542,10 +1587,10 @@
       text="Aucune faction n&apos;est sélectionnée dans l&apos;éditeur." />
     <string
       id="ret_library_import_no_faction_targets"
-      text="Aucune faction n&apos;est disponible pour être remplacée dans le mode éditeur actuel." />
+      text="Aucun arbre de faction ne peut être remplacé dans le mode actuel de l’éditeur." />
     <string
       id="ret_library_import_no_player_clan"
-      text="Impossible de résoudre le clan du joueur." />
+      text="Impossible d’identifier votre clan." />
     <string
       id="ret_library_import_no_selection"
       text="Aucun export sélectionné." />
@@ -1554,16 +1599,16 @@
       text="Aucune troupe n&apos;est disponible pour être remplacée dans la faction actuelle." />
     <string
       id="ret_library_import_override_faction_desc"
-      text="Sélectionnez la faction à remplacer avec cette importation." />
+      text="Sélectionnez la faction dont l’arbre sera remplacé par cette importation." />
     <string
       id="ret_library_import_override_faction_title"
-      text="Remplacer la faction" />
+      text="Remplacer un arbre de faction" />
     <string
       id="ret_library_import_replace_troop_desc"
       text="Sélectionnez la troupe à remplacer dans {FACTION}." />
     <string
       id="ret_library_import_replace_troop_title"
-      text="Remplacer l&apos;unité" />
+      text="Remplacer la troupe" />
     <string
       id="ret_library_import_tooltip"
       text="Importer dans la campagne actuelle" />
@@ -1572,13 +1617,13 @@
       text="Faction" />
     <string
       id="ret_library_kind_troop"
-      text="Unité" />
+      text="Troupe" />
     <string
       id="ret_library_kind_unknown"
       text="Inconnu" />
     <string
       id="ret_library_name_character_header"
-      text="Unité" />
+      text="Troupe" />
     <string
       id="ret_library_name_faction_header"
       text="Faction" />
@@ -1594,6 +1639,9 @@
     <string
       id="ret_list_header_civilians"
       text="Civils" />
+    <string
+      id="ret_list_header_convoys"
+      text="Convois" />
     <string
       id="ret_list_header_elite"
       text="Élite" />
@@ -1617,118 +1665,130 @@
       text="Milice" />
     <string
       id="ret_list_header_regular"
-      text="Régulier" />
+      text="Régulières" />
     <string
       id="ret_list_header_retinues"
-      text="Rétinues" />
+      text="Gardes" />
     <string
       id="ret_list_header_villagers"
       text="Villageois" />
     <string
+      id="ret_man_doctrines_categories_text"
+      text="Les doctrines sont réparties en cinq catégories. Dans chacune, elles s’acquièrent dans un ordre précis.{newline}{newline}Troupes : débloque la milice, les gardes de caravane, les villageois et les capitaines personnalisés grâce aux doctrines Milice inébranlable, Gardiens de la route, Paysannerie armée et Capitaines.{newline}{newline}Entraînement : améliore les plafonds de compétence, le total de points disponibles et les gains de points avec Discipline de fer, Soldats inébranlables, Maîtres d’armes et Tactiques avancées.{newline}{newline}Équipement : réduit le prix des objets de votre culture et augmente les limites de poids ou de valeur grâce à Fierté culturelle, Faveur royale, Garde d’honneur et Cuirassés.{newline}{newline}Butin : améliore le déblocage de l’équipement grâce aux batailles et aux pertes des autres groupes.{newline}{newline}Garde personnelle : renforce vos gardes avec Liés par l’honneur, Immortels, Indomptable et Avant-garde. Les hauts faits associés demandent notamment de combattre avec uniquement des gardes ou en infériorité numérique.{newline}{newline}Consultez l’onglet Doctrines pour connaître les effets exacts de chaque doctrine et les hauts faits qui permettent de la débloquer." />
+    <string
+      id="ret_man_doctrines_categories_title"
+      text="Retinues 6.2 - Catégories de doctrines" />
+    <string
+      id="ret_man_doctrines_text"
+      text="Les doctrines vous accordent des bonus permanents au fil de la campagne. Elles se répartissent entre cinq catégories : Troupes, Entraînement, Équipement, Butin et Garde personnelle. Consultez-les et acquérez-les dans l’onglet Doctrines de l’éditeur.{newline}{newline}Hauts faits : chaque doctrine se débloque en accomplissant des objectifs associés, par exemple remporter un tournoi dans une ville de votre culture, promouvoir vos troupes d’élite ou gagner une bataille sans perte avec vos gardes. Chaque réussite fait progresser la doctrine. À 100, elle peut être acquise. Certains hauts faits ne comptent qu’une fois ; d’autres peuvent être répétés et contribuent à chaque réussite.{newline}{newline}Acquisition : les doctrines d’une catégorie s’acquièrent dans l’ordre. Il faut posséder la précédente et remplir la barre de progression avant de prendre la suivante. Selon les paramètres, l’acquisition peut coûter des deniers et de l’influence. Désactiver « Exiger les hauts faits » supprime les objectifs à accomplir, mais les coûts restent réglés séparément." />
+    <string
+      id="ret_man_doctrines_title"
+      text="Retinues 6.1 - Doctrines et hauts faits" />
+    <string
       id="ret_man_equipment_advanced_text"
-      text="Trois systèmes optionnels ajoutent des contraintes supplémentaires aux changements d&apos;équipement : un délai de mise en attente avant l&apos;entrée en vigueur des objets, des budgets de poids et de valeur par rang, et un verrou de déverrouillage sur les objets individuels.{newline}{newline}Mise en attente : Lorsque l&apos;option Équiper prend du temps est activée, équiper un objet n&apos;a pas d&apos;effet immédiat. Le nouvel objet est placé dans une file d&apos;attente et appliqué progressivement au fil du temps en jeu. Les emplacements en attente sont affichés dans une couleur différente et montrent l&apos;objet actuellement équipé dans l&apos;info-bulle. Vous pouvez annuler la mise en attente à tout moment. La progression s&apos;accumule heure par heure et aussi en voyage si Équiper en voyage est activé. Les troupes héroïques ne sont jamais soumises à la mise en attente ; leurs changements d&apos;équipement sont toujours instantanés.{newline}{newline}Limites de poids et de valeur : Les paramètres Limiter par le poids et Limiter par la valeur imposent un budget sur le poids total et la valeur totale de l&apos;équipement de combat d&apos;une troupe. Les deux sont désactivés par défaut. Lorsqu&apos;ils sont actifs, chaque rang de troupe a un budget correspondant affiché dans l&apos;éditeur. Les doctrines de l&apos;Armurerie peuvent relever ces limites lorsqu&apos;elles sont actives.{newline}{newline}Disponibilité et déverrouillages : Lorsque L&apos;équipement nécessite un déverrouillage est activé, chaque objet nécessite 1000 points de progression de déverrouillage avant de pouvoir être équipé. Les objets commencent verrouillés et cachés ; dès qu&apos;ils ont une certaine progression, ils apparaissent en bas de la liste, triés par complétion. Un nombre configurable d&apos;objets par emplacement est pré-déverrouillé automatiquement dans une nouvelle partie jusqu&apos;à un plafond de rang configurable. Ce système s&apos;applique uniquement à l&apos;écran Troupes ; dans l&apos;Éditeur universel, tous les objets sont librement disponibles." />
+      text="Plusieurs options encadrent les changements d’équipement : un délai avant leur application, des limites de poids, de valeur ou de rang et le déblocage préalable des objets.{newline}{newline}Délai d’équipement : si « L’équipement prend du temps » est activé, un nouvel objet reste en attente avant de remplacer celui qui est porté. Les emplacements concernés changent de couleur ; leur infobulle indique l’objet actuellement utilisé. Vous pouvez annuler un changement en attente. La progression se fait heure par heure, y compris en voyage si « S’équiper en voyage » est activé. Les héros s’équipent toujours instantanément.{newline}{newline}Poids et valeur : les options correspondantes limitent le poids total et la valeur totale de l’équipement de combat selon le rang de la troupe. Désactivées par défaut, elles affichent leurs limites dans l’éditeur lorsqu’elles sont actives. Certaines doctrines d’équipement augmentent ces limites.{newline}{newline}Rang de l’équipement : « Limiter le rang de l’équipement » autorise un écart de 0 à 3 rangs au-dessus de celui de la troupe. L’option est désactivée par défaut ; le préréglage Réaliste autorise un rang supplémentaire. Les héros ne sont pas concernés.{newline}{newline}Déblocage des objets : si « Déblocage de l’équipement requis » est activé, chaque objet nécessite 1 000 points de progression avant de pouvoir être équipé. Les objets sans progression sont masqués ; ceux en cours de déblocage apparaissent en bas de la liste, classés par avancement. Au début d’une partie, un nombre réglable d’objets par emplacement est déjà débloqué, dans la limite du rang choisi. Ces restrictions concernent l’écran Troupes ; tous les objets restent disponibles dans l’éditeur universel." />
     <string
       id="ret_man_equipment_advanced_title"
-      text="Retinues 5.3 - Mise en attente et limites" />
+      text="Retinues 5.3 - Délais et limites" />
     <string
       id="ret_man_equipment_economy_text"
-      text="L&apos;économie d&apos;équipement suit le nombre d&apos;exemplaires de chaque objet que possèdent vos forces et facture optionnellement de l&apos;or lorsque vous équipez du matériel qui n&apos;est pas en stock.{newline}{newline}Objets partagés : Lorsqu&apos;une troupe a plusieurs ensembles, les objets sont partagés intelligemment entre eux. Si un équipement est déjà présent dans un autre ensemble appartenant à la même troupe, l&apos;équiper dans un second ensemble n&apos;entraîne pas de coût de stock supplémentaire ou d&apos;achat. Une troupe avec deux ensembles portant la même épée dans les deux n&apos;a besoin que d&apos;un seul exemplaire de cette épée.{newline}{newline}Stocks : Chaque objet a un compteur de stock représentant le nombre d&apos;exemplaires stockés par vos forces. Lorsque l&apos;économie est active, équiper un objet prend un exemplaire de son stock ; le déséquiper le retourne. Le stock s&apos;accumule lors des batailles, des abandons et d&apos;autres sources. Ce système s&apos;applique uniquement à l&apos;écran Troupes ; dans l&apos;Éditeur universel, les stocks ne jouent aucun rôle.{newline}{newline}Coûts et achats : Lorsque L&apos;équipement coûte de l&apos;argent est actif, équiper un objet qui n&apos;est pas en stock et non couvert par un autre ensemble nécessite de dépenser des pièces à la valeur de l&apos;objet multipliée par le paramètre Multiplicateur de coût. Deux doctrines réduisent les coûts : Fierté culturelle accorde une réduction de 20% sur les objets correspondant à la culture de votre clan, et Patronage royal accorde une réduction de 20% sur les objets correspondant à la culture de votre royaume. Les deux réductions peuvent s&apos;appliquer au même objet." />
+      text="Le système d’équipement gère les exemplaires en stock et peut facturer l’achat des objets qui ne sont pas déjà disponibles.{newline}{newline}Objets partagés : les équipements d’une même troupe partagent leurs objets. Une épée déjà utilisée dans l’un de ses équipements peut être ajoutée à un autre sans nouvel achat ni prélèvement dans les stocks. Deux équipements portant la même épée n’en nécessitent donc qu’un exemplaire.{newline}{newline}Stocks : chaque objet possède un stock d’exemplaires disponibles. Lorsque le système est actif, équiper un objet en prélève un et le retirer le rend au stock. Les batailles, les dons d’équipement et d’autres sources alimentent ces réserves. Les stocks sont utilisés dans l’écran Troupes, mais pas dans l’éditeur universel.{newline}{newline}Achats : lorsque « Équipement payant » est activé, un objet absent du stock et des autres équipements de la troupe doit être acheté. Son prix dépend de sa valeur et du multiplicateur du coût. Fierté culturelle réduit de 20 % le prix des objets de la culture de votre clan ; Faveur royale applique une réduction de 20 % aux objets de la culture de votre royaume. Ces réductions peuvent se cumuler." />
     <string
       id="ret_man_equipment_economy_title"
-      text="Retinues 5.2 - Économie d&apos;équipement" />
+      text="Retinues 5.2 - Stocks et achats" />
     <string
       id="ret_man_equipment_text"
-      text="Chaque troupe a deux catégories d&apos;équipement : les ensembles de combat et les ensembles civils. Les ensembles de combat sont portés au combat ; les ensembles civils en toutes autres circonstances. Vous basculez entre eux à l&apos;aide du bouton au-dessus du modèle de personnage.{newline}{newline}Types d&apos;ensembles de combat : Chaque ensemble de combat peut être marqué comme s&apos;appliquant aux batailles de campagne, aux batailles de siège ou aux batailles navales. Un ensemble peut couvrir n&apos;importe quelle combinaison de ces types. Au moins un ensemble doit rester activé pour chaque type de bataille en tout temps.{newline}{newline}Gestion des ensembles : Utilisez le bouton d&apos;ajout pour créer une copie de l&apos;ensemble actuel ou un ensemble vide. Utilisez le bouton de suppression pour supprimer l&apos;ensemble actuel ; vous ne pouvez pas supprimer un ensemble s&apos;il est le seul dans sa catégorie, ou si cela laissait un type de bataille sans couverture. Lorsque l&apos;économie est active et qu&apos;un ensemble est supprimé, ses objets sont automatiquement retournés en stock.{newline}{newline}Emplacements : Chaque ensemble a quatre emplacements d&apos;armes, Tête, Cape, Corps, Gants, Jambe, Cheval et Harnais de cheval. L&apos;emplacement Harnais de cheval n&apos;est actif que lorsqu&apos;un cheval est équipé. Si un nouveau cheval est équipé et que le harnais actuel n&apos;est pas compatible, le harnais est automatiquement effacé." />
+      text="Chaque troupe dispose d’équipements de combat et d’équipements civils. Les premiers sont utilisés en bataille, les seconds en dehors des combats. Le bouton au-dessus du personnage permet de passer d’une catégorie à l’autre.{newline}{newline}Types de bataille : un équipement de combat peut être autorisé pour les batailles campales, les sièges, les batailles navales ou toute combinaison de ces usages. Chaque type de bataille doit toujours disposer d’au moins un équipement activé.{newline}{newline}Gestion des équipements : le bouton d’ajout permet de copier l’équipement actuel ou d’en créer un vide. Vous ne pouvez pas supprimer le dernier équipement d’une catégorie, ni laisser un type de bataille sans équipement. Lorsque les stocks sont actifs, les objets d’un équipement supprimé y retournent automatiquement.{newline}{newline}Emplacements : chaque équipement comporte quatre emplacements d’armes, ainsi que Tête, Cape, Corps, Gants, Jambes, Cheval et Harnais. Le harnais n’est disponible qu’avec une monture. Un changement de monture retire automatiquement le harnais si celui-ci est incompatible." />
     <string
       id="ret_man_equipment_title"
       text="Retinues 5.1 - Équipement" />
     <string
       id="ret_man_overview_text"
-      text="Retinues ajoute un ensemble de systèmes pour recruter, entraîner et équiper vos propres forces personnelles tout au long d&apos;une campagne.{newline}{newline}À son cœur se trouve la suite : une troupe de maisonnée liée à votre clan qui vous suit exclusivement et peut être développée en unité d&apos;élite au fil du temps.{newline}{newline}Au-delà des suites, vous pouvez construire des arbres de troupes entièrement personnalisés pour votre clan et votre royaume. Ces troupes apparaissent comme volontaires et renforcent les armées de votre faction. Un système de doctrines offre une couche de progression, débloquant de nouveaux types de troupes, des avantages d&apos;équipement et d&apos;autres bonus à mesure que vous accomplissez des objectifs de jeu.{newline}{newline}Tout cela est géré via l&apos;éditeur, accessible depuis le bouton Troupes sur la carte de campagne ou en appuyant sur [R]." />
+      text="Retinues vous permet de créer, d’entraîner et d’équiper vos propres troupes au fil de la campagne.{newline}{newline}La garde personnelle en est le cœur : ces soldats liés à votre clan vous accompagnent exclusivement et peuvent devenir des combattants d’élite.{newline}{newline}Vous pouvez aussi créer des arbres de troupes complets pour votre clan et votre royaume. Leurs soldats apparaissent parmi les recrues et rejoignent les groupes de votre faction. En accomplissant des hauts faits, vous débloquez des doctrines qui donnent accès à de nouveaux types de troupes et à divers bonus.{newline}{newline}Tout se règle dans l’éditeur, accessible depuis le bouton Troupes de la carte de campagne ou avec la touche [R]." />
     <string
       id="ret_man_overview_title"
-      text="Retinues 1.0 - Vue d&apos;ensemble" />
+      text="Retinues 1.0 - Présentation" />
     <string
       id="ret_man_retinues_ai_text"
-      text="Les clans non joueurs peuvent aussi avoir leurs propres suites. Cette fonctionnalité est activée par défaut et s&apos;applique aux clans qui atteignent un seuil de rang minimum (rang 3 par défaut). Chaque jour, il y a par défaut 25% de chances qu&apos;un groupe éligible promeuve une troupe d&apos;un rang correspondant en suite, jusqu&apos;à un plafond de 10% de la taille du groupe. Les souverains de royaume obtiennent une Garde du roi ou une Garde de la reine en plus des suites de leur clan.{newline}{newline}Par défaut, seul le groupe du chef de clan crée des suites. Le paramètre Seuls les chefs de clan ont des suites peut être désactivé pour permettre à tous les groupes de seigneurs d&apos;un clan d&apos;avoir les leurs.{newline}{newline}Les suites de l&apos;IA s&apos;améliorent avec le temps à mesure que leur clan gagne de l&apos;expérience. Si vous perdez une bataille contre un clan qui a des suites, leurs suites peuvent récupérer de l&apos;équipement sur vos pertes, améliorant progressivement leur équipement." />
+      text="Les clans de l’IA peuvent disposer de leur propre garde personnelle. Cette option est activée par défaut à partir du rang de clan 3. Chaque jour, un groupe éligible a par défaut 25 % de chances de convertir un soldat de rang approprié en garde, jusqu’à une limite de 10 % de la capacité du groupe. Les souverains disposent également de gardes du roi ou de la reine.{newline}{newline}Par défaut, seul le groupe du chef de clan recrute des gardes. Désactivez « Réserver les gardes aux chefs de clan » pour autoriser les autres groupes de seigneurs du clan à en recruter.{newline}{newline}Les gardes de l’IA progressent avec l’expérience de leur clan. Si vous perdez une bataille contre eux, ils peuvent récupérer de l’équipement sur vos soldats mis hors de combat pour améliorer leur propre équipement." />
     <string
       id="ret_man_retinues_ai_title"
-      text="Retinues 2.4 - Rétinues des clans IA" />
+      text="Retinues 2.4 - Gardes des clans de l’IA" />
     <string
       id="ret_man_retinues_management_text"
-      text="Cette section couvre les limites de taille de groupe pour les suites, comment les recruter via le système d&apos;amélioration du groupe, les bonus passifs qu&apos;elles reçoivent et comment les faire monter en rang.{newline}{newline}Limites du groupe : Le nombre de suites que vous pouvez déployer est plafonné à un ratio de votre limite de taille de groupe. Par défaut : 15%, ajustable dans les paramètres. Les bonus de doctrines peuvent augmenter ce plafond. Les suites ne peuvent pas être placées en garnison ni transférées à des groupes de compagnons ; elles vous suivent exclusivement.{newline}{newline}Recrutement : Les suites n&apos;apparaissent pas dans les listes de volontaires des colonies. Elles apparaissent plutôt comme options d&apos;amélioration sur les troupes existantes de votre groupe. Quand vous ouvrez l&apos;écran du groupe, chaque suite est associée à la troupe la plus adaptée un rang en dessous, et la suite apparaît comme une cible d&apos;amélioration supplémentaire sur cette troupe. Améliorer une troupe en suite convertit une unité de la troupe source en type de suite sans consommer l&apos;emplacement de suite. La troupe source est choisie d&apos;abord dans l&apos;arbre personnalisé de votre faction, puis dans l&apos;arbre de votre culture si aucune correspondance n&apos;est trouvée.{newline}{newline}Bonus : Les suites reçoivent un ensemble de bonus passifs en plus de leurs stats normales. Par défaut : +20 points de vie, +5 à tous les plafonds de compétences et +20 au total de points de compétence. Chaque bonus peut être activé/désactivé et ajusté individuellement dans les paramètres. Le préréglage Réaliste désactive les trois.{newline}{newline}Montée en rang : Quand une suite a toutes ses compétences entièrement maximisées, elle devient éligible à une montée en rang. Monter en rang coûte de l&apos;or : (rang actuel + 1) x 1000 denars. Cela coûte aussi des points de compétence : 5 x rang actuel. L&apos;effet augmente le niveau de la suite de 5 et débloque des plafonds de compétences plus élevés. L&apos;action de montée en rang s&apos;affiche dans l&apos;éditeur une fois toutes les conditions remplies." />
+      text="Cette section explique la limite de gardes dans votre groupe, leur recrutement, leurs bonus et leur montée en rang.{newline}{newline}Effectif : la garde personnelle peut occuper par défaut 15 % de la capacité de votre groupe. Ce pourcentage se règle dans les paramètres et certaines doctrines l’augmentent. Les gardes restent avec vous : ils ne peuvent être transférés ni en garnison, ni dans le groupe d’un compagnon.{newline}{newline}Recrutement : les gardes ne figurent pas parmi les recrues des localités. Ils apparaissent comme promotions supplémentaires dans l’écran Groupe. Pour chaque type de garde, le mod choisit une troupe adaptée du rang inférieur, en priorité dans l’arbre personnalisé de votre faction, puis dans celui de votre culture. Promouvoir cette troupe transforme un de ses soldats en garde ; cette option reste disponible pour les recrutements suivants.{newline}{newline}Bonus : par défaut, les gardes reçoivent 20 points de vie supplémentaires, +5 à chaque plafond de compétence et +20 au total maximal de points de compétence. Chaque bonus peut être activé et réglé séparément. Le préréglage Réaliste désactive les trois.{newline}{newline}Montée en rang : un garde ayant atteint son maximum de compétences peut passer au rang suivant. Le coût de base est de (rang actuel + 1) × 1 000 deniers et de 5 × rang actuel points de compétence. Les deux multiplicateurs de coût se règlent séparément et peuvent être mis à 0. En mode Libre, aucun point de compétence n’est requis. Le nouveau rang augmente les plafonds et le total de compétences. L’infobulle du bouton indique les conditions manquantes." />
     <string
       id="ret_man_retinues_management_title"
-      text="Retinues 2.3 - Groupe et recrutement" />
+      text="Retinues 2.3 - Effectif et recrutement" />
     <string
       id="ret_man_retinues_text"
-      text="Les suites sont des troupes spéciales de garde de maisonnée liées à votre clan. Contrairement aux troupes de faction ordinaires, elles sont personnelles au joueur : elles ne peuvent pas être mises en garnison ni transférées à un autre groupe, et elles restent avec vous en permanence. Elles commencent à un rang faible mais peuvent être entraînées, équipées et monter en rang au cours d&apos;une campagne.{newline}{newline}Suite de départ : Une suite est créée automatiquement lorsque vous démarrez une nouvelle campagne ou lorsque vous chargez une sauvegarde existante pour la première fois. Elle porte le nom de votre clan et correspond à la culture de votre clan. Si vous êtes déjà souverain à ce moment-là, une Garde du roi ou une Garde de la reine est également créée pour votre royaume." />
+      text="La garde personnelle rassemble des troupes liées à votre clan qui vous accompagnent exclusivement. Elles ne peuvent être placées en garnison ni transférées à un autre groupe. Elles commencent à un rang peu élevé, puis vous pouvez les entraîner, les équiper et les faire monter en rang au fil de la campagne.{newline}{newline}Garde de départ : un premier type de garde est créé au début d’une campagne ou au premier chargement d’une sauvegarde existante avec le mod. Il porte le nom de votre clan et partage sa culture. Si vous êtes déjà souverain, une garde du roi ou de la reine est aussi créée pour votre royaume." />
     <string
       id="ret_man_retinues_title"
-      text="Retinues 2.1 - Suites" />
+      text="Retinues 2.1 - La garde personnelle" />
     <string
       id="ret_man_retinues_unlock_text"
-      text="Vous pouvez débloquer une suite supplémentaire par culture. La culture de votre clan est débloquée dès le départ. Pour chaque autre culture, vous accumulez des progrès de déblocage grâce à des activités de jeu liées à cette culture.{newline}{newline}Remporter un tournoi accorde +50 points pour la culture de la ville où se déroule le tournoi. Réussir une quête accorde +25 points pour la culture du donneur de quête. Posséder un fief accorde +5 points par jour et par fief, pour la culture propre à chaque fief. Posséder un atelier accorde +2 points par jour et par atelier, pour la culture de la ville où se trouve l’atelier. Gagner une bataille aux côtés de partis alliés accorde +10 points par parti allié, pour la culture de chaque allié.{newline}{newline}Chaque culture nécessite 1000 points pour être débloquée. La vitesse globale peut être ajustée avec le paramètre Vitesse de déblocage des suites. Lorsqu’une culture est débloquée, une nouvelle suite est créée automatiquement et une fenêtre apparaît pour vous permettre d’aller directement à l’éditeur." />
+      text="Vous pouvez débloquer un type de garde supplémentaire par culture. Celui de la culture de votre clan est disponible dès le départ. Pour les autres, vos activités liées à chaque culture font progresser le déblocage.{newline}{newline}Un tournoi remporté accorde 50 points pour la culture de la localité. Une quête réussie accorde 25 points pour celle de son commanditaire. Chaque fief rapporte 5 points par jour pour sa culture ; chaque atelier en rapporte 2 pour celle de sa ville. Une victoire aux côtés de groupes alliés accorde 10 points par groupe pour la culture de chaque allié.{newline}{newline}Il faut 1 000 points pour débloquer une culture. Le paramètre « Vitesse de déblocage des gardes » règle la progression globale. Lorsqu’un nouveau type de garde est débloqué, il est créé automatiquement et une fenêtre permet de l’ouvrir dans l’éditeur." />
     <string
       id="ret_man_retinues_unlock_title"
-      text="Retinues 2.2 - Débloquer les suites" />
+      text="Retinues 2.2 - Débloquer des gardes" />
     <string
       id="ret_man_skills_budget_text"
-      text="Cette section couvre le pool partagé optionnel de points de compétence, le fonctionnement des dépenses et des remboursements, ainsi que les plafonds et totaux par rang qui bornent les compétences d&apos;une troupe.{newline}{newline}Pool partagé de points de compétence : Lorsque le paramètre Pool partagé de points de compétence est activé, toutes les troupes personnalisées versent leur XP de combat dans un seul pool pour toute la campagne, au lieu de pools par type de troupe. Les points du pool peuvent être dépensés sur n&apos;importe quelle troupe personnalisée, ce qui facilite le développement de spécialistes sans devoir répartir les combats sur tout votre effectif. Le solde du pool est affiché dans l&apos;en-tête du panneau de compétences. Désactiver ce paramètre en cours de campagne n&apos;efface ni les points par troupe, ni le pool partagé. Ce paramètre nécessite que Points de compétence à gagner soit actif.{newline}{newline}Dépenses : Chaque augmentation de compétence coûte un point ; diminuer une compétence le rembourse immédiatement. Lorsque Entraînement prend du temps est activé, diminuer une compétence déjà engagée demande une confirmation.{newline}{newline}Plafonds et totaux : Deux limites s&apos;appliquent dans l&apos;écran Troupes. Le plafond est le niveau maximum qu&apos;une compétence peut atteindre pour ce rang ; par défaut, il va de 20 au rang 0 à 360 au rang 7. Le total est la somme de toutes les compétences qu&apos;une troupe de ce rang peut avoir ; par défaut, il va de 90 au rang 0 à 1600 au rang 7. Les suites reçoivent des bonus au-delà des deux limites. Les capitaines au rang max reçoivent un bonus de 20%. La doctrine Discipline de fer ajoute +5 au plafond pour toutes les troupes. Soldats inébranlables et Maîtres d&apos;armes ajoutent chacun +20 au total pour les lignes basique et élite respectivement." />
+      text="Les points de compétence peuvent être gérés par type de troupe ou dans une réserve commune. Leur utilisation reste limitée par les plafonds de compétence et le total autorisé au rang de la troupe.{newline}{newline}Réserve commune : si « Réserve commune de points de compétence » est activé, les troupes personnalisées alimentent une réserve d’XP pour toute la campagne. Les points obtenus peuvent être dépensés sur n’importe laquelle de ces troupes. Le solde apparaît en haut du panneau de compétences. Désactiver cette option n’efface ni la réserve commune ni les points propres à chaque troupe. L’option nécessite que « Points de compétence à gagner » soit activé.{newline}{newline}Dépense et remboursement : augmenter une compétence d’un point coûte un point de compétence ; la réduire rembourse immédiatement ce point. Lorsque l’entraînement prend du temps, réduire une compétence déjà acquise demande confirmation.{newline}{newline}Limites : le plafond fixe le niveau maximal d’une compétence ; le total limite la somme de toutes les compétences de la troupe. Par défaut, les plafonds vont de 20 au rang 0 à 360 au rang 7, et les totaux de 90 à 1 600. Les gardes reçoivent des bonus supplémentaires. Les capitaines d’élite de rang maximal bénéficient d’un bonus de 20 %. Discipline de fer ajoute 5 aux plafonds de toutes les troupes. Soldats inébranlables et Maîtres d’armes ajoutent 20 au total des troupes régulières et d’élite, respectivement." />
     <string
       id="ret_man_skills_budget_title"
-      text="Retinues 4.2 - Budget de compétences" />
+      text="Retinues 4.2 - Points et limites de compétence" />
     <string
       id="ret_man_skills_text"
-      text="Vos troupes personnalisées disposent d&apos;une fiche de compétences que vous pouvez modifier depuis l&apos;écran Troupes, sous réserve de plafonds par compétence et d&apos;un budget total de compétences. Ce système ne s&apos;applique pas aux troupes modifiées via l&apos;Éditeur universel, où les compétences peuvent être ajustées librement à tout moment.{newline}{newline}Sources d&apos;XP : Les troupes personnalisées accumulent de l&apos;XP de points de compétence via les batailles jouées, les batailles auto-résolues, l&apos;entraînement quotidien du groupe et d&apos;autres activités. Lorsque Points de compétence à gagner est actif (activé par défaut), toute cette XP alimente le compteur de progression de points de compétence pour ce type de troupe. Les troupes de rang supérieur nécessitent proportionnellement plus d&apos;XP. Le taux global est ajustable via le paramètre Taux de gain de points de compétence.{newline}{newline}Mode libre : Lorsque Points de compétence à gagner est désactivé, les points de compétence ne sont plus conditionnés par les performances en bataille. Les compétences peuvent être allouées librement dans l&apos;éditeur à tout moment, sans rien gagner au préalable." />
+      text="L’écran Troupes permet de modifier les compétences de vos soldats personnalisés dans la limite des plafonds individuels et du total autorisé. Dans l’éditeur universel, les compétences se modifient librement, sauf si vous y activez les limites de compétence.{newline}{newline}Sources d’XP : les paramètres permettent de gagner des points grâce aux batailles jouées, aux batailles résolues automatiquement et à l’entraînement quotidien. Ce dernier est désactivé par défaut et ne concerne que les troupes de votre groupe principal. Lorsque « Points de compétence à gagner » est activé, l’XP alimente la progression du type de troupe concerné. Les rangs supérieurs demandent davantage d’XP ; le taux de gain est réglable.{newline}{newline}Mode Libre : si « Points de compétence à gagner » est désactivé, il n’est plus nécessaire d’obtenir des points avant de modifier les compétences dans l’éditeur." />
     <string
       id="ret_man_skills_title"
       text="Retinues 4.1 - Compétences et expérience" />
     <string
       id="ret_man_skills_training_text"
-      text="Trois paramètres structurent davantage l&apos;édition des compétences : un verrouillage temporel optionnel sur l&apos;entraînement, un plancher dérivé des troupes parentes, et des restrictions contextuelles basées sur l&apos;emplacement d&apos;utilisation de l&apos;éditeur.{newline}{newline}Entraînement prend du temps : Lorsque ce paramètre est activé, augmenter une compétence dans l&apos;éditeur ne s&apos;applique pas instantanément. L&apos;augmentation est stockée comme en attente et appliquée progressivement au taux défini par Points entraînés par jour (par défaut : 1 par jour). Les augmentations en attente sont affichées dans une couleur différente. La progression d&apos;entraînement continue en voyage par défaut ; le paramètre Entraîner en voyage peut la restreindre aux moments où le groupe est immobile.{newline}{newline}Plancher de compétence : Les compétences d&apos;une troupe ne peuvent pas être abaissées en dessous de la valeur la plus élevée détenue par l&apos;une de ses sources d&apos;amélioration. Par exemple, si une troupe source de rang 2 a 80 en Arme à une main, l&apos;amélioration de rang 3 ne peut pas être réglée en dessous de 80 en Arme à une main. L&apos;éditeur indique quelle troupe source fixe le plancher lorsque la diminution est bloquée.{newline}{newline}Restrictions de contexte : Le paramètre Restriction d&apos;édition peut limiter quand les compétences et l&apos;équipement peuvent être modifiés. Aucune (par défaut en mode libre) n&apos;impose aucune restriction. En colonie exige d&apos;être dans n&apos;importe quelle colonie. En fief exige d&apos;être dans une colonie appartenant à votre clan ou à votre royaume. Les suites sont exemptées de l&apos;exigence de fief et peuvent être éditées dans n&apos;importe quelle colonie." />
+      text="Les changements de compétences peuvent être soumis à un délai d’entraînement, à un minimum hérité des troupes précédentes et à des restrictions de lieu.{newline}{newline}Délai d’entraînement : si « L’entraînement prend du temps » est activé, les augmentations de compétence restent en attente et s’appliquent progressivement selon « Points entraînés par jour » (1 par jour par défaut). Elles apparaissent dans une autre couleur. « S’entraîner en voyage » permet de poursuivre la progression pendant les déplacements ; sinon, elle ne progresse que lors des séjours dans les localités.{newline}{newline}Minimum de compétence : une troupe ne peut pas avoir une compétence inférieure à celles des troupes dont elle est une promotion. Si une troupe de rang 2 possède 80 en Arme à une main, sa promotion de rang 3 doit conserver au moins 80. L’éditeur indique quelle troupe impose ce minimum.{newline}{newline}Restrictions de lieu : les modifications de compétences et d’équipement peuvent être autorisées partout, dans une localité quelconque ou seulement dans un fief de votre clan ou de votre royaume. La garde personnelle échappe à cette dernière restriction : elle peut être modifiée dans n’importe quelle localité." />
     <string
       id="ret_man_skills_training_title"
       text="Retinues 4.3 - Entraînement et restrictions" />
     <string
       id="ret_man_troops_setup_text"
-      text="Lorsqu&apos;un arbre de troupes personnalisées est créé pour la première fois, deux paramètres déterminent la forme de sa liste de départ, et plusieurs autres contrôlent où ces troupes apparaissent comme volontaires.{newline}{newline}Troupes de départ : L&apos;état initial de l&apos;arbre dépend du paramètre Troupes de départ. Racines uniquement ne crée que les deux troupes racines, laissant le reste vide à construire manuellement. Arbres allégés (par défaut) copie une version épurée de l&apos;arbre de votre culture : une troupe représentative par type de formation et par rang, avec des noms basés sur la faction comme Recrue du clan. Arbres complets clone l&apos;intégralité de l&apos;arbre culturel à l&apos;identique, en remplaçant le préfixe culturel par le nom de votre clan ou de votre royaume.{newline}{newline}Équipement de départ : L&apos;équipement est défini séparément via le paramètre Équipement de départ. Ensemble aléatoire (par défaut) génère un équipement aléatoire à partir d&apos;objets adaptés au rang et à la culture de chaque troupe. Ensemble unique copie le premier ensemble d&apos;équipement du modèle culturel. Tous les ensembles copie chaque ensemble d&apos;équipement du modèle. Ensemble vide crée des troupes sans aucun objet.{newline}{newline}Recrutement : L&apos;endroit où vos troupes personnalisées apparaissent comme volontaires dépend des paramètres Disponibilité des troupes de clan et Disponibilité des troupes de royaume. Par défaut, les troupes de clan apparaissent dans les fiefs du clan et les troupes de royaume dans les fiefs du royaume. Les deux peuvent être ouverts à toute colonie ou restreints davantage. Le paramètre Même culture uniquement empêche les troupes personnalisées d&apos;apparaître dans des colonies d&apos;une autre culture. Le paramètre Recruteurs autorisés contrôle si les seigneurs IA peuvent aussi recruter vos troupes. Par défaut, les troupes personnalisées remplacent entièrement les volontaires culturels standards dans les colonies éligibles ; Mélanger avec les troupes vanilla les fait apparaître aux côtés des troupes standards à la place." />
+      text="Lors de la création d’un arbre personnalisé, deux paramètres déterminent ses troupes et leur équipement initial. D’autres règlent leur disponibilité au recrutement.{newline}{newline}Arbres de départ : « Recrues de départ uniquement » crée la première troupe des branches régulière et d’élite ; à vous de développer les promotions. « Arbres simplifiés », le réglage par défaut, conserve une troupe par type de formation et par rang à partir de l’arbre de votre culture. « Arbres complets » le copie intégralement. Les noms utilisent celui de votre clan ou de votre royaume.{newline}{newline}Équipement de départ : « Aléatoire » choisit des objets adaptés au rang et à la culture. « Copier un équipement » reprend le premier équipement de la troupe d’origine ; « Copier tous les équipements » les reprend tous. « Aucun » crée les troupes sans équipement.{newline}{newline}Recrutement : « Vos troupes du clan » et « Vos troupes du royaume » règlent où vous pouvez les recruter : partout, dans vos fiefs, dans ceux du clan ou du royaume, ou nulle part. Les autres clans ont leur propre réglage : désactivé, ils recrutent les troupes ordinaires de leur culture ; « Leurs fiefs » propose leurs troupes personnalisées dans leurs localités ; « Partout » les utilise dans tous leurs groupes, quel que soit le lieu de recrutement. « Recrutement dans la même culture » limite les localités autorisées. « Mélanger avec les troupes du jeu de base » conserve aussi des recrues ordinaires." />
     <string
       id="ret_man_troops_setup_title"
       text="Retinues 3.2 - Configuration et recrutement" />
     <string
       id="ret_man_troops_text"
-      text="Au-delà de vos suites, vous pouvez créer et personnaliser des arbres de troupes complets pour votre clan et votre royaume. Ces troupes apparaissent dans les pools de volontaires, les garnisons et les groupes à travers le monde et se modifient depuis le même écran Troupes que les suites. Chaque faction obtient deux lignes racines : un arbre basique et un arbre noble d&apos;élite. À partir de ces racines, vous pouvez créer des branches d&apos;amélioration jusqu&apos;à un maximum de 4 cibles d&apos;amélioration par troupe.{newline}{newline}Déverrouillage : Par défaut, les troupes de clan se déverrouillent lorsque vous obtenez votre premier fief. Elles peuvent aussi être réglées pour se déverrouiller dès le départ ou être désactivées entièrement. Les troupes de royaume se déverrouillent par défaut lorsque vous fondez un royaume, et peuvent aussi être désactivées. Quand les troupes se déverrouillent, une fenêtre apparaît pour vous permettre d&apos;aller directement au nouvel arbre." />
+      text="En plus de votre garde personnelle, vous pouvez créer des arbres de troupes pour votre clan et votre royaume. Ces soldats apparaissent parmi les recrues, dans les garnisons et dans les groupes du monde. Ils se modifient depuis l’écran Troupes. Chaque faction possède une branche régulière et une branche d’élite, avec jusqu’à quatre promotions possibles par troupe.{newline}{newline}Déblocage : par défaut, les troupes du clan deviennent disponibles avec votre premier fief. Vous pouvez aussi les rendre disponibles dès le départ ou les désactiver. Celles du royaume se débloquent lorsque vous devenez souverain et peuvent également être désactivées. Une fenêtre signale le déblocage et donne accès au nouvel arbre." />
     <string
       id="ret_man_troops_title"
       text="Retinues 3.1 - Troupes de clan et de royaume" />
     <string
       id="ret_man_troops_types_text"
-      text="Plusieurs doctrines débloquent des types de troupes supplémentaires au-delà de l&apos;arbre principal, et l&apos;éditeur fournit des outils pour gérer la structure de l&apos;arbre et superviser les autres clans de votre royaume.{newline}{newline}Milices et troupes spéciales : Trois doctrines débloquent des types de troupes personnalisées supplémentaires. Milice indéfectible débloque des milices personnalisées qui remplacent la milice culturelle par défaut dans les villes et châteaux de votre faction selon un cycle quotidien. Gardiens des routes débloque des troupes de caravane personnalisées utilisées par les caravanes de votre faction. Paysannerie armée débloque des troupes villageoises personnalisées utilisées par les groupes villageois de votre faction.{newline}{newline}Capitaines : La doctrine Capitaines débloque des variantes Capitaine pour toutes les troupes régulières. Un Capitaine est une version plus puissante qui apparaît périodiquement à leur place. Le taux d&apos;apparition est configurable via le paramètre Taux d&apos;apparition des capitaines (par défaut : 1 pour 15 troupes régulières). Les capitaines ne peuvent pas avoir leurs propres cibles d&apos;amélioration et ne peuvent pas être montés en rang. Leur équipement est modifié séparément mais ils partagent les coûts d&apos;équipement avec leur troupe de base.{newline}{newline}Améliorations et suppression : Vous pouvez ajouter une cible d&apos;amélioration à toute troupe personnalisée non héroïque qui n&apos;est pas au rang maximum et qui a moins de 4 cibles d&apos;amélioration. La nouvelle troupe est créée un rang au-dessus de son parent et hérite de ses compétences. Pour supprimer une troupe, vous devez d&apos;abord supprimer toutes ses cibles d&apos;amélioration. Les troupes racines ne peuvent pas être supprimées. Lorsqu&apos;une troupe est supprimée, toutes les unités de ce type dans le monde sont converties en leur équivalent culturel.{newline}{newline}Autres clans : Lorsque vous êtes souverain, l&apos;éditeur vous permet de gérer les arbres de troupes personnalisées des autres clans de votre royaume. Cliquez sur la bannière de gauche pour sélectionner un autre clan. Si le clan sélectionné n&apos;a pas encore de troupes personnalisées, il vous est proposé de les initialiser en copiant l&apos;arbre existant du royaume ou en partant des racines culturelles." />
+      text="Les doctrines donnent accès à des troupes spéciales. L’éditeur permet aussi de gérer les branches de promotion et, si vous êtes souverain, les troupes des autres clans du royaume.{newline}{newline}Milice et troupes spéciales : Milice inébranlable remplace progressivement, chaque jour, la milice des villes et châteaux de votre faction par vos troupes personnalisées. Gardiens de la route équipe les caravanes de votre faction en gardes personnalisés. Paysannerie armée fait de même pour ses groupes de villageois.{newline}{newline}Capitaines : la doctrine Capitaines débloque une version renforcée de chaque troupe régulière. Par défaut, un capitaine apparaît pour quinze soldats ; ce ratio se règle dans les paramètres. Les capitaines n’ont pas de promotions et ne peuvent pas monter en rang. Leur équipement se modifie séparément, mais son coût est partagé avec leur troupe d’origine.{newline}{newline}Promotions et suppressions : une troupe personnalisée autre qu’un héros peut recevoir une promotion si elle n’a atteint ni le rang maximal ni la limite de quatre branches. La nouvelle troupe commence au rang suivant et hérite de ses compétences. Pour supprimer une troupe, supprimez d’abord ses promotions. Les recrues à l’origine des arbres ne peuvent pas être supprimées. Les soldats d’un type supprimé sont remplacés dans le monde par l’équivalent de leur culture.{newline}{newline}Autres clans : en tant que souverain, sélectionnez un clan de votre royaume avec la bannière de gauche pour modifier ses troupes. S’il n’a pas encore d’arbre personnalisé, vous pouvez copier celui du royaume ou commencer avec les recrues de sa culture." />
     <string
       id="ret_man_troops_types_title"
-      text="Retinues 3.3 - Troupes spéciales et arbre" />
+      text="Retinues 3.3 - Troupes spéciales et promotions" />
     <string
       id="ret_manual_button_label"
       text="Ouvrir le manuel" />
     <string
       id="ret_mariner_captain_reason"
-      text="Les capitaines partagent la capacité de marin de leurs troupes de base" />
+      text="Les capitaines partagent le trait Marin de leur troupe d’origine." />
     <string
       id="ret_mariner_disable_confirm_description"
-      text="Cette troupe a {POINTS} point(s) investis dans la compétence Marin. Désactiver la capacité de marin réinitialisera ce nombre à 0." />
+      text="Cette troupe a investi {POINTS} point(s) dans la compétence Marin. Désactiver le trait Marin ramènera cette compétence à 0." />
     <string
       id="ret_mariner_disable_confirm_title"
-      text="Désactiver le trait marin" />
+      text="Désactiver le trait Marin" />
     <string
       id="ret_mariner_disable_tooltip"
-      text="Désactiver le trait &apos;marin&apos;" />
+      text="Désactiver le trait Marin" />
     <string
       id="ret_mariner_enable_tooltip"
-      text="Activer le trait &apos;marin&apos;" />
+      text="Activer le trait Marin" />
     <string
       id="ret_mariner_hero_reason"
-      text="Les héros ne peuvent pas être des marins" />
+      text="Les héros ne peuvent pas recevoir le trait Marin" />
     <string
       id="ret_mariner_toggle_tooltip"
       text="Marin : mieux adapté au combat naval, mais gagne des points de compétence à un rythme réduit" />
@@ -1737,40 +1797,40 @@
       text="Marin : mieux adapté au combat naval" />
     <string
       id="ret_mcm_option_ai_clan_retinue_cap_percent"
-      text="Plafond de suite IA (% du groupe)" />
+      text="Gardes de l’IA : part maximale (%)" />
     <string
       id="ret_mcm_option_ai_clan_retinue_cap_percent_hint"
-      text="Pourcentage maximal de la taille du groupe d&apos;un seigneur que les troupes de suite peuvent occuper (1-50)." />
+      text="Part maximale de gardes dans la capacité des groupes de l’IA, de 1 à 50 %." />
     <string
       id="ret_mcm_option_ai_clan_retinue_convert_chance"
-      text="Chance de promotion quotidienne de la suite IA (%)" />
+      text="Recrutement des gardes de l’IA (%)" />
     <string
       id="ret_mcm_option_ai_clan_retinue_convert_chance_hint"
-      text="Probabilité par jour qu&apos;un groupe de seigneur éligible convertisse une troupe de niveau correspondant en suite (1-100)." />
+      text="Probabilité quotidienne de convertir une troupe de rang approprié en garde." />
     <string
       id="ret_mcm_option_ai_clan_retinue_equipment_upgrades"
-      text="Amélioration d&apos;équipement des retenues IA" />
+      text="Équipement des gardes de l’IA (%)" />
     <string
       id="ret_mcm_option_ai_clan_retinue_equipment_upgrades_hint"
-      text="Les retenues des clans IA ont chaque jour une petite chance d&apos;améliorer une pièce de leur équipement." />
+      text="Probabilité quotidienne qu’un garde de l’IA améliore son équipement." />
     <string
       id="ret_mcm_option_ai_clan_retinue_leader_only"
-      text="Seuls les chefs de clan ont une suite" />
+      text="Réserver les gardes aux chefs de clan" />
     <string
       id="ret_mcm_option_ai_clan_retinue_leader_only_hint"
-      text="Si activé, seul le groupe du chef de clan gagnera et utilisera des suites. Si désactivé, tous les groupes de seigneurs du clan sont éligibles." />
+      text="Si activé, seuls les groupes dirigés par un chef de clan peuvent recruter des gardes. Sinon, tous les groupes de seigneurs éligibles le peuvent." />
     <string
       id="ret_mcm_option_ai_clan_retinue_min_tier"
-      text="Niveau minimum de suite du clan IA" />
+      text="Rang de clan minimal pour les gardes de l’IA" />
     <string
       id="ret_mcm_option_ai_clan_retinue_min_tier_hint"
-      text="Niveau de clan minimum (1-6) requis pour qu&apos;un clan non-joueur ait sa propre suite." />
+      text="Rang minimal qu’un clan de l’IA doit atteindre pour disposer d’une garde personnelle (de 1 à 6)." />
     <string
       id="ret_mcm_option_ai_clan_troops_availability"
-      text="Troupes personnalisées des clans IA" />
+      text="Troupes personnalisées des clans de l’IA" />
     <string
       id="ret_mcm_option_ai_clan_troops_availability_hint"
-      text="Comment les AUTRES clans disposant de troupes personnalisées (par ex. les clans de votre royaume que vous avez configurés) les déploient. Votre propre recrutement utilise les deux réglages ci-dessus." />
+      text="Détermine où les autres clans recrutent leurs troupes personnalisées, y compris ceux dont vous avez modifié l’arbre. Votre propre recrutement se règle séparément." />
     <string
       id="ret_mcm_option_allowed_recruiters"
       text="Recruteurs autorisés" />
@@ -1779,58 +1839,58 @@
       text="Détermine qui peut recruter des troupes personnalisées." />
     <string
       id="ret_mcm_option_body_mod_compatibility"
-      text="Compatibilité des mods de corps" />
+      text="Compatibilité avec les mods de corps" />
     <string
       id="ret_mcm_option_body_mod_compatibility_hint"
       text="Activez si vos troupes personnalisées s&apos;affichent mal avec un mod de corps. Les modifications de corps par troupe sont alors ignorées." />
     <string
       id="ret_mcm_option_buff_retinue_health"
-      text="Augmenter la santé de la suite" />
+      text="Bonus de points de vie des gardes" />
     <string
       id="ret_mcm_option_buff_retinue_health_hint"
-      text="Si activé, les troupes de suite recevront un bonus de santé." />
+      text="Accorde aux gardes un bonus de points de vie." />
     <string
       id="ret_mcm_option_buff_retinue_skill_cap"
-      text="Augmenter le plafond de compétences de la suite" />
+      text="Bonus aux plafonds de compétence des gardes" />
     <string
       id="ret_mcm_option_buff_retinue_skill_cap_hint"
-      text="Si activé, les troupes de suite recevront un bonus de plafond de compétences." />
+      text="Augmente le plafond de chaque compétence des gardes." />
     <string
       id="ret_mcm_option_buff_retinue_skill_total"
-      text="Augmenter le total de compétences de la suite" />
+      text="Bonus au total de compétences des gardes" />
     <string
       id="ret_mcm_option_buff_retinue_skill_total_hint"
-      text="Si activé, les troupes de suite recevront un bonus de total de compétences." />
+      text="Augmente le total maximal de points de compétence des gardes." />
     <string
       id="ret_mcm_option_captain_spawn_rate"
-      text="Taux d&apos;apparition des capitaines" />
+      text="Fréquence des capitaines" />
     <string
       id="ret_mcm_option_captain_spawn_rate_hint"
-      text="Détermine combien de troupes régulières doivent être déployées avant qu&apos;un autre capitaine puisse apparaître." />
+      text="Nombre de soldats ordinaires pour lesquels un capitaine apparaît au combat." />
     <string
       id="ret_mcm_option_clan_troops_availability"
-      text="Vos troupes de clan" />
+      text="Vos troupes du clan" />
     <string
       id="ret_mcm_option_clan_troops_availability_hint"
-      text="Où VOUS pouvez recruter les troupes personnalisées de votre propre clan. Les autres clans sont gérés par le réglage « Troupes personnalisées des clans IA » ci-dessous." />
+      text="Détermine où vous pouvez recruter les troupes personnalisées de votre clan. Le recrutement des autres clans se règle séparément." />
     <string
       id="ret_mcm_option_clan_troops_unlock"
-      text="Troupes de clan" />
+      text="Troupes du clan" />
     <string
       id="ret_mcm_option_clan_troops_unlock_hint"
-      text="Détermine quand les troupes de clan deviennent disponibles." />
+      text="Détermine quand les troupes du clan deviennent disponibles." />
     <string
       id="ret_mcm_option_default_unlocked_amount_per_slot"
-      text="Quantité pré-déverrouillée par catégorie" />
+      text="Objets débloqués au départ par emplacement" />
     <string
       id="ret_mcm_option_default_unlocked_amount_per_slot_hint"
-      text="Le nombre d&apos;objets déverrouillés par catégorie d&apos;équipement au début du jeu." />
+      text="Nombre d’objets débloqués au départ pour chaque emplacement d’équipement." />
     <string
       id="ret_mcm_option_default_unlocked_item_max_tier"
-      text="Niveau Max Pré-Déverrouillé" />
+      text="Rang maximal des objets débloqués au départ" />
     <string
       id="ret_mcm_option_default_unlocked_item_max_tier_hint"
-      text="Le niveau maximum des objets déverrouillés au début du jeu." />
+      text="Rang maximal des objets pouvant être débloqués au départ." />
     <string
       id="ret_mcm_option_doctrine_influence_cost_multiplier"
       text="Multiplicateur du coût en influence des doctrines" />
@@ -1839,10 +1899,10 @@
       text="Multiplicateur affectant le coût en influence de l&apos;acquisition des doctrines." />
     <string
       id="ret_mcm_option_doctrine_money_cost_multiplier"
-      text="Multiplicateur du coût en argent des doctrines" />
+      text="Multiplicateur du coût des doctrines en deniers" />
     <string
       id="ret_mcm_option_doctrine_money_cost_multiplier_hint"
-      text="Multiplicateur affectant le coût en argent de l&apos;acquisition des doctrines." />
+      text="Multiplie le coût en deniers de l’acquisition des doctrines." />
     <string
       id="ret_mcm_option_doctrines_cost_influence"
       text="Les doctrines coûtent de l&apos;influence" />
@@ -1851,295 +1911,298 @@
       text="Si activé, l&apos;acquisition des doctrines coûtera de l&apos;influence." />
     <string
       id="ret_mcm_option_doctrines_cost_money"
-      text="Les doctrines coûtent de l&apos;argent" />
+      text="Coût des doctrines en deniers" />
     <string
       id="ret_mcm_option_doctrines_cost_money_hint"
-      text="Si activé, l&apos;acquisition des doctrines coûtera de l&apos;argent." />
+      text="Si activé, acquérir une doctrine coûte des deniers." />
     <string
       id="ret_mcm_option_editing_restriction"
-      text="Restrictions de Localisation" />
+      text="Restrictions de lieu" />
     <string
       id="ret_mcm_option_editing_restriction_hint"
       text="Restreint les endroits où les troupes de faction peuvent être modifiées." />
     <string
       id="ret_mcm_option_editor_hotkey"
-      text="Raccourci Éditeur" />
+      text="Raccourci de l’éditeur" />
     <string
       id="ret_mcm_option_editor_hotkey_hint"
       text="Active la touche [R] pour ouvrir l&apos;éditeur." />
     <string
       id="ret_mcm_option_enable_ai_clan_retinues"
-      text="Activer les rétinues pour les clans IA" />
+      text="Activer les gardes des clans de l’IA" />
     <string
       id="ret_mcm_option_enable_ai_clan_retinues_hint"
-      text="Si activé, les clans non-joueurs atteignant le niveau minimum auront leurs propres rétinues." />
+      text="Accorde une garde personnelle aux clans de l’IA qui atteignent le rang minimal requis." />
     <string
       id="ret_mcm_option_enable_doctrines"
-      text="Activer les Doctrines" />
+      text="Activer les doctrines" />
     <string
       id="ret_mcm_option_enable_doctrines_hint"
       text="Active ou désactive la fonctionnalité des doctrines." />
     <string
       id="ret_mcm_option_enable_equipment_costs_money_hint"
-      text="Si activé, l&apos;équipement des troupes coûtera de l&apos;argent. Active également le système de stocks." />
+      text="L’équipement des troupes devient payant et le système de stocks est activé." />
     <string
       id="ret_mcm_option_enable_feat_requirements"
-      text="Activer les exigences d&apos;exploits" />
+      text="Exiger les hauts faits" />
     <string
       id="ret_mcm_option_enable_feat_requirements_hint"
-      text="Si activé, les doctrines nécessitent des exploits spécifiques à accomplir avant de pouvoir être acquises." />
+      text="Si activé, des hauts faits doivent être accomplis pour débloquer les doctrines avant de pouvoir les acquérir." />
     <string
       id="ret_mcm_option_enable_retinues"
-      text="Activer les Rétinues" />
+      text="Activer la garde personnelle" />
     <string
       id="ret_mcm_option_enable_retinues_hint"
-      text="Active ou désactive la fonctionnalité des rétinues." />
+      text="Active ou désactive la garde personnelle." />
     <string
       id="ret_mcm_option_enable_universal_editor"
-      text="Activer l&apos;Éditeur Universel" />
+      text="Activer l’éditeur universel" />
     <string
       id="ret_mcm_option_enable_universal_editor_hint"
-      text="Active l&apos;Éditeur Universel, qui peut être utilisé pour modifier les troupes et héros de base." />
+      text="Active l’éditeur universel pour modifier les troupes et les héros du jeu de base." />
     <string
       id="ret_mcm_option_enforce_equipment_limits"
       text="Appliquer les limites d&apos;équipement" />
     <string
       id="ret_mcm_option_enforce_equipment_limits_hint"
-      text="Si activé, l&apos;Éditeur Universel appliquera les limites d&apos;équipement normales lors de la modification des troupes de base." />
+      text="Applique les limites habituelles d’équipement aux troupes du jeu de base modifiées dans l’éditeur universel." />
     <string
       id="ret_mcm_option_enforce_equipment_tier_limit"
-      text="Limiter le niveau de l&apos;équipement" />
+      text="Limiter le rang de l’équipement" />
     <string
       id="ret_mcm_option_enforce_equipment_tier_limit_hint"
-      text="Empêche les troupes de porter un équipement de niveau trop supérieur au leur." />
+      text="Empêche les troupes de porter un équipement de rang trop supérieur au leur." />
     <string
       id="ret_mcm_option_enforce_skill_limits"
       text="Appliquer les limites de compétence" />
     <string
       id="ret_mcm_option_enforce_skill_limits_hint"
-      text="Si activé, l&apos;Éditeur Universel appliquera les limites de compétence normales lors de la modification des troupes de base." />
+      text="Applique les limites habituelles de compétence aux troupes du jeu de base modifiées dans l’éditeur universel." />
     <string
       id="ret_mcm_option_equipment_cost_money"
-      text="L&apos;Équipement Coûte de l&apos;Argent" />
+      text="Équipement payant" />
     <string
       id="ret_mcm_option_equipment_cost_multiplier"
-      text="Multiplicateur de Coût" />
+      text="Multiplicateur du coût" />
     <string
       id="ret_mcm_option_equipment_cost_multiplier_hint"
       text="Détermine le coût pour équiper un nouvel objet." />
     <string
       id="ret_mcm_option_equipment_max_tier_difference"
-      text="Différence de niveau maximale" />
+      text="Écart de rang maximal" />
     <string
       id="ret_mcm_option_equipment_max_tier_difference_hint"
-      text="De combien de niveaux l&apos;équipement d&apos;une troupe peut dépasser le sien (0 = l&apos;équipement ne peut pas dépasser le niveau de la troupe)." />
+      text="Nombre de rangs dont l’équipement peut dépasser celui de la troupe. À 0, il ne peut pas le dépasser." />
     <string
       id="ret_mcm_option_equipment_needs_unlocking"
-      text="L&apos;Équipement Doit Être Déverrouillé" />
+      text="Déblocage de l’équipement requis" />
     <string
       id="ret_mcm_option_equipment_needs_unlocking_hint"
-      text="Si activé, les troupes devront déverrouiller les objets avant de pouvoir les équiper." />
+      text="Si activé, les objets doivent être débloqués avant de pouvoir être équipés." />
     <string
       id="ret_mcm_option_equipment_value_limit"
-      text="Limites de Valeur" />
+      text="Limiter la valeur de l’équipement" />
     <string
       id="ret_mcm_option_equipment_value_limit_hint"
-      text="Si la valeur totale de l&apos;équipement doit être limitée (les limites sont basées sur le niveau)." />
+      text="Limite la valeur totale de l’équipement en fonction du rang de la troupe." />
     <string
       id="ret_mcm_option_equipment_value_limit_multiplier"
-      text="Multiplicateur de Limite de Valeur" />
+      text="Multiplicateur de la limite de valeur" />
     <string
       id="ret_mcm_option_equipment_value_limit_multiplier_hint"
       text="Affecte la limite de valeur totale maximale de l&apos;équipement." />
     <string
       id="ret_mcm_option_equipment_weight_limit"
-      text="Limites de Poids" />
+      text="Limiter le poids de l’équipement" />
     <string
       id="ret_mcm_option_equipment_weight_limit_multiplier"
-      text="Multiplicateur de Limite de Poids" />
+      text="Multiplicateur de la limite de poids" />
     <string
       id="ret_mcm_option_equipment_weight_limit_multiplier_hint"
-      text="Affecte la limite de poids totale maximale de l&apos;équipement." />
+      text="Modifie le poids total maximal de l’équipement." />
     <string
       id="ret_mcm_option_equipping_progresses_while_travelling"
-      text="Équiper en Voyageant" />
+      text="S’équiper en voyage" />
     <string
       id="ret_mcm_option_equipping_progresses_while_travelling_hint"
-      text="Si l&apos;équipement progresse pendant que le groupe voyage ou uniquement pendant l&apos;attente dans les établissements." />
+      text="Permet à l’équipement en cours de progresser en voyage. Sinon, il ne progresse que lors des séjours dans les localités." />
     <string
       id="ret_mcm_option_equipping_takes_time"
-      text="Équiper Prend du Temps" />
+      text="L’équipement prend du temps" />
     <string
       id="ret_mcm_option_equipping_takes_time_hint"
-      text="Si activé, l&apos;équipement des troupes ne sera pas instantané et prendra du temps à être terminé." />
+      text="Les changements d’équipement sont appliqués progressivement au lieu d’être instantanés." />
     <string
       id="ret_mcm_option_exclude_custom_tournaments"
       text="Exclure les troupes personnalisées des tournois" />
     <string
+      id="ret_mcm_option_exclude_custom_tournaments_hint"
+      text="Exclut les troupes personnalisées des participants aux tournois. Les places sont occupées par des troupes du jeu de base et des seigneurs, plutôt que par vos soldats personnalisés en garnison." />
+    <string
       id="ret_mcm_option_feat_complete_notification"
-      text="Notification d&apos;Accomplissement d&apos;Exploit" />
+      text="Notifications de hauts faits" />
     <string
       id="ret_mcm_option_feat_complete_notification_hint"
-      text="Détermine comment les notifications d&apos;accomplissement d&apos;exploit sont affichées." />
+      text="Mode d’affichage des hauts faits accomplis." />
     <string
       id="ret_mcm_option_item_unlock_notification"
-      text="Notification de Déverrouillage d&apos;Objet" />
+      text="Notifications de déblocage d’objets" />
     <string
       id="ret_mcm_option_item_unlock_notification_hint"
-      text="Détermine comment les notifications de déverrouillage d&apos;objet sont affichées." />
+      text="Mode d’affichage des objets débloqués." />
     <string
       id="ret_mcm_option_kingdom_troops_availability"
-      text="Vos troupes royales" />
+      text="Vos troupes du royaume" />
     <string
       id="ret_mcm_option_kingdom_troops_availability_hint"
-      text="Où VOUS pouvez recruter les troupes personnalisées de votre royaume (en tant que souverain). Les autres clans sont gérés par le réglage « Troupes personnalisées des clans IA » ci-dessous." />
+      text="Détermine où vous pouvez recruter les troupes personnalisées de votre royaume en tant que souverain. Le recrutement des autres clans se règle séparément." />
     <string
       id="ret_mcm_option_kingdom_troops_unlock"
-      text="Troupes royales" />
+      text="Troupes du royaume" />
     <string
       id="ret_mcm_option_kingdom_troops_unlock_hint"
-      text="Détermine quand les troupes royales deviennent disponibles." />
+      text="Détermine quand les troupes du royaume deviennent disponibles." />
     <string
       id="ret_mcm_option_max_retinue_ratio"
-      text="Ratio Maximum de Rétinues" />
+      text="Part maximale de gardes" />
     <string
       id="ret_mcm_option_max_retinue_ratio_hint"
-      text="Le nombre maximum de rétinues en fonction de la taille maximale du groupe." />
+      text="Nombre maximal de gardes, exprimé en proportion de la capacité du groupe." />
     <string
       id="ret_mcm_option_max_troop_tier"
-      text="Niveau maximum des troupes" />
+      text="Rang maximal des troupes" />
     <string
       id="ret_mcm_option_max_troop_tier_hint"
-      text="Le niveau maximum qu&apos;une troupe personnalisée peut atteindre." />
+      text="Rang maximal des troupes d’élite personnalisées. Les troupes régulières s’arrêtent un rang plus bas." />
     <string
       id="ret_mcm_option_min_tier_for_mounts"
-      text="Niveau Minimum Pour les Montures" />
+      text="Rang minimal pour les montures" />
     <string
       id="ret_mcm_option_min_tier_for_mounts_hint"
-      text="Les troupes en dessous du niveau spécifié ne seront pas autorisées à être montées." />
+      text="Rang minimal requis pour équiper une monture." />
     <string
       id="ret_mcm_option_min_tier_for_noble_mounts"
-      text="Niveau Minimum Pour les Montures Nobles" />
+      text="Rang minimal pour les montures nobles" />
     <string
       id="ret_mcm_option_min_tier_for_noble_mounts_hint"
-      text="Les troupes en dessous du niveau spécifié ne seront pas autorisées à utiliser des montures nobles." />
+      text="Rang minimal requis pour équiper une monture noble." />
     <string
       id="ret_mcm_option_min_tier_for_war_mounts"
-      text="Niveau Minimum Pour les Montures de Guerre" />
+      text="Rang minimal pour les montures de guerre" />
     <string
       id="ret_mcm_option_min_tier_for_war_mounts_hint"
-      text="Les troupes en dessous du niveau spécifié ne seront pas autorisées à utiliser des montures de guerre." />
+      text="Rang minimal requis pour équiper une monture de guerre." />
     <string
       id="ret_mcm_option_mix_with_vanilla_troops"
-      text="Mélanger avec des Troupes Originelles" />
+      text="Mélanger avec les troupes du jeu de base" />
     <string
       id="ret_mcm_option_mix_with_vanilla_troops_hint"
-      text="Si activé, les troupes personnalisées seront mélangées avec les troupes originelles parmi les volontaires." />
+      text="Mélange les troupes personnalisées et celles du jeu de base parmi les recrues disponibles." />
     <string
       id="ret_mcm_option_mixed_gender_ratio"
-      text="Ratio de Genre Mixte" />
+      text="Proportion de l’autre sexe" />
     <string
       id="ret_mcm_option_mixed_gender_ratio_hint"
-      text="Définit la probabilité pour que les unités de genre mixte apparaissent en tant que membre du sexe opposé." />
+      text="Pour les troupes mixtes, probabilité qu’un soldat apparaisse avec le sexe opposé à celui défini dans l’éditeur." />
     <string
       id="ret_mcm_option_random_item_max_tier"
-      text="Niveau Max des Objets Aléatoires" />
+      text="Rang maximal de l’équipement aléatoire" />
     <string
       id="ret_mcm_option_random_item_max_tier_hint"
-      text="Le niveau maximum pour l&apos;équipement de départ attribué au hasard. Le niveau de l&apos;objet est également plafonné par le niveau de l&apos;unité&apos;." />
+      text="Rang maximal de l’équipement de départ attribué au hasard. Il ne peut pas non plus dépasser le rang de la troupe." />
     <string
       id="ret_mcm_option_required_days_to_unlock"
-      text="Jours Requis Pour Déverrouiller" />
+      text="Jours requis pour un déblocage" />
     <string
       id="ret_mcm_option_required_days_to_unlock_hint"
-      text="Le nombre de jours qu&apos;il faut à un atelier pour déverrouiller un objet." />
+      text="Nombre de jours nécessaires à un atelier pour débloquer un objet." />
     <string
       id="ret_mcm_option_required_discards_to_unlock"
-      text="Rejets Requis Pour Déverrouiller" />
+      text="Exemplaires à donner pour un déblocage" />
     <string
       id="ret_mcm_option_required_discards_to_unlock_hint"
-      text="Le nombre de fois qu&apos;un objet doit être rejeté pour le déverrouiller." />
+      text="Nombre d’exemplaires d’un objet à donner en le défaussant de l’inventaire pour le débloquer." />
     <string
       id="ret_mcm_option_required_kills_to_unlock"
-      text="Ennemis Vaincus Requis Pour Déverrouiller" />
+      text="Ennemis à vaincre pour un déblocage" />
     <string
       id="ret_mcm_option_required_kills_to_unlock_hint"
-      text="Le nombre de troupes ennemies portant un objet qui doivent être vaincues pour le déverrouiller." />
+      text="Nombre d’ennemis portant un même objet à vaincre pour le débloquer." />
     <string
       id="ret_mcm_option_retinue_health_bonus"
-      text="Bonus de Santé des Rétinues" />
+      text="Points de vie supplémentaires des gardes" />
     <string
       id="ret_mcm_option_retinue_health_bonus_hint"
-      text="Le montant ajouté à la santé des rétinues lorsque le bonus de santé des rétinues est activé." />
+      text="Points de vie ajoutés lorsque le bonus de points de vie des gardes est activé." />
     <string
       id="ret_mcm_option_retinue_rank_up_gold_cost"
-      text="Coût en or de la montée en grade" />
+      text="Montée en rang : coût en deniers" />
     <string
       id="ret_mcm_option_retinue_rank_up_gold_cost_hint"
-      text="Multiplicateur du coût en or pour faire monter une rétinue en grade (base : 1000 × niveau suivant). Mettez 0 pour aucun coût en or." />
+      text="Multiplie le coût en deniers de la montée en rang d’un garde (base : 1 000 × rang suivant). À 0, aucun denier n’est requis." />
     <string
       id="ret_mcm_option_retinue_rank_up_sp_cost"
-      text="Coût en points de compétence de la montée en grade" />
+      text="Montée en rang : coût en points de compétence" />
     <string
       id="ret_mcm_option_retinue_rank_up_sp_cost_hint"
-      text="Multiplicateur du coût en points de compétence pour faire monter une rétinue en grade (base : 5 × niveau actuel). Mettez 0 pour aucun coût en points de compétence." />
+      text="Multiplie le coût en points de compétence de la montée en rang d’un garde (base : 5 × rang actuel). À 0, aucun point n’est requis." />
     <string
       id="ret_mcm_option_retinue_skill_cap_bonus"
-      text="Bonus de Plafond de Compétence des Rétinues" />
+      text="Supplément aux plafonds de compétence des gardes" />
     <string
       id="ret_mcm_option_retinue_skill_cap_bonus_hint"
-      text="Le montant ajouté aux plafonds de compétence des rétinues lorsque le bonus de plafond de compétence des rétinues est activé." />
+      text="Valeur ajoutée à chaque plafond de compétence lorsque ce bonus des gardes est activé." />
     <string
       id="ret_mcm_option_retinue_skill_total_bonus"
-      text="Bonus de Compétence Totale des Rétinues" />
+      text="Supplément au total de compétences des gardes" />
     <string
       id="ret_mcm_option_retinue_skill_total_bonus_hint"
-      text="Le montant ajouté aux totaux de compétences des rétinues lorsque le bonus de compétence totale des rétinues est activé." />
+      text="Valeur ajoutée au total maximal de points de compétence lorsque ce bonus des gardes est activé." />
     <string
       id="ret_mcm_option_retinue_unlock_speed"
-      text="Vitesse de Déverrouillage des Rétinues" />
+      text="Vitesse de déblocage des gardes" />
     <string
       id="ret_mcm_option_retinue_unlock_speed_hint"
-      text="Multiplicateur affectant la rapidité avec laquelle de nouvelles rétinues sont déverrouillées." />
+      text="Multiplie la vitesse de déblocage des nouveaux types de gardes." />
     <string
       id="ret_mcm_option_same_culture_only"
-      text="Même Culture Seulement" />
+      text="Recrutement dans la même culture" />
     <string
       id="ret_mcm_option_same_culture_only_hint"
-      text="Si activé, les troupes personnalisées ne peuvent être recrutées que dans des fiefs de la même culture." />
+      text="Limite le recrutement des troupes personnalisées aux localités de leur culture." />
     <string
       id="ret_mcm_option_shared_skill_points_pool"
-      text="Réserve de Points de Compétence Partagée" />
+      text="Réserve commune de points de compétence" />
     <string
       id="ret_mcm_option_shared_skill_points_pool_hint"
-      text="Si activé, toutes les troupes personnalisées tirent des points de compétence d&apos;une seule réserve partagée au lieu que chaque troupe ait le sien." />
+      text="Toutes les troupes personnalisées utilisent une réserve commune de points de compétence au lieu d’une réserve par type de troupe." />
     <string
       id="ret_mcm_option_skill_cap"
-      text="Plafond de Compétence du Niveau {TIER}" />
+      text="Plafond par compétence au rang {TIER}" />
     <string
       id="ret_mcm_option_skill_points_gain_rate"
-      text="Taux de Gain" />
+      text="Taux de gain" />
     <string
       id="ret_mcm_option_skill_points_gain_rate_hint"
       text="Taux auquel les troupes gagnent des points de compétence au combat." />
     <string
       id="ret_mcm_option_skill_points_must_be_earned"
-      text="Les Points de Compétence Doivent Être Gagnés" />
+      text="Points de compétence à gagner" />
     <string
       id="ret_mcm_option_skill_points_must_be_earned_hint"
-      text="Si activé, les troupes devront gagner des points de compétence au combat avant de monter en compétence." />
+      text="Les troupes doivent gagner des points de compétence avant de pouvoir améliorer leurs compétences." />
     <string
       id="ret_mcm_option_skill_progress_per_day"
-      text="Points Entraînés Par Jour" />
+      text="Points entraînés par jour" />
     <string
       id="ret_mcm_option_skill_progress_per_day_hint"
       text="Détermine la vitesse d&apos;entraînement en points par jour." />
     <string
       id="ret_mcm_option_skill_total"
-      text="Total de Compétence du Niveau {TIER}" />
+      text="Total de points de compétence au rang {TIER}" />
     <string
       id="ret_mcm_option_starter_equipment"
-      text="Équipement Initial" />
+      text="Équipement de départ" />
     <string
       id="ret_mcm_option_starter_equipment_hint"
       text="Définit l&apos;équipement de départ pour les troupes nouvellement débloquées." />
@@ -2151,64 +2214,64 @@
       text="Définit les niveaux de compétence de départ des troupes nouvellement débloquées." />
     <string
       id="ret_mcm_option_starter_troops"
-      text="Troupes Initiales" />
+      text="Arbres de départ" />
     <string
       id="ret_mcm_option_starter_troops_hint"
       text="Détermine les troupes de départ du clan et du royaume." />
     <string
       id="ret_mcm_option_time_multiplier"
-      text="Multiplicateur de Temps d&apos;Équipement" />
+      text="Multiplicateur du délai d’équipement" />
     <string
       id="ret_mcm_option_time_multiplier_hint"
       text="Détermine le temps nécessaire pour équiper une nouvelle pièce d&apos;équipement." />
     <string
       id="ret_mcm_option_training_progresses_while_travelling"
-      text="Entraînement en Voyageant" />
+      text="S’entraîner en voyage" />
     <string
       id="ret_mcm_option_training_progresses_while_travelling_hint"
-      text="Si la progression de l&apos;entraînement se produit pendant que le groupe voyage ou uniquement pendant l&apos;attente dans les établissements." />
+      text="Permet à l’entraînement de progresser en voyage. Sinon, il ne progresse que lors des séjours dans les localités." />
     <string
       id="ret_mcm_option_training_takes_time"
-      text="L&apos;Entraînement Prend du Temps" />
+      text="L’entraînement prend du temps" />
     <string
       id="ret_mcm_option_training_takes_time_hint"
-      text="Si activé, l&apos;augmentation des compétences ne sera pas instantanée et prendra du temps à être améliorée." />
+      text="Les améliorations de compétences sont appliquées progressivement au lieu d’être instantanées." />
     <string
       id="ret_mcm_option_unlock_items_through_discards"
-      text="Dévérouiller les Objets en les Rejetant" />
+      text="Débloquer par les dons d’équipement" />
     <string
       id="ret_mcm_option_unlock_items_through_discards_hint"
-      text="Si les objets peuvent être déverrouillés en les jetant." />
+      text="Permet de débloquer des objets en les défaussant de l’inventaire." />
     <string
       id="ret_mcm_option_unlock_items_through_kills"
-      text="Dévérouiller les Objets en Vainquant des Ennemis" />
+      text="Débloquer en vainquant des ennemis" />
     <string
       id="ret_mcm_option_unlock_items_through_kills_hint"
-      text="Si les objets peuvent être déverrouillés en vainquant des ennemis au combat." />
+      text="Permet de débloquer l’équipement des ennemis vaincus au combat." />
     <string
       id="ret_mcm_option_unlock_items_through_workshops"
-      text="Dévérouiller les Objets via les Ateliers" />
+      text="Débloquer grâce aux ateliers" />
     <string
       id="ret_mcm_option_unlock_items_through_workshops_hint"
-      text="La possession d&apos;ateliers déverrouille-t-elle des objets au fil du temps. Les objets sont sélectionnés en fonction du type d&apos;atelier et de la culture de l&apos;établissement." />
+      text="Vos ateliers débloquent progressivement des objets selon leur activité et la culture de leur localité." />
     <string
       id="ret_mcm_option_weight_limit_hint"
-      text="Limiter le poids total de l&apos;équipement (les limites sont basées sur le niveau)." />
+      text="Limite le poids total de l’équipement en fonction du rang de la troupe." />
     <string
       id="ret_mcm_option_xp_from_auto_resolve"
-      text="Gagner en résolution automatique" />
+      text="Points gagnés en résolution automatique" />
     <string
       id="ret_mcm_option_xp_from_auto_resolve_hint"
       text="Les troupes personnalisées gagnent des points de compétence dans les batailles résolues automatiquement." />
     <string
       id="ret_mcm_option_xp_from_manual_battles"
-      text="Gagner en batailles manuelles" />
+      text="Points gagnés dans les batailles jouées" />
     <string
       id="ret_mcm_option_xp_from_manual_battles_hint"
       text="Les troupes personnalisées gagnent des points de compétence dans les batailles que vous menez vous-même." />
     <string
       id="ret_mcm_option_xp_from_training"
-      text="Gagner par l&apos;entraînement" />
+      text="Points gagnés par l’entraînement quotidien" />
     <string
       id="ret_mcm_option_xp_from_training_hint"
       text="Seules les troupes personnalisées de votre groupe principal gagnent des points de compétence grâce à l&apos;entraînement quotidien. Désactivé par défaut." />
@@ -2217,7 +2280,7 @@
       text="Compatibilité" />
     <string
       id="ret_mcm_section_compatibility_desc"
-      text="Options d&apos;interopérabilité avec d&apos;autres mods." />
+      text="Réglages de compatibilité avec les autres mods." />
     <string
       id="ret_mcm_section_doctrines"
       text="Doctrines" />
@@ -2229,10 +2292,10 @@
       text="Équipement" />
     <string
       id="ret_mcm_section_equipment_desc"
-      text="Coûts, limites et timing de l&apos;équipement." />
+      text="Coûts, limites et délais d’équipement." />
     <string
       id="ret_mcm_section_equipment_unlocks"
-      text="Acquisitions d&apos;Équipements" />
+      text="Déblocage de l’équipement" />
     <string
       id="ret_mcm_section_equipment_unlocks_desc"
       text="Comment les équipements sont débloqués au fil du temps." />
@@ -2241,67 +2304,67 @@
       text="Recrutement" />
     <string
       id="ret_mcm_section_recruitment_desc"
-      text="Où et qui peut recruter des troupes personnalisées." />
+      text="Lieux de recrutement et groupes autorisés à recruter les troupes personnalisées." />
     <string
       id="ret_mcm_section_restrictions"
       text="Restrictions" />
     <string
       id="ret_mcm_section_restrictions_desc"
-      text="Où l&apos;édition est autorisée et autres limites." />
+      text="Lieux autorisés pour les modifications et autres restrictions." />
     <string
       id="ret_mcm_section_retinues"
-      text="Rétinues" />
+      text="Garde personnelle" />
     <string
       id="ret_mcm_section_retinues_desc"
-      text="Fonctionnalité de base des rétinues, déverrouillage et bonus." />
+      text="Activation, déblocage et bonus de la garde personnelle." />
     <string
       id="ret_mcm_section_skill_caps"
-      text="Limites de Compétences" />
+      text="Plafonds par compétence" />
     <string
       id="ret_mcm_section_skill_caps_desc"
-      text="Nombre maximum de points de compétence par niveau de troupe." />
+      text="Niveau maximal de chaque compétence selon le rang de la troupe." />
     <string
       id="ret_mcm_section_skill_totals"
-      text="Totaux de Compétences" />
+      text="Totaux de points de compétence" />
     <string
       id="ret_mcm_section_skill_totals_desc"
-      text="Nombre maximum de points de compétence total par niveau de troupe." />
+      text="Somme maximale des points de compétence selon le rang de la troupe." />
     <string
       id="ret_mcm_section_skills"
       text="Compétences" />
     <string
       id="ret_mcm_section_skills_desc"
-      text="Règles de gain de compétences et comportement d&apos;entraînement." />
+      text="Gains de points de compétence et règles d’entraînement." />
     <string
       id="ret_mcm_section_troops"
       text="Troupes" />
     <string
       id="ret_mcm_section_troops_desc"
-      text="Disponibilité des troupes et options de génération de départ." />
+      text="Déblocage et création des arbres de troupes de départ." />
     <string
       id="ret_mcm_section_universal_editor"
-      text="Éditeur Universel" />
+      text="Éditeur universel" />
     <string
       id="ret_mcm_section_universal_editor_desc"
-      text="Paramètres pour éditer les troupes et héros de base." />
+      text="Réglages pour modifier les troupes et héros du jeu de base." />
     <string
       id="ret_mcm_section_user_interface"
-      text="Interface Utilisateur" />
+      text="Interface" />
     <string
       id="ret_mcm_section_user_interface_desc"
       text="Accès à l&apos;éditeur et notifications en jeu." />
     <string
       id="ret_migration_popup_body"
-      text="Vos données de sauvegarde de Retinues {SAVE_VERSION} ont été migrées vers la version actuelle ({CURRENT_VERSION}) au mieux. Il est recommandé de commencer une nouvelle partie pour une expérience optimale.{newline}{newline}Si vous souhaitez continuer sur votre ancienne sauvegarde avec la version précédente, ne sauvegardez pas et téléchargez le fichier {SAVE_VERSION} sur Nexus Mods." />
+      text="Les données de Retinues {SAVE_VERSION} de cette sauvegarde ont été adaptées à la version actuelle ({CURRENT_VERSION}) dans la mesure du possible. Une nouvelle campagne reste recommandée.{newline}{newline}Si vous préférez continuer cette sauvegarde avec l’ancienne version, ne sauvegardez pas et téléchargez la version {SAVE_VERSION} sur Nexus Mods." />
     <string
       id="ret_migration_popup_title"
       text="Mise à jour de Retinues v2" />
     <string
       id="ret_mixed_gender_disable_tooltip"
-      text="Permettre à l&apos;unité d&apos;être déployée en tant qu&apos;homme ou femme" />
+      text="Autoriser des hommes et des femmes dans cette troupe" />
     <string
       id="ret_mixed_gender_enable_tooltip"
-      text="Empêcher l&apos;unité d&apos;être déployée en tant qu&apos;homme ou femme" />
+      text="Limiter cette troupe au sexe défini dans l’éditeur" />
     <string
       id="ret_mixed_gender_hero_reason"
       text="Non applicable aux héros" />
@@ -2340,16 +2403,16 @@
       text="Aucun modèle valide" />
     <string
       id="ret_notification_message"
-      text="Message de log" />
+      text="Journal des messages" />
     <string
       id="ret_notification_message_hint"
       text="Écrit un message dans le journal du jeu" />
     <string
       id="ret_notification_popup"
-      text="Popup" />
+      text="Fenêtre" />
     <string
       id="ret_notification_popup_hint"
-      text="Affiche une notification contextuelle" />
+      text="Afficher une fenêtre de notification" />
     <string
       id="ret_overwrite_confirm"
       text="Écraser" />
@@ -2358,13 +2421,13 @@
       text="Appliquer" />
     <string
       id="ret_preset_confirmation_default_title"
-      text="Réinitialiser par défaut" />
+      text="Appliquer le préréglage Standard" />
     <string
       id="ret_preset_confirmation_freeform_title"
-      text="Appliquer le préréglage libre" />
+      text="Appliquer le préréglage Libre" />
     <string
       id="ret_preset_confirmation_realistic_title"
-      text="Appliquer le préréglage réaliste" />
+      text="Appliquer le préréglage Réaliste" />
     <string
       id="ret_preset_custom_button"
       text="Personnalisé" />
@@ -2373,37 +2436,40 @@
       text="Standard" />
     <string
       id="ret_preset_default_tooltip"
-      text="Appliquer le préréglage par défaut : une expérience équilibrée conçue pour une première partie" />
+      text="Appliquer le préréglage Standard : une expérience équilibrée pour une première partie." />
     <string
       id="ret_preset_description_default"
-      text="La configuration par défaut, équilibrée pour une première partie.{newline}{newline}Les bonus de suites sont actifs, les troupes de clan se débloquent avec votre premier fief, l&apos;équipement a un coût, et les objets doivent être débloqués via les éliminations et les ateliers avant de pouvoir être équipés. Les points de compétence doivent être gagnés au combat." />
+      text="La configuration standard, équilibrée pour une première partie.{newline}{newline}Les bonus de la garde personnelle sont actifs et les troupes du clan se débloquent avec votre premier fief. L’équipement est payant et doit être débloqué en vainquant des ennemis ou grâce aux ateliers. Les points de compétence doivent être gagnés au combat." />
     <string
       id="ret_preset_description_freeform"
-      text="Un bac à sable créatif : aucun coût, aucune condition, aucune restriction.{newline}{newline}L&apos;acquisition des doctrines est gratuite. L&apos;équipement est gratuit et tous les objets sont disponibles immédiatement. Les points de compétence peuvent être attribués librement sans exigence d&apos;expérience. Les troupes de clan sont disponibles dès le début et peuvent être recrutées partout." />
+      text="Un bac à sable créatif : aucun coût, aucune condition, aucune restriction.{newline}{newline}L&apos;acquisition des doctrines est gratuite. L&apos;équipement est gratuit et tous les objets sont disponibles immédiatement. Les points de compétence peuvent être attribués librement sans exigence d&apos;expérience. Les troupes du clan sont disponibles dès le début et peuvent être recrutées partout." />
     <string
       id="ret_preset_description_realistic"
-      text="Une expérience plus stricte qui met l&apos;accent sur une progression méritée et l&apos;identité de faction.{newline}{newline}Les limites de compétences et d&apos;équipement sont appliquées dans l&apos;Éditeur universel. Les troupes ne peuvent être modifiées que lorsque vous êtes dans un fief possédé. Les bonus de suites sont désactivés. Équiper et s&apos;entraîner prend du temps. L&apos;équipement est soumis à des limites de poids et de valeur selon le rang. Les troupes ne peuvent être recrutées que dans des colonies de même culture, et seules les racines culturelles sont générées au début de la partie." />
+      text="Une expérience plus exigeante, axée sur la progression et l’identité des factions.{newline}{newline}Les limites de compétences et d’équipement s’appliquent aussi dans l’éditeur universel. Les troupes ne peuvent être modifiées que dans les fiefs de votre faction. Les bonus de la garde personnelle sont désactivés. L’équipement et l’entraînement prennent du temps. Le poids et la valeur de l’équipement sont limités selon le rang. Le recrutement se limite aux localités de même culture et les arbres de troupes commencent avec leurs seules recrues de départ." />
     <string
       id="ret_preset_freeform_button"
-      text="Forme libre" />
+      text="Libre" />
     <string
       id="ret_preset_freeform_tooltip"
-      text="Appliquer le préréglage Forme libre : supprime les coûts, conditions et restrictions" />
+      text="Appliquer le préréglage Libre : aucun coût, aucune condition ni restriction." />
     <string
       id="ret_preset_realistic_button"
       text="Réaliste" />
     <string
       id="ret_preset_realistic_tooltip"
-      text="Appliquer le préréglage Réaliste : active la mécanique de temps, les limites de lieu et les filtres de faction" />
+      text="Appliquer le préréglage Réaliste : délais d’équipement et d’entraînement, restrictions de lieu et de faction." />
     <string
       id="ret_preset_selection_default"
-      text="Par défaut" />
+      text="Standard" />
     <string
       id="ret_preset_selection_description"
-      text="Veuillez sélectionner les paramètres qui correspondent le mieux à votre style de jeu.{newline}{newline}PAR DÉFAUT : Une expérience équilibrée pour la première partie. Un arbre complet de troupes de clan est déverrouillé avec votre premier fief, l&apos;équipement a un coût, et les points de compétence doivent être achetés avec l&apos;expérience gagnée au combat.{newline}{newline}FORME LIBRE : Un éditeur sandbox sans restriction. Pas de coûts ni de systèmes de déverrouillage. Les troupes de clan personnalisées sont disponibles dès le début et peuvent être recrutées n&apos;importe où.{newline}{newline}RÉALISTE : Une expérience ancrée avec des contraintes plus sévères. La modification des troupes est limitée aux fiefs possédés, les équipements sont limités en poids et en valeur, équiper et entraîner prennent du temps, et les arbres de troupes doivent être construits de zéro.{newline}{newline}Vous pouvez affiner chaque paramètre individuellement à tout moment depuis l&apos;onglet Paramètres de l&apos;écran des Troupes." />
+      text="Choisissez les paramètres qui correspondent à votre style de jeu.{newline}{newline}STANDARD : Une expérience équilibrée pour une première partie. Un arbre complet de troupes du clan se débloque avec votre premier fief. L’équipement est payant et les points de compétence se gagnent au combat.{newline}{newline}LIBRE : Un éditeur sans restrictions, sans coûts ni déblocages à obtenir. Les troupes personnalisées du clan sont disponibles dès le départ et peuvent être recrutées partout.{newline}{newline}RÉALISTE : Une expérience plus exigeante. Les troupes ne peuvent être modifiées que dans les fiefs de votre faction. Le poids et la valeur de l’équipement sont limités. L’équipement et l’entraînement prennent du temps et les arbres de troupes sont à construire à partir des recrues de départ.{newline}{newline}Vous pouvez modifier chaque paramètre à tout moment dans l’onglet Paramètres de l’écran Troupes." />
     <string
       id="ret_preset_selection_freeform"
-      text="Forme libre" />
+      text="Libre" />
+    <string
+      id="ret_preset_selection_keep"
+      text="Garder les réglages" />
     <string
       id="ret_preset_selection_realistic"
       text="Réaliste" />
@@ -2415,19 +2481,19 @@
       text="Préréglages" />
     <string
       id="ret_preview_mode"
-      text="Mode Aperçu" />
+      text="Mode aperçu" />
     <string
       id="ret_preview_mode_disable_tooltip"
-      text="Désactiver le mode Aperçu" />
+      text="Désactiver le mode aperçu" />
     <string
       id="ret_preview_mode_enable_tooltip"
-      text="Activer le mode Aperçu" />
+      text="Activer le mode aperçu" />
     <string
       id="ret_preview_mode_toggle_tooltip"
-      text="Mode Aperçu" />
+      text="Mode aperçu" />
     <string
       id="ret_purchase_item_desc"
-      text="Acheter {ITEM} pour {COST} dinars ?" />
+      text="Acheter {ITEM} pour {COST} deniers ?" />
     <string
       id="ret_purchase_item_title"
       text="Acheter" />
@@ -2442,25 +2508,34 @@
       text="Supprimer toutes les données de troupes personnalisées du jeu" />
     <string
       id="ret_purge_confirm_body"
-      text="Cette action est conçue pour vous aider à désinstaller Retinues en toute sécurité.{newline}{newline}Elle scannera chaque liste de groupe dans la campagne actuelle et supprimera ou remplacera TOUS les troupes personnalisées créées par Retinues.{newline}{newline}Cette action est irréversible. Faites d&apos;abord une sauvegarde. Continuer ?" />
+      text="Cette action prépare la désinstallation de Retinues.{newline}{newline}Elle parcourt les effectifs de tous les groupes de la campagne et supprime ou remplace TOUTES les troupes personnalisées créées par Retinues.{newline}{newline}Cette action est irréversible. Faites d’abord une sauvegarde de secours. Continuer ?" />
     <string
       id="ret_purge_confirm_title"
       text="Purger les troupes personnalisées" />
+    <string
+      id="ret_purge_confirm_verified_body"
+      text="Cette opération prépare la campagne à la désinstallation de Retinues. Elle nettoie les références aux troupes personnalisées dans les groupes, les prisonniers, les recrues des villages et les quêtes, puis désactive leur création pour cette sauvegarde.{newline}{newline}Pour rejouer avec Retinues, il vous faudra votre sauvegarde d’origine. Faites-en d’abord une copie de secours. Continuer ?" />
     <string
       id="ret_purge_continue"
       text="Continuer" />
     <string
       id="ret_purge_done_title"
-      text="Purge terminé" />
+      text="Purge terminée" />
     <string
       id="ret_purge_failed_body"
-      text="Quelque chose s&apos;est mal passé lors de la purge. Votre sauvegarde peut être partiellement modifiée. Ne sauvegardez pas, rechargez votre jeu et essayez à nouveau, ou signalez le problème." />
+      text="Une erreur est survenue pendant la purge. La campagne peut avoir été partiellement modifiée. Ne sauvegardez pas : rechargez votre partie avant de réessayer, ou signalez le problème." />
     <string
       id="ret_purge_failed_title"
-      text="Purge échouée" />
+      text="Échec de la purge" />
+    <string
+      id="ret_purge_incomplete_body"
+      text="Le nettoyage n’a pas pu être vérifié. Ne retirez pas Retinues et n’écrasez pas votre sauvegarde de secours. Rechargez la sauvegarde précédant la désinstallation et joignez debug.log à votre signalement.{newline}{newline}{ERROR}" />
+    <string
+      id="ret_purge_incomplete_title"
+      text="Nettoyage incomplet" />
     <string
       id="ret_purge_mode_body"
-      text="Souhaitez-vous simplement supprimer les troupes personnalisées des effectifs, ou essayer de les remplacer par leurs équivalents vanilla les plus proches lorsque c&apos;est possible ?" />
+      text="Supprimer les troupes personnalisées des effectifs, ou les remplacer si possible par les troupes du jeu de base les plus proches ?" />
     <string
       id="ret_purge_mode_remove"
       text="Supprimer" />
@@ -2470,6 +2545,9 @@
     <string
       id="ret_purge_mode_title"
       text="Mode de purge" />
+    <string
+      id="ret_purge_mode_verified_body"
+      text="Supprimer les troupes personnalisées des effectifs et des prisonniers, ou les remplacer par des troupes similaires qui ne proviennent pas de Retinues ? Les recrues disponibles et les autres références de la campagne seront remplacées dans les deux cas. Les troupes des autres mods installés sont conservées." />
     <string
       id="ret_purge_need_campaign_reason"
       text="Aucune campagne en cours. Chargez d&apos;abord une sauvegarde." />
@@ -2483,6 +2561,12 @@
       id="ret_purge_title"
       text="Purger les troupes personnalisées" />
     <string
+      id="ret_purge_verified_body"
+      text="Les références aux troupes personnalisées ont été nettoyées et vérifiées, y compris les recrues des villages et les effectifs des localités. La création de troupes par Retinues est maintenant désactivée pour cette sauvegarde.{newline}{newline}Sauvegardez dans un NOUVEL emplacement, quittez le jeu, puis retirez Retinues. Conservez votre sauvegarde de secours d’origine." />
+    <string
+      id="ret_purge_verified_title"
+      text="Prêt pour la désinstallation" />
+    <string
       id="ret_race_cannot_change"
       text="Impossible de changer l&apos;espèce de cette unité" />
     <string
@@ -2493,25 +2577,25 @@
       text="Aucun modèle valide n&apos;existe pour cette espèce." />
     <string
       id="ret_rank_up_confirm_body"
-      text="Monter de niveau {NAME} ?{newline}{newline}Coûts :{newline}- {SP_COST} points de compétence{newline}- {GOLD_COST} or{newline}{newline}Effet :{newline}- +5 niveaux (montée de niveau)" />
+      text="Faire passer {NAME} au rang suivant ?{newline}{newline}Coûts :{newline}- {SP_COST} points de compétence{newline}- {GOLD_COST} deniers{newline}{newline}Effet :{newline}- +5 niveaux, soit un rang supplémentaire" />
     <string
       id="ret_rank_up_confirm_body_no_sp"
-      text="Monter de niveau {NAME} ?{newline}{newline}Coûts :{newline}- {GOLD_COST} or{newline}{newline}Effet :{newline}- +5 niveaux (montée de niveau)" />
+      text="Faire passer {NAME} au rang suivant ?{newline}{newline}Coût :{newline}- {GOLD_COST} deniers{newline}{newline}Effet :{newline}- +5 niveaux, soit un rang supplémentaire" />
     <string
       id="ret_rank_up_confirm_no"
       text="Annuler" />
     <string
       id="ret_rank_up_confirm_title"
-      text="Confirmer la montée de niveau" />
+      text="Confirmer la montée en rang" />
     <string
       id="ret_rank_up_confirm_yes"
-      text="Monter de niveau" />
+      text="Monter en rang" />
     <string
       id="ret_rank_up_max_tier"
-      text="Déjà au niveau maximum" />
+      text="Rang maximal déjà atteint" />
     <string
       id="ret_rank_up_no_captains"
-      text="Les capitaines ne peuvent pas monter de niveau" />
+      text="Les capitaines ne peuvent pas monter en rang" />
     <string
       id="ret_rank_up_not_enough_money"
       text="Nécessite {COST} deniers" />
@@ -2523,10 +2607,10 @@
       text="Non disponible dans l&apos;éditeur universel" />
     <string
       id="ret_rank_up_requires_maxed_skills"
-      text="Les compétences doivent d&apos;abord être maximisées" />
+      text="Le maximum de compétences doit d’abord être atteint" />
     <string
       id="ret_rank_up_retinue_only"
-      text="Disponible uniquement pour les rétinues" />
+      text="Réservé aux gardes" />
     <string
       id="ret_rename_surname_hero_only"
       text="Seuls les héros ont un nom de famille" />
@@ -2544,16 +2628,16 @@
       text="Nouveau nom" />
     <string
       id="ret_reset_character_body"
-      text="Réinitialiser {NAME} à ses valeurs par défaut ?{newline}{newline}Cela annulera toutes les modifications apportées à ce personnage.{newline}{newline}Enregistrez et redémarrez le jeu pour que cette action prenne effet." />
+      text="Rétablir les valeurs d’origine de {NAME} ?{newline}{newline}Toutes les modifications de ce personnage seront annulées.{newline}{newline}Sauvegardez puis redémarrez le jeu pour appliquer cette réinitialisation." />
     <string
       id="ret_reset_character_title"
       text="Réinitialiser par défaut" />
     <string
       id="ret_reset_choose_target_body"
-      text="Réinitialiser lequel des choix suivants aux valeurs par défaut ?" />
+      text="Que souhaitez-vous réinitialiser ?" />
     <string
       id="ret_reset_choose_target_title"
-      text="Réinitialiser aux valeurs par défaut." />
+      text="Réinitialiser aux valeurs par défaut" />
     <string
       id="ret_reset_confirm"
       text="Réinitialiser" />
@@ -2562,13 +2646,13 @@
       text="Uniquement disponible dans l&apos;éditeur universel" />
     <string
       id="ret_reset_done_body"
-      text="Enregistrez et redémarrez le jeu pour que cette action prenne effet." />
+      text="Sauvegardez puis redémarrez le jeu pour appliquer cette réinitialisation." />
     <string
       id="ret_reset_done_title"
       text="Réinitialisation programmée" />
     <string
       id="ret_reset_faction_body"
-      text="Réinitialiser toutes les troupes de {FACTION} à leurs valeurs par défaut ?{newline}{newline}Cela annulera toutes les modifications apportées à {COUNT} troupe(s).{newline}{newline}Enregistrez et redémarrez le jeu pour que cette action prenne effet." />
+      text="Rétablir les valeurs d’origine de toutes les troupes de {FACTION} ?{newline}{newline}Les modifications de {COUNT} types de troupes seront annulées.{newline}{newline}Sauvegardez puis redémarrez le jeu pour appliquer cette réinitialisation." />
     <string
       id="ret_reset_faction_title"
       text="Réinitialiser par défaut" />
@@ -2598,34 +2682,34 @@
       text="Disponible uniquement pour les troupes" />
     <string
       id="ret_reset_target_faction_disabled"
-      text="Aucune troupe de base modifiée trouvée à réinitialiser." />
+      text="Aucune troupe modifiée du jeu de base à réinitialiser." />
     <string
       id="ret_reset_target_troop_disabled"
-      text="Seules les troupes de base modifiées et non héroïques peuvent être réinitialisées." />
+      text="Seules les troupes modifiées du jeu de base peuvent être réinitialisées, à l’exception des héros." />
     <string
       id="ret_retinue_ai_clan_house_champion"
-      text="Champion Seigneurial {CLAN}" />
+      text="Champion seigneurial {CLAN}" />
     <string
       id="ret_retinue_ai_clan_house_guard"
-      text="Garde Seigneurial {CLAN}" />
+      text="Garde seigneurial {CLAN}" />
     <string
       id="ret_retinue_clan_default_name_female"
-      text="Garde de la Reine {CLAN}" />
+      text="Garde de la reine {CLAN}" />
     <string
       id="ret_retinue_clan_default_name_male"
-      text="Garde du Roi {CLAN}" />
+      text="Garde du roi {CLAN}" />
     <string
       id="ret_retinue_culture_default_name"
-      text="Rétinue {CULTURE} {CLAN}" />
+      text="Garde {CULTURE} {CLAN}" />
     <string
       id="ret_retinue_default_name"
-      text="Garde Seigneurial {CLAN}" />
+      text="Garde seigneurial {CLAN}" />
     <string
       id="ret_retinue_kingdom_default_name_female"
-      text="Garde de la Reine {KINGDOM}" />
+      text="Garde de la reine {KINGDOM}" />
     <string
       id="ret_retinue_kingdom_default_name_male"
-      text="Garde du Roi {KINGDOM}" />
+      text="Garde du roi {KINGDOM}" />
     <string
       id="ret_retinue_morale_bonus_bound_by_honor"
       text="Liés par l&apos;honneur" />
@@ -2649,19 +2733,19 @@
       text="Ateliers possédés" />
     <string
       id="ret_retinue_unlock_popup_text"
-      text="Vous pouvez maintenant engager votre nouvelle rétinue {RETINUE}." />
+      text="Vous pouvez désormais recruter des soldats de ce nouveau type : {RETINUE}." />
     <string
       id="ret_retinue_unlock_popup_title"
-      text="Nouvelle rétinue acquise" />
+      text="Nouveau type de garde débloqué" />
     <string
       id="ret_retinue_unlock_progress"
-      text="{SOURCE} : +{DELTA}% de progression vers l&apos;acquisition de la rétinue {CULTURE}. Progression totale : {TOTAL}%." />
+      text="{SOURCE} : +{DELTA} % vers le déblocage des gardes de culture {CULTURE}. Progression totale : {TOTAL} %." />
     <string
       id="ret_retinue_unlock_progress_row"
-      text="Progression : {PCT}%" />
+      text="Progression : {PCT} %" />
     <string
       id="ret_retinue_upgrade_cap_reached_hint"
-      text="Amélioration vers {RETINUE}{newline}Capacité maximale de rétinue atteinte : {CAP}{newline}Augmentez la limite de taille de votre groupe pour permettre plus de rétines" />
+      text="Promotion vers {RETINUE}{newline}Nombre maximal de gardes atteint : {CAP}{newline}Augmentez la capacité de votre groupe pour accueillir davantage de gardes." />
     <string
       id="ret_retinues_update_title"
       text="Mise à jour de Retinues" />
@@ -2694,7 +2778,7 @@
       text="Sélectionner une culture" />
     <string
       id="ret_shared_skill_experience_tooltip"
-      text="{XP} XP dans le pool partagé (prochain point à {XP_REQUIRED})" />
+      text="{XP} XP dans la réserve commune (prochain point à {XP_REQUIRED})" />
     <string
       id="ret_shared_skill_point_gained"
       text="Vos troupes ont gagné un point de compétence." />
@@ -2706,22 +2790,22 @@
       text="Impossible de descendre en dessous du niveau de compétence de {SOURCE}" />
     <string
       id="ret_skill_decrease_sources_reason_generic"
-      text="Impossible de descendre en dessous des niveaux de compétence des sources de mise à niveau" />
+      text="Impossible de descendre sous le niveau de compétence des troupes dont celle-ci est une promotion." />
     <string
       id="ret_skill_decrease_warning_text"
-      text="Diminuer une compétence est instantané, mais la réentrainer prendra du temps.{newline}{newline}Continuer ?" />
+      text="Réduire une compétence est instantané, mais l’entraîner à nouveau prendra du temps.{newline}{newline}Continuer ?" />
     <string
       id="ret_skill_decrease_warning_title"
-      text="Diminution de compétence" />
+      text="Réduire la compétence" />
     <string
       id="ret_skill_description_text"
-      text="Points de compétence : {SKILL_POINTS} - Plafond de compétence : {SKILL_CAP} - Niveau : {TIER}" />
+      text="Points de compétence : {SKILL_POINTS} - Plafond : {SKILL_CAP} - Rang : {TIER}" />
     <string
       id="ret_skill_description_text_shared"
-      text="Pool : {SKILL_POINTS} pts - Plafond : {SKILL_CAP} - Niveau : {TIER}" />
+      text="Réserve commune : {SKILL_POINTS} pts - Plafond : {SKILL_CAP} - Rang : {TIER}" />
     <string
       id="ret_skill_description_text_short"
-      text="Plafond de compétence : {SKILL_CAP} - Niveau : {TIER}" />
+      text="Plafond de compétence : {SKILL_CAP} - Rang : {TIER}" />
     <string
       id="ret_skill_experience_tooltip"
       text="{XP}/{XP_REQUIRED} XP avant le prochain point de compétence" />
@@ -2733,7 +2817,7 @@
       text="Pas assez de points de compétence" />
     <string
       id="ret_skill_increase_total_reason"
-      text="Maximum de compétences atteint" />
+      text="Total maximal de points de compétence atteint" />
     <string
       id="ret_skill_point_gained"
       text="{TROOP} a gagné un point de compétence." />
@@ -2742,13 +2826,13 @@
       text="{TROOP} a gagné {POINTS} points de compétence." />
     <string
       id="ret_skill_value_hint_staged"
-      text="Valeur réelle de la compétence avant entraînement : {CURRENT}" />
+      text="Niveau actuel, avant la fin de l’entraînement : {CURRENT}" />
     <string
       id="ret_skills_header_text"
       text="Compétences" />
     <string
       id="ret_slot_value_hint_staged"
-      text="Équipé jusqu&apos;à ce que le changement soit effectué : {CURRENT}" />
+      text="Objet porté jusqu’à la fin du changement d’équipement : {CURRENT}" />
     <string
       id="ret_sort_by_culture"
       text="Culture" />
@@ -2760,7 +2844,7 @@
       text="Nom" />
     <string
       id="ret_sort_by_tier"
-      text="Niveau" />
+      text="Rang" />
     <string
       id="ret_sort_by_value"
       text="Valeur" />
@@ -2772,10 +2856,10 @@
       text="{TROOP} a amélioré {SKILL} à {VALUE}." />
     <string
       id="ret_starter_equipment_all_sets"
-      text="Copier Tout" />
+      text="Copier tous les équipements" />
     <string
       id="ret_starter_equipment_all_sets_hint"
-      text="Tous les ensembles d&apos;équipement sont copiés à partir de la troupe de base" />
+      text="Copie tous les équipements de la troupe d’origine." />
     <string
       id="ret_starter_equipment_empty_set"
       text="Aucun" />
@@ -2787,55 +2871,55 @@
       text="Aléatoire" />
     <string
       id="ret_starter_equipment_random_set_hint"
-      text="Un ensemble d&apos;équipement aléatoire est attribué" />
+      text="Un équipement aléatoire est attribué" />
     <string
       id="ret_starter_equipment_single_set"
-      text="Copier Un Seul" />
+      text="Copier un équipement" />
     <string
       id="ret_starter_equipment_single_set_hint"
-      text="Un ensemble d&apos;équipement est copié depuis la troupe de base" />
+      text="Copie un équipement de la troupe d’origine." />
     <string
       id="ret_starter_skills_high"
-      text="Élevé" />
+      text="Élevées" />
     <string
       id="ret_starter_skills_high_hint"
       text="Les troupes commencent avec un ensemble de compétences pleinement développé." />
     <string
       id="ret_starter_skills_low"
-      text="Faible" />
+      text="Faibles" />
     <string
       id="ret_starter_skills_low_hint"
       text="Les troupes commencent uniquement avec des compétences de base." />
     <string
       id="ret_starter_skills_minimal"
-      text="Minimal" />
+      text="Minimales" />
     <string
       id="ret_starter_skills_minimal_hint"
       text="Les troupes commencent avec les compétences minimales requises pour l&apos;équipement qu&apos;elles portent." />
     <string
       id="ret_starter_troops_clone_culture_full_trees"
-      text="Arbres de Troupes Complets" />
+      text="Arbres complets" />
     <string
       id="ret_starter_troops_clone_culture_full_trees_hint"
       text="L&apos;ensemble complet des troupes est créé automatiquement" />
     <string
       id="ret_starter_troops_clone_culture_lean_trees"
-      text="Arbres de Troupes Allégés" />
+      text="Arbres simplifiés" />
     <string
       id="ret_starter_troops_clone_culture_lean_trees_hint"
       text="Une sélection réduite de troupes est créée au démarrage" />
     <string
       id="ret_starter_troops_clone_culture_roots"
-      text="Unités de Base Uniquement" />
+      text="Recrues de départ uniquement" />
     <string
       id="ret_starter_troops_clone_culture_roots_hint"
-      text="Seulement une troupe de base et une troupe élite sont créées" />
+      text="Crée uniquement la première troupe de la branche régulière et celle de la branche d’élite." />
     <string
       id="ret_statistics_button_label"
       text="Afficher les statistiques" />
     <string
       id="ret_statistics_casualties_sentence"
-      text="Subi {TOTAL} pertes : {BREAKDOWN}." />
+      text="Pertes subies : {TOTAL}, dont {BREAKDOWN}." />
     <string
       id="ret_statistics_culture_entry"
       text="{COUNT} contre {CULTURE}" />
@@ -2850,19 +2934,19 @@
       text="{COUNT} batailles campales" />
     <string
       id="ret_statistics_fought_in"
-      text="Combattu dans {LIST}." />
+      text="Batailles livrées : {LIST}." />
     <string
       id="ret_statistics_in_service"
       text="{NAME} est en service depuis {YEARS} ans, {SEASONS} saisons et {DAYS} jours." />
     <string
       id="ret_statistics_kills_sentence"
-      text="Tué {TOTAL} ennemis : {BREAKDOWN}." />
+      text="Ennemis tués : {TOTAL}, dont {BREAKDOWN}." />
     <string
       id="ret_statistics_most_feared"
       text="Adversaire le plus redouté : {NAME}." />
     <string
       id="ret_statistics_most_slain"
-      text="Ennemi le plus tué : {NAME}." />
+      text="Ennemi le plus souvent tué : {NAME}." />
     <string
       id="ret_statistics_naval_entry"
       text="{COUNT} batailles navales" />
@@ -2874,13 +2958,13 @@
       text="Statistiques" />
     <string
       id="ret_statistics_raid_entry"
-      text="{COUNT} raids" />
+      text="{COUNT} pillages" />
     <string
       id="ret_statistics_siege_entry"
       text="{COUNT} sièges" />
     <string
       id="ret_statistics_victories_defeats"
-      text="Remporté {WON} victoires, subi {LOST} défaites." />
+      text="{WON} victoires et {LOST} défaites." />
     <string
       id="ret_status_captain_disabled"
       text="Inactif" />
@@ -2900,11 +2984,14 @@
       id="ret_stocks_remove"
       text="Retrait de {AMOUNT} {ITEM} des stocks." />
     <string
+      id="ret_support_header"
+      text="Assistance" />
+    <string
       id="ret_tooltip_culture"
       text="Culture" />
     <string
       id="ret_tooltip_culture_none"
-      text="Aucun" />
+      text="Aucune" />
     <string
       id="ret_trait_only_heroes_reason"
       text="Applicable uniquement aux héros" />
@@ -2925,13 +3012,13 @@
       text="Arbalétrier" />
     <string
       id="ret_troop_formation_horse_archer"
-      text="Archer Monté" />
+      text="Archer à cheval" />
     <string
       id="ret_troop_formation_infantry"
       text="Infanterie" />
     <string
       id="ret_troop_formation_mounted_skirmisher"
-      text="Tirailleur Monté" />
+      text="Tirailleur à cheval" />
     <string
       id="ret_troop_formation_skirmisher"
       text="Tirailleur" />
@@ -2973,28 +3060,28 @@
       text="Recrue" />
     <string
       id="ret_troops_availability_clan_fiefs"
-      text="Fiefs de Clan" />
+      text="Fiefs du clan" />
     <string
       id="ret_troops_availability_clan_fiefs_hint"
-      text="Les troupes de clan ne peuvent être recrutées que depuis les fiefs appartenant à leur clan" />
+      text="Les troupes du clan ne peuvent être recrutées que depuis les fiefs appartenant à leur clan" />
     <string
       id="ret_troops_availability_clan_or_kingdom_fiefs"
-      text="Fiefs de clan ou de royaume" />
+      text="Fiefs du clan ou du royaume" />
     <string
       id="ret_troops_availability_clan_or_kingdom_fiefs_hint"
-      text="Les troupes de clan peuvent être recrutées depuis les fiefs de clan ou de royaume possédés" />
+      text="Les troupes du clan peuvent être recrutées dans les fiefs de votre clan ou de votre royaume." />
     <string
       id="ret_troops_availability_clan_or_kingdom_fiefs_kingdom_hint"
-      text="Les troupes du royaume peuvent être recrutées depuis les fiefs de clan ou de royaume possédés" />
+      text="Les troupes du royaume peuvent être recrutées dans les fiefs de votre clan ou de votre royaume." />
     <string
       id="ret_troops_availability_everywhere"
       text="Partout" />
     <string
       id="ret_troops_availability_everywhere_hint"
-      text="Les troupes de clan peuvent être recrutées dans n&apos;importe quelle colonie" />
+      text="Les troupes du clan peuvent être recrutées dans toutes les localités." />
     <string
       id="ret_troops_availability_everywhere_kingdom_hint"
-      text="Les troupes du royaume peuvent être recrutées dans n&apos;importe quelle colonie" />
+      text="Les troupes du royaume peuvent être recrutées dans toutes les localités." />
     <string
       id="ret_troops_availability_kingdom_fiefs"
       text="Fiefs du royaume" />
@@ -3006,7 +3093,7 @@
       text="Nulle part" />
     <string
       id="ret_troops_availability_nowhere_hint"
-      text="Les troupes de clan ne peuvent pas être recrutées" />
+      text="Les troupes du clan ne peuvent pas être recrutées" />
     <string
       id="ret_troops_availability_nowhere_kingdom_hint"
       text="Les troupes du royaume ne peuvent pas être recrutées" />
@@ -3015,7 +3102,7 @@
       text="L&apos;éditeur de troupes n&apos;est pas disponible." />
     <string
       id="ret_troops_editor_no_custom"
-      text="Aucune unité n&apos;est disponible." />
+      text="Aucune troupe disponible." />
     <string
       id="ret_troops_navigation_tooltip"
       text="Troupes" />
@@ -3039,55 +3126,55 @@
       text="Acquérir un fief pour débloquer les troupes régulières." />
     <string
       id="ret_unlock_hint_armed_peasantry"
-      text="Débloqué avec la doctrine Paysannerie Armée." />
+      text="Débloqué par la doctrine Paysannerie armée." />
     <string
       id="ret_unlock_hint_road_wardens"
-      text="Débloqué avec la doctrine Gardiens de la Route." />
+      text="Débloqué par la doctrine Gardiens de la route." />
     <string
       id="ret_unlock_hint_stalwart_militia"
-      text="Débloqué avec la doctrine Milice Inébranlable." />
+      text="Débloqué par la doctrine Milice inébranlable." />
     <string
       id="ret_unlock_more"
       text="{COUNT} de plus" />
     <string
       id="ret_unlock_notify_title_multi"
-      text="Équipements" />
+      text="Objets débloqués" />
     <string
       id="ret_unlock_verb_was"
       text="a été" />
     <string
       id="ret_unlock_verb_were"
-      text="ont été" />
+      text="a été" />
     <string
       id="ret_unstage_item_tooltip"
-      text="Annuler" />
+      text="Annuler le changement en attente" />
     <string
       id="ret_upgrade_cannot_add_hero"
       text="Les héros ne peuvent pas avoir de promotions" />
     <string
       id="ret_upgrade_cannot_add_max_targets"
-      text="Nombre maximum de promotions atteint" />
+      text="Nombre maximal de branches de promotion atteint" />
     <string
       id="ret_upgrade_cannot_add_max_tier"
-      text="Cette unité est déjà au niveau maximum" />
+      text="Cette troupe a déjà atteint le rang maximal" />
     <string
       id="ret_upgrade_cannot_add_not_upgradable"
-      text="Cette unité n&apos;est pas améliorable." />
+      text="Cette troupe ne peut pas être promue" />
     <string
       id="ret_upgrade_no_captains"
       text="Les capitaines ne peuvent pas avoir de promotions" />
     <string
       id="ret_upgrade_sources_header_text"
-      text="Sources" />
+      text="Troupes précédentes" />
     <string
       id="ret_upgrade_targets_header_text"
       text="Promotions" />
     <string
       id="ret_vassal_secrets_option"
-      text="Révèle les secrets de tes artefacts les plus précieux et je te laisse partir." />
+      text="Révélez-moi les secrets de vos objets les plus précieux et je vous laisserai partir." />
     <string
       id="ret_vassal_secrets_ruler_answer"
-      text="Très bien... Je partagerai la connaissance de ces reliques, si cela m&apos;achète la liberté." />
+      text="Très bien… Je vous révélerai les secrets de ces reliques en échange de ma liberté." />
     <string
       id="ret_vassal_secrets_title"
       text="Secrets dévoilés" />
@@ -3102,7 +3189,7 @@
       text="Poids" />
     <string
       id="ret_workshop_unlock_start_line"
-      text="Votre {WORKSHOP} à {TOWN} a commencé à travailler sur le déverrouillage de {ITEM}." />
+      text="Votre {WORKSHOP} à {TOWN} a commencé à travailler au déblocage de {ITEM}." />
     <string
       id="ret_workshop_unlock_start_more"
       text="Et {COUNT} autres ateliers ont lancé de nouveaux projets." />

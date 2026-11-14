@@ -70,7 +70,10 @@ namespace Retinues.Editor.MVC.Pages.Library.Controllers
 
                 if (item.Kind == ExportKind.Faction)
                 {
-                    ApplyFactionImportWithSelection(path);
+                    if (item.IsStableExport)
+                        ApplyStableImportWithSelection(path);
+                    else
+                        ApplyFactionImportWithSelection(path);
                     return;
                 }
 
@@ -194,6 +197,11 @@ namespace Retinues.Editor.MVC.Pages.Library.Controllers
                 return;
             }
 
+            ChooseFactionImportTarget(data);
+        }
+
+        private static void ChooseFactionImportTarget(FactionExportData data)
+        {
             var targets = GetFactionImportTargets();
             if (targets.Count == 0)
             {
@@ -351,7 +359,8 @@ namespace Retinues.Editor.MVC.Pages.Library.Controllers
 
                 Inquiries.Popup(
                     title: L.T("library_import_failed_title", "Import Failed"),
-                    description: L.T(
+                    description: data.StableSection != null ? L.T("library_stable_import_error",
+                        "The stable export could not be fully imported.\n\n{DETAIL}").SetTextVariable("DETAIL", err ?? string.Empty) : L.T(
                         "library_import_failed_invalid",
                         "The export could not be imported."
                     )
@@ -368,6 +377,14 @@ namespace Retinues.Editor.MVC.Pages.Library.Controllers
 
             // Auto-open appropriate page after confirmation/import.
             LaunchEditorAfterImport(target);
+
+            if (data.StableSection != null && report.SkippedTroops > 0)
+                Inquiries.Popup(
+                    title: L.T("library_import_confirm_title", "Import"),
+                    description: L.T("library_stable_import_partial",
+                        "Imported {IMPORTED} troops. Skipped {SKIPPED} troops with no available destination. Check the faction's troop settings or import the section into its matching culture in the Global Editor. Details are in the log.")
+                        .SetTextVariable("IMPORTED", report.ImportedTroops)
+                        .SetTextVariable("SKIPPED", report.SkippedTroops));
         }
 
         /// <summary>

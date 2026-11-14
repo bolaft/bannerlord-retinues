@@ -1,56 +1,75 @@
-using System.Collections.Generic;
-using Retinues.Behaviors.Missions;
-using Retinues.Domain;
 using Retinues.Domain.Events.Models;
+using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.MapEvents;
+using TaleWorlds.Core;
 
 namespace Retinues.Behaviors.Doctrines.Feats.Loot
 {
     /// <summary>
-    /// Rescue a captive lord from an enemy party.
+    /// Rescue an allied lord through a battle victory or a successful prison break.
     /// </summary>
     public sealed class Feat_PragmaticScavengers_RescueMission : BaseFeatBehavior
     {
         protected override string FeatId => Catalogs.FeatCatalog.PR_RescueMission.Id;
 
-        static bool HasCaptiveAlliedLord;
+        private MapEvent _battle;
+        private bool _hasCaptiveAlliedLord;
 
         protected override void OnBattleStart(MMapEvent battle)
         {
-            HasCaptiveAlliedLord = false;
+            _battle = battle.Base;
+            _hasCaptiveAlliedLord = false;
 
-            // (as of 1.4?) defeated prisoners are removed from enemy rosters before OnMapEventEnded and listeners can no longer detect the lord being rescued.
-            // captive allied lord check can be done in battle start instead
-            foreach (var party in battle.EnemySide.Parties)
+            if (battle.PlayerSideEnum == BattleSideEnum.None)
+                return;
+
+            // Defeated prisoners are released before MapEventEnded. Snapshot their presence
+            // while rosters are intact, including when the player joins an ongoing battle.
+            var enemySide = _battle.GetMapEventSide(
+                battle.PlayerSideEnum == BattleSideEnum.Attacker
+                    ? BattleSideEnum.Defender
+                    : BattleSideEnum.Attacker
+            );
+            if (enemySide?.Parties == null)
+                return;
+
+            foreach (var party in enemySide.Parties)
             {
-                foreach (var e in party.PrisonRoster.Elements)
+                var roster = party?.Party?.PrisonRoster;
+                if (roster == null)
+                    continue;
+
+                for (int i = 0; i < roster.Count; i++)
                 {
-                    var hero = e.Troop?.Hero;
+                    var entry = roster.GetElementCopyAtIndex(i);
+                    if (entry.Number <= 0 || !IsAlliedLord(entry.Character?.HeroObject))
+                        continue;
 
-                    if (hero?.IsLord != true)
-                        continue; // Not a lord.
-
-                    if (hero.Clan.MapFaction.StringId != Player.Clan.MapFaction.StringId)
-                        continue; // Not ally.
-
-                    HasCaptiveAlliedLord = true;
+                    _hasCaptiveAlliedLord = true;
                     return;
                 }
             }
         }
 
-        protected override void OnBattleOver(
-            IReadOnlyList<CombatBehavior.Kill> kills,
-            MMapEvent.Snapshot start,
-            MMapEvent end
-        )
+        protected override void OnMapEventEnded(MMapEvent end)
         {
-            if (!end.IsWon)
-                return; // Player lost the battle.
+            if (end?.IsPlayerInvolved != true || !ReferenceEquals(_battle, end.Base))
+                return;
 
-            if (!HasCaptiveAlliedLord)
-                return; // No allied lord was held by the enemy at battle start.
+            // This feat needs no mission kills, so auto-resolved victories qualify too.
+            // Consume only this battle's snapshot; stale or duplicate events cannot award it.
+            bool rescued = end.IsWon && _hasCaptiveAlliedLord;
+            _battle = null;
+            _hasCaptiveAlliedLord = false;
 
-            Feat.Add();
+            if (rescued)
+                Feat.Add();
+        }
+
+        internal static bool IsAlliedLord(Hero hero)
+        {
+            var faction = Clan.PlayerClan?.MapFaction;
+            return hero?.IsLord == true && faction != null && hero.Clan?.MapFaction == faction;
         }
     }
 }

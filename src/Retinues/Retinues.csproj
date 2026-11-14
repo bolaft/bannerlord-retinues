@@ -15,6 +15,7 @@
     <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="System.IO.Compression" />
     <!-- TaleWorlds Assemblies -->
     <Reference Include="TaleWorlds.TwoDimension">
       <HintPath>$(ReferenceRoot)/TaleWorlds.TwoDimension.dll</HintPath>

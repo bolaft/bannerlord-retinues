@@ -460,6 +460,8 @@ namespace Retinues.Behaviors.Retinues
                 List<WItem> candidates = null;
                 foreach (var item in lootPool)
                 {
+                    if (item?.IsValidEquipment != true)
+                        continue;
                     if (!item.IsEquippableInSlot(slot))
                         continue;
                     if (item.Tier <= currentTier)

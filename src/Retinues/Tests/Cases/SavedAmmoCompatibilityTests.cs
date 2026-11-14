@@ -6,6 +6,15 @@ namespace Retinues.Tests.Cases
 {
     public static class SavedAmmoCompatibilityTests
     {
+        // These tests intentionally use known mission-item IDs. Keep their synthetic
+        // definitions isolated from identically named registered items in a live campaign.
+        private sealed class FixtureItem : WItem
+        {
+            private readonly ItemObject _fixture;
+            public FixtureItem(ItemObject item) : base(item) => _fixture = item;
+            public override ItemObject Base => _fixture;
+        }
+
         [GameTest("NonSaleAmmoIsNotMistakenForCorruptSavedGear", "save-contracts", RequiresCampaign = false)]
         public static void NonSaleAmmoIsNotMistakenForCorruptSavedGear()
         {
@@ -23,7 +32,8 @@ namespace Retinues.Tests.Cases
             item.StringId = id;
             typeof(ItemObject).GetProperty("NotMerchandise").GetSetMethod(true).Invoke(item, new object[] { true });
             item.AddWeapon(new WeaponComponentData(item, WeaponClass.Arrow, WeaponFlags.Consumable), null);
-            var wrapped = new WItem(item);
+            typeof(ItemObject).GetProperty("ItemHolsters").GetSetMethod(true).Invoke(item, new object[] { new string[0] });
+            var wrapped = new FixtureItem(item);
             Tests.AssertTrue(wrapped.IsAmmo && wrapped.IsEquipment && item.NotMerchandise, "The fixture is real non-sale ammunition.");
             return wrapped;
         }
@@ -36,7 +46,8 @@ namespace Retinues.Tests.Cases
             item.StringId = "throwing_stone";
             item.AddWeapon(new WeaponComponentData(item, WeaponClass.Stone,
                 WeaponFlags.RangedWeapon | WeaponFlags.Consumable), null);
-            var wrapped = new WItem(item);
+            typeof(ItemObject).GetProperty("ItemHolsters").GetSetMethod(true).Invoke(item, new object[] { new string[0] });
+            var wrapped = new FixtureItem(item);
             Tests.AssertTrue(wrapped.IsEquipment, "The fixture represents an ordinary thrown weapon.");
             Tests.AssertTrue(wrapped.IsValidEquipment, "Loading a saved troop must preserve ordinary throwing stones.");
         }

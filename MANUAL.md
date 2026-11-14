@@ -187,7 +187,7 @@ When training takes time, decreasing a skill that is already committed (not pend
 
 Two limits apply when editing skills from the Troops screen (and optionally in the Universal Editor):
 
-- Skill cap: the maximum level any single skill can reach for a troop of that tier. Configured per tier in the Skill Caps section of settings. Defaults range from 20 at tier 0 to 360 at tier 7.
+- Skill cap: the maximum level any single skill can reach for a troop of that tier. Configured per tier in the Skill Caps section of settings. Defaults range from 20 at tier 0 to 360 at tiers 7–10. Raising Maximum Troop Tier reveals independent caps for tiers 8–10. When loading older settings, the new caps start with the previous tier 7 value and can then be adjusted separately.
 - Skill total: the total sum of all skills a troop of that tier may have. Configured per tier in the Skill Totals section of settings. Defaults range from 90 at tier 0 to 1600 at tier 7.
 
 Retinues receive bonuses on top of both limits (see the Buffs section above). Max-tier Captains receive a 20% bonus to both their cap and total. The Iron Discipline doctrine adds +5 to the cap for all troops. The Steadfast Soldiers and Masters at Arms doctrines add +20 to the total for basic and elite lines respectively.
@@ -496,6 +496,14 @@ The reversion is scheduled on confirm and takes effect after you save and restar
 
 All of this is handled from the Library tab in the editor. Export files are XML stored in `Documents\Retinues\Exports\`, which the Library reads automatically.
 
+### Importing stable-version exports
+
+Copy a stable export XML from the old `Modules\Retinues\Exports\` folder into `Documents\Retinues\Exports\`. Select it in the Library and click **Import**. If the file contains several groups (clan, kingdom, cultures or minor clans), choose a group and then its destination. Repeat for any other groups you want to import.
+
+The import uses the same troop conversion as stable-save migration, including equipment sets, skills, appearance, formation and captains. Both stable retinue types can be kept. Troops absent from the file stay unchanged. Unlock the destination troop rosters first; the import reports entries it cannot place. For edits to native troops, select the matching culture in the Global Editor. Load the same equipment and culture mods used by the export; missing dependencies stop the import before it changes troops.
+
+This supports the stable **RetinuesTroops** export format. Very old **Troops** files must first be imported and re-exported with the current stable version. Campaign XP, unlocks, doctrines and queued equipment progress are not included in stable troop exports. To convert an imported group to a V2 file, export it again from the editor. The original file is left untouched. The Library's standalone-mod conversion requires this V2 export first.
+
 ### Exporting
 
 Use the Export button in the editor's top panel. A popup asks whether to export the entire current faction or a single troop from it. Heroes cannot be exported. You then enter a filename; if a file with that name already exists you are prompted to overwrite.
@@ -539,3 +547,31 @@ These commands bypass the normal unlock conditions and are useful when save stat
 - `retinues.unlock_kingdom_troops` unlocks your kingdom troop tree without requiring a kingdom
 - `retinues.create_retinue <culture_id> <name>` creates a new retinue for your clan from the given culture, bypassing the unlock point requirement
 - `retinues.list_custom_troops` lists all custom troop IDs for your clan and kingdom
+
+---
+
+## Reporting Bugs
+
+In **Troops → Settings → Support**, click **Bug Report**, describe the problem, then choose **Create ZIP**. The description area wraps and scrolls, with room for 8,000 characters. Use **Enter** for a new line, **Ctrl+V** to paste, and **Ctrl+Z** to undo. You can include the steps to reproduce the problem in separate paragraphs. **Escape** or **Cancel** closes the report window without creating a ZIP.
+
+When collection finishes, the game opens **Documents/Retinues/BugReports**. Review the ZIP, then submit your report in the **[Bugs tab on the Retinues Nexus Mods page](https://www.nexusmods.com/mountandblade2bannerlord/mods/8847?tab=bugs)**, including the ZIP or a download link.
+
+The ZIP includes Retinues logs, recent Bannerlord logs, settings, game and mod versions in load order, a copy of the active campaign's last saved file, and a game screenshot when available. It does not create a new save or include unsaved progress. Save first if you want to include your current progress. Nothing is uploaded automatically. Logs can contain local file paths; review the archive before sharing it.
+
+Outside the editor, use `retinues.bug_report [short description]`. Close the console within three seconds so the screenshot captures the game. This command also works without a campaign loaded, but then no save is included. A report cannot be created while the game is frozen or has exited.
+
+If a file is missing, locked, or changes during collection, the available files are still packaged and `report.txt` lists what could not be included. The completion message tells you if the save or screenshot is missing. Each file is limited to 512 MB and the total collected files to 2 GB.
+
+## Uninstalling
+
+The improved cleanup is included in **V2 2.0.0.14**. If using an older beta, update within the V2 branch before uninstalling; switching to V1 is not an uninstall procedure.
+
+1. Keep a backup of the campaign from before uninstalling. Load it with Retinues enabled.
+2. Open **Troops → Settings → Uninstall → Purge**. Choose **Replace** to exchange custom troops for similar troops from the game or other installed mods. **Remove** instead removes them from army and prisoner rosters; recruitment slots and other campaign references are replaced in either mode.
+3. Wait for **Ready to Uninstall**. If cleanup is incomplete, reload your backup and report `Documents/Retinues/Logs/debug.log`; do not remove the mod or overwrite your backup.
+4. Save to a **new slot**, wait for the save to finish, and exit to desktop. Then disable/remove Retinues.
+5. Load that new save, recruit in a village, let a day pass, then save and reload again. Keep your original backup until those checks succeed.
+
+Cleanup checks parties, prisoners, village recruits and other saved troop references. It also omits Retinues' own saved data and keeps its troop generation disabled if you reopen the prepared save with Retinues still enabled. To keep playing with your custom troops, return to the original backup. Repeat cleanup for each campaign you want to continue without Retinues.
+
+This cannot repair every save already damaged by a failed uninstall or guarantee compatibility with every other mod. If a prepared save still fails, keep the original backup and report the save, log, game version and load order.

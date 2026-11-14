@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Retinues.Compatibility;
 using Retinues.Domain;
 using Retinues.Domain.Characters.Services.Matching;
 using Retinues.Domain.Characters.Wrappers;
@@ -28,6 +29,8 @@ namespace Retinues.Behaviors.Volunteers
         /// </summary>
         public static void TryBeginSwapForPlayerRecruitMenu()
         {
+            if (Safety.Uninstall.UninstallBehavior.IsPrepared)
+                return;
             try
             {
                 // Only makes sense if player is actually in a settlement.
@@ -195,7 +198,11 @@ namespace Retinues.Behaviors.Volunteers
                     if (wc == null)
                         continue;
 
-                    bool elite = wc.IsElite;
+                    var atcRole = ATCRecruitment.GetRole(current, settlement.Base, notable.Base);
+                    if (atcRole == ATCRecruitRole.Ambiguous)
+                        continue;
+                    bool elite = atcRole == ATCRecruitRole.Elite
+                        || atcRole == ATCRecruitRole.None && wc.IsElite;
 
                     // WSettlement defines exactly what roots the player can recruit from here.
                     var roots = elite ? settlement.GetEliteRoots() : settlement.GetBasicRoots();
@@ -211,7 +218,13 @@ namespace Retinues.Behaviors.Volunteers
                     if (chosenRoot == null)
                         continue;
 
-                    var replacement = CharacterMatcher.FindBest(wc, chosenRoot.Tree);
+                    // A native/mixed slot keeps the actual ATC offer. Only replace it
+                    // when the player's settings selected an eligible custom tree.
+                    if (atcRole != ATCRecruitRole.None && !chosenRoot.IsFactionTroop)
+                        continue;
+                    var replacement = atcRole == ATCRecruitRole.None
+                        ? CharacterMatcher.FindBestVolunteer(wc, chosenRoot.Tree)
+                        : ATCRecruitment.MatchVolunteer(wc, chosenRoot.Tree, atcRole);
                     var replacementBase = replacement?.Base;
                     if (replacementBase == null)
                         continue;
@@ -239,7 +252,7 @@ namespace Retinues.Behaviors.Volunteers
         /// <summary>
         /// Chooses a root deterministically per day, settlement, notable and slot.
         /// </summary>
-        private static WCharacter ChooseRootDeterministic(
+        internal static WCharacter ChooseRootDeterministic(
             WSettlement settlement,
             string notableId,
             int slotIndex,

@@ -5,6 +5,7 @@ using Retinues.Behaviors.Troops;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.CampaignSystem.Roster;
+using TaleWorlds.ObjectSystem;
 
 namespace Retinues.Tests.Cases
 {
@@ -14,6 +15,15 @@ namespace Retinues.Tests.Cases
         {
             var troop = (CharacterObject)FormatterServices.GetUninitializedObject(typeof(CharacterObject));
             troop.StringId = id;
+            return troop;
+        }
+
+        private static CharacterObject RegisteredTroop(string id)
+        {
+            var troop = Troop(id);
+            troop.Initialize();
+            // Mimic saved registration without inserting test objects into the game's manager.
+            AccessTools.Property(typeof(MBObjectBase), "IsRegistered").SetValue(troop, true);
             return troop;
         }
 
@@ -58,6 +68,101 @@ namespace Retinues.Tests.Cases
                 Tests.AssertEqual(total, roster.TotalManCount);
                 Tests.AssertEqual(wounded, roster.TotalWounded);
             }
+        }
+
+        [GameTest("RosterRepairRemovesEmptyObsoleteOrdinaryTroops", "save-contracts", RequiresCampaign = false)]
+        public static void RosterRepairRemovesEmptyObsoleteOrdinaryTroops(GameTestContext ctx)
+        {
+            foreach (string id in new[] { "aserai_mameluke_axeman", "ne_imperial_trained_archer" })
+            for (int trial = 0; trial < 30; trial++)
+            {
+                var canonical = RegisteredTroop(id);
+                var roster = TroopRoster.CreateDummyTroopRoster();
+                int men = ctx.Random.Next(2, 50), xp = ctx.Random.Next(1, 100000);
+                AddLoadedRow(roster, canonical, men, woundedCount: 1, xpChange: xp);
+                int ghosts = ctx.Random.Next(1, 12);
+                for (int i = 0; i < ghosts; i++)
+                    AddLoadedRow(roster, Troop(id), 0, insertAtFront: ctx.Random.Next(2) == 0);
+                // Populate the cached enumeration, just as daily training does.
+                roster.GetTroopRoster();
+                int version = roster.VersionNo;
+                Tests.AssertEqual(ghosts, StubIntegrityBehavior.CanonicalizeRoster(roster, _ => canonical, out int removed));
+                Tests.AssertEqual(ghosts, removed, "Only committed removals are reported for logging.");
+                Tests.AssertEqual(1, roster.Count);
+                Tests.AssertTrue(ReferenceEquals(canonical, roster.GetCharacterAtIndex(0)));
+                Tests.AssertEqual(men, roster.GetElementNumber(0));
+                Tests.AssertEqual(1, roster.GetElementWoundedNumber(0));
+                Tests.AssertEqual(xp, roster.GetElementXp(0));
+                Tests.AssertEqual(men, roster.TotalManCount);
+                Tests.AssertEqual(1, roster.TotalWounded);
+                Tests.AssertTrue(roster.VersionNo > version);
+                Tests.AssertEqual(1, roster.GetTroopRoster().Count);
+                Tests.AssertEqual(0, StubIntegrityBehavior.CanonicalizeRoster(roster, _ => canonical, out removed));
+                Tests.AssertEqual(0, removed, "Reloading a repaired roster does not repeat removals.");
+            }
+        }
+
+        [GameTest("RosterRepairPreservesOrdinaryTroopVariantsAndProgress", "save-contracts", RequiresCampaign = false)]
+        public static void RosterRepairPreservesOrdinaryTroopVariantsAndProgress()
+        {
+            foreach (string scenario in new[] { "soldiers", "wounded", "xp", "initialized", "registered",
+                "canonical", "missing", "wrong-id", "unregistered-target", "uninitialized-target", "hero" })
+            {
+                var canonical = RegisteredTroop("ordinary_repair_probe");
+                var source = Troop(canonical.StringId);
+                int men = scenario == "soldiers" ? 3 : 0;
+                int wounded = scenario == "wounded" ? 1 : 0;
+                int xp = scenario == "xp" ? 123 : 0;
+                if (scenario == "initialized") source.Initialize();
+                if (scenario == "registered") AccessTools.Property(typeof(MBObjectBase), "IsRegistered").SetValue(source, true);
+                if (scenario == "canonical") source = canonical;
+                var roster = TroopRoster.CreateDummyTroopRoster();
+                AddLoadedRow(roster, source, men, woundedCount: wounded, xpChange: xp);
+                // Attach the hero after seeding: cache initialization reads campaign health
+                // models in newer engines, which are deliberately absent in this fixture.
+                if (scenario == "hero") AccessTools.Property(typeof(CharacterObject), "HeroObject").SetValue(source,
+                    (Hero)FormatterServices.GetUninitializedObject(typeof(Hero)));
+                if (scenario == "missing") canonical = null;
+                if (scenario == "wrong-id") canonical.StringId = "different_id";
+                if (scenario == "unregistered-target") AccessTools.Property(typeof(MBObjectBase), "IsRegistered").SetValue(canonical, false);
+                if (scenario == "uninitialized-target") AccessTools.Property(typeof(MBObjectBase), "IsInitialized").SetValue(canonical, false);
+                int version = roster.VersionNo;
+                Tests.AssertEqual(0, StubIntegrityBehavior.CanonicalizeRoster(roster, _ => canonical, out int removed), scenario);
+                Tests.AssertEqual(0, removed, scenario);
+                Tests.AssertEqual(1, roster.Count, scenario);
+                Tests.AssertTrue(ReferenceEquals(source, roster.GetCharacterAtIndex(0)), scenario);
+                Tests.AssertEqual(men, roster.GetElementNumber(0), scenario);
+                if (scenario != "hero") Tests.AssertEqual(wounded, roster.GetElementWoundedNumber(0), scenario);
+                Tests.AssertEqual(xp, roster.GetElementXp(0), scenario);
+                Tests.AssertEqual(version, roster.VersionNo, scenario);
+            }
+        }
+
+        [GameTest("RosterRemovalFailureLeavesSavedRowsUntouched", "save-contracts", RequiresCampaign = false)]
+        public static void RosterRemovalFailureLeavesSavedRowsUntouched()
+        {
+            var canonical = RegisteredTroop("ordinary_repair_failure");
+            var roster = TroopRoster.CreateDummyTroopRoster();
+            var first = Troop(canonical.StringId);
+            var second = Troop(canonical.StringId);
+            AddLoadedRow(roster, first, 0);
+            AddLoadedRow(roster, second, 0);
+            int calls = 0, removed = -1, version = roster.VersionNo;
+            try
+            {
+                Tests.AssertEqual(0, StubIntegrityBehavior.CanonicalizeRoster(roster, _ =>
+                {
+                    if (++calls == 2) throw new InvalidOperationException("Synthetic resolver failure");
+                    return canonical;
+                }, out removed));
+            }
+            catch (InvalidOperationException) { }
+            Tests.AssertEqual(2, calls);
+            Tests.AssertEqual(0, removed, "An aborted plan must not report removals in the log.");
+            Tests.AssertEqual(2, roster.Count);
+            Tests.AssertTrue(ReferenceEquals(first, roster.GetCharacterAtIndex(0)));
+            Tests.AssertTrue(ReferenceEquals(second, roster.GetCharacterAtIndex(1)));
+            Tests.AssertEqual(version, roster.VersionNo);
         }
 
         [GameTest("RosterRepairDoesNotOverflowSavedXp", "save-contracts", RequiresCampaign = false)]

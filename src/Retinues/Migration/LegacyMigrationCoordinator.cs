@@ -165,110 +165,8 @@ namespace Retinues.Migration
                     if (wc.IsCustom)
                         wc.IsActiveStub = true;
 
-                    // ── Core identity ─────────────────────────────────────────
-                    if (!string.IsNullOrEmpty(troop.Name))
-                        wc.Name = troop.Name;
-                    wc.Level = troop.Level;
-                    wc.IsFemale = troop.IsFemale;
-                    if (troop.Race >= 0)
-                        wc.Race = troop.Race;
-                    if (!string.IsNullOrEmpty(troop.CultureId))
-                    {
-                        var co = MBObjectManager.Instance.GetObject<CultureObject>(troop.CultureId);
-                        if (co != null)
-                            wc.Culture = WCulture.Get(co);
-                    }
-
-                    // ── Source origin (for TOR and other id-keyed mod data) ───
-                    // Carry the v1 template id so the source-keyed compat sync (e.g. The Old
-                    // Realms) keeps migrated custom troops' special attributes immediately.
-                    if (
-                        !string.IsNullOrEmpty(troop.VanillaStringId)
-                        && troop.VanillaStringId != troop.StringId
-                    )
-                        wc.SourceStringId = troop.VanillaStringId;
-
-                    // ── Formation / captain flags ─────────────────────────────
-                    wc.FormationClassOverride = troop.FormationClassOverride;
-                    wc.IsMariner = troop.IsMariner;
-                    wc.IsCaptain = troop.IsCaptain;
-                    wc.IsCaptainEnabled = troop.CaptainEnabled;
-
-                    if (troop.Captain?.StringId != null)
-                    {
-                        var captainWc = WCharacter.Get(troop.Captain.StringId);
-                        if (captainWc != null)
-                            wc.Captain = captainWc;
-                    }
-
-                    // ── Skills ────────────────────────────────────────────────
-                    if (!string.IsNullOrWhiteSpace(troop.SkillData?.Code))
-                    {
-                        foreach (var part in troop.SkillData.Code.Split(';'))
-                        {
-                            var kv = part.Split(':');
-                            if (kv.Length != 2)
-                                continue;
-                            var skill = MBObjectManager.Instance.GetObject<SkillObject>(kv[0].Trim());
-                            if (skill == null)
-                                continue;
-                            if (!int.TryParse(kv[1].Trim(), out var sv) || sv <= 0)
-                                continue;
-                            wc.Skills.Set(skill, sv);
-                        }
-                    }
-
-                    // ── Skill budget baseline (floor) ─────────────────────────
-                    // Keep migrated troops editable even if their v1 skills exceed the v2 tier
-                    // budget. Pre-field-17 saves store 0, so backfill from the migrated skill sum.
-                    wc.SkillBaseline = troop.SkillBaseline > 0 ? troop.SkillBaseline : wc.SkillTotalUsed;
-
-                    // ── Equipment ─────────────────────────────────────────────
-                    if (troop.EquipmentData?.Codes?.Count > 0)
-                    {
-                        bool hasCivilianFlags =
-                            troop.EquipmentData.Civilians?.Count == troop.EquipmentData.Codes.Count;
-                        var roster = new List<MEquipment>();
-                        for (int i = 0; i < troop.EquipmentData.Codes.Count; i++)
-                        {
-                            var code = troop.EquipmentData.Codes[i];
-                            if (string.IsNullOrEmpty(code))
-                                continue;
-                            var me = MEquipment.FromCode(wc, code);
-                            if (me == null)
-                                continue;
-                            me.IsCivilian = hasCivilianFlags
-                                ? troop.EquipmentData.Civilians[i]
-                                : (i == 1);
-                            roster.Add(me);
-                        }
-                        if (roster.Count > 0)
-                            wc.EquipmentRoster.Equipments = roster;
-                    }
-
-                    // ── Equipment usage policy (field / siege / naval) ────────
+                    LegacyCharacterConverter.Apply(wc, troop);
                     ApplyEquipmentPolicy(wc, troop.StringId);
-
-                    // ── Body ──────────────────────────────────────────────────
-                    if (troop.BodyData != null)
-                    {
-                        if (troop.BodyData.AgeMin > 0)
-                            wc.AgeMin = troop.BodyData.AgeMin;
-                        if (troop.BodyData.AgeMax > 0)
-                            wc.AgeMax = troop.BodyData.AgeMax;
-                        if (troop.BodyData.WeightMin > 0)
-                            wc.WeightMin = troop.BodyData.WeightMin;
-                        if (troop.BodyData.WeightMax > 0)
-                            wc.WeightMax = troop.BodyData.WeightMax;
-                        if (troop.BodyData.BuildMin > 0)
-                            wc.BuildMin = troop.BodyData.BuildMin;
-                        if (troop.BodyData.BuildMax > 0)
-                            wc.BuildMax = troop.BodyData.BuildMax;
-                        if (troop.BodyData.HeightMin > 0)
-                            wc.HeightMin = troop.BodyData.HeightMin;
-                        if (troop.BodyData.HeightMax > 0)
-                            wc.HeightMax = troop.BodyData.HeightMax;
-                    }
 
                     // ── Skill points (from legacy XP pool) ───────────────────
                     if (
@@ -307,18 +205,20 @@ namespace Retinues.Migration
                 }
             }
 
-            // ── Second pass: wire upgrade trees ───────────────────────────
-            // All definitions are applied above; now link each troop to its upgrade targets.
+            // ── Second pass: wire captains and upgrade trees ───────────────
+            // Captains must not redirect their saved values into their base troop while
+            // the first pass is restoring definitions and progression.
             int treeWired = 0;
             foreach (var kvp in troopByStringId)
             {
                 var id = kvp.Key;
                 var troop = kvp.Value;
-                if (troop.UpgradeTargets == null || troop.UpgradeTargets.Count == 0)
-                    continue;
-
                 var wc = WCharacter.Get(id);
                 if (wc == null)
+                    continue;
+
+                LegacyCharacterConverter.LinkCaptain(wc, troop, WCharacter.Get);
+                if (troop.UpgradeTargets == null || troop.UpgradeTargets.Count == 0)
                     continue;
 
                 var targets = troop
@@ -607,6 +507,7 @@ namespace Retinues.Migration
                         _faction.ClanTroops.MilitiaRangedElite
                     );
                     ApplyRoot(wClan.SetCaravanGuard, _faction.ClanTroops.CaravanGuard);
+                    ApplyRoot(wClan.SetVeteranCaravanGuard, _faction.ClanTroops.VeteranCaravanGuard);
                     ApplyRoot(wClan.SetCaravanMaster, _faction.ClanTroops.CaravanMaster);
                     ApplyRoot(wClan.SetVillager, _faction.ClanTroops.Villager);
 
@@ -643,6 +544,7 @@ namespace Retinues.Migration
                         _faction.KingdomTroops.MilitiaRangedElite
                     );
                     ApplyRoot(wKingdom.SetCaravanGuard, _faction.KingdomTroops.CaravanGuard);
+                    ApplyRoot(wKingdom.SetVeteranCaravanGuard, _faction.KingdomTroops.VeteranCaravanGuard);
                     ApplyRoot(wKingdom.SetCaravanMaster, _faction.KingdomTroops.CaravanMaster);
                     ApplyRoot(wKingdom.SetVillager, _faction.KingdomTroops.Villager);
 
@@ -729,6 +631,8 @@ namespace Retinues.Migration
             foreach (var t in FlattenTroop(f.MilitiaRangedElite))
                 yield return t;
             foreach (var t in FlattenTroop(f.CaravanGuard))
+                yield return t;
+            foreach (var t in FlattenTroop(f.VeteranCaravanGuard))
                 yield return t;
             foreach (var t in FlattenTroop(f.CaravanMaster))
                 yield return t;

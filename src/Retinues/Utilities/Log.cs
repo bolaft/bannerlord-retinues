@@ -39,6 +39,8 @@ namespace Retinues.Utilities
         private static readonly object _fileLock = new();
         private static readonly string LogFile;
 
+        internal static string FilePath => LogFile;
+
         /// <summary>
         /// Lowest level written to file.
         /// </summary>

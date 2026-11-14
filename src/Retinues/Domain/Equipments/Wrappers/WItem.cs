@@ -8,6 +8,7 @@ using Retinues.Framework.Model;
 using Retinues.Framework.Runtime;
 using Retinues.Settings;
 using TaleWorlds.Core;
+using TaleWorlds.ObjectSystem;
 #if BL13 || BL14
 using TaleWorlds.Core.ViewModelCollection.ImageIdentifiers;
 #endif
@@ -16,6 +17,20 @@ namespace Retinues.Domain.Equipments.Wrappers
 {
     public partial class WItem(ItemObject @base) : WBase<WItem, ItemObject>(@base)
     {
+        // Keep the wrapper (including dirty unlock/stock attributes), but resolve the current
+        // registered item even when a cached list or open editor still holds this wrapper.
+        // Never let passing an obsolete same-ID object replace the canonical definition.
+        public override ItemObject Base
+        {
+            get
+            {
+                var original = base.Base;
+                return string.IsNullOrEmpty(original.StringId)
+                    ? original
+                    : MBObjectManager.Instance?.GetObject<ItemObject>(original.StringId) ?? original;
+            }
+        }
+
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
         //                     Main Properties                    //
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ //
@@ -148,7 +163,12 @@ namespace Retinues.Domain.Equipments.Wrappers
         /// </summary>
         public bool IsValidEquipment =>
             IsEquipment && Type != ItemObject.ItemTypeEnum.Banner
-            && PrimaryWeapon?.WeaponClass != WeaponClass.Banner && !IsUnsafeForTroopEquipment;
+            && PrimaryWeapon?.WeaponClass != WeaponClass.Banner && !IsUnsafeForTroopEquipment
+            && !IsDismembermentVisual && HasValidWeaponHolsters;
+
+        public bool IsDismembermentVisual => Compatibility.EquipmentCompatibility.IsDismembermentVisual(Base);
+
+        public bool HasValidWeaponHolsters => !ItemHolsterSafety.HasInvalidWeaponHolsters(Base);
 
         // Automatic cleanup must not reuse editor visibility rules. Banners, pack animals,
         // and gear supplied by other mods can be legitimate saved equipment even when they

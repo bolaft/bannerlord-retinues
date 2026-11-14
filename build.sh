@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # Defaults (overridden by Local.props and flags)
-BL="13"
+BL="15"
 DEPLOY="true"
 RUN_MAIN="true"
 RUN_PREFABS="true"
@@ -32,7 +32,7 @@ Options:
       --no-prefabs      Skip prefabs generation
       --strings         Only run strings.py
       --no-strings      Skip strings.py
-  -v, --version         Bannerlord version: 12, 13, or 14 (default: 13)
+  -v, --version         Bannerlord target: 12 or 15 (default: 15 / 1.5.7)
   -r, --release <N>     Build Release and set <Version value="vX.Y.Z.N" /> to N
   -h, --help            Show help
 USAGE
@@ -61,6 +61,11 @@ while [[ $# -gt 0 ]]; do
       ;;
   esac
 done
+
+case "$BL" in
+  12|15) ;;
+  *) echo "ERROR: supported release targets are 12 and 15, got: $BL"; exit 2;;
+esac
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
 MAIN_PROJ="$ROOT_DIR/src/${MODULE}/${MODULE}.csproj"
@@ -128,11 +133,16 @@ if [[ "$RUN_PREFABS" == "true" ]]; then
   print_header "=   Rendering Prefabs   ="
   # Clean the generated gui dir first so stale files from other branches don't survive.
   rm -rf "$ROOT_DIR/gui/$MODULE/"
-  # Primary pass: render with BL14 (no suffix) — BL14 is the default.
-  python tpl/prefabs.py --version 14
-  # BL13 pass: always render a _BL13 variant so a single build works on both BL13 and BL14.
-  # EditorScreen selects the correct movie name at runtime via GameVersion.IsAtLeast14().
-  python tpl/prefabs.py --version 13 --suffix _BL13
+  if [[ "$BL" == "12" ]]; then
+    # BL12 needs its own image bindings and map-bar brushes, not the BL13 UI.
+    python tpl/prefabs.py --version 12
+  else
+    # Primary pass: render for the current game (no suffix).
+    python tpl/prefabs.py --version "$BL"
+    # BL13 pass: ship the alternate layout for the earlier engine.
+    # EditorScreen selects the correct movie name at runtime.
+    python tpl/prefabs.py --version 13 --suffix _BL13
+  fi
 fi
 
 # 1.b) Deploy prefabs-only (if requested)

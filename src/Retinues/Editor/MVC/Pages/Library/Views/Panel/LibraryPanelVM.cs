@@ -84,6 +84,7 @@ namespace Retinues.Editor.MVC.Pages.Library.Views.Panel
         [EventListener(UIEvent.Library)]
         [DataSourceProperty]
         public string TypeText =>
+            State.LibraryItem?.IsStableExport == true ? L.S("library_kind_stable", "Stable export") :
             State.LibraryItem?.Kind switch
             {
                 ExportKind.Character => L.T("library_kind_troop", "Troop").ToString(),

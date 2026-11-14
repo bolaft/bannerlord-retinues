@@ -289,6 +289,7 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.List
                 + CountTroops(faction.RootBasic?.Tree ?? wClanUniversal?.VanillaRootBasic?.Tree)
                 + CountTroops(faction.RosterMilitia)
                 + CountTroops(faction.RosterCaravan)
+                + CountTroops(faction.RosterConvoy)
                 + CountTroops(faction.RosterVillager)
                 + CountTroops(faction.RosterMercenary)
                 + CountTroops(faction.RosterBandit)
@@ -563,6 +564,16 @@ namespace Retinues.Editor.MVC.Pages.Character.Views.List
                 unlockHint: isPlayerMode
                     ? L.S("unlock_hint_road_wardens", "Unlock with the Road Wardens doctrine.")
                     : null
+            );
+
+            // Convoys are native culture troops and are absent without War Sails.
+            AddSection(
+                headers,
+                "convoys",
+                "list_header_convoys",
+                L.S("list_header_convoys", "Convoys"),
+                faction.RosterConvoy,
+                condition: () => faction.RosterConvoy.Count > 0
             );
 
             // Villagers.
